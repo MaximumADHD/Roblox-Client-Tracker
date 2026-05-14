@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["join"]
         3 MOVE                             R3 R0
         4 DUPTABLE                         R4 K2 [{"manageableGroups"}]
         5 GETTABLEKS                       R5 R1 K1 ["manageableGroups"]
@@ -25,14 +25,14 @@ MAIN:
        21 GETTABLEKS                       R5 R1 K9 ["Dash"]
        23 CALL                             R4 1 1
        24 GETIMPORT                        R5 K6 [require]
-       26 GETTABLEKS                       R8 R0 K10 ["Src"]
-       28 GETTABLEKS                       R7 R8 K11 ["Types"]
-       30 GETTABLEKS                       R6 R7 K12 ["GroupTypes"]
+       26 GETTABLEKS                       R6 R0 K10 ["Src"]
+       28 GETTABLEKS                       R6 R6 K11 ["Types"]
+       30 GETTABLEKS                       R6 R6 K12 ["GroupTypes"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K6 [require]
-       35 GETTABLEKS                       R9 R0 K10 ["Src"]
-       37 GETTABLEKS                       R8 R9 K13 ["Actions"]
-       39 GETTABLEKS                       R7 R8 K14 ["SetManageableGroups"]
+       35 GETTABLEKS                       R7 R0 K10 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Actions"]
+       39 GETTABLEKS                       R7 R7 K14 ["SetManageableGroups"]
        41 CALL                             R6 1 1
        42 DUPTABLE                         R7 K16 [{"manageableGroups"}]
        43 LOADNIL                          R8

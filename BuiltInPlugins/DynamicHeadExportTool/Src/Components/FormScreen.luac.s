@@ -1,13 +1,13 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
         8 DUPTABLE                         R5 K6 [{"BackgroundColor3", "Size"}]
         9 GETTABLEKS                       R7 R1 K7 ["Stylizer"]
-       11 GETUPVAL                         R9 1
-       12 GETTABLEKS                       R8 R9 K8 ["MainBackground"]
+       11 GETUPVAL                         R8 1
+       12 GETTABLEKS                       R8 R8 K8 ["MainBackground"]
        14 GETTABLE                         R6 R7 R8
        15 SETTABLEKS                       R6 R5 K4 ["BackgroundColor3"]
        17 GETIMPORT                        R6 K11 [UDim2.new]
@@ -18,38 +18,38 @@ PROTO_0:
        23 CALL                             R6 4 1
        24 SETTABLEKS                       R6 R5 K5 ["Size"]
        26 DUPTABLE                         R6 K15 [{"UIPadding", "Form", "Button"}]
-       27 GETUPVAL                         R8 0
-       28 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       27 GETUPVAL                         R7 0
+       28 GETTABLEKS                       R7 R7 K2 ["createElement"]
        30 LOADK                            R8 K12 ["UIPadding"]
        31 DUPTABLE                         R9 K20 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
        32 GETIMPORT                        R10 K22 [UDim.new]
        34 LOADN                            R11 0
-       35 GETUPVAL                         R13 2
-       36 GETTABLEKS                       R12 R13 K23 ["Padding"]
+       35 GETUPVAL                         R12 2
+       36 GETTABLEKS                       R12 R12 K23 ["Padding"]
        38 CALL                             R10 2 1
        39 SETTABLEKS                       R10 R9 K16 ["PaddingBottom"]
        41 GETIMPORT                        R10 K22 [UDim.new]
        43 LOADN                            R11 0
-       44 GETUPVAL                         R13 2
-       45 GETTABLEKS                       R12 R13 K23 ["Padding"]
+       44 GETUPVAL                         R12 2
+       45 GETTABLEKS                       R12 R12 K23 ["Padding"]
        47 CALL                             R10 2 1
        48 SETTABLEKS                       R10 R9 K17 ["PaddingLeft"]
        50 GETIMPORT                        R10 K22 [UDim.new]
        52 LOADN                            R11 0
-       53 GETUPVAL                         R13 2
-       54 GETTABLEKS                       R12 R13 K23 ["Padding"]
+       53 GETUPVAL                         R12 2
+       54 GETTABLEKS                       R12 R12 K23 ["Padding"]
        56 CALL                             R10 2 1
        57 SETTABLEKS                       R10 R9 K18 ["PaddingRight"]
        59 GETIMPORT                        R10 K22 [UDim.new]
        61 LOADN                            R11 0
-       62 GETUPVAL                         R13 2
-       63 GETTABLEKS                       R12 R13 K23 ["Padding"]
+       62 GETUPVAL                         R12 2
+       63 GETTABLEKS                       R12 R12 K23 ["Padding"]
        65 CALL                             R10 2 1
        66 SETTABLEKS                       R10 R9 K19 ["PaddingTop"]
        68 CALL                             R7 2 1
        69 SETTABLEKS                       R7 R6 K12 ["UIPadding"]
-       71 GETUPVAL                         R8 0
-       72 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       71 GETUPVAL                         R7 0
+       72 GETTABLEKS                       R7 R7 K2 ["createElement"]
        74 GETUPVAL                         R8 3
        75 DUPTABLE                         R9 K31 [{"Expansion", "ExpandByDefault", "Items", "LabelWidth", "LabelHeight", "OnExpansionChange", "OnChange", "Size"}]
        76 GETTABLEKS                       R10 R1 K24 ["Expansion"]
@@ -74,16 +74,16 @@ PROTO_0:
       108 LOADN                            R12 0
       109 LOADN                            R13 1
       110 LOADN                            R16 30
-      111 GETUPVAL                         R18 2
-      112 GETTABLEKS                       R17 R18 K23 ["Padding"]
+      111 GETUPVAL                         R17 2
+      112 GETTABLEKS                       R17 R17 K23 ["Padding"]
       114 ADD                              R15 R16 R17
       115 MINUS                            R14 R15
       116 CALL                             R10 4 1
       117 SETTABLEKS                       R10 R9 K5 ["Size"]
       119 CALL                             R7 2 1
       120 SETTABLEKS                       R7 R6 K13 ["Form"]
-      122 GETUPVAL                         R8 0
-      123 GETTABLEKS                       R7 R8 K2 ["createElement"]
+      122 GETUPVAL                         R7 0
+      123 GETTABLEKS                       R7 R7 K2 ["createElement"]
       125 GETUPVAL                         R8 4
       126 DUPTABLE                         R9 K39 [{"Text", "Style", "TextSize", "Size", "Position", "OnClick"}]
       127 LOADK                            R12 K40 ["Plugin"]
@@ -123,23 +123,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
-       23 GETTABLEKS                       R5 R2 K10 ["UI"]
-       25 GETTABLEKS                       R4 R5 K11 ["Button"]
-       27 GETTABLEKS                       R6 R2 K10 ["UI"]
-       29 GETTABLEKS                       R5 R6 K12 ["Form"]
-       31 GETTABLEKS                       R7 R2 K13 ["Style"]
-       33 GETTABLEKS                       R6 R7 K14 ["StyleKey"]
+       23 GETTABLEKS                       R4 R2 K10 ["UI"]
+       25 GETTABLEKS                       R4 R4 K11 ["Button"]
+       27 GETTABLEKS                       R5 R2 K10 ["UI"]
+       29 GETTABLEKS                       R5 R5 K12 ["Form"]
+       31 GETTABLEKS                       R6 R2 K13 ["Style"]
+       33 GETTABLEKS                       R6 R6 K14 ["StyleKey"]
        35 GETIMPORT                        R7 K5 [require]
-       37 GETTABLEKS                       R9 R0 K15 ["Src"]
-       39 GETTABLEKS                       R8 R9 K16 ["Constants"]
+       37 GETTABLEKS                       R8 R0 K15 ["Src"]
+       39 GETTABLEKS                       R8 R8 K16 ["Constants"]
        41 CALL                             R7 1 1
        42 GETTABLEKS                       R8 R1 K17 ["PureComponent"]
        44 LOADK                            R10 K18 ["FormScreen"]

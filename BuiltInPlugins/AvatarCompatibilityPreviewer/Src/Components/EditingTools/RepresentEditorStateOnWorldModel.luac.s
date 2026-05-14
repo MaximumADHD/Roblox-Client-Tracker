@@ -36,8 +36,8 @@ PROTO_2:
        10 NAMECALL                         R7 R6 K2 ["IsA"]
        12 CALL                             R7 2 1
        13 JUMPIFNOT                        R7 ; [+36]
-       14 GETUPVAL                         R10 1
-       15 GETTABLEKS                       R9 R10 K3 ["ATTRIBUTE_IS_PREVIEW_ACCESSORY"]
+       14 GETUPVAL                         R9 1
+       15 GETTABLEKS                       R9 R9 K3 ["ATTRIBUTE_IS_PREVIEW_ACCESSORY"]
        17 NAMECALL                         R7 R6 K4 ["GetAttribute"]
        19 CALL                             R7 2 1
        20 JUMPIF                           R7 ; [+29]
@@ -70,8 +70,8 @@ PROTO_2:
        55 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useEffect"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useEffect"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          UPVAL U1
@@ -83,8 +83,8 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["pushIsEditingWorldModel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["pushIsEditingWorldModel"]
         3 CALL                             R0 0 -1
         4 RETURN                           R0 -1
 
@@ -95,21 +95,21 @@ PROTO_5:
         4 LOADK                            R3 K0 ["RepresentEditorStateOnWorldModle required FFlagAvatarPreviewerEditingTools"]
         5 GETIMPORT                        R1 K2 [assert]
         7 CALL                             R1 2 0
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K3 ["useContext"]
-       11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R2 R3 K4 ["Context"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K3 ["useContext"]
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K4 ["Context"]
        14 CALL                             R1 1 1
-       15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R2 R3 K5 ["useEffect"]
+       15 GETUPVAL                         R2 1
+       16 GETTABLEKS                       R2 R2 K5 ["useEffect"]
        18 NEWCLOSURE                       R3 P0
        19 CAPTURE                          VAL R1
        20 CALL                             R2 1 0
-       21 GETTABLEKS                       R3 R0 K6 ["avatar"]
-       23 GETTABLEKS                       R2 R3 K7 ["WorldModel"]
+       21 GETTABLEKS                       R2 R0 K6 ["avatar"]
+       23 GETTABLEKS                       R2 R2 K7 ["WorldModel"]
        25 GETTABLEKS                       R3 R0 K8 ["includeAccessories"]
-       27 GETUPVAL                         R5 1
-       28 GETTABLEKS                       R4 R5 K5 ["useEffect"]
+       27 GETUPVAL                         R4 1
+       28 GETTABLEKS                       R4 R4 K5 ["useEffect"]
        30 NEWCLOSURE                       R5 P1
        31 CAPTURE                          VAL R2
        32 CAPTURE                          UPVAL U3
@@ -120,12 +120,12 @@ PROTO_5:
        39 CALL                             R4 2 0
        40 GETTABLEKS                       R2 R0 K8 ["includeAccessories"]
        42 JUMPIFNOT                        R2 ; [+13]
-       43 GETUPVAL                         R3 1
-       44 GETTABLEKS                       R2 R3 K9 ["createElement"]
+       43 GETUPVAL                         R2 1
+       44 GETTABLEKS                       R2 R2 K9 ["createElement"]
        46 GETUPVAL                         R3 4
        47 DUPTABLE                         R4 K11 [{"dummy"}]
-       48 GETTABLEKS                       R6 R0 K6 ["avatar"]
-       50 GETTABLEKS                       R5 R6 K7 ["WorldModel"]
+       48 GETTABLEKS                       R5 R0 K6 ["avatar"]
+       50 GETTABLEKS                       R5 R5 K7 ["WorldModel"]
        52 SETTABLEKS                       R5 R4 K10 ["dummy"]
        54 CALL                             R2 2 -1
        55 RETURN                           R2 -1
@@ -139,33 +139,33 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K9 ["Components"]
-       22 GETTABLEKS                       R4 R5 K10 ["EditingTools"]
-       24 GETTABLEKS                       R3 R4 K11 ["EditingWorldModelContext"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Components"]
+       22 GETTABLEKS                       R3 R3 K10 ["EditingTools"]
+       24 GETTABLEKS                       R3 R3 K11 ["EditingWorldModelContext"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R5 R0 K12 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K13 ["React"]
+       29 GETTABLEKS                       R4 R0 K12 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K13 ["React"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R6 R0 K6 ["Src"]
-       38 GETTABLEKS                       R5 R6 K14 ["Types"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K14 ["Types"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K6 ["Src"]
-       45 GETTABLEKS                       R7 R8 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R7 K16 ["getFFlagAvatarPreviewerEditingTools"]
+       43 GETTABLEKS                       R6 R0 K6 ["Src"]
+       45 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAvatarPreviewerEditingTools"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R9 R0 K6 ["Src"]
-       54 GETTABLEKS                       R8 R9 K17 ["Hooks"]
-       56 GETTABLEKS                       R7 R8 K18 ["useClothingFromInstances"]
+       52 GETTABLEKS                       R7 R0 K6 ["Src"]
+       54 GETTABLEKS                       R7 R7 K17 ["Hooks"]
+       56 GETTABLEKS                       R7 R7 K18 ["useClothingFromInstances"]
        58 CALL                             R6 1 1
        59 DUPCLOSURE                       R7 K19 [PROTO_0]
        60 CAPTURE                          VAL R6

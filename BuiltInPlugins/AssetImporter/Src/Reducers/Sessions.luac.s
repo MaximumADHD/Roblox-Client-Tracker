@@ -6,8 +6,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R5 R0 K0 ["sessionQueue"]
-        2 GETTABLEKS                       R7 R1 K1 ["queueItem"]
-        4 GETTABLEKS                       R6 R7 K2 ["filepath"]
+        2 GETTABLEKS                       R6 R1 K1 ["queueItem"]
+        4 GETTABLEKS                       R6 R6 K2 ["filepath"]
         6 GETTABLE                         R4 R5 R6
         7 JUMPIFEQKNIL                     R4 ; [+2]
         9 LOADB                            R3 0 +1
@@ -19,8 +19,8 @@ PROTO_1:
        17 GETUPVAL                         R2 0
        18 MOVE                             R3 R0
        19 DUPTABLE                         R4 K8 [{"activeSessionCount", "sessionCount", "sessionQueue"}]
-       20 GETTABLEKS                       R7 R1 K1 ["queueItem"]
-       22 GETTABLEKS                       R6 R7 K9 ["enabled"]
+       20 GETTABLEKS                       R6 R1 K1 ["queueItem"]
+       22 GETTABLEKS                       R6 R6 K9 ["enabled"]
        24 JUMPIFNOT                        R6 ; [+4]
        25 GETTABLEKS                       R6 R0 K6 ["activeSessionCount"]
        27 ADDK                             R5 R6 K10 [1]
@@ -33,8 +33,8 @@ PROTO_1:
        38 GETUPVAL                         R5 0
        39 GETTABLEKS                       R6 R0 K0 ["sessionQueue"]
        41 NEWTABLE                         R7 1 0
-       43 GETTABLEKS                       R9 R1 K1 ["queueItem"]
-       45 GETTABLEKS                       R8 R9 K2 ["filepath"]
+       43 GETTABLEKS                       R8 R1 K1 ["queueItem"]
+       45 GETTABLEKS                       R8 R8 K2 ["filepath"]
        47 GETTABLEKS                       R9 R1 K1 ["queueItem"]
        49 SETTABLE                         R9 R7 R8
        50 CALL                             R5 2 1
@@ -140,16 +140,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Rodux"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Rodux"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["join"]
-       23 GETTABLEKS                       R5 R0 K10 ["Src"]
-       25 GETTABLEKS                       R4 R5 K11 ["Actions"]
+       23 GETTABLEKS                       R4 R0 K10 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Actions"]
        27 GETIMPORT                        R5 K5 [require]
        29 GETTABLEKS                       R6 R4 K12 ["AddQueueItem"]
        31 CALL                             R5 1 1
@@ -178,9 +178,9 @@ MAIN:
        69 GETTABLEKS                       R14 R4 K20 ["SetUploading"]
        71 CALL                             R13 1 1
        72 GETIMPORT                        R14 K5 [require]
-       74 GETTABLEKS                       R17 R0 K10 ["Src"]
-       76 GETTABLEKS                       R16 R17 K21 ["Types"]
-       78 GETTABLEKS                       R15 R16 K22 ["QueuedSession"]
+       74 GETTABLEKS                       R15 R0 K10 ["Src"]
+       76 GETTABLEKS                       R15 R15 K21 ["Types"]
+       78 GETTABLEKS                       R15 R15 K22 ["QueuedSession"]
        80 CALL                             R14 1 1
        81 DUPTABLE                         R15 K31 [{"activeSessionCount", "parsing", "progress", "progressGoal", "searchTerm", "sessionCount", "sessionQueue", "uploading"}]
        82 LOADN                            R16 0

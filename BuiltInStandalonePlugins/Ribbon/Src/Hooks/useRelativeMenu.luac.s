@@ -97,30 +97,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useCallback"]
        16 GETTABLEKS                       R3 R1 K9 ["useMemo"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R5 R6 K10 ["Dash"]
+       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R5 R5 K10 ["Dash"]
        24 CALL                             R4 1 1
        25 GETTABLEKS                       R5 R4 K11 ["join"]
        27 GETTABLEKS                       R6 R4 K12 ["map"]
        29 GETIMPORT                        R7 K5 [require]
-       31 GETTABLEKS                       R10 R0 K13 ["Src"]
-       33 GETTABLEKS                       R9 R10 K14 ["Hooks"]
-       35 GETTABLEKS                       R8 R9 K15 ["useMenu"]
+       31 GETTABLEKS                       R8 R0 K13 ["Src"]
+       33 GETTABLEKS                       R8 R8 K14 ["Hooks"]
+       35 GETTABLEKS                       R8 R8 K15 ["useMenu"]
        37 CALL                             R7 1 1
        38 GETIMPORT                        R8 K5 [require]
-       40 GETTABLEKS                       R11 R0 K13 ["Src"]
-       42 GETTABLEKS                       R10 R11 K16 ["Components"]
-       44 GETTABLEKS                       R9 R10 K17 ["ControlsView"]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K16 ["Components"]
+       44 GETTABLEKS                       R9 R9 K17 ["ControlsView"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R11 R0 K13 ["Src"]
-       51 GETTABLEKS                       R10 R11 K18 ["Types"]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K18 ["Types"]
        53 CALL                             R9 1 1
        54 DUPCLOSURE                       R10 K19 [PROTO_4]
        55 CAPTURE                          VAL R7

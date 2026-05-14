@@ -12,9 +12,9 @@ PROTO_1:
         1 JUMPIF                           R2 ; [+2]
         2 NEWTABLE                         R2 0 0
         4 MOVE                             R1 R2
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        8 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        8 GETTABLEKS                       R2 R2 K1 ["join"]
        10 DUPTABLE                         R3 K6 [{"studioSid", "clientId", "placeId", "userId"}]
        11 GETUPVAL                         R4 1
        12 NAMECALL                         R4 R4 K7 ["GetSessionId"]
@@ -24,8 +24,8 @@ PROTO_1:
        18 NAMECALL                         R4 R4 K8 ["GetClientId"]
        20 CALL                             R4 1 1
        21 SETTABLEKS                       R4 R3 K3 ["clientId"]
-       23 GETIMPORT                        R5 K10 [game]
-       25 GETTABLEKS                       R4 R5 K11 ["PlaceId"]
+       23 GETIMPORT                        R4 K10 [game]
+       25 GETTABLEKS                       R4 R4 K11 ["PlaceId"]
        27 SETTABLEKS                       R4 R3 K4 ["placeId"]
        29 GETUPVAL                         R4 2
        30 NAMECALL                         R4 R4 K12 ["GetUserId"]
@@ -815,8 +815,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Cryo"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Cryo"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K12 [PROTO_0]
        21 DUPCLOSURE                       R4 K13 [PROTO_45]

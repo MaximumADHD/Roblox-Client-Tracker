@@ -25,31 +25,31 @@ PROTO_1:
         3 CALL                             R1 1 1
         4 JUMPIF                           R1 ; [+1]
         5 GETUPVAL                         R1 1
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R2 R3 K1 ["useState"]
+        6 GETUPVAL                         R2 2
+        7 GETTABLEKS                       R2 R2 K1 ["useState"]
         9 GETTABLEKS                       R4 R1 K3 ["isEmulationEnabled"]
        11 ORK                              R3 R4 K2 [False]
        12 CALL                             R2 1 2
-       13 GETUPVAL                         R5 2
-       14 GETTABLEKS                       R4 R5 K1 ["useState"]
+       13 GETUPVAL                         R4 2
+       14 GETTABLEKS                       R4 R4 K1 ["useState"]
        16 GETTABLEKS                       R6 R1 K5 ["configuredPlayerCount"]
        18 ORK                              R5 R6 K4 [0]
        19 CALL                             R4 1 2
-       20 GETUPVAL                         R7 2
-       21 GETTABLEKS                       R6 R7 K1 ["useState"]
+       20 GETUPVAL                         R6 2
+       21 GETTABLEKS                       R6 R6 K1 ["useState"]
        23 GETTABLEKS                       R7 R1 K6 ["parties"]
        25 JUMPIF                           R7 ; [+1]
        26 GETUPVAL                         R7 1
        27 CALL                             R6 1 2
-       28 GETUPVAL                         R9 2
-       29 GETTABLEKS                       R8 R9 K1 ["useState"]
+       28 GETUPVAL                         R8 2
+       29 GETTABLEKS                       R8 R8 K1 ["useState"]
        31 GETTABLEKS                       R9 R1 K7 ["playerMappings"]
        33 JUMPIF                           R9 ; [+1]
        34 GETUPVAL                         R9 1
        35 CALL                             R8 1 2
        36 GETUPVAL                         R10 3
-       37 GETUPVAL                         R12 0
-       38 GETTABLEKS                       R11 R12 K8 ["ConfigurationChanged"]
+       37 GETUPVAL                         R11 0
+       38 GETTABLEKS                       R11 R11 K8 ["ConfigurationChanged"]
        40 NEWCLOSURE                       R12 P0
        41 CAPTURE                          VAL R3
        42 CAPTURE                          VAL R5
@@ -63,10 +63,10 @@ PROTO_1:
        52 SETTABLEKS                       R4 R10 K9 ["playerCount"]
        54 SETTABLEKS                       R6 R10 K6 ["parties"]
        56 SETTABLEKS                       R8 R10 K7 ["playerMappings"]
-       58 GETUPVAL                         R12 2
-       59 GETTABLEKS                       R11 R12 K11 ["createElement"]
-       61 GETUPVAL                         R13 4
-       62 GETTABLEKS                       R12 R13 K12 ["Provider"]
+       58 GETUPVAL                         R11 2
+       59 GETTABLEKS                       R11 R11 K11 ["createElement"]
+       61 GETUPVAL                         R12 4
+       62 GETTABLEKS                       R12 R12 K12 ["Provider"]
        64 DUPTABLE                         R13 K14 [{"value"}]
        65 SETTABLEKS                       R10 R13 K13 ["value"]
        67 GETTABLEKS                       R14 R0 K15 ["children"]
@@ -74,8 +74,8 @@ PROTO_1:
        70 RETURN                           R11 -1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useContext"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 1
         5 JUMPIF                           R0 ; [+4]
@@ -85,55 +85,55 @@ PROTO_2:
        10 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R2 1 1
-        5 JUMPIF                           R2 ; [+4]
-        6 GETIMPORT                        R3 K2 [error]
-        8 LOADK                            R4 K3 ["Attempted to access Context outside of provider"]
-        9 CALL                             R3 1 0
-       10 MOVE                             R1 R2
-       11 GETTABLEKS                       R0 R1 K4 ["isEmulationEnabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+4]
+        6 GETIMPORT                        R2 K2 [error]
+        8 LOADK                            R3 K3 ["Attempted to access Context outside of provider"]
+        9 CALL                             R2 1 0
+       10 MOVE                             R0 R1
+       11 GETTABLEKS                       R0 R0 K4 ["isEmulationEnabled"]
        13 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R2 1 1
-        5 JUMPIF                           R2 ; [+4]
-        6 GETIMPORT                        R3 K2 [error]
-        8 LOADK                            R4 K3 ["Attempted to access Context outside of provider"]
-        9 CALL                             R3 1 0
-       10 MOVE                             R1 R2
-       11 GETTABLEKS                       R0 R1 K4 ["playerCount"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+4]
+        6 GETIMPORT                        R2 K2 [error]
+        8 LOADK                            R3 K3 ["Attempted to access Context outside of provider"]
+        9 CALL                             R2 1 0
+       10 MOVE                             R0 R1
+       11 GETTABLEKS                       R0 R0 K4 ["playerCount"]
        13 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R2 1 1
-        5 JUMPIF                           R2 ; [+4]
-        6 GETIMPORT                        R3 K2 [error]
-        8 LOADK                            R4 K3 ["Attempted to access Context outside of provider"]
-        9 CALL                             R3 1 0
-       10 MOVE                             R1 R2
-       11 GETTABLEKS                       R0 R1 K4 ["parties"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+4]
+        6 GETIMPORT                        R2 K2 [error]
+        8 LOADK                            R3 K3 ["Attempted to access Context outside of provider"]
+        9 CALL                             R2 1 0
+       10 MOVE                             R0 R1
+       11 GETTABLEKS                       R0 R0 K4 ["parties"]
        13 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 CALL                             R2 1 1
-        5 JUMPIF                           R2 ; [+4]
-        6 GETIMPORT                        R3 K2 [error]
-        8 LOADK                            R4 K3 ["Attempted to access Context outside of provider"]
-        9 CALL                             R3 1 0
-       10 MOVE                             R1 R2
-       11 GETTABLEKS                       R0 R1 K4 ["playerMappings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+4]
+        6 GETIMPORT                        R2 K2 [error]
+        8 LOADK                            R3 K3 ["Attempted to access Context outside of provider"]
+        9 CALL                             R2 1 0
+       10 MOVE                             R0 R1
+       11 GETTABLEKS                       R0 R0 K4 ["playerMappings"]
        13 RETURN                           R0 1
 
 MAIN:

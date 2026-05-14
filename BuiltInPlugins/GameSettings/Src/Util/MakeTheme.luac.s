@@ -1,13 +1,13 @@
 PROTO_0:
         0 JUMPIFNOT                        R0 ; [+7]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["mock"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["mock"]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
         6 CALL                             R1 2 1
         7 JUMP                             ; [+6]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K1 ["new"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K1 ["new"]
        11 GETUPVAL                         R2 1
        12 GETUPVAL                         R3 2
        13 CALL                             R1 2 1
@@ -18,13 +18,13 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K7 ["Util"]
        18 GETTABLEKS                       R3 R1 K8 ["Style"]
@@ -32,8 +32,8 @@ MAIN:
        22 GETTABLEKS                       R5 R3 K10 ["StyleKey"]
        24 GETTABLEKS                       R6 R3 K11 ["getRawComponentStyle"]
        26 GETTABLEKS                       R7 R3 K12 ["ComponentSymbols"]
-       28 GETTABLEKS                       R9 R3 K13 ["Themes"]
-       30 GETTABLEKS                       R8 R9 K14 ["StudioTheme"]
+       28 GETTABLEKS                       R8 R3 K13 ["Themes"]
+       30 GETTABLEKS                       R8 R8 K14 ["StudioTheme"]
        32 GETTABLEKS                       R9 R1 K15 ["Dash"]
        34 GETTABLEKS                       R10 R9 K16 ["join"]
        36 GETIMPORT                        R11 K18 [game]
@@ -41,9 +41,9 @@ MAIN:
        39 NAMECALL                         R11 R11 K20 ["GetFastFlag"]
        41 CALL                             R11 2 1
        42 GETIMPORT                        R12 K4 [require]
-       44 GETTABLEKS                       R15 R0 K21 ["Src"]
-       46 GETTABLEKS                       R14 R15 K22 ["Flags"]
-       48 GETTABLEKS                       R13 R14 K23 ["getFFlagGameSettingsFixMoreLayoutIssues"]
+       44 GETTABLEKS                       R13 R0 K21 ["Src"]
+       46 GETTABLEKS                       R13 R13 K22 ["Flags"]
+       48 GETTABLEKS                       R13 R13 K23 ["getFFlagGameSettingsFixMoreLayoutIssues"]
        50 CALL                             R12 1 1
        51 CALL                             R12 0 1
        52 GETIMPORT                        R13 K18 [game]
@@ -162,16 +162,16 @@ MAIN:
       240 MOVE                             R19 R10
       241 GETTABLEKS                       R20 R15 K55 ["&RoundPrimary"]
       243 DUPTABLE                         R21 K56 [{"TextSize"}]
-      244 GETTABLEKS                       R23 R14 K28 ["Normal"]
-      246 GETTABLEKS                       R22 R23 K39 ["TextSize"]
+      244 GETTABLEKS                       R22 R14 K28 ["Normal"]
+      246 GETTABLEKS                       R22 R22 K39 ["TextSize"]
       248 SETTABLEKS                       R22 R21 K39 ["TextSize"]
       250 CALL                             R19 2 1
       251 SETTABLEKS                       R19 R18 K57 ["&GameSettingsPrimaryButton"]
       253 MOVE                             R19 R10
       254 GETTABLEKS                       R20 R15 K58 ["&Round"]
       256 DUPTABLE                         R21 K56 [{"TextSize"}]
-      257 GETTABLEKS                       R23 R14 K28 ["Normal"]
-      259 GETTABLEKS                       R22 R23 K39 ["TextSize"]
+      257 GETTABLEKS                       R22 R14 K28 ["Normal"]
+      259 GETTABLEKS                       R22 R22 K39 ["TextSize"]
       261 SETTABLEKS                       R22 R21 K39 ["TextSize"]
       263 CALL                             R19 2 1
       264 SETTABLEKS                       R19 R18 K59 ["&GameSettingsButton"]
@@ -834,14 +834,14 @@ MAIN:
      1307 SETTABLEKS                       R22 R21 K348 ["TextXAlignment"]
      1309 GETIMPORT                        R22 K354 [Enum.TextYAlignment.Top]
      1311 SETTABLEKS                       R22 R21 K349 ["TextYAlignment"]
-     1313 GETTABLEKS                       R23 R14 K25 ["Title"]
-     1315 GETTABLEKS                       R22 R23 K38 ["Font"]
+     1313 GETTABLEKS                       R22 R14 K25 ["Title"]
+     1315 GETTABLEKS                       R22 R22 K38 ["Font"]
      1317 SETTABLEKS                       R22 R21 K38 ["Font"]
-     1319 GETTABLEKS                       R23 R14 K25 ["Title"]
-     1321 GETTABLEKS                       R22 R23 K40 ["TextColor3"]
+     1319 GETTABLEKS                       R22 R14 K25 ["Title"]
+     1321 GETTABLEKS                       R22 R22 K40 ["TextColor3"]
      1323 SETTABLEKS                       R22 R21 K40 ["TextColor3"]
-     1325 GETTABLEKS                       R23 R14 K25 ["Title"]
-     1327 GETTABLEKS                       R22 R23 K39 ["TextSize"]
+     1325 GETTABLEKS                       R22 R14 K25 ["Title"]
+     1327 GETTABLEKS                       R22 R22 K39 ["TextSize"]
      1329 SETTABLEKS                       R22 R21 K39 ["TextSize"]
      1331 JUMP                             ; [+1]
      1332 LOADNIL                          R21
@@ -883,13 +883,13 @@ MAIN:
      1379 LOADN                            R26 19
      1380 CALL                             R22 4 1
      1381 SETTABLEKS                       R22 R21 K321 ["Size"]
-     1383 GETTABLEKS                       R23 R14 K28 ["Normal"]
-     1385 GETTABLEKS                       R22 R23 K38 ["Font"]
+     1383 GETTABLEKS                       R22 R14 K28 ["Normal"]
+     1385 GETTABLEKS                       R22 R22 K38 ["Font"]
      1387 SETTABLEKS                       R22 R21 K38 ["Font"]
      1389 GETIMPORT                        R22 K354 [Enum.TextYAlignment.Top]
      1391 SETTABLEKS                       R22 R21 K349 ["TextYAlignment"]
-     1393 GETTABLEKS                       R23 R14 K28 ["Normal"]
-     1395 GETTABLEKS                       R22 R23 K39 ["TextSize"]
+     1393 GETTABLEKS                       R22 R14 K28 ["Normal"]
+     1395 GETTABLEKS                       R22 R22 K39 ["TextSize"]
      1397 SETTABLEKS                       R22 R21 K39 ["TextSize"]
      1399 GETIMPORT                        R22 K352 [Enum.TextXAlignment.Left]
      1401 SETTABLEKS                       R22 R21 K348 ["TextXAlignment"]
@@ -913,8 +913,8 @@ MAIN:
      1426 LOADN                            R26 0
      1427 CALL                             R22 4 1
      1428 SETTABLEKS                       R22 R21 K358 ["Position"]
-     1430 GETTABLEKS                       R23 R14 K33 ["HeaderLink"]
-     1432 GETTABLEKS                       R22 R23 K39 ["TextSize"]
+     1430 GETTABLEKS                       R22 R14 K33 ["HeaderLink"]
+     1432 GETTABLEKS                       R22 R22 K39 ["TextSize"]
      1434 SETTABLEKS                       R22 R21 K39 ["TextSize"]
      1436 JUMP                             ; [+1]
      1437 LOADNIL                          R21
@@ -937,16 +937,16 @@ MAIN:
      1463 SETTABLEKS                       R21 R20 K380 ["guidelinesDescriptionListLayout"]
      1465 JUMPIFNOT                        R11 ; [+40]
      1466 DUPTABLE                         R21 K384 [{"TextColor3", "BackgroundTransparency", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "TextTransparency", "ClipsDescendants"}]
-     1467 GETTABLEKS                       R23 R14 K34 ["Small"]
-     1469 GETTABLEKS                       R22 R23 K40 ["TextColor3"]
+     1467 GETTABLEKS                       R22 R14 K34 ["Small"]
+     1469 GETTABLEKS                       R22 R22 K40 ["TextColor3"]
      1471 SETTABLEKS                       R22 R21 K40 ["TextColor3"]
      1473 LOADN                            R22 1
      1474 SETTABLEKS                       R22 R21 K343 ["BackgroundTransparency"]
-     1476 GETTABLEKS                       R23 R14 K34 ["Small"]
-     1478 GETTABLEKS                       R22 R23 K38 ["Font"]
+     1476 GETTABLEKS                       R22 R14 K34 ["Small"]
+     1478 GETTABLEKS                       R22 R22 K38 ["Font"]
      1480 SETTABLEKS                       R22 R21 K38 ["Font"]
-     1482 GETTABLEKS                       R23 R14 K34 ["Small"]
-     1484 GETTABLEKS                       R22 R23 K39 ["TextSize"]
+     1482 GETTABLEKS                       R22 R14 K34 ["Small"]
+     1484 GETTABLEKS                       R22 R22 K39 ["TextSize"]
      1486 SETTABLEKS                       R22 R21 K39 ["TextSize"]
      1488 GETIMPORT                        R22 K352 [Enum.TextXAlignment.Left]
      1490 SETTABLEKS                       R22 R21 K348 ["TextXAlignment"]

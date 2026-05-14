@@ -12,8 +12,8 @@ PROTO_0:
        14 GETUPVAL                         R3 2
        15 GETUPVAL                         R4 3
        16 NEWTABLE                         R5 4 0
-       18 GETUPVAL                         R7 4
-       19 GETTABLEKS                       R6 R7 K5 ["Tag"]
+       18 GETUPVAL                         R6 4
+       19 GETTABLEKS                       R6 R6 K5 ["Tag"]
        21 LOADK                            R7 K6 ["X-Column X-Center"]
        22 SETTABLE                         R7 R5 R6
        23 GETIMPORT                        R6 K10 [Enum.AutomaticSize.XY]
@@ -24,8 +24,8 @@ PROTO_0:
        31 GETUPVAL                         R7 2
        32 LOADK                            R8 K15 ["ImageLabel"]
        33 NEWTABLE                         R9 4 0
-       35 GETUPVAL                         R11 4
-       36 GETTABLEKS                       R10 R11 K5 ["Tag"]
+       35 GETUPVAL                         R10 4
+       36 GETTABLEKS                       R10 R10 K5 ["Tag"]
        38 GETUPVAL                         R11 5
        39 LOADK                            R12 K16 ["HoverTooltipPresetImage"]
        40 GETTABLEKS                       R14 R0 K1 ["id"]
@@ -69,8 +69,8 @@ PROTO_0:
        92 GETUPVAL                         R11 2
        93 GETUPVAL                         R12 3
        94 NEWTABLE                         R13 2 0
-       96 GETUPVAL                         R15 4
-       97 GETTABLEKS                       R14 R15 K5 ["Tag"]
+       96 GETUPVAL                         R14 4
+       97 GETTABLEKS                       R14 R14 K5 ["Tag"]
        99 LOADK                            R15 K32 ["X-Column"]
       100 SETTABLE                         R15 R13 R14
       101 GETIMPORT                        R14 K35 [UDim2.fromScale]
@@ -82,8 +82,8 @@ PROTO_0:
       109 GETUPVAL                         R15 2
       110 GETUPVAL                         R16 3
       111 NEWTABLE                         R17 4 0
-      113 GETUPVAL                         R19 4
-      114 GETTABLEKS                       R18 R19 K5 ["Tag"]
+      113 GETUPVAL                         R18 4
+      114 GETTABLEKS                       R18 R18 K5 ["Tag"]
       116 LOADK                            R19 K40 ["X-Column X-Left"]
       117 SETTABLE                         R19 R17 R18
       118 GETIMPORT                        R18 K42 [UDim2.new]
@@ -112,8 +112,8 @@ PROTO_0:
       149 GETUPVAL                         R19 2
       150 LOADK                            R20 K49 ["TextLabel"]
       151 NEWTABLE                         R21 8 0
-      153 GETUPVAL                         R23 4
-      154 GETTABLEKS                       R22 R23 K5 ["Tag"]
+      153 GETUPVAL                         R22 4
+      154 GETTABLEKS                       R22 R22 K5 ["Tag"]
       156 LOADK                            R23 K50 ["Component-TextLabel"]
       157 SETTABLE                         R23 R21 R22
       158 GETUPVAL                         R22 9
@@ -139,8 +139,8 @@ PROTO_0:
       189 GETUPVAL                         R19 2
       190 LOADK                            R20 K49 ["TextLabel"]
       191 NEWTABLE                         R21 8 0
-      193 GETUPVAL                         R23 4
-      194 GETTABLEKS                       R22 R23 K5 ["Tag"]
+      193 GETUPVAL                         R22 4
+      194 GETTABLEKS                       R22 R22 K5 ["Tag"]
       196 LOADK                            R23 K58 ["Component-TextLabel SubText"]
       197 SETTABLE                         R23 R21 R22
       198 GETUPVAL                         R22 10
@@ -168,8 +168,8 @@ PROTO_0:
       232 GETUPVAL                         R15 2
       233 GETUPVAL                         R16 3
       234 NEWTABLE                         R17 2 0
-      236 GETUPVAL                         R19 4
-      237 GETTABLEKS                       R18 R19 K5 ["Tag"]
+      236 GETUPVAL                         R18 4
+      237 GETTABLEKS                       R18 R18 K5 ["Tag"]
       239 GETUPVAL                         R20 11
       240 CALL                             R20 0 1
       241 JUMPIFNOT                        R20 ; [+2]
@@ -215,35 +215,35 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AvatarSettingsProviderTypes"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarSettingsProviderTypes"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Components"]
-       29 GETTABLEKS                       R4 R5 K12 ["PresetTooltipDescriptionSection"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Components"]
+       29 GETTABLEKS                       R4 R4 K12 ["PresetTooltipDescriptionSection"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       36 GETTABLEKS                       R5 R6 K13 ["React"]
+       34 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K13 ["React"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R7 R0 K9 ["Packages"]
-       43 GETTABLEKS                       R6 R7 K14 ["ReactUtils"]
+       41 GETTABLEKS                       R6 R0 K9 ["Packages"]
+       43 GETTABLEKS                       R6 R6 K14 ["ReactUtils"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R9 R0 K6 ["Src"]
-       50 GETTABLEKS                       R8 R9 K15 ["Flags"]
-       52 GETTABLEKS                       R7 R8 K16 ["getFFlagAvatarSettingsChangeSeparatorColor"]
+       48 GETTABLEKS                       R7 R0 K6 ["Src"]
+       50 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       52 GETTABLEKS                       R7 R7 K16 ["getFFlagAvatarSettingsChangeSeparatorColor"]
        54 CALL                             R6 1 1
        55 GETTABLEKS                       R7 R2 K17 ["ContextServices"]
-       57 GETTABLEKS                       R9 R2 K18 ["Styling"]
-       59 GETTABLEKS                       R8 R9 K19 ["joinTags"]
+       57 GETTABLEKS                       R8 R2 K18 ["Styling"]
+       59 GETTABLEKS                       R8 R8 K19 ["joinTags"]
        61 GETTABLEKS                       R9 R7 K20 ["Localization"]
        63 GETTABLEKS                       R10 R2 K21 ["UI"]
        65 GETTABLEKS                       R11 R10 K22 ["Pane"]

@@ -62,60 +62,60 @@ PROTO_8:
         9 MOVE                             R4 R0
        10 CALL                             R3 1 1
        11 DUPTABLE                         R4 K34 [{"GetPropertyChangedSignal", "GetAttributeChangedSignal", "GetAttribute", "GetRequests", "GetChildren", "Destroy", "GetStringUniqueId", "GetAbsolutePosition", "SetAdorneeOffsetFromAbsolutePosition", "SetAttribute", "ChildAdded", "ChildRemoved", "AncestryChanged", "Parent", "Name", "AuthorId", "AuthorColor3", "Contents", "TaggedUsers", "Resolved", "CreationTimeUnix", "LastModifiedTimeUnix", "ChannelId", "LoadingReplies", "ReplyCount", "RequestInitiated", "RequestCompleted", "_requestInitiated", "_requestCompleted", "_inner"}]
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R5 R6 K35 ["fn"]
+       12 GETUPVAL                         R5 1
+       13 GETTABLEKS                       R5 R5 K35 ["fn"]
        15 NEWCLOSURE                       R6 P0
        16 CAPTURE                          VAL R3
        17 CALL                             R5 1 1
        18 SETTABLEKS                       R5 R4 K4 ["GetPropertyChangedSignal"]
-       20 GETUPVAL                         R6 1
-       21 GETTABLEKS                       R5 R6 K35 ["fn"]
+       20 GETUPVAL                         R5 1
+       21 GETTABLEKS                       R5 R5 K35 ["fn"]
        23 NEWCLOSURE                       R6 P1
        24 CAPTURE                          VAL R3
        25 CALL                             R5 1 1
        26 SETTABLEKS                       R5 R4 K5 ["GetAttributeChangedSignal"]
-       28 GETUPVAL                         R6 1
-       29 GETTABLEKS                       R5 R6 K35 ["fn"]
+       28 GETUPVAL                         R5 1
+       29 GETTABLEKS                       R5 R5 K35 ["fn"]
        31 NEWCLOSURE                       R6 P2
        32 CAPTURE                          VAL R3
        33 CALL                             R5 1 1
        34 SETTABLEKS                       R5 R4 K6 ["GetAttribute"]
-       36 GETUPVAL                         R6 1
-       37 GETTABLEKS                       R5 R6 K35 ["fn"]
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K35 ["fn"]
        39 NEWCLOSURE                       R6 P3
        40 CAPTURE                          VAL R3
        41 CALL                             R5 1 1
        42 SETTABLEKS                       R5 R4 K7 ["GetRequests"]
-       44 GETUPVAL                         R6 1
-       45 GETTABLEKS                       R5 R6 K35 ["fn"]
+       44 GETUPVAL                         R5 1
+       45 GETTABLEKS                       R5 R5 K35 ["fn"]
        47 NEWCLOSURE                       R6 P4
        48 CAPTURE                          VAL R3
        49 CALL                             R5 1 1
        50 SETTABLEKS                       R5 R4 K8 ["GetChildren"]
-       52 GETUPVAL                         R6 1
-       53 GETTABLEKS                       R5 R6 K35 ["fn"]
+       52 GETUPVAL                         R5 1
+       53 GETTABLEKS                       R5 R5 K35 ["fn"]
        55 NEWCLOSURE                       R6 P5
        56 CAPTURE                          VAL R3
        57 CALL                             R5 1 1
        58 SETTABLEKS                       R5 R4 K9 ["Destroy"]
-       60 GETUPVAL                         R6 1
-       61 GETTABLEKS                       R5 R6 K35 ["fn"]
+       60 GETUPVAL                         R5 1
+       61 GETTABLEKS                       R5 R5 K35 ["fn"]
        63 NEWCLOSURE                       R6 P6
        64 CAPTURE                          VAL R3
        65 CALL                             R5 1 1
        66 SETTABLEKS                       R5 R4 K10 ["GetStringUniqueId"]
-       68 GETUPVAL                         R6 1
-       69 GETTABLEKS                       R5 R6 K35 ["fn"]
+       68 GETUPVAL                         R5 1
+       69 GETTABLEKS                       R5 R5 K35 ["fn"]
        71 GETTABLEKS                       R6 R3 K11 ["GetAbsolutePosition"]
        73 CALL                             R5 1 1
        74 SETTABLEKS                       R5 R4 K11 ["GetAbsolutePosition"]
-       76 GETUPVAL                         R6 1
-       77 GETTABLEKS                       R5 R6 K35 ["fn"]
+       76 GETUPVAL                         R5 1
+       77 GETTABLEKS                       R5 R5 K35 ["fn"]
        79 GETTABLEKS                       R6 R3 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
        81 CALL                             R5 1 1
        82 SETTABLEKS                       R5 R4 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
-       84 GETUPVAL                         R6 1
-       85 GETTABLEKS                       R5 R6 K35 ["fn"]
+       84 GETUPVAL                         R5 1
+       85 GETTABLEKS                       R5 R5 K35 ["fn"]
        87 NEWCLOSURE                       R6 P7
        88 CAPTURE                          VAL R3
        89 CALL                             R5 1 1
@@ -170,15 +170,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
-       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["jest"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R6 K11 ["tests"]
-       24 GETTABLEKS                       R4 R5 K12 ["createTestAnnotation"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["tests"]
+       24 GETTABLEKS                       R4 R4 K12 ["createTestAnnotation"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K13 [PROTO_8]
        28 CAPTURE                          VAL R3

@@ -40,8 +40,8 @@ PROTO_2:
 
 PROTO_3:
         0 GETIMPORT                        R2 K1 [pcall]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["ShowWidgets"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K2 ["ShowWidgets"]
         5 GETUPVAL                         R4 0
         6 MOVE                             R5 R1
         7 CALL                             R2 3 0
@@ -66,18 +66,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["TutorialService"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETIMPORT                        R5 K1 [script]
-       22 GETTABLEKS                       R4 R5 K10 ["getTargetIdMappings"]
+       20 GETIMPORT                        R4 K1 [script]
+       22 GETTABLEKS                       R4 R4 K10 ["getTargetIdMappings"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETIMPORT                        R6 K1 [script]
-       29 GETTABLEKS                       R5 R6 K11 ["PluginComponents"]
+       27 GETIMPORT                        R5 K1 [script]
+       29 GETTABLEKS                       R5 R5 K11 ["PluginComponents"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K13 [plugin]
        34 JUMPIF                           R5 ; [+6]
@@ -86,8 +86,8 @@ MAIN:
        38 NAMECALL                         R5 R5 K15 ["FindFirstAncestorWhichIsA"]
        40 CALL                             R5 2 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R8 R0 K16 ["Bin"]
-       45 GETTABLEKS                       R7 R8 K17 ["defineLuaFlags"]
+       43 GETTABLEKS                       R7 R0 K16 ["Bin"]
+       45 GETTABLEKS                       R7 R7 K17 ["defineLuaFlags"]
        47 CALL                             R6 1 1
        48 GETTABLEKS                       R7 R6 K18 ["getFFlagKnowledgeTutorialsFixSpotlightCleanup"]
        50 CALL                             R7 0 1

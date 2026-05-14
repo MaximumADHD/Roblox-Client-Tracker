@@ -2,8 +2,8 @@ PROTO_0:
         0 JUMPIFEQKNIL                     R1 ; [+12]
         2 MOVE                             R2 R1
         3 DUPTABLE                         R3 K2 [{"notificationType", "jobId"}]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K3 ["AUTO_SETUP_JOB_INITIALIZATION"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K3 ["AUTO_SETUP_JOB_INITIALIZATION"]
         7 SETTABLEKS                       R4 R3 K0 ["notificationType"]
         9 LOADK                            R4 K4 ["abcd"]
        10 SETTABLEKS                       R4 R3 K1 ["jobId"]
@@ -101,8 +101,8 @@ PROTO_0:
       138 JUMPIFNOTEQKNIL                  R3 ; [+2]
       140 LOADB                            R5 0 +1
       141 LOADB                            R5 1
-      142 GETUPVAL                         R7 0
-      143 GETTABLEKS                       R6 R7 K36 ["LUAU_ANALYZE_ERROR"]
+      142 GETUPVAL                         R6 0
+      143 GETTABLEKS                       R6 R6 K36 ["LUAU_ANALYZE_ERROR"]
       145 FASTCALL2                        ASSERT R5 R6 ; [+3]
       147 GETIMPORT                        R4 K38 [assert]
       149 CALL                             R4 2 0
@@ -123,9 +123,9 @@ PROTO_1:
        12 LOADK                            R4 K7 ["Failed to clone body"]
        13 CALL                             R3 1 0
        14 GETIMPORT                        R3 K10 [CFrame.new]
-       16 NAMECALL                         R5 R2 K11 ["GetBoundingBox"]
-       18 CALL                             R5 1 1
-       19 GETTABLEKS                       R4 R5 K12 ["Position"]
+       16 NAMECALL                         R4 R2 K11 ["GetBoundingBox"]
+       18 CALL                             R4 1 1
+       19 GETTABLEKS                       R4 R4 K12 ["Position"]
        21 CALL                             R3 1 1
        22 NEWTABLE                         R4 0 0
        24 NAMECALL                         R5 R2 K13 ["GetDescendants"]
@@ -166,8 +166,8 @@ PROTO_2:
         9 GETUPVAL                         R3 2
        10 CALL                             R3 0 1
        11 JUMPIFNOT                        R3 ; [+39]
-       12 GETUPVAL                         R4 3
-       13 GETTABLEKS                       R3 R4 K1 ["getCreatorData"]
+       12 GETUPVAL                         R3 3
+       13 GETTABLEKS                       R3 R3 K1 ["getCreatorData"]
        15 CALL                             R3 0 1
        16 DUPTABLE                         R4 K11 [{"AssetType", "AssetName", "Description", "AssetId", "CreatorId", "CreatorType", "ContentType", "Token", "AdditionalParameters"}]
        17 LOADK                            R5 K12 ["Model"]
@@ -196,12 +196,12 @@ PROTO_2:
        53 GETUPVAL                         R4 4
        54 NAMECALL                         R4 R4 K24 ["GetUserId"]
        56 CALL                             R4 1 1
-       57 GETIMPORT                        R6 K26 [game]
-       59 GETTABLEKS                       R5 R6 K7 ["CreatorType"]
+       57 GETIMPORT                        R5 K26 [game]
+       59 GETTABLEKS                       R5 R5 K7 ["CreatorType"]
        61 GETIMPORT                        R6 K28 [Enum.CreatorType.Group]
        63 JUMPIFNOTEQ                      R5 R6 ; [+14]
-       65 GETIMPORT                        R6 K26 [game]
-       67 GETTABLEKS                       R5 R6 K6 ["CreatorId"]
+       65 GETIMPORT                        R5 K26 [game]
+       67 GETTABLEKS                       R5 R5 K6 ["CreatorId"]
        69 LOADN                            R6 0
        70 JUMPIFNOTLT                      R6 R5 ; [+7]
        72 GETIMPORT                        R3 K29 [Enum.AssetCreatorType.Group]
@@ -252,8 +252,8 @@ PROTO_3:
        10 LOADK                            R7 K2 ["StudioAssetService"]
        11 NAMECALL                         R5 R5 K3 ["GetService"]
        13 CALL                             R5 2 1
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K4 ["getCreatorData"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K4 ["getCreatorData"]
        17 CALL                             R6 0 1
        18 DUPTABLE                         R7 K7 [{"CreatorId", "CreatorType"}]
        19 GETTABLEKS                       R8 R6 K8 ["creatorId"]
@@ -263,8 +263,8 @@ PROTO_3:
        27 DUPTABLE                         R8 K11 [{"AssetDataHash"}]
        28 SETTABLEKS                       R1 R8 K10 ["AssetDataHash"]
        30 GETIMPORT                        R11 K14 [buffer.tostring]
-       32 GETUPVAL                         R13 3
-       33 GETTABLEKS                       R12 R13 K15 ["encode"]
+       32 GETUPVAL                         R12 3
+       33 GETTABLEKS                       R12 R12 K15 ["encode"]
        35 GETIMPORT                        R13 K17 [buffer.fromstring]
        37 MOVE                             R14 R0
        38 CALL                             R13 1 -1
@@ -354,37 +354,37 @@ MAIN:
        22 NAMECALL                         R3 R3 K9 ["FindFirstAncestor"]
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
-       27 GETTABLEKS                       R6 R3 K12 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K13 ["React"]
+       27 GETTABLEKS                       R5 R3 K12 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K13 ["React"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K11 [require]
-       34 GETTABLEKS                       R8 R3 K14 ["Src"]
-       36 GETTABLEKS                       R7 R8 K15 ["Util"]
-       38 GETTABLEKS                       R6 R7 K16 ["Constants"]
+       34 GETTABLEKS                       R6 R3 K14 ["Src"]
+       36 GETTABLEKS                       R6 R6 K15 ["Util"]
+       38 GETTABLEKS                       R6 R6 K16 ["Constants"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K11 [require]
-       43 GETTABLEKS                       R8 R3 K14 ["Src"]
-       45 GETTABLEKS                       R7 R8 K17 ["Types"]
+       43 GETTABLEKS                       R7 R3 K14 ["Src"]
+       45 GETTABLEKS                       R7 R7 K17 ["Types"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K11 [require]
-       50 GETTABLEKS                       R10 R3 K14 ["Src"]
-       52 GETTABLEKS                       R9 R10 K15 ["Util"]
-       54 GETTABLEKS                       R8 R9 K18 ["AssetCreatorUtils"]
+       50 GETTABLEKS                       R8 R3 K14 ["Src"]
+       52 GETTABLEKS                       R8 R8 K15 ["Util"]
+       54 GETTABLEKS                       R8 R8 K18 ["AssetCreatorUtils"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K11 [require]
-       59 GETTABLEKS                       R11 R3 K14 ["Src"]
-       61 GETTABLEKS                       R10 R11 K15 ["Util"]
-       63 GETTABLEKS                       R9 R10 K19 ["Base64Util"]
+       59 GETTABLEKS                       R9 R3 K14 ["Src"]
+       61 GETTABLEKS                       R9 R9 K15 ["Util"]
+       63 GETTABLEKS                       R9 R9 K19 ["Base64Util"]
        65 CALL                             R8 1 1
        66 GETIMPORT                        R9 K11 [require]
-       68 GETTABLEKS                       R12 R3 K14 ["Src"]
-       70 GETTABLEKS                       R11 R12 K20 ["Flags"]
-       72 GETTABLEKS                       R10 R11 K21 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
+       68 GETTABLEKS                       R10 R3 K14 ["Src"]
+       70 GETTABLEKS                       R10 R10 K20 ["Flags"]
+       72 GETTABLEKS                       R10 R10 K21 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
        74 CALL                             R9 1 1
        75 GETIMPORT                        R10 K11 [require]
-       77 GETTABLEKS                       R13 R3 K14 ["Src"]
-       79 GETTABLEKS                       R12 R13 K20 ["Flags"]
-       81 GETTABLEKS                       R11 R12 K22 ["getFFlagAvatarPreviewerEditingTools"]
+       77 GETTABLEKS                       R11 R3 K14 ["Src"]
+       79 GETTABLEKS                       R11 R11 K20 ["Flags"]
+       81 GETTABLEKS                       R11 R11 K22 ["getFFlagAvatarPreviewerEditingTools"]
        83 CALL                             R10 1 1
        84 DUPCLOSURE                       R11 K23 [PROTO_0]
        85 CAPTURE                          VAL R5

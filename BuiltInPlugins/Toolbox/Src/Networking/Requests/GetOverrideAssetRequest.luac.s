@@ -4,8 +4,8 @@ PROTO_0:
         4 MOVE                             R4 R0
         5 CALL                             R3 1 3
         6 FORGPREP_NEXT                    R3
-        7 GETTABLEKS                       R9 R7 K2 ["Creator"]
-        9 GETTABLEKS                       R8 R9 K3 ["Id"]
+        7 GETTABLEKS                       R8 R7 K2 ["Creator"]
+        9 GETTABLEKS                       R8 R8 K3 ["Id"]
        11 JUMPIFNOTEQ                      R8 R1 ; [+8]
        13 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
        15 MOVE                             R9 R2
@@ -39,9 +39,9 @@ PROTO_1:
        29 RETURN                           R1 1
 
 PROTO_2:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["overrideCursor"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["overrideCursor"]
         5 LOADK                            R2 K2 [""]
         6 GETTABLEKS                       R3 R1 K3 ["nextPageCursor"]
         8 JUMPIFNOT                        R3 ; [+2]
@@ -64,24 +64,24 @@ PROTO_3:
        14 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugOverrideAssetLoading"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugOverrideAssetLoading"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+32]
         5 GETIMPORT                        R1 K2 [print]
         7 GETIMPORT                        R2 K5 [string.format]
         9 LOADK                            R3 K6 ["handleGetCreationOverrideSuccess: curr=%s, loading=%s, target=%s"]
-       10 GETUPVAL                         R6 1
-       11 NAMECALL                         R6 R6 K7 ["getState"]
-       13 CALL                             R6 1 1
-       14 GETTABLEKS                       R5 R6 K8 ["currentPage"]
+       10 GETUPVAL                         R5 1
+       11 NAMECALL                         R5 R5 K7 ["getState"]
+       13 CALL                             R5 1 1
+       14 GETTABLEKS                       R5 R5 K8 ["currentPage"]
        16 FASTCALL1                        TOSTRING R5 ; [+2]
        17 GETIMPORT                        R4 K10 [tostring]
        19 CALL                             R4 1 1
-       20 GETUPVAL                         R7 1
-       21 NAMECALL                         R7 R7 K7 ["getState"]
-       23 CALL                             R7 1 1
-       24 GETTABLEKS                       R6 R7 K11 ["loadingPage"]
+       20 GETUPVAL                         R6 1
+       21 NAMECALL                         R6 R6 K7 ["getState"]
+       23 CALL                             R6 1 1
+       24 GETTABLEKS                       R6 R6 K11 ["loadingPage"]
        26 FASTCALL1                        TOSTRING R6 ; [+2]
        27 GETIMPORT                        R5 K10 [tostring]
        29 CALL                             R5 1 1
@@ -118,10 +118,10 @@ PROTO_4:
        68 NAMECALL                         R3 R3 K15 ["dispatch"]
        70 CALL                             R3 -1 0
        71 JUMP                             ; [+42]
-       72 GETUPVAL                         R4 1
-       73 NAMECALL                         R4 R4 K7 ["getState"]
-       75 CALL                             R4 1 1
-       76 GETTABLEKS                       R3 R4 K18 ["overrideCursor"]
+       72 GETUPVAL                         R3 1
+       73 NAMECALL                         R3 R3 K7 ["getState"]
+       75 CALL                             R3 1 1
+       76 GETTABLEKS                       R3 R3 K18 ["overrideCursor"]
        78 GETTABLEKS                       R5 R1 K16 ["nextPageCursor"]
        80 JUMPIFNOTEQKNIL                  R5 ; [+2]
        82 LOADB                            R4 0 +1
@@ -160,26 +160,26 @@ PROTO_4:
       121 RETURN                           R0 0
 
 PROTO_5:
-        0 NAMECALL                         R3 R0 K1 ["getState"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K2 ["loadingPage"]
+        0 NAMECALL                         R2 R0 K1 ["getState"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K2 ["loadingPage"]
         5 ORK                              R1 R2 K0 [0]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K3 ["shouldDebugOverrideAssetLoading"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K3 ["shouldDebugOverrideAssetLoading"]
         9 CALL                             R2 0 1
        10 JUMPIFNOT                        R2 ; [+30]
        11 GETIMPORT                        R2 K5 [print]
        13 GETIMPORT                        R3 K8 [string.format]
        15 LOADK                            R4 K9 ["GetOverrideAssetRequest: curr=%s, loading=%s, target=%s"]
-       16 NAMECALL                         R7 R0 K1 ["getState"]
-       18 CALL                             R7 1 1
-       19 GETTABLEKS                       R6 R7 K10 ["currentPage"]
+       16 NAMECALL                         R6 R0 K1 ["getState"]
+       18 CALL                             R6 1 1
+       19 GETTABLEKS                       R6 R6 K10 ["currentPage"]
        21 FASTCALL1                        TOSTRING R6 ; [+2]
        22 GETIMPORT                        R5 K12 [tostring]
        24 CALL                             R5 1 1
-       25 NAMECALL                         R8 R0 K1 ["getState"]
-       27 CALL                             R8 1 1
-       28 GETTABLEKS                       R7 R8 K2 ["loadingPage"]
+       25 NAMECALL                         R7 R0 K1 ["getState"]
+       27 CALL                             R7 1 1
+       28 GETTABLEKS                       R7 R7 K2 ["loadingPage"]
        30 FASTCALL1                        TOSTRING R7 ; [+2]
        31 GETIMPORT                        R6 K12 [tostring]
        33 CALL                             R6 1 1
@@ -192,12 +192,12 @@ PROTO_5:
        41 GETUPVAL                         R2 1
        42 LOADN                            R3 1
        43 JUMPIFNOTLT                      R3 R2 ; [+30]
-       45 NAMECALL                         R3 R0 K1 ["getState"]
-       47 CALL                             R3 1 1
-       48 GETTABLEKS                       R2 R3 K13 ["fetchedAll"]
+       45 NAMECALL                         R2 R0 K1 ["getState"]
+       47 CALL                             R2 1 1
+       48 GETTABLEKS                       R2 R2 K13 ["fetchedAll"]
        50 JUMPIFNOT                        R2 ; [+10]
-       51 GETUPVAL                         R3 0
-       52 GETTABLEKS                       R2 R3 K3 ["shouldDebugOverrideAssetLoading"]
+       51 GETUPVAL                         R2 0
+       52 GETTABLEKS                       R2 R2 K3 ["shouldDebugOverrideAssetLoading"]
        54 CALL                             R2 0 1
        55 JUMPIFNOT                        R2 ; [+4]
        56 GETIMPORT                        R2 K5 [print]
@@ -206,16 +206,16 @@ PROTO_5:
        60 RETURN                           R0 0
        61 GETUPVAL                         R2 1
        62 JUMPIFNOTLE                      R2 R1 ; [+11]
-       64 GETUPVAL                         R3 0
-       65 GETTABLEKS                       R2 R3 K3 ["shouldDebugOverrideAssetLoading"]
+       64 GETUPVAL                         R2 0
+       65 GETTABLEKS                       R2 R2 K3 ["shouldDebugOverrideAssetLoading"]
        67 CALL                             R2 0 1
        68 JUMPIFNOT                        R2 ; [+4]
        69 GETIMPORT                        R2 K5 [print]
        71 LOADK                            R3 K15 ["GetOverrideAssetRequest: loadingPage >= targetPage, stopping"]
        72 CALL                             R2 1 0
        73 RETURN                           R0 0
-       74 GETUPVAL                         R3 0
-       75 GETTABLEKS                       R2 R3 K3 ["shouldDebugOverrideAssetLoading"]
+       74 GETUPVAL                         R2 0
+       75 GETTABLEKS                       R2 R2 K3 ["shouldDebugOverrideAssetLoading"]
        77 CALL                             R2 0 1
        78 JUMPIFNOT                        R2 ; [+4]
        79 GETIMPORT                        R2 K5 [print]
@@ -246,9 +246,9 @@ PROTO_5:
       107 GETUPVAL                         R4 10
       108 GETUPVAL                         R5 9
       109 JUMPIFNOTEQKS                    R5 K18 ["Group"] ; [+27]
-      111 NAMECALL                         R7 R0 K1 ["getState"]
-      113 CALL                             R7 1 1
-      114 GETTABLEKS                       R6 R7 K19 ["overrideCursor"]
+      111 NAMECALL                         R6 R0 K1 ["getState"]
+      113 CALL                             R6 1 1
+      114 GETTABLEKS                       R6 R6 K19 ["overrideCursor"]
       116 LOADK                            R7 K20 [""]
       117 GETTABLEKS                       R8 R6 K21 ["nextPageCursor"]
       119 JUMPIFNOT                        R8 ; [+2]
@@ -266,9 +266,9 @@ PROTO_5:
       133 NAMECALL                         R6 R6 K23 ["andThen"]
       135 CALL                             R6 3 0
       136 RETURN                           R0 0
-      137 NAMECALL                         R7 R0 K1 ["getState"]
-      139 CALL                             R7 1 1
-      140 GETTABLEKS                       R6 R7 K19 ["overrideCursor"]
+      137 NAMECALL                         R6 R0 K1 ["getState"]
+      139 CALL                             R6 1 1
+      140 GETTABLEKS                       R6 R6 K19 ["overrideCursor"]
       142 LOADK                            R7 K20 [""]
       143 GETTABLEKS                       R8 R6 K21 ["nextPageCursor"]
       145 JUMPIFNOT                        R8 ; [+2]
@@ -306,13 +306,13 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Util"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["AssetConfigConstants"]
        19 CALL                             R2 1 1
@@ -322,8 +322,8 @@ MAIN:
        25 GETIMPORT                        R4 K6 [require]
        27 GETTABLEKS                       R5 R1 K9 ["DebugFlags"]
        29 CALL                             R4 1 1
-       30 GETTABLEKS                       R6 R0 K3 ["Src"]
-       32 GETTABLEKS                       R5 R6 K10 ["Actions"]
+       30 GETTABLEKS                       R5 R0 K3 ["Src"]
+       32 GETTABLEKS                       R5 R5 K10 ["Actions"]
        34 GETIMPORT                        R6 K6 [require]
        36 GETTABLEKS                       R7 R5 K11 ["NetworkError"]
        38 CALL                             R6 1 1

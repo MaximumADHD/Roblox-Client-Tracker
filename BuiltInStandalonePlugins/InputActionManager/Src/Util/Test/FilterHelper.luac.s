@@ -14,8 +14,8 @@ PROTO_1:
         7 LOADK                            R5 K1 ["Search bar not found"]
         8 GETIMPORT                        R3 K3 [assert]
        10 CALL                             R3 2 0
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K4 ["click"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K4 ["click"]
        14 MOVE                             R4 R2
        15 CALL                             R3 1 0
        16 GETUPVAL                         R3 2
@@ -27,15 +27,15 @@ PROTO_1:
        22 CALL                             R3 1 0
        23 GETUPVAL                         R3 2
        24 CALL                             R3 0 0
-       25 GETUPVAL                         R4 1
-       26 GETTABLEKS                       R3 R4 K5 ["keyDown"]
+       25 GETUPVAL                         R3 1
+       26 GETTABLEKS                       R3 R3 K5 ["keyDown"]
        28 MOVE                             R4 R2
        29 DUPTABLE                         R5 K7 [{"key"}]
        30 GETIMPORT                        R6 K11 [Enum.KeyCode.Return]
        32 SETTABLEKS                       R6 R5 K6 ["key"]
        34 CALL                             R3 2 0
-       35 GETUPVAL                         R4 1
-       36 GETTABLEKS                       R3 R4 K12 ["keyUp"]
+       35 GETUPVAL                         R3 1
+       36 GETTABLEKS                       R3 R3 K12 ["keyUp"]
        38 MOVE                             R4 R2
        39 DUPTABLE                         R5 K7 [{"key"}]
        40 GETIMPORT                        R6 K11 [Enum.KeyCode.Return]
@@ -52,18 +52,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R4 R5 K8 ["Dev"]
-       20 GETTABLEKS                       R3 R4 K9 ["ReactTestingLibrary"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dev"]
+       20 GETTABLEKS                       R3 R3 K9 ["ReactTestingLibrary"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETIMPORT                        R6 K1 [script]
-       27 GETTABLEKS                       R5 R6 K10 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K11 ["TestHelper"]
+       25 GETIMPORT                        R4 K1 [script]
+       27 GETTABLEKS                       R4 R4 K10 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K11 ["TestHelper"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K12 ["awaitDeferAsync"]
        34 GETTABLEKS                       R5 R2 K13 ["act"]

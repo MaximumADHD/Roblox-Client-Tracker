@@ -49,32 +49,32 @@ PROTO_3:
        23 CALL                             R3 3 1
        24 JUMP                             ; [+1]
        25 LOADN                            R3 0
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R4 R5 K9 ["createElement"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K9 ["createElement"]
        29 GETUPVAL                         R5 1
        30 NEWTABLE                         R6 4 0
        32 GETTABLEKS                       R7 R1 K10 ["Size"]
        34 SETTABLEKS                       R7 R6 K10 ["Size"]
        36 GETTABLEKS                       R7 R1 K11 ["LayoutOrder"]
        38 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
-       40 GETUPVAL                         R8 0
-       41 GETTABLEKS                       R7 R8 K12 ["Tag"]
-       43 GETUPVAL                         R10 0
-       44 GETTABLEKS                       R9 R10 K12 ["Tag"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K12 ["Tag"]
+       43 GETUPVAL                         R9 0
+       44 GETTABLEKS                       R9 R9 K12 ["Tag"]
        46 GETTABLE                         R8 R1 R9
        47 SETTABLE                         R8 R6 R7
        48 LOADN                            R8 0
        49 JUMPIFNOTLT                      R8 R2 ; [+78]
        51 DUPTABLE                         R7 K15 [{"ProgressBar", "TextLabel"}]
-       52 GETUPVAL                         R9 0
-       53 GETTABLEKS                       R8 R9 K9 ["createElement"]
+       52 GETUPVAL                         R8 0
+       53 GETTABLEKS                       R8 R8 K9 ["createElement"]
        55 GETUPVAL                         R9 1
        56 DUPTABLE                         R10 K17 [{"ZIndex"}]
        57 LOADN                            R11 1
        58 SETTABLEKS                       R11 R10 K16 ["ZIndex"]
        60 DUPTABLE                         R11 K19 [{"Progress"}]
-       61 GETUPVAL                         R13 0
-       62 GETTABLEKS                       R12 R13 K9 ["createElement"]
+       61 GETUPVAL                         R12 0
+       62 GETTABLEKS                       R12 R12 K9 ["createElement"]
        64 GETUPVAL                         R13 1
        65 DUPTABLE                         R14 K21 [{"Size", "BackgroundColor"}]
        66 GETIMPORT                        R15 K24 [UDim2.fromScale]
@@ -87,15 +87,15 @@ PROTO_3:
        76 LOADN                            R17 1
        77 CALL                             R15 2 1
        78 SETTABLEKS                       R15 R14 K10 ["Size"]
-       80 GETTABLEKS                       R16 R0 K0 ["props"]
-       82 GETTABLEKS                       R15 R16 K25 ["BarColor"]
+       80 GETTABLEKS                       R15 R0 K0 ["props"]
+       82 GETTABLEKS                       R15 R15 K25 ["BarColor"]
        84 SETTABLEKS                       R15 R14 K20 ["BackgroundColor"]
        86 CALL                             R12 2 1
        87 SETTABLEKS                       R12 R11 K18 ["Progress"]
        89 CALL                             R8 3 1
        90 SETTABLEKS                       R8 R7 K13 ["ProgressBar"]
-       92 GETUPVAL                         R9 0
-       93 GETTABLEKS                       R8 R9 K9 ["createElement"]
+       92 GETUPVAL                         R8 0
+       93 GETTABLEKS                       R8 R8 K9 ["createElement"]
        95 GETUPVAL                         R9 2
        96 NEWTABLE                         R10 4 0
        98 GETTABLEKS                       R11 R1 K26 ["TextColor"]
@@ -112,8 +112,8 @@ PROTO_3:
       114 SETTABLEKS                       R11 R10 K32 ["Text"]
       116 LOADN                            R11 2
       117 SETTABLEKS                       R11 R10 K16 ["ZIndex"]
-      119 GETUPVAL                         R12 0
-      120 GETTABLEKS                       R11 R12 K12 ["Tag"]
+      119 GETUPVAL                         R11 0
+      120 GETTABLEKS                       R11 R11 K12 ["Tag"]
       122 LOADK                            R12 K33 ["X-Center"]
       123 SETTABLE                         R12 R10 R11
       124 CALL                             R8 2 1
@@ -130,19 +130,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]
        25 GETTABLEKS                       R5 R3 K11 ["TextLabel"]
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R8 R0 K12 ["Src"]
-       31 GETTABLEKS                       R7 R8 K13 ["Types"]
+       29 GETTABLEKS                       R7 R0 K12 ["Src"]
+       31 GETTABLEKS                       R7 R7 K13 ["Types"]
        33 CALL                             R6 1 1
        34 GETTABLEKS                       R7 R2 K14 ["PureComponent"]
        36 LOADK                            R9 K15 ["Timestamp"]

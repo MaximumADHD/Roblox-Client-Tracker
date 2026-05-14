@@ -6,10 +6,10 @@ PROTO_0:
         6 RETURN                           R1 1
 
 PROTO_1:
-        0 GETIMPORT                        R2 K2 [Font.fromEnum]
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 1
-        4 GETTABLEKS                       R1 R2 K3 ["Family"]
+        0 GETIMPORT                        R1 K2 [Font.fromEnum]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R1 R1 K3 ["Family"]
         6 RETURN                           R1 1
 
 PROTO_2:
@@ -54,32 +54,32 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Dash"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Dash"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["filter"]
        20 GETTABLEKS                       R3 R1 K8 ["map"]
        22 GETIMPORT                        R4 K4 [require]
-       24 GETTABLEKS                       R7 R0 K9 ["Src"]
-       26 GETTABLEKS                       R6 R7 K10 ["Reducers"]
-       28 GETTABLEKS                       R5 R6 K11 ["RootReducer"]
+       24 GETTABLEKS                       R5 R0 K9 ["Src"]
+       26 GETTABLEKS                       R5 R5 K10 ["Reducers"]
+       28 GETTABLEKS                       R5 R5 K11 ["RootReducer"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K4 [require]
-       33 GETTABLEKS                       R9 R0 K9 ["Src"]
-       35 GETTABLEKS                       R8 R9 K12 ["Thunks"]
-       37 GETTABLEKS                       R7 R8 K13 ["Asset"]
-       39 GETTABLEKS                       R6 R7 K14 ["LoadFontFamilyInfo"]
+       33 GETTABLEKS                       R6 R0 K9 ["Src"]
+       35 GETTABLEKS                       R6 R6 K12 ["Thunks"]
+       37 GETTABLEKS                       R6 R6 K13 ["Asset"]
+       39 GETTABLEKS                       R6 R6 K14 ["LoadFontFamilyInfo"]
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K4 [require]
-       44 GETTABLEKS                       R9 R0 K9 ["Src"]
-       46 GETTABLEKS                       R8 R9 K12 ["Thunks"]
-       48 GETTABLEKS                       R7 R8 K15 ["Types"]
+       44 GETTABLEKS                       R7 R0 K9 ["Src"]
+       46 GETTABLEKS                       R7 R7 K12 ["Thunks"]
+       48 GETTABLEKS                       R7 R7 K15 ["Types"]
        50 CALL                             R6 1 1
        51 DUPCLOSURE                       R7 K16 [PROTO_3]
        52 CAPTURE                          VAL R2

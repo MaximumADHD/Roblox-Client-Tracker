@@ -1,28 +1,28 @@
 PROTO_0:
         0 DUPTABLE                         R2 K1 [{"Export"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K2 ["createElement"]
         4 GETUPVAL                         R4 1
         5 DUPTABLE                         R5 K9 [{"Active", "Toolbar", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
         6 LOADB                            R6 0
         7 SETTABLEKS                       R6 R5 K3 ["Active"]
         9 SETTABLEKS                       R1 R5 K4 ["Toolbar"]
-       11 GETTABLEKS                       R7 R0 K10 ["props"]
-       13 GETTABLEKS                       R6 R7 K11 ["Localization"]
+       11 GETTABLEKS                       R6 R0 K10 ["props"]
+       13 GETTABLEKS                       R6 R6 K11 ["Localization"]
        15 LOADK                            R8 K12 ["Plugin"]
        16 LOADK                            R9 K0 ["Export"]
        17 NAMECALL                         R6 R6 K13 ["getText"]
        19 CALL                             R6 3 1
        20 SETTABLEKS                       R6 R5 K5 ["Title"]
-       22 GETTABLEKS                       R7 R0 K10 ["props"]
-       24 GETTABLEKS                       R6 R7 K11 ["Localization"]
+       22 GETTABLEKS                       R6 R0 K10 ["props"]
+       24 GETTABLEKS                       R6 R6 K11 ["Localization"]
        26 LOADK                            R8 K12 ["Plugin"]
        27 LOADK                            R9 K14 ["ExportTip"]
        28 NAMECALL                         R6 R6 K13 ["getText"]
        30 CALL                             R6 3 1
        31 SETTABLEKS                       R6 R5 K6 ["Tooltip"]
-       33 GETTABLEKS                       R7 R0 K10 ["props"]
-       35 GETTABLEKS                       R6 R7 K15 ["onExportClicked"]
+       33 GETTABLEKS                       R6 R0 K10 ["props"]
+       35 GETTABLEKS                       R6 R6 K15 ["onExportClicked"]
        37 SETTABLEKS                       R6 R5 K7 ["OnClick"]
        39 LOADB                            R6 1
        40 SETTABLEKS                       R6 R5 K8 ["ClickableWhenViewportHidden"]
@@ -38,12 +38,12 @@ PROTO_1:
         5 RETURN                           R1 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K3 [{"Title", "RenderButtons"}]
-        5 GETTABLEKS                       R5 R0 K4 ["props"]
-        7 GETTABLEKS                       R4 R5 K5 ["Localization"]
+        5 GETTABLEKS                       R4 R0 K4 ["props"]
+        7 GETTABLEKS                       R4 R4 K5 ["Localization"]
         9 LOADK                            R6 K6 ["Plugin"]
        10 LOADK                            R7 K7 ["Name"]
        11 NAMECALL                         R4 R4 K8 ["getText"]
@@ -57,17 +57,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["UI"]
        25 GETTABLEKS                       R4 R3 K9 ["PluginButton"]

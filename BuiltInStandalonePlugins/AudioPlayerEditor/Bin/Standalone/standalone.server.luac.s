@@ -5,17 +5,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R3 R4 K7 ["Common"]
-       13 GETTABLEKS                       R2 R3 K8 ["defineLuaFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["getFFlagAudioPlayerEditorEnabled"]
        18 CALL                             R2 0 1
        19 JUMPIF                           R2 ; [+1]
        20 RETURN                           R0 0
        21 GETIMPORT                        R2 K5 [require]
-       23 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       25 GETTABLEKS                       R3 R4 K11 ["TestLoader"]
+       23 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       25 GETTABLEKS                       R3 R3 K11 ["TestLoader"]
        27 CALL                             R2 1 1
        28 GETTABLEKS                       R3 R2 K12 ["isCli"]
        30 CALL                             R3 0 1
@@ -25,17 +25,17 @@ MAIN:
        35 CALL                             R3 1 0
        36 RETURN                           R0 0
        37 GETIMPORT                        R3 K5 [require]
-       39 GETTABLEKS                       R6 R0 K16 ["Src"]
-       41 GETTABLEKS                       R5 R6 K17 ["Util"]
-       43 GETTABLEKS                       R4 R5 K18 ["PlayerUtil"]
+       39 GETTABLEKS                       R4 R0 K16 ["Src"]
+       41 GETTABLEKS                       R4 R4 K17 ["Util"]
+       43 GETTABLEKS                       R4 R4 K18 ["PlayerUtil"]
        45 CALL                             R3 1 1
        46 GETTABLEKS                       R4 R3 K19 ["setPlugin"]
        48 GETIMPORT                        R5 K21 [plugin]
        50 CALL                             R4 1 0
        51 GETIMPORT                        R4 K5 [require]
-       53 GETTABLEKS                       R7 R0 K6 ["Bin"]
-       55 GETTABLEKS                       R6 R7 K7 ["Common"]
-       57 GETTABLEKS                       R5 R6 K22 ["pluginType"]
+       53 GETTABLEKS                       R5 R0 K6 ["Bin"]
+       55 GETTABLEKS                       R5 R5 K7 ["Common"]
+       57 GETTABLEKS                       R5 R5 K22 ["pluginType"]
        59 CALL                             R4 1 1
        60 GETTABLEKS                       R5 R4 K23 ["get"]
        62 CALL                             R5 0 1
@@ -43,14 +43,14 @@ MAIN:
        65 JUMPIFEQ                         R5 R6 ; [+2]
        67 RETURN                           R0 0
        68 GETIMPORT                        R5 K5 [require]
-       70 GETTABLEKS                       R8 R0 K6 ["Bin"]
-       72 GETTABLEKS                       R7 R8 K7 ["Common"]
-       74 GETTABLEKS                       R6 R7 K25 ["setup"]
+       70 GETTABLEKS                       R6 R0 K6 ["Bin"]
+       72 GETTABLEKS                       R6 R6 K7 ["Common"]
+       74 GETTABLEKS                       R6 R6 K25 ["setup"]
        76 CALL                             R5 1 1
        77 GETIMPORT                        R6 K5 [require]
-       79 GETTABLEKS                       R9 R0 K6 ["Bin"]
-       81 GETTABLEKS                       R8 R9 K7 ["Common"]
-       83 GETTABLEKS                       R7 R8 K26 ["setupMain"]
+       79 GETTABLEKS                       R7 R0 K6 ["Bin"]
+       81 GETTABLEKS                       R7 R7 K7 ["Common"]
+       83 GETTABLEKS                       R7 R7 K26 ["setupMain"]
        85 CALL                             R6 1 1
        86 MOVE                             R7 R5
        87 GETIMPORT                        R8 K21 [plugin]

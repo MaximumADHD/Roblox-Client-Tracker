@@ -9,8 +9,8 @@ PROTO_1:
         4 DUPCLOSURE                       R2 K3 [PROTO_0]
         5 SETTABLEKS                       R2 R1 K1 ["getBundleDetailsAsync"]
         7 GETUPVAL                         R2 0
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K4 ["Provider"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K4 ["Provider"]
        11 DUPTABLE                         R4 K6 [{"value"}]
        12 SETTABLEKS                       R1 R4 K5 ["value"]
        14 GETTABLEKS                       R5 R0 K7 ["children"]
@@ -24,14 +24,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AssetServiceContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AssetServiceContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K11 ["React"]
+       20 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K11 ["React"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K12 ["createElement"]
        27 DUPCLOSURE                       R4 K13 [PROTO_1]

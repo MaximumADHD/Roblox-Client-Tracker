@@ -7,8 +7,8 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["ChangedOptInLocations"]
         5 JUMPIFNOT                        R1 ; [+7]
         6 GETUPVAL                         R3 1
@@ -34,8 +34,8 @@ PROTO_2:
        15 NEWCLOSURE                       R1 P0
        16 CAPTURE                          VAL R0
        17 SETTABLEKS                       R1 R0 K7 ["changeSelection"]
-       19 GETUPVAL                         R2 0
-       20 GETTABLEKS                       R1 R2 K8 ["createRef"]
+       19 GETUPVAL                         R1 0
+       20 GETTABLEKS                       R1 R1 K8 ["createRef"]
        22 CALL                             R1 0 1
        23 SETTABLEKS                       R1 R0 K9 ["scrollingFrameRef"]
        25 NEWCLOSURE                       R1 P1
@@ -47,38 +47,38 @@ PROTO_2:
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+14]
         1 JUMPIFEQKN                       R1 K0 [0] ; [+13]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["OpenPublishSuccessfulPage"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K1 ["props"]
-       11 GETTABLEKS                       R3 R4 K3 ["Changed"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["OpenPublishSuccessfulPage"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K1 ["props"]
+       11 GETTABLEKS                       R3 R3 K3 ["Changed"]
        13 CALL                             R2 1 0
        14 RETURN                           R0 0
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K1 ["props"]
-       18 GETTABLEKS                       R2 R3 K4 ["OpenPublishFailPage"]
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R4 R5 K1 ["props"]
-       23 GETTABLEKS                       R3 R4 K3 ["Changed"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K1 ["props"]
+       18 GETTABLEKS                       R2 R2 K4 ["OpenPublishFailPage"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K1 ["props"]
+       23 GETTABLEKS                       R3 R3 K3 ["Changed"]
        25 CALL                             R2 1 0
        26 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["GamePublishFinished"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["GamePublishFinished"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R0
         5 NAMECALL                         R1 R1 K1 ["connect"]
         7 CALL                             R1 2 1
         8 SETTABLEKS                       R1 R0 K2 ["finishedConnection"]
-       10 GETTABLEKS                       R2 R0 K3 ["props"]
-       12 GETTABLEKS                       R1 R2 K4 ["DispatchLoadGroups"]
-       14 GETTABLEKS                       R3 R0 K3 ["props"]
-       16 GETTABLEKS                       R2 R3 K5 ["IsPublish"]
+       10 GETTABLEKS                       R1 R0 K3 ["props"]
+       12 GETTABLEKS                       R1 R1 K4 ["DispatchLoadGroups"]
+       14 GETTABLEKS                       R2 R0 K3 ["props"]
+       16 GETTABLEKS                       R2 R2 K5 ["IsPublish"]
        18 CALL                             R1 1 0
-       19 GETTABLEKS                       R2 R0 K3 ["props"]
-       21 GETTABLEKS                       R1 R2 K6 ["DispatchDataSharingDefault"]
+       19 GETTABLEKS                       R1 R0 K3 ["props"]
+       21 GETTABLEKS                       R1 R1 K6 ["DispatchDataSharingDefault"]
        23 CALL                             R1 0 0
        24 RETURN                           R0 0
 
@@ -94,8 +94,8 @@ PROTO_6:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+14]
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["shouldShowEmailDialog"]
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["shouldShowEmailDialog"]
         6 CALL                             R0 0 1
         7 JUMPIFNOT                        R0 ; [+9]
         8 GETUPVAL                         R0 1
@@ -124,15 +124,15 @@ PROTO_6:
        34 GETUPVAL                         R0 9
        35 LOADB                            R1 1
        36 CALL                             R0 1 0
-       37 GETUPVAL                         R1 10
-       38 GETTABLEKS                       R0 R1 K4 ["saveAll"]
+       37 GETUPVAL                         R0 10
+       38 GETTABLEKS                       R0 R0 K4 ["saveAll"]
        40 GETUPVAL                         R1 11
        41 GETUPVAL                         R2 12
        42 GETUPVAL                         R3 13
        43 LOADNIL                          R4
        44 GETUPVAL                         R5 14
-       45 GETUPVAL                         R7 15
-       46 GETTABLEKS                       R6 R7 K5 ["OwnedGroups"]
+       45 GETUPVAL                         R6 15
+       46 GETTABLEKS                       R6 R6 K5 ["OwnedGroups"]
        48 CALL                             R0 6 0
        49 RETURN                           R0 0
 
@@ -177,15 +177,15 @@ PROTO_8:
        32 GETUPVAL                         R5 8
        33 LOADB                            R6 1
        34 CALL                             R5 1 0
-       35 GETUPVAL                         R6 9
-       36 GETTABLEKS                       R5 R6 K6 ["saveAll"]
+       35 GETUPVAL                         R5 9
+       36 GETTABLEKS                       R5 R5 K6 ["saveAll"]
        38 GETUPVAL                         R6 10
        39 GETUPVAL                         R7 11
        40 GETUPVAL                         R8 12
        41 MOVE                             R9 R1
        42 GETUPVAL                         R10 13
-       43 GETUPVAL                         R12 14
-       44 GETTABLEKS                       R11 R12 K7 ["OwnedGroups"]
+       43 GETUPVAL                         R11 14
+       44 GETTABLEKS                       R11 R11 K7 ["OwnedGroups"]
        46 CALL                             R5 6 0
        47 RETURN                           R0 0
        48 GETUPVAL                         R5 7
@@ -222,8 +222,8 @@ PROTO_9:
        17 GETTABLEKS                       R8 R1 K8 ["Changed"]
        19 GETTABLEKS                       R9 R1 K9 ["IsPublish"]
        21 GETTABLEKS                       R10 R1 K10 ["dispatchSetIsPublishing"]
-       23 GETTABLEKS                       R12 R0 K11 ["state"]
-       25 GETTABLEKS                       R11 R12 K12 ["selected"]
+       23 GETTABLEKS                       R11 R0 K11 ["state"]
+       25 GETTABLEKS                       R11 R11 K12 ["selected"]
        27 LOADNIL                          R12
        28 JUMPIFNOT                        R9 ; [+2]
        29 LOADK                            R12 K13 ["Create"]
@@ -235,8 +235,8 @@ PROTO_9:
        35 JUMP                             ; [+1]
        36 LOADK                            R13 K16 ["UpdateExistingGame"]
        37 DUPTABLE                         R14 K20 [{"MenuBar", "Separator", "Footer"}]
-       38 GETUPVAL                         R16 1
-       39 GETTABLEKS                       R15 R16 K21 ["createElement"]
+       38 GETUPVAL                         R15 1
+       39 GETTABLEKS                       R15 R15 K21 ["createElement"]
        41 GETUPVAL                         R16 2
        42 DUPTABLE                         R17 K25 [{"Entries", "Selected", "SelectionChanged"}]
        43 GETUPVAL                         R18 3
@@ -246,8 +246,8 @@ PROTO_9:
        50 SETTABLEKS                       R18 R17 K24 ["SelectionChanged"]
        52 CALL                             R15 2 1
        53 SETTABLEKS                       R15 R14 K17 ["MenuBar"]
-       55 GETUPVAL                         R16 1
-       56 GETTABLEKS                       R15 R16 K21 ["createElement"]
+       55 GETUPVAL                         R15 1
+       56 GETTABLEKS                       R15 R15 K21 ["createElement"]
        58 GETUPVAL                         R16 4
        59 DUPTABLE                         R17 K29 [{"Position", "DominantAxis"}]
        60 GETIMPORT                        R18 K32 [UDim2.new]
@@ -261,8 +261,8 @@ PROTO_9:
        72 SETTABLEKS                       R18 R17 K28 ["DominantAxis"]
        74 CALL                             R15 2 1
        75 SETTABLEKS                       R15 R14 K18 ["Separator"]
-       77 GETUPVAL                         R16 1
-       78 GETTABLEKS                       R15 R16 K21 ["createElement"]
+       77 GETUPVAL                         R15 1
+       78 GETTABLEKS                       R15 R15 K21 ["createElement"]
        80 GETUPVAL                         R16 5
        81 DUPTABLE                         R17 K41 [{"MainButton", "OnClose", "NextScreen", "NextScreenText", "IsPublish"}]
        82 DUPTABLE                         R18 K45 [{"Name", "Active", "OnActivated"}]
@@ -291,27 +291,27 @@ PROTO_9:
       107 SETTABLEKS                       R19 R18 K44 ["OnActivated"]
       109 SETTABLEKS                       R18 R17 K38 ["MainButton"]
       111 SETTABLEKS                       R5 R17 K5 ["OnClose"]
-      113 GETUPVAL                         R20 15
-      114 GETTABLEKS                       R19 R20 K46 ["SCREENS"]
-      116 GETTABLEKS                       R18 R19 K47 ["CHOOSE_GAME"]
+      113 GETUPVAL                         R18 15
+      114 GETTABLEKS                       R18 R18 K46 ["SCREENS"]
+      116 GETTABLEKS                       R18 R18 K47 ["CHOOSE_GAME"]
       118 SETTABLEKS                       R18 R17 K39 ["NextScreen"]
       120 SETTABLEKS                       R13 R17 K40 ["NextScreenText"]
       122 SETTABLEKS                       R9 R17 K9 ["IsPublish"]
       124 DUPTABLE                         R18 K49 [{"EmailDialog"}]
-      125 GETUPVAL                         R20 1
-      126 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      125 GETUPVAL                         R19 1
+      126 GETTABLEKS                       R19 R19 K21 ["createElement"]
       128 GETUPVAL                         R20 16
       129 DUPTABLE                         R21 K59 [{"Enabled", "Size", "Title", "Header", "Buttons", "Body", "Description", "TextInput", "OnClose", "OnButtonPressed"}]
-      130 GETTABLEKS                       R23 R0 K11 ["state"]
-      132 GETTABLEKS                       R22 R23 K60 ["showEmailDialog"]
+      130 GETTABLEKS                       R22 R0 K11 ["state"]
+      132 GETTABLEKS                       R22 R22 K60 ["showEmailDialog"]
       134 SETTABLEKS                       R22 R21 K50 ["Enabled"]
       136 GETIMPORT                        R22 K62 [Vector2.new]
-      138 GETTABLEKS                       R25 R2 K63 ["emailDialog"]
-      140 GETTABLEKS                       R24 R25 K51 ["Size"]
-      142 GETTABLEKS                       R23 R24 K64 ["X"]
-      144 GETTABLEKS                       R26 R2 K63 ["emailDialog"]
-      146 GETTABLEKS                       R25 R26 K51 ["Size"]
-      148 GETTABLEKS                       R24 R25 K65 ["Y"]
+      138 GETTABLEKS                       R23 R2 K63 ["emailDialog"]
+      140 GETTABLEKS                       R23 R23 K51 ["Size"]
+      142 GETTABLEKS                       R23 R23 K64 ["X"]
+      144 GETTABLEKS                       R24 R2 K63 ["emailDialog"]
+      146 GETTABLEKS                       R24 R24 K51 ["Size"]
+      148 GETTABLEKS                       R24 R24 K65 ["Y"]
       150 CALL                             R22 2 1
       151 SETTABLEKS                       R22 R21 K51 ["Size"]
       153 GETUPVAL                         R24 7
@@ -366,8 +366,8 @@ PROTO_9:
       222 NAMECALL                         R25 R3 K67 ["getText"]
       224 CALL                             R25 3 1
       225 SETTABLEKS                       R25 R24 K76 ["PlaceholderText"]
-      227 GETTABLEKS                       R26 R0 K11 ["state"]
-      229 GETTABLEKS                       R25 R26 K82 ["bottomText"]
+      227 GETTABLEKS                       R25 R0 K11 ["state"]
+      229 GETTABLEKS                       R25 R25 K82 ["bottomText"]
       231 SETTABLEKS                       R25 R24 K79 ["BottomText"]
       233 SETLIST                          R22 R23 2 [1]
       235 SETTABLEKS                       R22 R21 K57 ["TextInput"]
@@ -395,8 +395,8 @@ PROTO_9:
       260 SETTABLEKS                       R19 R18 K48 ["EmailDialog"]
       262 CALL                             R15 3 1
       263 SETTABLEKS                       R15 R14 K19 ["Footer"]
-      265 GETUPVAL                         R16 1
-      266 GETTABLEKS                       R15 R16 K21 ["createElement"]
+      265 GETUPVAL                         R15 1
+      266 GETTABLEKS                       R15 R15 K21 ["createElement"]
       268 GETUPVAL                         R16 17
       269 NEWTABLE                         R17 8 0
       271 LOADN                            R18 1
@@ -427,13 +427,13 @@ PROTO_9:
       306 SETTABLEKS                       R18 R17 K85 ["CanvasSize"]
       308 GETIMPORT                        R18 K87 [Enum.AutomaticSize.Y]
       310 SETTABLEKS                       R18 R17 K88 ["AutomaticCanvasSize"]
-      312 GETUPVAL                         R19 1
-      313 GETTABLEKS                       R18 R19 K89 ["Ref"]
+      312 GETUPVAL                         R18 1
+      313 GETTABLEKS                       R18 R18 K89 ["Ref"]
       315 GETTABLEKS                       R19 R0 K90 ["scrollingFrameRef"]
       317 SETTABLE                         R19 R17 R18
       318 NEWTABLE                         R18 0 1
-      320 GETUPVAL                         R20 1
-      321 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      320 GETUPVAL                         R19 1
+      321 GETTABLEKS                       R19 R19 K21 ["createElement"]
       323 GETUPVAL                         R20 18
       324 DUPTABLE                         R21 K91 [{"IsPublish"}]
       325 SETTABLEKS                       R9 R21 K9 ["IsPublish"]
@@ -441,8 +441,8 @@ PROTO_9:
       328 SETLIST                          R18 R19 -1 [1]
       330 CALL                             R15 3 1
       331 SETTABLEKS                       R15 R14 K92 ["Page"]
-      333 GETUPVAL                         R16 1
-      334 GETTABLEKS                       R15 R16 K21 ["createElement"]
+      333 GETUPVAL                         R15 1
+      334 GETTABLEKS                       R15 R15 K21 ["createElement"]
       336 LOADK                            R16 K93 ["Frame"]
       337 DUPTABLE                         R17 K95 [{"Size", "BackgroundColor3"}]
       338 GETIMPORT                        R18 K32 [UDim2.new]
@@ -460,9 +460,9 @@ PROTO_9:
 
 PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["NewGameSettings"]
-        2 GETTABLEKS                       R5 R0 K1 ["GroupsHavePermission"]
-        4 GETTABLEKS                       R4 R5 K2 ["groupInfo"]
-        6 GETTABLEKS                       R3 R4 K3 ["ownedGroups"]
+        2 GETTABLEKS                       R3 R0 K1 ["GroupsHavePermission"]
+        4 GETTABLEKS                       R3 R3 K2 ["groupInfo"]
+        6 GETTABLEKS                       R3 R3 K3 ["ownedGroups"]
         8 DUPTABLE                         R4 K9 [{"Changed", "ReadyToSave", "IsPublishing", "ChangedOptInLocations", "OwnedGroups"}]
         9 GETTABLEKS                       R5 R2 K10 ["changed"]
        11 SETTABLEKS                       R5 R4 K4 ["Changed"]
@@ -473,11 +473,11 @@ PROTO_10:
        20 LOADB                            R5 0 +1
        21 LOADB                            R5 1
        22 SETTABLEKS                       R5 R4 K5 ["ReadyToSave"]
-       24 GETTABLEKS                       R6 R0 K14 ["PublishedPlace"]
-       26 GETTABLEKS                       R5 R6 K15 ["isPublishing"]
+       24 GETTABLEKS                       R5 R0 K14 ["PublishedPlace"]
+       26 GETTABLEKS                       R5 R5 K15 ["isPublishing"]
        28 SETTABLEKS                       R5 R4 K6 ["IsPublishing"]
-       30 GETTABLEKS                       R6 R2 K10 ["changed"]
-       32 GETTABLEKS                       R5 R6 K16 ["OptInLocations"]
+       30 GETTABLEKS                       R5 R2 K10 ["changed"]
+       32 GETTABLEKS                       R5 R5 K16 ["OptInLocations"]
        34 SETTABLEKS                       R5 R4 K7 ["ChangedOptInLocations"]
        36 SETTABLEKS                       R3 R4 K8 ["OwnedGroups"]
        38 RETURN                           R4 1
@@ -486,8 +486,8 @@ PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 DUPTABLE                         R3 K3 [{"id", "name", "parentGameName"}]
-        3 GETIMPORT                        R5 K5 [game]
-        5 GETTABLEKS                       R4 R5 K6 ["GameId"]
+        3 GETIMPORT                        R4 K5 [game]
+        5 GETTABLEKS                       R4 R4 K6 ["GameId"]
         7 SETTABLEKS                       R4 R3 K0 ["id"]
         9 GETTABLEKS                       R4 R0 K1 ["name"]
        11 SETTABLEKS                       R4 R3 K1 ["name"]
@@ -497,9 +497,9 @@ PROTO_11:
        18 CALL                             R1 -1 0
        19 GETUPVAL                         R1 0
        20 GETUPVAL                         R2 2
-       21 GETUPVAL                         R5 3
-       22 GETTABLEKS                       R4 R5 K7 ["SCREENS"]
-       24 GETTABLEKS                       R3 R4 K8 ["PUBLISH_SUCCESSFUL"]
+       21 GETUPVAL                         R3 3
+       22 GETTABLEKS                       R3 R3 K7 ["SCREENS"]
+       24 GETTABLEKS                       R3 R3 K8 ["PUBLISH_SUCCESSFUL"]
        26 CALL                             R2 1 -1
        27 CALL                             R1 -1 0
        28 RETURN                           R0 0
@@ -508,8 +508,8 @@ PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 DUPTABLE                         R3 K6 [{"id", "name", "parentGameName", "parentGameId", "settings", "failed"}]
-        3 GETIMPORT                        R5 K8 [game]
-        5 GETTABLEKS                       R4 R5 K9 ["GameId"]
+        3 GETIMPORT                        R4 K8 [game]
+        5 GETTABLEKS                       R4 R4 K9 ["GameId"]
         7 SETTABLEKS                       R4 R3 K0 ["id"]
         9 GETTABLEKS                       R4 R0 K1 ["name"]
        11 SETTABLEKS                       R4 R3 K1 ["name"]
@@ -524,9 +524,9 @@ PROTO_12:
        26 CALL                             R1 -1 0
        27 GETUPVAL                         R1 0
        28 GETUPVAL                         R2 2
-       29 GETUPVAL                         R5 3
-       30 GETTABLEKS                       R4 R5 K10 ["SCREENS"]
-       32 GETTABLEKS                       R3 R4 K11 ["PUBLISH_FAIL"]
+       29 GETUPVAL                         R3 3
+       30 GETTABLEKS                       R3 R3 K10 ["SCREENS"]
+       32 GETTABLEKS                       R3 R3 K11 ["PUBLISH_FAIL"]
        34 CALL                             R2 1 -1
        35 CALL                             R1 -1 0
        36 RETURN                           R0 0
@@ -614,113 +614,113 @@ PROTO_17:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETTABLEKS                       R6 R3 K11 ["UI"]
        36 GETTABLEKS                       R7 R6 K12 ["ScrollingFrame"]
        38 GETIMPORT                        R8 K4 [require]
-       40 GETTABLEKS                       R12 R0 K13 ["Src"]
-       42 GETTABLEKS                       R11 R12 K14 ["Network"]
-       44 GETTABLEKS                       R10 R11 K15 ["Requests"]
-       46 GETTABLEKS                       R9 R10 K16 ["SettingsImpl"]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Network"]
+       44 GETTABLEKS                       R9 R9 K15 ["Requests"]
+       46 GETTABLEKS                       R9 R9 K16 ["SettingsImpl"]
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K4 [require]
-       51 GETTABLEKS                       R12 R0 K13 ["Src"]
-       53 GETTABLEKS                       R11 R12 K17 ["Resources"]
-       55 GETTABLEKS                       R10 R11 K18 ["Constants"]
+       51 GETTABLEKS                       R10 R0 K13 ["Src"]
+       53 GETTABLEKS                       R10 R10 K17 ["Resources"]
+       55 GETTABLEKS                       R10 R10 K18 ["Constants"]
        57 CALL                             R9 1 1
-       58 GETTABLEKS                       R11 R3 K11 ["UI"]
-       60 GETTABLEKS                       R10 R11 K19 ["Separator"]
+       58 GETTABLEKS                       R10 R3 K11 ["UI"]
+       60 GETTABLEKS                       R10 R10 K19 ["Separator"]
        62 GETIMPORT                        R11 K4 [require]
-       64 GETTABLEKS                       R15 R0 K13 ["Src"]
-       66 GETTABLEKS                       R14 R15 K20 ["Components"]
-       68 GETTABLEKS                       R13 R14 K21 ["Menu"]
-       70 GETTABLEKS                       R12 R13 K22 ["MenuBar"]
+       64 GETTABLEKS                       R12 R0 K13 ["Src"]
+       66 GETTABLEKS                       R12 R12 K20 ["Components"]
+       68 GETTABLEKS                       R12 R12 K21 ["Menu"]
+       70 GETTABLEKS                       R12 R12 K22 ["MenuBar"]
        72 CALL                             R11 1 1
        73 GETIMPORT                        R12 K4 [require]
-       75 GETTABLEKS                       R15 R0 K13 ["Src"]
-       77 GETTABLEKS                       R14 R15 K20 ["Components"]
-       79 GETTABLEKS                       R13 R14 K23 ["Footer"]
+       75 GETTABLEKS                       R13 R0 K13 ["Src"]
+       77 GETTABLEKS                       R13 R13 K20 ["Components"]
+       79 GETTABLEKS                       R13 R13 K23 ["Footer"]
        81 CALL                             R12 1 1
        82 GETIMPORT                        R13 K4 [require]
-       84 GETTABLEKS                       R16 R0 K13 ["Src"]
-       86 GETTABLEKS                       R15 R16 K20 ["Components"]
-       88 GETTABLEKS                       R14 R15 K24 ["BasicInfo"]
+       84 GETTABLEKS                       R14 R0 K13 ["Src"]
+       86 GETTABLEKS                       R14 R14 K20 ["Components"]
+       88 GETTABLEKS                       R14 R14 K24 ["BasicInfo"]
        90 CALL                             R13 1 1
        91 GETIMPORT                        R14 K4 [require]
-       93 GETTABLEKS                       R17 R0 K13 ["Src"]
-       95 GETTABLEKS                       R16 R17 K25 ["Actions"]
-       97 GETTABLEKS                       R15 R16 K26 ["AddChange"]
+       93 GETTABLEKS                       R15 R0 K13 ["Src"]
+       95 GETTABLEKS                       R15 R15 K25 ["Actions"]
+       97 GETTABLEKS                       R15 R15 K26 ["AddChange"]
        99 CALL                             R14 1 1
       100 GETIMPORT                        R15 K4 [require]
-      102 GETTABLEKS                       R18 R0 K13 ["Src"]
-      104 GETTABLEKS                       R17 R18 K25 ["Actions"]
-      106 GETTABLEKS                       R16 R17 K27 ["SetIsPublishing"]
+      102 GETTABLEKS                       R16 R0 K13 ["Src"]
+      104 GETTABLEKS                       R16 R16 K25 ["Actions"]
+      106 GETTABLEKS                       R16 R16 K27 ["SetIsPublishing"]
       108 CALL                             R15 1 1
       109 GETIMPORT                        R16 K4 [require]
-      111 GETTABLEKS                       R19 R0 K13 ["Src"]
-      113 GETTABLEKS                       R18 R19 K25 ["Actions"]
-      115 GETTABLEKS                       R17 R18 K28 ["SetScreen"]
+      111 GETTABLEKS                       R17 R0 K13 ["Src"]
+      113 GETTABLEKS                       R17 R17 K25 ["Actions"]
+      115 GETTABLEKS                       R17 R17 K28 ["SetScreen"]
       117 CALL                             R16 1 1
       118 GETIMPORT                        R17 K4 [require]
-      120 GETTABLEKS                       R20 R0 K13 ["Src"]
-      122 GETTABLEKS                       R19 R20 K25 ["Actions"]
-      124 GETTABLEKS                       R18 R19 K29 ["SetPublishInfo"]
+      120 GETTABLEKS                       R18 R0 K13 ["Src"]
+      122 GETTABLEKS                       R18 R18 K25 ["Actions"]
+      124 GETTABLEKS                       R18 R18 K29 ["SetPublishInfo"]
       126 CALL                             R17 1 1
       127 GETIMPORT                        R18 K4 [require]
-      129 GETTABLEKS                       R21 R0 K13 ["Src"]
-      131 GETTABLEKS                       R20 R21 K30 ["Thunks"]
-      133 GETTABLEKS                       R19 R20 K31 ["LoadGroups"]
+      129 GETTABLEKS                       R19 R0 K13 ["Src"]
+      131 GETTABLEKS                       R19 R19 K30 ["Thunks"]
+      133 GETTABLEKS                       R19 R19 K31 ["LoadGroups"]
       135 CALL                             R18 1 1
       136 GETIMPORT                        R19 K4 [require]
-      138 GETTABLEKS                       R22 R0 K13 ["Src"]
-      140 GETTABLEKS                       R21 R22 K30 ["Thunks"]
-      142 GETTABLEKS                       R20 R21 K32 ["LoadDataSharingDefault"]
+      138 GETTABLEKS                       R20 R0 K13 ["Src"]
+      140 GETTABLEKS                       R20 R20 K30 ["Thunks"]
+      142 GETTABLEKS                       R20 R20 K32 ["LoadDataSharingDefault"]
       144 CALL                             R19 1 1
-      145 GETIMPORT                        R21 K4 [require]
-      147 GETTABLEKS                       R24 R0 K13 ["Src"]
-      149 GETTABLEKS                       R23 R24 K33 ["Util"]
-      151 GETTABLEKS                       R22 R23 K34 ["PublishPlaceAsUtilities"]
-      153 CALL                             R21 1 1
-      154 GETTABLEKS                       R20 R21 K35 ["shouldShowDevPublishLocations"]
-      156 GETIMPORT                        R22 K4 [require]
-      158 GETTABLEKS                       R25 R0 K13 ["Src"]
-      160 GETTABLEKS                       R24 R25 K33 ["Util"]
-      162 GETTABLEKS                       R23 R24 K34 ["PublishPlaceAsUtilities"]
-      164 CALL                             R22 1 1
-      165 GETTABLEKS                       R21 R22 K36 ["sendAnalyticsToKibana"]
+      145 GETIMPORT                        R20 K4 [require]
+      147 GETTABLEKS                       R21 R0 K13 ["Src"]
+      149 GETTABLEKS                       R21 R21 K33 ["Util"]
+      151 GETTABLEKS                       R21 R21 K34 ["PublishPlaceAsUtilities"]
+      153 CALL                             R20 1 1
+      154 GETTABLEKS                       R20 R20 K35 ["shouldShowDevPublishLocations"]
+      156 GETIMPORT                        R21 K4 [require]
+      158 GETTABLEKS                       R22 R0 K13 ["Src"]
+      160 GETTABLEKS                       R22 R22 K33 ["Util"]
+      162 GETTABLEKS                       R22 R22 K34 ["PublishPlaceAsUtilities"]
+      164 CALL                             R21 1 1
+      165 GETTABLEKS                       R21 R21 K36 ["sendAnalyticsToKibana"]
       167 GETIMPORT                        R22 K38 [game]
       169 LOADK                            R24 K39 ["LuobuDevPublishAnalyticsHundredthsPercentage"]
       170 NAMECALL                         R22 R22 K40 ["GetFastInt"]
       172 CALL                             R22 2 1
       173 GETIMPORT                        R23 K4 [require]
-      175 GETTABLEKS                       R26 R0 K13 ["Src"]
-      177 GETTABLEKS                       R25 R26 K41 ["Flags"]
-      179 GETTABLEKS                       R24 R25 K42 ["getFFlagPublishPlaceAsGameToExperience"]
+      175 GETTABLEKS                       R24 R0 K13 ["Src"]
+      177 GETTABLEKS                       R24 R24 K41 ["Flags"]
+      179 GETTABLEKS                       R24 R24 K42 ["getFFlagPublishPlaceAsGameToExperience"]
       181 CALL                             R23 1 1
       182 CALL                             R23 0 1
-      183 GETTABLEKS                       R25 R3 K11 ["UI"]
-      185 GETTABLEKS                       R24 R25 K43 ["TextInputDialog"]
+      183 GETTABLEKS                       R24 R3 K11 ["UI"]
+      185 GETTABLEKS                       R24 R24 K43 ["TextInputDialog"]
       187 GETIMPORT                        R25 K4 [require]
-      189 GETTABLEKS                       R28 R0 K13 ["Src"]
-      191 GETTABLEKS                       R27 R28 K33 ["Util"]
-      193 GETTABLEKS                       R26 R27 K44 ["KeyProvider"]
+      189 GETTABLEKS                       R26 R0 K13 ["Src"]
+      191 GETTABLEKS                       R26 R26 K33 ["Util"]
+      193 GETTABLEKS                       R26 R26 K44 ["KeyProvider"]
       195 CALL                             R25 1 1
       196 GETTABLEKS                       R26 R25 K45 ["getOptInLocationsKeyName"]
       198 CALL                             R26 0 1

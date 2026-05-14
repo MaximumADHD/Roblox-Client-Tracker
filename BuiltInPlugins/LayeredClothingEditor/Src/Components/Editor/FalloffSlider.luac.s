@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Analytics"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Analytics"]
         5 LOADK                            R2 K2 ["FalloffSliderAdjusted"]
         6 NAMECALL                         R0 R0 K3 ["getHandler"]
         8 CALL                             R0 2 1
@@ -9,9 +9,9 @@ PROTO_0:
        10 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["LuaMeshEditingModuleContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["LuaMeshEditingModuleContext"]
         5 NAMECALL                         R2 R1 K2 ["getCurrentTool"]
         7 CALL                             R2 1 1
         8 JUMPIF                           R2 ; [+1]
@@ -28,8 +28,8 @@ PROTO_1:
 
 PROTO_2:
         0 DUPTABLE                         R1 K1 [{"falloff"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K2 ["DEFAULT_FALLOFF"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K2 ["DEFAULT_FALLOFF"]
         4 SETTABLEKS                       R2 R1 K0 ["falloff"]
         6 SETTABLEKS                       R1 R0 K3 ["state"]
         8 NEWCLOSURE                       R1 P0
@@ -41,8 +41,8 @@ PROTO_2:
        16 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["LuaMeshEditingModuleContext"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["LuaMeshEditingModuleContext"]
         4 NAMECALL                         R2 R1 K2 ["getCurrentTool"]
         6 CALL                             R2 1 1
         7 JUMPIFNOT                        R2 ; [+9]
@@ -63,8 +63,8 @@ PROTO_4:
        10 GETTABLEKS                       R6 R1 K5 ["ShowMinimal"]
        12 GETTABLEKS                       R7 R1 K6 ["Localization"]
        14 GETTABLEKS                       R8 R1 K7 ["Stylizer"]
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K8 ["createElement"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K8 ["createElement"]
        19 GETUPVAL                         R10 1
        20 DUPTABLE                         R11 K21 [{"Title", "Value", "MaxValue", "SnapIncrement", "Height", "UsePercentage", "LayoutOrder", "SetValue", "ShowInputField", "ShowBackground", "IsDisabled", "OnChangeBegan", "OnTextBoxValueChanged"}]
        21 JUMPIF                           R6 ; [+6]
@@ -76,8 +76,8 @@ PROTO_4:
        28 LOADNIL                          R12
        29 SETTABLEKS                       R12 R11 K9 ["Title"]
        31 SETTABLEKS                       R3 R11 K10 ["Value"]
-       33 GETUPVAL                         R13 2
-       34 GETTABLEKS                       R12 R13 K25 ["MAX_FALLOFF"]
+       33 GETUPVAL                         R12 2
+       34 GETTABLEKS                       R12 R12 K25 ["MAX_FALLOFF"]
        36 SETTABLEKS                       R12 R11 K11 ["MaxValue"]
        38 LOADK                            R12 K26 [0.1]
        39 SETTABLEKS                       R12 R11 K12 ["SnapIncrement"]
@@ -103,31 +103,31 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["AvatarToolsShared"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["AvatarToolsShared"]
        24 CALL                             R2 1 1
-       25 GETTABLEKS                       R4 R2 K8 ["Contexts"]
-       27 GETTABLEKS                       R3 R4 K9 ["LuaMeshEditingModuleContext"]
+       25 GETTABLEKS                       R3 R2 K8 ["Contexts"]
+       27 GETTABLEKS                       R3 R3 K9 ["LuaMeshEditingModuleContext"]
        29 GETTABLEKS                       R4 R2 K10 ["Components"]
        31 GETTABLEKS                       R5 R4 K11 ["SliderSetting"]
        33 GETIMPORT                        R6 K4 [require]
-       35 GETTABLEKS                       R9 R0 K12 ["Src"]
-       37 GETTABLEKS                       R8 R9 K13 ["Util"]
-       39 GETTABLEKS                       R7 R8 K14 ["Constants"]
+       35 GETTABLEKS                       R7 R0 K12 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Util"]
+       39 GETTABLEKS                       R7 R7 K14 ["Constants"]
        41 CALL                             R6 1 1
        42 GETIMPORT                        R7 K4 [require]
-       44 GETTABLEKS                       R9 R0 K5 ["Packages"]
-       46 GETTABLEKS                       R8 R9 K15 ["Framework"]
+       44 GETTABLEKS                       R8 R0 K5 ["Packages"]
+       46 GETTABLEKS                       R8 R8 K15 ["Framework"]
        48 CALL                             R7 1 1
        49 GETTABLEKS                       R8 R7 K16 ["ContextServices"]
        51 GETTABLEKS                       R9 R8 K17 ["withContext"]

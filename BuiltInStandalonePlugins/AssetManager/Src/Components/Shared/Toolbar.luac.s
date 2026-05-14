@@ -4,8 +4,8 @@ PROTO_0:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 GETUPVAL                         R8 0
-        7 GETTABLEKS                       R7 R8 K0 ["createElement"]
+        6 GETUPVAL                         R7 0
+        7 GETTABLEKS                       R7 R7 K0 ["createElement"]
         9 GETUPVAL                         R8 1
        10 NEWTABLE                         R9 8 0
        12 SETTABLEKS                       R5 R9 K1 ["LayoutOrder"]
@@ -17,8 +17,8 @@ PROTO_0:
        23 SETTABLEKS                       R10 R9 K5 ["Text"]
        25 GETTABLEKS                       R10 R6 K6 ["Icon"]
        27 SETTABLEKS                       R10 R9 K6 ["Icon"]
-       29 GETUPVAL                         R11 0
-       30 GETTABLEKS                       R10 R11 K7 ["Tag"]
+       29 GETUPVAL                         R10 0
+       30 GETTABLEKS                       R10 R10 K7 ["Tag"]
        32 GETUPVAL                         R11 2
        33 LOADK                            R12 K8 ["X-Fit"]
        34 GETTABLEKS                       R13 R6 K9 ["Tags"]
@@ -33,10 +33,10 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["Buttons"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["createElement"]
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K2 ["View"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["createElement"]
+        7 GETUPVAL                         R3 2
+        8 GETTABLEKS                       R3 R3 K2 ["View"]
        10 DUPTABLE                         R4 K5 [{"LayoutOrder", "tag"}]
        11 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
        13 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
@@ -53,19 +53,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R5 R3 K10 ["Styling"]
-       30 GETTABLEKS                       R4 R5 K11 ["joinTags"]
+       28 GETTABLEKS                       R4 R3 K10 ["Styling"]
+       30 GETTABLEKS                       R4 R4 K11 ["joinTags"]
        32 GETTABLEKS                       R5 R3 K12 ["UI"]
        34 GETTABLEKS                       R6 R5 K13 ["IconButton"]
        36 DUPCLOSURE                       R7 K14 [PROTO_0]

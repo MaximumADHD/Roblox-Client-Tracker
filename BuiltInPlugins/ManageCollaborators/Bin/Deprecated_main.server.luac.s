@@ -7,9 +7,9 @@ MAIN:
         7 JUMPIFNOT                        R0 ; [+1]
         8 RETURN                           R0 0
         9 GETIMPORT                        R0 K5 [require]
-       11 GETIMPORT                        R3 K7 [script]
-       13 GETTABLEKS                       R2 R3 K8 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K9 ["main"]
+       11 GETIMPORT                        R1 K7 [script]
+       13 GETTABLEKS                       R1 R1 K8 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K9 ["main"]
        17 CALL                             R0 1 1
        18 MOVE                             R1 R0
        19 GETIMPORT                        R2 K11 [plugin]

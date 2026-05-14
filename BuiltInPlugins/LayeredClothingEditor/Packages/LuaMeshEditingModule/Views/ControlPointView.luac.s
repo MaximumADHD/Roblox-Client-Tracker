@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 1
         4 JUMPIFEQ                         R0 R1 ; [+5]
         6 GETUPVAL                         R0 0
@@ -39,8 +39,8 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 1
         4 JUMPIFEQ                         R0 R1 ; [+5]
         6 GETUPVAL                         R0 0
@@ -94,8 +94,8 @@ PROTO_5:
        33 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["controlPoint"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["controlPoint"]
         3 JUMPIF                           R0 ; [+6]
         4 GETUPVAL                         R0 0
         5 GETUPVAL                         R1 1
@@ -103,25 +103,25 @@ PROTO_6:
         7 CALL                             R1 1 1
         8 SETTABLEKS                       R1 R0 K0 ["controlPoint"]
        10 GETUPVAL                         R1 3
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K1 ["adornment"]
-       14 GETTABLEKS                       R3 R4 K2 ["CFrame"]
-       16 GETTABLEKS                       R2 R3 K3 ["Position"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K1 ["adornment"]
+       14 GETTABLEKS                       R2 R2 K2 ["CFrame"]
+       16 GETTABLEKS                       R2 R2 K3 ["Position"]
        18 MUL                              R0 R1 R2
        19 FASTCALL                         VECTOR ; [+2]
        20 GETIMPORT                        R1 K6 [Vector3.new]
        22 CALL                             R1 0 1
        23 GETUPVAL                         R2 4
        24 JUMPIFNOTEQKS                    R2 K7 ["Box"] ; [+7]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K1 ["adornment"]
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K1 ["adornment"]
        29 GETTABLEKS                       R1 R2 K8 ["Size"]
        31 JUMP                             ; [+17]
        32 GETUPVAL                         R2 4
        33 JUMPIFNOTEQKS                    R2 K9 ["Sphere"] ; [+15]
-       35 GETUPVAL                         R4 0
-       36 GETTABLEKS                       R3 R4 K1 ["adornment"]
-       38 GETTABLEKS                       R2 R3 K10 ["Radius"]
+       35 GETUPVAL                         R2 0
+       36 GETTABLEKS                       R2 R2 K1 ["adornment"]
+       38 GETTABLEKS                       R2 R2 K10 ["Radius"]
        40 FASTCALL3                        VECTOR R2 R2 R2
        42 MOVE                             R4 R2
        43 MOVE                             R5 R2
@@ -129,8 +129,8 @@ PROTO_6:
        45 GETIMPORT                        R3 K6 [Vector3.new]
        47 CALL                             R3 3 1
        48 MOVE                             R1 R3
-       49 GETUPVAL                         R3 0
-       50 GETTABLEKS                       R2 R3 K0 ["controlPoint"]
+       49 GETUPVAL                         R2 0
+       50 GETTABLEKS                       R2 R2 K0 ["controlPoint"]
        52 MOVE                             R3 R1
        53 GETUPVAL                         R4 5
        54 GETIMPORT                        R5 K11 [CFrame.new]
@@ -142,11 +142,11 @@ PROTO_6:
        64 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["controlPoint"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["controlPoint"]
         3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["controlPoint"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["controlPoint"]
         7 NAMECALL                         R0 R0 K1 ["Destroy"]
         9 CALL                             R0 1 0
        10 GETUPVAL                         R0 0
@@ -210,8 +210,8 @@ PROTO_8:
        77 MOVE                             R17 R11
        78 CALL                             R15 2 1
        79 SETTABLEKS                       R15 R0 K19 ["adornment"]
-       81 GETTABLEKS                       R16 R0 K19 ["adornment"]
-       83 GETTABLEKS                       R15 R16 K23 ["MouseEnter"]
+       81 GETTABLEKS                       R15 R0 K19 ["adornment"]
+       83 GETTABLEKS                       R15 R15 K23 ["MouseEnter"]
        85 NEWCLOSURE                       R17 P0
        86 CAPTURE                          VAL R0
        87 CAPTURE                          UPVAL U5
@@ -221,8 +221,8 @@ PROTO_8:
        91 CAPTURE                          VAL R9
        92 NAMECALL                         R15 R15 K24 ["Connect"]
        94 CALL                             R15 2 0
-       95 GETTABLEKS                       R16 R0 K19 ["adornment"]
-       97 GETTABLEKS                       R15 R16 K25 ["MouseLeave"]
+       95 GETTABLEKS                       R15 R0 K19 ["adornment"]
+       97 GETTABLEKS                       R15 R15 K25 ["MouseLeave"]
        99 NEWCLOSURE                       R17 P1
       100 CAPTURE                          VAL R0
       101 NAMECALL                         R15 R15 K24 ["Connect"]
@@ -308,27 +308,27 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Views"]
-       11 GETTABLEKS                       R2 R3 K6 ["types"]
+        9 GETTABLEKS                       R2 R0 K5 ["Views"]
+       11 GETTABLEKS                       R2 R2 K6 ["types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K4 [require]
-       16 GETTABLEKS                       R4 R0 K7 ["Util"]
-       18 GETTABLEKS                       R3 R4 K8 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K7 ["Util"]
+       18 GETTABLEKS                       R3 R3 K8 ["Constants"]
        20 CALL                             R2 1 1
        21 NEWTABLE                         R3 2 0
        23 SETTABLEKS                       R3 R3 K9 ["__index"]
-       25 GETTABLEKS                       R5 R2 K10 ["ControlPoint"]
-       27 GETTABLEKS                       R4 R5 K11 ["DefaultColor"]
-       29 GETTABLEKS                       R6 R2 K10 ["ControlPoint"]
-       31 GETTABLEKS                       R5 R6 K12 ["HoveredColor"]
-       33 GETTABLEKS                       R7 R2 K10 ["ControlPoint"]
-       35 GETTABLEKS                       R6 R7 K13 ["SelectedColor"]
-       37 GETTABLEKS                       R8 R2 K10 ["ControlPoint"]
-       39 GETTABLEKS                       R7 R8 K14 ["SelectedColorNoWeight"]
+       25 GETTABLEKS                       R4 R2 K10 ["ControlPoint"]
+       27 GETTABLEKS                       R4 R4 K11 ["DefaultColor"]
+       29 GETTABLEKS                       R5 R2 K10 ["ControlPoint"]
+       31 GETTABLEKS                       R5 R5 K12 ["HoveredColor"]
+       33 GETTABLEKS                       R6 R2 K10 ["ControlPoint"]
+       35 GETTABLEKS                       R6 R6 K13 ["SelectedColor"]
+       37 GETTABLEKS                       R7 R2 K10 ["ControlPoint"]
+       39 GETTABLEKS                       R7 R7 K14 ["SelectedColorNoWeight"]
        41 DUPCLOSURE                       R8 K15 [PROTO_10]
        42 CAPTURE                          VAL R3
        43 CAPTURE                          VAL R4

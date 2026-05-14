@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["PartName"]
         5 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
         7 GETTABLEKS                       R4 R1 K3 ["Localization"]
@@ -8,8 +8,8 @@ PROTO_0:
        10 LOADK                            R8 K5 ["Part"]
        11 NAMECALL                         R5 R4 K6 ["getText"]
        13 CALL                             R5 3 1
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K7 ["createElement"]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K7 ["createElement"]
        17 GETUPVAL                         R7 2
        18 DUPTABLE                         R8 K12 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
        19 GETIMPORT                        R9 K15 [UDim2.new]
@@ -25,8 +25,8 @@ PROTO_0:
        35 GETIMPORT                        R9 K22 [Enum.HorizontalAlignment.Left]
        37 SETTABLEKS                       R9 R8 K11 ["HorizontalAlignment"]
        39 DUPTABLE                         R9 K25 [{"TextBoxLabel", "SelectedPartBox"}]
-       40 GETUPVAL                         R11 1
-       41 GETTABLEKS                       R10 R11 K7 ["createElement"]
+       40 GETUPVAL                         R10 1
+       41 GETTABLEKS                       R10 R10 K7 ["createElement"]
        43 GETUPVAL                         R11 3
        44 DUPTABLE                         R12 K29 [{"TextXAlignment", "TextYAlignment", "Size", "Text", "LayoutOrder"}]
        45 GETIMPORT                        R13 K30 [Enum.TextXAlignment.Left]
@@ -45,8 +45,8 @@ PROTO_0:
        66 SETTABLEKS                       R13 R12 K9 ["LayoutOrder"]
        68 CALL                             R10 2 1
        69 SETTABLEKS                       R10 R9 K23 ["TextBoxLabel"]
-       71 GETUPVAL                         R11 1
-       72 GETTABLEKS                       R10 R11 K7 ["createElement"]
+       71 GETUPVAL                         R10 1
+       72 GETTABLEKS                       R10 R10 K7 ["createElement"]
        74 GETUPVAL                         R11 4
        75 DUPTABLE                         R12 K38 [{"Enabled", "ShouldFocus", "Text", "Size", "LayoutOrder", "Style"}]
        76 LOADB                            R13 0
@@ -89,8 +89,8 @@ PROTO_2:
         9 LOADK                            R8 K5 ["Prompt"]
        10 NAMECALL                         R5 R4 K6 ["getText"]
        12 CALL                             R5 3 1
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K7 ["createElement"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K7 ["createElement"]
        16 GETUPVAL                         R7 1
        17 DUPTABLE                         R8 K16 [{"Title", "PromptText", "NextButtonText", "BackButtonText", "NextButtonEnabled", "HasBackButton", "GoToNext", "RenderContent"}]
        18 LOADK                            R11 K17 ["Editor"]
@@ -117,23 +117,23 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
        27 GETIMPORT                        R5 K4 [require]
-       29 GETTABLEKS                       R7 R0 K5 ["Packages"]
-       31 GETTABLEKS                       R6 R7 K10 ["AvatarToolsShared"]
+       29 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       31 GETTABLEKS                       R6 R6 K10 ["AvatarToolsShared"]
        33 CALL                             R5 1 1
        34 GETTABLEKS                       R6 R5 K11 ["Components"]
        36 GETTABLEKS                       R7 R6 K12 ["FlowScreenLayout"]

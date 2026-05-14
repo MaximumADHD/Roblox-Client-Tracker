@@ -7,20 +7,20 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Get"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Get"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["props"]
-        7 GETTABLEKS                       R2 R3 K2 ["tagName"]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K3 ["state"]
-       12 GETTABLEKS                       R3 R4 K4 ["color"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["props"]
+        7 GETTABLEKS                       R2 R2 K2 ["tagName"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K3 ["state"]
+       12 GETTABLEKS                       R3 R3 K4 ["color"]
        14 NAMECALL                         R0 R0 K5 ["SetColor"]
        16 CALL                             R0 3 0
-       17 GETUPVAL                         R2 1
-       18 GETTABLEKS                       R1 R2 K1 ["props"]
-       20 GETTABLEKS                       R0 R1 K6 ["close"]
+       17 GETUPVAL                         R0 1
+       18 GETTABLEKS                       R0 R0 K1 ["props"]
+       20 GETTABLEKS                       R0 R0 K6 ["close"]
        22 CALL                             R0 0 0
        23 RETURN                           R0 0
 
@@ -33,8 +33,8 @@ PROTO_2:
         6 CAPTURE                          VAL R0
         7 SETTABLEKS                       R1 R0 K1 ["onSave"]
         9 DUPTABLE                         R3 K3 [{"color"}]
-       10 GETTABLEKS                       R5 R0 K4 ["props"]
-       12 GETTABLEKS                       R4 R5 K5 ["tagColor"]
+       10 GETTABLEKS                       R4 R0 K4 ["props"]
+       12 GETTABLEKS                       R4 R4 K5 ["tagColor"]
        14 SETTABLEKS                       R4 R3 K2 ["color"]
        16 NAMECALL                         R1 R0 K6 ["setState"]
        18 CALL                             R1 2 0
@@ -42,15 +42,15 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["ColorPicker"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K3 ["new"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["ColorPicker"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K3 ["new"]
         9 CALL                             R3 0 1
-       10 GETTABLEKS                       R5 R0 K4 ["state"]
-       12 GETTABLEKS                       R4 R5 K5 ["colo"]
-       14 GETUPVAL                         R6 1
-       15 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       10 GETTABLEKS                       R4 R0 K4 ["state"]
+       12 GETTABLEKS                       R4 R4 K5 ["colo"]
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R5 R5 K6 ["createElement"]
        17 GETUPVAL                         R6 2
        18 DUPTABLE                         R7 K10 [{"Layout", "Padding", "Spacing"}]
        19 GETIMPORT                        R8 K14 [Enum.FillDirection.Vertical]
@@ -60,8 +60,8 @@ PROTO_3:
        27 GETTABLEKS                       R8 R2 K9 ["Spacing"]
        29 SETTABLEKS                       R8 R7 K9 ["Spacing"]
        31 DUPTABLE                         R8 K17 [{"TopControls", "ColorPickerComponent"}]
-       32 GETUPVAL                         R10 1
-       33 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       32 GETUPVAL                         R9 1
+       33 GETTABLEKS                       R9 R9 K6 ["createElement"]
        35 GETUPVAL                         R10 3
        36 DUPTABLE                         R11 K23 [{"LayoutOrder", "TagName", "Color", "Close", "Save"}]
        37 NAMECALL                         R12 R3 K24 ["getNextOrder"]
@@ -76,8 +76,8 @@ PROTO_3:
        54 SETTABLEKS                       R12 R11 K22 ["Save"]
        56 CALL                             R9 2 1
        57 SETTABLEKS                       R9 R8 K15 ["TopControls"]
-       59 GETUPVAL                         R10 1
-       60 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       59 GETUPVAL                         R9 1
+       60 GETTABLEKS                       R9 R9 K6 ["createElement"]
        62 GETUPVAL                         R10 4
        63 DUPTABLE                         R11 K30 [{"LayoutOrder", "Color", "Size", "OnColorChanged"}]
        64 NAMECALL                         R12 R3 K24 ["getNextOrder"]
@@ -115,8 +115,8 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["ToggleColorPicker"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["ToggleColorPicker"]
         4 LOADK                            R2 K1 [""]
         5 CALL                             R1 1 -1
         6 CALL                             R0 -1 0
@@ -132,35 +132,35 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETTABLEKS                       R6 R4 K11 ["Analytics"]
        36 GETTABLEKS                       R7 R4 K12 ["Localization"]
-       38 GETTABLEKS                       R9 R3 K13 ["Style"]
-       40 GETTABLEKS                       R8 R9 K14 ["Stylizer"]
+       38 GETTABLEKS                       R8 R3 K13 ["Style"]
+       40 GETTABLEKS                       R8 R8 K14 ["Stylizer"]
        42 GETIMPORT                        R9 K4 [require]
-       44 GETTABLEKS                       R11 R0 K15 ["Src"]
-       46 GETTABLEKS                       R10 R11 K16 ["TagManager"]
+       44 GETTABLEKS                       R10 R0 K15 ["Src"]
+       46 GETTABLEKS                       R10 R10 K16 ["TagManager"]
        48 CALL                             R9 1 1
        49 GETIMPORT                        R10 K4 [require]
-       51 GETTABLEKS                       R12 R0 K15 ["Src"]
-       53 GETTABLEKS                       R11 R12 K17 ["Actions"]
+       51 GETTABLEKS                       R11 R0 K15 ["Src"]
+       53 GETTABLEKS                       R11 R11 K17 ["Actions"]
        55 CALL                             R10 1 1
        56 GETTABLEKS                       R11 R3 K18 ["UI"]
        58 GETTABLEKS                       R12 R11 K19 ["ColorPicker"]
@@ -168,8 +168,8 @@ MAIN:
        62 GETTABLEKS                       R14 R3 K21 ["Util"]
        64 GETTABLEKS                       R15 R14 K22 ["LayoutOrderIterator"]
        66 GETIMPORT                        R16 K4 [require]
-       68 GETIMPORT                        R18 K1 [script]
-       70 GETTABLEKS                       R17 R18 K23 ["ColorPickerTopControls"]
+       68 GETIMPORT                        R17 K1 [script]
+       70 GETTABLEKS                       R17 R17 K23 ["ColorPickerTopControls"]
        72 CALL                             R16 1 1
        73 GETTABLEKS                       R17 R1 K24 ["PureComponent"]
        75 LOADK                            R19 K19 ["ColorPicker"]

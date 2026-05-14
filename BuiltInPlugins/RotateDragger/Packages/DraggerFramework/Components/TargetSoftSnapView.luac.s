@@ -16,16 +16,16 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["From"]
         2 GETTABLEKS                       R2 R0 K1 ["To"]
         4 JUMPIFNOTEQ                      R1 R2 ; [+39]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K2 ["createElement"]
         9 LOADK                            R4 K3 ["BoxHandleAdornment"]
        10 DUPTABLE                         R5 K10 [{"CFrame", "Adornee", "Size", "Color3", "ZIndex", "AlwaysOnTop"}]
        11 GETIMPORT                        R6 K12 [CFrame.new]
        13 MOVE                             R7 R1
        14 CALL                             R6 1 1
        15 SETTABLEKS                       R6 R5 K4 ["CFrame"]
-       17 GETIMPORT                        R7 K14 [workspace]
-       19 GETTABLEKS                       R6 R7 K15 ["Terrain"]
+       17 GETIMPORT                        R6 K14 [workspace]
+       19 GETTABLEKS                       R6 R6 K15 ["Terrain"]
        21 SETTABLEKS                       R6 R5 K5 ["Adornee"]
        23 LOADK                            R7 K16 [{1, 1, 1}]
        24 LOADK                            R9 K17 [0.3]
@@ -50,11 +50,11 @@ PROTO_2:
        51 MUL                              R5 R4 R6
        52 SUB                              R1 R1 R5
        53 ADD                              R2 R2 R5
-       54 GETUPVAL                         R7 0
-       55 GETTABLEKS                       R6 R7 K21 ["createFragment"]
+       54 GETUPVAL                         R6 0
+       55 GETTABLEKS                       R6 R6 K21 ["createFragment"]
        57 DUPTABLE                         R7 K24 [{"Bottom", "Top"}]
-       58 GETUPVAL                         R9 0
-       59 GETTABLEKS                       R8 R9 K2 ["createElement"]
+       58 GETUPVAL                         R8 0
+       59 GETTABLEKS                       R8 R8 K2 ["createElement"]
        61 GETUPVAL                         R9 1
        62 DUPTABLE                         R10 K26 [{"Color3", "AlwaysOnTop", "Render"}]
        63 GETTABLEKS                       R11 R0 K7 ["Color3"]
@@ -67,8 +67,8 @@ PROTO_2:
        73 SETTABLEKS                       R11 R10 K25 ["Render"]
        75 CALL                             R8 2 1
        76 SETTABLEKS                       R8 R7 K22 ["Bottom"]
-       78 GETUPVAL                         R9 0
-       79 GETTABLEKS                       R8 R9 K2 ["createElement"]
+       78 GETUPVAL                         R8 0
+       79 GETTABLEKS                       R8 R8 K2 ["createElement"]
        81 GETUPVAL                         R9 1
        82 DUPTABLE                         R10 K28 [{"Color3", "AlwaysOnTop", "Transparency", "Render"}]
        83 GETTABLEKS                       R11 R0 K7 ["Color3"]
@@ -118,8 +118,8 @@ PROTO_4:
        13 FORGPREP                         R5
        14 GETTABLEKS                       R10 R9 K4 ["a"]
        16 GETTABLEKS                       R11 R9 K5 ["b"]
-       18 GETUPVAL                         R13 0
-       19 GETTABLEKS                       R12 R13 K6 ["createElement"]
+       18 GETUPVAL                         R12 0
+       19 GETTABLEKS                       R12 R12 K6 ["createElement"]
        21 GETUPVAL                         R13 1
        22 DUPTABLE                         R14 K11 [{"From", "To", "Scale", "Color3"}]
        23 SETTABLEKS                       R10 R14 K7 ["From"]
@@ -155,8 +155,8 @@ PROTO_4:
        70 LOADNIL                          R6
        71 GETIMPORT                        R7 K22 [Enum.PartType.Ball]
        73 JUMPIFNOTEQ                      R6 R7 ; [+16]
-       75 GETUPVAL                         R8 0
-       76 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       75 GETUPVAL                         R7 0
+       76 GETTABLEKS                       R7 R7 K6 ["createElement"]
        78 GETUPVAL                         R8 2
        79 DUPTABLE                         R9 K25 [{"Part", "Color3"}]
        80 GETTABLEKS                       R10 R4 K15 ["targetPart"]
@@ -167,8 +167,8 @@ PROTO_4:
        89 JUMP                             ; [+18]
        90 GETIMPORT                        R7 K24 [Enum.PartType.Cylinder]
        92 JUMPIFNOTEQ                      R6 R7 ; [+15]
-       94 GETUPVAL                         R8 0
-       95 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       94 GETUPVAL                         R7 0
+       95 GETTABLEKS                       R7 R7 K6 ["createElement"]
        97 GETUPVAL                         R8 3
        98 DUPTABLE                         R9 K25 [{"Part", "Color3"}]
        99 GETTABLEKS                       R10 R4 K15 ["targetPart"]
@@ -176,34 +176,34 @@ PROTO_4:
       103 SETTABLEKS                       R5 R9 K10 ["Color3"]
       105 CALL                             R7 2 1
       106 SETTABLEKS                       R7 R3 K26 ["MajorLines"]
-      108 GETUPVAL                         R8 0
-      109 GETTABLEKS                       R7 R8 K27 ["createFragment"]
+      108 GETUPVAL                         R7 0
+      109 GETTABLEKS                       R7 R7 K27 ["createFragment"]
       111 MOVE                             R8 R3
       112 CALL                             R7 1 -1
       113 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Components"]
-       22 GETTABLEKS                       R4 R5 K8 ["WireframeHandleAdornment"]
+       20 GETTABLEKS                       R4 R0 K7 ["Components"]
+       22 GETTABLEKS                       R4 R4 K8 ["WireframeHandleAdornment"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R6 R0 K7 ["Components"]
-       29 GETTABLEKS                       R5 R6 K9 ["SphereMajorLines"]
+       27 GETTABLEKS                       R5 R0 K7 ["Components"]
+       29 GETTABLEKS                       R5 R5 K9 ["SphereMajorLines"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K4 [require]
-       34 GETTABLEKS                       R7 R0 K7 ["Components"]
-       36 GETTABLEKS                       R6 R7 K10 ["CylinderMajorLines"]
+       34 GETTABLEKS                       R6 R0 K7 ["Components"]
+       36 GETTABLEKS                       R6 R6 K10 ["CylinderMajorLines"]
        38 CALL                             R5 1 1
        39 DUPCLOSURE                       R6 K11 [PROTO_2]
        40 CAPTURE                          VAL R2

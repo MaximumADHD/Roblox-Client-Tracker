@@ -1,12 +1,12 @@
 PROTO_0:
-        0 NAMECALL                         R6 R2 K0 ["getState"]
-        2 CALL                             R6 1 1
-        3 GETTABLEKS                       R5 R6 K1 ["Watch"]
-        5 GETTABLEKS                       R4 R5 K2 ["filterText"]
-        7 NAMECALL                         R7 R2 K0 ["getState"]
-        9 CALL                             R7 1 1
-       10 GETTABLEKS                       R6 R7 K1 ["Watch"]
-       12 GETTABLEKS                       R5 R6 K3 ["listOfEnabledScopes"]
+        0 NAMECALL                         R4 R2 K0 ["getState"]
+        2 CALL                             R4 1 1
+        3 GETTABLEKS                       R4 R4 K1 ["Watch"]
+        5 GETTABLEKS                       R4 R4 K2 ["filterText"]
+        7 NAMECALL                         R5 R2 K0 ["getState"]
+        9 CALL                             R5 1 1
+       10 GETTABLEKS                       R5 R5 K1 ["Watch"]
+       12 GETTABLEKS                       R5 R5 K3 ["listOfEnabledScopes"]
        14 GETTABLEKS                       R6 R1 K4 ["Locals"]
        16 NAMECALL                         R6 R6 K5 ["GetChildren"]
        18 CALL                             R6 1 1
@@ -23,12 +23,12 @@ PROTO_0:
        36 CALL                             R11 1 3
        37 FORGPREP_INEXT                   R11
        38 MOVE                             R17 R9
-       39 GETUPVAL                         R19 0
-       40 GETTABLEKS                       R18 R19 K10 ["fromInstance"]
+       39 GETUPVAL                         R18 0
+       40 GETTABLEKS                       R18 R18 K10 ["fromInstance"]
        42 MOVE                             R19 R15
        43 LOADNIL                          R20
-       44 GETUPVAL                         R22 1
-       45 GETTABLEKS                       R21 R22 K11 ["Local"]
+       44 GETUPVAL                         R21 1
+       45 GETTABLEKS                       R21 R21 K11 ["Local"]
        47 MOVE                             R22 R4
        48 MOVE                             R23 R5
        49 CALL                             R18 5 -1
@@ -46,12 +46,12 @@ PROTO_0:
        66 CALL                             R11 1 3
        67 FORGPREP_INEXT                   R11
        68 MOVE                             R17 R9
-       69 GETUPVAL                         R19 0
-       70 GETTABLEKS                       R18 R19 K10 ["fromInstance"]
+       69 GETUPVAL                         R18 0
+       70 GETTABLEKS                       R18 R18 K10 ["fromInstance"]
        72 MOVE                             R19 R15
        73 LOADNIL                          R20
-       74 GETUPVAL                         R22 1
-       75 GETTABLEKS                       R21 R22 K15 ["Global"]
+       74 GETUPVAL                         R21 1
+       75 GETTABLEKS                       R21 R21 K15 ["Global"]
        77 MOVE                             R22 R4
        78 MOVE                             R23 R5
        79 CALL                             R18 5 -1
@@ -69,12 +69,12 @@ PROTO_0:
        96 CALL                             R11 1 3
        97 FORGPREP_INEXT                   R11
        98 MOVE                             R17 R9
-       99 GETUPVAL                         R19 0
-      100 GETTABLEKS                       R18 R19 K10 ["fromInstance"]
+       99 GETUPVAL                         R18 0
+      100 GETTABLEKS                       R18 R18 K10 ["fromInstance"]
       102 MOVE                             R19 R15
       103 LOADNIL                          R20
-      104 GETUPVAL                         R22 1
-      105 GETTABLEKS                       R21 R22 K16 ["Upvalue"]
+      104 GETUPVAL                         R21 1
+      105 GETTABLEKS                       R21 R21 K16 ["Upvalue"]
       107 MOVE                             R22 R4
       108 MOVE                             R23 R5
       109 CALL                             R18 5 -1
@@ -107,16 +107,16 @@ PROTO_0:
 PROTO_1:
         0 LOADB                            R6 1
         1 SETTABLE                         R6 R1 R0
-        2 GETUPVAL                         R8 0
-        3 GETTABLEKS                       R7 R8 K0 ["Local"]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R7 R7 K0 ["Local"]
         5 GETTABLE                         R6 R1 R7
         6 JUMPIFNOT                        R6 ; [+16]
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K1 ["Global"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K1 ["Global"]
        10 GETTABLE                         R6 R1 R7
        11 JUMPIFNOT                        R6 ; [+11]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K2 ["Upvalue"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K2 ["Upvalue"]
        15 GETTABLE                         R6 R1 R7
        16 JUMPIFNOT                        R6 ; [+6]
        17 GETUPVAL                         R6 1
@@ -128,19 +128,19 @@ PROTO_1:
        23 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["debuggerStateToken"]
-        3 GETUPVAL                         R4 1
-        4 NAMECALL                         R4 R4 K1 ["getState"]
-        6 CALL                             R4 1 1
-        7 GETTABLEKS                       R3 R4 K2 ["Common"]
-        9 GETTABLEKS                       R2 R3 K3 ["debuggerConnectionIdToDST"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["debuggerStateToken"]
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R2 R2 K1 ["getState"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K2 ["Common"]
+        9 GETTABLEKS                       R2 R2 K3 ["debuggerConnectionIdToDST"]
        11 GETTABLEKS                       R3 R0 K4 ["debuggerConnectionId"]
        13 GETTABLE                         R1 R2 R3
        14 JUMPIFEQ                         R0 R1 ; [+2]
        16 RETURN                           R0 0
-       17 GETUPVAL                         R2 2
-       18 GETTABLEKS                       R1 R2 K5 ["Local"]
+       17 GETUPVAL                         R1 2
+       18 GETTABLEKS                       R1 R1 K5 ["Local"]
        20 GETUPVAL                         R2 3
        21 GETUPVAL                         R3 4
        22 GETUPVAL                         R4 5
@@ -148,16 +148,16 @@ PROTO_2:
        24 GETUPVAL                         R6 0
        25 LOADB                            R7 1
        26 SETTABLE                         R7 R2 R1
-       27 GETUPVAL                         R9 2
-       28 GETTABLEKS                       R8 R9 K5 ["Local"]
+       27 GETUPVAL                         R8 2
+       28 GETTABLEKS                       R8 R8 K5 ["Local"]
        30 GETTABLE                         R7 R2 R8
        31 JUMPIFNOT                        R7 ; [+16]
-       32 GETUPVAL                         R9 2
-       33 GETTABLEKS                       R8 R9 K6 ["Global"]
+       32 GETUPVAL                         R8 2
+       33 GETTABLEKS                       R8 R8 K6 ["Global"]
        35 GETTABLE                         R7 R2 R8
        36 JUMPIFNOT                        R7 ; [+11]
-       37 GETUPVAL                         R9 2
-       38 GETTABLEKS                       R8 R9 K7 ["Upvalue"]
+       37 GETUPVAL                         R8 2
+       38 GETTABLEKS                       R8 R8 K7 ["Upvalue"]
        40 GETTABLE                         R7 R2 R8
        41 JUMPIFNOT                        R7 ; [+6]
        42 GETUPVAL                         R7 6
@@ -169,19 +169,19 @@ PROTO_2:
        48 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["debuggerStateToken"]
-        3 GETUPVAL                         R4 1
-        4 NAMECALL                         R4 R4 K1 ["getState"]
-        6 CALL                             R4 1 1
-        7 GETTABLEKS                       R3 R4 K2 ["Common"]
-        9 GETTABLEKS                       R2 R3 K3 ["debuggerConnectionIdToDST"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["debuggerStateToken"]
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R2 R2 K1 ["getState"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K2 ["Common"]
+        9 GETTABLEKS                       R2 R2 K3 ["debuggerConnectionIdToDST"]
        11 GETTABLEKS                       R3 R0 K4 ["debuggerConnectionId"]
        13 GETTABLE                         R1 R2 R3
        14 JUMPIFEQ                         R0 R1 ; [+2]
        16 RETURN                           R0 0
-       17 GETUPVAL                         R2 2
-       18 GETTABLEKS                       R1 R2 K5 ["Global"]
+       17 GETUPVAL                         R1 2
+       18 GETTABLEKS                       R1 R1 K5 ["Global"]
        20 GETUPVAL                         R2 3
        21 GETUPVAL                         R3 4
        22 GETUPVAL                         R4 5
@@ -189,16 +189,16 @@ PROTO_3:
        24 GETUPVAL                         R6 0
        25 LOADB                            R7 1
        26 SETTABLE                         R7 R2 R1
-       27 GETUPVAL                         R9 2
-       28 GETTABLEKS                       R8 R9 K6 ["Local"]
+       27 GETUPVAL                         R8 2
+       28 GETTABLEKS                       R8 R8 K6 ["Local"]
        30 GETTABLE                         R7 R2 R8
        31 JUMPIFNOT                        R7 ; [+16]
-       32 GETUPVAL                         R9 2
-       33 GETTABLEKS                       R8 R9 K5 ["Global"]
+       32 GETUPVAL                         R8 2
+       33 GETTABLEKS                       R8 R8 K5 ["Global"]
        35 GETTABLE                         R7 R2 R8
        36 JUMPIFNOT                        R7 ; [+11]
-       37 GETUPVAL                         R9 2
-       38 GETTABLEKS                       R8 R9 K7 ["Upvalue"]
+       37 GETUPVAL                         R8 2
+       38 GETTABLEKS                       R8 R8 K7 ["Upvalue"]
        40 GETTABLE                         R7 R2 R8
        41 JUMPIFNOT                        R7 ; [+6]
        42 GETUPVAL                         R7 6
@@ -210,19 +210,19 @@ PROTO_3:
        48 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["debuggerStateToken"]
-        3 GETUPVAL                         R4 1
-        4 NAMECALL                         R4 R4 K1 ["getState"]
-        6 CALL                             R4 1 1
-        7 GETTABLEKS                       R3 R4 K2 ["Common"]
-        9 GETTABLEKS                       R2 R3 K3 ["debuggerConnectionIdToDST"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["debuggerStateToken"]
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R2 R2 K1 ["getState"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K2 ["Common"]
+        9 GETTABLEKS                       R2 R2 K3 ["debuggerConnectionIdToDST"]
        11 GETTABLEKS                       R3 R0 K4 ["debuggerConnectionId"]
        13 GETTABLE                         R1 R2 R3
        14 JUMPIFEQ                         R0 R1 ; [+2]
        16 RETURN                           R0 0
-       17 GETUPVAL                         R2 2
-       18 GETTABLEKS                       R1 R2 K5 ["Upvalue"]
+       17 GETUPVAL                         R1 2
+       18 GETTABLEKS                       R1 R1 K5 ["Upvalue"]
        20 GETUPVAL                         R2 3
        21 GETUPVAL                         R3 4
        22 GETUPVAL                         R4 5
@@ -230,16 +230,16 @@ PROTO_4:
        24 GETUPVAL                         R6 0
        25 LOADB                            R7 1
        26 SETTABLE                         R7 R2 R1
-       27 GETUPVAL                         R9 2
-       28 GETTABLEKS                       R8 R9 K6 ["Local"]
+       27 GETUPVAL                         R8 2
+       28 GETTABLEKS                       R8 R8 K6 ["Local"]
        30 GETTABLE                         R7 R2 R8
        31 JUMPIFNOT                        R7 ; [+16]
-       32 GETUPVAL                         R9 2
-       33 GETTABLEKS                       R8 R9 K7 ["Global"]
+       32 GETUPVAL                         R8 2
+       33 GETTABLEKS                       R8 R8 K7 ["Global"]
        35 GETTABLE                         R7 R2 R8
        36 JUMPIFNOT                        R7 ; [+11]
-       37 GETUPVAL                         R9 2
-       38 GETTABLEKS                       R8 R9 K5 ["Upvalue"]
+       37 GETUPVAL                         R8 2
+       38 GETTABLEKS                       R8 R8 K5 ["Upvalue"]
        40 GETTABLE                         R7 R2 R8
        41 JUMPIFNOT                        R7 ; [+6]
        42 GETUPVAL                         R7 6
@@ -288,13 +288,13 @@ PROTO_5:
        41 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["debuggerStateToken"]
-        3 GETUPVAL                         R4 1
-        4 NAMECALL                         R4 R4 K1 ["getState"]
-        6 CALL                             R4 1 1
-        7 GETTABLEKS                       R3 R4 K2 ["Common"]
-        9 GETTABLEKS                       R2 R3 K3 ["debuggerConnectionIdToDST"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["debuggerStateToken"]
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R2 R2 K1 ["getState"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K2 ["Common"]
+        9 GETTABLEKS                       R2 R2 K3 ["debuggerConnectionIdToDST"]
        11 GETTABLEKS                       R3 R0 K4 ["debuggerConnectionId"]
        13 GETTABLE                         R1 R2 R3
        14 JUMPIFEQ                         R0 R1 ; [+2]
@@ -308,8 +308,8 @@ PROTO_6:
        23 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Populated"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Populated"]
         3 JUMPIF                           R2 ; [+11]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R4 0
@@ -333,37 +333,37 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Models"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Models"]
        15 GETIMPORT                        R2 K6 [require]
-       17 GETTABLEKS                       R4 R1 K7 ["Watch"]
-       19 GETTABLEKS                       R3 R4 K8 ["ScopeEnum"]
+       17 GETTABLEKS                       R3 R1 K7 ["Watch"]
+       19 GETTABLEKS                       R3 R3 K8 ["ScopeEnum"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K6 [require]
        24 GETTABLEKS                       R4 R1 K9 ["StepStateBundle"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K6 [require]
-       29 GETTABLEKS                       R8 R0 K3 ["Src"]
-       31 GETTABLEKS                       R7 R8 K4 ["Models"]
-       33 GETTABLEKS                       R6 R7 K7 ["Watch"]
-       35 GETTABLEKS                       R5 R6 K10 ["VariableRow"]
+       29 GETTABLEKS                       R5 R0 K3 ["Src"]
+       31 GETTABLEKS                       R5 R5 K4 ["Models"]
+       33 GETTABLEKS                       R5 R5 K7 ["Watch"]
+       35 GETTABLEKS                       R5 R5 K10 ["VariableRow"]
        37 CALL                             R4 1 1
-       38 GETTABLEKS                       R6 R0 K3 ["Src"]
-       40 GETTABLEKS                       R5 R6 K11 ["Actions"]
+       38 GETTABLEKS                       R5 R0 K3 ["Src"]
+       40 GETTABLEKS                       R5 R5 K11 ["Actions"]
        42 GETIMPORT                        R6 K6 [require]
-       44 GETTABLEKS                       R8 R5 K7 ["Watch"]
-       46 GETTABLEKS                       R7 R8 K12 ["AddRootVariables"]
+       44 GETTABLEKS                       R7 R5 K7 ["Watch"]
+       46 GETTABLEKS                       R7 R7 K12 ["AddRootVariables"]
        48 CALL                             R6 1 1
-       49 GETTABLEKS                       R8 R0 K3 ["Src"]
-       51 GETTABLEKS                       R7 R8 K13 ["Thunks"]
+       49 GETTABLEKS                       R7 R0 K3 ["Src"]
+       51 GETTABLEKS                       R7 R7 K13 ["Thunks"]
        53 GETIMPORT                        R8 K6 [require]
-       55 GETTABLEKS                       R10 R7 K14 ["Common"]
-       57 GETTABLEKS                       R9 R10 K15 ["AddChildRowsToVars"]
+       55 GETTABLEKS                       R9 R7 K14 ["Common"]
+       57 GETTABLEKS                       R9 R9 K15 ["AddChildRowsToVars"]
        59 CALL                             R8 1 1
        60 DUPCLOSURE                       R9 K16 [PROTO_0]
        61 CAPTURE                          VAL R4

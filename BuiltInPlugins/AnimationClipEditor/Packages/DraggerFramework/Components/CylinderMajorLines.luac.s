@@ -140,11 +140,11 @@ PROTO_1:
        45 LOADN                            R9 3
        46 LOADN                            R10 1
        47 FORNPREP                         R9
-       48 GETIMPORT                        R14 K13 [Vector2.new]
-       50 LOADN                            R15 253
-       51 MOVE                             R16 R11
-       52 CALL                             R14 2 1
-       53 GETTABLEKS                       R13 R14 K14 ["Unit"]
+       48 GETIMPORT                        R13 K13 [Vector2.new]
+       50 LOADN                            R14 253
+       51 MOVE                             R15 R11
+       52 CALL                             R13 2 1
+       53 GETTABLEKS                       R13 R13 K14 ["Unit"]
        55 MUL                              R12 R13 R3
        56 LOADN                            R16 0
        57 GETTABLEKS                       R17 R12 K8 ["X"]
@@ -161,11 +161,11 @@ PROTO_1:
        73 LOADN                            R9 3
        74 LOADN                            R10 1
        75 FORNPREP                         R9
-       76 GETIMPORT                        R14 K13 [Vector2.new]
-       78 MOVE                             R15 R11
-       79 LOADN                            R16 3
-       80 CALL                             R14 2 1
-       81 GETTABLEKS                       R13 R14 K14 ["Unit"]
+       76 GETIMPORT                        R13 K13 [Vector2.new]
+       78 MOVE                             R14 R11
+       79 LOADN                            R15 3
+       80 CALL                             R13 2 1
+       81 GETTABLEKS                       R13 R13 K14 ["Unit"]
        83 MUL                              R12 R13 R3
        84 LOADN                            R16 0
        85 GETTABLEKS                       R17 R12 K8 ["X"]
@@ -182,11 +182,11 @@ PROTO_1:
       101 LOADN                            R9 253
       102 LOADN                            R10 255
       103 FORNPREP                         R9
-      104 GETIMPORT                        R14 K13 [Vector2.new]
-      106 LOADN                            R15 3
-      107 MOVE                             R16 R11
-      108 CALL                             R14 2 1
-      109 GETTABLEKS                       R13 R14 K14 ["Unit"]
+      104 GETIMPORT                        R13 K13 [Vector2.new]
+      106 LOADN                            R14 3
+      107 MOVE                             R15 R11
+      108 CALL                             R13 2 1
+      109 GETTABLEKS                       R13 R13 K14 ["Unit"]
       111 MUL                              R12 R13 R3
       112 LOADN                            R16 0
       113 GETTABLEKS                       R17 R12 K8 ["X"]
@@ -203,11 +203,11 @@ PROTO_1:
       129 LOADN                            R9 253
       130 LOADN                            R10 255
       131 FORNPREP                         R9
-      132 GETIMPORT                        R14 K13 [Vector2.new]
-      134 MOVE                             R15 R11
-      135 LOADN                            R16 253
-      136 CALL                             R14 2 1
-      137 GETTABLEKS                       R13 R14 K14 ["Unit"]
+      132 GETIMPORT                        R13 K13 [Vector2.new]
+      134 MOVE                             R14 R11
+      135 LOADN                            R15 253
+      136 CALL                             R13 2 1
+      137 GETTABLEKS                       R13 R13 K14 ["Unit"]
       139 MUL                              R12 R13 R3
       140 LOADN                            R16 0
       141 GETTABLEKS                       R17 R12 K8 ["X"]
@@ -220,8 +220,8 @@ PROTO_1:
       152 GETIMPORT                        R13 K17 [table.insert]
       154 CALL                             R13 2 0
       155 FORNLOOP                         R9
-      156 GETUPVAL                         R10 0
-      157 GETTABLEKS                       R9 R10 K18 ["createElement"]
+      156 GETUPVAL                         R9 0
+      157 GETTABLEKS                       R9 R9 K18 ["createElement"]
       159 GETUPVAL                         R10 1
       160 DUPTABLE                         R11 K23 [{"Adornee", "Color3", "AlwaysOnTop", "Render"}]
       161 SETTABLEKS                       R1 R11 K19 ["Adornee"]
@@ -242,18 +242,18 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Components"]
-       22 GETTABLEKS                       R4 R5 K8 ["WireframeHandleAdornment"]
+       20 GETTABLEKS                       R4 R0 K7 ["Components"]
+       22 GETTABLEKS                       R4 R4 K8 ["WireframeHandleAdornment"]
        24 CALL                             R3 1 1
        25 DUPCLOSURE                       R4 K9 [PROTO_1]
        26 CAPTURE                          VAL R2

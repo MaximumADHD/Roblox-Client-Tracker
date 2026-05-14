@@ -15,12 +15,12 @@ PROTO_1:
         7 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["addOnInvokeConnection"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["addOnInvokeConnection"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 0
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["addRBXScriptConnection"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["addRBXScriptConnection"]
         8 MOVE                             R3 R1
         9 CALL                             R2 1 0
        10 RETURN                           R0 0

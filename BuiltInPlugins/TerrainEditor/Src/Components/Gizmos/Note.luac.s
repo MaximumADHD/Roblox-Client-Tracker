@@ -17,21 +17,21 @@ PROTO_0:
        18 GETUPVAL                         R6 2
        19 CALL                             R6 0 1
        20 JUMPIFNOT                        R6 ; [+7]
-       21 GETTABLEKS                       R7 R4 K3 ["Typography"]
-       23 GETTABLEKS                       R6 R7 K4 ["TitleSmall"]
-       25 GETTABLEKS                       R5 R6 K5 ["FontSize"]
+       21 GETTABLEKS                       R5 R4 K3 ["Typography"]
+       23 GETTABLEKS                       R5 R5 K4 ["TitleSmall"]
+       25 GETTABLEKS                       R5 R5 K5 ["FontSize"]
        27 JUMP                             ; [+1]
        28 LOADNIL                          R5
-       29 GETUPVAL                         R7 4
-       30 GETTABLEKS                       R6 R7 K6 ["createPortal"]
+       29 GETUPVAL                         R6 4
+       30 GETTABLEKS                       R6 R6 K6 ["createPortal"]
        32 DUPTABLE                         R7 K7 [{"Note"}]
-       33 GETUPVAL                         R9 5
-       34 GETTABLEKS                       R8 R9 K8 ["createElement"]
+       33 GETUPVAL                         R8 5
+       34 GETTABLEKS                       R8 R8 K8 ["createElement"]
        36 LOADK                            R9 K9 ["ScreenGui"]
        37 NEWTABLE                         R10 0 0
        39 DUPTABLE                         R11 K11 [{"Frame"}]
-       40 GETUPVAL                         R13 5
-       41 GETTABLEKS                       R12 R13 K8 ["createElement"]
+       40 GETUPVAL                         R12 5
+       41 GETTABLEKS                       R12 R12 K8 ["createElement"]
        43 GETUPVAL                         R13 6
        44 DUPTABLE                         R14 K20 [{"AnchorPoint", "AutomaticSize", "BackgroundColor", "Layout", "Spacing", "Padding", "Position", "Size"}]
        45 GETIMPORT                        R15 K23 [Vector2.new]
@@ -62,8 +62,8 @@ PROTO_0:
        86 CALL                             R15 2 1
        87 SETTABLEKS                       R15 R14 K19 ["Size"]
        89 DUPTABLE                         R15 K39 [{"Key", "Apply"}]
-       90 GETUPVAL                         R17 5
-       91 GETTABLEKS                       R16 R17 K8 ["createElement"]
+       90 GETUPVAL                         R16 5
+       91 GETTABLEKS                       R16 R16 K8 ["createElement"]
        93 GETUPVAL                         R17 6
        94 DUPTABLE                         R18 K41 [{"AutomaticSize", "BackgroundColor", "Padding", "LayoutOrder"}]
        95 GETIMPORT                        R19 K43 [Enum.AutomaticSize.XY]
@@ -75,8 +75,8 @@ PROTO_0:
       107 LOADN                            R19 1
       108 SETTABLEKS                       R19 R18 K40 ["LayoutOrder"]
       110 DUPTABLE                         R19 K48 [{"Corner", "Text"}]
-      111 GETUPVAL                         R21 5
-      112 GETTABLEKS                       R20 R21 K8 ["createElement"]
+      111 GETUPVAL                         R20 5
+      112 GETTABLEKS                       R20 R20 K8 ["createElement"]
       114 LOADK                            R21 K49 ["UICorner"]
       115 DUPTABLE                         R22 K51 [{"CornerRadius"}]
       116 GETIMPORT                        R23 K53 [UDim.new]
@@ -86,8 +86,8 @@ PROTO_0:
       121 SETTABLEKS                       R23 R22 K50 ["CornerRadius"]
       123 CALL                             R20 2 1
       124 SETTABLEKS                       R20 R19 K46 ["Corner"]
-      126 GETUPVAL                         R21 5
-      127 GETTABLEKS                       R20 R21 K8 ["createElement"]
+      126 GETUPVAL                         R20 5
+      127 GETTABLEKS                       R20 R20 K8 ["createElement"]
       129 GETUPVAL                         R21 7
       130 DUPTABLE                         R22 K56 [{"Text", "Font", "TextSize"}]
       131 LOADK                            R25 K1 ["Note"]
@@ -117,8 +117,8 @@ PROTO_0:
       161 SETTABLEKS                       R20 R19 K47 ["Text"]
       163 CALL                             R16 3 1
       164 SETTABLEKS                       R16 R15 K2 ["Key"]
-      166 GETUPVAL                         R17 5
-      167 GETTABLEKS                       R16 R17 K8 ["createElement"]
+      166 GETUPVAL                         R16 5
+      167 GETTABLEKS                       R16 R16 K8 ["createElement"]
       169 GETUPVAL                         R17 6
       170 DUPTABLE                         R18 K62 [{"AutomaticSize", "Padding", "LayoutOrder"}]
       171 GETIMPORT                        R19 K43 [Enum.AutomaticSize.XY]
@@ -128,8 +128,8 @@ PROTO_0:
       179 LOADN                            R19 2
       180 SETTABLEKS                       R19 R18 K40 ["LayoutOrder"]
       182 DUPTABLE                         R19 K63 [{"Text"}]
-      183 GETUPVAL                         R21 5
-      184 GETTABLEKS                       R20 R21 K8 ["createElement"]
+      183 GETUPVAL                         R20 5
+      184 GETTABLEKS                       R20 R20 K8 ["createElement"]
       186 GETUPVAL                         R21 7
       187 DUPTABLE                         R22 K56 [{"Text", "Font", "TextSize"}]
       188 LOADK                            R25 K1 ["Note"]
@@ -174,24 +174,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactRoblox"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactRoblox"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R6 R1 K10 ["Style"]
-       30 GETTABLEKS                       R5 R6 K11 ["Themes"]
-       32 GETTABLEKS                       R4 R5 K12 ["FoundationDark"]
+       28 GETTABLEKS                       R4 R1 K10 ["Style"]
+       30 GETTABLEKS                       R4 R4 K11 ["Themes"]
+       32 GETTABLEKS                       R4 R4 K12 ["FoundationDark"]
        34 GETIMPORT                        R5 K5 [require]
-       36 GETTABLEKS                       R8 R0 K13 ["Src"]
-       38 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       40 GETTABLEKS                       R6 R7 K15 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+       36 GETTABLEKS                       R6 R0 K13 ["Src"]
+       38 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       40 GETTABLEKS                       R6 R6 K15 ["getFFlagTerrainEditorMigrateFoundationFonts"]
        42 CALL                             R5 1 1
        43 GETTABLEKS                       R6 R1 K16 ["ContextServices"]
        45 GETTABLEKS                       R7 R6 K17 ["Localization"]

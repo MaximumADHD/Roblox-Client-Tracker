@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["destroy"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["destroy"]
         3 CALL                             R0 0 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K0 ["destroy"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K0 ["destroy"]
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
 
@@ -40,18 +40,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Guest"]
-       13 GETTABLEKS                       R2 R3 K8 ["createStudioInterface"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Guest"]
+       13 GETTABLEKS                       R2 R2 K8 ["createStudioInterface"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Guest"]
-       22 GETTABLEKS                       R3 R4 K9 ["createInputActionSystem"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Guest"]
+       22 GETTABLEKS                       R3 R3 K9 ["createInputActionSystem"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R5 K10 ["Types"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Types"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K11 [PROTO_1]
        33 CAPTURE                          VAL R1

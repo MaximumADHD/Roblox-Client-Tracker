@@ -283,16 +283,16 @@ PROTO_17:
        11 RETURN                           R1 1
 
 PROTO_18:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["metaData"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K1 ["metaData"]
         3 GETTABLEKS                       R3 R4 K0 ["Playability"]
         5 JUMPIFNOTEQKS                    R3 K2 ["Public"] ; [+5]
         7 GETUPVAL                         R2 1
         8 LOADK                            R3 K3 ["Description.ActionPublic"]
         9 CALL                             R2 1 1
        10 JUMPIF                           R2 ; [+14]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K1 ["metaData"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K1 ["metaData"]
        14 GETTABLEKS                       R3 R4 K0 ["Playability"]
        16 JUMPIFNOTEQKS                    R3 K4 ["Private"] ; [+5]
        18 GETUPVAL                         R2 1
@@ -354,8 +354,8 @@ PROTO_19:
        50 FORNPREP                         R7
        51 JUMPIFNOTEQKN                    R9 K13 [3] ; [+43]
        53 NEWTABLE                         R12 0 5
-       55 GETTABLE                         R15 R5 R9
-       56 GETTABLEKS                       R14 R15 K14 ["Name"]
+       55 GETTABLE                         R14 R5 R9
+       56 GETTABLEKS                       R14 R14 K14 ["Name"]
        58 FASTCALL1                        TOSTRING R14 ; [+2]
        59 GETIMPORT                        R13 K16 [tostring]
        61 CALL                             R13 1 1
@@ -363,8 +363,8 @@ PROTO_19:
        63 LOADK                            R15 K0 [""]
        64 GETGLOBAL                        R16 K18 ["getLink"]
        66 LOADK                            R17 K19 ["explorer"]
-       67 GETTABLE                         R20 R5 R9
-       68 GETTABLEKS                       R19 R20 K20 ["UniqueId"]
+       67 GETTABLE                         R19 R5 R9
+       68 GETTABLEKS                       R19 R19 K20 ["UniqueId"]
        70 FASTCALL1                        TOSTRING R19 ; [+2]
        71 GETIMPORT                        R18 K16 [tostring]
        73 CALL                             R18 1 1
@@ -385,8 +385,8 @@ PROTO_19:
        93 CALL                             R10 2 0
        94 JUMP                             ; [+30]
        95 NEWTABLE                         R12 0 4
-       97 GETTABLE                         R15 R5 R9
-       98 GETTABLEKS                       R14 R15 K14 ["Name"]
+       97 GETTABLE                         R14 R5 R9
+       98 GETTABLEKS                       R14 R14 K14 ["Name"]
       100 FASTCALL1                        TOSTRING R14 ; [+2]
       101 GETIMPORT                        R13 K16 [tostring]
       103 CALL                             R13 1 1
@@ -394,8 +394,8 @@ PROTO_19:
       105 LOADK                            R15 K0 [""]
       106 GETGLOBAL                        R16 K18 ["getLink"]
       108 LOADK                            R17 K19 ["explorer"]
-      109 GETTABLE                         R20 R5 R9
-      110 GETTABLEKS                       R19 R20 K20 ["UniqueId"]
+      109 GETTABLE                         R19 R5 R9
+      110 GETTABLEKS                       R19 R19 K20 ["UniqueId"]
       112 FASTCALL1                        TOSTRING R19 ; [+2]
       113 GETIMPORT                        R18 K16 [tostring]
       115 CALL                             R18 1 1
@@ -416,8 +416,8 @@ PROTO_19:
       134 LOADN                            R9 1
       135 FORNPREP                         R8
       136 NEWTABLE                         R13 0 4
-      138 GETTABLE                         R16 R5 R10
-      139 GETTABLEKS                       R15 R16 K14 ["Name"]
+      138 GETTABLE                         R15 R5 R10
+      139 GETTABLEKS                       R15 R15 K14 ["Name"]
       141 FASTCALL1                        TOSTRING R15 ; [+2]
       142 GETIMPORT                        R14 K16 [tostring]
       144 CALL                             R14 1 1
@@ -425,8 +425,8 @@ PROTO_19:
       146 LOADK                            R16 K0 [""]
       147 GETGLOBAL                        R17 K18 ["getLink"]
       149 LOADK                            R18 K19 ["explorer"]
-      150 GETTABLE                         R21 R5 R10
-      151 GETTABLEKS                       R20 R21 K20 ["UniqueId"]
+      150 GETTABLE                         R20 R5 R10
+      151 GETTABLEKS                       R20 R20 K20 ["UniqueId"]
       153 FASTCALL1                        TOSTRING R20 ; [+2]
       154 GETIMPORT                        R19 K16 [tostring]
       156 CALL                             R19 1 1
@@ -457,8 +457,8 @@ PROTO_19:
       189 LOADN                            R8 1
       190 FORNPREP                         R7
       191 NEWTABLE                         R12 0 4
-      193 GETTABLE                         R15 R5 R9
-      194 GETTABLEKS                       R14 R15 K14 ["Name"]
+      193 GETTABLE                         R14 R5 R9
+      194 GETTABLEKS                       R14 R14 K14 ["Name"]
       196 FASTCALL1                        TOSTRING R14 ; [+2]
       197 GETIMPORT                        R13 K16 [tostring]
       199 CALL                             R13 1 1
@@ -466,8 +466,8 @@ PROTO_19:
       201 LOADK                            R15 K0 [""]
       202 GETGLOBAL                        R16 K18 ["getLink"]
       204 LOADK                            R17 K19 ["explorer"]
-      205 GETTABLE                         R20 R5 R9
-      206 GETTABLEKS                       R19 R20 K20 ["UniqueId"]
+      205 GETTABLE                         R19 R5 R9
+      206 GETTABLEKS                       R19 R19 K20 ["UniqueId"]
       208 FASTCALL1                        TOSTRING R19 ; [+2]
       209 GETIMPORT                        R18 K16 [tostring]
       211 CALL                             R18 1 1
@@ -554,8 +554,8 @@ PROTO_20:
 
 PROTO_21:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["metaData"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["metaData"]
         4 MOVE                             R3 R0
         5 CALL                             R1 2 1
         6 RETURN                           R1 1
@@ -12448,14 +12448,14 @@ PROTO_23:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["SharedTypes"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["SharedTypes"]
        17 CALL                             R1 1 1
        18 LOADK                            R2 K8 ["https://www.roblox.com/"]
        19 LOADK                            R3 K9 ["https://create.roblox.com/"]

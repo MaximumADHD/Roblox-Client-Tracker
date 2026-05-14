@@ -18,22 +18,22 @@ PROTO_1:
         2 CALL                             R4 1 1
         3 NAMECALL                         R5 R0 K1 ["getItemsCache"]
         5 CALL                             R5 1 1
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K2 ["keys"]
+        6 GETUPVAL                         R6 0
+        7 GETTABLEKS                       R6 R6 K2 ["keys"]
         9 MOVE                             R7 R4
        10 CALL                             R6 1 1
        11 GETTABLEKS                       R9 R1 K3 ["Uid"]
        13 MOVE                             R10 R6
-       14 GETUPVAL                         R13 1
-       15 GETTABLEKS                       R12 R13 K4 ["AssetInfoField"]
-       17 GETTABLEKS                       R11 R12 K5 ["AssetId"]
+       14 GETUPVAL                         R11 1
+       15 GETTABLEKS                       R11 R11 K4 ["AssetInfoField"]
+       17 GETTABLEKS                       R11 R11 K5 ["AssetId"]
        19 NAMECALL                         R7 R5 K6 ["getData"]
        21 CALL                             R7 4 1
        22 GETTABLEKS                       R10 R1 K3 ["Uid"]
        24 MOVE                             R11 R6
-       25 GETUPVAL                         R14 1
-       26 GETTABLEKS                       R13 R14 K4 ["AssetInfoField"]
-       28 GETTABLEKS                       R12 R13 K7 ["AssetType"]
+       25 GETUPVAL                         R12 1
+       26 GETTABLEKS                       R12 R12 K4 ["AssetInfoField"]
+       28 GETTABLEKS                       R12 R12 K7 ["AssetType"]
        30 NAMECALL                         R8 R5 K6 ["getData"]
        32 CALL                             R8 4 1
        33 GETUPVAL                         R9 2
@@ -148,27 +148,27 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Dash"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K12 ["Src"]
-       24 GETTABLEKS                       R4 R5 K13 ["Types"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Types"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R7 R1 K12 ["Src"]
-       31 GETTABLEKS                       R6 R7 K14 ["Util"]
-       33 GETTABLEKS                       R5 R6 K15 ["handlePermissionsGrantErrors"]
+       29 GETTABLEKS                       R5 R1 K12 ["Src"]
+       31 GETTABLEKS                       R5 R5 K14 ["Util"]
+       33 GETTABLEKS                       R5 R5 K15 ["handlePermissionsGrantErrors"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K9 [require]
-       38 GETTABLEKS                       R8 R1 K12 ["Src"]
-       40 GETTABLEKS                       R7 R8 K14 ["Util"]
-       42 GETTABLEKS                       R6 R7 K16 ["isInsertable"]
+       38 GETTABLEKS                       R6 R1 K12 ["Src"]
+       40 GETTABLEKS                       R6 R6 K14 ["Util"]
+       42 GETTABLEKS                       R6 R6 K16 ["isInsertable"]
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K9 [require]
-       47 GETTABLEKS                       R9 R1 K12 ["Src"]
-       49 GETTABLEKS                       R8 R9 K17 ["Flags"]
-       51 GETTABLEKS                       R7 R8 K18 ["getFFlagAmrUseAssetAccessController"]
+       47 GETTABLEKS                       R7 R1 K12 ["Src"]
+       49 GETTABLEKS                       R7 R7 K17 ["Flags"]
+       51 GETTABLEKS                       R7 R7 K18 ["getFFlagAmrUseAssetAccessController"]
        53 CALL                             R6 1 1
        54 DUPCLOSURE                       R7 K19 [PROTO_0]
        55 CAPTURE                          VAL R5

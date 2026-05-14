@@ -34,8 +34,8 @@ PROTO_1:
         8 JUMPIFEQKNIL                     R4 ; [+4]
        10 LENGTH                           R5 R4
        11 JUMPIFNOTEQKN                    R5 K3 [0] ; [+12]
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K4 ["GetService"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K4 ["GetService"]
        16 LOADK                            R6 K5 ["GuiService"]
        17 CALL                             R5 1 1
        18 MOVE                             R7 R0
@@ -44,8 +44,8 @@ PROTO_1:
        22 CALL                             R5 3 0
        23 RETURN                           R0 0
        24 JUMPIFNOTEQKS                    R3 K7 ["explorer"] ; [+48]
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K4 ["GetService"]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K4 ["GetService"]
        29 LOADK                            R6 K8 ["UniqueIdLookupService"]
        30 MOVE                             R7 R2
        31 CALL                             R5 2 1
@@ -63,16 +63,16 @@ PROTO_1:
        48 MOVE                             R9 R5
        49 GETIMPORT                        R7 K12 [table.insert]
        51 CALL                             R7 2 0
-       52 GETUPVAL                         R8 0
-       53 GETTABLEKS                       R7 R8 K4 ["GetService"]
+       52 GETUPVAL                         R7 0
+       53 GETTABLEKS                       R7 R7 K4 ["GetService"]
        55 LOADK                            R8 K13 ["TutorialService"]
        56 MOVE                             R9 R2
        57 CALL                             R7 2 1
        58 LOADK                            R9 K14 ["Explorer"]
        59 NAMECALL                         R7 R7 K15 ["ShowWidgets"]
        61 CALL                             R7 2 0
-       62 GETUPVAL                         R8 0
-       63 GETTABLEKS                       R7 R8 K4 ["GetService"]
+       62 GETUPVAL                         R7 0
+       63 GETTABLEKS                       R7 R7 K4 ["GetService"]
        65 LOADK                            R8 K16 ["Selection"]
        66 MOVE                             R9 R2
        67 CALL                             R7 2 1
@@ -117,16 +117,16 @@ PROTO_1:
       122 MOVE                             R11 R7
       123 GETIMPORT                        R9 K12 [table.insert]
       125 CALL                             R9 2 0
-      126 GETUPVAL                         R10 0
-      127 GETTABLEKS                       R9 R10 K4 ["GetService"]
+      126 GETUPVAL                         R9 0
+      127 GETTABLEKS                       R9 R9 K4 ["GetService"]
       129 LOADK                            R10 K13 ["TutorialService"]
       130 MOVE                             R11 R2
       131 CALL                             R9 2 1
       132 LOADK                            R11 K14 ["Explorer"]
       133 NAMECALL                         R9 R9 K15 ["ShowWidgets"]
       135 CALL                             R9 2 0
-      136 GETUPVAL                         R10 0
-      137 GETTABLEKS                       R9 R10 K4 ["GetService"]
+      136 GETUPVAL                         R9 0
+      137 GETTABLEKS                       R9 R9 K4 ["GetService"]
       139 LOADK                            R10 K16 ["Selection"]
       140 MOVE                             R11 R2
       141 CALL                             R9 2 1
@@ -145,9 +145,9 @@ PROTO_1:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["LinkerServiceController"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["LinkerServiceController"]
         9 CALL                             R0 1 1
        10 DUPTABLE                         R1 K9 [{"PluginId", "Category", "ItemId"}]
        11 LOADK                            R2 K10 ["Explorer"]

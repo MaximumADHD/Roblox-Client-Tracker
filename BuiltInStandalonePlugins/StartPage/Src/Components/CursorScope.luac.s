@@ -19,8 +19,8 @@ PROTO_1:
        10 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["use"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
@@ -34,10 +34,10 @@ PROTO_2:
        14 MOVE                             R7 R2
        15 SETLIST                          R5 R6 2 [1]
        17 CALL                             R3 2 0
-       18 GETUPVAL                         R4 4
-       19 GETTABLEKS                       R3 R4 K1 ["createElement"]
-       21 GETUPVAL                         R5 2
-       22 GETTABLEKS                       R4 R5 K2 ["Provider"]
+       18 GETUPVAL                         R3 4
+       19 GETTABLEKS                       R3 R3 K1 ["createElement"]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K2 ["Provider"]
        24 DUPTABLE                         R5 K4 [{"value"}]
        25 ADDK                             R6 R2 K5 [1]
        26 SETTABLEKS                       R6 R5 K3 ["value"]
@@ -52,21 +52,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["Mouse"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["Mouse"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["React"]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["React"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R3 K11 ["useContext"]
        27 GETTABLEKS                       R5 R3 K12 ["useEffect"]
        29 GETIMPORT                        R6 K5 [require]
-       31 GETTABLEKS                       R9 R0 K13 ["Src"]
-       33 GETTABLEKS                       R8 R9 K14 ["Contexts"]
-       35 GETTABLEKS                       R7 R8 K15 ["CursorPriority"]
+       31 GETTABLEKS                       R7 R0 K13 ["Src"]
+       33 GETTABLEKS                       R7 R7 K14 ["Contexts"]
+       35 GETTABLEKS                       R7 R7 K15 ["CursorPriority"]
        37 CALL                             R6 1 1
        38 DUPCLOSURE                       R7 K16 [PROTO_2]
        39 CAPTURE                          VAL R2

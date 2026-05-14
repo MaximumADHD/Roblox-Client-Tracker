@@ -11,16 +11,16 @@ PROTO_0:
        12 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["onMyWatchesFilterChange"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["onMyWatchesFilterChange"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 0
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K2 ["Analytics"]
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["MyWatchesColumnsEdited"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K2 ["Analytics"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["MyWatchesColumnsEdited"]
        15 GETUPVAL                         R4 2
        16 MOVE                             R5 R0
        17 CALL                             R4 1 -1
@@ -32,11 +32,11 @@ PROTO_2:
         0 NEWTABLE                         R1 0 3
         2 LOADK                            R2 K0 ["AllColumns"]
         3 SETTABLEN                        R2 R1 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K1 ["Value"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["Value"]
         7 SETTABLEN                        R2 R1 2
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K2 ["DataType"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K2 ["DataType"]
        11 SETTABLEN                        R2 R1 3
        12 SETTABLEKS                       R1 R0 K3 ["keyColumns"]
        14 NEWCLOSURE                       R1 P0
@@ -50,8 +50,8 @@ PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K13 [{"KeyTexts", "ClickCallback", "KeyStates", "Localization", "Style", "Widget", "DropdownWidth", "HamburgerMenu", "ShouldShowDropdownIcon", "LayoutOrder"}]
        11 GETTABLEKS                       R7 R0 K14 ["keyColumns"]
@@ -76,11 +76,11 @@ PROTO_3:
        44 RETURN                           R4 -1
 
 PROTO_4:
-        0 GETTABLEKS                       R3 R0 K0 ["Watch"]
-        2 GETTABLEKS                       R2 R3 K1 ["listOfMyWatchesColumns"]
+        0 GETTABLEKS                       R2 R0 K0 ["Watch"]
+        2 GETTABLEKS                       R2 R2 K1 ["listOfMyWatchesColumns"]
         4 NEWTABLE                         R3 0 0
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R5 R6 K2 ["Value"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K2 ["Value"]
         9 GETIMPORT                        R6 K4 [pairs]
        11 MOVE                             R7 R2
        12 CALL                             R6 1 3
@@ -91,8 +91,8 @@ PROTO_4:
        18 FORGLOOP                         R6 2 ; [-5]
        20 LOADB                            R4 0
        21 SETTABLEN                        R4 R3 2
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R5 R6 K5 ["DataType"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K5 ["DataType"]
        25 GETIMPORT                        R6 K4 [pairs]
        27 MOVE                             R7 R2
        28 CALL                             R6 1 3
@@ -125,56 +125,56 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["Framework"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        34 GETTABLEKS                       R5 R4 K10 ["withContext"]
        36 GETTABLEKS                       R6 R4 K11 ["Localization"]
        38 GETTABLEKS                       R7 R4 K12 ["Analytics"]
        40 GETIMPORT                        R8 K4 [require]
-       42 GETTABLEKS                       R11 R0 K13 ["Src"]
-       44 GETTABLEKS                       R10 R11 K14 ["Resources"]
-       46 GETTABLEKS                       R9 R10 K15 ["AnalyticsEventNames"]
+       42 GETTABLEKS                       R9 R0 K13 ["Src"]
+       44 GETTABLEKS                       R9 R9 K14 ["Resources"]
+       46 GETTABLEKS                       R9 R9 K15 ["AnalyticsEventNames"]
        48 CALL                             R8 1 1
-       49 GETTABLEKS                       R10 R3 K16 ["Style"]
-       51 GETTABLEKS                       R9 R10 K17 ["Stylizer"]
+       49 GETTABLEKS                       R9 R3 K16 ["Style"]
+       51 GETTABLEKS                       R9 R9 K17 ["Stylizer"]
        53 GETIMPORT                        R10 K4 [require]
-       55 GETTABLEKS                       R14 R0 K13 ["Src"]
-       57 GETTABLEKS                       R13 R14 K18 ["Components"]
-       59 GETTABLEKS                       R12 R13 K19 ["Common"]
-       61 GETTABLEKS                       R11 R12 K20 ["DropdownField"]
+       55 GETTABLEKS                       R11 R0 K13 ["Src"]
+       57 GETTABLEKS                       R11 R11 K18 ["Components"]
+       59 GETTABLEKS                       R11 R11 K19 ["Common"]
+       61 GETTABLEKS                       R11 R11 K20 ["DropdownField"]
        63 CALL                             R10 1 1
-       64 GETTABLEKS                       R12 R0 K13 ["Src"]
-       66 GETTABLEKS                       R11 R12 K21 ["Actions"]
+       64 GETTABLEKS                       R11 R0 K13 ["Src"]
+       66 GETTABLEKS                       R11 R11 K21 ["Actions"]
        68 GETIMPORT                        R12 K4 [require]
-       70 GETTABLEKS                       R14 R11 K22 ["Watch"]
-       72 GETTABLEKS                       R13 R14 K23 ["MyWatchesFilterChange"]
+       70 GETTABLEKS                       R13 R11 K22 ["Watch"]
+       72 GETTABLEKS                       R13 R13 K23 ["MyWatchesFilterChange"]
        74 CALL                             R12 1 1
-       75 GETTABLEKS                       R14 R0 K13 ["Src"]
-       77 GETTABLEKS                       R13 R14 K24 ["Models"]
+       75 GETTABLEKS                       R13 R0 K13 ["Src"]
+       77 GETTABLEKS                       R13 R13 K24 ["Models"]
        79 GETIMPORT                        R14 K4 [require]
-       81 GETTABLEKS                       R16 R13 K22 ["Watch"]
-       83 GETTABLEKS                       R15 R16 K25 ["MyWatchesColumnEnum"]
+       81 GETTABLEKS                       R15 R13 K22 ["Watch"]
+       83 GETTABLEKS                       R15 R15 K25 ["MyWatchesColumnEnum"]
        85 CALL                             R14 1 1
        86 GETIMPORT                        R15 K4 [require]
-       88 GETTABLEKS                       R18 R0 K13 ["Src"]
-       90 GETTABLEKS                       R17 R18 K26 ["Util"]
-       92 GETTABLEKS                       R16 R17 K27 ["flatListToString"]
+       88 GETTABLEKS                       R16 R0 K13 ["Src"]
+       90 GETTABLEKS                       R16 R16 K26 ["Util"]
+       92 GETTABLEKS                       R16 R16 K27 ["flatListToString"]
        94 CALL                             R15 1 1
        95 GETTABLEKS                       R16 R1 K28 ["PureComponent"]
        97 LOADK                            R18 K29 ["MyWatchesDropdownField"]

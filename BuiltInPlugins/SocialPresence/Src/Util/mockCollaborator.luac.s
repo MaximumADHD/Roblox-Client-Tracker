@@ -15,8 +15,8 @@ PROTO_0:
        18 SETTABLEKS                       R3 R2 K3 ["CurScriptLineNumber"]
        20 LOADB                            R3 0
        21 SETTABLEKS                       R3 R2 K4 ["IsIdle"]
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K13 ["Editing3D"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K13 ["Editing3D"]
        26 SETTABLEKS                       R3 R2 K5 ["Status"]
        28 ORK                              R3 R0 K14 [3570764360]
        29 SETTABLEKS                       R3 R2 K6 ["UserId"]
@@ -31,9 +31,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Components"]
-       13 GETTABLEKS                       R2 R3 K8 ["CollaboratorStatus"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["CollaboratorStatus"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

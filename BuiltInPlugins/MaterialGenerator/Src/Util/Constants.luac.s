@@ -5,11 +5,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["MaterialFramework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["MaterialFramework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Enums"]
-       16 GETTABLEKS                       R2 R3 K9 ["MaterialPreviewGeometryType"]
+       14 GETTABLEKS                       R2 R1 K8 ["Enums"]
+       16 GETTABLEKS                       R2 R2 K9 ["MaterialPreviewGeometryType"]
        18 DUPTABLE                         R3 K25 [{"TOOLBAR_HEIGHT", "PROMPT_HEIGHT", "SETTING_GEOMETRY_TYPE", "SETTING_GEOMETRY_TYPE_DEFAULT", "EDITOR_WIDTH", "EDITOR_HEIGHT", "PLUGIN_SIZE", "PLUGIN_MIN_SIZE", "MATERIALS_FOLDER_NAME", "GENERATION_SAMPLES", "INSTANCE_NAME_MAX_LENGTH", "STUDS_PER_TILE_MAX", "STUDS_PER_TILE_MIN", "STUDS_PER_TILE_SNAP_INCREMENT", "SUPPORTED_MATERIALS"}]
        19 LOADN                            R4 32
        20 SETTABLEKS                       R4 R3 K10 ["TOOLBAR_HEIGHT"]
@@ -17,8 +17,8 @@ MAIN:
        23 SETTABLEKS                       R4 R3 K11 ["PROMPT_HEIGHT"]
        25 LOADK                            R4 K26 ["MaterialGenerator_GeometryType"]
        26 SETTABLEKS                       R4 R3 K12 ["SETTING_GEOMETRY_TYPE"]
-       28 GETTABLEKS                       R5 R2 K27 ["Plane"]
-       30 GETTABLEKS                       R4 R5 K28 ["rawValue"]
+       28 GETTABLEKS                       R4 R2 K27 ["Plane"]
+       30 GETTABLEKS                       R4 R4 K28 ["rawValue"]
        32 CALL                             R4 0 1
        33 SETTABLEKS                       R4 R3 K13 ["SETTING_GEOMETRY_TYPE_DEFAULT"]
        35 LOADN                            R4 44

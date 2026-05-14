@@ -7,13 +7,13 @@ PROTO_0:
         6 NAMECALL                         R2 R1 K3 ["IsA"]
         8 CALL                             R2 2 1
         9 JUMPIFNOT                        R2 ; [+5]
-       10 GETTABLEKS                       R3 R1 K4 ["CFrame"]
-       12 GETTABLEKS                       R2 R3 K5 ["LookVector"]
+       10 GETTABLEKS                       R2 R1 K4 ["CFrame"]
+       12 GETTABLEKS                       R2 R2 K5 ["LookVector"]
        14 RETURN                           R2 1
        15 GETTABLEKS                       R2 R0 K6 ["PrimaryPart"]
        17 JUMPIFNOT                        R2 ; [+5]
-       18 GETTABLEKS                       R4 R2 K4 ["CFrame"]
-       20 GETTABLEKS                       R3 R4 K5 ["LookVector"]
+       18 GETTABLEKS                       R3 R2 K4 ["CFrame"]
+       20 GETTABLEKS                       R3 R3 K5 ["LookVector"]
        22 RETURN                           R3 1
        23 LOADK                            R3 K7 [{0, 0, -1}]
        24 RETURN                           R3 1
@@ -69,8 +69,8 @@ PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
-        3 GETIMPORT                        R1 K1 [workspace]
-        5 GETTABLEKS                       R0 R1 K2 ["CurrentCamera"]
+        3 GETIMPORT                        R0 K1 [workspace]
+        5 GETTABLEKS                       R0 R0 K2 ["CurrentCamera"]
         7 JUMPIF                           R0 ; [+1]
         8 RETURN                           R0 0
         9 LOADNIL                          R1
@@ -79,8 +79,8 @@ PROTO_3:
        12 JUMPIFEQKS                       R3 K3 ["leftHand"] ; [+4]
        14 GETUPVAL                         R3 1
        15 JUMPIFNOTEQKS                    R3 K4 ["rightHand"] ; [+71]
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K5 ["Parent"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K5 ["Parent"]
        20 JUMPIFNOT                        R3 ; [+5]
        21 LOADK                            R6 K6 ["HumanoidRigDescription"]
        22 NAMECALL                         R4 R3 K7 ["IsA"]
@@ -89,8 +89,8 @@ PROTO_3:
        26 CLOSEUPVALS                      R1
        27 RETURN                           R0 0
        28 LOADNIL                          R4
-       29 GETUPVAL                         R6 0
-       30 GETTABLEKS                       R5 R6 K8 ["Side"]
+       29 GETUPVAL                         R5 0
+       30 GETTABLEKS                       R5 R5 K8 ["Side"]
        32 GETIMPORT                        R6 K12 [Enum.DigitsRigDescriptionSide.Left]
        34 JUMPIFNOTEQ                      R5 R6 ; [+4]
        36 GETIMPORT                        R4 K15 [Enum.RigLabel.LeftWrist]
@@ -110,8 +110,8 @@ PROTO_3:
        58 JUMPIF                           R6 ; [+2]
        59 CLOSEUPVALS                      R1
        60 RETURN                           R0 0
-       61 GETUPVAL                         R8 2
-       62 GETTABLEKS                       R7 R8 K21 ["getGlobalCoordinateFrame"]
+       61 GETUPVAL                         R7 2
+       62 GETTABLEKS                       R7 R7 K21 ["getGlobalCoordinateFrame"]
        64 MOVE                             R8 R6
        65 CALL                             R7 1 1
        66 GETTABLEKS                       R8 R7 K22 ["Position"]
@@ -133,8 +133,8 @@ PROTO_3:
        87 GETUPVAL                         R3 1
        88 JUMPIFNOTEQKS                    R3 K30 ["body"] ; [+90]
        90 LOADNIL                          R3
-       91 GETUPVAL                         R5 0
-       92 GETTABLEKS                       R4 R5 K5 ["Parent"]
+       91 GETUPVAL                         R4 0
+       92 GETTABLEKS                       R4 R4 K5 ["Parent"]
        94 JUMPIFNOT                        R4 ; [+7]
        95 LOADK                            R7 K31 ["Model"]
        96 NAMECALL                         R5 R4 K7 ["IsA"]
@@ -161,13 +161,13 @@ PROTO_3:
       121 NAMECALL                         R10 R9 K7 ["IsA"]
       123 CALL                             R10 2 1
       124 JUMPIFNOT                        R10 ; [+5]
-      125 GETTABLEKS                       R10 R9 K27 ["CFrame"]
-      127 GETTABLEKS                       R7 R10 K24 ["LookVector"]
+      125 GETTABLEKS                       R7 R9 K27 ["CFrame"]
+      127 GETTABLEKS                       R7 R7 K24 ["LookVector"]
       129 JUMP                             ; [+9]
       130 GETTABLEKS                       R10 R8 K37 ["PrimaryPart"]
       132 JUMPIFNOT                        R10 ; [+5]
-      133 GETTABLEKS                       R11 R10 K27 ["CFrame"]
-      135 GETTABLEKS                       R7 R11 K24 ["LookVector"]
+      133 GETTABLEKS                       R7 R10 K27 ["CFrame"]
+      135 GETTABLEKS                       R7 R7 K24 ["LookVector"]
       137 JUMP                             ; [+1]
       138 LOADK                            R7 K38 [{0, 0, -1}]
       139 LOADK                            R10 K34 ["HumanoidRootPart"]
@@ -180,9 +180,9 @@ PROTO_3:
       148 JUMPIFNOT                        R10 ; [+3]
       149 GETTABLEKS                       R9 R8 K22 ["Position"]
       151 JUMP                             ; [+5]
-      152 NAMECALL                         R10 R3 K33 ["GetBoundingBox"]
-      154 CALL                             R10 1 1
-      155 GETTABLEKS                       R9 R10 K22 ["Position"]
+      152 NAMECALL                         R9 R3 K33 ["GetBoundingBox"]
+      154 CALL                             R9 1 1
+      155 GETTABLEKS                       R9 R9 K22 ["Position"]
       157 GETTABLEKS                       R11 R6 K39 ["X"]
       159 GETTABLEKS                       R12 R6 K40 ["Y"]
       161 GETTABLEKS                       R13 R6 K41 ["Z"]
@@ -205,8 +205,8 @@ PROTO_3:
       181 GETTABLEKS                       R3 R0 K27 ["CFrame"]
       183 LOADN                            R4 0
       184 LOADNIL                          R5
-      185 GETUPVAL                         R7 3
-      186 GETTABLEKS                       R6 R7 K46 ["Heartbeat"]
+      185 GETUPVAL                         R6 3
+      186 GETTABLEKS                       R6 R6 K46 ["Heartbeat"]
       188 NEWCLOSURE                       R8 P0
       189 CAPTURE                          REF R4
       190 CAPTURE                          VAL R0
@@ -223,8 +223,8 @@ PROTO_3:
       202 RETURN                           R6 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useEffect"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useEffect"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          VAL R1
@@ -244,16 +244,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["AdaptiveAnimationTools"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["AdaptiveAnimationTools"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K12 [game]
        30 LOADK                            R6 K13 ["RunService"]

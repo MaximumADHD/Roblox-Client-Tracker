@@ -1,37 +1,37 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_studioDeviceEmulatorService"]
-        3 NAMECALL                         R1 R1 K1 ["asService"]
-        5 CALL                             R1 1 1
-        6 GETTABLEKS                       R0 R1 K2 ["IsMultiTouchEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_studioDeviceEmulatorService"]
+        3 NAMECALL                         R0 R0 K1 ["asService"]
+        5 CALL                             R0 1 1
+        6 GETTABLEKS                       R0 R0 K2 ["IsMultiTouchEnabled"]
         8 JUMPIFNOT                        R0 ; [+61]
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R0 R1 K3 ["_screenGui"]
+        9 GETUPVAL                         R0 0
+       10 GETTABLEKS                       R0 R0 K3 ["_screenGui"]
        12 LOADB                            R1 1
        13 SETTABLEKS                       R1 R0 K4 ["Enabled"]
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K0 ["_studioDeviceEmulatorService"]
-       18 NAMECALL                         R1 R1 K1 ["asService"]
-       20 CALL                             R1 1 1
-       21 GETTABLEKS                       R0 R1 K5 ["PivotPosition"]
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K0 ["_studioDeviceEmulatorService"]
+       18 NAMECALL                         R0 R0 K1 ["asService"]
+       20 CALL                             R0 1 1
+       21 GETTABLEKS                       R0 R0 K5 ["PivotPosition"]
        23 GETUPVAL                         R1 0
-       24 GETUPVAL                         R4 0
-       25 GETTABLEKS                       R3 R4 K6 ["_pivot"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K6 ["_pivot"]
        27 MOVE                             R4 R0
        28 NAMECALL                         R1 R1 K7 ["updateControlCirclePos"]
        30 CALL                             R1 3 0
        31 LOADN                            R3 1
-       32 GETUPVAL                         R5 0
-       33 GETTABLEKS                       R4 R5 K8 ["_touches"]
+       32 GETUPVAL                         R4 0
+       33 GETTABLEKS                       R4 R4 K8 ["_touches"]
        35 LENGTH                           R1 R4
        36 LOADN                            R2 1
        37 FORNPREP                         R1
        38 GETUPVAL                         R4 0
-       39 GETUPVAL                         R8 0
-       40 GETTABLEKS                       R7 R8 K8 ["_touches"]
+       39 GETUPVAL                         R7 0
+       40 GETTABLEKS                       R7 R7 K8 ["_touches"]
        42 GETTABLE                         R6 R7 R3
-       43 GETUPVAL                         R8 0
-       44 GETTABLEKS                       R7 R8 K0 ["_studioDeviceEmulatorService"]
+       43 GETUPVAL                         R7 0
+       44 GETTABLEKS                       R7 R7 K0 ["_studioDeviceEmulatorService"]
        46 NAMECALL                         R7 R7 K1 ["asService"]
        48 CALL                             R7 1 1
        49 SUBK                             R9 R3 K9 [1]
@@ -40,46 +40,46 @@ PROTO_0:
        53 NAMECALL                         R4 R4 K7 ["updateControlCirclePos"]
        55 CALL                             R4 -1 0
        56 GETUPVAL                         R4 0
-       57 GETUPVAL                         R8 0
-       58 GETTABLEKS                       R7 R8 K11 ["_connectingLines"]
+       57 GETUPVAL                         R7 0
+       58 GETTABLEKS                       R7 R7 K11 ["_connectingLines"]
        60 GETTABLE                         R6 R7 R3
-       61 GETUPVAL                         R9 0
-       62 GETTABLEKS                       R8 R9 K8 ["_touches"]
+       61 GETUPVAL                         R8 0
+       62 GETTABLEKS                       R8 R8 K8 ["_touches"]
        64 GETTABLE                         R7 R8 R3
        65 NAMECALL                         R4 R4 K12 ["updateConnectingLine"]
        67 CALL                             R4 3 0
        68 FORNLOOP                         R1
        69 RETURN                           R0 0
-       70 GETUPVAL                         R1 0
-       71 GETTABLEKS                       R0 R1 K3 ["_screenGui"]
+       70 GETUPVAL                         R0 0
+       71 GETTABLEKS                       R0 R0 K3 ["_screenGui"]
        73 LOADB                            R1 0
        74 SETTABLEKS                       R1 R0 K4 ["Enabled"]
        76 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_studioDeviceEmulatorService"]
-        3 NAMECALL                         R1 R1 K1 ["asService"]
-        5 CALL                             R1 1 1
-        6 GETTABLEKS                       R0 R1 K2 ["PivotPosition"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_studioDeviceEmulatorService"]
+        3 NAMECALL                         R0 R0 K1 ["asService"]
+        5 CALL                             R0 1 1
+        6 GETTABLEKS                       R0 R0 K2 ["PivotPosition"]
         8 GETUPVAL                         R1 0
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["_pivot"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["_pivot"]
        12 MOVE                             R4 R0
        13 NAMECALL                         R1 R1 K4 ["updateControlCirclePos"]
        15 CALL                             R1 3 0
        16 LOADN                            R3 1
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K5 ["_touches"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K5 ["_touches"]
        20 LENGTH                           R1 R4
        21 LOADN                            R2 1
        22 FORNPREP                         R1
        23 GETUPVAL                         R4 0
-       24 GETUPVAL                         R8 0
-       25 GETTABLEKS                       R7 R8 K6 ["_connectingLines"]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K6 ["_connectingLines"]
        27 GETTABLE                         R6 R7 R3
-       28 GETUPVAL                         R9 0
-       29 GETTABLEKS                       R8 R9 K5 ["_touches"]
+       28 GETUPVAL                         R8 0
+       29 GETTABLEKS                       R8 R8 K5 ["_touches"]
        31 GETTABLE                         R7 R8 R3
        32 NAMECALL                         R4 R4 K7 ["updateConnectingLine"]
        34 CALL                             R4 3 0
@@ -88,17 +88,17 @@ PROTO_1:
 
 PROTO_2:
         0 LOADN                            R2 1
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["_touches"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["_touches"]
         4 LENGTH                           R0 R3
         5 LOADN                            R1 1
         6 FORNPREP                         R0
         7 GETUPVAL                         R3 0
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K0 ["_touches"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K0 ["_touches"]
        11 GETTABLE                         R5 R6 R2
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K1 ["_studioDeviceEmulatorService"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K1 ["_studioDeviceEmulatorService"]
        15 NAMECALL                         R6 R6 K2 ["asService"]
        17 CALL                             R6 1 1
        18 SUBK                             R8 R2 K3 [1]
@@ -107,11 +107,11 @@ PROTO_2:
        22 NAMECALL                         R3 R3 K5 ["updateControlCirclePos"]
        24 CALL                             R3 -1 0
        25 GETUPVAL                         R3 0
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R6 R7 K6 ["_connectingLines"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K6 ["_connectingLines"]
        29 GETTABLE                         R5 R6 R2
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R7 R8 K0 ["_touches"]
+       30 GETUPVAL                         R7 0
+       31 GETTABLEKS                       R7 R7 K0 ["_touches"]
        33 GETTABLE                         R6 R7 R2
        34 NAMECALL                         R3 R3 K7 ["updateConnectingLine"]
        36 CALL                             R3 3 0
@@ -120,17 +120,17 @@ PROTO_2:
 
 PROTO_3:
         0 LOADN                            R2 1
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["_touches"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["_touches"]
         4 LENGTH                           R0 R3
         5 LOADN                            R1 1
         6 FORNPREP                         R0
         7 GETUPVAL                         R3 0
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K0 ["_touches"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K0 ["_touches"]
        11 GETTABLE                         R5 R6 R2
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K1 ["_studioDeviceEmulatorService"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K1 ["_studioDeviceEmulatorService"]
        15 NAMECALL                         R6 R6 K2 ["asService"]
        17 CALL                             R6 1 1
        18 SUBK                             R8 R2 K3 [1]
@@ -143,8 +143,8 @@ PROTO_3:
 
 PROTO_4:
         0 DUPTABLE                         R2 K6 [{"_studioDeviceEmulatorService", "_screenGui", "_pivot", "_touches", "_connectingLines", "_mock"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K7 ["new"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K7 ["new"]
         4 LOADK                            R4 K8 ["StudioDeviceEmulatorService"]
         5 MOVE                             R5 R0
         6 CALL                             R3 2 1
@@ -209,19 +209,19 @@ PROTO_4:
        94 NAMECALL                         R2 R2 K20 ["Connect"]
        96 CALL                             R2 2 1
        97 SETTABLEKS                       R2 R1 K23 ["_pivotPositionChanged"]
-       99 GETTABLEKS                       R3 R1 K0 ["_studioDeviceEmulatorService"]
-      101 NAMECALL                         R3 R3 K13 ["asService"]
-      103 CALL                             R3 1 1
-      104 GETTABLEKS                       R2 R3 K24 ["TouchPositionsChanged"]
+       99 GETTABLEKS                       R2 R1 K0 ["_studioDeviceEmulatorService"]
+      101 NAMECALL                         R2 R2 K13 ["asService"]
+      103 CALL                             R2 1 1
+      104 GETTABLEKS                       R2 R2 K24 ["TouchPositionsChanged"]
       106 NEWCLOSURE                       R4 P2
       107 CAPTURE                          VAL R1
       108 NAMECALL                         R2 R2 K20 ["Connect"]
       110 CALL                             R2 2 1
       111 SETTABLEKS                       R2 R1 K25 ["_touchPositionsChanged"]
-      113 GETTABLEKS                       R3 R1 K0 ["_studioDeviceEmulatorService"]
-      115 NAMECALL                         R3 R3 K13 ["asService"]
-      117 CALL                             R3 1 1
-      118 GETTABLEKS                       R2 R3 K26 ["TouchInBoundsChanged"]
+      113 GETTABLEKS                       R2 R1 K0 ["_studioDeviceEmulatorService"]
+      115 NAMECALL                         R2 R2 K13 ["asService"]
+      117 CALL                             R2 1 1
+      118 GETTABLEKS                       R2 R2 K26 ["TouchInBoundsChanged"]
       120 NEWCLOSURE                       R4 P3
       121 CAPTURE                          VAL R1
       122 NAMECALL                         R2 R2 K20 ["Connect"]
@@ -230,8 +230,8 @@ PROTO_4:
       127 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 LOADB                            R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
@@ -262,8 +262,8 @@ PROTO_6:
        36 RETURN                           R0 0
 
 PROTO_7:
-        0 GETIMPORT                        R2 K1 [game]
-        2 GETTABLEKS                       R1 R2 K2 ["CoreGui"]
+        0 GETIMPORT                        R1 K1 [game]
+        2 GETTABLEKS                       R1 R1 K2 ["CoreGui"]
         4 LOADK                            R3 K3 ["MultiTouchScreenGui"]
         5 NAMECALL                         R1 R1 K4 ["FindFirstChild"]
         7 CALL                             R1 2 1
@@ -281,8 +281,8 @@ PROTO_7:
        22 SETTABLEKS                       R2 R1 K11 ["IgnoreGuiInset"]
        24 LOADB                            R2 0
        25 SETTABLEKS                       R2 R1 K12 ["Enabled"]
-       27 GETIMPORT                        R3 K1 [game]
-       29 GETTABLEKS                       R2 R3 K2 ["CoreGui"]
+       27 GETIMPORT                        R2 K1 [game]
+       29 GETTABLEKS                       R2 R2 K2 ["CoreGui"]
        31 SETTABLEKS                       R2 R1 K13 ["Parent"]
        33 RETURN                           R1 1
 
@@ -425,20 +425,20 @@ PROTO_12:
        18 RETURN                           R0 0
 
 PROTO_13:
-        0 GETTABLEKS                       R6 R0 K0 ["_pivot"]
-        2 GETTABLEKS                       R5 R6 K1 ["Position"]
-        4 GETTABLEKS                       R4 R5 K2 ["X"]
-        6 GETTABLEKS                       R3 R4 K3 ["Offset"]
-        8 GETTABLEKS                       R7 R0 K0 ["_pivot"]
-       10 GETTABLEKS                       R6 R7 K1 ["Position"]
-       12 GETTABLEKS                       R5 R6 K4 ["Y"]
-       14 GETTABLEKS                       R4 R5 K3 ["Offset"]
-       16 GETTABLEKS                       R7 R2 K1 ["Position"]
-       18 GETTABLEKS                       R6 R7 K2 ["X"]
-       20 GETTABLEKS                       R5 R6 K3 ["Offset"]
-       22 GETTABLEKS                       R8 R2 K1 ["Position"]
-       24 GETTABLEKS                       R7 R8 K4 ["Y"]
-       26 GETTABLEKS                       R6 R7 K3 ["Offset"]
+        0 GETTABLEKS                       R3 R0 K0 ["_pivot"]
+        2 GETTABLEKS                       R3 R3 K1 ["Position"]
+        4 GETTABLEKS                       R3 R3 K2 ["X"]
+        6 GETTABLEKS                       R3 R3 K3 ["Offset"]
+        8 GETTABLEKS                       R4 R0 K0 ["_pivot"]
+       10 GETTABLEKS                       R4 R4 K1 ["Position"]
+       12 GETTABLEKS                       R4 R4 K4 ["Y"]
+       14 GETTABLEKS                       R4 R4 K3 ["Offset"]
+       16 GETTABLEKS                       R5 R2 K1 ["Position"]
+       18 GETTABLEKS                       R5 R5 K2 ["X"]
+       20 GETTABLEKS                       R5 R5 K3 ["Offset"]
+       22 GETTABLEKS                       R6 R2 K1 ["Position"]
+       24 GETTABLEKS                       R6 R6 K4 ["Y"]
+       26 GETTABLEKS                       R6 R6 K3 ["Offset"]
        28 GETIMPORT                        R7 K7 [UDim2.new]
        30 LOADN                            R8 0
        31 SUB                              R12 R5 R3
@@ -475,18 +475,18 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["TestHelpers"]
-       18 GETTABLEKS                       R2 R3 K8 ["ServiceWrapper"]
-       20 GETTABLEKS                       R4 R1 K9 ["ContextServices"]
-       22 GETTABLEKS                       R3 R4 K10 ["ContextItem"]
+       16 GETTABLEKS                       R2 R1 K7 ["TestHelpers"]
+       18 GETTABLEKS                       R2 R2 K8 ["ServiceWrapper"]
+       20 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
+       22 GETTABLEKS                       R3 R3 K10 ["ContextItem"]
        24 LOADK                            R6 K11 ["MultiTouchController"]
        25 NAMECALL                         R4 R3 K12 ["extend"]
        27 CALL                             R4 2 1

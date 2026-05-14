@@ -35,8 +35,8 @@ PROTO_1:
        16 LOADB                            R4 0
        17 SETTABLEKS                       R4 R3 K5 ["compactDensity"]
        19 SETTABLEKS                       R0 R3 K6 ["plugin"]
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R4 R5 K11 ["join"]
+       21 GETUPVAL                         R4 0
+       22 GETTABLEKS                       R4 R4 K11 ["join"]
        24 MOVE                             R5 R1
        25 DUPTABLE                         R6 K14 [{"Category", "ItemId"}]
        26 LOADK                            R7 K9 ["Panels"]
@@ -45,8 +45,8 @@ PROTO_1:
        30 SETTABLEKS                       R7 R6 K13 ["ItemId"]
        32 CALL                             R4 2 1
        33 SETTABLEKS                       R4 R3 K7 ["panelUri"]
-       35 GETUPVAL                         R5 0
-       36 GETTABLEKS                       R4 R5 K11 ["join"]
+       35 GETUPVAL                         R4 0
+       36 GETTABLEKS                       R4 R4 K11 ["join"]
        38 MOVE                             R5 R1
        39 DUPTABLE                         R6 K14 [{"Category", "ItemId"}]
        40 LOADK                            R7 K9 ["Panels"]
@@ -72,21 +72,21 @@ PROTO_2:
         1 JUMPIFNOT                        R0 ; [+48]
         2 GETUPVAL                         R0 1
         3 JUMPIFNOT                        R0 ; [+31]
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K0 ["Panels"]
-        7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R2 R3 K1 ["floatingUri"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K0 ["Panels"]
+        7 GETUPVAL                         R2 2
+        8 GETTABLEKS                       R2 R2 K1 ["floatingUri"]
        10 GETIMPORT                        R3 K4 [Vector2.new]
-       12 GETUPVAL                         R5 2
-       13 GETTABLEKS                       R4 R5 K5 ["width"]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R4 R4 K5 ["width"]
        15 GETUPVAL                         R5 3
        16 CALL                             R3 2 -1
        17 NAMECALL                         R0 R0 K6 ["SetSizeAsync"]
        19 CALL                             R0 -1 0
-       20 GETUPVAL                         R1 2
-       21 GETTABLEKS                       R0 R1 K0 ["Panels"]
-       23 GETUPVAL                         R3 2
-       24 GETTABLEKS                       R2 R3 K7 ["panelUri"]
+       20 GETUPVAL                         R0 2
+       21 GETTABLEKS                       R0 R0 K0 ["Panels"]
+       23 GETUPVAL                         R2 2
+       24 GETTABLEKS                       R2 R2 K7 ["panelUri"]
        26 GETIMPORT                        R3 K4 [Vector2.new]
        28 LOADN                            R4 0
        29 LOADN                            R5 36
@@ -94,10 +94,10 @@ PROTO_2:
        31 NAMECALL                         R0 R0 K6 ["SetSizeAsync"]
        33 CALL                             R0 -1 0
        34 RETURN                           R0 0
-       35 GETUPVAL                         R1 2
-       36 GETTABLEKS                       R0 R1 K0 ["Panels"]
-       38 GETUPVAL                         R3 2
-       39 GETTABLEKS                       R2 R3 K7 ["panelUri"]
+       35 GETUPVAL                         R0 2
+       36 GETTABLEKS                       R0 R0 K0 ["Panels"]
+       38 GETUPVAL                         R2 2
+       39 GETTABLEKS                       R2 R2 K7 ["panelUri"]
        41 GETIMPORT                        R3 K4 [Vector2.new]
        43 LOADN                            R4 0
        44 GETUPVAL                         R5 3
@@ -105,10 +105,10 @@ PROTO_2:
        46 NAMECALL                         R0 R0 K6 ["SetSizeAsync"]
        48 CALL                             R0 -1 0
        49 RETURN                           R0 0
-       50 GETUPVAL                         R1 2
-       51 GETTABLEKS                       R0 R1 K0 ["Panels"]
-       53 GETUPVAL                         R3 2
-       54 GETTABLEKS                       R2 R3 K7 ["panelUri"]
+       50 GETUPVAL                         R0 2
+       51 GETTABLEKS                       R0 R0 K0 ["Panels"]
+       53 GETUPVAL                         R2 2
+       54 GETTABLEKS                       R2 R2 K7 ["panelUri"]
        56 GETIMPORT                        R3 K4 [Vector2.new]
        58 LOADN                            R4 0
        59 LOADN                            R5 36
@@ -202,11 +202,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["StudioFoundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["StudioFoundation"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["StudioUri"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["StudioUri"]
        18 DUPCLOSURE                       R3 K10 [PROTO_0]
        19 NEWTABLE                         R4 4 0
        21 DUPCLOSURE                       R5 K11 [PROTO_1]

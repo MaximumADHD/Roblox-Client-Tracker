@@ -218,8 +218,8 @@ PROTO_9:
        11 GETUPVAL                         R7 0
        12 NEWTABLE                         R8 0 3
        14 GETTABLE                         R9 R2 R5
-       15 GETTABLE                         R11 R2 R5
-       16 GETTABLEKS                       R10 R11 K1 ["AbsolutePosition"]
+       15 GETTABLE                         R10 R2 R5
+       16 GETTABLEKS                       R10 R10 K1 ["AbsolutePosition"]
        18 GETTABLE                         R11 R2 R5
        19 LOADK                            R13 K2 ["Position"]
        20 NAMECALL                         R11 R11 K3 ["GetStyled"]
@@ -303,8 +303,8 @@ PROTO_11:
        14 GETUPVAL                         R2 3
        15 NAMECALL                         R2 R2 K1 ["hideSnappingLines"]
        17 CALL                             R2 1 0
-       18 GETUPVAL                         R3 4
-       19 GETTABLEKS                       R2 R3 K2 ["MoveXY"]
+       18 GETUPVAL                         R2 4
+       19 GETTABLEKS                       R2 R2 K2 ["MoveXY"]
        21 GETUPVAL                         R3 5
        22 GETIMPORT                        R5 K6 [Enum.KeyCode.LeftShift]
        24 NAMECALL                         R3 R3 K7 ["IsKeyDown"]
@@ -316,15 +316,15 @@ PROTO_11:
        33 CALL                             R3 2 1
        34 JUMPIFNOT                        R3 ; [+41]
        35 GETTABLEKS                       R5 R1 K10 ["Y"]
-       37 GETUPVAL                         R7 2
-       38 GETTABLEKS                       R6 R7 K10 ["Y"]
+       37 GETUPVAL                         R6 2
+       38 GETTABLEKS                       R6 R6 K10 ["Y"]
        40 SUB                              R4 R5 R6
        41 FASTCALL1                        MATH_ABS R4 ; [+2]
        42 GETIMPORT                        R3 K13 [math.abs]
        44 CALL                             R3 1 1
        45 GETTABLEKS                       R6 R1 K14 ["X"]
-       47 GETUPVAL                         R8 2
-       48 GETTABLEKS                       R7 R8 K14 ["X"]
+       47 GETUPVAL                         R7 2
+       48 GETTABLEKS                       R7 R7 K14 ["X"]
        50 SUB                              R5 R6 R7
        51 FASTCALL1                        MATH_ABS R5 ; [+2]
        52 GETIMPORT                        R4 K13 [math.abs]
@@ -332,14 +332,14 @@ PROTO_11:
        55 JUMPIFNOTLT                      R3 R4 ; [+11]
        57 GETIMPORT                        R5 K17 [Vector2.new]
        59 GETTABLEKS                       R6 R1 K14 ["X"]
-       61 GETUPVAL                         R8 2
-       62 GETTABLEKS                       R7 R8 K10 ["Y"]
+       61 GETUPVAL                         R7 2
+       62 GETTABLEKS                       R7 R7 K10 ["Y"]
        64 CALL                             R5 2 1
        65 MOVE                             R1 R5
        66 JUMP                             ; [+9]
        67 GETIMPORT                        R5 K17 [Vector2.new]
-       69 GETUPVAL                         R7 2
-       70 GETTABLEKS                       R6 R7 K14 ["X"]
+       69 GETUPVAL                         R6 2
+       70 GETTABLEKS                       R6 R6 K14 ["X"]
        72 GETTABLEKS                       R7 R1 K10 ["Y"]
        74 CALL                             R5 2 1
        75 MOVE                             R1 R5
@@ -352,8 +352,8 @@ PROTO_11:
        83 LOADNIL                          R4
        84 GETUPVAL                         R5 8
        85 MOVE                             R7 R3
-       86 GETUPVAL                         R9 4
-       87 GETTABLEKS                       R8 R9 K2 ["MoveXY"]
+       86 GETUPVAL                         R8 4
+       87 GETTABLEKS                       R8 R8 K2 ["MoveXY"]
        89 NAMECALL                         R5 R5 K19 ["snapExtents"]
        91 CALL                             R5 3 2
        92 MOVE                             R3 R5
@@ -370,8 +370,8 @@ PROTO_11:
       104 LOADNIL                          R5
       105 GETUPVAL                         R6 1
       106 GETTABLEKS                       R9 R3 K21 ["TopLeft"]
-      108 GETUPVAL                         R11 7
-      109 GETTABLEKS                       R10 R11 K21 ["TopLeft"]
+      108 GETUPVAL                         R10 7
+      109 GETTABLEKS                       R10 R10 K21 ["TopLeft"]
       111 SUB                              R8 R9 R10
       112 NAMECALL                         R6 R6 K22 ["floorVector2"]
       114 CALL                             R6 2 1
@@ -441,55 +441,55 @@ PROTO_14:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["AdornmentModule"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["AdornmentModule"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["Analytics"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["Analytics"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K1 [require]
-       21 GETIMPORT                        R5 K3 [script]
-       23 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K7 ["Extents2D"]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["Extents2D"]
        27 CALL                             R2 1 1
        28 GETIMPORT                        R3 K1 [require]
-       30 GETIMPORT                        R6 K3 [script]
-       32 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       34 GETTABLEKS                       R4 R5 K8 ["GlobalValues"]
+       30 GETIMPORT                        R4 K3 [script]
+       32 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       34 GETTABLEKS                       R4 R4 K8 ["GlobalValues"]
        36 CALL                             R3 1 1
        37 GETIMPORT                        R4 K1 [require]
-       39 GETIMPORT                        R7 K3 [script]
-       41 GETTABLEKS                       R6 R7 K4 ["Parent"]
-       43 GETTABLEKS                       R5 R6 K9 ["MouseIconManager"]
+       39 GETIMPORT                        R5 K3 [script]
+       41 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       43 GETTABLEKS                       R5 R5 K9 ["MouseIconManager"]
        45 CALL                             R4 1 1
        46 GETIMPORT                        R5 K1 [require]
-       48 GETIMPORT                        R8 K3 [script]
-       50 GETTABLEKS                       R7 R8 K4 ["Parent"]
-       52 GETTABLEKS                       R6 R7 K10 ["SelectionManager"]
+       48 GETIMPORT                        R6 K3 [script]
+       50 GETTABLEKS                       R6 R6 K4 ["Parent"]
+       52 GETTABLEKS                       R6 R6 K10 ["SelectionManager"]
        54 CALL                             R5 1 1
        55 GETIMPORT                        R6 K1 [require]
-       57 GETIMPORT                        R9 K3 [script]
-       59 GETTABLEKS                       R8 R9 K4 ["Parent"]
-       61 GETTABLEKS                       R7 R8 K11 ["SnappingPointManager"]
+       57 GETIMPORT                        R7 K3 [script]
+       59 GETTABLEKS                       R7 R7 K4 ["Parent"]
+       61 GETTABLEKS                       R7 R7 K11 ["SnappingPointManager"]
        63 CALL                             R6 1 1
        64 GETIMPORT                        R7 K1 [require]
-       66 GETIMPORT                        R10 K3 [script]
-       68 GETTABLEKS                       R9 R10 K4 ["Parent"]
-       70 GETTABLEKS                       R8 R9 K12 ["Utility"]
+       66 GETIMPORT                        R8 K3 [script]
+       68 GETTABLEKS                       R8 R8 K4 ["Parent"]
+       70 GETTABLEKS                       R8 R8 K12 ["Utility"]
        72 CALL                             R7 1 1
        73 GETIMPORT                        R8 K1 [require]
-       75 GETIMPORT                        R11 K3 [script]
-       77 GETTABLEKS                       R10 R11 K4 ["Parent"]
-       79 GETTABLEKS                       R9 R10 K13 ["Convert"]
+       75 GETIMPORT                        R9 K3 [script]
+       77 GETTABLEKS                       R9 R9 K4 ["Parent"]
+       79 GETTABLEKS                       R9 R9 K13 ["Convert"]
        81 CALL                             R8 1 1
        82 GETIMPORT                        R9 K1 [require]
-       84 GETIMPORT                        R13 K3 [script]
-       86 GETTABLEKS                       R12 R13 K4 ["Parent"]
-       88 GETTABLEKS                       R11 R12 K14 ["Enum"]
-       90 GETTABLEKS                       R10 R11 K15 ["SnappingType"]
+       84 GETIMPORT                        R10 K3 [script]
+       86 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       88 GETTABLEKS                       R10 R10 K14 ["Enum"]
+       90 GETTABLEKS                       R10 R10 K15 ["SnappingType"]
        92 CALL                             R9 1 1
        93 GETIMPORT                        R10 K17 [game]
        95 LOADK                            R12 K18 ["UserInputService"]

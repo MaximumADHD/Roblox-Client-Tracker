@@ -44,22 +44,22 @@ PROTO_2:
        20 DUPTABLE                         R7 K7 [{"Values"}]
        21 NEWTABLE                         R8 0 0
        23 SETTABLEKS                       R8 R7 K6 ["Values"]
-       25 GETTABLEKS                       R10 R6 K5 ["identifier"]
-       27 GETTABLEKS                       R9 R10 K9 ["key"]
+       25 GETTABLEKS                       R9 R6 K5 ["identifier"]
+       27 GETTABLEKS                       R9 R9 K9 ["key"]
        29 ORK                              R8 R9 K8 [""]
        30 SETTABLEKS                       R8 R7 K10 ["Key"]
-       32 GETTABLEKS                       R10 R6 K5 ["identifier"]
-       34 GETTABLEKS                       R9 R10 K11 ["source"]
+       32 GETTABLEKS                       R9 R6 K5 ["identifier"]
+       34 GETTABLEKS                       R9 R9 K11 ["source"]
        36 ORK                              R8 R9 K8 [""]
        37 SETTABLEKS                       R8 R7 K12 ["Source"]
-       39 GETTABLEKS                       R10 R6 K5 ["identifier"]
-       41 GETTABLEKS                       R9 R10 K13 ["context"]
+       39 GETTABLEKS                       R9 R6 K5 ["identifier"]
+       41 GETTABLEKS                       R9 R9 K13 ["context"]
        43 ORK                              R8 R9 K8 [""]
        44 SETTABLEKS                       R8 R7 K14 ["Context"]
        46 GETTABLEKS                       R9 R6 K15 ["metadata"]
        48 JUMPIFNOT                        R9 ; [+5]
-       49 GETTABLEKS                       R9 R6 K15 ["metadata"]
-       51 GETTABLEKS                       R8 R9 K16 ["example"]
+       49 GETTABLEKS                       R8 R6 K15 ["metadata"]
+       51 GETTABLEKS                       R8 R8 K16 ["example"]
        53 JUMPIF                           R8 ; [+1]
        54 LOADK                            R8 K8 [""]
        55 SETTABLEKS                       R8 R7 K17 ["Example"]
@@ -96,13 +96,13 @@ PROTO_2:
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+33]
         1 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        6 GETTABLEKS                       R2 R3 K2 ["OK"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        6 GETTABLEKS                       R2 R2 K2 ["OK"]
         8 JUMPIFNOTEQ                      R1 R2 ; [+25]
        10 GETUPVAL                         R1 1
-       11 GETTABLEKS                       R3 R0 K3 ["responseBody"]
-       13 GETTABLEKS                       R2 R3 K4 ["data"]
+       11 GETTABLEKS                       R2 R0 K3 ["responseBody"]
+       13 GETTABLEKS                       R2 R2 K4 ["data"]
        15 GETUPVAL                         R3 2
        16 CALL                             R1 2 1
        17 JUMPIF                           R1 ; [+10]
@@ -114,8 +114,8 @@ PROTO_3:
        25 CALL                             R3 3 -1
        26 CALL                             R2 -1 0
        27 RETURN                           R0 0
-       28 GETTABLEKS                       R3 R0 K3 ["responseBody"]
-       30 GETTABLEKS                       R2 R3 K10 ["nextPageCursor"]
+       28 GETTABLEKS                       R2 R0 K3 ["responseBody"]
+       30 GETTABLEKS                       R2 R2 K10 ["nextPageCursor"]
        32 SETUPVAL                         R2 4
        33 RETURN                           R0 0
        34 GETIMPORT                        R1 K6 [warn]
@@ -149,15 +149,15 @@ PROTO_6:
         0 NEWTABLE                         R3 0 0
         2 LOADK                            R4 K0 [""]
         3 JUMPIFNOT                        R4 ; [+35]
-        4 GETTABLEKS                       R9 R0 K1 ["LocalizationTables"]
-        6 GETTABLEKS                       R8 R9 K2 ["V1"]
-        8 GETTABLEKS                       R7 R8 K3 ["LocalizationTable"]
-       10 GETTABLEKS                       R6 R7 K4 ["Tables"]
-       12 GETTABLEKS                       R5 R6 K5 ["entries"]
+        4 GETTABLEKS                       R5 R0 K1 ["LocalizationTables"]
+        6 GETTABLEKS                       R5 R5 K2 ["V1"]
+        8 GETTABLEKS                       R5 R5 K3 ["LocalizationTable"]
+       10 GETTABLEKS                       R5 R5 K4 ["Tables"]
+       12 GETTABLEKS                       R5 R5 K5 ["entries"]
        14 MOVE                             R6 R2
        15 MOVE                             R7 R4
-       16 GETIMPORT                        R9 K7 [game]
-       18 GETTABLEKS                       R8 R9 K8 ["GameId"]
+       16 GETIMPORT                        R8 K7 [game]
+       18 GETTABLEKS                       R8 R8 K8 ["GameId"]
        20 CALL                             R5 3 1
        21 NAMECALL                         R6 R5 K9 ["makeRequest"]
        23 CALL                             R6 1 1
@@ -214,8 +214,8 @@ PROTO_8:
         5 CAPTURE                          VAL R2
         6 NAMECALL                         R2 R0 K0 ["getState"]
         8 CALL                             R2 1 1
-        9 GETTABLEKS                       R4 R2 K1 ["CloudTable"]
-       11 GETTABLEKS                       R3 R4 K2 ["IsBusy"]
+        9 GETTABLEKS                       R3 R2 K1 ["CloudTable"]
+       11 GETTABLEKS                       R3 R3 K2 ["IsBusy"]
        13 JUMPIFNOT                        R3 ; [+10]
        14 GETIMPORT                        R4 K4 [warn]
        16 GETUPVAL                         R5 0
@@ -286,10 +286,10 @@ PROTO_8:
        93 GETUPVAL                         R7 7
        94 MOVE                             R9 R4
        95 LOADK                            R10 K14 ["download"]
-       96 GETTABLEKS                       R12 R2 K15 ["PluginMetadata"]
-       98 GETTABLEKS                       R11 R12 K16 ["AllLanguages"]
-      100 GETTABLEKS                       R13 R2 K15 ["PluginMetadata"]
-      102 GETTABLEKS                       R12 R13 K17 ["LocalesToLanguages"]
+       96 GETTABLEKS                       R11 R2 K15 ["PluginMetadata"]
+       98 GETTABLEKS                       R11 R11 K16 ["AllLanguages"]
+      100 GETTABLEKS                       R12 R2 K15 ["PluginMetadata"]
+      102 GETTABLEKS                       R12 R12 K17 ["LocalesToLanguages"]
       104 NAMECALL                         R7 R7 K18 ["reportDownloadTable"]
       106 CALL                             R7 5 0
       107 RETURN                           R0 0
@@ -312,29 +312,29 @@ MAIN:
         3 LOADK                            R2 K2 ["LocalizationService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       15 GETIMPORT                        R3 K8 [require]
-       17 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R4 R5 K10 ["Framework"]
-       21 CALL                             R3 1 1
-       22 GETTABLEKS                       R2 R3 K11 ["Http"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETIMPORT                        R2 K8 [require]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Framework"]
+       21 CALL                             R2 1 1
+       22 GETTABLEKS                       R2 R2 K11 ["Http"]
        24 GETIMPORT                        R3 K8 [require]
-       26 GETTABLEKS                       R6 R1 K12 ["Src"]
-       28 GETTABLEKS                       R5 R6 K13 ["Actions"]
-       30 GETTABLEKS                       R4 R5 K14 ["SetIsBusy"]
+       26 GETTABLEKS                       R4 R1 K12 ["Src"]
+       28 GETTABLEKS                       R4 R4 K13 ["Actions"]
+       30 GETTABLEKS                       R4 R4 K14 ["SetIsBusy"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K8 [require]
-       35 GETTABLEKS                       R7 R1 K12 ["Src"]
-       37 GETTABLEKS                       R6 R7 K13 ["Actions"]
-       39 GETTABLEKS                       R5 R6 K15 ["SetMessage"]
+       35 GETTABLEKS                       R5 R1 K12 ["Src"]
+       37 GETTABLEKS                       R5 R5 K13 ["Actions"]
+       39 GETTABLEKS                       R5 R5 K15 ["SetMessage"]
        41 CALL                             R4 1 1
        42 GETIMPORT                        R5 K8 [require]
-       44 GETTABLEKS                       R8 R1 K12 ["Src"]
-       46 GETTABLEKS                       R7 R8 K16 ["Util"]
-       48 GETTABLEKS                       R6 R7 K17 ["isEmpty"]
+       44 GETTABLEKS                       R6 R1 K12 ["Src"]
+       46 GETTABLEKS                       R6 R6 K16 ["Util"]
+       48 GETTABLEKS                       R6 R6 K17 ["isEmpty"]
        50 CALL                             R5 1 1
        51 DUPCLOSURE                       R6 K18 [PROTO_1]
        52 CAPTURE                          VAL R3

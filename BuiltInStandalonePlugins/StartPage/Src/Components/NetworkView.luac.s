@@ -1,25 +1,25 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnItemCountUpdated"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnItemCountUpdated"]
         3 JUMPIFNOT                        R0 ; [+8]
         4 GETUPVAL                         R0 1
         5 JUMPIFNOT                        R0 ; [+6]
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K0 ["OnItemCountUpdated"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["OnItemCountUpdated"]
         9 GETUPVAL                         R2 2
        10 LENGTH                           R1 R2
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["Query"]
-        2 GETTABLEKS                       R1 R2 K1 ["searchKey"]
+        0 GETTABLEKS                       R1 R0 K0 ["Query"]
+        2 GETTABLEKS                       R1 R1 K1 ["searchKey"]
         4 GETUPVAL                         R2 0
         5 MOVE                             R3 R1
         6 GETTABLEKS                       R4 R0 K0 ["Query"]
         8 CALL                             R2 2 1
-        9 GETTABLEKS                       R4 R0 K0 ["Query"]
-       11 GETTABLEKS                       R3 R4 K2 ["pageSize"]
+        9 GETTABLEKS                       R3 R0 K0 ["Query"]
+       11 GETTABLEKS                       R3 R3 K2 ["pageSize"]
        13 JUMPIF                           R3 ; [+6]
        14 GETIMPORT                        R4 K4 [warn]
        16 MOVE                             R5 R3
@@ -64,16 +64,16 @@ PROTO_1:
        68 JUMPIFNOTEQKN                    R5 K14 [0] ; [+16]
        70 GETTABLEKS                       R8 R0 K15 ["NoContentDisplayComponent"]
        72 JUMPIFNOT                        R8 ; [+12]
-       73 GETUPVAL                         R9 4
-       74 GETTABLEKS                       R8 R9 K16 ["createElement"]
+       73 GETUPVAL                         R8 4
+       74 GETTABLEKS                       R8 R8 K16 ["createElement"]
        76 GETTABLEKS                       R9 R0 K15 ["NoContentDisplayComponent"]
        78 DUPTABLE                         R10 K18 [{"Size"}]
        79 GETTABLEKS                       R11 R0 K17 ["Size"]
        81 SETTABLEKS                       R11 R10 K17 ["Size"]
        83 CALL                             R8 2 -1
        84 RETURN                           R8 -1
-       85 GETUPVAL                         R9 4
-       86 GETTABLEKS                       R8 R9 K16 ["createElement"]
+       85 GETUPVAL                         R8 4
+       86 GETTABLEKS                       R8 R8 K16 ["createElement"]
        88 GETTABLEKS                       R9 R0 K19 ["DisplayComponent"]
        90 DUPTABLE                         R10 K28 [{"Cells", "OnLoadRange", "LayoutOrder", "CellComponent", "CellSize", "CellPadding", "Size", "DisplayComponentHasAdjustedQuery", "CanDisplayComponentAdjustQuery", "Query"}]
        91 GETTABLEKS                       R12 R0 K10 ["MaxCount"]
@@ -122,36 +122,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["memo"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]
        18 GETTABLEKS                       R4 R1 K10 ["useRef"]
        20 GETIMPORT                        R5 K5 [require]
-       22 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       24 GETTABLEKS                       R6 R7 K11 ["Dash"]
+       22 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       24 GETTABLEKS                       R6 R6 K11 ["Dash"]
        26 CALL                             R5 1 1
        27 GETTABLEKS                       R6 R5 K12 ["slice"]
        29 GETIMPORT                        R7 K5 [require]
-       31 GETTABLEKS                       R11 R0 K13 ["Src"]
-       33 GETTABLEKS                       R10 R11 K14 ["Util"]
-       35 GETTABLEKS                       R9 R10 K15 ["Telemetry"]
-       37 GETTABLEKS                       R8 R9 K16 ["TelemetryContext"]
+       31 GETTABLEKS                       R8 R0 K13 ["Src"]
+       33 GETTABLEKS                       R8 R8 K14 ["Util"]
+       35 GETTABLEKS                       R8 R8 K15 ["Telemetry"]
+       37 GETTABLEKS                       R8 R8 K16 ["TelemetryContext"]
        39 CALL                             R7 1 1
        40 GETIMPORT                        R8 K5 [require]
-       42 GETTABLEKS                       R11 R0 K13 ["Src"]
-       44 GETTABLEKS                       R10 R11 K17 ["Network"]
-       46 GETTABLEKS                       R9 R10 K18 ["GameCache"]
+       42 GETTABLEKS                       R9 R0 K13 ["Src"]
+       44 GETTABLEKS                       R9 R9 K17 ["Network"]
+       46 GETTABLEKS                       R9 R9 K18 ["GameCache"]
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K5 [require]
-       51 GETTABLEKS                       R11 R0 K13 ["Src"]
-       53 GETTABLEKS                       R10 R11 K19 ["Types"]
+       51 GETTABLEKS                       R10 R0 K13 ["Src"]
+       53 GETTABLEKS                       R10 R10 K19 ["Types"]
        55 CALL                             R9 1 1
        56 GETIMPORT                        R10 K5 [require]
-       58 GETTABLEKS                       R13 R0 K13 ["Src"]
-       60 GETTABLEKS                       R12 R13 K14 ["Util"]
-       62 GETTABLEKS                       R11 R12 K20 ["getQueryString"]
+       58 GETTABLEKS                       R11 R0 K13 ["Src"]
+       60 GETTABLEKS                       R11 R11 K14 ["Util"]
+       62 GETTABLEKS                       R11 R11 K20 ["getQueryString"]
        64 CALL                             R10 1 1
        65 DUPCLOSURE                       R11 K21 [PROTO_1]
        66 CAPTURE                          VAL R10

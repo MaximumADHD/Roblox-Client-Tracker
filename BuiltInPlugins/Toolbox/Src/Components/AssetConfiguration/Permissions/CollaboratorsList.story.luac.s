@@ -5,11 +5,11 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createMockCollaborators"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["controls"]
-        6 GETTABLEKS                       R1 R2 K2 ["CollaboratorCount"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createMockCollaborators"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["controls"]
+        6 GETTABLEKS                       R1 R1 K2 ["CollaboratorCount"]
         8 GETIMPORT                        R2 K5 [Random.new]
        10 LOADN                            R3 0
        11 CALL                             R2 1 -1
@@ -17,21 +17,21 @@ PROTO_1:
        13 RETURN                           R0 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 NEWTABLE                         R3 0 0
         6 DUPTABLE                         R4 K2 [{"CollabInfo"}]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K0 ["createElement"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K0 ["createElement"]
        10 GETUPVAL                         R6 2
        11 DUPTABLE                         R7 K4 [{"MockLoadTime"}]
-       12 GETTABLEKS                       R9 R0 K5 ["controls"]
-       14 GETTABLEKS                       R8 R9 K3 ["MockLoadTime"]
+       12 GETTABLEKS                       R8 R0 K5 ["controls"]
+       14 GETTABLEKS                       R8 R8 K3 ["MockLoadTime"]
        16 SETTABLEKS                       R8 R7 K3 ["MockLoadTime"]
        18 DUPTABLE                         R8 K7 [{"List"}]
-       19 GETUPVAL                         R10 0
-       20 GETTABLEKS                       R9 R10 K0 ["createElement"]
+       19 GETUPVAL                         R9 0
+       20 GETTABLEKS                       R9 R9 K0 ["createElement"]
        22 GETUPVAL                         R10 3
        23 DUPTABLE                         R11 K12 [{"ItemHeight", "Enabled", "PermissionChanged", "Permissions"}]
        24 GETIMPORT                        R12 K15 [UDim.new]
@@ -39,19 +39,19 @@ PROTO_2:
        27 LOADN                            R14 75
        28 CALL                             R12 2 1
        29 SETTABLEKS                       R12 R11 K8 ["ItemHeight"]
-       31 GETTABLEKS                       R13 R0 K5 ["controls"]
-       33 GETTABLEKS                       R12 R13 K9 ["Enabled"]
+       31 GETTABLEKS                       R12 R0 K5 ["controls"]
+       33 GETTABLEKS                       R12 R12 K9 ["Enabled"]
        35 SETTABLEKS                       R12 R11 K9 ["Enabled"]
        37 DUPCLOSURE                       R12 K16 [PROTO_0]
        38 SETTABLEKS                       R12 R11 K10 ["PermissionChanged"]
-       40 GETUPVAL                         R13 0
-       41 GETTABLEKS                       R12 R13 K17 ["useMemo"]
+       40 GETUPVAL                         R12 0
+       41 GETTABLEKS                       R12 R12 K17 ["useMemo"]
        43 NEWCLOSURE                       R13 P1
        44 CAPTURE                          UPVAL U4
        45 CAPTURE                          VAL R0
        46 NEWTABLE                         R14 0 1
-       48 GETTABLEKS                       R16 R0 K5 ["controls"]
-       50 GETTABLEKS                       R15 R16 K18 ["CollaboratorCount"]
+       48 GETTABLEKS                       R15 R0 K5 ["controls"]
+       50 GETTABLEKS                       R15 R15 K18 ["CollaboratorCount"]
        52 SETLIST                          R14 R15 1 [1]
        54 CALL                             R12 2 1
        55 SETTABLEKS                       R12 R11 K11 ["Permissions"]
@@ -73,11 +73,11 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["React"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Stories"]
-       18 GETTABLEKS                       R4 R5 K9 ["ToolboxStoryWrapper"]
+       16 GETTABLEKS                       R4 R0 K8 ["Stories"]
+       18 GETTABLEKS                       R4 R4 K9 ["ToolboxStoryWrapper"]
        20 CALL                             R3 1 1
-       21 GETIMPORT                        R5 K1 [script]
-       23 GETTABLEKS                       R4 R5 K10 ["Parent"]
+       21 GETIMPORT                        R4 K1 [script]
+       23 GETTABLEKS                       R4 R4 K10 ["Parent"]
        25 GETIMPORT                        R5 K6 [require]
        27 GETTABLEKS                       R6 R4 K11 ["CollaboratorsList"]
        29 CALL                             R5 1 1

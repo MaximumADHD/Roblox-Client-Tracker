@@ -24,8 +24,8 @@ PROTO_0:
        29 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R2 R5 K0 ["handRigLabels"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["handRigLabels"]
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
@@ -52,8 +52,8 @@ PROTO_2:
        13 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R1 R4 K0 ["handRigLabels"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["handRigLabels"]
         3 LOADNIL                          R2
         4 LOADNIL                          R3
         5 FORGPREP                         R1
@@ -65,8 +65,8 @@ PROTO_3:
        14 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R1 R4 K0 ["handRigLabels"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["handRigLabels"]
         3 LOADNIL                          R2
         4 LOADNIL                          R3
         5 FORGPREP                         R1
@@ -79,8 +79,8 @@ PROTO_4:
        14 CALL                             R7 2 1
        15 JUMPIF                           R7 ; [+2]
        16 GETIMPORT                        R7 K5 [CFrame.identity]
-       18 GETUPVAL                         R9 0
-       19 GETTABLEKS                       R8 R9 K6 ["setJointTransform"]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K6 ["setJointTransform"]
        21 MOVE                             R9 R6
        22 MOVE                             R10 R7
        23 CALL                             R8 2 0
@@ -94,12 +94,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AdaptiveAnimationTools"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AdaptiveAnimationTools"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 NEWTABLE                         R3 8 0
        23 DUPCLOSURE                       R4 K10 [PROTO_0]

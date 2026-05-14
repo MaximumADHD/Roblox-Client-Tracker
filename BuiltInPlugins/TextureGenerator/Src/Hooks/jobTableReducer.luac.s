@@ -11,9 +11,9 @@ PROTO_0:
        14 CALL                             R2 1 1
        15 MOVE                             R0 R2
        16 GETTABLEKS                       R2 R1 K0 ["action"]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K8 ["GENERATION_ACTIONS"]
-       21 GETTABLEKS                       R3 R4 K9 ["UPDATE"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K8 ["GENERATION_ACTIONS"]
+       21 GETTABLEKS                       R3 R3 K9 ["UPDATE"]
        23 JUMPIFNOTEQ                      R2 R3 ; [+31]
        25 GETTABLEKS                       R3 R1 K10 ["data"]
        27 FASTCALL2K                       ASSERT R3 K11 ; [+4]
@@ -27,8 +27,8 @@ PROTO_0:
        39 NEWTABLE                         R3 0 0
        41 SETTABLE                         R3 R0 R2
        42 GETTABLEKS                       R2 R1 K1 ["uuid"]
-       44 GETUPVAL                         R4 1
-       45 GETTABLEKS                       R3 R4 K12 ["join"]
+       44 GETUPVAL                         R3 1
+       45 GETTABLEKS                       R3 R3 K12 ["join"]
        47 GETTABLEKS                       R5 R1 K1 ["uuid"]
        49 GETTABLE                         R4 R0 R5
        50 GETTABLEKS                       R5 R1 K10 ["data"]
@@ -36,9 +36,9 @@ PROTO_0:
        53 SETTABLE                         R3 R0 R2
        54 RETURN                           R0 1
        55 GETTABLEKS                       R2 R1 K0 ["action"]
-       57 GETUPVAL                         R5 0
-       58 GETTABLEKS                       R4 R5 K8 ["GENERATION_ACTIONS"]
-       60 GETTABLEKS                       R3 R4 K13 ["REMOVE"]
+       57 GETUPVAL                         R3 0
+       58 GETTABLEKS                       R3 R3 K8 ["GENERATION_ACTIONS"]
+       60 GETTABLEKS                       R3 R3 K13 ["REMOVE"]
        62 JUMPIFNOTEQ                      R2 R3 ; [+6]
        64 GETTABLEKS                       R2 R1 K1 ["uuid"]
        66 LOADNIL                          R3
@@ -60,13 +60,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_0]
        24 CAPTURE                          VAL R2

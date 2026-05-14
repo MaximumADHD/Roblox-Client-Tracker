@@ -15,8 +15,8 @@ PROTO_0:
        13 JUMPIFNOT                        R1 ; [+2]
        14 LOADK                            R1 K3 ["Queries"]
        15 RETURN                           R1 1
-       16 GETUPVAL                         R2 2
-       17 GETTABLEKS                       R1 R2 K4 ["isElement"]
+       16 GETUPVAL                         R1 2
+       17 GETTABLEKS                       R1 R1 K4 ["isElement"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 1
        21 JUMPIFNOT                        R1 ; [+2]
@@ -44,8 +44,8 @@ PROTO_1:
        18 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getUserDesignSheets"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getUserDesignSheets"]
         3 GETUPVAL                         R5 1
         4 JUMPIFNOT                        R5 ; [+2]
         5 MOVE                             R3 R1
@@ -53,8 +53,8 @@ PROTO_2:
         7 LOADNIL                          R3
         8 CALL                             R2 1 3
         9 FORGPREP                         R2
-       10 GETUPVAL                         R8 0
-       11 GETTABLEKS                       R7 R8 K1 ["setAsToken"]
+       10 GETUPVAL                         R7 0
+       11 GETTABLEKS                       R7 R7 K1 ["setAsToken"]
        13 MOVE                             R8 R0
        14 MOVE                             R9 R6
        15 GETUPVAL                         R11 1
@@ -76,8 +76,8 @@ PROTO_3:
         6 NAMECALL                         R5 R4 K0 ["GetDescendants"]
         8 CALL                             R5 1 3
         9 FORGPREP                         R5
-       10 GETUPVAL                         R11 2
-       11 GETTABLEKS                       R10 R11 K1 ["isTheme"]
+       10 GETUPVAL                         R10 2
+       11 GETTABLEKS                       R10 R10 K1 ["isTheme"]
        13 MOVE                             R11 R9
        14 CALL                             R10 1 1
        15 LOADK                            R13 K2 ["StyleSheet"]
@@ -86,24 +86,24 @@ PROTO_3:
        19 JUMPIFNOT                        R11 ; [+8]
        20 JUMPIFNOT                        R10 ; [+7]
        21 LOADB                            R3 1
-       22 GETUPVAL                         R12 2
-       23 GETTABLEKS                       R11 R12 K4 ["insertDerive"]
+       22 GETUPVAL                         R11 2
+       23 GETTABLEKS                       R11 R11 K4 ["insertDerive"]
        25 MOVE                             R12 R9
        26 MOVE                             R13 R0
        27 CALL                             R11 2 0
        28 FORGLOOP                         R5 2 ; [-19]
        30 JUMPIFNOT                        R1 ; [+7]
        31 JUMPIF                           R3 ; [+6]
-       32 GETUPVAL                         R6 2
-       33 GETTABLEKS                       R5 R6 K4 ["insertDerive"]
+       32 GETUPVAL                         R5 2
+       33 GETTABLEKS                       R5 R5 K4 ["insertDerive"]
        35 MOVE                             R6 R1
        36 MOVE                             R7 R0
        37 CALL                             R5 2 0
        38 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getUserDesignSheets"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getUserDesignSheets"]
         3 GETUPVAL                         R5 1
         4 JUMPIFNOT                        R5 ; [+2]
         5 MOVE                             R3 R1
@@ -111,8 +111,8 @@ PROTO_4:
         7 LOADNIL                          R3
         8 CALL                             R2 1 3
         9 FORGPREP                         R2
-       10 GETUPVAL                         R8 0
-       11 GETTABLEKS                       R7 R8 K1 ["setAsTheme"]
+       10 GETUPVAL                         R7 0
+       11 GETTABLEKS                       R7 R7 K1 ["setAsTheme"]
        13 MOVE                             R8 R0
        14 MOVE                             R9 R6
        15 GETUPVAL                         R11 1
@@ -149,13 +149,13 @@ PROTO_5:
        27 MOVE                             R14 R10
        28 CALL                             R12 2 1
        29 JUMPIFNOT                        R12 ; [+6]
-       30 GETUPVAL                         R13 3
-       31 GETTABLEKS                       R12 R13 K7 ["removeDerive"]
+       30 GETUPVAL                         R12 3
+       31 GETTABLEKS                       R12 R12 K7 ["removeDerive"]
        33 MOVE                             R13 R1
        34 MOVE                             R14 R10
        35 CALL                             R12 2 0
-       36 GETUPVAL                         R13 3
-       37 GETTABLEKS                       R12 R13 K8 ["insertDerive"]
+       36 GETUPVAL                         R12 3
+       37 GETTABLEKS                       R12 R12 K8 ["insertDerive"]
        39 MOVE                             R13 R0
        40 MOVE                             R14 R10
        41 CALL                             R12 2 0
@@ -209,8 +209,8 @@ PROTO_5:
       102 JUMP                             ; [+2]
       103 FORGLOOP                         R9 2 ; [-19]
       105 JUMPIF                           R8 ; [+6]
-      106 GETUPVAL                         R10 3
-      107 GETTABLEKS                       R9 R10 K8 ["insertDerive"]
+      106 GETUPVAL                         R9 3
+      107 GETTABLEKS                       R9 R9 K8 ["insertDerive"]
       109 MOVE                             R10 R1
       110 MOVE                             R11 R0
       111 CALL                             R9 2 0
@@ -255,8 +255,8 @@ PROTO_7:
         2 CALL                             R0 1 1
         3 SETUPVAL                         R0 0
         4 GETUPVAL                         R0 0
-        5 GETUPVAL                         R2 2
-        6 GETTABLEKS                       R1 R2 K1 ["getStyleSheetParent"]
+        5 GETUPVAL                         R1 2
+        6 GETTABLEKS                       R1 R1 K1 ["getStyleSheetParent"]
         8 GETUPVAL                         R3 3
         9 JUMPIFNOT                        R3 ; [+2]
        10 GETUPVAL                         R2 4
@@ -264,8 +264,8 @@ PROTO_7:
        12 LOADNIL                          R2
        13 CALL                             R1 1 1
        14 SETTABLEKS                       R1 R0 K2 ["Parent"]
-       16 GETUPVAL                         R1 2
-       17 GETTABLEKS                       R0 R1 K3 ["getStudioDefaultStyleSheet"]
+       16 GETUPVAL                         R0 2
+       17 GETTABLEKS                       R0 R0 K3 ["getStudioDefaultStyleSheet"]
        19 CALL                             R0 0 1
        20 GETUPVAL                         R1 3
        21 JUMPIFNOT                        R1 ; [+25]
@@ -283,15 +283,15 @@ PROTO_7:
        36 NAMECALL                         R1 R1 K8 ["IsA"]
        38 CALL                             R1 2 1
        39 JUMPIFNOT                        R1 ; [+14]
-       40 GETUPVAL                         R2 2
-       41 GETTABLEKS                       R1 R2 K9 ["insertDerive"]
+       40 GETUPVAL                         R1 2
+       41 GETTABLEKS                       R1 R1 K9 ["insertDerive"]
        43 GETUPVAL                         R2 0
        44 MOVE                             R3 R0
        45 CALL                             R1 2 0
        46 JUMP                             ; [+7]
        47 JUMPIFNOT                        R0 ; [+6]
-       48 GETUPVAL                         R2 2
-       49 GETTABLEKS                       R1 R2 K9 ["insertDerive"]
+       48 GETUPVAL                         R1 2
+       49 GETTABLEKS                       R1 R1 K9 ["insertDerive"]
        51 GETUPVAL                         R2 0
        52 MOVE                             R3 R0
        53 CALL                             R1 2 0
@@ -422,8 +422,8 @@ PROTO_13:
        45 SETTABLEKS                       R10 R7 K4 ["Name"]
        47 RETURN                           R0 0
        48 FORGLOOP                         R3 2 ; [-41]
-       50 GETUPVAL                         R4 0
-       51 GETTABLEKS                       R3 R4 K8 ["insertDerive"]
+       50 GETUPVAL                         R3 0
+       51 GETTABLEKS                       R3 R3 K8 ["insertDerive"]
        53 MOVE                             R4 R0
        54 MOVE                             R5 R1
        55 CALL                             R3 2 0
@@ -431,8 +431,8 @@ PROTO_13:
 
 PROTO_14:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["getStudioDefaultStyleSheet"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["getStudioDefaultStyleSheet"]
         5 CALL                             R2 0 1
         6 GETUPVAL                         R4 1
         7 JUMPIFNOT                        R4 ; [+2]
@@ -461,8 +461,8 @@ PROTO_14:
        39 RETURN                           R1 1
 
 PROTO_15:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getUserDesignSheets"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getUserDesignSheets"]
         3 GETUPVAL                         R3 1
         4 JUMPIFNOT                        R3 ; [+2]
         5 MOVE                             R2 R0
@@ -503,8 +503,8 @@ PROTO_16:
        26 RETURN                           R2 1
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getAUserDesignSheet"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getAUserDesignSheet"]
         3 GETUPVAL                         R3 1
         4 JUMPIFNOT                        R3 ; [+2]
         5 MOVE                             R2 R0
@@ -523,13 +523,13 @@ PROTO_17:
        19 RETURN                           R3 1
 
 PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getStudioDefaultStyleSheet"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getStudioDefaultStyleSheet"]
         3 CALL                             R2 0 1
         4 JUMPIFNOT                        R2 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["getOrCreateDesignSystemFolder"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["getOrCreateDesignSystemFolder"]
         9 GETUPVAL                         R4 1
        10 JUMPIFNOT                        R4 ; [+2]
        11 MOVE                             R3 R1
@@ -542,8 +542,8 @@ PROTO_18:
        18 SETTABLEKS                       R2 R3 K2 ["Parent"]
        20 GETUPVAL                         R4 3
        21 SETTABLEKS                       R3 R4 K3 ["StudioDefaultStyleSheet"]
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K4 ["getUserDesignSheets"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K4 ["getUserDesignSheets"]
        26 GETUPVAL                         R7 1
        27 JUMPIFNOT                        R7 ; [+2]
        28 MOVE                             R5 R1
@@ -551,8 +551,8 @@ PROTO_18:
        30 LOADNIL                          R5
        31 CALL                             R4 1 3
        32 FORGPREP                         R4
-       33 GETUPVAL                         R10 0
-       34 GETTABLEKS                       R9 R10 K5 ["insertDerive"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K5 ["insertDerive"]
        36 MOVE                             R10 R8
        37 MOVE                             R11 R3
        38 CALL                             R9 2 0
@@ -560,15 +560,15 @@ PROTO_18:
        41 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["StudioDefaultStyleSheet"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["StudioDefaultStyleSheet"]
         3 JUMPIFNOT                        R0 ; [+11]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K0 ["StudioDefaultStyleSheet"]
-        7 GETTABLEKS                       R0 R1 K1 ["Parent"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["StudioDefaultStyleSheet"]
+        7 GETTABLEKS                       R0 R0 K1 ["Parent"]
         9 JUMPIFEQKNIL                     R0 ; [+5]
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R0 R1 K0 ["StudioDefaultStyleSheet"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K0 ["StudioDefaultStyleSheet"]
        14 RETURN                           R0 1
        15 LOADNIL                          R0
        16 RETURN                           R0 1
@@ -591,52 +591,52 @@ MAIN:
        21 LOADK                            R5 K6 ["StarterGui"]
        22 NAMECALL                         R3 R3 K3 ["GetService"]
        24 CALL                             R3 2 1
-       25 GETIMPORT                        R7 K8 [script]
-       27 GETTABLEKS                       R6 R7 K9 ["Parent"]
-       29 GETTABLEKS                       R5 R6 K9 ["Parent"]
-       31 GETTABLEKS                       R4 R5 K9 ["Parent"]
+       25 GETIMPORT                        R4 K8 [script]
+       27 GETTABLEKS                       R4 R4 K9 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K9 ["Parent"]
+       31 GETTABLEKS                       R4 R4 K9 ["Parent"]
        33 GETIMPORT                        R5 K11 [require]
-       35 GETTABLEKS                       R7 R4 K12 ["Packages"]
-       37 GETTABLEKS                       R6 R7 K13 ["Framework"]
+       35 GETTABLEKS                       R6 R4 K12 ["Packages"]
+       37 GETTABLEKS                       R6 R6 K13 ["Framework"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K11 [require]
-       42 GETTABLEKS                       R9 R4 K14 ["Src"]
-       44 GETTABLEKS                       R8 R9 K15 ["Util"]
-       46 GETTABLEKS                       R7 R8 K16 ["SelectorHelpers"]
+       42 GETTABLEKS                       R7 R4 K14 ["Src"]
+       44 GETTABLEKS                       R7 R7 K15 ["Util"]
+       46 GETTABLEKS                       R7 R7 K16 ["SelectorHelpers"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K11 [require]
-       51 GETTABLEKS                       R10 R4 K14 ["Src"]
-       53 GETTABLEKS                       R9 R10 K15 ["Util"]
-       55 GETTABLEKS                       R8 R9 K17 ["recordChange"]
+       51 GETTABLEKS                       R8 R4 K14 ["Src"]
+       53 GETTABLEKS                       R8 R8 K15 ["Util"]
+       55 GETTABLEKS                       R8 R8 K17 ["recordChange"]
        57 CALL                             R7 1 1
        58 MOVE                             R8 R0
        59 CALL                             R7 1 1
        60 GETIMPORT                        R8 K11 [require]
-       62 GETTABLEKS                       R11 R4 K14 ["Src"]
-       64 GETTABLEKS                       R10 R11 K15 ["Util"]
-       66 GETTABLEKS                       R9 R10 K18 ["createStudioDefaultStyleSheet"]
+       62 GETTABLEKS                       R9 R4 K14 ["Src"]
+       64 GETTABLEKS                       R9 R9 K15 ["Util"]
+       66 GETTABLEKS                       R9 R9 K18 ["createStudioDefaultStyleSheet"]
        68 CALL                             R8 1 1
        69 GETIMPORT                        R9 K11 [require]
-       71 GETTABLEKS                       R12 R4 K14 ["Src"]
-       73 GETTABLEKS                       R11 R12 K19 ["Flags"]
-       75 GETTABLEKS                       R10 R11 K20 ["getFFlagStyleQuery"]
+       71 GETTABLEKS                       R10 R4 K14 ["Src"]
+       73 GETTABLEKS                       R10 R10 K19 ["Flags"]
+       75 GETTABLEKS                       R10 R10 K20 ["getFFlagStyleQuery"]
        77 CALL                             R9 1 1
        78 CALL                             R9 0 1
        79 GETIMPORT                        R10 K11 [require]
-       81 GETTABLEKS                       R13 R4 K14 ["Src"]
-       83 GETTABLEKS                       R12 R13 K19 ["Flags"]
-       85 GETTABLEKS                       R11 R12 K21 ["getFFlagStyleEditorPluginStyleSheets"]
+       81 GETTABLEKS                       R11 R4 K14 ["Src"]
+       83 GETTABLEKS                       R11 R11 K19 ["Flags"]
+       85 GETTABLEKS                       R11 R11 K21 ["getFFlagStyleEditorPluginStyleSheets"]
        87 CALL                             R10 1 1
        88 CALL                             R10 0 1
        89 GETIMPORT                        R11 K11 [require]
-       91 GETTABLEKS                       R13 R4 K12 ["Packages"]
-       93 GETTABLEKS                       R12 R13 K22 ["Dash"]
+       91 GETTABLEKS                       R12 R4 K12 ["Packages"]
+       93 GETTABLEKS                       R12 R12 K22 ["Dash"]
        95 CALL                             R11 1 1
        96 GETTABLEKS                       R12 R11 K23 ["includes"]
        98 GETTABLEKS                       R13 R11 K24 ["startsWith"]
       100 GETIMPORT                        R14 K27 [table.insert]
-      102 GETTABLEKS                       R16 R5 K28 ["Styling"]
-      104 GETTABLEKS                       R15 R16 K29 ["createStyleSheet"]
+      102 GETTABLEKS                       R15 R5 K28 ["Styling"]
+      104 GETTABLEKS                       R15 R15 K29 ["createStyleSheet"]
       106 NEWTABLE                         R16 32 0
       108 DUPTABLE                         R17 K34 [{"DESIGN", "UI_ELEMENTS", "THEMES", "SELECTOR"}]
       109 NEWTABLE                         R18 0 1

@@ -5,13 +5,13 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"CategoryDropDown"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"OnCategorySelect", "Categories"}]
        12 GETUPVAL                         R7 3
@@ -34,14 +34,14 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R7 R0 K8 ["Src"]
-       18 GETTABLEKS                       R6 R7 K9 ["Components"]
-       20 GETTABLEKS                       R5 R6 K10 ["CategoryDropDown"]
-       22 GETTABLEKS                       R4 R5 K10 ["CategoryDropDown"]
+       16 GETTABLEKS                       R4 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R4 K9 ["Components"]
+       20 GETTABLEKS                       R4 R4 K10 ["CategoryDropDown"]
+       22 GETTABLEKS                       R4 R4 K10 ["CategoryDropDown"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K6 [require]
-       27 GETTABLEKS                       R6 R0 K11 ["Stories"]
-       29 GETTABLEKS                       R5 R6 K12 ["ToolboxStoryWrapper"]
+       27 GETTABLEKS                       R5 R0 K11 ["Stories"]
+       29 GETTABLEKS                       R5 R5 K12 ["ToolboxStoryWrapper"]
        31 CALL                             R4 1 1
        32 NEWTABLE                         R5 0 24
        34 LOADK                            R6 K13 ["rock"]

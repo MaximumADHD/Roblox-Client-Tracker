@@ -35,8 +35,8 @@ PROTO_3:
         5 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Static"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Static"]
         3 JUMPIFEQ                         R1 R2 ; [+3]
         5 LOADNIL                          R2
         6 RETURN                           R2 1
@@ -51,19 +51,19 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Enums"]
-       15 GETTABLEKS                       R2 R3 K7 ["NotificationTargetType"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Enums"]
+       15 GETTABLEKS                       R2 R2 K7 ["NotificationTargetType"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Resources"]
-       24 GETTABLEKS                       R3 R4 K9 ["NotificationLuaIcons"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Resources"]
+       24 GETTABLEKS                       R3 R3 K9 ["NotificationLuaIcons"]
        26 CALL                             R2 1 1
        27 NEWTABLE                         R3 0 0
        29 GETIMPORT                        R4 K11 [ipairs]

@@ -21,10 +21,10 @@ PROTO_0:
        24 CALL                             R4 1 -1
        25 NAMECALL                         R2 R0 K5 ["dispatch"]
        27 CALL                             R2 -1 0
-       28 NAMECALL                         R4 R0 K6 ["getState"]
-       30 CALL                             R4 1 1
-       31 GETTABLEKS                       R3 R4 K7 ["Status"]
-       33 GETTABLEKS                       R2 R3 K8 ["LayerSelectionEvent"]
+       28 NAMECALL                         R2 R0 K6 ["getState"]
+       30 CALL                             R2 1 1
+       31 GETTABLEKS                       R2 R2 K7 ["Status"]
+       33 GETTABLEKS                       R2 R2 K8 ["LayerSelectionEvent"]
        35 JUMPIFNOT                        R2 ; [+4]
        36 MOVE                             R5 R1
        37 NAMECALL                         R3 R2 K9 ["Fire"]
@@ -44,12 +44,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["keys"]
-       16 GETTABLEKS                       R4 R0 K9 ["Src"]
-       18 GETTABLEKS                       R3 R4 K10 ["Actions"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Actions"]
        20 GETIMPORT                        R4 K5 [require]
        22 GETTABLEKS                       R5 R3 K11 ["SetSelectedLayer"]
        24 CALL                             R4 1 1

@@ -4,8 +4,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["_basisObject"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["_basisObject"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
@@ -316,8 +316,8 @@ PROTO_15:
        61 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_handler"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -400,8 +400,8 @@ PROTO_17:
       106 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_handler"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -454,8 +454,8 @@ PROTO_19:
        62 RETURN                           R0 0
 
 PROTO_20:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_handler"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -550,8 +550,8 @@ PROTO_21:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R1 R0 K2 ["Parent"]
         7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
         9 GETIMPORT                        R3 K5 [game]
@@ -561,8 +561,8 @@ MAIN:
        15 DUPCLOSURE                       R4 K8 [PROTO_0]
        16 CAPTURE                          VAL R3
        17 GETIMPORT                        R5 K10 [require]
-       19 GETTABLEKS                       R7 R2 K11 ["Flags"]
-       21 GETTABLEKS                       R6 R7 K12 ["getFFlagDraggerEditProcModels"]
+       19 GETTABLEKS                       R6 R2 K11 ["Flags"]
+       21 GETTABLEKS                       R6 R6 K12 ["getFFlagDraggerEditProcModels"]
        23 CALL                             R5 1 1
        24 MOVE                             R6 R5
        25 CALL                             R6 0 1

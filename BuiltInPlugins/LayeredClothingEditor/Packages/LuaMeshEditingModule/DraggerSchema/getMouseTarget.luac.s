@@ -2,22 +2,22 @@ PROTO_0:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 JUMPIFNOT                        R3 ; [+40]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K0 ["CurrentCamera"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["CurrentCamera"]
         6 GETTABLEKS                       R4 R0 K1 ["vertexEditingTool"]
         8 NAMECALL                         R4 R4 K2 ["getHoveredPoint"]
        10 CALL                             R4 1 1
        11 JUMPIFEQKNIL                     R4 ; [+31]
        13 GETTABLEKS                       R5 R4 K3 ["Parent"]
        15 JUMPIFEQKNIL                     R5 ; [+27]
-       17 GETTABLEKS                       R8 R4 K4 ["CFrame"]
-       19 GETTABLEKS                       R7 R8 K5 ["Position"]
+       17 GETTABLEKS                       R7 R4 K4 ["CFrame"]
+       19 GETTABLEKS                       R7 R7 K5 ["Position"]
        21 NAMECALL                         R5 R3 K6 ["WorldToScreenPoint"]
        23 CALL                             R5 2 2
-       24 GETUPVAL                         R8 2
-       25 GETTABLEKS                       R7 R8 K7 ["new"]
-       27 GETTABLEKS                       R9 R4 K3 ["Parent"]
-       29 GETTABLEKS                       R8 R9 K8 ["Name"]
+       24 GETUPVAL                         R7 2
+       25 GETTABLEKS                       R7 R7 K7 ["new"]
+       27 GETTABLEKS                       R8 R4 K3 ["Parent"]
+       29 GETTABLEKS                       R8 R8 K8 ["Name"]
        31 GETTABLEKS                       R10 R4 K8 ["Name"]
        33 FASTCALL1                        TONUMBER R10 ; [+2]
        34 GETIMPORT                        R9 K10 [tonumber]
@@ -28,8 +28,8 @@ PROTO_0:
        40 GETTABLEKS                       R10 R5 K11 ["Z"]
        42 RETURN                           R8 3
        43 GETUPVAL                         R3 1
-       44 GETUPVAL                         R6 3
-       45 GETTABLEKS                       R5 R6 K12 ["ControlPointsFolderName"]
+       44 GETUPVAL                         R5 3
+       45 GETTABLEKS                       R5 R5 K12 ["ControlPointsFolderName"]
        47 NAMECALL                         R3 R3 K13 ["FindFirstChild"]
        49 CALL                             R3 2 1
        50 JUMPIF                           R3 ; [+2]
@@ -66,13 +66,13 @@ PROTO_0:
        94 JUMPIF                           R6 ; [+2]
        95 LOADNIL                          R7
        96 RETURN                           R7 1
-       97 GETUPVAL                         R8 2
-       98 GETTABLEKS                       R7 R8 K7 ["new"]
-      100 GETTABLEKS                       R10 R6 K29 ["Instance"]
-      102 GETTABLEKS                       R9 R10 K3 ["Parent"]
-      104 GETTABLEKS                       R8 R9 K8 ["Name"]
-      106 GETTABLEKS                       R11 R6 K29 ["Instance"]
-      108 GETTABLEKS                       R10 R11 K8 ["Name"]
+       97 GETUPVAL                         R7 2
+       98 GETTABLEKS                       R7 R7 K7 ["new"]
+      100 GETTABLEKS                       R8 R6 K29 ["Instance"]
+      102 GETTABLEKS                       R8 R8 K3 ["Parent"]
+      104 GETTABLEKS                       R8 R8 K8 ["Name"]
+      106 GETTABLEKS                       R10 R6 K29 ["Instance"]
+      108 GETTABLEKS                       R10 R10 K8 ["Name"]
       110 FASTCALL1                        TONUMBER R10 ; [+2]
       111 GETIMPORT                        R9 K10 [tonumber]
       113 CALL                             R9 1 1
@@ -86,14 +86,14 @@ PROTO_0:
       123 MOVE                             R8 R4
       124 NAMECALL                         R5 R5 K31 ["FindPartOnRayWithWhitelist"]
       126 CALL                             R5 3 2
-      127 GETTABLEKS                       R9 R1 K26 ["Origin"]
-      129 SUB                              R8 R9 R6
-      130 GETTABLEKS                       R7 R8 K32 ["Magnitude"]
+      127 GETTABLEKS                       R8 R1 K26 ["Origin"]
+      129 SUB                              R7 R8 R6
+      130 GETTABLEKS                       R7 R7 K32 ["Magnitude"]
       132 JUMPIFNOT                        R5 ; [+18]
-      133 GETUPVAL                         R9 2
-      134 GETTABLEKS                       R8 R9 K7 ["new"]
-      136 GETTABLEKS                       R10 R5 K3 ["Parent"]
-      138 GETTABLEKS                       R9 R10 K8 ["Name"]
+      133 GETUPVAL                         R8 2
+      134 GETTABLEKS                       R8 R8 K7 ["new"]
+      136 GETTABLEKS                       R9 R5 K3 ["Parent"]
+      138 GETTABLEKS                       R9 R9 K8 ["Name"]
       140 GETTABLEKS                       R11 R5 K8 ["Name"]
       142 FASTCALL1                        TONUMBER R11 ; [+2]
       143 GETIMPORT                        R10 K10 [tonumber]
@@ -108,9 +108,9 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K2 ["Parent"]
         9 GETIMPORT                        R2 K4 [require]
        11 GETTABLEKS                       R3 R1 K5 ["Dash"]
@@ -132,8 +132,8 @@ MAIN:
        37 NAMECALL                         R8 R8 K15 ["GetEngineFeature"]
        39 CALL                             R8 2 1
        40 GETIMPORT                        R9 K4 [require]
-       42 GETTABLEKS                       R11 R0 K16 ["Flags"]
-       44 GETTABLEKS                       R10 R11 K17 ["getFFlagAvatarPreviewerCageEditingTools"]
+       42 GETTABLEKS                       R10 R0 K16 ["Flags"]
+       44 GETTABLEKS                       R10 R10 K17 ["getFFlagAvatarPreviewerCageEditingTools"]
        46 CALL                             R9 1 1
        47 DUPCLOSURE                       R10 K18 [PROTO_0]
        48 CAPTURE                          VAL R9

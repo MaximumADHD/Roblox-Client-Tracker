@@ -5,8 +5,8 @@ PROTO_0:
         4 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 GETUPVAL                         R2 1
         4 LOADK                            R4 K1 ["RBX_MousePosition"]
         5 NAMECALL                         R2 R2 K2 ["GetAttribute"]
@@ -16,8 +16,8 @@ PROTO_1:
        11 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 GETUPVAL                         R2 1
         4 LOADK                            R4 K1 ["RBX_LeftMouseButtonDown"]
         5 NAMECALL                         R2 R2 K2 ["GetAttribute"]
@@ -102,8 +102,8 @@ PROTO_5:
         7 GETUPVAL                         R0 1
         8 NAMECALL                         R0 R0 K3 ["Destroy"]
        10 CALL                             R0 1 0
-       11 GETUPVAL                         R1 2
-       12 GETTABLEKS                       R0 R1 K4 ["current"]
+       11 GETUPVAL                         R0 2
+       12 GETTABLEKS                       R0 R0 K4 ["current"]
        14 GETUPVAL                         R1 1
        15 JUMPIFNOTEQ                      R0 R1 ; [+5]
        17 GETUPVAL                         R0 2
@@ -131,8 +131,8 @@ PROTO_6:
        17 RETURN                           R2 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFNOTEQKNIL                  R0 ; [+5]
         5 GETIMPORT                        R1 K3 [Vector2.new]
         7 CALL                             R1 0 -1
@@ -158,8 +158,8 @@ PROTO_7:
        34 RETURN                           R1 1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFNOTEQKNIL                  R0 ; [+3]
         5 LOADB                            R1 0
         6 RETURN                           R1 1
@@ -183,19 +183,19 @@ PROTO_8:
        30 RETURN                           R1 1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["status"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["status"]
         3 JUMPIFNOTEQKS                    R0 K1 ["ok"] ; [+5]
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K2 ["value"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K2 ["value"]
         8 RETURN                           R0 1
         9 LOADK                            R0 K3 [0.5]
        10 RETURN                           R0 1
 
 PROTO_10:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["ContextServices"]
-        3 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ContextServices"]
+        3 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         5 NAMECALL                         R1 R1 K2 ["use"]
         7 CALL                             R1 1 1
         8 NAMECALL                         R1 R1 K3 ["get"]
@@ -203,37 +203,37 @@ PROTO_10:
        11 LOADK                            R4 K4 ["SystemCursor"]
        12 NAMECALL                         R2 R1 K5 ["GetPluginComponent"]
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K6 ["useRef"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K6 ["useRef"]
        18 LOADNIL                          R4
        19 CALL                             R3 1 1
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R4 R5 K6 ["useRef"]
-       23 GETUPVAL                         R7 2
-       24 GETTABLEKS                       R6 R7 K7 ["Signal"]
-       26 GETTABLEKS                       R5 R6 K8 ["new"]
+       20 GETUPVAL                         R4 1
+       21 GETTABLEKS                       R4 R4 K6 ["useRef"]
+       23 GETUPVAL                         R5 2
+       24 GETTABLEKS                       R5 R5 K7 ["Signal"]
+       26 GETTABLEKS                       R5 R5 K8 ["new"]
        28 CALL                             R5 0 -1
        29 CALL                             R4 -1 1
-       30 GETUPVAL                         R6 1
-       31 GETTABLEKS                       R5 R6 K6 ["useRef"]
-       33 GETUPVAL                         R8 2
-       34 GETTABLEKS                       R7 R8 K7 ["Signal"]
-       36 GETTABLEKS                       R6 R7 K8 ["new"]
+       30 GETUPVAL                         R5 1
+       31 GETTABLEKS                       R5 R5 K6 ["useRef"]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K7 ["Signal"]
+       36 GETTABLEKS                       R6 R6 K8 ["new"]
        38 CALL                             R6 0 -1
        39 CALL                             R5 -1 1
-       40 GETUPVAL                         R8 2
-       41 GETTABLEKS                       R7 R8 K9 ["Observable"]
-       43 GETTABLEKS                       R6 R7 K10 ["useState"]
+       40 GETUPVAL                         R6 2
+       41 GETTABLEKS                       R6 R6 K9 ["Observable"]
+       43 GETTABLEKS                       R6 R6 K10 ["useState"]
        45 LOADB                            R7 0
        46 CALL                             R6 1 2
-       47 GETUPVAL                         R9 3
-       48 GETTABLEKS                       R8 R9 K11 ["useAsync"]
+       47 GETUPVAL                         R8 3
+       48 GETTABLEKS                       R8 R8 K11 ["useAsync"]
        50 NEWCLOSURE                       R9 P0
        51 CAPTURE                          VAL R2
        52 NEWTABLE                         R10 0 0
        54 CALL                             R8 2 1
-       55 GETUPVAL                         R10 1
-       56 GETTABLEKS                       R9 R10 K12 ["useEffect"]
+       55 GETUPVAL                         R9 1
+       56 GETTABLEKS                       R9 R9 K12 ["useEffect"]
        58 NEWCLOSURE                       R10 P1
        59 CAPTURE                          VAL R1
        60 CAPTURE                          UPVAL U4
@@ -243,20 +243,20 @@ PROTO_10:
        64 CAPTURE                          VAL R7
        65 NEWTABLE                         R11 0 0
        67 CALL                             R9 2 0
-       68 GETUPVAL                         R10 1
-       69 GETTABLEKS                       R9 R10 K13 ["useCallback"]
+       68 GETUPVAL                         R9 1
+       69 GETTABLEKS                       R9 R9 K13 ["useCallback"]
        71 NEWCLOSURE                       R10 P2
        72 CAPTURE                          VAL R3
        73 NEWTABLE                         R11 0 0
        75 CALL                             R9 2 1
-       76 GETUPVAL                         R11 1
-       77 GETTABLEKS                       R10 R11 K13 ["useCallback"]
+       76 GETUPVAL                         R10 1
+       77 GETTABLEKS                       R10 R10 K13 ["useCallback"]
        79 NEWCLOSURE                       R11 P3
        80 CAPTURE                          VAL R3
        81 NEWTABLE                         R12 0 0
        83 CALL                             R10 2 1
-       84 GETUPVAL                         R12 1
-       85 GETTABLEKS                       R11 R12 K13 ["useCallback"]
+       84 GETUPVAL                         R11 1
+       85 GETTABLEKS                       R11 R11 K13 ["useCallback"]
        87 NEWCLOSURE                       R12 P4
        88 CAPTURE                          VAL R8
        89 NEWTABLE                         R13 0 1
@@ -264,10 +264,10 @@ PROTO_10:
        92 SETLIST                          R13 R14 1 [1]
        94 CALL                             R11 2 1
        95 GETUPVAL                         R12 5
-       96 GETUPVAL                         R16 2
-       97 GETTABLEKS                       R15 R16 K14 ["Components"]
-       99 GETTABLEKS                       R14 R15 K15 ["Contexts"]
-      101 GETTABLEKS                       R13 R14 K16 ["MouseContextProvider"]
+       96 GETUPVAL                         R13 2
+       97 GETTABLEKS                       R13 R13 K14 ["Components"]
+       99 GETTABLEKS                       R13 R13 K15 ["Contexts"]
+      101 GETTABLEKS                       R13 R13 K16 ["MouseContextProvider"]
       103 DUPTABLE                         R14 K23 [{"getMousePosition", "mouseMoved", "mouseDownChanged", "isMouseDown", "isMouseHoverEnabledObservable", "getMouseDoubleClickTime"}]
       104 SETTABLEKS                       R9 R14 K17 ["getMousePosition"]
       106 GETTABLEKS                       R15 R4 K24 ["current"]
@@ -288,25 +288,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Explorer"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Explorer"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["ExplorerGuiUri"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["ExplorerGuiUri"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["Framework"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["React"]
+       32 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["React"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       41 GETTABLEKS                       R6 R7 K13 ["ReactUtils"]
+       39 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K13 ["ReactUtils"]
        43 CALL                             R5 1 1
        44 GETTABLEKS                       R6 R4 K14 ["createElement"]
        46 DUPCLOSURE                       R7 K15 [PROTO_10]

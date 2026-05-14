@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["MatchBeforeOrAfter"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["MatchBeforeOrAfter"]
         3 MOVE                             R4 R2
         4 MOVE                             R5 R0
         5 MOVE                             R6 R1
@@ -10,8 +10,8 @@ PROTO_0:
         9 JUMPIFNOT                        R3 ; [+2]
        10 LOADB                            R3 0
        11 RETURN                           R3 1
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K2 ["MatchBeforeAndAfter"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K2 ["MatchBeforeAndAfter"]
        15 MOVE                             R4 R2
        16 MOVE                             R5 R0
        17 MOVE                             R6 R1
@@ -21,8 +21,8 @@ PROTO_0:
        21 JUMPIFNOT                        R3 ; [+2]
        22 LOADB                            R3 1
        23 RETURN                           R3 1
-       24 GETUPVAL                         R4 0
-       25 GETTABLEKS                       R3 R4 K2 ["MatchBeforeAndAfter"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K2 ["MatchBeforeAndAfter"]
        27 MOVE                             R4 R2
        28 MOVE                             R5 R0
        29 MOVE                             R6 R1
@@ -32,8 +32,8 @@ PROTO_0:
        33 JUMPIFNOT                        R3 ; [+2]
        34 LOADB                            R3 1
        35 RETURN                           R3 1
-       36 GETUPVAL                         R4 0
-       37 GETTABLEKS                       R3 R4 K2 ["MatchBeforeAndAfter"]
+       36 GETUPVAL                         R3 0
+       37 GETTABLEKS                       R3 R3 K2 ["MatchBeforeAndAfter"]
        39 MOVE                             R4 R2
        40 MOVE                             R5 R0
        41 MOVE                             R6 R1
@@ -89,8 +89,8 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["StringUtil"]
         9 CALL                             R1 1 1

@@ -12,8 +12,8 @@ PROTO_0:
        12 NAMECALL                         R1 R0 K2 ["dispatch"]
        14 CALL                             R1 -1 0
        15 GETUPVAL                         R3 3
-       16 GETUPVAL                         R5 4
-       17 GETTABLEKS                       R4 R5 K3 ["OVERRIDE_ASSET_ID"]
+       16 GETUPVAL                         R4 4
+       17 GETTABLEKS                       R4 R4 K3 ["OVERRIDE_ASSET_ID"]
        19 CALL                             R3 1 -1
        20 NAMECALL                         R1 R0 K2 ["dispatch"]
        22 CALL                             R1 -1 0
@@ -38,13 +38,13 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Actions"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["SetAssetConfigTab"]
        19 CALL                             R2 1 1
@@ -52,12 +52,12 @@ MAIN:
        22 GETTABLEKS                       R4 R1 K8 ["ClearChange"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K6 [require]
-       27 GETTABLEKS                       R7 R0 K3 ["Src"]
-       29 GETTABLEKS                       R6 R7 K9 ["Types"]
-       31 GETTABLEKS                       R5 R6 K10 ["ConfigTypes"]
+       27 GETTABLEKS                       R5 R0 K3 ["Src"]
+       29 GETTABLEKS                       R5 R5 K9 ["Types"]
+       31 GETTABLEKS                       R5 R5 K10 ["ConfigTypes"]
        33 CALL                             R4 1 1
-       34 GETTABLEKS                       R6 R0 K3 ["Src"]
-       36 GETTABLEKS                       R5 R6 K11 ["Util"]
+       34 GETTABLEKS                       R5 R0 K3 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Util"]
        38 GETIMPORT                        R6 K6 [require]
        40 GETTABLEKS                       R7 R5 K12 ["AssetConfigConstants"]
        42 CALL                             R6 1 1

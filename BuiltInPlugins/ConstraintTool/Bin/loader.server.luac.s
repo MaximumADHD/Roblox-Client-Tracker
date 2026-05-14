@@ -165,8 +165,8 @@ PROTO_7:
        30 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["enabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["enabled"]
         3 JUMPIFNOT                        R0 ; [+31]
         4 GETUPVAL                         R0 1
         5 GETUPVAL                         R2 2
@@ -226,14 +226,14 @@ PROTO_8:
        76 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["pluginLoader"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["pluginLoader"]
         3 NAMECALL                         R0 R0 K1 ["waitForUserInteraction"]
         5 CALL                             R0 1 0
         6 GETUPVAL                         R0 1
         7 GETIMPORT                        R1 K3 [plugin]
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K4 ["pluginLoaderContext"]
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K4 ["pluginLoaderContext"]
        12 GETUPVAL                         R3 2
        13 GETUPVAL                         R4 3
        14 CALL                             R0 4 1
@@ -248,17 +248,17 @@ PROTO_9:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
        10 GETIMPORT                        R0 K3 [script]
        12 LOADK                            R2 K6 ["ConstraintTool"]
        13 NAMECALL                         R0 R0 K7 ["FindFirstAncestor"]
        15 CALL                             R0 2 1
        16 GETIMPORT                        R1 K1 [require]
-       18 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       20 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       18 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       20 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        22 CALL                             R1 1 1
        23 GETTABLEKS                       R2 R1 K10 ["launch"]
        25 LOADK                            R3 K6 ["ConstraintTool"]
@@ -279,24 +279,24 @@ MAIN:
        45 NAMECALL                         R2 R2 K18 ["GetService"]
        47 CALL                             R2 2 1
        48 GETIMPORT                        R3 K1 [require]
-       50 GETTABLEKS                       R6 R0 K11 ["Src"]
-       52 GETTABLEKS                       R5 R6 K19 ["Resources"]
-       54 GETTABLEKS                       R4 R5 K20 ["ConstraintData"]
+       50 GETTABLEKS                       R4 R0 K11 ["Src"]
+       52 GETTABLEKS                       R4 R4 K19 ["Resources"]
+       54 GETTABLEKS                       R4 R4 K20 ["ConstraintData"]
        56 CALL                             R3 1 1
        57 GETIMPORT                        R4 K22 [plugin]
        59 GETTABLEKS                       R5 R0 K23 ["Name"]
        61 SETTABLEKS                       R5 R4 K23 ["Name"]
-       63 GETTABLEKS                       R7 R0 K11 ["Src"]
-       65 GETTABLEKS                       R6 R7 K19 ["Resources"]
-       67 GETTABLEKS                       R5 R6 K24 ["Localization"]
-       69 GETTABLEKS                       R4 R5 K25 ["SourceStrings"]
-       71 GETTABLEKS                       R8 R0 K11 ["Src"]
-       73 GETTABLEKS                       R7 R8 K19 ["Resources"]
-       75 GETTABLEKS                       R6 R7 K24 ["Localization"]
-       77 GETTABLEKS                       R5 R6 K26 ["LocalizedStrings"]
+       63 GETTABLEKS                       R4 R0 K11 ["Src"]
+       65 GETTABLEKS                       R4 R4 K19 ["Resources"]
+       67 GETTABLEKS                       R4 R4 K24 ["Localization"]
+       69 GETTABLEKS                       R4 R4 K25 ["SourceStrings"]
+       71 GETTABLEKS                       R5 R0 K11 ["Src"]
+       73 GETTABLEKS                       R5 R5 K19 ["Resources"]
+       75 GETTABLEKS                       R5 R5 K24 ["Localization"]
+       77 GETTABLEKS                       R5 R5 K26 ["LocalizedStrings"]
        79 GETIMPORT                        R6 K1 [require]
-       81 GETTABLEKS                       R8 R0 K8 ["Packages"]
-       83 GETTABLEKS                       R7 R8 K27 ["PluginLoader"]
+       81 GETTABLEKS                       R7 R0 K8 ["Packages"]
+       83 GETTABLEKS                       R7 R7 K27 ["PluginLoader"]
        85 CALL                             R6 1 1
        86 GETTABLEKS                       R7 R6 K28 ["PluginLoaderBuilder"]
        88 LOADNIL                          R8
@@ -366,9 +366,9 @@ MAIN:
       170 SETTABLEKS                       R23 R24 K47 ["closeCallback"]
       172 SETTABLE                         R24 R9 R18
       173 GETIMPORT                        R24 K1 [require]
-      175 GETIMPORT                        R27 K3 [script]
-      177 GETTABLEKS                       R26 R27 K4 ["Parent"]
-      179 GETTABLEKS                       R25 R26 K49 ["main"]
+      175 GETIMPORT                        R25 K3 [script]
+      177 GETTABLEKS                       R25 R25 K4 ["Parent"]
+      179 GETTABLEKS                       R25 R25 K49 ["main"]
       181 CALL                             R24 1 1
       182 GETTABLE                         R25 R9 R18
       183 GETTABLEKS                       R26 R22 K50 ["mainButtonClickedSignal"]

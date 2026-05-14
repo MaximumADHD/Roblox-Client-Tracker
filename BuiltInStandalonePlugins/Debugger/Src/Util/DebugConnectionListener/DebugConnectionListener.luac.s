@@ -1,13 +1,13 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R6 1
-        2 GETTABLEKS                       R5 R6 K0 ["store"]
-        4 NAMECALL                         R5 R5 K1 ["getState"]
-        6 CALL                             R5 1 1
-        7 GETTABLEKS                       R4 R5 K2 ["Common"]
-        9 GETTABLEKS                       R3 R4 K3 ["debuggerConnectionIdToDST"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K4 ["debuggerConnectionId"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["store"]
+        4 NAMECALL                         R3 R3 K1 ["getState"]
+        6 CALL                             R3 1 1
+        7 GETTABLEKS                       R3 R3 K2 ["Common"]
+        9 GETTABLEKS                       R3 R3 K3 ["debuggerConnectionIdToDST"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K4 ["debuggerConnectionId"]
        14 GETTABLE                         R2 R3 R4
        15 JUMPIFEQ                         R1 R2 ; [+2]
        17 LOADB                            R0 0 +1
@@ -15,22 +15,22 @@ PROTO_0:
        19 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["store"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["store"]
         3 GETUPVAL                         R2 1
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K1 ["ThreadId"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["ThreadId"]
         7 GETUPVAL                         R4 3
         8 LOADN                            R5 0
         9 GETUPVAL                         R6 4
        10 CALL                             R2 4 -1
        11 NAMECALL                         R0 R0 K2 ["dispatch"]
        13 CALL                             R0 -1 0
-       14 GETUPVAL                         R1 0
-       15 GETTABLEKS                       R0 R1 K0 ["store"]
+       14 GETUPVAL                         R0 0
+       15 GETTABLEKS                       R0 R0 K0 ["store"]
        17 GETUPVAL                         R2 5
-       18 GETUPVAL                         R4 2
-       19 GETTABLEKS                       R3 R4 K1 ["ThreadId"]
+       18 GETUPVAL                         R3 2
+       19 GETTABLEKS                       R3 R3 K1 ["ThreadId"]
        21 CALL                             R2 1 -1
        22 NAMECALL                         R0 R0 K2 ["dispatch"]
        24 CALL                             R0 -1 0
@@ -40,16 +40,16 @@ PROTO_1:
        29 CALL                             R0 2 1
        30 GETUPVAL                         R1 4
        31 GETTABLEKS                       R3 R0 K4 ["Script"]
-       33 GETUPVAL                         R5 6
-       34 GETTABLEKS                       R4 R5 K5 ["currentDebuggerConnectionId"]
+       33 GETUPVAL                         R4 6
+       34 GETTABLEKS                       R4 R4 K5 ["currentDebuggerConnectionId"]
        36 GETTABLEKS                       R5 R0 K6 ["Line"]
        38 LOADB                            R6 1
        39 NAMECALL                         R1 R1 K7 ["SetScriptLineMarker"]
        41 CALL                             R1 5 0
        42 GETUPVAL                         R1 4
        43 GETTABLEKS                       R3 R0 K4 ["Script"]
-       45 GETUPVAL                         R5 6
-       46 GETTABLEKS                       R4 R5 K5 ["currentDebuggerConnectionId"]
+       45 GETUPVAL                         R4 6
+       46 GETTABLEKS                       R4 R4 K5 ["currentDebuggerConnectionId"]
        48 GETTABLEKS                       R5 R0 K6 ["Line"]
        50 LOADB                            R6 0
        51 NAMECALL                         R1 R1 K8 ["OpenScriptAtLine"]
@@ -57,8 +57,8 @@ PROTO_1:
        54 GETUPVAL                         R1 7
        55 JUMPIFNOT                        R1 ; [+9]
        56 GETUPVAL                         R1 4
-       57 GETUPVAL                         R4 8
-       58 GETTABLEKS                       R3 R4 K9 ["ExceptionText"]
+       57 GETUPVAL                         R3 8
+       58 GETTABLEKS                       R3 R3 K9 ["ExceptionText"]
        60 GETTABLEKS                       R4 R0 K6 ["Line"]
        62 NAMECALL                         R1 R1 K10 ["OpenExceptionMessagePopup"]
        64 CALL                             R1 3 0
@@ -66,14 +66,14 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R7 1
-        2 GETTABLEKS                       R6 R7 K0 ["store"]
-        4 NAMECALL                         R6 R6 K1 ["getState"]
-        6 CALL                             R6 1 1
-        7 GETTABLEKS                       R5 R6 K2 ["Common"]
-        9 GETTABLEKS                       R4 R5 K3 ["debuggerConnectionIdToDST"]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K4 ["debuggerConnectionId"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["store"]
+        4 NAMECALL                         R4 R4 K1 ["getState"]
+        6 CALL                             R4 1 1
+        7 GETTABLEKS                       R4 R4 K2 ["Common"]
+        9 GETTABLEKS                       R4 R4 K3 ["debuggerConnectionIdToDST"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K4 ["debuggerConnectionId"]
        14 GETTABLE                         R3 R4 R5
        15 JUMPIFEQ                         R2 R3 ; [+2]
        17 LOADB                            R1 0 +1
@@ -97,14 +97,14 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R7 2
-        3 GETTABLEKS                       R6 R7 K0 ["store"]
-        5 NAMECALL                         R6 R6 K1 ["getState"]
-        7 CALL                             R6 1 1
-        8 GETTABLEKS                       R5 R6 K2 ["Common"]
-       10 GETTABLEKS                       R4 R5 K3 ["debuggerConnectionIdToDST"]
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R5 R6 K4 ["debuggerConnectionId"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["store"]
+        5 NAMECALL                         R4 R4 K1 ["getState"]
+        7 CALL                             R4 1 1
+        8 GETTABLEKS                       R4 R4 K2 ["Common"]
+       10 GETTABLEKS                       R4 R4 K3 ["debuggerConnectionIdToDST"]
+       12 GETUPVAL                         R5 1
+       13 GETTABLEKS                       R5 R5 K4 ["debuggerConnectionId"]
        15 GETTABLE                         R3 R4 R5
        16 JUMPIFEQ                         R2 R3 ; [+2]
        18 LOADB                            R1 0 +1
@@ -127,14 +127,14 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R7 1
-        2 GETTABLEKS                       R6 R7 K0 ["store"]
-        4 NAMECALL                         R6 R6 K1 ["getState"]
-        6 CALL                             R6 1 1
-        7 GETTABLEKS                       R5 R6 K2 ["Common"]
-        9 GETTABLEKS                       R4 R5 K3 ["debuggerConnectionIdToDST"]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K4 ["debuggerConnectionId"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["store"]
+        4 NAMECALL                         R4 R4 K1 ["getState"]
+        6 CALL                             R4 1 1
+        7 GETTABLEKS                       R4 R4 K2 ["Common"]
+        9 GETTABLEKS                       R4 R4 K3 ["debuggerConnectionIdToDST"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K4 ["debuggerConnectionId"]
        14 GETTABLE                         R3 R4 R5
        15 JUMPIFEQ                         R2 R3 ; [+2]
        17 LOADB                            R1 0 +1
@@ -163,8 +163,8 @@ PROTO_4:
        43 MOVE                             R5 R2
        44 CALL                             R4 1 3
        45 FORGPREP_NEXT                    R4
-       46 GETUPVAL                         R10 1
-       47 GETTABLEKS                       R9 R10 K0 ["store"]
+       46 GETUPVAL                         R9 1
+       47 GETTABLEKS                       R9 R9 K0 ["store"]
        49 GETUPVAL                         R11 9
        50 GETTABLEKS                       R12 R8 K8 ["ThreadId"]
        52 GETTABLEKS                       R13 R8 K9 ["ThreadName"]
@@ -173,16 +173,16 @@ PROTO_4:
        56 NAMECALL                         R9 R9 K10 ["dispatch"]
        58 CALL                             R9 -1 0
        59 GETTABLEKS                       R9 R8 K8 ["ThreadId"]
-       61 GETUPVAL                         R11 8
-       62 GETTABLEKS                       R10 R11 K8 ["ThreadId"]
+       61 GETUPVAL                         R10 8
+       62 GETTABLEKS                       R10 R10 K8 ["ThreadId"]
        64 JUMPIFNOTEQ                      R9 R10 ; [+2]
        66 MOVE                             R3 R8
        67 FORGLOOP                         R4 2 ; [-22]
        69 LENGTH                           R4 R2
        70 LOADN                            R5 0
        71 JUMPIFNOTLT                      R5 R4 ; [+24]
-       73 GETUPVAL                         R5 1
-       74 GETTABLEKS                       R4 R5 K0 ["store"]
+       73 GETUPVAL                         R4 1
+       74 GETTABLEKS                       R4 R4 K0 ["store"]
        76 GETUPVAL                         R6 10
        77 MOVE                             R7 R3
        78 GETUPVAL                         R8 3
@@ -230,8 +230,8 @@ PROTO_5:
        32 NAMECALL                         R6 R6 K8 ["getState"]
        34 CALL                             R6 1 1
        35 GETTABLEKS                       R7 R6 K9 ["Common"]
-       37 GETUPVAL                         R9 1
-       38 GETTABLEKS                       R8 R9 K10 ["fromData"]
+       37 GETUPVAL                         R8 1
+       38 GETTABLEKS                       R8 R8 K10 ["fromData"]
        40 DUPTABLE                         R9 K12 [{"debuggerConnectionId"}]
        41 GETTABLEKS                       R10 R1 K5 ["Id"]
        43 SETTABLEKS                       R10 R9 K11 ["debuggerConnectionId"]
@@ -240,16 +240,16 @@ PROTO_5:
        47 MOVE                             R10 R3
        48 GETIMPORT                        R9 K14 [tostring]
        50 CALL                             R9 1 1
-       51 GETUPVAL                         R12 2
-       52 GETTABLEKS                       R11 R12 K15 ["DebuggerPauseReason"]
-       54 GETTABLEKS                       R10 R11 K16 ["Breakpoint"]
+       51 GETUPVAL                         R10 2
+       52 GETTABLEKS                       R10 R10 K15 ["DebuggerPauseReason"]
+       54 GETTABLEKS                       R10 R10 K16 ["Breakpoint"]
        56 JUMPIFNOTEQ                      R9 R10 ; [+17]
        58 GETTABLEKS                       R9 R2 K16 ["Breakpoint"]
        60 JUMPIFEQKNIL                     R9 ; [+13]
        62 GETTABLEKS                       R9 R0 K6 ["store"]
        64 GETUPVAL                         R11 3
-       65 GETTABLEKS                       R13 R2 K16 ["Breakpoint"]
-       67 GETTABLEKS                       R12 R13 K17 ["MetaBreakpointId"]
+       65 GETTABLEKS                       R12 R2 K16 ["Breakpoint"]
+       67 GETTABLEKS                       R12 R12 K17 ["MetaBreakpointId"]
        69 CALL                             R11 1 -1
        70 NAMECALL                         R9 R9 K7 ["dispatch"]
        72 CALL                             R9 -1 0
@@ -261,9 +261,9 @@ PROTO_5:
        78 MOVE                             R12 R3
        79 GETIMPORT                        R11 K14 [tostring]
        81 CALL                             R11 1 1
-       82 GETUPVAL                         R14 2
-       83 GETTABLEKS                       R13 R14 K15 ["DebuggerPauseReason"]
-       85 GETTABLEKS                       R12 R13 K18 ["Exception"]
+       82 GETUPVAL                         R12 2
+       83 GETTABLEKS                       R12 R12 K15 ["DebuggerPauseReason"]
+       85 GETTABLEKS                       R12 R12 K18 ["Exception"]
        87 JUMPIFEQ                         R11 R12 ; [+2]
        89 LOADB                            R10 0 +1
        90 LOADB                            R10 1
@@ -440,8 +440,8 @@ PROTO_12:
         0 JUMPIFEQKNIL                     R1 ; [+4]
         2 GETTABLEKS                       R2 R1 K0 ["Id"]
         4 JUMP                             ; [+3]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["kInvalidDebuggerConnectionId"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["kInvalidDebuggerConnectionId"]
         8 GETTABLEKS                       R3 R0 K2 ["store"]
        10 GETUPVAL                         R5 1
        11 MOVE                             R6 R2
@@ -566,8 +566,8 @@ PROTO_17:
 PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["store"]
         2 GETUPVAL                         R3 0
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["kInvalidDebuggerConnectionId"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["kInvalidDebuggerConnectionId"]
         6 CALL                             R3 1 -1
         7 NAMECALL                         R1 R1 K2 ["dispatch"]
         9 CALL                             R1 -1 0
@@ -605,56 +605,56 @@ PROTO_18:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Actions"]
        11 GETIMPORT                        R2 K5 [require]
-       13 GETTABLEKS                       R4 R1 K6 ["Callstack"]
-       15 GETTABLEKS                       R3 R4 K7 ["AddThreadId"]
+       13 GETTABLEKS                       R3 R1 K6 ["Callstack"]
+       15 GETTABLEKS                       R3 R3 K7 ["AddThreadId"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R1 K8 ["Common"]
-       22 GETTABLEKS                       R4 R5 K9 ["Resumed"]
+       20 GETTABLEKS                       R4 R1 K8 ["Common"]
+       22 GETTABLEKS                       R4 R4 K9 ["Resumed"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R1 K8 ["Common"]
-       29 GETTABLEKS                       R5 R6 K10 ["SimPaused"]
+       27 GETTABLEKS                       R5 R1 K8 ["Common"]
+       29 GETTABLEKS                       R5 R5 K10 ["SimPaused"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R1 K6 ["Callstack"]
-       36 GETTABLEKS                       R6 R7 K11 ["SetCurrentThread"]
+       34 GETTABLEKS                       R6 R1 K6 ["Callstack"]
+       36 GETTABLEKS                       R6 R6 K11 ["SetCurrentThread"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R8 R1 K8 ["Common"]
-       43 GETTABLEKS                       R7 R8 K12 ["SetCurrentBreakpointId"]
+       41 GETTABLEKS                       R7 R1 K8 ["Common"]
+       43 GETTABLEKS                       R7 R7 K12 ["SetCurrentBreakpointId"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K5 [require]
-       48 GETTABLEKS                       R9 R1 K8 ["Common"]
-       50 GETTABLEKS                       R8 R9 K13 ["SetFocusedDebuggerConnection"]
+       48 GETTABLEKS                       R8 R1 K8 ["Common"]
+       50 GETTABLEKS                       R8 R8 K13 ["SetFocusedDebuggerConnection"]
        52 CALL                             R7 1 1
        53 GETIMPORT                        R8 K5 [require]
-       55 GETTABLEKS                       R10 R1 K8 ["Common"]
-       57 GETTABLEKS                       R9 R10 K14 ["ClearConnectionData"]
+       55 GETTABLEKS                       R9 R1 K8 ["Common"]
+       57 GETTABLEKS                       R9 R9 K14 ["ClearConnectionData"]
        59 CALL                             R8 1 1
        60 GETIMPORT                        R9 K5 [require]
-       62 GETTABLEKS                       R12 R0 K15 ["Thunks"]
-       64 GETTABLEKS                       R11 R12 K16 ["Watch"]
-       66 GETTABLEKS                       R10 R11 K17 ["LoadAllVariablesForThreadAndFrame"]
+       62 GETTABLEKS                       R10 R0 K15 ["Thunks"]
+       64 GETTABLEKS                       R10 R10 K16 ["Watch"]
+       66 GETTABLEKS                       R10 R10 K17 ["LoadAllVariablesForThreadAndFrame"]
        68 CALL                             R9 1 1
        69 GETIMPORT                        R10 K5 [require]
-       71 GETTABLEKS                       R13 R0 K15 ["Thunks"]
-       73 GETTABLEKS                       R12 R13 K6 ["Callstack"]
-       75 GETTABLEKS                       R11 R12 K18 ["PopulateCallstackThreadThunk"]
+       71 GETTABLEKS                       R11 R0 K15 ["Thunks"]
+       73 GETTABLEKS                       R11 R11 K6 ["Callstack"]
+       75 GETTABLEKS                       R11 R11 K18 ["PopulateCallstackThreadThunk"]
        77 CALL                             R10 1 1
        78 GETTABLEKS                       R11 R0 K19 ["Models"]
        80 GETIMPORT                        R12 K5 [require]
        82 GETTABLEKS                       R13 R11 K20 ["DebuggerStateToken"]
        84 CALL                             R12 1 1
        85 GETIMPORT                        R13 K5 [require]
-       87 GETTABLEKS                       R15 R0 K21 ["Util"]
-       89 GETTABLEKS                       R14 R15 K22 ["Constants"]
+       87 GETTABLEKS                       R14 R0 K21 ["Util"]
+       89 GETTABLEKS                       R14 R14 K22 ["Constants"]
        91 CALL                             R13 1 1
        92 NEWTABLE                         R14 16 0
        94 SETTABLEKS                       R14 R14 K23 ["__index"]

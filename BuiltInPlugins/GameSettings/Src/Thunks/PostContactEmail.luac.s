@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R1 K0 ["policyInfoController"]
-        2 GETIMPORT                        R4 K2 [game]
-        4 GETTABLEKS                       R3 R4 K3 ["GameId"]
+        2 GETIMPORT                        R3 K2 [game]
+        4 GETTABLEKS                       R3 R3 K3 ["GameId"]
         6 MOVE                             R6 R3
         7 GETUPVAL                         R7 0
         8 NAMECALL                         R4 R2 K4 ["postContactEmail"]

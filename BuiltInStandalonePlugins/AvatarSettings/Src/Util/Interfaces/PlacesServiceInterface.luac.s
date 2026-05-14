@@ -27,10 +27,10 @@ MAIN:
         9 DUPCLOSURE                       R2 K6 [PROTO_0]
        10 CALL                             R1 1 2
        11 GETIMPORT                        R3 K8 [require]
-       13 GETTABLEKS                       R7 R0 K9 ["Src"]
-       15 GETTABLEKS                       R6 R7 K10 ["Util"]
-       17 GETTABLEKS                       R5 R6 K11 ["Interfaces"]
-       19 GETTABLEKS                       R4 R5 K12 ["InterfaceTypes"]
+       13 GETTABLEKS                       R4 R0 K9 ["Src"]
+       15 GETTABLEKS                       R4 R4 K10 ["Util"]
+       17 GETTABLEKS                       R4 R4 K11 ["Interfaces"]
+       19 GETTABLEKS                       R4 R4 K12 ["InterfaceTypes"]
        21 CALL                             R3 1 1
        22 DUPTABLE                         R4 K14 [{"StartPlaySolo"}]
        23 DUPCLOSURE                       R5 K15 [PROTO_1]

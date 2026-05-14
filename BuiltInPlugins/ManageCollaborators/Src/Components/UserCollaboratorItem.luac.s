@@ -38,8 +38,8 @@ PROTO_1:
         8 GETTABLEKS                       R5 R1 K4 ["Writable"]
        10 JUMPIFNOT                        R2 ; [+11]
        11 NEWTABLE                         R6 0 1
-       13 GETUPVAL                         R10 0
-       14 GETTABLEKS                       R9 R10 K5 ["OwnerKey"]
+       13 GETUPVAL                         R9 0
+       14 GETTABLEKS                       R9 R9 K5 ["OwnerKey"]
        16 NAMECALL                         R7 R0 K6 ["DEPRECATED_getPermissionForKey"]
        18 CALL                             R7 2 -1
        19 SETLIST                          R6 R7 -1 [1]
@@ -53,8 +53,8 @@ PROTO_1:
        31 SETLIST                          R6 R7 -1 [1]
        33 RETURN                           R6 1
        34 NEWTABLE                         R6 0 1
-       36 GETUPVAL                         R10 0
-       37 GETTABLEKS                       R9 R10 K8 ["PlayKey"]
+       36 GETUPVAL                         R9 0
+       37 GETTABLEKS                       R9 R9 K8 ["PlayKey"]
        39 NAMECALL                         R7 R0 K6 ["DEPRECATED_getPermissionForKey"]
        41 CALL                             R7 2 -1
        42 SETLIST                          R6 R7 -1 [1]
@@ -62,8 +62,8 @@ PROTO_1:
        46 JUMPIFNOTEQ                      R4 R7 ; [+13]
        48 JUMPIFNOT                        R3 ; [+11]
        49 MOVE                             R8 R6
-       50 GETUPVAL                         R12 0
-       51 GETTABLEKS                       R11 R12 K13 ["EditKey"]
+       50 GETUPVAL                         R11 0
+       51 GETTABLEKS                       R11 R11 K13 ["EditKey"]
        53 NAMECALL                         R9 R0 K6 ["DEPRECATED_getPermissionForKey"]
        55 CALL                             R9 2 -1
        56 FASTCALL                         TABLE_INSERT ; [+2]
@@ -76,8 +76,8 @@ PROTO_2:
         2 GETTABLEKS                       R2 R1 K1 ["IsOwner"]
         4 GETTABLEKS                       R3 R1 K2 ["CurrentPermission"]
         6 JUMPIFNOT                        R2 ; [+4]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K3 ["OwnerKey"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K3 ["OwnerKey"]
        10 RETURN                           R4 1
        11 RETURN                           R3 1
 
@@ -197,14 +197,14 @@ PROTO_5:
       106 NOT                              R16 R7
       107 JUMP                             ; [+1]
       108 NOT                              R16 R7
-      109 GETUPVAL                         R18 3
-      110 GETTABLEKS                       R17 R18 K20 ["createElement"]
+      109 GETUPVAL                         R17 3
+      110 GETTABLEKS                       R17 R17 K20 ["createElement"]
       112 GETUPVAL                         R18 4
       113 DUPTABLE                         R19 K31 [{"LayoutOrder", "Name", "Icon", "Writable", "Loading", "IsOwner", "CanCollaborateResponse", "HideSeparator", "Removable", "OnRemoved", "TooltipText", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
       114 SETTABLEKS                       R2 R19 K1 ["LayoutOrder"]
       116 SETTABLEKS                       R6 R19 K21 ["Name"]
-      118 GETUPVAL                         R21 3
-      119 GETTABLEKS                       R20 R21 K20 ["createElement"]
+      118 GETUPVAL                         R20 3
+      119 GETTABLEKS                       R20 R20 K20 ["createElement"]
       121 GETUPVAL                         R21 5
       122 DUPTABLE                         R22 K33 [{"Id", "Size"}]
       123 SETTABLEKS                       R4 R22 K3 ["Id"]
@@ -224,8 +224,8 @@ PROTO_5:
       143 JUMP                             ; [+1]
       144 LOADNIL                          R20
       145 SETTABLEKS                       R20 R19 K6 ["IsOwner"]
-      147 GETUPVAL                         R22 6
-      148 GETTABLEKS                       R21 R22 K37 ["fflagManageCollaboratorsActionNeededLabel"]
+      147 GETUPVAL                         R21 6
+      148 GETTABLEKS                       R21 R21 K37 ["fflagManageCollaboratorsActionNeededLabel"]
       150 JUMPIFNOT                        R21 ; [+3]
       151 GETTABLEKS                       R20 R1 K24 ["CanCollaborateResponse"]
       153 JUMP                             ; [+1]
@@ -254,8 +254,8 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R2 K5 [{"OwnerType", "IsOwner", "IsOwnerFriend", "UserName", "CurrentPermission"}]
-        1 GETTABLEKS                       R4 R0 K6 ["GameOwnerMetadata"]
-        3 GETTABLEKS                       R3 R4 K7 ["creatorType"]
+        1 GETTABLEKS                       R3 R0 K6 ["GameOwnerMetadata"]
+        3 GETTABLEKS                       R3 R3 K7 ["creatorType"]
         5 SETTABLEKS                       R3 R2 K0 ["OwnerType"]
         7 GETUPVAL                         R3 0
         8 MOVE                             R4 R0
@@ -332,73 +332,73 @@ MAIN:
         3 LOADK                            R2 K2 ["COLLAB2850_FixMcTooltips"]
         4 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["RoactRodux"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["RoactRodux"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K8 [require]
-       31 GETTABLEKS                       R6 R1 K12 ["Bin"]
-       33 GETTABLEKS                       R5 R6 K13 ["defineLuaFlags"]
+       31 GETTABLEKS                       R5 R1 K12 ["Bin"]
+       33 GETTABLEKS                       R5 R5 K13 ["defineLuaFlags"]
        35 CALL                             R4 1 1
-       36 GETIMPORT                        R6 K8 [require]
-       38 GETTABLEKS                       R8 R1 K9 ["Packages"]
-       40 GETTABLEKS                       R7 R8 K14 ["Framework"]
-       42 CALL                             R6 1 1
-       43 GETTABLEKS                       R5 R6 K15 ["ContextServices"]
+       36 GETIMPORT                        R5 K8 [require]
+       38 GETTABLEKS                       R6 R1 K9 ["Packages"]
+       40 GETTABLEKS                       R6 R6 K14 ["Framework"]
+       42 CALL                             R5 1 1
+       43 GETTABLEKS                       R5 R5 K15 ["ContextServices"]
        45 GETTABLEKS                       R6 R5 K16 ["withContext"]
        47 GETIMPORT                        R7 K8 [require]
-       49 GETTABLEKS                       R10 R1 K17 ["Src"]
-       51 GETTABLEKS                       R9 R10 K18 ["Util"]
-       53 GETTABLEKS                       R8 R9 K19 ["PermissionsConstants"]
+       49 GETTABLEKS                       R8 R1 K17 ["Src"]
+       51 GETTABLEKS                       R8 R8 K18 ["Util"]
+       53 GETTABLEKS                       R8 R8 K19 ["PermissionsConstants"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K8 [require]
-       58 GETTABLEKS                       R12 R1 K17 ["Src"]
-       60 GETTABLEKS                       R11 R12 K20 ["Components"]
-       62 GETTABLEKS                       R10 R11 K21 ["Thumbnails"]
-       64 GETTABLEKS                       R9 R10 K22 ["UserHeadshotThumbnail"]
+       58 GETTABLEKS                       R9 R1 K17 ["Src"]
+       60 GETTABLEKS                       R9 R9 K20 ["Components"]
+       62 GETTABLEKS                       R9 R9 K21 ["Thumbnails"]
+       64 GETTABLEKS                       R9 R9 K22 ["UserHeadshotThumbnail"]
        66 CALL                             R8 1 1
        67 GETIMPORT                        R9 K8 [require]
-       69 GETTABLEKS                       R12 R1 K17 ["Src"]
-       71 GETTABLEKS                       R11 R12 K20 ["Components"]
-       73 GETTABLEKS                       R10 R11 K23 ["CollaboratorItem"]
+       69 GETTABLEKS                       R10 R1 K17 ["Src"]
+       71 GETTABLEKS                       R10 R10 K20 ["Components"]
+       73 GETTABLEKS                       R10 R10 K23 ["CollaboratorItem"]
        75 CALL                             R9 1 1
        76 GETIMPORT                        R10 K8 [require]
-       78 GETTABLEKS                       R13 R1 K17 ["Src"]
-       80 GETTABLEKS                       R12 R13 K24 ["Selectors"]
-       82 GETTABLEKS                       R11 R12 K25 ["IsUserOwner"]
+       78 GETTABLEKS                       R11 R1 K17 ["Src"]
+       80 GETTABLEKS                       R11 R11 K24 ["Selectors"]
+       82 GETTABLEKS                       R11 R11 K25 ["IsUserOwner"]
        84 CALL                             R10 1 1
        85 GETIMPORT                        R11 K8 [require]
-       87 GETTABLEKS                       R14 R1 K17 ["Src"]
-       89 GETTABLEKS                       R13 R14 K24 ["Selectors"]
-       91 GETTABLEKS                       R12 R13 K26 ["IsUserCreatorFriend"]
+       87 GETTABLEKS                       R12 R1 K17 ["Src"]
+       89 GETTABLEKS                       R12 R12 K24 ["Selectors"]
+       91 GETTABLEKS                       R12 R12 K26 ["IsUserCreatorFriend"]
        93 CALL                             R11 1 1
        94 GETIMPORT                        R12 K8 [require]
-       96 GETTABLEKS                       R15 R1 K17 ["Src"]
-       98 GETTABLEKS                       R14 R15 K24 ["Selectors"]
-      100 GETTABLEKS                       R13 R14 K27 ["GetUserName"]
+       96 GETTABLEKS                       R13 R1 K17 ["Src"]
+       98 GETTABLEKS                       R13 R13 K24 ["Selectors"]
+      100 GETTABLEKS                       R13 R13 K27 ["GetUserName"]
       102 CALL                             R12 1 1
       103 GETIMPORT                        R13 K8 [require]
-      105 GETTABLEKS                       R16 R1 K17 ["Src"]
-      107 GETTABLEKS                       R15 R16 K24 ["Selectors"]
-      109 GETTABLEKS                       R14 R15 K28 ["GetUserPermission"]
+      105 GETTABLEKS                       R14 R1 K17 ["Src"]
+      107 GETTABLEKS                       R14 R14 K24 ["Selectors"]
+      109 GETTABLEKS                       R14 R14 K28 ["GetUserPermission"]
       111 CALL                             R13 1 1
       112 GETIMPORT                        R14 K8 [require]
-      114 GETTABLEKS                       R17 R1 K17 ["Src"]
-      116 GETTABLEKS                       R16 R17 K29 ["Thunks"]
-      118 GETTABLEKS                       R15 R16 K30 ["SetUserPermission"]
+      114 GETTABLEKS                       R15 R1 K17 ["Src"]
+      116 GETTABLEKS                       R15 R15 K29 ["Thunks"]
+      118 GETTABLEKS                       R15 R15 K30 ["SetUserPermission"]
       120 CALL                             R14 1 1
       121 GETIMPORT                        R15 K8 [require]
-      123 GETTABLEKS                       R18 R1 K17 ["Src"]
-      125 GETTABLEKS                       R17 R18 K29 ["Thunks"]
-      127 GETTABLEKS                       R16 R17 K31 ["RemoveUserCollaborator"]
+      123 GETTABLEKS                       R16 R1 K17 ["Src"]
+      125 GETTABLEKS                       R16 R16 K29 ["Thunks"]
+      127 GETTABLEKS                       R16 R16 K31 ["RemoveUserCollaborator"]
       129 CALL                             R15 1 1
       130 GETTABLEKS                       R16 R2 K32 ["PureComponent"]
       132 LOADK                            R18 K33 ["UserCollaboratorItem"]
@@ -413,15 +413,15 @@ MAIN:
       144 CALL                             R20 2 1
       145 JUMPIFNOT                        R20 ; [+22]
       146 GETIMPORT                        R21 K8 [require]
-      148 GETTABLEKS                       R24 R1 K17 ["Src"]
-      150 GETTABLEKS                       R23 R24 K29 ["Thunks"]
-      152 GETTABLEKS                       R22 R23 K36 ["SendSearchItemLog"]
+      148 GETTABLEKS                       R22 R1 K17 ["Src"]
+      150 GETTABLEKS                       R22 R22 K29 ["Thunks"]
+      152 GETTABLEKS                       R22 R22 K36 ["SendSearchItemLog"]
       154 CALL                             R21 1 1
       155 MOVE                             R17 R21
       156 GETIMPORT                        R21 K8 [require]
-      158 GETTABLEKS                       R24 R1 K17 ["Src"]
-      160 GETTABLEKS                       R23 R24 K18 ["Util"]
-      162 GETTABLEKS                       R22 R23 K37 ["Constants"]
+      158 GETTABLEKS                       R22 R1 K17 ["Src"]
+      160 GETTABLEKS                       R22 R22 K18 ["Util"]
+      162 GETTABLEKS                       R22 R22 K37 ["Constants"]
       164 CALL                             R21 1 1
       165 MOVE                             R18 R21
       166 GETTABLEKS                       R19 R18 K38 ["COLLABORATORTYPE_USER"]

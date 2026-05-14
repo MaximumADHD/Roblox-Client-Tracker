@@ -18,12 +18,12 @@ PROTO_2:
         5 GETTABLEKS                       R3 R1 K3 ["ToolbarHeight"]
         7 SUBK                             R2 R3 K2 [4]
         8 SUBK                             R3 R2 K4 [10]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K5 ["useState"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K5 ["useState"]
        12 LOADB                            R5 0
        13 CALL                             R4 1 2
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K6 ["join"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K6 ["join"]
        17 MOVE                             R7 R0
        18 NEWTABLE                         R8 8 0
        20 GETIMPORT                        R9 K9 [UDim2.new]
@@ -37,34 +37,34 @@ PROTO_2:
        30 SETTABLEKS                       R9 R8 K11 ["BackgroundTransparency"]
        32 LOADN                            R9 0
        33 SETTABLEKS                       R9 R8 K12 ["BorderSizePixel"]
-       35 GETUPVAL                         R11 1
-       36 GETTABLEKS                       R10 R11 K13 ["Event"]
-       38 GETTABLEKS                       R9 R10 K14 ["MouseEnter"]
+       35 GETUPVAL                         R9 1
+       36 GETTABLEKS                       R9 R9 K13 ["Event"]
+       38 GETTABLEKS                       R9 R9 K14 ["MouseEnter"]
        40 NEWCLOSURE                       R10 P0
        41 CAPTURE                          VAL R5
        42 SETTABLE                         R10 R8 R9
-       43 GETUPVAL                         R11 1
-       44 GETTABLEKS                       R10 R11 K13 ["Event"]
-       46 GETTABLEKS                       R9 R10 K15 ["MouseLeave"]
+       43 GETUPVAL                         R9 1
+       44 GETTABLEKS                       R9 R9 K13 ["Event"]
+       46 GETTABLEKS                       R9 R9 K15 ["MouseLeave"]
        48 NEWCLOSURE                       R10 P1
        49 CAPTURE                          VAL R5
        50 SETTABLE                         R10 R8 R9
        51 LOADK                            R9 K16 [""]
        52 SETTABLEKS                       R9 R8 K17 ["Image"]
-       54 GETUPVAL                         R10 2
-       55 GETTABLEKS                       R9 R10 K18 ["None"]
+       54 GETUPVAL                         R9 2
+       55 GETTABLEKS                       R9 R9 K18 ["None"]
        57 SETTABLEKS                       R9 R8 K19 ["Icon"]
-       59 GETUPVAL                         R10 2
-       60 GETTABLEKS                       R9 R10 K18 ["None"]
+       59 GETUPVAL                         R9 2
+       60 GETTABLEKS                       R9 R9 K18 ["None"]
        62 SETTABLEKS                       R9 R8 K20 ["Stylizer"]
        64 CALL                             R6 2 1
-       65 GETUPVAL                         R8 1
-       66 GETTABLEKS                       R7 R8 K21 ["createElement"]
+       65 GETUPVAL                         R7 1
+       66 GETTABLEKS                       R7 R7 K21 ["createElement"]
        68 LOADK                            R8 K22 ["ImageButton"]
        69 MOVE                             R9 R6
        70 DUPTABLE                         R10 K24 [{"Background"}]
-       71 GETUPVAL                         R12 1
-       72 GETTABLEKS                       R11 R12 K21 ["createElement"]
+       71 GETUPVAL                         R11 1
+       72 GETTABLEKS                       R11 R11 K21 ["createElement"]
        74 LOADK                            R12 K25 ["Frame"]
        75 DUPTABLE                         R13 K29 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "BorderSizePixel", "BackgroundColor3"}]
        76 GETIMPORT                        R14 K31 [Vector2.new]
@@ -96,8 +96,8 @@ PROTO_2:
       110 GETTABLEKS                       R14 R1 K33 ["ToolbarButtonBackgroundColor"]
       112 SETTABLEKS                       R14 R13 K28 ["BackgroundColor3"]
       114 DUPTABLE                         R14 K34 [{"Icon"}]
-      115 GETUPVAL                         R16 1
-      116 GETTABLEKS                       R15 R16 K21 ["createElement"]
+      115 GETUPVAL                         R15 1
+      116 GETTABLEKS                       R15 R15 K21 ["createElement"]
       118 LOADK                            R16 K35 ["ImageLabel"]
       119 DUPTABLE                         R17 K37 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "BorderSizePixel", "Image", "ImageColor3"}]
       120 GETIMPORT                        R18 K31 [Vector2.new]
@@ -144,15 +144,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["Style"]
-       23 GETTABLEKS                       R3 R4 K10 ["Stylizer"]
+       21 GETTABLEKS                       R3 R2 K9 ["Style"]
+       23 GETTABLEKS                       R3 R3 K10 ["Stylizer"]
        25 GETTABLEKS                       R4 R2 K11 ["Dash"]
        27 DUPCLOSURE                       R5 K12 [PROTO_2]
        28 CAPTURE                          VAL R3

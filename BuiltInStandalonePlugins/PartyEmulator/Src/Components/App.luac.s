@@ -20,8 +20,8 @@ PROTO_0:
        25 GETIMPORT                        R3 K6 [table.sort]
        27 MOVE                             R4 R2
        28 CALL                             R3 1 0
-       29 GETUPVAL                         R6 3
-       30 GETTABLEKS                       R5 R6 K7 ["UNASSIGNED_PARTY_ID"]
+       29 GETUPVAL                         R5 3
+       30 GETTABLEKS                       R5 R5 K7 ["UNASSIGNED_PARTY_ID"]
        32 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
        34 MOVE                             R4 R2
        35 GETIMPORT                        R3 K4 [table.insert]
@@ -30,8 +30,8 @@ PROTO_0:
        39 LOADNIL                          R4
        40 LOADNIL                          R5
        41 FORGPREP                         R3
-       42 GETUPVAL                         R9 3
-       43 GETTABLEKS                       R8 R9 K7 ["UNASSIGNED_PARTY_ID"]
+       42 GETUPVAL                         R8 3
+       43 GETTABLEKS                       R8 R8 K7 ["UNASSIGNED_PARTY_ID"]
        45 JUMPIFEQ                         R7 R8 ; [+62]
        47 GETUPVAL                         R9 2
        48 GETTABLE                         R8 R9 R7
@@ -59,8 +59,8 @@ PROTO_0:
        79 CALL                             R15 2 0
        80 FORGLOOP                         R10 2 [inext] ; [-17]
        82 MOVE                             R11 R0
-       83 GETUPVAL                         R13 5
-       84 GETTABLEKS                       R12 R13 K16 ["createElement"]
+       83 GETUPVAL                         R12 5
+       84 GETTABLEKS                       R12 R12 K16 ["createElement"]
        86 GETUPVAL                         R13 6
        87 DUPTABLE                         R14 K22 [{"key", "partyId", "partyName", "players", "LayoutOrder"}]
        88 SETTABLEKS                       R7 R14 K17 ["key"]
@@ -97,8 +97,8 @@ PROTO_0:
       130 MOVE                             R11 R6
       131 CALL                             R10 1 1
       132 SETTABLEKS                       R10 R9 K13 ["playerName"]
-      134 GETUPVAL                         R11 3
-      135 GETTABLEKS                       R10 R11 K7 ["UNASSIGNED_PARTY_ID"]
+      134 GETUPVAL                         R10 3
+      135 GETTABLEKS                       R10 R10 K7 ["UNASSIGNED_PARTY_ID"]
       137 SETTABLEKS                       R10 R9 K14 ["currentPartyId"]
       139 FASTCALL2                        TABLE_INSERT R3 R9 ; [+4]
       141 MOVE                             R8 R3
@@ -106,19 +106,19 @@ PROTO_0:
       144 CALL                             R7 2 0
       145 FORNLOOP                         R4
       146 MOVE                             R5 R0
-      147 GETUPVAL                         R7 5
-      148 GETTABLEKS                       R6 R7 K16 ["createElement"]
+      147 GETUPVAL                         R6 5
+      148 GETTABLEKS                       R6 R6 K16 ["createElement"]
       150 GETUPVAL                         R7 6
       151 DUPTABLE                         R8 K22 [{"key", "partyId", "partyName", "players", "LayoutOrder"}]
-      152 GETUPVAL                         R10 3
-      153 GETTABLEKS                       R9 R10 K7 ["UNASSIGNED_PARTY_ID"]
+      152 GETUPVAL                         R9 3
+      153 GETTABLEKS                       R9 R9 K7 ["UNASSIGNED_PARTY_ID"]
       155 SETTABLEKS                       R9 R8 K17 ["key"]
-      157 GETUPVAL                         R10 3
-      158 GETTABLEKS                       R9 R10 K7 ["UNASSIGNED_PARTY_ID"]
+      157 GETUPVAL                         R9 3
+      158 GETTABLEKS                       R9 R9 K7 ["UNASSIGNED_PARTY_ID"]
       160 SETTABLEKS                       R9 R8 K18 ["partyId"]
       162 GETUPVAL                         R9 7
-      163 GETUPVAL                         R11 3
-      164 GETTABLEKS                       R10 R11 K7 ["UNASSIGNED_PARTY_ID"]
+      163 GETUPVAL                         R10 3
+      164 GETTABLEKS                       R10 R10 K7 ["UNASSIGNED_PARTY_ID"]
       166 CALL                             R9 1 1
       167 SETTABLEKS                       R9 R8 K19 ["partyName"]
       169 SETTABLEKS                       R3 R8 K20 ["players"]
@@ -134,22 +134,22 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["useParties"]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["useParties"]
         5 CALL                             R2 0 1
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K1 ["usePlayerMappings"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K1 ["usePlayerMappings"]
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K2 ["usePlayerCount"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K2 ["usePlayerCount"]
        13 CALL                             R4 0 1
        14 GETUPVAL                         R5 2
        15 CALL                             R5 0 1
        16 GETUPVAL                         R6 3
        17 NAMECALL                         R6 R6 K3 ["use"]
        19 CALL                             R6 1 1
-       20 GETUPVAL                         R8 4
-       21 GETTABLEKS                       R7 R8 K4 ["useMemo"]
+       20 GETUPVAL                         R7 4
+       21 GETTABLEKS                       R7 R7 K4 ["useMemo"]
        23 NEWCLOSURE                       R8 P0
        24 CAPTURE                          VAL R5
        25 CAPTURE                          UPVAL U0
@@ -168,32 +168,32 @@ PROTO_1:
        39 MOVE                             R13 R4
        40 SETLIST                          R9 R10 4 [1]
        42 CALL                             R7 2 1
-       43 GETUPVAL                         R9 4
-       44 GETTABLEKS                       R8 R9 K5 ["createElement"]
-       46 GETUPVAL                         R10 9
-       47 GETTABLEKS                       R9 R10 K6 ["View"]
+       43 GETUPVAL                         R8 4
+       44 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       46 GETUPVAL                         R9 9
+       47 GETTABLEKS                       R9 R9 K6 ["View"]
        49 DUPTABLE                         R10 K8 [{"tag"}]
        50 LOADK                            R11 K9 ["size-full col gap-medium padding-medium bg-surface-200"]
        51 SETTABLEKS                       R11 R10 K7 ["tag"]
        53 DUPTABLE                         R11 K12 [{"HeaderSection", "ContentContainer"}]
-       54 GETUPVAL                         R13 4
-       55 GETTABLEKS                       R12 R13 K5 ["createElement"]
-       57 GETUPVAL                         R14 9
-       58 GETTABLEKS                       R13 R14 K6 ["View"]
+       54 GETUPVAL                         R12 4
+       55 GETTABLEKS                       R12 R12 K5 ["createElement"]
+       57 GETUPVAL                         R13 9
+       58 GETTABLEKS                       R13 R13 K6 ["View"]
        60 DUPTABLE                         R14 K15 [{"tag", "GroupTransparency", "LayoutOrder"}]
        61 LOADK                            R15 K16 ["size-full-0 auto-y col gap-medium"]
        62 SETTABLEKS                       R15 R14 K7 ["tag"]
        64 JUMPIFNOT                        R5 ; [+2]
        65 LOADN                            R15 0
        66 JUMP                             ; [+3]
-       67 GETUPVAL                         R16 5
-       68 GETTABLEKS                       R15 R16 K17 ["DISABLED_TRANSPARENCY"]
+       67 GETUPVAL                         R15 5
+       68 GETTABLEKS                       R15 R15 K17 ["DISABLED_TRANSPARENCY"]
        70 SETTABLEKS                       R15 R14 K13 ["GroupTransparency"]
        72 LOADN                            R15 0
        73 SETTABLEKS                       R15 R14 K14 ["LayoutOrder"]
        75 DUPTABLE                         R15 K21 [{"ToggleHeader", "Divider", "ActionsSection"}]
-       76 GETUPVAL                         R17 4
-       77 GETTABLEKS                       R16 R17 K5 ["createElement"]
+       76 GETUPVAL                         R16 4
+       77 GETTABLEKS                       R16 R16 K5 ["createElement"]
        79 GETUPVAL                         R17 10
        80 DUPTABLE                         R18 K22 [{"LayoutOrder"}]
        81 MOVE                             R19 R1
@@ -201,23 +201,23 @@ PROTO_1:
        83 SETTABLEKS                       R19 R18 K14 ["LayoutOrder"]
        85 CALL                             R16 2 1
        86 SETTABLEKS                       R16 R15 K18 ["ToggleHeader"]
-       88 GETUPVAL                         R17 4
-       89 GETTABLEKS                       R16 R17 K5 ["createElement"]
-       91 GETUPVAL                         R18 9
-       92 GETTABLEKS                       R17 R18 K19 ["Divider"]
+       88 GETUPVAL                         R16 4
+       89 GETTABLEKS                       R16 R16 K5 ["createElement"]
+       91 GETUPVAL                         R17 9
+       92 GETTABLEKS                       R17 R17 K19 ["Divider"]
        94 DUPTABLE                         R18 K24 [{"variant", "LayoutOrder"}]
-       95 GETUPVAL                         R22 9
-       96 GETTABLEKS                       R21 R22 K25 ["Enums"]
-       98 GETTABLEKS                       R20 R21 K26 ["DividerVariant"]
-      100 GETTABLEKS                       R19 R20 K27 ["Default"]
+       95 GETUPVAL                         R19 9
+       96 GETTABLEKS                       R19 R19 K25 ["Enums"]
+       98 GETTABLEKS                       R19 R19 K26 ["DividerVariant"]
+      100 GETTABLEKS                       R19 R19 K27 ["Default"]
       102 SETTABLEKS                       R19 R18 K23 ["variant"]
       104 MOVE                             R19 R1
       105 CALL                             R19 0 1
       106 SETTABLEKS                       R19 R18 K14 ["LayoutOrder"]
       108 CALL                             R16 2 1
       109 SETTABLEKS                       R16 R15 K19 ["Divider"]
-      111 GETUPVAL                         R17 4
-      112 GETTABLEKS                       R16 R17 K5 ["createElement"]
+      111 GETUPVAL                         R16 4
+      112 GETTABLEKS                       R16 R16 K5 ["createElement"]
       114 GETUPVAL                         R17 11
       115 DUPTABLE                         R18 K29 [{"playerCount", "LayoutOrder"}]
       116 SETTABLEKS                       R4 R18 K28 ["playerCount"]
@@ -229,10 +229,10 @@ PROTO_1:
       125 CALL                             R12 3 1
       126 SETTABLEKS                       R12 R11 K10 ["HeaderSection"]
       128 JUMPIFNOT                        R5 ; [+52]
-      129 GETUPVAL                         R13 4
-      130 GETTABLEKS                       R12 R13 K5 ["createElement"]
-      132 GETUPVAL                         R14 9
-      133 GETTABLEKS                       R13 R14 K30 ["ScrollView"]
+      129 GETUPVAL                         R12 4
+      130 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      132 GETUPVAL                         R13 9
+      133 GETTABLEKS                       R13 R13 K30 ["ScrollView"]
       135 DUPTABLE                         R14 K33 [{"tag", "scroll", "layout", "LayoutOrder"}]
       136 LOADK                            R15 K34 ["size-full-0 fill gap-small padding-medium"]
       137 SETTABLEKS                       R15 R14 K7 ["tag"]
@@ -261,10 +261,10 @@ PROTO_1:
       178 MOVE                             R15 R7
       179 CALL                             R12 3 1
       180 JUMP                             ; [+36]
-      181 GETUPVAL                         R13 4
-      182 GETTABLEKS                       R12 R13 K5 ["createElement"]
-      184 GETUPVAL                         R14 9
-      185 GETTABLEKS                       R13 R14 K6 ["View"]
+      181 GETUPVAL                         R12 4
+      182 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      184 GETUPVAL                         R13 9
+      185 GETTABLEKS                       R13 R13 K6 ["View"]
       187 DUPTABLE                         R14 K59 [{"tag", "LayoutOrder"}]
       188 LOADK                            R15 K60 ["size-full fill gap-small padding-medium"]
       189 SETTABLEKS                       R15 R14 K7 ["tag"]
@@ -272,10 +272,10 @@ PROTO_1:
       192 CALL                             R15 0 1
       193 SETTABLEKS                       R15 R14 K14 ["LayoutOrder"]
       195 DUPTABLE                         R15 K62 [{"TestModeCompatibilityWarning"}]
-      196 GETUPVAL                         R17 4
-      197 GETTABLEKS                       R16 R17 K5 ["createElement"]
-      199 GETUPVAL                         R18 9
-      200 GETTABLEKS                       R17 R18 K63 ["Text"]
+      196 GETUPVAL                         R16 4
+      197 GETTABLEKS                       R16 R16 K5 ["createElement"]
+      199 GETUPVAL                         R17 9
+      200 GETTABLEKS                       R17 R17 K63 ["Text"]
       202 DUPTABLE                         R18 K64 [{"tag", "Text"}]
       203 LOADK                            R19 K65 ["text-body-small size-full auto-y text-align-x-center text-align-y-center"]
       204 SETTABLEKS                       R19 R18 K7 ["tag"]
@@ -297,30 +297,30 @@ MAIN:
         3 LOADK                            R2 K2 ["PartyEmulator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Components"]
-       11 GETTABLEKS                       R3 R0 K4 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Contexts"]
-       15 GETTABLEKS                       R4 R0 K4 ["Src"]
-       17 GETTABLEKS                       R3 R4 K7 ["Util"]
-       19 GETTABLEKS                       R5 R0 K4 ["Src"]
-       21 GETTABLEKS                       R4 R5 K8 ["Hooks"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Components"]
+       11 GETTABLEKS                       R2 R0 K4 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Contexts"]
+       15 GETTABLEKS                       R3 R0 K4 ["Src"]
+       17 GETTABLEKS                       R3 R3 K7 ["Util"]
+       19 GETTABLEKS                       R4 R0 K4 ["Src"]
+       21 GETTABLEKS                       R4 R4 K8 ["Hooks"]
        23 GETIMPORT                        R5 K10 [require]
-       25 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       27 GETTABLEKS                       R6 R7 K12 ["React"]
+       25 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       27 GETTABLEKS                       R6 R6 K12 ["React"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K10 [require]
-       32 GETTABLEKS                       R8 R0 K11 ["Packages"]
-       34 GETTABLEKS                       R7 R8 K13 ["Foundation"]
+       32 GETTABLEKS                       R7 R0 K11 ["Packages"]
+       34 GETTABLEKS                       R7 R7 K13 ["Foundation"]
        36 CALL                             R6 1 1
        37 GETIMPORT                        R7 K10 [require]
-       39 GETTABLEKS                       R9 R0 K11 ["Packages"]
-       41 GETTABLEKS                       R8 R9 K14 ["Framework"]
+       39 GETTABLEKS                       R8 R0 K11 ["Packages"]
+       41 GETTABLEKS                       R8 R8 K14 ["Framework"]
        43 CALL                             R7 1 1
        44 GETTABLEKS                       R8 R7 K15 ["ContextServices"]
        46 GETTABLEKS                       R9 R8 K16 ["Localization"]
-       48 GETTABLEKS                       R11 R7 K7 ["Util"]
-       50 GETTABLEKS                       R10 R11 K17 ["counter"]
+       48 GETTABLEKS                       R10 R7 K7 ["Util"]
+       50 GETTABLEKS                       R10 R10 K17 ["counter"]
        52 GETIMPORT                        R11 K10 [require]
        54 GETTABLEKS                       R12 R2 K18 ["PartyContext"]
        56 CALL                             R11 1 1

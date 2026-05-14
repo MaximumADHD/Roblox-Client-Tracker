@@ -135,8 +135,8 @@ PROTO_5:
        15 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["ImageImportedSignal"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["ImageImportedSignal"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
@@ -168,25 +168,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Network"]
-       13 GETTABLEKS                       R2 R3 K8 ["NetworkCache"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Network"]
+       13 GETTABLEKS                       R2 R2 K8 ["NetworkCache"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Util"]
-       22 GETTABLEKS                       R3 R4 K10 ["Services"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["Services"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K11 ["StartPageManager"]
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["Dash"]
+       29 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["Dash"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R4 K14 ["collectArray"]
        36 GETTABLEKS                       R6 R4 K15 ["includes"]
        38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R9 R0 K6 ["Src"]
-       42 GETTABLEKS                       R8 R9 K16 ["Types"]
+       40 GETTABLEKS                       R8 R0 K6 ["Src"]
+       42 GETTABLEKS                       R8 R8 K16 ["Types"]
        44 CALL                             R7 1 1
        45 DUPCLOSURE                       R8 K17 [PROTO_0]
        46 DUPCLOSURE                       R9 K18 [PROTO_2]

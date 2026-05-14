@@ -23,13 +23,13 @@ PROTO_2:
        12 GETIMPORT                        R8 K9 [Enum.RibbonTool.Move]
        14 JUMPIFNOTEQ                      R3 R8 ; [+23]
        16 MOVE                             R9 R7
-       17 GETUPVAL                         R11 0
-       18 GETTABLEKS                       R10 R11 K10 ["new"]
+       17 GETUPVAL                         R10 0
+       18 GETTABLEKS                       R10 R10 K10 ["new"]
        20 MOVE                             R11 R4
        21 LOADNIL                          R12
-       22 GETUPVAL                         R15 1
-       23 GETTABLEKS                       R14 R15 K11 ["TransformHandlesImplementation"]
-       25 GETTABLEKS                       R13 R14 K10 ["new"]
+       22 GETUPVAL                         R13 1
+       23 GETTABLEKS                       R13 R13 K11 ["TransformHandlesImplementation"]
+       25 GETTABLEKS                       R13 R13 K10 ["new"]
        27 MOVE                             R14 R4
        28 MOVE                             R15 R5
        29 GETIMPORT                        R16 K9 [Enum.RibbonTool.Move]
@@ -42,13 +42,13 @@ PROTO_2:
        38 GETIMPORT                        R8 K16 [Enum.RibbonTool.Rotate]
        40 JUMPIFNOTEQ                      R3 R8 ; [+22]
        42 MOVE                             R9 R7
-       43 GETUPVAL                         R11 2
-       44 GETTABLEKS                       R10 R11 K10 ["new"]
+       43 GETUPVAL                         R10 2
+       44 GETTABLEKS                       R10 R10 K10 ["new"]
        46 MOVE                             R11 R4
        47 LOADNIL                          R12
-       48 GETUPVAL                         R15 1
-       49 GETTABLEKS                       R14 R15 K11 ["TransformHandlesImplementation"]
-       51 GETTABLEKS                       R13 R14 K10 ["new"]
+       48 GETUPVAL                         R13 1
+       49 GETTABLEKS                       R13 R13 K11 ["TransformHandlesImplementation"]
+       51 GETTABLEKS                       R13 R13 K10 ["new"]
        53 MOVE                             R14 R4
        54 MOVE                             R15 R6
        55 GETIMPORT                        R16 K16 [Enum.RibbonTool.Rotate]
@@ -69,8 +69,8 @@ PROTO_2:
        76 LOADB                            R9 1
        77 SETTABLEKS                       R9 R8 K20 ["ShowLocalSpaceIndicator"]
        79 SETTABLEKS                       R7 R8 K21 ["HandlesList"]
-       81 GETUPVAL                         R10 3
-       82 GETTABLEKS                       R9 R10 K25 ["createElement"]
+       81 GETUPVAL                         R9 3
+       82 GETTABLEKS                       R9 R9 K25 ["createElement"]
        84 GETUPVAL                         R10 4
        85 DUPTABLE                         R11 K29 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
        86 SETTABLEKS                       R2 R11 K1 ["Mouse"]
@@ -88,28 +88,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       16 GETTABLEKS                       R2 R3 K8 ["DraggerFramework"]
+       14 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       16 GETTABLEKS                       R2 R2 K8 ["DraggerFramework"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R2 K9 ["DraggerTools"]
-       22 GETTABLEKS                       R4 R5 K10 ["DraggerToolComponent"]
+       20 GETTABLEKS                       R4 R2 K9 ["DraggerTools"]
+       22 GETTABLEKS                       R4 R4 K10 ["DraggerToolComponent"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R2 K11 ["Handles"]
-       29 GETTABLEKS                       R5 R6 K12 ["MoveHandles"]
+       27 GETTABLEKS                       R5 R2 K11 ["Handles"]
+       29 GETTABLEKS                       R5 R5 K12 ["MoveHandles"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R2 K11 ["Handles"]
-       36 GETTABLEKS                       R6 R7 K13 ["RotateHandles"]
+       34 GETTABLEKS                       R6 R2 K11 ["Handles"]
+       36 GETTABLEKS                       R6 R6 K13 ["RotateHandles"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R10 R0 K14 ["Src"]
-       43 GETTABLEKS                       R9 R10 K15 ["Util"]
-       45 GETTABLEKS                       R8 R9 K16 ["DraggerSchema"]
-       47 GETTABLEKS                       R7 R8 K16 ["DraggerSchema"]
+       41 GETTABLEKS                       R7 R0 K14 ["Src"]
+       43 GETTABLEKS                       R7 R7 K15 ["Util"]
+       45 GETTABLEKS                       R7 R7 K16 ["DraggerSchema"]
+       47 GETTABLEKS                       R7 R7 K16 ["DraggerSchema"]
        49 CALL                             R6 1 1
        50 GETTABLEKS                       R7 R1 K17 ["PureComponent"]
        52 LOADK                            R9 K18 ["AnimationClipEditorDragger"]

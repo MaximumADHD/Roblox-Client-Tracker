@@ -42,8 +42,8 @@ PROTO_0:
        51 CALL                             R3 2 1
        52 JUMPIFNOT                        R3 ; [+14]
        53 JUMPIFEQKNIL                     R1 ; [+31]
-       55 GETIMPORT                        R4 K7 [game]
-       57 GETTABLEKS                       R3 R4 K8 ["Workspace"]
+       55 GETIMPORT                        R3 K7 [game]
+       57 GETTABLEKS                       R3 R3 K8 ["Workspace"]
        59 JUMPIFNOTEQ                      R1 R3 ; [+3]
        61 LOADB                            R3 0
        62 RETURN                           R3 1

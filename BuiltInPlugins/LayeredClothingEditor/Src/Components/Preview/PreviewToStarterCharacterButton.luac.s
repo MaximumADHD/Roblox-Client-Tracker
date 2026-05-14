@@ -12,9 +12,9 @@ PROTO_0:
        12 RETURN                           R0 0
        13 GETUPVAL                         R2 1
        14 MOVE                             R4 R1
-       15 GETUPVAL                         R7 2
-       16 GETTABLEKS                       R6 R7 K3 ["props"]
-       18 GETTABLEKS                       R5 R6 K4 ["EditingItemContext"]
+       15 GETUPVAL                         R5 2
+       16 GETTABLEKS                       R5 R5 K3 ["props"]
+       18 GETTABLEKS                       R5 R5 K4 ["EditingItemContext"]
        20 NAMECALL                         R5 R5 K5 ["getItem"]
        22 CALL                             R5 1 -1
        23 NAMECALL                         R2 R2 K6 ["SetPreviewAsCharacter"]
@@ -33,14 +33,14 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["LayoutOrder"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["getTextWidth"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["getTextWidth"]
         9 LOADK                            R5 K4 ["Preview"]
        10 GETTABLEKS                       R6 R3 K5 ["TextSize"]
        12 GETTABLEKS                       R7 R3 K6 ["Font"]
        14 CALL                             R4 3 1
-       15 GETUPVAL                         R6 1
-       16 GETTABLEKS                       R5 R6 K7 ["createElement"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K7 ["createElement"]
        18 GETUPVAL                         R6 2
        19 DUPTABLE                         R7 K14 [{"Size", "Text", "TextSize", "ButtonHeight", "BackgroundColor3", "Style", "LayoutOrder", "OnClick"}]
        20 GETIMPORT                        R8 K17 [UDim2.new]
@@ -73,28 +73,28 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [game]
-        3 GETTABLEKS                       R0 R1 K2 ["Workspace"]
-        5 GETIMPORT                        R5 K4 [script]
-        7 GETTABLEKS                       R4 R5 K5 ["Parent"]
-        9 GETTABLEKS                       R3 R4 K5 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K5 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K5 ["Parent"]
+        1 GETIMPORT                        R0 K1 [game]
+        3 GETTABLEKS                       R0 R0 K2 ["Workspace"]
+        5 GETIMPORT                        R1 K4 [script]
+        7 GETTABLEKS                       R1 R1 K5 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K5 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K5 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K5 ["Parent"]
        15 GETIMPORT                        R2 K7 [require]
-       17 GETTABLEKS                       R4 R1 K8 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K9 ["Roact"]
+       17 GETTABLEKS                       R3 R1 K8 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K9 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K7 [require]
-       24 GETTABLEKS                       R5 R1 K8 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K10 ["AvatarToolsShared"]
+       24 GETTABLEKS                       R4 R1 K8 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K10 ["AvatarToolsShared"]
        28 CALL                             R3 1 1
-       29 GETTABLEKS                       R5 R3 K11 ["Util"]
-       31 GETTABLEKS                       R4 R5 K12 ["AccessoryAndBodyToolShared"]
-       33 GETTABLEKS                       R6 R3 K13 ["Contexts"]
-       35 GETTABLEKS                       R5 R6 K14 ["EditingItemContext"]
+       29 GETTABLEKS                       R4 R3 K11 ["Util"]
+       31 GETTABLEKS                       R4 R4 K12 ["AccessoryAndBodyToolShared"]
+       33 GETTABLEKS                       R5 R3 K13 ["Contexts"]
+       35 GETTABLEKS                       R5 R5 K14 ["EditingItemContext"]
        37 GETIMPORT                        R6 K7 [require]
-       39 GETTABLEKS                       R8 R1 K8 ["Packages"]
-       41 GETTABLEKS                       R7 R8 K15 ["Framework"]
+       39 GETTABLEKS                       R7 R1 K8 ["Packages"]
+       41 GETTABLEKS                       R7 R7 K15 ["Framework"]
        43 CALL                             R6 1 1
        44 GETTABLEKS                       R7 R6 K16 ["ContextServices"]
        46 GETTABLEKS                       R8 R7 K17 ["withContext"]
@@ -102,9 +102,9 @@ MAIN:
        50 GETTABLEKS                       R10 R6 K19 ["UI"]
        52 GETTABLEKS                       R11 R10 K20 ["Button"]
        54 GETIMPORT                        R12 K7 [require]
-       56 GETTABLEKS                       R15 R1 K21 ["Src"]
-       58 GETTABLEKS                       R14 R15 K11 ["Util"]
-       60 GETTABLEKS                       R13 R14 K22 ["StringUtil"]
+       56 GETTABLEKS                       R13 R1 K21 ["Src"]
+       58 GETTABLEKS                       R13 R13 K11 ["Util"]
+       60 GETTABLEKS                       R13 R13 K22 ["StringUtil"]
        62 CALL                             R12 1 1
        63 GETTABLEKS                       R13 R2 K23 ["PureComponent"]
        65 LOADK                            R15 K24 ["PreviewToStarterCharacterButton"]

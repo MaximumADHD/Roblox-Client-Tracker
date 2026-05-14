@@ -168,11 +168,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["RobloxAPI"]
-       16 GETTABLEKS                       R2 R3 K9 ["Url"]
+       14 GETTABLEKS                       R2 R1 K8 ["RobloxAPI"]
+       16 GETTABLEKS                       R2 R2 K9 ["Url"]
        18 GETIMPORT                        R3 K11 [game]
        20 LOADK                            R5 K12 ["ContentProvider"]
        21 NAMECALL                         R3 R3 K13 ["GetService"]
@@ -225,10 +225,10 @@ MAIN:
        96 DUPCLOSURE                       R9 K37 [PROTO_8]
        97 SETTABLEKS                       R9 R8 K9 ["Url"]
        99 SETTABLEKS                       R8 R7 K24 ["USERS_SEARCH_URL"]
-      101 GETTABLEKS                       R10 R7 K19 ["UNIVERSES_SEARCH_URL"]
-      103 GETTABLEKS                       R9 R10 K26 ["Prefix"]
-      105 GETTABLEKS                       R11 R7 K19 ["UNIVERSES_SEARCH_URL"]
-      107 GETTABLEKS                       R10 R11 K9 ["Url"]
+      101 GETTABLEKS                       R9 R7 K19 ["UNIVERSES_SEARCH_URL"]
+      103 GETTABLEKS                       R9 R9 K26 ["Prefix"]
+      105 GETTABLEKS                       R10 R7 K19 ["UNIVERSES_SEARCH_URL"]
+      107 GETTABLEKS                       R10 R10 K9 ["Url"]
       109 LOADN                            R11 123
       110 CALL                             R10 1 1
       111 FASTCALL1                        TYPE R9 ; [+3]
@@ -267,10 +267,10 @@ MAIN:
       155 CALL                             R11 3 1
       156 MOVE                             R8 R11
       157 SETTABLEKS                       R8 R7 K50 ["UNIVERSES_SEARCH_TEST_URL"]
-      159 GETTABLEKS                       R10 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
-      161 GETTABLEKS                       R9 R10 K26 ["Prefix"]
-      163 GETTABLEKS                       R11 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
-      165 GETTABLEKS                       R10 R11 K9 ["Url"]
+      159 GETTABLEKS                       R9 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
+      161 GETTABLEKS                       R9 R9 K26 ["Prefix"]
+      163 GETTABLEKS                       R10 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
+      165 GETTABLEKS                       R10 R10 K9 ["Url"]
       167 LOADN                            R11 123
       168 CALL                             R10 1 1
       169 FASTCALL1                        TYPE R9 ; [+3]
@@ -309,10 +309,10 @@ MAIN:
       213 CALL                             R11 3 1
       214 MOVE                             R8 R11
       215 SETTABLEKS                       R8 R7 K51 ["UNIVERSES_PERMISSIONS_TEST_URL"]
-      217 GETTABLEKS                       R10 R7 K22 ["GROUPS_INFO_URL"]
-      219 GETTABLEKS                       R9 R10 K26 ["Prefix"]
-      221 GETTABLEKS                       R11 R7 K22 ["GROUPS_INFO_URL"]
-      223 GETTABLEKS                       R10 R11 K9 ["Url"]
+      217 GETTABLEKS                       R9 R7 K22 ["GROUPS_INFO_URL"]
+      219 GETTABLEKS                       R9 R9 K26 ["Prefix"]
+      221 GETTABLEKS                       R10 R7 K22 ["GROUPS_INFO_URL"]
+      223 GETTABLEKS                       R10 R10 K9 ["Url"]
       225 LOADN                            R11 57
       226 CALL                             R10 1 1
       227 FASTCALL1                        TYPE R9 ; [+3]

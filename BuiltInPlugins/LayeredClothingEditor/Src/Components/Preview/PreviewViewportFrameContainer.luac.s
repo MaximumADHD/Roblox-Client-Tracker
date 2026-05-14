@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["SetDocked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["SetDocked"]
         5 LOADB                            R1 0
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["SetDocked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["SetDocked"]
         5 LOADB                            R1 1
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
@@ -30,15 +30,15 @@ PROTO_3:
         6 GETTABLEKS                       R4 R1 K3 ["LayoutOrder"]
         8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
        10 NEWTABLE                         R6 4 0
-       12 GETTABLEKS                       R8 R0 K0 ["props"]
-       14 GETTABLEKS                       R7 R8 K5 ["UpdatePreviewAssetsSelected"]
+       12 GETTABLEKS                       R7 R0 K0 ["props"]
+       14 GETTABLEKS                       R7 R7 K5 ["UpdatePreviewAssetsSelected"]
        16 SETTABLEKS                       R7 R6 K6 ["OnCapacityReached"]
        18 JUMPIFNOT                        R2 ; [+34]
        19 SETTABLEKS                       R2 R6 K7 ["ShowPopoutButton"]
        21 GETTABLEKS                       R7 R0 K8 ["onPoppedOut"]
        23 SETTABLEKS                       R7 R6 K9 ["OnPopoutClicked"]
-       25 GETUPVAL                         R8 0
-       26 GETTABLEKS                       R7 R8 K10 ["createElement"]
+       25 GETUPVAL                         R7 0
+       26 GETTABLEKS                       R7 R7 K10 ["createElement"]
        28 GETUPVAL                         R8 1
        29 DUPTABLE                         R9 K12 [{"Size", "LayoutOrder"}]
        30 GETIMPORT                        R10 K15 [UDim2.new]
@@ -50,8 +50,8 @@ PROTO_3:
        38 SETTABLEKS                       R10 R9 K11 ["Size"]
        40 SETTABLEKS                       R4 R9 K3 ["LayoutOrder"]
        42 DUPTABLE                         R10 K18 [{"PreviewViewportFrame"}]
-       43 GETUPVAL                         R12 0
-       44 GETTABLEKS                       R11 R12 K10 ["createElement"]
+       43 GETUPVAL                         R11 0
+       44 GETTABLEKS                       R11 R11 K10 ["createElement"]
        46 GETUPVAL                         R12 2
        47 MOVE                             R13 R6
        48 CALL                             R11 2 1
@@ -60,8 +60,8 @@ PROTO_3:
        52 RETURN                           R7 -1
        53 GETTABLEKS                       R7 R0 K19 ["onWidgetClosed"]
        55 SETTABLEKS                       R7 R6 K20 ["OnClose"]
-       57 GETUPVAL                         R8 0
-       58 GETTABLEKS                       R7 R8 K10 ["createElement"]
+       57 GETUPVAL                         R7 0
+       58 GETTABLEKS                       R7 R7 K10 ["createElement"]
        60 GETUPVAL                         R8 3
        61 MOVE                             R9 R6
        62 CALL                             R7 2 -1
@@ -106,36 +106,36 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["AvatarToolsShared"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["AvatarToolsShared"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R7 R0 K9 ["Src"]
-       36 GETTABLEKS                       R6 R7 K10 ["Actions"]
-       38 GETTABLEKS                       R5 R6 K11 ["SetDocked"]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Actions"]
+       38 GETTABLEKS                       R5 R5 K11 ["SetDocked"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K4 [require]
-       43 GETTABLEKS                       R8 R0 K9 ["Src"]
-       45 GETTABLEKS                       R7 R8 K12 ["Thunks"]
-       47 GETTABLEKS                       R6 R7 K13 ["UpdatePreviewAssetsSelected"]
+       43 GETTABLEKS                       R6 R0 K9 ["Src"]
+       45 GETTABLEKS                       R6 R6 K12 ["Thunks"]
+       47 GETTABLEKS                       R6 R6 K13 ["UpdatePreviewAssetsSelected"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K4 [require]
-       52 GETTABLEKS                       R8 R0 K5 ["Packages"]
-       54 GETTABLEKS                       R7 R8 K14 ["Framework"]
+       52 GETTABLEKS                       R7 R0 K5 ["Packages"]
+       54 GETTABLEKS                       R7 R7 K14 ["Framework"]
        56 CALL                             R6 1 1
        57 GETTABLEKS                       R7 R6 K15 ["ContextServices"]
        59 GETTABLEKS                       R8 R7 K16 ["withContext"]
@@ -147,8 +147,8 @@ MAIN:
        71 GETTABLEKS                       R14 R3 K22 ["Components"]
        73 GETTABLEKS                       R15 R14 K23 ["PreviewDockWidget"]
        75 GETTABLEKS                       R16 R14 K24 ["PreviewViewportFrame"]
-       77 GETTABLEKS                       R18 R3 K17 ["Util"]
-       79 GETTABLEKS                       R17 R18 K25 ["AccessoryAndBodyToolShared"]
+       77 GETTABLEKS                       R17 R3 K17 ["Util"]
+       79 GETTABLEKS                       R17 R17 K25 ["AccessoryAndBodyToolShared"]
        81 GETTABLEKS                       R18 R17 K26 ["PreviewingInfo"]
        83 GETTABLEKS                       R19 R1 K27 ["PureComponent"]
        85 LOADK                            R21 K28 ["PreviewViewportFrameContainer"]

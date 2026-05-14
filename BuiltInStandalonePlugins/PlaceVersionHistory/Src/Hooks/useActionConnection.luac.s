@@ -36,8 +36,8 @@ PROTO_2:
         0 LOADK                            R5 K0 ["Actions"]
         1 NAMECALL                         R3 R0 K1 ["GetPluginComponent"]
         3 CALL                             R3 2 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K2 ["useState"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["useState"]
         7 LOADB                            R5 0
         8 CALL                             R4 1 2
         9 GETUPVAL                         R6 1
@@ -49,8 +49,8 @@ PROTO_2:
        16 CAPTURE                          VAL R1
        17 NEWTABLE                         R9 0 0
        19 CALL                             R6 3 0
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K4 ["useCallback"]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K4 ["useCallback"]
        23 NEWCLOSURE                       R7 P1
        24 CAPTURE                          VAL R3
        25 CAPTURE                          VAL R2
@@ -68,12 +68,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["useEventConnection"]
        23 DUPCLOSURE                       R4 K10 [PROTO_2]

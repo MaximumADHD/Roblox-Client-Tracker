@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
         4 NEWTABLE                         R3 2 0
         6 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
         8 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K3 ["Tag"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K3 ["Tag"]
        13 GETUPVAL                         R5 1
        14 LOADK                            R7 K4 ["Component-RibbonToggle Role-Surface X-Fit data-testid=%*"]
        15 GETUPVAL                         R9 2
@@ -23,20 +23,20 @@ PROTO_0:
        29 CALL                             R5 2 1
        30 SETTABLE                         R5 R3 R4
        31 DUPTABLE                         R4 K11 [{"Label", "Toggle"}]
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K0 ["createElement"]
        35 LOADK                            R6 K12 ["TextLabel"]
        36 NEWTABLE                         R7 2 0
        38 GETTABLEKS                       R8 R0 K13 ["Text"]
        40 SETTABLEKS                       R8 R7 K13 ["Text"]
-       42 GETUPVAL                         R9 0
-       43 GETTABLEKS                       R8 R9 K3 ["Tag"]
+       42 GETUPVAL                         R8 0
+       43 GETTABLEKS                       R8 R8 K3 ["Tag"]
        45 LOADK                            R9 K14 ["X-Fit"]
        46 SETTABLE                         R9 R7 R8
        47 CALL                             R5 2 1
        48 SETTABLEKS                       R5 R4 K9 ["Label"]
-       50 GETUPVAL                         R6 0
-       51 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K0 ["createElement"]
        53 GETUPVAL                         R6 3
        54 DUPTABLE                         R7 K19 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
        55 GETTABLEKS                       R8 R0 K5 ["Uri"]
@@ -65,24 +65,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["Styling"]
        23 GETTABLEKS                       R4 R3 K10 ["joinTags"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Components"]
-       31 GETTABLEKS                       R6 R7 K13 ["Toggle"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Components"]
+       31 GETTABLEKS                       R6 R6 K13 ["Toggle"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K11 ["Src"]
-       38 GETTABLEKS                       R8 R9 K14 ["Util"]
-       40 GETTABLEKS                       R7 R8 K15 ["uriToTestId"]
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Util"]
+       40 GETTABLEKS                       R7 R7 K15 ["uriToTestId"]
        42 CALL                             R6 1 1
        43 DUPCLOSURE                       R7 K16 [PROTO_0]
        44 CAPTURE                          VAL R1

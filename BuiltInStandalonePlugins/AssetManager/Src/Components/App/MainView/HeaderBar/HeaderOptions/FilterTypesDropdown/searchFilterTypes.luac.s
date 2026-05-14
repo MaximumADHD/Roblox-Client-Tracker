@@ -45,9 +45,9 @@ PROTO_0:
        56 NEWTABLE                         R17 0 0
        58 SETTABLEKS                       R17 R16 K4 ["Items"]
        60 SETTABLE                         R16 R4 R15
-       61 GETTABLEKS                       R18 R9 K5 ["Text"]
-       63 GETTABLE                         R17 R4 R18
-       64 GETTABLEKS                       R16 R17 K4 ["Items"]
+       61 GETTABLEKS                       R17 R9 K5 ["Text"]
+       63 GETTABLE                         R16 R4 R17
+       64 GETTABLEKS                       R16 R16 K4 ["Items"]
        66 FASTCALL2                        TABLE_INSERT R16 R14 ; [+4]
        68 MOVE                             R17 R14
        69 GETIMPORT                        R15 K10 [table.insert]
@@ -65,9 +65,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["hasMatchingTerm"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["hasMatchingTerm"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

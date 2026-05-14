@@ -10,8 +10,8 @@ PROTO_0:
        10 RETURN                           R4 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["intersectRayPlane"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["intersectRayPlane"]
         3 MOVE                             R5 R0
         4 MOVE                             R6 R1
         5 MOVE                             R7 R2
@@ -64,8 +64,8 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R4 R1 K0 ["Unit"]
         2 GETTABLEKS                       R5 R3 K0 ["Unit"]
-        4 GETUPVAL                         R7 0
-        5 GETTABLEKS                       R6 R7 K1 ["intersectRayRay"]
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R6 R6 K1 ["intersectRayRay"]
         7 MOVE                             R7 R0
         8 MOVE                             R8 R4
         9 MOVE                             R9 R2
@@ -205,12 +205,12 @@ PROTO_6:
        14 NAMECALL                         R14 R11 K5 ["IsA"]
        16 CALL                             R14 2 1
        17 JUMPIFNOT                        R14 ; [+15]
-       18 GETTABLEKS                       R15 R11 K6 ["CFrame"]
-       20 GETTABLEKS                       R14 R15 K7 ["Position"]
+       18 GETTABLEKS                       R14 R11 K6 ["CFrame"]
+       20 GETTABLEKS                       R14 R14 K7 ["Position"]
        22 GETTABLEKS                       R15 R11 K8 ["Size"]
        24 SUB                              R12 R14 R15
-       25 GETTABLEKS                       R15 R11 K6 ["CFrame"]
-       27 GETTABLEKS                       R14 R15 K7 ["Position"]
+       25 GETTABLEKS                       R14 R11 K6 ["CFrame"]
+       27 GETTABLEKS                       R14 R14 K7 ["Position"]
        29 GETTABLEKS                       R15 R11 K8 ["Size"]
        31 ADD                              R13 R14 R15
        32 JUMP                             ; [+10]
@@ -354,11 +354,29 @@ PROTO_11:
        31 CALL                             R4 3 1
        32 RETURN                           R4 1
 
+PROTO_12:
+        0 MOVE                             R4 R2
+        1 GETTABLEKS                       R5 R0 K0 ["X"]
+        3 GETTABLEKS                       R6 R1 K0 ["X"]
+        5 CALL                             R4 2 1
+        6 MOVE                             R5 R2
+        7 GETTABLEKS                       R6 R0 K1 ["Y"]
+        9 GETTABLEKS                       R7 R1 K1 ["Y"]
+       11 CALL                             R5 2 1
+       12 MOVE                             R6 R2
+       13 GETTABLEKS                       R7 R0 K2 ["Z"]
+       15 GETTABLEKS                       R8 R1 K2 ["Z"]
+       17 CALL                             R6 2 -1
+       18 FASTCALL                         VECTOR ; [+2]
+       19 GETIMPORT                        R3 K5 [Vector3.new]
+       21 CALL                             R3 -1 1
+       22 RETURN                           R3 1
+
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 NEWTABLE                         R1 16 0
         9 DUPCLOSURE                       R2 K3 [PROTO_0]
        10 SETTABLEKS                       R2 R1 K4 ["intersectRayPlane"]
@@ -386,4 +404,6 @@ MAIN:
        42 SETTABLEKS                       R2 R1 K24 ["minComponent"]
        44 DUPCLOSURE                       R2 K25 [PROTO_11]
        45 SETTABLEKS                       R2 R1 K26 ["complimentDirection"]
-       47 RETURN                           R1 1
+       47 DUPCLOSURE                       R2 K27 [PROTO_12]
+       48 SETTABLEKS                       R2 R1 K28 ["componentwiseOperation"]
+       50 RETURN                           R1 1

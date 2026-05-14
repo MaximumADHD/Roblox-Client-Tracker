@@ -8,8 +8,8 @@ PROTO_0:
         7 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         9 CALL                             R2 2 1
        10 JUMPIFNOT                        R2 ; [+3]
-       11 GETTABLE                         R3 R1 R0
-       12 GETTABLEKS                       R2 R3 K2 ["Value"]
+       11 GETTABLE                         R2 R1 R0
+       12 GETTABLEKS                       R2 R2 K2 ["Value"]
        14 RETURN                           R2 1
        15 LOADB                            R2 0
        16 RETURN                           R2 1
@@ -25,8 +25,8 @@ PROTO_1:
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
        11 JUMPIFNOT                        R0 ; [+6]
-       12 GETTABLEKS                       R2 R1 K2 ["RunTests"]
-       14 GETTABLEKS                       R0 R2 K3 ["Value"]
+       12 GETTABLEKS                       R0 R1 K2 ["RunTests"]
+       14 GETTABLEKS                       R0 R0 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
@@ -42,8 +42,8 @@ PROTO_2:
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
        11 JUMPIFNOT                        R0 ; [+6]
-       12 GETTABLEKS                       R2 R1 K2 ["RunRhodiumTests"]
-       14 GETTABLEKS                       R0 R2 K3 ["Value"]
+       12 GETTABLEKS                       R0 R1 K2 ["RunRhodiumTests"]
+       14 GETTABLEKS                       R0 R0 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
@@ -59,8 +59,8 @@ PROTO_3:
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
        11 JUMPIFNOT                        R0 ; [+6]
-       12 GETTABLEKS                       R2 R1 K2 ["LogRoduxEvents"]
-       14 GETTABLEKS                       R0 R2 K3 ["Value"]
+       12 GETTABLEKS                       R0 R1 K2 ["LogRoduxEvents"]
+       14 GETTABLEKS                       R0 R0 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
@@ -76,8 +76,8 @@ PROTO_4:
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
        11 JUMPIFNOT                        R0 ; [+6]
-       12 GETTABLEKS                       R2 R1 K2 ["LogAnalytics"]
-       14 GETTABLEKS                       R0 R2 K3 ["Value"]
+       12 GETTABLEKS                       R0 R1 K2 ["LogAnalytics"]
+       14 GETTABLEKS                       R0 R0 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
@@ -93,8 +93,8 @@ PROTO_5:
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
        11 JUMPIFNOT                        R0 ; [+6]
-       12 GETTABLEKS                       R2 R1 K2 ["MockItemHasFullCage"]
-       14 GETTABLEKS                       R0 R2 K3 ["Value"]
+       12 GETTABLEKS                       R0 R1 K2 ["MockItemHasFullCage"]
+       14 GETTABLEKS                       R0 R0 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1
@@ -110,8 +110,8 @@ PROTO_6:
         9 CALL                             R2 2 1
        10 MOVE                             R0 R2
        11 JUMPIFNOT                        R0 ; [+6]
-       12 GETTABLEKS                       R2 R1 K2 ["UseMockCages"]
-       14 GETTABLEKS                       R0 R2 K3 ["Value"]
+       12 GETTABLEKS                       R0 R1 K2 ["UseMockCages"]
+       14 GETTABLEKS                       R0 R0 K3 ["Value"]
        16 RETURN                           R0 1
        17 LOADB                            R0 0
        18 RETURN                           R0 1

@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"categoryFilter"}]
         7 GETTABLEKS                       R5 R1 K2 ["categoryFilter"]
@@ -10,9 +10,9 @@ PROTO_0:
        12 RETURN                           R2 -1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"searchFilter"}]
         7 GETTABLEKS                       R5 R1 K2 ["searchFilter"]
@@ -21,9 +21,9 @@ PROTO_1:
        12 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"docked"}]
         7 GETTABLEKS                       R5 R1 K2 ["docked"]
@@ -32,9 +32,9 @@ PROTO_2:
        12 RETURN                           R2 -1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"userAddedAssets"}]
         7 GETTABLEKS                       R5 R1 K2 ["userAddedAssets"]
@@ -43,9 +43,9 @@ PROTO_3:
        12 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"selectedTab"}]
         7 GETTABLEKS                       R5 R1 K2 ["selectedTab"]
@@ -54,9 +54,9 @@ PROTO_4:
        12 RETURN                           R2 -1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"selectedAssets"}]
         7 GETTABLEKS                       R5 R1 K2 ["selectedAssets"]
@@ -66,24 +66,24 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["AvatarToolsShared"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["AvatarToolsShared"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R5 R3 K9 ["Util"]
-       32 GETTABLEKS                       R4 R5 K10 ["AccessoryAndBodyToolShared"]
+       30 GETTABLEKS                       R4 R3 K9 ["Util"]
+       32 GETTABLEKS                       R4 R4 K10 ["AccessoryAndBodyToolShared"]
        34 GETTABLEKS                       R5 R4 K11 ["PreviewConstants"]
        36 GETTABLEKS                       R6 R1 K12 ["createReducer"]
        38 DUPTABLE                         R7 K20 [{"categoryFilter", "searchFilter", "docked", "selectedTab", "selectedAssets", "userAddedAssets", "workspacePreviewSelectionEnabled"}]
@@ -93,8 +93,8 @@ MAIN:
        43 SETTABLEKS                       R8 R7 K14 ["searchFilter"]
        45 LOADB                            R8 1
        46 SETTABLEKS                       R8 R7 K15 ["docked"]
-       48 GETTABLEKS                       R9 R5 K22 ["TABS_KEYS"]
-       50 GETTABLEKS                       R8 R9 K23 ["None"]
+       48 GETTABLEKS                       R8 R5 K22 ["TABS_KEYS"]
+       50 GETTABLEKS                       R8 R8 K23 ["None"]
        52 SETTABLEKS                       R8 R7 K16 ["selectedTab"]
        54 NEWTABLE                         R8 0 0
        56 SETTABLEKS                       R8 R7 K17 ["selectedAssets"]

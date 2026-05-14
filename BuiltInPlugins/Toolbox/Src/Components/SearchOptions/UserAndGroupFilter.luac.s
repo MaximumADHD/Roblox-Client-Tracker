@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETTABLEKS                       R5 R0 K0 ["Type"]
-        2 GETTABLEKS                       R2 R5 K1 ["Value"]
+        0 GETTABLEKS                       R2 R0 K0 ["Type"]
+        2 GETTABLEKS                       R2 R2 K1 ["Value"]
         4 LOADK                            R3 K2 ["_"]
         5 GETTABLEKS                       R4 R0 K3 ["Id"]
         7 CONCAT                           R1 R2 R4
         8 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R2 K1 ["OnDeleteCreatorPill"]
         5 MOVE                             R4 R0
         6 MOVE                             R5 R1
@@ -16,33 +16,33 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["OnSelectCreator"]
         5 MOVE                             R3 R0
         6 CALL                             R2 1 0
         7 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R2 K1 ["userGroupSearchRequest"]
-        5 GETTABLEKS                       R5 R2 K2 ["Network"]
-        7 GETTABLEKS                       R4 R5 K3 ["networkInterface"]
+        5 GETTABLEKS                       R4 R2 K2 ["Network"]
+        7 GETTABLEKS                       R4 R4 K3 ["networkInterface"]
         9 MOVE                             R5 R0
        10 GETTABLEKS                       R6 R2 K4 ["manageableGroups"]
        12 CALL                             R3 3 0
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R2 K1 ["OnSearchUpdate"]
         5 MOVE                             R4 R0
         6 MOVE                             R5 R1
         7 CALL                             R3 2 0
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["debouncedUserGroupSearchRequest"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["debouncedUserGroupSearchRequest"]
        11 MOVE                             R4 R0
        12 GETTABLEKS                       R5 R2 K3 ["manageableGroups"]
        14 CALL                             R3 2 0
@@ -71,22 +71,22 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["getManageableGroups"]
-        4 GETTABLEKS                       R4 R1 K2 ["Network"]
-        6 GETTABLEKS                       R3 R4 K3 ["networkInterface"]
+        4 GETTABLEKS                       R3 R1 K2 ["Network"]
+        6 GETTABLEKS                       R3 R3 K3 ["networkInterface"]
         8 CALL                             R2 1 0
         9 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onClickCreatorPill"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onClickCreatorPill"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onClickCreatorPill"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onClickCreatorPill"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 CALL                             R0 2 -1
@@ -119,8 +119,8 @@ PROTO_9:
        33 GETUPVAL                         R18 0
        34 CALL                             R18 0 1
        35 JUMPIFNOT                        R18 ; [+32]
-       36 GETUPVAL                         R18 1
-       37 GETTABLEKS                       R17 R18 K6 ["createElement"]
+       36 GETUPVAL                         R17 1
+       37 GETTABLEKS                       R17 R17 K6 ["createElement"]
        39 GETUPVAL                         R18 2
        40 DUPTABLE                         R19 K12 [{"LayoutOrder", "CreatorId", "CreatorName", "CreatorType", "OnActivated"}]
        41 SETTABLEKS                       R16 R19 K7 ["LayoutOrder"]
@@ -141,8 +141,8 @@ PROTO_9:
        64 SETTABLEKS                       R20 R19 K11 ["OnActivated"]
        66 CALL                             R17 2 1
        67 JUMP                             ; [+30]
-       68 GETUPVAL                         R18 1
-       69 GETTABLEKS                       R17 R18 K6 ["createElement"]
+       68 GETUPVAL                         R17 1
+       69 GETTABLEKS                       R17 R17 K6 ["createElement"]
        71 LOADK                            R18 K17 ["TextButton"]
        72 NEWTABLE                         R19 4 0
        74 SETTABLEKS                       R16 R19 K7 ["LayoutOrder"]
@@ -153,9 +153,9 @@ PROTO_9:
        81 SETTABLEKS                       R20 R19 K21 ["Size"]
        83 GETTABLEKS                       R20 R14 K14 ["Name"]
        85 SETTABLEKS                       R20 R19 K22 ["Text"]
-       87 GETUPVAL                         R22 1
-       88 GETTABLEKS                       R21 R22 K23 ["Event"]
-       90 GETTABLEKS                       R20 R21 K24 ["Activated"]
+       87 GETUPVAL                         R20 1
+       88 GETTABLEKS                       R20 R20 K23 ["Event"]
+       90 GETTABLEKS                       R20 R20 K24 ["Activated"]
        92 NEWCLOSURE                       R21 P1
        93 CAPTURE                          VAL R0
        94 CAPTURE                          VAL R16
@@ -166,11 +166,11 @@ PROTO_9:
        99 ADDK                             R4 R4 K25 [1]
       100 FORGLOOP                         R10 2 ; [-79]
       102 FORGLOOP                         R5 2 ; [-85]
-      104 GETUPVAL                         R6 3
-      105 GETTABLEKS                       R5 R6 K26 ["new"]
+      104 GETUPVAL                         R5 3
+      105 GETTABLEKS                       R5 R5 K26 ["new"]
       107 CALL                             R5 0 1
-      108 GETUPVAL                         R7 1
-      109 GETTABLEKS                       R6 R7 K6 ["createElement"]
+      108 GETUPVAL                         R6 1
+      109 GETTABLEKS                       R6 R6 K6 ["createElement"]
       111 GETUPVAL                         R7 4
       112 DUPTABLE                         R8 K31 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
       113 GETIMPORT                        R9 K34 [Enum.AutomaticSize.XY]
@@ -184,8 +184,8 @@ PROTO_9:
       129 LOADN                            R9 6
       130 SETTABLEKS                       R9 R8 K30 ["Spacing"]
       132 DUPTABLE                         R9 K42 [{"LiveSearchBar", "SelectedPills"}]
-      133 GETUPVAL                         R11 1
-      134 GETTABLEKS                       R10 R11 K6 ["createElement"]
+      133 GETUPVAL                         R10 1
+      134 GETTABLEKS                       R10 R10 K6 ["createElement"]
       136 GETUPVAL                         R11 5
       137 DUPTABLE                         R12 K50 [{"defaultTextKey", "GetKey", "LayoutOrder", "OnSelectItem", "results", "searchTerm", "updateSearch", "width"}]
       138 LOADK                            R13 K51 ["SearchBarCreatorAndGroupText"]
@@ -203,13 +203,13 @@ PROTO_9:
       160 SETTABLEKS                       R13 R12 K47 ["searchTerm"]
       162 GETTABLEKS                       R13 R0 K56 ["updateUserSearch"]
       164 SETTABLEKS                       R13 R12 K48 ["updateSearch"]
-      166 GETUPVAL                         R14 6
-      167 GETTABLEKS                       R13 R14 K57 ["SEARCH_BAR_WIDTH"]
+      166 GETUPVAL                         R13 6
+      167 GETTABLEKS                       R13 R13 K57 ["SEARCH_BAR_WIDTH"]
       169 SETTABLEKS                       R13 R12 K49 ["width"]
       171 CALL                             R10 2 1
       172 SETTABLEKS                       R10 R9 K40 ["LiveSearchBar"]
-      174 GETUPVAL                         R11 1
-      175 GETTABLEKS                       R10 R11 K6 ["createElement"]
+      174 GETUPVAL                         R10 1
+      175 GETTABLEKS                       R10 R10 K6 ["createElement"]
       177 GETUPVAL                         R11 4
       178 DUPTABLE                         R12 K31 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
       179 GETIMPORT                        R13 K34 [Enum.AutomaticSize.XY]
@@ -290,10 +290,10 @@ MAIN:
        19 GETIMPORT                        R4 K6 [require]
        21 GETTABLEKS                       R5 R1 K9 ["Framework"]
        23 CALL                             R4 1 1
-       24 GETTABLEKS                       R6 R4 K10 ["UI"]
-       26 GETTABLEKS                       R5 R6 K11 ["Pane"]
-       28 GETTABLEKS                       R7 R0 K12 ["Src"]
-       30 GETTABLEKS                       R6 R7 K13 ["Util"]
+       24 GETTABLEKS                       R5 R4 K10 ["UI"]
+       26 GETTABLEKS                       R5 R5 K11 ["Pane"]
+       28 GETTABLEKS                       R6 R0 K12 ["Src"]
+       30 GETTABLEKS                       R6 R6 K13 ["Util"]
        32 GETIMPORT                        R7 K6 [require]
        34 GETTABLEKS                       R8 R6 K14 ["Constants"]
        36 CALL                             R7 1 1
@@ -303,24 +303,24 @@ MAIN:
        42 GETTABLEKS                       R9 R4 K16 ["ContextServices"]
        44 GETTABLEKS                       R10 R9 K17 ["withContext"]
        46 GETIMPORT                        R11 K6 [require]
-       48 GETTABLEKS                       R14 R0 K12 ["Src"]
-       50 GETTABLEKS                       R13 R14 K16 ["ContextServices"]
-       52 GETTABLEKS                       R12 R13 K18 ["NetworkContext"]
+       48 GETTABLEKS                       R12 R0 K12 ["Src"]
+       50 GETTABLEKS                       R12 R12 K16 ["ContextServices"]
+       52 GETTABLEKS                       R12 R12 K18 ["NetworkContext"]
        54 CALL                             R11 1 1
        55 GETIMPORT                        R12 K6 [require]
-       57 GETTABLEKS                       R16 R0 K12 ["Src"]
-       59 GETTABLEKS                       R15 R16 K19 ["Components"]
-       61 GETTABLEKS                       R14 R15 K20 ["SearchOptions"]
-       63 GETTABLEKS                       R13 R14 K21 ["LiveSearchBar"]
+       57 GETTABLEKS                       R13 R0 K12 ["Src"]
+       59 GETTABLEKS                       R13 R13 K19 ["Components"]
+       61 GETTABLEKS                       R13 R13 K20 ["SearchOptions"]
+       63 GETTABLEKS                       R13 R13 K21 ["LiveSearchBar"]
        65 CALL                             R12 1 1
        66 GETIMPORT                        R13 K6 [require]
-       68 GETTABLEKS                       R16 R0 K12 ["Src"]
-       70 GETTABLEKS                       R15 R16 K19 ["Components"]
-       72 GETTABLEKS                       R14 R15 K22 ["CreatorPill"]
+       68 GETTABLEKS                       R14 R0 K12 ["Src"]
+       70 GETTABLEKS                       R14 R14 K19 ["Components"]
+       72 GETTABLEKS                       R14 R14 K22 ["CreatorPill"]
        74 CALL                             R13 1 1
-       75 GETTABLEKS                       R16 R0 K12 ["Src"]
-       77 GETTABLEKS                       R15 R16 K23 ["Networking"]
-       79 GETTABLEKS                       R14 R15 K24 ["Requests"]
+       75 GETTABLEKS                       R14 R0 K12 ["Src"]
+       77 GETTABLEKS                       R14 R14 K23 ["Networking"]
+       79 GETTABLEKS                       R14 R14 K24 ["Requests"]
        81 GETIMPORT                        R15 K6 [require]
        83 GETTABLEKS                       R16 R14 K25 ["GetManageableGroupsRequest"]
        85 CALL                             R15 1 1
@@ -328,32 +328,32 @@ MAIN:
        88 GETTABLEKS                       R17 R14 K26 ["UserAndGroupLiveSearchRequest"]
        90 CALL                             R16 1 1
        91 GETIMPORT                        R17 K6 [require]
-       93 GETTABLEKS                       R20 R0 K12 ["Src"]
-       95 GETTABLEKS                       R19 R20 K27 ["Types"]
-       97 GETTABLEKS                       R18 R19 K28 ["CreatorTypes"]
+       93 GETTABLEKS                       R18 R0 K12 ["Src"]
+       95 GETTABLEKS                       R18 R18 K27 ["Types"]
+       97 GETTABLEKS                       R18 R18 K28 ["CreatorTypes"]
        99 CALL                             R17 1 1
       100 GETIMPORT                        R18 K6 [require]
-      102 GETTABLEKS                       R21 R0 K12 ["Src"]
-      104 GETTABLEKS                       R20 R21 K27 ["Types"]
-      106 GETTABLEKS                       R19 R20 K29 ["GroupTypes"]
+      102 GETTABLEKS                       R19 R0 K12 ["Src"]
+      104 GETTABLEKS                       R19 R19 K27 ["Types"]
+      106 GETTABLEKS                       R19 R19 K29 ["GroupTypes"]
       108 CALL                             R18 1 1
       109 GETIMPORT                        R19 K6 [require]
-      111 GETTABLEKS                       R22 R0 K12 ["Src"]
-      113 GETTABLEKS                       R21 R22 K27 ["Types"]
-      115 GETTABLEKS                       R20 R21 K30 ["SearchOptionsTypes"]
+      111 GETTABLEKS                       R20 R0 K12 ["Src"]
+      113 GETTABLEKS                       R20 R20 K27 ["Types"]
+      115 GETTABLEKS                       R20 R20 K30 ["SearchOptionsTypes"]
       117 CALL                             R19 1 1
       118 GETIMPORT                        R20 K6 [require]
-      120 GETTABLEKS                       R24 R0 K12 ["Src"]
-      122 GETTABLEKS                       R23 R24 K13 ["Util"]
-      124 GETTABLEKS                       R22 R23 K31 ["SharedFlags"]
-      126 GETTABLEKS                       R21 R22 K32 ["getFFlagToolboxPillsForCreators"]
+      120 GETTABLEKS                       R21 R0 K12 ["Src"]
+      122 GETTABLEKS                       R21 R21 K13 ["Util"]
+      124 GETTABLEKS                       R21 R21 K31 ["SharedFlags"]
+      126 GETTABLEKS                       R21 R21 K32 ["getFFlagToolboxPillsForCreators"]
       128 CALL                             R20 1 1
       129 GETIMPORT                        R21 K34 [game]
       131 LOADK                            R23 K35 ["ToolboxLiveSearchDebounceWait"]
       132 NAMECALL                         R21 R21 K36 ["GetFastInt"]
       134 CALL                             R21 2 1
-      135 GETTABLEKS                       R23 R4 K13 ["Util"]
-      137 GETTABLEKS                       R22 R23 K37 ["LayoutOrderIterator"]
+      135 GETTABLEKS                       R22 R4 K13 ["Util"]
+      137 GETTABLEKS                       R22 R22 K37 ["LayoutOrderIterator"]
       139 GETTABLEKS                       R23 R2 K38 ["PureComponent"]
       141 LOADK                            R25 K39 ["UserAndGroupFilter"]
       142 NAMECALL                         R23 R23 K40 ["extend"]

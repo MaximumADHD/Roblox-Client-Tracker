@@ -38,8 +38,8 @@ PROTO_0:
        55 JUMPIFEQ                         R11 R6 ; [+2]
        57 LOADB                            R10 0 +1
        58 LOADB                            R10 1
-       59 GETUPVAL                         R12 0
-       60 GETTABLEKS                       R11 R12 K10 ["createElement"]
+       59 GETUPVAL                         R11 0
+       60 GETTABLEKS                       R11 R11 K10 ["createElement"]
        62 GETUPVAL                         R12 1
        63 DUPTABLE                         R13 K16 [{"index", "point", "showTangents", "showTangentsPhantom", "isSelected"}]
        64 SETTABLEKS                       R6 R13 K11 ["index"]
@@ -54,8 +54,8 @@ PROTO_0:
        80 CALL                             R11 2 1
        81 SETTABLE                         R11 R2 R6
        82 FORGLOOP                         R3 2 ; [-60]
-       84 GETUPVAL                         R4 0
-       85 GETTABLEKS                       R3 R4 K10 ["createElement"]
+       84 GETUPVAL                         R3 0
+       85 GETTABLEKS                       R3 R3 K10 ["createElement"]
        87 GETUPVAL                         R4 2
        88 DUPTABLE                         R5 K19 [{"DisplayOrder", "ZIndexBehavior"}]
        89 LOADN                            R6 2
@@ -68,20 +68,20 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R2 K5 [{"Refreshed", "SelectedObject", "Path2DToolMode", "ControlPoints", "SelectedControlPointIndex"}]
-        1 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["Refreshed"]
+        1 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["Refreshed"]
         5 SETTABLEKS                       R3 R2 K0 ["Refreshed"]
-        7 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-        9 GETTABLEKS                       R3 R4 K1 ["SelectedObject"]
+        7 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+        9 GETTABLEKS                       R3 R3 K1 ["SelectedObject"]
        11 SETTABLEKS                       R3 R2 K1 ["SelectedObject"]
-       13 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       15 GETTABLEKS                       R3 R4 K2 ["Path2DToolMode"]
+       13 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       15 GETTABLEKS                       R3 R3 K2 ["Path2DToolMode"]
        17 SETTABLEKS                       R3 R2 K2 ["Path2DToolMode"]
-       19 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       21 GETTABLEKS                       R3 R4 K3 ["ControlPoints"]
+       19 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       21 GETTABLEKS                       R3 R3 K3 ["ControlPoints"]
        23 SETTABLEKS                       R3 R2 K3 ["ControlPoints"]
-       25 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       27 GETTABLEKS                       R3 R4 K4 ["SelectedControlPointIndex"]
+       25 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       27 GETTABLEKS                       R3 R3 K4 ["SelectedControlPointIndex"]
        29 SETTABLEKS                       R3 R2 K4 ["SelectedControlPointIndex"]
        31 RETURN                           R2 1
 
@@ -103,35 +103,35 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["React"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K12 ["withContext"]
-       41 GETTABLEKS                       R8 R0 K5 ["Src"]
-       43 GETTABLEKS                       R7 R8 K13 ["Thunks"]
+       41 GETTABLEKS                       R7 R0 K5 ["Src"]
+       43 GETTABLEKS                       R7 R7 K13 ["Thunks"]
        45 GETIMPORT                        R8 K4 [require]
        47 GETTABLEKS                       R9 R7 K14 ["AddControlPoint"]
        49 CALL                             R8 1 1
-       50 GETTABLEKS                       R10 R0 K5 ["Src"]
-       52 GETTABLEKS                       R9 R10 K15 ["Components"]
+       50 GETTABLEKS                       R9 R0 K5 ["Src"]
+       52 GETTABLEKS                       R9 R9 K15 ["Components"]
        54 GETIMPORT                        R10 K4 [require]
        56 GETTABLEKS                       R11 R9 K16 ["ControlPoint"]
        58 CALL                             R10 1 1

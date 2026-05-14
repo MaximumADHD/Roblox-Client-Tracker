@@ -1,27 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["props"]
-        4 GETTABLEKS                       R1 R2 K1 ["PreviewInstance"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["props"]
+        4 GETTABLEKS                       R1 R1 K1 ["PreviewInstance"]
         6 CALL                             R0 1 1
         7 NAMECALL                         R0 R0 K2 ["GetExtentsSize"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R2 R0 K4 ["Magnitude"]
        12 MULK                             R1 R2 K3 [0.8]
-       13 LOADK                            R3 K5 [{-1, 1, -1}]
-       14 GETTABLEKS                       R2 R3 K6 ["Unit"]
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R3 R4 K7 ["camera"]
+       13 LOADK                            R2 K5 [{-1, 1, -1}]
+       14 GETTABLEKS                       R2 R2 K6 ["Unit"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K7 ["camera"]
        19 GETIMPORT                        R4 K10 [CFrame.identity]
        21 SETTABLEKS                       R4 R3 K11 ["Focus"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R3 R4 K7 ["camera"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K7 ["camera"]
        26 GETIMPORT                        R4 K13 [CFrame.new]
        28 MUL                              R5 R1 R2
-       29 GETUPVAL                         R9 1
-       30 GETTABLEKS                       R8 R9 K7 ["camera"]
-       32 GETTABLEKS                       R7 R8 K11 ["Focus"]
-       34 GETTABLEKS                       R6 R7 K14 ["Position"]
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K7 ["camera"]
+       32 GETTABLEKS                       R6 R6 K11 ["Focus"]
+       34 GETTABLEKS                       R6 R6 K14 ["Position"]
        36 CALL                             R4 2 1
        37 SETTABLEKS                       R4 R3 K8 ["CFrame"]
        39 RETURN                           R0 0
@@ -29,9 +29,9 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"showContext"}]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K2 ["state"]
-        5 GETTABLEKS                       R4 R5 K0 ["showContext"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K2 ["state"]
+        5 GETTABLEKS                       R4 R4 K0 ["showContext"]
         7 NOT                              R3 R4
         8 SETTABLEKS                       R3 R2 K0 ["showContext"]
        10 NAMECALL                         R0 R0 K3 ["setState"]
@@ -39,8 +39,8 @@ PROTO_1:
        13 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["ImportTree"]
         5 GETTABLEKS                       R4 R0 K1 ["ImportTree"]
         7 GETTABLEKS                       R3 R4 K2 ["RigVisualization"]
@@ -57,8 +57,8 @@ PROTO_2:
        24 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SelectedImportItem"]
         5 LOADK                            R3 K2 ["JointImportData"]
         6 NAMECALL                         R1 R1 K3 ["IsA"]
@@ -97,9 +97,9 @@ PROTO_4:
        22 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SelectedImportItem"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SelectedImportItem"]
         5 LOADK                            R3 K2 ["AnimationImportData"]
         6 NAMECALL                         R1 R1 K3 ["IsA"]
         8 CALL                             R1 2 1
@@ -132,13 +132,13 @@ PROTO_6:
        19 GETUPVAL                         R2 0
        20 GETTABLEKS                       R3 R1 K10 ["PreviewInstance"]
        22 GETTABLEKS                       R4 R1 K11 ["ImportTree"]
-       24 GETTABLEKS                       R7 R1 K12 ["SelectedImportItem"]
-       26 GETTABLEKS                       R6 R7 K13 ["Id"]
+       24 GETTABLEKS                       R6 R1 K12 ["SelectedImportItem"]
+       26 GETTABLEKS                       R6 R6 K13 ["Id"]
        28 JUMPIFEQKS                       R6 K14 ["0"] ; [+2]
        30 LOADB                            R5 0 +1
        31 LOADB                            R5 1
-       32 GETTABLEKS                       R7 R0 K15 ["state"]
-       34 GETTABLEKS                       R6 R7 K1 ["showContext"]
+       32 GETTABLEKS                       R6 R0 K15 ["state"]
+       34 GETTABLEKS                       R6 R6 K1 ["showContext"]
        36 CALL                             R2 4 1
        37 SETTABLEKS                       R2 R0 K16 ["previewProps"]
        39 GETIMPORT                        R2 K19 [Instance.new]
@@ -165,8 +165,8 @@ PROTO_6:
        67 RETURN                           R0 0
 
 PROTO_7:
-        0 GETTABLEKS                       R4 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R4 K1 ["SelectedImportItem"]
+        0 GETTABLEKS                       R3 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R3 K1 ["SelectedImportItem"]
         4 GETTABLEKS                       R4 R1 K1 ["SelectedImportItem"]
         6 LOADK                            R7 K2 ["RootImportData"]
         7 NAMECALL                         R5 R3 K3 ["IsA"]
@@ -180,14 +180,14 @@ PROTO_7:
        17 NAMECALL                         R5 R3 K3 ["IsA"]
        19 CALL                             R5 2 1
        20 JUMPIFNOT                        R5 ; [+6]
-       21 GETTABLEKS                       R6 R0 K6 ["camera"]
-       23 GETTABLEKS                       R5 R6 K7 ["CFrame"]
+       21 GETTABLEKS                       R5 R0 K6 ["camera"]
+       23 GETTABLEKS                       R5 R5 K7 ["CFrame"]
        25 SETTABLEKS                       R5 R0 K8 ["lastCamCFrame"]
        27 GETUPVAL                         R5 0
        28 GETTABLEKS                       R6 R1 K9 ["PreviewInstance"]
        30 GETTABLEKS                       R7 R1 K10 ["ImportTree"]
-       32 GETTABLEKS                       R10 R1 K1 ["SelectedImportItem"]
-       34 GETTABLEKS                       R9 R10 K11 ["Id"]
+       32 GETTABLEKS                       R9 R1 K1 ["SelectedImportItem"]
+       34 GETTABLEKS                       R9 R9 K11 ["Id"]
        36 JUMPIFEQKS                       R9 K12 ["0"] ; [+2]
        38 LOADB                            R8 0 +1
        39 LOADB                            R8 1
@@ -225,8 +225,8 @@ PROTO_8:
 
 PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["SelectedImportItem"]
-        2 GETTABLEKS                       R4 R0 K1 ["props"]
-        4 GETTABLEKS                       R3 R4 K0 ["SelectedImportItem"]
+        2 GETTABLEKS                       R3 R0 K1 ["props"]
+        4 GETTABLEKS                       R3 R3 K0 ["SelectedImportItem"]
         6 JUMPIFEQ                         R3 R2 ; [+4]
         8 GETTABLEKS                       R4 R0 K2 ["onClickCenterCamera"]
        10 CALL                             R4 0 0
@@ -236,8 +236,8 @@ PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R2 K2 ["Sizes"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K6 [{"LayoutOrder", "Size"}]
        11 GETTABLEKS                       R7 R1 K4 ["LayoutOrder"]
@@ -250,31 +250,31 @@ PROTO_10:
        22 CALL                             R7 4 1
        23 SETTABLEKS                       R7 R6 K5 ["Size"]
        25 DUPTABLE                         R7 K16 [{"WorkspacePreviewContainer", "PreviewControls", "PreviewRenderContainer", "RigVisualization", "AxisIndicatorContainer"}]
-       26 GETUPVAL                         R9 0
-       27 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R8 R8 K3 ["createElement"]
        29 GETUPVAL                         R9 1
        30 DUPTABLE                         R10 K18 [{"ZIndex"}]
        31 LOADN                            R11 1
        32 SETTABLEKS                       R11 R10 K17 ["ZIndex"]
        34 DUPTABLE                         R11 K20 [{"WorkspacePreview"}]
-       35 GETUPVAL                         R13 0
-       36 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       35 GETUPVAL                         R12 0
+       36 GETTABLEKS                       R12 R12 K3 ["createElement"]
        38 GETUPVAL                         R13 2
        39 DUPTABLE                         R14 K24 [{"Model", "ReferenceCamera", "Offset"}]
-       40 GETTABLEKS                       R16 R0 K25 ["previewProps"]
-       42 GETTABLEKS                       R15 R16 K26 ["workspacePreview"]
+       40 GETTABLEKS                       R15 R0 K25 ["previewProps"]
+       42 GETTABLEKS                       R15 R15 K26 ["workspacePreview"]
        44 SETTABLEKS                       R15 R14 K21 ["Model"]
        46 GETTABLEKS                       R15 R0 K27 ["camera"]
        48 SETTABLEKS                       R15 R14 K22 ["ReferenceCamera"]
-       50 GETTABLEKS                       R16 R0 K25 ["previewProps"]
-       52 GETTABLEKS                       R15 R16 K28 ["insertContextOffset"]
+       50 GETTABLEKS                       R15 R0 K25 ["previewProps"]
+       52 GETTABLEKS                       R15 R15 K28 ["insertContextOffset"]
        54 SETTABLEKS                       R15 R14 K23 ["Offset"]
        56 CALL                             R12 2 1
        57 SETTABLEKS                       R12 R11 K19 ["WorkspacePreview"]
        59 CALL                             R8 3 1
        60 SETTABLEKS                       R8 R7 K11 ["WorkspacePreviewContainer"]
-       62 GETUPVAL                         R9 0
-       63 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       62 GETUPVAL                         R8 0
+       63 GETTABLEKS                       R8 R8 K3 ["createElement"]
        65 GETUPVAL                         R9 3
        66 DUPTABLE                         R10 K34 [{"InsertContextCallback", "ResetCameraCallback", "ShouldShowWorkspaceToggle", "ShouldShowRigVisualizationToggle", "VisualizeRigCallback"}]
        67 GETTABLEKS                       R11 R0 K35 ["onClickToggleContext"]
@@ -286,8 +286,8 @@ PROTO_10:
        78 NAMECALL                         R11 R11 K39 ["IsA"]
        80 CALL                             R11 2 1
        81 JUMPIFNOT                        R11 ; [+4]
-       82 GETTABLEKS                       R12 R1 K37 ["SelectedImportItem"]
-       84 GETTABLEKS                       R11 R12 K40 ["InsertInWorkspace"]
+       82 GETTABLEKS                       R11 R1 K37 ["SelectedImportItem"]
+       84 GETTABLEKS                       R11 R11 K40 ["InsertInWorkspace"]
        86 SETTABLEKS                       R11 R10 K31 ["ShouldShowWorkspaceToggle"]
        88 GETTABLEKS                       R11 R1 K37 ["SelectedImportItem"]
        90 LOADK                            R13 K38 ["RootImportData"]
@@ -302,22 +302,22 @@ PROTO_10:
       104 SETTABLEKS                       R11 R10 K33 ["VisualizeRigCallback"]
       106 CALL                             R8 2 1
       107 SETTABLEKS                       R8 R7 K12 ["PreviewControls"]
-      109 GETUPVAL                         R9 0
-      110 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      109 GETUPVAL                         R8 0
+      110 GETTABLEKS                       R8 R8 K3 ["createElement"]
       112 GETUPVAL                         R9 1
       113 DUPTABLE                         R10 K18 [{"ZIndex"}]
       114 LOADN                            R11 2
       115 SETTABLEKS                       R11 R10 K17 ["ZIndex"]
       117 DUPTABLE                         R11 K45 [{"PreviewRender"}]
-      118 GETUPVAL                         R13 0
-      119 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      118 GETUPVAL                         R12 0
+      119 GETTABLEKS                       R12 R12 K3 ["createElement"]
       121 GETUPVAL                         R13 4
       122 DUPTABLE                         R14 K55 [{"Model", "InitialDistance", "Camera", "FocusDirection", "RecenterCameraOnUpdate", "RecenterModelOnUpdate", "OnViewModelLoaded", "Ambient", "LightColor", "LightDirection"}]
-      123 GETTABLEKS                       R16 R0 K25 ["previewProps"]
-      125 GETTABLEKS                       R15 R16 K56 ["model"]
+      123 GETTABLEKS                       R15 R0 K25 ["previewProps"]
+      125 GETTABLEKS                       R15 R15 K56 ["model"]
       127 SETTABLEKS                       R15 R14 K21 ["Model"]
-      129 GETTABLEKS                       R16 R0 K25 ["previewProps"]
-      131 GETTABLEKS                       R15 R16 K57 ["initDist"]
+      129 GETTABLEKS                       R15 R0 K25 ["previewProps"]
+      131 GETTABLEKS                       R15 R15 K57 ["initDist"]
       133 SETTABLEKS                       R15 R14 K46 ["InitialDistance"]
       135 GETTABLEKS                       R15 R0 K27 ["camera"]
       137 SETTABLEKS                       R15 R14 K47 ["Camera"]
@@ -329,17 +329,17 @@ PROTO_10:
       148 SETTABLEKS                       R15 R14 K50 ["RecenterModelOnUpdate"]
       150 GETTABLEKS                       R15 R0 K61 ["loadAnimationIntoViewport"]
       152 SETTABLEKS                       R15 R14 K51 ["OnViewModelLoaded"]
-      154 GETTABLEKS                       R17 R2 K62 ["PreviewWindow"]
-      156 GETTABLEKS                       R16 R17 K63 ["Lighting"]
-      158 GETTABLEKS                       R15 R16 K52 ["Ambient"]
+      154 GETTABLEKS                       R15 R2 K62 ["PreviewWindow"]
+      156 GETTABLEKS                       R15 R15 K63 ["Lighting"]
+      158 GETTABLEKS                       R15 R15 K52 ["Ambient"]
       160 SETTABLEKS                       R15 R14 K52 ["Ambient"]
-      162 GETTABLEKS                       R17 R2 K62 ["PreviewWindow"]
-      164 GETTABLEKS                       R16 R17 K63 ["Lighting"]
-      166 GETTABLEKS                       R15 R16 K64 ["Color"]
+      162 GETTABLEKS                       R15 R2 K62 ["PreviewWindow"]
+      164 GETTABLEKS                       R15 R15 K63 ["Lighting"]
+      166 GETTABLEKS                       R15 R15 K64 ["Color"]
       168 SETTABLEKS                       R15 R14 K53 ["LightColor"]
-      170 GETTABLEKS                       R17 R2 K62 ["PreviewWindow"]
-      172 GETTABLEKS                       R16 R17 K63 ["Lighting"]
-      174 GETTABLEKS                       R15 R16 K65 ["Direction"]
+      170 GETTABLEKS                       R15 R2 K62 ["PreviewWindow"]
+      172 GETTABLEKS                       R15 R15 K63 ["Lighting"]
+      174 GETTABLEKS                       R15 R15 K65 ["Direction"]
       176 SETTABLEKS                       R15 R14 K54 ["LightDirection"]
       178 CALL                             R12 2 1
       179 SETTABLEKS                       R12 R11 K44 ["PreviewRender"]
@@ -348,15 +348,15 @@ PROTO_10:
       184 GETTABLEKS                       R9 R0 K66 ["isRigVisualized"]
       186 CALL                             R9 0 1
       187 JUMPIFNOT                        R9 ; [+36]
-      188 GETUPVAL                         R9 0
-      189 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      188 GETUPVAL                         R8 0
+      189 GETTABLEKS                       R8 R8 K3 ["createElement"]
       191 GETUPVAL                         R9 1
       192 DUPTABLE                         R10 K18 [{"ZIndex"}]
       193 LOADN                            R11 3
       194 SETTABLEKS                       R11 R10 K17 ["ZIndex"]
       196 NEWTABLE                         R11 0 1
-      198 GETUPVAL                         R13 0
-      199 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      198 GETUPVAL                         R12 0
+      199 GETTABLEKS                       R12 R12 K3 ["createElement"]
       201 GETUPVAL                         R13 5
       202 DUPTABLE                         R14 K68 [{"PreviewInstance", "Camera", "AssetImportSession", "SelectedImportItem"}]
       203 GETTABLEKS                       R15 R1 K67 ["PreviewInstance"]
@@ -373,8 +373,8 @@ PROTO_10:
       223 JUMP                             ; [+1]
       224 LOADNIL                          R8
       225 SETTABLEKS                       R8 R7 K14 ["RigVisualization"]
-      227 GETUPVAL                         R9 0
-      228 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      227 GETUPVAL                         R8 0
+      228 GETTABLEKS                       R8 R8 K3 ["createElement"]
       230 GETUPVAL                         R9 1
       231 DUPTABLE                         R10 K71 [{"Size", "Position", "AnchorPoint", "ZIndex"}]
       232 GETIMPORT                        R11 K9 [UDim2.new]
@@ -399,8 +399,8 @@ PROTO_10:
       261 LOADN                            R11 4
       262 SETTABLEKS                       R11 R10 K17 ["ZIndex"]
       264 DUPTABLE                         R11 K77 [{"AxisIndicator"}]
-      265 GETUPVAL                         R13 0
-      266 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      265 GETUPVAL                         R12 0
+      266 GETTABLEKS                       R12 R12 K3 ["createElement"]
       268 GETUPVAL                         R13 6
       269 DUPTABLE                         R14 K78 [{"ReferenceCamera"}]
       270 GETTABLEKS                       R15 R0 K27 ["camera"]
@@ -430,17 +430,17 @@ PROTO_12:
 
 PROTO_13:
         0 DUPTABLE                         R1 K4 [{"AssetImportSession", "ImportTree", "PreviewInstance", "SelectedImportItem"}]
-        1 GETTABLEKS                       R3 R0 K5 ["Preview"]
-        3 GETTABLEKS                       R2 R3 K6 ["assetImportSession"]
+        1 GETTABLEKS                       R2 R0 K5 ["Preview"]
+        3 GETTABLEKS                       R2 R2 K6 ["assetImportSession"]
         5 SETTABLEKS                       R2 R1 K0 ["AssetImportSession"]
-        7 GETTABLEKS                       R3 R0 K5 ["Preview"]
-        9 GETTABLEKS                       R2 R3 K7 ["importTree"]
+        7 GETTABLEKS                       R2 R0 K5 ["Preview"]
+        9 GETTABLEKS                       R2 R2 K7 ["importTree"]
        11 SETTABLEKS                       R2 R1 K1 ["ImportTree"]
-       13 GETTABLEKS                       R3 R0 K5 ["Preview"]
-       15 GETTABLEKS                       R2 R3 K8 ["previewInstance"]
+       13 GETTABLEKS                       R2 R0 K5 ["Preview"]
+       15 GETTABLEKS                       R2 R2 K8 ["previewInstance"]
        17 SETTABLEKS                       R2 R1 K2 ["PreviewInstance"]
-       19 GETTABLEKS                       R3 R0 K5 ["Preview"]
-       21 GETTABLEKS                       R2 R3 K9 ["selectedImportItem"]
+       19 GETTABLEKS                       R2 R0 K5 ["Preview"]
+       21 GETTABLEKS                       R2 R2 K9 ["selectedImportItem"]
        23 SETTABLEKS                       R2 R1 K3 ["SelectedImportItem"]
        25 RETURN                           R1 1
 
@@ -451,67 +451,67 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
-       32 GETTABLEKS                       R7 R3 K12 ["Style"]
-       34 GETTABLEKS                       R6 R7 K13 ["Stylizer"]
+       32 GETTABLEKS                       R6 R3 K12 ["Style"]
+       34 GETTABLEKS                       R6 R6 K13 ["Stylizer"]
        36 GETTABLEKS                       R7 R3 K14 ["UI"]
        38 GETTABLEKS                       R8 R7 K15 ["Pane"]
        40 GETTABLEKS                       R9 R7 K16 ["AssetRenderModel"]
        42 GETIMPORT                        R10 K5 [require]
-       44 GETTABLEKS                       R14 R0 K17 ["Src"]
-       46 GETTABLEKS                       R13 R14 K18 ["Components"]
-       48 GETTABLEKS                       R12 R13 K19 ["Preview"]
-       50 GETTABLEKS                       R11 R12 K20 ["WorkspacePreview"]
+       44 GETTABLEKS                       R11 R0 K17 ["Src"]
+       46 GETTABLEKS                       R11 R11 K18 ["Components"]
+       48 GETTABLEKS                       R11 R11 K19 ["Preview"]
+       50 GETTABLEKS                       R11 R11 K20 ["WorkspacePreview"]
        52 CALL                             R10 1 1
        53 GETIMPORT                        R11 K5 [require]
-       55 GETTABLEKS                       R15 R0 K17 ["Src"]
-       57 GETTABLEKS                       R14 R15 K18 ["Components"]
-       59 GETTABLEKS                       R13 R14 K19 ["Preview"]
-       61 GETTABLEKS                       R12 R13 K21 ["AxisIndicator"]
+       55 GETTABLEKS                       R12 R0 K17 ["Src"]
+       57 GETTABLEKS                       R12 R12 K18 ["Components"]
+       59 GETTABLEKS                       R12 R12 K19 ["Preview"]
+       61 GETTABLEKS                       R12 R12 K21 ["AxisIndicator"]
        63 CALL                             R11 1 1
        64 GETIMPORT                        R12 K5 [require]
-       66 GETTABLEKS                       R16 R0 K17 ["Src"]
-       68 GETTABLEKS                       R15 R16 K18 ["Components"]
-       70 GETTABLEKS                       R14 R15 K19 ["Preview"]
-       72 GETTABLEKS                       R13 R14 K22 ["PreviewControls"]
+       66 GETTABLEKS                       R13 R0 K17 ["Src"]
+       68 GETTABLEKS                       R13 R13 K18 ["Components"]
+       70 GETTABLEKS                       R13 R13 K19 ["Preview"]
+       72 GETTABLEKS                       R13 R13 K22 ["PreviewControls"]
        74 CALL                             R12 1 1
        75 GETIMPORT                        R13 K5 [require]
-       77 GETTABLEKS                       R17 R0 K17 ["Src"]
-       79 GETTABLEKS                       R16 R17 K18 ["Components"]
-       81 GETTABLEKS                       R15 R16 K19 ["Preview"]
-       83 GETTABLEKS                       R14 R15 K23 ["RigVisualization"]
+       77 GETTABLEKS                       R14 R0 K17 ["Src"]
+       79 GETTABLEKS                       R14 R14 K18 ["Components"]
+       81 GETTABLEKS                       R14 R14 K19 ["Preview"]
+       83 GETTABLEKS                       R14 R14 K23 ["RigVisualization"]
        85 CALL                             R13 1 1
        86 GETIMPORT                        R14 K5 [require]
-       88 GETTABLEKS                       R17 R0 K17 ["Src"]
-       90 GETTABLEKS                       R16 R17 K24 ["Thunks"]
-       92 GETTABLEKS                       R15 R16 K25 ["UpdatePreviewInstance"]
+       88 GETTABLEKS                       R15 R0 K17 ["Src"]
+       90 GETTABLEKS                       R15 R15 K24 ["Thunks"]
+       92 GETTABLEKS                       R15 R15 K25 ["UpdatePreviewInstance"]
        94 CALL                             R14 1 1
        95 GETIMPORT                        R15 K5 [require]
-       97 GETTABLEKS                       R18 R0 K17 ["Src"]
-       99 GETTABLEKS                       R17 R18 K26 ["Utility"]
-      101 GETTABLEKS                       R16 R17 K27 ["getAssetPreviewProps"]
+       97 GETTABLEKS                       R16 R0 K17 ["Src"]
+       99 GETTABLEKS                       R16 R16 K26 ["Utility"]
+      101 GETTABLEKS                       R16 R16 K27 ["getAssetPreviewProps"]
       103 CALL                             R15 1 1
       104 GETIMPORT                        R16 K5 [require]
-      106 GETTABLEKS                       R19 R0 K17 ["Src"]
-      108 GETTABLEKS                       R18 R19 K26 ["Utility"]
-      110 GETTABLEKS                       R17 R18 K28 ["getAssetRenderModel"]
+      106 GETTABLEKS                       R17 R0 K17 ["Src"]
+      108 GETTABLEKS                       R17 R17 K26 ["Utility"]
+      110 GETTABLEKS                       R17 R17 K28 ["getAssetRenderModel"]
       112 CALL                             R16 1 1
       113 GETIMPORT                        R17 K5 [require]
-      115 GETTABLEKS                       R20 R0 K17 ["Src"]
-      117 GETTABLEKS                       R19 R20 K26 ["Utility"]
-      119 GETTABLEKS                       R18 R19 K29 ["loadAnimation"]
+      115 GETTABLEKS                       R18 R0 K17 ["Src"]
+      117 GETTABLEKS                       R18 R18 K26 ["Utility"]
+      119 GETTABLEKS                       R18 R18 K29 ["loadAnimation"]
       121 CALL                             R17 1 1
       122 GETTABLEKS                       R18 R1 K30 ["PureComponent"]
       124 LOADK                            R20 K31 ["PreviewContainer"]

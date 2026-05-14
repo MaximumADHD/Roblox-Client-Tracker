@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Terrain"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Terrain"]
         3 GETTABLEKS                       R4 R0 K1 ["Payload"]
-        5 GETUPVAL                         R6 1
-        6 GETTABLEKS                       R5 R6 K2 ["SelectionSettings"]
+        5 GETUPVAL                         R5 1
+        6 GETTABLEKS                       R5 R5 K2 ["SelectionSettings"]
         8 GETTABLE                         R3 R4 R5
-        9 GETUPVAL                         R6 2
-       10 GETTABLEKS                       R5 R6 K3 ["Transform"]
+        9 GETUPVAL                         R5 2
+       10 GETTABLEKS                       R5 R5 K3 ["Transform"]
        12 GETTABLE                         R4 R3 R5
-       13 GETUPVAL                         R7 2
-       14 GETTABLEKS                       R6 R7 K4 ["Size"]
+       13 GETUPVAL                         R6 2
+       14 GETTABLEKS                       R6 R6 K4 ["Size"]
        16 GETTABLE                         R5 R3 R6
        17 GETUPVAL                         R6 3
        18 MOVE                             R7 R4
@@ -41,30 +41,30 @@ PROTO_1:
         5 GETIMPORT                        R2 K3 [assert]
         7 CALL                             R2 2 0
         8 GETTABLEKS                       R2 R0 K0 ["State"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K4 ["Terrain"]
        13 GETTABLEKS                       R5 R0 K5 ["Payload"]
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K6 ["MaterialSettings"]
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R6 R6 K6 ["MaterialSettings"]
        18 GETTABLE                         R4 R5 R6
        19 GETTABLEKS                       R6 R0 K5 ["Payload"]
-       21 GETUPVAL                         R8 1
-       22 GETTABLEKS                       R7 R8 K7 ["SelectionSettings"]
+       21 GETUPVAL                         R7 1
+       22 GETTABLEKS                       R7 R7 K7 ["SelectionSettings"]
        24 GETTABLE                         R5 R6 R7
-       25 GETUPVAL                         R8 2
-       26 GETTABLEKS                       R7 R8 K8 ["FillMode"]
+       25 GETUPVAL                         R7 2
+       26 GETTABLEKS                       R7 R7 K8 ["FillMode"]
        28 GETTABLE                         R6 R4 R7
-       29 GETUPVAL                         R9 3
-       30 GETTABLEKS                       R8 R9 K9 ["Size"]
+       29 GETUPVAL                         R8 3
+       30 GETTABLEKS                       R8 R8 K9 ["Size"]
        32 GETTABLE                         R7 R5 R8
-       33 GETUPVAL                         R10 2
-       34 GETTABLEKS                       R9 R10 K10 ["SourceMaterial"]
+       33 GETUPVAL                         R9 2
+       34 GETTABLEKS                       R9 R9 K10 ["SourceMaterial"]
        36 GETTABLE                         R8 R4 R9
-       37 GETUPVAL                         R11 2
-       38 GETTABLEKS                       R10 R11 K11 ["TargetMaterial"]
+       37 GETUPVAL                         R10 2
+       38 GETTABLEKS                       R10 R10 K11 ["TargetMaterial"]
        40 GETTABLE                         R9 R4 R10
-       41 GETUPVAL                         R12 3
-       42 GETTABLEKS                       R11 R12 K12 ["Transform"]
+       41 GETUPVAL                         R11 3
+       42 GETTABLEKS                       R11 R11 K12 ["Transform"]
        44 GETTABLE                         R10 R5 R11
        45 GETTABLEKS                       R12 R2 K13 ["Regions"]
        47 GETTABLEKS                       R13 R2 K14 ["CurrentIndex"]
@@ -73,8 +73,8 @@ PROTO_1:
        51 LOADB                            R12 0
        52 LOADN                            R13 0
        53 RETURN                           R12 2
-       54 GETUPVAL                         R13 4
-       55 GETTABLEKS                       R12 R13 K15 ["Replace"]
+       54 GETUPVAL                         R12 4
+       55 GETTABLEKS                       R12 R12 K15 ["Replace"]
        57 JUMPIFNOTEQ                      R6 R12 ; [+10]
        59 MOVE                             R14 R10
        60 MOVE                             R15 R7
@@ -114,11 +114,11 @@ PROTO_2:
         5 GETIMPORT                        R2 K3 [assert]
         7 CALL                             R2 2 0
         8 GETTABLEKS                       R2 R0 K0 ["State"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K4 ["Terrain"]
        13 GETTABLEKS                       R5 R2 K5 ["BackupTerrainRegion"]
-       15 GETTABLEKS                       R7 R2 K6 ["BackupRegion"]
-       17 GETTABLEKS                       R6 R7 K7 ["Min"]
+       15 GETTABLEKS                       R6 R2 K6 ["BackupRegion"]
+       17 GETTABLEKS                       R6 R6 K7 ["Min"]
        19 LOADB                            R7 1
        20 NAMECALL                         R3 R3 K8 ["PasteRegion"]
        22 CALL                             R3 4 0
@@ -127,26 +127,26 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["State"]
         2 JUMPIFNOT                        R2 ; [+27]
-        3 GETTABLEKS                       R3 R0 K0 ["State"]
-        5 GETTABLEKS                       R2 R3 K1 ["StartTime"]
+        3 GETTABLEKS                       R2 R0 K0 ["State"]
+        5 GETTABLEKS                       R2 R2 K1 ["StartTime"]
         7 JUMPIFNOT                        R2 ; [+22]
         8 GETTABLEKS                       R3 R0 K2 ["Payload"]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K3 ["SelectionSettings"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K3 ["SelectionSettings"]
        13 GETTABLE                         R2 R3 R4
-       14 GETUPVAL                         R5 1
-       15 GETTABLEKS                       R4 R5 K4 ["Size"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K4 ["Size"]
        17 GETTABLE                         R3 R2 R4
-       18 GETUPVAL                         R7 2
-       19 GETTABLEKS                       R6 R7 K5 ["NormalizeRegionTimer"]
-       21 GETTABLEKS                       R8 R0 K0 ["State"]
-       23 GETTABLEKS                       R7 R8 K1 ["StartTime"]
+       18 GETUPVAL                         R6 2
+       19 GETTABLEKS                       R6 R6 K5 ["NormalizeRegionTimer"]
+       21 GETTABLEKS                       R7 R0 K0 ["State"]
+       23 GETTABLEKS                       R7 R7 K1 ["StartTime"]
        25 MOVE                             R8 R3
        26 CALL                             R6 2 -1
        27 NAMECALL                         R4 R1 K6 ["addTimeStatistic"]
        29 CALL                             R4 -1 0
-       30 GETUPVAL                         R3 3
-       31 GETTABLEKS                       R2 R3 K7 ["ChangeHistoryService"]
+       30 GETUPVAL                         R2 3
+       31 GETTABLEKS                       R2 R2 K7 ["ChangeHistoryService"]
        33 LOADK                            R4 K8 ["FillAction"]
        34 NAMECALL                         R2 R2 K9 ["SetWaypoint"]
        36 CALL                             R2 2 0
@@ -172,8 +172,8 @@ PROTO_4:
        16 CAPTURE                          UPVAL U1
        17 CAPTURE                          UPVAL U6
        18 CAPTURE                          VAL R2
-       19 GETUPVAL                         R8 7
-       20 GETTABLEKS                       R7 R8 K0 ["new"]
+       19 GETUPVAL                         R7 7
+       20 GETTABLEKS                       R7 R7 K0 ["new"]
        22 DUPTABLE                         R8 K9 [{"AllowPause", "AllowCancel", "Description", "Name", "OnCancel", "OnFinish", "OnStart", "OnStep"}]
        23 LOADB                            R9 1
        24 SETTABLEKS                       R9 R8 K1 ["AllowPause"]
@@ -195,13 +195,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["Operations"]
-       15 GETTABLEKS                       R2 R3 K9 ["BaseOperation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Operations"]
+       15 GETTABLEKS                       R2 R2 K9 ["BaseOperation"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R2 R3 K7 ["Util"]
+       18 GETTABLEKS                       R2 R0 K6 ["Src"]
+       20 GETTABLEKS                       R2 R2 K7 ["Util"]
        22 GETIMPORT                        R3 K5 [require]
        24 GETTABLEKS                       R4 R2 K10 ["AnalyticsHelper"]
        26 CALL                             R3 1 1
@@ -212,8 +212,8 @@ MAIN:
        34 GETTABLEKS                       R6 R2 K12 ["CreateSubregions"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K13 ["Types"]
+       39 GETTABLEKS                       R7 R0 K6 ["Src"]
+       41 GETTABLEKS                       R7 R7 K13 ["Types"]
        43 CALL                             R6 1 1
        44 GETTABLEKS                       R7 R6 K14 ["Category"]
        46 GETTABLEKS                       R8 R6 K15 ["FillMode"]

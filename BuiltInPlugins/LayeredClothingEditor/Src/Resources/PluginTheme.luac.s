@@ -39,16 +39,16 @@ PROTO_1:
        28 GETUPVAL                         R3 2
        29 LOADK                            R4 K12 ["TextInput"]
        30 CALL                             R3 1 1
-       31 GETUPVAL                         R6 3
-       32 GETTABLEKS                       R5 R6 K13 ["Dictionary"]
-       34 GETTABLEKS                       R4 R5 K14 ["join"]
+       31 GETUPVAL                         R4 3
+       32 GETTABLEKS                       R4 R4 K13 ["Dictionary"]
+       34 GETTABLEKS                       R4 R4 K14 ["join"]
        36 MOVE                             R5 R3
        37 NEWTABLE                         R6 4 0
-       39 GETUPVAL                         R8 0
-       40 GETTABLEKS                       R7 R8 K15 ["DimmedText"]
+       39 GETUPVAL                         R7 0
+       40 GETTABLEKS                       R7 R7 K15 ["DimmedText"]
        42 SETTABLEKS                       R7 R6 K16 ["PlaceholderTextColor"]
-       44 GETUPVAL                         R8 0
-       45 GETTABLEKS                       R7 R8 K17 ["MainText"]
+       44 GETUPVAL                         R7 0
+       45 GETTABLEKS                       R7 R7 K17 ["MainText"]
        47 SETTABLEKS                       R7 R6 K18 ["TextColor"]
        49 DUPTABLE                         R7 K21 [{"Padding", "BackgroundStyle"}]
        50 DUPTABLE                         R8 K26 [{"Left", "Top", "Right", "Bottom"}]
@@ -62,11 +62,11 @@ PROTO_1:
        61 SETTABLEKS                       R9 R8 K25 ["Bottom"]
        63 SETTABLEKS                       R8 R7 K19 ["Padding"]
        65 DUPTABLE                         R8 K34 [{"Color", "BorderColor", "Transparency", "BorderTransparency", "BackgroundImage", "BorderImage", "SliceCenter"}]
-       66 GETUPVAL                         R10 0
-       67 GETTABLEKS                       R9 R10 K35 ["RibbonTab"]
+       66 GETUPVAL                         R9 0
+       67 GETTABLEKS                       R9 R9 K35 ["RibbonTab"]
        69 SETTABLEKS                       R9 R8 K27 ["Color"]
-       71 GETUPVAL                         R10 0
-       72 GETTABLEKS                       R9 R10 K35 ["RibbonTab"]
+       71 GETUPVAL                         R9 0
+       72 GETTABLEKS                       R9 R9 K35 ["RibbonTab"]
        74 SETTABLEKS                       R9 R8 K28 ["BorderColor"]
        76 LOADN                            R9 0
        77 SETTABLEKS                       R9 R8 K29 ["Transparency"]
@@ -112,57 +112,57 @@ PROTO_1:
       135 SETTABLEKS                       R8 R7 K19 ["Padding"]
       137 GETUPVAL                         R8 4
       138 SETTABLEKS                       R8 R7 K60 ["Background"]
-      140 GETUPVAL                         R10 3
-      141 GETTABLEKS                       R9 R10 K13 ["Dictionary"]
-      143 GETTABLEKS                       R8 R9 K14 ["join"]
+      140 GETUPVAL                         R8 3
+      141 GETTABLEKS                       R8 R8 K13 ["Dictionary"]
+      143 GETTABLEKS                       R8 R8 K14 ["join"]
       145 GETUPVAL                         R9 5
       146 DUPTABLE                         R10 K61 [{"Color"}]
-      147 GETUPVAL                         R12 0
-      148 GETTABLEKS                       R11 R12 K62 ["Button"]
+      147 GETUPVAL                         R11 0
+      148 GETTABLEKS                       R11 R11 K62 ["Button"]
       150 SETTABLEKS                       R11 R10 K27 ["Color"]
       152 CALL                             R8 2 1
       153 SETTABLEKS                       R8 R7 K20 ["BackgroundStyle"]
-      155 GETUPVAL                         R9 6
-      156 GETTABLEKS                       R8 R9 K63 ["Hover"]
+      155 GETUPVAL                         R8 6
+      156 GETTABLEKS                       R8 R8 K63 ["Hover"]
       158 DUPTABLE                         R9 K64 [{"BackgroundStyle"}]
-      159 GETUPVAL                         R12 3
-      160 GETTABLEKS                       R11 R12 K13 ["Dictionary"]
-      162 GETTABLEKS                       R10 R11 K14 ["join"]
+      159 GETUPVAL                         R10 3
+      160 GETTABLEKS                       R10 R10 K13 ["Dictionary"]
+      162 GETTABLEKS                       R10 R10 K14 ["join"]
       164 GETUPVAL                         R11 5
       165 DUPTABLE                         R12 K61 [{"Color"}]
-      166 GETUPVAL                         R14 0
-      167 GETTABLEKS                       R13 R14 K65 ["ButtonHover"]
+      166 GETUPVAL                         R13 0
+      167 GETTABLEKS                       R13 R13 K65 ["ButtonHover"]
       169 SETTABLEKS                       R13 R12 K27 ["Color"]
       171 CALL                             R10 2 1
       172 SETTABLEKS                       R10 R9 K20 ["BackgroundStyle"]
       174 SETTABLE                         R9 R7 R8
-      175 GETUPVAL                         R9 6
-      176 GETTABLEKS                       R8 R9 K66 ["Disabled"]
+      175 GETUPVAL                         R8 6
+      176 GETTABLEKS                       R8 R8 K66 ["Disabled"]
       178 DUPTABLE                         R9 K67 [{"BackgroundStyle", "TextColor"}]
-      179 GETUPVAL                         R12 3
-      180 GETTABLEKS                       R11 R12 K13 ["Dictionary"]
-      182 GETTABLEKS                       R10 R11 K14 ["join"]
+      179 GETUPVAL                         R10 3
+      180 GETTABLEKS                       R10 R10 K13 ["Dictionary"]
+      182 GETTABLEKS                       R10 R10 K14 ["join"]
       184 GETUPVAL                         R11 5
       185 DUPTABLE                         R12 K61 [{"Color"}]
-      186 GETUPVAL                         R14 0
-      187 GETTABLEKS                       R13 R14 K68 ["ButtonDisabled"]
+      186 GETUPVAL                         R13 0
+      187 GETTABLEKS                       R13 R13 K68 ["ButtonDisabled"]
       189 SETTABLEKS                       R13 R12 K27 ["Color"]
       191 CALL                             R10 2 1
       192 SETTABLEKS                       R10 R9 K20 ["BackgroundStyle"]
-      194 GETUPVAL                         R11 0
-      195 GETTABLEKS                       R10 R11 K69 ["ButtonTextDisabled"]
+      194 GETUPVAL                         R10 0
+      195 GETTABLEKS                       R10 R10 K69 ["ButtonTextDisabled"]
       197 SETTABLEKS                       R10 R9 K18 ["TextColor"]
       199 SETTABLE                         R9 R7 R8
-      200 GETUPVAL                         R9 6
-      201 GETTABLEKS                       R8 R9 K70 ["Pressed"]
+      200 GETUPVAL                         R8 6
+      201 GETTABLEKS                       R8 R8 K70 ["Pressed"]
       203 DUPTABLE                         R9 K64 [{"BackgroundStyle"}]
-      204 GETUPVAL                         R12 3
-      205 GETTABLEKS                       R11 R12 K13 ["Dictionary"]
-      207 GETTABLEKS                       R10 R11 K14 ["join"]
+      204 GETUPVAL                         R10 3
+      205 GETTABLEKS                       R10 R10 K13 ["Dictionary"]
+      207 GETTABLEKS                       R10 R10 K14 ["join"]
       209 GETUPVAL                         R11 5
       210 DUPTABLE                         R12 K61 [{"Color"}]
-      211 GETUPVAL                         R14 0
-      212 GETTABLEKS                       R13 R14 K71 ["DialogMainButton"]
+      211 GETUPVAL                         R13 0
+      212 GETTABLEKS                       R13 R13 K71 ["DialogMainButton"]
       214 SETTABLEKS                       R13 R12 K27 ["Color"]
       216 CALL                             R10 2 1
       217 SETTABLEKS                       R10 R9 K20 ["BackgroundStyle"]
@@ -190,9 +190,9 @@ PROTO_1:
       249 SETTABLEKS                       R9 R8 K80 ["VisibilityControlsOffset"]
       251 LOADN                            R9 20
       252 SETTABLEKS                       R9 R8 K81 ["PaneOffsetY"]
-      254 GETUPVAL                         R11 3
-      255 GETTABLEKS                       R10 R11 K13 ["Dictionary"]
-      257 GETTABLEKS                       R9 R10 K14 ["join"]
+      254 GETUPVAL                         R9 3
+      255 GETTABLEKS                       R9 R9 K13 ["Dictionary"]
+      257 GETTABLEKS                       R9 R9 K14 ["join"]
       259 MOVE                             R10 R2
       260 DUPTABLE                         R11 K90 [{"Size", "Color", "AnchorPoint", "Position", "Padding", "DropdownFramePadding", "ArrowSize", "DropdownFrameWidth", "Font", "TextSize"}]
       261 GETIMPORT                        R12 K91 [UDim2.new]
@@ -202,8 +202,8 @@ PROTO_1:
       266 LOADN                            R16 10
       267 CALL                             R12 4 1
       268 SETTABLEKS                       R12 R11 K42 ["Size"]
-      270 GETUPVAL                         R13 0
-      271 GETTABLEKS                       R12 R13 K17 ["MainText"]
+      270 GETUPVAL                         R12 0
+      271 GETTABLEKS                       R12 R12 K17 ["MainText"]
       273 SETTABLEKS                       R12 R11 K27 ["Color"]
       275 GETIMPORT                        R12 K93 [Vector2.new]
       277 LOADN                            R13 1
@@ -330,8 +330,8 @@ PROTO_1:
       445 LOADN                            R19 32
       446 SETTABLEKS                       R19 R18 K137 ["TitleHeight"]
       448 DUPTABLE                         R19 K142 [{"PlayImage", "PauseImage", "PlayButtonWidth", "PlayTimeLabelWidth", "Padding"}]
-      449 GETUPVAL                         R21 0
-      450 GETTABLEKS                       R20 R21 K1 ["PlayImage"]
+      449 GETUPVAL                         R20 0
+      450 GETTABLEKS                       R20 R20 K1 ["PlayImage"]
       452 SETTABLEKS                       R20 R19 K1 ["PlayImage"]
       454 LOADK                            R20 K143 ["rbxasset://textures/LayeredClothingEditor/Icon_Pause.png"]
       455 SETTABLEKS                       R20 R19 K139 ["PauseImage"]
@@ -347,8 +347,8 @@ PROTO_1:
       470 DUPTABLE                         R21 K150 [{"AddFromExploreButtonFrameHeight", "AddFromExploreButtonImage", "AddFromExploreButtonSize"}]
       471 LOADN                            R22 25
       472 SETTABLEKS                       R22 R21 K147 ["AddFromExploreButtonFrameHeight"]
-      474 GETUPVAL                         R23 0
-      475 GETTABLEKS                       R22 R23 K3 ["AddMoreImage"]
+      474 GETUPVAL                         R22 0
+      475 GETTABLEKS                       R22 R22 K3 ["AddMoreImage"]
       477 SETTABLEKS                       R22 R21 K148 ["AddFromExploreButtonImage"]
       479 GETIMPORT                        R22 K91 [UDim2.new]
       481 LOADN                            R23 0
@@ -365,8 +365,8 @@ PROTO_1:
       494 SETTABLEKS                       R24 R23 K147 ["AddFromExploreButtonFrameHeight"]
       496 DUPTABLE                         R24 K156 [{"SelectItemListScrollingFrameStyle"}]
       497 DUPTABLE                         R25 K163 [{"BackgroundColor3", "ScrollBarThickness", "BorderSizePixel", "AutoSizeCanvas", "AutoSizeLayoutElement", "ScrollingDirection"}]
-      498 GETUPVAL                         R27 0
-      499 GETTABLEKS                       R26 R27 K164 ["CategoryItem"]
+      498 GETUPVAL                         R26 0
+      499 GETTABLEKS                       R26 R26 K164 ["CategoryItem"]
       501 SETTABLEKS                       R26 R25 K157 ["BackgroundColor3"]
       503 LOADN                            R26 7
       504 SETTABLEKS                       R26 R25 K158 ["ScrollBarThickness"]
@@ -391,23 +391,23 @@ PROTO_1:
       534 LOADN                            R28 1
       535 SETTABLEKS                       R28 R27 K29 ["Transparency"]
       537 SETTABLEKS                       R27 R26 K20 ["BackgroundStyle"]
-      539 GETUPVAL                         R28 6
-      540 GETTABLEKS                       R27 R28 K63 ["Hover"]
+      539 GETUPVAL                         R27 6
+      540 GETTABLEKS                       R27 R27 K63 ["Hover"]
       542 DUPTABLE                         R28 K64 [{"BackgroundStyle"}]
       543 DUPTABLE                         R29 K173 [{"Color", "Transparency"}]
-      544 GETUPVAL                         R31 0
-      545 GETTABLEKS                       R30 R31 K65 ["ButtonHover"]
+      544 GETUPVAL                         R30 0
+      545 GETTABLEKS                       R30 R30 K65 ["ButtonHover"]
       547 SETTABLEKS                       R30 R29 K27 ["Color"]
       549 LOADN                            R30 0
       550 SETTABLEKS                       R30 R29 K29 ["Transparency"]
       552 SETTABLEKS                       R29 R28 K20 ["BackgroundStyle"]
       554 SETTABLE                         R28 R26 R27
-      555 GETUPVAL                         R28 6
-      556 GETTABLEKS                       R27 R28 K174 ["Selected"]
+      555 GETUPVAL                         R27 6
+      556 GETTABLEKS                       R27 R27 K174 ["Selected"]
       558 DUPTABLE                         R28 K64 [{"BackgroundStyle"}]
       559 DUPTABLE                         R29 K173 [{"Color", "Transparency"}]
-      560 GETUPVAL                         R31 0
-      561 GETTABLEKS                       R30 R31 K175 ["DialogMainButtonSelected"]
+      560 GETUPVAL                         R30 0
+      561 GETTABLEKS                       R30 R30 K175 ["DialogMainButtonSelected"]
       563 SETTABLEKS                       R30 R29 K27 ["Color"]
       565 LOADN                            R30 0
       566 SETTABLEKS                       R30 R29 K29 ["Transparency"]
@@ -415,8 +415,8 @@ PROTO_1:
       570 SETTABLE                         R28 R26 R27
       571 SETTABLEKS                       R26 R25 K169 ["SelectableRowStyle"]
       573 DUPTABLE                         R26 K177 [{"MoreButtonImage", "MoreButtonSize"}]
-      574 GETUPVAL                         R28 0
-      575 GETTABLEKS                       R27 R28 K5 ["MoreActionsImage"]
+      574 GETUPVAL                         R27 0
+      575 GETTABLEKS                       R27 R27 K5 ["MoreActionsImage"]
       577 SETTABLEKS                       R27 R26 K176 ["MoreButtonImage"]
       579 LOADN                            R27 20
       580 SETTABLEKS                       R27 R26 K168 ["MoreButtonSize"]
@@ -454,13 +454,13 @@ PROTO_1:
       622 LOADN                            R32 22
       623 CALL                             R28 4 1
       624 SETTABLEKS                       R28 R27 K182 ["TextLabelSize"]
-      626 GETUPVAL                         R29 0
-      627 GETTABLEKS                       R28 R29 K186 ["ButtonPressed"]
+      626 GETUPVAL                         R28 0
+      627 GETTABLEKS                       R28 R28 K186 ["ButtonPressed"]
       629 SETTABLEKS                       R28 R27 K183 ["ButtonBackgroundColor"]
       631 LOADN                            R28 18
       632 SETTABLEKS                       R28 R27 K89 ["TextSize"]
-      634 GETUPVAL                         R29 0
-      635 GETTABLEKS                       R28 R29 K164 ["CategoryItem"]
+      634 GETUPVAL                         R28 0
+      635 GETTABLEKS                       R28 R28 K164 ["CategoryItem"]
       637 SETTABLEKS                       R28 R27 K184 ["ImageBackgroundColor"]
       639 DUPTABLE                         R28 K187 [{"Padding"}]
       640 LOADN                            R29 8
@@ -474,8 +474,8 @@ PROTO_1:
       651 SETTABLEKS                       R30 R29 K189 ["GridContainerPadding"]
       653 LOADN                            R30 94
       654 SETTABLEKS                       R30 R29 K119 ["Height"]
-      656 GETUPVAL                         R31 0
-      657 GETTABLEKS                       R30 R31 K192 ["SubBackground2"]
+      656 GETUPVAL                         R30 0
+      657 GETTABLEKS                       R30 R30 K192 ["SubBackground2"]
       659 SETTABLEKS                       R30 R29 K190 ["GridContainerBackgroundColor"]
       661 DUPTABLE                         R30 K197 [{"TileSize", "TilePadding", "TileInnerBorder", "ImageFrameSize", "ImageSize", "TextLabelSize", "ButtonBackgroundColor", "TextSize", "DefaultTileImages", "AddNewImage", "SmallImageSize", "ImageBackgroundColor"}]
       662 GETIMPORT                        R31 K91 [UDim2.new]
@@ -518,30 +518,30 @@ PROTO_1:
       710 LOADN                            R35 22
       711 CALL                             R31 4 1
       712 SETTABLEKS                       R31 R30 K182 ["TextLabelSize"]
-      714 GETUPVAL                         R32 0
-      715 GETTABLEKS                       R31 R32 K186 ["ButtonPressed"]
+      714 GETUPVAL                         R31 0
+      715 GETTABLEKS                       R31 R31 K186 ["ButtonPressed"]
       717 SETTABLEKS                       R31 R30 K183 ["ButtonBackgroundColor"]
       719 LOADN                            R31 18
       720 SETTABLEKS                       R31 R30 K89 ["TextSize"]
       722 NEWTABLE                         R31 4 0
-      724 GETUPVAL                         R34 8
-      725 GETTABLEKS                       R33 R34 K198 ["TABS_KEYS"]
-      727 GETTABLEKS                       R32 R33 K199 ["Avatars"]
+      724 GETUPVAL                         R32 8
+      725 GETTABLEKS                       R32 R32 K198 ["TABS_KEYS"]
+      727 GETTABLEKS                       R32 R32 K199 ["Avatars"]
       729 LOADK                            R33 K200 ["rbxasset://textures/LayeredClothingEditor/Default_Preview_Avatars.png"]
       730 SETTABLE                         R33 R31 R32
-      731 GETUPVAL                         R34 8
-      732 GETTABLEKS                       R33 R34 K198 ["TABS_KEYS"]
-      734 GETTABLEKS                       R32 R33 K201 ["Clothing"]
+      731 GETUPVAL                         R32 8
+      732 GETTABLEKS                       R32 R32 K198 ["TABS_KEYS"]
+      734 GETTABLEKS                       R32 R32 K201 ["Clothing"]
       736 LOADK                            R33 K202 ["rbxasset://textures/LayeredClothingEditor/Default_Preview_Clothing.png"]
       737 SETTABLE                         R33 R31 R32
-      738 GETUPVAL                         R34 8
-      739 GETTABLEKS                       R33 R34 K198 ["TABS_KEYS"]
-      741 GETTABLEKS                       R32 R33 K203 ["Animations"]
+      738 GETUPVAL                         R32 8
+      739 GETTABLEKS                       R32 R32 K198 ["TABS_KEYS"]
+      741 GETTABLEKS                       R32 R32 K203 ["Animations"]
       743 LOADK                            R33 K204 ["rbxasset://textures/LayeredClothingEditor/Default_Preview_Animation.png"]
       744 SETTABLE                         R33 R31 R32
       745 SETTABLEKS                       R31 R30 K194 ["DefaultTileImages"]
-      747 GETUPVAL                         R32 0
-      748 GETTABLEKS                       R31 R32 K7 ["AddMoreBigImage"]
+      747 GETUPVAL                         R31 0
+      748 GETTABLEKS                       R31 R31 K7 ["AddMoreBigImage"]
       750 SETTABLEKS                       R31 R30 K195 ["AddNewImage"]
       752 GETIMPORT                        R31 K91 [UDim2.new]
       754 LOADN                            R32 0
@@ -550,8 +550,8 @@ PROTO_1:
       757 LOADN                            R35 42
       758 CALL                             R31 4 1
       759 SETTABLEKS                       R31 R30 K196 ["SmallImageSize"]
-      761 GETUPVAL                         R32 0
-      762 GETTABLEKS                       R31 R32 K164 ["CategoryItem"]
+      761 GETUPVAL                         R31 0
+      762 GETTABLEKS                       R31 R31 K164 ["CategoryItem"]
       764 SETTABLEKS                       R31 R30 K184 ["ImageBackgroundColor"]
       766 DUPTABLE                         R31 K206 [{"LinkColor"}]
       767 GETIMPORT                        R32 K131 [Color3.new]
@@ -610,38 +610,38 @@ PROTO_1:
       838 LOADN                            R37 6
       839 SETTABLEKS                       R37 R36 K221 ["Spacing"]
       841 DUPTABLE                         R37 K246 [{"BackgroundColor", "ButtonColor", "RibbonTab", "ProgressBarColor", "ScrollBarColor", "HoverColor", "BorderColor", "SubTextColor", "InfoTextColor", "TitleTextColor", "TextColor", "TextDisabledColor", "ErrorColor", "LinkColor", "Green", "White", "DisabledColor", "ScrollbarTransparency", "ScrollbarSize", "TextSize", "RowHeight", "Font", "FontBold", "PopupMessageSize", "MainPadding", "HeaderPadding", "SliderHeight", "ScrollBarThickness", "TabHeight", "BorderSize", "PreviewViewportFrameHeight"}]
-      842 GETUPVAL                         R39 0
-      843 GETTABLEKS                       R38 R39 K247 ["MainBackground"]
+      842 GETUPVAL                         R38 0
+      843 GETTABLEKS                       R38 R38 K247 ["MainBackground"]
       845 SETTABLEKS                       R38 R37 K223 ["BackgroundColor"]
-      847 GETUPVAL                         R39 0
-      848 GETTABLEKS                       R38 R39 K62 ["Button"]
+      847 GETUPVAL                         R38 0
+      848 GETTABLEKS                       R38 R38 K62 ["Button"]
       850 SETTABLEKS                       R38 R37 K224 ["ButtonColor"]
-      852 GETUPVAL                         R39 0
-      853 GETTABLEKS                       R38 R39 K35 ["RibbonTab"]
+      852 GETUPVAL                         R38 0
+      853 GETTABLEKS                       R38 R38 K35 ["RibbonTab"]
       855 SETTABLEKS                       R38 R37 K35 ["RibbonTab"]
-      857 GETUPVAL                         R39 0
-      858 GETTABLEKS                       R38 R39 K175 ["DialogMainButtonSelected"]
+      857 GETUPVAL                         R38 0
+      858 GETTABLEKS                       R38 R38 K175 ["DialogMainButtonSelected"]
       860 SETTABLEKS                       R38 R37 K225 ["ProgressBarColor"]
-      862 GETUPVAL                         R39 0
-      863 GETTABLEKS                       R38 R39 K248 ["ScrollBar"]
+      862 GETUPVAL                         R38 0
+      863 GETTABLEKS                       R38 R38 K248 ["ScrollBar"]
       865 SETTABLEKS                       R38 R37 K226 ["ScrollBarColor"]
-      867 GETUPVAL                         R39 0
-      868 GETTABLEKS                       R38 R39 K65 ["ButtonHover"]
+      867 GETUPVAL                         R38 0
+      868 GETTABLEKS                       R38 R38 K65 ["ButtonHover"]
       870 SETTABLEKS                       R38 R37 K227 ["HoverColor"]
-      872 GETUPVAL                         R39 0
-      873 GETTABLEKS                       R38 R39 K249 ["Border"]
+      872 GETUPVAL                         R38 0
+      873 GETTABLEKS                       R38 R38 K249 ["Border"]
       875 SETTABLEKS                       R38 R37 K28 ["BorderColor"]
-      877 GETUPVAL                         R39 0
-      878 GETTABLEKS                       R38 R39 K250 ["SubText"]
+      877 GETUPVAL                         R38 0
+      878 GETTABLEKS                       R38 R38 K250 ["SubText"]
       880 SETTABLEKS                       R38 R37 K228 ["SubTextColor"]
-      882 GETUPVAL                         R39 0
-      883 GETTABLEKS                       R38 R39 K15 ["DimmedText"]
+      882 GETUPVAL                         R38 0
+      883 GETTABLEKS                       R38 R38 K15 ["DimmedText"]
       885 SETTABLEKS                       R38 R37 K229 ["InfoTextColor"]
-      887 GETUPVAL                         R39 0
-      888 GETTABLEKS                       R38 R39 K251 ["TitlebarText"]
+      887 GETUPVAL                         R38 0
+      888 GETTABLEKS                       R38 R38 K251 ["TitlebarText"]
       890 SETTABLEKS                       R38 R37 K230 ["TitleTextColor"]
-      892 GETUPVAL                         R39 0
-      893 GETTABLEKS                       R38 R39 K17 ["MainText"]
+      892 GETUPVAL                         R38 0
+      893 GETTABLEKS                       R38 R38 K17 ["MainText"]
       895 SETTABLEKS                       R38 R37 K18 ["TextColor"]
       897 GETIMPORT                        R38 K211 [Color3.fromRGB]
       899 LOADN                            R39 148
@@ -649,11 +649,11 @@ PROTO_1:
       901 LOADN                            R41 148
       902 CALL                             R38 3 1
       903 SETTABLEKS                       R38 R37 K231 ["TextDisabledColor"]
-      905 GETUPVAL                         R39 0
-      906 GETTABLEKS                       R38 R39 K252 ["ErrorText"]
+      905 GETUPVAL                         R38 0
+      906 GETTABLEKS                       R38 R38 K252 ["ErrorText"]
       908 SETTABLEKS                       R38 R37 K232 ["ErrorColor"]
-      910 GETUPVAL                         R39 0
-      911 GETTABLEKS                       R38 R39 K253 ["LinkText"]
+      910 GETUPVAL                         R38 0
+      911 GETTABLEKS                       R38 R38 K253 ["LinkText"]
       913 SETTABLEKS                       R38 R37 K205 ["LinkColor"]
       915 GETIMPORT                        R38 K211 [Color3.fromRGB]
       917 LOADN                            R39 64
@@ -667,8 +667,8 @@ PROTO_1:
       927 LOADN                            R41 255
       928 CALL                             R38 3 1
       929 SETTABLEKS                       R38 R37 K234 ["White"]
-      931 GETUPVAL                         R39 0
-      932 GETTABLEKS                       R38 R39 K254 ["MainTextDisabled"]
+      931 GETUPVAL                         R38 0
+      932 GETTABLEKS                       R38 R38 K254 ["MainTextDisabled"]
       934 SETTABLEKS                       R38 R37 K235 ["DisabledColor"]
       936 LOADK                            R38 K135 [0.7]
       937 SETTABLEKS                       R38 R37 K236 ["ScrollbarTransparency"]
@@ -738,55 +738,55 @@ PROTO_1:
      1052 RETURN                           R37 2
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["SimpleTab"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["Dictionary"]
-        6 GETTABLEKS                       R2 R3 K2 ["join"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["SimpleTab"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Dictionary"]
+        6 GETTABLEKS                       R2 R2 K2 ["join"]
         8 GETUPVAL                         R3 2
         9 LOADK                            R4 K0 ["SimpleTab"]
        10 CALL                             R3 1 1
        11 NEWTABLE                         R4 8 0
-       13 GETUPVAL                         R6 3
-       14 GETTABLEKS                       R5 R6 K3 ["ButtonText"]
+       13 GETUPVAL                         R5 3
+       14 GETTABLEKS                       R5 R5 K3 ["ButtonText"]
        16 SETTABLEKS                       R5 R4 K4 ["Color"]
-       18 GETUPVAL                         R6 3
-       19 GETTABLEKS                       R5 R6 K5 ["MainBackground"]
+       18 GETUPVAL                         R5 3
+       19 GETTABLEKS                       R5 R5 K5 ["MainBackground"]
        21 SETTABLEKS                       R5 R4 K6 ["BackgroundColor"]
-       23 GETUPVAL                         R6 3
-       24 GETTABLEKS                       R5 R6 K5 ["MainBackground"]
+       23 GETUPVAL                         R5 3
+       24 GETTABLEKS                       R5 R5 K5 ["MainBackground"]
        26 SETTABLEKS                       R5 R4 K7 ["BorderColor"]
-       28 GETUPVAL                         R6 3
-       29 GETTABLEKS                       R5 R6 K8 ["DialogMainButton"]
+       28 GETUPVAL                         R5 3
+       29 GETTABLEKS                       R5 R5 K8 ["DialogMainButton"]
        31 SETTABLEKS                       R5 R4 K9 ["TopLineColor"]
-       33 GETUPVAL                         R6 3
-       34 GETTABLEKS                       R5 R6 K10 ["Border"]
+       33 GETUPVAL                         R5 3
+       34 GETTABLEKS                       R5 R5 K10 ["Border"]
        36 SETTABLEKS                       R5 R4 K11 ["BottomLineColor"]
-       38 GETUPVAL                         R6 4
-       39 GETTABLEKS                       R5 R6 K12 ["Hover"]
+       38 GETUPVAL                         R5 4
+       39 GETTABLEKS                       R5 R5 K12 ["Hover"]
        41 DUPTABLE                         R6 K13 [{"Color"}]
-       42 GETUPVAL                         R8 3
-       43 GETTABLEKS                       R7 R8 K8 ["DialogMainButton"]
+       42 GETUPVAL                         R7 3
+       43 GETTABLEKS                       R7 R7 K8 ["DialogMainButton"]
        45 SETTABLEKS                       R7 R6 K4 ["Color"]
        47 SETTABLE                         R6 R4 R5
-       48 GETUPVAL                         R6 4
-       49 GETTABLEKS                       R5 R6 K14 ["Selected"]
+       48 GETUPVAL                         R5 4
+       49 GETTABLEKS                       R5 R5 K14 ["Selected"]
        51 DUPTABLE                         R6 K15 [{"BottomLineColor", "BackgroundColor", "BorderColor"}]
-       52 GETUPVAL                         R8 3
-       53 GETTABLEKS                       R7 R8 K5 ["MainBackground"]
+       52 GETUPVAL                         R7 3
+       53 GETTABLEKS                       R7 R7 K5 ["MainBackground"]
        55 SETTABLEKS                       R7 R6 K11 ["BottomLineColor"]
-       57 GETUPVAL                         R8 3
-       58 GETTABLEKS                       R7 R8 K5 ["MainBackground"]
+       57 GETUPVAL                         R7 3
+       58 GETTABLEKS                       R7 R7 K5 ["MainBackground"]
        60 SETTABLEKS                       R7 R6 K6 ["BackgroundColor"]
-       62 GETUPVAL                         R8 3
-       63 GETTABLEKS                       R7 R8 K10 ["Border"]
+       62 GETUPVAL                         R7 3
+       63 GETTABLEKS                       R7 R7 K10 ["Border"]
        65 SETTABLEKS                       R7 R6 K7 ["BorderColor"]
        67 SETTABLE                         R6 R4 R5
-       68 GETUPVAL                         R6 4
-       69 GETTABLEKS                       R5 R6 K16 ["Disabled"]
+       68 GETUPVAL                         R5 4
+       69 GETTABLEKS                       R5 R5 K16 ["Disabled"]
        71 DUPTABLE                         R6 K13 [{"Color"}]
-       72 GETUPVAL                         R8 3
-       73 GETTABLEKS                       R7 R8 K17 ["ButtonTextDisabled"]
+       72 GETUPVAL                         R7 3
+       73 GETTABLEKS                       R7 R7 K17 ["ButtonTextDisabled"]
        75 SETTABLEKS                       R7 R6 K4 ["Color"]
        77 SETTABLE                         R6 R4 R5
        78 CALL                             R2 2 1
@@ -811,23 +811,23 @@ PROTO_3:
        18 GETUPVAL                         R4 2
        19 MOVE                             R5 R3
        20 CALL                             R4 1 0
-       21 GETUPVAL                         R6 3
-       22 GETTABLEKS                       R5 R6 K3 ["Dictionary"]
-       24 GETTABLEKS                       R4 R5 K4 ["join"]
+       21 GETUPVAL                         R4 3
+       22 GETTABLEKS                       R4 R4 K3 ["Dictionary"]
+       24 GETTABLEKS                       R4 R4 K4 ["join"]
        26 MOVE                             R5 R1
        27 MOVE                             R6 R3
        28 CALL                             R4 2 -1
        29 RETURN                           R4 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 CALL                             R0 2 1
         6 GETUPVAL                         R1 3
-        7 GETUPVAL                         R3 4
-        8 GETTABLEKS                       R2 R3 K1 ["StyleRoot"]
+        7 GETUPVAL                         R2 4
+        8 GETTABLEKS                       R2 R2 K1 ["StyleRoot"]
        10 GETUPVAL                         R3 5
        11 CALL                             R3 0 1
        12 MOVE                             R4 R0
@@ -836,14 +836,14 @@ PROTO_4:
        15 RETURN                           R1 -1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["mock"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mock"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 CALL                             R0 2 1
         6 GETUPVAL                         R1 3
-        7 GETUPVAL                         R3 4
-        8 GETTABLEKS                       R2 R3 K1 ["StyleRoot"]
+        7 GETUPVAL                         R2 4
+        8 GETTABLEKS                       R2 R2 K1 ["StyleRoot"]
        10 GETUPVAL                         R3 5
        11 LOADB                            R4 1
        12 CALL                             R3 1 1
@@ -853,42 +853,42 @@ PROTO_5:
        16 RETURN                           R1 -1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["mock"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["mock"]
         3 CALL                             R1 0 -1
         4 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["AvatarToolsShared"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["AvatarToolsShared"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R2 K8 ["Util"]
-       25 GETTABLEKS                       R3 R4 K9 ["AccessoryAndBodyToolShared"]
+       23 GETTABLEKS                       R3 R2 K8 ["Util"]
+       25 GETTABLEKS                       R3 R3 K9 ["AccessoryAndBodyToolShared"]
        27 GETTABLEKS                       R4 R3 K10 ["PreviewConstants"]
        29 GETIMPORT                        R5 K4 [require]
-       31 GETTABLEKS                       R7 R0 K5 ["Packages"]
-       33 GETTABLEKS                       R6 R7 K11 ["Framework"]
+       31 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       33 GETTABLEKS                       R6 R6 K11 ["Framework"]
        35 CALL                             R5 1 1
        36 GETTABLEKS                       R6 R5 K8 ["Util"]
        38 GETTABLEKS                       R7 R6 K12 ["StyleModifier"]
        40 GETTABLEKS                       R8 R6 K13 ["deepCopy"]
        42 GETTABLEKS                       R9 R5 K14 ["UI"]
-       44 GETTABLEKS                       R11 R5 K8 ["Util"]
-       46 GETTABLEKS                       R10 R11 K15 ["Spritesheet"]
+       44 GETTABLEKS                       R10 R5 K8 ["Util"]
+       46 GETTABLEKS                       R10 R10 K15 ["Spritesheet"]
        48 GETTABLEKS                       R11 R5 K16 ["Style"]
        50 GETTABLEKS                       R12 R11 K17 ["makeTheme"]
-       52 GETTABLEKS                       R14 R11 K18 ["Themes"]
-       54 GETTABLEKS                       R13 R14 K19 ["StudioTheme"]
+       52 GETTABLEKS                       R13 R11 K18 ["Themes"]
+       54 GETTABLEKS                       R13 R13 K19 ["StudioTheme"]
        56 GETTABLEKS                       R14 R11 K20 ["StyleKey"]
        58 GETTABLEKS                       R15 R11 K21 ["ComponentSymbols"]
        60 GETTABLEKS                       R16 R11 K22 ["getRawComponentStyle"]
@@ -900,12 +900,12 @@ MAIN:
        69 MOVE                             R20 R8
        70 MOVE                             R21 R19
        71 CALL                             R20 1 1
-       72 GETTABLEKS                       R22 R11 K18 ["Themes"]
-       74 GETTABLEKS                       R21 R22 K25 ["DarkTheme"]
-       76 GETTABLEKS                       R23 R11 K18 ["Themes"]
-       78 GETTABLEKS                       R22 R23 K26 ["LightTheme"]
-       80 GETTABLEKS                       R24 R1 K27 ["Dictionary"]
-       82 GETTABLEKS                       R23 R24 K28 ["join"]
+       72 GETTABLEKS                       R21 R11 K18 ["Themes"]
+       74 GETTABLEKS                       R21 R21 K25 ["DarkTheme"]
+       76 GETTABLEKS                       R22 R11 K18 ["Themes"]
+       78 GETTABLEKS                       R22 R22 K26 ["LightTheme"]
+       80 GETTABLEKS                       R23 R1 K27 ["Dictionary"]
+       82 GETTABLEKS                       R23 R23 K28 ["join"]
        84 MOVE                             R24 R21
        85 NEWTABLE                         R25 4 0
        87 GETTABLEKS                       R26 R14 K29 ["PlayImage"]
@@ -921,8 +921,8 @@ MAIN:
       101 LOADK                            R27 K36 ["rbxasset://textures/LayeredClothingEditor/AddMore_Big_50X50_Light.png"]
       102 SETTABLE                         R27 R25 R26
       103 CALL                             R23 2 1
-      104 GETTABLEKS                       R25 R1 K27 ["Dictionary"]
-      106 GETTABLEKS                       R24 R25 K28 ["join"]
+      104 GETTABLEKS                       R24 R1 K27 ["Dictionary"]
+      106 GETTABLEKS                       R24 R24 K28 ["join"]
       108 MOVE                             R25 R22
       109 NEWTABLE                         R26 4 0
       111 GETTABLEKS                       R27 R14 K29 ["PlayImage"]

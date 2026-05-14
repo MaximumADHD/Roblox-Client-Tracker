@@ -16,16 +16,16 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["DraggerSolveConstraints"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["DraggerSolveConstraints"]
         3 JUMPIFNOT                        R0 ; [+5]
         4 GETUPVAL                         R0 1
         5 LOADK                            R2 K1 ["Disable"]
         6 NAMECALL                         R0 R0 K2 ["Invoke"]
         8 CALL                             R0 2 0
         9 GETUPVAL                         R0 2
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K0 ["DraggerSolveConstraints"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K0 ["DraggerSolveConstraints"]
        13 NOT                              R1 R2
        14 SETTABLEKS                       R1 R0 K3 ["Enabled"]
        16 RETURN                           R0 0

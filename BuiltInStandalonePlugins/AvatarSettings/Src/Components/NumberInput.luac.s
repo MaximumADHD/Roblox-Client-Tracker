@@ -4,25 +4,25 @@ PROTO_0:
         2 CALL                             R1 1 2
         3 JUMPIFNOT                        R1 ; [+7]
         4 JUMPIFNOT                        R2 ; [+6]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K0 ["setValue"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K0 ["setValue"]
         8 MOVE                             R4 R2
         9 CALL                             R3 1 0
        10 RETURN                           R0 0
        11 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["contextMenuProps"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["contextMenuProps"]
         3 JUMPIFNOT                        R2 ; [+14]
         4 GETTABLEKS                       R2 R1 K1 ["UserInputType"]
         6 GETIMPORT                        R3 K4 [Enum.UserInputType.MouseButton2]
         8 JUMPIFNOTEQ                      R2 R3 ; [+9]
        10 GETUPVAL                         R2 1
        11 GETUPVAL                         R3 2
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K0 ["contextMenuProps"]
-       15 GETTABLEKS                       R4 R5 K5 ["menuActions"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K0 ["contextMenuProps"]
+       15 GETTABLEKS                       R4 R4 K5 ["menuActions"]
        17 CALL                             R2 2 0
        18 RETURN                           R0 0
 
@@ -60,9 +60,9 @@ PROTO_3:
        18 NEWTABLE                         R7 2 0
        20 GETIMPORT                        R8 K5 [Enum.AutomaticSize.XY]
        22 SETTABLEKS                       R8 R7 K3 ["AutomaticSize"]
-       24 GETUPVAL                         R10 6
-       25 GETTABLEKS                       R9 R10 K6 ["Event"]
-       27 GETTABLEKS                       R8 R9 K7 ["InputBegan"]
+       24 GETUPVAL                         R8 6
+       25 GETTABLEKS                       R8 R8 K6 ["Event"]
+       27 GETTABLEKS                       R8 R8 K7 ["InputBegan"]
        29 NEWCLOSURE                       R9 P1
        30 CAPTURE                          VAL R0
        31 CAPTURE                          UPVAL U7
@@ -72,8 +72,8 @@ PROTO_3:
        35 GETUPVAL                         R9 4
        36 GETUPVAL                         R10 5
        37 NEWTABLE                         R11 4 0
-       39 GETUPVAL                         R13 6
-       40 GETTABLEKS                       R12 R13 K11 ["Tag"]
+       39 GETUPVAL                         R12 6
+       40 GETTABLEKS                       R12 R12 K11 ["Tag"]
        42 LOADK                            R13 K12 ["X-Left X-RowM"]
        43 SETTABLE                         R13 R11 R12
        44 GETTABLEKS                       R12 R0 K13 ["layoutOrder"]
@@ -89,8 +89,8 @@ PROTO_3:
        58 SETTABLEKS                       R16 R15 K14 ["LayoutOrder"]
        60 GETIMPORT                        R16 K26 [UDim2.fromOffset]
        62 LOADN                            R17 48
-       63 GETUPVAL                         R19 9
-       64 GETTABLEKS                       R18 R19 K27 ["STANDARD_HEIGHT"]
+       63 GETUPVAL                         R18 9
+       64 GETTABLEKS                       R18 R18 K27 ["STANDARD_HEIGHT"]
        66 CALL                             R16 2 1
        67 SETTABLEKS                       R16 R15 K18 ["Size"]
        69 GETTABLEKS                       R17 R0 K28 ["value"]
@@ -109,8 +109,8 @@ PROTO_3:
        89 GETUPVAL                         R13 4
        90 LOADK                            R14 K31 ["TextLabel"]
        91 NEWTABLE                         R15 8 0
-       93 GETUPVAL                         R17 6
-       94 GETTABLEKS                       R16 R17 K11 ["Tag"]
+       93 GETUPVAL                         R16 6
+       94 GETTABLEKS                       R16 R16 K11 ["Tag"]
        96 LOADK                            R17 K32 ["Component-TextLabel"]
        97 SETTABLE                         R17 R15 R16
        98 MOVE                             R16 R2
@@ -147,26 +147,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K7 ["Util"]
-       43 GETTABLEKS                       R6 R7 K13 ["isValidNumberInput"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K7 ["Util"]
+       43 GETTABLEKS                       R6 R6 K13 ["isValidNumberInput"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R2 K14 ["UI"]
        48 GETTABLEKS                       R7 R6 K15 ["Pane"]

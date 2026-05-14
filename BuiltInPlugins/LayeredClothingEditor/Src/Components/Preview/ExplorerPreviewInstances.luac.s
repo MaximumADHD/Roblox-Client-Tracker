@@ -9,31 +9,31 @@ PROTO_0:
        13 NAMECALL                         R6 R5 K6 ["getItem"]
        15 CALL                             R6 1 1
        16 GETTABLEKS                       R7 R1 K7 ["PreviewContext"]
-       18 GETUPVAL                         R10 0
-       19 GETTABLEKS                       R9 R10 K8 ["TABS_KEYS"]
-       21 GETTABLEKS                       R8 R9 K9 ["Avatars"]
-       23 GETUPVAL                         R11 0
-       24 GETTABLEKS                       R10 R11 K8 ["TABS_KEYS"]
-       26 GETTABLEKS                       R9 R10 K10 ["Clothing"]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K8 ["TABS_KEYS"]
+       21 GETTABLEKS                       R8 R8 K9 ["Avatars"]
+       23 GETUPVAL                         R9 0
+       24 GETTABLEKS                       R9 R9 K8 ["TABS_KEYS"]
+       26 GETTABLEKS                       R9 R9 K10 ["Clothing"]
        28 GETTABLE                         R10 R2 R8
        29 JUMPIF                           R10 ; [+2]
        30 NEWTABLE                         R10 0 0
        32 GETTABLE                         R11 R2 R9
        33 JUMPIF                           R11 ; [+2]
        34 NEWTABLE                         R11 0 0
-       36 GETUPVAL                         R13 1
-       37 GETTABLEKS                       R12 R13 K11 ["createPreviewAvatars"]
+       36 GETUPVAL                         R12 1
+       37 GETTABLEKS                       R12 R12 K11 ["createPreviewAvatars"]
        39 MOVE                             R13 R10
        40 GETTABLE                         R14 R3 R8
        41 LOADNIL                          R15
        42 MOVE                             R16 R4
        43 CALL                             R12 4 1
-       44 GETUPVAL                         R14 1
-       45 GETTABLEKS                       R13 R14 K11 ["createPreviewAvatars"]
+       44 GETUPVAL                         R13 1
+       45 GETTABLEKS                       R13 R13 K11 ["createPreviewAvatars"]
        47 MOVE                             R14 R10
        48 GETTABLE                         R15 R3 R8
-       49 GETTABLEKS                       R17 R0 K12 ["folderRef"]
-       51 GETTABLEKS                       R16 R17 K13 ["current"]
+       49 GETTABLEKS                       R16 R0 K12 ["folderRef"]
+       51 GETTABLEKS                       R16 R16 K13 ["current"]
        53 MOVE                             R17 R4
        54 CALL                             R13 4 1
        55 GETTABLEKS                       R14 R6 K14 ["Archivable"]
@@ -50,16 +50,16 @@ PROTO_0:
        72 CALL                             R16 2 0
        73 NAMECALL                         R16 R7 K18 ["getAllAvatars"]
        75 CALL                             R16 1 1
-       76 GETUPVAL                         R18 1
-       77 GETTABLEKS                       R17 R18 K19 ["addPreviewClothingFromInstances"]
+       76 GETUPVAL                         R17 1
+       77 GETTABLEKS                       R17 R17 K19 ["addPreviewClothingFromInstances"]
        79 MOVE                             R18 R16
        80 NEWTABLE                         R19 0 1
        82 MOVE                             R20 R15
        83 SETLIST                          R19 R20 1 [1]
        85 LOADB                            R20 1
        86 CALL                             R17 3 0
-       87 GETUPVAL                         R18 1
-       88 GETTABLEKS                       R17 R18 K20 ["addPreviewClothingFromIds"]
+       87 GETUPVAL                         R17 1
+       88 GETTABLEKS                       R17 R17 K20 ["addPreviewClothingFromIds"]
        90 MOVE                             R18 R16
        91 MOVE                             R19 R11
        92 GETTABLE                         R20 R3 R9
@@ -90,9 +90,9 @@ PROTO_1:
        19 MOVE                             R11 R9
        20 CALL                             R10 1 3
        21 FORGPREP_INEXT                   R10
-       22 GETUPVAL                         R17 0
-       23 GETTABLEKS                       R16 R17 K10 ["EDIT_MODE"]
-       25 GETTABLEKS                       R15 R16 K11 ["Mesh"]
+       22 GETUPVAL                         R15 0
+       23 GETTABLEKS                       R15 R15 K10 ["EDIT_MODE"]
+       25 GETTABLEKS                       R15 R15 K11 ["Mesh"]
        27 JUMPIFNOTEQ                      R6 R15 ; [+13]
        29 LOADN                            R17 1
        30 MOVE                             R18 R7
@@ -106,8 +106,8 @@ PROTO_1:
        43 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["isUpdateInProgress"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["isUpdateInProgress"]
         3 JUMPIFNOT                        R0 ; [+4]
         4 GETIMPORT                        R0 K2 [wait]
         6 CALL                             R0 0 0
@@ -126,8 +126,8 @@ PROTO_2:
        20 CALL                             R0 2 0
        21 GETUPVAL                         R0 1
        22 JUMPIFNOT                        R0 ; [+8]
-       23 GETUPVAL                         R1 0
-       24 GETTABLEKS                       R0 R1 K3 ["props"]
+       23 GETUPVAL                         R0 0
+       24 GETTABLEKS                       R0 R0 K3 ["props"]
        26 GETTABLEKS                       R1 R0 K4 ["PreviewContext"]
        28 NAMECALL                         R2 R1 K5 ["updatePreviewModel"]
        30 CALL                             R2 1 0
@@ -149,27 +149,27 @@ PROTO_3:
 
 PROTO_4:
         0 JUMPIFNOT                        R1 ; [+43]
-        1 GETTABLEKS                       R5 R0 K0 ["props"]
-        3 GETTABLEKS                       R4 R5 K1 ["UpdatePreviewAssetsSelected"]
+        1 GETTABLEKS                       R4 R0 K0 ["props"]
+        3 GETTABLEKS                       R4 R4 K1 ["UpdatePreviewAssetsSelected"]
         5 GETTABLEKS                       R5 R1 K2 ["uniqueId"]
         7 NOT                              R6 R2
         8 CALL                             R4 2 0
         9 JUMPIF                           R2 ; [+34]
-       10 GETTABLEKS                       R5 R0 K0 ["props"]
-       12 GETTABLEKS                       R4 R5 K3 ["Analytics"]
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K4 ["FirstAction"]
+       10 GETTABLEKS                       R4 R0 K0 ["props"]
+       12 GETTABLEKS                       R4 R4 K3 ["Analytics"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K4 ["FirstAction"]
        17 JUMPIF                           R5 ; [+16]
        18 GETUPVAL                         R5 0
-       19 GETUPVAL                         R8 1
-       20 GETTABLEKS                       R7 R8 K5 ["ACTIONS"]
-       22 GETTABLEKS                       R6 R7 K6 ["Preview"]
+       19 GETUPVAL                         R6 1
+       20 GETTABLEKS                       R6 R6 K5 ["ACTIONS"]
+       22 GETTABLEKS                       R6 R6 K6 ["Preview"]
        24 SETTABLEKS                       R6 R5 K4 ["FirstAction"]
        26 LOADK                            R7 K4 ["FirstAction"]
        27 NAMECALL                         R5 R4 K7 ["getHandler"]
        29 CALL                             R5 2 1
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R6 R7 K4 ["FirstAction"]
+       30 GETUPVAL                         R6 0
+       31 GETTABLEKS                       R6 R6 K4 ["FirstAction"]
        33 CALL                             R5 1 0
        34 LOADK                            R7 K8 ["PreviewAssetSelected"]
        35 NAMECALL                         R5 R4 K7 ["getHandler"]
@@ -182,8 +182,8 @@ PROTO_4:
        44 RETURN                           R0 0
 
 PROTO_5:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["UserAddedAssets"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["UserAddedAssets"]
         4 GETIMPORT                        R3 K3 [pairs]
         6 MOVE                             R4 R2
         7 CALL                             R3 1 3
@@ -200,64 +200,64 @@ PROTO_5:
        23 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isClothes"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isClothes"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 JUMPIFNOT                        R1 ; [+6]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["TABS_KEYS"]
-        9 GETTABLEKS                       R1 R2 K2 ["Clothing"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["TABS_KEYS"]
+        9 GETTABLEKS                       R1 R1 K2 ["Clothing"]
        11 RETURN                           R1 1
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K3 ["isAvatar"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K3 ["isAvatar"]
        15 MOVE                             R2 R0
        16 CALL                             R1 1 1
        17 JUMPIFNOT                        R1 ; [+6]
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R2 R3 K1 ["TABS_KEYS"]
-       21 GETTABLEKS                       R1 R2 K4 ["Avatars"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K1 ["TABS_KEYS"]
+       21 GETTABLEKS                       R1 R1 K4 ["Avatars"]
        23 RETURN                           R1 1
        24 LOADNIL                          R1
        25 RETURN                           R1 1
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["EditingItemContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["EditingItemContext"]
         5 NAMECALL                         R2 R1 K2 ["getItem"]
         7 CALL                             R2 1 1
         8 GETTABLEKS                       R3 R2 K3 ["Parent"]
        10 JUMPIFEQ                         R0 R3 ; [+16]
-       12 GETTABLEKS                       R6 R2 K3 ["Parent"]
-       14 GETTABLEKS                       R5 R6 K4 ["Name"]
+       12 GETTABLEKS                       R5 R2 K3 ["Parent"]
+       14 GETTABLEKS                       R5 R5 K4 ["Name"]
        16 NAMECALL                         R3 R0 K5 ["FindFirstAncestor"]
        18 CALL                             R3 2 1
        19 JUMPIF                           R3 ; [+7]
-       20 GETUPVAL                         R6 1
-       21 GETTABLEKS                       R5 R6 K6 ["PREVIEW_FOLDER_NAME"]
+       20 GETUPVAL                         R5 1
+       21 GETTABLEKS                       R5 R5 K6 ["PREVIEW_FOLDER_NAME"]
        23 NAMECALL                         R3 R0 K5 ["FindFirstAncestor"]
        25 CALL                             R3 2 1
        26 JUMPIFNOT                        R3 ; [+2]
        27 LOADB                            R3 0
        28 RETURN                           R3 1
-       29 GETUPVAL                         R6 2
-       30 GETTABLEKS                       R5 R6 K7 ["isClothes"]
+       29 GETUPVAL                         R5 2
+       30 GETTABLEKS                       R5 R5 K7 ["isClothes"]
        32 MOVE                             R6 R0
        33 CALL                             R5 1 1
        34 JUMPIFNOT                        R5 ; [+6]
-       35 GETUPVAL                         R6 3
-       36 GETTABLEKS                       R5 R6 K8 ["TABS_KEYS"]
-       38 GETTABLEKS                       R4 R5 K9 ["Clothing"]
+       35 GETUPVAL                         R4 3
+       36 GETTABLEKS                       R4 R4 K8 ["TABS_KEYS"]
+       38 GETTABLEKS                       R4 R4 K9 ["Clothing"]
        40 JUMP                             ; [+13]
-       41 GETUPVAL                         R6 2
-       42 GETTABLEKS                       R5 R6 K10 ["isAvatar"]
+       41 GETUPVAL                         R5 2
+       42 GETTABLEKS                       R5 R5 K10 ["isAvatar"]
        44 MOVE                             R6 R0
        45 CALL                             R5 1 1
        46 JUMPIFNOT                        R5 ; [+6]
-       47 GETUPVAL                         R6 3
-       48 GETTABLEKS                       R5 R6 K8 ["TABS_KEYS"]
-       50 GETTABLEKS                       R4 R5 K11 ["Avatars"]
+       47 GETUPVAL                         R4 3
+       48 GETTABLEKS                       R4 R4 K8 ["TABS_KEYS"]
+       50 GETTABLEKS                       R4 R4 K11 ["Avatars"]
        52 JUMP                             ; [+1]
        53 LOADNIL                          R4
        54 JUMPIFNOTEQKNIL                  R4 ; [+2]
@@ -270,35 +270,35 @@ PROTO_8:
         1 GETUPVAL                         R2 1
         2 MOVE                             R3 R0
         3 CALL                             R1 2 1
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K0 ["isClothes"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K0 ["isClothes"]
         7 MOVE                             R4 R0
         8 CALL                             R3 1 1
         9 JUMPIFNOT                        R3 ; [+6]
-       10 GETUPVAL                         R4 3
-       11 GETTABLEKS                       R3 R4 K1 ["TABS_KEYS"]
-       13 GETTABLEKS                       R2 R3 K2 ["Clothing"]
+       10 GETUPVAL                         R2 3
+       11 GETTABLEKS                       R2 R2 K1 ["TABS_KEYS"]
+       13 GETTABLEKS                       R2 R2 K2 ["Clothing"]
        15 JUMP                             ; [+13]
-       16 GETUPVAL                         R4 2
-       17 GETTABLEKS                       R3 R4 K3 ["isAvatar"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K3 ["isAvatar"]
        19 MOVE                             R4 R0
        20 CALL                             R3 1 1
        21 JUMPIFNOT                        R3 ; [+6]
-       22 GETUPVAL                         R4 3
-       23 GETTABLEKS                       R3 R4 K1 ["TABS_KEYS"]
-       25 GETTABLEKS                       R2 R3 K4 ["Avatars"]
+       22 GETUPVAL                         R2 3
+       23 GETTABLEKS                       R2 R2 K1 ["TABS_KEYS"]
+       25 GETTABLEKS                       R2 R2 K4 ["Avatars"]
        27 JUMP                             ; [+1]
        28 LOADNIL                          R2
        29 JUMPIFNOT                        R1 ; [+20]
        30 JUMPIFNOT                        R2 ; [+19]
-       31 GETUPVAL                         R6 1
-       32 GETTABLEKS                       R5 R6 K5 ["props"]
-       34 GETTABLEKS                       R4 R5 K6 ["SelectedAssets"]
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K5 ["props"]
+       34 GETTABLEKS                       R4 R4 K6 ["SelectedAssets"]
        36 GETTABLE                         R3 R4 R2
        37 JUMPIFNOT                        R3 ; [+12]
-       38 GETUPVAL                         R6 4
-       39 GETTABLEKS                       R5 R6 K7 ["List"]
-       41 GETTABLEKS                       R4 R5 K8 ["find"]
+       38 GETUPVAL                         R4 4
+       39 GETTABLEKS                       R4 R4 K7 ["List"]
+       41 GETTABLEKS                       R4 R4 K8 ["find"]
        43 MOVE                             R5 R3
        44 GETTABLEKS                       R6 R1 K9 ["uniqueId"]
        46 CALL                             R4 2 1
@@ -318,30 +318,30 @@ PROTO_9:
         6 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["isClothes"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["isClothes"]
         3 MOVE                             R4 R0
         4 CALL                             R3 1 1
         5 JUMPIFNOT                        R3 ; [+6]
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K1 ["TABS_KEYS"]
-        9 GETTABLEKS                       R2 R3 K2 ["Clothing"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["TABS_KEYS"]
+        9 GETTABLEKS                       R2 R2 K2 ["Clothing"]
        11 JUMP                             ; [+13]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K3 ["isAvatar"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K3 ["isAvatar"]
        15 MOVE                             R4 R0
        16 CALL                             R3 1 1
        17 JUMPIFNOT                        R3 ; [+6]
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R3 R4 K1 ["TABS_KEYS"]
-       21 GETTABLEKS                       R2 R3 K4 ["Avatars"]
+       18 GETUPVAL                         R2 1
+       19 GETTABLEKS                       R2 R2 K1 ["TABS_KEYS"]
+       21 GETTABLEKS                       R2 R2 K4 ["Avatars"]
        23 JUMP                             ; [+1]
        24 LOADNIL                          R2
        25 JUMPIF                           R2 ; [+1]
        26 RETURN                           R0 0
-       27 GETUPVAL                         R5 2
-       28 GETTABLEKS                       R4 R5 K5 ["props"]
-       30 GETTABLEKS                       R3 R4 K6 ["SelectPreviewTab"]
+       27 GETUPVAL                         R3 2
+       28 GETTABLEKS                       R3 R3 K5 ["props"]
+       30 GETTABLEKS                       R3 R3 K6 ["SelectPreviewTab"]
        32 MOVE                             R4 R2
        33 CALL                             R3 1 0
        34 GETUPVAL                         R3 3
@@ -349,9 +349,9 @@ PROTO_10:
        36 MOVE                             R5 R0
        37 CALL                             R3 2 1
        38 JUMPIF                           R3 ; [+14]
-       39 GETUPVAL                         R6 2
-       40 GETTABLEKS                       R5 R6 K5 ["props"]
-       42 GETTABLEKS                       R4 R5 K7 ["AddUserAddedAssetForPreview"]
+       39 GETUPVAL                         R4 2
+       40 GETTABLEKS                       R4 R4 K5 ["props"]
+       42 GETTABLEKS                       R4 R4 K7 ["AddUserAddedAssetForPreview"]
        44 MOVE                             R5 R2
        45 MOVE                             R6 R0
        46 NEWCLOSURE                       R7 P0
@@ -370,8 +370,8 @@ PROTO_10:
        59 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["folderRef"]
         6 LOADB                            R1 0
@@ -400,8 +400,8 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["PREVIEW_FOLDER_NAME"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["PREVIEW_FOLDER_NAME"]
         4 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
         6 CALL                             R1 2 1
         7 SETTABLEKS                       R1 R0 K2 ["previewFolder"]
@@ -412,8 +412,8 @@ PROTO_12:
        15 CALL                             R1 1 1
        16 SETTABLEKS                       R1 R0 K2 ["previewFolder"]
        18 GETTABLEKS                       R1 R0 K2 ["previewFolder"]
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K0 ["PREVIEW_FOLDER_NAME"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K0 ["PREVIEW_FOLDER_NAME"]
        23 SETTABLEKS                       R2 R1 K7 ["Name"]
        25 GETTABLEKS                       R1 R0 K2 ["previewFolder"]
        27 LOADB                            R2 1
@@ -434,27 +434,27 @@ PROTO_13:
        13 CALL                             R5 1 0
        14 NAMECALL                         R5 R4 K6 ["GetUserId"]
        16 CALL                             R5 1 1
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R6 R7 K7 ["createElement"]
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K8 ["Portal"]
+       17 GETUPVAL                         R6 0
+       18 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K8 ["Portal"]
        23 DUPTABLE                         R8 K10 [{"target"}]
        24 GETTABLEKS                       R9 R0 K11 ["previewFolder"]
        26 SETTABLEKS                       R9 R8 K9 ["target"]
        28 NEWTABLE                         R9 1 0
-       30 GETUPVAL                         R11 0
-       31 GETTABLEKS                       R10 R11 K7 ["createElement"]
+       30 GETUPVAL                         R10 0
+       31 GETTABLEKS                       R10 R10 K7 ["createElement"]
        33 LOADK                            R11 K12 ["Folder"]
        34 NEWTABLE                         R12 2 0
-       36 GETUPVAL                         R14 0
-       37 GETTABLEKS                       R13 R14 K13 ["Ref"]
+       36 GETUPVAL                         R13 0
+       37 GETTABLEKS                       R13 R13 K13 ["Ref"]
        39 GETTABLEKS                       R14 R0 K14 ["folderRef"]
        41 SETTABLE                         R14 R12 R13
        42 LOADB                            R13 1
        43 SETTABLEKS                       R13 R12 K15 ["Archivable"]
        45 DUPTABLE                         R13 K17 [{"PreviewSelector"}]
-       46 GETUPVAL                         R15 0
-       47 GETTABLEKS                       R14 R15 K7 ["createElement"]
+       46 GETUPVAL                         R14 0
+       47 GETTABLEKS                       R14 R14 K7 ["createElement"]
        49 GETUPVAL                         R15 1
        50 DUPTABLE                         R16 K22 [{"IsSelectedInstanceValid", "IsEquipped", "OnValidSelection", "TooltipText"}]
        51 GETTABLEKS                       R17 R0 K23 ["isSelectedInstanceValid"]
@@ -477,27 +477,27 @@ PROTO_13:
 
 PROTO_14:
         0 GETTABLEKS                       R3 R1 K0 ["SelectedAssets"]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K1 ["TABS_KEYS"]
-        5 GETTABLEKS                       R4 R5 K2 ["Avatars"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["TABS_KEYS"]
+        5 GETTABLEKS                       R4 R4 K2 ["Avatars"]
         7 GETTABLE                         R2 R3 R4
-        8 GETTABLEKS                       R5 R0 K3 ["props"]
-       10 GETTABLEKS                       R4 R5 K0 ["SelectedAssets"]
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K1 ["TABS_KEYS"]
-       15 GETTABLEKS                       R5 R6 K2 ["Avatars"]
+        8 GETTABLEKS                       R4 R0 K3 ["props"]
+       10 GETTABLEKS                       R4 R4 K0 ["SelectedAssets"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K1 ["TABS_KEYS"]
+       15 GETTABLEKS                       R5 R5 K2 ["Avatars"]
        17 GETTABLE                         R3 R4 R5
        18 JUMPIFNOTEQ                      R2 R3 ; [+21]
        20 GETTABLEKS                       R3 R1 K0 ["SelectedAssets"]
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R5 R6 K1 ["TABS_KEYS"]
-       25 GETTABLEKS                       R4 R5 K4 ["Clothing"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K1 ["TABS_KEYS"]
+       25 GETTABLEKS                       R4 R4 K4 ["Clothing"]
        27 GETTABLE                         R2 R3 R4
-       28 GETTABLEKS                       R5 R0 K3 ["props"]
-       30 GETTABLEKS                       R4 R5 K0 ["SelectedAssets"]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K1 ["TABS_KEYS"]
-       35 GETTABLEKS                       R5 R6 K4 ["Clothing"]
+       28 GETTABLEKS                       R4 R0 K3 ["props"]
+       30 GETTABLEKS                       R4 R4 K0 ["SelectedAssets"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K1 ["TABS_KEYS"]
+       35 GETTABLEKS                       R5 R5 K4 ["Clothing"]
        37 GETTABLE                         R3 R4 R5
        38 JUMPIFEQ                         R2 R3 ; [+12]
        40 GETIMPORT                        R2 K7 [coroutine.wrap]
@@ -590,75 +590,75 @@ MAIN:
         3 LOADK                            R2 K2 ["ReplicatedStorage"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       19 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K10 ["Roact"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K8 [require]
-       26 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K11 ["Cryo"]
+       26 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K11 ["Cryo"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K8 [require]
-       33 GETTABLEKS                       R6 R1 K9 ["Packages"]
-       35 GETTABLEKS                       R5 R6 K12 ["RoactRodux"]
+       33 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K12 ["RoactRodux"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K8 [require]
-       40 GETTABLEKS                       R7 R1 K9 ["Packages"]
-       42 GETTABLEKS                       R6 R7 K13 ["AvatarToolsShared"]
+       40 GETTABLEKS                       R6 R1 K9 ["Packages"]
+       42 GETTABLEKS                       R6 R6 K13 ["AvatarToolsShared"]
        44 CALL                             R5 1 1
-       45 GETTABLEKS                       R7 R5 K14 ["Util"]
-       47 GETTABLEKS                       R6 R7 K15 ["AccessoryAndBodyToolShared"]
+       45 GETTABLEKS                       R6 R5 K14 ["Util"]
+       47 GETTABLEKS                       R6 R6 K15 ["AccessoryAndBodyToolShared"]
        49 GETTABLEKS                       R7 R6 K16 ["PreviewUtil"]
        51 GETTABLEKS                       R8 R6 K17 ["AvatarUtil"]
        53 GETTABLEKS                       R9 R6 K18 ["PreviewConstants"]
        55 GETTABLEKS                       R10 R6 K19 ["ItemCharacteristics"]
-       57 GETTABLEKS                       R12 R5 K20 ["Components"]
-       59 GETTABLEKS                       R11 R12 K21 ["PreviewItemSelector"]
-       61 GETTABLEKS                       R13 R5 K22 ["Contexts"]
-       63 GETTABLEKS                       R12 R13 K23 ["EditingItemContext"]
-       65 GETTABLEKS                       R14 R5 K22 ["Contexts"]
-       67 GETTABLEKS                       R13 R14 K24 ["PreviewContext"]
-       69 GETTABLEKS                       R15 R5 K22 ["Contexts"]
-       71 GETTABLEKS                       R14 R15 K25 ["AssetServiceWrapper"]
-       73 GETTABLEKS                       R16 R5 K22 ["Contexts"]
-       75 GETTABLEKS                       R15 R16 K26 ["StudioServiceWrapper"]
+       57 GETTABLEKS                       R11 R5 K20 ["Components"]
+       59 GETTABLEKS                       R11 R11 K21 ["PreviewItemSelector"]
+       61 GETTABLEKS                       R12 R5 K22 ["Contexts"]
+       63 GETTABLEKS                       R12 R12 K23 ["EditingItemContext"]
+       65 GETTABLEKS                       R13 R5 K22 ["Contexts"]
+       67 GETTABLEKS                       R13 R13 K24 ["PreviewContext"]
+       69 GETTABLEKS                       R14 R5 K22 ["Contexts"]
+       71 GETTABLEKS                       R14 R14 K25 ["AssetServiceWrapper"]
+       73 GETTABLEKS                       R15 R5 K22 ["Contexts"]
+       75 GETTABLEKS                       R15 R15 K26 ["StudioServiceWrapper"]
        77 GETIMPORT                        R16 K8 [require]
-       79 GETTABLEKS                       R19 R1 K27 ["Src"]
-       81 GETTABLEKS                       R18 R19 K28 ["Actions"]
-       83 GETTABLEKS                       R17 R18 K29 ["SelectPreviewTab"]
+       79 GETTABLEKS                       R17 R1 K27 ["Src"]
+       81 GETTABLEKS                       R17 R17 K28 ["Actions"]
+       83 GETTABLEKS                       R17 R17 K29 ["SelectPreviewTab"]
        85 CALL                             R16 1 1
        86 GETIMPORT                        R17 K8 [require]
-       88 GETTABLEKS                       R20 R1 K27 ["Src"]
-       90 GETTABLEKS                       R19 R20 K30 ["Thunks"]
-       92 GETTABLEKS                       R18 R19 K31 ["UpdatePreviewAssetsSelected"]
+       88 GETTABLEKS                       R18 R1 K27 ["Src"]
+       90 GETTABLEKS                       R18 R18 K30 ["Thunks"]
+       92 GETTABLEKS                       R18 R18 K31 ["UpdatePreviewAssetsSelected"]
        94 CALL                             R17 1 1
        95 GETIMPORT                        R18 K8 [require]
-       97 GETTABLEKS                       R21 R1 K27 ["Src"]
-       99 GETTABLEKS                       R20 R21 K30 ["Thunks"]
-      101 GETTABLEKS                       R19 R20 K32 ["AddUserAddedAssetForPreview"]
+       97 GETTABLEKS                       R19 R1 K27 ["Src"]
+       99 GETTABLEKS                       R19 R19 K30 ["Thunks"]
+      101 GETTABLEKS                       R19 R19 K32 ["AddUserAddedAssetForPreview"]
       103 CALL                             R18 1 1
       104 GETIMPORT                        R19 K8 [require]
-      106 GETTABLEKS                       R21 R1 K9 ["Packages"]
-      108 GETTABLEKS                       R20 R21 K33 ["Framework"]
+      106 GETTABLEKS                       R20 R1 K9 ["Packages"]
+      108 GETTABLEKS                       R20 R20 K33 ["Framework"]
       110 CALL                             R19 1 1
       111 GETTABLEKS                       R20 R19 K34 ["ContextServices"]
       113 GETTABLEKS                       R21 R20 K35 ["withContext"]
       115 GETTABLEKS                       R22 R19 K14 ["Util"]
       117 GETTABLEKS                       R23 R22 K36 ["Typecheck"]
       119 GETIMPORT                        R24 K8 [require]
-      121 GETTABLEKS                       R27 R1 K27 ["Src"]
-      123 GETTABLEKS                       R26 R27 K14 ["Util"]
-      125 GETTABLEKS                       R25 R26 K37 ["Constants"]
+      121 GETTABLEKS                       R25 R1 K27 ["Src"]
+      123 GETTABLEKS                       R25 R25 K14 ["Util"]
+      125 GETTABLEKS                       R25 R25 K37 ["Constants"]
       127 CALL                             R24 1 1
       128 GETIMPORT                        R25 K8 [require]
-      130 GETTABLEKS                       R28 R1 K27 ["Src"]
-      132 GETTABLEKS                       R27 R28 K14 ["Util"]
-      134 GETTABLEKS                       R26 R27 K38 ["AnalyticsGlobals"]
+      130 GETTABLEKS                       R26 R1 K27 ["Src"]
+      132 GETTABLEKS                       R26 R26 K14 ["Util"]
+      134 GETTABLEKS                       R26 R26 K38 ["AnalyticsGlobals"]
       136 CALL                             R25 1 1
       137 GETTABLEKS                       R26 R2 K39 ["PureComponent"]
       139 LOADK                            R28 K40 ["ExplorerPreviewInstances"]

@@ -1,10 +1,10 @@
 PROTO_0:
         0 LOADB                            R1 1
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["NextPage"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["NextPage"]
         4 JUMPIFEQ                         R0 R2 ; [+8]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["UpdatePage"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["UpdatePage"]
         9 JUMPIFEQ                         R0 R2 ; [+2]
        11 LOADB                            R1 0 +1
        12 LOADB                            R1 1

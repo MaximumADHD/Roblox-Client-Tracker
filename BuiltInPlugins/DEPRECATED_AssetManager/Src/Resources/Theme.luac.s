@@ -1,13 +1,13 @@
 PROTO_0:
         0 JUMPIFNOT                        R0 ; [+7]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["mock"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["mock"]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
         6 CALL                             R1 2 1
         7 JUMP                             ; [+6]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K1 ["new"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K1 ["new"]
        11 GETUPVAL                         R2 1
        12 GETUPVAL                         R3 2
        13 CALL                             R1 2 1
@@ -18,36 +18,36 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Dictionary"]
-       18 GETTABLEKS                       R2 R3 K8 ["join"]
+       16 GETTABLEKS                       R2 R1 K7 ["Dictionary"]
+       18 GETTABLEKS                       R2 R2 K8 ["join"]
        20 GETIMPORT                        R3 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       22 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K9 ["Framework"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R3 K10 ["Util"]
        29 GETTABLEKS                       R5 R4 K11 ["StyleModifier"]
-       31 GETTABLEKS                       R7 R3 K12 ["Style"]
-       33 GETTABLEKS                       R6 R7 K13 ["StyleKey"]
-       35 GETTABLEKS                       R9 R3 K12 ["Style"]
-       37 GETTABLEKS                       R8 R9 K14 ["Themes"]
-       39 GETTABLEKS                       R7 R8 K15 ["StudioTheme"]
-       41 GETTABLEKS                       R9 R3 K12 ["Style"]
-       43 GETTABLEKS                       R8 R9 K16 ["getRawComponentStyle"]
-       45 GETTABLEKS                       R10 R3 K12 ["Style"]
-       47 GETTABLEKS                       R9 R10 K17 ["ComponentSymbols"]
+       31 GETTABLEKS                       R6 R3 K12 ["Style"]
+       33 GETTABLEKS                       R6 R6 K13 ["StyleKey"]
+       35 GETTABLEKS                       R7 R3 K12 ["Style"]
+       37 GETTABLEKS                       R7 R7 K14 ["Themes"]
+       39 GETTABLEKS                       R7 R7 K15 ["StudioTheme"]
+       41 GETTABLEKS                       R8 R3 K12 ["Style"]
+       43 GETTABLEKS                       R8 R8 K16 ["getRawComponentStyle"]
+       45 GETTABLEKS                       R9 R3 K12 ["Style"]
+       47 GETTABLEKS                       R9 R9 K17 ["ComponentSymbols"]
        49 GETTABLEKS                       R10 R3 K18 ["UI"]
        51 GETTABLEKS                       R11 R10 K19 ["Box"]
        53 GETTABLEKS                       R12 R10 K20 ["Image"]
-       55 GETTABLEKS                       R14 R3 K12 ["Style"]
-       57 GETTABLEKS                       R13 R14 K21 ["Colors"]
+       55 GETTABLEKS                       R13 R3 K12 ["Style"]
+       57 GETTABLEKS                       R13 R13 K21 ["Colors"]
        59 GETTABLEKS                       R14 R4 K22 ["Spritesheet"]
        61 GETIMPORT                        R15 K24 [game]
        63 LOADK                            R17 K25 ["EnableAssetManagerSortButton"]

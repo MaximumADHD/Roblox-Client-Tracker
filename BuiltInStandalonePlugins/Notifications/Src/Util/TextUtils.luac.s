@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 MOVE                             R5 R1
-        2 GETUPVAL                         R6 1
-        3 GETUPVAL                         R7 2
-        4 GETIMPORT                        R8 K2 [Vector2.new]
-        6 LOADK                            R9 K3 [∞]
-        7 LOADK                            R10 K3 [∞]
-        8 CALL                             R8 2 -1
-        9 NAMECALL                         R3 R3 K4 ["GetTextSize"]
-       11 CALL                             R3 -1 1
-       12 GETTABLEKS                       R2 R3 K5 ["X"]
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 GETUPVAL                         R5 1
+        3 GETUPVAL                         R6 2
+        4 GETIMPORT                        R7 K2 [Vector2.new]
+        6 LOADK                            R8 K3 [∞]
+        7 LOADK                            R9 K3 [∞]
+        8 CALL                             R7 2 -1
+        9 NAMECALL                         R2 R2 K4 ["GetTextSize"]
+       11 CALL                             R2 -1 1
+       12 GETTABLEKS                       R2 R2 K5 ["X"]
        14 FASTCALL2                        MATH_MAX R0 R2 ; [+5]
        16 MOVE                             R4 R0
        17 MOVE                             R5 R2
@@ -30,13 +30,13 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Dash"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Dash"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K7 ["reduce"]
        18 GETIMPORT                        R3 K9 [game]

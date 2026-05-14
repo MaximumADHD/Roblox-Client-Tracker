@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 RETURN                           R0 0
 
 PROTO_1:
@@ -28,8 +28,8 @@ PROTO_6:
         8 NAMECALL                         R4 R4 K6 ["GetClientId"]
        10 CALL                             R4 1 1
        11 SETTABLEKS                       R4 R3 K1 ["clientId"]
-       13 GETIMPORT                        R5 K8 [game]
-       15 GETTABLEKS                       R4 R5 K9 ["PlaceId"]
+       13 GETIMPORT                        R4 K8 [game]
+       15 GETTABLEKS                       R4 R4 K9 ["PlaceId"]
        17 SETTABLEKS                       R4 R3 K2 ["placeId"]
        19 GETUPVAL                         R4 1
        20 NAMECALL                         R4 R4 K10 ["GetUserId"]

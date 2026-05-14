@@ -2,8 +2,8 @@ PROTO_0:
         0 JUMPIF                           R0 ; [+2]
         1 LOADK                            R1 K0 ["Unassigned"]
         2 RETURN                           R1 1
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["UNASSIGNED_PARTY_ID"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["UNASSIGNED_PARTY_ID"]
         6 JUMPIFNOTEQ                      R0 R1 ; [+3]
         8 LOADK                            R1 K0 ["Unassigned"]
         9 RETURN                           R1 1
@@ -35,9 +35,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

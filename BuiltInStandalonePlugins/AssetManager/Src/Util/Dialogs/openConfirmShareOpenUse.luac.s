@@ -59,12 +59,12 @@ PROTO_2:
        20 NAMECALL                         R6 R1 K10 ["getText"]
        22 CALL                             R6 3 1
        23 SETTABLEKS                       R6 R5 K4 ["Title"]
-       25 GETUPVAL                         R7 0
-       26 GETTABLEKS                       R6 R7 K11 ["QuickShareDialogSize"]
+       25 GETUPVAL                         R6 0
+       26 GETTABLEKS                       R6 R6 K11 ["QuickShareDialogSize"]
        28 SETTABLEKS                       R6 R5 K5 ["Size"]
-       30 GETUPVAL                         R8 1
-       31 GETTABLEKS                       R7 R8 K12 ["DialogType"]
-       33 GETTABLEKS                       R6 R7 K13 ["AssetError"]
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K12 ["DialogType"]
+       33 GETTABLEKS                       R6 R6 K13 ["AssetError"]
        35 SETTABLEKS                       R6 R5 K6 ["Type"]
        37 DUPTABLE                         R6 K19 [{"Title", "LinkText", "LinkUrl", "AssetPaths", "CanClose", "OnClose"}]
        38 LOADK                            R9 K9 ["OpenUse"]
@@ -96,8 +96,8 @@ PROTO_3:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["closeDialog"]
         3 CALL                             R2 1 0
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["count"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["count"]
         7 MOVE                             R3 R1
         8 CALL                             R2 1 1
         9 LOADN                            R3 0
@@ -121,13 +121,13 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R5 2
-        3 GETTABLEKS                       R4 R5 K0 ["PermissionsSubject"]
-        5 GETTABLEKS                       R3 R4 K1 ["All"]
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R3 R3 K0 ["PermissionsSubject"]
+        5 GETTABLEKS                       R3 R3 K1 ["All"]
         7 LOADK                            R4 K2 [""]
-        8 GETUPVAL                         R7 2
-        9 GETTABLEKS                       R6 R7 K3 ["PermissionsAction"]
-       11 GETTABLEKS                       R5 R6 K4 ["Use"]
+        8 GETUPVAL                         R5 2
+        9 GETTABLEKS                       R5 R5 K3 ["PermissionsAction"]
+       11 GETTABLEKS                       R5 R5 K4 ["Use"]
        13 LOADB                            R6 0
        14 GETUPVAL                         R7 3
        15 NAMECALL                         R0 R0 K5 ["grantAssetsPermissionsAsync"]
@@ -143,9 +143,9 @@ PROTO_5:
         7 CALL                             R7 1 1
         8 GETTABLEKS                       R10 R7 K2 ["Uid"]
        10 MOVE                             R11 R4
-       11 GETUPVAL                         R14 0
-       12 GETTABLEKS                       R13 R14 K3 ["AssetInfoField"]
-       14 GETTABLEKS                       R12 R13 K4 ["AssetId"]
+       11 GETUPVAL                         R12 0
+       12 GETTABLEKS                       R12 R12 K3 ["AssetInfoField"]
+       14 GETTABLEKS                       R12 R12 K4 ["AssetId"]
        16 NAMECALL                         R8 R6 K5 ["getData"]
        18 CALL                             R8 4 1
        19 LOADN                            R11 1
@@ -170,12 +170,12 @@ PROTO_5:
        38 NAMECALL                         R11 R3 K12 ["getText"]
        40 CALL                             R11 3 1
        41 SETTABLEKS                       R11 R10 K6 ["Title"]
-       43 GETUPVAL                         R12 4
-       44 GETTABLEKS                       R11 R12 K13 ["ConfirmDialogSize"]
+       43 GETUPVAL                         R11 4
+       44 GETTABLEKS                       R11 R11 K13 ["ConfirmDialogSize"]
        46 SETTABLEKS                       R11 R10 K7 ["Size"]
-       48 GETUPVAL                         R13 0
-       49 GETTABLEKS                       R12 R13 K14 ["DialogType"]
-       51 GETTABLEKS                       R11 R12 K15 ["Confirm"]
+       48 GETUPVAL                         R11 0
+       49 GETTABLEKS                       R11 R11 K14 ["DialogType"]
+       51 GETTABLEKS                       R11 R11 K15 ["Confirm"]
        53 SETTABLEKS                       R11 R10 K8 ["Type"]
        55 DUPTABLE                         R11 K20 [{"Text", "LinkText", "LinkUrl", "ConfirmCallback"}]
        56 LOADK                            R14 K11 ["OpenUse"]
@@ -210,28 +210,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K6 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       27 GETTABLEKS                       R4 R5 K11 ["StyleConstants"]
+       23 GETTABLEKS                       R4 R0 K6 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       27 GETTABLEKS                       R4 R4 K11 ["StyleConstants"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R8 R0 K6 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Util"]
-       36 GETTABLEKS                       R6 R7 K13 ["Dialogs"]
-       38 GETTABLEKS                       R5 R6 K14 ["openNotification"]
+       32 GETTABLEKS                       R5 R0 K6 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Util"]
+       36 GETTABLEKS                       R5 R5 K13 ["Dialogs"]
+       38 GETTABLEKS                       R5 R5 K14 ["openNotification"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K6 ["Src"]
-       45 GETTABLEKS                       R7 R8 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R7 K16 ["getFStringAmrOpenUsePage"]
+       43 GETTABLEKS                       R6 R0 K6 ["Src"]
+       45 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       47 GETTABLEKS                       R6 R6 K16 ["getFStringAmrOpenUsePage"]
        49 CALL                             R5 1 1
        50 DUPCLOSURE                       R6 K17 [PROTO_0]
        51 CAPTURE                          VAL R4

@@ -10,16 +10,16 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       11 GETTABLEKS                       R2 R3 K6 ["defineLuaFlags"]
+        9 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K6 ["defineLuaFlags"]
        13 CALL                             R1 1 0
        14 GETIMPORT                        R1 K4 [require]
-       16 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       18 GETTABLEKS                       R2 R3 K7 ["getFFlagStudioFixPluginManagementPluginTests"]
+       16 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       18 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioFixPluginManagementPluginTests"]
        20 CALL                             R1 1 1
        21 GETTABLEKS                       R2 R0 K8 ["Src"]
        23 GETTABLEKS                       R3 R0 K9 ["Packages"]
@@ -28,8 +28,8 @@ MAIN:
        27 CALL                             R5 0 1
        28 JUMPIFNOT                        R5 ; [+8]
        29 GETIMPORT                        R5 K4 [require]
-       31 GETTABLEKS                       R7 R0 K5 ["Bin"]
-       33 GETTABLEKS                       R6 R7 K10 ["isCli"]
+       31 GETTABLEKS                       R6 R0 K5 ["Bin"]
+       33 GETTABLEKS                       R6 R6 K10 ["isCli"]
        35 CALL                             R5 1 1
        36 MOVE                             R4 R5
        37 LOADB                            R5 0
@@ -42,13 +42,13 @@ MAIN:
        44 LOADB                            R5 1
        45 JUMPIFNOT                        R5 ; [+37]
        46 GETIMPORT                        R6 K4 [require]
-       48 GETTABLEKS                       R9 R0 K9 ["Packages"]
-       50 GETTABLEKS                       R8 R9 K11 ["Dev"]
-       52 GETTABLEKS                       R7 R8 K12 ["TestEZ"]
+       48 GETTABLEKS                       R7 R0 K9 ["Packages"]
+       50 GETTABLEKS                       R7 R7 K11 ["Dev"]
+       52 GETTABLEKS                       R7 R7 K12 ["TestEZ"]
        54 CALL                             R6 1 1
        55 GETTABLEKS                       R7 R6 K13 ["TestBootstrap"]
-       57 GETTABLEKS                       R9 R6 K14 ["Reporters"]
-       59 GETTABLEKS                       R8 R9 K15 ["TextReporterQuiet"]
+       57 GETTABLEKS                       R8 R6 K14 ["Reporters"]
+       59 GETTABLEKS                       R8 R8 K15 ["TextReporterQuiet"]
        61 GETIMPORT                        R9 K17 [print]
        63 LOADK                            R11 K18 ["----- All "]
        64 GETTABLEKS                       R12 R0 K19 ["Name"]

@@ -9,8 +9,8 @@ PROTO_0:
        10 NAMECALL                         R2 R2 K7 ["GetClientId"]
        12 CALL                             R2 1 1
        13 SETTABLEKS                       R2 R1 K2 ["clientId"]
-       15 GETIMPORT                        R3 K9 [game]
-       17 GETTABLEKS                       R2 R3 K10 ["PlaceId"]
+       15 GETIMPORT                        R2 K9 [game]
+       17 GETTABLEKS                       R2 R2 K10 ["PlaceId"]
        19 SETTABLEKS                       R2 R1 K3 ["placeId"]
        21 GETUPVAL                         R2 1
        22 NAMECALL                         R2 R2 K11 ["GetUserId"]

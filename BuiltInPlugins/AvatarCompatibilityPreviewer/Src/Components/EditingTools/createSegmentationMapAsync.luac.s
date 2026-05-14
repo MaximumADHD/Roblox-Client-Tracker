@@ -86,9 +86,9 @@ PROTO_3:
        41 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLE                         R2 R3 R0
-        2 GETTABLEKS                       R1 R2 K0 ["uv"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLE                         R1 R2 R0
+        2 GETTABLEKS                       R1 R1 K0 ["uv"]
         4 RETURN                           R1 1
 
 PROTO_5:
@@ -105,9 +105,9 @@ PROTO_5:
        11 LOADNIL                          R4
        12 LOADNIL                          R5
        13 FORGPREP                         R3
-       14 GETUPVAL                         R12 1
-       15 GETTABLE                         R11 R12 R7
-       16 GETTABLEKS                       R10 R11 K0 ["index"]
+       14 GETUPVAL                         R11 1
+       15 GETTABLE                         R10 R11 R7
+       16 GETTABLEKS                       R10 R10 K0 ["index"]
        18 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
        20 MOVE                             R9 R2
        21 GETIMPORT                        R8 K3 [table.insert]
@@ -129,8 +129,8 @@ PROTO_6:
        16 LOADK                            R3 K8 ["createSegmentationMapAsync"]
        17 CALL                             R2 1 0
        18 NEWTABLE                         R2 0 0
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R3 R6 K9 ["LIMBS"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K9 ["LIMBS"]
        23 LOADNIL                          R4
        24 LOADNIL                          R5
        25 FORGPREP                         R3
@@ -292,30 +292,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K10 ["LuaMeshEditingModule"]
-       22 GETTABLEKS                       R3 R4 K11 ["Types"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["LuaMeshEditingModule"]
+       22 GETTABLEKS                       R3 R3 K11 ["Types"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R8 R0 K6 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Components"]
-       31 GETTABLEKS                       R6 R7 K13 ["EditingTools"]
-       33 GETTABLEKS                       R5 R6 K14 ["CageEditingTool"]
-       35 GETTABLEKS                       R4 R5 K15 ["SegmentationUVs"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K12 ["Components"]
+       31 GETTABLEKS                       R4 R4 K13 ["EditingTools"]
+       33 GETTABLEKS                       R4 R4 K14 ["CageEditingTool"]
+       35 GETTABLEKS                       R4 R4 K15 ["SegmentationUVs"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K5 [require]
-       40 GETTABLEKS                       R6 R0 K6 ["Src"]
-       42 GETTABLEKS                       R5 R6 K11 ["Types"]
+       40 GETTABLEKS                       R5 R0 K6 ["Src"]
+       42 GETTABLEKS                       R5 R5 K11 ["Types"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K5 [require]
-       47 GETTABLEKS                       R8 R0 K6 ["Src"]
-       49 GETTABLEKS                       R7 R8 K7 ["Util"]
-       51 GETTABLEKS                       R6 R7 K16 ["binarySearchRange"]
+       47 GETTABLEKS                       R6 R0 K6 ["Src"]
+       49 GETTABLEKS                       R6 R6 K7 ["Util"]
+       51 GETTABLEKS                       R6 R6 K16 ["binarySearchRange"]
        53 CALL                             R5 1 1
        54 DUPCLOSURE                       R6 K17 [PROTO_0]
        55 DUPCLOSURE                       R7 K18 [PROTO_6]

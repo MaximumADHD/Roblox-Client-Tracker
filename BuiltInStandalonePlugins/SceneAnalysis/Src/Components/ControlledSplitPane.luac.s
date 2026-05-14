@@ -8,8 +8,8 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"sizes"}]
-        1 GETTABLEKS                       R3 R0 K2 ["props"]
-        3 GETTABLEKS                       R2 R3 K3 ["InitialSizes"]
+        1 GETTABLEKS                       R2 R0 K2 ["props"]
+        3 GETTABLEKS                       R2 R2 K3 ["InitialSizes"]
         5 SETTABLEKS                       R2 R1 K0 ["sizes"]
         7 SETTABLEKS                       R1 R0 K4 ["state"]
         9 NEWCLOSURE                       R1 P0
@@ -20,8 +20,8 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 GETUPVAL                         R5 2
         9 DUPTABLE                         R6 K8 [{"Sizes", "OnSizesChange", "MinSizes", "PaneStyle", "BarStyle"}]
@@ -47,18 +47,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["UI"]
-       23 GETTABLEKS                       R3 R4 K10 ["SplitPane"]
+       21 GETTABLEKS                       R3 R2 K9 ["UI"]
+       23 GETTABLEKS                       R3 R3 K10 ["SplitPane"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K11 ["Dash"]
+       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K11 ["Dash"]
        31 CALL                             R4 1 1
        32 GETTABLEKS                       R5 R4 K12 ["join"]
        34 GETTABLEKS                       R6 R1 K13 ["PureComponent"]

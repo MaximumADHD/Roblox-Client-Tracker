@@ -1,41 +1,41 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["OnChanged"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["curveToTable"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["OnChanged"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["curveToTable"]
         6 MOVE                             R3 R0
         7 CALL                             R2 1 -1
         8 CALL                             R1 -1 0
         9 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reset"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["tableToCurve"]
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R2 R3 K2 ["CurveData"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reset"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["tableToCurve"]
+        6 GETUPVAL                         R2 2
+        7 GETTABLEKS                       R2 R2 K2 ["CurveData"]
         9 CALL                             R1 1 -1
        10 CALL                             R0 -1 0
        11 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["tableToCurve"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["CurveData"]
-        6 CALL                             R1 1 1
-        7 GETTABLEKS                       R0 R1 K2 ["Keypoints"]
-        9 GETUPVAL                         R2 2
-       10 GETTABLEKS                       R1 R2 K3 ["Max"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["tableToCurve"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["CurveData"]
+        6 CALL                             R0 1 1
+        7 GETTABLEKS                       R0 R0 K2 ["Keypoints"]
+        9 GETUPVAL                         R1 2
+       10 GETTABLEKS                       R1 R1 K3 ["Max"]
        12 LENGTH                           R2 R0
        13 LOADN                            R3 0
        14 JUMPIFNOTLT                      R3 R2 ; [+15]
-       16 GETUPVAL                         R4 2
-       17 GETTABLEKS                       R3 R4 K3 ["Max"]
-       19 LENGTH                           R7 R0
-       20 GETTABLE                         R6 R0 R7
-       21 GETTABLEKS                       R5 R6 K5 ["X"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K3 ["Max"]
+       19 LENGTH                           R6 R0
+       20 GETTABLE                         R5 R0 R6
+       21 GETTABLEKS                       R5 R5 K5 ["X"]
        23 MULK                             R4 R5 K4 [1.33]
        24 FASTCALL2                        MATH_MAX R3 R4 ; [+3]
        26 GETIMPORT                        R2 K8 [math.max]
@@ -54,31 +54,31 @@ PROTO_2:
        43 MOVE                             R5 R1
        44 CALL                             R3 2 -1
        45 CALL                             R2 -1 0
-       46 GETUPVAL                         R3 6
-       47 GETTABLEKS                       R2 R3 K14 ["select"]
+       46 GETUPVAL                         R2 6
+       47 GETTABLEKS                       R2 R2 K14 ["select"]
        49 LOADN                            R3 1
        50 CALL                             R2 1 0
        51 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["keypoints"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["keypoints"]
         3 LENGTH                           R0 R1
         4 LOADN                            R1 0
         5 JUMPIFNOTLT                      R1 R0 ; [+17]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K1 ["Max"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K0 ["keypoints"]
-       13 GETTABLE                         R5 R6 R0
-       14 GETTABLEKS                       R4 R5 K3 ["X"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K1 ["Max"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K0 ["keypoints"]
+       13 GETTABLE                         R4 R5 R0
+       14 GETTABLEKS                       R4 R4 K3 ["X"]
        16 MULK                             R3 R4 K2 [1.33]
        17 FASTCALL2                        MATH_MAX R2 R3 ; [+3]
        19 GETIMPORT                        R1 K6 [math.max]
        21 CALL                             R1 2 1
        22 RETURN                           R1 1
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R1 R2 K1 ["Max"]
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K1 ["Max"]
        26 RETURN                           R1 1
 
 PROTO_4:
@@ -89,28 +89,28 @@ PROTO_4:
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["remove"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["remove"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["update"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["update"]
         3 MOVE                             R2 R0
         4 LOADB                            R3 1
         5 CALL                             R1 2 0
         6 GETUPVAL                         R1 1
         7 GETIMPORT                        R2 K3 [NumberRange.new]
         9 GETTABLEKS                       R4 R0 K4 ["X"]
-       11 GETUPVAL                         R6 2
-       12 GETTABLEKS                       R5 R6 K5 ["Min"]
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R5 R5 K5 ["Min"]
        14 FASTCALL2                        MATH_MIN R4 R5 ; [+3]
        16 GETIMPORT                        R3 K8 [math.min]
        18 CALL                             R3 2 1
        19 GETTABLEKS                       R5 R0 K4 ["X"]
-       21 GETUPVAL                         R7 2
-       22 GETTABLEKS                       R6 R7 K9 ["Max"]
+       21 GETUPVAL                         R6 2
+       22 GETTABLEKS                       R6 R6 K9 ["Max"]
        24 FASTCALL2                        MATH_MAX R5 R6 ; [+3]
        26 GETIMPORT                        R4 K11 [math.max]
        28 CALL                             R4 2 1
@@ -131,8 +131,8 @@ PROTO_7:
        12 SETLIST                          R5 R6 1 [1]
        14 CALL                             R3 2 1
        15 GETUPVAL                         R4 3
-       16 GETUPVAL                         R6 2
-       17 GETTABLEKS                       R5 R6 K4 ["tableToCurve"]
+       16 GETUPVAL                         R5 2
+       17 GETTABLEKS                       R5 R5 K4 ["tableToCurve"]
        19 GETTABLEKS                       R6 R0 K5 ["CurveData"]
        21 CALL                             R5 1 1
        22 MOVE                             R6 R3
@@ -196,17 +196,17 @@ PROTO_7:
        95 CALL                             R10 2 1
        96 GETTABLEKS                       R11 R0 K8 ["Enabled"]
        98 JUMPIFNOT                        R11 ; [+116]
-       99 GETUPVAL                         R12 9
-      100 GETTABLEKS                       R11 R12 K9 ["createElement"]
+       99 GETUPVAL                         R11 9
+      100 GETTABLEKS                       R11 R11 K9 ["createElement"]
       102 GETUPVAL                         R12 10
       103 NEWTABLE                         R13 1 0
-      105 GETUPVAL                         R15 9
-      106 GETTABLEKS                       R14 R15 K10 ["Tag"]
+      105 GETUPVAL                         R14 9
+      106 GETTABLEKS                       R14 R14 K10 ["Tag"]
       108 LOADK                            R15 K11 ["X-Pad X-ColumnM X-FitY"]
       109 SETTABLE                         R15 R13 R14
       110 DUPTABLE                         R14 K16 [{"UISizeConstraint", "PresetControls", "Canvas", "KeypointControls"}]
-      111 GETUPVAL                         R16 9
-      112 GETTABLEKS                       R15 R16 K9 ["createElement"]
+      111 GETUPVAL                         R15 9
+      112 GETTABLEKS                       R15 R15 K9 ["createElement"]
       114 LOADK                            R16 K12 ["UISizeConstraint"]
       115 DUPTABLE                         R17 K19 [{"MinSize", "MaxSize"}]
       116 GETUPVAL                         R18 11
@@ -215,8 +215,8 @@ PROTO_7:
       120 SETTABLEKS                       R18 R17 K18 ["MaxSize"]
       122 CALL                             R15 2 1
       123 SETTABLEKS                       R15 R14 K12 ["UISizeConstraint"]
-      125 GETUPVAL                         R16 9
-      126 GETTABLEKS                       R15 R16 K9 ["createElement"]
+      125 GETUPVAL                         R15 9
+      126 GETTABLEKS                       R15 R15 K9 ["createElement"]
       128 GETUPVAL                         R16 13
       129 DUPTABLE                         R17 K22 [{"Preset", "OnPresetChanged"}]
       130 GETTABLEKS                       R18 R4 K23 ["preset"]
@@ -225,8 +225,8 @@ PROTO_7:
       136 SETTABLEKS                       R18 R17 K21 ["OnPresetChanged"]
       138 CALL                             R15 2 1
       139 SETTABLEKS                       R15 R14 K13 ["PresetControls"]
-      141 GETUPVAL                         R16 9
-      142 GETTABLEKS                       R15 R16 K9 ["createElement"]
+      141 GETUPVAL                         R15 9
+      142 GETTABLEKS                       R15 R15 K9 ["createElement"]
       144 GETUPVAL                         R16 10
       145 DUPTABLE                         R17 K28 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
       146 LOADN                            R18 1
@@ -241,8 +241,8 @@ PROTO_7:
       158 CALL                             R18 4 1
       159 SETTABLEKS                       R18 R17 K27 ["Size"]
       161 DUPTABLE                         R18 K34 [{"Plot", "Scrollbar"}]
-      162 GETUPVAL                         R20 9
-      163 GETTABLEKS                       R19 R20 K9 ["createElement"]
+      162 GETUPVAL                         R19 9
+      163 GETTABLEKS                       R19 R19 K9 ["createElement"]
       165 GETUPVAL                         R20 14
       166 DUPTABLE                         R21 K40 [{"CurveHook", "PlotAbsoluteSize", "XRange", "SetXRange", "OnSizeChanged"}]
       167 SETTABLEKS                       R4 R21 K35 ["CurveHook"]
@@ -252,8 +252,8 @@ PROTO_7:
       175 SETTABLEKS                       R8 R21 K39 ["OnSizeChanged"]
       177 CALL                             R19 2 1
       178 SETTABLEKS                       R19 R18 K32 ["Plot"]
-      180 GETUPVAL                         R20 9
-      181 GETTABLEKS                       R19 R20 K9 ["createElement"]
+      180 GETUPVAL                         R19 9
+      181 GETTABLEKS                       R19 R19 K9 ["createElement"]
       183 GETUPVAL                         R20 15
       184 DUPTABLE                         R21 K42 [{"XRange", "SetXRange", "DefaultXMax"}]
       185 SETTABLEKS                       R5 R21 K37 ["XRange"]
@@ -263,8 +263,8 @@ PROTO_7:
       192 SETTABLEKS                       R19 R18 K33 ["Scrollbar"]
       194 CALL                             R15 3 1
       195 SETTABLEKS                       R15 R14 K14 ["Canvas"]
-      197 GETUPVAL                         R16 9
-      198 GETTABLEKS                       R15 R16 K9 ["createElement"]
+      197 GETUPVAL                         R15 9
+      198 GETTABLEKS                       R15 R15 K9 ["createElement"]
       200 GETUPVAL                         R16 16
       201 DUPTABLE                         R17 K46 [{"Keypoint", "OnEdit", "OnDelete"}]
       202 GETTABLEKS                       R18 R4 K47 ["getSelectedKeypoint"]
@@ -279,32 +279,32 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K1 [script]
         7 LOADK                            R3 K3 ["AttenuationCurveEditor"]
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       13 GETTABLEKS                       R3 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K8 ["React"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K9 ["useCallback"]
        20 GETTABLEKS                       R4 R2 K10 ["useEffect"]
        22 GETTABLEKS                       R5 R2 K11 ["useMemo"]
        24 GETTABLEKS                       R6 R2 K12 ["useState"]
        26 GETIMPORT                        R7 K6 [require]
-       28 GETTABLEKS                       R9 R1 K7 ["Packages"]
-       30 GETTABLEKS                       R8 R9 K13 ["Framework"]
+       28 GETTABLEKS                       R8 R1 K7 ["Packages"]
+       30 GETTABLEKS                       R8 R8 K13 ["Framework"]
        32 CALL                             R7 1 1
-       33 GETTABLEKS                       R9 R7 K14 ["UI"]
-       35 GETTABLEKS                       R8 R9 K15 ["Pane"]
+       33 GETTABLEKS                       R8 R7 K14 ["UI"]
+       35 GETTABLEKS                       R8 R8 K15 ["Pane"]
        37 GETIMPORT                        R9 K6 [require]
        39 GETTABLEKS                       R10 R0 K16 ["useCurve"]
        41 CALL                             R9 1 1
        42 GETIMPORT                        R10 K6 [require]
-       44 GETTABLEKS                       R12 R0 K17 ["CurveRenderer"]
-       46 GETTABLEKS                       R11 R12 K18 ["CurvePlot"]
+       44 GETTABLEKS                       R11 R0 K17 ["CurveRenderer"]
+       46 GETTABLEKS                       R11 R11 K18 ["CurvePlot"]
        48 CALL                             R10 1 1
        49 GETIMPORT                        R11 K6 [require]
        51 GETTABLEKS                       R12 R0 K19 ["KeypointControls"]
@@ -316,13 +316,13 @@ MAIN:
        61 GETTABLEKS                       R14 R0 K21 ["Scrollbar"]
        63 CALL                             R13 1 1
        64 GETIMPORT                        R14 K6 [require]
-       66 GETTABLEKS                       R16 R1 K22 ["Src"]
-       68 GETTABLEKS                       R15 R16 K23 ["Types"]
+       66 GETTABLEKS                       R15 R1 K22 ["Src"]
+       68 GETTABLEKS                       R15 R15 K23 ["Types"]
        70 CALL                             R14 1 1
        71 GETIMPORT                        R15 K6 [require]
-       73 GETTABLEKS                       R18 R1 K22 ["Src"]
-       75 GETTABLEKS                       R17 R18 K24 ["Util"]
-       77 GETTABLEKS                       R16 R17 K25 ["AttenuationUtil"]
+       73 GETTABLEKS                       R16 R1 K22 ["Src"]
+       75 GETTABLEKS                       R16 R16 K24 ["Util"]
+       77 GETTABLEKS                       R16 R16 K25 ["AttenuationUtil"]
        79 CALL                             R15 1 1
        80 GETIMPORT                        R16 K28 [Vector2.new]
        82 LOADN                            R17 28
@@ -337,8 +337,8 @@ MAIN:
        93 LOADN                            R20 100
        94 CALL                             R18 2 1
        95 GETIMPORT                        R19 K6 [require]
-       97 GETTABLEKS                       R21 R0 K17 ["CurveRenderer"]
-       99 GETTABLEKS                       R20 R21 K31 ["PlotRectUtil"]
+       97 GETTABLEKS                       R20 R0 K17 ["CurveRenderer"]
+       99 GETTABLEKS                       R20 R20 K31 ["PlotRectUtil"]
       101 CALL                             R19 1 1
       102 GETTABLEKS                       R20 R19 K32 ["MIN_ZOOM"]
       104 GETTABLEKS                       R21 R19 K33 ["MAX_ZOOM"]

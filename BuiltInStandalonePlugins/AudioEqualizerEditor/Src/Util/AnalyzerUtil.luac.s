@@ -29,21 +29,21 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["IsAnalyzing"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["IsAnalyzing"]
         4 NAMECALL                         R0 R0 K1 ["GetItem"]
         6 CALL                             R0 2 1
         7 JUMPIF                           R0 ; [+5]
-        8 GETUPVAL                         R1 2
-        9 GETTABLEKS                       R0 R1 K2 ["disconnectRunService"]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["disconnectRunService"]
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
        13 GETUPVAL                         R0 3
        14 NAMECALL                         R0 R0 K3 ["GetSpectrum"]
        16 CALL                             R0 1 1
        17 GETUPVAL                         R1 0
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R3 R4 K4 ["OnSpectrumChanged"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K4 ["OnSpectrumChanged"]
        21 MOVE                             R4 R0
        22 NAMECALL                         R1 R1 K5 ["Invoke"]
        24 CALL                             R1 3 0
@@ -51,13 +51,13 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["IsAnalyzing"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["IsAnalyzing"]
         4 LOADB                            R3 1
         5 NAMECALL                         R0 R0 K1 ["SetItem"]
         7 CALL                             R0 3 0
-        8 GETUPVAL                         R1 2
-        9 GETTABLEKS                       R0 R1 K2 ["disconnectRunService"]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["disconnectRunService"]
        11 CALL                             R0 0 0
        12 GETIMPORT                        R0 K4 [game]
        14 LOADK                            R2 K5 ["RunService"]
@@ -78,28 +78,28 @@ PROTO_5:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K0 ["InstanceContainer"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K0 ["InstanceContainer"]
         6 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         8 CALL                             R2 2 1
         9 JUMPIF                           R2 ; [+14]
        10 GETIMPORT                        R3 K4 [Instance.new]
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K5 ["Frame"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K5 ["Frame"]
        15 CALL                             R3 1 1
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R4 R5 K0 ["InstanceContainer"]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K0 ["InstanceContainer"]
        19 SETTABLEKS                       R4 R3 K6 ["Name"]
        21 SETTABLEKS                       R1 R3 K7 ["Parent"]
        23 MOVE                             R2 R3
        24 MOVE                             R3 R2
-       25 GETUPVAL                         R7 1
-       26 GETTABLEKS                       R6 R7 K8 ["Analyzer"]
+       25 GETUPVAL                         R6 1
+       26 GETTABLEKS                       R6 R6 K8 ["Analyzer"]
        28 NAMECALL                         R4 R3 K1 ["FindFirstChild"]
        30 CALL                             R4 2 1
        31 JUMPIFNOT                        R4 ; [+11]
-       32 GETUPVAL                         R8 1
-       33 GETTABLEKS                       R7 R8 K8 ["Analyzer"]
+       32 GETUPVAL                         R7 1
+       33 GETTABLEKS                       R7 R7 K8 ["Analyzer"]
        35 NAMECALL                         R5 R4 K9 ["IsA"]
        37 CALL                             R5 2 1
        38 JUMPIF                           R5 ; [+4]
@@ -108,19 +108,19 @@ PROTO_5:
        42 LOADNIL                          R4
        43 JUMPIF                           R4 ; [+9]
        44 GETIMPORT                        R5 K4 [Instance.new]
-       46 GETUPVAL                         R7 1
-       47 GETTABLEKS                       R6 R7 K8 ["Analyzer"]
+       46 GETUPVAL                         R6 1
+       47 GETTABLEKS                       R6 R6 K8 ["Analyzer"]
        49 CALL                             R5 1 1
        50 SETTABLEKS                       R3 R5 K7 ["Parent"]
        52 MOVE                             R4 R5
        53 MOVE                             R5 R4
-       54 GETUPVAL                         R9 1
-       55 GETTABLEKS                       R8 R9 K11 ["Wire"]
+       54 GETUPVAL                         R8 1
+       55 GETTABLEKS                       R8 R8 K11 ["Wire"]
        57 NAMECALL                         R6 R3 K1 ["FindFirstChild"]
        59 CALL                             R6 2 1
        60 JUMPIFNOT                        R6 ; [+11]
-       61 GETUPVAL                         R10 1
-       62 GETTABLEKS                       R9 R10 K11 ["Wire"]
+       61 GETUPVAL                         R9 1
+       62 GETTABLEKS                       R9 R9 K11 ["Wire"]
        64 NAMECALL                         R7 R6 K9 ["IsA"]
        66 CALL                             R7 2 1
        67 JUMPIF                           R7 ; [+4]
@@ -129,20 +129,20 @@ PROTO_5:
        71 LOADNIL                          R6
        72 JUMPIF                           R6 ; [+11]
        73 GETIMPORT                        R7 K4 [Instance.new]
-       75 GETUPVAL                         R9 1
-       76 GETTABLEKS                       R8 R9 K11 ["Wire"]
+       75 GETUPVAL                         R8 1
+       76 GETTABLEKS                       R8 R8 K11 ["Wire"]
        78 CALL                             R7 1 1
        79 SETTABLEKS                       R3 R7 K7 ["Parent"]
        81 SETTABLEKS                       R5 R7 K12 ["TargetInstance"]
        83 MOVE                             R6 R7
        84 MOVE                             R7 R6
        85 SETTABLEKS                       R0 R7 K13 ["SourceInstance"]
-       87 GETUPVAL                         R9 2
-       88 GETTABLEKS                       R8 R9 K14 ["disconnectStartAnalyzing"]
+       87 GETUPVAL                         R8 2
+       88 GETTABLEKS                       R8 R8 K14 ["disconnectStartAnalyzing"]
        90 CALL                             R8 0 0
        91 GETUPVAL                         R8 0
-       92 GETUPVAL                         R11 1
-       93 GETTABLEKS                       R10 R11 K15 ["OnStartAnalyzing"]
+       92 GETUPVAL                         R10 1
+       93 GETTABLEKS                       R10 R10 K15 ["OnStartAnalyzing"]
        95 NEWCLOSURE                       R11 P0
        96 CAPTURE                          UPVAL U0
        97 CAPTURE                          UPVAL U1
@@ -158,17 +158,17 @@ PROTO_6:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["disconnectSpectrumChanged"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["disconnectSpectrumChanged"]
         6 CALL                             R1 0 0
         7 GETUPVAL                         R1 0
-        8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R3 R4 K1 ["IsAnalyzing"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K1 ["IsAnalyzing"]
        11 LOADB                            R4 0
        12 NAMECALL                         R1 R1 K2 ["SetItem"]
        14 CALL                             R1 3 0
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R3 R4 K3 ["InstanceContainer"]
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K3 ["InstanceContainer"]
        18 NAMECALL                         R1 R0 K4 ["FindFirstChild"]
        20 CALL                             R1 2 1
        21 JUMPIFNOT                        R1 ; [+3]
@@ -191,16 +191,16 @@ PROTO_8:
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["OnStartAnalyzing"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["OnStartAnalyzing"]
         7 NAMECALL                         R1 R1 K1 ["Invoke"]
         9 CALL                             R1 2 0
-       10 GETUPVAL                         R2 2
-       11 GETTABLEKS                       R1 R2 K2 ["disconnectSpectrumChanged"]
+       10 GETUPVAL                         R1 2
+       11 GETTABLEKS                       R1 R1 K2 ["disconnectSpectrumChanged"]
        13 CALL                             R1 0 0
        14 GETUPVAL                         R1 0
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K3 ["OnSpectrumChanged"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K3 ["OnSpectrumChanged"]
        18 MOVE                             R4 R0
        19 NAMECALL                         R1 R1 K4 ["OnInvoke"]
        21 CALL                             R1 3 1
@@ -211,12 +211,12 @@ PROTO_9:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["disconnectSpectrumChanged"]
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["disconnectSpectrumChanged"]
         6 CALL                             R0 0 0
         7 GETUPVAL                         R0 0
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K1 ["IsAnalyzing"]
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K1 ["IsAnalyzing"]
        11 LOADB                            R3 0
        12 NAMECALL                         R0 R0 K2 ["SetItem"]
        14 CALL                             R0 3 0

@@ -1,16 +1,16 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["CannotConfigureSelectionDialog"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["CannotConfigureSelectionDialog"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["createElement"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["createElement"]
        11 GETUPVAL                         R5 1
        12 DUPTABLE                         R6 K12 [{"Style", "Enabled", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
        13 LOADK                            R7 K13 ["Alert"]
        14 SETTABLEKS                       R7 R6 K5 ["Style"]
-       16 GETTABLEKS                       R9 R0 K14 ["state"]
-       18 GETTABLEKS                       R8 R9 K15 ["userRequestedDialogNeverShow"]
+       16 GETTABLEKS                       R8 R0 K14 ["state"]
+       18 GETTABLEKS                       R8 R8 K15 ["userRequestedDialogNeverShow"]
        20 NOT                              R7 R8
        21 JUMPIFNOT                        R7 ; [+2]
        22 GETTABLEKS                       R7 R1 K6 ["Enabled"]
@@ -18,8 +18,8 @@ PROTO_0:
        26 LOADK                            R9 K2 ["CannotConfigureSelectionDialog"]
        27 LOADK                            R10 K16 ["DialogWindowTitle"]
        28 NEWTABLE                         R11 0 1
-       30 GETUPVAL                         R13 2
-       31 GETTABLEKS                       R12 R13 K17 ["CursorGroupName"]
+       30 GETUPVAL                         R12 2
+       31 GETTABLEKS                       R12 R12 K17 ["CursorGroupName"]
        33 SETLIST                          R11 R12 1 [1]
        35 NAMECALL                         R7 R3 K18 ["getText"]
        37 CALL                             R7 4 1
@@ -42,8 +42,8 @@ PROTO_0:
        65 GETTABLEKS                       R7 R1 K11 ["OnClose"]
        67 SETTABLEKS                       R7 R6 K11 ["OnClose"]
        69 DUPTABLE                         R7 K27 [{"Contents"}]
-       70 GETUPVAL                         R9 0
-       71 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       70 GETUPVAL                         R8 0
+       71 GETTABLEKS                       R8 R8 K4 ["createElement"]
        73 GETUPVAL                         R9 3
        74 DUPTABLE                         R10 K29 [{"Style", "Layout"}]
        75 LOADK                            R11 K30 ["Box"]
@@ -51,8 +51,8 @@ PROTO_0:
        78 GETIMPORT                        R11 K34 [Enum.FillDirection.Vertical]
        80 SETTABLEKS                       R11 R10 K28 ["Layout"]
        82 DUPTABLE                         R11 K36 [{"TextLabel"}]
-       83 GETUPVAL                         R13 0
-       84 GETTABLEKS                       R12 R13 K4 ["createElement"]
+       83 GETUPVAL                         R12 0
+       84 GETTABLEKS                       R12 R12 K4 ["createElement"]
        86 GETUPVAL                         R13 4
        87 DUPTABLE                         R14 K43 [{"LayoutOrder", "TextWrapped", "RichText", "TextXAlignment", "TextYAlignment", "AutomaticSize", "Text"}]
        88 LOADN                            R15 1
@@ -71,8 +71,8 @@ PROTO_0:
       110 LOADK                            R18 K50 ["WarningMessage"]
       111 NEWTABLE                         R19 0 1
       113 LOADK                            R21 K51 ["<b>%*</b>"]
-      114 GETUPVAL                         R24 2
-      115 GETTABLEKS                       R23 R24 K17 ["CursorGroupName"]
+      114 GETUPVAL                         R23 2
+      115 GETTABLEKS                       R23 R23 K17 ["CursorGroupName"]
       117 NAMECALL                         R21 R21 K52 ["format"]
       119 CALL                             R21 2 1
       120 MOVE                             R20 R21
@@ -89,24 +89,24 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETIMPORT                        R4 K4 [require]
-       27 GETIMPORT                        R8 K1 [script]
-       29 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       31 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       33 GETTABLEKS                       R5 R6 K9 ["Constants"]
+       27 GETIMPORT                        R5 K1 [script]
+       29 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       31 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       33 GETTABLEKS                       R5 R5 K9 ["Constants"]
        35 CALL                             R4 1 1
        36 GETTABLEKS                       R5 R2 K10 ["UI"]
        38 GETTABLEKS                       R6 R5 K11 ["Pane"]

@@ -14,10 +14,10 @@ PROTO_1:
         1 LOADB                            R1 0
         2 SETTABLEKS                       R1 R0 K0 ["isConnected"]
         4 GETUPVAL                         R0 1
-        5 GETUPVAL                         R2 2
-        6 GETTABLEKS                       R1 R2 K1 ["RemoveValueFromList"]
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["_listeners"]
+        5 GETUPVAL                         R1 2
+        6 GETTABLEKS                       R1 R1 K1 ["RemoveValueFromList"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["_listeners"]
        11 GETUPVAL                         R3 0
        12 CALL                             R1 2 1
        13 SETTABLEKS                       R1 R0 K2 ["_listeners"]
@@ -35,10 +35,10 @@ PROTO_2:
        11 LOADB                            R1 0
        12 SETTABLEKS                       R1 R0 K9 ["isConnected"]
        14 GETUPVAL                         R0 1
-       15 GETUPVAL                         R2 2
-       16 GETTABLEKS                       R1 R2 K10 ["RemoveValueFromList"]
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R2 R3 K11 ["_listeners"]
+       15 GETUPVAL                         R1 2
+       16 GETTABLEKS                       R1 R1 K10 ["RemoveValueFromList"]
+       18 GETUPVAL                         R2 1
+       19 GETTABLEKS                       R2 R2 K11 ["_listeners"]
        21 GETUPVAL                         R3 0
        22 CALL                             R1 2 1
        23 SETTABLEKS                       R1 R0 K11 ["_listeners"]
@@ -49,8 +49,8 @@ PROTO_3:
         1 SETTABLEKS                       R1 R2 K0 ["callback"]
         3 LOADB                            R3 1
         4 SETTABLEKS                       R3 R2 K1 ["isConnected"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K3 ["Append"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K3 ["Append"]
         9 GETTABLEKS                       R4 R0 K4 ["_listeners"]
        11 MOVE                             R5 R2
        12 CALL                             R3 2 1
@@ -113,9 +113,9 @@ PROTO_6:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Immutable"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Immutable"]
         9 CALL                             R0 1 1
        10 NEWTABLE                         R1 8 0
        12 SETTABLEKS                       R1 R1 K6 ["__index"]

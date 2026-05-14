@@ -1,23 +1,23 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R4 R2 K2 ["asset"]
-        6 GETTABLEKS                       R3 R4 K3 ["icon"]
+        4 GETTABLEKS                       R3 R2 K2 ["asset"]
+        6 GETTABLEKS                       R3 R3 K3 ["icon"]
         8 GETIMPORT                        R4 K6 [Color3.fromRGB]
        10 LOADN                            R5 255
        11 LOADN                            R6 255
        12 LOADN                            R7 255
        13 CALL                             R4 3 1
        14 LOADN                            R5 0
-       15 GETTABLEKS                       R7 R2 K2 ["asset"]
-       17 GETTABLEKS                       R6 R7 K7 ["background"]
+       15 GETTABLEKS                       R6 R2 K2 ["asset"]
+       17 GETTABLEKS                       R6 R6 K7 ["background"]
        19 GETTABLEKS                       R4 R6 K8 ["color"]
-       21 GETTABLEKS                       R7 R2 K2 ["asset"]
-       23 GETTABLEKS                       R6 R7 K7 ["background"]
+       21 GETTABLEKS                       R6 R2 K2 ["asset"]
+       23 GETTABLEKS                       R6 R6 K7 ["background"]
        25 GETTABLEKS                       R5 R6 K9 ["borderSize"]
-       27 GETUPVAL                         R8 0
-       28 GETTABLEKS                       R7 R8 K10 ["Dictionary"]
-       30 GETTABLEKS                       R6 R7 K11 ["join"]
+       27 GETUPVAL                         R6 0
+       28 GETTABLEKS                       R6 R6 K10 ["Dictionary"]
+       30 GETTABLEKS                       R6 R6 K11 ["join"]
        32 MOVE                             R7 R1
        33 DUPTABLE                         R8 K19 [{"BackgroundColor3", "Image", "BorderColor3", "BorderSizePixel", "ScaleType", "TileSize", "backgroundIndex", "Stylizer"}]
        34 SETTABLEKS                       R4 R8 K12 ["BackgroundColor3"]
@@ -35,16 +35,16 @@ PROTO_0:
        54 LOADN                            R13 0
        55 CALL                             R9 4 1
        56 SETTABLEKS                       R9 R8 K17 ["TileSize"]
-       58 GETUPVAL                         R10 0
-       59 GETTABLEKS                       R9 R10 K29 ["None"]
+       58 GETUPVAL                         R9 0
+       59 GETTABLEKS                       R9 R9 K29 ["None"]
        61 SETTABLEKS                       R9 R8 K18 ["backgroundIndex"]
-       63 GETUPVAL                         R10 0
-       64 GETTABLEKS                       R9 R10 K29 ["None"]
+       63 GETUPVAL                         R9 0
+       64 GETTABLEKS                       R9 R9 K29 ["None"]
        66 SETTABLEKS                       R9 R8 K1 ["Stylizer"]
        68 CALL                             R6 2 1
        69 MOVE                             R1 R6
-       70 GETUPVAL                         R7 1
-       71 GETTABLEKS                       R6 R7 K30 ["createElement"]
+       70 GETUPVAL                         R6 1
+       71 GETTABLEKS                       R6 R6 K30 ["createElement"]
        73 LOADK                            R7 K31 ["ImageLabel"]
        74 MOVE                             R8 R1
        75 CALL                             R6 2 -1
@@ -52,11 +52,11 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]

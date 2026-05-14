@@ -7,8 +7,8 @@ PROTO_0:
         8 JUMPIFNOTEQKNIL                  R3 ; [+2]
        10 LOADB                            R2 0 +1
        11 LOADB                            R2 1
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K1 ["LUAU_ANALYZE_ERROR"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K1 ["LUAU_ANALYZE_ERROR"]
        15 FASTCALL2                        ASSERT R2 R3 ; [+3]
        17 GETIMPORT                        R1 K3 [assert]
        19 CALL                             R1 2 0
@@ -34,8 +34,8 @@ PROTO_0:
        45 JUMPIFNOTEQKNIL                  R1 ; [+2]
        47 LOADB                            R3 0 +1
        48 LOADB                            R3 1
-       49 GETUPVAL                         R5 0
-       50 GETTABLEKS                       R4 R5 K1 ["LUAU_ANALYZE_ERROR"]
+       49 GETUPVAL                         R4 0
+       50 GETTABLEKS                       R4 R4 K1 ["LUAU_ANALYZE_ERROR"]
        52 FASTCALL2                        ASSERT R3 R4 ; [+3]
        54 GETIMPORT                        R2 K3 [assert]
        56 CALL                             R2 2 0
@@ -77,24 +77,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R6 R0 K6 ["Src"]
-       11 GETTABLEKS                       R5 R6 K7 ["Components"]
-       13 GETTABLEKS                       R4 R5 K8 ["EditingTools"]
-       15 GETTABLEKS                       R3 R4 K9 ["BodyPointsTool"]
-       17 GETTABLEKS                       R2 R3 K10 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["EditingTools"]
+       15 GETTABLEKS                       R2 R2 K9 ["BodyPointsTool"]
+       17 GETTABLEKS                       R2 R2 K10 ["Types"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K5 [require]
-       22 GETTABLEKS                       R8 R0 K6 ["Src"]
-       24 GETTABLEKS                       R7 R8 K7 ["Components"]
-       26 GETTABLEKS                       R6 R7 K8 ["EditingTools"]
-       28 GETTABLEKS                       R5 R6 K9 ["BodyPointsTool"]
-       30 GETTABLEKS                       R4 R5 K11 ["DraggerSchema"]
-       32 GETTABLEKS                       R3 R4 K12 ["getMouseTarget"]
+       22 GETTABLEKS                       R3 R0 K6 ["Src"]
+       24 GETTABLEKS                       R3 R3 K7 ["Components"]
+       26 GETTABLEKS                       R3 R3 K8 ["EditingTools"]
+       28 GETTABLEKS                       R3 R3 K9 ["BodyPointsTool"]
+       30 GETTABLEKS                       R3 R3 K11 ["DraggerSchema"]
+       32 GETTABLEKS                       R3 R3 K12 ["getMouseTarget"]
        34 CALL                             R2 1 1
        35 GETIMPORT                        R3 K5 [require]
-       37 GETTABLEKS                       R6 R0 K6 ["Src"]
-       39 GETTABLEKS                       R5 R6 K13 ["Util"]
-       41 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       37 GETTABLEKS                       R4 R0 K6 ["Src"]
+       39 GETTABLEKS                       R4 R4 K13 ["Util"]
+       41 GETTABLEKS                       R4 R4 K14 ["Constants"]
        43 CALL                             R3 1 1
        44 DUPCLOSURE                       R4 K15 [PROTO_0]
        45 CAPTURE                          VAL R3

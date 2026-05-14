@@ -3,16 +3,16 @@ PROTO_0:
         1 CALL                             R1 0 1
         2 GETTABLEKS                       R3 R0 K0 ["expanded"]
         4 JUMPIFNOT                        R3 ; [+4]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["EXPANDED_CATEGORYLIST_ITEM_SIZE"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["EXPANDED_CATEGORYLIST_ITEM_SIZE"]
         8 JUMP                             ; [+3]
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K2 ["COLLAPSED_CATEGORYLIST_ITEM_SIZE"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K2 ["COLLAPSED_CATEGORYLIST_ITEM_SIZE"]
        12 GETUPVAL                         R3 2
        13 GETUPVAL                         R4 3
        14 NEWTABLE                         R5 8 0
-       16 GETUPVAL                         R7 4
-       17 GETTABLEKS                       R6 R7 K3 ["Tag"]
+       16 GETUPVAL                         R6 4
+       17 GETTABLEKS                       R6 R6 K3 ["Tag"]
        19 LOADK                            R7 K4 ["Component-CategoryListItem"]
        20 SETTABLE                         R7 R5 R6
        21 SETTABLEKS                       R2 R5 K5 ["Size"]
@@ -26,11 +26,11 @@ PROTO_0:
        36 GETUPVAL                         R7 2
        37 LOADK                            R8 K12 ["TextButton"]
        38 NEWTABLE                         R9 8 0
-       40 GETUPVAL                         R11 4
-       41 GETTABLEKS                       R10 R11 K3 ["Tag"]
-       43 GETUPVAL                         R13 5
-       44 GETTABLEKS                       R12 R13 K15 ["Styling"]
-       46 GETTABLEKS                       R11 R12 K16 ["joinTags"]
+       40 GETUPVAL                         R10 4
+       41 GETTABLEKS                       R10 R10 K3 ["Tag"]
+       43 GETUPVAL                         R11 5
+       44 GETTABLEKS                       R11 R11 K15 ["Styling"]
+       46 GETTABLEKS                       R11 R11 K16 ["joinTags"]
        48 GETTABLEKS                       R13 R0 K17 ["selected"]
        50 JUMPIFNOT                        R13 ; [+2]
        51 LOADK                            R12 K18 ["Selected"]
@@ -48,9 +48,9 @@ PROTO_0:
        67 MOVE                             R10 R1
        68 CALL                             R10 0 1
        69 SETTABLEKS                       R10 R9 K23 ["ZIndex"]
-       71 GETUPVAL                         R12 4
-       72 GETTABLEKS                       R11 R12 K24 ["Event"]
-       74 GETTABLEKS                       R10 R11 K25 ["Activated"]
+       71 GETUPVAL                         R10 4
+       72 GETTABLEKS                       R10 R10 K24 ["Event"]
+       74 GETTABLEKS                       R10 R10 K25 ["Activated"]
        76 GETTABLEKS                       R11 R0 K26 ["onClick"]
        78 SETTABLE                         R11 R9 R10
        79 DUPTABLE                         R10 K28 [{"UIPadding"}]
@@ -88,12 +88,12 @@ PROTO_0:
       122 GETUPVAL                         R7 2
       123 GETUPVAL                         R8 3
       124 NEWTABLE                         R9 4 0
-      126 GETUPVAL                         R11 4
-      127 GETTABLEKS                       R10 R11 K3 ["Tag"]
+      126 GETUPVAL                         R10 4
+      127 GETTABLEKS                       R10 R10 K3 ["Tag"]
       129 LOADK                            R11 K37 ["X-Column X-Middle X-Center"]
       130 SETTABLE                         R11 R9 R10
-      131 GETUPVAL                         R11 1
-      132 GETTABLEKS                       R10 R11 K2 ["COLLAPSED_CATEGORYLIST_ITEM_SIZE"]
+      131 GETUPVAL                         R10 1
+      132 GETTABLEKS                       R10 R10 K2 ["COLLAPSED_CATEGORYLIST_ITEM_SIZE"]
       134 SETTABLEKS                       R10 R9 K5 ["Size"]
       136 LOADN                            R10 1
       137 SETTABLEKS                       R10 R9 K38 ["BackgroundTransparency"]
@@ -104,15 +104,15 @@ PROTO_0:
       144 GETUPVAL                         R11 2
       145 LOADK                            R12 K41 ["ImageLabel"]
       146 NEWTABLE                         R13 4 0
-      148 GETUPVAL                         R15 4
-      149 GETTABLEKS                       R14 R15 K3 ["Tag"]
+      148 GETUPVAL                         R14 4
+      149 GETTABLEKS                       R14 R14 K3 ["Tag"]
       151 GETTABLEKS                       R15 R0 K42 ["imageTag"]
       153 SETTABLE                         R15 R13 R14
       154 GETIMPORT                        R14 K45 [UDim2.fromOffset]
-      156 GETUPVAL                         R16 1
-      157 GETTABLEKS                       R15 R16 K46 ["STANDARD_IMAGE_SIZE"]
-      159 GETUPVAL                         R17 1
-      160 GETTABLEKS                       R16 R17 K46 ["STANDARD_IMAGE_SIZE"]
+      156 GETUPVAL                         R15 1
+      157 GETTABLEKS                       R15 R15 K46 ["STANDARD_IMAGE_SIZE"]
+      159 GETUPVAL                         R16 1
+      160 GETTABLEKS                       R16 R16 K46 ["STANDARD_IMAGE_SIZE"]
       162 CALL                             R14 2 1
       163 SETTABLEKS                       R14 R13 K5 ["Size"]
       165 LOADN                            R14 1
@@ -134,21 +134,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K13 ["createNextOrder"]
        39 GETTABLEKS                       R6 R2 K14 ["UI"]

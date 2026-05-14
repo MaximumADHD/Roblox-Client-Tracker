@@ -49,9 +49,9 @@ PROTO_3:
         5 GETUPVAL                         R3 1
         6 GETUPVAL                         R5 0
         7 GETTABLE                         R4 R5 R2
-        8 GETUPVAL                         R7 0
-        9 GETTABLE                         R6 R7 R2
-       10 GETTABLEKS                       R5 R6 K0 ["Changed"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLE                         R5 R6 R2
+       10 GETTABLEKS                       R5 R5 K0 ["Changed"]
        12 NEWCLOSURE                       R7 P0
        13 CAPTURE                          UPVAL U0
        14 CAPTURE                          VAL R2
@@ -293,8 +293,8 @@ PROTO_16:
        52 LENGTH                           R2 R5
        53 LOADN                            R3 1
        54 FORNPREP                         R2
-       55 GETTABLE                         R7 R1 R4
-       56 GETTABLEKS                       R6 R7 K8 ["Parent"]
+       55 GETTABLE                         R6 R1 R4
+       56 GETTABLEKS                       R6 R6 K8 ["Parent"]
        58 JUMPIFNOT                        R6 ; [+5]
        59 LOADK                            R9 K9 ["GuiBase2d"]
        60 NAMECALL                         R7 R6 K4 ["IsA"]
@@ -428,14 +428,14 @@ PROTO_25:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["FFlag"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["FFlag"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["Utility"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["Utility"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K8 [game]
        21 LOADK                            R4 K9 ["Selection"]

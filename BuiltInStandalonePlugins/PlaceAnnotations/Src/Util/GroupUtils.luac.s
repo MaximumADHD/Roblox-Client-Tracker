@@ -113,8 +113,8 @@ PROTO_3:
        61 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          VAL R2
         5 CAPTURE                          UPVAL U1
@@ -140,8 +140,8 @@ PROTO_5:
        16 GETIMPORT                        R10 K4 [table.insert]
        18 CALL                             R10 -1 0
        19 FORGLOOP                         R5 2 ; [-11]
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K5 ["all"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K5 ["all"]
        24 MOVE                             R6 R4
        25 CALL                             R5 1 1
        26 NAMECALL                         R5 R5 K6 ["await"]
@@ -162,9 +162,9 @@ PROTO_5:
        45 JUMP                             ; [+1]
        46 MOVE                             R11 R10
        47 JUMPIFNOT                        R11 ; [+9]
-       48 GETUPVAL                         R14 2
-       49 GETTABLEKS                       R13 R14 K11 ["Dictionary"]
-       51 GETTABLEKS                       R12 R13 K12 ["join"]
+       48 GETUPVAL                         R12 2
+       49 GETTABLEKS                       R12 R12 K11 ["Dictionary"]
+       51 GETTABLEKS                       R12 R12 K12 ["join"]
        53 MOVE                             R13 R3
        54 MOVE                             R14 R11
        55 CALL                             R12 2 1
@@ -220,13 +220,13 @@ PROTO_7:
        16 FORGPREP_INEXT                   R4
        17 GETTABLEKS                       R9 R8 K4 ["group"]
        19 JUMPIFNOT                        R9 ; [+17]
-       20 GETTABLEKS                       R10 R8 K4 ["group"]
-       22 GETTABLEKS                       R9 R10 K5 ["id"]
+       20 GETTABLEKS                       R9 R8 K4 ["group"]
+       22 GETTABLEKS                       R9 R9 K5 ["id"]
        24 JUMPIFNOTEQ                      R9 R0 ; [+12]
        26 GETTABLEKS                       R9 R8 K6 ["role"]
        28 JUMPIFNOT                        R9 ; [+8]
-       29 GETTABLEKS                       R11 R8 K6 ["role"]
-       31 GETTABLEKS                       R10 R11 K5 ["id"]
+       29 GETTABLEKS                       R10 R8 K6 ["role"]
+       31 GETTABLEKS                       R10 R10 K5 ["id"]
        33 GETTABLE                         R9 R2 R10
        34 JUMPIFNOT                        R9 ; [+2]
        35 LOADB                            R9 1
@@ -250,13 +250,13 @@ PROTO_8:
        15 FORGPREP_INEXT                   R3
        16 GETTABLEKS                       R8 R7 K4 ["group"]
        18 JUMPIFNOT                        R8 ; [+14]
-       19 GETTABLEKS                       R9 R7 K4 ["group"]
-       21 GETTABLEKS                       R8 R9 K5 ["id"]
+       19 GETTABLEKS                       R8 R7 K4 ["group"]
+       21 GETTABLEKS                       R8 R8 K5 ["id"]
        23 JUMPIFNOTEQ                      R8 R0 ; [+9]
        25 GETTABLEKS                       R8 R7 K6 ["role"]
        27 JUMPIFNOT                        R8 ; [+5]
-       28 GETTABLEKS                       R9 R7 K6 ["role"]
-       30 GETTABLEKS                       R8 R9 K5 ["id"]
+       28 GETTABLEKS                       R8 R7 K6 ["role"]
+       30 GETTABLEKS                       R8 R8 K5 ["id"]
        32 RETURN                           R8 1
        33 FORGLOOP                         R3 2 [inext] ; [-18]
        35 LOADNIL                          R3
@@ -269,33 +269,33 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R6 R0 K8 ["Src"]
-       18 GETTABLEKS                       R5 R6 K9 ["Networking"]
-       20 GETTABLEKS                       R4 R5 K10 ["Requests"]
-       22 GETTABLEKS                       R3 R4 K11 ["GetUserSearchResults"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Networking"]
+       20 GETTABLEKS                       R3 R3 K10 ["Requests"]
+       22 GETTABLEKS                       R3 R3 K11 ["GetUserSearchResults"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R7 R0 K8 ["Src"]
-       29 GETTABLEKS                       R6 R7 K9 ["Networking"]
-       31 GETTABLEKS                       R5 R6 K10 ["Requests"]
-       33 GETTABLEKS                       R4 R5 K12 ["GetUsersGroupRoles"]
+       27 GETTABLEKS                       R4 R0 K8 ["Src"]
+       29 GETTABLEKS                       R4 R4 K9 ["Networking"]
+       31 GETTABLEKS                       R4 R4 K10 ["Requests"]
+       33 GETTABLEKS                       R4 R4 K12 ["GetUsersGroupRoles"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R8 R0 K8 ["Src"]
-       40 GETTABLEKS                       R7 R8 K9 ["Networking"]
-       42 GETTABLEKS                       R6 R7 K10 ["Requests"]
-       44 GETTABLEKS                       R5 R6 K13 ["GetUsersInRoleset"]
+       38 GETTABLEKS                       R5 R0 K8 ["Src"]
+       40 GETTABLEKS                       R5 R5 K9 ["Networking"]
+       42 GETTABLEKS                       R5 R5 K10 ["Requests"]
+       44 GETTABLEKS                       R5 R5 K13 ["GetUsersInRoleset"]
        46 CALL                             R4 1 1
-       47 GETIMPORT                        R6 K5 [require]
-       49 GETTABLEKS                       R9 R0 K8 ["Src"]
-       51 GETTABLEKS                       R8 R9 K14 ["Util"]
-       53 GETTABLEKS                       R7 R8 K15 ["TypedPromise"]
-       55 CALL                             R6 1 1
-       56 GETTABLEKS                       R5 R6 K16 ["PromiseFactory"]
+       47 GETIMPORT                        R5 K5 [require]
+       49 GETTABLEKS                       R6 R0 K8 ["Src"]
+       51 GETTABLEKS                       R6 R6 K14 ["Util"]
+       53 GETTABLEKS                       R6 R6 K15 ["TypedPromise"]
+       55 CALL                             R5 1 1
+       56 GETTABLEKS                       R5 R5 K16 ["PromiseFactory"]
        58 DUPCLOSURE                       R6 K17 [PROTO_4]
        59 CAPTURE                          VAL R5
        60 CAPTURE                          VAL R4

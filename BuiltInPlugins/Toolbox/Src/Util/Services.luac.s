@@ -24,26 +24,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["isCli"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["isCli"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K7 ["Util"]
-       22 GETTABLEKS                       R4 R5 K9 ["Test"]
-       24 GETTABLEKS                       R3 R4 K10 ["MockInsertService"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["Test"]
+       24 GETTABLEKS                       R3 R3 K10 ["MockInsertService"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R7 R0 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K7 ["Util"]
-       33 GETTABLEKS                       R5 R6 K9 ["Test"]
-       35 GETTABLEKS                       R4 R5 K11 ["MockPublishService"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Util"]
+       33 GETTABLEKS                       R4 R4 K9 ["Test"]
+       35 GETTABLEKS                       R4 R4 K11 ["MockPublishService"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K5 [require]
-       40 GETTABLEKS                       R7 R0 K6 ["Src"]
-       42 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       44 GETTABLEKS                       R5 R6 K13 ["getFFlagEnableUploadingMakeup"]
+       40 GETTABLEKS                       R5 R0 K6 ["Src"]
+       42 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       44 GETTABLEKS                       R5 R5 K13 ["getFFlagEnableUploadingMakeup"]
        46 CALL                             R4 1 1
        47 NEWTABLE                         R5 1 0
        49 MOVE                             R7 R4

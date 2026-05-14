@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["render"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["render"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["createElement"]
         6 GETUPVAL                         R3 2
         7 DUPTABLE                         R4 K3 [{"Node"}]
         8 SETTABLEKS                       R0 R4 K2 ["Node"]
@@ -70,18 +70,18 @@ PROTO_3:
        24 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 JUMPIFNOTEQKNIL                  R5 ; [+2]
-        4 LOADB                            R4 0 +1
-        5 LOADB                            R4 1
-        6 FASTCALL2K                       ASSERT R4 K0 ; [+4]
-        8 LOADK                            R5 K0 ["Container not mounted, ensure render is called"]
-        9 GETIMPORT                        R3 K2 [assert]
-       11 CALL                             R3 2 0
-       12 GETUPVAL                         R2 1
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R0 R1 K3 ["getByText"]
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R4 1
+        2 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        4 LOADB                            R3 0 +1
+        5 LOADB                            R3 1
+        6 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        8 LOADK                            R4 K0 ["Container not mounted, ensure render is called"]
+        9 GETIMPORT                        R2 K2 [assert]
+       11 CALL                             R2 2 0
+       12 GETUPVAL                         R1 1
+       13 CALL                             R0 1 1
+       14 GETTABLEKS                       R0 R0 K3 ["getByText"]
        16 GETUPVAL                         R1 2
        17 DUPTABLE                         R2 K5 [{"exact"}]
        18 LOADB                            R3 0
@@ -90,18 +90,18 @@ PROTO_4:
        22 RETURN                           R0 -1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 JUMPIFNOTEQKNIL                  R5 ; [+2]
-        4 LOADB                            R4 0 +1
-        5 LOADB                            R4 1
-        6 FASTCALL2K                       ASSERT R4 K0 ; [+4]
-        8 LOADK                            R5 K0 ["Container not mounted, ensure render is called"]
-        9 GETIMPORT                        R3 K2 [assert]
-       11 CALL                             R3 2 0
-       12 GETUPVAL                         R2 1
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R0 R1 K3 ["getByDisplayValue"]
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R4 1
+        2 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        4 LOADB                            R3 0 +1
+        5 LOADB                            R3 1
+        6 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        8 LOADK                            R4 K0 ["Container not mounted, ensure render is called"]
+        9 GETIMPORT                        R2 K2 [assert]
+       11 CALL                             R2 2 0
+       12 GETUPVAL                         R1 1
+       13 CALL                             R0 1 1
+       14 GETTABLEKS                       R0 R0 K3 ["getByDisplayValue"]
        16 GETUPVAL                         R1 2
        17 DUPTABLE                         R2 K5 [{"exact"}]
        18 LOADB                            R3 0
@@ -138,23 +138,6 @@ PROTO_6:
        29 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R6 1
-        2 JUMPIFNOTEQKNIL                  R6 ; [+2]
-        4 LOADB                            R5 0 +1
-        5 LOADB                            R5 1
-        6 FASTCALL2K                       ASSERT R5 K0 ; [+4]
-        8 LOADK                            R6 K0 ["Container not mounted, ensure render is called"]
-        9 GETIMPORT                        R4 K2 [assert]
-       11 CALL                             R4 2 0
-       12 GETUPVAL                         R3 1
-       13 CALL                             R2 1 1
-       14 GETTABLEKS                       R1 R2 K3 ["queryByTestId"]
-       16 MOVE                             R2 R0
-       17 CALL                             R1 1 -1
-       18 RETURN                           R1 -1
-
-PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R5 1
         2 JUMPIFNOTEQKNIL                  R5 ; [+2]
@@ -166,7 +149,24 @@ PROTO_8:
        11 CALL                             R3 2 0
        12 GETUPVAL                         R2 1
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R0 R1 K3 ["queryByTestId"]
+       14 GETTABLEKS                       R1 R1 K3 ["queryByTestId"]
+       16 MOVE                             R2 R0
+       17 CALL                             R1 1 -1
+       18 RETURN                           R1 -1
+
+PROTO_8:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R4 1
+        2 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        4 LOADB                            R3 0 +1
+        5 LOADB                            R3 1
+        6 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        8 LOADK                            R4 K0 ["Container not mounted, ensure render is called"]
+        9 GETIMPORT                        R2 K2 [assert]
+       11 CALL                             R2 2 0
+       12 GETUPVAL                         R1 1
+       13 CALL                             R0 1 1
+       14 GETTABLEKS                       R0 R0 K3 ["queryByTestId"]
        16 LOADK                            R1 K4 ["--knowledge-tutorials-NextButton"]
        17 CALL                             R0 1 1
        18 FASTCALL2K                       ASSERT R0 K5 ; [+5]
@@ -174,25 +174,25 @@ PROTO_8:
        21 LOADK                            R3 K5 ["Next button not found"]
        22 GETIMPORT                        R1 K2 [assert]
        24 CALL                             R1 2 0
-       25 GETUPVAL                         R2 2
-       26 GETTABLEKS                       R1 R2 K6 ["click"]
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K6 ["click"]
        28 MOVE                             R2 R0
        29 CALL                             R1 1 0
        30 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 JUMPIFNOTEQKNIL                  R5 ; [+2]
-        4 LOADB                            R4 0 +1
-        5 LOADB                            R4 1
-        6 FASTCALL2K                       ASSERT R4 K0 ; [+4]
-        8 LOADK                            R5 K0 ["Container not mounted, ensure render is called"]
-        9 GETIMPORT                        R3 K2 [assert]
-       11 CALL                             R3 2 0
-       12 GETUPVAL                         R2 1
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R0 R1 K3 ["queryByTestId"]
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R4 1
+        2 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        4 LOADB                            R3 0 +1
+        5 LOADB                            R3 1
+        6 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        8 LOADK                            R4 K0 ["Container not mounted, ensure render is called"]
+        9 GETIMPORT                        R2 K2 [assert]
+       11 CALL                             R2 2 0
+       12 GETUPVAL                         R1 1
+       13 CALL                             R0 1 1
+       14 GETTABLEKS                       R0 R0 K3 ["queryByTestId"]
        16 LOADK                            R1 K4 ["--knowledge-tutorials-PrevButton"]
        17 CALL                             R0 1 1
        18 FASTCALL2K                       ASSERT R0 K5 ; [+5]
@@ -200,13 +200,39 @@ PROTO_9:
        21 LOADK                            R3 K5 ["Prev button not found"]
        22 GETIMPORT                        R1 K2 [assert]
        24 CALL                             R1 2 0
-       25 GETUPVAL                         R2 2
-       26 GETTABLEKS                       R1 R2 K6 ["click"]
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K6 ["click"]
        28 MOVE                             R2 R0
        29 CALL                             R1 1 0
        30 RETURN                           R0 0
 
 PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R4 1
+        2 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        4 LOADB                            R3 0 +1
+        5 LOADB                            R3 1
+        6 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        8 LOADK                            R4 K0 ["Container not mounted, ensure render is called"]
+        9 GETIMPORT                        R2 K2 [assert]
+       11 CALL                             R2 2 0
+       12 GETUPVAL                         R1 1
+       13 CALL                             R0 1 1
+       14 GETTABLEKS                       R0 R0 K3 ["queryByTestId"]
+       16 LOADK                            R1 K4 ["--knowledge-tutorials-TableOfContentsButton"]
+       17 CALL                             R0 1 1
+       18 FASTCALL2K                       ASSERT R0 K5 ; [+5]
+       20 MOVE                             R2 R0
+       21 LOADK                            R3 K5 ["Table of contents button not found"]
+       22 GETIMPORT                        R1 K2 [assert]
+       24 CALL                             R1 2 0
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K6 ["click"]
+       28 MOVE                             R2 R0
+       29 CALL                             R1 1 0
+       30 RETURN                           R0 0
+
+PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R5 1
         2 JUMPIFNOTEQKNIL                  R5 ; [+2]
@@ -218,33 +244,7 @@ PROTO_10:
        11 CALL                             R3 2 0
        12 GETUPVAL                         R2 1
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R0 R1 K3 ["queryByTestId"]
-       16 LOADK                            R1 K4 ["--knowledge-tutorials-TableOfContentsButton"]
-       17 CALL                             R0 1 1
-       18 FASTCALL2K                       ASSERT R0 K5 ; [+5]
-       20 MOVE                             R2 R0
-       21 LOADK                            R3 K5 ["Table of contents button not found"]
-       22 GETIMPORT                        R1 K2 [assert]
-       24 CALL                             R1 2 0
-       25 GETUPVAL                         R2 2
-       26 GETTABLEKS                       R1 R2 K6 ["click"]
-       28 MOVE                             R2 R0
-       29 CALL                             R1 1 0
-       30 RETURN                           R0 0
-
-PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R6 1
-        2 JUMPIFNOTEQKNIL                  R6 ; [+2]
-        4 LOADB                            R5 0 +1
-        5 LOADB                            R5 1
-        6 FASTCALL2K                       ASSERT R5 K0 ; [+4]
-        8 LOADK                            R6 K0 ["Container not mounted, ensure render is called"]
-        9 GETIMPORT                        R4 K2 [assert]
-       11 CALL                             R4 2 0
-       12 GETUPVAL                         R3 1
-       13 CALL                             R2 1 1
-       14 GETTABLEKS                       R1 R2 K3 ["queryByTestId"]
+       14 GETTABLEKS                       R1 R1 K3 ["queryByTestId"]
        16 LOADK                            R3 K4 ["--knowledge-tutorials-SectionButton_%*"]
        17 MOVE                             R5 R0
        18 NAMECALL                         R3 R3 K5 ["format"]
@@ -256,23 +256,23 @@ PROTO_11:
        26 LOADK                            R4 K6 ["Section button not found"]
        27 GETIMPORT                        R2 K2 [assert]
        29 CALL                             R2 2 0
-       30 GETUPVAL                         R3 2
-       31 GETTABLEKS                       R2 R3 K7 ["click"]
+       30 GETUPVAL                         R2 2
+       31 GETTABLEKS                       R2 R2 K7 ["click"]
        33 MOVE                             R3 R1
        34 CALL                             R2 1 0
        35 RETURN                           R0 0
 
 PROTO_12:
         0 JUMPIFNOT                        R2 ; [+9]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["keyDown"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["keyDown"]
         4 MOVE                             R4 R0
         5 DUPTABLE                         R5 K2 [{"key"}]
         6 SETTABLEKS                       R1 R5 K1 ["key"]
         8 CALL                             R3 2 0
         9 RETURN                           R0 0
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K3 ["keyUp"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K3 ["keyUp"]
        13 MOVE                             R4 R0
        14 DUPTABLE                         R5 K2 [{"key"}]
        15 SETTABLEKS                       R1 R5 K1 ["key"]
@@ -310,14 +310,14 @@ PROTO_14:
         4 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["spyOn"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["Util"]
-        6 GETTABLEKS                       R3 R4 K2 ["MarkdownParser"]
-        8 LOADK                            R4 K3 ["parse"]
-        9 CALL                             R2 2 1
-       10 GETTABLEKS                       R1 R2 K4 ["mockImplementation"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["spyOn"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Util"]
+        6 GETTABLEKS                       R2 R2 K2 ["MarkdownParser"]
+        8 LOADK                            R3 K3 ["parse"]
+        9 CALL                             R1 2 1
+       10 GETTABLEKS                       R1 R1 K4 ["mockImplementation"]
        12 NEWCLOSURE                       R2 P0
        13 CAPTURE                          VAL R0
        14 CALL                             R1 1 -1
@@ -411,8 +411,8 @@ PROTO_17:
        42 DUPCLOSURE                       R15 K3 [PROTO_16]
        43 DUPTABLE                         R16 K19 [{"render", "cleanup", "getContainer", "getGuiRoot", "getRenderedNode", "getTextObjectWithMessage", "queryByTestId", "clickNextButton", "clickPrevButton", "clickTableOfContentsButton", "clickSectionButton", "setKeyDown", "scrollToElement", "getAncestorWithTag", "throwMarkdownParserError"}]
        44 SETTABLEKS                       R2 R16 K4 ["render"]
-       46 GETUPVAL                         R18 0
-       47 GETTABLEKS                       R17 R18 K5 ["cleanup"]
+       46 GETUPVAL                         R17 0
+       47 GETTABLEKS                       R17 R17 K5 ["cleanup"]
        49 SETTABLEKS                       R17 R16 K5 ["cleanup"]
        51 SETTABLEKS                       R3 R16 K6 ["getContainer"]
        53 SETTABLEKS                       R4 R16 K7 ["getGuiRoot"]
@@ -441,21 +441,21 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["Framework"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R5 R1 K8 ["Dev"]
-       18 GETTABLEKS                       R4 R5 K9 ["JestGlobals"]
+       16 GETTABLEKS                       R4 R1 K8 ["Dev"]
+       18 GETTABLEKS                       R4 R4 K9 ["JestGlobals"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K6 [require]
        23 GETTABLEKS                       R5 R1 K10 ["React"]
        25 CALL                             R4 1 1
        26 GETIMPORT                        R5 K6 [require]
-       28 GETTABLEKS                       R7 R1 K8 ["Dev"]
-       30 GETTABLEKS                       R6 R7 K11 ["ReactTestingLibrary"]
+       28 GETTABLEKS                       R6 R1 K8 ["Dev"]
+       30 GETTABLEKS                       R6 R6 K11 ["ReactTestingLibrary"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K6 [require]
-       35 GETTABLEKS                       R10 R0 K12 ["Src"]
-       37 GETTABLEKS                       R9 R10 K13 ["Util"]
-       39 GETTABLEKS                       R8 R9 K14 ["tests"]
-       41 GETTABLEKS                       R7 R8 K15 ["mockContext"]
+       35 GETTABLEKS                       R7 R0 K12 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Util"]
+       39 GETTABLEKS                       R7 R7 K14 ["tests"]
+       41 GETTABLEKS                       R7 R7 K15 ["mockContext"]
        43 CALL                             R6 1 1
        44 GETTABLEKS                       R7 R5 K16 ["fireEvent"]
        46 GETTABLEKS                       R8 R5 K17 ["within"]

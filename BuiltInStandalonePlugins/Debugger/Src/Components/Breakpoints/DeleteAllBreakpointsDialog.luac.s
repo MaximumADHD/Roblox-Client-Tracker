@@ -1,24 +1,24 @@
 PROTO_0:
         0 JUMPIFNOTEQKS                    R0 K0 ["Yes"] ; [+5]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["DeleteAllBreakpoints"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["DeleteAllBreakpoints"]
         5 CALL                             R1 0 0
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K2 ["CloseDialog"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K2 ["CloseDialog"]
         9 CALL                             R1 0 0
        10 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["CloseDialog"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CloseDialog"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K11 [{"Style", "Enabled", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
         9 LOADK                            R6 K12 ["AcceptCancel"]
@@ -63,8 +63,8 @@ PROTO_2:
        66 CAPTURE                          VAL R1
        67 SETTABLEKS                       R6 R5 K10 ["OnClose"]
        69 DUPTABLE                         R6 K27 [{"Contents"}]
-       70 GETUPVAL                         R8 0
-       71 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       70 GETUPVAL                         R7 0
+       71 GETTABLEKS                       R7 R7 K2 ["createElement"]
        73 GETUPVAL                         R8 2
        74 DUPTABLE                         R9 K33 [{"BackgroundTransparency", "TextSize", "Text", "TextColor3", "Size", "Position"}]
        75 LOADN                            R10 1
@@ -99,18 +99,18 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K8 ["UI"]
        27 GETTABLEKS                       R4 R3 K9 ["TextLabel"]

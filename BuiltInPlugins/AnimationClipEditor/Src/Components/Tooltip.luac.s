@@ -4,8 +4,8 @@ PROTO_0:
         4 GETTABLEKS                       R3 R1 K2 ["TextKey"]
         6 GETTABLEKS                       R4 R1 K3 ["ShowDelay"]
         8 GETTABLEKS                       R5 R1 K4 ["Priority"]
-       10 GETTABLEKS                       R7 R0 K0 ["props"]
-       12 GETTABLEKS                       R6 R7 K5 ["Localization"]
+       10 GETTABLEKS                       R6 R0 K0 ["props"]
+       12 GETTABLEKS                       R6 R6 K5 ["Localization"]
        14 OR                               R8 R2 R3
        15 FASTCALL2K                       ASSERT R8 K6 ; [+4]
        17 LOADK                            R9 K6 ["Expected either a Text or TextKey prop."]
@@ -21,8 +21,8 @@ PROTO_0:
        28 NAMECALL                         R8 R6 K10 ["getText"]
        30 CALL                             R8 3 1
        31 MOVE                             R7 R8
-       32 GETUPVAL                         R9 0
-       33 GETTABLEKS                       R8 R9 K11 ["createElement"]
+       32 GETUPVAL                         R8 0
+       33 GETTABLEKS                       R8 R8 K11 ["createElement"]
        35 GETUPVAL                         R9 1
        36 DUPTABLE                         R10 K13 [{"Text", "ShowDelay", "Enabled", "Priority"}]
        37 SETTABLEKS                       R7 R10 K1 ["Text"]
@@ -41,17 +41,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
-       25 GETTABLEKS                       R6 R2 K11 ["UI"]
-       27 GETTABLEKS                       R5 R6 K12 ["Tooltip"]
+       25 GETTABLEKS                       R5 R2 K11 ["UI"]
+       27 GETTABLEKS                       R5 R5 K12 ["Tooltip"]
        29 GETTABLEKS                       R6 R1 K13 ["PureComponent"]
        31 LOADK                            R8 K12 ["Tooltip"]
        32 NAMECALL                         R6 R6 K14 ["extend"]

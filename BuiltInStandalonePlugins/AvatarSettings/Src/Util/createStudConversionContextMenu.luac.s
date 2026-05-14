@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["value"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["value"]
         4 FASTCALL1                        TOSTRING R3 ; [+2]
         5 GETIMPORT                        R2 K2 [tostring]
         7 CALL                             R2 1 1
@@ -28,10 +28,10 @@ PROTO_2:
         7 CALL                             R0 -1 1
         8 JUMPIF                           R0 ; [+1]
         9 RETURN                           R0 0
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K3 ["set"]
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K4 ["toDecimal"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K3 ["set"]
+       13 GETUPVAL                         R2 2
+       14 GETTABLEKS                       R2 R2 K4 ["toDecimal"]
        16 MOVE                             R3 R0
        17 LOADN                            R4 2
        18 CALL                             R2 2 -1
@@ -94,19 +94,19 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R0 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Util"]
-       25 GETTABLEKS                       R4 R5 K13 ["ProviderTypes"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["ProviderTypes"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K10 [require]
-       30 GETTABLEKS                       R7 R0 K11 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Util"]
-       34 GETTABLEKS                       R5 R6 K14 ["Round"]
+       30 GETTABLEKS                       R5 R0 K11 ["Src"]
+       32 GETTABLEKS                       R5 R5 K12 ["Util"]
+       34 GETTABLEKS                       R5 R5 K14 ["Round"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K10 [require]
-       39 GETTABLEKS                       R8 R0 K11 ["Src"]
-       41 GETTABLEKS                       R7 R8 K12 ["Util"]
-       43 GETTABLEKS                       R6 R7 K15 ["studsToMeters"]
+       39 GETTABLEKS                       R6 R0 K11 ["Src"]
+       41 GETTABLEKS                       R6 R6 K12 ["Util"]
+       43 GETTABLEKS                       R6 R6 K15 ["studsToMeters"]
        45 CALL                             R5 1 1
        46 DUPCLOSURE                       R6 K16 [PROTO_3]
        47 CAPTURE                          VAL R5

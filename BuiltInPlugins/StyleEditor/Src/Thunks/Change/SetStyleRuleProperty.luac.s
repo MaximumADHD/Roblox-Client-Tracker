@@ -12,9 +12,9 @@ PROTO_0:
        12 GETUPVAL                         R3 4
        13 GETUPVAL                         R4 5
        14 DUPTABLE                         R5 K6 [{"eventType", "path", "data"}]
-       15 GETUPVAL                         R8 6
-       16 GETTABLEKS                       R7 R8 K7 ["PropertyEdited"]
-       18 GETTABLEKS                       R6 R7 K8 ["rawValue"]
+       15 GETUPVAL                         R6 6
+       16 GETTABLEKS                       R6 R6 K7 ["PropertyEdited"]
+       18 GETTABLEKS                       R6 R6 K8 ["rawValue"]
        20 CALL                             R6 0 1
        21 SETTABLEKS                       R6 R5 K3 ["eventType"]
        23 LOADK                            R6 K9 ["Thunks/SetStyleRuleProperty"]
@@ -83,47 +83,47 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Reducers"]
-       17 GETTABLEKS                       R2 R3 K7 ["RootReducer"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Reducers"]
+       17 GETTABLEKS                       R2 R2 K7 ["RootReducer"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R6 R0 K5 ["Src"]
-       24 GETTABLEKS                       R5 R6 K8 ["Resources"]
-       26 GETTABLEKS                       R4 R5 K9 ["Telemetry"]
-       28 GETTABLEKS                       R3 R4 K10 ["ActionClickedEvent"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K8 ["Resources"]
+       26 GETTABLEKS                       R3 R3 K9 ["Telemetry"]
+       28 GETTABLEKS                       R3 R3 K10 ["ActionClickedEvent"]
        30 CALL                             R2 1 1
        31 GETIMPORT                        R3 K4 [require]
-       33 GETTABLEKS                       R6 R0 K5 ["Src"]
-       35 GETTABLEKS                       R5 R6 K11 ["Enums"]
-       37 GETTABLEKS                       R4 R5 K12 ["ActionClickedEventType"]
+       33 GETTABLEKS                       R4 R0 K5 ["Src"]
+       35 GETTABLEKS                       R4 R4 K11 ["Enums"]
+       37 GETTABLEKS                       R4 R4 K12 ["ActionClickedEventType"]
        39 CALL                             R3 1 1
        40 GETIMPORT                        R4 K4 [require]
-       42 GETTABLEKS                       R8 R0 K5 ["Src"]
-       44 GETTABLEKS                       R7 R8 K13 ["Thunks"]
-       46 GETTABLEKS                       R6 R7 K9 ["Telemetry"]
-       48 GETTABLEKS                       R5 R6 K14 ["SendTelemetryEvent"]
+       42 GETTABLEKS                       R5 R0 K5 ["Src"]
+       44 GETTABLEKS                       R5 R5 K13 ["Thunks"]
+       46 GETTABLEKS                       R5 R5 K9 ["Telemetry"]
+       48 GETTABLEKS                       R5 R5 K14 ["SendTelemetryEvent"]
        50 CALL                             R4 1 1
        51 GETIMPORT                        R5 K4 [require]
-       53 GETTABLEKS                       R8 R0 K5 ["Src"]
-       55 GETTABLEKS                       R7 R8 K15 ["Flags"]
-       57 GETTABLEKS                       R6 R7 K16 ["getFFlagStyleEditorNumberSequenceUpdate"]
+       53 GETTABLEKS                       R6 R0 K5 ["Src"]
+       55 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       57 GETTABLEKS                       R6 R6 K16 ["getFFlagStyleEditorNumberSequenceUpdate"]
        59 CALL                             R5 1 1
        60 CALL                             R5 0 1
        61 GETIMPORT                        R6 K4 [require]
-       63 GETTABLEKS                       R9 R0 K5 ["Src"]
-       65 GETTABLEKS                       R8 R9 K13 ["Thunks"]
-       67 GETTABLEKS                       R7 R8 K17 ["Types"]
+       63 GETTABLEKS                       R7 R0 K5 ["Src"]
+       65 GETTABLEKS                       R7 R7 K13 ["Thunks"]
+       67 GETTABLEKS                       R7 R7 K17 ["Types"]
        69 CALL                             R6 1 1
        70 GETIMPORT                        R7 K4 [require]
-       72 GETTABLEKS                       R9 R0 K5 ["Src"]
-       74 GETTABLEKS                       R8 R9 K17 ["Types"]
+       72 GETTABLEKS                       R8 R0 K5 ["Src"]
+       74 GETTABLEKS                       R8 R8 K17 ["Types"]
        76 CALL                             R7 1 1
        77 DUPCLOSURE                       R8 K18 [PROTO_2]
        78 CAPTURE                          VAL R4

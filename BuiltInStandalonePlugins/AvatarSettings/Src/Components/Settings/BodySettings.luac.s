@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R4 R1 K1 ["settings"]
@@ -13,10 +13,10 @@ PROTO_0:
        16 CALL                             R2 2 0
        17 GETUPVAL                         R2 2
        18 CALL                             R2 0 1
-       19 GETTABLEKS                       R7 R1 K1 ["settings"]
-       21 GETTABLEKS                       R6 R7 K5 ["navigationBarSettings"]
-       23 GETTABLEKS                       R5 R6 K6 ["avatarType"]
-       25 GETTABLEKS                       R4 R5 K7 ["value"]
+       19 GETTABLEKS                       R4 R1 K1 ["settings"]
+       21 GETTABLEKS                       R4 R4 K5 ["navigationBarSettings"]
+       23 GETTABLEKS                       R4 R4 K6 ["avatarType"]
+       25 GETTABLEKS                       R4 R4 K7 ["value"]
        27 GETIMPORT                        R5 K11 [Enum.GameAvatarType.R6]
        29 JUMPIFEQ                         R4 R5 ; [+2]
        31 LOADB                            R3 0 +1
@@ -24,8 +24,8 @@ PROTO_0:
        33 GETUPVAL                         R4 3
        34 GETUPVAL                         R5 4
        35 NEWTABLE                         R6 1 0
-       37 GETUPVAL                         R8 0
-       38 GETTABLEKS                       R7 R8 K12 ["Tag"]
+       37 GETUPVAL                         R7 0
+       38 GETTABLEKS                       R7 R7 K12 ["Tag"]
        40 LOADK                            R8 K13 ["AvatarSettings-SettingsPage X-Column"]
        41 SETTABLE                         R8 R6 R7
        42 DUPTABLE                         R7 K17 [{"ScaleSection", "AppearanceSection", "BuildSection"}]
@@ -67,40 +67,40 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["BodySettings"]
-       15 GETTABLEKS                       R2 R3 K9 ["AppearanceSection"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["BodySettings"]
+       15 GETTABLEKS                       R2 R2 K9 ["AppearanceSection"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K7 ["Components"]
-       24 GETTABLEKS                       R4 R5 K10 ["Contexts"]
-       26 GETTABLEKS                       R3 R4 K11 ["AvatarSettingsContext"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Components"]
+       24 GETTABLEKS                       R3 R3 K10 ["Contexts"]
+       26 GETTABLEKS                       R3 R3 K11 ["AvatarSettingsContext"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K5 [require]
-       31 GETTABLEKS                       R7 R0 K6 ["Src"]
-       33 GETTABLEKS                       R6 R7 K7 ["Components"]
-       35 GETTABLEKS                       R5 R6 K8 ["BodySettings"]
-       37 GETTABLEKS                       R4 R5 K12 ["BuildSection"]
+       31 GETTABLEKS                       R4 R0 K6 ["Src"]
+       33 GETTABLEKS                       R4 R4 K7 ["Components"]
+       35 GETTABLEKS                       R4 R4 K8 ["BodySettings"]
+       37 GETTABLEKS                       R4 R4 K12 ["BuildSection"]
        39 CALL                             R3 1 1
        40 GETIMPORT                        R4 K5 [require]
-       42 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       44 GETTABLEKS                       R5 R6 K14 ["Framework"]
+       42 GETTABLEKS                       R5 R0 K13 ["Packages"]
+       44 GETTABLEKS                       R5 R5 K14 ["Framework"]
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K5 [require]
-       49 GETTABLEKS                       R7 R0 K13 ["Packages"]
-       51 GETTABLEKS                       R6 R7 K15 ["React"]
+       49 GETTABLEKS                       R6 R0 K13 ["Packages"]
+       51 GETTABLEKS                       R6 R6 K15 ["React"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K5 [require]
-       56 GETTABLEKS                       R8 R0 K13 ["Packages"]
-       58 GETTABLEKS                       R7 R8 K16 ["ReactUtils"]
+       56 GETTABLEKS                       R7 R0 K13 ["Packages"]
+       58 GETTABLEKS                       R7 R7 K16 ["ReactUtils"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R11 R0 K6 ["Src"]
-       65 GETTABLEKS                       R10 R11 K7 ["Components"]
-       67 GETTABLEKS                       R9 R10 K8 ["BodySettings"]
-       69 GETTABLEKS                       R8 R9 K17 ["ScaleSection"]
+       63 GETTABLEKS                       R8 R0 K6 ["Src"]
+       65 GETTABLEKS                       R8 R8 K7 ["Components"]
+       67 GETTABLEKS                       R8 R8 K8 ["BodySettings"]
+       69 GETTABLEKS                       R8 R8 K17 ["ScaleSection"]
        71 CALL                             R7 1 1
        72 GETTABLEKS                       R8 R4 K18 ["UI"]
        74 GETTABLEKS                       R9 R8 K19 ["Pane"]

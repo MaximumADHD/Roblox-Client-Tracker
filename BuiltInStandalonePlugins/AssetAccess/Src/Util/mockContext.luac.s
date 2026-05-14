@@ -10,8 +10,8 @@ PROTO_0:
        11 LOADK                            R3 K3 ["Expected story to be a table"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K6 ["provideMockContext"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["provideMockContext"]
        18 GETUPVAL                         R2 1
        19 MOVE                             R3 R0
        20 CALL                             R1 2 -1
@@ -24,20 +24,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["TestHelpers"]
        16 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
-       18 GETTABLEKS                       R6 R1 K10 ["Style"]
-       20 GETTABLEKS                       R5 R6 K11 ["Themes"]
-       22 GETTABLEKS                       R4 R5 K12 ["StudioTheme"]
+       18 GETTABLEKS                       R4 R1 K10 ["Style"]
+       20 GETTABLEKS                       R4 R4 K11 ["Themes"]
+       22 GETTABLEKS                       R4 R4 K12 ["StudioTheme"]
        24 NEWTABLE                         R5 0 3
-       26 GETTABLEKS                       R7 R3 K13 ["Analytics"]
-       28 GETTABLEKS                       R6 R7 K14 ["mock"]
+       26 GETTABLEKS                       R6 R3 K13 ["Analytics"]
+       28 GETTABLEKS                       R6 R6 K14 ["mock"]
        30 CALL                             R6 0 1
-       31 GETTABLEKS                       R8 R3 K15 ["Localization"]
-       33 GETTABLEKS                       R7 R8 K14 ["mock"]
+       31 GETTABLEKS                       R7 R3 K15 ["Localization"]
+       33 GETTABLEKS                       R7 R7 K14 ["mock"]
        35 CALL                             R7 0 1
        36 GETTABLEKS                       R8 R4 K14 ["mock"]
        38 CALL                             R8 0 -1

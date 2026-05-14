@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Body"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Body"]
         4 NAMECALL                         R0 R0 K1 ["JSONDecode"]
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
@@ -12,8 +12,8 @@ PROTO_1:
         2 JUMPIFNOT                        R0 ; [+2]
         3 LOADB                            R0 1
         4 RETURN                           R0 1
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R0 R1 K0 ["getFeatureAccessUrl"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["getFeatureAccessUrl"]
         8 CALL                             R0 0 1
         9 DUPTABLE                         R1 K4 [{"Url", "Method", "Headers"}]
        10 SETTABLEKS                       R0 R1 K1 ["Url"]
@@ -23,8 +23,8 @@ PROTO_1:
        17 LOADK                            R3 K6 ["application/json"]
        18 SETTABLEKS                       R3 R2 K7 ["Content-Type"]
        20 SETTABLEKS                       R2 R1 K3 ["Headers"]
-       22 GETUPVAL                         R3 2
-       23 GETTABLEKS                       R2 R3 K8 ["requestInternal"]
+       22 GETUPVAL                         R2 2
+       23 GETTABLEKS                       R2 R2 K8 ["requestInternal"]
        25 MOVE                             R3 R1
        26 CALL                             R2 1 1
        27 NAMECALL                         R3 R2 K9 ["await"]
@@ -57,8 +57,8 @@ PROTO_2:
         5 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFNOT                        R0 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R0 0
@@ -81,16 +81,16 @@ PROTO_4:
         7 CAPTURE                          UPVAL U3
         8 CAPTURE                          UPVAL U4
         9 CAPTURE                          VAL R0
-       10 GETUPVAL                         R3 5
-       11 GETTABLEKS                       R2 R3 K1 ["useState"]
+       10 GETUPVAL                         R2 5
+       11 GETTABLEKS                       R2 R2 K1 ["useState"]
        13 LOADB                            R3 0
        14 CALL                             R2 1 2
-       15 GETUPVAL                         R5 5
-       16 GETTABLEKS                       R4 R5 K2 ["useRef"]
+       15 GETUPVAL                         R4 5
+       16 GETTABLEKS                       R4 R4 K2 ["useRef"]
        18 LOADB                            R5 0
        19 CALL                             R4 1 1
-       20 GETUPVAL                         R6 5
-       21 GETTABLEKS                       R5 R6 K3 ["useEffect"]
+       20 GETUPVAL                         R5 5
+       21 GETTABLEKS                       R5 R5 K3 ["useEffect"]
        23 NEWCLOSURE                       R6 P1
        24 CAPTURE                          VAL R4
        25 CAPTURE                          VAL R1
@@ -110,29 +110,29 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R2 K12 ["ContextServices"]
-       22 GETTABLEKS                       R3 R4 K13 ["Analytics"]
+       20 GETTABLEKS                       R3 R2 K12 ["ContextServices"]
+       22 GETTABLEKS                       R3 R3 K13 ["Analytics"]
        24 GETIMPORT                        R4 K9 [require]
-       26 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       28 GETTABLEKS                       R5 R6 K14 ["React"]
+       26 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       28 GETTABLEKS                       R5 R5 K14 ["React"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K9 [require]
-       33 GETTABLEKS                       R8 R1 K15 ["Src"]
-       35 GETTABLEKS                       R7 R8 K16 ["Util"]
-       37 GETTABLEKS                       R6 R7 K17 ["Url"]
+       33 GETTABLEKS                       R6 R1 K15 ["Src"]
+       35 GETTABLEKS                       R6 R6 K16 ["Util"]
+       37 GETTABLEKS                       R6 R6 K17 ["Url"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K9 [require]
-       42 GETTABLEKS                       R9 R1 K15 ["Src"]
-       44 GETTABLEKS                       R8 R9 K16 ["Util"]
-       46 GETTABLEKS                       R7 R8 K18 ["LookComposerUtils"]
+       42 GETTABLEKS                       R7 R1 K15 ["Src"]
+       44 GETTABLEKS                       R7 R7 K16 ["Util"]
+       46 GETTABLEKS                       R7 R7 K18 ["LookComposerUtils"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K9 [require]
-       51 GETTABLEKS                       R10 R1 K15 ["Src"]
-       53 GETTABLEKS                       R9 R10 K19 ["Flags"]
-       55 GETTABLEKS                       R8 R9 K20 ["getFFlagDebugAvatarPreviewerLookApiNeverFails"]
+       51 GETTABLEKS                       R8 R1 K15 ["Src"]
+       53 GETTABLEKS                       R8 R8 K19 ["Flags"]
+       55 GETTABLEKS                       R8 R8 K20 ["getFFlagDebugAvatarPreviewerLookApiNeverFails"]
        57 CALL                             R7 1 1
        58 DUPCLOSURE                       R8 K21 [PROTO_4]
        59 CAPTURE                          VAL R3

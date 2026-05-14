@@ -25,24 +25,24 @@ PROTO_2:
        15 RETURN                           R3 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnOpenGameSettings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnOpenGameSettings"]
         3 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
-       10 GETIMPORT                        R2 K3 [script]
-       12 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       14 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       10 GETIMPORT                        R0 K3 [script]
+       12 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       14 GETTABLEKS                       R0 R0 K4 ["Parent"]
        16 GETIMPORT                        R1 K1 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K7 ["Util"]
-       22 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+       18 GETTABLEKS                       R2 R0 K6 ["Src"]
+       20 GETTABLEKS                       R2 R2 K7 ["Util"]
+       22 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        24 CALL                             R1 1 1
        25 GETTABLEKS                       R2 R1 K9 ["RunningUnderCLI"]
        27 CALL                             R2 0 1
@@ -53,24 +53,24 @@ MAIN:
        33 NAMECALL                         R2 R2 K13 ["GetService"]
        35 CALL                             R2 2 1
        36 GETIMPORT                        R3 K1 [require]
-       38 GETTABLEKS                       R5 R0 K14 ["Packages"]
-       40 GETTABLEKS                       R4 R5 K15 ["PluginLoader"]
+       38 GETTABLEKS                       R4 R0 K14 ["Packages"]
+       40 GETTABLEKS                       R4 R4 K15 ["PluginLoader"]
        42 CALL                             R3 1 1
        43 GETTABLEKS                       R4 R3 K16 ["PluginLoaderBuilder"]
-       45 GETTABLEKS                       R7 R0 K6 ["Src"]
-       47 GETTABLEKS                       R6 R7 K17 ["Resources"]
-       49 GETTABLEKS                       R5 R6 K18 ["SourceStrings"]
-       51 GETTABLEKS                       R8 R0 K6 ["Src"]
-       53 GETTABLEKS                       R7 R8 K17 ["Resources"]
-       55 GETTABLEKS                       R6 R7 K19 ["LocalizedStrings"]
+       45 GETTABLEKS                       R5 R0 K6 ["Src"]
+       47 GETTABLEKS                       R5 R5 K17 ["Resources"]
+       49 GETTABLEKS                       R5 R5 K18 ["SourceStrings"]
+       51 GETTABLEKS                       R6 R0 K6 ["Src"]
+       53 GETTABLEKS                       R6 R6 K17 ["Resources"]
+       55 GETTABLEKS                       R6 R6 K19 ["LocalizedStrings"]
        57 GETIMPORT                        R7 K11 [game]
        59 LOADK                            R9 K20 ["StudioService"]
        60 NAMECALL                         R7 R7 K13 ["GetService"]
        62 CALL                             R7 2 1
        63 GETIMPORT                        R8 K1 [require]
-       65 GETTABLEKS                       R11 R0 K6 ["Src"]
-       67 GETTABLEKS                       R10 R11 K21 ["Flags"]
-       69 GETTABLEKS                       R9 R10 K22 ["getFFlagGameSettingsGameToExperience"]
+       65 GETTABLEKS                       R9 R0 K6 ["Src"]
+       67 GETTABLEKS                       R9 R9 K21 ["Flags"]
+       69 GETTABLEKS                       R9 R9 K22 ["getFFlagGameSettingsGameToExperience"]
        71 CALL                             R8 1 1
        72 CALL                             R8 0 1
        73 DUPTABLE                         R9 K33 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
@@ -118,9 +118,9 @@ MAIN:
       138 JUMPIF                           R11 ; [+1]
       139 RETURN                           R0 0
       140 GETIMPORT                        R12 K1 [require]
-      142 GETIMPORT                        R15 K3 [script]
-      144 GETTABLEKS                       R14 R15 K4 ["Parent"]
-      146 GETTABLEKS                       R13 R14 K53 ["main"]
+      142 GETIMPORT                        R13 K3 [script]
+      144 GETTABLEKS                       R13 R13 K4 ["Parent"]
+      146 GETTABLEKS                       R13 R13 K53 ["main"]
       148 CALL                             R12 1 1
       149 MOVE                             R13 R12
       150 GETIMPORT                        R14 K34 [plugin]

@@ -64,104 +64,104 @@ PROTO_7:
 
 PROTO_8:
         0 DUPTABLE                         R0 K8 [{"clientId", "isEditMode", "placeId", "platformId", "studioSid", "toolboxSid", "pluginUri", "pluginInitTimestamp"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K9 ["getClientId"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K9 ["getClientId"]
         4 CALL                             R1 0 1
         5 SETTABLEKS                       R1 R0 K0 ["clientId"]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K10 ["getIsEditMode"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K10 ["getIsEditMode"]
        10 CALL                             R1 0 1
        11 SETTABLEKS                       R1 R0 K1 ["isEditMode"]
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K11 ["getPlaceId"]
+       13 GETUPVAL                         R1 0
+       14 GETTABLEKS                       R1 R1 K11 ["getPlaceId"]
        16 CALL                             R1 0 1
        17 SETTABLEKS                       R1 R0 K2 ["placeId"]
-       19 GETUPVAL                         R2 0
-       20 GETTABLEKS                       R1 R2 K12 ["getPlatformId"]
+       19 GETUPVAL                         R1 0
+       20 GETTABLEKS                       R1 R1 K12 ["getPlatformId"]
        22 CALL                             R1 0 1
        23 SETTABLEKS                       R1 R0 K3 ["platformId"]
-       25 GETUPVAL                         R2 0
-       26 GETTABLEKS                       R1 R2 K13 ["getStudioSessionId"]
+       25 GETUPVAL                         R1 0
+       26 GETTABLEKS                       R1 R1 K13 ["getStudioSessionId"]
        28 CALL                             R1 0 1
        29 SETTABLEKS                       R1 R0 K4 ["studioSid"]
-       31 GETUPVAL                         R2 0
-       32 GETTABLEKS                       R1 R2 K5 ["toolboxSid"]
+       31 GETUPVAL                         R1 0
+       32 GETTABLEKS                       R1 R1 K5 ["toolboxSid"]
        34 SETTABLEKS                       R1 R0 K5 ["toolboxSid"]
-       36 GETUPVAL                         R2 0
-       37 GETTABLEKS                       R1 R2 K6 ["pluginUri"]
+       36 GETUPVAL                         R1 0
+       37 GETTABLEKS                       R1 R1 K6 ["pluginUri"]
        39 SETTABLEKS                       R1 R0 K6 ["pluginUri"]
-       41 GETUPVAL                         R3 0
-       42 GETTABLEKS                       R2 R3 K14 ["WebView"]
-       44 GETTABLEKS                       R1 R2 K15 ["toolboxInitTimestamp"]
+       41 GETUPVAL                         R1 0
+       42 GETTABLEKS                       R1 R1 K14 ["WebView"]
+       44 GETTABLEKS                       R1 R1 K15 ["toolboxInitTimestamp"]
        46 SETTABLEKS                       R1 R0 K7 ["pluginInitTimestamp"]
        48 RETURN                           R0 1
 
 PROTO_9:
         0 LOADNIL                          R1
-        1 GETIMPORT                        R3 K2 [DateTime.now]
-        3 CALL                             R3 0 1
-        4 GETTABLEKS                       R2 R3 K3 ["UnixTimestampMillis"]
+        1 GETIMPORT                        R2 K2 [DateTime.now]
+        3 CALL                             R2 0 1
+        4 GETTABLEKS                       R2 R2 K3 ["UnixTimestampMillis"]
         6 DUPTABLE                         R3 K13 [{"clientId", "isEditMode", "placeId", "platformId", "studioSid", "timestampMs", "toolboxSid", "pluginUri", "userId"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K14 ["getClientId"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K14 ["getClientId"]
        10 CALL                             R4 0 1
        11 SETTABLEKS                       R4 R3 K4 ["clientId"]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K15 ["getIsEditMode"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K15 ["getIsEditMode"]
        16 CALL                             R4 0 1
        17 SETTABLEKS                       R4 R3 K5 ["isEditMode"]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R4 R5 K16 ["getPlaceId"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K16 ["getPlaceId"]
        22 CALL                             R4 0 1
        23 SETTABLEKS                       R4 R3 K6 ["placeId"]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K17 ["getPlatformId"]
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K17 ["getPlatformId"]
        28 CALL                             R4 0 1
        29 SETTABLEKS                       R4 R3 K7 ["platformId"]
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R4 R5 K18 ["getStudioSessionId"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K18 ["getStudioSessionId"]
        34 CALL                             R4 0 1
        35 SETTABLEKS                       R4 R3 K8 ["studioSid"]
        37 SETTABLEKS                       R2 R3 K9 ["timestampMs"]
-       39 GETUPVAL                         R5 0
-       40 GETTABLEKS                       R4 R5 K10 ["toolboxSid"]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K10 ["toolboxSid"]
        42 SETTABLEKS                       R4 R3 K10 ["toolboxSid"]
-       44 GETUPVAL                         R5 0
-       45 GETTABLEKS                       R4 R5 K11 ["pluginUri"]
+       44 GETUPVAL                         R4 0
+       45 GETTABLEKS                       R4 R4 K11 ["pluginUri"]
        47 SETTABLEKS                       R4 R3 K11 ["pluginUri"]
        49 GETUPVAL                         R4 1
        50 CALL                             R4 0 1
        51 SETTABLEKS                       R4 R3 K12 ["userId"]
        53 MOVE                             R1 R3
-       54 GETUPVAL                         R5 0
-       55 GETTABLEKS                       R4 R5 K19 ["WebView"]
-       57 GETTABLEKS                       R3 R4 K20 ["toolboxInitTimestamp"]
+       54 GETUPVAL                         R3 0
+       55 GETTABLEKS                       R3 R3 K19 ["WebView"]
+       57 GETTABLEKS                       R3 R3 K20 ["toolboxInitTimestamp"]
        59 JUMPIFNOT                        R3 ; [+8]
-       60 GETUPVAL                         R6 0
-       61 GETTABLEKS                       R5 R6 K19 ["WebView"]
-       63 GETTABLEKS                       R4 R5 K20 ["toolboxInitTimestamp"]
+       60 GETUPVAL                         R4 0
+       61 GETTABLEKS                       R4 R4 K19 ["WebView"]
+       63 GETTABLEKS                       R4 R4 K20 ["toolboxInitTimestamp"]
        65 SUB                              R3 R2 R4
        66 SETTABLEKS                       R3 R1 K21 ["timeMs"]
-       68 GETUPVAL                         R4 2
-       69 GETTABLEKS                       R3 R4 K22 ["join"]
+       68 GETUPVAL                         R3 2
+       69 GETTABLEKS                       R3 R3 K22 ["join"]
        71 MOVE                             R4 R1
        72 MOVE                             R5 R0
        73 CALL                             R3 2 -1
        74 RETURN                           R3 -1
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R4 K4 [{"reason", "currentRetryCount", "maxRetryCount"}]
         4 SETTABLEKS                       R0 R4 K1 ["reason"]
         6 SETTABLEKS                       R1 R4 K2 ["currentRetryCount"]
         8 SETTABLEKS                       R2 R4 K3 ["maxRetryCount"]
        10 CALL                             R3 1 1
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K5 ["sendEventDeferred"]
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K6 ["ANALYTICS_TARGET"]
-       17 GETTABLEKS                       R5 R6 K7 ["WebView"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K5 ["sendEventDeferred"]
+       14 GETUPVAL                         R5 2
+       15 GETTABLEKS                       R5 R5 K6 ["ANALYTICS_TARGET"]
+       17 GETTABLEKS                       R5 R5 K7 ["WebView"]
        19 LOADK                            R6 K8 ["Marketplace"]
        20 LOADK                            R7 K9 ["WebViewInitRetry"]
        21 MOVE                             R8 R3
@@ -169,19 +169,19 @@ PROTO_10:
        23 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R5 K5 [{"reason", "currentRetryCount", "maxRetryCount", "loadingStatus"}]
         4 SETTABLEKS                       R2 R5 K1 ["reason"]
         6 SETTABLEKS                       R0 R5 K2 ["currentRetryCount"]
         8 SETTABLEKS                       R1 R5 K3 ["maxRetryCount"]
        10 SETTABLEKS                       R3 R5 K4 ["loadingStatus"]
        12 CALL                             R4 1 1
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R5 R6 K6 ["sendEventDeferred"]
-       16 GETUPVAL                         R8 2
-       17 GETTABLEKS                       R7 R8 K7 ["ANALYTICS_TARGET"]
-       19 GETTABLEKS                       R6 R7 K8 ["WebView"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K6 ["sendEventDeferred"]
+       16 GETUPVAL                         R6 2
+       17 GETTABLEKS                       R6 R6 K7 ["ANALYTICS_TARGET"]
+       19 GETTABLEKS                       R6 R6 K8 ["WebView"]
        21 LOADK                            R7 K9 ["marketplace"]
        22 LOADK                            R8 K10 ["CreatorStoreWebViewRetryClicked"]
        23 MOVE                             R9 R4
@@ -189,17 +189,17 @@ PROTO_11:
        25 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["WebView"]
-        3 GETTABLEKS                       R2 R3 K1 ["retryShownEventFired"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["WebView"]
+        3 GETTABLEKS                       R2 R2 K1 ["retryShownEventFired"]
         5 JUMPIFNOT                        R2 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["WebView"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K0 ["WebView"]
        10 LOADB                            R3 1
        11 SETTABLEKS                       R3 R2 K1 ["retryShownEventFired"]
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R2 R3 K2 ["getWebViewTrackingAttributes"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K2 ["getWebViewTrackingAttributes"]
        16 DUPTABLE                         R3 K6 [{"reason", "widgetWidth", "widgetHeight"}]
        17 SETTABLEKS                       R0 R3 K3 ["reason"]
        19 GETTABLEKS                       R4 R1 K7 ["X"]
@@ -207,11 +207,11 @@ PROTO_12:
        23 GETTABLEKS                       R4 R1 K8 ["Y"]
        25 SETTABLEKS                       R4 R3 K5 ["widgetHeight"]
        27 CALL                             R2 1 1
-       28 GETUPVAL                         R4 1
-       29 GETTABLEKS                       R3 R4 K9 ["sendEventDeferred"]
-       31 GETUPVAL                         R6 2
-       32 GETTABLEKS                       R5 R6 K10 ["ANALYTICS_TARGET"]
-       34 GETTABLEKS                       R4 R5 K0 ["WebView"]
+       28 GETUPVAL                         R3 1
+       29 GETTABLEKS                       R3 R3 K9 ["sendEventDeferred"]
+       31 GETUPVAL                         R4 2
+       32 GETTABLEKS                       R4 R4 K10 ["ANALYTICS_TARGET"]
+       34 GETTABLEKS                       R4 R4 K0 ["WebView"]
        36 LOADK                            R5 K11 ["marketplace"]
        37 LOADK                            R6 K12 ["CreatorStoreWebViewRetryShown"]
        38 MOVE                             R7 R2
@@ -219,76 +219,76 @@ PROTO_12:
        40 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["WebView"]
-        3 GETTABLEKS                       R3 R4 K1 ["onWebViewTimingEventFired"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["WebView"]
+        3 GETTABLEKS                       R3 R3 K1 ["onWebViewTimingEventFired"]
         5 JUMPIF                           R3 ; [+7]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K0 ["WebView"]
-        9 GETTABLEKS                       R3 R4 K2 ["toolboxInitTimestamp"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["WebView"]
+        9 GETTABLEKS                       R3 R3 K2 ["toolboxInitTimestamp"]
        11 JUMPIFNOTEQKNIL                  R3 ; [+2]
        13 RETURN                           R0 0
        14 JUMPIFEQKNIL                     R0 ; [+12]
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K0 ["WebView"]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K0 ["WebView"]
-       22 GETTABLEKS                       R5 R6 K2 ["toolboxInitTimestamp"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K0 ["WebView"]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K0 ["WebView"]
+       22 GETTABLEKS                       R5 R5 K2 ["toolboxInitTimestamp"]
        24 SUB                              R4 R0 R5
        25 SETTABLEKS                       R4 R3 K3 ["beforeInteractiveTimeMs"]
        27 JUMPIFEQKNIL                     R1 ; [+12]
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K0 ["WebView"]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K0 ["WebView"]
-       35 GETTABLEKS                       R5 R6 K2 ["toolboxInitTimestamp"]
+       29 GETUPVAL                         R3 0
+       30 GETTABLEKS                       R3 R3 K0 ["WebView"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K0 ["WebView"]
+       35 GETTABLEKS                       R5 R5 K2 ["toolboxInitTimestamp"]
        37 SUB                              R4 R1 R5
        38 SETTABLEKS                       R4 R3 K4 ["afterInteractiveTimeMs"]
        40 JUMPIFEQKNIL                     R2 ; [+12]
-       42 GETUPVAL                         R4 0
-       43 GETTABLEKS                       R3 R4 K0 ["WebView"]
-       45 GETUPVAL                         R7 0
-       46 GETTABLEKS                       R6 R7 K0 ["WebView"]
-       48 GETTABLEKS                       R5 R6 K2 ["toolboxInitTimestamp"]
+       42 GETUPVAL                         R3 0
+       43 GETTABLEKS                       R3 R3 K0 ["WebView"]
+       45 GETUPVAL                         R5 0
+       46 GETTABLEKS                       R5 R5 K0 ["WebView"]
+       48 GETTABLEKS                       R5 R5 K2 ["toolboxInitTimestamp"]
        50 SUB                              R4 R2 R5
        51 SETTABLEKS                       R4 R3 K5 ["loadSuccessTimeMs"]
-       53 GETUPVAL                         R4 0
-       54 GETTABLEKS                       R3 R4 K6 ["getWebViewTrackingAttributes"]
+       53 GETUPVAL                         R3 0
+       54 GETTABLEKS                       R3 R3 K6 ["getWebViewTrackingAttributes"]
        56 DUPTABLE                         R4 K7 [{"beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
-       57 GETUPVAL                         R7 0
-       58 GETTABLEKS                       R6 R7 K0 ["WebView"]
-       60 GETTABLEKS                       R5 R6 K3 ["beforeInteractiveTimeMs"]
+       57 GETUPVAL                         R5 0
+       58 GETTABLEKS                       R5 R5 K0 ["WebView"]
+       60 GETTABLEKS                       R5 R5 K3 ["beforeInteractiveTimeMs"]
        62 SETTABLEKS                       R5 R4 K3 ["beforeInteractiveTimeMs"]
-       64 GETUPVAL                         R7 0
-       65 GETTABLEKS                       R6 R7 K0 ["WebView"]
-       67 GETTABLEKS                       R5 R6 K4 ["afterInteractiveTimeMs"]
+       64 GETUPVAL                         R5 0
+       65 GETTABLEKS                       R5 R5 K0 ["WebView"]
+       67 GETTABLEKS                       R5 R5 K4 ["afterInteractiveTimeMs"]
        69 SETTABLEKS                       R5 R4 K4 ["afterInteractiveTimeMs"]
-       71 GETUPVAL                         R7 0
-       72 GETTABLEKS                       R6 R7 K0 ["WebView"]
-       74 GETTABLEKS                       R5 R6 K5 ["loadSuccessTimeMs"]
+       71 GETUPVAL                         R5 0
+       72 GETTABLEKS                       R5 R5 K0 ["WebView"]
+       74 GETTABLEKS                       R5 R5 K5 ["loadSuccessTimeMs"]
        76 SETTABLEKS                       R5 R4 K5 ["loadSuccessTimeMs"]
        78 CALL                             R3 1 1
-       79 GETUPVAL                         R6 0
-       80 GETTABLEKS                       R5 R6 K0 ["WebView"]
-       82 GETTABLEKS                       R4 R5 K3 ["beforeInteractiveTimeMs"]
+       79 GETUPVAL                         R4 0
+       80 GETTABLEKS                       R4 R4 K0 ["WebView"]
+       82 GETTABLEKS                       R4 R4 K3 ["beforeInteractiveTimeMs"]
        84 JUMPIFNOT                        R4 ; [+30]
-       85 GETUPVAL                         R6 0
-       86 GETTABLEKS                       R5 R6 K0 ["WebView"]
-       88 GETTABLEKS                       R4 R5 K4 ["afterInteractiveTimeMs"]
+       85 GETUPVAL                         R4 0
+       86 GETTABLEKS                       R4 R4 K0 ["WebView"]
+       88 GETTABLEKS                       R4 R4 K4 ["afterInteractiveTimeMs"]
        90 JUMPIFNOT                        R4 ; [+24]
-       91 GETUPVAL                         R6 0
-       92 GETTABLEKS                       R5 R6 K0 ["WebView"]
-       94 GETTABLEKS                       R4 R5 K5 ["loadSuccessTimeMs"]
+       91 GETUPVAL                         R4 0
+       92 GETTABLEKS                       R4 R4 K0 ["WebView"]
+       94 GETTABLEKS                       R4 R4 K5 ["loadSuccessTimeMs"]
        96 JUMPIFNOT                        R4 ; [+18]
-       97 GETUPVAL                         R5 0
-       98 GETTABLEKS                       R4 R5 K0 ["WebView"]
+       97 GETUPVAL                         R4 0
+       98 GETTABLEKS                       R4 R4 K0 ["WebView"]
       100 LOADB                            R5 1
       101 SETTABLEKS                       R5 R4 K1 ["onWebViewTimingEventFired"]
-      103 GETUPVAL                         R5 1
-      104 GETTABLEKS                       R4 R5 K8 ["sendEventDeferred"]
-      106 GETUPVAL                         R7 2
-      107 GETTABLEKS                       R6 R7 K9 ["ANALYTICS_TARGET"]
-      109 GETTABLEKS                       R5 R6 K0 ["WebView"]
+      103 GETUPVAL                         R4 1
+      104 GETTABLEKS                       R4 R4 K8 ["sendEventDeferred"]
+      106 GETUPVAL                         R5 2
+      107 GETTABLEKS                       R5 R5 K9 ["ANALYTICS_TARGET"]
+      109 GETTABLEKS                       R5 R5 K0 ["WebView"]
       111 LOADK                            R6 K10 ["marketplace"]
       112 LOADK                            R7 K11 ["CreatorStoreWebViewTiming"]
       113 MOVE                             R8 R3
@@ -296,14 +296,14 @@ PROTO_13:
       115 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWebViewTrackingAttributes"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["sendEventDeferred"]
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K2 ["ANALYTICS_TARGET"]
-       10 GETTABLEKS                       R2 R3 K3 ["WebView"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 2
+        8 GETTABLEKS                       R2 R2 K2 ["ANALYTICS_TARGET"]
+       10 GETTABLEKS                       R2 R2 K3 ["WebView"]
        12 LOADK                            R3 K4 ["marketplace"]
        13 LOADK                            R4 K5 ["CreatorStoreWebViewInit"]
        14 MOVE                             R5 R0
@@ -311,89 +311,89 @@ PROTO_14:
        16 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R2 K2 [{"reason"}]
         4 SETTABLEKS                       R0 R2 K1 ["reason"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K3 ["sendEventDeferred"]
-       10 GETUPVAL                         R5 2
-       11 GETTABLEKS                       R4 R5 K4 ["ANALYTICS_TARGET"]
-       13 GETTABLEKS                       R3 R4 K5 ["WebView"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K3 ["sendEventDeferred"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K4 ["ANALYTICS_TARGET"]
+       13 GETTABLEKS                       R3 R3 K5 ["WebView"]
        15 LOADK                            R4 K6 ["marketplace"]
        16 LOADK                            R5 K7 ["CreatorStoreFallbackToLuaUi"]
        17 MOVE                             R6 R1
        18 CALL                             R2 4 0
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K0 ["getWebViewTrackingAttributes"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K0 ["getWebViewTrackingAttributes"]
        22 DUPTABLE                         R3 K11 [{"beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R5 R6 K5 ["WebView"]
-       26 GETTABLEKS                       R4 R5 K8 ["beforeInteractiveTimeMs"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K5 ["WebView"]
+       26 GETTABLEKS                       R4 R4 K8 ["beforeInteractiveTimeMs"]
        28 SETTABLEKS                       R4 R3 K8 ["beforeInteractiveTimeMs"]
-       30 GETUPVAL                         R6 0
-       31 GETTABLEKS                       R5 R6 K5 ["WebView"]
-       33 GETTABLEKS                       R4 R5 K9 ["afterInteractiveTimeMs"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K5 ["WebView"]
+       33 GETTABLEKS                       R4 R4 K9 ["afterInteractiveTimeMs"]
        35 SETTABLEKS                       R4 R3 K9 ["afterInteractiveTimeMs"]
-       37 GETUPVAL                         R6 0
-       38 GETTABLEKS                       R5 R6 K5 ["WebView"]
-       40 GETTABLEKS                       R4 R5 K10 ["loadSuccessTimeMs"]
+       37 GETUPVAL                         R4 0
+       38 GETTABLEKS                       R4 R4 K5 ["WebView"]
+       40 GETTABLEKS                       R4 R4 K10 ["loadSuccessTimeMs"]
        42 SETTABLEKS                       R4 R3 K10 ["loadSuccessTimeMs"]
        44 CALL                             R2 1 1
-       45 GETUPVAL                         R5 0
-       46 GETTABLEKS                       R4 R5 K5 ["WebView"]
-       48 GETTABLEKS                       R3 R4 K12 ["onWebViewTimingEventFired"]
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K5 ["WebView"]
+       48 GETTABLEKS                       R3 R3 K12 ["onWebViewTimingEventFired"]
        50 JUMPIF                           R3 ; [+18]
-       51 GETUPVAL                         R4 0
-       52 GETTABLEKS                       R3 R4 K5 ["WebView"]
+       51 GETUPVAL                         R3 0
+       52 GETTABLEKS                       R3 R3 K5 ["WebView"]
        54 LOADB                            R4 1
        55 SETTABLEKS                       R4 R3 K12 ["onWebViewTimingEventFired"]
-       57 GETUPVAL                         R4 1
-       58 GETTABLEKS                       R3 R4 K3 ["sendEventDeferred"]
-       60 GETUPVAL                         R6 2
-       61 GETTABLEKS                       R5 R6 K4 ["ANALYTICS_TARGET"]
-       63 GETTABLEKS                       R4 R5 K5 ["WebView"]
+       57 GETUPVAL                         R3 1
+       58 GETTABLEKS                       R3 R3 K3 ["sendEventDeferred"]
+       60 GETUPVAL                         R4 2
+       61 GETTABLEKS                       R4 R4 K4 ["ANALYTICS_TARGET"]
+       63 GETTABLEKS                       R4 R4 K5 ["WebView"]
        65 LOADK                            R5 K6 ["marketplace"]
        66 LOADK                            R6 K13 ["CreatorStoreWebViewTiming"]
        67 MOVE                             R7 R2
        68 CALL                             R3 4 0
-       69 GETUPVAL                         R4 0
-       70 GETTABLEKS                       R3 R4 K14 ["setEventTarget"]
-       72 GETUPVAL                         R6 2
-       73 GETTABLEKS                       R5 R6 K4 ["ANALYTICS_TARGET"]
-       75 GETTABLEKS                       R4 R5 K15 ["Studio"]
+       69 GETUPVAL                         R3 0
+       70 GETTABLEKS                       R3 R3 K14 ["setEventTarget"]
+       72 GETUPVAL                         R4 2
+       73 GETTABLEKS                       R4 R4 K4 ["ANALYTICS_TARGET"]
+       75 GETTABLEKS                       R4 R4 K15 ["Studio"]
        77 CALL                             R3 1 0
-       78 GETUPVAL                         R4 0
-       79 GETTABLEKS                       R3 R4 K5 ["WebView"]
+       78 GETUPVAL                         R3 0
+       79 GETTABLEKS                       R3 R3 K5 ["WebView"]
        81 LOADB                            R4 1
        82 SETTABLEKS                       R4 R3 K16 ["didFallbackToLuaUi"]
        84 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["WebView"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["WebView"]
         3 SETTABLEKS                       R0 R1 K1 ["initialToolboxTab"]
         5 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["WebView"]
-        3 GETTABLEKS                       R0 R1 K1 ["firstLuaAssetImpressionEventFired"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["WebView"]
+        3 GETTABLEKS                       R0 R0 K1 ["firstLuaAssetImpressionEventFired"]
         5 JUMPIF                           R0 ; [+24]
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K2 ["getWebViewTrackingAttributes"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["getWebViewTrackingAttributes"]
         9 DUPTABLE                         R1 K4 [{"initialToolboxTab"}]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K0 ["WebView"]
-       13 GETTABLEKS                       R2 R3 K3 ["initialToolboxTab"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K0 ["WebView"]
+       13 GETTABLEKS                       R2 R2 K3 ["initialToolboxTab"]
        15 SETTABLEKS                       R2 R1 K3 ["initialToolboxTab"]
        17 CALL                             R0 1 1
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R1 R2 K5 ["sendEventDeferred"]
-       21 GETUPVAL                         R4 2
-       22 GETTABLEKS                       R3 R4 K6 ["ANALYTICS_TARGET"]
-       24 GETTABLEKS                       R2 R3 K7 ["Studio"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K5 ["sendEventDeferred"]
+       21 GETUPVAL                         R2 2
+       22 GETTABLEKS                       R2 R2 K6 ["ANALYTICS_TARGET"]
+       24 GETTABLEKS                       R2 R2 K7 ["Studio"]
        26 LOADK                            R3 K8 ["marketplace"]
        27 LOADK                            R4 K9 ["ToolboxLuaNoAssetImpressionFired"]
        28 MOVE                             R5 R0
@@ -401,11 +401,11 @@ PROTO_17:
        30 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["WebView"]
-        3 GETIMPORT                        R3 K3 [DateTime.now]
-        5 CALL                             R3 0 1
-        6 GETTABLEKS                       R2 R3 K4 ["UnixTimestampMillis"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["WebView"]
+        3 GETIMPORT                        R2 K3 [DateTime.now]
+        5 CALL                             R2 0 1
+        6 GETTABLEKS                       R2 R2 K4 ["UnixTimestampMillis"]
         8 SETTABLEKS                       R2 R1 K5 ["toolboxInitTimestamp"]
        10 JUMPIF                           R0 ; [+8]
        11 GETIMPORT                        R1 K8 [task.delay]
@@ -418,71 +418,71 @@ PROTO_18:
        19 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["WebView"]
-        3 GETTABLEKS                       R0 R1 K1 ["firstStoreAssetImpressionEventFired"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["WebView"]
+        3 GETTABLEKS                       R0 R0 K1 ["firstStoreAssetImpressionEventFired"]
         5 JUMPIFNOT                        R0 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R1 0
-        8 GETTABLEKS                       R0 R1 K0 ["WebView"]
-       10 GETIMPORT                        R2 K4 [DateTime.now]
-       12 CALL                             R2 0 1
-       13 GETTABLEKS                       R1 R2 K5 ["UnixTimestampMillis"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K0 ["WebView"]
+       10 GETIMPORT                        R1 K4 [DateTime.now]
+       12 CALL                             R1 0 1
+       13 GETTABLEKS                       R1 R1 K5 ["UnixTimestampMillis"]
        15 SETTABLEKS                       R1 R0 K6 ["storeTabOpenTimestamp"]
        17 RETURN                           R0 0
 
 PROTO_20:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["WebView"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["WebView"]
         3 LOADB                            R1 1
         4 SETTABLEKS                       R1 R0 K1 ["firstLuaAssetImpressionEventFired"]
         6 RETURN                           R0 0
 
 PROTO_21:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["WebView"]
-        3 GETTABLEKS                       R1 R2 K1 ["firstStoreAssetImpressionEventFired"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["WebView"]
+        3 GETTABLEKS                       R1 R1 K1 ["firstStoreAssetImpressionEventFired"]
         5 JUMPIF                           R1 ; [+6]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["WebView"]
-        9 GETTABLEKS                       R1 R2 K2 ["storeTabOpenTimestamp"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["WebView"]
+        9 GETTABLEKS                       R1 R1 K2 ["storeTabOpenTimestamp"]
        11 JUMPIF                           R1 ; [+1]
        12 RETURN                           R0 0
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K0 ["WebView"]
+       13 GETUPVAL                         R1 0
+       14 GETTABLEKS                       R1 R1 K0 ["WebView"]
        16 LOADB                            R2 1
        17 SETTABLEKS                       R2 R1 K1 ["firstStoreAssetImpressionEventFired"]
-       19 GETIMPORT                        R3 K5 [DateTime.now]
-       21 CALL                             R3 0 1
-       22 GETTABLEKS                       R2 R3 K6 ["UnixTimestampMillis"]
-       24 GETUPVAL                         R5 0
-       25 GETTABLEKS                       R4 R5 K0 ["WebView"]
-       27 GETTABLEKS                       R3 R4 K2 ["storeTabOpenTimestamp"]
+       19 GETIMPORT                        R2 K5 [DateTime.now]
+       21 CALL                             R2 0 1
+       22 GETTABLEKS                       R2 R2 K6 ["UnixTimestampMillis"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K0 ["WebView"]
+       27 GETTABLEKS                       R3 R3 K2 ["storeTabOpenTimestamp"]
        29 SUB                              R1 R2 R3
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K7 ["getWebViewTrackingAttributes"]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R2 R2 K7 ["getWebViewTrackingAttributes"]
        33 DUPTABLE                         R3 K12 [{"afterStoreTabOpenTimeMs", "isWebViewAssetImpression", "didFallbackToLuaUi", "initialToolboxTab"}]
        34 SETTABLEKS                       R1 R3 K8 ["afterStoreTabOpenTimeMs"]
        36 SETTABLEKS                       R0 R3 K9 ["isWebViewAssetImpression"]
-       38 GETUPVAL                         R6 0
-       39 GETTABLEKS                       R5 R6 K0 ["WebView"]
-       41 GETTABLEKS                       R4 R5 K10 ["didFallbackToLuaUi"]
+       38 GETUPVAL                         R4 0
+       39 GETTABLEKS                       R4 R4 K0 ["WebView"]
+       41 GETTABLEKS                       R4 R4 K10 ["didFallbackToLuaUi"]
        43 SETTABLEKS                       R4 R3 K10 ["didFallbackToLuaUi"]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R5 R6 K0 ["WebView"]
-       48 GETTABLEKS                       R4 R5 K11 ["initialToolboxTab"]
+       45 GETUPVAL                         R4 0
+       46 GETTABLEKS                       R4 R4 K0 ["WebView"]
+       48 GETTABLEKS                       R4 R4 K11 ["initialToolboxTab"]
        50 SETTABLEKS                       R4 R3 K11 ["initialToolboxTab"]
        52 CALL                             R2 1 1
-       53 GETUPVAL                         R4 1
-       54 GETTABLEKS                       R3 R4 K13 ["sendEventDeferred"]
+       53 GETUPVAL                         R3 1
+       54 GETTABLEKS                       R3 R3 K13 ["sendEventDeferred"]
        56 JUMPIFNOT                        R0 ; [+6]
-       57 GETUPVAL                         R6 2
-       58 GETTABLEKS                       R5 R6 K14 ["ANALYTICS_TARGET"]
-       60 GETTABLEKS                       R4 R5 K0 ["WebView"]
+       57 GETUPVAL                         R4 2
+       58 GETTABLEKS                       R4 R4 K14 ["ANALYTICS_TARGET"]
+       60 GETTABLEKS                       R4 R4 K0 ["WebView"]
        62 JUMP                             ; [+5]
-       63 GETUPVAL                         R6 2
-       64 GETTABLEKS                       R5 R6 K14 ["ANALYTICS_TARGET"]
-       66 GETTABLEKS                       R4 R5 K15 ["Studio"]
+       63 GETUPVAL                         R4 2
+       64 GETTABLEKS                       R4 R4 K14 ["ANALYTICS_TARGET"]
+       66 GETTABLEKS                       R4 R4 K15 ["Studio"]
        68 LOADK                            R5 K16 ["marketplace"]
        69 LOADK                            R6 K17 ["CreatorStoreFirstAssetImpression"]
        70 MOVE                             R7 R2
@@ -490,16 +490,16 @@ PROTO_21:
        72 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R3 K3 [{"newToolboxTab", "oldToolboxTab"}]
         4 SETTABLEKS                       R1 R3 K1 ["newToolboxTab"]
         6 SETTABLEKS                       R0 R3 K2 ["oldToolboxTab"]
         8 CALL                             R2 1 1
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K4 ["sendEventDeferred"]
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K5 ["eventTarget"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K4 ["sendEventDeferred"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K5 ["eventTarget"]
        15 LOADK                            R5 K6 ["Marketplace"]
        16 LOADK                            R6 K7 ["ToolboxTabChanged"]
        17 MOVE                             R7 R2
@@ -507,10 +507,10 @@ PROTO_22:
        19 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["toolbox"]
         7 LOADK                            R5 K3 ["termSearchedWithoutInsertion"]
         8 DUPTABLE                         R6 K10 [{"categoryName", "searchTerm", "studioSid", "clientId", "userId", "isEditMode"}]
@@ -543,10 +543,10 @@ PROTO_23:
        43 RETURN                           R0 0
 
 PROTO_24:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["eventTarget"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["eventTarget"]
         6 LOADK                            R5 K2 ["toolbox"]
         7 LOADK                            R6 K3 ["creatorSearched"]
         8 DUPTABLE                         R7 K11 [{"searchTerm", "creatorId", "studioSid", "clientId", "userId", "type", "isEditMode"}]
@@ -586,10 +586,10 @@ PROTO_24:
        51 RETURN                           R0 0
 
 PROTO_25:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["toolbox"]
         7 LOADK                            R4 K3 ["tryAsset"]
         8 DUPTABLE                         R5 K9 [{"assetId", "studioSid", "clientId", "userId", "isEditMode"}]
@@ -621,10 +621,10 @@ PROTO_25:
        41 RETURN                           R0 0
 
 PROTO_26:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["toolbox"]
         7 LOADK                            R4 K3 ["tryAssetFailure"]
         8 DUPTABLE                         R5 K9 [{"assetId", "studioSid", "clientId", "userId", "isEditMode"}]
@@ -656,10 +656,10 @@ PROTO_26:
        41 RETURN                           R0 0
 
 PROTO_27:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["eventTarget"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["eventTarget"]
         6 LOADK                            R2 K2 ["toolbox"]
         7 LOADK                            R3 K3 ["searchOptionsOpened"]
         8 DUPTABLE                         R4 K8 [{"studioSid", "clientId", "userId", "isEditMode"}]
@@ -690,10 +690,10 @@ PROTO_27:
        39 RETURN                           R0 0
 
 PROTO_28:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["click"]
         7 LOADK                            R5 K3 ["toolboxCategorySelection"]
         8 DUPTABLE                         R6 K9 [{"oldCategory", "newCategory", "studioSid", "clientId", "isEditMode"}]
@@ -755,10 +755,10 @@ PROTO_29:
        39 GETUPVAL                         R6 3
        40 SETTABLEKS                       R6 R5 K8 ["isEditMode"]
        42 SETTABLEKS                       R4 R5 K12 ["layoutMode"]
-       44 GETUPVAL                         R7 4
-       45 GETTABLEKS                       R6 R7 K13 ["sendEventImmediately"]
-       47 GETUPVAL                         R8 5
-       48 GETTABLEKS                       R7 R8 K14 ["eventTarget"]
+       44 GETUPVAL                         R6 4
+       45 GETTABLEKS                       R6 R6 K13 ["sendEventImmediately"]
+       47 GETUPVAL                         R7 5
+       48 GETTABLEKS                       R7 R7 K14 ["eventTarget"]
        50 LOADK                            R8 K15 ["click"]
        51 LOADK                            R9 K16 ["toolboxInsert"]
        52 MOVE                             R10 R5
@@ -766,10 +766,10 @@ PROTO_29:
        54 RETURN                           R0 0
 
 PROTO_30:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R6 1
-        4 GETTABLEKS                       R5 R6 K1 ["eventTarget"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R5 R5 K1 ["eventTarget"]
         6 LOADK                            R6 K2 ["drag"]
         7 LOADK                            R7 K3 ["toolboxInsert"]
         8 DUPTABLE                         R8 K13 [{"assetId", "searchText", "assetIndex", "currentCategory", "studioSid", "clientId", "placeId", "userId", "isEditMode"}]
@@ -807,10 +807,10 @@ PROTO_30:
        51 RETURN                           R0 0
 
 PROTO_31:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["Marketplace"]
         7 LOADK                            R5 K3 ["DragInsertFinished"]
         8 DUPTABLE                         R6 K11 [{"assetId", "assetTypeId", "studioSid", "clientId", "placeId", "userId", "isEditMode"}]
@@ -846,10 +846,10 @@ PROTO_31:
        47 RETURN                           R0 0
 
 PROTO_32:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["eventTarget"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["eventTarget"]
         6 LOADK                            R5 K2 ["AssetConfig"]
         7 LOADK                            R6 K3 ["PackageNoteCreated"]
         8 DUPTABLE                         R7 K11 [{"assetId", "assetVersionNumber", "message", "studioSid", "clientId", "placeId", "userId"}]
@@ -884,10 +884,10 @@ PROTO_32:
        46 RETURN                           R0 0
 
 PROTO_33:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["eventTarget"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["eventTarget"]
         6 LOADK                            R5 K2 ["AssetConfig"]
         7 LOADK                            R6 K3 ["PackageNoteDiscarded"]
         8 DUPTABLE                         R7 K11 [{"assetId", "assetVersionNumber", "message", "studioSid", "clientId", "placeId", "userId"}]
@@ -922,10 +922,10 @@ PROTO_33:
        46 RETURN                           R0 0
 
 PROTO_34:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["AssetConfig"]
         7 LOADK                            R4 K3 ["PackageNoteCanceled"]
         8 DUPTABLE                         R5 K9 [{"assetId", "studioSid", "clientId", "placeId", "userId"}]
@@ -958,8 +958,8 @@ PROTO_34:
        42 RETURN                           R0 0
 
 PROTO_35:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 LOADK                            R2 K1 ["Studio.ToolboxInsert.%s"]
         4 FASTCALL1                        TOSTRING R0 ; [+3]
         5 MOVE                             R5 R0
@@ -971,8 +971,8 @@ PROTO_35:
        13 RETURN                           R0 0
 
 PROTO_36:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 LOADK                            R2 K1 ["Studio.ToolboxCategoryInsert.%s"]
         4 FASTCALL1                        TOSTRING R0 ; [+3]
         5 MOVE                             R5 R0
@@ -984,15 +984,15 @@ PROTO_36:
        13 RETURN                           R0 0
 
 PROTO_37:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["StudioWorkspaceInsertCounter"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_38:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 LOADK                            R2 K1 ["Studio.Upload.%s.Success"]
         4 FASTCALL1                        TOSTRING R0 ; [+3]
         5 MOVE                             R5 R0
@@ -1004,8 +1004,8 @@ PROTO_38:
        13 RETURN                           R0 0
 
 PROTO_39:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 LOADK                            R2 K1 ["Studio.Upload.%s.Failure"]
         4 FASTCALL1                        TOSTRING R0 ; [+3]
         5 MOVE                             R5 R0
@@ -1017,15 +1017,15 @@ PROTO_39:
        13 RETURN                           R0 0
 
 PROTO_40:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["Studio.ToolboxAudio.Played"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_41:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["Studio.ToolboxAudio.Paused"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -1035,24 +1035,24 @@ PROTO_42:
         1 FASTCALL1                        ASSERT R2 ; [+2]
         2 GETIMPORT                        R1 K1 [assert]
         4 CALL                             R1 1 0
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K2 ["sendResultToKibana"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["sendResultToKibana"]
         8 MOVE                             R2 R0
         9 CALL                             R1 1 0
        10 RETURN                           R0 0
 
 PROTO_43:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["Studio.ToolboxAsset.Impression"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_44:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["toolbox"]
         7 LOADK                            R4 K3 ["assetPreviewOpen"]
         8 DUPTABLE                         R5 K9 [{"assetId", "clientId", "userId", "platformId", "isEditMode"}]
@@ -1077,10 +1077,10 @@ PROTO_44:
        33 RETURN                           R0 0
 
 PROTO_45:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["toolbox"]
         7 LOADK                            R5 K3 ["modelPreviewInteractionDuration"]
         8 DUPTABLE                         R6 K10 [{"assetId", "time", "clientId", "userId", "platformId", "isEditMode"}]
@@ -1106,10 +1106,10 @@ PROTO_45:
        35 RETURN                           R0 0
 
 PROTO_46:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["toolbox"]
         7 LOADK                            R4 K3 ["previewInsertion"]
         8 DUPTABLE                         R5 K9 [{"assetId", "clientId", "userId", "platformId", "isEditMode"}]
@@ -1134,13 +1134,13 @@ PROTO_46:
        33 RETURN                           R0 0
 
 PROTO_47:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWebViewTrackingAttributes"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["sendEventDeferred"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["eventTarget"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["eventTarget"]
        10 LOADK                            R3 K3 ["toolbox"]
        11 LOADK                            R4 K4 ["MarketplaceOpen"]
        12 MOVE                             R5 R0
@@ -1148,13 +1148,13 @@ PROTO_47:
        14 RETURN                           R0 0
 
 PROTO_48:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWebViewTrackingAttributes"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["sendEventDeferred"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["eventTarget"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["eventTarget"]
        10 LOADK                            R3 K3 ["toolbox"]
        11 LOADK                            R4 K4 ["MarketplaceClosed"]
        12 MOVE                             R5 R0
@@ -1162,13 +1162,13 @@ PROTO_48:
        14 RETURN                           R0 0
 
 PROTO_49:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWebViewTrackingAttributes"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["sendEventDeferred"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["eventTarget"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["eventTarget"]
        10 LOADK                            R3 K3 ["toolbox"]
        11 LOADK                            R4 K4 ["MarketplaceImpression"]
        12 MOVE                             R5 R0
@@ -1176,13 +1176,13 @@ PROTO_49:
        14 RETURN                           R0 0
 
 PROTO_50:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWebViewTrackingAttributes"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["sendEventDeferred"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["eventTarget"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["eventTarget"]
        10 LOADK                            R3 K3 ["Marketplace"]
        11 LOADK                            R4 K4 ["MarketplaceHidden"]
        12 MOVE                             R5 R0
@@ -1190,8 +1190,8 @@ PROTO_50:
        14 RETURN                           R0 0
 
 PROTO_51:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R6 K6 [{"isWebViewEnabled", "isWebViewAvailable", "isAbTestFlagEnabled", "isWebViewIxpEnabled", "isChannelOverrideEnabled"}]
         4 SETTABLEKS                       R0 R6 K1 ["isWebViewEnabled"]
         6 SETTABLEKS                       R1 R6 K2 ["isWebViewAvailable"]
@@ -1217,10 +1217,10 @@ PROTO_51:
        29 MOVE                             R7 R4
        30 SETTABLEKS                       R7 R6 K5 ["isChannelOverrideEnabled"]
        32 CALL                             R5 1 1
-       33 GETUPVAL                         R7 2
-       34 GETTABLEKS                       R6 R7 K7 ["sendEventDeferred"]
-       36 GETUPVAL                         R8 0
-       37 GETTABLEKS                       R7 R8 K8 ["eventTarget"]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K7 ["sendEventDeferred"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K8 ["eventTarget"]
        39 LOADK                            R8 K9 ["Marketplace"]
        40 LOADK                            R9 K10 ["MarketplaceMounted"]
        41 MOVE                             R10 R5
@@ -1228,13 +1228,13 @@ PROTO_51:
        43 RETURN                           R0 0
 
 PROTO_52:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWebViewTrackingAttributes"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["sendEventDeferred"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["eventTarget"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["eventTarget"]
        10 LOADK                            R3 K3 ["Marketplace"]
        11 LOADK                            R4 K4 ["MarketplaceUnmounted"]
        12 MOVE                             R5 R0
@@ -1242,18 +1242,18 @@ PROTO_52:
        14 RETURN                           R0 0
 
 PROTO_53:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R5 K5 [{"prevWidth", "prevHeight", "currentWidth", "currentHeight"}]
         4 SETTABLEKS                       R0 R5 K1 ["prevWidth"]
         6 SETTABLEKS                       R1 R5 K2 ["prevHeight"]
         8 SETTABLEKS                       R2 R5 K3 ["currentWidth"]
        10 SETTABLEKS                       R3 R5 K4 ["currentHeight"]
        12 CALL                             R4 1 1
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R5 R6 K6 ["sendEventDeferred"]
-       16 GETUPVAL                         R7 0
-       17 GETTABLEKS                       R6 R7 K7 ["eventTarget"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K6 ["sendEventDeferred"]
+       16 GETUPVAL                         R6 0
+       17 GETTABLEKS                       R6 R6 K7 ["eventTarget"]
        19 LOADK                            R7 K8 ["Marketplace"]
        20 LOADK                            R8 K9 ["ToolboxInitialSizing"]
        21 MOVE                             R9 R4
@@ -1261,10 +1261,10 @@ PROTO_53:
        23 RETURN                           R0 0
 
 PROTO_54:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R6 1
-        4 GETTABLEKS                       R5 R6 K1 ["eventTarget"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R5 R5 K1 ["eventTarget"]
         6 LOADK                            R6 K2 ["Marketplace"]
         7 MOVE                             R7 R0
         8 DUPTABLE                         R8 K11 [{"assetId", "assetTypeId", "clientId", "userId", "platformId", "studioSid", "isEditMode", "currentCategory"}]
@@ -1300,10 +1300,10 @@ PROTO_54:
        48 RETURN                           R0 0
 
 PROTO_55:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["eventTarget"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["eventTarget"]
         6 LOADK                            R2 K2 ["Marketplace"]
         7 LOADK                            R3 K3 ["OpenedFromPluginManagement"]
         8 DUPTABLE                         R4 K7 [{"studioSid", "clientId", "isEditMode"}]
@@ -1331,10 +1331,10 @@ PROTO_55:
        35 RETURN                           R0 0
 
 PROTO_56:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["Marketplace"]
         7 LOADK                            R4 K3 ["OpenedExternallyByAssetType"]
         8 DUPTABLE                         R5 K8 [{"assetTypeName", "clientId", "isEditMode", "studioSid"}]
@@ -1363,10 +1363,10 @@ PROTO_56:
        37 RETURN                           R0 0
 
 PROTO_57:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["Marketplace"]
         7 LOADK                            R5 K3 ["ReportAssetClicked"]
         8 DUPTABLE                         R6 K9 [{"studioSid", "clientId", "isEditMode", "assetId", "assetTypeId"}]
@@ -1396,10 +1396,10 @@ PROTO_57:
        39 RETURN                           R0 0
 
 PROTO_58:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["Marketplace"]
         7 LOADK                            R4 K3 ["MeshPartFiltered"]
         8 DUPTABLE                         R5 K9 [{"studioSid", "clientId", "isEditMode", "placeId", "assetId"}]
@@ -1431,10 +1431,10 @@ PROTO_58:
        41 RETURN                           R0 0
 
 PROTO_59:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventImmediately"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventImmediately"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["Marketplace"]
         7 LOADK                            R4 K3 ["IdVerificationIconClicked"]
         8 DUPTABLE                         R5 K10 [{"assetId", "clientId", "userId", "platformId", "studioSid", "isEditMode"}]
@@ -1542,11 +1542,11 @@ PROTO_60:
        98 SETTABLEKS                       R4 R3 K16 ["sort"]
       100 GETTABLEKS                       R4 R2 K17 ["toolboxTab"]
       102 SETTABLEKS                       R4 R3 K17 ["toolboxTab"]
-      104 GETUPVAL                         R5 6
-      105 GETTABLEKS                       R4 R5 K18 ["toolboxSid"]
+      104 GETUPVAL                         R4 6
+      105 GETTABLEKS                       R4 R4 K18 ["toolboxSid"]
       107 SETTABLEKS                       R4 R3 K18 ["toolboxSid"]
-      109 GETUPVAL                         R5 6
-      110 GETTABLEKS                       R4 R5 K19 ["pluginUri"]
+      109 GETUPVAL                         R4 6
+      110 GETTABLEKS                       R4 R4 K19 ["pluginUri"]
       112 SETTABLEKS                       R4 R3 K19 ["pluginUri"]
       114 JUMP                             ; [+111]
       115 DUPTABLE                         R3 K31 [{"studioSid", "clientID", "creatorIDs", "excludeGroupCreations", "groupIDs", "isEditMode", "userID", "ptid", "placeID", "searchKeyword", "isTopKeyword", "categoryName", "includeOnlyVerifiedCreators", "assetType", "searchByCreatorID", "searchID", "sort", "toolboxTab", "toolboxSid", "pluginUri"}]
@@ -1620,11 +1620,11 @@ PROTO_60:
       210 SETTABLEKS                       R4 R3 K16 ["sort"]
       212 GETTABLEKS                       R4 R2 K17 ["toolboxTab"]
       214 SETTABLEKS                       R4 R3 K17 ["toolboxTab"]
-      216 GETUPVAL                         R5 6
-      217 GETTABLEKS                       R4 R5 K18 ["toolboxSid"]
+      216 GETUPVAL                         R4 6
+      217 GETTABLEKS                       R4 R4 K18 ["toolboxSid"]
       219 SETTABLEKS                       R4 R3 K18 ["toolboxSid"]
-      221 GETUPVAL                         R5 6
-      222 GETTABLEKS                       R4 R5 K19 ["pluginUri"]
+      221 GETUPVAL                         R4 6
+      222 GETTABLEKS                       R4 R4 K19 ["pluginUri"]
       224 SETTABLEKS                       R4 R3 K19 ["pluginUri"]
       226 GETTABLEKS                       R4 R2 K32 ["qualityFilterTags"]
       228 JUMPIFNOT                        R4 ; [+8]
@@ -1640,10 +1640,10 @@ PROTO_60:
       247 SETTABLEKS                       R4 R3 K36 ["originalUserQuery"]
       249 GETTABLEKS                       R4 R2 K37 ["originalCorrection"]
       251 SETTABLEKS                       R4 R3 K37 ["originalCorrection"]
-      253 GETUPVAL                         R5 7
-      254 GETTABLEKS                       R4 R5 K38 ["sendEventImmediately"]
-      256 GETUPVAL                         R6 6
-      257 GETTABLEKS                       R5 R6 K39 ["eventTarget"]
+      253 GETUPVAL                         R4 7
+      254 GETTABLEKS                       R4 R4 K38 ["sendEventImmediately"]
+      256 GETUPVAL                         R5 6
+      257 GETTABLEKS                       R5 R5 K39 ["eventTarget"]
       259 LOADK                            R6 K40 ["Marketplace"]
       260 LOADK                            R7 K41 ["MarketplaceSearch"]
       261 MOVE                             R8 R3
@@ -1743,10 +1743,10 @@ PROTO_61:
       132 SETTABLEKS                       R7 R6 K14 ["sort"]
       134 GETTABLEKS                       R7 R5 K15 ["toolboxTab"]
       136 SETTABLEKS                       R7 R6 K15 ["toolboxTab"]
-      138 GETUPVAL                         R8 5
-      139 GETTABLEKS                       R7 R8 K26 ["sendEventImmediately"]
-      141 GETUPVAL                         R9 6
-      142 GETTABLEKS                       R8 R9 K27 ["eventTarget"]
+      138 GETUPVAL                         R7 5
+      139 GETTABLEKS                       R7 R7 K26 ["sendEventImmediately"]
+      141 GETUPVAL                         R8 6
+      142 GETTABLEKS                       R8 R8 K27 ["eventTarget"]
       144 LOADK                            R9 K28 ["Marketplace"]
       145 LOADK                            R10 K29 ["MarketplaceAutocompleteSearch"]
       146 MOVE                             R11 R6
@@ -1754,18 +1754,18 @@ PROTO_61:
       148 RETURN                           R0 0
 
 PROTO_62:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getWebViewTrackingAttributes"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getWebViewTrackingAttributes"]
         3 DUPTABLE                         R2 K3 [{"widgetWidth", "widgetHeight"}]
         4 GETTABLEKS                       R3 R0 K4 ["X"]
         6 SETTABLEKS                       R3 R2 K1 ["widgetWidth"]
         8 GETTABLEKS                       R3 R0 K5 ["Y"]
        10 SETTABLEKS                       R3 R2 K2 ["widgetHeight"]
        12 CALL                             R1 1 1
-       13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R2 R3 K6 ["sendEventDeferred"]
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K7 ["eventTarget"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K6 ["sendEventDeferred"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K7 ["eventTarget"]
        19 LOADK                            R4 K8 ["Marketplace"]
        20 LOADK                            R5 K9 ["ToolboxWidgetInteraction"]
        21 MOVE                             R6 R1
@@ -1803,10 +1803,10 @@ PROTO_63:
        38 GETUPVAL                         R7 1
        39 CALL                             R7 0 1
        40 SETTABLEKS                       R7 R6 K9 ["userId"]
-       42 GETUPVAL                         R8 2
-       43 GETTABLEKS                       R7 R8 K13 ["sendEventImmediately"]
-       45 GETUPVAL                         R9 3
-       46 GETTABLEKS                       R8 R9 K14 ["eventTarget"]
+       42 GETUPVAL                         R7 2
+       43 GETTABLEKS                       R7 R7 K13 ["sendEventImmediately"]
+       45 GETUPVAL                         R8 3
+       46 GETTABLEKS                       R8 R8 K14 ["eventTarget"]
        48 LOADK                            R9 K15 ["Marketplace"]
        49 LOADK                            R10 K16 ["AnnouncementViewed"]
        50 MOVE                             R11 R6
@@ -1844,10 +1844,10 @@ PROTO_64:
        38 GETUPVAL                         R7 1
        39 CALL                             R7 0 1
        40 SETTABLEKS                       R7 R6 K9 ["userId"]
-       42 GETUPVAL                         R8 2
-       43 GETTABLEKS                       R7 R8 K13 ["sendEventImmediately"]
-       45 GETUPVAL                         R9 3
-       46 GETTABLEKS                       R8 R9 K14 ["eventTarget"]
+       42 GETUPVAL                         R7 2
+       43 GETTABLEKS                       R7 R7 K13 ["sendEventImmediately"]
+       45 GETUPVAL                         R8 3
+       46 GETTABLEKS                       R8 R8 K14 ["eventTarget"]
        48 LOADK                            R9 K15 ["Marketplace"]
        49 LOADK                            R10 K16 ["AnnouncementLinkClicked"]
        50 MOVE                             R11 R6
@@ -1886,10 +1886,10 @@ PROTO_65:
        40 GETUPVAL                         R8 1
        41 CALL                             R8 0 1
        42 SETTABLEKS                       R8 R7 K10 ["userId"]
-       44 GETUPVAL                         R9 2
-       45 GETTABLEKS                       R8 R9 K14 ["sendEventImmediately"]
-       47 GETUPVAL                         R10 3
-       48 GETTABLEKS                       R9 R10 K15 ["eventTarget"]
+       44 GETUPVAL                         R8 2
+       45 GETTABLEKS                       R8 R8 K14 ["sendEventImmediately"]
+       47 GETUPVAL                         R9 3
+       48 GETTABLEKS                       R9 R9 K15 ["eventTarget"]
        50 LOADK                            R10 K16 ["Marketplace"]
        51 LOADK                            R11 K17 ["AnnouncementClosed"]
        52 MOVE                             R12 R7
@@ -1928,10 +1928,10 @@ PROTO_66:
        40 GETUPVAL                         R8 1
        41 CALL                             R8 0 1
        42 SETTABLEKS                       R8 R7 K10 ["userId"]
-       44 GETUPVAL                         R9 2
-       45 GETTABLEKS                       R8 R9 K14 ["sendEventImmediately"]
-       47 GETUPVAL                         R10 3
-       48 GETTABLEKS                       R9 R10 K15 ["eventTarget"]
+       44 GETUPVAL                         R8 2
+       45 GETTABLEKS                       R8 R8 K14 ["sendEventImmediately"]
+       47 GETUPVAL                         R9 3
+       48 GETTABLEKS                       R9 R9 K15 ["eventTarget"]
        50 LOADK                            R10 K16 ["Marketplace"]
        51 LOADK                            R11 K17 ["AnnouncementAcknowledged"]
        52 MOVE                             R12 R7
@@ -1939,10 +1939,10 @@ PROTO_66:
        54 RETURN                           R0 0
 
 PROTO_67:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["eventTarget"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["eventTarget"]
         6 LOADK                            R5 K2 ["Marketplace"]
         7 LOADK                            R6 K3 ["AssetMediaItemsUpdated"]
         8 DUPTABLE                         R7 K11 [{"assetId", "assetMediaIds", "assetTypeId", "clientId", "platformId", "studioSid", "userId"}]
@@ -1980,10 +1980,10 @@ PROTO_67:
        50 RETURN                           R0 0
 
 PROTO_68:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["Marketplace"]
         7 LOADK                            R5 K3 ["MarketplaceListViewToggleClicked"]
         8 DUPTABLE                         R6 K9 [{"assetType", "layoutMode", "searchId", "clientId", "userId"}]
@@ -2008,10 +2008,10 @@ PROTO_68:
        35 RETURN                           R0 0
 
 PROTO_69:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R6 1
-        4 GETTABLEKS                       R5 R6 K1 ["eventTarget"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R5 R5 K1 ["eventTarget"]
         6 LOADK                            R6 K2 ["Marketplace"]
         7 LOADK                            R7 K3 ["MarketplaceAssetRowExpanded"]
         8 DUPTABLE                         R8 K12 [{"assetId", "assetType", "pageNumber", "pagePosition", "searchId", "clientId", "platformId", "userId"}]
@@ -2040,10 +2040,10 @@ PROTO_69:
        42 RETURN                           R0 0
 
 PROTO_70:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["eventTarget"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["eventTarget"]
         6 LOADK                            R3 K2 ["Marketplace"]
         7 LOADK                            R4 K3 ["MarketplaceRecentSearchClicked"]
         8 DUPTABLE                         R5 K7 [{"keyword", "clientId", "userId"}]
@@ -2064,10 +2064,10 @@ PROTO_70:
        27 RETURN                           R0 0
 
 PROTO_71:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["Marketplace"]
         7 LOADK                            R5 K3 ["MarketplaceSearchFilterOpened"]
         8 DUPTABLE                         R6 K8 [{"assetTypeId", "clientId", "toolboxTab", "userId"}]
@@ -2093,10 +2093,10 @@ PROTO_71:
        34 RETURN                           R0 0
 
 PROTO_72:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["eventTarget"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["eventTarget"]
         6 LOADK                            R5 K2 ["UGCUploadFlow"]
         7 LOADK                            R6 K3 ["UGCBundleValidationEvent"]
         8 DUPTABLE                         R7 K8 [{"clientId", "status", "bundleType", "errors"}]
@@ -2116,10 +2116,10 @@ PROTO_72:
        27 RETURN                           R0 0
 
 PROTO_73:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R6 1
-        4 GETTABLEKS                       R5 R6 K1 ["eventTarget"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R5 R5 K1 ["eventTarget"]
         6 LOADK                            R6 K2 ["UGCUploadFlow"]
         7 LOADK                            R7 K3 ["UGCUploadRequestOperationIdEvent"]
         8 DUPTABLE                         R8 K9 [{"clientId", "status", "bundleType", "operationId", "errors"}]
@@ -2140,10 +2140,10 @@ PROTO_73:
        29 RETURN                           R0 0
 
 PROTO_74:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R7 1
-        4 GETTABLEKS                       R6 R7 K1 ["eventTarget"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R6 1
+        4 GETTABLEKS                       R6 R6 K1 ["eventTarget"]
         6 LOADK                            R7 K2 ["UGCUploadFlow"]
         7 LOADK                            R8 K3 ["UGCUploadAssetsEvent"]
         8 DUPTABLE                         R9 K10 [{"clientId", "status", "bundleType", "operationId", "assetIds", "errors"}]
@@ -2165,10 +2165,10 @@ PROTO_74:
        31 RETURN                           R0 0
 
 PROTO_75:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["eventTarget"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["eventTarget"]
         6 LOADK                            R4 K2 ["UGCUploadFlow"]
         7 LOADK                            R5 K3 ["UGCIndividualAssetUploadEvent"]
         8 DUPTABLE                         R6 K9 [{"placeId", "studioSid", "clientId", "assetId", "underlyingAssetIds"}]
@@ -2199,10 +2199,10 @@ PROTO_75:
        40 RETURN                           R0 0
 
 PROTO_76:
-        0 GETUPVAL                         R7 0
-        1 GETTABLEKS                       R6 R7 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R8 1
-        4 GETTABLEKS                       R7 R8 K1 ["eventTarget"]
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R7 1
+        4 GETTABLEKS                       R7 R7 K1 ["eventTarget"]
         6 LOADK                            R8 K2 ["UGCUploadFlow"]
         7 LOADK                            R9 K3 ["UGCUploadRequestBundleCreationStatusEvent"]
         8 DUPTABLE                         R10 K11 [{"clientId", "status", "bundleType", "operationId", "assetIds", "creationStatusId", "errors"}]
@@ -2225,10 +2225,10 @@ PROTO_76:
        33 RETURN                           R0 0
 
 PROTO_77:
-        0 GETUPVAL                         R8 0
-        1 GETTABLEKS                       R7 R8 K0 ["sendEventDeferred"]
-        3 GETUPVAL                         R9 1
-        4 GETTABLEKS                       R8 R9 K1 ["eventTarget"]
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R7 R7 K0 ["sendEventDeferred"]
+        3 GETUPVAL                         R8 1
+        4 GETTABLEKS                       R8 R8 K1 ["eventTarget"]
         6 LOADK                            R9 K2 ["UGCUploadFlow"]
         7 LOADK                            R10 K3 ["UGCUploadGetBundleCreationStatusEvent"]
         8 DUPTABLE                         R11 K12 [{"clientId", "status", "bundleType", "operationId", "assetIds", "creationStatusId", "bundleId", "errors"}]
@@ -2253,30 +2253,30 @@ PROTO_77:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Dash"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R7 R0 K7 ["Src"]
-       22 GETTABLEKS                       R6 R7 K8 ["Util"]
-       24 GETTABLEKS                       R5 R6 K9 ["Analytics"]
-       26 GETTABLEKS                       R4 R5 K10 ["Senders"]
+       20 GETTABLEKS                       R4 R0 K7 ["Src"]
+       22 GETTABLEKS                       R4 R4 K8 ["Util"]
+       24 GETTABLEKS                       R4 R4 K9 ["Analytics"]
+       26 GETTABLEKS                       R4 R4 K10 ["Senders"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K5 [require]
-       31 GETTABLEKS                       R7 R0 K7 ["Src"]
-       33 GETTABLEKS                       R6 R7 K8 ["Util"]
-       35 GETTABLEKS                       R5 R6 K11 ["Constants"]
+       31 GETTABLEKS                       R5 R0 K7 ["Src"]
+       33 GETTABLEKS                       R5 R5 K8 ["Util"]
+       35 GETTABLEKS                       R5 R5 K11 ["Constants"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K5 [require]
-       40 GETTABLEKS                       R8 R0 K7 ["Src"]
-       42 GETTABLEKS                       R7 R8 K12 ["Types"]
-       44 GETTABLEKS                       R6 R7 K13 ["AnalyticsTypes"]
+       40 GETTABLEKS                       R6 R0 K7 ["Src"]
+       42 GETTABLEKS                       R6 R6 K12 ["Types"]
+       44 GETTABLEKS                       R6 R6 K13 ["AnalyticsTypes"]
        46 CALL                             R5 1 1
        47 GETIMPORT                        R6 K15 [game]
        49 LOADK                            R8 K16 ["RbxAnalyticsService"]
@@ -2287,43 +2287,43 @@ MAIN:
        56 NAMECALL                         R7 R7 K17 ["GetService"]
        58 CALL                             R7 2 1
        59 GETIMPORT                        R8 K5 [require]
-       61 GETTABLEKS                       R11 R0 K7 ["Src"]
-       63 GETTABLEKS                       R10 R11 K8 ["Util"]
-       65 GETTABLEKS                       R9 R10 K19 ["getUserId"]
+       61 GETTABLEKS                       R9 R0 K7 ["Src"]
+       63 GETTABLEKS                       R9 R9 K8 ["Util"]
+       65 GETTABLEKS                       R9 R9 K19 ["getUserId"]
        67 CALL                             R8 1 1
        68 GETIMPORT                        R9 K15 [game]
        70 LOADK                            R11 K20 ["NewPackageAnalyticsWithRefactor2"]
        71 NAMECALL                         R9 R9 K21 ["GetFastFlag"]
        73 CALL                             R9 2 1
        74 GETIMPORT                        R10 K5 [require]
-       76 GETTABLEKS                       R14 R0 K7 ["Src"]
-       78 GETTABLEKS                       R13 R14 K8 ["Util"]
-       80 GETTABLEKS                       R12 R13 K22 ["SharedFlags"]
-       82 GETTABLEKS                       R11 R12 K23 ["getFFlagToolboxEnableSearchOptionsRefactor"]
+       76 GETTABLEKS                       R11 R0 K7 ["Src"]
+       78 GETTABLEKS                       R11 R11 K8 ["Util"]
+       80 GETTABLEKS                       R11 R11 K22 ["SharedFlags"]
+       82 GETTABLEKS                       R11 R11 K23 ["getFFlagToolboxEnableSearchOptionsRefactor"]
        84 CALL                             R10 1 1
        85 GETIMPORT                        R11 K5 [require]
-       87 GETTABLEKS                       R15 R0 K7 ["Src"]
-       89 GETTABLEKS                       R14 R15 K8 ["Util"]
-       91 GETTABLEKS                       R13 R14 K22 ["SharedFlags"]
-       93 GETTABLEKS                       R12 R13 K24 ["getFFlagToolboxAddCreationsFilterToListView"]
+       87 GETTABLEKS                       R12 R0 K7 ["Src"]
+       89 GETTABLEKS                       R12 R12 K8 ["Util"]
+       91 GETTABLEKS                       R12 R12 K22 ["SharedFlags"]
+       93 GETTABLEKS                       R12 R12 K24 ["getFFlagToolboxAddCreationsFilterToListView"]
        95 CALL                             R11 1 1
        96 GETIMPORT                        R12 K5 [require]
-       98 GETTABLEKS                       R16 R0 K7 ["Src"]
-      100 GETTABLEKS                       R15 R16 K8 ["Util"]
-      102 GETTABLEKS                       R14 R15 K22 ["SharedFlags"]
-      104 GETTABLEKS                       R13 R14 K25 ["getFFlagEnableUGCUploadFlowAnalytics"]
+       98 GETTABLEKS                       R13 R0 K7 ["Src"]
+      100 GETTABLEKS                       R13 R13 K8 ["Util"]
+      102 GETTABLEKS                       R13 R13 K22 ["SharedFlags"]
+      104 GETTABLEKS                       R13 R13 K25 ["getFFlagEnableUGCUploadFlowAnalytics"]
       106 CALL                             R12 1 1
       107 GETIMPORT                        R13 K5 [require]
-      109 GETTABLEKS                       R17 R0 K7 ["Src"]
-      111 GETTABLEKS                       R16 R17 K8 ["Util"]
-      113 GETTABLEKS                       R15 R16 K22 ["SharedFlags"]
-      115 GETTABLEKS                       R14 R15 K26 ["getFFlagToolboxFixAnalyticCapitalization"]
+      109 GETTABLEKS                       R14 R0 K7 ["Src"]
+      111 GETTABLEKS                       R14 R14 K8 ["Util"]
+      113 GETTABLEKS                       R14 R14 K22 ["SharedFlags"]
+      115 GETTABLEKS                       R14 R14 K26 ["getFFlagToolboxFixAnalyticCapitalization"]
       117 CALL                             R13 1 1
       118 GETIMPORT                        R14 K5 [require]
-      120 GETTABLEKS                       R18 R0 K7 ["Src"]
-      122 GETTABLEKS                       R17 R18 K8 ["Util"]
-      124 GETTABLEKS                       R16 R17 K22 ["SharedFlags"]
-      126 GETTABLEKS                       R15 R16 K27 ["getFFlagToolboxRemoveWebViewIxp"]
+      120 GETTABLEKS                       R15 R0 K7 ["Src"]
+      122 GETTABLEKS                       R15 R15 K8 ["Util"]
+      124 GETTABLEKS                       R15 R15 K22 ["SharedFlags"]
+      126 GETTABLEKS                       R15 R15 K27 ["getFFlagToolboxRemoveWebViewIxp"]
       128 CALL                             R14 1 1
       129 GETIMPORT                        R15 K15 [game]
       131 LOADK                            R17 K28 ["ToolboxNoLuaAITimer"]
@@ -2331,9 +2331,9 @@ MAIN:
       133 NAMECALL                         R15 R15 K29 ["DefineFastInt"]
       135 CALL                             R15 3 1
       136 GETIMPORT                        R16 K5 [require]
-      138 GETTABLEKS                       R19 R0 K7 ["Src"]
-      140 GETTABLEKS                       R18 R19 K8 ["Util"]
-      142 GETTABLEKS                       R17 R18 K30 ["getPlaceId"]
+      138 GETTABLEKS                       R17 R0 K7 ["Src"]
+      140 GETTABLEKS                       R17 R17 K8 ["Util"]
+      142 GETTABLEKS                       R17 R17 K30 ["getPlaceId"]
       144 CALL                             R16 1 1
       145 DUPCLOSURE                       R17 K31 [PROTO_1]
       146 CAPTURE                          VAL R6
@@ -2361,8 +2361,8 @@ MAIN:
       178 NAMECALL                         R23 R7 K43 ["GenerateGUID"]
       180 CALL                             R23 2 1
       181 SETTABLEKS                       R23 R20 K44 ["toolboxSid"]
-      183 GETTABLEKS                       R24 R4 K45 ["ANALYTICS_TARGET"]
-      185 GETTABLEKS                       R23 R24 K46 ["Studio"]
+      183 GETTABLEKS                       R23 R4 K45 ["ANALYTICS_TARGET"]
+      185 GETTABLEKS                       R23 R23 K46 ["Studio"]
       187 SETTABLEKS                       R23 R20 K47 ["eventTarget"]
       189 DUPTABLE                         R23 K59 [{"toolboxInitTimestamp", "storeTabOpenTimestamp", "firstStoreAssetImpressionEventFired", "firstLuaAssetImpressionEventFired", "retryShownEventFired", "didFallbackToLuaUi", "initialToolboxTab", "onWebViewTimingEventFired", "beforeInteractiveTimeMs", "afterInteractiveTimeMs", "loadSuccessTimeMs"}]
       190 LOADNIL                          R24

@@ -48,8 +48,8 @@ PROTO_3:
        13 JUMPIF                           R3 ; [+2]
        14 LOADN                            R3 255
        15 RETURN                           R3 1
-       16 GETTABLEN                        R4 R2 1
-       17 GETTABLEKS                       R3 R4 K3 ["Value"]
+       16 GETTABLEN                        R3 R2 1
+       17 GETTABLEKS                       R3 R3 K3 ["Value"]
        19 RETURN                           R3 1
 
 MAIN:
@@ -59,14 +59,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["StudioFoundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["StudioFoundation"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["StudioUri"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["StudioUri"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Src"]
-       22 GETTABLEKS                       R4 R5 K11 ["Types"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Types"]
        24 CALL                             R3 1 1
        25 LOADNIL                          R4
        26 GETTABLEKS                       R5 R2 K12 ["fromSetting"]

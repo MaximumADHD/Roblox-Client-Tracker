@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["map"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["map"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIF                           R2 ; [+18]
         5 GETUPVAL                         R3 0
@@ -11,20 +11,20 @@ PROTO_0:
        12 FASTCALL2                        TABLE_INSERT R3 R4 ; [+3]
        14 GETIMPORT                        R2 K3 [table.insert]
        16 CALL                             R2 2 0
-       17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R2 R3 K0 ["map"]
+       17 GETUPVAL                         R2 0
+       18 GETTABLEKS                       R2 R2 K0 ["map"]
        20 GETUPVAL                         R4 0
        21 LENGTH                           R3 R4
        22 SETTABLE                         R3 R2 R0
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["map"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["map"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIFNOT                        R2 ; [+22]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["map"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["map"]
         8 GETTABLE                         R2 R3 R0
         9 GETIMPORT                        R3 K3 [table.remove]
        11 GETUPVAL                         R4 1
@@ -35,8 +35,8 @@ PROTO_1:
        16 LENGTH                           R3 R6
        17 LOADN                            R4 1
        18 FORNPREP                         R3
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K0 ["map"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K0 ["map"]
        22 GETUPVAL                         R9 0
        23 GETTABLE                         R8 R9 R5
        24 GETTABLEN                        R7 R8 1
@@ -45,8 +45,8 @@ PROTO_1:
        27 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["map"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["map"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIFNOTEQKNIL                  R2 ; [+2]
         6 LOADB                            R1 0 +1
@@ -58,8 +58,8 @@ PROTO_3:
         1 LENGTH                           R0 R1
         2 LOADN                            R1 0
         3 JUMPIFNOTLT                      R1 R0 ; [+15]
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K0 ["map"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K0 ["map"]
         8 GETUPVAL                         R3 0
         9 GETTABLEN                        R2 R3 1
        10 GETTABLEN                        R1 R2 1

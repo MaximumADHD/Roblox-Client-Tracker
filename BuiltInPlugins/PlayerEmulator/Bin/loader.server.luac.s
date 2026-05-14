@@ -12,21 +12,21 @@ PROTO_2:
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [plugin]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K2 ["PLUGIN_WIDGET_STATE"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["PLUGIN_WIDGET_STATE"]
         5 NAMECALL                         R0 R0 K3 ["GetSetting"]
         7 CALL                             R0 2 -1
         8 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R4 R0 K5 ["Src"]
-       11 GETTABLEKS                       R3 R4 K6 ["Util"]
-       13 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Util"]
+       13 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K8 ["RunningUnderCLI"]
        18 CALL                             R2 0 1
@@ -37,26 +37,26 @@ MAIN:
        24 NAMECALL                         R2 R2 K12 ["GetService"]
        26 CALL                             R2 2 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETIMPORT                        R6 K1 [script]
-       31 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       33 GETTABLEKS                       R4 R5 K13 ["defineLuaFlags"]
+       29 GETIMPORT                        R4 K1 [script]
+       31 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       33 GETTABLEKS                       R4 R4 K13 ["defineLuaFlags"]
        35 CALL                             R3 1 0
        36 GETIMPORT                        R3 K4 [require]
-       38 GETTABLEKS                       R6 R0 K5 ["Src"]
-       40 GETTABLEKS                       R5 R6 K6 ["Util"]
-       42 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       38 GETTABLEKS                       R4 R0 K5 ["Src"]
+       40 GETTABLEKS                       R4 R4 K6 ["Util"]
+       42 GETTABLEKS                       R4 R4 K14 ["Constants"]
        44 CALL                             R3 1 1
        45 GETIMPORT                        R4 K4 [require]
-       47 GETTABLEKS                       R6 R0 K15 ["Packages"]
-       49 GETTABLEKS                       R5 R6 K16 ["PluginLoader"]
+       47 GETTABLEKS                       R5 R0 K15 ["Packages"]
+       49 GETTABLEKS                       R5 R5 K16 ["PluginLoader"]
        51 CALL                             R4 1 1
        52 GETTABLEKS                       R5 R4 K17 ["PluginLoaderBuilder"]
-       54 GETTABLEKS                       R8 R0 K5 ["Src"]
-       56 GETTABLEKS                       R7 R8 K18 ["Resources"]
-       58 GETTABLEKS                       R6 R7 K19 ["SourceStrings"]
-       60 GETTABLEKS                       R9 R0 K5 ["Src"]
-       62 GETTABLEKS                       R8 R9 K18 ["Resources"]
-       64 GETTABLEKS                       R7 R8 K20 ["LocalizedStrings"]
+       54 GETTABLEKS                       R6 R0 K5 ["Src"]
+       56 GETTABLEKS                       R6 R6 K18 ["Resources"]
+       58 GETTABLEKS                       R6 R6 K19 ["SourceStrings"]
+       60 GETTABLEKS                       R7 R0 K5 ["Src"]
+       62 GETTABLEKS                       R7 R7 K18 ["Resources"]
+       64 GETTABLEKS                       R7 R7 K20 ["LocalizedStrings"]
        66 DUPTABLE                         R8 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "shouldImmediatelyOpen"}]
        67 GETIMPORT                        R9 K32 [plugin]
        69 SETTABLEKS                       R9 R8 K21 ["plugin"]
@@ -102,9 +102,9 @@ MAIN:
       131 JUMPIF                           R10 ; [+1]
       132 RETURN                           R0 0
       133 GETIMPORT                        R11 K4 [require]
-      135 GETIMPORT                        R14 K1 [script]
-      137 GETTABLEKS                       R13 R14 K2 ["Parent"]
-      139 GETTABLEKS                       R12 R13 K52 ["main"]
+      135 GETIMPORT                        R12 K1 [script]
+      137 GETTABLEKS                       R12 R12 K2 ["Parent"]
+      139 GETTABLEKS                       R12 R12 K52 ["main"]
       141 CALL                             R11 1 1
       142 MOVE                             R12 R11
       143 GETIMPORT                        R13 K32 [plugin]

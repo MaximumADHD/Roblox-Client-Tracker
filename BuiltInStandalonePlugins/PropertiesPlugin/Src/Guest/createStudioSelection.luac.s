@@ -19,8 +19,8 @@ PROTO_2:
         5 DUPCLOSURE                       R1 K5 [PROTO_1]
         6 CAPTURE                          UPVAL U0
         7 SETTABLEKS                       R1 R0 K1 ["Set"]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K2 ["SelectionChanged"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K2 ["SelectionChanged"]
        12 SETTABLEKS                       R1 R0 K2 ["SelectionChanged"]
        14 RETURN                           R0 1
 

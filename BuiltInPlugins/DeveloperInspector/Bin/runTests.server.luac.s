@@ -10,20 +10,20 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R4 R0 K5 ["Src"]
-       11 GETTABLEKS                       R3 R4 K6 ["Util"]
-       13 GETTABLEKS                       R2 R3 K7 ["commonInit"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Util"]
+       13 GETTABLEKS                       R2 R2 K7 ["commonInit"]
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 CALL                             R2 0 0
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Util"]
-       24 GETTABLEKS                       R3 R4 K8 ["DebugFlags"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["DebugFlags"]
        26 CALL                             R2 1 1
        27 GETTABLEKS                       R3 R2 K9 ["RunningUnderCLI"]
        29 CALL                             R3 0 1
@@ -41,15 +41,15 @@ MAIN:
        47 LOADB                            R4 1
        48 SETTABLEKS                       R4 R3 K15 ["__ROACT_17_INLINE_ACT__"]
        50 GETIMPORT                        R3 K4 [require]
-       52 GETTABLEKS                       R6 R0 K16 ["Packages"]
-       54 GETTABLEKS                       R5 R6 K17 ["Dev"]
-       56 GETTABLEKS                       R4 R5 K18 ["TestEZ"]
+       52 GETTABLEKS                       R4 R0 K16 ["Packages"]
+       54 GETTABLEKS                       R4 R4 K17 ["Dev"]
+       56 GETTABLEKS                       R4 R4 K18 ["TestEZ"]
        58 CALL                             R3 1 1
        59 GETTABLEKS                       R4 R3 K19 ["TestBootstrap"]
-       61 GETTABLEKS                       R6 R3 K20 ["Reporters"]
-       63 GETTABLEKS                       R5 R6 K21 ["TeamCityReporter"]
-       65 GETTABLEKS                       R7 R3 K20 ["Reporters"]
-       67 GETTABLEKS                       R6 R7 K22 ["TextReporter"]
+       61 GETTABLEKS                       R5 R3 K20 ["Reporters"]
+       63 GETTABLEKS                       R5 R5 K21 ["TeamCityReporter"]
+       65 GETTABLEKS                       R6 R3 K20 ["Reporters"]
+       67 GETTABLEKS                       R6 R6 K22 ["TextReporter"]
        69 GETTABLEKS                       R7 R2 K23 ["LogTestsQuiet"]
        71 CALL                             R7 0 1
        72 JUMPIFNOT                        R7 ; [+4]
@@ -64,17 +64,17 @@ MAIN:
        85 MOVE                             R6 R7
        86 GETIMPORT                        R7 K27 [print]
        88 LOADK                            R9 K28 ["----- All "]
-       89 GETIMPORT                        R14 K1 [script]
-       91 GETTABLEKS                       R13 R14 K2 ["Parent"]
-       93 GETTABLEKS                       R12 R13 K2 ["Parent"]
-       95 GETTABLEKS                       R10 R12 K29 ["Name"]
+       89 GETIMPORT                        R10 K1 [script]
+       91 GETTABLEKS                       R10 R10 K2 ["Parent"]
+       93 GETTABLEKS                       R10 R10 K2 ["Parent"]
+       95 GETTABLEKS                       R10 R10 K29 ["Name"]
        97 LOADK                            R11 K30 [" Tests ------"]
        98 CONCAT                           R8 R9 R11
        99 CALL                             R7 1 0
       100 GETIMPORT                        R7 K4 [require]
-      102 GETIMPORT                        R10 K1 [script]
-      104 GETTABLEKS                       R9 R10 K2 ["Parent"]
-      106 GETTABLEKS                       R8 R9 K31 ["defineLuaFlags"]
+      102 GETIMPORT                        R8 K1 [script]
+      104 GETTABLEKS                       R8 R8 K2 ["Parent"]
+      106 GETTABLEKS                       R8 R8 K31 ["defineLuaFlags"]
       108 CALL                             R7 1 0
       109 NEWTABLE                         R9 0 1
       111 GETTABLEKS                       R10 R0 K5 ["Src"]

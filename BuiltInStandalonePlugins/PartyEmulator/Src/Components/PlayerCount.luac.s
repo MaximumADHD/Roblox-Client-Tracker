@@ -2,10 +2,10 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["createElement"]
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K2 ["Badge"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["createElement"]
+        7 GETUPVAL                         R3 2
+        8 GETTABLEKS                       R3 R3 K2 ["Badge"]
        10 DUPTABLE                         R4 K6 [{"text", "variant", "LayoutOrder"}]
        11 LOADK                            R7 K7 ["Label"]
        12 LOADK                            R8 K8 ["LocalServerPlayers"]
@@ -18,8 +18,8 @@ PROTO_0:
        22 NAMECALL                         R5 R1 K13 ["getText"]
        24 CALL                             R5 4 1
        25 SETTABLEKS                       R5 R4 K3 ["text"]
-       27 GETUPVAL                         R6 3
-       28 GETTABLEKS                       R5 R6 K14 ["Neutral"]
+       27 GETUPVAL                         R5 3
+       28 GETTABLEKS                       R5 R5 K14 ["Neutral"]
        30 SETTABLEKS                       R5 R4 K4 ["variant"]
        32 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
        34 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
@@ -33,18 +33,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["Enums"]
-       23 GETTABLEKS                       R3 R4 K10 ["BadgeVariant"]
+       21 GETTABLEKS                       R3 R2 K9 ["Enums"]
+       23 GETTABLEKS                       R3 R3 K10 ["BadgeVariant"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K11 ["Framework"]
+       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K11 ["Framework"]
        31 CALL                             R4 1 1
        32 GETTABLEKS                       R5 R4 K12 ["ContextServices"]
        34 GETTABLEKS                       R6 R5 K13 ["Localization"]

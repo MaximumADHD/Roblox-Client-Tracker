@@ -43,12 +43,12 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       15 GETTABLEKS                       R3 R1 K7 ["Src"]
-       17 GETTABLEKS                       R2 R3 K8 ["Actions"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R1 K7 ["Src"]
+       17 GETTABLEKS                       R2 R2 K8 ["Actions"]
        19 GETIMPORT                        R3 K10 [require]
        21 GETTABLEKS                       R4 R2 K11 ["SetGroupRoleInfo"]
        23 CALL                             R3 1 1

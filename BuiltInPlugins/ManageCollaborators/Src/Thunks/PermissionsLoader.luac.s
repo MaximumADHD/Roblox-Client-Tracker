@@ -35,8 +35,8 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["gameMetadataController"]
         2 GETTABLEKS                       R3 R1 K1 ["socialController"]
-        4 GETIMPORT                        R5 K3 [game]
-        6 GETTABLEKS                       R4 R5 K4 ["GameId"]
+        4 GETIMPORT                        R4 K3 [game]
+        6 GETTABLEKS                       R4 R4 K4 ["GameId"]
         8 NEWCLOSURE                       R5 P0
         9 CAPTURE                          VAL R2
        10 CAPTURE                          VAL R4
@@ -69,8 +69,8 @@ PROTO_3:
 
 PROTO_4:
         0 LOADNIL                          R2
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["MultiGetCanCollaborateRetrieved"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["MultiGetCanCollaborateRetrieved"]
         4 NEWCLOSURE                       R5 P0
         5 CAPTURE                          REF R2
         6 CAPTURE                          VAL R0
@@ -94,8 +94,8 @@ PROTO_4:
        27 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
@@ -103,8 +103,8 @@ PROTO_5:
         7 RETURN                           R0 -1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
@@ -114,8 +114,8 @@ PROTO_6:
        10 RETURN                           R0 -1
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["fflagManageCollaboratorsActionNeededLabel"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["fflagManageCollaboratorsActionNeededLabel"]
         3 JUMPIF                           R2 ; [+1]
         4 RETURN                           R0 0
         5 LENGTH                           R2 R1
@@ -217,19 +217,19 @@ PROTO_9:
        33 CALL                             R7 1 -1
        34 NAMECALL                         R5 R5 K4 ["dispatch"]
        36 CALL                             R5 -1 0
-       37 GETUPVAL                         R6 6
-       38 GETTABLEKS                       R5 R6 K5 ["fflagManageCollaboratorsActionNeededLabel"]
+       37 GETUPVAL                         R5 6
+       38 GETTABLEKS                       R5 R5 K5 ["fflagManageCollaboratorsActionNeededLabel"]
        40 JUMPIF                           R5 ; [+1]
        41 RETURN                           R0 0
        42 NEWTABLE                         R5 0 0
-       44 GETUPVAL                         R8 7
-       45 GETTABLEKS                       R7 R8 K6 ["UserSubjectKey"]
+       44 GETUPVAL                         R7 7
+       45 GETTABLEKS                       R7 R7 K6 ["UserSubjectKey"]
        47 GETTABLE                         R6 R3 R7
        48 JUMPIF                           R6 ; [+1]
        49 RETURN                           R0 0
        50 GETIMPORT                        R6 K8 [pairs]
-       52 GETUPVAL                         R10 7
-       53 GETTABLEKS                       R9 R10 K6 ["UserSubjectKey"]
+       52 GETUPVAL                         R9 7
+       53 GETTABLEKS                       R9 R9 K6 ["UserSubjectKey"]
        55 GETTABLE                         R7 R3 R9
        56 CALL                             R6 1 3
        57 FORGPREP_NEXT                    R6
@@ -342,8 +342,8 @@ PROTO_14:
         4 GETTABLEKS                       R4 R1 K2 ["groupRolePermisionsController"]
         6 GETTABLEKS                       R5 R1 K3 ["gamePermissionsController"]
         8 GETTABLEKS                       R6 R1 K4 ["granularPermissionsController"]
-       10 GETIMPORT                        R8 K6 [game]
-       12 GETTABLEKS                       R7 R8 K7 ["GameId"]
+       10 GETIMPORT                        R7 K6 [game]
+       12 GETTABLEKS                       R7 R7 K7 ["GameId"]
        14 GETGLOBAL                        R8 K8 ["GetLoadFriendsJob"]
        16 MOVE                             R9 R0
        17 MOVE                             R10 R1
@@ -432,8 +432,8 @@ PROTO_18:
        13 SETUPVAL                         R2 1
        14 GETUPVAL                         R2 2
        15 GETUPVAL                         R4 3
-       16 GETUPVAL                         R6 4
-       17 GETTABLEKS                       R5 R6 K5 ["LoadFailed"]
+       16 GETUPVAL                         R5 4
+       17 GETTABLEKS                       R5 R5 K5 ["LoadFailed"]
        19 CALL                             R4 1 -1
        20 NAMECALL                         R2 R2 K6 ["dispatch"]
        22 CALL                             R2 -1 0
@@ -448,8 +448,8 @@ PROTO_18:
        32 JUMPIF                           R2 ; [+9]
        33 GETUPVAL                         R2 2
        34 GETUPVAL                         R4 3
-       35 GETUPVAL                         R6 4
-       36 GETTABLEKS                       R5 R6 K8 ["Loaded"]
+       35 GETUPVAL                         R5 4
+       36 GETTABLEKS                       R5 R5 K8 ["Loaded"]
        38 CALL                             R4 1 -1
        39 NAMECALL                         R2 R2 K6 ["dispatch"]
        41 CALL                             R2 -1 0
@@ -461,8 +461,8 @@ PROTO_19:
         3 MOVE                             R4 R1
         4 CALL                             R2 2 1
         5 GETUPVAL                         R5 0
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K1 ["Loading"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K1 ["Loading"]
         9 CALL                             R5 1 -1
        10 NAMECALL                         R3 R0 K2 ["dispatch"]
        12 CALL                             R3 -1 0
@@ -497,17 +497,17 @@ PROTO_20:
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 2 0
-        3 GETIMPORT                        R4 K1 [script]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        3 GETIMPORT                        R1 K1 [script]
+        5 GETTABLEKS                       R1 R1 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Bin"]
-       15 GETTABLEKS                       R3 R4 K6 ["defineLuaFlags"]
+       13 GETTABLEKS                       R3 R1 K5 ["Bin"]
+       15 GETTABLEKS                       R3 R3 K6 ["defineLuaFlags"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R5 R1 K7 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       20 GETTABLEKS                       R4 R1 K7 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K8 ["Framework"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R3 K9 ["Util"]
        27 GETTABLEKS                       R5 R4 K10 ["Promise"]
@@ -524,79 +524,79 @@ MAIN:
        44 NAMECALL                         R8 R8 K14 ["GetService"]
        46 CALL                             R8 2 1
        47 GETIMPORT                        R9 K4 [require]
-       49 GETTABLEKS                       R12 R1 K17 ["Src"]
-       51 GETTABLEKS                       R11 R12 K18 ["Actions"]
-       53 GETTABLEKS                       R10 R11 K19 ["SetLoadState"]
+       49 GETTABLEKS                       R10 R1 K17 ["Src"]
+       51 GETTABLEKS                       R10 R10 K18 ["Actions"]
+       53 GETTABLEKS                       R10 R10 K19 ["SetLoadState"]
        55 CALL                             R9 1 1
        56 GETIMPORT                        R10 K4 [require]
-       58 GETTABLEKS                       R13 R1 K17 ["Src"]
-       60 GETTABLEKS                       R12 R13 K9 ["Util"]
-       62 GETTABLEKS                       R11 R12 K20 ["LoadState"]
+       58 GETTABLEKS                       R11 R1 K17 ["Src"]
+       60 GETTABLEKS                       R11 R11 K9 ["Util"]
+       62 GETTABLEKS                       R11 R11 K20 ["LoadState"]
        64 CALL                             R10 1 1
        65 GETIMPORT                        R11 K4 [require]
-       67 GETTABLEKS                       R14 R1 K17 ["Src"]
-       69 GETTABLEKS                       R13 R14 K9 ["Util"]
-       71 GETTABLEKS                       R12 R13 K21 ["PermissionsConstants"]
+       67 GETTABLEKS                       R12 R1 K17 ["Src"]
+       69 GETTABLEKS                       R12 R12 K9 ["Util"]
+       71 GETTABLEKS                       R12 R12 K21 ["PermissionsConstants"]
        73 CALL                             R11 1 1
        74 GETIMPORT                        R12 K4 [require]
-       76 GETTABLEKS                       R15 R1 K17 ["Src"]
-       78 GETTABLEKS                       R14 R15 K18 ["Actions"]
-       80 GETTABLEKS                       R13 R14 K22 ["SetCurrentUserPermissions"]
+       76 GETTABLEKS                       R13 R1 K17 ["Src"]
+       78 GETTABLEKS                       R13 R13 K18 ["Actions"]
+       80 GETTABLEKS                       R13 R13 K22 ["SetCurrentUserPermissions"]
        82 CALL                             R12 1 1
        83 GETIMPORT                        R13 K4 [require]
-       85 GETTABLEKS                       R16 R1 K17 ["Src"]
-       87 GETTABLEKS                       R15 R16 K18 ["Actions"]
-       89 GETTABLEKS                       R14 R15 K23 ["SetCurrentGranularPermissions"]
+       85 GETTABLEKS                       R14 R1 K17 ["Src"]
+       87 GETTABLEKS                       R14 R14 K18 ["Actions"]
+       89 GETTABLEKS                       R14 R14 K23 ["SetCurrentGranularPermissions"]
        91 CALL                             R13 1 1
        92 GETIMPORT                        R14 K4 [require]
-       94 GETTABLEKS                       R17 R1 K17 ["Src"]
-       96 GETTABLEKS                       R16 R17 K18 ["Actions"]
-       98 GETTABLEKS                       R15 R16 K24 ["SetCurrentGroupMetadata"]
+       94 GETTABLEKS                       R15 R1 K17 ["Src"]
+       96 GETTABLEKS                       R15 R15 K18 ["Actions"]
+       98 GETTABLEKS                       R15 R15 K24 ["SetCurrentGroupMetadata"]
       100 CALL                             R14 1 1
       101 GETIMPORT                        R15 K4 [require]
-      103 GETTABLEKS                       R18 R1 K17 ["Src"]
-      105 GETTABLEKS                       R17 R18 K18 ["Actions"]
-      107 GETTABLEKS                       R16 R17 K25 ["SetCreatorType"]
+      103 GETTABLEKS                       R16 R1 K17 ["Src"]
+      105 GETTABLEKS                       R16 R16 K18 ["Actions"]
+      107 GETTABLEKS                       R16 R16 K25 ["SetCreatorType"]
       109 CALL                             R15 1 1
       110 GETIMPORT                        R16 K4 [require]
-      112 GETTABLEKS                       R19 R1 K17 ["Src"]
-      114 GETTABLEKS                       R18 R19 K18 ["Actions"]
-      116 GETTABLEKS                       R17 R18 K26 ["SetCreatorName"]
+      112 GETTABLEKS                       R17 R1 K17 ["Src"]
+      114 GETTABLEKS                       R17 R17 K18 ["Actions"]
+      116 GETTABLEKS                       R17 R17 K26 ["SetCreatorName"]
       118 CALL                             R16 1 1
       119 GETIMPORT                        R17 K4 [require]
-      121 GETTABLEKS                       R20 R1 K17 ["Src"]
-      123 GETTABLEKS                       R19 R20 K18 ["Actions"]
-      125 GETTABLEKS                       R18 R19 K27 ["SetCreatorId"]
+      121 GETTABLEKS                       R18 R1 K17 ["Src"]
+      123 GETTABLEKS                       R18 R18 K18 ["Actions"]
+      125 GETTABLEKS                       R18 R18 K27 ["SetCreatorId"]
       127 CALL                             R17 1 1
       128 GETIMPORT                        R18 K4 [require]
-      130 GETTABLEKS                       R21 R1 K17 ["Src"]
-      132 GETTABLEKS                       R20 R21 K18 ["Actions"]
-      134 GETTABLEKS                       R19 R20 K28 ["SetCreatorFriends"]
+      130 GETTABLEKS                       R19 R1 K17 ["Src"]
+      132 GETTABLEKS                       R19 R19 K18 ["Actions"]
+      134 GETTABLEKS                       R19 R19 K28 ["SetCreatorFriends"]
       136 CALL                             R18 1 1
       137 GETIMPORT                        R19 K4 [require]
-      139 GETTABLEKS                       R22 R1 K17 ["Src"]
-      141 GETTABLEKS                       R21 R22 K18 ["Actions"]
-      143 GETTABLEKS                       R20 R21 K29 ["SetGroupOwnerId"]
+      139 GETTABLEKS                       R20 R1 K17 ["Src"]
+      141 GETTABLEKS                       R20 R20 K18 ["Actions"]
+      143 GETTABLEKS                       R20 R20 K29 ["SetGroupOwnerId"]
       145 CALL                             R19 1 1
       146 GETIMPORT                        R20 K4 [require]
-      148 GETTABLEKS                       R23 R1 K17 ["Src"]
-      150 GETTABLEKS                       R22 R23 K18 ["Actions"]
-      152 GETTABLEKS                       R21 R22 K30 ["SetGroupRolePermissions"]
+      148 GETTABLEKS                       R21 R1 K17 ["Src"]
+      150 GETTABLEKS                       R21 R21 K18 ["Actions"]
+      152 GETTABLEKS                       R21 R21 K30 ["SetGroupRolePermissions"]
       154 CALL                             R20 1 1
       155 GETIMPORT                        R21 K4 [require]
-      157 GETTABLEKS                       R24 R1 K17 ["Src"]
-      159 GETTABLEKS                       R23 R24 K18 ["Actions"]
-      161 GETTABLEKS                       R22 R23 K31 ["SetUserMinimumAge"]
+      157 GETTABLEKS                       R22 R1 K17 ["Src"]
+      159 GETTABLEKS                       R22 R22 K18 ["Actions"]
+      161 GETTABLEKS                       R22 R22 K31 ["SetUserMinimumAge"]
       163 CALL                             R21 1 1
       164 GETIMPORT                        R22 K4 [require]
-      166 GETTABLEKS                       R25 R1 K17 ["Src"]
-      168 GETTABLEKS                       R24 R25 K18 ["Actions"]
-      170 GETTABLEKS                       R23 R24 K32 ["SetCanCollaborateResponses"]
+      166 GETTABLEKS                       R23 R1 K17 ["Src"]
+      168 GETTABLEKS                       R23 R23 K18 ["Actions"]
+      170 GETTABLEKS                       R23 R23 K32 ["SetCanCollaborateResponses"]
       172 CALL                             R22 1 1
       173 GETIMPORT                        R23 K4 [require]
-      175 GETTABLEKS                       R26 R1 K17 ["Src"]
-      177 GETTABLEKS                       R25 R26 K9 ["Util"]
-      179 GETTABLEKS                       R24 R25 K33 ["getFFlagCallNewFriendsAPI"]
+      175 GETTABLEKS                       R24 R1 K17 ["Src"]
+      177 GETTABLEKS                       R24 R24 K9 ["Util"]
+      179 GETTABLEKS                       R24 R24 K33 ["getFFlagCallNewFriendsAPI"]
       181 CALL                             R23 1 1
       182 DUPCLOSURE                       R24 K34 [PROTO_1]
       183 CAPTURE                          VAL R23

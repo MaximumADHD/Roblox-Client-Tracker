@@ -104,8 +104,8 @@ PROTO_3:
         4 RETURN                           R1 -1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
         5 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
@@ -127,17 +127,17 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETIMPORT                        R4 K1 [script]
-       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K5 ["VertexToolBase"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K2 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K5 ["VertexToolBase"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
+       18 GETTABLEKS                       R3 R0 K6 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R4 2 0
        25 DUPTABLE                         R5 K9 [{"__index"}]

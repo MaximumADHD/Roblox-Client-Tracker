@@ -5,9 +5,9 @@ PROTO_0:
         3 SETTABLEKS                       R3 R2 K0 ["enabled"]
         5 NAMECALL                         R0 R0 K2 ["setState"]
         7 CALL                             R0 2 0
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K3 ["props"]
-       11 GETTABLEKS                       R0 R1 K4 ["OnClose"]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K3 ["props"]
+       11 GETTABLEKS                       R0 R0 K4 ["OnClose"]
        13 CALL                             R0 0 0
        14 RETURN                           R0 0
 
@@ -20,8 +20,8 @@ PROTO_1:
         8 LOADK                            R3 K5 ["Plugin"]
         9 NAMECALL                         R1 R1 K6 ["FindFirstAncestorOfClass"]
        11 CALL                             R1 2 1
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K7 ["new"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K7 ["new"]
        15 MOVE                             R3 R1
        16 LOADNIL                          R4
        17 CALL                             R2 2 1
@@ -33,17 +33,17 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["provide"]
-        5 GETTABLEKS                       R4 R0 K2 ["environment"]
-        7 GETTABLEKS                       R3 R4 K3 ["contextItems"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["provide"]
+        5 GETTABLEKS                       R3 R0 K2 ["environment"]
+        7 GETTABLEKS                       R3 R3 K3 ["contextItems"]
         9 DUPTABLE                         R4 K5 [{"Dialogue"}]
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K6 ["createElement"]
        13 GETUPVAL                         R6 2
        14 DUPTABLE                         R7 K15 [{"Enabled", "Modal", "Resizable", "Title", "Buttons", "OnClose", "OnButtonPressed", "MinContentSize"}]
-       15 GETTABLEKS                       R9 R0 K16 ["state"]
-       17 GETTABLEKS                       R8 R9 K17 ["enabled"]
+       15 GETTABLEKS                       R8 R0 K16 ["state"]
+       17 GETTABLEKS                       R8 R8 K17 ["enabled"]
        19 SETTABLEKS                       R8 R7 K7 ["Enabled"]
        21 LOADB                            R8 0
        22 SETTABLEKS                       R8 R7 K8 ["Modal"]
@@ -72,21 +72,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Controllers"]
-       27 GETTABLEKS                       R4 R5 K11 ["Initialization"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Controllers"]
+       27 GETTABLEKS                       R4 R4 K11 ["Initialization"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R1 K12 ["ContextServices"]
-       32 GETTABLEKS                       R6 R1 K13 ["UI"]
-       34 GETTABLEKS                       R5 R6 K14 ["StyledDialog"]
+       32 GETTABLEKS                       R5 R1 K13 ["UI"]
+       34 GETTABLEKS                       R5 R5 K14 ["StyledDialog"]
        36 GETTABLEKS                       R6 R2 K15 ["PureComponent"]
        38 LOADK                            R8 K16 ["AdHocDialogue"]
        39 NAMECALL                         R6 R6 K17 ["extend"]

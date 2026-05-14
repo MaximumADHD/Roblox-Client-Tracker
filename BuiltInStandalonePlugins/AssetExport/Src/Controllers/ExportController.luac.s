@@ -7,8 +7,8 @@ PROTO_0:
         6 LOADB                            R2 1
         7 NAMECALL                         R0 R0 K1 ["setExportEnabled"]
         9 CALL                             R0 2 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K2 ["_plugin"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K2 ["_plugin"]
        13 LOADK                            R2 K3 ["OnShouldStartPermissions"]
        14 LOADB                            R3 1
        15 NAMECALL                         R0 R0 K4 ["Invoke"]
@@ -24,8 +24,8 @@ PROTO_1:
         6 LOADB                            R2 1
         7 NAMECALL                         R0 R0 K1 ["setExportEnabled"]
         9 CALL                             R0 2 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K2 ["_plugin"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K2 ["_plugin"]
        13 LOADK                            R2 K3 ["OnShouldStartPermissions"]
        14 LOADB                            R3 0
        15 NAMECALL                         R0 R0 K4 ["Invoke"]
@@ -45,36 +45,36 @@ PROTO_2:
        11 JUMPIF                           R0 ; [+1]
        12 RETURN                           R0 0
        13 GETUPVAL                         R0 2
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K2 ["_settings"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K2 ["_settings"]
        17 NAMECALL                         R0 R0 K3 ["formatSettings"]
        19 CALL                             R0 2 1
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R1 R2 K4 ["_plugin"]
+       20 GETUPVAL                         R1 1
+       21 GETTABLEKS                       R1 R1 K4 ["_plugin"]
        23 LOADK                            R3 K5 ["OnShouldStartExport"]
        24 GETUPVAL                         R4 1
        25 NAMECALL                         R4 R4 K6 ["getOnlySelection"]
        27 CALL                             R4 1 1
        28 MOVE                             R5 R0
-       29 GETUPVAL                         R7 1
-       30 GETTABLEKS                       R6 R7 K7 ["_fileName"]
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K7 ["_fileName"]
        32 NAMECALL                         R1 R1 K8 ["Invoke"]
        34 CALL                             R1 5 0
        35 RETURN                           R0 0
        36 GETUPVAL                         R0 2
-       37 GETUPVAL                         R3 1
-       38 GETTABLEKS                       R2 R3 K2 ["_settings"]
+       37 GETUPVAL                         R2 1
+       38 GETTABLEKS                       R2 R2 K2 ["_settings"]
        40 NAMECALL                         R0 R0 K3 ["formatSettings"]
        42 CALL                             R0 2 1
-       43 GETUPVAL                         R2 1
-       44 GETTABLEKS                       R1 R2 K4 ["_plugin"]
+       43 GETUPVAL                         R1 1
+       44 GETTABLEKS                       R1 R1 K4 ["_plugin"]
        46 LOADK                            R3 K5 ["OnShouldStartExport"]
        47 GETUPVAL                         R4 1
        48 NAMECALL                         R4 R4 K6 ["getOnlySelection"]
        50 CALL                             R4 1 1
        51 MOVE                             R5 R0
-       52 GETUPVAL                         R7 1
-       53 GETTABLEKS                       R6 R7 K7 ["_fileName"]
+       52 GETUPVAL                         R6 1
+       53 GETTABLEKS                       R6 R6 K7 ["_fileName"]
        55 NAMECALL                         R1 R1 K8 ["Invoke"]
        57 CALL                             R1 5 0
        58 RETURN                           R0 0
@@ -89,19 +89,19 @@ PROTO_3:
         8 JUMPIF                           R0 ; [+1]
         9 RETURN                           R0 0
        10 GETUPVAL                         R0 1
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K2 ["_settings"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K2 ["_settings"]
        14 NAMECALL                         R0 R0 K3 ["formatSettings"]
        16 CALL                             R0 2 1
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K4 ["_plugin"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K4 ["_plugin"]
        20 LOADK                            R3 K5 ["OnShouldStartExport"]
        21 GETUPVAL                         R4 0
        22 NAMECALL                         R4 R4 K6 ["getOnlySelection"]
        24 CALL                             R4 1 1
        25 MOVE                             R5 R0
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R6 R7 K7 ["_fileName"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K7 ["_fileName"]
        29 NAMECALL                         R1 R1 K8 ["Invoke"]
        31 CALL                             R1 5 0
        32 RETURN                           R0 0
@@ -124,8 +124,8 @@ PROTO_5:
         8 NAMECALL                         R0 R0 K1 ["checkCleanupStatus"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
-       12 GETUPVAL                         R1 1
-       13 GETTABLEKS                       R0 R1 K2 ["_canceled"]
+       12 GETUPVAL                         R0 1
+       13 GETTABLEKS                       R0 R0 K2 ["_canceled"]
        15 JUMPIFNOT                        R0 ; [+5]
        16 GETUPVAL                         R0 1
        17 NAMECALL                         R0 R0 K3 ["endExport"]
@@ -156,12 +156,12 @@ PROTO_7:
         8 NAMECALL                         R0 R0 K1 ["cleanupExport"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K3 ["_settings"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K3 ["_settings"]
        15 GETTABLEKS                       R0 R1 K2 ["cages"]
        17 JUMPIFNOT                        R0 ; [+12]
-       18 GETUPVAL                         R1 0
-       19 GETTABLEKS                       R0 R1 K4 ["_plugin"]
+       18 GETUPVAL                         R0 0
+       19 GETTABLEKS                       R0 R0 K4 ["_plugin"]
        21 LOADK                            R2 K5 ["OnDestroyCageParts"]
        22 GETUPVAL                         R3 0
        23 NAMECALL                         R3 R3 K6 ["getOnlySelection"]
@@ -185,12 +185,12 @@ PROTO_8:
         8 NAMECALL                         R0 R0 K1 ["cleanupExport"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K3 ["_settings"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K3 ["_settings"]
        15 GETTABLEKS                       R0 R1 K2 ["cages"]
        17 JUMPIFNOT                        R0 ; [+12]
-       18 GETUPVAL                         R1 0
-       19 GETTABLEKS                       R0 R1 K4 ["_plugin"]
+       18 GETUPVAL                         R0 0
+       19 GETTABLEKS                       R0 R0 K4 ["_plugin"]
        21 LOADK                            R2 K5 ["OnDestroyCageParts"]
        22 GETUPVAL                         R3 0
        23 NAMECALL                         R3 R3 K6 ["getOnlySelection"]
@@ -214,12 +214,12 @@ PROTO_9:
         8 NAMECALL                         R0 R0 K1 ["cleanupExport"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K3 ["_settings"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K3 ["_settings"]
        15 GETTABLEKS                       R0 R1 K2 ["cages"]
        17 JUMPIFNOT                        R0 ; [+12]
-       18 GETUPVAL                         R1 0
-       19 GETTABLEKS                       R0 R1 K4 ["_plugin"]
+       18 GETUPVAL                         R0 0
+       19 GETTABLEKS                       R0 R0 K4 ["_plugin"]
        21 LOADK                            R2 K5 ["OnDestroyCageParts"]
        22 GETUPVAL                         R3 0
        23 NAMECALL                         R3 R3 K6 ["getOnlySelection"]
@@ -237,10 +237,10 @@ PROTO_10:
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["setPermissionFailures"]
         4 CALL                             R1 2 0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K1 ["onPermissionFailuresChanged"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["_permissionFailures"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K1 ["onPermissionFailuresChanged"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["_permissionFailures"]
        11 NAMECALL                         R1 R1 K3 ["Fire"]
        13 CALL                             R1 2 0
        14 GETUPVAL                         R1 0
@@ -298,28 +298,28 @@ PROTO_12:
        61 SETTABLEKS                       R3 R2 K15 ["_cagesDeletionInProgress"]
        63 LOADB                            R3 0
        64 SETTABLEKS                       R3 R2 K16 ["_attachmentsDeletionInProgress"]
-       66 GETUPVAL                         R4 0
-       67 GETTABLEKS                       R3 R4 K30 ["new"]
+       66 GETUPVAL                         R3 0
+       67 GETTABLEKS                       R3 R3 K30 ["new"]
        69 CALL                             R3 0 1
        70 SETTABLEKS                       R3 R2 K17 ["onViewStateChanged"]
-       72 GETUPVAL                         R4 0
-       73 GETTABLEKS                       R3 R4 K30 ["new"]
+       72 GETUPVAL                         R3 0
+       73 GETTABLEKS                       R3 R3 K30 ["new"]
        75 CALL                             R3 0 1
        76 SETTABLEKS                       R3 R2 K18 ["onPermissionLoadingChanged"]
-       78 GETUPVAL                         R4 0
-       79 GETTABLEKS                       R3 R4 K30 ["new"]
+       78 GETUPVAL                         R3 0
+       79 GETTABLEKS                       R3 R3 K30 ["new"]
        81 CALL                             R3 0 1
        82 SETTABLEKS                       R3 R2 K19 ["onPermissionFailuresChanged"]
-       84 GETUPVAL                         R4 0
-       85 GETTABLEKS                       R3 R4 K30 ["new"]
+       84 GETUPVAL                         R3 0
+       85 GETTABLEKS                       R3 R3 K30 ["new"]
        87 CALL                             R3 0 1
        88 SETTABLEKS                       R3 R2 K20 ["onExportEnabledChanged"]
-       90 GETUPVAL                         R4 0
-       91 GETTABLEKS                       R3 R4 K30 ["new"]
+       90 GETUPVAL                         R3 0
+       91 GETTABLEKS                       R3 R3 K30 ["new"]
        93 CALL                             R3 0 1
        94 SETTABLEKS                       R3 R2 K21 ["onExportProcessingChanged"]
-       96 GETUPVAL                         R4 0
-       97 GETTABLEKS                       R3 R4 K30 ["new"]
+       96 GETUPVAL                         R3 0
+       97 GETTABLEKS                       R3 R3 K30 ["new"]
        99 CALL                             R3 0 1
       100 SETTABLEKS                       R3 R2 K22 ["onPermissionsReadyChanged"]
       102 GETTABLEKS                       R3 R2 K3 ["_settings"]
@@ -327,8 +327,8 @@ PROTO_12:
       105 LOADNIL                          R5
       106 FORGPREP                         R3
       107 GETTABLEKS                       R8 R2 K4 ["_settingEvents"]
-      109 GETUPVAL                         R10 0
-      110 GETTABLEKS                       R9 R10 K30 ["new"]
+      109 GETUPVAL                         R9 0
+      110 GETTABLEKS                       R9 R9 K30 ["new"]
       112 CALL                             R9 0 1
       113 SETTABLE                         R9 R8 R6
       114 FORGLOOP                         R3 2 ; [-8]
@@ -473,8 +473,8 @@ PROTO_12:
       304 RETURN                           R2 1
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 MOVE                             R2 R0
         4 LOADNIL                          R3
         5 LOADB                            R4 1
@@ -722,8 +722,8 @@ PROTO_39:
         4 FORGPREP                         R1
         5 GETTABLEKS                       R6 R5 K1 ["assetType"]
         7 JUMPIFEQKS                       R6 K2 ["Mesh"] ; [+7]
-        9 GETTABLEKS                       R7 R0 K3 ["_settings"]
-       11 GETTABLEKS                       R6 R7 K4 ["textures"]
+        9 GETTABLEKS                       R6 R0 K3 ["_settings"]
+       11 GETTABLEKS                       R6 R6 K4 ["textures"]
        13 JUMPIFNOTEQKB                    R6 TRUE ; [+3]
        15 LOADB                            R6 1
        16 RETURN                           R6 1
@@ -881,25 +881,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
        16 GETTABLEKS                       R3 R2 K9 ["ContextItem"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R7 R0 K10 ["Src"]
-       22 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       24 GETTABLEKS                       R5 R6 K12 ["getFStringPermissionsPage"]
+       20 GETTABLEKS                       R5 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       24 GETTABLEKS                       R5 R5 K12 ["getFStringPermissionsPage"]
        26 CALL                             R4 1 1
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Flags"]
-       33 GETTABLEKS                       R6 R7 K13 ["getFFlagCreateAttachmentsOnAssetDm"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Flags"]
+       33 GETTABLEKS                       R6 R6 K13 ["getFFlagCreateAttachmentsOnAssetDm"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R9 R0 K10 ["Src"]
-       40 GETTABLEKS                       R8 R9 K14 ["Util"]
-       42 GETTABLEKS                       R7 R8 K15 ["createAssetUrl"]
+       38 GETTABLEKS                       R7 R0 K10 ["Src"]
+       40 GETTABLEKS                       R7 R7 K14 ["Util"]
+       42 GETTABLEKS                       R7 R7 K15 ["createAssetUrl"]
        44 CALL                             R6 1 1
        45 GETTABLEKS                       R7 R1 K14 ["Util"]
        47 GETTABLEKS                       R8 R7 K16 ["Signal"]

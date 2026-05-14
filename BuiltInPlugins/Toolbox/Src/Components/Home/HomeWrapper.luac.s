@@ -45,8 +45,8 @@ PROTO_1:
        49 GETIMPORT                        R15 K17 [table.insert]
        51 CALL                             R15 2 0
        52 FORGLOOP                         R10 2 ; [-21]
-       54 GETUPVAL                         R11 0
-       55 GETTABLEKS                       R10 R11 K18 ["createElement"]
+       54 GETUPVAL                         R10 0
+       55 GETTABLEKS                       R10 R10 K18 ["createElement"]
        57 LOADK                            R11 K19 ["Frame"]
        58 DUPTABLE                         R12 K24 [{"BackgroundColor3", "BorderSizePixel", "Position", "Size"}]
        59 GETTABLEKS                       R13 R6 K25 ["backgroundColor"]
@@ -58,8 +58,8 @@ PROTO_1:
        70 GETTABLEKS                       R13 R1 K23 ["Size"]
        72 SETTABLEKS                       R13 R12 K23 ["Size"]
        74 DUPTABLE                         R13 K27 [{"Navigation"}]
-       75 GETUPVAL                         R15 0
-       76 GETTABLEKS                       R14 R15 K18 ["createElement"]
+       75 GETUPVAL                         R14 0
+       76 GETTABLEKS                       R14 R14 K18 ["createElement"]
        78 GETUPVAL                         R15 1
        79 DUPTABLE                         R16 K33 [{"AssetType", "CategoryName", "Config", "MaxWidth", "SortName", "AssetSections", "SubcategoryDict", "TopKeywords", "TryOpenAssetConfig"}]
        80 SETTABLEKS                       R2 R16 K1 ["AssetType"]
@@ -80,24 +80,24 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [ipairs]
-        2 GETTABLEKS                       R4 R0 K2 ["props"]
-        4 GETTABLEKS                       R2 R4 K3 ["EnabledAssetTypes"]
+        2 GETTABLEKS                       R2 R0 K2 ["props"]
+        4 GETTABLEKS                       R2 R2 K3 ["EnabledAssetTypes"]
         6 CALL                             R1 1 3
         7 FORGPREP_INEXT                   R1
-        8 GETTABLEKS                       R8 R0 K2 ["props"]
-       10 GETTABLEKS                       R7 R8 K4 ["homeConfiguration"]
+        8 GETTABLEKS                       R7 R0 K2 ["props"]
+       10 GETTABLEKS                       R7 R7 K4 ["homeConfiguration"]
        12 GETTABLEKS                       R8 R5 K5 ["Name"]
        14 GETTABLE                         R6 R7 R8
        15 JUMPIFNOTEQKNIL                  R6 ; [+18]
-       17 GETTABLEKS                       R8 R0 K2 ["props"]
-       19 GETTABLEKS                       R7 R8 K6 ["Network"]
-       21 GETTABLEKS                       R6 R7 K7 ["networkInterface"]
-       23 GETTABLEKS                       R8 R0 K2 ["props"]
-       25 GETTABLEKS                       R7 R8 K8 ["getHomeConfigurationRequest"]
+       17 GETTABLEKS                       R6 R0 K2 ["props"]
+       19 GETTABLEKS                       R6 R6 K6 ["Network"]
+       21 GETTABLEKS                       R6 R6 K7 ["networkInterface"]
+       23 GETTABLEKS                       R7 R0 K2 ["props"]
+       25 GETTABLEKS                       R7 R7 K8 ["getHomeConfigurationRequest"]
        27 MOVE                             R8 R6
        28 MOVE                             R9 R5
-       29 GETTABLEKS                       R11 R0 K2 ["props"]
-       31 GETTABLEKS                       R10 R11 K9 ["Locale"]
+       29 GETTABLEKS                       R10 R0 K2 ["props"]
+       31 GETTABLEKS                       R10 R10 K9 ["Locale"]
        33 CALL                             R7 3 0
        34 FORGLOOP                         R1 2 [inext] ; [-27]
        36 RETURN                           R0 0
@@ -134,11 +134,11 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -149,56 +149,56 @@ MAIN:
        23 GETIMPORT                        R4 K5 [require]
        25 GETTABLEKS                       R5 R1 K8 ["Framework"]
        27 CALL                             R4 1 1
-       28 GETTABLEKS                       R7 R0 K9 ["Src"]
-       30 GETTABLEKS                       R6 R7 K10 ["Networking"]
-       32 GETTABLEKS                       R5 R6 K11 ["Requests"]
+       28 GETTABLEKS                       R5 R0 K9 ["Src"]
+       30 GETTABLEKS                       R5 R5 K10 ["Networking"]
+       32 GETTABLEKS                       R5 R5 K11 ["Requests"]
        34 GETIMPORT                        R6 K5 [require]
        36 GETTABLEKS                       R7 R5 K12 ["GetHomeConfigurationRequest"]
        38 CALL                             R6 1 1
        39 GETTABLEKS                       R7 R4 K13 ["ContextServices"]
        41 GETTABLEKS                       R8 R7 K14 ["withContext"]
        43 GETIMPORT                        R9 K5 [require]
-       45 GETTABLEKS                       R12 R0 K9 ["Src"]
-       47 GETTABLEKS                       R11 R12 K13 ["ContextServices"]
-       49 GETTABLEKS                       R10 R11 K15 ["NetworkContext"]
+       45 GETTABLEKS                       R10 R0 K9 ["Src"]
+       47 GETTABLEKS                       R10 R10 K13 ["ContextServices"]
+       49 GETTABLEKS                       R10 R10 K15 ["NetworkContext"]
        51 CALL                             R9 1 1
        52 GETIMPORT                        R10 K5 [require]
-       54 GETTABLEKS                       R13 R0 K9 ["Src"]
-       56 GETTABLEKS                       R12 R13 K16 ["Types"]
-       58 GETTABLEKS                       R11 R12 K17 ["Category"]
+       54 GETTABLEKS                       R11 R0 K9 ["Src"]
+       56 GETTABLEKS                       R11 R11 K16 ["Types"]
+       58 GETTABLEKS                       R11 R11 K17 ["Category"]
        60 CALL                             R10 1 1
        61 GETIMPORT                        R11 K5 [require]
-       63 GETTABLEKS                       R14 R0 K9 ["Src"]
-       65 GETTABLEKS                       R13 R14 K16 ["Types"]
-       67 GETTABLEKS                       R12 R13 K18 ["HomeTypes"]
+       63 GETTABLEKS                       R12 R0 K9 ["Src"]
+       65 GETTABLEKS                       R12 R12 K16 ["Types"]
+       67 GETTABLEKS                       R12 R12 K18 ["HomeTypes"]
        69 CALL                             R11 1 1
        70 GETIMPORT                        R12 K5 [require]
-       72 GETTABLEKS                       R15 R0 K9 ["Src"]
-       74 GETTABLEKS                       R14 R15 K16 ["Types"]
-       76 GETTABLEKS                       R13 R14 K19 ["Sort"]
+       72 GETTABLEKS                       R13 R0 K9 ["Src"]
+       74 GETTABLEKS                       R13 R13 K16 ["Types"]
+       76 GETTABLEKS                       R13 R13 K19 ["Sort"]
        78 CALL                             R12 1 1
        79 GETIMPORT                        R13 K5 [require]
-       81 GETTABLEKS                       R17 R0 K9 ["Src"]
-       83 GETTABLEKS                       R16 R17 K20 ["Components"]
-       85 GETTABLEKS                       R15 R16 K21 ["Home"]
-       87 GETTABLEKS                       R14 R15 K22 ["NavigationContainer"]
+       81 GETTABLEKS                       R14 R0 K9 ["Src"]
+       83 GETTABLEKS                       R14 R14 K20 ["Components"]
+       85 GETTABLEKS                       R14 R14 K21 ["Home"]
+       87 GETTABLEKS                       R14 R14 K22 ["NavigationContainer"]
        89 CALL                             R13 1 1
-       90 GETIMPORT                        R15 K5 [require]
-       92 GETTABLEKS                       R16 R1 K8 ["Framework"]
-       94 CALL                             R15 1 1
-       95 GETTABLEKS                       R14 R15 K23 ["Util"]
+       90 GETIMPORT                        R14 K5 [require]
+       92 GETTABLEKS                       R15 R1 K8 ["Framework"]
+       94 CALL                             R14 1 1
+       95 GETTABLEKS                       R14 R14 K23 ["Util"]
        97 GETTABLEKS                       R15 R14 K24 ["deepEqual"]
        99 GETTABLEKS                       R16 R2 K25 ["Component"]
       101 LOADK                            R18 K26 ["HomeWrapper"]
       102 NAMECALL                         R16 R16 K27 ["extend"]
       104 CALL                             R16 2 1
       105 DUPTABLE                         R17 K30 [{"CategoryName", "SortName"}]
-      106 GETTABLEKS                       R19 R10 K31 ["FREE_MODELS"]
-      108 GETTABLEKS                       R18 R19 K32 ["name"]
+      106 GETTABLEKS                       R18 R10 K31 ["FREE_MODELS"]
+      108 GETTABLEKS                       R18 R18 K32 ["name"]
       110 SETTABLEKS                       R18 R17 K28 ["CategoryName"]
       112 GETTABLEKS                       R18 R12 K33 ["getDefaultSortNameForCategory"]
-      114 GETTABLEKS                       R20 R10 K31 ["FREE_MODELS"]
-      116 GETTABLEKS                       R19 R20 K32 ["name"]
+      114 GETTABLEKS                       R19 R10 K31 ["FREE_MODELS"]
+      116 GETTABLEKS                       R19 R19 K32 ["name"]
       118 CALL                             R18 1 1
       119 SETTABLEKS                       R18 R17 K29 ["SortName"]
       121 SETTABLEKS                       R17 R16 K34 ["defaultProps"]

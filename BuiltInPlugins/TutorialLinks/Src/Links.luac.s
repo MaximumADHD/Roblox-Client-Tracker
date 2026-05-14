@@ -13,8 +13,8 @@ PROTO_0:
        14 NAMECALL                         R7 R6 K4 ["IsA"]
        16 CALL                             R7 2 1
        17 JUMPIFNOT                        R7 ; [+5]
-       18 GETUPVAL                         R8 0
-       19 GETTABLEKS                       R7 R8 K6 ["addGui"]
+       18 GETUPVAL                         R7 0
+       19 GETTABLEKS                       R7 R7 K6 ["addGui"]
        21 MOVE                             R8 R6
        22 CALL                             R7 1 0
        23 FORGLOOP                         R2 2 [inext] ; [-16]
@@ -22,8 +22,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [ipairs]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R1 R3 K2 ["connections"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["connections"]
         5 CALL                             R0 1 3
         6 FORGPREP_INEXT                   R0
         7 NAMECALL                         R5 R4 K3 ["Disconnect"]
@@ -45,8 +45,8 @@ PROTO_2:
         9 NAMECALL                         R7 R6 K4 ["IsA"]
        11 CALL                             R7 2 1
        12 JUMPIFNOT                        R7 ; [+5]
-       13 GETUPVAL                         R8 0
-       14 GETTABLEKS                       R7 R8 K5 ["addLink"]
+       13 GETUPVAL                         R7 0
+       14 GETTABLEKS                       R7 R7 K5 ["addLink"]
        16 MOVE                             R8 R6
        17 CALL                             R7 1 0
        18 FORGLOOP                         R2 2 [inext] ; [-11]
@@ -76,8 +76,8 @@ PROTO_4:
         9 CAPTURE                          UPVAL U0
        10 NAMECALL                         R2 R2 K3 ["Connect"]
        12 CALL                             R2 2 1
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R4 R5 K4 ["connections"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K4 ["connections"]
        16 FASTCALL2                        TABLE_INSERT R4 R2 ; [+3]
        18 MOVE                             R5 R2
        19 GETUPVAL                         R3 2

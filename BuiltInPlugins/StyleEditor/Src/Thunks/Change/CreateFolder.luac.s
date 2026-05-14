@@ -28,8 +28,8 @@ PROTO_1:
        16 GETUPVAL                         R3 1
        17 JUMPIFNOT                        R3 ; [+12]
        18 JUMPIFNOT                        R2 ; [+11]
-       19 GETUPVAL                         R4 2
-       20 GETTABLEKS                       R3 R4 K7 ["createItemId"]
+       19 GETUPVAL                         R3 2
+       20 GETTABLEKS                       R3 R3 K7 ["createItemId"]
        22 MOVE                             R4 R2
        23 CALL                             R3 1 1
        24 GETUPVAL                         R6 3
@@ -50,26 +50,26 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["TreeTableHelpers"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["TreeTableHelpers"]
        19 CALL                             R1 1 1
-       20 GETTABLEKS                       R3 R0 K5 ["Src"]
-       22 GETTABLEKS                       R2 R3 K8 ["Actions"]
+       20 GETTABLEKS                       R2 R0 K5 ["Src"]
+       22 GETTABLEKS                       R2 R2 K8 ["Actions"]
        24 GETIMPORT                        R3 K4 [require]
-       26 GETTABLEKS                       R5 R2 K9 ["Window"]
-       28 GETTABLEKS                       R4 R5 K10 ["SelectItem"]
+       26 GETTABLEKS                       R4 R2 K9 ["Window"]
+       28 GETTABLEKS                       R4 R4 K10 ["SelectItem"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R7 R0 K5 ["Src"]
-       35 GETTABLEKS                       R6 R7 K11 ["Thunks"]
-       37 GETTABLEKS                       R5 R6 K12 ["Types"]
+       33 GETTABLEKS                       R5 R0 K5 ["Src"]
+       35 GETTABLEKS                       R5 R5 K11 ["Thunks"]
+       37 GETTABLEKS                       R5 R5 K12 ["Types"]
        39 CALL                             R4 1 1
        40 DUPCLOSURE                       R5 K13 [PROTO_2]
        41 CAPTURE                          VAL R1

@@ -17,8 +17,8 @@ PROTO_0:
        18 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -37,11 +37,11 @@ PROTO_2:
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R1 K1 ["purchase"]
         5 JUMPIFNOT                        R2 ; [+10]
-        6 GETTABLEKS                       R3 R1 K1 ["purchase"]
-        8 GETTABLEKS                       R2 R3 K2 ["buyerStatus"]
+        6 GETTABLEKS                       R2 R1 K1 ["purchase"]
+        8 GETTABLEKS                       R2 R2 K2 ["buyerStatus"]
        10 JUMPIFNOT                        R2 ; [+5]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K3 ["resolve"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K3 ["resolve"]
        14 CALL                             R2 0 -1
        15 RETURN                           R2 -1
        16 GETUPVAL                         R2 1
@@ -77,22 +77,22 @@ MAIN:
         9 GETIMPORT                        R2 K6 [require]
        11 GETTABLEKS                       R3 R1 K7 ["Framework"]
        13 CALL                             R2 1 1
-       14 GETTABLEKS                       R4 R2 K8 ["Util"]
-       16 GETTABLEKS                       R3 R4 K9 ["Promise"]
+       14 GETTABLEKS                       R3 R2 K8 ["Util"]
+       16 GETTABLEKS                       R3 R3 K9 ["Promise"]
        18 GETIMPORT                        R4 K6 [require]
-       20 GETTABLEKS                       R7 R0 K10 ["Src"]
-       22 GETTABLEKS                       R6 R7 K8 ["Util"]
-       24 GETTABLEKS                       R5 R6 K11 ["DebugFlags"]
+       20 GETTABLEKS                       R5 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R5 K8 ["Util"]
+       24 GETTABLEKS                       R5 R5 K11 ["DebugFlags"]
        26 CALL                             R4 1 1
        27 GETIMPORT                        R5 K6 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K12 ["Actions"]
-       33 GETTABLEKS                       R6 R7 K13 ["NetworkError"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K12 ["Actions"]
+       33 GETTABLEKS                       R6 R6 K13 ["NetworkError"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K6 [require]
-       38 GETTABLEKS                       R9 R0 K10 ["Src"]
-       40 GETTABLEKS                       R8 R9 K12 ["Actions"]
-       42 GETTABLEKS                       R7 R8 K14 ["SetBuyerStatus"]
+       38 GETTABLEKS                       R7 R0 K10 ["Src"]
+       40 GETTABLEKS                       R7 R7 K12 ["Actions"]
+       42 GETTABLEKS                       R7 R7 K14 ["SetBuyerStatus"]
        44 CALL                             R6 1 1
        45 DUPCLOSURE                       R7 K15 [PROTO_3]
        46 CAPTURE                          VAL R3

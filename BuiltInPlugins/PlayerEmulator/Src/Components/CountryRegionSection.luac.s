@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["EmulatedCountryCode"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["EmulatedCountryCode"]
         3 RETURN                           R0 1
 
 PROTO_1:
@@ -9,34 +9,34 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["countryRegionTable"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["countryRegionTable"]
         4 JUMPIFNOT                        R2 ; [+6]
         5 GETTABLE                         R3 R2 R1
         6 JUMPIFNOT                        R3 ; [+4]
-        7 GETTABLE                         R4 R2 R1
-        8 GETTABLEKS                       R3 R4 K2 ["displayText"]
+        7 GETTABLE                         R3 R2 R1
+        8 GETTABLEKS                       R3 R3 K2 ["displayText"]
        10 RETURN                           R3 1
        11 LOADK                            R3 K3 [""]
        12 RETURN                           R3 1
 
 PROTO_3:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["Plugin"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["Plugin"]
         4 NAMECALL                         R2 R2 K2 ["get"]
         6 CALL                             R2 1 1
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K3 ["COUNTRY_REGION_SETTING_KEY"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K3 ["COUNTRY_REGION_SETTING_KEY"]
        10 NAMECALL                         R3 R2 K4 ["GetSetting"]
        12 CALL                             R3 2 1
        13 JUMPIFEQ                         R3 R1 ; [+8]
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K3 ["COUNTRY_REGION_SETTING_KEY"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K3 ["COUNTRY_REGION_SETTING_KEY"]
        18 MOVE                             R6 R1
        19 NAMECALL                         R3 R2 K5 ["SetSetting"]
        21 CALL                             R3 3 0
-       22 GETTABLEKS                       R4 R0 K0 ["props"]
-       24 GETTABLEKS                       R3 R4 K6 ["onEmulatedCountryRegionChanged"]
+       22 GETTABLEKS                       R3 R0 K0 ["props"]
+       24 GETTABLEKS                       R3 R3 K6 ["onEmulatedCountryRegionChanged"]
        26 MOVE                             R4 R3
        27 MOVE                             R5 R1
        28 CALL                             R4 1 0
@@ -70,19 +70,19 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["EmulatedCountryCode"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["EmulatedCountryCode"]
         4 NAMECALL                         R0 R0 K1 ["updateCountryRegionSetting"]
         6 CALL                             R0 2 0
         7 RETURN                           R0 0
 
 PROTO_8:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
-        7 GETTABLEKS                       R3 R0 K0 ["props"]
-        9 GETTABLEKS                       R2 R3 K3 ["Networking"]
+        7 GETTABLEKS                       R2 R0 K0 ["props"]
+        9 GETTABLEKS                       R2 R2 K3 ["Networking"]
        11 NAMECALL                         R2 R2 K2 ["get"]
        13 CALL                             R2 1 1
        14 GETUPVAL                         R3 0
@@ -99,8 +99,8 @@ PROTO_8:
        29 MOVE                             R6 R3
        30 GETIMPORT                        R4 K10 [table.insert]
        32 CALL                             R4 2 0
-       33 GETTABLEKS                       R5 R0 K0 ["props"]
-       35 GETTABLEKS                       R4 R5 K11 ["loadCountryRegion"]
+       33 GETTABLEKS                       R4 R0 K0 ["props"]
+       35 GETTABLEKS                       R4 R4 K11 ["loadCountryRegion"]
        37 MOVE                             R5 R2
        38 MOVE                             R6 R1
        39 CALL                             R4 2 0
@@ -126,8 +126,8 @@ PROTO_10:
         8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
        10 GETTABLEKS                       R6 R1 K5 ["Localization"]
        12 GETTABLEKS                       R7 R1 K6 ["LayoutOrder"]
-       14 GETUPVAL                         R9 0
-       15 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 LOADK                            R9 K8 ["Frame"]
        18 DUPTABLE                         R10 K12 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
        19 GETIMPORT                        R11 K15 [Enum.AutomaticSize.Y]
@@ -141,8 +141,8 @@ PROTO_10:
        31 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
        33 SETTABLEKS                       R7 R10 K6 ["LayoutOrder"]
        35 DUPTABLE                         R11 K22 [{"Layout", "Label", "CountryRegionDropdown"}]
-       36 GETUPVAL                         R13 0
-       37 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       36 GETUPVAL                         R12 0
+       37 GETTABLEKS                       R12 R12 K7 ["createElement"]
        39 LOADK                            R13 K23 ["UIListLayout"]
        40 DUPTABLE                         R14 K30 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment", "Padding", "Wraps"}]
        41 GETIMPORT                        R15 K33 [Enum.UIFlexAlignment.SpaceBetween]
@@ -159,8 +159,8 @@ PROTO_10:
        62 SETTABLEKS                       R15 R14 K29 ["Wraps"]
        64 CALL                             R12 2 1
        65 SETTABLEKS                       R12 R11 K19 ["Layout"]
-       67 GETUPVAL                         R13 0
-       68 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       67 GETUPVAL                         R12 0
+       68 GETTABLEKS                       R12 R12 K7 ["createElement"]
        70 GETUPVAL                         R13 1
        71 DUPTABLE                         R14 K42 [{"AutomaticSize", "StyleModifier", "Text", "LayoutOrder"}]
        72 GETIMPORT                        R15 K44 [Enum.AutomaticSize.XY]
@@ -168,8 +168,8 @@ PROTO_10:
        76 JUMPIFNOT                        R2 ; [+2]
        77 LOADNIL                          R15
        78 JUMP                             ; [+3]
-       79 GETUPVAL                         R16 2
-       80 GETTABLEKS                       R15 R16 K45 ["Disabled"]
+       79 GETUPVAL                         R15 2
+       80 GETTABLEKS                       R15 R15 K45 ["Disabled"]
        82 SETTABLEKS                       R15 R14 K40 ["StyleModifier"]
        84 LOADK                            R17 K46 ["CountryRegionSection"]
        85 LOADK                            R18 K47 ["LabelText"]
@@ -180,8 +180,8 @@ PROTO_10:
        92 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
        94 CALL                             R12 2 1
        95 SETTABLEKS                       R12 R11 K20 ["Label"]
-       97 GETUPVAL                         R13 0
-       98 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       97 GETUPVAL                         R12 0
+       98 GETTABLEKS                       R12 R12 K7 ["createElement"]
       100 GETUPVAL                         R13 3
       101 DUPTABLE                         R14 K53 [{"Items", "LayoutOrder", "OnItemActivated", "SelectedId", "Enabled"}]
       102 GETUPVAL                         R15 4
@@ -205,17 +205,17 @@ PROTO_10:
 
 PROTO_11:
         0 DUPTABLE                         R2 K4 [{"mainSwitchEnabled", "countryRegionTable", "countryRegionList", "userCountryRegionCode"}]
-        1 GETTABLEKS                       R4 R0 K5 ["MainSwitch"]
-        3 GETTABLEKS                       R3 R4 K0 ["mainSwitchEnabled"]
+        1 GETTABLEKS                       R3 R0 K5 ["MainSwitch"]
+        3 GETTABLEKS                       R3 R3 K0 ["mainSwitchEnabled"]
         5 SETTABLEKS                       R3 R2 K0 ["mainSwitchEnabled"]
-        7 GETTABLEKS                       R4 R0 K6 ["CountryRegion"]
-        9 GETTABLEKS                       R3 R4 K1 ["countryRegionTable"]
+        7 GETTABLEKS                       R3 R0 K6 ["CountryRegion"]
+        9 GETTABLEKS                       R3 R3 K1 ["countryRegionTable"]
        11 SETTABLEKS                       R3 R2 K1 ["countryRegionTable"]
-       13 GETTABLEKS                       R4 R0 K6 ["CountryRegion"]
-       15 GETTABLEKS                       R3 R4 K2 ["countryRegionList"]
+       13 GETTABLEKS                       R3 R0 K6 ["CountryRegion"]
+       15 GETTABLEKS                       R3 R3 K2 ["countryRegionList"]
        17 SETTABLEKS                       R3 R2 K2 ["countryRegionList"]
-       19 GETTABLEKS                       R4 R0 K6 ["CountryRegion"]
-       21 GETTABLEKS                       R3 R4 K3 ["userCountryRegionCode"]
+       19 GETTABLEKS                       R3 R0 K6 ["CountryRegion"]
+       21 GETTABLEKS                       R3 R3 K3 ["userCountryRegionCode"]
        23 SETTABLEKS                       R3 R2 K3 ["userCountryRegionCode"]
        25 RETURN                           R2 1
 
@@ -254,52 +254,52 @@ MAIN:
         3 LOADK                            R2 K2 ["PlayerEmulatorService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["RoactRodux"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["RoactRodux"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K8 [require]
-       31 GETTABLEKS                       R6 R1 K9 ["Packages"]
-       33 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       31 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       33 GETTABLEKS                       R5 R5 K12 ["Framework"]
        35 CALL                             R4 1 1
        36 GETTABLEKS                       R5 R4 K13 ["ContextServices"]
        38 GETTABLEKS                       R6 R5 K14 ["withContext"]
        40 GETIMPORT                        R7 K8 [require]
-       42 GETTABLEKS                       R10 R1 K15 ["Src"]
-       44 GETTABLEKS                       R9 R10 K13 ["ContextServices"]
-       46 GETTABLEKS                       R8 R9 K16 ["NetworkingContext"]
+       42 GETTABLEKS                       R8 R1 K15 ["Src"]
+       44 GETTABLEKS                       R8 R8 K13 ["ContextServices"]
+       46 GETTABLEKS                       R8 R8 K16 ["NetworkingContext"]
        48 CALL                             R7 1 1
        49 GETIMPORT                        R8 K8 [require]
-       51 GETTABLEKS                       R12 R1 K15 ["Src"]
-       53 GETTABLEKS                       R11 R12 K17 ["Networking"]
-       55 GETTABLEKS                       R10 R11 K18 ["Requests"]
-       57 GETTABLEKS                       R9 R10 K19 ["GetCountryRegion"]
+       51 GETTABLEKS                       R9 R1 K15 ["Src"]
+       53 GETTABLEKS                       R9 R9 K17 ["Networking"]
+       55 GETTABLEKS                       R9 R9 K18 ["Requests"]
+       57 GETTABLEKS                       R9 R9 K19 ["GetCountryRegion"]
        59 CALL                             R8 1 1
        60 GETIMPORT                        R9 K8 [require]
-       62 GETTABLEKS                       R12 R1 K15 ["Src"]
-       64 GETTABLEKS                       R11 R12 K20 ["Util"]
-       66 GETTABLEKS                       R10 R11 K21 ["Constants"]
+       62 GETTABLEKS                       R10 R1 K15 ["Src"]
+       64 GETTABLEKS                       R10 R10 K20 ["Util"]
+       66 GETTABLEKS                       R10 R10 K21 ["Constants"]
        68 CALL                             R9 1 1
        69 GETIMPORT                        R10 K8 [require]
-       71 GETTABLEKS                       R13 R1 K15 ["Src"]
-       73 GETTABLEKS                       R12 R13 K22 ["Actions"]
-       75 GETTABLEKS                       R11 R12 K23 ["OnEmulatedCountryRegionChanged"]
+       71 GETTABLEKS                       R11 R1 K15 ["Src"]
+       73 GETTABLEKS                       R11 R11 K22 ["Actions"]
+       75 GETTABLEKS                       R11 R11 K23 ["OnEmulatedCountryRegionChanged"]
        77 CALL                             R10 1 1
        78 GETTABLEKS                       R11 R4 K24 ["UI"]
        80 GETTABLEKS                       R12 R11 K25 ["SelectInput"]
        82 GETTABLEKS                       R13 R11 K26 ["TextLabel"]
        84 GETTABLEKS                       R14 R4 K27 ["Dash"]
        86 GETTABLEKS                       R15 R14 K28 ["map"]
-       88 GETTABLEKS                       R17 R4 K20 ["Util"]
-       90 GETTABLEKS                       R16 R17 K29 ["StyleModifier"]
+       88 GETTABLEKS                       R16 R4 K20 ["Util"]
+       90 GETTABLEKS                       R16 R16 K29 ["StyleModifier"]
        92 GETTABLEKS                       R17 R2 K30 ["PureComponent"]
        94 LOADK                            R19 K31 ["CountryRegionSection"]
        95 NAMECALL                         R17 R17 K32 ["extend"]

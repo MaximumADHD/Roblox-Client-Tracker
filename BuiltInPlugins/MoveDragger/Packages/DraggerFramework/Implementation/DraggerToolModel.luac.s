@@ -80,8 +80,8 @@ PROTO_0:
       105 SETTABLEKS                       R5 R8 K18 ["_markSelectionDirtyCallback"]
       107 LOADNIL                          R9
       108 SETTABLEKS                       R9 R8 K19 ["_selectionWrapper"]
-      110 GETUPVAL                         R10 3
-      111 GETTABLEKS                       R9 R10 K24 ["new"]
+      110 GETUPVAL                         R9 3
+      111 GETTABLEKS                       R9 R9 K24 ["new"]
       113 MOVE                             R10 R0
       114 MOVE                             R11 R1
       115 CALL                             R9 2 1
@@ -121,9 +121,9 @@ PROTO_2:
        17 NAMECALL                         R2 R2 K6 ["leave"]
        19 CALL                             R2 1 0
        20 SETTABLEKS                       R1 R0 K7 ["_mainState"]
-       22 GETUPVAL                         R4 0
-       23 GETTABLE                         R3 R4 R1
-       24 GETTABLEKS                       R2 R3 K8 ["new"]
+       22 GETUPVAL                         R3 0
+       23 GETTABLE                         R2 R3 R1
+       24 GETTABLEKS                       R2 R2 K8 ["new"]
        26 MOVE                             R3 R0
        27 GETVARARGS                       R4 -1
        28 CALL                             R2 -1 1
@@ -140,18 +140,18 @@ PROTO_2:
 PROTO_3:
         0 NAMECALL                         R1 R0 K0 ["_updateHandles"]
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["createElement"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["Portal"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["createElement"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Portal"]
         9 DUPTABLE                         R3 K4 [{"target"}]
        10 GETTABLEKS                       R4 R0 K5 ["_draggerContext"]
        12 NAMECALL                         R4 R4 K6 ["getGuiParent"]
        14 CALL                             R4 1 1
        15 SETTABLEKS                       R4 R3 K3 ["target"]
        17 DUPTABLE                         R4 K8 [{"DraggerUI"}]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K1 ["createElement"]
+       18 GETUPVAL                         R5 0
+       19 GETTABLEKS                       R5 R5 K1 ["createElement"]
        21 LOADK                            R6 K9 ["Folder"]
        22 NEWTABLE                         R7 0 0
        24 GETTABLEKS                       R8 R0 K10 ["_stateObject"]
@@ -171,12 +171,12 @@ PROTO_4:
         8 CALL                             R1 0 0
         9 LOADB                            R1 1
        10 GETTABLEKS                       R2 R0 K3 ["_mainState"]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K4 ["DraggingHandle"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K4 ["DraggingHandle"]
        15 JUMPIFEQ                         R2 R3 ; [+10]
        17 GETTABLEKS                       R2 R0 K3 ["_mainState"]
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R3 R4 K5 ["DraggingParts"]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K5 ["DraggingParts"]
        22 JUMPIFEQ                         R2 R3 ; [+2]
        24 LOADB                            R1 0 +1
        25 LOADB                            R1 1
@@ -194,13 +194,13 @@ PROTO_5:
         2 RETURN                           R1 1
 
 PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["AnalyticsName"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["AnalyticsName"]
         4 RETURN                           R1 1
 
 PROTO_7:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["WasAutoSelected"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["WasAutoSelected"]
         4 RETURN                           R1 1
 
 PROTO_8:
@@ -217,33 +217,33 @@ PROTO_9:
         8 RETURN                           R1 1
 
 PROTO_10:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["AllowDragSelect"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["AllowDragSelect"]
         4 RETURN                           R1 1
 
 PROTO_11:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["AllowFreeformDrag"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["AllowFreeformDrag"]
         4 RETURN                           R1 1
 
 PROTO_12:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["ShowDragSelect"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["ShowDragSelect"]
         4 RETURN                           R1 1
 
 PROTO_13:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["ShowLocalSpaceIndicator"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["ShowLocalSpaceIndicator"]
         4 RETURN                           R1 1
 
 PROTO_14:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["ShowSelectionDot"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["ShowSelectionDot"]
         4 RETURN                           R1 1
 
 PROTO_15:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["UseCollisionsTransparency"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["UseCollisionsTransparency"]
         4 RETURN                           R1 1
 
 PROTO_16:
@@ -256,8 +256,8 @@ PROTO_17:
         0 GETTABLEKS                       R3 R0 K0 ["_selectionWrapper"]
         2 NAMECALL                         R3 R3 K1 ["get"]
         4 CALL                             R3 1 1
-        5 GETTABLEKS                       R5 R0 K2 ["_draggerSchema"]
-        7 GETTABLEKS                       R4 R5 K3 ["getNextSelectables"]
+        5 GETTABLEKS                       R4 R0 K2 ["_draggerSchema"]
+        7 GETTABLEKS                       R4 R4 K3 ["getNextSelectables"]
         9 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
        11 MOVE                             R6 R3
        12 MOVE                             R7 R1
@@ -267,8 +267,8 @@ PROTO_17:
        16 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
        18 NAMECALL                         R5 R5 K5 ["shouldExtendSelection"]
        20 CALL                             R5 1 1
-       21 GETUPVAL                         R7 0
-       22 GETTABLEKS                       R6 R7 K6 ["updateSelectionWithMultipleSelectables"]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K6 ["updateSelectionWithMultipleSelectables"]
        24 MOVE                             R7 R4
        25 MOVE                             R8 R3
        26 LOADB                            R9 0
@@ -302,8 +302,8 @@ PROTO_18:
        15 RETURN                           R4 -1
 
 PROTO_19:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_markSelectionDirtyCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_markSelectionDirtyCallback"]
         3 CALL                             R1 0 0
         4 RETURN                           R0 0
 
@@ -314,19 +314,19 @@ PROTO_20:
         4 RETURN                           R0 0
 
 PROTO_21:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Ready"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Ready"]
         3 SETTABLEKS                       R1 R0 K1 ["_mainState"]
-        5 GETUPVAL                         R3 1
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K0 ["Ready"]
-        9 GETTABLE                         R2 R3 R4
-       10 GETTABLEKS                       R1 R2 K2 ["new"]
+        5 GETUPVAL                         R2 1
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["Ready"]
+        9 GETTABLE                         R1 R2 R3
+       10 GETTABLEKS                       R1 R1 K2 ["new"]
        12 MOVE                             R2 R0
        13 CALL                             R1 1 1
        14 SETTABLEKS                       R1 R0 K3 ["_stateObject"]
-       16 GETTABLEKS                       R2 R0 K4 ["_modelProps"]
-       18 GETTABLEKS                       R1 R2 K5 ["ShowPivotIndicator"]
+       16 GETTABLEKS                       R1 R0 K4 ["_modelProps"]
+       18 GETTABLEKS                       R1 R1 K5 ["ShowPivotIndicator"]
        20 JUMPIFNOT                        R1 ; [+8]
        21 GETTABLEKS                       R1 R0 K6 ["_draggerContext"]
        23 LOADB                            R3 1
@@ -339,9 +339,9 @@ PROTO_21:
        34 LOADK                            R3 K9 [""]
        35 NAMECALL                         R1 R1 K11 ["setMouseIcon"]
        37 CALL                             R1 2 0
-       38 GETTABLEKS                       R3 R0 K12 ["_draggerSchema"]
-       40 GETTABLEKS                       R2 R3 K13 ["BoundsChangedTracker"]
-       42 GETTABLEKS                       R1 R2 K2 ["new"]
+       38 GETTABLEKS                       R1 R0 K12 ["_draggerSchema"]
+       40 GETTABLEKS                       R1 R1 K13 ["BoundsChangedTracker"]
+       42 GETTABLEKS                       R1 R1 K2 ["new"]
        44 GETTABLEKS                       R2 R0 K6 ["_draggerContext"]
        46 NEWCLOSURE                       R3 P0
        47 CAPTURE                          VAL R0
@@ -350,15 +350,15 @@ PROTO_21:
        51 GETTABLEKS                       R1 R0 K14 ["_boundsChangedTracker"]
        53 NAMECALL                         R1 R1 K15 ["install"]
        55 CALL                             R1 1 0
-       56 GETUPVAL                         R2 2
-       57 GETTABLEKS                       R1 R2 K2 ["new"]
+       56 GETUPVAL                         R1 2
+       57 GETTABLEKS                       R1 R1 K2 ["new"]
        59 GETTABLEKS                       R2 R0 K6 ["_draggerContext"]
        61 NAMECALL                         R2 R2 K16 ["getSelection"]
        63 CALL                             R2 1 -1
        64 CALL                             R1 -1 1
        65 SETTABLEKS                       R1 R0 K17 ["_selectionWrapper"]
-       67 GETTABLEKS                       R2 R0 K17 ["_selectionWrapper"]
-       69 GETTABLEKS                       R1 R2 K18 ["onSelectionExternallyChanged"]
+       67 GETTABLEKS                       R1 R0 K17 ["_selectionWrapper"]
+       69 GETTABLEKS                       R1 R1 K18 ["onSelectionExternallyChanged"]
        71 NEWCLOSURE                       R3 P1
        72 CAPTURE                          VAL R0
        73 NAMECALL                         R1 R1 K19 ["Connect"]
@@ -388,8 +388,8 @@ PROTO_22:
         8 JUMPIFNOT                        R1 ; [+3]
         9 NAMECALL                         R1 R0 K2 ["_processMouseUp"]
        11 CALL                             R1 1 0
-       12 GETTABLEKS                       R2 R0 K3 ["_modelProps"]
-       14 GETTABLEKS                       R1 R2 K4 ["ShowPivotIndicator"]
+       12 GETTABLEKS                       R1 R0 K3 ["_modelProps"]
+       14 GETTABLEKS                       R1 R1 K4 ["ShowPivotIndicator"]
        16 JUMPIFNOT                        R1 ; [+7]
        17 GETTABLEKS                       R1 R0 K5 ["_draggerContext"]
        19 GETTABLEKS                       R3 R0 K6 ["_oldShowPivot"]
@@ -435,8 +435,8 @@ PROTO_24:
        12 FORGPREP_NEXT                    R1
        13 GETTABLEKS                       R6 R5 K4 ["_props"]
        15 JUMPIFNOT                        R6 ; [+5]
-       16 GETTABLEKS                       R7 R5 K4 ["_props"]
-       18 GETTABLEKS                       R6 R7 K5 ["IsEnabledFunction"]
+       16 GETTABLEKS                       R6 R5 K4 ["_props"]
+       18 GETTABLEKS                       R6 R6 K5 ["IsEnabledFunction"]
        20 JUMPIF                           R6 ; [+9]
        21 GETTABLEKS                       R7 R0 K0 ["_enabledHandlesList"]
        23 FASTCALL2                        TABLE_INSERT R7 R5 ; [+4]
@@ -444,8 +444,8 @@ PROTO_24:
        26 GETIMPORT                        R6 K8 [table.insert]
        28 CALL                             R6 2 0
        29 JUMP                             ; [+16]
-       30 GETTABLEKS                       R7 R5 K4 ["_props"]
-       32 GETTABLEKS                       R6 R7 K5 ["IsEnabledFunction"]
+       30 GETTABLEKS                       R6 R5 K4 ["_props"]
+       32 GETTABLEKS                       R6 R6 K5 ["IsEnabledFunction"]
        34 GETTABLEKS                       R7 R0 K9 ["_selectionInfo"]
        36 CALL                             R6 1 1
        37 JUMPIFNOT                        R6 ; [+8]
@@ -597,9 +597,9 @@ PROTO_32:
         0 JUMPIFNOT                        R1 ; [+3]
         1 SETTABLEKS                       R1 R0 K0 ["_selectionInfo"]
         3 JUMP                             ; [+16]
-        4 GETTABLEKS                       R4 R0 K1 ["_draggerSchema"]
-        6 GETTABLEKS                       R3 R4 K2 ["SelectionInfo"]
-        8 GETTABLEKS                       R2 R3 K3 ["new"]
+        4 GETTABLEKS                       R2 R0 K1 ["_draggerSchema"]
+        6 GETTABLEKS                       R2 R2 K2 ["SelectionInfo"]
+        8 GETTABLEKS                       R2 R2 K3 ["new"]
        10 GETTABLEKS                       R3 R0 K4 ["_draggerContext"]
        12 GETTABLEKS                       R4 R0 K5 ["_selectionWrapper"]
        14 NAMECALL                         R4 R4 K6 ["get"]
@@ -617,12 +617,12 @@ PROTO_32:
        33 RETURN                           R0 0
 
 PROTO_33:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["ShowPivotIndicator"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["ShowPivotIndicator"]
         4 JUMPIFNOT                        R1 ; [+30]
         5 GETTABLEKS                       R1 R0 K2 ["_mainState"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K3 ["DragSelecting"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K3 ["DragSelecting"]
        10 JUMPIFEQ                         R1 R2 ; [+10]
        12 GETTABLEKS                       R2 R0 K4 ["_selectionWrapper"]
        14 NAMECALL                         R2 R2 K5 ["get"]
@@ -662,8 +662,8 @@ PROTO_34:
        23 GETUPVAL                         R2 1
        24 CALL                             R2 0 1
        25 JUMPIFNOT                        R2 ; [+40]
-       26 GETUPVAL                         R5 2
-       27 GETTABLEKS                       R4 R5 K5 ["DraggingParts"]
+       26 GETUPVAL                         R4 2
+       27 GETTABLEKS                       R4 R4 K5 ["DraggingParts"]
        29 DUPTABLE                         R5 K11 [{"draggedPoint", "clickedPoint", "clickedMetadata", "clickedFaceInstance", "attachmentBeingDragged"}]
        30 LOADK                            R6 K12 [{0, 0, 0}]
        31 SETTABLEKS                       R6 R5 K6 ["draggedPoint"]
@@ -689,8 +689,8 @@ PROTO_34:
        62 NAMECALL                         R2 R0 K24 ["transitionToState"]
        64 CALL                             R2 3 0
        65 RETURN                           R0 0
-       66 GETUPVAL                         R5 2
-       67 GETTABLEKS                       R4 R5 K5 ["DraggingParts"]
+       66 GETUPVAL                         R4 2
+       67 GETTABLEKS                       R4 R4 K5 ["DraggingParts"]
        69 DUPTABLE                         R5 K28 [{"mouseLocation", "basisPoint", "clickPoint"}]
        70 GETTABLEKS                       R6 R0 K29 ["_draggerContext"]
        72 NAMECALL                         R6 R6 K30 ["getMouseLocation"]
@@ -749,8 +749,8 @@ PROTO_36:
        49 RETURN                           R0 0
        50 NAMECALL                         R4 R0 K14 ["_updateSelectionInfo"]
        52 CALL                             R4 1 0
-       53 GETUPVAL                         R6 1
-       54 GETTABLEKS                       R5 R6 K15 ["DraggingFaceInstance"]
+       53 GETUPVAL                         R5 1
+       54 GETTABLEKS                       R5 R5 K15 ["DraggingFaceInstance"]
        56 MOVE                             R6 R2
        57 NAMECALL                         R3 R0 K16 ["transitionToState"]
        59 CALL                             R3 3 0
@@ -782,11 +782,11 @@ PROTO_41:
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
         4 GETTABLEKS                       R1 R0 K1 ["_draggerContext"]
-        6 GETTABLEKS                       R3 R0 K2 ["_draggerSchema"]
-        8 GETTABLEKS                       R2 R3 K3 ["getSummonTarget"]
+        6 GETTABLEKS                       R2 R0 K2 ["_draggerSchema"]
+        8 GETTABLEKS                       R2 R2 K3 ["getSummonTarget"]
        10 JUMPIFNOT                        R2 ; [+49]
-       11 GETTABLEKS                       R3 R0 K2 ["_draggerSchema"]
-       13 GETTABLEKS                       R2 R3 K3 ["getSummonTarget"]
+       11 GETTABLEKS                       R2 R0 K2 ["_draggerSchema"]
+       13 GETTABLEKS                       R2 R2 K3 ["getSummonTarget"]
        15 MOVE                             R3 R1
        16 NAMECALL                         R4 R1 K4 ["getMouseRay"]
        18 CALL                             R4 1 -1
@@ -846,8 +846,8 @@ PROTO_42:
        32 RETURN                           R0 0
 
 PROTO_43:
-        0 GETTABLEKS                       R2 R0 K0 ["_modelProps"]
-        2 GETTABLEKS                       R1 R2 K1 ["ShowPivotIndicator"]
+        0 GETTABLEKS                       R1 R0 K0 ["_modelProps"]
+        2 GETTABLEKS                       R1 R1 K1 ["ShowPivotIndicator"]
         4 RETURN                           R1 1
 
 PROTO_44:
@@ -867,11 +867,11 @@ PROTO_44:
        19 SETTABLEKS                       R2 R1 K7 ["dragTilts"]
        21 LOADN                            R2 0
        22 SETTABLEKS                       R2 R1 K8 ["dragRotates"]
-       24 GETTABLEKS                       R3 R0 K12 ["_modelProps"]
-       26 GETTABLEKS                       R2 R3 K13 ["AnalyticsName"]
+       24 GETTABLEKS                       R2 R0 K12 ["_modelProps"]
+       26 GETTABLEKS                       R2 R2 K13 ["AnalyticsName"]
        28 SETTABLEKS                       R2 R1 K9 ["toolName"]
-       30 GETTABLEKS                       R3 R0 K12 ["_modelProps"]
-       32 GETTABLEKS                       R2 R3 K14 ["WasAutoSelected"]
+       30 GETTABLEKS                       R2 R0 K12 ["_modelProps"]
+       32 GETTABLEKS                       R2 R2 K14 ["WasAutoSelected"]
        34 SETTABLEKS                       R2 R1 K10 ["wasAutoSelected"]
        36 SETTABLEKS                       R1 R0 K15 ["_sessionAnalytics"]
        38 GETTABLEKS                       R1 R0 K16 ["_draggerContext"]
@@ -879,16 +879,16 @@ PROTO_44:
        42 CALL                             R1 1 1
        43 LOADK                            R3 K18 ["toolSelected"]
        44 DUPTABLE                         R4 K19 [{"toolName", "wasAutoSelected"}]
-       45 GETTABLEKS                       R6 R0 K12 ["_modelProps"]
-       47 GETTABLEKS                       R5 R6 K13 ["AnalyticsName"]
+       45 GETTABLEKS                       R5 R0 K12 ["_modelProps"]
+       47 GETTABLEKS                       R5 R5 K13 ["AnalyticsName"]
        49 SETTABLEKS                       R5 R4 K9 ["toolName"]
-       51 GETTABLEKS                       R6 R0 K12 ["_modelProps"]
-       53 GETTABLEKS                       R5 R6 K14 ["WasAutoSelected"]
+       51 GETTABLEKS                       R5 R0 K12 ["_modelProps"]
+       53 GETTABLEKS                       R5 R5 K14 ["WasAutoSelected"]
        55 SETTABLEKS                       R5 R4 K10 ["wasAutoSelected"]
        57 NAMECALL                         R1 R1 K20 ["sendEvent"]
        59 CALL                             R1 3 0
-       60 GETTABLEKS                       R2 R0 K12 ["_modelProps"]
-       62 GETTABLEKS                       R1 R2 K14 ["WasAutoSelected"]
+       60 GETTABLEKS                       R1 R0 K12 ["_modelProps"]
+       62 GETTABLEKS                       R1 R1 K14 ["WasAutoSelected"]
        64 JUMPIFNOT                        R1 ; [+10]
        65 GETTABLEKS                       R1 R0 K16 ["_draggerContext"]
        67 NAMECALL                         R1 R1 K17 ["getAnalytics"]
@@ -901,8 +901,8 @@ PROTO_44:
        77 NAMECALL                         R1 R1 K17 ["getAnalytics"]
        79 CALL                             R1 1 1
        80 LOADK                            R4 K23 ["studioLua"]
-       81 GETTABLEKS                       R7 R0 K12 ["_modelProps"]
-       83 GETTABLEKS                       R5 R7 K13 ["AnalyticsName"]
+       81 GETTABLEKS                       R5 R0 K12 ["_modelProps"]
+       83 GETTABLEKS                       R5 R5 K13 ["AnalyticsName"]
        85 LOADK                            R6 K24 ["DraggerSelected"]
        86 CONCAT                           R3 R4 R6
        87 NAMECALL                         R1 R1 K22 ["reportCounter"]
@@ -931,11 +931,11 @@ PROTO_46:
         4 CALL                             R3 1 1
         5 LOADK                            R5 K2 ["clickedObject"]
         6 DUPTABLE                         R6 K13 [{"toolName", "wasAutoSelected", "altPressed", "ctrlPressed", "shiftPressed", "clickedAttachment", "clickedConstraint", "clickedWeldConstraint", "clickedNoCollisionConstraint", "didAlterSelection"}]
-        7 GETTABLEKS                       R8 R0 K14 ["_modelProps"]
-        9 GETTABLEKS                       R7 R8 K15 ["AnalyticsName"]
+        7 GETTABLEKS                       R7 R0 K14 ["_modelProps"]
+        9 GETTABLEKS                       R7 R7 K15 ["AnalyticsName"]
        11 SETTABLEKS                       R7 R6 K3 ["toolName"]
-       13 GETTABLEKS                       R8 R0 K14 ["_modelProps"]
-       15 GETTABLEKS                       R7 R8 K16 ["WasAutoSelected"]
+       13 GETTABLEKS                       R7 R0 K14 ["_modelProps"]
+       15 GETTABLEKS                       R7 R7 K16 ["WasAutoSelected"]
        17 SETTABLEKS                       R7 R6 K4 ["wasAutoSelected"]
        19 GETTABLEKS                       R7 R0 K0 ["_draggerContext"]
        21 NAMECALL                         R7 R7 K17 ["isAltKeyDown"]
@@ -978,8 +978,8 @@ PROTO_46:
        76 CALL                             R3 3 0
        77 JUMPIFNOT                        R2 ; [+9]
        78 GETTABLEKS                       R3 R0 K26 ["_sessionAnalytics"]
-       80 GETTABLEKS                       R6 R0 K26 ["_sessionAnalytics"]
-       82 GETTABLEKS                       R5 R6 K28 ["clickSelects"]
+       80 GETTABLEKS                       R5 R0 K26 ["_sessionAnalytics"]
+       82 GETTABLEKS                       R5 R5 K28 ["clickSelects"]
        84 ADDK                             R4 R5 K27 [1]
        85 SETTABLEKS                       R4 R3 K28 ["clickSelects"]
        87 RETURN                           R0 0
@@ -990,8 +990,8 @@ PROTO_47:
         4 CALL                             R3 1 1
         5 LOADK                            R5 K2 ["selectionCycle"]
         6 DUPTABLE                         R6 K6 [{"toolName", "numberOfClicks", "selectableCount"}]
-        7 GETTABLEKS                       R8 R0 K7 ["_modelProps"]
-        9 GETTABLEKS                       R7 R8 K8 ["AnalyticsName"]
+        7 GETTABLEKS                       R7 R0 K7 ["_modelProps"]
+        9 GETTABLEKS                       R7 R7 K8 ["AnalyticsName"]
        11 SETTABLEKS                       R7 R6 K3 ["toolName"]
        13 SETTABLEKS                       R1 R6 K4 ["numberOfClicks"]
        15 SETTABLEKS                       R2 R6 K5 ["selectableCount"]
@@ -1001,13 +1001,13 @@ PROTO_47:
 
 PROTO_48:
         0 GETTABLEKS                       R2 R0 K0 ["_sessionAnalytics"]
-        2 GETTABLEKS                       R5 R0 K0 ["_sessionAnalytics"]
-        4 GETTABLEKS                       R4 R5 K2 ["freeformDrags"]
+        2 GETTABLEKS                       R4 R0 K0 ["_sessionAnalytics"]
+        4 GETTABLEKS                       R4 R4 K2 ["freeformDrags"]
         6 ADDK                             R3 R4 K1 [1]
         7 SETTABLEKS                       R3 R2 K2 ["freeformDrags"]
         9 LOADK                            R3 K3 ["studioLuaDragger"]
-       10 GETTABLEKS                       R6 R0 K4 ["_modelProps"]
-       12 GETTABLEKS                       R4 R6 K5 ["AnalyticsName"]
+       10 GETTABLEKS                       R4 R0 K4 ["_modelProps"]
+       12 GETTABLEKS                       R4 R4 K5 ["AnalyticsName"]
        14 LOADK                            R5 K6 ["DragTime"]
        15 CONCAT                           R2 R3 R5
        16 GETTABLEKS                       R3 R0 K7 ["_draggerContext"]
@@ -1025,8 +1025,8 @@ PROTO_49:
         4 CALL                             R2 1 1
         5 LOADK                            R4 K2 ["handleDragged"]
         6 DUPTABLE                         R5 K13 [{"toolName", "wasAutoSelected", "gridSize", "rotateIncrement", "useLocalSpace", "joinSurfaces", "useConstraints", "haveCollisions", "pivotType", "handleId"}]
-        7 GETTABLEKS                       R7 R0 K14 ["_modelProps"]
-        9 GETTABLEKS                       R6 R7 K15 ["AnalyticsName"]
+        7 GETTABLEKS                       R6 R0 K14 ["_modelProps"]
+        9 GETTABLEKS                       R6 R6 K15 ["AnalyticsName"]
        11 SETTABLEKS                       R6 R5 K3 ["toolName"]
        13 LOADB                            R6 0
        14 SETTABLEKS                       R6 R5 K4 ["wasAutoSelected"]
@@ -1063,8 +1063,8 @@ PROTO_49:
        68 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
        70 NAMECALL                         R2 R2 K1 ["getAnalytics"]
        72 CALL                             R2 1 1
-       73 GETTABLEKS                       R5 R0 K14 ["_modelProps"]
-       75 GETTABLEKS                       R4 R5 K15 ["AnalyticsName"]
+       73 GETTABLEKS                       R4 R0 K14 ["_modelProps"]
+       75 GETTABLEKS                       R4 R4 K15 ["AnalyticsName"]
        77 GETUPVAL                         R5 0
        78 NAMECALL                         R2 R2 K24 ["logTelemetryCounter"]
        80 CALL                             R2 3 0
@@ -1076,11 +1076,11 @@ PROTO_50:
         4 CALL                             R1 1 1
         5 LOADK                            R3 K2 ["boxSelected"]
         6 DUPTABLE                         R4 K9 [{"toolName", "wasAutoSelected", "objectCount", "altPressed", "ctrlPressed", "shiftPressed"}]
-        7 GETTABLEKS                       R6 R0 K10 ["_modelProps"]
-        9 GETTABLEKS                       R5 R6 K11 ["AnalyticsName"]
+        7 GETTABLEKS                       R5 R0 K10 ["_modelProps"]
+        9 GETTABLEKS                       R5 R5 K11 ["AnalyticsName"]
        11 SETTABLEKS                       R5 R4 K3 ["toolName"]
-       13 GETTABLEKS                       R6 R0 K10 ["_modelProps"]
-       15 GETTABLEKS                       R5 R6 K12 ["WasAutoSelected"]
+       13 GETTABLEKS                       R5 R0 K10 ["_modelProps"]
+       15 GETTABLEKS                       R5 R5 K12 ["WasAutoSelected"]
        17 SETTABLEKS                       R5 R4 K4 ["wasAutoSelected"]
        19 GETTABLEKS                       R6 R0 K13 ["_selectionWrapper"]
        21 NAMECALL                         R6 R6 K14 ["get"]
@@ -1109,11 +1109,11 @@ PROTO_51:
         4 CALL                             R2 1 1
         5 LOADK                            R4 K2 ["faceInstanceSelected"]
         6 DUPTABLE                         R5 K6 [{"toolName", "wasAutoSelected", "className"}]
-        7 GETTABLEKS                       R7 R0 K7 ["_modelProps"]
-        9 GETTABLEKS                       R6 R7 K8 ["AnalyticsName"]
+        7 GETTABLEKS                       R6 R0 K7 ["_modelProps"]
+        9 GETTABLEKS                       R6 R6 K8 ["AnalyticsName"]
        11 SETTABLEKS                       R6 R5 K3 ["toolName"]
-       13 GETTABLEKS                       R7 R0 K7 ["_modelProps"]
-       15 GETTABLEKS                       R6 R7 K9 ["WasAutoSelected"]
+       13 GETTABLEKS                       R6 R0 K7 ["_modelProps"]
+       15 GETTABLEKS                       R6 R6 K9 ["WasAutoSelected"]
        17 SETTABLEKS                       R6 R5 K4 ["wasAutoSelected"]
        19 SETTABLEKS                       R1 R5 K5 ["className"]
        21 NAMECALL                         R2 R2 K10 ["sendEvent"]
@@ -1126,34 +1126,34 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       13 GETTABLEKS                       R3 R1 K6 ["Parent"]
-       15 GETTABLEKS                       R2 R3 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
        17 GETIMPORT                        R3 K8 [require]
-       19 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       21 GETTABLEKS                       R4 R5 K10 ["Roact"]
+       19 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K10 ["Roact"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K8 [require]
-       26 GETTABLEKS                       R6 R1 K11 ["Implementation"]
-       28 GETTABLEKS                       R5 R6 K12 ["SelectionCycleCache"]
+       26 GETTABLEKS                       R5 R1 K11 ["Implementation"]
+       28 GETTABLEKS                       R5 R5 K12 ["SelectionCycleCache"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K8 [require]
-       33 GETTABLEKS                       R7 R1 K13 ["Utility"]
-       35 GETTABLEKS                       R6 R7 K14 ["SelectionWrapper"]
+       33 GETTABLEKS                       R6 R1 K13 ["Utility"]
+       35 GETTABLEKS                       R6 R6 K14 ["SelectionWrapper"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K8 [require]
-       40 GETTABLEKS                       R8 R1 K13 ["Utility"]
-       42 GETTABLEKS                       R7 R8 K15 ["SelectionHelper"]
+       40 GETTABLEKS                       R7 R1 K13 ["Utility"]
+       42 GETTABLEKS                       R7 R7 K15 ["SelectionHelper"]
        44 CALL                             R6 1 1
        45 GETIMPORT                        R7 K8 [require]
-       47 GETTABLEKS                       R9 R1 K13 ["Utility"]
-       49 GETTABLEKS                       R8 R9 K16 ["classifyPivot"]
+       47 GETTABLEKS                       R8 R1 K13 ["Utility"]
+       49 GETTABLEKS                       R8 R8 K16 ["classifyPivot"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K8 [require]
-       54 GETTABLEKS                       R10 R1 K13 ["Utility"]
-       56 GETTABLEKS                       R9 R10 K17 ["Analytics"]
+       54 GETTABLEKS                       R9 R1 K13 ["Utility"]
+       56 GETTABLEKS                       R9 R9 K17 ["Analytics"]
        58 CALL                             R8 1 1
        59 DUPTABLE                         R9 K23 [{"eventName", "lastUpdated", "description", "links", "backends"}]
        60 LOADK                            R10 K24 ["SBT_DraggerHandleDragCompleted"]
@@ -1173,12 +1173,12 @@ MAIN:
        81 SETLIST                          R10 R11 1 [1]
        83 SETTABLEKS                       R10 R9 K22 ["backends"]
        85 GETIMPORT                        R10 K8 [require]
-       87 GETTABLEKS                       R12 R1 K28 ["Flags"]
-       89 GETTABLEKS                       R11 R12 K29 ["getFFlagDraggerHandlesIsEnabledFunction"]
+       87 GETTABLEKS                       R11 R1 K28 ["Flags"]
+       89 GETTABLEKS                       R11 R11 K29 ["getFFlagDraggerHandlesIsEnabledFunction"]
        91 CALL                             R10 1 1
        92 GETIMPORT                        R11 K8 [require]
-       94 GETTABLEKS                       R13 R1 K28 ["Flags"]
-       96 GETTABLEKS                       R12 R13 K30 ["getFFlagDraggerImprovements"]
+       94 GETTABLEKS                       R12 R1 K28 ["Flags"]
+       96 GETTABLEKS                       R12 R12 K30 ["getFFlagDraggerImprovements"]
        98 CALL                             R11 1 1
        99 GETIMPORT                        R12 K1 [game]
       101 LOADK                            R14 K31 ["FixDragFromToolbox"]
@@ -1188,11 +1188,11 @@ MAIN:
       106 NEWTABLE                         R13 64 0
       108 SETTABLEKS                       R13 R13 K33 ["__index"]
       110 GETIMPORT                        R14 K8 [require]
-      112 GETTABLEKS                       R16 R1 K11 ["Implementation"]
-      114 GETTABLEKS                       R15 R16 K34 ["DraggerStateType"]
+      112 GETTABLEKS                       R15 R1 K11 ["Implementation"]
+      114 GETTABLEKS                       R15 R15 K34 ["DraggerStateType"]
       116 CALL                             R14 1 1
-      117 GETTABLEKS                       R16 R1 K11 ["Implementation"]
-      119 GETTABLEKS                       R15 R16 K35 ["DraggerStates"]
+      117 GETTABLEKS                       R15 R1 K11 ["Implementation"]
+      119 GETTABLEKS                       R15 R15 K35 ["DraggerStates"]
       121 GETIMPORT                        R16 K38 [table.freeze]
       123 NEWTABLE                         R17 8 0
       125 GETTABLEKS                       R18 R14 K39 ["Ready"]

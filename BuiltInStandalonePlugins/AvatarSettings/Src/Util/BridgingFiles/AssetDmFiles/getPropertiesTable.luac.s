@@ -14,8 +14,8 @@ PROTO_0:
        17 RETURN                           R4 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 DUPTABLE                         R1 K2 [{"AvatarType"}]
         5 GETTABLEKS                       R2 R0 K1 ["AvatarType"]
@@ -23,8 +23,8 @@ PROTO_1:
         9 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarBodyRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarBodyRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
         6 MOVE                             R2 R0
@@ -116,8 +116,8 @@ PROTO_2:
       142 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarCollisionRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarCollisionRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
         6 MOVE                             R2 R0
@@ -136,8 +136,8 @@ PROTO_3:
        28 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarAbilityRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarAbilityRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
         6 MOVE                             R2 R0
@@ -164,8 +164,8 @@ PROTO_4:
        44 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarAnimationRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarAnimationRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
         6 MOVE                             R2 R0
@@ -241,8 +241,8 @@ PROTO_5:
       110 RETURN                           R1 1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarAccessoryRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarAccessoryRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
         6 MOVE                             R2 R0
@@ -318,8 +318,8 @@ PROTO_6:
       114 RETURN                           R1 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarClothingRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarClothingRules"]
         3 CALL                             R0 0 1
         4 FASTCALL2K                       ASSERT R0 K1 ; [+5]
         6 MOVE                             R2 R0
@@ -406,15 +406,15 @@ PROTO_7:
 
 PROTO_8:
         0 DUPTABLE                         R0 K1 [{"Gravity"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["Gravity"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["Gravity"]
         4 SETTABLEKS                       R1 R0 K0 ["Gravity"]
         6 RETURN                           R0 1
 
 PROTO_9:
         0 DUPTABLE                         R0 K8 [{"AvatarRules", "AvatarBodyRules", "AvatarCollisionRules", "AvatarAbilityRules", "AvatarAnimationRules", "AvatarAccessoryRules", "AvatarClothingRules", "OtherProperties"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K9 ["avatarRules"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K9 ["avatarRules"]
         4 CALL                             R2 0 1
         5 DUPTABLE                         R1 K11 [{"AvatarType"}]
         6 GETTABLEKS                       R3 R2 K10 ["AvatarType"]
@@ -423,8 +423,8 @@ PROTO_9:
        12 GETUPVAL                         R1 1
        13 CALL                             R1 0 1
        14 SETTABLEKS                       R1 R0 K1 ["AvatarBodyRules"]
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K12 ["avatarCollisionRules"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K12 ["avatarCollisionRules"]
        19 CALL                             R2 0 1
        20 FASTCALL2K                       ASSERT R2 K13 ; [+5]
        22 MOVE                             R4 R2
@@ -459,8 +459,8 @@ PROTO_9:
        64 CALL                             R1 0 1
        65 SETTABLEKS                       R1 R0 K6 ["AvatarClothingRules"]
        67 DUPTABLE                         R1 K23 [{"Gravity"}]
-       68 GETUPVAL                         R3 7
-       69 GETTABLEKS                       R2 R3 K22 ["Gravity"]
+       68 GETUPVAL                         R2 7
+       69 GETTABLEKS                       R2 R2 K22 ["Gravity"]
        71 SETTABLEKS                       R2 R1 K22 ["Gravity"]
        73 SETTABLEKS                       R1 R0 K7 ["OtherProperties"]
        75 RETURN                           R0 1
@@ -476,23 +476,23 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R0 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["AvatarSettingsSyncTypes"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["AvatarSettingsSyncTypes"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R8 R0 K10 ["Src"]
-       26 GETTABLEKS                       R7 R8 K11 ["Util"]
-       28 GETTABLEKS                       R6 R7 K13 ["BridgingFiles"]
-       30 GETTABLEKS                       R5 R6 K14 ["AssetDmFiles"]
-       32 GETTABLEKS                       R4 R5 K15 ["assetDmTypes"]
+       24 GETTABLEKS                       R4 R0 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["BridgingFiles"]
+       30 GETTABLEKS                       R4 R4 K14 ["AssetDmFiles"]
+       32 GETTABLEKS                       R4 R4 K15 ["assetDmTypes"]
        34 CALL                             R3 1 1
        35 GETIMPORT                        R4 K9 [require]
-       37 GETTABLEKS                       R9 R0 K10 ["Src"]
-       39 GETTABLEKS                       R8 R9 K11 ["Util"]
-       41 GETTABLEKS                       R7 R8 K13 ["BridgingFiles"]
-       43 GETTABLEKS                       R6 R7 K14 ["AssetDmFiles"]
-       45 GETTABLEKS                       R5 R6 K16 ["assetDmUtils"]
+       37 GETTABLEKS                       R5 R0 K10 ["Src"]
+       39 GETTABLEKS                       R5 R5 K11 ["Util"]
+       41 GETTABLEKS                       R5 R5 K13 ["BridgingFiles"]
+       43 GETTABLEKS                       R5 R5 K14 ["AssetDmFiles"]
+       45 GETTABLEKS                       R5 R5 K16 ["assetDmUtils"]
        47 CALL                             R4 1 1
        48 DUPCLOSURE                       R5 K17 [PROTO_0]
        49 DUPCLOSURE                       R6 K18 [PROTO_1]
@@ -512,9 +512,9 @@ MAIN:
        63 DUPCLOSURE                       R13 K25 [PROTO_8]
        64 CAPTURE                          VAL R1
        65 GETIMPORT                        R14 K9 [require]
-       67 GETTABLEKS                       R17 R0 K10 ["Src"]
-       69 GETTABLEKS                       R16 R17 K26 ["Flags"]
-       71 GETTABLEKS                       R15 R16 K27 ["getFFlagAvatarSettingsEnableAbilities"]
+       67 GETTABLEKS                       R15 R0 K10 ["Src"]
+       69 GETTABLEKS                       R15 R15 K26 ["Flags"]
+       71 GETTABLEKS                       R15 R15 K27 ["getFFlagAvatarSettingsEnableAbilities"]
        73 CALL                             R14 1 1
        74 DUPCLOSURE                       R15 K28 [PROTO_9]
        75 CAPTURE                          VAL R4

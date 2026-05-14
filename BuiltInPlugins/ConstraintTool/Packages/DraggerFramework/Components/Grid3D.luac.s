@@ -189,11 +189,11 @@ PROTO_1:
       242 FORNLOOP                         R16
       243 NEWCLOSURE                       R11 P0
       244 CAPTURE                          VAL R2
-      245 GETUPVAL                         R13 0
-      246 GETTABLEKS                       R12 R13 K30 ["createFragment"]
+      245 GETUPVAL                         R12 0
+      246 GETTABLEKS                       R12 R12 K30 ["createFragment"]
       248 DUPTABLE                         R13 K33 [{"OnTop", "NotOnTop"}]
-      249 GETUPVAL                         R15 0
-      250 GETTABLEKS                       R14 R15 K34 ["createElement"]
+      249 GETUPVAL                         R14 0
+      250 GETTABLEKS                       R14 R14 K34 ["createElement"]
       252 GETUPVAL                         R15 1
       253 DUPTABLE                         R16 K39 [{"Color3", "AlwaysOnTop", "Transparency", "Render"}]
       254 GETTABLEKS                       R17 R1 K35 ["Color3"]
@@ -205,8 +205,8 @@ PROTO_1:
       265 SETTABLEKS                       R11 R16 K38 ["Render"]
       267 CALL                             R14 2 1
       268 SETTABLEKS                       R14 R13 K31 ["OnTop"]
-      270 GETUPVAL                         R15 0
-      271 GETTABLEKS                       R14 R15 K34 ["createElement"]
+      270 GETUPVAL                         R14 0
+      271 GETTABLEKS                       R14 R14 K34 ["createElement"]
       273 GETUPVAL                         R15 1
       274 DUPTABLE                         R16 K39 [{"Color3", "AlwaysOnTop", "Transparency", "Render"}]
       275 GETTABLEKS                       R17 R1 K35 ["Color3"]
@@ -223,18 +223,18 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Components"]
-       22 GETTABLEKS                       R4 R5 K8 ["WireframeHandleAdornment"]
+       20 GETTABLEKS                       R4 R0 K7 ["Components"]
+       22 GETTABLEKS                       R4 R4 K8 ["WireframeHandleAdornment"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R2 K9 ["PureComponent"]
        27 LOADK                            R6 K10 ["Grid3D"]

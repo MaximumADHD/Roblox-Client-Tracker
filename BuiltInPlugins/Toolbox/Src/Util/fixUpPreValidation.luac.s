@@ -9,8 +9,8 @@ PROTO_0:
        10 GETUPVAL                         R2 0
        11 CALL                             R2 0 1
        12 JUMPIFNOT                        R2 ; [+5]
-       13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R2 R3 K4 ["SplitHrdInUpload"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K4 ["SplitHrdInUpload"]
        16 MOVE                             R3 R0
        17 CALL                             R2 1 0
        18 MOVE                             R2 R1
@@ -114,14 +114,14 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["UGCValidation"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R6 R0 K8 ["Src"]
-       18 GETTABLEKS                       R5 R6 K9 ["Flags"]
-       20 GETTABLEKS                       R4 R5 K10 ["getFFlagRemoveAttributesForAccessoryParts"]
+       16 GETTABLEKS                       R4 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R4 K9 ["Flags"]
+       20 GETTABLEKS                       R4 R4 K10 ["getFFlagRemoveAttributesForAccessoryParts"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K6 [require]
-       25 GETTABLEKS                       R7 R0 K8 ["Src"]
-       27 GETTABLEKS                       R6 R7 K9 ["Flags"]
-       29 GETTABLEKS                       R5 R6 K11 ["getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload"]
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R5 K9 ["Flags"]
+       29 GETTABLEKS                       R5 R5 K11 ["getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload"]
        31 CALL                             R4 1 1
        32 DUPCLOSURE                       R5 K12 [PROTO_0]
        33 CAPTURE                          VAL R4

@@ -39,8 +39,8 @@ PROTO_0:
        52 JUMPIFNOTEQKNIL                  R9 ; [+2]
        54 LOADB                            R11 0 +1
        55 LOADB                            R11 1
-       56 GETUPVAL                         R13 0
-       57 GETTABLEKS                       R12 R13 K14 ["LUAU_ANALYZE_ERROR"]
+       56 GETUPVAL                         R12 0
+       57 GETTABLEKS                       R12 R12 K14 ["LUAU_ANALYZE_ERROR"]
        59 FASTCALL2                        ASSERT R11 R12 ; [+3]
        61 GETIMPORT                        R10 K2 [assert]
        63 CALL                             R10 2 0
@@ -64,8 +64,8 @@ PROTO_1:
         8 JUMPIFNOTEQKNIL                  R2 ; [+2]
        10 LOADB                            R4 0 +1
        11 LOADB                            R4 1
-       12 GETUPVAL                         R6 3
-       13 GETTABLEKS                       R5 R6 K0 ["LUAU_ANALYZE_ERROR"]
+       12 GETUPVAL                         R5 3
+       13 GETTABLEKS                       R5 R5 K0 ["LUAU_ANALYZE_ERROR"]
        15 FASTCALL2                        ASSERT R4 R5 ; [+3]
        17 GETIMPORT                        R3 K2 [assert]
        19 CALL                             R3 2 0
@@ -91,8 +91,8 @@ PROTO_2:
        17 JUMPIFNOTEQKNIL                  R1 ; [+2]
        19 LOADB                            R3 0 +1
        20 LOADB                            R3 1
-       21 GETUPVAL                         R5 4
-       22 GETTABLEKS                       R4 R5 K3 ["LUAU_ANALYZE_ERROR"]
+       21 GETUPVAL                         R4 4
+       22 GETTABLEKS                       R4 R4 K3 ["LUAU_ANALYZE_ERROR"]
        24 FASTCALL2                        ASSERT R3 R4 ; [+3]
        26 GETIMPORT                        R2 K5 [assert]
        28 CALL                             R2 2 0
@@ -116,13 +116,13 @@ PROTO_2:
        52 JUMPIFNOTEQKNIL                  R5 ; [+2]
        54 LOADB                            R7 0 +1
        55 LOADB                            R7 1
-       56 GETUPVAL                         R9 4
-       57 GETTABLEKS                       R8 R9 K3 ["LUAU_ANALYZE_ERROR"]
+       56 GETUPVAL                         R8 4
+       57 GETTABLEKS                       R8 R8 K3 ["LUAU_ANALYZE_ERROR"]
        59 FASTCALL2                        ASSERT R7 R8 ; [+3]
        61 GETIMPORT                        R6 K5 [assert]
        63 CALL                             R6 2 0
-       64 GETUPVAL                         R9 0
-       65 GETTABLEKS                       R8 R9 K12 ["Name"]
+       64 GETUPVAL                         R8 0
+       65 GETTABLEKS                       R8 R8 K12 ["Name"]
        67 NAMECALL                         R6 R5 K11 ["FindFirstChild"]
        69 CALL                             R6 2 1
        70 JUMPIFEQKNIL                     R6 ; [+56]
@@ -135,8 +135,8 @@ PROTO_2:
        80 LOADK                            R10 K13 ["Attachment"]
        81 NAMECALL                         R8 R6 K9 ["IsA"]
        83 CALL                             R8 2 1
-       84 GETUPVAL                         R10 4
-       85 GETTABLEKS                       R9 R10 K3 ["LUAU_ANALYZE_ERROR"]
+       84 GETUPVAL                         R9 4
+       85 GETTABLEKS                       R9 R9 K3 ["LUAU_ANALYZE_ERROR"]
        87 FASTCALL2                        ASSERT R8 R9 ; [+3]
        89 GETIMPORT                        R7 K5 [assert]
        91 CALL                             R7 2 0
@@ -153,15 +153,15 @@ PROTO_2:
       106 LOADK                            R11 K15 ["Weld"]
       107 NAMECALL                         R9 R7 K9 ["IsA"]
       109 CALL                             R9 2 1
-      110 GETUPVAL                         R11 4
-      111 GETTABLEKS                       R10 R11 K3 ["LUAU_ANALYZE_ERROR"]
+      110 GETUPVAL                         R10 4
+      111 GETTABLEKS                       R10 R10 K3 ["LUAU_ANALYZE_ERROR"]
       113 FASTCALL2                        ASSERT R9 R10 ; [+3]
       115 GETIMPORT                        R8 K5 [assert]
       117 CALL                             R8 2 0
       118 GETTABLEKS                       R8 R6 K6 ["CFrame"]
       120 SETTABLEKS                       R8 R7 K16 ["C0"]
-      122 GETUPVAL                         R9 0
-      123 GETTABLEKS                       R8 R9 K6 ["CFrame"]
+      122 GETUPVAL                         R8 0
+      123 GETTABLEKS                       R8 R8 K6 ["CFrame"]
       125 SETTABLEKS                       R8 R7 K17 ["C1"]
       127 FORGLOOP                         R0 2 ; [-87]
       129 RETURN                           R0 0
@@ -178,8 +178,8 @@ PROTO_3:
         9 JUMPIFNOTEQKNIL                  R1 ; [+2]
        11 LOADB                            R3 0 +1
        12 LOADB                            R3 1
-       13 GETUPVAL                         R5 4
-       14 GETTABLEKS                       R4 R5 K0 ["LUAU_ANALYZE_ERROR"]
+       13 GETUPVAL                         R4 4
+       14 GETTABLEKS                       R4 R4 K0 ["LUAU_ANALYZE_ERROR"]
        16 FASTCALL2                        ASSERT R3 R4 ; [+3]
        18 GETIMPORT                        R2 K2 [assert]
        20 CALL                             R2 2 0
@@ -190,10 +190,10 @@ PROTO_3:
        28 GETUPVAL                         R0 6
        29 CALL                             R0 0 1
        30 JUMPIFNOT                        R0 ; [+8]
-       31 GETUPVAL                         R1 0
-       32 GETTABLEKS                       R0 R1 K4 ["Name"]
-       34 GETUPVAL                         R2 4
-       35 GETTABLEKS                       R1 R2 K5 ["ORIGINAL_POSITION_VALUE"]
+       31 GETUPVAL                         R0 0
+       32 GETTABLEKS                       R0 R0 K4 ["Name"]
+       34 GETUPVAL                         R1 4
+       35 GETTABLEKS                       R1 R1 K5 ["ORIGINAL_POSITION_VALUE"]
        37 JUMPIFEQ                         R0 R1 ; [+3]
        39 GETUPVAL                         R0 5
        40 CALL                             R0 0 0
@@ -333,8 +333,8 @@ PROTO_8:
         6 JUMPIFNOTEQKNIL                  R2 ; [+2]
         8 LOADB                            R1 0 +1
         9 LOADB                            R1 1
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K0 ["LUAU_ANALYZE_ERROR"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K0 ["LUAU_ANALYZE_ERROR"]
        13 FASTCALL2                        ASSERT R1 R2 ; [+3]
        15 GETIMPORT                        R0 K2 [assert]
        17 CALL                             R0 2 0
@@ -349,8 +349,8 @@ PROTO_8:
        27 JUMPIFNOTEQKNIL                  R2 ; [+2]
        29 LOADB                            R1 0 +1
        30 LOADB                            R1 1
-       31 GETUPVAL                         R3 1
-       32 GETTABLEKS                       R2 R3 K0 ["LUAU_ANALYZE_ERROR"]
+       31 GETUPVAL                         R2 1
+       32 GETTABLEKS                       R2 R2 K0 ["LUAU_ANALYZE_ERROR"]
        34 FASTCALL2                        ASSERT R1 R2 ; [+3]
        36 GETIMPORT                        R0 K2 [assert]
        38 CALL                             R0 2 0
@@ -377,13 +377,13 @@ PROTO_8:
        61 MOVE                             R9 R7
        62 CALL                             R8 1 0
        63 FORGLOOP                         R3 2 ; [-4]
-       65 GETUPVAL                         R4 3
-       66 GETTABLEKS                       R3 R4 K4 ["DescendantAdded"]
+       65 GETUPVAL                         R3 3
+       66 GETTABLEKS                       R3 R3 K4 ["DescendantAdded"]
        68 MOVE                             R5 R2
        69 NAMECALL                         R3 R3 K5 ["Connect"]
        71 CALL                             R3 2 1
-       72 GETUPVAL                         R5 3
-       73 GETTABLEKS                       R4 R5 K6 ["DescendantRemoving"]
+       72 GETUPVAL                         R4 3
+       73 GETTABLEKS                       R4 R4 K6 ["DescendantRemoving"]
        75 NEWCLOSURE                       R6 P2
        76 CAPTURE                          VAL R0
        77 NAMECALL                         R4 R4 K5 ["Connect"]
@@ -395,8 +395,8 @@ PROTO_8:
        84 RETURN                           R5 1
 
 PROTO_9:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["useEffect"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["useEffect"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          VAL R1
         5 CAPTURE                          UPVAL U1
@@ -419,27 +419,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R5 K11 ["Types"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Types"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K8 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       36 GETTABLEKS                       R5 R6 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
+       32 GETTABLEKS                       R5 R0 K8 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       36 GETTABLEKS                       R5 R5 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K8 ["Src"]
-       43 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       45 GETTABLEKS                       R6 R7 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
        47 CALL                             R5 1 1
        48 DUPCLOSURE                       R6 K14 [PROTO_0]
        49 CAPTURE                          VAL R2

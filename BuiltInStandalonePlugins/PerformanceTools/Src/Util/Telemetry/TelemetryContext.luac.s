@@ -25,8 +25,8 @@ PROTO_2:
         5 FORGPREP_NEXT                    R3
         6 GETTABLE                         R8 R1 R6
         7 GETUPVAL                         R9 0
-        8 GETTABLE                         R11 R1 R6
-        9 GETTABLEKS                       R10 R11 K2 ["data"]
+        8 GETTABLE                         R10 R1 R6
+        9 GETTABLEKS                       R10 R10 K2 ["data"]
        11 MOVE                             R11 R2
        12 CALL                             R9 2 1
        13 SETTABLEKS                       R9 R8 K2 ["data"]
@@ -41,8 +41,8 @@ PROTO_3:
         0 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 DUPTABLE                         R2 K2 [{"logEvent"}]
         4 MOVE                             R3 R0
         5 JUMPIF                           R3 ; [+1]
@@ -58,16 +58,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["join"]
-       23 GETTABLEKS                       R5 R1 K10 ["ContextServices"]
-       25 GETTABLEKS                       R4 R5 K11 ["ContextItem"]
+       23 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
+       25 GETTABLEKS                       R4 R4 K11 ["ContextItem"]
        27 LOADK                            R7 K12 ["Telemetry"]
        28 NAMECALL                         R5 R4 K13 ["extend"]
        30 CALL                             R5 2 1

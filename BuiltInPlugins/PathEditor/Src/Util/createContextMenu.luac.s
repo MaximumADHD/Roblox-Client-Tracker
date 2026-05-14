@@ -6,11 +6,11 @@ PROTO_0:
         5 LOADNIL                          R5
         6 LOADNIL                          R6
         7 FORGPREP                         R4
-        8 GETTABLEKS                       R12 R8 K1 ["Text"]
-       10 GETTABLEKS                       R13 R8 K1 ["Text"]
-       12 NAMECALL                         R10 R3 K2 ["AddNewAction"]
-       14 CALL                             R10 3 1
-       15 GETTABLEKS                       R9 R10 K3 ["Triggered"]
+        8 GETTABLEKS                       R11 R8 K1 ["Text"]
+       10 GETTABLEKS                       R12 R8 K1 ["Text"]
+       12 NAMECALL                         R9 R3 K2 ["AddNewAction"]
+       14 CALL                             R9 3 1
+       15 GETTABLEKS                       R9 R9 K3 ["Triggered"]
        17 GETTABLEKS                       R11 R8 K4 ["OnClick"]
        19 NAMECALL                         R9 R9 K5 ["connect"]
        21 CALL                             R9 2 0

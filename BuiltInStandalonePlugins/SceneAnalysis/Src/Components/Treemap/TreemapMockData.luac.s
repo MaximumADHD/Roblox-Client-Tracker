@@ -174,10 +174,10 @@ MAIN:
         6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
         8 CALL                             R1 2 1
         9 GETIMPORT                        R2 K5 [require]
-       11 GETTABLEKS                       R6 R1 K6 ["Src"]
-       13 GETTABLEKS                       R5 R6 K7 ["Components"]
-       15 GETTABLEKS                       R4 R5 K8 ["Treemap"]
-       17 GETTABLEKS                       R3 R4 K9 ["TreemapTypes"]
+       11 GETTABLEKS                       R3 R1 K6 ["Src"]
+       13 GETTABLEKS                       R3 R3 K7 ["Components"]
+       15 GETTABLEKS                       R3 R3 K8 ["Treemap"]
+       17 GETTABLEKS                       R3 R3 K9 ["TreemapTypes"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K10 [PROTO_0]
        21 SETTABLEKS                       R3 R0 K11 ["GetData1"]

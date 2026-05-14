@@ -1,92 +1,96 @@
 PROTO_0:
-        0 GETUPVAL                         R10 0
-        1 GETTABLEKS                       R9 R10 K0 ["buildRequest"]
+        0 GETUPVAL                         R9 0
+        1 GETTABLEKS                       R9 R9 K0 ["buildRequest"]
         3 LOADK                            R10 K1 ["POST"]
-        4 GETUPVAL                         R12 1
-        5 GETTABLEKS                       R11 R12 K2 ["host"]
+        4 GETUPVAL                         R11 1
+        5 GETTABLEKS                       R11 R11 K2 ["host"]
         7 LOADK                            R12 K3 ["/api/v1/primitive-generations"]
-        8 GETUPVAL                         R14 1
-        9 GETTABLEKS                       R13 R14 K4 ["pathPrefix"]
-       11 CALL                             R9 4 1
-       12 LOADK                            R11 K5 ["robloxctx-rcc"]
-       13 MOVE                             R12 R0
-       14 NAMECALL                         R9 R9 K6 ["addHeaderParameter"]
-       16 CALL                             R9 3 1
-       17 LOADK                            R11 K7 ["roblox-universe-id"]
-       18 MOVE                             R12 R1
-       19 NAMECALL                         R9 R9 K6 ["addHeaderParameter"]
-       21 CALL                             R9 3 1
-       22 LOADK                            R11 K8 ["robloxctx-authenticated-userid"]
-       23 MOVE                             R12 R2
-       24 NAMECALL                         R9 R9 K6 ["addHeaderParameter"]
-       26 CALL                             R9 3 1
-       27 LOADK                            R11 K9 ["roblox-place-id"]
-       28 MOVE                             R12 R3
-       29 NAMECALL                         R9 R9 K6 ["addHeaderParameter"]
-       31 CALL                             R9 3 1
-       32 LOADK                            R11 K10 ["roblox-game-id"]
-       33 MOVE                             R12 R4
-       34 NAMECALL                         R9 R9 K6 ["addHeaderParameter"]
-       36 CALL                             R9 3 1
-       37 LOADK                            R11 K11 ["TextPrompt"]
-       38 MOVE                             R12 R5
-       39 NAMECALL                         R9 R9 K12 ["addFormParameter"]
-       41 CALL                             R9 3 1
-       42 LOADK                            R11 K13 ["Image"]
-       43 MOVE                             R12 R6
-       44 NAMECALL                         R9 R9 K12 ["addFormParameter"]
-       46 CALL                             R9 3 1
-       47 LOADK                            R11 K14 ["AdminOptions"]
-       48 MOVE                             R12 R7
-       49 NAMECALL                         R9 R9 K12 ["addFormParameter"]
-       51 CALL                             R9 3 1
-       52 LOADK                            R11 K15 ["PreviousJobId"]
-       53 MOVE                             R12 R8
-       54 NAMECALL                         R9 R9 K12 ["addFormParameter"]
-       56 CALL                             R9 3 1
-       57 GETUPVAL                         R11 2
-       58 NAMECALL                         R9 R9 K16 ["sendAsync"]
-       60 CALL                             R9 2 -1
-       61 RETURN                           R9 -1
+        8 GETUPVAL                         R13 1
+        9 GETTABLEKS                       R13 R13 K4 ["pathPrefix"]
+       11 GETUPVAL                         R14 1
+       12 GETTABLEKS                       R14 R14 K5 ["baseUrl"]
+       14 CALL                             R9 5 1
+       15 LOADK                            R11 K6 ["robloxctx-rcc"]
+       16 MOVE                             R12 R0
+       17 NAMECALL                         R9 R9 K7 ["addHeaderParameter"]
+       19 CALL                             R9 3 1
+       20 LOADK                            R11 K8 ["roblox-universe-id"]
+       21 MOVE                             R12 R1
+       22 NAMECALL                         R9 R9 K7 ["addHeaderParameter"]
+       24 CALL                             R9 3 1
+       25 LOADK                            R11 K9 ["robloxctx-authenticated-userid"]
+       26 MOVE                             R12 R2
+       27 NAMECALL                         R9 R9 K7 ["addHeaderParameter"]
+       29 CALL                             R9 3 1
+       30 LOADK                            R11 K10 ["roblox-place-id"]
+       31 MOVE                             R12 R3
+       32 NAMECALL                         R9 R9 K7 ["addHeaderParameter"]
+       34 CALL                             R9 3 1
+       35 LOADK                            R11 K11 ["roblox-game-id"]
+       36 MOVE                             R12 R4
+       37 NAMECALL                         R9 R9 K7 ["addHeaderParameter"]
+       39 CALL                             R9 3 1
+       40 LOADK                            R11 K12 ["TextPrompt"]
+       41 MOVE                             R12 R5
+       42 NAMECALL                         R9 R9 K13 ["addFormParameter"]
+       44 CALL                             R9 3 1
+       45 LOADK                            R11 K14 ["Image"]
+       46 MOVE                             R12 R6
+       47 NAMECALL                         R9 R9 K13 ["addFormParameter"]
+       49 CALL                             R9 3 1
+       50 LOADK                            R11 K15 ["AdminOptions"]
+       51 MOVE                             R12 R7
+       52 NAMECALL                         R9 R9 K13 ["addFormParameter"]
+       54 CALL                             R9 3 1
+       55 LOADK                            R11 K16 ["PreviousJobId"]
+       56 MOVE                             R12 R8
+       57 NAMECALL                         R9 R9 K13 ["addFormParameter"]
+       59 CALL                             R9 3 1
+       60 GETUPVAL                         R11 2
+       61 NAMECALL                         R9 R9 K17 ["sendAsync"]
+       63 CALL                             R9 2 -1
+       64 RETURN                           R9 -1
 
 PROTO_1:
-        0 GETUPVAL                         R7 0
-        1 GETTABLEKS                       R6 R7 K0 ["buildRequest"]
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["buildRequest"]
         3 LOADK                            R7 K1 ["GET"]
-        4 GETUPVAL                         R9 1
-        5 GETTABLEKS                       R8 R9 K2 ["host"]
+        4 GETUPVAL                         R8 1
+        5 GETTABLEKS                       R8 R8 K2 ["host"]
         7 LOADK                            R9 K3 ["/api/v1/primitive-generations/{primitiveGenerationId}"]
-        8 GETUPVAL                         R11 1
-        9 GETTABLEKS                       R10 R11 K4 ["pathPrefix"]
-       11 CALL                             R6 4 1
-       12 LOADK                            R8 K5 ["{primitiveGenerationId}"]
-       13 MOVE                             R9 R5
-       14 NAMECALL                         R6 R6 K6 ["addPathParameter"]
-       16 CALL                             R6 3 1
-       17 LOADK                            R8 K7 ["robloxctx-rcc"]
-       18 MOVE                             R9 R0
-       19 NAMECALL                         R6 R6 K8 ["addHeaderParameter"]
-       21 CALL                             R6 3 1
-       22 LOADK                            R8 K9 ["roblox-universe-id"]
-       23 MOVE                             R9 R1
-       24 NAMECALL                         R6 R6 K8 ["addHeaderParameter"]
-       26 CALL                             R6 3 1
-       27 LOADK                            R8 K10 ["robloxctx-authenticated-userid"]
-       28 MOVE                             R9 R2
-       29 NAMECALL                         R6 R6 K8 ["addHeaderParameter"]
-       31 CALL                             R6 3 1
-       32 LOADK                            R8 K11 ["roblox-place-id"]
-       33 MOVE                             R9 R3
-       34 NAMECALL                         R6 R6 K8 ["addHeaderParameter"]
-       36 CALL                             R6 3 1
-       37 LOADK                            R8 K12 ["roblox-game-id"]
-       38 MOVE                             R9 R4
-       39 NAMECALL                         R6 R6 K8 ["addHeaderParameter"]
-       41 CALL                             R6 3 1
-       42 GETUPVAL                         R8 2
-       43 NAMECALL                         R6 R6 K13 ["sendAsync"]
-       45 CALL                             R6 2 -1
-       46 RETURN                           R6 -1
+        8 GETUPVAL                         R10 1
+        9 GETTABLEKS                       R10 R10 K4 ["pathPrefix"]
+       11 GETUPVAL                         R11 1
+       12 GETTABLEKS                       R11 R11 K5 ["baseUrl"]
+       14 CALL                             R6 5 1
+       15 LOADK                            R8 K6 ["{primitiveGenerationId}"]
+       16 MOVE                             R9 R5
+       17 NAMECALL                         R6 R6 K7 ["addPathParameter"]
+       19 CALL                             R6 3 1
+       20 LOADK                            R8 K8 ["robloxctx-rcc"]
+       21 MOVE                             R9 R0
+       22 NAMECALL                         R6 R6 K9 ["addHeaderParameter"]
+       24 CALL                             R6 3 1
+       25 LOADK                            R8 K10 ["roblox-universe-id"]
+       26 MOVE                             R9 R1
+       27 NAMECALL                         R6 R6 K9 ["addHeaderParameter"]
+       29 CALL                             R6 3 1
+       30 LOADK                            R8 K11 ["robloxctx-authenticated-userid"]
+       31 MOVE                             R9 R2
+       32 NAMECALL                         R6 R6 K9 ["addHeaderParameter"]
+       34 CALL                             R6 3 1
+       35 LOADK                            R8 K12 ["roblox-place-id"]
+       36 MOVE                             R9 R3
+       37 NAMECALL                         R6 R6 K9 ["addHeaderParameter"]
+       39 CALL                             R6 3 1
+       40 LOADK                            R8 K13 ["roblox-game-id"]
+       41 MOVE                             R9 R4
+       42 NAMECALL                         R6 R6 K9 ["addHeaderParameter"]
+       44 CALL                             R6 3 1
+       45 GETUPVAL                         R8 2
+       46 NAMECALL                         R6 R6 K14 ["sendAsync"]
+       48 CALL                             R6 2 -1
+       49 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -105,12 +109,12 @@ MAIN:
        20 GETTABLEKS                       R5 R0 K9 ["PathMetadata"]
        22 CALL                             R4 1 1
        23 GETIMPORT                        R5 K7 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Models"]
-       27 GETTABLEKS                       R6 R7 K11 ["GeneratePrimitiveResponse"]
+       25 GETTABLEKS                       R6 R0 K10 ["Models"]
+       27 GETTABLEKS                       R6 R6 K11 ["GeneratePrimitiveResponse"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K7 [require]
-       32 GETTABLEKS                       R8 R0 K10 ["Models"]
-       34 GETTABLEKS                       R7 R8 K12 ["GetPrimitiveGenerationStatusResponse"]
+       32 GETTABLEKS                       R7 R0 K10 ["Models"]
+       34 GETTABLEKS                       R7 R7 K12 ["GetPrimitiveGenerationStatusResponse"]
        36 CALL                             R6 1 1
        37 NEWTABLE                         R7 2 0
        39 DUPCLOSURE                       R8 K13 [PROTO_0]

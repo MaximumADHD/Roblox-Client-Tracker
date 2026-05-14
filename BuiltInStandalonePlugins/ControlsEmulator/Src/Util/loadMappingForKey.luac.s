@@ -26,12 +26,12 @@ MAIN:
         3 LOADK                            R2 K2 ["ControlsEmulator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["MockableProxyPluginComponents"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K9 ["StudioDeviceEmulator"]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["MockableProxyPluginComponents"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K9 ["StudioDeviceEmulator"]
        18 DUPCLOSURE                       R2 K10 [PROTO_1]
        19 CAPTURE                          VAL R1
        20 RETURN                           R2 1

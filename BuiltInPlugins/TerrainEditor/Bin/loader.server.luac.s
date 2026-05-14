@@ -34,9 +34,9 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["main"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["main"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K7 [game]
        12 LOADK                            R3 K8 ["TestService"]
@@ -50,12 +50,12 @@ MAIN:
        24 DUPCLOSURE                       R4 K14 [PROTO_0]
        25 CALL                             R3 1 2
        26 JUMPIFNOT                        R3 ; [+91]
-       27 GETIMPORT                        R6 K1 [require]
-       29 GETTABLEKS                       R9 R2 K15 ["Packages"]
-       31 GETTABLEKS                       R8 R9 K16 ["Dev"]
-       33 GETTABLEKS                       R7 R8 K17 ["Jest"]
-       35 CALL                             R6 1 1
-       36 GETTABLEKS                       R5 R6 K18 ["runCLI"]
+       27 GETIMPORT                        R5 K1 [require]
+       29 GETTABLEKS                       R6 R2 K15 ["Packages"]
+       31 GETTABLEKS                       R6 R6 K16 ["Dev"]
+       33 GETTABLEKS                       R6 R6 K17 ["Jest"]
+       35 CALL                             R5 1 1
+       36 GETTABLEKS                       R5 R5 K18 ["runCLI"]
        38 GETIMPORT                        R6 K20 [_G]
        40 LOADB                            R7 1
        41 SETTABLEKS                       R7 R6 K21 ["__ROACT_17_MOCK_SCHEDULER__"]
@@ -86,12 +86,12 @@ MAIN:
        79 NAMECALL                         R7 R7 K31 ["awaitStatus"]
        81 CALL                             R7 1 2
        82 JUMPIFNOTEQKS                    R7 K32 ["Resolved"] ; [+15]
-       84 GETTABLEKS                       R10 R8 K33 ["results"]
-       86 GETTABLEKS                       R9 R10 K34 ["numFailedTestSuites"]
+       84 GETTABLEKS                       R9 R8 K33 ["results"]
+       86 GETTABLEKS                       R9 R9 K34 ["numFailedTestSuites"]
        88 LOADN                            R10 0
        89 JUMPIFLT                         R10 R9 ; [+8]
-       91 GETTABLEKS                       R10 R8 K33 ["results"]
-       93 GETTABLEKS                       R9 R10 K35 ["numFailedTests"]
+       91 GETTABLEKS                       R9 R8 K33 ["results"]
+       93 GETTABLEKS                       R9 R9 K35 ["numFailedTests"]
        95 LOADN                            R10 0
        96 JUMPIFNOTLT                      R10 R9 ; [+16]
        98 JUMPIFNOTEQKS                    R7 K36 ["Rejected"] ; [+5]
@@ -110,18 +110,18 @@ MAIN:
       116 CALL                             R9 2 0
       117 RETURN                           R0 0
       118 GETIMPORT                        R5 K1 [require]
-      120 GETTABLEKS                       R7 R2 K15 ["Packages"]
-      122 GETTABLEKS                       R6 R7 K42 ["PluginLoader"]
+      120 GETTABLEKS                       R6 R2 K15 ["Packages"]
+      122 GETTABLEKS                       R6 R6 K42 ["PluginLoader"]
       124 CALL                             R5 1 1
       125 GETTABLEKS                       R6 R5 K43 ["PluginLoaderBuilder"]
-      127 GETTABLEKS                       R10 R2 K26 ["Src"]
-      129 GETTABLEKS                       R9 R10 K44 ["Resources"]
-      131 GETTABLEKS                       R8 R9 K45 ["Localization"]
-      133 GETTABLEKS                       R7 R8 K46 ["SourceStrings"]
-      135 GETTABLEKS                       R11 R2 K26 ["Src"]
-      137 GETTABLEKS                       R10 R11 K44 ["Resources"]
-      139 GETTABLEKS                       R9 R10 K45 ["Localization"]
-      141 GETTABLEKS                       R8 R9 K47 ["LocalizedStrings"]
+      127 GETTABLEKS                       R7 R2 K26 ["Src"]
+      129 GETTABLEKS                       R7 R7 K44 ["Resources"]
+      131 GETTABLEKS                       R7 R7 K45 ["Localization"]
+      133 GETTABLEKS                       R7 R7 K46 ["SourceStrings"]
+      135 GETTABLEKS                       R8 R2 K26 ["Src"]
+      137 GETTABLEKS                       R8 R8 K44 ["Resources"]
+      139 GETTABLEKS                       R8 R8 K45 ["Localization"]
+      141 GETTABLEKS                       R8 R8 K47 ["LocalizedStrings"]
       143 DUPTABLE                         R9 K57 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
       144 GETIMPORT                        R10 K58 [plugin]
       146 SETTABLEKS                       R10 R9 K48 ["plugin"]

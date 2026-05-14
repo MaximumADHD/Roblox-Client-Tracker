@@ -5,14 +5,14 @@ PROTO_0:
         6 GETTABLEKS                       R4 R1 K3 ["Buttons"]
         8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
        10 DUPTABLE                         R6 K5 [{"Header"}]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K6 ["createElement"]
        14 LOADK                            R8 K7 ["TextLabel"]
-       15 GETUPVAL                         R11 1
-       16 GETTABLEKS                       R10 R11 K8 ["Dictionary"]
-       18 GETTABLEKS                       R9 R10 K9 ["join"]
-       20 GETTABLEKS                       R11 R5 K10 ["fontStyle"]
-       22 GETTABLEKS                       R10 R11 K11 ["SemiBold"]
+       15 GETUPVAL                         R9 1
+       16 GETTABLEKS                       R9 R9 K8 ["Dictionary"]
+       18 GETTABLEKS                       R9 R9 K9 ["join"]
+       20 GETTABLEKS                       R10 R5 K10 ["fontStyle"]
+       22 GETTABLEKS                       R10 R10 K11 ["SemiBold"]
        24 DUPTABLE                         R11 K18 [{"AutomaticSize", "Size", "BackgroundTransparency", "Text", "TextXAlignment", "TextWrapped"}]
        25 GETIMPORT                        R12 K21 [Enum.AutomaticSize.Y]
        27 SETTABLEKS                       R12 R11 K12 ["AutomaticSize"]
@@ -33,8 +33,8 @@ PROTO_0:
        50 CALL                             R9 2 -1
        51 CALL                             R7 -1 1
        52 SETTABLEKS                       R7 R6 K1 ["Header"]
-       54 GETUPVAL                         R8 0
-       55 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       54 GETUPVAL                         R7 0
+       55 GETTABLEKS                       R7 R7 K6 ["createElement"]
        57 GETUPVAL                         R8 2
        58 DUPTABLE                         R9 K29 [{"TextTruncate", "Items", "Size"}]
        59 GETIMPORT                        R10 K31 [Enum.TextTruncate.AtEnd]
@@ -49,8 +49,8 @@ PROTO_0:
        72 SETTABLEKS                       R10 R9 K13 ["Size"]
        74 CALL                             R7 2 1
        75 SETTABLEKS                       R7 R6 K32 ["List"]
-       77 GETUPVAL                         R8 0
-       78 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       77 GETUPVAL                         R7 0
+       78 GETTABLEKS                       R7 R7 K6 ["createElement"]
        80 GETUPVAL                         R8 3
        81 DUPTABLE                         R9 K34 [{"Buttons", "OnResult"}]
        82 SETTABLEKS                       R4 R9 K3 ["Buttons"]
@@ -62,32 +62,32 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["Cryo"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["Cryo"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R2 K9 ["UI"]
        34 GETTABLEKS                       R5 R4 K10 ["BulletList"]
        36 GETTABLEKS                       R6 R2 K11 ["ContextServices"]
        38 GETTABLEKS                       R7 R6 K12 ["withContext"]
        40 GETIMPORT                        R8 K4 [require]
-       42 GETTABLEKS                       R12 R0 K13 ["Src"]
-       44 GETTABLEKS                       R11 R12 K14 ["Components"]
-       46 GETTABLEKS                       R10 R11 K15 ["Dialog"]
-       48 GETTABLEKS                       R9 R10 K16 ["BaseDialog"]
+       42 GETTABLEKS                       R9 R0 K13 ["Src"]
+       44 GETTABLEKS                       R9 R9 K14 ["Components"]
+       46 GETTABLEKS                       R9 R9 K15 ["Dialog"]
+       48 GETTABLEKS                       R9 R9 K16 ["BaseDialog"]
        50 CALL                             R8 1 1
        51 GETTABLEKS                       R9 R1 K17 ["PureComponent"]
        53 LOADK                            R11 K18 ["ListDialog"]

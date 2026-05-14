@@ -7,15 +7,15 @@ PROTO_0:
         8 GETTABLEKS                       R8 R2 K3 ["X"]
        10 GETTABLEKS                       R9 R1 K3 ["X"]
        12 ADD                              R7 R8 R9
-       13 GETTABLEKS                       R9 R3 K3 ["X"]
-       15 GETTABLEKS                       R8 R9 K4 ["Offset"]
+       13 GETTABLEKS                       R8 R3 K3 ["X"]
+       15 GETTABLEKS                       R8 R8 K4 ["Offset"]
        17 SUB                              R6 R7 R8
-       18 GETUPVAL                         R8 1
-       19 GETTABLEKS                       R7 R8 K3 ["X"]
+       18 GETUPVAL                         R7 1
+       19 GETTABLEKS                       R7 R7 K3 ["X"]
        21 SUB                              R5 R6 R7
        22 GETTABLEKS                       R7 R2 K3 ["X"]
-       24 GETUPVAL                         R9 1
-       25 GETTABLEKS                       R8 R9 K3 ["X"]
+       24 GETUPVAL                         R8 1
+       25 GETTABLEKS                       R8 R8 K3 ["X"]
        27 ADD                              R6 R7 R8
        28 FASTCALL2                        MATH_MAX R5 R6 ; [+3]
        30 GETIMPORT                        R4 K7 [math.max]
@@ -23,8 +23,8 @@ PROTO_0:
        33 GETTABLEKS                       R7 R2 K8 ["Y"]
        35 GETTABLEKS                       R8 R1 K8 ["Y"]
        37 ADD                              R6 R7 R8
-       38 GETUPVAL                         R8 1
-       39 GETTABLEKS                       R7 R8 K8 ["Y"]
+       38 GETUPVAL                         R7 1
+       39 GETTABLEKS                       R7 R7 K8 ["Y"]
        41 ADD                              R5 R6 R7
        42 GETIMPORT                        R6 K11 [UDim2.new]
        44 LOADN                            R7 0
@@ -38,8 +38,8 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K0 ["AbsoluteSize"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K0 ["AbsoluteSize"]
         6 LOADK                            R2 K1 ["%d x %d"]
         7 GETTABLEKS                       R4 R1 K2 ["X"]
         9 GETTABLEKS                       R5 R1 K3 ["Y"]
@@ -102,8 +102,8 @@ PROTO_4:
        11 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 1
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 SETUPVAL                         R1 0
         5 RETURN                           R0 0
@@ -122,14 +122,14 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
         3 GETIMPORT                        R1 K1 [require]
-        5 GETIMPORT                        R4 K3 [script]
-        7 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        9 GETTABLEKS                       R2 R3 K5 ["SelectionManager"]
+        5 GETIMPORT                        R2 K3 [script]
+        7 GETTABLEKS                       R2 R2 K4 ["Parent"]
+        9 GETTABLEKS                       R2 R2 K5 ["SelectionManager"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K1 [require]
-       14 GETIMPORT                        R5 K3 [script]
-       16 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       18 GETTABLEKS                       R3 R4 K6 ["ValueBox"]
+       14 GETIMPORT                        R3 K3 [script]
+       16 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       18 GETTABLEKS                       R3 R3 K6 ["ValueBox"]
        20 CALL                             R2 1 1
        21 LOADNIL                          R3
        22 LOADNIL                          R4

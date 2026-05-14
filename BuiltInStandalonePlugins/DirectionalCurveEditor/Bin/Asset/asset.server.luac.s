@@ -7,39 +7,39 @@ PROTO_0:
         6 LOADK                            R3 K0 ["currentInstanceData was nil"]
         7 GETIMPORT                        R1 K2 [assert]
         9 CALL                             R1 2 0
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K3 ["DISTANCE"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K3 ["DISTANCE"]
        13 JUMPIFEQ                         R0 R1 ; [+7]
-       15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R1 R2 K4 ["ANGLE"]
+       15 GETUPVAL                         R1 1
+       16 GETTABLEKS                       R1 R1 K4 ["ANGLE"]
        18 JUMPIFEQ                         R0 R1 ; [+2]
        20 RETURN                           R0 0
-       21 GETUPVAL                         R2 2
-       22 GETTABLEKS                       R1 R2 K5 ["getInstanceData"]
+       21 GETUPVAL                         R1 2
+       22 GETTABLEKS                       R1 R1 K5 ["getInstanceData"]
        24 GETUPVAL                         R2 3
        25 CALL                             R1 1 1
-       26 GETUPVAL                         R4 1
-       27 GETTABLEKS                       R3 R4 K3 ["DISTANCE"]
+       26 GETUPVAL                         R3 1
+       27 GETTABLEKS                       R3 R3 K3 ["DISTANCE"]
        29 JUMPIFNOTEQ                      R0 R3 ; [+4]
        31 GETTABLEKS                       R2 R1 K6 ["DistanceCurve"]
        33 JUMP                             ; [+2]
        34 GETTABLEKS                       R2 R1 K7 ["AngleCurve"]
-       36 GETUPVAL                         R5 1
-       37 GETTABLEKS                       R4 R5 K3 ["DISTANCE"]
+       36 GETUPVAL                         R4 1
+       37 GETTABLEKS                       R4 R4 K3 ["DISTANCE"]
        39 JUMPIFNOTEQ                      R0 R4 ; [+5]
-       41 GETUPVAL                         R4 0
-       42 GETTABLEKS                       R3 R4 K6 ["DistanceCurve"]
+       41 GETUPVAL                         R3 0
+       42 GETTABLEKS                       R3 R3 K6 ["DistanceCurve"]
        44 JUMP                             ; [+3]
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R3 R4 K7 ["AngleCurve"]
-       48 GETUPVAL                         R5 2
-       49 GETTABLEKS                       R4 R5 K8 ["areKeypointsEqual"]
-       51 GETUPVAL                         R6 2
-       52 GETTABLEKS                       R5 R6 K9 ["strTableToKeypoints"]
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K7 ["AngleCurve"]
+       48 GETUPVAL                         R4 2
+       49 GETTABLEKS                       R4 R4 K8 ["areKeypointsEqual"]
+       51 GETUPVAL                         R5 2
+       52 GETTABLEKS                       R5 R5 K9 ["strTableToKeypoints"]
        54 MOVE                             R6 R2
        55 CALL                             R5 1 1
-       56 GETUPVAL                         R7 2
-       57 GETTABLEKS                       R6 R7 K9 ["strTableToKeypoints"]
+       56 GETUPVAL                         R6 2
+       57 GETTABLEKS                       R6 R6 K9 ["strTableToKeypoints"]
        59 MOVE                             R7 R3
        60 CALL                             R6 1 -1
        61 CALL                             R4 -1 1
@@ -64,13 +64,13 @@ PROTO_1:
         6 FORNPREP                         R2
         7 GETTABLE                         R5 R0 R4
         8 JUMPIFNOT                        R5 ; [+21]
-        9 GETUPVAL                         R9 1
-       10 GETTABLEKS                       R8 R9 K0 ["EMITTER"]
+        9 GETUPVAL                         R8 1
+       10 GETTABLEKS                       R8 R8 K0 ["EMITTER"]
        12 NAMECALL                         R6 R5 K1 ["IsA"]
        14 CALL                             R6 2 1
        15 JUMPIF                           R6 ; [+7]
-       16 GETUPVAL                         R9 1
-       17 GETTABLEKS                       R8 R9 K2 ["LISTENER"]
+       16 GETUPVAL                         R8 1
+       17 GETTABLEKS                       R8 R8 K2 ["LISTENER"]
        19 NAMECALL                         R6 R5 K1 ["IsA"]
        21 CALL                             R6 2 1
        22 JUMPIFNOT                        R6 ; [+7]
@@ -102,8 +102,8 @@ PROTO_1:
        56 NAMECALL                         R4 R4 K10 ["format"]
        58 CALL                             R4 3 1
        59 MOVE                             R3 R4
-       60 GETUPVAL                         R5 3
-       61 GETTABLEKS                       R4 R5 K12 ["getInstanceData"]
+       60 GETUPVAL                         R4 3
+       61 GETTABLEKS                       R4 R4 K12 ["getInstanceData"]
        63 MOVE                             R5 R2
        64 CALL                             R4 1 1
        65 SETUPVAL                         R4 2
@@ -148,39 +148,39 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOT                        R2 ; [+17]
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["DISTANCE"]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["DISTANCE"]
         5 JUMPIFNOTEQ                      R1 R2 ; [+5]
         7 GETUPVAL                         R2 0
         8 SETTABLEKS                       R0 R2 K1 ["DistanceCurve"]
        10 JUMP                             ; [+8]
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R2 R3 K2 ["ANGLE"]
+       11 GETUPVAL                         R2 1
+       12 GETTABLEKS                       R2 R2 K2 ["ANGLE"]
        14 JUMPIFNOTEQ                      R1 R2 ; [+4]
        16 GETUPVAL                         R2 0
        17 SETTABLEKS                       R0 R2 K3 ["AngleCurve"]
-       19 GETUPVAL                         R3 2
-       20 GETTABLEKS                       R2 R3 K4 ["destringifyCurveTable"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K4 ["destringifyCurveTable"]
        22 MOVE                             R3 R0
        23 CALL                             R2 1 1
        24 GETUPVAL                         R3 3
        25 LOADNIL                          R4
        26 LOADNIL                          R5
        27 FORGPREP                         R3
-       28 GETUPVAL                         R9 1
-       29 GETTABLEKS                       R8 R9 K0 ["DISTANCE"]
+       28 GETUPVAL                         R8 1
+       29 GETTABLEKS                       R8 R8 K0 ["DISTANCE"]
        31 JUMPIFNOTEQ                      R1 R8 ; [+8]
-       33 GETUPVAL                         R9 2
-       34 GETTABLEKS                       R8 R9 K5 ["setDistanceAttenuation"]
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K5 ["setDistanceAttenuation"]
        36 MOVE                             R9 R7
        37 MOVE                             R10 R2
        38 CALL                             R8 2 0
        39 JUMP                             ; [+11]
-       40 GETUPVAL                         R9 1
-       41 GETTABLEKS                       R8 R9 K2 ["ANGLE"]
+       40 GETUPVAL                         R8 1
+       41 GETTABLEKS                       R8 R8 K2 ["ANGLE"]
        43 JUMPIFNOTEQ                      R1 R8 ; [+7]
-       45 GETUPVAL                         R9 2
-       46 GETTABLEKS                       R8 R9 K6 ["setAngleAttenuation"]
+       45 GETUPVAL                         R8 2
+       46 GETTABLEKS                       R8 R8 K6 ["setAngleAttenuation"]
        48 MOVE                             R9 R7
        49 MOVE                             R10 R2
        50 CALL                             R8 2 0
@@ -211,8 +211,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["DirectionalCurveEditor"]
@@ -223,18 +223,18 @@ MAIN:
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R5 R0 K13 ["Bin"]
-       33 GETTABLEKS                       R4 R5 K14 ["Common"]
-       35 GETTABLEKS                       R3 R4 K15 ["pluginType"]
+       31 GETTABLEKS                       R3 R0 K13 ["Bin"]
+       33 GETTABLEKS                       R3 R3 K14 ["Common"]
+       35 GETTABLEKS                       R3 R3 K15 ["pluginType"]
        37 CALL                             R2 1 1
        38 GETIMPORT                        R3 K7 [require]
-       40 GETTABLEKS                       R5 R0 K11 ["Src"]
-       42 GETTABLEKS                       R4 R5 K16 ["Types"]
+       40 GETTABLEKS                       R4 R0 K11 ["Src"]
+       42 GETTABLEKS                       R4 R4 K16 ["Types"]
        44 CALL                             R3 1 1
        45 GETIMPORT                        R4 K7 [require]
-       47 GETTABLEKS                       R7 R0 K11 ["Src"]
-       49 GETTABLEKS                       R6 R7 K17 ["Util"]
-       51 GETTABLEKS                       R5 R6 K18 ["AttenuationUtil"]
+       47 GETTABLEKS                       R5 R0 K11 ["Src"]
+       49 GETTABLEKS                       R5 R5 K17 ["Util"]
+       51 GETTABLEKS                       R5 R5 K18 ["AttenuationUtil"]
        53 CALL                             R4 1 1
        54 NEWTABLE                         R5 0 0
        56 LOADNIL                          R6
@@ -283,14 +283,14 @@ MAIN:
       110 CLOSEUPVALS                      R5
       111 RETURN                           R0 0
       112 GETIMPORT                        R13 K7 [require]
-      114 GETTABLEKS                       R16 R0 K13 ["Bin"]
-      116 GETTABLEKS                       R15 R16 K14 ["Common"]
-      118 GETTABLEKS                       R14 R15 K31 ["setup"]
+      114 GETTABLEKS                       R14 R0 K13 ["Bin"]
+      116 GETTABLEKS                       R14 R14 K14 ["Common"]
+      118 GETTABLEKS                       R14 R14 K31 ["setup"]
       120 CALL                             R13 1 1
       121 GETIMPORT                        R14 K7 [require]
-      123 GETTABLEKS                       R17 R0 K13 ["Bin"]
-      125 GETTABLEKS                       R16 R17 K14 ["Common"]
-      127 GETTABLEKS                       R15 R16 K32 ["setupMain"]
+      123 GETTABLEKS                       R15 R0 K13 ["Bin"]
+      125 GETTABLEKS                       R15 R15 K14 ["Common"]
+      127 GETTABLEKS                       R15 R15 K32 ["setupMain"]
       129 CALL                             R14 1 1
       130 MOVE                             R15 R13
       131 GETIMPORT                        R16 K1 [plugin]

@@ -20,13 +20,13 @@ PROTO_1:
         8 CAPTURE                          VAL R0
         9 CAPTURE                          VAL R1
        10 CALL                             R2 1 0
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R2 R3 K0 ["Invoke"]
+       11 GETUPVAL                         R2 1
+       12 GETTABLEKS                       R2 R2 K0 ["Invoke"]
        14 MOVE                             R3 R2
        15 GETUPVAL                         R4 1
-       16 GETUPVAL                         R7 2
-       17 GETTABLEKS                       R6 R7 K1 ["fromGuest"]
-       19 GETTABLEKS                       R5 R6 K2 ["message"]
+       16 GETUPVAL                         R5 2
+       17 GETTABLEKS                       R5 R5 K1 ["fromGuest"]
+       19 GETTABLEKS                       R5 R5 K2 ["message"]
        21 GETUPVAL                         R6 3
        22 MOVE                             R7 R0
        23 GETVARARGS                       R8 -1
@@ -37,8 +37,8 @@ PROTO_2:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["Starting connection"]
         2 CALL                             R0 1 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["get"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["get"]
         6 CALL                             R2 0 1
         7 JUMPIFEQKNIL                     R2 ; [+2]
         9 LOADB                            R1 0 +1
@@ -55,14 +55,14 @@ PROTO_2:
        22 DUPTABLE                         R1 K9 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
        23 GETUPVAL                         R2 4
        24 SETTABLEKS                       R2 R1 K5 ["identifier"]
-       26 GETUPVAL                         R4 5
-       27 GETTABLEKS                       R3 R4 K10 ["Signal"]
-       29 GETTABLEKS                       R2 R3 K11 ["new"]
+       26 GETUPVAL                         R2 5
+       27 GETTABLEKS                       R2 R2 K10 ["Signal"]
+       29 GETTABLEKS                       R2 R2 K11 ["new"]
        31 CALL                             R2 0 1
        32 SETTABLEKS                       R2 R1 K6 ["disconnectSignal"]
-       34 GETUPVAL                         R4 5
-       35 GETTABLEKS                       R3 R4 K10 ["Signal"]
-       37 GETTABLEKS                       R2 R3 K11 ["new"]
+       34 GETUPVAL                         R2 5
+       35 GETTABLEKS                       R2 R2 K10 ["Signal"]
+       37 GETTABLEKS                       R2 R2 K11 ["new"]
        39 CALL                             R2 0 1
        40 SETTABLEKS                       R2 R1 K7 ["messageReceivedSignal"]
        42 SETTABLEKS                       R0 R1 K8 ["sendMessage"]
@@ -70,9 +70,9 @@ PROTO_2:
        45 MOVE                             R3 R1
        46 CALL                             R2 1 0
        47 GETUPVAL                         R2 2
-       48 GETUPVAL                         R6 3
-       49 GETTABLEKS                       R5 R6 K12 ["fromGuest"]
-       51 GETTABLEKS                       R4 R5 K13 ["connect"]
+       48 GETUPVAL                         R4 3
+       49 GETTABLEKS                       R4 R4 K12 ["fromGuest"]
+       51 GETTABLEKS                       R4 R4 K13 ["connect"]
        53 GETUPVAL                         R5 4
        54 NAMECALL                         R2 R2 K14 ["Invoke"]
        56 CALL                             R2 3 0
@@ -83,8 +83,8 @@ PROTO_3:
         1 GETUPVAL                         R2 0
         2 JUMPIFEQ                         R2 R0 ; [+2]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K0 ["get"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K0 ["get"]
         8 CALL                             R2 0 1
         9 JUMPIFNOTEQKNIL                  R2 ; [+6]
        11 GETUPVAL                         R3 2
@@ -100,8 +100,8 @@ PROTO_3:
        23 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["get"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["get"]
         3 CALL                             R0 0 1
         4 JUMPIFNOTEQKNIL                  R0 ; [+5]
         6 GETUPVAL                         R1 1
@@ -119,9 +119,9 @@ PROTO_4:
        21 LOADK                            R2 K5 ["Disconnecting"]
        22 CALL                             R1 1 0
        23 GETUPVAL                         R1 2
-       24 GETUPVAL                         R5 3
-       25 GETTABLEKS                       R4 R5 K6 ["fromGuest"]
-       27 GETTABLEKS                       R3 R4 K7 ["disconnect"]
+       24 GETUPVAL                         R3 3
+       25 GETTABLEKS                       R3 R3 K6 ["fromGuest"]
+       27 GETTABLEKS                       R3 R3 K7 ["disconnect"]
        29 GETUPVAL                         R4 4
        30 NAMECALL                         R1 R1 K8 ["Invoke"]
        32 CALL                             R1 3 0
@@ -145,11 +145,11 @@ PROTO_5:
        10 RETURN                           R0 0
 
 PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["HostDataModelType"]
-        2 GETTABLEKS                       R1 R2 K1 ["Name"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["Observable"]
-        7 GETTABLEKS                       R2 R3 K3 ["create"]
+        0 GETTABLEKS                       R1 R0 K0 ["HostDataModelType"]
+        2 GETTABLEKS                       R1 R1 K1 ["Name"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K2 ["Observable"]
+        7 GETTABLEKS                       R2 R2 K3 ["create"]
         9 LOADNIL                          R3
        10 CALL                             R2 1 2
        11 NEWCLOSURE                       R4 P0
@@ -171,22 +171,22 @@ PROTO_6:
        27 CAPTURE                          UPVAL U2
        28 CAPTURE                          VAL R1
        29 CAPTURE                          VAL R3
-       30 GETUPVAL                         R11 2
-       31 GETTABLEKS                       R10 R11 K4 ["fromHost"]
-       33 GETTABLEKS                       R9 R10 K5 ["starting"]
+       30 GETUPVAL                         R9 2
+       31 GETTABLEKS                       R9 R9 K4 ["fromHost"]
+       33 GETTABLEKS                       R9 R9 K5 ["starting"]
        35 MOVE                             R10 R4
        36 NAMECALL                         R7 R0 K6 ["OnInvoke"]
        38 CALL                             R7 3 1
-       39 GETUPVAL                         R12 2
-       40 GETTABLEKS                       R11 R12 K4 ["fromHost"]
-       42 GETTABLEKS                       R10 R11 K7 ["message"]
+       39 GETUPVAL                         R10 2
+       40 GETTABLEKS                       R10 R10 K4 ["fromHost"]
+       42 GETTABLEKS                       R10 R10 K7 ["message"]
        44 MOVE                             R11 R5
        45 NAMECALL                         R8 R0 K6 ["OnInvoke"]
        47 CALL                             R8 3 1
        48 GETUPVAL                         R9 3
-       49 GETUPVAL                         R13 2
-       50 GETTABLEKS                       R12 R13 K4 ["fromHost"]
-       52 GETTABLEKS                       R11 R12 K8 ["itemStarted"]
+       49 GETUPVAL                         R11 2
+       50 GETTABLEKS                       R11 R11 K4 ["fromHost"]
+       52 GETTABLEKS                       R11 R11 K8 ["itemStarted"]
        54 NAMECALL                         R9 R9 K9 ["HasItem"]
        56 CALL                             R9 2 1
        57 JUMPIFNOT                        R9 ; [+2]
@@ -211,16 +211,16 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Properties"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Properties"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Util"]
-       26 GETTABLEKS                       R4 R5 K14 ["StudioProtocolConstants"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Util"]
+       26 GETTABLEKS                       R4 R4 K14 ["StudioProtocolConstants"]
        28 CALL                             R3 1 1
-       29 GETTABLEKS                       R5 R2 K13 ["Util"]
-       31 GETTABLEKS                       R4 R5 K15 ["createDebugLogger"]
+       29 GETTABLEKS                       R4 R2 K13 ["Util"]
+       31 GETTABLEKS                       R4 R4 K15 ["createDebugLogger"]
        33 LOADK                            R5 K16 ["createStudioGuestConnection"]
        34 CALL                             R4 1 1
        35 DUPCLOSURE                       R5 K17 [PROTO_6]

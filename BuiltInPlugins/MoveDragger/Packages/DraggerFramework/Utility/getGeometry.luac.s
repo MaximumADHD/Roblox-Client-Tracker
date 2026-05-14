@@ -77,14 +77,14 @@ PROTO_1:
         1 JUMPIF                           R3 ; [+2]
         2 GETTABLEKS                       R3 R0 K0 ["CFrame"]
         4 GETTABLEKS                       R4 R3 K1 ["p"]
-        6 GETTABLEKS                       R7 R0 K3 ["Size"]
-        8 GETTABLEKS                       R6 R7 K4 ["x"]
+        6 GETTABLEKS                       R6 R0 K3 ["Size"]
+        8 GETTABLEKS                       R6 R6 K4 ["x"]
        10 DIVK                             R5 R6 K2 [2]
-       11 GETTABLEKS                       R8 R0 K3 ["Size"]
-       13 GETTABLEKS                       R7 R8 K5 ["y"]
+       11 GETTABLEKS                       R7 R0 K3 ["Size"]
+       13 GETTABLEKS                       R7 R7 K5 ["y"]
        15 DIVK                             R6 R7 K2 [2]
-       16 GETTABLEKS                       R9 R0 K3 ["Size"]
-       18 GETTABLEKS                       R8 R9 K6 ["z"]
+       16 GETTABLEKS                       R8 R0 K3 ["Size"]
+       18 GETTABLEKS                       R8 R8 K6 ["z"]
        20 DIVK                             R7 R8 K2 [2]
        21 GETTABLEKS                       R8 R3 K7 ["RightVector"]
        23 GETTABLEKS                       R9 R3 K8 ["UpVector"]
@@ -377,12 +377,12 @@ PROTO_1:
       399 SETLIST                          R16 R17 1 [1]
       401 MOVE                             R11 R16
       402 NEWTABLE                         R12 0 0
-      404 SUB                              R17 R1 R4
-      405 GETTABLEKS                       R16 R17 K25 ["Unit"]
-      407 LOADK                            R20 K26 [{0, 1, 0}]
-      408 NAMECALL                         R18 R16 K27 ["Cross"]
-      410 CALL                             R18 2 1
-      411 GETTABLEKS                       R17 R18 K25 ["Unit"]
+      404 SUB                              R16 R1 R4
+      405 GETTABLEKS                       R16 R16 K25 ["Unit"]
+      407 LOADK                            R19 K26 [{0, 1, 0}]
+      408 NAMECALL                         R17 R16 K27 ["Cross"]
+      410 CALL                             R17 2 1
+      411 GETTABLEKS                       R17 R17 K25 ["Unit"]
       413 LOADNIL                          R18
       414 GETTABLEKS                       R20 R16 K10 ["X"]
       416 FASTCALL1                        MATH_ABS R20 ; [+2]
@@ -446,15 +446,15 @@ PROTO_1:
       499 MOVE                             R13 R19
       500 JUMP                             ; [+486]
       501 JUMPIFNOTEQKS                    R14 K30 ["CornerWedge"] ; [+190]
-      503 MUL                              R18 R10 R6
-      504 MUL                              R19 R9 R7
-      505 ADD                              R17 R18 R19
-      506 GETTABLEKS                       R16 R17 K25 ["Unit"]
-      508 MINUS                            R20 R8
-      509 MUL                              R19 R20 R6
-      510 MUL                              R20 R9 R5
-      511 ADD                              R18 R19 R20
-      512 GETTABLEKS                       R17 R18 K25 ["Unit"]
+      503 MUL                              R17 R10 R6
+      504 MUL                              R18 R9 R7
+      505 ADD                              R16 R17 R18
+      506 GETTABLEKS                       R16 R16 K25 ["Unit"]
+      508 MINUS                            R19 R8
+      509 MUL                              R18 R19 R6
+      510 MUL                              R19 R9 R5
+      511 ADD                              R17 R18 R19
+      512 GETTABLEKS                       R17 R17 K25 ["Unit"]
       514 NEWTABLE                         R18 0 5
       516 MUL                              R22 R8 R5
       517 ADD                              R21 R4 R22
@@ -592,11 +592,11 @@ PROTO_1:
       690 MOVE                             R13 R18
       691 JUMP                             ; [+295]
       692 JUMPIFNOTEQKS                    R14 K31 ["Wedge"] ; [+275]
-      694 MINUS                            R19 R10
-      695 MUL                              R18 R19 R6
-      696 MUL                              R19 R9 R7
-      697 ADD                              R17 R18 R19
-      698 GETTABLEKS                       R16 R17 K25 ["Unit"]
+      694 MINUS                            R18 R10
+      695 MUL                              R17 R18 R6
+      696 MUL                              R18 R9 R7
+      697 ADD                              R16 R17 R18
+      698 GETTABLEKS                       R16 R16 K25 ["Unit"]
       700 NEWTABLE                         R17 0 6
       702 MUL                              R21 R8 R5
       703 ADD                              R20 R4 R21
@@ -874,15 +874,15 @@ PROTO_1:
      1064 GETTABLEN                        R24 R22 2
      1065 SETTABLEKS                       R23 R22 K55 ["a"]
      1067 SETTABLEKS                       R24 R22 K56 ["b"]
-     1069 GETTABLEKS                       R25 R22 K56 ["b"]
-     1071 GETTABLEKS                       R26 R22 K55 ["a"]
-     1073 SUB                              R24 R25 R26
-     1074 GETTABLEKS                       R23 R24 K25 ["Unit"]
+     1069 GETTABLEKS                       R24 R22 K56 ["b"]
+     1071 GETTABLEKS                       R25 R22 K55 ["a"]
+     1073 SUB                              R23 R24 R25
+     1074 GETTABLEKS                       R23 R23 K25 ["Unit"]
      1076 SETTABLEKS                       R23 R22 K52 ["direction"]
-     1078 GETTABLEKS                       R25 R22 K56 ["b"]
-     1080 GETTABLEKS                       R26 R22 K55 ["a"]
-     1082 SUB                              R24 R25 R26
-     1083 GETTABLEKS                       R23 R24 K57 ["Magnitude"]
+     1078 GETTABLEKS                       R24 R22 K56 ["b"]
+     1080 GETTABLEKS                       R25 R22 K55 ["a"]
+     1082 SUB                              R23 R24 R25
+     1083 GETTABLEKS                       R23 R23 K57 ["Magnitude"]
      1085 SETTABLEKS                       R23 R22 K58 ["length"]
      1087 GETTABLEN                        R23 R22 3
      1088 SETTABLEKS                       R23 R22 K59 ["edgeMargin"]
@@ -914,12 +914,12 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Flags"]
-       11 GETTABLEKS                       R2 R3 K6 ["getFFlagDraggerFrameworkRemoveRedundancies"]
+        9 GETTABLEKS                       R2 R0 K5 ["Flags"]
+       11 GETTABLEKS                       R2 R2 K6 ["getFFlagDraggerFrameworkRemoveRedundancies"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K7 [PROTO_0]
        15 DUPCLOSURE                       R3 K8 [PROTO_1]

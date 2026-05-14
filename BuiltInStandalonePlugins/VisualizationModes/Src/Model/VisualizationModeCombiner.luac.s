@@ -39,8 +39,8 @@ PROTO_1:
        15 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_lastReportedClientCombinerStateMap"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_lastReportedClientCombinerStateMap"]
         3 GETTABLEKS                       R2 R0 K1 ["hostDataModelType"]
         5 SETTABLE                         R0 R1 R2
         6 GETUPVAL                         R1 0
@@ -54,8 +54,8 @@ PROTO_3:
         3 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
         5 GETIMPORT                        R1 K1 [setmetatable]
         7 CALL                             R1 2 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["new"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["new"]
        11 CALL                             R2 0 1
        12 SETTABLEKS                       R2 R1 K3 ["_maid"]
        14 FASTCALL2K                       ASSERT R0 K4 ; [+5]
@@ -73,8 +73,8 @@ PROTO_3:
        34 LOADNIL                          R2
        35 SETTABLEKS                       R2 R1 K11 ["_session"]
        37 GETTABLEKS                       R2 R1 K3 ["_maid"]
-       39 GETUPVAL                         R5 2
-       40 GETTABLEKS                       R4 R5 K2 ["new"]
+       39 GETUPVAL                         R4 2
+       40 GETTABLEKS                       R4 R4 K2 ["new"]
        42 CALL                             R4 0 -1
        43 NAMECALL                         R2 R2 K12 ["add"]
        45 CALL                             R2 -1 1
@@ -99,8 +99,8 @@ PROTO_3:
        73 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_maid"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_maid"]
         3 LOADNIL                          R1
         4 SETTABLEKS                       R1 R0 K1 ["_stateUpdateQueue"]
         6 GETUPVAL                         R0 0
@@ -109,8 +109,8 @@ PROTO_4:
        10 RETURN                           R0 0
 
 PROTO_5:
-        0 GETTABLEKS                       R2 R0 K0 ["_maid"]
-        2 GETTABLEKS                       R1 R2 K1 ["_stateUpdateQueue"]
+        0 GETTABLEKS                       R1 R0 K0 ["_maid"]
+        2 GETTABLEKS                       R1 R1 K1 ["_stateUpdateQueue"]
         4 JUMPIFNOT                        R1 ; [+1]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R1 R0 K0 ["_maid"]
@@ -249,9 +249,9 @@ PROTO_10:
         2 GETUPVAL                         R2 0
         3 JUMPIFEQ                         R1 R2 ; [+2]
         5 RETURN                           R0 1
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["Dictionary"]
-        9 GETTABLEKS                       R1 R2 K2 ["join"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["Dictionary"]
+        9 GETTABLEKS                       R1 R1 K2 ["join"]
        11 MOVE                             R2 R0
        12 DUPTABLE                         R3 K4 [{"enabled"}]
        13 GETUPVAL                         R4 2
@@ -271,13 +271,13 @@ PROTO_11:
        11 LOADNIL                          R5
        12 FORGPREP                         R3
        13 GETTABLEKS                       R8 R0 K3 ["_lastReportedClientCombinerStateMap"]
-       15 GETUPVAL                         R11 0
-       16 GETTABLEKS                       R10 R11 K4 ["Dictionary"]
-       18 GETTABLEKS                       R9 R10 K5 ["join"]
+       15 GETUPVAL                         R9 0
+       16 GETTABLEKS                       R9 R9 K4 ["Dictionary"]
+       18 GETTABLEKS                       R9 R9 K5 ["join"]
        20 MOVE                             R10 R7
        21 DUPTABLE                         R11 K7 [{"visualizationModeServiceState"}]
-       22 GETUPVAL                         R13 1
-       23 GETTABLEKS                       R12 R13 K8 ["map"]
+       22 GETUPVAL                         R12 1
+       23 GETTABLEKS                       R12 R12 K8 ["map"]
        25 GETTABLEKS                       R13 R7 K6 ["visualizationModeServiceState"]
        27 NEWCLOSURE                       R14 P0
        28 CAPTURE                          VAL R1
@@ -297,9 +297,9 @@ PROTO_12:
         2 GETUPVAL                         R2 0
         3 JUMPIFEQ                         R1 R2 ; [+2]
         5 RETURN                           R0 1
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["Dictionary"]
-        9 GETTABLEKS                       R1 R2 K2 ["join"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["Dictionary"]
+        9 GETTABLEKS                       R1 R1 K2 ["join"]
        11 MOVE                             R2 R0
        12 DUPTABLE                         R3 K4 [{"enabled"}]
        13 GETUPVAL                         R4 2
@@ -312,17 +312,17 @@ PROTO_13:
         2 GETUPVAL                         R2 0
         3 JUMPIFEQ                         R1 R2 ; [+2]
         5 RETURN                           R0 1
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["map"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["map"]
         9 GETTABLEKS                       R2 R0 K2 ["visualizationModeList"]
        11 NEWCLOSURE                       R3 P0
        12 CAPTURE                          UPVAL U2
        13 CAPTURE                          UPVAL U3
        14 CAPTURE                          UPVAL U4
        15 CALL                             R1 2 1
-       16 GETUPVAL                         R4 3
-       17 GETTABLEKS                       R3 R4 K3 ["Dictionary"]
-       19 GETTABLEKS                       R2 R3 K4 ["join"]
+       16 GETUPVAL                         R2 3
+       17 GETTABLEKS                       R2 R2 K3 ["Dictionary"]
+       19 GETTABLEKS                       R2 R2 K4 ["join"]
        21 MOVE                             R3 R0
        22 DUPTABLE                         R4 K5 [{"visualizationModeList"}]
        23 SETTABLEKS                       R1 R4 K2 ["visualizationModeList"]
@@ -341,13 +341,13 @@ PROTO_14:
        11 LOADNIL                          R5
        12 LOADNIL                          R6
        13 FORGPREP                         R4
-       14 GETUPVAL                         R11 0
-       15 GETTABLEKS                       R10 R11 K4 ["Dictionary"]
-       17 GETTABLEKS                       R9 R10 K5 ["join"]
+       14 GETUPVAL                         R9 0
+       15 GETTABLEKS                       R9 R9 K4 ["Dictionary"]
+       17 GETTABLEKS                       R9 R9 K5 ["join"]
        19 MOVE                             R10 R8
        20 DUPTABLE                         R11 K7 [{"visualizationModeServiceState"}]
-       21 GETUPVAL                         R13 1
-       22 GETTABLEKS                       R12 R13 K8 ["map"]
+       21 GETUPVAL                         R12 1
+       22 GETTABLEKS                       R12 R12 K8 ["map"]
        24 GETTABLEKS                       R13 R8 K6 ["visualizationModeServiceState"]
        26 NEWCLOSURE                       R14 P0
        27 CAPTURE                          VAL R1
@@ -444,8 +444,8 @@ PROTO_17:
         4 RETURN                           R0 0
 
 PROTO_18:
-        0 GETTABLEKS                       R2 R0 K0 ["_plugin"]
-        2 GETTABLEKS                       R1 R2 K1 ["MultipleDocumentInterfaceInstance"]
+        0 GETTABLEKS                       R1 R0 K0 ["_plugin"]
+        2 GETTABLEKS                       R1 R1 K1 ["MultipleDocumentInterfaceInstance"]
         4 JUMPIFNOTEQKNIL                  R1 ; [+2]
         6 RETURN                           R0 0
         7 GETTABLEKS                       R2 R1 K2 ["FocusedDataModelSession"]
@@ -466,9 +466,9 @@ PROTO_19:
         0 DUPTABLE                         R3 K3 [{"visualizationModeCategoryName", "visualizationModeName", "lastEditUnixTimeStamp"}]
         1 SETTABLEKS                       R1 R3 K0 ["visualizationModeCategoryName"]
         3 SETTABLEKS                       R2 R3 K1 ["visualizationModeName"]
-        5 GETIMPORT                        R5 K6 [DateTime.now]
-        7 CALL                             R5 0 1
-        8 GETTABLEKS                       R4 R5 K7 ["UnixTimestamp"]
+        5 GETIMPORT                        R4 K6 [DateTime.now]
+        7 CALL                             R4 0 1
+        8 GETTABLEKS                       R4 R4 K7 ["UnixTimestamp"]
        10 SETTABLEKS                       R4 R3 K2 ["lastEditUnixTimeStamp"]
        12 LOADNIL                          R4
        13 LOADNIL                          R5
@@ -492,9 +492,9 @@ PROTO_19:
        39 MOVE                             R5 R9
        40 JUMP                             ; [+10]
        41 GETTABLEKS                       R11 R10 K2 ["lastEditUnixTimeStamp"]
-       43 GETTABLEKS                       R14 R0 K8 ["_recentModeRecordList"]
-       45 GETTABLE                         R13 R14 R5
-       46 GETTABLEKS                       R12 R13 K2 ["lastEditUnixTimeStamp"]
+       43 GETTABLEKS                       R13 R0 K8 ["_recentModeRecordList"]
+       45 GETTABLE                         R12 R13 R5
+       46 GETTABLEKS                       R12 R12 K2 ["lastEditUnixTimeStamp"]
        48 JUMPIFNOTLT                      R11 R12 ; [+2]
        50 MOVE                             R5 R9
        51 FORGLOOP                         R6 2 ; [-33]
@@ -542,26 +542,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Cryo"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Cryo"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["Dash"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K6 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Util"]
-       34 GETTABLEKS                       R5 R6 K12 ["Maid"]
+       30 GETTABLEKS                       R5 R0 K6 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Util"]
+       34 GETTABLEKS                       R5 R5 K12 ["Maid"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K11 ["Util"]
-       43 GETTABLEKS                       R6 R7 K13 ["Signal"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K11 ["Util"]
+       43 GETTABLEKS                       R6 R6 K13 ["Signal"]
        45 CALL                             R5 1 1
        46 NEWTABLE                         R6 16 0
        48 SETTABLEKS                       R6 R6 K14 ["__index"]

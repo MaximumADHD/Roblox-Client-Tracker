@@ -10,9 +10,9 @@ PROTO_0:
         9 JUMPIF                           R1 ; [+18]
        10 GETUPVAL                         R1 2
        11 GETUPVAL                         R3 3
-       12 GETUPVAL                         R6 4
-       13 GETTABLEKS                       R5 R6 K0 ["SCREENS"]
-       15 GETTABLEKS                       R4 R5 K1 ["UPLOADING_ASSET"]
+       12 GETUPVAL                         R4 4
+       13 GETTABLEKS                       R4 R4 K0 ["SCREENS"]
+       15 GETTABLEKS                       R4 R4 K1 ["UPLOADING_ASSET"]
        17 CALL                             R3 1 -1
        18 NAMECALL                         R1 R1 K2 ["dispatch"]
        20 CALL                             R1 -1 0
@@ -35,9 +35,9 @@ PROTO_1:
         8 JUMPIF                           R0 ; [+18]
         9 GETUPVAL                         R0 2
        10 GETUPVAL                         R2 3
-       11 GETUPVAL                         R5 4
-       12 GETTABLEKS                       R4 R5 K1 ["SCREENS"]
-       14 GETTABLEKS                       R3 R4 K2 ["UPLOADING_ASSET"]
+       11 GETUPVAL                         R3 4
+       12 GETTABLEKS                       R3 R3 K1 ["SCREENS"]
+       14 GETTABLEKS                       R3 R3 K2 ["UPLOADING_ASSET"]
        16 CALL                             R2 1 -1
        17 NAMECALL                         R0 R0 K3 ["dispatch"]
        19 CALL                             R0 -1 0
@@ -63,9 +63,9 @@ PROTO_2:
        13 JUMPIF                           R1 ; [+18]
        14 GETUPVAL                         R1 3
        15 GETUPVAL                         R3 4
-       16 GETUPVAL                         R6 5
-       17 GETTABLEKS                       R5 R6 K2 ["SCREENS"]
-       19 GETTABLEKS                       R4 R5 K3 ["UPLOADING_ASSET"]
+       16 GETUPVAL                         R4 5
+       17 GETTABLEKS                       R4 R4 K2 ["SCREENS"]
+       19 GETTABLEKS                       R4 R4 K3 ["UPLOADING_ASSET"]
        21 CALL                             R3 1 -1
        22 NAMECALL                         R1 R1 K4 ["dispatch"]
        24 CALL                             R1 -1 0
@@ -84,9 +84,9 @@ PROTO_3:
         3 SETTABLEKS                       R3 R2 K0 ["thumbnail"]
         5 LOADB                            R3 0
         6 SETTABLEKS                       R3 R2 K1 ["assetMedia"]
-        8 NAMECALL                         R4 R0 K3 ["getState"]
-       10 CALL                             R4 1 1
-       11 GETTABLEKS                       R3 R4 K4 ["allowedAssetTypesForRelease"]
+        8 NAMECALL                         R3 R0 K3 ["getState"]
+       10 CALL                             R3 1 1
+       11 GETTABLEKS                       R3 R3 K4 ["allowedAssetTypesForRelease"]
        13 NEWCLOSURE                       R4 P0
        14 CAPTURE                          VAL R2
        15 CAPTURE                          UPVAL U0
@@ -111,15 +111,15 @@ PROTO_3:
        34 CAPTURE                          UPVAL U1
        35 CAPTURE                          UPVAL U2
        36 CAPTURE                          UPVAL U3
-       37 GETUPVAL                         R8 4
-       38 GETTABLEKS                       R7 R8 K5 ["iconFile"]
+       37 GETUPVAL                         R7 4
+       38 GETTABLEKS                       R7 R7 K5 ["iconFile"]
        40 JUMPIFNOT                        R7 ; [+18]
-       41 GETUPVAL                         R8 4
-       42 GETTABLEKS                       R7 R8 K6 ["networkInterface"]
-       44 GETUPVAL                         R10 4
-       45 GETTABLEKS                       R9 R10 K7 ["assetId"]
-       47 GETUPVAL                         R11 4
-       48 GETTABLEKS                       R10 R11 K5 ["iconFile"]
+       41 GETUPVAL                         R7 4
+       42 GETTABLEKS                       R7 R7 K6 ["networkInterface"]
+       44 GETUPVAL                         R9 4
+       45 GETTABLEKS                       R9 R9 K7 ["assetId"]
+       47 GETUPVAL                         R10 4
+       48 GETTABLEKS                       R10 R10 K5 ["iconFile"]
        50 NAMECALL                         R7 R7 K8 ["uploadAssetThumbnail"]
        52 CALL                             R7 3 1
        53 MOVE                             R9 R5
@@ -135,9 +135,9 @@ PROTO_3:
        65 CALL                             R7 2 1
        66 JUMPIF                           R7 ; [+16]
        67 GETUPVAL                         R9 1
-       68 GETUPVAL                         R12 2
-       69 GETTABLEKS                       R11 R12 K10 ["SCREENS"]
-       71 GETTABLEKS                       R10 R11 K11 ["UPLOADING_ASSET"]
+       68 GETUPVAL                         R10 2
+       69 GETTABLEKS                       R10 R10 K10 ["SCREENS"]
+       71 GETTABLEKS                       R10 R10 K11 ["UPLOADING_ASSET"]
        73 CALL                             R9 1 -1
        74 NAMECALL                         R7 R0 K12 ["dispatch"]
        76 CALL                             R7 -1 0
@@ -146,18 +146,18 @@ PROTO_3:
        79 CALL                             R9 1 -1
        80 NAMECALL                         R7 R0 K12 ["dispatch"]
        82 CALL                             R7 -1 0
-       83 GETUPVAL                         R8 4
-       84 GETTABLEKS                       R7 R8 K13 ["assetMediaUpdateData"]
+       83 GETUPVAL                         R7 4
+       84 GETTABLEKS                       R7 R7 K13 ["assetMediaUpdateData"]
        86 JUMPIFNOT                        R7 ; [+22]
        87 GETUPVAL                         R9 5
-       88 GETUPVAL                         R11 4
-       89 GETTABLEKS                       R10 R11 K6 ["networkInterface"]
-       91 GETUPVAL                         R12 4
-       92 GETTABLEKS                       R11 R12 K7 ["assetId"]
-       94 GETUPVAL                         R13 4
-       95 GETTABLEKS                       R12 R13 K13 ["assetMediaUpdateData"]
-       97 GETUPVAL                         R14 4
-       98 GETTABLEKS                       R13 R14 K14 ["assetTypeEnum"]
+       88 GETUPVAL                         R10 4
+       89 GETTABLEKS                       R10 R10 K6 ["networkInterface"]
+       91 GETUPVAL                         R11 4
+       92 GETTABLEKS                       R11 R11 K7 ["assetId"]
+       94 GETUPVAL                         R12 4
+       95 GETTABLEKS                       R12 R12 K13 ["assetMediaUpdateData"]
+       97 GETUPVAL                         R13 4
+       98 GETTABLEKS                       R13 R13 K14 ["assetTypeEnum"]
       100 CALL                             R9 4 -1
       101 NAMECALL                         R7 R0 K12 ["dispatch"]
       103 CALL                             R7 -1 1
@@ -173,9 +173,9 @@ PROTO_3:
       115 CALL                             R7 2 1
       116 JUMPIF                           R7 ; [+16]
       117 GETUPVAL                         R9 1
-      118 GETUPVAL                         R12 2
-      119 GETTABLEKS                       R11 R12 K10 ["SCREENS"]
-      121 GETTABLEKS                       R10 R11 K11 ["UPLOADING_ASSET"]
+      118 GETUPVAL                         R10 2
+      119 GETTABLEKS                       R10 R10 K10 ["SCREENS"]
+      121 GETTABLEKS                       R10 R10 K11 ["UPLOADING_ASSET"]
       123 CALL                             R9 1 -1
       124 NAMECALL                         R7 R0 K12 ["dispatch"]
       126 CALL                             R7 -1 0
@@ -190,9 +190,9 @@ PROTO_3:
       136 CALL                             R7 2 1
       137 JUMPIF                           R7 ; [+16]
       138 GETUPVAL                         R9 1
-      139 GETUPVAL                         R12 2
-      140 GETTABLEKS                       R11 R12 K10 ["SCREENS"]
-      142 GETTABLEKS                       R10 R11 K11 ["UPLOADING_ASSET"]
+      139 GETUPVAL                         R10 2
+      140 GETTABLEKS                       R10 R10 K10 ["SCREENS"]
+      142 GETTABLEKS                       R10 R10 K11 ["UPLOADING_ASSET"]
       144 CALL                             R9 1 -1
       145 NAMECALL                         R7 R0 K12 ["dispatch"]
       147 CALL                             R7 -1 0
@@ -216,17 +216,17 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Util"]
        15 GETIMPORT                        R2 K6 [require]
-       17 GETTABLEKS                       R5 R0 K3 ["Src"]
-       19 GETTABLEKS                       R4 R5 K4 ["Util"]
-       21 GETTABLEKS                       R3 R4 K7 ["DebugFlags"]
+       17 GETTABLEKS                       R3 R0 K3 ["Src"]
+       19 GETTABLEKS                       R3 R3 K4 ["Util"]
+       21 GETTABLEKS                       R3 R3 K7 ["DebugFlags"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K6 [require]
        26 GETTABLEKS                       R4 R1 K8 ["AssetConfigConstants"]
@@ -234,8 +234,8 @@ MAIN:
        29 GETIMPORT                        R4 K6 [require]
        31 GETTABLEKS                       R5 R1 K9 ["AssetConfigUtil"]
        33 CALL                             R4 1 1
-       34 GETTABLEKS                       R6 R0 K3 ["Src"]
-       36 GETTABLEKS                       R5 R6 K10 ["Actions"]
+       34 GETTABLEKS                       R5 R0 K3 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Actions"]
        38 GETIMPORT                        R6 K6 [require]
        40 GETTABLEKS                       R7 R5 K11 ["SetCurrentScreen"]
        42 CALL                             R6 1 1
@@ -243,10 +243,10 @@ MAIN:
        45 GETTABLEKS                       R8 R5 K12 ["UploadResult"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K6 [require]
-       50 GETTABLEKS                       R12 R0 K3 ["Src"]
-       52 GETTABLEKS                       R11 R12 K13 ["Networking"]
-       54 GETTABLEKS                       R10 R11 K14 ["Requests"]
-       56 GETTABLEKS                       R9 R10 K15 ["UpdateAssetMediaDataRequest"]
+       50 GETTABLEKS                       R9 R0 K3 ["Src"]
+       52 GETTABLEKS                       R9 R9 K13 ["Networking"]
+       54 GETTABLEKS                       R9 R9 K14 ["Requests"]
+       56 GETTABLEKS                       R9 R9 K15 ["UpdateAssetMediaDataRequest"]
        58 CALL                             R8 1 1
        59 GETTABLEKS                       R9 R0 K16 ["Packages"]
        61 GETIMPORT                        R10 K6 [require]

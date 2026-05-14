@@ -7,12 +7,12 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["dropdownContent"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["dropdownContent"]
         3 GETTABLE                         R1 R2 R0
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K1 ["props"]
-        7 GETTABLEKS                       R2 R3 K2 ["updateStore"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["props"]
+        7 GETTABLEKS                       R2 R2 K2 ["updateStore"]
         9 DUPTABLE                         R3 K6 [{"fetchedAll", "loadingPage", "overrideCursor"}]
        10 LOADB                            R4 0
        11 SETTABLEKS                       R4 R3 K3 ["fetchedAll"]
@@ -21,16 +21,16 @@ PROTO_1:
        16 LOADK                            R4 K7 [""]
        17 SETTABLEKS                       R4 R3 K5 ["overrideCursor"]
        19 CALL                             R2 1 0
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K1 ["props"]
-       23 GETTABLEKS                       R2 R3 K8 ["getOverrideAssets"]
-       25 GETUPVAL                         R6 0
-       26 GETTABLEKS                       R5 R6 K1 ["props"]
-       28 GETTABLEKS                       R4 R5 K9 ["Network"]
-       30 GETTABLEKS                       R3 R4 K10 ["networkInterface"]
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R5 R6 K1 ["props"]
-       35 GETTABLEKS                       R4 R5 K11 ["assetTypeEnum"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K1 ["props"]
+       23 GETTABLEKS                       R2 R2 K8 ["getOverrideAssets"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K1 ["props"]
+       28 GETTABLEKS                       R3 R3 K9 ["Network"]
+       30 GETTABLEKS                       R3 R3 K10 ["networkInterface"]
+       32 GETUPVAL                         R4 0
+       33 GETTABLEKS                       R4 R4 K1 ["props"]
+       35 GETTABLEKS                       R4 R4 K11 ["assetTypeEnum"]
        37 GETTABLEKS                       R5 R1 K12 ["creatorType"]
        39 GETTABLEKS                       R6 R1 K13 ["creatorId"]
        41 LOADN                            R7 1
@@ -44,19 +44,19 @@ PROTO_1:
        52 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["selectItem"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["props"]
-        8 GETTABLEKS                       R2 R3 K3 ["getOverrideAssets"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K2 ["props"]
-       13 GETTABLEKS                       R4 R5 K4 ["Network"]
-       15 GETTABLEKS                       R3 R4 K5 ["networkInterface"]
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K2 ["props"]
-       20 GETTABLEKS                       R4 R5 K6 ["assetTypeEnum"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["selectItem"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K2 ["props"]
+        8 GETTABLEKS                       R2 R2 K3 ["getOverrideAssets"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["props"]
+       13 GETTABLEKS                       R3 R3 K4 ["Network"]
+       15 GETTABLEKS                       R3 R3 K5 ["networkInterface"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K2 ["props"]
+       20 GETTABLEKS                       R4 R4 K6 ["assetTypeEnum"]
        22 GETTABLEKS                       R5 R1 K7 ["creatorType"]
        24 GETTABLEKS                       R6 R1 K8 ["creatorId"]
        26 MOVE                             R7 R0
@@ -100,22 +100,22 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["dropdownContent"]
         2 GETTABLEN                        R1 R2 1
-        3 GETTABLEKS                       R3 R0 K1 ["props"]
-        5 GETTABLEKS                       R2 R3 K2 ["getOverrideAssets"]
-        7 GETTABLEKS                       R5 R0 K1 ["props"]
-        9 GETTABLEKS                       R4 R5 K3 ["Network"]
-       11 GETTABLEKS                       R3 R4 K4 ["networkInterface"]
-       13 GETTABLEKS                       R5 R0 K1 ["props"]
-       15 GETTABLEKS                       R4 R5 K5 ["assetTypeEnum"]
+        3 GETTABLEKS                       R2 R0 K1 ["props"]
+        5 GETTABLEKS                       R2 R2 K2 ["getOverrideAssets"]
+        7 GETTABLEKS                       R3 R0 K1 ["props"]
+        9 GETTABLEKS                       R3 R3 K3 ["Network"]
+       11 GETTABLEKS                       R3 R3 K4 ["networkInterface"]
+       13 GETTABLEKS                       R4 R0 K1 ["props"]
+       15 GETTABLEKS                       R4 R4 K5 ["assetTypeEnum"]
        17 GETTABLEKS                       R5 R1 K6 ["creatorType"]
        19 GETTABLEKS                       R6 R1 K7 ["creatorId"]
        21 LOADN                            R7 1
        22 CALL                             R2 5 0
-       23 GETTABLEKS                       R3 R0 K1 ["props"]
-       25 GETTABLEKS                       R2 R3 K8 ["getManageableGroups"]
-       27 GETTABLEKS                       R5 R0 K1 ["props"]
-       29 GETTABLEKS                       R4 R5 K3 ["Network"]
-       31 GETTABLEKS                       R3 R4 K4 ["networkInterface"]
+       23 GETTABLEKS                       R2 R0 K1 ["props"]
+       25 GETTABLEKS                       R2 R2 K8 ["getManageableGroups"]
+       27 GETTABLEKS                       R3 R0 K1 ["props"]
+       29 GETTABLEKS                       R3 R3 K3 ["Network"]
+       31 GETTABLEKS                       R3 R3 K4 ["networkInterface"]
        33 CALL                             R2 1 0
        34 RETURN                           R0 0
 
@@ -131,8 +131,8 @@ PROTO_5:
        16 GETTABLEKS                       R9 R1 K8 ["onOverrideAssetSelected"]
        18 GETTABLEKS                       R10 R1 K9 ["resultsArray"]
        20 GETTABLEKS                       R11 R2 K10 ["selectIndex"]
-       22 GETUPVAL                         R13 0
-       23 GETTABLEKS                       R12 R13 K11 ["getOwnerDropDownContent"]
+       22 GETUPVAL                         R12 0
+       23 GETTABLEKS                       R12 R12 K11 ["getOwnerDropDownContent"]
        25 GETTABLEKS                       R13 R1 K12 ["manageableGroups"]
        27 GETTABLEKS                       R14 R1 K13 ["Localization"]
        29 CALL                             R12 2 1
@@ -143,9 +143,9 @@ PROTO_5:
        37 LOADB                            R12 1
        38 MOVE                             R13 R12
        39 JUMPIFNOT                        R13 ; [+11]
-       40 GETUPVAL                         R16 1
-       41 GETTABLEKS                       R15 R16 K19 ["FLOW_TYPE"]
-       43 GETTABLEKS                       R14 R15 K20 ["DOWNLOAD_FLOW"]
+       40 GETUPVAL                         R14 1
+       41 GETTABLEKS                       R14 R14 K19 ["FLOW_TYPE"]
+       43 GETTABLEKS                       R14 R14 K20 ["DOWNLOAD_FLOW"]
        45 GETTABLEKS                       R15 R1 K21 ["screenFlowType"]
        47 JUMPIFEQ                         R14 R15 ; [+2]
        49 LOADB                            R13 0 +1
@@ -160,8 +160,8 @@ PROTO_5:
        60 JUMPIFLT                         R17 R16 ; [+2]
        62 LOADB                            R15 0 +1
        63 LOADB                            R15 1
-       64 GETUPVAL                         R17 2
-       65 GETTABLEKS                       R16 R17 K26 ["createElement"]
+       64 GETUPVAL                         R16 2
+       65 GETTABLEKS                       R16 R16 K26 ["createElement"]
        67 LOADK                            R17 K27 ["Frame"]
        68 DUPTABLE                         R18 K30 [{"Size", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
        69 SETTABLEKS                       R6 R18 K5 ["Size"]
@@ -171,8 +171,8 @@ PROTO_5:
        75 SETTABLEKS                       R19 R18 K29 ["BorderSizePixel"]
        77 SETTABLEKS                       R5 R18 K4 ["LayoutOrder"]
        79 DUPTABLE                         R19 K37 [{"UIPadding", "UIListLayout", "Title", "DropdownAndAnimationIdContainer", "DropdownMenu", "ScrollingItems"}]
-       80 GETUPVAL                         R21 2
-       81 GETTABLEKS                       R20 R21 K26 ["createElement"]
+       80 GETUPVAL                         R20 2
+       81 GETTABLEKS                       R20 R20 K26 ["createElement"]
        83 LOADK                            R21 K31 ["UIPadding"]
        84 DUPTABLE                         R22 K42 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
        85 GETIMPORT                        R23 K45 [UDim.new]
@@ -197,8 +197,8 @@ PROTO_5:
       111 SETTABLEKS                       R23 R22 K41 ["PaddingTop"]
       113 CALL                             R20 2 1
       114 SETTABLEKS                       R20 R19 K31 ["UIPadding"]
-      116 GETUPVAL                         R21 2
-      117 GETTABLEKS                       R20 R21 K26 ["createElement"]
+      116 GETUPVAL                         R20 2
+      117 GETTABLEKS                       R20 R20 K26 ["createElement"]
       119 LOADK                            R21 K32 ["UIListLayout"]
       120 DUPTABLE                         R22 K51 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
       121 GETIMPORT                        R23 K53 [Enum.FillDirection.Vertical]
@@ -216,8 +216,8 @@ PROTO_5:
       142 SETTABLEKS                       R23 R22 K50 ["Padding"]
       144 CALL                             R20 2 1
       145 SETTABLEKS                       R20 R19 K32 ["UIListLayout"]
-      147 GETUPVAL                         R21 2
-      148 GETTABLEKS                       R20 R21 K26 ["createElement"]
+      147 GETUPVAL                         R20 2
+      148 GETTABLEKS                       R20 R20 K26 ["createElement"]
       150 LOADK                            R21 K59 ["TextLabel"]
       151 DUPTABLE                         R22 K66 [{"Size", "BackgroundTransparency", "BorderSizePixel", "Text", "Font", "TextSize", "TextColor3", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
       152 GETIMPORT                        R23 K68 [UDim2.new]
@@ -244,11 +244,11 @@ PROTO_5:
       180 NAMECALL                         R23 R23 K71 ["getText"]
       182 CALL                             R23 3 1
       183 SETTABLEKS                       R23 R22 K60 ["Text"]
-      185 GETUPVAL                         R24 3
-      186 GETTABLEKS                       R23 R24 K73 ["FONT"]
+      185 GETUPVAL                         R23 3
+      186 GETTABLEKS                       R23 R23 K73 ["FONT"]
       188 SETTABLEKS                       R23 R22 K61 ["Font"]
-      190 GETUPVAL                         R24 3
-      191 GETTABLEKS                       R23 R24 K74 ["FONT_SIZE_LARGE"]
+      190 GETUPVAL                         R23 3
+      191 GETTABLEKS                       R23 R23 K74 ["FONT_SIZE_LARGE"]
       193 SETTABLEKS                       R23 R22 K62 ["TextSize"]
       195 GETTABLEKS                       R23 R4 K75 ["textColor"]
       197 SETTABLEKS                       R23 R22 K63 ["TextColor3"]
@@ -262,8 +262,8 @@ PROTO_5:
       211 SETTABLEKS                       R20 R19 K33 ["Title"]
       213 MOVE                             R20 R12
       214 JUMPIFNOT                        R20 ; [+156]
-      215 GETUPVAL                         R21 2
-      216 GETTABLEKS                       R20 R21 K26 ["createElement"]
+      215 GETUPVAL                         R20 2
+      216 GETTABLEKS                       R20 R20 K26 ["createElement"]
       218 LOADK                            R21 K27 ["Frame"]
       219 DUPTABLE                         R22 K79 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
       220 LOADN                            R23 2
@@ -278,8 +278,8 @@ PROTO_5:
       232 CALL                             R23 4 1
       233 SETTABLEKS                       R23 R22 K5 ["Size"]
       235 DUPTABLE                         R23 K81 [{"UIListLayout", "DropdownMenu", "AnimationIdFilter"}]
-      236 GETUPVAL                         R25 2
-      237 GETTABLEKS                       R24 R25 K26 ["createElement"]
+      236 GETUPVAL                         R24 2
+      237 GETTABLEKS                       R24 R24 K26 ["createElement"]
       239 LOADK                            R25 K32 ["UIListLayout"]
       240 DUPTABLE                         R26 K51 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
       241 GETIMPORT                        R27 K83 [Enum.FillDirection.Horizontal]
@@ -297,8 +297,8 @@ PROTO_5:
       262 SETTABLEKS                       R27 R26 K50 ["Padding"]
       264 CALL                             R24 2 1
       265 SETTABLEKS                       R24 R23 K32 ["UIListLayout"]
-      267 GETUPVAL                         R25 2
-      268 GETTABLEKS                       R24 R25 K26 ["createElement"]
+      267 GETUPVAL                         R24 2
+      268 GETTABLEKS                       R24 R24 K26 ["createElement"]
       270 GETUPVAL                         R25 4
       271 DUPTABLE                         R26 K88 [{"Size", "selectedDropDownIndex", "rowHeight", "items", "onItemClicked", "LayoutOrder"}]
       272 GETIMPORT                        R27 K68 [UDim2.new]
@@ -321,8 +321,8 @@ PROTO_5:
       298 SETTABLEKS                       R24 R23 K35 ["DropdownMenu"]
       300 NOT                              R24 R13
       301 JUMPIFNOT                        R24 ; [+66]
-      302 GETUPVAL                         R25 2
-      303 GETTABLEKS                       R24 R25 K26 ["createElement"]
+      302 GETUPVAL                         R24 2
+      303 GETTABLEKS                       R24 R24 K26 ["createElement"]
       305 LOADK                            R25 K27 ["Frame"]
       306 DUPTABLE                         R26 K30 [{"Size", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
       307 GETIMPORT                        R27 K68 [UDim2.new]
@@ -339,8 +339,8 @@ PROTO_5:
       322 LOADN                            R27 2
       323 SETTABLEKS                       R27 R26 K4 ["LayoutOrder"]
       325 DUPTABLE                         R27 K91 [{"TextField"}]
-      326 GETUPVAL                         R29 2
-      327 GETTABLEKS                       R28 R29 K26 ["createElement"]
+      326 GETUPVAL                         R28 2
+      327 GETTABLEKS                       R28 R28 K26 ["createElement"]
       329 GETUPVAL                         R29 5
       330 DUPTABLE                         R30 K95 [{"OnTextChanged", "PlaceholderText", "Size", "Style", "Text"}]
       331 GETTABLEKS                       R31 R0 K96 ["onFilterIDChanged"]
@@ -353,8 +353,8 @@ PROTO_5:
       342 SETTABLEKS                       R31 R30 K93 ["PlaceholderText"]
       344 GETIMPORT                        R31 K68 [UDim2.new]
       346 LOADN                            R32 1
-      347 GETUPVAL                         R35 1
-      348 GETTABLEKS                       R34 R35 K99 ["TITLE_GUTTER_WIDTH"]
+      347 GETUPVAL                         R34 1
+      348 GETTABLEKS                       R34 R34 K99 ["TITLE_GUTTER_WIDTH"]
       350 MINUS                            R33 R34
       351 LOADN                            R34 0
       352 LOADN                            R35 40
@@ -374,8 +374,8 @@ PROTO_5:
       371 SETTABLEKS                       R20 R19 K34 ["DropdownAndAnimationIdContainer"]
       373 NOT                              R20 R12
       374 JUMPIFNOT                        R20 ; [+31]
-      375 GETUPVAL                         R21 2
-      376 GETTABLEKS                       R20 R21 K26 ["createElement"]
+      375 GETUPVAL                         R20 2
+      376 GETTABLEKS                       R20 R20 K26 ["createElement"]
       378 GETUPVAL                         R21 4
       379 DUPTABLE                         R22 K88 [{"Size", "selectedDropDownIndex", "rowHeight", "items", "onItemClicked", "LayoutOrder"}]
       380 GETIMPORT                        R23 K68 [UDim2.new]
@@ -396,8 +396,8 @@ PROTO_5:
       403 SETTABLEKS                       R23 R22 K4 ["LayoutOrder"]
       405 CALL                             R20 2 1
       406 SETTABLEKS                       R20 R19 K35 ["DropdownMenu"]
-      408 GETUPVAL                         R21 2
-      409 GETTABLEKS                       R20 R21 K26 ["createElement"]
+      408 GETUPVAL                         R20 2
+      409 GETTABLEKS                       R20 R20 K26 ["createElement"]
       411 GETUPVAL                         R21 6
       412 DUPTABLE                         R22 K103 [{"Size", "assetTypeEnum", "instances", "resultsArray", "onOverrideAssetSelected", "getOverrideAssets", "filterID", "LayoutOrder"}]
       413 GETIMPORT                        R23 K68 [UDim2.new]
@@ -488,11 +488,11 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -500,19 +500,19 @@ MAIN:
        18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R1 K7 ["RoactRodux"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R6 R0 K8 ["Src"]
-       25 GETTABLEKS                       R5 R6 K9 ["Components"]
-       27 GETTABLEKS                       R4 R5 K10 ["AssetConfiguration"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K9 ["Components"]
+       27 GETTABLEKS                       R4 R4 K10 ["AssetConfiguration"]
        29 GETIMPORT                        R5 K5 [require]
        31 GETTABLEKS                       R6 R4 K11 ["OverrideAssetView"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K8 ["Src"]
-       38 GETTABLEKS                       R8 R9 K9 ["Components"]
-       40 GETTABLEKS                       R7 R8 K12 ["DropdownMenu"]
+       36 GETTABLEKS                       R7 R0 K8 ["Src"]
+       38 GETTABLEKS                       R7 R7 K9 ["Components"]
+       40 GETTABLEKS                       R7 R7 K12 ["DropdownMenu"]
        42 CALL                             R6 1 1
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K13 ["Util"]
+       43 GETTABLEKS                       R7 R0 K8 ["Src"]
+       45 GETTABLEKS                       R7 R7 K13 ["Util"]
        47 GETIMPORT                        R8 K5 [require]
        49 GETTABLEKS                       R9 R7 K14 ["Constants"]
        51 CALL                             R8 1 1
@@ -533,13 +533,13 @@ MAIN:
        76 GETTABLEKS                       R15 R12 K21 ["ContextServices"]
        78 GETTABLEKS                       R16 R15 K22 ["withContext"]
        80 GETIMPORT                        R17 K5 [require]
-       82 GETTABLEKS                       R20 R0 K8 ["Src"]
-       84 GETTABLEKS                       R19 R20 K21 ["ContextServices"]
-       86 GETTABLEKS                       R18 R19 K23 ["NetworkContext"]
+       82 GETTABLEKS                       R18 R0 K8 ["Src"]
+       84 GETTABLEKS                       R18 R18 K21 ["ContextServices"]
+       86 GETTABLEKS                       R18 R18 K23 ["NetworkContext"]
        88 CALL                             R17 1 1
-       89 GETTABLEKS                       R20 R0 K8 ["Src"]
-       91 GETTABLEKS                       R19 R20 K24 ["Networking"]
-       93 GETTABLEKS                       R18 R19 K25 ["Requests"]
+       89 GETTABLEKS                       R18 R0 K8 ["Src"]
+       91 GETTABLEKS                       R18 R18 K24 ["Networking"]
+       93 GETTABLEKS                       R18 R18 K25 ["Requests"]
        95 GETIMPORT                        R19 K5 [require]
        97 GETTABLEKS                       R20 R18 K26 ["GetOverrideAssetRequest"]
        99 CALL                             R19 1 1
@@ -547,9 +547,9 @@ MAIN:
       102 GETTABLEKS                       R21 R18 K27 ["GetAssetConfigManageableGroupsRequest"]
       104 CALL                             R20 1 1
       105 GETIMPORT                        R21 K5 [require]
-      107 GETTABLEKS                       R24 R0 K8 ["Src"]
-      109 GETTABLEKS                       R23 R24 K28 ["Actions"]
-      111 GETTABLEKS                       R22 R23 K29 ["UpdateAssetConfigStore"]
+      107 GETTABLEKS                       R22 R0 K8 ["Src"]
+      109 GETTABLEKS                       R22 R22 K28 ["Actions"]
+      111 GETTABLEKS                       R22 R22 K29 ["UpdateAssetConfigStore"]
       113 CALL                             R21 1 1
       114 GETTABLEKS                       R22 R2 K30 ["PureComponent"]
       116 LOADK                            R24 K31 ["OverrideAsset"]

@@ -11,9 +11,9 @@ PROTO_0:
        12 FASTCALL2                        ASSERT R3 R4 ; [+3]
        14 GETIMPORT                        R2 K4 [assert]
        16 CALL                             R2 2 0
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K5 ["Dictionary"]
-       20 GETTABLEKS                       R2 R3 K6 ["join"]
+       17 GETUPVAL                         R2 0
+       18 GETTABLEKS                       R2 R2 K5 ["Dictionary"]
+       20 GETTABLEKS                       R2 R2 K6 ["join"]
        22 MOVE                             R3 R0
        23 NEWTABLE                         R4 1 0
        25 GETTABLEKS                       R5 R1 K0 ["notification"]
@@ -35,12 +35,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Rodux"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Rodux"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Cryo"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
        20 CALL                             R2 1 1
        21 DUPTABLE                         R3 K15 [{"QuantizeWarning", "Saved", "Loaded", "ClippedWarning", "InvalidAnimation", "CannotPasteError"}]
        22 LOADB                            R4 0

@@ -49,8 +49,8 @@ PROTO_0:
        71 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getSimpleAsset"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getSimpleAsset"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1

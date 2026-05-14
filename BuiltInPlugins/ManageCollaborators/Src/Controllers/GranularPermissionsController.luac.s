@@ -16,8 +16,8 @@ PROTO_0:
        16 NAMECALL                         R2 R2 K4 ["await"]
        18 CALL                             R2 1 1
        19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R5 R2 K5 ["responseBody"]
-       22 GETTABLEKS                       R4 R5 K6 ["id"]
+       20 GETTABLEKS                       R4 R2 K5 ["responseBody"]
+       22 GETTABLEKS                       R4 R4 K6 ["id"]
        24 SETTABLE                         R4 R3 R1
        25 GETUPVAL                         R4 0
        26 GETTABLE                         R3 R4 R1
@@ -29,8 +29,8 @@ PROTO_1:
         2 LOADK                            R4 K1 ["/orgs/v2/universes/%*/permissions/organizations/%*/roles/%*"]
         3 GETUPVAL                         R6 1
         4 GETUPVAL                         R7 2
-        5 GETUPVAL                         R9 3
-        6 GETTABLEKS                       R8 R9 K2 ["id"]
+        5 GETUPVAL                         R8 3
+        6 GETTABLEKS                       R8 R8 K2 ["id"]
         8 NAMECALL                         R4 R4 K3 ["format"]
        10 CALL                             R4 4 1
        11 MOVE                             R3 R4
@@ -38,8 +38,8 @@ PROTO_1:
        14 CALL                             R0 3 1
        15 NAMECALL                         R0 R0 K5 ["await"]
        17 CALL                             R0 1 1
-       18 GETUPVAL                         R2 4
-       19 GETTABLEKS                       R1 R2 K6 ["fromResponseBody"]
+       18 GETUPVAL                         R1 4
+       19 GETTABLEKS                       R1 R1 K6 ["fromResponseBody"]
        21 GETTABLEKS                       R2 R0 K7 ["responseBody"]
        23 GETUPVAL                         R3 3
        24 GETUPVAL                         R4 5
@@ -71,8 +71,8 @@ PROTO_3:
         8 CALL                             R4 4 1
         9 MOVE                             R3 R4
        10 DUPTABLE                         R4 K5 [{"Body", "expectEmptyResponse"}]
-       11 GETUPVAL                         R6 4
-       12 GETTABLEKS                       R5 R6 K6 ["toRequestBody"]
+       11 GETUPVAL                         R5 4
+       12 GETTABLEKS                       R5 R5 K6 ["toRequestBody"]
        14 GETUPVAL                         R6 5
        15 CALL                             R5 1 1
        16 SETTABLEKS                       R5 R4 K3 ["Body"]
@@ -113,24 +113,24 @@ PROTO_5:
        17 CALL                             R3 1 1
        18 NEWTABLE                         R4 0 0
        20 NEWTABLE                         R5 0 0
-       22 GETTABLEKS                       R9 R3 K6 ["responseBody"]
-       24 GETTABLEKS                       R6 R9 K7 ["permissionEditableRoleIds"]
+       22 GETTABLEKS                       R6 R3 K6 ["responseBody"]
+       24 GETTABLEKS                       R6 R6 K7 ["permissionEditableRoleIds"]
        26 LOADNIL                          R7
        27 LOADNIL                          R8
        28 FORGPREP                         R6
        29 LOADB                            R11 1
        30 SETTABLE                         R11 R4 R10
        31 FORGLOOP                         R6 2 ; [-3]
-       33 GETTABLEKS                       R9 R3 K6 ["responseBody"]
-       35 GETTABLEKS                       R6 R9 K8 ["metadataEditableRoleIds"]
+       33 GETTABLEKS                       R6 R3 K6 ["responseBody"]
+       35 GETTABLEKS                       R6 R6 K8 ["metadataEditableRoleIds"]
        37 LOADNIL                          R7
        38 LOADNIL                          R8
        39 FORGPREP                         R6
        40 LOADB                            R11 1
        41 SETTABLE                         R11 R5 R10
        42 FORGLOOP                         R6 2 ; [-3]
-       44 GETTABLEKS                       R9 R3 K6 ["responseBody"]
-       46 GETTABLEKS                       R6 R9 K9 ["assignableRoleIds"]
+       44 GETTABLEKS                       R6 R3 K6 ["responseBody"]
+       46 GETTABLEKS                       R6 R6 K9 ["assignableRoleIds"]
        48 LOADNIL                          R7
        49 LOADNIL                          R8
        50 FORGPREP                         R6
@@ -201,8 +201,8 @@ PROTO_8:
        25 NAMECALL                         R6 R6 K7 ["await"]
        27 CALL                             R6 1 1
        28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R9 R6 K8 ["responseBody"]
-       31 GETTABLEKS                       R8 R9 K9 ["id"]
+       29 GETTABLEKS                       R8 R6 K8 ["responseBody"]
+       31 GETTABLEKS                       R8 R8 K9 ["id"]
        33 SETTABLE                         R8 R7 R2
        34 GETUPVAL                         R7 0
        35 GETTABLE                         R5 R7 R2
@@ -242,8 +242,8 @@ PROTO_9:
         3 GETUPVAL                         R5 3
         4 GETUPVAL                         R6 4
         5 GETUPVAL                         R9 5
-        6 GETUPVAL                         R11 3
-        7 GETTABLEKS                       R10 R11 K1 ["id"]
+        6 GETUPVAL                         R10 3
+        7 GETTABLEKS                       R10 R10 K1 ["id"]
         9 GETTABLE                         R8 R9 R10
        10 ORK                              R7 R8 K0 [False]
        11 GETIMPORT                        R8 K3 [pcall]
@@ -297,8 +297,8 @@ PROTO_10:
        18 NAMECALL                         R6 R6 K5 ["await"]
        20 CALL                             R6 1 1
        21 GETUPVAL                         R7 0
-       22 GETTABLEKS                       R9 R6 K6 ["responseBody"]
-       24 GETTABLEKS                       R8 R9 K7 ["id"]
+       22 GETTABLEKS                       R8 R6 K6 ["responseBody"]
+       24 GETTABLEKS                       R8 R8 K7 ["id"]
        26 SETTABLE                         R8 R7 R2
        27 GETUPVAL                         R7 0
        28 GETTABLE                         R5 R7 R2
@@ -312,8 +312,8 @@ PROTO_10:
        38 CALL                             R6 3 1
        39 NAMECALL                         R6 R6 K5 ["await"]
        41 CALL                             R6 1 1
-       42 GETTABLEKS                       R8 R6 K6 ["responseBody"]
-       44 GETTABLEKS                       R7 R8 K9 ["roles"]
+       42 GETTABLEKS                       R7 R6 K6 ["responseBody"]
+       44 GETTABLEKS                       R7 R7 K9 ["roles"]
        46 GETUPVAL                         R8 1
        47 MOVE                             R9 R4
        48 MOVE                             R10 R5
@@ -365,15 +365,15 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Src"]
-       13 GETTABLEKS                       R4 R5 K6 ["Networking"]
-       15 GETTABLEKS                       R3 R4 K7 ["Requests"]
-       17 GETTABLEKS                       R2 R3 K8 ["GranularPermissionsDataHandler"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Networking"]
+       15 GETTABLEKS                       R2 R2 K7 ["Requests"]
+       17 GETTABLEKS                       R2 R2 K8 ["GranularPermissionsDataHandler"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K10 [game]
        22 LOADK                            R4 K11 ["StudioService"]

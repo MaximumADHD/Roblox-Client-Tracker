@@ -1,25 +1,28 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R2 R5 K0 ["LIMBS"]
-        3 LOADNIL                          R3
-        4 LOADNIL                          R4
-        5 FORGPREP                         R2
-        6 MOVE                             R9 R6
-        7 NAMECALL                         R7 R0 K1 ["FindFirstChild"]
-        9 CALL                             R7 2 1
-       10 JUMPIFEQKNIL                     R7 ; [+13]
-       12 MOVE                             R10 R1
-       13 NAMECALL                         R8 R7 K1 ["FindFirstChild"]
-       15 CALL                             R8 2 1
-       16 JUMPIFEQKNIL                     R8 ; [+7]
-       18 LOADK                            R11 K2 ["Attachment"]
-       19 NAMECALL                         R9 R8 K3 ["IsA"]
-       21 CALL                             R9 2 1
-       22 JUMPIFNOT                        R9 ; [+1]
-       23 RETURN                           R8 1
-       24 FORGLOOP                         R2 2 ; [-19]
-       26 LOADNIL                          R2
-       27 RETURN                           R2 1
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K0 ["LIMBS"]
+        5 LOADNIL                          R4
+        6 LOADNIL                          R5
+        7 FORGPREP                         R3
+        8 MOVE                             R10 R7
+        9 NAMECALL                         R8 R0 K1 ["FindFirstChild"]
+       11 CALL                             R8 2 1
+       12 JUMPIFEQKNIL                     R8 ; [+14]
+       14 MOVE                             R11 R1
+       15 MOVE                             R12 R2
+       16 NAMECALL                         R9 R8 K1 ["FindFirstChild"]
+       18 CALL                             R9 3 1
+       19 JUMPIFEQKNIL                     R9 ; [+7]
+       21 LOADK                            R12 K2 ["Attachment"]
+       22 NAMECALL                         R10 R9 K3 ["IsA"]
+       24 CALL                             R10 2 1
+       25 JUMPIFNOT                        R10 ; [+1]
+       26 RETURN                           R9 1
+       27 FORGLOOP                         R3 2 ; [-20]
+       29 LOADNIL                          R3
+       30 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -33,14 +36,14 @@ PROTO_1:
        10 LOADNIL                          R3
        11 FORGPREP                         R1
        12 GETTABLEKS                       R6 R5 K3 ["assetType"]
-       14 JUMPIFEQKNIL                     R6 ; [+307]
-       16 GETTABLEKS                       R7 R5 K4 ["meshPart"]
-       18 GETTABLEKS                       R6 R7 K5 ["Parent"]
-       20 JUMPIFEQKNIL                     R6 ; [+301]
+       14 JUMPIFEQKNIL                     R6 ; [+316]
+       16 GETTABLEKS                       R6 R5 K4 ["meshPart"]
+       18 GETTABLEKS                       R6 R6 K5 ["Parent"]
+       20 JUMPIFEQKNIL                     R6 ; [+310]
        22 LOADK                            R9 K6 ["Humanoid"]
        23 NAMECALL                         R7 R6 K7 ["FindFirstChildWhichIsA"]
        25 CALL                             R7 2 1
-       26 JUMPIFEQKNIL                     R7 ; [+295]
+       26 JUMPIFEQKNIL                     R7 ; [+304]
        28 GETUPVAL                         R8 1
        29 MOVE                             R9 R6
        30 GETTABLEKS                       R10 R5 K8 ["attachmentName"]
@@ -53,9 +56,9 @@ PROTO_1:
        42 CALL                             R11 2 1
        43 MOVE                             R10 R11
        44 CALL                             R9 1 0
-       45 JUMP                             ; [+276]
-       46 GETUPVAL                         R11 2
-       47 GETTABLEKS                       R10 R11 K13 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
+       45 JUMP                             ; [+285]
+       46 GETUPVAL                         R10 2
+       47 GETTABLEKS                       R10 R10 K13 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
        49 GETTABLEKS                       R11 R5 K3 ["assetType"]
        51 GETTABLE                         R9 R10 R11
        52 JUMPIFNOTEQKNIL                  R9 ; [+12]
@@ -66,174 +69,182 @@ PROTO_1:
        61 CALL                             R12 2 1
        62 MOVE                             R11 R12
        63 CALL                             R10 1 0
-       64 JUMP                             ; [+257]
+       64 JUMP                             ; [+266]
        65 GETIMPORT                        R10 K17 [Instance.new]
        67 LOADK                            R11 K18 ["Accessory"]
        68 CALL                             R10 1 1
-       69 GETTABLEKS                       R12 R5 K4 ["meshPart"]
-       71 GETTABLEKS                       R11 R12 K19 ["Name"]
+       69 GETTABLEKS                       R11 R5 K4 ["meshPart"]
+       71 GETTABLEKS                       R11 R11 K19 ["Name"]
        73 SETTABLEKS                       R11 R10 K19 ["Name"]
        75 SETTABLEKS                       R9 R10 K20 ["AccessoryType"]
-       77 GETTABLEKS                       R12 R8 K5 ["Parent"]
-       79 FASTCALL2K                       ASSERT R12 K21 ; [+4]
-       81 LOADK                            R13 K21 ["No parent"]
-       82 GETIMPORT                        R11 K2 [assert]
-       84 CALL                             R11 2 1
-       85 GETTABLEKS                       R14 R5 K4 ["meshPart"]
-       87 MOVE                             R17 R11
-       88 NAMECALL                         R15 R7 K22 ["GetBodyPartR15"]
-       90 CALL                             R15 2 -1
-       91 NAMECALL                         R12 R7 K23 ["GetAccessoryHandleScale"]
-       93 CALL                             R12 -1 1
-       94 LOADNIL                          R13
-       95 GETTABLEKS                       R14 R5 K4 ["meshPart"]
-       97 LOADK                            R16 K24 ["WrapLayer"]
-       98 NAMECALL                         R14 R14 K7 ["FindFirstChildWhichIsA"]
-      100 CALL                             R14 2 1
-      101 JUMPIFNOTEQKNIL                  R14 ; [+147]
-      103 GETIMPORT                        R14 K17 [Instance.new]
-      105 LOADK                            R15 K25 ["Part"]
-      106 CALL                             R14 1 1
-      107 MOVE                             R13 R14
-      108 GETIMPORT                        R14 K29 [Enum.SurfaceType.Smooth]
-      110 SETTABLEKS                       R14 R13 K30 ["TopSurface"]
-      112 GETIMPORT                        R14 K29 [Enum.SurfaceType.Smooth]
-      114 SETTABLEKS                       R14 R13 K31 ["BottomSurface"]
-      116 LOADK                            R14 K32 ["Handle"]
-      117 SETTABLEKS                       R14 R13 K19 ["Name"]
-      119 GETTABLEKS                       R15 R5 K4 ["meshPart"]
-      121 GETTABLEKS                       R14 R15 K33 ["CFrame"]
-      123 SETTABLEKS                       R14 R13 K33 ["CFrame"]
-      125 GETTABLEKS                       R15 R5 K4 ["meshPart"]
-      127 GETTABLEKS                       R14 R15 K34 ["Size"]
-      129 SETTABLEKS                       R14 R13 K34 ["Size"]
-      131 GETIMPORT                        R14 K17 [Instance.new]
-      133 LOADK                            R15 K35 ["SpecialMesh"]
-      134 CALL                             R14 1 1
-      135 GETIMPORT                        R15 K38 [Enum.MeshType.FileMesh]
-      137 SETTABLEKS                       R15 R14 K36 ["MeshType"]
-      139 GETTABLEKS                       R17 R5 K4 ["meshPart"]
-      141 GETTABLEKS                       R16 R17 K34 ["Size"]
-      143 GETTABLEKS                       R18 R5 K4 ["meshPart"]
-      145 GETTABLEKS                       R17 R18 K39 ["MeshSize"]
-      147 DIV                              R15 R16 R17
-      148 SETTABLEKS                       R15 R14 K40 ["Scale"]
-      150 GETTABLEKS                       R16 R5 K4 ["meshPart"]
-      152 GETTABLEKS                       R15 R16 K41 ["MeshId"]
-      154 SETTABLEKS                       R15 R14 K41 ["MeshId"]
-      156 GETTABLEKS                       R15 R5 K4 ["meshPart"]
-      158 GETUPVAL                         R18 2
-      159 GETTABLEKS                       R17 R18 K42 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
-      161 NAMECALL                         R15 R15 K43 ["GetAttribute"]
-      163 CALL                             R15 2 1
-      164 JUMPIFNOT                        R15 ; [+7]
-      165 GETUPVAL                         R18 2
-      166 GETTABLEKS                       R17 R18 K42 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
-      168 LOADB                            R18 1
-      169 NAMECALL                         R15 R13 K44 ["SetAttribute"]
-      171 CALL                             R15 3 0
-      172 GETTABLEKS                       R15 R5 K4 ["meshPart"]
-      174 LOADK                            R17 K45 ["SurfaceAppearance"]
-      175 NAMECALL                         R15 R15 K7 ["FindFirstChildWhichIsA"]
-      177 CALL                             R15 2 1
-      178 JUMPIFNOT                        R15 ; [+5]
-      179 GETTABLEKS                       R16 R15 K46 ["ColorMap"]
-      181 SETTABLEKS                       R16 R14 K47 ["TextureId"]
-      183 JUMP                             ; [+6]
-      184 GETTABLEKS                       R17 R5 K4 ["meshPart"]
-      186 GETTABLEKS                       R16 R17 K48 ["TextureID"]
-      188 SETTABLEKS                       R16 R14 K47 ["TextureId"]
-      190 GETTABLEKS                       R16 R5 K4 ["meshPart"]
-      192 LOADK                            R18 K49 ["AvatarPartScaleType"]
-      193 NAMECALL                         R16 R16 K50 ["FindFirstChild"]
-      195 CALL                             R16 2 1
-      196 JUMPIFNOT                        R16 ; [+6]
-      197 GETIMPORT                        R17 K52 [Instance.fromExisting]
-      199 MOVE                             R18 R16
-      200 CALL                             R17 1 1
-      201 SETTABLEKS                       R13 R17 K5 ["Parent"]
-      203 GETTABLEKS                       R17 R5 K4 ["meshPart"]
-      205 LOADK                            R19 K53 ["OriginalSize"]
-      206 NAMECALL                         R17 R17 K50 ["FindFirstChild"]
-      208 CALL                             R17 2 1
-      209 JUMPIFNOT                        R17 ; [+7]
-      210 GETIMPORT                        R18 K52 [Instance.fromExisting]
-      212 MOVE                             R19 R17
-      213 CALL                             R18 1 1
-      214 SETTABLEKS                       R13 R18 K5 ["Parent"]
-      216 JUMP                             ; [+8]
-      217 GETUPVAL                         R19 3
-      218 GETTABLEKS                       R18 R19 K54 ["setOriginalSize"]
-      220 MOVE                             R19 R13
-      221 GETTABLEKS                       R21 R13 K34 ["Size"]
-      223 DIV                              R20 R21 R12
-      224 CALL                             R18 2 0
-      225 GETTABLEKS                       R18 R5 K4 ["meshPart"]
-      227 NAMECALL                         R18 R18 K55 ["GetChildren"]
-      229 CALL                             R18 1 3
-      230 FORGPREP                         R18
-      231 LOADK                            R25 K24 ["WrapLayer"]
-      232 NAMECALL                         R23 R22 K56 ["IsA"]
-      234 CALL                             R23 2 1
-      235 JUMPIFNOT                        R23 ; [+6]
-      236 NAMECALL                         R23 R22 K57 ["Clone"]
-      238 CALL                             R23 1 1
-      239 JUMPIFNOT                        R23 ; [+2]
-      240 SETTABLEKS                       R13 R23 K5 ["Parent"]
-      242 FORGLOOP                         R18 2 ; [-12]
-      244 SETTABLEKS                       R13 R14 K5 ["Parent"]
-      246 SETTABLEKS                       R10 R13 K5 ["Parent"]
-      248 JUMP                             ; [+23]
-      249 GETTABLEKS                       R14 R5 K4 ["meshPart"]
-      251 NAMECALL                         R14 R14 K57 ["Clone"]
-      253 CALL                             R14 1 1
-      254 MOVE                             R13 R14
-      255 LOADK                            R14 K32 ["Handle"]
-      256 SETTABLEKS                       R14 R13 K19 ["Name"]
-      258 SETTABLEKS                       R10 R13 K5 ["Parent"]
-      260 LOADK                            R16 K53 ["OriginalSize"]
-      261 NAMECALL                         R14 R13 K50 ["FindFirstChild"]
-      263 CALL                             R14 2 1
-      264 JUMPIF                           R14 ; [+7]
-      265 GETUPVAL                         R15 3
-      266 GETTABLEKS                       R14 R15 K54 ["setOriginalSize"]
-      268 MOVE                             R15 R13
-      269 GETTABLEKS                       R16 R13 K34 ["Size"]
-      271 CALL                             R14 2 0
-      272 GETIMPORT                        R14 K17 [Instance.new]
-      274 LOADK                            R15 K58 ["Attachment"]
-      275 CALL                             R14 1 1
-      276 GETTABLEKS                       R15 R5 K8 ["attachmentName"]
-      278 SETTABLEKS                       R15 R14 K19 ["Name"]
-      280 GETTABLEKS                       R16 R5 K4 ["meshPart"]
-      282 GETTABLEKS                       R15 R16 K33 ["CFrame"]
-      284 GETTABLEKS                       R17 R8 K59 ["WorldCFrame"]
-      286 NAMECALL                         R15 R15 K60 ["ToObjectSpace"]
-      288 CALL                             R15 2 1
-      289 SETTABLEKS                       R15 R14 K33 ["CFrame"]
-      291 SETTABLEKS                       R13 R14 K5 ["Parent"]
-      293 GETTABLEKS                       R15 R5 K4 ["meshPart"]
-      295 NAMECALL                         R15 R15 K61 ["Destroy"]
-      297 CALL                             R15 1 0
-      298 SETTABLEKS                       R6 R10 K5 ["Parent"]
-      300 GETUPVAL                         R15 4
-      301 CALL                             R15 0 1
-      302 JUMPIFNOT                        R15 ; [+11]
-      303 LOADK                            R17 K24 ["WrapLayer"]
-      304 NAMECALL                         R15 R13 K7 ["FindFirstChildWhichIsA"]
-      306 CALL                             R15 2 1
-      307 JUMPIFEQKNIL                     R15 ; [+6]
-      309 GETIMPORT                        R15 K62 [CFrame.new]
-      311 CALL                             R15 0 1
-      312 SETTABLEKS                       R15 R14 K33 ["CFrame"]
-      314 GETUPVAL                         R16 3
-      315 GETTABLEKS                       R15 R16 K63 ["setOriginalPosition"]
-      317 MOVE                             R16 R14
-      318 GETTABLEKS                       R18 R14 K64 ["Position"]
-      320 MUL                              R17 R18 R12
-      321 CALL                             R15 2 0
-      322 FORGLOOP                         R1 2 ; [-311]
-      324 RETURN                           R0 0
+       77 GETUPVAL                         R12 3
+       78 CALL                             R12 0 1
+       79 JUMPIFNOT                        R12 ; [+5]
+       80 LOADK                            R13 K21 ["BasePart"]
+       81 NAMECALL                         R11 R8 K22 ["FindFirstAncestorWhichIsA"]
+       83 CALL                             R11 2 1
+       84 JUMP                             ; [+2]
+       85 GETTABLEKS                       R11 R8 K5 ["Parent"]
+       87 FASTCALL2K                       ASSERT R11 K23 ; [+5]
+       89 MOVE                             R13 R11
+       90 LOADK                            R14 K23 ["No parent"]
+       91 GETIMPORT                        R12 K2 [assert]
+       93 CALL                             R12 2 0
+       94 GETTABLEKS                       R14 R5 K4 ["meshPart"]
+       96 MOVE                             R17 R11
+       97 NAMECALL                         R15 R7 K24 ["GetBodyPartR15"]
+       99 CALL                             R15 2 -1
+      100 NAMECALL                         R12 R7 K25 ["GetAccessoryHandleScale"]
+      102 CALL                             R12 -1 1
+      103 LOADNIL                          R13
+      104 GETTABLEKS                       R14 R5 K4 ["meshPart"]
+      106 LOADK                            R16 K26 ["WrapLayer"]
+      107 NAMECALL                         R14 R14 K7 ["FindFirstChildWhichIsA"]
+      109 CALL                             R14 2 1
+      110 JUMPIFNOTEQKNIL                  R14 ; [+147]
+      112 GETIMPORT                        R14 K17 [Instance.new]
+      114 LOADK                            R15 K27 ["Part"]
+      115 CALL                             R14 1 1
+      116 MOVE                             R13 R14
+      117 GETIMPORT                        R14 K31 [Enum.SurfaceType.Smooth]
+      119 SETTABLEKS                       R14 R13 K32 ["TopSurface"]
+      121 GETIMPORT                        R14 K31 [Enum.SurfaceType.Smooth]
+      123 SETTABLEKS                       R14 R13 K33 ["BottomSurface"]
+      125 LOADK                            R14 K34 ["Handle"]
+      126 SETTABLEKS                       R14 R13 K19 ["Name"]
+      128 GETTABLEKS                       R14 R5 K4 ["meshPart"]
+      130 GETTABLEKS                       R14 R14 K35 ["CFrame"]
+      132 SETTABLEKS                       R14 R13 K35 ["CFrame"]
+      134 GETTABLEKS                       R14 R5 K4 ["meshPart"]
+      136 GETTABLEKS                       R14 R14 K36 ["Size"]
+      138 SETTABLEKS                       R14 R13 K36 ["Size"]
+      140 GETIMPORT                        R14 K17 [Instance.new]
+      142 LOADK                            R15 K37 ["SpecialMesh"]
+      143 CALL                             R14 1 1
+      144 GETIMPORT                        R15 K40 [Enum.MeshType.FileMesh]
+      146 SETTABLEKS                       R15 R14 K38 ["MeshType"]
+      148 GETTABLEKS                       R16 R5 K4 ["meshPart"]
+      150 GETTABLEKS                       R16 R16 K36 ["Size"]
+      152 GETTABLEKS                       R17 R5 K4 ["meshPart"]
+      154 GETTABLEKS                       R17 R17 K41 ["MeshSize"]
+      156 DIV                              R15 R16 R17
+      157 SETTABLEKS                       R15 R14 K42 ["Scale"]
+      159 GETTABLEKS                       R15 R5 K4 ["meshPart"]
+      161 GETTABLEKS                       R15 R15 K43 ["MeshId"]
+      163 SETTABLEKS                       R15 R14 K43 ["MeshId"]
+      165 GETTABLEKS                       R15 R5 K4 ["meshPart"]
+      167 GETUPVAL                         R17 2
+      168 GETTABLEKS                       R17 R17 K44 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+      170 NAMECALL                         R15 R15 K45 ["GetAttribute"]
+      172 CALL                             R15 2 1
+      173 JUMPIFNOT                        R15 ; [+7]
+      174 GETUPVAL                         R17 2
+      175 GETTABLEKS                       R17 R17 K44 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+      177 LOADB                            R18 1
+      178 NAMECALL                         R15 R13 K46 ["SetAttribute"]
+      180 CALL                             R15 3 0
+      181 GETTABLEKS                       R15 R5 K4 ["meshPart"]
+      183 LOADK                            R17 K47 ["SurfaceAppearance"]
+      184 NAMECALL                         R15 R15 K7 ["FindFirstChildWhichIsA"]
+      186 CALL                             R15 2 1
+      187 JUMPIFNOT                        R15 ; [+5]
+      188 GETTABLEKS                       R16 R15 K48 ["ColorMap"]
+      190 SETTABLEKS                       R16 R14 K49 ["TextureId"]
+      192 JUMP                             ; [+6]
+      193 GETTABLEKS                       R16 R5 K4 ["meshPart"]
+      195 GETTABLEKS                       R16 R16 K50 ["TextureID"]
+      197 SETTABLEKS                       R16 R14 K49 ["TextureId"]
+      199 GETTABLEKS                       R16 R5 K4 ["meshPart"]
+      201 LOADK                            R18 K51 ["AvatarPartScaleType"]
+      202 NAMECALL                         R16 R16 K52 ["FindFirstChild"]
+      204 CALL                             R16 2 1
+      205 JUMPIFNOT                        R16 ; [+6]
+      206 GETIMPORT                        R17 K54 [Instance.fromExisting]
+      208 MOVE                             R18 R16
+      209 CALL                             R17 1 1
+      210 SETTABLEKS                       R13 R17 K5 ["Parent"]
+      212 GETTABLEKS                       R17 R5 K4 ["meshPart"]
+      214 LOADK                            R19 K55 ["OriginalSize"]
+      215 NAMECALL                         R17 R17 K52 ["FindFirstChild"]
+      217 CALL                             R17 2 1
+      218 JUMPIFNOT                        R17 ; [+7]
+      219 GETIMPORT                        R18 K54 [Instance.fromExisting]
+      221 MOVE                             R19 R17
+      222 CALL                             R18 1 1
+      223 SETTABLEKS                       R13 R18 K5 ["Parent"]
+      225 JUMP                             ; [+8]
+      226 GETUPVAL                         R18 4
+      227 GETTABLEKS                       R18 R18 K56 ["setOriginalSize"]
+      229 MOVE                             R19 R13
+      230 GETTABLEKS                       R21 R13 K36 ["Size"]
+      232 DIV                              R20 R21 R12
+      233 CALL                             R18 2 0
+      234 GETTABLEKS                       R18 R5 K4 ["meshPart"]
+      236 NAMECALL                         R18 R18 K57 ["GetChildren"]
+      238 CALL                             R18 1 3
+      239 FORGPREP                         R18
+      240 LOADK                            R25 K26 ["WrapLayer"]
+      241 NAMECALL                         R23 R22 K58 ["IsA"]
+      243 CALL                             R23 2 1
+      244 JUMPIFNOT                        R23 ; [+6]
+      245 NAMECALL                         R23 R22 K59 ["Clone"]
+      247 CALL                             R23 1 1
+      248 JUMPIFNOT                        R23 ; [+2]
+      249 SETTABLEKS                       R13 R23 K5 ["Parent"]
+      251 FORGLOOP                         R18 2 ; [-12]
+      253 SETTABLEKS                       R13 R14 K5 ["Parent"]
+      255 SETTABLEKS                       R10 R13 K5 ["Parent"]
+      257 JUMP                             ; [+23]
+      258 GETTABLEKS                       R14 R5 K4 ["meshPart"]
+      260 NAMECALL                         R14 R14 K59 ["Clone"]
+      262 CALL                             R14 1 1
+      263 MOVE                             R13 R14
+      264 LOADK                            R14 K34 ["Handle"]
+      265 SETTABLEKS                       R14 R13 K19 ["Name"]
+      267 SETTABLEKS                       R10 R13 K5 ["Parent"]
+      269 LOADK                            R16 K55 ["OriginalSize"]
+      270 NAMECALL                         R14 R13 K52 ["FindFirstChild"]
+      272 CALL                             R14 2 1
+      273 JUMPIF                           R14 ; [+7]
+      274 GETUPVAL                         R14 4
+      275 GETTABLEKS                       R14 R14 K56 ["setOriginalSize"]
+      277 MOVE                             R15 R13
+      278 GETTABLEKS                       R16 R13 K36 ["Size"]
+      280 CALL                             R14 2 0
+      281 GETIMPORT                        R14 K17 [Instance.new]
+      283 LOADK                            R15 K60 ["Attachment"]
+      284 CALL                             R14 1 1
+      285 GETTABLEKS                       R15 R5 K8 ["attachmentName"]
+      287 SETTABLEKS                       R15 R14 K19 ["Name"]
+      289 GETTABLEKS                       R15 R5 K4 ["meshPart"]
+      291 GETTABLEKS                       R15 R15 K35 ["CFrame"]
+      293 GETTABLEKS                       R17 R8 K61 ["WorldCFrame"]
+      295 NAMECALL                         R15 R15 K62 ["ToObjectSpace"]
+      297 CALL                             R15 2 1
+      298 SETTABLEKS                       R15 R14 K35 ["CFrame"]
+      300 SETTABLEKS                       R13 R14 K5 ["Parent"]
+      302 GETTABLEKS                       R15 R5 K4 ["meshPart"]
+      304 NAMECALL                         R15 R15 K63 ["Destroy"]
+      306 CALL                             R15 1 0
+      307 SETTABLEKS                       R6 R10 K5 ["Parent"]
+      309 GETUPVAL                         R15 5
+      310 CALL                             R15 0 1
+      311 JUMPIFNOT                        R15 ; [+11]
+      312 LOADK                            R17 K26 ["WrapLayer"]
+      313 NAMECALL                         R15 R13 K7 ["FindFirstChildWhichIsA"]
+      315 CALL                             R15 2 1
+      316 JUMPIFEQKNIL                     R15 ; [+6]
+      318 GETIMPORT                        R15 K64 [CFrame.new]
+      320 CALL                             R15 0 1
+      321 SETTABLEKS                       R15 R14 K35 ["CFrame"]
+      323 GETUPVAL                         R15 4
+      324 GETTABLEKS                       R15 R15 K65 ["setOriginalPosition"]
+      326 MOVE                             R16 R14
+      327 GETTABLEKS                       R18 R14 K66 ["Position"]
+      329 MUL                              R17 R18 R12
+      330 CALL                             R15 2 0
+      331 FORGLOOP                         R1 2 ; [-320]
+      333 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -242,35 +253,42 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagFixLayeredClothingAssignment"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarPreviewerBoneNestedAttachmentFix"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagAvatarPreviewerLayeredAttachmentFix"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Flags"]
+       22 GETTABLEKS                       R3 R3 K9 ["getFFlagAvatarPreviewerLayeredAttachmentFix"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R5 K10 ["Types"]
-       31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Flags"]
+       31 GETTABLEKS                       R4 R4 K10 ["getFFlagFixLayeredClothingAssignment"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K11 ["Types"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K6 ["Src"]
-       45 GETTABLEKS                       R7 R8 K11 ["Util"]
-       47 GETTABLEKS                       R6 R7 K13 ["HumanoidValueUtil"]
+       43 GETTABLEKS                       R6 R0 K6 ["Src"]
+       45 GETTABLEKS                       R6 R6 K12 ["Util"]
+       47 GETTABLEKS                       R6 R6 K13 ["Constants"]
        49 CALL                             R5 1 1
-       50 DUPCLOSURE                       R6 K14 [PROTO_0]
-       51 CAPTURE                          VAL R4
-       52 DUPCLOSURE                       R7 K15 [PROTO_1]
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          VAL R6
-       55 CAPTURE                          VAL R4
-       56 CAPTURE                          VAL R5
-       57 CAPTURE                          VAL R2
-       58 RETURN                           R7 1
+       50 GETIMPORT                        R6 K5 [require]
+       52 GETTABLEKS                       R7 R0 K6 ["Src"]
+       54 GETTABLEKS                       R7 R7 K12 ["Util"]
+       56 GETTABLEKS                       R7 R7 K14 ["HumanoidValueUtil"]
+       58 CALL                             R6 1 1
+       59 DUPCLOSURE                       R7 K15 [PROTO_0]
+       60 CAPTURE                          VAL R1
+       61 CAPTURE                          VAL R5
+       62 DUPCLOSURE                       R8 K16 [PROTO_1]
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R7
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R2
+       69 RETURN                           R8 1

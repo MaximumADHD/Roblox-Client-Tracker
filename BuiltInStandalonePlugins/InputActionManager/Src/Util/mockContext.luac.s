@@ -10,26 +10,26 @@ PROTO_0:
        11 LOADK                            R3 K3 ["Expected children to be a table"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K6 ["get"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["get"]
        18 CALL                             R1 0 2
        19 AND                              R4 R1 R2
        20 FASTCALL2K                       ASSERT R4 K7 ; [+4]
        22 LOADK                            R5 K7 ["Expect both to exist"]
        23 GETIMPORT                        R3 K5 [assert]
        25 CALL                             R3 2 0
-       26 GETUPVAL                         R4 1
-       27 GETTABLEKS                       R3 R4 K8 ["provideMockContext"]
+       26 GETUPVAL                         R3 1
+       27 GETTABLEKS                       R3 R3 K8 ["provideMockContext"]
        29 GETUPVAL                         R4 2
        30 DUPTABLE                         R5 K10 [{"ContextStack"}]
-       31 GETUPVAL                         R7 3
-       32 GETTABLEKS                       R6 R7 K11 ["createElement"]
-       34 GETUPVAL                         R8 4
-       35 GETTABLEKS                       R7 R8 K9 ["ContextStack"]
+       31 GETUPVAL                         R6 3
+       32 GETTABLEKS                       R6 R6 K11 ["createElement"]
+       34 GETUPVAL                         R7 4
+       35 GETTABLEKS                       R7 R7 K9 ["ContextStack"]
        37 DUPTABLE                         R8 K13 [{"providers"}]
        38 NEWTABLE                         R9 0 7
-       40 GETUPVAL                         R11 3
-       41 GETTABLEKS                       R10 R11 K11 ["createElement"]
+       40 GETUPVAL                         R10 3
+       41 GETTABLEKS                       R10 R10 K11 ["createElement"]
        43 GETUPVAL                         R11 5
        44 DUPTABLE                         R12 K16 [{"theme", "device"}]
        45 LOADK                            R13 K17 ["Dark"]
@@ -37,39 +37,39 @@ PROTO_0:
        48 LOADK                            R13 K18 ["Desktop"]
        49 SETTABLEKS                       R13 R12 K15 ["device"]
        51 CALL                             R10 2 1
-       52 GETUPVAL                         R12 3
-       53 GETTABLEKS                       R11 R12 K11 ["createElement"]
-       55 GETUPVAL                         R13 6
-       56 GETTABLEKS                       R12 R13 K19 ["MockProvider"]
+       52 GETUPVAL                         R11 3
+       53 GETTABLEKS                       R11 R11 K11 ["createElement"]
+       55 GETUPVAL                         R12 6
+       56 GETTABLEKS                       R12 R12 K19 ["MockProvider"]
        58 CALL                             R11 1 1
-       59 GETUPVAL                         R13 3
-       60 GETTABLEKS                       R12 R13 K11 ["createElement"]
-       62 GETUPVAL                         R14 7
-       63 GETTABLEKS                       R13 R14 K20 ["Provider"]
+       59 GETUPVAL                         R12 3
+       60 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       62 GETUPVAL                         R13 7
+       63 GETTABLEKS                       R13 R13 K20 ["Provider"]
        65 CALL                             R12 1 1
-       66 GETUPVAL                         R14 3
-       67 GETTABLEKS                       R13 R14 K11 ["createElement"]
-       69 GETUPVAL                         R15 8
-       70 GETTABLEKS                       R14 R15 K20 ["Provider"]
+       66 GETUPVAL                         R13 3
+       67 GETTABLEKS                       R13 R13 K11 ["createElement"]
+       69 GETUPVAL                         R14 8
+       70 GETTABLEKS                       R14 R14 K20 ["Provider"]
        72 CALL                             R13 1 1
-       73 GETUPVAL                         R15 3
-       74 GETTABLEKS                       R14 R15 K11 ["createElement"]
-       76 GETUPVAL                         R16 9
-       77 GETTABLEKS                       R15 R16 K20 ["Provider"]
+       73 GETUPVAL                         R14 3
+       74 GETTABLEKS                       R14 R14 K11 ["createElement"]
+       76 GETUPVAL                         R15 9
+       77 GETTABLEKS                       R15 R15 K20 ["Provider"]
        79 DUPTABLE                         R16 K22 [{"value"}]
        80 SETTABLEKS                       R1 R16 K21 ["value"]
        82 CALL                             R14 2 1
-       83 GETUPVAL                         R16 3
-       84 GETTABLEKS                       R15 R16 K11 ["createElement"]
-       86 GETUPVAL                         R17 10
-       87 GETTABLEKS                       R16 R17 K20 ["Provider"]
+       83 GETUPVAL                         R15 3
+       84 GETTABLEKS                       R15 R15 K11 ["createElement"]
+       86 GETUPVAL                         R16 10
+       87 GETTABLEKS                       R16 R16 K20 ["Provider"]
        89 DUPTABLE                         R17 K22 [{"value"}]
        90 SETTABLEKS                       R2 R17 K21 ["value"]
        92 CALL                             R15 2 1
-       93 GETUPVAL                         R17 3
-       94 GETTABLEKS                       R16 R17 K11 ["createElement"]
-       96 GETUPVAL                         R18 11
-       97 GETTABLEKS                       R17 R18 K20 ["Provider"]
+       93 GETUPVAL                         R16 3
+       94 GETTABLEKS                       R16 R16 K11 ["createElement"]
+       96 GETUPVAL                         R17 11
+       97 GETTABLEKS                       R17 R17 K20 ["Provider"]
        99 CALL                             R16 1 -1
       100 SETLIST                          R9 R10 -1 [1]
       102 SETTABLEKS                       R9 R8 K12 ["providers"]
@@ -86,62 +86,62 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["TestHelpers"]
        30 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
        32 GETIMPORT                        R6 K5 [require]
-       34 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       36 GETTABLEKS                       R7 R8 K12 ["StudioFoundation"]
+       34 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       36 GETTABLEKS                       R7 R7 K12 ["StudioFoundation"]
        38 CALL                             R6 1 1
-       39 GETTABLEKS                       R8 R6 K13 ["Components"]
-       41 GETTABLEKS                       R7 R8 K14 ["FoundationProviderAdapter"]
-       43 GETTABLEKS                       R9 R6 K15 ["Contexts"]
-       45 GETTABLEKS                       R8 R9 K16 ["Localization"]
+       39 GETTABLEKS                       R7 R6 K13 ["Components"]
+       41 GETTABLEKS                       R7 R7 K14 ["FoundationProviderAdapter"]
+       43 GETTABLEKS                       R8 R6 K15 ["Contexts"]
+       45 GETTABLEKS                       R8 R8 K16 ["Localization"]
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R12 R0 K17 ["Src"]
-       51 GETTABLEKS                       R11 R12 K15 ["Contexts"]
-       53 GETTABLEKS                       R10 R11 K18 ["DatamodelReference"]
+       49 GETTABLEKS                       R10 R0 K17 ["Src"]
+       51 GETTABLEKS                       R10 R10 K15 ["Contexts"]
+       53 GETTABLEKS                       R10 R10 K18 ["DatamodelReference"]
        55 CALL                             R9 1 1
        56 GETIMPORT                        R10 K5 [require]
-       58 GETTABLEKS                       R13 R0 K17 ["Src"]
-       60 GETTABLEKS                       R12 R13 K15 ["Contexts"]
-       62 GETTABLEKS                       R11 R12 K19 ["Guest"]
+       58 GETTABLEKS                       R11 R0 K17 ["Src"]
+       60 GETTABLEKS                       R11 R11 K15 ["Contexts"]
+       62 GETTABLEKS                       R11 R11 K19 ["Guest"]
        64 CALL                             R10 1 1
        65 GETIMPORT                        R11 K5 [require]
-       67 GETTABLEKS                       R14 R0 K17 ["Src"]
-       69 GETTABLEKS                       R13 R14 K15 ["Contexts"]
-       71 GETTABLEKS                       R12 R13 K20 ["Networking"]
+       67 GETTABLEKS                       R12 R0 K17 ["Src"]
+       69 GETTABLEKS                       R12 R12 K15 ["Contexts"]
+       71 GETTABLEKS                       R12 R12 K20 ["Networking"]
        73 CALL                             R11 1 1
        74 GETIMPORT                        R12 K5 [require]
-       76 GETTABLEKS                       R15 R0 K17 ["Src"]
-       78 GETTABLEKS                       R14 R15 K15 ["Contexts"]
-       80 GETTABLEKS                       R13 R14 K21 ["PluginConfiguration"]
+       76 GETTABLEKS                       R13 R0 K17 ["Src"]
+       78 GETTABLEKS                       R13 R13 K15 ["Contexts"]
+       80 GETTABLEKS                       R13 R13 K21 ["PluginConfiguration"]
        82 CALL                             R12 1 1
        83 GETIMPORT                        R13 K5 [require]
-       85 GETTABLEKS                       R16 R0 K17 ["Src"]
-       87 GETTABLEKS                       R15 R16 K15 ["Contexts"]
-       89 GETTABLEKS                       R14 R15 K22 ["SchemaKeyCodes"]
+       85 GETTABLEKS                       R14 R0 K17 ["Src"]
+       87 GETTABLEKS                       R14 R14 K15 ["Contexts"]
+       89 GETTABLEKS                       R14 R14 K22 ["SchemaKeyCodes"]
        91 CALL                             R13 1 1
        92 GETIMPORT                        R14 K5 [require]
-       94 GETTABLEKS                       R17 R0 K17 ["Src"]
-       96 GETTABLEKS                       R16 R17 K23 ["Util"]
-       98 GETTABLEKS                       R15 R16 K24 ["mockNetworking"]
+       94 GETTABLEKS                       R15 R0 K17 ["Src"]
+       96 GETTABLEKS                       R15 R15 K23 ["Util"]
+       98 GETTABLEKS                       R15 R15 K24 ["mockNetworking"]
       100 CALL                             R14 1 1
-      101 GETTABLEKS                       R16 R6 K23 ["Util"]
-      103 GETTABLEKS                       R15 R16 K25 ["createFoundationDesignBinding"]
+      101 GETTABLEKS                       R15 R6 K23 ["Util"]
+      103 GETTABLEKS                       R15 R15 K25 ["createFoundationDesignBinding"]
       105 CALL                             R15 0 1
-      106 GETTABLEKS                       R17 R3 K26 ["Styling"]
-      108 GETTABLEKS                       R16 R17 K27 ["registerPluginStyles"]
+      106 GETTABLEKS                       R16 R3 K26 ["Styling"]
+      108 GETTABLEKS                       R16 R16 K27 ["registerPluginStyles"]
       110 GETIMPORT                        R17 K29 [plugin]
       112 LOADNIL                          R18
       113 LOADNIL                          R19
@@ -150,11 +150,11 @@ MAIN:
       117 SETLIST                          R20 R21 1 [1]
       119 CALL                             R16 4 1
       120 NEWTABLE                         R17 0 2
-      122 GETTABLEKS                       R19 R5 K30 ["Analytics"]
-      124 GETTABLEKS                       R18 R19 K31 ["mock"]
+      122 GETTABLEKS                       R18 R5 K30 ["Analytics"]
+      124 GETTABLEKS                       R18 R18 K31 ["mock"]
       126 CALL                             R18 0 1
-      127 GETTABLEKS                       R20 R5 K32 ["Design"]
-      129 GETTABLEKS                       R19 R20 K33 ["new"]
+      127 GETTABLEKS                       R19 R5 K32 ["Design"]
+      129 GETTABLEKS                       R19 R19 K33 ["new"]
       131 MOVE                             R20 R16
       132 CALL                             R19 1 -1
       133 SETLIST                          R17 R18 -1 [1]

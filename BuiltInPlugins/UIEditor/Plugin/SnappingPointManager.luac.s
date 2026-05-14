@@ -96,8 +96,8 @@ PROTO_2:
        52 SETTABLE                         R9 R8 R7
        53 FORNLOOP                         R4
        54 GETUPVAL                         R4 0
-       55 GETUPVAL                         R6 5
-       56 GETTABLEKS                       R5 R6 K7 ["new"]
+       55 GETUPVAL                         R5 5
+       56 GETTABLEKS                       R5 R5 K7 ["new"]
        58 GETIMPORT                        R6 K9 [Vector2.new]
        60 LOADN                            R7 0
        61 LOADN                            R8 0
@@ -234,8 +234,8 @@ PROTO_6:
        57 SETUPVAL                         R13 2
        58 GETUPVAL                         R11 6
        59 MOVE                             R13 R2
-       60 GETUPVAL                         R15 6
-       61 GETTABLEKS                       R14 R15 K3 ["MoveX"]
+       60 GETUPVAL                         R14 6
+       61 GETTABLEKS                       R14 R14 K3 ["MoveX"]
        63 NAMECALL                         R11 R11 K4 ["containsType"]
        65 CALL                             R11 3 1
        66 JUMPIFNOT                        R11 ; [+291]
@@ -248,36 +248,36 @@ PROTO_6:
        74 LENGTH                           R11 R14
        75 LOADN                            R12 1
        76 FORNPREP                         R11
-       77 GETUPVAL                         R16 5
-       78 GETTABLE                         R15 R16 R13
-       79 GETTABLEKS                       R14 R15 K6 ["LeftVisible"]
+       77 GETUPVAL                         R15 5
+       78 GETTABLE                         R14 R15 R13
+       79 GETTABLEKS                       R14 R14 K6 ["LeftVisible"]
        81 JUMPIFNOT                        R14 ; [+94]
        82 MOVE                             R14 R10
        83 GETTABLEKS                       R15 R1 K7 ["Left"]
-       85 GETUPVAL                         R18 5
-       86 GETTABLE                         R17 R18 R13
-       87 GETTABLEKS                       R16 R17 K7 ["Left"]
+       85 GETUPVAL                         R17 5
+       86 GETTABLE                         R16 R17 R13
+       87 GETTABLEKS                       R16 R16 K7 ["Left"]
        89 GETIMPORT                        R17 K10 [Vector2.new]
-       91 GETUPVAL                         R20 5
-       92 GETTABLE                         R19 R20 R13
-       93 GETTABLEKS                       R18 R19 K7 ["Left"]
+       91 GETUPVAL                         R19 5
+       92 GETTABLE                         R18 R19 R13
+       93 GETTABLEKS                       R18 R18 K7 ["Left"]
        95 GETTABLEKS                       R21 R1 K12 ["Top"]
-       97 GETUPVAL                         R24 5
-       98 GETTABLE                         R23 R24 R13
-       99 GETTABLEKS                       R22 R23 K12 ["Top"]
+       97 GETUPVAL                         R23 5
+       98 GETTABLE                         R22 R23 R13
+       99 GETTABLEKS                       R22 R22 K12 ["Top"]
       101 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       103 GETIMPORT                        R20 K15 [math.min]
       105 CALL                             R20 2 1
       106 SUBK                             R19 R20 K11 [10]
       107 CALL                             R17 2 1
       108 GETIMPORT                        R18 K10 [Vector2.new]
-      110 GETUPVAL                         R21 5
-      111 GETTABLE                         R20 R21 R13
-      112 GETTABLEKS                       R19 R20 K7 ["Left"]
+      110 GETUPVAL                         R20 5
+      111 GETTABLE                         R19 R20 R13
+      112 GETTABLEKS                       R19 R19 K7 ["Left"]
       114 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      116 GETUPVAL                         R25 5
-      117 GETTABLE                         R24 R25 R13
-      118 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      116 GETUPVAL                         R24 5
+      117 GETTABLE                         R23 R24 R13
+      118 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       120 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       122 GETIMPORT                        R21 K18 [math.max]
       124 CALL                             R21 2 1
@@ -287,30 +287,30 @@ PROTO_6:
       128 CALL                             R14 5 0
       129 MOVE                             R14 R10
       130 GETTABLEKS                       R15 R1 K19 ["Right"]
-      132 GETUPVAL                         R18 5
-      133 GETTABLE                         R17 R18 R13
-      134 GETTABLEKS                       R16 R17 K7 ["Left"]
+      132 GETUPVAL                         R17 5
+      133 GETTABLE                         R16 R17 R13
+      134 GETTABLEKS                       R16 R16 K7 ["Left"]
       136 GETIMPORT                        R17 K10 [Vector2.new]
-      138 GETUPVAL                         R20 5
-      139 GETTABLE                         R19 R20 R13
-      140 GETTABLEKS                       R18 R19 K7 ["Left"]
+      138 GETUPVAL                         R19 5
+      139 GETTABLE                         R18 R19 R13
+      140 GETTABLEKS                       R18 R18 K7 ["Left"]
       142 GETTABLEKS                       R21 R1 K12 ["Top"]
-      144 GETUPVAL                         R24 5
-      145 GETTABLE                         R23 R24 R13
-      146 GETTABLEKS                       R22 R23 K12 ["Top"]
+      144 GETUPVAL                         R23 5
+      145 GETTABLE                         R22 R23 R13
+      146 GETTABLEKS                       R22 R22 K12 ["Top"]
       148 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       150 GETIMPORT                        R20 K15 [math.min]
       152 CALL                             R20 2 1
       153 SUBK                             R19 R20 K11 [10]
       154 CALL                             R17 2 1
       155 GETIMPORT                        R18 K10 [Vector2.new]
-      157 GETUPVAL                         R21 5
-      158 GETTABLE                         R20 R21 R13
-      159 GETTABLEKS                       R19 R20 K7 ["Left"]
+      157 GETUPVAL                         R20 5
+      158 GETTABLE                         R19 R20 R13
+      159 GETTABLEKS                       R19 R19 K7 ["Left"]
       161 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      163 GETUPVAL                         R25 5
-      164 GETTABLE                         R24 R25 R13
-      165 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      163 GETUPVAL                         R24 5
+      164 GETTABLE                         R23 R24 R13
+      165 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       167 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       169 GETIMPORT                        R21 K18 [math.max]
       171 CALL                             R21 2 1
@@ -318,36 +318,36 @@ PROTO_6:
       173 CALL                             R18 2 1
       174 GETUPVAL                         R19 7
       175 CALL                             R14 5 0
-      176 GETUPVAL                         R16 5
-      177 GETTABLE                         R15 R16 R13
-      178 GETTABLEKS                       R14 R15 K20 ["RightVisible"]
+      176 GETUPVAL                         R15 5
+      177 GETTABLE                         R14 R15 R13
+      178 GETTABLEKS                       R14 R14 K20 ["RightVisible"]
       180 JUMPIFNOT                        R14 ; [+94]
       181 MOVE                             R14 R10
       182 GETTABLEKS                       R15 R1 K7 ["Left"]
-      184 GETUPVAL                         R18 5
-      185 GETTABLE                         R17 R18 R13
-      186 GETTABLEKS                       R16 R17 K19 ["Right"]
+      184 GETUPVAL                         R17 5
+      185 GETTABLE                         R16 R17 R13
+      186 GETTABLEKS                       R16 R16 K19 ["Right"]
       188 GETIMPORT                        R17 K10 [Vector2.new]
-      190 GETUPVAL                         R20 5
-      191 GETTABLE                         R19 R20 R13
-      192 GETTABLEKS                       R18 R19 K19 ["Right"]
+      190 GETUPVAL                         R19 5
+      191 GETTABLE                         R18 R19 R13
+      192 GETTABLEKS                       R18 R18 K19 ["Right"]
       194 GETTABLEKS                       R21 R1 K12 ["Top"]
-      196 GETUPVAL                         R24 5
-      197 GETTABLE                         R23 R24 R13
-      198 GETTABLEKS                       R22 R23 K12 ["Top"]
+      196 GETUPVAL                         R23 5
+      197 GETTABLE                         R22 R23 R13
+      198 GETTABLEKS                       R22 R22 K12 ["Top"]
       200 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       202 GETIMPORT                        R20 K15 [math.min]
       204 CALL                             R20 2 1
       205 SUBK                             R19 R20 K11 [10]
       206 CALL                             R17 2 1
       207 GETIMPORT                        R18 K10 [Vector2.new]
-      209 GETUPVAL                         R21 5
-      210 GETTABLE                         R20 R21 R13
-      211 GETTABLEKS                       R19 R20 K19 ["Right"]
+      209 GETUPVAL                         R20 5
+      210 GETTABLE                         R19 R20 R13
+      211 GETTABLEKS                       R19 R19 K19 ["Right"]
       213 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      215 GETUPVAL                         R25 5
-      216 GETTABLE                         R24 R25 R13
-      217 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      215 GETUPVAL                         R24 5
+      216 GETTABLE                         R23 R24 R13
+      217 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       219 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       221 GETIMPORT                        R21 K18 [math.max]
       223 CALL                             R21 2 1
@@ -357,30 +357,30 @@ PROTO_6:
       227 CALL                             R14 5 0
       228 MOVE                             R14 R10
       229 GETTABLEKS                       R15 R1 K19 ["Right"]
-      231 GETUPVAL                         R18 5
-      232 GETTABLE                         R17 R18 R13
-      233 GETTABLEKS                       R16 R17 K19 ["Right"]
+      231 GETUPVAL                         R17 5
+      232 GETTABLE                         R16 R17 R13
+      233 GETTABLEKS                       R16 R16 K19 ["Right"]
       235 GETIMPORT                        R17 K10 [Vector2.new]
-      237 GETUPVAL                         R20 5
-      238 GETTABLE                         R19 R20 R13
-      239 GETTABLEKS                       R18 R19 K19 ["Right"]
+      237 GETUPVAL                         R19 5
+      238 GETTABLE                         R18 R19 R13
+      239 GETTABLEKS                       R18 R18 K19 ["Right"]
       241 GETTABLEKS                       R21 R1 K12 ["Top"]
-      243 GETUPVAL                         R24 5
-      244 GETTABLE                         R23 R24 R13
-      245 GETTABLEKS                       R22 R23 K12 ["Top"]
+      243 GETUPVAL                         R23 5
+      244 GETTABLE                         R22 R23 R13
+      245 GETTABLEKS                       R22 R22 K12 ["Top"]
       247 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       249 GETIMPORT                        R20 K15 [math.min]
       251 CALL                             R20 2 1
       252 SUBK                             R19 R20 K11 [10]
       253 CALL                             R17 2 1
       254 GETIMPORT                        R18 K10 [Vector2.new]
-      256 GETUPVAL                         R21 5
-      257 GETTABLE                         R20 R21 R13
-      258 GETTABLEKS                       R19 R20 K19 ["Right"]
+      256 GETUPVAL                         R20 5
+      257 GETTABLE                         R19 R20 R13
+      258 GETTABLEKS                       R19 R19 K19 ["Right"]
       260 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      262 GETUPVAL                         R25 5
-      263 GETTABLE                         R24 R25 R13
-      264 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      262 GETUPVAL                         R24 5
+      263 GETTABLE                         R23 R24 R13
+      264 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       266 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       268 GETIMPORT                        R21 K18 [math.max]
       270 CALL                             R21 2 1
@@ -388,40 +388,40 @@ PROTO_6:
       272 CALL                             R18 2 1
       273 GETUPVAL                         R19 7
       274 CALL                             R14 5 0
-      275 GETUPVAL                         R16 5
-      276 GETTABLE                         R15 R16 R13
-      277 GETTABLEKS                       R14 R15 K21 ["CenterVisible"]
+      275 GETUPVAL                         R15 5
+      276 GETTABLE                         R14 R15 R13
+      277 GETTABLEKS                       R14 R14 K21 ["CenterVisible"]
       279 JUMPIFNOT                        R14 ; [+55]
       280 MOVE                             R14 R10
-      281 GETTABLEKS                       R16 R1 K22 ["Center"]
-      283 GETTABLEKS                       R15 R16 K23 ["X"]
-      285 GETUPVAL                         R19 5
-      286 GETTABLE                         R18 R19 R13
-      287 GETTABLEKS                       R17 R18 K22 ["Center"]
-      289 GETTABLEKS                       R16 R17 K23 ["X"]
+      281 GETTABLEKS                       R15 R1 K22 ["Center"]
+      283 GETTABLEKS                       R15 R15 K23 ["X"]
+      285 GETUPVAL                         R17 5
+      286 GETTABLE                         R16 R17 R13
+      287 GETTABLEKS                       R16 R16 K22 ["Center"]
+      289 GETTABLEKS                       R16 R16 K23 ["X"]
       291 GETIMPORT                        R17 K10 [Vector2.new]
-      293 GETUPVAL                         R21 5
-      294 GETTABLE                         R20 R21 R13
-      295 GETTABLEKS                       R19 R20 K22 ["Center"]
-      297 GETTABLEKS                       R18 R19 K23 ["X"]
+      293 GETUPVAL                         R19 5
+      294 GETTABLE                         R18 R19 R13
+      295 GETTABLEKS                       R18 R18 K22 ["Center"]
+      297 GETTABLEKS                       R18 R18 K23 ["X"]
       299 GETTABLEKS                       R21 R1 K12 ["Top"]
-      301 GETUPVAL                         R24 5
-      302 GETTABLE                         R23 R24 R13
-      303 GETTABLEKS                       R22 R23 K12 ["Top"]
+      301 GETUPVAL                         R23 5
+      302 GETTABLE                         R22 R23 R13
+      303 GETTABLEKS                       R22 R22 K12 ["Top"]
       305 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       307 GETIMPORT                        R20 K15 [math.min]
       309 CALL                             R20 2 1
       310 SUBK                             R19 R20 K11 [10]
       311 CALL                             R17 2 1
       312 GETIMPORT                        R18 K10 [Vector2.new]
-      314 GETUPVAL                         R22 5
-      315 GETTABLE                         R21 R22 R13
-      316 GETTABLEKS                       R20 R21 K22 ["Center"]
-      318 GETTABLEKS                       R19 R20 K23 ["X"]
+      314 GETUPVAL                         R20 5
+      315 GETTABLE                         R19 R20 R13
+      316 GETTABLEKS                       R19 R19 K22 ["Center"]
+      318 GETTABLEKS                       R19 R19 K23 ["X"]
       320 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      322 GETUPVAL                         R25 5
-      323 GETTABLE                         R24 R25 R13
-      324 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      322 GETUPVAL                         R24 5
+      323 GETTABLE                         R23 R24 R13
+      324 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       326 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       328 GETIMPORT                        R21 K18 [math.max]
       330 CALL                             R21 2 1
@@ -450,8 +450,8 @@ PROTO_6:
       357 MOVE                             R3 R11
       358 GETUPVAL                         R11 6
       359 MOVE                             R13 R2
-      360 GETUPVAL                         R15 6
-      361 GETTABLEKS                       R14 R15 K27 ["MoveY"]
+      360 GETUPVAL                         R14 6
+      361 GETTABLEKS                       R14 R14 K27 ["MoveY"]
       363 NAMECALL                         R11 R11 K4 ["containsType"]
       365 CALL                             R11 3 1
       366 JUMPIFNOT                        R11 ; [+291]
@@ -464,184 +464,184 @@ PROTO_6:
       374 LENGTH                           R11 R14
       375 LOADN                            R12 1
       376 FORNPREP                         R11
-      377 GETUPVAL                         R16 5
-      378 GETTABLE                         R15 R16 R13
-      379 GETTABLEKS                       R14 R15 K28 ["TopVisible"]
+      377 GETUPVAL                         R15 5
+      378 GETTABLE                         R14 R15 R13
+      379 GETTABLEKS                       R14 R14 K28 ["TopVisible"]
       381 JUMPIFNOT                        R14 ; [+94]
       382 MOVE                             R14 R10
       383 GETTABLEKS                       R15 R1 K12 ["Top"]
-      385 GETUPVAL                         R18 5
-      386 GETTABLE                         R17 R18 R13
-      387 GETTABLEKS                       R16 R17 K12 ["Top"]
+      385 GETUPVAL                         R17 5
+      386 GETTABLE                         R16 R17 R13
+      387 GETTABLEKS                       R16 R16 K12 ["Top"]
       389 GETIMPORT                        R17 K10 [Vector2.new]
       391 GETTABLEKS                       R20 R1 K7 ["Left"]
-      393 GETUPVAL                         R23 5
-      394 GETTABLE                         R22 R23 R13
-      395 GETTABLEKS                       R21 R22 K7 ["Left"]
+      393 GETUPVAL                         R22 5
+      394 GETTABLE                         R21 R22 R13
+      395 GETTABLEKS                       R21 R21 K7 ["Left"]
       397 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
       399 GETIMPORT                        R19 K15 [math.min]
       401 CALL                             R19 2 1
       402 SUBK                             R18 R19 K11 [10]
-      403 GETUPVAL                         R21 5
-      404 GETTABLE                         R20 R21 R13
-      405 GETTABLEKS                       R19 R20 K12 ["Top"]
+      403 GETUPVAL                         R20 5
+      404 GETTABLE                         R19 R20 R13
+      405 GETTABLEKS                       R19 R19 K12 ["Top"]
       407 CALL                             R17 2 1
       408 GETIMPORT                        R18 K10 [Vector2.new]
       410 GETTABLEKS                       R21 R1 K19 ["Right"]
-      412 GETUPVAL                         R24 5
-      413 GETTABLE                         R23 R24 R13
-      414 GETTABLEKS                       R22 R23 K19 ["Right"]
+      412 GETUPVAL                         R23 5
+      413 GETTABLE                         R22 R23 R13
+      414 GETTABLEKS                       R22 R22 K19 ["Right"]
       416 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
       418 GETIMPORT                        R20 K18 [math.max]
       420 CALL                             R20 2 1
       421 ADDK                             R19 R20 K11 [10]
-      422 GETUPVAL                         R22 5
-      423 GETTABLE                         R21 R22 R13
-      424 GETTABLEKS                       R20 R21 K12 ["Top"]
+      422 GETUPVAL                         R21 5
+      423 GETTABLE                         R20 R21 R13
+      424 GETTABLEKS                       R20 R20 K12 ["Top"]
       426 CALL                             R18 2 1
       427 GETUPVAL                         R19 7
       428 CALL                             R14 5 0
       429 MOVE                             R14 R10
       430 GETTABLEKS                       R15 R1 K16 ["Bottom"]
-      432 GETUPVAL                         R18 5
-      433 GETTABLE                         R17 R18 R13
-      434 GETTABLEKS                       R16 R17 K12 ["Top"]
+      432 GETUPVAL                         R17 5
+      433 GETTABLE                         R16 R17 R13
+      434 GETTABLEKS                       R16 R16 K12 ["Top"]
       436 GETIMPORT                        R17 K10 [Vector2.new]
       438 GETTABLEKS                       R20 R1 K7 ["Left"]
-      440 GETUPVAL                         R23 5
-      441 GETTABLE                         R22 R23 R13
-      442 GETTABLEKS                       R21 R22 K7 ["Left"]
+      440 GETUPVAL                         R22 5
+      441 GETTABLE                         R21 R22 R13
+      442 GETTABLEKS                       R21 R21 K7 ["Left"]
       444 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
       446 GETIMPORT                        R19 K15 [math.min]
       448 CALL                             R19 2 1
       449 SUBK                             R18 R19 K11 [10]
-      450 GETUPVAL                         R21 5
-      451 GETTABLE                         R20 R21 R13
-      452 GETTABLEKS                       R19 R20 K12 ["Top"]
+      450 GETUPVAL                         R20 5
+      451 GETTABLE                         R19 R20 R13
+      452 GETTABLEKS                       R19 R19 K12 ["Top"]
       454 CALL                             R17 2 1
       455 GETIMPORT                        R18 K10 [Vector2.new]
       457 GETTABLEKS                       R21 R1 K19 ["Right"]
-      459 GETUPVAL                         R24 5
-      460 GETTABLE                         R23 R24 R13
-      461 GETTABLEKS                       R22 R23 K19 ["Right"]
+      459 GETUPVAL                         R23 5
+      460 GETTABLE                         R22 R23 R13
+      461 GETTABLEKS                       R22 R22 K19 ["Right"]
       463 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
       465 GETIMPORT                        R20 K18 [math.max]
       467 CALL                             R20 2 1
       468 ADDK                             R19 R20 K11 [10]
-      469 GETUPVAL                         R22 5
-      470 GETTABLE                         R21 R22 R13
-      471 GETTABLEKS                       R20 R21 K12 ["Top"]
+      469 GETUPVAL                         R21 5
+      470 GETTABLE                         R20 R21 R13
+      471 GETTABLEKS                       R20 R20 K12 ["Top"]
       473 CALL                             R18 2 1
       474 GETUPVAL                         R19 7
       475 CALL                             R14 5 0
-      476 GETUPVAL                         R16 5
-      477 GETTABLE                         R15 R16 R13
-      478 GETTABLEKS                       R14 R15 K29 ["BottomVisible"]
+      476 GETUPVAL                         R15 5
+      477 GETTABLE                         R14 R15 R13
+      478 GETTABLEKS                       R14 R14 K29 ["BottomVisible"]
       480 JUMPIFNOT                        R14 ; [+94]
       481 MOVE                             R14 R10
       482 GETTABLEKS                       R15 R1 K12 ["Top"]
-      484 GETUPVAL                         R18 5
-      485 GETTABLE                         R17 R18 R13
-      486 GETTABLEKS                       R16 R17 K16 ["Bottom"]
+      484 GETUPVAL                         R17 5
+      485 GETTABLE                         R16 R17 R13
+      486 GETTABLEKS                       R16 R16 K16 ["Bottom"]
       488 GETIMPORT                        R17 K10 [Vector2.new]
       490 GETTABLEKS                       R20 R1 K7 ["Left"]
-      492 GETUPVAL                         R23 5
-      493 GETTABLE                         R22 R23 R13
-      494 GETTABLEKS                       R21 R22 K7 ["Left"]
+      492 GETUPVAL                         R22 5
+      493 GETTABLE                         R21 R22 R13
+      494 GETTABLEKS                       R21 R21 K7 ["Left"]
       496 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
       498 GETIMPORT                        R19 K15 [math.min]
       500 CALL                             R19 2 1
       501 SUBK                             R18 R19 K11 [10]
-      502 GETUPVAL                         R21 5
-      503 GETTABLE                         R20 R21 R13
-      504 GETTABLEKS                       R19 R20 K16 ["Bottom"]
+      502 GETUPVAL                         R20 5
+      503 GETTABLE                         R19 R20 R13
+      504 GETTABLEKS                       R19 R19 K16 ["Bottom"]
       506 CALL                             R17 2 1
       507 GETIMPORT                        R18 K10 [Vector2.new]
       509 GETTABLEKS                       R21 R1 K19 ["Right"]
-      511 GETUPVAL                         R24 5
-      512 GETTABLE                         R23 R24 R13
-      513 GETTABLEKS                       R22 R23 K19 ["Right"]
+      511 GETUPVAL                         R23 5
+      512 GETTABLE                         R22 R23 R13
+      513 GETTABLEKS                       R22 R22 K19 ["Right"]
       515 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
       517 GETIMPORT                        R20 K18 [math.max]
       519 CALL                             R20 2 1
       520 ADDK                             R19 R20 K11 [10]
-      521 GETUPVAL                         R22 5
-      522 GETTABLE                         R21 R22 R13
-      523 GETTABLEKS                       R20 R21 K16 ["Bottom"]
+      521 GETUPVAL                         R21 5
+      522 GETTABLE                         R20 R21 R13
+      523 GETTABLEKS                       R20 R20 K16 ["Bottom"]
       525 CALL                             R18 2 1
       526 GETUPVAL                         R19 7
       527 CALL                             R14 5 0
       528 MOVE                             R14 R10
       529 GETTABLEKS                       R15 R1 K16 ["Bottom"]
-      531 GETUPVAL                         R18 5
-      532 GETTABLE                         R17 R18 R13
-      533 GETTABLEKS                       R16 R17 K16 ["Bottom"]
+      531 GETUPVAL                         R17 5
+      532 GETTABLE                         R16 R17 R13
+      533 GETTABLEKS                       R16 R16 K16 ["Bottom"]
       535 GETIMPORT                        R17 K10 [Vector2.new]
       537 GETTABLEKS                       R20 R1 K7 ["Left"]
-      539 GETUPVAL                         R23 5
-      540 GETTABLE                         R22 R23 R13
-      541 GETTABLEKS                       R21 R22 K7 ["Left"]
+      539 GETUPVAL                         R22 5
+      540 GETTABLE                         R21 R22 R13
+      541 GETTABLEKS                       R21 R21 K7 ["Left"]
       543 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
       545 GETIMPORT                        R19 K15 [math.min]
       547 CALL                             R19 2 1
       548 SUBK                             R18 R19 K11 [10]
-      549 GETUPVAL                         R21 5
-      550 GETTABLE                         R20 R21 R13
-      551 GETTABLEKS                       R19 R20 K16 ["Bottom"]
+      549 GETUPVAL                         R20 5
+      550 GETTABLE                         R19 R20 R13
+      551 GETTABLEKS                       R19 R19 K16 ["Bottom"]
       553 CALL                             R17 2 1
       554 GETIMPORT                        R18 K10 [Vector2.new]
       556 GETTABLEKS                       R21 R1 K19 ["Right"]
-      558 GETUPVAL                         R24 5
-      559 GETTABLE                         R23 R24 R13
-      560 GETTABLEKS                       R22 R23 K19 ["Right"]
+      558 GETUPVAL                         R23 5
+      559 GETTABLE                         R22 R23 R13
+      560 GETTABLEKS                       R22 R22 K19 ["Right"]
       562 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
       564 GETIMPORT                        R20 K18 [math.max]
       566 CALL                             R20 2 1
       567 ADDK                             R19 R20 K11 [10]
-      568 GETUPVAL                         R22 5
-      569 GETTABLE                         R21 R22 R13
-      570 GETTABLEKS                       R20 R21 K16 ["Bottom"]
+      568 GETUPVAL                         R21 5
+      569 GETTABLE                         R20 R21 R13
+      570 GETTABLEKS                       R20 R20 K16 ["Bottom"]
       572 CALL                             R18 2 1
       573 GETUPVAL                         R19 7
       574 CALL                             R14 5 0
-      575 GETUPVAL                         R16 5
-      576 GETTABLE                         R15 R16 R13
-      577 GETTABLEKS                       R14 R15 K21 ["CenterVisible"]
+      575 GETUPVAL                         R15 5
+      576 GETTABLE                         R14 R15 R13
+      577 GETTABLEKS                       R14 R14 K21 ["CenterVisible"]
       579 JUMPIFNOT                        R14 ; [+55]
       580 MOVE                             R14 R10
-      581 GETTABLEKS                       R16 R1 K22 ["Center"]
-      583 GETTABLEKS                       R15 R16 K30 ["Y"]
-      585 GETUPVAL                         R19 5
-      586 GETTABLE                         R18 R19 R13
-      587 GETTABLEKS                       R17 R18 K22 ["Center"]
-      589 GETTABLEKS                       R16 R17 K30 ["Y"]
+      581 GETTABLEKS                       R15 R1 K22 ["Center"]
+      583 GETTABLEKS                       R15 R15 K30 ["Y"]
+      585 GETUPVAL                         R17 5
+      586 GETTABLE                         R16 R17 R13
+      587 GETTABLEKS                       R16 R16 K22 ["Center"]
+      589 GETTABLEKS                       R16 R16 K30 ["Y"]
       591 GETIMPORT                        R17 K10 [Vector2.new]
       593 GETTABLEKS                       R20 R1 K7 ["Left"]
-      595 GETUPVAL                         R23 5
-      596 GETTABLE                         R22 R23 R13
-      597 GETTABLEKS                       R21 R22 K7 ["Left"]
+      595 GETUPVAL                         R22 5
+      596 GETTABLE                         R21 R22 R13
+      597 GETTABLEKS                       R21 R21 K7 ["Left"]
       599 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
       601 GETIMPORT                        R19 K15 [math.min]
       603 CALL                             R19 2 1
       604 SUBK                             R18 R19 K11 [10]
-      605 GETUPVAL                         R22 5
-      606 GETTABLE                         R21 R22 R13
-      607 GETTABLEKS                       R20 R21 K22 ["Center"]
-      609 GETTABLEKS                       R19 R20 K30 ["Y"]
+      605 GETUPVAL                         R20 5
+      606 GETTABLE                         R19 R20 R13
+      607 GETTABLEKS                       R19 R19 K22 ["Center"]
+      609 GETTABLEKS                       R19 R19 K30 ["Y"]
       611 CALL                             R17 2 1
       612 GETIMPORT                        R18 K10 [Vector2.new]
       614 GETTABLEKS                       R21 R1 K19 ["Right"]
-      616 GETUPVAL                         R24 5
-      617 GETTABLE                         R23 R24 R13
-      618 GETTABLEKS                       R22 R23 K19 ["Right"]
+      616 GETUPVAL                         R23 5
+      617 GETTABLE                         R22 R23 R13
+      618 GETTABLEKS                       R22 R22 K19 ["Right"]
       620 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
       622 GETIMPORT                        R20 K18 [math.max]
       624 CALL                             R20 2 1
       625 ADDK                             R19 R20 K11 [10]
-      626 GETUPVAL                         R23 5
-      627 GETTABLE                         R22 R23 R13
-      628 GETTABLEKS                       R21 R22 K22 ["Center"]
-      630 GETTABLEKS                       R20 R21 K30 ["Y"]
+      626 GETUPVAL                         R21 5
+      627 GETTABLE                         R20 R21 R13
+      628 GETTABLEKS                       R20 R20 K22 ["Center"]
+      630 GETTABLEKS                       R20 R20 K30 ["Y"]
       632 CALL                             R18 2 1
       633 GETUPVAL                         R19 8
       634 CALL                             R14 5 0
@@ -666,8 +666,8 @@ PROTO_6:
       657 MOVE                             R3 R11
       658 GETUPVAL                         R11 6
       659 MOVE                             R13 R2
-      660 GETUPVAL                         R15 6
-      661 GETTABLEKS                       R14 R15 K31 ["ResizeXp"]
+      660 GETUPVAL                         R14 6
+      661 GETTABLEKS                       R14 R14 K31 ["ResizeXp"]
       663 NAMECALL                         R11 R11 K4 ["containsType"]
       665 CALL                             R11 3 1
       666 JUMPIFNOT                        R11 ; [+131]
@@ -680,36 +680,36 @@ PROTO_6:
       674 LENGTH                           R11 R14
       675 LOADN                            R12 1
       676 FORNPREP                         R11
-      677 GETUPVAL                         R16 5
-      678 GETTABLE                         R15 R16 R13
-      679 GETTABLEKS                       R14 R15 K6 ["LeftVisible"]
+      677 GETUPVAL                         R15 5
+      678 GETTABLE                         R14 R15 R13
+      679 GETTABLEKS                       R14 R14 K6 ["LeftVisible"]
       681 JUMPIFNOT                        R14 ; [+47]
       682 MOVE                             R14 R10
       683 GETTABLEKS                       R15 R1 K19 ["Right"]
-      685 GETUPVAL                         R18 5
-      686 GETTABLE                         R17 R18 R13
-      687 GETTABLEKS                       R16 R17 K7 ["Left"]
+      685 GETUPVAL                         R17 5
+      686 GETTABLE                         R16 R17 R13
+      687 GETTABLEKS                       R16 R16 K7 ["Left"]
       689 GETIMPORT                        R17 K10 [Vector2.new]
-      691 GETUPVAL                         R20 5
-      692 GETTABLE                         R19 R20 R13
-      693 GETTABLEKS                       R18 R19 K7 ["Left"]
+      691 GETUPVAL                         R19 5
+      692 GETTABLE                         R18 R19 R13
+      693 GETTABLEKS                       R18 R18 K7 ["Left"]
       695 GETTABLEKS                       R21 R1 K12 ["Top"]
-      697 GETUPVAL                         R24 5
-      698 GETTABLE                         R23 R24 R13
-      699 GETTABLEKS                       R22 R23 K12 ["Top"]
+      697 GETUPVAL                         R23 5
+      698 GETTABLE                         R22 R23 R13
+      699 GETTABLEKS                       R22 R22 K12 ["Top"]
       701 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       703 GETIMPORT                        R20 K15 [math.min]
       705 CALL                             R20 2 1
       706 SUBK                             R19 R20 K11 [10]
       707 CALL                             R17 2 1
       708 GETIMPORT                        R18 K10 [Vector2.new]
-      710 GETUPVAL                         R21 5
-      711 GETTABLE                         R20 R21 R13
-      712 GETTABLEKS                       R19 R20 K7 ["Left"]
+      710 GETUPVAL                         R20 5
+      711 GETTABLE                         R19 R20 R13
+      712 GETTABLEKS                       R19 R19 K7 ["Left"]
       714 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      716 GETUPVAL                         R25 5
-      717 GETTABLE                         R24 R25 R13
-      718 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      716 GETUPVAL                         R24 5
+      717 GETTABLE                         R23 R24 R13
+      718 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       720 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       722 GETIMPORT                        R21 K18 [math.max]
       724 CALL                             R21 2 1
@@ -717,36 +717,36 @@ PROTO_6:
       726 CALL                             R18 2 1
       727 GETUPVAL                         R19 7
       728 CALL                             R14 5 0
-      729 GETUPVAL                         R16 5
-      730 GETTABLE                         R15 R16 R13
-      731 GETTABLEKS                       R14 R15 K20 ["RightVisible"]
+      729 GETUPVAL                         R15 5
+      730 GETTABLE                         R14 R15 R13
+      731 GETTABLEKS                       R14 R14 K20 ["RightVisible"]
       733 JUMPIFNOT                        R14 ; [+47]
       734 MOVE                             R14 R10
       735 GETTABLEKS                       R15 R1 K19 ["Right"]
-      737 GETUPVAL                         R18 5
-      738 GETTABLE                         R17 R18 R13
-      739 GETTABLEKS                       R16 R17 K19 ["Right"]
+      737 GETUPVAL                         R17 5
+      738 GETTABLE                         R16 R17 R13
+      739 GETTABLEKS                       R16 R16 K19 ["Right"]
       741 GETIMPORT                        R17 K10 [Vector2.new]
-      743 GETUPVAL                         R20 5
-      744 GETTABLE                         R19 R20 R13
-      745 GETTABLEKS                       R18 R19 K19 ["Right"]
+      743 GETUPVAL                         R19 5
+      744 GETTABLE                         R18 R19 R13
+      745 GETTABLEKS                       R18 R18 K19 ["Right"]
       747 GETTABLEKS                       R21 R1 K12 ["Top"]
-      749 GETUPVAL                         R24 5
-      750 GETTABLE                         R23 R24 R13
-      751 GETTABLEKS                       R22 R23 K12 ["Top"]
+      749 GETUPVAL                         R23 5
+      750 GETTABLE                         R22 R23 R13
+      751 GETTABLEKS                       R22 R22 K12 ["Top"]
       753 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       755 GETIMPORT                        R20 K15 [math.min]
       757 CALL                             R20 2 1
       758 SUBK                             R19 R20 K11 [10]
       759 CALL                             R17 2 1
       760 GETIMPORT                        R18 K10 [Vector2.new]
-      762 GETUPVAL                         R21 5
-      763 GETTABLE                         R20 R21 R13
-      764 GETTABLEKS                       R19 R20 K19 ["Right"]
+      762 GETUPVAL                         R20 5
+      763 GETTABLE                         R19 R20 R13
+      764 GETTABLEKS                       R19 R19 K19 ["Right"]
       766 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      768 GETUPVAL                         R25 5
-      769 GETTABLE                         R24 R25 R13
-      770 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      768 GETUPVAL                         R24 5
+      769 GETTABLE                         R23 R24 R13
+      770 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       772 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       774 GETIMPORT                        R21 K18 [math.max]
       776 CALL                             R21 2 1
@@ -769,8 +769,8 @@ PROTO_6:
       797 MOVE                             R3 R11
       798 GETUPVAL                         R11 6
       799 MOVE                             R13 R2
-      800 GETUPVAL                         R15 6
-      801 GETTABLEKS                       R14 R15 K32 ["ResizeXn"]
+      800 GETUPVAL                         R14 6
+      801 GETTABLEKS                       R14 R14 K32 ["ResizeXn"]
       803 NAMECALL                         R11 R11 K4 ["containsType"]
       805 CALL                             R11 3 1
       806 JUMPIFNOT                        R11 ; [+131]
@@ -783,36 +783,36 @@ PROTO_6:
       814 LENGTH                           R11 R14
       815 LOADN                            R12 1
       816 FORNPREP                         R11
-      817 GETUPVAL                         R16 5
-      818 GETTABLE                         R15 R16 R13
-      819 GETTABLEKS                       R14 R15 K6 ["LeftVisible"]
+      817 GETUPVAL                         R15 5
+      818 GETTABLE                         R14 R15 R13
+      819 GETTABLEKS                       R14 R14 K6 ["LeftVisible"]
       821 JUMPIFNOT                        R14 ; [+47]
       822 MOVE                             R14 R10
       823 GETTABLEKS                       R15 R1 K7 ["Left"]
-      825 GETUPVAL                         R18 5
-      826 GETTABLE                         R17 R18 R13
-      827 GETTABLEKS                       R16 R17 K7 ["Left"]
+      825 GETUPVAL                         R17 5
+      826 GETTABLE                         R16 R17 R13
+      827 GETTABLEKS                       R16 R16 K7 ["Left"]
       829 GETIMPORT                        R17 K10 [Vector2.new]
-      831 GETUPVAL                         R20 5
-      832 GETTABLE                         R19 R20 R13
-      833 GETTABLEKS                       R18 R19 K7 ["Left"]
+      831 GETUPVAL                         R19 5
+      832 GETTABLE                         R18 R19 R13
+      833 GETTABLEKS                       R18 R18 K7 ["Left"]
       835 GETTABLEKS                       R21 R1 K12 ["Top"]
-      837 GETUPVAL                         R24 5
-      838 GETTABLE                         R23 R24 R13
-      839 GETTABLEKS                       R22 R23 K12 ["Top"]
+      837 GETUPVAL                         R23 5
+      838 GETTABLE                         R22 R23 R13
+      839 GETTABLEKS                       R22 R22 K12 ["Top"]
       841 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       843 GETIMPORT                        R20 K15 [math.min]
       845 CALL                             R20 2 1
       846 SUBK                             R19 R20 K11 [10]
       847 CALL                             R17 2 1
       848 GETIMPORT                        R18 K10 [Vector2.new]
-      850 GETUPVAL                         R21 5
-      851 GETTABLE                         R20 R21 R13
-      852 GETTABLEKS                       R19 R20 K7 ["Left"]
+      850 GETUPVAL                         R20 5
+      851 GETTABLE                         R19 R20 R13
+      852 GETTABLEKS                       R19 R19 K7 ["Left"]
       854 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      856 GETUPVAL                         R25 5
-      857 GETTABLE                         R24 R25 R13
-      858 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      856 GETUPVAL                         R24 5
+      857 GETTABLE                         R23 R24 R13
+      858 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       860 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       862 GETIMPORT                        R21 K18 [math.max]
       864 CALL                             R21 2 1
@@ -820,36 +820,36 @@ PROTO_6:
       866 CALL                             R18 2 1
       867 GETUPVAL                         R19 7
       868 CALL                             R14 5 0
-      869 GETUPVAL                         R16 5
-      870 GETTABLE                         R15 R16 R13
-      871 GETTABLEKS                       R14 R15 K20 ["RightVisible"]
+      869 GETUPVAL                         R15 5
+      870 GETTABLE                         R14 R15 R13
+      871 GETTABLEKS                       R14 R14 K20 ["RightVisible"]
       873 JUMPIFNOT                        R14 ; [+47]
       874 MOVE                             R14 R10
       875 GETTABLEKS                       R15 R1 K7 ["Left"]
-      877 GETUPVAL                         R18 5
-      878 GETTABLE                         R17 R18 R13
-      879 GETTABLEKS                       R16 R17 K19 ["Right"]
+      877 GETUPVAL                         R17 5
+      878 GETTABLE                         R16 R17 R13
+      879 GETTABLEKS                       R16 R16 K19 ["Right"]
       881 GETIMPORT                        R17 K10 [Vector2.new]
-      883 GETUPVAL                         R20 5
-      884 GETTABLE                         R19 R20 R13
-      885 GETTABLEKS                       R18 R19 K19 ["Right"]
+      883 GETUPVAL                         R19 5
+      884 GETTABLE                         R18 R19 R13
+      885 GETTABLEKS                       R18 R18 K19 ["Right"]
       887 GETTABLEKS                       R21 R1 K12 ["Top"]
-      889 GETUPVAL                         R24 5
-      890 GETTABLE                         R23 R24 R13
-      891 GETTABLEKS                       R22 R23 K12 ["Top"]
+      889 GETUPVAL                         R23 5
+      890 GETTABLE                         R22 R23 R13
+      891 GETTABLEKS                       R22 R22 K12 ["Top"]
       893 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
       895 GETIMPORT                        R20 K15 [math.min]
       897 CALL                             R20 2 1
       898 SUBK                             R19 R20 K11 [10]
       899 CALL                             R17 2 1
       900 GETIMPORT                        R18 K10 [Vector2.new]
-      902 GETUPVAL                         R21 5
-      903 GETTABLE                         R20 R21 R13
-      904 GETTABLEKS                       R19 R20 K19 ["Right"]
+      902 GETUPVAL                         R20 5
+      903 GETTABLE                         R19 R20 R13
+      904 GETTABLEKS                       R19 R19 K19 ["Right"]
       906 GETTABLEKS                       R22 R1 K16 ["Bottom"]
-      908 GETUPVAL                         R25 5
-      909 GETTABLE                         R24 R25 R13
-      910 GETTABLEKS                       R23 R24 K16 ["Bottom"]
+      908 GETUPVAL                         R24 5
+      909 GETTABLE                         R23 R24 R13
+      910 GETTABLEKS                       R23 R23 K16 ["Bottom"]
       912 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
       914 GETIMPORT                        R21 K18 [math.max]
       916 CALL                             R21 2 1
@@ -872,8 +872,8 @@ PROTO_6:
       937 MOVE                             R3 R11
       938 GETUPVAL                         R11 6
       939 MOVE                             R13 R2
-      940 GETUPVAL                         R15 6
-      941 GETTABLEKS                       R14 R15 K33 ["ResizeYp"]
+      940 GETUPVAL                         R14 6
+      941 GETTABLEKS                       R14 R14 K33 ["ResizeYp"]
       943 NAMECALL                         R11 R11 K4 ["containsType"]
       945 CALL                             R11 3 1
       946 JUMPIFNOT                        R11 ; [+131]
@@ -886,77 +886,77 @@ PROTO_6:
       954 LENGTH                           R11 R14
       955 LOADN                            R12 1
       956 FORNPREP                         R11
-      957 GETUPVAL                         R16 5
-      958 GETTABLE                         R15 R16 R13
-      959 GETTABLEKS                       R14 R15 K28 ["TopVisible"]
+      957 GETUPVAL                         R15 5
+      958 GETTABLE                         R14 R15 R13
+      959 GETTABLEKS                       R14 R14 K28 ["TopVisible"]
       961 JUMPIFNOT                        R14 ; [+47]
       962 MOVE                             R14 R10
       963 GETTABLEKS                       R15 R1 K16 ["Bottom"]
-      965 GETUPVAL                         R18 5
-      966 GETTABLE                         R17 R18 R13
-      967 GETTABLEKS                       R16 R17 K12 ["Top"]
+      965 GETUPVAL                         R17 5
+      966 GETTABLE                         R16 R17 R13
+      967 GETTABLEKS                       R16 R16 K12 ["Top"]
       969 GETIMPORT                        R17 K10 [Vector2.new]
       971 GETTABLEKS                       R20 R1 K7 ["Left"]
-      973 GETUPVAL                         R23 5
-      974 GETTABLE                         R22 R23 R13
-      975 GETTABLEKS                       R21 R22 K7 ["Left"]
+      973 GETUPVAL                         R22 5
+      974 GETTABLE                         R21 R22 R13
+      975 GETTABLEKS                       R21 R21 K7 ["Left"]
       977 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
       979 GETIMPORT                        R19 K15 [math.min]
       981 CALL                             R19 2 1
       982 SUBK                             R18 R19 K11 [10]
-      983 GETUPVAL                         R21 5
-      984 GETTABLE                         R20 R21 R13
-      985 GETTABLEKS                       R19 R20 K12 ["Top"]
+      983 GETUPVAL                         R20 5
+      984 GETTABLE                         R19 R20 R13
+      985 GETTABLEKS                       R19 R19 K12 ["Top"]
       987 CALL                             R17 2 1
       988 GETIMPORT                        R18 K10 [Vector2.new]
       990 GETTABLEKS                       R21 R1 K19 ["Right"]
-      992 GETUPVAL                         R24 5
-      993 GETTABLE                         R23 R24 R13
-      994 GETTABLEKS                       R22 R23 K19 ["Right"]
+      992 GETUPVAL                         R23 5
+      993 GETTABLE                         R22 R23 R13
+      994 GETTABLEKS                       R22 R22 K19 ["Right"]
       996 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
       998 GETIMPORT                        R20 K18 [math.max]
      1000 CALL                             R20 2 1
      1001 ADDK                             R19 R20 K11 [10]
-     1002 GETUPVAL                         R22 5
-     1003 GETTABLE                         R21 R22 R13
-     1004 GETTABLEKS                       R20 R21 K12 ["Top"]
+     1002 GETUPVAL                         R21 5
+     1003 GETTABLE                         R20 R21 R13
+     1004 GETTABLEKS                       R20 R20 K12 ["Top"]
      1006 CALL                             R18 2 1
      1007 GETUPVAL                         R19 7
      1008 CALL                             R14 5 0
-     1009 GETUPVAL                         R16 5
-     1010 GETTABLE                         R15 R16 R13
-     1011 GETTABLEKS                       R14 R15 K29 ["BottomVisible"]
+     1009 GETUPVAL                         R15 5
+     1010 GETTABLE                         R14 R15 R13
+     1011 GETTABLEKS                       R14 R14 K29 ["BottomVisible"]
      1013 JUMPIFNOT                        R14 ; [+47]
      1014 MOVE                             R14 R10
      1015 GETTABLEKS                       R15 R1 K16 ["Bottom"]
-     1017 GETUPVAL                         R18 5
-     1018 GETTABLE                         R17 R18 R13
-     1019 GETTABLEKS                       R16 R17 K16 ["Bottom"]
+     1017 GETUPVAL                         R17 5
+     1018 GETTABLE                         R16 R17 R13
+     1019 GETTABLEKS                       R16 R16 K16 ["Bottom"]
      1021 GETIMPORT                        R17 K10 [Vector2.new]
      1023 GETTABLEKS                       R20 R1 K7 ["Left"]
-     1025 GETUPVAL                         R23 5
-     1026 GETTABLE                         R22 R23 R13
-     1027 GETTABLEKS                       R21 R22 K7 ["Left"]
+     1025 GETUPVAL                         R22 5
+     1026 GETTABLE                         R21 R22 R13
+     1027 GETTABLEKS                       R21 R21 K7 ["Left"]
      1029 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
      1031 GETIMPORT                        R19 K15 [math.min]
      1033 CALL                             R19 2 1
      1034 SUBK                             R18 R19 K11 [10]
-     1035 GETUPVAL                         R21 5
-     1036 GETTABLE                         R20 R21 R13
-     1037 GETTABLEKS                       R19 R20 K16 ["Bottom"]
+     1035 GETUPVAL                         R20 5
+     1036 GETTABLE                         R19 R20 R13
+     1037 GETTABLEKS                       R19 R19 K16 ["Bottom"]
      1039 CALL                             R17 2 1
      1040 GETIMPORT                        R18 K10 [Vector2.new]
      1042 GETTABLEKS                       R21 R1 K19 ["Right"]
-     1044 GETUPVAL                         R24 5
-     1045 GETTABLE                         R23 R24 R13
-     1046 GETTABLEKS                       R22 R23 K19 ["Right"]
+     1044 GETUPVAL                         R23 5
+     1045 GETTABLE                         R22 R23 R13
+     1046 GETTABLEKS                       R22 R22 K19 ["Right"]
      1048 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
      1050 GETIMPORT                        R20 K18 [math.max]
      1052 CALL                             R20 2 1
      1053 ADDK                             R19 R20 K11 [10]
-     1054 GETUPVAL                         R22 5
-     1055 GETTABLE                         R21 R22 R13
-     1056 GETTABLEKS                       R20 R21 K16 ["Bottom"]
+     1054 GETUPVAL                         R21 5
+     1055 GETTABLE                         R20 R21 R13
+     1056 GETTABLEKS                       R20 R20 K16 ["Bottom"]
      1058 CALL                             R18 2 1
      1059 GETUPVAL                         R19 7
      1060 CALL                             R14 5 0
@@ -975,8 +975,8 @@ PROTO_6:
      1077 MOVE                             R3 R11
      1078 GETUPVAL                         R11 6
      1079 MOVE                             R13 R2
-     1080 GETUPVAL                         R15 6
-     1081 GETTABLEKS                       R14 R15 K34 ["ResizeYn"]
+     1080 GETUPVAL                         R14 6
+     1081 GETTABLEKS                       R14 R14 K34 ["ResizeYn"]
      1083 NAMECALL                         R11 R11 K4 ["containsType"]
      1085 CALL                             R11 3 1
      1086 JUMPIFNOT                        R11 ; [+131]
@@ -989,77 +989,77 @@ PROTO_6:
      1094 LENGTH                           R11 R14
      1095 LOADN                            R12 1
      1096 FORNPREP                         R11
-     1097 GETUPVAL                         R16 5
-     1098 GETTABLE                         R15 R16 R13
-     1099 GETTABLEKS                       R14 R15 K28 ["TopVisible"]
+     1097 GETUPVAL                         R15 5
+     1098 GETTABLE                         R14 R15 R13
+     1099 GETTABLEKS                       R14 R14 K28 ["TopVisible"]
      1101 JUMPIFNOT                        R14 ; [+47]
      1102 MOVE                             R14 R10
      1103 GETTABLEKS                       R15 R1 K12 ["Top"]
-     1105 GETUPVAL                         R18 5
-     1106 GETTABLE                         R17 R18 R13
-     1107 GETTABLEKS                       R16 R17 K12 ["Top"]
+     1105 GETUPVAL                         R17 5
+     1106 GETTABLE                         R16 R17 R13
+     1107 GETTABLEKS                       R16 R16 K12 ["Top"]
      1109 GETIMPORT                        R17 K10 [Vector2.new]
      1111 GETTABLEKS                       R20 R1 K7 ["Left"]
-     1113 GETUPVAL                         R23 5
-     1114 GETTABLE                         R22 R23 R13
-     1115 GETTABLEKS                       R21 R22 K7 ["Left"]
+     1113 GETUPVAL                         R22 5
+     1114 GETTABLE                         R21 R22 R13
+     1115 GETTABLEKS                       R21 R21 K7 ["Left"]
      1117 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
      1119 GETIMPORT                        R19 K15 [math.min]
      1121 CALL                             R19 2 1
      1122 SUBK                             R18 R19 K11 [10]
-     1123 GETUPVAL                         R21 5
-     1124 GETTABLE                         R20 R21 R13
-     1125 GETTABLEKS                       R19 R20 K12 ["Top"]
+     1123 GETUPVAL                         R20 5
+     1124 GETTABLE                         R19 R20 R13
+     1125 GETTABLEKS                       R19 R19 K12 ["Top"]
      1127 CALL                             R17 2 1
      1128 GETIMPORT                        R18 K10 [Vector2.new]
      1130 GETTABLEKS                       R21 R1 K19 ["Right"]
-     1132 GETUPVAL                         R24 5
-     1133 GETTABLE                         R23 R24 R13
-     1134 GETTABLEKS                       R22 R23 K19 ["Right"]
+     1132 GETUPVAL                         R23 5
+     1133 GETTABLE                         R22 R23 R13
+     1134 GETTABLEKS                       R22 R22 K19 ["Right"]
      1136 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
      1138 GETIMPORT                        R20 K18 [math.max]
      1140 CALL                             R20 2 1
      1141 ADDK                             R19 R20 K11 [10]
-     1142 GETUPVAL                         R22 5
-     1143 GETTABLE                         R21 R22 R13
-     1144 GETTABLEKS                       R20 R21 K12 ["Top"]
+     1142 GETUPVAL                         R21 5
+     1143 GETTABLE                         R20 R21 R13
+     1144 GETTABLEKS                       R20 R20 K12 ["Top"]
      1146 CALL                             R18 2 1
      1147 GETUPVAL                         R19 7
      1148 CALL                             R14 5 0
-     1149 GETUPVAL                         R16 5
-     1150 GETTABLE                         R15 R16 R13
-     1151 GETTABLEKS                       R14 R15 K29 ["BottomVisible"]
+     1149 GETUPVAL                         R15 5
+     1150 GETTABLE                         R14 R15 R13
+     1151 GETTABLEKS                       R14 R14 K29 ["BottomVisible"]
      1153 JUMPIFNOT                        R14 ; [+47]
      1154 MOVE                             R14 R10
      1155 GETTABLEKS                       R15 R1 K12 ["Top"]
-     1157 GETUPVAL                         R18 5
-     1158 GETTABLE                         R17 R18 R13
-     1159 GETTABLEKS                       R16 R17 K16 ["Bottom"]
+     1157 GETUPVAL                         R17 5
+     1158 GETTABLE                         R16 R17 R13
+     1159 GETTABLEKS                       R16 R16 K16 ["Bottom"]
      1161 GETIMPORT                        R17 K10 [Vector2.new]
      1163 GETTABLEKS                       R20 R1 K7 ["Left"]
-     1165 GETUPVAL                         R23 5
-     1166 GETTABLE                         R22 R23 R13
-     1167 GETTABLEKS                       R21 R22 K7 ["Left"]
+     1165 GETUPVAL                         R22 5
+     1166 GETTABLE                         R21 R22 R13
+     1167 GETTABLEKS                       R21 R21 K7 ["Left"]
      1169 FASTCALL2                        MATH_MIN R20 R21 ; [+3]
      1171 GETIMPORT                        R19 K15 [math.min]
      1173 CALL                             R19 2 1
      1174 SUBK                             R18 R19 K11 [10]
-     1175 GETUPVAL                         R21 5
-     1176 GETTABLE                         R20 R21 R13
-     1177 GETTABLEKS                       R19 R20 K16 ["Bottom"]
+     1175 GETUPVAL                         R20 5
+     1176 GETTABLE                         R19 R20 R13
+     1177 GETTABLEKS                       R19 R19 K16 ["Bottom"]
      1179 CALL                             R17 2 1
      1180 GETIMPORT                        R18 K10 [Vector2.new]
      1182 GETTABLEKS                       R21 R1 K19 ["Right"]
-     1184 GETUPVAL                         R24 5
-     1185 GETTABLE                         R23 R24 R13
-     1186 GETTABLEKS                       R22 R23 K19 ["Right"]
+     1184 GETUPVAL                         R23 5
+     1185 GETTABLE                         R22 R23 R13
+     1186 GETTABLEKS                       R22 R22 K19 ["Right"]
      1188 FASTCALL2                        MATH_MAX R21 R22 ; [+3]
      1190 GETIMPORT                        R20 K18 [math.max]
      1192 CALL                             R20 2 1
      1193 ADDK                             R19 R20 K11 [10]
-     1194 GETUPVAL                         R22 5
-     1195 GETTABLE                         R21 R22 R13
-     1196 GETTABLEKS                       R20 R21 K16 ["Bottom"]
+     1194 GETUPVAL                         R21 5
+     1195 GETTABLE                         R20 R21 R13
+     1196 GETTABLEKS                       R20 R20 K16 ["Bottom"]
      1198 CALL                             R18 2 1
      1199 GETUPVAL                         R19 7
      1200 CALL                             R14 5 0
@@ -1090,50 +1090,50 @@ PROTO_7:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Extents2D"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Extents2D"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["FFlag"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["FFlag"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K1 [require]
-       21 GETIMPORT                        R5 K3 [script]
-       23 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K7 ["GlobalValues"]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["GlobalValues"]
        27 CALL                             R2 1 1
        28 GETIMPORT                        R3 K1 [require]
-       30 GETIMPORT                        R6 K3 [script]
-       32 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       34 GETTABLEKS                       R4 R5 K8 ["InstanceInfo"]
+       30 GETIMPORT                        R4 K3 [script]
+       32 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       34 GETTABLEKS                       R4 R4 K8 ["InstanceInfo"]
        36 CALL                             R3 1 1
        37 GETIMPORT                        R4 K1 [require]
-       39 GETIMPORT                        R7 K3 [script]
-       41 GETTABLEKS                       R6 R7 K4 ["Parent"]
-       43 GETTABLEKS                       R5 R6 K9 ["Select"]
+       39 GETIMPORT                        R5 K3 [script]
+       41 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       43 GETTABLEKS                       R5 R5 K9 ["Select"]
        45 CALL                             R4 1 1
        46 GETIMPORT                        R5 K1 [require]
-       48 GETIMPORT                        R8 K3 [script]
-       50 GETTABLEKS                       R7 R8 K4 ["Parent"]
-       52 GETTABLEKS                       R6 R7 K10 ["SelectionManager"]
+       48 GETIMPORT                        R6 K3 [script]
+       50 GETTABLEKS                       R6 R6 K4 ["Parent"]
+       52 GETTABLEKS                       R6 R6 K10 ["SelectionManager"]
        54 CALL                             R5 1 1
        55 GETIMPORT                        R6 K1 [require]
-       57 GETIMPORT                        R9 K3 [script]
-       59 GETTABLEKS                       R8 R9 K4 ["Parent"]
-       61 GETTABLEKS                       R7 R8 K11 ["Set"]
+       57 GETIMPORT                        R7 K3 [script]
+       59 GETTABLEKS                       R7 R7 K4 ["Parent"]
+       61 GETTABLEKS                       R7 R7 K11 ["Set"]
        63 CALL                             R6 1 1
        64 GETIMPORT                        R7 K1 [require]
-       66 GETIMPORT                        R10 K3 [script]
-       68 GETTABLEKS                       R9 R10 K4 ["Parent"]
-       70 GETTABLEKS                       R8 R9 K12 ["Utility"]
+       66 GETIMPORT                        R8 K3 [script]
+       68 GETTABLEKS                       R8 R8 K4 ["Parent"]
+       70 GETTABLEKS                       R8 R8 K12 ["Utility"]
        72 CALL                             R7 1 1
        73 GETIMPORT                        R8 K1 [require]
-       75 GETIMPORT                        R12 K3 [script]
-       77 GETTABLEKS                       R11 R12 K4 ["Parent"]
-       79 GETTABLEKS                       R10 R11 K13 ["Enum"]
-       81 GETTABLEKS                       R9 R10 K14 ["SnappingType"]
+       75 GETIMPORT                        R9 K3 [script]
+       77 GETTABLEKS                       R9 R9 K4 ["Parent"]
+       79 GETTABLEKS                       R9 R9 K13 ["Enum"]
+       81 GETTABLEKS                       R9 R9 K14 ["SnappingType"]
        83 CALL                             R8 1 1
        84 NEWTABLE                         R9 0 0
        86 NEWTABLE                         R10 0 0

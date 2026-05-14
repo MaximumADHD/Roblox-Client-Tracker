@@ -25,21 +25,21 @@ PROTO_1:
         8 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["COMPONENT_PATH_BASE_SCALE"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["COMPONENT_PATH_BASE_SCALE"]
         3 LOADN                            R2 0
         4 GETIMPORT                        R3 K2 [ipairs]
         6 MOVE                             R4 R0
         7 CALL                             R3 1 3
         8 FORGPREP_INEXT                   R3
-        9 GETUPVAL                         R10 0
-       10 GETTABLEKS                       R9 R10 K3 ["COMPONENT_PATH_VALUE"]
+        9 GETUPVAL                         R9 0
+       10 GETTABLEKS                       R9 R9 K3 ["COMPONENT_PATH_VALUE"]
        12 GETTABLE                         R8 R9 R7
        13 JUMPIFNOT                        R8 ; [+6]
        14 MUL                              R9 R1 R8
        15 ADD                              R2 R2 R9
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K0 ["COMPONENT_PATH_BASE_SCALE"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K0 ["COMPONENT_PATH_BASE_SCALE"]
        19 MUL                              R1 R1 R9
        20 FORGLOOP                         R3 2 [inext] ; [-12]
        22 RETURN                           R2 1
@@ -73,8 +73,8 @@ PROTO_4:
         6 MOVE                             R3 R0
         7 CALL                             R2 1 3
         8 FORGPREP_INEXT                   R2
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R7 R8 K2 ["equals"]
+        9 GETUPVAL                         R7 0
+       10 GETTABLEKS                       R7 R7 K2 ["equals"]
        12 MOVE                             R8 R6
        13 MOVE                             R9 R1
        14 CALL                             R7 2 1
@@ -85,15 +85,15 @@ PROTO_4:
        20 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["findPath"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["findPath"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
         6 JUMPIFNOT                        R2 ; [+9]
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K1 ["List"]
-       10 GETTABLEKS                       R3 R4 K2 ["removeIndex"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K1 ["List"]
+       10 GETTABLEKS                       R3 R3 K2 ["removeIndex"]
        12 MOVE                             R4 R0
        13 MOVE                             R5 R2
        14 CALL                             R3 2 -1
@@ -114,23 +114,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Dash"]
        16 GETTABLEKS                       R3 R2 K9 ["join"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R5 R6 K10 ["Cryo"]
+       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R5 R5 K10 ["Cryo"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Util"]
-       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Util"]
+       31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R8 R0 K14 ["LuaFlags"]
-       38 GETTABLEKS                       R7 R8 K15 ["GetFFlagFixDynamicTrackSelection"]
+       36 GETTABLEKS                       R7 R0 K14 ["LuaFlags"]
+       38 GETTABLEKS                       R7 R7 K15 ["GetFFlagFixDynamicTrackSelection"]
        40 CALL                             R6 1 1
        41 NEWTABLE                         R7 8 0
        43 DUPCLOSURE                       R8 K16 [PROTO_0]

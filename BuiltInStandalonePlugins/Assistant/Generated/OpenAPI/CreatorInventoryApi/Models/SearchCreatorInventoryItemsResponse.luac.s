@@ -64,8 +64,8 @@ PROTO_0:
        85 CALL                             R8 2 0
        86 JUMP                             ; [+16]
        87 GETTABLEKS                       R8 R0 K7 ["items"]
-       89 GETUPVAL                         R10 0
-       90 GETTABLEKS                       R9 R10 K11 ["fromResponse"]
+       89 GETUPVAL                         R9 0
+       90 GETTABLEKS                       R9 R9 K11 ["fromResponse"]
        92 MOVE                             R10 R7
        93 MOVE                             R11 R1
        94 LOADK                            R13 K12 ["%*\"items\" > [%*] > "]
@@ -114,8 +114,8 @@ PROTO_1:
        18 LOADNIL                          R4
        19 FORGPREP                         R2
        20 GETTABLEKS                       R7 R1 K3 ["items"]
-       22 GETUPVAL                         R9 0
-       23 GETTABLEKS                       R8 R9 K4 ["toRequest"]
+       22 GETUPVAL                         R8 0
+       23 GETTABLEKS                       R8 R8 K4 ["toRequest"]
        25 MOVE                             R9 R6
        26 CALL                             R8 1 1
        27 SETTABLE                         R8 R7 R5
@@ -136,8 +136,8 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["CreatorInventoryItem"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["CreatorInventoryItem"]
        24 CALL                             R4 1 1
        25 DUPCLOSURE                       R5 K11 [PROTO_0]
        26 CAPTURE                          VAL R4

@@ -1,8 +1,8 @@
 PROTO_0:
-        0 NAMECALL                         R3 R0 K0 ["getState"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["Management"]
-        5 GETTABLEKS                       R1 R2 K2 ["plugins"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["Management"]
+        5 GETTABLEKS                       R1 R1 K2 ["plugins"]
         7 GETIMPORT                        R2 K4 [pairs]
         9 MOVE                             R3 R1
        10 CALL                             R2 1 3
@@ -46,22 +46,22 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K8 [game]
        18 LOADK                            R4 K9 ["StudioService"]
        19 NAMECALL                         R2 R2 K10 ["GetService"]
        21 CALL                             R2 2 1
        22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R6 R0 K11 ["Src"]
-       26 GETTABLEKS                       R5 R6 K12 ["Thunks"]
-       28 GETTABLEKS                       R4 R5 K13 ["UpdatePlugin"]
+       24 GETTABLEKS                       R4 R0 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Thunks"]
+       28 GETTABLEKS                       R4 R4 K13 ["UpdatePlugin"]
        30 CALL                             R3 1 1
        31 DUPCLOSURE                       R4 K14 [PROTO_1]
        32 CAPTURE                          VAL R1

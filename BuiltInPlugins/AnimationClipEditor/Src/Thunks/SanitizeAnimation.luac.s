@@ -2,34 +2,34 @@ PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R1 K1 ["AnimationData"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["isChannelAnimation"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K2 ["isChannelAnimation"]
         8 MOVE                             R4 R2
         9 CALL                             R3 1 1
        10 JUMPIFNOT                        R3 ; [+1]
        11 RETURN                           R0 0
        12 NEWTABLE                         R4 2 0
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K3 ["R15_PARTS"]
-       17 GETTABLEKS                       R5 R6 K4 ["HumanoidRootPart"]
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R5 R5 K3 ["R15_PARTS"]
+       17 GETTABLEKS                       R5 R5 K4 ["HumanoidRootPart"]
        19 LOADB                            R6 1
        20 SETTABLE                         R6 R4 R5
-       21 GETUPVAL                         R7 1
-       22 GETTABLEKS                       R6 R7 K3 ["R15_PARTS"]
-       24 GETTABLEKS                       R5 R6 K5 ["LowerTorso"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K3 ["R15_PARTS"]
+       24 GETTABLEKS                       R5 R5 K5 ["LowerTorso"]
        26 LOADB                            R6 1
        27 SETTABLE                         R6 R4 R5
        28 NEWTABLE                         R5 0 0
-       30 GETUPVAL                         R9 1
-       31 GETTABLEKS                       R6 R9 K3 ["R15_PARTS"]
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K3 ["R15_PARTS"]
        33 LOADNIL                          R7
        34 LOADNIL                          R8
        35 FORGPREP                         R6
        36 LOADB                            R11 1
        37 SETTABLE                         R11 R5 R10
        38 FORGLOOP                         R6 2 ; [-3]
-       40 GETUPVAL                         R9 1
-       41 GETTABLEKS                       R6 R9 K6 ["FacsNames"]
+       40 GETUPVAL                         R6 1
+       41 GETTABLEKS                       R6 R6 K6 ["FacsNames"]
        43 LOADNIL                          R7
        44 LOADNIL                          R8
        45 FORGPREP                         R6
@@ -64,8 +64,8 @@ PROTO_0:
        80 LOADNIL                          R18
        81 LOADNIL                          R19
        82 FORGPREP                         R17
-       83 GETTABLEKS                       R23 R21 K11 ["Value"]
-       85 GETTABLEKS                       R22 R23 K12 ["Rotation"]
+       83 GETTABLEKS                       R22 R21 K11 ["Value"]
+       85 GETTABLEKS                       R22 R22 K12 ["Rotation"]
        87 SETTABLEKS                       R22 R21 K11 ["Value"]
        89 MOVE                             R22 R16
        90 JUMPIFNOT                        R22 ; [+6]
@@ -102,17 +102,17 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Thunks"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Thunks"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["History"]
-       15 GETTABLEKS                       R3 R4 K9 ["AddWaypoint"]
+       13 GETTABLEKS                       R3 R1 K8 ["History"]
+       15 GETTABLEKS                       R3 R3 K9 ["AddWaypoint"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K7 [require]
        20 GETTABLEKS                       R4 R1 K10 ["DeleteTrack"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R0 K4 ["Src"]
-       25 GETTABLEKS                       R4 R5 K11 ["Util"]
+       23 GETTABLEKS                       R4 R0 K4 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Util"]
        27 GETIMPORT                        R5 K7 [require]
        29 GETTABLEKS                       R6 R4 K12 ["AnimationData"]
        31 CALL                             R5 1 1

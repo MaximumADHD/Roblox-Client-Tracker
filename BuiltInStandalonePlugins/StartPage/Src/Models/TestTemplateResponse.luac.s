@@ -17,8 +17,8 @@ PROTO_0:
        20 MOVE                             R2 R0
        21 CALL                             R1 1 3
        22 FORGPREP_INEXT                   R1
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R6 R7 K7 ["validate"]
+       23 GETUPVAL                         R6 0
+       24 GETTABLEKS                       R6 R6 K7 ["validate"]
        26 MOVE                             R7 R5
        27 CALL                             R6 1 1
        28 JUMPIFNOT                        R6 ; [+8]
@@ -40,9 +40,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Models"]
-       13 GETTABLEKS                       R2 R3 K8 ["TestTemplateModel"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Models"]
+       13 GETTABLEKS                       R2 R2 K8 ["TestTemplateModel"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

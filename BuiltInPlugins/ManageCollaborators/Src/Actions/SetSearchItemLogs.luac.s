@@ -12,15 +12,15 @@ MAIN:
        10 LOADK                            R3 K6 ["ManageCollaborators"]
        11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
-       14 GETIMPORT                        R4 K9 [require]
-       16 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       18 GETTABLEKS                       R5 R6 K11 ["Framework"]
-       20 CALL                             R4 1 1
-       21 GETTABLEKS                       R3 R4 K12 ["Util"]
-       23 GETTABLEKS                       R2 R3 K13 ["Action"]
+       14 GETIMPORT                        R2 K9 [require]
+       16 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K11 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R2 R2 K12 ["Util"]
+       23 GETTABLEKS                       R2 R2 K13 ["Action"]
        25 MOVE                             R3 R2
-       26 GETIMPORT                        R5 K5 [script]
-       28 GETTABLEKS                       R4 R5 K14 ["Name"]
+       26 GETIMPORT                        R4 K5 [script]
+       28 GETTABLEKS                       R4 R4 K14 ["Name"]
        30 DUPCLOSURE                       R5 K15 [PROTO_0]
        31 CALL                             R3 2 -1
        32 RETURN                           R3 -1

@@ -10,15 +10,15 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["positions"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["positions"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["triangles"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["triangles"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
@@ -40,8 +40,8 @@ PROTO_5:
         5 SETTABLEKS                       R1 R0 K5 ["Name"]
         7 GETUPVAL                         R1 0
         8 SETTABLEKS                       R1 R0 K6 ["Parent"]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["new"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["new"]
        13 MOVE                             R2 R0
        14 GETIMPORT                        R3 K8 [CFrame.new]
        16 LOADN                            R4 0
@@ -59,8 +59,8 @@ PROTO_6:
         5 SETTABLEKS                       R1 R0 K5 ["Name"]
         7 GETUPVAL                         R1 0
         8 SETTABLEKS                       R1 R0 K6 ["Parent"]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["new"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["new"]
        13 MOVE                             R2 R0
        14 GETIMPORT                        R3 K8 [CFrame.new]
        16 LOADN                            R4 0
@@ -79,11 +79,11 @@ PROTO_7:
         7 GETUPVAL                         R1 0
         8 SETTABLEKS                       R1 R0 K6 ["Parent"]
        10 NEWTABLE                         R1 0 2
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K7 ["getSingleWrapper"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K7 ["getSingleWrapper"]
        15 CALL                             R2 0 1
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R3 R4 K8 ["getSecondWrapper"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K8 ["getSecondWrapper"]
        19 CALL                             R3 0 -1
        20 SETLIST                          R1 R2 -1 [1]
        22 RETURN                           R1 1
@@ -94,11 +94,11 @@ MAIN:
         3 LOADK                            R2 K2 ["LuaMeshEditingModule"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [game]
-        9 GETTABLEKS                       R1 R2 K6 ["Workspace"]
+        7 GETIMPORT                        R1 K5 [game]
+        9 GETTABLEKS                       R1 R1 K6 ["Workspace"]
        11 GETIMPORT                        R2 K8 [require]
-       13 GETTABLEKS                       R4 R0 K9 ["Util"]
-       15 GETTABLEKS                       R3 R4 K10 ["deepCopy"]
+       13 GETTABLEKS                       R3 R0 K9 ["Util"]
+       15 GETTABLEKS                       R3 R3 K10 ["deepCopy"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K8 [require]
        20 GETTABLEKS                       R4 R0 K11 ["Types"]

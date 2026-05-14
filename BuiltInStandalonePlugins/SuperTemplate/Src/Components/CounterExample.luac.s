@@ -9,32 +9,32 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Context"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["useState"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["useState"]
        10 LOADN                            R3 0
        11 CALL                             R2 1 2
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K3 ["useCallback"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K3 ["useCallback"]
        15 NEWCLOSURE                       R5 P0
        16 CAPTURE                          VAL R3
        17 NEWTABLE                         R6 0 1
        19 MOVE                             R7 R3
        20 SETLIST                          R6 R7 1 [1]
        22 CALL                             R4 2 1
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R5 R6 K4 ["createElement"]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K4 ["createElement"]
        26 GETUPVAL                         R6 2
        27 DUPTABLE                         R7 K6 [{"tag"}]
        28 LOADK                            R8 K7 ["auto-xy col gap-medium bg-surface-0 radius-medium"]
        29 SETTABLEKS                       R8 R7 K5 ["tag"]
        31 DUPTABLE                         R8 K10 [{"Label", "Button"}]
-       32 GETUPVAL                         R10 0
-       33 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       32 GETUPVAL                         R9 0
+       33 GETTABLEKS                       R9 R9 K4 ["createElement"]
        35 GETUPVAL                         R10 3
        36 DUPTABLE                         R11 K13 [{"Text", "tag", "testId"}]
        37 LOADK                            R14 K14 ["CounterExample"]
@@ -50,8 +50,8 @@ PROTO_2:
        51 SETTABLEKS                       R12 R11 K12 ["testId"]
        53 CALL                             R9 2 1
        54 SETTABLEKS                       R9 R8 K8 ["Label"]
-       56 GETUPVAL                         R10 0
-       57 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       56 GETUPVAL                         R9 0
+       57 GETTABLEKS                       R9 R9 K4 ["createElement"]
        59 GETUPVAL                         R10 4
        60 DUPTABLE                         R11 K24 [{"text", "onActivated", "variant", "testId"}]
        61 LOADK                            R14 K14 ["CounterExample"]
@@ -60,8 +60,8 @@ PROTO_2:
        65 CALL                             R12 3 1
        66 SETTABLEKS                       R12 R11 K21 ["text"]
        68 SETTABLEKS                       R4 R11 K22 ["onActivated"]
-       70 GETUPVAL                         R13 5
-       71 GETTABLEKS                       R12 R13 K25 ["Emphasis"]
+       70 GETUPVAL                         R12 5
+       71 GETTABLEKS                       R12 R12 K25 ["Emphasis"]
        73 SETTABLEKS                       R12 R11 K23 ["variant"]
        75 LOADK                            R12 K26 ["--counter-example-button"]
        76 SETTABLEKS                       R12 R11 K12 ["testId"]
@@ -77,24 +77,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
-       21 GETIMPORT                        R5 K5 [require]
-       23 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R6 R7 K9 ["StudioFoundation"]
-       27 CALL                             R5 1 1
-       28 GETTABLEKS                       R4 R5 K10 ["Contexts"]
-       30 GETTABLEKS                       R3 R4 K11 ["Localization"]
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["StudioFoundation"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R3 R3 K10 ["Contexts"]
+       30 GETTABLEKS                       R3 R3 K11 ["Localization"]
        32 GETTABLEKS                       R4 R2 K12 ["View"]
        34 GETTABLEKS                       R5 R2 K13 ["Text"]
        36 GETTABLEKS                       R6 R2 K14 ["Button"]
-       38 GETTABLEKS                       R8 R2 K15 ["Enums"]
-       40 GETTABLEKS                       R7 R8 K16 ["ButtonVariant"]
+       38 GETTABLEKS                       R7 R2 K15 ["Enums"]
+       40 GETTABLEKS                       R7 R7 K16 ["ButtonVariant"]
        42 DUPCLOSURE                       R8 K17 [PROTO_2]
        43 CAPTURE                          VAL R1
        44 CAPTURE                          VAL R3

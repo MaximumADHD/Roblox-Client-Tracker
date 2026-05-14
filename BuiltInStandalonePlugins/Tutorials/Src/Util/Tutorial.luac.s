@@ -106,8 +106,8 @@ PROTO_3:
       135 CALL                             R15 1 0
       136 JUMP                             ; [+10]
       137 MOVE                             R16 R5
-      138 GETUPVAL                         R18 3
-      139 GETTABLEKS                       R17 R18 K31 ["new"]
+      138 GETUPVAL                         R17 3
+      139 GETTABLEKS                       R17 R17 K31 ["new"]
       141 MOVE                             R18 R6
       142 MOVE                             R19 R11
       143 CALL                             R17 2 -1
@@ -123,11 +123,11 @@ PROTO_3:
       156 RETURN                           R7 1
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["data"]
-        2 GETTABLEKS                       R1 R2 K1 ["onStart"]
+        0 GETTABLEKS                       R1 R0 K0 ["data"]
+        2 GETTABLEKS                       R1 R1 K1 ["onStart"]
         4 JUMPIFNOT                        R1 ; [+6]
-        5 GETTABLEKS                       R2 R0 K0 ["data"]
-        7 GETTABLEKS                       R1 R2 K1 ["onStart"]
+        5 GETTABLEKS                       R1 R0 K0 ["data"]
+        7 GETTABLEKS                       R1 R1 K1 ["onStart"]
         9 MOVE                             R2 R0
        10 CALL                             R1 1 0
        11 LOADN                            R3 1
@@ -299,23 +299,23 @@ PROTO_12:
         0 NAMECALL                         R1 R0 K0 ["getCurrentStep"]
         2 CALL                             R1 1 1
         3 DUPTABLE                         R2 K4 [{"id", "currentStep", "stepCount"}]
-        4 GETTABLEKS                       R4 R0 K5 ["data"]
-        6 GETTABLEKS                       R3 R4 K1 ["id"]
+        4 GETTABLEKS                       R3 R0 K5 ["data"]
+        6 GETTABLEKS                       R3 R3 K1 ["id"]
         8 SETTABLEKS                       R3 R2 K1 ["id"]
        10 GETTABLEKS                       R3 R0 K2 ["currentStep"]
        12 SETTABLEKS                       R3 R2 K2 ["currentStep"]
        14 GETTABLEKS                       R4 R0 K6 ["steps"]
        16 LENGTH                           R3 R4
        17 SETTABLEKS                       R3 R2 K3 ["stepCount"]
-       19 GETTABLEKS                       R4 R1 K5 ["data"]
-       21 GETTABLEKS                       R3 R4 K7 ["showNext"]
+       19 GETTABLEKS                       R3 R1 K5 ["data"]
+       21 GETTABLEKS                       R3 R3 K7 ["showNext"]
        23 SETTABLEKS                       R3 R2 K7 ["showNext"]
        25 GETTABLEKS                       R3 R0 K8 ["topics"]
        27 SETTABLEKS                       R3 R2 K8 ["topics"]
        29 GETUPVAL                         R3 0
        30 GETTABLEKS                       R4 R0 K8 ["topics"]
-       32 GETTABLEKS                       R6 R1 K5 ["data"]
-       34 GETTABLEKS                       R5 R6 K9 ["topic"]
+       32 GETTABLEKS                       R5 R1 K5 ["data"]
+       34 GETTABLEKS                       R5 R5 K9 ["topic"]
        36 CALL                             R3 2 1
        37 SETTABLEKS                       R3 R2 K9 ["topic"]
        39 LOADN                            R3 0
@@ -324,10 +324,10 @@ PROTO_12:
        44 LOADNIL                          R4
        45 LOADNIL                          R5
        46 FORGPREP                         R3
-       47 GETTABLEKS                       R9 R7 K5 ["data"]
-       49 GETTABLEKS                       R8 R9 K9 ["topic"]
-       51 GETTABLEKS                       R10 R1 K5 ["data"]
-       53 GETTABLEKS                       R9 R10 K9 ["topic"]
+       47 GETTABLEKS                       R8 R7 K5 ["data"]
+       49 GETTABLEKS                       R8 R8 K9 ["topic"]
+       51 GETTABLEKS                       R9 R1 K5 ["data"]
+       53 GETTABLEKS                       R9 R9 K9 ["topic"]
        55 JUMPIFNOTEQ                      R8 R9 ; [+6]
        57 GETTABLEKS                       R8 R2 K10 ["topicStepCount"]
        59 ADDK                             R8 R8 K11 [1]
@@ -356,29 +356,29 @@ PROTO_14:
 PROTO_15:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R1 K3 [{"id", "kind", "title"}]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K4 ["data"]
-        5 GETTABLEKS                       R2 R3 K0 ["id"]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K4 ["data"]
+        5 GETTABLEKS                       R2 R2 K0 ["id"]
         7 SETTABLEKS                       R2 R1 K0 ["id"]
         9 LOADK                            R2 K5 ["Completed"]
        10 SETTABLEKS                       R2 R1 K1 ["kind"]
-       12 GETUPVAL                         R3 2
-       13 GETTABLEKS                       R2 R3 K6 ["localization"]
-       15 GETUPVAL                         R6 2
-       16 GETTABLEKS                       R5 R6 K4 ["data"]
-       18 GETTABLEKS                       R4 R5 K0 ["id"]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K6 ["localization"]
+       15 GETUPVAL                         R4 2
+       16 GETTABLEKS                       R4 R4 K4 ["data"]
+       18 GETTABLEKS                       R4 R4 K0 ["id"]
        20 LOADK                            R5 K7 ["%s_Title"]
-       21 GETUPVAL                         R9 1
-       22 GETTABLEKS                       R8 R9 K4 ["data"]
-       24 GETTABLEKS                       R7 R8 K0 ["id"]
+       21 GETUPVAL                         R7 1
+       22 GETTABLEKS                       R7 R7 K4 ["data"]
+       24 GETTABLEKS                       R7 R7 K0 ["id"]
        26 NAMECALL                         R5 R5 K8 ["format"]
        28 CALL                             R5 2 -1
        29 NAMECALL                         R2 R2 K9 ["getText"]
        31 CALL                             R2 -1 1
        32 SETTABLEKS                       R2 R1 K2 ["title"]
        34 SETTABLEKS                       R1 R0 K10 ["step"]
-       36 GETUPVAL                         R1 2
-       37 GETTABLEKS                       R0 R1 K11 ["onStepChanged"]
+       36 GETUPVAL                         R0 2
+       37 GETTABLEKS                       R0 R0 K11 ["onStepChanged"]
        39 GETUPVAL                         R1 0
        40 CALL                             R0 1 0
        41 GETIMPORT                        R0 K14 [task.delay]
@@ -397,11 +397,11 @@ PROTO_16:
         7 NAMECALL                         R2 R0 K1 ["getCurrentStep"]
         9 CALL                             R2 1 1
        10 JUMPIFNOT                        R2 ; [+14]
-       11 GETTABLEKS                       R4 R2 K2 ["data"]
-       13 GETTABLEKS                       R3 R4 K3 ["onUnbind"]
+       11 GETTABLEKS                       R3 R2 K2 ["data"]
+       13 GETTABLEKS                       R3 R3 K3 ["onUnbind"]
        15 JUMPIFNOT                        R3 ; [+6]
-       16 GETTABLEKS                       R4 R2 K2 ["data"]
-       18 GETTABLEKS                       R3 R4 K3 ["onUnbind"]
+       16 GETTABLEKS                       R3 R2 K2 ["data"]
+       18 GETTABLEKS                       R3 R3 K3 ["onUnbind"]
        20 MOVE                             R4 R0
        21 CALL                             R3 1 0
        22 NAMECALL                         R3 R2 K4 ["unbind"]
@@ -429,8 +429,8 @@ PROTO_16:
        54 LOADB                            R5 1
        55 SETTABLEKS                       R5 R0 K11 ["skipping"]
        57 DUPTABLE                         R5 K15 [{"id", "kind", "description"}]
-       58 GETTABLEKS                       R7 R2 K2 ["data"]
-       60 GETTABLEKS                       R6 R7 K12 ["id"]
+       58 GETTABLEKS                       R6 R2 K2 ["data"]
+       60 GETTABLEKS                       R6 R6 K12 ["id"]
        62 SETTABLEKS                       R6 R5 K12 ["id"]
        64 LOADK                            R6 K16 ["Skipped"]
        65 SETTABLEKS                       R6 R5 K13 ["kind"]
@@ -491,11 +491,11 @@ PROTO_18:
         5 JUMPIFNOTEQ                      R1 R2 ; [+34]
         7 LOADB                            R1 1
         8 SETTABLEKS                       R1 R0 K2 ["completed"]
-       10 GETTABLEKS                       R2 R0 K3 ["data"]
-       12 GETTABLEKS                       R1 R2 K4 ["onComplete"]
+       10 GETTABLEKS                       R1 R0 K3 ["data"]
+       12 GETTABLEKS                       R1 R1 K4 ["onComplete"]
        14 JUMPIFNOT                        R1 ; [+6]
-       15 GETTABLEKS                       R2 R0 K3 ["data"]
-       17 GETTABLEKS                       R1 R2 K4 ["onComplete"]
+       15 GETTABLEKS                       R1 R0 K3 ["data"]
+       17 GETTABLEKS                       R1 R1 K4 ["onComplete"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 GETUPVAL                         R1 0
@@ -504,8 +504,8 @@ PROTO_18:
        25 NAMECALL                         R1 R1 K6 ["HideSpotlightAsync"]
        27 CALL                             R1 1 0
        28 GETTABLEKS                       R1 R0 K7 ["onCompleted"]
-       30 GETTABLEKS                       R3 R0 K3 ["data"]
-       32 GETTABLEKS                       R2 R3 K8 ["shouldShowCompletedDialog"]
+       30 GETTABLEKS                       R2 R0 K3 ["data"]
+       32 GETTABLEKS                       R2 R2 K8 ["shouldShowCompletedDialog"]
        34 CALL                             R1 1 0
        35 JUMP                             ; [+10]
        36 GETTABLEKS                       R1 R0 K7 ["onCompleted"]
@@ -548,8 +548,8 @@ PROTO_19:
        35 RETURN                           R0 0
 
 PROTO_20:
-        0 GETTABLEKS                       R3 R0 K0 ["data"]
-        2 GETTABLEKS                       R2 R3 K1 ["topic"]
+        0 GETTABLEKS                       R2 R0 K0 ["data"]
+        2 GETTABLEKS                       R2 R2 K1 ["topic"]
         4 GETUPVAL                         R3 0
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
@@ -576,70 +576,70 @@ PROTO_22:
         8 GETTABLEKS                       R3 R2 K2 ["spotlight"]
        10 JUMPIF                           R3 ; [+1]
        11 RETURN                           R0 0
-       12 GETTABLEKS                       R4 R2 K2 ["spotlight"]
-       14 GETTABLEKS                       R3 R4 K3 ["TargetWidgetUri"]
+       12 GETTABLEKS                       R3 R2 K2 ["spotlight"]
+       14 GETTABLEKS                       R3 R3 K3 ["TargetWidgetUri"]
        16 JUMPIFNOT                        R3 ; [+48]
-       17 GETTABLEKS                       R4 R2 K2 ["spotlight"]
-       19 GETTABLEKS                       R3 R4 K4 ["ShowShadows"]
+       17 GETTABLEKS                       R3 R2 K2 ["spotlight"]
+       19 GETTABLEKS                       R3 R3 K4 ["ShowShadows"]
        21 JUMPIFNOT                        R3 ; [+14]
        22 GETTABLEKS                       R3 R0 K5 ["Spotlight"]
        24 NAMECALL                         R3 R3 K6 ["ApplyShadowsAsync"]
        26 CALL                             R3 1 0
        27 GETTABLEKS                       R3 R0 K5 ["Spotlight"]
-       29 GETTABLEKS                       R6 R2 K2 ["spotlight"]
-       31 GETTABLEKS                       R5 R6 K3 ["TargetWidgetUri"]
+       29 GETTABLEKS                       R5 R2 K2 ["spotlight"]
+       31 GETTABLEKS                       R5 R5 K3 ["TargetWidgetUri"]
        33 NAMECALL                         R3 R3 K7 ["ApplySpotlightAsync"]
        35 CALL                             R3 2 0
-       36 GETTABLEKS                       R4 R2 K2 ["spotlight"]
-       38 GETTABLEKS                       R3 R4 K8 ["ShowBox"]
+       36 GETTABLEKS                       R3 R2 K2 ["spotlight"]
+       38 GETTABLEKS                       R3 R3 K8 ["ShowBox"]
        40 JUMPIFNOT                        R3 ; [+9]
        41 GETTABLEKS                       R3 R0 K5 ["Spotlight"]
-       43 GETTABLEKS                       R6 R2 K2 ["spotlight"]
-       45 GETTABLEKS                       R5 R6 K3 ["TargetWidgetUri"]
+       43 GETTABLEKS                       R5 R2 K2 ["spotlight"]
+       45 GETTABLEKS                       R5 R5 K3 ["TargetWidgetUri"]
        47 NAMECALL                         R3 R3 K9 ["ApplyFillInBoxAsync"]
        49 CALL                             R3 2 0
-       50 GETTABLEKS                       R4 R2 K2 ["spotlight"]
-       52 GETTABLEKS                       R3 R4 K10 ["ShowHighlight"]
+       50 GETTABLEKS                       R3 R2 K2 ["spotlight"]
+       52 GETTABLEKS                       R3 R3 K10 ["ShowHighlight"]
        54 JUMPIFNOT                        R3 ; [+64]
        55 GETTABLEKS                       R3 R0 K5 ["Spotlight"]
-       57 GETTABLEKS                       R6 R2 K2 ["spotlight"]
-       59 GETTABLEKS                       R5 R6 K3 ["TargetWidgetUri"]
+       57 GETTABLEKS                       R5 R2 K2 ["spotlight"]
+       59 GETTABLEKS                       R5 R5 K3 ["TargetWidgetUri"]
        61 NAMECALL                         R3 R3 K11 ["ApplyHighlightAsync"]
        63 CALL                             R3 2 0
        64 RETURN                           R0 0
        65 GETUPVAL                         R3 0
-       66 GETTABLEKS                       R6 R2 K2 ["spotlight"]
-       68 GETTABLEKS                       R5 R6 K12 ["target"]
+       66 GETTABLEKS                       R5 R2 K2 ["spotlight"]
+       68 GETTABLEKS                       R5 R5 K12 ["target"]
        70 NAMECALL                         R3 R3 K13 ["GetWidgetFromLabel"]
        72 CALL                             R3 2 1
-       73 GETTABLEKS                       R5 R2 K2 ["spotlight"]
-       75 GETTABLEKS                       R4 R5 K14 ["showShadows"]
+       73 GETTABLEKS                       R4 R2 K2 ["spotlight"]
+       75 GETTABLEKS                       R4 R4 K14 ["showShadows"]
        77 JUMPIFNOT                        R4 ; [+13]
        78 GETUPVAL                         R4 0
        79 NAMECALL                         R4 R4 K15 ["ApplyShadows"]
        81 CALL                             R4 1 0
        82 GETUPVAL                         R4 0
        83 MOVE                             R6 R3
-       84 GETTABLEKS                       R8 R2 K2 ["spotlight"]
-       86 GETTABLEKS                       R7 R8 K16 ["rowName"]
+       84 GETTABLEKS                       R7 R2 K2 ["spotlight"]
+       86 GETTABLEKS                       R7 R7 K16 ["rowName"]
        88 NAMECALL                         R4 R4 K17 ["ApplySpotlight"]
        90 CALL                             R4 3 0
-       91 GETTABLEKS                       R5 R2 K2 ["spotlight"]
-       93 GETTABLEKS                       R4 R5 K18 ["showBox"]
+       91 GETTABLEKS                       R4 R2 K2 ["spotlight"]
+       93 GETTABLEKS                       R4 R4 K18 ["showBox"]
        95 JUMPIFNOT                        R4 ; [+9]
        96 GETUPVAL                         R4 0
        97 MOVE                             R6 R3
-       98 GETTABLEKS                       R8 R2 K2 ["spotlight"]
-      100 GETTABLEKS                       R7 R8 K16 ["rowName"]
+       98 GETTABLEKS                       R7 R2 K2 ["spotlight"]
+      100 GETTABLEKS                       R7 R7 K16 ["rowName"]
       102 NAMECALL                         R4 R4 K19 ["ApplyFillInBox"]
       104 CALL                             R4 3 0
-      105 GETTABLEKS                       R5 R2 K2 ["spotlight"]
-      107 GETTABLEKS                       R4 R5 K20 ["showHighlight"]
+      105 GETTABLEKS                       R4 R2 K2 ["spotlight"]
+      107 GETTABLEKS                       R4 R4 K20 ["showHighlight"]
       109 JUMPIFNOT                        R4 ; [+9]
       110 GETUPVAL                         R4 0
       111 MOVE                             R6 R3
-      112 GETTABLEKS                       R8 R2 K2 ["spotlight"]
-      114 GETTABLEKS                       R7 R8 K16 ["rowName"]
+      112 GETTABLEKS                       R7 R2 K2 ["spotlight"]
+      114 GETTABLEKS                       R7 R7 K16 ["rowName"]
       116 NAMECALL                         R4 R4 K21 ["ApplyHighlight"]
       118 CALL                             R4 3 0
       119 RETURN                           R0 0
@@ -706,31 +706,31 @@ PROTO_25:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Dash"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Dash"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K7 ["collect"]
        18 GETTABLEKS                       R3 R1 K8 ["findIndex"]
        20 GETIMPORT                        R4 K4 [require]
-       22 GETTABLEKS                       R7 R0 K9 ["Src"]
-       24 GETTABLEKS                       R6 R7 K10 ["Util"]
-       26 GETTABLEKS                       R5 R6 K11 ["TutorialTypes"]
+       22 GETTABLEKS                       R5 R0 K9 ["Src"]
+       24 GETTABLEKS                       R5 R5 K10 ["Util"]
+       26 GETTABLEKS                       R5 R5 K11 ["TutorialTypes"]
        28 CALL                             R4 1 1
        29 GETIMPORT                        R5 K4 [require]
-       31 GETTABLEKS                       R8 R0 K9 ["Src"]
-       33 GETTABLEKS                       R7 R8 K10 ["Util"]
-       35 GETTABLEKS                       R6 R7 K12 ["TutorialSteps"]
+       31 GETTABLEKS                       R6 R0 K9 ["Src"]
+       33 GETTABLEKS                       R6 R6 K10 ["Util"]
+       35 GETTABLEKS                       R6 R6 K12 ["TutorialSteps"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K4 [require]
-       40 GETTABLEKS                       R10 R0 K9 ["Src"]
-       42 GETTABLEKS                       R9 R10 K10 ["Util"]
-       44 GETTABLEKS                       R8 R9 K12 ["TutorialSteps"]
-       46 GETTABLEKS                       R7 R8 K13 ["TutorialStep"]
+       40 GETTABLEKS                       R7 R0 K9 ["Src"]
+       42 GETTABLEKS                       R7 R7 K10 ["Util"]
+       44 GETTABLEKS                       R7 R7 K12 ["TutorialSteps"]
+       46 GETTABLEKS                       R7 R7 K13 ["TutorialStep"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K15 [pcall]
        51 DUPCLOSURE                       R8 K16 [PROTO_0]
@@ -747,9 +747,9 @@ MAIN:
        63 JUMP                             ; [+1]
        64 LOADNIL                          R12
        65 GETIMPORT                        R13 K4 [require]
-       67 GETTABLEKS                       R16 R0 K9 ["Src"]
-       69 GETTABLEKS                       R15 R16 K18 ["Flags"]
-       71 GETTABLEKS                       R14 R15 K19 ["getFFlagEnableRibbonTour"]
+       67 GETTABLEKS                       R14 R0 K9 ["Src"]
+       69 GETTABLEKS                       R14 R14 K18 ["Flags"]
+       71 GETTABLEKS                       R14 R14 K19 ["getFFlagEnableRibbonTour"]
        73 CALL                             R13 1 1
        74 CALL                             R13 0 1
        75 DUPTABLE                         R14 K25 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]

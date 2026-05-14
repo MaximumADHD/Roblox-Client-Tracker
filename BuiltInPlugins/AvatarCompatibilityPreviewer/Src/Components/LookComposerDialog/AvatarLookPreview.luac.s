@@ -68,12 +68,12 @@ PROTO_3:
         9 GETTABLEKS                       R1 R0 K3 ["bodyColor"]
        11 GETTABLEKS                       R2 R0 K4 ["bodyProportions"]
        13 GETTABLEKS                       R3 R0 K5 ["dummy"]
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K6 ["useState"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K6 ["useState"]
        18 LOADNIL                          R5
        19 CALL                             R4 1 2
-       20 GETUPVAL                         R7 1
-       21 GETTABLEKS                       R6 R7 K7 ["useEffect"]
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R6 R6 K7 ["useEffect"]
        23 NEWCLOSURE                       R7 P0
        24 CAPTURE                          VAL R3
        25 CAPTURE                          UPVAL U2
@@ -88,8 +88,8 @@ PROTO_3:
        36 JUMPIFEQKNIL                     R4 ; [+76]
        38 GETTABLEKS                       R6 R4 K8 ["PrimaryPart"]
        40 JUMPIFEQKNIL                     R6 ; [+72]
-       42 GETUPVAL                         R7 1
-       43 GETTABLEKS                       R6 R7 K9 ["createElement"]
+       42 GETUPVAL                         R6 1
+       43 GETTABLEKS                       R6 R6 K9 ["createElement"]
        45 GETUPVAL                         R7 3
        46 DUPTABLE                         R8 K13 [{"tag", "Size", "LayoutOrder"}]
        47 LOADK                            R9 K14 ["bg-surface-200 radius-medium stroke-default clip"]
@@ -102,13 +102,13 @@ PROTO_3:
        57 GETTABLEKS                       R9 R0 K12 ["LayoutOrder"]
        59 SETTABLEKS                       R9 R8 K12 ["LayoutOrder"]
        61 DUPTABLE                         R9 K19 [{"AvatarPreview"}]
-       62 GETUPVAL                         R11 1
-       63 GETTABLEKS                       R10 R11 K9 ["createElement"]
+       62 GETUPVAL                         R10 1
+       63 GETTABLEKS                       R10 R10 K9 ["createElement"]
        65 GETUPVAL                         R11 4
        66 DUPTABLE                         R12 K27 [{"FocusDirection", "Model", "Static", "ShouldClone", "Ambient", "LightColor", "LightDirection"}]
-       67 GETTABLEKS                       R15 R4 K8 ["PrimaryPart"]
-       69 GETTABLEKS                       R14 R15 K28 ["CFrame"]
-       71 GETTABLEKS                       R13 R14 K29 ["LookVector"]
+       67 GETTABLEKS                       R13 R4 K8 ["PrimaryPart"]
+       69 GETTABLEKS                       R13 R13 K28 ["CFrame"]
+       71 GETTABLEKS                       R13 R13 K29 ["LookVector"]
        73 SETTABLEKS                       R13 R12 K20 ["FocusDirection"]
        75 SETTABLEKS                       R4 R12 K21 ["Model"]
        77 LOADB                            R13 1
@@ -127,17 +127,17 @@ PROTO_3:
        95 LOADN                            R16 1
        96 CALL                             R13 3 1
        97 SETTABLEKS                       R13 R12 K25 ["LightColor"]
-       99 GETTABLEKS                       R16 R4 K8 ["PrimaryPart"]
-      101 GETTABLEKS                       R15 R16 K28 ["CFrame"]
-      103 GETTABLEKS                       R14 R15 K29 ["LookVector"]
+       99 GETTABLEKS                       R14 R4 K8 ["PrimaryPart"]
+      101 GETTABLEKS                       R14 R14 K28 ["CFrame"]
+      103 GETTABLEKS                       R14 R14 K29 ["LookVector"]
       105 MINUS                            R13 R14
       106 SETTABLEKS                       R13 R12 K26 ["LightDirection"]
       108 CALL                             R10 2 1
       109 SETTABLEKS                       R10 R9 K18 ["AvatarPreview"]
       111 CALL                             R6 3 -1
       112 RETURN                           R6 -1
-      113 GETUPVAL                         R7 1
-      114 GETTABLEKS                       R6 R7 K9 ["createElement"]
+      113 GETUPVAL                         R6 1
+      114 GETTABLEKS                       R6 R6 K9 ["createElement"]
       116 GETUPVAL                         R7 3
       117 DUPTABLE                         R8 K13 [{"tag", "Size", "LayoutOrder"}]
       118 LOADK                            R9 K34 ["bg-surface-200 radius-medium stroke-default"]
@@ -159,28 +159,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R5 R5 K10 ["Framework"]
        29 CALL                             R4 1 1
        30 GETTABLEKS                       R5 R4 K11 ["UI"]
        32 GETTABLEKS                       R6 R5 K12 ["AssetRenderModel"]
        34 GETIMPORT                        R7 K5 [require]
-       36 GETTABLEKS                       R9 R0 K13 ["Src"]
-       38 GETTABLEKS                       R8 R9 K14 ["Types"]
+       36 GETTABLEKS                       R8 R0 K13 ["Src"]
+       38 GETTABLEKS                       R8 R8 K14 ["Types"]
        40 CALL                             R7 1 1
        41 GETIMPORT                        R8 K5 [require]
-       43 GETTABLEKS                       R11 R0 K13 ["Src"]
-       45 GETTABLEKS                       R10 R11 K15 ["Flags"]
-       47 GETTABLEKS                       R9 R10 K16 ["getFFlagAvatarPreviewerLookComposer"]
+       43 GETTABLEKS                       R9 R0 K13 ["Src"]
+       45 GETTABLEKS                       R9 R9 K15 ["Flags"]
+       47 GETTABLEKS                       R9 R9 K16 ["getFFlagAvatarPreviewerLookComposer"]
        49 CALL                             R8 1 1
        50 DUPCLOSURE                       R9 K17 [PROTO_0]
        51 DUPCLOSURE                       R10 K18 [PROTO_3]

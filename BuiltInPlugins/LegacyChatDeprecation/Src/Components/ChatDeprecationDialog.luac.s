@@ -9,8 +9,8 @@ PROTO_0:
        10 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ChatVersion"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ChatVersion"]
         3 GETIMPORT                        R1 K3 [Enum.ChatVersion.LegacyChatService]
         5 JUMPIFNOTEQ                      R0 R1 ; [+14]
         7 GETUPVAL                         R0 1
@@ -19,28 +19,28 @@ PROTO_1:
        11 SETLIST                          R2 R3 1 [1]
        13 NAMECALL                         R0 R0 K4 ["Set"]
        15 CALL                             R0 2 0
-       16 GETUPVAL                         R1 2
-       17 GETTABLEKS                       R0 R1 K5 ["onClosed"]
+       16 GETUPVAL                         R0 2
+       17 GETTABLEKS                       R0 R0 K5 ["onClosed"]
        19 CALL                             R0 0 0
        20 GETUPVAL                         R0 3
        21 CALL                             R0 0 1
        22 JUMPIFNOT                        R0 ; [+4]
-       23 GETUPVAL                         R1 2
-       24 GETTABLEKS                       R0 R1 K5 ["onClosed"]
+       23 GETUPVAL                         R0 2
+       24 GETTABLEKS                       R0 R0 K5 ["onClosed"]
        26 CALL                             R0 0 0
        27 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Enabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Enabled"]
         3 JUMPIFNOT                        R0 ; [+5]
         4 GETUPVAL                         R0 1
         5 JUMPIF                           R0 ; [+3]
         6 GETUPVAL                         R0 2
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R0 R1 K0 ["Enabled"]
+        9 GETUPVAL                         R0 0
+       10 GETTABLEKS                       R0 R0 K0 ["Enabled"]
        12 JUMPIF                           R0 ; [+4]
        13 GETUPVAL                         R0 1
        14 JUMPIFNOT                        R0 ; [+2]
@@ -113,8 +113,8 @@ PROTO_3:
        76 SETTABLEKS                       R11 R10 K22 ["OnActivated"]
        78 SETTABLEKS                       R10 R8 K17 ["ActionPrimary"]
        80 GETUPVAL                         R10 2
-       81 GETUPVAL                         R12 3
-       82 GETTABLEKS                       R11 R12 K25 ["CLOSE"]
+       81 GETUPVAL                         R11 3
+       82 GETTABLEKS                       R11 R11 K25 ["CLOSE"]
        84 DUPTABLE                         R12 K23 [{"Label", "OnActivated"}]
        85 SETTABLEKS                       R6 R12 K2 ["Label"]
        87 NEWCLOSURE                       R13 P1
@@ -128,8 +128,8 @@ PROTO_3:
        97 GETTABLEKS                       R10 R0 K26 ["onClosed"]
        99 SETTABLEKS                       R10 R8 K19 ["OnClosed"]
       101 CALL                             R7 1 3
-      102 GETUPVAL                         R11 7
-      103 GETTABLEKS                       R10 R11 K27 ["useEffect"]
+      102 GETUPVAL                         R10 7
+      103 GETTABLEKS                       R10 R10 K27 ["useEffect"]
       105 NEWCLOSURE                       R11 P2
       106 CAPTURE                          VAL R0
       107 CAPTURE                          VAL R9
@@ -150,23 +150,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["Localization"]
-       25 GETTABLEKS                       R7 R2 K11 ["UI"]
-       27 GETTABLEKS                       R6 R7 K12 ["Hooks"]
-       29 GETTABLEKS                       R5 R6 K13 ["useDialog"]
-       31 GETTABLEKS                       R7 R2 K14 ["Util"]
-       33 GETTABLEKS                       R6 R7 K15 ["DialogAction"]
+       25 GETTABLEKS                       R5 R2 K11 ["UI"]
+       27 GETTABLEKS                       R5 R5 K12 ["Hooks"]
+       29 GETTABLEKS                       R5 R5 K13 ["useDialog"]
+       31 GETTABLEKS                       R6 R2 K14 ["Util"]
+       33 GETTABLEKS                       R6 R6 K15 ["DialogAction"]
        35 GETIMPORT                        R7 K5 [require]
-       37 GETTABLEKS                       R9 R0 K6 ["Packages"]
-       39 GETTABLEKS                       R8 R9 K16 ["Dash"]
+       37 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       39 GETTABLEKS                       R8 R8 K16 ["Dash"]
        41 CALL                             R7 1 1
        42 GETTABLEKS                       R8 R7 K17 ["join"]
        44 GETIMPORT                        R9 K19 [game]
@@ -178,9 +178,9 @@ MAIN:
        53 NAMECALL                         R10 R10 K21 ["GetService"]
        55 CALL                             R10 2 1
        56 GETIMPORT                        R11 K5 [require]
-       58 GETTABLEKS                       R14 R0 K23 ["Src"]
-       60 GETTABLEKS                       R13 R14 K24 ["Flags"]
-       62 GETTABLEKS                       R12 R13 K25 ["getFFlagFixRemindMeButtonStall"]
+       58 GETTABLEKS                       R12 R0 K23 ["Src"]
+       60 GETTABLEKS                       R12 R12 K24 ["Flags"]
+       62 GETTABLEKS                       R12 R12 K25 ["getFFlagFixRemindMeButtonStall"]
        64 CALL                             R11 1 1
        65 DUPCLOSURE                       R12 K26 [PROTO_3]
        66 CAPTURE                          VAL R4

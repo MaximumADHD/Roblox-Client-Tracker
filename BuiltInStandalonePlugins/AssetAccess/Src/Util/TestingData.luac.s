@@ -5,8 +5,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 NEWTABLE                         R3 0 0
@@ -47,8 +47,8 @@ MAIN:
        73 SETTABLEKS                       R6 R5 K30 ["state"]
        75 GETIMPORT                        R6 K11 [table.freeze]
        77 GETIMPORT                        R7 K35 [table.clone]
-       79 GETTABLEKS                       R9 R2 K8 ["AssetMetadata"]
-       81 GETTABLEKS                       R8 R9 K25 ["PUBLIC"]
+       79 GETTABLEKS                       R8 R2 K8 ["AssetMetadata"]
+       81 GETTABLEKS                       R8 R8 K25 ["PUBLIC"]
        83 CALL                             R7 1 -1
        84 CALL                             R6 -1 1
        85 SETTABLEKS                       R6 R5 K31 ["metadata"]
@@ -61,8 +61,8 @@ MAIN:
        96 SETTABLEKS                       R6 R5 K30 ["state"]
        98 GETIMPORT                        R6 K11 [table.freeze]
       100 GETIMPORT                        R7 K35 [table.clone]
-      102 GETTABLEKS                       R9 R2 K8 ["AssetMetadata"]
-      104 GETTABLEKS                       R8 R9 K28 ["PRIVATE"]
+      102 GETTABLEKS                       R8 R2 K8 ["AssetMetadata"]
+      104 GETTABLEKS                       R8 R8 K28 ["PRIVATE"]
       106 CALL                             R7 1 -1
       107 CALL                             R6 -1 1
       108 SETTABLEKS                       R6 R5 K31 ["metadata"]
@@ -89,32 +89,32 @@ MAIN:
       142 NEWTABLE                         R4 4 0
       144 GETIMPORT                        R5 K11 [table.freeze]
       146 GETIMPORT                        R6 K35 [table.clone]
-      148 GETTABLEKS                       R8 R2 K29 ["AssetModel"]
-      150 GETTABLEKS                       R7 R8 K36 ["LOADED_PUBLIC"]
+      148 GETTABLEKS                       R7 R2 K29 ["AssetModel"]
+      150 GETTABLEKS                       R7 R7 K36 ["LOADED_PUBLIC"]
       152 CALL                             R6 1 -1
       153 CALL                             R5 -1 1
       154 SETTABLEN                        R5 R4 123
       155 LOADN                            R5 200
       156 GETIMPORT                        R6 K11 [table.freeze]
       158 GETIMPORT                        R7 K35 [table.clone]
-      160 GETTABLEKS                       R9 R2 K29 ["AssetModel"]
-      162 GETTABLEKS                       R8 R9 K37 ["LOADED_PRIVATE"]
+      160 GETTABLEKS                       R8 R2 K29 ["AssetModel"]
+      162 GETTABLEKS                       R8 R8 K37 ["LOADED_PRIVATE"]
       164 CALL                             R7 1 -1
       165 CALL                             R6 -1 1
       166 SETTABLE                         R6 R4 R5
       167 LOADN                            R5 21
       168 GETIMPORT                        R6 K11 [table.freeze]
       170 GETIMPORT                        R7 K35 [table.clone]
-      172 GETTABLEKS                       R9 R2 K29 ["AssetModel"]
-      174 GETTABLEKS                       R8 R9 K40 ["LOADING"]
+      172 GETTABLEKS                       R8 R2 K29 ["AssetModel"]
+      174 GETTABLEKS                       R8 R8 K40 ["LOADING"]
       176 CALL                             R7 1 -1
       177 CALL                             R6 -1 1
       178 SETTABLE                         R6 R4 R5
       179 LOADK                            R5 K43 [101112]
       180 GETIMPORT                        R6 K11 [table.freeze]
       182 GETIMPORT                        R7 K35 [table.clone]
-      184 GETTABLEKS                       R9 R2 K29 ["AssetModel"]
-      186 GETTABLEKS                       R8 R9 K42 ["FAILED"]
+      184 GETTABLEKS                       R8 R2 K29 ["AssetModel"]
+      186 GETTABLEKS                       R8 R8 K42 ["FAILED"]
       188 CALL                             R7 1 -1
       189 CALL                             R6 -1 1
       190 SETTABLE                         R6 R4 R5

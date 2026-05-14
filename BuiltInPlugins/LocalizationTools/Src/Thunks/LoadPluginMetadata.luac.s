@@ -2,15 +2,15 @@ PROTO_0:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 GETIMPORT                        R3 K1 [ipairs]
-        6 GETTABLEKS                       R6 R0 K2 ["responseBody"]
-        8 GETTABLEKS                       R4 R6 K3 ["data"]
+        6 GETTABLEKS                       R4 R0 K2 ["responseBody"]
+        8 GETTABLEKS                       R4 R4 K3 ["data"]
        10 CALL                             R3 1 3
        11 FORGPREP_INEXT                   R3
        12 GETTABLEKS                       R8 R7 K4 ["isEnabledForInGameUgc"]
        14 JUMPIFNOT                        R8 ; [+8]
-       15 GETTABLEKS                       R10 R7 K5 ["locale"]
-       17 GETTABLEKS                       R9 R10 K6 ["language"]
-       19 GETTABLEKS                       R8 R9 K7 ["languageCode"]
+       15 GETTABLEKS                       R8 R7 K5 ["locale"]
+       17 GETTABLEKS                       R8 R8 K6 ["language"]
+       19 GETTABLEKS                       R8 R8 K7 ["languageCode"]
        21 LOADB                            R9 1
        22 SETTABLE                         R9 R1 R8
        23 FORGLOOP                         R3 2 [inext] ; [-12]
@@ -36,10 +36,10 @@ PROTO_1:
         9 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Locale"]
-        3 GETTABLEKS                       R2 R3 K1 ["V1"]
-        5 GETTABLEKS                       R1 R2 K2 ["locales"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Locale"]
+        3 GETTABLEKS                       R1 R1 K1 ["V1"]
+        5 GETTABLEKS                       R1 R1 K2 ["locales"]
         7 CALL                             R1 0 1
         8 NAMECALL                         R2 R1 K3 ["makeRequest"]
        10 CALL                             R2 1 1
@@ -61,8 +61,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETIMPORT                        R1 K1 [ipairs]
-        2 GETTABLEKS                       R4 R0 K2 ["responseBody"]
-        4 GETTABLEKS                       R2 R4 K3 ["data"]
+        2 GETTABLEKS                       R2 R0 K2 ["responseBody"]
+        4 GETTABLEKS                       R2 R2 K3 ["data"]
         6 CALL                             R1 1 3
         7 FORGPREP_INEXT                   R1
         8 GETUPVAL                         R7 0
@@ -92,12 +92,12 @@ PROTO_5:
        10 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["API"]
-        3 GETTABLEKS                       R2 R3 K1 ["Loc"]
-        5 GETTABLEKS                       R1 R2 K2 ["TranslationRoles"]
-        7 GETIMPORT                        R3 K4 [game]
-        9 GETTABLEKS                       R2 R3 K5 ["GameId"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["API"]
+        3 GETTABLEKS                       R1 R1 K1 ["Loc"]
+        5 GETTABLEKS                       R1 R1 K2 ["TranslationRoles"]
+        7 GETIMPORT                        R2 K4 [game]
+        9 GETTABLEKS                       R2 R2 K5 ["GameId"]
        11 CALL                             R1 1 1
        12 GETUPVAL                         R4 1
        13 LOADB                            R5 0
@@ -129,14 +129,14 @@ PROTO_7:
 PROTO_8:
         0 JUMPIFNOT                        R0 ; [+20]
         1 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        6 GETTABLEKS                       R2 R3 K2 ["OK"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        6 GETTABLEKS                       R2 R2 K2 ["OK"]
         8 JUMPIFNOTEQ                      R1 R2 ; [+12]
        10 GETUPVAL                         R1 1
        11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R5 R0 K3 ["responseBody"]
-       14 GETTABLEKS                       R4 R5 K4 ["autoLocalizationTableId"]
+       12 GETTABLEKS                       R4 R0 K3 ["responseBody"]
+       14 GETTABLEKS                       R4 R4 K4 ["autoLocalizationTableId"]
        16 CALL                             R3 1 -1
        17 NAMECALL                         R1 R1 K5 ["dispatch"]
        19 CALL                             R1 -1 0
@@ -161,13 +161,13 @@ PROTO_9:
         9 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["GameInternationalization"]
-        3 GETTABLEKS                       R3 R4 K1 ["V1"]
-        5 GETTABLEKS                       R2 R3 K2 ["AutoLocalization"]
-        7 GETTABLEKS                       R1 R2 K3 ["games"]
-        9 GETIMPORT                        R3 K5 [game]
-       11 GETTABLEKS                       R2 R3 K6 ["GameId"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["GameInternationalization"]
+        3 GETTABLEKS                       R1 R1 K1 ["V1"]
+        5 GETTABLEKS                       R1 R1 K2 ["AutoLocalization"]
+        7 GETTABLEKS                       R1 R1 K3 ["games"]
+        9 GETIMPORT                        R2 K5 [game]
+       11 GETTABLEKS                       R2 R2 K6 ["GameId"]
        13 CALL                             R1 1 1
        14 NAMECALL                         R2 R1 K7 ["makeRequest"]
        16 CALL                             R2 1 1
@@ -191,8 +191,8 @@ PROTO_11:
         5 RETURN                           R2 1
 
 PROTO_12:
-        0 GETIMPORT                        R2 K1 [game]
-        2 GETTABLEKS                       R1 R2 K2 ["GameId"]
+        0 GETIMPORT                        R1 K1 [game]
+        2 GETTABLEKS                       R1 R1 K2 ["GameId"]
         4 JUMPIFNOTEQKN                    R1 K3 [0] ; [+14]
         6 GETUPVAL                         R3 0
         7 LOADB                            R4 0
@@ -244,8 +244,8 @@ PROTO_14:
         5 CAPTURE                          VAL R5
         6 NAMECALL                         R1 R0 K0 ["dispatch"]
         8 CALL                             R1 2 0
-        9 GETIMPORT                        R2 K2 [game]
-       11 GETTABLEKS                       R1 R2 K3 ["GameId"]
+        9 GETIMPORT                        R1 K2 [game]
+       11 GETTABLEKS                       R1 R1 K3 ["GameId"]
        13 JUMPIFEQKN                       R1 K4 [0] ; [+21]
        15 GETUPVAL                         R4 0
        16 GETUPVAL                         R5 1
@@ -280,29 +280,29 @@ PROTO_15:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R2 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K6 ["Framework"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K7 ["Http"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Http"]
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K8 ["Src"]
-       22 GETTABLEKS                       R4 R5 K9 ["Actions"]
-       24 GETTABLEKS                       R3 R4 K10 ["LoadLanguagesAndLocalesInfo"]
+       20 GETTABLEKS                       R3 R0 K8 ["Src"]
+       22 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K10 ["LoadLanguagesAndLocalesInfo"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K8 ["Src"]
-       31 GETTABLEKS                       R5 R6 K9 ["Actions"]
-       33 GETTABLEKS                       R4 R5 K11 ["LoadManageTranslationPermission"]
+       29 GETTABLEKS                       R4 R0 K8 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Actions"]
+       33 GETTABLEKS                       R4 R4 K11 ["LoadManageTranslationPermission"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K8 ["Src"]
-       40 GETTABLEKS                       R6 R7 K9 ["Actions"]
-       42 GETTABLEKS                       R5 R6 K12 ["SetCloudTableId"]
+       38 GETTABLEKS                       R5 R0 K8 ["Src"]
+       40 GETTABLEKS                       R5 R5 K9 ["Actions"]
+       42 GETTABLEKS                       R5 R5 K12 ["SetCloudTableId"]
        44 CALL                             R4 1 1
        45 DUPTABLE                         R5 K16 [{"owner", "collaborator", "translator"}]
        46 LOADB                            R6 1

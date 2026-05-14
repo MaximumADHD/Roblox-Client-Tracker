@@ -1,32 +1,33 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R1 K0 ["AbsoluteSize"]
-        2 GETTABLEKS                       R3 R1 K1 ["AbsolutePosition"]
-        4 LOADB                            R4 0
-        5 GETTABLEKS                       R5 R0 K2 ["X"]
-        7 GETTABLEKS                       R7 R3 K2 ["X"]
-        9 ADDK                             R6 R7 K3 [1]
-       10 JUMPIFNOTLE                      R6 R5 ; [+32]
-       12 LOADB                            R4 0
-       13 GETTABLEKS                       R5 R0 K2 ["X"]
-       15 GETTABLEKS                       R8 R3 K2 ["X"]
-       17 GETTABLEKS                       R9 R2 K2 ["X"]
-       19 ADD                              R7 R8 R9
-       20 SUBK                             R6 R7 K3 [1]
-       21 JUMPIFNOTLE                      R5 R6 ; [+21]
-       23 LOADB                            R4 0
-       24 GETTABLEKS                       R5 R0 K4 ["Y"]
-       26 GETTABLEKS                       R7 R3 K4 ["Y"]
-       28 ADDK                             R6 R7 K3 [1]
-       29 JUMPIFNOTLE                      R6 R5 ; [+13]
-       31 GETTABLEKS                       R5 R0 K4 ["Y"]
-       33 GETTABLEKS                       R8 R3 K4 ["Y"]
-       35 GETTABLEKS                       R9 R2 K4 ["Y"]
-       37 ADD                              R7 R8 R9
-       38 SUBK                             R6 R7 K3 [1]
-       39 JUMPIFLE                         R5 R6 ; [+2]
-       41 LOADB                            R4 0 +1
-       42 LOADB                            R4 1
-       43 RETURN                           R4 1
+        0 ORK                              R3 R2 K0 [0]
+        1 GETTABLEKS                       R4 R1 K1 ["AbsoluteSize"]
+        3 GETTABLEKS                       R5 R1 K2 ["AbsolutePosition"]
+        5 LOADB                            R6 0
+        6 GETTABLEKS                       R7 R0 K3 ["X"]
+        8 GETTABLEKS                       R9 R5 K3 ["X"]
+       10 ADD                              R8 R9 R3
+       11 JUMPIFNOTLE                      R8 R7 ; [+32]
+       13 LOADB                            R6 0
+       14 GETTABLEKS                       R7 R0 K3 ["X"]
+       16 GETTABLEKS                       R10 R5 K3 ["X"]
+       18 GETTABLEKS                       R11 R4 K3 ["X"]
+       20 ADD                              R9 R10 R11
+       21 SUB                              R8 R9 R3
+       22 JUMPIFNOTLE                      R7 R8 ; [+21]
+       24 LOADB                            R6 0
+       25 GETTABLEKS                       R7 R0 K4 ["Y"]
+       27 GETTABLEKS                       R9 R5 K4 ["Y"]
+       29 ADD                              R8 R9 R3
+       30 JUMPIFNOTLE                      R8 R7 ; [+13]
+       32 GETTABLEKS                       R7 R0 K4 ["Y"]
+       34 GETTABLEKS                       R10 R5 K4 ["Y"]
+       36 GETTABLEKS                       R11 R4 K4 ["Y"]
+       38 ADD                              R9 R10 R11
+       39 SUB                              R8 R9 R3
+       40 JUMPIFLE                         R7 R8 ; [+2]
+       42 LOADB                            R6 0 +1
+       43 LOADB                            R6 1
+       44 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

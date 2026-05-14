@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["setMinimizedSettingsPane"]
         5 GETTABLEKS                       R3 R0 K2 ["minimizedSettingsPane"]
         7 NOT                              R2 R3
@@ -16,8 +16,8 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETTABLEKS                       R4 R1 K2 ["Stylizer"]
-        6 GETTABLEKS                       R3 R4 K3 ["TagSettingsToggleButton"]
+        4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
+        6 GETTABLEKS                       R3 R3 K3 ["TagSettingsToggleButton"]
         8 LOADK                            R6 K4 ["Info"]
         9 LOADK                            R7 K5 ["SettingsFor"]
        10 NAMECALL                         R4 R2 K6 ["getText"]
@@ -27,8 +27,8 @@ PROTO_2:
        15 NAMECALL                         R5 R2 K6 ["getText"]
        17 CALL                             R5 3 1
        18 GETTABLEKS                       R6 R1 K8 ["tagMenu"]
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K9 ["createElement"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K9 ["createElement"]
        23 GETUPVAL                         R8 1
        24 DUPTABLE                         R9 K16 [{"Style", "Size", "LayoutOrder", "Layout", "HorizontalAlignment", "Spacing"}]
        25 LOADK                            R10 K17 ["SubtleBox"]
@@ -44,8 +44,8 @@ PROTO_2:
        44 GETTABLEKS                       R10 R3 K15 ["Spacing"]
        46 SETTABLEKS                       R10 R9 K15 ["Spacing"]
        48 DUPTABLE                         R10 K25 [{"ExpandCollapseButton"}]
-       49 GETUPVAL                         R12 0
-       50 GETTABLEKS                       R11 R12 K9 ["createElement"]
+       49 GETUPVAL                         R11 0
+       50 GETTABLEKS                       R11 R11 K9 ["createElement"]
        52 GETUPVAL                         R12 2
        53 DUPTABLE                         R13 K31 [{"Text", "LeftIcon", "OnClick", "Size", "AutomaticSize", "BackgroundStyle"}]
        54 JUMPIFEQKNIL                     R6 ; [+6]
@@ -85,8 +85,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["SetMinimizedSettingsPane"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["SetMinimizedSettingsPane"]
         4 MOVE                             R3 R0
         5 CALL                             R2 1 -1
         6 CALL                             R1 -1 0
@@ -102,38 +102,38 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Roact"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K12 ["withContext"]
        41 GETTABLEKS                       R7 R5 K13 ["Analytics"]
        43 GETTABLEKS                       R8 R5 K14 ["Localization"]
-       45 GETTABLEKS                       R10 R4 K15 ["Style"]
-       47 GETTABLEKS                       R9 R10 K16 ["Stylizer"]
+       45 GETTABLEKS                       R9 R4 K15 ["Style"]
+       47 GETTABLEKS                       R9 R9 K16 ["Stylizer"]
        49 GETTABLEKS                       R10 R4 K17 ["UI"]
        51 GETTABLEKS                       R11 R10 K18 ["IconButton"]
        53 GETTABLEKS                       R12 R10 K19 ["Pane"]
        55 GETIMPORT                        R13 K4 [require]
-       57 GETTABLEKS                       R15 R0 K5 ["Src"]
-       59 GETTABLEKS                       R14 R15 K20 ["Actions"]
+       57 GETTABLEKS                       R14 R0 K5 ["Src"]
+       59 GETTABLEKS                       R14 R14 K20 ["Actions"]
        61 CALL                             R13 1 1
        62 GETTABLEKS                       R14 R2 K21 ["PureComponent"]
        64 LOADK                            R16 K22 ["TagSettingsToggleButton"]

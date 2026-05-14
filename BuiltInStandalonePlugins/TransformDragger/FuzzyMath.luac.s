@@ -99,8 +99,8 @@ PROTO_2:
        72 RETURN                           R27 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["roundToNearest"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["roundToNearest"]
         3 MOVE                             R2 R0
         4 LOADK                            R3 K1 [0.0001]
         5 CALL                             R1 2 -1
@@ -307,9 +307,9 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Round"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Round"]
         9 CALL                             R0 1 1
        10 DUPCLOSURE                       R1 K6 [PROTO_0]
        11 SETGLOBAL                        R1 K7 ["fuzzyCompare"]

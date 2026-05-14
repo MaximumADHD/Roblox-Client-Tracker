@@ -63,8 +63,8 @@ PROTO_0:
        80 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["pauseButtons"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["pauseButtons"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R2 R2 K1 ["IsRunning"]
         6 CALL                             R2 1 1
@@ -76,8 +76,8 @@ PROTO_2:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Pause"]
         3 CALL                             R0 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["pauseButtons"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["pauseButtons"]
         7 LOADB                            R1 1
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
@@ -86,8 +86,8 @@ PROTO_3:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Run"]
         3 CALL                             R0 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["pauseButtons"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["pauseButtons"]
         7 LOADB                            R1 0
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
@@ -110,18 +110,18 @@ PROTO_5:
         4 JUMPIFNOT                        R1 ; [+1]
         5 RETURN                           R0 0
         6 JUMPIFNOTEQKS                    R0 K1 ["Pause"] ; [+6]
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K2 ["onPause"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K2 ["onPause"]
        11 CALL                             R1 0 0
        12 RETURN                           R0 0
        13 JUMPIFNOTEQKS                    R0 K3 ["Resume"] ; [+6]
-       15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R1 R2 K4 ["onResume"]
+       15 GETUPVAL                         R1 1
+       16 GETTABLEKS                       R1 R1 K4 ["onResume"]
        18 CALL                             R1 0 0
        19 RETURN                           R0 0
        20 JUMPIFNOTEQKS                    R0 K5 ["StepForward"] ; [+5]
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R1 R2 K6 ["onStepForward"]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K6 ["onStepForward"]
        25 CALL                             R1 0 0
        26 RETURN                           R0 0
 
@@ -152,9 +152,9 @@ PROTO_8:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
        10 GETIMPORT                        R0 K3 [script]
        12 LOADK                            R2 K6 ["SimulationStep"]

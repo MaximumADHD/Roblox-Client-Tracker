@@ -2,12 +2,12 @@ PROTO_0:
         0 DUPTABLE                         R3 K4 [{"_draggerContext", "_ikTransformFunction", "_partMover", "_attachmentMover"}]
         1 SETTABLEKS                       R0 R3 K0 ["_draggerContext"]
         3 SETTABLEKS                       R1 R3 K1 ["_ikTransformFunction"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K5 ["new"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K5 ["new"]
         8 CALL                             R4 0 1
         9 SETTABLEKS                       R4 R3 K2 ["_partMover"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K5 ["new"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K5 ["new"]
        14 CALL                             R4 0 1
        15 SETTABLEKS                       R4 R3 K3 ["_attachmentMover"]
        17 GETUPVAL                         R4 2
@@ -52,8 +52,8 @@ PROTO_1:
        46 NAMECALL                         R12 R2 K13 ["getOriginalCFrameMap"]
        48 CALL                             R12 1 1
        49 MOVE                             R13 R8
-       50 GETTABLEKS                       R15 R0 K10 ["_centerPoint"]
-       52 GETTABLEKS                       R14 R15 K14 ["Position"]
+       50 GETTABLEKS                       R14 R0 K10 ["_centerPoint"]
+       52 GETTABLEKS                       R14 R14 K14 ["Position"]
        54 MOVE                             R15 R1
        55 MOVE                             R16 R5
        56 NAMECALL                         R17 R2 K15 ["getRootMapping"]
@@ -68,8 +68,8 @@ PROTO_1:
        70 NAMECALL                         R9 R9 K19 ["areCollisionsEnabled"]
        72 CALL                             R9 1 1
        73 JUMPIF                           R9 ; [+7]
-       74 GETUPVAL                         R10 0
-       75 GETTABLEKS                       R9 R10 K3 ["new"]
+       74 GETUPVAL                         R9 0
+       75 GETTABLEKS                       R9 R9 K3 ["new"]
        77 MOVE                             R10 R3
        78 CALL                             R9 1 1
        79 SETTABLEKS                       R9 R0 K20 ["_temporaryTransparency"]
@@ -97,8 +97,8 @@ PROTO_2:
        24 CALL                             R8 2 1
        25 LOADK                            R10 K6 [{0.2, 0.2, 0.2}]
        26 ADD                              R9 R5 R10
-       27 GETUPVAL                         R11 0
-       28 GETTABLEKS                       R10 R11 K7 ["complimentDirection"]
+       27 GETUPVAL                         R10 0
+       28 GETTABLEKS                       R10 R10 K7 ["complimentDirection"]
        30 MOVE                             R11 R8
        31 CALL                             R10 1 1
        32 MUL                              R7 R9 R10
@@ -176,23 +176,23 @@ PROTO_4:
        57 RETURN                           R1 -1
 
 PROTO_5:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["_pivotSnapFrom"]
-        3 GETTABLEKS                       R3 R4 K1 ["Position"]
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R5 R6 K2 ["_pivotSnapTo"]
-        8 GETTABLEKS                       R4 R5 K1 ["Position"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["_pivotSnapFrom"]
+        3 GETTABLEKS                       R3 R3 K1 ["Position"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K2 ["_pivotSnapTo"]
+        8 GETTABLEKS                       R4 R4 K1 ["Position"]
        10 NAMECALL                         R1 R0 K3 ["AddLine"]
        12 CALL                             R1 3 0
        13 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["_pivotSnapTo"]
-        3 GETTABLEKS                       R3 R4 K1 ["Position"]
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R5 R6 K2 ["_pivotSnapTarget"]
-        8 GETTABLEKS                       R4 R5 K1 ["Position"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["_pivotSnapTo"]
+        3 GETTABLEKS                       R3 R3 K1 ["Position"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K2 ["_pivotSnapTarget"]
+        8 GETTABLEKS                       R4 R4 K1 ["Position"]
        10 NAMECALL                         R1 R0 K3 ["AddLine"]
        12 CALL                             R1 3 0
        13 RETURN                           R0 0
@@ -222,8 +222,8 @@ PROTO_7:
        30 SETTABLEKS                       R5 R2 K6 ["JoinedSurfaces"]
        32 GETTABLEKS                       R4 R0 K7 ["_pivotSnapTarget"]
        34 JUMPIFNOT                        R4 ; [+44]
-       35 GETUPVAL                         R5 2
-       36 GETTABLEKS                       R4 R5 K8 ["createElement"]
+       35 GETUPVAL                         R4 2
+       36 GETTABLEKS                       R4 R4 K8 ["createElement"]
        38 GETUPVAL                         R5 3
        39 DUPTABLE                         R6 K12 [{"Color3", "AlwaysOnTop", "Render"}]
        40 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
@@ -237,8 +237,8 @@ PROTO_7:
        52 SETTABLEKS                       R7 R6 K11 ["Render"]
        54 CALL                             R4 2 1
        55 SETTABLEKS                       R4 R2 K14 ["SnapToLine"]
-       57 GETUPVAL                         R5 2
-       58 GETTABLEKS                       R4 R5 K8 ["createElement"]
+       57 GETUPVAL                         R4 2
+       58 GETTABLEKS                       R4 R4 K8 ["createElement"]
        60 GETUPVAL                         R5 3
        61 DUPTABLE                         R6 K12 [{"Color3", "AlwaysOnTop", "Render"}]
        62 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
@@ -252,8 +252,8 @@ PROTO_7:
        74 SETTABLEKS                       R7 R6 K11 ["Render"]
        76 CALL                             R4 2 1
        77 SETTABLEKS                       R4 R2 K15 ["SnapBecauseLine"]
-       79 GETUPVAL                         R5 2
-       80 GETTABLEKS                       R4 R5 K16 ["createFragment"]
+       79 GETUPVAL                         R4 2
+       80 GETTABLEKS                       R4 R4 K16 ["createFragment"]
        82 MOVE                             R5 R2
        83 CALL                             R4 1 -1
        84 RETURN                           R4 -1
@@ -333,22 +333,22 @@ PROTO_9:
        40 RETURN                           R3 1
 
 PROTO_10:
-        0 GETTABLEKS                       R5 R0 K0 ["Position"]
-        2 GETTABLEKS                       R6 R1 K0 ["Position"]
-        4 SUB                              R4 R5 R6
-        5 GETTABLEKS                       R3 R4 K1 ["Magnitude"]
-        7 GETTABLEKS                       R7 R0 K2 ["XVector"]
-        9 GETTABLEKS                       R8 R1 K2 ["XVector"]
-       11 SUB                              R6 R7 R8
-       12 GETTABLEKS                       R5 R6 K1 ["Magnitude"]
-       14 GETTABLEKS                       R8 R0 K3 ["YVector"]
-       16 GETTABLEKS                       R9 R1 K3 ["YVector"]
-       18 SUB                              R7 R8 R9
-       19 GETTABLEKS                       R6 R7 K1 ["Magnitude"]
-       21 GETTABLEKS                       R9 R0 K4 ["ZVector"]
-       23 GETTABLEKS                       R10 R1 K4 ["ZVector"]
-       25 SUB                              R8 R9 R10
-       26 GETTABLEKS                       R7 R8 K1 ["Magnitude"]
+        0 GETTABLEKS                       R4 R0 K0 ["Position"]
+        2 GETTABLEKS                       R5 R1 K0 ["Position"]
+        4 SUB                              R3 R4 R5
+        5 GETTABLEKS                       R3 R3 K1 ["Magnitude"]
+        7 GETTABLEKS                       R6 R0 K2 ["XVector"]
+        9 GETTABLEKS                       R7 R1 K2 ["XVector"]
+       11 SUB                              R5 R6 R7
+       12 GETTABLEKS                       R5 R5 K1 ["Magnitude"]
+       14 GETTABLEKS                       R7 R0 K3 ["YVector"]
+       16 GETTABLEKS                       R8 R1 K3 ["YVector"]
+       18 SUB                              R6 R7 R8
+       19 GETTABLEKS                       R6 R6 K1 ["Magnitude"]
+       21 GETTABLEKS                       R8 R0 K4 ["ZVector"]
+       23 GETTABLEKS                       R9 R1 K4 ["ZVector"]
+       25 SUB                              R7 R8 R9
+       26 GETTABLEKS                       R7 R7 K1 ["Magnitude"]
        28 FASTCALL                         MATH_MAX ; [+2]
        29 GETIMPORT                        R4 K7 [math.max]
        31 CALL                             R4 3 1
@@ -403,22 +403,22 @@ PROTO_13:
        28 LOADN                            R6 0
        29 MOVE                             R8 R3
        30 MOVE                             R9 R4
-       31 GETTABLEKS                       R12 R8 K6 ["Position"]
-       33 GETTABLEKS                       R13 R9 K6 ["Position"]
-       35 SUB                              R11 R12 R13
-       36 GETTABLEKS                       R10 R11 K7 ["Magnitude"]
-       38 GETTABLEKS                       R14 R8 K8 ["XVector"]
-       40 GETTABLEKS                       R15 R9 K8 ["XVector"]
-       42 SUB                              R13 R14 R15
-       43 GETTABLEKS                       R12 R13 K7 ["Magnitude"]
-       45 GETTABLEKS                       R15 R8 K9 ["YVector"]
-       47 GETTABLEKS                       R16 R9 K9 ["YVector"]
-       49 SUB                              R14 R15 R16
-       50 GETTABLEKS                       R13 R14 K7 ["Magnitude"]
-       52 GETTABLEKS                       R16 R8 K10 ["ZVector"]
-       54 GETTABLEKS                       R17 R9 K10 ["ZVector"]
-       56 SUB                              R15 R16 R17
-       57 GETTABLEKS                       R14 R15 K7 ["Magnitude"]
+       31 GETTABLEKS                       R11 R8 K6 ["Position"]
+       33 GETTABLEKS                       R12 R9 K6 ["Position"]
+       35 SUB                              R10 R11 R12
+       36 GETTABLEKS                       R10 R10 K7 ["Magnitude"]
+       38 GETTABLEKS                       R13 R8 K8 ["XVector"]
+       40 GETTABLEKS                       R14 R9 K8 ["XVector"]
+       42 SUB                              R12 R13 R14
+       43 GETTABLEKS                       R12 R12 K7 ["Magnitude"]
+       45 GETTABLEKS                       R14 R8 K9 ["YVector"]
+       47 GETTABLEKS                       R15 R9 K9 ["YVector"]
+       49 SUB                              R13 R14 R15
+       50 GETTABLEKS                       R13 R13 K7 ["Magnitude"]
+       52 GETTABLEKS                       R15 R8 K10 ["ZVector"]
+       54 GETTABLEKS                       R16 R9 K10 ["ZVector"]
+       56 SUB                              R14 R15 R16
+       57 GETTABLEKS                       R14 R14 K7 ["Magnitude"]
        59 FASTCALL                         MATH_MAX ; [+2]
        60 GETIMPORT                        R11 K13 [math.max]
        62 CALL                             R11 3 1
@@ -460,22 +460,22 @@ PROTO_13:
       108 MOVE                             R8 R3
       109 GETIMPORT                        R9 K21 [CFrame.new]
       111 CALL                             R9 0 1
-      112 GETTABLEKS                       R12 R8 K6 ["Position"]
-      114 GETTABLEKS                       R13 R9 K6 ["Position"]
-      116 SUB                              R11 R12 R13
-      117 GETTABLEKS                       R10 R11 K7 ["Magnitude"]
-      119 GETTABLEKS                       R14 R8 K8 ["XVector"]
-      121 GETTABLEKS                       R15 R9 K8 ["XVector"]
-      123 SUB                              R13 R14 R15
-      124 GETTABLEKS                       R12 R13 K7 ["Magnitude"]
-      126 GETTABLEKS                       R15 R8 K9 ["YVector"]
-      128 GETTABLEKS                       R16 R9 K9 ["YVector"]
-      130 SUB                              R14 R15 R16
-      131 GETTABLEKS                       R13 R14 K7 ["Magnitude"]
-      133 GETTABLEKS                       R16 R8 K10 ["ZVector"]
-      135 GETTABLEKS                       R17 R9 K10 ["ZVector"]
-      137 SUB                              R15 R16 R17
-      138 GETTABLEKS                       R14 R15 K7 ["Magnitude"]
+      112 GETTABLEKS                       R11 R8 K6 ["Position"]
+      114 GETTABLEKS                       R12 R9 K6 ["Position"]
+      116 SUB                              R10 R11 R12
+      117 GETTABLEKS                       R10 R10 K7 ["Magnitude"]
+      119 GETTABLEKS                       R13 R8 K8 ["XVector"]
+      121 GETTABLEKS                       R14 R9 K8 ["XVector"]
+      123 SUB                              R12 R13 R14
+      124 GETTABLEKS                       R12 R12 K7 ["Magnitude"]
+      126 GETTABLEKS                       R14 R8 K9 ["YVector"]
+      128 GETTABLEKS                       R15 R9 K9 ["YVector"]
+      130 SUB                              R13 R14 R15
+      131 GETTABLEKS                       R13 R13 K7 ["Magnitude"]
+      133 GETTABLEKS                       R15 R8 K10 ["ZVector"]
+      135 GETTABLEKS                       R16 R9 K10 ["ZVector"]
+      137 SUB                              R14 R15 R16
+      138 GETTABLEKS                       R14 R14 K7 ["Magnitude"]
       140 FASTCALL                         MATH_MAX ; [+2]
       141 GETIMPORT                        R11 K13 [math.max]
       143 CALL                             R11 3 1
@@ -495,22 +495,22 @@ PROTO_13:
       160 NAMECALL                         R7 R0 K17 ["_toGlobalTransform"]
       162 CALL                             R7 2 1
       163 MOVE                             R9 R7
-      164 GETTABLEKS                       R12 R9 K6 ["Position"]
-      166 GETTABLEKS                       R13 R1 K6 ["Position"]
-      168 SUB                              R11 R12 R13
-      169 GETTABLEKS                       R10 R11 K7 ["Magnitude"]
-      171 GETTABLEKS                       R14 R9 K8 ["XVector"]
-      173 GETTABLEKS                       R15 R1 K8 ["XVector"]
-      175 SUB                              R13 R14 R15
-      176 GETTABLEKS                       R12 R13 K7 ["Magnitude"]
-      178 GETTABLEKS                       R15 R9 K9 ["YVector"]
-      180 GETTABLEKS                       R16 R1 K9 ["YVector"]
-      182 SUB                              R14 R15 R16
-      183 GETTABLEKS                       R13 R14 K7 ["Magnitude"]
-      185 GETTABLEKS                       R16 R9 K10 ["ZVector"]
-      187 GETTABLEKS                       R17 R1 K10 ["ZVector"]
-      189 SUB                              R15 R16 R17
-      190 GETTABLEKS                       R14 R15 K7 ["Magnitude"]
+      164 GETTABLEKS                       R11 R9 K6 ["Position"]
+      166 GETTABLEKS                       R12 R1 K6 ["Position"]
+      168 SUB                              R10 R11 R12
+      169 GETTABLEKS                       R10 R10 K7 ["Magnitude"]
+      171 GETTABLEKS                       R13 R9 K8 ["XVector"]
+      173 GETTABLEKS                       R14 R1 K8 ["XVector"]
+      175 SUB                              R12 R13 R14
+      176 GETTABLEKS                       R12 R12 K7 ["Magnitude"]
+      178 GETTABLEKS                       R14 R9 K9 ["YVector"]
+      180 GETTABLEKS                       R15 R1 K9 ["YVector"]
+      182 SUB                              R13 R14 R15
+      183 GETTABLEKS                       R13 R13 K7 ["Magnitude"]
+      185 GETTABLEKS                       R15 R9 K10 ["ZVector"]
+      187 GETTABLEKS                       R16 R1 K10 ["ZVector"]
+      189 SUB                              R14 R15 R16
+      190 GETTABLEKS                       R14 R14 K7 ["Magnitude"]
       192 FASTCALL                         MATH_MAX ; [+2]
       193 GETIMPORT                        R11 K13 [math.max]
       195 CALL                             R11 3 1
@@ -579,10 +579,10 @@ PROTO_16:
        36 GETTABLEKS                       R7 R3 K11 ["faces"]
        38 CALL                             R6 1 3
        39 FORGPREP_INEXT                   R6
-       40 GETTABLEKS                       R15 R10 K12 ["vertices"]
-       42 GETTABLEN                        R14 R15 1
-       43 SUB                              R13 R1 R14
-       44 GETTABLEKS                       R12 R13 K13 ["Unit"]
+       40 GETTABLEKS                       R14 R10 K12 ["vertices"]
+       42 GETTABLEN                        R13 R14 1
+       43 SUB                              R12 R1 R13
+       44 GETTABLEKS                       R12 R12 K13 ["Unit"]
        46 GETTABLEKS                       R14 R10 K14 ["normal"]
        48 NAMECALL                         R12 R12 K15 ["Dot"]
        50 CALL                             R12 2 1
@@ -617,8 +617,8 @@ PROTO_16:
        93 GETTABLEKS                       R18 R15 K25 ["Y"]
        95 CALL                             R16 2 1
        96 MOVE                             R14 R16
-       97 SUB                              R16 R14 R6
-       98 GETTABLEKS                       R15 R16 K26 ["Magnitude"]
+       97 SUB                              R15 R14 R6
+       98 GETTABLEKS                       R15 R15 K26 ["Magnitude"]
       100 JUMPIFNOTLT                      R15 R8 ; [+3]
       102 MOVE                             R8 R15
       103 MOVE                             R7 R13
@@ -664,19 +664,19 @@ PROTO_16:
       159 GETTABLEKS                       R23 R20 K25 ["Y"]
       161 CALL                             R21 2 1
       162 MOVE                             R19 R21
-      163 SUB                              R21 R19 R18
-      164 GETTABLEKS                       R20 R21 K13 ["Unit"]
+      163 SUB                              R20 R19 R18
+      164 GETTABLEKS                       R20 R20 K13 ["Unit"]
       166 SUB                              R21 R6 R18
       167 MOVE                             R25 R20
       168 NAMECALL                         R23 R21 K15 ["Dot"]
       170 CALL                             R23 2 1
       171 MUL                              R22 R20 R23
-      172 SUB                              R24 R21 R22
-      173 GETTABLEKS                       R23 R24 K26 ["Magnitude"]
+      172 SUB                              R23 R21 R22
+      173 GETTABLEKS                       R23 R23 K26 ["Magnitude"]
       175 JUMPIFNOTLT                      R23 R11 ; [+13]
       177 MOVE                             R11 R23
-      178 SUB                              R25 R17 R16
-      179 GETTABLEKS                       R24 R25 K13 ["Unit"]
+      178 SUB                              R24 R17 R16
+      179 GETTABLEKS                       R24 R24 K13 ["Unit"]
       181 SUB                              R25 R1 R16
       182 MOVE                             R29 R24
       183 NAMECALL                         R27 R25 K15 ["Dot"]
@@ -705,8 +705,8 @@ PROTO_16:
       216 GETTABLEKS                       R18 R15 K25 ["Y"]
       218 CALL                             R16 2 1
       219 MOVE                             R14 R16
-      220 SUB                              R16 R13 R14
-      221 GETTABLEKS                       R15 R16 K26 ["Magnitude"]
+      220 SUB                              R15 R13 R14
+      221 GETTABLEKS                       R15 R15 K26 ["Magnitude"]
       223 LOADN                            R16 20
       224 JUMPIFNOTLT                      R15 R16 ; [+5]
       226 GETTABLEKS                       R15 R2 K27 ["CFrame"]
@@ -717,8 +717,8 @@ PROTO_16:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R1 R0 K2 ["Parent"]
         7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
         9 GETTABLEKS                       R3 R2 K4 ["Utility"]
@@ -747,12 +747,12 @@ MAIN:
        48 GETTABLEKS                       R12 R3 K14 ["Math"]
        50 CALL                             R11 1 1
        51 GETIMPORT                        R12 K6 [require]
-       53 GETTABLEKS                       R14 R2 K15 ["Components"]
-       55 GETTABLEKS                       R13 R14 K16 ["WireframeHandleAdornment"]
+       53 GETTABLEKS                       R13 R2 K15 ["Components"]
+       55 GETTABLEKS                       R13 R13 K16 ["WireframeHandleAdornment"]
        57 CALL                             R12 1 1
        58 GETIMPORT                        R13 K6 [require]
-       60 GETTABLEKS                       R15 R2 K17 ["Flags"]
-       62 GETTABLEKS                       R14 R15 K18 ["getFFlagDraggerImprovements"]
+       60 GETTABLEKS                       R14 R2 K17 ["Flags"]
+       62 GETTABLEKS                       R14 R14 K18 ["getFFlagDraggerImprovements"]
        64 CALL                             R13 1 1
        65 NEWTABLE                         R14 16 0
        67 SETTABLEKS                       R14 R14 K19 ["__index"]

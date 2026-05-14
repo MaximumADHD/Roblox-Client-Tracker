@@ -1,8 +1,8 @@
 PROTO_0:
-        0 NAMECALL                         R3 R0 K0 ["getState"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["PluginReducer"]
-        5 GETTABLEKS                       R1 R2 K2 ["animationId"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PluginReducer"]
+        5 GETTABLEKS                       R1 R1 K2 ["animationId"]
         7 GETIMPORT                        R2 K5 [Instance.new]
         9 LOADK                            R3 K6 ["Folder"]
        10 CALL                             R2 1 1
@@ -10,8 +10,8 @@ PROTO_0:
        12 SETTABLEKS                       R3 R2 K8 ["Name"]
        14 GETUPVAL                         R3 0
        15 MOVE                             R5 R2
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K9 ["Tag"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K9 ["Tag"]
        19 NAMECALL                         R3 R3 K10 ["AddTag"]
        21 CALL                             R3 3 0
        22 GETIMPORT                        R3 K5 [Instance.new]
@@ -63,8 +63,8 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R0 K11 ["Src"]
-       23 GETTABLEKS                       R4 R5 K12 ["Constants"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Constants"]
        25 CALL                             R3 1 1
        26 DUPCLOSURE                       R4 K13 [PROTO_1]
        27 CAPTURE                          VAL R2

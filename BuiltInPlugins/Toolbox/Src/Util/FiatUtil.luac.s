@@ -9,14 +9,14 @@ PROTO_0:
         9 GETUPVAL                         R6 1
        10 CALL                             R6 0 1
        11 JUMPIFNOT                        R6 ; [+8]
-       12 GETUPVAL                         R7 2
-       13 GETTABLEKS                       R6 R7 K5 ["MONETIZABLE_ASSET_TYPES"]
+       12 GETUPVAL                         R6 2
+       13 GETTABLEKS                       R6 R6 K5 ["MONETIZABLE_ASSET_TYPES"]
        15 GETTABLEKS                       R7 R5 K6 ["Name"]
        17 LOADB                            R8 1
        18 SETTABLE                         R8 R6 R7
        19 JUMP                             ; [+7]
-       20 GETUPVAL                         R7 2
-       21 GETTABLEKS                       R6 R7 K7 ["ENABLED_ASSET_TYPES"]
+       20 GETUPVAL                         R6 2
+       21 GETTABLEKS                       R6 R6 K7 ["ENABLED_ASSET_TYPES"]
        23 GETTABLEKS                       R7 R5 K6 ["Name"]
        25 LOADB                            R8 1
        26 SETTABLE                         R8 R6 R7
@@ -28,8 +28,8 @@ PROTO_1:
         1 JUMPIFNOT                        R1 ; [+11]
         2 GETTABLEKS                       R1 R0 K0 ["quantity"]
         4 JUMPIFNOT                        R1 ; [+8]
-        5 GETTABLEKS                       R3 R0 K0 ["quantity"]
-        7 GETTABLEKS                       R2 R3 K1 ["significand"]
+        5 GETTABLEKS                       R2 R0 K0 ["quantity"]
+        7 GETTABLEKS                       R2 R2 K1 ["significand"]
         9 JUMPIFEQKN                       R2 K2 [0] ; [+2]
        11 LOADB                            R1 0 +1
        12 LOADB                            R1 1
@@ -40,11 +40,11 @@ PROTO_2:
         1 GETTABLEKS                       R1 R0 K0 ["quantity"]
         3 JUMPIF                           R1 ; [+1]
         4 RETURN                           R0 0
-        5 GETTABLEKS                       R3 R0 K0 ["quantity"]
-        7 GETTABLEKS                       R2 R3 K1 ["significand"]
+        5 GETTABLEKS                       R2 R0 K0 ["quantity"]
+        7 GETTABLEKS                       R2 R2 K1 ["significand"]
         9 LOADN                            R4 10
-       10 GETTABLEKS                       R6 R0 K0 ["quantity"]
-       12 GETTABLEKS                       R5 R6 K2 ["exponent"]
+       10 GETTABLEKS                       R5 R0 K0 ["quantity"]
+       12 GETTABLEKS                       R5 R5 K2 ["exponent"]
        14 POW                              R3 R4 R5
        15 MUL                              R1 R2 R3
        16 RETURN                           R1 1
@@ -56,8 +56,8 @@ PROTO_3:
         4 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["isFree"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["isFree"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 JUMPIFNOT                        R2 ; [+9]
@@ -69,15 +69,15 @@ PROTO_4:
        12 RETURN                           R2 1
        13 LOADK                            R2 K2 ["Free"]
        14 RETURN                           R2 1
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K4 ["stringFromCurrencyCode"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K4 ["stringFromCurrencyCode"]
        18 GETTABLEKS                       R3 R0 K5 ["currencyCode"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R5 R0 K6 ["quantity"]
-       23 GETTABLEKS                       R4 R5 K7 ["significand"]
+       21 GETTABLEKS                       R4 R0 K6 ["quantity"]
+       23 GETTABLEKS                       R4 R4 K7 ["significand"]
        25 LOADN                            R6 10
-       26 GETTABLEKS                       R8 R0 K6 ["quantity"]
-       28 GETTABLEKS                       R7 R8 K8 ["exponent"]
+       26 GETTABLEKS                       R7 R0 K6 ["quantity"]
+       28 GETTABLEKS                       R7 R7 K8 ["exponent"]
        30 POW                              R5 R6 R7
        31 MUL                              R3 R4 R5
        32 GETIMPORT                        R4 K11 [string.format]
@@ -190,10 +190,10 @@ PROTO_8:
         5 JUMPIF                           R6 ; [+2]
         6 LOADNIL                          R6
         7 RETURN                           R6 1
-        8 GETUPVAL                         R7 1
-        9 GETTABLEKS                       R6 R7 K1 ["join"]
-       11 GETUPVAL                         R8 2
-       12 GETTABLEKS                       R7 R8 K2 ["createPartialFiatProductWithOnlyAssetId"]
+        8 GETUPVAL                         R6 1
+        9 GETTABLEKS                       R6 R6 K1 ["join"]
+       11 GETUPVAL                         R7 2
+       12 GETTABLEKS                       R7 R7 K2 ["createPartialFiatProductWithOnlyAssetId"]
        14 MOVE                             R8 R0
        15 MOVE                             R9 R1
        16 CALL                             R7 2 1
@@ -212,30 +212,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Types"]
-       22 GETTABLEKS                       R3 R4 K10 ["MarketplaceFiatServiceTypes"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
+       22 GETTABLEKS                       R3 R3 K10 ["MarketplaceFiatServiceTypes"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K11 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K12 ["Dash"]
+       27 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K12 ["Dash"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R8 R0 K6 ["Src"]
-       36 GETTABLEKS                       R7 R8 K7 ["Util"]
-       38 GETTABLEKS                       R6 R7 K13 ["SharedFlags"]
-       40 GETTABLEKS                       R5 R6 K14 ["getFStringToolboxFiatMonetizableAssetTypesCSV"]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K7 ["Util"]
+       38 GETTABLEKS                       R5 R5 K13 ["SharedFlags"]
+       40 GETTABLEKS                       R5 R5 K14 ["getFStringToolboxFiatMonetizableAssetTypesCSV"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R9 R0 K6 ["Src"]
-       47 GETTABLEKS                       R8 R9 K7 ["Util"]
-       49 GETTABLEKS                       R7 R8 K13 ["SharedFlags"]
-       51 GETTABLEKS                       R6 R7 K15 ["getFFlagToolboxAssetConfigOnboardingLink"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K7 ["Util"]
+       49 GETTABLEKS                       R6 R6 K13 ["SharedFlags"]
+       51 GETTABLEKS                       R6 R6 K15 ["getFFlagToolboxAssetConfigOnboardingLink"]
        53 CALL                             R5 1 1
        54 NEWTABLE                         R6 16 0
        56 MOVE                             R8 R5
@@ -280,36 +280,36 @@ MAIN:
       106 CAPTURE                          VAL R6
       107 SETTABLEKS                       R10 R6 K33 ["displayStringFromMoney"]
       109 NEWTABLE                         R10 8 0
-      111 GETIMPORT                        R12 K37 [Enum.AssetType.Audio]
-      113 GETTABLEKS                       R11 R12 K38 ["Value"]
+      111 GETIMPORT                        R11 K37 [Enum.AssetType.Audio]
+      113 GETTABLEKS                       R11 R11 K38 ["Value"]
       115 LOADK                            R12 K39 ["PRODUCT_TYPE_AUDIO"]
       116 SETTABLE                         R12 R10 R11
-      117 GETIMPORT                        R12 K41 [Enum.AssetType.Decal]
-      119 GETTABLEKS                       R11 R12 K38 ["Value"]
+      117 GETIMPORT                        R11 K41 [Enum.AssetType.Decal]
+      119 GETTABLEKS                       R11 R11 K38 ["Value"]
       121 LOADK                            R12 K42 ["PRODUCT_TYPE_DECAL"]
       122 SETTABLE                         R12 R10 R11
-      123 GETIMPORT                        R12 K44 [Enum.AssetType.FontFamily]
-      125 GETTABLEKS                       R11 R12 K38 ["Value"]
+      123 GETIMPORT                        R11 K44 [Enum.AssetType.FontFamily]
+      125 GETTABLEKS                       R11 R11 K38 ["Value"]
       127 LOADK                            R12 K45 ["PRODUCT_TYPE_FONT_FAMILY"]
       128 SETTABLE                         R12 R10 R11
-      129 GETIMPORT                        R12 K47 [Enum.AssetType.MeshPart]
-      131 GETTABLEKS                       R11 R12 K38 ["Value"]
+      129 GETIMPORT                        R11 K47 [Enum.AssetType.MeshPart]
+      131 GETTABLEKS                       R11 R11 K38 ["Value"]
       133 LOADK                            R12 K48 ["PRODUCT_TYPE_MESH_PART"]
       134 SETTABLE                         R12 R10 R11
-      135 GETIMPORT                        R12 K50 [Enum.AssetType.Model]
-      137 GETTABLEKS                       R11 R12 K38 ["Value"]
+      135 GETIMPORT                        R11 K50 [Enum.AssetType.Model]
+      137 GETTABLEKS                       R11 R11 K38 ["Value"]
       139 LOADK                            R12 K51 ["PRODUCT_TYPE_MODEL"]
       140 SETTABLE                         R12 R10 R11
-      141 GETIMPORT                        R12 K53 [Enum.AssetType.Plugin]
-      143 GETTABLEKS                       R11 R12 K38 ["Value"]
+      141 GETIMPORT                        R11 K53 [Enum.AssetType.Plugin]
+      143 GETTABLEKS                       R11 R11 K38 ["Value"]
       145 LOADK                            R12 K54 ["PRODUCT_TYPE_PLUGIN"]
       146 SETTABLE                         R12 R10 R11
-      147 GETIMPORT                        R12 K56 [Enum.AssetType.Video]
-      149 GETTABLEKS                       R11 R12 K38 ["Value"]
+      147 GETIMPORT                        R11 K56 [Enum.AssetType.Video]
+      149 GETTABLEKS                       R11 R11 K38 ["Value"]
       151 LOADK                            R12 K57 ["PRODUCT_TYPE_VIDEO"]
       152 SETTABLE                         R12 R10 R11
-      153 GETIMPORT                        R12 K59 [Enum.AssetType.Package]
-      155 GETTABLEKS                       R11 R12 K38 ["Value"]
+      153 GETIMPORT                        R11 K59 [Enum.AssetType.Package]
+      155 GETTABLEKS                       R11 R11 K38 ["Value"]
       157 LOADK                            R12 K51 ["PRODUCT_TYPE_MODEL"]
       158 SETTABLE                         R12 R10 R11
       159 DUPCLOSURE                       R11 K60 [PROTO_5]

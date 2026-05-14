@@ -3,13 +3,13 @@ PROTO_0:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["backgroundColor"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["backgroundColor"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["White"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["White"]
        13 RETURN                           R1 1
 
 PROTO_1:
@@ -17,14 +17,14 @@ PROTO_1:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+8]
-        4 GETUPVAL                         R3 0
-        5 MOVE                             R4 R0
-        6 CALL                             R3 1 1
-        7 GETTABLEKS                       R2 R3 K0 ["titledFrame"]
-        9 GETTABLEKS                       R1 R2 K1 ["text"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["titledFrame"]
+        9 GETTABLEKS                       R1 R1 K1 ["text"]
        11 JUMPIF                           R1 ; [+3]
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K2 ["TitleText"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K2 ["TitleText"]
        15 RETURN                           R1 1
 
 PROTO_2:
@@ -32,14 +32,14 @@ PROTO_2:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+8]
-        4 GETUPVAL                         R3 1
-        5 MOVE                             R4 R0
-        6 CALL                             R3 1 1
-        7 GETTABLEKS                       R2 R3 K0 ["textBox"]
-        9 GETTABLEKS                       R1 R2 K1 ["text"]
+        4 GETUPVAL                         R1 1
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["textBox"]
+        9 GETTABLEKS                       R1 R1 K1 ["text"]
        11 JUMPIF                           R1 ; [+3]
-       12 GETUPVAL                         R2 2
-       13 GETTABLEKS                       R1 R2 K2 ["BodyText"]
+       12 GETUPVAL                         R1 2
+       13 GETTABLEKS                       R1 R1 K2 ["BodyText"]
        15 RETURN                           R1 1
 
 PROTO_3:
@@ -49,51 +49,51 @@ PROTO_3:
         4 MOVE                             R3 R0
         5 CALL                             R2 1 1
         6 JUMPIFNOT                        R2 ; [+8]
-        7 GETUPVAL                         R3 1
-        8 MOVE                             R4 R0
-        9 CALL                             R3 1 1
-       10 GETTABLEKS                       R2 R3 K1 ["textBox"]
-       12 GETTABLEKS                       R1 R2 K2 ["text"]
+        7 GETUPVAL                         R1 1
+        8 MOVE                             R2 R0
+        9 CALL                             R1 1 1
+       10 GETTABLEKS                       R1 R1 K1 ["textBox"]
+       12 GETTABLEKS                       R1 R1 K2 ["text"]
        14 JUMPIF                           R1 ; [+3]
-       15 GETUPVAL                         R2 2
-       16 GETTABLEKS                       R1 R2 K3 ["BodyText"]
+       15 GETUPVAL                         R1 2
+       16 GETTABLEKS                       R1 R1 K3 ["BodyText"]
        18 RETURN                           R1 1
        19 GETUPVAL                         R2 0
        20 MOVE                             R3 R0
        21 CALL                             R2 1 1
        22 JUMPIFNOT                        R2 ; [+8]
-       23 GETUPVAL                         R3 1
-       24 MOVE                             R4 R0
-       25 CALL                             R3 1 1
-       26 GETTABLEKS                       R2 R3 K1 ["textBox"]
-       28 GETTABLEKS                       R1 R2 K2 ["text"]
+       23 GETUPVAL                         R1 1
+       24 MOVE                             R2 R0
+       25 CALL                             R1 1 1
+       26 GETTABLEKS                       R1 R1 K1 ["textBox"]
+       28 GETTABLEKS                       R1 R1 K2 ["text"]
        30 JUMPIF                           R1 ; [+3]
-       31 GETUPVAL                         R2 2
-       32 GETTABLEKS                       R1 R2 K4 ["TitleText"]
+       31 GETUPVAL                         R1 2
+       32 GETTABLEKS                       R1 R1 K4 ["TitleText"]
        34 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["White"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["White"]
         3 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getTitleTextColor"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getTitleTextColor"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getTitleTextColor"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getTitleTextColor"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["White"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["White"]
         3 RETURN                           R1 1
 
 PROTO_8:
@@ -101,11 +101,11 @@ PROTO_8:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+4]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K0 ["DarkGrey2"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K0 ["DarkGrey2"]
         7 JUMPIF                           R1 ; [+3]
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K1 ["White"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K1 ["White"]
        11 RETURN                           R1 1
 
 PROTO_9:
@@ -113,11 +113,11 @@ PROTO_9:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+4]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K0 ["DarkGrey"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K0 ["DarkGrey"]
         7 JUMPIF                           R1 ; [+3]
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K1 ["White"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K1 ["White"]
        11 RETURN                           R1 1
 
 PROTO_10:
@@ -125,13 +125,13 @@ PROTO_10:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["separator"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["separator"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["DefaultColor"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["DefaultColor"]
        13 RETURN                           R1 1
 
 PROTO_11:
@@ -139,13 +139,13 @@ PROTO_11:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["separator"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["separator"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["DefaultColor"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["DefaultColor"]
        13 RETURN                           R1 1
 
 PROTO_12:
@@ -153,16 +153,16 @@ PROTO_12:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+14]
-        4 GETUPVAL                         R3 0
-        5 MOVE                             R4 R0
-        6 CALL                             R3 1 1
-        7 GETTABLEKS                       R2 R3 K0 ["radioButton"]
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K0 ["radioButton"]
         9 JUMPIFNOT                        R2 ; [+8]
-       10 GETUPVAL                         R3 0
-       11 MOVE                             R4 R0
-       12 CALL                             R3 1 1
-       13 GETTABLEKS                       R2 R3 K0 ["radioButton"]
-       15 GETTABLEKS                       R1 R2 K1 ["title"]
+       10 GETUPVAL                         R1 0
+       11 MOVE                             R2 R0
+       12 CALL                             R1 1 1
+       13 GETTABLEKS                       R1 R1 K0 ["radioButton"]
+       15 GETTABLEKS                       R1 R1 K1 ["title"]
        17 RETURN                           R1 1
        18 LOADNIL                          R1
        19 RETURN                           R1 1
@@ -170,8 +170,8 @@ PROTO_12:
 PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["ThemeData"]
         2 JUMPIFNOT                        R1 ; [+4]
-        3 GETTABLEKS                       R2 R0 K0 ["ThemeData"]
-        5 GETTABLEKS                       R1 R2 K1 ["theme"]
+        3 GETTABLEKS                       R1 R0 K0 ["ThemeData"]
+        5 GETTABLEKS                       R1 R1 K1 ["theme"]
         7 RETURN                           R1 1
 
 PROTO_14:
@@ -179,20 +179,20 @@ PROTO_14:
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+5]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["isDarkerTheme"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["isDarkerTheme"]
         9 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Util"]
-       11 GETTABLEKS                       R2 R3 K6 ["ConstantColors"]
+        9 GETTABLEKS                       R2 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R2 K6 ["ConstantColors"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 16 0
        16 LOADNIL                          R3

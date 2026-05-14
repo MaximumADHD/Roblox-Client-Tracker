@@ -6,16 +6,16 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 1
-        1 GETTABLEKS                       R1 R2 K0 ["folder"]
-        3 GETTABLEKS                       R0 R1 K1 ["AncestryChanged"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["folder"]
+        3 GETTABLEKS                       R0 R0 K1 ["AncestryChanged"]
         5 GETUPVAL                         R2 2
         6 NAMECALL                         R0 R0 K2 ["Connect"]
         8 CALL                             R0 2 1
         9 SETUPVAL                         R0 0
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K0 ["folder"]
-       13 GETTABLEKS                       R0 R1 K3 ["ChildRemoved"]
+       10 GETUPVAL                         R0 1
+       11 GETTABLEKS                       R0 R0 K0 ["folder"]
+       13 GETTABLEKS                       R0 R0 K3 ["ChildRemoved"]
        15 GETUPVAL                         R2 2
        16 NAMECALL                         R0 R0 K2 ["Connect"]
        18 CALL                             R0 2 1
@@ -97,8 +97,8 @@ PROTO_2:
        97 GETTABLEKS                       R29 R0 K13 ["adorns"]
        99 GETTABLE                         R28 R29 R12
       100 GETTABLE                         R27 R28 R25
-      101 GETUPVAL                         R29 1
-      102 GETTABLEKS                       R28 R29 K17 ["new"]
+      101 GETUPVAL                         R28 1
+      102 GETTABLEKS                       R28 R28 K17 ["new"]
       104 CALL                             R28 0 1
       105 SETTABLE                         R28 R27 R26
       106 GETTABLEKS                       R30 R0 K13 ["adorns"]
@@ -140,16 +140,16 @@ PROTO_3:
        17 SETTABLEKS                       R3 R2 K6 ["Parent"]
        19 GETTABLEKS                       R2 R1 K7 ["FolderChangedCallback"]
        21 SETUPVAL                         R2 1
-       22 GETUPVAL                         R4 3
-       23 GETTABLEKS                       R3 R4 K0 ["folder"]
-       25 GETTABLEKS                       R2 R3 K8 ["AncestryChanged"]
+       22 GETUPVAL                         R2 3
+       23 GETTABLEKS                       R2 R2 K0 ["folder"]
+       25 GETTABLEKS                       R2 R2 K8 ["AncestryChanged"]
        27 GETUPVAL                         R4 4
        28 NAMECALL                         R2 R2 K9 ["Connect"]
        30 CALL                             R2 2 1
        31 SETUPVAL                         R2 2
-       32 GETUPVAL                         R4 3
-       33 GETTABLEKS                       R3 R4 K0 ["folder"]
-       35 GETTABLEKS                       R2 R3 K10 ["ChildRemoved"]
+       32 GETUPVAL                         R2 3
+       33 GETTABLEKS                       R2 R2 K0 ["folder"]
+       35 GETTABLEKS                       R2 R2 K10 ["ChildRemoved"]
        37 GETUPVAL                         R4 4
        38 NAMECALL                         R2 R2 K9 ["Connect"]
        40 CALL                             R2 2 1
@@ -255,9 +255,9 @@ PROTO_6:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["ControlEdgeView"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["ControlEdgeView"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K7 [game]
        12 LOADK                            R3 K8 ["CoreGui"]

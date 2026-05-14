@@ -40,14 +40,14 @@ MAIN:
        18 NAMECALL                         R0 R0 K9 ["FindFirstAncestor"]
        20 CALL                             R0 2 1
        21 GETIMPORT                        R1 K11 [require]
-       23 GETTABLEKS                       R4 R0 K12 ["Src"]
-       25 GETTABLEKS                       R3 R4 K13 ["Util"]
-       27 GETTABLEKS                       R2 R3 K14 ["getUserId"]
+       23 GETTABLEKS                       R2 R0 K12 ["Src"]
+       25 GETTABLEKS                       R2 R2 K13 ["Util"]
+       27 GETTABLEKS                       R2 R2 K14 ["getUserId"]
        29 CALL                             R1 1 1
        30 GETIMPORT                        R2 K11 [require]
-       32 GETTABLEKS                       R5 R0 K12 ["Src"]
-       34 GETTABLEKS                       R4 R5 K13 ["Util"]
-       36 GETTABLEKS                       R3 R4 K15 ["isCli"]
+       32 GETTABLEKS                       R3 R0 K12 ["Src"]
+       34 GETTABLEKS                       R3 R3 K13 ["Util"]
+       36 GETTABLEKS                       R3 R3 K15 ["isCli"]
        38 CALL                             R2 1 1
        39 DUPCLOSURE                       R3 K16 [PROTO_0]
        40 CAPTURE                          VAL R2

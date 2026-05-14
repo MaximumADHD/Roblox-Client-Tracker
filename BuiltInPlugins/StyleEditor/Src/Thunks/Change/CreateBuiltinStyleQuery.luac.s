@@ -38,8 +38,8 @@ PROTO_0:
        45 JUMPIFNOTLT                      R1 R7 ; [+3]
        47 GETTABLEKS                       R1 R6 K10 ["Priority"]
        49 FORGLOOP                         R2 2 ; [-12]
-       51 GETUPVAL                         R5 2
-       52 GETTABLEKS                       R2 R5 K11 ["Selectors"]
+       51 GETUPVAL                         R2 2
+       52 GETTABLEKS                       R2 R2 K11 ["Selectors"]
        54 LOADNIL                          R3
        55 LOADNIL                          R4
        56 FORGPREP                         R2
@@ -57,8 +57,8 @@ PROTO_0:
        75 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["FolderName"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["FolderName"]
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 GETUPVAL                         R5 1
@@ -101,8 +101,8 @@ PROTO_1:
        54 CALL                             R5 1 0
        55 GETUPVAL                         R5 4
        56 JUMPIFNOT                        R5 ; [+11]
-       57 GETUPVAL                         R6 5
-       58 GETTABLEKS                       R5 R6 K12 ["createItemId"]
+       57 GETUPVAL                         R5 5
+       58 GETTABLEKS                       R5 R5 K12 ["createItemId"]
        60 MOVE                             R6 R3
        61 CALL                             R5 1 1
        62 GETUPVAL                         R8 6
@@ -126,36 +126,36 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["BuiltinStyleQueryCategories"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["BuiltinStyleQueryCategories"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K6 ["Util"]
-       26 GETTABLEKS                       R3 R4 K8 ["StyleQueryHelpers"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Util"]
+       26 GETTABLEKS                       R3 R3 K8 ["StyleQueryHelpers"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R6 R0 K5 ["Src"]
-       33 GETTABLEKS                       R5 R6 K6 ["Util"]
-       35 GETTABLEKS                       R4 R5 K9 ["TreeTableHelpers"]
+       31 GETTABLEKS                       R4 R0 K5 ["Src"]
+       33 GETTABLEKS                       R4 R4 K6 ["Util"]
+       35 GETTABLEKS                       R4 R4 K9 ["TreeTableHelpers"]
        37 CALL                             R3 1 1
-       38 GETTABLEKS                       R5 R0 K5 ["Src"]
-       40 GETTABLEKS                       R4 R5 K10 ["Actions"]
+       38 GETTABLEKS                       R4 R0 K5 ["Src"]
+       40 GETTABLEKS                       R4 R4 K10 ["Actions"]
        42 GETIMPORT                        R5 K4 [require]
-       44 GETTABLEKS                       R7 R4 K11 ["Window"]
-       46 GETTABLEKS                       R6 R7 K12 ["SelectItem"]
+       44 GETTABLEKS                       R6 R4 K11 ["Window"]
+       46 GETTABLEKS                       R6 R6 K12 ["SelectItem"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K4 [require]
-       51 GETTABLEKS                       R9 R0 K5 ["Src"]
-       53 GETTABLEKS                       R8 R9 K13 ["Thunks"]
-       55 GETTABLEKS                       R7 R8 K14 ["Types"]
+       51 GETTABLEKS                       R7 R0 K5 ["Src"]
+       53 GETTABLEKS                       R7 R7 K13 ["Thunks"]
+       55 GETTABLEKS                       R7 R7 K14 ["Types"]
        57 CALL                             R6 1 1
        58 DUPCLOSURE                       R7 K15 [PROTO_2]
        59 CAPTURE                          VAL R2

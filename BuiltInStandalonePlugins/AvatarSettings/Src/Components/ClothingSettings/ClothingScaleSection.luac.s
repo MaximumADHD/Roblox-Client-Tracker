@@ -3,8 +3,8 @@ PROTO_0:
         1 GETIMPORT                        R1 K3 [Enum.AvatarSettingsClothingMode.CustomLimit]
         3 JUMPIFNOTEQ                      R0 R1 ; [+11]
         5 GETUPVAL                         R0 1
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R2 R3 K4 ["showBoundingBoxes"]
+        6 GETUPVAL                         R2 2
+        7 GETTABLEKS                       R2 R2 K4 ["showBoundingBoxes"]
         9 LOADB                            R3 1
        10 LOADK                            R4 K5 ["Clothing"]
        11 NAMECALL                         R0 R0 K6 ["Invoke"]
@@ -14,8 +14,8 @@ PROTO_0:
        16 GETIMPORT                        R1 K8 [Enum.AvatarSettingsClothingMode.PlayerChoice]
        18 JUMPIFNOTEQ                      R0 R1 ; [+10]
        20 GETUPVAL                         R0 1
-       21 GETUPVAL                         R3 2
-       22 GETTABLEKS                       R2 R3 K4 ["showBoundingBoxes"]
+       21 GETUPVAL                         R2 2
+       22 GETTABLEKS                       R2 R2 K4 ["showBoundingBoxes"]
        24 LOADB                            R3 0
        25 LOADK                            R4 K5 ["Clothing"]
        26 NAMECALL                         R0 R0 K6 ["Invoke"]
@@ -24,8 +24,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["showBoundingBoxes"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["showBoundingBoxes"]
         4 LOADB                            R3 0
         5 LOADK                            R4 K1 ["Clothing"]
         6 NAMECALL                         R0 R0 K2 ["Invoke"]
@@ -48,9 +48,9 @@ PROTO_3:
         8 SETTABLEKS                       R5 R4 K1 ["clothingCustomLimitMode"]
        10 NAMECALL                         R1 R1 K4 ["logCounter"]
        12 CALL                             R1 3 0
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K5 ["clothingScaleSetting"]
-       16 GETTABLEKS                       R1 R2 K6 ["set"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K5 ["clothingScaleSetting"]
+       16 GETTABLEKS                       R1 R1 K6 ["set"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 0
        20 RETURN                           R0 0
@@ -64,8 +64,8 @@ PROTO_4:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -94,14 +94,14 @@ PROTO_4:
        50 CALL                             R8 3 1
        51 SETTABLEKS                       R8 R7 K7 ["Label"]
        53 SETLIST                          R5 R6 2 [1]
-       55 GETTABLEKS                       R7 R4 K2 ["settings"]
-       57 GETTABLEKS                       R6 R7 K19 ["clothingSettings"]
-       59 GETTABLEKS                       R8 R6 K20 ["clothingScaleSetting"]
-       61 GETTABLEKS                       R7 R8 K21 ["value"]
+       55 GETTABLEKS                       R6 R4 K2 ["settings"]
+       57 GETTABLEKS                       R6 R6 K19 ["clothingSettings"]
+       59 GETTABLEKS                       R7 R6 K20 ["clothingScaleSetting"]
+       61 GETTABLEKS                       R7 R7 K21 ["value"]
        63 GETIMPORT                        R8 K24 [UDim.new]
        65 LOADN                            R9 0
-       66 GETUPVAL                         R11 5
-       67 GETTABLEKS                       R10 R11 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+       66 GETUPVAL                         R10 5
+       67 GETTABLEKS                       R10 R10 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
        69 CALL                             R8 2 1
        70 GETIMPORT                        R10 K17 [Enum.AvatarSettingsClothingMode.CustomLimit]
        72 JUMPIFEQ                         R7 R10 ; [+2]
@@ -112,22 +112,22 @@ PROTO_4:
        79 CALL                             R10 1 1
        80 NAMECALL                         R10 R10 K26 ["get"]
        82 CALL                             R10 1 1
-       83 GETUPVAL                         R12 3
-       84 GETTABLEKS                       R11 R12 K27 ["useEffect"]
+       83 GETUPVAL                         R11 3
+       84 GETTABLEKS                       R11 R11 K27 ["useEffect"]
        86 NEWCLOSURE                       R12 P0
        87 CAPTURE                          VAL R7
        88 CAPTURE                          VAL R10
        89 CAPTURE                          UPVAL U7
        90 NEWTABLE                         R13 0 2
        92 MOVE                             R14 R7
-       93 GETTABLEKS                       R18 R4 K2 ["settings"]
-       95 GETTABLEKS                       R17 R18 K19 ["clothingSettings"]
-       97 GETTABLEKS                       R16 R17 K28 ["clothingScaleLimitBoundsSetting"]
-       99 GETTABLEKS                       R15 R16 K21 ["value"]
+       93 GETTABLEKS                       R15 R4 K2 ["settings"]
+       95 GETTABLEKS                       R15 R15 K19 ["clothingSettings"]
+       97 GETTABLEKS                       R15 R15 K28 ["clothingScaleLimitBoundsSetting"]
+       99 GETTABLEKS                       R15 R15 K21 ["value"]
       101 SETLIST                          R13 R14 2 [1]
       103 CALL                             R11 2 0
-      104 GETUPVAL                         R12 3
-      105 GETTABLEKS                       R11 R12 K27 ["useEffect"]
+      104 GETUPVAL                         R11 3
+      105 GETTABLEKS                       R11 R11 K27 ["useEffect"]
       107 NEWCLOSURE                       R12 P1
       108 CAPTURE                          VAL R10
       109 CAPTURE                          UPVAL U7
@@ -208,13 +208,13 @@ PROTO_4:
       209 MOVE                             R22 R3
       210 CALL                             R22 0 1
       211 SETTABLEKS                       R22 R21 K30 ["layoutOrder"]
-      213 GETTABLEKS                       R23 R6 K28 ["clothingScaleLimitBoundsSetting"]
-      215 GETTABLEKS                       R22 R23 K21 ["value"]
+      213 GETTABLEKS                       R22 R6 K28 ["clothingScaleLimitBoundsSetting"]
+      215 GETTABLEKS                       R22 R22 K21 ["value"]
       217 SETTABLEKS                       R22 R21 K21 ["value"]
-      219 GETTABLEKS                       R25 R4 K2 ["settings"]
-      221 GETTABLEKS                       R24 R25 K19 ["clothingSettings"]
-      223 GETTABLEKS                       R23 R24 K28 ["clothingScaleLimitBoundsSetting"]
-      225 GETTABLEKS                       R22 R23 K57 ["set"]
+      219 GETTABLEKS                       R22 R4 K2 ["settings"]
+      221 GETTABLEKS                       R22 R22 K19 ["clothingSettings"]
+      223 GETTABLEKS                       R22 R22 K28 ["clothingScaleLimitBoundsSetting"]
+      225 GETTABLEKS                       R22 R22 K57 ["set"]
       227 SETTABLEKS                       R22 R21 K55 ["setValue"]
       229 LOADK                            R24 K58 ["General"]
       230 LOADK                            R25 K59 ["PaddingAroundAvatar"]
@@ -235,61 +235,61 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K10 ["Util"]
-       24 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K10 ["Util"]
+       24 GETTABLEKS                       R3 R3 K11 ["Constants"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Components"]
-       33 GETTABLEKS                       R4 R5 K12 ["ExpandableSection"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Components"]
+       33 GETTABLEKS                       R4 R4 K12 ["ExpandableSection"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K14 ["Framework"]
+       38 GETTABLEKS                       R5 R0 K13 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K14 ["Framework"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K7 ["Components"]
-       49 GETTABLEKS                       R6 R7 K15 ["GenericModeSelector"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K7 ["Components"]
+       49 GETTABLEKS                       R6 R6 K15 ["GenericModeSelector"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R8 R0 K13 ["Packages"]
-       56 GETTABLEKS                       R7 R8 K16 ["React"]
+       54 GETTABLEKS                       R7 R0 K13 ["Packages"]
+       56 GETTABLEKS                       R7 R7 K16 ["React"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R9 R0 K13 ["Packages"]
-       63 GETTABLEKS                       R8 R9 K17 ["ReactUtils"]
+       61 GETTABLEKS                       R8 R0 K13 ["Packages"]
+       63 GETTABLEKS                       R8 R8 K17 ["ReactUtils"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K6 ["Src"]
-       70 GETTABLEKS                       R10 R11 K7 ["Components"]
-       72 GETTABLEKS                       R9 R10 K18 ["TitledComponent"]
+       68 GETTABLEKS                       R9 R0 K6 ["Src"]
+       70 GETTABLEKS                       R9 R9 K7 ["Components"]
+       72 GETTABLEKS                       R9 R9 K18 ["TitledComponent"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K6 ["Src"]
-       79 GETTABLEKS                       R11 R12 K7 ["Components"]
-       81 GETTABLEKS                       R10 R11 K19 ["Vector3Input"]
+       77 GETTABLEKS                       R10 R0 K6 ["Src"]
+       79 GETTABLEKS                       R10 R10 K7 ["Components"]
+       81 GETTABLEKS                       R10 R10 K19 ["Vector3Input"]
        83 CALL                             R9 1 1
        84 GETIMPORT                        R10 K5 [require]
-       86 GETTABLEKS                       R13 R0 K6 ["Src"]
-       88 GETTABLEKS                       R12 R13 K10 ["Util"]
-       90 GETTABLEKS                       R11 R12 K20 ["InvokeKeys"]
+       86 GETTABLEKS                       R11 R0 K6 ["Src"]
+       88 GETTABLEKS                       R11 R11 K10 ["Util"]
+       90 GETTABLEKS                       R11 R11 K20 ["InvokeKeys"]
        92 CALL                             R10 1 1
        93 GETTABLEKS                       R11 R4 K21 ["ContextServices"]
        95 GETTABLEKS                       R12 R11 K22 ["Localization"]
        97 GETTABLEKS                       R13 R11 K23 ["Plugin"]
        99 GETIMPORT                        R14 K5 [require]
-      101 GETTABLEKS                       R18 R0 K6 ["Src"]
-      103 GETTABLEKS                       R17 R18 K10 ["Util"]
-      105 GETTABLEKS                       R16 R17 K24 ["Telemetry"]
-      107 GETTABLEKS                       R15 R16 K25 ["TelemetryContext"]
+      101 GETTABLEKS                       R15 R0 K6 ["Src"]
+      103 GETTABLEKS                       R15 R15 K10 ["Util"]
+      105 GETTABLEKS                       R15 R15 K24 ["Telemetry"]
+      107 GETTABLEKS                       R15 R15 K25 ["TelemetryContext"]
       109 CALL                             R14 1 1
       110 GETTABLEKS                       R15 R7 K26 ["createNextOrder"]
       112 GETTABLEKS                       R16 R6 K27 ["createElement"]

@@ -18,8 +18,8 @@ PROTO_1:
        15 NAMECALL                         R10 R2 K5 ["getText"]
        17 CALL                             R10 3 1
        18 GETTABLEKS                       R11 R9 K4 ["Name"]
-       20 GETUPVAL                         R13 1
-       21 GETTABLEKS                       R12 R13 K6 ["createElement"]
+       20 GETUPVAL                         R12 1
+       21 GETTABLEKS                       R12 R12 K6 ["createElement"]
        23 GETUPVAL                         R13 2
        24 DUPTABLE                         R14 K12 [{"Text", "Style", "LayoutOrder", "Size", "OnClick"}]
        25 SETTABLEKS                       R10 R14 K7 ["Text"]
@@ -40,8 +40,8 @@ PROTO_1:
        46 CALL                             R12 2 1
        47 SETTABLE                         R12 R4 R11
        48 FORGLOOP                         R5 2 ; [-37]
-       50 GETUPVAL                         R6 1
-       51 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       50 GETUPVAL                         R5 1
+       51 GETTABLEKS                       R5 R5 K6 ["createElement"]
        53 GETUPVAL                         R6 3
        54 DUPTABLE                         R7 K20 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing"}]
        55 GETIMPORT                        R8 K23 [Enum.AutomaticSize.Y]
@@ -58,31 +58,31 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
        27 GETTABLEKS                       R5 R3 K10 ["Analytics"]
        29 GETTABLEKS                       R6 R3 K11 ["Localization"]
-       31 GETTABLEKS                       R8 R2 K12 ["Style"]
-       33 GETTABLEKS                       R7 R8 K13 ["Stylizer"]
+       31 GETTABLEKS                       R7 R2 K12 ["Style"]
+       33 GETTABLEKS                       R7 R7 K13 ["Stylizer"]
        35 GETTABLEKS                       R8 R2 K14 ["UI"]
        37 GETTABLEKS                       R9 R8 K15 ["Button"]
        39 GETTABLEKS                       R10 R8 K16 ["Pane"]
        41 GETIMPORT                        R11 K4 [require]
-       43 GETTABLEKS                       R14 R0 K17 ["Src"]
-       45 GETTABLEKS                       R13 R14 K18 ["RigPresets"]
-       47 GETTABLEKS                       R12 R13 K19 ["PresetManifest"]
+       43 GETTABLEKS                       R12 R0 K17 ["Src"]
+       45 GETTABLEKS                       R12 R12 K18 ["RigPresets"]
+       47 GETTABLEKS                       R12 R12 K19 ["PresetManifest"]
        49 CALL                             R11 1 1
        50 GETTABLEKS                       R12 R1 K20 ["PureComponent"]
        52 LOADK                            R14 K21 ["RigList"]

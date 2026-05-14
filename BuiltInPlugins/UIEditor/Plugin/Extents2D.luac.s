@@ -1,30 +1,30 @@
 PROTO_0:
-        0 GETTABLEKS                       R4 R0 K1 ["hidden"]
-        2 GETTABLEKS                       R3 R4 K2 ["TopLeft"]
-        4 GETTABLEKS                       R5 R0 K1 ["hidden"]
-        6 GETTABLEKS                       R4 R5 K3 ["BottomRight"]
+        0 GETTABLEKS                       R3 R0 K1 ["hidden"]
+        2 GETTABLEKS                       R3 R3 K2 ["TopLeft"]
+        4 GETTABLEKS                       R4 R0 K1 ["hidden"]
+        6 GETTABLEKS                       R4 R4 K3 ["BottomRight"]
         8 ADD                              R2 R3 R4
         9 MULK                             R1 R2 K0 [0.5]
        10 SETTABLEKS                       R1 R0 K4 ["Center"]
        12 GETTABLEKS                       R1 R0 K1 ["hidden"]
-       14 GETTABLEKS                       R4 R0 K1 ["hidden"]
-       16 GETTABLEKS                       R3 R4 K2 ["TopLeft"]
-       18 GETTABLEKS                       R2 R3 K5 ["X"]
+       14 GETTABLEKS                       R2 R0 K1 ["hidden"]
+       16 GETTABLEKS                       R2 R2 K2 ["TopLeft"]
+       18 GETTABLEKS                       R2 R2 K5 ["X"]
        20 SETTABLEKS                       R2 R1 K6 ["Left"]
        22 GETTABLEKS                       R1 R0 K1 ["hidden"]
-       24 GETTABLEKS                       R4 R0 K1 ["hidden"]
-       26 GETTABLEKS                       R3 R4 K3 ["BottomRight"]
-       28 GETTABLEKS                       R2 R3 K5 ["X"]
+       24 GETTABLEKS                       R2 R0 K1 ["hidden"]
+       26 GETTABLEKS                       R2 R2 K3 ["BottomRight"]
+       28 GETTABLEKS                       R2 R2 K5 ["X"]
        30 SETTABLEKS                       R2 R1 K7 ["Right"]
        32 GETTABLEKS                       R1 R0 K1 ["hidden"]
-       34 GETTABLEKS                       R4 R0 K1 ["hidden"]
-       36 GETTABLEKS                       R3 R4 K2 ["TopLeft"]
-       38 GETTABLEKS                       R2 R3 K8 ["Y"]
+       34 GETTABLEKS                       R2 R0 K1 ["hidden"]
+       36 GETTABLEKS                       R2 R2 K2 ["TopLeft"]
+       38 GETTABLEKS                       R2 R2 K8 ["Y"]
        40 SETTABLEKS                       R2 R1 K9 ["Top"]
        42 GETTABLEKS                       R1 R0 K1 ["hidden"]
-       44 GETTABLEKS                       R4 R0 K1 ["hidden"]
-       46 GETTABLEKS                       R3 R4 K3 ["BottomRight"]
-       48 GETTABLEKS                       R2 R3 K8 ["Y"]
+       44 GETTABLEKS                       R2 R0 K1 ["hidden"]
+       46 GETTABLEKS                       R2 R2 K3 ["BottomRight"]
+       48 GETTABLEKS                       R2 R2 K8 ["Y"]
        50 SETTABLEKS                       R2 R1 K10 ["Bottom"]
        52 GETTABLEKS                       R1 R0 K1 ["hidden"]
        54 GETIMPORT                        R2 K13 [Vector2.new]
@@ -38,16 +38,16 @@ PROTO_0:
        69 GETTABLEKS                       R4 R0 K10 ["Bottom"]
        71 CALL                             R2 2 1
        72 SETTABLEKS                       R2 R1 K15 ["BottomLeft"]
-       74 GETTABLEKS                       R3 R0 K1 ["hidden"]
-       76 GETTABLEKS                       R2 R3 K7 ["Right"]
-       78 GETTABLEKS                       R4 R0 K1 ["hidden"]
-       80 GETTABLEKS                       R3 R4 K6 ["Left"]
+       74 GETTABLEKS                       R2 R0 K1 ["hidden"]
+       76 GETTABLEKS                       R2 R2 K7 ["Right"]
+       78 GETTABLEKS                       R3 R0 K1 ["hidden"]
+       80 GETTABLEKS                       R3 R3 K6 ["Left"]
        82 SUB                              R1 R2 R3
        83 SETTABLEKS                       R1 R0 K16 ["Width"]
-       85 GETTABLEKS                       R3 R0 K1 ["hidden"]
-       87 GETTABLEKS                       R2 R3 K10 ["Bottom"]
-       89 GETTABLEKS                       R4 R0 K1 ["hidden"]
-       91 GETTABLEKS                       R3 R4 K9 ["Top"]
+       85 GETTABLEKS                       R2 R0 K1 ["hidden"]
+       87 GETTABLEKS                       R2 R2 K10 ["Bottom"]
+       89 GETTABLEKS                       R3 R0 K1 ["hidden"]
+       91 GETTABLEKS                       R3 R3 K9 ["Top"]
        93 SUB                              R1 R2 R3
        94 SETTABLEKS                       R1 R0 K17 ["Height"]
        96 GETIMPORT                        R1 K13 [Vector2.new]
@@ -114,32 +114,32 @@ PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["hidden"]
         2 GETUPVAL                         R4 0
         3 MOVE                             R5 R1
-        4 GETTABLEKS                       R7 R0 K0 ["hidden"]
-        6 GETTABLEKS                       R6 R7 K1 ["TopLeft"]
+        4 GETTABLEKS                       R6 R0 K0 ["hidden"]
+        6 GETTABLEKS                       R6 R6 K1 ["TopLeft"]
         8 MOVE                             R7 R2
         9 CALL                             R4 3 1
        10 SETTABLEKS                       R4 R3 K2 ["TopLeftVisible"]
        12 GETTABLEKS                       R3 R0 K0 ["hidden"]
        14 GETUPVAL                         R4 0
        15 MOVE                             R5 R1
-       16 GETTABLEKS                       R7 R0 K0 ["hidden"]
-       18 GETTABLEKS                       R6 R7 K3 ["TopRight"]
+       16 GETTABLEKS                       R6 R0 K0 ["hidden"]
+       18 GETTABLEKS                       R6 R6 K3 ["TopRight"]
        20 MOVE                             R7 R2
        21 CALL                             R4 3 1
        22 SETTABLEKS                       R4 R3 K4 ["TopRightVisible"]
        24 GETTABLEKS                       R3 R0 K0 ["hidden"]
        26 GETUPVAL                         R4 0
        27 MOVE                             R5 R1
-       28 GETTABLEKS                       R7 R0 K0 ["hidden"]
-       30 GETTABLEKS                       R6 R7 K5 ["BottomLeft"]
+       28 GETTABLEKS                       R6 R0 K0 ["hidden"]
+       30 GETTABLEKS                       R6 R6 K5 ["BottomLeft"]
        32 MOVE                             R7 R2
        33 CALL                             R4 3 1
        34 SETTABLEKS                       R4 R3 K6 ["BottomLeftVisible"]
        36 GETTABLEKS                       R3 R0 K0 ["hidden"]
        38 GETUPVAL                         R4 0
        39 MOVE                             R5 R1
-       40 GETTABLEKS                       R7 R0 K0 ["hidden"]
-       42 GETTABLEKS                       R6 R7 K7 ["BottomRight"]
+       40 GETTABLEKS                       R6 R0 K0 ["hidden"]
+       42 GETTABLEKS                       R6 R6 K7 ["BottomRight"]
        44 MOVE                             R7 R2
        45 CALL                             R4 3 1
        46 SETTABLEKS                       R4 R3 K8 ["BottomRightVisible"]
@@ -156,29 +156,29 @@ PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["hidden"]
         2 GETUPVAL                         R3 0
         3 MOVE                             R4 R1
-        4 GETTABLEKS                       R6 R0 K0 ["hidden"]
-        6 GETTABLEKS                       R5 R6 K1 ["TopLeft"]
+        4 GETTABLEKS                       R5 R0 K0 ["hidden"]
+        6 GETTABLEKS                       R5 R5 K1 ["TopLeft"]
         8 CALL                             R3 2 1
         9 SETTABLEKS                       R3 R2 K2 ["TopLeftVisible"]
        11 GETTABLEKS                       R2 R0 K0 ["hidden"]
        13 GETUPVAL                         R3 0
        14 MOVE                             R4 R1
-       15 GETTABLEKS                       R6 R0 K0 ["hidden"]
-       17 GETTABLEKS                       R5 R6 K3 ["TopRight"]
+       15 GETTABLEKS                       R5 R0 K0 ["hidden"]
+       17 GETTABLEKS                       R5 R5 K3 ["TopRight"]
        19 CALL                             R3 2 1
        20 SETTABLEKS                       R3 R2 K4 ["TopRightVisible"]
        22 GETTABLEKS                       R2 R0 K0 ["hidden"]
        24 GETUPVAL                         R3 0
        25 MOVE                             R4 R1
-       26 GETTABLEKS                       R6 R0 K0 ["hidden"]
-       28 GETTABLEKS                       R5 R6 K5 ["BottomLeft"]
+       26 GETTABLEKS                       R5 R0 K0 ["hidden"]
+       28 GETTABLEKS                       R5 R5 K5 ["BottomLeft"]
        30 CALL                             R3 2 1
        31 SETTABLEKS                       R3 R2 K6 ["BottomLeftVisible"]
        33 GETTABLEKS                       R2 R0 K0 ["hidden"]
        35 GETUPVAL                         R3 0
        36 MOVE                             R4 R1
-       37 GETTABLEKS                       R6 R0 K0 ["hidden"]
-       39 GETTABLEKS                       R5 R6 K7 ["BottomRight"]
+       37 GETTABLEKS                       R5 R0 K0 ["hidden"]
+       39 GETTABLEKS                       R5 R5 K7 ["BottomRight"]
        41 CALL                             R3 2 1
        42 SETTABLEKS                       R3 R2 K8 ["BottomRightVisible"]
        44 GETTABLEKS                       R2 R0 K0 ["hidden"]
@@ -200,16 +200,16 @@ PROTO_5:
         9 FORNPREP                         R2
        10 GETTABLEKS                       R5 R0 K0 ["hidden"]
        12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R9 R0 K0 ["hidden"]
-       15 GETTABLEKS                       R8 R9 K1 ["TopLeft"]
+       13 GETTABLEKS                       R8 R0 K0 ["hidden"]
+       15 GETTABLEKS                       R8 R8 K1 ["TopLeft"]
        17 GETTABLE                         R9 R1 R4
        18 NAMECALL                         R6 R6 K2 ["minVector2"]
        20 CALL                             R6 3 1
        21 SETTABLEKS                       R6 R5 K1 ["TopLeft"]
        23 GETTABLEKS                       R5 R0 K0 ["hidden"]
        25 GETUPVAL                         R6 0
-       26 GETTABLEKS                       R9 R0 K0 ["hidden"]
-       28 GETTABLEKS                       R8 R9 K3 ["BottomRight"]
+       26 GETTABLEKS                       R8 R0 K0 ["hidden"]
+       28 GETTABLEKS                       R8 R8 K3 ["BottomRight"]
        30 GETTABLE                         R9 R1 R4
        31 NAMECALL                         R6 R6 K4 ["maxVector2"]
        33 CALL                             R6 3 1
@@ -253,13 +253,13 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["hidden"]
-        2 GETTABLEKS                       R5 R0 K0 ["hidden"]
-        4 GETTABLEKS                       R4 R5 K1 ["TopLeft"]
+        2 GETTABLEKS                       R4 R0 K0 ["hidden"]
+        4 GETTABLEKS                       R4 R4 K1 ["TopLeft"]
         6 ADD                              R3 R4 R1
         7 SETTABLEKS                       R3 R2 K1 ["TopLeft"]
         9 GETTABLEKS                       R2 R0 K0 ["hidden"]
-       11 GETTABLEKS                       R5 R0 K0 ["hidden"]
-       13 GETTABLEKS                       R4 R5 K2 ["BottomRight"]
+       11 GETTABLEKS                       R4 R0 K0 ["hidden"]
+       13 GETTABLEKS                       R4 R4 K2 ["BottomRight"]
        15 ADD                              R3 R4 R1
        16 SETTABLEKS                       R3 R2 K2 ["BottomRight"]
        18 GETUPVAL                         R2 0
@@ -269,8 +269,8 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["hidden"]
-        2 GETTABLEKS                       R5 R0 K0 ["hidden"]
-        4 GETTABLEKS                       R4 R5 K1 ["TopLeft"]
+        2 GETTABLEKS                       R4 R0 K0 ["hidden"]
+        4 GETTABLEKS                       R4 R4 K1 ["TopLeft"]
         6 ADD                              R3 R4 R1
         7 SETTABLEKS                       R3 R2 K2 ["BottomRight"]
         9 GETUPVAL                         R2 0
@@ -306,97 +306,97 @@ PROTO_11:
         6 GETUPVAL                         R2 1
         7 RETURN                           R2 1
         8 JUMPIFNOTEQKS                    R1 K2 ["TopLeft"] ; [+6]
-       10 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       12 GETTABLEKS                       R2 R3 K2 ["TopLeft"]
+       10 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       12 GETTABLEKS                       R2 R2 K2 ["TopLeft"]
        14 RETURN                           R2 1
        15 JUMPIFNOTEQKS                    R1 K4 ["BottomRight"] ; [+6]
-       17 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       19 GETTABLEKS                       R2 R3 K4 ["BottomRight"]
+       17 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       19 GETTABLEKS                       R2 R2 K4 ["BottomRight"]
        21 RETURN                           R2 1
        22 JUMPIFNOTEQKS                    R1 K5 ["TopRight"] ; [+6]
-       24 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       26 GETTABLEKS                       R2 R3 K5 ["TopRight"]
+       24 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       26 GETTABLEKS                       R2 R2 K5 ["TopRight"]
        28 RETURN                           R2 1
        29 JUMPIFNOTEQKS                    R1 K6 ["BottomLeft"] ; [+6]
-       31 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       33 GETTABLEKS                       R2 R3 K6 ["BottomLeft"]
+       31 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       33 GETTABLEKS                       R2 R2 K6 ["BottomLeft"]
        35 RETURN                           R2 1
        36 JUMPIFNOTEQKS                    R1 K7 ["Top"] ; [+6]
-       38 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       40 GETTABLEKS                       R2 R3 K7 ["Top"]
+       38 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       40 GETTABLEKS                       R2 R2 K7 ["Top"]
        42 RETURN                           R2 1
        43 JUMPIFNOTEQKS                    R1 K8 ["Bottom"] ; [+6]
-       45 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       47 GETTABLEKS                       R2 R3 K8 ["Bottom"]
+       45 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       47 GETTABLEKS                       R2 R2 K8 ["Bottom"]
        49 RETURN                           R2 1
        50 JUMPIFNOTEQKS                    R1 K9 ["Left"] ; [+6]
-       52 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       54 GETTABLEKS                       R2 R3 K9 ["Left"]
+       52 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       54 GETTABLEKS                       R2 R2 K9 ["Left"]
        56 RETURN                           R2 1
        57 JUMPIFNOTEQKS                    R1 K10 ["Right"] ; [+6]
-       59 GETTABLEKS                       R3 R0 K3 ["hidden"]
-       61 GETTABLEKS                       R2 R3 K10 ["Right"]
+       59 GETTABLEKS                       R2 R0 K3 ["hidden"]
+       61 GETTABLEKS                       R2 R2 K10 ["Right"]
        63 RETURN                           R2 1
        64 JUMPIFNOTEQKS                    R1 K11 ["TopLeftVisible"] ; [+7]
-       66 GETUPVAL                         R4 2
-       67 GETTABLEKS                       R3 R4 K3 ["hidden"]
-       69 GETTABLEKS                       R2 R3 K11 ["TopLeftVisible"]
+       66 GETUPVAL                         R2 2
+       67 GETTABLEKS                       R2 R2 K3 ["hidden"]
+       69 GETTABLEKS                       R2 R2 K11 ["TopLeftVisible"]
        71 RETURN                           R2 1
        72 JUMPIFNOTEQKS                    R1 K12 ["TopRightVisible"] ; [+7]
-       74 GETUPVAL                         R4 2
-       75 GETTABLEKS                       R3 R4 K3 ["hidden"]
-       77 GETTABLEKS                       R2 R3 K12 ["TopRightVisible"]
+       74 GETUPVAL                         R2 2
+       75 GETTABLEKS                       R2 R2 K3 ["hidden"]
+       77 GETTABLEKS                       R2 R2 K12 ["TopRightVisible"]
        79 RETURN                           R2 1
        80 JUMPIFNOTEQKS                    R1 K13 ["BottomLeftVisible"] ; [+7]
-       82 GETUPVAL                         R4 2
-       83 GETTABLEKS                       R3 R4 K3 ["hidden"]
-       85 GETTABLEKS                       R2 R3 K13 ["BottomLeftVisible"]
+       82 GETUPVAL                         R2 2
+       83 GETTABLEKS                       R2 R2 K3 ["hidden"]
+       85 GETTABLEKS                       R2 R2 K13 ["BottomLeftVisible"]
        87 RETURN                           R2 1
        88 JUMPIFNOTEQKS                    R1 K14 ["BottomRightVisible"] ; [+7]
-       90 GETUPVAL                         R4 2
-       91 GETTABLEKS                       R3 R4 K3 ["hidden"]
-       93 GETTABLEKS                       R2 R3 K14 ["BottomRightVisible"]
+       90 GETUPVAL                         R2 2
+       91 GETTABLEKS                       R2 R2 K3 ["hidden"]
+       93 GETTABLEKS                       R2 R2 K14 ["BottomRightVisible"]
        95 RETURN                           R2 1
        96 JUMPIFNOTEQKS                    R1 K15 ["TopVisible"] ; [+13]
-       98 GETUPVAL                         R4 2
-       99 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      101 GETTABLEKS                       R2 R3 K11 ["TopLeftVisible"]
+       98 GETUPVAL                         R2 2
+       99 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      101 GETTABLEKS                       R2 R2 K11 ["TopLeftVisible"]
       103 JUMPIF                           R2 ; [+5]
-      104 GETUPVAL                         R4 2
-      105 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      107 GETTABLEKS                       R2 R3 K12 ["TopRightVisible"]
+      104 GETUPVAL                         R2 2
+      105 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      107 GETTABLEKS                       R2 R2 K12 ["TopRightVisible"]
       109 RETURN                           R2 1
       110 JUMPIFNOTEQKS                    R1 K16 ["BottomVisible"] ; [+13]
-      112 GETUPVAL                         R4 2
-      113 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      115 GETTABLEKS                       R2 R3 K13 ["BottomLeftVisible"]
+      112 GETUPVAL                         R2 2
+      113 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      115 GETTABLEKS                       R2 R2 K13 ["BottomLeftVisible"]
       117 JUMPIF                           R2 ; [+5]
-      118 GETUPVAL                         R4 2
-      119 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      121 GETTABLEKS                       R2 R3 K14 ["BottomRightVisible"]
+      118 GETUPVAL                         R2 2
+      119 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      121 GETTABLEKS                       R2 R2 K14 ["BottomRightVisible"]
       123 RETURN                           R2 1
       124 JUMPIFNOTEQKS                    R1 K17 ["LeftVisible"] ; [+13]
-      126 GETUPVAL                         R4 2
-      127 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      129 GETTABLEKS                       R2 R3 K11 ["TopLeftVisible"]
+      126 GETUPVAL                         R2 2
+      127 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      129 GETTABLEKS                       R2 R2 K11 ["TopLeftVisible"]
       131 JUMPIF                           R2 ; [+5]
-      132 GETUPVAL                         R4 2
-      133 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      135 GETTABLEKS                       R2 R3 K13 ["BottomLeftVisible"]
+      132 GETUPVAL                         R2 2
+      133 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      135 GETTABLEKS                       R2 R2 K13 ["BottomLeftVisible"]
       137 RETURN                           R2 1
       138 JUMPIFNOTEQKS                    R1 K18 ["RightVisible"] ; [+13]
-      140 GETUPVAL                         R4 2
-      141 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      143 GETTABLEKS                       R2 R3 K12 ["TopRightVisible"]
+      140 GETUPVAL                         R2 2
+      141 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      143 GETTABLEKS                       R2 R2 K12 ["TopRightVisible"]
       145 JUMPIF                           R2 ; [+5]
-      146 GETUPVAL                         R4 2
-      147 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      149 GETTABLEKS                       R2 R3 K14 ["BottomRightVisible"]
+      146 GETUPVAL                         R2 2
+      147 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      149 GETTABLEKS                       R2 R2 K14 ["BottomRightVisible"]
       151 RETURN                           R2 1
       152 JUMPIFNOTEQKS                    R1 K19 ["CenterVisible"] ; [+7]
-      154 GETUPVAL                         R4 2
-      155 GETTABLEKS                       R3 R4 K3 ["hidden"]
-      157 GETTABLEKS                       R2 R3 K19 ["CenterVisible"]
+      154 GETUPVAL                         R2 2
+      155 GETTABLEKS                       R2 R2 K3 ["hidden"]
+      157 GETTABLEKS                       R2 R2 K19 ["CenterVisible"]
       159 RETURN                           R2 1
       160 JUMPIFNOTEQKS                    R1 K20 ["translate"] ; [+4]
       162 GETGLOBAL                        R2 K20 ["translate"]
@@ -424,16 +424,16 @@ PROTO_12:
        14 JUMPIFNOTEQKS                    R1 K3 ["TopRight"] ; [+28]
        16 GETTABLEKS                       R3 R0 K1 ["hidden"]
        18 GETIMPORT                        R4 K6 [Vector2.new]
-       20 GETTABLEKS                       R6 R0 K1 ["hidden"]
-       22 GETTABLEKS                       R5 R6 K7 ["Left"]
+       20 GETTABLEKS                       R5 R0 K1 ["hidden"]
+       22 GETTABLEKS                       R5 R5 K7 ["Left"]
        24 GETTABLEKS                       R6 R2 K8 ["Y"]
        26 CALL                             R4 2 1
        27 SETTABLEKS                       R4 R3 K0 ["TopLeft"]
        29 GETTABLEKS                       R3 R0 K1 ["hidden"]
        31 GETIMPORT                        R4 K6 [Vector2.new]
        33 GETTABLEKS                       R5 R2 K9 ["X"]
-       35 GETTABLEKS                       R7 R0 K1 ["hidden"]
-       37 GETTABLEKS                       R6 R7 K10 ["Bottom"]
+       35 GETTABLEKS                       R6 R0 K1 ["hidden"]
+       37 GETTABLEKS                       R6 R6 K10 ["Bottom"]
        39 CALL                             R4 2 1
        40 SETTABLEKS                       R4 R3 K2 ["BottomRight"]
        42 JUMP                             ; [+88]
@@ -441,14 +441,14 @@ PROTO_12:
        45 GETTABLEKS                       R3 R0 K1 ["hidden"]
        47 GETIMPORT                        R4 K6 [Vector2.new]
        49 GETTABLEKS                       R5 R2 K9 ["X"]
-       51 GETTABLEKS                       R7 R0 K1 ["hidden"]
-       53 GETTABLEKS                       R6 R7 K12 ["Top"]
+       51 GETTABLEKS                       R6 R0 K1 ["hidden"]
+       53 GETTABLEKS                       R6 R6 K12 ["Top"]
        55 CALL                             R4 2 1
        56 SETTABLEKS                       R4 R3 K0 ["TopLeft"]
        58 GETTABLEKS                       R3 R0 K1 ["hidden"]
        60 GETIMPORT                        R4 K6 [Vector2.new]
-       62 GETTABLEKS                       R6 R0 K1 ["hidden"]
-       64 GETTABLEKS                       R5 R6 K13 ["Right"]
+       62 GETTABLEKS                       R5 R0 K1 ["hidden"]
+       64 GETTABLEKS                       R5 R5 K13 ["Right"]
        66 GETTABLEKS                       R6 R2 K8 ["Y"]
        68 CALL                             R4 2 1
        69 SETTABLEKS                       R4 R3 K2 ["BottomRight"]
@@ -456,8 +456,8 @@ PROTO_12:
        72 JUMPIFNOTEQKS                    R1 K12 ["Top"] ; [+14]
        74 GETTABLEKS                       R3 R0 K1 ["hidden"]
        76 GETIMPORT                        R4 K6 [Vector2.new]
-       78 GETTABLEKS                       R6 R0 K1 ["hidden"]
-       80 GETTABLEKS                       R5 R6 K7 ["Left"]
+       78 GETTABLEKS                       R5 R0 K1 ["hidden"]
+       80 GETTABLEKS                       R5 R5 K7 ["Left"]
        82 MOVE                             R6 R2
        83 CALL                             R4 2 1
        84 SETTABLEKS                       R4 R3 K0 ["TopLeft"]
@@ -465,8 +465,8 @@ PROTO_12:
        87 JUMPIFNOTEQKS                    R1 K10 ["Bottom"] ; [+14]
        89 GETTABLEKS                       R3 R0 K1 ["hidden"]
        91 GETIMPORT                        R4 K6 [Vector2.new]
-       93 GETTABLEKS                       R6 R0 K1 ["hidden"]
-       95 GETTABLEKS                       R5 R6 K13 ["Right"]
+       93 GETTABLEKS                       R5 R0 K1 ["hidden"]
+       95 GETTABLEKS                       R5 R5 K13 ["Right"]
        97 MOVE                             R6 R2
        98 CALL                             R4 2 1
        99 SETTABLEKS                       R4 R3 K2 ["BottomRight"]
@@ -475,8 +475,8 @@ PROTO_12:
       104 GETTABLEKS                       R3 R0 K1 ["hidden"]
       106 GETIMPORT                        R4 K6 [Vector2.new]
       108 MOVE                             R5 R2
-      109 GETTABLEKS                       R7 R0 K1 ["hidden"]
-      111 GETTABLEKS                       R6 R7 K12 ["Top"]
+      109 GETTABLEKS                       R6 R0 K1 ["hidden"]
+      111 GETTABLEKS                       R6 R6 K12 ["Top"]
       113 CALL                             R4 2 1
       114 SETTABLEKS                       R4 R3 K0 ["TopLeft"]
       116 JUMP                             ; [+14]
@@ -484,8 +484,8 @@ PROTO_12:
       119 GETTABLEKS                       R3 R0 K1 ["hidden"]
       121 GETIMPORT                        R4 K6 [Vector2.new]
       123 MOVE                             R5 R2
-      124 GETTABLEKS                       R7 R0 K1 ["hidden"]
-      126 GETTABLEKS                       R6 R7 K10 ["Bottom"]
+      124 GETTABLEKS                       R6 R0 K1 ["hidden"]
+      126 GETTABLEKS                       R6 R6 K10 ["Bottom"]
       128 CALL                             R4 2 1
       129 SETTABLEKS                       R4 R3 K2 ["BottomRight"]
       131 GETUPVAL                         R3 0
@@ -577,8 +577,8 @@ PROTO_16:
        10 RETURN                           R3 1
 
 PROTO_17:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 GETIMPORT                        R3 K2 [Vector2.new]
         5 LOADN                            R4 0
         6 LOADN                            R5 0
@@ -598,8 +598,8 @@ PROTO_18:
         1 JUMPIFNOTEQKN                    R2 K0 [0] ; [+3]
         3 LOADNIL                          R2
         4 RETURN                           R2 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["new"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["new"]
         8 GETIMPORT                        R3 K3 [Vector2.new]
        10 LOADN                            R4 0
        11 LOADN                            R5 0
@@ -607,12 +607,12 @@ PROTO_18:
        13 CALL                             R2 -1 1
        14 GETUPVAL                         R3 1
        15 MOVE                             R4 R2
-       16 GETTABLEN                        R6 R1 1
-       17 GETTABLEKS                       R5 R6 K4 ["AbsolutePosition"]
-       19 GETTABLEN                        R8 R1 1
-       20 GETTABLEKS                       R7 R8 K4 ["AbsolutePosition"]
-       22 GETTABLEN                        R9 R1 1
-       23 GETTABLEKS                       R8 R9 K5 ["AbsoluteSize"]
+       16 GETTABLEN                        R5 R1 1
+       17 GETTABLEKS                       R5 R5 K4 ["AbsolutePosition"]
+       19 GETTABLEN                        R7 R1 1
+       20 GETTABLEKS                       R7 R7 K4 ["AbsolutePosition"]
+       22 GETTABLEN                        R8 R1 1
+       23 GETTABLEKS                       R8 R8 K5 ["AbsoluteSize"]
        25 ADD                              R6 R7 R8
        26 CALL                             R3 3 0
        27 LOADN                            R5 2
@@ -621,12 +621,12 @@ PROTO_18:
        30 FORNPREP                         R3
        31 GETUPVAL                         R6 2
        32 MOVE                             R7 R2
-       33 GETTABLE                         R9 R1 R5
-       34 GETTABLEKS                       R8 R9 K4 ["AbsolutePosition"]
-       36 GETTABLE                         R11 R1 R5
-       37 GETTABLEKS                       R10 R11 K4 ["AbsolutePosition"]
-       39 GETTABLE                         R12 R1 R5
-       40 GETTABLEKS                       R11 R12 K5 ["AbsoluteSize"]
+       33 GETTABLE                         R8 R1 R5
+       34 GETTABLEKS                       R8 R8 K4 ["AbsolutePosition"]
+       36 GETTABLE                         R10 R1 R5
+       37 GETTABLEKS                       R10 R10 K4 ["AbsolutePosition"]
+       39 GETTABLE                         R11 R1 R5
+       40 GETTABLEKS                       R11 R11 K5 ["AbsoluteSize"]
        42 ADD                              R9 R10 R11
        43 CALL                             R6 3 0
        44 FORNLOOP                         R3
@@ -635,24 +635,24 @@ PROTO_18:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["FFlag"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["FFlag"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["InstanceInfo"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["InstanceInfo"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K1 [require]
-       21 GETIMPORT                        R5 K3 [script]
-       23 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K7 ["Utility"]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["Utility"]
        27 CALL                             R2 1 1
        28 GETIMPORT                        R3 K1 [require]
-       30 GETIMPORT                        R6 K3 [script]
-       32 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       34 GETTABLEKS                       R4 R5 K8 ["Select"]
+       30 GETIMPORT                        R4 K3 [script]
+       32 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       34 GETTABLEKS                       R4 R4 K8 ["Select"]
        36 CALL                             R3 1 1
        37 DUPCLOSURE                       R4 K9 [PROTO_0]
        38 DUPCLOSURE                       R5 K10 [PROTO_1]

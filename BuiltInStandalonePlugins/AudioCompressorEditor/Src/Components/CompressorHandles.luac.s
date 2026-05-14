@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["plotToAbs"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["plotToAbs"]
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 1
@@ -26,10 +26,10 @@ PROTO_1:
         9 LOADN                            R3 176
        10 LOADN                            R4 176
        11 CALL                             R2 2 1
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["PlotAbsoluteSize"]
-       15 GETUPVAL                         R5 2
-       16 GETTABLEKS                       R4 R5 K4 ["plotToAbs"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["PlotAbsoluteSize"]
+       15 GETUPVAL                         R4 2
+       16 GETTABLEKS                       R4 R4 K4 ["plotToAbs"]
        18 MOVE                             R5 R2
        19 MOVE                             R6 R3
        20 CALL                             R4 2 1
@@ -47,10 +47,10 @@ PROTO_1:
        38 LOADN                            R3 30
        39 LOADN                            R4 30
        40 CALL                             R2 2 1
-       41 GETUPVAL                         R4 1
-       42 GETTABLEKS                       R3 R4 K3 ["PlotAbsoluteSize"]
-       44 GETUPVAL                         R5 2
-       45 GETTABLEKS                       R4 R5 K4 ["plotToAbs"]
+       41 GETUPVAL                         R3 1
+       42 GETTABLEKS                       R3 R3 K3 ["PlotAbsoluteSize"]
+       44 GETUPVAL                         R4 2
+       45 GETTABLEKS                       R4 R4 K4 ["plotToAbs"]
        47 MOVE                             R5 R2
        48 MOVE                             R6 R3
        49 CALL                             R4 2 1
@@ -64,8 +64,8 @@ PROTO_1:
        61 FASTCALL                         TABLE_INSERT ; [+2]
        62 GETIMPORT                        R5 K14 [table.insert]
        64 CALL                             R5 -1 0
-       65 GETUPVAL                         R3 3
-       66 GETTABLEKS                       R2 R3 K15 ["createElement"]
+       65 GETUPVAL                         R2 3
+       66 GETTABLEKS                       R2 R2 K15 ["createElement"]
        68 GETUPVAL                         R3 4
        69 DUPTABLE                         R4 K18 [{"ControlPoints", "Tag"}]
        70 SETTABLEKS                       R1 R4 K16 ["ControlPoints"]
@@ -73,21 +73,21 @@ PROTO_1:
        73 SETTABLEKS                       R5 R4 K17 ["Tag"]
        75 CALL                             R2 2 1
        76 SETTABLEKS                       R2 R0 K20 ["Diagonal"]
-       78 GETUPVAL                         R3 1
-       79 GETTABLEKS                       R2 R3 K21 ["ActiveControl"]
+       78 GETUPVAL                         R2 1
+       79 GETTABLEKS                       R2 R2 K21 ["ActiveControl"]
        81 JUMPIFNOTEQKS                    R2 K22 ["Threshold"] ; [+30]
-       83 GETUPVAL                         R3 3
-       84 GETTABLEKS                       R2 R3 K15 ["createElement"]
+       83 GETUPVAL                         R2 3
+       84 GETTABLEKS                       R2 R2 K15 ["createElement"]
        86 GETUPVAL                         R3 5
        87 DUPTABLE                         R4 K26 [{"Orientation", "Position", "PlotAbsoluteSize", "Thickness", "Tag"}]
        88 LOADK                            R5 K27 ["Horizontal"]
        89 SETTABLEKS                       R5 R4 K23 ["Orientation"]
-       91 GETUPVAL                         R7 1
-       92 GETTABLEKS                       R6 R7 K28 ["DataHook"]
-       94 GETTABLEKS                       R5 R6 K29 ["threshold"]
+       91 GETUPVAL                         R5 1
+       92 GETTABLEKS                       R5 R5 K28 ["DataHook"]
+       94 GETTABLEKS                       R5 R5 K29 ["threshold"]
        96 SETTABLEKS                       R5 R4 K24 ["Position"]
-       98 GETUPVAL                         R6 1
-       99 GETTABLEKS                       R5 R6 K3 ["PlotAbsoluteSize"]
+       98 GETUPVAL                         R5 1
+       99 GETTABLEKS                       R5 R5 K3 ["PlotAbsoluteSize"]
       101 SETTABLEKS                       R5 R4 K3 ["PlotAbsoluteSize"]
       103 LOADN                            R5 1
       104 SETTABLEKS                       R5 R4 K25 ["Thickness"]
@@ -95,24 +95,24 @@ PROTO_1:
       107 SETTABLEKS                       R5 R4 K17 ["Tag"]
       109 CALL                             R2 2 1
       110 SETTABLEKS                       R2 R0 K31 ["Control_Threshold"]
-      112 GETUPVAL                         R3 1
-      113 GETTABLEKS                       R2 R3 K21 ["ActiveControl"]
+      112 GETUPVAL                         R2 1
+      113 GETTABLEKS                       R2 R2 K21 ["ActiveControl"]
       115 JUMPIFNOTEQKS                    R2 K32 ["Ratio"] ; [+86]
-      117 GETUPVAL                         R4 1
-      118 GETTABLEKS                       R3 R4 K28 ["DataHook"]
-      120 GETTABLEKS                       R2 R3 K29 ["threshold"]
-      122 GETUPVAL                         R5 1
-      123 GETTABLEKS                       R4 R5 K28 ["DataHook"]
-      125 GETTABLEKS                       R3 R4 K33 ["ratio"]
+      117 GETUPVAL                         R2 1
+      118 GETTABLEKS                       R2 R2 K28 ["DataHook"]
+      120 GETTABLEKS                       R2 R2 K29 ["threshold"]
+      122 GETUPVAL                         R3 1
+      123 GETTABLEKS                       R3 R3 K28 ["DataHook"]
+      125 GETTABLEKS                       R3 R3 K33 ["ratio"]
       127 NEWTABLE                         R4 0 0
       129 GETIMPORT                        R5 K2 [Vector2.new]
       131 MOVE                             R6 R2
       132 MOVE                             R7 R2
       133 CALL                             R5 2 1
-      134 GETUPVAL                         R7 1
-      135 GETTABLEKS                       R6 R7 K3 ["PlotAbsoluteSize"]
-      137 GETUPVAL                         R8 2
-      138 GETTABLEKS                       R7 R8 K4 ["plotToAbs"]
+      134 GETUPVAL                         R6 1
+      135 GETTABLEKS                       R6 R6 K3 ["PlotAbsoluteSize"]
+      137 GETUPVAL                         R7 2
+      138 GETTABLEKS                       R7 R7 K4 ["plotToAbs"]
       140 MOVE                             R8 R5
       141 MOVE                             R9 R6
       142 CALL                             R7 2 1
@@ -132,10 +132,10 @@ PROTO_1:
       162 DIV                              R8 R9 R3
       163 ADD                              R7 R2 R8
       164 CALL                             R5 2 1
-      165 GETUPVAL                         R7 1
-      166 GETTABLEKS                       R6 R7 K3 ["PlotAbsoluteSize"]
-      168 GETUPVAL                         R8 2
-      169 GETTABLEKS                       R7 R8 K4 ["plotToAbs"]
+      165 GETUPVAL                         R6 1
+      166 GETTABLEKS                       R6 R6 K3 ["PlotAbsoluteSize"]
+      168 GETUPVAL                         R7 2
+      169 GETTABLEKS                       R7 R7 K4 ["plotToAbs"]
       171 MOVE                             R8 R5
       172 MOVE                             R9 R6
       173 CALL                             R7 2 1
@@ -149,8 +149,8 @@ PROTO_1:
       185 FASTCALL                         TABLE_INSERT ; [+2]
       186 GETIMPORT                        R8 K14 [table.insert]
       188 CALL                             R8 -1 0
-      189 GETUPVAL                         R6 3
-      190 GETTABLEKS                       R5 R6 K15 ["createElement"]
+      189 GETUPVAL                         R5 3
+      190 GETTABLEKS                       R5 R5 K15 ["createElement"]
       192 GETUPVAL                         R6 4
       193 DUPTABLE                         R7 K18 [{"ControlPoints", "Tag"}]
       194 SETTABLEKS                       R4 R7 K16 ["ControlPoints"]
@@ -158,21 +158,21 @@ PROTO_1:
       197 SETTABLEKS                       R8 R7 K17 ["Tag"]
       199 CALL                             R5 2 1
       200 SETTABLEKS                       R5 R0 K36 ["Control_Ratio"]
-      202 GETUPVAL                         R3 1
-      203 GETTABLEKS                       R2 R3 K21 ["ActiveControl"]
+      202 GETUPVAL                         R2 1
+      203 GETTABLEKS                       R2 R2 K21 ["ActiveControl"]
       205 JUMPIFNOTEQKS                    R2 K37 ["MakeupGain"] ; [+30]
-      207 GETUPVAL                         R3 3
-      208 GETTABLEKS                       R2 R3 K15 ["createElement"]
+      207 GETUPVAL                         R2 3
+      208 GETTABLEKS                       R2 R2 K15 ["createElement"]
       210 GETUPVAL                         R3 5
       211 DUPTABLE                         R4 K26 [{"Orientation", "Position", "PlotAbsoluteSize", "Thickness", "Tag"}]
       212 LOADK                            R5 K27 ["Horizontal"]
       213 SETTABLEKS                       R5 R4 K23 ["Orientation"]
-      215 GETUPVAL                         R7 1
-      216 GETTABLEKS                       R6 R7 K28 ["DataHook"]
-      218 GETTABLEKS                       R5 R6 K38 ["makeupGain"]
+      215 GETUPVAL                         R5 1
+      216 GETTABLEKS                       R5 R5 K28 ["DataHook"]
+      218 GETTABLEKS                       R5 R5 K38 ["makeupGain"]
       220 SETTABLEKS                       R5 R4 K24 ["Position"]
-      222 GETUPVAL                         R6 1
-      223 GETTABLEKS                       R5 R6 K3 ["PlotAbsoluteSize"]
+      222 GETUPVAL                         R5 1
+      223 GETTABLEKS                       R5 R5 K3 ["PlotAbsoluteSize"]
       225 SETTABLEKS                       R5 R4 K3 ["PlotAbsoluteSize"]
       227 LOADN                            R5 1
       228 SETTABLEKS                       R5 R4 K25 ["Thickness"]
@@ -183,8 +183,8 @@ PROTO_1:
       236 RETURN                           R0 1
 
 PROTO_2:
-        0 GETTABLEKS                       R3 R0 K0 ["DataHook"]
-        2 GETTABLEKS                       R2 R3 K1 ["bypass"]
+        0 GETTABLEKS                       R2 R0 K0 ["DataHook"]
+        2 GETTABLEKS                       R2 R2 K1 ["bypass"]
         4 NOT                              R1 R2
         5 GETUPVAL                         R2 0
         6 NEWCLOSURE                       R3 P0
@@ -202,8 +202,8 @@ PROTO_2:
        23 CALL                             R2 2 1
        24 MOVE                             R3 R1
        25 JUMPIFNOT                        R3 ; [+34]
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R3 R4 K4 ["createElement"]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K4 ["createElement"]
        29 GETUPVAL                         R4 5
        30 DUPTABLE                         R5 K10 [{"Active", "ZIndex", "Position", "Size", "BackgroundTransparency"}]
        31 LOADB                            R6 1
@@ -232,26 +232,26 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K1 [script]
         7 LOADK                            R3 K3 ["AudioCompressorEditor"]
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       13 GETTABLEKS                       R3 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K8 ["React"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K9 ["useMemo"]
        20 GETIMPORT                        R4 K6 [require]
-       22 GETTABLEKS                       R6 R1 K7 ["Packages"]
-       24 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       22 GETTABLEKS                       R5 R1 K7 ["Packages"]
+       24 GETTABLEKS                       R5 R5 K10 ["Framework"]
        26 CALL                             R4 1 1
-       27 GETTABLEKS                       R6 R4 K11 ["UI"]
-       29 GETTABLEKS                       R5 R6 K12 ["Pane"]
+       27 GETTABLEKS                       R5 R4 K11 ["UI"]
+       29 GETTABLEKS                       R5 R5 K12 ["Pane"]
        31 GETIMPORT                        R6 K6 [require]
-       33 GETTABLEKS                       R8 R1 K13 ["Src"]
-       35 GETTABLEKS                       R7 R8 K14 ["Types"]
+       33 GETTABLEKS                       R7 R1 K13 ["Src"]
+       35 GETTABLEKS                       R7 R7 K14 ["Types"]
        37 CALL                             R6 1 1
        38 GETIMPORT                        R7 K6 [require]
        40 GETTABLEKS                       R8 R0 K15 ["GridLine"]
@@ -260,9 +260,9 @@ MAIN:
        45 GETTABLEKS                       R9 R0 K16 ["Path2DWrapper"]
        47 CALL                             R8 1 1
        48 GETIMPORT                        R9 K6 [require]
-       50 GETTABLEKS                       R12 R1 K13 ["Src"]
-       52 GETTABLEKS                       R11 R12 K17 ["Util"]
-       54 GETTABLEKS                       R10 R11 K18 ["PlotUtil"]
+       50 GETTABLEKS                       R10 R1 K13 ["Src"]
+       52 GETTABLEKS                       R10 R10 K17 ["Util"]
+       54 GETTABLEKS                       R10 R10 K18 ["PlotUtil"]
        56 CALL                             R9 1 1
        57 DUPCLOSURE                       R10 K19 [PROTO_0]
        58 CAPTURE                          VAL R9

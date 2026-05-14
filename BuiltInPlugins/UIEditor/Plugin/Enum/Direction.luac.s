@@ -1,10 +1,10 @@
 PROTO_0:
         0 LOADB                            R2 0
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["FIRST"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["FIRST"]
         4 JUMPIFNOTLE                      R3 R1 ; [+8]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["LAST"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["LAST"]
         9 JUMPIFLE                         R1 R3 ; [+2]
        11 LOADB                            R2 0 +1
        12 LOADB                            R2 1
@@ -53,8 +53,8 @@ PROTO_3:
        12 RETURN                           R3 1
 
 PROTO_4:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["E"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["E"]
         3 JUMPIFEQKN                       R4 K1 [1] ; [+2]
         5 LOADB                            R3 0 +1
         6 LOADB                            R3 1
@@ -62,8 +62,8 @@ PROTO_4:
         9 LOADK                            R4 K2 ["Direction.E was not the first direction."]
        10 GETIMPORT                        R2 K4 [assert]
        12 CALL                             R2 2 0
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K5 ["NE"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K5 ["NE"]
        16 JUMPIFEQKN                       R4 K6 [8] ; [+2]
        18 LOADB                            R3 0 +1
        19 LOADB                            R3 1

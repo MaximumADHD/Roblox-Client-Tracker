@@ -53,16 +53,16 @@ PROTO_3:
         8 LOADNIL                          R3
         9 LOADNIL                          R4
        10 FORGPREP                         R2
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K4 ["new"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K4 ["new"]
        14 CALL                             R7 0 1
        15 GETTABLEKS                       R8 R7 K5 ["composeUrl"]
-       17 GETUPVAL                         R11 1
-       18 GETTABLEKS                       R10 R11 K6 ["PLACES_SEARCH_URL"]
-       20 GETTABLEKS                       R9 R10 K7 ["Prefix"]
-       22 GETUPVAL                         R12 1
-       23 GETTABLEKS                       R11 R12 K6 ["PLACES_SEARCH_URL"]
-       25 GETTABLEKS                       R10 R11 K8 ["Url"]
+       17 GETUPVAL                         R9 1
+       18 GETTABLEKS                       R9 R9 K6 ["PLACES_SEARCH_URL"]
+       20 GETTABLEKS                       R9 R9 K7 ["Prefix"]
+       22 GETUPVAL                         R10 1
+       23 GETTABLEKS                       R10 R10 K6 ["PLACES_SEARCH_URL"]
+       25 GETTABLEKS                       R10 R10 K8 ["Url"]
        27 MOVE                             R11 R6
        28 CALL                             R10 1 1
        29 MOVE                             R11 R1
@@ -94,47 +94,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K6 ["Src"]
-       21 GETTABLEKS                       R3 R4 K9 ["Types"]
+       19 GETTABLEKS                       R3 R0 K6 ["Src"]
+       21 GETTABLEKS                       R3 R3 K9 ["Types"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R6 R0 K6 ["Src"]
-       28 GETTABLEKS                       R5 R6 K10 ["Models"]
-       30 GETTABLEKS                       R4 R5 K11 ["ApiArrayResponsePlaceModel"]
+       26 GETTABLEKS                       R4 R0 K6 ["Src"]
+       28 GETTABLEKS                       R4 R4 K10 ["Models"]
+       30 GETTABLEKS                       R4 R4 K11 ["ApiArrayResponsePlaceModel"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K5 [require]
-       35 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       37 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       35 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       37 GETTABLEKS                       R5 R5 K13 ["Framework"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Src"]
-       44 GETTABLEKS                       R7 R8 K14 ["Network"]
-       46 GETTABLEKS                       R6 R7 K15 ["Urls"]
+       42 GETTABLEKS                       R6 R0 K6 ["Src"]
+       44 GETTABLEKS                       R6 R6 K14 ["Network"]
+       46 GETTABLEKS                       R6 R6 K15 ["Urls"]
        48 CALL                             R5 1 1
-       49 GETIMPORT                        R7 K5 [require]
-       51 GETTABLEKS                       R10 R0 K6 ["Src"]
-       53 GETTABLEKS                       R9 R10 K16 ["Util"]
-       55 GETTABLEKS                       R8 R9 K17 ["Services"]
-       57 CALL                             R7 1 1
-       58 GETTABLEKS                       R6 R7 K18 ["Networking"]
+       49 GETIMPORT                        R6 K5 [require]
+       51 GETTABLEKS                       R7 R0 K6 ["Src"]
+       53 GETTABLEKS                       R7 R7 K16 ["Util"]
+       55 GETTABLEKS                       R7 R7 K17 ["Services"]
+       57 CALL                             R6 1 1
+       58 GETTABLEKS                       R6 R6 K18 ["Networking"]
        60 GETIMPORT                        R7 K5 [require]
-       62 GETTABLEKS                       R10 R0 K6 ["Src"]
-       64 GETTABLEKS                       R9 R10 K16 ["Util"]
-       66 GETTABLEKS                       R8 R9 K19 ["createResponseValidator"]
+       62 GETTABLEKS                       R8 R0 K6 ["Src"]
+       64 GETTABLEKS                       R8 R8 K16 ["Util"]
+       66 GETTABLEKS                       R8 R8 K19 ["createResponseValidator"]
        68 CALL                             R7 1 1
        69 GETIMPORT                        R8 K5 [require]
-       71 GETTABLEKS                       R11 R0 K6 ["Src"]
-       73 GETTABLEKS                       R10 R11 K14 ["Network"]
-       75 GETTABLEKS                       R9 R10 K20 ["GameCache"]
+       71 GETTABLEKS                       R9 R0 K6 ["Src"]
+       73 GETTABLEKS                       R9 R9 K14 ["Network"]
+       75 GETTABLEKS                       R9 R9 K20 ["GameCache"]
        77 CALL                             R8 1 1
-       78 GETTABLEKS                       R10 R4 K21 ["RobloxAPI"]
-       80 GETTABLEKS                       R9 R10 K22 ["Url"]
+       78 GETTABLEKS                       R9 R4 K21 ["RobloxAPI"]
+       80 GETTABLEKS                       R9 R9 K22 ["Url"]
        82 GETTABLEKS                       R10 R6 K23 ["new"]
        84 DUPTABLE                         R11 K26 [{"isInternal", "loggingLevel"}]
        85 LOADB                            R12 1
@@ -142,8 +142,8 @@ MAIN:
        88 SETTABLEKS                       R1 R11 K25 ["loggingLevel"]
        90 CALL                             R10 1 1
        91 GETIMPORT                        R11 K5 [require]
-       93 GETTABLEKS                       R13 R0 K12 ["Packages"]
-       95 GETTABLEKS                       R12 R13 K27 ["Dash"]
+       93 GETTABLEKS                       R12 R0 K12 ["Packages"]
+       95 GETTABLEKS                       R12 R12 K27 ["Dash"]
        97 CALL                             R11 1 1
        98 GETTABLEKS                       R12 R11 K28 ["collectArray"]
       100 MOVE                             R13 R7

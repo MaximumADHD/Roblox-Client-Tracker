@@ -2,20 +2,20 @@ PROTO_0:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
         2 JUMPIFNOT                        R2 ; [+5]
-        3 GETUPVAL                         R4 0
-        4 GETTABLE                         R3 R4 R0
-        5 GETTABLEKS                       R2 R3 K0 ["Color"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLE                         R2 R3 R0
+        5 GETTABLEKS                       R2 R2 K0 ["Color"]
         7 RETURN                           R2 1
         8 LOADNIL                          R2
         9 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 NEWTABLE                         R1 64 0
        13 GETIMPORT                        R2 K6 [Enum.Material.Asphalt]
        15 DUPTABLE                         R3 K9 [{"Color", "OldColor"}]

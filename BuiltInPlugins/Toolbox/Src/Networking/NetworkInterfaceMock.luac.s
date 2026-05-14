@@ -97,8 +97,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETIMPORT                        R2 K1 [ipairs]
-        2 GETIMPORT                        R4 K3 [game]
-        4 GETTABLEKS                       R3 R4 K4 ["CoreGui"]
+        2 GETIMPORT                        R3 K3 [game]
+        4 GETTABLEKS                       R3 R3 K4 ["CoreGui"]
         6 NAMECALL                         R3 R3 K5 ["GetChildren"]
         8 CALL                             R3 1 -1
         9 CALL                             R2 -1 3
@@ -110,16 +110,16 @@ PROTO_6:
        18 FORGLOOP                         R2 2 [inext] ; [-8]
        20 GETIMPORT                        R2 K11 [Instance.new]
        22 LOADK                            R3 K12 ["StringValue"]
-       23 GETIMPORT                        R5 K3 [game]
-       25 GETTABLEKS                       R4 R5 K4 ["CoreGui"]
+       23 GETIMPORT                        R4 K3 [game]
+       25 GETTABLEKS                       R4 R4 K4 ["CoreGui"]
        27 CALL                             R2 2 1
        28 LOADK                            R3 K7 ["CategoryVerification"]
        29 SETTABLEKS                       R3 R2 K6 ["Name"]
        31 GETIMPORT                        R3 K11 [Instance.new]
        33 LOADK                            R4 K12 ["StringValue"]
-       34 GETIMPORT                        R7 K3 [game]
-       36 GETTABLEKS                       R6 R7 K4 ["CoreGui"]
-       38 GETTABLEKS                       R5 R6 K7 ["CategoryVerification"]
+       34 GETIMPORT                        R5 K3 [game]
+       36 GETTABLEKS                       R5 R5 K4 ["CoreGui"]
+       38 GETTABLEKS                       R5 R5 K7 ["CategoryVerification"]
        40 CALL                             R3 2 1
        41 SETTABLEKS                       R0 R3 K13 ["Value"]
        43 LOADK                            R4 K14 ["Category"]
@@ -127,9 +127,9 @@ PROTO_6:
        46 JUMPIFNOT                        R1 ; [+15]
        47 GETIMPORT                        R4 K11 [Instance.new]
        49 LOADK                            R5 K12 ["StringValue"]
-       50 GETIMPORT                        R8 K3 [game]
-       52 GETTABLEKS                       R7 R8 K4 ["CoreGui"]
-       54 GETTABLEKS                       R6 R7 K7 ["CategoryVerification"]
+       50 GETIMPORT                        R6 K3 [game]
+       52 GETTABLEKS                       R6 R6 K4 ["CoreGui"]
+       54 GETTABLEKS                       R6 R6 K7 ["CategoryVerification"]
        56 CALL                             R4 2 1
        57 SETTABLEKS                       R1 R4 K13 ["Value"]
        59 LOADK                            R5 K15 ["Sort"]
@@ -154,8 +154,8 @@ PROTO_7:
        18 FORNLOOP                         R4
        19 GETTABLEKS                       R4 R2 K0 ["responseBody"]
        21 SETTABLEKS                       R3 R4 K5 ["Results"]
-       23 GETUPVAL                         R5 1
-       24 GETTABLEKS                       R4 R5 K6 ["resolve"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K6 ["resolve"]
        26 MOVE                             R5 R2
        27 CALL                             R4 1 -1
        28 RETURN                           R4 -1
@@ -247,8 +247,8 @@ PROTO_8:
       119 SETLIST                          R4 R5 11 [1]
       121 GETTABLEKS                       R5 R3 K0 ["responseBody"]
       123 SETTABLEKS                       R4 R5 K15 ["results"]
-      125 GETUPVAL                         R6 0
-      126 GETTABLEKS                       R5 R6 K16 ["resolve"]
+      125 GETUPVAL                         R5 0
+      126 GETTABLEKS                       R5 R5 K16 ["resolve"]
       128 MOVE                             R6 R3
       129 CALL                             R5 1 -1
       130 RETURN                           R5 -1
@@ -280,8 +280,8 @@ PROTO_9:
        33 FORNLOOP                         R6
        34 GETTABLEKS                       R6 R4 K2 ["responseBody"]
        36 SETTABLEKS                       R5 R6 K12 ["data"]
-       38 GETUPVAL                         R7 1
-       39 GETTABLEKS                       R6 R7 K13 ["resolve"]
+       38 GETUPVAL                         R6 1
+       39 GETTABLEKS                       R6 R6 K13 ["resolve"]
        41 MOVE                             R7 R4
        42 CALL                             R6 1 -1
        43 RETURN                           R6 -1
@@ -301,8 +301,8 @@ PROTO_10:
        15 GETIMPORT                        R9 K5 [table.insert]
        17 CALL                             R9 2 0
        18 FORGLOOP                         R3 2 [inext] ; [-12]
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K6 ["resolve"]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K6 ["resolve"]
        23 DUPTABLE                         R4 K8 [{"responseBody"}]
        24 DUPTABLE                         R5 K10 [{"data"}]
        25 SETTABLEKS                       R2 R5 K9 ["data"]
@@ -325,8 +325,8 @@ PROTO_11:
        14 GETIMPORT                        R9 K4 [table.insert]
        16 CALL                             R9 2 0
        17 FORGLOOP                         R3 2 [inext] ; [-11]
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R3 R4 K5 ["resolve"]
+       19 GETUPVAL                         R3 1
+       20 GETTABLEKS                       R3 R3 K5 ["resolve"]
        22 DUPTABLE                         R4 K7 [{"responseBody"}]
        23 DUPTABLE                         R5 K9 [{"data"}]
        24 SETTABLEKS                       R2 R5 K8 ["data"]
@@ -353,11 +353,11 @@ PROTO_12:
        23 SETTABLEKS                       R8 R7 K7 ["itemType"]
        25 SETTABLE                         R7 R3 R6
        26 FORNLOOP                         R4
-       27 GETTABLEKS                       R5 R2 K0 ["responseBody"]
-       29 GETTABLEKS                       R4 R5 K3 ["results"]
+       27 GETTABLEKS                       R4 R2 K0 ["responseBody"]
+       29 GETTABLEKS                       R4 R4 K3 ["results"]
        31 SETTABLEKS                       R3 R4 K10 ["data"]
-       33 GETUPVAL                         R5 0
-       34 GETTABLEKS                       R4 R5 K11 ["resolve"]
+       33 GETUPVAL                         R4 0
+       34 GETTABLEKS                       R4 R4 K11 ["resolve"]
        36 MOVE                             R5 R2
        37 CALL                             R4 1 -1
        38 RETURN                           R4 -1
@@ -379,8 +379,8 @@ PROTO_13:
        18 FORNLOOP                         R2
        19 GETTABLEKS                       R2 R0 K0 ["responseBody"]
        21 SETTABLEKS                       R1 R2 K6 ["data"]
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R2 R3 K7 ["resolve"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K7 ["resolve"]
        26 MOVE                             R3 R0
        27 CALL                             R2 1 -1
        28 RETURN                           R2 -1
@@ -403,29 +403,29 @@ PROTO_16:
         5 LOADK                            R5 K6 ["testAccount"]
         6 SETTABLEKS                       R5 R4 K3 ["name"]
         8 SETTABLEKS                       R4 R3 K0 ["responseBody"]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K7 ["resolve"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K7 ["resolve"]
        13 MOVE                             R5 R3
        14 CALL                             R4 1 -1
        15 RETURN                           R4 -1
 
 PROTO_17:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["resolve"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["resolve"]
         3 NEWTABLE                         R5 0 0
         5 CALL                             R4 1 -1
         6 RETURN                           R4 -1
 
 PROTO_18:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
 PROTO_19:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["resolve"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["resolve"]
         3 DUPTABLE                         R5 K2 [{"responseBody"}]
         4 DUPTABLE                         R6 K6 [{"TotalResults", "Results", "nextPageCursor"}]
         5 MOVE                             R7 R2
@@ -442,15 +442,15 @@ PROTO_20:
         0 DUPTABLE                         R3 K1 [{"userVote"}]
         1 LOADB                            R4 1
         2 SETTABLEKS                       R4 R3 K0 ["userVote"]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K2 ["resolve"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["resolve"]
         7 MOVE                             R5 R3
         8 CALL                             R4 1 -1
         9 RETURN                           R4 -1
 
 PROTO_21:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K4 [{"model", "success", "message"}]
         4 DUPTABLE                         R4 K11 [{"HasVoted", "CanVote", "upVotes", "UserVote", "DownVote", "ShowVotes"}]
         5 LOADB                            R5 1
@@ -474,8 +474,8 @@ PROTO_21:
        32 RETURN                           R2 -1
 
 PROTO_22:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K4 [{"model", "success", "message"}]
         4 DUPTABLE                         R4 K11 [{"HasVoted", "CanVote", "upVotes", "UserVote", "DownVote", "ShowVotes"}]
         5 LOADB                            R5 0
@@ -499,22 +499,22 @@ PROTO_22:
        32 RETURN                           R2 -1
 
 PROTO_23:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
 PROTO_24:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
 PROTO_25:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 NEWTABLE                         R3 0 0
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
@@ -525,29 +525,29 @@ PROTO_26:
         2 NEWTABLE                         R3 0 0
         4 SETTABLEKS                       R3 R2 K2 ["groups"]
         6 SETTABLEKS                       R2 R1 K0 ["responseBody"]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["resolve"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["resolve"]
        11 MOVE                             R3 R1
        12 CALL                             R2 1 -1
        13 RETURN                           R2 -1
 
 PROTO_27:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
 PROTO_28:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 LOADB                            R4 1
         4 CALL                             R3 1 -1
         5 RETURN                           R3 -1
 
 PROTO_29:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K4 [{"robux"}]
         5 LOADK                            R5 K5 ["16"]
@@ -557,8 +557,8 @@ PROTO_29:
        11 RETURN                           R2 -1
 
 PROTO_30:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 LOADK                            R4 K3 ["10"]
         5 SETTABLEKS                       R4 R3 K1 ["responseBody"]
@@ -566,8 +566,8 @@ PROTO_30:
         8 RETURN                           R2 -1
 
 PROTO_31:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
         4 DUPTABLE                         R5 K4 [{"totalCount"}]
         5 LOADN                            R6 0
@@ -577,15 +577,15 @@ PROTO_31:
        11 RETURN                           R3 -1
 
 PROTO_32:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["resolve"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 NEWTABLE                         R2 0 0
         5 CALL                             R1 1 -1
         6 RETURN                           R1 -1
 
 PROTO_33:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["resolve"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
         4 DUPTABLE                         R3 K5 [{"deniedReason", "isAllowed"}]
         5 LOADN                            R4 0
@@ -597,36 +597,36 @@ PROTO_33:
        14 RETURN                           R1 -1
 
 PROTO_34:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
 PROTO_35:
-        0 GETUPVAL                         R9 0
-        1 GETTABLEKS                       R8 R9 K0 ["resolve"]
+        0 GETUPVAL                         R8 0
+        1 GETTABLEKS                       R8 R8 K0 ["resolve"]
         3 NEWTABLE                         R9 0 0
         5 CALL                             R8 1 -1
         6 RETURN                           R8 -1
 
 PROTO_36:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 NEWTABLE                         R4 0 0
         5 CALL                             R3 1 -1
         6 RETURN                           R3 -1
 
 PROTO_37:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["resolve"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 NEWTABLE                         R2 0 0
         5 CALL                             R1 1 -1
         6 RETURN                           R1 -1
 
 PROTO_38:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K4 [{"data"}]
         5 NEWTABLE                         R5 0 1
@@ -644,8 +644,8 @@ PROTO_38:
        23 RETURN                           R2 -1
 
 PROTO_39:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["resolve"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
         4 DUPTABLE                         R3 K4 [{"isVerifiedCreator"}]
         5 LOADB                            R4 1
@@ -657,8 +657,8 @@ PROTO_39:
 PROTO_40:
         0 GETIMPORT                        R2 K3 [Enum.AssetType.Audio]
         2 JUMPIFNOTEQ                      R1 R2 ; [+177]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K4 ["resolve"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K4 ["resolve"]
         7 DUPTABLE                         R3 K6 [{"responseBody"}]
         8 DUPTABLE                         R4 K9 [{"topKeywords", "sections"}]
         9 NEWTABLE                         R5 0 0
@@ -774,8 +774,8 @@ PROTO_40:
       176 SETTABLEKS                       R4 R3 K5 ["responseBody"]
       178 CALL                             R2 1 -1
       179 RETURN                           R2 -1
-      180 GETUPVAL                         R3 0
-      181 GETTABLEKS                       R2 R3 K4 ["resolve"]
+      180 GETUPVAL                         R2 0
+      181 GETTABLEKS                       R2 R2 K4 ["resolve"]
       183 DUPTABLE                         R3 K6 [{"responseBody"}]
       184 DUPTABLE                         R4 K9 [{"topKeywords", "sections"}]
       185 NEWTABLE                         R5 0 0
@@ -787,8 +787,8 @@ PROTO_40:
       196 RETURN                           R2 -1
 
 PROTO_41:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K5 [{"name", "rootPlaceId"}]
         5 LOADK                            R5 K6 ["Universe"]
@@ -801,20 +801,20 @@ PROTO_41:
 
 PROTO_42:
         0 JUMPIFNOT                        R1 ; [+18]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["resolve"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["resolve"]
         4 DUPTABLE                         R5 K4 [{"actualPrice", "checkoutUrl", "purchaseTransactionStatus"}]
         5 GETTABLEKS                       R6 R2 K5 ["expectedPrice"]
         7 SETTABLEKS                       R6 R5 K1 ["actualPrice"]
         9 LOADK                            R6 K6 ["http://create.roblox.com"]
        10 SETTABLEKS                       R6 R5 K2 ["checkoutUrl"]
-       12 GETUPVAL                         R7 1
-       13 GETTABLEKS                       R6 R7 K7 ["Success"]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R6 R6 K7 ["Success"]
        15 SETTABLEKS                       R6 R5 K3 ["purchaseTransactionStatus"]
        17 CALL                             R4 1 -1
        18 RETURN                           R4 -1
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R4 R5 K0 ["resolve"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K0 ["resolve"]
        22 DUPTABLE                         R5 K9 [{"responseBody"}]
        23 DUPTABLE                         R6 K11 [{"purchased"}]
        24 LOADB                            R7 1
@@ -824,8 +824,8 @@ PROTO_42:
        30 RETURN                           R4 -1
 
 PROTO_43:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K5 [{"isEligible", "configurations"}]
         5 LOADB                            R5 1
@@ -843,8 +843,8 @@ PROTO_43:
        23 RETURN                           R2 -1
 
 PROTO_44:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseCode"}]
         4 LOADN                            R5 200
         5 SETTABLEKS                       R5 R4 K1 ["responseCode"]
@@ -852,31 +852,31 @@ PROTO_44:
         8 RETURN                           R3 -1
 
 PROTO_45:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["resolve"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
         4 DUPTABLE                         R3 K4 [{"purchaserStatus"}]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K5 ["Allowed"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K5 ["Allowed"]
         8 SETTABLEKS                       R4 R3 K3 ["purchaserStatus"]
        10 SETTABLEKS                       R3 R2 K1 ["responseBody"]
        12 CALL                             R1 1 -1
        13 RETURN                           R1 -1
 
 PROTO_46:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K3 ["getDefaultFiatProduct"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K3 ["getDefaultFiatProduct"]
         7 CALL                             R5 0 1
         8 SETTABLEKS                       R5 R4 K1 ["responseBody"]
        10 CALL                             R3 1 -1
        11 RETURN                           R3 -1
 
 PROTO_47:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
         4 LOADB                            R5 0
         5 SETTABLEKS                       R5 R4 K1 ["responseBody"]
@@ -888,8 +888,8 @@ PROTO_48:
         1 RETURN                           R2 1
 
 PROTO_49:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["resolve"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
         4 DUPTABLE                         R3 K4 [{"data"}]
         5 NEWTABLE                         R4 0 1
@@ -903,8 +903,8 @@ PROTO_49:
        17 RETURN                           R1 -1
 
 PROTO_50:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K5 [{"price", "canAfford"}]
         5 LOADN                            R5 238
@@ -932,8 +932,8 @@ PROTO_51:
        19 SETTABLEKS                       R5 R4 K7 ["updated"]
        21 SETLIST                          R3 R4 1 [1]
        23 SETTABLEKS                       R3 R2 K0 ["data"]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K14 ["resolve"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K14 ["resolve"]
        28 DUPTABLE                         R4 K16 [{"responseBody"}]
        29 GETUPVAL                         R5 1
        30 MOVE                             R7 R2
@@ -944,8 +944,8 @@ PROTO_51:
        37 RETURN                           R3 -1
 
 PROTO_52:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
         4 NEWTABLE                         R5 0 1
         6 DUPTABLE                         R6 K9 [{"assetId", "name", "description", "assetType", "created", "updated"}]
@@ -970,8 +970,8 @@ PROTO_52:
        34 RETURN                           R3 -1
 
 PROTO_53:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["resolve"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K4 [{"results"}]
         5 NEWTABLE                         R5 0 2
@@ -995,45 +995,45 @@ PROTO_53:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["HttpService"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
        14 CALL                             R1 2 1
        15 GETTABLEKS                       R2 R0 K7 ["Packages"]
-       17 GETIMPORT                        R5 K9 [require]
-       19 GETTABLEKS                       R6 R2 K10 ["Framework"]
-       21 CALL                             R5 1 1
-       22 GETTABLEKS                       R4 R5 K11 ["Util"]
-       24 GETTABLEKS                       R3 R4 K12 ["Promise"]
+       17 GETIMPORT                        R3 K9 [require]
+       19 GETTABLEKS                       R4 R2 K10 ["Framework"]
+       21 CALL                             R3 1 1
+       22 GETTABLEKS                       R3 R3 K11 ["Util"]
+       24 GETTABLEKS                       R3 R3 K12 ["Promise"]
        26 GETIMPORT                        R4 K9 [require]
-       28 GETTABLEKS                       R7 R0 K13 ["Src"]
-       30 GETTABLEKS                       R6 R7 K14 ["Types"]
-       32 GETTABLEKS                       R5 R6 K15 ["AssetQuotaTypes"]
+       28 GETTABLEKS                       R5 R0 K13 ["Src"]
+       30 GETTABLEKS                       R5 R5 K14 ["Types"]
+       32 GETTABLEKS                       R5 R5 K15 ["AssetQuotaTypes"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K9 [require]
-       37 GETTABLEKS                       R9 R0 K13 ["Src"]
-       39 GETTABLEKS                       R8 R9 K11 ["Util"]
-       41 GETTABLEKS                       R7 R8 K16 ["SharedFlags"]
-       43 GETTABLEKS                       R6 R7 K17 ["getFFlagEnableUGCForAllChecks"]
+       37 GETTABLEKS                       R6 R0 K13 ["Src"]
+       39 GETTABLEKS                       R6 R6 K11 ["Util"]
+       41 GETTABLEKS                       R6 R6 K16 ["SharedFlags"]
+       43 GETTABLEKS                       R6 R6 K17 ["getFFlagEnableUGCForAllChecks"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K9 [require]
-       48 GETTABLEKS                       R9 R0 K13 ["Src"]
-       50 GETTABLEKS                       R8 R9 K14 ["Types"]
-       52 GETTABLEKS                       R7 R8 K18 ["BuyerStatus"]
+       48 GETTABLEKS                       R7 R0 K13 ["Src"]
+       50 GETTABLEKS                       R7 R7 K14 ["Types"]
+       52 GETTABLEKS                       R7 R7 K18 ["BuyerStatus"]
        54 CALL                             R6 1 1
        55 GETIMPORT                        R7 K9 [require]
-       57 GETTABLEKS                       R10 R0 K13 ["Src"]
-       59 GETTABLEKS                       R9 R10 K11 ["Util"]
-       61 GETTABLEKS                       R8 R9 K19 ["FiatUtil"]
+       57 GETTABLEKS                       R8 R0 K13 ["Src"]
+       59 GETTABLEKS                       R8 R8 K11 ["Util"]
+       61 GETTABLEKS                       R8 R8 K19 ["FiatUtil"]
        63 CALL                             R7 1 1
        64 GETIMPORT                        R8 K9 [require]
-       66 GETTABLEKS                       R11 R0 K13 ["Src"]
-       68 GETTABLEKS                       R10 R11 K14 ["Types"]
-       70 GETTABLEKS                       R9 R10 K20 ["PurchaseTransactionStatus"]
+       66 GETTABLEKS                       R9 R0 K13 ["Src"]
+       68 GETTABLEKS                       R9 R9 K14 ["Types"]
+       70 GETTABLEKS                       R9 R9 K20 ["PurchaseTransactionStatus"]
        72 CALL                             R8 1 1
        73 NEWTABLE                         R9 64 0
        75 SETTABLEKS                       R9 R9 K21 ["__index"]

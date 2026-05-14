@@ -16,8 +16,8 @@ PROTO_1:
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
         6 GETTABLEKS                       R4 R1 K3 ["OnConfirm"]
         8 GETTABLEKS                       R5 R1 K4 ["OnClose"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 GETUPVAL                         R7 1
        14 DUPTABLE                         R8 K12 [{"Style", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
        15 LOADK                            R9 K13 ["AcceptCancel"]
@@ -56,8 +56,8 @@ PROTO_1:
        63 SETTABLEKS                       R9 R8 K11 ["OnButtonPressed"]
        65 SETTABLEKS                       R5 R8 K4 ["OnClose"]
        67 DUPTABLE                         R9 K23 [{"Contents"}]
-       68 GETUPVAL                         R11 0
-       69 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       68 GETUPVAL                         R10 0
+       69 GETTABLEKS                       R10 R10 K5 ["createElement"]
        71 GETUPVAL                         R11 2
        72 DUPTABLE                         R12 K25 [{"Text", "TextWrapped"}]
        73 LOADK                            R15 K14 ["ScriptConversion"]
@@ -79,12 +79,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R2 K10 ["UI"]

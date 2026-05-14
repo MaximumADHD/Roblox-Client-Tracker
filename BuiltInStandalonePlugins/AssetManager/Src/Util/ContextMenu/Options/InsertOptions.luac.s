@@ -4,8 +4,8 @@ PROTO_0:
         3 CALL                             R3 2 1
         4 GETTABLE                         R4 R3 R1
         5 JUMPIFNOT                        R4 ; [+9]
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R5 R6 K1 ["count"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K1 ["count"]
         9 MOVE                             R6 R3
        10 CALL                             R5 1 1
        11 JUMPIFEQKN                       R5 K2 [1] ; [+2]
@@ -15,11 +15,11 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["ItemsController"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["AssetType"]
-        5 GETTABLEKS                       R3 R4 K2 ["Animation"]
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K3 ["keys"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["AssetType"]
+        5 GETTABLEKS                       R3 R3 K2 ["Animation"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K3 ["keys"]
        10 GETTABLEKS                       R5 R0 K0 ["ItemsController"]
        12 NAMECALL                         R5 R5 K4 ["getSelection"]
        14 CALL                             R5 1 -1
@@ -29,8 +29,8 @@ PROTO_1:
        19 CALL                             R5 2 1
        20 GETTABLE                         R1 R5 R3
        21 JUMPIFNOT                        R1 ; [+9]
-       22 GETUPVAL                         R7 1
-       23 GETTABLEKS                       R6 R7 K6 ["count"]
+       22 GETUPVAL                         R6 1
+       23 GETTABLEKS                       R6 R6 K6 ["count"]
        25 MOVE                             R7 R5
        26 CALL                             R6 1 1
        27 JUMPIFEQKN                       R6 K7 [1] ; [+2]
@@ -73,11 +73,11 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R5 R1 K0 ["ItemsController"]
-        2 GETUPVAL                         R8 0
-        3 GETTABLEKS                       R7 R8 K1 ["AssetType"]
-        5 GETTABLEKS                       R6 R7 K2 ["Animation"]
-        7 GETUPVAL                         R8 1
-        8 GETTABLEKS                       R7 R8 K3 ["keys"]
+        2 GETUPVAL                         R6 0
+        3 GETTABLEKS                       R6 R6 K1 ["AssetType"]
+        5 GETTABLEKS                       R6 R6 K2 ["Animation"]
+        7 GETUPVAL                         R7 1
+        8 GETTABLEKS                       R7 R7 K3 ["keys"]
        10 GETTABLEKS                       R8 R1 K0 ["ItemsController"]
        12 NAMECALL                         R8 R8 K4 ["getSelection"]
        14 CALL                             R8 1 -1
@@ -87,8 +87,8 @@ PROTO_4:
        19 CALL                             R8 2 1
        20 GETTABLE                         R4 R8 R6
        21 JUMPIFNOT                        R4 ; [+9]
-       22 GETUPVAL                         R10 1
-       23 GETTABLEKS                       R9 R10 K6 ["count"]
+       22 GETUPVAL                         R9 1
+       23 GETTABLEKS                       R9 R9 K6 ["count"]
        25 MOVE                             R10 R8
        26 CALL                             R9 1 1
        27 JUMPIFEQKN                       R9 K7 [1] ; [+2]
@@ -117,11 +117,11 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R5 R1 K0 ["ItemsController"]
-        2 GETUPVAL                         R8 0
-        3 GETTABLEKS                       R7 R8 K1 ["AssetType"]
-        5 GETTABLEKS                       R6 R7 K2 ["Animation"]
-        7 GETUPVAL                         R8 1
-        8 GETTABLEKS                       R7 R8 K3 ["keys"]
+        2 GETUPVAL                         R6 0
+        3 GETTABLEKS                       R6 R6 K1 ["AssetType"]
+        5 GETTABLEKS                       R6 R6 K2 ["Animation"]
+        7 GETUPVAL                         R7 1
+        8 GETTABLEKS                       R7 R7 K3 ["keys"]
        10 GETTABLEKS                       R8 R1 K0 ["ItemsController"]
        12 NAMECALL                         R8 R8 K4 ["getSelection"]
        14 CALL                             R8 1 -1
@@ -131,8 +131,8 @@ PROTO_6:
        19 CALL                             R8 2 1
        20 GETTABLE                         R4 R8 R6
        21 JUMPIFNOT                        R4 ; [+9]
-       22 GETUPVAL                         R10 1
-       23 GETTABLEKS                       R9 R10 K6 ["count"]
+       22 GETUPVAL                         R9 1
+       23 GETTABLEKS                       R9 R9 K6 ["count"]
        25 MOVE                             R10 R8
        26 CALL                             R9 1 1
        27 JUMPIFEQKN                       R9 K7 [1] ; [+2]
@@ -158,11 +158,11 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R6 R1 K0 ["ItemsController"]
-        2 GETUPVAL                         R9 0
-        3 GETTABLEKS                       R8 R9 K1 ["AssetType"]
-        5 GETTABLEKS                       R7 R8 K2 ["Animation"]
-        7 GETUPVAL                         R9 1
-        8 GETTABLEKS                       R8 R9 K3 ["keys"]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R7 R7 K1 ["AssetType"]
+        5 GETTABLEKS                       R7 R7 K2 ["Animation"]
+        7 GETUPVAL                         R8 1
+        8 GETTABLEKS                       R8 R8 K3 ["keys"]
        10 GETTABLEKS                       R9 R1 K0 ["ItemsController"]
        12 NAMECALL                         R9 R9 K4 ["getSelection"]
        14 CALL                             R9 1 -1
@@ -172,8 +172,8 @@ PROTO_8:
        19 CALL                             R9 2 1
        20 GETTABLE                         R5 R9 R7
        21 JUMPIFNOT                        R5 ; [+9]
-       22 GETUPVAL                         R11 1
-       23 GETTABLEKS                       R10 R11 K6 ["count"]
+       22 GETUPVAL                         R10 1
+       23 GETTABLEKS                       R10 R10 K6 ["count"]
        25 MOVE                             R11 R9
        26 CALL                             R10 1 1
        27 JUMPIFEQKN                       R10 K7 [1] ; [+2]
@@ -200,11 +200,11 @@ PROTO_9:
 
 PROTO_10:
         0 GETTABLEKS                       R6 R1 K0 ["ItemsController"]
-        2 GETUPVAL                         R9 0
-        3 GETTABLEKS                       R8 R9 K1 ["AssetType"]
-        5 GETTABLEKS                       R7 R8 K2 ["Animation"]
-        7 GETUPVAL                         R9 1
-        8 GETTABLEKS                       R8 R9 K3 ["keys"]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R7 R7 K1 ["AssetType"]
+        5 GETTABLEKS                       R7 R7 K2 ["Animation"]
+        7 GETUPVAL                         R8 1
+        8 GETTABLEKS                       R8 R8 K3 ["keys"]
        10 GETTABLEKS                       R9 R1 K0 ["ItemsController"]
        12 NAMECALL                         R9 R9 K4 ["getSelection"]
        14 CALL                             R9 1 -1
@@ -214,8 +214,8 @@ PROTO_10:
        19 CALL                             R9 2 1
        20 GETTABLE                         R5 R9 R7
        21 JUMPIFNOT                        R5 ; [+9]
-       22 GETUPVAL                         R11 1
-       23 GETTABLEKS                       R10 R11 K6 ["count"]
+       22 GETUPVAL                         R10 1
+       23 GETTABLEKS                       R10 R10 K6 ["count"]
        25 MOVE                             R11 R9
        26 CALL                             R10 1 1
        27 JUMPIFEQKN                       R10 K7 [1] ; [+2]
@@ -226,9 +226,9 @@ PROTO_10:
        33 RETURN                           R3 1
 
 PROTO_11:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["MenuContext"]
-        3 GETTABLEKS                       R3 R4 K1 ["Asset"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["MenuContext"]
+        3 GETTABLEKS                       R3 R3 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R3 ; [+3]
         7 LOADB                            R3 0
         8 RETURN                           R3 1
@@ -238,8 +238,8 @@ PROTO_11:
        14 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
        16 NAMECALL                         R4 R4 K4 ["getCurrentShownScope"]
        18 CALL                             R4 1 1
-       19 GETUPVAL                         R6 1
-       20 GETTABLEKS                       R5 R6 K5 ["keys"]
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R5 R5 K5 ["keys"]
        22 GETTABLEKS                       R6 R1 K2 ["ItemsController"]
        24 NAMECALL                         R6 R6 K6 ["getSelection"]
        26 CALL                             R6 1 -1
@@ -250,9 +250,9 @@ PROTO_11:
        32 RETURN                           R6 1
        33 GETTABLEKS                       R8 R4 K8 ["Uid"]
        35 GETTABLEN                        R9 R5 1
-       36 GETUPVAL                         R12 0
-       37 GETTABLEKS                       R11 R12 K9 ["AssetInfoField"]
-       39 GETTABLEKS                       R10 R11 K10 ["AssetType"]
+       36 GETUPVAL                         R10 0
+       37 GETTABLEKS                       R10 R10 K9 ["AssetInfoField"]
+       39 GETTABLEKS                       R10 R10 K10 ["AssetType"]
        41 NAMECALL                         R6 R3 K11 ["getItemField"]
        43 CALL                             R6 4 1
        44 LOADB                            R7 0
@@ -263,9 +263,9 @@ PROTO_11:
        50 RETURN                           R7 1
 
 PROTO_12:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["MenuContext"]
-        3 GETTABLEKS                       R3 R4 K1 ["Asset"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["MenuContext"]
+        3 GETTABLEKS                       R3 R3 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R3 ; [+3]
         7 LOADB                            R3 0
         8 RETURN                           R3 1
@@ -275,8 +275,8 @@ PROTO_12:
        14 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
        16 NAMECALL                         R4 R4 K4 ["getCurrentShownScope"]
        18 CALL                             R4 1 1
-       19 GETUPVAL                         R6 1
-       20 GETTABLEKS                       R5 R6 K5 ["keys"]
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R5 R5 K5 ["keys"]
        22 GETTABLEKS                       R6 R1 K2 ["ItemsController"]
        24 NAMECALL                         R6 R6 K6 ["getSelection"]
        26 CALL                             R6 1 -1
@@ -288,9 +288,9 @@ PROTO_12:
        33 RETURN                           R6 1
        34 GETTABLEKS                       R8 R4 K7 ["Uid"]
        36 MOVE                             R9 R5
-       37 GETUPVAL                         R12 0
-       38 GETTABLEKS                       R11 R12 K8 ["AssetInfoField"]
-       40 GETTABLEKS                       R10 R11 K9 ["AssetType"]
+       37 GETUPVAL                         R10 0
+       38 GETTABLEKS                       R10 R10 K8 ["AssetInfoField"]
+       40 GETTABLEKS                       R10 R10 K9 ["AssetType"]
        42 NAMECALL                         R6 R3 K10 ["getData"]
        44 CALL                             R6 4 1
        45 MOVE                             R7 R6
@@ -314,22 +314,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K8 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["insertItems"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["insertItems"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K8 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["isInsertable"]
+       32 GETTABLEKS                       R5 R0 K8 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["isInsertable"]
        38 CALL                             R4 1 1
        39 DUPCLOSURE                       R5 K13 [PROTO_0]
        40 CAPTURE                          VAL R1

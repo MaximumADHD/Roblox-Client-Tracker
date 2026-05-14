@@ -18,8 +18,8 @@ PROTO_0:
        20 RETURN                           R3 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["OnSetItem"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["OnSetItem"]
         3 GETUPVAL                         R4 1
         4 GETUPVAL                         R6 2
         5 GETTABLE                         R5 R6 R1
@@ -46,8 +46,8 @@ PROTO_2:
        23 GETIMPORT                        R9 K7 [table.insert]
        25 CALL                             R9 2 0
        26 FORGLOOP                         R4 2 ; [-14]
-       28 GETUPVAL                         R5 1
-       29 GETTABLEKS                       R4 R5 K8 ["createElement"]
+       28 GETUPVAL                         R4 1
+       29 GETTABLEKS                       R4 R4 K8 ["createElement"]
        31 GETUPVAL                         R5 2
        32 DUPTABLE                         R6 K11 [{"LayoutOrder", "Size"}]
        33 GETTABLEKS                       R7 R0 K9 ["LayoutOrder"]
@@ -55,8 +55,8 @@ PROTO_2:
        37 GETTABLEKS                       R7 R0 K10 ["Size"]
        39 SETTABLEKS                       R7 R6 K10 ["Size"]
        41 DUPTABLE                         R7 K13 [{"WrapperContents"}]
-       42 GETUPVAL                         R9 1
-       43 GETTABLEKS                       R8 R9 K8 ["createElement"]
+       42 GETUPVAL                         R8 1
+       43 GETTABLEKS                       R8 R8 K8 ["createElement"]
        45 GETUPVAL                         R9 3
        46 DUPTABLE                         R10 K19 [{"OnItemActivated", "Items", "SelectedIndex", "Focus", "TextWrapped", "Size"}]
        47 NEWCLOSURE                       R11 P0
@@ -92,20 +92,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactCompat"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactCompat"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]
        25 GETTABLEKS                       R5 R3 K11 ["SelectInput"]
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R9 R0 K12 ["Src"]
-       31 GETTABLEKS                       R8 R9 K13 ["Utility"]
-       33 GETTABLEKS                       R7 R8 K14 ["getAnimations"]
+       29 GETTABLEKS                       R7 R0 K12 ["Src"]
+       31 GETTABLEKS                       R7 R7 K13 ["Utility"]
+       33 GETTABLEKS                       R7 R7 K14 ["getAnimations"]
        35 CALL                             R6 1 1
        36 DUPCLOSURE                       R7 K15 [PROTO_0]
        37 DUPCLOSURE                       R8 K16 [PROTO_2]

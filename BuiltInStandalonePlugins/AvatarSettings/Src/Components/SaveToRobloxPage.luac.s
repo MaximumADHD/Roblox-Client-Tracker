@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R4 R1 K1 ["default"]
@@ -23,8 +23,8 @@ PROTO_0:
        28 GETUPVAL                         R8 4
        29 GETUPVAL                         R9 5
        30 NEWTABLE                         R10 8 0
-       32 GETUPVAL                         R12 0
-       33 GETTABLEKS                       R11 R12 K8 ["Tag"]
+       32 GETUPVAL                         R11 0
+       33 GETTABLEKS                       R11 R11 K8 ["Tag"]
        35 LOADK                            R12 K9 ["X-Column X-Middle X-Center"]
        36 SETTABLE                         R12 R10 R11
        37 GETIMPORT                        R11 K13 [Enum.AutomaticSize.X]
@@ -60,8 +60,8 @@ PROTO_0:
        78 GETUPVAL                         R12 4
        79 LOADK                            R13 K33 ["TextLabel"]
        80 NEWTABLE                         R14 8 0
-       82 GETUPVAL                         R16 0
-       83 GETTABLEKS                       R15 R16 K8 ["Tag"]
+       82 GETUPVAL                         R15 0
+       83 GETTABLEKS                       R15 R15 K8 ["Tag"]
        85 LOADK                            R16 K34 ["Component-TextLabel"]
        86 SETTABLE                         R16 R14 R15
        87 LOADK                            R17 K35 ["Unpublished"]
@@ -86,8 +86,8 @@ PROTO_0:
       115 GETUPVAL                         R12 4
       116 GETUPVAL                         R13 6
       117 NEWTABLE                         R14 8 0
-      119 GETUPVAL                         R16 0
-      120 GETTABLEKS                       R15 R16 K8 ["Tag"]
+      119 GETUPVAL                         R15 0
+      120 GETTABLEKS                       R15 R15 K8 ["Tag"]
       122 LOADK                            R16 K41 ["PrimaryBrand Compact SaveToRobloxButton"]
       123 SETTABLE                         R16 R14 R15
       124 LOADK                            R16 K42 ["         "]
@@ -120,22 +120,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["EnableAvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["EnableAvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K11 ["Framework"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K12 ["React"]
+       27 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K12 ["React"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       36 GETTABLEKS                       R5 R6 K13 ["ReactUtils"]
+       34 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K13 ["ReactUtils"]
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R5 R2 K14 ["ContextServices"]
        41 GETTABLEKS                       R6 R5 K15 ["Localization"]

@@ -9,8 +9,8 @@ PROTO_0:
 PROTO_1:
         0 DUPTABLE                         R2 K2 [{"_instance", "SelectionChanged"}]
         1 SETTABLEKS                       R0 R2 K0 ["_instance"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K3 ["new"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K3 ["new"]
         6 CALL                             R3 0 1
         7 SETTABLEKS                       R3 R2 K1 ["SelectionChanged"]
         9 GETUPVAL                         R3 1
@@ -68,8 +68,8 @@ PROTO_6:
        17 GETTABLEKS                       R2 R1 K2 ["_bone"]
        19 JUMPIF                           R2 ; [+1]
        20 LOADNIL                          R2
-       21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R3 R4 K3 ["new"]
+       21 GETUPVAL                         R3 1
+       22 GETTABLEKS                       R3 R3 K3 ["new"]
        24 MOVE                             R4 R2
        25 CALL                             R3 1 -1
        26 RETURN                           R3 -1
@@ -80,16 +80,16 @@ MAIN:
         3 LOADK                            R2 K2 ["AdaptiveAnimationSupport"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R2 K5 ["DraggerFramework"]
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
+       15 GETTABLEKS                       R3 R3 K9 ["Signal"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K7 [require]
-       20 GETTABLEKS                       R6 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R6 K11 ["Flags"]
-       24 GETTABLEKS                       R4 R5 K12 ["getFFlagAdaptiveAnimationBetaImprovements"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       24 GETTABLEKS                       R4 R4 K12 ["getFFlagAdaptiveAnimationBetaImprovements"]
        26 CALL                             R3 1 1
        27 NEWTABLE                         R4 8 0
        29 SETTABLEKS                       R4 R4 K13 ["__index"]

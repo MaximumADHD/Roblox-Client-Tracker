@@ -29,8 +29,8 @@ PROTO_0:
        35 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["waitForDescendant"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["waitForDescendant"]
         3 MOVE                             R2 R0
         4 NEWTABLE                         R3 0 2
         6 LOADK                            R4 K1 ["AnimationClipEditor"]
@@ -40,12 +40,12 @@ PROTO_1:
        11 RETURN                           R1 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getEditorController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEditorController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["TrackEditor"]
@@ -55,12 +55,12 @@ PROTO_2:
        16 RETURN                           R2 -1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getDopeSheetController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getDopeSheetController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["DopeSheetContainer"]
@@ -70,12 +70,12 @@ PROTO_3:
        16 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getDopeSheet"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getDopeSheet"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["waitForDescendant"]
         8 MOVE                             R4 R2
         9 NEWTABLE                         R5 0 2
        11 MOVE                             R6 R1
@@ -85,12 +85,12 @@ PROTO_4:
        16 RETURN                           R3 -1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getEditorController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEditorController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 5
        11 LOADK                            R5 K2 ["TrackListAndControlContainer"]
@@ -103,12 +103,12 @@ PROTO_5:
        19 RETURN                           R2 -1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getEditorController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEditorController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["TrackListAndControlContainer"]
@@ -118,12 +118,12 @@ PROTO_6:
        16 RETURN                           R2 -1
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getAnimationControlPanel"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getAnimationControlPanel"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 1
        11 LOADK                            R5 K2 ["MediaControls"]
@@ -132,12 +132,12 @@ PROTO_7:
        15 RETURN                           R2 -1
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getMediaControls"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getMediaControls"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["waitForDescendant"]
         8 MOVE                             R4 R2
         9 NEWTABLE                         R5 0 4
        11 MOVE                             R6 R1
@@ -149,12 +149,12 @@ PROTO_8:
        18 RETURN                           R3 -1
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getAnimationControlPanel"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getAnimationControlPanel"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 1
        11 LOADK                            R5 K2 ["TimeDisplay"]
@@ -163,12 +163,12 @@ PROTO_9:
        15 RETURN                           R2 -1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getTrackList"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getTrackList"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 4
        11 LOADK                            R5 K2 ["SummaryTrack"]
@@ -180,8 +180,8 @@ PROTO_10:
        18 RETURN                           R2 -1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["waitForDescendant"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["waitForDescendant"]
         3 MOVE                             R2 R0
         4 NEWTABLE                         R3 0 1
         6 LOADK                            R4 K1 ["Container"]
@@ -190,12 +190,12 @@ PROTO_11:
        10 RETURN                           R1 -1
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getIKWindow"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getIKWindow"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["BottomFrame"]
@@ -205,12 +205,12 @@ PROTO_12:
        16 RETURN                           R2 -1
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getIKWindow"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getIKWindow"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["TreeView"]
@@ -220,12 +220,12 @@ PROTO_13:
        16 RETURN                           R2 -1
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getIKTreeView"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getIKTreeView"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["waitForDescendant"]
         8 MOVE                             R4 R2
         9 NEWTABLE                         R5 0 3
        11 LOADK                            R6 K2 ["Contents"]
@@ -236,13 +236,13 @@ PROTO_14:
        17 RETURN                           R3 -1
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getTreeViewJoint"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getTreeViewJoint"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["waitForDescendant"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["waitForDescendant"]
         9 MOVE                             R4 R2
        10 NEWTABLE                         R5 0 1
        12 LOADK                            R6 K2 ["Pin"]
@@ -251,12 +251,12 @@ PROTO_15:
        16 RETURN                           R3 -1
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getEditorController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEditorController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 3
        11 LOADK                            R5 K2 ["TrackListAndControlContainer"]
@@ -267,12 +267,12 @@ PROTO_16:
        17 RETURN                           R2 -1
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getDopeSheetController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getDopeSheetController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 4
        11 LOADK                            R5 K2 ["Events"]
@@ -284,8 +284,8 @@ PROTO_17:
        18 RETURN                           R2 -1
 
 PROTO_18:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["waitForDescendant"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["waitForDescendant"]
         3 MOVE                             R2 R0
         4 NEWTABLE                         R3 0 3
         6 LOADK                            R4 K1 ["SolidBackground"]
@@ -296,12 +296,12 @@ PROTO_18:
        12 RETURN                           R1 -1
 
 PROTO_19:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getEventsDialogContents"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getEventsDialogContents"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["waitForDescendant"]
         8 MOVE                             R4 R2
         9 NEWTABLE                         R5 0 1
        11 LOADK                            R7 K2 ["Event_"]
@@ -312,12 +312,12 @@ PROTO_19:
        17 RETURN                           R3 -1
 
 PROTO_20:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getEventsDialogContents"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEventsDialogContents"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["AddNew"]
@@ -327,8 +327,8 @@ PROTO_20:
        16 RETURN                           R2 -1
 
 PROTO_21:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["waitForDescendant"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["waitForDescendant"]
         3 MOVE                             R2 R0
         4 NEWTABLE                         R3 0 2
         6 LOADK                            R4 K1 ["SolidBackground"]
@@ -338,12 +338,12 @@ PROTO_21:
        11 RETURN                           R1 -1
 
 PROTO_22:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getStyledDialogContents"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getStyledDialogContents"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["KeyframePane"]
@@ -353,12 +353,12 @@ PROTO_22:
        16 RETURN                           R2 -1
 
 PROTO_23:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getStyledDialogContents"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getStyledDialogContents"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 1
        11 LOADK                            R5 K2 ["Slider"]
@@ -367,8 +367,8 @@ PROTO_23:
        15 RETURN                           R2 -1
 
 PROTO_24:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["waitForDescendant"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["waitForDescendant"]
         3 MOVE                             R3 R0
         4 NEWTABLE                         R4 0 2
         6 LOADK                            R5 K1 ["SolidBackground"]
@@ -379,8 +379,8 @@ PROTO_24:
        12 RETURN                           R1 1
 
 PROTO_25:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["waitForDescendant"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["waitForDescendant"]
         3 MOVE                             R3 R0
         4 NEWTABLE                         R4 0 2
         6 LOADK                            R5 K1 ["SolidBackground"]
@@ -391,12 +391,12 @@ PROTO_25:
        12 RETURN                           R1 1
 
 PROTO_26:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getEditorController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEditorController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["TrackEditor"]
@@ -406,12 +406,12 @@ PROTO_26:
        16 RETURN                           R2 -1
 
 PROTO_27:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getCurveEditorController"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getCurveEditorController"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["waitForDescendant"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["waitForDescendant"]
         8 MOVE                             R3 R1
         9 NEWTABLE                         R4 0 2
        11 LOADK                            R5 K2 ["CanvasContainer"]

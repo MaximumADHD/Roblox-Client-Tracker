@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K0 ["watchForChanges"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K0 ["watchForChanges"]
         5 MOVE                             R5 R0
         6 GETUPVAL                         R6 2
         7 CALL                             R4 2 -1
@@ -13,8 +13,8 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K0 ["watchForChanges"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K0 ["watchForChanges"]
         5 MOVE                             R5 R0
         6 GETUPVAL                         R6 2
         7 CALL                             R4 2 -1
@@ -52,8 +52,8 @@ PROTO_4:
         4 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 CALL                             R2 0 1
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          VAL R2
@@ -88,8 +88,8 @@ PROTO_5:
        44 CALL                             R4 1 3
        45 FORGPREP                         R4
        46 MOVE                             R11 R8
-       47 GETUPVAL                         R13 1
-       48 GETTABLEKS                       R12 R13 K7 ["watchForChanges"]
+       47 GETUPVAL                         R12 1
+       48 GETTABLEKS                       R12 R12 K7 ["watchForChanges"]
        50 MOVE                             R13 R8
        51 MOVE                             R14 R1
        52 CALL                             R12 2 -1
@@ -109,8 +109,8 @@ PROTO_6:
         6 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_currentQueue"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_currentQueue"]
         3 JUMPIFNOT                        R0 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R0 0
@@ -129,11 +129,11 @@ PROTO_8:
         4 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 CALL                             R2 0 1
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K1 ["watchForChanges"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K1 ["watchForChanges"]
         7 MOVE                             R6 R0
         8 NEWCLOSURE                       R7 P0
         9 CAPTURE                          VAL R2
@@ -152,9 +152,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Maid"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Maid"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 2 0
        18 DUPCLOSURE                       R3 K9 [PROTO_5]

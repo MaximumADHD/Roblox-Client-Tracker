@@ -201,8 +201,8 @@ PROTO_13:
         9 RETURN                           R0 1
 
 PROTO_14:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 CALL                             R3 0 1
         4 LOADB                            R4 0
         5 LOADK                            R5 K1 ["Experiences"]
@@ -235,10 +235,10 @@ PROTO_14:
        44 JUMPIFNOT                        R1 ; [+2]
        45 NEWTABLE                         R6 0 0
        47 GETIMPORT                        R7 K24 [require]
-       49 GETUPVAL                         R11 1
-       50 GETTABLEKS                       R10 R11 K25 ["Src"]
-       52 GETTABLEKS                       R9 R10 K26 ["SharedFlags"]
-       54 GETTABLEKS                       R8 R9 K27 ["getFFlagLuaStartPageCoreContentStatus"]
+       49 GETUPVAL                         R8 1
+       50 GETTABLEKS                       R8 R8 K25 ["Src"]
+       52 GETTABLEKS                       R8 R8 K26 ["SharedFlags"]
+       54 GETTABLEKS                       R8 R8 K27 ["getFFlagLuaStartPageCoreContentStatus"]
        56 CALL                             R7 1 1
        57 CALL                             R7 0 1
        58 JUMPIFNOT                        R7 ; [+2]
@@ -267,12 +267,12 @@ PROTO_14:
        84 CALL                             R12 4 1
        85 MOVE                             R11 R12
        86 GETTABLEKS                       R12 R3 K34 ["composeUrl"]
-       88 GETUPVAL                         R15 2
-       89 GETTABLEKS                       R14 R15 K35 ["KNOWLEDGE_FEEDS_URL"]
-       91 GETTABLEKS                       R13 R14 K36 ["Prefix"]
-       93 GETUPVAL                         R16 2
-       94 GETTABLEKS                       R15 R16 K35 ["KNOWLEDGE_FEEDS_URL"]
-       96 GETTABLEKS                       R14 R15 K37 ["Url"]
+       88 GETUPVAL                         R13 2
+       89 GETTABLEKS                       R13 R13 K35 ["KNOWLEDGE_FEEDS_URL"]
+       91 GETTABLEKS                       R13 R13 K36 ["Prefix"]
+       93 GETUPVAL                         R14 2
+       94 GETTABLEKS                       R14 R14 K35 ["KNOWLEDGE_FEEDS_URL"]
+       96 GETTABLEKS                       R14 R14 K37 ["Url"]
        98 CALL                             R14 0 -1
        99 CALL                             R12 -1 1
       100 DUPTABLE                         R13 K40 [{"limit", "SortOrder"}]
@@ -281,42 +281,42 @@ PROTO_14:
       104 LOADK                            R14 K41 ["Asc"]
       105 SETTABLEKS                       R14 R13 K39 ["SortOrder"]
       107 GETTABLEKS                       R14 R3 K34 ["composeUrl"]
-      109 GETUPVAL                         R17 2
-      110 GETTABLEKS                       R16 R17 K42 ["PLACES_SEARCH_URL"]
-      112 GETTABLEKS                       R15 R16 K36 ["Prefix"]
-      114 GETUPVAL                         R18 2
-      115 GETTABLEKS                       R17 R18 K42 ["PLACES_SEARCH_URL"]
-      117 GETTABLEKS                       R16 R17 K37 ["Url"]
+      109 GETUPVAL                         R15 2
+      110 GETTABLEKS                       R15 R15 K42 ["PLACES_SEARCH_URL"]
+      112 GETTABLEKS                       R15 R15 K36 ["Prefix"]
+      114 GETUPVAL                         R16 2
+      115 GETTABLEKS                       R16 R16 K42 ["PLACES_SEARCH_URL"]
+      117 GETTABLEKS                       R16 R16 K37 ["Url"]
       119 LOADN                            R17 43
       120 CALL                             R16 1 1
       121 MOVE                             R17 R13
       122 CALL                             R14 3 1
       123 DUPCLOSURE                       R15 K43 [PROTO_0]
       124 GETTABLEKS                       R16 R3 K34 ["composeUrl"]
-      126 GETUPVAL                         R19 2
-      127 GETTABLEKS                       R18 R19 K44 ["MULTI_CREATOR_ELIGIBILITY"]
-      129 GETTABLEKS                       R17 R18 K36 ["Prefix"]
-      131 GETUPVAL                         R20 2
-      132 GETTABLEKS                       R19 R20 K44 ["MULTI_CREATOR_ELIGIBILITY"]
-      134 GETTABLEKS                       R18 R19 K37 ["Url"]
+      126 GETUPVAL                         R17 2
+      127 GETTABLEKS                       R17 R17 K44 ["MULTI_CREATOR_ELIGIBILITY"]
+      129 GETTABLEKS                       R17 R17 K36 ["Prefix"]
+      131 GETUPVAL                         R18 2
+      132 GETTABLEKS                       R18 R18 K44 ["MULTI_CREATOR_ELIGIBILITY"]
+      134 GETTABLEKS                       R18 R18 K37 ["Url"]
       136 CALL                             R18 0 -1
       137 CALL                             R16 -1 1
       138 GETTABLEKS                       R17 R3 K34 ["composeUrl"]
-      140 GETUPVAL                         R20 2
-      141 GETTABLEKS                       R19 R20 K45 ["MULTI_AGE_RECOMMENDATION"]
-      143 GETTABLEKS                       R18 R19 K36 ["Prefix"]
-      145 GETUPVAL                         R21 2
-      146 GETTABLEKS                       R20 R21 K45 ["MULTI_AGE_RECOMMENDATION"]
-      148 GETTABLEKS                       R19 R20 K37 ["Url"]
+      140 GETUPVAL                         R18 2
+      141 GETTABLEKS                       R18 R18 K45 ["MULTI_AGE_RECOMMENDATION"]
+      143 GETTABLEKS                       R18 R18 K36 ["Prefix"]
+      145 GETUPVAL                         R19 2
+      146 GETTABLEKS                       R19 R19 K45 ["MULTI_AGE_RECOMMENDATION"]
+      148 GETTABLEKS                       R19 R19 K37 ["Url"]
       150 CALL                             R19 0 -1
       151 CALL                             R17 -1 1
       152 GETTABLEKS                       R21 R3 K34 ["composeUrl"]
-      154 GETUPVAL                         R24 2
-      155 GETTABLEKS                       R23 R24 K46 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-      157 GETTABLEKS                       R22 R23 K36 ["Prefix"]
-      159 GETUPVAL                         R25 2
-      160 GETTABLEKS                       R24 R25 K46 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-      162 GETTABLEKS                       R23 R24 K37 ["Url"]
+      154 GETUPVAL                         R22 2
+      155 GETTABLEKS                       R22 R22 K46 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+      157 GETTABLEKS                       R22 R22 K36 ["Prefix"]
+      159 GETUPVAL                         R23 2
+      160 GETTABLEKS                       R23 R23 K46 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+      162 GETTABLEKS                       R23 R23 K37 ["Url"]
       164 CALL                             R23 0 -1
       165 CALL                             R21 -1 1
       166 MOVE                             R19 R21
@@ -334,32 +334,32 @@ PROTO_14:
       183 LOADB                            R20 1
       184 SETTABLEKS                       R20 R19 K50 ["isCircular"]
       186 GETTABLEKS                       R20 R3 K34 ["composeUrl"]
-      188 GETUPVAL                         R23 2
-      189 GETTABLEKS                       R22 R23 K54 ["AVATAR_ICON_URL"]
-      191 GETTABLEKS                       R21 R22 K36 ["Prefix"]
-      193 GETUPVAL                         R24 2
-      194 GETTABLEKS                       R23 R24 K54 ["AVATAR_ICON_URL"]
-      196 GETTABLEKS                       R22 R23 K37 ["Url"]
+      188 GETUPVAL                         R21 2
+      189 GETTABLEKS                       R21 R21 K54 ["AVATAR_ICON_URL"]
+      191 GETTABLEKS                       R21 R21 K36 ["Prefix"]
+      193 GETUPVAL                         R22 2
+      194 GETTABLEKS                       R22 R22 K54 ["AVATAR_ICON_URL"]
+      196 GETTABLEKS                       R22 R22 K37 ["Url"]
       198 CALL                             R22 0 1
       199 MOVE                             R23 R19
       200 CALL                             R20 3 1
       201 GETTABLEKS                       R21 R3 K34 ["composeUrl"]
-      203 GETUPVAL                         R24 2
-      204 GETTABLEKS                       R23 R24 K55 ["PLACE_SAFETY_STATUS_URL"]
-      206 GETTABLEKS                       R22 R23 K36 ["Prefix"]
-      208 GETUPVAL                         R25 2
-      209 GETTABLEKS                       R24 R25 K55 ["PLACE_SAFETY_STATUS_URL"]
-      211 GETTABLEKS                       R23 R24 K37 ["Url"]
+      203 GETUPVAL                         R22 2
+      204 GETTABLEKS                       R22 R22 K55 ["PLACE_SAFETY_STATUS_URL"]
+      206 GETTABLEKS                       R22 R22 K36 ["Prefix"]
+      208 GETUPVAL                         R23 2
+      209 GETTABLEKS                       R23 R23 K55 ["PLACE_SAFETY_STATUS_URL"]
+      211 GETTABLEKS                       R23 R23 K37 ["Url"]
       213 LOADN                            R24 101
       214 CALL                             R23 1 -1
       215 CALL                             R21 -1 1
       216 GETTABLEKS                       R22 R3 K34 ["composeUrl"]
-      218 GETUPVAL                         R25 2
-      219 GETTABLEKS                       R24 R25 K56 ["MULTI_TEAM_CREATE_STATUS"]
-      221 GETTABLEKS                       R23 R24 K36 ["Prefix"]
-      223 GETUPVAL                         R26 2
-      224 GETTABLEKS                       R25 R26 K56 ["MULTI_TEAM_CREATE_STATUS"]
-      226 GETTABLEKS                       R24 R25 K37 ["Url"]
+      218 GETUPVAL                         R23 2
+      219 GETTABLEKS                       R23 R23 K56 ["MULTI_TEAM_CREATE_STATUS"]
+      221 GETTABLEKS                       R23 R23 K36 ["Prefix"]
+      223 GETUPVAL                         R24 2
+      224 GETTABLEKS                       R24 R24 K56 ["MULTI_TEAM_CREATE_STATUS"]
+      226 GETTABLEKS                       R24 R24 K37 ["Url"]
       228 CALL                             R24 0 -1
       229 CALL                             R22 -1 1
       230 MOVE                             R24 R22
@@ -442,23 +442,23 @@ PROTO_14:
       335 CAPTURE                          VAL R2
       336 SETTABLEKS                       R25 R24 K86 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioAgeReverificationRequiredBanner&nameSpace=studio/CollaborationSettings"]
       338 GETTABLEKS                       R25 R3 K34 ["composeUrl"]
-      340 GETUPVAL                         R28 2
-      341 GETTABLEKS                       R27 R28 K87 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
-      343 GETTABLEKS                       R26 R27 K36 ["Prefix"]
-      345 GETUPVAL                         R29 2
-      346 GETTABLEKS                       R28 R29 K87 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
-      348 GETTABLEKS                       R27 R28 K37 ["Url"]
+      340 GETUPVAL                         R26 2
+      341 GETTABLEKS                       R26 R26 K87 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
+      343 GETTABLEKS                       R26 R26 K36 ["Prefix"]
+      345 GETUPVAL                         R27 2
+      346 GETTABLEKS                       R27 R27 K87 ["CORE_CONTENT_BATCH_PUBLISH_ELIGIBILITY"]
+      348 GETTABLEKS                       R27 R27 K37 ["Url"]
       350 CALL                             R27 0 -1
       351 CALL                             R25 -1 1
       352 DUPCLOSURE                       R26 K88 [PROTO_12]
       353 SETTABLE                         R26 R24 R25
       354 GETTABLEKS                       R25 R3 K34 ["composeUrl"]
-      356 GETUPVAL                         R28 2
-      357 GETTABLEKS                       R27 R28 K89 ["MULTI_RELEASE_STATUSES"]
-      359 GETTABLEKS                       R26 R27 K36 ["Prefix"]
-      361 GETUPVAL                         R29 2
-      362 GETTABLEKS                       R28 R29 K89 ["MULTI_RELEASE_STATUSES"]
-      364 GETTABLEKS                       R27 R28 K37 ["Url"]
+      356 GETUPVAL                         R26 2
+      357 GETTABLEKS                       R26 R26 K89 ["MULTI_RELEASE_STATUSES"]
+      359 GETTABLEKS                       R26 R26 K36 ["Prefix"]
+      361 GETUPVAL                         R27 2
+      362 GETTABLEKS                       R27 R27 K89 ["MULTI_RELEASE_STATUSES"]
+      364 GETTABLEKS                       R27 R27 K37 ["Url"]
       366 CALL                             R27 0 -1
       367 CALL                             R25 -1 1
       368 DUPCLOSURE                       R26 K90 [PROTO_13]
@@ -479,22 +479,22 @@ PROTO_14:
       388 SETLIST                          R26 R27 1 [1]
       390 SETTABLEKS                       R26 R25 K59 ["data"]
       392 SETTABLE                         R25 R24 R23
-      393 GETUPVAL                         R26 3
-      394 GETTABLEKS                       R25 R26 K98 ["mock"]
+      393 GETUPVAL                         R25 3
+      394 GETTABLEKS                       R25 R25 K98 ["mock"]
       396 MOVE                             R26 R24
       397 CALL                             R25 1 0
-      398 GETUPVAL                         R27 3
-      399 GETTABLEKS                       R26 R27 K99 ["StudioService"]
-      401 GETTABLEKS                       R25 R26 K100 ["GetUserId"]
+      398 GETUPVAL                         R25 3
+      399 GETTABLEKS                       R25 R25 K99 ["StudioService"]
+      401 GETTABLEKS                       R25 R25 K100 ["GetUserId"]
       403 GETTABLEKS                       R26 R25 K101 ["mockReturnValue"]
       405 LOADK                            R27 K102 [54321]
       406 CALL                             R26 1 0
-      407 GETUPVAL                         R28 3
-      408 GETTABLEKS                       R27 R28 K103 ["StartPageManager"]
-      410 GETTABLEKS                       R26 R27 K104 ["getRecentAPIGamesFromRegistry"]
-      412 GETUPVAL                         R29 3
-      413 GETTABLEKS                       R28 R29 K103 ["StartPageManager"]
-      415 GETTABLEKS                       R27 R28 K105 ["getLocalGamesFromRegistry"]
+      407 GETUPVAL                         R26 3
+      408 GETTABLEKS                       R26 R26 K103 ["StartPageManager"]
+      410 GETTABLEKS                       R26 R26 K104 ["getRecentAPIGamesFromRegistry"]
+      412 GETUPVAL                         R27 3
+      413 GETTABLEKS                       R27 R27 K103 ["StartPageManager"]
+      415 GETTABLEKS                       R27 R27 K105 ["getLocalGamesFromRegistry"]
       417 GETTABLEKS                       R28 R26 K101 ["mockReturnValue"]
       419 NEWTABLE                         R29 0 0
       421 CALL                             R28 1 0
@@ -515,12 +515,12 @@ PROTO_14:
       443 SETTABLEKS                       R31 R30 K111 ["LastViewed"]
       445 SETLIST                          R29 R30 1 [1]
       447 CALL                             R28 1 0
-      448 GETUPVAL                         R30 3
-      449 GETTABLEKS                       R29 R30 K103 ["StartPageManager"]
-      451 GETTABLEKS                       R28 R29 K118 ["getDaysSinceFirstUserLogin"]
-      453 GETUPVAL                         R31 3
-      454 GETTABLEKS                       R30 R31 K103 ["StartPageManager"]
-      456 GETTABLEKS                       R29 R30 K119 ["isTutorialBannerClosed"]
+      448 GETUPVAL                         R28 3
+      449 GETTABLEKS                       R28 R28 K103 ["StartPageManager"]
+      451 GETTABLEKS                       R28 R28 K118 ["getDaysSinceFirstUserLogin"]
+      453 GETUPVAL                         R29 3
+      454 GETTABLEKS                       R29 R29 K103 ["StartPageManager"]
+      456 GETTABLEKS                       R29 R29 K119 ["isTutorialBannerClosed"]
       458 GETTABLEKS                       R30 R28 K101 ["mockReturnValue"]
       460 LOADN                            R31 0
       461 CALL                             R30 1 0
@@ -537,21 +537,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Network"]
-       20 GETTABLEKS                       R3 R4 K10 ["Urls"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Network"]
+       20 GETTABLEKS                       R3 R3 K10 ["Urls"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Util"]
-       29 GETTABLEKS                       R4 R5 K12 ["Services"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Util"]
+       29 GETTABLEKS                       R4 R4 K12 ["Services"]
        31 CALL                             R3 1 1
-       32 GETTABLEKS                       R5 R1 K13 ["RobloxAPI"]
-       34 GETTABLEKS                       R4 R5 K14 ["Url"]
+       32 GETTABLEKS                       R4 R1 K13 ["RobloxAPI"]
+       34 GETTABLEKS                       R4 R4 K14 ["Url"]
        36 DUPCLOSURE                       R5 K15 [PROTO_14]
        37 CAPTURE                          VAL R4
        38 CAPTURE                          VAL R0

@@ -72,8 +72,8 @@ PROTO_3:
         8 GETUPVAL                         R3 0
         9 CALL                             R3 0 0
        10 NEWTABLE                         R3 0 0
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K3 ["getAudioInstanceDefs"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K3 ["getAudioInstanceDefs"]
        15 CALL                             R4 0 3
        16 FORGPREP                         R4
        17 DUPTABLE                         R9 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
@@ -96,8 +96,8 @@ PROTO_3:
        41 LOADB                            R10 1
        42 SETTABLEKS                       R10 R9 K6 ["Visible"]
        44 GETIMPORT                        R10 K23 [string.gsub]
-       46 GETUPVAL                         R12 2
-       47 GETTABLEKS                       R11 R12 K24 ["action"]
+       46 GETUPVAL                         R11 2
+       47 GETTABLEKS                       R11 R11 K24 ["action"]
        49 LOADK                            R12 K25 ["Insert"]
        50 CALL                             R11 1 1
        51 LOADK                            R12 K26 ["%%s"]
@@ -105,8 +105,8 @@ PROTO_3:
        53 CALL                             R10 3 1
        54 SETTABLEKS                       R10 R9 K7 ["Text"]
        56 GETIMPORT                        R10 K23 [string.gsub]
-       58 GETUPVAL                         R12 2
-       59 GETTABLEKS                       R11 R12 K27 ["tooltip"]
+       58 GETUPVAL                         R11 2
+       59 GETTABLEKS                       R11 R11 K27 ["tooltip"]
        61 LOADK                            R12 K25 ["Insert"]
        62 CALL                             R11 1 1
        63 LOADK                            R12 K26 ["%%s"]
@@ -239,14 +239,14 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R2 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Util"]
-       25 GETTABLEKS                       R4 R5 K13 ["LocalizationUtil"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["LocalizationUtil"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K10 [require]
-       30 GETTABLEKS                       R7 R2 K11 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Util"]
-       34 GETTABLEKS                       R5 R6 K14 ["WiringUtil"]
+       30 GETTABLEKS                       R5 R2 K11 ["Src"]
+       32 GETTABLEKS                       R5 R5 K12 ["Util"]
+       34 GETTABLEKS                       R5 R5 K14 ["WiringUtil"]
        36 CALL                             R4 1 1
        37 DUPCLOSURE                       R5 K15 [PROTO_0]
        38 CAPTURE                          VAL R1

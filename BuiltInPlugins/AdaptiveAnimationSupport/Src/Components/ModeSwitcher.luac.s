@@ -36,8 +36,8 @@ PROTO_2:
        27 NAMECALL                         R6 R3 K14 ["getText"]
        29 CALL                             R6 3 1
        30 SETTABLEKS                       R6 R5 K6 ["TooltipDescription"]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K15 ["MAPPING"]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R6 R6 K15 ["MAPPING"]
        35 SETTABLEKS                       R6 R5 K7 ["Icon"]
        37 JUMPIFEQKS                       R1 K16 ["mapping"] ; [+2]
        39 LOADB                            R6 0 +1
@@ -60,8 +60,8 @@ PROTO_2:
        61 NAMECALL                         R7 R3 K14 ["getText"]
        63 CALL                             R7 3 1
        64 SETTABLEKS                       R7 R6 K6 ["TooltipDescription"]
-       66 GETUPVAL                         R8 0
-       67 GETTABLEKS                       R7 R8 K19 ["TPOSE"]
+       66 GETUPVAL                         R7 0
+       67 GETTABLEKS                       R7 R7 K19 ["TPOSE"]
        69 SETTABLEKS                       R7 R6 K7 ["Icon"]
        71 JUMPIFEQKS                       R1 K20 ["tpose"] ; [+2]
        73 LOADB                            R7 0 +1
@@ -72,10 +72,10 @@ PROTO_2:
        79 CAPTURE                          VAL R2
        80 SETTABLEKS                       R7 R6 K9 ["OnClick"]
        82 SETLIST                          R4 R5 2 [1]
-       84 GETUPVAL                         R6 1
-       85 GETTABLEKS                       R5 R6 K21 ["createElement"]
-       87 GETUPVAL                         R7 2
-       88 GETTABLEKS                       R6 R7 K22 ["Toolbar"]
+       84 GETUPVAL                         R5 1
+       85 GETTABLEKS                       R5 R5 K21 ["createElement"]
+       87 GETUPVAL                         R6 2
+       88 GETTABLEKS                       R6 R6 K22 ["Toolbar"]
        90 DUPTABLE                         R7 K26 [{"InitialPosition", "VerticalItems", "DisplayOrder"}]
        91 LOADK                            R8 K27 ["Top"]
        92 SETTABLEKS                       R8 R7 K23 ["InitialPosition"]
@@ -92,21 +92,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ViewportToolingFramework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ViewportToolingFramework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K9 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Resources"]
-       34 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Resources"]
+       34 GETTABLEKS                       R5 R5 K12 ["Constants"]
        36 CALL                             R4 1 1
        37 DUPCLOSURE                       R5 K13 [PROTO_2]
        38 CAPTURE                          VAL R4

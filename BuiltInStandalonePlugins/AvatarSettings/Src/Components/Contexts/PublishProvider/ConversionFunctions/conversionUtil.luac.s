@@ -97,8 +97,8 @@ PROTO_1:
        30 FASTCALL                         ASSERT ; [+2]
        31 GETIMPORT                        R9 K4 [assert]
        33 CALL                             R9 3 0
-       34 GETTABLE                         R10 R1 R8
-       35 GETTABLEKS                       R9 R10 K6 ["value"]
+       34 GETTABLE                         R9 R1 R8
+       35 GETTABLEKS                       R9 R9 K6 ["value"]
        37 GETTABLE                         R10 R2 R8
        38 JUMPIFEQ                         R9 R10 ; [+3]
        40 LOADB                            R9 0
@@ -134,8 +134,8 @@ PROTO_1:
        77 FASTCALL                         ASSERT ; [+2]
        78 GETIMPORT                        R9 K4 [assert]
        80 CALL                             R9 3 0
-       81 GETTABLE                         R12 R1 R8
-       82 GETTABLEKS                       R11 R12 K8 ["enabled"]
+       81 GETTABLE                         R11 R1 R8
+       82 GETTABLEKS                       R11 R11 K8 ["enabled"]
        84 JUMPIFNOTEQKNIL                  R11 ; [+2]
        86 LOADB                            R10 0 +1
        87 LOADB                            R10 1
@@ -148,8 +148,8 @@ PROTO_1:
        94 FASTCALL2                        ASSERT R10 R11 ; [+3]
        96 GETIMPORT                        R9 K4 [assert]
        98 CALL                             R9 2 0
-       99 GETTABLE                         R12 R1 R8
-      100 GETTABLEKS                       R11 R12 K11 ["assetId"]
+       99 GETTABLE                         R11 R1 R8
+      100 GETTABLEKS                       R11 R11 K11 ["assetId"]
       102 JUMPIFNOTEQKNIL                  R11 ; [+2]
       104 LOADB                            R10 0 +1
       105 LOADB                            R10 1
@@ -162,19 +162,19 @@ PROTO_1:
       112 FASTCALL2                        ASSERT R10 R11 ; [+3]
       114 GETIMPORT                        R9 K4 [assert]
       116 CALL                             R9 2 0
-      117 GETTABLE                         R11 R1 R8
-      118 GETTABLEKS                       R10 R11 K8 ["enabled"]
-      120 GETTABLEKS                       R9 R10 K6 ["value"]
-      122 GETTABLE                         R11 R2 R8
-      123 GETTABLEKS                       R10 R11 K8 ["enabled"]
+      117 GETTABLE                         R9 R1 R8
+      118 GETTABLEKS                       R9 R9 K8 ["enabled"]
+      120 GETTABLEKS                       R9 R9 K6 ["value"]
+      122 GETTABLE                         R10 R2 R8
+      123 GETTABLEKS                       R10 R10 K8 ["enabled"]
       125 JUMPIFEQ                         R9 R10 ; [+3]
       127 LOADB                            R9 0
       128 RETURN                           R9 1
-      129 GETTABLE                         R11 R1 R8
-      130 GETTABLEKS                       R10 R11 K11 ["assetId"]
-      132 GETTABLEKS                       R9 R10 K6 ["value"]
-      134 GETTABLE                         R11 R2 R8
-      135 GETTABLEKS                       R10 R11 K11 ["assetId"]
+      129 GETTABLE                         R9 R1 R8
+      130 GETTABLEKS                       R9 R9 K11 ["assetId"]
+      132 GETTABLEKS                       R9 R9 K6 ["value"]
+      134 GETTABLE                         R10 R2 R8
+      135 GETTABLEKS                       R10 R10 K11 ["assetId"]
       137 JUMPIFEQ                         R9 R10 ; [+3]
       139 LOADB                            R9 0
       140 RETURN                           R9 1
@@ -183,9 +183,9 @@ PROTO_1:
       144 RETURN                           R4 1
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLE                         R4 R5 R0
-        2 GETTABLEKS                       R3 R4 K0 ["value"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLE                         R3 R4 R0
+        2 GETTABLEKS                       R3 R3 K0 ["value"]
         4 JUMPIFNOTEQKNIL                  R3 ; [+2]
         6 LOADB                            R2 0 +1
         7 LOADB                            R2 1
@@ -199,9 +199,9 @@ PROTO_2:
        16 GETIMPORT                        R1 K5 [assert]
        18 CALL                             R1 2 0
        19 GETUPVAL                         R1 2
-       20 GETUPVAL                         R4 0
-       21 GETTABLE                         R3 R4 R0
-       22 GETTABLEKS                       R2 R3 K0 ["value"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLE                         R2 R3 R0
+       22 GETTABLEKS                       R2 R2 K0 ["value"]
        24 SETTABLE                         R2 R1 R0
        25 LOADNIL                          R1
        26 RETURN                           R1 1
@@ -214,10 +214,10 @@ PROTO_3:
         4 RETURN                           R3 1
 
 PROTO_4:
-        0 GETUPVAL                         R6 0
-        1 GETTABLE                         R5 R6 R0
-        2 GETTABLEKS                       R4 R5 K0 ["enabled"]
-        4 GETTABLEKS                       R3 R4 K1 ["value"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLE                         R3 R4 R0
+        2 GETTABLEKS                       R3 R3 K0 ["enabled"]
+        4 GETTABLEKS                       R3 R3 K1 ["value"]
         6 JUMPIFNOTEQKNIL                  R3 ; [+2]
         8 LOADB                            R2 0 +1
         9 LOADB                            R2 1
@@ -230,10 +230,10 @@ PROTO_4:
        16 FASTCALL2                        ASSERT R2 R3 ; [+3]
        18 GETIMPORT                        R1 K6 [assert]
        20 CALL                             R1 2 0
-       21 GETUPVAL                         R6 0
-       22 GETTABLE                         R5 R6 R0
-       23 GETTABLEKS                       R4 R5 K7 ["assetId"]
-       25 GETTABLEKS                       R3 R4 K1 ["value"]
+       21 GETUPVAL                         R4 0
+       22 GETTABLE                         R3 R4 R0
+       23 GETTABLEKS                       R3 R3 K7 ["assetId"]
+       25 GETTABLEKS                       R3 R3 K1 ["value"]
        27 JUMPIFNOTEQKNIL                  R3 ; [+2]
        29 LOADB                            R2 0 +1
        30 LOADB                            R2 1
@@ -248,15 +248,15 @@ PROTO_4:
        41 CALL                             R1 2 0
        42 GETUPVAL                         R1 2
        43 DUPTABLE                         R2 K9 [{"enabled", "assetId"}]
-       44 GETUPVAL                         R6 0
-       45 GETTABLE                         R5 R6 R0
-       46 GETTABLEKS                       R4 R5 K0 ["enabled"]
-       48 GETTABLEKS                       R3 R4 K1 ["value"]
+       44 GETUPVAL                         R4 0
+       45 GETTABLE                         R3 R4 R0
+       46 GETTABLEKS                       R3 R3 K0 ["enabled"]
+       48 GETTABLEKS                       R3 R3 K1 ["value"]
        50 SETTABLEKS                       R3 R2 K0 ["enabled"]
-       52 GETUPVAL                         R6 0
-       53 GETTABLE                         R5 R6 R0
-       54 GETTABLEKS                       R4 R5 K7 ["assetId"]
-       56 GETTABLEKS                       R3 R4 K1 ["value"]
+       52 GETUPVAL                         R4 0
+       53 GETTABLE                         R3 R4 R0
+       54 GETTABLEKS                       R3 R3 K7 ["assetId"]
+       56 GETTABLEKS                       R3 R3 K1 ["value"]
        58 SETTABLEKS                       R3 R2 K7 ["assetId"]
        60 SETTABLE                         R2 R1 R0
        61 RETURN                           R0 0
@@ -269,9 +269,9 @@ PROTO_5:
         4 RETURN                           R3 1
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLE                         R3 R4 R0
-        2 GETTABLEKS                       R2 R3 K0 ["set"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R0
+        2 GETTABLEKS                       R2 R2 K0 ["set"]
         4 LOADK                            R4 K1 ["AvatarSettingsProvider's "]
         5 GETUPVAL                         R5 1
         6 LOADK                            R6 K2 [" table value with "]
@@ -281,9 +281,9 @@ PROTO_6:
        10 FASTCALL2                        ASSERT R2 R3 ; [+3]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLE                         R2 R3 R0
-       17 GETTABLEKS                       R1 R2 K0 ["set"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLE                         R1 R2 R0
+       17 GETTABLEKS                       R1 R1 K0 ["set"]
        19 GETUPVAL                         R3 2
        20 GETTABLE                         R2 R3 R0
        21 CALL                             R1 1 0
@@ -298,10 +298,10 @@ PROTO_7:
         4 RETURN                           R3 1
 
 PROTO_8:
-        0 GETUPVAL                         R5 0
-        1 GETTABLE                         R4 R5 R0
-        2 GETTABLEKS                       R3 R4 K0 ["enabled"]
-        4 GETTABLEKS                       R2 R3 K1 ["set"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R0
+        2 GETTABLEKS                       R2 R2 K0 ["enabled"]
+        4 GETTABLEKS                       R2 R2 K1 ["set"]
         6 LOADK                            R4 K2 ["AvatarSettingsProvider's "]
         7 GETUPVAL                         R5 1
         8 LOADK                            R6 K3 [" table value with "]
@@ -311,10 +311,10 @@ PROTO_8:
        12 FASTCALL2                        ASSERT R2 R3 ; [+3]
        14 GETIMPORT                        R1 K6 [assert]
        16 CALL                             R1 2 0
-       17 GETUPVAL                         R5 0
-       18 GETTABLE                         R4 R5 R0
-       19 GETTABLEKS                       R3 R4 K7 ["assetId"]
-       21 GETTABLEKS                       R2 R3 K1 ["set"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLE                         R2 R3 R0
+       19 GETTABLEKS                       R2 R2 K7 ["assetId"]
+       21 GETTABLEKS                       R2 R2 K1 ["set"]
        23 LOADK                            R4 K2 ["AvatarSettingsProvider's "]
        24 GETUPVAL                         R5 1
        25 LOADK                            R6 K3 [" table value with "]
@@ -324,9 +324,9 @@ PROTO_8:
        29 FASTCALL2                        ASSERT R2 R3 ; [+3]
        31 GETIMPORT                        R1 K6 [assert]
        33 CALL                             R1 2 0
-       34 GETUPVAL                         R5 2
-       35 GETTABLE                         R4 R5 R0
-       36 GETTABLEKS                       R3 R4 K0 ["enabled"]
+       34 GETUPVAL                         R4 2
+       35 GETTABLE                         R3 R4 R0
+       36 GETTABLEKS                       R3 R3 K0 ["enabled"]
        38 JUMPIFNOTEQKNIL                  R3 ; [+2]
        40 LOADB                            R2 0 +1
        41 LOADB                            R2 1
@@ -339,9 +339,9 @@ PROTO_8:
        48 FASTCALL                         ASSERT ; [+2]
        49 GETIMPORT                        R1 K6 [assert]
        51 CALL                             R1 3 0
-       52 GETUPVAL                         R5 2
-       53 GETTABLE                         R4 R5 R0
-       54 GETTABLEKS                       R3 R4 K7 ["assetId"]
+       52 GETUPVAL                         R4 2
+       53 GETTABLE                         R3 R4 R0
+       54 GETTABLEKS                       R3 R3 K7 ["assetId"]
        56 JUMPIFNOTEQKNIL                  R3 ; [+2]
        58 LOADB                            R2 0 +1
        59 LOADB                            R2 1
@@ -354,21 +354,21 @@ PROTO_8:
        66 FASTCALL                         ASSERT ; [+2]
        67 GETIMPORT                        R1 K6 [assert]
        69 CALL                             R1 3 0
-       70 GETUPVAL                         R4 0
-       71 GETTABLE                         R3 R4 R0
-       72 GETTABLEKS                       R2 R3 K0 ["enabled"]
-       74 GETTABLEKS                       R1 R2 K1 ["set"]
-       76 GETUPVAL                         R4 2
-       77 GETTABLE                         R3 R4 R0
-       78 GETTABLEKS                       R2 R3 K0 ["enabled"]
+       70 GETUPVAL                         R2 0
+       71 GETTABLE                         R1 R2 R0
+       72 GETTABLEKS                       R1 R1 K0 ["enabled"]
+       74 GETTABLEKS                       R1 R1 K1 ["set"]
+       76 GETUPVAL                         R3 2
+       77 GETTABLE                         R2 R3 R0
+       78 GETTABLEKS                       R2 R2 K0 ["enabled"]
        80 CALL                             R1 1 0
-       81 GETUPVAL                         R4 0
-       82 GETTABLE                         R3 R4 R0
-       83 GETTABLEKS                       R2 R3 K7 ["assetId"]
-       85 GETTABLEKS                       R1 R2 K1 ["set"]
-       87 GETUPVAL                         R4 2
-       88 GETTABLE                         R3 R4 R0
-       89 GETTABLEKS                       R2 R3 K7 ["assetId"]
+       81 GETUPVAL                         R2 0
+       82 GETTABLE                         R1 R2 R0
+       83 GETTABLEKS                       R1 R1 K7 ["assetId"]
+       85 GETTABLEKS                       R1 R1 K1 ["set"]
+       87 GETUPVAL                         R3 2
+       88 GETTABLE                         R2 R3 R0
+       89 GETTABLEKS                       R2 R2 K7 ["assetId"]
        91 CALL                             R1 1 0
        92 RETURN                           R0 0
 
@@ -386,11 +386,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R6 R0 K6 ["Src"]
-       11 GETTABLEKS                       R5 R6 K7 ["Components"]
-       13 GETTABLEKS                       R4 R5 K8 ["Contexts"]
-       15 GETTABLEKS                       R3 R4 K9 ["PublishProvider"]
-       17 GETTABLEKS                       R2 R3 K10 ["PublishedSettingsTypes"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["PublishProvider"]
+       17 GETTABLEKS                       R2 R2 K10 ["PublishedSettingsTypes"]
        19 CALL                             R1 1 1
        20 NEWTABLE                         R2 8 0
        22 DUPCLOSURE                       R3 K11 [PROTO_0]

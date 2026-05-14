@@ -40,24 +40,24 @@ PROTO_2:
         2 LOADNIL                          R3
         3 FORGPREP                         R1
         4 GETTABLEKS                       R6 R5 K0 ["Name"]
-        6 GETUPVAL                         R8 0
-        7 GETTABLEKS                       R7 R8 K1 ["CursorGroupName"]
+        6 GETUPVAL                         R7 0
+        7 GETTABLEKS                       R7 R7 K1 ["CursorGroupName"]
         9 JUMPIFNOTEQ                      R6 R7 ; [+2]
        11 RETURN                           R5 1
        12 FORGLOOP                         R1 2 ; [-9]
        14 DUPTABLE                         R1 K5 [{"Name", "Id", "Virtual", "Collisions"}]
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K1 ["CursorGroupName"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K1 ["CursorGroupName"]
        18 SETTABLEKS                       R2 R1 K0 ["Name"]
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K1 ["CursorGroupName"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K1 ["CursorGroupName"]
        23 SETTABLEKS                       R2 R1 K2 ["Id"]
        25 LOADB                            R2 1
        26 SETTABLEKS                       R2 R1 K3 ["Virtual"]
        28 NEWTABLE                         R2 0 1
        30 DUPTABLE                         R3 K7 [{"Name", "Collides"}]
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R4 R5 K1 ["CursorGroupName"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K1 ["CursorGroupName"]
        34 SETTABLEKS                       R4 R3 K0 ["Name"]
        36 LOADB                            R4 1
        37 SETTABLEKS                       R4 R3 K6 ["Collides"]
@@ -78,8 +78,8 @@ PROTO_2:
        61 CALL                             R7 2 0
        62 GETTABLEKS                       R8 R6 K4 ["Collisions"]
        64 DUPTABLE                         R9 K7 [{"Name", "Collides"}]
-       65 GETUPVAL                         R11 0
-       66 GETTABLEKS                       R10 R11 K1 ["CursorGroupName"]
+       65 GETUPVAL                         R10 0
+       66 GETTABLEKS                       R10 R10 K1 ["CursorGroupName"]
        68 SETTABLEKS                       R10 R9 K0 ["Name"]
        70 LOADB                            R10 1
        71 SETTABLEKS                       R10 R9 K6 ["Collides"]
@@ -184,9 +184,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R4 K7 [script]
-       11 GETTABLEKS                       R3 R4 K8 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K9 ["Constants"]
+        9 GETIMPORT                        R2 K7 [script]
+       11 GETTABLEKS                       R2 R2 K8 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K9 ["Constants"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K10 [PROTO_0]
        17 CAPTURE                          VAL R0

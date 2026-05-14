@@ -16,11 +16,11 @@ PROTO_2:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["GetPositionOnCurve"]
         3 CALL                             R2 2 1
-        4 GETTABLEKS                       R4 R2 K1 ["X"]
-        6 GETTABLEKS                       R3 R4 K2 ["Scale"]
+        4 GETTABLEKS                       R3 R2 K1 ["X"]
+        6 GETTABLEKS                       R3 R3 K2 ["Scale"]
         8 JUMPIFNOTEQKN                    R3 K3 [0] ; [+8]
-       10 GETTABLEKS                       R4 R2 K4 ["Y"]
-       12 GETTABLEKS                       R3 R4 K2 ["Scale"]
+       10 GETTABLEKS                       R3 R2 K4 ["Y"]
+       12 GETTABLEKS                       R3 R3 K2 ["Scale"]
        14 JUMPIFNOTEQKN                    R3 K3 [0] ; [+2]
        16 RETURN                           R2 1
        17 GETTABLEKS                       R3 R0 K5 ["Parent"]
@@ -35,17 +35,17 @@ PROTO_2:
        30 MOVE                             R3 R5
        31 JUMPIFNOT                        R3 ; [+26]
        32 GETIMPORT                        R3 K11 [UDim2.fromOffset]
-       34 GETTABLEKS                       R6 R2 K1 ["X"]
-       36 GETTABLEKS                       R5 R6 K2 ["Scale"]
-       38 GETTABLEKS                       R8 R0 K5 ["Parent"]
-       40 GETTABLEKS                       R7 R8 K8 ["AbsoluteSize"]
-       42 GETTABLEKS                       R6 R7 K12 ["x"]
+       34 GETTABLEKS                       R5 R2 K1 ["X"]
+       36 GETTABLEKS                       R5 R5 K2 ["Scale"]
+       38 GETTABLEKS                       R6 R0 K5 ["Parent"]
+       40 GETTABLEKS                       R6 R6 K8 ["AbsoluteSize"]
+       42 GETTABLEKS                       R6 R6 K12 ["x"]
        44 MUL                              R4 R5 R6
-       45 GETTABLEKS                       R7 R2 K4 ["Y"]
-       47 GETTABLEKS                       R6 R7 K2 ["Scale"]
-       49 GETTABLEKS                       R9 R0 K5 ["Parent"]
-       51 GETTABLEKS                       R8 R9 K8 ["AbsoluteSize"]
-       53 GETTABLEKS                       R7 R8 K13 ["y"]
+       45 GETTABLEKS                       R6 R2 K4 ["Y"]
+       47 GETTABLEKS                       R6 R6 K2 ["Scale"]
+       49 GETTABLEKS                       R7 R0 K5 ["Parent"]
+       51 GETTABLEKS                       R7 R7 K8 ["AbsoluteSize"]
+       53 GETTABLEKS                       R7 R7 K13 ["y"]
        55 MUL                              R5 R6 R7
        56 CALL                             R3 2 -1
        57 RETURN                           R3 -1

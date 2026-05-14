@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["TextureSettings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["TextureSettings"]
         6 GETTABLEKS                       R2 R0 K2 ["dispatchSetExpandedPane"]
         8 MOVE                             R3 R1
         9 GETTABLEKS                       R5 R0 K3 ["ExpandedPane"]
@@ -19,22 +19,22 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["TextureSettings"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["TextureSettings"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
         8 GETTABLEKS                       R4 R1 K4 ["PBRMaterial"]
        10 JUMPIF                           R4 ; [+6]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K5 ["createElement"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K5 ["createElement"]
        14 GETUPVAL                         R5 1
        15 CALL                             R4 1 -1
        16 RETURN                           R4 -1
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R4 R5 K6 ["new"]
+       17 GETUPVAL                         R4 2
+       18 GETTABLEKS                       R4 R4 K6 ["new"]
        20 CALL                             R4 0 1
        21 DUPTABLE                         R5 K12 [{"ImportColorMap", "ImportMetalnessMap", "ImportNormalMap", "ImportRoughnessMap", "ImportEmissiveMask"}]
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       22 GETUPVAL                         R6 0
+       23 GETTABLEKS                       R6 R6 K5 ["createElement"]
        25 GETUPVAL                         R7 3
        26 DUPTABLE                         R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
        27 NAMECALL                         R9 R4 K21 ["getNextOrder"]
@@ -44,8 +44,8 @@ PROTO_2:
        34 SETTABLEKS                       R9 R8 K14 ["LabelColumnWidth"]
        36 GETTABLEKS                       R9 R2 K15 ["LabelWidth"]
        38 SETTABLEKS                       R9 R8 K15 ["LabelWidth"]
-       40 GETUPVAL                         R10 4
-       41 GETTABLEKS                       R9 R10 K22 ["ColorMap"]
+       40 GETUPVAL                         R9 4
+       41 GETTABLEKS                       R9 R9 K22 ["ColorMap"]
        43 SETTABLEKS                       R9 R8 K16 ["MapType"]
        45 LOADK                            R11 K23 ["Import"]
        46 LOADK                            R12 K24 ["ColorMapPreview"]
@@ -63,8 +63,8 @@ PROTO_2:
        65 SETTABLEKS                       R9 R8 K19 ["ColumnWidth"]
        67 CALL                             R6 2 1
        68 SETTABLEKS                       R6 R5 K7 ["ImportColorMap"]
-       70 GETUPVAL                         R7 0
-       71 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       70 GETUPVAL                         R6 0
+       71 GETTABLEKS                       R6 R6 K5 ["createElement"]
        73 GETUPVAL                         R7 3
        74 DUPTABLE                         R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
        75 NAMECALL                         R9 R4 K21 ["getNextOrder"]
@@ -74,8 +74,8 @@ PROTO_2:
        82 SETTABLEKS                       R9 R8 K14 ["LabelColumnWidth"]
        84 GETTABLEKS                       R9 R2 K15 ["LabelWidth"]
        86 SETTABLEKS                       R9 R8 K15 ["LabelWidth"]
-       88 GETUPVAL                         R10 4
-       89 GETTABLEKS                       R9 R10 K27 ["MetalnessMap"]
+       88 GETUPVAL                         R9 4
+       89 GETTABLEKS                       R9 R9 K27 ["MetalnessMap"]
        91 SETTABLEKS                       R9 R8 K16 ["MapType"]
        93 LOADK                            R11 K23 ["Import"]
        94 LOADK                            R12 K28 ["MetalnessMapPreview"]
@@ -93,8 +93,8 @@ PROTO_2:
       113 SETTABLEKS                       R9 R8 K19 ["ColumnWidth"]
       115 CALL                             R6 2 1
       116 SETTABLEKS                       R6 R5 K8 ["ImportMetalnessMap"]
-      118 GETUPVAL                         R7 0
-      119 GETTABLEKS                       R6 R7 K5 ["createElement"]
+      118 GETUPVAL                         R6 0
+      119 GETTABLEKS                       R6 R6 K5 ["createElement"]
       121 GETUPVAL                         R7 3
       122 DUPTABLE                         R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
       123 NAMECALL                         R9 R4 K21 ["getNextOrder"]
@@ -104,8 +104,8 @@ PROTO_2:
       130 SETTABLEKS                       R9 R8 K14 ["LabelColumnWidth"]
       132 GETTABLEKS                       R9 R2 K15 ["LabelWidth"]
       134 SETTABLEKS                       R9 R8 K15 ["LabelWidth"]
-      136 GETUPVAL                         R10 4
-      137 GETTABLEKS                       R9 R10 K29 ["NormalMap"]
+      136 GETUPVAL                         R9 4
+      137 GETTABLEKS                       R9 R9 K29 ["NormalMap"]
       139 SETTABLEKS                       R9 R8 K16 ["MapType"]
       141 LOADK                            R11 K23 ["Import"]
       142 LOADK                            R12 K30 ["NormalMapPreview"]
@@ -123,8 +123,8 @@ PROTO_2:
       161 SETTABLEKS                       R9 R8 K19 ["ColumnWidth"]
       163 CALL                             R6 2 1
       164 SETTABLEKS                       R6 R5 K9 ["ImportNormalMap"]
-      166 GETUPVAL                         R7 0
-      167 GETTABLEKS                       R6 R7 K5 ["createElement"]
+      166 GETUPVAL                         R6 0
+      167 GETTABLEKS                       R6 R6 K5 ["createElement"]
       169 GETUPVAL                         R7 3
       170 DUPTABLE                         R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
       171 NAMECALL                         R9 R4 K21 ["getNextOrder"]
@@ -134,8 +134,8 @@ PROTO_2:
       178 SETTABLEKS                       R9 R8 K14 ["LabelColumnWidth"]
       180 GETTABLEKS                       R9 R2 K15 ["LabelWidth"]
       182 SETTABLEKS                       R9 R8 K15 ["LabelWidth"]
-      184 GETUPVAL                         R10 4
-      185 GETTABLEKS                       R9 R10 K31 ["RoughnessMap"]
+      184 GETUPVAL                         R9 4
+      185 GETTABLEKS                       R9 R9 K31 ["RoughnessMap"]
       187 SETTABLEKS                       R9 R8 K16 ["MapType"]
       189 LOADK                            R11 K23 ["Import"]
       190 LOADK                            R12 K32 ["RoughnessMapPreview"]
@@ -156,8 +156,8 @@ PROTO_2:
       214 GETUPVAL                         R7 5
       215 CALL                             R7 0 1
       216 JUMPIFNOT                        R7 ; [+47]
-      217 GETUPVAL                         R7 0
-      218 GETTABLEKS                       R6 R7 K5 ["createElement"]
+      217 GETUPVAL                         R6 0
+      218 GETTABLEKS                       R6 R6 K5 ["createElement"]
       220 GETUPVAL                         R7 3
       221 DUPTABLE                         R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
       222 NAMECALL                         R9 R4 K21 ["getNextOrder"]
@@ -167,8 +167,8 @@ PROTO_2:
       229 SETTABLEKS                       R9 R8 K14 ["LabelColumnWidth"]
       231 GETTABLEKS                       R9 R2 K15 ["LabelWidth"]
       233 SETTABLEKS                       R9 R8 K15 ["LabelWidth"]
-      235 GETUPVAL                         R10 4
-      236 GETTABLEKS                       R9 R10 K33 ["EmissiveMaskContent"]
+      235 GETUPVAL                         R9 4
+      236 GETTABLEKS                       R9 R9 K33 ["EmissiveMaskContent"]
       238 SETTABLEKS                       R9 R8 K16 ["MapType"]
       240 LOADK                            R11 K23 ["Import"]
       241 LOADK                            R12 K34 ["EmissiveMaskPreview"]
@@ -190,8 +190,8 @@ PROTO_2:
       265 SETTABLEKS                       R6 R5 K11 ["ImportEmissiveMask"]
       267 GETTABLEKS                       R6 R1 K35 ["Expandable"]
       269 JUMPIFNOT                        R6 ; [+39]
-      270 GETUPVAL                         R7 0
-      271 GETTABLEKS                       R6 R7 K5 ["createElement"]
+      270 GETUPVAL                         R6 0
+      271 GETTABLEKS                       R6 R6 K5 ["createElement"]
       273 GETUPVAL                         R7 6
       274 DUPTABLE                         R8 K41 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
       275 GETTABLEKS                       R9 R1 K13 ["LayoutOrder"]
@@ -214,8 +214,8 @@ PROTO_2:
       306 MOVE                             R9 R5
       307 CALL                             R6 3 -1
       308 RETURN                           R6 -1
-      309 GETUPVAL                         R7 0
-      310 GETTABLEKS                       R6 R7 K5 ["createElement"]
+      309 GETUPVAL                         R6 0
+      310 GETTABLEKS                       R6 R6 K5 ["createElement"]
       312 GETUPVAL                         R7 1
       313 DUPTABLE                         R8 K52 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "HorizontalAlignment"}]
       314 GETIMPORT                        R9 K55 [Enum.AutomaticSize.Y]
@@ -234,10 +234,10 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R1 K1 [{"ExpandedPane"}]
-        1 GETTABLEKS                       R4 R0 K2 ["MaterialBrowserReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["ExpandedPane"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K3 ["TextureSettings"]
+        1 GETTABLEKS                       R3 R0 K2 ["MaterialBrowserReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["ExpandedPane"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K3 ["TextureSettings"]
         8 GETTABLE                         R2 R3 R4
         9 SETTABLEKS                       R2 R1 K0 ["ExpandedPane"]
        11 RETURN                           R1 1
@@ -261,33 +261,33 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       17 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       15 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       17 GETTABLEKS                       R2 R2 K6 ["Roact"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       22 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       29 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K8 ["Framework"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R7 R0 K9 ["Src"]
-       38 GETTABLEKS                       R6 R7 K10 ["Flags"]
-       40 GETTABLEKS                       R5 R6 K11 ["getEFEnableEmissiveMask"]
+       36 GETTABLEKS                       R5 R0 K9 ["Src"]
+       38 GETTABLEKS                       R5 R5 K10 ["Flags"]
+       40 GETTABLEKS                       R5 R5 K11 ["getEFEnableEmissiveMask"]
        42 CALL                             R4 1 1
-       43 GETTABLEKS                       R6 R3 K12 ["Util"]
-       45 GETTABLEKS                       R5 R6 K13 ["LayoutOrderIterator"]
-       47 GETTABLEKS                       R7 R3 K14 ["Style"]
-       49 GETTABLEKS                       R6 R7 K15 ["Stylizer"]
+       43 GETTABLEKS                       R5 R3 K12 ["Util"]
+       45 GETTABLEKS                       R5 R5 K13 ["LayoutOrderIterator"]
+       47 GETTABLEKS                       R6 R3 K14 ["Style"]
+       49 GETTABLEKS                       R6 R6 K15 ["Stylizer"]
        51 GETTABLEKS                       R7 R3 K16 ["ContextServices"]
        53 GETTABLEKS                       R8 R7 K17 ["withContext"]
        55 GETTABLEKS                       R9 R7 K18 ["Analytics"]
@@ -295,26 +295,26 @@ MAIN:
        59 GETTABLEKS                       R11 R3 K20 ["UI"]
        61 GETTABLEKS                       R12 R11 K21 ["Pane"]
        63 GETTABLEKS                       R13 R11 K22 ["ExpandablePane"]
-       65 GETTABLEKS                       R15 R0 K9 ["Src"]
-       67 GETTABLEKS                       R14 R15 K23 ["Actions"]
+       65 GETTABLEKS                       R14 R0 K9 ["Src"]
+       67 GETTABLEKS                       R14 R14 K23 ["Actions"]
        69 GETIMPORT                        R15 K4 [require]
        71 GETTABLEKS                       R16 R14 K24 ["SetExpandedPane"]
        73 CALL                             R15 1 1
        74 GETIMPORT                        R16 K4 [require]
-       76 GETTABLEKS                       R19 R0 K9 ["Src"]
-       78 GETTABLEKS                       R18 R19 K25 ["Reducers"]
-       80 GETTABLEKS                       R17 R18 K26 ["MainReducer"]
+       76 GETTABLEKS                       R17 R0 K9 ["Src"]
+       78 GETTABLEKS                       R17 R17 K25 ["Reducers"]
+       80 GETTABLEKS                       R17 R17 K26 ["MainReducer"]
        82 CALL                             R16 1 1
        83 GETIMPORT                        R17 K4 [require]
-       85 GETTABLEKS                       R22 R0 K9 ["Src"]
-       87 GETTABLEKS                       R21 R22 K27 ["Components"]
-       89 GETTABLEKS                       R20 R21 K28 ["MaterialBrowser"]
-       91 GETTABLEKS                       R19 R20 K29 ["MaterialEditor"]
-       93 GETTABLEKS                       R18 R19 K30 ["TextureMapSelector"]
+       85 GETTABLEKS                       R18 R0 K9 ["Src"]
+       87 GETTABLEKS                       R18 R18 K27 ["Components"]
+       89 GETTABLEKS                       R18 R18 K28 ["MaterialBrowser"]
+       91 GETTABLEKS                       R18 R18 K29 ["MaterialEditor"]
+       93 GETTABLEKS                       R18 R18 K30 ["TextureMapSelector"]
        95 CALL                             R17 1 1
-       96 GETTABLEKS                       R20 R0 K9 ["Src"]
-       98 GETTABLEKS                       R19 R20 K31 ["Resources"]
-      100 GETTABLEKS                       R18 R19 K32 ["Constants"]
+       96 GETTABLEKS                       R18 R0 K9 ["Src"]
+       98 GETTABLEKS                       R18 R18 K31 ["Resources"]
+      100 GETTABLEKS                       R18 R18 K32 ["Constants"]
       102 GETIMPORT                        R19 K4 [require]
       104 GETTABLEKS                       R20 R18 K33 ["getSettingsNames"]
       106 CALL                             R19 1 1

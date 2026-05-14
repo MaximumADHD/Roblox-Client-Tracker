@@ -19,8 +19,8 @@ PROTO_0:
        20 GETUPVAL                         R0 4
        21 CALL                             R0 0 1
        22 JUMPIFNOT                        R0 ; [+15]
-       23 GETUPVAL                         R1 5
-       24 GETTABLEKS                       R0 R1 K3 ["autoAll"]
+       23 GETUPVAL                         R0 5
+       24 GETTABLEKS                       R0 R0 K3 ["autoAll"]
        26 GETUPVAL                         R1 2
        27 GETUPVAL                         R2 3
        28 GETUPVAL                         R3 0
@@ -32,8 +32,8 @@ PROTO_0:
        34 NAMECALL                         R0 R0 K4 ["SetAttribute"]
        36 CALL                             R0 3 0
        37 RETURN                           R0 0
-       38 GETUPVAL                         R1 5
-       39 GETTABLEKS                       R0 R1 K3 ["autoAll"]
+       38 GETUPVAL                         R0 5
+       39 GETTABLEKS                       R0 R0 K3 ["autoAll"]
        41 GETUPVAL                         R1 2
        42 GETUPVAL                         R2 3
        43 CALL                             R0 2 0
@@ -91,17 +91,17 @@ PROTO_0:
       115 LOADK                            R10 K26 ["RightHandDescription"]
       116 SETTABLEKS                       R10 R9 K27 ["Name"]
       118 MOVE                             R7 R9
-      119 GETUPVAL                         R10 5
-      120 GETTABLEKS                       R9 R10 K28 ["autoMapHand"]
+      119 GETUPVAL                         R9 5
+      120 GETTABLEKS                       R9 R9 K28 ["autoMapHand"]
       122 MOVE                             R10 R7
       123 GETUPVAL                         R11 2
-      124 GETUPVAL                         R13 5
-      125 GETTABLEKS                       R12 R13 K29 ["handRigLabels"]
+      124 GETUPVAL                         R12 5
+      125 GETTABLEKS                       R12 R12 K29 ["handRigLabels"]
       127 CALL                             R9 3 0
       128 JUMPIFNOT                        R8 ; [+20]
       129 LOADB                            R9 0
-      130 GETUPVAL                         R13 5
-      131 GETTABLEKS                       R10 R13 K29 ["handRigLabels"]
+      130 GETUPVAL                         R10 5
+      131 GETTABLEKS                       R10 R10 K29 ["handRigLabels"]
       133 LOADNIL                          R11
       134 LOADNIL                          R12
       135 FORGPREP                         R10
@@ -123,19 +123,19 @@ PROTO_0:
       156 CALL                             R0 3 0
       157 GETUPVAL                         R0 1
       158 JUMPIFNOTEQKS                    R0 K0 ["preview"] ; [+11]
-      160 GETUPVAL                         R1 7
-      161 GETTABLEKS                       R0 R1 K31 ["SIZE_ENABLED"]
+      160 GETUPVAL                         R0 7
+      161 GETTABLEKS                       R0 R0 K31 ["SIZE_ENABLED"]
       163 JUMPIFNOT                        R0 ; [+6]
-      164 GETUPVAL                         R1 5
-      165 GETTABLEKS                       R0 R1 K32 ["autoSize"]
+      164 GETUPVAL                         R0 5
+      165 GETTABLEKS                       R0 R0 K32 ["autoSize"]
       167 GETUPVAL                         R1 2
       168 GETUPVAL                         R2 3
       169 CALL                             R0 2 0
       170 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["useEffect"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["useEffect"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -162,32 +162,32 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["AdaptiveAnimationTools"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["AdaptiveAnimationTools"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       27 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       27 GETTABLEKS                       R4 R4 K11 ["Constants"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       36 GETTABLEKS                       R5 R6 K13 ["getFFlagAdaptiveAnimationHandRig"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       36 GETTABLEKS                       R5 R5 K13 ["getFFlagAdaptiveAnimationHandRig"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K9 ["Src"]
-       43 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       45 GETTABLEKS                       R6 R7 K14 ["getFFlagAdaptiveAnimationBetaImprovements"]
+       41 GETTABLEKS                       R6 R0 K9 ["Src"]
+       43 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K14 ["getFFlagAdaptiveAnimationBetaImprovements"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K9 ["Src"]
-       52 GETTABLEKS                       R8 R9 K12 ["Flags"]
-       54 GETTABLEKS                       R7 R8 K15 ["getFFlagAdaptiveAnimationAutomapperFix"]
+       50 GETTABLEKS                       R7 R0 K9 ["Src"]
+       52 GETTABLEKS                       R7 R7 K12 ["Flags"]
+       54 GETTABLEKS                       R7 R7 K15 ["getFFlagAdaptiveAnimationAutomapperFix"]
        56 CALL                             R6 1 1
        57 DUPCLOSURE                       R7 K16 [PROTO_1]
        58 CAPTURE                          VAL R1

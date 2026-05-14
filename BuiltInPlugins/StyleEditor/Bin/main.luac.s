@@ -13,19 +13,19 @@ PROTO_1:
         0 GETIMPORT                        R2 K2 [os.clock]
         2 CALL                             R2 0 1
         3 GETIMPORT                        R3 K4 [require]
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R5 R6 K5 ["Packages"]
-        8 GETTABLEKS                       R4 R5 K6 ["React"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K5 ["Packages"]
+        8 GETTABLEKS                       R4 R4 K6 ["React"]
        10 CALL                             R3 1 1
        11 GETIMPORT                        R4 K4 [require]
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K5 ["Packages"]
-       16 GETTABLEKS                       R5 R6 K7 ["ReactRoblox"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K5 ["Packages"]
+       16 GETTABLEKS                       R5 R5 K7 ["ReactRoblox"]
        18 CALL                             R4 1 1
        19 GETIMPORT                        R5 K4 [require]
-       21 GETUPVAL                         R8 0
-       22 GETTABLEKS                       R7 R8 K8 ["Src"]
-       24 GETTABLEKS                       R6 R7 K9 ["MainPlugin"]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K8 ["Src"]
+       24 GETTABLEKS                       R6 R6 K9 ["MainPlugin"]
        26 CALL                             R5 1 1
        27 GETTABLEKS                       R6 R3 K10 ["createElement"]
        29 MOVE                             R7 R5
@@ -53,9 +53,9 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 DUPCLOSURE                       R1 K3 [PROTO_1]
         8 CAPTURE                          VAL R0
         9 RETURN                           R1 1

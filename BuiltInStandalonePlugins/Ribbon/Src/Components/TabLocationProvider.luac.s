@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Plugin"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Plugin"]
         3 LOADK                            R2 K1 ["TabLocation"]
         4 NAMECALL                         R0 R0 K2 ["GetSetting"]
         6 CALL                             R0 2 1
@@ -14,8 +14,8 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["Id"]
         3 CALL                             R1 1 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         7 LOADK                            R3 K2 ["TabLocation"]
         8 GETTABLEKS                       R4 R0 K0 ["Id"]
        10 NAMECALL                         R1 R1 K3 ["SetSetting"]
@@ -38,10 +38,10 @@ PROTO_2:
        13 CAPTURE                          VAL R0
        14 NEWTABLE                         R5 0 0
        16 CALL                             R3 2 1
-       17 GETUPVAL                         R5 3
-       18 GETTABLEKS                       R4 R5 K1 ["createElement"]
-       20 GETUPVAL                         R6 4
-       21 GETTABLEKS                       R5 R6 K2 ["Provider"]
+       17 GETUPVAL                         R4 3
+       18 GETTABLEKS                       R4 R4 K1 ["createElement"]
+       20 GETUPVAL                         R5 4
+       21 GETTABLEKS                       R5 R5 K2 ["Provider"]
        23 DUPTABLE                         R6 K4 [{"value"}]
        24 DUPTABLE                         R7 K7 [{"current", "setTabLocation"}]
        25 SETTABLEKS                       R1 R7 K5 ["current"]
@@ -58,16 +58,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useCallback"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]
        18 GETTABLEKS                       R4 R1 K10 ["useState"]
        20 GETIMPORT                        R5 K5 [require]
-       22 GETTABLEKS                       R8 R0 K11 ["Src"]
-       24 GETTABLEKS                       R7 R8 K12 ["Contexts"]
-       26 GETTABLEKS                       R6 R7 K13 ["TabLocation"]
+       22 GETTABLEKS                       R6 R0 K11 ["Src"]
+       24 GETTABLEKS                       R6 R6 K12 ["Contexts"]
+       26 GETTABLEKS                       R6 R6 K13 ["TabLocation"]
        28 CALL                             R5 1 1
        29 DUPCLOSURE                       R6 K14 [PROTO_2]
        30 CAPTURE                          VAL R4

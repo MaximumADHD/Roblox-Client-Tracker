@@ -14,8 +14,8 @@ PROTO_0:
        14 GETUPVAL                         R2 2
        15 GETUPVAL                         R4 3
        16 GETUPVAL                         R5 4
-       17 GETUPVAL                         R7 5
-       18 GETTABLEKS                       R6 R7 K5 ["SaveFailed"]
+       17 GETUPVAL                         R6 5
+       18 GETTABLEKS                       R6 R6 K5 ["SaveFailed"]
        20 CALL                             R4 2 -1
        21 NAMECALL                         R2 R2 K6 ["dispatch"]
        23 CALL                             R2 -1 0
@@ -31,8 +31,8 @@ PROTO_0:
        34 GETUPVAL                         R2 2
        35 GETUPVAL                         R4 3
        36 GETUPVAL                         R5 4
-       37 GETUPVAL                         R7 5
-       38 GETTABLEKS                       R6 R7 K8 ["Saved"]
+       37 GETUPVAL                         R6 5
+       38 GETTABLEKS                       R6 R6 K8 ["Saved"]
        40 CALL                             R4 2 -1
        41 NAMECALL                         R2 R2 K6 ["dispatch"]
        43 CALL                             R2 -1 0
@@ -45,8 +45,8 @@ PROTO_1:
         3 CALL                             R2 2 1
         4 GETUPVAL                         R5 1
         5 GETUPVAL                         R6 2
-        6 GETUPVAL                         R8 3
-        7 GETTABLEKS                       R7 R8 K0 ["Saving"]
+        6 GETUPVAL                         R7 3
+        7 GETTABLEKS                       R7 R7 K0 ["Saving"]
         9 CALL                             R5 2 -1
        10 NAMECALL                         R3 R0 K1 ["dispatch"]
        12 CALL                             R3 -1 0
@@ -82,19 +82,19 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetPageSaveState"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetPageSaveState"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Util"]
-       24 GETTABLEKS                       R3 R4 K9 ["SaveState"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Util"]
+       24 GETTABLEKS                       R3 R3 K9 ["SaveState"]
        26 CALL                             R2 1 1
        27 DUPCLOSURE                       R3 K10 [PROTO_2]
        28 CAPTURE                          VAL R1

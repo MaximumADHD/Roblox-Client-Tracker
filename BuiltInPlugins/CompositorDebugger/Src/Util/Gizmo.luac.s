@@ -1,16 +1,16 @@
 PROTO_0:
         0 MOVE                             R1 R0
         1 JUMPIFNOT                        R1 ; [+8]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["FOLDERS"]
-        5 GETTABLEKS                       R3 R4 K1 ["CompositorDebugger"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["FOLDERS"]
+        5 GETTABLEKS                       R3 R3 K1 ["CompositorDebugger"]
         7 NAMECALL                         R1 R0 K2 ["FindFirstChild"]
         9 CALL                             R1 2 1
        10 MOVE                             R2 R1
        11 JUMPIFNOT                        R2 ; [+8]
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K0 ["FOLDERS"]
-       15 GETTABLEKS                       R4 R5 K3 ["Gizmos"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K0 ["FOLDERS"]
+       15 GETTABLEKS                       R4 R4 K3 ["Gizmos"]
        17 NAMECALL                         R2 R1 K2 ["FindFirstChild"]
        19 CALL                             R2 2 1
        20 RETURN                           R2 1
@@ -23,16 +23,16 @@ PROTO_1:
         7 CALL                             R2 2 1
         8 MOVE                             R4 R0
         9 JUMPIFNOT                        R4 ; [+8]
-       10 GETUPVAL                         R8 1
-       11 GETTABLEKS                       R7 R8 K2 ["FOLDERS"]
-       13 GETTABLEKS                       R6 R7 K3 ["CompositorDebugger"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K2 ["FOLDERS"]
+       13 GETTABLEKS                       R6 R6 K3 ["CompositorDebugger"]
        15 NAMECALL                         R4 R0 K4 ["FindFirstChild"]
        17 CALL                             R4 2 1
        18 MOVE                             R5 R4
        19 JUMPIFNOT                        R5 ; [+8]
-       20 GETUPVAL                         R9 1
-       21 GETTABLEKS                       R8 R9 K2 ["FOLDERS"]
-       23 GETTABLEKS                       R7 R8 K5 ["Gizmos"]
+       20 GETUPVAL                         R7 1
+       21 GETTABLEKS                       R7 R7 K2 ["FOLDERS"]
+       23 GETTABLEKS                       R7 R7 K5 ["Gizmos"]
        25 NAMECALL                         R5 R4 K4 ["FindFirstChild"]
        27 CALL                             R5 2 1
        28 MOVE                             R3 R5
@@ -107,8 +107,8 @@ PROTO_2:
        45 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["gizmoInstance"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["gizmoInstance"]
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 NAMECALL                         R0 R0 K1 ["AddLine"]
@@ -138,8 +138,8 @@ PROTO_5:
        11 JUMP                             ; [+1]
        12 GETUPVAL                         R0 0
        13 GETUPVAL                         R1 1
-       14 GETUPVAL                         R3 2
-       15 GETTABLEKS                       R2 R3 K6 ["gizmoInstance"]
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R2 R2 K6 ["gizmoInstance"]
        17 GETTABLEKS                       R3 R0 K7 ["Position"]
        19 GETUPVAL                         R4 3
        20 GETTABLEKS                       R6 R0 K8 ["Rotation"]
@@ -147,8 +147,8 @@ PROTO_5:
        23 MUL                              R5 R6 R7
        24 CALL                             R1 4 0
        25 GETUPVAL                         R1 1
-       26 GETUPVAL                         R3 2
-       27 GETTABLEKS                       R2 R3 K6 ["gizmoInstance"]
+       26 GETUPVAL                         R2 2
+       27 GETTABLEKS                       R2 R2 K6 ["gizmoInstance"]
        29 GETTABLEKS                       R3 R0 K7 ["Position"]
        31 GETUPVAL                         R4 3
        32 GETTABLEKS                       R6 R0 K8 ["Rotation"]
@@ -156,8 +156,8 @@ PROTO_5:
        35 MUL                              R5 R6 R7
        36 CALL                             R1 4 0
        37 GETUPVAL                         R1 1
-       38 GETUPVAL                         R3 2
-       39 GETTABLEKS                       R2 R3 K6 ["gizmoInstance"]
+       38 GETUPVAL                         R2 2
+       39 GETTABLEKS                       R2 R2 K6 ["gizmoInstance"]
        41 GETTABLEKS                       R3 R0 K7 ["Position"]
        43 GETUPVAL                         R4 3
        44 GETTABLEKS                       R6 R0 K8 ["Rotation"]
@@ -191,9 +191,9 @@ PROTO_7:
        10 CALL                             R8 3 1
        11 JUMPIFNOT                        R8 ; [+10]
        12 GETTABLEKS                       R11 R8 K1 ["ModelCFrame"]
-       14 GETUPVAL                         R14 1
-       15 GETTABLEKS                       R13 R14 K2 ["GIZMOS"]
-       17 GETTABLEKS                       R12 R13 K3 ["SphereRadius"]
+       14 GETUPVAL                         R12 1
+       15 GETTABLEKS                       R12 R12 K2 ["GIZMOS"]
+       17 GETTABLEKS                       R12 R12 K3 ["SphereRadius"]
        19 NAMECALL                         R9 R0 K4 ["DrawSphere"]
        21 CALL                             R9 3 0
        22 FORGLOOP                         R3 2 ; [-17]
@@ -211,10 +211,10 @@ PROTO_7:
        37 CALL                             R9 3 1
        38 JUMPIFNOT                        R8 ; [+12]
        39 JUMPIFNOT                        R9 ; [+11]
-       40 GETTABLEKS                       R13 R8 K1 ["ModelCFrame"]
-       42 GETTABLEKS                       R12 R13 K5 ["Position"]
-       44 GETTABLEKS                       R14 R9 K1 ["ModelCFrame"]
-       46 GETTABLEKS                       R13 R14 K5 ["Position"]
+       40 GETTABLEKS                       R12 R8 K1 ["ModelCFrame"]
+       42 GETTABLEKS                       R12 R12 K5 ["Position"]
+       44 GETTABLEKS                       R13 R9 K1 ["ModelCFrame"]
+       46 GETTABLEKS                       R13 R13 K5 ["Position"]
        48 NAMECALL                         R10 R0 K6 ["DrawLine"]
        50 CALL                             R10 3 0
        51 FORGLOOP                         R3 2 ; [-24]
@@ -261,79 +261,79 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AnimationEditor"]
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["Constants"]
-       16 NEWTABLE                         R3 0 15
-       18 LOADK                            R4 K9 ["Head"]
-       19 LOADK                            R5 K10 ["UpperTorso"]
-       20 LOADK                            R6 K11 ["LowerTorso"]
-       21 LOADK                            R7 K12 ["LeftHand"]
-       22 LOADK                            R8 K13 ["LeftLowerArm"]
-       23 LOADK                            R9 K14 ["LeftUpperArm"]
-       24 LOADK                            R10 K15 ["RightHand"]
-       25 LOADK                            R11 K16 ["RightLowerArm"]
-       26 LOADK                            R12 K17 ["RightUpperArm"]
-       27 LOADK                            R13 K18 ["LeftFoot"]
-       28 LOADK                            R14 K19 ["LeftLowerLeg"]
-       29 LOADK                            R15 K20 ["LeftUpperLeg"]
-       30 LOADK                            R16 K21 ["RightFoot"]
-       31 LOADK                            R17 K22 ["RightLowerLeg"]
-       32 LOADK                            R18 K23 ["RightUpperLeg"]
-       33 SETLIST                          R3 R4 15 [1]
-       35 DUPTABLE                         R4 K24 [{"Head", "UpperTorso", "LeftHand", "LeftLowerArm", "LeftUpperArm", "RightHand", "RightLowerArm", "RightUpperArm", "LeftFoot", "LeftLowerLeg", "LeftUpperLeg", "RightFoot", "RightLowerLeg", "RightUpperLeg"}]
-       36 LOADK                            R5 K10 ["UpperTorso"]
-       37 SETTABLEKS                       R5 R4 K9 ["Head"]
-       39 LOADK                            R5 K11 ["LowerTorso"]
-       40 SETTABLEKS                       R5 R4 K10 ["UpperTorso"]
-       42 LOADK                            R5 K13 ["LeftLowerArm"]
-       43 SETTABLEKS                       R5 R4 K12 ["LeftHand"]
-       45 LOADK                            R5 K14 ["LeftUpperArm"]
-       46 SETTABLEKS                       R5 R4 K13 ["LeftLowerArm"]
-       48 LOADK                            R5 K10 ["UpperTorso"]
-       49 SETTABLEKS                       R5 R4 K14 ["LeftUpperArm"]
-       51 LOADK                            R5 K16 ["RightLowerArm"]
-       52 SETTABLEKS                       R5 R4 K15 ["RightHand"]
-       54 LOADK                            R5 K17 ["RightUpperArm"]
-       55 SETTABLEKS                       R5 R4 K16 ["RightLowerArm"]
-       57 LOADK                            R5 K10 ["UpperTorso"]
-       58 SETTABLEKS                       R5 R4 K17 ["RightUpperArm"]
-       60 LOADK                            R5 K19 ["LeftLowerLeg"]
-       61 SETTABLEKS                       R5 R4 K18 ["LeftFoot"]
-       63 LOADK                            R5 K20 ["LeftUpperLeg"]
-       64 SETTABLEKS                       R5 R4 K19 ["LeftLowerLeg"]
-       66 LOADK                            R5 K11 ["LowerTorso"]
-       67 SETTABLEKS                       R5 R4 K20 ["LeftUpperLeg"]
-       69 LOADK                            R5 K22 ["RightLowerLeg"]
-       70 SETTABLEKS                       R5 R4 K21 ["RightFoot"]
-       72 LOADK                            R5 K23 ["RightUpperLeg"]
-       73 SETTABLEKS                       R5 R4 K22 ["RightLowerLeg"]
-       75 LOADK                            R5 K11 ["LowerTorso"]
-       76 SETTABLEKS                       R5 R4 K23 ["RightUpperLeg"]
-       78 NEWTABLE                         R5 8 0
-       80 SETTABLEKS                       R5 R5 K25 ["__index"]
-       82 DUPCLOSURE                       R6 K26 [PROTO_0]
-       83 CAPTURE                          VAL R2
-       84 DUPCLOSURE                       R7 K27 [PROTO_1]
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          VAL R2
-       87 SETTABLEKS                       R7 R5 K28 ["new"]
-       89 DUPCLOSURE                       R7 K29 [PROTO_2]
-       90 DUPCLOSURE                       R8 K30 [PROTO_4]
-       91 SETTABLEKS                       R8 R5 K31 ["DrawLine"]
-       93 DUPCLOSURE                       R8 K32 [PROTO_6]
-       94 CAPTURE                          VAL R7
-       95 SETTABLEKS                       R8 R5 K33 ["DrawSphere"]
-       97 DUPCLOSURE                       R8 K34 [PROTO_7]
-       98 CAPTURE                          VAL R3
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R4
-      101 SETTABLEKS                       R8 R5 K35 ["DrawPose"]
-      103 DUPCLOSURE                       R8 K36 [PROTO_8]
-      104 SETTABLEKS                       R8 R5 K37 ["SetColor"]
-      106 DUPCLOSURE                       R8 K38 [PROTO_9]
-      107 SETTABLEKS                       R8 R5 K39 ["Update"]
-      109 DUPCLOSURE                       R8 K40 [PROTO_10]
-      110 SETTABLEKS                       R8 R5 K41 ["Destroy"]
-      112 RETURN                           R5 1
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
+       15 CALL                             R1 1 1
+       16 NEWTABLE                         R2 0 15
+       18 LOADK                            R3 K9 ["Head"]
+       19 LOADK                            R4 K10 ["UpperTorso"]
+       20 LOADK                            R5 K11 ["LowerTorso"]
+       21 LOADK                            R6 K12 ["LeftHand"]
+       22 LOADK                            R7 K13 ["LeftLowerArm"]
+       23 LOADK                            R8 K14 ["LeftUpperArm"]
+       24 LOADK                            R9 K15 ["RightHand"]
+       25 LOADK                            R10 K16 ["RightLowerArm"]
+       26 LOADK                            R11 K17 ["RightUpperArm"]
+       27 LOADK                            R12 K18 ["LeftFoot"]
+       28 LOADK                            R13 K19 ["LeftLowerLeg"]
+       29 LOADK                            R14 K20 ["LeftUpperLeg"]
+       30 LOADK                            R15 K21 ["RightFoot"]
+       31 LOADK                            R16 K22 ["RightLowerLeg"]
+       32 LOADK                            R17 K23 ["RightUpperLeg"]
+       33 SETLIST                          R2 R3 15 [1]
+       35 DUPTABLE                         R3 K24 [{"Head", "UpperTorso", "LeftHand", "LeftLowerArm", "LeftUpperArm", "RightHand", "RightLowerArm", "RightUpperArm", "LeftFoot", "LeftLowerLeg", "LeftUpperLeg", "RightFoot", "RightLowerLeg", "RightUpperLeg"}]
+       36 LOADK                            R4 K10 ["UpperTorso"]
+       37 SETTABLEKS                       R4 R3 K9 ["Head"]
+       39 LOADK                            R4 K11 ["LowerTorso"]
+       40 SETTABLEKS                       R4 R3 K10 ["UpperTorso"]
+       42 LOADK                            R4 K13 ["LeftLowerArm"]
+       43 SETTABLEKS                       R4 R3 K12 ["LeftHand"]
+       45 LOADK                            R4 K14 ["LeftUpperArm"]
+       46 SETTABLEKS                       R4 R3 K13 ["LeftLowerArm"]
+       48 LOADK                            R4 K10 ["UpperTorso"]
+       49 SETTABLEKS                       R4 R3 K14 ["LeftUpperArm"]
+       51 LOADK                            R4 K16 ["RightLowerArm"]
+       52 SETTABLEKS                       R4 R3 K15 ["RightHand"]
+       54 LOADK                            R4 K17 ["RightUpperArm"]
+       55 SETTABLEKS                       R4 R3 K16 ["RightLowerArm"]
+       57 LOADK                            R4 K10 ["UpperTorso"]
+       58 SETTABLEKS                       R4 R3 K17 ["RightUpperArm"]
+       60 LOADK                            R4 K19 ["LeftLowerLeg"]
+       61 SETTABLEKS                       R4 R3 K18 ["LeftFoot"]
+       63 LOADK                            R4 K20 ["LeftUpperLeg"]
+       64 SETTABLEKS                       R4 R3 K19 ["LeftLowerLeg"]
+       66 LOADK                            R4 K11 ["LowerTorso"]
+       67 SETTABLEKS                       R4 R3 K20 ["LeftUpperLeg"]
+       69 LOADK                            R4 K22 ["RightLowerLeg"]
+       70 SETTABLEKS                       R4 R3 K21 ["RightFoot"]
+       72 LOADK                            R4 K23 ["RightUpperLeg"]
+       73 SETTABLEKS                       R4 R3 K22 ["RightLowerLeg"]
+       75 LOADK                            R4 K11 ["LowerTorso"]
+       76 SETTABLEKS                       R4 R3 K23 ["RightUpperLeg"]
+       78 NEWTABLE                         R4 8 0
+       80 SETTABLEKS                       R4 R4 K25 ["__index"]
+       82 DUPCLOSURE                       R5 K26 [PROTO_0]
+       83 CAPTURE                          VAL R1
+       84 DUPCLOSURE                       R6 K27 [PROTO_1]
+       85 CAPTURE                          VAL R4
+       86 CAPTURE                          VAL R1
+       87 SETTABLEKS                       R6 R4 K28 ["new"]
+       89 DUPCLOSURE                       R6 K29 [PROTO_2]
+       90 DUPCLOSURE                       R7 K30 [PROTO_4]
+       91 SETTABLEKS                       R7 R4 K31 ["DrawLine"]
+       93 DUPCLOSURE                       R7 K32 [PROTO_6]
+       94 CAPTURE                          VAL R6
+       95 SETTABLEKS                       R7 R4 K33 ["DrawSphere"]
+       97 DUPCLOSURE                       R7 K34 [PROTO_7]
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          VAL R3
+      101 SETTABLEKS                       R7 R4 K35 ["DrawPose"]
+      103 DUPCLOSURE                       R7 K36 [PROTO_8]
+      104 SETTABLEKS                       R7 R4 K37 ["SetColor"]
+      106 DUPCLOSURE                       R7 K38 [PROTO_9]
+      107 SETTABLEKS                       R7 R4 K39 ["Update"]
+      109 DUPCLOSURE                       R7 K40 [PROTO_10]
+      110 SETTABLEKS                       R7 R4 K41 ["Destroy"]
+      112 RETURN                           R4 1

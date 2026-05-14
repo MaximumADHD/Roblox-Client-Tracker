@@ -21,8 +21,8 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Rodux"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R0 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Actions"]
+       19 GETTABLEKS                       R4 R0 K9 ["Src"]
+       21 GETTABLEKS                       R4 R4 K10 ["Actions"]
        23 GETIMPORT                        R5 K6 [require]
        25 GETTABLEKS                       R6 R4 K11 ["SetTutorialLimits"]
        27 CALL                             R5 1 1

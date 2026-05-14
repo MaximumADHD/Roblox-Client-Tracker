@@ -1,11 +1,11 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["AnimationData"]
-        5 NAMECALL                         R4 R0 K0 ["getState"]
-        7 CALL                             R4 1 1
-        8 GETTABLEKS                       R3 R4 K2 ["Status"]
-       10 GETTABLEKS                       R2 R3 K3 ["Clipboard"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["AnimationData"]
+        5 NAMECALL                         R2 R0 K0 ["getState"]
+        7 CALL                             R2 1 1
+        8 GETTABLEKS                       R2 R2 K2 ["Status"]
+       10 GETTABLEKS                       R2 R2 K3 ["Clipboard"]
        12 JUMPIFNOT                        R1 ; [+1]
        13 JUMPIF                           R2 ; [+1]
        14 RETURN                           R0 0
@@ -15,9 +15,9 @@ PROTO_0:
        18 GETTABLEKS                       R4 R3 K4 ["Events"]
        20 JUMPIFNOTEQKNIL                  R4 ; [+2]
        22 RETURN                           R0 0
-       23 GETUPVAL                         R7 1
-       24 GETTABLEKS                       R6 R7 K5 ["Dictionary"]
-       26 GETTABLEKS                       R5 R6 K6 ["keys"]
+       23 GETUPVAL                         R5 1
+       24 GETTABLEKS                       R5 R5 K5 ["Dictionary"]
+       26 GETTABLEKS                       R5 R5 K6 ["keys"]
        28 MOVE                             R6 R2
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K9 [table.sort]
@@ -35,8 +35,8 @@ PROTO_0:
        44 GETUPVAL                         R13 3
        45 SUB                              R14 R10 R6
        46 ADD                              R12 R13 R14
-       47 GETUPVAL                         R14 4
-       48 GETTABLEKS                       R13 R14 K12 ["deleteEvents"]
+       47 GETUPVAL                         R13 4
+       48 GETTABLEKS                       R13 R13 K12 ["deleteEvents"]
        50 MOVE                             R14 R4
        51 MOVE                             R15 R12
        52 CALL                             R13 2 0
@@ -44,8 +44,8 @@ PROTO_0:
        55 MOVE                             R14 R11
        56 CALL                             R13 1 3
        57 FORGPREP_NEXT                    R13
-       58 GETUPVAL                         R19 4
-       59 GETTABLEKS                       R18 R19 K13 ["addEvent"]
+       58 GETUPVAL                         R18 4
+       59 GETTABLEKS                       R18 R18 K13 ["addEvent"]
        61 MOVE                             R19 R4
        62 MOVE                             R20 R12
        63 MOVE                             R21 R16
@@ -77,28 +77,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["isEmpty"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["isEmpty"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["deepCopy"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K11 ["deepCopy"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["AnimationData"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Util"]
+       38 GETTABLEKS                       R5 R5 K12 ["AnimationData"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K13 ["Thunks"]
-       47 GETTABLEKS                       R6 R7 K14 ["UpdateAnimationData"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K13 ["Thunks"]
+       47 GETTABLEKS                       R6 R6 K14 ["UpdateAnimationData"]
        49 CALL                             R5 1 1
        50 DUPCLOSURE                       R6 K15 [PROTO_1]
        51 CAPTURE                          VAL R3

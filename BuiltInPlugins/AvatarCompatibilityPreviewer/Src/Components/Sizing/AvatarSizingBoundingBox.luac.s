@@ -18,35 +18,35 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["IsValid"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["IsValid"]
         3 JUMPIFNOT                        R0 ; [+12]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K1 ["AllValid"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["AllValid"]
         7 JUMPIFNOT                        R0 ; [+4]
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K2 ["NeutralColor"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K2 ["NeutralColor"]
        11 RETURN                           R0 1
-       12 GETUPVAL                         R1 1
-       13 GETTABLEKS                       R0 R1 K3 ["ValidColor"]
+       12 GETUPVAL                         R0 1
+       13 GETTABLEKS                       R0 R0 K3 ["ValidColor"]
        15 RETURN                           R0 1
-       16 GETUPVAL                         R1 1
-       17 GETTABLEKS                       R0 R1 K4 ["InvalidColor"]
+       16 GETUPVAL                         R0 1
+       17 GETTABLEKS                       R0 R0 K4 ["InvalidColor"]
        19 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["ContextServices"]
-        3 GETTABLEKS                       R1 R2 K1 ["Stylizer"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ContextServices"]
+        3 GETTABLEKS                       R1 R1 K1 ["Stylizer"]
         5 LOADK                            R3 K2 ["AvatarSizingBoundingBox"]
         6 NAMECALL                         R1 R1 K3 ["use"]
         8 CALL                             R1 2 1
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K4 ["useState"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K4 ["useState"]
        12 LOADNIL                          R3
        13 CALL                             R2 1 2
-       14 GETUPVAL                         R5 1
-       15 GETTABLEKS                       R4 R5 K5 ["useCallback"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K5 ["useCallback"]
        17 NEWCLOSURE                       R5 P0
        18 CAPTURE                          VAL R3
        19 NEWTABLE                         R6 0 0
@@ -65,8 +65,8 @@ PROTO_3:
        38 CALL                             R8 1 -1
        39 NAMECALL                         R6 R5 K14 ["ToWorldSpace"]
        41 CALL                             R6 -1 1
-       42 GETUPVAL                         R8 1
-       43 GETTABLEKS                       R7 R8 K15 ["useMemo"]
+       42 GETUPVAL                         R7 1
+       43 GETTABLEKS                       R7 R7 K15 ["useMemo"]
        45 NEWCLOSURE                       R8 P1
        46 CAPTURE                          VAL R0
        47 CAPTURE                          VAL R1
@@ -86,8 +86,8 @@ PROTO_3:
        69 GETTABLEKS                       R9 R0 K20 ["Inside"]
        71 JUMPIFNOT                        R9 ; [+1]
        72 MULK                             R8 R8 K21 [0.5]
-       73 GETUPVAL                         R10 1
-       74 GETTABLEKS                       R9 R10 K22 ["createElement"]
+       73 GETUPVAL                         R9 1
+       74 GETTABLEKS                       R9 R9 K22 ["createElement"]
        76 LOADK                            R10 K23 ["Part"]
        77 DUPTABLE                         R11 K34 [{"Size", "CFrame", "Color", "ref", "Archivable", "CanCollide", "CanQuery", "Anchored", "Locked", "TopSurface", "BottomSurface", "Transparency"}]
        78 GETTABLEKS                       R12 R0 K12 ["Size"]
@@ -112,8 +112,8 @@ PROTO_3:
       111 LOADN                            R12 1
       112 SETTABLEKS                       R12 R11 K33 ["Transparency"]
       114 DUPTABLE                         R12 K42 [{"TopAdornment", "BottomAdornment", "SelectionBox"}]
-      115 GETUPVAL                         R14 1
-      116 GETTABLEKS                       R13 R14 K22 ["createElement"]
+      115 GETUPVAL                         R13 1
+      116 GETTABLEKS                       R13 R13 K22 ["createElement"]
       118 LOADK                            R14 K43 ["BoxHandleAdornment"]
       119 DUPTABLE                         R15 K47 [{"Size", "Archivable", "AlwaysOnTop", "CFrame", "Transparency", "Color3", "Adornee"}]
       120 GETTABLEKS                       R16 R0 K12 ["Size"]
@@ -140,8 +140,8 @@ PROTO_3:
       150 SETTABLEKS                       R2 R15 K46 ["Adornee"]
       152 CALL                             R13 2 1
       153 SETTABLEKS                       R13 R12 K39 ["TopAdornment"]
-      155 GETUPVAL                         R14 1
-      156 GETTABLEKS                       R13 R14 K22 ["createElement"]
+      155 GETUPVAL                         R13 1
+      156 GETTABLEKS                       R13 R13 K22 ["createElement"]
       158 LOADK                            R14 K43 ["BoxHandleAdornment"]
       159 DUPTABLE                         R15 K47 [{"Size", "Archivable", "AlwaysOnTop", "CFrame", "Transparency", "Color3", "Adornee"}]
       160 GETTABLEKS                       R16 R0 K12 ["Size"]
@@ -168,8 +168,8 @@ PROTO_3:
       190 SETTABLEKS                       R2 R15 K46 ["Adornee"]
       192 CALL                             R13 2 1
       193 SETTABLEKS                       R13 R12 K40 ["BottomAdornment"]
-      195 GETUPVAL                         R14 1
-      196 GETTABLEKS                       R13 R14 K22 ["createElement"]
+      195 GETUPVAL                         R13 1
+      196 GETTABLEKS                       R13 R13 K22 ["createElement"]
       198 LOADK                            R14 K41 ["SelectionBox"]
       199 DUPTABLE                         R15 K52 [{"Archivable", "Color3", "SurfaceColor3", "Adornee", "LineThickness", "Transparency"}]
       200 LOADB                            R16 0
@@ -199,17 +199,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       27 GETTABLEKS                       R4 R5 K11 ["Theme"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       27 GETTABLEKS                       R4 R4 K11 ["Theme"]
        29 CALL                             R3 1 1
        30 DUPCLOSURE                       R4 K12 [PROTO_0]
        31 SETGLOBAL                        R4 K13 ["mapNumberRange"]

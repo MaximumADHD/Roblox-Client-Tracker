@@ -98,10 +98,10 @@ PROTO_3:
        45 RETURN                           R3 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["MaterialGenerationServiceApi"]
-        3 GETTABLEKS                       R1 R2 K1 ["MaterialGeneration"]
-        5 GETTABLEKS                       R0 R1 K2 ["postGetUploadedMaterialAsync"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["MaterialGenerationServiceApi"]
+        3 GETTABLEKS                       R0 R0 K1 ["MaterialGeneration"]
+        5 GETTABLEKS                       R0 R0 K2 ["postGetUploadedMaterialAsync"]
         7 DUPTABLE                         R1 K4 [{"operationId"}]
         8 GETUPVAL                         R2 1
         9 SETTABLEKS                       R2 R1 K3 ["operationId"]
@@ -120,8 +120,8 @@ PROTO_5:
         8 GETTABLE                         R8 R2 R1
         9 JUMPIF                           R8 ; [+1]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R9 2
-       12 GETTABLEKS                       R8 R9 K0 ["callWithOptions"]
+       11 GETUPVAL                         R8 2
+       12 GETTABLEKS                       R8 R8 K0 ["callWithOptions"]
        14 NEWCLOSURE                       R9 P0
        15 CAPTURE                          VAL R0
        16 CAPTURE                          VAL R1
@@ -150,8 +150,8 @@ PROTO_5:
        45 NAMECALL                         R11 R11 K7 ["Fire"]
        47 CALL                             R11 1 0
        48 RETURN                           R0 0
-       49 GETTABLEKS                       R12 R8 K9 ["data"]
-       51 GETTABLEKS                       R11 R12 K10 ["status"]
+       49 GETTABLEKS                       R11 R8 K9 ["data"]
+       51 GETTABLEKS                       R11 R11 K10 ["status"]
        53 ORK                              R10 R11 K8 ["Pending"]
        54 JUMPIFEQKS                       R10 K8 ["Pending"] ; [+21]
        56 GETTABLE                         R11 R2 R1
@@ -191,10 +191,10 @@ PROTO_5:
       101 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["MaterialGenerationServiceApi"]
-        3 GETTABLEKS                       R1 R2 K1 ["MaterialGeneration"]
-        5 GETTABLEKS                       R0 R1 K2 ["postUploadMaterialV2Async"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["MaterialGenerationServiceApi"]
+        3 GETTABLEKS                       R0 R0 K1 ["MaterialGeneration"]
+        5 GETTABLEKS                       R0 R0 K2 ["postUploadMaterialV2Async"]
         7 DUPTABLE                         R1 K5 [{"operationId", "sampleIds"}]
         8 GETUPVAL                         R2 1
         9 SETTABLEKS                       R2 R1 K3 ["operationId"]
@@ -225,8 +225,8 @@ PROTO_7:
        26 LOADK                            R5 K9 ["sampleIds is empty"]
        27 LOADN                            R6 0
        28 CALL                             R4 2 0
-       29 GETUPVAL                         R5 0
-       30 GETTABLEKS                       R4 R5 K10 ["callWithOptions"]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K10 ["callWithOptions"]
        32 NEWCLOSURE                       R5 P0
        33 CAPTURE                          VAL R0
        34 CAPTURE                          VAL R1
@@ -238,17 +238,17 @@ PROTO_7:
        41 CALL                             R4 2 1
        42 GETTABLEKS                       R5 R4 K13 ["success"]
        44 JUMPIF                           R5 ; [+6]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R5 R6 K14 ["throwError"]
+       45 GETUPVAL                         R5 0
+       46 GETTABLEKS                       R5 R5 K14 ["throwError"]
        48 MOVE                             R6 R4
        49 CALL                             R5 1 -1
        50 RETURN                           R5 -1
-       51 GETTABLEKS                       R6 R4 K15 ["data"]
-       53 GETTABLEKS                       R5 R6 K4 ["error"]
+       51 GETTABLEKS                       R5 R4 K15 ["data"]
+       53 GETTABLEKS                       R5 R5 K4 ["error"]
        55 JUMPIFNOT                        R5 ; [+53]
        56 GETIMPORT                        R5 K5 [error]
-       58 GETTABLEKS                       R8 R4 K15 ["data"]
-       60 GETTABLEKS                       R7 R8 K4 ["error"]
+       58 GETTABLEKS                       R7 R4 K15 ["data"]
+       60 GETTABLEKS                       R7 R7 K4 ["error"]
        62 FASTCALL1                        TYPEOF R7 ; [+3]
        63 MOVE                             R10 R7
        64 GETIMPORT                        R9 K1 [typeof]
@@ -283,16 +283,16 @@ PROTO_7:
       106 MOVE                             R6 R10
       107 LOADN                            R7 0
       108 CALL                             R5 2 0
-      109 GETTABLEKS                       R6 R4 K15 ["data"]
-      111 GETTABLEKS                       R5 R6 K22 ["operationId"]
+      109 GETTABLEKS                       R5 R4 K15 ["data"]
+      111 GETTABLEKS                       R5 R5 K22 ["operationId"]
       113 JUMPIF                           R5 ; [+5]
       114 GETIMPORT                        R6 K5 [error]
       116 LOADK                            R7 K6 ["operationId is empty"]
       117 LOADN                            R8 0
       118 CALL                             R6 2 0
       119 DUPTABLE                         R6 K26 [{"completed", "hasCompleted", "result"}]
-      120 GETUPVAL                         R8 2
-      121 GETTABLEKS                       R7 R8 K27 ["new"]
+      120 GETUPVAL                         R7 2
+      121 GETTABLEKS                       R7 R7 K27 ["new"]
       123 CALL                             R7 0 1
       124 SETTABLEKS                       R7 R6 K23 ["completed"]
       126 LOADB                            R7 0
@@ -319,17 +319,17 @@ PROTO_7:
       155 CALL                             R8 2 0
       156 GETTABLEKS                       R8 R7 K13 ["success"]
       158 JUMPIF                           R8 ; [+6]
-      159 GETUPVAL                         R9 0
-      160 GETTABLEKS                       R8 R9 K14 ["throwError"]
+      159 GETUPVAL                         R8 0
+      160 GETTABLEKS                       R8 R8 K14 ["throwError"]
       162 MOVE                             R9 R7
       163 CALL                             R8 1 -1
       164 RETURN                           R8 -1
-      165 GETTABLEKS                       R9 R7 K15 ["data"]
-      167 GETTABLEKS                       R8 R9 K4 ["error"]
+      165 GETTABLEKS                       R8 R7 K15 ["data"]
+      167 GETTABLEKS                       R8 R8 K4 ["error"]
       169 JUMPIFNOT                        R8 ; [+53]
       170 GETIMPORT                        R8 K5 [error]
-      172 GETTABLEKS                       R11 R7 K15 ["data"]
-      174 GETTABLEKS                       R10 R11 K4 ["error"]
+      172 GETTABLEKS                       R10 R7 K15 ["data"]
+      174 GETTABLEKS                       R10 R10 K4 ["error"]
       176 FASTCALL1                        TYPEOF R10 ; [+3]
       177 MOVE                             R13 R10
       178 GETIMPORT                        R12 K1 [typeof]
@@ -364,8 +364,8 @@ PROTO_7:
       220 MOVE                             R9 R13
       221 LOADN                            R10 0
       222 CALL                             R8 2 0
-      223 GETTABLEKS                       R9 R7 K15 ["data"]
-      225 GETTABLEKS                       R8 R9 K33 ["status"]
+      223 GETTABLEKS                       R8 R7 K15 ["data"]
+      225 GETTABLEKS                       R8 R8 K33 ["status"]
       227 JUMPIFNOTEQKS                    R8 K34 ["Failed"] ; [+6]
       229 GETIMPORT                        R8 K5 [error]
       231 LOADK                            R9 K32 ["Poll uploaded materials failed"]
@@ -374,8 +374,8 @@ PROTO_7:
       234 GETUPVAL                         R8 4
       235 CALL                             R8 0 1
       236 JUMPIFNOT                        R8 ; [+5]
-      237 GETTABLEKS                       R9 R0 K35 ["Telemetry"]
-      239 GETTABLEKS                       R8 R9 K36 ["logMaterialGeneratorSavedMaterial"]
+      237 GETTABLEKS                       R8 R0 K35 ["Telemetry"]
+      239 GETTABLEKS                       R8 R8 K36 ["logMaterialGeneratorSavedMaterial"]
       241 CALL                             R8 0 0
       242 GETUPVAL                         R8 5
       243 GETTABLEKS                       R9 R7 K15 ["data"]
@@ -383,8 +383,8 @@ PROTO_7:
       246 RETURN                           R8 1
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["parseResponseModel"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["parseResponseModel"]
         3 GETUPVAL                         R3 1
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
@@ -531,14 +531,14 @@ PROTO_14:
        20 SETTABLEKS                       R3 R2 K2 ["NotificationManager"]
        22 GETTABLEKS                       R3 R1 K3 ["Networking"]
        24 JUMPIF                           R3 ; [+4]
-       25 GETUPVAL                         R4 2
-       26 GETTABLEKS                       R3 R4 K7 ["get"]
+       25 GETUPVAL                         R3 2
+       26 GETTABLEKS                       R3 R3 K7 ["get"]
        28 CALL                             R3 0 1
        29 SETTABLEKS                       R3 R2 K3 ["Networking"]
        31 GETTABLEKS                       R3 R1 K4 ["Telemetry"]
        33 JUMPIF                           R3 ; [+4]
-       34 GETUPVAL                         R4 3
-       35 GETTABLEKS                       R3 R4 K8 ["makeStudioTelemetryEvents"]
+       34 GETUPVAL                         R3 3
+       35 GETTABLEKS                       R3 R3 K8 ["makeStudioTelemetryEvents"]
        37 CALL                             R3 0 1
        38 SETTABLEKS                       R3 R2 K4 ["Telemetry"]
        40 NEWTABLE                         R3 0 0
@@ -575,80 +575,80 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [pcall]
-        9 GETIMPORT                        R3 K7 [game]
-       11 GETTABLEKS                       R2 R3 K8 ["GetService"]
+        9 GETIMPORT                        R2 K7 [game]
+       11 GETTABLEKS                       R2 R2 K8 ["GetService"]
        13 GETIMPORT                        R3 K7 [game]
        15 LOADK                            R4 K9 ["MaterialGenerationService"]
        16 CALL                             R1 3 2
        17 GETIMPORT                        R3 K11 [require]
-       19 GETTABLEKS                       R5 R0 K12 ["Packages"]
-       21 GETTABLEKS                       R4 R5 K13 ["AssistantUI"]
+       19 GETTABLEKS                       R4 R0 K12 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K13 ["AssistantUI"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K11 [require]
-       26 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       28 GETTABLEKS                       R5 R6 K14 ["DMNetworking"]
+       26 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       28 GETTABLEKS                       R5 R5 K14 ["DMNetworking"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K11 [require]
-       33 GETTABLEKS                       R8 R0 K15 ["Generated"]
-       35 GETTABLEKS                       R7 R8 K16 ["OpenAPI"]
-       37 GETTABLEKS                       R6 R7 K9 ["MaterialGenerationService"]
+       33 GETTABLEKS                       R6 R0 K15 ["Generated"]
+       35 GETTABLEKS                       R6 R6 K16 ["OpenAPI"]
+       37 GETTABLEKS                       R6 R6 K9 ["MaterialGenerationService"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K11 [require]
-       42 GETTABLEKS                       R9 R0 K17 ["Src"]
-       44 GETTABLEKS                       R8 R9 K18 ["Util"]
-       46 GETTABLEKS                       R7 R8 K19 ["NotificationManagerStore"]
+       42 GETTABLEKS                       R7 R0 K17 ["Src"]
+       44 GETTABLEKS                       R7 R7 K18 ["Util"]
+       46 GETTABLEKS                       R7 R7 K19 ["NotificationManagerStore"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K11 [require]
-       51 GETTABLEKS                       R9 R0 K12 ["Packages"]
-       53 GETTABLEKS                       R8 R9 K20 ["Signal"]
+       51 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       53 GETTABLEKS                       R8 R8 K20 ["Signal"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K11 [require]
-       58 GETTABLEKS                       R11 R0 K17 ["Src"]
-       60 GETTABLEKS                       R10 R11 K18 ["Util"]
-       62 GETTABLEKS                       R9 R10 K21 ["StudioEndpointUtil"]
+       58 GETTABLEKS                       R9 R0 K17 ["Src"]
+       60 GETTABLEKS                       R9 R9 K18 ["Util"]
+       62 GETTABLEKS                       R9 R9 K21 ["StudioEndpointUtil"]
        64 CALL                             R8 1 1
        65 GETIMPORT                        R9 K11 [require]
-       67 GETTABLEKS                       R13 R0 K17 ["Src"]
-       69 GETTABLEKS                       R12 R13 K22 ["Host"]
-       71 GETTABLEKS                       R11 R12 K23 ["Resources"]
-       73 GETTABLEKS                       R10 R11 K24 ["StudioEventLogger"]
+       67 GETTABLEKS                       R10 R0 K17 ["Src"]
+       69 GETTABLEKS                       R10 R10 K22 ["Host"]
+       71 GETTABLEKS                       R10 R10 K23 ["Resources"]
+       73 GETTABLEKS                       R10 R10 K24 ["StudioEventLogger"]
        75 CALL                             R9 1 1
        76 GETIMPORT                        R10 K11 [require]
-       78 GETTABLEKS                       R13 R0 K17 ["Src"]
-       80 GETTABLEKS                       R12 R13 K18 ["Util"]
-       82 GETTABLEKS                       R11 R12 K25 ["StudioNetworking"]
+       78 GETTABLEKS                       R11 R0 K17 ["Src"]
+       80 GETTABLEKS                       R11 R11 K18 ["Util"]
+       82 GETTABLEKS                       R11 R11 K25 ["StudioNetworking"]
        84 CALL                             R10 1 1
        85 GETIMPORT                        R11 K11 [require]
-       87 GETTABLEKS                       R16 R0 K15 ["Generated"]
-       89 GETTABLEKS                       R15 R16 K16 ["OpenAPI"]
-       91 GETTABLEKS                       R14 R15 K9 ["MaterialGenerationService"]
-       93 GETTABLEKS                       R13 R14 K26 ["Models"]
-       95 GETTABLEKS                       R12 R13 K27 ["GetUploadMaterialAsyncResponse"]
+       87 GETTABLEKS                       R12 R0 K15 ["Generated"]
+       89 GETTABLEKS                       R12 R12 K16 ["OpenAPI"]
+       91 GETTABLEKS                       R12 R12 K9 ["MaterialGenerationService"]
+       93 GETTABLEKS                       R12 R12 K26 ["Models"]
+       95 GETTABLEKS                       R12 R12 K27 ["GetUploadMaterialAsyncResponse"]
        97 CALL                             R11 1 1
        98 GETIMPORT                        R12 K11 [require]
-      100 GETTABLEKS                       R15 R0 K17 ["Src"]
-      102 GETTABLEKS                       R14 R15 K28 ["Flags"]
-      104 GETTABLEKS                       R13 R14 K29 ["FFlagAssistantNotificationManager"]
+      100 GETTABLEKS                       R13 R0 K17 ["Src"]
+      102 GETTABLEKS                       R13 R13 K28 ["Flags"]
+      104 GETTABLEKS                       R13 R13 K29 ["FFlagAssistantNotificationManager"]
       106 CALL                             R12 1 1
       107 GETIMPORT                        R13 K11 [require]
-      109 GETTABLEKS                       R16 R0 K17 ["Src"]
-      111 GETTABLEKS                       R15 R16 K28 ["Flags"]
-      113 GETTABLEKS                       R14 R15 K30 ["FFlagMaterialGeneratorCounterEnabled"]
+      109 GETTABLEKS                       R14 R0 K17 ["Src"]
+      111 GETTABLEKS                       R14 R14 K28 ["Flags"]
+      113 GETTABLEKS                       R14 R14 K30 ["FFlagMaterialGeneratorCounterEnabled"]
       115 CALL                             R13 1 1
       116 GETIMPORT                        R14 K11 [require]
-      118 GETTABLEKS                       R17 R0 K17 ["Src"]
-      120 GETTABLEKS                       R16 R17 K28 ["Flags"]
-      122 GETTABLEKS                       R15 R16 K31 ["FIntMaterialGenerationServicePollLimit"]
+      118 GETTABLEKS                       R15 R0 K17 ["Src"]
+      120 GETTABLEKS                       R15 R15 K28 ["Flags"]
+      122 GETTABLEKS                       R15 R15 K31 ["FIntMaterialGenerationServicePollLimit"]
       124 CALL                             R14 1 1
       125 GETIMPORT                        R15 K11 [require]
-      127 GETTABLEKS                       R18 R0 K17 ["Src"]
-      129 GETTABLEKS                       R17 R18 K28 ["Flags"]
-      131 GETTABLEKS                       R16 R17 K32 ["FIntMaterialGenerationServiceRePollDelaySeconds"]
+      127 GETTABLEKS                       R16 R0 K17 ["Src"]
+      129 GETTABLEKS                       R16 R16 K28 ["Flags"]
+      131 GETTABLEKS                       R16 R16 K32 ["FIntMaterialGenerationServiceRePollDelaySeconds"]
       133 CALL                             R15 1 1
       134 GETIMPORT                        R16 K11 [require]
-      136 GETTABLEKS                       R19 R0 K17 ["Src"]
-      138 GETTABLEKS                       R18 R19 K28 ["Flags"]
-      140 GETTABLEKS                       R17 R18 K33 ["FIntMaterialGenerationServiceUploadHttpTimeoutMs"]
+      136 GETTABLEKS                       R17 R0 K17 ["Src"]
+      138 GETTABLEKS                       R17 R17 K28 ["Flags"]
+      140 GETTABLEKS                       R17 R17 K33 ["FIntMaterialGenerationServiceUploadHttpTimeoutMs"]
       142 CALL                             R16 1 1
       143 DUPCLOSURE                       R17 K34 [PROTO_0]
       144 DUPCLOSURE                       R18 K35 [PROTO_1]

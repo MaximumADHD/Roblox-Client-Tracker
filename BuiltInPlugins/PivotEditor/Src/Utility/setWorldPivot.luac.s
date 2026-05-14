@@ -16,8 +16,8 @@ PROTO_0:
        19 GETTABLEKS                       R2 R0 K6 ["PrimaryPart"]
        21 JUMPIFNOT                        R2 ; [+12]
        22 GETTABLEKS                       R2 R0 K6 ["PrimaryPart"]
-       24 GETTABLEKS                       R4 R0 K6 ["PrimaryPart"]
-       26 GETTABLEKS                       R3 R4 K2 ["CFrame"]
+       24 GETTABLEKS                       R3 R0 K6 ["PrimaryPart"]
+       26 GETTABLEKS                       R3 R3 K2 ["CFrame"]
        28 MOVE                             R5 R1
        29 NAMECALL                         R3 R3 K3 ["ToObjectSpace"]
        31 CALL                             R3 2 1

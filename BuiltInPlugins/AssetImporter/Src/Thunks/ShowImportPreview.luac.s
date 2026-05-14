@@ -4,8 +4,8 @@ PROTO_0:
         2 CALL                             R3 1 -1
         3 NAMECALL                         R1 R0 K0 ["dispatch"]
         5 CALL                             R1 -1 0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["session"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["session"]
         9 LOADNIL                          R2
        10 LOADNIL                          R3
        11 JUMPIFNOT                        R1 ; [+8]
@@ -117,8 +117,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetImporter"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetActiveQueueItem"]
        15 CALL                             R2 1 1
@@ -147,24 +147,24 @@ MAIN:
        53 GETTABLEKS                       R11 R1 K16 ["SetErrorNodeChecked"]
        55 CALL                             R10 1 1
        56 GETIMPORT                        R11 K7 [require]
-       58 GETTABLEKS                       R14 R0 K4 ["Src"]
-       60 GETTABLEKS                       R13 R14 K17 ["Thunks"]
-       62 GETTABLEKS                       R12 R13 K18 ["UpdatePreviewInstance"]
+       58 GETTABLEKS                       R12 R0 K4 ["Src"]
+       60 GETTABLEKS                       R12 R12 K17 ["Thunks"]
+       62 GETTABLEKS                       R12 R12 K18 ["UpdatePreviewInstance"]
        64 CALL                             R11 1 1
        65 GETIMPORT                        R12 K7 [require]
-       67 GETTABLEKS                       R15 R0 K4 ["Src"]
-       69 GETTABLEKS                       R14 R15 K19 ["Utility"]
-       71 GETTABLEKS                       R13 R14 K20 ["GetErrorChecked"]
+       67 GETTABLEKS                       R13 R0 K4 ["Src"]
+       69 GETTABLEKS                       R13 R13 K19 ["Utility"]
+       71 GETTABLEKS                       R13 R13 K20 ["GetErrorChecked"]
        73 CALL                             R12 1 1
        74 GETIMPORT                        R13 K7 [require]
-       76 GETTABLEKS                       R16 R0 K4 ["Src"]
-       78 GETTABLEKS                       R15 R16 K19 ["Utility"]
-       80 GETTABLEKS                       R14 R15 K21 ["GetCheckedCount"]
+       76 GETTABLEKS                       R14 R0 K4 ["Src"]
+       78 GETTABLEKS                       R14 R14 K19 ["Utility"]
+       80 GETTABLEKS                       R14 R14 K21 ["GetCheckedCount"]
        82 CALL                             R13 1 1
        83 GETIMPORT                        R14 K7 [require]
-       85 GETTABLEKS                       R17 R0 K4 ["Src"]
-       87 GETTABLEKS                       R16 R17 K19 ["Utility"]
-       89 GETTABLEKS                       R15 R16 K22 ["GetCheckedMapForSubtree"]
+       85 GETTABLEKS                       R15 R0 K4 ["Src"]
+       87 GETTABLEKS                       R15 R15 K19 ["Utility"]
+       89 GETTABLEKS                       R15 R15 K22 ["GetCheckedMapForSubtree"]
        91 CALL                             R14 1 1
        92 DUPCLOSURE                       R15 K23 [PROTO_1]
        93 CAPTURE                          VAL R2

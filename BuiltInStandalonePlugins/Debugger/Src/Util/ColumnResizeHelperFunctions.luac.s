@@ -31,10 +31,10 @@ PROTO_1:
         6 GETTABLE                         R10 R2 R11
         7 GETTABLE                         R9 R4 R10
         8 JUMPIFNOTEQKNIL                  R9 ; [+7]
-       10 SUB                              R12 R8 R0
-       11 GETTABLE                         R11 R2 R12
-       12 GETTABLE                         R10 R3 R11
-       13 GETTABLEKS                       R9 R10 K1 ["Scale"]
+       10 SUB                              R11 R8 R0
+       11 GETTABLE                         R10 R2 R11
+       12 GETTABLE                         R9 R3 R10
+       13 GETTABLEKS                       R9 R9 K1 ["Scale"]
        15 ADD                              R5 R5 R9
        16 FORNLOOP                         R6
        17 RETURN                           R5 1
@@ -54,8 +54,8 @@ PROTO_2:
        12 SUB                              R11 R9 R12
        13 GETTABLE                         R10 R4 R11
        14 GETIMPORT                        R11 K3 [UDim.new]
-       16 GETTABLE                         R14 R2 R10
-       17 GETTABLEKS                       R13 R14 K4 ["Scale"]
+       16 GETTABLE                         R13 R2 R10
+       17 GETTABLEKS                       R13 R13 K4 ["Scale"]
        19 DIV                              R12 R13 R6
        20 LOADN                            R13 0
        21 CALL                             R11 2 1
@@ -95,8 +95,8 @@ PROTO_3:
        29 JUMP                             ; [+20]
        30 GETTABLEKS                       R13 R7 K7 ["Scale"]
        32 MUL                              R12 R6 R13
-       33 GETTABLE                         R15 R2 R11
-       34 GETTABLEKS                       R14 R15 K7 ["Scale"]
+       33 GETTABLE                         R14 R2 R11
+       34 GETTABLEKS                       R14 R14 K7 ["Scale"]
        36 SUBRK                            R15 R3 K12 [NULL]
        37 MUL                              R13 R14 R15
        38 GETIMPORT                        R14 K2 [UDim.new]

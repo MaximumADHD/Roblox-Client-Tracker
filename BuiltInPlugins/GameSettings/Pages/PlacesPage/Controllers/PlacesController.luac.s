@@ -70,8 +70,8 @@ PROTO_4:
        14 SETTABLEKS                       R2 R6 K3 ["cursor"]
        16 LOADB                            R7 1
        17 SETTABLEKS                       R7 R6 K4 ["extendedSettings"]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R7 R8 K7 ["resolve"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K7 ["resolve"]
        22 MOVE                             R10 R1
        23 MOVE                             R11 R6
        24 NAMECALL                         R8 R0 K8 ["placesV2GET"]
@@ -157,17 +157,17 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETIMPORT                        R3 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       17 CALL                             R3 1 1
-       18 GETTABLEKS                       R2 R3 K7 ["Util"]
-       20 GETTABLEKS                       R1 R2 K8 ["Promise"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R1 R1 K7 ["Util"]
+       20 GETTABLEKS                       R1 R1 K8 ["Promise"]
        22 NEWTABLE                         R2 16 0
        24 SETTABLEKS                       R2 R2 K9 ["__index"]
        26 DUPCLOSURE                       R3 K10 [PROTO_0]

@@ -24,10 +24,10 @@ PROTO_1:
        18 RETURN                           R0 0
 
 PROTO_2:
-        0 GETIMPORT                        R4 K1 [game]
-        2 GETTABLEKS                       R3 R4 K2 ["Workspace"]
-        4 GETTABLEKS                       R2 R3 K3 ["CurrentCamera"]
-        6 GETTABLEKS                       R1 R2 K4 ["ViewportSize"]
+        0 GETIMPORT                        R1 K1 [game]
+        2 GETTABLEKS                       R1 R1 K2 ["Workspace"]
+        4 GETTABLEKS                       R1 R1 K3 ["CurrentCamera"]
+        6 GETTABLEKS                       R1 R1 K4 ["ViewportSize"]
         8 RETURN                           R1 1
 
 MAIN:

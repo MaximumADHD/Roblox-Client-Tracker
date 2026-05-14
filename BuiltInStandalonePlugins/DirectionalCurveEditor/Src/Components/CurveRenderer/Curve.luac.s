@@ -5,8 +5,8 @@ PROTO_0:
         5 LOADNIL                          R6
         6 LOADNIL                          R7
         7 FORGPREP                         R5
-        8 GETUPVAL                         R11 0
-        9 GETTABLEKS                       R10 R11 K1 ["plotToAbsolutePosition"]
+        8 GETUPVAL                         R10 0
+        9 GETTABLEKS                       R10 R10 K1 ["plotToAbsolutePosition"]
        11 MOVE                             R11 R9
        12 MOVE                             R12 R1
        13 MOVE                             R13 R2
@@ -23,12 +23,12 @@ PROTO_0:
        29 CALL                             R11 -1 0
        30 ADDK                             R4 R4 K13 [1]
        31 GETTABLEKS                       R11 R9 K8 ["X"]
-       33 GETTABLEKS                       R13 R1 K14 ["Max"]
-       35 GETTABLEKS                       R12 R13 K8 ["X"]
+       33 GETTABLEKS                       R12 R1 K14 ["Max"]
+       35 GETTABLEKS                       R12 R12 K8 ["X"]
        37 JUMPIFLT                         R12 R11 ; [+3]
        39 FORGLOOP                         R5 2 ; [-32]
-       41 GETUPVAL                         R6 1
-       42 GETTABLEKS                       R5 R6 K15 ["createElement"]
+       41 GETUPVAL                         R5 1
+       42 GETTABLEKS                       R5 R5 K15 ["createElement"]
        44 GETUPVAL                         R6 2
        45 DUPTABLE                         R7 K18 [{"ControlPoints", "Tag"}]
        46 SETTABLEKS                       R3 R7 K16 ["ControlPoints"]
@@ -43,15 +43,15 @@ PROTO_1:
         4 LENGTH                           R4 R5
         5 LOADN                            R5 0
         6 JUMPIFNOTLT                      R5 R4 ; [+46]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K1 ["plotToAbsolutePosition"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K1 ["plotToAbsolutePosition"]
        11 GETTABLEKS                       R7 R0 K0 ["keypoints"]
        13 GETTABLEN                        R6 R7 1
        14 MOVE                             R7 R1
        15 MOVE                             R8 R2
        16 CALL                             R5 3 1
-       17 GETUPVAL                         R7 1
-       18 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K2 ["createElement"]
        20 GETUPVAL                         R7 2
        21 DUPTABLE                         R8 K5 [{"ControlPoints", "Tag"}]
        22 NEWTABLE                         R9 0 2
@@ -75,15 +75,15 @@ PROTO_1:
        51 SETTABLEKS                       R6 R3 K15 ["EndLineLeft"]
        53 LOADN                            R5 0
        54 JUMPIFNOTLT                      R5 R4 ; [+47]
-       56 GETUPVAL                         R6 0
-       57 GETTABLEKS                       R5 R6 K1 ["plotToAbsolutePosition"]
+       56 GETUPVAL                         R5 0
+       57 GETTABLEKS                       R5 R5 K1 ["plotToAbsolutePosition"]
        59 GETTABLEKS                       R7 R0 K0 ["keypoints"]
        61 GETTABLE                         R6 R7 R4
        62 MOVE                             R7 R1
        63 MOVE                             R8 R2
        64 CALL                             R5 3 1
-       65 GETUPVAL                         R7 1
-       66 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       65 GETUPVAL                         R6 1
+       66 GETTABLEKS                       R6 R6 K2 ["createElement"]
        68 GETUPVAL                         R7 2
        69 DUPTABLE                         R8 K5 [{"ControlPoints", "Tag"}]
        70 NEWTABLE                         R9 0 2
@@ -142,8 +142,8 @@ PROTO_3:
        22 GETTABLEKS                       R9 R0 K0 ["PlotAbsoluteSize"]
        24 SETLIST                          R6 R7 3 [1]
        26 CALL                             R4 2 1
-       27 GETUPVAL                         R6 3
-       28 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       27 GETUPVAL                         R5 3
+       28 GETTABLEKS                       R5 R5 K5 ["createElement"]
        30 GETUPVAL                         R6 4
        31 DUPTABLE                         R7 K8 [{"Size", "BackgroundTransparency"}]
        32 GETIMPORT                        R8 K11 [UDim2.fromScale]
@@ -159,23 +159,23 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K1 [script]
         7 LOADK                            R3 K3 ["DirectionalCurveEditor"]
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       13 GETTABLEKS                       R3 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K8 ["React"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K9 ["useMemo"]
        20 GETIMPORT                        R4 K6 [require]
-       22 GETTABLEKS                       R6 R1 K7 ["Packages"]
-       24 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       22 GETTABLEKS                       R5 R1 K7 ["Packages"]
+       24 GETTABLEKS                       R5 R5 K10 ["Framework"]
        26 CALL                             R4 1 1
-       27 GETTABLEKS                       R6 R4 K11 ["UI"]
-       29 GETTABLEKS                       R5 R6 K12 ["Pane"]
+       27 GETTABLEKS                       R5 R4 K11 ["UI"]
+       29 GETTABLEKS                       R5 R5 K12 ["Pane"]
        31 GETIMPORT                        R6 K6 [require]
        33 GETTABLEKS                       R7 R0 K13 ["Path2DWrapper"]
        35 CALL                             R6 1 1
@@ -183,8 +183,8 @@ MAIN:
        38 GETTABLEKS                       R8 R0 K14 ["PlotRectUtil"]
        40 CALL                             R7 1 1
        41 GETIMPORT                        R8 K6 [require]
-       43 GETTABLEKS                       R10 R1 K15 ["Src"]
-       45 GETTABLEKS                       R9 R10 K16 ["Types"]
+       43 GETTABLEKS                       R9 R1 K15 ["Src"]
+       45 GETTABLEKS                       R9 R9 K16 ["Types"]
        47 CALL                             R8 1 1
        48 DUPCLOSURE                       R9 K17 [PROTO_0]
        49 CAPTURE                          VAL R7

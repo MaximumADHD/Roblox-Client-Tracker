@@ -1,9 +1,9 @@
 PROTO_0:
         0 GETUPVAL                         R0 1
-        1 GETUPVAL                         R5 2
-        2 GETTABLEKS                       R4 R5 K0 ["props"]
-        4 GETTABLEKS                       R3 R4 K1 ["Parameters"]
-        6 GETTABLEKS                       R2 R3 K2 ["Detail"]
+        1 GETUPVAL                         R2 2
+        2 GETTABLEKS                       R2 R2 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["Parameters"]
+        6 GETTABLEKS                       R2 R2 K2 ["Detail"]
         8 NAMECALL                         R0 R0 K3 ["JSONDecode"]
        10 CALL                             R0 2 1
        11 SETUPVAL                         R0 0
@@ -27,51 +27,51 @@ PROTO_1:
        15 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["ClearRBXParameters"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["ClearRBXParameters"]
         5 CALL                             R0 0 0
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["AddHistoryItem"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["props"]
-        8 GETTABLEKS                       R1 R2 K2 ["CurrentEventName"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K0 ["props"]
-       13 GETTABLEKS                       R2 R3 K3 ["Parameters"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["AddHistoryItem"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["props"]
+        8 GETTABLEKS                       R1 R1 K2 ["CurrentEventName"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K0 ["props"]
+       13 GETTABLEKS                       R2 R2 K3 ["Parameters"]
        15 CALL                             R0 2 0
        16 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"ValidJson"}]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["IsCurrentJSONValid"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K2 ["IsCurrentJSONValid"]
         5 CALL                             R3 0 1
         6 SETTABLEKS                       R3 R2 K0 ["ValidJson"]
         8 NAMECALL                         R0 R0 K3 ["setState"]
        10 CALL                             R0 2 0
        11 GETUPVAL                         R0 1
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K4 ["props"]
-       15 GETTABLEKS                       R1 R2 K5 ["Parameters"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K4 ["props"]
+       15 GETTABLEKS                       R1 R1 K5 ["Parameters"]
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["SetRBXParameters"]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K2 ["Dictionary"]
-        8 GETTABLEKS                       R3 R4 K3 ["join"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K0 ["props"]
-       13 GETTABLEKS                       R4 R5 K4 ["Parameters"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["SetRBXParameters"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K2 ["Dictionary"]
+        8 GETTABLEKS                       R3 R3 K3 ["join"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K0 ["props"]
+       13 GETTABLEKS                       R4 R4 K4 ["Parameters"]
        15 NEWTABLE                         R5 1 0
        17 SETTABLE                         R1 R5 R0
        18 CALL                             R3 2 -1
@@ -80,29 +80,29 @@ PROTO_5:
 
 PROTO_6:
         0 PREPVARARGS                      0
-        1 GETUPVAL                         R1 0
-        2 GETTABLEKS                       R0 R1 K0 ["focusLost"]
+        1 GETUPVAL                         R0 0
+        2 GETTABLEKS                       R0 R0 K0 ["focusLost"]
         4 GETUPVAL                         R1 1
         5 GETVARARGS                       R2 -1
         6 CALL                             R0 -1 0
         7 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Parameters"]
         5 DUPTABLE                         R2 K4 [{"Warning", "Activators"}]
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R5 R6 K5 ["state"]
-        9 GETTABLEKS                       R4 R5 K6 ["ValidJson"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K5 ["state"]
+        9 GETTABLEKS                       R4 R4 K6 ["ValidJson"]
        11 NOT                              R3 R4
        12 JUMPIFNOT                        R3 ; [+18]
-       13 GETUPVAL                         R4 1
-       14 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R3 R3 K7 ["createElement"]
        16 GETUPVAL                         R4 2
        17 DUPTABLE                         R5 K11 [{"LayoutOrder", "AutomaticSize", "Style"}]
-       18 GETUPVAL                         R7 3
-       19 GETTABLEKS                       R6 R7 K2 ["Warning"]
+       18 GETUPVAL                         R6 3
+       19 GETTABLEKS                       R6 R6 K2 ["Warning"]
        21 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
        23 GETIMPORT                        R6 K14 [Enum.AutomaticSize.Y]
        25 SETTABLEKS                       R6 R5 K9 ["AutomaticSize"]
@@ -110,18 +110,18 @@ PROTO_7:
        28 SETTABLEKS                       R6 R5 K10 ["Style"]
        30 CALL                             R3 2 1
        31 SETTABLEKS                       R3 R2 K2 ["Warning"]
-       33 GETUPVAL                         R4 1
-       34 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R3 R3 K7 ["createElement"]
        36 GETUPVAL                         R4 4
        37 DUPTABLE                         R5 K18 [{"OnClearClicked", "OnSaveClicked", "OnSendClicked"}]
-       38 GETUPVAL                         R7 0
-       39 GETTABLEKS                       R6 R7 K19 ["onClearClicked"]
+       38 GETUPVAL                         R6 0
+       39 GETTABLEKS                       R6 R6 K19 ["onClearClicked"]
        41 SETTABLEKS                       R6 R5 K15 ["OnClearClicked"]
-       43 GETUPVAL                         R7 0
-       44 GETTABLEKS                       R6 R7 K20 ["onSaveClicked"]
+       43 GETUPVAL                         R6 0
+       44 GETTABLEKS                       R6 R6 K20 ["onSaveClicked"]
        46 SETTABLEKS                       R6 R5 K16 ["OnSaveClicked"]
-       48 GETUPVAL                         R7 0
-       49 GETTABLEKS                       R6 R7 K21 ["onSendClicked"]
+       48 GETUPVAL                         R6 0
+       49 GETTABLEKS                       R6 R6 K21 ["onSendClicked"]
        51 SETTABLEKS                       R6 R5 K17 ["OnSendClicked"]
        53 CALL                             R3 2 1
        54 SETTABLEKS                       R3 R2 K3 ["Activators"]
@@ -129,8 +129,8 @@ PROTO_7:
        58 MOVE                             R4 R1
        59 CALL                             R3 1 3
        60 FORGPREP_NEXT                    R3
-       61 GETUPVAL                         R9 1
-       62 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       61 GETUPVAL                         R8 1
+       62 GETTABLEKS                       R8 R8 K7 ["createElement"]
        64 GETUPVAL                         R9 5
        65 DUPTABLE                         R10 K27 [{"LayoutOrder", "Label", "Text", "OnChange"}]
        66 GETUPVAL                         R12 3
@@ -181,14 +181,14 @@ PROTO_8:
        38 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K3 [{"Layout", "LayoutOrder"}]
         5 GETIMPORT                        R4 K7 [Enum.FillDirection.Vertical]
         7 SETTABLEKS                       R4 R3 K1 ["Layout"]
-        9 GETUPVAL                         R5 2
-       10 GETTABLEKS                       R4 R5 K8 ["View"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K8 ["View"]
        12 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
        14 GETTABLEKS                       R4 R0 K9 ["createChildren"]
        16 CALL                             R4 0 -1
@@ -197,11 +197,11 @@ PROTO_9:
 
 PROTO_10:
         0 DUPTABLE                         R2 K2 [{"Parameters", "CurrentEventName"}]
-        1 GETTABLEKS                       R4 R0 K3 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["Parameters"]
+        1 GETTABLEKS                       R3 R0 K3 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["Parameters"]
         5 SETTABLEKS                       R3 R2 K0 ["Parameters"]
-        7 GETTABLEKS                       R4 R0 K3 ["Status"]
-        9 GETTABLEKS                       R3 R4 K1 ["CurrentEventName"]
+        7 GETTABLEKS                       R3 R0 K3 ["Status"]
+        9 GETTABLEKS                       R3 R3 K1 ["CurrentEventName"]
        11 SETTABLEKS                       R3 R2 K1 ["CurrentEventName"]
        13 RETURN                           R2 1
 
@@ -249,34 +249,34 @@ PROTO_14:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["Cryo"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["Cryo"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       36 GETTABLEKS                       R5 R6 K9 ["Framework"]
+       34 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K9 ["Framework"]
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R5 R4 K10 ["ContextServices"]
        41 GETTABLEKS                       R6 R5 K11 ["withContext"]
        43 GETTABLEKS                       R7 R4 K12 ["UI"]
        45 GETTABLEKS                       R8 R7 K13 ["Pane"]
        47 GETTABLEKS                       R9 R7 K14 ["TextLabel"]
-       49 GETTABLEKS                       R11 R0 K15 ["Src"]
-       51 GETTABLEKS                       R10 R11 K16 ["Actions"]
+       49 GETTABLEKS                       R10 R0 K15 ["Src"]
+       51 GETTABLEKS                       R10 R10 K16 ["Actions"]
        53 GETIMPORT                        R11 K4 [require]
        55 GETTABLEKS                       R12 R10 K17 ["SetRBXParameters"]
        57 CALL                             R11 1 1
@@ -287,24 +287,24 @@ MAIN:
        65 GETTABLEKS                       R14 R10 K19 ["AddHistoryItem"]
        67 CALL                             R13 1 1
        68 GETIMPORT                        R14 K4 [require]
-       70 GETTABLEKS                       R17 R0 K15 ["Src"]
-       72 GETTABLEKS                       R16 R17 K20 ["Util"]
-       74 GETTABLEKS                       R15 R16 K21 ["Constants"]
+       70 GETTABLEKS                       R15 R0 K15 ["Src"]
+       72 GETTABLEKS                       R15 R15 K20 ["Util"]
+       74 GETTABLEKS                       R15 R15 K21 ["Constants"]
        76 CALL                             R14 1 1
        77 GETTABLEKS                       R15 R14 K22 ["INPUT_PANE_LAYOUT"]
        79 GETTABLEKS                       R16 R14 K23 ["RBXEVENT_ORDER"]
-       81 GETTABLEKS                       R18 R14 K24 ["VIEW_ID"]
-       83 GETTABLEKS                       R17 R18 K25 ["RBXEvent"]
-       85 GETTABLEKS                       R19 R0 K15 ["Src"]
-       87 GETTABLEKS                       R18 R19 K26 ["Components"]
+       81 GETTABLEKS                       R17 R14 K24 ["VIEW_ID"]
+       83 GETTABLEKS                       R17 R17 K25 ["RBXEvent"]
+       85 GETTABLEKS                       R18 R0 K15 ["Src"]
+       87 GETTABLEKS                       R18 R18 K26 ["Components"]
        89 GETIMPORT                        R19 K4 [require]
        91 GETTABLEKS                       R20 R18 K27 ["ButtonArray"]
        93 CALL                             R19 1 1
        94 GETIMPORT                        R20 K4 [require]
        96 GETTABLEKS                       R21 R18 K28 ["TextInput"]
        98 CALL                             R20 1 1
-       99 GETTABLEKS                       R22 R0 K15 ["Src"]
-      101 GETTABLEKS                       R21 R22 K29 ["Operations"]
+       99 GETTABLEKS                       R21 R0 K15 ["Src"]
+      101 GETTABLEKS                       R21 R21 K29 ["Operations"]
       103 GETIMPORT                        R22 K4 [require]
       105 GETTABLEKS                       R23 R21 K30 ["RBXEventRequest"]
       107 CALL                             R22 1 1

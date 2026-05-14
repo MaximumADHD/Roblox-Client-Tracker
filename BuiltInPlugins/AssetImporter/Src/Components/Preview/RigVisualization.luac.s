@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["viewportFrameModel"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["viewportFrameModel"]
         3 LOADNIL                          R2
         4 LOADK                            R5 K1 ["Model"]
         5 NAMECALL                         R3 R0 K2 ["IsA"]
@@ -11,8 +11,8 @@ PROTO_0:
        12 GETTABLEKS                       R4 R3 K4 ["Position"]
        14 MINUS                            R2 R4
        15 JUMP                             ; [+5]
-       16 GETTABLEKS                       R4 R0 K5 ["CFrame"]
-       18 GETTABLEKS                       R3 R4 K4 ["Position"]
+       16 GETTABLEKS                       R3 R0 K5 ["CFrame"]
+       18 GETTABLEKS                       R3 R3 K4 ["Position"]
        20 MINUS                            R2 R3
        21 MOVE                             R5 R2
        22 NAMECALL                         R3 R1 K6 ["TranslateBy"]
@@ -20,12 +20,12 @@ PROTO_0:
        25 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["viewportFrameRef"]
-        6 GETTABLEKS                       R2 R0 K2 ["props"]
-        8 GETTABLEKS                       R1 R2 K3 ["Camera"]
+        6 GETTABLEKS                       R1 R0 K2 ["props"]
+        8 GETTABLEKS                       R1 R1 K3 ["Camera"]
        10 SETTABLEKS                       R1 R0 K4 ["camera"]
        12 LOADNIL                          R1
        13 SETTABLEKS                       R1 R0 K5 ["viewportFrameModel"]
@@ -35,17 +35,17 @@ PROTO_1:
        19 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["AssetImportSession"]
-        4 GETTABLEKS                       R4 R0 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K2 ["SelectedImportItem"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["AssetImportSession"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K2 ["SelectedImportItem"]
         8 NAMECALL                         R1 R1 K3 ["GetRigVisualization"]
        10 CALL                             R1 2 1
        11 NAMECALL                         R2 R1 K4 ["Clone"]
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R0 K5 ["viewportFrameModel"]
-       16 GETTABLEKS                       R3 R0 K0 ["props"]
-       18 GETTABLEKS                       R2 R3 K6 ["PreviewInstance"]
+       16 GETTABLEKS                       R2 R0 K0 ["props"]
+       18 GETTABLEKS                       R2 R2 K6 ["PreviewInstance"]
        20 GETTABLEKS                       R3 R0 K7 ["centerModel"]
        22 MOVE                             R4 R2
        23 CALL                             R3 1 0
@@ -104,8 +104,8 @@ PROTO_6:
        22 LOADN                            R8 0
        23 CALL                             R4 4 1
        24 GETTABLEKS                       R5 R0 K7 ["camera"]
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R6 R7 K8 ["createElement"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K8 ["createElement"]
        29 LOADK                            R7 K9 ["ViewportFrame"]
        30 NEWTABLE                         R8 8 0
        32 SETTABLEKS                       R2 R8 K1 ["LayoutOrder"]
@@ -116,8 +116,8 @@ PROTO_6:
        41 LOADN                            R9 1
        42 SETTABLEKS                       R9 R8 K11 ["BackgroundTransparency"]
        44 SETTABLEKS                       R5 R8 K12 ["CurrentCamera"]
-       46 GETUPVAL                         R10 0
-       47 GETTABLEKS                       R9 R10 K13 ["Ref"]
+       46 GETUPVAL                         R9 0
+       47 GETTABLEKS                       R9 R9 K13 ["Ref"]
        49 GETTABLEKS                       R10 R0 K14 ["viewportFrameRef"]
        51 SETTABLE                         R10 R8 R9
        52 CALL                             R6 2 -1
@@ -130,8 +130,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
        16 LOADK                            R4 K9 ["RigVisualization"]

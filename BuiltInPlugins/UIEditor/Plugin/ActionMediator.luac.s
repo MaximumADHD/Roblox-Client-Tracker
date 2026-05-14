@@ -186,9 +186,9 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 32 0
         3 GETIMPORT                        R1 K1 [require]
-        5 GETIMPORT                        R4 K3 [script]
-        7 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        9 GETTABLEKS                       R2 R3 K5 ["FFlag"]
+        5 GETIMPORT                        R2 K3 [script]
+        7 GETTABLEKS                       R2 R2 K4 ["Parent"]
+        9 GETTABLEKS                       R2 R2 K5 ["FFlag"]
        11 CALL                             R1 1 1
        12 LOADNIL                          R2
        13 LOADNIL                          R3

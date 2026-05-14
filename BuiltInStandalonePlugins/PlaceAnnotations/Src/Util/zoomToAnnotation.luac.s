@@ -16,8 +16,8 @@ PROTO_0:
        18 RETURN                           R0 1
 
 PROTO_1:
-        0 GETIMPORT                        R1 K1 [workspace]
-        2 GETTABLEKS                       R0 R1 K2 ["CurrentCamera"]
+        0 GETIMPORT                        R0 K1 [workspace]
+        2 GETTABLEKS                       R0 R0 K2 ["CurrentCamera"]
         4 GETUPVAL                         R1 0
         5 SETTABLEKS                       R1 R0 K3 ["CameraType"]
         7 GETUPVAL                         R0 1
@@ -61,30 +61,30 @@ PROTO_2:
        51 LOADB                            R5 1
        52 SETTABLEKS                       R5 R4 K23 ["BruteForceAllSlow"]
        54 GETIMPORT                        R5 K25 [workspace]
-       56 GETTABLEKS                       R9 R0 K26 ["AdorneeOffset"]
-       58 GETTABLEKS                       R8 R9 K27 ["Unit"]
+       56 GETTABLEKS                       R8 R0 K26 ["AdorneeOffset"]
+       58 GETTABLEKS                       R8 R8 K27 ["Unit"]
        60 ADD                              R7 R3 R8
        61 GETTABLEKS                       R9 R0 K26 ["AdorneeOffset"]
        63 MINUS                            R8 R9
        64 MOVE                             R9 R4
        65 NAMECALL                         R5 R5 K28 ["Raycast"]
        67 CALL                             R5 4 1
-       68 GETIMPORT                        R8 K25 [workspace]
-       70 GETTABLEKS                       R7 R8 K29 ["CurrentCamera"]
-       72 GETTABLEKS                       R6 R7 K30 ["CameraType"]
-       74 GETIMPORT                        R8 K25 [workspace]
-       76 GETTABLEKS                       R7 R8 K29 ["CurrentCamera"]
+       68 GETIMPORT                        R6 K25 [workspace]
+       70 GETTABLEKS                       R6 R6 K29 ["CurrentCamera"]
+       72 GETTABLEKS                       R6 R6 K30 ["CameraType"]
+       74 GETIMPORT                        R7 K25 [workspace]
+       76 GETTABLEKS                       R7 R7 K29 ["CurrentCamera"]
        78 GETIMPORT                        R8 K32 [Enum.CameraType.Custom]
        80 SETTABLEKS                       R8 R7 K30 ["CameraType"]
-       82 GETIMPORT                        R8 K25 [workspace]
-       84 GETTABLEKS                       R7 R8 K29 ["CurrentCamera"]
+       82 GETIMPORT                        R7 K25 [workspace]
+       84 GETTABLEKS                       R7 R7 K29 ["CurrentCamera"]
        86 GETIMPORT                        R8 K34 [CFrame.new]
        88 MOVE                             R9 R3
        89 CALL                             R8 1 1
        90 SETTABLEKS                       R8 R7 K35 ["Focus"]
        92 JUMPIFNOT                        R5 ; [+5]
-       93 GETTABLEKS                       R8 R5 K36 ["Normal"]
-       95 GETTABLEKS                       R7 R8 K27 ["Unit"]
+       93 GETTABLEKS                       R7 R5 K36 ["Normal"]
+       95 GETTABLEKS                       R7 R7 K27 ["Unit"]
        97 JUMP                             ; [+3]
        98 GETTABLEKS                       R8 R3 K27 ["Unit"]
       100 MINUS                            R7 R8
@@ -138,8 +138,8 @@ PROTO_2:
       164 CALL                             R8 3 1
       165 MOVE                             R7 R8
       166 GETUPVAL                         R8 0
-      167 GETIMPORT                        R11 K25 [workspace]
-      169 GETTABLEKS                       R10 R11 K29 ["CurrentCamera"]
+      167 GETIMPORT                        R10 K25 [workspace]
+      169 GETTABLEKS                       R10 R10 K29 ["CurrentCamera"]
       171 GETIMPORT                        R11 K51 [TweenInfo.new]
       173 LOADK                            R12 K52 [0.3]
       174 GETIMPORT                        R13 K55 [Enum.EasingStyle.Circular]
@@ -176,8 +176,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K9 [game]
        16 LOADK                            R4 K10 ["TweenService"]

@@ -38,14 +38,14 @@ PROTO_1:
         6 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["use"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K0 ["use"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["use"]
         7 CALL                             R2 0 1
-        8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R3 R4 K0 ["use"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K0 ["use"]
        11 CALL                             R3 0 1
        12 GETUPVAL                         R4 3
        13 CALL                             R4 0 1
@@ -55,14 +55,14 @@ PROTO_2:
        18 CALL                             R5 2 1
        19 GETTABLEKS                       R6 R0 K2 ["TableEntry"]
        21 GETUPVAL                         R7 5
-       22 GETUPVAL                         R10 6
-       23 GETTABLEKS                       R9 R10 K3 ["Dropdown"]
-       25 GETTABLEKS                       R8 R9 K4 ["Root"]
+       22 GETUPVAL                         R8 6
+       23 GETTABLEKS                       R8 R8 K3 ["Dropdown"]
+       25 GETTABLEKS                       R8 R8 K4 ["Root"]
        27 DUPTABLE                         R9 K13 [{"size", "label", "items", "width", "maxHeight", "value", "onItemChanged", "isDisabled"}]
-       28 GETUPVAL                         R13 6
-       29 GETTABLEKS                       R12 R13 K14 ["Enums"]
-       31 GETTABLEKS                       R11 R12 K15 ["InputSize"]
-       33 GETTABLEKS                       R10 R11 K16 ["XSmall"]
+       28 GETUPVAL                         R10 6
+       29 GETTABLEKS                       R10 R10 K14 ["Enums"]
+       31 GETTABLEKS                       R10 R10 K15 ["InputSize"]
+       33 GETTABLEKS                       R10 R10 K16 ["XSmall"]
        35 SETTABLEKS                       R10 R9 K5 ["size"]
        37 LOADK                            R10 K17 [""]
        38 SETTABLEKS                       R10 R9 K6 ["label"]
@@ -83,9 +83,9 @@ PROTO_2:
        61 CAPTURE                          VAL R6
        62 SETTABLEKS                       R10 R9 K11 ["onItemChanged"]
        64 GETTABLEKS                       R11 R6 K23 ["state"]
-       66 GETUPVAL                         R14 7
-       67 GETTABLEKS                       R13 R14 K24 ["SessionState"]
-       69 GETTABLEKS                       R12 R13 K25 ["Parsed"]
+       66 GETUPVAL                         R12 7
+       67 GETTABLEKS                       R12 R12 K24 ["SessionState"]
+       69 GETTABLEKS                       R12 R12 K25 ["Parsed"]
        71 JUMPIFNOTEQ                      R11 R12 ; [+2]
        73 LOADB                            R10 0 +1
        74 LOADB                            R10 1
@@ -100,43 +100,43 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R5 R5 K10 ["Framework"]
        29 CALL                             R4 1 1
        30 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        32 GETTABLEKS                       R6 R5 K12 ["Localization"]
        34 GETIMPORT                        R7 K5 [require]
-       36 GETTABLEKS                       R10 R0 K13 ["Src"]
-       38 GETTABLEKS                       R9 R10 K14 ["Controllers"]
-       40 GETTABLEKS                       R8 R9 K15 ["FileController"]
+       36 GETTABLEKS                       R8 R0 K13 ["Src"]
+       38 GETTABLEKS                       R8 R8 K14 ["Controllers"]
+       40 GETTABLEKS                       R8 R8 K15 ["FileController"]
        42 CALL                             R7 1 1
        43 GETIMPORT                        R8 K5 [require]
-       45 GETTABLEKS                       R11 R0 K13 ["Src"]
-       47 GETTABLEKS                       R10 R11 K14 ["Controllers"]
-       49 GETTABLEKS                       R9 R10 K16 ["QueueController"]
+       45 GETTABLEKS                       R9 R0 K13 ["Src"]
+       47 GETTABLEKS                       R9 R9 K14 ["Controllers"]
+       49 GETTABLEKS                       R9 R9 K16 ["QueueController"]
        51 CALL                             R8 1 1
        52 GETIMPORT                        R9 K5 [require]
-       54 GETTABLEKS                       R12 R0 K13 ["Src"]
-       56 GETTABLEKS                       R11 R12 K17 ["Hooks"]
-       58 GETTABLEKS                       R10 R11 K18 ["useMainViewAbsSize"]
+       54 GETTABLEKS                       R10 R0 K13 ["Src"]
+       56 GETTABLEKS                       R10 R10 K17 ["Hooks"]
+       58 GETTABLEKS                       R10 R10 K18 ["useMainViewAbsSize"]
        60 CALL                             R9 1 1
        61 GETIMPORT                        R10 K5 [require]
-       63 GETTABLEKS                       R12 R0 K13 ["Src"]
-       65 GETTABLEKS                       R11 R12 K19 ["Types"]
+       63 GETTABLEKS                       R11 R0 K13 ["Src"]
+       65 GETTABLEKS                       R11 R11 K19 ["Types"]
        67 CALL                             R10 1 1
        68 GETIMPORT                        R11 K5 [require]
-       70 GETTABLEKS                       R14 R0 K13 ["Src"]
-       72 GETTABLEKS                       R13 R14 K19 ["Types"]
-       74 GETTABLEKS                       R12 R13 K20 ["QueuedSession"]
+       70 GETTABLEKS                       R12 R0 K13 ["Src"]
+       72 GETTABLEKS                       R12 R12 K19 ["Types"]
+       74 GETTABLEKS                       R12 R12 K20 ["QueuedSession"]
        76 CALL                             R11 1 1
        77 DUPCLOSURE                       R12 K21 [PROTO_0]
        78 DUPCLOSURE                       R13 K22 [PROTO_2]

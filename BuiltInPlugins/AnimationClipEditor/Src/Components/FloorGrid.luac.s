@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["createElement"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["createElement"]
         3 LOADK                            R6 K1 ["LineHandleAdornment"]
         4 DUPTABLE                         R7 K7 [{"Thickness", "Color", "Adornee", "Length", "CFrame"}]
         5 LOADN                            R8 2
@@ -26,12 +26,12 @@ PROTO_1:
        15 DIVK                             R7 R6 K8 [10]
        16 GETTABLEKS                       R10 R5 K10 ["Y"]
        18 MULK                             R9 R10 K9 [0.5]
-       19 GETTABLEKS                       R12 R3 K11 ["Position"]
-       21 GETTABLEKS                       R11 R12 K10 ["Y"]
-       23 NAMECALL                         R14 R2 K12 ["GetModelCFrame"]
-       25 CALL                             R14 1 1
-       26 GETTABLEKS                       R13 R14 K13 ["p"]
-       28 GETTABLEKS                       R12 R13 K10 ["Y"]
+       19 GETTABLEKS                       R11 R3 K11 ["Position"]
+       21 GETTABLEKS                       R11 R11 K10 ["Y"]
+       23 NAMECALL                         R12 R2 K12 ["GetModelCFrame"]
+       25 CALL                             R12 1 1
+       26 GETTABLEKS                       R12 R12 K13 ["p"]
+       28 GETTABLEKS                       R12 R12 K10 ["Y"]
        30 SUB                              R10 R11 R12
        31 ADD                              R8 R9 R10
        32 LOADN                            R10 0
@@ -43,8 +43,8 @@ PROTO_1:
        39 GETTABLEKS                       R12 R4 K17 ["Speed"]
        41 GETTABLEKS                       R13 R4 K18 ["Playhead"]
        43 MUL                              R11 R12 R13
-       44 GETUPVAL                         R13 0
-       45 GETTABLEKS                       R12 R13 K19 ["TICK_FREQUENCY"]
+       44 GETUPVAL                         R12 0
+       45 GETTABLEKS                       R12 R12 K19 ["TICK_FREQUENCY"]
        47 DIV                              R10 R11 R12
        48 NEWTABLE                         R11 0 0
        50 LOADN                            R14 251
@@ -119,8 +119,8 @@ PROTO_2:
        10 GETTABLEKS                       R5 R1 K4 ["RootInstance"]
        12 MOVE                             R6 R5
        13 JUMPIFNOT                        R6 ; [+5]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K5 ["findRootPart"]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K5 ["findRootPart"]
        17 MOVE                             R7 R5
        18 CALL                             R6 1 1
        19 JUMPIF                           R6 ; [+2]
@@ -131,15 +131,15 @@ PROTO_2:
        24 MOVE                             R11 R6
        25 NAMECALL                         R7 R0 K6 ["renderLines"]
        27 CALL                             R7 4 1
-       28 GETUPVAL                         R9 2
-       29 GETTABLEKS                       R8 R9 K7 ["createElement"]
-       31 GETUPVAL                         R10 2
-       32 GETTABLEKS                       R9 R10 K8 ["Portal"]
+       28 GETUPVAL                         R8 2
+       29 GETTABLEKS                       R8 R8 K7 ["createElement"]
+       31 GETUPVAL                         R9 2
+       32 GETTABLEKS                       R9 R9 K8 ["Portal"]
        34 DUPTABLE                         R10 K10 [{"target"}]
        35 SETTABLEKS                       R4 R10 K9 ["target"]
        37 DUPTABLE                         R11 K12 [{"GridLines"}]
-       38 GETUPVAL                         R13 2
-       39 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       38 GETUPVAL                         R12 2
+       39 GETTABLEKS                       R12 R12 K7 ["createElement"]
        41 LOADK                            R13 K13 ["Folder"]
        42 NEWTABLE                         R14 0 0
        44 MOVE                             R15 R7
@@ -159,17 +159,17 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Roact"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Roact"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Framework"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R3 K13 ["ContextServices"]
        29 GETTABLEKS                       R5 R4 K14 ["withContext"]
-       31 GETTABLEKS                       R7 R1 K15 ["Src"]
-       33 GETTABLEKS                       R6 R7 K16 ["Util"]
+       31 GETTABLEKS                       R6 R1 K15 ["Src"]
+       33 GETTABLEKS                       R6 R6 K16 ["Util"]
        35 GETIMPORT                        R7 K9 [require]
        37 GETTABLEKS                       R8 R6 K17 ["Constants"]
        39 CALL                             R7 1 1

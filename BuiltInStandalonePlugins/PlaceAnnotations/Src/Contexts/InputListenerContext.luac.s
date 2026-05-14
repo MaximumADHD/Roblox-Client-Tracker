@@ -6,8 +6,8 @@ PROTO_0:
         5 SETTABLEKS                       R1 R0 K0 ["Listener"]
         7 LOADNIL                          R1
         8 SETTABLEKS                       R1 R0 K1 ["FocusedElement"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K8 ["Event"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K8 ["Event"]
        13 SETTABLEKS                       R1 R0 K2 ["FocusedElementChangedSignal"]
        15 GETTABLEKS                       R1 R0 K0 ["Listener"]
        17 GETIMPORT                        R2 K11 [UDim2.fromScale]
@@ -26,8 +26,8 @@ PROTO_0:
        36 RETURN                           R0 1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["Listener"]
-        2 GETTABLEKS                       R2 R3 K1 ["Parent"]
+        0 GETTABLEKS                       R2 R0 K0 ["Listener"]
+        2 GETTABLEKS                       R2 R2 K1 ["Parent"]
         4 JUMPIFEQ                         R2 R1 ; [+5]
         6 GETTABLEKS                       R2 R0 K0 ["Listener"]
         8 SETTABLEKS                       R1 R2 K1 ["Parent"]
@@ -51,11 +51,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["ContextItem"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["ContextItem"]
        18 LOADK                            R5 K10 ["MouseListenerContext"]
        19 NAMECALL                         R3 R2 K11 ["extend"]
        21 CALL                             R3 2 1

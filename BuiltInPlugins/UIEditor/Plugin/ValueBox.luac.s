@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["m_imageLabel"]
-        2 GETTABLEKS                       R1 R2 K1 ["Size"]
+        0 GETTABLEKS                       R1 R0 K0 ["m_imageLabel"]
+        2 GETTABLEKS                       R1 R1 K1 ["Size"]
         4 RETURN                           R1 1
 
 PROTO_1:
@@ -46,8 +46,8 @@ PROTO_4:
         5 GETTABLEKS                       R3 R0 K2 ["m_textLabel"]
         7 SETTABLEKS                       R1 R3 K3 ["Text"]
         9 LOADK                            R4 K4 [0.025]
-       10 GETTABLEKS                       R6 R2 K5 ["AbsoluteSize"]
-       12 GETTABLEKS                       R5 R6 K6 ["Y"]
+       10 GETTABLEKS                       R5 R2 K5 ["AbsoluteSize"]
+       12 GETTABLEKS                       R5 R5 K6 ["Y"]
        14 MUL                              R3 R4 R5
        15 LOADN                            R6 12
        16 LOADN                            R7 15
@@ -62,22 +62,22 @@ PROTO_4:
        29 GETTABLEKS                       R5 R0 K2 ["m_textLabel"]
        31 CALL                             R4 1 1
        32 LOADK                            R6 K11 [0.00857142857142857]
-       33 GETTABLEKS                       R8 R2 K5 ["AbsoluteSize"]
-       35 GETTABLEKS                       R7 R8 K12 ["X"]
+       33 GETTABLEKS                       R7 R2 K5 ["AbsoluteSize"]
+       35 GETTABLEKS                       R7 R7 K12 ["X"]
        37 MUL                              R5 R6 R7
        38 LOADN                            R8 0
-       39 GETUPVAL                         R10 2
-       40 GETTABLEKS                       R9 R10 K12 ["X"]
+       39 GETUPVAL                         R9 2
+       40 GETTABLEKS                       R9 R9 K12 ["X"]
        42 FASTCALL3                        MATH_CLAMP R5 R8 R9
        44 MOVE                             R7 R5
        45 GETIMPORT                        R6 K9 [math.clamp]
        47 CALL                             R6 3 1
        48 MOVE                             R5 R6
-       49 GETUPVAL                         R9 2
-       50 GETTABLEKS                       R8 R9 K12 ["X"]
+       49 GETUPVAL                         R8 2
+       50 GETTABLEKS                       R8 R8 K12 ["X"]
        52 DIV                              R7 R5 R8
-       53 GETUPVAL                         R9 2
-       54 GETTABLEKS                       R8 R9 K6 ["Y"]
+       53 GETUPVAL                         R8 2
+       54 GETTABLEKS                       R8 R8 K6 ["Y"]
        56 MUL                              R6 R7 R8
        57 GETTABLEKS                       R7 R0 K2 ["m_textLabel"]
        59 GETIMPORT                        R8 K15 [UDim2.new]
@@ -221,9 +221,9 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
         3 GETIMPORT                        R1 K1 [require]
-        5 GETIMPORT                        R4 K3 [script]
-        7 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        9 GETTABLEKS                       R2 R3 K5 ["CoreGuiManager"]
+        5 GETIMPORT                        R2 K3 [script]
+        7 GETTABLEKS                       R2 R2 K4 ["Parent"]
+        9 GETTABLEKS                       R2 R2 K5 ["CoreGuiManager"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K7 [game]
        14 LOADK                            R4 K8 ["TextService"]

@@ -34,15 +34,15 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+18]
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["TypedInstanceSignals"]
-        5 GETTABLEKS                       R1 R2 K1 ["properties"]
-        7 GETTABLEKS                       R0 R1 K2 ["observeInstance"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["TypedInstanceSignals"]
+        5 GETTABLEKS                       R0 R0 K1 ["properties"]
+        7 GETTABLEKS                       R0 R0 K2 ["observeInstance"]
         9 GETUPVAL                         R1 2
        10 GETUPVAL                         R2 0
        11 CALL                             R0 2 1
-       12 GETUPVAL                         R2 3
-       13 GETTABLEKS                       R1 R2 K3 ["createComputed"]
+       12 GETUPVAL                         R1 3
+       13 GETTABLEKS                       R1 R1 K3 ["createComputed"]
        15 NEWCLOSURE                       R2 P0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          UPVAL U4
@@ -54,10 +54,10 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+13]
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["TypedInstanceSignals"]
-        5 GETTABLEKS                       R1 R2 K1 ["properties"]
-        7 GETTABLEKS                       R0 R1 K2 ["observeCFrame"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["TypedInstanceSignals"]
+        5 GETTABLEKS                       R0 R0 K1 ["properties"]
+        7 GETTABLEKS                       R0 R0 K2 ["observeCFrame"]
         9 GETUPVAL                         R1 2
        10 GETUPVAL                         R3 0
        11 LOADK                            R4 K3 ["TposeAdjustment"]
@@ -72,8 +72,8 @@ PROTO_4:
         1 GETTABLEKS                       R2 R1 K0 ["Name"]
         3 JUMP                             ; [+1]
         4 LOADNIL                          R2
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["useMemo"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["useMemo"]
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          VAL R2
        10 CAPTURE                          UPVAL U1
@@ -86,8 +86,8 @@ PROTO_4:
        18 MOVE                             R7 R2
        19 SETLIST                          R5 R6 2 [1]
        21 CALL                             R3 2 1
-       22 GETUPVAL                         R5 0
-       23 GETTABLEKS                       R4 R5 K1 ["useMemo"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K1 ["useMemo"]
        25 NEWCLOSURE                       R5 P1
        26 CAPTURE                          VAL R2
        27 CAPTURE                          UPVAL U1
@@ -98,12 +98,12 @@ PROTO_4:
        33 MOVE                             R8 R2
        34 SETLIST                          R6 R7 2 [1]
        36 CALL                             R4 2 1
-       37 GETUPVAL                         R6 5
-       38 GETTABLEKS                       R5 R6 K2 ["useSignalState"]
+       37 GETUPVAL                         R5 5
+       38 GETTABLEKS                       R5 R5 K2 ["useSignalState"]
        40 MOVE                             R6 R3
        41 CALL                             R5 1 1
-       42 GETUPVAL                         R7 5
-       43 GETTABLEKS                       R6 R7 K2 ["useSignalState"]
+       42 GETUPVAL                         R6 5
+       43 GETTABLEKS                       R6 R6 K2 ["useSignalState"]
        45 MOVE                             R7 R4
        46 CALL                             R6 1 1
        47 DUPTABLE                         R7 K6 [{"mappedInstance", "adjustmentValue", "isMapped"}]
@@ -132,29 +132,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["AnimationEditor"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["AnimationEditor"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Signals"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Signals"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["SignalsReact"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["SignalsReact"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R7 R0 K11 ["Src"]
-       39 GETTABLEKS                       R6 R7 K12 ["Types"]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Types"]
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K5 [require]
-       44 GETTABLEKS                       R9 R0 K11 ["Src"]
-       46 GETTABLEKS                       R8 R9 K13 ["Flags"]
-       48 GETTABLEKS                       R7 R8 K14 ["getFFlagAdaptiveAnimationConstraints"]
+       44 GETTABLEKS                       R7 R0 K11 ["Src"]
+       46 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       48 GETTABLEKS                       R7 R7 K14 ["getFFlagAdaptiveAnimationConstraints"]
        50 CALL                             R6 1 1
        51 DUPCLOSURE                       R7 K15 [PROTO_0]
        52 DUPCLOSURE                       R8 K16 [PROTO_4]

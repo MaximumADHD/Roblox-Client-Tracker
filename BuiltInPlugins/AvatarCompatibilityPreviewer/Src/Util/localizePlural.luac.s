@@ -12,8 +12,8 @@ PROTO_0:
        12 NAMECALL                         R9 R9 K2 ["format"]
        14 CALL                             R9 2 1
        15 MOVE                             R8 R9
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K4 ["join"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K4 ["join"]
        19 DUPTABLE                         R10 K6 [{"amount"}]
        20 JUMPIFNOTEQKN                    R3 K0 [1] ; [+3]
        22 LOADNIL                          R11
@@ -33,8 +33,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 CAPTURE                          VAL R1

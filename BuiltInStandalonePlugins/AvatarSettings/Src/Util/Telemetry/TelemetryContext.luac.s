@@ -45,8 +45,8 @@ PROTO_3:
         0 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 DUPTABLE                         R2 K2 [{"logTelemetryCounterEvent"}]
         4 MOVE                             R3 R0
         5 JUMPIF                           R3 ; [+1]
@@ -62,16 +62,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["ContextItem"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["ContextItem"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R7 R0 K10 ["Src"]
-       22 GETTABLEKS                       R6 R7 K11 ["Util"]
-       24 GETTABLEKS                       R5 R6 K12 ["Telemetry"]
-       26 GETTABLEKS                       R4 R5 K13 ["Events"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Util"]
+       24 GETTABLEKS                       R4 R4 K12 ["Telemetry"]
+       26 GETTABLEKS                       R4 R4 K13 ["Events"]
        28 CALL                             R3 1 1
        29 LOADK                            R6 K12 ["Telemetry"]
        30 NAMECALL                         R4 R2 K14 ["extend"]

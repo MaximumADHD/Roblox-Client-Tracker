@@ -1,15 +1,15 @@
 PROTO_0:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+8]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["mock"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["mock"]
         5 GETUPVAL                         R3 1
         6 GETUPVAL                         R4 2
         7 CALL                             R2 2 1
         8 MOVE                             R1 R2
         9 JUMP                             ; [+7]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K1 ["new"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K1 ["new"]
        13 GETUPVAL                         R3 1
        14 GETUPVAL                         R4 2
        15 CALL                             R2 2 1
@@ -21,30 +21,30 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K7 ["Util"]
        18 GETTABLEKS                       R3 R2 K8 ["StyleModifier"]
        20 GETTABLEKS                       R4 R1 K9 ["Style"]
        22 GETTABLEKS                       R5 R4 K10 ["StyleKey"]
-       24 GETTABLEKS                       R7 R4 K11 ["Themes"]
-       26 GETTABLEKS                       R6 R7 K12 ["StudioTheme"]
+       24 GETTABLEKS                       R6 R4 K11 ["Themes"]
+       26 GETTABLEKS                       R6 R6 K12 ["StudioTheme"]
        28 GETTABLEKS                       R7 R4 K13 ["Colors"]
        30 GETTABLEKS                       R8 R4 K14 ["getRawComponentStyle"]
        32 GETTABLEKS                       R9 R4 K15 ["ComponentSymbols"]
        34 GETTABLEKS                       R10 R1 K16 ["Dash"]
        36 GETTABLEKS                       R11 R10 K17 ["join"]
-       38 GETIMPORT                        R16 K19 [settings]
-       40 CALL                             R16 0 1
-       41 GETTABLEKS                       R15 R16 K20 ["Studio"]
-       43 GETTABLEKS                       R14 R15 K21 ["Theme"]
-       45 GETTABLEKS                       R13 R14 K22 ["Name"]
+       38 GETIMPORT                        R13 K19 [settings]
+       40 CALL                             R13 0 1
+       41 GETTABLEKS                       R13 R13 K20 ["Studio"]
+       43 GETTABLEKS                       R13 R13 K21 ["Theme"]
+       45 GETTABLEKS                       R13 R13 K22 ["Name"]
        47 JUMPIFEQKS                       R13 K23 ["Dark"] ; [+2]
        49 LOADB                            R12 0 +1
        50 LOADB                            R12 1
@@ -107,8 +107,8 @@ MAIN:
       141 MOVE                             R19 R11
       142 GETTABLEKS                       R20 R15 K48 ["&Round"]
       144 DUPTABLE                         R21 K49 [{"TextSize"}]
-      145 GETTABLEKS                       R23 R13 K25 ["Normal"]
-      147 GETTABLEKS                       R22 R23 K30 ["TextSize"]
+      145 GETTABLEKS                       R22 R13 K25 ["Normal"]
+      147 GETTABLEKS                       R22 R22 K30 ["TextSize"]
       149 SETTABLEKS                       R22 R21 K30 ["TextSize"]
       151 CALL                             R19 2 1
       152 SETTABLEKS                       R19 R18 K50 ["&ManageButton"]

@@ -2,8 +2,8 @@ PROTO_0:
         0 DUPTABLE                         R2 K1 [{"_services"}]
         1 DUPTABLE                         R3 K4 [{"VRService", "UserGameSettings"}]
         2 JUMPIFNOT                        R0 ; [+5]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K5 ["new"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K5 ["new"]
         6 CALL                             R4 0 1
         7 JUMP                             ; [+6]
         8 GETIMPORT                        R4 K7 [game]
@@ -12,8 +12,8 @@ PROTO_0:
        13 CALL                             R4 2 1
        14 SETTABLEKS                       R4 R3 K2 ["VRService"]
        16 JUMPIFNOT                        R0 ; [+5]
-       17 GETUPVAL                         R5 1
-       18 GETTABLEKS                       R4 R5 K5 ["new"]
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R4 R4 K5 ["new"]
        20 CALL                             R4 0 1
        21 JUMP                             ; [+7]
        22 GETIMPORT                        R4 K10 [UserSettings]
@@ -30,8 +30,8 @@ PROTO_0:
        39 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 LOADB                            R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -48,16 +48,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["ContextItem"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["ContextItem"]
        18 LOADK                            R5 K10 ["ServiceController"]
        19 NAMECALL                         R3 R2 K11 ["extend"]
        21 CALL                             R3 2 1
-       22 GETTABLEKS                       R5 R0 K12 ["Src"]
-       24 GETTABLEKS                       R4 R5 K13 ["Mocks"]
+       22 GETTABLEKS                       R4 R0 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Mocks"]
        26 GETIMPORT                        R5 K5 [require]
        28 GETTABLEKS                       R6 R4 K14 ["MockUserSettingService"]
        30 CALL                             R5 1 1

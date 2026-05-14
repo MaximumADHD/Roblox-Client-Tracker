@@ -49,9 +49,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R3 R4 K7 ["Common"]
-       13 GETTABLEKS                       R2 R3 K8 ["defineLuaFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
        15 CALL                             R1 1 0
        16 GETIMPORT                        R1 K10 [game]
        18 LOADK                            R3 K11 ["DebugAssetMgInAssetDm"]
@@ -66,8 +66,8 @@ MAIN:
        30 JUMPIF                           R1 ; [+1]
        31 RETURN                           R0 0
        32 GETIMPORT                        R1 K5 [require]
-       34 GETTABLEKS                       R3 R0 K14 ["Packages"]
-       36 GETTABLEKS                       R2 R3 K15 ["TestLoader"]
+       34 GETTABLEKS                       R2 R0 K14 ["Packages"]
+       36 GETTABLEKS                       R2 R2 K15 ["TestLoader"]
        38 CALL                             R1 1 1
        39 GETTABLEKS                       R2 R1 K16 ["isCli"]
        41 CALL                             R2 0 1
@@ -80,8 +80,8 @@ MAIN:
        50 GETTABLEKS                       R3 R0 K22 ["Name"]
        52 SETTABLEKS                       R3 R2 K22 ["Name"]
        54 GETIMPORT                        R2 K5 [require]
-       56 GETTABLEKS                       R4 R0 K14 ["Packages"]
-       58 GETTABLEKS                       R3 R4 K23 ["PluginLoader"]
+       56 GETTABLEKS                       R3 R0 K14 ["Packages"]
+       58 GETTABLEKS                       R3 R3 K23 ["PluginLoader"]
        60 CALL                             R2 1 1
        61 GETTABLEKS                       R3 R2 K24 ["PluginLoaderBuilder"]
        63 GETIMPORT                        R4 K10 [game]
@@ -100,14 +100,14 @@ MAIN:
        81 SETTABLEKS                       R6 R5 K29 ["enabled"]
        83 LOADB                            R6 1
        84 SETTABLEKS                       R6 R5 K30 ["clickableWhenViewportHidden"]
-       86 GETTABLEKS                       R9 R0 K35 ["Src"]
-       88 GETTABLEKS                       R8 R9 K36 ["Resources"]
-       90 GETTABLEKS                       R7 R8 K37 ["Localization"]
-       92 GETTABLEKS                       R6 R7 K38 ["SourceStrings"]
-       94 GETTABLEKS                       R10 R0 K35 ["Src"]
-       96 GETTABLEKS                       R9 R10 K36 ["Resources"]
-       98 GETTABLEKS                       R8 R9 K37 ["Localization"]
-      100 GETTABLEKS                       R7 R8 K39 ["LocalizedStrings"]
+       86 GETTABLEKS                       R6 R0 K35 ["Src"]
+       88 GETTABLEKS                       R6 R6 K36 ["Resources"]
+       90 GETTABLEKS                       R6 R6 K37 ["Localization"]
+       92 GETTABLEKS                       R6 R6 K38 ["SourceStrings"]
+       94 GETTABLEKS                       R7 R0 K35 ["Src"]
+       96 GETTABLEKS                       R7 R7 K36 ["Resources"]
+       98 GETTABLEKS                       R7 R7 K37 ["Localization"]
+      100 GETTABLEKS                       R7 R7 K39 ["LocalizedStrings"]
       102 DUPTABLE                         R8 K45 [{"plugin", "pluginName", "getToolbarName", "translationResourceTable", "fallbackResourceTable", "buttonInfo"}]
       103 GETIMPORT                        R9 K21 [plugin]
       105 SETTABLEKS                       R9 R8 K20 ["plugin"]
@@ -146,9 +146,9 @@ MAIN:
       155 JUMPIF                           R10 ; [+1]
       156 RETURN                           R0 0
       157 GETIMPORT                        R11 K5 [require]
-      159 GETTABLEKS                       R14 R0 K6 ["Bin"]
-      161 GETTABLEKS                       R13 R14 K7 ["Common"]
-      163 GETTABLEKS                       R12 R13 K67 ["main"]
+      159 GETTABLEKS                       R12 R0 K6 ["Bin"]
+      161 GETTABLEKS                       R12 R12 K7 ["Common"]
+      163 GETTABLEKS                       R12 R12 K67 ["main"]
       165 CALL                             R11 1 1
       166 MOVE                             R12 R11
       167 GETIMPORT                        R13 K21 [plugin]

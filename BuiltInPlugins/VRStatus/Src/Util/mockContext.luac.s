@@ -23,8 +23,8 @@ PROTO_0:
        27 GETIMPORT                        R8 K9 [table.insert]
        29 CALL                             R8 2 0
        30 FORGLOOP                         R3 2 ; [-8]
-       32 GETUPVAL                         R4 1
-       33 GETTABLEKS                       R3 R4 K10 ["provideMockContext"]
+       32 GETUPVAL                         R3 1
+       33 GETTABLEKS                       R3 R3 K10 ["provideMockContext"]
        35 MOVE                             R4 R2
        36 MOVE                             R5 R0
        37 CALL                             R3 2 -1
@@ -32,27 +32,27 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K7 ["TestHelpers"]
        18 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
        20 GETIMPORT                        R4 K4 [require]
-       22 GETTABLEKS                       R7 R0 K9 ["Src"]
-       24 GETTABLEKS                       R6 R7 K10 ["Resources"]
-       26 GETTABLEKS                       R5 R6 K11 ["MakeTheme"]
+       22 GETTABLEKS                       R5 R0 K9 ["Src"]
+       24 GETTABLEKS                       R5 R5 K10 ["Resources"]
+       26 GETTABLEKS                       R5 R5 K11 ["MakeTheme"]
        28 CALL                             R4 1 1
        29 NEWTABLE                         R5 0 3
-       31 GETTABLEKS                       R7 R3 K12 ["Analytics"]
-       33 GETTABLEKS                       R6 R7 K13 ["mock"]
+       31 GETTABLEKS                       R6 R3 K12 ["Analytics"]
+       33 GETTABLEKS                       R6 R6 K13 ["mock"]
        35 CALL                             R6 0 1
-       36 GETTABLEKS                       R8 R3 K14 ["Localization"]
-       38 GETTABLEKS                       R7 R8 K13 ["mock"]
+       36 GETTABLEKS                       R7 R3 K14 ["Localization"]
+       38 GETTABLEKS                       R7 R7 K13 ["mock"]
        40 CALL                             R7 0 1
        41 MOVE                             R8 R4
        42 LOADB                            R9 1

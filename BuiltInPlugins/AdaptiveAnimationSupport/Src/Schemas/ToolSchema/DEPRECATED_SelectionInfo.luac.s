@@ -31,8 +31,8 @@ PROTO_0:
        43 JUMPIFNOTEQKNIL                  R4 ; [+15]
        45 JUMPIFNOT                        R3 ; [+9]
        46 GETIMPORT                        R5 K8 [CFrame.new]
-       48 GETUPVAL                         R7 0
-       49 GETTABLEKS                       R6 R7 K9 ["getJointPosition"]
+       48 GETUPVAL                         R6 0
+       49 GETTABLEKS                       R6 R6 K9 ["getJointPosition"]
        51 MOVE                             R7 R3
        52 CALL                             R6 1 -1
        53 CALL                             R5 -1 1
@@ -50,8 +50,8 @@ PROTO_0:
        70 FASTCALL2                        SETMETATABLE R6 R7 ; [+3]
        72 GETIMPORT                        R5 K15 [setmetatable]
        74 CALL                             R5 2 1
-       75 GETUPVAL                         R7 2
-       76 GETTABLEKS                       R6 R7 K7 ["new"]
+       75 GETUPVAL                         R6 2
+       76 GETTABLEKS                       R6 R6 K7 ["new"]
        78 CALL                             R6 0 1
        79 SETTABLEKS                       R6 R5 K16 ["SelectionChanged"]
        81 RETURN                           R5 1
@@ -66,8 +66,8 @@ PROTO_2:
         4 GETTABLEKS                       R2 R0 K0 ["_selectionItem"]
         6 JUMPIFNOT                        R1 ; [+9]
         7 GETIMPORT                        R3 K4 [CFrame.new]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K5 ["getJointPosition"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K5 ["getJointPosition"]
        12 MOVE                             R5 R1
        13 CALL                             R4 1 -1
        14 CALL                             R3 -1 1
@@ -110,16 +110,16 @@ PROTO_7:
         6 RETURN                           R1 1
 
 PROTO_8:
-        0 GETTABLEKS                       R3 R0 K0 ["_selectionItem"]
-        2 GETTABLEKS                       R2 R3 K1 ["_bone"]
+        0 GETTABLEKS                       R2 R0 K0 ["_selectionItem"]
+        2 GETTABLEKS                       R2 R2 K1 ["_bone"]
         4 JUMPIFEQKNIL                     R2 ; [+2]
         6 LOADB                            R1 0 +1
         7 LOADB                            R1 1
         8 RETURN                           R1 1
 
 PROTO_9:
-        0 GETTABLEKS                       R2 R0 K0 ["_selectionItem"]
-        2 GETTABLEKS                       R1 R2 K1 ["Transform"]
+        0 GETTABLEKS                       R1 R0 K0 ["_selectionItem"]
+        2 GETTABLEKS                       R1 R1 K1 ["Transform"]
         4 JUMPIF                           R1 ; [+3]
         5 GETIMPORT                        R1 K4 [CFrame.new]
         7 CALL                             R1 0 1
@@ -144,8 +144,8 @@ PROTO_9:
        32 RETURN                           R3 3
 
 PROTO_10:
-        0 GETTABLEKS                       R2 R0 K0 ["_selectionItem"]
-        2 GETTABLEKS                       R1 R2 K1 ["Transform"]
+        0 GETTABLEKS                       R1 R0 K0 ["_selectionItem"]
+        2 GETTABLEKS                       R1 R1 K1 ["Transform"]
         4 JUMPIF                           R1 ; [+3]
         5 GETIMPORT                        R1 K4 [CFrame.new]
         7 CALL                             R1 0 1
@@ -158,12 +158,12 @@ PROTO_10:
        15 RETURN                           R3 3
 
 PROTO_11:
-        0 GETTABLEKS                       R2 R0 K0 ["_selectionItem"]
-        2 GETTABLEKS                       R1 R2 K1 ["_bone"]
+        0 GETTABLEKS                       R1 R0 K0 ["_selectionItem"]
+        2 GETTABLEKS                       R1 R1 K1 ["_bone"]
         4 JUMPIFNOT                        R1 ; [+9]
         5 NEWTABLE                         R1 0 1
-        7 GETTABLEKS                       R3 R0 K0 ["_selectionItem"]
-        9 GETTABLEKS                       R2 R3 K1 ["_bone"]
+        7 GETTABLEKS                       R2 R0 K0 ["_selectionItem"]
+        9 GETTABLEKS                       R2 R2 K1 ["_bone"]
        11 SETLIST                          R1 R2 1 [1]
        13 RETURN                           R1 1
        14 NEWTABLE                         R1 0 0
@@ -174,8 +174,8 @@ PROTO_12:
         1 RETURN                           R1 1
 
 PROTO_13:
-        0 GETTABLEKS                       R4 R0 K0 ["_selectionItem"]
-        2 GETTABLEKS                       R3 R4 K1 ["_bone"]
+        0 GETTABLEKS                       R3 R0 K0 ["_selectionItem"]
+        2 GETTABLEKS                       R3 R3 K1 ["_bone"]
         4 JUMPIFEQ                         R1 R3 ; [+2]
         6 LOADB                            R2 0 +1
         7 LOADB                            R2 1
@@ -187,15 +187,15 @@ MAIN:
         3 LOADK                            R2 K2 ["AdaptiveAnimationSupport"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R2 K5 ["DraggerFramework"]
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
+       15 GETTABLEKS                       R3 R3 K9 ["Signal"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K7 [require]
-       20 GETTABLEKS                       R5 R0 K4 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["AdaptiveAnimationTools"]
+       20 GETTABLEKS                       R4 R0 K4 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["AdaptiveAnimationTools"]
        24 CALL                             R3 1 1
        25 NEWTABLE                         R4 16 0
        27 SETTABLEKS                       R4 R4 K11 ["__index"]

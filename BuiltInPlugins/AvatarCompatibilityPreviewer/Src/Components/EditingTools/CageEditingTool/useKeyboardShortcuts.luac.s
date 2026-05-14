@@ -50,16 +50,16 @@ PROTO_5:
         1 GETTABLEKS                       R2 R0 K0 ["UserInputType"]
         3 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseMovement]
         5 JUMPIFNOTEQ                      R2 R3 ; [+8]
-        7 GETTABLEKS                       R3 R0 K4 ["Delta"]
-        9 GETTABLEKS                       R2 R3 K5 ["X"]
+        7 GETTABLEKS                       R2 R0 K4 ["Delta"]
+        9 GETTABLEKS                       R2 R2 K5 ["X"]
        11 GETUPVAL                         R3 0
        12 MUL                              R1 R2 R3
        13 JUMP                             ; [+15]
        14 GETTABLEKS                       R2 R0 K0 ["UserInputType"]
        16 GETIMPORT                        R3 K7 [Enum.UserInputType.MouseWheel]
        18 JUMPIFNOTEQ                      R2 R3 ; [+8]
-       20 GETTABLEKS                       R3 R0 K8 ["Position"]
-       22 GETTABLEKS                       R2 R3 K9 ["Z"]
+       20 GETTABLEKS                       R2 R0 K8 ["Position"]
+       22 GETTABLEKS                       R2 R2 K9 ["Z"]
        24 GETUPVAL                         R3 0
        25 MUL                              R1 R2 R3
        26 JUMP                             ; [+2]
@@ -113,8 +113,8 @@ PROTO_8:
        10 LOADB                            R1 0
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
-       13 GETUPVAL                         R1 4
-       14 GETTABLEKS                       R0 R1 K0 ["InputChanged"]
+       13 GETUPVAL                         R0 4
+       14 GETTABLEKS                       R0 R0 K0 ["InputChanged"]
        16 GETUPVAL                         R2 5
        17 GETUPVAL                         R3 6
        18 CALL                             R2 1 -1
@@ -158,8 +158,8 @@ PROTO_10:
        10 LOADB                            R1 0
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
-       13 GETUPVAL                         R1 4
-       14 GETTABLEKS                       R0 R1 K0 ["InputChanged"]
+       13 GETUPVAL                         R0 4
+       14 GETTABLEKS                       R0 R0 K0 ["InputChanged"]
        16 GETUPVAL                         R2 5
        17 GETUPVAL                         R3 6
        18 CALL                             R2 1 -1
@@ -178,8 +178,8 @@ PROTO_10:
        35 RETURN                           R1 1
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFNOT                        R0 ; [+3]
         4 GETIMPORT                        R0 K4 [Enum.ContextActionResult.Sink]
         6 RETURN                           R0 1
@@ -262,8 +262,8 @@ PROTO_15:
        11 GETIMPORT                        R6 K5 [Enum.UserInputType.MouseWheel]
        13 NAMECALL                         R1 R1 K6 ["BindAction"]
        15 CALL                             R1 5 0
-       16 GETUPVAL                         R2 3
-       17 GETTABLEKS                       R1 R2 K7 ["InputBegan"]
+       16 GETUPVAL                         R1 3
+       17 GETTABLEKS                       R1 R1 K7 ["InputBegan"]
        19 NEWCLOSURE                       R3 P1
        20 CAPTURE                          UPVAL U4
        21 CAPTURE                          UPVAL U5
@@ -271,8 +271,8 @@ PROTO_15:
        23 CAPTURE                          UPVAL U7
        24 NAMECALL                         R1 R1 K8 ["Connect"]
        26 CALL                             R1 2 1
-       27 GETUPVAL                         R3 3
-       28 GETTABLEKS                       R2 R3 K9 ["InputEnded"]
+       27 GETUPVAL                         R2 3
+       28 GETTABLEKS                       R2 R2 K9 ["InputEnded"]
        30 NEWCLOSURE                       R4 P2
        31 CAPTURE                          UPVAL U4
        32 CAPTURE                          UPVAL U6
@@ -288,8 +288,8 @@ PROTO_15:
        43 RETURN                           R3 1
 
 PROTO_16:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useRef"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useRef"]
         3 LOADB                            R3 0
         4 CALL                             R2 1 1
         5 NEWCLOSURE                       R3 P0
@@ -298,33 +298,33 @@ PROTO_16:
         8 NEWCLOSURE                       R4 P1
         9 CAPTURE                          UPVAL U1
        10 CAPTURE                          VAL R2
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K1 ["useCallback"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K1 ["useCallback"]
        14 DUPCLOSURE                       R6 K2 [PROTO_2]
        15 CAPTURE                          UPVAL U1
        16 NEWTABLE                         R7 0 0
        18 CALL                             R5 2 1
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K1 ["useCallback"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K1 ["useCallback"]
        22 DUPCLOSURE                       R7 K3 [PROTO_3]
        23 CAPTURE                          UPVAL U1
        24 NEWTABLE                         R8 0 0
        26 CALL                             R6 2 1
-       27 GETUPVAL                         R8 0
-       28 GETTABLEKS                       R7 R8 K1 ["useCallback"]
+       27 GETUPVAL                         R7 0
+       28 GETTABLEKS                       R7 R7 K1 ["useCallback"]
        30 DUPCLOSURE                       R8 K4 [PROTO_6]
        31 NEWTABLE                         R9 0 0
        33 CALL                             R7 2 1
-       34 GETUPVAL                         R9 0
-       35 GETTABLEKS                       R8 R9 K5 ["useState"]
+       34 GETUPVAL                         R8 0
+       35 GETTABLEKS                       R8 R8 K5 ["useState"]
        37 LOADB                            R9 0
        38 CALL                             R8 1 2
-       39 GETUPVAL                         R11 0
-       40 GETTABLEKS                       R10 R11 K5 ["useState"]
+       39 GETUPVAL                         R10 0
+       40 GETTABLEKS                       R10 R10 K5 ["useState"]
        42 LOADB                            R11 0
        43 CALL                             R10 1 2
-       44 GETUPVAL                         R13 0
-       45 GETTABLEKS                       R12 R13 K6 ["useEffect"]
+       44 GETUPVAL                         R12 0
+       45 GETTABLEKS                       R12 R12 K6 ["useEffect"]
        47 NEWCLOSURE                       R13 P5
        48 CAPTURE                          VAL R8
        49 CAPTURE                          VAL R5
@@ -338,8 +338,8 @@ PROTO_16:
        58 MOVE                             R15 R8
        59 SETLIST                          R14 R15 1 [1]
        61 CALL                             R12 2 0
-       62 GETUPVAL                         R13 0
-       63 GETTABLEKS                       R12 R13 K6 ["useEffect"]
+       62 GETUPVAL                         R12 0
+       63 GETTABLEKS                       R12 R12 K6 ["useEffect"]
        65 NEWCLOSURE                       R13 P6
        66 CAPTURE                          VAL R10
        67 CAPTURE                          VAL R5
@@ -353,8 +353,8 @@ PROTO_16:
        76 MOVE                             R15 R10
        77 SETLIST                          R14 R15 1 [1]
        79 CALL                             R12 2 0
-       80 GETUPVAL                         R13 0
-       81 GETTABLEKS                       R12 R13 K6 ["useEffect"]
+       80 GETUPVAL                         R12 0
+       81 GETTABLEKS                       R12 R12 K6 ["useEffect"]
        83 NEWCLOSURE                       R13 P7
        84 CAPTURE                          UPVAL U2
        85 CAPTURE                          UPVAL U3
@@ -387,12 +387,12 @@ MAIN:
        22 NAMECALL                         R3 R3 K9 ["FindFirstAncestor"]
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
-       27 GETTABLEKS                       R6 R3 K12 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K13 ["React"]
+       27 GETTABLEKS                       R5 R3 K12 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K13 ["React"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K11 [require]
-       34 GETTABLEKS                       R7 R3 K14 ["Src"]
-       36 GETTABLEKS                       R6 R7 K15 ["Types"]
+       34 GETTABLEKS                       R6 R3 K14 ["Src"]
+       36 GETTABLEKS                       R6 R6 K15 ["Types"]
        38 CALL                             R5 1 1
        39 DUPCLOSURE                       R6 K16 [PROTO_16]
        40 CAPTURE                          VAL R4

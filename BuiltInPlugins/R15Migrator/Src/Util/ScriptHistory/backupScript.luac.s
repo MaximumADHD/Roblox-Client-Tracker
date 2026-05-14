@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R4 R6 K0 ["AttributeChunkNameBase"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["AttributeChunkNameBase"]
         3 FASTCALL1                        TOSTRING R0 ; [+3]
         4 MOVE                             R6 R0
         5 GETIMPORT                        R5 K2 [tostring]
@@ -18,8 +18,8 @@ PROTO_0:
 
 PROTO_1:
         0 JUMPIFNOT                        R0 ; [+7]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["AttributeChunkCountName"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["AttributeChunkCountName"]
         4 NAMECALL                         R1 R0 K1 ["GetAttribute"]
         6 CALL                             R1 2 1
         7 JUMPIFNOT                        R1 ; [+1]
@@ -28,8 +28,8 @@ PROTO_1:
        10 GETTABLEKS                       R3 R0 K2 ["Source"]
        12 NAMECALL                         R1 R1 K3 ["SplitIntoChunks"]
        14 CALL                             R1 2 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K0 ["AttributeChunkCountName"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K0 ["AttributeChunkCountName"]
        18 LENGTH                           R5 R1
        19 NAMECALL                         R2 R0 K4 ["SetAttribute"]
        21 CALL                             R2 3 0
@@ -39,8 +39,8 @@ PROTO_1:
        25 FORGPREP                         R2
        26 DUPTABLE                         R7 K6 [{"source"}]
        27 SETTABLEKS                       R6 R7 K5 ["source"]
-       29 GETUPVAL                         R11 0
-       30 GETTABLEKS                       R9 R11 K7 ["AttributeChunkNameBase"]
+       29 GETUPVAL                         R9 0
+       30 GETTABLEKS                       R9 R9 K7 ["AttributeChunkNameBase"]
        32 FASTCALL1                        TOSTRING R5 ; [+3]
        33 MOVE                             R11 R5
        34 GETIMPORT                        R10 K9 [tostring]
@@ -72,16 +72,16 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R6 R1 K10 ["Src"]
-       17 GETTABLEKS                       R5 R6 K11 ["Util"]
-       19 GETTABLEKS                       R4 R5 K12 ["ScriptAnalysis"]
-       21 GETTABLEKS                       R3 R4 K13 ["Constants"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["ScriptAnalysis"]
+       21 GETTABLEKS                       R3 R3 K13 ["Constants"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R7 R1 K10 ["Src"]
-       28 GETTABLEKS                       R6 R7 K11 ["Util"]
-       30 GETTABLEKS                       R5 R6 K14 ["ScriptHistory"]
-       32 GETTABLEKS                       R4 R5 K15 ["ChunkUtil"]
+       26 GETTABLEKS                       R4 R1 K10 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Util"]
+       30 GETTABLEKS                       R4 R4 K14 ["ScriptHistory"]
+       32 GETTABLEKS                       R4 R4 K15 ["ChunkUtil"]
        34 CALL                             R3 1 1
        35 DUPCLOSURE                       R4 K16 [PROTO_0]
        36 CAPTURE                          VAL R2

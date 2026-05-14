@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R1 K2 [Enum.AssetType]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["AssetType"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["AssetType"]
         5 GETTABLE                         R0 R1 R2
         6 RETURN                           R0 1
 
@@ -29,8 +29,8 @@ PROTO_2:
        17 CAPTURE                          VAL R12
        18 CALL                             R13 1 2
        19 JUMPIFNOT                        R13 ; [+37]
-       20 GETUPVAL                         R17 1
-       21 GETTABLEKS                       R16 R17 K2 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
+       20 GETUPVAL                         R16 1
+       21 GETTABLEKS                       R16 R16 K2 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
        23 GETTABLE                         R15 R16 R14
        24 JUMPIFEQKNIL                     R15 ; [+32]
        26 GETTABLEKS                       R16 R12 K3 ["AssetType"]
@@ -48,8 +48,8 @@ PROTO_2:
        45 MOVE                             R16 R0
        46 GETIMPORT                        R15 K10 [table.insert]
        48 CALL                             R15 2 0
-       49 GETUPVAL                         R16 2
-       50 GETTABLEKS                       R15 R16 K11 ["collectArray"]
+       49 GETUPVAL                         R15 2
+       50 GETTABLEKS                       R15 R15 K11 ["collectArray"]
        52 GETTABLEKS                       R16 R12 K12 ["Attachments"]
        54 DUPCLOSURE                       R17 K13 [PROTO_1]
        55 CALL                             R15 2 1
@@ -65,21 +65,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AvatarToolsShared"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AvatarToolsShared"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["Constants"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R6 R1 K10 ["Util"]
-       32 GETTABLEKS                       R5 R6 K12 ["AccessoryAndBodyToolShared"]
-       34 GETTABLEKS                       R4 R5 K13 ["AssetTypeAttachmentInfo"]
+       30 GETTABLEKS                       R4 R1 K10 ["Util"]
+       32 GETTABLEKS                       R4 R4 K12 ["AccessoryAndBodyToolShared"]
+       34 GETTABLEKS                       R4 R4 K13 ["AssetTypeAttachmentInfo"]
        36 DUPCLOSURE                       R5 K14 [PROTO_2]
        37 CAPTURE                          VAL R4
        38 CAPTURE                          VAL R3

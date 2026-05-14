@@ -1,7 +1,7 @@
 PROTO_0:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -21,9 +21,9 @@ PROTO_0:
        26 RETURN                           R2 1
 
 PROTO_1:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -43,9 +43,9 @@ PROTO_1:
        26 RETURN                           R2 1
 
 PROTO_2:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -65,9 +65,9 @@ PROTO_2:
        26 RETURN                           R2 1
 
 PROTO_3:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -87,9 +87,9 @@ PROTO_3:
        26 RETURN                           R2 1
 
 PROTO_4:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -104,9 +104,9 @@ PROTO_4:
        19 RETURN                           R2 1
 
 PROTO_5:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -126,9 +126,9 @@ PROTO_5:
        26 RETURN                           R2 1
 
 PROTO_6:
-        0 NAMECALL                         R3 R1 K0 ["GetImportTree"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["UsesCages"]
+        0 NAMECALL                         R2 R1 K0 ["GetImportTree"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R2 R2 K1 ["UsesCages"]
         5 JUMPIF                           R2 ; [+2]
         6 LOADB                            R2 1
         7 RETURN                           R2 1
@@ -149,11 +149,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R6 R0 K6 ["Src"]
-       11 GETTABLEKS                       R5 R6 K7 ["Components"]
-       13 GETTABLEKS                       R4 R5 K8 ["Properties"]
-       15 GETTABLEKS                       R3 R4 K9 ["Types"]
-       17 GETTABLEKS                       R2 R3 K10 ["VisibilityProperty"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Properties"]
+       15 GETTABLEKS                       R2 R2 K9 ["Types"]
+       17 GETTABLEKS                       R2 R2 K10 ["VisibilityProperty"]
        19 CALL                             R1 1 1
        20 DUPCLOSURE                       R2 K11 [PROTO_0]
        21 DUPCLOSURE                       R3 K12 [PROTO_1]

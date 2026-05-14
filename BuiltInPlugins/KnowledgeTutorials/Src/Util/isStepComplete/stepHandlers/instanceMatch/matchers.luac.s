@@ -203,21 +203,21 @@ PROTO_10:
         7 LOADB                            R2 0
         8 RETURN                           R2 1
         9 LOADB                            R2 0
-       10 GETTABLEKS                       R4 R1 K3 ["Position"]
-       12 GETTABLEKS                       R3 R4 K4 ["X"]
-       14 GETTABLEKS                       R5 R0 K3 ["Position"]
-       16 GETTABLEKS                       R4 R5 K4 ["X"]
+       10 GETTABLEKS                       R3 R1 K3 ["Position"]
+       12 GETTABLEKS                       R3 R3 K4 ["X"]
+       14 GETTABLEKS                       R4 R0 K3 ["Position"]
+       16 GETTABLEKS                       R4 R4 K4 ["X"]
        18 JUMPIFNOTLT                      R4 R3 ; [+24]
        20 LOADB                            R2 0
-       21 GETTABLEKS                       R4 R1 K3 ["Position"]
-       23 GETTABLEKS                       R3 R4 K5 ["Y"]
-       25 GETTABLEKS                       R5 R0 K3 ["Position"]
-       27 GETTABLEKS                       R4 R5 K5 ["Y"]
+       21 GETTABLEKS                       R3 R1 K3 ["Position"]
+       23 GETTABLEKS                       R3 R3 K5 ["Y"]
+       25 GETTABLEKS                       R4 R0 K3 ["Position"]
+       27 GETTABLEKS                       R4 R4 K5 ["Y"]
        29 JUMPIFNOTLT                      R4 R3 ; [+13]
-       31 GETTABLEKS                       R4 R1 K3 ["Position"]
-       33 GETTABLEKS                       R3 R4 K6 ["Z"]
-       35 GETTABLEKS                       R5 R0 K3 ["Position"]
-       37 GETTABLEKS                       R4 R5 K6 ["Z"]
+       31 GETTABLEKS                       R3 R1 K3 ["Position"]
+       33 GETTABLEKS                       R3 R3 K6 ["Z"]
+       35 GETTABLEKS                       R4 R0 K3 ["Position"]
+       37 GETTABLEKS                       R4 R4 K6 ["Z"]
        39 JUMPIFLT                         R4 R3 ; [+2]
        41 LOADB                            R2 0 +1
        42 LOADB                            R2 1
@@ -232,21 +232,21 @@ PROTO_11:
         7 LOADB                            R2 0
         8 RETURN                           R2 1
         9 LOADB                            R2 0
-       10 GETTABLEKS                       R4 R1 K3 ["Position"]
-       12 GETTABLEKS                       R3 R4 K4 ["X"]
-       14 GETTABLEKS                       R5 R0 K3 ["Position"]
-       16 GETTABLEKS                       R4 R5 K4 ["X"]
+       10 GETTABLEKS                       R3 R1 K3 ["Position"]
+       12 GETTABLEKS                       R3 R3 K4 ["X"]
+       14 GETTABLEKS                       R4 R0 K3 ["Position"]
+       16 GETTABLEKS                       R4 R4 K4 ["X"]
        18 JUMPIFNOTLT                      R3 R4 ; [+24]
        20 LOADB                            R2 0
-       21 GETTABLEKS                       R4 R1 K3 ["Position"]
-       23 GETTABLEKS                       R3 R4 K5 ["Y"]
-       25 GETTABLEKS                       R5 R0 K3 ["Position"]
-       27 GETTABLEKS                       R4 R5 K5 ["Y"]
+       21 GETTABLEKS                       R3 R1 K3 ["Position"]
+       23 GETTABLEKS                       R3 R3 K5 ["Y"]
+       25 GETTABLEKS                       R4 R0 K3 ["Position"]
+       27 GETTABLEKS                       R4 R4 K5 ["Y"]
        29 JUMPIFNOTLT                      R3 R4 ; [+13]
-       31 GETTABLEKS                       R4 R1 K3 ["Position"]
-       33 GETTABLEKS                       R3 R4 K6 ["Z"]
-       35 GETTABLEKS                       R5 R0 K3 ["Position"]
-       37 GETTABLEKS                       R4 R5 K6 ["Z"]
+       31 GETTABLEKS                       R3 R1 K3 ["Position"]
+       33 GETTABLEKS                       R3 R3 K6 ["Z"]
+       35 GETTABLEKS                       R4 R0 K3 ["Position"]
+       37 GETTABLEKS                       R4 R4 K6 ["Z"]
        39 JUMPIFLT                         R3 R4 ; [+2]
        41 LOADB                            R2 0 +1
        42 LOADB                            R2 1

@@ -1,23 +1,23 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["splitOn"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["splitOn"]
         3 MOVE                             R2 R0
         4 LOADK                            R3 K1 ["/"]
         5 CALL                             R1 2 1
         6 GETTABLEN                        R2 R1 1
         7 JUMPIFNOTEQKS                    R2 K2 ["universes"] ; [+7]
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K3 ["ScopeType"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K3 ["ScopeType"]
        12 GETTABLEKS                       R2 R3 K4 ["ProjectShared"]
        14 JUMP                             ; [+27]
        15 JUMPIFNOTEQKS                    R2 K5 ["groups"] ; [+7]
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R3 R4 K3 ["ScopeType"]
+       17 GETUPVAL                         R3 1
+       18 GETTABLEKS                       R3 R3 K3 ["ScopeType"]
        20 GETTABLEKS                       R2 R3 K6 ["Group"]
        22 JUMP                             ; [+19]
        23 JUMPIFNOTEQKS                    R2 K7 ["users"] ; [+7]
-       25 GETUPVAL                         R4 1
-       26 GETTABLEKS                       R3 R4 K3 ["ScopeType"]
+       25 GETUPVAL                         R3 1
+       26 GETTABLEKS                       R3 R3 K3 ["ScopeType"]
        28 GETTABLEKS                       R2 R3 K8 ["User"]
        30 JUMP                             ; [+11]
        31 GETUPVAL                         R3 2
@@ -58,22 +58,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K6 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["createScopeUid"]
+       23 GETTABLEKS                       R4 R0 K6 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["createScopeUid"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K6 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["logIfDebug"]
+       32 GETTABLEKS                       R5 R0 K6 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["logIfDebug"]
        38 CALL                             R4 1 1
        39 DUPCLOSURE                       R5 K13 [PROTO_0]
        40 CAPTURE                          VAL R2

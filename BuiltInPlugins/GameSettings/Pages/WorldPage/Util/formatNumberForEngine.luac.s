@@ -14,8 +14,8 @@ PROTO_0:
        14 RETURN                           R3 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["StudioLocaleId"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["StudioLocaleId"]
         3 GETUPVAL                         R4 1
         4 GETTABLE                         R3 R4 R1
         5 ORK                              R2 R3 K1 ["."]
@@ -34,12 +34,12 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [require]
-        3 GETIMPORT                        R4 K3 [script]
-        5 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K5 ["delimitersByLocaleId"]
-        9 CALL                             R1 1 1
-       10 GETTABLEKS                       R0 R1 K6 ["decimalDelimiterByLocale"]
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["delimitersByLocaleId"]
+        9 CALL                             R0 1 1
+       10 GETTABLEKS                       R0 R0 K6 ["decimalDelimiterByLocale"]
        12 GETIMPORT                        R1 K8 [game]
        14 LOADK                            R3 K9 ["StudioService"]
        15 NAMECALL                         R1 R1 K10 ["GetService"]

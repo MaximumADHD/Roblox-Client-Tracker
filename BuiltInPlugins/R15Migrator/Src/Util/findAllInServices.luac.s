@@ -22,29 +22,29 @@ PROTO_1:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 GETUPVAL                         R9 1
-        7 GETTABLEKS                       R8 R9 K0 ["isRootSaveFolderChildOf"]
+        6 GETUPVAL                         R8 1
+        7 GETTABLEKS                       R8 R8 K0 ["isRootSaveFolderChildOf"]
         9 MOVE                             R9 R6
        10 CALL                             R8 1 1
        11 JUMPIF                           R8 ; [+6]
-       12 GETUPVAL                         R10 1
-       13 GETTABLEKS                       R9 R10 K1 ["isRootSaveFolderDescendantOf"]
+       12 GETUPVAL                         R9 1
+       13 GETTABLEKS                       R9 R9 K1 ["isRootSaveFolderDescendantOf"]
        15 MOVE                             R10 R6
        16 CALL                             R9 1 1
        17 NOT                              R8 R9
        18 FASTCALL1                        ASSERT R8 ; [+2]
        19 GETIMPORT                        R7 K3 [assert]
        21 CALL                             R7 1 0
-       22 GETUPVAL                         R8 1
-       23 GETTABLEKS                       R7 R8 K0 ["isRootSaveFolderChildOf"]
+       22 GETUPVAL                         R7 1
+       23 GETTABLEKS                       R7 R7 K0 ["isRootSaveFolderChildOf"]
        25 MOVE                             R8 R6
        26 CALL                             R7 1 1
        27 JUMPIFNOT                        R7 ; [+28]
        28 NAMECALL                         R7 R6 K4 ["GetChildren"]
        30 CALL                             R7 1 3
        31 FORGPREP                         R7
-       32 GETUPVAL                         R13 1
-       33 GETTABLEKS                       R12 R13 K5 ["isRootSaveFolder"]
+       32 GETUPVAL                         R12 1
+       33 GETTABLEKS                       R12 R12 K5 ["isRootSaveFolder"]
        35 MOVE                             R13 R11
        36 CALL                             R12 1 1
        37 JUMPIF                           R12 ; [+15]
@@ -77,8 +77,8 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SaveInterface"]
        15 CALL                             R2 1 1

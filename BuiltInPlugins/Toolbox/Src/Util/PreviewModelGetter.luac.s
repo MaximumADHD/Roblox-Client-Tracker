@@ -14,8 +14,8 @@ PROTO_0:
        17 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["constructAssetIdUserContextString"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["constructAssetIdUserContextString"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 1
         5 GETIMPORT                        R1 K2 [game]
@@ -69,8 +69,8 @@ PROTO_3:
         0 LOADNIL                          R0
         1 LOADB                            R1 1
         2 GETUPVAL                         R2 0
-        3 GETIMPORT                        R4 K3 [Enum.AssetType.Audio]
-        5 GETTABLEKS                       R3 R4 K4 ["Value"]
+        3 GETIMPORT                        R3 K3 [Enum.AssetType.Audio]
+        5 GETTABLEKS                       R3 R3 K4 ["Value"]
         7 JUMPIFNOTEQ                      R2 R3 ; [+32]
         9 GETUPVAL                         R2 1
        10 NAMECALL                         R2 R2 K5 ["GetAudioApiByDefault"]
@@ -97,8 +97,8 @@ PROTO_3:
        38 MOVE                             R0 R2
        39 JUMP                             ; [+31]
        40 GETUPVAL                         R2 0
-       41 GETIMPORT                        R4 K16 [Enum.AssetType.Video]
-       43 GETTABLEKS                       R3 R4 K4 ["Value"]
+       41 GETIMPORT                        R3 K16 [Enum.AssetType.Video]
+       43 GETTABLEKS                       R3 R3 K4 ["Value"]
        45 JUMPIFNOTEQ                      R2 R3 ; [+20]
        47 GETIMPORT                        R2 K8 [Instance.new]
        49 LOADK                            R3 K17 ["VideoFrame"]
@@ -108,8 +108,8 @@ PROTO_3:
        53 LOADB                            R5 1
        54 NAMECALL                         R3 R2 K18 ["SetStudioPreview"]
        56 CALL                             R3 2 0
-       57 GETUPVAL                         R4 4
-       58 GETTABLEKS                       R3 R4 K19 ["constructAssetIdString"]
+       57 GETUPVAL                         R3 4
+       58 GETTABLEKS                       R3 R3 K19 ["constructAssetIdString"]
        60 GETUPVAL                         R4 2
        61 CALL                             R3 1 1
        62 SETTABLEKS                       R3 R2 K15 ["Video"]
@@ -145,8 +145,8 @@ PROTO_4:
        12 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R1
         5 CAPTURE                          UPVAL U1
@@ -159,20 +159,20 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
-       11 GETIMPORT                        R4 K5 [require]
-       13 GETTABLEKS                       R5 R1 K6 ["Framework"]
-       15 CALL                             R4 1 1
-       16 GETTABLEKS                       R3 R4 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Promise"]
+       11 GETIMPORT                        R2 K5 [require]
+       13 GETTABLEKS                       R3 R1 K6 ["Framework"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R2 R2 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Promise"]
        20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R6 R0 K9 ["Src"]
-       24 GETTABLEKS                       R5 R6 K7 ["Util"]
-       26 GETTABLEKS                       R4 R5 K10 ["Urls"]
+       22 GETTABLEKS                       R4 R0 K9 ["Src"]
+       24 GETTABLEKS                       R4 R4 K7 ["Util"]
+       26 GETTABLEKS                       R4 R4 K10 ["Urls"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K12 [game]
        31 LOADK                            R6 K13 ["VideoStudioPreviewPermissionFix"]

@@ -22,8 +22,8 @@ PROTO_2:
         1 SETTABLE                         R1 R2 R0
         2 LOADB                            R2 0
         3 LOADNIL                          R3
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K0 ["HasSyncedInstances"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K0 ["HasSyncedInstances"]
         7 JUMPIFNOT                        R4 ; [+7]
         8 GETUPVAL                         R4 1
         9 MOVE                             R6 R0
@@ -46,8 +46,8 @@ PROTO_3:
 
 PROTO_4:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["SyncStatusChanged"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["SyncStatusChanged"]
         5 NEWCLOSURE                       R3 P0
         6 CAPTURE                          VAL R0
         7 CAPTURE                          UPVAL U0
@@ -71,14 +71,14 @@ MAIN:
         5 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
         7 CALL                             R1 2 1
         8 GETIMPORT                        R2 K5 [require]
-       10 GETTABLEKS                       R5 R1 K6 ["Src"]
-       12 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       14 GETTABLEKS                       R3 R4 K8 ["getFFlagLuaExplorerFileSync"]
+       10 GETTABLEKS                       R3 R1 K6 ["Src"]
+       12 GETTABLEKS                       R3 R3 K7 ["Flags"]
+       14 GETTABLEKS                       R3 R3 K8 ["getFFlagLuaExplorerFileSync"]
        16 CALL                             R2 1 1
        17 GETIMPORT                        R3 K5 [require]
-       19 GETTABLEKS                       R6 R1 K6 ["Src"]
-       21 GETTABLEKS                       R5 R6 K7 ["Flags"]
-       23 GETTABLEKS                       R4 R5 K9 ["getFFlagLuaExplorerHierarchySync"]
+       19 GETTABLEKS                       R4 R1 K6 ["Src"]
+       21 GETTABLEKS                       R4 R4 K7 ["Flags"]
+       23 GETTABLEKS                       R4 R4 K9 ["getFFlagLuaExplorerHierarchySync"]
        25 CALL                             R3 1 1
        26 MOVE                             R4 R2
        27 CALL                             R4 0 1

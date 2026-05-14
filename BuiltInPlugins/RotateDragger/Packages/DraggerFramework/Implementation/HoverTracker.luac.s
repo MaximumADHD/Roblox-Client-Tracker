@@ -25,11 +25,11 @@ PROTO_1:
         1 SETTABLEKS                       R0 R2 K0 ["_hoverSelectable"]
         3 GETUPVAL                         R2 0
         4 SETTABLEKS                       R1 R2 K1 ["_hoverItem"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["_onHoverChanged"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["_onHoverChanged"]
         9 JUMPIFNOT                        R2 ; [+4]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K2 ["_onHoverChanged"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K2 ["_onHoverChanged"]
        13 CALL                             R2 0 0
        14 RETURN                           R0 0
 
@@ -188,8 +188,8 @@ PROTO_6:
        71 NAMECALL                         R11 R1 K20 ["gizmoRaycast"]
        73 CALL                             R11 -1 0
        74 JUMP                             ; [+86]
-       75 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
-       77 GETTABLEKS                       R11 R12 K22 ["getMouseTarget"]
+       75 GETTABLEKS                       R11 R0 K21 ["_draggerSchema"]
+       77 GETTABLEKS                       R11 R11 K22 ["getMouseTarget"]
        79 MOVE                             R12 R1
        80 MOVE                             R13 R6
        81 MOVE                             R14 R2
@@ -243,8 +243,8 @@ PROTO_6:
       142 NAMECALL                         R11 R1 K20 ["gizmoRaycast"]
       144 CALL                             R11 -1 0
       145 JUMP                             ; [+15]
-      146 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
-      148 GETTABLEKS                       R11 R12 K22 ["getMouseTarget"]
+      146 GETTABLEKS                       R11 R0 K21 ["_draggerSchema"]
+      148 GETTABLEKS                       R11 R11 K22 ["getMouseTarget"]
       150 MOVE                             R12 R1
       151 MOVE                             R13 R6
       152 MOVE                             R14 R2
@@ -263,8 +263,8 @@ PROTO_6:
       170 JUMPIFEQKNIL                     R7 ; [+14]
       172 SETTABLEKS                       R9 R0 K28 ["_hoverDistance"]
       174 GETTABLEKS                       R12 R6 K15 ["Origin"]
-      176 GETTABLEKS                       R15 R6 K16 ["Direction"]
-      178 GETTABLEKS                       R14 R15 K29 ["Unit"]
+      176 GETTABLEKS                       R14 R6 K16 ["Direction"]
+      178 GETTABLEKS                       R14 R14 K29 ["Unit"]
       180 MUL                              R13 R14 R9
       181 ADD                              R11 R12 R13
       182 SETTABLEKS                       R11 R0 K30 ["_hoverPosition"]
@@ -365,15 +365,15 @@ PROTO_6:
       302 FORGLOOP                         R13 2 ; [-71]
       304 GETTABLEKS                       R11 R0 K33 ["_hoverHandles"]
       306 JUMPIFNOT                        R11 ; [+9]
-      307 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
-      309 GETTABLEKS                       R11 R12 K42 ["setHover"]
+      307 GETTABLEKS                       R11 R0 K21 ["_draggerSchema"]
+      309 GETTABLEKS                       R11 R11 K42 ["setHover"]
       311 MOVE                             R12 R1
       312 LOADNIL                          R13
       313 LOADNIL                          R14
       314 CALL                             R11 3 0
       315 JUMP                             ; [+10]
-      316 GETTABLEKS                       R12 R0 K21 ["_draggerSchema"]
-      318 GETTABLEKS                       R11 R12 K42 ["setHover"]
+      316 GETTABLEKS                       R11 R0 K21 ["_draggerSchema"]
+      318 GETTABLEKS                       R11 R11 K42 ["setHover"]
       320 MOVE                             R12 R1
       321 GETTABLEKS                       R13 R0 K3 ["_hoverSelectable"]
       323 GETTABLEKS                       R14 R0 K25 ["_hoverItem"]
@@ -386,9 +386,9 @@ PROTO_6:
       335 CALL                             R11 1 0
       336 GETTABLEKS                       R11 R0 K3 ["_hoverSelectable"]
       338 JUMPIFNOT                        R11 ; [+14]
-      339 GETTABLEKS                       R13 R0 K21 ["_draggerSchema"]
-      341 GETTABLEKS                       R12 R13 K45 ["HoverEscapeDetector"]
-      343 GETTABLEKS                       R11 R12 K18 ["new"]
+      339 GETTABLEKS                       R11 R0 K21 ["_draggerSchema"]
+      341 GETTABLEKS                       R11 R11 K45 ["HoverEscapeDetector"]
+      343 GETTABLEKS                       R11 R11 K18 ["new"]
       345 MOVE                             R12 R1
       346 GETTABLEKS                       R13 R0 K3 ["_hoverSelectable"]
       348 GETTABLEKS                       R14 R0 K43 ["_onHoverChanged"]
@@ -423,8 +423,8 @@ PROTO_8:
        19 SETTABLEKS                       R2 R0 K6 ["_hoverHandleId"]
        21 LOADNIL                          R2
        22 SETTABLEKS                       R2 R0 K7 ["_hoverDistance"]
-       24 GETTABLEKS                       R3 R0 K8 ["_draggerSchema"]
-       26 GETTABLEKS                       R2 R3 K9 ["setHover"]
+       24 GETTABLEKS                       R2 R0 K8 ["_draggerSchema"]
+       26 GETTABLEKS                       R2 R2 K9 ["setHover"]
        28 MOVE                             R3 R1
        29 LOADNIL                          R4
        30 LOADNIL                          R5
@@ -469,24 +469,24 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R4 R1 K9 ["Utility"]
-       17 GETTABLEKS                       R3 R4 K10 ["SelectionHelper"]
+       15 GETTABLEKS                       R3 R1 K9 ["Utility"]
+       17 GETTABLEKS                       R3 R3 K10 ["SelectionHelper"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K8 [require]
-       22 GETTABLEKS                       R5 R1 K11 ["Flags"]
-       24 GETTABLEKS                       R4 R5 K12 ["getFFlagDraggerHandlesIsEnabledFunction"]
+       22 GETTABLEKS                       R4 R1 K11 ["Flags"]
+       24 GETTABLEKS                       R4 R4 K12 ["getFFlagDraggerHandlesIsEnabledFunction"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K8 [require]
-       29 GETTABLEKS                       R6 R1 K11 ["Flags"]
-       31 GETTABLEKS                       R5 R6 K13 ["getFFlagSBT5424SelectThroughLocked"]
+       29 GETTABLEKS                       R5 R1 K11 ["Flags"]
+       31 GETTABLEKS                       R5 R5 K13 ["getFFlagSBT5424SelectThroughLocked"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K8 [require]
-       36 GETTABLEKS                       R7 R1 K11 ["Flags"]
-       38 GETTABLEKS                       R6 R7 K14 ["getFFlagDraggerImprovements"]
+       36 GETTABLEKS                       R6 R1 K11 ["Flags"]
+       38 GETTABLEKS                       R6 R6 K14 ["getFFlagDraggerImprovements"]
        40 CALL                             R5 1 1
        41 DUPCLOSURE                       R6 K15 [PROTO_0]
        42 NEWTABLE                         R7 16 0

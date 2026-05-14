@@ -39,21 +39,21 @@ PROTO_4:
         9 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["PluginLoaderContext"]
-        5 GETTABLEKS                       R0 R1 K2 ["mainButton"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K3 ["state"]
-       10 GETTABLEKS                       R2 R3 K4 ["enabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["PluginLoaderContext"]
+        5 GETTABLEKS                       R0 R0 K2 ["mainButton"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K3 ["state"]
+       10 GETTABLEKS                       R2 R2 K4 ["enabled"]
        12 NAMECALL                         R0 R0 K5 ["SetActive"]
        14 CALL                             R0 2 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K0 ["props"]
-       18 GETTABLEKS                       R1 R2 K1 ["PluginLoaderContext"]
-       20 GETTABLEKS                       R0 R1 K6 ["mainButtonClickedSignal"]
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K7 ["toggleEnabled"]
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K0 ["props"]
+       18 GETTABLEKS                       R0 R0 K1 ["PluginLoaderContext"]
+       20 GETTABLEKS                       R0 R0 K6 ["mainButtonClickedSignal"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K7 ["toggleEnabled"]
        25 NAMECALL                         R0 R0 K8 ["Connect"]
        27 CALL                             R0 2 0
        28 RETURN                           R0 0
@@ -66,8 +66,8 @@ PROTO_7:
         0 LOADB                            R2 0
         1 GETTABLEKS                       R3 R1 K0 ["PluginLoaderContext"]
         3 JUMPIFNOT                        R3 ; [+10]
-        4 GETTABLEKS                       R4 R1 K0 ["PluginLoaderContext"]
-        6 GETTABLEKS                       R3 R4 K1 ["mainDockWidget"]
+        4 GETTABLEKS                       R3 R1 K0 ["PluginLoaderContext"]
+        6 GETTABLEKS                       R3 R3 K1 ["mainDockWidget"]
         8 LOADB                            R4 0
         9 JUMPIFEQKNIL                     R3 ; [+3]
        11 GETTABLEKS                       R4 R3 K2 ["Enabled"]
@@ -90,9 +90,9 @@ PROTO_7:
        35 NEWCLOSURE                       R3 P4
        36 CAPTURE                          VAL R0
        37 SETTABLEKS                       R3 R0 K10 ["onDockWidgetCreated"]
-       39 GETUPVAL                         R5 0
-       40 GETTABLEKS                       R4 R5 K11 ["Analytics"]
-       42 GETTABLEKS                       R3 R4 K12 ["new"]
+       39 GETUPVAL                         R3 0
+       40 GETTABLEKS                       R3 R3 K11 ["Analytics"]
+       42 GETTABLEKS                       R3 R3 K12 ["new"]
        44 DUPCLOSURE                       R4 K13 [PROTO_6]
        45 NEWTABLE                         R5 0 0
        47 CALL                             R3 2 1
@@ -100,11 +100,11 @@ PROTO_7:
        50 RETURN                           R0 0
 
 PROTO_8:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["PluginLoaderContext"]
-        4 GETTABLEKS                       R1 R2 K2 ["mainButton"]
-        6 GETTABLEKS                       R4 R0 K3 ["state"]
-        8 GETTABLEKS                       R3 R4 K4 ["enabled"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginLoaderContext"]
+        4 GETTABLEKS                       R1 R1 K2 ["mainButton"]
+        6 GETTABLEKS                       R3 R0 K3 ["state"]
+        8 GETTABLEKS                       R3 R3 K4 ["enabled"]
        10 NAMECALL                         R1 R1 K5 ["SetActive"]
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
@@ -114,16 +114,16 @@ PROTO_9:
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
         6 GETTABLEKS                       R4 R2 K3 ["enabled"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["provide"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["provide"]
        11 DUPTABLE                         R6 K7 [{"Plugin", "Mouse", "Analytics"}]
-       12 GETUPVAL                         R8 1
-       13 GETTABLEKS                       R7 R8 K8 ["new"]
+       12 GETUPVAL                         R7 1
+       13 GETTABLEKS                       R7 R7 K8 ["new"]
        15 MOVE                             R8 R3
        16 CALL                             R7 1 1
        17 SETTABLEKS                       R7 R6 K2 ["Plugin"]
-       19 GETUPVAL                         R8 2
-       20 GETTABLEKS                       R7 R8 K8 ["new"]
+       19 GETUPVAL                         R7 2
+       20 GETTABLEKS                       R7 R7 K8 ["new"]
        22 NAMECALL                         R8 R3 K9 ["getMouse"]
        24 CALL                             R8 1 -1
        25 CALL                             R7 -1 1
@@ -131,8 +131,8 @@ PROTO_9:
        28 GETTABLEKS                       R7 R0 K10 ["analytics"]
        30 SETTABLEKS                       R7 R6 K6 ["Analytics"]
        32 DUPTABLE                         R7 K12 [{"MainWidget"}]
-       33 GETUPVAL                         R9 3
-       34 GETTABLEKS                       R8 R9 K13 ["createElement"]
+       33 GETUPVAL                         R8 3
+       34 GETTABLEKS                       R8 R8 K13 ["createElement"]
        36 GETUPVAL                         R9 4
        37 NEWTABLE                         R10 16 0
        39 LOADK                            R11 K14 ["PropertiesPlugin"]
@@ -160,24 +160,24 @@ PROTO_9:
        72 SETTABLEKS                       R11 R10 K29 ["MinSize"]
        74 GETTABLEKS                       R11 R0 K30 ["onClose"]
        76 SETTABLEKS                       R11 R10 K31 ["OnClose"]
-       78 GETTABLEKS                       R12 R1 K32 ["PluginLoaderContext"]
-       80 GETTABLEKS                       R11 R12 K33 ["mainDockWidget"]
+       78 GETTABLEKS                       R11 R1 K32 ["PluginLoaderContext"]
+       80 GETTABLEKS                       R11 R11 K33 ["mainDockWidget"]
        82 SETTABLEKS                       R11 R10 K34 ["Widget"]
        84 GETTABLEKS                       R11 R0 K35 ["onDockWidgetCreated"]
        86 SETTABLEKS                       R11 R10 K36 ["OnWidgetCreated"]
-       88 GETUPVAL                         R13 3
-       89 GETTABLEKS                       R12 R13 K37 ["Change"]
-       91 GETTABLEKS                       R11 R12 K16 ["Enabled"]
+       88 GETUPVAL                         R11 3
+       89 GETTABLEKS                       R11 R11 K37 ["Change"]
+       91 GETTABLEKS                       R11 R11 K16 ["Enabled"]
        93 GETTABLEKS                       R12 R0 K38 ["onWidgetEnabledChanged"]
        95 SETTABLE                         R12 R10 R11
        96 DUPTABLE                         R11 K40 [{"App"}]
-       97 GETUPVAL                         R13 3
-       98 GETTABLEKS                       R12 R13 K13 ["createElement"]
+       97 GETUPVAL                         R12 3
+       98 GETTABLEKS                       R12 R12 K13 ["createElement"]
       100 GETUPVAL                         R13 6
       101 DUPTABLE                         R14 K43 [{"plugin", "dockWidget"}]
       102 SETTABLEKS                       R3 R14 K41 ["plugin"]
-      104 GETTABLEKS                       R16 R1 K32 ["PluginLoaderContext"]
-      106 GETTABLEKS                       R15 R16 K33 ["mainDockWidget"]
+      104 GETTABLEKS                       R15 R1 K32 ["PluginLoaderContext"]
+      106 GETTABLEKS                       R15 R15 K33 ["mainDockWidget"]
       108 SETTABLEKS                       R15 R14 K42 ["dockWidget"]
       110 CALL                             R12 2 1
       111 SETTABLEKS                       R12 R11 K39 ["App"]
@@ -193,32 +193,32 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R7 R0 K9 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Resources"]
-       27 GETTABLEKS                       R5 R6 K11 ["Localization"]
-       29 GETTABLEKS                       R4 R5 K12 ["Translator"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       27 GETTABLEKS                       R4 R4 K11 ["Localization"]
+       29 GETTABLEKS                       R4 R4 K12 ["Translator"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R6 R0 K9 ["Src"]
-       36 GETTABLEKS                       R5 R6 K13 ["Types"]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K13 ["Types"]
        38 CALL                             R4 1 1
-       39 GETTABLEKS                       R6 R1 K14 ["UI"]
-       41 GETTABLEKS                       R5 R6 K15 ["DockWidget"]
+       39 GETTABLEKS                       R5 R1 K14 ["UI"]
+       41 GETTABLEKS                       R5 R5 K15 ["DockWidget"]
        43 GETTABLEKS                       R6 R1 K16 ["ContextServices"]
        45 GETTABLEKS                       R7 R6 K17 ["Plugin"]
        47 GETTABLEKS                       R8 R6 K18 ["Mouse"]
        49 GETIMPORT                        R9 K5 [require]
-       51 GETTABLEKS                       R12 R0 K9 ["Src"]
-       53 GETTABLEKS                       R11 R12 K19 ["Components"]
-       55 GETTABLEKS                       R10 R11 K20 ["App"]
+       51 GETTABLEKS                       R10 R0 K9 ["Src"]
+       53 GETTABLEKS                       R10 R10 K19 ["Components"]
+       55 GETTABLEKS                       R10 R10 K20 ["App"]
        57 CALL                             R9 1 1
        58 GETTABLEKS                       R10 R2 K21 ["PureComponent"]
        60 LOADK                            R12 K22 ["MainPlugin"]

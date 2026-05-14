@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K4 [{"results", "searchTerm"}]
         7 GETTABLEKS                       R5 R1 K2 ["results"]
@@ -13,10 +13,10 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Rodux"]
@@ -25,9 +25,9 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K7 ["Cryo"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R7 R0 K8 ["Src"]
-       25 GETTABLEKS                       R6 R7 K9 ["Actions"]
-       27 GETTABLEKS                       R5 R6 K10 ["SetLiveSearch"]
+       23 GETTABLEKS                       R5 R0 K8 ["Src"]
+       25 GETTABLEKS                       R5 R5 K9 ["Actions"]
+       27 GETTABLEKS                       R5 R5 K10 ["SetLiveSearch"]
        29 CALL                             R4 1 1
        30 GETTABLEKS                       R5 R2 K11 ["createReducer"]
        32 DUPTABLE                         R6 K14 [{"searchTerm", "results"}]

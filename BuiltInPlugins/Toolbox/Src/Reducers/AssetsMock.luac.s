@@ -6,8 +6,8 @@ PROTO_0:
         7 SETTABLEKS                       R3 R2 K1 ["idsToRender"]
         9 LOADB                            R3 1
        10 SETTABLEKS                       R3 R2 K2 ["isLoading"]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K9 ["createDefaultCursor"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K9 ["createDefaultCursor"]
        15 CALL                             R3 0 1
        16 SETTABLEKS                       R3 R2 K3 ["currentCursor"]
        18 LOADN                            R3 0
@@ -22,14 +22,14 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["PagedRequestCursor"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["PagedRequestCursor"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_0]
        19 CAPTURE                          VAL R1

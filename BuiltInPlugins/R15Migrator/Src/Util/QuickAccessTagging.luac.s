@@ -33,8 +33,8 @@ PROTO_3:
 
 PROTO_4:
         0 NEWTABLE                         R1 0 1
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["CharactersConvertedToR15Tagging"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K0 ["CharactersConvertedToR15Tagging"]
         5 SETLIST                          R1 R4 1 [1]
         7 LOADNIL                          R2
         8 LOADNIL                          R3
@@ -63,9 +63,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Resources"]
-       19 GETTABLEKS                       R3 R4 K12 ["Constants"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Resources"]
+       19 GETTABLEKS                       R3 R3 K12 ["Constants"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K13 ["NonePublishTags"]
        24 DUPTABLE                         R4 K15 [{"_tag"}]

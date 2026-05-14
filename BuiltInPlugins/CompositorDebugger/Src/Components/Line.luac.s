@@ -54,8 +54,8 @@ PROTO_0:
        78 FASTCALL2                        MATH_ATAN2 R8 R9 ; [+3]
        80 GETIMPORT                        R7 K15 [math.atan2]
        82 CALL                             R7 2 1
-       83 GETUPVAL                         R9 0
-       84 GETTABLEKS                       R8 R9 K16 ["createElement"]
+       83 GETUPVAL                         R8 0
+       84 GETTABLEKS                       R8 R8 K16 ["createElement"]
        86 LOADK                            R9 K17 ["Frame"]
        87 NEWTABLE                         R10 8 0
        89 SETTABLEKS                       R4 R10 K18 ["Position"]
@@ -76,10 +76,10 @@ PROTO_0:
       112 SETTABLEKS                       R11 R10 K29 ["Rotation"]
       114 GETTABLEKS                       R11 R1 K30 ["ZIndex"]
       116 SETTABLEKS                       R11 R10 K30 ["ZIndex"]
-      118 GETUPVAL                         R12 0
-      119 GETTABLEKS                       R11 R12 K31 ["Tag"]
-      121 GETUPVAL                         R14 0
-      122 GETTABLEKS                       R13 R14 K31 ["Tag"]
+      118 GETUPVAL                         R11 0
+      119 GETTABLEKS                       R11 R11 K31 ["Tag"]
+      121 GETUPVAL                         R13 0
+      122 GETTABLEKS                       R13 R13 K31 ["Tag"]
       124 GETTABLE                         R12 R1 R13
       125 SETTABLE                         R12 R10 R11
       126 CALL                             R8 2 -1
@@ -92,8 +92,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
        16 LOADK                            R4 K9 ["Line"]

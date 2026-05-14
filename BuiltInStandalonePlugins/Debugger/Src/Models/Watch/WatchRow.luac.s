@@ -66,8 +66,8 @@ PROTO_2:
 
 PROTO_3:
         0 MOVE                             R3 R1
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["SeparationToken"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["SeparationToken"]
         4 CONCAT                           R2 R3 R4
         5 DUPTABLE                         R3 K11 [{"expressionColumn", "pathColumn", "idColumn", "scopeColumn", "valueColumn", "dataTypeColumn", "childPaths", "expanded", "textFilteredOut", "scopeFilteredOut"}]
         6 GETTABLEKS                       R4 R0 K12 ["Name"]
@@ -96,8 +96,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["newDummyRow"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["newDummyRow"]
         4 CALL                             R2 0 1
         5 GETTABLEKS                       R3 R0 K1 ["pathColumn"]
         7 CALL                             R1 2 1
@@ -105,22 +105,22 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Mocks"]
-       13 GETTABLEKS                       R2 R3 K6 ["DebuggerVariable"]
+       11 GETTABLEKS                       R2 R0 K5 ["Mocks"]
+       13 GETTABLEKS                       R2 R2 K6 ["DebuggerVariable"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Util"]
-       20 GETTABLEKS                       R3 R4 K8 ["Constants"]
+       18 GETTABLEKS                       R3 R0 K7 ["Util"]
+       20 GETTABLEKS                       R3 R3 K8 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETIMPORT                        R6 K1 [script]
-       27 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K9 ["WatchWindowTableRow"]
+       25 GETIMPORT                        R4 K1 [script]
+       27 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K9 ["WatchWindowTableRow"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K10 [PROTO_0]
        33 DUPCLOSURE                       R5 K11 [PROTO_1]

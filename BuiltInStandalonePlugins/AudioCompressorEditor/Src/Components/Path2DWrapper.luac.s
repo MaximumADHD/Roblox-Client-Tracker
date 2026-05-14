@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["pathContainerRef"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["pathContainerRef"]
         4 NAMECALL                         R1 R1 K1 ["getValue"]
         6 CALL                             R1 1 1
         7 JUMPIF                           R1 ; [+1]
@@ -11,9 +11,9 @@ PROTO_0:
        12 CALL                             R3 1 3
        13 FORGPREP                         R3
        14 NEWTABLE                         R8 0 0
-       16 GETUPVAL                         R12 1
-       17 GETTABLEKS                       R11 R12 K3 ["props"]
-       19 GETTABLEKS                       R10 R11 K4 ["ControlPoints"]
+       16 GETUPVAL                         R10 1
+       17 GETTABLEKS                       R10 R10 K3 ["props"]
+       19 GETTABLEKS                       R10 R10 K4 ["ControlPoints"]
        21 LENGTH                           R9 R10
        22 MOVE                             R12 R2
        23 ADD                              R13 R2 R0
@@ -21,9 +21,9 @@ PROTO_0:
        25 LOADN                            R11 1
        26 FORNPREP                         R10
        27 JUMPIFLT                         R9 R12 ; [+14]
-       29 GETUPVAL                         R18 1
-       30 GETTABLEKS                       R17 R18 K3 ["props"]
-       32 GETTABLEKS                       R16 R17 K4 ["ControlPoints"]
+       29 GETUPVAL                         R16 1
+       30 GETTABLEKS                       R16 R16 K3 ["props"]
+       32 GETTABLEKS                       R16 R16 K4 ["ControlPoints"]
        34 GETTABLE                         R15 R16 R12
        35 FASTCALL2                        TABLE_INSERT R8 R15 ; [+4]
        37 MOVE                             R14 R8
@@ -39,8 +39,8 @@ PROTO_0:
        50 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["pathContainerRef"]
         6 NEWCLOSURE                       R1 P0
@@ -52,33 +52,33 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R1 0
         1 LOADK                            R2 K0 [""]
-        2 GETTABLEKS                       R4 R0 K1 ["props"]
-        4 GETTABLEKS                       R3 R4 K2 ["Tag"]
+        2 GETTABLEKS                       R3 R0 K1 ["props"]
+        4 GETTABLEKS                       R3 R3 K2 ["Tag"]
         6 JUMPIFNOT                        R3 ; [+4]
         7 GETTABLEKS                       R3 R0 K1 ["props"]
         9 GETTABLEKS                       R2 R3 K2 ["Tag"]
        11 NEWTABLE                         R3 0 0
        13 LOADN                            R6 2
-       14 GETTABLEKS                       R8 R0 K1 ["props"]
-       16 GETTABLEKS                       R7 R8 K3 ["ControlPoints"]
+       14 GETTABLEKS                       R7 R0 K1 ["props"]
+       16 GETTABLEKS                       R7 R7 K3 ["ControlPoints"]
        18 LENGTH                           R4 R7
        19 SUBK                             R5 R1 K4 [1]
        20 FORNPREP                         R4
        21 MOVE                             R8 R3
-       22 GETUPVAL                         R10 1
-       23 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       22 GETUPVAL                         R9 1
+       23 GETTABLEKS                       R9 R9 K5 ["createElement"]
        25 LOADK                            R10 K6 ["Path2D"]
        26 NEWTABLE                         R11 1 0
-       28 GETUPVAL                         R13 1
-       29 GETTABLEKS                       R12 R13 K2 ["Tag"]
+       28 GETUPVAL                         R12 1
+       29 GETTABLEKS                       R12 R12 K2 ["Tag"]
        31 SETTABLE                         R2 R11 R12
        32 CALL                             R9 2 -1
        33 FASTCALL                         TABLE_INSERT ; [+2]
        34 GETIMPORT                        R7 K9 [table.insert]
        36 CALL                             R7 -1 0
        37 FORNLOOP                         R4
-       38 GETUPVAL                         R5 1
-       39 GETTABLEKS                       R4 R5 K5 ["createElement"]
+       38 GETUPVAL                         R4 1
+       39 GETTABLEKS                       R4 R4 K5 ["createElement"]
        41 GETUPVAL                         R5 2
        42 DUPTABLE                         R6 K13 [{"ref", "Size", "ZIndex"}]
        43 GETTABLEKS                       R7 R0 K14 ["pathContainerRef"]
@@ -88,8 +88,8 @@ PROTO_2:
        50 LOADN                            R9 1
        51 CALL                             R7 2 1
        52 SETTABLEKS                       R7 R6 K11 ["Size"]
-       54 GETTABLEKS                       R8 R0 K1 ["props"]
-       56 GETTABLEKS                       R7 R8 K12 ["ZIndex"]
+       54 GETTABLEKS                       R7 R0 K1 ["props"]
+       56 GETTABLEKS                       R7 R7 K12 ["ZIndex"]
        58 SETTABLEKS                       R7 R6 K12 ["ZIndex"]
        60 MOVE                             R7 R3
        61 CALL                             R4 3 -1
@@ -112,15 +112,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["UI"]
-       23 GETTABLEKS                       R3 R4 K10 ["Pane"]
+       21 GETTABLEKS                       R3 R2 K9 ["UI"]
+       23 GETTABLEKS                       R3 R3 K10 ["Pane"]
        25 LOADN                            R4 0
        26 GETIMPORT                        R5 K13 [Instance.new]
        28 LOADK                            R6 K14 ["Path2D"]

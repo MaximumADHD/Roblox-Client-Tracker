@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["stopPlaySolo"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["stopPlaySolo"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
@@ -12,15 +12,15 @@ PROTO_1:
         5 LOADK                            R3 K1 ["TestingScreen"]
         6 NAMECALL                         R1 R1 K0 ["use"]
         8 CALL                             R1 2 1
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K2 ["new"]
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K2 ["new"]
        12 CALL                             R2 0 1
-       13 GETUPVAL                         R4 3
-       14 GETTABLEKS                       R3 R4 K3 ["useContext"]
+       13 GETUPVAL                         R3 3
+       14 GETTABLEKS                       R3 R3 K3 ["useContext"]
        16 GETUPVAL                         R4 4
        17 CALL                             R3 1 1
-       18 GETUPVAL                         R5 3
-       19 GETTABLEKS                       R4 R5 K4 ["createElement"]
+       18 GETUPVAL                         R4 3
+       19 GETTABLEKS                       R4 R4 K4 ["createElement"]
        21 GETUPVAL                         R5 5
        22 DUPTABLE                         R6 K9 [{"Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment"}]
        23 GETIMPORT                        R7 K13 [Enum.FillDirection.Vertical]
@@ -32,8 +32,8 @@ PROTO_1:
        35 GETIMPORT                        R7 K16 [Enum.VerticalAlignment.Center]
        37 SETTABLEKS                       R7 R6 K8 ["VerticalAlignment"]
        39 DUPTABLE                         R7 K19 [{"Description", "StopButton"}]
-       40 GETUPVAL                         R9 3
-       41 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       40 GETUPVAL                         R8 3
+       41 GETTABLEKS                       R8 R8 K4 ["createElement"]
        43 GETUPVAL                         R9 6
        44 DUPTABLE                         R10 K23 [{"AutomaticSize", "LayoutOrder", "Text"}]
        45 GETIMPORT                        R11 K25 [Enum.AutomaticSize.XY]
@@ -48,8 +48,8 @@ PROTO_1:
        59 SETTABLEKS                       R11 R10 K22 ["Text"]
        61 CALL                             R8 2 1
        62 SETTABLEKS                       R8 R7 K17 ["Description"]
-       64 GETUPVAL                         R9 3
-       65 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       64 GETUPVAL                         R8 3
+       65 GETTABLEKS                       R8 R8 K4 ["createElement"]
        67 GETUPVAL                         R9 7
        68 DUPTABLE                         R10 K30 [{"AutomaticSize", "LayoutOrder", "OnClick", "Size", "Text"}]
        69 GETIMPORT                        R11 K32 [Enum.AutomaticSize.X]
@@ -82,33 +82,33 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Components"]
-       27 GETTABLEKS                       R4 R5 K11 ["PlacesServiceContext"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Components"]
+       27 GETTABLEKS                       R4 R4 K11 ["PlacesServiceContext"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Resources"]
-       36 GETTABLEKS                       R5 R6 K13 ["Theme"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Resources"]
+       36 GETTABLEKS                       R5 R5 K13 ["Theme"]
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R5 R1 K14 ["UI"]
        41 GETTABLEKS                       R6 R5 K15 ["IconButton"]
        43 GETTABLEKS                       R7 R5 K16 ["Pane"]
        45 GETTABLEKS                       R8 R5 K17 ["TextLabel"]
-       47 GETTABLEKS                       R10 R1 K18 ["ContextServices"]
-       49 GETTABLEKS                       R9 R10 K19 ["Localization"]
-       51 GETTABLEKS                       R11 R1 K18 ["ContextServices"]
-       53 GETTABLEKS                       R10 R11 K20 ["Stylizer"]
-       55 GETTABLEKS                       R12 R1 K21 ["Util"]
-       57 GETTABLEKS                       R11 R12 K22 ["LayoutOrderIterator"]
+       47 GETTABLEKS                       R9 R1 K18 ["ContextServices"]
+       49 GETTABLEKS                       R9 R9 K19 ["Localization"]
+       51 GETTABLEKS                       R10 R1 K18 ["ContextServices"]
+       53 GETTABLEKS                       R10 R10 K20 ["Stylizer"]
+       55 GETTABLEKS                       R11 R1 K21 ["Util"]
+       57 GETTABLEKS                       R11 R11 K22 ["LayoutOrderIterator"]
        59 DUPCLOSURE                       R12 K23 [PROTO_1]
        60 CAPTURE                          VAL R9
        61 CAPTURE                          VAL R10

@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["KeyCode"]
-        5 GETUPVAL                         R6 2
-        6 GETTABLEKS                       R5 R6 K1 ["UserInputState"]
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R3 R3 K0 ["KeyCode"]
+        5 GETUPVAL                         R5 2
+        6 GETTABLEKS                       R5 R5 K1 ["UserInputState"]
         8 GETIMPORT                        R6 K4 [Enum.UserInputState.Begin]
        10 JUMPIFNOTEQ                      R5 R6 ; [+3]
        12 LOADB                            R4 1
@@ -50,29 +50,29 @@ PROTO_3:
         0 LOADNIL                          R0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K0 ["InputBegan"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K0 ["InputBegan"]
         6 JUMPIFNOT                        R3 ; [+32]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K1 ["InputChanged"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K1 ["InputChanged"]
        10 JUMPIFNOT                        R3 ; [+28]
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K2 ["InputEnded"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K2 ["InputEnded"]
        14 JUMPIFNOT                        R3 ; [+24]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K0 ["InputBegan"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K0 ["InputBegan"]
        18 GETUPVAL                         R5 1
        19 NAMECALL                         R3 R3 K3 ["Connect"]
        21 CALL                             R3 2 1
        22 MOVE                             R0 R3
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K1 ["InputChanged"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K1 ["InputChanged"]
        26 GETUPVAL                         R5 1
        27 NAMECALL                         R3 R3 K3 ["Connect"]
        29 CALL                             R3 2 1
        30 MOVE                             R1 R3
-       31 GETUPVAL                         R4 0
-       32 GETTABLEKS                       R3 R4 K2 ["InputEnded"]
+       31 GETUPVAL                         R3 0
+       32 GETTABLEKS                       R3 R3 K2 ["InputEnded"]
        34 GETUPVAL                         R5 1
        35 NAMECALL                         R3 R3 K3 ["Connect"]
        37 CALL                             R3 2 1
@@ -85,18 +85,18 @@ PROTO_3:
        44 RETURN                           R3 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["useContext"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["useContext"]
         8 GETUPVAL                         R3 2
         9 CALL                             R2 1 1
        10 GETTABLEKS                       R3 R2 K1 ["gamepadId"]
        12 GETTABLEKS                       R4 R2 K2 ["isUpdatingMappingForKey"]
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K3 ["useCallback"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K3 ["useCallback"]
        17 NEWCLOSURE                       R6 P0
        18 CAPTURE                          VAL R4
        19 CAPTURE                          UPVAL U3
@@ -106,8 +106,8 @@ PROTO_4:
        24 MOVE                             R9 R4
        25 SETLIST                          R7 R8 2 [1]
        27 CALL                             R5 2 1
-       28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R6 R7 K4 ["useEffect"]
+       28 GETUPVAL                         R6 0
+       29 GETTABLEKS                       R6 R6 K4 ["useEffect"]
        31 NEWCLOSURE                       R7 P1
        32 CAPTURE                          VAL R1
        33 CAPTURE                          VAL R5
@@ -126,24 +126,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["RootContainerInputContext"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["RootContainerInputContext"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K8 ["Src"]
-       27 GETTABLEKS                       R6 R7 K9 ["Util"]
-       29 GETTABLEKS                       R5 R6 K11 ["MockableProxyPluginComponents"]
-       31 CALL                             R4 1 1
-       32 GETTABLEKS                       R3 R4 K12 ["StudioDeviceEmulator"]
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K11 ["MockableProxyPluginComponents"]
+       31 CALL                             R3 1 1
+       32 GETTABLEKS                       R3 R3 K12 ["StudioDeviceEmulator"]
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K8 ["Src"]
-       38 GETTABLEKS                       R6 R7 K9 ["Util"]
-       40 GETTABLEKS                       R5 R6 K13 ["MappingsContext"]
+       36 GETTABLEKS                       R5 R0 K8 ["Src"]
+       38 GETTABLEKS                       R5 R5 K9 ["Util"]
+       40 GETTABLEKS                       R5 R5 K13 ["MappingsContext"]
        42 CALL                             R4 1 1
        43 DUPCLOSURE                       R5 K14 [PROTO_4]
        44 CAPTURE                          VAL R1

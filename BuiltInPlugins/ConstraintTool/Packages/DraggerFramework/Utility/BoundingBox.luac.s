@@ -76,8 +76,8 @@ PROTO_1:
         9 LOADK                            R6 K2 [-∞]
        10 LOADK                            R7 K1 [∞]
        11 LOADK                            R8 K2 [-∞]
-       12 GETUPVAL                         R10 0
-       13 GETTABLEKS                       R9 R10 K3 ["Terrain"]
+       12 GETUPVAL                         R9 0
+       13 GETTABLEKS                       R9 R9 K3 ["Terrain"]
        15 GETIMPORT                        R10 K5 [ipairs]
        17 MOVE                             R11 R0
        18 CALL                             R10 1 3
@@ -222,8 +222,8 @@ PROTO_2:
         9 LOADK                            R6 K2 [-∞]
        10 LOADK                            R7 K1 [∞]
        11 LOADK                            R8 K2 [-∞]
-       12 GETUPVAL                         R10 0
-       13 GETTABLEKS                       R9 R10 K3 ["Terrain"]
+       12 GETUPVAL                         R9 0
+       13 GETTABLEKS                       R9 R9 K3 ["Terrain"]
        15 NEWTABLE                         R10 0 0
        17 GETIMPORT                        R11 K5 [ipairs]
        19 MOVE                             R12 R0
@@ -394,8 +394,8 @@ PROTO_3:
         9 LOADK                            R7 K2 [-∞]
        10 LOADK                            R8 K1 [∞]
        11 LOADK                            R9 K2 [-∞]
-       12 GETUPVAL                         R11 0
-       13 GETTABLEKS                       R10 R11 K3 ["Terrain"]
+       12 GETUPVAL                         R10 0
+       13 GETTABLEKS                       R10 R10 K3 ["Terrain"]
        15 GETIMPORT                        R11 K5 [ipairs]
        17 MOVE                             R12 R0
        18 CALL                             R11 1 3

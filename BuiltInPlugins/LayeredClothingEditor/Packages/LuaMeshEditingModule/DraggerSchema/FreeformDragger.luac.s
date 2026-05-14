@@ -13,8 +13,8 @@ PROTO_0:
        18 RETURN                           R2 1
 
 PROTO_1:
-        0 GETIMPORT                        R4 K1 [Workspace]
-        2 GETTABLEKS                       R3 R4 K2 ["CurrentCamera"]
+        0 GETIMPORT                        R3 K1 [Workspace]
+        2 GETTABLEKS                       R3 R3 K2 ["CurrentCamera"]
         4 MOVE                             R6 R0
         5 NAMECALL                         R4 R3 K3 ["WorldToScreenPoint"]
         7 CALL                             R4 2 1
@@ -27,19 +27,19 @@ PROTO_1:
        19 GETTABLEKS                       R10 R2 K7 ["Origin"]
        21 SUB                              R8 R9 R10
        22 ADD                              R6 R7 R8
-       23 GETTABLEKS                       R11 R5 K8 ["Direction"]
-       25 GETTABLEKS                       R10 R11 K9 ["Unit"]
-       27 GETTABLEKS                       R12 R1 K8 ["Direction"]
-       29 GETTABLEKS                       R11 R12 K9 ["Unit"]
-       31 ADD                              R9 R10 R11
-       32 GETTABLEKS                       R11 R2 K8 ["Direction"]
-       34 GETTABLEKS                       R10 R11 K9 ["Unit"]
-       36 SUB                              R8 R9 R10
-       37 GETTABLEKS                       R7 R8 K9 ["Unit"]
-       39 SUB                              R9 R6 R0
-       40 GETTABLEKS                       R8 R9 K9 ["Unit"]
-       42 GETUPVAL                         R10 0
-       43 GETTABLEKS                       R9 R10 K10 ["intersectRayPlanePoint"]
+       23 GETTABLEKS                       R9 R5 K8 ["Direction"]
+       25 GETTABLEKS                       R9 R9 K9 ["Unit"]
+       27 GETTABLEKS                       R10 R1 K8 ["Direction"]
+       29 GETTABLEKS                       R10 R10 K9 ["Unit"]
+       31 ADD                              R8 R9 R10
+       32 GETTABLEKS                       R9 R2 K8 ["Direction"]
+       34 GETTABLEKS                       R9 R9 K9 ["Unit"]
+       36 SUB                              R7 R8 R9
+       37 GETTABLEKS                       R7 R7 K9 ["Unit"]
+       39 SUB                              R8 R6 R0
+       40 GETTABLEKS                       R8 R8 K9 ["Unit"]
+       42 GETUPVAL                         R9 0
+       43 GETTABLEKS                       R9 R9 K10 ["intersectRayPlanePoint"]
        45 MOVE                             R10 R6
        46 MOVE                             R11 R7
        47 MOVE                             R12 R0
@@ -59,17 +59,17 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_mouseStartRay"]
         2 JUMPIFNOTEQKNIL                  R1 ; [+10]
-        4 GETTABLEKS                       R2 R0 K1 ["_draggerContext"]
-        6 GETTABLEKS                       R1 R2 K2 ["vertexEditingTool"]
+        4 GETTABLEKS                       R1 R0 K1 ["_draggerContext"]
+        6 GETTABLEKS                       R1 R1 K2 ["vertexEditingTool"]
         8 NAMECALL                         R1 R1 K3 ["getMouseStartPosition"]
        10 CALL                             R1 1 1
        11 SETTABLEKS                       R1 R0 K0 ["_mouseStartRay"]
-       13 GETTABLEKS                       R2 R0 K4 ["_draggerToolModel"]
-       15 GETTABLEKS                       R1 R2 K1 ["_draggerContext"]
+       13 GETTABLEKS                       R1 R0 K4 ["_draggerToolModel"]
+       15 GETTABLEKS                       R1 R1 K1 ["_draggerContext"]
        17 NAMECALL                         R1 R1 K5 ["getMouseRay"]
        19 CALL                             R1 1 1
-       20 GETTABLEKS                       R3 R0 K4 ["_draggerToolModel"]
-       22 GETTABLEKS                       R2 R3 K6 ["_selectionInfo"]
+       20 GETTABLEKS                       R2 R0 K4 ["_draggerToolModel"]
+       22 GETTABLEKS                       R2 R2 K6 ["_selectionInfo"]
        24 NAMECALL                         R2 R2 K7 ["getBoundingBox"]
        26 CALL                             R2 1 1
        27 GETUPVAL                         R3 0
@@ -90,8 +90,8 @@ PROTO_4:
        50 CALL                             R7 1 2
        51 SETTABLEKS                       R7 R0 K14 ["_axis"]
        53 SETTABLEKS                       R8 R0 K15 ["_totalAngle"]
-       55 GETTABLEKS                       R8 R0 K1 ["_draggerContext"]
-       57 GETTABLEKS                       R7 R8 K2 ["vertexEditingTool"]
+       55 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
+       57 GETTABLEKS                       R7 R7 K2 ["vertexEditingTool"]
        59 MOVE                             R9 R4
        60 GETTABLEKS                       R10 R0 K12 ["_baseBoundingBoxCenter"]
        62 GETTABLEKS                       R11 R0 K14 ["_axis"]
@@ -102,16 +102,16 @@ PROTO_4:
        71 RETURN                           R0 0
 
 PROTO_5:
-        0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-        2 GETTABLEKS                       R1 R2 K1 ["vertexEditingTool"]
+        0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        2 GETTABLEKS                       R1 R1 K1 ["vertexEditingTool"]
         4 NAMECALL                         R1 R1 K2 ["setMouseStartPosition"]
         6 CALL                             R1 1 0
-        7 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-        9 GETTABLEKS                       R1 R2 K1 ["vertexEditingTool"]
+        7 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        9 GETTABLEKS                       R1 R1 K1 ["vertexEditingTool"]
        11 NAMECALL                         R1 R1 K3 ["updateCurrentToolStateData"]
        13 CALL                             R1 1 0
-       14 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-       16 GETTABLEKS                       R1 R2 K1 ["vertexEditingTool"]
+       14 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+       16 GETTABLEKS                       R1 R1 K1 ["vertexEditingTool"]
        18 NAMECALL                         R1 R1 K4 ["addWaypoint"]
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
@@ -126,8 +126,8 @@ MAIN:
         9 GETIMPORT                        R2 K6 [require]
        11 GETTABLEKS                       R3 R1 K7 ["DraggerFramework"]
        13 CALL                             R2 1 1
-       14 GETTABLEKS                       R4 R2 K8 ["Utility"]
-       16 GETTABLEKS                       R3 R4 K9 ["Math"]
+       14 GETTABLEKS                       R3 R2 K8 ["Utility"]
+       16 GETTABLEKS                       R3 R3 K9 ["Math"]
        18 NEWTABLE                         R4 8 0
        20 SETTABLEKS                       R4 R4 K10 ["__index"]
        22 DUPCLOSURE                       R5 K11 [PROTO_0]

@@ -68,8 +68,8 @@ PROTO_0:
        90 GETTABLEKS                       R24 R22 K26 ["X"]
        92 GETTABLEKS                       R25 R22 K27 ["Y"]
        94 CALL                             R23 2 1
-       95 SUB                              R25 R11 R23
-       96 GETTABLEKS                       R24 R25 K28 ["Magnitude"]
+       95 SUB                              R24 R11 R23
+       96 GETTABLEKS                       R24 R24 K28 ["Magnitude"]
        98 JUMPIFNOTLT                      R24 R12 ; [+5]
       100 MOVE                             R12 R24
       101 MOVE                             R13 R20
@@ -94,8 +94,8 @@ PROTO_0:
       128 GETTABLEKS                       R17 R14 K17 ["Position"]
       130 GETTABLEKS                       R19 R1 K5 ["Origin"]
       132 SUB                              R18 R17 R19
-      133 GETTABLEKS                       R21 R1 K6 ["Direction"]
-      135 GETTABLEKS                       R20 R21 K39 ["Unit"]
+      133 GETTABLEKS                       R20 R1 K6 ["Direction"]
+      135 GETTABLEKS                       R20 R20 K39 ["Unit"]
       137 NAMECALL                         R18 R18 K40 ["Dot"]
       139 CALL                             R18 2 1
       140 MOVE                             R19 R13
@@ -145,8 +145,8 @@ PROTO_0:
       199 CALL                             R16 1 1
       200 JUMP                             ; [+1]
       201 LOADNIL                          R16
-      202 GETUPVAL                         R18 5
-      203 GETTABLEKS                       R17 R18 K45 ["getSurfaceMatrix"]
+      202 GETUPVAL                         R17 5
+      203 GETTABLEKS                       R17 R17 K45 ["getSurfaceMatrix"]
       205 MOVE                             R18 R1
       206 MOVE                             R19 R8
       207 GETTABLEKS                       R20 R0 K46 ["PreviousTargetMatrix"]
@@ -179,31 +179,31 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [script]
-        9 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
        11 GETTABLEKS                       R2 R1 K6 ["Parent"]
        13 GETTABLEKS                       R3 R2 K7 ["DraggerFramework"]
        15 GETIMPORT                        R4 K9 [require]
-       17 GETIMPORT                        R7 K5 [script]
-       19 GETTABLEKS                       R6 R7 K6 ["Parent"]
-       21 GETTABLEKS                       R5 R6 K10 ["getSelectableWithCache"]
+       17 GETIMPORT                        R5 K5 [script]
+       19 GETTABLEKS                       R5 R5 K6 ["Parent"]
+       21 GETTABLEKS                       R5 R5 K10 ["getSelectableWithCache"]
        23 CALL                             R4 1 1
        24 GETIMPORT                        R5 K9 [require]
-       26 GETIMPORT                        R8 K5 [script]
-       28 GETTABLEKS                       R7 R8 K6 ["Parent"]
-       30 GETTABLEKS                       R6 R7 K11 ["shouldSelectSubPart"]
+       26 GETIMPORT                        R6 K5 [script]
+       28 GETTABLEKS                       R6 R6 K6 ["Parent"]
+       30 GETTABLEKS                       R6 R6 K11 ["shouldSelectSubPart"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K9 [require]
-       35 GETTABLEKS                       R8 R3 K12 ["Utility"]
-       37 GETTABLEKS                       R7 R8 K13 ["DragHelper"]
+       35 GETTABLEKS                       R7 R3 K12 ["Utility"]
+       37 GETTABLEKS                       R7 R7 K13 ["DragHelper"]
        39 CALL                             R6 1 1
        40 GETIMPORT                        R7 K9 [require]
-       42 GETTABLEKS                       R9 R3 K14 ["Flags"]
-       44 GETTABLEKS                       R8 R9 K15 ["getFFlagDraggerImprovements"]
+       42 GETTABLEKS                       R8 R3 K14 ["Flags"]
+       44 GETTABLEKS                       R8 R8 K15 ["getFFlagDraggerImprovements"]
        46 CALL                             R7 1 1
        47 GETIMPORT                        R8 K9 [require]
-       49 GETTABLEKS                       R10 R3 K12 ["Utility"]
-       51 GETTABLEKS                       R9 R10 K16 ["CursorGroupName"]
+       49 GETTABLEKS                       R9 R3 K12 ["Utility"]
+       51 GETTABLEKS                       R9 R9 K16 ["CursorGroupName"]
        53 CALL                             R8 1 1
        54 DUPCLOSURE                       R9 K17 [PROTO_0]
        55 CAPTURE                          VAL R5

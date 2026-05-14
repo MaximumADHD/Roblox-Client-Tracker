@@ -8,8 +8,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["MultitouchEmulator"]
@@ -20,14 +20,14 @@ MAIN:
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R5 R0 K13 ["Bin"]
-       33 GETTABLEKS                       R4 R5 K14 ["Common"]
-       35 GETTABLEKS                       R3 R4 K15 ["defineLuaFlags"]
+       31 GETTABLEKS                       R3 R0 K13 ["Bin"]
+       33 GETTABLEKS                       R3 R3 K14 ["Common"]
+       35 GETTABLEKS                       R3 R3 K15 ["defineLuaFlags"]
        37 CALL                             R2 1 1
        38 GETIMPORT                        R3 K7 [require]
-       40 GETTABLEKS                       R6 R0 K11 ["Src"]
-       42 GETTABLEKS                       R5 R6 K16 ["Util"]
-       44 GETTABLEKS                       R4 R5 K17 ["MockableEngineFeatures"]
+       40 GETTABLEKS                       R4 R0 K11 ["Src"]
+       42 GETTABLEKS                       R4 R4 K16 ["Util"]
+       44 GETTABLEKS                       R4 R4 K17 ["MockableEngineFeatures"]
        46 CALL                             R3 1 1
        47 GETTABLEKS                       R4 R2 K18 ["getFFlagEnableMultitouchEmulator"]
        49 CALL                             R4 0 1
@@ -47,14 +47,14 @@ MAIN:
        68 JUMPIFNOT                        R5 ; [+1]
        69 RETURN                           R0 0
        70 GETIMPORT                        R5 K7 [require]
-       72 GETTABLEKS                       R8 R0 K13 ["Bin"]
-       74 GETTABLEKS                       R7 R8 K14 ["Common"]
-       76 GETTABLEKS                       R6 R7 K26 ["setup"]
+       72 GETTABLEKS                       R6 R0 K13 ["Bin"]
+       74 GETTABLEKS                       R6 R6 K14 ["Common"]
+       76 GETTABLEKS                       R6 R6 K26 ["setup"]
        78 CALL                             R5 1 1
        79 GETIMPORT                        R6 K7 [require]
-       81 GETTABLEKS                       R9 R0 K13 ["Bin"]
-       83 GETTABLEKS                       R8 R9 K14 ["Common"]
-       85 GETTABLEKS                       R7 R8 K27 ["setupMain"]
+       81 GETTABLEKS                       R7 R0 K13 ["Bin"]
+       83 GETTABLEKS                       R7 R7 K14 ["Common"]
+       85 GETTABLEKS                       R7 R7 K27 ["setupMain"]
        87 CALL                             R6 1 1
        88 MOVE                             R7 R5
        89 GETIMPORT                        R8 K1 [plugin]

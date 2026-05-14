@@ -22,8 +22,8 @@ PROTO_1:
 
 PROTO_2:
         0 DUPTABLE                         R3 K8 [{"ImageLoaded", "_loadedImagesCache", "_imageLabelPool", "_loadingImageLabels", "_loadingImageIds", "_alive", "_createImageLabel", "_contentProvider"}]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K9 ["new"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K9 ["new"]
         4 CALL                             R4 0 1
         5 SETTABLEKS                       R4 R3 K0 ["ImageLoaded"]
         7 NEWTABLE                         R4 0 0
@@ -50,8 +50,8 @@ PROTO_2:
        41 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
        43 GETIMPORT                        R2 K13 [setmetatable]
        45 CALL                             R2 2 1
-       46 GETUPVAL                         R4 4
-       47 GETTABLEKS                       R3 R4 K9 ["new"]
+       46 GETUPVAL                         R3 4
+       47 GETTABLEKS                       R3 R3 K9 ["new"]
        49 LOADK                            R4 K14 ["CoreGui"]
        50 MOVE                             R5 R1
        51 CALL                             R3 2 1
@@ -82,8 +82,8 @@ PROTO_2:
        87 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 DUPTABLE                         R2 K3 [{"dontPoll", "createImageLabel"}]
         4 LOADB                            R3 1
         5 SETTABLEKS                       R3 R2 K1 ["dontPoll"]
@@ -230,32 +230,32 @@ PROTO_8:
        48 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["_alive"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["_alive"]
         3 JUMPIF                           R2 ; [+1]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["_loadingImageIds"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["_loadingImageIds"]
         8 GETTABLE                         R2 R3 R0
         9 JUMPIFNOT                        R2 ; [+17]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K2 ["_loadedImagesCache"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K2 ["_loadedImagesCache"]
        13 LOADB                            R3 1
        14 SETTABLE                         R3 R2 R0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K1 ["_loadingImageIds"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K1 ["_loadingImageIds"]
        18 LOADNIL                          R3
        19 SETTABLE                         R3 R2 R0
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K3 ["ImageLoaded"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K3 ["ImageLoaded"]
        23 MOVE                             R4 R0
        24 NAMECALL                         R2 R2 K4 ["Fire"]
        26 CALL                             R2 2 0
        27 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_contentProvider"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_contentProvider"]
         3 NEWTABLE                         R2 0 1
         5 GETUPVAL                         R3 1
         6 SETLIST                          R2 R3 1 [1]
@@ -276,24 +276,24 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["ContextServices"]
-       18 GETTABLEKS                       R2 R3 K8 ["ContextItem"]
+       16 GETTABLEKS                       R2 R1 K7 ["ContextServices"]
+       18 GETTABLEKS                       R2 R2 K8 ["ContextItem"]
        20 GETTABLEKS                       R3 R1 K9 ["Util"]
        22 GETTABLEKS                       R4 R3 K10 ["Signal"]
-       24 GETTABLEKS                       R6 R1 K11 ["TestHelpers"]
-       26 GETTABLEKS                       R5 R6 K12 ["ServiceWrapper"]
+       24 GETTABLEKS                       R5 R1 K11 ["TestHelpers"]
+       26 GETTABLEKS                       R5 R5 K12 ["ServiceWrapper"]
        28 GETIMPORT                        R6 K4 [require]
-       30 GETTABLEKS                       R9 R0 K13 ["Src"]
-       32 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       34 GETTABLEKS                       R7 R8 K15 ["getFFlagMaterialManagerImageLoaderUseAsync"]
+       30 GETTABLEKS                       R7 R0 K13 ["Src"]
+       32 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       34 GETTABLEKS                       R7 R7 K15 ["getFFlagMaterialManagerImageLoaderUseAsync"]
        36 CALL                             R6 1 1
        37 GETIMPORT                        R7 K17 [game]
        39 LOADK                            R9 K18 ["ContentProvider"]

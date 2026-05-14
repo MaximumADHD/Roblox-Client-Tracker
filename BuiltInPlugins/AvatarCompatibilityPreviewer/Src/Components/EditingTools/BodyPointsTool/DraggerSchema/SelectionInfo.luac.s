@@ -12,20 +12,20 @@ PROTO_1:
         1 RETURN                           R1 1
 
 PROTO_2:
-        0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
-        2 GETTABLEKS                       R2 R3 K1 ["selectedPoints"]
+        0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
+        2 GETTABLEKS                       R2 R2 K1 ["selectedPoints"]
         4 LENGTH                           R1 R2
         5 JUMPIFNOTEQKN                    R1 K2 [0] ; [+23]
-        7 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-        9 GETTABLEKS                       R1 R2 K3 ["worldModel"]
+        7 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        9 GETTABLEKS                       R1 R1 K3 ["worldModel"]
        11 NAMECALL                         R1 R1 K4 ["GetPivot"]
        13 CALL                             R1 1 1
        14 MOVE                             R2 R1
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K5 ["fromObjects"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K5 ["fromObjects"]
        18 NEWTABLE                         R4 0 1
-       20 GETTABLEKS                       R6 R0 K0 ["_draggerContext"]
-       22 GETTABLEKS                       R5 R6 K3 ["worldModel"]
+       20 GETTABLEKS                       R5 R0 K0 ["_draggerContext"]
+       22 GETTABLEKS                       R5 R5 K3 ["worldModel"]
        24 SETLIST                          R4 R5 1 [1]
        26 MOVE                             R5 R1
        27 CALL                             R3 2 -1
@@ -62,24 +62,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["DraggerFramework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Utility"]
-       16 GETTABLEKS                       R2 R3 K9 ["BoundingBox"]
+       14 GETTABLEKS                       R2 R1 K8 ["Utility"]
+       16 GETTABLEKS                       R2 R2 K9 ["BoundingBox"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R8 R0 K10 ["Src"]
-       22 GETTABLEKS                       R7 R8 K11 ["Components"]
-       24 GETTABLEKS                       R6 R7 K12 ["EditingTools"]
-       26 GETTABLEKS                       R5 R6 K13 ["BodyPointsTool"]
-       28 GETTABLEKS                       R4 R5 K14 ["Types"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Components"]
+       24 GETTABLEKS                       R4 R4 K12 ["EditingTools"]
+       26 GETTABLEKS                       R4 R4 K13 ["BodyPointsTool"]
+       28 GETTABLEKS                       R4 R4 K14 ["Types"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K5 [require]
-       33 GETTABLEKS                       R9 R0 K10 ["Src"]
-       35 GETTABLEKS                       R8 R9 K11 ["Components"]
-       37 GETTABLEKS                       R7 R8 K12 ["EditingTools"]
-       39 GETTABLEKS                       R6 R7 K13 ["BodyPointsTool"]
-       41 GETTABLEKS                       R5 R6 K15 ["getBoundingBox"]
+       33 GETTABLEKS                       R5 R0 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K11 ["Components"]
+       37 GETTABLEKS                       R5 R5 K12 ["EditingTools"]
+       39 GETTABLEKS                       R5 R5 K13 ["BodyPointsTool"]
+       41 GETTABLEKS                       R5 R5 K15 ["getBoundingBox"]
        43 CALL                             R4 1 1
        44 NEWTABLE                         R5 8 0
        46 SETTABLEKS                       R5 R5 K16 ["__index"]

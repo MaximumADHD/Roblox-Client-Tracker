@@ -78,26 +78,26 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetGroupInfo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetGroupInfo"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R6 R0 K5 ["Src"]
-       22 GETTABLEKS                       R5 R6 K8 ["Network"]
-       24 GETTABLEKS                       R4 R5 K9 ["Requests"]
-       26 GETTABLEKS                       R3 R4 K10 ["ApiFetchGroupsHavePermission"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Network"]
+       24 GETTABLEKS                       R3 R3 K9 ["Requests"]
+       26 GETTABLEKS                       R3 R3 K10 ["ApiFetchGroupsHavePermission"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R7 R0 K5 ["Src"]
-       33 GETTABLEKS                       R6 R7 K8 ["Network"]
-       35 GETTABLEKS                       R5 R6 K9 ["Requests"]
-       37 GETTABLEKS                       R4 R5 K11 ["ApiFetchOwnedGroups"]
+       31 GETTABLEKS                       R4 R0 K5 ["Src"]
+       33 GETTABLEKS                       R4 R4 K8 ["Network"]
+       35 GETTABLEKS                       R4 R4 K9 ["Requests"]
+       37 GETTABLEKS                       R4 R4 K11 ["ApiFetchOwnedGroups"]
        39 CALL                             R3 1 1
        40 DUPCLOSURE                       R4 K12 [PROTO_4]
        41 CAPTURE                          VAL R1

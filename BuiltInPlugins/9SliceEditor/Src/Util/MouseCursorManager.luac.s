@@ -16,15 +16,15 @@ PROTO_1:
         0 SETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 JUMPIF                           R2 ; [+5]
-        3 GETUPVAL                         R3 2
-        4 GETTABLEKS                       R2 R3 K0 ["updateMouse"]
+        3 GETUPVAL                         R2 2
+        4 GETTABLEKS                       R2 R2 K0 ["updateMouse"]
         6 MOVE                             R3 R0
         7 CALL                             R2 1 0
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setCursor"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setCursor"]
         3 MOVE                             R2 R0
         4 LOADNIL                          R3
         5 CALL                             R1 2 0
@@ -33,8 +33,8 @@ PROTO_2:
 PROTO_3:
         0 SETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+5]
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["updateMouse"]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["updateMouse"]
         5 MOVE                             R3 R0
         6 CALL                             R2 1 0
         7 RETURN                           R0 0

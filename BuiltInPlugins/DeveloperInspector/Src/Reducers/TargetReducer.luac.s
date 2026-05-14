@@ -106,13 +106,13 @@ PROTO_9:
        27 CONCAT                           R3 R4 R5
        28 GETTABLEKS                       R4 R1 K10 ["id"]
        30 SETTABLEKS                       R4 R2 K11 ["Id"]
-       32 GETUPVAL                         R7 3
-       33 GETTABLEKS                       R5 R7 K12 ["sourceName"]
+       32 GETUPVAL                         R5 3
+       33 GETTABLEKS                       R5 R5 K12 ["sourceName"]
        35 MOVE                             R6 R3
        36 CONCAT                           R4 R5 R6
        37 SETTABLEKS                       R4 R2 K1 ["Name"]
-       39 GETUPVAL                         R5 3
-       40 GETTABLEKS                       R4 R5 K13 ["fromBridgeId"]
+       39 GETUPVAL                         R4 3
+       40 GETTABLEKS                       R4 R4 K13 ["fromBridgeId"]
        42 SETTABLEKS                       R4 R2 K14 ["BridgeId"]
        44 GETTABLEKS                       R4 R1 K10 ["id"]
        46 MOVE                             R5 R2
@@ -148,17 +148,17 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["None"]
        25 GETTABLEKS                       R4 R2 K9 ["join"]
@@ -166,13 +166,13 @@ MAIN:
        29 GETTABLEKS                       R6 R2 K11 ["collect"]
        31 GETTABLEKS                       R7 R2 K12 ["values"]
        33 GETIMPORT                        R8 K15 [table.sort]
-       35 GETTABLEKS                       R10 R0 K16 ["Src"]
-       37 GETTABLEKS                       R9 R10 K17 ["Util"]
+       35 GETTABLEKS                       R9 R0 K16 ["Src"]
+       37 GETTABLEKS                       R9 R9 K17 ["Util"]
        39 GETIMPORT                        R10 K4 [require]
        41 GETTABLEKS                       R11 R9 K18 ["TabIds"]
        43 CALL                             R10 1 1
-       44 GETTABLEKS                       R12 R0 K16 ["Src"]
-       46 GETTABLEKS                       R11 R12 K19 ["Actions"]
+       44 GETTABLEKS                       R11 R0 K16 ["Src"]
+       46 GETTABLEKS                       R11 R11 K19 ["Actions"]
        48 GETIMPORT                        R12 K4 [require]
        50 GETTABLEKS                       R13 R11 K20 ["SetTab"]
        52 CALL                             R12 1 1

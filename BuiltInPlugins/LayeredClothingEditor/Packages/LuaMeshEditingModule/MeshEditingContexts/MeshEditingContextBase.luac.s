@@ -64,8 +64,8 @@ PROTO_1:
        38 LOADK                            R9 K11 ["MeshWrapperObject missing function: GetMeshOrigin"]
        39 GETIMPORT                        R7 K5 [assert]
        41 CALL                             R7 2 0
-       42 GETTABLEKS                       R8 R6 K2 ["instance"]
-       44 GETTABLEKS                       R7 R8 K12 ["Name"]
+       42 GETTABLEKS                       R7 R6 K2 ["instance"]
+       44 GETTABLEKS                       R7 R7 K12 ["Name"]
        46 GETUPVAL                         R11 0
        47 GETTABLE                         R10 R11 R7
        48 JUMPIFEQKNIL                     R10 ; [+2]
@@ -120,8 +120,8 @@ PROTO_2:
         9 LOADK                            R9 K3 ["MeshWrapperObject missing function: GetMeshOrigin"]
        10 GETIMPORT                        R7 K5 [assert]
        12 CALL                             R7 2 0
-       13 GETTABLEKS                       R8 R6 K6 ["instance"]
-       15 GETTABLEKS                       R7 R8 K7 ["Name"]
+       13 GETTABLEKS                       R7 R6 K6 ["instance"]
+       15 GETTABLEKS                       R7 R7 K7 ["Name"]
        17 GETUPVAL                         R9 0
        18 GETTABLE                         R8 R9 R7
        19 JUMPIFNOT                        R8 ; [+5]
@@ -213,9 +213,9 @@ PROTO_10:
         3 GETTABLE                         R2 R3 R1
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R4 0
-        7 GETTABLE                         R3 R4 R1
-        8 GETTABLEKS                       R2 R3 K0 ["MeshOrigin"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLE                         R2 R3 R1
+        8 GETTABLEKS                       R2 R2 K0 ["MeshOrigin"]
        10 RETURN                           R2 1
 
 PROTO_11:
@@ -277,9 +277,9 @@ PROTO_11:
        75 MOVE                             R4 R2
        76 CALL                             R3 1 3
        77 FORGPREP_NEXT                    R3
-       78 GETUPVAL                         R10 0
-       79 GETTABLE                         R9 R10 R6
-       80 GETTABLEKS                       R8 R9 K8 ["VertexData"]
+       78 GETUPVAL                         R9 0
+       79 GETTABLE                         R8 R9 R6
+       80 GETTABLEKS                       R8 R8 K8 ["VertexData"]
        82 JUMPIF                           R8 ; [+7]
        83 GETIMPORT                        R9 K10 [error]
        85 LOADK                            R11 K11 ["No vertex data found for mesh: "]
@@ -361,8 +361,8 @@ PROTO_19:
         7 CALL                             R0 2 1
         8 LOADNIL                          R1
         9 LOADNIL                          R2
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K2 ["new"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K2 ["new"]
        13 CALL                             R3 0 1
        14 LOADNIL                          R4
        15 LOADNIL                          R5
@@ -448,9 +448,9 @@ PROTO_19:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K2 ["Parent"]
         9 GETIMPORT                        R2 K4 [require]
        11 GETTABLEKS                       R3 R1 K5 ["Dash"]
@@ -470,8 +470,8 @@ MAIN:
        35 GETTABLEKS                       R9 R0 K11 ["Types"]
        37 CALL                             R8 1 1
        38 GETIMPORT                        R9 K4 [require]
-       40 GETTABLEKS                       R11 R0 K12 ["Flags"]
-       42 GETTABLEKS                       R10 R11 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
+       40 GETTABLEKS                       R10 R0 K12 ["Flags"]
+       42 GETTABLEKS                       R10 R10 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
        44 CALL                             R9 1 1
        45 NEWTABLE                         R10 2 0
        47 SETTABLEKS                       R10 R10 K14 ["__index"]

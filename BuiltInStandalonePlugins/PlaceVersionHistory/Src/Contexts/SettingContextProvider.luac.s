@@ -45,48 +45,48 @@ PROTO_4:
         7 LOADK                            R4 K2 ["Settings"]
         8 NAMECALL                         R2 R1 K3 ["GetPluginComponent"]
        10 CALL                             R2 2 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K4 ["useState"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K4 ["useState"]
        14 LOADK                            R7 K6 ["UniverseId"]
        15 NAMECALL                         R5 R1 K7 ["GetItem"]
        17 CALL                             R5 2 1
        18 ORK                              R4 R5 K5 [0]
        19 CALL                             R3 1 2
-       20 GETUPVAL                         R6 1
-       21 GETTABLEKS                       R5 R6 K4 ["useState"]
+       20 GETUPVAL                         R5 1
+       21 GETTABLEKS                       R5 R5 K4 ["useState"]
        23 MOVE                             R6 R3
        24 CALL                             R5 1 2
-       25 GETUPVAL                         R8 1
-       26 GETTABLEKS                       R7 R8 K4 ["useState"]
+       25 GETUPVAL                         R7 1
+       26 GETTABLEKS                       R7 R7 K4 ["useState"]
        28 LOADK                            R11 K8 ["PlaceId"]
        29 NAMECALL                         R9 R1 K7 ["GetItem"]
        31 CALL                             R9 2 1
        32 ORK                              R8 R9 K5 [0]
        33 CALL                             R7 1 2
-       34 GETUPVAL                         R10 1
-       35 GETTABLEKS                       R9 R10 K4 ["useState"]
+       34 GETUPVAL                         R9 1
+       35 GETTABLEKS                       R9 R9 K4 ["useState"]
        37 MOVE                             R10 R7
        38 CALL                             R9 1 2
-       39 GETUPVAL                         R12 1
-       40 GETTABLEKS                       R11 R12 K4 ["useState"]
+       39 GETUPVAL                         R11 1
+       40 GETTABLEKS                       R11 R11 K4 ["useState"]
        42 LOADK                            R14 K9 ["Filter_SaveType"]
        43 NAMECALL                         R12 R1 K10 ["GetSetting"]
        45 CALL                             R12 2 -1
        46 CALL                             R11 -1 2
-       47 GETUPVAL                         R14 1
-       48 GETTABLEKS                       R13 R14 K4 ["useState"]
+       47 GETUPVAL                         R13 1
+       48 GETTABLEKS                       R13 R13 K4 ["useState"]
        50 LOADK                            R16 K11 ["Filter_IsPublished"]
        51 NAMECALL                         R14 R1 K10 ["GetSetting"]
        53 CALL                             R14 2 -1
        54 CALL                             R13 -1 2
-       55 GETUPVAL                         R16 1
-       56 GETTABLEKS                       R15 R16 K4 ["useState"]
+       55 GETUPVAL                         R15 1
+       56 GETTABLEKS                       R15 R15 K4 ["useState"]
        58 LOADK                            R18 K12 ["Filter_HasNotes"]
        59 NAMECALL                         R16 R1 K10 ["GetSetting"]
        61 CALL                             R16 2 -1
        62 CALL                             R15 -1 2
-       63 GETUPVAL                         R18 1
-       64 GETTABLEKS                       R17 R18 K4 ["useState"]
+       63 GETUPVAL                         R17 1
+       64 GETTABLEKS                       R17 R17 K4 ["useState"]
        66 LOADK                            R18 K13 ["None"]
        67 CALL                             R17 1 2
        68 LOADK                            R21 K8 ["PlaceId"]
@@ -105,8 +105,8 @@ PROTO_4:
        84 MOVE                             R22 R6
        85 NAMECALL                         R19 R1 K14 ["OnSetItem"]
        87 CALL                             R19 3 0
-       88 GETUPVAL                         R20 1
-       89 GETTABLEKS                       R19 R20 K15 ["useEffect"]
+       88 GETUPVAL                         R19 1
+       89 GETTABLEKS                       R19 R19 K15 ["useEffect"]
        91 NEWCLOSURE                       R20 P0
        92 CAPTURE                          VAL R1
        93 CAPTURE                          VAL R11
@@ -118,8 +118,8 @@ PROTO_4:
       100 MOVE                             R24 R15
       101 SETLIST                          R21 R22 3 [1]
       103 CALL                             R19 2 0
-      104 GETUPVAL                         R20 1
-      105 GETTABLEKS                       R19 R20 K15 ["useEffect"]
+      104 GETUPVAL                         R19 1
+      105 GETTABLEKS                       R19 R19 K15 ["useEffect"]
       107 NEWCLOSURE                       R20 P1
       108 CAPTURE                          VAL R2
       109 CAPTURE                          UPVAL U2
@@ -144,10 +144,10 @@ PROTO_4:
       133 CAPTURE                          VAL R18
       134 NEWTABLE                         R22 0 0
       136 CALL                             R19 3 0
-      137 GETUPVAL                         R20 1
-      138 GETTABLEKS                       R19 R20 K17 ["createElement"]
-      140 GETUPVAL                         R21 5
-      141 GETTABLEKS                       R20 R21 K18 ["Provider"]
+      137 GETUPVAL                         R19 1
+      138 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      140 GETUPVAL                         R20 5
+      141 GETTABLEKS                       R20 R20 K18 ["Provider"]
       143 DUPTABLE                         R21 K20 [{"value"}]
       144 DUPTABLE                         R22 K34 [{"publishInProgress", "sessionPlaceId", "sessionUniverseId", "placeId", "setPlaceId", "universeId", "setUniverseId", "saveType", "setSaveType", "isPublished", "setIsPublished", "hasNotes", "setHasNotes"}]
       145 SETTABLEKS                       R17 R22 K21 ["publishInProgress"]
@@ -175,28 +175,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R5 R0 K10 ["Src"]
-       30 GETTABLEKS                       R4 R5 K11 ["Contexts"]
+       28 GETTABLEKS                       R4 R0 K10 ["Src"]
+       30 GETTABLEKS                       R4 R4 K11 ["Contexts"]
        32 GETIMPORT                        R5 K5 [require]
        34 GETTABLEKS                       R6 R4 K12 ["SettingContext"]
        36 CALL                             R5 1 1
-       37 GETTABLEKS                       R7 R3 K13 ["ContextServices"]
-       39 GETTABLEKS                       R6 R7 K14 ["Plugin"]
+       37 GETTABLEKS                       R6 R3 K13 ["ContextServices"]
+       39 GETTABLEKS                       R6 R6 K14 ["Plugin"]
        41 GETTABLEKS                       R7 R2 K15 ["useEventConnection"]
        43 GETIMPORT                        R8 K5 [require]
-       45 GETTABLEKS                       R10 R0 K10 ["Src"]
-       47 GETTABLEKS                       R9 R10 K16 ["Types"]
+       45 GETTABLEKS                       R9 R0 K10 ["Src"]
+       47 GETTABLEKS                       R9 R9 K16 ["Types"]
        49 CALL                             R8 1 1
        50 DUPTABLE                         R9 K21 [{"DataModel", "PluginId", "Category", "ItemId"}]
        51 LOADK                            R10 K22 ["Standalone"]

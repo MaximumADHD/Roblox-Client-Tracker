@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"ActiveView"}]
         7 GETTABLEKS                       R5 R1 K4 ["view"]
@@ -10,9 +10,9 @@ PROTO_0:
        12 RETURN                           R2 -1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"Parameters"}]
         7 GETTABLEKS                       R5 R1 K4 ["parameters"]
@@ -21,9 +21,9 @@ PROTO_1:
        12 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"ThemeName"}]
         7 GETTABLEKS                       R5 R1 K4 ["themeName"]
@@ -33,21 +33,21 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K2 [{"Key", "Value"}]
-        1 GETTABLEKS                       R4 R1 K3 ["pair"]
-        3 GETTABLEKS                       R3 R4 K0 ["Key"]
+        1 GETTABLEKS                       R3 R1 K3 ["pair"]
+        3 GETTABLEKS                       R3 R3 K0 ["Key"]
         5 JUMPIF                           R3 ; [+4]
-        6 GETTABLEKS                       R4 R0 K4 ["MemStoragePair"]
-        8 GETTABLEKS                       R3 R4 K0 ["Key"]
+        6 GETTABLEKS                       R3 R0 K4 ["MemStoragePair"]
+        8 GETTABLEKS                       R3 R3 K0 ["Key"]
        10 SETTABLEKS                       R3 R2 K0 ["Key"]
-       12 GETTABLEKS                       R4 R1 K3 ["pair"]
-       14 GETTABLEKS                       R3 R4 K1 ["Value"]
+       12 GETTABLEKS                       R3 R1 K3 ["pair"]
+       14 GETTABLEKS                       R3 R3 K1 ["Value"]
        16 JUMPIF                           R3 ; [+4]
-       17 GETTABLEKS                       R4 R0 K4 ["MemStoragePair"]
-       19 GETTABLEKS                       R3 R4 K1 ["Value"]
+       17 GETTABLEKS                       R3 R0 K4 ["MemStoragePair"]
+       19 GETTABLEKS                       R3 R3 K1 ["Value"]
        21 SETTABLEKS                       R3 R2 K1 ["Value"]
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K5 ["Dictionary"]
-       26 GETTABLEKS                       R3 R4 K6 ["join"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K5 ["Dictionary"]
+       26 GETTABLEKS                       R3 R3 K6 ["join"]
        28 MOVE                             R4 R0
        29 DUPTABLE                         R5 K7 [{"MemStoragePair"}]
        30 SETTABLEKS                       R2 R5 K4 ["MemStoragePair"]
@@ -55,9 +55,9 @@ PROTO_3:
        33 RETURN                           R3 -1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"MemStoragePair"}]
         7 DUPTABLE                         R5 K6 [{"Key", "Value"}]
@@ -70,9 +70,9 @@ PROTO_4:
        17 RETURN                           R2 -1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"Parameters"}]
         7 DUPTABLE                         R5 K7 [{"Detail", "Namespace", "DetailType"}]
@@ -87,9 +87,9 @@ PROTO_5:
        20 RETURN                           R2 -1
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"CurrentEventName"}]
         7 GETTABLEKS                       R5 R1 K4 ["name"]
@@ -99,26 +99,26 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["Constants"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K11 ["VIEW_ID"]
-       34 GETTABLEKS                       R6 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R6 K12 ["Actions"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K12 ["Actions"]
        38 GETIMPORT                        R6 K4 [require]
        40 GETTABLEKS                       R7 R5 K13 ["SetView"]
        42 CALL                             R6 1 1

@@ -29,8 +29,8 @@ PROTO_1:
         9 LOADNIL                          R8
        10 LOADNIL                          R9
        11 FORGPREP                         R7
-       12 GETTABLE                         R13 R4 R11
-       13 GETTABLEKS                       R12 R13 K2 ["isGranted"]
+       12 GETTABLE                         R12 R4 R11
+       13 GETTABLEKS                       R12 R12 K2 ["isGranted"]
        15 JUMPIFNOT                        R12 ; [+9]
        16 MOVE                             R5 R11
        17 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
@@ -39,8 +39,8 @@ PROTO_1:
        21 GETIMPORT                        R12 K5 [table.insert]
        23 CALL                             R12 2 0
        24 JUMP                             ; [+11]
-       25 GETTABLE                         R13 R4 R11
-       26 GETTABLEKS                       R12 R13 K6 ["canEdit"]
+       25 GETTABLE                         R12 R4 R11
+       26 GETTABLEKS                       R12 R12 K6 ["canEdit"]
        28 JUMPIFNOT                        R12 ; [+7]
        29 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
        31 MOVE                             R13 R6
@@ -49,55 +49,55 @@ PROTO_1:
        35 CALL                             R12 2 0
        36 FORGLOOP                         R7 2 ; [-25]
        38 NEWTABLE                         R7 8 0
-       40 GETUPVAL                         R9 1
-       41 GETTABLEKS                       R8 R9 K7 ["SubjectNameKey"]
+       40 GETUPVAL                         R8 1
+       41 GETTABLEKS                       R8 R8 K7 ["SubjectNameKey"]
        43 GETTABLEKS                       R9 R1 K8 ["name"]
        45 SETTABLE                         R9 R7 R8
-       46 GETUPVAL                         R9 1
-       47 GETTABLEKS                       R8 R9 K9 ["GroupNameKey"]
+       46 GETUPVAL                         R8 1
+       47 GETTABLEKS                       R8 R8 K9 ["GroupNameKey"]
        49 SETTABLE                         R2 R7 R8
-       50 GETUPVAL                         R9 1
-       51 GETTABLEKS                       R8 R9 K10 ["SubjectIdKey"]
+       50 GETUPVAL                         R8 1
+       51 GETTABLEKS                       R8 R8 K10 ["SubjectIdKey"]
        53 GETTABLEKS                       R9 R1 K11 ["id"]
        55 SETTABLE                         R9 R7 R8
-       56 GETUPVAL                         R9 1
-       57 GETTABLEKS                       R8 R9 K12 ["SubjectIconColor"]
+       56 GETUPVAL                         R8 1
+       57 GETTABLEKS                       R8 R8 K12 ["SubjectIconColor"]
        59 GETUPVAL                         R10 2
        60 GETTABLEKS                       R11 R1 K13 ["color"]
        62 GETTABLE                         R9 R10 R11
        63 JUMPIF                           R9 ; [+3]
-       64 GETUPVAL                         R10 2
-       65 GETTABLEKS                       R9 R10 K14 ["default"]
+       64 GETUPVAL                         R9 2
+       65 GETTABLEKS                       R9 R9 K14 ["default"]
        67 SETTABLE                         R9 R7 R8
-       68 GETUPVAL                         R9 1
-       69 GETTABLEKS                       R8 R9 K15 ["ActionKey"]
+       68 GETUPVAL                         R8 1
+       69 GETTABLEKS                       R8 R8 K15 ["ActionKey"]
        71 SETTABLE                         R5 R7 R8
-       72 GETUPVAL                         R9 1
-       73 GETTABLEKS                       R8 R9 K16 ["IsEditableKey"]
+       72 GETUPVAL                         R8 1
+       73 GETTABLEKS                       R8 R8 K16 ["IsEditableKey"]
        75 SETTABLE                         R3 R7 R8
-       76 GETUPVAL                         R9 1
-       77 GETTABLEKS                       R8 R9 K17 ["AvailableActionsKey"]
+       76 GETUPVAL                         R8 1
+       77 GETTABLEKS                       R8 R8 K17 ["AvailableActionsKey"]
        79 SETTABLE                         R6 R7 R8
        80 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["PermissionsConstants"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["PermissionsConstants"]
        19 CALL                             R1 1 1
-       20 GETIMPORT                        R3 K4 [require]
-       22 GETIMPORT                        R6 K1 [script]
-       24 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       26 GETTABLEKS                       R4 R5 K8 ["Constants"]
-       28 CALL                             R3 1 1
-       29 GETTABLEKS                       R2 R3 K9 ["granularCollaboratorColorsMap"]
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETIMPORT                        R3 K1 [script]
+       24 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       26 GETTABLEKS                       R3 R3 K8 ["Constants"]
+       28 CALL                             R2 1 1
+       29 GETTABLEKS                       R2 R2 K9 ["granularCollaboratorColorsMap"]
        31 NEWTABLE                         R3 0 3
        33 LOADK                            R4 K10 ["Universe.GranularPlayer"]
        34 LOADK                            R5 K11 ["Universe.GranularEditor"]

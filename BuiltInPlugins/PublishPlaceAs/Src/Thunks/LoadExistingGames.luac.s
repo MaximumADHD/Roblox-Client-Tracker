@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R1 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R2 R4 K2 ["games"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["games"]
         5 CALL                             R1 1 3
         6 FORGPREP_NEXT                    R1
         7 GETTABLEKS                       R7 R5 K3 ["universeId"]
@@ -38,8 +38,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R2 R4 K2 ["games"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["games"]
         5 CALL                             R1 1 3
         6 FORGPREP_NEXT                    R1
         7 GETTABLEKS                       R7 R5 K3 ["universeId"]
@@ -64,8 +64,8 @@ PROTO_3:
        12 CALL                             R2 1 3
        13 FORGPREP_NEXT                    R2
        14 GETTABLEKS                       R7 R6 K5 ["minimumAge"]
-       16 GETUPVAL                         R9 0
-       17 GETTABLEKS                       R8 R9 K6 ["MINIMUM_AGE"]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K6 ["MINIMUM_AGE"]
        19 JUMPIFNOTLE                      R8 R7 ; [+9]
        21 GETTABLEKS                       R9 R6 K7 ["universeId"]
        23 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
@@ -83,8 +83,8 @@ PROTO_3:
        40 CALL                             R4 1 -1
        41 CALL                             R2 -1 1
        42 JUMP                             ; [+6]
-       43 GETUPVAL                         R3 3
-       44 GETTABLEKS                       R2 R3 K12 ["resolve"]
+       43 GETUPVAL                         R2 3
+       44 GETTABLEKS                       R2 R2 K12 ["resolve"]
        46 NEWTABLE                         R3 0 0
        48 CALL                             R2 1 1
        49 NEWCLOSURE                       R5 P0
@@ -95,8 +95,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETIMPORT                        R1 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R2 R4 K2 ["games"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["games"]
         5 CALL                             R1 1 3
         6 FORGPREP_NEXT                    R1
         7 GETTABLEKS                       R7 R0 K3 ["minimumAgeByUniverse"]
@@ -134,8 +134,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["minimumAgeByUniverse"]
-        2 GETIMPORT                        R4 K2 [game]
-        4 GETTABLEKS                       R3 R4 K3 ["GameId"]
+        2 GETIMPORT                        R3 K2 [game]
+        4 GETTABLEKS                       R3 R3 K3 ["GameId"]
         6 GETTABLE                         R1 R2 R3
         7 SETUPVAL                         R1 0
         8 RETURN                           R0 0
@@ -166,9 +166,9 @@ PROTO_10:
         2 FASTCALL1                        ASSERT R2 ; [+2]
         3 GETIMPORT                        R1 K2 [assert]
         5 CALL                             R1 1 0
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K3 ["List"]
-        9 GETTABLEKS                       R1 R2 K4 ["join"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K3 ["List"]
+        9 GETTABLEKS                       R1 R1 K4 ["join"]
        11 GETUPVAL                         R2 0
        12 GETTABLEKS                       R3 R0 K0 ["games"]
        14 CALL                             R1 2 1
@@ -197,9 +197,9 @@ PROTO_10:
 PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R6 2
-        3 GETTABLEKS                       R5 R6 K0 ["QUERY_STATE"]
-        5 GETTABLEKS                       R4 R5 K1 ["QUERY_STATE_FAILED"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["QUERY_STATE"]
+        5 GETTABLEKS                       R4 R4 K1 ["QUERY_STATE_FAILED"]
         7 CALL                             R3 1 -1
         8 NAMECALL                         R1 R1 K2 ["dispatch"]
        10 CALL                             R1 -1 0
@@ -209,16 +209,16 @@ PROTO_12:
         0 LOADNIL                          R1
         1 GETUPVAL                         R2 0
         2 JUMPIF                           R2 ; [+25]
-        3 GETIMPORT                        R3 K1 [game]
-        5 GETTABLEKS                       R2 R3 K2 ["GameId"]
+        3 GETIMPORT                        R2 K1 [game]
+        5 GETTABLEKS                       R2 R2 K2 ["GameId"]
         7 JUMPIFNOTEQKN                    R2 K3 [0] ; [+4]
         9 LOADN                            R2 0
        10 SETUPVAL                         R2 0
        11 JUMP                             ; [+16]
        12 GETUPVAL                         R2 1
        13 NEWTABLE                         R3 0 1
-       15 GETIMPORT                        R5 K1 [game]
-       17 GETTABLEKS                       R4 R5 K2 ["GameId"]
+       15 GETIMPORT                        R4 K1 [game]
+       17 GETTABLEKS                       R4 R4 K2 ["GameId"]
        19 SETLIST                          R3 R4 1 [1]
        21 CALL                             R2 1 1
        22 NEWCLOSURE                       R4 P0
@@ -234,9 +234,9 @@ PROTO_12:
        34 GETUPVAL                         R2 2
        35 JUMPIF                           R2 ; [+10]
        36 GETUPVAL                         R4 4
-       37 GETUPVAL                         R7 5
-       38 GETTABLEKS                       R6 R7 K5 ["QUERY_STATE"]
-       40 GETTABLEKS                       R5 R6 K6 ["QUERY_STATE_QUERYING"]
+       37 GETUPVAL                         R5 5
+       38 GETTABLEKS                       R5 R5 K5 ["QUERY_STATE"]
+       40 GETTABLEKS                       R5 R5 K6 ["QUERY_STATE_QUERYING"]
        42 CALL                             R4 1 -1
        43 NAMECALL                         R2 R0 K7 ["dispatch"]
        45 CALL                             R2 -1 0
@@ -316,62 +316,62 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["StudioService"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
        14 CALL                             R1 2 1
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R5 R0 K9 ["Src"]
-       19 GETTABLEKS                       R4 R5 K10 ["Resources"]
-       21 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       17 GETTABLEKS                       R3 R0 K9 ["Src"]
+       19 GETTABLEKS                       R3 R3 K10 ["Resources"]
+       21 GETTABLEKS                       R3 R3 K11 ["Constants"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K8 [require]
-       26 GETTABLEKS                       R6 R0 K9 ["Src"]
-       28 GETTABLEKS                       R5 R6 K12 ["Actions"]
-       30 GETTABLEKS                       R4 R5 K13 ["SetGameInfo"]
+       26 GETTABLEKS                       R4 R0 K9 ["Src"]
+       28 GETTABLEKS                       R4 R4 K12 ["Actions"]
+       30 GETTABLEKS                       R4 R4 K13 ["SetGameInfo"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K8 [require]
-       35 GETTABLEKS                       R7 R0 K9 ["Src"]
-       37 GETTABLEKS                       R6 R7 K12 ["Actions"]
-       39 GETTABLEKS                       R5 R6 K14 ["SetChooseGameQueryState"]
+       35 GETTABLEKS                       R5 R0 K9 ["Src"]
+       37 GETTABLEKS                       R5 R5 K12 ["Actions"]
+       39 GETTABLEKS                       R5 R5 K14 ["SetChooseGameQueryState"]
        41 CALL                             R4 1 1
        42 GETIMPORT                        R5 K8 [require]
-       44 GETTABLEKS                       R9 R0 K9 ["Src"]
-       46 GETTABLEKS                       R8 R9 K15 ["Network"]
-       48 GETTABLEKS                       R7 R8 K16 ["Requests"]
-       50 GETTABLEKS                       R6 R7 K17 ["ApiFetchUniversePublishEligibility"]
+       44 GETTABLEKS                       R6 R0 K9 ["Src"]
+       46 GETTABLEKS                       R6 R6 K15 ["Network"]
+       48 GETTABLEKS                       R6 R6 K16 ["Requests"]
+       50 GETTABLEKS                       R6 R6 K17 ["ApiFetchUniversePublishEligibility"]
        52 CALL                             R5 1 1
        53 GETIMPORT                        R6 K8 [require]
-       55 GETTABLEKS                       R10 R0 K9 ["Src"]
-       57 GETTABLEKS                       R9 R10 K15 ["Network"]
-       59 GETTABLEKS                       R8 R9 K16 ["Requests"]
-       61 GETTABLEKS                       R7 R8 K18 ["ApiFetchGameAgeRecommendation"]
+       55 GETTABLEKS                       R7 R0 K9 ["Src"]
+       57 GETTABLEKS                       R7 R7 K15 ["Network"]
+       59 GETTABLEKS                       R7 R7 K16 ["Requests"]
+       61 GETTABLEKS                       R7 R7 K18 ["ApiFetchGameAgeRecommendation"]
        63 CALL                             R6 1 1
        64 GETIMPORT                        R7 K8 [require]
-       66 GETTABLEKS                       R11 R0 K9 ["Src"]
-       68 GETTABLEKS                       R10 R11 K15 ["Network"]
-       70 GETTABLEKS                       R9 R10 K16 ["Requests"]
-       72 GETTABLEKS                       R8 R9 K19 ["ApiFetchCreatorEligibility"]
+       66 GETTABLEKS                       R8 R0 K9 ["Src"]
+       68 GETTABLEKS                       R8 R8 K15 ["Network"]
+       70 GETTABLEKS                       R8 R8 K16 ["Requests"]
+       72 GETTABLEKS                       R8 R8 K19 ["ApiFetchCreatorEligibility"]
        74 CALL                             R7 1 1
        75 GETIMPORT                        R8 K8 [require]
-       77 GETTABLEKS                       R12 R0 K9 ["Src"]
-       79 GETTABLEKS                       R11 R12 K15 ["Network"]
-       81 GETTABLEKS                       R10 R11 K16 ["Requests"]
-       83 GETTABLEKS                       R9 R10 K20 ["ApiFetchGames"]
+       77 GETTABLEKS                       R9 R0 K9 ["Src"]
+       79 GETTABLEKS                       R9 R9 K15 ["Network"]
+       81 GETTABLEKS                       R9 R9 K16 ["Requests"]
+       83 GETTABLEKS                       R9 R9 K20 ["ApiFetchGames"]
        85 CALL                             R8 1 1
-       86 GETIMPORT                        R11 K8 [require]
-       88 GETTABLEKS                       R13 R0 K21 ["Packages"]
-       90 GETTABLEKS                       R12 R13 K22 ["Framework"]
-       92 CALL                             R11 1 1
-       93 GETTABLEKS                       R10 R11 K23 ["Util"]
-       95 GETTABLEKS                       R9 R10 K24 ["Promise"]
+       86 GETIMPORT                        R9 K8 [require]
+       88 GETTABLEKS                       R10 R0 K21 ["Packages"]
+       90 GETTABLEKS                       R10 R10 K22 ["Framework"]
+       92 CALL                             R9 1 1
+       93 GETTABLEKS                       R9 R9 K23 ["Util"]
+       95 GETTABLEKS                       R9 R9 K24 ["Promise"]
        97 GETIMPORT                        R10 K8 [require]
-       99 GETTABLEKS                       R12 R0 K21 ["Packages"]
-      101 GETTABLEKS                       R11 R12 K25 ["Cryo"]
+       99 GETTABLEKS                       R11 R0 K21 ["Packages"]
+      101 GETTABLEKS                       R11 R11 K25 ["Cryo"]
       103 CALL                             R10 1 1
       104 NEWTABLE                         R11 0 0
       106 LOADN                            R12 255

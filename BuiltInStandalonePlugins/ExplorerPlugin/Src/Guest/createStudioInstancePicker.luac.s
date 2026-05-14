@@ -33,8 +33,8 @@ PROTO_2:
         0 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["HoverInstance"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["HoverInstance"]
         3 RETURN                           R0 1
 
 PROTO_4:
@@ -104,18 +104,18 @@ PROTO_10:
        14 CAPTURE                          UPVAL U1
        15 CAPTURE                          UPVAL U2
        16 CALL                             R3 1 0
-       17 GETUPVAL                         R5 3
-       18 GETTABLEKS                       R4 R5 K4 ["Signal"]
-       20 GETTABLEKS                       R3 R4 K5 ["new"]
+       17 GETUPVAL                         R3 3
+       18 GETTABLEKS                       R3 R3 K4 ["Signal"]
+       20 GETTABLEKS                       R3 R3 K5 ["new"]
        22 CALL                             R3 0 1
        23 GETTABLEKS                       R4 R1 K6 ["Activated"]
        25 NEWCLOSURE                       R6 P2
        26 CAPTURE                          VAL R3
        27 NAMECALL                         R4 R4 K7 ["Connect"]
        29 CALL                             R4 2 1
-       30 GETUPVAL                         R7 3
-       31 GETTABLEKS                       R6 R7 K4 ["Signal"]
-       33 GETTABLEKS                       R5 R6 K5 ["new"]
+       30 GETUPVAL                         R5 3
+       31 GETTABLEKS                       R5 R5 K4 ["Signal"]
+       33 GETTABLEKS                       R5 R5 K5 ["new"]
        35 CALL                             R5 0 1
        36 GETTABLEKS                       R6 R1 K8 ["Deactivated"]
        38 NEWCLOSURE                       R8 P3
@@ -147,13 +147,13 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Explorer"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Explorer"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Util"]
-       26 GETTABLEKS                       R4 R5 K14 ["ExplorerGuiUri"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Util"]
+       26 GETTABLEKS                       R4 R4 K14 ["ExplorerGuiUri"]
        28 CALL                             R3 1 1
        29 DUPCLOSURE                       R4 K15 [PROTO_1]
        30 DUPCLOSURE                       R5 K16 [PROTO_10]

@@ -7,24 +7,24 @@ PROTO_0:
         8 RETURN                           R2 1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["Permissions"]
-        2 GETTABLEKS                       R2 R3 K1 ["NewPermissions"]
+        0 GETTABLEKS                       R2 R0 K0 ["Permissions"]
+        2 GETTABLEKS                       R2 R2 K1 ["NewPermissions"]
         4 JUMPIF                           R2 ; [+4]
-        5 GETTABLEKS                       R3 R0 K0 ["Permissions"]
-        7 GETTABLEKS                       R2 R3 K2 ["CurrentPermissions"]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K3 ["RoleSubjectKey"]
+        5 GETTABLEKS                       R2 R0 K0 ["Permissions"]
+        7 GETTABLEKS                       R2 R2 K2 ["CurrentPermissions"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["RoleSubjectKey"]
        12 GETTABLE                         R3 R2 R4
        13 NEWTABLE                         R4 0 0
        15 GETIMPORT                        R5 K5 [pairs]
        17 MOVE                             R6 R3
        18 CALL                             R5 1 3
        19 FORGPREP_NEXT                    R5
-       20 GETUPVAL                         R12 0
-       21 GETTABLEKS                       R11 R12 K6 ["GroupIdKey"]
+       20 GETUPVAL                         R11 0
+       21 GETTABLEKS                       R11 R11 K6 ["GroupIdKey"]
        23 GETTABLE                         R10 R9 R11
-       24 GETUPVAL                         R13 0
-       25 GETTABLEKS                       R12 R13 K7 ["SubjectRankKey"]
+       24 GETUPVAL                         R12 0
+       25 GETTABLEKS                       R12 R12 K7 ["SubjectRankKey"]
        27 GETTABLE                         R11 R9 R12
        28 JUMPIFNOTEQ                      R1 R10 ; [+12]
        30 DUPTABLE                         R14 K10 [{"Rank", "Id"}]
@@ -54,14 +54,14 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["PermissionsConstants"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["PermissionsConstants"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_1]
        19 CAPTURE                          VAL R1

@@ -65,8 +65,8 @@ PROTO_2:
        65 SETTABLEKS                       R7 R6 K13 ["Looped"]
        67 NAMECALL                         R7 R6 K14 ["Play"]
        69 CALL                             R7 1 0
-       70 GETUPVAL                         R8 1
-       71 GETTABLEKS                       R7 R8 K15 ["Heartbeat"]
+       70 GETUPVAL                         R7 1
+       71 GETTABLEKS                       R7 R7 K15 ["Heartbeat"]
        73 NEWCLOSURE                       R9 P0
        74 CAPTURE                          REF R4
        75 NAMECALL                         R7 R7 K16 ["Connect"]
@@ -86,9 +86,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["KeyframeSequenceProvider"]

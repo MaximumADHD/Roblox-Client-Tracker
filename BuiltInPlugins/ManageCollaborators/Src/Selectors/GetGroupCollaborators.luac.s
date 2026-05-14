@@ -7,13 +7,13 @@ PROTO_0:
         8 RETURN                           R2 1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["GroupMetadata"]
-        2 GETTABLEKS                       R1 R2 K1 ["NewGroupMetadata"]
+        0 GETTABLEKS                       R1 R0 K0 ["GroupMetadata"]
+        2 GETTABLEKS                       R1 R1 K1 ["NewGroupMetadata"]
         4 JUMPIF                           R1 ; [+4]
-        5 GETTABLEKS                       R2 R0 K0 ["GroupMetadata"]
-        7 GETTABLEKS                       R1 R2 K2 ["CurrentGroupMetadata"]
-        9 GETTABLEKS                       R3 R0 K0 ["GroupMetadata"]
-       11 GETTABLEKS                       R2 R3 K2 ["CurrentGroupMetadata"]
+        5 GETTABLEKS                       R1 R0 K0 ["GroupMetadata"]
+        7 GETTABLEKS                       R1 R1 K2 ["CurrentGroupMetadata"]
+        9 GETTABLEKS                       R2 R0 K0 ["GroupMetadata"]
+       11 GETTABLEKS                       R2 R2 K2 ["CurrentGroupMetadata"]
        13 NEWTABLE                         R3 0 0
        15 GETIMPORT                        R4 K4 [pairs]
        17 MOVE                             R5 R1
@@ -69,14 +69,14 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Selectors"]
-       15 GETTABLEKS                       R2 R3 K7 ["IsGroupOwner"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Selectors"]
+       15 GETTABLEKS                       R2 R2 K7 ["IsGroupOwner"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_1]
        19 CAPTURE                          VAL R1

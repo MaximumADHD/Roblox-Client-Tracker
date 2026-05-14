@@ -11,8 +11,8 @@ PROTO_1:
         8 LOADK                            R5 K3 ["ScrubberHeadSize"]
         9 NAMECALL                         R3 R3 K2 ["GetAttribute"]
        11 CALL                             R3 2 1
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K4 ["createElement"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K4 ["createElement"]
        15 GETUPVAL                         R5 2
        16 DUPTABLE                         R6 K9 [{"Size", "AnchorPoint", "Position", "ZIndex"}]
        17 GETIMPORT                        R7 K12 [UDim2.new]
@@ -32,8 +32,8 @@ PROTO_1:
        37 GETTABLEKS                       R7 R1 K8 ["ZIndex"]
        39 SETTABLEKS                       R7 R6 K8 ["ZIndex"]
        41 DUPTABLE                         R7 K18 [{"Line", "Head"}]
-       42 GETUPVAL                         R9 1
-       43 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       42 GETUPVAL                         R8 1
+       43 GETTABLEKS                       R8 R8 K4 ["createElement"]
        45 GETUPVAL                         R9 2
        46 NEWTABLE                         R10 4 0
        48 SETTABLEKS                       R2 R10 K5 ["Size"]
@@ -47,14 +47,14 @@ PROTO_1:
        60 LOADN                            R13 0
        61 CALL                             R11 2 1
        62 SETTABLEKS                       R11 R10 K6 ["AnchorPoint"]
-       64 GETUPVAL                         R12 1
-       65 GETTABLEKS                       R11 R12 K21 ["Tag"]
+       64 GETUPVAL                         R11 1
+       65 GETTABLEKS                       R11 R11 K21 ["Tag"]
        67 LOADK                            R12 K22 ["Scrubber"]
        68 SETTABLE                         R12 R10 R11
        69 CALL                             R8 2 1
        70 SETTABLEKS                       R8 R7 K16 ["Line"]
-       72 GETUPVAL                         R9 1
-       73 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       72 GETUPVAL                         R8 1
+       73 GETTABLEKS                       R8 R8 K4 ["createElement"]
        75 GETUPVAL                         R9 2
        76 NEWTABLE                         R10 4 0
        78 SETTABLEKS                       R3 R10 K5 ["Size"]
@@ -68,8 +68,8 @@ PROTO_1:
        90 LOADN                            R13 0
        91 CALL                             R11 2 1
        92 SETTABLEKS                       R11 R10 K6 ["AnchorPoint"]
-       94 GETUPVAL                         R12 1
-       95 GETTABLEKS                       R11 R12 K21 ["Tag"]
+       94 GETUPVAL                         R11 1
+       95 GETTABLEKS                       R11 R11 K21 ["Tag"]
        97 LOADK                            R12 K22 ["Scrubber"]
        98 SETTABLE                         R12 R10 R11
        99 CALL                             R8 2 1
@@ -84,23 +84,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETIMPORT                        R8 K1 [script]
-       29 GETTABLEKS                       R7 R8 K11 ["Parent"]
-       31 GETTABLEKS                       R6 R7 K12 ["styles"]
+       27 GETIMPORT                        R6 K1 [script]
+       29 GETTABLEKS                       R6 R6 K11 ["Parent"]
+       31 GETTABLEKS                       R6 R6 K12 ["styles"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R8 R0 K13 ["Src"]
-       38 GETTABLEKS                       R7 R8 K14 ["Types"]
+       36 GETTABLEKS                       R7 R0 K13 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Types"]
        40 CALL                             R6 1 1
        41 GETTABLEKS                       R7 R2 K15 ["PureComponent"]
        43 LOADK                            R9 K16 ["Scrubber"]

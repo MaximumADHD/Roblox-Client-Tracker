@@ -1,18 +1,18 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Inspector"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Inspector"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 NAMECALL                         R2 R1 K3 ["getTargetApi"]
        10 CALL                             R2 1 1
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K4 ["setPageIndex"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K4 ["setPageIndex"]
        16 MOVE                             R4 R0
        17 CALL                             R3 1 0
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R3 R4 K5 ["isInstance"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K5 ["isInstance"]
        21 MOVE                             R4 R2
        22 CALL                             R3 1 1
        23 JUMPIFNOT                        R3 ; [+11]
@@ -27,23 +27,23 @@ PROTO_0:
        35 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["Inspector"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["Inspector"]
         5 NAMECALL                         R2 R2 K2 ["get"]
         7 CALL                             R2 1 1
         8 NAMECALL                         R3 R2 K3 ["getTargetApi"]
        10 CALL                             R3 1 1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["TableData"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["TableData"]
        16 GETTABLEKS                       R6 R4 K5 ["pageRows"]
        18 GETTABLE                         R5 R6 R1
        19 JUMPIFNOT                        R5 ; [+14]
        20 GETTABLEKS                       R6 R5 K6 ["path"]
        22 JUMPIFNOT                        R6 ; [+11]
-       23 GETUPVAL                         R7 1
-       24 GETTABLEKS                       R6 R7 K7 ["isInstance"]
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K7 ["isInstance"]
        26 MOVE                             R7 R3
        27 CALL                             R6 1 1
        28 JUMPIFNOT                        R6 ; [+5]
@@ -53,15 +53,15 @@ PROTO_1:
        34 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Inspector"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Inspector"]
         5 NAMECALL                         R0 R0 K2 ["get"]
         7 CALL                             R0 1 1
         8 NAMECALL                         R1 R0 K3 ["getTargetApi"]
        10 CALL                             R1 1 1
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R2 R3 K4 ["isInstance"]
+       11 GETUPVAL                         R2 1
+       12 GETTABLEKS                       R2 R2 K4 ["isInstance"]
        14 MOVE                             R3 R1
        15 CALL                             R2 1 1
        16 JUMPIFNOT                        R2 ; [+3]
@@ -70,20 +70,20 @@ PROTO_2:
        20 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Inspector"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Inspector"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 NAMECALL                         R2 R1 K3 ["getTargetApi"]
        10 CALL                             R2 1 1
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K4 ["setPageSize"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K4 ["setPageSize"]
        16 MOVE                             R4 R0
        17 CALL                             R3 1 0
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R3 R4 K5 ["isInstance"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K5 ["isInstance"]
        21 MOVE                             R4 R2
        22 CALL                             R3 1 1
        23 JUMPIFNOT                        R3 ; [+11]
@@ -98,21 +98,21 @@ PROTO_3:
        35 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["Inspector"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["Inspector"]
         5 NAMECALL                         R2 R2 K2 ["get"]
         7 CALL                             R2 1 1
         8 NAMECALL                         R3 R2 K3 ["getTargetApi"]
        10 CALL                             R3 1 1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["setSort"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["setSort"]
        16 MOVE                             R5 R0
        17 MOVE                             R6 R1
        18 CALL                             R4 2 0
-       19 GETUPVAL                         R5 1
-       20 GETTABLEKS                       R4 R5 K5 ["isInstance"]
+       19 GETUPVAL                         R4 1
+       20 GETTABLEKS                       R4 R4 K5 ["isInstance"]
        22 MOVE                             R5 R3
        23 CALL                             R4 1 1
        24 JUMPIFNOT                        R4 ; [+13]
@@ -129,16 +129,16 @@ PROTO_4:
        38 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["Inspector"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["Inspector"]
         5 NAMECALL                         R2 R2 K2 ["get"]
         7 CALL                             R2 1 1
         8 NAMECALL                         R3 R2 K3 ["getTargetApi"]
        10 CALL                             R3 1 1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["TableData"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["TableData"]
        16 GETTABLEKS                       R7 R4 K6 ["pageIndex"]
        18 SUBK                             R6 R7 K5 [1]
        19 GETTABLEKS                       R7 R4 K7 ["pageSize"]
@@ -148,13 +148,13 @@ PROTO_5:
        25 GETTABLE                         R7 R8 R1
        26 JUMPIFNOT                        R7 ; [+26]
        27 GETTABLEKS                       R8 R7 K9 ["instanceId"]
-       29 GETUPVAL                         R11 0
-       30 GETTABLEKS                       R10 R11 K0 ["props"]
-       32 GETTABLEKS                       R9 R10 K10 ["selectRow"]
+       29 GETUPVAL                         R9 0
+       30 GETTABLEKS                       R9 R9 K0 ["props"]
+       32 GETTABLEKS                       R9 R9 K10 ["selectRow"]
        34 MOVE                             R10 R6
        35 CALL                             R9 1 0
-       36 GETUPVAL                         R10 1
-       37 GETTABLEKS                       R9 R10 K11 ["isInstance"]
+       36 GETUPVAL                         R9 1
+       37 GETTABLEKS                       R9 R9 K11 ["isInstance"]
        39 MOVE                             R10 R3
        40 CALL                             R9 1 1
        41 JUMPIFNOT                        R9 ; [+11]
@@ -199,8 +199,8 @@ PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["ProfileData"]
         4 GETTABLEKS                       R3 R1 K2 ["TableData"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K19 [{"Columns", "Rows", "SelectedRow", "SortIndex", "SortOrder", "PageIndex", "PageSize", "PageCount", "OnHoverRow", "OnMouseLeave", "OnSelectRow", "OnPageChange", "OnPageSizeChange", "OnSortChange", "Footer"}]
        11 GETUPVAL                         R7 2
@@ -236,8 +236,8 @@ PROTO_7:
        67 SETTABLEKS                       R7 R6 K16 ["OnPageSizeChange"]
        69 GETTABLEKS                       R7 R0 K35 ["onSortChange"]
        71 SETTABLEKS                       R7 R6 K17 ["OnSortChange"]
-       73 GETUPVAL                         R8 0
-       74 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       73 GETUPVAL                         R7 0
+       74 GETTABLEKS                       R7 R7 K3 ["createElement"]
        76 GETUPVAL                         R8 3
        77 DUPTABLE                         R9 K39 [{"Padding", "Layout", "HorizontalAlignment"}]
        78 LOADN                            R10 5
@@ -247,8 +247,8 @@ PROTO_7:
        85 GETIMPORT                        R10 K45 [Enum.HorizontalAlignment.Left]
        87 SETTABLEKS                       R10 R9 K38 ["HorizontalAlignment"]
        89 DUPTABLE                         R10 K47 [{"Label"}]
-       90 GETUPVAL                         R12 0
-       91 GETTABLEKS                       R11 R12 K3 ["createElement"]
+       90 GETUPVAL                         R11 0
+       91 GETTABLEKS                       R11 R11 K3 ["createElement"]
        93 GETUPVAL                         R12 4
        94 DUPTABLE                         R13 K50 [{"AutomaticSize", "Text"}]
        95 GETIMPORT                        R14 K52 [Enum.AutomaticSize.XY]
@@ -268,12 +268,12 @@ PROTO_7:
 
 PROTO_8:
         0 DUPTABLE                         R1 K2 [{"ProfileData", "TableData"}]
-        1 GETTABLEKS                       R3 R0 K3 ["RoactInspector"]
-        3 GETTABLEKS                       R2 R3 K4 ["profileData"]
+        1 GETTABLEKS                       R2 R0 K3 ["RoactInspector"]
+        3 GETTABLEKS                       R2 R2 K4 ["profileData"]
         5 SETTABLEKS                       R2 R1 K0 ["ProfileData"]
         7 GETTABLEKS                       R3 R0 K3 ["RoactInspector"]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K5 ["COMPONENTS"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K5 ["COMPONENTS"]
        12 GETTABLE                         R2 R3 R4
        13 SETTABLEKS                       R2 R1 K1 ["TableData"]
        15 RETURN                           R1 1
@@ -281,8 +281,8 @@ PROTO_8:
 PROTO_9:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R5 2
-        3 GETTABLEKS                       R4 R5 K0 ["COMPONENTS"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["COMPONENTS"]
         5 MOVE                             R5 R0
         6 MOVE                             R6 R1
         7 CALL                             R3 3 -1
@@ -292,8 +292,8 @@ PROTO_9:
 PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["COMPONENTS"]
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R3 R3 K0 ["COMPONENTS"]
         5 MOVE                             R4 R0
         6 CALL                             R2 2 -1
         7 CALL                             R1 -1 0
@@ -302,8 +302,8 @@ PROTO_10:
 PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["COMPONENTS"]
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R3 R3 K0 ["COMPONENTS"]
         5 MOVE                             R4 R0
         6 CALL                             R2 2 -1
         7 CALL                             R1 -1 0
@@ -342,54 +342,54 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K11 ["InspectorContext"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K11 ["InspectorContext"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R8 R0 K9 ["Src"]
-       43 GETTABLEKS                       R7 R8 K10 ["Util"]
-       45 GETTABLEKS                       R6 R7 K12 ["TableIds"]
+       41 GETTABLEKS                       R6 R0 K9 ["Src"]
+       43 GETTABLEKS                       R6 R6 K10 ["Util"]
+       45 GETTABLEKS                       R6 R6 K12 ["TableIds"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K4 [require]
-       50 GETTABLEKS                       R8 R0 K5 ["Packages"]
-       52 GETTABLEKS                       R7 R8 K13 ["DeveloperTools"]
+       50 GETTABLEKS                       R7 R0 K5 ["Packages"]
+       52 GETTABLEKS                       R7 R7 K13 ["DeveloperTools"]
        54 CALL                             R6 1 1
        55 GETTABLEKS                       R7 R6 K14 ["RoactInspectorApi"]
-       57 GETTABLEKS                       R9 R0 K9 ["Src"]
-       59 GETTABLEKS                       R8 R9 K15 ["Actions"]
+       57 GETTABLEKS                       R8 R0 K9 ["Src"]
+       59 GETTABLEKS                       R8 R8 K15 ["Actions"]
        61 GETIMPORT                        R9 K4 [require]
-       63 GETTABLEKS                       R11 R8 K16 ["RoactInspector"]
-       65 GETTABLEKS                       R10 R11 K17 ["SetProfilePageSize"]
+       63 GETTABLEKS                       R10 R8 K16 ["RoactInspector"]
+       65 GETTABLEKS                       R10 R10 K17 ["SetProfilePageSize"]
        67 CALL                             R9 1 1
        68 GETIMPORT                        R10 K4 [require]
-       70 GETTABLEKS                       R12 R8 K16 ["RoactInspector"]
-       72 GETTABLEKS                       R11 R12 K18 ["SetProfilePageIndex"]
+       70 GETTABLEKS                       R11 R8 K16 ["RoactInspector"]
+       72 GETTABLEKS                       R11 R11 K18 ["SetProfilePageIndex"]
        74 CALL                             R10 1 1
        75 GETIMPORT                        R11 K4 [require]
-       77 GETTABLEKS                       R13 R8 K16 ["RoactInspector"]
-       79 GETTABLEKS                       R12 R13 K19 ["SortProfileData"]
+       77 GETTABLEKS                       R12 R8 K16 ["RoactInspector"]
+       79 GETTABLEKS                       R12 R12 K19 ["SortProfileData"]
        81 CALL                             R11 1 1
        82 GETIMPORT                        R12 K4 [require]
-       84 GETTABLEKS                       R14 R8 K16 ["RoactInspector"]
-       86 GETTABLEKS                       R13 R14 K20 ["SelectProfileRow"]
+       84 GETTABLEKS                       R13 R8 K16 ["RoactInspector"]
+       86 GETTABLEKS                       R13 R13 K20 ["SelectProfileRow"]
        88 CALL                             R12 1 1
        89 GETTABLEKS                       R13 R3 K21 ["ContextServices"]
        91 GETTABLEKS                       R14 R13 K22 ["withContext"]

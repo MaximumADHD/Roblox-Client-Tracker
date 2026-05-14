@@ -2,8 +2,8 @@ PROTO_0:
         0 GETUPVAL                         R4 0
         1 LOADK                            R5 K0 ["Frame"]
         2 NEWTABLE                         R6 2 0
-        4 GETUPVAL                         R8 1
-        5 GETTABLEKS                       R7 R8 K1 ["Tag"]
+        4 GETUPVAL                         R7 1
+        5 GETTABLEKS                       R7 R7 K1 ["Tag"]
         7 LOADK                            R8 K2 ["DropdownItem"]
         8 SETTABLE                         R8 R6 R7
         9 GETUPVAL                         R7 2
@@ -13,8 +13,8 @@ PROTO_0:
        14 GETUPVAL                         R8 0
        15 GETUPVAL                         R9 3
        16 NEWTABLE                         R10 4 0
-       18 GETUPVAL                         R12 1
-       19 GETTABLEKS                       R11 R12 K1 ["Tag"]
+       18 GETUPVAL                         R11 1
+       19 GETTABLEKS                       R11 R11 K1 ["Tag"]
        21 LOADK                            R12 K7 ["DropdownItem X-Column X-Middle X-Left"]
        22 SETTABLE                         R12 R10 R11
        23 LOADN                            R11 1
@@ -39,8 +39,8 @@ PROTO_0:
        49 GETUPVAL                         R12 0
        50 LOADK                            R13 K20 ["TextLabel"]
        51 NEWTABLE                         R14 8 0
-       53 GETUPVAL                         R16 1
-       54 GETTABLEKS                       R15 R16 K1 ["Tag"]
+       53 GETUPVAL                         R15 1
+       54 GETTABLEKS                       R15 R15 K1 ["Tag"]
        56 GETUPVAL                         R16 4
        57 LOADK                            R17 K21 ["Component-TextLabel"]
        58 GETUPVAL                         R19 5
@@ -77,8 +77,8 @@ PROTO_0:
       101 GETUPVAL                         R12 0
       102 LOADK                            R13 K20 ["TextLabel"]
       103 NEWTABLE                         R14 8 0
-      105 GETUPVAL                         R16 1
-      106 GETTABLEKS                       R15 R16 K1 ["Tag"]
+      105 GETUPVAL                         R15 1
+      106 GETTABLEKS                       R15 R15 K1 ["Tag"]
       108 GETUPVAL                         R16 4
       109 LOADK                            R17 K21 ["Component-TextLabel"]
       110 LOADK                            R18 K36 ["SubText"]
@@ -130,29 +130,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["ReactUtils"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["ReactUtils"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K10 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       34 GETTABLEKS                       R5 R6 K12 ["getFFlagFeatureMigrateStylingV2"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagFeatureMigrateStylingV2"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R1 K13 ["UI"]
        39 GETTABLEKS                       R6 R5 K14 ["Pane"]
        41 GETTABLEKS                       R7 R5 K15 ["Tooltip"]
        43 GETTABLEKS                       R8 R3 K16 ["createNextOrder"]
        45 GETTABLEKS                       R9 R2 K17 ["createElement"]
-       47 GETTABLEKS                       R11 R1 K18 ["Styling"]
-       49 GETTABLEKS                       R10 R11 K19 ["joinTags"]
+       47 GETTABLEKS                       R10 R1 K18 ["Styling"]
+       49 GETTABLEKS                       R10 R10 K19 ["joinTags"]
        51 MOVE                             R11 R8
        52 CALL                             R11 0 1
        53 DUPCLOSURE                       R12 K20 [PROTO_0]

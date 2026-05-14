@@ -19,13 +19,13 @@ PROTO_0:
        25 JUMPIFNOTEQ                      R10 R11 ; [+2]
        27 RETURN                           R0 0
        28 FORGLOOP                         R5 2 [inext] ; [-7]
-       30 GETUPVAL                         R6 2
-       31 GETTABLEKS                       R5 R6 K8 ["trackListEntry"]
+       30 GETUPVAL                         R5 2
+       31 GETTABLEKS                       R5 R5 K8 ["trackListEntry"]
        33 GETUPVAL                         R6 3
        34 JUMPIF                           R6 ; [+5]
-       35 GETUPVAL                         R8 4
-       36 GETTABLEKS                       R7 R8 K9 ["TRACK_TYPES"]
-       38 GETTABLEKS                       R6 R7 K10 ["CFrame"]
+       35 GETUPVAL                         R6 4
+       36 GETTABLEKS                       R6 R6 K9 ["TRACK_TYPES"]
+       38 GETTABLEKS                       R6 R6 K10 ["CFrame"]
        40 CALL                             R5 1 1
        41 GETUPVAL                         R6 1
        42 SETTABLEKS                       R6 R5 K7 ["Name"]
@@ -34,21 +34,21 @@ PROTO_0:
        47 GETUPVAL                         R6 6
        48 SETTABLEKS                       R6 R5 K12 ["EulerAnglesOrder"]
        50 GETTABLEKS                       R6 R1 K13 ["AnimationData"]
-       52 GETUPVAL                         R8 7
-       53 GETTABLEKS                       R7 R8 K14 ["isChannelAnimation"]
+       52 GETUPVAL                         R7 7
+       53 GETTABLEKS                       R7 R7 K14 ["isChannelAnimation"]
        55 MOVE                             R8 R6
        56 CALL                             R7 1 1
        57 JUMPIFNOT                        R7 ; [+8]
-       58 GETUPVAL                         R8 8
-       59 GETTABLEKS                       R7 R8 K15 ["createTrackListEntryComponents"]
+       58 GETUPVAL                         R7 8
+       59 GETTABLEKS                       R7 R7 K15 ["createTrackListEntryComponents"]
        61 MOVE                             R8 R5
        62 GETUPVAL                         R9 5
        63 GETUPVAL                         R10 0
        64 GETUPVAL                         R11 6
        65 CALL                             R7 4 0
-       66 GETUPVAL                         R9 9
-       67 GETTABLEKS                       R8 R9 K16 ["List"]
-       69 GETTABLEKS                       R7 R8 K17 ["join"]
+       66 GETUPVAL                         R7 9
+       67 GETTABLEKS                       R7 R7 K16 ["List"]
+       69 GETTABLEKS                       R7 R7 K17 ["join"]
        71 MOVE                             R8 R4
        72 NEWTABLE                         R9 0 1
        74 MOVE                             R10 R5
@@ -68,8 +68,8 @@ PROTO_0:
        90 JUMPIFNOT                        R6 ; [+8]
        91 GETTABLEKS                       R14 R6 K20 ["Metadata"]
        93 JUMPIFNOT                        R14 ; [+5]
-       94 GETTABLEKS                       R14 R6 K20 ["Metadata"]
-       96 GETTABLEKS                       R13 R14 K21 ["Guid"]
+       94 GETTABLEKS                       R13 R6 K20 ["Metadata"]
+       96 GETTABLEKS                       R13 R13 K21 ["Guid"]
        98 JUMP                             ; [+1]
        99 LOADNIL                          R13
       100 NAMECALL                         R8 R8 K22 ["report"]
@@ -100,33 +100,33 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Templates"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Templates"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K11 ["Constants"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["TrackUtils"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Util"]
+       38 GETTABLEKS                       R5 R5 K12 ["TrackUtils"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K9 ["Util"]
-       47 GETTABLEKS                       R6 R7 K13 ["AnimationData"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K9 ["Util"]
+       47 GETTABLEKS                       R6 R6 K13 ["AnimationData"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R9 R0 K8 ["Src"]
-       54 GETTABLEKS                       R8 R9 K14 ["Thunks"]
-       56 GETTABLEKS                       R7 R8 K15 ["SortAndSetTracks"]
+       52 GETTABLEKS                       R7 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R7 K14 ["Thunks"]
+       56 GETTABLEKS                       R7 R7 K15 ["SortAndSetTracks"]
        58 CALL                             R6 1 1
        59 DUPCLOSURE                       R7 K16 [PROTO_1]
        60 CAPTURE                          VAL R2

@@ -16,12 +16,12 @@ PROTO_1:
         5 GETUPVAL                         R2 0
         6 CALL                             R2 0 1
         7 SETTABLEKS                       R2 R1 K1 ["_universes"]
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K5 ["new"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K5 ["new"]
        12 CALL                             R2 0 1
        13 SETTABLEKS                       R2 R1 K2 ["OnCollabItemsChanged"]
-       15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R2 R3 K5 ["new"]
+       15 GETUPVAL                         R2 1
+       16 GETTABLEKS                       R2 R2 K5 ["new"]
        18 CALL                             R2 0 1
        19 SETTABLEKS                       R2 R1 K3 ["OnUniverseItemsChanged"]
        21 GETUPVAL                         R4 2
@@ -54,9 +54,9 @@ PROTO_3:
         8 RETURN                           R0 0
         9 GETTABLEKS                       R3 R1 K3 ["Action"]
        11 JUMPIF                           R3 ; [+5]
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["PermissionsAction"]
-       15 GETTABLEKS                       R3 R4 K5 ["Use"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K4 ["PermissionsAction"]
+       15 GETTABLEKS                       R3 R3 K5 ["Use"]
        17 SETTABLEKS                       R3 R1 K3 ["Action"]
        19 GETTABLEKS                       R3 R2 K1 ["Set"]
        21 GETTABLEKS                       R4 R1 K2 ["Id"]
@@ -91,8 +91,8 @@ PROTO_4:
        24 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["PermissionsAction"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["PermissionsAction"]
         3 GETTABLE                         R3 R4 R2
         4 SETTABLEKS                       R3 R1 K1 ["Action"]
         6 NAMECALL                         R3 R0 K2 ["_collaboratorsUpdated"]
@@ -105,9 +105,9 @@ PROTO_6:
         3 SETTABLEKS                       R3 R2 K0 ["Id"]
         5 GETTABLEKS                       R3 R0 K4 ["Username"]
         7 SETTABLEKS                       R3 R2 K1 ["Name"]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K5 ["PermissionsSubject"]
-       12 GETTABLEKS                       R3 R4 K6 ["User"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K5 ["PermissionsSubject"]
+       12 GETTABLEKS                       R3 R3 K6 ["User"]
        14 SETTABLEKS                       R3 R2 K2 ["Subject"]
        16 RETURN                           R2 1
 
@@ -115,8 +115,8 @@ PROTO_7:
         0 JUMPIF                           R0 ; [+1]
         1 RETURN                           R0 0
         2 GETUPVAL                         R1 0
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K0 ["map"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["map"]
         6 MOVE                             R4 R0
         7 DUPCLOSURE                       R5 K1 [PROTO_6]
         8 CAPTURE                          UPVAL U2
@@ -129,16 +129,16 @@ PROTO_8:
         0 GETUPVAL                         R1 0
         1 NEWTABLE                         R3 0 1
         3 DUPTABLE                         R4 K4 [{"Id", "Name", "Uri", "Subject"}]
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K0 ["Id"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K0 ["Id"]
         7 SETTABLEKS                       R5 R4 K0 ["Id"]
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K1 ["Name"]
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R5 R5 K1 ["Name"]
        12 SETTABLEKS                       R5 R4 K1 ["Name"]
        14 SETTABLEKS                       R0 R4 K2 ["Uri"]
-       16 GETUPVAL                         R7 2
-       17 GETTABLEKS                       R6 R7 K5 ["PermissionsSubject"]
-       19 GETTABLEKS                       R5 R6 K6 ["Group"]
+       16 GETUPVAL                         R5 2
+       17 GETTABLEKS                       R5 R5 K5 ["PermissionsSubject"]
+       19 GETTABLEKS                       R5 R5 K6 ["Group"]
        21 SETTABLEKS                       R5 R4 K3 ["Subject"]
        23 SETLIST                          R3 R4 1 [1]
        25 NAMECALL                         R1 R1 K7 ["_addCollaboratorItems"]
@@ -189,10 +189,10 @@ PROTO_11:
 
 PROTO_12:
         0 GETIMPORT                        R2 K2 [table.sort]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K3 ["append"]
-        5 GETTABLEKS                       R5 R0 K4 ["_collab"]
-        7 GETTABLEKS                       R4 R5 K5 ["Items"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K3 ["append"]
+        5 GETTABLEKS                       R4 R0 K4 ["_collab"]
+        7 GETTABLEKS                       R4 R4 K5 ["Items"]
         9 MOVE                             R5 R1
        10 CALL                             R3 2 1
        11 DUPCLOSURE                       R4 K6 [PROTO_11]
@@ -202,12 +202,12 @@ PROTO_12:
        16 RETURN                           R0 0
 
 PROTO_13:
-        0 GETTABLEKS                       R2 R0 K0 ["_collab"]
-        2 GETTABLEKS                       R1 R2 K1 ["Set"]
-        4 GETTABLEKS                       R3 R0 K0 ["_collab"]
-        6 GETTABLEKS                       R2 R3 K2 ["Items"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K3 ["count"]
+        0 GETTABLEKS                       R1 R0 K0 ["_collab"]
+        2 GETTABLEKS                       R1 R1 K1 ["Set"]
+        4 GETTABLEKS                       R2 R0 K0 ["_collab"]
+        6 GETTABLEKS                       R2 R2 K2 ["Items"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K3 ["count"]
        11 MOVE                             R4 R1
        12 CALL                             R3 1 1
        13 JUMPIFNOTEQKN                    R3 K4 [0] ; [+2]
@@ -286,13 +286,13 @@ PROTO_14:
        70 CALL                             R17 2 1
        71 MOVE                             R16 R17
        72 SETTABLEKS                       R16 R15 K18 ["Uri"]
-       74 GETUPVAL                         R18 0
-       75 GETTABLEKS                       R17 R18 K26 ["PermissionsSubject"]
-       77 GETTABLEKS                       R16 R17 K27 ["Universe"]
+       74 GETUPVAL                         R16 0
+       75 GETTABLEKS                       R16 R16 K26 ["PermissionsSubject"]
+       77 GETTABLEKS                       R16 R16 K27 ["Universe"]
        79 SETTABLEKS                       R16 R15 K19 ["Subject"]
-       81 GETUPVAL                         R18 0
-       82 GETTABLEKS                       R17 R18 K28 ["PermissionsAction"]
-       84 GETTABLEKS                       R16 R17 K29 ["Use"]
+       81 GETUPVAL                         R16 0
+       82 GETTABLEKS                       R16 R16 K28 ["PermissionsAction"]
+       84 GETTABLEKS                       R16 R16 K29 ["Use"]
        86 SETTABLEKS                       R16 R15 K20 ["Action"]
        88 FASTCALL2                        TABLE_INSERT R4 R15 ; [+4]
        90 MOVE                             R14 R4
@@ -369,28 +369,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["Dash"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K11 ["Util"]
        30 GETTABLEKS                       R5 R4 K12 ["Signal"]
        32 GETIMPORT                        R6 K5 [require]
-       34 GETTABLEKS                       R9 R0 K6 ["Src"]
-       36 GETTABLEKS                       R8 R9 K13 ["Networking"]
-       38 GETTABLEKS                       R7 R8 K14 ["getFriendsAsync"]
+       34 GETTABLEKS                       R7 R0 K6 ["Src"]
+       36 GETTABLEKS                       R7 R7 K13 ["Networking"]
+       38 GETTABLEKS                       R7 R7 K14 ["getFriendsAsync"]
        40 CALL                             R6 1 1
        41 GETIMPORT                        R7 K5 [require]
-       43 GETTABLEKS                       R10 R0 K6 ["Src"]
-       45 GETTABLEKS                       R9 R10 K11 ["Util"]
-       47 GETTABLEKS                       R8 R9 K15 ["logIfDebug"]
+       43 GETTABLEKS                       R8 R0 K6 ["Src"]
+       45 GETTABLEKS                       R8 R8 K11 ["Util"]
+       47 GETTABLEKS                       R8 R8 K15 ["logIfDebug"]
        49 CALL                             R7 1 1
        50 NEWTABLE                         R8 16 0
        52 SETTABLEKS                       R8 R8 K16 ["__index"]

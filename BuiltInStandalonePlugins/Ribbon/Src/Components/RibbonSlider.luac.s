@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["OnValueChanged"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["OnValueChanged"]
         3 MOVE                             R2 R0
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K1 ["Uri"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["Uri"]
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Tag"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Tag"]
         3 GETTABLE                         R1 R0 R2
         4 GETIMPORT                        R2 K2 [warn]
         6 LOADK                            R3 K3 ["RibbonSlider is not design approved and should not be used in production until it is Foundation styled"]
@@ -43,26 +43,26 @@ PROTO_1:
        49 SETTABLEKS                       R2 R0 K4 ["Minimum"]
        51 LOADN                            R2 1
        52 SETTABLEKS                       R2 R0 K5 ["Maximum"]
-       54 GETUPVAL                         R3 0
-       55 GETTABLEKS                       R2 R3 K11 ["createElement"]
+       54 GETUPVAL                         R2 0
+       55 GETTABLEKS                       R2 R2 K11 ["createElement"]
        57 LOADK                            R3 K12 ["Frame"]
        58 NEWTABLE                         R4 2 0
        60 GETTABLEKS                       R5 R0 K13 ["LayoutOrder"]
        62 SETTABLEKS                       R5 R4 K13 ["LayoutOrder"]
-       64 GETUPVAL                         R6 0
-       65 GETTABLEKS                       R5 R6 K0 ["Tag"]
+       64 GETUPVAL                         R5 0
+       65 GETTABLEKS                       R5 R5 K0 ["Tag"]
        67 GETUPVAL                         R6 1
        68 LOADK                            R7 K14 ["Component-RibbonButton X-Fit X-Column X-Center"]
        69 MOVE                             R8 R1
        70 CALL                             R6 2 1
        71 SETTABLE                         R6 R4 R5
        72 DUPTABLE                         R5 K17 [{"RibbonTool", "Text"}]
-       73 GETUPVAL                         R7 0
-       74 GETTABLEKS                       R6 R7 K11 ["createElement"]
+       73 GETUPVAL                         R6 0
+       74 GETTABLEKS                       R6 R6 K11 ["createElement"]
        76 LOADK                            R7 K12 ["Frame"]
        77 NEWTABLE                         R8 1 0
-       79 GETUPVAL                         R10 0
-       80 GETTABLEKS                       R9 R10 K0 ["Tag"]
+       79 GETUPVAL                         R9 0
+       80 GETTABLEKS                       R9 R9 K0 ["Tag"]
        82 LOADK                            R11 K18 ["Role-Surface X-Fit data-testid=%*"]
        83 GETUPVAL                         R13 2
        84 GETTABLEKS                       R14 R0 K19 ["Uri"]
@@ -72,8 +72,8 @@ PROTO_1:
        90 MOVE                             R10 R11
        91 SETTABLE                         R10 R8 R9
        92 DUPTABLE                         R9 K21 [{"SliderBody"}]
-       93 GETUPVAL                         R11 0
-       94 GETTABLEKS                       R10 R11 K11 ["createElement"]
+       93 GETUPVAL                         R10 0
+       94 GETTABLEKS                       R10 R10 K11 ["createElement"]
        96 GETUPVAL                         R11 3
        97 NEWTABLE                         R12 16 0
        99 GETTABLEKS                       R13 R0 K4 ["Minimum"]
@@ -100,8 +100,8 @@ PROTO_1:
       137 SETTABLEKS                       R13 R12 K33 ["OnValueChanged"]
       139 GETUPVAL                         R13 4
       140 SETTABLEKS                       R13 R12 K34 ["Size"]
-      142 GETUPVAL                         R14 0
-      143 GETTABLEKS                       R13 R14 K0 ["Tag"]
+      142 GETUPVAL                         R13 0
+      143 GETTABLEKS                       R13 R13 K0 ["Tag"]
       145 LOADK                            R14 K35 ["Icon-Large"]
       146 SETTABLE                         R14 R12 R13
       147 CALL                             R10 2 1
@@ -110,14 +110,14 @@ PROTO_1:
       151 SETTABLEKS                       R6 R5 K15 ["RibbonTool"]
       153 GETTABLEKS                       R7 R0 K16 ["Text"]
       155 JUMPIFEQKS                       R7 K36 [""] ; [+18]
-      157 GETUPVAL                         R7 0
-      158 GETTABLEKS                       R6 R7 K11 ["createElement"]
+      157 GETUPVAL                         R6 0
+      158 GETTABLEKS                       R6 R6 K11 ["createElement"]
       160 LOADK                            R7 K37 ["TextLabel"]
       161 NEWTABLE                         R8 2 0
       163 GETTABLEKS                       R9 R0 K16 ["Text"]
       165 SETTABLEKS                       R9 R8 K16 ["Text"]
-      167 GETUPVAL                         R10 0
-      168 GETTABLEKS                       R9 R10 K0 ["Tag"]
+      167 GETUPVAL                         R9 0
+      168 GETTABLEKS                       R9 R9 K0 ["Tag"]
       170 LOADK                            R10 K38 ["X-Fit"]
       171 SETTABLE                         R10 R8 R9
       172 CALL                             R6 2 1
@@ -134,24 +134,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["uriToTestId"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["uriToTestId"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R2 K12 ["Styling"]
        32 GETTABLEKS                       R5 R4 K13 ["joinTags"]
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K9 ["Src"]
-       38 GETTABLEKS                       R8 R9 K14 ["Resources"]
-       40 GETTABLEKS                       R7 R8 K15 ["PluginStyles"]
+       36 GETTABLEKS                       R7 R0 K9 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Resources"]
+       40 GETTABLEKS                       R7 R7 K15 ["PluginStyles"]
        42 CALL                             R6 1 1
        43 LOADK                            R9 K16 ["SliderSize"]
        44 NAMECALL                         R7 R6 K17 ["GetAttribute"]

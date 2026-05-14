@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R6 1
-        2 GETTABLEKS                       R5 R6 K0 ["props"]
-        4 GETTABLEKS                       R4 R5 K1 ["AssetId"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["props"]
+        4 GETTABLEKS                       R4 R4 K1 ["AssetId"]
         6 FASTCALL1                        TOSTRING R4 ; [+2]
         7 GETIMPORT                        R3 K3 [tostring]
         9 CALL                             R3 1 1
@@ -34,8 +34,8 @@ PROTO_2:
         6 GETTABLEKS                       R4 R2 K3 ["copied"]
         8 GETTABLEKS                       R5 R1 K4 ["YPos"]
        10 GETTABLEKS                       R6 R1 K5 ["AssetId"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 LOADK                            R8 K7 ["Frame"]
        16 DUPTABLE                         R9 K12 [{"BackgroundTransparency", "Position", "AnchorPoint", "Size"}]
        17 LOADN                            R10 1
@@ -60,8 +60,8 @@ PROTO_2:
        42 CALL                             R10 4 1
        43 SETTABLEKS                       R10 R9 K11 ["Size"]
        45 DUPTABLE                         R10 K21 [{"LayoutContainer", "CopiedLabel"}]
-       46 GETUPVAL                         R12 0
-       47 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       46 GETUPVAL                         R11 0
+       47 GETTABLEKS                       R11 R11 K6 ["createElement"]
        49 LOADK                            R12 K7 ["Frame"]
        50 DUPTABLE                         R13 K22 [{"BackgroundTransparency", "Size"}]
        51 LOADN                            R14 1
@@ -74,8 +74,8 @@ PROTO_2:
        60 CALL                             R14 4 1
        61 SETTABLEKS                       R14 R13 K11 ["Size"]
        63 DUPTABLE                         R14 K26 [{"UIListLayout", "IDLabel", "CopyButton"}]
-       64 GETUPVAL                         R16 0
-       65 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       64 GETUPVAL                         R15 0
+       65 GETTABLEKS                       R15 R15 K6 ["createElement"]
        67 LOADK                            R16 K23 ["UIListLayout"]
        68 DUPTABLE                         R17 K32 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
        69 GETIMPORT                        R18 K35 [Enum.FillDirection.Horizontal]
@@ -93,24 +93,24 @@ PROTO_2:
        90 SETTABLEKS                       R18 R17 K31 ["Padding"]
        92 CALL                             R15 2 1
        93 SETTABLEKS                       R15 R14 K23 ["UIListLayout"]
-       95 GETUPVAL                         R16 0
-       96 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       95 GETUPVAL                         R15 0
+       96 GETTABLEKS                       R15 R15 K6 ["createElement"]
        98 LOADK                            R16 K43 ["TextLabel"]
        99 DUPTABLE                         R17 K50 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "TextYAlignment", "TextXAlignment", "LayoutOrder"}]
       100 LOADN                            R18 1
       101 SETTABLEKS                       R18 R17 K8 ["BackgroundTransparency"]
-      103 GETUPVAL                         R19 1
-      104 GETTABLEKS                       R18 R19 K51 ["FONT"]
+      103 GETUPVAL                         R18 1
+      104 GETTABLEKS                       R18 R18 K51 ["FONT"]
       106 SETTABLEKS                       R18 R17 K44 ["Font"]
       108 LOADK                            R19 K52 ["ID: "]
       109 MOVE                             R20 R6
       110 CONCAT                           R18 R19 R20
       111 SETTABLEKS                       R18 R17 K45 ["Text"]
-      113 GETTABLEKS                       R19 R3 K53 ["uploadResult"]
-      115 GETTABLEKS                       R18 R19 K54 ["idText"]
+      113 GETTABLEKS                       R18 R3 K53 ["uploadResult"]
+      115 GETTABLEKS                       R18 R18 K54 ["idText"]
       117 SETTABLEKS                       R18 R17 K46 ["TextColor3"]
-      119 GETUPVAL                         R19 1
-      120 GETTABLEKS                       R18 R19 K55 ["FONT_SIZE_MEDIUM"]
+      119 GETUPVAL                         R18 1
+      120 GETTABLEKS                       R18 R18 K55 ["FONT_SIZE_MEDIUM"]
       122 SETTABLEKS                       R18 R17 K47 ["TextSize"]
       124 GETIMPORT                        R18 K15 [UDim2.new]
       126 LOADN                            R19 0
@@ -127,8 +127,8 @@ PROTO_2:
       142 SETTABLEKS                       R18 R17 K39 ["LayoutOrder"]
       144 CALL                             R15 2 1
       145 SETTABLEKS                       R15 R14 K24 ["IDLabel"]
-      147 GETUPVAL                         R16 0
-      148 GETTABLEKS                       R15 R16 K6 ["createElement"]
+      147 GETUPVAL                         R15 0
+      148 GETTABLEKS                       R15 R15 K6 ["createElement"]
       150 LOADK                            R16 K59 ["ImageButton"]
       151 NEWTABLE                         R17 8 0
       153 GETIMPORT                        R18 K15 [UDim2.new]
@@ -140,16 +140,16 @@ PROTO_2:
       160 SETTABLEKS                       R18 R17 K11 ["Size"]
       162 LOADK                            R18 K60 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
       163 SETTABLEKS                       R18 R17 K61 ["Image"]
-      165 GETTABLEKS                       R19 R3 K53 ["uploadResult"]
-      167 GETTABLEKS                       R18 R19 K62 ["buttonColor"]
+      165 GETTABLEKS                       R18 R3 K53 ["uploadResult"]
+      167 GETTABLEKS                       R18 R18 K62 ["buttonColor"]
       169 SETTABLEKS                       R18 R17 K63 ["ImageColor3"]
       171 LOADN                            R18 1
       172 SETTABLEKS                       R18 R17 K8 ["BackgroundTransparency"]
       174 LOADN                            R18 2
       175 SETTABLEKS                       R18 R17 K39 ["LayoutOrder"]
-      177 GETUPVAL                         R20 0
-      178 GETTABLEKS                       R19 R20 K64 ["Event"]
-      180 GETTABLEKS                       R18 R19 K65 ["MouseButton1Click"]
+      177 GETUPVAL                         R18 0
+      178 GETTABLEKS                       R18 R18 K64 ["Event"]
+      180 GETTABLEKS                       R18 R18 K65 ["MouseButton1Click"]
       182 GETTABLEKS                       R19 R0 K66 ["onCopyClicked"]
       184 SETTABLE                         R19 R17 R18
       185 CALL                             R15 2 1
@@ -158,14 +158,14 @@ PROTO_2:
       189 SETTABLEKS                       R11 R10 K19 ["LayoutContainer"]
       191 MOVE                             R11 R4
       192 JUMPIFNOT                        R11 ; [+67]
-      193 GETUPVAL                         R12 0
-      194 GETTABLEKS                       R11 R12 K6 ["createElement"]
+      193 GETUPVAL                         R11 0
+      194 GETTABLEKS                       R11 R11 K6 ["createElement"]
       196 LOADK                            R12 K43 ["TextLabel"]
       197 DUPTABLE                         R13 K67 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "AnchorPoint", "Position", "TextYAlignment", "TextXAlignment"}]
       198 LOADN                            R14 1
       199 SETTABLEKS                       R14 R13 K8 ["BackgroundTransparency"]
-      201 GETUPVAL                         R15 1
-      202 GETTABLEKS                       R14 R15 K51 ["FONT"]
+      201 GETUPVAL                         R14 1
+      202 GETTABLEKS                       R14 R14 K51 ["FONT"]
       204 SETTABLEKS                       R14 R13 K44 ["Font"]
       206 GETTABLEKS                       R14 R1 K68 ["Localization"]
       208 LOADK                            R16 K69 ["AssetConfigUpload"]
@@ -173,11 +173,11 @@ PROTO_2:
       210 NAMECALL                         R14 R14 K71 ["getText"]
       212 CALL                             R14 3 1
       213 SETTABLEKS                       R14 R13 K45 ["Text"]
-      215 GETTABLEKS                       R15 R3 K53 ["uploadResult"]
-      217 GETTABLEKS                       R14 R15 K72 ["greenText"]
+      215 GETTABLEKS                       R14 R3 K53 ["uploadResult"]
+      217 GETTABLEKS                       R14 R14 K72 ["greenText"]
       219 SETTABLEKS                       R14 R13 K46 ["TextColor3"]
-      221 GETUPVAL                         R15 1
-      222 GETTABLEKS                       R14 R15 K55 ["FONT_SIZE_MEDIUM"]
+      221 GETUPVAL                         R14 1
+      222 GETTABLEKS                       R14 R14 K55 ["FONT_SIZE_MEDIUM"]
       224 SETTABLEKS                       R14 R13 K47 ["TextSize"]
       226 GETIMPORT                        R14 K15 [UDim2.new]
       228 LOADN                            R15 0
@@ -209,11 +209,11 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [game]
        13 LOADK                            R3 K5 ["StudioService"]
        14 NAMECALL                         R1 R1 K6 ["GetService"]
@@ -222,15 +222,15 @@ MAIN:
        19 GETIMPORT                        R3 K9 [require]
        21 GETTABLEKS                       R4 R2 K10 ["Roact"]
        23 CALL                             R3 1 1
-       24 GETTABLEKS                       R5 R0 K11 ["Src"]
-       26 GETTABLEKS                       R4 R5 K12 ["Util"]
+       24 GETTABLEKS                       R4 R0 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
        28 GETIMPORT                        R5 K9 [require]
        30 GETTABLEKS                       R6 R4 K13 ["Constants"]
        32 CALL                             R5 1 1
-       33 GETIMPORT                        R7 K9 [require]
-       35 GETTABLEKS                       R8 R2 K14 ["Framework"]
-       37 CALL                             R7 1 1
-       38 GETTABLEKS                       R6 R7 K15 ["ContextServices"]
+       33 GETIMPORT                        R6 K9 [require]
+       35 GETTABLEKS                       R7 R2 K14 ["Framework"]
+       37 CALL                             R6 1 1
+       38 GETTABLEKS                       R6 R6 K15 ["ContextServices"]
        40 GETTABLEKS                       R7 R6 K16 ["withContext"]
        42 GETTABLEKS                       R8 R3 K17 ["PureComponent"]
        44 LOADK                            R10 K18 ["CopyID"]

@@ -1,11 +1,11 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["GROUPS_ROLES_USERS_URL"]
-        4 GETTABLEKS                       R2 R3 K1 ["Prefix"]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K0 ["GROUPS_ROLES_USERS_URL"]
-        9 GETTABLEKS                       R3 R4 K2 ["Url"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["GROUPS_ROLES_USERS_URL"]
+        4 GETTABLEKS                       R2 R2 K1 ["Prefix"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K0 ["GROUPS_ROLES_USERS_URL"]
+        9 GETTABLEKS                       R3 R3 K2 ["Url"]
        11 LOADN                            R4 57
        12 MOVE                             R5 R0
        13 CALL                             R3 2 1
@@ -42,8 +42,8 @@ PROTO_3:
        11 JUMPIFNOTEQKS                    R3 K4 ["table"] ; [+11]
        13 GETTABLEKS                       R3 R2 K5 ["error"]
        15 JUMPIFNOT                        R3 ; [+7]
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K6 ["reject"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K6 ["reject"]
        19 GETTABLEKS                       R4 R2 K5 ["error"]
        21 CALL                             R3 1 -1
        22 RETURN                           R3 -1
@@ -57,8 +57,8 @@ PROTO_3:
        33 CALL                             R3 1 1
        34 JUMP                             ; [+1]
        35 MOVE                             R3 R2
-       36 GETUPVAL                         R5 0
-       37 GETTABLEKS                       R4 R5 K9 ["resolve"]
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K9 ["resolve"]
        39 DUPTABLE                         R5 K12 [{"responseBody", "requestOptions"}]
        40 SETTABLEKS                       R3 R5 K10 ["responseBody"]
        42 SETTABLEKS                       R1 R5 K11 ["requestOptions"]
@@ -76,12 +76,12 @@ PROTO_3:
 PROTO_4:
         0 JUMPIFNOT                        R2 ; [+35]
         1 NEWTABLE                         R3 8 0
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K0 ["UNIVERSES_SEARCH_TEST_URL"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K0 ["UNIVERSES_SEARCH_TEST_URL"]
         6 LOADK                            R5 K1 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"Group\",\"creatorTargetId\":12345,\"creatorName\":\"testgroup\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
         7 SETTABLE                         R5 R3 R4
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K2 ["UNIVERSES_PERMISSIONS_TEST_URL"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K2 ["UNIVERSES_PERMISSIONS_TEST_URL"]
        11 LOADK                            R5 K3 ["{\"data\":[{\"groupId\":\"12345\",\"groupName\":\"testgroup\",\"action\":null,\"allowedPermissions\":\"\"},{\"rolesetId\":\"0\",\"rolesetName\":\"Guest\",\"groupId\":\"12345\",\"rank\":\"1\",\"groupName\":\"testgroup\",\"action\":\"\",\"allowedPermissions\":\"\"},{\"rolesetId\":\"99088181\",\"rolesetName\":\"Admin\",\"groupId\":\"12345\",\"rank\":\"254\",\"groupName\":\"testgroup\",\"action\":\"Edit\",\"allowedPermissions\":\"\"},{\"rolesetId\":\"99088180\",\"rolesetName\":\"Owner\",\"groupId\":\"12345\",\"rank\":\"255\",\"groupName\":\"testgroup\",\"action\":null,\"allowedPermissions\":\"\"}]}"]
        12 SETTABLE                         R5 R3 R4
        13 GETUPVAL                         R4 1
@@ -99,19 +99,19 @@ PROTO_4:
        25 GETUPVAL                         R4 5
        26 LOADK                            R5 K8 ["{\"data\":[{\"group\":{\"id\":125},\"role\":{\"id\":\"99088183\"}},{\"group\":{\"id\":12345},\"role\":{\"id\":\"99088181\"}}]}"]
        27 SETTABLE                         R5 R3 R4
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R4 R5 K9 ["GROUPS_INFO_TEST_URL"]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K9 ["GROUPS_INFO_TEST_URL"]
        31 LOADK                            R5 K10 ["{\"memberCount\":4}"]
        32 SETTABLE                         R5 R3 R4
        33 SETTABLEKS                       R3 R0 K11 ["apis"]
        35 JUMP                             ; [+14]
        36 NEWTABLE                         R3 2 0
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R4 R5 K0 ["UNIVERSES_SEARCH_TEST_URL"]
+       38 GETUPVAL                         R4 0
+       39 GETTABLEKS                       R4 R4 K0 ["UNIVERSES_SEARCH_TEST_URL"]
        41 LOADK                            R5 K12 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
        42 SETTABLE                         R5 R3 R4
-       43 GETUPVAL                         R5 0
-       44 GETTABLEKS                       R4 R5 K2 ["UNIVERSES_PERMISSIONS_TEST_URL"]
+       43 GETUPVAL                         R4 0
+       44 GETTABLEKS                       R4 R4 K2 ["UNIVERSES_PERMISSIONS_TEST_URL"]
        46 LOADK                            R5 K13 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"},{\"userId\":\"12345\",\"userName\":\"testuser2\",\"action\":\"\",\"allowedPermissions\":\"\"}]}"]
        47 SETTABLE                         R5 R3 R4
        48 SETTABLEKS                       R3 R0 K11 ["apis"]
@@ -128,8 +128,8 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["Networking"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["Networking"]
         4 MOVE                             R4 R0
         5 MOVE                             R5 R1
         6 CALL                             R2 3 0
@@ -142,52 +142,52 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["TestLoader"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["TestLoader"]
        20 CALL                             R2 1 1
-       21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R7 R0 K9 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Util"]
-       27 GETTABLEKS                       R5 R6 K11 ["TypedPromise"]
-       29 CALL                             R4 1 1
-       30 GETTABLEKS                       R3 R4 K12 ["PromiseFactory"]
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["TypedPromise"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R3 R3 K12 ["PromiseFactory"]
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K9 ["Src"]
-       36 GETTABLEKS                       R6 R7 K10 ["Util"]
-       38 GETTABLEKS                       R5 R6 K13 ["TypedNetworking"]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Util"]
+       38 GETTABLEKS                       R5 R5 K13 ["TypedNetworking"]
        40 CALL                             R4 1 1
-       41 GETTABLEKS                       R6 R1 K14 ["Http"]
-       43 GETTABLEKS                       R5 R6 K15 ["Networking"]
-       45 GETIMPORT                        R7 K5 [require]
-       47 GETTABLEKS                       R10 R0 K9 ["Src"]
-       49 GETTABLEKS                       R9 R10 K15 ["Networking"]
-       51 GETTABLEKS                       R8 R9 K16 ["Urls"]
-       53 CALL                             R7 1 1
-       54 GETTABLEKS                       R6 R7 K16 ["Urls"]
-       56 GETIMPORT                        R8 K5 [require]
-       58 GETTABLEKS                       R11 R0 K9 ["Src"]
-       60 GETTABLEKS                       R10 R11 K15 ["Networking"]
-       62 GETTABLEKS                       R9 R10 K16 ["Urls"]
-       64 CALL                             R8 1 1
-       65 GETTABLEKS                       R7 R8 K17 ["composeUrl"]
-       67 GETIMPORT                        R9 K5 [require]
-       69 GETTABLEKS                       R12 R0 K9 ["Src"]
-       71 GETTABLEKS                       R11 R12 K15 ["Networking"]
-       73 GETTABLEKS                       R10 R11 K16 ["Urls"]
-       75 CALL                             R9 1 1
-       76 GETTABLEKS                       R8 R9 K18 ["composeUrlWithArgs"]
+       41 GETTABLEKS                       R5 R1 K14 ["Http"]
+       43 GETTABLEKS                       R5 R5 K15 ["Networking"]
+       45 GETIMPORT                        R6 K5 [require]
+       47 GETTABLEKS                       R7 R0 K9 ["Src"]
+       49 GETTABLEKS                       R7 R7 K15 ["Networking"]
+       51 GETTABLEKS                       R7 R7 K16 ["Urls"]
+       53 CALL                             R6 1 1
+       54 GETTABLEKS                       R6 R6 K16 ["Urls"]
+       56 GETIMPORT                        R7 K5 [require]
+       58 GETTABLEKS                       R8 R0 K9 ["Src"]
+       60 GETTABLEKS                       R8 R8 K15 ["Networking"]
+       62 GETTABLEKS                       R8 R8 K16 ["Urls"]
+       64 CALL                             R7 1 1
+       65 GETTABLEKS                       R7 R7 K17 ["composeUrl"]
+       67 GETIMPORT                        R8 K5 [require]
+       69 GETTABLEKS                       R9 R0 K9 ["Src"]
+       71 GETTABLEKS                       R9 R9 K15 ["Networking"]
+       73 GETTABLEKS                       R9 R9 K16 ["Urls"]
+       75 CALL                             R8 1 1
+       76 GETTABLEKS                       R8 R8 K18 ["composeUrlWithArgs"]
        78 DUPCLOSURE                       R9 K19 [PROTO_0]
        79 CAPTURE                          VAL R8
        80 CAPTURE                          VAL R6
        81 MOVE                             R10 R8
-       82 GETTABLEKS                       R12 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-       84 GETTABLEKS                       R11 R12 K21 ["Prefix"]
-       86 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-       88 GETTABLEKS                       R12 R13 K22 ["Url"]
+       82 GETTABLEKS                       R11 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+       84 GETTABLEKS                       R11 R11 K21 ["Prefix"]
+       86 GETTABLEKS                       R12 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+       88 GETTABLEKS                       R12 R12 K22 ["Url"]
        90 LOADN                            R13 57
        91 LOADK                            R14 K23 [99088180]
        92 CALL                             R12 2 1
@@ -198,10 +198,10 @@ MAIN:
        98 SETTABLEKS                       R14 R13 K25 ["sortOrder"]
       100 CALL                             R10 3 1
       101 MOVE                             R11 R8
-      102 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      104 GETTABLEKS                       R12 R13 K21 ["Prefix"]
-      106 GETTABLEKS                       R14 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      108 GETTABLEKS                       R13 R14 K22 ["Url"]
+      102 GETTABLEKS                       R12 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      104 GETTABLEKS                       R12 R12 K21 ["Prefix"]
+      106 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      108 GETTABLEKS                       R13 R13 K22 ["Url"]
       110 LOADN                            R14 57
       111 LOADK                            R15 K29 [99088181]
       112 CALL                             R13 2 1
@@ -212,10 +212,10 @@ MAIN:
       118 SETTABLEKS                       R15 R14 K25 ["sortOrder"]
       120 CALL                             R11 3 1
       121 MOVE                             R12 R8
-      122 GETTABLEKS                       R14 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      124 GETTABLEKS                       R13 R14 K21 ["Prefix"]
-      126 GETTABLEKS                       R15 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      128 GETTABLEKS                       R14 R15 K22 ["Url"]
+      122 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      124 GETTABLEKS                       R13 R13 K21 ["Prefix"]
+      126 GETTABLEKS                       R14 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      128 GETTABLEKS                       R14 R14 K22 ["Url"]
       130 LOADN                            R15 57
       131 LOADN                            R16 0
       132 CALL                             R14 2 1
@@ -226,18 +226,18 @@ MAIN:
       138 SETTABLEKS                       R16 R15 K25 ["sortOrder"]
       140 CALL                             R12 3 1
       141 MOVE                             R13 R7
-      142 GETTABLEKS                       R15 R6 K30 ["GROUPS_USERS_ROLES_URL"]
-      144 GETTABLEKS                       R14 R15 K21 ["Prefix"]
-      146 GETTABLEKS                       R16 R6 K30 ["GROUPS_USERS_ROLES_URL"]
-      148 GETTABLEKS                       R15 R16 K22 ["Url"]
+      142 GETTABLEKS                       R14 R6 K30 ["GROUPS_USERS_ROLES_URL"]
+      144 GETTABLEKS                       R14 R14 K21 ["Prefix"]
+      146 GETTABLEKS                       R15 R6 K30 ["GROUPS_USERS_ROLES_URL"]
+      148 GETTABLEKS                       R15 R15 K22 ["Url"]
       150 LOADN                            R16 0
       151 CALL                             R15 1 -1
       152 CALL                             R13 -1 1
       153 MOVE                             R14 R7
-      154 GETTABLEKS                       R16 R6 K31 ["GROUPS_ROLES_URL"]
-      156 GETTABLEKS                       R15 R16 K21 ["Prefix"]
-      158 GETTABLEKS                       R17 R6 K31 ["GROUPS_ROLES_URL"]
-      160 GETTABLEKS                       R16 R17 K22 ["Url"]
+      154 GETTABLEKS                       R15 R6 K31 ["GROUPS_ROLES_URL"]
+      156 GETTABLEKS                       R15 R15 K21 ["Prefix"]
+      158 GETTABLEKS                       R16 R6 K31 ["GROUPS_ROLES_URL"]
+      160 GETTABLEKS                       R16 R16 K22 ["Url"]
       162 LOADN                            R17 57
       163 CALL                             R16 1 -1
       164 CALL                             R14 -1 1

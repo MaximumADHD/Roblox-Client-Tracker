@@ -20,19 +20,19 @@ PROTO_0:
        22 CALL                             R3 1 -1
        23 NAMECALL                         R1 R0 K0 ["dispatch"]
        25 CALL                             R1 -1 0
-       26 GETUPVAL                         R2 6
-       27 GETTABLEKS                       R1 R2 K1 ["canUseIK"]
+       26 GETUPVAL                         R1 6
+       27 GETTABLEKS                       R1 R1 K1 ["canUseIK"]
        29 GETUPVAL                         R2 7
        30 CALL                             R1 1 2
        31 GETUPVAL                         R5 8
        32 JUMPIFNOT                        R2 ; [+6]
-       33 GETUPVAL                         R8 9
-       34 GETTABLEKS                       R7 R8 K2 ["IK_MODE"]
-       36 GETTABLEKS                       R6 R7 K3 ["BodyPart"]
+       33 GETUPVAL                         R6 9
+       34 GETTABLEKS                       R6 R6 K2 ["IK_MODE"]
+       36 GETTABLEKS                       R6 R6 K3 ["BodyPart"]
        38 JUMPIF                           R6 ; [+5]
-       39 GETUPVAL                         R8 9
-       40 GETTABLEKS                       R7 R8 K2 ["IK_MODE"]
-       42 GETTABLEKS                       R6 R7 K4 ["FullBody"]
+       39 GETUPVAL                         R6 9
+       40 GETTABLEKS                       R6 R6 K2 ["IK_MODE"]
+       42 GETTABLEKS                       R6 R6 K4 ["FullBody"]
        44 CALL                             R5 1 -1
        45 NAMECALL                         R3 R0 K0 ["dispatch"]
        47 CALL                             R3 -1 0
@@ -48,8 +48,8 @@ PROTO_0:
        60 CALL                             R3 -1 0
        61 JUMPIFNOT                        R1 ; [+13]
        62 JUMPIFNOT                        R2 ; [+12]
-       63 GETUPVAL                         R4 6
-       64 GETTABLEKS                       R3 R4 K5 ["getPoseCFrames"]
+       63 GETUPVAL                         R3 6
+       64 GETTABLEKS                       R3 R3 K5 ["getPoseCFrames"]
        66 GETUPVAL                         R4 7
        67 CALL                             R3 1 1
        68 GETUPVAL                         R6 12
@@ -63,8 +63,8 @@ PROTO_0:
        77 CALL                             R5 1 -1
        78 NAMECALL                         R3 R0 K0 ["dispatch"]
        80 CALL                             R3 -1 0
-       81 GETUPVAL                         R4 13
-       82 GETTABLEKS                       R3 R4 K6 ["getAnimSaves"]
+       81 GETUPVAL                         R3 13
+       82 GETTABLEKS                       R3 R3 K6 ["getAnimSaves"]
        84 GETUPVAL                         R4 7
        85 CALL                             R3 1 1
        86 LENGTH                           R4 R3
@@ -151,8 +151,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetClipboard"]
        15 CALL                             R2 1 1
@@ -177,8 +177,8 @@ MAIN:
        46 GETIMPORT                        R9 K7 [require]
        48 GETTABLEKS                       R10 R1 K15 ["SetStartingPose"]
        50 CALL                             R9 1 1
-       51 GETTABLEKS                       R11 R0 K4 ["Src"]
-       53 GETTABLEKS                       R10 R11 K16 ["Thunks"]
+       51 GETTABLEKS                       R10 R0 K4 ["Src"]
+       53 GETTABLEKS                       R10 R10 K16 ["Thunks"]
        55 GETIMPORT                        R11 K7 [require]
        57 GETTABLEKS                       R12 R10 K17 ["AttachEditor"]
        59 CALL                             R11 1 1
@@ -194,8 +194,8 @@ MAIN:
        75 GETIMPORT                        R15 K7 [require]
        77 GETTABLEKS                       R16 R10 K21 ["SetSelectedTracks"]
        79 CALL                             R15 1 1
-       80 GETTABLEKS                       R17 R0 K4 ["Src"]
-       82 GETTABLEKS                       R16 R17 K22 ["Util"]
+       80 GETTABLEKS                       R16 R0 K4 ["Src"]
+       82 GETTABLEKS                       R16 R16 K22 ["Util"]
        84 GETIMPORT                        R17 K7 [require]
        86 GETTABLEKS                       R18 R16 K23 ["Constants"]
        88 CALL                             R17 1 1

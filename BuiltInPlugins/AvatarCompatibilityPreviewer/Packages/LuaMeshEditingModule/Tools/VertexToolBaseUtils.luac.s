@@ -83,8 +83,8 @@ PROTO_4:
        44 GETIMPORT                        R7 K15 [table.sort]
        46 MOVE                             R8 R6
        47 CALL                             R7 1 0
-       48 GETUPVAL                         R8 0
-       49 GETTABLEKS                       R7 R8 K16 ["new"]
+       48 GETUPVAL                         R7 0
+       49 GETTABLEKS                       R7 R7 K16 ["new"]
        51 CALL                             R7 0 1
        52 MOVE                             R8 R6
        53 LOADNIL                          R9
@@ -125,8 +125,8 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Types"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K5 [require]
-       14 GETTABLEKS                       R4 R0 K7 ["MeshEditingContexts"]
-       16 GETTABLEKS                       R3 R4 K8 ["MeshEditingContextBase"]
+       14 GETTABLEKS                       R3 R0 K7 ["MeshEditingContexts"]
+       16 GETTABLEKS                       R3 R3 K8 ["MeshEditingContextBase"]
        18 CALL                             R2 1 1
        19 NEWTABLE                         R3 1 0
        21 NEWTABLE                         R4 8 0

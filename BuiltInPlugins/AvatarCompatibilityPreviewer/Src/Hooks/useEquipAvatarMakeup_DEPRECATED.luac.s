@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["Head"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["MAKEUP_FOLDER_NAME"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["MAKEUP_FOLDER_NAME"]
         5 NAMECALL                         R1 R1 K2 ["FindFirstChild"]
         7 CALL                             R1 2 1
         8 JUMPIFEQKNIL                     R1 ; [+7]
@@ -13,8 +13,8 @@ PROTO_0:
        16 GETIMPORT                        R2 K7 [Instance.new]
        18 LOADK                            R3 K3 ["Folder"]
        19 CALL                             R2 1 1
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K1 ["MAKEUP_FOLDER_NAME"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K1 ["MAKEUP_FOLDER_NAME"]
        23 SETTABLEKS                       R3 R2 K8 ["Name"]
        25 GETTABLEKS                       R3 R0 K0 ["Head"]
        27 SETTABLEKS                       R3 R2 K9 ["Parent"]
@@ -29,10 +29,10 @@ PROTO_1:
         7 CALL                             R0 2 1
         8 JUMPIFNOTEQKNIL                  R0 ; [+2]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R0 R1 K0 ["Head"]
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K2 ["MAKEUP_DECAL_NAME"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K0 ["Head"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K2 ["MAKEUP_DECAL_NAME"]
        17 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
        19 CALL                             R0 2 1
        20 JUMPIFEQKNIL                     R0 ; [+9]
@@ -76,8 +76,8 @@ PROTO_4:
        15 CAPTURE                          UPVAL U1
        16 GETUPVAL                         R3 0
        17 GETTABLEKS                       R4 R3 K0 ["Head"]
-       19 GETUPVAL                         R7 1
-       20 GETTABLEKS                       R6 R7 K3 ["MAKEUP_FOLDER_NAME"]
+       19 GETUPVAL                         R6 1
+       20 GETTABLEKS                       R6 R6 K3 ["MAKEUP_FOLDER_NAME"]
        22 NAMECALL                         R4 R4 K1 ["FindFirstChild"]
        24 CALL                             R4 2 1
        25 JUMPIFEQKNIL                     R4 ; [+8]
@@ -90,8 +90,8 @@ PROTO_4:
        34 GETIMPORT                        R5 K8 [Instance.new]
        36 LOADK                            R6 K4 ["Folder"]
        37 CALL                             R5 1 1
-       38 GETUPVAL                         R7 1
-       39 GETTABLEKS                       R6 R7 K3 ["MAKEUP_FOLDER_NAME"]
+       38 GETUPVAL                         R6 1
+       39 GETTABLEKS                       R6 R6 K3 ["MAKEUP_FOLDER_NAME"]
        41 SETTABLEKS                       R6 R5 K9 ["Name"]
        43 GETTABLEKS                       R6 R3 K0 ["Head"]
        45 SETTABLEKS                       R6 R5 K10 ["Parent"]
@@ -156,10 +156,10 @@ PROTO_4:
       130 CALL                             R7 2 1
       131 JUMPIFNOTEQKNIL                  R7 ; [+2]
       133 RETURN                           R0 0
-      134 GETUPVAL                         R8 0
-      135 GETTABLEKS                       R7 R8 K0 ["Head"]
-      137 GETUPVAL                         R10 1
-      138 GETTABLEKS                       R9 R10 K31 ["MAKEUP_DECAL_NAME"]
+      134 GETUPVAL                         R7 0
+      135 GETTABLEKS                       R7 R7 K0 ["Head"]
+      137 GETUPVAL                         R9 1
+      138 GETTABLEKS                       R9 R9 K31 ["MAKEUP_DECAL_NAME"]
       140 NAMECALL                         R7 R7 K1 ["FindFirstChild"]
       142 CALL                             R7 2 1
       143 JUMPIFEQKNIL                     R7 ; [+9]
@@ -195,10 +195,10 @@ PROTO_4:
       183 CALL                             R11 2 1
       184 JUMPIFNOTEQKNIL                  R11 ; [+2]
       186 JUMP                             ; [+19]
-      187 GETUPVAL                         R12 0
-      188 GETTABLEKS                       R11 R12 K0 ["Head"]
-      190 GETUPVAL                         R14 1
-      191 GETTABLEKS                       R13 R14 K31 ["MAKEUP_DECAL_NAME"]
+      187 GETUPVAL                         R11 0
+      188 GETTABLEKS                       R11 R11 K0 ["Head"]
+      190 GETUPVAL                         R13 1
+      191 GETTABLEKS                       R13 R13 K31 ["MAKEUP_DECAL_NAME"]
       193 NAMECALL                         R11 R11 K1 ["FindFirstChild"]
       195 CALL                             R11 2 1
       196 JUMPIFEQKNIL                     R11 ; [+9]
@@ -216,26 +216,26 @@ PROTO_4:
       213 CALL                             R11 2 1
       214 JUMPIFNOTEQKNIL                  R11 ; [+2]
       216 RETURN                           R0 0
-      217 GETUPVAL                         R12 1
-      218 GETTABLEKS                       R11 R12 K31 ["MAKEUP_DECAL_NAME"]
+      217 GETUPVAL                         R11 1
+      218 GETTABLEKS                       R11 R11 K31 ["MAKEUP_DECAL_NAME"]
       220 SETTABLEKS                       R11 R7 K9 ["Name"]
-      222 GETUPVAL                         R12 0
-      223 GETTABLEKS                       R11 R12 K0 ["Head"]
+      222 GETUPVAL                         R11 0
+      223 GETTABLEKS                       R11 R11 K0 ["Head"]
       225 SETTABLEKS                       R11 R7 K10 ["Parent"]
       227 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R3 2
-        3 GETTABLEKS                       R2 R3 K0 ["THROTTLE_DELAY"]
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["THROTTLE_DELAY"]
         5 LOADB                            R3 1
         6 CALL                             R0 3 -1
         7 RETURN                           R0 -1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useCallback"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          UPVAL U1
@@ -244,8 +244,8 @@ PROTO_6:
         9 MOVE                             R4 R0
        10 SETLIST                          R3 R4 1 [1]
        12 CALL                             R1 2 1
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R2 R3 K1 ["useMemo"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K1 ["useMemo"]
        16 NEWCLOSURE                       R3 P1
        17 CAPTURE                          UPVAL U3
        18 CAPTURE                          VAL R1
@@ -267,22 +267,22 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Util"]
-       26 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Util"]
+       26 GETTABLEKS                       R4 R4 K14 ["Constants"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R6 R1 K12 ["Src"]
-       33 GETTABLEKS                       R5 R6 K15 ["Types"]
+       31 GETTABLEKS                       R5 R1 K12 ["Src"]
+       33 GETTABLEKS                       R5 R5 K15 ["Types"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K9 [require]
-       38 GETTABLEKS                       R8 R1 K12 ["Src"]
-       40 GETTABLEKS                       R7 R8 K13 ["Util"]
-       42 GETTABLEKS                       R6 R7 K16 ["createCallThrottler"]
+       38 GETTABLEKS                       R6 R1 K12 ["Src"]
+       40 GETTABLEKS                       R6 R6 K13 ["Util"]
+       42 GETTABLEKS                       R6 R6 K16 ["createCallThrottler"]
        44 CALL                             R5 1 1
        45 DUPCLOSURE                       R6 K17 [PROTO_6]
        46 CAPTURE                          VAL R2

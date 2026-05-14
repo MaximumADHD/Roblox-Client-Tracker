@@ -11,11 +11,11 @@ PROTO_0:
        13 SETTABLEKS                       R2 R5 K5 ["_permissionsService"]
        15 SETTABLEKS                       R3 R5 K6 ["_marketplaceService"]
        17 SETTABLEKS                       R4 R5 K7 ["_pluginPolicyService"]
-       19 GETTABLEKS                       R7 R5 K3 ["_studioService"]
-       21 GETTABLEKS                       R6 R7 K9 ["OnPluginInstalledFromWeb"]
+       19 GETTABLEKS                       R6 R5 K3 ["_studioService"]
+       21 GETTABLEKS                       R6 R6 K9 ["OnPluginInstalledFromWeb"]
        23 SETTABLEKS                       R6 R5 K9 ["OnPluginInstalledFromWeb"]
-       25 GETTABLEKS                       R7 R5 K3 ["_studioService"]
-       27 GETTABLEKS                       R6 R7 K10 ["OnPluginInstalledFromToolbox"]
+       25 GETTABLEKS                       R6 R5 K3 ["_studioService"]
+       27 GETTABLEKS                       R6 R6 K10 ["OnPluginInstalledFromToolbox"]
        29 SETTABLEKS                       R6 R5 K10 ["OnPluginInstalledFromToolbox"]
        31 GETUPVAL                         R8 1
        32 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
@@ -25,8 +25,8 @@ PROTO_0:
        38 RETURN                           R6 1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["_studioService"]
-        2 GETTABLEKS                       R1 R2 K1 ["InstalledPluginData"]
+        0 GETTABLEKS                       R1 R0 K0 ["_studioService"]
+        2 GETTABLEKS                       R1 R1 K1 ["InstalledPluginData"]
         4 RETURN                           R1 1
 
 PROTO_2:
@@ -119,20 +119,20 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Framework"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
-       25 GETTABLEKS                       R3 R4 K10 ["ContextItem"]
+       23 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
+       25 GETTABLEKS                       R3 R3 K10 ["ContextItem"]
        27 LOADK                            R6 K11 ["PluginManagementApi"]
        28 NAMECALL                         R4 R3 K12 ["extend"]
        30 CALL                             R4 2 1

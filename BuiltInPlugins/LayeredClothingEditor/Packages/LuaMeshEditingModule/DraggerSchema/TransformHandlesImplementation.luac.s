@@ -94,8 +94,8 @@ PROTO_3:
         3 GETTABLEKS                       R6 R3 K1 ["p"]
         5 ADD                              R5 R6 R4
         6 SETTABLEKS                       R5 R0 K2 ["_baseBoundingBoxCenter"]
-        8 GETTABLEKS                       R6 R0 K3 ["_draggerContext"]
-       10 GETTABLEKS                       R5 R6 K4 ["vertexEditingTool"]
+        8 GETTABLEKS                       R5 R0 K3 ["_draggerContext"]
+       10 GETTABLEKS                       R5 R5 K4 ["vertexEditingTool"]
        12 SETTABLEKS                       R5 R0 K5 ["_vertexEditingTool"]
        14 NAMECALL                         R5 R0 K6 ["_resetAxisAngleData"]
        16 CALL                             R5 1 0

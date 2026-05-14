@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 LOADK                            R3 K2 ["Frame"]
         8 DUPTABLE                         R4 K7 [{"LayoutOrder", "Size", "BorderSizePixel", "BackgroundTransparency"}]
         9 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
@@ -20,8 +20,8 @@ PROTO_0:
        25 LOADN                            R5 1
        26 SETTABLEKS                       R5 R4 K6 ["BackgroundTransparency"]
        28 DUPTABLE                         R5 K12 [{"UIListLayoutHorizontal", "DividerFrame"}]
-       29 GETUPVAL                         R7 1
-       30 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K1 ["createElement"]
        32 LOADK                            R7 K13 ["UIListLayout"]
        33 DUPTABLE                         R8 K18 [{"SortOrder", "HorizontalAlignment", "VerticalAlignment", "FillDirection"}]
        34 GETIMPORT                        R9 K20 [Enum.SortOrder.LayoutOrder]
@@ -34,8 +34,8 @@ PROTO_0:
        48 SETTABLEKS                       R9 R8 K17 ["FillDirection"]
        50 CALL                             R6 2 1
        51 SETTABLEKS                       R6 R5 K10 ["UIListLayoutHorizontal"]
-       53 GETUPVAL                         R7 1
-       54 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       53 GETUPVAL                         R6 1
+       54 GETTABLEKS                       R6 R6 K1 ["createElement"]
        56 LOADK                            R7 K2 ["Frame"]
        57 DUPTABLE                         R8 K28 [{"Size", "LayoutOrder", "BorderSizePixel", "BackgroundColor3"}]
        58 GETIMPORT                        R9 K9 [UDim2.new]
@@ -50,8 +50,8 @@ PROTO_0:
        70 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
        72 LOADN                            R9 0
        73 SETTABLEKS                       R9 R8 K5 ["BorderSizePixel"]
-       75 GETUPVAL                         R10 2
-       76 GETTABLEKS                       R9 R10 K30 ["getDividerColor"]
+       75 GETUPVAL                         R9 2
+       76 GETTABLEKS                       R9 R9 K30 ["getDividerColor"]
        78 MOVE                             R10 R0
        79 CALL                             R9 1 1
        80 SETTABLEKS                       R9 R8 K27 ["BackgroundColor3"]
@@ -62,27 +62,27 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETIMPORT                        R5 K1 [script]
-        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K1 [script]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K2 ["Parent"]
        17 GETIMPORT                        R2 K4 [require]
-       19 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       19 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K6 ["Roact"]
        23 CALL                             R2 1 1
-       24 GETIMPORT                        R4 K4 [require]
-       26 GETTABLEKS                       R6 R1 K5 ["Packages"]
-       28 GETTABLEKS                       R5 R6 K7 ["Framework"]
-       30 CALL                             R4 1 1
-       31 GETTABLEKS                       R3 R4 K8 ["Util"]
+       24 GETIMPORT                        R3 K4 [require]
+       26 GETTABLEKS                       R4 R1 K5 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K7 ["Framework"]
+       30 CALL                             R3 1 1
+       31 GETTABLEKS                       R3 R3 K8 ["Util"]
        33 GETTABLEKS                       R4 R3 K9 ["LayoutOrderIterator"]
        35 GETIMPORT                        R5 K4 [require]
-       37 GETTABLEKS                       R7 R0 K8 ["Util"]
-       39 GETTABLEKS                       R6 R7 K10 ["StateInterfaceTheme"]
+       37 GETTABLEKS                       R6 R0 K8 ["Util"]
+       39 GETTABLEKS                       R6 R6 K10 ["StateInterfaceTheme"]
        41 CALL                             R5 1 1
        42 DUPCLOSURE                       R6 K11 [PROTO_0]
        43 CAPTURE                          VAL R4

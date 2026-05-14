@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["OnValueChanged"]
         5 JUMPIFNOT                        R2 ; [+4]
         6 GETTABLEKS                       R2 R1 K1 ["OnValueChanged"]
@@ -37,8 +37,8 @@ PROTO_2:
        29 GETTABLEKS                       R9 R2 K2 ["Size"]
        31 CALL                             R7 2 1
        32 JUMPIFNOT                        R4 ; [+4]
-       33 GETUPVAL                         R9 1
-       34 GETTABLEKS                       R8 R9 K8 ["Disabled"]
+       33 GETUPVAL                         R8 1
+       34 GETTABLEKS                       R8 R8 K8 ["Disabled"]
        36 JUMP                             ; [+1]
        37 LOADNIL                          R8
        38 GETTABLEKS                       R9 R1 K11 ["Value"]
@@ -52,8 +52,8 @@ PROTO_2:
        48 JUMP                             ; [+2]
        49 FORGLOOP                         R11 2 ; [-5]
        51 ADD                              R11 R6 R3
-       52 GETUPVAL                         R13 2
-       53 GETTABLEKS                       R12 R13 K12 ["createElement"]
+       52 GETUPVAL                         R12 2
+       53 GETTABLEKS                       R12 R12 K12 ["createElement"]
        55 GETUPVAL                         R13 3
        56 DUPTABLE                         R14 K18 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
        57 GETIMPORT                        R15 K21 [Enum.HorizontalAlignment.Left]
@@ -67,8 +67,8 @@ PROTO_2:
        73 GETIMPORT                        R15 K26 [Enum.VerticalAlignment.Top]
        75 SETTABLEKS                       R15 R14 K17 ["VerticalAlignment"]
        77 DUPTABLE                         R15 K29 [{"Label", "SelectInput"}]
-       78 GETUPVAL                         R17 2
-       79 GETTABLEKS                       R16 R17 K12 ["createElement"]
+       78 GETUPVAL                         R16 2
+       79 GETTABLEKS                       R16 R16 K12 ["createElement"]
        81 GETUPVAL                         R17 4
        82 DUPTABLE                         R18 K33 [{"LayoutOrder", "Size", "StyleModifier", "Text", "TextXAlignment"}]
        83 LOADN                            R19 1
@@ -87,8 +87,8 @@ PROTO_2:
       103 SETTABLEKS                       R19 R18 K32 ["TextXAlignment"]
       105 CALL                             R16 2 1
       106 SETTABLEKS                       R16 R15 K27 ["Label"]
-      108 GETUPVAL                         R17 2
-      109 GETTABLEKS                       R16 R17 K12 ["createElement"]
+      108 GETUPVAL                         R16 2
+      109 GETTABLEKS                       R16 R16 K12 ["createElement"]
       111 GETUPVAL                         R17 5
       112 DUPTABLE                         R18 K41 [{"Enabled", "ErrorText", "Icons", "Items", "LayoutOrder", "OnItemActivated", "PlaceholderText", "SelectedIndex", "Size"}]
       113 NOT                              R19 R4
@@ -120,23 +120,23 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["React"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["React"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
        27 GETTABLEKS                       R4 R3 K9 ["withContext"]
-       29 GETTABLEKS                       R6 R1 K10 ["Style"]
-       31 GETTABLEKS                       R5 R6 K11 ["Stylizer"]
+       29 GETTABLEKS                       R5 R1 K10 ["Style"]
+       31 GETTABLEKS                       R5 R5 K11 ["Stylizer"]
        33 GETTABLEKS                       R6 R1 K12 ["UI"]
        35 GETTABLEKS                       R7 R6 K13 ["Pane"]
        37 GETTABLEKS                       R8 R6 K14 ["SelectInput"]

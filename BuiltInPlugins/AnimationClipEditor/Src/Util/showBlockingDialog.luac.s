@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+7]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["unmount"]
         5 GETUPVAL                         R1 0
         6 CALL                             R0 1 0
         7 GETUPVAL                         R0 2
@@ -15,8 +15,8 @@ PROTO_1:
         2 CAPTURE                          REF R0
         3 CAPTURE                          UPVAL U0
         4 CAPTURE                          UPVAL U1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["createElement"]
         8 GETUPVAL                         R3 2
         9 DUPTABLE                         R4 K5 [{"plugin", "OnButtonClicked", "OnClose", "TitleKey"}]
        10 GETUPVAL                         R5 3
@@ -27,8 +27,8 @@ PROTO_1:
        18 SETTABLEKS                       R5 R4 K4 ["TitleKey"]
        20 GETUPVAL                         R5 5
        21 CALL                             R2 3 1
-       22 GETUPVAL                         R4 0
-       23 GETTABLEKS                       R3 R4 K6 ["mount"]
+       22 GETUPVAL                         R3 0
+       23 GETTABLEKS                       R3 R3 K6 ["mount"]
        25 MOVE                             R4 R2
        26 CALL                             R3 1 1
        27 MOVE                             R0 R3
@@ -48,8 +48,8 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
@@ -68,17 +68,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K8 ["Promise"]
        18 CALL                             R2 1 1
        19 GETIMPORT                        R3 K5 [require]
-       21 GETTABLEKS                       R7 R0 K9 ["Src"]
-       23 GETTABLEKS                       R6 R7 K10 ["Components"]
-       25 GETTABLEKS                       R5 R6 K11 ["BlockingDialog"]
-       27 GETTABLEKS                       R4 R5 K11 ["BlockingDialog"]
+       21 GETTABLEKS                       R4 R0 K9 ["Src"]
+       23 GETTABLEKS                       R4 R4 K10 ["Components"]
+       25 GETTABLEKS                       R4 R4 K11 ["BlockingDialog"]
+       27 GETTABLEKS                       R4 R4 K11 ["BlockingDialog"]
        29 CALL                             R3 1 1
        30 DUPCLOSURE                       R4 K12 [PROTO_3]
        31 CAPTURE                          VAL R2

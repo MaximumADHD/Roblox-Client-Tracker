@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SetView"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SetView"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 0
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K2 ["ChangeCurrentEventName"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K2 ["ChangeCurrentEventName"]
        12 MOVE                             R2 R0
        13 CALL                             R1 1 0
        14 RETURN                           R0 0
@@ -14,9 +14,9 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"isOpen"}]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K2 ["state"]
-        5 GETTABLEKS                       R4 R5 K0 ["isOpen"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K2 ["state"]
+        5 GETTABLEKS                       R4 R4 K0 ["isOpen"]
         7 NOT                              R3 R4
         8 SETTABLEKS                       R3 R2 K0 ["isOpen"]
        10 NAMECALL                         R0 R0 K3 ["setState"]
@@ -56,14 +56,14 @@ PROTO_3:
        15 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K4 [{"OnItemActivated", "PlaceholderText", "Items"}]
         5 GETTABLEKS                       R4 R0 K5 ["selectItem"]
         7 SETTABLEKS                       R4 R3 K1 ["OnItemActivated"]
-        9 GETTABLEKS                       R5 R0 K6 ["props"]
-       11 GETTABLEKS                       R4 R5 K7 ["ActiveView"]
+        9 GETTABLEKS                       R4 R0 K6 ["props"]
+       11 GETTABLEKS                       R4 R4 K7 ["ActiveView"]
        13 SETTABLEKS                       R4 R3 K2 ["PlaceholderText"]
        15 GETTABLEKS                       R4 R0 K3 ["Items"]
        17 SETTABLEKS                       R4 R3 K3 ["Items"]
@@ -72,8 +72,8 @@ PROTO_4:
 
 PROTO_5:
         0 DUPTABLE                         R2 K1 [{"ActiveView"}]
-        1 GETTABLEKS                       R4 R0 K2 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["ActiveView"]
+        1 GETTABLEKS                       R3 R0 K2 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["ActiveView"]
         5 SETTABLEKS                       R3 R2 K0 ["ActiveView"]
         7 RETURN                           R2 1
 
@@ -107,26 +107,26 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
-       34 GETTABLEKS                       R7 R0 K11 ["Src"]
-       36 GETTABLEKS                       R6 R7 K12 ["Actions"]
+       34 GETTABLEKS                       R6 R0 K11 ["Src"]
+       36 GETTABLEKS                       R6 R6 K12 ["Actions"]
        38 GETIMPORT                        R7 K4 [require]
        40 GETTABLEKS                       R8 R6 K13 ["SetView"]
        42 CALL                             R7 1 1
@@ -134,9 +134,9 @@ MAIN:
        45 GETTABLEKS                       R9 R6 K14 ["ChangeCurrentEventName"]
        47 CALL                             R8 1 1
        48 GETIMPORT                        R9 K4 [require]
-       50 GETTABLEKS                       R12 R0 K11 ["Src"]
-       52 GETTABLEKS                       R11 R12 K15 ["Util"]
-       54 GETTABLEKS                       R10 R11 K16 ["Constants"]
+       50 GETTABLEKS                       R10 R0 K11 ["Src"]
+       52 GETTABLEKS                       R10 R10 K15 ["Util"]
+       54 GETTABLEKS                       R10 R10 K16 ["Constants"]
        56 CALL                             R9 1 1
        57 GETTABLEKS                       R10 R9 K17 ["VIEW_ID"]
        59 GETTABLEKS                       R11 R3 K18 ["UI"]

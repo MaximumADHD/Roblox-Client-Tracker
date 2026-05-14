@@ -2,19 +2,19 @@ PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R1 K1 ["AnimationData"]
-        5 GETTABLEKS                       R4 R1 K2 ["Status"]
-        7 GETTABLEKS                       R3 R4 K3 ["Tracks"]
-        9 GETTABLEKS                       R5 R1 K2 ["Status"]
-       11 GETTABLEKS                       R4 R5 K4 ["Playhead"]
+        5 GETTABLEKS                       R3 R1 K2 ["Status"]
+        7 GETTABLEKS                       R3 R3 K3 ["Tracks"]
+        9 GETTABLEKS                       R4 R1 K2 ["Status"]
+       11 GETTABLEKS                       R4 R4 K4 ["Playhead"]
        13 JUMPIFNOT                        R2 ; [+4]
        14 GETTABLEKS                       R5 R2 K5 ["Metadata"]
        16 JUMPIFNOT                        R5 ; [+1]
        17 JUMPIF                           R3 ; [+1]
        18 RETURN                           R0 0
-       19 GETTABLEKS                       R6 R2 K5 ["Metadata"]
-       21 GETTABLEKS                       R5 R6 K6 ["StartTick"]
-       23 GETTABLEKS                       R7 R2 K5 ["Metadata"]
-       25 GETTABLEKS                       R6 R7 K7 ["EndTick"]
+       19 GETTABLEKS                       R5 R2 K5 ["Metadata"]
+       21 GETTABLEKS                       R5 R5 K6 ["StartTick"]
+       23 GETTABLEKS                       R6 R2 K5 ["Metadata"]
+       25 GETTABLEKS                       R6 R6 K7 ["EndTick"]
        27 SUB                              R7 R6 R5
        28 JUMPIFNOTEQKN                    R7 K8 [0] ; [+2]
        30 RETURN                           R0 0
@@ -40,15 +40,15 @@ PROTO_0:
        59 FORGLOOP                         R9 2 [inext] ; [-21]
        61 GETUPVAL                         R9 0
        62 JUMPIFNOT                        R9 ; [+8]
-       63 GETUPVAL                         R10 1
-       64 GETTABLEKS                       R9 R10 K14 ["getNextKeyframe"]
+       63 GETUPVAL                         R9 1
+       64 GETTABLEKS                       R9 R9 K14 ["getNextKeyframe"]
        66 MOVE                             R10 R8
        67 MOVE                             R11 R4
        68 CALL                             R9 2 1
        69 MOVE                             R7 R9
        70 JUMP                             ; [+7]
-       71 GETUPVAL                         R10 1
-       72 GETTABLEKS                       R9 R10 K15 ["getPreviousKeyframe"]
+       71 GETUPVAL                         R9 1
+       72 GETTABLEKS                       R9 R9 K15 ["getPreviousKeyframe"]
        74 MOVE                             R10 R8
        75 MOVE                             R11 R4
        76 CALL                             R9 2 1
@@ -88,15 +88,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["TrackUtils"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["TrackUtils"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K9 ["Thunks"]
-       22 GETTABLEKS                       R4 R5 K10 ["Playback"]
-       24 GETTABLEKS                       R3 R4 K11 ["StepAnimation"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Thunks"]
+       22 GETTABLEKS                       R3 R3 K10 ["Playback"]
+       24 GETTABLEKS                       R3 R3 K11 ["StepAnimation"]
        26 CALL                             R2 1 1
        27 DUPCLOSURE                       R3 K12 [PROTO_1]
        28 CAPTURE                          VAL R1

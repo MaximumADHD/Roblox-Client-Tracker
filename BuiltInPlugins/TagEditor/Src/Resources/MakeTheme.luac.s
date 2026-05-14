@@ -17,15 +17,15 @@ PROTO_0:
        18 SETTABLEKS                       R6 R5 K1 ["VisibleOffIcon"]
        20 CALL                             R3 2 1
        21 JUMPIFNOT                        R0 ; [+8]
-       22 GETUPVAL                         R5 3
-       23 GETTABLEKS                       R4 R5 K7 ["mock"]
+       22 GETUPVAL                         R4 3
+       23 GETTABLEKS                       R4 R4 K7 ["mock"]
        25 MOVE                             R5 R2
        26 MOVE                             R6 R3
        27 CALL                             R4 2 1
        28 MOVE                             R1 R4
        29 JUMP                             ; [+7]
-       30 GETUPVAL                         R5 3
-       31 GETTABLEKS                       R4 R5 K8 ["new"]
+       30 GETUPVAL                         R4 3
+       31 GETTABLEKS                       R4 R4 K8 ["new"]
        33 MOVE                             R5 R2
        34 MOVE                             R6 R3
        35 CALL                             R4 2 1
@@ -37,28 +37,28 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["join"]
        25 GETTABLEKS                       R4 R1 K9 ["Style"]
-       27 GETTABLEKS                       R6 R4 K10 ["Themes"]
-       29 GETTABLEKS                       R5 R6 K11 ["StudioTheme"]
-       31 GETTABLEKS                       R7 R4 K10 ["Themes"]
-       33 GETTABLEKS                       R6 R7 K12 ["DarkTheme"]
-       35 GETTABLEKS                       R8 R4 K10 ["Themes"]
-       37 GETTABLEKS                       R7 R8 K13 ["LightTheme"]
-       39 GETTABLEKS                       R9 R4 K10 ["Themes"]
-       41 GETTABLEKS                       R8 R9 K14 ["BaseTheme"]
+       27 GETTABLEKS                       R5 R4 K10 ["Themes"]
+       29 GETTABLEKS                       R5 R5 K11 ["StudioTheme"]
+       31 GETTABLEKS                       R6 R4 K10 ["Themes"]
+       33 GETTABLEKS                       R6 R6 K12 ["DarkTheme"]
+       35 GETTABLEKS                       R7 R4 K10 ["Themes"]
+       37 GETTABLEKS                       R7 R7 K13 ["LightTheme"]
+       39 GETTABLEKS                       R8 R4 K10 ["Themes"]
+       41 GETTABLEKS                       R8 R8 K14 ["BaseTheme"]
        43 GETTABLEKS                       R9 R4 K15 ["StyleKey"]
        45 GETTABLEKS                       R10 R4 K16 ["ComponentSymbols"]
        47 LOADK                            R13 K17 ["Icon"]

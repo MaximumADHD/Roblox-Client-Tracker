@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["AbsoluteSize"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["AbsoluteSize"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
@@ -26,21 +26,21 @@ PROTO_2:
        13 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["X"]
-        3 GETTABLEKS                       R1 R2 K1 ["Offset"]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K0 ["X"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["X"]
+        3 GETTABLEKS                       R1 R1 K1 ["Offset"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K0 ["X"]
         8 GETUPVAL                         R4 2
         9 SUB                              R2 R3 R4
        10 FASTCALL2                        MATH_MIN R1 R2 ; [+3]
        12 GETIMPORT                        R0 K4 [math.min]
        14 CALL                             R0 2 1
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K5 ["Y"]
-       18 GETTABLEKS                       R2 R3 K1 ["Offset"]
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R4 R5 K5 ["Y"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K5 ["Y"]
+       18 GETTABLEKS                       R2 R2 K1 ["Offset"]
+       20 GETUPVAL                         R4 1
+       21 GETTABLEKS                       R4 R4 K5 ["Y"]
        23 GETUPVAL                         R5 3
        24 SUB                              R3 R4 R5
        25 FASTCALL2                        MATH_MIN R2 R3 ; [+3]
@@ -60,16 +60,16 @@ PROTO_4:
         3 CALL                             R3 1 1
         4 NAMECALL                         R3 R3 K1 ["get"]
         6 CALL                             R3 1 1
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K2 ["useState"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K2 ["useState"]
        10 GETTABLEKS                       R5 R3 K3 ["AbsoluteSize"]
        12 CALL                             R4 1 2
-       13 GETUPVAL                         R7 1
-       14 GETTABLEKS                       R6 R7 K2 ["useState"]
+       13 GETUPVAL                         R6 1
+       14 GETTABLEKS                       R6 R6 K2 ["useState"]
        16 MOVE                             R7 R0
        17 CALL                             R6 1 2
-       18 GETUPVAL                         R9 1
-       19 GETTABLEKS                       R8 R9 K4 ["useEffect"]
+       18 GETUPVAL                         R8 1
+       19 GETTABLEKS                       R8 R8 K4 ["useEffect"]
        21 NEWCLOSURE                       R9 P0
        22 CAPTURE                          VAL R3
        23 CAPTURE                          VAL R5
@@ -77,8 +77,8 @@ PROTO_4:
        26 MOVE                             R11 R3
        27 SETLIST                          R10 R11 1 [1]
        29 CALL                             R8 2 0
-       30 GETUPVAL                         R9 1
-       31 GETTABLEKS                       R8 R9 K4 ["useEffect"]
+       30 GETUPVAL                         R8 1
+       31 GETTABLEKS                       R8 R8 K4 ["useEffect"]
        33 NEWCLOSURE                       R9 P1
        34 CAPTURE                          VAL R0
        35 CAPTURE                          VAL R4
@@ -101,12 +101,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["Focus"]

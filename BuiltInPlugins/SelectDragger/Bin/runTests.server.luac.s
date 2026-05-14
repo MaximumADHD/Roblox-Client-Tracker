@@ -1,27 +1,27 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Tests"]
-        9 GETTABLEKS                       R3 R0 K4 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K5 ["DraggerFramework"]
+        9 GETTABLEKS                       R2 R0 K4 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K5 ["DraggerFramework"]
        13 GETIMPORT                        R3 K7 [require]
-       15 GETTABLEKS                       R5 R2 K8 ["Utility"]
-       17 GETTABLEKS                       R4 R5 K9 ["isFTF"]
+       15 GETTABLEKS                       R4 R2 K8 ["Utility"]
+       17 GETTABLEKS                       R4 R4 K9 ["isFTF"]
        19 CALL                             R3 1 1
        20 GETIMPORT                        R4 K7 [require]
-       22 GETTABLEKS                       R6 R2 K8 ["Utility"]
-       24 GETTABLEKS                       R5 R6 K10 ["isCli"]
+       22 GETTABLEKS                       R5 R2 K8 ["Utility"]
+       24 GETTABLEKS                       R5 R5 K10 ["isCli"]
        26 CALL                             R4 1 1
        27 MOVE                             R5 R3
        28 CALL                             R5 0 1
        29 JUMPIF                           R5 ; [+1]
        30 JUMP                             ; [+58]
        31 GETIMPORT                        R5 K7 [require]
-       33 GETTABLEKS                       R8 R0 K4 ["Packages"]
-       35 GETTABLEKS                       R7 R8 K11 ["Dev"]
-       37 GETTABLEKS                       R6 R7 K12 ["Jest"]
+       33 GETTABLEKS                       R6 R0 K4 ["Packages"]
+       35 GETTABLEKS                       R6 R6 K11 ["Dev"]
+       37 GETTABLEKS                       R6 R6 K12 ["Jest"]
        39 CALL                             R5 1 1
        40 GETTABLEKS                       R6 R5 K13 ["runCLI"]
        42 MOVE                             R7 R1
@@ -34,12 +34,12 @@ MAIN:
        54 NAMECALL                         R6 R6 K15 ["awaitStatus"]
        56 CALL                             R6 1 2
        57 JUMPIFNOTEQKS                    R6 K16 ["Resolved"] ; [+15]
-       59 GETTABLEKS                       R9 R7 K17 ["results"]
-       61 GETTABLEKS                       R8 R9 K18 ["numFailedTestSuites"]
+       59 GETTABLEKS                       R8 R7 K17 ["results"]
+       61 GETTABLEKS                       R8 R8 K18 ["numFailedTestSuites"]
        63 LOADN                            R9 0
        64 JUMPIFLT                         R9 R8 ; [+8]
-       66 GETTABLEKS                       R9 R7 K17 ["results"]
-       68 GETTABLEKS                       R8 R9 K19 ["numFailedTests"]
+       66 GETTABLEKS                       R8 R7 K17 ["results"]
+       68 GETTABLEKS                       R8 R8 K19 ["numFailedTests"]
        70 LOADN                            R9 0
        71 JUMPIFNOTLT                      R9 R8 ; [+17]
        73 JUMPIFNOTEQKS                    R6 K20 ["Rejected"] ; [+5]

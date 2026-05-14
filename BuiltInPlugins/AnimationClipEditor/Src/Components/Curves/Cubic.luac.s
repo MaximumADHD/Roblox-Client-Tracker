@@ -7,8 +7,8 @@ PROTO_0:
         9 LOADNIL                          R6
        10 GETTABLEKS                       R9 R3 K3 ["X"]
        12 GETTABLEKS                       R7 R4 K3 ["X"]
-       14 GETUPVAL                         R10 0
-       15 GETTABLEKS                       R8 R10 K4 ["CURVE_INTERVAL"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K4 ["CURVE_INTERVAL"]
        17 FORNPREP                         R7
        18 GETTABLEKS                       R12 R3 K3 ["X"]
        20 SUB                              R11 R9 R12
@@ -51,16 +51,16 @@ PROTO_0:
        66 GETTABLEKS                       R20 R1 K10 ["BSlope"]
        68 MUL                              R18 R19 R20
        69 ADD                              R16 R17 R18
-       70 GETTABLEKS                       R18 R0 K0 ["props"]
-       72 GETTABLEKS                       R17 R18 K11 ["MinClamp"]
+       70 GETTABLEKS                       R17 R0 K0 ["props"]
+       72 GETTABLEKS                       R17 R17 K11 ["MinClamp"]
        74 JUMPIFNOT                        R17 ; [+20]
-       75 GETTABLEKS                       R18 R0 K0 ["props"]
-       77 GETTABLEKS                       R17 R18 K12 ["MaxClamp"]
+       75 GETTABLEKS                       R17 R0 K0 ["props"]
+       77 GETTABLEKS                       R17 R17 K12 ["MaxClamp"]
        79 JUMPIFNOT                        R17 ; [+15]
-       80 GETTABLEKS                       R20 R0 K0 ["props"]
-       82 GETTABLEKS                       R19 R20 K11 ["MinClamp"]
-       84 GETTABLEKS                       R21 R0 K0 ["props"]
-       86 GETTABLEKS                       R20 R21 K12 ["MaxClamp"]
+       80 GETTABLEKS                       R19 R0 K0 ["props"]
+       82 GETTABLEKS                       R19 R19 K11 ["MinClamp"]
+       84 GETTABLEKS                       R20 R0 K0 ["props"]
+       86 GETTABLEKS                       R20 R20 K12 ["MaxClamp"]
        88 FASTCALL3                        MATH_CLAMP R16 R19 R20
        90 MOVE                             R18 R16
        91 GETIMPORT                        R17 K15 [math.clamp]
@@ -72,8 +72,8 @@ PROTO_0:
       100 LOADN                            R17 0
       101 JUMPIFNOTLT                      R17 R9 ; [+42]
       103 MOVE                             R18 R2
-      104 GETUPVAL                         R20 1
-      105 GETTABLEKS                       R19 R20 K17 ["createElement"]
+      104 GETUPVAL                         R19 1
+      105 GETTABLEKS                       R19 R19 K17 ["createElement"]
       107 GETUPVAL                         R20 2
       108 DUPTABLE                         R21 K22 [{"A", "B", "Color", "Width", "Transparency", "ZIndex"}]
       109 GETIMPORT                        R22 K25 [Vector2.new]
@@ -102,8 +102,8 @@ PROTO_0:
       145 MOVE                             R6 R16
       146 FORNLOOP                         R7
       147 MOVE                             R8 R2
-      148 GETUPVAL                         R10 1
-      149 GETTABLEKS                       R9 R10 K17 ["createElement"]
+      148 GETUPVAL                         R9 1
+      149 GETTABLEKS                       R9 R9 K17 ["createElement"]
       151 GETUPVAL                         R10 2
       152 DUPTABLE                         R11 K22 [{"A", "B", "Color", "Width", "Transparency", "ZIndex"}]
       153 JUMPIFNOT                        R5 ; [+6]
@@ -127,8 +127,8 @@ PROTO_0:
       182 FASTCALL                         TABLE_INSERT ; [+2]
       183 GETIMPORT                        R7 K28 [table.insert]
       185 CALL                             R7 -1 0
-      186 GETUPVAL                         R8 1
-      187 GETTABLEKS                       R7 R8 K17 ["createElement"]
+      186 GETUPVAL                         R7 1
+      187 GETTABLEKS                       R7 R7 K17 ["createElement"]
       189 LOADK                            R8 K29 ["Frame"]
       190 DUPTABLE                         R9 K34 [{"Position", "Size", "BackgroundTransparency", "BorderSizePixel", "ZIndex"}]
       191 GETIMPORT                        R10 K36 [UDim2.new]
@@ -162,19 +162,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R7 R0 K8 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Components"]
-       29 GETTABLEKS                       R5 R6 K12 ["Curves"]
-       31 GETTABLEKS                       R4 R5 K13 ["Line"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Components"]
+       29 GETTABLEKS                       R4 R4 K12 ["Curves"]
+       31 GETTABLEKS                       R4 R4 K13 ["Line"]
        33 CALL                             R3 1 1
        34 GETTABLEKS                       R4 R1 K14 ["PureComponent"]
        36 LOADK                            R6 K15 ["Cubic"]

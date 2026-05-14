@@ -523,8 +523,8 @@ PROTO_3:
       147 SETTABLEKS                       R6 R5 K62 ["RigType"]
       149 SETTABLEKS                       R2 R5 K56 ["Parent"]
       151 GETIMPORT                        R6 K64 [pairs]
-      153 GETUPVAL                         R9 0
-      154 GETTABLEKS                       R7 R9 K65 ["R15_PARTS"]
+      153 GETUPVAL                         R7 0
+      154 GETTABLEKS                       R7 R7 K65 ["R15_PARTS"]
       156 CALL                             R6 1 3
       157 FORGPREP_NEXT                    R6
       158 JUMPIFEQKS                       R9 K54 ["HumanoidRootPart"] ; [+63]
@@ -546,14 +546,14 @@ PROTO_3:
       180 GETIMPORT                        R12 K51 [Instance.new]
       182 LOADK                            R13 K66 ["Motor6D"]
       183 CALL                             R12 1 1
-      184 GETUPVAL                         R15 0
-      185 GETTABLEKS                       R14 R15 K67 ["PART1_TO_JOINT"]
+      184 GETUPVAL                         R14 0
+      185 GETTABLEKS                       R14 R14 K67 ["PART1_TO_JOINT"]
       187 GETTABLE                         R13 R14 R9
       188 SETTABLEKS                       R13 R12 K55 ["Name"]
       190 SETTABLEKS                       R11 R12 K56 ["Parent"]
       192 SETTABLEKS                       R11 R12 K68 ["Part1"]
-      194 GETUPVAL                         R15 0
-      195 GETTABLEKS                       R14 R15 K69 ["R15links"]
+      194 GETUPVAL                         R14 0
+      195 GETTABLEKS                       R14 R14 K69 ["R15links"]
       197 GETTABLE                         R13 R14 R9
       198 JUMPIFNOTEQKS                    R13 K54 ["HumanoidRootPart"] ; [+3]
       200 MOVE                             R14 R3
@@ -576,8 +576,8 @@ PROTO_3:
       224 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["CreateR6Rig"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CreateR6Rig"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K3 [Instance.new]
         6 LOADK                            R2 K4 ["CharacterMesh"]
@@ -630,8 +630,8 @@ PROTO_4:
        71 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["CreateR6Rig"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CreateR6Rig"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K3 [Instance.new]
         6 LOADK                            R2 K4 ["CharacterMesh"]
@@ -684,8 +684,8 @@ PROTO_5:
        71 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["CreateR6Rig"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CreateR6Rig"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K3 [Instance.new]
         6 LOADK                            R2 K4 ["CharacterMesh"]
@@ -857,11 +857,11 @@ MAIN:
        10 NAMECALL                         R2 R1 K5 ["LoadLocalAsset"]
        12 CALL                             R2 2 1
        13 GETIMPORT                        R3 K7 [require]
-       15 GETIMPORT                        R8 K9 [script]
-       17 GETTABLEKS                       R7 R8 K10 ["Parent"]
-       19 GETTABLEKS                       R6 R7 K10 ["Parent"]
-       21 GETTABLEKS                       R5 R6 K11 ["Util"]
-       23 GETTABLEKS                       R4 R5 K12 ["Constants"]
+       15 GETIMPORT                        R4 K9 [script]
+       17 GETTABLEKS                       R4 R4 K10 ["Parent"]
+       19 GETTABLEKS                       R4 R4 K10 ["Parent"]
+       21 GETTABLEKS                       R4 R4 K11 ["Util"]
+       23 GETTABLEKS                       R4 R4 K12 ["Constants"]
        25 CALL                             R3 1 1
        26 DUPCLOSURE                       R4 K13 [PROTO_0]
        27 DUPCLOSURE                       R5 K14 [PROTO_1]

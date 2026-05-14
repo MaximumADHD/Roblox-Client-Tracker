@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
         3 ADD                              R3 R0 R4
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K1 ["ASSET_WIDTH_NO_PADDING"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
+        4 GETUPVAL                         R5 0
+        5 GETTABLEKS                       R5 R5 K1 ["ASSET_WIDTH_NO_PADDING"]
+        7 GETUPVAL                         R6 0
+        8 GETTABLEKS                       R6 R6 K0 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
        10 ADD                              R4 R5 R6
        11 DIV                              R2 R3 R4
        12 FASTCALL1                        MATH_FLOOR R2 ; [+2]
@@ -15,37 +15,37 @@ PROTO_0:
 
 PROTO_1:
         0 LOADN                            R4 2
-        1 GETUPVAL                         R6 0
-        2 GETTABLEKS                       R5 R6 K0 ["MAIN_VIEW_PADDING"]
+        1 GETUPVAL                         R5 0
+        2 GETTABLEKS                       R5 R5 K0 ["MAIN_VIEW_PADDING"]
         4 MUL                              R3 R4 R5
         5 SUB                              R2 R0 R3
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["SCROLLBAR_PADDING"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["SCROLLBAR_PADDING"]
         9 SUB                              R1 R2 R3
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K2 ["ASSET_WIDTH_NO_PADDING"]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K3 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["ASSET_WIDTH_NO_PADDING"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K3 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
        16 ADD                              R2 R3 R4
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R3 R4 K4 ["getAssetsPerRow"]
+       17 GETUPVAL                         R3 1
+       18 GETTABLEKS                       R3 R3 K4 ["getAssetsPerRow"]
        20 MOVE                             R4 R1
        21 CALL                             R3 1 1
        22 MUL                              R5 R3 R2
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R6 R7 K3 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
+       23 GETUPVAL                         R6 0
+       24 GETTABLEKS                       R6 R6 K3 ["BETWEEN_ASSETS_HORIZONTAL_PADDING"]
        26 SUB                              R4 R5 R6
        27 RETURN                           R4 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ASSET_HEIGHT"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ASSET_HEIGHT"]
         3 JUMPIFNOT                        R0 ; [+4]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K1 ["PRICE_HEIGHT"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["PRICE_HEIGHT"]
         7 ADD                              R1 R1 R2
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["BETWEEN_ASSETS_VERTICAL_PADDING"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["BETWEEN_ASSETS_VERTICAL_PADDING"]
        11 ADD                              R2 R1 R3
        12 RETURN                           R2 1
 
@@ -54,15 +54,15 @@ PROTO_3:
         2 JUMPIFNOTEQKN                    R1 K0 [0] ; [+3]
         4 LOADN                            R3 0
         5 RETURN                           R3 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["getAssetsPerRow"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["getAssetsPerRow"]
         9 MOVE                             R4 R1
        10 CALL                             R3 1 1
        11 JUMPIFNOTEQKN                    R3 K0 [0] ; [+3]
        13 LOADN                            R4 0
        14 RETURN                           R4 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K2 ["getAssetCellHeightWithPadding"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K2 ["getAssetCellHeightWithPadding"]
        18 MOVE                             R5 R2
        19 CALL                             R4 1 1
        20 DIV                              R6 R0 R3
@@ -70,11 +70,11 @@ PROTO_3:
        22 GETIMPORT                        R5 K5 [math.ceil]
        24 CALL                             R5 1 1
        25 MUL                              R8 R4 R5
-       26 GETUPVAL                         R10 1
-       27 GETTABLEKS                       R9 R10 K6 ["BETWEEN_ASSETS_VERTICAL_PADDING"]
+       26 GETUPVAL                         R9 1
+       27 GETTABLEKS                       R9 R9 K6 ["BETWEEN_ASSETS_VERTICAL_PADDING"]
        29 SUB                              R7 R8 R9
-       30 GETUPVAL                         R9 1
-       31 GETTABLEKS                       R8 R9 K7 ["ASSET_VOTING_HEIGHT"]
+       30 GETUPVAL                         R8 1
+       31 GETTABLEKS                       R8 R8 K7 ["ASSET_VOTING_HEIGHT"]
        33 ADD                              R6 R7 R8
        34 RETURN                           R6 1
 
@@ -111,21 +111,21 @@ PROTO_5:
         1 LOADN                            R4 0
         2 LOADN                            R5 0
         3 RETURN                           R4 2
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K0 ["getAssetsPerRow"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K0 ["getAssetsPerRow"]
         7 MOVE                             R5 R1
         8 CALL                             R4 1 1
-        9 GETUPVAL                         R6 0
-       10 GETTABLEKS                       R5 R6 K1 ["getAssetCellHeightWithPadding"]
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R5 R5 K1 ["getAssetCellHeightWithPadding"]
        12 MOVE                             R6 R3
        13 CALL                             R5 1 1
-       14 GETTABLEKS                       R8 R0 K2 ["CanvasPosition"]
-       16 GETTABLEKS                       R7 R8 K3 ["Y"]
+       14 GETTABLEKS                       R7 R0 K2 ["CanvasPosition"]
+       16 GETTABLEKS                       R7 R7 K3 ["Y"]
        18 SUB                              R6 R7 R2
-       19 GETTABLEKS                       R8 R0 K4 ["AbsoluteSize"]
-       21 GETTABLEKS                       R7 R8 K3 ["Y"]
-       23 GETUPVAL                         R9 1
-       24 GETTABLEKS                       R8 R9 K5 ["SCROLLING_FRAME_VIEW_PADDING"]
+       19 GETTABLEKS                       R7 R0 K4 ["AbsoluteSize"]
+       21 GETTABLEKS                       R7 R7 K3 ["Y"]
+       23 GETUPVAL                         R8 1
+       24 GETTABLEKS                       R8 R8 K5 ["SCROLLING_FRAME_VIEW_PADDING"]
        26 SUB                              R6 R6 R8
        27 LOADN                            R10 2
        28 MUL                              R9 R10 R8
@@ -154,18 +154,18 @@ PROTO_6:
         1 LOADN                            R7 0
         2 JUMPIF                           R4 ; [+1]
         3 JUMPIFNOT                        R0 ; [+4]
-        4 GETUPVAL                         R9 0
-        5 GETTABLEKS                       R8 R9 K0 ["SEARCH_TERMS_HEIGHT"]
+        4 GETUPVAL                         R8 0
+        5 GETTABLEKS                       R8 R8 K0 ["SEARCH_TERMS_HEIGHT"]
         7 ADD                              R6 R6 R8
         8 JUMPIFNOT                        R0 ; [+8]
         9 JUMPIFNOT                        R5 ; [+7]
-       10 GETUPVAL                         R9 0
-       11 GETTABLEKS                       R8 R9 K1 ["MAIN_VIEW_VERTICAL_PADDING"]
+       10 GETUPVAL                         R8 0
+       11 GETTABLEKS                       R8 R8 K1 ["MAIN_VIEW_VERTICAL_PADDING"]
        13 ADD                              R6 R6 R8
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R7 R8 K1 ["MAIN_VIEW_VERTICAL_PADDING"]
-       17 GETUPVAL                         R11 0
-       18 GETTABLEKS                       R10 R11 K2 ["MAIN_VIEW_NO_HEADER_HEIGHT"]
+       17 GETUPVAL                         R10 0
+       18 GETTABLEKS                       R10 R10 K2 ["MAIN_VIEW_NO_HEADER_HEIGHT"]
        20 FASTCALL2                        MATH_MAX R6 R10 ; [+4]
        22 MOVE                             R9 R6
        23 GETIMPORT                        R8 K5 [math.max]
@@ -175,18 +175,18 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R6 R0 K7 ["Src"]
-       20 GETTABLEKS                       R5 R6 K8 ["Util"]
-       22 GETTABLEKS                       R4 R5 K9 ["Constants"]
+       18 GETTABLEKS                       R4 R0 K7 ["Src"]
+       20 GETTABLEKS                       R4 R4 K8 ["Util"]
+       22 GETTABLEKS                       R4 R4 K9 ["Constants"]
        24 CALL                             R3 1 1
        25 NEWTABLE                         R4 8 0
        27 DUPCLOSURE                       R5 K10 [PROTO_0]

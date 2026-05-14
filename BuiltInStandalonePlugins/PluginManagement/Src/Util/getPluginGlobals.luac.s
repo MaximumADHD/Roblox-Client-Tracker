@@ -35,30 +35,30 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K10 ["Rodux"]
+       27 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K10 ["Rodux"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K4 [require]
-       34 GETTABLEKS                       R8 R0 K11 ["Src"]
-       36 GETTABLEKS                       R7 R8 K12 ["Reducers"]
-       38 GETTABLEKS                       R6 R7 K13 ["MainReducer"]
+       34 GETTABLEKS                       R6 R0 K11 ["Src"]
+       36 GETTABLEKS                       R6 R6 K12 ["Reducers"]
+       38 GETTABLEKS                       R6 R6 K13 ["MainReducer"]
        40 CALL                             R5 1 1
-       41 GETTABLEKS                       R7 R4 K14 ["Store"]
-       43 GETTABLEKS                       R6 R7 K15 ["new"]
+       41 GETTABLEKS                       R6 R4 K14 ["Store"]
+       43 GETTABLEKS                       R6 R6 K15 ["new"]
        45 MOVE                             R7 R5
        46 LOADNIL                          R8
        47 NEWTABLE                         R9 0 1
@@ -66,16 +66,16 @@ MAIN:
        51 SETLIST                          R9 R10 1 [1]
        53 CALL                             R6 3 1
        54 GETIMPORT                        R7 K4 [require]
-       56 GETTABLEKS                       R10 R0 K11 ["Src"]
-       58 GETTABLEKS                       R9 R10 K17 ["Resources"]
-       60 GETTABLEKS                       R8 R9 K18 ["makeTheme"]
+       56 GETTABLEKS                       R8 R0 K11 ["Src"]
+       58 GETTABLEKS                       R8 R8 K17 ["Resources"]
+       60 GETTABLEKS                       R8 R8 K18 ["makeTheme"]
        62 CALL                             R7 1 1
-       63 GETTABLEKS                       R10 R0 K11 ["Src"]
-       65 GETTABLEKS                       R9 R10 K17 ["Resources"]
-       67 GETTABLEKS                       R8 R9 K19 ["SourceStrings"]
-       69 GETTABLEKS                       R11 R0 K11 ["Src"]
-       71 GETTABLEKS                       R10 R11 K17 ["Resources"]
-       73 GETTABLEKS                       R9 R10 K20 ["LocalizedStrings"]
+       63 GETTABLEKS                       R8 R0 K11 ["Src"]
+       65 GETTABLEKS                       R8 R8 K17 ["Resources"]
+       67 GETTABLEKS                       R8 R8 K19 ["SourceStrings"]
+       69 GETTABLEKS                       R9 R0 K11 ["Src"]
+       71 GETTABLEKS                       R9 R9 K17 ["Resources"]
+       73 GETTABLEKS                       R9 R9 K20 ["LocalizedStrings"]
        75 GETTABLEKS                       R10 R3 K21 ["Localization"]
        77 GETTABLEKS                       R11 R10 K15 ["new"]
        79 DUPTABLE                         R12 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
@@ -85,14 +85,14 @@ MAIN:
        85 SETTABLEKS                       R13 R12 K24 ["pluginName"]
        87 CALL                             R11 1 1
        88 GETIMPORT                        R12 K4 [require]
-       90 GETTABLEKS                       R14 R0 K7 ["Packages"]
-       92 GETTABLEKS                       R13 R14 K27 ["Http"]
+       90 GETTABLEKS                       R13 R0 K7 ["Packages"]
+       92 GETTABLEKS                       R13 R13 K27 ["Http"]
        94 CALL                             R12 1 1
-       95 GETTABLEKS                       R14 R12 K28 ["API"]
-       97 GETTABLEKS                       R13 R14 K15 ["new"]
+       95 GETTABLEKS                       R13 R12 K28 ["API"]
+       97 GETTABLEKS                       R13 R13 K15 ["new"]
        99 DUPTABLE                         R14 K30 [{"networking"}]
-      100 GETTABLEKS                       R16 R12 K31 ["Networking"]
-      102 GETTABLEKS                       R15 R16 K15 ["new"]
+      100 GETTABLEKS                       R15 R12 K31 ["Networking"]
+      102 GETTABLEKS                       R15 R15 K15 ["new"]
       104 DUPTABLE                         R16 K34 [{"isInternal", "loggingLevel"}]
       105 LOADB                            R17 1
       106 SETTABLEKS                       R17 R16 K32 ["isInternal"]
@@ -102,9 +102,9 @@ MAIN:
       112 SETTABLEKS                       R15 R14 K29 ["networking"]
       114 CALL                             R13 1 1
       115 GETIMPORT                        R14 K4 [require]
-      117 GETTABLEKS                       R17 R0 K11 ["Src"]
-      119 GETTABLEKS                       R16 R17 K35 ["Util"]
-      121 GETTABLEKS                       R15 R16 K36 ["getAnalyticsContextItem"]
+      117 GETTABLEKS                       R15 R0 K11 ["Src"]
+      119 GETTABLEKS                       R15 R15 K35 ["Util"]
+      121 GETTABLEKS                       R15 R15 K36 ["getAnalyticsContextItem"]
       123 CALL                             R14 1 1
       124 MOVE                             R15 R14
       125 CALL                             R15 0 1
@@ -113,9 +113,9 @@ MAIN:
       128 CALL                             R17 0 1
       129 JUMPIFNOT                        R17 ; [+48]
       130 GETIMPORT                        R17 K4 [require]
-      132 GETTABLEKS                       R20 R0 K11 ["Src"]
-      134 GETTABLEKS                       R19 R20 K35 ["Util"]
-      136 GETTABLEKS                       R18 R19 K37 ["PluginManagementApi"]
+      132 GETTABLEKS                       R18 R0 K11 ["Src"]
+      134 GETTABLEKS                       R18 R18 K35 ["Util"]
+      136 GETTABLEKS                       R18 R18 K37 ["PluginManagementApi"]
       138 CALL                             R17 1 1
       139 GETIMPORT                        R18 K39 [game]
       141 LOADK                            R20 K40 ["StudioService"]

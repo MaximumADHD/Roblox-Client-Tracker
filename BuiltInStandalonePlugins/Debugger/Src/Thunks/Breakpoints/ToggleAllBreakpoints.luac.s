@@ -9,8 +9,8 @@ PROTO_0:
         9 NAMECALL                         R2 R0 K2 ["getState"]
        11 CALL                             R2 1 1
        12 GETIMPORT                        R3 K4 [pairs]
-       14 GETTABLEKS                       R6 R2 K5 ["Breakpoint"]
-       16 GETTABLEKS                       R4 R6 K6 ["MetaBreakpoints"]
+       14 GETTABLEKS                       R4 R2 K5 ["Breakpoint"]
+       16 GETTABLEKS                       R4 R4 K6 ["MetaBreakpoints"]
        18 CALL                             R3 1 3
        19 FORGPREP_NEXT                    R3
        20 GETUPVAL                         R8 0

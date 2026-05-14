@@ -9,8 +9,8 @@ PROTO_0:
         9 JUMPIFNOTEQKN                    R2 K1 [0] ; [+11]
        11 RETURN                           R0 0
        12 JUMP                             ; [+8]
-       13 GETIMPORT                        R3 K3 [game]
-       15 GETTABLEKS                       R2 R3 K4 ["Workspace"]
+       13 GETIMPORT                        R2 K3 [game]
+       15 GETTABLEKS                       R2 R2 K4 ["Workspace"]
        17 NAMECALL                         R2 R2 K5 ["GetChildren"]
        19 CALL                             R2 1 1
        20 MOVE                             R1 R2

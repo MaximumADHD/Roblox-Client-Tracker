@@ -3,15 +3,15 @@ PROTO_0:
         1 LOADN                            R0 5
         2 LOADN                            R1 1
         3 FORNPREP                         R0
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K0 ["pathRefs"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K0 ["pathRefs"]
         7 GETTABLE                         R3 R4 R2
         8 NAMECALL                         R3 R3 K1 ["getValue"]
        10 CALL                             R3 1 1
        11 JUMPIFNOT                        R3 ; [+8]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K2 ["props"]
-       15 GETTABLEKS                       R6 R7 K3 ["ControlPoints"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K2 ["props"]
+       15 GETTABLEKS                       R6 R6 K3 ["ControlPoints"]
        17 NAMECALL                         R4 R3 K4 ["SetControlPoints"]
        19 CALL                             R4 2 0
        20 FORNLOOP                         R0
@@ -25,8 +25,8 @@ PROTO_1:
         6 LOADN                            R2 1
         7 FORNPREP                         R1
         8 GETTABLEKS                       R4 R0 K0 ["pathRefs"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K1 ["createRef"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K1 ["createRef"]
        13 CALL                             R5 0 1
        14 SETTABLE                         R5 R4 R3
        15 FORNLOOP                         R1
@@ -37,15 +37,15 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R0 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["Stylizer"]
+        2 GETTABLEKS                       R2 R0 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["Stylizer"]
         6 GETTABLEKS                       R4 R1 K2 ["ZIndex"]
         8 JUMPIFNOT                        R4 ; [+3]
         9 GETTABLEKS                       R3 R1 K2 ["ZIndex"]
        11 JUMP                             ; [+1]
        12 LOADN                            R3 1
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K3 ["createElement"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K3 ["createElement"]
        16 LOADK                            R5 K4 ["Frame"]
        17 DUPTABLE                         R6 K7 [{"BackgroundTransparency", "ZIndex", "Position"}]
        18 LOADN                            R7 1
@@ -55,8 +55,8 @@ PROTO_2:
        25 GETTABLEKS                       R7 R1 K6 ["Position"]
        27 SETTABLEKS                       R7 R6 K6 ["Position"]
        29 DUPTABLE                         R7 K10 [{"Foreground", "Background"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
        33 LOADK                            R9 K4 ["Frame"]
        34 DUPTABLE                         R10 K12 [{"BackgroundTransparency", "Size", "ZIndex"}]
        35 LOADN                            R11 1
@@ -68,8 +68,8 @@ PROTO_2:
        43 SETTABLEKS                       R11 R10 K11 ["Size"]
        45 SETTABLEKS                       R3 R10 K2 ["ZIndex"]
        47 DUPTABLE                         R11 K17 [{"ForegroundLine"}]
-       48 GETUPVAL                         R13 0
-       49 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       48 GETUPVAL                         R12 0
+       49 GETTABLEKS                       R12 R12 K3 ["createElement"]
        51 LOADK                            R13 K18 ["Path2D"]
        52 DUPTABLE                         R14 K23 [{"Color3", "Thickness", "ref", "Transparency"}]
        53 GETTABLEKS                       R15 R1 K24 ["Color"]
@@ -91,8 +91,8 @@ PROTO_2:
        80 SETTABLEKS                       R12 R11 K16 ["ForegroundLine"]
        82 CALL                             R8 3 1
        83 SETTABLEKS                       R8 R7 K8 ["Foreground"]
-       85 GETUPVAL                         R9 0
-       86 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       85 GETUPVAL                         R8 0
+       86 GETTABLEKS                       R8 R8 K3 ["createElement"]
        88 LOADK                            R9 K4 ["Frame"]
        89 DUPTABLE                         R10 K12 [{"BackgroundTransparency", "Size", "ZIndex"}]
        90 LOADN                            R11 1
@@ -107,8 +107,8 @@ PROTO_2:
       103 DUPTABLE                         R11 K28 [{"ContrastPath"}]
       104 GETTABLEKS                       R12 R2 K29 ["ContrastColor"]
       106 JUMPIFNOT                        R12 ; [+30]
-      107 GETUPVAL                         R13 0
-      108 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      107 GETUPVAL                         R12 0
+      108 GETTABLEKS                       R12 R12 K3 ["createElement"]
       110 LOADK                            R13 K18 ["Path2D"]
       111 DUPTABLE                         R14 K23 [{"Color3", "Thickness", "ref", "Transparency"}]
       112 GETTABLEKS                       R15 R2 K29 ["ContrastColor"]
@@ -144,26 +144,26 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["React"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K11 ["withContext"]
-       34 GETTABLEKS                       R7 R3 K12 ["Style"]
-       36 GETTABLEKS                       R6 R7 K13 ["Stylizer"]
+       34 GETTABLEKS                       R6 R3 K12 ["Style"]
+       36 GETTABLEKS                       R6 R6 K13 ["Stylizer"]
        38 GETTABLEKS                       R7 R2 K14 ["Component"]
        40 LOADK                            R9 K15 ["Line"]
        41 NAMECALL                         R7 R7 K16 ["extend"]

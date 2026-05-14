@@ -28,18 +28,18 @@ MAIN:
        15 NAMECALL                         R1 R1 K9 ["DefineFastFlag"]
        17 CALL                             R1 3 1
        18 GETIMPORT                        R2 K11 [require]
-       20 GETTABLEKS                       R5 R0 K12 ["Src"]
-       22 GETTABLEKS                       R4 R5 K13 ["SharedFlags"]
-       24 GETTABLEKS                       R3 R4 K14 ["getFFlagDebugEnableFoundationInspector"]
+       20 GETTABLEKS                       R3 R0 K12 ["Src"]
+       22 GETTABLEKS                       R3 R3 K13 ["SharedFlags"]
+       24 GETTABLEKS                       R3 R3 K14 ["getFFlagDebugEnableFoundationInspector"]
        26 CALL                             R2 1 1
-       27 GETTABLEKS                       R4 R0 K15 ["Bin"]
-       29 GETTABLEKS                       R3 R4 K16 ["Common"]
+       27 GETTABLEKS                       R3 R0 K15 ["Bin"]
+       29 GETTABLEKS                       R3 R3 K16 ["Common"]
        31 GETIMPORT                        R4 K11 [require]
        33 GETTABLEKS                       R5 R3 K17 ["defineLuaFlags"]
        35 CALL                             R4 1 0
        36 GETIMPORT                        R4 K11 [require]
-       38 GETTABLEKS                       R6 R0 K18 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K19 ["TestLoader"]
+       38 GETTABLEKS                       R5 R0 K18 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K19 ["TestLoader"]
        42 CALL                             R4 1 1
        43 GETTABLEKS                       R5 R4 K20 ["launch"]
        45 LOADK                            R6 K4 ["Ribbon"]
@@ -49,8 +49,8 @@ MAIN:
        51 CALL                             R5 0 1
        52 JUMPIFNOT                        R5 ; [+1]
        53 RETURN                           R0 0
-       54 GETIMPORT                        R6 K1 [plugin]
-       56 GETTABLEKS                       R5 R6 K22 ["MultipleDocumentInterfaceInstance"]
+       54 GETIMPORT                        R5 K1 [plugin]
+       56 GETTABLEKS                       R5 R5 K22 ["MultipleDocumentInterfaceInstance"]
        58 GETTABLEKS                       R6 R5 K23 ["FocusedDataModelSession"]
        60 GETTABLEKS                       R7 R6 K24 ["CurrentDataModelTypeAboutToChange"]
        62 DUPCLOSURE                       R9 K25 [PROTO_0]
@@ -60,10 +60,10 @@ MAIN:
        68 GETIMPORT                        R8 K31 [Enum.StudioDataModelType.Edit]
        70 JUMPIFNOTEQ                      R7 R8 ; [+17]
        72 GETIMPORT                        R7 K11 [require]
-       74 GETTABLEKS                       R11 R0 K12 ["Src"]
-       76 GETTABLEKS                       R10 R11 K32 ["Util"]
-       78 GETTABLEKS                       R9 R10 K33 ["SocialPresence"]
-       80 GETTABLEKS                       R8 R9 K34 ["SocialPresenceDmBridge"]
+       74 GETTABLEKS                       R8 R0 K12 ["Src"]
+       76 GETTABLEKS                       R8 R8 K32 ["Util"]
+       78 GETTABLEKS                       R8 R8 K33 ["SocialPresence"]
+       80 GETTABLEKS                       R8 R8 K34 ["SocialPresenceDmBridge"]
        82 CALL                             R7 1 1
        83 GETTABLEKS                       R8 R7 K35 ["initAssetDm"]
        85 GETIMPORT                        R9 K1 [plugin]
@@ -89,8 +89,8 @@ MAIN:
       113 NAMECALL                         R8 R8 K39 ["GetService"]
       115 CALL                             R8 2 1
       116 GETIMPORT                        R9 K11 [require]
-      118 GETTABLEKS                       R11 R0 K12 ["Src"]
-      120 GETTABLEKS                       R10 R11 K42 ["FoundationInspector"]
+      118 GETTABLEKS                       R10 R0 K12 ["Src"]
+      120 GETTABLEKS                       R10 R10 K42 ["FoundationInspector"]
       122 CALL                             R9 1 1
       123 GETTABLEKS                       R10 R9 K43 ["watchDockWidgets"]
       125 GETIMPORT                        R11 K1 [plugin]
@@ -110,10 +110,10 @@ MAIN:
       145 JUMPIFNOT                        R9 ; [+3]
       146 NAMECALL                         R10 R9 K47 ["Destroy"]
       148 CALL                             R10 1 0
-      149 GETTABLEKS                       R14 R0 K18 ["Packages"]
-      151 GETTABLEKS                       R13 R14 K49 ["_Index"]
-      153 GETTABLEKS                       R12 R13 K50 ["DeveloperFramework"]
-      155 GETTABLEKS                       R11 R12 K50 ["DeveloperFramework"]
+      149 GETTABLEKS                       R11 R0 K18 ["Packages"]
+      151 GETTABLEKS                       R11 R11 K49 ["_Index"]
+      153 GETTABLEKS                       R11 R11 K50 ["DeveloperFramework"]
+      155 GETTABLEKS                       R11 R11 K50 ["DeveloperFramework"]
       157 GETTABLEKS                       R10 R11 K48 ["DeveloperFramework.storybook"]
       159 NAMECALL                         R10 R10 K47 ["Destroy"]
       161 CALL                             R10 1 0
@@ -126,8 +126,8 @@ MAIN:
       171 GETIMPORT                        R11 K1 [plugin]
       173 SETTABLEKS                       R11 R10 K58 ["Value"]
       175 SETTABLEKS                       R0 R10 K51 ["Parent"]
-      177 GETTABLEKS                       R9 R0 K12 ["Src"]
-      179 GETTABLEKS                       R8 R9 K13 ["SharedFlags"]
+      177 GETTABLEKS                       R8 R0 K12 ["Src"]
+      179 GETTABLEKS                       R8 R8 K13 ["SharedFlags"]
       181 NAMECALL                         R8 R8 K59 ["GetChildren"]
       183 CALL                             R8 1 3
       184 FORGPREP                         R8

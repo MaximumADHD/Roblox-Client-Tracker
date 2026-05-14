@@ -15,8 +15,8 @@ PROTO_1:
         6 GETTABLEKS                       R2 R0 K0 ["Id"]
         8 NEWTABLE                         R3 0 0
        10 SETTABLE                         R3 R1 R2
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R1 R2 K1 ["SoundAssetChecker"]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K1 ["SoundAssetChecker"]
        14 GETTABLEKS                       R3 R0 K0 ["Id"]
        16 NAMECALL                         R1 R1 K2 ["resolved"]
        18 CALL                             R1 2 0
@@ -39,10 +39,10 @@ PROTO_2:
        17 CALL                             R8 2 1
        18 SETTABLE                         R8 R2 R6
        19 FORGLOOP                         R3 2 ; [-12]
-       21 NAMECALL                         R5 R0 K5 ["getState"]
-       23 CALL                             R5 1 1
-       24 GETTABLEKS                       R4 R5 K6 ["Audio"]
-       26 GETTABLEKS                       R3 R4 K7 ["Rows"]
+       21 NAMECALL                         R3 R0 K5 ["getState"]
+       23 CALL                             R3 1 1
+       24 GETTABLEKS                       R3 R3 K6 ["Audio"]
+       26 GETTABLEKS                       R3 R3 K7 ["Rows"]
        28 GETUPVAL                         R4 2
        29 MOVE                             R5 R3
        30 NEWCLOSURE                       R6 P1
@@ -69,23 +69,23 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["UpdateLocations"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["UpdateLocations"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K9 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Framework"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R6 R0 K5 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Util"]
-       31 GETTABLEKS                       R4 R5 K11 ["findAllAssetIds"]
+       27 GETTABLEKS                       R4 R0 K5 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["findAllAssetIds"]
        33 CALL                             R3 1 1
        34 GETTABLEKS                       R4 R2 K12 ["Dash"]
        36 GETTABLEKS                       R5 R4 K13 ["map"]

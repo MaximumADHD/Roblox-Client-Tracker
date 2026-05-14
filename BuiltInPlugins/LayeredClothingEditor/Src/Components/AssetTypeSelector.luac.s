@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["Dictionary"]
-        3 GETTABLEKS                       R3 R4 K1 ["values"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Dictionary"]
+        3 GETTABLEKS                       R3 R3 K1 ["values"]
         5 GETTABLEKS                       R4 R0 K2 ["Attachments"]
         7 CALL                             R3 1 1
         8 LENGTH                           R2 R3
@@ -17,15 +17,15 @@ PROTO_1:
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R3 R2 K2 ["AssetType"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K3 ["Accessory"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K3 ["Accessory"]
        11 GETTABLE                         R4 R5 R3
        12 JUMPIFNOT                        R4 ; [+4]
        13 LOADK                            R4 K3 ["Accessory"]
        14 SETTABLEKS                       R4 R0 K4 ["initialRadioButtonListKey"]
        16 RETURN                           R0 0
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K5 ["Clothing"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K5 ["Clothing"]
        20 GETTABLE                         R4 R5 R3
        21 JUMPIFNOT                        R4 ; [+3]
        22 LOADK                            R4 K5 ["Clothing"]
@@ -35,9 +35,9 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
         2 GETTABLEKS                       R4 R3 K1 ["Localization"]
-        4 GETUPVAL                         R9 0
-        5 GETTABLEKS                       R8 R9 K2 ["Dictionary"]
-        7 GETTABLEKS                       R7 R8 K3 ["values"]
+        4 GETUPVAL                         R7 0
+        5 GETTABLEKS                       R7 R7 K2 ["Dictionary"]
+        7 GETTABLEKS                       R7 R7 K3 ["values"]
         9 GETTABLEKS                       R8 R2 K4 ["Attachments"]
        11 CALL                             R7 1 1
        12 LENGTH                           R6 R7
@@ -68,20 +68,20 @@ PROTO_3:
        11 MOVE                             R7 R3
        12 NAMECALL                         R4 R4 K4 ["getText"]
        14 CALL                             R4 3 1
-       15 GETUPVAL                         R7 0
-       16 GETTABLEKS                       R6 R7 K5 ["Accessory"]
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K5 ["Accessory"]
        18 GETTABLE                         R5 R6 R3
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R7 R8 K6 ["Clothing"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K6 ["Clothing"]
        22 GETTABLE                         R6 R7 R3
        23 JUMPIFNOT                        R5 ; [+17]
        24 MOVE                             R9 R3
        25 MOVE                             R10 R5
        26 NAMECALL                         R7 R0 K7 ["setInitialSelectionInfo"]
        28 CALL                             R7 3 0
-       29 GETUPVAL                         R9 1
-       30 GETTABLEKS                       R8 R9 K8 ["List"]
-       32 GETTABLEKS                       R7 R8 K9 ["find"]
+       29 GETUPVAL                         R7 1
+       30 GETTABLEKS                       R7 R7 K8 ["List"]
+       32 GETTABLEKS                       R7 R7 K9 ["find"]
        34 GETTABLEKS                       R8 R0 K10 ["accessoryItemList"]
        36 MOVE                             R9 R4
        37 CALL                             R7 2 1
@@ -92,9 +92,9 @@ PROTO_3:
        43 MOVE                             R10 R6
        44 NAMECALL                         R7 R0 K7 ["setInitialSelectionInfo"]
        46 CALL                             R7 3 0
-       47 GETUPVAL                         R9 1
-       48 GETTABLEKS                       R8 R9 K8 ["List"]
-       50 GETTABLEKS                       R7 R8 K9 ["find"]
+       47 GETUPVAL                         R7 1
+       48 GETTABLEKS                       R7 R7 K8 ["List"]
+       50 GETTABLEKS                       R7 R7 K9 ["find"]
        52 GETTABLEKS                       R8 R0 K12 ["clothingItemList"]
        54 MOVE                             R9 R4
        55 CALL                             R7 2 1
@@ -106,9 +106,9 @@ PROTO_3:
        64 GETTABLEKS                       R10 R2 K15 ["AssetSubType"]
        66 NAMECALL                         R7 R7 K4 ["getText"]
        68 CALL                             R7 3 1
-       69 GETUPVAL                         R10 1
-       70 GETTABLEKS                       R9 R10 K8 ["List"]
-       72 GETTABLEKS                       R8 R9 K9 ["find"]
+       69 GETUPVAL                         R8 1
+       70 GETTABLEKS                       R8 R8 K8 ["List"]
+       72 GETTABLEKS                       R8 R8 K9 ["find"]
        74 GETTABLEKS                       R9 R0 K14 ["attachmentListItems"]
        76 MOVE                             R10 R7
        77 CALL                             R8 2 1
@@ -137,8 +137,8 @@ PROTO_4:
        35 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["onClickAttachment"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["onClickAttachment"]
         3 GETUPVAL                         R3 1
         4 MOVE                             R4 R0
         5 GETUPVAL                         R5 2
@@ -175,15 +175,15 @@ PROTO_7:
         4 GETUPVAL                         R3 0
         5 MOVE                             R4 R2
         6 LOADK                            R5 K2 ["AssetType"]
-        7 GETUPVAL                         R7 1
-        8 GETTABLEKS                       R6 R7 K3 ["Accessory"]
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R6 R6 K3 ["Accessory"]
        10 CALL                             R3 3 1
        11 SETTABLEKS                       R3 R0 K4 ["accessoryItemList"]
        13 GETUPVAL                         R3 0
        14 MOVE                             R4 R2
        15 LOADK                            R5 K2 ["AssetType"]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K5 ["Clothing"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K5 ["Clothing"]
        19 CALL                             R3 3 1
        20 SETTABLEKS                       R3 R0 K6 ["clothingItemList"]
        22 NAMECALL                         R3 R0 K7 ["initWithPreviousAssetTypeInfo"]
@@ -202,39 +202,39 @@ PROTO_7:
        45 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["state"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
         3 GETTABLEKS                       R2 R1 K1 ["selectedAccessoryIndex"]
         5 GETTABLEKS                       R3 R1 K2 ["selectedClothingIndex"]
         7 GETUPVAL                         R4 0
         8 DUPTABLE                         R6 K5 [{"radioButtonListKey", "multiAttachmentAsset"}]
         9 JUMPIF                           R0 ; [+4]
-       10 GETUPVAL                         R8 1
-       11 GETTABLEKS                       R7 R8 K6 ["None"]
+       10 GETUPVAL                         R7 1
+       11 GETTABLEKS                       R7 R7 K6 ["None"]
        13 JUMP                             ; [+1]
        14 MOVE                             R7 R0
        15 SETTABLEKS                       R7 R6 K3 ["radioButtonListKey"]
-       17 GETUPVAL                         R8 1
-       18 GETTABLEKS                       R7 R8 K6 ["None"]
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R7 R7 K6 ["None"]
        20 SETTABLEKS                       R7 R6 K4 ["multiAttachmentAsset"]
        22 NAMECALL                         R4 R4 K7 ["setState"]
        24 CALL                             R4 2 0
        25 JUMPIFNOTEQKS                    R0 K8 ["Accessory"] ; [+12]
        27 JUMPIFNOT                        R2 ; [+10]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R4 R5 K9 ["onClickAccessoryType"]
-       31 GETUPVAL                         R7 0
-       32 GETTABLEKS                       R6 R7 K10 ["accessoryItemList"]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K9 ["onClickAccessoryType"]
+       31 GETUPVAL                         R6 0
+       32 GETTABLEKS                       R6 R6 K10 ["accessoryItemList"]
        34 GETTABLE                         R5 R6 R2
        35 MOVE                             R6 R2
        36 CALL                             R4 2 0
        37 RETURN                           R0 0
        38 JUMPIFNOTEQKS                    R0 K11 ["Clothing"] ; [+11]
        40 JUMPIFNOT                        R3 ; [+9]
-       41 GETUPVAL                         R5 0
-       42 GETTABLEKS                       R4 R5 K12 ["onClickClothingType"]
-       44 GETUPVAL                         R7 0
-       45 GETTABLEKS                       R6 R7 K13 ["clothingItemList"]
+       41 GETUPVAL                         R4 0
+       42 GETTABLEKS                       R4 R4 K12 ["onClickClothingType"]
+       44 GETUPVAL                         R6 0
+       45 GETTABLEKS                       R6 R6 K13 ["clothingItemList"]
        47 GETTABLE                         R5 R6 R3
        48 MOVE                             R6 R3
        49 CALL                             R4 2 0
@@ -243,20 +243,20 @@ PROTO_8:
 PROTO_9:
         0 JUMPIF                           R1 ; [+1]
         1 RETURN                           R0 0
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["props"]
-        5 GETTABLEKS                       R3 R4 K1 ["EditingItemContext"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["props"]
+        5 GETTABLEKS                       R3 R3 K1 ["EditingItemContext"]
         7 NAMECALL                         R3 R3 K2 ["getItem"]
         9 CALL                             R3 1 1
        10 JUMPIF                           R3 ; [+1]
        11 RETURN                           R0 0
        12 GETTABLE                         R4 R2 R1
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K0 ["props"]
-       16 GETTABLEKS                       R5 R6 K3 ["SetAccessoryTypeInfo"]
-       18 GETUPVAL                         R8 1
-       19 GETTABLEKS                       R7 R8 K4 ["Dictionary"]
-       21 GETTABLEKS                       R6 R7 K5 ["join"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K0 ["props"]
+       16 GETTABLEKS                       R5 R5 K3 ["SetAccessoryTypeInfo"]
+       18 GETUPVAL                         R6 1
+       19 GETTABLEKS                       R6 R6 K4 ["Dictionary"]
+       21 GETTABLEKS                       R6 R6 K5 ["join"]
        23 MOVE                             R7 R4
        24 DUPTABLE                         R8 K8 [{"AssetType", "AssetSubType"}]
        25 SETTABLEKS                       R0 R8 K6 ["AssetType"]
@@ -270,16 +270,16 @@ PROTO_9:
        37 NAMECALL                         R5 R5 K11 ["getExistingAttachmentPoint"]
        39 CALL                             R5 4 1
        40 JUMPIFNOT                        R5 ; [+7]
-       41 GETUPVAL                         R8 0
-       42 GETTABLEKS                       R7 R8 K0 ["props"]
-       44 GETTABLEKS                       R6 R7 K12 ["SetAttachmentPoint"]
+       41 GETUPVAL                         R6 0
+       42 GETTABLEKS                       R6 R6 K0 ["props"]
+       44 GETTABLEKS                       R6 R6 K12 ["SetAttachmentPoint"]
        46 MOVE                             R7 R5
        47 CALL                             R6 1 0
        48 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["props"]
         3 JUMPIF                           R2 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R4 1
@@ -288,8 +288,8 @@ PROTO_10:
         9 MOVE                             R7 R1
        10 GETTABLEKS                       R8 R2 K3 ["Attachments"]
        12 CALL                             R4 4 1
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K4 ["setAttachment"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K4 ["setAttachment"]
        16 MOVE                             R6 R0
        17 MOVE                             R7 R4
        18 GETTABLEKS                       R8 R2 K3 ["Attachments"]
@@ -297,18 +297,18 @@ PROTO_10:
        21 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["state"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["state"]
         6 GETTABLEKS                       R4 R2 K2 ["Localization"]
         8 JUMPIFNOT                        R0 ; [+1]
         9 JUMPIF                           R1 ; [+1]
        10 RETURN                           R0 0
        11 GETTABLE                         R5 R1 R0
-       12 GETUPVAL                         R10 1
-       13 GETTABLEKS                       R9 R10 K3 ["Dictionary"]
-       15 GETTABLEKS                       R8 R9 K4 ["values"]
+       12 GETUPVAL                         R8 1
+       13 GETTABLEKS                       R8 R8 K3 ["Dictionary"]
+       15 GETTABLEKS                       R8 R8 K4 ["values"]
        17 GETTABLEKS                       R9 R5 K5 ["Attachments"]
        19 CALL                             R8 1 1
        20 LENGTH                           R7 R8
@@ -320,16 +320,16 @@ PROTO_11:
        27 GETIMPORT                        R6 K7 [next]
        29 GETTABLEKS                       R7 R5 K5 ["Attachments"]
        31 CALL                             R6 1 1
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K8 ["setAttachment"]
+       32 GETUPVAL                         R7 0
+       33 GETTABLEKS                       R7 R7 K8 ["setAttachment"]
        35 MOVE                             R8 R0
        36 MOVE                             R9 R6
        37 GETTABLEKS                       R10 R5 K5 ["Attachments"]
        39 CALL                             R7 3 0
        40 GETUPVAL                         R7 0
        41 DUPTABLE                         R9 K10 [{"multiAttachmentAsset"}]
-       42 GETUPVAL                         R11 2
-       43 GETTABLEKS                       R10 R11 K11 ["None"]
+       42 GETUPVAL                         R10 2
+       43 GETTABLEKS                       R10 R10 K11 ["None"]
        45 SETTABLEKS                       R10 R9 K9 ["multiAttachmentAsset"]
        47 NAMECALL                         R7 R7 K12 ["setState"]
        49 CALL                             R7 2 0
@@ -350,31 +350,31 @@ PROTO_11:
        69 NAMECALL                         R7 R7 K12 ["setState"]
        71 CALL                             R7 2 0
        72 JUMPIFNOT                        R6 ; [+10]
-       73 GETUPVAL                         R8 0
-       74 GETTABLEKS                       R7 R8 K16 ["onClickAttachment"]
+       73 GETUPVAL                         R7 0
+       74 GETTABLEKS                       R7 R7 K16 ["onClickAttachment"]
        76 MOVE                             R8 R0
-       77 GETUPVAL                         R11 0
-       78 GETTABLEKS                       R10 R11 K15 ["attachmentListItems"]
+       77 GETUPVAL                         R10 0
+       78 GETTABLEKS                       R10 R10 K15 ["attachmentListItems"]
        80 GETTABLE                         R9 R10 R6
        81 MOVE                             R10 R5
        82 CALL                             R7 3 0
        83 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETUPVAL                         R3 1
         4 GETTABLEKS                       R4 R2 K1 ["Localization"]
         6 LOADK                            R5 K2 ["AssetType"]
         7 MOVE                             R6 R0
-        8 GETUPVAL                         R8 2
-        9 GETTABLEKS                       R7 R8 K3 ["Accessory"]
+        8 GETUPVAL                         R7 2
+        9 GETTABLEKS                       R7 R7 K3 ["Accessory"]
        11 CALL                             R3 4 1
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["onClickAssetType"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K4 ["onClickAssetType"]
        15 MOVE                             R5 R3
-       16 GETUPVAL                         R7 2
-       17 GETTABLEKS                       R6 R7 K3 ["Accessory"]
+       16 GETUPVAL                         R6 2
+       17 GETTABLEKS                       R6 R6 K3 ["Accessory"]
        19 CALL                             R4 2 0
        20 GETUPVAL                         R4 0
        21 DUPTABLE                         R6 K6 [{"selectedAccessoryIndex"}]
@@ -384,20 +384,20 @@ PROTO_12:
        27 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETUPVAL                         R3 1
         4 GETTABLEKS                       R4 R2 K1 ["Localization"]
         6 LOADK                            R5 K2 ["AssetType"]
         7 MOVE                             R6 R0
-        8 GETUPVAL                         R8 2
-        9 GETTABLEKS                       R7 R8 K3 ["Clothing"]
+        8 GETUPVAL                         R7 2
+        9 GETTABLEKS                       R7 R7 K3 ["Clothing"]
        11 CALL                             R3 4 1
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["onClickAssetType"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K4 ["onClickAssetType"]
        15 MOVE                             R5 R3
-       16 GETUPVAL                         R7 2
-       17 GETTABLEKS                       R6 R7 K3 ["Clothing"]
+       16 GETUPVAL                         R6 2
+       17 GETTABLEKS                       R6 R6 K3 ["Clothing"]
        19 CALL                             R4 2 0
        20 GETUPVAL                         R4 0
        21 DUPTABLE                         R6 K6 [{"selectedClothingIndex"}]
@@ -458,8 +458,8 @@ PROTO_15:
         4 GETTABLEKS                       R3 R1 K2 ["LayoutOrder"]
         6 GETTABLEKS                       R4 R1 K3 ["Localization"]
         8 GETTABLEKS                       R5 R2 K4 ["radioButtonListKey"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["new"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["new"]
        13 CALL                             R6 0 1
        14 NAMECALL                         R7 R0 K6 ["getAssetTypeDropdownProps"]
        16 CALL                             R7 1 1
@@ -476,16 +476,16 @@ PROTO_15:
        30 GETTABLEKS                       R10 R0 K13 ["onRadioButtonClick"]
        32 SETTABLEKS                       R10 R9 K9 ["OnRadioButtonClick"]
        34 SETTABLEKS                       R5 R9 K10 ["InitialSelectedKey"]
-       36 GETUPVAL                         R12 3
-       37 GETTABLEKS                       R11 R12 K14 ["Dictionary"]
-       39 GETTABLEKS                       R10 R11 K15 ["join"]
+       36 GETUPVAL                         R10 3
+       37 GETTABLEKS                       R10 R10 K14 ["Dictionary"]
+       39 GETTABLEKS                       R10 R10 K15 ["join"]
        41 MOVE                             R11 R9
        42 MOVE                             R12 R7
        43 MOVE                             R13 R8
        44 CALL                             R10 3 1
        45 MOVE                             R9 R10
-       46 GETUPVAL                         R11 4
-       47 GETTABLEKS                       R10 R11 K16 ["createElement"]
+       46 GETUPVAL                         R10 4
+       47 GETTABLEKS                       R10 R10 K16 ["createElement"]
        49 GETUPVAL                         R11 5
        50 MOVE                             R12 R9
        51 CALL                             R10 2 -1
@@ -528,37 +528,37 @@ PROTO_19:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Cryo"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Cryo"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K9 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K9 ["Framework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K10 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K11 ["withContext"]
        41 GETIMPORT                        R7 K4 [require]
-       43 GETTABLEKS                       R9 R0 K5 ["Packages"]
-       45 GETTABLEKS                       R8 R9 K12 ["AvatarToolsShared"]
+       43 GETTABLEKS                       R8 R0 K5 ["Packages"]
+       45 GETTABLEKS                       R8 R8 K12 ["AvatarToolsShared"]
        47 CALL                             R7 1 1
        48 GETTABLEKS                       R8 R7 K13 ["Components"]
        50 GETTABLEKS                       R9 R8 K14 ["FlowScreenLayout"]
        52 GETTABLEKS                       R10 R8 K15 ["RadioButtonListDropdown"]
-       54 GETTABLEKS                       R12 R7 K16 ["Util"]
-       56 GETTABLEKS                       R11 R12 K17 ["AccessoryAndBodyToolShared"]
+       54 GETTABLEKS                       R11 R7 K16 ["Util"]
+       56 GETTABLEKS                       R11 R11 K17 ["AccessoryAndBodyToolShared"]
        58 GETTABLEKS                       R12 R11 K18 ["AssetTypeAttachmentInfo"]
        60 GETTABLEKS                       R13 R11 K19 ["AccessoryUtil"]
        62 GETTABLEKS                       R14 R11 K20 ["Constants"]
@@ -567,32 +567,32 @@ MAIN:
        68 GETTABLEKS                       R17 R15 K23 ["SelectInput"]
        70 GETTABLEKS                       R18 R15 K24 ["TextLabel"]
        72 GETIMPORT                        R19 K4 [require]
-       74 GETTABLEKS                       R22 R0 K25 ["Src"]
-       76 GETTABLEKS                       R21 R22 K26 ["Actions"]
-       78 GETTABLEKS                       R20 R21 K27 ["SetAccessoryTypeInfo"]
+       74 GETTABLEKS                       R20 R0 K25 ["Src"]
+       76 GETTABLEKS                       R20 R20 K26 ["Actions"]
+       78 GETTABLEKS                       R20 R20 K27 ["SetAccessoryTypeInfo"]
        80 CALL                             R19 1 1
        81 GETIMPORT                        R20 K4 [require]
-       83 GETTABLEKS                       R23 R0 K25 ["Src"]
-       85 GETTABLEKS                       R22 R23 K26 ["Actions"]
-       87 GETTABLEKS                       R21 R22 K28 ["SetAttachmentPoint"]
+       83 GETTABLEKS                       R21 R0 K25 ["Src"]
+       85 GETTABLEKS                       R21 R21 K26 ["Actions"]
+       87 GETTABLEKS                       R21 R21 K28 ["SetAttachmentPoint"]
        89 CALL                             R20 1 1
        90 GETIMPORT                        R21 K4 [require]
-       92 GETTABLEKS                       R24 R0 K25 ["Src"]
-       94 GETTABLEKS                       R23 R24 K16 ["Util"]
-       96 GETTABLEKS                       R22 R23 K29 ["findLocalizedStringKey"]
+       92 GETTABLEKS                       R22 R0 K25 ["Src"]
+       94 GETTABLEKS                       R22 R22 K16 ["Util"]
+       96 GETTABLEKS                       R22 R22 K29 ["findLocalizedStringKey"]
        98 CALL                             R21 1 1
        99 GETIMPORT                        R22 K4 [require]
-      101 GETTABLEKS                       R25 R0 K25 ["Src"]
-      103 GETTABLEKS                       R24 R25 K16 ["Util"]
-      105 GETTABLEKS                       R23 R24 K30 ["makeDropdownList"]
+      101 GETTABLEKS                       R23 R0 K25 ["Src"]
+      103 GETTABLEKS                       R23 R23 K16 ["Util"]
+      105 GETTABLEKS                       R23 R23 K30 ["makeDropdownList"]
       107 CALL                             R22 1 1
       108 GETIMPORT                        R23 K4 [require]
-      110 GETTABLEKS                       R26 R0 K25 ["Src"]
-      112 GETTABLEKS                       R25 R26 K16 ["Util"]
-      114 GETTABLEKS                       R24 R25 K31 ["makeRadioButtonList"]
+      110 GETTABLEKS                       R24 R0 K25 ["Src"]
+      112 GETTABLEKS                       R24 R24 K16 ["Util"]
+      114 GETTABLEKS                       R24 R24 K31 ["makeRadioButtonList"]
       116 CALL                             R23 1 1
-      117 GETTABLEKS                       R25 R7 K32 ["Contexts"]
-      119 GETTABLEKS                       R24 R25 K33 ["EditingItemContext"]
+      117 GETTABLEKS                       R24 R7 K32 ["Contexts"]
+      119 GETTABLEKS                       R24 R24 K33 ["EditingItemContext"]
       121 GETTABLEKS                       R25 R4 K16 ["Util"]
       123 GETTABLEKS                       R26 R25 K34 ["Typecheck"]
       125 GETTABLEKS                       R27 R25 K35 ["LayoutOrderIterator"]

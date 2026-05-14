@@ -1,11 +1,11 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["Status"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["Status"]
         5 GETTABLEKS                       R2 R1 K2 ["Tracks"]
-        7 NAMECALL                         R4 R0 K0 ["getState"]
-        9 CALL                             R4 1 1
-       10 GETTABLEKS                       R3 R4 K3 ["AnimationData"]
+        7 NAMECALL                         R3 R0 K0 ["getState"]
+        9 CALL                             R3 1 1
+       10 GETTABLEKS                       R3 R3 K3 ["AnimationData"]
        12 GETTABLEKS                       R4 R1 K4 ["SelectedTracks"]
        14 JUMPIFNOT                        R4 ; [+4]
        15 GETUPVAL                         R5 0
@@ -13,8 +13,8 @@ PROTO_0:
        17 CALL                             R5 1 1
        18 JUMPIFNOT                        R5 ; [+1]
        19 RETURN                           R0 0
-       20 GETUPVAL                         R6 1
-       21 GETTABLEKS                       R5 R6 K5 ["isChannelAnimation"]
+       20 GETUPVAL                         R5 1
+       21 GETTABLEKS                       R5 R5 K5 ["isChannelAnimation"]
        23 MOVE                             R6 R3
        24 CALL                             R5 1 1
        25 JUMPIFNOT                        R5 ; [+5]
@@ -84,8 +84,8 @@ PROTO_0:
       107 JUMPIFNOT                        R15 ; [+7]
       108 GETUPVAL                         R16 2
       109 ADD                              R15 R15 R16
-      110 GETTABLE                         R17 R2 R15
-      111 GETTABLEKS                       R16 R17 K8 ["Name"]
+      110 GETTABLE                         R16 R2 R15
+      111 GETTABLEKS                       R16 R16 K8 ["Name"]
       113 LOADB                            R17 1
       114 SETTABLE                         R17 R5 R16
       115 FORGLOOP                         R9 2 [inext] ; [-11]
@@ -124,13 +124,13 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Thunks"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Thunks"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetSelectedTracks"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R0 K4 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Util"]
+       16 GETTABLEKS                       R3 R0 K4 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETIMPORT                        R4 K7 [require]
        22 GETTABLEKS                       R5 R3 K10 ["isEmpty"]
        24 CALL                             R4 1 1

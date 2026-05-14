@@ -5,11 +5,11 @@ PROTO_0:
         6 GETTABLEKS                       R4 R1 K3 ["LayoutOrder"]
         8 GETTABLEKS                       R5 R1 K4 ["Localization"]
        10 GETTABLEKS                       R6 R1 K5 ["Stylizer"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["new"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["new"]
        15 CALL                             R7 0 1
-       16 GETUPVAL                         R9 1
-       17 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       16 GETUPVAL                         R8 1
+       17 GETTABLEKS                       R8 R8 K7 ["createElement"]
        19 GETUPVAL                         R9 2
        20 DUPTABLE                         R10 K14 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "LayoutOrder", "AutomaticSize", "Spacing", "Padding"}]
        21 GETIMPORT                        R11 K18 [Enum.FillDirection.Horizontal]
@@ -26,8 +26,8 @@ PROTO_0:
        43 GETTABLEKS                       R11 R6 K13 ["Padding"]
        45 SETTABLEKS                       R11 R10 K13 ["Padding"]
        47 DUPTABLE                         R11 K27 [{"Cancel", "Continue"}]
-       48 GETUPVAL                         R13 1
-       49 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       48 GETUPVAL                         R12 1
+       49 GETTABLEKS                       R12 R12 K7 ["createElement"]
        51 GETUPVAL                         R13 3
        52 DUPTABLE                         R14 K32 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
        53 LOADK                            R15 K33 ["Round"]
@@ -45,8 +45,8 @@ PROTO_0:
        72 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
        74 CALL                             R12 2 1
        75 SETTABLEKS                       R12 R11 K25 ["Cancel"]
-       77 GETUPVAL                         R13 1
-       78 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       77 GETUPVAL                         R12 1
+       78 GETTABLEKS                       R12 R12 K7 ["createElement"]
        80 GETUPVAL                         R13 3
        81 DUPTABLE                         R14 K32 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
        82 LOADK                            R15 K38 ["RoundPrimary"]
@@ -74,12 +74,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R1 K10 ["UI"]

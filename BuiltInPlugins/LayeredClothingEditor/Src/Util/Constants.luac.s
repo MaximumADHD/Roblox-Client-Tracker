@@ -178,16 +178,16 @@ MAIN:
       251 MOVE                             R8 R9
       252 SETTABLEKS                       R8 R7 K96 ["PUBLISHING"]
       254 NEWTABLE                         R7 4 0
-      256 GETTABLEKS                       R9 R0 K20 ["EDIT_MODE"]
-      258 GETTABLEKS                       R8 R9 K51 ["Inner"]
+      256 GETTABLEKS                       R8 R0 K20 ["EDIT_MODE"]
+      258 GETTABLEKS                       R8 R8 K51 ["Inner"]
       260 LOADK                            R9 K51 ["Inner"]
       261 SETTABLE                         R9 R7 R8
-      262 GETTABLEKS                       R9 R0 K20 ["EDIT_MODE"]
-      264 GETTABLEKS                       R8 R9 K50 ["Outer"]
+      262 GETTABLEKS                       R8 R0 K20 ["EDIT_MODE"]
+      264 GETTABLEKS                       R8 R8 K50 ["Outer"]
       266 LOADK                            R9 K50 ["Outer"]
       267 SETTABLE                         R9 R7 R8
-      268 GETTABLEKS                       R9 R0 K20 ["EDIT_MODE"]
-      270 GETTABLEKS                       R8 R9 K52 ["Mesh"]
+      268 GETTABLEKS                       R8 R0 K20 ["EDIT_MODE"]
+      270 GETTABLEKS                       R8 R8 K52 ["Mesh"]
       272 LOADK                            R9 K52 ["Mesh"]
       273 SETTABLE                         R9 R7 R8
       274 SETTABLEKS                       R7 R0 K97 ["EDIT_MODE_KEY_TO_STRING"]

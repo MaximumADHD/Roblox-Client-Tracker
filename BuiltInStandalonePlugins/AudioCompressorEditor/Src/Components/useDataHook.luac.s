@@ -280,15 +280,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useCallback"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]
        18 GETTABLEKS                       R4 R1 K10 ["useState"]
        20 GETIMPORT                        R5 K5 [require]
-       22 GETTABLEKS                       R7 R0 K11 ["Src"]
-       24 GETTABLEKS                       R6 R7 K12 ["Types"]
+       22 GETTABLEKS                       R6 R0 K11 ["Src"]
+       24 GETTABLEKS                       R6 R6 K12 ["Types"]
        26 CALL                             R5 1 1
        27 DUPCLOSURE                       R6 K13 [PROTO_8]
        28 CAPTURE                          VAL R4

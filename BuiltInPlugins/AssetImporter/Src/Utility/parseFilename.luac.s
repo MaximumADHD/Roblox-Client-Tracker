@@ -16,8 +16,8 @@ PROTO_0:
        16 LOADNIL                          R6
        17 LOADNIL                          R7
        18 FORGPREP                         R5
-       19 GETUPVAL                         R11 1
-       20 GETTABLEKS                       R10 R11 K4 ["includes"]
+       19 GETUPVAL                         R10 1
+       20 GETTABLEKS                       R10 R10 K4 ["includes"]
        22 MOVE                             R11 R9
        23 MOVE                             R12 R4
        24 CALL                             R10 2 1
@@ -27,9 +27,9 @@ PROTO_0:
        28 RETURN                           R10 2
        29 FORGLOOP                         R5 2 ; [-11]
        31 MOVE                             R5 R2
-       32 GETUPVAL                         R8 2
-       33 GETTABLEKS                       R7 R8 K5 ["FileType"]
-       35 GETTABLEKS                       R6 R7 K6 ["None"]
+       32 GETUPVAL                         R6 2
+       33 GETTABLEKS                       R6 R6 K5 ["FileType"]
+       35 GETTABLEKS                       R6 R6 K6 ["None"]
        37 RETURN                           R5 2
 
 MAIN:
@@ -39,12 +39,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 NEWTABLE                         R3 4 0
        23 NEWTABLE                         R4 0 6

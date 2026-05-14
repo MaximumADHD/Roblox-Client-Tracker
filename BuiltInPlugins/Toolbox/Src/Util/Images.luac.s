@@ -5,20 +5,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["wrapStrictTable"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["wrapStrictTable"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["AssetConfigConstants"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["AssetConfigConstants"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R7 R0 K6 ["Src"]
-       29 GETTABLEKS                       R6 R7 K7 ["Util"]
-       31 GETTABLEKS                       R5 R6 K10 ["SharedFlags"]
-       33 GETTABLEKS                       R4 R5 K11 ["getFFlagToolboxEnableAssetRows"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Util"]
+       31 GETTABLEKS                       R4 R4 K10 ["SharedFlags"]
+       33 GETTABLEKS                       R4 R4 K11 ["getFFlagToolboxEnableAssetRows"]
        35 CALL                             R3 1 1
        36 NEWTABLE                         R4 128 0
        38 LOADK                            R5 K12 ["rbxasset://textures/StudioToolbox/RoundedBackground.png"]
@@ -194,28 +194,28 @@ MAIN:
       288 LOADK                            R5 K170 ["rbxasset://textures/StudioSharedUI/TransparentWhiteImagePlaceholder.png"]
       289 SETTABLEKS                       R5 R4 K171 ["PLACEHOLDER_ICON"]
       291 NEWTABLE                         R5 8 0
-      293 GETTABLEKS                       R7 R2 K172 ["ASSET_STATUS"]
-      295 GETTABLEKS                       R6 R7 K173 ["ReviewPending"]
+      293 GETTABLEKS                       R6 R2 K172 ["ASSET_STATUS"]
+      295 GETTABLEKS                       R6 R6 K173 ["ReviewPending"]
       297 LOADK                            R7 K174 ["rbxasset://textures/StudioToolbox/AssetPreview/Pending.png"]
       298 SETTABLE                         R7 R5 R6
-      299 GETTABLEKS                       R7 R2 K172 ["ASSET_STATUS"]
-      301 GETTABLEKS                       R6 R7 K175 ["Moderated"]
+      299 GETTABLEKS                       R6 R2 K172 ["ASSET_STATUS"]
+      301 GETTABLEKS                       R6 R6 K175 ["Moderated"]
       303 LOADK                            R7 K176 ["rbxasset://textures/StudioToolbox/AssetPreview/Rejected.png"]
       304 SETTABLE                         R7 R5 R6
-      305 GETTABLEKS                       R7 R2 K172 ["ASSET_STATUS"]
-      307 GETTABLEKS                       R6 R7 K177 ["ReviewApproved"]
+      305 GETTABLEKS                       R6 R2 K172 ["ASSET_STATUS"]
+      307 GETTABLEKS                       R6 R6 K177 ["ReviewApproved"]
       309 LOADK                            R7 K178 ["rbxasset://textures/StudioToolbox/AssetPreview/ReadyforSale.png"]
       310 SETTABLE                         R7 R5 R6
-      311 GETTABLEKS                       R7 R2 K172 ["ASSET_STATUS"]
-      313 GETTABLEKS                       R6 R7 K179 ["OnSale"]
+      311 GETTABLEKS                       R6 R2 K172 ["ASSET_STATUS"]
+      313 GETTABLEKS                       R6 R6 K179 ["OnSale"]
       315 LOADK                            R7 K180 ["rbxasset://textures/StudioToolbox/AssetPreview/OnSale.png"]
       316 SETTABLE                         R7 R5 R6
-      317 GETTABLEKS                       R7 R2 K172 ["ASSET_STATUS"]
-      319 GETTABLEKS                       R6 R7 K181 ["OffSale"]
+      317 GETTABLEKS                       R6 R2 K172 ["ASSET_STATUS"]
+      319 GETTABLEKS                       R6 R6 K181 ["OffSale"]
       321 LOADK                            R7 K182 ["rbxasset://textures/StudioToolbox/AssetPreview/OffSale.png"]
       322 SETTABLE                         R7 R5 R6
-      323 GETTABLEKS                       R7 R2 K172 ["ASSET_STATUS"]
-      325 GETTABLEKS                       R6 R7 K183 ["Free"]
+      323 GETTABLEKS                       R6 R2 K172 ["ASSET_STATUS"]
+      325 GETTABLEKS                       R6 R6 K183 ["Free"]
       327 LOADK                            R7 K180 ["rbxasset://textures/StudioToolbox/AssetPreview/OnSale.png"]
       328 SETTABLE                         R7 R5 R6
       329 SETTABLEKS                       R5 R4 K184 ["AssetStatus"]

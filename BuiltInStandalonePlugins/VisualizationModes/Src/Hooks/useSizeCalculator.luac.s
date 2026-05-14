@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+4]
-        2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R0 R1 K0 ["AbsoluteSize"]
+        2 GETUPVAL                         R0 0
+        3 GETTABLEKS                       R0 R0 K0 ["AbsoluteSize"]
         5 RETURN                           R0 1
         6 GETIMPORT                        R0 K3 [Vector2.zero]
         8 RETURN                           R0 1
@@ -15,8 +15,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["AbsoluteSize"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["AbsoluteSize"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
@@ -50,23 +50,23 @@ PROTO_4:
        25 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 LOADNIL                          R2
         4 CALL                             R1 1 2
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["useState"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["useState"]
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          VAL R1
        10 CALL                             R3 1 2
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K1 ["useCallback"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K1 ["useCallback"]
        14 NEWCLOSURE                       R6 P1
        15 CAPTURE                          VAL R2
        16 NEWTABLE                         R7 0 0
        18 CALL                             R5 2 1
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K2 ["useEffect"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K2 ["useEffect"]
        22 NEWCLOSURE                       R7 P2
        23 CAPTURE                          VAL R1
        24 CAPTURE                          VAL R4
@@ -87,8 +87,8 @@ PROTO_5:
        48 SUB                              R9 R10 R11
        49 GETTABLEKS                       R10 R0 K11 ["InnerPadding"]
        51 SUB                              R8 R9 R10
-       52 GETTABLEKS                       R10 R0 K9 ["Padding"]
-       54 GETTABLEKS                       R9 R10 K12 ["Y"]
+       52 GETTABLEKS                       R9 R0 K9 ["Padding"]
+       54 GETTABLEKS                       R9 R9 K12 ["Y"]
        56 SUB                              R7 R8 R9
        57 GETTABLEKS                       R9 R3 K12 ["Y"]
        59 LOADN                            R10 0
@@ -133,8 +133,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_5]
        15 CAPTURE                          VAL R1

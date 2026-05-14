@@ -124,21 +124,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Rodux"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Rodux"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["join"]
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Types"]
-       29 GETTABLEKS                       R5 R6 K12 ["QueuedSession"]
+       25 GETTABLEKS                       R5 R0 K10 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Types"]
+       29 GETTABLEKS                       R5 R5 K12 ["QueuedSession"]
        31 CALL                             R4 1 1
-       32 GETTABLEKS                       R6 R0 K10 ["Src"]
-       34 GETTABLEKS                       R5 R6 K13 ["Actions"]
+       32 GETTABLEKS                       R5 R0 K10 ["Src"]
+       34 GETTABLEKS                       R5 R5 K13 ["Actions"]
        36 GETIMPORT                        R6 K5 [require]
        38 GETTABLEKS                       R7 R5 K14 ["ResetState"]
        40 CALL                             R6 1 1

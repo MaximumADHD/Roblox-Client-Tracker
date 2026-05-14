@@ -7,8 +7,8 @@ PROTO_0:
         6 RETURN                           R2 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["StudioLocaleId"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["StudioLocaleId"]
         3 GETUPVAL                         R4 1
         4 GETTABLE                         R3 R4 R1
         5 ORK                              R2 R3 K1 ["."]
@@ -19,8 +19,8 @@ PROTO_1:
        10 RETURN                           R3 -1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["round"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["round"]
         3 MOVE                             R3 R0
         4 LOADN                            R4 3
         5 CALL                             R2 2 -1
@@ -34,23 +34,23 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETIMPORT                        R3 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       17 CALL                             R3 1 1
-       18 GETTABLEKS                       R2 R3 K7 ["Util"]
-       20 GETTABLEKS                       R1 R2 K8 ["Math"]
-       22 GETIMPORT                        R3 K4 [require]
-       24 GETIMPORT                        R6 K1 [script]
-       26 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       28 GETTABLEKS                       R4 R5 K9 ["delimitersByLocaleId"]
-       30 CALL                             R3 1 1
-       31 GETTABLEKS                       R2 R3 K10 ["decimalDelimiterByLocale"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R1 R1 K7 ["Util"]
+       20 GETTABLEKS                       R1 R1 K8 ["Math"]
+       22 GETIMPORT                        R2 K4 [require]
+       24 GETIMPORT                        R3 K1 [script]
+       26 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       28 GETTABLEKS                       R3 R3 K9 ["delimitersByLocaleId"]
+       30 CALL                             R2 1 1
+       31 GETTABLEKS                       R2 R2 K10 ["decimalDelimiterByLocale"]
        33 GETIMPORT                        R3 K12 [game]
        35 LOADK                            R5 K13 ["StudioService"]
        36 NAMECALL                         R3 R3 K14 ["GetService"]

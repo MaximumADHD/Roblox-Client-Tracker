@@ -15,8 +15,8 @@ PROTO_1:
         4 GETTABLEKS                       R3 R1 K2 ["progress"]
         6 GETTABLEKS                       R4 R1 K3 ["progressText"]
         8 GETTABLEKS                       R5 R1 K4 ["progressTitle"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 LOADK                            R7 K6 ["Frame"]
        14 DUPTABLE                         R8 K10 [{"BackgroundTransparency", "Position", "Size"}]
        15 LOADN                            R9 1
@@ -37,8 +37,8 @@ PROTO_1:
        34 SETTABLEKS                       R9 R8 K9 ["Size"]
        36 DUPTABLE                         R9 K20 [{"ProgressTitle", "ProgressMessage", "LoadingBar", "ProgressPercentText", "TimeWarning"}]
        37 JUMPIFNOT                        R5 ; [+40]
-       38 GETUPVAL                         R11 0
-       39 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       38 GETUPVAL                         R10 0
+       39 GETTABLEKS                       R10 R10 K5 ["createElement"]
        41 GETUPVAL                         R11 1
        42 DUPTABLE                         R12 K25 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
        43 GETIMPORT                        R13 K13 [UDim2.new]
@@ -56,8 +56,8 @@ PROTO_1:
        58 CALL                             R13 4 1
        59 SETTABLEKS                       R13 R12 K9 ["Size"]
        61 SETTABLEKS                       R5 R12 K21 ["Text"]
-       63 GETUPVAL                         R14 2
-       64 GETTABLEKS                       R13 R14 K26 ["FONT_SIZE_TITLE"]
+       63 GETUPVAL                         R13 2
+       64 GETTABLEKS                       R13 R13 K26 ["FONT_SIZE_TITLE"]
        66 SETTABLEKS                       R13 R12 K22 ["TextSize"]
        68 GETIMPORT                        R13 K29 [Enum.TextXAlignment.Center]
        70 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
@@ -68,8 +68,8 @@ PROTO_1:
        78 LOADNIL                          R10
        79 SETTABLEKS                       R10 R9 K15 ["ProgressTitle"]
        81 JUMPIFNOT                        R4 ; [+40]
-       82 GETUPVAL                         R11 0
-       83 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       82 GETUPVAL                         R10 0
+       83 GETTABLEKS                       R10 R10 K5 ["createElement"]
        85 GETUPVAL                         R11 1
        86 DUPTABLE                         R12 K25 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
        87 GETIMPORT                        R13 K13 [UDim2.new]
@@ -87,8 +87,8 @@ PROTO_1:
       102 CALL                             R13 4 1
       103 SETTABLEKS                       R13 R12 K9 ["Size"]
       105 SETTABLEKS                       R4 R12 K21 ["Text"]
-      107 GETUPVAL                         R14 2
-      108 GETTABLEKS                       R13 R14 K26 ["FONT_SIZE_TITLE"]
+      107 GETUPVAL                         R13 2
+      108 GETTABLEKS                       R13 R13 K26 ["FONT_SIZE_TITLE"]
       110 SETTABLEKS                       R13 R12 K22 ["TextSize"]
       112 GETIMPORT                        R13 K29 [Enum.TextXAlignment.Center]
       114 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
@@ -98,8 +98,8 @@ PROTO_1:
       121 JUMP                             ; [+1]
       122 LOADNIL                          R10
       123 SETTABLEKS                       R10 R9 K16 ["ProgressMessage"]
-      125 GETUPVAL                         R11 0
-      126 GETTABLEKS                       R10 R11 K5 ["createElement"]
+      125 GETUPVAL                         R10 0
+      126 GETTABLEKS                       R10 R10 K5 ["createElement"]
       128 GETUPVAL                         R11 3
       129 DUPTABLE                         R12 K32 [{"Progress", "Size"}]
       130 SETTABLEKS                       R3 R12 K31 ["Progress"]
@@ -112,8 +112,8 @@ PROTO_1:
       139 SETTABLEKS                       R13 R12 K9 ["Size"]
       141 CALL                             R10 2 1
       142 SETTABLEKS                       R10 R9 K17 ["LoadingBar"]
-      144 GETUPVAL                         R11 0
-      145 GETTABLEKS                       R10 R11 K5 ["createElement"]
+      144 GETUPVAL                         R10 0
+      145 GETTABLEKS                       R10 R10 K5 ["createElement"]
       147 GETUPVAL                         R11 1
       148 DUPTABLE                         R12 K34 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
       149 GETIMPORT                        R13 K13 [UDim2.new]
@@ -141,11 +141,11 @@ PROTO_1:
       177 NAMECALL                         R13 R2 K43 ["getText"]
       179 CALL                             R13 4 1
       180 SETTABLEKS                       R13 R12 K21 ["Text"]
-      182 GETUPVAL                         R14 4
-      183 GETTABLEKS                       R13 R14 K44 ["GRAY_3"]
+      182 GETUPVAL                         R13 4
+      183 GETTABLEKS                       R13 R13 K44 ["GRAY_3"]
       185 SETTABLEKS                       R13 R12 K33 ["TextColor"]
-      187 GETUPVAL                         R14 2
-      188 GETTABLEKS                       R13 R14 K45 ["FONT_SIZE_LARGE"]
+      187 GETUPVAL                         R13 2
+      188 GETTABLEKS                       R13 R13 K45 ["FONT_SIZE_LARGE"]
       190 SETTABLEKS                       R13 R12 K22 ["TextSize"]
       192 GETIMPORT                        R13 K47 [Enum.TextXAlignment.Left]
       194 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
@@ -153,8 +153,8 @@ PROTO_1:
       198 SETTABLEKS                       R13 R12 K24 ["TextYAlignment"]
       200 CALL                             R10 2 1
       201 SETTABLEKS                       R10 R9 K18 ["ProgressPercentText"]
-      203 GETUPVAL                         R11 0
-      204 GETTABLEKS                       R10 R11 K5 ["createElement"]
+      203 GETUPVAL                         R10 0
+      204 GETTABLEKS                       R10 R10 K5 ["createElement"]
       206 GETUPVAL                         R11 1
       207 DUPTABLE                         R12 K34 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
       208 GETIMPORT                        R13 K13 [UDim2.new]
@@ -176,11 +176,11 @@ PROTO_1:
       228 NAMECALL                         R13 R2 K43 ["getText"]
       230 CALL                             R13 3 1
       231 SETTABLEKS                       R13 R12 K21 ["Text"]
-      233 GETUPVAL                         R14 4
-      234 GETTABLEKS                       R13 R14 K49 ["GRAY_2"]
+      233 GETUPVAL                         R13 4
+      234 GETTABLEKS                       R13 R13 K49 ["GRAY_2"]
       236 SETTABLEKS                       R13 R12 K33 ["TextColor"]
-      238 GETUPVAL                         R14 2
-      239 GETTABLEKS                       R13 R14 K50 ["FONT_SIZE_MEDIUM"]
+      238 GETUPVAL                         R13 2
+      239 GETTABLEKS                       R13 R13 K50 ["FONT_SIZE_MEDIUM"]
       241 SETTABLEKS                       R13 R12 K22 ["TextSize"]
       243 GETIMPORT                        R13 K52 [Enum.TextXAlignment.Right]
       245 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
@@ -228,8 +228,8 @@ MAIN:
        28 GETTABLEKS                       R7 R2 K12 ["UI"]
        30 GETTABLEKS                       R8 R7 K13 ["LoadingBar"]
        32 GETTABLEKS                       R9 R7 K14 ["TextLabel"]
-       34 GETTABLEKS                       R11 R0 K15 ["Src"]
-       36 GETTABLEKS                       R10 R11 K16 ["Util"]
+       34 GETTABLEKS                       R10 R0 K15 ["Src"]
+       36 GETTABLEKS                       R10 R10 K16 ["Util"]
        38 GETIMPORT                        R11 K6 [require]
        40 GETTABLEKS                       R12 R10 K17 ["Colors"]
        42 CALL                             R11 1 1

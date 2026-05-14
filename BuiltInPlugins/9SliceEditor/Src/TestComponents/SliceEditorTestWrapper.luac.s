@@ -8,10 +8,10 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"sliceRect"}]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K2 ["getSliceRectFromSliceCenter"]
-        5 GETUPVAL                         R5 2
-        6 GETTABLEKS                       R4 R5 K3 ["SliceCenter"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K2 ["getSliceRectFromSliceCenter"]
+        5 GETUPVAL                         R4 2
+        6 GETTABLEKS                       R4 R4 K3 ["SliceCenter"]
         8 CALL                             R3 1 1
         9 SETTABLEKS                       R3 R2 K0 ["sliceRect"]
        11 NAMECALL                         R0 R0 K4 ["setState"]
@@ -19,8 +19,8 @@ PROTO_1:
        14 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["selectedObject"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["selectedObject"]
         4 LOADK                            R4 K2 ["SliceCenter"]
         5 NAMECALL                         R2 R1 K3 ["GetPropertyChangedSignal"]
         7 CALL                             R2 2 1
@@ -49,8 +49,8 @@ PROTO_4:
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K8 [{"selectedObject", "pixelDimensions", "onClose", "sliceRect", "revertSliceRect"}]
         9 GETTABLEKS                       R6 R1 K3 ["selectedObject"]
@@ -68,31 +68,31 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
        27 GETTABLEKS                       R5 R3 K10 ["Analytics"]
        29 GETTABLEKS                       R6 R3 K11 ["Localization"]
        31 GETIMPORT                        R7 K4 [require]
-       33 GETTABLEKS                       R10 R0 K12 ["Src"]
-       35 GETTABLEKS                       R9 R10 K13 ["Util"]
-       37 GETTABLEKS                       R8 R9 K14 ["SliceRectUtil"]
+       33 GETTABLEKS                       R8 R0 K12 ["Src"]
+       35 GETTABLEKS                       R8 R8 K13 ["Util"]
+       37 GETTABLEKS                       R8 R8 K14 ["SliceRectUtil"]
        39 CALL                             R7 1 1
        40 GETIMPORT                        R8 K4 [require]
-       42 GETTABLEKS                       R11 R0 K12 ["Src"]
-       44 GETTABLEKS                       R10 R11 K15 ["Components"]
-       46 GETTABLEKS                       R9 R10 K16 ["SliceEditorMain"]
+       42 GETTABLEKS                       R9 R0 K12 ["Src"]
+       44 GETTABLEKS                       R9 R9 K15 ["Components"]
+       46 GETTABLEKS                       R9 R9 K16 ["SliceEditorMain"]
        48 CALL                             R8 1 1
        49 GETTABLEKS                       R9 R1 K17 ["PureComponent"]
        51 LOADK                            R11 K18 ["SliceEditorTestWrapper"]

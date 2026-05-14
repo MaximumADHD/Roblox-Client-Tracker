@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Name"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Name"]
         4 SETTABLEKS                       R1 R0 K0 ["Name"]
-        6 GETUPVAL                         R1 2
-        7 GETTABLEKS                       R0 R1 K1 ["createElement"]
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K1 ["createElement"]
         9 GETUPVAL                         R1 3
        10 DUPTABLE                         R2 K4 [{"Plugin", "pluginLoaderContext"}]
        11 GETUPVAL                         R3 0
@@ -12,8 +12,8 @@ PROTO_0:
        14 GETUPVAL                         R3 4
        15 SETTABLEKS                       R3 R2 K3 ["pluginLoaderContext"]
        17 CALL                             R0 2 1
-       18 GETUPVAL                         R2 2
-       19 GETTABLEKS                       R1 R2 K5 ["mount"]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R1 R1 K5 ["mount"]
        21 MOVE                             R2 R0
        22 CALL                             R1 1 1
        23 SETUPVAL                         R1 5
@@ -34,8 +34,8 @@ PROTO_1:
         5 CALL                             R0 1 0
         6 GETUPVAL                         R0 1
         7 JUMPIFNOT                        R0 ; [+7]
-        8 GETUPVAL                         R1 2
-        9 GETTABLEKS                       R0 R1 K1 ["unmount"]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K1 ["unmount"]
        11 GETUPVAL                         R1 1
        12 CALL                             R0 1 0
        13 LOADNIL                          R0
@@ -52,46 +52,46 @@ PROTO_2:
         8 JUMPIF                           R2 ; [+1]
         9 RETURN                           R0 0
        10 GETIMPORT                        R3 K5 [require]
-       12 GETIMPORT                        R6 K7 [script]
-       14 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       16 GETTABLEKS                       R4 R5 K9 ["commonInit"]
+       12 GETIMPORT                        R4 K7 [script]
+       14 GETTABLEKS                       R4 R4 K8 ["Parent"]
+       16 GETTABLEKS                       R4 R4 K9 ["commonInit"]
        18 CALL                             R3 1 1
        19 MOVE                             R4 R3
        20 CALL                             R4 0 0
-       21 GETIMPORT                        R6 K7 [script]
-       23 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       25 GETTABLEKS                       R4 R5 K8 ["Parent"]
+       21 GETIMPORT                        R4 K7 [script]
+       23 GETTABLEKS                       R4 R4 K8 ["Parent"]
+       25 GETTABLEKS                       R4 R4 K8 ["Parent"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R4 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Util"]
-       33 GETTABLEKS                       R6 R7 K12 ["shouldPluginRun"]
+       29 GETTABLEKS                       R6 R4 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Util"]
+       33 GETTABLEKS                       R6 R6 K12 ["shouldPluginRun"]
        35 CALL                             R5 1 1
        36 MOVE                             R6 R5
        37 CALL                             R6 0 1
        38 JUMPIF                           R6 ; [+1]
        39 RETURN                           R0 0
        40 GETIMPORT                        R6 K5 [require]
-       42 GETTABLEKS                       R8 R4 K13 ["Packages"]
-       44 GETTABLEKS                       R7 R8 K14 ["Roact"]
+       42 GETTABLEKS                       R7 R4 K13 ["Packages"]
+       44 GETTABLEKS                       R7 R7 K14 ["Roact"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K5 [require]
-       49 GETTABLEKS                       R9 R4 K10 ["Src"]
-       51 GETTABLEKS                       R8 R9 K15 ["MainPlugin"]
+       49 GETTABLEKS                       R8 R4 K10 ["Src"]
+       51 GETTABLEKS                       R8 R8 K15 ["MainPlugin"]
        53 CALL                             R7 1 1
        54 GETIMPORT                        R8 K5 [require]
-       56 GETTABLEKS                       R11 R4 K10 ["Src"]
-       58 GETTABLEKS                       R10 R11 K11 ["Util"]
-       60 GETTABLEKS                       R9 R10 K16 ["hasInternalPermission"]
+       56 GETTABLEKS                       R9 R4 K10 ["Src"]
+       58 GETTABLEKS                       R9 R9 K11 ["Util"]
+       60 GETTABLEKS                       R9 R9 K16 ["hasInternalPermission"]
        62 CALL                             R8 1 1
        63 CALL                             R8 0 1
        64 LOADNIL                          R9
        65 LOADNIL                          R10
        66 JUMPIFNOT                        R8 ; [+14]
-       67 GETIMPORT                        R12 K5 [require]
-       69 GETTABLEKS                       R14 R4 K13 ["Packages"]
-       71 GETTABLEKS                       R13 R14 K17 ["DeveloperTools"]
-       73 CALL                             R12 1 1
-       74 GETTABLEKS                       R11 R12 K18 ["forPlugin"]
+       67 GETIMPORT                        R11 K5 [require]
+       69 GETTABLEKS                       R12 R4 K13 ["Packages"]
+       71 GETTABLEKS                       R12 R12 K17 ["DeveloperTools"]
+       73 CALL                             R11 1 1
+       74 GETTABLEKS                       R11 R11 K18 ["forPlugin"]
        76 GETTABLEKS                       R12 R4 K19 ["Name"]
        78 MOVE                             R13 R0
        79 CALL                             R11 2 1

@@ -371,8 +371,8 @@ PROTO_8:
        18 JUMPIFNOTLT                      R4 R3 ; [+3]
        20 LOADK                            R5 K5 [-∞]
        21 RETURN                           R5 1
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R5 R6 K6 ["isPerfectMatch"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K6 ["isPerfectMatch"]
        25 MOVE                             R6 R0
        26 MOVE                             R7 R1
        27 MOVE                             R8 R2
@@ -410,8 +410,8 @@ PROTO_9:
        20 NEWTABLE                         R5 0 0
        22 LOADK                            R6 K5 [-∞]
        23 RETURN                           R5 2
-       24 GETUPVAL                         R6 0
-       25 GETTABLEKS                       R5 R6 K6 ["isPerfectMatch"]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K6 ["isPerfectMatch"]
        27 MOVE                             R6 R0
        28 MOVE                             R7 R1
        29 MOVE                             R8 R2
@@ -487,15 +487,15 @@ PROTO_10:
         4 MOVE                             R5 R2
         5 CALL                             R4 1 3
         6 FORGPREP_INEXT                   R4
-        7 GETUPVAL                         R10 0
-        8 GETTABLEKS                       R9 R10 K2 ["hasMatch"]
+        7 GETUPVAL                         R9 0
+        8 GETTABLEKS                       R9 R9 K2 ["hasMatch"]
        10 MOVE                             R10 R0
        11 MOVE                             R11 R1
        12 MOVE                             R12 R8
        13 CALL                             R9 3 1
        14 JUMPIFNOT                        R9 ; [+20]
-       15 GETUPVAL                         R10 0
-       16 GETTABLEKS                       R9 R10 K3 ["positions"]
+       15 GETUPVAL                         R9 0
+       16 GETTABLEKS                       R9 R9 K3 ["positions"]
        18 MOVE                             R10 R0
        19 MOVE                             R11 R1
        20 MOVE                             R12 R8
@@ -521,8 +521,8 @@ PROTO_12:
         1 RETURN                           R0 1
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["isFzyConfig"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["isFzyConfig"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 FASTCALL2K                       ASSERT R2 K1 ; [+4]
@@ -533,8 +533,8 @@ PROTO_13:
        13 RETURN                           R1 1
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["isFzyConfig"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["isFzyConfig"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 FASTCALL2K                       ASSERT R2 K1 ; [+4]
@@ -547,8 +547,8 @@ PROTO_14:
        16 RETURN                           R1 1
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["isFzyConfig"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["isFzyConfig"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 FASTCALL2K                       ASSERT R2 K1 ; [+4]

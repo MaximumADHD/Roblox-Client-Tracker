@@ -3,8 +3,8 @@ PROTO_0:
         1 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 DUPTABLE                         R2 K4 [{"createEditableMeshAsync", "canEditAssetAsync", "createAssetAsync"}]
@@ -14,10 +14,10 @@ PROTO_1:
        11 SETTABLEKS                       R3 R2 K2 ["canEditAssetAsync"]
        13 GETTABLEKS                       R3 R1 K3 ["createAssetAsync"]
        15 SETTABLEKS                       R3 R2 K3 ["createAssetAsync"]
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K6 ["createElement"]
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R4 R5 K7 ["Provider"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       20 GETUPVAL                         R4 1
+       21 GETTABLEKS                       R4 R4 K7 ["Provider"]
        23 DUPTABLE                         R5 K9 [{"value"}]
        24 SETTABLEKS                       R2 R5 K8 ["value"]
        26 GETTABLEKS                       R6 R0 K10 ["children"]
@@ -31,13 +31,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Components"]
-       20 GETTABLEKS                       R3 R4 K10 ["AssetServiceContext"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Components"]
+       20 GETTABLEKS                       R3 R3 K10 ["AssetServiceContext"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_1]
        24 CAPTURE                          VAL R1

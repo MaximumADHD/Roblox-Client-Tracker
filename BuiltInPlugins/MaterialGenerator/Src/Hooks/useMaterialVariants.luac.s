@@ -35,14 +35,14 @@ PROTO_1:
        23 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useContext"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 1
         5 GETTABLEKS                       R1 R0 K1 ["promptGroups"]
         7 GETTABLEKS                       R2 R0 K2 ["getMaterialStatus"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["useEffect"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["useEffect"]
        12 NEWCLOSURE                       R4 P0
        13 CAPTURE                          UPVAL U2
        14 CAPTURE                          VAL R1
@@ -66,11 +66,11 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R1 K12 ["Src"]
-       22 GETTABLEKS                       R3 R4 K13 ["Util"]
+       20 GETTABLEKS                       R3 R1 K12 ["Src"]
+       22 GETTABLEKS                       R3 R3 K13 ["Util"]
        24 GETIMPORT                        R4 K9 [require]
        26 GETTABLEKS                       R5 R3 K14 ["Constants"]
        28 CALL                             R4 1 1

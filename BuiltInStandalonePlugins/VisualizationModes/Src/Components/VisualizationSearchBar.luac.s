@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Localization"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Localization"]
         3 NAMECALL                         R1 R1 K1 ["use"]
         5 CALL                             R1 1 1
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["createElement"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["createElement"]
         9 LOADK                            R3 K3 ["Frame"]
        10 DUPTABLE                         R4 K7 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
        11 LOADN                            R5 1
@@ -19,8 +19,8 @@ PROTO_0:
        24 CALL                             R5 4 1
        25 SETTABLEKS                       R5 R4 K6 ["Size"]
        27 DUPTABLE                         R5 K13 [{"SearchBar", "UIPadding"}]
-       28 GETUPVAL                         R7 1
-       29 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       28 GETUPVAL                         R6 1
+       29 GETTABLEKS                       R6 R6 K2 ["createElement"]
        31 GETUPVAL                         R7 2
        32 DUPTABLE                         R8 K22 [{"PlaceholderText", "ShowSearchIcon", "ShowSearchButton", "ShowFilterButton", "IncrementalTextSearch", "IncrementalTextSearchDelay", "SearchTerm", "OnSearchRequested"}]
        33 LOADK                            R11 K11 ["SearchBar"]
@@ -38,16 +38,16 @@ PROTO_0:
        50 SETTABLEKS                       R9 R8 K18 ["IncrementalTextSearch"]
        52 LOADN                            R9 5
        53 SETTABLEKS                       R9 R8 K19 ["IncrementalTextSearchDelay"]
-       55 GETTABLEKS                       R10 R0 K25 ["FuzzySearch"]
-       57 GETTABLEKS                       R9 R10 K26 ["searchText"]
+       55 GETTABLEKS                       R9 R0 K25 ["FuzzySearch"]
+       57 GETTABLEKS                       R9 R9 K26 ["searchText"]
        59 SETTABLEKS                       R9 R8 K20 ["SearchTerm"]
-       61 GETTABLEKS                       R10 R0 K25 ["FuzzySearch"]
-       63 GETTABLEKS                       R9 R10 K27 ["setSearchText"]
+       61 GETTABLEKS                       R9 R0 K25 ["FuzzySearch"]
+       63 GETTABLEKS                       R9 R9 K27 ["setSearchText"]
        65 SETTABLEKS                       R9 R8 K21 ["OnSearchRequested"]
        67 CALL                             R6 2 1
        68 SETTABLEKS                       R6 R5 K11 ["SearchBar"]
-       70 GETUPVAL                         R7 1
-       71 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       70 GETUPVAL                         R6 1
+       71 GETTABLEKS                       R6 R6 K2 ["createElement"]
        73 LOADK                            R7 K12 ["UIPadding"]
        74 DUPTABLE                         R8 K29 [{"PaddingRight"}]
        75 GETIMPORT                        R9 K31 [UDim.new]
@@ -67,17 +67,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Hooks"]
-       27 GETTABLEKS                       R4 R5 K11 ["useFuzzySearch"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Hooks"]
+       27 GETTABLEKS                       R4 R4 K11 ["useFuzzySearch"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R1 K12 ["ContextServices"]
        32 GETTABLEKS                       R5 R1 K13 ["UI"]

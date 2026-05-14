@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["multiTouchEmulationOn"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["multiTouchEmulationOn"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 SETTABLEKS                       R0 R1 K2 ["IsMultiTouchEmulationOn"]
@@ -14,8 +14,8 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R2 K1 [{"multiTouchEmulationOn"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K2 ["IsMultiTouchEmulationOn"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K2 ["IsMultiTouchEmulationOn"]
         4 SETTABLEKS                       R3 R2 K0 ["multiTouchEmulationOn"]
         6 SETTABLEKS                       R2 R0 K3 ["state"]
         8 NEWCLOSURE                       R2 P0
@@ -28,8 +28,8 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K9 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
        11 GETIMPORT                        R7 K12 [Enum.AutomaticSize.Y]
@@ -43,8 +43,8 @@ PROTO_2:
        26 LOADN                            R7 10
        27 SETTABLEKS                       R7 R6 K8 ["Spacing"]
        29 DUPTABLE                         R7 K19 [{"MultiTouchPane"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
        33 GETUPVAL                         R9 2
        34 DUPTABLE                         R10 K24 [{"AutomaticSize", "HorizontalAlignment", "Layout", "AlwaysExpanded", "LayoutOrder", "Style", "Text"}]
        35 GETIMPORT                        R11 K12 [Enum.AutomaticSize.Y]
@@ -65,8 +65,8 @@ PROTO_2:
        60 CALL                             R11 3 1
        61 SETTABLEKS                       R11 R10 K23 ["Text"]
        63 NEWTABLE                         R11 0 1
-       65 GETUPVAL                         R13 0
-       66 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       65 GETUPVAL                         R12 0
+       66 GETTABLEKS                       R12 R12 K3 ["createElement"]
        68 GETUPVAL                         R13 3
        69 DUPTABLE                         R14 K31 [{"Checked", "Key", "OnClick", "Text"}]
        70 GETTABLEKS                       R15 R2 K32 ["multiTouchEmulationOn"]
@@ -93,17 +93,17 @@ MAIN:
         3 LOADK                            R2 K2 ["StudioDeviceEmulatorService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["Framework"]
        28 CALL                             R3 1 1
        29 GETTABLEKS                       R4 R3 K12 ["ContextServices"]
        31 GETTABLEKS                       R5 R4 K13 ["withContext"]

@@ -2,9 +2,9 @@ PROTO_0:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R2 K1 ["Stylizer"]
         4 GETTABLEKS                       R4 R2 K2 ["FakeLoadProps"]
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K3 ["Dictionary"]
-        9 GETTABLEKS                       R5 R6 K4 ["join"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K3 ["Dictionary"]
+        9 GETTABLEKS                       R5 R5 K4 ["join"]
        11 GETUPVAL                         R6 1
        12 MOVE                             R7 R4
        13 LOADK                            R8 K5 ["OnFakeLoadCompleted"]
@@ -19,8 +19,8 @@ PROTO_0:
        24 SETTABLEKS                       R8 R7 K6 ["Size"]
        26 SETTABLEKS                       R1 R7 K7 ["LayoutOrder"]
        28 CALL                             R5 2 1
-       29 GETUPVAL                         R7 2
-       30 GETTABLEKS                       R6 R7 K13 ["createElement"]
+       29 GETUPVAL                         R6 2
+       30 GETTABLEKS                       R6 R6 K13 ["createElement"]
        32 GETUPVAL                         R7 3
        33 MOVE                             R8 R5
        34 CALL                             R6 2 -1
@@ -30,8 +30,8 @@ PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R2 K1 ["Stylizer"]
         4 GETTABLEKS                       R4 R2 K2 ["Progress"]
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R5 R6 K3 ["createElement"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K3 ["createElement"]
         9 GETUPVAL                         R6 1
        10 DUPTABLE                         R7 K6 [{"Size", "LayoutOrder", "Progress"}]
        11 GETIMPORT                        R8 K9 [UDim2.new]
@@ -54,18 +54,18 @@ PROTO_3:
         2 GETTABLEKS                       R2 R1 K1 ["Text"]
         4 GETTABLEKS                       R3 R1 K2 ["FakeLoadProps"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["new"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["new"]
        11 CALL                             R5 0 1
-       12 GETUPVAL                         R7 1
-       13 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R6 R6 K5 ["createElement"]
        15 GETUPVAL                         R7 2
        16 DUPTABLE                         R8 K7 [{"OnFocusLost"}]
        17 DUPCLOSURE                       R9 K8 [PROTO_2]
        18 SETTABLEKS                       R9 R8 K6 ["OnFocusLost"]
        20 DUPTABLE                         R9 K10 [{"Pane"}]
-       21 GETUPVAL                         R11 1
-       22 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       21 GETUPVAL                         R10 1
+       22 GETTABLEKS                       R10 R10 K5 ["createElement"]
        24 GETUPVAL                         R11 3
        25 DUPTABLE                         R12 K17 [{"BackgroundColor3", "BackgroundTransparency", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
        26 GETTABLEKS                       R13 R4 K18 ["BackgroundColor"]
@@ -81,8 +81,8 @@ PROTO_3:
        46 GETTABLEKS                       R13 R4 K16 ["Padding"]
        48 SETTABLEKS                       R13 R12 K16 ["Padding"]
        50 DUPTABLE                         R13 K27 [{"Text", "ProgressBar"}]
-       51 GETUPVAL                         R15 1
-       52 GETTABLEKS                       R14 R15 K5 ["createElement"]
+       51 GETUPVAL                         R14 1
+       52 GETTABLEKS                       R14 R14 K5 ["createElement"]
        54 GETUPVAL                         R15 4
        55 DUPTABLE                         R16 K32 [{"AutomaticSize", "BackgroundTransparency", "TextSize", "Text", "TextWrapped", "LayoutOrder"}]
        56 GETIMPORT                        R17 K34 [Enum.AutomaticSize.XY]
@@ -117,8 +117,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R3 R1 K0 ["FakeLoadProps"]
-        2 GETTABLEKS                       R5 R0 K1 ["props"]
-        4 GETTABLEKS                       R4 R5 K0 ["FakeLoadProps"]
+        2 GETTABLEKS                       R4 R0 K1 ["props"]
+        4 GETTABLEKS                       R4 R4 K0 ["FakeLoadProps"]
         6 JUMPIFNOT                        R4 ; [+3]
         7 GETTABLEKS                       R5 R4 K2 ["Completed"]
         9 JUMPIF                           R5 ; [+1]
@@ -140,20 +140,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Cryo"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dash"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["Framework"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R3 K11 ["omit"]
        37 GETTABLEKS                       R6 R4 K12 ["ContextServices"]

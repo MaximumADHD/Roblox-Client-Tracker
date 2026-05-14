@@ -12,8 +12,8 @@ PROTO_0:
        12 LOADK                            R7 K2 ["GridLine_V_"]
        13 MOVE                             R8 R4
        14 CONCAT                           R6 R7 R8
-       15 GETUPVAL                         R8 0
-       16 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       15 GETUPVAL                         R7 0
+       16 GETTABLEKS                       R7 R7 K3 ["createElement"]
        18 GETUPVAL                         R8 1
        19 DUPTABLE                         R9 K7 [{"Position", "PlotAbsoluteSize", "Orientation"}]
        20 SETTABLEKS                       R5 R9 K4 ["Position"]
@@ -25,8 +25,8 @@ PROTO_0:
        29 LOADK                            R7 K9 ["GridLabel_V_"]
        30 MOVE                             R8 R4
        31 CONCAT                           R6 R7 R8
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       32 GETUPVAL                         R7 0
+       33 GETTABLEKS                       R7 R7 K3 ["createElement"]
        35 GETUPVAL                         R8 2
        36 DUPTABLE                         R9 K13 [{"Position", "OffsetDirection", "PlotAbsoluteSize", "Value", "FormatString"}]
        37 GETIMPORT                        R10 K16 [Vector2.new]
@@ -63,8 +63,8 @@ PROTO_0:
        77 LOADK                            R7 K26 ["GridLine_H_"]
        78 MOVE                             R8 R4
        79 CONCAT                           R6 R7 R8
-       80 GETUPVAL                         R8 0
-       81 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       80 GETUPVAL                         R7 0
+       81 GETTABLEKS                       R7 R7 K3 ["createElement"]
        83 GETUPVAL                         R8 1
        84 DUPTABLE                         R9 K7 [{"Position", "PlotAbsoluteSize", "Orientation"}]
        85 SETTABLEKS                       R5 R9 K4 ["Position"]
@@ -76,8 +76,8 @@ PROTO_0:
        94 LOADK                            R7 K28 ["GridLabel_H_"]
        95 MOVE                             R8 R4
        96 CONCAT                           R6 R7 R8
-       97 GETUPVAL                         R8 0
-       98 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       97 GETUPVAL                         R7 0
+       98 GETTABLEKS                       R7 R7 K3 ["createElement"]
       100 GETUPVAL                         R8 2
       101 DUPTABLE                         R9 K13 [{"Position", "OffsetDirection", "PlotAbsoluteSize", "Value", "FormatString"}]
       102 GETIMPORT                        R10 K16 [Vector2.new]
@@ -120,8 +120,8 @@ PROTO_2:
         8 GETTABLEKS                       R5 R0 K0 ["PlotAbsoluteSize"]
        10 SETLIST                          R4 R5 1 [1]
        12 CALL                             R2 2 1
-       13 GETUPVAL                         R4 2
-       14 GETTABLEKS                       R3 R4 K1 ["createElement"]
+       13 GETUPVAL                         R3 2
+       14 GETTABLEKS                       R3 R3 K1 ["createElement"]
        16 GETUPVAL                         R4 3
        17 NEWTABLE                         R5 4 0
        19 GETIMPORT                        R6 K4 [UDim2.fromScale]
@@ -131,8 +131,8 @@ PROTO_2:
        24 SETTABLEKS                       R6 R5 K5 ["Size"]
        26 LOADN                            R6 1
        27 SETTABLEKS                       R6 R5 K6 ["BackgroundTransparency"]
-       29 GETUPVAL                         R7 2
-       30 GETTABLEKS                       R6 R7 K7 ["Tag"]
+       29 GETUPVAL                         R6 2
+       30 GETTABLEKS                       R6 R6 K7 ["Tag"]
        32 LOADK                            R7 K8 ["Contrast"]
        33 SETTABLE                         R7 R5 R6
        34 MOVE                             R6 R2
@@ -141,23 +141,23 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K1 [script]
         7 LOADK                            R3 K3 ["DirectionalCurveEditor"]
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       13 GETTABLEKS                       R3 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K8 ["React"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K9 ["useMemo"]
        20 GETIMPORT                        R4 K6 [require]
-       22 GETTABLEKS                       R6 R1 K7 ["Packages"]
-       24 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       22 GETTABLEKS                       R5 R1 K7 ["Packages"]
+       24 GETTABLEKS                       R5 R5 K10 ["Framework"]
        26 CALL                             R4 1 1
-       27 GETTABLEKS                       R6 R4 K11 ["UI"]
-       29 GETTABLEKS                       R5 R6 K12 ["Pane"]
+       27 GETTABLEKS                       R5 R4 K11 ["UI"]
+       29 GETTABLEKS                       R5 R5 K12 ["Pane"]
        31 GETIMPORT                        R6 K6 [require]
        33 GETTABLEKS                       R7 R0 K13 ["PolarGridLabel"]
        35 CALL                             R6 1 1
@@ -165,8 +165,8 @@ MAIN:
        38 GETTABLEKS                       R8 R0 K14 ["PolarGridLine"]
        40 CALL                             R7 1 1
        41 GETIMPORT                        R8 K6 [require]
-       43 GETTABLEKS                       R10 R1 K15 ["Src"]
-       45 GETTABLEKS                       R9 R10 K16 ["Types"]
+       43 GETTABLEKS                       R9 R1 K15 ["Src"]
+       45 GETTABLEKS                       R9 R9 K16 ["Types"]
        47 CALL                             R8 1 1
        48 DUPCLOSURE                       R9 K17 [PROTO_0]
        49 CAPTURE                          VAL R2

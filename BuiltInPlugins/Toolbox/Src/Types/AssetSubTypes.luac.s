@@ -9,8 +9,8 @@ PROTO_1:
         0 JUMPIFNOTEQKNIL                  R0 ; [+3]
         2 LOADB                            R2 0
         3 RETURN                           R2 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K0 ["find"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K0 ["find"]
         7 MOVE                             R3 R0
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          VAL R1

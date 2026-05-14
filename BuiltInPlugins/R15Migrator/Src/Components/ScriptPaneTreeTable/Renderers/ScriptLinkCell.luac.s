@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Value"]
-        5 GETTABLEKS                       R0 R1 K2 ["Script"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K0 ["props"]
-       10 GETTABLEKS                       R2 R3 K1 ["Value"]
-       12 GETTABLEKS                       R1 R2 K3 ["Range"]
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K4 ["goToScriptInstance"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Value"]
+        5 GETTABLEKS                       R0 R0 K2 ["Script"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K1 ["Value"]
+       12 GETTABLEKS                       R1 R1 K3 ["Range"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K4 ["goToScriptInstance"]
        17 MOVE                             R3 R0
        18 MOVE                             R4 R1
        19 CALL                             R2 2 0
@@ -28,18 +28,18 @@ PROTO_2:
         6 GETTABLEKS                       R4 R2 K3 ["Value"]
         8 GETTABLEKS                       R5 R4 K4 ["Range"]
        10 JUMPIFNOT                        R5 ; [+31]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K5 ["createElement"]
        14 GETUPVAL                         R6 1
        15 DUPTABLE                         R7 K8 [{"Text", "OnClick"}]
        16 LOADK                            R10 K9 ["ScriptPane"]
        17 LOADK                            R11 K10 ["LineColumn"]
        18 DUPTABLE                         R12 K13 [{"line", "column"}]
-       19 GETTABLEKS                       R14 R4 K4 ["Range"]
-       21 GETTABLEKS                       R13 R14 K14 ["startLine"]
+       19 GETTABLEKS                       R13 R4 K4 ["Range"]
+       21 GETTABLEKS                       R13 R13 K14 ["startLine"]
        23 SETTABLEKS                       R13 R12 K11 ["line"]
-       25 GETTABLEKS                       R14 R4 K4 ["Range"]
-       27 GETTABLEKS                       R13 R14 K15 ["startCharacter"]
+       25 GETTABLEKS                       R13 R4 K4 ["Range"]
+       27 GETTABLEKS                       R13 R13 K15 ["startCharacter"]
        29 SETTABLEKS                       R13 R12 K12 ["column"]
        31 NAMECALL                         R8 R3 K16 ["getText"]
        33 CALL                             R8 4 1
@@ -48,8 +48,8 @@ PROTO_2:
        38 SETTABLEKS                       R8 R7 K7 ["OnClick"]
        40 CALL                             R5 2 -1
        41 RETURN                           R5 -1
-       42 GETUPVAL                         R6 0
-       43 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       42 GETUPVAL                         R5 0
+       43 GETTABLEKS                       R5 R5 K5 ["createElement"]
        45 GETUPVAL                         R6 2
        46 DUPTABLE                         R7 K20 [{"Text", "TextTruncate", "TextXAlignment"}]
        47 GETTABLEKS                       R8 R4 K21 ["Script"]
@@ -61,8 +61,8 @@ PROTO_2:
        58 GETIMPORT                        R8 K27 [Enum.TextXAlignment.Left]
        60 SETTABLEKS                       R8 R7 K19 ["TextXAlignment"]
        62 DUPTABLE                         R8 K29 [{"Tooltip"}]
-       63 GETUPVAL                         R10 0
-       64 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       63 GETUPVAL                         R9 0
+       64 GETTABLEKS                       R9 R9 K5 ["createElement"]
        66 GETUPVAL                         R10 3
        67 DUPTABLE                         R11 K30 [{"Text"}]
        68 GETTABLEKS                       R12 R4 K21 ["Script"]
@@ -81,16 +81,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
@@ -101,11 +101,11 @@ MAIN:
        40 GETTABLEKS                       R10 R8 K16 ["TextLabel"]
        42 GETTABLEKS                       R11 R8 K17 ["Tooltip"]
        44 GETIMPORT                        R12 K5 [require]
-       46 GETTABLEKS                       R14 R0 K18 ["Src"]
-       48 GETTABLEKS                       R13 R14 K19 ["Types"]
+       46 GETTABLEKS                       R13 R0 K18 ["Src"]
+       48 GETTABLEKS                       R13 R13 K19 ["Types"]
        50 CALL                             R12 1 1
-       51 GETTABLEKS                       R14 R0 K18 ["Src"]
-       53 GETTABLEKS                       R13 R14 K20 ["Util"]
+       51 GETTABLEKS                       R13 R0 K18 ["Src"]
+       53 GETTABLEKS                       R13 R13 K20 ["Util"]
        55 GETIMPORT                        R14 K5 [require]
        57 GETTABLEKS                       R15 R13 K21 ["ScriptReplacement"]
        59 CALL                             R14 1 1
@@ -128,8 +128,8 @@ MAIN:
        81 SETTABLEKS                       R18 R17 K29 ["Analytics"]
        83 GETTABLEKS                       R18 R4 K30 ["Localization"]
        85 SETTABLEKS                       R18 R17 K30 ["Localization"]
-       87 GETTABLEKS                       R19 R3 K33 ["Style"]
-       89 GETTABLEKS                       R18 R19 K31 ["Stylizer"]
+       87 GETTABLEKS                       R18 R3 K33 ["Style"]
+       89 GETTABLEKS                       R18 R18 K31 ["Stylizer"]
        91 SETTABLEKS                       R18 R17 K31 ["Stylizer"]
        93 CALL                             R16 1 1
        94 MOVE                             R17 R15

@@ -33,8 +33,8 @@ PROTO_0:
        40 LOADNIL                          R3
        41 LOADNIL                          R4
        42 FORGPREP                         R2
-       43 GETUPVAL                         R8 0
-       44 GETTABLEKS                       R7 R8 K7 ["validate"]
+       43 GETUPVAL                         R7 0
+       44 GETTABLEKS                       R7 R7 K7 ["validate"]
        46 MOVE                             R8 R6
        47 CALL                             R7 1 1
        48 JUMPIFNOT                        R7 ; [+8]
@@ -72,9 +72,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Models"]
-       13 GETTABLEKS                       R2 R3 K8 ["UniverseModel"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Models"]
+       13 GETTABLEKS                       R2 R2 K8 ["UniverseModel"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

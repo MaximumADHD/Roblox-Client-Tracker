@@ -9,8 +9,8 @@ PROTO_0:
         9 RETURN                           R1 1
 
 PROTO_1:
-        0 GETTABLEN                        R3 R0 1
-        1 GETTABLEKS                       R2 R3 K0 ["Children"]
+        0 GETTABLEN                        R2 R0 1
+        1 GETTABLEKS                       R2 R2 K0 ["Children"]
         3 GETTABLEN                        R3 R2 1
         4 GETTABLEKS                       R4 R1 K1 ["randomizeSeed"]
         6 SETTABLEKS                       R4 R3 K2 ["Value"]
@@ -55,33 +55,33 @@ PROTO_1:
        61 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEN                        R4 R1 1
-        1 GETTABLEKS                       R3 R4 K0 ["Children"]
+        0 GETTABLEN                        R3 R1 1
+        1 GETTABLEKS                       R3 R3 K0 ["Children"]
         3 GETTABLEKS                       R4 R0 K1 ["setRandomizeSeed"]
-        5 GETTABLEN                        R6 R3 1
-        6 GETTABLEKS                       R5 R6 K2 ["Value"]
+        5 GETTABLEN                        R5 R3 1
+        6 GETTABLEKS                       R5 R5 K2 ["Value"]
         8 CALL                             R4 1 0
         9 GETTABLEKS                       R4 R0 K3 ["setSeed"]
-       11 GETTABLEN                        R6 R3 2
-       12 GETTABLEKS                       R5 R6 K2 ["Value"]
+       11 GETTABLEN                        R5 R3 2
+       12 GETTABLEKS                       R5 R5 K2 ["Value"]
        14 CALL                             R4 1 0
-       15 GETTABLEN                        R5 R3 1
-       16 GETTABLEKS                       R4 R5 K2 ["Value"]
+       15 GETTABLEN                        R4 R3 1
+       16 GETTABLEKS                       R4 R4 K2 ["Value"]
        18 JUMPIFNOT                        R4 ; [+5]
        19 GETTABLEKS                       R4 R0 K4 ["setValidSeed"]
        21 LOADB                            R5 1
        22 CALL                             R4 1 0
        23 JUMP                             ; [+5]
-       24 GETTABLEN                        R5 R3 2
-       25 GETTABLEKS                       R4 R5 K5 ["Validate"]
+       24 GETTABLEN                        R4 R3 2
+       25 GETTABLEKS                       R4 R4 K5 ["Validate"]
        27 MOVE                             R5 R2
        28 CALL                             R4 1 0
        29 GETUPVAL                         R4 0
        30 CALL                             R4 0 1
        31 JUMPIF                           R4 ; [+41]
-       32 GETUPVAL                         R6 1
-       33 GETTABLE                         R5 R3 R6
-       34 GETTABLEKS                       R4 R5 K2 ["Value"]
+       32 GETUPVAL                         R5 1
+       33 GETTABLE                         R4 R3 R5
+       34 GETTABLEKS                       R4 R4 K2 ["Value"]
        36 GETTABLEKS                       R8 R4 K8 ["X"]
        38 ADDK                             R7 R8 K6 [180]
        39 MODK                             R6 R7 K7 [360]
@@ -112,14 +112,14 @@ PROTO_2:
        71 MOVE                             R10 R8
        72 CALL                             R9 1 0
        73 GETTABLEKS                       R4 R0 K18 ["setSmartUVUnwrap"]
-       75 GETUPVAL                         R7 2
-       76 GETTABLE                         R6 R3 R7
-       77 GETTABLEKS                       R5 R6 K2 ["Value"]
+       75 GETUPVAL                         R6 2
+       76 GETTABLE                         R5 R3 R6
+       77 GETTABLEKS                       R5 R5 K2 ["Value"]
        79 CALL                             R4 1 0
        80 GETTABLEKS                       R4 R0 K19 ["setPromptMasking"]
-       82 GETUPVAL                         R7 3
-       83 GETTABLE                         R6 R3 R7
-       84 GETTABLEKS                       R5 R6 K2 ["Value"]
+       82 GETUPVAL                         R6 3
+       83 GETTABLE                         R5 R3 R6
+       84 GETTABLEKS                       R5 R5 K2 ["Value"]
        86 CALL                             R4 1 0
        87 RETURN                           R0 0
 
@@ -382,8 +382,8 @@ PROTO_6:
         7 GETUPVAL                         R1 0
         8 MOVE                             R2 R0
         9 CALL                             R1 1 0
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K3 ["setValidSeed"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K3 ["setValidSeed"]
        13 LOADB                            R2 0
        14 CALL                             R1 1 0
        15 GETIMPORT                        R1 K7 [Enum.PropertyStatus.Error]
@@ -395,14 +395,14 @@ PROTO_6:
        23 RETURN                           R1 -1
        24 LOADN                            R1 0
        25 JUMPIFLT                         R0 R1 ; [+6]
-       27 GETUPVAL                         R2 3
-       28 GETTABLEKS                       R1 R2 K11 ["MAX_SEED_VALUE"]
+       27 GETUPVAL                         R1 3
+       28 GETTABLEKS                       R1 R1 K11 ["MAX_SEED_VALUE"]
        30 JUMPIFNOTLT                      R1 R0 ; [+18]
        32 GETUPVAL                         R1 0
        33 MOVE                             R2 R0
        34 CALL                             R1 1 0
-       35 GETUPVAL                         R2 1
-       36 GETTABLEKS                       R1 R2 K3 ["setValidSeed"]
+       35 GETUPVAL                         R1 1
+       36 GETTABLEKS                       R1 R1 K3 ["setValidSeed"]
        38 LOADB                            R2 0
        39 CALL                             R1 1 0
        40 GETIMPORT                        R1 K7 [Enum.PropertyStatus.Error]
@@ -415,8 +415,8 @@ PROTO_6:
        49 GETUPVAL                         R1 0
        50 MOVE                             R2 R0
        51 CALL                             R1 1 0
-       52 GETUPVAL                         R2 1
-       53 GETTABLEKS                       R1 R2 K3 ["setValidSeed"]
+       52 GETUPVAL                         R1 1
+       53 GETTABLEKS                       R1 R1 K3 ["setValidSeed"]
        55 LOADB                            R2 1
        56 CALL                             R1 1 0
        57 GETIMPORT                        R1 K14 [Enum.PropertyStatus.Ok]
@@ -439,8 +439,8 @@ PROTO_7:
        19 GETIMPORT                        R1 K2 [type]
        21 CALL                             R1 1 1
        22 JUMPIFEQKS                       R1 K3 ["number"] ; [+15]
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R1 R2 K6 ["setValidRotation"]
+       24 GETUPVAL                         R1 0
+       25 GETTABLEKS                       R1 R1 K6 ["setValidRotation"]
        27 LOADB                            R2 0
        28 CALL                             R1 1 0
        29 GETIMPORT                        R1 K10 [Enum.PropertyStatus.Error]
@@ -477,8 +477,8 @@ PROTO_7:
        71 LOADB                            R1 0 +1
        72 LOADB                            R1 1
        73 JUMPIF                           R1 ; [+14]
-       74 GETUPVAL                         R2 0
-       75 GETTABLEKS                       R1 R2 K6 ["setValidRotation"]
+       74 GETUPVAL                         R1 0
+       75 GETTABLEKS                       R1 R1 K6 ["setValidRotation"]
        77 LOADB                            R2 0
        78 CALL                             R1 1 0
        79 GETIMPORT                        R1 K10 [Enum.PropertyStatus.Error]
@@ -488,8 +488,8 @@ PROTO_7:
        84 NAMECALL                         R2 R2 K13 ["getText"]
        86 CALL                             R2 3 -1
        87 RETURN                           R1 -1
-       88 GETUPVAL                         R2 0
-       89 GETTABLEKS                       R1 R2 K6 ["setValidRotation"]
+       88 GETUPVAL                         R1 0
+       89 GETTABLEKS                       R1 R1 K6 ["setValidRotation"]
        91 LOADB                            R2 1
        92 CALL                             R1 1 0
        93 GETIMPORT                        R1 K16 [Enum.PropertyStatus.Ok]
@@ -526,34 +526,34 @@ PROTO_10:
         5 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setValidRotation"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setValidRotation"]
         3 LOADB                            R1 1
         4 CALL                             R0 1 0
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K1 ["setValidSeed"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K1 ["setValidSeed"]
         8 LOADB                            R1 1
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETUPVAL                         R2 2
         6 NAMECALL                         R2 R2 K1 ["use"]
         8 CALL                             R2 1 1
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K2 ["useState"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K2 ["useState"]
        12 NEWTABLE                         R4 0 0
        14 CALL                             R3 1 2
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K2 ["useState"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K2 ["useState"]
        18 LOADN                            R6 0
        19 CALL                             R5 1 2
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K3 ["useCallback"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K3 ["useCallback"]
        23 NEWCLOSURE                       R8 P0
        24 CAPTURE                          VAL R6
        25 CAPTURE                          VAL R1
@@ -563,8 +563,8 @@ PROTO_12:
        30 GETTABLEKS                       R10 R1 K4 ["setValidSeed"]
        32 SETLIST                          R9 R10 1 [1]
        34 CALL                             R7 2 1
-       35 GETUPVAL                         R9 0
-       36 GETTABLEKS                       R8 R9 K3 ["useCallback"]
+       35 GETUPVAL                         R8 0
+       36 GETTABLEKS                       R8 R8 K3 ["useCallback"]
        38 NEWCLOSURE                       R9 P1
        39 CAPTURE                          VAL R1
        40 CAPTURE                          VAL R2
@@ -572,8 +572,8 @@ PROTO_12:
        43 GETTABLEKS                       R11 R1 K5 ["setValidRotation"]
        45 SETLIST                          R10 R11 1 [1]
        47 CALL                             R8 2 1
-       48 GETUPVAL                         R10 0
-       49 GETTABLEKS                       R9 R10 K6 ["useMemo"]
+       48 GETUPVAL                         R9 0
+       49 GETTABLEKS                       R9 R9 K6 ["useMemo"]
        51 NEWCLOSURE                       R10 P2
        52 CAPTURE                          VAL R7
        53 CAPTURE                          VAL R8
@@ -582,8 +582,8 @@ PROTO_12:
        57 MOVE                             R13 R8
        58 SETLIST                          R11 R12 2 [1]
        60 CALL                             R9 2 1
-       61 GETUPVAL                         R11 0
-       62 GETTABLEKS                       R10 R11 K6 ["useMemo"]
+       61 GETUPVAL                         R10 0
+       62 GETTABLEKS                       R10 R10 K6 ["useMemo"]
        64 NEWCLOSURE                       R11 P3
        65 CAPTURE                          UPVAL U4
        66 CAPTURE                          VAL R2
@@ -595,8 +595,8 @@ PROTO_12:
        73 MOVE                             R13 R1
        74 SETLIST                          R12 R13 1 [1]
        76 CALL                             R10 2 1
-       77 GETUPVAL                         R12 0
-       78 GETTABLEKS                       R11 R12 K3 ["useCallback"]
+       77 GETUPVAL                         R11 0
+       78 GETTABLEKS                       R11 R11 K3 ["useCallback"]
        80 NEWCLOSURE                       R12 P4
        81 CAPTURE                          UPVAL U6
        82 CAPTURE                          VAL R1
@@ -606,16 +606,16 @@ PROTO_12:
        87 MOVE                             R15 R5
        88 SETLIST                          R13 R14 2 [1]
        90 CALL                             R11 2 1
-       91 GETUPVAL                         R13 0
-       92 GETTABLEKS                       R12 R13 K7 ["useEffect"]
+       91 GETUPVAL                         R12 0
+       92 GETTABLEKS                       R12 R12 K7 ["useEffect"]
        94 NEWCLOSURE                       R13 P5
        95 CAPTURE                          VAL R1
        96 NEWTABLE                         R14 0 1
        98 GETIMPORT                        R15 K9 [expansion]
       100 SETLIST                          R14 R15 1 [1]
       102 CALL                             R12 2 0
-      103 GETUPVAL                         R13 0
-      104 GETTABLEKS                       R12 R13 K10 ["createElement"]
+      103 GETUPVAL                         R12 0
+      104 GETTABLEKS                       R12 R12 K10 ["createElement"]
       106 GETUPVAL                         R13 7
       107 DUPTABLE                         R14 K22 [{"AutomaticSize", "Expansion", "ExpandByDefault", "Items", "LabelHeight", "LabelWidth", "LayoutOrder", "OnChange", "OnExpansionChange", "Size", "UseScrollingFrame"}]
       108 GETIMPORT                        R15 K25 [Enum.AutomaticSize.Y]
@@ -664,31 +664,31 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["Localization"]
        25 GETTABLEKS                       R5 R1 K11 ["UI"]
        27 GETTABLEKS                       R6 R5 K12 ["Form"]
        29 GETIMPORT                        R7 K5 [require]
-       31 GETTABLEKS                       R10 R0 K13 ["Src"]
-       33 GETTABLEKS                       R9 R10 K14 ["Util"]
-       35 GETTABLEKS                       R8 R9 K15 ["Constants"]
+       31 GETTABLEKS                       R8 R0 K13 ["Src"]
+       33 GETTABLEKS                       R8 R8 K14 ["Util"]
+       35 GETTABLEKS                       R8 R8 K15 ["Constants"]
        37 CALL                             R7 1 1
        38 GETIMPORT                        R8 K5 [require]
-       40 GETTABLEKS                       R11 R0 K13 ["Src"]
-       42 GETTABLEKS                       R10 R11 K14 ["Util"]
-       44 GETTABLEKS                       R9 R10 K16 ["OptionsContext"]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Util"]
+       44 GETTABLEKS                       R9 R9 K16 ["OptionsContext"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R12 R0 K13 ["Src"]
-       51 GETTABLEKS                       R11 R12 K17 ["Flags"]
-       53 GETTABLEKS                       R10 R11 K18 ["getFFlagTextureGeneratorMultiStagePreview"]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       53 GETTABLEKS                       R10 R10 K18 ["getFFlagTextureGeneratorMultiStagePreview"]
        55 CALL                             R9 1 1
        56 MOVE                             R11 R9
        57 CALL                             R11 0 1

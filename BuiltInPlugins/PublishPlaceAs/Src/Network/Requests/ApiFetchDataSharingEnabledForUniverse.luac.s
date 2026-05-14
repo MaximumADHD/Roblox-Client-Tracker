@@ -23,9 +23,9 @@ PROTO_0:
        29 CALL                             R2 2 0
        30 GETTABLEKS                       R3 R1 K1 ["configurations"]
        32 GETTABLEN                        R2 R3 1
-       33 GETUPVAL                         R6 2
-       34 GETTABLEKS                       R5 R6 K7 ["List"]
-       36 GETTABLEKS                       R4 R5 K8 ["find"]
+       33 GETUPVAL                         R4 2
+       34 GETTABLEKS                       R4 R4 K7 ["List"]
+       36 GETTABLEKS                       R4 R4 K8 ["find"]
        38 GETTABLEKS                       R5 R2 K9 ["dataSharingLicenseTypes"]
        40 LOADK                            R6 K10 ["RobloxGlobal"]
        41 CALL                             R4 2 1
@@ -43,8 +43,8 @@ PROTO_1:
         7 GETIMPORT                        R1 K3 [assert]
         9 CALL                             R1 2 0
        10 DUPTABLE                         R1 K6 [{"Url", "Method"}]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K7 ["BuildRobloxUrl"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K7 ["BuildRobloxUrl"]
        14 LOADK                            R3 K8 ["apis"]
        15 LOADK                            R4 K9 ["resource-settings/v1/universes:batchGet?universeIds=%d"]
        16 MOVE                             R5 R0
@@ -52,8 +52,8 @@ PROTO_1:
        18 SETTABLEKS                       R2 R1 K4 ["Url"]
        20 LOADK                            R2 K10 ["GET"]
        21 SETTABLEKS                       R2 R1 K5 ["Method"]
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R2 R3 K11 ["RequestInternal"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K11 ["RequestInternal"]
        26 MOVE                             R3 R1
        27 CALL                             R2 1 1
        28 NEWCLOSURE                       R4 P0
@@ -70,19 +70,19 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R5 R1 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Network"]
-       23 GETTABLEKS                       R3 R4 K11 ["Http"]
+       19 GETTABLEKS                       R3 R1 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Network"]
+       23 GETTABLEKS                       R3 R3 K11 ["Http"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K8 [require]
-       28 GETTABLEKS                       R5 R1 K12 ["Packages"]
-       30 GETTABLEKS                       R4 R5 K13 ["Cryo"]
+       28 GETTABLEKS                       R4 R1 K12 ["Packages"]
+       30 GETTABLEKS                       R4 R4 K13 ["Cryo"]
        32 CALL                             R3 1 1
        33 DUPCLOSURE                       R4 K14 [PROTO_1]
        34 CAPTURE                          VAL R2

@@ -19,8 +19,8 @@ PROTO_1:
         4 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["asList"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["asList"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 GETIMPORT                        R2 K3 [table.sort]
@@ -36,13 +36,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["enumerate"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["enumerate"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K10 ["getFFlagAmrOrganizationFoundation"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K10 ["getFFlagAmrOrganizationFoundation"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 32 0
        25 DUPCLOSURE                       R4 K11 [PROTO_0]

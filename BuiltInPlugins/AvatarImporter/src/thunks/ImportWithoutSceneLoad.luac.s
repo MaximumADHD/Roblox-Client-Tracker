@@ -10,16 +10,16 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R3 0
-        1 GETUPVAL                         R6 1
-        2 GETTABLEKS                       R5 R6 K0 ["SCREENS"]
-        4 GETTABLEKS                       R4 R5 K1 ["LOADING"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["SCREENS"]
+        4 GETTABLEKS                       R4 R4 K1 ["LOADING"]
         6 CALL                             R3 1 -1
         7 NAMECALL                         R1 R0 K2 ["dispatch"]
         9 CALL                             R1 -1 0
        10 GETUPVAL                         R2 2
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K3 ["AVATAR_TYPE"]
-       14 GETTABLEKS                       R3 R4 K4 ["CUSTOM"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["AVATAR_TYPE"]
+       14 GETTABLEKS                       R3 R3 K4 ["CUSTOM"]
        16 JUMPIFNOTEQ                      R2 R3 ; [+2]
        18 LOADB                            R1 0 +1
        19 LOADB                            R1 1
@@ -38,13 +38,13 @@ PROTO_1:
        33 NAMECALL                         R4 R0 K2 ["dispatch"]
        35 CALL                             R4 -1 0
        36 RETURN                           R0 0
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R4 R5 K7 ["ERROR_NO_FILE"]
+       37 GETUPVAL                         R4 1
+       38 GETTABLEKS                       R4 R4 K7 ["ERROR_NO_FILE"]
        40 JUMPIFNOTEQ                      R3 R4 ; [+12]
        42 GETUPVAL                         R6 0
-       43 GETUPVAL                         R9 1
-       44 GETTABLEKS                       R8 R9 K0 ["SCREENS"]
-       46 GETTABLEKS                       R7 R8 K8 ["AVATAR"]
+       43 GETUPVAL                         R7 1
+       44 GETTABLEKS                       R7 R7 K0 ["SCREENS"]
+       46 GETTABLEKS                       R7 R7 K8 ["AVATAR"]
        48 CALL                             R6 1 -1
        49 NAMECALL                         R4 R0 K2 ["dispatch"]
        51 CALL                             R4 -1 0
@@ -82,9 +82,9 @@ PROTO_1:
        86 NAMECALL                         R7 R0 K2 ["dispatch"]
        88 CALL                             R7 -1 0
        89 GETUPVAL                         R9 0
-       90 GETUPVAL                         R12 1
-       91 GETTABLEKS                       R11 R12 K0 ["SCREENS"]
-       93 GETTABLEKS                       R10 R11 K16 ["ERROR"]
+       90 GETUPVAL                         R10 1
+       91 GETTABLEKS                       R10 R10 K0 ["SCREENS"]
+       93 GETTABLEKS                       R10 R10 K16 ["ERROR"]
        95 CALL                             R9 1 -1
        96 NAMECALL                         R7 R0 K2 ["dispatch"]
        98 CALL                             R7 -1 0
@@ -103,38 +103,38 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Constants"]
+       11 GETTABLEKS                       R2 R0 K5 ["src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K5 ["src"]
-       20 GETTABLEKS                       R4 R5 K7 ["actions"]
-       22 GETTABLEKS                       R3 R4 K8 ["SetScreen"]
+       18 GETTABLEKS                       R3 R0 K5 ["src"]
+       20 GETTABLEKS                       R3 R3 K7 ["actions"]
+       22 GETTABLEKS                       R3 R3 K8 ["SetScreen"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R6 R0 K5 ["src"]
-       29 GETTABLEKS                       R5 R6 K7 ["actions"]
-       31 GETTABLEKS                       R4 R5 K9 ["SetError"]
+       27 GETTABLEKS                       R4 R0 K5 ["src"]
+       29 GETTABLEKS                       R4 R4 K7 ["actions"]
+       31 GETTABLEKS                       R4 R4 K9 ["SetError"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R7 R0 K5 ["src"]
-       38 GETTABLEKS                       R6 R7 K7 ["actions"]
-       40 GETTABLEKS                       R5 R6 K10 ["ClosePlugin"]
+       36 GETTABLEKS                       R5 R0 K5 ["src"]
+       38 GETTABLEKS                       R5 R5 K7 ["actions"]
+       40 GETTABLEKS                       R5 R5 K10 ["ClosePlugin"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R8 R0 K5 ["src"]
-       47 GETTABLEKS                       R7 R8 K11 ["utils"]
-       49 GETTABLEKS                       R6 R7 K12 ["getLinesFromStr"]
+       45 GETTABLEKS                       R6 R0 K5 ["src"]
+       47 GETTABLEKS                       R6 R6 K11 ["utils"]
+       49 GETTABLEKS                       R6 R6 K12 ["getLinesFromStr"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K4 [require]
-       54 GETTABLEKS                       R9 R0 K5 ["src"]
-       56 GETTABLEKS                       R8 R9 K11 ["utils"]
-       58 GETTABLEKS                       R7 R8 K13 ["setupImportedAvatar"]
+       54 GETTABLEKS                       R7 R0 K5 ["src"]
+       56 GETTABLEKS                       R7 R7 K11 ["utils"]
+       58 GETTABLEKS                       R7 R7 K13 ["setupImportedAvatar"]
        60 CALL                             R6 1 1
        61 DUPCLOSURE                       R7 K14 [PROTO_2]
        62 CAPTURE                          VAL R2

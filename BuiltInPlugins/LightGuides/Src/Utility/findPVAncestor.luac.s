@@ -4,8 +4,8 @@ PROTO_0:
         3 CALL                             R1 2 1
         4 JUMPIFNOT                        R1 ; [+1]
         5 RETURN                           R1 1
-        6 GETIMPORT                        R4 K3 [workspace]
-        8 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+        6 GETIMPORT                        R3 K3 [workspace]
+        8 GETTABLEKS                       R3 R3 K4 ["Terrain"]
        10 OR                               R2 R3 R0
        11 RETURN                           R2 1
 

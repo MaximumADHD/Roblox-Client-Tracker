@@ -30,18 +30,18 @@ PROTO_1:
         3 LOADB                            R1 0
         4 GETTABLEKS                       R2 R0 K0 ["Action"]
         6 GETTABLEKS                       R3 R0 K1 ["Subject"]
-        8 GETUPVAL                         R6 2
-        9 GETTABLEKS                       R5 R6 K2 ["PermissionsSubject"]
-       11 GETTABLEKS                       R4 R5 K3 ["Group"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K2 ["PermissionsSubject"]
+       11 GETTABLEKS                       R4 R4 K3 ["Group"]
        13 JUMPIFNOTEQ                      R3 R4 ; [+7]
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R3 R4 K4 ["PermissionsAction"]
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K4 ["PermissionsAction"]
        18 GETTABLEKS                       R2 R3 K5 ["Use"]
        20 JUMP                             ; [+10]
        21 GETTABLEKS                       R3 R0 K1 ["Subject"]
-       23 GETUPVAL                         R6 2
-       24 GETTABLEKS                       R5 R6 K2 ["PermissionsSubject"]
-       26 GETTABLEKS                       R4 R5 K6 ["Universe"]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R4 R4 K2 ["PermissionsSubject"]
+       26 GETTABLEKS                       R4 R4 K6 ["Universe"]
        28 JUMPIFNOTEQ                      R3 R4 ; [+2]
        30 LOADB                            R1 1
        31 GETUPVAL                         R3 3
@@ -92,8 +92,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_2]
        15 CAPTURE                          VAL R1

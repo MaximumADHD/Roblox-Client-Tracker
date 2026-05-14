@@ -1,19 +1,19 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["AnimationData"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["AnimationData"]
         5 JUMPIFNOT                        R1 ; [+3]
         6 GETTABLEKS                       R2 R1 K2 ["Metadata"]
         8 JUMPIF                           R2 ; [+1]
         9 RETURN                           R0 0
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K3 ["Dictionary"]
-       13 GETTABLEKS                       R2 R3 K4 ["join"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K3 ["Dictionary"]
+       13 GETTABLEKS                       R2 R2 K4 ["join"]
        15 MOVE                             R3 R1
        16 DUPTABLE                         R4 K5 [{"Metadata"}]
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R6 R7 K3 ["Dictionary"]
-       20 GETTABLEKS                       R5 R6 K4 ["join"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K3 ["Dictionary"]
+       20 GETTABLEKS                       R5 R5 K4 ["join"]
        22 GETTABLEKS                       R6 R1 K2 ["Metadata"]
        24 GETUPVAL                         R7 1
        25 CALL                             R5 2 1
@@ -40,13 +40,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Actions"]
-       20 GETTABLEKS                       R3 R4 K10 ["SetAnimationData"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       20 GETTABLEKS                       R3 R3 K10 ["SetAnimationData"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_1]
        24 CAPTURE                          VAL R1

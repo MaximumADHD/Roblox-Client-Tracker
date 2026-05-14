@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["SelectionChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["SelectionChanged"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -10,8 +10,8 @@ PROTO_1:
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
         6 DUPTABLE                         R4 K4 [{"Layout"}]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K5 ["createElement"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K5 ["createElement"]
        10 LOADK                            R6 K6 ["UIListLayout"]
        11 DUPTABLE                         R7 K8 [{"Padding"}]
        12 GETIMPORT                        R8 K11 [UDim.new]
@@ -56,8 +56,8 @@ PROTO_1:
        61 JUMP                             ; [+2]
        62 FORGLOOP                         R12 2 [inext] ; [-7]
        64 MOVE                             R13 R4
-       65 GETUPVAL                         R15 0
-       66 GETTABLEKS                       R14 R15 K5 ["createElement"]
+       65 GETUPVAL                         R14 0
+       66 GETTABLEKS                       R14 R14 K5 ["createElement"]
        68 GETUPVAL                         R15 3
        69 DUPTABLE                         R16 K25 [{"Title", "Selected", "Index", "Error", "Warning", "OnClicked"}]
        70 LOADK                            R19 K26 ["General"]
@@ -84,20 +84,20 @@ PROTO_1:
       100 GETIMPORT                        R12 K31 [table.insert]
       102 CALL                             R12 -1 0
       103 FORGLOOP                         R5 2 [inext] ; [-76]
-      105 GETUPVAL                         R6 0
-      106 GETTABLEKS                       R5 R6 K5 ["createElement"]
+      105 GETUPVAL                         R5 0
+      106 GETTABLEKS                       R5 R5 K5 ["createElement"]
       108 LOADK                            R6 K32 ["Frame"]
       109 DUPTABLE                         R7 K36 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
       110 GETIMPORT                        R8 K38 [UDim2.new]
       112 LOADN                            R9 0
-      113 GETUPVAL                         R11 4
-      114 GETTABLEKS                       R10 R11 K39 ["MENU_BAR_WIDTH"]
+      113 GETUPVAL                         R10 4
+      114 GETTABLEKS                       R10 R10 K39 ["MENU_BAR_WIDTH"]
       116 LOADN                            R11 1
       117 LOADN                            R12 0
       118 CALL                             R8 4 1
       119 SETTABLEKS                       R8 R7 K33 ["Size"]
-      121 GETTABLEKS                       R9 R2 K40 ["menuBar"]
-      123 GETTABLEKS                       R8 R9 K41 ["backgroundColor"]
+      121 GETTABLEKS                       R8 R2 K40 ["menuBar"]
+      123 GETTABLEKS                       R8 R8 K41 ["backgroundColor"]
       125 SETTABLEKS                       R8 R7 K34 ["BackgroundColor3"]
       127 LOADN                            R8 0
       128 SETTABLEKS                       R8 R7 K35 ["BorderSizePixel"]
@@ -109,43 +109,43 @@ PROTO_2:
         0 JUMPIF                           R0 ; [+1]
         1 RETURN                           R0 0
         2 DUPTABLE                         R2 K2 [{"Errors", "Warnings"}]
-        3 GETTABLEKS                       R4 R0 K3 ["Settings"]
-        5 GETTABLEKS                       R3 R4 K0 ["Errors"]
+        3 GETTABLEKS                       R3 R0 K3 ["Settings"]
+        5 GETTABLEKS                       R3 R3 K0 ["Errors"]
         7 SETTABLEKS                       R3 R2 K0 ["Errors"]
-        9 GETTABLEKS                       R4 R0 K3 ["Settings"]
-       11 GETTABLEKS                       R3 R4 K1 ["Warnings"]
+        9 GETTABLEKS                       R3 R0 K3 ["Settings"]
+       11 GETTABLEKS                       R3 R3 K1 ["Warnings"]
        13 SETTABLEKS                       R3 R2 K1 ["Warnings"]
        15 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETIMPORT                        R6 K4 [require]
-       36 GETTABLEKS                       R9 R0 K11 ["Src"]
-       38 GETTABLEKS                       R8 R9 K12 ["Util"]
-       40 GETTABLEKS                       R7 R8 K13 ["DEPRECATED_Constants"]
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K12 ["Util"]
+       40 GETTABLEKS                       R7 R7 K13 ["DEPRECATED_Constants"]
        42 CALL                             R6 1 1
        43 GETIMPORT                        R7 K4 [require]
-       45 GETTABLEKS                       R10 R0 K11 ["Src"]
-       47 GETTABLEKS                       R9 R10 K14 ["Components"]
-       49 GETTABLEKS                       R8 R9 K15 ["MenuEntry"]
+       45 GETTABLEKS                       R8 R0 K11 ["Src"]
+       47 GETTABLEKS                       R8 R8 K14 ["Components"]
+       49 GETTABLEKS                       R8 R8 K15 ["MenuEntry"]
        51 CALL                             R7 1 1
        52 GETTABLEKS                       R8 R1 K16 ["PureComponent"]
        54 LOADK                            R10 K17 ["MenuBar"]

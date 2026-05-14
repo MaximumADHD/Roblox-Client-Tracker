@@ -76,8 +76,8 @@ PROTO_0:
       107 MOVE                             R4 R1
       108 GETIMPORT                        R3 K6 [table.insert]
       110 CALL                             R3 2 0
-      111 GETUPVAL                         R4 0
-      112 GETTABLEKS                       R3 R4 K14 ["fromResponse"]
+      111 GETUPVAL                         R3 0
+      112 GETTABLEKS                       R3 R3 K14 ["fromResponse"]
       114 GETTABLEKS                       R4 R0 K15 ["conversation"]
       116 MOVE                             R5 R1
       117 LOADK                            R7 K16 ["%*\"conversation\" > "]
@@ -173,8 +173,8 @@ PROTO_1:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K3 ["toRequest"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K3 ["toRequest"]
         7 GETTABLEKS                       R3 R1 K4 ["conversation"]
         9 CALL                             R2 1 1
        10 SETTABLEKS                       R2 R1 K4 ["conversation"]
@@ -194,8 +194,8 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["Conversation"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["Conversation"]
        24 CALL                             R4 1 1
        25 DUPCLOSURE                       R5 K11 [PROTO_0]
        26 CAPTURE                          VAL R4

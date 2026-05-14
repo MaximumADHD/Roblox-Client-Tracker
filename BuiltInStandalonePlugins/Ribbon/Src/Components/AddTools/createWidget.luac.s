@@ -40,8 +40,8 @@ PROTO_2:
        37 SETTABLEKS                       R4 R3 K14 ["ZIndexBehavior"]
        39 NAMECALL                         R4 R1 K17 ["GetUri"]
        41 CALL                             R4 1 1
-       42 GETUPVAL                         R6 1
-       43 GETTABLEKS                       R5 R6 K18 ["join"]
+       42 GETUPVAL                         R5 1
+       43 GETTABLEKS                       R5 R5 K18 ["join"]
        45 MOVE                             R6 R4
        46 DUPTABLE                         R7 K21 [{"Category", "ItemId"}]
        47 LOADK                            R8 K22 ["Panels"]
@@ -59,8 +59,8 @@ PROTO_2:
        63 GETUPVAL                         R7 2
        64 CALL                             R7 0 1
        65 JUMPIFNOT                        R7 ; [+6]
-       66 GETUPVAL                         R8 3
-       67 GETTABLEKS                       R7 R8 K25 ["watchPluginGui"]
+       66 GETUPVAL                         R7 3
+       67 GETTABLEKS                       R7 R7 K25 ["watchPluginGui"]
        69 MOVE                             R8 R1
        70 MOVE                             R9 R3
        71 CALL                             R7 2 0
@@ -81,23 +81,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["StudioFoundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["StudioFoundation"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["StudioUri"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["StudioUri"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Src"]
-       22 GETTABLEKS                       R4 R5 K11 ["FoundationInspector"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["FoundationInspector"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K14 [Vector2.new]
        27 LOADN                            R5 128
        28 LOADN                            R6 244
        29 CALL                             R4 2 1
        30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R8 R0 K10 ["Src"]
-       34 GETTABLEKS                       R7 R8 K15 ["SharedFlags"]
-       36 GETTABLEKS                       R6 R7 K16 ["getFFlagDebugEnableFoundationInspector"]
+       32 GETTABLEKS                       R6 R0 K10 ["Src"]
+       34 GETTABLEKS                       R6 R6 K15 ["SharedFlags"]
+       36 GETTABLEKS                       R6 R6 K16 ["getFFlagDebugEnableFoundationInspector"]
        38 CALL                             R5 1 1
        39 DUPCLOSURE                       R6 K17 [PROTO_2]
        40 CAPTURE                          VAL R4

@@ -31,24 +31,24 @@ PROTO_2:
         8 SETTABLEKS                       R5 R4 K1 ["collisionMode"]
        10 NAMECALL                         R1 R1 K4 ["logCounter"]
        12 CALL                             R1 3 0
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K5 ["collisionSetting"]
-       16 GETTABLEKS                       R1 R2 K6 ["set"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K5 ["collisionSetting"]
+       16 GETTABLEKS                       R1 R1 K6 ["set"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 0
        20 GETIMPORT                        R1 K10 [Enum.AvatarSettingsCollisionMode.Legacy]
        22 JUMPIFNOTEQ                      R0 R1 ; [+9]
-       24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R2 R3 K11 ["collisionMethodSetting"]
-       27 GETTABLEKS                       R1 R2 K6 ["set"]
+       24 GETUPVAL                         R1 2
+       25 GETTABLEKS                       R1 R1 K11 ["collisionMethodSetting"]
+       27 GETTABLEKS                       R1 R1 K6 ["set"]
        29 GETIMPORT                        R2 K14 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
        31 CALL                             R1 1 0
        32 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["collisionHitAndTouchDetectionSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["set"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["collisionHitAndTouchDetectionSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["set"]
         5 GETIMPORT                        R2 K4 [Enum.AvatarSettingsHitAndTouchDetectionMode]
         7 MOVE                             R4 R0
         8 NAMECALL                         R2 R2 K5 ["FromName"]
@@ -67,8 +67,8 @@ PROTO_4:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -105,19 +105,19 @@ PROTO_4:
        62 CALL                             R9 3 1
        63 SETTABLEKS                       R9 R8 K7 ["Label"]
        65 SETLIST                          R5 R6 3 [1]
-       67 GETTABLEKS                       R7 R4 K2 ["settings"]
-       69 GETTABLEKS                       R6 R7 K22 ["movementSettings"]
-       71 GETTABLEKS                       R8 R6 K23 ["collisionSetting"]
-       73 GETTABLEKS                       R7 R8 K24 ["value"]
+       67 GETTABLEKS                       R6 R4 K2 ["settings"]
+       69 GETTABLEKS                       R6 R6 K22 ["movementSettings"]
+       71 GETTABLEKS                       R7 R6 K23 ["collisionSetting"]
+       73 GETTABLEKS                       R7 R7 K24 ["value"]
        75 GETIMPORT                        R8 K27 [UDim.new]
        77 LOADN                            R9 0
-       78 GETUPVAL                         R11 5
-       79 GETTABLEKS                       R10 R11 K28 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+       78 GETUPVAL                         R10 5
+       79 GETTABLEKS                       R10 R10 K28 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
        81 CALL                             R8 2 1
        82 GETIMPORT                        R9 K30 [UDim2.new]
        84 LOADK                            R10 K31 [0.9]
-       85 GETUPVAL                         R13 5
-       86 GETTABLEKS                       R12 R13 K28 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+       85 GETUPVAL                         R12 5
+       86 GETTABLEKS                       R12 R12 K28 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
        88 MINUS                            R11 R12
        89 LOADN                            R12 0
        90 LOADN                            R13 0
@@ -192,11 +192,11 @@ PROTO_4:
       184 GETUPVAL                         R19 6
       185 GETUPVAL                         R20 10
       186 DUPTABLE                         R21 K58 [{"value", "setValue", "text", "layoutOrder"}]
-      187 GETTABLEKS                       R23 R6 K59 ["collisionSizeSetting"]
-      189 GETTABLEKS                       R22 R23 K24 ["value"]
+      187 GETTABLEKS                       R22 R6 K59 ["collisionSizeSetting"]
+      189 GETTABLEKS                       R22 R22 K24 ["value"]
       191 SETTABLEKS                       R22 R21 K24 ["value"]
-      193 GETTABLEKS                       R23 R6 K59 ["collisionSizeSetting"]
-      195 GETTABLEKS                       R22 R23 K60 ["set"]
+      193 GETTABLEKS                       R22 R6 K59 ["collisionSizeSetting"]
+      195 GETTABLEKS                       R22 R22 K60 ["set"]
       197 SETTABLEKS                       R22 R21 K57 ["setValue"]
       199 LOADK                            R24 K61 ["General"]
       200 LOADK                            R25 K62 ["studs"]
@@ -306,8 +306,8 @@ PROTO_4:
       354 SETTABLEKS                       R25 R24 K89 ["Disabled"]
       356 SETLIST                          R22 R23 2 [1]
       358 SETTABLEKS                       R22 R21 K78 ["Buttons"]
-      360 GETTABLEKS                       R24 R6 K107 ["collisionHitAndTouchDetectionSetting"]
-      362 GETTABLEKS                       R23 R24 K24 ["value"]
+      360 GETTABLEKS                       R23 R6 K107 ["collisionHitAndTouchDetectionSetting"]
+      362 GETTABLEKS                       R23 R23 K24 ["value"]
       364 FASTCALL1                        TYPEOF R23 ; [+3]
       365 MOVE                             R25 R23
       366 GETIMPORT                        R24 K95 [typeof]
@@ -337,55 +337,55 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K10 ["Util"]
-       24 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K10 ["Util"]
+       24 GETTABLEKS                       R3 R3 K11 ["Constants"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Components"]
-       33 GETTABLEKS                       R4 R5 K12 ["ExpandableSection"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Components"]
+       33 GETTABLEKS                       R4 R4 K12 ["ExpandableSection"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K14 ["Framework"]
+       38 GETTABLEKS                       R5 R0 K13 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K14 ["Framework"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K7 ["Components"]
-       49 GETTABLEKS                       R6 R7 K15 ["GenericModeSelector"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K7 ["Components"]
+       49 GETTABLEKS                       R6 R6 K15 ["GenericModeSelector"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R8 R0 K13 ["Packages"]
-       56 GETTABLEKS                       R7 R8 K16 ["React"]
+       54 GETTABLEKS                       R7 R0 K13 ["Packages"]
+       56 GETTABLEKS                       R7 R7 K16 ["React"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R9 R0 K13 ["Packages"]
-       63 GETTABLEKS                       R8 R9 K17 ["ReactUtils"]
+       61 GETTABLEKS                       R8 R0 K13 ["Packages"]
+       63 GETTABLEKS                       R8 R8 K17 ["ReactUtils"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K6 ["Src"]
-       70 GETTABLEKS                       R10 R11 K7 ["Components"]
-       72 GETTABLEKS                       R9 R10 K18 ["TitledComponent"]
+       68 GETTABLEKS                       R9 R0 K6 ["Src"]
+       70 GETTABLEKS                       R9 R9 K7 ["Components"]
+       72 GETTABLEKS                       R9 R9 K18 ["TitledComponent"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K6 ["Src"]
-       79 GETTABLEKS                       R11 R12 K7 ["Components"]
-       81 GETTABLEKS                       R10 R11 K19 ["Vector3Input"]
+       77 GETTABLEKS                       R10 R0 K6 ["Src"]
+       79 GETTABLEKS                       R10 R10 K7 ["Components"]
+       81 GETTABLEKS                       R10 R10 K19 ["Vector3Input"]
        83 CALL                             R9 1 1
        84 GETTABLEKS                       R10 R4 K20 ["ContextServices"]
        86 GETTABLEKS                       R11 R10 K21 ["Localization"]
        88 GETIMPORT                        R12 K5 [require]
-       90 GETTABLEKS                       R16 R0 K6 ["Src"]
-       92 GETTABLEKS                       R15 R16 K10 ["Util"]
-       94 GETTABLEKS                       R14 R15 K22 ["Telemetry"]
-       96 GETTABLEKS                       R13 R14 K23 ["TelemetryContext"]
+       90 GETTABLEKS                       R13 R0 K6 ["Src"]
+       92 GETTABLEKS                       R13 R13 K10 ["Util"]
+       94 GETTABLEKS                       R13 R13 K22 ["Telemetry"]
+       96 GETTABLEKS                       R13 R13 K23 ["TelemetryContext"]
        98 CALL                             R12 1 1
        99 GETTABLEKS                       R13 R4 K24 ["UI"]
       101 GETTABLEKS                       R14 R13 K25 ["RadioButtonList"]

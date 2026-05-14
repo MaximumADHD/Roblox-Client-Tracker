@@ -27,9 +27,9 @@ PROTO_0:
        39 GETIMPORT                        R13 K14 [table.insert]
        41 CALL                             R13 2 0
        42 FORGLOOP                         R5 2 ; [-32]
-       44 GETUPVAL                         R7 0
-       45 GETTABLEKS                       R6 R7 K15 ["Dictionary"]
-       47 GETTABLEKS                       R5 R6 K16 ["join"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K15 ["Dictionary"]
+       47 GETTABLEKS                       R5 R5 K16 ["join"]
        49 MOVE                             R6 R0
        50 DUPTABLE                         R7 K19 [{"countryRegionTable", "countryRegionList"}]
        51 SETTABLEKS                       R3 R7 K17 ["countryRegionTable"]
@@ -39,9 +39,9 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["countryRegionCode"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["Dictionary"]
-        5 GETTABLEKS                       R3 R4 K2 ["join"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
+        5 GETTABLEKS                       R3 R3 K2 ["join"]
         7 MOVE                             R4 R0
         8 DUPTABLE                         R5 K4 [{"userCountryRegionCode"}]
         9 SETTABLEKS                       R2 R5 K3 ["userCountryRegionCode"]
@@ -50,17 +50,17 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Rodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["createReducer"]
        25 DUPTABLE                         R4 K12 [{"userCountryRegionCode", "countryRegionTable", "countryRegionList"}]

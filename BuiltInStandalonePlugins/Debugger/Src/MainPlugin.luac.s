@@ -52,21 +52,21 @@ PROTO_7:
         0 NEWTABLE                         R1 1 0
         2 GETUPVAL                         R2 0
         3 DUPTABLE                         R3 K1 [{"Enabled"}]
-        4 GETUPVAL                         R8 1
-        5 GETTABLEKS                       R7 R8 K2 ["state"]
-        7 GETUPVAL                         R8 0
-        8 GETTABLE                         R6 R7 R8
-        9 GETTABLEKS                       R5 R6 K0 ["Enabled"]
+        4 GETUPVAL                         R6 1
+        5 GETTABLEKS                       R6 R6 K2 ["state"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLE                         R5 R6 R7
+        9 GETTABLEKS                       R5 R5 K0 ["Enabled"]
        11 NOT                              R4 R5
        12 SETTABLEKS                       R4 R3 K0 ["Enabled"]
        14 SETTABLE                         R3 R1 R2
        15 RETURN                           R1 1
 
 PROTO_8:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["state"]
-        3 GETTABLE                         R3 R4 R1
-        4 GETTABLEKS                       R2 R3 K1 ["Enabled"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["state"]
+        3 GETTABLE                         R2 R3 R1
+        4 GETTABLEKS                       R2 R2 K1 ["Enabled"]
         6 JUMPIFEQ                         R0 R2 ; [+8]
         8 GETUPVAL                         R2 0
         9 NEWCLOSURE                       R4 P0
@@ -77,24 +77,24 @@ PROTO_8:
        15 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onToggleEnabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["onToggleEnabled"]
         3 GETTABLEKS                       R2 R0 K1 ["Checked"]
         5 LOADK                            R3 K2 ["callstackWindow"]
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onToggleEnabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["onToggleEnabled"]
         3 GETTABLEKS                       R2 R0 K1 ["Checked"]
         5 LOADK                            R3 K2 ["breakpointsWindow"]
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onToggleEnabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["onToggleEnabled"]
         3 GETTABLEKS                       R2 R0 K1 ["Checked"]
         5 LOADK                            R3 K2 ["watchWindow"]
         6 CALL                             R1 2 0
@@ -110,10 +110,10 @@ PROTO_12:
         7 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["state"]
-        3 GETTABLE                         R2 R3 R0
-        4 GETTABLEKS                       R1 R2 K1 ["Enabled"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["state"]
+        3 GETTABLE                         R1 R2 R0
+        4 GETTABLEKS                       R1 R1 K1 ["Enabled"]
         6 JUMPIFNOT                        R1 ; [+7]
         7 GETIMPORT                        R1 K4 [task.spawn]
         9 NEWCLOSURE                       R2 P0
@@ -125,16 +125,16 @@ PROTO_13:
 
 PROTO_14:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 NEWTABLE                         R5 0 1
-        4 GETUPVAL                         R7 2
-        5 GETUPVAL                         R8 3
-        6 GETTABLE                         R6 R7 R8
-        7 SETLIST                          R5 R6 1 [1]
-        9 NAMECALL                         R3 R3 K0 ["GetAsync"]
-       11 CALL                             R3 2 1
-       12 GETTABLEN                        R2 R3 1
-       13 GETTABLEKS                       R1 R2 K1 ["Checked"]
+        1 GETUPVAL                         R2 1
+        2 NEWTABLE                         R4 0 1
+        4 GETUPVAL                         R6 2
+        5 GETUPVAL                         R7 3
+        6 GETTABLE                         R5 R6 R7
+        7 SETLIST                          R4 R5 1 [1]
+        9 NAMECALL                         R2 R2 K0 ["GetAsync"]
+       11 CALL                             R2 2 1
+       12 GETTABLEN                        R1 R2 1
+       13 GETTABLEKS                       R1 R1 K1 ["Checked"]
        15 JUMPIFEQ                         R0 R1 ; [+8]
        17 GETUPVAL                         R0 1
        18 GETUPVAL                         R3 2
@@ -176,18 +176,18 @@ PROTO_16:
        27 CALL                             R5 2 1
        28 DUPTABLE                         R6 K9 [{"callstackWindow", "breakpointsWindow", "watchWindow", "uiDmLoaded"}]
        29 DUPTABLE                         R7 K11 [{"Enabled"}]
-       30 GETTABLEN                        R9 R5 1
-       31 GETTABLEKS                       R8 R9 K12 ["Checked"]
+       30 GETTABLEN                        R8 R5 1
+       31 GETTABLEKS                       R8 R8 K12 ["Checked"]
        33 SETTABLEKS                       R8 R7 K10 ["Enabled"]
        35 SETTABLEKS                       R7 R6 K3 ["callstackWindow"]
        37 DUPTABLE                         R7 K11 [{"Enabled"}]
-       38 GETTABLEN                        R9 R5 2
-       39 GETTABLEKS                       R8 R9 K12 ["Checked"]
+       38 GETTABLEN                        R8 R5 2
+       39 GETTABLEKS                       R8 R8 K12 ["Checked"]
        41 SETTABLEKS                       R8 R7 K10 ["Enabled"]
        43 SETTABLEKS                       R7 R6 K4 ["breakpointsWindow"]
        45 DUPTABLE                         R7 K11 [{"Enabled"}]
-       46 GETTABLEN                        R9 R5 3
-       47 GETTABLEKS                       R8 R9 K12 ["Checked"]
+       46 GETTABLEN                        R8 R5 3
+       47 GETTABLEKS                       R8 R8 K12 ["Checked"]
        49 SETTABLEKS                       R8 R7 K10 ["Enabled"]
        51 SETTABLEKS                       R7 R6 K5 ["watchWindow"]
        53 LOADB                            R7 0
@@ -249,37 +249,37 @@ PROTO_16:
       130 CAPTURE                          VAL R2
       131 CAPTURE                          VAL R4
       132 SETTABLEKS                       R7 R0 K26 ["setWidgetEnabledState"]
-      134 GETUPVAL                         R9 3
-      135 GETTABLEKS                       R8 R9 K27 ["Store"]
-      137 GETTABLEKS                       R7 R8 K28 ["new"]
+      134 GETUPVAL                         R7 3
+      135 GETTABLEKS                       R7 R7 K27 ["Store"]
+      137 GETTABLEKS                       R7 R7 K28 ["new"]
       139 GETUPVAL                         R8 4
       140 LOADNIL                          R9
       141 GETUPVAL                         R10 5
       142 CALL                             R7 3 1
       143 SETTABLEKS                       R7 R0 K29 ["store"]
-      145 GETUPVAL                         R8 6
-      146 GETTABLEKS                       R7 R8 K28 ["new"]
+      145 GETUPVAL                         R7 6
+      146 GETTABLEKS                       R7 R7 K28 ["new"]
       148 GETTABLEKS                       R8 R0 K29 ["store"]
       150 CALL                             R7 1 1
       151 SETTABLEKS                       R7 R0 K30 ["debugConnectionListener"]
-      153 GETUPVAL                         R8 7
-      154 GETTABLEKS                       R7 R8 K28 ["new"]
+      153 GETUPVAL                         R7 7
+      154 GETTABLEKS                       R7 R7 K28 ["new"]
       156 GETTABLEKS                       R8 R0 K29 ["store"]
       158 CALL                             R7 1 1
       159 SETTABLEKS                       R7 R0 K31 ["metaBreakpointManagerListener"]
-      161 GETUPVAL                         R8 8
-      162 GETTABLEKS                       R7 R8 K28 ["new"]
+      161 GETUPVAL                         R7 8
+      162 GETTABLEKS                       R7 R7 K28 ["new"]
       164 GETTABLEKS                       R8 R0 K29 ["store"]
       166 CALL                             R7 1 1
       167 SETTABLEKS                       R7 R0 K32 ["scriptChangeServiceListener"]
-      169 GETUPVAL                         R8 9
-      170 GETTABLEKS                       R7 R8 K28 ["new"]
+      169 GETUPVAL                         R7 9
+      170 GETTABLEKS                       R7 R7 K28 ["new"]
       172 GETTABLEKS                       R8 R0 K29 ["store"]
       174 CALL                             R7 1 1
       175 SETTABLEKS                       R7 R0 K33 ["debuggerUIServiceListener"]
-      177 GETUPVAL                         R9 10
-      178 GETTABLEKS                       R8 R9 K34 ["Localization"]
-      180 GETTABLEKS                       R7 R8 K28 ["new"]
+      177 GETUPVAL                         R7 10
+      178 GETTABLEKS                       R7 R7 K34 ["Localization"]
+      180 GETTABLEKS                       R7 R7 K28 ["new"]
       182 DUPTABLE                         R8 K38 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
       183 GETUPVAL                         R9 11
       184 SETTABLEKS                       R9 R8 K35 ["stringResourceTable"]
@@ -291,12 +291,12 @@ PROTO_16:
       193 SETTABLEKS                       R7 R0 K40 ["localization"]
       195 GETUPVAL                         R7 13
       196 SETTABLEKS                       R7 R0 K41 ["analytics"]
-      198 GETUPVAL                         R9 10
-      199 GETTABLEKS                       R8 R9 K42 ["PluginActions"]
-      201 GETTABLEKS                       R7 R8 K28 ["new"]
+      198 GETUPVAL                         R7 10
+      199 GETTABLEKS                       R7 R7 K42 ["PluginActions"]
+      201 GETTABLEKS                       R7 R7 K28 ["new"]
       203 GETTABLEKS                       R8 R1 K0 ["Plugin"]
-      205 GETUPVAL                         R10 14
-      206 GETTABLEKS                       R9 R10 K43 ["getActionsWithShortcuts"]
+      205 GETUPVAL                         R9 14
+      206 GETTABLEKS                       R9 R9 K43 ["getActionsWithShortcuts"]
       208 GETTABLEKS                       R10 R0 K40 ["localization"]
       210 CALL                             R9 1 -1
       211 CALL                             R7 -1 1
@@ -304,37 +304,37 @@ PROTO_16:
       214 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["toggleWidgetEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toggleWidgetEnabled"]
         3 LOADK                            R1 K1 ["callstackWindow"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["toggleWidgetEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toggleWidgetEnabled"]
         3 LOADK                            R1 K1 ["breakpointsWindow"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["toggleWidgetEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toggleWidgetEnabled"]
         3 LOADK                            R1 K1 ["watchWindow"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_20:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
-        2 GETTABLEKS                       R4 R2 K1 ["callstackWindow"]
-        4 GETTABLEKS                       R3 R4 K2 ["Enabled"]
-        6 GETTABLEKS                       R5 R2 K3 ["watchWindow"]
-        8 GETTABLEKS                       R4 R5 K2 ["Enabled"]
-       10 GETTABLEKS                       R6 R2 K4 ["breakpointsWindow"]
-       12 GETTABLEKS                       R5 R6 K2 ["Enabled"]
+        2 GETTABLEKS                       R3 R2 K1 ["callstackWindow"]
+        4 GETTABLEKS                       R3 R3 K2 ["Enabled"]
+        6 GETTABLEKS                       R4 R2 K3 ["watchWindow"]
+        8 GETTABLEKS                       R4 R4 K2 ["Enabled"]
+       10 GETTABLEKS                       R5 R2 K4 ["breakpointsWindow"]
+       12 GETTABLEKS                       R5 R5 K2 ["Enabled"]
        14 DUPTABLE                         R6 K8 [{"ToggleCallstack", "ToggleBreakpointsWindow", "ToggleWatchWindow"}]
-       15 GETUPVAL                         R8 0
-       16 GETTABLEKS                       R7 R8 K9 ["createElement"]
+       15 GETUPVAL                         R7 0
+       16 GETTABLEKS                       R7 R7 K9 ["createElement"]
        18 GETUPVAL                         R8 1
        19 DUPTABLE                         R9 K17 [{"Name", "Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
        20 LOADK                            R10 K18 ["callStackDockWidgetActionV2"]
@@ -352,8 +352,8 @@ PROTO_20:
        38 SETTABLEKS                       R10 R9 K16 ["ClickableWhenViewportHidden"]
        40 CALL                             R7 2 1
        41 SETTABLEKS                       R7 R6 K5 ["ToggleCallstack"]
-       43 GETUPVAL                         R8 0
-       44 GETTABLEKS                       R7 R8 K9 ["createElement"]
+       43 GETUPVAL                         R7 0
+       44 GETTABLEKS                       R7 R7 K9 ["createElement"]
        46 GETUPVAL                         R8 1
        47 DUPTABLE                         R9 K17 [{"Name", "Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
        48 LOADK                            R10 K21 ["breakpointsDockWidgetActionV2"]
@@ -371,8 +371,8 @@ PROTO_20:
        66 SETTABLEKS                       R10 R9 K16 ["ClickableWhenViewportHidden"]
        68 CALL                             R7 2 1
        69 SETTABLEKS                       R7 R6 K6 ["ToggleBreakpointsWindow"]
-       71 GETUPVAL                         R8 0
-       72 GETTABLEKS                       R7 R8 K9 ["createElement"]
+       71 GETUPVAL                         R7 0
+       72 GETTABLEKS                       R7 R7 K9 ["createElement"]
        74 GETUPVAL                         R8 1
        75 DUPTABLE                         R9 K17 [{"Name", "Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
        76 LOADK                            R10 K23 ["watchDockWidgetActionV2"]
@@ -393,69 +393,69 @@ PROTO_20:
        99 RETURN                           R6 1
 
 PROTO_21:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onWidgetClose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onWidgetClose"]
         3 LOADK                            R1 K1 ["callstackWindow"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setWidgetEnabledState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setWidgetEnabledState"]
         3 LOADK                            R2 K1 ["callstackWindow"]
         4 MOVE                             R3 R0
         5 CALL                             R1 2 0
         6 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setWidgetEnabledState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setWidgetEnabledState"]
         3 LOADK                            R2 K1 ["callstackWindow"]
         4 GETTABLEKS                       R3 R0 K2 ["Enabled"]
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
 PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onWidgetClose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onWidgetClose"]
         3 LOADK                            R1 K1 ["breakpointsWindow"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_25:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setWidgetEnabledState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setWidgetEnabledState"]
         3 LOADK                            R2 K1 ["breakpointsWindow"]
         4 MOVE                             R3 R0
         5 CALL                             R1 2 0
         6 RETURN                           R0 0
 
 PROTO_26:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setWidgetEnabledState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setWidgetEnabledState"]
         3 LOADK                            R2 K1 ["breakpointsWindow"]
         4 GETTABLEKS                       R3 R0 K2 ["Enabled"]
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
 PROTO_27:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onWidgetClose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onWidgetClose"]
         3 LOADK                            R1 K1 ["watchWindow"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_28:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setWidgetEnabledState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setWidgetEnabledState"]
         3 LOADK                            R2 K1 ["watchWindow"]
         4 MOVE                             R3 R0
         5 CALL                             R1 2 0
         6 RETURN                           R0 0
 
 PROTO_29:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setWidgetEnabledState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setWidgetEnabledState"]
         3 LOADK                            R2 K1 ["watchWindow"]
         4 GETTABLEKS                       R3 R0 K2 ["Enabled"]
         6 CALL                             R1 2 0
@@ -469,33 +469,33 @@ PROTO_30:
         8 JUMPIFNOT                        R4 ; [+7]
         9 GETTABLEKS                       R4 R2 K4 ["callstackWindow"]
        11 JUMPIFNOT                        R4 ; [+4]
-       12 GETTABLEKS                       R5 R2 K4 ["callstackWindow"]
-       14 GETTABLEKS                       R4 R5 K5 ["Enabled"]
+       12 GETTABLEKS                       R4 R2 K4 ["callstackWindow"]
+       14 GETTABLEKS                       R4 R4 K5 ["Enabled"]
        16 GETTABLEKS                       R5 R2 K3 ["uiDmLoaded"]
        18 JUMPIFNOT                        R5 ; [+7]
        19 GETTABLEKS                       R5 R2 K6 ["watchWindow"]
        21 JUMPIFNOT                        R5 ; [+4]
-       22 GETTABLEKS                       R6 R2 K6 ["watchWindow"]
-       24 GETTABLEKS                       R5 R6 K5 ["Enabled"]
+       22 GETTABLEKS                       R5 R2 K6 ["watchWindow"]
+       24 GETTABLEKS                       R5 R5 K5 ["Enabled"]
        26 GETTABLEKS                       R6 R2 K3 ["uiDmLoaded"]
        28 JUMPIFNOT                        R6 ; [+7]
        29 GETTABLEKS                       R6 R2 K7 ["breakpointsWindow"]
        31 JUMPIFNOT                        R6 ; [+4]
-       32 GETTABLEKS                       R7 R2 K7 ["breakpointsWindow"]
-       34 GETTABLEKS                       R6 R7 K5 ["Enabled"]
-       36 GETUPVAL                         R8 0
-       37 GETTABLEKS                       R7 R8 K8 ["provide"]
+       32 GETTABLEKS                       R6 R2 K7 ["breakpointsWindow"]
+       34 GETTABLEKS                       R6 R6 K5 ["Enabled"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K8 ["provide"]
        39 NEWTABLE                         R8 0 7
-       41 GETUPVAL                         R10 1
-       42 GETTABLEKS                       R9 R10 K9 ["new"]
+       41 GETUPVAL                         R9 1
+       42 GETTABLEKS                       R9 R9 K9 ["new"]
        44 MOVE                             R10 R3
        45 CALL                             R9 1 1
-       46 GETUPVAL                         R11 2
-       47 GETTABLEKS                       R10 R11 K9 ["new"]
+       46 GETUPVAL                         R10 2
+       47 GETTABLEKS                       R10 R10 K9 ["new"]
        49 GETTABLEKS                       R11 R0 K10 ["store"]
        51 CALL                             R10 1 1
-       52 GETUPVAL                         R12 3
-       53 GETTABLEKS                       R11 R12 K9 ["new"]
+       52 GETUPVAL                         R11 3
+       53 GETTABLEKS                       R11 R11 K9 ["new"]
        55 NAMECALL                         R12 R3 K11 ["getMouse"]
        57 CALL                             R12 1 -1
        58 CALL                             R11 -1 1
@@ -506,13 +506,13 @@ PROTO_30:
        65 GETTABLEKS                       R15 R0 K14 ["pluginActions"]
        67 SETLIST                          R8 R9 7 [1]
        69 DUPTABLE                         R9 K19 [{"ToolbarWithRoduxConnection", "CallstackWindow", "BreakpointsWindow", "WatchWindow"}]
-       70 GETUPVAL                         R11 5
-       71 GETTABLEKS                       R10 R11 K20 ["createElement"]
+       70 GETUPVAL                         R10 5
+       71 GETTABLEKS                       R10 R10 K20 ["createElement"]
        73 GETUPVAL                         R11 6
        74 CALL                             R10 1 1
        75 SETTABLEKS                       R10 R9 K15 ["ToolbarWithRoduxConnection"]
-       77 GETUPVAL                         R11 5
-       78 GETTABLEKS                       R10 R11 K20 ["createElement"]
+       77 GETUPVAL                         R10 5
+       78 GETTABLEKS                       R10 R10 K20 ["createElement"]
        80 GETUPVAL                         R11 7
        81 DUPTABLE                         R12 K24 [{"Enabled", "OnClose", "OnRestore", "OnWidgetEnabledChanged"}]
        82 SETTABLEKS                       R4 R12 K5 ["Enabled"]
@@ -527,8 +527,8 @@ PROTO_30:
        94 SETTABLEKS                       R13 R12 K23 ["OnWidgetEnabledChanged"]
        96 CALL                             R10 2 1
        97 SETTABLEKS                       R10 R9 K16 ["CallstackWindow"]
-       99 GETUPVAL                         R11 5
-      100 GETTABLEKS                       R10 R11 K20 ["createElement"]
+       99 GETUPVAL                         R10 5
+      100 GETTABLEKS                       R10 R10 K20 ["createElement"]
       102 GETUPVAL                         R11 8
       103 DUPTABLE                         R12 K24 [{"Enabled", "OnClose", "OnRestore", "OnWidgetEnabledChanged"}]
       104 SETTABLEKS                       R6 R12 K5 ["Enabled"]
@@ -543,8 +543,8 @@ PROTO_30:
       116 SETTABLEKS                       R13 R12 K23 ["OnWidgetEnabledChanged"]
       118 CALL                             R10 2 1
       119 SETTABLEKS                       R10 R9 K17 ["BreakpointsWindow"]
-      121 GETUPVAL                         R11 5
-      122 GETTABLEKS                       R10 R11 K20 ["createElement"]
+      121 GETUPVAL                         R10 5
+      122 GETTABLEKS                       R10 R10 K20 ["createElement"]
       124 GETUPVAL                         R11 9
       125 DUPTABLE                         R12 K24 [{"Enabled", "OnClose", "OnRestore", "OnWidgetEnabledChanged"}]
       126 SETTABLEKS                       R5 R12 K5 ["Enabled"]
@@ -558,8 +558,8 @@ PROTO_30:
       137 CAPTURE                          VAL R0
       138 SETTABLEKS                       R13 R12 K23 ["OnWidgetEnabledChanged"]
       140 DUPTABLE                         R13 K26 [{"Watch"}]
-      141 GETUPVAL                         R15 5
-      142 GETTABLEKS                       R14 R15 K20 ["createElement"]
+      141 GETUPVAL                         R14 5
+      142 GETTABLEKS                       R14 R14 K20 ["createElement"]
       144 GETUPVAL                         R15 10
       145 CALL                             R14 1 1
       146 SETTABLEKS                       R14 R13 K25 ["Watch"]
@@ -613,21 +613,21 @@ PROTO_31:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Src"]
         9 GETIMPORT                        R2 K5 [require]
-       11 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K7 ["Roact"]
+       11 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       13 GETTABLEKS                       R3 R3 K7 ["Roact"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K8 ["Rodux"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K8 ["Rodux"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K9 ["Framework"]
+       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R5 R5 K9 ["Framework"]
        29 CALL                             R4 1 1
        30 GETTABLEKS                       R5 R4 K10 ["UI"]
        32 GETTABLEKS                       R6 R5 K11 ["PluginButton"]
@@ -636,71 +636,71 @@ MAIN:
        38 GETTABLEKS                       R9 R7 K14 ["Mouse"]
        40 GETTABLEKS                       R10 R7 K15 ["Store"]
        42 GETIMPORT                        R11 K5 [require]
-       44 GETTABLEKS                       R13 R1 K16 ["Reducers"]
-       46 GETTABLEKS                       R12 R13 K17 ["MainReducer"]
+       44 GETTABLEKS                       R12 R1 K16 ["Reducers"]
+       46 GETTABLEKS                       R12 R12 K17 ["MainReducer"]
        48 CALL                             R11 1 1
        49 GETIMPORT                        R12 K5 [require]
-       51 GETTABLEKS                       R14 R1 K18 ["Resources"]
-       53 GETTABLEKS                       R13 R14 K19 ["MakeTheme"]
+       51 GETTABLEKS                       R13 R1 K18 ["Resources"]
+       53 GETTABLEKS                       R13 R13 K19 ["MakeTheme"]
        55 CALL                             R12 1 1
        56 GETIMPORT                        R13 K5 [require]
-       58 GETTABLEKS                       R15 R1 K18 ["Resources"]
-       60 GETTABLEKS                       R14 R15 K20 ["AnalyticsHolder"]
+       58 GETTABLEKS                       R14 R1 K18 ["Resources"]
+       60 GETTABLEKS                       R14 R14 K20 ["AnalyticsHolder"]
        62 CALL                             R13 1 1
-       63 GETTABLEKS                       R16 R1 K18 ["Resources"]
-       65 GETTABLEKS                       R15 R16 K21 ["Localization"]
-       67 GETTABLEKS                       R14 R15 K22 ["SourceStrings"]
-       69 GETTABLEKS                       R17 R1 K18 ["Resources"]
-       71 GETTABLEKS                       R16 R17 K21 ["Localization"]
-       73 GETTABLEKS                       R15 R16 K23 ["LocalizedStrings"]
+       63 GETTABLEKS                       R14 R1 K18 ["Resources"]
+       65 GETTABLEKS                       R14 R14 K21 ["Localization"]
+       67 GETTABLEKS                       R14 R14 K22 ["SourceStrings"]
+       69 GETTABLEKS                       R15 R1 K18 ["Resources"]
+       71 GETTABLEKS                       R15 R15 K21 ["Localization"]
+       73 GETTABLEKS                       R15 R15 K23 ["LocalizedStrings"]
        75 GETTABLEKS                       R16 R1 K24 ["Components"]
        77 GETIMPORT                        R17 K5 [require]
-       79 GETTABLEKS                       R19 R16 K25 ["Callstack"]
-       81 GETTABLEKS                       R18 R19 K26 ["CallstackWindow"]
+       79 GETTABLEKS                       R18 R16 K25 ["Callstack"]
+       81 GETTABLEKS                       R18 R18 K26 ["CallstackWindow"]
        83 CALL                             R17 1 1
        84 GETIMPORT                        R18 K5 [require]
-       86 GETTABLEKS                       R20 R16 K27 ["Watch"]
-       88 GETTABLEKS                       R19 R20 K28 ["WatchWindow"]
+       86 GETTABLEKS                       R19 R16 K27 ["Watch"]
+       88 GETTABLEKS                       R19 R19 K28 ["WatchWindow"]
        90 CALL                             R18 1 1
        91 GETIMPORT                        R19 K5 [require]
-       93 GETTABLEKS                       R21 R16 K29 ["Breakpoints"]
-       95 GETTABLEKS                       R20 R21 K30 ["BreakpointsWindow"]
+       93 GETTABLEKS                       R20 R16 K29 ["Breakpoints"]
+       95 GETTABLEKS                       R20 R20 K30 ["BreakpointsWindow"]
        97 CALL                             R19 1 1
        98 GETIMPORT                        R20 K5 [require]
-      100 GETTABLEKS                       R22 R16 K27 ["Watch"]
-      102 GETTABLEKS                       R21 R22 K31 ["WatchComponent"]
+      100 GETTABLEKS                       R21 R16 K27 ["Watch"]
+      102 GETTABLEKS                       R21 R21 K31 ["WatchComponent"]
       104 CALL                             R20 1 1
       105 GETIMPORT                        R21 K5 [require]
-      107 GETTABLEKS                       R23 R16 K32 ["Common"]
-      109 GETTABLEKS                       R22 R23 K33 ["DebuggerToolbarButtons"]
+      107 GETTABLEKS                       R22 R16 K32 ["Common"]
+      109 GETTABLEKS                       R22 R22 K33 ["DebuggerToolbarButtons"]
       111 CALL                             R21 1 1
       112 GETIMPORT                        R22 K5 [require]
-      114 GETTABLEKS                       R24 R1 K34 ["Middleware"]
-      116 GETTABLEKS                       R23 R24 K35 ["MainMiddleware"]
+      114 GETTABLEKS                       R23 R1 K34 ["Middleware"]
+      116 GETTABLEKS                       R23 R23 K35 ["MainMiddleware"]
       118 CALL                             R22 1 1
       119 GETIMPORT                        R23 K5 [require]
-      121 GETTABLEKS                       R26 R1 K36 ["Util"]
-      123 GETTABLEKS                       R25 R26 K37 ["DebugConnectionListener"]
-      125 GETTABLEKS                       R24 R25 K37 ["DebugConnectionListener"]
+      121 GETTABLEKS                       R24 R1 K36 ["Util"]
+      123 GETTABLEKS                       R24 R24 K37 ["DebugConnectionListener"]
+      125 GETTABLEKS                       R24 R24 K37 ["DebugConnectionListener"]
       127 CALL                             R23 1 1
       128 GETIMPORT                        R24 K5 [require]
-      130 GETTABLEKS                       R27 R1 K36 ["Util"]
-      132 GETTABLEKS                       R26 R27 K38 ["MetaBreakpointManagerListener"]
-      134 GETTABLEKS                       R25 R26 K38 ["MetaBreakpointManagerListener"]
+      130 GETTABLEKS                       R25 R1 K36 ["Util"]
+      132 GETTABLEKS                       R25 R25 K38 ["MetaBreakpointManagerListener"]
+      134 GETTABLEKS                       R25 R25 K38 ["MetaBreakpointManagerListener"]
       136 CALL                             R24 1 1
       137 GETIMPORT                        R25 K5 [require]
-      139 GETTABLEKS                       R28 R1 K36 ["Util"]
-      141 GETTABLEKS                       R27 R28 K39 ["CrossDMScriptChangeListener"]
-      143 GETTABLEKS                       R26 R27 K39 ["CrossDMScriptChangeListener"]
+      139 GETTABLEKS                       R26 R1 K36 ["Util"]
+      141 GETTABLEKS                       R26 R26 K39 ["CrossDMScriptChangeListener"]
+      143 GETTABLEKS                       R26 R26 K39 ["CrossDMScriptChangeListener"]
       145 CALL                             R25 1 1
       146 GETIMPORT                        R26 K5 [require]
-      148 GETTABLEKS                       R29 R1 K36 ["Util"]
-      150 GETTABLEKS                       R28 R29 K40 ["DebuggerUIServiceListener"]
-      152 GETTABLEKS                       R27 R28 K40 ["DebuggerUIServiceListener"]
+      148 GETTABLEKS                       R27 R1 K36 ["Util"]
+      150 GETTABLEKS                       R27 R27 K40 ["DebuggerUIServiceListener"]
+      152 GETTABLEKS                       R27 R27 K40 ["DebuggerUIServiceListener"]
       154 CALL                             R26 1 1
       155 GETIMPORT                        R27 K5 [require]
-      157 GETTABLEKS                       R29 R1 K36 ["Util"]
-      159 GETTABLEKS                       R28 R29 K41 ["MakePluginActions"]
+      157 GETTABLEKS                       R28 R1 K36 ["Util"]
+      159 GETTABLEKS                       R28 R28 K41 ["MakePluginActions"]
       161 CALL                             R27 1 1
       162 GETTABLEKS                       R28 R2 K42 ["PureComponent"]
       164 LOADK                            R30 K43 ["MainPlugin"]

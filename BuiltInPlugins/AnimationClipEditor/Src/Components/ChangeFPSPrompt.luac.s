@@ -7,18 +7,18 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setNotice"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["None"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setNotice"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["None"]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K2 ["props"]
-       10 GETTABLEKS                       R0 R1 K3 ["OnClose"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K2 ["props"]
+       10 GETTABLEKS                       R0 R0 K3 ["OnClose"]
        12 JUMPIFNOT                        R0 ; [+6]
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K2 ["props"]
-       16 GETTABLEKS                       R0 R1 K3 ["OnClose"]
+       13 GETUPVAL                         R0 0
+       14 GETTABLEKS                       R0 R0 K2 ["props"]
+       16 GETTABLEKS                       R0 R0 K3 ["OnClose"]
        18 CALL                             R0 0 0
        19 RETURN                           R0 0
 
@@ -44,11 +44,11 @@ PROTO_3:
        14 GETIMPORT                        R4 K5 [math.ceil]
        16 CALL                             R4 1 1
        17 MOVE                             R3 R4
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K6 ["MIN_FRAMERATE"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K6 ["MIN_FRAMERATE"]
        21 JUMPIFNOTLT                      R3 R4 ; [+12]
-       23 GETUPVAL                         R5 1
-       24 GETTABLEKS                       R4 R5 K7 ["setNotice"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K7 ["setNotice"]
        26 LOADK                            R7 K8 ["Title"]
        27 LOADK                            R8 K9 ["MinFPS"]
        28 NAMECALL                         R5 R1 K10 ["getText"]
@@ -56,11 +56,11 @@ PROTO_3:
        31 CALL                             R4 -1 0
        32 LOADB                            R4 0
        33 RETURN                           R4 1
-       34 GETUPVAL                         R5 0
-       35 GETTABLEKS                       R4 R5 K11 ["MAX_FRAMERATE"]
+       34 GETUPVAL                         R4 0
+       35 GETTABLEKS                       R4 R4 K11 ["MAX_FRAMERATE"]
        37 JUMPIFNOTLT                      R4 R3 ; [+12]
-       39 GETUPVAL                         R5 1
-       40 GETTABLEKS                       R4 R5 K7 ["setNotice"]
+       39 GETUPVAL                         R4 1
+       40 GETTABLEKS                       R4 R4 K7 ["setNotice"]
        42 LOADK                            R7 K8 ["Title"]
        43 LOADK                            R8 K12 ["MaxFPS"]
        44 NAMECALL                         R5 R1 K10 ["getText"]
@@ -68,15 +68,15 @@ PROTO_3:
        47 CALL                             R4 -1 0
        48 LOADB                            R4 0
        49 RETURN                           R4 1
-       50 GETUPVAL                         R6 1
-       51 GETTABLEKS                       R5 R6 K13 ["props"]
-       53 GETTABLEKS                       R4 R5 K14 ["SetFrameRate"]
+       50 GETUPVAL                         R4 1
+       51 GETTABLEKS                       R4 R4 K13 ["props"]
+       53 GETTABLEKS                       R4 R4 K14 ["SetFrameRate"]
        55 MOVE                             R5 R3
        56 CALL                             R4 1 0
-       57 GETUPVAL                         R5 1
-       58 GETTABLEKS                       R4 R5 K7 ["setNotice"]
-       60 GETUPVAL                         R6 2
-       61 GETTABLEKS                       R5 R6 K15 ["None"]
+       57 GETUPVAL                         R4 1
+       58 GETTABLEKS                       R4 R4 K7 ["setNotice"]
+       60 GETUPVAL                         R5 2
+       61 GETTABLEKS                       R5 R5 K15 ["None"]
        63 CALL                             R4 1 0
        64 LOADB                            R4 1
        65 RETURN                           R4 1
@@ -85,8 +85,8 @@ PROTO_3:
 
 PROTO_4:
         0 DUPTABLE                         R1 K1 [{"noticeText"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K2 ["None"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K2 ["None"]
         4 SETTABLEKS                       R2 R1 K0 ["noticeText"]
         6 SETTABLEKS                       R1 R0 K3 ["state"]
         8 NEWCLOSURE                       R1 P0
@@ -104,8 +104,8 @@ PROTO_4:
        23 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setFrameRate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setFrameRate"]
         3 MOVE                             R2 R0
         4 GETUPVAL                         R3 1
         5 CALL                             R1 2 -1
@@ -116,15 +116,15 @@ PROTO_6:
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["FrameRate"]
         6 GETTABLEKS                       R4 R2 K3 ["noticeText"]
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K4 ["None"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K4 ["None"]
        11 JUMPIFNOTEQ                      R4 R6 ; [+2]
        13 LOADB                            R5 0 +1
        14 LOADB                            R5 1
-       15 GETTABLEKS                       R7 R0 K0 ["props"]
-       17 GETTABLEKS                       R6 R7 K5 ["Localization"]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       15 GETTABLEKS                       R6 R0 K0 ["props"]
+       17 GETTABLEKS                       R6 R6 K5 ["Localization"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K6 ["createElement"]
        22 GETUPVAL                         R8 1
        23 DUPTABLE                         R9 K15 [{"PromptText", "InputText", "NoticeText", "HasError", "Text", "Buttons", "OnTextSubmitted", "OnClose"}]
        24 LOADK                            R10 K16 [" "]
@@ -180,24 +180,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Util"]
-       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Util"]
+       31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K11 ["Src"]
-       38 GETTABLEKS                       R8 R9 K14 ["Components"]
-       40 GETTABLEKS                       R7 R8 K15 ["TextEntryPrompt"]
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Components"]
+       40 GETTABLEKS                       R7 R7 K15 ["TextEntryPrompt"]
        42 CALL                             R6 1 1
        43 GETTABLEKS                       R7 R1 K16 ["PureComponent"]
        45 LOADK                            R9 K17 ["ChangeFPSPrompt"]

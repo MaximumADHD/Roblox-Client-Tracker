@@ -61,14 +61,14 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Actions"]
        11 GETIMPORT                        R2 K5 [require]
-       13 GETTABLEKS                       R4 R1 K6 ["Watch"]
-       15 GETTABLEKS                       R3 R4 K7 ["ClearAllExpressions"]
+       13 GETTABLEKS                       R3 R1 K6 ["Watch"]
+       15 GETTABLEKS                       R3 R3 K7 ["ClearAllExpressions"]
        17 CALL                             R2 1 1
        18 NEWTABLE                         R3 4 0
        20 SETTABLEKS                       R3 R3 K8 ["__index"]

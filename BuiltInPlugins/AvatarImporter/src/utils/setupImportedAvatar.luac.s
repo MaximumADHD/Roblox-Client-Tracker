@@ -5,10 +5,10 @@ PROTO_0:
         4 CALL                             R1 2 1
         5 JUMPIFNOT                        R1 ; [+24]
         6 GETIMPORT                        R2 K4 [Ray.new]
-        8 GETTABLEKS                       R4 R1 K5 ["CFrame"]
-       10 GETTABLEKS                       R3 R4 K6 ["p"]
-       12 GETTABLEKS                       R6 R1 K5 ["CFrame"]
-       14 GETTABLEKS                       R5 R6 K7 ["lookVector"]
+        8 GETTABLEKS                       R3 R1 K5 ["CFrame"]
+       10 GETTABLEKS                       R3 R3 K6 ["p"]
+       12 GETTABLEKS                       R5 R1 K5 ["CFrame"]
+       14 GETTABLEKS                       R5 R5 K7 ["lookVector"]
        16 MUL                              R4 R5 R0
        17 CALL                             R2 2 1
        18 GETUPVAL                         R3 0
@@ -24,8 +24,8 @@ PROTO_0:
        31 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCALE_VALUES_DEFAULTS"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["SCALE_VALUES_DEFAULTS"]
         3 GETTABLE                         R2 R3 R1
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
@@ -73,8 +73,8 @@ PROTO_2:
        27 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["TYPE_TO_SCALE"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["TYPE_TO_SCALE"]
         3 GETTABLE                         R2 R3 R1
         4 JUMPIFNOT                        R2 ; [+25]
         5 GETIMPORT                        R3 K2 [pairs]
@@ -138,9 +138,9 @@ PROTO_4:
        50 MOVE                             R4 R2
        51 MOVE                             R5 R1
        52 CALL                             R3 2 0
-       53 GETUPVAL                         R5 3
-       54 GETTABLEKS                       R4 R5 K20 ["AVATAR_TYPE"]
-       56 GETTABLEKS                       R3 R4 K21 ["CUSTOM"]
+       53 GETUPVAL                         R3 3
+       54 GETTABLEKS                       R3 R3 K20 ["AVATAR_TYPE"]
+       56 GETTABLEKS                       R3 R3 K21 ["CUSTOM"]
        58 JUMPIFNOTEQ                      R1 R3 ; [+4]
        60 LOADN                            R3 2
        61 SETTABLEKS                       R3 R2 K22 ["HipHeight"]
@@ -165,17 +165,17 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Constants"]
+       11 GETTABLEKS                       R2 R0 K5 ["src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["src"]
-       20 GETTABLEKS                       R3 R4 K7 ["Globals"]
+       18 GETTABLEKS                       R3 R0 K5 ["src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Globals"]
        22 CALL                             R2 1 1
        23 LOADNIL                          R3
        24 GETIMPORT                        R4 K9 [game]
@@ -189,9 +189,9 @@ MAIN:
        35 SETTABLEKS                       R6 R5 K17 ["Name"]
        37 SETTABLEKS                       R4 R5 K2 ["Parent"]
        39 GETIMPORT                        R6 K4 [require]
-       41 GETTABLEKS                       R9 R0 K5 ["src"]
-       43 GETTABLEKS                       R8 R9 K18 ["configurer"]
-       45 GETTABLEKS                       R7 R8 K19 ["Configurer"]
+       41 GETTABLEKS                       R7 R0 K5 ["src"]
+       43 GETTABLEKS                       R7 R7 K18 ["configurer"]
+       45 GETTABLEKS                       R7 R7 K19 ["Configurer"]
        47 CALL                             R6 1 1
        48 GETTABLEKS                       R7 R6 K13 ["new"]
        50 MOVE                             R8 R5

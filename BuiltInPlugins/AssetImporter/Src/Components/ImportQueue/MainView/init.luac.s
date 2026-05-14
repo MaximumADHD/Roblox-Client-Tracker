@@ -7,20 +7,20 @@ PROTO_0:
         7 SUB                              R1 R2 R3
         8 GETUPVAL                         R2 0
         9 SETTABLEKS                       R1 R2 K4 ["mainViewAbsSize"]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K5 ["onMainViewAbsSizeChanged"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K5 ["onMainViewAbsSizeChanged"]
        14 MOVE                             R4 R1
        15 NAMECALL                         R2 R2 K6 ["Fire"]
        17 CALL                             R2 2 0
        18 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["use"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
-        5 GETUPVAL                         R4 2
-        6 GETTABLEKS                       R3 R4 K1 ["View"]
+        5 GETUPVAL                         R3 2
+        6 GETTABLEKS                       R3 R3 K1 ["View"]
         8 DUPTABLE                         R4 K4 [{"tag", "onAbsoluteSizeChanged"}]
         9 LOADK                            R5 K5 ["size-full col align-y-top"]
        10 SETTABLEKS                       R5 R4 K2 ["tag"]
@@ -33,8 +33,8 @@ PROTO_1:
        19 CALL                             R6 1 1
        20 SETTABLEKS                       R6 R5 K6 ["Controls"]
        22 GETUPVAL                         R6 1
-       23 GETUPVAL                         R8 2
-       24 GETTABLEKS                       R7 R8 K1 ["View"]
+       23 GETUPVAL                         R7 2
+       24 GETTABLEKS                       R7 R7 K1 ["View"]
        26 DUPTABLE                         R8 K10 [{"tag"}]
        27 LOADK                            R9 K11 ["size-full-0 fill padding-bottom-xsmall"]
        28 SETTABLEKS                       R9 R8 K2 ["tag"]
@@ -57,30 +57,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Controllers"]
-       29 GETTABLEKS                       R5 R6 K12 ["QueueController"]
+       25 GETTABLEKS                       R5 R0 K10 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Controllers"]
+       29 GETTABLEKS                       R5 R5 K12 ["QueueController"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETIMPORT                        R7 K1 [script]
-       36 GETTABLEKS                       R6 R7 K13 ["AssetTable"]
+       34 GETIMPORT                        R6 K1 [script]
+       36 GETTABLEKS                       R6 R6 K13 ["AssetTable"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETIMPORT                        R8 K1 [script]
-       43 GETTABLEKS                       R7 R8 K14 ["ControlPanel"]
+       41 GETIMPORT                        R7 K1 [script]
+       43 GETTABLEKS                       R7 R7 K14 ["ControlPanel"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K5 [require]
-       48 GETIMPORT                        R9 K1 [script]
-       50 GETTABLEKS                       R8 R9 K15 ["ProgressBar"]
+       48 GETIMPORT                        R8 K1 [script]
+       50 GETTABLEKS                       R8 R8 K15 ["ProgressBar"]
        52 CALL                             R7 1 1
        53 DUPCLOSURE                       R8 K16 [PROTO_1]
        54 CAPTURE                          VAL R4

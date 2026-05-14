@@ -18,8 +18,8 @@ PROTO_0:
        25 LOADK                            R3 K13 ["BindableEvent"]
        26 CALL                             R2 1 1
        27 SETTABLEKS                       R2 R1 K4 ["AnnotationEditedEvent"]
-       29 GETUPVAL                         R3 0
-       30 GETTABLEKS                       R2 R3 K14 ["None"]
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K14 ["None"]
        32 SETTABLEKS                       R2 R1 K5 ["Mode"]
        34 SETTABLEKS                       R0 R1 K6 ["Mock"]
        36 NEWTABLE                         R2 0 0
@@ -31,17 +31,17 @@ PROTO_0:
        47 MOVE                             R3 R1
        48 GETIMPORT                        R2 K16 [setmetatable]
        50 CALL                             R2 2 0
-       51 GETTABLEKS                       R3 R1 K1 ["AnnotationAddedEvent"]
-       53 GETTABLEKS                       R2 R3 K17 ["Event"]
+       51 GETTABLEKS                       R2 R1 K1 ["AnnotationAddedEvent"]
+       53 GETTABLEKS                       R2 R2 K17 ["Event"]
        55 SETTABLEKS                       R2 R1 K18 ["AnnotationAdded"]
-       57 GETTABLEKS                       R3 R1 K2 ["AnnotationDeletedEvent"]
-       59 GETTABLEKS                       R2 R3 K17 ["Event"]
+       57 GETTABLEKS                       R2 R1 K2 ["AnnotationDeletedEvent"]
+       59 GETTABLEKS                       R2 R2 K17 ["Event"]
        61 SETTABLEKS                       R2 R1 K19 ["AnnotationDeleted"]
-       63 GETTABLEKS                       R3 R1 K3 ["AnnotationResolvedEvent"]
-       65 GETTABLEKS                       R2 R3 K17 ["Event"]
+       63 GETTABLEKS                       R2 R1 K3 ["AnnotationResolvedEvent"]
+       65 GETTABLEKS                       R2 R2 K17 ["Event"]
        67 SETTABLEKS                       R2 R1 K20 ["AnnotationResolved"]
-       69 GETTABLEKS                       R3 R1 K4 ["AnnotationEditedEvent"]
-       71 GETTABLEKS                       R2 R3 K17 ["Event"]
+       69 GETTABLEKS                       R2 R1 K4 ["AnnotationEditedEvent"]
+       71 GETTABLEKS                       R2 R2 K17 ["Event"]
        73 SETTABLEKS                       R2 R1 K21 ["AnnotationEdited"]
        75 RETURN                           R1 1
 
@@ -93,8 +93,8 @@ PROTO_7:
         3 GETTABLEKS                       R4 R0 K1 ["PlacePreferences"]
         5 GETTABLE                         R3 R4 R1
         6 JUMPIF                           R3 ; [+3]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K2 ["All"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K2 ["All"]
        10 RETURN                           R3 1
        11 GETUPVAL                         R3 1
        12 MOVE                             R5 R1
@@ -123,8 +123,8 @@ PROTO_9:
         3 GETTABLEKS                       R4 R0 K1 ["PlacePreferences"]
         5 GETTABLE                         R3 R4 R2
         6 JUMPIF                           R3 ; [+3]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K2 ["All"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K2 ["All"]
        10 RETURN                           R3 1
        11 GETUPVAL                         R3 1
        12 MOVE                             R5 R1
@@ -153,8 +153,8 @@ PROTO_11:
         3 GETTABLEKS                       R5 R0 K1 ["ChannelPreferences"]
         5 GETTABLE                         R4 R5 R2
         6 JUMPIF                           R4 ; [+3]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K2 ["All"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K2 ["All"]
        10 RETURN                           R4 1
        11 GETUPVAL                         R4 1
        12 MOVE                             R6 R1
@@ -186,37 +186,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["ContextItem"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["ContextItem"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R6 K11 ["Enums"]
-       24 GETTABLEKS                       R4 R5 K12 ["AnnotationEditingMode"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Enums"]
+       24 GETTABLEKS                       R4 R4 K12 ["AnnotationEditingMode"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R0 K10 ["Src"]
-       31 GETTABLEKS                       R6 R7 K11 ["Enums"]
-       33 GETTABLEKS                       R5 R6 K13 ["PlaceContentPreference"]
+       29 GETTABLEKS                       R5 R0 K10 ["Src"]
+       31 GETTABLEKS                       R5 R5 K11 ["Enums"]
+       33 GETTABLEKS                       R5 R5 K13 ["PlaceContentPreference"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K5 [require]
-       38 GETTABLEKS                       R8 R0 K10 ["Src"]
-       40 GETTABLEKS                       R7 R8 K11 ["Enums"]
-       42 GETTABLEKS                       R6 R7 K14 ["AnnotationPlaceContentPreference"]
+       38 GETTABLEKS                       R6 R0 K10 ["Src"]
+       40 GETTABLEKS                       R6 R6 K11 ["Enums"]
+       42 GETTABLEKS                       R6 R6 K14 ["AnnotationPlaceContentPreference"]
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K5 [require]
-       47 GETTABLEKS                       R9 R0 K10 ["Src"]
-       49 GETTABLEKS                       R8 R9 K11 ["Enums"]
-       51 GETTABLEKS                       R7 R8 K15 ["AnnotationChannelContentPreference"]
+       47 GETTABLEKS                       R7 R0 K10 ["Src"]
+       49 GETTABLEKS                       R7 R7 K11 ["Enums"]
+       51 GETTABLEKS                       R7 R7 K15 ["AnnotationChannelContentPreference"]
        53 CALL                             R6 1 1
        54 LOADK                            R9 K16 ["AnnotationsService"]
        55 NAMECALL                         R7 R2 K17 ["extend"]
        57 CALL                             R7 2 1
        58 GETIMPORT                        R8 K5 [require]
-       60 GETTABLEKS                       R10 R0 K10 ["Src"]
-       62 GETTABLEKS                       R9 R10 K18 ["Types"]
+       60 GETTABLEKS                       R9 R0 K10 ["Src"]
+       62 GETTABLEKS                       R9 R9 K18 ["Types"]
        64 CALL                             R8 1 1
        65 GETIMPORT                        R9 K20 [game]
        67 LOADK                            R11 K16 ["AnnotationsService"]

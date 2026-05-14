@@ -37,9 +37,9 @@ PROTO_3:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
        10 GETIMPORT                        R0 K7 [game]
        12 LOADK                            R2 K8 ["DeviceEmulatorPluginBasedUi"]
@@ -47,31 +47,31 @@ MAIN:
        15 CALL                             R0 2 1
        16 JUMPIF                           R0 ; [+1]
        17 RETURN                           R0 0
-       18 GETIMPORT                        R2 K3 [script]
-       20 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       22 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       18 GETIMPORT                        R0 K3 [script]
+       20 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       22 GETTABLEKS                       R0 R0 K4 ["Parent"]
        24 GETIMPORT                        R1 K1 [require]
-       26 GETTABLEKS                       R4 R0 K10 ["Src"]
-       28 GETTABLEKS                       R3 R4 K11 ["Util"]
-       30 GETTABLEKS                       R2 R3 K12 ["DebugFlags"]
+       26 GETTABLEKS                       R2 R0 K10 ["Src"]
+       28 GETTABLEKS                       R2 R2 K11 ["Util"]
+       30 GETTABLEKS                       R2 R2 K12 ["DebugFlags"]
        32 CALL                             R1 1 1
        33 GETTABLEKS                       R2 R1 K13 ["RunningUnderCLI"]
        35 CALL                             R2 0 1
        36 JUMPIFNOT                        R2 ; [+1]
        37 RETURN                           R0 0
        38 GETIMPORT                        R2 K1 [require]
-       40 GETTABLEKS                       R4 R0 K14 ["Packages"]
-       42 GETTABLEKS                       R3 R4 K15 ["PluginLoader"]
+       40 GETTABLEKS                       R3 R0 K14 ["Packages"]
+       42 GETTABLEKS                       R3 R3 K15 ["PluginLoader"]
        44 CALL                             R2 1 1
        45 GETTABLEKS                       R3 R2 K16 ["PluginLoaderBuilder"]
-       47 GETTABLEKS                       R7 R0 K10 ["Src"]
-       49 GETTABLEKS                       R6 R7 K17 ["Resources"]
-       51 GETTABLEKS                       R5 R6 K18 ["Localization"]
-       53 GETTABLEKS                       R4 R5 K19 ["SourceStrings"]
-       55 GETTABLEKS                       R8 R0 K10 ["Src"]
-       57 GETTABLEKS                       R7 R8 K17 ["Resources"]
-       59 GETTABLEKS                       R6 R7 K18 ["Localization"]
-       61 GETTABLEKS                       R5 R6 K20 ["LocalizedStrings"]
+       47 GETTABLEKS                       R4 R0 K10 ["Src"]
+       49 GETTABLEKS                       R4 R4 K17 ["Resources"]
+       51 GETTABLEKS                       R4 R4 K18 ["Localization"]
+       53 GETTABLEKS                       R4 R4 K19 ["SourceStrings"]
+       55 GETTABLEKS                       R5 R0 K10 ["Src"]
+       57 GETTABLEKS                       R5 R5 K17 ["Resources"]
+       59 GETTABLEKS                       R5 R5 K18 ["Localization"]
+       61 GETTABLEKS                       R5 R5 K20 ["LocalizedStrings"]
        63 DUPTABLE                         R6 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
        64 GETIMPORT                        R7 K31 [plugin]
        66 SETTABLEKS                       R7 R6 K21 ["plugin"]
@@ -124,9 +124,9 @@ MAIN:
       137 JUMPIF                           R8 ; [+1]
       138 RETURN                           R0 0
       139 GETIMPORT                        R9 K1 [require]
-      141 GETIMPORT                        R12 K3 [script]
-      143 GETTABLEKS                       R11 R12 K4 ["Parent"]
-      145 GETTABLEKS                       R10 R11 K62 ["main"]
+      141 GETIMPORT                        R10 K3 [script]
+      143 GETTABLEKS                       R10 R10 K4 ["Parent"]
+      145 GETTABLEKS                       R10 R10 K62 ["main"]
       147 CALL                             R9 1 1
       148 MOVE                             R10 R9
       149 GETIMPORT                        R11 K31 [plugin]

@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["accessoryBehaviorEnableSoundSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["accessoryBehaviorEnableSoundSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AccessorySoundToggled"]
@@ -9,17 +9,17 @@ PROTO_0:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["accessoryBehaviorEnableSoundSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["accessoryBehaviorEnableSoundSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["accessoryBehaviorEnableVFXSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["accessoryBehaviorEnableVFXSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AccessoryVFXToggled"]
@@ -27,9 +27,9 @@ PROTO_1:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["accessoryBehaviorEnableVFXSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["accessoryBehaviorEnableVFXSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
@@ -43,8 +43,8 @@ PROTO_2:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -55,8 +55,8 @@ PROTO_2:
        23 LOADK                            R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
        24 GETIMPORT                        R5 K5 [assert]
        26 CALL                             R5 2 0
-       27 GETTABLEKS                       R6 R4 K2 ["settings"]
-       29 GETTABLEKS                       R5 R6 K6 ["accessoriesSettings"]
+       27 GETTABLEKS                       R5 R4 K2 ["settings"]
+       29 GETTABLEKS                       R5 R5 K6 ["accessoriesSettings"]
        31 GETUPVAL                         R6 5
        32 GETUPVAL                         R7 6
        33 DUPTABLE                         R8 K10 [{"text", "layoutOrder", "showWarning"}]
@@ -73,14 +73,14 @@ PROTO_2:
        49 GETUPVAL                         R10 5
        50 LOADK                            R11 K18 ["TextLabel"]
        51 NEWTABLE                         R12 8 0
-       53 GETUPVAL                         R14 3
-       54 GETTABLEKS                       R13 R14 K19 ["Tag"]
+       53 GETUPVAL                         R13 3
+       54 GETTABLEKS                       R13 R13 K19 ["Tag"]
        56 LOADK                            R14 K20 ["Component-TextLabel SubText"]
        57 SETTABLE                         R14 R12 R13
        58 GETIMPORT                        R13 K23 [UDim2.fromOffset]
        60 LOADN                            R14 0
-       61 GETUPVAL                         R16 7
-       62 GETTABLEKS                       R15 R16 K24 ["STANDARD_HEIGHT"]
+       61 GETUPVAL                         R15 7
+       62 GETTABLEKS                       R15 R15 K24 ["STANDARD_HEIGHT"]
        64 CALL                             R13 2 1
        65 SETTABLEKS                       R13 R12 K25 ["Size"]
        67 GETIMPORT                        R13 K29 [Enum.AutomaticSize.XY]
@@ -116,8 +116,8 @@ PROTO_2:
       109 MOVE                             R13 R3
       110 CALL                             R13 0 1
       111 SETTABLEKS                       R13 R12 K36 ["LayoutOrder"]
-      113 GETTABLEKS                       R14 R5 K43 ["accessoryBehaviorEnableSoundSetting"]
-      115 GETTABLEKS                       R13 R14 K44 ["value"]
+      113 GETTABLEKS                       R13 R5 K43 ["accessoryBehaviorEnableSoundSetting"]
+      115 GETTABLEKS                       R13 R13 K44 ["value"]
       117 SETTABLEKS                       R13 R12 K40 ["Checked"]
       119 LOADK                            R15 K11 ["AccessoriesSettings"]
       120 LOADK                            R16 K45 ["AccessoryBehaviorsSectionEnableSound"]
@@ -136,8 +136,8 @@ PROTO_2:
       137 MOVE                             R13 R3
       138 CALL                             R13 0 1
       139 SETTABLEKS                       R13 R12 K36 ["LayoutOrder"]
-      141 GETTABLEKS                       R14 R5 K46 ["accessoryBehaviorEnableVFXSetting"]
-      143 GETTABLEKS                       R13 R14 K44 ["value"]
+      141 GETTABLEKS                       R13 R5 K46 ["accessoryBehaviorEnableVFXSetting"]
+      143 GETTABLEKS                       R13 R13 K44 ["value"]
       145 SETTABLEKS                       R13 R12 K40 ["Checked"]
       147 LOADK                            R15 K11 ["AccessoriesSettings"]
       148 LOADK                            R16 K47 ["AccessoryBehaviorsSectionEnableVFX"]
@@ -160,40 +160,40 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K10 ["Util"]
-       24 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K10 ["Util"]
+       24 GETTABLEKS                       R3 R3 K11 ["Constants"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Components"]
-       33 GETTABLEKS                       R4 R5 K12 ["ExpandableSection"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Components"]
+       33 GETTABLEKS                       R4 R4 K12 ["ExpandableSection"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K14 ["Framework"]
+       38 GETTABLEKS                       R5 R0 K13 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K14 ["Framework"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R7 R0 K13 ["Packages"]
-       47 GETTABLEKS                       R6 R7 K15 ["React"]
+       45 GETTABLEKS                       R6 R0 K13 ["Packages"]
+       47 GETTABLEKS                       R6 R6 K15 ["React"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R8 R0 K13 ["Packages"]
-       54 GETTABLEKS                       R7 R8 K16 ["ReactUtils"]
+       52 GETTABLEKS                       R7 R0 K13 ["Packages"]
+       54 GETTABLEKS                       R7 R7 K16 ["ReactUtils"]
        56 CALL                             R6 1 1
        57 GETTABLEKS                       R7 R4 K17 ["ContextServices"]
        59 GETTABLEKS                       R8 R7 K18 ["Localization"]
        61 GETIMPORT                        R9 K5 [require]
-       63 GETTABLEKS                       R13 R0 K6 ["Src"]
-       65 GETTABLEKS                       R12 R13 K10 ["Util"]
-       67 GETTABLEKS                       R11 R12 K19 ["Telemetry"]
-       69 GETTABLEKS                       R10 R11 K20 ["TelemetryContext"]
+       63 GETTABLEKS                       R10 R0 K6 ["Src"]
+       65 GETTABLEKS                       R10 R10 K10 ["Util"]
+       67 GETTABLEKS                       R10 R10 K19 ["Telemetry"]
+       69 GETTABLEKS                       R10 R10 K20 ["TelemetryContext"]
        71 CALL                             R9 1 1
        72 GETTABLEKS                       R10 R4 K21 ["UI"]
        74 GETTABLEKS                       R11 R10 K22 ["Checkbox"]

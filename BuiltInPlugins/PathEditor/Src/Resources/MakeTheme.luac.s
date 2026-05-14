@@ -1,15 +1,15 @@
 PROTO_0:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+8]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["mock"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["mock"]
         5 GETUPVAL                         R3 1
         6 GETUPVAL                         R4 2
         7 CALL                             R2 2 1
         8 MOVE                             R1 R2
         9 JUMP                             ; [+7]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K1 ["new"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K1 ["new"]
        13 GETUPVAL                         R3 1
        14 GETUPVAL                         R4 2
        15 CALL                             R2 2 1
@@ -21,35 +21,35 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["join"]
        25 GETTABLEKS                       R4 R1 K9 ["Style"]
-       27 GETTABLEKS                       R6 R4 K10 ["Themes"]
-       29 GETTABLEKS                       R5 R6 K11 ["StudioTheme"]
-       31 GETTABLEKS                       R7 R4 K10 ["Themes"]
-       33 GETTABLEKS                       R6 R7 K12 ["DarkTheme"]
-       35 GETTABLEKS                       R8 R4 K10 ["Themes"]
-       37 GETTABLEKS                       R7 R8 K13 ["LightTheme"]
+       27 GETTABLEKS                       R5 R4 K10 ["Themes"]
+       29 GETTABLEKS                       R5 R5 K11 ["StudioTheme"]
+       31 GETTABLEKS                       R6 R4 K10 ["Themes"]
+       33 GETTABLEKS                       R6 R6 K12 ["DarkTheme"]
+       35 GETTABLEKS                       R7 R4 K10 ["Themes"]
+       37 GETTABLEKS                       R7 R7 K13 ["LightTheme"]
        39 GETTABLEKS                       R8 R4 K14 ["StyleKey"]
-       41 GETTABLEKS                       R10 R1 K15 ["Util"]
-       43 GETTABLEKS                       R9 R10 K16 ["StyleModifier"]
-       45 GETTABLEKS                       R11 R4 K10 ["Themes"]
-       47 GETTABLEKS                       R10 R11 K17 ["BaseTheme"]
+       41 GETTABLEKS                       R9 R1 K15 ["Util"]
+       43 GETTABLEKS                       R9 R9 K16 ["StyleModifier"]
+       45 GETTABLEKS                       R10 R4 K10 ["Themes"]
+       47 GETTABLEKS                       R10 R10 K17 ["BaseTheme"]
        49 GETIMPORT                        R11 K4 [require]
-       51 GETTABLEKS                       R14 R0 K18 ["Src"]
-       53 GETTABLEKS                       R13 R14 K19 ["Resources"]
-       55 GETTABLEKS                       R12 R13 K20 ["Constants"]
+       51 GETTABLEKS                       R12 R0 K18 ["Src"]
+       53 GETTABLEKS                       R12 R12 K19 ["Resources"]
+       55 GETTABLEKS                       R12 R12 K20 ["Constants"]
        57 CALL                             R11 1 1
        58 GETTABLEKS                       R12 R4 K21 ["ComponentSymbols"]
        60 LOADK                            R15 K22 ["DraggablePoint"]

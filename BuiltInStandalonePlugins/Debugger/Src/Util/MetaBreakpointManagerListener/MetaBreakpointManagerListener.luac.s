@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["fromMetaBreakpoint"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["fromMetaBreakpoint"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
         5 GETTABLEKS                       R3 R0 K1 ["store"]
@@ -8,8 +8,8 @@ PROTO_0:
         9 CALL                             R3 1 1
        10 GETTABLEKS                       R4 R0 K1 ["store"]
        12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R8 R3 K3 ["Common"]
-       15 GETTABLEKS                       R7 R8 K4 ["currentDebuggerConnectionId"]
+       13 GETTABLEKS                       R7 R3 K3 ["Common"]
+       15 GETTABLEKS                       R7 R7 K4 ["currentDebuggerConnectionId"]
        17 MOVE                             R8 R2
        18 CALL                             R6 2 -1
        19 NAMECALL                         R4 R4 K5 ["dispatch"]
@@ -50,8 +50,8 @@ PROTO_1:
        31 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["fromMetaBreakpoint"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["fromMetaBreakpoint"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
         5 MOVE                             R5 R1
@@ -190,30 +190,30 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Actions"]
        11 GETIMPORT                        R2 K5 [require]
-       13 GETTABLEKS                       R4 R0 K6 ["Models"]
-       15 GETTABLEKS                       R3 R4 K7 ["MetaBreakpoint"]
+       13 GETTABLEKS                       R3 R0 K6 ["Models"]
+       15 GETTABLEKS                       R3 R3 K7 ["MetaBreakpoint"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R1 K8 ["BreakpointsWindow"]
-       22 GETTABLEKS                       R4 R5 K9 ["AddBreakpoint"]
+       20 GETTABLEKS                       R4 R1 K8 ["BreakpointsWindow"]
+       22 GETTABLEKS                       R4 R4 K9 ["AddBreakpoint"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R1 K8 ["BreakpointsWindow"]
-       29 GETTABLEKS                       R5 R6 K10 ["ModifyBreakpoint"]
+       27 GETTABLEKS                       R5 R1 K8 ["BreakpointsWindow"]
+       29 GETTABLEKS                       R5 R5 K10 ["ModifyBreakpoint"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R1 K8 ["BreakpointsWindow"]
-       36 GETTABLEKS                       R6 R7 K11 ["DeleteBreakpoint"]
+       34 GETTABLEKS                       R6 R1 K8 ["BreakpointsWindow"]
+       36 GETTABLEKS                       R6 R6 K11 ["DeleteBreakpoint"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R8 R1 K12 ["Common"]
-       43 GETTABLEKS                       R7 R8 K13 ["SetFilenameForGuid"]
+       41 GETTABLEKS                       R7 R1 K12 ["Common"]
+       43 GETTABLEKS                       R7 R7 K13 ["SetFilenameForGuid"]
        45 CALL                             R6 1 1
        46 NEWTABLE                         R7 8 0
        48 SETTABLEKS                       R7 R7 K14 ["__index"]

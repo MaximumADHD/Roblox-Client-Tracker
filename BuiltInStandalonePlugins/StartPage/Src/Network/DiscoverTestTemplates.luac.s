@@ -122,14 +122,14 @@ PROTO_8:
        24 LOADK                            R11 K8 ["&"]
        25 CONCAT                           R4 R10 R11
        26 FORGLOOP                         R5 2 ; [-14]
-       28 GETUPVAL                         R9 1
-       29 GETTABLEKS                       R8 R9 K9 ["composeUrl"]
-       31 GETUPVAL                         R11 2
-       32 GETTABLEKS                       R10 R11 K10 ["MULTIGET_PLACES"]
-       34 GETTABLEKS                       R9 R10 K11 ["Prefix"]
-       36 GETUPVAL                         R12 2
-       37 GETTABLEKS                       R11 R12 K10 ["MULTIGET_PLACES"]
-       39 GETTABLEKS                       R10 R11 K12 ["Url"]
+       28 GETUPVAL                         R8 1
+       29 GETTABLEKS                       R8 R8 K9 ["composeUrl"]
+       31 GETUPVAL                         R9 2
+       32 GETTABLEKS                       R9 R9 K10 ["MULTIGET_PLACES"]
+       34 GETTABLEKS                       R9 R9 K11 ["Prefix"]
+       36 GETUPVAL                         R10 2
+       37 GETTABLEKS                       R10 R10 K10 ["MULTIGET_PLACES"]
+       39 GETTABLEKS                       R10 R10 K12 ["Url"]
        41 CALL                             R10 0 -1
        42 CALL                             R8 -1 1
        43 MOVE                             R6 R8
@@ -170,16 +170,16 @@ PROTO_9:
         8 LOADK                            R5 K1 ["Must enabled FFlagLuaStartPageStudioTestTemplates and have internal permission to use DiscoverTestTemplates"]
         9 GETIMPORT                        R3 K3 [assert]
        11 CALL                             R3 2 0
-       12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R3 R4 K4 ["new"]
+       12 GETUPVAL                         R3 2
+       13 GETTABLEKS                       R3 R3 K4 ["new"]
        15 CALL                             R3 0 1
        16 GETTABLEKS                       R4 R3 K5 ["composeUrl"]
-       18 GETUPVAL                         R7 3
-       19 GETTABLEKS                       R6 R7 K6 ["TEST_TEMPLATES"]
-       21 GETTABLEKS                       R5 R6 K7 ["Prefix"]
-       23 GETUPVAL                         R8 3
-       24 GETTABLEKS                       R7 R8 K6 ["TEST_TEMPLATES"]
-       26 GETTABLEKS                       R6 R7 K8 ["Url"]
+       18 GETUPVAL                         R5 3
+       19 GETTABLEKS                       R5 R5 K6 ["TEST_TEMPLATES"]
+       21 GETTABLEKS                       R5 R5 K7 ["Prefix"]
+       23 GETUPVAL                         R6 3
+       24 GETTABLEKS                       R6 R6 K6 ["TEST_TEMPLATES"]
+       26 GETTABLEKS                       R6 R6 K8 ["Url"]
        28 CALL                             R6 0 -1
        29 CALL                             R4 -1 1
        30 GETUPVAL                         R5 4
@@ -219,61 +219,61 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       19 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K10 ["Framework"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K11 ["Dash"]
+       26 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K11 ["Dash"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R3 K12 ["collect"]
        33 GETTABLEKS                       R5 R3 K13 ["collectArray"]
        35 GETTABLEKS                       R6 R3 K14 ["map"]
        37 GETIMPORT                        R7 K5 [require]
-       39 GETTABLEKS                       R9 R0 K6 ["Src"]
-       41 GETTABLEKS                       R8 R9 K15 ["Types"]
+       39 GETTABLEKS                       R8 R0 K6 ["Src"]
+       41 GETTABLEKS                       R8 R8 K15 ["Types"]
        43 CALL                             R7 1 1
        44 GETIMPORT                        R8 K5 [require]
-       46 GETTABLEKS                       R11 R0 K6 ["Src"]
-       48 GETTABLEKS                       R10 R11 K16 ["Network"]
-       50 GETTABLEKS                       R9 R10 K17 ["Urls"]
+       46 GETTABLEKS                       R9 R0 K6 ["Src"]
+       48 GETTABLEKS                       R9 R9 K16 ["Network"]
+       50 GETTABLEKS                       R9 R9 K17 ["Urls"]
        52 CALL                             R8 1 1
        53 GETIMPORT                        R9 K5 [require]
-       55 GETTABLEKS                       R12 R0 K6 ["Src"]
-       57 GETTABLEKS                       R11 R12 K18 ["Util"]
-       59 GETTABLEKS                       R10 R11 K19 ["Services"]
+       55 GETTABLEKS                       R10 R0 K6 ["Src"]
+       57 GETTABLEKS                       R10 R10 K18 ["Util"]
+       59 GETTABLEKS                       R10 R10 K19 ["Services"]
        61 CALL                             R9 1 1
        62 GETTABLEKS                       R10 R9 K20 ["Networking"]
        64 GETTABLEKS                       R11 R9 K21 ["StudioService"]
        66 GETIMPORT                        R12 K5 [require]
-       68 GETTABLEKS                       R15 R0 K6 ["Src"]
-       70 GETTABLEKS                       R14 R15 K18 ["Util"]
-       72 GETTABLEKS                       R13 R14 K22 ["createResponseValidator"]
+       68 GETTABLEKS                       R13 R0 K6 ["Src"]
+       70 GETTABLEKS                       R13 R13 K18 ["Util"]
+       72 GETTABLEKS                       R13 R13 K22 ["createResponseValidator"]
        74 CALL                             R12 1 1
        75 GETIMPORT                        R13 K5 [require]
-       77 GETTABLEKS                       R16 R0 K6 ["Src"]
-       79 GETTABLEKS                       R15 R16 K23 ["Models"]
-       81 GETTABLEKS                       R14 R15 K24 ["TestTemplateResponse"]
+       77 GETTABLEKS                       R14 R0 K6 ["Src"]
+       79 GETTABLEKS                       R14 R14 K23 ["Models"]
+       81 GETTABLEKS                       R14 R14 K24 ["TestTemplateResponse"]
        83 CALL                             R13 1 1
        84 GETIMPORT                        R14 K5 [require]
-       86 GETTABLEKS                       R17 R0 K6 ["Src"]
-       88 GETTABLEKS                       R16 R17 K23 ["Models"]
-       90 GETTABLEKS                       R15 R16 K25 ["MultiGetPlaceDetailsResponse"]
+       86 GETTABLEKS                       R15 R0 K6 ["Src"]
+       88 GETTABLEKS                       R15 R15 K23 ["Models"]
+       90 GETTABLEKS                       R15 R15 K25 ["MultiGetPlaceDetailsResponse"]
        92 CALL                             R14 1 1
        93 GETIMPORT                        R15 K5 [require]
-       95 GETTABLEKS                       R18 R0 K6 ["Src"]
-       97 GETTABLEKS                       R17 R18 K7 ["SharedFlags"]
-       99 GETTABLEKS                       R16 R17 K26 ["getFFlagLuaStartPageStudioTestTemplates"]
+       95 GETTABLEKS                       R16 R0 K6 ["Src"]
+       97 GETTABLEKS                       R16 R16 K7 ["SharedFlags"]
+       99 GETTABLEKS                       R16 R16 K26 ["getFFlagLuaStartPageStudioTestTemplates"]
       101 CALL                             R15 1 1
       102 CALL                             R15 0 1
-      103 GETTABLEKS                       R17 R2 K27 ["RobloxAPI"]
-      105 GETTABLEKS                       R16 R17 K28 ["Url"]
+      103 GETTABLEKS                       R16 R2 K27 ["RobloxAPI"]
+      105 GETTABLEKS                       R16 R16 K28 ["Url"]
       107 GETTABLEKS                       R17 R10 K29 ["new"]
       109 DUPTABLE                         R18 K32 [{"isInternal", "loggingLevel"}]
       110 LOADB                            R19 1
@@ -281,14 +281,14 @@ MAIN:
       113 SETTABLEKS                       R1 R18 K31 ["loggingLevel"]
       115 CALL                             R17 1 1
       116 GETIMPORT                        R18 K5 [require]
-      118 GETTABLEKS                       R21 R0 K6 ["Src"]
-      120 GETTABLEKS                       R20 R21 K16 ["Network"]
-      122 GETTABLEKS                       R19 R20 K33 ["GameCache"]
+      118 GETTABLEKS                       R19 R0 K6 ["Src"]
+      120 GETTABLEKS                       R19 R19 K16 ["Network"]
+      122 GETTABLEKS                       R19 R19 K33 ["GameCache"]
       124 CALL                             R18 1 1
       125 GETIMPORT                        R19 K5 [require]
-      127 GETTABLEKS                       R22 R0 K6 ["Src"]
-      129 GETTABLEKS                       R21 R22 K16 ["Network"]
-      131 GETTABLEKS                       R20 R21 K34 ["DiscoverPlaceholderIcons"]
+      127 GETTABLEKS                       R20 R0 K6 ["Src"]
+      129 GETTABLEKS                       R20 R20 K16 ["Network"]
+      131 GETTABLEKS                       R20 R20 K34 ["DiscoverPlaceholderIcons"]
       133 CALL                             R19 1 1
       134 MOVE                             R20 R12
       135 GETTABLEKS                       R21 R13 K35 ["validate"]

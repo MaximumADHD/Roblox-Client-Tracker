@@ -41,15 +41,15 @@ PROTO_1:
         5 CALL                             R0 1 0
         6 LOADNIL                          R0
         7 SETUPVAL                         R0 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K1 ["new"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K1 ["new"]
        11 GETIMPORT                        R1 K3 [plugin]
        13 CALL                             R0 1 1
        14 SETUPVAL                         R0 0
        15 GETUPVAL                         R0 2
-       16 GETUPVAL                         R3 3
-       17 GETTABLEKS                       R2 R3 K4 ["Src"]
-       19 GETTABLEKS                       R1 R2 K5 ["Queries"]
+       16 GETUPVAL                         R1 3
+       17 GETTABLEKS                       R1 R1 K4 ["Src"]
+       19 GETTABLEKS                       R1 R1 K5 ["Queries"]
        21 GETUPVAL                         R2 0
        22 CALL                             R0 2 0
        23 RETURN                           R0 0
@@ -78,15 +78,15 @@ PROTO_3:
        13 CALL                             R1 1 0
        14 LOADNIL                          R1
        15 SETUPVAL                         R1 2
-       16 GETUPVAL                         R2 3
-       17 GETTABLEKS                       R1 R2 K4 ["new"]
+       16 GETUPVAL                         R1 3
+       17 GETTABLEKS                       R1 R1 K4 ["new"]
        19 GETIMPORT                        R2 K6 [plugin]
        21 CALL                             R1 1 1
        22 SETUPVAL                         R1 2
        23 GETUPVAL                         R1 4
-       24 GETUPVAL                         R4 5
-       25 GETTABLEKS                       R3 R4 K7 ["Src"]
-       27 GETTABLEKS                       R2 R3 K8 ["Queries"]
+       24 GETUPVAL                         R2 5
+       25 GETTABLEKS                       R2 R2 K7 ["Src"]
+       27 GETTABLEKS                       R2 R2 K8 ["Queries"]
        29 GETUPVAL                         R3 2
        30 CALL                             R1 2 0
        31 RETURN                           R0 0
@@ -120,8 +120,8 @@ PROTO_5:
        12 RETURN                           R0 0
 
 PROTO_6:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIFNOT                        R0 ; [+32]
         5 GETUPVAL                         R0 0
         6 SETUPVAL                         R0 1
@@ -138,15 +138,15 @@ PROTO_6:
        19 CALL                             R1 1 0
        20 LOADNIL                          R1
        21 SETUPVAL                         R1 3
-       22 GETUPVAL                         R2 4
-       23 GETTABLEKS                       R1 R2 K7 ["new"]
+       22 GETUPVAL                         R1 4
+       23 GETTABLEKS                       R1 R1 K7 ["new"]
        25 GETIMPORT                        R2 K1 [plugin]
        27 CALL                             R1 1 1
        28 SETUPVAL                         R1 3
        29 GETUPVAL                         R1 5
-       30 GETUPVAL                         R4 6
-       31 GETTABLEKS                       R3 R4 K8 ["Src"]
-       33 GETTABLEKS                       R2 R3 K9 ["Queries"]
+       30 GETUPVAL                         R2 6
+       31 GETTABLEKS                       R2 R2 K8 ["Src"]
+       33 GETTABLEKS                       R2 R2 K9 ["Queries"]
        35 GETUPVAL                         R3 3
        36 CALL                             R1 2 0
        37 RETURN                           R0 0
@@ -172,8 +172,8 @@ PROTO_7:
        20 CAPTURE                          UPVAL U5
        21 NAMECALL                         R1 R1 K1 ["Connect"]
        23 CALL                             R1 2 0
-       24 GETIMPORT                        R2 K4 [plugin]
-       26 GETTABLEKS                       R1 R2 K5 ["HostDataModelTypeIsCurrent"]
+       24 GETIMPORT                        R1 K4 [plugin]
+       26 GETTABLEKS                       R1 R1 K5 ["HostDataModelTypeIsCurrent"]
        28 JUMPIFNOT                        R1 ; [+31]
        29 SETUPVAL                         R0 1
        30 LOADB                            R1 1
@@ -189,15 +189,15 @@ PROTO_7:
        42 CALL                             R1 1 0
        43 LOADNIL                          R1
        44 SETUPVAL                         R1 2
-       45 GETUPVAL                         R2 3
-       46 GETTABLEKS                       R1 R2 K10 ["new"]
+       45 GETUPVAL                         R1 3
+       46 GETTABLEKS                       R1 R1 K10 ["new"]
        48 GETIMPORT                        R2 K4 [plugin]
        50 CALL                             R1 1 1
        51 SETUPVAL                         R1 2
        52 GETUPVAL                         R1 4
-       53 GETUPVAL                         R4 5
-       54 GETTABLEKS                       R3 R4 K11 ["Src"]
-       56 GETTABLEKS                       R2 R3 K12 ["Queries"]
+       53 GETUPVAL                         R2 5
+       54 GETTABLEKS                       R2 R2 K11 ["Src"]
+       56 GETTABLEKS                       R2 R2 K12 ["Queries"]
        58 GETUPVAL                         R3 2
        59 CALL                             R1 2 0
        60 RETURN                           R0 0
@@ -212,8 +212,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["SceneAnalysis"]
@@ -224,18 +224,18 @@ MAIN:
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R5 R0 K11 ["Src"]
-       33 GETTABLEKS                       R4 R5 K13 ["Util"]
-       35 GETTABLEKS                       R3 R4 K14 ["RpcCallServer"]
+       31 GETTABLEKS                       R3 R0 K11 ["Src"]
+       33 GETTABLEKS                       R3 R3 K13 ["Util"]
+       35 GETTABLEKS                       R3 R3 K14 ["RpcCallServer"]
        37 CALL                             R2 1 1
        38 GETIMPORT                        R3 K1 [plugin]
        40 LOADK                            R5 K15 ["PerformanceToolsBridge"]
        41 NAMECALL                         R3 R3 K16 ["GetPluginComponent"]
        43 CALL                             R3 2 1
        44 GETIMPORT                        R4 K7 [require]
-       46 GETTABLEKS                       R7 R0 K17 ["Bin"]
-       48 GETTABLEKS                       R6 R7 K18 ["Common"]
-       50 GETTABLEKS                       R5 R6 K19 ["defineLuaFlags"]
+       46 GETTABLEKS                       R5 R0 K17 ["Bin"]
+       48 GETTABLEKS                       R5 R5 K18 ["Common"]
+       50 GETTABLEKS                       R5 R5 K19 ["defineLuaFlags"]
        52 CALL                             R4 1 1
        53 GETTABLEKS                       R5 R4 K20 ["getFFlagEnableRIDE11651"]
        55 CALL                             R5 0 1
@@ -268,15 +268,15 @@ MAIN:
        82 CAPTURE                          VAL R2
        83 CAPTURE                          VAL R7
        84 CAPTURE                          VAL R0
-       85 GETIMPORT                        R14 K1 [plugin]
-       87 GETTABLEKS                       R13 R14 K22 ["MultipleDocumentInterfaceInstance"]
+       85 GETIMPORT                        R13 K1 [plugin]
+       87 GETTABLEKS                       R13 R13 K22 ["MultipleDocumentInterfaceInstance"]
        89 MOVE                             R14 R12
        90 GETTABLEKS                       R15 R13 K23 ["FocusedDataModelSession"]
        92 CALL                             R14 1 0
        93 GETIMPORT                        R14 K7 [require]
-       95 GETTABLEKS                       R17 R0 K17 ["Bin"]
-       97 GETTABLEKS                       R16 R17 K18 ["Common"]
-       99 GETTABLEKS                       R15 R16 K24 ["pluginType"]
+       95 GETTABLEKS                       R15 R0 K17 ["Bin"]
+       97 GETTABLEKS                       R15 R15 K18 ["Common"]
+       99 GETTABLEKS                       R15 R15 K24 ["pluginType"]
       101 CALL                             R14 1 1
       102 GETTABLEKS                       R15 R14 K25 ["get"]
       104 CALL                             R15 0 1
@@ -285,14 +285,14 @@ MAIN:
       109 CLOSEUPVALS                      R5
       110 RETURN                           R0 0
       111 GETIMPORT                        R15 K7 [require]
-      113 GETTABLEKS                       R18 R0 K17 ["Bin"]
-      115 GETTABLEKS                       R17 R18 K18 ["Common"]
-      117 GETTABLEKS                       R16 R17 K27 ["setup"]
+      113 GETTABLEKS                       R16 R0 K17 ["Bin"]
+      115 GETTABLEKS                       R16 R16 K18 ["Common"]
+      117 GETTABLEKS                       R16 R16 K27 ["setup"]
       119 CALL                             R15 1 1
       120 GETIMPORT                        R16 K7 [require]
-      122 GETTABLEKS                       R19 R0 K17 ["Bin"]
-      124 GETTABLEKS                       R18 R19 K18 ["Common"]
-      126 GETTABLEKS                       R17 R18 K28 ["setupMain"]
+      122 GETTABLEKS                       R17 R0 K17 ["Bin"]
+      124 GETTABLEKS                       R17 R17 K18 ["Common"]
+      126 GETTABLEKS                       R17 R17 K28 ["setupMain"]
       128 CALL                             R16 1 1
       129 MOVE                             R17 R15
       130 GETIMPORT                        R18 K1 [plugin]

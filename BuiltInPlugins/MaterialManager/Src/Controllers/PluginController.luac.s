@@ -18,12 +18,12 @@ PROTO_0:
        26 RETURN                           R5 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 LOADNIL                          R1
         4 LOADNIL                          R2
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["mock"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["mock"]
         8 CALL                             R3 0 1
         9 LOADB                            R4 1
        10 CALL                             R0 4 -1
@@ -124,20 +124,20 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Framework"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R0 K5 ["Src"]
-       25 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       23 GETTABLEKS                       R3 R0 K5 ["Src"]
+       25 GETTABLEKS                       R3 R3 K9 ["Actions"]
        27 GETIMPORT                        R4 K4 [require]
        29 GETTABLEKS                       R5 R3 K10 ["SetMaterialBrowserLayout"]
        31 CALL                             R4 1 1
@@ -148,12 +148,12 @@ MAIN:
        39 GETTABLEKS                       R7 R3 K12 ["SetViewType"]
        41 CALL                             R6 1 1
        42 GETIMPORT                        R7 K4 [require]
-       44 GETTABLEKS                       R10 R0 K5 ["Src"]
-       46 GETTABLEKS                       R9 R10 K13 ["Controllers"]
-       48 GETTABLEKS                       R8 R9 K14 ["GeneralServiceController"]
+       44 GETTABLEKS                       R8 R0 K5 ["Src"]
+       46 GETTABLEKS                       R8 R8 K13 ["Controllers"]
+       48 GETTABLEKS                       R8 R8 K14 ["GeneralServiceController"]
        50 CALL                             R7 1 1
-       51 GETTABLEKS                       R9 R2 K15 ["ContextServices"]
-       53 GETTABLEKS                       R8 R9 K16 ["ContextItem"]
+       51 GETTABLEKS                       R8 R2 K15 ["ContextServices"]
+       53 GETTABLEKS                       R8 R8 K16 ["ContextItem"]
        55 LOADK                            R11 K17 ["PluginController"]
        56 NAMECALL                         R9 R8 K18 ["extend"]
        58 CALL                             R9 2 1

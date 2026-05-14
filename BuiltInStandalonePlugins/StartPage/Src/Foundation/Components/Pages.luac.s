@@ -4,27 +4,27 @@ MAIN:
         3 LOADK                            R2 K2 ["StartPage"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["Services"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K9 ["StudioService"]
-       18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K7 ["Util"]
-       24 GETTABLEKS                       R4 R5 K8 ["Services"]
-       26 CALL                             R3 1 1
-       27 GETTABLEKS                       R2 R3 K10 ["StudioUserService"]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K9 ["StudioService"]
+       18 GETIMPORT                        R2 K5 [require]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["Services"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R2 R2 K10 ["StudioUserService"]
        29 GETIMPORT                        R3 K5 [require]
-       31 GETTABLEKS                       R5 R0 K6 ["Src"]
-       33 GETTABLEKS                       R4 R5 K11 ["Types"]
+       31 GETTABLEKS                       R4 R0 K6 ["Src"]
+       33 GETTABLEKS                       R4 R4 K11 ["Types"]
        35 CALL                             R3 1 1
-       36 GETTABLEKS                       R5 R0 K6 ["Src"]
-       38 GETTABLEKS                       R4 R5 K12 ["Components"]
-       40 GETTABLEKS                       R7 R0 K6 ["Src"]
-       42 GETTABLEKS                       R6 R7 K13 ["Foundation"]
-       44 GETTABLEKS                       R5 R6 K12 ["Components"]
+       36 GETTABLEKS                       R4 R0 K6 ["Src"]
+       38 GETTABLEKS                       R4 R4 K12 ["Components"]
+       40 GETTABLEKS                       R5 R0 K6 ["Src"]
+       42 GETTABLEKS                       R5 R5 K13 ["Foundation"]
+       44 GETTABLEKS                       R5 R5 K12 ["Components"]
        46 GETIMPORT                        R6 K5 [require]
        48 GETTABLEKS                       R7 R5 K14 ["HomePage"]
        50 CALL                             R6 1 1
@@ -41,9 +41,9 @@ MAIN:
        68 GETTABLEKS                       R11 R5 K18 ["RecentsPage"]
        70 CALL                             R10 1 1
        71 GETIMPORT                        R11 K5 [require]
-       73 GETTABLEKS                       R14 R0 K6 ["Src"]
-       75 GETTABLEKS                       R13 R14 K19 ["SharedFlags"]
-       77 GETTABLEKS                       R12 R13 K20 ["getFFlagLuaStartPageStudioTestTemplates"]
+       73 GETTABLEKS                       R12 R0 K6 ["Src"]
+       75 GETTABLEKS                       R12 R12 K19 ["SharedFlags"]
+       77 GETTABLEKS                       R12 R12 K20 ["getFFlagLuaStartPageStudioTestTemplates"]
        79 CALL                             R11 1 1
        80 CALL                             R11 0 1
        81 JUMPIFNOT                        R11 ; [+13]

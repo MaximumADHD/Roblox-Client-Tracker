@@ -51,16 +51,16 @@ PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["Variables"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+17]
-        4 GETTABLEKS                       R4 R0 K0 ["Variables"]
-        6 GETTABLE                         R3 R4 R1
-        7 GETTABLEKS                       R2 R3 K1 ["Value"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K2 ["IsHumanoidName"]
+        4 GETTABLEKS                       R3 R0 K0 ["Variables"]
+        6 GETTABLE                         R2 R3 R1
+        7 GETTABLEKS                       R2 R2 K1 ["Value"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K2 ["IsHumanoidName"]
        12 MOVE                             R4 R1
        13 CALL                             R3 1 1
        14 JUMPIF                           R3 ; [+5]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K2 ["IsHumanoidName"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K2 ["IsHumanoidName"]
        18 MOVE                             R4 R2
        19 CALL                             R3 1 1
        20 RETURN                           R3 1
@@ -70,8 +70,8 @@ PROTO_5:
 PROTO_6:
         0 PREPVARARGS                      1
         1 GETTABLEKS                       R2 R0 K0 ["Issues"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["new"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["new"]
         6 GETVARARGS                       R4 -1
         7 CALL                             R3 -1 -1
         8 FASTCALL                         TABLE_INSERT ; [+2]
@@ -81,8 +81,8 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["Issue"]
         9 CALL                             R1 1 1

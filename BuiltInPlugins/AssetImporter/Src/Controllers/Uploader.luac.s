@@ -28,23 +28,23 @@ PROTO_1:
        23 LOADN                            R5 0
        24 LOADK                            R6 K10 [""]
        25 LOADNIL                          R7
-       26 GETUPVAL                         R10 1
-       27 GETTABLEKS                       R9 R10 K11 ["FileType"]
-       29 GETTABLEKS                       R8 R9 K12 ["Video"]
+       26 GETUPVAL                         R8 1
+       27 GETTABLEKS                       R8 R8 K11 ["FileType"]
+       29 GETTABLEKS                       R8 R8 K12 ["Video"]
        31 JUMPIFNOTEQ                      R2 R8 ; [+6]
        33 LOADN                            R5 208
        34 LOADK                            R6 K13 ["application/json"]
        35 GETIMPORT                        R7 K15 [Enum.AssetType.Video]
        37 JUMP                             ; [+19]
-       38 GETUPVAL                         R10 1
-       39 GETTABLEKS                       R9 R10 K11 ["FileType"]
-       41 GETTABLEKS                       R8 R9 K16 ["Audio"]
+       38 GETUPVAL                         R8 1
+       39 GETTABLEKS                       R8 R8 K11 ["FileType"]
+       41 GETTABLEKS                       R8 R8 K16 ["Audio"]
        43 JUMPIFNOTEQ                      R2 R8 ; [+4]
        45 GETIMPORT                        R7 K17 [Enum.AssetType.Audio]
        47 JUMP                             ; [+9]
-       48 GETUPVAL                         R10 1
-       49 GETTABLEKS                       R9 R10 K11 ["FileType"]
-       51 GETTABLEKS                       R8 R9 K18 ["Image"]
+       48 GETUPVAL                         R8 1
+       49 GETTABLEKS                       R8 R8 K11 ["FileType"]
+       51 GETTABLEKS                       R8 R8 K18 ["Image"]
        53 JUMPIFNOTEQ                      R2 R8 ; [+3]
        55 GETIMPORT                        R7 K19 [Enum.AssetType.Image]
        57 FASTCALL2K                       ASSERT R7 K20 ; [+5]
@@ -85,8 +85,8 @@ PROTO_2:
        15 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -95,15 +95,15 @@ PROTO_3:
         8 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["session"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["session"]
         3 NAMECALL                         R0 R0 K1 ["Cancel"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["session"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["session"]
         3 FASTCALL2K                       ASSERT R4 K1 ; [+4]
         5 LOADK                            R5 K1 ["Scene QueueItem missing AssetImportSession"]
         6 GETIMPORT                        R3 K3 [assert]
@@ -112,23 +112,23 @@ PROTO_5:
        10 NEWCLOSURE                       R4 P0
        11 CAPTURE                          UPVAL U0
        12 CALL                             R3 1 0
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K0 ["session"]
-       16 GETTABLEKS                       R3 R4 K4 ["UploadComplete"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K0 ["session"]
+       16 GETTABLEKS                       R3 R3 K4 ["UploadComplete"]
        18 MOVE                             R5 R0
        19 NAMECALL                         R3 R3 K5 ["Connect"]
        21 CALL                             R3 2 1
        22 SETUPVAL                         R3 1
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K0 ["session"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K0 ["session"]
        26 NAMECALL                         R3 R3 K6 ["Upload"]
        28 CALL                             R3 1 0
        29 RETURN                           R0 0
 
 PROTO_6:
         0 LOADNIL                          R1
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["new"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["new"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          VAL R0
         6 CAPTURE                          REF R1
@@ -140,9 +140,9 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K1 ["FileType"]
-        5 GETTABLEKS                       R5 R6 K2 ["Image"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R5 K2 ["Image"]
         7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
         9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
        11 CALL                             R2 4 1
@@ -154,9 +154,9 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K1 ["FileType"]
-        5 GETTABLEKS                       R5 R6 K2 ["Audio"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R5 K2 ["Audio"]
         7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
         9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
        11 CALL                             R2 4 1
@@ -168,9 +168,9 @@ PROTO_8:
 
 PROTO_9:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K1 ["FileType"]
-        5 GETTABLEKS                       R5 R6 K2 ["Video"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R5 K2 ["Video"]
         7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
         9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
        11 CALL                             R2 4 1
@@ -187,9 +187,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["AssetImportService"]
@@ -198,21 +198,21 @@ MAIN:
        22 LOADK                            R4 K11 ["StudioService"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K5 [require]
-       26 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       28 GETTABLEKS                       R5 R6 K13 ["Promise"]
+       26 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       28 GETTABLEKS                       R5 R5 K13 ["Promise"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K5 [require]
-       33 GETTABLEKS                       R7 R0 K12 ["Packages"]
-       35 GETTABLEKS                       R6 R7 K14 ["LuauPolyfill"]
+       33 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       35 GETTABLEKS                       R6 R6 K14 ["LuauPolyfill"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K5 [require]
-       40 GETTABLEKS                       R8 R0 K6 ["Src"]
-       42 GETTABLEKS                       R7 R8 K15 ["Types"]
+       40 GETTABLEKS                       R7 R0 K6 ["Src"]
+       42 GETTABLEKS                       R7 R7 K15 ["Types"]
        44 CALL                             R6 1 1
        45 GETIMPORT                        R7 K5 [require]
-       47 GETTABLEKS                       R10 R0 K6 ["Src"]
-       49 GETTABLEKS                       R9 R10 K15 ["Types"]
-       51 GETTABLEKS                       R8 R9 K16 ["QueuedSession"]
+       47 GETTABLEKS                       R8 R0 K6 ["Src"]
+       49 GETTABLEKS                       R8 R8 K15 ["Types"]
+       51 GETTABLEKS                       R8 R8 K16 ["QueuedSession"]
        53 CALL                             R7 1 1
        54 NEWTABLE                         R8 8 0
        56 SETTABLEKS                       R8 R8 K17 ["__index"]

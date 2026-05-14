@@ -8,8 +8,8 @@ PROTO_0:
         8 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Enabled"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Enabled"]
         3 NOT                              R1 R2
         4 FASTCALL2K                       ASSERT R1 K1 ; [+4]
         6 LOADK                            R2 K1 ["Plugin action already registered to something"]
@@ -18,8 +18,8 @@ PROTO_1:
        10 GETUPVAL                         R0 0
        11 LOADB                            R1 1
        12 SETTABLEKS                       R1 R0 K0 ["Enabled"]
-       14 GETUPVAL                         R1 0
-       15 GETTABLEKS                       R0 R1 K4 ["Triggered"]
+       14 GETUPVAL                         R0 0
+       15 GETTABLEKS                       R0 R0 K4 ["Triggered"]
        17 GETUPVAL                         R2 1
        18 NAMECALL                         R0 R0 K5 ["Connect"]
        20 CALL                             R0 2 1
@@ -35,8 +35,8 @@ PROTO_2:
         4 MOVE                             R4 R0
         5 NAMECALL                         R2 R2 K1 ["get"]
         7 CALL                             R2 2 1
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K2 ["useEffect"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K2 ["useEffect"]
        11 NEWCLOSURE                       R4 P0
        12 CAPTURE                          VAL R2
        13 CAPTURE                          VAL R1
@@ -54,12 +54,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["PluginActions"]

@@ -47,9 +47,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["getMaterials"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["getMaterials"]
        21 CALL                             R2 1 1
        22 DUPCLOSURE                       R3 K13 [PROTO_0]
        23 CAPTURE                          VAL R2

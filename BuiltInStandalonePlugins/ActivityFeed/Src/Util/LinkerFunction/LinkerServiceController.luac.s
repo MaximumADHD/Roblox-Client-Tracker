@@ -20,17 +20,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R6 R0 K5 ["Src"]
-       15 GETTABLEKS                       R5 R6 K6 ["Util"]
-       17 GETTABLEKS                       R4 R5 K7 ["LinkerFunction"]
-       19 GETTABLEKS                       R3 R4 K8 ["Mocks"]
-       21 GETTABLEKS                       R2 R3 K9 ["MockUniqueIdLookupService"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["LinkerFunction"]
+       19 GETTABLEKS                       R2 R2 K8 ["Mocks"]
+       21 GETTABLEKS                       R2 R2 K9 ["MockUniqueIdLookupService"]
        23 CALL                             R1 1 1
        24 NEWTABLE                         R2 1 0
        26 DUPTABLE                         R3 K11 [{"__index"}]

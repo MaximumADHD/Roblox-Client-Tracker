@@ -1,9 +1,9 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R1 K0 ["assetData"]
         2 GETTABLEKS                       R3 R1 K1 ["status"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["List"]
-        7 GETTABLEKS                       R4 R5 K3 ["join"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["List"]
+        7 GETTABLEKS                       R4 R4 K3 ["join"]
         9 GETTABLEKS                       R5 R0 K4 ["subsequentDialogQueue"]
        11 NEWTABLE                         R6 0 1
        13 DUPTABLE                         R7 K5 [{"assetData", "status"}]
@@ -11,9 +11,9 @@ PROTO_0:
        16 SETTABLEKS                       R3 R7 K1 ["status"]
        18 SETLIST                          R6 R7 1 [1]
        20 CALL                             R4 2 1
-       21 GETUPVAL                         R7 0
-       22 GETTABLEKS                       R6 R7 K6 ["Dictionary"]
-       24 GETTABLEKS                       R5 R6 K3 ["join"]
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K6 ["Dictionary"]
+       24 GETTABLEKS                       R5 R5 K3 ["join"]
        26 MOVE                             R6 R0
        27 DUPTABLE                         R7 K7 [{"subsequentDialogQueue"}]
        28 SETTABLEKS                       R4 R7 K4 ["subsequentDialogQueue"]
@@ -21,16 +21,16 @@ PROTO_0:
        31 RETURN                           R5 -1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["List"]
-        3 GETTABLEKS                       R2 R3 K1 ["removeValue"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["List"]
+        3 GETTABLEKS                       R2 R2 K1 ["removeValue"]
         5 GETTABLEKS                       R3 R0 K2 ["subsequentDialogQueue"]
         7 GETTABLEKS                       R5 R0 K2 ["subsequentDialogQueue"]
         9 GETTABLEN                        R4 R5 1
        10 CALL                             R2 2 1
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K3 ["Dictionary"]
-       14 GETTABLEKS                       R3 R4 K4 ["join"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K3 ["Dictionary"]
+       14 GETTABLEKS                       R3 R3 K4 ["join"]
        16 MOVE                             R4 R0
        17 DUPTABLE                         R5 K5 [{"subsequentDialogQueue"}]
        18 SETTABLEKS                       R2 R5 K2 ["subsequentDialogQueue"]
@@ -50,8 +50,8 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Rodux"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R0 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Actions"]
+       19 GETTABLEKS                       R4 R0 K9 ["Src"]
+       21 GETTABLEKS                       R4 R4 K10 ["Actions"]
        23 GETIMPORT                        R5 K6 [require]
        25 GETTABLEKS                       R6 R4 K11 ["DequeueSubsequentDialog"]
        27 CALL                             R5 1 1

@@ -13,40 +13,40 @@ PROTO_0:
        20 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K4 [{"characters", "convertedCharacters"}]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       10 GETTABLEKS                       R5 R6 K1 ["join"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R5 K1 ["join"]
        12 GETTABLEKS                       R6 R0 K2 ["characters"]
        14 NEWTABLE                         R7 1 0
-       16 GETTABLEKS                       R9 R1 K5 ["characterInfo"]
-       18 GETTABLEKS                       R8 R9 K6 ["key"]
+       16 GETTABLEKS                       R8 R1 K5 ["characterInfo"]
+       18 GETTABLEKS                       R8 R8 K6 ["key"]
        20 GETTABLEKS                       R10 R1 K7 ["isConverted"]
        22 JUMPIFNOT                        R10 ; [+4]
-       23 GETUPVAL                         R10 0
-       24 GETTABLEKS                       R9 R10 K8 ["None"]
+       23 GETUPVAL                         R9 0
+       24 GETTABLEKS                       R9 R9 K8 ["None"]
        26 JUMP                             ; [+2]
        27 GETTABLEKS                       R9 R1 K5 ["characterInfo"]
        29 SETTABLE                         R9 R7 R8
        30 CALL                             R5 2 1
        31 SETTABLEKS                       R5 R4 K2 ["characters"]
-       33 GETUPVAL                         R7 0
-       34 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       36 GETTABLEKS                       R5 R6 K1 ["join"]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       36 GETTABLEKS                       R5 R5 K1 ["join"]
        38 GETTABLEKS                       R6 R0 K3 ["convertedCharacters"]
        40 NEWTABLE                         R7 1 0
-       42 GETTABLEKS                       R9 R1 K5 ["characterInfo"]
-       44 GETTABLEKS                       R8 R9 K6 ["key"]
+       42 GETTABLEKS                       R8 R1 K5 ["characterInfo"]
+       44 GETTABLEKS                       R8 R8 K6 ["key"]
        46 GETTABLEKS                       R10 R1 K7 ["isConverted"]
        48 JUMPIFNOT                        R10 ; [+3]
        49 GETTABLEKS                       R9 R1 K5 ["characterInfo"]
        51 JUMP                             ; [+3]
-       52 GETUPVAL                         R10 0
-       53 GETTABLEKS                       R9 R10 K8 ["None"]
+       52 GETUPVAL                         R9 0
+       53 GETTABLEKS                       R9 R9 K8 ["None"]
        55 SETTABLE                         R9 R7 R8
        56 CALL                             R5 2 1
        57 SETTABLEKS                       R5 R4 K3 ["convertedCharacters"]
@@ -54,9 +54,9 @@ PROTO_1:
        60 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"convertedCharacters"}]
         7 NEWTABLE                         R5 0 0
@@ -65,9 +65,9 @@ PROTO_2:
        12 RETURN                           R2 -1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K6 [{"characterMetadataLoadedVersion", "characters", "convertedCharacters", "worldModels"}]
         7 GETTABLEKS                       R6 R0 K2 ["characterMetadataLoadedVersion"]
@@ -83,9 +83,9 @@ PROTO_3:
        25 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"selection"}]
         7 GETTABLEKS                       R5 R1 K2 ["selection"]
@@ -94,14 +94,14 @@ PROTO_4:
        12 RETURN                           R2 -1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"worldModels"}]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       10 GETTABLEKS                       R5 R6 K1 ["join"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R5 K1 ["join"]
        12 GETTABLEKS                       R6 R0 K2 ["worldModels"]
        14 GETTABLEKS                       R7 R1 K4 ["newWorldModelEntries"]
        16 CALL                             R5 2 1
@@ -110,9 +110,9 @@ PROTO_5:
        20 RETURN                           R2 -1
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 GETUPVAL                         R4 1
         7 CALL                             R4 0 1
@@ -126,15 +126,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Rodux"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Rodux"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Cryo"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R0 K9 ["Src"]
-       23 GETTABLEKS                       R3 R4 K10 ["Actions"]
+       21 GETTABLEKS                       R3 R0 K9 ["Src"]
+       23 GETTABLEKS                       R3 R3 K10 ["Actions"]
        25 GETIMPORT                        R4 K5 [require]
        27 GETTABLEKS                       R5 R3 K11 ["ResetConvertedCharacters"]
        29 CALL                             R4 1 1

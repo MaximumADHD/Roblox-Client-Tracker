@@ -17,20 +17,20 @@ PROTO_2:
         3 NAMECALL                         R2 R2 K1 ["getColumnIndex"]
         5 CALL                             R2 2 1
         6 JUMPIFNOT                        R2 ; [+10]
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["get"]
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K3 ["AvailableImages"]
-       13 GETTABLEKS                       R2 R3 K4 ["Checkmark"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["get"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K3 ["AvailableImages"]
+       13 GETTABLEKS                       R2 R2 K4 ["Checkmark"]
        15 CALL                             R1 1 1
        16 RETURN                           R1 1
        17 LOADNIL                          R1
        18 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["MenuContext"]
-        3 GETTABLEKS                       R3 R4 K1 ["Column"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["MenuContext"]
+        3 GETTABLEKS                       R3 R3 K1 ["Column"]
         5 JUMPIFEQ                         R0 R3 ; [+2]
         7 LOADB                            R2 0 +1
         8 LOADB                            R2 1
@@ -38,10 +38,10 @@ PROTO_3:
 
 PROTO_4:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["asSortedList"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R2 R4 K1 ["AssetInfoField"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["asSortedList"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["AssetInfoField"]
         8 CALL                             R1 1 3
         9 FORGPREP                         R1
        10 GETUPVAL                         R8 1
@@ -77,41 +77,41 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Images"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Images"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 8 0
-       25 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       27 GETTABLEKS                       R4 R5 K11 ["DisplayName"]
+       25 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       27 GETTABLEKS                       R4 R4 K11 ["DisplayName"]
        29 LOADB                            R5 1
        30 SETTABLE                         R5 R3 R4
-       31 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       33 GETTABLEKS                       R4 R5 K12 ["ModerationStatus"]
+       31 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       33 GETTABLEKS                       R4 R4 K12 ["ModerationStatus"]
        35 LOADB                            R5 1
        36 SETTABLE                         R5 R3 R4
-       37 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       39 GETTABLEKS                       R4 R5 K13 ["VersionNumber"]
+       37 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       39 GETTABLEKS                       R4 R4 K13 ["VersionNumber"]
        41 LOADB                            R5 1
        42 SETTABLE                         R5 R3 R4
-       43 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       45 GETTABLEKS                       R4 R5 K14 ["IsPackage"]
+       43 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       45 GETTABLEKS                       R4 R4 K14 ["IsPackage"]
        47 LOADB                            R5 1
        48 SETTABLE                         R5 R3 R4
-       49 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       51 GETTABLEKS                       R4 R5 K15 ["Archived"]
+       49 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       51 GETTABLEKS                       R4 R4 K15 ["Archived"]
        53 LOADB                            R5 1
        54 SETTABLE                         R5 R3 R4
-       55 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       57 GETTABLEKS                       R4 R5 K16 ["Path"]
+       55 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       57 GETTABLEKS                       R4 R4 K16 ["Path"]
        59 LOADB                            R5 1
        60 SETTABLE                         R5 R3 R4
-       61 GETTABLEKS                       R5 R1 K10 ["AssetInfoField"]
-       63 GETTABLEKS                       R4 R5 K17 ["SearchRank"]
+       61 GETTABLEKS                       R4 R1 K10 ["AssetInfoField"]
+       63 GETTABLEKS                       R4 R4 K17 ["SearchRank"]
        65 LOADB                            R5 1
        66 SETTABLE                         R5 R3 R4
        67 DUPCLOSURE                       R4 K18 [PROTO_0]

@@ -8,20 +8,20 @@ PROTO_0:
         9 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIF                           R0 ; [+1]
         5 RETURN                           R0 0
         6 GETUPVAL                         R0 0
         7 JUMPIFNOT                        R0 ; [+23]
-        8 GETIMPORT                        R1 K4 [require]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["DeveloperTools"]
-       15 CALL                             R1 1 1
-       16 GETTABLEKS                       R0 R1 K7 ["forPlugin"]
-       18 GETUPVAL                         R2 2
-       19 GETTABLEKS                       R1 R2 K8 ["Name"]
+        8 GETIMPORT                        R0 K4 [require]
+       10 GETUPVAL                         R1 2
+       11 GETTABLEKS                       R1 R1 K5 ["Packages"]
+       13 GETTABLEKS                       R1 R1 K6 ["DeveloperTools"]
+       15 CALL                             R0 1 1
+       16 GETTABLEKS                       R0 R0 K7 ["forPlugin"]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R1 R1 K8 ["Name"]
        21 GETIMPORT                        R2 K1 [plugin]
        23 CALL                             R0 2 1
        24 SETUPVAL                         R0 1
@@ -42,20 +42,20 @@ PROTO_2:
         8 RETURN                           R0 0
 
 PROTO_3:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIF                           R0 ; [+1]
         5 RETURN                           R0 0
         6 GETUPVAL                         R0 0
         7 JUMPIFNOT                        R0 ; [+23]
-        8 GETIMPORT                        R1 K4 [require]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["DeveloperTools"]
-       15 CALL                             R1 1 1
-       16 GETTABLEKS                       R0 R1 K7 ["forPlugin"]
-       18 GETUPVAL                         R2 2
-       19 GETTABLEKS                       R1 R2 K8 ["Name"]
+        8 GETIMPORT                        R0 K4 [require]
+       10 GETUPVAL                         R1 2
+       11 GETTABLEKS                       R1 R1 K5 ["Packages"]
+       13 GETTABLEKS                       R1 R1 K6 ["DeveloperTools"]
+       15 CALL                             R0 1 1
+       16 GETTABLEKS                       R0 R0 K7 ["forPlugin"]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R1 R1 K8 ["Name"]
        21 GETIMPORT                        R2 K1 [plugin]
        23 CALL                             R0 2 1
        24 SETUPVAL                         R0 1
@@ -68,8 +68,8 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 0
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["FocusedDataModelSession"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["FocusedDataModelSession"]
         5 GETTABLEKS                       R1 R0 K1 ["CurrentDataModelTypeAboutToChange"]
         7 NEWCLOSURE                       R3 P0
         8 CAPTURE                          UPVAL U2
@@ -82,20 +82,20 @@ PROTO_4:
        17 CAPTURE                          UPVAL U4
        18 NAMECALL                         R1 R1 K2 ["Connect"]
        20 CALL                             R1 2 0
-       21 GETIMPORT                        R2 K5 [plugin]
-       23 GETTABLEKS                       R1 R2 K6 ["HostDataModelTypeIsCurrent"]
+       21 GETIMPORT                        R1 K5 [plugin]
+       23 GETTABLEKS                       R1 R1 K6 ["HostDataModelTypeIsCurrent"]
        25 JUMPIF                           R1 ; [+1]
        26 RETURN                           R0 0
        27 GETUPVAL                         R1 3
        28 JUMPIFNOT                        R1 ; [+23]
-       29 GETIMPORT                        R2 K8 [require]
-       31 GETUPVAL                         R5 4
-       32 GETTABLEKS                       R4 R5 K9 ["Packages"]
-       34 GETTABLEKS                       R3 R4 K10 ["DeveloperTools"]
-       36 CALL                             R2 1 1
-       37 GETTABLEKS                       R1 R2 K11 ["forPlugin"]
-       39 GETUPVAL                         R3 4
-       40 GETTABLEKS                       R2 R3 K12 ["Name"]
+       29 GETIMPORT                        R1 K8 [require]
+       31 GETUPVAL                         R2 4
+       32 GETTABLEKS                       R2 R2 K9 ["Packages"]
+       34 GETTABLEKS                       R2 R2 K10 ["DeveloperTools"]
+       36 CALL                             R1 1 1
+       37 GETTABLEKS                       R1 R1 K11 ["forPlugin"]
+       39 GETUPVAL                         R2 4
+       40 GETTABLEKS                       R2 R2 K12 ["Name"]
        42 GETIMPORT                        R3 K5 [plugin]
        44 CALL                             R1 2 1
        45 SETUPVAL                         R1 2
@@ -107,24 +107,24 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R4 R0 K5 ["Src"]
-       11 GETTABLEKS                       R3 R4 K6 ["Util"]
-       13 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Util"]
+       13 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K8 ["RunningUnderCLI"]
        18 CALL                             R2 0 1
        19 JUMPIFNOT                        R2 ; [+1]
        20 RETURN                           R0 0
-       21 GETIMPORT                        R3 K10 [plugin]
-       23 GETTABLEKS                       R2 R3 K11 ["MultipleDocumentInterfaceInstance"]
-       25 GETIMPORT                        R6 K1 [script]
-       27 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       31 GETTABLEKS                       R3 R4 K12 ["Common"]
+       21 GETIMPORT                        R2 K10 [plugin]
+       23 GETTABLEKS                       R2 R2 K11 ["MultipleDocumentInterfaceInstance"]
+       25 GETIMPORT                        R3 K1 [script]
+       27 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       29 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       31 GETTABLEKS                       R3 R3 K12 ["Common"]
        33 GETIMPORT                        R4 K4 [require]
        35 GETTABLEKS                       R5 R3 K13 ["commonInit"]
        37 CALL                             R4 1 1

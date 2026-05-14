@@ -7,33 +7,33 @@ PROTO_0:
         7 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["provideMockContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["provideMockContext"]
         3 NEWTABLE                         R2 0 3
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K1 ["Plugin"]
-        8 GETTABLEKS                       R3 R4 K2 ["new"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["Plugin"]
+        8 GETTABLEKS                       R3 R3 K2 ["new"]
        10 DUPTABLE                         R4 K5 [{"CreateQWidgetPluginGui", "CreateWidgetPluginGui"}]
        11 GETUPVAL                         R5 2
        12 SETTABLEKS                       R5 R4 K3 ["CreateQWidgetPluginGui"]
        14 GETUPVAL                         R5 2
        15 SETTABLEKS                       R5 R4 K4 ["CreateWidgetPluginGui"]
        17 CALL                             R3 1 1
-       18 GETUPVAL                         R5 3
-       19 GETTABLEKS                       R4 R5 K6 ["mock"]
+       18 GETUPVAL                         R4 3
+       19 GETTABLEKS                       R4 R4 K6 ["mock"]
        21 CALL                             R4 0 1
-       22 GETUPVAL                         R7 1
-       23 GETTABLEKS                       R6 R7 K7 ["Design"]
-       25 GETTABLEKS                       R5 R6 K2 ["new"]
+       22 GETUPVAL                         R5 1
+       23 GETTABLEKS                       R5 R5 K7 ["Design"]
+       25 GETTABLEKS                       R5 R5 K2 ["new"]
        27 GETUPVAL                         R6 4
        28 CALL                             R5 1 -1
        29 SETLIST                          R2 R3 -1 [1]
        31 DUPTABLE                         R3 K9 [{"FoundationProvider"}]
-       32 GETUPVAL                         R5 5
-       33 GETTABLEKS                       R4 R5 K10 ["createElement"]
-       35 GETUPVAL                         R7 6
-       36 GETTABLEKS                       R6 R7 K11 ["Components"]
-       38 GETTABLEKS                       R5 R6 K12 ["FoundationProviderAdapter"]
+       32 GETUPVAL                         R4 5
+       33 GETTABLEKS                       R4 R4 K10 ["createElement"]
+       35 GETUPVAL                         R5 6
+       36 GETTABLEKS                       R5 R5 K11 ["Components"]
+       38 GETTABLEKS                       R5 R5 K12 ["FoundationProviderAdapter"]
        40 DUPTABLE                         R6 K16 [{"theme", "device", "children"}]
        41 LOADK                            R7 K17 ["Dark"]
        42 SETTABLEKS                       R7 R6 K13 ["theme"]
@@ -58,9 +58,9 @@ PROTO_2:
        11 LOADK                            R3 K3 ["Expected children to be a table"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K6 ["Styling"]
-       18 GETTABLEKS                       R1 R2 K7 ["registerPluginStyles"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["Styling"]
+       18 GETTABLEKS                       R1 R1 K7 ["registerPluginStyles"]
        20 GETUPVAL                         R2 1
        21 CALL                             R1 1 1
        22 NEWCLOSURE                       R2 P0
@@ -81,16 +81,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["StudioFoundation"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["StudioFoundation"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K10 ["TestHelpers"]
        30 GETTABLEKS                       R5 R2 K11 ["ContextServices"]
@@ -105,10 +105,10 @@ MAIN:
        44 NAMECALL                         R7 R7 K19 ["FindFirstAncestorWhichIsA"]
        46 CALL                             R7 2 1
        47 GETIMPORT                        R8 K5 [require]
-       49 GETTABLEKS                       R12 R0 K20 ["Src"]
-       51 GETTABLEKS                       R11 R12 K21 ["Util"]
-       53 GETTABLEKS                       R10 R11 K22 ["Telemetry"]
-       55 GETTABLEKS                       R9 R10 K23 ["TelemetryContext"]
+       49 GETTABLEKS                       R9 R0 K20 ["Src"]
+       51 GETTABLEKS                       R9 R9 K21 ["Util"]
+       53 GETTABLEKS                       R9 R9 K22 ["Telemetry"]
+       55 GETTABLEKS                       R9 R9 K23 ["TelemetryContext"]
        57 CALL                             R8 1 1
        58 DUPCLOSURE                       R9 K24 [PROTO_0]
        59 CAPTURE                          VAL R6

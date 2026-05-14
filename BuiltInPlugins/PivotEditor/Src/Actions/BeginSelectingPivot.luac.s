@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["isEnumValue"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["isEnumValue"]
         3 MOVE                             R4 R0
         4 CALL                             R3 1 -1
         5 FASTCALL                         ASSERT ; [+2]
@@ -28,22 +28,22 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Utility"]
-       15 GETTABLEKS                       R2 R3 K7 ["EditingMode"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Utility"]
+       15 GETTABLEKS                       R2 R2 K7 ["EditingMode"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       20 GETTABLEKS                       R2 R3 K9 ["Framework"]
-       22 GETIMPORT                        R5 K4 [require]
-       24 MOVE                             R6 R2
-       25 CALL                             R5 1 1
-       26 GETTABLEKS                       R4 R5 K10 ["Util"]
-       28 GETTABLEKS                       R3 R4 K11 ["Action"]
+       18 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       20 GETTABLEKS                       R2 R2 K9 ["Framework"]
+       22 GETIMPORT                        R3 K4 [require]
+       24 MOVE                             R4 R2
+       25 CALL                             R3 1 1
+       26 GETTABLEKS                       R3 R3 K10 ["Util"]
+       28 GETTABLEKS                       R3 R3 K11 ["Action"]
        30 NEWTABLE                         R4 4 0
        32 GETTABLEKS                       R5 R1 K12 ["SelectGeometry"]
        34 LOADB                            R6 1
@@ -55,8 +55,8 @@ MAIN:
        42 LOADB                            R6 1
        43 SETTABLE                         R6 R4 R5
        44 MOVE                             R5 R3
-       45 GETIMPORT                        R7 K1 [script]
-       47 GETTABLEKS                       R6 R7 K15 ["Name"]
+       45 GETIMPORT                        R6 K1 [script]
+       47 GETTABLEKS                       R6 R6 K15 ["Name"]
        49 DUPCLOSURE                       R7 K16 [PROTO_0]
        50 CAPTURE                          VAL R1
        51 CAPTURE                          VAL R4

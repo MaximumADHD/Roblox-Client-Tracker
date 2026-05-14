@@ -5,23 +5,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Styling"]
-       16 GETTABLEKS                       R2 R3 K9 ["createStyleRule"]
-       18 GETTABLEKS                       R4 R1 K8 ["Styling"]
-       20 GETTABLEKS                       R3 R4 K10 ["createStyleSheet"]
+       14 GETTABLEKS                       R2 R1 K8 ["Styling"]
+       16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
+       18 GETTABLEKS                       R3 R1 K8 ["Styling"]
+       20 GETTABLEKS                       R3 R3 K10 ["createStyleSheet"]
        22 GETIMPORT                        R4 K12 [game]
        24 LOADK                            R6 K13 ["ImprovedCursors"]
        25 NAMECALL                         R4 R4 K14 ["GetFastFlag"]
        27 CALL                             R4 2 1
-       28 GETIMPORT                        R6 K5 [require]
-       30 GETTABLEKS                       R9 R0 K15 ["Bin"]
-       32 GETTABLEKS                       R8 R9 K16 ["Common"]
-       34 GETTABLEKS                       R7 R8 K17 ["defineLuaFlags"]
-       36 CALL                             R6 1 1
-       37 GETTABLEKS                       R5 R6 K18 ["getFFlagAudioCompressorEditorFontFix"]
+       28 GETIMPORT                        R5 K5 [require]
+       30 GETTABLEKS                       R6 R0 K15 ["Bin"]
+       32 GETTABLEKS                       R6 R6 K16 ["Common"]
+       34 GETTABLEKS                       R6 R6 K17 ["defineLuaFlags"]
+       36 CALL                             R5 1 1
+       37 GETTABLEKS                       R5 R5 K18 ["getFFlagAudioCompressorEditorFontFix"]
        39 CALL                             R5 0 1
        40 DUPTABLE                         R6 K35 [{"ColorControlPoint", "ColorControlPointHovered", "ColorControlPointPressed", "ColorControlLine", "ColorAnalyzerCurveIn", "ColorAnalyzerCurveOut", "ColorAnalyzerCurveGain", "ColorAnalyzerCurveSidechain", "ColorCurve", "ColorCurveDisabled", "ColorGridLine", "ColorKnobArc", "ColorKnobTick", "CursorOpenedHand", "CursorHorizontal", "CursorVertical"}]
        41 GETIMPORT                        R7 K38 [Color3.fromRGB]

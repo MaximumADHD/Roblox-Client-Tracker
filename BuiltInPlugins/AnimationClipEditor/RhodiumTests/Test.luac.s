@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETIMPORT                        R1 K1 [game]
-        2 LOADK                            R3 K2 ["CoreGui"]
-        3 NAMECALL                         R1 R1 K3 ["GetService"]
-        5 CALL                             R1 2 1
-        6 GETTABLEKS                       R0 R1 K4 ["ViewSelectorScreenGui"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["CoreGui"]
+        3 NAMECALL                         R0 R0 K3 ["GetService"]
+        5 CALL                             R0 2 1
+        6 GETTABLEKS                       R0 R0 K4 ["ViewSelectorScreenGui"]
         8 JUMPIFNOT                        R0 ; [+6]
         9 GETTABLEKS                       R1 R0 K5 ["Enabled"]
        11 LOADB                            R2 0
@@ -21,11 +21,11 @@ PROTO_1:
         7 RETURN                           R0 1
 
 PROTO_2:
-        0 GETIMPORT                        R1 K1 [game]
-        2 LOADK                            R3 K2 ["CoreGui"]
-        3 NAMECALL                         R1 R1 K3 ["GetService"]
-        5 CALL                             R1 2 1
-        6 GETTABLEKS                       R0 R1 K4 ["ViewSelectorScreenGui"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["CoreGui"]
+        3 NAMECALL                         R0 R0 K3 ["GetService"]
+        5 CALL                             R0 2 1
+        6 GETTABLEKS                       R0 R0 K4 ["ViewSelectorScreenGui"]
         8 GETUPVAL                         R1 0
         9 SETTABLEKS                       R1 R0 K5 ["Enabled"]
        11 RETURN                           R0 0
@@ -47,20 +47,20 @@ PROTO_4:
 
 PROTO_5:
         0 NEWTABLE                         R1 0 1
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["thunkMiddleware"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["thunkMiddleware"]
         5 SETLIST                          R1 R2 1 [1]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K1 ["Store"]
-       10 GETTABLEKS                       R2 R3 K2 ["new"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K1 ["Store"]
+       10 GETTABLEKS                       R2 R2 K2 ["new"]
        12 GETUPVAL                         R3 1
        13 LOADNIL                          R4
        14 MOVE                             R5 R1
        15 CALL                             R2 3 1
        16 GETUPVAL                         R5 2
-       17 GETUPVAL                         R8 3
-       18 GETTABLEKS                       R7 R8 K3 ["SNAP_MODES"]
-       20 GETTABLEKS                       R6 R7 K4 ["None"]
+       17 GETUPVAL                         R6 3
+       18 GETTABLEKS                       R6 R6 K3 ["SNAP_MODES"]
+       20 GETTABLEKS                       R6 R6 K4 ["None"]
        22 CALL                             R5 1 -1
        23 NAMECALL                         R3 R2 K5 ["dispatch"]
        25 CALL                             R3 -1 0
@@ -84,8 +84,8 @@ PROTO_8:
 PROTO_9:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["ScreenGui"]
-        3 GETIMPORT                        R3 K5 [game]
-        5 GETTABLEKS                       R2 R3 K6 ["CoreGui"]
+        3 GETIMPORT                        R2 K5 [game]
+        5 GETTABLEKS                       R2 R2 K6 ["CoreGui"]
         7 CALL                             R0 2 1
         8 LOADK                            R1 K7 ["PluginMockGui"]
         9 SETTABLEKS                       R1 R0 K8 ["Name"]
@@ -113,16 +113,16 @@ PROTO_13:
         0 PREPVARARGS                      1
         1 GETIMPORT                        R2 K2 [Instance.new]
         3 LOADK                            R3 K3 ["ScreenGui"]
-        4 GETIMPORT                        R5 K5 [game]
-        6 GETTABLEKS                       R4 R5 K6 ["CoreGui"]
+        4 GETIMPORT                        R4 K5 [game]
+        6 GETTABLEKS                       R4 R4 K6 ["CoreGui"]
         8 CALL                             R2 2 1
         9 LOADK                            R3 K7 ["PluginMockGui"]
        10 SETTABLEKS                       R3 R2 K8 ["Name"]
        12 GETIMPORT                        R3 K12 [Enum.ZIndexBehavior.Sibling]
        14 SETTABLEKS                       R3 R2 K10 ["ZIndexBehavior"]
        16 MOVE                             R1 R2
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K13 ["subWindows"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K13 ["subWindows"]
        20 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
        22 MOVE                             R4 R1
        23 GETIMPORT                        R2 K16 [table.insert]
@@ -130,8 +130,8 @@ PROTO_13:
        26 RETURN                           R1 1
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 1
         4 DUPTABLE                         R1 K2 [{"Triggered"}]
         5 SETTABLEKS                       R0 R1 K1 ["Triggered"]
@@ -141,16 +141,16 @@ PROTO_15:
         0 PREPVARARGS                      1
         1 GETIMPORT                        R2 K2 [Instance.new]
         3 LOADK                            R3 K3 ["ScreenGui"]
-        4 GETIMPORT                        R5 K5 [game]
-        6 GETTABLEKS                       R4 R5 K6 ["CoreGui"]
+        4 GETIMPORT                        R4 K5 [game]
+        6 GETTABLEKS                       R4 R4 K6 ["CoreGui"]
         8 CALL                             R2 2 1
         9 LOADK                            R3 K7 ["PluginMockGui"]
        10 SETTABLEKS                       R3 R2 K8 ["Name"]
        12 GETIMPORT                        R3 K12 [Enum.ZIndexBehavior.Sibling]
        14 SETTABLEKS                       R3 R2 K10 ["ZIndexBehavior"]
        16 MOVE                             R1 R2
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K13 ["subWindows"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K13 ["subWindows"]
        20 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
        22 MOVE                             R4 R1
        23 GETIMPORT                        R2 K16 [table.insert]
@@ -180,12 +180,12 @@ PROTO_16:
        26 RETURN                           R3 1
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["MAIN_TEST_SIZE"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["MAIN_TEST_SIZE"]
         3 GETIMPORT                        R2 K3 [Instance.new]
         5 LOADK                            R3 K4 ["ScreenGui"]
-        6 GETIMPORT                        R5 K6 [game]
-        8 GETTABLEKS                       R4 R5 K7 ["CoreGui"]
+        6 GETIMPORT                        R4 K6 [game]
+        8 GETTABLEKS                       R4 R4 K7 ["CoreGui"]
        10 CALL                             R2 2 1
        11 LOADK                            R3 K8 ["PluginMockGui"]
        12 SETTABLEKS                       R3 R2 K9 ["Name"]
@@ -239,8 +239,8 @@ PROTO_20:
 
 PROTO_21:
         0 DUPTABLE                         R1 K4 [{"localization", "theme", "plugin", "subWindows"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K5 ["mock"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K5 ["mock"]
         4 CALL                             R2 0 1
         5 SETTABLEKS                       R2 R1 K0 ["localization"]
         7 GETUPVAL                         R2 1
@@ -265,14 +265,14 @@ PROTO_21:
        36 NAMECALL                         R2 R1 K12 ["makeContainer"]
        38 CALL                             R2 1 1
        39 SETTABLEKS                       R2 R1 K13 ["container"]
-       41 GETUPVAL                         R4 3
-       42 GETTABLEKS                       R3 R4 K14 ["Analytics"]
-       44 GETTABLEKS                       R2 R3 K5 ["mock"]
+       41 GETUPVAL                         R2 3
+       42 GETTABLEKS                       R2 R2 K14 ["Analytics"]
+       44 GETTABLEKS                       R2 R2 K5 ["mock"]
        46 CALL                             R2 0 1
        47 SETTABLEKS                       R2 R1 K15 ["analytics"]
-       49 GETUPVAL                         R4 3
-       50 GETTABLEKS                       R3 R4 K16 ["PluginActions"]
-       52 GETTABLEKS                       R2 R3 K17 ["new"]
+       49 GETUPVAL                         R2 3
+       50 GETTABLEKS                       R2 R2 K16 ["PluginActions"]
+       52 GETTABLEKS                       R2 R2 K17 ["new"]
        54 GETTABLEKS                       R3 R1 K11 ["mockPlugin"]
        56 GETUPVAL                         R4 4
        57 GETTABLEKS                       R5 R1 K11 ["mockPlugin"]
@@ -280,16 +280,16 @@ PROTO_21:
        61 CALL                             R4 2 -1
        62 CALL                             R2 -1 1
        63 SETTABLEKS                       R2 R1 K18 ["pluginActions"]
-       65 GETUPVAL                         R3 5
-       66 GETTABLEKS                       R2 R3 K17 ["new"]
-       68 GETUPVAL                         R4 6
-       69 GETTABLEKS                       R3 R4 K19 ["SIGNAL_KEYS"]
+       65 GETUPVAL                         R2 5
+       66 GETTABLEKS                       R2 R2 K17 ["new"]
+       68 GETUPVAL                         R3 6
+       69 GETTABLEKS                       R3 R3 K19 ["SIGNAL_KEYS"]
        71 CALL                             R2 1 1
        72 SETTABLEKS                       R2 R1 K20 ["signals"]
-       74 GETUPVAL                         R3 7
-       75 GETTABLEKS                       R2 R3 K17 ["new"]
-       77 GETUPVAL                         R4 8
-       78 GETTABLEKS                       R3 R4 K17 ["new"]
+       74 GETUPVAL                         R2 7
+       75 GETTABLEKS                       R2 R2 K17 ["new"]
+       77 GETUPVAL                         R3 8
+       78 GETTABLEKS                       R3 R3 K17 ["new"]
        80 LOADK                            R4 K21 ["CalloutService"]
        81 LOADB                            R5 1
        82 CALL                             R3 2 1
@@ -306,8 +306,8 @@ PROTO_22:
         3 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K11 [{"theme", "localization", "store", "plugin", "focusGui", "pluginActions", "mouse", "analytics", "signals", "calloutController"}]
         5 GETTABLEKS                       R5 R0 K1 ["theme"]
@@ -318,8 +318,8 @@ PROTO_23:
        15 SETTABLEKS                       R5 R4 K3 ["store"]
        17 GETTABLEKS                       R5 R0 K12 ["mockPlugin"]
        19 SETTABLEKS                       R5 R4 K4 ["plugin"]
-       21 GETTABLEKS                       R6 R0 K13 ["container"]
-       23 GETTABLEKS                       R5 R6 K14 ["Parent"]
+       21 GETTABLEKS                       R5 R0 K13 ["container"]
+       23 GETTABLEKS                       R5 R5 K14 ["Parent"]
        25 SETTABLEKS                       R5 R4 K5 ["focusGui"]
        27 GETTABLEKS                       R5 R0 K6 ["pluginActions"]
        29 SETTABLEKS                       R5 R4 K6 ["pluginActions"]
@@ -334,8 +334,8 @@ PROTO_23:
        46 GETTABLEKS                       R5 R0 K10 ["calloutController"]
        48 SETTABLEKS                       R5 R4 K10 ["calloutController"]
        50 DUPTABLE                         R5 K17 [{"AnimationClipEditor"}]
-       51 GETUPVAL                         R7 0
-       52 GETTABLEKS                       R6 R7 K0 ["createElement"]
+       51 GETUPVAL                         R6 0
+       52 GETTABLEKS                       R6 R6 K0 ["createElement"]
        54 GETUPVAL                         R7 2
        55 CALL                             R6 1 1
        56 SETTABLEKS                       R6 R5 K16 ["AnimationClipEditor"]
@@ -347,8 +347,8 @@ PROTO_23:
        64 CALL                             R5 1 0
        65 MOVE                             R3 R4
        66 CLOSEUPVALS                      R4
-       67 GETUPVAL                         R5 0
-       68 GETTABLEKS                       R4 R5 K20 ["mount"]
+       67 GETUPVAL                         R4 0
+       68 GETTABLEKS                       R4 R4 K20 ["mount"]
        70 MOVE                             R5 R2
        71 GETTABLEKS                       R6 R0 K13 ["container"]
        73 CALL                             R4 2 1
@@ -359,8 +359,8 @@ PROTO_23:
        79 CALL                             R5 1 2
        80 GETIMPORT                        R7 K22 [wait]
        82 CALL                             R7 0 0
-       83 GETUPVAL                         R8 0
-       84 GETTABLEKS                       R7 R8 K23 ["unmount"]
+       83 GETUPVAL                         R7 0
+       84 GETTABLEKS                       R7 R7 K23 ["unmount"]
        86 MOVE                             R8 R4
        87 CALL                             R7 1 0
        88 JUMPIFNOTEQKNIL                  R3 ; [+2]
@@ -372,8 +372,8 @@ PROTO_23:
        96 RETURN                           R5 2
 
 PROTO_24:
-        0 GETTABLEKS                       R2 R0 K0 ["container"]
-        2 GETTABLEKS                       R1 R2 K1 ["Parent"]
+        0 GETTABLEKS                       R1 R0 K0 ["container"]
+        2 GETTABLEKS                       R1 R1 K1 ["Parent"]
         4 NAMECALL                         R1 R1 K2 ["Destroy"]
         6 CALL                             R1 1 0
         7 GETTABLEKS                       R1 R0 K3 ["theme"]
@@ -408,67 +408,67 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R2 K12 ["Util"]
-       22 GETTABLEKS                       R3 R4 K13 ["Signal"]
+       20 GETTABLEKS                       R3 R2 K12 ["Util"]
+       22 GETTABLEKS                       R3 R3 K13 ["Signal"]
        24 GETIMPORT                        R4 K9 [require]
-       26 GETTABLEKS                       R7 R1 K14 ["Src"]
-       28 GETTABLEKS                       R6 R7 K15 ["Context"]
-       30 GETTABLEKS                       R5 R6 K16 ["Signals"]
+       26 GETTABLEKS                       R5 R1 K14 ["Src"]
+       28 GETTABLEKS                       R5 R5 K15 ["Context"]
+       30 GETTABLEKS                       R5 R5 K16 ["Signals"]
        32 CALL                             R4 1 1
-       33 GETTABLEKS                       R6 R2 K17 ["TestHelpers"]
-       35 GETTABLEKS                       R5 R6 K18 ["ServiceWrapper"]
+       33 GETTABLEKS                       R5 R2 K17 ["TestHelpers"]
+       35 GETTABLEKS                       R5 R5 K18 ["ServiceWrapper"]
        37 GETTABLEKS                       R6 R2 K19 ["ContextServices"]
        39 GETIMPORT                        R7 K9 [require]
-       41 GETTABLEKS                       R9 R1 K10 ["Packages"]
-       43 GETTABLEKS                       R8 R9 K20 ["Roact"]
+       41 GETTABLEKS                       R8 R1 K10 ["Packages"]
+       43 GETTABLEKS                       R8 R8 K20 ["Roact"]
        45 CALL                             R7 1 1
        46 GETIMPORT                        R8 K9 [require]
-       48 GETTABLEKS                       R10 R1 K10 ["Packages"]
-       50 GETTABLEKS                       R9 R10 K21 ["Rodux"]
+       48 GETTABLEKS                       R9 R1 K10 ["Packages"]
+       50 GETTABLEKS                       R9 R9 K21 ["Rodux"]
        52 CALL                             R8 1 1
        53 GETIMPORT                        R9 K9 [require]
-       55 GETTABLEKS                       R12 R1 K14 ["Src"]
-       57 GETTABLEKS                       R11 R12 K12 ["Util"]
-       59 GETTABLEKS                       R10 R11 K22 ["Constants"]
+       55 GETTABLEKS                       R10 R1 K14 ["Src"]
+       57 GETTABLEKS                       R10 R10 K12 ["Util"]
+       59 GETTABLEKS                       R10 R10 K22 ["Constants"]
        61 CALL                             R9 1 1
        62 GETIMPORT                        R10 K9 [require]
-       64 GETTABLEKS                       R13 R1 K14 ["Src"]
-       66 GETTABLEKS                       R12 R13 K12 ["Util"]
-       68 GETTABLEKS                       R11 R12 K23 ["Theme"]
+       64 GETTABLEKS                       R11 R1 K14 ["Src"]
+       66 GETTABLEKS                       R11 R11 K12 ["Util"]
+       68 GETTABLEKS                       R11 R11 K23 ["Theme"]
        70 CALL                             R10 1 1
        71 GETIMPORT                        R11 K9 [require]
-       73 GETTABLEKS                       R14 R1 K14 ["Src"]
-       75 GETTABLEKS                       R13 R14 K12 ["Util"]
-       77 GETTABLEKS                       R12 R13 K24 ["MakePluginActions"]
+       73 GETTABLEKS                       R12 R1 K14 ["Src"]
+       75 GETTABLEKS                       R12 R12 K12 ["Util"]
+       77 GETTABLEKS                       R12 R12 K24 ["MakePluginActions"]
        79 CALL                             R11 1 1
        80 GETTABLEKS                       R12 R6 K25 ["Localization"]
        82 GETIMPORT                        R13 K9 [require]
-       84 GETTABLEKS                       R16 R1 K14 ["Src"]
-       86 GETTABLEKS                       R15 R16 K26 ["Reducers"]
-       88 GETTABLEKS                       R14 R15 K27 ["MainReducer"]
+       84 GETTABLEKS                       R14 R1 K14 ["Src"]
+       86 GETTABLEKS                       R14 R14 K26 ["Reducers"]
+       88 GETTABLEKS                       R14 R14 K27 ["MainReducer"]
        90 CALL                             R13 1 1
        91 GETIMPORT                        R14 K9 [require]
-       93 GETTABLEKS                       R17 R1 K14 ["Src"]
-       95 GETTABLEKS                       R16 R17 K12 ["Util"]
-       97 GETTABLEKS                       R15 R16 K28 ["CalloutController"]
+       93 GETTABLEKS                       R15 R1 K14 ["Src"]
+       95 GETTABLEKS                       R15 R15 K12 ["Util"]
+       97 GETTABLEKS                       R15 R15 K28 ["CalloutController"]
        99 CALL                             R14 1 1
       100 GETIMPORT                        R15 K9 [require]
-      102 GETTABLEKS                       R18 R1 K14 ["Src"]
-      104 GETTABLEKS                       R17 R18 K29 ["Components"]
-      106 GETTABLEKS                       R16 R17 K6 ["AnimationClipEditor"]
+      102 GETTABLEKS                       R16 R1 K14 ["Src"]
+      104 GETTABLEKS                       R16 R16 K29 ["Components"]
+      106 GETTABLEKS                       R16 R16 K6 ["AnimationClipEditor"]
       108 CALL                             R15 1 1
       109 GETIMPORT                        R16 K9 [require]
-      111 GETTABLEKS                       R19 R1 K14 ["Src"]
-      113 GETTABLEKS                       R18 R19 K15 ["Context"]
-      115 GETTABLEKS                       R17 R18 K30 ["MainProvider"]
+      111 GETTABLEKS                       R17 R1 K14 ["Src"]
+      113 GETTABLEKS                       R17 R17 K15 ["Context"]
+      115 GETTABLEKS                       R17 R17 K30 ["MainProvider"]
       117 CALL                             R16 1 1
       118 GETIMPORT                        R17 K9 [require]
-      120 GETTABLEKS                       R20 R1 K14 ["Src"]
-      122 GETTABLEKS                       R19 R20 K31 ["Actions"]
-      124 GETTABLEKS                       R18 R19 K32 ["SetSnapMode"]
+      120 GETTABLEKS                       R18 R1 K14 ["Src"]
+      122 GETTABLEKS                       R18 R18 K31 ["Actions"]
+      124 GETTABLEKS                       R18 R18 K32 ["SetSnapMode"]
       126 CALL                             R17 1 1
       127 NEWTABLE                         R18 16 0
       129 SETTABLEKS                       R18 R18 K33 ["__index"]

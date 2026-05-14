@@ -10,20 +10,20 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETIMPORT                        R4 K1 [script]
-       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K5 ["commonInit"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K2 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K5 ["commonInit"]
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 CALL                             R2 0 0
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K7 ["Util"]
-       24 GETTABLEKS                       R3 R4 K8 ["DebugFlags"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["DebugFlags"]
        26 CALL                             R2 1 1
        27 GETTABLEKS                       R3 R2 K9 ["RunningUnderCLI"]
        29 CALL                             R3 0 1
@@ -32,15 +32,15 @@ MAIN:
        33 CALL                             R3 0 1
        34 JUMPIFNOT                        R3 ; [+71]
        35 GETIMPORT                        R3 K4 [require]
-       37 GETTABLEKS                       R6 R0 K11 ["Packages"]
-       39 GETTABLEKS                       R5 R6 K12 ["Dev"]
-       41 GETTABLEKS                       R4 R5 K13 ["TestEZ"]
+       37 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       39 GETTABLEKS                       R4 R4 K12 ["Dev"]
+       41 GETTABLEKS                       R4 R4 K13 ["TestEZ"]
        43 CALL                             R3 1 1
        44 GETTABLEKS                       R4 R3 K14 ["TestBootstrap"]
-       46 GETTABLEKS                       R6 R3 K15 ["Reporters"]
-       48 GETTABLEKS                       R5 R6 K16 ["TeamCityReporter"]
-       50 GETTABLEKS                       R7 R3 K15 ["Reporters"]
-       52 GETTABLEKS                       R6 R7 K17 ["TextReporter"]
+       46 GETTABLEKS                       R5 R3 K15 ["Reporters"]
+       48 GETTABLEKS                       R5 R5 K16 ["TeamCityReporter"]
+       50 GETTABLEKS                       R6 R3 K15 ["Reporters"]
+       52 GETTABLEKS                       R6 R6 K17 ["TextReporter"]
        54 GETIMPORT                        R9 K20 [_G]
        56 GETTABLEKS                       R8 R9 K18 ["TEAMCITY"]
        58 JUMPIFNOT                        R8 ; [+2]
@@ -62,9 +62,9 @@ MAIN:
        81 CONCAT                           R11 R12 R14
        82 CALL                             R10 1 0
        83 GETIMPORT                        R10 K4 [require]
-       85 GETIMPORT                        R13 K1 [script]
-       87 GETTABLEKS                       R12 R13 K2 ["Parent"]
-       89 GETTABLEKS                       R11 R12 K30 ["defineLuaFlags"]
+       85 GETIMPORT                        R11 K1 [script]
+       87 GETTABLEKS                       R11 R11 K2 ["Parent"]
+       89 GETTABLEKS                       R11 R11 K30 ["defineLuaFlags"]
        91 CALL                             R10 1 0
        92 NEWTABLE                         R12 0 1
        94 MOVE                             R13 R8

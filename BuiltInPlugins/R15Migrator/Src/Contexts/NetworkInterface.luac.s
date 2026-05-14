@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R0 K1 [{"_networkImp"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K2 ["new"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K2 ["new"]
         4 DUPTABLE                         R2 K4 [{"isInternal"}]
         5 LOADB                            R3 1
         6 SETTABLEKS                       R3 R2 K3 ["isInternal"]
@@ -31,10 +31,10 @@ PROTO_1:
        19 RETURN                           R4 -1
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["composeUrl"]
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K1 ["ITEM_CONFIGURATION_URL"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["composeUrl"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K1 ["ITEM_CONFIGURATION_URL"]
         6 LOADK                            R6 K2 ["v1/creations/get-assets"]
         7 DUPTABLE                         R7 K8 [{"assetType", "isArchived", "limit", "cursor", "groupId"}]
         8 SETTABLEKS                       R0 R7 K3 ["assetType"]
@@ -47,10 +47,10 @@ PROTO_2:
        20 RETURN                           R4 -1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["composeUrl"]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K1 ["ITEM_CONFIGURATION_URL"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["composeUrl"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K1 ["ITEM_CONFIGURATION_URL"]
         6 LOADK                            R5 K2 ["v1/creations/get-assets"]
         7 DUPTABLE                         R6 K8 [{"assetType", "isArchived", "limit", "cursor", "groupId"}]
         8 LOADK                            R7 K9 ["Animation"]
@@ -73,10 +73,10 @@ PROTO_4:
         3 MOVE                             R7 R4
         4 MOVE                             R8 R0
         5 CALL                             R5 3 1
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K4 ["composeUrl"]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R7 R8 K5 ["APIS_URL"]
+        6 GETUPVAL                         R6 0
+        7 GETTABLEKS                       R6 R6 K4 ["composeUrl"]
+        9 GETUPVAL                         R7 0
+       10 GETTABLEKS                       R7 R7 K5 ["APIS_URL"]
        12 MOVE                             R8 R5
        13 DUPTABLE                         R9 K10 [{"keyword", "limit", "searchSource", "cursor"}]
        14 SETTABLEKS                       R3 R9 K6 ["keyword"]
@@ -104,10 +104,10 @@ PROTO_5:
        11 RETURN                           R5 -1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["composeUrl"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["DEVELOP_URL"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["composeUrl"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["DEVELOP_URL"]
         6 LOADK                            R4 K2 ["v2/universes/"]
         7 MOVE                             R5 R0
         8 LOADK                            R6 K3 ["/configuration"]
@@ -127,10 +127,10 @@ PROTO_8:
         6 JUMPIFNOTEQKN                    R3 K3 [0] ; [+4]
         8 GETTABLEKS                       R4 R2 K4 ["GameSettingsAvatar"]
        10 RETURN                           R4 1
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K5 ["composeUrl"]
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K6 ["DEVELOP_URL"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K5 ["composeUrl"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K6 ["DEVELOP_URL"]
        17 LOADK                            R7 K7 ["v2/universes/"]
        18 MOVE                             R8 R3
        19 LOADK                            R9 K8 ["/configuration"]
@@ -147,8 +147,8 @@ PROTO_8:
        33 JUMPIF                           R5 ; [+2]
        34 LOADNIL                          R6
        35 RETURN                           R6 1
-       36 GETTABLEKS                       R7 R5 K13 ["responseBody"]
-       38 GETTABLEKS                       R6 R7 K14 ["universeAvatarType"]
+       36 GETTABLEKS                       R6 R5 K13 ["responseBody"]
+       38 GETTABLEKS                       R6 R6 K14 ["universeAvatarType"]
        40 JUMPIFNOTEQKS                    R6 K15 ["MorphToR6"] ; [+4]
        42 GETIMPORT                        R7 K19 [Enum.GameAvatarType.R6]
        44 RETURN                           R7 1
@@ -165,16 +165,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Http"]
-       16 GETTABLEKS                       R2 R3 K9 ["Networking"]
-       18 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
-       20 GETTABLEKS                       R3 R4 K11 ["ContextItem"]
-       22 GETTABLEKS                       R6 R1 K12 ["RobloxAPI"]
-       24 GETTABLEKS                       R5 R6 K13 ["Url"]
-       26 GETTABLEKS                       R4 R5 K14 ["new"]
+       14 GETTABLEKS                       R2 R1 K8 ["Http"]
+       16 GETTABLEKS                       R2 R2 K9 ["Networking"]
+       18 GETTABLEKS                       R3 R1 K10 ["ContextServices"]
+       20 GETTABLEKS                       R3 R3 K11 ["ContextItem"]
+       22 GETTABLEKS                       R4 R1 K12 ["RobloxAPI"]
+       24 GETTABLEKS                       R4 R4 K13 ["Url"]
+       26 GETTABLEKS                       R4 R4 K14 ["new"]
        28 CALL                             R4 0 1
        29 LOADK                            R7 K15 ["NetworkInterface"]
        30 NAMECALL                         R5 R3 K16 ["extend"]

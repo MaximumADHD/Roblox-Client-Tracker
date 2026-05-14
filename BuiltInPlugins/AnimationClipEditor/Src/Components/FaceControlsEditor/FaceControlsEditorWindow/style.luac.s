@@ -10,45 +10,45 @@ PROTO_0:
        12 DUPTABLE                         R2 K6 [{"Image"}]
        13 SETTABLEKS                       R0 R2 K5 ["Image"]
        15 SETTABLEKS                       R2 R1 K7 ["ForegroundStyle"]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R2 R3 K8 ["RoundBox"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K8 ["RoundBox"]
        20 SETTABLEKS                       R2 R1 K9 ["Background"]
-       22 GETUPVAL                         R4 2
-       23 GETTABLEKS                       R3 R4 K10 ["Dictionary"]
-       25 GETTABLEKS                       R2 R3 K11 ["join"]
+       22 GETUPVAL                         R2 2
+       23 GETTABLEKS                       R2 R2 K10 ["Dictionary"]
+       25 GETTABLEKS                       R2 R2 K11 ["join"]
        27 GETUPVAL                         R3 3
        28 DUPTABLE                         R4 K13 [{"Color"}]
-       29 GETUPVAL                         R6 4
-       30 GETTABLEKS                       R5 R6 K14 ["ImageButtonBackground"]
+       29 GETUPVAL                         R5 4
+       30 GETTABLEKS                       R5 R5 K14 ["ImageButtonBackground"]
        32 SETTABLEKS                       R5 R4 K12 ["Color"]
        34 CALL                             R2 2 1
        35 SETTABLEKS                       R2 R1 K15 ["BackgroundStyle"]
-       37 GETUPVAL                         R3 5
-       38 GETTABLEKS                       R2 R3 K16 ["Hover"]
+       37 GETUPVAL                         R2 5
+       38 GETTABLEKS                       R2 R2 K16 ["Hover"]
        40 DUPTABLE                         R3 K17 [{"BackgroundStyle"}]
-       41 GETUPVAL                         R6 2
-       42 GETTABLEKS                       R5 R6 K10 ["Dictionary"]
-       44 GETTABLEKS                       R4 R5 K11 ["join"]
+       41 GETUPVAL                         R4 2
+       42 GETTABLEKS                       R4 R4 K10 ["Dictionary"]
+       44 GETTABLEKS                       R4 R4 K11 ["join"]
        46 GETUPVAL                         R5 3
        47 DUPTABLE                         R6 K19 [{"Transparency", "Color"}]
        48 LOADK                            R7 K20 [0.5]
        49 SETTABLEKS                       R7 R6 K18 ["Transparency"]
-       51 GETUPVAL                         R8 4
-       52 GETTABLEKS                       R7 R8 K21 ["ImageButtonHover"]
+       51 GETUPVAL                         R7 4
+       52 GETTABLEKS                       R7 R7 K21 ["ImageButtonHover"]
        54 SETTABLEKS                       R7 R6 K12 ["Color"]
        56 CALL                             R4 2 1
        57 SETTABLEKS                       R4 R3 K15 ["BackgroundStyle"]
        59 SETTABLE                         R3 R1 R2
-       60 GETUPVAL                         R3 5
-       61 GETTABLEKS                       R2 R3 K22 ["Disabled"]
+       60 GETUPVAL                         R2 5
+       61 GETTABLEKS                       R2 R2 K22 ["Disabled"]
        63 DUPTABLE                         R3 K17 [{"BackgroundStyle"}]
-       64 GETUPVAL                         R6 2
-       65 GETTABLEKS                       R5 R6 K10 ["Dictionary"]
-       67 GETTABLEKS                       R4 R5 K11 ["join"]
+       64 GETUPVAL                         R4 2
+       65 GETTABLEKS                       R4 R4 K10 ["Dictionary"]
+       67 GETTABLEKS                       R4 R4 K11 ["join"]
        69 GETUPVAL                         R5 3
        70 DUPTABLE                         R6 K23 [{"Color", "Transparency"}]
-       71 GETUPVAL                         R8 4
-       72 GETTABLEKS                       R7 R8 K24 ["ButtonDisabled"]
+       71 GETUPVAL                         R7 4
+       72 GETTABLEKS                       R7 R7 K24 ["ButtonDisabled"]
        74 SETTABLEKS                       R7 R6 K12 ["Color"]
        76 LOADK                            R7 K20 [0.5]
        77 SETTABLEKS                       R7 R6 K18 ["Transparency"]
@@ -64,23 +64,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["UI"]
        23 GETTABLEKS                       R4 R2 K10 ["Util"]
        25 GETTABLEKS                       R5 R4 K11 ["StyleModifier"]
        27 GETTABLEKS                       R6 R4 K12 ["deepCopy"]
        29 GETTABLEKS                       R7 R3 K13 ["Image"]
-       31 GETTABLEKS                       R9 R2 K14 ["Style"]
-       33 GETTABLEKS                       R8 R9 K15 ["StyleKey"]
+       31 GETTABLEKS                       R8 R2 K14 ["Style"]
+       33 GETTABLEKS                       R8 R8 K15 ["StyleKey"]
        35 GETTABLEKS                       R9 R3 K16 ["UIFolderData"]
-       37 GETTABLEKS                       R11 R9 K17 ["RoundBox"]
-       39 GETTABLEKS                       R10 R11 K18 ["style"]
+       37 GETTABLEKS                       R10 R9 K17 ["RoundBox"]
+       39 GETTABLEKS                       R10 R10 K18 ["style"]
        41 MOVE                             R11 R6
        42 MOVE                             R12 R10
        43 CALL                             R11 1 1

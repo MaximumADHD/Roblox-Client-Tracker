@@ -1,7 +1,7 @@
 PROTO_0:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R2 R5 K0 ["allItems"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["allItems"]
         5 LOADNIL                          R3
         6 LOADNIL                          R4
         7 FORGPREP                         R2
@@ -54,14 +54,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Resources"]
-       13 GETTABLEKS                       R2 R3 K8 ["BuiltinItems"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Resources"]
+       13 GETTABLEKS                       R2 R2 K8 ["BuiltinItems"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Resources"]
-       22 GETTABLEKS                       R3 R4 K9 ["CatalogItems"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Resources"]
+       22 GETTABLEKS                       R3 R3 K9 ["CatalogItems"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K10 [PROTO_0]
        26 CAPTURE                          VAL R1

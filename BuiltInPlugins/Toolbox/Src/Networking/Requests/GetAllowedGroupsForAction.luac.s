@@ -1,12 +1,12 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["MARKETPLACE_ACTION_TYPE_UPLOAD"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["MARKETPLACE_ACTION_TYPE_UPLOAD"]
         4 JUMPIFNOTEQ                      R1 R2 ; [+11]
         6 GETUPVAL                         R1 2
         7 GETUPVAL                         R3 3
-        8 GETTABLEKS                       R5 R0 K1 ["responseBody"]
-       10 GETTABLEKS                       R4 R5 K2 ["allowedGroups"]
+        8 GETTABLEKS                       R4 R0 K1 ["responseBody"]
+       10 GETTABLEKS                       R4 R4 K2 ["allowedGroups"]
        12 CALL                             R3 1 -1
        13 NAMECALL                         R1 R1 K3 ["dispatch"]
        15 CALL                             R1 -1 0
@@ -54,19 +54,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["AllowedGroupsForUploadReceived"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["AllowedGroupsForUploadReceived"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Actions"]
-       22 GETTABLEKS                       R3 R4 K9 ["NetworkError"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K9 ["NetworkError"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Types"]
-       31 GETTABLEKS                       R4 R5 K11 ["MarketplaceActionTypes"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Types"]
+       31 GETTABLEKS                       R4 R4 K11 ["MarketplaceActionTypes"]
        33 CALL                             R3 1 1
        34 DUPCLOSURE                       R4 K12 [PROTO_3]
        35 CAPTURE                          VAL R3

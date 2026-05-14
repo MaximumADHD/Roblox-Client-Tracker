@@ -34,11 +34,11 @@ PROTO_1:
        11 GETUPVAL                         R0 1
        12 NAMECALL                         R0 R0 K3 ["GetMouseLocation"]
        14 CALL                             R0 1 1
-       15 GETUPVAL                         R2 2
-       16 GETTABLEKS                       R1 R2 K4 ["current"]
+       15 GETUPVAL                         R1 2
+       16 GETTABLEKS                       R1 R1 K4 ["current"]
        18 JUMPIFEQKNIL                     R1 ; [+39]
-       20 GETUPVAL                         R3 2
-       21 GETTABLEKS                       R2 R3 K4 ["current"]
+       20 GETUPVAL                         R2 2
+       21 GETTABLEKS                       R2 R2 K4 ["current"]
        23 GETTABLEKS                       R3 R2 K5 ["AbsolutePosition"]
        25 GETTABLEKS                       R5 R2 K6 ["AbsoluteSize"]
        27 ADD                              R4 R3 R5
@@ -60,8 +60,8 @@ PROTO_1:
        55 LOADB                            R1 0 +1
        56 LOADB                            R1 1
        57 JUMPIF                           R1 ; [+5]
-       58 GETUPVAL                         R2 3
-       59 GETTABLEKS                       R1 R2 K9 ["disable"]
+       58 GETUPVAL                         R1 3
+       59 GETTABLEKS                       R1 R1 K9 ["disable"]
        61 CALL                             R1 0 0
        62 RETURN                           R0 0
        63 GETIMPORT                        R1 K12 [task.wait]
@@ -76,8 +76,8 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["enabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["enabled"]
         3 JUMPIF                           R0 ; [+2]
         4 LOADNIL                          R0
         5 RETURN                           R0 1
@@ -101,8 +101,8 @@ PROTO_4:
         7 GETUPVAL                         R2 1
         8 LOADB                            R3 0
         9 CALL                             R2 1 1
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K2 ["useEffect"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K2 ["useEffect"]
        13 NEWCLOSURE                       R4 P0
        14 CAPTURE                          VAL R2
        15 CAPTURE                          VAL R1
@@ -126,20 +126,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Hooks"]
-       27 GETTABLEKS                       R4 R5 K11 ["useToggleState"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Hooks"]
+       27 GETTABLEKS                       R4 R4 K11 ["useToggleState"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R5 R1 K12 ["ContextServices"]
-       32 GETTABLEKS                       R4 R5 K13 ["Focus"]
+       30 GETTABLEKS                       R4 R1 K12 ["ContextServices"]
+       32 GETTABLEKS                       R4 R4 K13 ["Focus"]
        34 GETIMPORT                        R5 K15 [game]
        36 LOADK                            R7 K16 ["UserInputService"]
        37 NAMECALL                         R5 R5 K17 ["GetService"]

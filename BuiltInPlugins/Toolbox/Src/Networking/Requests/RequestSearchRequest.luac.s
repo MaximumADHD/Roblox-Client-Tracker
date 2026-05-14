@@ -3,11 +3,11 @@ PROTO_0:
         1 CALL                             R3 0 -1
         2 NAMECALL                         R1 R0 K0 ["dispatch"]
         4 CALL                             R1 -1 0
-        5 NAMECALL                         R2 R0 K1 ["getState"]
-        7 CALL                             R2 1 1
-        8 GETTABLEKS                       R1 R2 K2 ["pageInfo"]
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K3 ["canSort"]
+        5 NAMECALL                         R1 R0 K1 ["getState"]
+        7 CALL                             R1 1 1
+        8 GETTABLEKS                       R1 R1 K2 ["pageInfo"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K3 ["canSort"]
        13 GETUPVAL                         R4 2
        14 GETUPVAL                         R5 3
        15 JUMPIF                           R5 ; [+2]
@@ -24,11 +24,11 @@ PROTO_0:
        28 GETUPVAL                         R9 2
        29 SETTABLEKS                       R9 R8 K6 ["searchTerm"]
        31 SETTABLEKS                       R2 R8 K5 ["sortIndex"]
-       33 GETUPVAL                         R10 7
-       34 GETTABLEKS                       R9 R10 K19 ["None"]
+       33 GETUPVAL                         R9 7
+       34 GETTABLEKS                       R9 R9 K19 ["None"]
        36 SETTABLEKS                       R9 R8 K7 ["sortDirection"]
-       38 GETUPVAL                         R10 7
-       39 GETTABLEKS                       R9 R10 K19 ["None"]
+       38 GETUPVAL                         R9 7
+       39 GETTABLEKS                       R9 R9 K19 ["None"]
        41 SETTABLEKS                       R9 R8 K8 ["uiSortIntent"]
        43 GETUPVAL                         R9 3
        44 SETTABLEKS                       R9 R8 K4 ["categoryName"]
@@ -36,17 +36,17 @@ PROTO_0:
        47 SETTABLEKS                       R9 R8 K9 ["targetPage"]
        49 LOADN                            R9 0
        50 SETTABLEKS                       R9 R8 K10 ["currentPage"]
-       52 GETUPVAL                         R10 8
-       53 GETTABLEKS                       R9 R10 K20 ["StartSearch"]
+       52 GETUPVAL                         R9 8
+       53 GETTABLEKS                       R9 R9 K20 ["StartSearch"]
        55 SETTABLEKS                       R9 R8 K11 ["requestReason"]
        57 GETUPVAL                         R10 9
        58 ORK                              R9 R10 K21 [False]
        59 SETTABLEKS                       R9 R8 K12 ["isTopKeyword"]
        61 GETUPVAL                         R10 2
        62 JUMPIFNOT                        R10 ; [+6]
-       63 GETUPVAL                         R11 10
-       64 GETTABLEKS                       R10 R11 K22 ["SEARCH_SOURCE"]
-       66 GETTABLEKS                       R9 R10 K23 ["KEYWORD"]
+       63 GETUPVAL                         R9 10
+       64 GETTABLEKS                       R9 R9 K22 ["SEARCH_SOURCE"]
+       66 GETTABLEKS                       R9 R9 K23 ["KEYWORD"]
        68 JUMP                             ; [+1]
        69 LOADNIL                          R9
        70 SETTABLEKS                       R9 R8 K13 ["searchSource"]
@@ -54,9 +54,9 @@ PROTO_0:
        73 JUMPIFNOT                        R10 ; [+2]
        74 GETUPVAL                         R9 11
        75 JUMP                             ; [+5]
-       76 GETUPVAL                         R11 12
-       77 GETTABLEKS                       R10 R11 K24 ["QuerySource"]
-       79 GETTABLEKS                       R9 R10 K25 ["OriginalUserQuery"]
+       76 GETUPVAL                         R9 12
+       77 GETTABLEKS                       R9 R9 K24 ["QuerySource"]
+       79 GETTABLEKS                       R9 R9 K25 ["OriginalUserQuery"]
        81 SETTABLEKS                       R9 R8 K14 ["querySource"]
        83 GETUPVAL                         R10 13
        84 JUMPIFNOT                        R10 ; [+2]
@@ -70,8 +70,8 @@ PROTO_0:
        93 JUMP                             ; [+1]
        94 LOADNIL                          R9
        95 SETTABLEKS                       R9 R8 K16 ["originalCorrection"]
-       97 GETUPVAL                         R10 7
-       98 GETTABLEKS                       R9 R10 K19 ["None"]
+       97 GETUPVAL                         R9 7
+       98 GETTABLEKS                       R9 R9 K19 ["None"]
       100 SETTABLEKS                       R9 R8 K17 ["queryParams"]
       102 CALL                             R5 3 -1
       103 NAMECALL                         R3 R0 K0 ["dispatch"]
@@ -99,45 +99,45 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R3 R0 K7 ["Src"]
-       20 GETTABLEKS                       R2 R3 K8 ["Util"]
+       18 GETTABLEKS                       R2 R0 K7 ["Src"]
+       20 GETTABLEKS                       R2 R2 K8 ["Util"]
        22 GETIMPORT                        R3 K4 [require]
        24 GETTABLEKS                       R4 R2 K9 ["Constants"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R7 R0 K7 ["Src"]
-       31 GETTABLEKS                       R6 R7 K10 ["Types"]
-       33 GETTABLEKS                       R5 R6 K11 ["Sort"]
+       29 GETTABLEKS                       R5 R0 K7 ["Src"]
+       31 GETTABLEKS                       R5 R5 K10 ["Types"]
+       33 GETTABLEKS                       R5 R5 K11 ["Sort"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K4 [require]
-       38 GETTABLEKS                       R8 R0 K7 ["Src"]
-       40 GETTABLEKS                       R7 R8 K10 ["Types"]
-       42 GETTABLEKS                       R6 R7 K12 ["RequestReason"]
+       38 GETTABLEKS                       R6 R0 K7 ["Src"]
+       40 GETTABLEKS                       R6 R6 K10 ["Types"]
+       42 GETTABLEKS                       R6 R6 K12 ["RequestReason"]
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K4 [require]
-       47 GETTABLEKS                       R9 R0 K7 ["Src"]
-       49 GETTABLEKS                       R8 R9 K10 ["Types"]
-       51 GETTABLEKS                       R7 R8 K13 ["AutocorrectTypes"]
+       47 GETTABLEKS                       R7 R0 K7 ["Src"]
+       49 GETTABLEKS                       R7 R7 K10 ["Types"]
+       51 GETTABLEKS                       R7 R7 K13 ["AutocorrectTypes"]
        53 CALL                             R6 1 1
        54 GETIMPORT                        R7 K4 [require]
-       56 GETTABLEKS                       R11 R0 K7 ["Src"]
-       58 GETTABLEKS                       R10 R11 K14 ["Networking"]
-       60 GETTABLEKS                       R9 R10 K15 ["Requests"]
-       62 GETTABLEKS                       R8 R9 K16 ["UpdatePageInfoAndSendRequest"]
+       56 GETTABLEKS                       R8 R0 K7 ["Src"]
+       58 GETTABLEKS                       R8 R8 K14 ["Networking"]
+       60 GETTABLEKS                       R8 R8 K15 ["Requests"]
+       62 GETTABLEKS                       R8 R8 K16 ["UpdatePageInfoAndSendRequest"]
        64 CALL                             R7 1 1
        65 GETIMPORT                        R8 K4 [require]
-       67 GETTABLEKS                       R11 R0 K7 ["Src"]
-       69 GETTABLEKS                       R10 R11 K17 ["Actions"]
-       71 GETTABLEKS                       R9 R10 K18 ["StopAllSounds"]
+       67 GETTABLEKS                       R9 R0 K7 ["Src"]
+       69 GETTABLEKS                       R9 R9 K17 ["Actions"]
+       71 GETTABLEKS                       R9 R9 K18 ["StopAllSounds"]
        73 CALL                             R8 1 1
        74 DUPCLOSURE                       R9 K19 [PROTO_1]
        75 CAPTURE                          VAL R8

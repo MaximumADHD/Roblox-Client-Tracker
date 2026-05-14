@@ -149,8 +149,8 @@ PROTO_4:
        41 MOVE                             R9 R7
        42 GETIMPORT                        R8 K4 [assert]
        44 CALL                             R8 2 0
-       45 GETUPVAL                         R9 2
-       46 GETTABLEKS                       R8 R9 K7 ["click"]
+       45 GETUPVAL                         R8 2
+       46 GETTABLEKS                       R8 R8 K7 ["click"]
        48 MOVE                             R9 R7
        49 CALL                             R8 1 0
        50 GETUPVAL                         R8 3
@@ -227,8 +227,8 @@ PROTO_4:
       142 SETTABLEKS                       R15 R10 K27 ["CanvasPosition"]
       144 GETUPVAL                         R16 3
       145 CALL                             R16 0 0
-      146 GETUPVAL                         R17 2
-      147 GETTABLEKS                       R16 R17 K7 ["click"]
+      146 GETUPVAL                         R16 2
+      147 GETTABLEKS                       R16 R16 K7 ["click"]
       149 MOVE                             R17 R13
       150 CALL                             R16 1 0
       151 GETUPVAL                         R16 3
@@ -246,22 +246,22 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R5 R6 K12 ["Dev"]
-       26 GETTABLEKS                       R4 R5 K13 ["ReactTestingLibrary"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Dev"]
+       26 GETTABLEKS                       R4 R4 K13 ["ReactTestingLibrary"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R6 R1 K14 ["Src"]
-       33 GETTABLEKS                       R5 R6 K15 ["Types"]
+       31 GETTABLEKS                       R5 R1 K14 ["Src"]
+       33 GETTABLEKS                       R5 R5 K15 ["Types"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K9 [require]
-       38 GETIMPORT                        R8 K5 [script]
-       40 GETTABLEKS                       R7 R8 K16 ["Parent"]
-       42 GETTABLEKS                       R6 R7 K17 ["TestHelper"]
+       38 GETIMPORT                        R6 K5 [script]
+       40 GETTABLEKS                       R6 R6 K16 ["Parent"]
+       42 GETTABLEKS                       R6 R6 K17 ["TestHelper"]
        44 CALL                             R5 1 1
        45 GETTABLEKS                       R6 R5 K18 ["awaitDeferAsync"]
        47 GETTABLEKS                       R7 R5 K19 ["updateStyling"]

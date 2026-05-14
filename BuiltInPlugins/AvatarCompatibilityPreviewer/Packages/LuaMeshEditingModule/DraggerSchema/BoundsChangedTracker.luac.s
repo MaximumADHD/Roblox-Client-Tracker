@@ -9,15 +9,15 @@ PROTO_0:
        11 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_handler"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
-        2 GETTABLEKS                       R2 R3 K1 ["vertexEditingTool"]
-        4 GETTABLEKS                       R1 R2 K2 ["boundsChanged"]
+        0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        2 GETTABLEKS                       R1 R1 K1 ["vertexEditingTool"]
+        4 GETTABLEKS                       R1 R1 K2 ["boundsChanged"]
         6 NEWCLOSURE                       R3 P0
         7 CAPTURE                          VAL R0
         8 NAMECALL                         R1 R1 K3 ["Connect"]

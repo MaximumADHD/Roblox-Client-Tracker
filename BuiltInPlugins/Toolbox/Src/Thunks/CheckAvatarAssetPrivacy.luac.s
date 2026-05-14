@@ -15,8 +15,8 @@ PROTO_1:
         7 JUMPIFNOT                        R3 ; [+8]
         8 MOVE                             R3 R2
         9 JUMPIFNOT                        R3 ; [+6]
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K2 ["isAllowedAssetType"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K2 ["isAllowedAssetType"]
        13 GETTABLEKS                       R4 R2 K3 ["assetType"]
        15 CALL                             R3 1 1
        16 JUMPIFNOT                        R3 ; [+7]
@@ -32,13 +32,13 @@ PROTO_2:
 
 PROTO_3:
         0 NEWTABLE                         R1 0 0
-        2 GETTABLEKS                       R5 R0 K0 ["responseBody"]
-        4 GETTABLEKS                       R2 R5 K1 ["results"]
+        2 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+        4 GETTABLEKS                       R2 R2 K1 ["results"]
         6 LOADNIL                          R3
         7 LOADNIL                          R4
         8 FORGPREP                         R2
-        9 GETTABLEKS                       R8 R6 K2 ["value"]
-       11 GETTABLEKS                       R7 R8 K3 ["isOpenUse"]
+        9 GETTABLEKS                       R7 R6 K2 ["value"]
+       11 GETTABLEKS                       R7 R7 K3 ["isOpenUse"]
        13 JUMPIF                           R7 ; [+9]
        14 GETUPVAL                         R8 0
        15 GETTABLE                         R7 R8 R5
@@ -77,13 +77,13 @@ PROTO_5:
         8 CALL                             R1 1 1
         9 LOADK                            R2 K5 ["TemporaryInstances"]
        10 SETTABLEKS                       R2 R1 K6 ["Name"]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K7 ["pluginGuiService"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K7 ["pluginGuiService"]
        15 SETTABLEKS                       R2 R1 K8 ["Parent"]
        17 GETUPVAL                         R2 2
        18 SETTABLEKS                       R1 R2 K8 ["Parent"]
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K9 ["publishService"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K9 ["publishService"]
        23 GETUPVAL                         R4 2
        24 NAMECALL                         R2 R2 K10 ["PublishDescendantAssetsAsync"]
        26 CALL                             R2 2 0
@@ -92,11 +92,11 @@ PROTO_5:
        29 SETTABLEKS                       R3 R2 K8 ["Parent"]
        31 NAMECALL                         R2 R1 K11 ["Destroy"]
        33 CALL                             R2 1 0
-       34 GETUPVAL                         R3 3
-       35 GETTABLEKS                       R2 R3 K12 ["getAssetIdsFromInstance"]
+       34 GETUPVAL                         R2 3
+       35 GETTABLEKS                       R2 R2 K12 ["getAssetIdsFromInstance"]
        37 GETUPVAL                         R3 2
-       38 GETUPVAL                         R5 1
-       39 GETTABLEKS                       R4 R5 K13 ["contentProvider"]
+       38 GETUPVAL                         R4 1
+       39 GETTABLEKS                       R4 R4 K13 ["contentProvider"]
        41 CALL                             R2 2 1
        42 NEWTABLE                         R3 0 0
        44 NEWTABLE                         R4 0 0
@@ -123,8 +123,8 @@ PROTO_5:
        69 GETIMPORT                        R10 K20 [table.insert]
        71 CALL                             R10 -1 0
        72 FORGLOOP                         R5 2 ; [-23]
-       74 GETUPVAL                         R6 6
-       75 GETTABLEKS                       R5 R6 K21 ["all"]
+       74 GETUPVAL                         R5 6
+       75 GETTABLEKS                       R5 R5 K21 ["all"]
        77 MOVE                             R6 R4
        78 CALL                             R5 1 1
        79 NAMECALL                         R5 R5 K22 ["await"]
@@ -175,26 +175,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["AvatarAssetPrivacyCheckStarted"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarAssetPrivacyCheckStarted"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Actions"]
-       22 GETTABLEKS                       R3 R4 K9 ["AvatarAssetPrivacyCheckReceived"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K9 ["AvatarAssetPrivacyCheckReceived"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Util"]
-       31 GETTABLEKS                       R4 R5 K11 ["AssetConfigUtil"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["AssetConfigUtil"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       38 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       36 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K13 ["Framework"]
        40 CALL                             R4 1 1
-       41 GETTABLEKS                       R6 R4 K10 ["Util"]
-       43 GETTABLEKS                       R5 R6 K14 ["Promise"]
+       41 GETTABLEKS                       R5 R4 K10 ["Util"]
+       43 GETTABLEKS                       R5 R5 K14 ["Promise"]
        45 GETIMPORT                        R6 K16 [game]
        47 LOADK                            R8 K17 ["HttpService"]
        48 NAMECALL                         R6 R6 K18 ["GetService"]

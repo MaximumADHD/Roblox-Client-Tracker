@@ -10,8 +10,8 @@ PROTO_0:
        10 NAMECALL                         R5 R4 K3 ["Destroy"]
        12 CALL                             R5 1 0
        13 FORGLOOP                         R0 2 ; [-9]
-       15 GETUPVAL                         R1 1
-       16 GETTABLEKS                       R0 R1 K4 ["_clearTestingAnimateScripts"]
+       15 GETUPVAL                         R0 1
+       16 GETTABLEKS                       R0 R0 K4 ["_clearTestingAnimateScripts"]
        18 CALL                             R0 0 0
        19 RETURN                           R0 0
 
@@ -35,8 +35,8 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearTestingAvatars"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearTestingAvatars"]
         3 CALL                             R0 0 0
         4 GETUPVAL                         R0 1
         5 LOADK                            R2 K1 ["StarterCharacter_Backup"]
@@ -53,8 +53,8 @@ PROTO_2:
        20 LOADNIL                          R4
        21 NAMECALL                         R1 R0 K7 ["SetAttribute"]
        23 CALL                             R1 3 0
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R1 R2 K8 ["_resetAnimateScript"]
+       24 GETUPVAL                         R1 0
+       25 GETTABLEKS                       R1 R1 K8 ["_resetAnimateScript"]
        27 CALL                             R1 0 0
        28 RETURN                           R0 0
 
@@ -166,8 +166,8 @@ PROTO_5:
        35 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["clearTestingAvatars"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["clearTestingAvatars"]
         3 CALL                             R3 0 0
         4 GETUPVAL                         R3 1
         5 LOADK                            R5 K1 ["StarterCharacter"]
@@ -197,8 +197,8 @@ PROTO_6:
        35 SETTABLEKS                       R5 R4 K4 ["Name"]
        37 GETUPVAL                         R5 1
        38 SETTABLEKS                       R5 R4 K9 ["Parent"]
-       40 GETUPVAL                         R6 0
-       41 GETTABLEKS                       R5 R6 K10 ["_replaceAnimateScript"]
+       40 GETUPVAL                         R5 0
+       41 GETTABLEKS                       R5 R5 K10 ["_replaceAnimateScript"]
        43 MOVE                             R6 R1
        44 CALL                             R5 1 0
        45 LOADK                            R7 K11 ["Humanoid"]
@@ -236,23 +236,23 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Src"]
-       17 GETTABLEKS                       R3 R4 K11 ["Types"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Types"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K10 ["Src"]
-       24 GETTABLEKS                       R5 R6 K12 ["Components"]
-       26 GETTABLEKS                       R4 R5 K13 ["PlacesServiceContext"]
+       22 GETTABLEKS                       R4 R1 K10 ["Src"]
+       24 GETTABLEKS                       R4 R4 K12 ["Components"]
+       26 GETTABLEKS                       R4 R4 K13 ["PlacesServiceContext"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R7 R1 K10 ["Src"]
-       33 GETTABLEKS                       R6 R7 K14 ["Util"]
-       35 GETTABLEKS                       R5 R6 K15 ["cloneWithAccessories"]
+       31 GETTABLEKS                       R5 R1 K10 ["Src"]
+       33 GETTABLEKS                       R5 R5 K14 ["Util"]
+       35 GETTABLEKS                       R5 R5 K15 ["cloneWithAccessories"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K9 [require]
-       40 GETTABLEKS                       R8 R1 K10 ["Src"]
-       42 GETTABLEKS                       R7 R8 K16 ["Flags"]
-       44 GETTABLEKS                       R6 R7 K17 ["getFFlagAvatarPreviewerTestWithCustomAssets"]
+       40 GETTABLEKS                       R6 R1 K10 ["Src"]
+       42 GETTABLEKS                       R6 R6 K16 ["Flags"]
+       44 GETTABLEKS                       R6 R6 K17 ["getFFlagAvatarPreviewerTestWithCustomAssets"]
        46 CALL                             R5 1 1
        47 NEWTABLE                         R6 8 0
        49 DUPCLOSURE                       R7 K18 [PROTO_0]

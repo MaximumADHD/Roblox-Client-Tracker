@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [require]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K2 ["Packages"]
-        5 GETTABLEKS                       R1 R2 K3 ["TestLoader"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["Packages"]
+        5 GETTABLEKS                       R1 R1 K3 ["TestLoader"]
         7 CALL                             R0 1 1
         8 GETTABLEKS                       R1 R0 K4 ["isFTF"]
        10 CALL                             R1 0 1

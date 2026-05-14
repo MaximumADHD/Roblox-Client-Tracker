@@ -51,8 +51,8 @@ PROTO_6:
         1 GETUPVAL                         R1 1
         2 CALL                             R1 0 -1
         3 CALL                             R0 -1 0
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K0 ["OnUploadConfirmed"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K0 ["OnUploadConfirmed"]
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
 
@@ -65,28 +65,28 @@ PROTO_7:
 
 PROTO_8:
         0 NEWTABLE                         R0 4 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["Disabled"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["Disabled"]
         5 LOADK                            R2 K1 [""]
         6 SETTABLE                         R2 R0 R1
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K2 ["AssetPrivacy"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K2 ["AssetPrivacy"]
        10 GETUPVAL                         R2 1
        11 LOADK                            R4 K3 ["AssetConfig"]
        12 LOADK                            R5 K4 ["AvatarItemDialogAcceptPrivacy"]
        13 NAMECALL                         R2 R2 K5 ["getText"]
        15 CALL                             R2 3 1
        16 SETTABLE                         R2 R0 R1
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K6 ["Error"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K6 ["Error"]
        20 GETUPVAL                         R2 1
        21 LOADK                            R4 K3 ["AssetConfig"]
        22 LOADK                            R5 K7 ["AvatarItemDialogAcceptError"]
        23 NAMECALL                         R2 R2 K5 ["getText"]
        25 CALL                             R2 3 1
        26 SETTABLE                         R2 R0 R1
-       27 GETUPVAL                         R2 0
-       28 GETTABLEKS                       R1 R2 K8 ["RobuxSpend"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K8 ["RobuxSpend"]
        30 GETUPVAL                         R2 1
        31 LOADK                            R4 K9 ["General"]
        32 LOADK                            R5 K10 ["PayAndSubmit"]
@@ -99,69 +99,69 @@ PROTO_8:
        40 NAMECALL                         R1 R1 K5 ["getText"]
        42 CALL                             R1 3 1
        43 NEWTABLE                         R2 4 0
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R3 R4 K0 ["Disabled"]
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K0 ["Disabled"]
        48 LOADK                            R4 K1 [""]
        49 SETTABLE                         R4 R2 R3
-       50 GETUPVAL                         R4 0
-       51 GETTABLEKS                       R3 R4 K2 ["AssetPrivacy"]
+       50 GETUPVAL                         R3 0
+       51 GETTABLEKS                       R3 R3 K2 ["AssetPrivacy"]
        53 GETUPVAL                         R4 1
        54 LOADK                            R6 K3 ["AssetConfig"]
        55 LOADK                            R7 K12 ["AvatarItemDialogDescriptionPrivacy"]
        56 NAMECALL                         R4 R4 K5 ["getText"]
        58 CALL                             R4 3 1
        59 SETTABLE                         R4 R2 R3
-       60 GETUPVAL                         R4 0
-       61 GETTABLEKS                       R3 R4 K6 ["Error"]
+       60 GETUPVAL                         R3 0
+       61 GETTABLEKS                       R3 R3 K6 ["Error"]
        63 GETUPVAL                         R4 1
        64 LOADK                            R6 K3 ["AssetConfig"]
        65 LOADK                            R7 K13 ["AvatarItemDialogDescriptionError"]
        66 NAMECALL                         R4 R4 K5 ["getText"]
        68 CALL                             R4 3 1
        69 SETTABLE                         R4 R2 R3
-       70 GETUPVAL                         R4 0
-       71 GETTABLEKS                       R3 R4 K8 ["RobuxSpend"]
+       70 GETUPVAL                         R3 0
+       71 GETTABLEKS                       R3 R3 K8 ["RobuxSpend"]
        73 GETUPVAL                         R4 1
        74 LOADK                            R6 K3 ["AssetConfig"]
        75 LOADK                            R7 K14 ["PayAndConfirmDescription"]
        76 DUPTABLE                         R8 K16 [{"amount"}]
        77 GETUPVAL                         R10 2
-       78 GETUPVAL                         R12 3
-       79 GETTABLEKS                       R11 R12 K17 ["UploadFee"]
+       78 GETUPVAL                         R11 3
+       79 GETTABLEKS                       R11 R11 K17 ["UploadFee"]
        81 CONCAT                           R9 R10 R11
        82 SETTABLEKS                       R9 R8 K15 ["amount"]
        84 NAMECALL                         R4 R4 K5 ["getText"]
        86 CALL                             R4 4 1
        87 SETTABLE                         R4 R2 R3
        88 NEWTABLE                         R3 4 0
-       90 GETUPVAL                         R5 0
-       91 GETTABLEKS                       R4 R5 K0 ["Disabled"]
+       90 GETUPVAL                         R4 0
+       91 GETTABLEKS                       R4 R4 K0 ["Disabled"]
        93 LOADK                            R5 K1 [""]
        94 SETTABLE                         R5 R3 R4
-       95 GETUPVAL                         R5 0
-       96 GETTABLEKS                       R4 R5 K2 ["AssetPrivacy"]
+       95 GETUPVAL                         R4 0
+       96 GETTABLEKS                       R4 R4 K2 ["AssetPrivacy"]
        98 GETUPVAL                         R5 1
        99 LOADK                            R7 K3 ["AssetConfig"]
       100 LOADK                            R8 K18 ["AvatarItemDialogHeadingPrivacy"]
       101 NAMECALL                         R5 R5 K5 ["getText"]
       103 CALL                             R5 3 1
       104 SETTABLE                         R5 R3 R4
-      105 GETUPVAL                         R5 0
-      106 GETTABLEKS                       R4 R5 K6 ["Error"]
+      105 GETUPVAL                         R4 0
+      106 GETTABLEKS                       R4 R4 K6 ["Error"]
       108 GETUPVAL                         R5 1
       109 LOADK                            R7 K3 ["AssetConfig"]
       110 LOADK                            R8 K19 ["AvatarItemDialogHeadingError"]
       111 NAMECALL                         R5 R5 K5 ["getText"]
       113 CALL                             R5 3 1
       114 SETTABLE                         R5 R3 R4
-      115 GETUPVAL                         R5 0
-      116 GETTABLEKS                       R4 R5 K8 ["RobuxSpend"]
+      115 GETUPVAL                         R4 0
+      116 GETTABLEKS                       R4 R4 K8 ["RobuxSpend"]
       118 GETUPVAL                         R5 1
       119 LOADK                            R7 K3 ["AssetConfig"]
       120 LOADK                            R8 K20 ["PayAndConfirmHeading"]
       121 DUPTABLE                         R9 K22 [{"name"}]
-      122 GETUPVAL                         R11 3
-      123 GETTABLEKS                       R10 R11 K23 ["ItemName"]
+      122 GETUPVAL                         R10 3
+      123 GETTABLEKS                       R10 R10 K23 ["ItemName"]
       125 SETTABLEKS                       R10 R9 K21 ["name"]
       127 NAMECALL                         R5 R5 K5 ["getText"]
       129 CALL                             R5 4 1
@@ -172,12 +172,12 @@ PROTO_8:
       134 NAMECALL                         R4 R4 K5 ["getText"]
       136 CALL                             R4 3 1
       137 NEWTABLE                         R5 4 0
-      139 GETUPVAL                         R7 0
-      140 GETTABLEKS                       R6 R7 K0 ["Disabled"]
+      139 GETUPVAL                         R6 0
+      140 GETTABLEKS                       R6 R6 K0 ["Disabled"]
       142 DUPCLOSURE                       R7 K25 [PROTO_3]
       143 SETTABLE                         R7 R5 R6
-      144 GETUPVAL                         R7 0
-      145 GETTABLEKS                       R6 R7 K2 ["AssetPrivacy"]
+      144 GETUPVAL                         R6 0
+      145 GETTABLEKS                       R6 R6 K2 ["AssetPrivacy"]
       147 NEWCLOSURE                       R7 P1
       148 CAPTURE                          UPVAL U4
       149 CAPTURE                          UPVAL U5
@@ -187,8 +187,8 @@ PROTO_8:
       153 CAPTURE                          UPVAL U9
       154 CAPTURE                          UPVAL U10
       155 SETTABLE                         R7 R5 R6
-      156 GETUPVAL                         R7 0
-      157 GETTABLEKS                       R6 R7 K6 ["Error"]
+      156 GETUPVAL                         R6 0
+      157 GETTABLEKS                       R6 R6 K6 ["Error"]
       159 NEWCLOSURE                       R7 P2
       160 CAPTURE                          UPVAL U4
       161 CAPTURE                          UPVAL U11
@@ -198,8 +198,8 @@ PROTO_8:
       165 CAPTURE                          UPVAL U9
       166 CAPTURE                          UPVAL U10
       167 SETTABLE                         R7 R5 R6
-      168 GETUPVAL                         R7 0
-      169 GETTABLEKS                       R6 R7 K8 ["RobuxSpend"]
+      168 GETUPVAL                         R6 0
+      169 GETTABLEKS                       R6 R6 K8 ["RobuxSpend"]
       171 NEWCLOSURE                       R7 P3
       172 CAPTURE                          UPVAL U4
       173 CAPTURE                          UPVAL U12
@@ -225,8 +225,8 @@ PROTO_8:
       198 SETTABLEKS                       R8 R7 K31 ["OnAccepted"]
       200 SETTABLEKS                       R6 R7 K32 ["OnCanceled"]
       202 GETUPVAL                         R9 14
-      203 GETUPVAL                         R11 0
-      204 GETTABLEKS                       R10 R11 K0 ["Disabled"]
+      203 GETUPVAL                         R10 0
+      204 GETTABLEKS                       R10 R10 K0 ["Disabled"]
       206 JUMPIFNOTEQ                      R9 R10 ; [+2]
       208 LOADB                            R8 0 +1
       209 LOADB                            R8 1
@@ -238,26 +238,26 @@ PROTO_8:
 PROTO_9:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["Localization"]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["Localization"]
         5 NAMECALL                         R2 R2 K1 ["use"]
         7 CALL                             R2 1 1
-        8 GETUPVAL                         R5 2
-        9 GETTABLEKS                       R4 R5 K1 ["use"]
-       11 CALL                             R4 0 1
-       12 GETTABLEKS                       R3 R4 K2 ["networkInterface"]
-       14 GETUPVAL                         R6 3
-       15 GETTABLEKS                       R5 R6 K1 ["use"]
-       17 CALL                             R5 0 1
-       18 GETTABLEKS                       R4 R5 K3 ["publishService"]
-       20 GETUPVAL                         R7 4
-       21 GETTABLEKS                       R6 R7 K1 ["use"]
-       23 CALL                             R6 0 1
-       24 GETTABLEKS                       R5 R6 K4 ["pluginGuiService"]
-       26 GETUPVAL                         R8 5
-       27 GETTABLEKS                       R7 R8 K1 ["use"]
-       29 CALL                             R7 0 1
-       30 GETTABLEKS                       R6 R7 K5 ["contentProvider"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K1 ["use"]
+       11 CALL                             R3 0 1
+       12 GETTABLEKS                       R3 R3 K2 ["networkInterface"]
+       14 GETUPVAL                         R4 3
+       15 GETTABLEKS                       R4 R4 K1 ["use"]
+       17 CALL                             R4 0 1
+       18 GETTABLEKS                       R4 R4 K3 ["publishService"]
+       20 GETUPVAL                         R5 4
+       21 GETTABLEKS                       R5 R5 K1 ["use"]
+       23 CALL                             R5 0 1
+       24 GETTABLEKS                       R5 R5 K4 ["pluginGuiService"]
+       26 GETUPVAL                         R6 5
+       27 GETTABLEKS                       R6 R6 K1 ["use"]
+       29 CALL                             R6 0 1
+       30 GETTABLEKS                       R6 R6 K5 ["contentProvider"]
        32 GETUPVAL                         R7 6
        33 GETUPVAL                         R8 7
        34 CALL                             R7 1 1
@@ -267,8 +267,8 @@ PROTO_9:
        38 GETUPVAL                         R9 6
        39 GETUPVAL                         R10 9
        40 CALL                             R9 1 1
-       41 GETUPVAL                         R11 10
-       42 GETTABLEKS                       R10 R11 K6 ["useMemo"]
+       41 GETUPVAL                         R10 10
+       42 GETTABLEKS                       R10 R10 K6 ["useMemo"]
        44 NEWCLOSURE                       R11 P0
        45 CAPTURE                          UPVAL U11
        46 CAPTURE                          VAL R2
@@ -291,8 +291,8 @@ PROTO_9:
        64 MOVE                             R14 R8
        65 SETLIST                          R12 R13 2 [1]
        67 CALL                             R10 2 1
-       68 GETUPVAL                         R12 10
-       69 GETTABLEKS                       R11 R12 K7 ["createElement"]
+       68 GETUPVAL                         R11 10
+       69 GETTABLEKS                       R11 R11 K7 ["createElement"]
        71 GETUPVAL                         R12 17
        72 MOVE                             R13 R10
        73 CALL                             R11 2 -1
@@ -313,65 +313,65 @@ MAIN:
        18 CALL                             R3 1 1
        19 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        21 GETIMPORT                        R5 K6 [require]
-       23 GETTABLEKS                       R8 R0 K10 ["Src"]
-       25 GETTABLEKS                       R7 R8 K9 ["ContextServices"]
-       27 GETTABLEKS                       R6 R7 K11 ["NetworkContext"]
+       23 GETTABLEKS                       R6 R0 K10 ["Src"]
+       25 GETTABLEKS                       R6 R6 K9 ["ContextServices"]
+       27 GETTABLEKS                       R6 R6 K11 ["NetworkContext"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K6 [require]
-       32 GETTABLEKS                       R9 R0 K10 ["Src"]
-       34 GETTABLEKS                       R8 R9 K9 ["ContextServices"]
-       36 GETTABLEKS                       R7 R8 K12 ["PublishServiceContext"]
+       32 GETTABLEKS                       R7 R0 K10 ["Src"]
+       34 GETTABLEKS                       R7 R7 K9 ["ContextServices"]
+       36 GETTABLEKS                       R7 R7 K12 ["PublishServiceContext"]
        38 CALL                             R6 1 1
        39 GETIMPORT                        R7 K6 [require]
-       41 GETTABLEKS                       R10 R0 K10 ["Src"]
-       43 GETTABLEKS                       R9 R10 K9 ["ContextServices"]
-       45 GETTABLEKS                       R8 R9 K13 ["PluginGuiServiceContext"]
+       41 GETTABLEKS                       R8 R0 K10 ["Src"]
+       43 GETTABLEKS                       R8 R8 K9 ["ContextServices"]
+       45 GETTABLEKS                       R8 R8 K13 ["PluginGuiServiceContext"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K6 [require]
-       50 GETTABLEKS                       R11 R0 K10 ["Src"]
-       52 GETTABLEKS                       R10 R11 K9 ["ContextServices"]
-       54 GETTABLEKS                       R9 R10 K14 ["ContentProviderContext"]
+       50 GETTABLEKS                       R9 R0 K10 ["Src"]
+       52 GETTABLEKS                       R9 R9 K9 ["ContextServices"]
+       54 GETTABLEKS                       R9 R9 K14 ["ContentProviderContext"]
        56 CALL                             R8 1 1
        57 GETIMPORT                        R9 K6 [require]
-       59 GETTABLEKS                       R12 R0 K10 ["Src"]
-       61 GETTABLEKS                       R11 R12 K15 ["Hooks"]
-       63 GETTABLEKS                       R10 R11 K16 ["useDispatch"]
+       59 GETTABLEKS                       R10 R0 K10 ["Src"]
+       61 GETTABLEKS                       R10 R10 K15 ["Hooks"]
+       63 GETTABLEKS                       R10 R10 K16 ["useDispatch"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K6 [require]
-       68 GETTABLEKS                       R13 R0 K10 ["Src"]
-       70 GETTABLEKS                       R12 R13 K15 ["Hooks"]
-       72 GETTABLEKS                       R11 R12 K17 ["useSelector"]
+       68 GETTABLEKS                       R11 R0 K10 ["Src"]
+       70 GETTABLEKS                       R11 R11 K15 ["Hooks"]
+       72 GETTABLEKS                       R11 R11 K17 ["useSelector"]
        74 CALL                             R10 1 1
        75 GETIMPORT                        R11 K6 [require]
-       77 GETTABLEKS                       R15 R0 K10 ["Src"]
-       79 GETTABLEKS                       R14 R15 K18 ["Components"]
-       81 GETTABLEKS                       R13 R14 K19 ["AssetConfiguration"]
-       83 GETTABLEKS                       R12 R13 K20 ["AvatarItemDialog"]
+       77 GETTABLEKS                       R12 R0 K10 ["Src"]
+       79 GETTABLEKS                       R12 R12 K18 ["Components"]
+       81 GETTABLEKS                       R12 R12 K19 ["AssetConfiguration"]
+       83 GETTABLEKS                       R12 R12 K20 ["AvatarItemDialog"]
        85 CALL                             R11 1 1
        86 GETIMPORT                        R12 K6 [require]
-       88 GETTABLEKS                       R15 R0 K10 ["Src"]
-       90 GETTABLEKS                       R14 R15 K21 ["Thunks"]
-       92 GETTABLEKS                       R13 R14 K22 ["CheckAvatarAssetPrivacy"]
+       88 GETTABLEKS                       R13 R0 K10 ["Src"]
+       90 GETTABLEKS                       R13 R13 K21 ["Thunks"]
+       92 GETTABLEKS                       R13 R13 K22 ["CheckAvatarAssetPrivacy"]
        94 CALL                             R12 1 1
        95 GETIMPORT                        R13 K6 [require]
-       97 GETTABLEKS                       R16 R0 K10 ["Src"]
-       99 GETTABLEKS                       R15 R16 K21 ["Thunks"]
-      101 GETTABLEKS                       R14 R15 K23 ["MakeAvatarAssetsOpenUse"]
+       97 GETTABLEKS                       R14 R0 K10 ["Src"]
+       99 GETTABLEKS                       R14 R14 K21 ["Thunks"]
+      101 GETTABLEKS                       R14 R14 K23 ["MakeAvatarAssetsOpenUse"]
       103 CALL                             R13 1 1
       104 GETIMPORT                        R14 K6 [require]
-      106 GETTABLEKS                       R17 R0 K10 ["Src"]
-      108 GETTABLEKS                       R16 R17 K24 ["Actions"]
-      110 GETTABLEKS                       R15 R16 K25 ["AvatarItemDialogUploadConfirmed"]
+      106 GETTABLEKS                       R15 R0 K10 ["Src"]
+      108 GETTABLEKS                       R15 R15 K24 ["Actions"]
+      110 GETTABLEKS                       R15 R15 K25 ["AvatarItemDialogUploadConfirmed"]
       112 CALL                             R14 1 1
       113 GETIMPORT                        R15 K6 [require]
-      115 GETTABLEKS                       R18 R0 K10 ["Src"]
-      117 GETTABLEKS                       R17 R18 K24 ["Actions"]
-      119 GETTABLEKS                       R16 R17 K26 ["AvatarItemDialogCancelled"]
+      115 GETTABLEKS                       R16 R0 K10 ["Src"]
+      117 GETTABLEKS                       R16 R16 K24 ["Actions"]
+      119 GETTABLEKS                       R16 R16 K26 ["AvatarItemDialogCancelled"]
       121 CALL                             R15 1 1
       122 GETIMPORT                        R16 K6 [require]
-      124 GETTABLEKS                       R19 R0 K10 ["Src"]
-      126 GETTABLEKS                       R18 R19 K27 ["Types"]
-      128 GETTABLEKS                       R17 R18 K20 ["AvatarItemDialog"]
+      124 GETTABLEKS                       R17 R0 K10 ["Src"]
+      126 GETTABLEKS                       R17 R17 K27 ["Types"]
+      128 GETTABLEKS                       R17 R17 K20 ["AvatarItemDialog"]
       130 CALL                             R16 1 1
       131 GETIMPORT                        R17 K30 [utf8.char]
       133 LOADK                            R18 K31 [57346]

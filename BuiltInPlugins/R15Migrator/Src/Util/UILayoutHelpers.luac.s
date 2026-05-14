@@ -28,15 +28,15 @@ PROTO_0:
        34 RETURN                           R6 -1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["getTextSize"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["getTextSize"]
         3 MOVE                             R5 R0
         4 MOVE                             R6 R1
         5 MOVE                             R7 R2
         6 MOVE                             R8 R3
         7 CALL                             R4 4 1
-        8 GETTABLEKS                       R6 R4 K1 ["Y"]
-       10 GETTABLEKS                       R5 R6 K2 ["Offset"]
+        8 GETTABLEKS                       R5 R4 K1 ["Y"]
+       10 GETTABLEKS                       R5 R5 K2 ["Offset"]
        12 RETURN                           R5 1
 
 MAIN:

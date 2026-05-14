@@ -51,8 +51,8 @@ PROTO_4:
         8 GETTABLEKS                       R5 R1 K4 ["SetTrackLength"]
        10 GETTABLEKS                       R6 R1 K5 ["SetIsPlaying"]
        12 GETTABLEKS                       R7 R1 K6 ["SliderPlayhead"]
-       14 GETUPVAL                         R9 0
-       15 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 GETUPVAL                         R9 1
        18 DUPTABLE                         R10 K14 [{"AnimationId", "IsPlayingOverride", "PreviewAvatars", "PlayheadOverride", "OnPlayheadChanged", "OnIsPlayingChanged", "OnTrackLengthChanged"}]
        19 SETTABLEKS                       R2 R10 K1 ["AnimationId"]
@@ -79,8 +79,8 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["animation"]
         2 DUPTABLE                         R3 K5 [{"AnimationId", "IsPlaying", "Playhead", "SliderPlayhead"}]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K6 ["getPreviewingAnimationId"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K6 ["getPreviewingAnimationId"]
         6 MOVE                             R5 R0
         7 CALL                             R4 1 1
         8 SETTABLEKS                       R4 R3 K1 ["AnimationId"]
@@ -134,35 +134,35 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["AvatarToolsShared"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["AvatarToolsShared"]
        31 CALL                             R3 1 1
-       32 GETTABLEKS                       R5 R3 K9 ["Util"]
-       34 GETTABLEKS                       R4 R5 K10 ["AccessoryAndBodyToolShared"]
+       32 GETTABLEKS                       R4 R3 K9 ["Util"]
+       34 GETTABLEKS                       R4 R4 K10 ["AccessoryAndBodyToolShared"]
        36 GETTABLEKS                       R5 R4 K11 ["PreviewingInfo"]
        38 GETTABLEKS                       R6 R3 K12 ["Components"]
        40 GETTABLEKS                       R7 R6 K13 ["PreviewAnimationPlayback"]
-       42 GETTABLEKS                       R9 R3 K14 ["Contexts"]
-       44 GETTABLEKS                       R8 R9 K15 ["EditingItemContext"]
-       46 GETTABLEKS                       R10 R3 K14 ["Contexts"]
-       48 GETTABLEKS                       R9 R10 K16 ["PreviewContext"]
+       42 GETTABLEKS                       R8 R3 K14 ["Contexts"]
+       44 GETTABLEKS                       R8 R8 K15 ["EditingItemContext"]
+       46 GETTABLEKS                       R9 R3 K14 ["Contexts"]
+       48 GETTABLEKS                       R9 R9 K16 ["PreviewContext"]
        50 GETIMPORT                        R10 K4 [require]
-       52 GETTABLEKS                       R12 R0 K5 ["Packages"]
-       54 GETTABLEKS                       R11 R12 K17 ["Framework"]
+       52 GETTABLEKS                       R11 R0 K5 ["Packages"]
+       54 GETTABLEKS                       R11 R11 K17 ["Framework"]
        56 CALL                             R10 1 1
        57 GETTABLEKS                       R11 R10 K18 ["ContextServices"]
        59 GETTABLEKS                       R12 R11 K19 ["withContext"]
@@ -171,19 +171,19 @@ MAIN:
        64 NAMECALL                         R13 R13 K22 ["extend"]
        66 CALL                             R13 2 1
        67 GETIMPORT                        R14 K4 [require]
-       69 GETTABLEKS                       R17 R0 K23 ["Src"]
-       71 GETTABLEKS                       R16 R17 K24 ["Actions"]
-       73 GETTABLEKS                       R15 R16 K25 ["SetPlayhead"]
+       69 GETTABLEKS                       R15 R0 K23 ["Src"]
+       71 GETTABLEKS                       R15 R15 K24 ["Actions"]
+       73 GETTABLEKS                       R15 R15 K25 ["SetPlayhead"]
        75 CALL                             R14 1 1
        76 GETIMPORT                        R15 K4 [require]
-       78 GETTABLEKS                       R18 R0 K23 ["Src"]
-       80 GETTABLEKS                       R17 R18 K24 ["Actions"]
-       82 GETTABLEKS                       R16 R17 K26 ["SetTrackLength"]
+       78 GETTABLEKS                       R16 R0 K23 ["Src"]
+       80 GETTABLEKS                       R16 R16 K24 ["Actions"]
+       82 GETTABLEKS                       R16 R16 K26 ["SetTrackLength"]
        84 CALL                             R15 1 1
        85 GETIMPORT                        R16 K4 [require]
-       87 GETTABLEKS                       R19 R0 K23 ["Src"]
-       89 GETTABLEKS                       R18 R19 K24 ["Actions"]
-       91 GETTABLEKS                       R17 R18 K27 ["SetIsPlaying"]
+       87 GETTABLEKS                       R17 R0 K23 ["Src"]
+       89 GETTABLEKS                       R17 R17 K24 ["Actions"]
+       91 GETTABLEKS                       R17 R17 K27 ["SetIsPlaying"]
        93 CALL                             R16 1 1
        94 GETTABLEKS                       R17 R10 K9 ["Util"]
        96 GETTABLEKS                       R18 R17 K28 ["Typecheck"]

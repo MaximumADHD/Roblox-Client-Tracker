@@ -37,13 +37,13 @@ PROTO_1:
        14 NAMECALL                         R4 R4 K5 ["GetClientId"]
        16 CALL                             R4 1 1
        17 SETTABLEKS                       R4 R3 K1 ["clientId"]
-       19 GETIMPORT                        R5 K7 [game]
-       21 GETTABLEKS                       R4 R5 K8 ["PlaceId"]
+       19 GETIMPORT                        R4 K7 [game]
+       21 GETTABLEKS                       R4 R4 K8 ["PlaceId"]
        23 SETTABLEKS                       R4 R3 K2 ["placeId"]
        25 MOVE                             R4 R1
        26 CALL                             R2 2 1
-       27 GETUPVAL                         R4 2
-       28 GETTABLEKS                       R3 R4 K9 ["LogAnalytics"]
+       27 GETUPVAL                         R3 2
+       28 GETTABLEKS                       R3 R3 K9 ["LogAnalytics"]
        30 CALL                             R3 0 1
        31 JUMPIFNOT                        R3 ; [+18]
        32 GETIMPORT                        R3 K11 [print]
@@ -71,8 +71,8 @@ PROTO_1:
 
 PROTO_2:
         0 ORK                              R1 R1 K0 [1]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K1 ["LogAnalytics"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K1 ["LogAnalytics"]
         4 CALL                             R2 0 1
         5 JUMPIFNOT                        R2 ; [+18]
         6 GETIMPORT                        R2 K3 [print]
@@ -111,8 +111,8 @@ PROTO_4:
 PROTO_5:
         0 LOADNIL                          R0
         1 ORK                              R0 R0 K0 [1]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["LogAnalytics"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["LogAnalytics"]
         5 CALL                             R1 0 1
         6 JUMPIFNOT                        R1 ; [+18]
         7 GETIMPORT                        R1 K3 [print]
@@ -146,14 +146,14 @@ PROTO_6:
         3 DUPTABLE                         R4 K8 [{"mode", "x", "y", "z", "coordinateSpace", "relativeTo", "objectCount", "objectTypes"}]
         4 GETTABLEKS                       R5 R2 K9 ["Mode"]
         6 SETTABLEKS                       R5 R4 K0 ["mode"]
-        8 GETTABLEKS                       R6 R2 K10 ["Axes"]
-       10 GETTABLEKS                       R5 R6 K11 ["X"]
+        8 GETTABLEKS                       R5 R2 K10 ["Axes"]
+       10 GETTABLEKS                       R5 R5 K11 ["X"]
        12 SETTABLEKS                       R5 R4 K1 ["x"]
-       14 GETTABLEKS                       R6 R2 K10 ["Axes"]
-       16 GETTABLEKS                       R5 R6 K12 ["Y"]
+       14 GETTABLEKS                       R5 R2 K10 ["Axes"]
+       16 GETTABLEKS                       R5 R5 K12 ["Y"]
        18 SETTABLEKS                       R5 R4 K2 ["y"]
-       20 GETTABLEKS                       R6 R2 K10 ["Axes"]
-       22 GETTABLEKS                       R5 R6 K13 ["Z"]
+       20 GETTABLEKS                       R5 R2 K10 ["Axes"]
+       22 GETTABLEKS                       R5 R5 K13 ["Z"]
        24 SETTABLEKS                       R5 R4 K3 ["z"]
        26 GETTABLEKS                       R5 R2 K14 ["CoordinateSpace"]
        28 SETTABLEKS                       R5 R4 K4 ["coordinateSpace"]
@@ -201,22 +201,22 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Src"]
-       19 GETTABLEKS                       R3 R4 K10 ["Types"]
+       17 GETTABLEKS                       R3 R1 K9 ["Src"]
+       19 GETTABLEKS                       R3 R3 K10 ["Types"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R6 R1 K9 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Utility"]
-       28 GETTABLEKS                       R4 R5 K12 ["DebugFlags"]
+       24 GETTABLEKS                       R4 R1 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Utility"]
+       28 GETTABLEKS                       R4 R4 K12 ["DebugFlags"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K8 [require]
-       33 GETTABLEKS                       R6 R1 K13 ["Packages"]
-       35 GETTABLEKS                       R5 R6 K14 ["Dash"]
+       33 GETTABLEKS                       R5 R1 K13 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K14 ["Dash"]
        37 CALL                             R4 1 1
        38 GETTABLEKS                       R5 R4 K15 ["join"]
        40 DUPCLOSURE                       R6 K16 [PROTO_0]

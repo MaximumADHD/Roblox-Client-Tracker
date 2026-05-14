@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R0 R3 K0 ["EDITING_TOOLS_GUI_NAMES"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["EDITING_TOOLS_GUI_NAMES"]
         3 LOADNIL                          R1
         4 LOADNIL                          R2
         5 FORGPREP                         R0
@@ -13,8 +13,8 @@ PROTO_0:
        15 CALL                             R6 1 0
        16 FORGLOOP                         R0 2 ; [-11]
        18 GETUPVAL                         R0 2
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K3 ["CLONED_DUMMY_NAME"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K3 ["CLONED_DUMMY_NAME"]
        22 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
        24 CALL                             R0 2 1
        25 JUMPIFEQKNIL                     R0 ; [+4]
@@ -24,11 +24,11 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Name"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Name"]
         4 SETTABLEKS                       R1 R0 K0 ["Name"]
-        6 GETUPVAL                         R1 2
-        7 GETTABLEKS                       R0 R1 K1 ["createElement"]
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K1 ["createElement"]
         9 GETUPVAL                         R1 3
        10 DUPTABLE                         R2 K4 [{"Plugin", "PluginLoaderContext"}]
        11 GETUPVAL                         R3 0
@@ -41,8 +41,8 @@ PROTO_1:
        20 JUMPIFNOT                        R1 ; [+2]
        21 GETUPVAL                         R1 6
        22 CALL                             R1 0 0
-       23 GETUPVAL                         R2 8
-       24 GETTABLEKS                       R1 R2 K5 ["createRoot"]
+       23 GETUPVAL                         R1 8
+       24 GETTABLEKS                       R1 R1 K5 ["createRoot"]
        26 GETIMPORT                        R2 K8 [Instance.new]
        28 LOADK                            R3 K9 ["Frame"]
        29 CALL                             R2 1 -1
@@ -73,31 +73,31 @@ PROTO_2:
 PROTO_3:
         0 JUMPIF                           R0 ; [+1]
         1 RETURN                           R0 0
-        2 GETIMPORT                        R4 K1 [script]
-        4 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        6 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        2 GETIMPORT                        R2 K1 [script]
+        4 GETTABLEKS                       R2 R2 K2 ["Parent"]
+        6 GETTABLEKS                       R2 R2 K2 ["Parent"]
         8 GETIMPORT                        R3 K4 [require]
-       10 GETTABLEKS                       R5 R2 K5 ["Packages"]
-       12 GETTABLEKS                       R4 R5 K6 ["React"]
+       10 GETTABLEKS                       R4 R2 K5 ["Packages"]
+       12 GETTABLEKS                       R4 R4 K6 ["React"]
        14 CALL                             R3 1 1
        15 GETIMPORT                        R4 K4 [require]
-       17 GETTABLEKS                       R6 R2 K5 ["Packages"]
-       19 GETTABLEKS                       R5 R6 K7 ["ReactRoblox"]
+       17 GETTABLEKS                       R5 R2 K5 ["Packages"]
+       19 GETTABLEKS                       R5 R5 K7 ["ReactRoblox"]
        21 CALL                             R4 1 1
        22 GETIMPORT                        R5 K4 [require]
-       24 GETTABLEKS                       R8 R2 K8 ["Src"]
-       26 GETTABLEKS                       R7 R8 K9 ["Util"]
-       28 GETTABLEKS                       R6 R7 K10 ["Constants"]
+       24 GETTABLEKS                       R6 R2 K8 ["Src"]
+       26 GETTABLEKS                       R6 R6 K9 ["Util"]
+       28 GETTABLEKS                       R6 R6 K10 ["Constants"]
        30 CALL                             R5 1 1
        31 GETIMPORT                        R6 K4 [require]
-       33 GETTABLEKS                       R8 R2 K8 ["Src"]
-       35 GETTABLEKS                       R7 R8 K11 ["MainPlugin"]
+       33 GETTABLEKS                       R7 R2 K8 ["Src"]
+       35 GETTABLEKS                       R7 R7 K11 ["MainPlugin"]
        37 CALL                             R6 1 1
        38 LOADNIL                          R7
        39 GETIMPORT                        R8 K4 [require]
-       41 GETTABLEKS                       R11 R2 K8 ["Src"]
-       43 GETTABLEKS                       R10 R11 K12 ["Flags"]
-       45 GETTABLEKS                       R9 R10 K13 ["getFFlagAvatarPreviewerEditingTools"]
+       41 GETTABLEKS                       R9 R2 K8 ["Src"]
+       43 GETTABLEKS                       R9 R9 K12 ["Flags"]
+       45 GETTABLEKS                       R9 R9 K13 ["getFFlagAvatarPreviewerEditingTools"]
        47 CALL                             R8 1 1
        48 NEWCLOSURE                       R9 P0
        49 CAPTURE                          VAL R5

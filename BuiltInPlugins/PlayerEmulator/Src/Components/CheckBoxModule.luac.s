@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["CheckBoxCallback"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["ItemKey"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CheckBoxCallback"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["ItemKey"]
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
@@ -18,8 +18,8 @@ PROTO_2:
         4 GETTABLEKS                       R3 R1 K2 ["Enabled"]
         6 GETTABLEKS                       R4 R1 K3 ["ItemKey"]
         8 GETTABLEKS                       R5 R1 K4 ["Selected"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 LOADK                            R7 K6 ["Frame"]
        14 DUPTABLE                         R8 K9 [{"Size", "BackgroundTransparency"}]
        15 GETTABLEKS                       R9 R2 K10 ["CHECKBOX_FRAME_SIZE"]
@@ -27,16 +27,16 @@ PROTO_2:
        19 LOADN                            R9 1
        20 SETTABLEKS                       R9 R8 K8 ["BackgroundTransparency"]
        22 DUPTABLE                         R9 K13 [{"Padding", "CheckBox"}]
-       23 GETUPVAL                         R11 0
-       24 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       23 GETUPVAL                         R10 0
+       24 GETTABLEKS                       R10 R10 K5 ["createElement"]
        26 LOADK                            R11 K14 ["UIPadding"]
        27 DUPTABLE                         R12 K16 [{"PaddingLeft"}]
        28 GETTABLEKS                       R13 R2 K17 ["LISTITEM_INDENT_LEFT"]
        30 SETTABLEKS                       R13 R12 K15 ["PaddingLeft"]
        32 CALL                             R10 2 1
        33 SETTABLEKS                       R10 R9 K11 ["Padding"]
-       35 GETUPVAL                         R11 0
-       36 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       35 GETUPVAL                         R10 0
+       36 GETTABLEKS                       R10 R10 K5 ["createElement"]
        38 GETUPVAL                         R11 1
        39 DUPTABLE                         R12 K23 [{"Checked", "Disabled", "Key", "OnClick", "Text"}]
        40 SETTABLEKS                       R5 R12 K18 ["Checked"]
@@ -53,17 +53,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]

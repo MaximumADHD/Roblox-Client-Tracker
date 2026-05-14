@@ -7,16 +7,16 @@ PROTO_0:
         7 RETURN                           R1 -1
         8 GETIMPORT                        R1 K4 [UDim2.fromOffset]
        10 LOADN                            R5 1
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K6 ["X"]
-       14 GETTABLEKS                       R6 R7 K7 ["Offset"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K6 ["X"]
+       14 GETTABLEKS                       R6 R6 K7 ["Offset"]
        16 ADD                              R4 R5 R6
        17 MUL                              R3 R4 R0
        18 ADDK                             R2 R3 K5 [1]
        19 LOADN                            R6 1
-       20 GETUPVAL                         R9 0
-       21 GETTABLEKS                       R8 R9 K8 ["Y"]
-       23 GETTABLEKS                       R7 R8 K7 ["Offset"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K8 ["Y"]
+       23 GETTABLEKS                       R7 R7 K7 ["Offset"]
        25 ADD                              R5 R6 R7
        26 MUL                              R4 R5 R0
        27 ADDK                             R3 R4 K5 [1]

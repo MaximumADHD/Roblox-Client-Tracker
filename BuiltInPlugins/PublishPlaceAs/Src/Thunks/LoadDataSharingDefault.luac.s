@@ -2,8 +2,8 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
         2 LOADK                            R4 K0 ["dataSharingDefault"]
-        3 GETUPVAL                         R6 2
-        4 GETTABLEKS                       R5 R6 K1 ["FINISHED"]
+        3 GETUPVAL                         R5 2
+        4 GETTABLEKS                       R5 R5 K1 ["FINISHED"]
         6 CALL                             R3 2 -1
         7 NAMECALL                         R1 R1 K2 ["dispatch"]
         9 CALL                             R1 -1 0
@@ -18,20 +18,20 @@ PROTO_0:
 
 PROTO_1:
         0 JUMPIF                           R1 ; [+5]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["reject"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["reject"]
         4 CALL                             R2 0 -1
         5 RETURN                           R2 -1
-        6 GETIMPORT                        R3 K2 [game]
-        8 GETTABLEKS                       R2 R3 K3 ["GameId"]
+        6 GETIMPORT                        R2 K2 [game]
+        8 GETTABLEKS                       R2 R2 K3 ["GameId"]
        10 JUMPIFNOTEQKN                    R2 K4 [0] ; [+23]
-       12 GETTABLEN                        R3 R0 1
-       13 GETTABLEKS                       R2 R3 K5 ["isOptOut"]
+       12 GETTABLEN                        R2 R0 1
+       13 GETTABLEKS                       R2 R2 K5 ["isOptOut"]
        15 GETUPVAL                         R3 1
        16 GETUPVAL                         R5 2
        17 LOADK                            R6 K6 ["dataSharingDefault"]
-       18 GETUPVAL                         R8 3
-       19 GETTABLEKS                       R7 R8 K7 ["FINISHED"]
+       18 GETUPVAL                         R7 3
+       19 GETTABLEKS                       R7 R7 K7 ["FINISHED"]
        21 CALL                             R5 2 -1
        22 NAMECALL                         R3 R3 K8 ["dispatch"]
        24 CALL                             R3 -1 0
@@ -44,8 +44,8 @@ PROTO_1:
        32 CALL                             R3 -1 0
        33 RETURN                           R0 0
        34 GETUPVAL                         R2 4
-       35 GETIMPORT                        R4 K2 [game]
-       37 GETTABLEKS                       R3 R4 K3 ["GameId"]
+       35 GETIMPORT                        R3 K2 [game]
+       37 GETTABLEKS                       R3 R3 K3 ["GameId"]
        39 CALL                             R2 1 1
        40 NEWCLOSURE                       R4 P0
        41 CAPTURE                          UPVAL U1
@@ -59,8 +59,8 @@ PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
         2 LOADK                            R4 K0 ["dataSharingDefault"]
-        3 GETUPVAL                         R6 2
-        4 GETTABLEKS                       R5 R6 K1 ["ERROR"]
+        3 GETUPVAL                         R5 2
+        4 GETTABLEKS                       R5 R5 K1 ["ERROR"]
         6 CALL                             R3 2 -1
         7 NAMECALL                         R1 R1 K2 ["dispatch"]
         9 CALL                             R1 -1 0
@@ -69,15 +69,15 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R3 0
         1 LOADK                            R4 K0 ["dataSharingDefault"]
-        2 GETUPVAL                         R6 1
-        3 GETTABLEKS                       R5 R6 K1 ["LOADING"]
+        2 GETUPVAL                         R5 1
+        3 GETTABLEKS                       R5 R5 K1 ["LOADING"]
         5 CALL                             R3 2 -1
         6 NAMECALL                         R1 R0 K2 ["dispatch"]
         8 CALL                             R1 -1 0
         9 GETUPVAL                         R3 0
        10 LOADK                            R4 K3 ["dataSharingEnabled"]
-       11 GETUPVAL                         R6 2
-       12 GETTABLEKS                       R5 R6 K4 ["None"]
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R5 R5 K4 ["None"]
        14 CALL                             R3 2 -1
        15 NAMECALL                         R1 R0 K2 ["dispatch"]
        17 CALL                             R1 -1 0
@@ -119,47 +119,47 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["AddChange"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["AddChange"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       24 GETTABLEKS                       R3 R4 K8 ["AddErrors"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K8 ["AddErrors"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R7 R0 K5 ["Src"]
-       31 GETTABLEKS                       R6 R7 K9 ["Network"]
-       33 GETTABLEKS                       R5 R6 K10 ["Requests"]
-       35 GETTABLEKS                       R4 R5 K11 ["ApiFetchUniverseOptOut"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Network"]
+       33 GETTABLEKS                       R4 R4 K10 ["Requests"]
+       35 GETTABLEKS                       R4 R4 K11 ["ApiFetchUniverseOptOut"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K4 [require]
-       40 GETTABLEKS                       R8 R0 K5 ["Src"]
-       42 GETTABLEKS                       R7 R8 K9 ["Network"]
-       44 GETTABLEKS                       R6 R7 K10 ["Requests"]
-       46 GETTABLEKS                       R5 R6 K12 ["ApiFetchDataSharingEnabledForUniverse"]
+       40 GETTABLEKS                       R5 R0 K5 ["Src"]
+       42 GETTABLEKS                       R5 R5 K9 ["Network"]
+       44 GETTABLEKS                       R5 R5 K10 ["Requests"]
+       46 GETTABLEKS                       R5 R5 K12 ["ApiFetchDataSharingEnabledForUniverse"]
        48 CALL                             R4 1 1
        49 GETIMPORT                        R5 K4 [require]
-       51 GETTABLEKS                       R8 R0 K5 ["Src"]
-       53 GETTABLEKS                       R7 R8 K13 ["Types"]
-       55 GETTABLEKS                       R6 R7 K14 ["DataSharingFetchState"]
+       51 GETTABLEKS                       R6 R0 K5 ["Src"]
+       53 GETTABLEKS                       R6 R6 K13 ["Types"]
+       55 GETTABLEKS                       R6 R6 K14 ["DataSharingFetchState"]
        57 CALL                             R5 1 1
        58 GETIMPORT                        R6 K4 [require]
-       60 GETTABLEKS                       R8 R0 K15 ["Packages"]
-       62 GETTABLEKS                       R7 R8 K16 ["Cryo"]
+       60 GETTABLEKS                       R7 R0 K15 ["Packages"]
+       62 GETTABLEKS                       R7 R7 K16 ["Cryo"]
        64 CALL                             R6 1 1
-       65 GETIMPORT                        R9 K4 [require]
-       67 GETTABLEKS                       R11 R0 K15 ["Packages"]
-       69 GETTABLEKS                       R10 R11 K17 ["Framework"]
-       71 CALL                             R9 1 1
-       72 GETTABLEKS                       R8 R9 K18 ["Util"]
-       74 GETTABLEKS                       R7 R8 K19 ["Promise"]
+       65 GETIMPORT                        R7 K4 [require]
+       67 GETTABLEKS                       R8 R0 K15 ["Packages"]
+       69 GETTABLEKS                       R8 R8 K17 ["Framework"]
+       71 CALL                             R7 1 1
+       72 GETTABLEKS                       R7 R7 K18 ["Util"]
+       74 GETTABLEKS                       R7 R7 K19 ["Promise"]
        76 DUPCLOSURE                       R8 K20 [PROTO_4]
        77 CAPTURE                          VAL R1
        78 CAPTURE                          VAL R5

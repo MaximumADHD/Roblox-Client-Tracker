@@ -22,8 +22,8 @@ PROTO_3:
         3 SETTABLEKS                       R2 R1 K5 ["filepath"]
         5 SETTABLEKS                       R1 R0 K0 ["configData"]
         7 NEWTABLE                         R1 0 3
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K8 ["StudioDefaultPreset"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K8 ["StudioDefaultPreset"]
        12 LOADK                            R3 K9 ["Preset 1"]
        13 LOADK                            R4 K10 ["Preset 2"]
        14 SETLIST                          R1 R2 3 [1]
@@ -35,8 +35,8 @@ PROTO_3:
        24 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["fromProps"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fromProps"]
         3 LOADK                            R1 K1 ["Model"]
         4 GETUPVAL                         R2 1
         5 CALL                             R2 0 1
@@ -106,15 +106,15 @@ PROTO_6:
         5 LOADK                            R3 K3 ["Model"]
         6 CALL                             R2 1 1
         7 SETTABLEKS                       R2 R1 K4 ["target"]
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K5 ["fromProps"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K5 ["fromProps"]
        12 MOVE                             R3 R1
        13 CALL                             R2 1 0
        14 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["debugEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["debugEnabled"]
         3 CALL                             R0 0 1
         4 JUMPIF                           R0 ; [+1]
         5 RETURN                           R0 0
@@ -127,18 +127,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Lib"]
-       11 GETTABLEKS                       R2 R3 K7 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Lib"]
+       11 GETTABLEKS                       R2 R2 K7 ["Constants"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Lib"]
-       18 GETTABLEKS                       R4 R5 K8 ["DialogRegistry"]
-       20 GETTABLEKS                       R3 R4 K9 ["ShowConfigureDialog"]
+       16 GETTABLEKS                       R3 R0 K6 ["Lib"]
+       18 GETTABLEKS                       R3 R3 K8 ["DialogRegistry"]
+       20 GETTABLEKS                       R3 R3 K9 ["ShowConfigureDialog"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Lib"]
-       27 GETTABLEKS                       R5 R6 K8 ["DialogRegistry"]
-       29 GETTABLEKS                       R4 R5 K10 ["ShowErrorDialog"]
+       25 GETTABLEKS                       R4 R0 K6 ["Lib"]
+       27 GETTABLEKS                       R4 R4 K8 ["DialogRegistry"]
+       29 GETTABLEKS                       R4 R4 K10 ["ShowErrorDialog"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 4 0
        34 DUPCLOSURE                       R5 K11 [PROTO_0]

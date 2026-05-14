@@ -72,13 +72,13 @@ PROTO_1:
        21 SETTABLEKS                       R3 R2 K3 ["Enabled"]
        23 LOADB                            R3 1
        24 SETTABLEKS                       R3 R2 K4 ["Visible"]
-       26 GETUPVAL                         R4 0
-       27 GETTABLEKS                       R3 R4 K18 ["action"]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K18 ["action"]
        29 LOADK                            R4 K19 ["StopPlaying"]
        30 CALL                             R3 1 1
        31 SETTABLEKS                       R3 R2 K5 ["Text"]
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R3 R4 K20 ["tooltip"]
+       33 GETUPVAL                         R3 0
+       34 GETTABLEKS                       R3 R3 K20 ["tooltip"]
        36 LOADK                            R4 K19 ["StopPlaying"]
        37 CALL                             R3 1 1
        38 SETTABLEKS                       R3 R2 K6 ["Tooltip"]
@@ -125,9 +125,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["LocalizationUtil"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["LocalizationUtil"]
        21 CALL                             R2 1 1
        22 DUPCLOSURE                       R3 K13 [PROTO_0]
        23 CAPTURE                          VAL R0

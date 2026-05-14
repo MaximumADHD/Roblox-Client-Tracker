@@ -114,18 +114,18 @@ PROTO_0:
       146 SETTABLEKS                       R2 R7 K9 ["assets"]
       148 MOVE                             R8 R3
       149 JUMPIF                           R8 ; [+3]
-      150 GETUPVAL                         R9 0
-      151 GETTABLEKS                       R8 R9 K22 ["None"]
+      150 GETUPVAL                         R8 0
+      151 GETTABLEKS                       R8 R8 K22 ["None"]
       153 SETTABLEKS                       R8 R7 K10 ["nextPageCursor"]
       155 MOVE                             R8 R4
       156 JUMPIF                           R8 ; [+3]
-      157 GETUPVAL                         R9 0
-      158 GETTABLEKS                       R8 R9 K22 ["None"]
+      157 GETUPVAL                         R8 0
+      158 GETTABLEKS                       R8 R8 K22 ["None"]
       160 SETTABLEKS                       R8 R7 K11 ["previousPageCursor"]
       162 MOVE                             R8 R5
       163 JUMPIF                           R8 ; [+3]
-      164 GETUPVAL                         R9 0
-      165 GETTABLEKS                       R8 R9 K22 ["None"]
+      164 GETUPVAL                         R8 0
+      165 GETTABLEKS                       R8 R8 K22 ["None"]
       167 SETTABLEKS                       R8 R7 K12 ["pageNumber"]
       169 JUMPIFEQKNIL                     R1 ; [+3]
       171 MOVE                             R8 R1
@@ -137,23 +137,23 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R4 K4 [require]
-       18 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R5 R6 K7 ["Framework"]
-       22 CALL                             R4 1 1
-       23 GETTABLEKS                       R3 R4 K8 ["Util"]
-       25 GETTABLEKS                       R2 R3 K9 ["Action"]
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R2 R2 K8 ["Util"]
+       25 GETTABLEKS                       R2 R2 K9 ["Action"]
        27 MOVE                             R3 R2
-       28 GETIMPORT                        R5 K1 [script]
-       30 GETTABLEKS                       R4 R5 K10 ["Name"]
+       28 GETIMPORT                        R4 K1 [script]
+       30 GETTABLEKS                       R4 R4 K10 ["Name"]
        32 DUPCLOSURE                       R5 K11 [PROTO_0]
        33 CAPTURE                          VAL R1
        34 CALL                             R3 2 -1

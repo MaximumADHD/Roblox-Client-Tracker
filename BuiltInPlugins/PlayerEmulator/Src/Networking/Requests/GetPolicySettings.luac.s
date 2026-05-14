@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        5 GETTABLEKS                       R2 R3 K2 ["OK"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        5 GETTABLEKS                       R2 R2 K2 ["OK"]
         7 JUMPIFNOTEQ                      R1 R2 ; [+13]
         9 GETTABLEKS                       R1 R0 K3 ["responseBody"]
        11 GETUPVAL                         R2 1
@@ -75,9 +75,9 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        5 GETTABLEKS                       R2 R3 K2 ["OK"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        5 GETTABLEKS                       R2 R2 K2 ["OK"]
         7 JUMPIFNOTEQ                      R1 R2 ; [+10]
         9 GETTABLEKS                       R1 R0 K3 ["responseBody"]
        11 GETUPVAL                         R2 1
@@ -109,8 +109,8 @@ PROTO_5:
         6 MOVE                             R4 R1
         7 NAMECALL                         R2 R2 K1 ["handleRetry"]
         9 CALL                             R2 2 1
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K2 ["parseJson"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["parseJson"]
        13 MOVE                             R4 R2
        14 CALL                             R3 1 1
        15 NEWCLOSURE                       R5 P0
@@ -135,24 +135,24 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Http"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Http"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Networking"]
-       24 GETTABLEKS                       R3 R4 K9 ["UrlConstructor"]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Networking"]
+       24 GETTABLEKS                       R3 R3 K9 ["UrlConstructor"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K7 ["Src"]
-       31 GETTABLEKS                       R5 R6 K10 ["Thunks"]
-       33 GETTABLEKS                       R4 R5 K11 ["InitPolicySettingStatus"]
+       29 GETTABLEKS                       R4 R0 K7 ["Src"]
+       31 GETTABLEKS                       R4 R4 K10 ["Thunks"]
+       33 GETTABLEKS                       R4 R4 K11 ["InitPolicySettingStatus"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K13 [game]
        38 LOADK                            R6 K14 ["PlayerEmulatorPolicyServiceEndpointMigrationEnabled2"]

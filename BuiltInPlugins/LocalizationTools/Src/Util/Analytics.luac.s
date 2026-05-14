@@ -37,18 +37,18 @@ PROTO_1:
        17 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["Dictionary"]
-        3 GETTABLEKS                       R3 R4 K1 ["join"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Dictionary"]
+        3 GETTABLEKS                       R3 R3 K1 ["join"]
         5 MOVE                             R4 R2
         6 DUPTABLE                         R5 K5 [{"uid", "gameId", "placeId"}]
         7 GETTABLEKS                       R6 R0 K6 ["userId"]
         9 SETTABLEKS                       R6 R5 K2 ["uid"]
-       11 GETIMPORT                        R7 K8 [game]
-       13 GETTABLEKS                       R6 R7 K9 ["GameId"]
+       11 GETIMPORT                        R6 K8 [game]
+       13 GETTABLEKS                       R6 R6 K9 ["GameId"]
        15 SETTABLEKS                       R6 R5 K3 ["gameId"]
-       17 GETIMPORT                        R7 K8 [game]
-       19 GETTABLEKS                       R6 R7 K10 ["PlaceId"]
+       17 GETIMPORT                        R6 K8 [game]
+       19 GETTABLEKS                       R6 R6 K10 ["PlaceId"]
        21 SETTABLEKS                       R6 R5 K4 ["placeId"]
        23 CALL                             R3 2 1
        24 GETTABLEKS                       R4 R0 K11 ["sender"]
@@ -163,8 +163,8 @@ PROTO_9:
         0 DUPTABLE                         R0 K1 [{"SendEventDeferred"}]
         1 DUPCLOSURE                       R1 K2 [PROTO_8]
         2 SETTABLEKS                       R1 R0 K0 ["SendEventDeferred"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K3 ["new"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K3 ["new"]
         7 MOVE                             R2 R0
         8 CALL                             R1 1 -1
         9 RETURN                           R1 -1
@@ -183,18 +183,18 @@ MAIN:
        15 LOADK                            R4 K5 ["StudioService"]
        16 NAMECALL                         R2 R2 K3 ["GetService"]
        18 CALL                             R2 2 1
-       19 GETIMPORT                        R6 K7 [script]
-       21 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       23 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K8 ["Parent"]
+       19 GETIMPORT                        R3 K7 [script]
+       21 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       23 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K8 ["Parent"]
        27 GETIMPORT                        R4 K10 [require]
-       29 GETTABLEKS                       R6 R3 K11 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K12 ["Cryo"]
+       29 GETTABLEKS                       R5 R3 K11 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K12 ["Cryo"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K10 [require]
-       36 GETTABLEKS                       R8 R3 K13 ["Src"]
-       38 GETTABLEKS                       R7 R8 K14 ["Util"]
-       40 GETTABLEKS                       R6 R7 K15 ["RbxEntriesToWebEntries"]
+       36 GETTABLEKS                       R6 R3 K13 ["Src"]
+       38 GETTABLEKS                       R6 R6 K14 ["Util"]
+       40 GETTABLEKS                       R6 R6 K15 ["RbxEntriesToWebEntries"]
        42 CALL                             R5 1 1
        43 NEWTABLE                         R6 16 0
        45 SETTABLEKS                       R6 R6 K16 ["__index"]

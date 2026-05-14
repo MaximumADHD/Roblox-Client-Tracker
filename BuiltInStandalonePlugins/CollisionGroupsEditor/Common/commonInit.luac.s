@@ -5,9 +5,9 @@ PROTO_0:
         3 LOADB                            R0 1
         4 SETUPVAL                         R0 0
         5 GETIMPORT                        R0 K1 [require]
-        7 GETIMPORT                        R3 K3 [script]
-        9 GETTABLEKS                       R2 R3 K4 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        7 GETIMPORT                        R1 K3 [script]
+        9 GETTABLEKS                       R1 R1 K4 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
        13 CALL                             R0 1 0
        14 RETURN                           R0 0
 

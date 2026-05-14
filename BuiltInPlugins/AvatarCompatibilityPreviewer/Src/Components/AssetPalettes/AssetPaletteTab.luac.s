@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 GETUPVAL                         R5 2
-        5 GETTABLEKS                       R4 R5 K1 ["Dictionary"]
-        7 GETTABLEKS                       R3 R4 K2 ["join"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
+        7 GETTABLEKS                       R3 R3 K2 ["join"]
         9 MOVE                             R4 R0
        10 DUPTABLE                         R5 K5 [{"Style", "WrapperProps"}]
        11 LOADK                            R6 K6 ["AssetPaletteTab"]
@@ -24,21 +24,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K10 ["UI"]
        30 GETTABLEKS                       R5 R4 K11 ["SimpleTab"]
-       32 GETTABLEKS                       R7 R2 K12 ["Wrappers"]
-       34 GETTABLEKS                       R6 R7 K13 ["withForwardRef"]
+       32 GETTABLEKS                       R6 R2 K12 ["Wrappers"]
+       34 GETTABLEKS                       R6 R6 K13 ["withForwardRef"]
        36 DUPCLOSURE                       R7 K14 [PROTO_0]
        37 CAPTURE                          VAL R3
        38 CAPTURE                          VAL R5

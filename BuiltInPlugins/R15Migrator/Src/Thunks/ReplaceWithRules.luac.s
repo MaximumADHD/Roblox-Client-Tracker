@@ -42,8 +42,8 @@ PROTO_2:
        14 ADDK                             R12 R12 K0 [1]
        15 SETTABLEKS                       R12 R7 K1 ["autoConverted"]
        17 JUMPIF                           R11 ; [+19]
-       18 GETUPVAL                         R15 0
-       19 GETTABLEKS                       R14 R15 K2 ["ReferenceKey"]
+       18 GETUPVAL                         R14 0
+       19 GETTABLEKS                       R14 R14 K2 ["ReferenceKey"]
        21 JUMPIFNOTEQ                      R10 R14 ; [+3]
        23 LOADK                            R13 K3 ["failedVar"]
        24 JUMP                             ; [+1]
@@ -58,8 +58,8 @@ PROTO_2:
        34 SETTABLE                         R14 R13 R2
        35 LOADB                            R13 0
        36 RETURN                           R13 1
-       37 GETUPVAL                         R13 1
-       38 GETTABLEKS                       R12 R13 K5 ["replaceWithSuggestion"]
+       37 GETUPVAL                         R12 1
+       38 GETTABLEKS                       R12 R12 K5 ["replaceWithSuggestion"]
        40 MOVE                             R13 R0
        41 MOVE                             R14 R1
        42 MOVE                             R15 R6
@@ -117,10 +117,10 @@ PROTO_3:
 PROTO_4:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["selection"]
-        7 GETTABLEKS                       R4 R1 K1 ["ScriptConversion"]
-        9 GETTABLEKS                       R3 R4 K3 ["diagnostics"]
+        3 GETTABLEKS                       R2 R1 K1 ["ScriptConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["selection"]
+        7 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
+        9 GETTABLEKS                       R3 R3 K3 ["diagnostics"]
        11 GETUPVAL                         R4 0
        12 MOVE                             R6 R2
        13 MOVE                             R7 R3
@@ -136,8 +136,8 @@ PROTO_4:
        28 NEWTABLE                         R6 0 0
        30 SETTABLEKS                       R6 R5 K8 ["failedVar"]
        32 GETUPVAL                         R6 1
-       33 GETTABLEKS                       R8 R1 K1 ["ScriptConversion"]
-       35 GETTABLEKS                       R7 R8 K10 ["replaceRules"]
+       33 GETTABLEKS                       R7 R1 K1 ["ScriptConversion"]
+       35 GETTABLEKS                       R7 R7 K10 ["replaceRules"]
        37 CALL                             R6 1 1
        38 LOADN                            R8 0
        39 MOVE                             R9 R4
@@ -154,8 +154,8 @@ PROTO_4:
        52 GETUPVAL                         R9 2
        53 JUMPIFNOT                        R9 ; [+1]
        54 LOADK                            R8 K12 ["Convert"]
-       55 GETUPVAL                         R10 3
-       56 GETTABLEKS                       R9 R10 K13 ["new"]
+       55 GETUPVAL                         R9 3
+       56 GETTABLEKS                       R9 R9 K13 ["new"]
        58 MOVE                             R10 R8
        59 MOVE                             R11 R7
        60 MOVE                             R12 R0
@@ -208,30 +208,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["SetProcessResult"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["SetProcessResult"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Util"]
-       22 GETTABLEKS                       R3 R4 K10 ["ScriptReplacement"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["ScriptReplacement"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K9 ["Util"]
-       31 GETTABLEKS                       R4 R5 K11 ["ScriptIssueSorting"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K9 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["ScriptIssueSorting"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K9 ["Util"]
-       40 GETTABLEKS                       R5 R6 K12 ["ScriptConversionProgressTracker"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K9 ["Util"]
+       40 GETTABLEKS                       R5 R5 K12 ["ScriptConversionProgressTracker"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R9 R0 K6 ["Src"]
-       47 GETTABLEKS                       R8 R9 K9 ["Util"]
-       49 GETTABLEKS                       R7 R8 K13 ["ScriptAnalysis"]
-       51 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K9 ["Util"]
+       49 GETTABLEKS                       R6 R6 K13 ["ScriptAnalysis"]
+       51 GETTABLEKS                       R6 R6 K14 ["Constants"]
        53 CALL                             R5 1 1
        54 DUPCLOSURE                       R6 K15 [PROTO_0]
        55 DUPCLOSURE                       R7 K16 [PROTO_1]

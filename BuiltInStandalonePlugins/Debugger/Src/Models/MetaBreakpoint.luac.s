@@ -20,13 +20,13 @@ PROTO_0:
        34 SETTABLEKS                       R2 R1 K8 ["continueExecution"]
        36 GETTABLEKS                       R3 R0 K22 ["IsLogpoint"]
        38 JUMPIFNOT                        R3 ; [+6]
-       39 GETUPVAL                         R4 0
-       40 GETTABLEKS                       R3 R4 K23 ["DebugpointType"]
-       42 GETTABLEKS                       R2 R3 K24 ["Logpoint"]
+       39 GETUPVAL                         R2 0
+       40 GETTABLEKS                       R2 R2 K23 ["DebugpointType"]
+       42 GETTABLEKS                       R2 R2 K24 ["Logpoint"]
        44 JUMPIF                           R2 ; [+5]
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R3 R4 K23 ["DebugpointType"]
-       48 GETTABLEKS                       R2 R3 K25 ["Breakpoint"]
+       45 GETUPVAL                         R2 0
+       46 GETTABLEKS                       R2 R2 K23 ["DebugpointType"]
+       48 GETTABLEKS                       R2 R2 K25 ["Breakpoint"]
        50 SETTABLEKS                       R2 R1 K9 ["debugpointType"]
        52 GETTABLEKS                       R2 R0 K26 ["RemoveOnHit"]
        54 SETTABLEKS                       R2 R1 K10 ["removeOnHit"]
@@ -128,13 +128,13 @@ PROTO_1:
       131 GETIMPORT                        R4 K26 [math.fmod]
       133 CALL                             R4 2 1
       134 JUMPIFNOTEQKN                    R4 K27 [0] ; [+7]
-      136 GETUPVAL                         R5 0
-      137 GETTABLEKS                       R4 R5 K28 ["DebugpointType"]
-      139 GETTABLEKS                       R3 R4 K29 ["Breakpoint"]
+      136 GETUPVAL                         R3 0
+      137 GETTABLEKS                       R3 R3 K28 ["DebugpointType"]
+      139 GETTABLEKS                       R3 R3 K29 ["Breakpoint"]
       141 JUMPIF                           R3 ; [+5]
-      142 GETUPVAL                         R5 0
-      143 GETTABLEKS                       R4 R5 K28 ["DebugpointType"]
-      145 GETTABLEKS                       R3 R4 K30 ["Logpoint"]
+      142 GETUPVAL                         R3 0
+      143 GETTABLEKS                       R3 R3 K28 ["DebugpointType"]
+      145 GETTABLEKS                       R3 R3 K30 ["Logpoint"]
       147 SETTABLEKS                       R3 R2 K14 ["debugpointType"]
       149 GETTABLEKS                       R3 R0 K15 ["contextBreakpoints"]
       151 JUMPIF                           R3 ; [+2]
@@ -146,14 +146,14 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["Constants"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["Constants"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_0]
        19 CAPTURE                          VAL R1

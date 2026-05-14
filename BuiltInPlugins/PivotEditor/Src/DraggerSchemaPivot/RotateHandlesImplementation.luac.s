@@ -65,8 +65,8 @@ PROTO_3:
        32 JUMP                             ; [+10]
        33 GETIMPORT                        R3 K8 [error]
        35 LOADK                            R5 K9 ["Bad primary object type `"]
-       36 GETTABLEKS                       R8 R0 K0 ["_primaryObject"]
-       38 GETTABLEKS                       R6 R8 K10 ["ClassName"]
+       36 GETTABLEKS                       R6 R0 K0 ["_primaryObject"]
+       38 GETTABLEKS                       R6 R6 K10 ["ClassName"]
        40 LOADK                            R7 K11 ["`"]
        41 CONCAT                           R4 R5 R7
        42 CALL                             R3 1 0
@@ -206,8 +206,8 @@ PROTO_9:
        13 GETUPVAL                         R6 0
        14 CALL                             R5 1 3
        15 FORGPREP_NEXT                    R5
-       16 GETUPVAL                         R11 1
-       17 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       16 GETUPVAL                         R10 1
+       17 GETTABLEKS                       R10 R10 K6 ["createElement"]
        19 GETUPVAL                         R11 2
        20 DUPTABLE                         R12 K13 [{"Axis", "Color", "Outset", "Thin", "Scale", "AlwaysOnTop"}]
        21 GETTABLEKS                       R14 R9 K14 ["Offset"]
@@ -229,8 +229,8 @@ PROTO_9:
        47 NAMECALL                         R5 R5 K16 ["shouldSnapPivotToGeometry"]
        49 CALL                             R5 1 1
        50 JUMPIFNOT                        R5 ; [+41]
-       51 GETUPVAL                         R6 1
-       52 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       51 GETUPVAL                         R5 1
+       52 GETTABLEKS                       R5 R5 K6 ["createElement"]
        54 GETUPVAL                         R6 3
        55 DUPTABLE                         R7 K20 [{"Focus", "SnapPoints", "DraggerContext"}]
        56 GETTABLEKS                       R8 R3 K2 ["Position"]
@@ -241,8 +241,8 @@ PROTO_9:
        66 SETTABLEKS                       R8 R7 K19 ["DraggerContext"]
        68 CALL                             R5 2 1
        69 SETTABLEKS                       R5 R2 K18 ["SnapPoints"]
-       71 GETUPVAL                         R6 1
-       72 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       71 GETUPVAL                         R5 1
+       72 GETTABLEKS                       R5 R5 K6 ["createElement"]
        74 GETUPVAL                         R6 4
        75 DUPTABLE                         R7 K24 [{"DraggerContext", "CFrame", "IsActive"}]
        76 GETTABLEKS                       R8 R0 K1 ["_draggerContext"]
@@ -254,59 +254,59 @@ PROTO_9:
        87 SETTABLEKS                       R8 R7 K23 ["IsActive"]
        89 CALL                             R5 2 1
        90 SETTABLEKS                       R5 R2 K26 ["DraggedPivot"]
-       92 GETUPVAL                         R6 1
-       93 GETTABLEKS                       R5 R6 K27 ["createFragment"]
+       92 GETUPVAL                         R5 1
+       93 GETTABLEKS                       R5 R5 K27 ["createFragment"]
        95 MOVE                             R6 R2
        96 CALL                             R5 1 -1
        97 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Packages"]
-       11 GETTABLEKS                       R1 R2 K4 ["DraggerFramework"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       11 GETTABLEKS                       R1 R1 K4 ["DraggerFramework"]
        13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R4 R0 K3 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K7 ["Roact"]
+       15 GETTABLEKS                       R3 R0 K3 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K7 ["Roact"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K6 [require]
-       22 GETTABLEKS                       R7 R0 K3 ["Packages"]
-       24 GETTABLEKS                       R6 R7 K4 ["DraggerFramework"]
-       26 GETTABLEKS                       R5 R6 K8 ["Utility"]
-       28 GETTABLEKS                       R4 R5 K9 ["Colors"]
+       22 GETTABLEKS                       R4 R0 K3 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K4 ["DraggerFramework"]
+       26 GETTABLEKS                       R4 R4 K8 ["Utility"]
+       28 GETTABLEKS                       R4 R4 K9 ["Colors"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K6 [require]
-       33 GETTABLEKS                       R8 R0 K3 ["Packages"]
-       35 GETTABLEKS                       R7 R8 K4 ["DraggerFramework"]
-       37 GETTABLEKS                       R6 R7 K10 ["Components"]
-       39 GETTABLEKS                       R5 R6 K11 ["MoveHandleView"]
+       33 GETTABLEKS                       R5 R0 K3 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K4 ["DraggerFramework"]
+       37 GETTABLEKS                       R5 R5 K10 ["Components"]
+       39 GETTABLEKS                       R5 R5 K11 ["MoveHandleView"]
        41 CALL                             R4 1 1
        42 GETIMPORT                        R5 K6 [require]
-       44 GETTABLEKS                       R8 R0 K12 ["Src"]
-       46 GETTABLEKS                       R7 R8 K8 ["Utility"]
-       48 GETTABLEKS                       R6 R7 K13 ["setWorldPivot"]
+       44 GETTABLEKS                       R6 R0 K12 ["Src"]
+       46 GETTABLEKS                       R6 R6 K8 ["Utility"]
+       48 GETTABLEKS                       R6 R6 K13 ["setWorldPivot"]
        50 CALL                             R5 1 1
        51 GETIMPORT                        R6 K6 [require]
-       53 GETTABLEKS                       R9 R0 K12 ["Src"]
-       55 GETTABLEKS                       R8 R9 K8 ["Utility"]
-       57 GETTABLEKS                       R7 R8 K14 ["computeSnapPointsForInstance"]
+       53 GETTABLEKS                       R7 R0 K12 ["Src"]
+       55 GETTABLEKS                       R7 R7 K8 ["Utility"]
+       57 GETTABLEKS                       R7 R7 K14 ["computeSnapPointsForInstance"]
        59 CALL                             R6 1 1
        60 GETIMPORT                        R7 K6 [require]
-       62 GETTABLEKS                       R10 R0 K12 ["Src"]
-       64 GETTABLEKS                       R9 R10 K10 ["Components"]
-       66 GETTABLEKS                       R8 R9 K15 ["SnapPoints"]
+       62 GETTABLEKS                       R8 R0 K12 ["Src"]
+       64 GETTABLEKS                       R8 R8 K10 ["Components"]
+       66 GETTABLEKS                       R8 R8 K15 ["SnapPoints"]
        68 CALL                             R7 1 1
        69 GETIMPORT                        R8 K6 [require]
-       71 GETTABLEKS                       R10 R1 K10 ["Components"]
-       73 GETTABLEKS                       R9 R10 K16 ["DraggedPivot"]
+       71 GETTABLEKS                       R9 R1 K10 ["Components"]
+       73 GETTABLEKS                       R9 R9 K16 ["DraggedPivot"]
        75 CALL                             R8 1 1
        76 GETIMPORT                        R9 K6 [require]
-       78 GETTABLEKS                       R12 R0 K12 ["Src"]
-       80 GETTABLEKS                       R11 R12 K8 ["Utility"]
-       82 GETTABLEKS                       R10 R11 K17 ["classifyInstancePivot"]
+       78 GETTABLEKS                       R10 R0 K12 ["Src"]
+       80 GETTABLEKS                       R10 R10 K8 ["Utility"]
+       82 GETTABLEKS                       R10 R10 K17 ["classifyInstancePivot"]
        84 CALL                             R9 1 1
        85 GETIMPORT                        R10 K20 [table.freeze]
        87 DUPTABLE                         R11 K27 [{"MinusZ", "PlusZ", "MinusY", "PlusY", "MinusX", "PlusX"}]

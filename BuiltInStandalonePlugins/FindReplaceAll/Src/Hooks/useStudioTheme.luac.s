@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Theme"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Theme"]
         3 JUMPIF                           R0 ; [+4]
         4 DUPTABLE                         R0 K2 [{"Name"}]
         5 LOADK                            R1 K3 ["Dark"]
@@ -9,19 +9,19 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Theme"]
-        4 JUMPIF                           R2 ; [+4]
-        5 DUPTABLE                         R2 K2 [{"Name"}]
-        6 LOADK                            R3 K3 ["Dark"]
-        7 SETTABLEKS                       R3 R2 K1 ["Name"]
-        9 GETTABLEKS                       R1 R2 K1 ["Name"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Theme"]
+        4 JUMPIF                           R1 ; [+4]
+        5 DUPTABLE                         R1 K2 [{"Name"}]
+        6 LOADK                            R2 K3 ["Dark"]
+        7 SETTABLEKS                       R2 R1 K1 ["Name"]
+        9 GETTABLEKS                       R1 R1 K1 ["Name"]
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["ThemeChanged"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["ThemeChanged"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U1
@@ -57,18 +57,18 @@ PROTO_4:
        17 RETURN                           R3 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useState"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Theme"]
-        6 JUMPIF                           R2 ; [+4]
-        7 DUPTABLE                         R2 K3 [{"Name"}]
-        8 LOADK                            R3 K4 ["Dark"]
-        9 SETTABLEKS                       R3 R2 K2 ["Name"]
-       11 GETTABLEKS                       R1 R2 K2 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useState"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Theme"]
+        6 JUMPIF                           R1 ; [+4]
+        7 DUPTABLE                         R1 K3 [{"Name"}]
+        8 LOADK                            R2 K4 ["Dark"]
+        9 SETTABLEKS                       R2 R1 K2 ["Name"]
+       11 GETTABLEKS                       R1 R1 K2 ["Name"]
        13 CALL                             R0 1 2
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K5 ["useEffect"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K5 ["useEffect"]
        17 NEWCLOSURE                       R3 P0
        18 CAPTURE                          UPVAL U1
        19 CAPTURE                          VAL R1
@@ -83,13 +83,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["MockableProxyStudioSettings"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["MockableProxyStudioSettings"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_0]
        24 CAPTURE                          VAL R2

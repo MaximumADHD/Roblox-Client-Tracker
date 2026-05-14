@@ -1,17 +1,17 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["SETTINGS"]
-        4 GETTABLEKS                       R3 R4 K1 ["TimelineUnit"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["SETTINGS"]
+        4 GETTABLEKS                       R3 R3 K1 ["TimelineUnit"]
         6 GETTABLEKS                       R4 R0 K2 ["Data"]
         8 NAMECALL                         R1 R1 K3 ["SetSetting"]
        10 CALL                             R1 3 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K4 ["SetTimelineUnit"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K4 ["SetTimelineUnit"]
        14 GETTABLEKS                       R2 R0 K2 ["Data"]
        16 CALL                             R1 1 0
-       17 GETUPVAL                         R2 2
-       18 GETTABLEKS                       R1 R2 K5 ["Analytics"]
+       17 GETUPVAL                         R1 2
+       18 GETTABLEKS                       R1 R1 K5 ["Analytics"]
        20 LOADK                            R3 K6 ["onTimeUnitChanged"]
        21 GETTABLEKS                       R4 R0 K2 ["Data"]
        23 NAMECALL                         R1 R1 K7 ["report"]
@@ -34,19 +34,19 @@ PROTO_1:
        16 NAMECALL                         R6 R2 K8 ["getText"]
        18 CALL                             R6 3 1
        19 SETTABLEKS                       R6 R5 K4 ["Text"]
-       21 GETUPVAL                         R9 0
-       22 GETTABLEKS                       R6 R9 K9 ["TIMELINE_UNITS_ORDER"]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K9 ["TIMELINE_UNITS_ORDER"]
        24 LOADNIL                          R7
        25 LOADNIL                          R8
        26 FORGPREP                         R6
        27 DUPTABLE                         R13 K13 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       28 GETUPVAL                         R16 0
-       29 GETTABLEKS                       R15 R16 K14 ["TIMELINE_UNITS"]
+       28 GETUPVAL                         R15 0
+       29 GETTABLEKS                       R15 R15 K14 ["TIMELINE_UNITS"]
        31 GETTABLE                         R14 R15 R10
        32 SETTABLEKS                       R14 R13 K10 ["Data"]
        34 LOADK                            R16 K6 ["Settings"]
-       35 GETUPVAL                         R19 0
-       36 GETTABLEKS                       R18 R19 K14 ["TIMELINE_UNITS"]
+       35 GETUPVAL                         R18 0
+       36 GETTABLEKS                       R18 R18 K14 ["TIMELINE_UNITS"]
        38 GETTABLE                         R17 R18 R10
        39 NAMECALL                         R14 R2 K8 ["getText"]
        41 CALL                             R14 3 1
@@ -65,18 +65,18 @@ PROTO_1:
        62 RETURN                           R5 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["SetPlaybackSpeed"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["SetPlaybackSpeed"]
         3 GETTABLEKS                       R2 R0 K1 ["Data"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnChangePlaybackSpeed"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnChangePlaybackSpeed"]
         3 JUMPIFNOT                        R0 ; [+4]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["OnChangePlaybackSpeed"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["OnChangePlaybackSpeed"]
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
 
@@ -86,13 +86,13 @@ PROTO_4:
         4 GETTABLEKS                       R3 R1 K2 ["PlaybackSpeed"]
         6 LOADB                            R4 0
         7 GETIMPORT                        R5 K4 [pairs]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R6 R8 K5 ["PLAYBACK_SPEEDS"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K5 ["PLAYBACK_SPEEDS"]
        12 CALL                             R5 1 3
        13 FORGPREP_NEXT                    R5
-       14 GETUPVAL                         R12 0
-       15 GETTABLEKS                       R11 R12 K5 ["PLAYBACK_SPEEDS"]
-       17 GETTABLEKS                       R10 R11 K6 ["CUSTOM"]
+       14 GETUPVAL                         R10 0
+       15 GETTABLEKS                       R10 R10 K5 ["PLAYBACK_SPEEDS"]
+       17 GETTABLEKS                       R10 R10 K6 ["CUSTOM"]
        19 JUMPIFEQ                         R9 R10 ; [+5]
        21 JUMPIFNOTEQ                      R3 R9 ; [+3]
        23 LOADB                            R4 1
@@ -122,90 +122,90 @@ PROTO_4:
        52 CONCAT                           R14 R15 R18
        53 SETTABLEKS                       R14 R7 K18 ["Text"]
        55 DUPTABLE                         R8 K22 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       56 GETUPVAL                         R11 0
-       57 GETTABLEKS                       R10 R11 K5 ["PLAYBACK_SPEEDS"]
-       59 GETTABLEKS                       R9 R10 K23 ["PBS_025"]
+       56 GETUPVAL                         R9 0
+       57 GETTABLEKS                       R9 R9 K5 ["PLAYBACK_SPEEDS"]
+       59 GETTABLEKS                       R9 R9 K23 ["PBS_025"]
        61 SETTABLEKS                       R9 R8 K19 ["Data"]
        63 LOADK                            R11 K7 ["Settings"]
        64 LOADK                            R12 K24 ["025x"]
        65 NAMECALL                         R9 R2 K8 ["getText"]
        67 CALL                             R9 3 1
        68 SETTABLEKS                       R9 R8 K18 ["Text"]
-       70 GETUPVAL                         R12 0
-       71 GETTABLEKS                       R11 R12 K5 ["PLAYBACK_SPEEDS"]
-       73 GETTABLEKS                       R10 R11 K23 ["PBS_025"]
+       70 GETUPVAL                         R10 0
+       71 GETTABLEKS                       R10 R10 K5 ["PLAYBACK_SPEEDS"]
+       73 GETTABLEKS                       R10 R10 K23 ["PBS_025"]
        75 JUMPIFEQ                         R3 R10 ; [+2]
        77 LOADB                            R9 0 +1
        78 LOADB                            R9 1
        79 SETTABLEKS                       R9 R8 K20 ["Checked"]
        81 SETTABLEKS                       R5 R8 K21 ["OnItemClicked"]
        83 DUPTABLE                         R9 K22 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       84 GETUPVAL                         R12 0
-       85 GETTABLEKS                       R11 R12 K5 ["PLAYBACK_SPEEDS"]
-       87 GETTABLEKS                       R10 R11 K25 ["PBS_05"]
+       84 GETUPVAL                         R10 0
+       85 GETTABLEKS                       R10 R10 K5 ["PLAYBACK_SPEEDS"]
+       87 GETTABLEKS                       R10 R10 K25 ["PBS_05"]
        89 SETTABLEKS                       R10 R9 K19 ["Data"]
        91 LOADK                            R12 K7 ["Settings"]
        92 LOADK                            R13 K26 ["05x"]
        93 NAMECALL                         R10 R2 K8 ["getText"]
        95 CALL                             R10 3 1
        96 SETTABLEKS                       R10 R9 K18 ["Text"]
-       98 GETUPVAL                         R13 0
-       99 GETTABLEKS                       R12 R13 K5 ["PLAYBACK_SPEEDS"]
-      101 GETTABLEKS                       R11 R12 K25 ["PBS_05"]
+       98 GETUPVAL                         R11 0
+       99 GETTABLEKS                       R11 R11 K5 ["PLAYBACK_SPEEDS"]
+      101 GETTABLEKS                       R11 R11 K25 ["PBS_05"]
       103 JUMPIFEQ                         R3 R11 ; [+2]
       105 LOADB                            R10 0 +1
       106 LOADB                            R10 1
       107 SETTABLEKS                       R10 R9 K20 ["Checked"]
       109 SETTABLEKS                       R5 R9 K21 ["OnItemClicked"]
       111 DUPTABLE                         R10 K22 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      112 GETUPVAL                         R13 0
-      113 GETTABLEKS                       R12 R13 K5 ["PLAYBACK_SPEEDS"]
-      115 GETTABLEKS                       R11 R12 K27 ["PBS_1"]
+      112 GETUPVAL                         R11 0
+      113 GETTABLEKS                       R11 R11 K5 ["PLAYBACK_SPEEDS"]
+      115 GETTABLEKS                       R11 R11 K27 ["PBS_1"]
       117 SETTABLEKS                       R11 R10 K19 ["Data"]
       119 LOADK                            R13 K7 ["Settings"]
       120 LOADK                            R14 K28 ["1x"]
       121 NAMECALL                         R11 R2 K8 ["getText"]
       123 CALL                             R11 3 1
       124 SETTABLEKS                       R11 R10 K18 ["Text"]
-      126 GETUPVAL                         R14 0
-      127 GETTABLEKS                       R13 R14 K5 ["PLAYBACK_SPEEDS"]
-      129 GETTABLEKS                       R12 R13 K27 ["PBS_1"]
+      126 GETUPVAL                         R12 0
+      127 GETTABLEKS                       R12 R12 K5 ["PLAYBACK_SPEEDS"]
+      129 GETTABLEKS                       R12 R12 K27 ["PBS_1"]
       131 JUMPIFEQ                         R3 R12 ; [+2]
       133 LOADB                            R11 0 +1
       134 LOADB                            R11 1
       135 SETTABLEKS                       R11 R10 K20 ["Checked"]
       137 SETTABLEKS                       R5 R10 K21 ["OnItemClicked"]
       139 DUPTABLE                         R11 K22 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      140 GETUPVAL                         R14 0
-      141 GETTABLEKS                       R13 R14 K5 ["PLAYBACK_SPEEDS"]
-      143 GETTABLEKS                       R12 R13 K29 ["PBS_2"]
+      140 GETUPVAL                         R12 0
+      141 GETTABLEKS                       R12 R12 K5 ["PLAYBACK_SPEEDS"]
+      143 GETTABLEKS                       R12 R12 K29 ["PBS_2"]
       145 SETTABLEKS                       R12 R11 K19 ["Data"]
       147 LOADK                            R14 K7 ["Settings"]
       148 LOADK                            R15 K30 ["2x"]
       149 NAMECALL                         R12 R2 K8 ["getText"]
       151 CALL                             R12 3 1
       152 SETTABLEKS                       R12 R11 K18 ["Text"]
-      154 GETUPVAL                         R15 0
-      155 GETTABLEKS                       R14 R15 K5 ["PLAYBACK_SPEEDS"]
-      157 GETTABLEKS                       R13 R14 K29 ["PBS_2"]
+      154 GETUPVAL                         R13 0
+      155 GETTABLEKS                       R13 R13 K5 ["PLAYBACK_SPEEDS"]
+      157 GETTABLEKS                       R13 R13 K29 ["PBS_2"]
       159 JUMPIFEQ                         R3 R13 ; [+2]
       161 LOADB                            R12 0 +1
       162 LOADB                            R12 1
       163 SETTABLEKS                       R12 R11 K20 ["Checked"]
       165 SETTABLEKS                       R5 R11 K21 ["OnItemClicked"]
       167 DUPTABLE                         R12 K22 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      168 GETUPVAL                         R15 0
-      169 GETTABLEKS                       R14 R15 K5 ["PLAYBACK_SPEEDS"]
-      171 GETTABLEKS                       R13 R14 K31 ["PBS_4"]
+      168 GETUPVAL                         R13 0
+      169 GETTABLEKS                       R13 R13 K5 ["PLAYBACK_SPEEDS"]
+      171 GETTABLEKS                       R13 R13 K31 ["PBS_4"]
       173 SETTABLEKS                       R13 R12 K19 ["Data"]
       175 LOADK                            R15 K7 ["Settings"]
       176 LOADK                            R16 K32 ["4x"]
       177 NAMECALL                         R13 R2 K8 ["getText"]
       179 CALL                             R13 3 1
       180 SETTABLEKS                       R13 R12 K18 ["Text"]
-      182 GETUPVAL                         R16 0
-      183 GETTABLEKS                       R15 R16 K5 ["PLAYBACK_SPEEDS"]
-      185 GETTABLEKS                       R14 R15 K31 ["PBS_4"]
+      182 GETUPVAL                         R14 0
+      183 GETTABLEKS                       R14 R14 K5 ["PLAYBACK_SPEEDS"]
+      185 GETTABLEKS                       R14 R14 K31 ["PBS_4"]
       187 JUMPIFEQ                         R3 R14 ; [+2]
       189 LOADB                            R13 0 +1
       190 LOADB                            R13 1
@@ -227,18 +227,18 @@ PROTO_4:
       213 RETURN                           R7 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["SetFrameRate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["SetFrameRate"]
         3 GETTABLEKS                       R2 R0 K1 ["Data"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnChangeFPS"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnChangeFPS"]
         3 JUMPIFNOT                        R0 ; [+4]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["OnChangeFPS"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["OnChangeFPS"]
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
 
@@ -261,13 +261,13 @@ PROTO_7:
        22 GETTABLEKS                       R4 R1 K8 ["FrameRate"]
        24 LOADB                            R5 0
        25 GETIMPORT                        R6 K11 [pairs]
-       27 GETUPVAL                         R9 0
-       28 GETTABLEKS                       R7 R9 K12 ["FRAMERATES"]
+       27 GETUPVAL                         R7 0
+       28 GETTABLEKS                       R7 R7 K12 ["FRAMERATES"]
        30 CALL                             R6 1 3
        31 FORGPREP_NEXT                    R6
-       32 GETUPVAL                         R13 0
-       33 GETTABLEKS                       R12 R13 K12 ["FRAMERATES"]
-       35 GETTABLEKS                       R11 R12 K13 ["CUSTOM"]
+       32 GETUPVAL                         R11 0
+       33 GETTABLEKS                       R11 R11 K12 ["FRAMERATES"]
+       35 GETTABLEKS                       R11 R11 K13 ["CUSTOM"]
        37 JUMPIFEQ                         R10 R11 ; [+5]
        39 JUMPIFNOTEQ                      R10 R4 ; [+3]
        41 LOADB                            R5 1
@@ -291,72 +291,72 @@ PROTO_7:
        63 LOADB                            R14 0
        64 SETTABLEKS                       R14 R8 K5 ["Enabled"]
        66 DUPTABLE                         R9 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       67 GETUPVAL                         R12 0
-       68 GETTABLEKS                       R11 R12 K12 ["FRAMERATES"]
-       70 GETTABLEKS                       R10 R11 K20 ["FPS_24"]
+       67 GETUPVAL                         R10 0
+       68 GETTABLEKS                       R10 R10 K12 ["FRAMERATES"]
+       70 GETTABLEKS                       R10 R10 K20 ["FPS_24"]
        72 SETTABLEKS                       R10 R9 K16 ["Data"]
        74 LOADK                            R12 K7 ["Settings"]
        75 LOADK                            R13 K21 ["24FPS"]
        76 NAMECALL                         R10 R2 K9 ["getText"]
        78 CALL                             R10 3 1
        79 SETTABLEKS                       R10 R9 K4 ["Text"]
-       81 GETUPVAL                         R13 0
-       82 GETTABLEKS                       R12 R13 K12 ["FRAMERATES"]
-       84 GETTABLEKS                       R11 R12 K20 ["FPS_24"]
+       81 GETUPVAL                         R11 0
+       82 GETTABLEKS                       R11 R11 K12 ["FRAMERATES"]
+       84 GETTABLEKS                       R11 R11 K20 ["FPS_24"]
        86 JUMPIFEQ                         R4 R11 ; [+2]
        88 LOADB                            R10 0 +1
        89 LOADB                            R10 1
        90 SETTABLEKS                       R10 R9 K17 ["Checked"]
        92 SETTABLEKS                       R6 R9 K18 ["OnItemClicked"]
        94 DUPTABLE                         R10 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       95 GETUPVAL                         R13 0
-       96 GETTABLEKS                       R12 R13 K12 ["FRAMERATES"]
-       98 GETTABLEKS                       R11 R12 K22 ["FPS_30"]
+       95 GETUPVAL                         R11 0
+       96 GETTABLEKS                       R11 R11 K12 ["FRAMERATES"]
+       98 GETTABLEKS                       R11 R11 K22 ["FPS_30"]
       100 SETTABLEKS                       R11 R10 K16 ["Data"]
       102 LOADK                            R13 K7 ["Settings"]
       103 LOADK                            R14 K23 ["30FPS"]
       104 NAMECALL                         R11 R2 K9 ["getText"]
       106 CALL                             R11 3 1
       107 SETTABLEKS                       R11 R10 K4 ["Text"]
-      109 GETUPVAL                         R14 0
-      110 GETTABLEKS                       R13 R14 K12 ["FRAMERATES"]
-      112 GETTABLEKS                       R12 R13 K22 ["FPS_30"]
+      109 GETUPVAL                         R12 0
+      110 GETTABLEKS                       R12 R12 K12 ["FRAMERATES"]
+      112 GETTABLEKS                       R12 R12 K22 ["FPS_30"]
       114 JUMPIFEQ                         R4 R12 ; [+2]
       116 LOADB                            R11 0 +1
       117 LOADB                            R11 1
       118 SETTABLEKS                       R11 R10 K17 ["Checked"]
       120 SETTABLEKS                       R6 R10 K18 ["OnItemClicked"]
       122 DUPTABLE                         R11 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      123 GETUPVAL                         R14 0
-      124 GETTABLEKS                       R13 R14 K12 ["FRAMERATES"]
-      126 GETTABLEKS                       R12 R13 K24 ["FPS_60"]
+      123 GETUPVAL                         R12 0
+      124 GETTABLEKS                       R12 R12 K12 ["FRAMERATES"]
+      126 GETTABLEKS                       R12 R12 K24 ["FPS_60"]
       128 SETTABLEKS                       R12 R11 K16 ["Data"]
       130 LOADK                            R14 K7 ["Settings"]
       131 LOADK                            R15 K25 ["60FPS"]
       132 NAMECALL                         R12 R2 K9 ["getText"]
       134 CALL                             R12 3 1
       135 SETTABLEKS                       R12 R11 K4 ["Text"]
-      137 GETUPVAL                         R15 0
-      138 GETTABLEKS                       R14 R15 K12 ["FRAMERATES"]
-      140 GETTABLEKS                       R13 R14 K24 ["FPS_60"]
+      137 GETUPVAL                         R13 0
+      138 GETTABLEKS                       R13 R13 K12 ["FRAMERATES"]
+      140 GETTABLEKS                       R13 R13 K24 ["FPS_60"]
       142 JUMPIFEQ                         R4 R13 ; [+2]
       144 LOADB                            R12 0 +1
       145 LOADB                            R12 1
       146 SETTABLEKS                       R12 R11 K17 ["Checked"]
       148 SETTABLEKS                       R6 R11 K18 ["OnItemClicked"]
       150 DUPTABLE                         R12 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      151 GETUPVAL                         R15 0
-      152 GETTABLEKS                       R14 R15 K12 ["FRAMERATES"]
-      154 GETTABLEKS                       R13 R14 K26 ["FPS_120"]
+      151 GETUPVAL                         R13 0
+      152 GETTABLEKS                       R13 R13 K12 ["FRAMERATES"]
+      154 GETTABLEKS                       R13 R13 K26 ["FPS_120"]
       156 SETTABLEKS                       R13 R12 K16 ["Data"]
       158 LOADK                            R15 K7 ["Settings"]
       159 LOADK                            R16 K27 ["120FPS"]
       160 NAMECALL                         R13 R2 K9 ["getText"]
       162 CALL                             R13 3 1
       163 SETTABLEKS                       R13 R12 K4 ["Text"]
-      165 GETUPVAL                         R16 0
-      166 GETTABLEKS                       R15 R16 K12 ["FRAMERATES"]
-      168 GETTABLEKS                       R14 R15 K26 ["FPS_120"]
+      165 GETUPVAL                         R14 0
+      166 GETTABLEKS                       R14 R14 K12 ["FRAMERATES"]
+      168 GETTABLEKS                       R14 R14 K26 ["FPS_120"]
       170 JUMPIFEQ                         R4 R14 ; [+2]
       172 LOADB                            R13 0 +1
       173 LOADB                            R13 1
@@ -378,18 +378,18 @@ PROTO_7:
       196 RETURN                           R8 1
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["SetGridSpeed"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["SetGridSpeed"]
         3 GETTABLEKS                       R2 R0 K1 ["Data"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnChangeGridSpeed"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnChangeGridSpeed"]
         3 JUMPIFNOT                        R0 ; [+4]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["OnChangeGridSpeed"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["OnChangeGridSpeed"]
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
 
@@ -399,14 +399,14 @@ PROTO_10:
         4 GETTABLEKS                       R3 R1 K2 ["GridSpeed"]
         6 LOADB                            R4 1
         7 GETIMPORT                        R5 K4 [pairs]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R6 R8 K5 ["GRIDSPEEDS"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K5 ["GRIDSPEEDS"]
        12 CALL                             R5 1 3
        13 FORGPREP_NEXT                    R5
        14 JUMPIFNOTEQ                      R9 R3 ; [+9]
-       16 GETUPVAL                         R12 0
-       17 GETTABLEKS                       R11 R12 K5 ["GRIDSPEEDS"]
-       19 GETTABLEKS                       R10 R11 K6 ["Custom"]
+       16 GETUPVAL                         R10 0
+       17 GETTABLEKS                       R10 R10 K5 ["GRIDSPEEDS"]
+       19 GETTABLEKS                       R10 R10 K6 ["Custom"]
        21 JUMPIFEQ                         R9 R10 ; [+2]
        23 LOADB                            R4 0
        24 FORGLOOP                         R5 2 ; [-11]
@@ -421,9 +421,9 @@ PROTO_10:
        36 LOADK                            R10 K8 ["Humanoid"]
        37 NAMECALL                         R8 R8 K9 ["FindFirstChildOfClass"]
        39 CALL                             R8 2 1
-       40 GETUPVAL                         R11 0
-       41 GETTABLEKS                       R10 R11 K5 ["GRIDSPEEDS"]
-       43 GETTABLEKS                       R9 R10 K10 ["FromRig"]
+       40 GETUPVAL                         R9 0
+       41 GETTABLEKS                       R9 R9 K5 ["GRIDSPEEDS"]
+       43 GETTABLEKS                       R9 R9 K10 ["FromRig"]
        45 JUMPIFNOTEQ                      R7 R9 ; [+6]
        47 JUMPIFNOT                        R8 ; [+3]
        48 GETTABLEKS                       R7 R8 K11 ["WalkSpeed"]
@@ -440,36 +440,36 @@ PROTO_10:
        64 LOADB                            R12 0
        65 SETTABLEKS                       R12 R9 K17 ["Enabled"]
        67 DUPTABLE                         R10 K21 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       68 GETUPVAL                         R13 0
-       69 GETTABLEKS                       R12 R13 K5 ["GRIDSPEEDS"]
-       71 GETTABLEKS                       R11 R12 K22 ["Static"]
+       68 GETUPVAL                         R11 0
+       69 GETTABLEKS                       R11 R11 K5 ["GRIDSPEEDS"]
+       71 GETTABLEKS                       R11 R11 K22 ["Static"]
        73 SETTABLEKS                       R11 R10 K18 ["Data"]
        75 LOADK                            R13 K12 ["Settings"]
        76 LOADK                            R14 K23 ["GridSpeedStatic"]
        77 NAMECALL                         R11 R2 K15 ["getText"]
        79 CALL                             R11 3 1
        80 SETTABLEKS                       R11 R10 K16 ["Text"]
-       82 GETUPVAL                         R14 0
-       83 GETTABLEKS                       R13 R14 K5 ["GRIDSPEEDS"]
-       85 GETTABLEKS                       R12 R13 K22 ["Static"]
+       82 GETUPVAL                         R12 0
+       83 GETTABLEKS                       R12 R12 K5 ["GRIDSPEEDS"]
+       85 GETTABLEKS                       R12 R12 K22 ["Static"]
        87 JUMPIFEQ                         R3 R12 ; [+2]
        89 LOADB                            R11 0 +1
        90 LOADB                            R11 1
        91 SETTABLEKS                       R11 R10 K19 ["Checked"]
        93 SETTABLEKS                       R5 R10 K20 ["OnItemClicked"]
        95 DUPTABLE                         R11 K21 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       96 GETUPVAL                         R14 0
-       97 GETTABLEKS                       R13 R14 K5 ["GRIDSPEEDS"]
-       99 GETTABLEKS                       R12 R13 K24 ["Default"]
+       96 GETUPVAL                         R12 0
+       97 GETTABLEKS                       R12 R12 K5 ["GRIDSPEEDS"]
+       99 GETTABLEKS                       R12 R12 K24 ["Default"]
       101 SETTABLEKS                       R12 R11 K18 ["Data"]
       103 LOADK                            R14 K12 ["Settings"]
       104 LOADK                            R15 K25 ["GridSpeedDefault"]
       105 NAMECALL                         R12 R2 K15 ["getText"]
       107 CALL                             R12 3 1
       108 SETTABLEKS                       R12 R11 K16 ["Text"]
-      110 GETUPVAL                         R15 0
-      111 GETTABLEKS                       R14 R15 K5 ["GRIDSPEEDS"]
-      113 GETTABLEKS                       R13 R14 K24 ["Default"]
+      110 GETUPVAL                         R13 0
+      111 GETTABLEKS                       R13 R13 K5 ["GRIDSPEEDS"]
+      113 GETTABLEKS                       R13 R13 K24 ["Default"]
       115 JUMPIFEQ                         R3 R13 ; [+2]
       117 LOADB                            R12 0 +1
       118 LOADB                            R12 1
@@ -478,18 +478,18 @@ PROTO_10:
       123 SETLIST                          R9 R10 2 [1]
       125 JUMPIFNOT                        R8 ; [+34]
       126 DUPTABLE                         R12 K21 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      127 GETUPVAL                         R15 0
-      128 GETTABLEKS                       R14 R15 K5 ["GRIDSPEEDS"]
-      130 GETTABLEKS                       R13 R14 K10 ["FromRig"]
+      127 GETUPVAL                         R13 0
+      128 GETTABLEKS                       R13 R13 K5 ["GRIDSPEEDS"]
+      130 GETTABLEKS                       R13 R13 K10 ["FromRig"]
       132 SETTABLEKS                       R13 R12 K18 ["Data"]
       134 LOADK                            R15 K12 ["Settings"]
       135 LOADK                            R16 K26 ["GridSpeedFromRig"]
       136 NAMECALL                         R13 R2 K15 ["getText"]
       138 CALL                             R13 3 1
       139 SETTABLEKS                       R13 R12 K16 ["Text"]
-      141 GETUPVAL                         R16 0
-      142 GETTABLEKS                       R15 R16 K5 ["GRIDSPEEDS"]
-      144 GETTABLEKS                       R14 R15 K10 ["FromRig"]
+      141 GETUPVAL                         R14 0
+      142 GETTABLEKS                       R14 R14 K5 ["GRIDSPEEDS"]
+      144 GETTABLEKS                       R14 R14 K10 ["FromRig"]
       146 JUMPIFEQ                         R3 R14 ; [+2]
       148 LOADB                            R13 0 +1
       149 LOADB                            R13 1
@@ -500,9 +500,9 @@ PROTO_10:
       157 GETIMPORT                        R10 K29 [table.insert]
       159 CALL                             R10 2 0
       160 DUPTABLE                         R12 K21 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      161 GETUPVAL                         R15 0
-      162 GETTABLEKS                       R14 R15 K5 ["GRIDSPEEDS"]
-      164 GETTABLEKS                       R13 R14 K6 ["Custom"]
+      161 GETUPVAL                         R13 0
+      162 GETTABLEKS                       R13 R13 K5 ["GRIDSPEEDS"]
+      164 GETTABLEKS                       R13 R13 K6 ["Custom"]
       166 SETTABLEKS                       R13 R12 K18 ["Data"]
       168 LOADK                            R15 K12 ["Settings"]
       169 LOADK                            R16 K30 ["GridSpeedCustom"]
@@ -519,14 +519,14 @@ PROTO_10:
 
 PROTO_11:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["SETTINGS"]
-        4 GETTABLEKS                       R3 R4 K1 ["SnapMode"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["SETTINGS"]
+        4 GETTABLEKS                       R3 R3 K1 ["SnapMode"]
         6 GETTABLEKS                       R4 R0 K2 ["Data"]
         8 NAMECALL                         R1 R1 K3 ["SetSetting"]
        10 CALL                             R1 3 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K4 ["SetSnapMode"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K4 ["SetSnapMode"]
        14 GETTABLEKS                       R2 R0 K2 ["Data"]
        16 CALL                             R1 1 0
        17 RETURN                           R0 0
@@ -549,54 +549,54 @@ PROTO_12:
        21 CALL                             R10 3 1
        22 SETTABLEKS                       R10 R6 K7 ["Text"]
        24 DUPTABLE                         R7 K11 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       25 GETUPVAL                         R10 0
-       26 GETTABLEKS                       R9 R10 K12 ["SNAP_MODES"]
-       28 GETTABLEKS                       R8 R9 K13 ["Keyframes"]
+       25 GETUPVAL                         R8 0
+       26 GETTABLEKS                       R8 R8 K12 ["SNAP_MODES"]
+       28 GETTABLEKS                       R8 R8 K13 ["Keyframes"]
        30 SETTABLEKS                       R8 R7 K8 ["Data"]
        32 LOADK                            R10 K5 ["Settings"]
        33 LOADK                            R11 K14 ["SnapKeyframes"]
        34 NAMECALL                         R8 R2 K6 ["getText"]
        36 CALL                             R8 3 1
        37 SETTABLEKS                       R8 R7 K7 ["Text"]
-       39 GETUPVAL                         R11 0
-       40 GETTABLEKS                       R10 R11 K12 ["SNAP_MODES"]
-       42 GETTABLEKS                       R9 R10 K13 ["Keyframes"]
+       39 GETUPVAL                         R9 0
+       40 GETTABLEKS                       R9 R9 K12 ["SNAP_MODES"]
+       42 GETTABLEKS                       R9 R9 K13 ["Keyframes"]
        44 JUMPIFEQ                         R4 R9 ; [+2]
        46 LOADB                            R8 0 +1
        47 LOADB                            R8 1
        48 SETTABLEKS                       R8 R7 K9 ["Checked"]
        50 SETTABLEKS                       R5 R7 K10 ["OnItemClicked"]
        52 DUPTABLE                         R8 K11 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       53 GETUPVAL                         R11 0
-       54 GETTABLEKS                       R10 R11 K12 ["SNAP_MODES"]
-       56 GETTABLEKS                       R9 R10 K15 ["Frames"]
+       53 GETUPVAL                         R9 0
+       54 GETTABLEKS                       R9 R9 K12 ["SNAP_MODES"]
+       56 GETTABLEKS                       R9 R9 K15 ["Frames"]
        58 SETTABLEKS                       R9 R8 K8 ["Data"]
        60 LOADK                            R11 K5 ["Settings"]
        61 LOADK                            R12 K16 ["SnapFrames"]
        62 NAMECALL                         R9 R2 K6 ["getText"]
        64 CALL                             R9 3 1
        65 SETTABLEKS                       R9 R8 K7 ["Text"]
-       67 GETUPVAL                         R12 0
-       68 GETTABLEKS                       R11 R12 K12 ["SNAP_MODES"]
-       70 GETTABLEKS                       R10 R11 K15 ["Frames"]
+       67 GETUPVAL                         R10 0
+       68 GETTABLEKS                       R10 R10 K12 ["SNAP_MODES"]
+       70 GETTABLEKS                       R10 R10 K15 ["Frames"]
        72 JUMPIFEQ                         R4 R10 ; [+2]
        74 LOADB                            R9 0 +1
        75 LOADB                            R9 1
        76 SETTABLEKS                       R9 R8 K9 ["Checked"]
        78 SETTABLEKS                       R5 R8 K10 ["OnItemClicked"]
        80 DUPTABLE                         R9 K11 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       81 GETUPVAL                         R12 0
-       82 GETTABLEKS                       R11 R12 K12 ["SNAP_MODES"]
-       84 GETTABLEKS                       R10 R11 K17 ["None"]
+       81 GETUPVAL                         R10 0
+       82 GETTABLEKS                       R10 R10 K12 ["SNAP_MODES"]
+       84 GETTABLEKS                       R10 R10 K17 ["None"]
        86 SETTABLEKS                       R10 R9 K8 ["Data"]
        88 LOADK                            R12 K5 ["Settings"]
        89 LOADK                            R13 K18 ["SnapNone"]
        90 NAMECALL                         R10 R2 K6 ["getText"]
        92 CALL                             R10 3 1
        93 SETTABLEKS                       R10 R9 K7 ["Text"]
-       95 GETUPVAL                         R13 0
-       96 GETTABLEKS                       R12 R13 K12 ["SNAP_MODES"]
-       98 GETTABLEKS                       R11 R12 K17 ["None"]
+       95 GETUPVAL                         R11 0
+       96 GETTABLEKS                       R11 R11 K12 ["SNAP_MODES"]
+       98 GETTABLEKS                       R11 R11 K17 ["None"]
       100 JUMPIFEQ                         R4 R11 ; [+2]
       102 LOADB                            R10 0 +1
       103 LOADB                            R10 1
@@ -607,14 +607,14 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["SETTINGS"]
-        4 GETTABLEKS                       R3 R4 K1 ["RotationType"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["SETTINGS"]
+        4 GETTABLEKS                       R3 R3 K1 ["RotationType"]
         6 GETTABLEKS                       R4 R0 K2 ["Data"]
         8 NAMECALL                         R1 R1 K3 ["SetSetting"]
        10 CALL                             R1 3 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K4 ["SetDefaultRotationType"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K4 ["SetDefaultRotationType"]
        14 GETTABLEKS                       R2 R0 K2 ["Data"]
        16 CALL                             R1 1 0
        17 RETURN                           R0 0
@@ -637,36 +637,36 @@ PROTO_14:
        21 CALL                             R9 3 1
        22 SETTABLEKS                       R9 R6 K7 ["Text"]
        24 DUPTABLE                         R7 K11 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       25 GETUPVAL                         R10 0
-       26 GETTABLEKS                       R9 R10 K12 ["TRACK_TYPES"]
-       28 GETTABLEKS                       R8 R9 K13 ["EulerAngles"]
+       25 GETUPVAL                         R8 0
+       26 GETTABLEKS                       R8 R8 K12 ["TRACK_TYPES"]
+       28 GETTABLEKS                       R8 R8 K13 ["EulerAngles"]
        30 SETTABLEKS                       R8 R7 K8 ["Data"]
        32 LOADK                            R10 K5 ["Settings"]
        33 LOADK                            R11 K13 ["EulerAngles"]
        34 NAMECALL                         R8 R2 K6 ["getText"]
        36 CALL                             R8 3 1
        37 SETTABLEKS                       R8 R7 K7 ["Text"]
-       39 GETUPVAL                         R11 0
-       40 GETTABLEKS                       R10 R11 K12 ["TRACK_TYPES"]
-       42 GETTABLEKS                       R9 R10 K13 ["EulerAngles"]
+       39 GETUPVAL                         R9 0
+       40 GETTABLEKS                       R9 R9 K12 ["TRACK_TYPES"]
+       42 GETTABLEKS                       R9 R9 K13 ["EulerAngles"]
        44 JUMPIFEQ                         R4 R9 ; [+2]
        46 LOADB                            R8 0 +1
        47 LOADB                            R8 1
        48 SETTABLEKS                       R8 R7 K9 ["Checked"]
        50 SETTABLEKS                       R5 R7 K10 ["OnItemClicked"]
        52 DUPTABLE                         R8 K11 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       53 GETUPVAL                         R11 0
-       54 GETTABLEKS                       R10 R11 K12 ["TRACK_TYPES"]
-       56 GETTABLEKS                       R9 R10 K14 ["Quaternion"]
+       53 GETUPVAL                         R9 0
+       54 GETTABLEKS                       R9 R9 K12 ["TRACK_TYPES"]
+       56 GETTABLEKS                       R9 R9 K14 ["Quaternion"]
        58 SETTABLEKS                       R9 R8 K8 ["Data"]
        60 LOADK                            R11 K5 ["Settings"]
        61 LOADK                            R12 K15 ["Quaternions"]
        62 NAMECALL                         R9 R2 K6 ["getText"]
        64 CALL                             R9 3 1
        65 SETTABLEKS                       R9 R8 K7 ["Text"]
-       67 GETUPVAL                         R12 0
-       68 GETTABLEKS                       R11 R12 K12 ["TRACK_TYPES"]
-       70 GETTABLEKS                       R10 R11 K14 ["Quaternion"]
+       67 GETUPVAL                         R10 0
+       68 GETTABLEKS                       R10 R10 K12 ["TRACK_TYPES"]
+       70 GETTABLEKS                       R10 R10 K14 ["Quaternion"]
        72 JUMPIFEQ                         R4 R10 ; [+2]
        74 LOADB                            R9 0 +1
        75 LOADB                            R9 1
@@ -677,14 +677,14 @@ PROTO_14:
 
 PROTO_15:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["SETTINGS"]
-        4 GETTABLEKS                       R3 R4 K1 ["EulerAnglesOrder"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["SETTINGS"]
+        4 GETTABLEKS                       R3 R3 K1 ["EulerAnglesOrder"]
         6 GETTABLEKS                       R4 R0 K2 ["Data"]
         8 NAMECALL                         R1 R1 K3 ["SetSetting"]
        10 CALL                             R1 3 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K4 ["SetDefaultEulerAnglesOrder"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K4 ["SetDefaultEulerAnglesOrder"]
        14 GETTABLEKS                       R2 R0 K2 ["Data"]
        16 CALL                             R1 1 0
        17 RETURN                           R0 0
@@ -794,10 +794,10 @@ PROTO_16:
       158 RETURN                           R6 1
 
 PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["SetShowEvents"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["ShowEvents"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["SetShowEvents"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["ShowEvents"]
         6 NOT                              R1 R2
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
@@ -822,22 +822,22 @@ PROTO_19:
         0 NEWTABLE                         R1 0 11
         2 NAMECALL                         R2 R0 K0 ["makeTimelineUnitMenu"]
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["MENU_SEPARATOR"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["MENU_SEPARATOR"]
         8 NAMECALL                         R4 R0 K2 ["makeFrameRateMenu"]
        10 CALL                             R4 1 1
        11 NAMECALL                         R5 R0 K3 ["makePlaybackSpeedMenu"]
        13 CALL                             R5 1 1
        14 NAMECALL                         R6 R0 K4 ["makeGridSpeedMenu"]
        16 CALL                             R6 1 1
-       17 GETUPVAL                         R8 0
-       18 GETTABLEKS                       R7 R8 K1 ["MENU_SEPARATOR"]
+       17 GETUPVAL                         R7 0
+       18 GETTABLEKS                       R7 R7 K1 ["MENU_SEPARATOR"]
        20 NAMECALL                         R8 R0 K5 ["makeShowEvents"]
        22 CALL                             R8 1 1
        23 NAMECALL                         R9 R0 K6 ["makeSnapMenu"]
        25 CALL                             R9 1 1
-       26 GETUPVAL                         R11 0
-       27 GETTABLEKS                       R10 R11 K1 ["MENU_SEPARATOR"]
+       26 GETUPVAL                         R10 0
+       27 GETTABLEKS                       R10 R10 K1 ["MENU_SEPARATOR"]
        29 NAMECALL                         R11 R0 K7 ["makeDefaultRotationTypeMenu"]
        31 CALL                             R11 1 1
        32 NAMECALL                         R12 R0 K8 ["makeEulerAnglesOrderMenu"]
@@ -849,8 +849,8 @@ PROTO_20:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["ShowMenu"]
         4 JUMPIFNOT                        R2 ; [+16]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K2 ["createElement"]
         8 GETUPVAL                         R4 1
         9 DUPTABLE                         R5 K5 [{"Actions", "OnMenuOpened"}]
        10 NAMECALL                         R6 R0 K6 ["makeMenuActions"]
@@ -997,21 +997,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
-       32 GETTABLEKS                       R7 R0 K12 ["Src"]
-       34 GETTABLEKS                       R6 R7 K13 ["Actions"]
+       32 GETTABLEKS                       R6 R0 K12 ["Src"]
+       34 GETTABLEKS                       R6 R6 K13 ["Actions"]
        36 GETIMPORT                        R7 K5 [require]
        38 GETTABLEKS                       R8 R6 K14 ["SetDefaultEulerAnglesOrder"]
        40 CALL                             R7 1 1
@@ -1034,24 +1034,24 @@ MAIN:
        68 GETTABLEKS                       R14 R6 K20 ["SetTimelineUnit"]
        70 CALL                             R13 1 1
        71 GETIMPORT                        R14 K5 [require]
-       73 GETTABLEKS                       R17 R0 K12 ["Src"]
-       75 GETTABLEKS                       R16 R17 K21 ["Components"]
-       77 GETTABLEKS                       R15 R16 K22 ["ContextMenu"]
+       73 GETTABLEKS                       R15 R0 K12 ["Src"]
+       75 GETTABLEKS                       R15 R15 K21 ["Components"]
+       77 GETTABLEKS                       R15 R15 K22 ["ContextMenu"]
        79 CALL                             R14 1 1
        80 GETIMPORT                        R15 K5 [require]
-       82 GETTABLEKS                       R19 R0 K12 ["Src"]
-       84 GETTABLEKS                       R18 R19 K23 ["Thunks"]
-       86 GETTABLEKS                       R17 R18 K24 ["Playback"]
-       88 GETTABLEKS                       R16 R17 K25 ["SetPlaybackSpeed"]
+       82 GETTABLEKS                       R16 R0 K12 ["Src"]
+       84 GETTABLEKS                       R16 R16 K23 ["Thunks"]
+       86 GETTABLEKS                       R16 R16 K24 ["Playback"]
+       88 GETTABLEKS                       R16 R16 K25 ["SetPlaybackSpeed"]
        90 CALL                             R15 1 1
        91 GETIMPORT                        R16 K5 [require]
-       93 GETTABLEKS                       R19 R0 K12 ["Src"]
-       95 GETTABLEKS                       R18 R19 K26 ["Util"]
-       97 GETTABLEKS                       R17 R18 K27 ["Constants"]
+       93 GETTABLEKS                       R17 R0 K12 ["Src"]
+       95 GETTABLEKS                       R17 R17 K26 ["Util"]
+       97 GETTABLEKS                       R17 R17 K27 ["Constants"]
        99 CALL                             R16 1 1
       100 GETIMPORT                        R17 K5 [require]
-      102 GETTABLEKS                       R19 R0 K12 ["Src"]
-      104 GETTABLEKS                       R18 R19 K28 ["Types"]
+      102 GETTABLEKS                       R18 R0 K12 ["Src"]
+      104 GETTABLEKS                       R18 R18 K28 ["Types"]
       106 CALL                             R17 1 1
       107 GETTABLEKS                       R18 R1 K29 ["PureComponent"]
       109 LOADK                            R20 K30 ["SettingsMenu"]

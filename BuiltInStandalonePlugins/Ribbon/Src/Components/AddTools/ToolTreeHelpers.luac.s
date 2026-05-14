@@ -16,8 +16,8 @@ PROTO_1:
         6 JUMPIFNOTEQKS                    R7 K1 ["IconButton"] ; [+15]
         8 GETTABLEKS                       R7 R6 K2 ["Action"]
        10 JUMPIFEQKNIL                     R7 ; [+11]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K3 ["equals"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K3 ["equals"]
        15 GETTABLEKS                       R8 R6 K2 ["Action"]
        17 MOVE                             R9 R1
        18 CALL                             R7 2 1
@@ -35,8 +35,8 @@ PROTO_2:
         3 LOADNIL                          R5
         4 LOADNIL                          R6
         5 FORGPREP                         R4
-        6 GETUPVAL                         R10 0
-        7 GETTABLEKS                       R9 R10 K0 ["doesUriExistInTab"]
+        6 GETUPVAL                         R9 0
+        7 GETTABLEKS                       R9 R9 K0 ["doesUriExistInTab"]
         9 MOVE                             R10 R0
        10 GETTABLEKS                       R11 R8 K1 ["Uri"]
        12 CALL                             R9 2 1
@@ -55,8 +55,8 @@ PROTO_3:
         0 DUPTABLE                         R2 K5 [{"Icon", "Placed", "Title", "Description", "Uri"}]
         1 GETTABLEKS                       R3 R1 K0 ["Icon"]
         3 SETTABLEKS                       R3 R2 K0 ["Icon"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K6 ["doesUriExistInTab"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K6 ["doesUriExistInTab"]
         8 MOVE                             R4 R0
         9 GETTABLEKS                       R5 R1 K4 ["Uri"]
        11 CALL                             R3 2 1
@@ -70,8 +70,8 @@ PROTO_3:
        26 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Text"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Text"]
         3 NAMECALL                         R0 R0 K1 ["lower"]
         5 CALL                             R0 1 1
         6 GETUPVAL                         R2 1
@@ -91,34 +91,34 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R1 0
         1 JUMPIFEQKS                       R1 K0 ["All"] ; [+10]
-        3 GETTABLEKS                       R2 R0 K1 ["Uri"]
-        5 GETTABLEKS                       R1 R2 K2 ["DataModel"]
+        3 GETTABLEKS                       R1 R0 K1 ["Uri"]
+        5 GETTABLEKS                       R1 R1 K2 ["DataModel"]
         7 GETUPVAL                         R2 0
         8 JUMPIFEQ                         R1 R2 ; [+3]
        10 LOADB                            R1 0
        11 RETURN                           R1 1
        12 GETUPVAL                         R1 1
        13 JUMPIFNOTEQKS                    R1 K3 ["LocalPlugins"] ; [+10]
-       15 GETTABLEKS                       R3 R0 K1 ["Uri"]
-       17 GETTABLEKS                       R2 R3 K4 ["PluginType"]
+       15 GETTABLEKS                       R2 R0 K1 ["Uri"]
+       17 GETTABLEKS                       R2 R2 K4 ["PluginType"]
        19 JUMPIFEQKS                       R2 K5 ["Local"] ; [+2]
        21 LOADB                            R1 0 +1
        22 LOADB                            R1 1
        23 RETURN                           R1 1
        24 GETUPVAL                         R1 1
        25 JUMPIFNOTEQKS                    R1 K6 ["CloudPlugins"] ; [+10]
-       27 GETTABLEKS                       R3 R0 K1 ["Uri"]
-       29 GETTABLEKS                       R2 R3 K4 ["PluginType"]
+       27 GETTABLEKS                       R2 R0 K1 ["Uri"]
+       29 GETTABLEKS                       R2 R2 K4 ["PluginType"]
        31 JUMPIFEQKS                       R2 K7 ["Cloud"] ; [+2]
        33 LOADB                            R1 0 +1
        34 LOADB                            R1 1
        35 RETURN                           R1 1
        36 LOADB                            R1 1
-       37 GETTABLEKS                       R3 R0 K1 ["Uri"]
-       39 GETTABLEKS                       R2 R3 K4 ["PluginType"]
+       37 GETTABLEKS                       R2 R0 K1 ["Uri"]
+       39 GETTABLEKS                       R2 R2 K4 ["PluginType"]
        41 JUMPIFEQKS                       R2 K7 ["Cloud"] ; [+9]
-       43 GETTABLEKS                       R3 R0 K1 ["Uri"]
-       45 GETTABLEKS                       R2 R3 K4 ["PluginType"]
+       43 GETTABLEKS                       R2 R0 K1 ["Uri"]
+       45 GETTABLEKS                       R2 R2 K4 ["PluginType"]
        47 JUMPIFEQKS                       R2 K5 ["Local"] ; [+2]
        49 LOADB                            R1 0 +1
        50 LOADB                            R1 1
@@ -146,28 +146,28 @@ PROTO_8:
 
 PROTO_9:
         0 LOADB                            R1 0
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["Uri"]
-        4 GETTABLEKS                       R2 R3 K1 ["ItemId"]
-        6 GETTABLEKS                       R4 R0 K0 ["Uri"]
-        8 GETTABLEKS                       R3 R4 K1 ["ItemId"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["Uri"]
+        4 GETTABLEKS                       R2 R2 K1 ["ItemId"]
+        6 GETTABLEKS                       R3 R0 K0 ["Uri"]
+        8 GETTABLEKS                       R3 R3 K1 ["ItemId"]
        10 JUMPIFNOTEQ                      R2 R3 ; [+14]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K0 ["Uri"]
-       15 GETTABLEKS                       R2 R3 K2 ["PluginId"]
-       17 GETTABLEKS                       R4 R0 K0 ["Uri"]
-       19 GETTABLEKS                       R3 R4 K2 ["PluginId"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K0 ["Uri"]
+       15 GETTABLEKS                       R2 R2 K2 ["PluginId"]
+       17 GETTABLEKS                       R3 R0 K0 ["Uri"]
+       19 GETTABLEKS                       R3 R3 K2 ["PluginId"]
        21 JUMPIFEQ                         R2 R3 ; [+2]
        23 LOADB                            R1 0 +1
        24 LOADB                            R1 1
        25 RETURN                           R1 1
 
 PROTO_10:
-        0 GETTABLEKS                       R3 R1 K0 ["Uri"]
-        2 GETTABLEKS                       R2 R3 K1 ["DataModel"]
+        0 GETTABLEKS                       R2 R1 K0 ["Uri"]
+        2 GETTABLEKS                       R2 R2 K1 ["DataModel"]
         4 JUMPIFEQKS                       R2 K2 ["Standalone"] ; [+15]
-        6 GETTABLEKS                       R3 R1 K0 ["Uri"]
-        8 GETTABLEKS                       R2 R3 K1 ["DataModel"]
+        6 GETTABLEKS                       R2 R1 K0 ["Uri"]
+        8 GETTABLEKS                       R2 R2 K1 ["DataModel"]
        10 JUMPIFEQKS                       R2 K3 ["Edit"] ; [+9]
        12 GETUPVAL                         R2 0
        13 GETUPVAL                         R3 1
@@ -177,8 +177,8 @@ PROTO_10:
        17 JUMPIFNOT                        R2 ; [+2]
        18 LOADNIL                          R3
        19 RETURN                           R3 1
-       20 GETUPVAL                         R3 2
-       21 GETTABLEKS                       R2 R3 K4 ["getItemForAction"]
+       20 GETUPVAL                         R2 2
+       21 GETTABLEKS                       R2 R2 K4 ["getItemForAction"]
        23 GETUPVAL                         R3 3
        24 MOVE                             R4 R1
        25 CALL                             R2 2 -1
@@ -192,17 +192,17 @@ PROTO_11:
         4 GETUPVAL                         R4 0
         5 GETTABLE                         R3 R4 R0
         6 JUMPIF                           R3 ; [+29]
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K0 ["wrap"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K0 ["wrap"]
        10 DUPTABLE                         R4 K6 [{"DataModel", "PluginType", "PluginId", "ItemId", "Category"}]
-       11 GETTABLEKS                       R6 R2 K7 ["Uri"]
-       13 GETTABLEKS                       R5 R6 K1 ["DataModel"]
+       11 GETTABLEKS                       R5 R2 K7 ["Uri"]
+       13 GETTABLEKS                       R5 R5 K1 ["DataModel"]
        15 SETTABLEKS                       R5 R4 K1 ["DataModel"]
-       17 GETTABLEKS                       R6 R2 K7 ["Uri"]
-       19 GETTABLEKS                       R5 R6 K2 ["PluginType"]
+       17 GETTABLEKS                       R5 R2 K7 ["Uri"]
+       19 GETTABLEKS                       R5 R5 K2 ["PluginType"]
        21 SETTABLEKS                       R5 R4 K2 ["PluginType"]
-       23 GETTABLEKS                       R6 R2 K7 ["Uri"]
-       25 GETTABLEKS                       R5 R6 K3 ["PluginId"]
+       23 GETTABLEKS                       R5 R2 K7 ["Uri"]
+       25 GETTABLEKS                       R5 R5 K3 ["PluginId"]
        27 SETTABLEKS                       R5 R4 K3 ["PluginId"]
        29 LOADK                            R5 K8 ["Toolbar"]
        30 SETTABLEKS                       R5 R4 K4 ["ItemId"]
@@ -219,8 +219,8 @@ PROTO_11:
        43 CAPTURE                          UPVAL U5
        44 CALL                             R5 2 1
        45 SETTABLEKS                       R5 R4 K10 ["Children"]
-       47 GETTABLEN                        R6 R1 1
-       48 GETTABLEKS                       R5 R6 K11 ["Icon"]
+       47 GETTABLEN                        R5 R1 1
+       48 GETTABLEKS                       R5 R5 K11 ["Icon"]
        50 SETTABLEKS                       R5 R4 K11 ["Icon"]
        52 GETTABLEKS                       R5 R3 K4 ["ItemId"]
        54 SETTABLEKS                       R5 R4 K12 ["Title"]
@@ -235,8 +235,8 @@ PROTO_11:
        68 NAMECALL                         R5 R5 K21 ["getText"]
        70 CALL                             R5 4 1
        71 SETTABLEKS                       R5 R4 K13 ["Description"]
-       73 GETUPVAL                         R6 4
-       74 GETTABLEKS                       R5 R6 K22 ["isActionGroupPlacedInTab"]
+       73 GETUPVAL                         R5 4
+       74 GETTABLEKS                       R5 R5 K22 ["isActionGroupPlacedInTab"]
        76 GETUPVAL                         R6 5
        77 MOVE                             R7 R1
        78 CALL                             R5 2 1
@@ -249,19 +249,19 @@ PROTO_12:
         1 JUMPIFEQKS                       R1 K0 ["All"] ; [+13]
         3 GETUPVAL                         R1 0
         4 JUMPIFEQKS                       R1 K1 ["Edit"] ; [+10]
-        6 GETTABLEKS                       R2 R0 K2 ["Uri"]
-        8 GETTABLEKS                       R1 R2 K3 ["DataModel"]
+        6 GETTABLEKS                       R1 R0 K2 ["Uri"]
+        8 GETTABLEKS                       R1 R1 K3 ["DataModel"]
        10 GETUPVAL                         R2 0
        11 JUMPIFEQ                         R1 R2 ; [+3]
        13 LOADB                            R1 0
        14 RETURN                           R1 1
        15 LOADB                            R1 0
-       16 GETTABLEKS                       R3 R0 K2 ["Uri"]
-       18 GETTABLEKS                       R2 R3 K4 ["PluginType"]
+       16 GETTABLEKS                       R2 R0 K2 ["Uri"]
+       18 GETTABLEKS                       R2 R2 K4 ["PluginType"]
        20 JUMPIFEQKS                       R2 K5 ["Cloud"] ; [+14]
        22 LOADB                            R1 0
-       23 GETTABLEKS                       R3 R0 K2 ["Uri"]
-       25 GETTABLEKS                       R2 R3 K4 ["PluginType"]
+       23 GETTABLEKS                       R2 R0 K2 ["Uri"]
+       25 GETTABLEKS                       R2 R2 K4 ["PluginType"]
        27 JUMPIFEQKS                       R2 K6 ["Local"] ; [+7]
        29 GETTABLEKS                       R2 R0 K7 ["Text"]
        31 JUMPIFNOTEQKS                    R2 K8 [""] ; [+2]
@@ -270,8 +270,8 @@ PROTO_12:
        35 RETURN                           R1 1
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getItemForAction"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getItemForAction"]
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R1 2 -1
@@ -282,10 +282,10 @@ PROTO_14:
         2 JUMPIFNOTEQKNIL                  R2 ; [+20]
         4 GETTABLEKS                       R2 R1 K0 ["Title"]
         6 JUMPIFNOTEQKNIL                  R2 ; [+14]
-        8 GETTABLEKS                       R4 R0 K1 ["Uri"]
-       10 GETTABLEKS                       R3 R4 K2 ["PluginId"]
-       12 GETTABLEKS                       R5 R1 K1 ["Uri"]
-       14 GETTABLEKS                       R4 R5 K2 ["PluginId"]
+        8 GETTABLEKS                       R3 R0 K1 ["Uri"]
+       10 GETTABLEKS                       R3 R3 K2 ["PluginId"]
+       12 GETTABLEKS                       R4 R1 K1 ["Uri"]
+       14 GETTABLEKS                       R4 R4 K2 ["PluginId"]
        16 JUMPIFLT                         R3 R4 ; [+2]
        18 LOADB                            R2 0 +1
        19 LOADB                            R2 1
@@ -398,18 +398,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["StudioFoundation"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["StudioFoundation"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K10 ["Util"]
-       23 GETTABLEKS                       R3 R4 K11 ["StudioUri"]
+       21 GETTABLEKS                       R3 R2 K10 ["Util"]
+       23 GETTABLEKS                       R3 R3 K11 ["StudioUri"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K8 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K12 ["Dash"]
+       27 GETTABLEKS                       R5 R0 K8 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K12 ["Dash"]
        31 CALL                             R4 1 1
        32 GETTABLEKS                       R5 R4 K13 ["append"]
        34 GETTABLEKS                       R6 R4 K14 ["collect"]

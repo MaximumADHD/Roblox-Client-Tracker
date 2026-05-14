@@ -18,22 +18,22 @@ PROTO_0:
        23 NAMECALL                         R5 R2 K9 ["worldToViewportPoint"]
        25 CALL                             R5 2 2
        26 JUMPIFNOT                        R6 ; [+69]
-       27 GETUPVAL                         R8 1
-       28 GETTABLEKS                       R7 R8 K10 ["createElement"]
-       30 GETUPVAL                         R9 1
-       31 GETTABLEKS                       R8 R9 K11 ["Portal"]
+       27 GETUPVAL                         R7 1
+       28 GETTABLEKS                       R7 R7 K10 ["createElement"]
+       30 GETUPVAL                         R8 1
+       31 GETTABLEKS                       R8 R8 K11 ["Portal"]
        33 DUPTABLE                         R9 K13 [{"target"}]
        34 NAMECALL                         R10 R2 K14 ["getGuiParent"]
        36 CALL                             R10 1 1
        37 SETTABLEKS                       R10 R9 K12 ["target"]
        39 DUPTABLE                         R10 K16 [{"PivotHoverHighlight"}]
-       40 GETUPVAL                         R12 1
-       41 GETTABLEKS                       R11 R12 K10 ["createElement"]
+       40 GETUPVAL                         R11 1
+       41 GETTABLEKS                       R11 R11 K10 ["createElement"]
        43 LOADK                            R12 K17 ["ScreenGui"]
        44 NEWTABLE                         R13 0 0
        46 DUPTABLE                         R14 K19 [{"PivotHoverImage"}]
-       47 GETUPVAL                         R16 1
-       48 GETTABLEKS                       R15 R16 K10 ["createElement"]
+       47 GETUPVAL                         R15 1
+       48 GETTABLEKS                       R15 R15 K10 ["createElement"]
        50 LOADK                            R16 K20 ["ImageLabel"]
        51 DUPTABLE                         R17 K26 [{"Image", "ImageColor3", "Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
        52 SETTABLEKS                       R3 R17 K21 ["Image"]
@@ -72,18 +72,18 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Utility"]
-       22 GETTABLEKS                       R4 R5 K8 ["Colors"]
+       20 GETTABLEKS                       R4 R0 K7 ["Utility"]
+       22 GETTABLEKS                       R4 R4 K8 ["Colors"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R2 K9 ["Component"]
        27 LOADK                            R6 K10 ["PivotRing"]

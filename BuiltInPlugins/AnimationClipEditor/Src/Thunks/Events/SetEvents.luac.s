@@ -2,8 +2,8 @@ PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R1 K1 ["AnimationData"]
-        5 GETTABLEKS                       R4 R1 K2 ["Status"]
-        7 GETTABLEKS                       R3 R4 K3 ["EditorMode"]
+        5 GETTABLEKS                       R3 R1 K2 ["Status"]
+        7 GETTABLEKS                       R3 R3 K3 ["EditorMode"]
         9 JUMPIF                           R2 ; [+1]
        10 RETURN                           R0 0
        11 GETUPVAL                         R4 0
@@ -16,11 +16,11 @@ PROTO_0:
        19 CALL                             R7 1 -1
        20 NAMECALL                         R5 R0 K5 ["dispatch"]
        22 CALL                             R5 -1 0
-       23 GETTABLEKS                       R6 R2 K4 ["Events"]
-       25 GETTABLEKS                       R5 R6 K6 ["Data"]
+       23 GETTABLEKS                       R5 R2 K4 ["Events"]
+       25 GETTABLEKS                       R5 R5 K6 ["Data"]
        27 GETIMPORT                        R6 K8 [pairs]
-       29 GETUPVAL                         R9 1
-       30 GETTABLEKS                       R7 R9 K6 ["Data"]
+       29 GETUPVAL                         R7 1
+       30 GETTABLEKS                       R7 R7 K6 ["Data"]
        32 CALL                             R6 1 3
        33 FORGPREP_NEXT                    R6
        34 GETIMPORT                        R11 K8 [pairs]
@@ -39,8 +39,8 @@ PROTO_0:
        50 MOVE                             R21 R3
        51 GETTABLEKS                       R23 R4 K10 ["Metadata"]
        53 JUMPIFNOT                        R23 ; [+5]
-       54 GETTABLEKS                       R23 R4 K10 ["Metadata"]
-       56 GETTABLEKS                       R22 R23 K11 ["Guid"]
+       54 GETTABLEKS                       R22 R4 K10 ["Metadata"]
+       56 GETTABLEKS                       R22 R22 K11 ["Guid"]
        58 JUMP                             ; [+1]
        59 LOADNIL                          R22
        60 NAMECALL                         R16 R16 K12 ["report"]
@@ -64,14 +64,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["deepCopy"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["deepCopy"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Thunks"]
-       22 GETTABLEKS                       R3 R4 K10 ["UpdateAnimationData"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Thunks"]
+       22 GETTABLEKS                       R3 R3 K10 ["UpdateAnimationData"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K11 [PROTO_1]
        26 CAPTURE                          VAL R1

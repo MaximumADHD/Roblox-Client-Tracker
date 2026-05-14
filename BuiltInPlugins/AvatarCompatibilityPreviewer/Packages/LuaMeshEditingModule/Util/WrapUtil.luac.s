@@ -39,8 +39,8 @@ PROTO_2:
        10 GETIMPORT                        R5 K3 [print]
        12 MOVE                             R6 R4
        13 CALL                             R5 1 0
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K4 ["scaleVertices"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K4 ["scaleVertices"]
        17 MOVE                             R6 R1
        18 MOVE                             R7 R2
        19 CALL                             R5 2 -1
@@ -71,8 +71,8 @@ PROTO_4:
        15 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getScaleFactor"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getScaleFactor"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 GETTABLEKS                       R3 R0 K1 ["CageOrigin"]
@@ -94,8 +94,8 @@ PROTO_5:
        26 RETURN                           R4 1
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K1 ["getScaleFactor"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["getScaleFactor"]
         3 MOVE                             R4 R0
         4 CALL                             R3 1 1
         5 DIVRK                            R2 R0 K3 ["table"]

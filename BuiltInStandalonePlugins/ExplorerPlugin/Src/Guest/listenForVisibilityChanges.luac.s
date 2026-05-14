@@ -69,14 +69,14 @@ PROTO_4:
        38 GETUPVAL                         R6 1
        39 CALL                             R6 0 1
        40 JUMPIFNOT                        R6 ; [+8]
-       41 GETUPVAL                         R6 2
-       42 GETTABLEKS                       R5 R6 K10 ["ServiceVisibilityChanged"]
+       41 GETUPVAL                         R5 2
+       42 GETTABLEKS                       R5 R5 K10 ["ServiceVisibilityChanged"]
        44 MOVE                             R7 R4
        45 NAMECALL                         R5 R5 K6 ["Connect"]
        47 CALL                             R5 2 1
        48 JUMP                             ; [+7]
-       49 GETUPVAL                         R6 2
-       50 GETTABLEKS                       R5 R6 K11 ["Changed"]
+       49 GETUPVAL                         R5 2
+       50 GETTABLEKS                       R5 R5 K11 ["Changed"]
        52 MOVE                             R7 R4
        53 NAMECALL                         R5 R5 K6 ["Connect"]
        55 CALL                             R5 2 1
@@ -92,17 +92,17 @@ MAIN:
         3 LOADK                            R2 K2 ["ExplorerPlugin"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [settings]
-        9 CALL                             R2 0 1
-       10 GETTABLEKS                       R1 R2 K6 ["Studio"]
+        7 GETIMPORT                        R1 K5 [settings]
+        9 CALL                             R1 0 1
+       10 GETTABLEKS                       R1 R1 K6 ["Studio"]
        12 GETIMPORT                        R2 K8 [game]
        14 LOADK                            R4 K9 ["ServiceVisibilityService"]
        15 NAMECALL                         R2 R2 K10 ["GetService"]
        17 CALL                             R2 2 1
        18 GETIMPORT                        R3 K12 [require]
-       20 GETTABLEKS                       R6 R0 K13 ["Src"]
-       22 GETTABLEKS                       R5 R6 K14 ["Flags"]
-       24 GETTABLEKS                       R4 R5 K15 ["getFFlagServiceVisibilityServiceLuauSignal"]
+       20 GETTABLEKS                       R4 R0 K13 ["Src"]
+       22 GETTABLEKS                       R4 R4 K14 ["Flags"]
+       24 GETTABLEKS                       R4 R4 K15 ["getFFlagServiceVisibilityServiceLuauSignal"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K16 [PROTO_4]
        28 CAPTURE                          VAL R1

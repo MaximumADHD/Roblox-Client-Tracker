@@ -14,8 +14,8 @@ PROTO_1:
         8 ORK                              R4 R5 K3 [0]
         9 GETTABLEKS                       R5 R1 K5 ["DeviceSelected"]
        11 GETTABLEKS                       R6 R1 K6 ["Devices"]
-       13 GETUPVAL                         R8 0
-       14 GETTABLEKS                       R7 R8 K7 ["createElement"]
+       13 GETUPVAL                         R7 0
+       14 GETTABLEKS                       R7 R7 K7 ["createElement"]
        16 GETUPVAL                         R8 1
        17 DUPTABLE                         R9 K13 [{"Title", "LayoutOrder", "Boxes", "EntryClicked", "AbsoluteMaxHeight", "UseGridLayout"}]
        18 LOADK                            R12 K14 ["PageTitle"]
@@ -80,8 +80,8 @@ PROTO_1:
       108 NEWCLOSURE                       R10 P0
       109 CAPTURE                          VAL R5
       110 SETTABLEKS                       R10 R9 K10 ["EntryClicked"]
-      112 GETTABLEKS                       R11 R3 K24 ["checkboxset"]
-      114 GETTABLEKS                       R10 R11 K25 ["maxHeight"]
+      112 GETTABLEKS                       R10 R3 K24 ["checkboxset"]
+      114 GETTABLEKS                       R10 R10 K25 ["maxHeight"]
       116 SETTABLEKS                       R10 R9 K11 ["AbsoluteMaxHeight"]
       118 LOADB                            R10 1
       119 SETTABLEKS                       R10 R9 K12 ["UseGridLayout"]
@@ -90,29 +90,29 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
        27 GETIMPORT                        R5 K4 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Components"]
-       33 GETTABLEKS                       R6 R7 K12 ["CheckBoxSet"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Components"]
+       33 GETTABLEKS                       R6 R6 K12 ["CheckBoxSet"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K4 [require]
-       38 GETTABLEKS                       R9 R0 K10 ["Src"]
-       40 GETTABLEKS                       R8 R9 K11 ["Components"]
-       42 GETTABLEKS                       R7 R8 K13 ["ListDialog"]
+       38 GETTABLEKS                       R7 R0 K10 ["Src"]
+       40 GETTABLEKS                       R7 R7 K11 ["Components"]
+       42 GETTABLEKS                       R7 R7 K13 ["ListDialog"]
        44 CALL                             R6 1 1
        45 GETTABLEKS                       R7 R1 K14 ["PureComponent"]
        47 LOADK                            R9 K15 ["PlatformSelect"]

@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["uuid"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["uuid"]
         3 JUMPIFNOTEQKNIL                  R1 ; [+2]
         5 RETURN                           R0 1
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["uuid"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K0 ["uuid"]
         9 GETTABLE                         R1 R0 R2
        10 JUMPIFNOTEQKNIL                  R1 ; [+2]
        12 RETURN                           R0 1
@@ -37,8 +37,8 @@ PROTO_1:
         6 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useCallback"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          UPVAL U1
@@ -56,18 +56,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["updatePreview"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["updatePreview"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Flags"]
-       29 GETTABLEKS                       R4 R5 K12 ["getFFlagDebugTextureGeneratorLogging"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K12 ["getFFlagDebugTextureGeneratorLogging"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K13 [PROTO_2]
        33 CAPTURE                          VAL R1

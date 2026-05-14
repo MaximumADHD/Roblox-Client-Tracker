@@ -1,38 +1,38 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnOpenConvertToPackagePlugin"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnOpenConvertToPackagePlugin"]
         3 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
-       10 GETIMPORT                        R2 K3 [script]
-       12 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       14 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       10 GETIMPORT                        R0 K3 [script]
+       12 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       14 GETTABLEKS                       R0 R0 K4 ["Parent"]
        16 GETIMPORT                        R1 K1 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K7 ["Util"]
-       22 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+       18 GETTABLEKS                       R2 R0 K6 ["Src"]
+       20 GETTABLEKS                       R2 R2 K7 ["Util"]
+       22 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        24 CALL                             R1 1 1
        25 GETTABLEKS                       R2 R1 K9 ["runningUnderCli"]
        27 CALL                             R2 0 1
        28 JUMPIFNOT                        R2 ; [+1]
        29 RETURN                           R0 0
        30 GETIMPORT                        R2 K1 [require]
-       32 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       34 GETTABLEKS                       R3 R4 K11 ["PluginLoader"]
+       32 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       34 GETTABLEKS                       R3 R3 K11 ["PluginLoader"]
        36 CALL                             R2 1 1
        37 GETTABLEKS                       R3 R2 K12 ["PluginLoaderBuilder"]
-       39 GETTABLEKS                       R6 R0 K6 ["Src"]
-       41 GETTABLEKS                       R5 R6 K13 ["Resources"]
-       43 GETTABLEKS                       R4 R5 K14 ["SourceStrings"]
-       45 GETTABLEKS                       R7 R0 K6 ["Src"]
-       47 GETTABLEKS                       R6 R7 K13 ["Resources"]
-       49 GETTABLEKS                       R5 R6 K15 ["LocalizedStrings"]
+       39 GETTABLEKS                       R4 R0 K6 ["Src"]
+       41 GETTABLEKS                       R4 R4 K13 ["Resources"]
+       43 GETTABLEKS                       R4 R4 K14 ["SourceStrings"]
+       45 GETTABLEKS                       R5 R0 K6 ["Src"]
+       47 GETTABLEKS                       R5 R5 K13 ["Resources"]
+       49 GETTABLEKS                       R5 R5 K15 ["LocalizedStrings"]
        51 GETIMPORT                        R7 K18 [game]
        53 LOADK                            R9 K19 ["PackageUIService"]
        54 NAMECALL                         R7 R7 K20 ["GetService"]
@@ -66,9 +66,9 @@ MAIN:
        97 JUMPIF                           R9 ; [+1]
        98 RETURN                           R0 0
        99 GETIMPORT                        R10 K1 [require]
-      101 GETIMPORT                        R13 K3 [script]
-      103 GETTABLEKS                       R12 R13 K4 ["Parent"]
-      105 GETTABLEKS                       R11 R12 K37 ["main"]
+      101 GETIMPORT                        R11 K3 [script]
+      103 GETTABLEKS                       R11 R11 K4 ["Parent"]
+      105 GETTABLEKS                       R11 R11 K37 ["main"]
       107 CALL                             R10 1 1
       108 MOVE                             R11 R10
       109 GETIMPORT                        R12 K30 [plugin]

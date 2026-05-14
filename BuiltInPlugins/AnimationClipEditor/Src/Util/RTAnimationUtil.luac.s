@@ -58,9 +58,9 @@ PROTO_4:
        15 GETTABLEKS                       R2 R0 K0 ["trackerNode"]
        17 SETTABLEKS                       R2 R1 K6 ["Parent"]
        19 GETTABLEKS                       R1 R0 K1 ["videoDeviceInput"]
-       21 GETIMPORT                        R4 K8 [Enum]
-       23 GETTABLEKS                       R3 R4 K9 ["VideoDeviceCaptureQuality"]
-       25 GETTABLEKS                       R2 R3 K10 ["Low"]
+       21 GETIMPORT                        R2 K8 [Enum]
+       23 GETTABLEKS                       R2 R2 K9 ["VideoDeviceCaptureQuality"]
+       25 GETTABLEKS                       R2 R2 K10 ["Low"]
        27 SETTABLEKS                       R2 R1 K11 ["CaptureQuality"]
        29 RETURN                           R0 0
 
@@ -125,8 +125,8 @@ PROTO_8:
 PROTO_9:
         0 GETTABLEKS                       R2 R0 K0 ["trackerNode"]
         2 JUMPIFNOT                        R2 ; [+5]
-        3 GETTABLEKS                       R2 R0 K0 ["trackerNode"]
-        5 GETTABLEKS                       R1 R2 K1 ["Active"]
+        3 GETTABLEKS                       R1 R0 K0 ["trackerNode"]
+        5 GETTABLEKS                       R1 R1 K1 ["Active"]
         7 RETURN                           R1 1
         8 LOADB                            R1 0
         9 RETURN                           R1 1

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETUPVAL                         R4 2
@@ -24,8 +24,8 @@ PROTO_0:
        26 GETUPVAL                         R5 1
        27 GETTABLEKS                       R7 R1 K3 ["Metadata"]
        29 JUMPIFNOT                        R7 ; [+5]
-       30 GETTABLEKS                       R7 R1 K3 ["Metadata"]
-       32 GETTABLEKS                       R6 R7 K4 ["Guid"]
+       30 GETTABLEKS                       R6 R1 K3 ["Metadata"]
+       32 GETTABLEKS                       R6 R6 K4 ["Guid"]
        34 JUMP                             ; [+1]
        35 LOADNIL                          R6
        36 NAMECALL                         R2 R2 K5 ["report"]
@@ -48,21 +48,21 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetIsDirty"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [require]
        18 GETTABLEKS                       R4 R1 K9 ["SetIsLegacyAnimSaves"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K4 ["Src"]
-       23 GETTABLEKS                       R4 R5 K10 ["Thunks"]
+       21 GETTABLEKS                       R4 R0 K4 ["Src"]
+       23 GETTABLEKS                       R4 R4 K10 ["Thunks"]
        25 GETIMPORT                        R5 K7 [require]
        27 GETTABLEKS                       R6 R4 K11 ["LoadAnimationData"]
        29 CALL                             R5 1 1
-       30 GETTABLEKS                       R7 R0 K4 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Util"]
+       30 GETTABLEKS                       R6 R0 K4 ["Src"]
+       32 GETTABLEKS                       R6 R6 K12 ["Util"]
        34 GETIMPORT                        R7 K7 [require]
        36 GETTABLEKS                       R8 R6 K13 ["AnimationData"]
        38 CALL                             R7 1 1

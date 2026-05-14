@@ -4,18 +4,18 @@ PROTO_0:
         3 SETTABLEKS                       R1 R0 K0 ["_mockData"]
         5 LOADK                            R1 K1 ["{}"]
         6 SETTABLEKS                       R1 R0 K2 ["InstalledPluginData"]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K3 ["new"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K3 ["new"]
        11 CALL                             R1 0 1
        12 SETTABLEKS                       R1 R0 K4 ["OnPluginInstalledFromWeb"]
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K3 ["new"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K3 ["new"]
        17 CALL                             R1 0 1
        18 SETTABLEKS                       R1 R0 K5 ["OnPluginInstalledFromToolbox"]
        20 LOADN                            R1 0
        21 SETTABLEKS                       R1 R0 K6 ["_userId"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R1 R2 K3 ["new"]
+       23 GETUPVAL                         R1 0
+       24 GETTABLEKS                       R1 R1 K3 ["new"]
        26 CALL                             R1 0 1
        27 SETTABLEKS                       R1 R0 K7 ["_installedPluginDataChanged"]
        29 GETUPVAL                         R3 1
@@ -101,9 +101,9 @@ PROTO_6:
        11 JUMPIF                           R4 ; [+2]
        12 LOADB                            R4 0
        13 RETURN                           R4 1
-       14 GETTABLEKS                       R7 R0 K2 ["_mockData"]
-       16 GETTABLE                         R6 R7 R3
-       17 GETTABLEKS                       R5 R6 K3 ["AssetVersion"]
+       14 GETTABLEKS                       R6 R0 K2 ["_mockData"]
+       16 GETTABLE                         R5 R6 R3
+       17 GETTABLEKS                       R5 R5 K3 ["AssetVersion"]
        19 JUMPIFEQ                         R5 R2 ; [+2]
        21 LOADB                            R4 0 +1
        22 LOADB                            R4 1
@@ -117,14 +117,14 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Signal"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Signal"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 16 0
        20 SETTABLEKS                       R2 R2 K7 ["__index"]

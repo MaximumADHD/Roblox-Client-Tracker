@@ -14,13 +14,13 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R2 K2 [NumberRange.new]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K3 ["toDecimal"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K3 ["toDecimal"]
         5 GETTABLEKS                       R4 R0 K4 ["Min"]
         7 MOVE                             R5 R1
         8 CALL                             R3 2 1
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K3 ["toDecimal"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["toDecimal"]
        12 GETTABLEKS                       R5 R0 K5 ["Max"]
        14 MOVE                             R6 R1
        15 CALL                             R4 2 -1

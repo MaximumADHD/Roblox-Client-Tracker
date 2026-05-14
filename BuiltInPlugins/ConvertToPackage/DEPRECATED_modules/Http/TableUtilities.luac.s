@@ -90,8 +90,8 @@ PROTO_4:
        16 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["TableDifference"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["TableDifference"]
         3 NEWTABLE                         R5 0 0
         5 LOADN                            R8 1
         6 LENGTH                           R6 R0
@@ -173,8 +173,8 @@ PROTO_7:
         5 CALL                             R2 1 1
         6 JUMPIFNOTEQKS                    R2 K3 ["table"] ; [+75]
         8 LOADK                            R2 K0 [""]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K4 ["CheckListConsistency"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K4 ["CheckListConsistency"]
        12 MOVE                             R4 R0
        13 CALL                             R3 1 1
        14 JUMPIF                           R3 ; [+3]
@@ -202,8 +202,8 @@ PROTO_7:
        40 CALL                             R15 1 1
        41 MOVE                             R11 R15
        42 LOADK                            R12 K13 [" = "]
-       43 GETUPVAL                         R16 0
-       44 GETTABLEKS                       R15 R16 K14 ["RecursiveToString"]
+       43 GETUPVAL                         R15 0
+       44 GETTABLEKS                       R15 R15 K14 ["RecursiveToString"]
        46 MOVE                             R16 R7
        47 LOADK                            R18 K10 ["  "]
        48 MOVE                             R19 R1
@@ -220,8 +220,8 @@ PROTO_7:
        61 MOVE                             R8 R2
        62 LOADK                            R9 K10 ["  "]
        63 MOVE                             R10 R1
-       64 GETUPVAL                         R14 0
-       65 GETTABLEKS                       R13 R14 K14 ["RecursiveToString"]
+       64 GETUPVAL                         R13 0
+       65 GETTABLEKS                       R13 R13 K14 ["RecursiveToString"]
        67 MOVE                             R14 R7
        68 LOADK                            R16 K10 ["  "]
        69 MOVE                             R17 R1

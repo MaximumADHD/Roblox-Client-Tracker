@@ -8,12 +8,12 @@ PROTO_0:
         9 RETURN                           R1 1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["Attachment0"]
-        2 GETTABLEKS                       R1 R2 K1 ["WorldPosition"]
-        4 GETTABLEKS                       R3 R0 K2 ["Attachment1"]
-        6 GETTABLEKS                       R2 R3 K1 ["WorldPosition"]
-        8 SUB                              R4 R2 R1
-        9 GETTABLEKS                       R3 R4 K3 ["Magnitude"]
+        0 GETTABLEKS                       R1 R0 K0 ["Attachment0"]
+        2 GETTABLEKS                       R1 R1 K1 ["WorldPosition"]
+        4 GETTABLEKS                       R2 R0 K2 ["Attachment1"]
+        6 GETTABLEKS                       R2 R2 K1 ["WorldPosition"]
+        8 SUB                              R3 R2 R1
+        9 GETTABLEKS                       R3 R3 K3 ["Magnitude"]
        11 RETURN                           R3 1
 
 PROTO_2:
@@ -43,8 +43,8 @@ PROTO_3:
        13 SETTABLEKS                       R1 R0 K3 ["_parts"]
        15 NEWTABLE                         R4 0 0
        17 SETTABLEKS                       R4 R0 K4 ["_rootPartSet"]
-       19 GETIMPORT                        R5 K6 [workspace]
-       21 GETTABLEKS                       R4 R5 K7 ["Terrain"]
+       19 GETIMPORT                        R4 K6 [workspace]
+       21 GETTABLEKS                       R4 R4 K7 ["Terrain"]
        23 NEWTABLE                         R5 0 0
        25 NEWTABLE                         R6 0 0
        27 NEWTABLE                         R7 0 0
@@ -67,8 +67,8 @@ PROTO_3:
        53 NAMECALL                         R22 R21 K10 ["IsA"]
        55 CALL                             R22 2 1
        56 JUMPIFNOT                        R22 ; [+93]
-       57 GETUPVAL                         R23 0
-       58 GETTABLEKS                       R22 R23 K11 ["getConstraintCounterpart"]
+       57 GETUPVAL                         R22 0
+       58 GETTABLEKS                       R22 R22 K11 ["getConstraintCounterpart"]
        60 MOVE                             R23 R21
        61 MOVE                             R24 R16
        62 CALL                             R22 2 1
@@ -98,12 +98,12 @@ PROTO_3:
        89 LOADB                            R23 1
        90 JUMPIFNOT                        R23 ; [+125]
        91 DUPTABLE                         R23 K17 [{"Span", "Length"}]
-       92 GETTABLEKS                       R26 R21 K18 ["Attachment0"]
-       94 GETTABLEKS                       R25 R26 K19 ["WorldPosition"]
-       96 GETTABLEKS                       R27 R21 K20 ["Attachment1"]
-       98 GETTABLEKS                       R26 R27 K19 ["WorldPosition"]
-      100 SUB                              R27 R26 R25
-      101 GETTABLEKS                       R24 R27 K21 ["Magnitude"]
+       92 GETTABLEKS                       R25 R21 K18 ["Attachment0"]
+       94 GETTABLEKS                       R25 R25 K19 ["WorldPosition"]
+       96 GETTABLEKS                       R26 R21 K20 ["Attachment1"]
+       98 GETTABLEKS                       R26 R26 K19 ["WorldPosition"]
+      100 SUB                              R24 R26 R25
+      101 GETTABLEKS                       R24 R24 K21 ["Magnitude"]
       103 SETTABLEKS                       R24 R23 K15 ["Span"]
       105 GETTABLEKS                       R24 R21 K16 ["Length"]
       107 SETTABLEKS                       R24 R23 K16 ["Length"]
@@ -127,12 +127,12 @@ PROTO_3:
       128 LOADB                            R23 1
       129 JUMPIFNOT                        R23 ; [+86]
       130 DUPTABLE                         R23 K24 [{"Span", "FreeLength"}]
-      131 GETTABLEKS                       R26 R21 K18 ["Attachment0"]
-      133 GETTABLEKS                       R25 R26 K19 ["WorldPosition"]
-      135 GETTABLEKS                       R27 R21 K20 ["Attachment1"]
-      137 GETTABLEKS                       R26 R27 K19 ["WorldPosition"]
-      139 SUB                              R27 R26 R25
-      140 GETTABLEKS                       R24 R27 K21 ["Magnitude"]
+      131 GETTABLEKS                       R25 R21 K18 ["Attachment0"]
+      133 GETTABLEKS                       R25 R25 K19 ["WorldPosition"]
+      135 GETTABLEKS                       R26 R21 K20 ["Attachment1"]
+      137 GETTABLEKS                       R26 R26 K19 ["WorldPosition"]
+      139 SUB                              R24 R26 R25
+      140 GETTABLEKS                       R24 R24 K21 ["Magnitude"]
       142 SETTABLEKS                       R24 R23 K15 ["Span"]
       144 GETTABLEKS                       R24 R21 K23 ["FreeLength"]
       146 SETTABLEKS                       R24 R23 K23 ["FreeLength"]
@@ -142,8 +142,8 @@ PROTO_3:
       151 NAMECALL                         R22 R21 K10 ["IsA"]
       153 CALL                             R22 2 1
       154 JUMPIFNOT                        R22 ; [+32]
-      155 GETUPVAL                         R23 0
-      156 GETTABLEKS                       R22 R23 K26 ["getJointInstanceCounterpart"]
+      155 GETUPVAL                         R22 0
+      156 GETTABLEKS                       R22 R22 K26 ["getJointInstanceCounterpart"]
       158 MOVE                             R23 R21
       159 MOVE                             R24 R16
       160 CALL                             R22 2 1
@@ -172,8 +172,8 @@ PROTO_3:
       188 NAMECALL                         R22 R21 K10 ["IsA"]
       190 CALL                             R22 2 1
       191 JUMPIFNOT                        R22 ; [+10]
-      192 GETUPVAL                         R23 0
-      193 GETTABLEKS                       R22 R23 K34 ["getWeldConstraintCounterpart"]
+      192 GETUPVAL                         R22 0
+      193 GETTABLEKS                       R22 R22 K34 ["getWeldConstraintCounterpart"]
       195 MOVE                             R23 R21
       196 MOVE                             R24 R16
       197 CALL                             R22 2 1
@@ -185,8 +185,8 @@ PROTO_3:
       203 NAMECALL                         R22 R21 K10 ["IsA"]
       205 CALL                             R22 2 1
       206 JUMPIFNOT                        R22 ; [+9]
-      207 GETUPVAL                         R23 0
-      208 GETTABLEKS                       R22 R23 K36 ["getNoCollisionConstraintCounterpart"]
+      207 GETUPVAL                         R22 0
+      208 GETTABLEKS                       R22 R22 K36 ["getNoCollisionConstraintCounterpart"]
       210 MOVE                             R23 R21
       211 MOVE                             R24 R16
       212 CALL                             R22 2 1
@@ -268,8 +268,8 @@ PROTO_7:
         5 RETURN                           R1 -1
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 GETTABLEKS                       R2 R0 K1 ["_parts"]
         5 GETTABLEKS                       R3 R0 K2 ["_partSet"]
         7 GETTABLEKS                       R4 R0 K3 ["_rootPartSet"]
@@ -315,12 +315,12 @@ PROTO_10:
         2 GETTABLEKS                       R2 R0 K2 ["_lengthConstraintsToFixupSet"]
         4 CALL                             R1 1 3
         5 FORGPREP_NEXT                    R1
-        6 GETTABLEKS                       R9 R4 K3 ["Attachment0"]
-        8 GETTABLEKS                       R8 R9 K4 ["WorldPosition"]
-       10 GETTABLEKS                       R10 R4 K5 ["Attachment1"]
-       12 GETTABLEKS                       R9 R10 K4 ["WorldPosition"]
-       14 SUB                              R10 R9 R8
-       15 GETTABLEKS                       R7 R10 K6 ["Magnitude"]
+        6 GETTABLEKS                       R8 R4 K3 ["Attachment0"]
+        8 GETTABLEKS                       R8 R8 K4 ["WorldPosition"]
+       10 GETTABLEKS                       R9 R4 K5 ["Attachment1"]
+       12 GETTABLEKS                       R9 R9 K4 ["WorldPosition"]
+       14 SUB                              R7 R9 R8
+       15 GETTABLEKS                       R7 R7 K6 ["Magnitude"]
        17 GETTABLEKS                       R8 R5 K7 ["Span"]
        19 DIV                              R6 R7 R8
        20 GETTABLEKS                       R8 R5 K8 ["Length"]
@@ -331,12 +331,12 @@ PROTO_10:
        29 GETTABLEKS                       R2 R0 K9 ["_springsToFixupSet"]
        31 CALL                             R1 1 3
        32 FORGPREP_NEXT                    R1
-       33 GETTABLEKS                       R9 R4 K3 ["Attachment0"]
-       35 GETTABLEKS                       R8 R9 K4 ["WorldPosition"]
-       37 GETTABLEKS                       R10 R4 K5 ["Attachment1"]
-       39 GETTABLEKS                       R9 R10 K4 ["WorldPosition"]
-       41 SUB                              R10 R9 R8
-       42 GETTABLEKS                       R7 R10 K6 ["Magnitude"]
+       33 GETTABLEKS                       R8 R4 K3 ["Attachment0"]
+       35 GETTABLEKS                       R8 R8 K4 ["WorldPosition"]
+       37 GETTABLEKS                       R9 R4 K5 ["Attachment1"]
+       39 GETTABLEKS                       R9 R9 K4 ["WorldPosition"]
+       41 SUB                              R7 R9 R8
+       42 GETTABLEKS                       R7 R7 K6 ["Magnitude"]
        44 GETTABLEKS                       R8 R5 K7 ["Span"]
        46 DIV                              R6 R7 R8
        47 GETTABLEKS                       R8 R5 K10 ["FreeLength"]
@@ -420,20 +420,20 @@ MAIN:
         3 LOADK                            R2 K2 ["RunService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R4 R1 K9 ["Utility"]
-       17 GETTABLEKS                       R3 R4 K10 ["getGeometry"]
+       15 GETTABLEKS                       R3 R1 K9 ["Utility"]
+       17 GETTABLEKS                       R3 R3 K10 ["getGeometry"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K8 [require]
-       22 GETTABLEKS                       R5 R1 K9 ["Utility"]
-       24 GETTABLEKS                       R4 R5 K11 ["JointPairs"]
+       22 GETTABLEKS                       R4 R1 K9 ["Utility"]
+       24 GETTABLEKS                       R4 R4 K11 ["JointPairs"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K8 [require]
-       29 GETTABLEKS                       R6 R1 K9 ["Utility"]
-       31 GETTABLEKS                       R5 R6 K12 ["JointUtil"]
+       29 GETTABLEKS                       R5 R1 K9 ["Utility"]
+       31 GETTABLEKS                       R5 R5 K12 ["JointUtil"]
        33 CALL                             R4 1 1
        34 NEWTABLE                         R5 16 0
        36 SETTABLEKS                       R5 R5 K13 ["__index"]

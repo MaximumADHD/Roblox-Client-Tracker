@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["AttributeChunkCountName"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["AttributeChunkCountName"]
         3 NAMECALL                         R2 R1 K1 ["GetAttribute"]
         5 CALL                             R2 2 1
         6 JUMPIF                           R2 ; [+1]
@@ -10,8 +10,8 @@ PROTO_0:
        11 MOVE                             R4 R2
        12 LOADN                            R5 1
        13 FORNPREP                         R4
-       14 GETUPVAL                         R10 0
-       15 GETTABLEKS                       R8 R10 K2 ["AttributeChunkNameBase"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K2 ["AttributeChunkNameBase"]
        17 FASTCALL1                        TOSTRING R6 ; [+3]
        18 MOVE                             R10 R6
        19 GETIMPORT                        R9 K4 [tostring]
@@ -33,8 +33,8 @@ PROTO_0:
        41 RETURN                           R3 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["AttributeChunkCountName"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["AttributeChunkCountName"]
         3 NAMECALL                         R2 R1 K1 ["GetAttribute"]
         5 CALL                             R2 2 1
         6 JUMPIFNOT                        R2 ; [+2]
@@ -45,19 +45,19 @@ PROTO_1:
        12 RETURN                           R3 1
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["AttributeChunkCountName"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["AttributeChunkCountName"]
         3 NAMECALL                         R2 R1 K1 ["GetAttribute"]
         5 CALL                             R2 2 1
         6 JUMPIF                           R2 ; [+1]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K0 ["AttributeChunkCountName"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K0 ["AttributeChunkCountName"]
        11 LOADNIL                          R6
        12 NAMECALL                         R3 R1 K2 ["SetAttribute"]
        14 CALL                             R3 3 0
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K3 ["AttributeInitialIssueCountName"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K3 ["AttributeInitialIssueCountName"]
        18 LOADNIL                          R6
        19 NAMECALL                         R3 R1 K2 ["SetAttribute"]
        21 CALL                             R3 3 0
@@ -65,8 +65,8 @@ PROTO_2:
        23 MOVE                             R3 R2
        24 LOADN                            R4 1
        25 FORNPREP                         R3
-       26 GETUPVAL                         R9 0
-       27 GETTABLEKS                       R7 R9 K4 ["AttributeChunkNameBase"]
+       26 GETUPVAL                         R7 0
+       27 GETTABLEKS                       R7 R7 K4 ["AttributeChunkNameBase"]
        29 FASTCALL1                        TOSTRING R5 ; [+3]
        30 MOVE                             R9 R5
        31 GETIMPORT                        R8 K6 [tostring]
@@ -211,18 +211,18 @@ PROTO_7:
         4 MOVE                             R5 R3
         5 GETIMPORT                        R4 K2 [string.len]
         7 CALL                             R4 1 1
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K3 ["CharacterLimit"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K3 ["CharacterLimit"]
        11 JUMPIFNOTLT                      R5 R4 ; [+41]
        13 LENGTH                           R6 R2
-       14 GETUPVAL                         R8 0
-       15 GETTABLEKS                       R7 R8 K3 ["CharacterLimit"]
+       14 GETUPVAL                         R7 0
+       15 GETTABLEKS                       R7 R7 K3 ["CharacterLimit"]
        17 MUL                              R5 R6 R7
        18 ADDK                             R4 R5 K4 [1]
        19 LENGTH                           R7 R2
        20 ADDK                             R6 R7 K4 [1]
-       21 GETUPVAL                         R8 0
-       22 GETTABLEKS                       R7 R8 K3 ["CharacterLimit"]
+       21 GETUPVAL                         R7 0
+       22 GETTABLEKS                       R7 R7 K3 ["CharacterLimit"]
        24 MUL                              R5 R6 R7
        25 FASTCALL3                        STRING_SUB R3 R4 R5
        27 MOVE                             R9 R3
@@ -269,8 +269,8 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["ScriptBackupTag"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["ScriptBackupTag"]
         4 NAMECALL                         R1 R1 K1 ["GetTagged"]
         6 CALL                             R1 2 1
         7 MOVE                             R2 R1
@@ -282,8 +282,8 @@ PROTO_9:
        14 CALL                             R7 2 0
        15 GETUPVAL                         R7 0
        16 MOVE                             R9 R6
-       17 GETUPVAL                         R11 1
-       18 GETTABLEKS                       R10 R11 K0 ["ScriptBackupTag"]
+       17 GETUPVAL                         R10 1
+       18 GETTABLEKS                       R10 R10 K0 ["ScriptBackupTag"]
        20 NAMECALL                         R7 R7 K3 ["RemoveTag"]
        22 CALL                             R7 3 0
        23 FORGLOOP                         R2 2 ; [-13]
@@ -292,8 +292,8 @@ PROTO_9:
 PROTO_10:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R1
-        2 GETUPVAL                         R6 1
-        3 GETTABLEKS                       R5 R6 K0 ["ScriptBackupTag"]
+        2 GETUPVAL                         R5 1
+        3 GETTABLEKS                       R5 R5 K0 ["ScriptBackupTag"]
         5 NAMECALL                         R2 R2 K1 ["AddTag"]
         7 CALL                             R2 3 0
         8 RETURN                           R0 0
@@ -317,10 +317,10 @@ MAIN:
        22 NAMECALL                         R3 R3 K9 ["FindFirstAncestor"]
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
-       27 GETTABLEKS                       R8 R3 K12 ["Src"]
-       29 GETTABLEKS                       R7 R8 K13 ["Util"]
-       31 GETTABLEKS                       R6 R7 K14 ["ScriptAnalysis"]
-       33 GETTABLEKS                       R5 R6 K15 ["Constants"]
+       27 GETTABLEKS                       R5 R3 K12 ["Src"]
+       29 GETTABLEKS                       R5 R5 K13 ["Util"]
+       31 GETTABLEKS                       R5 R5 K14 ["ScriptAnalysis"]
+       33 GETTABLEKS                       R5 R5 K15 ["Constants"]
        35 CALL                             R4 1 1
        36 NEWTABLE                         R5 16 0
        38 DUPCLOSURE                       R6 K16 [PROTO_0]

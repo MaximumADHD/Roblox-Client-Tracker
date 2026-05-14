@@ -1,8 +1,8 @@
 PROTO_0:
         0 NAMECALL                         R2 R0 K0 ["getState"]
         2 CALL                             R2 1 1
-        3 GETTABLEKS                       R4 R2 K1 ["Settings"]
-        5 GETTABLEKS                       R3 R4 K2 ["Current"]
+        3 GETTABLEKS                       R3 R2 K1 ["Settings"]
+        5 GETTABLEKS                       R3 R3 K2 ["Current"]
         7 GETUPVAL                         R5 0
         8 CALL                             R5 0 1
         9 GETUPVAL                         R6 1
@@ -13,9 +13,9 @@ PROTO_0:
        15 NAMECALL                         R6 R5 K4 ["getAutoTranslationTargetLanguages"]
        17 CALL                             R6 2 1
        18 MOVE                             R4 R6
-       19 GETUPVAL                         R7 2
-       20 GETTABLEKS                       R6 R7 K5 ["Dictionary"]
-       22 GETTABLEKS                       R5 R6 K6 ["join"]
+       19 GETUPVAL                         R5 2
+       20 GETTABLEKS                       R5 R5 K5 ["Dictionary"]
+       22 GETTABLEKS                       R5 R5 K6 ["join"]
        24 MOVE                             R6 R3
        25 DUPTABLE                         R7 K8 [{"AutoTranslationTargetLanguages"}]
        26 SETTABLEKS                       R4 R7 K7 ["AutoTranslationTargetLanguages"]
@@ -38,25 +38,25 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        17 CALL                             R1 1 1
-       18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R6 R0 K7 ["Src"]
-       22 GETTABLEKS                       R5 R6 K8 ["Util"]
-       24 GETTABLEKS                       R4 R5 K9 ["GameSettingsUtilities"]
-       26 CALL                             R3 1 1
-       27 GETTABLEKS                       R2 R3 K10 ["getAutoTranslatedLanguages"]
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Util"]
+       24 GETTABLEKS                       R3 R3 K9 ["GameSettingsUtilities"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R2 R2 K10 ["getAutoTranslatedLanguages"]
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R6 R0 K7 ["Src"]
-       33 GETTABLEKS                       R5 R6 K11 ["Actions"]
-       35 GETTABLEKS                       R4 R5 K12 ["SetCurrentSettings"]
+       31 GETTABLEKS                       R4 R0 K7 ["Src"]
+       33 GETTABLEKS                       R4 R4 K11 ["Actions"]
+       35 GETTABLEKS                       R4 R4 K12 ["SetCurrentSettings"]
        37 CALL                             R3 1 1
        38 DUPCLOSURE                       R4 K13 [PROTO_1]
        39 CAPTURE                          VAL R2

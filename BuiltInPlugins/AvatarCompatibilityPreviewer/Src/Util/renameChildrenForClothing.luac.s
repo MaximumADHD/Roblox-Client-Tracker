@@ -7,8 +7,8 @@ PROTO_0:
         7 CALL                             R6 2 1
         8 JUMPIFNOT                        R6 ; [+10]
         9 GETTABLEKS                       R6 R5 K3 ["Name"]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K4 ["ORIGINAL_INSTANCE_VALUE_NAME"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K4 ["ORIGINAL_INSTANCE_VALUE_NAME"]
        14 JUMPIFNOTEQ                      R6 R7 ; [+4]
        16 NAMECALL                         R6 R5 K5 ["Destroy"]
        18 CALL                             R6 1 0
@@ -27,8 +27,8 @@ PROTO_1:
        10 NAMECALL                         R6 R5 K2 ["IsA"]
        12 CALL                             R6 2 1
        13 JUMPIFNOT                        R6 ; [+79]
-       14 GETUPVAL                         R9 0
-       15 GETTABLEKS                       R8 R9 K4 ["ORIGINAL_INSTANCE_VALUE_NAME"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K4 ["ORIGINAL_INSTANCE_VALUE_NAME"]
        17 NAMECALL                         R6 R5 K5 ["FindFirstChild"]
        19 CALL                             R6 2 1
        20 JUMPIFEQKNIL                     R6 ; [+66]
@@ -54,12 +54,12 @@ PROTO_1:
        46 MOVE                             R9 R5
        47 CALL                             R8 1 0
        48 JUMP                             ; [+44]
-       49 GETUPVAL                         R11 0
-       50 GETTABLEKS                       R10 R11 K10 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+       49 GETUPVAL                         R10 0
+       50 GETTABLEKS                       R10 R10 K10 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
        52 NAMECALL                         R8 R7 K11 ["GetAttribute"]
        54 CALL                             R8 2 1
-       55 GETUPVAL                         R10 4
-       56 GETTABLEKS                       R9 R10 K12 ["getNewInstanceNameWithPrefix"]
+       55 GETUPVAL                         R9 4
+       56 GETTABLEKS                       R9 R9 K12 ["getNewInstanceNameWithPrefix"]
        58 GETTABLEKS                       R10 R5 K13 ["Name"]
        60 MOVE                             R11 R8
        61 CALL                             R9 2 1
@@ -73,8 +73,8 @@ PROTO_1:
        72 NAMECALL                         R14 R13 K2 ["IsA"]
        74 CALL                             R14 2 1
        75 JUMPIFNOT                        R14 ; [+9]
-       76 GETUPVAL                         R15 4
-       77 GETTABLEKS                       R14 R15 K12 ["getNewInstanceNameWithPrefix"]
+       76 GETUPVAL                         R14 4
+       77 GETTABLEKS                       R14 R14 K12 ["getNewInstanceNameWithPrefix"]
        79 GETTABLEKS                       R15 R13 K13 ["Name"]
        81 MOVE                             R16 R8
        82 CALL                             R14 2 1
@@ -96,28 +96,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AssetClassificationUtils"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AssetClassificationUtils"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K10 ["getFFlagAvatarAutosetupOptionsInput"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Flags"]
+       22 GETTABLEKS                       R3 R3 K10 ["getFFlagAvatarAutosetupOptionsInput"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["Util"]
-       31 GETTABLEKS                       R4 R5 K11 ["isAvatar"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["isAvatar"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K7 ["Util"]
-       40 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K7 ["Util"]
+       40 GETTABLEKS                       R5 R5 K12 ["Constants"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R7 R0 K6 ["Src"]
-       47 GETTABLEKS                       R6 R7 K13 ["Types"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K13 ["Types"]
        49 CALL                             R5 1 1
        50 DUPCLOSURE                       R6 K14 [PROTO_0]
        51 CAPTURE                          VAL R4

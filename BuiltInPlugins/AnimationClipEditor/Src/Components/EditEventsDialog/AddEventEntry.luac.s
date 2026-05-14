@@ -1,24 +1,24 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 JUMPIFNOT                        R0 ; [+9]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["Mouse"]
        11 LOADK                            R2 K2 ["PointingHand"]
        12 NAMECALL                         R0 R0 K3 ["__pushCursor"]
        14 CALL                             R0 2 0
        15 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 JUMPIFNOT                        R0 ; [+8]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["Mouse"]
        11 NAMECALL                         R0 R0 K2 ["__popCursor"]
        13 CALL                             R0 1 0
        14 RETURN                           R0 0
@@ -33,16 +33,16 @@ PROTO_2:
         8 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 GETTABLEKS                       R2 R0 K0 ["props"]
         6 GETTABLEKS                       R3 R2 K2 ["Stylizer"]
         8 GETTABLEKS                       R4 R2 K3 ["Size"]
        10 GETTABLEKS                       R5 R2 K4 ["PaddingLeft"]
        12 GETTABLEKS                       R6 R2 K5 ["PaddingRight"]
        14 GETTABLEKS                       R7 R3 K6 ["dialogTheme"]
-       16 GETUPVAL                         R9 0
-       17 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K7 ["createElement"]
        19 LOADK                            R9 K8 ["ImageButton"]
        20 NEWTABLE                         R10 8 0
        22 SETTABLEKS                       R4 R10 K3 ["Size"]
@@ -50,24 +50,24 @@ PROTO_3:
        25 SETTABLEKS                       R11 R10 K9 ["BackgroundTransparency"]
        27 LOADB                            R11 0
        28 SETTABLEKS                       R11 R10 K10 ["AutoButtonColor"]
-       30 GETUPVAL                         R13 0
-       31 GETTABLEKS                       R12 R13 K11 ["Event"]
-       33 GETTABLEKS                       R11 R12 K12 ["Activated"]
+       30 GETUPVAL                         R11 0
+       31 GETTABLEKS                       R11 R11 K11 ["Event"]
+       33 GETTABLEKS                       R11 R11 K12 ["Activated"]
        35 GETTABLEKS                       R12 R2 K13 ["OnAddEvent"]
        37 SETTABLE                         R12 R10 R11
-       38 GETUPVAL                         R13 0
-       39 GETTABLEKS                       R12 R13 K11 ["Event"]
-       41 GETTABLEKS                       R11 R12 K14 ["MouseEnter"]
+       38 GETUPVAL                         R11 0
+       39 GETTABLEKS                       R11 R11 K11 ["Event"]
+       41 GETTABLEKS                       R11 R11 K14 ["MouseEnter"]
        43 GETTABLEKS                       R12 R0 K15 ["mouseEnter"]
        45 SETTABLE                         R12 R10 R11
-       46 GETUPVAL                         R13 0
-       47 GETTABLEKS                       R12 R13 K11 ["Event"]
-       49 GETTABLEKS                       R11 R12 K16 ["MouseLeave"]
+       46 GETUPVAL                         R11 0
+       47 GETTABLEKS                       R11 R11 K11 ["Event"]
+       49 GETTABLEKS                       R11 R11 K16 ["MouseLeave"]
        51 GETTABLEKS                       R12 R0 K17 ["mouseLeave"]
        53 SETTABLE                         R12 R10 R11
        54 DUPTABLE                         R11 K21 [{"Padding", "Label", "AddImage"}]
-       55 GETUPVAL                         R13 0
-       56 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       55 GETUPVAL                         R12 0
+       56 GETTABLEKS                       R12 R12 K7 ["createElement"]
        58 LOADK                            R13 K22 ["UIPadding"]
        59 DUPTABLE                         R14 K25 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
        60 SETTABLEKS                       R5 R14 K4 ["PaddingLeft"]
@@ -84,14 +84,14 @@ PROTO_3:
        76 SETTABLEKS                       R15 R14 K24 ["PaddingBottom"]
        78 CALL                             R12 2 1
        79 SETTABLEKS                       R12 R11 K18 ["Padding"]
-       81 GETUPVAL                         R13 0
-       82 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       81 GETUPVAL                         R12 0
+       82 GETTABLEKS                       R12 R12 K7 ["createElement"]
        84 LOADK                            R13 K29 ["TextLabel"]
        85 DUPTABLE                         R14 K35 [{"Size", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "BackgroundTransparency"}]
        86 GETIMPORT                        R15 K37 [UDim2.new]
        88 LOADN                            R16 1
-       89 GETUPVAL                         R19 1
-       90 GETTABLEKS                       R18 R19 K38 ["TRACKLIST_BUTTON_SIZE"]
+       89 GETUPVAL                         R18 1
+       90 GETTABLEKS                       R18 R18 K38 ["TRACKLIST_BUTTON_SIZE"]
        92 MINUS                            R17 R18
        93 LOADN                            R18 1
        94 LOADN                            R19 0
@@ -114,8 +114,8 @@ PROTO_3:
       122 SETTABLEKS                       R15 R14 K9 ["BackgroundTransparency"]
       124 CALL                             R12 2 1
       125 SETTABLEKS                       R12 R11 K19 ["Label"]
-      127 GETUPVAL                         R13 0
-      128 GETTABLEKS                       R12 R13 K7 ["createElement"]
+      127 GETUPVAL                         R12 0
+      128 GETTABLEKS                       R12 R12 K7 ["createElement"]
       130 LOADK                            R13 K48 ["ImageLabel"]
       131 DUPTABLE                         R14 K53 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "Image", "ImageColor3"}]
       132 GETUPVAL                         R15 2
@@ -158,17 +158,17 @@ MAIN:
        11 NAMECALL                         R1 R1 K6 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
        14 GETIMPORT                        R2 K8 [require]
-       16 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       16 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K10 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K8 [require]
-       23 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       23 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Framework"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K8 [require]
-       30 GETTABLEKS                       R7 R1 K12 ["Src"]
-       32 GETTABLEKS                       R6 R7 K13 ["Util"]
-       34 GETTABLEKS                       R5 R6 K14 ["Constants"]
+       30 GETTABLEKS                       R5 R1 K12 ["Src"]
+       32 GETTABLEKS                       R5 R5 K13 ["Util"]
+       34 GETTABLEKS                       R5 R5 K14 ["Constants"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R3 K15 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K16 ["withContext"]

@@ -71,9 +71,9 @@ PROTO_6:
         7 GETTABLEKS                       R8 R7 K1 ["instanceName"]
         9 JUMPIFNOTEQ                      R1 R8 ; [+15]
        11 GETTABLEKS                       R8 R7 K2 ["severity"]
-       13 GETIMPORT                        R11 K4 [Enum]
-       15 GETTABLEKS                       R10 R11 K5 ["Severity"]
-       17 GETTABLEKS                       R9 R10 K6 ["Error"]
+       13 GETIMPORT                        R9 K4 [Enum]
+       15 GETTABLEKS                       R9 R9 K5 ["Severity"]
+       17 GETTABLEKS                       R9 R9 K6 ["Error"]
        19 JUMPIFNOTEQ                      R8 R9 ; [+5]
        21 GETTABLEKS                       R8 R7 K7 ["resolution"]
        23 JUMPIF                           R8 ; [+1]
@@ -91,9 +91,9 @@ PROTO_7:
         7 GETTABLEKS                       R8 R7 K1 ["instanceName"]
         9 JUMPIFNOTEQ                      R1 R8 ; [+15]
        11 GETTABLEKS                       R8 R7 K2 ["severity"]
-       13 GETIMPORT                        R11 K4 [Enum]
-       15 GETTABLEKS                       R10 R11 K5 ["Severity"]
-       17 GETTABLEKS                       R9 R10 K6 ["Warning"]
+       13 GETIMPORT                        R9 K4 [Enum]
+       15 GETTABLEKS                       R9 R9 K5 ["Severity"]
+       17 GETTABLEKS                       R9 R9 K6 ["Warning"]
        19 JUMPIFNOTEQ                      R8 R9 ; [+5]
        21 GETTABLEKS                       R8 R7 K7 ["resolution"]
        23 JUMPIF                           R8 ; [+1]
@@ -120,8 +120,8 @@ PROTO_9:
         8 RETURN                           R1 1
 
 PROTO_10:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 CALL                             R2 0 1
         4 GETUPVAL                         R3 1
         5 GETTABLEKS                       R4 R0 K1 ["_list"]
@@ -165,16 +165,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["deepCopy"]
-       18 GETTABLEKS                       R4 R0 K10 ["Src"]
-       20 GETTABLEKS                       R3 R4 K8 ["Util"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["deepCopy"]
+       18 GETTABLEKS                       R3 R0 K10 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Util"]
        22 GETIMPORT                        R4 K5 [require]
-       24 GETTABLEKS                       R6 R3 K11 ["ScriptAnalysis"]
-       26 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       24 GETTABLEKS                       R5 R3 K11 ["ScriptAnalysis"]
+       26 GETTABLEKS                       R5 R5 K12 ["Constants"]
        28 CALL                             R4 1 1
        29 NEWTABLE                         R5 16 0
        31 SETTABLEKS                       R5 R5 K13 ["__index"]

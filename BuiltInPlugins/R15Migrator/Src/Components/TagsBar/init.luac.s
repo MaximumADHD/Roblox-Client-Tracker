@@ -69,8 +69,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["Filters"]
-        2 GETTABLEKS                       R4 R1 K1 ["_Ref"]
-        4 GETTABLEKS                       R3 R4 K0 ["Filters"]
+        2 GETTABLEKS                       R3 R1 K1 ["_Ref"]
+        4 GETTABLEKS                       R3 R3 K0 ["Filters"]
         6 JUMPIFEQ                         R2 R3 ; [+37]
         8 GETTABLEKS                       R3 R0 K0 ["Filters"]
        10 GETTABLEKS                       R4 R0 K2 ["Localization"]
@@ -101,14 +101,14 @@ PROTO_4:
        44 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K4 [{"LayoutOrder", "Tag", "OnClosed"}]
         5 SETTABLEKS                       R1 R4 K1 ["LayoutOrder"]
         7 SETTABLEKS                       R0 R4 K2 ["Tag"]
-        9 GETUPVAL                         R6 2
-       10 GETTABLEKS                       R5 R6 K5 ["OnFilterClosed"]
+        9 GETUPVAL                         R5 2
+       10 GETTABLEKS                       R5 R5 K5 ["OnFilterClosed"]
        12 SETTABLEKS                       R5 R4 K3 ["OnClosed"]
        14 CALL                             R2 2 -1
        15 RETURN                           R2 -1
@@ -123,8 +123,8 @@ PROTO_6:
         9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R2
        11 CALL                             R3 2 1
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K3 ["createElement"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K3 ["createElement"]
        15 GETUPVAL                         R5 3
        16 DUPTABLE                         R6 K11 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "ClipsDescendants"}]
        17 GETTABLEKS                       R7 R2 K4 ["LayoutOrder"]
@@ -152,16 +152,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
@@ -172,18 +172,18 @@ MAIN:
        40 GETTABLEKS                       R10 R6 K16 ["map"]
        42 GETTABLEKS                       R11 R3 K17 ["UI"]
        44 GETTABLEKS                       R12 R11 K18 ["Pane"]
-       46 GETTABLEKS                       R14 R0 K19 ["Src"]
-       48 GETTABLEKS                       R13 R14 K20 ["Actions"]
+       46 GETTABLEKS                       R13 R0 K19 ["Src"]
+       48 GETTABLEKS                       R13 R13 K20 ["Actions"]
        50 GETIMPORT                        R14 K5 [require]
-       52 GETIMPORT                        R16 K1 [script]
-       54 GETTABLEKS                       R15 R16 K21 ["TagComponent"]
+       52 GETIMPORT                        R15 K1 [script]
+       54 GETTABLEKS                       R15 R15 K21 ["TagComponent"]
        56 CALL                             R14 1 1
        57 GETIMPORT                        R15 K5 [require]
-       59 GETTABLEKS                       R17 R0 K19 ["Src"]
-       61 GETTABLEKS                       R16 R17 K22 ["Types"]
+       59 GETTABLEKS                       R16 R0 K19 ["Src"]
+       61 GETTABLEKS                       R16 R16 K22 ["Types"]
        63 CALL                             R15 1 1
-       64 GETTABLEKS                       R17 R0 K19 ["Src"]
-       66 GETTABLEKS                       R16 R17 K23 ["Util"]
+       64 GETTABLEKS                       R16 R0 K19 ["Src"]
+       66 GETTABLEKS                       R16 R16 K23 ["Util"]
        68 GETTABLEKS                       R17 R1 K24 ["PureComponent"]
        70 LOADK                            R19 K25 ["TagsBar"]
        71 NAMECALL                         R17 R17 K26 ["extend"]
@@ -212,8 +212,8 @@ MAIN:
        99 SETTABLEKS                       R22 R21 K35 ["Analytics"]
       101 GETTABLEKS                       R22 R4 K36 ["Localization"]
       103 SETTABLEKS                       R22 R21 K36 ["Localization"]
-      105 GETTABLEKS                       R23 R3 K39 ["Style"]
-      107 GETTABLEKS                       R22 R23 K37 ["Stylizer"]
+      105 GETTABLEKS                       R22 R3 K39 ["Style"]
+      107 GETTABLEKS                       R22 R22 K37 ["Stylizer"]
       109 SETTABLEKS                       R22 R21 K37 ["Stylizer"]
       111 CALL                             R20 1 1
       112 MOVE                             R21 R17

@@ -4,12 +4,12 @@ PROTO_0:
         4 GETTABLEKS                       R3 R0 K2 ["Fragments"]
         6 CALL                             R2 1 3
         7 FORGPREP_NEXT                    R2
-        8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R7 R8 K3 ["createElement"]
+        8 GETUPVAL                         R7 0
+        9 GETTABLEKS                       R7 R7 K3 ["createElement"]
        11 LOADK                            R8 K4 ["TextLabel"]
        12 NEWTABLE                         R9 4 0
-       14 GETUPVAL                         R11 0
-       15 GETTABLEKS                       R10 R11 K5 ["Tag"]
+       14 GETUPVAL                         R10 0
+       15 GETTABLEKS                       R10 R10 K5 ["Tag"]
        17 GETUPVAL                         R11 1
        18 LOADK                            R12 K6 ["CX-Invisible"]
        19 LOADK                            R13 K7 ["X-Fit"]
@@ -26,12 +26,12 @@ PROTO_0:
        34 CALL                             R7 2 1
        35 SETTABLE                         R7 R1 R5
        36 FORGLOOP                         R2 2 ; [-29]
-       38 GETUPVAL                         R3 0
-       39 GETTABLEKS                       R2 R3 K3 ["createElement"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K3 ["createElement"]
        41 LOADK                            R3 K13 ["Frame"]
        42 NEWTABLE                         R4 2 0
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K5 ["Tag"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K5 ["Tag"]
        47 GETUPVAL                         R6 1
        48 LOADK                            R7 K14 ["Component-Tooltip"]
        49 CALL                             R6 1 1
@@ -46,24 +46,24 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R2 K8 ["Util"]
-       25 GETTABLEKS                       R3 R4 K9 ["LayoutOrderIterator"]
+       23 GETTABLEKS                       R3 R2 K8 ["Util"]
+       25 GETTABLEKS                       R3 R3 K9 ["LayoutOrderIterator"]
        27 GETTABLEKS                       R4 R3 K10 ["new"]
        29 CALL                             R4 0 1
-       30 GETTABLEKS                       R6 R2 K11 ["Styling"]
-       32 GETTABLEKS                       R5 R6 K12 ["joinTags"]
+       30 GETTABLEKS                       R5 R2 K11 ["Styling"]
+       32 GETTABLEKS                       R5 R5 K12 ["joinTags"]
        34 DUPCLOSURE                       R6 K13 [PROTO_0]
        35 CAPTURE                          VAL R1
        36 CAPTURE                          VAL R5

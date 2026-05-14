@@ -17,11 +17,11 @@ MAIN:
         7 LOADK                            R2 K4 ["PartyEmulator"]
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
-       11 GETTABLEKS                       R2 R0 K6 ["Src"]
-       13 GETTABLEKS                       R1 R2 K7 ["Util"]
+       11 GETTABLEKS                       R1 R0 K6 ["Src"]
+       13 GETTABLEKS                       R1 R1 K7 ["Util"]
        15 GETIMPORT                        R2 K9 [require]
-       17 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K11 ["TestLoader"]
+       17 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K11 ["TestLoader"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K12 ["launch"]
        24 LOADK                            R4 K4 ["PartyEmulator"]
@@ -32,18 +32,18 @@ MAIN:
        31 JUMPIFNOT                        R3 ; [+1]
        32 RETURN                           R0 0
        33 GETIMPORT                        R3 K9 [require]
-       35 GETTABLEKS                       R6 R0 K14 ["Bin"]
-       37 GETTABLEKS                       R5 R6 K15 ["Common"]
-       39 GETTABLEKS                       R4 R5 K16 ["defineLuaFlags"]
+       35 GETTABLEKS                       R4 R0 K14 ["Bin"]
+       37 GETTABLEKS                       R4 R4 K15 ["Common"]
+       39 GETTABLEKS                       R4 R4 K16 ["defineLuaFlags"]
        41 CALL                             R3 1 1
        42 GETTABLEKS                       R4 R3 K17 ["getFFlagEnablePartyEmulatorService"]
        44 CALL                             R4 0 1
        45 JUMPIF                           R4 ; [+1]
        46 RETURN                           R0 0
        47 GETIMPORT                        R4 K9 [require]
-       49 GETTABLEKS                       R7 R0 K14 ["Bin"]
-       51 GETTABLEKS                       R6 R7 K15 ["Common"]
-       53 GETTABLEKS                       R5 R6 K18 ["pluginType"]
+       49 GETTABLEKS                       R5 R0 K14 ["Bin"]
+       51 GETTABLEKS                       R5 R5 K15 ["Common"]
+       53 GETTABLEKS                       R5 R5 K18 ["pluginType"]
        55 CALL                             R4 1 1
        56 GETIMPORT                        R5 K20 [game]
        58 LOADK                            R7 K21 ["RunService"]
@@ -60,8 +60,8 @@ MAIN:
        75 GETIMPORT                        R9 K1 [plugin]
        77 CALL                             R8 1 1
        78 MOVE                             R7 R8
-       79 GETIMPORT                        R9 K1 [plugin]
-       81 GETTABLEKS                       R8 R9 K26 ["Unloading"]
+       79 GETIMPORT                        R8 K1 [plugin]
+       81 GETTABLEKS                       R8 R8 K26 ["Unloading"]
        83 NEWCLOSURE                       R10 P0
        84 CAPTURE                          REF R7
        85 NAMECALL                         R8 R8 K27 ["Connect"]
@@ -73,14 +73,14 @@ MAIN:
        95 CLOSEUPVALS                      R7
        96 RETURN                           R0 0
        97 GETIMPORT                        R8 K9 [require]
-       99 GETTABLEKS                       R11 R0 K14 ["Bin"]
-      101 GETTABLEKS                       R10 R11 K15 ["Common"]
-      103 GETTABLEKS                       R9 R10 K30 ["setup"]
+       99 GETTABLEKS                       R9 R0 K14 ["Bin"]
+      101 GETTABLEKS                       R9 R9 K15 ["Common"]
+      103 GETTABLEKS                       R9 R9 K30 ["setup"]
       105 CALL                             R8 1 1
       106 GETIMPORT                        R9 K9 [require]
-      108 GETTABLEKS                       R12 R0 K14 ["Bin"]
-      110 GETTABLEKS                       R11 R12 K15 ["Common"]
-      112 GETTABLEKS                       R10 R11 K31 ["setupMain"]
+      108 GETTABLEKS                       R10 R0 K14 ["Bin"]
+      110 GETTABLEKS                       R10 R10 K15 ["Common"]
+      112 GETTABLEKS                       R10 R10 K31 ["setupMain"]
       114 CALL                             R9 1 1
       115 MOVE                             R10 R8
       116 GETIMPORT                        R11 K1 [plugin]

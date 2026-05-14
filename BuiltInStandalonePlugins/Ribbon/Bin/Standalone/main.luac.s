@@ -9,19 +9,19 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [require]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["Packages"]
-        5 GETTABLEKS                       R2 R3 K3 ["React"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Packages"]
+        5 GETTABLEKS                       R2 R2 K3 ["React"]
         7 CALL                             R1 1 1
         8 GETIMPORT                        R2 K1 [require]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K2 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K4 ["ReactRoblox"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["Packages"]
+       13 GETTABLEKS                       R3 R3 K4 ["ReactRoblox"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K1 [require]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K5 ["Src"]
-       21 GETTABLEKS                       R4 R5 K6 ["MainPlugin"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K5 ["Src"]
+       21 GETTABLEKS                       R4 R4 K6 ["MainPlugin"]
        23 CALL                             R3 1 1
        24 LOADK                            R6 K7 ["Ribbon"]
        25 DUPTABLE                         R7 K18 [{"Id", "InitialEnabled", "MinSize", "Modal", "Panel", "Resizable", "Size", "Title", "Parent", "AddToParentLayout"}]
@@ -122,9 +122,9 @@ PROTO_1:
       161 NAMECALL                         R8 R8 K53 ["GetService"]
       163 CALL                             R8 2 1
       164 GETIMPORT                        R9 K1 [require]
-      166 GETUPVAL                         R12 0
-      167 GETTABLEKS                       R11 R12 K5 ["Src"]
-      169 GETTABLEKS                       R10 R11 K54 ["FoundationInspector"]
+      166 GETUPVAL                         R10 0
+      167 GETTABLEKS                       R10 R10 K5 ["Src"]
+      169 GETTABLEKS                       R10 R10 K54 ["FoundationInspector"]
       171 CALL                             R9 1 1
       172 GETTABLEKS                       R10 R9 K55 ["open"]
       174 MOVE                             R11 R0
@@ -142,19 +142,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagDebugEnableFoundationInspector"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagDebugEnableFoundationInspector"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["SharedFlags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagStudioRibbonMinSize"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["SharedFlags"]
+       22 GETTABLEKS                       R3 R3 K9 ["getFFlagStudioRibbonMinSize"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["SharedFlags"]
-       31 GETTABLEKS                       R4 R5 K10 ["getFFlagRibbonTextLengthImprovements"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["SharedFlags"]
+       31 GETTABLEKS                       R4 R4 K10 ["getFFlagRibbonTextLengthImprovements"]
        33 CALL                             R3 1 1
        34 DUPCLOSURE                       R4 K11 [PROTO_1]
        35 CAPTURE                          VAL R0

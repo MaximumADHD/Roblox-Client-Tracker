@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETTABLEKS                       R3 R0 K0 ["GameOwnerMetadata"]
-        2 GETTABLEKS                       R2 R3 K1 ["creatorType"]
-        4 GETTABLEKS                       R4 R0 K0 ["GameOwnerMetadata"]
-        6 GETTABLEKS                       R3 R4 K2 ["creatorFriends"]
+        0 GETTABLEKS                       R2 R0 K0 ["GameOwnerMetadata"]
+        2 GETTABLEKS                       R2 R2 K1 ["creatorType"]
+        4 GETTABLEKS                       R3 R0 K0 ["GameOwnerMetadata"]
+        6 GETTABLEKS                       R3 R3 K2 ["creatorFriends"]
         8 GETIMPORT                        R4 K6 [Enum.CreatorType.User]
        10 JUMPIFNOTEQ                      R2 R4 ; [+12]
        12 GETIMPORT                        R4 K8 [ipairs]

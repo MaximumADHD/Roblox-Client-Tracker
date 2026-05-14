@@ -5,13 +5,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K7 ["Types"]
-       20 GETTABLEKS                       R3 R4 K8 ["QueuedSession"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K7 ["Types"]
+       20 GETTABLEKS                       R3 R3 K8 ["QueuedSession"]
        22 CALL                             R2 1 1
        23 DUPTABLE                         R3 K28 [{"Empty", "Cube", "Sphere", "Octahedron", "Dodecahedron", "Rhombicosidodecahedron", "RigAsset", "EnvironmentalAsset", "InvalidAsset", "HasImportDataError", "HasImportDataWarnings", "UploadSuccessAsset", "UploadFailedAsset", "ParsingAsset", "ImportingAsset", "AudioAsset", "VideoAsset", "ImageAsset", "LongFilePathTestAsset"}]
        24 GETTABLEKS                       R4 R2 K29 ["new"]
@@ -25,13 +25,13 @@ MAIN:
        36 SETTABLEKS                       R6 R5 K31 ["enabled"]
        38 LOADK                            R6 K37 ["my/path/Cube"]
        39 SETTABLEKS                       R6 R5 K32 ["filepath"]
-       41 GETTABLEKS                       R7 R1 K38 ["FileType"]
-       43 GETTABLEKS                       R6 R7 K39 ["Scene"]
+       41 GETTABLEKS                       R6 R1 K38 ["FileType"]
+       43 GETTABLEKS                       R6 R6 K39 ["Scene"]
        45 SETTABLEKS                       R6 R5 K33 ["fileType"]
        47 LOADN                            R6 1
        48 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-       50 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-       52 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+       50 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+       52 GETTABLEKS                       R6 R6 K41 ["Parsed"]
        54 SETTABLEKS                       R6 R5 K35 ["state"]
        56 CALL                             R4 1 1
        57 SETTABLEKS                       R4 R3 K10 ["Cube"]
@@ -45,8 +45,8 @@ MAIN:
        69 SETTABLEKS                       R6 R5 K32 ["filepath"]
        71 LOADN                            R6 2
        72 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-       74 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-       76 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+       74 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+       76 GETTABLEKS                       R6 R6 K41 ["Parsed"]
        78 SETTABLEKS                       R6 R5 K35 ["state"]
        80 CALL                             R4 1 1
        81 SETTABLEKS                       R4 R3 K11 ["Sphere"]
@@ -60,8 +60,8 @@ MAIN:
        93 SETTABLEKS                       R6 R5 K32 ["filepath"]
        95 LOADN                            R6 3
        96 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-       98 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      100 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+       98 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      100 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       102 SETTABLEKS                       R6 R5 K35 ["state"]
       104 CALL                             R4 1 1
       105 SETTABLEKS                       R4 R3 K12 ["Octahedron"]
@@ -75,8 +75,8 @@ MAIN:
       117 SETTABLEKS                       R6 R5 K32 ["filepath"]
       119 LOADN                            R6 4
       120 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      122 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      124 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      122 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      124 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       126 SETTABLEKS                       R6 R5 K35 ["state"]
       128 CALL                             R4 1 1
       129 SETTABLEKS                       R4 R3 K13 ["Dodecahedron"]
@@ -90,8 +90,8 @@ MAIN:
       141 SETTABLEKS                       R6 R5 K32 ["filepath"]
       143 LOADN                            R6 5
       144 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      146 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      148 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      146 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      148 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       150 SETTABLEKS                       R6 R5 K35 ["state"]
       152 CALL                             R4 1 1
       153 SETTABLEKS                       R4 R3 K14 ["Rhombicosidodecahedron"]
@@ -105,8 +105,8 @@ MAIN:
       165 SETTABLEKS                       R6 R5 K32 ["filepath"]
       167 LOADN                            R6 6
       168 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      170 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      172 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      170 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      172 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       174 SETTABLEKS                       R6 R5 K35 ["state"]
       176 CALL                             R4 1 1
       177 SETTABLEKS                       R4 R3 K15 ["RigAsset"]
@@ -120,8 +120,8 @@ MAIN:
       189 SETTABLEKS                       R6 R5 K32 ["filepath"]
       191 LOADN                            R6 7
       192 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      194 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      196 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      194 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      196 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       198 SETTABLEKS                       R6 R5 K35 ["state"]
       200 CALL                             R4 1 1
       201 SETTABLEKS                       R4 R3 K16 ["EnvironmentalAsset"]
@@ -135,8 +135,8 @@ MAIN:
       213 SETTABLEKS                       R6 R5 K32 ["filepath"]
       215 LOADN                            R6 248
       216 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      218 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      220 GETTABLEKS                       R6 R7 K50 ["Invalid"]
+      218 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      220 GETTABLEKS                       R6 R6 K50 ["Invalid"]
       222 SETTABLEKS                       R6 R5 K35 ["state"]
       224 CALL                             R4 1 1
       225 SETTABLEKS                       R4 R3 K17 ["InvalidAsset"]
@@ -148,13 +148,13 @@ MAIN:
       234 SETTABLEKS                       R6 R5 K31 ["enabled"]
       236 LOADK                            R6 K54 ["my/path/HasImportDataError"]
       237 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      239 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      241 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      239 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      241 GETTABLEKS                       R6 R6 K39 ["Scene"]
       243 SETTABLEKS                       R6 R5 K33 ["fileType"]
       245 LOADN                            R6 9
       246 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      248 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      250 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      248 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      250 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       252 SETTABLEKS                       R6 R5 K35 ["state"]
       254 LOADB                            R6 1
       255 SETTABLEKS                       R6 R5 K51 ["importDataError"]
@@ -170,13 +170,13 @@ MAIN:
       270 SETTABLEKS                       R6 R5 K31 ["enabled"]
       272 LOADK                            R6 K57 ["my/path/HasImportDataWarnings"]
       273 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      275 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      277 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      275 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      277 GETTABLEKS                       R6 R6 K39 ["Scene"]
       279 SETTABLEKS                       R6 R5 K33 ["fileType"]
       281 LOADN                            R6 10
       282 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      284 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      286 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      284 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      286 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       288 SETTABLEKS                       R6 R5 K35 ["state"]
       290 LOADN                            R6 2
       291 SETTABLEKS                       R6 R5 K55 ["warnings"]
@@ -190,13 +190,13 @@ MAIN:
       303 SETTABLEKS                       R6 R5 K31 ["enabled"]
       305 LOADK                            R6 K60 ["my/path/UploadSuccessAsset"]
       306 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      308 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      310 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      308 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      310 GETTABLEKS                       R6 R6 K39 ["Scene"]
       312 SETTABLEKS                       R6 R5 K33 ["fileType"]
       314 LOADN                            R6 11
       315 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      317 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      319 GETTABLEKS                       R6 R7 K61 ["Imported"]
+      317 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      319 GETTABLEKS                       R6 R6 K61 ["Imported"]
       321 SETTABLEKS                       R6 R5 K35 ["state"]
       323 DUPTABLE                         R6 K66 [{"AssetIds", "ErrorMessages", "Instance", "Succeeded"}]
       324 NEWTABLE                         R7 1 0
@@ -222,13 +222,13 @@ MAIN:
       356 SETTABLEKS                       R6 R5 K31 ["enabled"]
       358 LOADK                            R6 K70 ["my/path/UploadFailedAsset"]
       359 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      361 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      363 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      361 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      363 GETTABLEKS                       R6 R6 K39 ["Scene"]
       365 SETTABLEKS                       R6 R5 K33 ["fileType"]
       367 LOADN                            R6 12
       368 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      370 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      372 GETTABLEKS                       R6 R7 K61 ["Imported"]
+      370 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      372 GETTABLEKS                       R6 R6 K61 ["Imported"]
       374 SETTABLEKS                       R6 R5 K35 ["state"]
       376 DUPTABLE                         R6 K66 [{"AssetIds", "ErrorMessages", "Instance", "Succeeded"}]
       377 LOADNIL                          R7
@@ -252,13 +252,13 @@ MAIN:
       405 SETTABLEKS                       R6 R5 K31 ["enabled"]
       407 LOADK                            R6 K37 ["my/path/Cube"]
       408 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      410 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      412 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      410 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      412 GETTABLEKS                       R6 R6 K39 ["Scene"]
       414 SETTABLEKS                       R6 R5 K33 ["fileType"]
       416 LOADN                            R6 13
       417 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      419 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      421 GETTABLEKS                       R6 R7 K73 ["Parsing"]
+      419 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      421 GETTABLEKS                       R6 R6 K73 ["Parsing"]
       423 SETTABLEKS                       R6 R5 K35 ["state"]
       425 CALL                             R4 1 1
       426 SETTABLEKS                       R4 R3 K22 ["ParsingAsset"]
@@ -270,13 +270,13 @@ MAIN:
       435 SETTABLEKS                       R6 R5 K31 ["enabled"]
       437 LOADK                            R6 K37 ["my/path/Cube"]
       438 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      440 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      442 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      440 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      442 GETTABLEKS                       R6 R6 K39 ["Scene"]
       444 SETTABLEKS                       R6 R5 K33 ["fileType"]
       446 LOADN                            R6 14
       447 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      449 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      451 GETTABLEKS                       R6 R7 K74 ["Importing"]
+      449 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      451 GETTABLEKS                       R6 R6 K74 ["Importing"]
       453 SETTABLEKS                       R6 R5 K35 ["state"]
       455 CALL                             R4 1 1
       456 SETTABLEKS                       R4 R3 K23 ["ImportingAsset"]
@@ -288,13 +288,13 @@ MAIN:
       465 SETTABLEKS                       R6 R5 K31 ["enabled"]
       467 LOADK                            R6 K76 ["my/path/Audio.mp3"]
       468 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      470 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      472 GETTABLEKS                       R6 R7 K75 ["Audio"]
+      470 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      472 GETTABLEKS                       R6 R6 K75 ["Audio"]
       474 SETTABLEKS                       R6 R5 K33 ["fileType"]
       476 LOADN                            R6 15
       477 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      479 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      481 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      479 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      481 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       483 SETTABLEKS                       R6 R5 K35 ["state"]
       485 CALL                             R4 1 1
       486 SETTABLEKS                       R4 R3 K24 ["AudioAsset"]
@@ -306,13 +306,13 @@ MAIN:
       495 SETTABLEKS                       R6 R5 K31 ["enabled"]
       497 LOADK                            R6 K78 ["my/path/Video.mp4"]
       498 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      500 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      502 GETTABLEKS                       R6 R7 K77 ["Video"]
+      500 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      502 GETTABLEKS                       R6 R6 K77 ["Video"]
       504 SETTABLEKS                       R6 R5 K33 ["fileType"]
       506 LOADN                            R6 16
       507 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      509 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      511 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      509 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      511 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       513 SETTABLEKS                       R6 R5 K35 ["state"]
       515 CALL                             R4 1 1
       516 SETTABLEKS                       R4 R3 K25 ["VideoAsset"]
@@ -324,13 +324,13 @@ MAIN:
       525 SETTABLEKS                       R6 R5 K31 ["enabled"]
       527 LOADK                            R6 K80 ["my/path/Image.png"]
       528 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      530 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      532 GETTABLEKS                       R6 R7 K79 ["Image"]
+      530 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      532 GETTABLEKS                       R6 R6 K79 ["Image"]
       534 SETTABLEKS                       R6 R5 K33 ["fileType"]
       536 LOADN                            R6 17
       537 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      539 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      541 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      539 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      541 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       543 SETTABLEKS                       R6 R5 K35 ["state"]
       545 CALL                             R4 1 1
       546 SETTABLEKS                       R4 R3 K26 ["ImageAsset"]
@@ -342,13 +342,13 @@ MAIN:
       555 SETTABLEKS                       R6 R5 K31 ["enabled"]
       557 LOADK                            R6 K81 ["Users/mysteriouslylongusername/Desktop/Roblox/supersecret.fbx"]
       558 SETTABLEKS                       R6 R5 K32 ["filepath"]
-      560 GETTABLEKS                       R7 R1 K38 ["FileType"]
-      562 GETTABLEKS                       R6 R7 K39 ["Scene"]
+      560 GETTABLEKS                       R6 R1 K38 ["FileType"]
+      562 GETTABLEKS                       R6 R6 K39 ["Scene"]
       564 SETTABLEKS                       R6 R5 K33 ["fileType"]
       566 LOADN                            R6 1
       567 SETTABLEKS                       R6 R5 K34 ["sortOrder"]
-      569 GETTABLEKS                       R7 R1 K40 ["SessionState"]
-      571 GETTABLEKS                       R6 R7 K41 ["Parsed"]
+      569 GETTABLEKS                       R6 R1 K40 ["SessionState"]
+      571 GETTABLEKS                       R6 R6 K41 ["Parsed"]
       573 SETTABLEKS                       R6 R5 K35 ["state"]
       575 CALL                             R4 1 1
       576 SETTABLEKS                       R4 R3 K27 ["LongFilePathTestAsset"]

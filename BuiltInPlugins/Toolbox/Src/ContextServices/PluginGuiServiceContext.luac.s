@@ -23,8 +23,8 @@ MAIN:
        15 GETIMPORT                        R3 K10 [require]
        17 GETTABLEKS                       R4 R2 K11 ["Framework"]
        19 CALL                             R3 1 1
-       20 GETTABLEKS                       R5 R3 K12 ["ContextServices"]
-       22 GETTABLEKS                       R4 R5 K13 ["ContextItem"]
+       20 GETTABLEKS                       R4 R3 K12 ["ContextServices"]
+       22 GETTABLEKS                       R4 R4 K13 ["ContextItem"]
        24 LOADK                            R7 K14 ["PluginGuiServiceContext"]
        25 NAMECALL                         R5 R4 K15 ["extend"]
        27 CALL                             R5 2 1

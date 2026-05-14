@@ -8,25 +8,25 @@ PROTO_0:
         8 NAMECALL                         R1 R1 K3 ["logCounter"]
        10 CALL                             R1 3 0
        11 JUMPIFNOTEQKS                    R0 K4 ["PlayerChoice"] ; [+11]
-       13 GETUPVAL                         R4 2
-       14 GETTABLEKS                       R3 R4 K5 ["settings"]
-       16 GETTABLEKS                       R2 R3 K6 ["navigationBarSettings"]
-       18 GETTABLEKS                       R1 R2 K7 ["setAvatarPreset"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K5 ["settings"]
+       16 GETTABLEKS                       R1 R1 K6 ["navigationBarSettings"]
+       18 GETTABLEKS                       R1 R1 K7 ["setAvatarPreset"]
        20 LOADK                            R2 K4 ["PlayerChoice"]
        21 CALL                             R1 1 0
        22 RETURN                           R0 0
        23 JUMPIFNOTEQKS                    R0 K8 ["ConsistentGameplay"] ; [+11]
-       25 GETUPVAL                         R4 2
-       26 GETTABLEKS                       R3 R4 K5 ["settings"]
-       28 GETTABLEKS                       R2 R3 K6 ["navigationBarSettings"]
-       30 GETTABLEKS                       R1 R2 K7 ["setAvatarPreset"]
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K5 ["settings"]
+       28 GETTABLEKS                       R1 R1 K6 ["navigationBarSettings"]
+       30 GETTABLEKS                       R1 R1 K7 ["setAvatarPreset"]
        32 LOADK                            R2 K8 ["ConsistentGameplay"]
        33 CALL                             R1 1 0
        34 RETURN                           R0 0
-       35 GETUPVAL                         R4 2
-       36 GETTABLEKS                       R3 R4 K5 ["settings"]
-       38 GETTABLEKS                       R2 R3 K6 ["navigationBarSettings"]
-       40 GETTABLEKS                       R1 R2 K7 ["setAvatarPreset"]
+       35 GETUPVAL                         R1 2
+       36 GETTABLEKS                       R1 R1 K5 ["settings"]
+       38 GETTABLEKS                       R1 R1 K6 ["navigationBarSettings"]
+       40 GETTABLEKS                       R1 R1 K7 ["setAvatarPreset"]
        42 LOADNIL                          R2
        43 CALL                             R1 1 0
        44 RETURN                           R0 0
@@ -40,8 +40,8 @@ PROTO_1:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -52,8 +52,8 @@ PROTO_1:
        23 LOADK                            R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
        24 GETIMPORT                        R5 K5 [assert]
        26 CALL                             R5 2 0
-       27 GETUPVAL                         R6 5
-       28 GETTABLEKS                       R5 R6 K6 ["computeCurrentPresetType"]
+       27 GETUPVAL                         R5 5
+       28 GETTABLEKS                       R5 R5 K6 ["computeCurrentPresetType"]
        30 MOVE                             R6 R4
        31 CALL                             R5 1 1
        32 NEWTABLE                         R6 0 2
@@ -77,8 +77,8 @@ PROTO_1:
        58 GETUPVAL                         R7 6
        59 GETUPVAL                         R8 7
        60 NEWTABLE                         R9 1 0
-       62 GETUPVAL                         R11 3
-       63 GETTABLEKS                       R10 R11 K16 ["Tag"]
+       62 GETUPVAL                         R10 3
+       63 GETTABLEKS                       R10 R10 K16 ["Tag"]
        65 LOADK                            R11 K17 ["AvatarSettings-SettingsPage X-Column"]
        66 SETTABLE                         R11 R9 R10
        67 DUPTABLE                         R10 K19 [{"PresetSection"}]
@@ -114,8 +114,8 @@ PROTO_1:
       106 GETUPVAL                         R15 6
       107 GETUPVAL                         R16 7
       108 NEWTABLE                         R17 4 0
-      110 GETUPVAL                         R19 3
-      111 GETTABLEKS                       R18 R19 K16 ["Tag"]
+      110 GETUPVAL                         R18 3
+      111 GETTABLEKS                       R18 R18 K16 ["Tag"]
       113 LOADK                            R19 K32 ["X-Column X-Left ColumnSpacing-Standard"]
       114 SETTABLE                         R19 R17 R18
       115 MOVE                             R18 R3
@@ -123,8 +123,8 @@ PROTO_1:
       117 SETTABLEKS                       R18 R17 K33 ["LayoutOrder"]
       119 GETIMPORT                        R18 K36 [UDim2.new]
       121 LOADN                            R19 1
-      122 GETUPVAL                         R22 10
-      123 GETTABLEKS                       R21 R22 K37 ["MODESELECTOR_SIDE_MARGIN"]
+      122 GETUPVAL                         R21 10
+      123 GETTABLEKS                       R21 R21 K37 ["MODESELECTOR_SIDE_MARGIN"]
       125 MINUS                            R20 R21
       126 LOADN                            R21 0
       127 LOADN                            R22 0
@@ -160,8 +160,8 @@ PROTO_1:
       169 GETUPVAL                         R19 6
       170 LOADK                            R20 K58 ["ImageLabel"]
       171 NEWTABLE                         R21 4 0
-      173 GETUPVAL                         R23 3
-      174 GETTABLEKS                       R22 R23 K16 ["Tag"]
+      173 GETUPVAL                         R22 3
+      174 GETTABLEKS                       R22 R22 K16 ["Tag"]
       176 GETUPVAL                         R23 12
       177 LOADK                            R24 K44 ["PresetImage"]
       178 JUMPIFNOTEQKS                    R5 K10 ["PlayerChoice"] ; [+3]
@@ -183,8 +183,8 @@ PROTO_1:
       199 GETUPVAL                         R19 6
       200 LOADK                            R20 K60 ["TextLabel"]
       201 NEWTABLE                         R21 8 0
-      203 GETUPVAL                         R23 3
-      204 GETTABLEKS                       R22 R23 K16 ["Tag"]
+      203 GETUPVAL                         R22 3
+      204 GETTABLEKS                       R22 R22 K16 ["Tag"]
       206 LOADK                            R23 K61 ["Component-TextLabel SubText"]
       207 SETTABLE                         R23 R21 R22
       208 GETIMPORT                        R22 K63 [UDim2.fromScale]
@@ -216,8 +216,8 @@ PROTO_1:
       246 GETUPVAL                         R19 6
       247 GETUPVAL                         R20 7
       248 NEWTABLE                         R21 2 0
-      250 GETUPVAL                         R23 3
-      251 GETTABLEKS                       R22 R23 K16 ["Tag"]
+      250 GETUPVAL                         R22 3
+      251 GETTABLEKS                       R22 R22 K16 ["Tag"]
       253 GETUPVAL                         R24 14
       254 CALL                             R24 0 1
       255 JUMPIFNOT                        R24 ; [+2]
@@ -236,16 +236,16 @@ PROTO_1:
       271 GETUPVAL                         R19 6
       272 GETUPVAL                         R20 7
       273 NEWTABLE                         R21 4 0
-      275 GETUPVAL                         R23 3
-      276 GETTABLEKS                       R22 R23 K16 ["Tag"]
+      275 GETUPVAL                         R22 3
+      276 GETTABLEKS                       R22 R22 K16 ["Tag"]
       278 LOADK                            R23 K73 ["X-Row X-Middle"]
       279 SETTABLE                         R23 R21 R22
       280 GETIMPORT                        R22 K36 [UDim2.new]
       282 LOADN                            R23 1
       283 LOADN                            R24 0
       284 LOADN                            R25 0
-      285 GETUPVAL                         R27 10
-      286 GETTABLEKS                       R26 R27 K74 ["STANDARD_IMAGE_SIZE"]
+      285 GETUPVAL                         R26 10
+      286 GETTABLEKS                       R26 R26 K74 ["STANDARD_IMAGE_SIZE"]
       288 CALL                             R22 4 1
       289 SETTABLEKS                       R22 R21 K38 ["Size"]
       291 GETIMPORT                        R22 K65 [Enum.AutomaticSize.XY]
@@ -258,10 +258,10 @@ PROTO_1:
       301 GETUPVAL                         R24 7
       302 DUPTABLE                         R25 K77 [{"Size", "LayoutOrder"}]
       303 GETIMPORT                        R26 K79 [UDim2.fromOffset]
-      305 GETUPVAL                         R28 10
-      306 GETTABLEKS                       R27 R28 K74 ["STANDARD_IMAGE_SIZE"]
-      308 GETUPVAL                         R29 10
-      309 GETTABLEKS                       R28 R29 K74 ["STANDARD_IMAGE_SIZE"]
+      305 GETUPVAL                         R27 10
+      306 GETTABLEKS                       R27 R27 K74 ["STANDARD_IMAGE_SIZE"]
+      308 GETUPVAL                         R28 10
+      309 GETTABLEKS                       R28 R28 K74 ["STANDARD_IMAGE_SIZE"]
       311 CALL                             R26 2 1
       312 SETTABLEKS                       R26 R25 K38 ["Size"]
       314 MOVE                             R26 R3
@@ -271,8 +271,8 @@ PROTO_1:
       319 GETUPVAL                         R27 6
       320 LOADK                            R28 K58 ["ImageLabel"]
       321 NEWTABLE                         R29 8 0
-      323 GETUPVAL                         R31 3
-      324 GETTABLEKS                       R30 R31 K16 ["Tag"]
+      323 GETUPVAL                         R30 3
+      324 GETTABLEKS                       R30 R30 K16 ["Tag"]
       326 LOADK                            R31 K82 ["GeneralSettingsGameplayDescriptionImage"]
       327 SETTABLE                         R31 R29 R30
       328 GETIMPORT                        R30 K63 [UDim2.fromScale]
@@ -301,14 +301,14 @@ PROTO_1:
       362 GETUPVAL                         R23 6
       363 LOADK                            R24 K60 ["TextLabel"]
       364 NEWTABLE                         R25 8 0
-      366 GETUPVAL                         R27 3
-      367 GETTABLEKS                       R26 R27 K16 ["Tag"]
+      366 GETUPVAL                         R26 3
+      367 GETTABLEKS                       R26 R26 K16 ["Tag"]
       369 LOADK                            R27 K61 ["Component-TextLabel SubText"]
       370 SETTABLE                         R27 R25 R26
       371 GETIMPORT                        R26 K36 [UDim2.new]
       373 LOADN                            R27 1
-      374 GETUPVAL                         R30 10
-      375 GETTABLEKS                       R29 R30 K74 ["STANDARD_IMAGE_SIZE"]
+      374 GETUPVAL                         R29 10
+      375 GETTABLEKS                       R29 R29 K74 ["STANDARD_IMAGE_SIZE"]
       377 MINUS                            R28 R29
       378 LOADN                            R29 0
       379 LOADN                            R30 0
@@ -351,8 +351,8 @@ PROTO_1:
       431 GETUPVAL                         R19 6
       432 GETUPVAL                         R20 7
       433 NEWTABLE                         R21 2 0
-      435 GETUPVAL                         R23 3
-      436 GETTABLEKS                       R22 R23 K16 ["Tag"]
+      435 GETUPVAL                         R22 3
+      436 GETTABLEKS                       R22 R22 K16 ["Tag"]
       438 GETUPVAL                         R24 14
       439 CALL                             R24 0 1
       440 JUMPIFNOT                        R24 ; [+2]
@@ -397,67 +397,67 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AvatarPresetUtil"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarPresetUtil"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K9 ["Components"]
-       22 GETTABLEKS                       R4 R5 K10 ["Contexts"]
-       24 GETTABLEKS                       R3 R4 K11 ["AvatarSettingsContext"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Components"]
+       22 GETTABLEKS                       R3 R3 K10 ["Contexts"]
+       24 GETTABLEKS                       R3 R3 K11 ["AvatarSettingsContext"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Util"]
-       33 GETTABLEKS                       R4 R5 K12 ["AvatarSettingsProviderTypes"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Util"]
+       33 GETTABLEKS                       R4 R4 K12 ["AvatarSettingsProviderTypes"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R7 R0 K6 ["Src"]
-       40 GETTABLEKS                       R6 R7 K7 ["Util"]
-       42 GETTABLEKS                       R5 R6 K13 ["Constants"]
+       38 GETTABLEKS                       R5 R0 K6 ["Src"]
+       40 GETTABLEKS                       R5 R5 K7 ["Util"]
+       42 GETTABLEKS                       R5 R5 K13 ["Constants"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K5 [require]
-       47 GETTABLEKS                       R8 R0 K6 ["Src"]
-       49 GETTABLEKS                       R7 R8 K9 ["Components"]
-       51 GETTABLEKS                       R6 R7 K14 ["ExpandableSection"]
+       47 GETTABLEKS                       R6 R0 K6 ["Src"]
+       49 GETTABLEKS                       R6 R6 K9 ["Components"]
+       51 GETTABLEKS                       R6 R6 K14 ["ExpandableSection"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K5 [require]
-       56 GETTABLEKS                       R8 R0 K15 ["Packages"]
-       58 GETTABLEKS                       R7 R8 K16 ["Framework"]
+       56 GETTABLEKS                       R7 R0 K15 ["Packages"]
+       58 GETTABLEKS                       R7 R7 K16 ["Framework"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R10 R0 K6 ["Src"]
-       65 GETTABLEKS                       R9 R10 K9 ["Components"]
-       67 GETTABLEKS                       R8 R9 K17 ["GenericModeSelector"]
+       63 GETTABLEKS                       R8 R0 K6 ["Src"]
+       65 GETTABLEKS                       R8 R8 K9 ["Components"]
+       67 GETTABLEKS                       R8 R8 K17 ["GenericModeSelector"]
        69 CALL                             R7 1 1
        70 GETIMPORT                        R8 K5 [require]
-       72 GETTABLEKS                       R11 R0 K6 ["Src"]
-       74 GETTABLEKS                       R10 R11 K9 ["Components"]
-       76 GETTABLEKS                       R9 R10 K18 ["PresetTooltipDescriptionSection"]
+       72 GETTABLEKS                       R9 R0 K6 ["Src"]
+       74 GETTABLEKS                       R9 R9 K9 ["Components"]
+       76 GETTABLEKS                       R9 R9 K18 ["PresetTooltipDescriptionSection"]
        78 CALL                             R8 1 1
        79 GETIMPORT                        R9 K5 [require]
-       81 GETTABLEKS                       R11 R0 K15 ["Packages"]
-       83 GETTABLEKS                       R10 R11 K19 ["React"]
+       81 GETTABLEKS                       R10 R0 K15 ["Packages"]
+       83 GETTABLEKS                       R10 R10 K19 ["React"]
        85 CALL                             R9 1 1
        86 GETIMPORT                        R10 K5 [require]
-       88 GETTABLEKS                       R12 R0 K15 ["Packages"]
-       90 GETTABLEKS                       R11 R12 K20 ["ReactUtils"]
+       88 GETTABLEKS                       R11 R0 K15 ["Packages"]
+       90 GETTABLEKS                       R11 R11 K20 ["ReactUtils"]
        92 CALL                             R10 1 1
        93 GETIMPORT                        R11 K5 [require]
-       95 GETTABLEKS                       R14 R0 K6 ["Src"]
-       97 GETTABLEKS                       R13 R14 K21 ["Flags"]
-       99 GETTABLEKS                       R12 R13 K22 ["getFFlagAvatarSettingsChangeSeparatorColor"]
+       95 GETTABLEKS                       R12 R0 K6 ["Src"]
+       97 GETTABLEKS                       R12 R12 K21 ["Flags"]
+       99 GETTABLEKS                       R12 R12 K22 ["getFFlagAvatarSettingsChangeSeparatorColor"]
       101 CALL                             R11 1 1
       102 GETTABLEKS                       R12 R6 K23 ["ContextServices"]
       104 GETTABLEKS                       R13 R12 K24 ["Localization"]
-      106 GETTABLEKS                       R15 R6 K25 ["Styling"]
-      108 GETTABLEKS                       R14 R15 K26 ["joinTags"]
+      106 GETTABLEKS                       R14 R6 K25 ["Styling"]
+      108 GETTABLEKS                       R14 R14 K26 ["joinTags"]
       110 GETIMPORT                        R15 K5 [require]
-      112 GETTABLEKS                       R19 R0 K6 ["Src"]
-      114 GETTABLEKS                       R18 R19 K7 ["Util"]
-      116 GETTABLEKS                       R17 R18 K27 ["Telemetry"]
-      118 GETTABLEKS                       R16 R17 K28 ["TelemetryContext"]
+      112 GETTABLEKS                       R16 R0 K6 ["Src"]
+      114 GETTABLEKS                       R16 R16 K7 ["Util"]
+      116 GETTABLEKS                       R16 R16 K27 ["Telemetry"]
+      118 GETTABLEKS                       R16 R16 K28 ["TelemetryContext"]
       120 CALL                             R15 1 1
       121 GETTABLEKS                       R16 R6 K29 ["UI"]
       123 GETTABLEKS                       R17 R16 K30 ["Alert"]

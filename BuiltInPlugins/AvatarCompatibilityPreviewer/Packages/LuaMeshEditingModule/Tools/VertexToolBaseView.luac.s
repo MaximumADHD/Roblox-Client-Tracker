@@ -20,19 +20,19 @@ PROTO_1:
        20 SETTABLEKS                       R3 R2 K6 ["_trianglesFacingCamera"]
        22 NEWTABLE                         R3 0 0
        24 SETTABLEKS                       R3 R2 K7 ["_controlPointFacingCamera"]
-       26 GETUPVAL                         R4 1
-       27 GETTABLEKS                       R3 R4 K8 ["new"]
+       26 GETUPVAL                         R3 1
+       27 GETTABLEKS                       R3 R3 K8 ["new"]
        29 MOVE                             R4 R1
        30 CALL                             R3 1 1
        31 SETTABLEKS                       R3 R2 K9 ["_controlPointViews"]
-       33 GETUPVAL                         R4 2
-       34 GETTABLEKS                       R3 R4 K8 ["new"]
+       33 GETUPVAL                         R3 2
+       34 GETTABLEKS                       R3 R3 K8 ["new"]
        36 MOVE                             R4 R1
        37 GETUPVAL                         R5 3
        38 CALL                             R3 2 1
        39 SETTABLEKS                       R3 R2 K10 ["_wireframeMeshView"]
-       41 GETTABLEKS                       R4 R2 K2 ["_model"]
-       43 GETTABLEKS                       R3 R4 K11 ["modelChanged"]
+       41 GETTABLEKS                       R3 R2 K2 ["_model"]
+       43 GETTABLEKS                       R3 R3 K11 ["modelChanged"]
        45 NEWCLOSURE                       R5 P0
        46 CAPTURE                          VAL R2
        47 NAMECALL                         R3 R3 K12 ["Connect"]
@@ -114,11 +114,11 @@ PROTO_8:
        25 MOVE                             R8 R3
        26 NAMECALL                         R6 R6 K0 ["PointToWorldSpace"]
        28 CALL                             R6 2 1
-       29 SUB                              R8 R5 R4
-       30 SUB                              R10 R6 R4
-       31 NAMECALL                         R8 R8 K1 ["Cross"]
-       33 CALL                             R8 2 1
-       34 GETTABLEKS                       R7 R8 K2 ["Unit"]
+       29 SUB                              R7 R5 R4
+       30 SUB                              R9 R6 R4
+       31 NAMECALL                         R7 R7 K1 ["Cross"]
+       33 CALL                             R7 2 1
+       34 GETTABLEKS                       R7 R7 K2 ["Unit"]
        36 GETUPVAL                         R8 2
        37 MOVE                             R10 R7
        38 NAMECALL                         R8 R8 K3 ["Dot"]
@@ -137,8 +137,8 @@ PROTO_9:
         6 NEWTABLE                         R2 0 0
         8 NEWTABLE                         R3 0 0
        10 RETURN                           R2 2
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K2 ["CurrentCamera"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K2 ["CurrentCamera"]
        14 JUMPIF                           R2 ; [+5]
        15 NEWTABLE                         R3 0 0
        17 NEWTABLE                         R4 0 0
@@ -147,8 +147,8 @@ PROTO_9:
        22 GETTABLEKS                       R4 R3 K4 ["LookVector"]
        24 NEWTABLE                         R5 0 0
        26 NEWTABLE                         R6 0 0
-       28 GETTABLEKS                       R10 R1 K1 ["PointLocationData"]
-       30 GETTABLEKS                       R7 R10 K5 ["Positions"]
+       28 GETTABLEKS                       R7 R1 K1 ["PointLocationData"]
+       30 GETTABLEKS                       R7 R7 K5 ["Positions"]
        32 LOADNIL                          R8
        33 LOADNIL                          R9
        34 FORGPREP                         R7
@@ -157,15 +157,15 @@ PROTO_9:
        38 NAMECALL                         R12 R12 K6 ["getMeshOriginWorld"]
        40 CALL                             R12 2 1
        41 JUMPIFEQKNIL                     R12 ; [+73]
-       43 GETTABLEKS                       R15 R1 K1 ["PointLocationData"]
-       45 GETTABLEKS                       R14 R15 K7 ["VertexData"]
+       43 GETTABLEKS                       R14 R1 K1 ["PointLocationData"]
+       45 GETTABLEKS                       R14 R14 K7 ["VertexData"]
        47 GETTABLE                         R13 R14 R10
        48 JUMPIFNOT                        R13 ; [+66]
-       49 GETTABLEKS                       R16 R1 K1 ["PointLocationData"]
-       51 GETTABLEKS                       R15 R16 K8 ["VertexTriangleIndexData"]
+       49 GETTABLEKS                       R15 R1 K1 ["PointLocationData"]
+       51 GETTABLEKS                       R15 R15 K8 ["VertexTriangleIndexData"]
        53 GETTABLE                         R14 R15 R10
-       54 GETTABLEKS                       R17 R1 K1 ["PointLocationData"]
-       56 GETTABLEKS                       R16 R17 K9 ["TriangleIndexData"]
+       54 GETTABLEKS                       R16 R1 K1 ["PointLocationData"]
+       56 GETTABLEKS                       R16 R16 K9 ["TriangleIndexData"]
        58 GETTABLE                         R15 R16 R10
        59 NEWCLOSURE                       R16 P0
        60 CAPTURE                          VAL R13
@@ -220,8 +220,8 @@ PROTO_9:
       117 RETURN                           R5 2
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_renderTask"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_renderTask"]
         3 GETUPVAL                         R1 1
         4 JUMPIFNOTEQ                      R0 R1 ; [+5]
         6 GETUPVAL                         R0 0
@@ -229,21 +229,21 @@ PROTO_10:
         8 SETTABLEKS                       R1 R0 K0 ["_renderTask"]
        10 GETUPVAL                         R0 0
        11 DUPTABLE                         R2 K5 [{"PointLocationData", "Transparency", "SelectedControlPointWeights", "HoveredPointData"}]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K6 ["_model"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K6 ["_model"]
        15 NAMECALL                         R3 R3 K7 ["getPointLocationData"]
        17 CALL                             R3 1 1
        18 SETTABLEKS                       R3 R2 K1 ["PointLocationData"]
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K8 ["_transparency"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K8 ["_transparency"]
        23 SETTABLEKS                       R3 R2 K2 ["Transparency"]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K6 ["_model"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K6 ["_model"]
        28 NAMECALL                         R3 R3 K9 ["getSelectedControlPointWeights"]
        30 CALL                             R3 1 1
        31 SETTABLEKS                       R3 R2 K3 ["SelectedControlPointWeights"]
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R3 R4 K6 ["_model"]
+       33 GETUPVAL                         R3 0
+       34 GETTABLEKS                       R3 R3 K6 ["_model"]
        36 NAMECALL                         R3 R3 K10 ["getHoveredPoint"]
        38 CALL                             R3 1 1
        39 SETTABLEKS                       R3 R2 K4 ["HoveredPointData"]
@@ -272,8 +272,8 @@ PROTO_12:
         3 CALL                             R2 2 0
         4 GETTABLEKS                       R2 R0 K1 ["_controlPointViews"]
         6 DUPTABLE                         R4 K7 [{"ControlPointPositions", "Transparency", "SelectedControlPointWeights", "ControlPointFacingCamera", "CenterHoveredPoint"}]
-        7 GETTABLEKS                       R6 R1 K8 ["PointLocationData"]
-        9 GETTABLEKS                       R5 R6 K9 ["Positions"]
+        7 GETTABLEKS                       R5 R1 K8 ["PointLocationData"]
+        9 GETTABLEKS                       R5 R5 K9 ["Positions"]
        11 SETTABLEKS                       R5 R4 K2 ["ControlPointPositions"]
        13 GETTABLEKS                       R5 R1 K3 ["Transparency"]
        15 SETTABLEKS                       R5 R4 K3 ["Transparency"]
@@ -293,33 +293,33 @@ PROTO_12:
        41 SETTABLEKS                       R5 R4 K3 ["Transparency"]
        43 GETTABLEKS                       R5 R0 K25 ["_trianglesFacingCamera"]
        45 SETTABLEKS                       R5 R4 K15 ["TrianglesFacingCamera"]
-       47 GETTABLEKS                       R6 R1 K8 ["PointLocationData"]
-       49 GETTABLEKS                       R5 R6 K16 ["TriangleIndexData"]
+       47 GETTABLEKS                       R5 R1 K8 ["PointLocationData"]
+       49 GETTABLEKS                       R5 R5 K16 ["TriangleIndexData"]
        51 SETTABLEKS                       R5 R4 K16 ["TriangleIndexData"]
-       53 GETTABLEKS                       R6 R1 K8 ["PointLocationData"]
-       55 GETTABLEKS                       R5 R6 K17 ["VertexData"]
+       53 GETTABLEKS                       R5 R1 K8 ["PointLocationData"]
+       55 GETTABLEKS                       R5 R5 K17 ["VertexData"]
        57 SETTABLEKS                       R5 R4 K17 ["VertexData"]
-       59 GETUPVAL                         R7 0
-       60 GETTABLEKS                       R6 R7 K26 ["ControlPoint"]
-       62 GETTABLEKS                       R5 R6 K18 ["PointRadius"]
+       59 GETUPVAL                         R5 0
+       60 GETTABLEKS                       R5 R5 K26 ["ControlPoint"]
+       62 GETTABLEKS                       R5 R5 K18 ["PointRadius"]
        64 SETTABLEKS                       R5 R4 K18 ["PointRadius"]
        66 GETTABLEKS                       R5 R1 K4 ["SelectedControlPointWeights"]
        68 SETTABLEKS                       R5 R4 K4 ["SelectedControlPointWeights"]
-       70 GETUPVAL                         R7 0
-       71 GETTABLEKS                       R6 R7 K27 ["VertexToolBase"]
-       73 GETTABLEKS                       R5 R6 K28 ["DefaultWireframeColor"]
+       70 GETUPVAL                         R5 0
+       71 GETTABLEKS                       R5 R5 K27 ["VertexToolBase"]
+       73 GETTABLEKS                       R5 R5 K28 ["DefaultWireframeColor"]
        75 SETTABLEKS                       R5 R4 K19 ["WireColor"]
-       77 GETUPVAL                         R7 0
-       78 GETTABLEKS                       R6 R7 K27 ["VertexToolBase"]
-       80 GETTABLEKS                       R5 R6 K29 ["DefaultWireframeSegmentsColor"]
+       77 GETUPVAL                         R5 0
+       78 GETTABLEKS                       R5 R5 K27 ["VertexToolBase"]
+       80 GETTABLEKS                       R5 R5 K29 ["DefaultWireframeSegmentsColor"]
        82 SETTABLEKS                       R5 R4 K20 ["SegmentColor"]
-       84 GETUPVAL                         R7 0
-       85 GETTABLEKS                       R6 R7 K27 ["VertexToolBase"]
-       87 GETTABLEKS                       R5 R6 K30 ["DefaultWireframeSelectedColor"]
+       84 GETUPVAL                         R5 0
+       85 GETTABLEKS                       R5 R5 K27 ["VertexToolBase"]
+       87 GETTABLEKS                       R5 R5 K30 ["DefaultWireframeSelectedColor"]
        89 SETTABLEKS                       R5 R4 K21 ["SelectedColor"]
-       91 GETUPVAL                         R7 0
-       92 GETTABLEKS                       R6 R7 K27 ["VertexToolBase"]
-       94 GETTABLEKS                       R5 R6 K31 ["DefaultWireframeSelectedNoWeightColor"]
+       91 GETUPVAL                         R5 0
+       92 GETTABLEKS                       R5 R5 K27 ["VertexToolBase"]
+       94 GETTABLEKS                       R5 R5 K31 ["DefaultWireframeSelectedNoWeightColor"]
        96 SETTABLEKS                       R5 R4 K22 ["SelectedNoWeightColor"]
        98 NAMECALL                         R2 R2 K12 ["render"]
       100 CALL                             R2 2 0
@@ -345,31 +345,31 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Util"]
-       17 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Util"]
+       17 GETTABLEKS                       R3 R3 K11 ["Constants"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R0 K12 ["Views"]
-       24 GETTABLEKS                       R4 R5 K13 ["ControlPointViews"]
+       22 GETTABLEKS                       R4 R0 K12 ["Views"]
+       24 GETTABLEKS                       R4 R4 K13 ["ControlPointViews"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R0 K14 ["MeshEditingContexts"]
-       31 GETTABLEKS                       R5 R6 K15 ["MeshEditingContextBase"]
+       29 GETTABLEKS                       R5 R0 K14 ["MeshEditingContexts"]
+       31 GETTABLEKS                       R5 R5 K15 ["MeshEditingContextBase"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R7 R0 K12 ["Views"]
-       38 GETTABLEKS                       R6 R7 K16 ["ReactView"]
+       36 GETTABLEKS                       R6 R0 K12 ["Views"]
+       38 GETTABLEKS                       R6 R6 K16 ["ReactView"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K9 [require]
        43 GETTABLEKS                       R7 R0 K17 ["Types"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K9 [require]
-       48 GETTABLEKS                       R9 R0 K12 ["Views"]
-       50 GETTABLEKS                       R8 R9 K18 ["WireframeMeshView"]
+       48 GETTABLEKS                       R8 R0 K12 ["Views"]
+       50 GETTABLEKS                       R8 R8 K18 ["WireframeMeshView"]
        52 CALL                             R7 1 1
        53 GETIMPORT                        R8 K9 [require]
-       55 GETTABLEKS                       R10 R0 K19 ["Tools"]
-       57 GETTABLEKS                       R9 R10 K20 ["VertexToolBaseModel"]
+       55 GETTABLEKS                       R9 R0 K19 ["Tools"]
+       57 GETTABLEKS                       R9 R9 K20 ["VertexToolBaseModel"]
        59 CALL                             R8 1 1
        60 NEWTABLE                         R9 16 0
        62 SETTABLEKS                       R9 R9 K21 ["__index"]

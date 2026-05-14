@@ -16,15 +16,15 @@ PROTO_0:
        19 LOADK                            R2 K9 ["mock context"]
        20 SETTABLEKS                       R2 R1 K7 ["contextType"]
        22 DUPTABLE                         R2 K11 [{"ActivityHistoryProvider"}]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R3 R4 K12 ["createElement"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K12 ["createElement"]
        26 GETUPVAL                         R4 2
        27 MOVE                             R5 R1
        28 MOVE                             R6 R0
        29 CALL                             R3 3 1
        30 SETTABLEKS                       R3 R2 K10 ["ActivityHistoryProvider"]
-       32 GETUPVAL                         R4 3
-       33 GETTABLEKS                       R3 R4 K13 ["provideMockContext"]
+       32 GETUPVAL                         R3 3
+       33 GETTABLEKS                       R3 R3 K13 ["provideMockContext"]
        35 GETUPVAL                         R4 4
        36 MOVE                             R5 R2
        37 CALL                             R3 2 -1
@@ -32,41 +32,41 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Resources"]
-       29 GETTABLEKS                       R4 R5 K10 ["MakeTheme"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Resources"]
+       29 GETTABLEKS                       R4 R4 K10 ["MakeTheme"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["Clients"]
-       38 GETTABLEKS                       R5 R6 K12 ["MockActivityHistoryClient"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Clients"]
+       38 GETTABLEKS                       R5 R5 K12 ["MockActivityHistoryClient"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K4 [require]
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K13 ["Contexts"]
-       47 GETTABLEKS                       R6 R7 K14 ["ActivityHistoryProvider"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K13 ["Contexts"]
+       47 GETTABLEKS                       R6 R6 K14 ["ActivityHistoryProvider"]
        49 CALL                             R5 1 1
        50 GETTABLEKS                       R6 R2 K15 ["TestHelpers"]
        52 GETTABLEKS                       R7 R2 K16 ["ContextServices"]
        54 NEWTABLE                         R8 0 3
-       56 GETTABLEKS                       R10 R7 K17 ["Analytics"]
-       58 GETTABLEKS                       R9 R10 K18 ["mock"]
+       56 GETTABLEKS                       R9 R7 K17 ["Analytics"]
+       58 GETTABLEKS                       R9 R9 K18 ["mock"]
        60 CALL                             R9 0 1
-       61 GETTABLEKS                       R11 R7 K19 ["Localization"]
-       63 GETTABLEKS                       R10 R11 K18 ["mock"]
+       61 GETTABLEKS                       R10 R7 K19 ["Localization"]
+       63 GETTABLEKS                       R10 R10 K18 ["mock"]
        65 CALL                             R10 0 1
        66 MOVE                             R11 R3
        67 LOADB                            R12 1

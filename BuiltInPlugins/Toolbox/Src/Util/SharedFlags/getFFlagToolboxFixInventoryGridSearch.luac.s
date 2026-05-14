@@ -20,10 +20,10 @@ MAIN:
        11 NAMECALL                         R0 R0 K7 ["FindFirstAncestor"]
        13 CALL                             R0 2 1
        14 GETIMPORT                        R1 K9 [require]
-       16 GETTABLEKS                       R5 R0 K10 ["Src"]
-       18 GETTABLEKS                       R4 R5 K11 ["Util"]
-       20 GETTABLEKS                       R3 R4 K12 ["SharedFlags"]
-       22 GETTABLEKS                       R2 R3 K13 ["getFFlagToolboxFixInventoryCreatorFilter"]
+       16 GETTABLEKS                       R2 R0 K10 ["Src"]
+       18 GETTABLEKS                       R2 R2 K11 ["Util"]
+       20 GETTABLEKS                       R2 R2 K12 ["SharedFlags"]
+       22 GETTABLEKS                       R2 R2 K13 ["getFFlagToolboxFixInventoryCreatorFilter"]
        24 CALL                             R1 1 1
        25 DUPCLOSURE                       R2 K14 [PROTO_0]
        26 CAPTURE                          VAL R1

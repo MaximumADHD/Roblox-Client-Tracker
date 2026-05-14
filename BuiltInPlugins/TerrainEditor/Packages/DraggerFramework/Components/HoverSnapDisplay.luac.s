@@ -43,8 +43,8 @@ PROTO_1:
        22 GETTABLEKS                       R10 R3 K7 ["IsPivot"]
        24 JUMPIFNOT                        R10 ; [+28]
        25 GETTABLEKS                       R9 R5 K5 ["Position"]
-       27 GETUPVAL                         R11 0
-       28 GETTABLEKS                       R10 R11 K8 ["createElement"]
+       27 GETUPVAL                         R10 0
+       28 GETTABLEKS                       R10 R10 K8 ["createElement"]
        30 GETUPVAL                         R11 1
        31 DUPTABLE                         R12 K11 [{"DraggerContext", "Position", "Hovered", "IsActive"}]
        32 SETTABLEKS                       R2 R12 K1 ["DraggerContext"]
@@ -136,8 +136,8 @@ PROTO_1:
       155 NAMECALL                         R20 R12 K37 ["Cross"]
       157 CALL                             R20 2 -1
       158 CALL                             R17 -1 1
-      159 GETUPVAL                         R19 0
-      160 GETTABLEKS                       R18 R19 K8 ["createElement"]
+      159 GETUPVAL                         R18 0
+      160 GETTABLEKS                       R18 R18 K8 ["createElement"]
       162 GETUPVAL                         R19 2
       163 DUPTABLE                         R20 K44 [{"MainTransparency", "DimTransparency", "Color3", "CFrame", "Size", "GridSize", "MajorStep"}]
       164 LOADK                            R21 K45 [0.4]
@@ -164,8 +164,8 @@ PROTO_1:
       196 NAMECALL                         R10 R2 K31 ["shouldShowHoverGrids"]
       198 CALL                             R10 1 1
       199 JUMPIFNOT                        R10 ; [+100]
-      200 GETTABLEKS                       R11 R3 K4 ["RaycastResult"]
-      202 GETTABLEKS                       R10 R11 K49 ["Instance"]
+      200 GETTABLEKS                       R10 R3 K4 ["RaycastResult"]
+      202 GETTABLEKS                       R10 R10 K49 ["Instance"]
       204 JUMPIFNOT                        R10 ; [+42]
       205 LOADK                            R13 K50 ["Part"]
       206 NAMECALL                         R11 R10 K51 ["IsA"]
@@ -174,8 +174,8 @@ PROTO_1:
       210 GETTABLEKS                       R11 R10 K52 ["Shape"]
       212 GETIMPORT                        R12 K56 [Enum.PartType.Ball]
       214 JUMPIFNOTEQ                      R11 R12 ; [+14]
-      216 GETUPVAL                         R12 0
-      217 GETTABLEKS                       R11 R12 K8 ["createElement"]
+      216 GETUPVAL                         R11 0
+      217 GETTABLEKS                       R11 R11 K8 ["createElement"]
       219 GETUPVAL                         R12 3
       220 DUPTABLE                         R13 K57 [{"Part", "Color3"}]
       221 SETTABLEKS                       R10 R13 K50 ["Part"]
@@ -186,8 +186,8 @@ PROTO_1:
       229 GETTABLEKS                       R11 R10 K52 ["Shape"]
       231 GETIMPORT                        R12 K60 [Enum.PartType.Cylinder]
       233 JUMPIFNOTEQ                      R11 R12 ; [+13]
-      235 GETUPVAL                         R12 0
-      236 GETTABLEKS                       R11 R12 K8 ["createElement"]
+      235 GETUPVAL                         R11 0
+      236 GETTABLEKS                       R11 R11 K8 ["createElement"]
       238 GETUPVAL                         R12 4
       239 DUPTABLE                         R13 K57 [{"Part", "Color3"}]
       240 SETTABLEKS                       R10 R13 K50 ["Part"]
@@ -198,8 +198,8 @@ PROTO_1:
       248 NAMECALL                         R11 R2 K61 ["shouldGridSnap"]
       250 CALL                             R11 1 1
       251 JUMPIFNOT                        R11 ; [+48]
-      252 GETUPVAL                         R12 0
-      253 GETTABLEKS                       R11 R12 K8 ["createElement"]
+      252 GETUPVAL                         R11 0
+      253 GETTABLEKS                       R11 R11 K8 ["createElement"]
       255 LOADK                            R12 K62 ["SphereHandleAdornment"]
       256 DUPTABLE                         R13 K68 [{"Radius", "CFrame", "Color3", "AlwaysOnTop", "AdornCullingMode", "Adornee", "ZIndex"}]
       257 MOVE                             R17 R9
@@ -222,43 +222,43 @@ PROTO_1:
       282 SETTABLEKS                       R14 R13 K64 ["AlwaysOnTop"]
       284 GETIMPORT                        R14 K75 [Enum.AdornCullingMode.Never]
       286 SETTABLEKS                       R14 R13 K65 ["AdornCullingMode"]
-      288 GETIMPORT                        R15 K77 [workspace]
-      290 GETTABLEKS                       R14 R15 K78 ["Terrain"]
+      288 GETIMPORT                        R14 K77 [workspace]
+      290 GETTABLEKS                       R14 R14 K78 ["Terrain"]
       292 SETTABLEKS                       R14 R13 K66 ["Adornee"]
       294 LOADN                            R14 0
       295 SETTABLEKS                       R14 R13 K67 ["ZIndex"]
       297 CALL                             R11 2 1
       298 SETTABLEKS                       R11 R4 K79 ["SnapTo"]
-      300 GETUPVAL                         R11 0
-      301 GETTABLEKS                       R10 R11 K80 ["createFragment"]
+      300 GETUPVAL                         R10 0
+      301 GETTABLEKS                       R10 R10 K80 ["createFragment"]
       303 MOVE                             R11 R4
       304 CALL                             R10 1 -1
       305 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K2 ["Parent"]
         9 GETIMPORT                        R2 K4 [require]
        11 GETTABLEKS                       R3 R1 K5 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K4 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Components"]
-       18 GETTABLEKS                       R4 R5 K7 ["SphereMajorLines"]
+       16 GETTABLEKS                       R4 R0 K6 ["Components"]
+       18 GETTABLEKS                       R4 R4 K7 ["SphereMajorLines"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K4 [require]
-       23 GETTABLEKS                       R6 R0 K6 ["Components"]
-       25 GETTABLEKS                       R5 R6 K8 ["CylinderMajorLines"]
+       23 GETTABLEKS                       R5 R0 K6 ["Components"]
+       25 GETTABLEKS                       R5 R5 K8 ["CylinderMajorLines"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K4 [require]
-       30 GETTABLEKS                       R7 R0 K6 ["Components"]
-       32 GETTABLEKS                       R6 R7 K9 ["PivotRing"]
+       30 GETTABLEKS                       R6 R0 K6 ["Components"]
+       32 GETTABLEKS                       R6 R6 K9 ["PivotRing"]
        34 CALL                             R5 1 1
        35 GETIMPORT                        R6 K4 [require]
-       37 GETTABLEKS                       R8 R0 K6 ["Components"]
-       39 GETTABLEKS                       R7 R8 K10 ["RulerView"]
+       37 GETTABLEKS                       R7 R0 K6 ["Components"]
+       39 GETTABLEKS                       R7 R7 K10 ["RulerView"]
        41 CALL                             R6 1 1
        42 GETTABLEKS                       R7 R2 K11 ["Component"]
        44 LOADK                            R9 K12 ["HoverSnapDisplay"]

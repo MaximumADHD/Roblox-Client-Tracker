@@ -6,15 +6,15 @@ PROTO_0:
         6 GETTABLE                         R3 R4 R5
         7 JUMPIF                           R3 ; [+2]
         8 NEWTABLE                         R3 0 0
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R5 R6 K2 ["Dictionary"]
-       13 GETTABLEKS                       R4 R5 K3 ["join"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K2 ["Dictionary"]
+       13 GETTABLEKS                       R4 R4 K3 ["join"]
        15 GETTABLEKS                       R5 R2 K1 ["SearchItemLogs"]
        17 NEWTABLE                         R6 1 0
        19 GETUPVAL                         R7 0
-       20 GETUPVAL                         R10 1
-       21 GETTABLEKS                       R9 R10 K2 ["Dictionary"]
-       23 GETTABLEKS                       R8 R9 K3 ["join"]
+       20 GETUPVAL                         R8 1
+       21 GETTABLEKS                       R8 R8 K2 ["Dictionary"]
+       23 GETTABLEKS                       R8 R8 K3 ["join"]
        25 MOVE                             R9 R3
        26 NEWTABLE                         R10 1 0
        28 GETUPVAL                         R11 2
@@ -51,13 +51,13 @@ MAIN:
        11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
        14 GETIMPORT                        R2 K9 [require]
-       16 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K11 ["Cryo"]
+       16 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K11 ["Cryo"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R6 R1 K12 ["Src"]
-       25 GETTABLEKS                       R5 R6 K13 ["Actions"]
-       27 GETTABLEKS                       R4 R5 K14 ["SetSearchItemLogs"]
+       23 GETTABLEKS                       R4 R1 K12 ["Src"]
+       25 GETTABLEKS                       R4 R4 K13 ["Actions"]
+       27 GETTABLEKS                       R4 R4 K14 ["SetSearchItemLogs"]
        29 CALL                             R3 1 1
        30 DUPCLOSURE                       R4 K15 [PROTO_1]
        31 CAPTURE                          VAL R2

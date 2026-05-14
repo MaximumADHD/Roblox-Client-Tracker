@@ -1,7 +1,7 @@
 PROTO_0:
         0 LOADNIL                          R1
-        1 GETTABLEKS                       R4 R0 K0 ["LookVector"]
-        3 GETTABLEKS                       R3 R4 K1 ["Y"]
+        1 GETTABLEKS                       R3 R0 K0 ["LookVector"]
+        3 GETTABLEKS                       R3 R3 K1 ["Y"]
         5 FASTCALL1                        MATH_ABS R3 ; [+2]
         6 GETIMPORT                        R2 K4 [math.abs]
         8 CALL                             R2 1 1

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetMouseMoveEnabled"]
         5 GETTABLEKS                       R3 R0 K2 ["EnabledMouseMove"]
         7 NOT                              R2 R3
@@ -9,8 +9,8 @@ PROTO_0:
        11 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetMouseClickEnabled"]
         5 GETTABLEKS                       R3 R0 K2 ["EnabledMouseClick"]
         7 NOT                              R2 R3
@@ -19,8 +19,8 @@ PROTO_1:
        11 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetKeyboardEnabled"]
         5 GETTABLEKS                       R3 R0 K2 ["EnabledKeyboard"]
         7 NOT                              R2 R3
@@ -29,8 +29,8 @@ PROTO_2:
        11 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetGamepadEnabled"]
         5 GETTABLEKS                       R3 R0 K2 ["EnabledGamepad"]
         7 NOT                              R2 R3
@@ -39,8 +39,8 @@ PROTO_3:
        11 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetTouchEnabled"]
         5 GETTABLEKS                       R3 R0 K2 ["EnabledTouch"]
         7 NOT                              R2 R3
@@ -74,10 +74,10 @@ PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
-        6 GETTABLEKS                       R5 R0 K0 ["props"]
-        8 GETTABLEKS                       R4 R5 K3 ["Disabled"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        6 GETTABLEKS                       R4 R0 K0 ["props"]
+        8 GETTABLEKS                       R4 R4 K3 ["Disabled"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K4 ["createElement"]
        13 GETUPVAL                         R6 1
        14 DUPTABLE                         R7 K14 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
        15 GETTABLEKS                       R8 R1 K5 ["LayoutOrder"]
@@ -105,8 +105,8 @@ PROTO_6:
        54 GETIMPORT                        R8 K33 [Enum.VerticalAlignment.Top]
        56 SETTABLEKS                       R8 R7 K13 ["VerticalAlignment"]
        58 DUPTABLE                         R8 K36 [{"Label", "GridLayoutArea"}]
-       59 GETUPVAL                         R10 0
-       60 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       59 GETUPVAL                         R9 0
+       60 GETTABLEKS                       R9 R9 K4 ["createElement"]
        62 GETUPVAL                         R10 2
        63 DUPTABLE                         R11 K40 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
        64 LOADK                            R14 K41 ["PlaybackTabView"]
@@ -129,8 +129,8 @@ PROTO_6:
        91 SETTABLEKS                       R12 R11 K39 ["TextYAlignment"]
        93 CALL                             R9 2 1
        94 SETTABLEKS                       R9 R8 K34 ["Label"]
-       96 GETUPVAL                         R10 0
-       97 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       96 GETUPVAL                         R9 0
+       97 GETTABLEKS                       R9 R9 K4 ["createElement"]
        99 GETUPVAL                         R10 1
       100 DUPTABLE                         R11 K48 [{"Size", "LayoutOrder"}]
       101 GETIMPORT                        R12 K49 [UDim2.new]
@@ -143,8 +143,8 @@ PROTO_6:
       111 LOADN                            R12 1
       112 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
       114 DUPTABLE                         R12 K56 [{"Layout", "MouseMoveEnabled", "MouseClickEnabled", "KeyboardEnabled", "GamepadEnabled", "TouchEnabled"}]
-      115 GETUPVAL                         R14 0
-      116 GETTABLEKS                       R13 R14 K4 ["createElement"]
+      115 GETUPVAL                         R13 0
+      116 GETTABLEKS                       R13 R13 K4 ["createElement"]
       118 LOADK                            R14 K57 ["UIGridLayout"]
       119 DUPTABLE                         R15 K61 [{"FillDirection", "CellPadding", "SortOrder", "VerticalAlignment", "HorizontalAlignment", "CellSize"}]
       120 GETIMPORT                        R16 K25 [Enum.FillDirection.Vertical]
@@ -164,8 +164,8 @@ PROTO_6:
       147 SETTABLEKS                       R16 R15 K60 ["CellSize"]
       149 CALL                             R13 2 1
       150 SETTABLEKS                       R13 R12 K9 ["Layout"]
-      152 GETUPVAL                         R14 0
-      153 GETTABLEKS                       R13 R14 K4 ["createElement"]
+      152 GETUPVAL                         R13 0
+      153 GETTABLEKS                       R13 R13 K4 ["createElement"]
       155 GETUPVAL                         R14 3
       156 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
       157 GETTABLEKS                       R16 R1 K70 ["EnabledMouseMove"]
@@ -180,8 +180,8 @@ PROTO_6:
       172 SETTABLEKS                       R4 R15 K3 ["Disabled"]
       174 CALL                             R13 2 1
       175 SETTABLEKS                       R13 R12 K51 ["MouseMoveEnabled"]
-      177 GETUPVAL                         R14 0
-      178 GETTABLEKS                       R13 R14 K4 ["createElement"]
+      177 GETUPVAL                         R13 0
+      178 GETTABLEKS                       R13 R13 K4 ["createElement"]
       180 GETUPVAL                         R14 3
       181 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
       182 GETTABLEKS                       R16 R1 K74 ["EnabledMouseClick"]
@@ -196,8 +196,8 @@ PROTO_6:
       197 SETTABLEKS                       R4 R15 K3 ["Disabled"]
       199 CALL                             R13 2 1
       200 SETTABLEKS                       R13 R12 K52 ["MouseClickEnabled"]
-      202 GETUPVAL                         R14 0
-      203 GETTABLEKS                       R13 R14 K4 ["createElement"]
+      202 GETUPVAL                         R13 0
+      203 GETTABLEKS                       R13 R13 K4 ["createElement"]
       205 GETUPVAL                         R14 3
       206 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
       207 GETTABLEKS                       R16 R1 K77 ["EnabledKeyboard"]
@@ -212,8 +212,8 @@ PROTO_6:
       222 SETTABLEKS                       R4 R15 K3 ["Disabled"]
       224 CALL                             R13 2 1
       225 SETTABLEKS                       R13 R12 K53 ["KeyboardEnabled"]
-      227 GETUPVAL                         R14 0
-      228 GETTABLEKS                       R13 R14 K4 ["createElement"]
+      227 GETUPVAL                         R13 0
+      228 GETTABLEKS                       R13 R13 K4 ["createElement"]
       230 GETUPVAL                         R14 3
       231 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
       232 GETTABLEKS                       R16 R1 K80 ["EnabledGamepad"]
@@ -228,8 +228,8 @@ PROTO_6:
       247 SETTABLEKS                       R4 R15 K3 ["Disabled"]
       249 CALL                             R13 2 1
       250 SETTABLEKS                       R13 R12 K54 ["GamepadEnabled"]
-      252 GETUPVAL                         R14 0
-      253 GETTABLEKS                       R13 R14 K4 ["createElement"]
+      252 GETUPVAL                         R13 0
+      253 GETTABLEKS                       R13 R13 K4 ["createElement"]
       255 GETUPVAL                         R14 3
       256 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
       257 GETTABLEKS                       R16 R1 K83 ["EnabledTouch"]
@@ -336,60 +336,60 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R3 K10 ["UI"]
        34 GETTABLEKS                       R6 R5 K11 ["TextLabel"]
        36 GETTABLEKS                       R7 R5 K12 ["Pane"]
        38 GETIMPORT                        R8 K4 [require]
-       40 GETTABLEKS                       R11 R0 K13 ["Src"]
-       42 GETTABLEKS                       R10 R11 K14 ["Components"]
-       44 GETTABLEKS                       R9 R10 K15 ["LabeledToggleButton"]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Components"]
+       44 GETTABLEKS                       R9 R9 K15 ["LabeledToggleButton"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K4 [require]
-       49 GETTABLEKS                       R13 R0 K13 ["Src"]
-       51 GETTABLEKS                       R12 R13 K16 ["Actions"]
-       53 GETTABLEKS                       R11 R12 K17 ["EventTypeEnabled"]
-       55 GETTABLEKS                       R10 R11 K18 ["SetGamepadEnabled"]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K16 ["Actions"]
+       53 GETTABLEKS                       R10 R10 K17 ["EventTypeEnabled"]
+       55 GETTABLEKS                       R10 R10 K18 ["SetGamepadEnabled"]
        57 CALL                             R9 1 1
        58 GETIMPORT                        R10 K4 [require]
-       60 GETTABLEKS                       R14 R0 K13 ["Src"]
-       62 GETTABLEKS                       R13 R14 K16 ["Actions"]
-       64 GETTABLEKS                       R12 R13 K17 ["EventTypeEnabled"]
-       66 GETTABLEKS                       R11 R12 K19 ["SetKeyboardEnabled"]
+       60 GETTABLEKS                       R11 R0 K13 ["Src"]
+       62 GETTABLEKS                       R11 R11 K16 ["Actions"]
+       64 GETTABLEKS                       R11 R11 K17 ["EventTypeEnabled"]
+       66 GETTABLEKS                       R11 R11 K19 ["SetKeyboardEnabled"]
        68 CALL                             R10 1 1
        69 GETIMPORT                        R11 K4 [require]
-       71 GETTABLEKS                       R15 R0 K13 ["Src"]
-       73 GETTABLEKS                       R14 R15 K16 ["Actions"]
-       75 GETTABLEKS                       R13 R14 K17 ["EventTypeEnabled"]
-       77 GETTABLEKS                       R12 R13 K20 ["SetMouseClickEnabled"]
+       71 GETTABLEKS                       R12 R0 K13 ["Src"]
+       73 GETTABLEKS                       R12 R12 K16 ["Actions"]
+       75 GETTABLEKS                       R12 R12 K17 ["EventTypeEnabled"]
+       77 GETTABLEKS                       R12 R12 K20 ["SetMouseClickEnabled"]
        79 CALL                             R11 1 1
        80 GETIMPORT                        R12 K4 [require]
-       82 GETTABLEKS                       R16 R0 K13 ["Src"]
-       84 GETTABLEKS                       R15 R16 K16 ["Actions"]
-       86 GETTABLEKS                       R14 R15 K17 ["EventTypeEnabled"]
-       88 GETTABLEKS                       R13 R14 K21 ["SetMouseMoveEnabled"]
+       82 GETTABLEKS                       R13 R0 K13 ["Src"]
+       84 GETTABLEKS                       R13 R13 K16 ["Actions"]
+       86 GETTABLEKS                       R13 R13 K17 ["EventTypeEnabled"]
+       88 GETTABLEKS                       R13 R13 K21 ["SetMouseMoveEnabled"]
        90 CALL                             R12 1 1
        91 GETIMPORT                        R13 K4 [require]
-       93 GETTABLEKS                       R17 R0 K13 ["Src"]
-       95 GETTABLEKS                       R16 R17 K16 ["Actions"]
-       97 GETTABLEKS                       R15 R16 K17 ["EventTypeEnabled"]
-       99 GETTABLEKS                       R14 R15 K22 ["SetTouchEnabled"]
+       93 GETTABLEKS                       R14 R0 K13 ["Src"]
+       95 GETTABLEKS                       R14 R14 K16 ["Actions"]
+       97 GETTABLEKS                       R14 R14 K17 ["EventTypeEnabled"]
+       99 GETTABLEKS                       R14 R14 K22 ["SetTouchEnabled"]
       101 CALL                             R13 1 1
       102 GETTABLEKS                       R14 R1 K23 ["PureComponent"]
       104 LOADK                            R16 K24 ["FilterSettingsUIGroup"]

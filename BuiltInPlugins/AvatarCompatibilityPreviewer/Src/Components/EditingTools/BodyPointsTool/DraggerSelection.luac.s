@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R2 K4 [{"SelectionChanged", "draggerContext", "_selection", "_setSelectedPointNamesCallback"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K5 ["new"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K5 ["new"]
         4 CALL                             R3 0 1
         5 SETTABLEKS                       R3 R2 K0 ["SelectionChanged"]
         7 LOADNIL                          R3
@@ -20,8 +20,8 @@ PROTO_1:
         2 LENGTH                           R2 R3
         3 JUMPIFNOTEQKN                    R2 K1 [0] ; [+9]
         5 NEWTABLE                         R1 0 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["PHONY_NO_SELECTION"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["PHONY_NO_SELECTION"]
        10 SETLIST                          R1 R2 1 [1]
        12 RETURN                           R1 1
        13 GETTABLEKS                       R1 R0 K0 ["_selection"]
@@ -36,8 +36,8 @@ PROTO_2:
         7 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["find"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["find"]
         3 GETTABLEKS                       R3 R0 K1 ["points"]
         5 NEWCLOSURE                       R4 P0
         6 CAPTURE                          VAL R1
@@ -54,8 +54,8 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["draggerContext"]
         2 JUMPIFNOT                        R2 ; [+4]
-        3 GETTABLEKS                       R3 R0 K0 ["draggerContext"]
-        5 GETTABLEKS                       R2 R3 K1 ["points"]
+        3 GETTABLEKS                       R2 R0 K0 ["draggerContext"]
+        5 GETTABLEKS                       R2 R2 K1 ["points"]
         7 JUMPIFNOTEQKNIL                  R2 ; [+2]
         9 RETURN                           R0 0
        10 LOADB                            R4 0
@@ -64,32 +64,32 @@ PROTO_4:
        15 JUMPIFNOTEQKNIL                  R2 ; [+2]
        17 LOADB                            R4 0 +1
        18 LOADB                            R4 1
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R5 R6 K2 ["LUAU_ANALYZE_ERROR"]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K2 ["LUAU_ANALYZE_ERROR"]
        22 FASTCALL2                        ASSERT R4 R5 ; [+3]
        24 GETIMPORT                        R3 K4 [assert]
        26 CALL                             R3 2 0
        27 LENGTH                           R3 R1
        28 LOADN                            R4 1
        29 JUMPIFNOTLT                      R4 R3 ; [+73]
-       31 GETTABLEKS                       R5 R0 K0 ["draggerContext"]
-       33 LENGTH                           R7 R1
-       34 GETTABLE                         R6 R1 R7
-       35 GETUPVAL                         R8 1
-       36 GETTABLEKS                       R7 R8 K5 ["find"]
-       38 GETTABLEKS                       R8 R5 K1 ["points"]
-       40 NEWCLOSURE                       R9 P0
-       41 CAPTURE                          VAL R6
-       42 CALL                             R7 2 1
-       43 JUMPIFNOTEQKNIL                  R7 ; [+2]
-       45 LOADB                            R9 0 +1
-       46 LOADB                            R9 1
-       47 FASTCALL2K                       ASSERT R9 K6 ; [+4]
-       49 LOADK                            R10 K6 ["Could not find point by name"]
-       50 GETIMPORT                        R8 K4 [assert]
-       52 CALL                             R8 2 0
-       53 MOVE                             R4 R7
-       54 GETTABLEKS                       R3 R4 K7 ["limb"]
+       31 GETTABLEKS                       R4 R0 K0 ["draggerContext"]
+       33 LENGTH                           R6 R1
+       34 GETTABLE                         R5 R1 R6
+       35 GETUPVAL                         R6 1
+       36 GETTABLEKS                       R6 R6 K5 ["find"]
+       38 GETTABLEKS                       R7 R4 K1 ["points"]
+       40 NEWCLOSURE                       R8 P0
+       41 CAPTURE                          VAL R5
+       42 CALL                             R6 2 1
+       43 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       45 LOADB                            R8 0 +1
+       46 LOADB                            R8 1
+       47 FASTCALL2K                       ASSERT R8 K6 ; [+4]
+       49 LOADK                            R9 K6 ["Could not find point by name"]
+       50 GETIMPORT                        R7 K4 [assert]
+       52 CALL                             R7 2 0
+       53 MOVE                             R3 R6
+       54 GETTABLEKS                       R3 R3 K7 ["limb"]
        56 NEWTABLE                         R4 0 1
        58 LENGTH                           R6 R1
        59 GETTABLE                         R5 R1 R6
@@ -101,8 +101,8 @@ PROTO_4:
        66 FORNPREP                         R5
        67 GETTABLEKS                       R9 R0 K0 ["draggerContext"]
        69 GETTABLE                         R10 R1 R7
-       70 GETUPVAL                         R12 1
-       71 GETTABLEKS                       R11 R12 K5 ["find"]
+       70 GETUPVAL                         R11 1
+       71 GETTABLEKS                       R11 R11 K5 ["find"]
        73 GETTABLEKS                       R12 R9 K1 ["points"]
        75 NEWCLOSURE                       R13 P0
        76 CAPTURE                          VAL R10
@@ -151,8 +151,8 @@ PROTO_5:
        14 GETTABLEKS                       R4 R0 K4 ["_selection"]
        16 CALL                             R2 2 2
        17 LOADN                            R4 0
-       18 GETTABLEKS                       R8 R0 K0 ["draggerContext"]
-       20 GETTABLEKS                       R5 R8 K5 ["points"]
+       18 GETTABLEKS                       R5 R0 K0 ["draggerContext"]
+       20 GETTABLEKS                       R5 R5 K5 ["points"]
        22 LOADNIL                          R6
        23 LOADNIL                          R7
        24 FORGPREP                         R5
@@ -192,31 +192,31 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["DraggerFramework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["DraggerFramework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["Utility"]
-       23 GETTABLEKS                       R3 R4 K10 ["Signal"]
+       21 GETTABLEKS                       R3 R2 K9 ["Utility"]
+       23 GETTABLEKS                       R3 R3 K10 ["Signal"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R9 R0 K11 ["Src"]
-       29 GETTABLEKS                       R8 R9 K12 ["Components"]
-       31 GETTABLEKS                       R7 R8 K13 ["EditingTools"]
-       33 GETTABLEKS                       R6 R7 K14 ["BodyPointsTool"]
-       35 GETTABLEKS                       R5 R6 K15 ["Types"]
+       27 GETTABLEKS                       R5 R0 K11 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Components"]
+       31 GETTABLEKS                       R5 R5 K13 ["EditingTools"]
+       33 GETTABLEKS                       R5 R5 K14 ["BodyPointsTool"]
+       35 GETTABLEKS                       R5 R5 K15 ["Types"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K5 [require]
-       40 GETTABLEKS                       R8 R0 K11 ["Src"]
-       42 GETTABLEKS                       R7 R8 K16 ["Util"]
-       44 GETTABLEKS                       R6 R7 K17 ["Constants"]
+       40 GETTABLEKS                       R6 R0 K11 ["Src"]
+       42 GETTABLEKS                       R6 R6 K16 ["Util"]
+       44 GETTABLEKS                       R6 R6 K17 ["Constants"]
        46 CALL                             R5 1 1
        47 GETIMPORT                        R6 K5 [require]
-       49 GETTABLEKS                       R9 R0 K11 ["Src"]
-       51 GETTABLEKS                       R8 R9 K16 ["Util"]
-       53 GETTABLEKS                       R7 R8 K18 ["diffArray"]
+       49 GETTABLEKS                       R7 R0 K11 ["Src"]
+       51 GETTABLEKS                       R7 R7 K16 ["Util"]
+       53 GETTABLEKS                       R7 R7 K18 ["diffArray"]
        55 CALL                             R6 1 1
        56 NEWTABLE                         R7 8 0
        58 SETTABLEKS                       R7 R7 K19 ["__index"]

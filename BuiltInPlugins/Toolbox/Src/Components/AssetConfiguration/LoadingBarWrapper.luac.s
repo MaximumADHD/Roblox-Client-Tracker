@@ -9,22 +9,22 @@ PROTO_0:
        10 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["state"]
-        2 GETTABLEKS                       R2 R3 K1 ["progress"]
+        0 GETTABLEKS                       R2 R0 K0 ["state"]
+        2 GETTABLEKS                       R2 R2 K1 ["progress"]
         4 JUMPIFNOTLT                      R2 R1 ; [+29]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["RenderStepped"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["RenderStepped"]
         9 NAMECALL                         R2 R2 K3 ["Wait"]
        11 CALL                             R2 1 1
        12 GETTABLEKS                       R3 R0 K4 ["isMounted"]
        14 JUMPIFNOT                        R3 ; [+19]
-       15 GETTABLEKS                       R5 R0 K0 ["state"]
-       17 GETTABLEKS                       R4 R5 K5 ["time"]
+       15 GETTABLEKS                       R4 R0 K0 ["state"]
+       17 GETTABLEKS                       R4 R4 K5 ["time"]
        19 ADD                              R3 R4 R2
        20 DUPTABLE                         R6 K6 [{"time", "progress"}]
        21 SETTABLEKS                       R3 R6 K5 ["time"]
-       23 GETTABLEKS                       R9 R0 K7 ["props"]
-       25 GETTABLEKS                       R8 R9 K8 ["loadingTime"]
+       23 GETTABLEKS                       R8 R0 K7 ["props"]
+       25 GETTABLEKS                       R8 R8 K8 ["loadingTime"]
        27 DIV                              R7 R3 R8
        28 SETTABLEKS                       R7 R6 K1 ["progress"]
        30 NAMECALL                         R4 R0 K9 ["setState"]
@@ -34,20 +34,20 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["holdPercent"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["holdPercent"]
         6 NAMECALL                         R0 R0 K2 ["loadUntil"]
         8 CALL                             R0 2 0
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R0 R1 K3 ["isMounted"]
+        9 GETUPVAL                         R0 0
+       10 GETTABLEKS                       R0 R0 K3 ["isMounted"]
        12 JUMPIFNOT                        R0 ; [+14]
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K0 ["props"]
-       16 GETTABLEKS                       R0 R1 K4 ["onFinish"]
+       13 GETUPVAL                         R0 0
+       14 GETTABLEKS                       R0 R0 K0 ["props"]
+       16 GETTABLEKS                       R0 R0 K4 ["onFinish"]
        18 JUMPIFNOTEQKNIL                  R0 ; [+8]
-       20 GETUPVAL                         R1 1
-       21 GETTABLEKS                       R0 R1 K5 ["RenderStepped"]
+       20 GETUPVAL                         R0 1
+       21 GETTABLEKS                       R0 R0 K5 ["RenderStepped"]
        23 NAMECALL                         R0 R0 K6 ["Wait"]
        25 CALL                             R0 1 0
        26 JUMPBACK                         ; [-18]
@@ -59,12 +59,12 @@ PROTO_2:
        33 LOADK                            R2 K7 [1.5]
        34 NAMECALL                         R0 R0 K2 ["loadUntil"]
        36 CALL                             R0 2 0
-       37 GETUPVAL                         R1 0
-       38 GETTABLEKS                       R0 R1 K3 ["isMounted"]
+       37 GETUPVAL                         R0 0
+       38 GETTABLEKS                       R0 R0 K3 ["isMounted"]
        40 JUMPIFNOT                        R0 ; [+6]
-       41 GETUPVAL                         R2 0
-       42 GETTABLEKS                       R1 R2 K0 ["props"]
-       44 GETTABLEKS                       R0 R1 K4 ["onFinish"]
+       41 GETUPVAL                         R0 0
+       42 GETTABLEKS                       R0 R0 K0 ["props"]
+       44 GETTABLEKS                       R0 R0 K4 ["onFinish"]
        46 CALL                             R0 0 0
        47 RETURN                           R0 0
 
@@ -105,8 +105,8 @@ PROTO_5:
        27 MOVE                             R7 R9
        28 LOADK                            R8 K16 ["% )"]
        29 CONCAT                           R4 R5 R8
-       30 GETUPVAL                         R6 0
-       31 GETTABLEKS                       R5 R6 K17 ["createElement"]
+       30 GETUPVAL                         R5 0
+       31 GETTABLEKS                       R5 R5 K17 ["createElement"]
        33 LOADK                            R6 K18 ["Frame"]
        34 DUPTABLE                         R7 K22 [{"BackgroundTransparency", "Size", "Position"}]
        35 LOADN                            R8 1
@@ -116,8 +116,8 @@ PROTO_5:
        42 GETTABLEKS                       R8 R1 K21 ["Position"]
        44 SETTABLEKS                       R8 R7 K21 ["Position"]
        46 DUPTABLE                         R8 K25 [{"LoadingTitle", "LoadingBar"}]
-       47 GETUPVAL                         R10 0
-       48 GETTABLEKS                       R9 R10 K17 ["createElement"]
+       47 GETUPVAL                         R9 0
+       48 GETTABLEKS                       R9 R9 K17 ["createElement"]
        50 GETUPVAL                         R10 1
        51 DUPTABLE                         R11 K29 [{"Position", "Size", "Text", "TextXAlignment", "TextYAlignment"}]
        52 GETIMPORT                        R12 K32 [UDim2.new]
@@ -141,8 +141,8 @@ PROTO_5:
        78 SETTABLEKS                       R12 R11 K28 ["TextYAlignment"]
        80 CALL                             R9 2 1
        81 SETTABLEKS                       R9 R8 K23 ["LoadingTitle"]
-       83 GETUPVAL                         R10 0
-       84 GETTABLEKS                       R9 R10 K17 ["createElement"]
+       83 GETUPVAL                         R9 0
+       84 GETTABLEKS                       R9 R9 K17 ["createElement"]
        86 GETUPVAL                         R10 2
        87 DUPTABLE                         R11 K38 [{"Progress", "Size"}]
        88 SETTABLEKS                       R3 R11 K37 ["Progress"]
@@ -160,11 +160,11 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [game]
        13 LOADK                            R3 K5 ["RunService"]
        14 NAMECALL                         R1 R1 K6 ["GetService"]

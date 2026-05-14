@@ -164,8 +164,8 @@ PROTO_0:
       235 CALL                             R8 2 0
       236 JUMP                             ; [+16]
       237 GETTABLEKS                       R8 R0 K18 ["progressUpdates"]
-      239 GETUPVAL                         R10 0
-      240 GETTABLEKS                       R9 R10 K22 ["fromResponse"]
+      239 GETUPVAL                         R9 0
+      240 GETTABLEKS                       R9 R9 K22 ["fromResponse"]
       242 MOVE                             R10 R7
       243 MOVE                             R11 R1
       244 LOADK                            R13 K23 ["%*\"progressUpdates\" > [%*] > "]
@@ -179,8 +179,8 @@ PROTO_0:
       253 FORGLOOP                         R3 2 ; [-43]
       255 GETTABLEKS                       R3 R0 K24 ["result"]
       257 JUMPIFEQKNIL                     R3 ; [+16]
-      259 GETUPVAL                         R4 1
-      260 GETTABLEKS                       R3 R4 K22 ["fromResponse"]
+      259 GETUPVAL                         R3 1
+      260 GETTABLEKS                       R3 R3 K22 ["fromResponse"]
       262 GETTABLEKS                       R4 R0 K24 ["result"]
       264 MOVE                             R5 R1
       265 LOADK                            R7 K25 ["%*\"result\" > "]
@@ -207,16 +207,16 @@ PROTO_1:
        18 LOADNIL                          R4
        19 FORGPREP                         R2
        20 GETTABLEKS                       R7 R1 K3 ["progressUpdates"]
-       22 GETUPVAL                         R9 0
-       23 GETTABLEKS                       R8 R9 K4 ["toRequest"]
+       22 GETUPVAL                         R8 0
+       23 GETTABLEKS                       R8 R8 K4 ["toRequest"]
        25 MOVE                             R9 R6
        26 CALL                             R8 1 1
        27 SETTABLE                         R8 R7 R5
        28 FORGLOOP                         R2 2 ; [-9]
        30 GETTABLEKS                       R2 R1 K5 ["result"]
        32 JUMPIFEQKNIL                     R2 ; [+9]
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+       34 GETUPVAL                         R2 1
+       35 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        37 GETTABLEKS                       R3 R1 K5 ["result"]
        39 CALL                             R2 1 1
        40 SETTABLEKS                       R2 R1 K5 ["result"]
@@ -236,12 +236,12 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["PrimitiveGenCompletedResult"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["PrimitiveGenCompletedResult"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K7 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Models"]
-       29 GETTABLEKS                       R6 R7 K11 ["PrimitiveGenProgressUpdateDto"]
+       27 GETTABLEKS                       R6 R0 K9 ["Models"]
+       29 GETTABLEKS                       R6 R6 K11 ["PrimitiveGenProgressUpdateDto"]
        31 CALL                             R5 1 1
        32 DUPCLOSURE                       R6 K12 [PROTO_0]
        33 CAPTURE                          VAL R5

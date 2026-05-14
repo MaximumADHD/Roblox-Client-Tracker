@@ -10,8 +10,8 @@ PROTO_0:
        11 GETIMPORT                        R15 K3 [table.insert]
        13 CALL                             R15 2 0
        14 FORGLOOP                         R10 2 ; [-9]
-       16 GETUPVAL                         R11 0
-       17 GETTABLEKS                       R10 R11 K4 ["join"]
+       16 GETUPVAL                         R10 0
+       17 GETTABLEKS                       R10 R10 K4 ["join"]
        19 DUPTABLE                         R11 K17 [{"studioSid", "clientId", "userId", "placeId", "meshIds", "prompt", "seed", "rotation", "smartUVUnwrap", "specifyFrontView", "timestampMilliseconds", "isStyleControl"}]
        20 GETUPVAL                         R12 1
        21 NAMECALL                         R12 R12 K18 ["GetSessionId"]
@@ -25,8 +25,8 @@ PROTO_0:
        33 NAMECALL                         R12 R12 K20 ["GetUserId"]
        35 CALL                             R12 1 1
        36 SETTABLEKS                       R12 R11 K7 ["userId"]
-       38 GETIMPORT                        R13 K22 [game]
-       40 GETTABLEKS                       R12 R13 K23 ["PlaceId"]
+       38 GETIMPORT                        R12 K22 [game]
+       40 GETTABLEKS                       R12 R12 K23 ["PlaceId"]
        42 SETTABLEKS                       R12 R11 K8 ["placeId"]
        44 GETIMPORT                        R12 K25 [table.concat]
        46 MOVE                             R13 R9
@@ -38,9 +38,9 @@ PROTO_0:
        55 SETTABLEKS                       R4 R11 K12 ["rotation"]
        57 SETTABLEKS                       R5 R11 K13 ["smartUVUnwrap"]
        59 SETTABLEKS                       R6 R11 K14 ["specifyFrontView"]
-       61 GETIMPORT                        R13 K29 [DateTime.now]
-       63 CALL                             R13 0 1
-       64 GETTABLEKS                       R12 R13 K30 ["UnixTimestampMillis"]
+       61 GETIMPORT                        R12 K29 [DateTime.now]
+       63 CALL                             R12 0 1
+       64 GETTABLEKS                       R12 R12 K30 ["UnixTimestampMillis"]
        66 SETTABLEKS                       R12 R11 K15 ["timestampMilliseconds"]
        68 ORK                              R12 R8 K31 [False]
        69 SETTABLEKS                       R12 R11 K16 ["isStyleControl"]
@@ -224,8 +224,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Dash"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K12 [PROTO_9]
        21 CAPTURE                          VAL R2

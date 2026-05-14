@@ -25,27 +25,27 @@ PROTO_0:
        38 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["isCli"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["isCli"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+3]
         5 NEWTABLE                         R0 0 0
         7 RETURN                           R0 1
         8 NEWTABLE                         R0 0 0
        10 NEWTABLE                         R1 0 0
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K1 ["fetchTextureSizes"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K1 ["fetchTextureSizes"]
        15 CALL                             R2 0 1
        16 GETIMPORT                        R3 K3 [pairs]
-       18 GETIMPORT                        R5 K5 [game]
-       20 GETTABLEKS                       R4 R5 K6 ["Workspace"]
+       18 GETIMPORT                        R4 K5 [game]
+       20 GETTABLEKS                       R4 R4 K6 ["Workspace"]
        22 NAMECALL                         R4 R4 K7 ["GetDescendants"]
        24 CALL                             R4 1 -1
        25 CALL                             R3 -1 3
        26 FORGPREP_NEXT                    R3
        27 GETTABLEKS                       R8 R7 K8 ["ClassName"]
-       29 GETUPVAL                         R11 2
-       30 GETTABLEKS                       R10 R11 K9 ["INSTANCE_PROPERTIES_TO_PARSE"]
+       29 GETUPVAL                         R10 2
+       30 GETTABLEKS                       R10 R10 K9 ["INSTANCE_PROPERTIES_TO_PARSE"]
        32 GETTABLE                         R9 R10 R8
        33 JUMPIFNOT                        R9 ; [+35]
        34 GETIMPORT                        R10 K11 [ipairs]
@@ -91,8 +91,8 @@ PROTO_1:
        87 MOVE                             R10 R7
        88 MOVE                             R9 R10
        89 JUMP                             ; [+9]
-       90 GETUPVAL                         R12 3
-       91 GETTABLEKS                       R11 R12 K20 ["parseIdFromTextureAlias"]
+       90 GETUPVAL                         R11 3
+       91 GETTABLEKS                       R11 R11 K20 ["parseIdFromTextureAlias"]
        93 MOVE                             R12 R7
        94 CALL                             R11 1 1
        95 MOVE                             R10 R11
@@ -126,15 +126,15 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R2 K1 [pairs]
-        2 GETIMPORT                        R4 K3 [game]
-        4 GETTABLEKS                       R3 R4 K4 ["Workspace"]
+        2 GETIMPORT                        R3 K3 [game]
+        4 GETTABLEKS                       R3 R3 K4 ["Workspace"]
         6 NAMECALL                         R3 R3 K5 ["GetDescendants"]
         8 CALL                             R3 1 -1
         9 CALL                             R2 -1 3
        10 FORGPREP_NEXT                    R2
        11 GETTABLEKS                       R7 R6 K6 ["ClassName"]
-       13 GETUPVAL                         R10 0
-       14 GETTABLEKS                       R9 R10 K7 ["INSTANCE_PROPERTIES_TO_PARSE"]
+       13 GETUPVAL                         R9 0
+       14 GETTABLEKS                       R9 R9 K7 ["INSTANCE_PROPERTIES_TO_PARSE"]
        16 GETTABLE                         R8 R9 R7
        17 JUMPIFNOT                        R8 ; [+26]
        18 GETIMPORT                        R9 K9 [ipairs]
@@ -142,13 +142,13 @@ PROTO_2:
        21 CALL                             R9 1 3
        22 FORGPREP_INEXT                   R9
        23 GETTABLE                         R14 R6 R13
-       24 GETUPVAL                         R16 1
-       25 GETTABLEKS                       R15 R16 K10 ["doesTextureAliasContainId"]
+       24 GETUPVAL                         R15 1
+       25 GETTABLEKS                       R15 R15 K10 ["doesTextureAliasContainId"]
        27 MOVE                             R16 R14
        28 CALL                             R15 1 1
        29 JUMPIFNOT                        R15 ; [+9]
-       30 GETUPVAL                         R16 1
-       31 GETTABLEKS                       R15 R16 K11 ["parseIdFromTextureAlias"]
+       30 GETUPVAL                         R15 1
+       31 GETTABLEKS                       R15 R15 K11 ["parseIdFromTextureAlias"]
        33 MOVE                             R16 R14
        34 CALL                             R15 1 1
        35 JUMPIFNOTEQ                      R15 R0 ; [+3]
@@ -214,17 +214,17 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 4 0
-        3 GETIMPORT                        R4 K1 [script]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        3 GETIMPORT                        R1 K1 [script]
+        5 GETTABLEKS                       R1 R1 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETIMPORT                        R5 K1 [script]
-       15 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K5 ["Stats"]
+       13 GETIMPORT                        R3 K1 [script]
+       15 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       17 GETTABLEKS                       R3 R3 K5 ["Stats"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R1 K6 ["Src"]
-       22 GETTABLEKS                       R3 R4 K7 ["Util"]
+       20 GETTABLEKS                       R3 R1 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
        24 GETIMPORT                        R4 K4 [require]
        26 GETTABLEKS                       R5 R3 K8 ["Utils"]
        28 CALL                             R4 1 1
@@ -232,8 +232,8 @@ MAIN:
        31 GETTABLEKS                       R6 R3 K9 ["Constants"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K4 [require]
-       36 GETTABLEKS                       R8 R1 K10 ["Packages"]
-       38 GETTABLEKS                       R7 R8 K11 ["TestLoader"]
+       36 GETTABLEKS                       R7 R1 K10 ["Packages"]
+       38 GETTABLEKS                       R7 R7 K11 ["TestLoader"]
        40 CALL                             R6 1 1
        41 DUPCLOSURE                       R7 K12 [PROTO_1]
        42 CAPTURE                          VAL R6

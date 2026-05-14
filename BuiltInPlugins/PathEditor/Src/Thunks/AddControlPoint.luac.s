@@ -1,7 +1,7 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PathReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PathReducer"]
         5 GETTABLEKS                       R2 R1 K2 ["SelectedObject"]
         7 JUMPIFNOTEQKNIL                  R2 ; [+2]
         9 RETURN                           R0 0
@@ -14,13 +14,13 @@ PROTO_0:
        18 NAMECALL                         R2 R2 K5 ["GetControlPoints"]
        20 CALL                             R2 1 1
        21 LENGTH                           R3 R2
-       22 GETUPVAL                         R5 1
-       23 GETTABLEKS                       R4 R5 K6 ["MaxControlPoints"]
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R4 R4 K6 ["MaxControlPoints"]
        25 JUMPIFNOTEQ                      R3 R4 ; [+10]
        27 GETIMPORT                        R3 K8 [warn]
        29 LOADK                            R4 K9 ["Path2D: Cannot set more than "]
-       30 GETUPVAL                         R6 1
-       31 GETTABLEKS                       R5 R6 K6 ["MaxControlPoints"]
+       30 GETUPVAL                         R5 1
+       31 GETTABLEKS                       R5 R5 K6 ["MaxControlPoints"]
        33 LOADK                            R6 K10 ["control points"]
        34 CALL                             R3 3 0
        35 RETURN                           R0 0
@@ -41,8 +41,8 @@ PROTO_0:
        52 CALL                             R4 0 1
        53 GETUPVAL                         R5 4
        54 GETUPVAL                         R6 5
-       55 GETTABLEKS                       R8 R1 K2 ["SelectedObject"]
-       57 GETTABLEKS                       R7 R8 K12 ["Parent"]
+       55 GETTABLEKS                       R7 R1 K2 ["SelectedObject"]
+       57 GETTABLEKS                       R7 R7 K12 ["Parent"]
        59 CALL                             R5 2 1
        60 SETTABLEKS                       R5 R4 K13 ["Position"]
        62 GETTABLEKS                       R5 R1 K2 ["SelectedObject"]
@@ -76,27 +76,27 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SelectControlPoint"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SelectControlPoint"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Thunks"]
-       24 GETTABLEKS                       R3 R4 K9 ["RecordChangeHistory"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Thunks"]
+       24 GETTABLEKS                       R3 R3 K9 ["RecordChangeHistory"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       33 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       33 GETTABLEKS                       R4 R4 K11 ["Constants"]
        35 CALL                             R3 1 1
-       36 GETTABLEKS                       R5 R0 K5 ["Src"]
-       38 GETTABLEKS                       R4 R5 K12 ["Util"]
+       36 GETTABLEKS                       R4 R0 K5 ["Src"]
+       38 GETTABLEKS                       R4 R4 K12 ["Util"]
        40 GETIMPORT                        R5 K4 [require]
        42 GETTABLEKS                       R6 R4 K13 ["makeNewPath2DControlPoint"]
        44 CALL                             R5 1 1

@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_root"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_root"]
         3 GETUPVAL                         R2 1
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K1 ["Component"]
-        7 GETUPVAL                         R5 2
-        8 GETTABLEKS                       R4 R5 K2 ["Providers"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["Component"]
+        7 GETUPVAL                         R4 2
+        8 GETTABLEKS                       R4 R4 K2 ["Providers"]
        10 JUMPIF                           R4 ; [+2]
        11 NEWTABLE                         R4 0 0
        13 CALL                             R2 2 -1
@@ -24,17 +24,17 @@ PROTO_1:
        11 CALL                             R2 1 1
        12 LOADK                            R3 K6 ["TextureGenerator"]
        13 SETTABLEKS                       R3 R2 K7 ["Name"]
-       15 GETIMPORT                        R4 K9 [game]
-       17 GETTABLEKS                       R3 R4 K10 ["CoreGui"]
+       15 GETIMPORT                        R3 K9 [game]
+       17 GETTABLEKS                       R3 R3 K10 ["CoreGui"]
        19 SETTABLEKS                       R3 R2 K11 ["Parent"]
        21 SETTABLEKS                       R2 R1 K12 ["_layerCollector"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R3 R4 K13 ["createRoot"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K13 ["createRoot"]
        26 GETTABLEKS                       R4 R1 K12 ["_layerCollector"]
        28 CALL                             R3 1 1
        29 SETTABLEKS                       R3 R1 K14 ["_root"]
-       31 GETUPVAL                         R4 1
-       32 GETTABLEKS                       R3 R4 K15 ["act"]
+       31 GETUPVAL                         R3 1
+       32 GETTABLEKS                       R3 R3 K15 ["act"]
        34 NEWCLOSURE                       R4 P0
        35 CAPTURE                          VAL R1
        36 CAPTURE                          UPVAL U2
@@ -56,9 +56,9 @@ PROTO_3:
         8 JUMP                             ; [+3]
         9 NAMECALL                         R1 R0 K3 ["toString"]
        11 CALL                             R1 1 1
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K4 ["XPath"]
-       15 GETTABLEKS                       R2 R3 K5 ["new"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K4 ["XPath"]
+       15 GETTABLEKS                       R2 R2 K5 ["new"]
        17 LOADK                            R4 K6 ["game.CoreGui.TextureGenerator.%*"]
        18 MOVE                             R6 R1
        19 NAMECALL                         R4 R4 K7 ["format"]
@@ -68,9 +68,9 @@ PROTO_3:
        24 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Element"]
-        3 GETTABLEKS                       R1 R2 K1 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Element"]
+        3 GETTABLEKS                       R1 R1 K1 ["new"]
         5 GETUPVAL                         R2 1
         6 MOVE                             R3 R0
         7 CALL                             R2 1 -1
@@ -84,9 +84,9 @@ PROTO_5:
         3 GETIMPORT                        R3 K1 [typeof]
         5 CALL                             R3 1 1
         6 JUMPIFNOTEQKS                    R3 K2 ["string"] ; [+9]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K3 ["XPath"]
-       11 GETTABLEKS                       R2 R3 K4 ["new"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K3 ["XPath"]
+       11 GETTABLEKS                       R2 R2 K4 ["new"]
        13 MOVE                             R3 R0
        14 CALL                             R2 1 1
        15 JUMP                             ; [+1]
@@ -101,9 +101,9 @@ PROTO_5:
        28 LOADN                            R7 0
        29 NAMECALL                         R5 R3 K7 ["setWait"]
        31 CALL                             R5 2 1
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K8 ["Element"]
-       35 GETTABLEKS                       R6 R7 K4 ["new"]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R6 R6 K8 ["Element"]
+       35 GETTABLEKS                       R6 R6 K4 ["new"]
        37 GETUPVAL                         R7 1
        38 MOVE                             R8 R5
        39 CALL                             R7 1 -1
@@ -154,9 +154,9 @@ PROTO_5:
       100 RETURN                           R4 -1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Element"]
-        3 GETTABLEKS                       R1 R2 K1 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Element"]
+        3 GETTABLEKS                       R1 R1 K1 ["new"]
         5 GETUPVAL                         R2 1
         6 MOVE                             R3 R0
         7 CALL                             R2 1 -1
@@ -194,8 +194,8 @@ PROTO_7:
         6 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["act"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["act"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R1
@@ -229,19 +229,19 @@ PROTO_9:
        31 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_root"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_root"]
         3 NAMECALL                         R0 R0 K1 ["unmount"]
         5 CALL                             R0 1 0
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K2 ["_layerCollector"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["_layerCollector"]
         9 NAMECALL                         R0 R0 K3 ["Destroy"]
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["act"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["act"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          VAL R0
         5 CALL                             R1 1 0
@@ -254,17 +254,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["ReactRoblox"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["ReactRoblox"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R4 R5 K8 ["Dev"]
-       20 GETTABLEKS                       R3 R4 K9 ["Rhodium"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dev"]
+       20 GETTABLEKS                       R3 R3 K9 ["Rhodium"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K10 ["RhodiumTests"]
-       27 GETTABLEKS                       R4 R5 K11 ["createMockContext"]
+       25 GETTABLEKS                       R4 R0 K10 ["RhodiumTests"]
+       27 GETTABLEKS                       R4 R4 K11 ["createMockContext"]
        29 CALL                             R3 1 1
        30 NEWTABLE                         R4 8 0
        32 SETTABLEKS                       R4 R4 K12 ["__index"]

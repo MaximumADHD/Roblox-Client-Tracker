@@ -2,8 +2,8 @@ PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["canSkip"]
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+5]
-        4 GETTABLEKS                       R2 R0 K1 ["props"]
-        6 GETTABLEKS                       R1 R2 K2 ["goToNextScreen"]
+        4 GETTABLEKS                       R1 R0 K1 ["props"]
+        6 GETTABLEKS                       R1 R1 K2 ["goToNextScreen"]
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
@@ -34,14 +34,14 @@ PROTO_1:
        36 GETIMPORT                        R2 K14 [table.insert]
        38 CALL                             R2 2 0
        39 GETUPVAL                         R2 0
-       40 GETTABLEKS                       R4 R0 K15 ["props"]
-       42 GETTABLEKS                       R3 R4 K16 ["allowedAssetTypesForRelease"]
+       40 GETTABLEKS                       R3 R0 K15 ["props"]
+       42 GETTABLEKS                       R3 R3 K16 ["allowedAssetTypesForRelease"]
        44 CALL                             R2 1 1
        45 LENGTH                           R3 R2
        46 LOADN                            R4 0
        47 JUMPIFNOTLT                      R4 R3 ; [+46]
-       49 GETTABLEKS                       R5 R0 K15 ["props"]
-       51 GETTABLEKS                       R4 R5 K18 ["Localization"]
+       49 GETTABLEKS                       R4 R0 K15 ["props"]
+       51 GETTABLEKS                       R4 R4 K18 ["Localization"]
        53 LOADK                            R6 K19 ["General"]
        54 LOADK                            R7 K20 ["CategoryCreationsCatalogSectionDivider"]
        55 NAMECALL                         R4 R4 K21 ["getText"]
@@ -59,8 +59,8 @@ PROTO_1:
        71 CALL                             R4 1 3
        72 FORGPREP_NEXT                    R4
        73 GETUPVAL                         R11 1
-       74 GETTABLEKS                       R13 R0 K15 ["props"]
-       76 GETTABLEKS                       R12 R13 K18 ["Localization"]
+       74 GETTABLEKS                       R12 R0 K15 ["props"]
+       76 GETTABLEKS                       R12 R12 K18 ["Localization"]
        78 CALL                             R11 1 1
        79 GETTABLE                         R10 R11 R8
        80 ORK                              R9 R10 K17 [""]
@@ -76,10 +76,10 @@ PROTO_1:
        94 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isBuyableMarketplaceAsset"]
-        3 GETTABLEKS                       R3 R0 K1 ["props"]
-        5 GETTABLEKS                       R2 R3 K2 ["assetTypeEnum"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isBuyableMarketplaceAsset"]
+        3 GETTABLEKS                       R2 R0 K1 ["props"]
+        5 GETTABLEKS                       R2 R2 K2 ["assetTypeEnum"]
         7 CALL                             R1 1 1
         8 JUMPIFNOT                        R1 ; [+2]
         9 LOADB                            R1 1
@@ -100,9 +100,9 @@ PROTO_2:
        29 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["goToNextScreen"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["goToNextScreen"]
         5 CALL                             R0 0 0
         6 RETURN                           R0 0
 
@@ -111,18 +111,18 @@ PROTO_4:
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETUPVAL                         R3 0
         5 JUMPIFNOT                        R3 ; [+10]
-        6 GETTABLEKS                       R5 R0 K0 ["props"]
-        8 GETTABLEKS                       R4 R5 K2 ["assetTypeEnum"]
+        6 GETTABLEKS                       R4 R0 K0 ["props"]
+        8 GETTABLEKS                       R4 R4 K2 ["assetTypeEnum"]
        10 GETIMPORT                        R5 K6 [Enum.AssetType.Animation]
        12 JUMPIFEQ                         R4 R5 ; [+2]
        14 LOADB                            R3 0 +1
        15 LOADB                            R3 1
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R4 R5 K7 ["createElement"]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K7 ["createElement"]
        19 LOADK                            R5 K8 ["Frame"]
        20 DUPTABLE                         R6 K13 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
-       21 GETTABLEKS                       R8 R2 K14 ["typeSelection"]
-       23 GETTABLEKS                       R7 R8 K15 ["background"]
+       21 GETTABLEKS                       R7 R2 K14 ["typeSelection"]
+       23 GETTABLEKS                       R7 R7 K15 ["background"]
        25 SETTABLEKS                       R7 R6 K9 ["BackgroundColor3"]
        27 LOADN                            R7 0
        28 SETTABLEKS                       R7 R6 K10 ["BackgroundTransparency"]
@@ -133,8 +133,8 @@ PROTO_4:
        37 DUPTABLE                         R7 K20 [{"AssetThumbnailPreview", "DefaultThumbnailPreview", "AssetTypeSelector", "Footer"}]
        38 NOT                              R8 R3
        39 JUMPIFNOT                        R8 ; [+30]
-       40 GETUPVAL                         R9 1
-       41 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       40 GETUPVAL                         R8 1
+       41 GETTABLEKS                       R8 R8 K7 ["createElement"]
        43 GETUPVAL                         R9 2
        44 DUPTABLE                         R10 K24 [{"Size", "Position", "titleHeight", "titlePadding"}]
        45 GETIMPORT                        R11 K27 [UDim2.new]
@@ -159,8 +159,8 @@ PROTO_4:
        70 SETTABLEKS                       R8 R7 K16 ["AssetThumbnailPreview"]
        72 MOVE                             R8 R3
        73 JUMPIFNOT                        R8 ; [+24]
-       74 GETUPVAL                         R9 1
-       75 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       74 GETUPVAL                         R8 1
+       75 GETTABLEKS                       R8 R8 K7 ["createElement"]
        77 GETUPVAL                         R9 3
        78 DUPTABLE                         R10 K29 [{"Size", "Position"}]
        79 GETIMPORT                        R11 K27 [UDim2.new]
@@ -179,8 +179,8 @@ PROTO_4:
        95 SETTABLEKS                       R11 R10 K21 ["Position"]
        97 CALL                             R8 2 1
        98 SETTABLEKS                       R8 R7 K17 ["DefaultThumbnailPreview"]
-      100 GETUPVAL                         R9 1
-      101 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      100 GETUPVAL                         R8 1
+      101 GETTABLEKS                       R8 R8 K7 ["createElement"]
       103 GETUPVAL                         R9 4
       104 DUPTABLE                         R10 K34 [{"Position", "height", "width", "assetTypeEnum", "onAssetTypeSelected", "items"}]
       105 GETIMPORT                        R11 K27 [UDim2.new]
@@ -194,19 +194,19 @@ PROTO_4:
       115 SETTABLEKS                       R11 R10 K30 ["height"]
       117 LOADN                            R11 144
       118 SETTABLEKS                       R11 R10 K31 ["width"]
-      120 GETTABLEKS                       R12 R0 K0 ["props"]
-      122 GETTABLEKS                       R11 R12 K2 ["assetTypeEnum"]
+      120 GETTABLEKS                       R11 R0 K0 ["props"]
+      122 GETTABLEKS                       R11 R11 K2 ["assetTypeEnum"]
       124 SETTABLEKS                       R11 R10 K2 ["assetTypeEnum"]
-      126 GETTABLEKS                       R12 R0 K0 ["props"]
-      128 GETTABLEKS                       R11 R12 K32 ["onAssetTypeSelected"]
+      126 GETTABLEKS                       R11 R0 K0 ["props"]
+      128 GETTABLEKS                       R11 R11 K32 ["onAssetTypeSelected"]
       130 SETTABLEKS                       R11 R10 K32 ["onAssetTypeSelected"]
       132 NAMECALL                         R11 R0 K35 ["getSelectorItems"]
       134 CALL                             R11 1 1
       135 SETTABLEKS                       R11 R10 K33 ["items"]
       137 CALL                             R8 2 1
       138 SETTABLEKS                       R8 R7 K18 ["AssetTypeSelector"]
-      140 GETUPVAL                         R9 1
-      141 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      140 GETUPVAL                         R8 1
+      141 GETTABLEKS                       R8 R8 K7 ["createElement"]
       143 LOADK                            R9 K8 ["Frame"]
       144 DUPTABLE                         R10 K37 [{"Size", "Position", "BackgroundColor3", "BorderColor3"}]
       145 GETIMPORT                        R11 K27 [UDim2.new]
@@ -223,17 +223,17 @@ PROTO_4:
       159 LOADN                            R15 194
       160 CALL                             R11 4 1
       161 SETTABLEKS                       R11 R10 K21 ["Position"]
-      163 GETTABLEKS                       R13 R2 K14 ["typeSelection"]
-      165 GETTABLEKS                       R12 R13 K38 ["configFooter"]
-      167 GETTABLEKS                       R11 R12 K15 ["background"]
+      163 GETTABLEKS                       R11 R2 K14 ["typeSelection"]
+      165 GETTABLEKS                       R11 R11 K38 ["configFooter"]
+      167 GETTABLEKS                       R11 R11 K15 ["background"]
       169 SETTABLEKS                       R11 R10 K9 ["BackgroundColor3"]
-      171 GETTABLEKS                       R13 R2 K14 ["typeSelection"]
-      173 GETTABLEKS                       R12 R13 K38 ["configFooter"]
-      175 GETTABLEKS                       R11 R12 K39 ["border"]
+      171 GETTABLEKS                       R11 R2 K14 ["typeSelection"]
+      173 GETTABLEKS                       R11 R11 K38 ["configFooter"]
+      175 GETTABLEKS                       R11 R11 K39 ["border"]
       177 SETTABLEKS                       R11 R10 K36 ["BorderColor3"]
       179 DUPTABLE                         R11 K44 [{"UIListLayout", "UIPadding", "CancelButton", "NextButton"}]
-      180 GETUPVAL                         R13 1
-      181 GETTABLEKS                       R12 R13 K7 ["createElement"]
+      180 GETUPVAL                         R12 1
+      181 GETTABLEKS                       R12 R12 K7 ["createElement"]
       183 LOADK                            R13 K40 ["UIListLayout"]
       184 DUPTABLE                         R14 K49 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
       185 GETIMPORT                        R15 K51 [UDim.new]
@@ -249,8 +249,8 @@ PROTO_4:
       202 SETTABLEKS                       R15 R14 K48 ["VerticalAlignment"]
       204 CALL                             R12 2 1
       205 SETTABLEKS                       R12 R11 K40 ["UIListLayout"]
-      207 GETUPVAL                         R13 1
-      208 GETTABLEKS                       R12 R13 K7 ["createElement"]
+      207 GETUPVAL                         R12 1
+      208 GETTABLEKS                       R12 R12 K7 ["createElement"]
       210 LOADK                            R13 K41 ["UIPadding"]
       211 DUPTABLE                         R14 K59 [{"PaddingRight"}]
       212 GETIMPORT                        R15 K51 [UDim.new]
@@ -260,8 +260,8 @@ PROTO_4:
       217 SETTABLEKS                       R15 R14 K58 ["PaddingRight"]
       219 CALL                             R12 2 1
       220 SETTABLEKS                       R12 R11 K41 ["UIPadding"]
-      222 GETUPVAL                         R13 1
-      223 GETTABLEKS                       R12 R13 K7 ["createElement"]
+      222 GETUPVAL                         R12 1
+      223 GETTABLEKS                       R12 R12 K7 ["createElement"]
       225 GETUPVAL                         R13 5
       226 DUPTABLE                         R14 K63 [{"Size", "LayoutOrder", "titleText", "onClick"}]
       227 GETIMPORT                        R15 K27 [UDim2.new]
@@ -279,8 +279,8 @@ PROTO_4:
       244 SETTABLEKS                       R15 R14 K62 ["onClick"]
       246 CALL                             R12 2 1
       247 SETTABLEKS                       R12 R11 K42 ["CancelButton"]
-      249 GETUPVAL                         R13 1
-      250 GETTABLEKS                       R12 R13 K7 ["createElement"]
+      249 GETUPVAL                         R12 1
+      250 GETTABLEKS                       R12 R12 K7 ["createElement"]
       252 GETUPVAL                         R13 5
       253 DUPTABLE                         R14 K67 [{"Size", "LayoutOrder", "titleText", "isPrimary", "onClick"}]
       254 GETIMPORT                        R15 K27 [UDim2.new]
@@ -330,9 +330,9 @@ PROTO_6:
         2 JUMPIFNOT                        R0 ; [+10]
         3 GETUPVAL                         R0 1
         4 GETUPVAL                         R1 2
-        5 GETUPVAL                         R4 3
-        6 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        8 GETTABLEKS                       R2 R3 K1 ["CONFIGURE_ASSET"]
+        5 GETUPVAL                         R2 3
+        6 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        8 GETTABLEKS                       R2 R2 K1 ["CONFIGURE_ASSET"]
        10 CALL                             R1 1 -1
        11 CALL                             R0 -1 0
        12 RETURN                           R0 0
@@ -367,11 +367,11 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -382,8 +382,8 @@ MAIN:
        23 GETIMPORT                        R4 K5 [require]
        25 GETTABLEKS                       R5 R1 K8 ["Framework"]
        27 CALL                             R4 1 1
-       28 GETTABLEKS                       R6 R0 K9 ["Src"]
-       30 GETTABLEKS                       R5 R6 K10 ["Util"]
+       28 GETTABLEKS                       R5 R0 K9 ["Src"]
+       30 GETTABLEKS                       R5 R5 K10 ["Util"]
        32 GETIMPORT                        R6 K5 [require]
        34 GETTABLEKS                       R7 R5 K11 ["AssetConfigConstants"]
        36 CALL                             R6 1 1
@@ -394,53 +394,53 @@ MAIN:
        44 GETTABLEKS                       R9 R5 K13 ["getAllowedAssetTypeEnums"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R12 R0 K9 ["Src"]
-       51 GETTABLEKS                       R11 R12 K14 ["Localization"]
-       53 GETTABLEKS                       R10 R11 K15 ["getLocalizedAssetTextMap"]
+       49 GETTABLEKS                       R10 R0 K9 ["Src"]
+       51 GETTABLEKS                       R10 R10 K14 ["Localization"]
+       53 GETTABLEKS                       R10 R10 K15 ["getLocalizedAssetTextMap"]
        55 CALL                             R9 1 1
-       56 GETTABLEKS                       R11 R0 K9 ["Src"]
-       58 GETTABLEKS                       R10 R11 K16 ["Components"]
+       56 GETTABLEKS                       R10 R0 K9 ["Src"]
+       58 GETTABLEKS                       R10 R10 K16 ["Components"]
        60 GETIMPORT                        R11 K5 [require]
        62 GETTABLEKS                       R12 R10 K17 ["NavButton"]
        64 CALL                             R11 1 1
        65 GETIMPORT                        R12 K5 [require]
-       67 GETTABLEKS                       R14 R10 K18 ["AssetConfiguration"]
-       69 GETTABLEKS                       R13 R14 K19 ["AssetThumbnailPreview"]
+       67 GETTABLEKS                       R13 R10 K18 ["AssetConfiguration"]
+       69 GETTABLEKS                       R13 R13 K19 ["AssetThumbnailPreview"]
        71 CALL                             R12 1 1
        72 GETIMPORT                        R13 K5 [require]
-       74 GETTABLEKS                       R15 R10 K18 ["AssetConfiguration"]
-       76 GETTABLEKS                       R14 R15 K20 ["DefaultThumbnailPreview"]
+       74 GETTABLEKS                       R14 R10 K18 ["AssetConfiguration"]
+       76 GETTABLEKS                       R14 R14 K20 ["DefaultThumbnailPreview"]
        78 CALL                             R13 1 1
        79 GETIMPORT                        R14 K5 [require]
-       81 GETTABLEKS                       R16 R10 K18 ["AssetConfiguration"]
-       83 GETTABLEKS                       R15 R16 K21 ["AssetTypeSelector"]
+       81 GETTABLEKS                       R15 R10 K18 ["AssetConfiguration"]
+       83 GETTABLEKS                       R15 R15 K21 ["AssetTypeSelector"]
        85 CALL                             R14 1 1
        86 GETIMPORT                        R15 K23 [game]
        88 LOADK                            R17 K24 ["UseDefaultThumbnailForAnimation"]
        89 NAMECALL                         R15 R15 K25 ["GetFastFlag"]
        91 CALL                             R15 2 1
        92 GETIMPORT                        R16 K5 [require]
-       94 GETTABLEKS                       R19 R0 K9 ["Src"]
-       96 GETTABLEKS                       R18 R19 K26 ["Flags"]
-       98 GETTABLEKS                       R17 R18 K27 ["getFFlagToolboxDeprecateAssetSelection"]
+       94 GETTABLEKS                       R17 R0 K9 ["Src"]
+       96 GETTABLEKS                       R17 R17 K26 ["Flags"]
+       98 GETTABLEKS                       R17 R17 K27 ["getFFlagToolboxDeprecateAssetSelection"]
       100 CALL                             R16 1 1
-      101 GETTABLEKS                       R18 R0 K9 ["Src"]
-      103 GETTABLEKS                       R17 R18 K28 ["Actions"]
+      101 GETTABLEKS                       R17 R0 K9 ["Src"]
+      103 GETTABLEKS                       R17 R17 K28 ["Actions"]
       105 GETIMPORT                        R18 K5 [require]
       107 GETTABLEKS                       R19 R17 K29 ["SetCurrentScreen"]
       109 CALL                             R18 1 1
       110 GETIMPORT                        R19 K5 [require]
       112 GETTABLEKS                       R20 R17 K30 ["SetUploadAssetType"]
       114 CALL                             R19 1 1
-      115 GETTABLEKS                       R21 R0 K9 ["Src"]
-      117 GETTABLEKS                       R20 R21 K31 ["Thunks"]
+      115 GETTABLEKS                       R20 R0 K9 ["Src"]
+      117 GETTABLEKS                       R20 R20 K31 ["Thunks"]
       119 LOADNIL                          R21
       120 MOVE                             R22 R16
       121 CALL                             R22 0 1
       122 JUMPIF                           R22 ; [+8]
       123 GETIMPORT                        R22 K5 [require]
-      125 GETTABLEKS                       R24 R20 K18 ["AssetConfiguration"]
-      127 GETTABLEKS                       R23 R24 K32 ["GoToNextScreen"]
+      125 GETTABLEKS                       R23 R20 K18 ["AssetConfiguration"]
+      127 GETTABLEKS                       R23 R23 K32 ["GoToNextScreen"]
       129 CALL                             R22 1 1
       130 MOVE                             R21 R22
       131 GETTABLEKS                       R22 R4 K33 ["ContextServices"]

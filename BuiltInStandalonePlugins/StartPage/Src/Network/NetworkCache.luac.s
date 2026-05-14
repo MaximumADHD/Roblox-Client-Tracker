@@ -12,8 +12,8 @@ PROTO_2:
         6 SETTABLEKS                       R3 R2 K1 ["itemsByKey"]
         8 NEWTABLE                         R3 0 0
        10 SETTABLEKS                       R3 R2 K2 ["lists"]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K9 ["new"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K9 ["new"]
        15 CALL                             R3 0 1
        16 SETTABLEKS                       R3 R2 K3 ["signal"]
        18 SETTABLEKS                       R0 R2 K4 ["getItemKey"]
@@ -393,8 +393,8 @@ PROTO_19:
 
 PROTO_20:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["items"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["items"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
@@ -402,8 +402,8 @@ PROTO_21:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["alwaysRefetch"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["alwaysRefetch"]
         7 JUMPIFNOT                        R0 ; [+12]
         8 GETUPVAL                         R0 2
         9 LOADN                            R1 0
@@ -418,37 +418,37 @@ PROTO_21:
 
 PROTO_22:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["items"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["items"]
         4 JUMPIFEQ                         R0 R1 ; [+6]
         6 GETUPVAL                         R0 2
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K0 ["items"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K0 ["items"]
        10 CALL                             R0 1 0
-       11 GETUPVAL                         R1 3
-       12 GETTABLEKS                       R0 R1 K1 ["signal"]
+       11 GETUPVAL                         R0 3
+       12 GETTABLEKS                       R0 R0 K1 ["signal"]
        14 NEWCLOSURE                       R2 P0
        15 CAPTURE                          UPVAL U2
        16 CAPTURE                          UPVAL U1
        17 NAMECALL                         R0 R0 K2 ["Connect"]
        19 CALL                             R0 2 1
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R1 R2 K3 ["targetCount"]
+       20 GETUPVAL                         R1 1
+       21 GETTABLEKS                       R1 R1 K3 ["targetCount"]
        23 JUMPIFNOTEQKNIL                  R1 ; [+30]
-       25 GETUPVAL                         R2 1
-       26 GETTABLEKS                       R1 R2 K4 ["requestedCount"]
+       25 GETUPVAL                         R1 1
+       26 GETTABLEKS                       R1 R1 K4 ["requestedCount"]
        28 JUMPIFNOTEQKNIL                  R1 ; [+25]
        30 GETUPVAL                         R1 1
-       31 GETUPVAL                         R3 4
-       32 GETTABLEKS                       R2 R3 K5 ["pageSize"]
+       31 GETUPVAL                         R2 4
+       32 GETTABLEKS                       R2 R2 K5 ["pageSize"]
        34 SETTABLEKS                       R2 R1 K4 ["requestedCount"]
        36 GETUPVAL                         R1 1
-       37 GETUPVAL                         R3 4
-       38 GETTABLEKS                       R2 R3 K5 ["pageSize"]
+       37 GETUPVAL                         R2 4
+       38 GETTABLEKS                       R2 R2 K5 ["pageSize"]
        40 SETTABLEKS                       R2 R1 K5 ["pageSize"]
        42 GETUPVAL                         R1 1
-       43 GETUPVAL                         R3 4
-       44 GETTABLEKS                       R2 R3 K6 ["sortFn"]
+       43 GETUPVAL                         R2 4
+       44 GETTABLEKS                       R2 R2 K6 ["sortFn"]
        46 SETTABLEKS                       R2 R1 K6 ["sortFn"]
        48 GETUPVAL                         R1 5
        49 GETUPVAL                         R2 6
@@ -456,8 +456,8 @@ PROTO_22:
        51 GETUPVAL                         R4 7
        52 GETUPVAL                         R5 8
        53 CALL                             R1 4 0
-       54 GETUPVAL                         R2 1
-       55 GETTABLEKS                       R1 R2 K7 ["dirty"]
+       54 GETUPVAL                         R1 1
+       55 GETTABLEKS                       R1 R1 K7 ["dirty"]
        57 JUMPIFNOT                        R1 ; [+4]
        58 GETUPVAL                         R1 3
        59 NAMECALL                         R1 R1 K8 ["refresh"]
@@ -469,8 +469,8 @@ PROTO_22:
        66 RETURN                           R1 1
 
 PROTO_23:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["targetCount"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["targetCount"]
         3 JUMPIF                           R2 ; [+1]
         4 RETURN                           R0 0
         5 FASTCALL2                        MATH_MIN R2 R1 ; [+5]
@@ -478,17 +478,17 @@ PROTO_23:
         8 MOVE                             R5 R1
         9 GETIMPORT                        R3 K3 [math.min]
        11 CALL                             R3 2 1
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["requestedCount"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K4 ["requestedCount"]
        15 JUMPIFEQKNIL                     R4 ; [+36]
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K4 ["requestedCount"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K4 ["requestedCount"]
        20 JUMPIFNOTLT                      R4 R3 ; [+31]
        22 GETUPVAL                         R4 0
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K4 ["requestedCount"]
-       26 GETUPVAL                         R9 1
-       27 GETTABLEKS                       R8 R9 K5 ["pageSize"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K4 ["requestedCount"]
+       26 GETUPVAL                         R8 1
+       27 GETTABLEKS                       R8 R8 K5 ["pageSize"]
        29 ADD                              R6 R7 R8
        30 FASTCALL2                        MATH_MIN R6 R2 ; [+4]
        32 MOVE                             R7 R2
@@ -501,8 +501,8 @@ PROTO_23:
        42 SETTABLEKS                       R5 R4 K6 ["pageIndex"]
        44 GETUPVAL                         R4 2
        45 GETUPVAL                         R5 3
-       46 GETUPVAL                         R7 0
-       47 GETTABLEKS                       R6 R7 K6 ["pageIndex"]
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K6 ["pageIndex"]
        49 GETUPVAL                         R7 4
        50 GETUPVAL                         R8 5
        51 CALL                             R4 4 0
@@ -569,29 +569,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["Signal"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["Signal"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["Dash"]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["Dash"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R3 K11 ["join"]
        27 GETTABLEKS                       R5 R3 K12 ["some"]
        29 GETIMPORT                        R6 K5 [require]
-       31 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       33 GETTABLEKS                       R7 R8 K13 ["React"]
+       31 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       33 GETTABLEKS                       R7 R7 K13 ["React"]
        35 CALL                             R6 1 1
        36 GETTABLEKS                       R7 R6 K14 ["useCallback"]
        38 GETTABLEKS                       R8 R6 K15 ["useEffect"]
        40 GETTABLEKS                       R9 R6 K16 ["useState"]
        42 GETIMPORT                        R10 K5 [require]
-       44 GETTABLEKS                       R14 R0 K17 ["Src"]
-       46 GETTABLEKS                       R13 R14 K8 ["Util"]
-       48 GETTABLEKS                       R12 R13 K18 ["Telemetry"]
-       50 GETTABLEKS                       R11 R12 K19 ["TelemetryContext"]
+       44 GETTABLEKS                       R11 R0 K17 ["Src"]
+       46 GETTABLEKS                       R11 R11 K8 ["Util"]
+       48 GETTABLEKS                       R11 R11 K18 ["Telemetry"]
+       50 GETTABLEKS                       R11 R11 K19 ["TelemetryContext"]
        52 CALL                             R10 1 1
        53 GETIMPORT                        R11 K22 [table.insert]
        55 GETIMPORT                        R12 K24 [table.sort]

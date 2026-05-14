@@ -5,8 +5,8 @@ PROTO_0:
         3 LOADK                            R1 K0 ["Selected"]
         4 JUMP                             ; [+1]
         5 LOADK                            R1 K1 ["Deselected"]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["onRowStateChanged"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["onRowStateChanged"]
         9 MOVE                             R3 R1
        10 CALL                             R2 1 0
        11 RETURN                           R0 0
@@ -28,8 +28,8 @@ PROTO_1:
        17 JUMPIFEQKS                       R4 K3 ["Selected"] ; [+2]
        19 LOADB                            R3 0 +1
        20 LOADB                            R3 1
-       21 GETUPVAL                         R5 2
-       22 GETTABLEKS                       R4 R5 K4 ["useCallback"]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K4 ["useCallback"]
        24 NEWCLOSURE                       R5 P0
        25 CAPTURE                          VAL R2
        26 CAPTURE                          VAL R0
@@ -38,8 +38,8 @@ PROTO_1:
        30 GETTABLEKS                       R8 R0 K5 ["onRowStateChanged"]
        32 SETLIST                          R6 R7 2 [1]
        34 CALL                             R4 2 1
-       35 GETUPVAL                         R6 2
-       36 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       35 GETUPVAL                         R5 2
+       36 GETTABLEKS                       R5 R5 K6 ["createElement"]
        38 GETUPVAL                         R6 3
        39 DUPTABLE                         R7 K12 [{"tag", "Size", "AutomaticSize", "LayoutOrder", "GroupTransparency"}]
        40 LOADK                            R8 K13 ["row gap-medium align-y-top padding-bottom-xlarge"]
@@ -61,8 +61,8 @@ PROTO_1:
        63 LOADN                            R8 0
        64 SETTABLEKS                       R8 R7 K11 ["GroupTransparency"]
        66 DUPTABLE                         R8 K24 [{"Thumbnail", "Details", "CheckboxContainer"}]
-       67 GETUPVAL                         R10 2
-       68 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       67 GETUPVAL                         R9 2
+       68 GETTABLEKS                       R9 R9 K6 ["createElement"]
        70 GETUPVAL                         R10 3
        71 DUPTABLE                         R11 K25 [{"tag", "Size", "LayoutOrder"}]
        72 LOADK                            R12 K26 ["stroke-default radius-medium"]
@@ -77,8 +77,8 @@ PROTO_1:
        85 DUPTABLE                         R12 K30 [{"ColorSwatch"}]
        86 GETTABLEKS                       R13 R0 K31 ["color"]
        88 JUMPIFNOT                        R13 ; [+36]
-       89 GETUPVAL                         R14 2
-       90 GETTABLEKS                       R13 R14 K6 ["createElement"]
+       89 GETUPVAL                         R13 2
+       90 GETTABLEKS                       R13 R13 K6 ["createElement"]
        92 LOADK                            R14 K32 ["Frame"]
        93 DUPTABLE                         R15 K35 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
        94 GETIMPORT                        R16 K37 [UDim2.fromScale]
@@ -91,8 +91,8 @@ PROTO_1:
       105 LOADN                            R16 0
       106 SETTABLEKS                       R16 R15 K34 ["BorderSizePixel"]
       108 DUPTABLE                         R16 K39 [{"UICorner"}]
-      109 GETUPVAL                         R18 2
-      110 GETTABLEKS                       R17 R18 K6 ["createElement"]
+      109 GETUPVAL                         R17 2
+      110 GETTABLEKS                       R17 R17 K6 ["createElement"]
       112 LOADK                            R18 K38 ["UICorner"]
       113 DUPTABLE                         R19 K41 [{"CornerRadius"}]
       114 GETIMPORT                        R20 K43 [UDim.new]
@@ -106,8 +106,8 @@ PROTO_1:
       125 SETTABLEKS                       R13 R12 K29 ["ColorSwatch"]
       127 CALL                             R9 3 1
       128 SETTABLEKS                       R9 R8 K21 ["Thumbnail"]
-      130 GETUPVAL                         R10 2
-      131 GETTABLEKS                       R9 R10 K6 ["createElement"]
+      130 GETUPVAL                         R9 2
+      131 GETTABLEKS                       R9 R9 K6 ["createElement"]
       133 GETUPVAL                         R10 3
       134 DUPTABLE                         R11 K44 [{"tag", "LayoutOrder"}]
       135 LOADK                            R12 K45 ["col grow auto-y"]
@@ -115,8 +115,8 @@ PROTO_1:
       138 LOADN                            R12 2
       139 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
       141 DUPTABLE                         R12 K47 [{"Label"}]
-      142 GETUPVAL                         R14 2
-      143 GETTABLEKS                       R13 R14 K6 ["createElement"]
+      142 GETUPVAL                         R13 2
+      143 GETTABLEKS                       R13 R13 K6 ["createElement"]
       145 GETUPVAL                         R14 4
       146 DUPTABLE                         R15 K49 [{"Text", "tag", "LayoutOrder"}]
       147 LOADK                            R18 K50 ["LookComposerDialog"]
@@ -132,8 +132,8 @@ PROTO_1:
       161 SETTABLEKS                       R13 R12 K46 ["Label"]
       163 CALL                             R9 3 1
       164 SETTABLEKS                       R9 R8 K22 ["Details"]
-      166 GETUPVAL                         R10 2
-      167 GETTABLEKS                       R9 R10 K6 ["createElement"]
+      166 GETUPVAL                         R9 2
+      167 GETTABLEKS                       R9 R9 K6 ["createElement"]
       169 GETUPVAL                         R10 3
       170 DUPTABLE                         R11 K44 [{"tag", "LayoutOrder"}]
       171 LOADK                            R12 K54 ["auto-xy padding-left-medium"]
@@ -141,8 +141,8 @@ PROTO_1:
       174 LOADN                            R12 3
       175 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
       177 DUPTABLE                         R12 K56 [{"Checkbox"}]
-      178 GETUPVAL                         R14 2
-      179 GETTABLEKS                       R13 R14 K6 ["createElement"]
+      178 GETUPVAL                         R13 2
+      179 GETTABLEKS                       R13 R13 K6 ["createElement"]
       181 GETUPVAL                         R14 5
       182 DUPTABLE                         R15 K62 [{"isChecked", "isDisabled", "label", "onActivated", "size"}]
       183 SETTABLEKS                       R3 R15 K57 ["isChecked"]
@@ -166,30 +166,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETTABLEKS                       R4 R2 K10 ["Text"]
        25 GETTABLEKS                       R5 R2 K11 ["Checkbox"]
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       31 GETTABLEKS                       R7 R8 K12 ["Framework"]
+       29 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       31 GETTABLEKS                       R7 R7 K12 ["Framework"]
        33 CALL                             R6 1 1
-       34 GETTABLEKS                       R8 R6 K13 ["ContextServices"]
-       36 GETTABLEKS                       R7 R8 K14 ["Localization"]
+       34 GETTABLEKS                       R7 R6 K13 ["ContextServices"]
+       36 GETTABLEKS                       R7 R7 K14 ["Localization"]
        38 GETIMPORT                        R8 K5 [require]
-       40 GETTABLEKS                       R11 R0 K15 ["Src"]
-       42 GETTABLEKS                       R10 R11 K16 ["Flags"]
-       44 GETTABLEKS                       R9 R10 K17 ["getFFlagAvatarPreviewerLookComposer"]
+       40 GETTABLEKS                       R9 R0 K15 ["Src"]
+       42 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       44 GETTABLEKS                       R9 R9 K17 ["getFFlagAvatarPreviewerLookComposer"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R11 R0 K15 ["Src"]
-       51 GETTABLEKS                       R10 R11 K18 ["Types"]
+       49 GETTABLEKS                       R10 R0 K15 ["Src"]
+       51 GETTABLEKS                       R10 R10 K18 ["Types"]
        53 CALL                             R9 1 1
        54 DUPCLOSURE                       R10 K19 [PROTO_1]
        55 CAPTURE                          VAL R8

@@ -3,8 +3,8 @@ PROTO_0:
         1 JUMPIFNOT                        R2 ; [+3]
         2 GETTABLEKS                       R3 R2 K0 ["category"]
         4 JUMPIF                           R3 ; [+19]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugWarnings"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["shouldDebugWarnings"]
         8 CALL                             R3 0 1
         9 JUMPIFNOT                        R3 ; [+12]
        10 GETIMPORT                        R3 K3 [warn]
@@ -22,8 +22,8 @@ PROTO_0:
        26 RETURN                           R3 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getCategory"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getCategory"]
         3 GETTABLEKS                       R2 R0 K1 ["categories"]
         5 GETTABLEKS                       R3 R0 K2 ["categoryIndex"]
         7 CALL                             R1 2 -1
@@ -34,8 +34,8 @@ PROTO_2:
         1 JUMPIFNOT                        R2 ; [+3]
         2 GETTABLEKS                       R3 R2 K0 ["sort"]
         4 JUMPIF                           R3 ; [+19]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugWarnings"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["shouldDebugWarnings"]
         8 CALL                             R3 0 1
         9 JUMPIFNOT                        R3 ; [+12]
        10 GETIMPORT                        R3 K3 [warn]
@@ -53,8 +53,8 @@ PROTO_2:
        26 RETURN                           R3 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getSortType"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getSortType"]
         3 GETTABLEKS                       R2 R0 K1 ["sorts"]
         5 GETTABLEKS                       R3 R0 K2 ["sortIndex"]
         7 CALL                             R1 2 -1
@@ -68,11 +68,11 @@ PROTO_4:
         5 JUMPIFLT                         R1 R2 ; [+8]
         7 LENGTH                           R2 R0
         8 JUMPIFLT                         R2 R1 ; [+5]
-       10 GETTABLE                         R3 R0 R1
-       11 GETTABLEKS                       R2 R3 K1 ["id"]
+       10 GETTABLE                         R2 R0 R1
+       11 GETTABLEKS                       R2 R2 K1 ["id"]
        13 JUMPIF                           R2 ; [+19]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K2 ["shouldDebugWarnings"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K2 ["shouldDebugWarnings"]
        17 CALL                             R2 0 1
        18 JUMPIFNOT                        R2 ; [+12]
        19 GETIMPORT                        R2 K4 [warn]
@@ -86,13 +86,13 @@ PROTO_4:
        30 CALL                             R2 -1 0
        31 LOADN                            R2 0
        32 RETURN                           R2 1
-       33 GETTABLE                         R3 R0 R1
-       34 GETTABLEKS                       R2 R3 K1 ["id"]
+       33 GETTABLE                         R2 R0 R1
+       34 GETTABLEKS                       R2 R2 K1 ["id"]
        36 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getGroupId"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getGroupId"]
         3 GETTABLEKS                       R2 R0 K1 ["groups"]
         5 GETTABLEKS                       R3 R0 K2 ["groupIndex"]
         7 CALL                             R1 2 -1
@@ -105,8 +105,8 @@ PROTO_6:
         5 JUMPIFNOT                        R1 ; [+3]
         6 GETTABLEKS                       R2 R1 K2 ["assetType"]
         8 JUMPIF                           R2 ; [+20]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K3 ["shouldDebugWarnings"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K3 ["shouldDebugWarnings"]
        12 CALL                             R2 0 1
        13 JUMPIFNOT                        R2 ; [+13]
        14 GETIMPORT                        R2 K5 [warn]
@@ -120,27 +120,27 @@ PROTO_6:
        26 CALL                             R2 -1 0
        27 LOADNIL                          R2
        28 RETURN                           R2 1
-       29 GETUPVAL                         R3 1
-       30 GETTABLEKS                       R2 R3 K10 ["getEngineAssetType"]
+       29 GETUPVAL                         R2 1
+       30 GETTABLEKS                       R2 R2 K10 ["getEngineAssetType"]
        32 GETTABLEKS                       R3 R1 K2 ["assetType"]
        34 CALL                             R2 1 -1
        35 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Types"]
-       24 GETTABLEKS                       R3 R4 K9 ["Category"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Types"]
+       24 GETTABLEKS                       R3 R3 K9 ["Category"]
        26 CALL                             R2 1 1
        27 NEWTABLE                         R3 8 0
        29 DUPCLOSURE                       R4 K10 [PROTO_0]

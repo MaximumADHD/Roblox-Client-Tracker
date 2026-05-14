@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K0 ["props"]
-        6 GETTABLEKS                       R1 R2 K1 ["LuaMeshEditingModuleContext"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K0 ["props"]
-       11 GETTABLEKS                       R2 R3 K2 ["EditingItemContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K0 ["props"]
+        6 GETTABLEKS                       R1 R1 K1 ["LuaMeshEditingModuleContext"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K0 ["props"]
+       11 GETTABLEKS                       R2 R2 K2 ["EditingItemContext"]
        13 NAMECALL                         R2 R2 K3 ["getItem"]
        15 CALL                             R2 1 1
        16 JUMPIFNOT                        R1 ; [+8]
@@ -16,37 +16,37 @@ PROTO_0:
        21 MOVE                             R5 R2
        22 NAMECALL                         R3 R1 K5 ["updateCageLocationsFromInstance"]
        24 CALL                             R3 2 0
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K0 ["props"]
-       28 GETTABLEKS                       R3 R4 K6 ["FinishSelectingFromExplorer"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K0 ["props"]
+       28 GETTABLEKS                       R3 R3 K6 ["FinishSelectingFromExplorer"]
        30 CALL                             R3 0 0
        31 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["SetToolMode"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["TOOL_MODE"]
-        8 GETTABLEKS                       R1 R2 K3 ["None"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["SetToolMode"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["TOOL_MODE"]
+        8 GETTABLEKS                       R1 R1 K3 ["None"]
        10 CALL                             R0 1 0
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K0 ["props"]
-       14 GETTABLEKS                       R0 R1 K4 ["GoToNext"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K0 ["props"]
+       14 GETTABLEKS                       R0 R0 K4 ["GoToNext"]
        16 CALL                             R0 0 0
        17 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["SetToolMode"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["TOOL_MODE"]
-        8 GETTABLEKS                       R1 R2 K3 ["None"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["SetToolMode"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["TOOL_MODE"]
+        8 GETTABLEKS                       R1 R1 K3 ["None"]
        10 CALL                             R0 1 0
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K0 ["props"]
-       14 GETTABLEKS                       R0 R1 K4 ["GoToPrevious"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K0 ["props"]
+       14 GETTABLEKS                       R0 R0 K4 ["GoToPrevious"]
        16 CALL                             R0 0 0
        17 RETURN                           R0 0
 
@@ -70,23 +70,23 @@ PROTO_4:
         4 GETTABLEKS                       R3 R1 K2 ["UserAddedAssets"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
         8 GETTABLEKS                       R5 R1 K4 ["AddUserAddedAssetForPreview"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["new"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["new"]
        13 CALL                             R6 0 1
        14 JUMPIFNOT                        R2 ; [+3]
        15 GETTABLEKS                       R7 R4 K6 ["PreviewViewportFrameHeight"]
        17 JUMP                             ; [+1]
        18 LOADN                            R7 0
-       19 GETUPVAL                         R9 1
-       20 GETTABLEKS                       R8 R9 K7 ["provide"]
+       19 GETUPVAL                         R8 1
+       20 GETTABLEKS                       R8 R8 K7 ["provide"]
        22 NEWTABLE                         R9 0 1
-       24 GETUPVAL                         R11 2
-       25 GETTABLEKS                       R10 R11 K5 ["new"]
+       24 GETUPVAL                         R10 2
+       25 GETTABLEKS                       R10 R10 K5 ["new"]
        27 CALL                             R10 0 -1
        28 SETLIST                          R9 R10 -1 [1]
        30 DUPTABLE                         R10 K9 [{"Container"}]
-       31 GETUPVAL                         R12 3
-       32 GETTABLEKS                       R11 R12 K10 ["createElement"]
+       31 GETUPVAL                         R11 3
+       32 GETTABLEKS                       R11 R11 K10 ["createElement"]
        34 GETUPVAL                         R12 4
        35 DUPTABLE                         R13 K15 [{"BackgroundColor3", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
        36 GETTABLEKS                       R14 R4 K16 ["BackgroundColor"]
@@ -98,13 +98,13 @@ PROTO_4:
        48 GETIMPORT                        R14 K24 [Enum.HorizontalAlignment.Center]
        50 SETTABLEKS                       R14 R13 K14 ["HorizontalAlignment"]
        52 DUPTABLE                         R14 K31 [{"EditorToolsManager", "PreviewViewportFrameContainer", "MainFrame", "ControlsPanelBlocker", "AnimationPlaybackWrapper", "ExplorerPreviewInstances"}]
-       53 GETUPVAL                         R16 3
-       54 GETTABLEKS                       R15 R16 K10 ["createElement"]
+       53 GETUPVAL                         R15 3
+       54 GETTABLEKS                       R15 R15 K10 ["createElement"]
        56 GETUPVAL                         R16 5
        57 CALL                             R15 1 1
        58 SETTABLEKS                       R15 R14 K25 ["EditorToolsManager"]
-       60 GETUPVAL                         R16 3
-       61 GETTABLEKS                       R15 R16 K10 ["createElement"]
+       60 GETUPVAL                         R15 3
+       61 GETTABLEKS                       R15 R15 K10 ["createElement"]
        63 GETUPVAL                         R16 6
        64 DUPTABLE                         R17 K33 [{"LayoutOrder"}]
        65 NAMECALL                         R18 R6 K34 ["getNextOrder"]
@@ -112,8 +112,8 @@ PROTO_4:
        68 SETTABLEKS                       R18 R17 K32 ["LayoutOrder"]
        70 CALL                             R15 2 1
        71 SETTABLEKS                       R15 R14 K26 ["PreviewViewportFrameContainer"]
-       73 GETUPVAL                         R16 3
-       74 GETTABLEKS                       R15 R16 K10 ["createElement"]
+       73 GETUPVAL                         R15 3
+       74 GETTABLEKS                       R15 R15 K10 ["createElement"]
        76 GETUPVAL                         R16 7
        77 DUPTABLE                         R17 K37 [{"Size", "AutomaticCanvasSize", "Layout", "LayoutOrder"}]
        78 GETIMPORT                        R18 K39 [UDim2.new]
@@ -131,8 +131,8 @@ PROTO_4:
        97 CALL                             R18 1 1
        98 SETTABLEKS                       R18 R17 K32 ["LayoutOrder"]
       100 DUPTABLE                         R18 K45 [{"PreviewFrame", "GenerateContainer"}]
-      101 GETUPVAL                         R20 3
-      102 GETTABLEKS                       R19 R20 K10 ["createElement"]
+      101 GETUPVAL                         R19 3
+      102 GETTABLEKS                       R19 R19 K10 ["createElement"]
       104 GETUPVAL                         R20 8
       105 DUPTABLE                         R21 K47 [{"Size", "UserAddedAssets", "UpdateUserAddedAssets", "LayoutOrder"}]
       106 GETIMPORT                        R22 K39 [UDim2.new]
@@ -150,8 +150,8 @@ PROTO_4:
       124 SETTABLEKS                       R22 R21 K32 ["LayoutOrder"]
       126 CALL                             R19 2 1
       127 SETTABLEKS                       R19 R18 K43 ["PreviewFrame"]
-      129 GETUPVAL                         R20 3
-      130 GETTABLEKS                       R19 R20 K10 ["createElement"]
+      129 GETUPVAL                         R19 3
+      130 GETTABLEKS                       R19 R19 K10 ["createElement"]
       132 GETUPVAL                         R20 4
       133 DUPTABLE                         R21 K49 [{"Size", "LayoutOrder"}]
       134 GETIMPORT                        R22 K39 [UDim2.new]
@@ -165,8 +165,8 @@ PROTO_4:
       146 CALL                             R22 1 1
       147 SETTABLEKS                       R22 R21 K32 ["LayoutOrder"]
       149 DUPTABLE                         R22 K51 [{"GenerateScreen"}]
-      150 GETUPVAL                         R24 3
-      151 GETTABLEKS                       R23 R24 K10 ["createElement"]
+      150 GETUPVAL                         R23 3
+      151 GETTABLEKS                       R23 R23 K10 ["createElement"]
       153 GETUPVAL                         R24 9
       154 DUPTABLE                         R25 K54 [{"GoToNext", "GoToPrevious"}]
       155 GETTABLEKS                       R26 R0 K55 ["onNext"]
@@ -181,8 +181,8 @@ PROTO_4:
       170 SETTABLEKS                       R15 R14 K27 ["MainFrame"]
       172 GETTABLEKS                       R15 R1 K57 ["IsControlsPanelBlockerActive"]
       174 JUMPIFNOT                        R15 ; [+14]
-      175 GETUPVAL                         R16 3
-      176 GETTABLEKS                       R15 R16 K10 ["createElement"]
+      175 GETUPVAL                         R15 3
+      176 GETTABLEKS                       R15 R15 K10 ["createElement"]
       178 GETUPVAL                         R16 10
       179 DUPTABLE                         R17 K60 [{"OnFocused", "Text"}]
       180 GETTABLEKS                       R18 R0 K61 ["finishSelectingFromExplorer"]
@@ -191,13 +191,13 @@ PROTO_4:
       186 SETTABLEKS                       R18 R17 K59 ["Text"]
       188 CALL                             R15 2 1
       189 SETTABLEKS                       R15 R14 K28 ["ControlsPanelBlocker"]
-      191 GETUPVAL                         R16 3
-      192 GETTABLEKS                       R15 R16 K10 ["createElement"]
+      191 GETUPVAL                         R15 3
+      192 GETTABLEKS                       R15 R15 K10 ["createElement"]
       194 GETUPVAL                         R16 11
       195 CALL                             R15 1 1
       196 SETTABLEKS                       R15 R14 K29 ["AnimationPlaybackWrapper"]
-      198 GETUPVAL                         R16 3
-      199 GETTABLEKS                       R15 R16 K10 ["createElement"]
+      198 GETUPVAL                         R15 3
+      199 GETTABLEKS                       R15 R15 K10 ["createElement"]
       201 GETUPVAL                         R16 12
       202 DUPTABLE                         R17 K63 [{"UserAddedAssets"}]
       203 SETTABLEKS                       R3 R17 K2 ["UserAddedAssets"]
@@ -283,34 +283,34 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["AvatarToolsShared"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["AvatarToolsShared"]
        31 CALL                             R3 1 1
-       32 GETTABLEKS                       R5 R3 K9 ["Contexts"]
-       34 GETTABLEKS                       R4 R5 K10 ["LuaMeshEditingModuleContext"]
-       36 GETTABLEKS                       R6 R3 K9 ["Contexts"]
-       38 GETTABLEKS                       R5 R6 K11 ["PreviewContext"]
-       40 GETTABLEKS                       R7 R3 K9 ["Contexts"]
-       42 GETTABLEKS                       R6 R7 K12 ["EditingItemContext"]
+       32 GETTABLEKS                       R4 R3 K9 ["Contexts"]
+       34 GETTABLEKS                       R4 R4 K10 ["LuaMeshEditingModuleContext"]
+       36 GETTABLEKS                       R5 R3 K9 ["Contexts"]
+       38 GETTABLEKS                       R5 R5 K11 ["PreviewContext"]
+       40 GETTABLEKS                       R6 R3 K9 ["Contexts"]
+       42 GETTABLEKS                       R6 R6 K12 ["EditingItemContext"]
        44 GETTABLEKS                       R7 R3 K13 ["Components"]
        46 GETTABLEKS                       R8 R7 K14 ["InputBlocker"]
        48 GETIMPORT                        R9 K4 [require]
-       50 GETTABLEKS                       R11 R0 K5 ["Packages"]
-       52 GETTABLEKS                       R10 R11 K15 ["Framework"]
+       50 GETTABLEKS                       R10 R0 K5 ["Packages"]
+       52 GETTABLEKS                       R10 R10 K15 ["Framework"]
        54 CALL                             R9 1 1
        55 GETTABLEKS                       R10 R9 K16 ["ContextServices"]
        57 GETTABLEKS                       R11 R10 K17 ["withContext"]
@@ -321,63 +321,63 @@ MAIN:
        67 GETTABLEKS                       R16 R14 K22 ["ScrollingFrame"]
        69 GETTABLEKS                       R17 R14 K22 ["ScrollingFrame"]
        71 GETIMPORT                        R18 K4 [require]
-       73 GETTABLEKS                       R22 R0 K23 ["Src"]
-       75 GETTABLEKS                       R21 R22 K13 ["Components"]
-       77 GETTABLEKS                       R20 R21 K24 ["Screens"]
-       79 GETTABLEKS                       R19 R20 K25 ["GenerateScreen"]
+       73 GETTABLEKS                       R19 R0 K23 ["Src"]
+       75 GETTABLEKS                       R19 R19 K13 ["Components"]
+       77 GETTABLEKS                       R19 R19 K24 ["Screens"]
+       79 GETTABLEKS                       R19 R19 K25 ["GenerateScreen"]
        81 CALL                             R18 1 1
        82 GETIMPORT                        R19 K4 [require]
-       84 GETTABLEKS                       R22 R0 K23 ["Src"]
-       86 GETTABLEKS                       R21 R22 K13 ["Components"]
-       88 GETTABLEKS                       R20 R21 K26 ["EditorToolsManager"]
+       84 GETTABLEKS                       R20 R0 K23 ["Src"]
+       86 GETTABLEKS                       R20 R20 K13 ["Components"]
+       88 GETTABLEKS                       R20 R20 K26 ["EditorToolsManager"]
        90 CALL                             R19 1 1
        91 GETIMPORT                        R20 K4 [require]
-       93 GETTABLEKS                       R23 R0 K23 ["Src"]
-       95 GETTABLEKS                       R22 R23 K13 ["Components"]
-       97 GETTABLEKS                       R21 R22 K27 ["PreviewFrame"]
+       93 GETTABLEKS                       R21 R0 K23 ["Src"]
+       95 GETTABLEKS                       R21 R21 K13 ["Components"]
+       97 GETTABLEKS                       R21 R21 K27 ["PreviewFrame"]
        99 CALL                             R20 1 1
       100 GETIMPORT                        R21 K4 [require]
-      102 GETTABLEKS                       R25 R0 K23 ["Src"]
-      104 GETTABLEKS                       R24 R25 K13 ["Components"]
-      106 GETTABLEKS                       R23 R24 K28 ["Preview"]
-      108 GETTABLEKS                       R22 R23 K29 ["PreviewViewportFrameContainer"]
+      102 GETTABLEKS                       R22 R0 K23 ["Src"]
+      104 GETTABLEKS                       R22 R22 K13 ["Components"]
+      106 GETTABLEKS                       R22 R22 K28 ["Preview"]
+      108 GETTABLEKS                       R22 R22 K29 ["PreviewViewportFrameContainer"]
       110 CALL                             R21 1 1
       111 GETIMPORT                        R22 K4 [require]
-      113 GETTABLEKS                       R26 R0 K23 ["Src"]
-      115 GETTABLEKS                       R25 R26 K13 ["Components"]
-      117 GETTABLEKS                       R24 R25 K28 ["Preview"]
-      119 GETTABLEKS                       R23 R24 K30 ["ExplorerPreviewInstances"]
+      113 GETTABLEKS                       R23 R0 K23 ["Src"]
+      115 GETTABLEKS                       R23 R23 K13 ["Components"]
+      117 GETTABLEKS                       R23 R23 K28 ["Preview"]
+      119 GETTABLEKS                       R23 R23 K30 ["ExplorerPreviewInstances"]
       121 CALL                             R22 1 1
       122 GETIMPORT                        R23 K4 [require]
-      124 GETTABLEKS                       R27 R0 K23 ["Src"]
-      126 GETTABLEKS                       R26 R27 K13 ["Components"]
-      128 GETTABLEKS                       R25 R26 K31 ["AnimationPlayback"]
-      130 GETTABLEKS                       R24 R25 K32 ["AnimationPlaybackWrapper"]
+      124 GETTABLEKS                       R24 R0 K23 ["Src"]
+      126 GETTABLEKS                       R24 R24 K13 ["Components"]
+      128 GETTABLEKS                       R24 R24 K31 ["AnimationPlayback"]
+      130 GETTABLEKS                       R24 R24 K32 ["AnimationPlaybackWrapper"]
       132 CALL                             R23 1 1
       133 GETIMPORT                        R24 K4 [require]
-      135 GETTABLEKS                       R27 R0 K23 ["Src"]
-      137 GETTABLEKS                       R26 R27 K33 ["Actions"]
-      139 GETTABLEKS                       R25 R26 K34 ["SetToolMode"]
+      135 GETTABLEKS                       R25 R0 K23 ["Src"]
+      137 GETTABLEKS                       R25 R25 K33 ["Actions"]
+      139 GETTABLEKS                       R25 R25 K34 ["SetToolMode"]
       141 CALL                             R24 1 1
       142 GETIMPORT                        R25 K4 [require]
-      144 GETTABLEKS                       R28 R0 K23 ["Src"]
-      146 GETTABLEKS                       R27 R28 K35 ["Thunks"]
-      148 GETTABLEKS                       R26 R27 K36 ["FinishSelectingFromExplorer"]
+      144 GETTABLEKS                       R26 R0 K23 ["Src"]
+      146 GETTABLEKS                       R26 R26 K35 ["Thunks"]
+      148 GETTABLEKS                       R26 R26 K36 ["FinishSelectingFromExplorer"]
       150 CALL                             R25 1 1
       151 GETIMPORT                        R26 K4 [require]
-      153 GETTABLEKS                       R29 R0 K23 ["Src"]
-      155 GETTABLEKS                       R28 R29 K35 ["Thunks"]
-      157 GETTABLEKS                       R27 R28 K37 ["AddUserAddedAssetForPreview"]
+      153 GETTABLEKS                       R27 R0 K23 ["Src"]
+      155 GETTABLEKS                       R27 R27 K35 ["Thunks"]
+      157 GETTABLEKS                       R27 R27 K37 ["AddUserAddedAssetForPreview"]
       159 CALL                             R26 1 1
       160 GETIMPORT                        R27 K4 [require]
-      162 GETTABLEKS                       R30 R0 K23 ["Src"]
-      164 GETTABLEKS                       R29 R30 K18 ["Util"]
-      166 GETTABLEKS                       R28 R29 K38 ["Constants"]
+      162 GETTABLEKS                       R28 R0 K23 ["Src"]
+      164 GETTABLEKS                       R28 R28 K18 ["Util"]
+      166 GETTABLEKS                       R28 R28 K38 ["Constants"]
       168 CALL                             R27 1 1
       169 GETIMPORT                        R28 K4 [require]
-      171 GETTABLEKS                       R31 R0 K23 ["Src"]
-      173 GETTABLEKS                       R30 R31 K33 ["Actions"]
-      175 GETTABLEKS                       R29 R30 K39 ["SetPreviewAssetsSelected"]
+      171 GETTABLEKS                       R29 R0 K23 ["Src"]
+      173 GETTABLEKS                       R29 R29 K33 ["Actions"]
+      175 GETTABLEKS                       R29 R29 K39 ["SetPreviewAssetsSelected"]
       177 CALL                             R28 1 1
       178 GETTABLEKS                       R29 R1 K40 ["PureComponent"]
       180 LOADK                            R31 K41 ["EditorScreen"]

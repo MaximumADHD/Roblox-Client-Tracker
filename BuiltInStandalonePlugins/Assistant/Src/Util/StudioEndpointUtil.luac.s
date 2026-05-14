@@ -29,7 +29,7 @@ PROTO_0:
        41 GETTABLEKS                       R5 R1 K17 ["body"]
        43 ORK                              R4 R5 K14 ["Unknown"]
        44 GETIMPORT                        R5 K11 [error]
-       46 LOADK                            R7 K18 ["Operation failed with HTTP error (status=%*, statusMessage=%*), body=%*"]
+       46 LOADK                            R7 K18 ["Operation failed with HTTP error (status=%*, statusMessage=%*, body=%*)"]
        47 MOVE                             R9 R2
        48 MOVE                             R10 R3
        49 MOVE                             R11 R4
@@ -106,8 +106,8 @@ PROTO_4:
         2 LOADN                            R1 2
         3 CALL                             R0 1 1
         4 MOVE                             R2 R0
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K3 ["new"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K3 ["new"]
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          UPVAL U1
        10 CALL                             R3 1 -1
@@ -117,16 +117,16 @@ PROTO_4:
        15 GETUPVAL                         R1 2
        16 JUMPIFNOT                        R1 ; [+11]
        17 MOVE                             R2 R0
-       18 GETUPVAL                         R4 0
-       19 GETTABLEKS                       R3 R4 K3 ["new"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K3 ["new"]
        21 NEWCLOSURE                       R4 P1
        22 CAPTURE                          UPVAL U2
        23 CALL                             R3 1 -1
        24 FASTCALL                         TABLE_INSERT ; [+2]
        25 GETIMPORT                        R1 K5 [table.insert]
        27 CALL                             R1 -1 0
-       28 GETUPVAL                         R2 0
-       29 GETTABLEKS                       R1 R2 K6 ["race"]
+       28 GETUPVAL                         R1 0
+       29 GETTABLEKS                       R1 R1 K6 ["race"]
        31 MOVE                             R2 R0
        32 CALL                             R1 1 -1
        33 RETURN                           R1 -1
@@ -258,12 +258,12 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["HttpWrapper"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["HttpWrapper"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Promise"]
+       22 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Promise"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K13 [PROTO_0]
        28 DUPCLOSURE                       R5 K14 [PROTO_5]

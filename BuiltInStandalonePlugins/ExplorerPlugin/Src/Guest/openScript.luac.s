@@ -7,8 +7,8 @@ PROTO_0:
         6 RETURN                           R0 0
         7 GETIMPORT                        R2 K2 [warn]
         9 LOADK                            R4 K3 ["Couldn't open %*: %*"]
-       10 GETUPVAL                         R7 1
-       11 GETTABLEKS                       R6 R7 K4 ["Name"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K4 ["Name"]
        13 MOVE                             R7 R1
        14 NAMECALL                         R4 R4 K5 ["format"]
        16 CALL                             R4 3 1

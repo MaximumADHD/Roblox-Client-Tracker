@@ -15,9 +15,9 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["LuaMeshEditingModuleContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["LuaMeshEditingModuleContext"]
         5 NAMECALL                         R1 R1 K2 ["getCurrentTool"]
         7 CALL                             R1 1 1
         8 GETIMPORT                        R2 K6 [Enum.RibbonTool.Select]
@@ -62,36 +62,36 @@ PROTO_2:
        61 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["LuaMeshEditingModuleContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["LuaMeshEditingModuleContext"]
         5 NAMECALL                         R0 R0 K2 ["disableEditing"]
         7 CALL                             R0 1 0
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K0 ["props"]
-       11 GETTABLEKS                       R0 R1 K3 ["SetControlsPanelBlockerMessage"]
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R2 R3 K0 ["props"]
-       16 GETTABLEKS                       R1 R2 K4 ["Localization"]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K0 ["props"]
+       11 GETTABLEKS                       R0 R0 K3 ["SetControlsPanelBlockerMessage"]
+       13 GETUPVAL                         R1 0
+       14 GETTABLEKS                       R1 R1 K0 ["props"]
+       16 GETTABLEKS                       R1 R1 K4 ["Localization"]
        18 LOADK                            R3 K5 ["Editor"]
        19 LOADK                            R4 K6 ["ResumeEditing"]
        20 NAMECALL                         R1 R1 K7 ["getText"]
        22 CALL                             R1 3 -1
        23 CALL                             R0 -1 0
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R1 R2 K0 ["props"]
-       27 GETTABLEKS                       R0 R1 K8 ["SetControlsPanelBlockerActivity"]
+       24 GETUPVAL                         R0 0
+       25 GETTABLEKS                       R0 R0 K0 ["props"]
+       27 GETTABLEKS                       R0 R0 K8 ["SetControlsPanelBlockerActivity"]
        29 LOADB                            R1 1
        30 CALL                             R0 1 0
        31 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Heartbeat"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Heartbeat"]
         3 NAMECALL                         R0 R0 K1 ["Wait"]
         5 CALL                             R0 1 0
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K0 ["Heartbeat"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["Heartbeat"]
         9 NAMECALL                         R0 R0 K1 ["Wait"]
        11 CALL                             R0 1 0
        12 GETIMPORT                        R1 K3 [next]
@@ -103,21 +103,21 @@ PROTO_4:
        21 LOADB                            R0 0 +1
        22 LOADB                            R0 1
        23 JUMPIFNOT                        R0 ; [+5]
-       24 GETUPVAL                         R2 2
-       25 GETTABLEKS                       R1 R2 K5 ["disableEditing"]
+       24 GETUPVAL                         R1 2
+       25 GETTABLEKS                       R1 R1 K5 ["disableEditing"]
        27 CALL                             R1 0 0
        28 RETURN                           R0 0
        29 GETUPVAL                         R1 3
        30 NAMECALL                         R1 R1 K6 ["GetSelectedRibbonTool"]
        32 CALL                             R1 1 1
-       33 GETUPVAL                         R3 2
-       34 GETTABLEKS                       R2 R3 K7 ["onToolSelected"]
+       33 GETUPVAL                         R2 2
+       34 GETTABLEKS                       R2 R2 K7 ["onToolSelected"]
        36 MOVE                             R3 R1
        37 CALL                             R2 1 1
        38 JUMPIFNOT                        R2 ; [+1]
        39 RETURN                           R0 0
-       40 GETUPVAL                         R3 2
-       41 GETTABLEKS                       R2 R3 K5 ["disableEditing"]
+       40 GETUPVAL                         R2 2
+       41 GETTABLEKS                       R2 R2 K5 ["disableEditing"]
        43 CALL                             R2 0 0
        44 RETURN                           R0 0
 
@@ -139,32 +139,32 @@ PROTO_5:
        21 CALL                             R2 1 -1
        22 CALL                             R1 -1 1
        23 JUMPIFNOTEQKNIL                  R1 ; [+9]
-       25 GETUPVAL                         R2 2
-       26 GETTABLEKS                       R1 R2 K12 ["onToolSelected"]
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K12 ["onToolSelected"]
        28 MOVE                             R2 R0
        29 CALL                             R1 1 1
        30 JUMPIFNOT                        R1 ; [+33]
        31 RETURN                           R0 0
        32 RETURN                           R0 0
-       33 GETUPVAL                         R3 2
-       34 GETTABLEKS                       R2 R3 K13 ["props"]
-       36 GETTABLEKS                       R1 R2 K14 ["LuaMeshEditingModuleContext"]
+       33 GETUPVAL                         R1 2
+       34 GETTABLEKS                       R1 R1 K13 ["props"]
+       36 GETTABLEKS                       R1 R1 K14 ["LuaMeshEditingModuleContext"]
        38 NAMECALL                         R1 R1 K15 ["disableEditing"]
        40 CALL                             R1 1 0
-       41 GETUPVAL                         R3 2
-       42 GETTABLEKS                       R2 R3 K13 ["props"]
-       44 GETTABLEKS                       R1 R2 K16 ["SetControlsPanelBlockerMessage"]
-       46 GETUPVAL                         R4 2
-       47 GETTABLEKS                       R3 R4 K13 ["props"]
-       49 GETTABLEKS                       R2 R3 K17 ["Localization"]
+       41 GETUPVAL                         R1 2
+       42 GETTABLEKS                       R1 R1 K13 ["props"]
+       44 GETTABLEKS                       R1 R1 K16 ["SetControlsPanelBlockerMessage"]
+       46 GETUPVAL                         R2 2
+       47 GETTABLEKS                       R2 R2 K13 ["props"]
+       49 GETTABLEKS                       R2 R2 K17 ["Localization"]
        51 LOADK                            R4 K18 ["Editor"]
        52 LOADK                            R5 K19 ["ResumeEditing"]
        53 NAMECALL                         R2 R2 K20 ["getText"]
        55 CALL                             R2 3 -1
        56 CALL                             R1 -1 0
-       57 GETUPVAL                         R3 2
-       58 GETTABLEKS                       R2 R3 K13 ["props"]
-       60 GETTABLEKS                       R1 R2 K21 ["SetControlsPanelBlockerActivity"]
+       57 GETUPVAL                         R1 2
+       58 GETTABLEKS                       R1 R1 K13 ["props"]
+       60 GETTABLEKS                       R1 R1 K21 ["SetControlsPanelBlockerActivity"]
        62 LOADB                            R2 1
        63 CALL                             R1 1 0
        64 RETURN                           R0 0
@@ -178,9 +178,9 @@ PROTO_5:
        73 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["LuaMeshEditingModuleContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["LuaMeshEditingModuleContext"]
         5 NAMECALL                         R0 R0 K2 ["getCurrentTool"]
         7 CALL                             R0 1 1
         8 JUMPIFNOT                        R0 ; [+3]
@@ -189,9 +189,9 @@ PROTO_6:
        12 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["LuaMeshEditingModuleContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["LuaMeshEditingModuleContext"]
         5 NAMECALL                         R0 R0 K2 ["getCurrentTool"]
         7 CALL                             R0 1 1
         8 JUMPIFNOT                        R0 ; [+3]
@@ -207,8 +207,8 @@ PROTO_8:
         7 LOADB                            R5 1
         8 NAMECALL                         R3 R2 K3 ["Activate"]
        10 CALL                             R3 2 0
-       11 GETTABLEKS                       R4 R0 K0 ["props"]
-       13 GETTABLEKS                       R3 R4 K4 ["LuaMeshEditingModuleContext"]
+       11 GETTABLEKS                       R3 R0 K0 ["props"]
+       13 GETTABLEKS                       R3 R3 K4 ["LuaMeshEditingModuleContext"]
        15 NAMECALL                         R3 R3 K5 ["getToolChangedSignal"]
        17 CALL                             R3 1 1
        18 NEWCLOSURE                       R5 P0
@@ -278,8 +278,8 @@ PROTO_9:
        14 NAMECALL                         R4 R4 K5 ["getCurrentTool"]
        16 CALL                             R4 1 1
        17 JUMPIFEQKNIL                     R4 ; [+14]
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K6 ["createElement"]
        22 GETUPVAL                         R6 1
        23 DUPTABLE                         R7 K8 [{"Mouse", "Plugin", "VertexToolBase"}]
        24 SETTABLEKS                       R2 R7 K1 ["Mouse"]
@@ -369,11 +369,11 @@ PROTO_14:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [game]
        13 LOADK                            R3 K5 ["RunService"]
        14 NAMECALL                         R1 R1 K6 ["GetService"]
@@ -387,45 +387,45 @@ MAIN:
        26 NAMECALL                         R3 R3 K6 ["GetService"]
        28 CALL                             R3 2 1
        29 GETIMPORT                        R4 K10 [require]
-       31 GETTABLEKS                       R6 R0 K11 ["Packages"]
-       33 GETTABLEKS                       R5 R6 K12 ["Roact"]
+       31 GETTABLEKS                       R5 R0 K11 ["Packages"]
+       33 GETTABLEKS                       R5 R5 K12 ["Roact"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K10 [require]
-       38 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       40 GETTABLEKS                       R6 R7 K13 ["RoactRodux"]
+       38 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       40 GETTABLEKS                       R6 R6 K13 ["RoactRodux"]
        42 CALL                             R5 1 1
-       43 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       45 GETTABLEKS                       R6 R7 K14 ["LuaMeshEditingModule"]
+       43 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       45 GETTABLEKS                       R6 R6 K14 ["LuaMeshEditingModule"]
        47 GETIMPORT                        R7 K10 [require]
-       49 GETTABLEKS                       R9 R0 K11 ["Packages"]
-       51 GETTABLEKS                       R8 R9 K15 ["AvatarToolsShared"]
+       49 GETTABLEKS                       R8 R0 K11 ["Packages"]
+       51 GETTABLEKS                       R8 R8 K15 ["AvatarToolsShared"]
        53 CALL                             R7 1 1
        54 GETIMPORT                        R8 K10 [require]
-       56 GETTABLEKS                       R10 R0 K11 ["Packages"]
-       58 GETTABLEKS                       R9 R10 K16 ["Framework"]
+       56 GETTABLEKS                       R9 R0 K11 ["Packages"]
+       58 GETTABLEKS                       R9 R9 K16 ["Framework"]
        60 CALL                             R8 1 1
        61 GETTABLEKS                       R9 R8 K17 ["ContextServices"]
        63 GETTABLEKS                       R10 R9 K18 ["withContext"]
        65 GETIMPORT                        R11 K10 [require]
-       67 GETTABLEKS                       R13 R6 K19 ["Components"]
-       69 GETTABLEKS                       R12 R13 K20 ["MeshEditingComponent"]
+       67 GETTABLEKS                       R12 R6 K19 ["Components"]
+       69 GETTABLEKS                       R12 R12 K20 ["MeshEditingComponent"]
        71 CALL                             R11 1 1
-       72 GETTABLEKS                       R13 R7 K21 ["Contexts"]
-       74 GETTABLEKS                       R12 R13 K22 ["LuaMeshEditingModuleContext"]
+       72 GETTABLEKS                       R12 R7 K21 ["Contexts"]
+       74 GETTABLEKS                       R12 R12 K22 ["LuaMeshEditingModuleContext"]
        76 GETIMPORT                        R13 K10 [require]
-       78 GETTABLEKS                       R16 R0 K23 ["Src"]
-       80 GETTABLEKS                       R15 R16 K24 ["Actions"]
-       82 GETTABLEKS                       R14 R15 K25 ["SetControlsPanelBlockerActivity"]
+       78 GETTABLEKS                       R14 R0 K23 ["Src"]
+       80 GETTABLEKS                       R14 R14 K24 ["Actions"]
+       82 GETTABLEKS                       R14 R14 K25 ["SetControlsPanelBlockerActivity"]
        84 CALL                             R13 1 1
        85 GETIMPORT                        R14 K10 [require]
-       87 GETTABLEKS                       R17 R0 K23 ["Src"]
-       89 GETTABLEKS                       R16 R17 K24 ["Actions"]
-       91 GETTABLEKS                       R15 R16 K26 ["SetControlsPanelBlockerMessage"]
+       87 GETTABLEKS                       R15 R0 K23 ["Src"]
+       89 GETTABLEKS                       R15 R15 K24 ["Actions"]
+       91 GETTABLEKS                       R15 R15 K26 ["SetControlsPanelBlockerMessage"]
        93 CALL                             R14 1 1
        94 GETIMPORT                        R15 K10 [require]
-       96 GETTABLEKS                       R18 R0 K23 ["Src"]
-       98 GETTABLEKS                       R17 R18 K27 ["Flags"]
-      100 GETTABLEKS                       R16 R17 K28 ["getFFlagStudioLuaMeshEditingModuleActivatesTool"]
+       96 GETTABLEKS                       R16 R0 K23 ["Src"]
+       98 GETTABLEKS                       R16 R16 K27 ["Flags"]
+      100 GETTABLEKS                       R16 R16 K28 ["getFFlagStudioLuaMeshEditingModuleActivatesTool"]
       102 CALL                             R15 1 1
       103 GETTABLEKS                       R16 R4 K29 ["PureComponent"]
       105 LOADK                            R18 K30 ["LuaMeshEditingModuleWrapper"]

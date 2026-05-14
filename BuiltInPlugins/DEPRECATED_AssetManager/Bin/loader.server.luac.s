@@ -43,38 +43,38 @@ PROTO_5:
         6 RETURN                           R3 -1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BulkImportStarted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BulkImportStarted"]
         3 RETURN                           R0 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BulkImportFinished"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BulkImportFinished"]
         3 RETURN                           R0 1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["AssetImported"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["AssetImported"]
         3 RETURN                           R0 1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["GameNameUpdated"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["GameNameUpdated"]
         3 RETURN                           R0 1
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["AssetImportedSignal"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["AssetImportedSignal"]
         3 RETURN                           R0 1
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ImportSessionStarted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ImportSessionStarted"]
         3 RETURN                           R0 1
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ImportSessionFinished"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ImportSessionFinished"]
         3 RETURN                           R0 1
 
 MAIN:
@@ -97,20 +97,20 @@ MAIN:
        22 JUMPIFNOT                        R0 ; [+1]
        23 RETURN                           R0 0
        24 GETIMPORT                        R0 K7 [require]
-       26 GETIMPORT                        R3 K9 [script]
-       28 GETTABLEKS                       R2 R3 K10 ["Parent"]
-       30 GETTABLEKS                       R1 R2 K11 ["defineLuaFlags"]
+       26 GETIMPORT                        R1 K9 [script]
+       28 GETTABLEKS                       R1 R1 K10 ["Parent"]
+       30 GETTABLEKS                       R1 R1 K11 ["defineLuaFlags"]
        32 CALL                             R0 1 0
        33 GETIMPORT                        R0 K1 [game]
        35 LOADK                            R2 K12 ["EnableAssetManagerSortButton"]
        36 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
        38 CALL                             R0 2 1
-       39 GETIMPORT                        R3 K9 [script]
-       41 GETTABLEKS                       R2 R3 K10 ["Parent"]
-       43 GETTABLEKS                       R1 R2 K10 ["Parent"]
+       39 GETIMPORT                        R1 K9 [script]
+       41 GETTABLEKS                       R1 R1 K10 ["Parent"]
+       43 GETTABLEKS                       R1 R1 K10 ["Parent"]
        45 GETIMPORT                        R2 K7 [require]
-       47 GETTABLEKS                       R4 R1 K13 ["Packages"]
-       49 GETTABLEKS                       R3 R4 K14 ["PluginLoader"]
+       47 GETTABLEKS                       R3 R1 K13 ["Packages"]
+       49 GETTABLEKS                       R3 R3 K14 ["PluginLoader"]
        51 CALL                             R2 1 1
        52 GETTABLEKS                       R3 R2 K15 ["PluginLoaderBuilder"]
        54 GETIMPORT                        R4 K1 [game]
@@ -125,12 +125,12 @@ MAIN:
        68 LOADK                            R8 K19 ["StudioPublishService"]
        69 NAMECALL                         R6 R6 K17 ["GetService"]
        71 CALL                             R6 2 1
-       72 GETTABLEKS                       R9 R1 K20 ["Src"]
-       74 GETTABLEKS                       R8 R9 K21 ["Resources"]
-       76 GETTABLEKS                       R7 R8 K22 ["SourceStrings"]
-       78 GETTABLEKS                       R10 R1 K20 ["Src"]
-       80 GETTABLEKS                       R9 R10 K21 ["Resources"]
-       82 GETTABLEKS                       R8 R9 K23 ["LocalizedStrings"]
+       72 GETTABLEKS                       R7 R1 K20 ["Src"]
+       74 GETTABLEKS                       R7 R7 K21 ["Resources"]
+       76 GETTABLEKS                       R7 R7 K22 ["SourceStrings"]
+       78 GETTABLEKS                       R8 R1 K20 ["Src"]
+       80 GETTABLEKS                       R8 R8 K21 ["Resources"]
+       82 GETTABLEKS                       R8 R8 K23 ["LocalizedStrings"]
        84 DUPTABLE                         R9 K34 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
        85 GETIMPORT                        R10 K35 [plugin]
        87 SETTABLEKS                       R10 R9 K24 ["plugin"]
@@ -214,9 +214,9 @@ MAIN:
       199 JUMPIF                           R11 ; [+1]
       200 RETURN                           R0 0
       201 GETIMPORT                        R12 K7 [require]
-      203 GETIMPORT                        R15 K9 [script]
-      205 GETTABLEKS                       R14 R15 K10 ["Parent"]
-      207 GETTABLEKS                       R13 R14 K84 ["main"]
+      203 GETIMPORT                        R13 K9 [script]
+      205 GETTABLEKS                       R13 R13 K10 ["Parent"]
+      207 GETTABLEKS                       R13 R13 K84 ["main"]
       209 CALL                             R12 1 1
       210 MOVE                             R13 R12
       211 GETIMPORT                        R14 K35 [plugin]

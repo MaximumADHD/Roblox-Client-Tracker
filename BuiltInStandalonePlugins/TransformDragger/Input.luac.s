@@ -21,9 +21,9 @@ PROTO_4:
         1 JUMPIF                           R0 ; [+2]
         2 LOADNIL                          R0
         3 RETURN                           R0 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K0 ["Origin"]
-        7 GETTABLEKS                       R0 R1 K1 ["p"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["Origin"]
+        7 GETTABLEKS                       R0 R0 K1 ["p"]
         9 RETURN                           R0 1
 
 MAIN:

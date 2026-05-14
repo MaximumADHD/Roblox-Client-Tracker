@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Size"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["data"]
-        6 GETTABLEKS                       R1 R2 K2 ["minSize"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Size"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["data"]
+        6 GETTABLEKS                       R1 R1 K2 ["minSize"]
         8 GETTABLEKS                       R2 R0 K3 ["X"]
        10 GETTABLEKS                       R3 R1 K3 ["X"]
        12 JUMPIFNOTLE                      R3 R2 ; [+17]
@@ -19,10 +19,10 @@ PROTO_0:
        30 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["tutorial"]
-        2 GETTABLEKS                       R2 R3 K1 ["instances"]
-        4 GETTABLEKS                       R4 R0 K2 ["data"]
-        6 GETTABLEKS                       R3 R4 K3 ["instanceId"]
+        0 GETTABLEKS                       R2 R0 K0 ["tutorial"]
+        2 GETTABLEKS                       R2 R2 K1 ["instances"]
+        4 GETTABLEKS                       R3 R0 K2 ["data"]
+        6 GETTABLEKS                       R3 R3 K3 ["instanceId"]
         8 GETTABLE                         R1 R2 R3
         9 JUMPIFNOT                        R1 ; [+12]
        10 LOADK                            R4 K4 ["Size"]
@@ -47,9 +47,9 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["TutorialStep"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["TutorialStep"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K6 ["extend"]
        12 LOADK                            R2 K7 ["Scale"]

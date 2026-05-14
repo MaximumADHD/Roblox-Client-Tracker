@@ -2,8 +2,8 @@ PROTO_0:
         0 DUPTABLE                         R4 K2 [{"key", "source"}]
         1 MOVE                             R5 R3
         2 JUMPIF                           R5 ; [+5]
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K3 ["toString"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K3 ["toString"]
         6 MOVE                             R6 R0
         7 CALL                             R5 1 1
         8 SETTABLEKS                       R5 R4 K0 ["key"]
@@ -27,8 +27,8 @@ PROTO_1:
        11 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["fromAction"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["fromAction"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 -1
@@ -79,73 +79,73 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["SharedFeatures"]
-       13 GETTABLEKS                       R3 R4 K8 ["ContextMenu"]
-       15 GETTABLEKS                       R2 R3 K9 ["ContextMenuTypes"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFeatures"]
+       13 GETTABLEKS                       R2 R2 K8 ["ContextMenu"]
+       15 GETTABLEKS                       R2 R2 K9 ["ContextMenuTypes"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K11 ["Explorer"]
+       20 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K11 ["Explorer"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K12 ["Framework"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K13 ["Util"]
-       38 GETTABLEKS                       R5 R6 K14 ["cleanHoles"]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K13 ["Util"]
+       38 GETTABLEKS                       R5 R5 K14 ["cleanHoles"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K6 ["Src"]
-       45 GETTABLEKS                       R7 R8 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R7 K16 ["getFFlagDevAssetExport"]
+       43 GETTABLEKS                       R6 R0 K6 ["Src"]
+       45 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       47 GETTABLEKS                       R6 R6 K16 ["getFFlagDevAssetExport"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R9 R0 K6 ["Src"]
-       54 GETTABLEKS                       R8 R9 K15 ["Flags"]
-       56 GETTABLEKS                       R7 R8 K17 ["getFFlagEnableReimport"]
+       52 GETTABLEKS                       R7 R0 K6 ["Src"]
+       54 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       56 GETTABLEKS                       R7 R7 K17 ["getFFlagEnableReimport"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R10 R0 K6 ["Src"]
-       63 GETTABLEKS                       R9 R10 K15 ["Flags"]
-       65 GETTABLEKS                       R8 R9 K18 ["getFFlagExplorerAllActionsContextual"]
+       61 GETTABLEKS                       R8 R0 K6 ["Src"]
+       63 GETTABLEKS                       R8 R8 K15 ["Flags"]
+       65 GETTABLEKS                       R8 R8 K18 ["getFFlagExplorerAllActionsContextual"]
        67 CALL                             R7 1 1
        68 GETIMPORT                        R8 K5 [require]
-       70 GETTABLEKS                       R11 R0 K6 ["Src"]
-       72 GETTABLEKS                       R10 R11 K15 ["Flags"]
-       74 GETTABLEKS                       R9 R10 K19 ["getFFlagForgottenExplorerVerbs"]
+       70 GETTABLEKS                       R9 R0 K6 ["Src"]
+       72 GETTABLEKS                       R9 R9 K15 ["Flags"]
+       74 GETTABLEKS                       R9 R9 K19 ["getFFlagForgottenExplorerVerbs"]
        76 CALL                             R8 1 1
        77 GETIMPORT                        R9 K5 [require]
-       79 GETTABLEKS                       R12 R0 K6 ["Src"]
-       81 GETTABLEKS                       R11 R12 K15 ["Flags"]
-       83 GETTABLEKS                       R10 R11 K20 ["getFFlagLuaExplorerExternalEditor"]
+       79 GETTABLEKS                       R10 R0 K6 ["Src"]
+       81 GETTABLEKS                       R10 R10 K15 ["Flags"]
+       83 GETTABLEKS                       R10 R10 K20 ["getFFlagLuaExplorerExternalEditor"]
        85 CALL                             R9 1 1
        86 GETIMPORT                        R10 K5 [require]
-       88 GETTABLEKS                       R13 R0 K6 ["Src"]
-       90 GETTABLEKS                       R12 R13 K15 ["Flags"]
-       92 GETTABLEKS                       R11 R12 K21 ["getFFlagLuaExplorerFileSync"]
+       88 GETTABLEKS                       R11 R0 K6 ["Src"]
+       90 GETTABLEKS                       R11 R11 K15 ["Flags"]
+       92 GETTABLEKS                       R11 R11 K21 ["getFFlagLuaExplorerFileSync"]
        94 CALL                             R10 1 1
        95 GETIMPORT                        R11 K5 [require]
-       97 GETTABLEKS                       R14 R0 K6 ["Src"]
-       99 GETTABLEKS                       R13 R14 K15 ["Flags"]
-      101 GETTABLEKS                       R12 R13 K22 ["getFFlagLuaExplorerHierarchySync"]
+       97 GETTABLEKS                       R12 R0 K6 ["Src"]
+       99 GETTABLEKS                       R12 R12 K15 ["Flags"]
+      101 GETTABLEKS                       R12 R12 K22 ["getFFlagLuaExplorerHierarchySync"]
       103 CALL                             R11 1 1
       104 GETIMPORT                        R12 K5 [require]
-      106 GETTABLEKS                       R15 R0 K6 ["Src"]
-      108 GETTABLEKS                       R14 R15 K15 ["Flags"]
-      110 GETTABLEKS                       R13 R14 K23 ["getFFlagLuaExplorerHierarchySyncServices"]
+      106 GETTABLEKS                       R13 R0 K6 ["Src"]
+      108 GETTABLEKS                       R13 R13 K15 ["Flags"]
+      110 GETTABLEKS                       R13 R13 K23 ["getFFlagLuaExplorerHierarchySyncServices"]
       112 CALL                             R12 1 1
       113 GETIMPORT                        R13 K5 [require]
-      115 GETTABLEKS                       R16 R0 K6 ["Src"]
-      117 GETTABLEKS                       R15 R16 K15 ["Flags"]
-      119 GETTABLEKS                       R14 R15 K24 ["getFFlagLuaExplorerPackages"]
+      115 GETTABLEKS                       R14 R0 K6 ["Src"]
+      117 GETTABLEKS                       R14 R14 K15 ["Flags"]
+      119 GETTABLEKS                       R14 R14 K24 ["getFFlagLuaExplorerPackages"]
       121 CALL                             R13 1 1
       122 GETIMPORT                        R14 K5 [require]
-      124 GETTABLEKS                       R17 R0 K6 ["Src"]
-      126 GETTABLEKS                       R16 R17 K15 ["Flags"]
-      128 GETTABLEKS                       R15 R16 K25 ["getFFlagPluginGuiServiceExplorerVerbsManIReallyHopeTheseAreTheLastOnes"]
+      124 GETTABLEKS                       R15 R0 K6 ["Src"]
+      126 GETTABLEKS                       R15 R15 K15 ["Flags"]
+      128 GETTABLEKS                       R15 R15 K25 ["getFFlagPluginGuiServiceExplorerVerbsManIReallyHopeTheseAreTheLastOnes"]
       130 CALL                             R14 1 1
       131 GETIMPORT                        R15 K27 [game]
       133 LOADK                            R17 K28 ["CopyPathAction"]
@@ -159,8 +159,8 @@ MAIN:
       145 LOADK                            R19 K31 ["UnifiedSyncActions"]
       146 NAMECALL                         R17 R17 K29 ["GetEngineFeature"]
       148 CALL                             R17 2 1
-      149 GETTABLEKS                       R19 R3 K13 ["Util"]
-      151 GETTABLEKS                       R18 R19 K32 ["StudioUri"]
+      149 GETTABLEKS                       R18 R3 K13 ["Util"]
+      151 GETTABLEKS                       R18 R18 K32 ["StudioUri"]
       153 DUPCLOSURE                       R19 K33 [PROTO_0]
       154 CAPTURE                          VAL R18
       155 DUPCLOSURE                       R20 K34 [PROTO_1]
@@ -313,10 +313,10 @@ MAIN:
       334 CALL                             R37 2 1
       335 LOADK                            R38 K53 ["All"]
       336 LOADNIL                          R39
-      337 GETTABLEKS                       R43 R2 K68 ["Data"]
-      339 GETTABLEKS                       R42 R43 K8 ["ContextMenu"]
-      341 GETTABLEKS                       R41 R42 K69 ["coreItems"]
-      343 GETTABLEKS                       R40 R41 K70 ["rename"]
+      337 GETTABLEKS                       R40 R2 K68 ["Data"]
+      339 GETTABLEKS                       R40 R40 K8 ["ContextMenu"]
+      341 GETTABLEKS                       R40 R40 K69 ["coreItems"]
+      343 GETTABLEKS                       R40 R40 K70 ["rename"]
       345 CALL                             R36 4 1
       346 SETLIST                          R28 R29 8 [1]
       348 CALL                             R27 1 -1
@@ -462,10 +462,10 @@ MAIN:
       525 CALL                             R37 2 1
       526 LOADK                            R38 K53 ["All"]
       527 LOADNIL                          R39
-      528 GETTABLEKS                       R43 R2 K68 ["Data"]
-      530 GETTABLEKS                       R42 R43 K8 ["ContextMenu"]
-      532 GETTABLEKS                       R41 R42 K69 ["coreItems"]
-      534 GETTABLEKS                       R40 R41 K85 ["expandAll"]
+      528 GETTABLEKS                       R40 R2 K68 ["Data"]
+      530 GETTABLEKS                       R40 R40 K8 ["ContextMenu"]
+      532 GETTABLEKS                       R40 R40 K69 ["coreItems"]
+      534 GETTABLEKS                       R40 R40 K85 ["expandAll"]
       536 CALL                             R36 4 1
       537 MOVE                             R37 R19
       538 GETTABLEKS                       R38 R18 K38 ["fromAction"]
@@ -474,10 +474,10 @@ MAIN:
       542 CALL                             R38 2 1
       543 LOADK                            R39 K53 ["All"]
       544 LOADNIL                          R40
-      545 GETTABLEKS                       R44 R2 K68 ["Data"]
-      547 GETTABLEKS                       R43 R44 K8 ["ContextMenu"]
-      549 GETTABLEKS                       R42 R43 K69 ["coreItems"]
-      551 GETTABLEKS                       R41 R42 K87 ["collapseAll"]
+      545 GETTABLEKS                       R41 R2 K68 ["Data"]
+      547 GETTABLEKS                       R41 R41 K8 ["ContextMenu"]
+      549 GETTABLEKS                       R41 R41 K69 ["coreItems"]
+      551 GETTABLEKS                       R41 R41 K87 ["collapseAll"]
       553 CALL                             R37 4 1
       554 SETLIST                          R33 R34 4 [1]
       556 SETLIST                          R32 R33 1 [1]
@@ -857,13 +857,13 @@ MAIN:
      1029 CALL                             R27 0 1
      1030 JUMPIFNOT                        R27 ; [+78]
      1031 GETIMPORT                        R27 K5 [require]
-     1033 GETTABLEKS                       R29 R0 K10 ["Packages"]
-     1035 GETTABLEKS                       R28 R29 K121 ["SharedPluginConstants"]
+     1033 GETTABLEKS                       R28 R0 K10 ["Packages"]
+     1035 GETTABLEKS                       R28 R28 K121 ["SharedPluginConstants"]
      1037 CALL                             R27 1 1
-     1038 GETTABLEKS                       R29 R27 K122 ["REIMPORT"]
-     1040 GETTABLEKS                       R28 R29 K123 ["ACTION_ID"]
-     1042 GETTABLEKS                       R30 R27 K122 ["REIMPORT"]
-     1044 GETTABLEKS                       R29 R30 K124 ["ACTION_EVENTS"]
+     1038 GETTABLEKS                       R28 R27 K122 ["REIMPORT"]
+     1040 GETTABLEKS                       R28 R28 K123 ["ACTION_ID"]
+     1042 GETTABLEKS                       R29 R27 K122 ["REIMPORT"]
+     1044 GETTABLEKS                       R29 R29 K124 ["ACTION_EVENTS"]
      1046 NEWTABLE                         R32 0 1
      1048 NEWTABLE                         R34 0 1
      1050 NEWTABLE                         R35 0 3

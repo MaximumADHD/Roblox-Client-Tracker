@@ -17,8 +17,8 @@ PROTO_0:
        21 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
        23 GETIMPORT                        R1 K9 [setmetatable]
        25 CALL                             R1 2 1
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R2 R3 K10 ["new"]
+       26 GETUPVAL                         R2 1
+       27 GETTABLEKS                       R2 R2 K10 ["new"]
        29 CALL                             R2 0 1
        30 SETTABLEKS                       R2 R1 K11 ["_maid"]
        32 SETTABLEKS                       R0 R1 K12 ["_visualizationModeCategory"]
@@ -26,8 +26,8 @@ PROTO_0:
        36 SETTABLEKS                       R2 R1 K13 ["_visualizationModeTrackers"]
        38 LOADNIL                          R2
        39 SETTABLEKS                       R2 R1 K14 ["_state"]
-       41 GETUPVAL                         R3 2
-       42 GETTABLEKS                       R2 R3 K10 ["new"]
+       41 GETUPVAL                         R2 2
+       42 GETTABLEKS                       R2 R2 K10 ["new"]
        44 CALL                             R2 0 1
        45 SETTABLEKS                       R2 R1 K15 ["changed"]
        47 NAMECALL                         R2 R1 K16 ["_startTracking"]
@@ -57,8 +57,8 @@ PROTO_3:
         5 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_maid"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_maid"]
         3 LOADNIL                          R2
         4 SETTABLE                         R2 R1 R0
         5 RETURN                           R0 0
@@ -77,8 +77,8 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["_maid"]
-        2 GETTABLEKS                       R4 R0 K1 ["_visualizationModeCategory"]
-        4 GETTABLEKS                       R3 R4 K2 ["ChildAdded"]
+        2 GETTABLEKS                       R3 R0 K1 ["_visualizationModeCategory"]
+        4 GETTABLEKS                       R3 R3 K2 ["ChildAdded"]
         6 NEWCLOSURE                       R5 P0
         7 CAPTURE                          VAL R0
         8 NAMECALL                         R3 R3 K3 ["Connect"]
@@ -86,8 +86,8 @@ PROTO_7:
        11 NAMECALL                         R1 R1 K4 ["giveTask"]
        13 CALL                             R1 -1 0
        14 GETTABLEKS                       R1 R0 K0 ["_maid"]
-       16 GETTABLEKS                       R4 R0 K1 ["_visualizationModeCategory"]
-       18 GETTABLEKS                       R3 R4 K5 ["ChildRemoved"]
+       16 GETTABLEKS                       R3 R0 K1 ["_visualizationModeCategory"]
+       18 GETTABLEKS                       R3 R3 K5 ["ChildRemoved"]
        20 NEWCLOSURE                       R5 P1
        21 CAPTURE                          VAL R0
        22 NAMECALL                         R3 R3 K3 ["Connect"]
@@ -129,8 +129,8 @@ PROTO_7:
        75 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_maid"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_maid"]
         3 LOADNIL                          R1
         4 SETTABLEKS                       R1 R0 K1 ["_stateUpdateQueue"]
         6 GETUPVAL                         R0 0
@@ -139,8 +139,8 @@ PROTO_8:
        10 RETURN                           R0 0
 
 PROTO_9:
-        0 GETTABLEKS                       R2 R0 K0 ["_maid"]
-        2 GETTABLEKS                       R1 R2 K1 ["_stateUpdateQueue"]
+        0 GETTABLEKS                       R1 R0 K0 ["_maid"]
+        2 GETTABLEKS                       R1 R1 K1 ["_stateUpdateQueue"]
         4 JUMPIFNOT                        R1 ; [+1]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R1 R0 K0 ["_maid"]
@@ -194,18 +194,18 @@ PROTO_11:
        40 GETIMPORT                        R5 K12 [table.freeze]
        42 DUPTABLE                         R6 K17 [{"visualizationModeList", "name", "title", "enabled", "lastUpdateTimeUnixTimeStamp"}]
        43 SETTABLEKS                       R1 R6 K13 ["visualizationModeList"]
-       45 GETTABLEKS                       R8 R0 K18 ["_visualizationModeCategory"]
-       47 GETTABLEKS                       R7 R8 K19 ["Name"]
+       45 GETTABLEKS                       R7 R0 K18 ["_visualizationModeCategory"]
+       47 GETTABLEKS                       R7 R7 K19 ["Name"]
        49 SETTABLEKS                       R7 R6 K14 ["name"]
-       51 GETTABLEKS                       R8 R0 K18 ["_visualizationModeCategory"]
-       53 GETTABLEKS                       R7 R8 K20 ["Title"]
+       51 GETTABLEKS                       R7 R0 K18 ["_visualizationModeCategory"]
+       53 GETTABLEKS                       R7 R7 K20 ["Title"]
        55 SETTABLEKS                       R7 R6 K8 ["title"]
-       57 GETTABLEKS                       R8 R0 K18 ["_visualizationModeCategory"]
-       59 GETTABLEKS                       R7 R8 K21 ["Enabled"]
+       57 GETTABLEKS                       R7 R0 K18 ["_visualizationModeCategory"]
+       59 GETTABLEKS                       R7 R7 K21 ["Enabled"]
        61 SETTABLEKS                       R7 R6 K15 ["enabled"]
-       63 GETIMPORT                        R8 K24 [DateTime.now]
-       65 CALL                             R8 0 1
-       66 GETTABLEKS                       R7 R8 K25 ["UnixTimestamp"]
+       63 GETIMPORT                        R7 K24 [DateTime.now]
+       65 CALL                             R7 0 1
+       66 GETTABLEKS                       R7 R7 K25 ["UnixTimestamp"]
        68 SETTABLEKS                       R7 R6 K16 ["lastUpdateTimeUnixTimeStamp"]
        70 CALL                             R5 1 -1
        71 NAMECALL                         R3 R0 K26 ["_setState"]
@@ -241,14 +241,14 @@ PROTO_14:
 
 PROTO_15:
         0 GETIMPORT                        R0 K2 [table.find]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K3 ["_visualizationModeTrackers"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["_visualizationModeTrackers"]
         5 GETUPVAL                         R2 1
         6 CALL                             R0 2 1
         7 JUMPIFNOT                        R0 ; [+11]
         8 GETIMPORT                        R1 K5 [table.remove]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K3 ["_visualizationModeTrackers"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K3 ["_visualizationModeTrackers"]
        13 MOVE                             R3 R0
        14 CALL                             R1 2 0
        15 GETUPVAL                         R1 0
@@ -262,11 +262,11 @@ PROTO_16:
         3 CALL                             R2 2 1
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["new"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["new"]
         9 CALL                             R2 0 1
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R5 R6 K2 ["new"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K2 ["new"]
        13 MOVE                             R6 R1
        14 CALL                             R5 1 -1
        15 NAMECALL                         R3 R2 K3 ["add"]
@@ -307,23 +307,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Maid"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Maid"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["Signal"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R5 K10 ["Types"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Types"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETIMPORT                        R7 K1 [script]
-       36 GETTABLEKS                       R6 R7 K11 ["Parent"]
-       38 GETTABLEKS                       R5 R6 K12 ["VisualizationModeTracker"]
+       34 GETIMPORT                        R5 K1 [script]
+       36 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       38 GETTABLEKS                       R5 R5 K12 ["VisualizationModeTracker"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 16 0
        43 SETTABLEKS                       R5 R5 K13 ["__index"]

@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [plugin]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K2 ["Name"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["Name"]
         5 SETTABLEKS                       R1 R0 K2 ["Name"]
-        7 GETUPVAL                         R1 2
-        8 GETTABLEKS                       R0 R1 K3 ["new"]
+        7 GETUPVAL                         R0 2
+        8 GETTABLEKS                       R0 R0 K3 ["new"]
        10 CALL                             R0 0 1
        11 SETUPVAL                         R0 1
        12 GETUPVAL                         R0 1
@@ -23,17 +23,17 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETIMPORT                        R2 K2 [settings]
-        2 CALL                             R2 0 1
-        3 GETTABLEKS                       R1 R2 K3 ["Studio"]
+        0 GETIMPORT                        R1 K2 [settings]
+        2 CALL                             R1 0 1
+        3 GETTABLEKS                       R1 R1 K3 ["Studio"]
         5 GETTABLEKS                       R0 R1 K0 ["Show Light Guides"]
         7 JUMPIFNOT                        R0 ; [+17]
         8 GETIMPORT                        R0 K5 [plugin]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K6 ["Name"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K6 ["Name"]
        13 SETTABLEKS                       R1 R0 K6 ["Name"]
-       15 GETUPVAL                         R1 2
-       16 GETTABLEKS                       R0 R1 K7 ["new"]
+       15 GETUPVAL                         R0 2
+       16 GETTABLEKS                       R0 R0 K7 ["new"]
        18 CALL                             R0 0 1
        19 SETUPVAL                         R0 1
        20 GETUPVAL                         R0 1
@@ -69,17 +69,17 @@ PROTO_3:
        18 RETURN                           R0 0
 
 PROTO_4:
-        0 GETIMPORT                        R2 K2 [settings]
-        2 CALL                             R2 0 1
-        3 GETTABLEKS                       R1 R2 K3 ["Studio"]
+        0 GETIMPORT                        R1 K2 [settings]
+        2 CALL                             R1 0 1
+        3 GETTABLEKS                       R1 R1 K3 ["Studio"]
         5 GETTABLEKS                       R0 R1 K0 ["Show Light Guides"]
         7 JUMPIFNOT                        R0 ; [+17]
         8 GETIMPORT                        R0 K5 [plugin]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K6 ["Name"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K6 ["Name"]
        13 SETTABLEKS                       R1 R0 K6 ["Name"]
-       15 GETUPVAL                         R1 2
-       16 GETTABLEKS                       R0 R1 K7 ["new"]
+       15 GETUPVAL                         R0 2
+       16 GETTABLEKS                       R0 R0 K7 ["new"]
        18 CALL                             R0 0 1
        19 SETUPVAL                         R0 1
        20 GETUPVAL                         R0 1
@@ -100,12 +100,12 @@ MAIN:
         1 GETIMPORT                        R0 K1 [plugin]
         3 JUMPIF                           R0 ; [+1]
         4 RETURN                           R0 0
-        5 GETIMPORT                        R2 K3 [script]
-        7 GETTABLEKS                       R1 R2 K4 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K4 ["Parent"]
+        5 GETIMPORT                        R0 K3 [script]
+        7 GETTABLEKS                       R0 R0 K4 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K4 ["Parent"]
        11 GETIMPORT                        R1 K6 [require]
-       13 GETTABLEKS                       R3 R0 K7 ["Src"]
-       15 GETTABLEKS                       R2 R3 K8 ["MainPlugin"]
+       13 GETTABLEKS                       R2 R0 K7 ["Src"]
+       15 GETTABLEKS                       R2 R2 K8 ["MainPlugin"]
        17 CALL                             R1 1 1
        18 LOADNIL                          R2
        19 LOADNIL                          R3
@@ -119,16 +119,16 @@ MAIN:
        27 CAPTURE                          VAL R0
        28 CAPTURE                          REF R2
        29 CAPTURE                          VAL R1
-       30 GETIMPORT                        R8 K1 [plugin]
-       32 GETTABLEKS                       R7 R8 K9 ["Unloading"]
+       30 GETIMPORT                        R7 K1 [plugin]
+       32 GETTABLEKS                       R7 R7 K9 ["Unloading"]
        34 NEWCLOSURE                       R9 P3
        35 CAPTURE                          REF R2
        36 CAPTURE                          REF R3
        37 NAMECALL                         R7 R7 K10 ["Connect"]
        39 CALL                             R7 2 0
-       40 GETIMPORT                        R8 K12 [settings]
-       42 CALL                             R8 0 1
-       43 GETTABLEKS                       R7 R8 K13 ["Studio"]
+       40 GETIMPORT                        R7 K12 [settings]
+       42 CALL                             R7 0 1
+       43 GETTABLEKS                       R7 R7 K13 ["Studio"]
        45 LOADK                            R9 K14 ["Show Light Guides"]
        46 NAMECALL                         R7 R7 K15 ["GetPropertyChangedSignal"]
        48 CALL                             R7 2 1
@@ -139,9 +139,9 @@ MAIN:
        53 NAMECALL                         R7 R7 K10 ["Connect"]
        55 CALL                             R7 2 1
        56 MOVE                             R3 R7
-       57 GETIMPORT                        R9 K12 [settings]
-       59 CALL                             R9 0 1
-       60 GETTABLEKS                       R8 R9 K13 ["Studio"]
+       57 GETIMPORT                        R8 K12 [settings]
+       59 CALL                             R8 0 1
+       60 GETTABLEKS                       R8 R8 K13 ["Studio"]
        62 GETTABLEKS                       R7 R8 K14 ["Show Light Guides"]
        64 JUMPIFNOT                        R7 ; [+14]
        65 GETIMPORT                        R7 K1 [plugin]

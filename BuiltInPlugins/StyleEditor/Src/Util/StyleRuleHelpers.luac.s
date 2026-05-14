@@ -4,8 +4,8 @@ PROTO_0:
         2 GETIMPORT                        R1 K1 [assert]
         4 CALL                             R1 1 0
         5 GETTABLEKS                       R1 R0 K2 ["Priority"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K3 ["getQueryStyleRulesForPseudo"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K3 ["getQueryStyleRulesForPseudo"]
        10 MOVE                             R3 R0
        11 CALL                             R2 1 1
        12 MOVE                             R3 R2
@@ -39,8 +39,8 @@ PROTO_1:
        17 GETIMPORT                        R10 K1 [assert]
        19 CALL                             R10 1 0
        20 GETTABLEKS                       R10 R6 K5 ["Priority"]
-       22 GETUPVAL                         R12 1
-       23 GETTABLEKS                       R11 R12 K6 ["getQueryStyleRulesForPseudo"]
+       22 GETUPVAL                         R11 1
+       23 GETTABLEKS                       R11 R11 K6 ["getQueryStyleRulesForPseudo"]
        25 MOVE                             R12 R6
        26 CALL                             R11 1 1
        27 MOVE                             R12 R11
@@ -86,8 +86,8 @@ PROTO_3:
        13 GETIMPORT                        R8 K1 [assert]
        15 CALL                             R8 1 0
        16 GETTABLEKS                       R8 R6 K2 ["Priority"]
-       18 GETUPVAL                         R10 1
-       19 GETTABLEKS                       R9 R10 K3 ["getQueryStyleRulesForPseudo"]
+       18 GETUPVAL                         R9 1
+       19 GETTABLEKS                       R9 R9 K3 ["getQueryStyleRulesForPseudo"]
        21 MOVE                             R10 R6
        22 CALL                             R9 1 1
        23 MOVE                             R10 R9
@@ -103,8 +103,8 @@ PROTO_3:
        36 FORGLOOP                         R10 2 ; [-10]
        38 MOVE                             R7 R8
        39 SETTABLEKS                       R7 R6 K2 ["Priority"]
-       41 GETUPVAL                         R9 1
-       42 GETTABLEKS                       R8 R9 K7 ["getPseudoRuleForQuery"]
+       41 GETUPVAL                         R8 1
+       42 GETTABLEKS                       R8 R8 K7 ["getPseudoRuleForQuery"]
        44 MOVE                             R9 R6
        45 CALL                             R8 1 1
        46 JUMPIF                           R8 ; [+13]
@@ -171,8 +171,8 @@ PROTO_4:
        52 SETTABLEKS                       R8 R0 K7 ["Priority"]
        54 GETUPVAL                         R8 0
        55 JUMPIFNOT                        R8 ; [+56]
-       56 GETUPVAL                         R9 2
-       57 GETTABLEKS                       R8 R9 K8 ["getQueryStyleRulesForPseudo"]
+       56 GETUPVAL                         R8 2
+       57 GETTABLEKS                       R8 R8 K8 ["getQueryStyleRulesForPseudo"]
        59 MOVE                             R9 R0
        60 CALL                             R8 1 1
        61 MOVE                             R9 R8
@@ -189,8 +189,8 @@ PROTO_4:
        78 SETTABLEKS                       R9 R7 K7 ["Priority"]
        80 GETUPVAL                         R8 0
        81 JUMPIFNOT                        R8 ; [+30]
-       82 GETUPVAL                         R9 2
-       83 GETTABLEKS                       R8 R9 K8 ["getQueryStyleRulesForPseudo"]
+       82 GETUPVAL                         R8 2
+       83 GETTABLEKS                       R8 R8 K8 ["getQueryStyleRulesForPseudo"]
        85 MOVE                             R9 R0
        86 CALL                             R8 1 1
        87 MOVE                             R9 R8
@@ -200,8 +200,8 @@ PROTO_4:
        91 GETTABLEKS                       R14 R0 K7 ["Priority"]
        93 SETTABLEKS                       R14 R13 K7 ["Priority"]
        95 FORGLOOP                         R9 2 ; [-5]
-       97 GETUPVAL                         R10 2
-       98 GETTABLEKS                       R9 R10 K8 ["getQueryStyleRulesForPseudo"]
+       97 GETUPVAL                         R9 2
+       98 GETTABLEKS                       R9 R9 K8 ["getQueryStyleRulesForPseudo"]
       100 MOVE                             R10 R7
       101 CALL                             R9 1 1
       102 MOVE                             R10 R9
@@ -217,8 +217,8 @@ PROTO_4:
 PROTO_5:
         0 NAMECALL                         R2 R0 K0 ["GetStyleRules"]
         2 CALL                             R2 1 1
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["getSelectorCategory"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["getSelectorCategory"]
         6 MOVE                             R4 R1
         7 CALL                             R3 1 1
         8 NEWTABLE                         R4 0 0
@@ -227,10 +227,10 @@ PROTO_5:
        12 NAMECALL                         R6 R0 K3 ["IsA"]
        14 CALL                             R6 2 1
        15 JUMPIFNOT                        R6 ; [+59]
-       16 GETUPVAL                         R8 0
-       17 GETTABLEKS                       R7 R8 K4 ["CATEGORIES"]
-       19 GETUPVAL                         R10 0
-       20 GETTABLEKS                       R9 R10 K4 ["CATEGORIES"]
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K4 ["CATEGORIES"]
+       19 GETUPVAL                         R9 0
+       20 GETTABLEKS                       R9 R9 K4 ["CATEGORIES"]
        22 LENGTH                           R8 R9
        23 GETTABLE                         R6 R7 R8
        24 JUMPIFEQ                         R3 R6 ; [+50]
@@ -238,8 +238,8 @@ PROTO_5:
        27 LOADNIL                          R7
        28 LOADNIL                          R8
        29 FORGPREP                         R6
-       30 GETUPVAL                         R12 0
-       31 GETTABLEKS                       R11 R12 K1 ["getSelectorCategory"]
+       30 GETUPVAL                         R11 0
+       31 GETTABLEKS                       R11 R11 K1 ["getSelectorCategory"]
        33 GETTABLEKS                       R12 R10 K5 ["Selector"]
        35 CALL                             R11 1 1
        36 GETTABLE                         R12 R4 R11
@@ -251,8 +251,8 @@ PROTO_5:
        42 LOADN                            R12 1
        43 SETTABLE                         R12 R4 R11
        44 FORGLOOP                         R6 2 ; [-15]
-       46 GETUPVAL                         R9 0
-       47 GETTABLEKS                       R6 R9 K4 ["CATEGORIES"]
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K4 ["CATEGORIES"]
        49 LOADNIL                          R7
        50 LOADNIL                          R8
        51 FORGPREP                         R6
@@ -275,9 +275,9 @@ PROTO_5:
        75 LENGTH                           R6 R2
        76 LOADN                            R7 0
        77 JUMPIFNOTLT                      R7 R6 ; [+7]
-       79 LENGTH                           R8 R2
-       80 GETTABLE                         R7 R2 R8
-       81 GETTABLEKS                       R6 R7 K8 ["Priority"]
+       79 LENGTH                           R7 R2
+       80 GETTABLE                         R6 R2 R7
+       81 GETTABLEKS                       R6 R6 K8 ["Priority"]
        83 ADDK                             R5 R6 K6 [1]
        84 RETURN                           R5 1
        85 LOADN                            R5 1
@@ -307,8 +307,8 @@ PROTO_8:
         2 GETIMPORT                        R3 K1 [assert]
         4 CALL                             R3 1 0
         5 GETTABLEKS                       R3 R0 K2 ["Priority"]
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K3 ["getQueryStyleRulesForPseudo"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K3 ["getQueryStyleRulesForPseudo"]
        10 MOVE                             R5 R0
        11 CALL                             R4 1 1
        12 MOVE                             R5 R4
@@ -328,8 +328,8 @@ PROTO_8:
        30 GETIMPORT                        R4 K1 [assert]
        32 CALL                             R4 1 0
        33 GETTABLEKS                       R4 R1 K2 ["Priority"]
-       35 GETUPVAL                         R6 1
-       36 GETTABLEKS                       R5 R6 K3 ["getQueryStyleRulesForPseudo"]
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R5 R5 K3 ["getQueryStyleRulesForPseudo"]
        38 MOVE                             R6 R1
        39 CALL                             R5 1 1
        40 MOVE                             R6 R5
@@ -413,30 +413,30 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["DesignHelpers"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["DesignHelpers"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Util"]
-       24 GETTABLEKS                       R3 R4 K8 ["StyleQueryHelpers"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["StyleQueryHelpers"]
        26 CALL                             R2 1 1
        27 NEWTABLE                         R3 4 0
        29 GETIMPORT                        R4 K4 [require]
-       31 GETTABLEKS                       R7 R0 K5 ["Src"]
-       33 GETTABLEKS                       R6 R7 K9 ["Flags"]
-       35 GETTABLEKS                       R5 R6 K10 ["getFFlagStyleQuery"]
+       31 GETTABLEKS                       R5 R0 K5 ["Src"]
+       33 GETTABLEKS                       R5 R5 K9 ["Flags"]
+       35 GETTABLEKS                       R5 R5 K10 ["getFFlagStyleQuery"]
        37 CALL                             R4 1 1
        38 CALL                             R4 0 1
        39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       43 GETTABLEKS                       R6 R7 K12 ["Dash"]
+       41 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       43 GETTABLEKS                       R6 R6 K12 ["Dash"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R5 K13 ["append"]
        48 DUPCLOSURE                       R7 K14 [PROTO_0]

@@ -5,9 +5,9 @@ PROTO_0:
         4 CALL                             R1 2 1
         5 JUMPIF                           R1 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K1 ["props"]
-       10 GETTABLEKS                       R2 R3 K2 ["Inspector"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K1 ["props"]
+       10 GETTABLEKS                       R2 R2 K2 ["Inspector"]
        12 NAMECALL                         R2 R2 K3 ["get"]
        14 CALL                             R2 1 1
        15 GETTABLEKS                       R5 R1 K4 ["BridgeId"]
@@ -16,9 +16,9 @@ PROTO_0:
        21 CALL                             R3 3 1
        22 NAMECALL                         R4 R3 K7 ["getRoot"]
        24 CALL                             R4 1 0
-       25 GETUPVAL                         R6 0
-       26 GETTABLEKS                       R5 R6 K1 ["props"]
-       28 GETTABLEKS                       R4 R5 K8 ["selectTarget"]
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K1 ["props"]
+       28 GETTABLEKS                       R4 R4 K8 ["selectTarget"]
        30 MOVE                             R5 R1
        31 CALL                             R4 1 0
        32 GETUPVAL                         R4 1
@@ -46,8 +46,8 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
         6 DUPTABLE                         R4 K9 [{"Instances", "Expansion", "Selection", "OnExpansionChange", "OnSelectionChange", "Size", "Style"}]
         7 GETUPVAL                         R5 2
@@ -76,11 +76,11 @@ PROTO_3:
 
 PROTO_4:
         0 DUPTABLE                         R2 K2 [{"Instances", "Expansion"}]
-        1 GETTABLEKS                       R4 R0 K3 ["Targets"]
-        3 GETTABLEKS                       R3 R4 K4 ["targets"]
+        1 GETTABLEKS                       R3 R0 K3 ["Targets"]
+        3 GETTABLEKS                       R3 R3 K4 ["targets"]
         5 SETTABLEKS                       R3 R2 K0 ["Instances"]
-        7 GETTABLEKS                       R4 R0 K3 ["Targets"]
-        9 GETTABLEKS                       R3 R4 K5 ["expandedTargets"]
+        7 GETTABLEKS                       R3 R0 K3 ["Targets"]
+        9 GETTABLEKS                       R3 R3 K5 ["expandedTargets"]
        11 SETTABLEKS                       R3 R2 K1 ["Expansion"]
        13 RETURN                           R2 1
 
@@ -114,30 +114,30 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K11 ["InspectorContext"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K11 ["InspectorContext"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R7 R0 K5 ["Packages"]
-       43 GETTABLEKS                       R6 R7 K12 ["Dash"]
+       41 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       43 GETTABLEKS                       R6 R6 K12 ["Dash"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R5 K13 ["values"]
        48 GETTABLEKS                       R7 R5 K14 ["keys"]
@@ -145,8 +145,8 @@ MAIN:
        52 GETTABLEKS                       R9 R8 K16 ["withContext"]
        54 GETTABLEKS                       R10 R3 K17 ["UI"]
        56 GETTABLEKS                       R11 R10 K18 ["InstanceTreeView"]
-       58 GETTABLEKS                       R13 R0 K9 ["Src"]
-       60 GETTABLEKS                       R12 R13 K19 ["Actions"]
+       58 GETTABLEKS                       R12 R0 K9 ["Src"]
+       60 GETTABLEKS                       R12 R12 K19 ["Actions"]
        62 GETIMPORT                        R13 K4 [require]
        64 GETTABLEKS                       R14 R12 K20 ["SelectTarget"]
        66 CALL                             R13 1 1

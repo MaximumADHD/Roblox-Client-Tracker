@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["contextItems"]
-        2 GETTABLEKS                       R1 R2 K1 ["FileController"]
+        0 GETTABLEKS                       R1 R0 K0 ["contextItems"]
+        2 GETTABLEKS                       R1 R1 K1 ["FileController"]
         4 NEWTABLE                         R4 0 1
         6 LOADK                            R5 K2 ["/tmp/file.fbx"]
         7 SETLIST                          R4 R5 1 [1]
@@ -12,21 +12,21 @@ PROTO_0:
        16 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["enabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["enabled"]
         3 JUMPIF                           R1 ; [+1]
         4 RETURN                           R0 0
         5 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R4 R0 K5 ["Src"]
-       11 GETTABLEKS                       R3 R4 K6 ["Controllers"]
-       13 GETTABLEKS                       R2 R3 K7 ["Initialization"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Controllers"]
+       13 GETTABLEKS                       R2 R2 K7 ["Initialization"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 2 0
        18 LOADB                            R3 0

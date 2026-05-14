@@ -6,8 +6,8 @@ PROTO_0:
         6 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarSettings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarSettings"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -33,8 +33,8 @@ PROTO_1:
        33 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["avatarRules"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["avatarRules"]
         3 CALL                             R1 0 1
         4 MOVE                             R4 R0
         5 NAMECALL                         R2 R1 K1 ["FindFirstChildWhichIsA"]
@@ -59,8 +59,8 @@ PROTO_2:
        29 RETURN                           R3 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarBodyRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -68,8 +68,8 @@ PROTO_3:
         8 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarCollisionRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -77,8 +77,8 @@ PROTO_4:
         8 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarAbilityRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -86,8 +86,8 @@ PROTO_5:
         8 RETURN                           R1 1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarAnimationRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -95,8 +95,8 @@ PROTO_6:
         8 RETURN                           R1 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarAccessoryRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -104,8 +104,8 @@ PROTO_7:
         8 RETURN                           R1 1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 LOADK                            R3 K1 ["AvatarClothingRules"]
         5 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
@@ -113,12 +113,12 @@ PROTO_8:
         8 RETURN                           R1 1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarBodyRules"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["avatarBodyRules"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["avatarBodyRules"]
         8 CALL                             R1 0 1
         9 FASTCALL1                        ASSERT R1 ; [+3]
        10 MOVE                             R3 R1
@@ -129,12 +129,12 @@ PROTO_9:
        16 RETURN                           R1 1
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarCollisionRules"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["avatarCollisionRules"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["avatarCollisionRules"]
         8 CALL                             R1 0 1
         9 FASTCALL1                        ASSERT R1 ; [+3]
        10 MOVE                             R3 R1
@@ -145,12 +145,12 @@ PROTO_10:
        16 RETURN                           R1 1
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarAbilityRules"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["avatarAbilityRules"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["avatarAbilityRules"]
         8 CALL                             R1 0 1
         9 FASTCALL1                        ASSERT R1 ; [+3]
        10 MOVE                             R3 R1
@@ -161,12 +161,12 @@ PROTO_11:
        16 RETURN                           R1 1
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarAnimationRules"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["avatarAnimationRules"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["avatarAnimationRules"]
         8 CALL                             R1 0 1
         9 FASTCALL1                        ASSERT R1 ; [+3]
        10 MOVE                             R3 R1
@@ -177,12 +177,12 @@ PROTO_12:
        16 RETURN                           R1 1
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarAccessoryRules"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["avatarAccessoryRules"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["avatarAccessoryRules"]
         8 CALL                             R1 0 1
         9 FASTCALL1                        ASSERT R1 ; [+3]
        10 MOVE                             R3 R1
@@ -193,12 +193,12 @@ PROTO_13:
        16 RETURN                           R1 1
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createRule"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createRule"]
         3 LOADK                            R1 K1 ["AvatarClothingRules"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["avatarClothingRules"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["avatarClothingRules"]
         8 CALL                             R1 0 1
         9 FASTCALL1                        ASSERT R1 ; [+3]
        10 MOVE                             R3 R1

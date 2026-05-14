@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onSetPausedState"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onSetPausedState"]
         3 LOADB                            R1 0
         4 CALL                             R0 1 0
         5 GETIMPORT                        R0 K2 [game]
@@ -21,53 +21,53 @@ PROTO_1:
         9 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onStepAction"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["StepActionIds"]
-        8 GETTABLEKS                       R1 R2 K3 ["stepOverActionV2"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onStepAction"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["StepActionIds"]
+        8 GETTABLEKS                       R1 R1 K3 ["stepOverActionV2"]
        10 LOADK                            R2 K4 ["ToolbarButton"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["CurrentDebuggerConnectionId"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["props"]
-       19 GETTABLEKS                       R4 R5 K6 ["CurrentThreadId"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["CurrentDebuggerConnectionId"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["props"]
+       19 GETTABLEKS                       R4 R4 K6 ["CurrentThreadId"]
        21 CALL                             R0 4 0
        22 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onStepAction"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["StepActionIds"]
-        8 GETTABLEKS                       R1 R2 K3 ["stepIntoActionV2"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onStepAction"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["StepActionIds"]
+        8 GETTABLEKS                       R1 R1 K3 ["stepIntoActionV2"]
        10 LOADK                            R2 K4 ["ToolbarButton"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["CurrentDebuggerConnectionId"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["props"]
-       19 GETTABLEKS                       R4 R5 K6 ["CurrentThreadId"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["CurrentDebuggerConnectionId"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["props"]
+       19 GETTABLEKS                       R4 R4 K6 ["CurrentThreadId"]
        21 CALL                             R0 4 0
        22 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onStepAction"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["StepActionIds"]
-        8 GETTABLEKS                       R1 R2 K3 ["stepOutActionV2"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onStepAction"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["StepActionIds"]
+        8 GETTABLEKS                       R1 R1 K3 ["stepOutActionV2"]
        10 LOADK                            R2 K4 ["ToolbarButton"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["CurrentDebuggerConnectionId"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["props"]
-       19 GETTABLEKS                       R4 R5 K6 ["CurrentThreadId"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["CurrentDebuggerConnectionId"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["props"]
+       19 GETTABLEKS                       R4 R4 K6 ["CurrentThreadId"]
        21 CALL                             R0 4 0
        22 RETURN                           R0 0
 
@@ -111,72 +111,72 @@ PROTO_6:
        24 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onStepAction"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["StepActionIds"]
-        8 GETTABLEKS                       R1 R2 K3 ["stepOverActionV2"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onStepAction"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["StepActionIds"]
+        8 GETTABLEKS                       R1 R1 K3 ["stepOverActionV2"]
        10 LOADK                            R2 K4 ["PluginAction"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["CurrentDebuggerConnectionId"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["props"]
-       19 GETTABLEKS                       R4 R5 K6 ["CurrentThreadId"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["CurrentDebuggerConnectionId"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["props"]
+       19 GETTABLEKS                       R4 R4 K6 ["CurrentThreadId"]
        21 CALL                             R0 4 0
        22 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onStepAction"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["StepActionIds"]
-        8 GETTABLEKS                       R1 R2 K3 ["stepIntoActionV2"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onStepAction"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["StepActionIds"]
+        8 GETTABLEKS                       R1 R1 K3 ["stepIntoActionV2"]
        10 LOADK                            R2 K4 ["PluginAction"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["CurrentDebuggerConnectionId"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["props"]
-       19 GETTABLEKS                       R4 R5 K6 ["CurrentThreadId"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["CurrentDebuggerConnectionId"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["props"]
+       19 GETTABLEKS                       R4 R4 K6 ["CurrentThreadId"]
        21 CALL                             R0 4 0
        22 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onStepAction"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["StepActionIds"]
-        8 GETTABLEKS                       R1 R2 K3 ["stepOutActionV2"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onStepAction"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["StepActionIds"]
+        8 GETTABLEKS                       R1 R1 K3 ["stepOutActionV2"]
        10 LOADK                            R2 K4 ["PluginAction"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["CurrentDebuggerConnectionId"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["props"]
-       19 GETTABLEKS                       R4 R5 K6 ["CurrentThreadId"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["CurrentDebuggerConnectionId"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["props"]
+       19 GETTABLEKS                       R4 R4 K6 ["CurrentThreadId"]
        21 CALL                             R0 4 0
        22 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onResume"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onResume"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_11:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["PluginActions"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
         4 NEWTABLE                         R2 0 0
         6 SETTABLEKS                       R2 R0 K2 ["connections"]
         8 NEWTABLE                         R2 0 0
        10 SETTABLEKS                       R2 R0 K3 ["shortcuts"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K4 ["StepActionIds"]
-       15 GETTABLEKS                       R6 R7 K5 ["stepOverActionV2"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K4 ["StepActionIds"]
+       15 GETTABLEKS                       R6 R6 K5 ["stepOverActionV2"]
        17 NAMECALL                         R4 R1 K6 ["get"]
        19 CALL                             R4 2 1
        20 NEWCLOSURE                       R5 P0
@@ -184,9 +184,9 @@ PROTO_11:
        22 CAPTURE                          UPVAL U0
        23 NAMECALL                         R2 R0 K7 ["addAction"]
        25 CALL                             R2 3 0
-       26 GETUPVAL                         R8 0
-       27 GETTABLEKS                       R7 R8 K4 ["StepActionIds"]
-       29 GETTABLEKS                       R6 R7 K8 ["stepIntoActionV2"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K4 ["StepActionIds"]
+       29 GETTABLEKS                       R6 R6 K8 ["stepIntoActionV2"]
        31 NAMECALL                         R4 R1 K6 ["get"]
        33 CALL                             R4 2 1
        34 NEWCLOSURE                       R5 P1
@@ -194,9 +194,9 @@ PROTO_11:
        36 CAPTURE                          UPVAL U0
        37 NAMECALL                         R2 R0 K7 ["addAction"]
        39 CALL                             R2 3 0
-       40 GETUPVAL                         R8 0
-       41 GETTABLEKS                       R7 R8 K4 ["StepActionIds"]
-       43 GETTABLEKS                       R6 R7 K9 ["stepOutActionV2"]
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K4 ["StepActionIds"]
+       43 GETTABLEKS                       R6 R6 K9 ["stepOutActionV2"]
        45 NAMECALL                         R4 R1 K6 ["get"]
        47 CALL                             R4 2 1
        48 NEWCLOSURE                       R5 P2
@@ -204,9 +204,9 @@ PROTO_11:
        50 CAPTURE                          UPVAL U0
        51 NAMECALL                         R2 R0 K7 ["addAction"]
        53 CALL                             R2 3 0
-       54 GETUPVAL                         R8 0
-       55 GETTABLEKS                       R7 R8 K4 ["StepActionIds"]
-       57 GETTABLEKS                       R6 R7 K10 ["simulationResumeActionV2"]
+       54 GETUPVAL                         R6 0
+       55 GETTABLEKS                       R6 R6 K4 ["StepActionIds"]
+       57 GETTABLEKS                       R6 R6 K10 ["simulationResumeActionV2"]
        59 NAMECALL                         R4 R1 K6 ["get"]
        61 CALL                             R4 2 1
        62 NEWCLOSURE                       R5 P3
@@ -221,23 +221,23 @@ PROTO_12:
         3 NAMECALL                         R2 R2 K3 ["GetService"]
         5 CALL                             R2 2 1
         6 LOADB                            R3 0
-        7 GETTABLEKS                       R5 R0 K4 ["props"]
-        9 GETTABLEKS                       R4 R5 K5 ["CurrentDebuggerConnectionId"]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K6 ["kInvalidDebuggerConnectionId"]
+        7 GETTABLEKS                       R4 R0 K4 ["props"]
+        9 GETTABLEKS                       R4 R4 K5 ["CurrentDebuggerConnectionId"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K6 ["kInvalidDebuggerConnectionId"]
        14 JUMPIFEQ                         R4 R5 ; [+9]
-       16 GETTABLEKS                       R7 R0 K4 ["props"]
-       18 GETTABLEKS                       R6 R7 K5 ["CurrentDebuggerConnectionId"]
+       16 GETTABLEKS                       R6 R0 K4 ["props"]
+       18 GETTABLEKS                       R6 R6 K5 ["CurrentDebuggerConnectionId"]
        20 NAMECALL                         R4 R2 K7 ["IsConnectionForPlayDataModel"]
        22 CALL                             R4 2 1
        23 MOVE                             R3 R4
-       24 GETTABLEKS                       R5 R0 K4 ["props"]
-       26 GETTABLEKS                       R4 R5 K8 ["IsPaused"]
-       28 GETTABLEKS                       R6 R0 K4 ["props"]
-       30 GETTABLEKS                       R5 R6 K9 ["HitException"]
+       24 GETTABLEKS                       R4 R0 K4 ["props"]
+       26 GETTABLEKS                       R4 R4 K8 ["IsPaused"]
+       28 GETTABLEKS                       R5 R0 K4 ["props"]
+       30 GETTABLEKS                       R5 R5 K9 ["HitException"]
        32 DUPTABLE                         R6 K15 [{"ResumeButton", "PauseButton", "StepOverButton", "StepIntoButton", "StepOutButton"}]
-       33 GETUPVAL                         R8 1
-       34 GETTABLEKS                       R7 R8 K16 ["createElement"]
+       33 GETUPVAL                         R7 1
+       34 GETTABLEKS                       R7 R7 K16 ["createElement"]
        36 GETUPVAL                         R8 2
        37 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
        38 LOADK                            R10 K26 ["simulationResumeActionV2"]
@@ -256,8 +256,8 @@ PROTO_12:
        59 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
        61 CALL                             R7 2 1
        62 SETTABLEKS                       R7 R6 K10 ["ResumeButton"]
-       64 GETUPVAL                         R8 1
-       65 GETTABLEKS                       R7 R8 K16 ["createElement"]
+       64 GETUPVAL                         R7 1
+       65 GETTABLEKS                       R7 R7 K16 ["createElement"]
        67 GETUPVAL                         R8 2
        68 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
        69 LOADK                            R10 K30 ["simulationPauseActionV2"]
@@ -278,8 +278,8 @@ PROTO_12:
        92 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
        94 CALL                             R7 2 1
        95 SETTABLEKS                       R7 R6 K11 ["PauseButton"]
-       97 GETUPVAL                         R8 1
-       98 GETTABLEKS                       R7 R8 K16 ["createElement"]
+       97 GETUPVAL                         R7 1
+       98 GETTABLEKS                       R7 R7 K16 ["createElement"]
       100 GETUPVAL                         R8 2
       101 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
       102 LOADK                            R10 K33 ["stepOverActionV2"]
@@ -288,8 +288,8 @@ PROTO_12:
       107 LOADB                            R10 0
       108 SETTABLEKS                       R10 R9 K19 ["Active"]
       110 LOADB                            R10 0
-      111 GETTABLEKS                       R12 R0 K4 ["props"]
-      113 GETTABLEKS                       R11 R12 K34 ["CurrentThreadId"]
+      111 GETTABLEKS                       R11 R0 K4 ["props"]
+      113 GETTABLEKS                       R11 R11 K34 ["CurrentThreadId"]
       115 JUMPIFEQKNIL                     R11 ; [+2]
       117 NOT                              R10 R5
       118 SETTABLEKS                       R10 R9 K20 ["Enabled"]
@@ -303,8 +303,8 @@ PROTO_12:
       131 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
       133 CALL                             R7 2 1
       134 SETTABLEKS                       R7 R6 K12 ["StepOverButton"]
-      136 GETUPVAL                         R8 1
-      137 GETTABLEKS                       R7 R8 K16 ["createElement"]
+      136 GETUPVAL                         R7 1
+      137 GETTABLEKS                       R7 R7 K16 ["createElement"]
       139 GETUPVAL                         R8 2
       140 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
       141 LOADK                            R10 K37 ["stepIntoActionV2"]
@@ -313,8 +313,8 @@ PROTO_12:
       146 LOADB                            R10 0
       147 SETTABLEKS                       R10 R9 K19 ["Active"]
       149 LOADB                            R10 0
-      150 GETTABLEKS                       R12 R0 K4 ["props"]
-      152 GETTABLEKS                       R11 R12 K34 ["CurrentThreadId"]
+      150 GETTABLEKS                       R11 R0 K4 ["props"]
+      152 GETTABLEKS                       R11 R11 K34 ["CurrentThreadId"]
       154 JUMPIFEQKNIL                     R11 ; [+2]
       156 NOT                              R10 R5
       157 SETTABLEKS                       R10 R9 K20 ["Enabled"]
@@ -328,8 +328,8 @@ PROTO_12:
       170 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
       172 CALL                             R7 2 1
       173 SETTABLEKS                       R7 R6 K13 ["StepIntoButton"]
-      175 GETUPVAL                         R8 1
-      176 GETTABLEKS                       R7 R8 K16 ["createElement"]
+      175 GETUPVAL                         R7 1
+      176 GETTABLEKS                       R7 R7 K16 ["createElement"]
       178 GETUPVAL                         R8 2
       179 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
       180 LOADK                            R10 K40 ["stepOutActionV2"]
@@ -338,8 +338,8 @@ PROTO_12:
       185 LOADB                            R10 0
       186 SETTABLEKS                       R10 R9 K19 ["Active"]
       188 LOADB                            R10 0
-      189 GETTABLEKS                       R12 R0 K4 ["props"]
-      191 GETTABLEKS                       R11 R12 K34 ["CurrentThreadId"]
+      189 GETTABLEKS                       R11 R0 K4 ["props"]
+      191 GETTABLEKS                       R11 R11 K34 ["CurrentThreadId"]
       193 JUMPIFEQKNIL                     R11 ; [+2]
       195 NOT                              R10 R5
       196 SETTABLEKS                       R10 R9 K20 ["Enabled"]
@@ -369,12 +369,12 @@ PROTO_14:
         5 GETTABLEKS                       R2 R0 K0 ["shortcuts"]
         7 CALL                             R1 1 3
         8 FORGPREP_NEXT                    R1
-        9 GETTABLEKS                       R7 R0 K3 ["props"]
-       11 GETTABLEKS                       R6 R7 K4 ["IsPaused"]
+        9 GETTABLEKS                       R6 R0 K3 ["props"]
+       11 GETTABLEKS                       R6 R6 K4 ["IsPaused"]
        13 SETTABLEKS                       R6 R5 K5 ["Enabled"]
        15 FORGLOOP                         R1 2 ; [-7]
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K6 ["createElement"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K6 ["createElement"]
        20 GETUPVAL                         R2 1
        21 DUPTABLE                         R3 K9 [{"Title", "RenderButtons"}]
        22 LOADK                            R4 K10 ["Debugger"]
@@ -437,22 +437,22 @@ PROTO_18:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["Framework"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        34 GETTABLEKS                       R5 R4 K10 ["Analytics"]
@@ -461,21 +461,21 @@ MAIN:
        40 GETTABLEKS                       R8 R7 K13 ["PluginButton"]
        42 GETTABLEKS                       R9 R7 K14 ["PluginToolbar"]
        44 GETIMPORT                        R10 K4 [require]
-       46 GETTABLEKS                       R13 R0 K15 ["Src"]
-       48 GETTABLEKS                       R12 R13 K16 ["Util"]
-       50 GETTABLEKS                       R11 R12 K17 ["Constants"]
+       46 GETTABLEKS                       R11 R0 K15 ["Src"]
+       48 GETTABLEKS                       R11 R11 K16 ["Util"]
+       50 GETTABLEKS                       R11 R11 K17 ["Constants"]
        52 CALL                             R10 1 1
        53 GETIMPORT                        R11 K4 [require]
-       55 GETTABLEKS                       R15 R0 K15 ["Src"]
-       57 GETTABLEKS                       R14 R15 K18 ["Thunks"]
-       59 GETTABLEKS                       R13 R14 K19 ["Callstack"]
-       61 GETTABLEKS                       R12 R13 K20 ["StepHandlers"]
+       55 GETTABLEKS                       R12 R0 K15 ["Src"]
+       57 GETTABLEKS                       R12 R12 K18 ["Thunks"]
+       59 GETTABLEKS                       R12 R12 K19 ["Callstack"]
+       61 GETTABLEKS                       R12 R12 K20 ["StepHandlers"]
        63 CALL                             R11 1 1
        64 GETIMPORT                        R12 K4 [require]
-       66 GETTABLEKS                       R16 R0 K15 ["Src"]
-       68 GETTABLEKS                       R15 R16 K21 ["Actions"]
-       70 GETTABLEKS                       R14 R15 K22 ["Common"]
-       72 GETTABLEKS                       R13 R14 K23 ["SetPausedState"]
+       66 GETTABLEKS                       R13 R0 K15 ["Src"]
+       68 GETTABLEKS                       R13 R13 K21 ["Actions"]
+       70 GETTABLEKS                       R13 R13 K22 ["Common"]
+       72 GETTABLEKS                       R13 R13 K23 ["SetPausedState"]
        74 CALL                             R12 1 1
        75 GETTABLEKS                       R13 R1 K24 ["PureComponent"]
        77 LOADK                            R15 K25 ["DebuggerToolbarButtons"]

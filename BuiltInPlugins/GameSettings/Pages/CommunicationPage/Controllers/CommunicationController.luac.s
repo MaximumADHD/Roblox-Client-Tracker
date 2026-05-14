@@ -67,8 +67,8 @@ PROTO_6:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R3 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R2 R3 K3 ["isAvatarChatEnabled"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["isAvatarChatEnabled"]
        10 RETURN                           R2 1
 
 PROTO_7:
@@ -93,17 +93,17 @@ PROTO_8:
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
         7 DUPTABLE                         R3 K5 [{"audioEnabled", "videoEnabled", "chatGroupApiEnabled"}]
-        8 GETTABLEKS                       R5 R2 K6 ["responseBody"]
-       10 GETTABLEKS                       R4 R5 K7 ["isUniverseEnabledForVoice"]
+        8 GETTABLEKS                       R4 R2 K6 ["responseBody"]
+       10 GETTABLEKS                       R4 R4 K7 ["isUniverseEnabledForVoice"]
        12 SETTABLEKS                       R4 R3 K2 ["audioEnabled"]
-       14 GETTABLEKS                       R5 R2 K6 ["responseBody"]
-       16 GETTABLEKS                       R4 R5 K8 ["isUniverseEnabledForAvatarVideo"]
+       14 GETTABLEKS                       R4 R2 K6 ["responseBody"]
+       16 GETTABLEKS                       R4 R4 K8 ["isUniverseEnabledForAvatarVideo"]
        18 SETTABLEKS                       R4 R3 K3 ["videoEnabled"]
        20 GETUPVAL                         R5 0
        21 CALL                             R5 0 1
        22 JUMPIFNOT                        R5 ; [+5]
-       23 GETTABLEKS                       R5 R2 K6 ["responseBody"]
-       25 GETTABLEKS                       R4 R5 K9 ["isChatGroupsApiEnabled"]
+       23 GETTABLEKS                       R4 R2 K6 ["responseBody"]
+       25 GETTABLEKS                       R4 R4 K9 ["isChatGroupsApiEnabled"]
        27 JUMP                             ; [+1]
        28 LOADNIL                          R4
        29 SETTABLEKS                       R4 R3 K4 ["chatGroupApiEnabled"]
@@ -169,15 +169,15 @@ PROTO_9:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R3 K7 ["getFFlagGameSettingsEnableChatGroupApiSetting"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       17 GETTABLEKS                       R2 R2 K7 ["getFFlagGameSettingsEnableChatGroupApiSetting"]
        19 CALL                             R1 1 1
        20 NEWTABLE                         R2 16 0
        22 SETTABLEKS                       R2 R2 K8 ["__index"]

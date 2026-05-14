@@ -17,8 +17,8 @@ PROTO_0:
        25 GETTABLEKS                       R11 R1 K11 ["Highlight"]
        27 GETTABLEKS                       R12 R1 K12 ["PastEnd"]
        29 GETTABLEKS                       R13 R1 K13 ["TimeInSeconds"]
-       31 GETUPVAL                         R15 2
-       32 GETTABLEKS                       R14 R15 K14 ["createElement"]
+       31 GETUPVAL                         R14 2
+       32 GETTABLEKS                       R14 R14 K14 ["createElement"]
        34 LOADK                            R15 K15 ["Frame"]
        35 DUPTABLE                         R16 K19 [{"Size", "BackgroundTransparency", "BorderSizePixel", "Position"}]
        36 GETIMPORT                        R17 K22 [UDim2.new]
@@ -34,8 +34,8 @@ PROTO_0:
        49 SETTABLEKS                       R17 R16 K18 ["BorderSizePixel"]
        51 SETTABLEKS                       R6 R16 K5 ["Position"]
        53 DUPTABLE                         R17 K26 [{"TimeLabel", "TickLine", "LowerTick"}]
-       54 GETUPVAL                         R19 2
-       55 GETTABLEKS                       R18 R19 K14 ["createElement"]
+       54 GETUPVAL                         R18 2
+       55 GETTABLEKS                       R18 R18 K14 ["createElement"]
        57 LOADK                            R19 K27 ["TextLabel"]
        58 DUPTABLE                         R20 K35 [{"TextColor3", "BorderSizePixel", "BackgroundTransparency", "TextSize", "TextXAlignment", "TextYAlignment", "Font", "Text", "Position", "Size", "Visible"}]
        59 JUMPIFNOT                        R12 ; [+3]
@@ -61,8 +61,8 @@ PROTO_0:
        95 SETTABLEKS                       R10 R20 K34 ["Visible"]
        97 CALL                             R18 2 1
        98 SETTABLEKS                       R18 R17 K23 ["TimeLabel"]
-      100 GETUPVAL                         R19 2
-      101 GETTABLEKS                       R18 R19 K14 ["createElement"]
+      100 GETUPVAL                         R18 2
+      101 GETTABLEKS                       R18 R18 K14 ["createElement"]
       103 LOADK                            R19 K15 ["Frame"]
       104 DUPTABLE                         R20 K47 [{"AnchorPoint", "Position", "Size", "BorderSizePixel", "BackgroundColor3"}]
       105 GETIMPORT                        R21 K49 [Vector2.new]
@@ -94,8 +94,8 @@ PROTO_0:
       141 DUPTABLE                         R21 K52 [{"Tooltip"}]
       142 MOVE                             R22 R13
       143 JUMPIFNOT                        R22 ; [+11]
-      144 GETUPVAL                         R23 2
-      145 GETTABLEKS                       R22 R23 K14 ["createElement"]
+      144 GETUPVAL                         R22 2
+      145 GETTABLEKS                       R22 R22 K14 ["createElement"]
       147 GETUPVAL                         R23 3
       148 DUPTABLE                         R24 K54 [{"Text", "ShowDelay"}]
       149 SETTABLEKS                       R13 R24 K33 ["Text"]
@@ -105,8 +105,8 @@ PROTO_0:
       155 SETTABLEKS                       R22 R21 K51 ["Tooltip"]
       157 CALL                             R18 3 1
       158 SETTABLEKS                       R18 R17 K24 ["TickLine"]
-      160 GETUPVAL                         R19 2
-      161 GETTABLEKS                       R18 R19 K14 ["createElement"]
+      160 GETUPVAL                         R18 2
+      161 GETTABLEKS                       R18 R18 K14 ["createElement"]
       163 LOADK                            R19 K15 ["Frame"]
       164 DUPTABLE                         R20 K55 [{"Position", "Size", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
       165 GETIMPORT                        R21 K22 [UDim2.new]
@@ -144,12 +144,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
@@ -158,9 +158,9 @@ MAIN:
        28 NAMECALL                         R5 R5 K13 ["extend"]
        30 CALL                             R5 2 1
        31 GETIMPORT                        R6 K5 [require]
-       33 GETTABLEKS                       R9 R0 K14 ["Src"]
-       35 GETTABLEKS                       R8 R9 K15 ["Components"]
-       37 GETTABLEKS                       R7 R8 K16 ["Tooltip"]
+       33 GETTABLEKS                       R7 R0 K14 ["Src"]
+       35 GETTABLEKS                       R7 R7 K15 ["Components"]
+       37 GETTABLEKS                       R7 R7 K16 ["Tooltip"]
        39 CALL                             R6 1 1
        40 GETIMPORT                        R7 K19 [UDim2.new]
        42 LOADN                            R8 0

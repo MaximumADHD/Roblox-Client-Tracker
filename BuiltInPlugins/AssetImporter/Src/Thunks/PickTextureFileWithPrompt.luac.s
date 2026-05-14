@@ -65,28 +65,28 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetImporter"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetErrorNodeChecked"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [require]
        18 GETTABLEKS                       R4 R1 K9 ["SetTreeChecked"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K4 ["Src"]
-       23 GETTABLEKS                       R4 R5 K10 ["Thunks"]
+       21 GETTABLEKS                       R4 R0 K4 ["Src"]
+       23 GETTABLEKS                       R4 R4 K10 ["Thunks"]
        25 GETIMPORT                        R5 K7 [require]
        27 GETTABLEKS                       R6 R4 K11 ["UpdatePreviewInstance"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K7 [require]
-       32 GETTABLEKS                       R9 R0 K4 ["Src"]
-       34 GETTABLEKS                       R8 R9 K12 ["Utility"]
-       36 GETTABLEKS                       R7 R8 K13 ["GetCheckedMapForSubtree"]
+       32 GETTABLEKS                       R7 R0 K4 ["Src"]
+       34 GETTABLEKS                       R7 R7 K12 ["Utility"]
+       36 GETTABLEKS                       R7 R7 K13 ["GetCheckedMapForSubtree"]
        38 CALL                             R6 1 1
        39 GETIMPORT                        R7 K7 [require]
-       41 GETTABLEKS                       R10 R0 K4 ["Src"]
-       43 GETTABLEKS                       R9 R10 K12 ["Utility"]
-       45 GETTABLEKS                       R8 R9 K14 ["GetErrorChecked"]
+       41 GETTABLEKS                       R8 R0 K4 ["Src"]
+       43 GETTABLEKS                       R8 R8 K12 ["Utility"]
+       45 GETTABLEKS                       R8 R8 K14 ["GetErrorChecked"]
        47 CALL                             R7 1 1
        48 DUPCLOSURE                       R8 K15 [PROTO_1]
        49 CAPTURE                          VAL R3

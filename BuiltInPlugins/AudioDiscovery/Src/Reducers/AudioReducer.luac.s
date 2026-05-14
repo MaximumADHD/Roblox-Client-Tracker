@@ -216,10 +216,10 @@ PROTO_4:
         7 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Left"]
-        3 GETTABLEKS                       R5 R0 K0 ["Left"]
-        5 GETTABLEKS                       R4 R5 K1 ["SortIndex"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Left"]
+        3 GETTABLEKS                       R4 R0 K0 ["Left"]
+        5 GETTABLEKS                       R4 R4 K1 ["SortIndex"]
         7 GETTABLE                         R2 R3 R4
         8 GETUPVAL                         R3 1
         9 NEWTABLE                         R4 0 0
@@ -230,16 +230,16 @@ PROTO_5:
        17 GETUPVAL                         R5 2
        18 MOVE                             R6 R3
        19 MOVE                             R7 R2
-       20 GETTABLEKS                       R9 R0 K0 ["Left"]
-       22 GETTABLEKS                       R8 R9 K3 ["SortOrder"]
+       20 GETTABLEKS                       R8 R0 K0 ["Left"]
+       22 GETTABLEKS                       R8 R8 K3 ["SortOrder"]
        24 GETTABLEKS                       R9 R0 K4 ["Locations"]
        26 CALL                             R5 4 1
        27 GETTABLEKS                       R6 R0 K5 ["SelectedRow"]
        29 JUMPIFNOT                        R6 ; [+15]
-       30 GETTABLEKS                       R8 R0 K2 ["Rows"]
-       32 GETTABLEKS                       R9 R0 K5 ["SelectedRow"]
-       34 GETTABLE                         R7 R8 R9
-       35 GETTABLEKS                       R6 R7 K6 ["Id"]
+       30 GETTABLEKS                       R7 R0 K2 ["Rows"]
+       32 GETTABLEKS                       R8 R0 K5 ["SelectedRow"]
+       34 GETTABLE                         R6 R7 R8
+       35 GETTABLEKS                       R6 R6 K6 ["Id"]
        37 GETUPVAL                         R7 3
        38 MOVE                             R8 R5
        39 NEWCLOSURE                       R9 P0
@@ -267,19 +267,19 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["locations"]
-        2 GETTABLEKS                       R4 R0 K1 ["Right"]
-        4 GETTABLEKS                       R3 R4 K2 ["SortIndex"]
+        2 GETTABLEKS                       R3 R0 K1 ["Right"]
+        4 GETTABLEKS                       R3 R3 K2 ["SortIndex"]
         6 JUMPIFNOT                        R3 ; [+38]
         7 GETTABLEKS                       R3 R0 K3 ["SelectedRow"]
         9 JUMPIFNOT                        R3 ; [+35]
-       10 GETTABLEKS                       R5 R0 K4 ["Rows"]
-       12 GETTABLEKS                       R6 R0 K3 ["SelectedRow"]
-       14 GETTABLE                         R4 R5 R6
-       15 GETTABLEKS                       R3 R4 K5 ["Id"]
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K1 ["Right"]
-       20 GETTABLEKS                       R7 R0 K1 ["Right"]
-       22 GETTABLEKS                       R6 R7 K2 ["SortIndex"]
+       10 GETTABLEKS                       R4 R0 K4 ["Rows"]
+       12 GETTABLEKS                       R5 R0 K3 ["SelectedRow"]
+       14 GETTABLE                         R3 R4 R5
+       15 GETTABLEKS                       R3 R3 K5 ["Id"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K1 ["Right"]
+       20 GETTABLEKS                       R6 R0 K1 ["Right"]
+       22 GETTABLEKS                       R6 R6 K2 ["SortIndex"]
        24 GETTABLE                         R4 R5 R6
        25 GETUPVAL                         R5 1
        26 NEWTABLE                         R6 0 0
@@ -289,8 +289,8 @@ PROTO_7:
        33 GETTABLEKS                       R11 R0 K6 ["Locations"]
        35 GETTABLE                         R10 R11 R3
        36 MOVE                             R11 R4
-       37 GETTABLEKS                       R13 R0 K1 ["Right"]
-       39 GETTABLEKS                       R12 R13 K7 ["SortOrder"]
+       37 GETTABLEKS                       R12 R0 K1 ["Right"]
+       39 GETTABLEKS                       R12 R12 K7 ["SortOrder"]
        41 CALL                             R9 3 1
        42 SETTABLE                         R9 R8 R3
        43 CALL                             R5 3 1
@@ -311,16 +311,16 @@ PROTO_8:
         4 GETTABLEKS                       R5 R0 K0 ["Locations"]
         6 GETTABLEKS                       R6 R1 K0 ["Locations"]
         8 CALL                             R3 3 1
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K1 ["Left"]
-       12 GETTABLEKS                       R7 R0 K1 ["Left"]
-       14 GETTABLEKS                       R6 R7 K2 ["SortIndex"]
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R5 R5 K1 ["Left"]
+       12 GETTABLEKS                       R6 R0 K1 ["Left"]
+       14 GETTABLEKS                       R6 R6 K2 ["SortIndex"]
        16 GETTABLE                         R4 R5 R6
        17 GETUPVAL                         R5 2
        18 GETTABLEKS                       R6 R0 K3 ["Rows"]
        20 MOVE                             R7 R4
-       21 GETTABLEKS                       R9 R0 K1 ["Left"]
-       23 GETTABLEKS                       R8 R9 K4 ["SortOrder"]
+       21 GETTABLEKS                       R8 R0 K1 ["Left"]
+       23 GETTABLEKS                       R8 R8 K4 ["SortOrder"]
        25 MOVE                             R9 R3
        26 CALL                             R5 4 1
        27 MOVE                             R2 R5
@@ -351,10 +351,10 @@ PROTO_10:
        11 GETTABLEKS                       R5 R0 K4 ["Locations"]
        13 GETTABLEKS                       R7 R0 K2 ["SelectedRow"]
        15 JUMPIFNOT                        R7 ; [+8]
-       16 GETTABLEKS                       R8 R0 K3 ["Rows"]
-       18 GETTABLEKS                       R9 R0 K2 ["SelectedRow"]
-       20 GETTABLE                         R7 R8 R9
-       21 GETTABLEKS                       R6 R7 K5 ["Id"]
+       16 GETTABLEKS                       R7 R0 K3 ["Rows"]
+       18 GETTABLEKS                       R8 R0 K2 ["SelectedRow"]
+       20 GETTABLE                         R6 R7 R8
+       21 GETTABLEKS                       R6 R6 K5 ["Id"]
        23 JUMP                             ; [+1]
        24 LOADNIL                          R6
        25 GETTABLEKS                       R7 R1 K0 ["TableName"]
@@ -410,17 +410,17 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["Dash"]
        25 GETTABLEKS                       R4 R3 K9 ["append"]
@@ -428,8 +428,8 @@ MAIN:
        29 GETTABLEKS                       R6 R3 K11 ["findIndex"]
        31 GETTABLEKS                       R7 R3 K12 ["None"]
        33 GETIMPORT                        R8 K15 [table.sort]
-       35 GETTABLEKS                       R10 R0 K16 ["Src"]
-       37 GETTABLEKS                       R9 R10 K17 ["Actions"]
+       35 GETTABLEKS                       R9 R0 K16 ["Src"]
+       37 GETTABLEKS                       R9 R9 K17 ["Actions"]
        39 GETIMPORT                        R10 K4 [require]
        41 GETTABLEKS                       R11 R9 K18 ["SetDialog"]
        43 CALL                             R10 1 1

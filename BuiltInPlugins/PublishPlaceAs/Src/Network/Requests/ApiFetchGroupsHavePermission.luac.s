@@ -11,8 +11,8 @@ PROTO_0:
        14 MOVE                             R5 R2
        15 CALL                             R4 1 3
        16 FORGPREP_NEXT                    R4
-       17 GETUPVAL                         R10 1
-       18 GETTABLEKS                       R9 R10 K5 ["fromJsonData"]
+       17 GETUPVAL                         R9 1
+       18 GETTABLEKS                       R9 R9 K5 ["fromJsonData"]
        20 MOVE                             R10 R8
        21 CALL                             R9 1 2
        22 JUMPIFNOT                        R9 ; [+9]
@@ -43,8 +43,8 @@ PROTO_1:
         9 JUMP                             ; [+1]
        10 LOADK                            R2 K3 ["StudioSaveExistingPlace"]
        11 DUPTABLE                         R3 K7 [{"Url", "Method", "Params"}]
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K8 ["BuildRobloxUrl"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K8 ["BuildRobloxUrl"]
        15 LOADK                            R5 K9 ["apis"]
        16 LOADK                            R6 K10 ["creator-home-api/v1/groups"]
        17 CALL                             R4 2 1
@@ -54,8 +54,8 @@ PROTO_1:
        23 DUPTABLE                         R4 K13 [{"surface"}]
        24 SETTABLEKS                       R2 R4 K12 ["surface"]
        26 SETTABLEKS                       R4 R3 K6 ["Params"]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R4 R5 K14 ["Request"]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K14 ["Request"]
        31 MOVE                             R5 R3
        32 CALL                             R4 1 1
        33 DUPCLOSURE                       R6 K15 [PROTO_0]
@@ -71,21 +71,21 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R5 R1 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Network"]
-       23 GETTABLEKS                       R3 R4 K11 ["Http"]
+       19 GETTABLEKS                       R3 R1 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Network"]
+       23 GETTABLEKS                       R3 R3 K11 ["Http"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K8 [require]
-       28 GETTABLEKS                       R7 R1 K9 ["Src"]
-       30 GETTABLEKS                       R6 R7 K10 ["Network"]
-       32 GETTABLEKS                       R5 R6 K12 ["Models"]
-       34 GETTABLEKS                       R4 R5 K13 ["Group"]
+       28 GETTABLEKS                       R4 R1 K9 ["Src"]
+       30 GETTABLEKS                       R4 R4 K10 ["Network"]
+       32 GETTABLEKS                       R4 R4 K12 ["Models"]
+       34 GETTABLEKS                       R4 R4 K13 ["Group"]
        36 CALL                             R3 1 1
        37 DUPCLOSURE                       R4 K14 [PROTO_1]
        38 CAPTURE                          VAL R2

@@ -7,15 +7,15 @@ PROTO_0:
         9 GETTABLEKS                       R5 R1 K5 ["OnChange"]
        11 GETTABLEKS                       R6 R1 K6 ["Stylizer"]
        13 GETTABLEKS                       R7 R6 K7 ["Sizes"]
-       15 GETUPVAL                         R9 0
-       16 GETTABLEKS                       R8 R9 K8 ["createElement"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R8 R8 K8 ["createElement"]
        18 GETUPVAL                         R9 1
        19 DUPTABLE                         R10 K10 [{"Title", "LayoutOrder"}]
        20 SETTABLEKS                       R2 R10 K9 ["Title"]
        22 SETTABLEKS                       R4 R10 K4 ["LayoutOrder"]
        24 DUPTABLE                         R11 K12 [{"TextBox"}]
-       25 GETUPVAL                         R13 0
-       26 GETTABLEKS                       R12 R13 K8 ["createElement"]
+       25 GETUPVAL                         R12 0
+       26 GETTABLEKS                       R12 R12 K8 ["createElement"]
        28 GETUPVAL                         R13 2
        29 DUPTABLE                         R14 K16 [{"Size", "Position", "Text", "OnTextChanged"}]
        30 GETIMPORT                        R15 K19 [UDim2.fromOffset]
@@ -39,17 +39,17 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]

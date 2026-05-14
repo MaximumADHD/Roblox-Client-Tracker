@@ -2,35 +2,35 @@ PROTO_0:
         0 LOADK                            R2 K0 ["Hide"]
         1 MOVE                             R3 R0
         2 CONCAT                           R1 R2 R3
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["setCollapseState"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["setCollapseState"]
         6 MOVE                             R3 R1
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K2 ["props"]
-       10 GETTABLEKS                       R6 R7 K3 ["uiGroupCollapseState"]
+        7 GETUPVAL                         R6 0
+        8 GETTABLEKS                       R6 R6 K2 ["props"]
+       10 GETTABLEKS                       R6 R6 K3 ["uiGroupCollapseState"]
        12 GETTABLE                         R5 R6 R1
        13 NOT                              R4 R5
        14 CALL                             R2 2 0
        15 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setCollapseState"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setCollapseState"]
         3 LOADK                            R1 K1 ["UnknownTagsHide"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["props"]
-        7 GETTABLEKS                       R4 R5 K3 ["uiGroupCollapseState"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["props"]
+        7 GETTABLEKS                       R4 R4 K3 ["uiGroupCollapseState"]
         9 GETTABLEKS                       R3 R4 K1 ["UnknownTagsHide"]
        11 NOT                              R2 R3
        12 CALL                             R0 2 0
        13 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R2 K1 ["setUIGroupCollapseState"]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K2 ["join"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K2 ["join"]
         8 GETTABLEKS                       R5 R2 K3 ["uiGroupCollapseState"]
        10 NEWTABLE                         R6 1 0
        12 SETTABLE                         R1 R6 R0
@@ -54,8 +54,8 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETTABLEKS                       R4 R1 K2 ["Stylizer"]
-        6 GETTABLEKS                       R3 R4 K3 ["TagListView"]
+        4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
+        6 GETTABLEKS                       R3 R3 K3 ["TagListView"]
         8 GETTABLEKS                       R4 R1 K4 ["tags"]
        10 GETTABLEKS                       R5 R1 K5 ["unknownTags"]
        12 NEWTABLE                         R6 0 0
@@ -73,8 +73,8 @@ PROTO_4:
        28 JUMPIFEQ                         R11 R7 ; [+29]
        30 ADDK                             R9 R9 K7 [1]
        31 MOVE                             R7 R11
-       32 GETUPVAL                         R14 0
-       33 GETTABLEKS                       R13 R14 K10 ["createElement"]
+       32 GETUPVAL                         R13 0
+       33 GETTABLEKS                       R13 R13 K10 ["createElement"]
        35 GETUPVAL                         R14 1
        36 DUPTABLE                         R15 K16 [{"LayoutOrder", "GroupName", "IsGroupCollapsed", "IsVisibleToggled", "ToggleGroup"}]
        37 SETTABLEKS                       R9 R15 K11 ["LayoutOrder"]
@@ -98,8 +98,8 @@ PROTO_4:
        63 GETTABLE                         R13 R14 R15
        64 JUMPIF                           R13 ; [+30]
        65 ADDK                             R9 R9 K7 [1]
-       66 GETUPVAL                         R14 0
-       67 GETTABLEKS                       R13 R14 K10 ["createElement"]
+       66 GETUPVAL                         R13 0
+       67 GETTABLEKS                       R13 R13 K10 ["createElement"]
        69 GETUPVAL                         R14 1
        70 DUPTABLE                         R15 K25 [{"LayoutOrder", "TagName", "TagGroup", "TagIcon", "IsTagAssignedToSome", "IsTagAssignedToAll", "IsVisibleToggled"}]
        71 SETTABLEKS                       R9 R15 K11 ["LayoutOrder"]
@@ -121,8 +121,8 @@ PROTO_4:
        98 LOADN                            R11 0
        99 JUMPIFNOTLT                      R11 R10 ; [+31]
       101 ADDK                             R9 R9 K7 [1]
-      102 GETUPVAL                         R11 0
-      103 GETTABLEKS                       R10 R11 K10 ["createElement"]
+      102 GETUPVAL                         R10 0
+      103 GETTABLEKS                       R10 R10 K10 ["createElement"]
       105 GETUPVAL                         R11 1
       106 DUPTABLE                         R12 K31 [{"LayoutOrder", "GroupName", "Disabled", "IsGroupCollapsed", "ToggleGroup"}]
       107 SETTABLEKS                       R9 R12 K11 ["LayoutOrder"]
@@ -148,8 +148,8 @@ PROTO_4:
       138 GETTABLEKS                       R11 R12 K35 ["UnknownTagsHide"]
       140 JUMPIF                           R11 ; [+12]
       141 ADDK                             R9 R9 K7 [1]
-      142 GETUPVAL                         R12 0
-      143 GETTABLEKS                       R11 R12 K10 ["createElement"]
+      142 GETUPVAL                         R11 0
+      143 GETTABLEKS                       R11 R11 K10 ["createElement"]
       145 GETUPVAL                         R12 2
       146 DUPTABLE                         R13 K37 [{"LayoutOrder", "TagName"}]
       147 SETTABLEKS                       R9 R13 K11 ["LayoutOrder"]
@@ -157,8 +157,8 @@ PROTO_4:
       151 CALL                             R11 2 1
       152 SETTABLE                         R11 R6 R9
       153 JUMPBACK                         ; [-23]
-      154 GETUPVAL                         R11 0
-      155 GETTABLEKS                       R10 R11 K10 ["createElement"]
+      154 GETUPVAL                         R10 0
+      155 GETTABLEKS                       R10 R10 K10 ["createElement"]
       157 GETUPVAL                         R11 3
       158 DUPTABLE                         R12 K42 [{"LayoutOrder", "AutomaticCanvasSize", "Size", "Layout", "Spacing"}]
       159 GETTABLEKS                       R13 R1 K11 ["LayoutOrder"]
@@ -232,8 +232,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["SetUIGroupCollapseState"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["SetUIGroupCollapseState"]
         4 MOVE                             R3 R0
         5 CALL                             R2 1 -1
         6 CALL                             R1 -1 0
@@ -249,51 +249,51 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Roact"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K4 [require]
-       39 GETTABLEKS                       R7 R0 K7 ["Packages"]
-       41 GETTABLEKS                       R6 R7 K11 ["Dash"]
+       39 GETTABLEKS                       R6 R0 K7 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K11 ["Dash"]
        43 CALL                             R5 1 1
        44 GETTABLEKS                       R6 R4 K12 ["ContextServices"]
        46 GETTABLEKS                       R7 R6 K13 ["withContext"]
        48 GETTABLEKS                       R8 R6 K14 ["Analytics"]
        50 GETTABLEKS                       R9 R6 K15 ["Localization"]
-       52 GETTABLEKS                       R11 R4 K16 ["Style"]
-       54 GETTABLEKS                       R10 R11 K17 ["Stylizer"]
+       52 GETTABLEKS                       R10 R4 K16 ["Style"]
+       54 GETTABLEKS                       R10 R10 K17 ["Stylizer"]
        56 GETTABLEKS                       R11 R4 K18 ["UI"]
        58 GETTABLEKS                       R12 R11 K19 ["ScrollingFrame"]
        60 GETIMPORT                        R13 K4 [require]
-       62 GETTABLEKS                       R15 R0 K5 ["Src"]
-       64 GETTABLEKS                       R14 R15 K20 ["Actions"]
+       62 GETTABLEKS                       R14 R0 K5 ["Src"]
+       64 GETTABLEKS                       R14 R14 K20 ["Actions"]
        66 CALL                             R13 1 1
        67 GETIMPORT                        R14 K4 [require]
-       69 GETIMPORT                        R17 K1 [script]
-       71 GETTABLEKS                       R16 R17 K2 ["Parent"]
-       73 GETTABLEKS                       R15 R16 K21 ["TagListRow"]
+       69 GETIMPORT                        R15 K1 [script]
+       71 GETTABLEKS                       R15 R15 K2 ["Parent"]
+       73 GETTABLEKS                       R15 R15 K21 ["TagListRow"]
        75 CALL                             R14 1 1
        76 GETIMPORT                        R15 K4 [require]
-       78 GETIMPORT                        R18 K1 [script]
-       80 GETTABLEKS                       R17 R18 K2 ["Parent"]
-       82 GETTABLEKS                       R16 R17 K22 ["TagListUnknownRow"]
+       78 GETIMPORT                        R16 K1 [script]
+       80 GETTABLEKS                       R16 R16 K2 ["Parent"]
+       82 GETTABLEKS                       R16 R16 K22 ["TagListUnknownRow"]
        84 CALL                             R15 1 1
        85 GETTABLEKS                       R16 R2 K23 ["PureComponent"]
        87 LOADK                            R18 K24 ["TagListView"]

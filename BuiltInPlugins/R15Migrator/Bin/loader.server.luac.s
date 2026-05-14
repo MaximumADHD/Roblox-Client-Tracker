@@ -25,8 +25,8 @@ PROTO_3:
         6 RETURN                           R3 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnPublishAttempt"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnPublishAttempt"]
         3 RETURN                           R0 1
 
 MAIN:
@@ -36,14 +36,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["shouldPluginRun"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["shouldPluginRun"]
        24 CALL                             R2 1 1
        25 MOVE                             R3 R2
        26 CALL                             R3 0 1
@@ -56,28 +56,28 @@ MAIN:
        35 CALL                             R3 0 1
        36 JUMPIFNOT                        R3 ; [+1]
        37 RETURN                           R0 0
-       38 GETTABLEKS                       R6 R0 K6 ["Src"]
-       40 GETTABLEKS                       R5 R6 K12 ["Resources"]
-       42 GETTABLEKS                       R4 R5 K13 ["Localization"]
-       44 GETTABLEKS                       R3 R4 K14 ["SourceStrings"]
-       46 GETTABLEKS                       R7 R0 K6 ["Src"]
-       48 GETTABLEKS                       R6 R7 K12 ["Resources"]
-       50 GETTABLEKS                       R5 R6 K13 ["Localization"]
-       52 GETTABLEKS                       R4 R5 K15 ["LocalizedStrings"]
+       38 GETTABLEKS                       R3 R0 K6 ["Src"]
+       40 GETTABLEKS                       R3 R3 K12 ["Resources"]
+       42 GETTABLEKS                       R3 R3 K13 ["Localization"]
+       44 GETTABLEKS                       R3 R3 K14 ["SourceStrings"]
+       46 GETTABLEKS                       R4 R0 K6 ["Src"]
+       48 GETTABLEKS                       R4 R4 K12 ["Resources"]
+       50 GETTABLEKS                       R4 R4 K13 ["Localization"]
+       52 GETTABLEKS                       R4 R4 K15 ["LocalizedStrings"]
        54 GETIMPORT                        R5 K5 [require]
-       56 GETTABLEKS                       R7 R0 K16 ["Packages"]
-       58 GETTABLEKS                       R6 R7 K17 ["PluginLoader"]
+       56 GETTABLEKS                       R6 R0 K16 ["Packages"]
+       58 GETTABLEKS                       R6 R6 K17 ["PluginLoader"]
        60 CALL                             R5 1 1
        61 GETTABLEKS                       R6 R5 K18 ["PluginLoaderBuilder"]
        63 GETIMPORT                        R7 K5 [require]
-       65 GETTABLEKS                       R10 R0 K6 ["Src"]
-       67 GETTABLEKS                       R9 R10 K7 ["Util"]
-       69 GETTABLEKS                       R8 R9 K19 ["checkPublishLock"]
+       65 GETTABLEKS                       R8 R0 K6 ["Src"]
+       67 GETTABLEKS                       R8 R8 K7 ["Util"]
+       69 GETTABLEKS                       R8 R8 K19 ["checkPublishLock"]
        71 CALL                             R7 1 1
        72 GETIMPORT                        R8 K5 [require]
-       74 GETTABLEKS                       R11 R0 K6 ["Src"]
-       76 GETTABLEKS                       R10 R11 K7 ["Util"]
-       78 GETTABLEKS                       R9 R10 K20 ["PluginSettings"]
+       74 GETTABLEKS                       R9 R0 K6 ["Src"]
+       76 GETTABLEKS                       R9 R9 K7 ["Util"]
+       78 GETTABLEKS                       R9 R9 K20 ["PluginSettings"]
        80 CALL                             R8 1 1
        81 GETIMPORT                        R9 K22 [game]
        83 LOADK                            R11 K23 ["StudioPublishService"]
@@ -115,8 +115,8 @@ MAIN:
       131 GETIMPORT                        R13 K58 [Enum.InitialDockState.Left]
       133 GETTABLEKS                       R14 R8 K59 ["InitiallyEnabled"]
       135 GETIMPORT                        R16 K36 [plugin]
-      137 GETIMPORT                        R18 K22 [game]
-      139 GETTABLEKS                       R17 R18 K60 ["GameId"]
+      137 GETIMPORT                        R17 K22 [game]
+      139 GETTABLEKS                       R17 R17 K60 ["GameId"]
       141 NAMECALL                         R14 R14 K61 ["getBooleanSetting"]
       143 CALL                             R14 3 1
       144 LOADB                            R15 1
@@ -140,8 +140,8 @@ MAIN:
       170 SETTABLEKS                       R11 R10 K34 ["extraTriggers"]
       172 GETTABLEKS                       R11 R8 K59 ["InitiallyEnabled"]
       174 GETIMPORT                        R13 K36 [plugin]
-      176 GETIMPORT                        R15 K22 [game]
-      178 GETTABLEKS                       R14 R15 K60 ["GameId"]
+      176 GETIMPORT                        R14 K22 [game]
+      178 GETTABLEKS                       R14 R14 K60 ["GameId"]
       180 LOADNIL                          R15
       181 NAMECALL                         R11 R11 K68 ["setSetting"]
       183 CALL                             R11 4 0
@@ -154,9 +154,9 @@ MAIN:
       193 JUMPIF                           R12 ; [+1]
       194 RETURN                           R0 0
       195 GETIMPORT                        R13 K5 [require]
-      197 GETIMPORT                        R16 K1 [script]
-      199 GETTABLEKS                       R15 R16 K72 ["Parent"]
-      201 GETTABLEKS                       R14 R15 K73 ["main"]
+      197 GETIMPORT                        R14 K1 [script]
+      199 GETTABLEKS                       R14 R14 K72 ["Parent"]
+      201 GETTABLEKS                       R14 R14 K73 ["main"]
       203 CALL                             R13 1 1
       204 MOVE                             R14 R13
       205 GETIMPORT                        R15 K36 [plugin]

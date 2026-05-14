@@ -1,9 +1,9 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Setting"]
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["Property"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Setting"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["Property"]
         7 LOADB                            R3 0
         8 CALL                             R0 3 -1
         9 RETURN                           R0 -1
@@ -29,14 +29,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Hooks"]
-       13 GETTABLEKS                       R2 R3 K8 ["useInstanceSetting"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Hooks"]
+       13 GETTABLEKS                       R2 R2 K8 ["useInstanceSetting"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Modes"]
-       22 GETTABLEKS                       R3 R4 K10 ["VisualizationMode"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Modes"]
+       22 GETTABLEKS                       R3 R3 K10 ["VisualizationMode"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K11 [PROTO_1]
        26 CAPTURE                          VAL R2

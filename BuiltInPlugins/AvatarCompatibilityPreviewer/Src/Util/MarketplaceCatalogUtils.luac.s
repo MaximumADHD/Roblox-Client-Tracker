@@ -112,13 +112,13 @@ PROTO_4:
        33 GETTABLEKS                       R8 R0 K0 ["Id"]
        35 SETTABLE                         R8 R6 R7
        36 GETTABLE                         R7 R2 R5
-       37 GETIMPORT                        R9 K5 [Enum.AssetType.LeftShoeAccessory]
-       39 GETTABLEKS                       R8 R9 K6 ["Name"]
+       37 GETIMPORT                        R8 K5 [Enum.AssetType.LeftShoeAccessory]
+       39 GETTABLEKS                       R8 R8 K6 ["Name"]
        41 GETTABLE                         R6 R7 R8
        42 JUMPIFNOT                        R6 ; [+76]
        43 GETTABLE                         R7 R2 R5
-       44 GETIMPORT                        R9 K8 [Enum.AssetType.RightShoeAccessory]
-       46 GETTABLEKS                       R8 R9 K6 ["Name"]
+       44 GETIMPORT                        R8 K8 [Enum.AssetType.RightShoeAccessory]
+       46 GETTABLEKS                       R8 R8 K6 ["Name"]
        48 GETTABLE                         R6 R7 R8
        49 JUMPIFNOT                        R6 ; [+69]
        50 GETUPVAL                         R6 0
@@ -132,12 +132,12 @@ PROTO_4:
        60 GETIMPORT                        R7 K12 [assert]
        62 CALL                             R7 2 0
        63 GETTABLE                         R8 R2 R5
-       64 GETIMPORT                        R10 K5 [Enum.AssetType.LeftShoeAccessory]
-       66 GETTABLEKS                       R9 R10 K6 ["Name"]
+       64 GETIMPORT                        R9 K5 [Enum.AssetType.LeftShoeAccessory]
+       66 GETTABLEKS                       R9 R9 K6 ["Name"]
        68 GETTABLE                         R7 R8 R9
        69 GETTABLE                         R9 R2 R5
-       70 GETIMPORT                        R11 K8 [Enum.AssetType.RightShoeAccessory]
-       72 GETTABLEKS                       R10 R11 K6 ["Name"]
+       70 GETIMPORT                        R10 K8 [Enum.AssetType.RightShoeAccessory]
+       72 GETTABLEKS                       R10 R10 K6 ["Name"]
        74 GETTABLE                         R8 R9 R10
        75 DUPTABLE                         R9 K22 [{"uniqueId", "marketplaceItem", "name", "palette", "assetType", "creatorTargetId", "creatorType", "creatorName", "hasVerifiedBadge"}]
        76 SETTABLEKS                       R7 R9 K13 ["uniqueId"]
@@ -169,8 +169,8 @@ PROTO_4:
       121 RETURN                           R6 2
 
 PROTO_5:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
         3 GETTABLEKS                       R5 R0 K1 ["AssetType"]
         5 GETTABLE                         R3 R4 R5
         6 JUMPIF                           R3 ; [+17]
@@ -251,18 +251,18 @@ PROTO_6:
        12 FORGPREP                         R8
        13 LOADB                            R13 1
        14 GETTABLEKS                       R14 R12 K0 ["AssetType"]
-       16 GETIMPORT                        R16 K3 [Enum.AssetType.LeftShoeAccessory]
-       18 GETTABLEKS                       R15 R16 K4 ["Name"]
+       16 GETIMPORT                        R15 K3 [Enum.AssetType.LeftShoeAccessory]
+       18 GETTABLEKS                       R15 R15 K4 ["Name"]
        20 JUMPIFEQ                         R14 R15 ; [+11]
        22 GETTABLEKS                       R14 R12 K0 ["AssetType"]
-       24 GETIMPORT                        R16 K6 [Enum.AssetType.RightShoeAccessory]
-       26 GETTABLEKS                       R15 R16 K4 ["Name"]
+       24 GETIMPORT                        R15 K6 [Enum.AssetType.RightShoeAccessory]
+       26 GETTABLEKS                       R15 R15 K4 ["Name"]
        28 JUMPIFEQ                         R14 R15 ; [+2]
        30 LOADB                            R13 0 +1
        31 LOADB                            R13 1
        32 JUMPIFNOT                        R13 ; [+16]
-       33 GETUPVAL                         R15 0
-       34 GETTABLEKS                       R14 R15 K7 ["processShoeAsset"]
+       33 GETUPVAL                         R14 0
+       34 GETTABLEKS                       R14 R14 K7 ["processShoeAsset"]
        36 MOVE                             R15 R12
        37 MOVE                             R16 R1
        38 MOVE                             R17 R7
@@ -275,8 +275,8 @@ PROTO_6:
        45 GETTABLEKS                       R16 R15 K8 ["uniqueId"]
        47 SETTABLE                         R15 R4 R16
        48 JUMP                             ; [+15]
-       49 GETUPVAL                         R15 0
-       50 GETTABLEKS                       R14 R15 K9 ["processRegularAsset"]
+       49 GETUPVAL                         R14 0
+       50 GETTABLEKS                       R14 R14 K9 ["processRegularAsset"]
        52 MOVE                             R15 R12
        53 MOVE                             R16 R2
        54 MOVE                             R17 R5
@@ -321,16 +321,16 @@ PROTO_8:
         3 LOADNIL                          R6
         4 LOADNIL                          R7
         5 FORGPREP                         R5
-        6 GETTABLE                         R11 R1 R9
-        7 GETTABLEKS                       R10 R11 K0 ["hasAssociatedBundle"]
+        6 GETTABLE                         R10 R1 R9
+        7 GETTABLEKS                       R10 R10 K0 ["hasAssociatedBundle"]
         9 JUMPIFNOT                        R10 ; [+7]
        10 GETTABLE                         R12 R2 R9
        11 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
        13 MOVE                             R11 R4
        14 GETIMPORT                        R10 K3 [table.insert]
        16 CALL                             R10 2 0
-       17 GETTABLE                         R11 R1 R9
-       18 GETTABLEKS                       R10 R11 K4 ["hasAssociatedAsset"]
+       17 GETTABLE                         R10 R1 R9
+       18 GETTABLEKS                       R10 R10 K4 ["hasAssociatedAsset"]
        20 JUMPIFNOT                        R10 ; [+7]
        21 GETTABLE                         R12 R3 R9
        22 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
@@ -392,18 +392,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K8 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["getPaletteFromKey"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K8 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["getPaletteFromKey"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 16 0
        34 DUPCLOSURE                       R5 K11 [PROTO_0]

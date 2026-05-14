@@ -1,13 +1,13 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["MockMetaBreakpointsById"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["MockMetaBreakpointsById"]
         3 GETTABLEKS                       R2 R0 K1 ["Id"]
         5 SETTABLE                         R0 R1 R2
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["MockMetaBreakpointsById"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["MockMetaBreakpointsById"]
         3 SETTABLE                         R1 R2 R0
         4 RETURN                           R0 0
 
@@ -18,8 +18,8 @@ PROTO_2:
         5 MOVE                             R2 R0
         6 GETIMPORT                        R1 K1 [setmetatable]
         8 CALL                             R1 2 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K2 ["new"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K2 ["new"]
        12 CALL                             R1 0 1
        13 SETTABLEKS                       R1 R0 K3 ["MetaBreakpointAdded"]
        15 GETTABLEKS                       R1 R0 K3 ["MetaBreakpointAdded"]
@@ -27,16 +27,16 @@ PROTO_2:
        18 CAPTURE                          VAL R0
        19 NAMECALL                         R1 R1 K4 ["Connect"]
        21 CALL                             R1 2 0
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R1 R2 K2 ["new"]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K2 ["new"]
        25 CALL                             R1 0 1
        26 SETTABLEKS                       R1 R0 K5 ["MetaBreakpointChanged"]
-       28 GETUPVAL                         R2 1
-       29 GETTABLEKS                       R1 R2 K2 ["new"]
+       28 GETUPVAL                         R1 1
+       29 GETTABLEKS                       R1 R1 K2 ["new"]
        31 CALL                             R1 0 1
        32 SETTABLEKS                       R1 R0 K6 ["MetaBreakpointSetChanged"]
-       34 GETUPVAL                         R2 1
-       35 GETTABLEKS                       R1 R2 K2 ["new"]
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K2 ["new"]
        37 CALL                             R1 0 1
        38 SETTABLEKS                       R1 R0 K7 ["MetaBreakpointRemoved"]
        40 NEWTABLE                         R1 0 0
@@ -61,16 +61,16 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Signal"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Signal"]
        20 NEWTABLE                         R3 4 0
        22 SETTABLEKS                       R3 R3 K9 ["__index"]
        24 DUPCLOSURE                       R4 K10 [PROTO_2]

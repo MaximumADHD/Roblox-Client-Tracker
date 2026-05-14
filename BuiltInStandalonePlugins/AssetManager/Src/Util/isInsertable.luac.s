@@ -11,14 +11,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["AssetType"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K9 ["Flags"]
-       22 GETTABLEKS                       R4 R5 K10 ["getFFlagAmrOrganizationFoundation"]
+       18 GETTABLEKS                       R4 R0 K6 ["Src"]
+       20 GETTABLEKS                       R4 R4 K9 ["Flags"]
+       22 GETTABLEKS                       R4 R4 K10 ["getFFlagAmrOrganizationFoundation"]
        24 CALL                             R3 1 1
        25 NEWTABLE                         R4 4 0
        27 GETTABLEKS                       R5 R2 K11 ["Plugin"]

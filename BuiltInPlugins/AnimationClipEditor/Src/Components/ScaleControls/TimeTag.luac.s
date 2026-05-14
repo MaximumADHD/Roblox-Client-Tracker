@@ -6,14 +6,14 @@ PROTO_0:
         8 GETTABLEKS                       R5 R1 K4 ["AnchorPoint"]
        10 GETTABLEKS                       R6 R1 K5 ["Time"]
        12 GETTABLEKS                       R7 R1 K6 ["ZIndex"]
-       14 GETUPVAL                         R9 0
-       15 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 GETUPVAL                         R9 1
        18 DUPTABLE                         R10 K11 [{"Style", "BackgroundColor3", "BorderSizePixel", "AnchorPoint", "Size", "Position", "ZIndex"}]
        19 LOADK                            R11 K12 ["BorderBox"]
        20 SETTABLEKS                       R11 R10 K8 ["Style"]
-       22 GETTABLEKS                       R12 R2 K13 ["scaleControlsTheme"]
-       24 GETTABLEKS                       R11 R12 K14 ["mainColor"]
+       22 GETTABLEKS                       R11 R2 K13 ["scaleControlsTheme"]
+       24 GETTABLEKS                       R11 R11 K14 ["mainColor"]
        26 SETTABLEKS                       R11 R10 K9 ["BackgroundColor3"]
        28 LOADN                            R11 0
        29 SETTABLEKS                       R11 R10 K10 ["BorderSizePixel"]
@@ -22,8 +22,8 @@ PROTO_0:
        35 SETTABLEKS                       R3 R10 K2 ["Position"]
        37 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
        39 DUPTABLE                         R11 K15 [{"Time"}]
-       40 GETUPVAL                         R13 0
-       41 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       40 GETUPVAL                         R12 0
+       41 GETTABLEKS                       R12 R12 K7 ["createElement"]
        43 LOADK                            R13 K16 ["TextLabel"]
        44 DUPTABLE                         R14 K24 [{"BackgroundTransparency", "Position", "AnchorPoint", "Size", "TextXAlignment", "TextYAlignment", "Text", "TextColor3", "TextSize", "Font"}]
        45 LOADN                            R15 1
@@ -52,11 +52,11 @@ PROTO_0:
        77 GETIMPORT                        R15 K34 [Enum.TextYAlignment.Center]
        79 SETTABLEKS                       R15 R14 K19 ["TextYAlignment"]
        81 SETTABLEKS                       R6 R14 K20 ["Text"]
-       83 GETTABLEKS                       R16 R2 K13 ["scaleControlsTheme"]
-       85 GETTABLEKS                       R15 R16 K35 ["textColor"]
+       83 GETTABLEKS                       R15 R2 K13 ["scaleControlsTheme"]
+       85 GETTABLEKS                       R15 R15 K35 ["textColor"]
        87 SETTABLEKS                       R15 R14 K21 ["TextColor3"]
-       89 GETTABLEKS                       R16 R2 K13 ["scaleControlsTheme"]
-       91 GETTABLEKS                       R15 R16 K36 ["textSize"]
+       89 GETTABLEKS                       R15 R2 K13 ["scaleControlsTheme"]
+       91 GETTABLEKS                       R15 R15 K36 ["textSize"]
        93 SETTABLEKS                       R15 R14 K22 ["TextSize"]
        95 GETTABLEKS                       R15 R2 K37 ["font"]
        97 SETTABLEKS                       R15 R14 K23 ["Font"]
@@ -72,17 +72,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
-       25 GETTABLEKS                       R6 R2 K11 ["UI"]
-       27 GETTABLEKS                       R5 R6 K12 ["Pane"]
+       25 GETTABLEKS                       R5 R2 K11 ["UI"]
+       27 GETTABLEKS                       R5 R5 K12 ["Pane"]
        29 GETTABLEKS                       R6 R1 K13 ["PureComponent"]
        31 LOADK                            R8 K14 ["TimeTag"]
        32 NAMECALL                         R6 R6 K15 ["extend"]

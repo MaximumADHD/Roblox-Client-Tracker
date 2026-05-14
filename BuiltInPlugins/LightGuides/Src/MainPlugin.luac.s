@@ -33,16 +33,16 @@ PROTO_2:
         5 CALL                             R1 2 1
         6 SETTABLEKS                       R1 R0 K0 ["_folder"]
         8 NEWTABLE                         R1 4 0
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K8 ["PointLight"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K8 ["PointLight"]
        13 NEWTABLE                         R3 0 0
        15 SETTABLE                         R3 R1 R2
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R2 R3 K9 ["SpotLight"]
+       16 GETUPVAL                         R2 1
+       17 GETTABLEKS                       R2 R2 K9 ["SpotLight"]
        19 NEWTABLE                         R3 0 0
        21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R3 1
-       23 GETTABLEKS                       R2 R3 K10 ["SurfaceLight"]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEKS                       R2 R2 K10 ["SurfaceLight"]
        25 NEWTABLE                         R3 0 0
        27 SETTABLE                         R3 R1 R2
        28 SETTABLEKS                       R1 R0 K1 ["_wireframePools"]
@@ -67,8 +67,8 @@ PROTO_2:
        58 MOVE                             R2 R0
        59 GETIMPORT                        R1 K18 [setmetatable]
        61 CALL                             R1 2 0
-       62 GETUPVAL                         R2 3
-       63 GETTABLEKS                       R1 R2 K19 ["SelectionChangedThisFrame"]
+       62 GETUPVAL                         R1 3
+       63 GETTABLEKS                       R1 R1 K19 ["SelectionChangedThisFrame"]
        65 NEWCLOSURE                       R3 P0
        66 CAPTURE                          VAL R0
        67 NAMECALL                         R1 R1 K20 ["Connect"]
@@ -162,8 +162,8 @@ PROTO_3:
       114 LENGTH                           R10 R11
       115 GETTABLEKS                       R11 R0 K20 ["_storedLightGuides"]
       117 ADD                              R9 R10 R11
-      118 GETUPVAL                         R11 2
-      119 GETTABLEKS                       R10 R11 K23 ["MAX_POOL_SIZE"]
+      118 GETUPVAL                         R10 2
+      119 GETTABLEKS                       R10 R10 K23 ["MAX_POOL_SIZE"]
       121 JUMPIFNOTLE                      R10 R9 ; [+22]
       123 GETIMPORT                        R9 K8 [pairs]
       125 GETTABLEKS                       R10 R0 K9 ["_wireframePools"]
@@ -253,15 +253,15 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Src"]
-       11 GETTABLEKS                       R2 R3 K6 ["Types"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Types"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R0 K5 ["Src"]
-       16 GETTABLEKS                       R2 R3 K7 ["Utility"]
+       14 GETTABLEKS                       R2 R0 K5 ["Src"]
+       16 GETTABLEKS                       R2 R2 K7 ["Utility"]
        18 GETIMPORT                        R3 K4 [require]
        20 GETTABLEKS                       R4 R2 K8 ["Constants"]
        22 CALL                             R3 1 1

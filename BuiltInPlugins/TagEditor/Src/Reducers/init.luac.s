@@ -89,68 +89,68 @@ PROTO_0:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R2 K3 [script]
-        5 GETTABLEKS                       R1 R2 K4 ["AssigningGroup"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["AssigningGroup"]
         7 CALL                             R0 1 1
         8 GETIMPORT                        R1 K1 [require]
-       10 GETIMPORT                        R3 K3 [script]
-       12 GETTABLEKS                       R2 R3 K5 ["ColorPicker"]
+       10 GETIMPORT                        R2 K3 [script]
+       12 GETTABLEKS                       R2 R2 K5 ["ColorPicker"]
        14 CALL                             R1 1 1
        15 GETIMPORT                        R2 K1 [require]
-       17 GETIMPORT                        R4 K3 [script]
-       19 GETTABLEKS                       R3 R4 K6 ["GroupData"]
+       17 GETIMPORT                        R3 K3 [script]
+       19 GETTABLEKS                       R3 R3 K6 ["GroupData"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K1 [require]
-       24 GETIMPORT                        R5 K3 [script]
-       26 GETTABLEKS                       R4 R5 K7 ["GroupMenu"]
+       24 GETIMPORT                        R4 K3 [script]
+       26 GETTABLEKS                       R4 R4 K7 ["GroupMenu"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K1 [require]
-       31 GETIMPORT                        R6 K3 [script]
-       33 GETTABLEKS                       R5 R6 K8 ["HoveredIcon"]
+       31 GETIMPORT                        R5 K3 [script]
+       33 GETTABLEKS                       R5 R5 K8 ["HoveredIcon"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K1 [require]
-       38 GETIMPORT                        R7 K3 [script]
-       40 GETTABLEKS                       R6 R7 K9 ["IconPicker"]
+       38 GETIMPORT                        R6 K3 [script]
+       40 GETTABLEKS                       R6 R6 K9 ["IconPicker"]
        42 CALL                             R5 1 1
        43 GETIMPORT                        R6 K1 [require]
-       45 GETIMPORT                        R8 K3 [script]
-       47 GETTABLEKS                       R7 R8 K10 ["IconSearch"]
+       45 GETIMPORT                        R7 K3 [script]
+       47 GETTABLEKS                       R7 R7 K10 ["IconSearch"]
        49 CALL                             R6 1 1
        50 GETIMPORT                        R7 K1 [require]
-       52 GETIMPORT                        R9 K3 [script]
-       54 GETTABLEKS                       R8 R9 K11 ["MinimizedSettingsPane"]
+       52 GETIMPORT                        R8 K3 [script]
+       54 GETTABLEKS                       R8 R8 K11 ["MinimizedSettingsPane"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K1 [require]
-       59 GETIMPORT                        R10 K3 [script]
-       61 GETTABLEKS                       R9 R10 K12 ["RenamingGroup"]
+       59 GETIMPORT                        R9 K3 [script]
+       61 GETTABLEKS                       R9 R9 K12 ["RenamingGroup"]
        63 CALL                             R8 1 1
        64 GETIMPORT                        R9 K1 [require]
-       66 GETIMPORT                        R11 K3 [script]
-       68 GETTABLEKS                       R10 R11 K13 ["RenamingTag"]
+       66 GETIMPORT                        R10 K3 [script]
+       68 GETTABLEKS                       R10 R10 K13 ["RenamingTag"]
        70 CALL                             R9 1 1
        71 GETIMPORT                        R10 K1 [require]
-       73 GETIMPORT                        R12 K3 [script]
-       75 GETTABLEKS                       R11 R12 K14 ["Search"]
+       73 GETIMPORT                        R11 K3 [script]
+       75 GETTABLEKS                       R11 R11 K14 ["Search"]
        77 CALL                             R10 1 1
        78 GETIMPORT                        R11 K1 [require]
-       80 GETIMPORT                        R13 K3 [script]
-       82 GETTABLEKS                       R12 R13 K15 ["TagData"]
+       80 GETIMPORT                        R12 K3 [script]
+       82 GETTABLEKS                       R12 R12 K15 ["TagData"]
        84 CALL                             R11 1 1
        85 GETIMPORT                        R12 K1 [require]
-       87 GETIMPORT                        R14 K3 [script]
-       89 GETTABLEKS                       R13 R14 K16 ["TagMenu"]
+       87 GETIMPORT                        R13 K3 [script]
+       89 GETTABLEKS                       R13 R13 K16 ["TagMenu"]
        91 CALL                             R12 1 1
        92 GETIMPORT                        R13 K1 [require]
-       94 GETIMPORT                        R15 K3 [script]
-       96 GETTABLEKS                       R14 R15 K17 ["UIGroupCollapseState"]
+       94 GETIMPORT                        R14 K3 [script]
+       96 GETTABLEKS                       R14 R14 K17 ["UIGroupCollapseState"]
        98 CALL                             R13 1 1
        99 GETIMPORT                        R14 K1 [require]
-      101 GETIMPORT                        R16 K3 [script]
-      103 GETTABLEKS                       R15 R16 K18 ["UnknownTags"]
+      101 GETIMPORT                        R15 K3 [script]
+      103 GETTABLEKS                       R15 R15 K18 ["UnknownTags"]
       105 CALL                             R14 1 1
       106 GETIMPORT                        R15 K1 [require]
-      108 GETIMPORT                        R17 K3 [script]
-      110 GETTABLEKS                       R16 R17 K19 ["WorldView"]
+      108 GETIMPORT                        R16 K3 [script]
+      110 GETTABLEKS                       R16 R16 K19 ["WorldView"]
       112 CALL                             R15 1 1
       113 DUPCLOSURE                       R16 K20 [PROTO_0]
       114 CAPTURE                          VAL R0

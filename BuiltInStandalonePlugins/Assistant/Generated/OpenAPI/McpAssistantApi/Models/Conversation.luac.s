@@ -38,8 +38,8 @@ PROTO_0:
        51 MOVE                             R4 R1
        52 GETIMPORT                        R3 K6 [table.insert]
        54 CALL                             R3 2 0
-       55 GETUPVAL                         R4 0
-       56 GETTABLEKS                       R3 R4 K10 ["fromResponse"]
+       55 GETUPVAL                         R3 0
+       56 GETTABLEKS                       R3 R3 K10 ["fromResponse"]
        58 GETTABLEKS                       R4 R0 K11 ["llmConfig"]
        60 MOVE                             R5 R1
        61 LOADK                            R7 K12 ["%*\"llmConfig\" > "]
@@ -93,8 +93,8 @@ PROTO_0:
       126 CALL                             R8 2 0
       127 JUMP                             ; [+16]
       128 GETTABLEKS                       R8 R0 K13 ["messages"]
-      130 GETUPVAL                         R10 1
-      131 GETTABLEKS                       R9 R10 K10 ["fromResponse"]
+      130 GETUPVAL                         R9 1
+      131 GETTABLEKS                       R9 R9 K10 ["fromResponse"]
       133 MOVE                             R10 R7
       134 MOVE                             R11 R1
       135 LOADK                            R13 K17 ["%*\"messages\" > [%*] > "]
@@ -150,8 +150,8 @@ PROTO_0:
       202 CALL                             R8 2 0
       203 JUMP                             ; [+16]
       204 GETTABLEKS                       R8 R0 K18 ["tools"]
-      206 GETUPVAL                         R10 2
-      207 GETTABLEKS                       R9 R10 K10 ["fromResponse"]
+      206 GETUPVAL                         R9 2
+      207 GETTABLEKS                       R9 R9 K10 ["fromResponse"]
       209 MOVE                             R10 R7
       210 MOVE                             R11 R1
       211 LOADK                            R13 K21 ["%*\"tools\" > [%*] > "]
@@ -169,8 +169,8 @@ PROTO_1:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K3 ["toRequest"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K3 ["toRequest"]
         7 GETTABLEKS                       R3 R1 K4 ["llmConfig"]
         9 CALL                             R2 1 1
        10 SETTABLEKS                       R2 R1 K4 ["llmConfig"]
@@ -183,8 +183,8 @@ PROTO_1:
        22 LOADNIL                          R4
        23 FORGPREP                         R2
        24 GETTABLEKS                       R7 R1 K5 ["messages"]
-       26 GETUPVAL                         R9 1
-       27 GETTABLEKS                       R8 R9 K3 ["toRequest"]
+       26 GETUPVAL                         R8 1
+       27 GETTABLEKS                       R8 R8 K3 ["toRequest"]
        29 MOVE                             R9 R6
        30 CALL                             R8 1 1
        31 SETTABLE                         R8 R7 R5
@@ -198,8 +198,8 @@ PROTO_1:
        44 LOADNIL                          R4
        45 FORGPREP                         R2
        46 GETTABLEKS                       R7 R1 K6 ["tools"]
-       48 GETUPVAL                         R9 2
-       49 GETTABLEKS                       R8 R9 K3 ["toRequest"]
+       48 GETUPVAL                         R8 2
+       49 GETTABLEKS                       R8 R8 K3 ["toRequest"]
        51 MOVE                             R9 R6
        52 CALL                             R8 1 1
        53 SETTABLE                         R8 R7 R5
@@ -220,16 +220,16 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["LLMConfig"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["LLMConfig"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K7 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Models"]
-       29 GETTABLEKS                       R6 R7 K11 ["Message"]
+       27 GETTABLEKS                       R6 R0 K9 ["Models"]
+       29 GETTABLEKS                       R6 R6 K11 ["Message"]
        31 CALL                             R5 1 1
        32 GETIMPORT                        R6 K7 [require]
-       34 GETTABLEKS                       R8 R0 K9 ["Models"]
-       36 GETTABLEKS                       R7 R8 K12 ["ToolDefinition"]
+       34 GETTABLEKS                       R7 R0 K9 ["Models"]
+       36 GETTABLEKS                       R7 R7 K12 ["ToolDefinition"]
        38 CALL                             R6 1 1
        39 DUPCLOSURE                       R7 K13 [PROTO_0]
        40 CAPTURE                          VAL R4

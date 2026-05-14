@@ -11,8 +11,8 @@ PROTO_0:
        14 SETTABLEKS                       R6 R5 K3 ["Text"]
        16 GETIMPORT                        R6 K12 [Enum.TextYAlignment.Center]
        18 SETTABLEKS                       R6 R5 K4 ["TextYAlignment"]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K13 ["createElement"]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K13 ["createElement"]
        23 GETUPVAL                         R7 1
        24 DUPTABLE                         R8 K16 [{"Value", "OnValueChanged"}]
        25 GETTABLEKS                       R9 R1 K17 ["alignmentMode"]
@@ -27,8 +27,8 @@ PROTO_0:
        39 NAMECALL                         R7 R2 K9 ["getText"]
        41 CALL                             R7 3 1
        42 SETTABLEKS                       R7 R6 K3 ["Text"]
-       44 GETUPVAL                         R8 0
-       45 GETTABLEKS                       R7 R8 K13 ["createElement"]
+       44 GETUPVAL                         R7 0
+       45 GETTABLEKS                       R7 R7 K13 ["createElement"]
        47 GETUPVAL                         R8 2
        48 DUPTABLE                         R9 K25 [{"AlignmentSpace", "EnabledAxes", "OnAlignmentSpaceChanged", "OnEnabledAxesChanged"}]
        49 GETTABLEKS                       R10 R1 K26 ["alignmentSpace"]
@@ -47,8 +47,8 @@ PROTO_0:
        71 NAMECALL                         R8 R2 K9 ["getText"]
        73 CALL                             R8 3 1
        74 SETTABLEKS                       R8 R7 K3 ["Text"]
-       76 GETUPVAL                         R9 0
-       77 GETTABLEKS                       R8 R9 K13 ["createElement"]
+       76 GETUPVAL                         R8 0
+       77 GETTABLEKS                       R8 R8 K13 ["createElement"]
        79 GETUPVAL                         R9 3
        80 DUPTABLE                         R10 K16 [{"Value", "OnValueChanged"}]
        81 GETTABLEKS                       R11 R1 K31 ["relativeTo"]
@@ -58,8 +58,8 @@ PROTO_0:
        89 CALL                             R8 2 1
        90 SETTABLEKS                       R8 R7 K5 ["Content"]
        92 SETLIST                          R4 R5 3 [1]
-       94 GETUPVAL                         R6 0
-       95 GETTABLEKS                       R5 R6 K13 ["createElement"]
+       94 GETUPVAL                         R5 0
+       95 GETTABLEKS                       R5 R5 K13 ["createElement"]
        97 GETUPVAL                         R6 4
        98 DUPTABLE                         R7 K37 [{"Collapsible", "Items", "LayoutOrder", "MaximumLabelWidth"}]
        99 LOADB                            R8 1
@@ -163,73 +163,73 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETIMPORT                        R6 K4 [require]
-       36 GETTABLEKS                       R9 R0 K11 ["Src"]
-       38 GETTABLEKS                       R8 R9 K12 ["Actions"]
-       40 GETTABLEKS                       R7 R8 K13 ["SetAlignmentMode"]
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K12 ["Actions"]
+       40 GETTABLEKS                       R7 R7 K13 ["SetAlignmentMode"]
        42 CALL                             R6 1 1
        43 GETIMPORT                        R7 K4 [require]
-       45 GETTABLEKS                       R10 R0 K11 ["Src"]
-       47 GETTABLEKS                       R9 R10 K12 ["Actions"]
-       49 GETTABLEKS                       R8 R9 K14 ["SetAlignmentSpace"]
+       45 GETTABLEKS                       R8 R0 K11 ["Src"]
+       47 GETTABLEKS                       R8 R8 K12 ["Actions"]
+       49 GETTABLEKS                       R8 R8 K14 ["SetAlignmentSpace"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K4 [require]
-       54 GETTABLEKS                       R11 R0 K11 ["Src"]
-       56 GETTABLEKS                       R10 R11 K12 ["Actions"]
-       58 GETTABLEKS                       R9 R10 K15 ["SetEnabledAxes"]
+       54 GETTABLEKS                       R9 R0 K11 ["Src"]
+       56 GETTABLEKS                       R9 R9 K12 ["Actions"]
+       58 GETTABLEKS                       R9 R9 K15 ["SetEnabledAxes"]
        60 CALL                             R8 1 1
        61 GETIMPORT                        R9 K4 [require]
-       63 GETTABLEKS                       R12 R0 K11 ["Src"]
-       65 GETTABLEKS                       R11 R12 K12 ["Actions"]
-       67 GETTABLEKS                       R10 R11 K16 ["SetRelativeTo"]
+       63 GETTABLEKS                       R10 R0 K11 ["Src"]
+       65 GETTABLEKS                       R10 R10 K12 ["Actions"]
+       67 GETTABLEKS                       R10 R10 K16 ["SetRelativeTo"]
        69 CALL                             R9 1 1
        70 GETIMPORT                        R10 K4 [require]
-       72 GETTABLEKS                       R13 R0 K11 ["Src"]
-       74 GETTABLEKS                       R12 R13 K17 ["Components"]
-       76 GETTABLEKS                       R11 R12 K18 ["AxesSettingsFragment"]
+       72 GETTABLEKS                       R11 R0 K11 ["Src"]
+       74 GETTABLEKS                       R11 R11 K17 ["Components"]
+       76 GETTABLEKS                       R11 R11 K18 ["AxesSettingsFragment"]
        78 CALL                             R10 1 1
        79 GETIMPORT                        R11 K4 [require]
-       81 GETTABLEKS                       R14 R0 K11 ["Src"]
-       83 GETTABLEKS                       R13 R14 K17 ["Components"]
-       85 GETTABLEKS                       R12 R13 K19 ["ModeSetting"]
+       81 GETTABLEKS                       R12 R0 K11 ["Src"]
+       83 GETTABLEKS                       R12 R12 K17 ["Components"]
+       85 GETTABLEKS                       R12 R12 K19 ["ModeSetting"]
        87 CALL                             R11 1 1
        88 GETIMPORT                        R12 K4 [require]
-       90 GETTABLEKS                       R15 R0 K11 ["Src"]
-       92 GETTABLEKS                       R14 R15 K17 ["Components"]
-       94 GETTABLEKS                       R13 R14 K20 ["LabeledElementList"]
+       90 GETTABLEKS                       R13 R0 K11 ["Src"]
+       92 GETTABLEKS                       R13 R13 K17 ["Components"]
+       94 GETTABLEKS                       R13 R13 K20 ["LabeledElementList"]
        96 CALL                             R12 1 1
        97 GETIMPORT                        R13 K4 [require]
-       99 GETTABLEKS                       R16 R0 K11 ["Src"]
-      101 GETTABLEKS                       R15 R16 K17 ["Components"]
-      103 GETTABLEKS                       R14 R15 K21 ["RelativeToSetting"]
+       99 GETTABLEKS                       R14 R0 K11 ["Src"]
+      101 GETTABLEKS                       R14 R14 K17 ["Components"]
+      103 GETTABLEKS                       R14 R14 K21 ["RelativeToSetting"]
       105 CALL                             R13 1 1
       106 GETIMPORT                        R14 K4 [require]
-      108 GETTABLEKS                       R17 R0 K11 ["Src"]
-      110 GETTABLEKS                       R16 R17 K22 ["Thunks"]
-      112 GETTABLEKS                       R15 R16 K23 ["UpdateActiveInstanceHighlight"]
+      108 GETTABLEKS                       R15 R0 K11 ["Src"]
+      110 GETTABLEKS                       R15 R15 K22 ["Thunks"]
+      112 GETTABLEKS                       R15 R15 K23 ["UpdateActiveInstanceHighlight"]
       114 CALL                             R14 1 1
       115 GETIMPORT                        R15 K4 [require]
-      117 GETTABLEKS                       R18 R0 K11 ["Src"]
-      119 GETTABLEKS                       R17 R18 K22 ["Thunks"]
-      121 GETTABLEKS                       R16 R17 K24 ["UpdateAlignEnabled"]
+      117 GETTABLEKS                       R16 R0 K11 ["Src"]
+      119 GETTABLEKS                       R16 R16 K22 ["Thunks"]
+      121 GETTABLEKS                       R16 R16 K24 ["UpdateAlignEnabled"]
       123 CALL                             R15 1 1
       124 GETTABLEKS                       R16 R1 K25 ["PureComponent"]
       126 LOADK                            R18 K26 ["AlignmentSettings"]

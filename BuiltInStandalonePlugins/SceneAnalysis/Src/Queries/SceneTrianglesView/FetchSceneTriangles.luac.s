@@ -1,19 +1,19 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["node"]
-        2 GETTABLEKS                       R1 R2 K1 ["Name"]
+        0 GETTABLEKS                       R1 R0 K0 ["node"]
+        2 GETTABLEKS                       R1 R1 K1 ["Name"]
         4 RETURN                           R1 1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["node"]
-        2 GETTABLEKS                       R1 R2 K1 ["triangles"]
+        0 GETTABLEKS                       R1 R0 K0 ["node"]
+        2 GETTABLEKS                       R1 R1 K1 ["triangles"]
         4 JUMPIF                           R1 ; [+6]
-        5 GETTABLEKS                       R2 R0 K0 ["node"]
-        7 GETTABLEKS                       R1 R2 K2 ["Triangles"]
+        5 GETTABLEKS                       R1 R0 K0 ["node"]
+        7 GETTABLEKS                       R1 R1 K2 ["Triangles"]
         9 JUMPIF                           R1 ; [+1]
        10 LOADN                            R1 0
        11 JUMPIFNOTEQKN                    R1 K3 [0] ; [+16]
-       13 GETTABLEKS                       R4 R0 K0 ["node"]
-       15 GETTABLEKS                       R3 R4 K4 ["Size"]
+       13 GETTABLEKS                       R3 R0 K0 ["node"]
+       15 GETTABLEKS                       R3 R3 K4 ["Size"]
        17 FASTCALL1                        TYPE R3 ; [+2]
        18 GETIMPORT                        R2 K6 [type]
        20 CALL                             R2 1 1
@@ -22,29 +22,29 @@ PROTO_1:
        25 GETTABLEKS                       R1 R2 K4 ["Size"]
        27 JUMP                             ; [+50]
        28 JUMPIFNOTEQKN                    R1 K3 [0] ; [+49]
-       30 GETTABLEKS                       R3 R0 K0 ["node"]
-       32 GETTABLEKS                       R2 R3 K8 ["Sizes"]
+       30 GETTABLEKS                       R2 R0 K0 ["node"]
+       32 GETTABLEKS                       R2 R2 K8 ["Sizes"]
        34 JUMPIFNOT                        R2 ; [+43]
-       35 GETTABLEKS                       R4 R0 K0 ["node"]
-       37 GETTABLEKS                       R3 R4 K8 ["Sizes"]
+       35 GETTABLEKS                       R3 R0 K0 ["node"]
+       37 GETTABLEKS                       R3 R3 K8 ["Sizes"]
        39 FASTCALL1                        TYPE R3 ; [+2]
        40 GETIMPORT                        R2 K6 [type]
        42 CALL                             R2 1 1
        43 JUMPIFNOTEQKS                    R2 K9 ["table"] ; [+34]
-       45 GETTABLEKS                       R4 R0 K0 ["node"]
-       47 GETTABLEKS                       R3 R4 K8 ["Sizes"]
-       49 GETTABLEKS                       R2 R3 K1 ["triangles"]
+       45 GETTABLEKS                       R2 R0 K0 ["node"]
+       47 GETTABLEKS                       R2 R2 K8 ["Sizes"]
+       49 GETTABLEKS                       R2 R2 K1 ["triangles"]
        51 JUMPIF                           R2 ; [+8]
-       52 GETTABLEKS                       R4 R0 K0 ["node"]
-       54 GETTABLEKS                       R3 R4 K8 ["Sizes"]
-       56 GETTABLEKS                       R2 R3 K2 ["Triangles"]
+       52 GETTABLEKS                       R2 R0 K0 ["node"]
+       54 GETTABLEKS                       R2 R2 K8 ["Sizes"]
+       56 GETTABLEKS                       R2 R2 K2 ["Triangles"]
        58 JUMPIF                           R2 ; [+1]
        59 LOADN                            R2 0
        60 MOVE                             R1 R2
        61 JUMPIFNOTEQKN                    R1 K3 [0] ; [+16]
        63 GETIMPORT                        R2 K11 [next]
-       65 GETTABLEKS                       R4 R0 K0 ["node"]
-       67 GETTABLEKS                       R3 R4 K8 ["Sizes"]
+       65 GETTABLEKS                       R3 R0 K0 ["node"]
+       67 GETTABLEKS                       R3 R3 K8 ["Sizes"]
        69 CALL                             R2 1 2
        70 FASTCALL1                        TYPE R3 ; [+3]
        71 MOVE                             R5 R3
@@ -79,16 +79,16 @@ PROTO_1:
       109 RETURN                           R2 1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["node"]
-        2 GETTABLEKS                       R1 R2 K1 ["drawcalls"]
+        0 GETTABLEKS                       R1 R0 K0 ["node"]
+        2 GETTABLEKS                       R1 R1 K1 ["drawcalls"]
         4 JUMPIF                           R1 ; [+6]
-        5 GETTABLEKS                       R2 R0 K0 ["node"]
-        7 GETTABLEKS                       R1 R2 K2 ["Drawcalls"]
+        5 GETTABLEKS                       R1 R0 K0 ["node"]
+        7 GETTABLEKS                       R1 R1 K2 ["Drawcalls"]
         9 JUMPIF                           R1 ; [+1]
        10 LOADN                            R1 0
        11 JUMPIFNOTEQKN                    R1 K3 [0] ; [+16]
-       13 GETTABLEKS                       R4 R0 K0 ["node"]
-       15 GETTABLEKS                       R3 R4 K4 ["Size"]
+       13 GETTABLEKS                       R3 R0 K0 ["node"]
+       15 GETTABLEKS                       R3 R3 K4 ["Size"]
        17 FASTCALL1                        TYPE R3 ; [+2]
        18 GETIMPORT                        R2 K6 [type]
        20 CALL                             R2 1 1
@@ -97,29 +97,29 @@ PROTO_2:
        25 GETTABLEKS                       R1 R2 K4 ["Size"]
        27 JUMP                             ; [+50]
        28 JUMPIFNOTEQKN                    R1 K3 [0] ; [+49]
-       30 GETTABLEKS                       R3 R0 K0 ["node"]
-       32 GETTABLEKS                       R2 R3 K8 ["Sizes"]
+       30 GETTABLEKS                       R2 R0 K0 ["node"]
+       32 GETTABLEKS                       R2 R2 K8 ["Sizes"]
        34 JUMPIFNOT                        R2 ; [+43]
-       35 GETTABLEKS                       R4 R0 K0 ["node"]
-       37 GETTABLEKS                       R3 R4 K8 ["Sizes"]
+       35 GETTABLEKS                       R3 R0 K0 ["node"]
+       37 GETTABLEKS                       R3 R3 K8 ["Sizes"]
        39 FASTCALL1                        TYPE R3 ; [+2]
        40 GETIMPORT                        R2 K6 [type]
        42 CALL                             R2 1 1
        43 JUMPIFNOTEQKS                    R2 K9 ["table"] ; [+34]
-       45 GETTABLEKS                       R4 R0 K0 ["node"]
-       47 GETTABLEKS                       R3 R4 K8 ["Sizes"]
-       49 GETTABLEKS                       R2 R3 K1 ["drawcalls"]
+       45 GETTABLEKS                       R2 R0 K0 ["node"]
+       47 GETTABLEKS                       R2 R2 K8 ["Sizes"]
+       49 GETTABLEKS                       R2 R2 K1 ["drawcalls"]
        51 JUMPIF                           R2 ; [+8]
-       52 GETTABLEKS                       R4 R0 K0 ["node"]
-       54 GETTABLEKS                       R3 R4 K8 ["Sizes"]
-       56 GETTABLEKS                       R2 R3 K2 ["Drawcalls"]
+       52 GETTABLEKS                       R2 R0 K0 ["node"]
+       54 GETTABLEKS                       R2 R2 K8 ["Sizes"]
+       56 GETTABLEKS                       R2 R2 K2 ["Drawcalls"]
        58 JUMPIF                           R2 ; [+1]
        59 LOADN                            R2 0
        60 MOVE                             R1 R2
        61 JUMPIFNOTEQKN                    R1 K3 [0] ; [+16]
        63 GETIMPORT                        R2 K11 [next]
-       65 GETTABLEKS                       R4 R0 K0 ["node"]
-       67 GETTABLEKS                       R3 R4 K8 ["Sizes"]
+       65 GETTABLEKS                       R3 R0 K0 ["node"]
+       67 GETTABLEKS                       R3 R3 K8 ["Sizes"]
        69 CALL                             R2 1 2
        70 FASTCALL1                        TYPE R3 ; [+3]
        71 MOVE                             R5 R3
@@ -240,12 +240,12 @@ PROTO_9:
        32 LOADN                            R4 0
        33 MOVE                             R2 R4
        34 JUMPIFNOTEQKN                    R2 K7 [0] ; [+85]
-       36 GETTABLEKS                       R5 R0 K0 ["node"]
-       38 GETTABLEKS                       R4 R5 K8 ["Sizes"]
+       36 GETTABLEKS                       R4 R0 K0 ["node"]
+       38 GETTABLEKS                       R4 R4 K8 ["Sizes"]
        40 JUMPIFNOT                        R4 ; [+79]
        41 GETIMPORT                        R4 K10 [next]
-       43 GETTABLEKS                       R6 R0 K0 ["node"]
-       45 GETTABLEKS                       R5 R6 K8 ["Sizes"]
+       43 GETTABLEKS                       R5 R0 K0 ["node"]
+       45 GETTABLEKS                       R5 R5 K8 ["Sizes"]
        47 CALL                             R4 1 2
        48 FASTCALL1                        TYPE R5 ; [+3]
        49 MOVE                             R8 R5
@@ -262,18 +262,18 @@ PROTO_9:
        62 GETIMPORT                        R4 K5 [type]
        64 CALL                             R4 1 1
        65 JUMPIFNOTEQKS                    R4 K12 ["nil"] ; [+54]
-       67 GETTABLEKS                       R5 R0 K0 ["node"]
-       69 GETTABLEKS                       R4 R5 K8 ["Sizes"]
+       67 GETTABLEKS                       R4 R0 K0 ["node"]
+       69 GETTABLEKS                       R4 R4 K8 ["Sizes"]
        71 JUMPIFNOT                        R4 ; [+28]
-       72 GETTABLEKS                       R6 R0 K0 ["node"]
-       74 GETTABLEKS                       R5 R6 K8 ["Sizes"]
+       72 GETTABLEKS                       R5 R0 K0 ["node"]
+       74 GETTABLEKS                       R5 R5 K8 ["Sizes"]
        76 GETUPVAL                         R6 0
        77 GETTABLE                         R4 R5 R6
        78 ORK                              R2 R4 K7 [0]
        79 JUMPIFNOTEQKN                    R2 K7 [0] ; [+40]
        81 GETIMPORT                        R4 K10 [next]
-       83 GETTABLEKS                       R6 R0 K0 ["node"]
-       85 GETTABLEKS                       R5 R6 K8 ["Sizes"]
+       83 GETTABLEKS                       R5 R0 K0 ["node"]
+       85 GETTABLEKS                       R5 R5 K8 ["Sizes"]
        87 CALL                             R4 1 2
        88 FASTCALL1                        TYPE R5 ; [+3]
        89 MOVE                             R8 R5
@@ -289,8 +289,8 @@ PROTO_9:
       102 GETUPVAL                         R6 0
       103 GETTABLE                         R4 R5 R6
       104 JUMPIF                           R4 ; [+6]
-      105 GETTABLEKS                       R5 R0 K0 ["node"]
-      107 GETTABLEKS                       R4 R5 K13 ["Size"]
+      105 GETTABLEKS                       R4 R0 K0 ["node"]
+      107 GETTABLEKS                       R4 R4 K13 ["Size"]
       109 JUMPIF                           R4 ; [+1]
       110 LOADN                            R4 0
       111 MOVE                             R2 R4
@@ -315,12 +315,12 @@ PROTO_9:
       135 LOADN                            R4 0
       136 MOVE                             R3 R4
       137 JUMPIFNOTEQKN                    R3 K7 [0] ; [+85]
-      139 GETTABLEKS                       R5 R1 K0 ["node"]
-      141 GETTABLEKS                       R4 R5 K8 ["Sizes"]
+      139 GETTABLEKS                       R4 R1 K0 ["node"]
+      141 GETTABLEKS                       R4 R4 K8 ["Sizes"]
       143 JUMPIFNOT                        R4 ; [+79]
       144 GETIMPORT                        R4 K10 [next]
-      146 GETTABLEKS                       R6 R1 K0 ["node"]
-      148 GETTABLEKS                       R5 R6 K8 ["Sizes"]
+      146 GETTABLEKS                       R5 R1 K0 ["node"]
+      148 GETTABLEKS                       R5 R5 K8 ["Sizes"]
       150 CALL                             R4 1 2
       151 FASTCALL1                        TYPE R5 ; [+3]
       152 MOVE                             R8 R5
@@ -337,18 +337,18 @@ PROTO_9:
       165 GETIMPORT                        R4 K5 [type]
       167 CALL                             R4 1 1
       168 JUMPIFNOTEQKS                    R4 K12 ["nil"] ; [+54]
-      170 GETTABLEKS                       R5 R1 K0 ["node"]
-      172 GETTABLEKS                       R4 R5 K8 ["Sizes"]
+      170 GETTABLEKS                       R4 R1 K0 ["node"]
+      172 GETTABLEKS                       R4 R4 K8 ["Sizes"]
       174 JUMPIFNOT                        R4 ; [+28]
-      175 GETTABLEKS                       R6 R1 K0 ["node"]
-      177 GETTABLEKS                       R5 R6 K8 ["Sizes"]
+      175 GETTABLEKS                       R5 R1 K0 ["node"]
+      177 GETTABLEKS                       R5 R5 K8 ["Sizes"]
       179 GETUPVAL                         R6 0
       180 GETTABLE                         R4 R5 R6
       181 ORK                              R3 R4 K7 [0]
       182 JUMPIFNOTEQKN                    R3 K7 [0] ; [+40]
       184 GETIMPORT                        R4 K10 [next]
-      186 GETTABLEKS                       R6 R1 K0 ["node"]
-      188 GETTABLEKS                       R5 R6 K8 ["Sizes"]
+      186 GETTABLEKS                       R5 R1 K0 ["node"]
+      188 GETTABLEKS                       R5 R5 K8 ["Sizes"]
       190 CALL                             R4 1 2
       191 FASTCALL1                        TYPE R5 ; [+3]
       192 MOVE                             R8 R5
@@ -364,8 +364,8 @@ PROTO_9:
       205 GETUPVAL                         R6 0
       206 GETTABLE                         R4 R5 R6
       207 JUMPIF                           R4 ; [+6]
-      208 GETTABLEKS                       R5 R1 K0 ["node"]
-      210 GETTABLEKS                       R4 R5 K13 ["Size"]
+      208 GETTABLEKS                       R4 R1 K0 ["node"]
+      210 GETTABLEKS                       R4 R4 K13 ["Size"]
       212 JUMPIF                           R4 ; [+1]
       213 LOADN                            R4 0
       214 MOVE                             R3 R4
@@ -381,18 +381,18 @@ PROTO_9:
       228 RETURN                           R4 1
       229 JUMPIFNOTEQKNIL                  R2 ; [+12]
       231 GETUPVAL                         R5 1
-      232 GETUPVAL                         R8 2
-      233 GETTABLEKS                       R7 R8 K14 ["Direction"]
-      235 GETTABLEKS                       R6 R7 K15 ["desc"]
+      232 GETUPVAL                         R6 2
+      233 GETTABLEKS                       R6 R6 K14 ["Direction"]
+      235 GETTABLEKS                       R6 R6 K15 ["desc"]
       237 JUMPIFEQ                         R5 R6 ; [+2]
       239 LOADB                            R4 0 +1
       240 LOADB                            R4 1
       241 RETURN                           R4 1
       242 JUMPIFNOTEQKNIL                  R3 ; [+12]
       244 GETUPVAL                         R5 1
-      245 GETUPVAL                         R8 2
-      246 GETTABLEKS                       R7 R8 K14 ["Direction"]
-      248 GETTABLEKS                       R6 R7 K16 ["asc"]
+      245 GETUPVAL                         R6 2
+      246 GETTABLEKS                       R6 R6 K14 ["Direction"]
+      248 GETTABLEKS                       R6 R6 K16 ["asc"]
       250 JUMPIFEQ                         R5 R6 ; [+2]
       252 LOADB                            R4 0 +1
       253 LOADB                            R4 1
@@ -408,9 +408,9 @@ PROTO_9:
       266 CALL                             R4 1 1
       267 JUMPIFNOTEQKS                    R4 K11 ["number"] ; [+19]
       269 GETUPVAL                         R4 1
-      270 GETUPVAL                         R7 2
-      271 GETTABLEKS                       R6 R7 K14 ["Direction"]
-      273 GETTABLEKS                       R5 R6 K16 ["asc"]
+      270 GETUPVAL                         R5 2
+      271 GETTABLEKS                       R5 R5 K14 ["Direction"]
+      273 GETTABLEKS                       R5 R5 K16 ["asc"]
       275 JUMPIFNOTEQ                      R4 R5 ; [+6]
       277 JUMPIFLT                         R2 R3 ; [+2]
       279 LOADB                            R4 0 +1
@@ -433,9 +433,9 @@ PROTO_9:
       300 NAMECALL                         R5 R5 K19 ["lower"]
       302 CALL                             R5 1 1
       303 GETUPVAL                         R6 1
-      304 GETUPVAL                         R9 2
-      305 GETTABLEKS                       R8 R9 K14 ["Direction"]
-      307 GETTABLEKS                       R7 R8 K16 ["asc"]
+      304 GETUPVAL                         R7 2
+      305 GETTABLEKS                       R7 R7 K14 ["Direction"]
+      307 GETTABLEKS                       R7 R7 K16 ["asc"]
       309 JUMPIFNOTEQ                      R6 R7 ; [+6]
       311 JUMPIFLT                         R4 R5 ; [+2]
       313 LOADB                            R6 0 +1
@@ -449,17 +449,17 @@ PROTO_9:
 PROTO_10:
         0 GETTABLEKS                       R2 R1 K0 ["column"]
         2 GETTABLEKS                       R3 R1 K1 ["direction"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["Column"]
-        7 GETTABLEKS                       R4 R5 K3 ["none"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["Column"]
+        7 GETTABLEKS                       R4 R4 K3 ["none"]
         9 JUMPIFNOTEQ                      R2 R4 ; [+15]
        11 NEWTABLE                         R4 0 0
        13 MOVE                             R5 R0
        14 LOADNIL                          R6
        15 LOADNIL                          R7
        16 FORGPREP                         R5
-       17 GETTABLEKS                       R11 R9 K4 ["node"]
-       19 GETTABLEKS                       R10 R11 K5 ["Id"]
+       17 GETTABLEKS                       R10 R9 K4 ["node"]
+       19 GETTABLEKS                       R10 R10 K5 ["Id"]
        21 SETTABLE                         R10 R4 R8
        22 FORGLOOP                         R5 2 ; [-6]
        24 RETURN                           R4 1
@@ -478,32 +478,32 @@ PROTO_10:
        40 LOADNIL                          R7
        41 LOADNIL                          R8
        42 FORGPREP                         R6
-       43 GETTABLEKS                       R12 R10 K4 ["node"]
-       45 GETTABLEKS                       R11 R12 K5 ["Id"]
+       43 GETTABLEKS                       R11 R10 K4 ["node"]
+       45 GETTABLEKS                       R11 R11 K5 ["Id"]
        47 SETTABLE                         R11 R5 R9
        48 FORGLOOP                         R6 2 ; [-6]
        50 RETURN                           R5 1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Direction"]
-        7 GETTABLEKS                       R2 R3 K2 ["desc"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["Direction"]
+        7 GETTABLEKS                       R2 R2 K2 ["desc"]
         9 GETTABLEKS                       R3 R1 K3 ["column"]
        11 JUMPIFNOTEQ                      R3 R0 ; [+21]
        13 GETTABLEKS                       R3 R1 K4 ["direction"]
-       15 GETUPVAL                         R6 1
-       16 GETTABLEKS                       R5 R6 K1 ["Direction"]
-       18 GETTABLEKS                       R4 R5 K5 ["asc"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K1 ["Direction"]
+       18 GETTABLEKS                       R4 R4 K5 ["asc"]
        20 JUMPIFNOTEQ                      R3 R4 ; [+7]
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K1 ["Direction"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K1 ["Direction"]
        25 GETTABLEKS                       R2 R3 K2 ["desc"]
        27 JUMP                             ; [+5]
-       28 GETUPVAL                         R4 1
-       29 GETTABLEKS                       R3 R4 K1 ["Direction"]
+       28 GETUPVAL                         R3 1
+       29 GETTABLEKS                       R3 R3 K1 ["Direction"]
        31 GETTABLEKS                       R2 R3 K5 ["asc"]
        33 GETUPVAL                         R3 2
        34 DUPTABLE                         R4 K6 [{"column", "direction"}]
@@ -513,8 +513,8 @@ PROTO_11:
        40 GETUPVAL                         R4 3
        41 MOVE                             R5 R3
        42 CALL                             R4 1 0
-       43 GETUPVAL                         R5 4
-       44 GETTABLEKS                       R4 R5 K0 ["get"]
+       43 GETUPVAL                         R4 4
+       44 GETTABLEKS                       R4 R4 K0 ["get"]
        46 CALL                             R4 0 1
        47 GETUPVAL                         R5 5
        48 MOVE                             R6 R4
@@ -553,8 +553,8 @@ PROTO_12:
        25 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
         4 MOVE                             R2 R1
         5 LOADNIL                          R3
@@ -567,34 +567,34 @@ PROTO_13:
        14 RETURN                           R2 1
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["nodeById"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["nodeById"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
 PROTO_15:
         0 LOADN                            R1 0
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["parentById"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["parentById"]
         4 GETTABLE                         R2 R3 R0
         5 JUMPIFNOT                        R2 ; [+6]
         6 ADDK                             R1 R1 K1 [1]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K0 ["parentById"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K0 ["parentById"]
        10 GETTABLE                         R2 R3 R2
        11 JUMPBACK                         ; [-7]
        12 RETURN                           R1 1
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
         4 GETTABLE                         R2 R1 R0
         5 JUMPIF                           R2 ; [+2]
         6 LOADNIL                          R3
         7 RETURN                           R3 1
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K1 ["getNodeById"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K1 ["getNodeById"]
        11 MOVE                             R4 R2
        12 CALL                             R3 1 1
        13 JUMPIF                           R3 ; [+2]
@@ -602,8 +602,8 @@ PROTO_16:
        15 RETURN                           R4 1
        16 DUPTABLE                         R4 K6 [{"node", "depth", "hasChildren", "id"}]
        17 SETTABLEKS                       R3 R4 K2 ["node"]
-       19 GETUPVAL                         R6 1
-       20 GETTABLEKS                       R5 R6 K7 ["getDepth"]
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R5 R5 K7 ["getDepth"]
        22 MOVE                             R6 R2
        23 CALL                             R5 1 1
        24 SETTABLEKS                       R5 R4 K3 ["depth"]
@@ -629,25 +629,25 @@ PROTO_17:
         8 SETUPVAL                         R2 0
         9 GETTABLEKS                       R2 R0 K2 ["Name"]
        11 JUMPIFNOT                        R2 ; [+15]
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["TriangleCategories"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["TriangleCategories"]
        15 GETTABLEKS                       R4 R0 K2 ["Name"]
        17 GETTABLE                         R2 R3 R4
        18 JUMPIFNOT                        R2 ; [+8]
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R3 R4 K3 ["TriangleCategories"]
+       19 GETUPVAL                         R3 1
+       20 GETTABLEKS                       R3 R3 K3 ["TriangleCategories"]
        22 GETTABLEKS                       R4 R0 K2 ["Name"]
        24 GETTABLE                         R2 R3 R4
        25 SETTABLEKS                       R2 R0 K4 ["Color"]
        27 GETTABLEKS                       R2 R0 K0 ["Id"]
        29 JUMPIFNOT                        R2 ; [+13]
-       30 GETUPVAL                         R3 2
-       31 GETTABLEKS                       R2 R3 K5 ["nodeById"]
+       30 GETUPVAL                         R2 2
+       31 GETTABLEKS                       R2 R2 K5 ["nodeById"]
        33 GETTABLEKS                       R3 R0 K0 ["Id"]
        35 SETTABLE                         R0 R2 R3
        36 JUMPIFNOT                        R1 ; [+6]
-       37 GETUPVAL                         R3 2
-       38 GETTABLEKS                       R2 R3 K6 ["parentById"]
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R2 R2 K6 ["parentById"]
        40 GETTABLEKS                       R3 R0 K0 ["Id"]
        42 SETTABLE                         R1 R2 R3
        43 GETTABLEKS                       R2 R0 K7 ["Children"]
@@ -677,8 +677,8 @@ PROTO_18:
         4 NAMECALL                         R1 R1 K1 ["CallAssetPluginAsync"]
         6 CALL                             R1 3 1
         7 JUMPIF                           R1 ; [+6]
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["reset"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["reset"]
        11 CALL                             R2 0 0
        12 GETUPVAL                         R2 2
        13 RETURN                           R2 1
@@ -701,8 +701,8 @@ PROTO_18:
        34 GETUPVAL                         R4 4
        35 MOVE                             R5 R1
        36 CALL                             R4 1 1
-       37 GETUPVAL                         R6 5
-       38 GETTABLEKS                       R5 R6 K5 ["get"]
+       37 GETUPVAL                         R5 5
+       38 GETTABLEKS                       R5 R5 K5 ["get"]
        40 CALL                             R5 0 1
        41 GETUPVAL                         R6 6
        42 MOVE                             R7 R4
@@ -724,6 +724,25 @@ PROTO_18:
        58 RETURN                           R1 1
 
 PROTO_19:
+        0 NEWTABLE                         R1 0 0
+        2 JUMPIFNOT                        R0 ; [+11]
+        3 MOVE                             R3 R1
+        4 LOADK                            R6 K0 ["Messages"]
+        5 LOADK                            R7 K1 ["QualityLevelWarning"]
+        6 NAMECALL                         R4 R0 K2 ["getText"]
+        8 CALL                             R4 3 -1
+        9 FASTCALL                         TABLE_INSERT ; [+2]
+       10 GETIMPORT                        R2 K5 [table.insert]
+       12 CALL                             R2 -1 0
+       13 RETURN                           R1 1
+       14 FASTCALL2K                       TABLE_INSERT R1 K6 ; [+5]
+       16 MOVE                             R3 R1
+       17 LOADK                            R4 K6 ["Quality level and player devices will affect triangle counts. Values are indicative of current studio conditions only."]
+       18 GETIMPORT                        R2 K5 [table.insert]
+       20 CALL                             R2 2 0
+       21 RETURN                           R1 1
+
+PROTO_20:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 DUPTABLE                         R5 K2 [{"column", "direction"}]
@@ -734,35 +753,35 @@ PROTO_19:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 16 0
+        1 NEWTABLE                         R0 32 0
         3 GETIMPORT                        R1 K1 [script]
         5 LOADK                            R3 K2 ["SceneAnalysis"]
         6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
         8 CALL                             R1 2 1
         9 GETIMPORT                        R2 K5 [require]
-       11 GETTABLEKS                       R5 R1 K6 ["Src"]
-       13 GETTABLEKS                       R4 R5 K7 ["Util"]
-       15 GETTABLEKS                       R3 R4 K8 ["AssetDMBridge"]
+       11 GETTABLEKS                       R3 R1 K6 ["Src"]
+       13 GETTABLEKS                       R3 R3 K7 ["Util"]
+       15 GETTABLEKS                       R3 R3 K8 ["AssetDMBridge"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R1 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K9 ["Resources"]
-       24 GETTABLEKS                       R4 R5 K10 ["ColorRamps"]
+       20 GETTABLEKS                       R4 R1 K6 ["Src"]
+       22 GETTABLEKS                       R4 R4 K9 ["Resources"]
+       24 GETTABLEKS                       R4 R4 K10 ["ColorRamps"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R1 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K7 ["Util"]
-       33 GETTABLEKS                       R5 R6 K11 ["Observable"]
+       29 GETTABLEKS                       R5 R1 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K7 ["Util"]
+       33 GETTABLEKS                       R5 R5 K11 ["Observable"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K5 [require]
-       38 GETTABLEKS                       R8 R1 K6 ["Src"]
-       40 GETTABLEKS                       R7 R8 K7 ["Util"]
-       42 GETTABLEKS                       R6 R7 K12 ["deepFreeze"]
+       38 GETTABLEKS                       R6 R1 K6 ["Src"]
+       40 GETTABLEKS                       R6 R6 K7 ["Util"]
+       42 GETTABLEKS                       R6 R6 K12 ["deepFreeze"]
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K5 [require]
-       47 GETTABLEKS                       R9 R1 K6 ["Src"]
-       49 GETTABLEKS                       R8 R9 K7 ["Util"]
-       51 GETTABLEKS                       R7 R8 K13 ["measureHeaderText"]
+       47 GETTABLEKS                       R7 R1 K6 ["Src"]
+       49 GETTABLEKS                       R7 R7 K7 ["Util"]
+       51 GETTABLEKS                       R7 R7 K13 ["measureHeaderText"]
        53 CALL                             R6 1 1
        54 NEWTABLE                         R7 0 3
        56 DUPTABLE                         R8 K23 [{"id", "headerText", "headerKey", "sortKey", "width", "idealWidth", "priority", "order", "cell"}]
@@ -879,11 +898,11 @@ MAIN:
       222 GETTABLEKS                       R14 R4 K54 ["create"]
       224 MOVE                             R15 R5
       225 DUPTABLE                         R16 K57 [{"column", "direction"}]
-      226 GETTABLEKS                       R18 R8 K42 ["Column"]
-      228 GETTABLEKS                       R17 R18 K28 ["triangles"]
+      226 GETTABLEKS                       R17 R8 K42 ["Column"]
+      228 GETTABLEKS                       R17 R17 K28 ["triangles"]
       230 SETTABLEKS                       R17 R16 K55 ["column"]
-      232 GETTABLEKS                       R18 R8 K43 ["Direction"]
-      234 GETTABLEKS                       R17 R18 K48 ["desc"]
+      232 GETTABLEKS                       R17 R8 K43 ["Direction"]
+      234 GETTABLEKS                       R17 R17 K48 ["desc"]
       236 SETTABLEKS                       R17 R16 K56 ["direction"]
       238 CALL                             R15 1 -1
       239 CALL                             R14 -1 2
@@ -954,6 +973,8 @@ MAIN:
       316 CAPTURE                          VAL R17
       317 SETTABLEKS                       R20 R0 K83 ["RunQueryAsync"]
       319 DUPCLOSURE                       R20 K84 [PROTO_19]
-      320 CAPTURE                          VAL R19
-      321 SETTABLEKS                       R20 R0 K85 ["sortedIds"]
-      323 RETURN                           R0 1
+      320 SETTABLEKS                       R20 R0 K85 ["getWarnings"]
+      322 DUPCLOSURE                       R20 K86 [PROTO_20]
+      323 CAPTURE                          VAL R19
+      324 SETTABLEKS                       R20 R0 K87 ["sortedIds"]
+      326 RETURN                           R0 1

@@ -52,8 +52,8 @@ PROTO_3:
        22 SETTABLEKS                       R6 R5 K4 ["name"]
        24 GETTABLEKS                       R7 R3 K9 ["owner"]
        26 JUMPIFNOT                        R7 ; [+5]
-       27 GETTABLEKS                       R7 R3 K9 ["owner"]
-       29 GETTABLEKS                       R6 R7 K10 ["userId"]
+       27 GETTABLEKS                       R6 R3 K9 ["owner"]
+       29 GETTABLEKS                       R6 R6 K10 ["userId"]
        31 JUMP                             ; [+1]
        32 LOADN                            R6 0
        33 SETTABLEKS                       R6 R5 K5 ["ownerId"]

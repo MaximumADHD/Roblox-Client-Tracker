@@ -14,11 +14,11 @@ PROTO_1:
 
 PROTO_2:
         0 DUPTABLE                         R1 K1 [{"isShowing"}]
-        1 GETTABLEKS                       R4 R0 K2 ["props"]
-        3 GETTABLEKS                       R3 R4 K3 ["IsShownByDefault"]
+        1 GETTABLEKS                       R3 R0 K2 ["props"]
+        3 GETTABLEKS                       R3 R3 K3 ["IsShownByDefault"]
         5 JUMPIFNOT                        R3 ; [+5]
-        6 GETTABLEKS                       R3 R0 K2 ["props"]
-        8 GETTABLEKS                       R2 R3 K3 ["IsShownByDefault"]
+        6 GETTABLEKS                       R2 R0 K2 ["props"]
+        8 GETTABLEKS                       R2 R2 K3 ["IsShownByDefault"]
        10 JUMP                             ; [+1]
        11 LOADB                            R2 0
        12 SETTABLEKS                       R2 R1 K0 ["isShowing"]
@@ -31,8 +31,8 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
         8 DUPTABLE                         R5 K7 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
         9 GETIMPORT                        R6 K10 [Enum.AutomaticSize.Y]
@@ -47,8 +47,8 @@ PROTO_3:
        22 CALL                             R6 4 1
        23 SETTABLEKS                       R6 R5 K6 ["Size"]
        25 DUPTABLE                         R6 K16 [{"Button", "SearchOption"}]
-       26 GETUPVAL                         R8 0
-       27 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       26 GETUPVAL                         R7 0
+       27 GETTABLEKS                       R7 R7 K2 ["createElement"]
        29 LOADK                            R8 K17 ["TextButton"]
        30 NEWTABLE                         R9 4 0
        32 GETIMPORT                        R10 K19 [UDim2.fromOffset]
@@ -58,9 +58,9 @@ PROTO_3:
        37 SETTABLEKS                       R10 R9 K6 ["Size"]
        39 LOADK                            R10 K20 ["Click to View Component"]
        40 SETTABLEKS                       R10 R9 K21 ["Text"]
-       42 GETUPVAL                         R12 0
-       43 GETTABLEKS                       R11 R12 K22 ["Event"]
-       45 GETTABLEKS                       R10 R11 K23 ["Activated"]
+       42 GETUPVAL                         R10 0
+       43 GETTABLEKS                       R10 R10 K22 ["Event"]
+       45 GETTABLEKS                       R10 R10 K23 ["Activated"]
        47 GETTABLEKS                       R11 R0 K24 ["toggleIsShowing"]
        49 SETTABLE                         R11 R9 R10
        50 CALL                             R7 2 1
@@ -84,8 +84,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
        16 LOADK                            R4 K9 ["ClickToShowInteractiveStoryWrapper"]

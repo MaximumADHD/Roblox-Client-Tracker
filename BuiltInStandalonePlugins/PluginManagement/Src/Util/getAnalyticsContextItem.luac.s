@@ -3,9 +3,9 @@ PROTO_0:
         1 JUMPIF                           R2 ; [+2]
         2 NEWTABLE                         R2 0 0
         4 MOVE                             R1 R2
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        8 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        8 GETTABLEKS                       R2 R2 K1 ["join"]
        10 DUPTABLE                         R3 K4 [{"studioSid", "clientId"}]
        11 GETUPVAL                         R4 1
        12 NAMECALL                         R4 R4 K5 ["GetSessionId"]
@@ -208,9 +208,9 @@ PROTO_10:
        44 RETURN                           R4 1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Analytics"]
-        3 GETTABLEKS                       R0 R1 K1 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Analytics"]
+        3 GETTABLEKS                       R0 R0 K1 ["new"]
         5 DUPCLOSURE                       R1 K2 [PROTO_10]
         6 CAPTURE                          UPVAL U1
         7 CALL                             R0 1 -1
@@ -218,17 +218,17 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 DUPCLOSURE                       R4 K9 [PROTO_11]

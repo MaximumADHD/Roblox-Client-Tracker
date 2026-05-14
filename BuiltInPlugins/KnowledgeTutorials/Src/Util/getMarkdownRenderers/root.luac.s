@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["createElement"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["createElement"]
         3 GETUPVAL                         R4 1
         4 DUPTABLE                         R5 K3 [{"tag", "testId"}]
         5 LOADK                            R6 K4 ["col gap-small auto-y size-full-0"]
@@ -21,16 +21,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["React"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["Foundation"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["Foundation"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K11 ["View"]
        30 DUPCLOSURE                       R5 K12 [PROTO_0]

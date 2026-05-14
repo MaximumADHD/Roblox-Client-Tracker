@@ -12,9 +12,9 @@ PROTO_0:
        13 GETIMPORT                        R2 K4 [assert]
        15 CALL                             R2 1 0
        16 DUPTABLE                         R2 K7 [{"userIsEligible", "universeId"}]
-       17 GETTABLEKS                       R5 R1 K1 ["eligibilityByCreator"]
-       19 GETTABLEN                        R4 R5 1
-       20 GETTABLEKS                       R3 R4 K5 ["userIsEligible"]
+       17 GETTABLEKS                       R4 R1 K1 ["eligibilityByCreator"]
+       19 GETTABLEN                        R3 R4 1
+       20 GETTABLEKS                       R3 R3 K5 ["userIsEligible"]
        22 SETTABLEKS                       R3 R2 K5 ["userIsEligible"]
        24 GETUPVAL                         R3 1
        25 SETTABLEKS                       R3 R2 K6 ["universeId"]
@@ -22,8 +22,8 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R2 K3 [{"Url", "Method", "Body"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K4 ["BuildRobloxUrl"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K4 ["BuildRobloxUrl"]
         4 LOADK                            R4 K5 ["apis"]
         5 LOADK                            R5 K6 ["experience-guidelines-service/v1beta1/multi-creator-eligibility"]
         6 CALL                             R3 2 1
@@ -42,8 +42,8 @@ PROTO_1:
        26 NAMECALL                         R3 R3 K12 ["JSONEncode"]
        28 CALL                             R3 2 1
        29 SETTABLEKS                       R3 R2 K2 ["Body"]
-       31 GETUPVAL                         R4 0
-       32 GETTABLEKS                       R3 R4 K13 ["Request"]
+       31 GETUPVAL                         R3 0
+       32 GETTABLEKS                       R3 R3 K13 ["Request"]
        34 MOVE                             R4 R2
        35 CALL                             R3 1 1
        36 NEWCLOSURE                       R5 P0
@@ -80,8 +80,8 @@ PROTO_3:
        13 GETIMPORT                        R8 K4 [table.insert]
        15 CALL                             R8 -1 0
        16 FORGLOOP                         R3 2 ; [-10]
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R3 R4 K5 ["all"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K5 ["all"]
        21 MOVE                             R4 R2
        22 CALL                             R3 1 1
        23 DUPCLOSURE                       R5 K6 [PROTO_2]
@@ -91,26 +91,26 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Network"]
-       17 GETTABLEKS                       R2 R3 K7 ["Http"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Network"]
+       17 GETTABLEKS                       R2 R2 K7 ["Http"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K9 [game]
        22 LOADK                            R4 K10 ["HttpService"]
        23 NAMECALL                         R2 R2 K11 ["GetService"]
        25 CALL                             R2 2 1
-       26 GETIMPORT                        R5 K4 [require]
-       28 GETTABLEKS                       R7 R0 K12 ["Packages"]
-       30 GETTABLEKS                       R6 R7 K13 ["Framework"]
-       32 CALL                             R5 1 1
-       33 GETTABLEKS                       R4 R5 K14 ["Util"]
-       35 GETTABLEKS                       R3 R4 K15 ["Promise"]
+       26 GETIMPORT                        R3 K4 [require]
+       28 GETTABLEKS                       R4 R0 K12 ["Packages"]
+       30 GETTABLEKS                       R4 R4 K13 ["Framework"]
+       32 CALL                             R3 1 1
+       33 GETTABLEKS                       R3 R3 K14 ["Util"]
+       35 GETTABLEKS                       R3 R3 K15 ["Promise"]
        37 DUPCLOSURE                       R4 K16 [PROTO_1]
        38 CAPTURE                          VAL R1
        39 CAPTURE                          VAL R2

@@ -26,8 +26,8 @@ PROTO_1:
        11 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["playersService"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["playersService"]
         3 GETUPVAL                         R2 2
         4 NAMECALL                         R0 R0 K1 ["GetNameFromUserIdAsync"]
         6 CALL                             R0 2 1
@@ -76,8 +76,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
        16 GETTABLEKS                       R3 R2 K9 ["ContextItem"]

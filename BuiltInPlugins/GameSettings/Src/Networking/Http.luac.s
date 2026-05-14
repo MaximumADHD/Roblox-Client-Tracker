@@ -51,8 +51,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K2 ["RequestAsync"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["RequestAsync"]
         5 GETUPVAL                         R2 0
         6 GETUPVAL                         R3 1
         7 CALL                             R0 3 2
@@ -80,8 +80,8 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["new"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
@@ -91,8 +91,8 @@ PROTO_4:
 PROTO_5:
         0 JUMPIFNOT                        R0 ; [+23]
         1 GETTABLEKS                       R2 R1 K0 ["StatusCode"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["BAD_REQUEST"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["BAD_REQUEST"]
         6 JUMPIFNOTLE                      R3 R2 ; [+12]
         8 GETUPVAL                         R2 1
         9 LOADK                            R4 K2 ["HTTP error: "]
@@ -145,8 +145,8 @@ PROTO_8:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["new"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
@@ -168,20 +168,20 @@ MAIN:
        15 LOADK                            R4 K5 ["ContentProvider"]
        16 NAMECALL                         R2 R2 K3 ["GetService"]
        18 CALL                             R2 2 1
-       19 GETIMPORT                        R6 K7 [script]
-       21 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       23 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K8 ["Parent"]
+       19 GETIMPORT                        R3 K7 [script]
+       21 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       23 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K8 ["Parent"]
        27 GETIMPORT                        R4 K10 [require]
-       29 GETTABLEKS                       R6 R3 K11 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       29 GETTABLEKS                       R5 R3 K11 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K12 ["Framework"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R4 K13 ["Util"]
        36 GETTABLEKS                       R6 R5 K14 ["Promise"]
        38 GETIMPORT                        R7 K10 [require]
-       40 GETTABLEKS                       R10 R3 K15 ["Src"]
-       42 GETTABLEKS                       R9 R10 K13 ["Util"]
-       44 GETTABLEKS                       R8 R9 K16 ["DEPRECATED_Constants"]
+       40 GETTABLEKS                       R8 R3 K15 ["Src"]
+       42 GETTABLEKS                       R8 R8 K13 ["Util"]
+       44 GETTABLEKS                       R8 R8 K16 ["DEPRECATED_Constants"]
        46 CALL                             R7 1 1
        47 GETTABLEKS                       R8 R2 K17 ["BaseUrl"]
        49 LOADK                            R11 K18 ["https://www."]

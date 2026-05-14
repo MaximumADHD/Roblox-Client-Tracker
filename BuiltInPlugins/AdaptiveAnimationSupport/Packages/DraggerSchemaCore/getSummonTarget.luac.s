@@ -91,9 +91,9 @@ PROTO_2:
        70 NAMECALL                         R3 R3 K13 ["Raycast"]
        72 CALL                             R3 4 1
        73 JUMPIFNOT                        R3 ; [+10]
-       74 GETTABLEKS                       R7 R3 K14 ["Instance"]
-       76 GETTABLEKS                       R6 R7 K15 ["CFrame"]
-       78 GETTABLEKS                       R5 R6 K16 ["Rotation"]
+       74 GETTABLEKS                       R5 R3 K14 ["Instance"]
+       76 GETTABLEKS                       R5 R5 K15 ["CFrame"]
+       78 GETTABLEKS                       R5 R5 K16 ["Rotation"]
        80 GETTABLEKS                       R6 R3 K1 ["Position"]
        82 ADD                              R4 R5 R6
        83 RETURN                           R4 1
@@ -102,17 +102,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R1 R0 K2 ["Parent"]
         7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
         9 GETIMPORT                        R3 K5 [require]
-       11 GETTABLEKS                       R5 R2 K6 ["Utility"]
-       13 GETTABLEKS                       R4 R5 K7 ["getEdgeHotspot"]
+       11 GETTABLEKS                       R4 R2 K6 ["Utility"]
+       13 GETTABLEKS                       R4 R4 K7 ["getEdgeHotspot"]
        15 CALL                             R3 1 1
        16 GETIMPORT                        R4 K5 [require]
-       18 GETTABLEKS                       R6 R2 K6 ["Utility"]
-       20 GETTABLEKS                       R5 R6 K8 ["CursorGroupName"]
+       18 GETTABLEKS                       R5 R2 K6 ["Utility"]
+       20 GETTABLEKS                       R5 R5 K8 ["CursorGroupName"]
        22 CALL                             R4 1 1
        23 DUPCLOSURE                       R5 K9 [PROTO_0]
        24 DUPCLOSURE                       R6 K10 [PROTO_1]

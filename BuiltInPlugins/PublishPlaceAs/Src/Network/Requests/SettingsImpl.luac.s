@@ -23,8 +23,8 @@ PROTO_2:
         7 MOVE                             R4 R2
         8 CALL                             R3 1 0
         9 GETIMPORT                        R3 K5 [pairs]
-       11 GETTABLEKS                       R6 R0 K6 ["responseBody"]
-       13 GETTABLEKS                       R4 R6 K7 ["errors"]
+       11 GETTABLEKS                       R4 R0 K6 ["responseBody"]
+       13 GETTABLEKS                       R4 R4 K7 ["errors"]
        15 CALL                             R3 1 3
        16 FORGPREP_NEXT                    R3
        17 GETIMPORT                        R8 K3 [warn]
@@ -35,8 +35,8 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["name"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["name"]
         4 NAMECALL                         R0 R0 K1 ["SetUniverseDisplayName"]
         6 CALL                             R0 2 0
         7 GETUPVAL                         R0 0
@@ -126,8 +126,8 @@ PROTO_7:
        58 CALL                             R8 6 0
        59 LOADNIL                          R8
        60 LOADNIL                          R9
-       61 GETUPVAL                         R11 2
-       62 GETTABLEKS                       R10 R11 K12 ["GamePublishFinished"]
+       61 GETUPVAL                         R10 2
+       62 GETTABLEKS                       R10 R10 K12 ["GamePublishFinished"]
        64 NAMECALL                         R10 R10 K13 ["wait"]
        66 CALL                             R10 1 2
        67 MOVE                             R8 R10
@@ -193,10 +193,10 @@ PROTO_7:
       152 CALL                             R11 -1 0
       153 LOADNIL                          R11
       154 SETTABLEKS                       R11 R6 K19 ["OptInLocations"]
-      156 GETTABLEKS                       R13 R2 K28 ["Develop"]
-      158 GETTABLEKS                       R12 R13 K29 ["V2"]
-      160 GETTABLEKS                       R11 R12 K30 ["Universes"]
-      162 GETTABLEKS                       R10 R11 K31 ["configuration"]
+      156 GETTABLEKS                       R10 R2 K28 ["Develop"]
+      158 GETTABLEKS                       R10 R10 K29 ["V2"]
+      160 GETTABLEKS                       R10 R10 K30 ["Universes"]
+      162 GETTABLEKS                       R10 R10 K31 ["configuration"]
       164 MOVE                             R11 R9
       165 MOVE                             R12 R6
       166 CALL                             R10 2 1
@@ -212,10 +212,10 @@ PROTO_7:
       178 CALL                             R10 3 0
       179 GETTABLEKS                       R10 R7 K34 ["isActive"]
       181 JUMPIFNOT                        R10 ; [+20]
-      182 GETTABLEKS                       R13 R2 K28 ["Develop"]
-      184 GETTABLEKS                       R12 R13 K35 ["V1"]
-      186 GETTABLEKS                       R11 R12 K30 ["Universes"]
-      188 GETTABLEKS                       R10 R11 K36 ["activate"]
+      182 GETTABLEKS                       R10 R2 K28 ["Develop"]
+      184 GETTABLEKS                       R10 R10 K35 ["V1"]
+      186 GETTABLEKS                       R10 R10 K30 ["Universes"]
+      188 GETTABLEKS                       R10 R10 K36 ["activate"]
       190 MOVE                             R11 R9
       191 CALL                             R10 1 1
       192 NAMECALL                         R10 R10 K32 ["makeRequest"]
@@ -226,10 +226,10 @@ PROTO_7:
       198 NAMECALL                         R10 R10 K37 ["catch"]
       200 CALL                             R10 2 0
       201 JUMP                             ; [+19]
-      202 GETTABLEKS                       R13 R2 K28 ["Develop"]
-      204 GETTABLEKS                       R12 R13 K35 ["V1"]
-      206 GETTABLEKS                       R11 R12 K30 ["Universes"]
-      208 GETTABLEKS                       R10 R11 K38 ["deactivate"]
+      202 GETTABLEKS                       R10 R2 K28 ["Develop"]
+      204 GETTABLEKS                       R10 R10 K35 ["V1"]
+      206 GETTABLEKS                       R10 R10 K30 ["Universes"]
+      208 GETTABLEKS                       R10 R10 K38 ["deactivate"]
       210 MOVE                             R11 R9
       211 CALL                             R10 1 1
       212 NAMECALL                         R10 R10 K32 ["makeRequest"]
@@ -246,9 +246,9 @@ PROTO_7:
       226 LOADB                            R10 1
       227 GETTABLEKS                       R11 R0 K10 ["creatorId"]
       229 JUMPIFEQKN                       R11 K39 [0] ; [+14]
-      231 GETUPVAL                         R13 7
-      232 GETTABLEKS                       R12 R13 K40 ["List"]
-      234 GETTABLEKS                       R11 R12 K41 ["find"]
+      231 GETUPVAL                         R11 7
+      232 GETTABLEKS                       R11 R11 K40 ["List"]
+      234 GETTABLEKS                       R11 R11 K41 ["find"]
       236 MOVE                             R12 R5
       237 GETTABLEKS                       R13 R0 K10 ["creatorId"]
       239 CALL                             R11 2 1
@@ -282,8 +282,8 @@ PROTO_7:
       277 GETTABLEKS                       R12 R0 K10 ["creatorId"]
       279 JUMPIF                           R12 ; [+1]
       280 LOADNIL                          R12
-      281 GETUPVAL                         R14 11
-      282 GETTABLEKS                       R13 R14 K48 ["reportDataSharingToEventIngest"]
+      281 GETUPVAL                         R13 11
+      282 GETTABLEKS                       R13 R13 K48 ["reportDataSharingToEventIngest"]
       284 GETTABLEKS                       R14 R0 K45 ["dataSharingDefault"]
       286 MOVE                             R15 R11
       287 MOVE                             R16 R9
@@ -297,54 +297,54 @@ MAIN:
         3 LOADK                            R2 K2 ["StudioPublishService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R5 R1 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Thunks"]
-       23 GETTABLEKS                       R3 R4 K11 ["PostContactEmail"]
+       19 GETTABLEKS                       R3 R1 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Thunks"]
+       23 GETTABLEKS                       R3 R3 K11 ["PostContactEmail"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K8 [require]
-       28 GETTABLEKS                       R6 R1 K9 ["Src"]
-       30 GETTABLEKS                       R5 R6 K12 ["Util"]
-       32 GETTABLEKS                       R4 R5 K13 ["Analytics"]
+       28 GETTABLEKS                       R4 R1 K9 ["Src"]
+       30 GETTABLEKS                       R4 R4 K12 ["Util"]
+       32 GETTABLEKS                       R4 R4 K13 ["Analytics"]
        34 CALL                             R3 1 1
        35 GETIMPORT                        R4 K8 [require]
-       37 GETTABLEKS                       R7 R1 K9 ["Src"]
-       39 GETTABLEKS                       R6 R7 K12 ["Util"]
-       41 GETTABLEKS                       R5 R6 K14 ["KeyProvider"]
+       37 GETTABLEKS                       R5 R1 K9 ["Src"]
+       39 GETTABLEKS                       R5 R5 K12 ["Util"]
+       41 GETTABLEKS                       R5 R5 K14 ["KeyProvider"]
        43 CALL                             R4 1 1
        44 GETTABLEKS                       R5 R4 K15 ["getOptInLocationsKeyName"]
        46 CALL                             R5 0 1
-       47 GETIMPORT                        R7 K8 [require]
-       49 GETTABLEKS                       R10 R1 K9 ["Src"]
-       51 GETTABLEKS                       R9 R10 K12 ["Util"]
-       53 GETTABLEKS                       R8 R9 K16 ["PublishPlaceAsUtilities"]
-       55 CALL                             R7 1 1
-       56 GETTABLEKS                       R6 R7 K17 ["shouldShowDevPublishLocations"]
+       47 GETIMPORT                        R6 K8 [require]
+       49 GETTABLEKS                       R7 R1 K9 ["Src"]
+       51 GETTABLEKS                       R7 R7 K12 ["Util"]
+       53 GETTABLEKS                       R7 R7 K16 ["PublishPlaceAsUtilities"]
+       55 CALL                             R6 1 1
+       56 GETTABLEKS                       R6 R6 K17 ["shouldShowDevPublishLocations"]
        58 GETIMPORT                        R7 K8 [require]
-       60 GETTABLEKS                       R11 R1 K9 ["Src"]
-       62 GETTABLEKS                       R10 R11 K18 ["Network"]
-       64 GETTABLEKS                       R9 R10 K19 ["Requests"]
-       66 GETTABLEKS                       R8 R9 K20 ["ApiSetUniverseDataSharing"]
+       60 GETTABLEKS                       R8 R1 K9 ["Src"]
+       62 GETTABLEKS                       R8 R8 K18 ["Network"]
+       64 GETTABLEKS                       R8 R8 K19 ["Requests"]
+       66 GETTABLEKS                       R8 R8 K20 ["ApiSetUniverseDataSharing"]
        68 CALL                             R7 1 1
        69 GETIMPORT                        R8 K8 [require]
-       71 GETTABLEKS                       R11 R1 K9 ["Src"]
-       73 GETTABLEKS                       R10 R11 K21 ["Flags"]
-       75 GETTABLEKS                       R9 R10 K22 ["getFIntCAP1107ThrottleHundredthsPercentage"]
+       71 GETTABLEKS                       R9 R1 K9 ["Src"]
+       73 GETTABLEKS                       R9 R9 K21 ["Flags"]
+       75 GETTABLEKS                       R9 R9 K22 ["getFIntCAP1107ThrottleHundredthsPercentage"]
        77 CALL                             R8 1 1
-       78 GETIMPORT                        R10 K8 [require]
-       80 GETTABLEKS                       R13 R1 K9 ["Src"]
-       82 GETTABLEKS                       R12 R13 K12 ["Util"]
-       84 GETTABLEKS                       R11 R12 K16 ["PublishPlaceAsUtilities"]
-       86 CALL                             R10 1 1
-       87 GETTABLEKS                       R9 R10 K23 ["sendAnalyticsToKibana"]
+       78 GETIMPORT                        R9 K8 [require]
+       80 GETTABLEKS                       R10 R1 K9 ["Src"]
+       82 GETTABLEKS                       R10 R10 K12 ["Util"]
+       84 GETTABLEKS                       R10 R10 K16 ["PublishPlaceAsUtilities"]
+       86 CALL                             R9 1 1
+       87 GETTABLEKS                       R9 R9 K23 ["sendAnalyticsToKibana"]
        89 GETIMPORT                        R10 K8 [require]
-       91 GETTABLEKS                       R12 R1 K24 ["Packages"]
-       93 GETTABLEKS                       R11 R12 K25 ["Cryo"]
+       91 GETTABLEKS                       R11 R1 K24 ["Packages"]
+       93 GETTABLEKS                       R11 R11 K25 ["Cryo"]
        95 CALL                             R10 1 1
        96 DUPTABLE                         R11 K27 [{"isActive"}]
        97 LOADB                            R12 1

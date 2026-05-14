@@ -1,63 +1,63 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getKeyframeFromPosition"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getKeyframeFromPosition"]
         3 MOVE                             R3 R0
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K1 ["props"]
-        7 GETTABLEKS                       R4 R5 K2 ["StartTick"]
-        9 GETUPVAL                         R7 1
-       10 GETTABLEKS                       R6 R7 K1 ["props"]
-       12 GETTABLEKS                       R5 R6 K3 ["EndTick"]
-       14 GETUPVAL                         R10 1
-       15 GETTABLEKS                       R9 R10 K4 ["state"]
-       17 GETTABLEKS                       R8 R9 K5 ["AbsolutePosition"]
-       19 GETTABLEKS                       R7 R8 K6 ["X"]
-       21 GETUPVAL                         R11 1
-       22 GETTABLEKS                       R10 R11 K1 ["props"]
-       24 GETTABLEKS                       R9 R10 K8 ["TrackPadding"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K1 ["props"]
+        7 GETTABLEKS                       R4 R4 K2 ["StartTick"]
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R5 R5 K1 ["props"]
+       12 GETTABLEKS                       R5 R5 K3 ["EndTick"]
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R7 R7 K4 ["state"]
+       17 GETTABLEKS                       R7 R7 K5 ["AbsolutePosition"]
+       19 GETTABLEKS                       R7 R7 K6 ["X"]
+       21 GETUPVAL                         R9 1
+       22 GETTABLEKS                       R9 R9 K1 ["props"]
+       24 GETTABLEKS                       R9 R9 K8 ["TrackPadding"]
        26 DIVK                             R8 R9 K7 [2]
        27 ADD                              R6 R7 R8
-       28 GETUPVAL                         R11 1
-       29 GETTABLEKS                       R10 R11 K4 ["state"]
-       31 GETTABLEKS                       R9 R10 K9 ["AbsoluteSize"]
-       33 GETTABLEKS                       R8 R9 K6 ["X"]
-       35 GETUPVAL                         R11 1
-       36 GETTABLEKS                       R10 R11 K1 ["props"]
-       38 GETTABLEKS                       R9 R10 K8 ["TrackPadding"]
+       28 GETUPVAL                         R8 1
+       29 GETTABLEKS                       R8 R8 K4 ["state"]
+       31 GETTABLEKS                       R8 R8 K9 ["AbsoluteSize"]
+       33 GETTABLEKS                       R8 R8 K6 ["X"]
+       35 GETUPVAL                         R9 1
+       36 GETTABLEKS                       R9 R9 K1 ["props"]
+       38 GETTABLEKS                       R9 R9 K8 ["TrackPadding"]
        40 SUB                              R7 R8 R9
        41 CALL                             R2 5 1
        42 JUMPIFNOT                        R1 ; [+23]
-       43 GETUPVAL                         R5 1
-       44 GETTABLEKS                       R4 R5 K1 ["props"]
-       46 GETTABLEKS                       R3 R4 K10 ["SnapMode"]
-       48 GETUPVAL                         R6 2
-       49 GETTABLEKS                       R5 R6 K11 ["SNAP_MODES"]
-       51 GETTABLEKS                       R4 R5 K12 ["None"]
+       43 GETUPVAL                         R3 1
+       44 GETTABLEKS                       R3 R3 K1 ["props"]
+       46 GETTABLEKS                       R3 R3 K10 ["SnapMode"]
+       48 GETUPVAL                         R4 2
+       49 GETTABLEKS                       R4 R4 K11 ["SNAP_MODES"]
+       51 GETTABLEKS                       R4 R4 K12 ["None"]
        53 JUMPIFEQ                         R3 R4 ; [+12]
-       55 GETUPVAL                         R4 3
-       56 GETTABLEKS                       R3 R4 K13 ["getNearestFrame"]
+       55 GETUPVAL                         R3 3
+       56 GETTABLEKS                       R3 R3 K13 ["getNearestFrame"]
        58 MOVE                             R4 R2
-       59 GETUPVAL                         R7 1
-       60 GETTABLEKS                       R6 R7 K1 ["props"]
-       62 GETTABLEKS                       R5 R6 K14 ["FrameRate"]
+       59 GETUPVAL                         R5 1
+       60 GETTABLEKS                       R5 R5 K1 ["props"]
+       62 GETTABLEKS                       R5 R5 K14 ["FrameRate"]
        64 CALL                             R3 2 1
        65 MOVE                             R2 R3
        66 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["TopTrackIndex"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["TopTrackIndex"]
         5 GETTABLEKS                       R3 R0 K2 ["Y"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K3 ["state"]
-       10 GETTABLEKS                       R5 R6 K4 ["AbsolutePosition"]
-       12 GETTABLEKS                       R4 R5 K2 ["Y"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K3 ["state"]
+       10 GETTABLEKS                       R4 R4 K4 ["AbsolutePosition"]
+       12 GETTABLEKS                       R4 R4 K2 ["Y"]
        14 SUB                              R2 R3 R4
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K5 ["getTrackInfoFromPosition"]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K6 ["tracks"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K5 ["getTrackInfoFromPosition"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K6 ["tracks"]
        21 MOVE                             R5 R1
        22 MOVE                             R6 R2
        23 CALL                             R3 3 1
@@ -65,71 +65,71 @@ PROTO_1:
        26 RETURN                           R4 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["TopTrackIndex"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["TopTrackIndex"]
         5 GETTABLEKS                       R3 R0 K2 ["Y"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K3 ["state"]
-       10 GETTABLEKS                       R5 R6 K4 ["AbsolutePosition"]
-       12 GETTABLEKS                       R4 R5 K2 ["Y"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K3 ["state"]
+       10 GETTABLEKS                       R4 R4 K4 ["AbsolutePosition"]
+       12 GETTABLEKS                       R4 R4 K2 ["Y"]
        14 SUB                              R2 R3 R4
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K0 ["props"]
-       18 GETTABLEKS                       R3 R4 K5 ["IsChannelAnimation"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K0 ["props"]
+       18 GETTABLEKS                       R3 R3 K5 ["IsChannelAnimation"]
        20 JUMPIFNOT                        R3 ; [+20]
-       21 GETUPVAL                         R5 1
-       22 GETTABLEKS                       R4 R5 K6 ["getTrackInfoFromPosition"]
-       24 GETUPVAL                         R6 0
-       25 GETTABLEKS                       R5 R6 K7 ["tracks"]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K6 ["getTrackInfoFromPosition"]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K7 ["tracks"]
        27 MOVE                             R6 R1
        28 MOVE                             R7 R2
        29 CALL                             R4 3 2
-       30 GETUPVAL                         R8 2
-       31 GETTABLEKS                       R7 R8 K8 ["getPathValue"]
-       33 GETUPVAL                         R9 2
-       34 GETTABLEKS                       R8 R9 K9 ["getRelativePath"]
+       30 GETUPVAL                         R7 2
+       31 GETTABLEKS                       R7 R7 K8 ["getPathValue"]
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K9 ["getRelativePath"]
        36 MOVE                             R9 R5
        37 CALL                             R8 1 -1
        38 CALL                             R7 -1 1
        39 ADD                              R6 R4 R7
        40 RETURN                           R6 1
-       41 GETUPVAL                         R5 1
-       42 GETTABLEKS                       R4 R5 K10 ["getTrackFromPosition"]
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K7 ["tracks"]
+       41 GETUPVAL                         R4 1
+       42 GETTABLEKS                       R4 R4 K10 ["getTrackFromPosition"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K7 ["tracks"]
        47 MOVE                             R6 R1
        48 MOVE                             R7 R2
        49 CALL                             R4 3 -1
        50 RETURN                           R4 -1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["TopTrackIndex"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["TopTrackIndex"]
         5 GETTABLEKS                       R3 R0 K2 ["Y"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K3 ["state"]
-       10 GETTABLEKS                       R5 R6 K4 ["AbsolutePosition"]
-       12 GETTABLEKS                       R4 R5 K2 ["Y"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K3 ["state"]
+       10 GETTABLEKS                       R4 R4 K4 ["AbsolutePosition"]
+       12 GETTABLEKS                       R4 R4 K2 ["Y"]
        14 SUB                              R2 R3 R4
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K5 ["getTrackInfoFromPosition"]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K6 ["tracks"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K5 ["getTrackInfoFromPosition"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K6 ["tracks"]
        21 MOVE                             R5 R1
        22 MOVE                             R6 R2
        23 CALL                             R3 3 -1
        24 RETURN                           R3 -1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["state"]
-        3 GETTABLEKS                       R0 R1 K1 ["hasDragWaypoint"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["state"]
+        3 GETTABLEKS                       R0 R0 K1 ["hasDragWaypoint"]
         5 JUMPIF                           R0 ; [+14]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K2 ["props"]
-        9 GETTABLEKS                       R0 R1 K3 ["AddWaypoint"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["props"]
+        9 GETTABLEKS                       R0 R0 K3 ["AddWaypoint"]
        11 CALL                             R0 0 0
        12 GETUPVAL                         R0 0
        13 DUPTABLE                         R2 K4 [{"hasDragWaypoint"}]
@@ -140,15 +140,15 @@ PROTO_4:
        20 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SelectedKeyframes"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["props"]
-        8 GETTABLEKS                       R2 R3 K2 ["AnimationData"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SelectedKeyframes"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["props"]
+        8 GETTABLEKS                       R2 R2 K2 ["AnimationData"]
        10 GETUPVAL                         R3 0
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K3 ["new"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K3 ["new"]
        14 MOVE                             R5 R2
        15 MOVE                             R6 R1
        16 MOVE                             R7 R0
@@ -166,15 +166,15 @@ PROTO_5:
        33 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SelectedKeyframes"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["props"]
-        8 GETTABLEKS                       R2 R3 K2 ["AnimationData"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SelectedKeyframes"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["props"]
+        8 GETTABLEKS                       R2 R2 K2 ["AnimationData"]
        10 GETUPVAL                         R3 0
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K3 ["new"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K3 ["new"]
        14 MOVE                             R5 R2
        15 MOVE                             R6 R1
        16 MOVE                             R7 R0
@@ -192,40 +192,40 @@ PROTO_6:
        33 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getTickFromPosition"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getTickFromPosition"]
         3 GETTABLEKS                       R2 R0 K1 ["Position"]
         5 LOADB                            R3 1
         6 CALL                             R1 2 1
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K2 ["state"]
-       10 GETTABLEKS                       R2 R3 K3 ["dragTick"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["state"]
+       10 GETTABLEKS                       R2 R2 K3 ["dragTick"]
        12 JUMPIFEQ                         R2 R1 ; [+47]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K4 ["DragContext"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K4 ["DragContext"]
        17 JUMPIFNOT                        R2 ; [+42]
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K5 ["addDragWaypoint"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K5 ["addDragWaypoint"]
        21 CALL                             R2 0 0
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K4 ["DragContext"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K4 ["DragContext"]
        25 MOVE                             R4 R1
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R6 R7 K6 ["props"]
-       29 GETTABLEKS                       R5 R6 K7 ["StartTick"]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K6 ["props"]
+       29 GETTABLEKS                       R5 R5 K7 ["StartTick"]
        31 NAMECALL                         R2 R2 K8 ["scaleKeyframes"]
        33 CALL                             R2 3 0
-       34 GETUPVAL                         R4 0
-       35 GETTABLEKS                       R3 R4 K6 ["props"]
-       37 GETTABLEKS                       R2 R3 K9 ["ScaleSelectedKeyframes"]
-       39 GETUPVAL                         R5 0
-       40 GETTABLEKS                       R4 R5 K4 ["DragContext"]
-       42 GETTABLEKS                       R3 R4 K10 ["pivotTick"]
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K4 ["DragContext"]
-       47 GETTABLEKS                       R4 R5 K11 ["scale"]
-       49 GETUPVAL                         R6 0
-       50 GETTABLEKS                       R5 R6 K4 ["DragContext"]
+       34 GETUPVAL                         R2 0
+       35 GETTABLEKS                       R2 R2 K6 ["props"]
+       37 GETTABLEKS                       R2 R2 K9 ["ScaleSelectedKeyframes"]
+       39 GETUPVAL                         R3 0
+       40 GETTABLEKS                       R3 R3 K4 ["DragContext"]
+       42 GETTABLEKS                       R3 R3 K10 ["pivotTick"]
+       44 GETUPVAL                         R4 0
+       45 GETTABLEKS                       R4 R4 K4 ["DragContext"]
+       47 GETTABLEKS                       R4 R4 K11 ["scale"]
+       49 GETUPVAL                         R5 0
+       50 GETTABLEKS                       R5 R5 K4 ["DragContext"]
        52 CALL                             R2 3 0
        53 GETUPVAL                         R2 0
        54 DUPTABLE                         R4 K12 [{"dragTick"}]
@@ -235,37 +235,37 @@ PROTO_7:
        60 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getTickFromPosition"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getTickFromPosition"]
         3 GETTABLEKS                       R2 R0 K1 ["Position"]
         5 LOADB                            R3 1
         6 CALL                             R1 2 1
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K2 ["state"]
-       10 GETTABLEKS                       R2 R3 K3 ["dragTick"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["state"]
+       10 GETTABLEKS                       R2 R2 K3 ["dragTick"]
        12 JUMPIFEQ                         R2 R1 ; [+42]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K4 ["DragContext"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K4 ["DragContext"]
        17 JUMPIFNOT                        R2 ; [+37]
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K5 ["addDragWaypoint"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K5 ["addDragWaypoint"]
        21 CALL                             R2 0 0
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K4 ["DragContext"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K4 ["DragContext"]
        25 MOVE                             R4 R1
        26 NAMECALL                         R2 R2 K6 ["moveKeyframes"]
        28 CALL                             R2 2 0
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K7 ["props"]
-       32 GETTABLEKS                       R2 R3 K8 ["MoveSelectedKeyframes"]
-       34 GETUPVAL                         R5 0
-       35 GETTABLEKS                       R4 R5 K4 ["DragContext"]
-       37 GETTABLEKS                       R3 R4 K9 ["pivotTick"]
-       39 GETUPVAL                         R6 0
-       40 GETTABLEKS                       R5 R6 K4 ["DragContext"]
-       42 GETTABLEKS                       R4 R5 K10 ["newTick"]
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K4 ["DragContext"]
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K7 ["props"]
+       32 GETTABLEKS                       R2 R2 K8 ["MoveSelectedKeyframes"]
+       34 GETUPVAL                         R3 0
+       35 GETTABLEKS                       R3 R3 K4 ["DragContext"]
+       37 GETTABLEKS                       R3 R3 K9 ["pivotTick"]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K4 ["DragContext"]
+       42 GETTABLEKS                       R4 R4 K10 ["newTick"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K4 ["DragContext"]
        47 CALL                             R2 3 0
        48 GETUPVAL                         R2 0
        49 DUPTABLE                         R4 K11 [{"dragTick"}]
@@ -282,8 +282,8 @@ PROTO_9:
         5 DUPTABLE                         R2 K4 [{"dragging", "dragTick", "hasDragWaypoint"}]
         6 LOADB                            R3 0
         7 SETTABLEKS                       R3 R2 K1 ["dragging"]
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K5 ["None"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K5 ["None"]
        12 SETTABLEKS                       R3 R2 K2 ["dragTick"]
        14 LOADB                            R3 0
        15 SETTABLEKS                       R3 R2 K3 ["hasDragWaypoint"]
@@ -299,8 +299,8 @@ PROTO_10:
         5 DUPTABLE                         R2 K4 [{"draggingScale", "dragTick", "hasDragWaypoint"}]
         6 LOADB                            R3 0
         7 SETTABLEKS                       R3 R2 K1 ["draggingScale"]
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K5 ["None"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K5 ["None"]
        12 SETTABLEKS                       R3 R2 K2 ["dragTick"]
        14 LOADB                            R3 0
        15 SETTABLEKS                       R3 R2 K3 ["hasDragWaypoint"]
@@ -309,20 +309,20 @@ PROTO_10:
        20 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["showContextMenu"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["showContextMenu"]
         5 JUMPIF                           R1 ; [+26]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["props"]
-        9 GETTABLEKS                       R1 R2 K3 ["ReadOnly"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K2 ["props"]
+        9 GETTABLEKS                       R1 R1 K3 ["ReadOnly"]
        11 JUMPIF                           R1 ; [+20]
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K4 ["updateSelectDragStart"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K4 ["updateSelectDragStart"]
        15 GETTABLEKS                       R2 R0 K5 ["Position"]
        17 CALL                             R1 1 0
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R1 R2 K6 ["updateSelectDragEnd"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K6 ["updateSelectDragEnd"]
        21 GETTABLEKS                       R2 R0 K5 ["Position"]
        23 CALL                             R1 1 0
        24 GETUPVAL                         R1 0
@@ -350,10 +350,10 @@ PROTO_12:
        16 LOADB                            R5 1
        17 SETTABLE                         R5 R4 R3
        18 JUMP                             ; [+24]
-       19 GETUPVAL                         R4 4
-       20 GETTABLEKS                       R3 R4 K1 ["getPathValue"]
-       22 GETUPVAL                         R5 4
-       23 GETTABLEKS                       R4 R5 K2 ["getRelativePath"]
+       19 GETUPVAL                         R3 4
+       20 GETTABLEKS                       R3 R3 K1 ["getPathValue"]
+       22 GETUPVAL                         R4 4
+       23 GETTABLEKS                       R4 R4 K2 ["getRelativePath"]
        25 MOVE                             R5 R2
        26 CALL                             R4 1 -1
        27 CALL                             R3 -1 1
@@ -370,10 +370,10 @@ PROTO_12:
        40 GETUPVAL                         R5 1
        41 LOADB                            R6 1
        42 SETTABLE                         R6 R5 R3
-       43 GETUPVAL                         R4 6
-       44 GETTABLEKS                       R3 R4 K3 ["SelectKeyframeRange"]
-       46 GETUPVAL                         R5 7
-       47 GETTABLEKS                       R4 R5 K4 ["Instance"]
+       43 GETUPVAL                         R3 6
+       44 GETTABLEKS                       R3 R3 K3 ["SelectKeyframeRange"]
+       46 GETUPVAL                         R4 7
+       47 GETTABLEKS                       R4 R4 K4 ["Instance"]
        49 MOVE                             R5 R2
        50 GETUPVAL                         R6 8
        51 GETUPVAL                         R7 9
@@ -382,23 +382,23 @@ PROTO_12:
        54 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["SelectKeyframesAtTick"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["SelectKeyframesAtTick"]
         3 MOVE                             R2 R0
         4 LOADB                            R3 1
         5 CALL                             R1 2 0
         6 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R0 K1 ["Position"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["updateSelectDragEnd"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K2 ["updateSelectDragEnd"]
         8 MOVE                             R4 R2
         9 CALL                             R3 1 0
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K3 ["selectDragStart"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K3 ["selectDragStart"]
        13 NAMECALL                         R3 R3 K4 ["getValue"]
        15 CALL                             R3 1 1
        16 GETTABLEKS                       R4 R1 K5 ["SelectedKeyframes"]
@@ -429,65 +429,65 @@ PROTO_14:
        61 CALL                             R7 2 1
        62 GETTABLEKS                       R8 R1 K17 ["StartTick"]
        64 GETTABLEKS                       R9 R1 K18 ["EndTick"]
-       66 GETUPVAL                         R14 0
-       67 GETTABLEKS                       R13 R14 K19 ["state"]
-       69 GETTABLEKS                       R12 R13 K20 ["AbsoluteSize"]
-       71 GETTABLEKS                       R11 R12 K10 ["X"]
+       66 GETUPVAL                         R11 0
+       67 GETTABLEKS                       R11 R11 K19 ["state"]
+       69 GETTABLEKS                       R11 R11 K20 ["AbsoluteSize"]
+       71 GETTABLEKS                       R11 R11 K10 ["X"]
        73 GETTABLEKS                       R12 R1 K21 ["TrackPadding"]
        75 SUB                              R10 R11 R12
        76 SUB                              R12 R9 R8
        77 DIV                              R11 R10 R12
        78 GETIMPORT                        R12 K9 [Vector2.new]
        80 DIVK                             R13 R11 K22 [2]
-       81 GETUPVAL                         R16 1
-       82 GETTABLEKS                       R15 R16 K23 ["TRACK_HEIGHT"]
+       81 GETUPVAL                         R15 1
+       82 GETTABLEKS                       R15 R15 K23 ["TRACK_HEIGHT"]
        84 DIVK                             R14 R15 K22 [2]
        85 CALL                             R12 2 1
-       86 GETUPVAL                         R14 0
-       87 GETTABLEKS                       R13 R14 K24 ["getTickFromPosition"]
+       86 GETUPVAL                         R13 0
+       87 GETTABLEKS                       R13 R13 K24 ["getTickFromPosition"]
        89 ADD                              R14 R6 R12
        90 LOADB                            R15 0
        91 CALL                             R13 2 1
        92 GETUPVAL                         R15 2
        93 CALL                             R15 0 1
        94 JUMPIFNOT                        R15 ; [+6]
-       95 GETUPVAL                         R15 0
-       96 GETTABLEKS                       R14 R15 K25 ["getTrackIndexFromPosition"]
+       95 GETUPVAL                         R14 0
+       96 GETTABLEKS                       R14 R14 K25 ["getTrackIndexFromPosition"]
        98 ADD                              R15 R6 R12
        99 CALL                             R14 1 1
       100 JUMP                             ; [+5]
-      101 GETUPVAL                         R15 0
-      102 GETTABLEKS                       R14 R15 K26 ["getTrackFromPosition"]
+      101 GETUPVAL                         R14 0
+      102 GETTABLEKS                       R14 R14 K26 ["getTrackFromPosition"]
       104 ADD                              R15 R6 R12
       105 CALL                             R14 1 1
-      106 GETUPVAL                         R16 0
-      107 GETTABLEKS                       R15 R16 K24 ["getTickFromPosition"]
+      106 GETUPVAL                         R15 0
+      107 GETTABLEKS                       R15 R15 K24 ["getTickFromPosition"]
       109 SUB                              R16 R7 R12
       110 LOADB                            R17 0
       111 CALL                             R15 2 1
       112 GETUPVAL                         R17 2
       113 CALL                             R17 0 1
       114 JUMPIFNOT                        R17 ; [+6]
-      115 GETUPVAL                         R17 0
-      116 GETTABLEKS                       R16 R17 K25 ["getTrackIndexFromPosition"]
+      115 GETUPVAL                         R16 0
+      116 GETTABLEKS                       R16 R16 K25 ["getTrackIndexFromPosition"]
       118 SUB                              R17 R7 R12
       119 CALL                             R16 1 1
       120 JUMP                             ; [+5]
-      121 GETUPVAL                         R17 0
-      122 GETTABLEKS                       R16 R17 K26 ["getTrackFromPosition"]
+      121 GETUPVAL                         R16 0
+      122 GETTABLEKS                       R16 R16 K26 ["getTrackFromPosition"]
       124 SUB                              R17 R7 R12
       125 CALL                             R16 1 1
-      126 GETUPVAL                         R19 0
-      127 GETTABLEKS                       R18 R19 K27 ["lastMinTick"]
+      126 GETUPVAL                         R18 0
+      127 GETTABLEKS                       R18 R18 K27 ["lastMinTick"]
       129 OR                               R17 R18 R13
-      130 GETUPVAL                         R20 0
-      131 GETTABLEKS                       R19 R20 K28 ["lastMinTrack"]
+      130 GETUPVAL                         R19 0
+      131 GETTABLEKS                       R19 R19 K28 ["lastMinTrack"]
       133 OR                               R18 R19 R14
-      134 GETUPVAL                         R21 0
-      135 GETTABLEKS                       R20 R21 K29 ["lastMaxTick"]
+      134 GETUPVAL                         R20 0
+      135 GETTABLEKS                       R20 R20 K29 ["lastMaxTick"]
       137 OR                               R19 R20 R15
-      138 GETUPVAL                         R22 0
-      139 GETTABLEKS                       R21 R22 K30 ["lastMaxTrack"]
+      138 GETUPVAL                         R21 0
+      139 GETTABLEKS                       R21 R21 K30 ["lastMaxTrack"]
       141 OR                               R20 R21 R16
       142 GETUPVAL                         R21 3
       143 MOVE                             R22 R4
@@ -500,14 +500,14 @@ PROTO_14:
       154 GETTABLEKS                       R21 R1 K31 ["DeselectAllKeyframes"]
       156 CALL                             R21 0 0
       157 GETIMPORT                        R21 K33 [ipairs]
-      159 GETUPVAL                         R24 0
-      160 GETTABLEKS                       R22 R24 K34 ["tracks"]
+      159 GETUPVAL                         R22 0
+      160 GETTABLEKS                       R22 R22 K34 ["tracks"]
       162 CALL                             R21 1 3
       163 FORGPREP_INEXT                   R21
       164 JUMPIFNOT                        R5 ; [+21]
       165 NEWTABLE                         R26 0 0
-      167 GETUPVAL                         R28 4
-      168 GETTABLEKS                       R27 R28 K35 ["traverseTracks"]
+      167 GETUPVAL                         R27 4
+      168 GETTABLEKS                       R27 R27 K35 ["traverseTracks"]
       170 GETTABLEKS                       R28 R25 K36 ["Name"]
       172 MOVE                             R29 R25
       173 NEWCLOSURE                       R30 P0
@@ -536,18 +536,18 @@ PROTO_14:
       203 CALL                             R26 5 0
       204 FORGLOOP                         R21 2 [inext] ; [-41]
       206 JUMPIFNOTEQKN                    R14 K39 [0] ; [+23]
-      208 GETUPVAL                         R22 4
-      209 GETTABLEKS                       R21 R22 K40 ["getSummaryKeyframes"]
-      211 GETUPVAL                         R23 0
-      212 GETTABLEKS                       R22 R23 K34 ["tracks"]
+      208 GETUPVAL                         R21 4
+      209 GETTABLEKS                       R21 R21 K40 ["getSummaryKeyframes"]
+      211 GETUPVAL                         R22 0
+      212 GETTABLEKS                       R22 R22 K34 ["tracks"]
       214 MOVE                             R23 R13
       215 MOVE                             R24 R15
       216 CALL                             R21 3 1
       217 LENGTH                           R22 R21
       218 LOADN                            R23 0
       219 JUMPIFNOTLT                      R23 R22 ; [+10]
-      221 GETUPVAL                         R23 4
-      222 GETTABLEKS                       R22 R23 K41 ["traverseKeyframeRange"]
+      221 GETUPVAL                         R22 4
+      222 GETTABLEKS                       R22 R22 K41 ["traverseKeyframeRange"]
       224 MOVE                             R23 R21
       225 MOVE                             R24 R13
       226 MOVE                             R25 R15
@@ -567,17 +567,17 @@ PROTO_14:
 PROTO_15:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"draggingSelection"}]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K2 ["None"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K2 ["None"]
         5 SETTABLEKS                       R3 R2 K0 ["draggingSelection"]
         7 NAMECALL                         R0 R0 K3 ["setState"]
         9 CALL                             R0 2 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K4 ["updateSelectDragStart"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K4 ["updateSelectDragStart"]
        13 LOADNIL                          R1
        14 CALL                             R0 1 0
-       15 GETUPVAL                         R1 0
-       16 GETTABLEKS                       R0 R1 K5 ["updateSelectDragEnd"]
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K5 ["updateSelectDragEnd"]
        18 LOADNIL                          R1
        19 CALL                             R0 1 0
        20 GETUPVAL                         R0 0
@@ -595,9 +595,9 @@ PROTO_15:
        36 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["props"]
-        3 GETTABLEKS                       R3 R4 K1 ["OnWheelTick"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["props"]
+        3 GETTABLEKS                       R3 R3 K1 ["OnWheelTick"]
         5 GETIMPORT                        R4 K4 [Vector2.new]
         7 MOVE                             R5 R1
         8 MOVE                             R6 R2
@@ -607,9 +607,9 @@ PROTO_16:
        12 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["props"]
-        3 GETTABLEKS                       R3 R4 K1 ["OnWheelTick"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["props"]
+        3 GETTABLEKS                       R3 R3 K1 ["OnWheelTick"]
         5 GETIMPORT                        R4 K4 [Vector2.new]
         7 MOVE                             R5 R1
         8 MOVE                             R6 R2
@@ -632,35 +632,35 @@ PROTO_18:
 PROTO_19:
         0 NEWTABLE                         R2 1 0
         2 SETTABLE                         R1 R2 R0
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K1 ["SetSelectedKeyframeData"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K1 ["SetSelectedKeyframeData"]
         8 MOVE                             R4 R2
         9 CALL                             R3 1 0
        10 RETURN                           R0 0
 
 PROTO_20:
         0 DUPTABLE                         R2 K2 [{"LeftSlope", "RightSlope"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K3 ["None"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K3 ["None"]
         4 SETTABLEKS                       R3 R2 K0 ["LeftSlope"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K3 ["None"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K3 ["None"]
         9 SETTABLEKS                       R3 R2 K1 ["RightSlope"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K4 ["props"]
-       14 GETTABLEKS                       R3 R4 K5 ["SetSelectedKeyframeData"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K4 ["props"]
+       14 GETTABLEKS                       R3 R3 K5 ["SetSelectedKeyframeData"]
        16 MOVE                             R4 R2
        17 CALL                             R3 1 0
        18 RETURN                           R0 0
 
 PROTO_21:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["SetPlayState"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["PLAY_STATE"]
-        8 GETTABLEKS                       R1 R2 K3 ["Pause"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["SetPlayState"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["PLAY_STATE"]
+        8 GETTABLEKS                       R1 R1 K3 ["Pause"]
        10 CALL                             R0 1 0
        11 GETUPVAL                         R0 0
        12 DUPTABLE                         R2 K5 [{"showContextMenu"}]
@@ -684,8 +684,8 @@ PROTO_23:
         1 DUPTABLE                         R3 K1 [{"renamingKeyframe"}]
         2 MOVE                             R4 R0
         3 JUMPIF                           R4 ; [+3]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K2 ["None"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K2 ["None"]
         7 SETTABLEKS                       R4 R3 K0 ["renamingKeyframe"]
         9 NAMECALL                         R1 R1 K3 ["setState"]
        11 CALL                             R1 2 0
@@ -696,42 +696,42 @@ PROTO_24:
         1 DUPTABLE                         R3 K1 [{"changingDuration"}]
         2 MOVE                             R4 R0
         3 JUMPIF                           R4 ; [+3]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K2 ["None"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K2 ["None"]
         7 SETTABLEKS                       R4 R3 K0 ["changingDuration"]
         9 NAMECALL                         R1 R1 K3 ["setState"]
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
 
 PROTO_25:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setChangingDuration"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setChangingDuration"]
         3 CALL                             R1 0 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["parseTime"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["parseTime"]
         7 MOVE                             R2 R0
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K2 ["props"]
-       11 GETTABLEKS                       R3 R4 K3 ["FrameRate"]
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K2 ["props"]
-       16 GETTABLEKS                       R4 R5 K4 ["TimelineUnit"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["props"]
+       11 GETTABLEKS                       R3 R3 K3 ["FrameRate"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K2 ["props"]
+       16 GETTABLEKS                       R4 R4 K4 ["TimelineUnit"]
        18 CALL                             R1 3 1
        19 JUMPIFEQKNIL                     R1 ; [+25]
-       21 GETUPVAL                         R3 2
-       22 GETTABLEKS                       R2 R3 K5 ["getSelectionBounds"]
-       24 GETUPVAL                         R5 0
-       25 GETTABLEKS                       R4 R5 K2 ["props"]
-       27 GETTABLEKS                       R3 R4 K6 ["AnimationData"]
-       29 GETUPVAL                         R6 0
-       30 GETTABLEKS                       R5 R6 K2 ["props"]
-       32 GETTABLEKS                       R4 R5 K7 ["SelectedKeyframes"]
+       21 GETUPVAL                         R2 2
+       22 GETTABLEKS                       R2 R2 K5 ["getSelectionBounds"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K2 ["props"]
+       27 GETTABLEKS                       R3 R3 K6 ["AnimationData"]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K2 ["props"]
+       32 GETTABLEKS                       R4 R4 K7 ["SelectedKeyframes"]
        34 CALL                             R2 2 2
        35 SUB                              R4 R3 R2
        36 DIV                              R5 R1 R4
-       37 GETUPVAL                         R8 0
-       38 GETTABLEKS                       R7 R8 K2 ["props"]
-       40 GETTABLEKS                       R6 R7 K8 ["ScaleSelectedKeyframes"]
+       37 GETUPVAL                         R6 0
+       38 GETTABLEKS                       R6 R6 K2 ["props"]
+       40 GETTABLEKS                       R6 R6 K8 ["ScaleSelectedKeyframes"]
        42 MOVE                             R7 R2
        43 MOVE                             R8 R5
        44 CALL                             R6 2 0
@@ -772,14 +772,14 @@ PROTO_26:
        47 SETTABLEKS                       R1 R0 K18 ["mouseDownInTimeline"]
        49 NEWTABLE                         R1 0 0
        51 SETTABLEKS                       R1 R0 K19 ["tracks"]
-       53 GETUPVAL                         R2 0
-       54 GETTABLEKS                       R1 R2 K20 ["createBinding"]
+       53 GETUPVAL                         R1 0
+       54 GETTABLEKS                       R1 R1 K20 ["createBinding"]
        56 LOADNIL                          R2
        57 CALL                             R1 1 2
        58 SETTABLEKS                       R1 R0 K21 ["selectDragStart"]
        60 SETTABLEKS                       R2 R0 K22 ["updateSelectDragStart"]
-       62 GETUPVAL                         R2 0
-       63 GETTABLEKS                       R1 R2 K20 ["createBinding"]
+       62 GETUPVAL                         R1 0
+       63 GETTABLEKS                       R1 R1 K20 ["createBinding"]
        65 LOADNIL                          R2
        66 CALL                             R1 1 2
        67 SETTABLEKS                       R1 R0 K23 ["selectDragEnd"]
@@ -896,11 +896,11 @@ PROTO_26:
 PROTO_27:
         0 GETTABLEKS                       R2 R0 K0 ["DragContext"]
         2 JUMPIFNOT                        R2 ; [+5]
-        3 GETTABLEKS                       R2 R0 K0 ["DragContext"]
-        5 GETTABLEKS                       R1 R2 K1 ["selectedKeyframe"]
+        3 GETTABLEKS                       R1 R0 K0 ["DragContext"]
+        5 GETTABLEKS                       R1 R1 K1 ["selectedKeyframe"]
         7 JUMPIF                           R1 ; [+4]
-        8 GETTABLEKS                       R2 R0 K2 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["SelectedKeyframes"]
+        8 GETTABLEKS                       R1 R0 K2 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["SelectedKeyframes"]
        12 LOADB                            R2 0
        13 JUMPIFEQKNIL                     R1 ; [+5]
        15 GETUPVAL                         R3 0
@@ -912,20 +912,20 @@ PROTO_27:
 PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["DragContext"]
         2 JUMPIFNOT                        R2 ; [+5]
-        3 GETTABLEKS                       R2 R0 K0 ["DragContext"]
-        5 GETTABLEKS                       R1 R2 K1 ["animationData"]
+        3 GETTABLEKS                       R1 R0 K0 ["DragContext"]
+        5 GETTABLEKS                       R1 R1 K1 ["animationData"]
         7 JUMPIF                           R1 ; [+4]
-        8 GETTABLEKS                       R2 R0 K2 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["AnimationData"]
+        8 GETTABLEKS                       R1 R0 K2 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["AnimationData"]
        12 GETTABLEKS                       R3 R0 K0 ["DragContext"]
        14 JUMPIFNOT                        R3 ; [+5]
-       15 GETTABLEKS                       R3 R0 K0 ["DragContext"]
-       17 GETTABLEKS                       R2 R3 K4 ["selectedKeyframes"]
+       15 GETTABLEKS                       R2 R0 K0 ["DragContext"]
+       17 GETTABLEKS                       R2 R2 K4 ["selectedKeyframes"]
        19 JUMPIF                           R2 ; [+4]
-       20 GETTABLEKS                       R3 R0 K2 ["props"]
-       22 GETTABLEKS                       R2 R3 K5 ["SelectedKeyframes"]
-       24 GETUPVAL                         R4 0
-       25 GETTABLEKS                       R3 R4 K6 ["getSelectionBounds"]
+       20 GETTABLEKS                       R2 R0 K2 ["props"]
+       22 GETTABLEKS                       R2 R2 K5 ["SelectedKeyframes"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K6 ["getSelectionBounds"]
        27 MOVE                             R4 R1
        28 MOVE                             R5 R2
        29 CALL                             R3 2 2
@@ -940,8 +940,8 @@ PROTO_29:
         0 GETTABLEKS                       R3 R1 K0 ["UserInputType"]
         2 GETIMPORT                        R4 K3 [Enum.UserInputType.Keyboard]
         4 JUMPIFNOTEQ                      R3 R4 ; [+12]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K4 ["isMultiSelectKey"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K4 ["isMultiSelectKey"]
         9 GETTABLEKS                       R4 R1 K5 ["KeyCode"]
        11 CALL                             R3 1 1
        12 JUMPIFNOT                        R3 ; [+22]
@@ -951,8 +951,8 @@ PROTO_29:
        17 GETTABLEKS                       R3 R1 K0 ["UserInputType"]
        19 GETIMPORT                        R4 K8 [Enum.UserInputType.MouseButton1]
        21 JUMPIFNOTEQ                      R3 R4 ; [+13]
-       23 GETTABLEKS                       R4 R0 K9 ["props"]
-       25 GETTABLEKS                       R3 R4 K10 ["DeselectAllKeyframes"]
+       23 GETTABLEKS                       R3 R0 K9 ["props"]
+       25 GETTABLEKS                       R3 R3 K10 ["DeselectAllKeyframes"]
        27 CALL                             R3 0 0
        28 LOADB                            R3 1
        29 SETTABLEKS                       R3 R0 K11 ["mouseDownInTimeline"]
@@ -965,8 +965,8 @@ PROTO_30:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.Keyboard]
         4 JUMPIFNOTEQ                      R2 R3 ; [+12]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K4 ["isMultiSelectKey"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K4 ["isMultiSelectKey"]
         9 GETTABLEKS                       R3 R1 K5 ["KeyCode"]
        11 CALL                             R2 1 1
        12 JUMPIFNOT                        R2 ; [+234]
@@ -985,16 +985,16 @@ PROTO_30:
        33 GETUPVAL                         R2 1
        34 CALL                             R2 0 1
        35 JUMPIFNOT                        R2 ; [+66]
-       36 GETTABLEKS                       R3 R0 K12 ["props"]
-       38 GETTABLEKS                       R2 R3 K13 ["TopTrackIndex"]
-       40 GETTABLEKS                       R5 R1 K14 ["Position"]
-       42 GETTABLEKS                       R4 R5 K15 ["Y"]
-       44 GETTABLEKS                       R7 R0 K16 ["state"]
-       46 GETTABLEKS                       R6 R7 K17 ["AbsolutePosition"]
-       48 GETTABLEKS                       R5 R6 K15 ["Y"]
+       36 GETTABLEKS                       R2 R0 K12 ["props"]
+       38 GETTABLEKS                       R2 R2 K13 ["TopTrackIndex"]
+       40 GETTABLEKS                       R4 R1 K14 ["Position"]
+       42 GETTABLEKS                       R4 R4 K15 ["Y"]
+       44 GETTABLEKS                       R5 R0 K16 ["state"]
+       46 GETTABLEKS                       R5 R5 K17 ["AbsolutePosition"]
+       48 GETTABLEKS                       R5 R5 K15 ["Y"]
        50 SUB                              R3 R4 R5
-       51 GETUPVAL                         R5 2
-       52 GETTABLEKS                       R4 R5 K18 ["getTrackInfoFromPosition"]
+       51 GETUPVAL                         R4 2
+       52 GETTABLEKS                       R4 R4 K18 ["getTrackInfoFromPosition"]
        54 GETTABLEKS                       R5 R0 K19 ["tracks"]
        56 MOVE                             R6 R2
        57 MOVE                             R7 R3
@@ -1005,8 +1005,8 @@ PROTO_30:
        64 GETIMPORT                        R7 K23 [math.floor]
        66 CALL                             R7 1 1
        67 GETTABLE                         R5 R6 R7
-       68 GETTABLEKS                       R7 R0 K12 ["props"]
-       70 GETTABLEKS                       R6 R7 K24 ["SetRightClickContextInfo"]
+       68 GETTABLEKS                       R6 R0 K12 ["props"]
+       70 GETTABLEKS                       R6 R6 K24 ["SetRightClickContextInfo"]
        72 DUPTABLE                         R7 K30 [{"Tick", "Path", "TrackType", "RotationType", "InstanceName"}]
        73 GETTABLEKS                       R8 R0 K31 ["getTickFromPosition"]
        75 GETTABLEKS                       R9 R1 K14 ["Position"]
@@ -1032,21 +1032,21 @@ PROTO_30:
       105 LOADNIL                          R5
       106 LOADNIL                          R6
       107 LOADNIL                          R7
-      108 GETTABLEKS                       R9 R0 K12 ["props"]
-      110 GETTABLEKS                       R8 R9 K34 ["IsChannelAnimation"]
+      108 GETTABLEKS                       R8 R0 K12 ["props"]
+      110 GETTABLEKS                       R8 R8 K34 ["IsChannelAnimation"]
       112 JUMPIFNOT                        R8 ; [+48]
       113 GETUPVAL                         R9 1
       114 CALL                             R9 0 1
       115 JUMPIFNOT                        R9 ; [+32]
-      116 GETTABLEKS                       R10 R0 K12 ["props"]
-      118 GETTABLEKS                       R9 R10 K13 ["TopTrackIndex"]
+      116 GETTABLEKS                       R9 R0 K12 ["props"]
+      118 GETTABLEKS                       R9 R9 K13 ["TopTrackIndex"]
       120 GETTABLEKS                       R11 R1 K14 ["Position"]
-      122 GETTABLEKS                       R14 R0 K16 ["state"]
-      124 GETTABLEKS                       R13 R14 K17 ["AbsolutePosition"]
-      126 GETTABLEKS                       R12 R13 K15 ["Y"]
+      122 GETTABLEKS                       R12 R0 K16 ["state"]
+      124 GETTABLEKS                       R12 R12 K17 ["AbsolutePosition"]
+      126 GETTABLEKS                       R12 R12 K15 ["Y"]
       128 SUB                              R10 R11 R12
-      129 GETUPVAL                         R12 2
-      130 GETTABLEKS                       R11 R12 K18 ["getTrackInfoFromPosition"]
+      129 GETUPVAL                         R11 2
+      130 GETTABLEKS                       R11 R11 K18 ["getTrackInfoFromPosition"]
       132 GETTABLEKS                       R12 R0 K19 ["tracks"]
       134 MOVE                             R13 R9
       135 MOVE                             R14 R10
@@ -1089,13 +1089,13 @@ PROTO_30:
       185 SETLIST                          R9 R10 1 [1]
       187 MOVE                             R3 R9
       188 GETTABLEKS                       R6 R4 K38 ["Type"]
-      190 GETUPVAL                         R10 2
-      191 GETTABLEKS                       R9 R10 K39 ["getRotationType"]
+      190 GETUPVAL                         R9 2
+      191 GETTABLEKS                       R9 R9 K39 ["getRotationType"]
       193 MOVE                             R10 R4
       194 CALL                             R9 1 1
       195 MOVE                             R7 R9
-      196 GETTABLEKS                       R10 R0 K12 ["props"]
-      198 GETTABLEKS                       R9 R10 K24 ["SetRightClickContextInfo"]
+      196 GETTABLEKS                       R9 R0 K12 ["props"]
+      198 GETTABLEKS                       R9 R9 K24 ["SetRightClickContextInfo"]
       200 DUPTABLE                         R10 K30 [{"Tick", "Path", "TrackType", "RotationType", "InstanceName"}]
       201 GETTABLEKS                       R11 R0 K31 ["getTickFromPosition"]
       203 GETTABLEKS                       R12 R1 K14 ["Position"]
@@ -1139,18 +1139,18 @@ PROTO_31:
         3 LOADB                            R6 1
         4 SETTABLEKS                       R6 R5 K1 ["OnKeyframe"]
         6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R8 R0 K3 ["props"]
-        9 GETTABLEKS                       R7 R8 K4 ["SelectedKeyframes"]
+        7 GETTABLEKS                       R7 R0 K3 ["props"]
+        9 GETTABLEKS                       R7 R7 K4 ["SelectedKeyframes"]
        11 CALL                             R6 1 1
        12 JUMPIFNOT                        R6 ; [+19]
        13 JUMPIFNOTEQKNIL                  R1 ; [+8]
-       15 GETTABLEKS                       R7 R0 K3 ["props"]
-       17 GETTABLEKS                       R6 R7 K5 ["SelectKeyframesAtTick"]
+       15 GETTABLEKS                       R6 R0 K3 ["props"]
+       17 GETTABLEKS                       R6 R6 K5 ["SelectKeyframesAtTick"]
        19 MOVE                             R7 R3
        20 CALL                             R6 1 0
        21 JUMP                             ; [+10]
-       22 GETTABLEKS                       R7 R0 K3 ["props"]
-       24 GETTABLEKS                       R6 R7 K6 ["SelectKeyframeRange"]
+       22 GETTABLEKS                       R6 R0 K3 ["props"]
+       24 GETTABLEKS                       R6 R6 K6 ["SelectKeyframeRange"]
        26 MOVE                             R7 R1
        27 MOVE                             R8 R2
        28 MOVE                             R9 R3
@@ -1159,8 +1159,8 @@ PROTO_31:
        31 CALL                             R6 5 0
        32 JUMPIFNOTEQKNIL                  R1 ; [+3]
        34 SETTABLEKS                       R3 R5 K7 ["SummaryKeyframe"]
-       36 GETTABLEKS                       R7 R0 K3 ["props"]
-       38 GETTABLEKS                       R6 R7 K8 ["SetRightClickContextInfo"]
+       36 GETTABLEKS                       R6 R0 K3 ["props"]
+       38 GETTABLEKS                       R6 R6 K8 ["SetRightClickContextInfo"]
        40 MOVE                             R7 R5
        41 CALL                             R6 1 0
        42 GETTABLEKS                       R6 R0 K9 ["showMenu"]
@@ -1168,8 +1168,8 @@ PROTO_31:
        45 RETURN                           R0 0
 
 PROTO_32:
-        0 GETTABLEKS                       R7 R0 K0 ["props"]
-        2 GETTABLEKS                       R6 R7 K1 ["ReadOnly"]
+        0 GETTABLEKS                       R6 R0 K0 ["props"]
+        2 GETTABLEKS                       R6 R6 K1 ["ReadOnly"]
         4 JUMPIF                           R6 ; [+53]
         5 GETTABLEKS                       R6 R5 K2 ["UserInputType"]
         7 GETIMPORT                        R7 K5 [Enum.UserInputType.MouseButton1]
@@ -1180,22 +1180,22 @@ PROTO_32:
        15 GETTABLEKS                       R6 R0 K7 ["isMultiSelecting"]
        17 JUMPIFNOT                        R6 ; [+40]
        18 JUMPIFNOT                        R1 ; [+9]
-       19 GETTABLEKS                       R7 R0 K0 ["props"]
-       21 GETTABLEKS                       R6 R7 K8 ["DeselectKeyframe"]
+       19 GETTABLEKS                       R6 R0 K0 ["props"]
+       21 GETTABLEKS                       R6 R6 K8 ["DeselectKeyframe"]
        23 MOVE                             R7 R1
        24 MOVE                             R8 R2
        25 MOVE                             R9 R3
        26 CALL                             R6 3 0
        27 RETURN                           R0 0
-       28 GETTABLEKS                       R7 R0 K0 ["props"]
-       30 GETTABLEKS                       R6 R7 K9 ["DeselectKeyframesAtTick"]
+       28 GETTABLEKS                       R6 R0 K0 ["props"]
+       30 GETTABLEKS                       R6 R6 K9 ["DeselectKeyframesAtTick"]
        32 MOVE                             R7 R3
        33 GETTABLEKS                       R8 R0 K7 ["isMultiSelecting"]
        35 CALL                             R6 2 0
        36 RETURN                           R0 0
        37 JUMPIFNOT                        R1 ; [+12]
-       38 GETTABLEKS                       R7 R0 K0 ["props"]
-       40 GETTABLEKS                       R6 R7 K10 ["SelectKeyframeRange"]
+       38 GETTABLEKS                       R6 R0 K0 ["props"]
+       40 GETTABLEKS                       R6 R6 K10 ["SelectKeyframeRange"]
        42 MOVE                             R7 R1
        43 MOVE                             R8 R2
        44 MOVE                             R9 R3
@@ -1203,8 +1203,8 @@ PROTO_32:
        46 GETTABLEKS                       R11 R0 K7 ["isMultiSelecting"]
        48 CALL                             R6 5 0
        49 RETURN                           R0 0
-       50 GETTABLEKS                       R7 R0 K0 ["props"]
-       52 GETTABLEKS                       R6 R7 K11 ["SelectKeyframesAtTick"]
+       50 GETTABLEKS                       R6 R0 K0 ["props"]
+       52 GETTABLEKS                       R6 R6 K11 ["SelectKeyframesAtTick"]
        54 MOVE                             R7 R3
        55 GETTABLEKS                       R8 R0 K7 ["isMultiSelecting"]
        57 CALL                             R6 2 0
@@ -1379,8 +1379,8 @@ PROTO_43:
         7 RETURN                           R0 0
 
 PROTO_44:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setRenamingKeyframe"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setRenamingKeyframe"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -1394,8 +1394,8 @@ PROTO_45:
         6 RETURN                           R0 0
 
 PROTO_46:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setChangingDuration"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setChangingDuration"]
         3 LOADB                            R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -1409,29 +1409,29 @@ PROTO_47:
 
 PROTO_48:
         0 JUMPIFNOTEQKS                    R0 K0 ["Delete"] ; [+16]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["setRenamingKeyframe"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["setRenamingKeyframe"]
         5 CALL                             R1 0 0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K2 ["RenameKeyframe"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K2 ["RenameKeyframe"]
         9 GETUPVAL                         R2 2
-       10 GETUPVAL                         R4 3
-       11 GETTABLEKS                       R3 R4 K3 ["DEFAULT_KEYFRAME_NAME"]
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R4 R5 K4 ["Analytics"]
+       10 GETUPVAL                         R3 3
+       11 GETTABLEKS                       R3 R3 K3 ["DEFAULT_KEYFRAME_NAME"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K4 ["Analytics"]
        16 CALL                             R1 3 0
        17 RETURN                           R0 0
 
 PROTO_49:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setRenamingKeyframe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setRenamingKeyframe"]
         3 CALL                             R1 0 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["RenameKeyframe"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["RenameKeyframe"]
         7 GETUPVAL                         R2 2
         8 MOVE                             R3 R0
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K2 ["Analytics"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K2 ["Analytics"]
        12 CALL                             R1 3 0
        13 RETURN                           R0 0
 
@@ -1464,8 +1464,8 @@ PROTO_50:
        49 JUMPIFNOT                        R12 ; [+8]
        50 GETTABLEKS                       R26 R12 K25 ["Events"]
        52 JUMPIFNOT                        R26 ; [+5]
-       53 GETTABLEKS                       R26 R12 K25 ["Events"]
-       55 GETTABLEKS                       R25 R26 K26 ["NamedKeyframes"]
+       53 GETTABLEKS                       R25 R12 K25 ["Events"]
+       55 GETTABLEKS                       R25 R25 K26 ["NamedKeyframes"]
        57 JUMPIF                           R25 ; [+2]
        58 NEWTABLE                         R25 0 0
        60 GETTABLEKS                       R26 R1 K27 ["Loaded"]
@@ -1482,28 +1482,28 @@ PROTO_50:
        79 CALL                             R33 1 1
        80 LOADNIL                          R34
        81 JUMPIFNOT                        R10 ; [+20]
-       82 GETUPVAL                         R36 0
-       83 GETTABLEKS                       R35 R36 K35 ["getSelectionBounds"]
-       85 GETTABLEKS                       R37 R0 K0 ["props"]
-       87 GETTABLEKS                       R36 R37 K11 ["AnimationData"]
-       89 GETTABLEKS                       R38 R0 K0 ["props"]
-       91 GETTABLEKS                       R37 R38 K12 ["SelectedKeyframes"]
+       82 GETUPVAL                         R35 0
+       83 GETTABLEKS                       R35 R35 K35 ["getSelectionBounds"]
+       85 GETTABLEKS                       R36 R0 K0 ["props"]
+       87 GETTABLEKS                       R36 R36 K11 ["AnimationData"]
+       89 GETTABLEKS                       R37 R0 K0 ["props"]
+       91 GETTABLEKS                       R37 R37 K12 ["SelectedKeyframes"]
        93 CALL                             R35 2 2
        94 SUB                              R38 R36 R35
        95 GETTABLEKS                       R39 R1 K19 ["FrameRate"]
        97 MUL                              R37 R38 R39
-       98 GETUPVAL                         R39 1
-       99 GETTABLEKS                       R38 R39 K36 ["TICK_FREQUENCY"]
+       98 GETUPVAL                         R38 1
+       99 GETTABLEKS                       R38 R38 K36 ["TICK_FREQUENCY"]
       101 DIV                              R34 R37 R38
       102 NAMECALL                         R35 R0 K37 ["makeTracks"]
       104 CALL                             R35 1 1
       105 SETTABLEKS                       R35 R0 K38 ["tracks"]
       107 JUMPIFNOT                        R12 ; [+701]
-      108 GETTABLEKS                       R36 R12 K39 ["Instances"]
-      110 GETTABLEKS                       R35 R36 K40 ["Root"]
+      108 GETTABLEKS                       R35 R12 K39 ["Instances"]
+      110 GETTABLEKS                       R35 R35 K40 ["Root"]
       112 JUMPIFNOT                        R35 ; [+696]
-      113 GETUPVAL                         R36 2
-      114 GETTABLEKS                       R35 R36 K41 ["createElement"]
+      113 GETUPVAL                         R35 2
+      114 GETTABLEKS                       R35 R35 K41 ["createElement"]
       116 LOADK                            R36 K42 ["Frame"]
       117 NEWTABLE                         R37 8 0
       119 SETTABLEKS                       R31 R37 K31 ["Size"]
@@ -1512,19 +1512,19 @@ PROTO_50:
       124 SETTABLEKS                       R38 R37 K43 ["BackgroundTransparency"]
       126 GETTABLEKS                       R38 R1 K44 ["ZIndex"]
       128 SETTABLEKS                       R38 R37 K44 ["ZIndex"]
-      130 GETUPVAL                         R40 2
-      131 GETTABLEKS                       R39 R40 K45 ["Event"]
-      133 GETTABLEKS                       R38 R39 K46 ["MouseWheelForward"]
+      130 GETUPVAL                         R38 2
+      131 GETTABLEKS                       R38 R38 K45 ["Event"]
+      133 GETTABLEKS                       R38 R38 K46 ["MouseWheelForward"]
       135 GETTABLEKS                       R39 R0 K47 ["onWheelForward"]
       137 SETTABLE                         R39 R37 R38
-      138 GETUPVAL                         R40 2
-      139 GETTABLEKS                       R39 R40 K45 ["Event"]
-      141 GETTABLEKS                       R38 R39 K48 ["MouseWheelBackward"]
+      138 GETUPVAL                         R38 2
+      139 GETTABLEKS                       R38 R38 K45 ["Event"]
+      141 GETTABLEKS                       R38 R38 K48 ["MouseWheelBackward"]
       143 GETTABLEKS                       R39 R0 K49 ["onWheelBackward"]
       145 SETTABLE                         R39 R37 R38
       146 DUPTABLE                         R38 K53 [{"Layout", "Events", "DopeSheetContainer", "IgnoreLayout"}]
-      147 GETUPVAL                         R40 2
-      148 GETTABLEKS                       R39 R40 K41 ["createElement"]
+      147 GETUPVAL                         R39 2
+      148 GETTABLEKS                       R39 R39 K41 ["createElement"]
       150 LOADK                            R40 K54 ["UIListLayout"]
       151 DUPTABLE                         R41 K57 [{"FillDirection", "SortOrder"}]
       152 GETIMPORT                        R42 K60 [Enum.FillDirection.Vertical]
@@ -1535,21 +1535,21 @@ PROTO_50:
       161 SETTABLEKS                       R39 R38 K50 ["Layout"]
       163 MOVE                             R39 R18
       164 JUMPIFNOT                        R39 ; [+34]
-      165 GETUPVAL                         R40 2
-      166 GETTABLEKS                       R39 R40 K41 ["createElement"]
+      165 GETUPVAL                         R39 2
+      166 GETTABLEKS                       R39 R39 K41 ["createElement"]
       168 GETUPVAL                         R40 3
       169 DUPTABLE                         R41 K63 [{"AbsolutePosition", "AbsoluteSize", "AnimationData", "StartTick", "EndTick", "TrackPadding"}]
       170 GETIMPORT                        R43 K66 [Vector2.new]
       172 LOADN                            R44 0
-      173 GETUPVAL                         R46 1
-      174 GETTABLEKS                       R45 R46 K67 ["TRACK_HEIGHT"]
+      173 GETUPVAL                         R45 1
+      174 GETTABLEKS                       R45 R45 K67 ["TRACK_HEIGHT"]
       176 CALL                             R43 2 1
       177 SUB                              R42 R7 R43
       178 SETTABLEKS                       R42 R41 K6 ["AbsolutePosition"]
       180 GETIMPORT                        R42 K66 [Vector2.new]
       182 GETTABLEKS                       R43 R6 K68 ["X"]
-      184 GETUPVAL                         R45 1
-      185 GETTABLEKS                       R44 R45 K67 ["TRACK_HEIGHT"]
+      184 GETUPVAL                         R44 1
+      185 GETTABLEKS                       R44 R44 K67 ["TRACK_HEIGHT"]
       187 CALL                             R42 2 1
       188 SETTABLEKS                       R42 R41 K5 ["AbsoluteSize"]
       190 SETTABLEKS                       R12 R41 K11 ["AnimationData"]
@@ -1558,8 +1558,8 @@ PROTO_50:
       196 SETTABLEKS                       R16 R41 K15 ["TrackPadding"]
       198 CALL                             R39 2 1
       199 SETTABLEKS                       R39 R38 K25 ["Events"]
-      201 GETUPVAL                         R40 2
-      202 GETTABLEKS                       R39 R40 K41 ["createElement"]
+      201 GETUPVAL                         R39 2
+      202 GETTABLEKS                       R39 R39 K41 ["createElement"]
       204 LOADK                            R40 K42 ["Frame"]
       205 NEWTABLE                         R41 8 0
       207 JUMPIFNOT                        R18 ; [+11]
@@ -1567,8 +1567,8 @@ PROTO_50:
       210 LOADN                            R43 1
       211 LOADN                            R44 0
       212 LOADN                            R45 1
-      213 GETUPVAL                         R48 1
-      214 GETTABLEKS                       R47 R48 K67 ["TRACK_HEIGHT"]
+      213 GETUPVAL                         R47 1
+      214 GETTABLEKS                       R47 R47 K67 ["TRACK_HEIGHT"]
       216 MINUS                            R46 R47
       217 CALL                             R42 4 1
       218 JUMPIF                           R42 ; [+7]
@@ -1585,26 +1585,26 @@ PROTO_50:
       232 SETTABLEKS                       R42 R41 K61 ["LayoutOrder"]
       234 LOADB                            R42 1
       235 SETTABLEKS                       R42 R41 K71 ["ClipsDescendants"]
-      237 GETUPVAL                         R44 2
-      238 GETTABLEKS                       R43 R44 K72 ["Change"]
-      240 GETTABLEKS                       R42 R43 K5 ["AbsoluteSize"]
+      237 GETUPVAL                         R42 2
+      238 GETTABLEKS                       R42 R42 K72 ["Change"]
+      240 GETTABLEKS                       R42 R42 K5 ["AbsoluteSize"]
       242 GETTABLEKS                       R43 R0 K73 ["recalculateExtents"]
       244 SETTABLE                         R43 R41 R42
-      245 GETUPVAL                         R44 2
-      246 GETTABLEKS                       R43 R44 K45 ["Event"]
-      248 GETTABLEKS                       R42 R43 K74 ["InputBegan"]
+      245 GETUPVAL                         R42 2
+      246 GETTABLEKS                       R42 R42 K45 ["Event"]
+      248 GETTABLEKS                       R42 R42 K74 ["InputBegan"]
       250 NEWCLOSURE                       R43 P0
       251 CAPTURE                          VAL R0
       252 SETTABLE                         R43 R41 R42
-      253 GETUPVAL                         R44 2
-      254 GETTABLEKS                       R43 R44 K45 ["Event"]
-      256 GETTABLEKS                       R42 R43 K75 ["InputEnded"]
+      253 GETUPVAL                         R42 2
+      254 GETTABLEKS                       R42 R42 K45 ["Event"]
+      256 GETTABLEKS                       R42 R42 K75 ["InputEnded"]
       258 NEWCLOSURE                       R43 P1
       259 CAPTURE                          VAL R0
       260 SETTABLE                         R43 R41 R42
       261 DUPTABLE                         R42 K88 [{"KeyboardListener", "DopeSheet", "DragTarget", "MultiSelectBox", "TimelineActions", "ScaleControls", "RenameKeyframePrompt", "ChangeDurationPrompt", "ClippedToast", "SavedToast", "LoadedToast", "InvalidId"}]
-      262 GETUPVAL                         R44 2
-      263 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      262 GETUPVAL                         R43 2
+      263 GETTABLEKS                       R43 R43 K41 ["createElement"]
       265 GETUPVAL                         R44 4
       266 DUPTABLE                         R45 K91 [{"OnKeyPressed", "OnKeyReleased"}]
       267 NEWCLOSURE                       R46 P2
@@ -1615,8 +1615,8 @@ PROTO_50:
       273 SETTABLEKS                       R46 R45 K90 ["OnKeyReleased"]
       275 CALL                             R43 2 1
       276 SETTABLEKS                       R43 R42 K76 ["KeyboardListener"]
-      278 GETUPVAL                         R44 2
-      279 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      278 GETUPVAL                         R43 2
+      279 GETTABLEKS                       R43 R43 K41 ["createElement"]
       281 GETUPVAL                         R44 5
       282 DUPTABLE                         R45 K100 [{"Size", "ParentSize", "Padding", "StartTick", "EndTick", "TopTrackIndex", "SelectedKeyframes", "SelectedEvents", "Tracks", "IsChannelAnimation", "NamedKeyframes", "TrackHeight", "SummaryTrackHeight", "ZIndex", "OnKeyRightClick", "OnKeyInputBegan", "OnKeyInputEnded"}]
       283 GETIMPORT                        R46 K70 [UDim2.new]
@@ -1640,11 +1640,11 @@ PROTO_50:
       314 SETTABLEKS                       R46 R45 K24 ["Tracks"]
       316 SETTABLEKS                       R22 R45 K21 ["IsChannelAnimation"]
       318 SETTABLEKS                       R25 R45 K26 ["NamedKeyframes"]
-      320 GETUPVAL                         R47 1
-      321 GETTABLEKS                       R46 R47 K67 ["TRACK_HEIGHT"]
+      320 GETUPVAL                         R46 1
+      321 GETTABLEKS                       R46 R46 K67 ["TRACK_HEIGHT"]
       323 SETTABLEKS                       R46 R45 K95 ["TrackHeight"]
-      325 GETUPVAL                         R47 1
-      326 GETTABLEKS                       R46 R47 K101 ["SUMMARY_TRACK_HEIGHT"]
+      325 GETUPVAL                         R46 1
+      326 GETTABLEKS                       R46 R46 K101 ["SUMMARY_TRACK_HEIGHT"]
       328 SETTABLEKS                       R46 R45 K96 ["SummaryTrackHeight"]
       330 LOADN                            R46 1
       331 SETTABLEKS                       R46 R45 K44 ["ZIndex"]
@@ -1661,8 +1661,8 @@ PROTO_50:
       346 SETTABLEKS                       R43 R42 K77 ["DopeSheet"]
       348 MOVE                             R43 R3
       349 JUMPIFNOT                        R43 ; [+14]
-      350 GETUPVAL                         R44 2
-      351 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      350 GETUPVAL                         R43 2
+      351 GETTABLEKS                       R43 R43 K41 ["createElement"]
       353 GETUPVAL                         R44 6
       354 DUPTABLE                         R45 K104 [{"OnDragMoved", "OnDragEnded"}]
       355 GETTABLEKS                       R46 R0 K105 ["onKeyframeDragMoved"]
@@ -1673,8 +1673,8 @@ PROTO_50:
       364 SETTABLEKS                       R43 R42 K78 ["DragTarget"]
       366 MOVE                             R43 R5
       367 JUMPIFNOT                        R43 ; [+29]
-      368 GETUPVAL                         R44 2
-      369 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      368 GETUPVAL                         R43 2
+      369 GETTABLEKS                       R43 R43 K41 ["createElement"]
       371 GETUPVAL                         R44 7
       372 DUPTABLE                         R45 K110 [{"OnDragMoved", "OnDragEnded", "SelectionStart", "SelectionEnd", "SourceExtents"}]
       373 GETTABLEKS                       R46 R0 K111 ["onSelectDragMoved"]
@@ -1694,8 +1694,8 @@ PROTO_50:
       397 SETTABLEKS                       R43 R42 K79 ["MultiSelectBox"]
       399 MOVE                             R43 R11
       400 JUMPIFNOT                        R43 ; [+38]
-      401 GETUPVAL                         R44 2
-      402 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      401 GETUPVAL                         R43 2
+      402 GETTABLEKS                       R43 R43 K41 ["createElement"]
       404 GETUPVAL                         R44 8
       405 DUPTABLE                         R45 K125 [{"ShowMenu", "MultipleSelected", "IsChannelAnimation", "OnMenuOpened", "OnItemSelected", "OnClearTangentsSelected", "OnGenerateCurve", "OnRenameKeyframe", "OnChangeDuration"}]
       406 SETTABLEKS                       R8 R45 K117 ["ShowMenu"]
@@ -1707,8 +1707,8 @@ PROTO_50:
       418 SETTABLEKS                       R46 R45 K120 ["OnItemSelected"]
       420 GETTABLEKS                       R46 R0 K128 ["onClearTangentsSelected"]
       422 SETTABLEKS                       R46 R45 K121 ["OnClearTangentsSelected"]
-      424 GETTABLEKS                       R47 R0 K0 ["props"]
-      426 GETTABLEKS                       R46 R47 K129 ["GenerateCurve"]
+      424 GETTABLEKS                       R46 R0 K0 ["props"]
+      426 GETTABLEKS                       R46 R46 K129 ["GenerateCurve"]
       428 SETTABLEKS                       R46 R45 K122 ["OnGenerateCurve"]
       430 NEWCLOSURE                       R46 P7
       431 CAPTURE                          VAL R0
@@ -1722,8 +1722,8 @@ PROTO_50:
       442 JUMPIFNOT                        R43 ; [+56]
       443 NOT                              R43 R5
       444 JUMPIFNOT                        R43 ; [+54]
-      445 GETUPVAL                         R44 2
-      446 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      445 GETUPVAL                         R43 2
+      446 GETTABLEKS                       R43 R43 K41 ["createElement"]
       448 GETUPVAL                         R44 9
       449 DUPTABLE                         R45 K136 [{"SelectedKeyframes", "StartTick", "EndTick", "TopTrackIndex", "Tracks", "TrackPadding", "Dragging", "TimelineUnit", "FrameRate", "DopeSheetWidth", "ZIndex", "ShowSelectionArea", "IsChannelAnimation", "OnScaleHandleDragStart", "OnScaleHandleDragEnd", "OnScaleHandleDragMoved"}]
       450 SETTABLEKS                       R13 R45 K12 ["SelectedKeyframes"]
@@ -1756,8 +1756,8 @@ PROTO_50:
       499 SETTABLEKS                       R43 R42 K81 ["ScaleControls"]
       501 LOADB                            R43 0
       502 JUMPIFEQKNIL                     R9 ; [+93]
-      504 GETUPVAL                         R44 2
-      505 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      504 GETUPVAL                         R43 2
+      505 GETTABLEKS                       R43 R43 K41 ["createElement"]
       507 GETUPVAL                         R44 10
       508 DUPTABLE                         R45 K147 [{"PromptText", "InputText", "Text", "Buttons", "OnButtonClicked", "OnTextSubmitted", "OnClose"}]
       509 LOADK                            R48 K148 ["ContextMenu"]
@@ -1772,8 +1772,8 @@ PROTO_50:
       521 SETTABLEKS                       R46 R45 K141 ["InputText"]
       523 GETTABLE                         R46 R25 R9
       524 JUMPIF                           R46 ; [+3]
-      525 GETUPVAL                         R47 1
-      526 GETTABLEKS                       R46 R47 K152 ["DEFAULT_KEYFRAME_NAME"]
+      525 GETUPVAL                         R46 1
+      526 GETTABLEKS                       R46 R46 K152 ["DEFAULT_KEYFRAME_NAME"]
       528 SETTABLEKS                       R46 R45 K142 ["Text"]
       530 NEWTABLE                         R46 0 3
       532 DUPTABLE                         R47 K155 [{"Key", "Text", "Style"}]
@@ -1825,8 +1825,8 @@ PROTO_50:
       596 SETTABLEKS                       R43 R42 K82 ["RenameKeyframePrompt"]
       598 MOVE                             R43 R34
       599 JUMPIFNOT                        R43 ; [+74]
-      600 GETUPVAL                         R44 2
-      601 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      600 GETUPVAL                         R43 2
+      601 GETTABLEKS                       R43 R43 K41 ["createElement"]
       603 GETUPVAL                         R44 10
       604 DUPTABLE                         R45 K164 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnTextSubmitted", "OnClose"}]
       605 LOADK                            R48 K165 ["Title"]
@@ -1878,8 +1878,8 @@ PROTO_50:
       674 SETTABLEKS                       R43 R42 K83 ["ChangeDurationPrompt"]
       676 MOVE                             R43 R28
       677 JUMPIFNOT                        R43 ; [+17]
-      678 GETUPVAL                         R44 2
-      679 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      678 GETUPVAL                         R43 2
+      679 GETTABLEKS                       R43 R43 K41 ["createElement"]
       681 GETUPVAL                         R44 11
       682 DUPTABLE                         R45 K173 [{"Text", "OnClose"}]
       683 LOADK                            R48 K174 ["Toast"]
@@ -1893,8 +1893,8 @@ PROTO_50:
       695 SETTABLEKS                       R43 R42 K84 ["ClippedToast"]
       697 MOVE                             R43 R27
       698 JUMPIFNOT                        R43 ; [+20]
-      699 GETUPVAL                         R44 2
-      700 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      699 GETUPVAL                         R43 2
+      700 GETTABLEKS                       R43 R43 K41 ["createElement"]
       702 GETUPVAL                         R44 11
       703 DUPTABLE                         R45 K173 [{"Text", "OnClose"}]
       704 LOADK                            R48 K174 ["Toast"]
@@ -1912,8 +1912,8 @@ PROTO_50:
       722 JUMPIFNOT                        R43 ; [+22]
       723 MOVE                             R43 R26
       724 JUMPIFNOT                        R43 ; [+20]
-      725 GETUPVAL                         R44 2
-      726 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      725 GETUPVAL                         R43 2
+      726 GETTABLEKS                       R43 R43 K41 ["createElement"]
       728 GETUPVAL                         R44 11
       729 DUPTABLE                         R45 K173 [{"Text", "OnClose"}]
       730 LOADK                            R48 K174 ["Toast"]
@@ -1929,8 +1929,8 @@ PROTO_50:
       745 SETTABLEKS                       R43 R42 K86 ["LoadedToast"]
       747 MOVE                             R43 R29
       748 JUMPIFNOT                        R43 ; [+17]
-      749 GETUPVAL                         R44 2
-      750 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      749 GETUPVAL                         R43 2
+      750 GETTABLEKS                       R43 R43 K41 ["createElement"]
       752 GETUPVAL                         R44 11
       753 DUPTABLE                         R45 K173 [{"Text", "OnClose"}]
       754 LOADK                            R48 K174 ["Toast"]
@@ -1944,13 +1944,13 @@ PROTO_50:
       766 SETTABLEKS                       R43 R42 K87 ["InvalidId"]
       768 CALL                             R39 3 1
       769 SETTABLEKS                       R39 R38 K51 ["DopeSheetContainer"]
-      771 GETUPVAL                         R40 2
-      772 GETTABLEKS                       R39 R40 K41 ["createElement"]
+      771 GETUPVAL                         R39 2
+      772 GETTABLEKS                       R39 R39 K41 ["createElement"]
       774 LOADK                            R40 K186 ["Folder"]
       775 NEWTABLE                         R41 0 0
       777 DUPTABLE                         R42 K188 [{"TrackColors"}]
-      778 GETUPVAL                         R44 2
-      779 GETTABLEKS                       R43 R44 K41 ["createElement"]
+      778 GETUPVAL                         R43 2
+      779 GETTABLEKS                       R43 R43 K41 ["createElement"]
       781 GETUPVAL                         R44 12
       782 DUPTABLE                         R45 K190 [{"Tracks", "TopTrackIndex", "Position", "MaxHeight"}]
       783 SETTABLEKS                       R24 R45 K24 ["Tracks"]
@@ -1971,17 +1971,17 @@ PROTO_50:
       805 SETTABLEKS                       R39 R38 K52 ["IgnoreLayout"]
       807 CALL                             R35 3 -1
       808 RETURN                           R35 -1
-      809 GETUPVAL                         R36 2
-      810 GETTABLEKS                       R35 R36 K41 ["createElement"]
+      809 GETUPVAL                         R35 2
+      810 GETTABLEKS                       R35 R35 K41 ["createElement"]
       812 LOADK                            R36 K42 ["Frame"]
       813 NEWTABLE                         R37 4 0
       815 SETTABLEKS                       R31 R37 K31 ["Size"]
       817 SETTABLEKS                       R32 R37 K32 ["Position"]
       819 LOADN                            R38 1
       820 SETTABLEKS                       R38 R37 K43 ["BackgroundTransparency"]
-      822 GETUPVAL                         R40 2
-      823 GETTABLEKS                       R39 R40 K72 ["Change"]
-      825 GETTABLEKS                       R38 R39 K5 ["AbsoluteSize"]
+      822 GETUPVAL                         R38 2
+      823 GETTABLEKS                       R38 R38 K72 ["Change"]
+      825 GETTABLEKS                       R38 R38 K5 ["AbsoluteSize"]
       827 GETTABLEKS                       R39 R0 K73 ["recalculateExtents"]
       829 SETTABLE                         R39 R37 R38
       830 CALL                             R35 2 -1
@@ -1998,24 +1998,24 @@ PROTO_51:
        13 SETTABLEKS                       R4 R3 K3 ["Clipboard"]
        15 GETTABLEKS                       R4 R0 K4 ["AnimationData"]
        17 SETTABLEKS                       R4 R3 K4 ["AnimationData"]
-       19 GETTABLEKS                       R5 R0 K15 ["Notifications"]
-       21 GETTABLEKS                       R4 R5 K5 ["QuantizeWarning"]
+       19 GETTABLEKS                       R4 R0 K15 ["Notifications"]
+       21 GETTABLEKS                       R4 R4 K5 ["QuantizeWarning"]
        23 SETTABLEKS                       R4 R3 K5 ["QuantizeWarning"]
-       25 GETTABLEKS                       R5 R0 K15 ["Notifications"]
-       27 GETTABLEKS                       R4 R5 K6 ["Saved"]
+       25 GETTABLEKS                       R4 R0 K15 ["Notifications"]
+       27 GETTABLEKS                       R4 R4 K6 ["Saved"]
        29 SETTABLEKS                       R4 R3 K6 ["Saved"]
-       31 GETTABLEKS                       R5 R0 K15 ["Notifications"]
-       33 GETTABLEKS                       R4 R5 K7 ["Loaded"]
+       31 GETTABLEKS                       R4 R0 K15 ["Notifications"]
+       33 GETTABLEKS                       R4 R4 K7 ["Loaded"]
        35 SETTABLEKS                       R4 R3 K7 ["Loaded"]
-       37 GETTABLEKS                       R5 R0 K15 ["Notifications"]
-       39 GETTABLEKS                       R4 R5 K8 ["ClippedWarning"]
+       37 GETTABLEKS                       R4 R0 K15 ["Notifications"]
+       39 GETTABLEKS                       R4 R4 K8 ["ClippedWarning"]
        41 SETTABLEKS                       R4 R3 K8 ["ClippedWarning"]
        43 GETTABLEKS                       R4 R2 K9 ["FrameRate"]
        45 SETTABLEKS                       R4 R3 K9 ["FrameRate"]
        47 GETTABLEKS                       R4 R2 K10 ["SnapMode"]
        49 SETTABLEKS                       R4 R3 K10 ["SnapMode"]
-       51 GETTABLEKS                       R5 R0 K15 ["Notifications"]
-       53 GETTABLEKS                       R4 R5 K16 ["InvalidAnimation"]
+       51 GETTABLEKS                       R4 R0 K15 ["Notifications"]
+       53 GETTABLEKS                       R4 R4 K16 ["InvalidAnimation"]
        55 SETTABLEKS                       R4 R3 K11 ["InvalidIdWarning"]
        57 GETTABLEKS                       R4 R2 K12 ["Tracks"]
        59 SETTABLEKS                       R4 R3 K12 ["Tracks"]
@@ -2291,207 +2291,207 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Cryo"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Cryo"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K10 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Util"]
-       34 GETTABLEKS                       R5 R6 K12 ["deepCopy"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Util"]
+       34 GETTABLEKS                       R5 R5 K12 ["deepCopy"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K10 ["Src"]
-       41 GETTABLEKS                       R7 R8 K11 ["Util"]
-       43 GETTABLEKS                       R6 R7 K13 ["AnimationData"]
+       39 GETTABLEKS                       R6 R0 K10 ["Src"]
+       41 GETTABLEKS                       R6 R6 K11 ["Util"]
+       43 GETTABLEKS                       R6 R6 K13 ["AnimationData"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       50 GETTABLEKS                       R7 R8 K14 ["Framework"]
+       48 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       50 GETTABLEKS                       R7 R7 K14 ["Framework"]
        52 CALL                             R6 1 1
-       53 GETTABLEKS                       R8 R6 K15 ["UI"]
-       55 GETTABLEKS                       R7 R8 K16 ["DragListener"]
+       53 GETTABLEKS                       R7 R6 K15 ["UI"]
+       55 GETTABLEKS                       R7 R7 K16 ["DragListener"]
        57 GETTABLEKS                       R8 R6 K17 ["ContextServices"]
        59 GETTABLEKS                       R9 R8 K18 ["withContext"]
-       61 GETTABLEKS                       R11 R6 K15 ["UI"]
-       63 GETTABLEKS                       R10 R11 K19 ["KeyboardListener"]
+       61 GETTABLEKS                       R10 R6 K15 ["UI"]
+       63 GETTABLEKS                       R10 R10 K19 ["KeyboardListener"]
        65 GETIMPORT                        R11 K5 [require]
-       67 GETTABLEKS                       R14 R0 K10 ["Src"]
-       69 GETTABLEKS                       R13 R14 K20 ["Actions"]
-       71 GETTABLEKS                       R12 R13 K21 ["SetNotification"]
+       67 GETTABLEKS                       R12 R0 K10 ["Src"]
+       69 GETTABLEKS                       R12 R12 K20 ["Actions"]
+       71 GETTABLEKS                       R12 R12 K21 ["SetNotification"]
        73 CALL                             R11 1 1
        74 GETIMPORT                        R12 K5 [require]
-       76 GETTABLEKS                       R15 R0 K10 ["Src"]
-       78 GETTABLEKS                       R14 R15 K20 ["Actions"]
-       80 GETTABLEKS                       R13 R14 K22 ["SetPlayState"]
+       76 GETTABLEKS                       R13 R0 K10 ["Src"]
+       78 GETTABLEKS                       R13 R13 K20 ["Actions"]
+       80 GETTABLEKS                       R13 R13 K22 ["SetPlayState"]
        82 CALL                             R12 1 1
        83 GETIMPORT                        R13 K5 [require]
-       85 GETTABLEKS                       R16 R0 K10 ["Src"]
-       87 GETTABLEKS                       R15 R16 K20 ["Actions"]
-       89 GETTABLEKS                       R14 R15 K23 ["SetRightClickContextInfo"]
+       85 GETTABLEKS                       R14 R0 K10 ["Src"]
+       87 GETTABLEKS                       R14 R14 K20 ["Actions"]
+       89 GETTABLEKS                       R14 R14 K23 ["SetRightClickContextInfo"]
        91 CALL                             R13 1 1
        92 GETIMPORT                        R14 K5 [require]
-       94 GETTABLEKS                       R17 R0 K10 ["Src"]
-       96 GETTABLEKS                       R16 R17 K20 ["Actions"]
-       98 GETTABLEKS                       R15 R16 K24 ["SetSelectedKeyframes"]
+       94 GETTABLEKS                       R15 R0 K10 ["Src"]
+       96 GETTABLEKS                       R15 R15 K20 ["Actions"]
+       98 GETTABLEKS                       R15 R15 K24 ["SetSelectedKeyframes"]
       100 CALL                             R14 1 1
       101 GETIMPORT                        R15 K5 [require]
-      103 GETTABLEKS                       R18 R0 K10 ["Src"]
-      105 GETTABLEKS                       R17 R18 K20 ["Actions"]
-      107 GETTABLEKS                       R16 R17 K25 ["SetSelectedEvents"]
+      103 GETTABLEKS                       R16 R0 K10 ["Src"]
+      105 GETTABLEKS                       R16 R16 K20 ["Actions"]
+      107 GETTABLEKS                       R16 R16 K25 ["SetSelectedEvents"]
       109 CALL                             R15 1 1
       110 GETIMPORT                        R16 K5 [require]
-      112 GETTABLEKS                       R19 R0 K10 ["Src"]
-      114 GETTABLEKS                       R18 R19 K26 ["Components"]
-      116 GETTABLEKS                       R17 R18 K27 ["DopeSheet"]
+      112 GETTABLEKS                       R17 R0 K10 ["Src"]
+      114 GETTABLEKS                       R17 R17 K26 ["Components"]
+      116 GETTABLEKS                       R17 R17 K27 ["DopeSheet"]
       118 CALL                             R16 1 1
       119 GETIMPORT                        R17 K5 [require]
-      121 GETTABLEKS                       R21 R0 K10 ["Src"]
-      123 GETTABLEKS                       R20 R21 K26 ["Components"]
-      125 GETTABLEKS                       R19 R20 K28 ["TrackList"]
-      127 GETTABLEKS                       R18 R19 K29 ["TrackColors"]
+      121 GETTABLEKS                       R18 R0 K10 ["Src"]
+      123 GETTABLEKS                       R18 R18 K26 ["Components"]
+      125 GETTABLEKS                       R18 R18 K28 ["TrackList"]
+      127 GETTABLEKS                       R18 R18 K29 ["TrackColors"]
       129 CALL                             R17 1 1
       130 GETIMPORT                        R18 K5 [require]
-      132 GETTABLEKS                       R21 R0 K10 ["Src"]
-      134 GETTABLEKS                       R20 R21 K26 ["Components"]
-      136 GETTABLEKS                       R19 R20 K30 ["EventsController"]
+      132 GETTABLEKS                       R19 R0 K10 ["Src"]
+      134 GETTABLEKS                       R19 R19 K26 ["Components"]
+      136 GETTABLEKS                       R19 R19 K30 ["EventsController"]
       138 CALL                             R18 1 1
       139 GETIMPORT                        R19 K5 [require]
-      141 GETTABLEKS                       R22 R0 K10 ["Src"]
-      143 GETTABLEKS                       R21 R22 K26 ["Components"]
-      145 GETTABLEKS                       R20 R21 K31 ["SelectionBox"]
+      141 GETTABLEKS                       R20 R0 K10 ["Src"]
+      143 GETTABLEKS                       R20 R20 K26 ["Components"]
+      145 GETTABLEKS                       R20 R20 K31 ["SelectionBox"]
       147 CALL                             R19 1 1
       148 GETIMPORT                        R20 K5 [require]
-      150 GETTABLEKS                       R23 R0 K10 ["Src"]
-      152 GETTABLEKS                       R22 R23 K26 ["Components"]
-      154 GETTABLEKS                       R21 R22 K32 ["TimelineActions"]
+      150 GETTABLEKS                       R21 R0 K10 ["Src"]
+      152 GETTABLEKS                       R21 R21 K26 ["Components"]
+      154 GETTABLEKS                       R21 R21 K32 ["TimelineActions"]
       156 CALL                             R20 1 1
       157 GETIMPORT                        R21 K5 [require]
-      159 GETTABLEKS                       R25 R0 K10 ["Src"]
-      161 GETTABLEKS                       R24 R25 K26 ["Components"]
-      163 GETTABLEKS                       R23 R24 K33 ["ScaleControls"]
-      165 GETTABLEKS                       R22 R23 K33 ["ScaleControls"]
+      159 GETTABLEKS                       R22 R0 K10 ["Src"]
+      161 GETTABLEKS                       R22 R22 K26 ["Components"]
+      163 GETTABLEKS                       R22 R22 K33 ["ScaleControls"]
+      165 GETTABLEKS                       R22 R22 K33 ["ScaleControls"]
       167 CALL                             R21 1 1
       168 GETIMPORT                        R22 K5 [require]
-      170 GETTABLEKS                       R25 R0 K10 ["Src"]
-      172 GETTABLEKS                       R24 R25 K26 ["Components"]
-      174 GETTABLEKS                       R23 R24 K34 ["TextEntryPrompt"]
+      170 GETTABLEKS                       R23 R0 K10 ["Src"]
+      172 GETTABLEKS                       R23 R23 K26 ["Components"]
+      174 GETTABLEKS                       R23 R23 K34 ["TextEntryPrompt"]
       176 CALL                             R22 1 1
       177 GETIMPORT                        R23 K5 [require]
-      179 GETTABLEKS                       R27 R0 K10 ["Src"]
-      181 GETTABLEKS                       R26 R27 K26 ["Components"]
-      183 GETTABLEKS                       R25 R26 K35 ["Toast"]
-      185 GETTABLEKS                       R24 R25 K36 ["NoticeToast"]
+      179 GETTABLEKS                       R24 R0 K10 ["Src"]
+      181 GETTABLEKS                       R24 R24 K26 ["Components"]
+      183 GETTABLEKS                       R24 R24 K35 ["Toast"]
+      185 GETTABLEKS                       R24 R24 K36 ["NoticeToast"]
       187 CALL                             R23 1 1
       188 GETIMPORT                        R24 K5 [require]
-      190 GETTABLEKS                       R28 R0 K10 ["Src"]
-      192 GETTABLEKS                       R27 R28 K37 ["Thunks"]
-      194 GETTABLEKS                       R26 R27 K38 ["History"]
-      196 GETTABLEKS                       R25 R26 K39 ["AddWaypoint"]
+      190 GETTABLEKS                       R25 R0 K10 ["Src"]
+      192 GETTABLEKS                       R25 R25 K37 ["Thunks"]
+      194 GETTABLEKS                       R25 R25 K38 ["History"]
+      196 GETTABLEKS                       R25 R25 K39 ["AddWaypoint"]
       198 CALL                             R24 1 1
       199 GETIMPORT                        R25 K5 [require]
-      201 GETTABLEKS                       R29 R0 K10 ["Src"]
-      203 GETTABLEKS                       R28 R29 K37 ["Thunks"]
-      205 GETTABLEKS                       R27 R28 K40 ["Selection"]
-      207 GETTABLEKS                       R26 R27 K41 ["SelectKeyframeRange"]
+      201 GETTABLEKS                       R26 R0 K10 ["Src"]
+      203 GETTABLEKS                       R26 R26 K37 ["Thunks"]
+      205 GETTABLEKS                       R26 R26 K40 ["Selection"]
+      207 GETTABLEKS                       R26 R26 K41 ["SelectKeyframeRange"]
       209 CALL                             R25 1 1
       210 GETIMPORT                        R26 K5 [require]
-      212 GETTABLEKS                       R30 R0 K10 ["Src"]
-      214 GETTABLEKS                       R29 R30 K37 ["Thunks"]
-      216 GETTABLEKS                       R28 R29 K40 ["Selection"]
-      218 GETTABLEKS                       R27 R28 K42 ["DeselectKeyframe"]
+      212 GETTABLEKS                       R27 R0 K10 ["Src"]
+      214 GETTABLEKS                       R27 R27 K37 ["Thunks"]
+      216 GETTABLEKS                       R27 R27 K40 ["Selection"]
+      218 GETTABLEKS                       R27 R27 K42 ["DeselectKeyframe"]
       220 CALL                             R26 1 1
       221 GETIMPORT                        R27 K5 [require]
-      223 GETTABLEKS                       R31 R0 K10 ["Src"]
-      225 GETTABLEKS                       R30 R31 K37 ["Thunks"]
-      227 GETTABLEKS                       R29 R30 K40 ["Selection"]
-      229 GETTABLEKS                       R28 R29 K43 ["SelectKeyframesAtTick"]
+      223 GETTABLEKS                       R28 R0 K10 ["Src"]
+      225 GETTABLEKS                       R28 R28 K37 ["Thunks"]
+      227 GETTABLEKS                       R28 R28 K40 ["Selection"]
+      229 GETTABLEKS                       R28 R28 K43 ["SelectKeyframesAtTick"]
       231 CALL                             R27 1 1
       232 GETIMPORT                        R28 K5 [require]
-      234 GETTABLEKS                       R32 R0 K10 ["Src"]
-      236 GETTABLEKS                       R31 R32 K37 ["Thunks"]
-      238 GETTABLEKS                       R30 R31 K40 ["Selection"]
-      240 GETTABLEKS                       R29 R30 K44 ["DeselectKeyframesAtTick"]
+      234 GETTABLEKS                       R29 R0 K10 ["Src"]
+      236 GETTABLEKS                       R29 R29 K37 ["Thunks"]
+      238 GETTABLEKS                       R29 R29 K40 ["Selection"]
+      240 GETTABLEKS                       R29 R29 K44 ["DeselectKeyframesAtTick"]
       242 CALL                             R28 1 1
       243 GETIMPORT                        R29 K5 [require]
-      245 GETTABLEKS                       R33 R0 K10 ["Src"]
-      247 GETTABLEKS                       R32 R33 K37 ["Thunks"]
-      249 GETTABLEKS                       R31 R32 K40 ["Selection"]
-      251 GETTABLEKS                       R30 R31 K45 ["MoveSelectedKeyframes"]
+      245 GETTABLEKS                       R30 R0 K10 ["Src"]
+      247 GETTABLEKS                       R30 R30 K37 ["Thunks"]
+      249 GETTABLEKS                       R30 R30 K40 ["Selection"]
+      251 GETTABLEKS                       R30 R30 K45 ["MoveSelectedKeyframes"]
       253 CALL                             R29 1 1
       254 GETIMPORT                        R30 K5 [require]
-      256 GETTABLEKS                       R34 R0 K10 ["Src"]
-      258 GETTABLEKS                       R33 R34 K37 ["Thunks"]
-      260 GETTABLEKS                       R32 R33 K40 ["Selection"]
-      262 GETTABLEKS                       R31 R32 K46 ["ScaleSelectedKeyframes"]
+      256 GETTABLEKS                       R31 R0 K10 ["Src"]
+      258 GETTABLEKS                       R31 R31 K37 ["Thunks"]
+      260 GETTABLEKS                       R31 R31 K40 ["Selection"]
+      262 GETTABLEKS                       R31 R31 K46 ["ScaleSelectedKeyframes"]
       264 CALL                             R30 1 1
       265 GETIMPORT                        R31 K5 [require]
-      267 GETTABLEKS                       R35 R0 K10 ["Src"]
-      269 GETTABLEKS                       R34 R35 K37 ["Thunks"]
-      271 GETTABLEKS                       R33 R34 K40 ["Selection"]
-      273 GETTABLEKS                       R32 R33 K47 ["SetSelectedKeyframeData"]
+      267 GETTABLEKS                       R32 R0 K10 ["Src"]
+      269 GETTABLEKS                       R32 R32 K37 ["Thunks"]
+      271 GETTABLEKS                       R32 R32 K40 ["Selection"]
+      273 GETTABLEKS                       R32 R32 K47 ["SetSelectedKeyframeData"]
       275 CALL                             R31 1 1
       276 GETIMPORT                        R32 K5 [require]
-      278 GETTABLEKS                       R36 R0 K10 ["Src"]
-      280 GETTABLEKS                       R35 R36 K37 ["Thunks"]
-      282 GETTABLEKS                       R34 R35 K40 ["Selection"]
-      284 GETTABLEKS                       R33 R34 K48 ["GenerateCurve"]
+      278 GETTABLEKS                       R33 R0 K10 ["Src"]
+      280 GETTABLEKS                       R33 R33 K37 ["Thunks"]
+      282 GETTABLEKS                       R33 R33 K40 ["Selection"]
+      284 GETTABLEKS                       R33 R33 K48 ["GenerateCurve"]
       286 CALL                             R32 1 1
       287 GETIMPORT                        R33 K5 [require]
-      289 GETTABLEKS                       R36 R0 K10 ["Src"]
-      291 GETTABLEKS                       R35 R36 K37 ["Thunks"]
-      293 GETTABLEKS                       R34 R35 K49 ["RenameKeyframe"]
+      289 GETTABLEKS                       R34 R0 K10 ["Src"]
+      291 GETTABLEKS                       R34 R34 K37 ["Thunks"]
+      293 GETTABLEKS                       R34 R34 K49 ["RenameKeyframe"]
       295 CALL                             R33 1 1
       296 GETIMPORT                        R34 K5 [require]
-      298 GETTABLEKS                       R37 R0 K10 ["Src"]
-      300 GETTABLEKS                       R36 R37 K11 ["Util"]
-      302 GETTABLEKS                       R35 R36 K50 ["Constants"]
+      298 GETTABLEKS                       R35 R0 K10 ["Src"]
+      300 GETTABLEKS                       R35 R35 K11 ["Util"]
+      302 GETTABLEKS                       R35 R35 K50 ["Constants"]
       304 CALL                             R34 1 1
       305 GETIMPORT                        R35 K5 [require]
-      307 GETTABLEKS                       R38 R0 K10 ["Src"]
-      309 GETTABLEKS                       R37 R38 K11 ["Util"]
-      311 GETTABLEKS                       R36 R37 K51 ["DragContext"]
+      307 GETTABLEKS                       R36 R0 K10 ["Src"]
+      309 GETTABLEKS                       R36 R36 K11 ["Util"]
+      311 GETTABLEKS                       R36 R36 K51 ["DragContext"]
       313 CALL                             R35 1 1
       314 GETIMPORT                        R36 K5 [require]
-      316 GETTABLEKS                       R39 R0 K10 ["Src"]
-      318 GETTABLEKS                       R38 R39 K11 ["Util"]
-      320 GETTABLEKS                       R37 R38 K52 ["Input"]
+      316 GETTABLEKS                       R37 R0 K10 ["Src"]
+      318 GETTABLEKS                       R37 R37 K11 ["Util"]
+      320 GETTABLEKS                       R37 R37 K52 ["Input"]
       322 CALL                             R36 1 1
       323 GETIMPORT                        R37 K5 [require]
-      325 GETTABLEKS                       R40 R0 K10 ["Src"]
-      327 GETTABLEKS                       R39 R40 K11 ["Util"]
-      329 GETTABLEKS                       R38 R39 K53 ["isEmpty"]
+      325 GETTABLEKS                       R38 R0 K10 ["Src"]
+      327 GETTABLEKS                       R38 R38 K11 ["Util"]
+      329 GETTABLEKS                       R38 R38 K53 ["isEmpty"]
       331 CALL                             R37 1 1
       332 GETIMPORT                        R38 K5 [require]
-      334 GETTABLEKS                       R41 R0 K10 ["Src"]
-      336 GETTABLEKS                       R40 R41 K11 ["Util"]
-      338 GETTABLEKS                       R39 R40 K54 ["KeyframeUtils"]
+      334 GETTABLEKS                       R39 R0 K10 ["Src"]
+      336 GETTABLEKS                       R39 R39 K11 ["Util"]
+      338 GETTABLEKS                       R39 R39 K54 ["KeyframeUtils"]
       340 CALL                             R38 1 1
       341 GETIMPORT                        R39 K5 [require]
-      343 GETTABLEKS                       R42 R0 K10 ["Src"]
-      345 GETTABLEKS                       R41 R42 K11 ["Util"]
-      347 GETTABLEKS                       R40 R41 K55 ["PathUtils"]
+      343 GETTABLEKS                       R40 R0 K10 ["Src"]
+      345 GETTABLEKS                       R40 R40 K11 ["Util"]
+      347 GETTABLEKS                       R40 R40 K55 ["PathUtils"]
       349 CALL                             R39 1 1
       350 GETIMPORT                        R40 K5 [require]
-      352 GETTABLEKS                       R43 R0 K10 ["Src"]
-      354 GETTABLEKS                       R42 R43 K11 ["Util"]
-      356 GETTABLEKS                       R41 R42 K56 ["StringUtils"]
+      352 GETTABLEKS                       R41 R0 K10 ["Src"]
+      354 GETTABLEKS                       R41 R41 K11 ["Util"]
+      356 GETTABLEKS                       R41 R41 K56 ["StringUtils"]
       358 CALL                             R40 1 1
       359 GETIMPORT                        R41 K5 [require]
-      361 GETTABLEKS                       R44 R0 K10 ["Src"]
-      363 GETTABLEKS                       R43 R44 K11 ["Util"]
-      365 GETTABLEKS                       R42 R43 K57 ["TrackUtils"]
+      361 GETTABLEKS                       R42 R0 K10 ["Src"]
+      363 GETTABLEKS                       R42 R42 K11 ["Util"]
+      365 GETTABLEKS                       R42 R42 K57 ["TrackUtils"]
       367 CALL                             R41 1 1
       368 GETIMPORT                        R42 K5 [require]
-      370 GETTABLEKS                       R44 R0 K58 ["LuaFlags"]
-      372 GETTABLEKS                       R43 R44 K59 ["GetFFlagFixDynamicTrackSelection"]
+      370 GETTABLEKS                       R43 R0 K58 ["LuaFlags"]
+      372 GETTABLEKS                       R43 R43 K59 ["GetFFlagFixDynamicTrackSelection"]
       374 CALL                             R42 1 1
       375 GETTABLEKS                       R43 R1 K60 ["Component"]
       377 LOADK                            R45 K61 ["DopeSheetController"]

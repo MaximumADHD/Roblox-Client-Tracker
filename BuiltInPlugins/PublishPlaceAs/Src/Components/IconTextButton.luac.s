@@ -53,8 +53,8 @@ PROTO_0:
        75 MOVE                             R21 R18
        76 JUMPIFNOT                        R21 ; [+2]
        77 GETTABLEKS                       R21 R18 K28 ["BorderColor"]
-       79 GETUPVAL                         R23 0
-       80 GETTABLEKS                       R22 R23 K29 ["createElement"]
+       79 GETUPVAL                         R22 0
+       80 GETTABLEKS                       R22 R22 K29 ["createElement"]
        82 LOADK                            R23 K30 ["TextButton"]
        83 NEWTABLE                         R24 16 0
        85 LOADN                            R25 0
@@ -78,13 +78,13 @@ PROTO_0:
       111 JUMPIF                           R25 ; [+2]
       112 GETTABLEKS                       R25 R2 K38 ["borderColor"]
       114 SETTABLEKS                       R25 R24 K39 ["BorderColor3"]
-      116 GETUPVAL                         R27 0
-      117 GETTABLEKS                       R26 R27 K40 ["Event"]
-      119 GETTABLEKS                       R25 R26 K41 ["Activated"]
+      116 GETUPVAL                         R25 0
+      117 GETTABLEKS                       R25 R25 K40 ["Event"]
+      119 GETTABLEKS                       R25 R25 K41 ["Activated"]
       121 SETTABLE                         R4 R24 R25
       122 DUPTABLE                         R25 K45 [{"Corner", "Icon", "Label"}]
-      123 GETUPVAL                         R27 0
-      124 GETTABLEKS                       R26 R27 K29 ["createElement"]
+      123 GETUPVAL                         R26 0
+      124 GETTABLEKS                       R26 R26 K29 ["createElement"]
       126 LOADK                            R27 K46 ["UICorner"]
       127 DUPTABLE                         R28 K48 [{"CornerRadius"}]
       128 GETIMPORT                        R29 K50 [UDim.new]
@@ -95,8 +95,8 @@ PROTO_0:
       135 CALL                             R26 2 1
       136 SETTABLEKS                       R26 R25 K42 ["Corner"]
       138 JUMPIFNOT                        R9 ; [+48]
-      139 GETUPVAL                         R27 0
-      140 GETTABLEKS                       R26 R27 K29 ["createElement"]
+      139 GETUPVAL                         R26 0
+      140 GETTABLEKS                       R26 R26 K29 ["createElement"]
       142 LOADK                            R27 K51 ["ImageLabel"]
       143 DUPTABLE                         R28 K54 [{"BackgroundTransparency", "Image", "ImageRectSize", "ImageRectOffset", "Size", "Position", "AnchorPoint", "ZIndex"}]
       144 LOADN                            R29 1
@@ -132,8 +132,8 @@ PROTO_0:
       186 JUMPIF                           R26 ; [+1]
       187 LOADNIL                          R26
       188 SETTABLEKS                       R26 R25 K43 ["Icon"]
-      190 GETUPVAL                         R27 0
-      191 GETTABLEKS                       R26 R27 K29 ["createElement"]
+      190 GETUPVAL                         R26 0
+      191 GETTABLEKS                       R26 R26 K29 ["createElement"]
       193 LOADK                            R27 K61 ["TextLabel"]
       194 DUPTABLE                         R28 K67 [{"BackgroundTransparency", "Text", "TextXAlignment", "TextYAlignment", "Font", "TextSize", "TextColor3", "Position", "AnchorPoint", "Size", "ZIndex"}]
       195 LOADN                            R29 1
@@ -145,12 +145,12 @@ PROTO_0:
       206 SETTABLEKS                       R29 R28 K63 ["TextYAlignment"]
       208 GETTABLEKS                       R30 R2 K73 ["footer"]
       210 JUMPIFNOT                        R30 ; [+12]
-      211 GETTABLEKS                       R31 R2 K73 ["footer"]
-      213 GETTABLEKS                       R30 R31 K74 ["textbutton"]
+      211 GETTABLEKS                       R30 R2 K73 ["footer"]
+      213 GETTABLEKS                       R30 R30 K74 ["textbutton"]
       215 JUMPIFNOT                        R30 ; [+7]
-      216 GETTABLEKS                       R31 R2 K73 ["footer"]
-      218 GETTABLEKS                       R30 R31 K74 ["textbutton"]
-      220 GETTABLEKS                       R29 R30 K75 ["font"]
+      216 GETTABLEKS                       R29 R2 K73 ["footer"]
+      218 GETTABLEKS                       R29 R29 K74 ["textbutton"]
+      220 GETTABLEKS                       R29 R29 K75 ["font"]
       222 JUMPIF                           R29 ; [+5]
       223 GETTABLEKS                       R29 R2 K75 ["font"]
       225 JUMPIF                           R29 ; [+2]
@@ -158,12 +158,12 @@ PROTO_0:
       228 SETTABLEKS                       R29 R28 K64 ["Font"]
       230 GETTABLEKS                       R30 R2 K78 ["fontStyle"]
       232 JUMPIFNOT                        R30 ; [+12]
-      233 GETTABLEKS                       R31 R2 K78 ["fontStyle"]
-      235 GETTABLEKS                       R30 R31 K79 ["Subtext"]
+      233 GETTABLEKS                       R30 R2 K78 ["fontStyle"]
+      235 GETTABLEKS                       R30 R30 K79 ["Subtext"]
       237 JUMPIFNOT                        R30 ; [+7]
-      238 GETTABLEKS                       R31 R2 K78 ["fontStyle"]
-      240 GETTABLEKS                       R30 R31 K79 ["Subtext"]
-      242 GETTABLEKS                       R29 R30 K65 ["TextSize"]
+      238 GETTABLEKS                       R29 R2 K78 ["fontStyle"]
+      240 GETTABLEKS                       R29 R29 K79 ["Subtext"]
+      242 GETTABLEKS                       R29 R29 K65 ["TextSize"]
       244 JUMPIF                           R29 ; [+1]
       245 LOADN                            R29 22
       246 SETTABLEKS                       R29 R28 K65 ["TextSize"]
@@ -205,12 +205,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]

@@ -1,62 +1,62 @@
 PROTO_0:
         0 JUMPIFNOTEQKS                    R0 K0 ["Body"] ; [+6]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["increment"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["increment"]
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
         7 JUMPIFNOTEQKS                    R0 K2 ["Layered"] ; [+6]
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K1 ["increment"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K1 ["increment"]
        12 CALL                             R1 0 0
        13 RETURN                           R0 0
        14 JUMPIFNOTEQKS                    R0 K3 ["EyeLayered"] ; [+6]
-       16 GETUPVAL                         R2 2
-       17 GETTABLEKS                       R1 R2 K1 ["increment"]
+       16 GETUPVAL                         R1 2
+       17 GETTABLEKS                       R1 R1 K1 ["increment"]
        19 CALL                             R1 0 0
        20 RETURN                           R0 0
        21 JUMPIFNOTEQKS                    R0 K4 ["Rigid"] ; [+6]
-       23 GETUPVAL                         R2 3
-       24 GETTABLEKS                       R1 R2 K1 ["increment"]
+       23 GETUPVAL                         R1 3
+       24 GETTABLEKS                       R1 R1 K1 ["increment"]
        26 CALL                             R1 0 0
        27 RETURN                           R0 0
        28 JUMPIFNOTEQKS                    R0 K5 ["Avatar"] ; [+6]
-       30 GETUPVAL                         R2 4
-       31 GETTABLEKS                       R1 R2 K1 ["increment"]
+       30 GETUPVAL                         R1 4
+       31 GETTABLEKS                       R1 R1 K1 ["increment"]
        33 CALL                             R1 0 0
        34 RETURN                           R0 0
-       35 GETUPVAL                         R2 5
-       36 GETTABLEKS                       R1 R2 K1 ["increment"]
+       35 GETUPVAL                         R1 5
+       36 GETTABLEKS                       R1 R1 K1 ["increment"]
        38 CALL                             R1 0 0
        39 RETURN                           R0 0
 
 PROTO_1:
         0 JUMPIFNOTEQKS                    R0 K0 ["Body"] ; [+6]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["decrement"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["decrement"]
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
         7 JUMPIFNOTEQKS                    R0 K2 ["Layered"] ; [+6]
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K1 ["decrement"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K1 ["decrement"]
        12 CALL                             R1 0 0
        13 RETURN                           R0 0
        14 JUMPIFNOTEQKS                    R0 K3 ["EyeLayered"] ; [+6]
-       16 GETUPVAL                         R2 2
-       17 GETTABLEKS                       R1 R2 K1 ["decrement"]
+       16 GETUPVAL                         R1 2
+       17 GETTABLEKS                       R1 R1 K1 ["decrement"]
        19 CALL                             R1 0 0
        20 RETURN                           R0 0
        21 JUMPIFNOTEQKS                    R0 K4 ["Rigid"] ; [+6]
-       23 GETUPVAL                         R2 3
-       24 GETTABLEKS                       R1 R2 K1 ["decrement"]
+       23 GETUPVAL                         R1 3
+       24 GETTABLEKS                       R1 R1 K1 ["decrement"]
        26 CALL                             R1 0 0
        27 RETURN                           R0 0
        28 JUMPIFNOTEQKS                    R0 K5 ["Avatar"] ; [+6]
-       30 GETUPVAL                         R2 4
-       31 GETTABLEKS                       R1 R2 K1 ["decrement"]
+       30 GETUPVAL                         R1 4
+       31 GETTABLEKS                       R1 R1 K1 ["decrement"]
        33 CALL                             R1 0 0
        34 RETURN                           R0 0
-       35 GETUPVAL                         R2 5
-       36 GETTABLEKS                       R1 R2 K1 ["decrement"]
+       35 GETUPVAL                         R1 5
+       36 GETTABLEKS                       R1 R1 K1 ["decrement"]
        38 CALL                             R1 0 0
        39 RETURN                           R0 0
 
@@ -110,8 +110,8 @@ PROTO_2:
        48 CALL                             R12 0 1
        49 GETUPVAL                         R13 4
        50 CALL                             R13 0 1
-       51 GETUPVAL                         R15 5
-       52 GETTABLEKS                       R14 R15 K10 ["useCallback"]
+       51 GETUPVAL                         R14 5
+       52 GETTABLEKS                       R14 R14 K10 ["useCallback"]
        54 NEWCLOSURE                       R15 P0
        55 CAPTURE                          VAL R10
        56 CAPTURE                          VAL R11
@@ -127,8 +127,8 @@ PROTO_2:
        71 GETTABLEKS                       R21 R8 K11 ["increment"]
        73 SETLIST                          R16 R17 5 [1]
        75 CALL                             R14 2 1
-       76 GETUPVAL                         R16 5
-       77 GETTABLEKS                       R15 R16 K10 ["useCallback"]
+       76 GETUPVAL                         R15 5
+       77 GETTABLEKS                       R15 R15 K10 ["useCallback"]
        79 NEWCLOSURE                       R16 P1
        80 CAPTURE                          VAL R10
        81 CAPTURE                          VAL R11
@@ -279,10 +279,10 @@ PROTO_2:
       320 SETTABLEKS                       R22 R21 K46 ["options"]
       322 SETTABLEKS                       R14 R21 K47 ["incrementCount"]
       324 SETTABLEKS                       R15 R21 K48 ["decrementCount"]
-      326 GETUPVAL                         R23 5
-      327 GETTABLEKS                       R22 R23 K62 ["createElement"]
-      329 GETUPVAL                         R24 7
-      330 GETTABLEKS                       R23 R24 K63 ["Provider"]
+      326 GETUPVAL                         R22 5
+      327 GETTABLEKS                       R22 R22 K62 ["createElement"]
+      329 GETUPVAL                         R23 7
+      330 GETTABLEKS                       R23 R23 K63 ["Provider"]
       332 DUPTABLE                         R24 K64 [{"value"}]
       333 SETTABLEKS                       R21 R24 K43 ["value"]
       335 GETTABLEKS                       R25 R0 K65 ["children"]
@@ -296,47 +296,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K8 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["AssetClassificationUtils"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["AssetClassificationUtils"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K8 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["createUnimplemented"]
+       32 GETTABLEKS                       R5 R0 K8 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["createUnimplemented"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K8 ["Src"]
-       43 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       45 GETTABLEKS                       R6 R7 K14 ["getFFlagAvatarAutosetupOptionsInput"]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K14 ["getFFlagAvatarAutosetupOptionsInput"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K8 ["Src"]
-       52 GETTABLEKS                       R8 R9 K15 ["Hooks"]
-       54 GETTABLEKS                       R7 R8 K16 ["useIncrementedState"]
+       50 GETTABLEKS                       R7 R0 K8 ["Src"]
+       52 GETTABLEKS                       R7 R7 K15 ["Hooks"]
+       54 GETTABLEKS                       R7 R7 K16 ["useIncrementedState"]
        56 CALL                             R6 1 1
        57 GETIMPORT                        R7 K5 [require]
-       59 GETTABLEKS                       R10 R0 K8 ["Src"]
-       61 GETTABLEKS                       R9 R10 K15 ["Hooks"]
-       63 GETTABLEKS                       R8 R9 K17 ["usePluginSetting"]
+       59 GETTABLEKS                       R8 R0 K8 ["Src"]
+       61 GETTABLEKS                       R8 R8 K15 ["Hooks"]
+       63 GETTABLEKS                       R8 R8 K17 ["usePluginSetting"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K8 ["Src"]
-       70 GETTABLEKS                       R10 R11 K15 ["Hooks"]
-       72 GETTABLEKS                       R9 R10 K18 ["useTogglePluginSetting"]
+       68 GETTABLEKS                       R9 R0 K8 ["Src"]
+       70 GETTABLEKS                       R9 R9 K15 ["Hooks"]
+       72 GETTABLEKS                       R9 R9 K18 ["useTogglePluginSetting"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K8 ["Src"]
-       79 GETTABLEKS                       R11 R12 K13 ["Flags"]
-       81 GETTABLEKS                       R10 R11 K19 ["getFFlagAvatarPreviewerProcessRigidOnly"]
+       77 GETTABLEKS                       R10 R0 K8 ["Src"]
+       79 GETTABLEKS                       R10 R10 K13 ["Flags"]
+       81 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerProcessRigidOnly"]
        83 CALL                             R9 1 1
        84 GETIMPORT                        R10 K21 [game]
        86 LOADK                            R12 K22 ["AvatarPreviewerDefaultHeadProcessingSetting"]

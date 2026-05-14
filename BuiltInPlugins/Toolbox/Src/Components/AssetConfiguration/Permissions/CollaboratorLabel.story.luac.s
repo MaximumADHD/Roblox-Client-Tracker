@@ -1,31 +1,31 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 NEWTABLE                         R3 0 0
         6 NEWTABLE                         R4 0 1
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K0 ["createElement"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K0 ["createElement"]
        11 GETUPVAL                         R6 2
        12 NEWTABLE                         R7 0 0
        14 NEWTABLE                         R8 0 1
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K0 ["createElement"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K0 ["createElement"]
        19 GETUPVAL                         R10 3
        20 DUPTABLE                         R11 K4 [{"Size", "SubjectType", "Id"}]
        21 GETIMPORT                        R12 K7 [UDim2.new]
        23 LOADN                            R13 1
        24 LOADN                            R14 0
        25 LOADN                            R15 0
-       26 GETTABLEKS                       R17 R0 K8 ["controls"]
-       28 GETTABLEKS                       R16 R17 K9 ["height"]
+       26 GETTABLEKS                       R16 R0 K8 ["controls"]
+       28 GETTABLEKS                       R16 R16 K9 ["height"]
        30 CALL                             R12 4 1
        31 SETTABLEKS                       R12 R11 K1 ["Size"]
-       33 GETUPVAL                         R13 4
-       34 GETTABLEKS                       R12 R13 K2 ["SubjectType"]
+       33 GETUPVAL                         R12 4
+       34 GETTABLEKS                       R12 R12 K2 ["SubjectType"]
        36 SETTABLEKS                       R12 R11 K2 ["SubjectType"]
-       38 GETUPVAL                         R13 4
-       39 GETTABLEKS                       R12 R13 K3 ["Id"]
+       38 GETUPVAL                         R12 4
+       39 GETTABLEKS                       R12 R12 K3 ["Id"]
        41 SETTABLEKS                       R12 R11 K3 ["Id"]
        43 CALL                             R9 2 -1
        44 SETLIST                          R8 R9 -1 [1]
@@ -54,11 +54,11 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["React"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Stories"]
-       18 GETTABLEKS                       R4 R5 K9 ["ToolboxStoryWrapper"]
+       16 GETTABLEKS                       R4 R0 K8 ["Stories"]
+       18 GETTABLEKS                       R4 R4 K9 ["ToolboxStoryWrapper"]
        20 CALL                             R3 1 1
-       21 GETIMPORT                        R5 K1 [script]
-       23 GETTABLEKS                       R4 R5 K10 ["Parent"]
+       21 GETIMPORT                        R4 K1 [script]
+       23 GETTABLEKS                       R4 R4 K10 ["Parent"]
        25 GETIMPORT                        R5 K6 [require]
        27 GETTABLEKS                       R6 R4 K11 ["CollaboratorLabel"]
        29 CALL                             R5 1 1

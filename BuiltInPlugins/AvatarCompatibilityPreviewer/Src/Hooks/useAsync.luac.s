@@ -31,14 +31,14 @@ PROTO_2:
        14 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useState"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useState"]
         3 DUPTABLE                         R3 K2 [{"state"}]
         4 LOADK                            R4 K3 ["loading"]
         5 SETTABLEKS                       R4 R3 K1 ["state"]
         7 CALL                             R2 1 2
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["useEffect"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["useEffect"]
        11 NEWCLOSURE                       R5 P0
        12 CAPTURE                          VAL R3
        13 CAPTURE                          VAL R0
@@ -53,8 +53,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_3]
        15 CAPTURE                          VAL R1

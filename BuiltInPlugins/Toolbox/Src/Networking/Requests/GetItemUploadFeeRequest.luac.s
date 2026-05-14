@@ -13,8 +13,8 @@ PROTO_0:
        18 NAMECALL                         R2 R2 K3 ["dispatch"]
        20 CALL                             R2 -1 0
        21 RETURN                           R0 0
-       22 GETUPVAL                         R3 2
-       23 GETTABLEKS                       R2 R3 K4 ["shouldDebugWarnings"]
+       22 GETUPVAL                         R2 2
+       23 GETTABLEKS                       R2 R2 K4 ["shouldDebugWarnings"]
        25 CALL                             R2 0 1
        26 JUMPIFNOT                        R2 ; [+5]
        27 GETIMPORT                        R2 K6 [warn]
@@ -54,8 +54,8 @@ PROTO_2:
         6 CAPTURE                          UPVAL U2
         7 CAPTURE                          UPVAL U3
         8 GETUPVAL                         R3 4
-        9 GETUPVAL                         R6 5
-       10 GETTABLEKS                       R5 R6 K0 ["Name"]
+        9 GETUPVAL                         R5 5
+       10 GETTABLEKS                       R5 R5 K0 ["Name"]
        12 GETUPVAL                         R6 6
        13 NAMECALL                         R3 R3 K1 ["getItemUploadFee"]
        15 CALL                             R3 3 1
@@ -83,22 +83,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["SetUploadFee"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["SetUploadFee"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Actions"]
-       22 GETTABLEKS                       R3 R4 K9 ["NetworkError"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K9 ["NetworkError"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["Actions"]
-       31 GETTABLEKS                       R4 R5 K10 ["UploadResult"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Actions"]
+       31 GETTABLEKS                       R4 R4 K10 ["UploadResult"]
        33 CALL                             R3 1 1
-       34 GETTABLEKS                       R5 R0 K6 ["Src"]
-       36 GETTABLEKS                       R4 R5 K11 ["Util"]
+       34 GETTABLEKS                       R4 R0 K6 ["Src"]
+       36 GETTABLEKS                       R4 R4 K11 ["Util"]
        38 GETIMPORT                        R5 K5 [require]
        40 GETTABLEKS                       R6 R4 K12 ["DebugFlags"]
        42 CALL                             R5 1 1

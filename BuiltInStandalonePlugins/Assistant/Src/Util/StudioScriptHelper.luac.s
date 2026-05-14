@@ -1,125 +1,131 @@
 PROTO_0:
-        0 LOADK                            R3 K0 ["ScriptEditorService"]
-        1 NAMECALL                         R1 R0 K1 ["GetService"]
-        3 CALL                             R1 2 1
-        4 LOADK                            R4 K2 ["StudioService"]
-        5 NAMECALL                         R2 R0 K1 ["GetService"]
-        7 CALL                             R2 2 1
-        8 DUPTABLE                         R3 K3 [{"ScriptEditorService", "StudioService"}]
-        9 SETTABLEKS                       R1 R3 K0 ["ScriptEditorService"]
-       11 SETTABLEKS                       R2 R3 K2 ["StudioService"]
-       13 RETURN                           R3 1
+        0 GETIMPORT                        R1 K1 [pcall]
+        2 GETTABLEKS                       R2 R0 K2 ["GetService"]
+        4 MOVE                             R3 R0
+        5 LOADK                            R4 K3 ["ScriptEditorService"]
+        6 CALL                             R1 3 2
+        7 LOADK                            R5 K4 ["StudioService"]
+        8 NAMECALL                         R3 R0 K2 ["GetService"]
+       10 CALL                             R3 2 1
+       11 DUPTABLE                         R4 K5 [{"ScriptEditorService", "StudioService"}]
+       12 SETTABLEKS                       R2 R4 K3 ["ScriptEditorService"]
+       14 SETTABLEKS                       R3 R4 K4 ["StudioService"]
+       16 RETURN                           R4 1
 
 PROTO_1:
-        0 LOADK                            R4 K0 ["ScriptEditorService"]
-        1 NAMECALL                         R2 R0 K1 ["GetService"]
-        3 CALL                             R2 2 1
-        4 LOADK                            R5 K2 ["StudioService"]
-        5 NAMECALL                         R3 R0 K1 ["GetService"]
-        7 CALL                             R3 2 1
-        8 DUPTABLE                         R1 K3 [{"ScriptEditorService", "StudioService"}]
-        9 SETTABLEKS                       R2 R1 K0 ["ScriptEditorService"]
-       11 SETTABLEKS                       R3 R1 K2 ["StudioService"]
-       13 GETTABLEKS                       R3 R1 K2 ["StudioService"]
-       15 GETTABLEKS                       R2 R3 K4 ["ActiveScript"]
-       17 JUMPIF                           R2 ; [+8]
-       18 DUPTABLE                         R3 K7 [{"success", "errorMessage"}]
-       19 LOADB                            R4 0
-       20 SETTABLEKS                       R4 R3 K5 ["success"]
-       22 LOADK                            R4 K8 ["No script is currently active"]
-       23 SETTABLEKS                       R4 R3 K6 ["errorMessage"]
-       25 RETURN                           R3 1
-       26 GETTABLEKS                       R3 R1 K0 ["ScriptEditorService"]
-       28 MOVE                             R5 R2
-       29 NAMECALL                         R3 R3 K9 ["FindScriptDocument"]
-       31 CALL                             R3 2 1
-       32 JUMPIF                           R3 ; [+20]
-       33 DUPTABLE                         R4 K11 [{"success", "errorMessage", "script"}]
-       34 LOADB                            R5 0
-       35 SETTABLEKS                       R5 R4 K5 ["success"]
-       37 LOADK                            R5 K12 ["No document found for active script"]
-       38 SETTABLEKS                       R5 R4 K6 ["errorMessage"]
-       40 DUPTABLE                         R5 K15 [{"Name", "FullName"}]
-       41 GETTABLEKS                       R6 R2 K13 ["Name"]
-       43 SETTABLEKS                       R6 R5 K13 ["Name"]
-       45 NAMECALL                         R6 R2 K16 ["GetFullName"]
-       47 CALL                             R6 1 1
-       48 SETTABLEKS                       R6 R5 K14 ["FullName"]
-       50 SETTABLEKS                       R5 R4 K10 ["script"]
-       52 RETURN                           R4 1
-       53 NAMECALL                         R4 R3 K17 ["GetSelectedText"]
-       55 CALL                             R4 1 1
-       56 MOVE                             R5 R4
-       57 JUMPIFNOT                        R5 ; [+4]
-       58 JUMPIFNOTEQKS                    R4 K18 [""] ; [+2]
-       60 LOADB                            R5 0 +1
-       61 LOADB                            R5 1
-       62 NAMECALL                         R6 R3 K19 ["GetSelectionStart"]
-       64 CALL                             R6 1 2
-       65 NAMECALL                         R8 R3 K20 ["GetSelectionEnd"]
-       67 CALL                             R8 1 2
-       68 DUPTABLE                         R10 K25 [{"success", "script", "selectedText", "hasSelection", "selectionStart", "selectionEnd"}]
-       69 LOADB                            R11 1
-       70 SETTABLEKS                       R11 R10 K5 ["success"]
-       72 DUPTABLE                         R11 K15 [{"Name", "FullName"}]
-       73 GETTABLEKS                       R12 R2 K13 ["Name"]
-       75 SETTABLEKS                       R12 R11 K13 ["Name"]
-       77 NAMECALL                         R12 R2 K16 ["GetFullName"]
-       79 CALL                             R12 1 1
-       80 SETTABLEKS                       R12 R11 K14 ["FullName"]
-       82 SETTABLEKS                       R11 R10 K10 ["script"]
-       84 JUMPIFNOT                        R5 ; [+2]
-       85 MOVE                             R11 R4
-       86 JUMPIF                           R11 ; [+1]
-       87 LOADNIL                          R11
-       88 SETTABLEKS                       R11 R10 K21 ["selectedText"]
-       90 SETTABLEKS                       R5 R10 K22 ["hasSelection"]
-       92 DUPTABLE                         R11 K28 [{"line", "char"}]
-       93 SETTABLEKS                       R6 R11 K26 ["line"]
-       95 SETTABLEKS                       R7 R11 K27 ["char"]
-       97 SETTABLEKS                       R11 R10 K23 ["selectionStart"]
-       99 DUPTABLE                         R11 K28 [{"line", "char"}]
-      100 SETTABLEKS                       R8 R11 K26 ["line"]
-      102 SETTABLEKS                       R9 R11 K27 ["char"]
-      104 SETTABLEKS                       R11 R10 K24 ["selectionEnd"]
-      106 RETURN                           R10 1
+        0 GETIMPORT                        R2 K1 [pcall]
+        2 GETTABLEKS                       R3 R0 K2 ["GetService"]
+        4 MOVE                             R4 R0
+        5 LOADK                            R5 K3 ["ScriptEditorService"]
+        6 CALL                             R2 3 2
+        7 LOADK                            R6 K4 ["StudioService"]
+        8 NAMECALL                         R4 R0 K2 ["GetService"]
+       10 CALL                             R4 2 1
+       11 DUPTABLE                         R1 K5 [{"ScriptEditorService", "StudioService"}]
+       12 SETTABLEKS                       R3 R1 K3 ["ScriptEditorService"]
+       14 SETTABLEKS                       R4 R1 K4 ["StudioService"]
+       16 GETTABLEKS                       R2 R1 K4 ["StudioService"]
+       18 GETTABLEKS                       R2 R2 K6 ["ActiveScript"]
+       20 JUMPIF                           R2 ; [+8]
+       21 DUPTABLE                         R3 K9 [{"success", "errorMessage"}]
+       22 LOADB                            R4 0
+       23 SETTABLEKS                       R4 R3 K7 ["success"]
+       25 LOADK                            R4 K10 ["No script is currently active"]
+       26 SETTABLEKS                       R4 R3 K8 ["errorMessage"]
+       28 RETURN                           R3 1
+       29 GETTABLEKS                       R3 R1 K3 ["ScriptEditorService"]
+       31 MOVE                             R5 R2
+       32 NAMECALL                         R3 R3 K11 ["FindScriptDocument"]
+       34 CALL                             R3 2 1
+       35 JUMPIF                           R3 ; [+20]
+       36 DUPTABLE                         R4 K13 [{"success", "errorMessage", "script"}]
+       37 LOADB                            R5 0
+       38 SETTABLEKS                       R5 R4 K7 ["success"]
+       40 LOADK                            R5 K14 ["No document found for active script"]
+       41 SETTABLEKS                       R5 R4 K8 ["errorMessage"]
+       43 DUPTABLE                         R5 K17 [{"Name", "FullName"}]
+       44 GETTABLEKS                       R6 R2 K15 ["Name"]
+       46 SETTABLEKS                       R6 R5 K15 ["Name"]
+       48 NAMECALL                         R6 R2 K18 ["GetFullName"]
+       50 CALL                             R6 1 1
+       51 SETTABLEKS                       R6 R5 K16 ["FullName"]
+       53 SETTABLEKS                       R5 R4 K12 ["script"]
+       55 RETURN                           R4 1
+       56 NAMECALL                         R4 R3 K19 ["GetSelectedText"]
+       58 CALL                             R4 1 1
+       59 MOVE                             R5 R4
+       60 JUMPIFNOT                        R5 ; [+4]
+       61 JUMPIFNOTEQKS                    R4 K20 [""] ; [+2]
+       63 LOADB                            R5 0 +1
+       64 LOADB                            R5 1
+       65 NAMECALL                         R6 R3 K21 ["GetSelectionStart"]
+       67 CALL                             R6 1 2
+       68 NAMECALL                         R8 R3 K22 ["GetSelectionEnd"]
+       70 CALL                             R8 1 2
+       71 DUPTABLE                         R10 K27 [{"success", "script", "selectedText", "hasSelection", "selectionStart", "selectionEnd"}]
+       72 LOADB                            R11 1
+       73 SETTABLEKS                       R11 R10 K7 ["success"]
+       75 DUPTABLE                         R11 K17 [{"Name", "FullName"}]
+       76 GETTABLEKS                       R12 R2 K15 ["Name"]
+       78 SETTABLEKS                       R12 R11 K15 ["Name"]
+       80 NAMECALL                         R12 R2 K18 ["GetFullName"]
+       82 CALL                             R12 1 1
+       83 SETTABLEKS                       R12 R11 K16 ["FullName"]
+       85 SETTABLEKS                       R11 R10 K12 ["script"]
+       87 JUMPIFNOT                        R5 ; [+2]
+       88 MOVE                             R11 R4
+       89 JUMPIF                           R11 ; [+1]
+       90 LOADNIL                          R11
+       91 SETTABLEKS                       R11 R10 K23 ["selectedText"]
+       93 SETTABLEKS                       R5 R10 K24 ["hasSelection"]
+       95 DUPTABLE                         R11 K30 [{"line", "char"}]
+       96 SETTABLEKS                       R6 R11 K28 ["line"]
+       98 SETTABLEKS                       R7 R11 K29 ["char"]
+      100 SETTABLEKS                       R11 R10 K25 ["selectionStart"]
+      102 DUPTABLE                         R11 K30 [{"line", "char"}]
+      103 SETTABLEKS                       R8 R11 K28 ["line"]
+      105 SETTABLEKS                       R9 R11 K29 ["char"]
+      107 SETTABLEKS                       R11 R10 K26 ["selectionEnd"]
+      109 RETURN                           R10 1
 
 PROTO_2:
-        0 LOADK                            R4 K0 ["ScriptEditorService"]
-        1 NAMECALL                         R2 R0 K1 ["GetService"]
-        3 CALL                             R2 2 1
-        4 LOADK                            R5 K2 ["StudioService"]
-        5 NAMECALL                         R3 R0 K1 ["GetService"]
-        7 CALL                             R3 2 1
-        8 DUPTABLE                         R1 K3 [{"ScriptEditorService", "StudioService"}]
-        9 SETTABLEKS                       R2 R1 K0 ["ScriptEditorService"]
-       11 SETTABLEKS                       R3 R1 K2 ["StudioService"]
-       13 GETTABLEKS                       R2 R1 K0 ["ScriptEditorService"]
-       15 NAMECALL                         R2 R2 K4 ["GetScriptDocuments"]
-       17 CALL                             R2 1 1
-       18 NEWTABLE                         R3 0 0
-       20 LOADN                            R4 1
-       21 MOVE                             R5 R2
-       22 LOADNIL                          R6
-       23 LOADNIL                          R7
-       24 FORGPREP                         R5
-       25 NAMECALL                         R10 R9 K5 ["GetScript"]
-       27 CALL                             R10 1 1
-       28 JUMPIFNOT                        R10 ; [+19]
-       29 DUPTABLE                         R13 K9 [{"index", "scriptName", "scriptFullName"}]
-       30 SETTABLEKS                       R4 R13 K6 ["index"]
-       32 GETTABLEKS                       R14 R10 K10 ["Name"]
-       34 SETTABLEKS                       R14 R13 K7 ["scriptName"]
-       36 NAMECALL                         R14 R10 K11 ["GetFullName"]
-       38 CALL                             R14 1 1
-       39 SETTABLEKS                       R14 R13 K8 ["scriptFullName"]
-       41 FASTCALL2                        TABLE_INSERT R3 R13 ; [+4]
-       43 MOVE                             R12 R3
-       44 GETIMPORT                        R11 K14 [table.insert]
-       46 CALL                             R11 2 0
-       47 ADDK                             R4 R4 K15 [1]
-       48 FORGLOOP                         R5 2 ; [-24]
-       50 RETURN                           R3 1
+        0 GETIMPORT                        R2 K1 [pcall]
+        2 GETTABLEKS                       R3 R0 K2 ["GetService"]
+        4 MOVE                             R4 R0
+        5 LOADK                            R5 K3 ["ScriptEditorService"]
+        6 CALL                             R2 3 2
+        7 LOADK                            R6 K4 ["StudioService"]
+        8 NAMECALL                         R4 R0 K2 ["GetService"]
+       10 CALL                             R4 2 1
+       11 DUPTABLE                         R1 K5 [{"ScriptEditorService", "StudioService"}]
+       12 SETTABLEKS                       R3 R1 K3 ["ScriptEditorService"]
+       14 SETTABLEKS                       R4 R1 K4 ["StudioService"]
+       16 GETTABLEKS                       R2 R1 K3 ["ScriptEditorService"]
+       18 NAMECALL                         R2 R2 K6 ["GetScriptDocuments"]
+       20 CALL                             R2 1 1
+       21 NEWTABLE                         R3 0 0
+       23 LOADN                            R4 1
+       24 MOVE                             R5 R2
+       25 LOADNIL                          R6
+       26 LOADNIL                          R7
+       27 FORGPREP                         R5
+       28 NAMECALL                         R10 R9 K7 ["GetScript"]
+       30 CALL                             R10 1 1
+       31 JUMPIFNOT                        R10 ; [+19]
+       32 DUPTABLE                         R13 K11 [{"index", "scriptName", "scriptFullName"}]
+       33 SETTABLEKS                       R4 R13 K8 ["index"]
+       35 GETTABLEKS                       R14 R10 K12 ["Name"]
+       37 SETTABLEKS                       R14 R13 K9 ["scriptName"]
+       39 NAMECALL                         R14 R10 K13 ["GetFullName"]
+       41 CALL                             R14 1 1
+       42 SETTABLEKS                       R14 R13 K10 ["scriptFullName"]
+       44 FASTCALL2                        TABLE_INSERT R3 R13 ; [+4]
+       46 MOVE                             R12 R3
+       47 GETIMPORT                        R11 K16 [table.insert]
+       49 CALL                             R11 2 0
+       50 ADDK                             R4 R4 K17 [1]
+       51 FORGLOOP                         R5 2 ; [-24]
+       53 RETURN                           R3 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -179,8 +185,8 @@ PROTO_7:
        10 RETURN                           R0 -1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getActiveScriptInfo"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getActiveScriptInfo"]
         3 CALL                             R0 0 1
         4 GETTABLEKS                       R1 R0 K1 ["success"]
         6 JUMPIFNOT                        R1 ; [+6]
@@ -192,29 +198,29 @@ PROTO_8:
        14 RETURN                           R1 1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getActiveScriptInfo"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getActiveScriptInfo"]
         3 CALL                             R0 0 1
         4 GETTABLEKS                       R1 R0 K1 ["success"]
         6 JUMPIFNOT                        R1 ; [+8]
         7 GETTABLEKS                       R1 R0 K2 ["script"]
         9 JUMPIFNOT                        R1 ; [+5]
-       10 GETTABLEKS                       R2 R0 K2 ["script"]
-       12 GETTABLEKS                       R1 R2 K3 ["Name"]
+       10 GETTABLEKS                       R1 R0 K2 ["script"]
+       12 GETTABLEKS                       R1 R1 K3 ["Name"]
        14 RETURN                           R1 1
        15 LOADNIL                          R1
        16 RETURN                           R1 1
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getActiveScriptInfo"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getActiveScriptInfo"]
         3 CALL                             R0 0 1
         4 GETTABLEKS                       R1 R0 K1 ["success"]
         6 JUMPIFNOT                        R1 ; [+8]
         7 GETTABLEKS                       R1 R0 K2 ["script"]
         9 JUMPIFNOT                        R1 ; [+5]
-       10 GETTABLEKS                       R2 R0 K2 ["script"]
-       12 GETTABLEKS                       R1 R2 K3 ["FullName"]
+       10 GETTABLEKS                       R1 R0 K2 ["script"]
+       12 GETTABLEKS                       R1 R1 K3 ["FullName"]
        14 RETURN                           R1 1
        15 LOADNIL                          R1
        16 RETURN                           R1 1
@@ -224,8 +230,8 @@ PROTO_11:
         2 LOADK                            R2 K2 ["HttpService"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
         5 CALL                             R0 2 1
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K4 ["getActiveScriptInfo"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K4 ["getActiveScriptInfo"]
         9 CALL                             R1 0 1
        10 MOVE                             R4 R1
        11 NAMECALL                         R2 R0 K5 ["JSONEncode"]
@@ -242,9 +248,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["StudioNetworking"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["StudioNetworking"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 8 0
        18 LOADNIL                          R3

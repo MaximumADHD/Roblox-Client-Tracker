@@ -1,29 +1,29 @@
 PROTO_0:
         0 DUPTABLE                         R1 K3 [{"paletteKey", "source", "serializedValue"}]
-        1 GETTABLEKS                       R3 R0 K4 ["palette"]
-        3 GETTABLEKS                       R2 R3 K5 ["Key"]
+        1 GETTABLEKS                       R2 R0 K4 ["palette"]
+        3 GETTABLEKS                       R2 R2 K5 ["Key"]
         5 SETTABLEKS                       R2 R1 K0 ["paletteKey"]
-        7 GETTABLEKS                       R3 R0 K6 ["item"]
-        9 GETTABLEKS                       R2 R3 K1 ["source"]
+        7 GETTABLEKS                       R2 R0 K6 ["item"]
+        9 GETTABLEKS                       R2 R2 K1 ["source"]
        11 SETTABLEKS                       R2 R1 K1 ["source"]
-       13 GETTABLEKS                       R4 R0 K6 ["item"]
-       15 GETTABLEKS                       R3 R4 K1 ["source"]
+       13 GETTABLEKS                       R3 R0 K6 ["item"]
+       15 GETTABLEKS                       R3 R3 K1 ["source"]
        17 JUMPIFNOTEQKS                    R3 K7 ["builtin"] ; [+31]
-       19 GETTABLEKS                       R4 R0 K4 ["palette"]
-       21 GETTABLEKS                       R3 R4 K8 ["Serializer"]
+       19 GETTABLEKS                       R3 R0 K4 ["palette"]
+       21 GETTABLEKS                       R3 R3 K8 ["Serializer"]
        23 JUMPIFNOT                        R3 ; [+16]
-       24 GETTABLEKS                       R5 R0 K4 ["palette"]
-       26 GETTABLEKS                       R4 R5 K8 ["Serializer"]
-       28 GETTABLEKS                       R3 R4 K9 ["serialize"]
-       30 GETTABLEKS                       R5 R0 K6 ["item"]
-       32 GETTABLEKS                       R4 R5 K10 ["builtinItem"]
+       24 GETTABLEKS                       R3 R0 K4 ["palette"]
+       26 GETTABLEKS                       R3 R3 K8 ["Serializer"]
+       28 GETTABLEKS                       R3 R3 K9 ["serialize"]
+       30 GETTABLEKS                       R4 R0 K6 ["item"]
+       32 GETTABLEKS                       R4 R4 K10 ["builtinItem"]
        34 CALL                             R3 1 -1
        35 FASTCALL                         TOSTRING ; [+2]
        36 GETIMPORT                        R2 K12 [tostring]
        38 CALL                             R2 -1 1
        39 JUMP                             ; [+10]
-       40 GETTABLEKS                       R4 R0 K6 ["item"]
-       42 GETTABLEKS                       R3 R4 K10 ["builtinItem"]
+       40 GETTABLEKS                       R3 R0 K6 ["item"]
+       42 GETTABLEKS                       R3 R3 K10 ["builtinItem"]
        44 FASTCALL1                        TOSTRING R3 ; [+2]
        45 GETIMPORT                        R2 K12 [tostring]
        47 CALL                             R2 1 1
@@ -33,8 +33,8 @@ PROTO_0:
        52 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["join"]
         3 DUPTABLE                         R3 K4 [{"studioSid", "clientId", "placeId"}]
         4 GETUPVAL                         R4 1
         5 NAMECALL                         R4 R4 K5 ["GetSessionId"]
@@ -44,8 +44,8 @@ PROTO_1:
        11 NAMECALL                         R4 R4 K6 ["GetClientId"]
        13 CALL                             R4 1 1
        14 SETTABLEKS                       R4 R3 K2 ["clientId"]
-       16 GETIMPORT                        R5 K8 [game]
-       18 GETTABLEKS                       R4 R5 K9 ["PlaceId"]
+       16 GETIMPORT                        R4 K8 [game]
+       18 GETTABLEKS                       R4 R4 K9 ["PlaceId"]
        20 SETTABLEKS                       R4 R3 K3 ["placeId"]
        22 MOVE                             R4 R1
        23 CALL                             R2 2 1
@@ -351,8 +351,8 @@ PROTO_26:
        13 GETTABLEKS                       R7 R1 K3 ["message"]
        15 SETTABLEKS                       R7 R6 K3 ["message"]
        17 GETIMPORT                        R7 K11 [table.concat]
-       19 GETUPVAL                         R9 2
-       20 GETTABLEKS                       R8 R9 K12 ["keys"]
+       19 GETUPVAL                         R8 2
+       20 GETTABLEKS                       R8 R8 K12 ["keys"]
        22 GETTABLEKS                       R9 R1 K4 ["problems"]
        24 CALL                             R8 1 1
        25 LOADK                            R9 K13 [","]
@@ -731,10 +731,10 @@ PROTO_46:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["StudioService"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
@@ -744,12 +744,12 @@ MAIN:
        18 NAMECALL                         R2 R2 K6 ["GetService"]
        20 CALL                             R2 2 1
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Dash"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K9 [require]
-       30 GETTABLEKS                       R6 R0 K12 ["Src"]
-       32 GETTABLEKS                       R5 R6 K13 ["Types"]
+       30 GETTABLEKS                       R5 R0 K12 ["Src"]
+       32 GETTABLEKS                       R5 R5 K13 ["Types"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K4 [game]
        37 LOADK                            R7 K14 ["AvatarPreviewerInfluxSeriesThrottlingPercentage"]
@@ -757,9 +757,9 @@ MAIN:
        39 NAMECALL                         R5 R5 K15 ["DefineFastInt"]
        41 CALL                             R5 3 1
        42 GETIMPORT                        R6 K9 [require]
-       44 GETTABLEKS                       R9 R0 K12 ["Src"]
-       46 GETTABLEKS                       R8 R9 K16 ["Flags"]
-       48 GETTABLEKS                       R7 R8 K17 ["getFFlagAvatarPreviewerLookComposer"]
+       44 GETTABLEKS                       R7 R0 K12 ["Src"]
+       46 GETTABLEKS                       R7 R7 K16 ["Flags"]
+       48 GETTABLEKS                       R7 R7 K17 ["getFFlagAvatarPreviewerLookComposer"]
        50 CALL                             R6 1 1
        51 DUPTABLE                         R7 K23 [{"eventName", "lastUpdated", "description", "links", "backends"}]
        52 LOADK                            R8 K24 ["SBT_AvatarAutoSetupSucceeded"]

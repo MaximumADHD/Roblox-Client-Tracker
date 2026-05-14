@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["props"]
-        3 GETTABLEKS                       R3 R4 K1 ["OnTrackAdded"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["props"]
+        3 GETTABLEKS                       R3 R3 K1 ["OnTrackAdded"]
         5 JUMPIFNOT                        R3 ; [+9]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K0 ["props"]
-        9 GETTABLEKS                       R3 R4 K1 ["OnTrackAdded"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["props"]
+        9 GETTABLEKS                       R3 R3 K1 ["OnTrackAdded"]
        11 MOVE                             R4 R0
        12 MOVE                             R5 R1
        13 MOVE                             R6 R2
@@ -59,8 +59,8 @@ PROTO_3:
        10 GETTABLEKS                       R6 R1 K5 ["UnusedFacs"]
        12 GETTABLEKS                       R7 R2 K6 ["trackTheme"]
        14 LOADK                            R8 K7 [""]
-       15 GETUPVAL                         R10 0
-       16 GETTABLEKS                       R9 R10 K8 ["getTextWidth"]
+       15 GETUPVAL                         R9 0
+       16 GETTABLEKS                       R9 R9 K8 ["getTextWidth"]
        18 MOVE                             R10 R3
        19 GETTABLEKS                       R11 R7 K9 ["textSize"]
        21 GETTABLEKS                       R12 R2 K10 ["font"]
@@ -73,8 +73,8 @@ PROTO_3:
        30 LOADN                            R12 16
        31 CALL                             R10 2 1
        32 MOVE                             R8 R10
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R10 R11 K8 ["getTextWidth"]
+       33 GETUPVAL                         R10 0
+       34 GETTABLEKS                       R10 R10 K8 ["getTextWidth"]
        36 MOVE                             R11 R8
        37 GETTABLEKS                       R12 R7 K9 ["textSize"]
        39 GETTABLEKS                       R13 R2 K10 ["font"]
@@ -92,12 +92,12 @@ PROTO_3:
        52 MOVE                             R12 R6
        53 CALL                             R11 1 1
        54 NOT                              R10 R11
-       55 GETUPVAL                         R12 3
-       56 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       55 GETUPVAL                         R11 3
+       56 GETTABLEKS                       R11 R11 K12 ["createElement"]
        58 GETUPVAL                         R12 4
        59 DUPTABLE                         R13 K16 [{"Height", "Indent", "LayoutOrder", "Primary"}]
-       60 GETUPVAL                         R15 5
-       61 GETTABLEKS                       R14 R15 K17 ["SUMMARY_TRACK_HEIGHT"]
+       60 GETUPVAL                         R14 5
+       61 GETTABLEKS                       R14 R14 K17 ["SUMMARY_TRACK_HEIGHT"]
        63 SETTABLEKS                       R14 R13 K13 ["Height"]
        65 LOADN                            R14 1
        66 SETTABLEKS                       R14 R13 K14 ["Indent"]
@@ -105,8 +105,8 @@ PROTO_3:
        70 LOADB                            R14 1
        71 SETTABLEKS                       R14 R13 K15 ["Primary"]
        73 DUPTABLE                         R14 K21 [{"NameLabel", "LeftButtonsListContainer", "AddTrackButton"}]
-       74 GETUPVAL                         R16 3
-       75 GETTABLEKS                       R15 R16 K12 ["createElement"]
+       74 GETUPVAL                         R15 3
+       75 GETTABLEKS                       R15 R15 K12 ["createElement"]
        77 LOADK                            R16 K22 ["TextLabel"]
        78 DUPTABLE                         R17 K31 [{"Size", "Position", "BackgroundTransparency", "Text", "Font", "TextSize", "TextColor3", "TextXAlignment"}]
        79 GETIMPORT                        R18 K34 [UDim2.new]
@@ -142,8 +142,8 @@ PROTO_3:
       122 SETTABLEKS                       R18 R17 K30 ["TextXAlignment"]
       124 CALL                             R15 2 1
       125 SETTABLEKS                       R15 R14 K18 ["NameLabel"]
-      127 GETUPVAL                         R16 3
-      128 GETTABLEKS                       R15 R16 K12 ["createElement"]
+      127 GETUPVAL                         R15 3
+      128 GETTABLEKS                       R15 R15 K12 ["createElement"]
       130 LOADK                            R16 K39 ["Frame"]
       131 DUPTABLE                         R17 K42 [{"AnchorPoint", "BorderSizePixel", "BackgroundTransparency", "Position"}]
       132 GETIMPORT                        R18 K44 [Vector2.new]
@@ -163,8 +163,8 @@ PROTO_3:
       151 CALL                             R18 4 1
       152 SETTABLEKS                       R18 R17 K24 ["Position"]
       154 DUPTABLE                         R18 K51 [{"LeftButtonsList", "IKController", "FaceControlsEditorController", "RecordingModeButton"}]
-      155 GETUPVAL                         R20 3
-      156 GETTABLEKS                       R19 R20 K12 ["createElement"]
+      155 GETUPVAL                         R19 3
+      156 GETTABLEKS                       R19 R19 K12 ["createElement"]
       158 LOADK                            R20 K52 ["UIListLayout"]
       159 DUPTABLE                         R21 K57 [{"FillDirection", "VerticalAlignment", "SortOrder", "Padding"}]
       160 GETIMPORT                        R22 K59 [Enum.FillDirection.Horizontal]
@@ -180,14 +180,14 @@ PROTO_3:
       177 SETTABLEKS                       R22 R21 K56 ["Padding"]
       179 CALL                             R19 2 1
       180 SETTABLEKS                       R19 R18 K47 ["LeftButtonsList"]
-      182 GETUPVAL                         R20 3
-      183 GETTABLEKS                       R19 R20 K12 ["createElement"]
+      182 GETUPVAL                         R19 3
+      183 GETTABLEKS                       R19 R19 K12 ["createElement"]
       185 GETUPVAL                         R20 6
       186 NEWTABLE                         R21 0 0
       188 CALL                             R19 2 1
       189 SETTABLEKS                       R19 R18 K48 ["IKController"]
-      191 GETUPVAL                         R20 3
-      192 GETTABLEKS                       R19 R20 K12 ["createElement"]
+      191 GETUPVAL                         R19 3
+      192 GETTABLEKS                       R19 R19 K12 ["createElement"]
       194 GETUPVAL                         R20 7
       195 NEWTABLE                         R21 0 0
       197 CALL                             R19 2 1
@@ -195,8 +195,8 @@ PROTO_3:
       200 GETUPVAL                         R19 1
       201 CALL                             R19 0 1
       202 JUMPIFNOT                        R19 ; [+7]
-      203 GETUPVAL                         R20 3
-      204 GETTABLEKS                       R19 R20 K12 ["createElement"]
+      203 GETUPVAL                         R19 3
+      204 GETTABLEKS                       R19 R19 K12 ["createElement"]
       206 GETUPVAL                         R20 8
       207 NEWTABLE                         R21 0 0
       209 CALL                             R19 2 1
@@ -204,23 +204,23 @@ PROTO_3:
       212 CALL                             R15 3 1
       213 SETTABLEKS                       R15 R14 K19 ["LeftButtonsListContainer"]
       215 JUMPIFNOT                        R10 ; [+40]
-      216 GETUPVAL                         R16 3
-      217 GETTABLEKS                       R15 R16 K12 ["createElement"]
+      216 GETUPVAL                         R15 3
+      217 GETTABLEKS                       R15 R15 K12 ["createElement"]
       219 GETUPVAL                         R16 9
       220 DUPTABLE                         R17 K68 [{"Size", "Position", "Tracks", "Facs", "OnTrackSelected"}]
       221 GETIMPORT                        R18 K34 [UDim2.new]
       223 LOADN                            R19 0
-      224 GETUPVAL                         R21 5
-      225 GETTABLEKS                       R20 R21 K69 ["TRACKLIST_BUTTON_SIZE"]
+      224 GETUPVAL                         R20 5
+      225 GETTABLEKS                       R20 R20 K69 ["TRACKLIST_BUTTON_SIZE"]
       227 LOADN                            R21 0
-      228 GETUPVAL                         R23 5
-      229 GETTABLEKS                       R22 R23 K69 ["TRACKLIST_BUTTON_SIZE"]
+      228 GETUPVAL                         R22 5
+      229 GETTABLEKS                       R22 R22 K69 ["TRACKLIST_BUTTON_SIZE"]
       231 CALL                             R18 4 1
       232 SETTABLEKS                       R18 R17 K23 ["Size"]
       234 GETIMPORT                        R18 K34 [UDim2.new]
       236 LOADN                            R19 1
-      237 GETUPVAL                         R22 5
-      238 GETTABLEKS                       R21 R22 K70 ["TRACKLIST_RIGHT_PADDING"]
+      237 GETUPVAL                         R21 5
+      238 GETTABLEKS                       R21 R21 K70 ["TRACKLIST_RIGHT_PADDING"]
       240 MINUS                            R20 R21
       241 LOADK                            R21 K45 [0.5]
       242 LOADN                            R22 0
@@ -244,63 +244,63 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R9 R0 K11 ["Src"]
-       29 GETTABLEKS                       R8 R9 K12 ["Components"]
-       31 GETTABLEKS                       R7 R8 K13 ["IK"]
-       33 GETTABLEKS                       R6 R7 K14 ["IKController"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Components"]
+       31 GETTABLEKS                       R6 R6 K13 ["IK"]
+       33 GETTABLEKS                       R6 R6 K14 ["IKController"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R10 R0 K11 ["Src"]
-       40 GETTABLEKS                       R9 R10 K12 ["Components"]
-       42 GETTABLEKS                       R8 R9 K15 ["FaceControlsEditor"]
-       44 GETTABLEKS                       R7 R8 K16 ["FaceControlsEditorController"]
+       38 GETTABLEKS                       R7 R0 K11 ["Src"]
+       40 GETTABLEKS                       R7 R7 K12 ["Components"]
+       42 GETTABLEKS                       R7 R7 K15 ["FaceControlsEditor"]
+       44 GETTABLEKS                       R7 R7 K16 ["FaceControlsEditorController"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K5 [require]
-       49 GETTABLEKS                       R11 R0 K11 ["Src"]
-       51 GETTABLEKS                       R10 R11 K12 ["Components"]
-       53 GETTABLEKS                       R9 R10 K17 ["FacialAnimationRecorder"]
-       55 GETTABLEKS                       R8 R9 K18 ["RecordingModeButton"]
+       49 GETTABLEKS                       R8 R0 K11 ["Src"]
+       51 GETTABLEKS                       R8 R8 K12 ["Components"]
+       53 GETTABLEKS                       R8 R8 K17 ["FacialAnimationRecorder"]
+       55 GETTABLEKS                       R8 R8 K18 ["RecordingModeButton"]
        57 CALL                             R7 1 1
        58 GETIMPORT                        R8 K5 [require]
-       60 GETTABLEKS                       R12 R0 K11 ["Src"]
-       62 GETTABLEKS                       R11 R12 K12 ["Components"]
-       64 GETTABLEKS                       R10 R11 K19 ["TrackList"]
-       66 GETTABLEKS                       R9 R10 K20 ["TrackListEntry"]
+       60 GETTABLEKS                       R9 R0 K11 ["Src"]
+       62 GETTABLEKS                       R9 R9 K12 ["Components"]
+       64 GETTABLEKS                       R9 R9 K19 ["TrackList"]
+       66 GETTABLEKS                       R9 R9 K20 ["TrackListEntry"]
        68 CALL                             R8 1 1
        69 GETIMPORT                        R9 K5 [require]
-       71 GETTABLEKS                       R13 R0 K11 ["Src"]
-       73 GETTABLEKS                       R12 R13 K12 ["Components"]
-       75 GETTABLEKS                       R11 R12 K19 ["TrackList"]
-       77 GETTABLEKS                       R10 R11 K21 ["AddTrackButton"]
+       71 GETTABLEKS                       R10 R0 K11 ["Src"]
+       73 GETTABLEKS                       R10 R10 K12 ["Components"]
+       75 GETTABLEKS                       R10 R10 K19 ["TrackList"]
+       77 GETTABLEKS                       R10 R10 K21 ["AddTrackButton"]
        79 CALL                             R9 1 1
        80 GETIMPORT                        R10 K5 [require]
-       82 GETTABLEKS                       R13 R0 K11 ["Src"]
-       84 GETTABLEKS                       R12 R13 K22 ["Util"]
-       86 GETTABLEKS                       R11 R12 K23 ["Constants"]
+       82 GETTABLEKS                       R11 R0 K11 ["Src"]
+       84 GETTABLEKS                       R11 R11 K22 ["Util"]
+       86 GETTABLEKS                       R11 R11 K23 ["Constants"]
        88 CALL                             R10 1 1
        89 GETIMPORT                        R11 K5 [require]
-       91 GETTABLEKS                       R14 R0 K11 ["Src"]
-       93 GETTABLEKS                       R13 R14 K22 ["Util"]
-       95 GETTABLEKS                       R12 R13 K24 ["isEmpty"]
+       91 GETTABLEKS                       R12 R0 K11 ["Src"]
+       93 GETTABLEKS                       R12 R12 K22 ["Util"]
+       95 GETTABLEKS                       R12 R12 K24 ["isEmpty"]
        97 CALL                             R11 1 1
        98 GETIMPORT                        R12 K5 [require]
-      100 GETTABLEKS                       R15 R0 K11 ["Src"]
-      102 GETTABLEKS                       R14 R15 K22 ["Util"]
-      104 GETTABLEKS                       R13 R14 K25 ["StringUtils"]
+      100 GETTABLEKS                       R13 R0 K11 ["Src"]
+      102 GETTABLEKS                       R13 R13 K22 ["Util"]
+      104 GETTABLEKS                       R13 R13 K25 ["StringUtils"]
       106 CALL                             R12 1 1
       107 GETIMPORT                        R13 K5 [require]
-      109 GETTABLEKS                       R15 R0 K26 ["LuaFlags"]
-      111 GETTABLEKS                       R14 R15 K27 ["GetFFlagFacialAnimationRecordingInStudio"]
+      109 GETTABLEKS                       R14 R0 K26 ["LuaFlags"]
+      111 GETTABLEKS                       R14 R14 K27 ["GetFFlagFacialAnimationRecordingInStudio"]
       113 CALL                             R13 1 1
       114 GETTABLEKS                       R14 R1 K28 ["PureComponent"]
       116 LOADK                            R16 K29 ["SummaryTrack"]

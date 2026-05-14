@@ -9,11 +9,11 @@ PROTO_0:
         8 CALL                             R1 1 1
         9 GETUPVAL                         R2 2
        10 CALL                             R2 0 1
-       11 GETTABLEKS                       R5 R2 K1 ["Color"]
-       13 GETTABLEKS                       R4 R5 K2 ["Content"]
-       15 GETTABLEKS                       R3 R4 K3 ["Emphasis"]
-       17 GETUPVAL                         R5 3
-       18 GETTABLEKS                       R4 R5 K4 ["createElement"]
+       11 GETTABLEKS                       R3 R2 K1 ["Color"]
+       13 GETTABLEKS                       R3 R3 K2 ["Content"]
+       15 GETTABLEKS                       R3 R3 K3 ["Emphasis"]
+       17 GETUPVAL                         R4 3
+       18 GETTABLEKS                       R4 R4 K4 ["createElement"]
        20 GETUPVAL                         R5 4
        21 DUPTABLE                         R6 K7 [{"tag", "LayoutOrder"}]
        22 LOADK                            R7 K8 ["col gap-small size-full-0 auto-y"]
@@ -21,8 +21,8 @@ PROTO_0:
        25 GETTABLEKS                       R7 R0 K6 ["LayoutOrder"]
        27 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
        29 DUPTABLE                         R7 K11 [{"Title", "PriceRow"}]
-       30 GETUPVAL                         R9 3
-       31 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       30 GETUPVAL                         R8 3
+       31 GETTABLEKS                       R8 R8 K4 ["createElement"]
        33 GETUPVAL                         R9 5
        34 DUPTABLE                         R10 K13 [{"Text", "tag", "LayoutOrder"}]
        35 LOADK                            R13 K14 ["LookComposerDialog"]
@@ -36,8 +36,8 @@ PROTO_0:
        46 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
        48 CALL                             R8 2 1
        49 SETTABLEKS                       R8 R7 K9 ["Title"]
-       51 GETUPVAL                         R9 3
-       52 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       51 GETUPVAL                         R8 3
+       52 GETTABLEKS                       R8 R8 K4 ["createElement"]
        54 GETUPVAL                         R9 4
        55 DUPTABLE                         R10 K7 [{"tag", "LayoutOrder"}]
        56 LOADK                            R11 K18 ["row gap-xsmall align-y-center auto-xy"]
@@ -45,8 +45,8 @@ PROTO_0:
        59 LOADN                            R11 2
        60 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
        62 DUPTABLE                         R11 K21 [{"RobuxIcon", "PriceText"}]
-       63 GETUPVAL                         R13 3
-       64 GETTABLEKS                       R12 R13 K4 ["createElement"]
+       63 GETUPVAL                         R12 3
+       64 GETTABLEKS                       R12 R12 K4 ["createElement"]
        66 GETUPVAL                         R13 6
        67 DUPTABLE                         R14 K25 [{"Image", "Size", "imageStyle", "LayoutOrder"}]
        68 LOADK                            R15 K26 ["rbxasset://textures/ui/common/robux_small.png"]
@@ -61,8 +61,8 @@ PROTO_0:
        81 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
        83 CALL                             R12 2 1
        84 SETTABLEKS                       R12 R11 K19 ["RobuxIcon"]
-       86 GETUPVAL                         R13 3
-       87 GETTABLEKS                       R12 R13 K4 ["createElement"]
+       86 GETUPVAL                         R12 3
+       87 GETTABLEKS                       R12 R12 K4 ["createElement"]
        89 GETUPVAL                         R13 5
        90 DUPTABLE                         R14 K13 [{"Text", "tag", "LayoutOrder"}]
        91 GETTABLEKS                       R16 R0 K30 ["price"]
@@ -88,28 +88,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETTABLEKS                       R4 R2 K10 ["Text"]
        25 GETTABLEKS                       R5 R2 K11 ["Image"]
-       27 GETTABLEKS                       R7 R2 K12 ["Hooks"]
-       29 GETTABLEKS                       R6 R7 K13 ["useTokens"]
+       27 GETTABLEKS                       R6 R2 K12 ["Hooks"]
+       29 GETTABLEKS                       R6 R6 K13 ["useTokens"]
        31 GETIMPORT                        R7 K5 [require]
-       33 GETTABLEKS                       R9 R0 K6 ["Packages"]
-       35 GETTABLEKS                       R8 R9 K14 ["Framework"]
+       33 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       35 GETTABLEKS                       R8 R8 K14 ["Framework"]
        37 CALL                             R7 1 1
-       38 GETTABLEKS                       R9 R7 K15 ["ContextServices"]
-       40 GETTABLEKS                       R8 R9 K16 ["Localization"]
+       38 GETTABLEKS                       R8 R7 K15 ["ContextServices"]
+       40 GETTABLEKS                       R8 R8 K16 ["Localization"]
        42 GETIMPORT                        R9 K5 [require]
-       44 GETTABLEKS                       R12 R0 K17 ["Src"]
-       46 GETTABLEKS                       R11 R12 K18 ["Flags"]
-       48 GETTABLEKS                       R10 R11 K19 ["getFFlagAvatarPreviewerLookComposer"]
+       44 GETTABLEKS                       R10 R0 K17 ["Src"]
+       46 GETTABLEKS                       R10 R10 K18 ["Flags"]
+       48 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerLookComposer"]
        50 CALL                             R9 1 1
        51 DUPCLOSURE                       R10 K20 [PROTO_0]
        52 CAPTURE                          VAL R9

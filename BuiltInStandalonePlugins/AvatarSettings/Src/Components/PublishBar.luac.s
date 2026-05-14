@@ -3,8 +3,8 @@ PROTO_0:
         1 LOADK                            R2 K0 ["RevertChangesPressed"]
         2 NAMECALL                         R0 R0 K1 ["logCounter"]
         4 CALL                             R0 2 0
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R0 R1 K2 ["discardUnpublishedSettings"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K2 ["discardUnpublishedSettings"]
         8 CALL                             R0 0 0
         9 RETURN                           R0 0
 
@@ -13,8 +13,8 @@ PROTO_1:
         1 LOADK                            R2 K0 ["SaveChangesPressed"]
         2 NAMECALL                         R0 R0 K1 ["logCounter"]
         4 CALL                             R0 2 0
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R0 R1 K2 ["saveUnpublishedSettings"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K2 ["saveUnpublishedSettings"]
         8 CALL                             R0 0 0
         9 RETURN                           R0 0
 
@@ -27,8 +27,8 @@ PROTO_2:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["content"]
@@ -43,16 +43,16 @@ PROTO_2:
        29 GETUPVAL                         R6 5
        30 GETUPVAL                         R7 6
        31 NEWTABLE                         R8 4 0
-       33 GETUPVAL                         R10 3
-       34 GETTABLEKS                       R9 R10 K6 ["Tag"]
+       33 GETUPVAL                         R9 3
+       34 GETTABLEKS                       R9 R9 K6 ["Tag"]
        36 LOADK                            R10 K7 ["PublishBar X-Row X-Middle X-Right"]
        37 SETTABLE                         R10 R8 R9
        38 GETIMPORT                        R9 K10 [UDim2.new]
        40 LOADN                            R10 1
        41 LOADN                            R11 0
        42 LOADN                            R12 0
-       43 GETUPVAL                         R14 7
-       44 GETTABLEKS                       R13 R14 K11 ["MENU_BAR_HEIGHT"]
+       43 GETUPVAL                         R13 7
+       44 GETTABLEKS                       R13 R13 K11 ["MENU_BAR_HEIGHT"]
        46 CALL                             R9 4 1
        47 SETTABLEKS                       R9 R8 K12 ["Size"]
        49 GETTABLEKS                       R9 R0 K13 ["layoutOrder"]
@@ -61,14 +61,14 @@ PROTO_2:
        54 GETUPVAL                         R10 5
        55 GETUPVAL                         R11 8
        56 NEWTABLE                         R12 8 0
-       58 GETUPVAL                         R14 3
-       59 GETTABLEKS                       R13 R14 K6 ["Tag"]
+       58 GETUPVAL                         R13 3
+       59 GETTABLEKS                       R13 R13 K6 ["Tag"]
        61 LOADK                            R14 K18 ["Compact"]
        62 SETTABLE                         R14 R12 R13
        63 GETIMPORT                        R13 K20 [UDim2.fromOffset]
        65 LOADN                            R14 0
-       66 GETUPVAL                         R16 7
-       67 GETTABLEKS                       R15 R16 K21 ["STANDARD_HEIGHT"]
+       66 GETUPVAL                         R15 7
+       67 GETTABLEKS                       R15 R15 K21 ["STANDARD_HEIGHT"]
        69 CALL                             R13 2 1
        70 SETTABLEKS                       R13 R12 K12 ["Size"]
        72 GETIMPORT                        R13 K25 [Enum.AutomaticSize.X]
@@ -93,14 +93,14 @@ PROTO_2:
       100 GETUPVAL                         R10 5
       101 GETUPVAL                         R11 8
       102 NEWTABLE                         R12 8 0
-      104 GETUPVAL                         R14 3
-      105 GETTABLEKS                       R13 R14 K6 ["Tag"]
+      104 GETUPVAL                         R13 3
+      105 GETTABLEKS                       R13 R13 K6 ["Tag"]
       107 LOADK                            R14 K33 ["PrimaryBrand Compact"]
       108 SETTABLE                         R14 R12 R13
       109 GETIMPORT                        R13 K20 [UDim2.fromOffset]
       111 LOADN                            R14 0
-      112 GETUPVAL                         R16 7
-      113 GETTABLEKS                       R15 R16 K21 ["STANDARD_HEIGHT"]
+      112 GETUPVAL                         R15 7
+      113 GETTABLEKS                       R15 R15 K21 ["STANDARD_HEIGHT"]
       115 CALL                             R13 2 1
       116 SETTABLEKS                       R13 R12 K12 ["Size"]
       118 GETIMPORT                        R13 K25 [Enum.AutomaticSize.X]
@@ -132,37 +132,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R8 R0 K6 ["Src"]
-       27 GETTABLEKS                       R7 R8 K11 ["Components"]
-       29 GETTABLEKS                       R6 R7 K12 ["Contexts"]
-       31 GETTABLEKS                       R5 R6 K13 ["PublishProvider"]
-       33 GETTABLEKS                       R4 R5 K14 ["PublishContext"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Components"]
+       29 GETTABLEKS                       R4 R4 K12 ["Contexts"]
+       31 GETTABLEKS                       R4 R4 K13 ["PublishProvider"]
+       33 GETTABLEKS                       R4 R4 K14 ["PublishContext"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K15 ["React"]
+       38 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K15 ["React"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R7 R0 K9 ["Packages"]
-       47 GETTABLEKS                       R6 R7 K16 ["ReactUtils"]
+       45 GETTABLEKS                       R6 R0 K9 ["Packages"]
+       47 GETTABLEKS                       R6 R6 K16 ["ReactUtils"]
        49 CALL                             R5 1 1
        50 GETTABLEKS                       R6 R5 K17 ["createNextOrder"]
        52 GETTABLEKS                       R7 R2 K18 ["ContextServices"]
        54 GETTABLEKS                       R8 R7 K19 ["Localization"]
        56 GETIMPORT                        R9 K5 [require]
-       58 GETTABLEKS                       R13 R0 K6 ["Src"]
-       60 GETTABLEKS                       R12 R13 K7 ["Util"]
-       62 GETTABLEKS                       R11 R12 K20 ["Telemetry"]
-       64 GETTABLEKS                       R10 R11 K21 ["TelemetryContext"]
+       58 GETTABLEKS                       R10 R0 K6 ["Src"]
+       60 GETTABLEKS                       R10 R10 K7 ["Util"]
+       62 GETTABLEKS                       R10 R10 K20 ["Telemetry"]
+       64 GETTABLEKS                       R10 R10 K21 ["TelemetryContext"]
        66 CALL                             R9 1 1
        67 GETTABLEKS                       R10 R2 K22 ["UI"]
        69 GETTABLEKS                       R11 R10 K23 ["Pane"]

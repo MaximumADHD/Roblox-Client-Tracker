@@ -31,15 +31,15 @@ PROTO_0:
        45 SUBRK                            R12 R8 K13 [{"Priority"}]
        46 MUL                              R11 R12 R6
        47 ADD                              R9 R10 R11
-       48 GETUPVAL                         R11 0
-       49 GETTABLEKS                       R10 R11 K11 ["createElement"]
+       48 GETUPVAL                         R10 0
+       49 GETTABLEKS                       R10 R10 K11 ["createElement"]
        51 GETUPVAL                         R11 1
        52 DUPTABLE                         R12 K13 [{"Priority"}]
        53 LOADN                            R13 255
        54 SETTABLEKS                       R13 R12 K12 ["Priority"]
        56 DUPTABLE                         R13 K15 [{"Container"}]
-       57 GETUPVAL                         R15 0
-       58 GETTABLEKS                       R14 R15 K11 ["createElement"]
+       57 GETUPVAL                         R14 0
+       58 GETTABLEKS                       R14 R14 K11 ["createElement"]
        60 LOADK                            R15 K16 ["Frame"]
        61 DUPTABLE                         R16 K19 [{"AnchorPoint", "Size", "Position", "BackgroundTransparency"}]
        62 SETTABLEKS                       R4 R16 K3 ["AnchorPoint"]
@@ -54,8 +54,8 @@ PROTO_0:
        77 LOADN                            R17 1
        78 SETTABLEKS                       R17 R16 K18 ["BackgroundTransparency"]
        80 DUPTABLE                         R17 K24 [{"Background"}]
-       81 GETUPVAL                         R19 0
-       82 GETTABLEKS                       R18 R19 K11 ["createElement"]
+       81 GETUPVAL                         R18 0
+       82 GETTABLEKS                       R18 R18 K11 ["createElement"]
        84 LOADK                            R19 K16 ["Frame"]
        85 DUPTABLE                         R20 K28 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "ZIndex"}]
        86 GETIMPORT                        R21 K22 [UDim2.new]
@@ -73,8 +73,8 @@ PROTO_0:
       104 LOADN                            R21 2
       105 SETTABLEKS                       R21 R20 K27 ["ZIndex"]
       107 DUPTABLE                         R21 K31 [{"Shadow"}]
-      108 GETUPVAL                         R23 0
-      109 GETTABLEKS                       R22 R23 K11 ["createElement"]
+      108 GETUPVAL                         R22 0
+      109 GETTABLEKS                       R22 R22 K11 ["createElement"]
       111 GETUPVAL                         R23 2
       112 DUPTABLE                         R24 K35 [{"Transparency", "Color", "Radius", "Offset"}]
       113 SETTABLEKS                       R9 R24 K6 ["Transparency"]
@@ -85,8 +85,8 @@ PROTO_0:
       123 GETIMPORT                        R25 K39 [Vector2.new]
       125 CALL                             R25 0 1
       126 SETTABLEKS                       R25 R24 K34 ["Offset"]
-      128 GETUPVAL                         R27 0
-      129 GETTABLEKS                       R26 R27 K40 ["Children"]
+      128 GETUPVAL                         R26 0
+      129 GETTABLEKS                       R26 R26 K40 ["Children"]
       131 GETTABLE                         R25 R1 R26
       132 CALL                             R22 3 1
       133 SETTABLEKS                       R22 R21 K30 ["Shadow"]
@@ -104,17 +104,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["UI"]
-       23 GETTABLEKS                       R3 R4 K10 ["ShowOnTop"]
-       25 GETTABLEKS                       R5 R2 K9 ["UI"]
-       27 GETTABLEKS                       R4 R5 K11 ["DropShadow"]
+       21 GETTABLEKS                       R3 R2 K9 ["UI"]
+       23 GETTABLEKS                       R3 R3 K10 ["ShowOnTop"]
+       25 GETTABLEKS                       R4 R2 K9 ["UI"]
+       27 GETTABLEKS                       R4 R4 K11 ["DropShadow"]
        29 GETTABLEKS                       R5 R2 K12 ["ContextServices"]
        31 GETTABLEKS                       R6 R5 K13 ["withContext"]
        33 GETTABLEKS                       R7 R1 K14 ["PureComponent"]

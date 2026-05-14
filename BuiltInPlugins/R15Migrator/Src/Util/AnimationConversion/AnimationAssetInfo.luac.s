@@ -11,22 +11,22 @@ PROTO_0:
        15 RETURN                           R4 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["RobloxAsset"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["RobloxAsset"]
         3 JUMPIFNOTEQ                      R1 R2 ; [+27]
         5 LOADB                            R2 1
         6 GETTABLEKS                       R3 R0 K1 ["_type"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K0 ["RobloxAsset"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K0 ["RobloxAsset"]
        11 JUMPIFEQ                         R3 R4 ; [+18]
        13 LOADB                            R2 1
        14 GETTABLEKS                       R3 R0 K1 ["_type"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K2 ["AnimationInstance"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K2 ["AnimationInstance"]
        19 JUMPIFEQ                         R3 R4 ; [+10]
        21 GETTABLEKS                       R3 R0 K1 ["_type"]
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K3 ["AssetIdString"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K3 ["AssetIdString"]
        26 JUMPIFEQ                         R3 R4 ; [+2]
        28 LOADB                            R2 0 +1
        29 LOADB                            R2 1
@@ -39,12 +39,12 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [require]
-        3 GETIMPORT                        R4 K3 [script]
-        5 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K5 ["constants"]
-        9 CALL                             R1 1 1
-       10 GETTABLEKS                       R0 R1 K6 ["AssetType"]
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["constants"]
+        9 CALL                             R0 1 1
+       10 GETTABLEKS                       R0 R0 K6 ["AssetType"]
        12 NEWTABLE                         R1 4 0
        14 SETTABLEKS                       R1 R1 K7 ["__index"]
        16 DUPCLOSURE                       R2 K8 [PROTO_0]

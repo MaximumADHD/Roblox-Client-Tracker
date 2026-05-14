@@ -13,8 +13,8 @@ PROTO_0:
        17 SETTABLEKS                       R3 R2 K7 ["ClassName"]
        19 LOADNIL                          R3
        20 SETTABLEKS                       R3 R2 K8 ["Parent"]
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K9 ["new"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K9 ["new"]
        25 CALL                             R3 0 1
        26 SETTABLEKS                       R3 R2 K10 ["Changed"]
        28 GETIMPORT                        R3 K12 [pairs]
@@ -23,8 +23,8 @@ PROTO_0:
        32 FORGPREP_NEXT                    R3
        33 SETTABLE                         R7 R2 R6
        34 FORGLOOP                         R3 2 ; [-2]
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R3 R4 K9 ["new"]
+       36 GETUPVAL                         R3 1
+       37 GETTABLEKS                       R3 R3 K9 ["new"]
        39 CALL                             R3 0 1
        40 SETTABLEKS                       R3 R2 K13 ["_propertyChangedSignal"]
        42 NEWTABLE                         R3 0 0
@@ -184,20 +184,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R6 R0 K6 ["Src"]
-       18 GETTABLEKS                       R5 R6 K8 ["Testing"]
-       20 GETTABLEKS                       R4 R5 K9 ["Mocks"]
-       22 GETTABLEKS                       R3 R4 K10 ["EventMock"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Testing"]
+       20 GETTABLEKS                       R3 R3 K9 ["Mocks"]
+       22 GETTABLEKS                       R3 R3 K10 ["EventMock"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R7 R0 K6 ["Src"]
-       29 GETTABLEKS                       R6 R7 K8 ["Testing"]
-       31 GETTABLEKS                       R5 R6 K9 ["Mocks"]
-       33 GETTABLEKS                       R4 R5 K11 ["MakeMockStatus"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K8 ["Testing"]
+       31 GETTABLEKS                       R4 R4 K9 ["Mocks"]
+       33 GETTABLEKS                       R4 R4 K11 ["MakeMockStatus"]
        35 CALL                             R3 1 1
        36 NEWTABLE                         R4 16 0
        38 SETTABLEKS                       R4 R4 K12 ["__index"]

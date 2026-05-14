@@ -19,8 +19,8 @@ PROTO_1:
         6 CALL                             R2 4 2
         7 JUMPIFNOT                        R2 ; [+11]
         8 JUMPIFNOT                        R3 ; [+10]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K3 ["MatchBefore"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["MatchBefore"]
        12 MOVE                             R5 R0
        13 MOVE                             R6 R2
        14 LOADK                            R7 K4 ["[[%s.,(=+-*/\"']"]
@@ -49,8 +49,8 @@ PROTO_2:
        17 MOVE                             R10 R13
        18 LOADN                            R11 1
        19 FORNPREP                         R10
-       20 GETUPVAL                         R14 0
-       21 GETTABLEKS                       R13 R14 K3 ["CharAt"]
+       20 GETUPVAL                         R13 0
+       21 GETTABLEKS                       R13 R13 K3 ["CharAt"]
        23 MOVE                             R14 R0
        24 MOVE                             R15 R12
        25 CALL                             R13 2 1
@@ -63,21 +63,21 @@ PROTO_2:
        33 JUMPIFNOT                        R3 ; [+13]
        34 JUMPIFNOT                        R4 ; [+12]
        35 NEWTABLE                         R14 2 0
-       37 GETUPVAL                         R16 1
-       38 GETTABLEKS                       R15 R16 K7 ["StartKey"]
+       37 GETUPVAL                         R15 1
+       38 GETTABLEKS                       R15 R15 K7 ["StartKey"]
        40 SETTABLE                         R3 R14 R15
-       41 GETUPVAL                         R16 1
-       42 GETTABLEKS                       R15 R16 K8 ["EndKey"]
+       41 GETUPVAL                         R15 1
+       42 GETTABLEKS                       R15 R15 K8 ["EndKey"]
        44 SETTABLE                         R4 R14 R15
        45 SETTABLEKS                       R14 R9 K9 ["Left"]
        47 JUMPIFNOT                        R5 ; [+13]
        48 JUMPIFNOT                        R6 ; [+12]
        49 NEWTABLE                         R14 2 0
-       51 GETUPVAL                         R16 1
-       52 GETTABLEKS                       R15 R16 K7 ["StartKey"]
+       51 GETUPVAL                         R15 1
+       52 GETTABLEKS                       R15 R15 K7 ["StartKey"]
        54 SETTABLE                         R5 R14 R15
-       55 GETUPVAL                         R16 1
-       56 GETTABLEKS                       R15 R16 K8 ["EndKey"]
+       55 GETUPVAL                         R15 1
+       56 GETTABLEKS                       R15 R15 K8 ["EndKey"]
        58 SETTABLE                         R6 R14 R15
        59 SETTABLEKS                       R14 R9 K10 ["Right"]
        61 FASTCALL2                        TABLE_INSERT R1 R9 ; [+5]
@@ -104,11 +104,11 @@ PROTO_2:
        88 JUMPIFNOT                        R3 ; [+15]
        89 JUMPIFNOT                        R4 ; [+14]
        90 NEWTABLE                         R14 2 0
-       92 GETUPVAL                         R16 1
-       93 GETTABLEKS                       R15 R16 K7 ["StartKey"]
+       92 GETUPVAL                         R15 1
+       93 GETTABLEKS                       R15 R15 K7 ["StartKey"]
        95 SETTABLE                         R3 R14 R15
-       96 GETUPVAL                         R16 1
-       97 GETTABLEKS                       R15 R16 K8 ["EndKey"]
+       96 GETUPVAL                         R15 1
+       97 GETTABLEKS                       R15 R15 K8 ["EndKey"]
        99 SETTABLE                         R4 R14 R15
       100 SETTABLEKS                       R14 R9 K9 ["Left"]
       102 JUMP                             ; [+1]
@@ -135,11 +135,11 @@ PROTO_2:
       126 NEWTABLE                         R9 0 0
       128 JUMPIFNOT                        R3 ; [+19]
       129 NEWTABLE                         R10 2 0
-      131 GETUPVAL                         R12 1
-      132 GETTABLEKS                       R11 R12 K7 ["StartKey"]
+      131 GETUPVAL                         R11 1
+      132 GETTABLEKS                       R11 R11 K7 ["StartKey"]
       134 SETTABLE                         R3 R10 R11
-      135 GETUPVAL                         R12 1
-      136 GETTABLEKS                       R11 R12 K8 ["EndKey"]
+      135 GETUPVAL                         R11 1
+      136 GETTABLEKS                       R11 R11 K8 ["EndKey"]
       138 MOVE                             R12 R4
       139 JUMPIF                           R12 ; [+5]
       140 FASTCALL1                        STRING_LEN R0 ; [+3]
@@ -150,11 +150,11 @@ PROTO_2:
       146 SETTABLEKS                       R10 R9 K9 ["Left"]
       148 JUMPIFNOT                        R5 ; [+19]
       149 NEWTABLE                         R10 2 0
-      151 GETUPVAL                         R12 1
-      152 GETTABLEKS                       R11 R12 K7 ["StartKey"]
+      151 GETUPVAL                         R11 1
+      152 GETTABLEKS                       R11 R11 K7 ["StartKey"]
       154 SETTABLE                         R5 R10 R11
-      155 GETUPVAL                         R12 1
-      156 GETTABLEKS                       R11 R12 K8 ["EndKey"]
+      155 GETUPVAL                         R11 1
+      156 GETTABLEKS                       R11 R11 K8 ["EndKey"]
       158 MOVE                             R12 R6
       159 JUMPIF                           R12 ; [+5]
       160 FASTCALL1                        STRING_LEN R0 ; [+3]
@@ -181,13 +181,13 @@ PROTO_3:
         4 JUMPIFNOT                        R2 ; [+19]
         5 LOADB                            R2 0
         6 GETTABLEKS                       R4 R0 K0 ["Left"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K1 ["StartKey"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K1 ["StartKey"]
        11 GETTABLE                         R3 R4 R5
        12 JUMPIFNOTLE                      R3 R1 ; [+11]
        14 GETTABLEKS                       R4 R0 K0 ["Left"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K2 ["EndKey"]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K2 ["EndKey"]
        19 GETTABLE                         R3 R4 R5
        20 JUMPIFLE                         R1 R3 ; [+2]
        22 LOADB                            R2 0 +1
@@ -201,13 +201,13 @@ PROTO_4:
         4 JUMPIFNOT                        R2 ; [+19]
         5 LOADB                            R2 0
         6 GETTABLEKS                       R4 R0 K0 ["Right"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K1 ["StartKey"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K1 ["StartKey"]
        11 GETTABLE                         R3 R4 R5
        12 JUMPIFNOTLE                      R3 R1 ; [+11]
        14 GETTABLEKS                       R4 R0 K0 ["Right"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K2 ["EndKey"]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K2 ["EndKey"]
        19 GETTABLE                         R3 R4 R5
        20 JUMPIFLE                         R1 R3 ; [+2]
        22 LOADB                            R2 0 +1
@@ -228,13 +228,13 @@ PROTO_5:
        12 JUMPIFNOT                        R9 ; [+19]
        13 LOADB                            R9 0
        14 GETTABLEKS                       R11 R8 K2 ["Left"]
-       16 GETUPVAL                         R13 1
-       17 GETTABLEKS                       R12 R13 K3 ["StartKey"]
+       16 GETUPVAL                         R12 1
+       17 GETTABLEKS                       R12 R12 K3 ["StartKey"]
        19 GETTABLE                         R10 R11 R12
        20 JUMPIFNOTLE                      R10 R2 ; [+11]
        22 GETTABLEKS                       R11 R8 K2 ["Left"]
-       24 GETUPVAL                         R13 1
-       25 GETTABLEKS                       R12 R13 K4 ["EndKey"]
+       24 GETUPVAL                         R12 1
+       25 GETTABLEKS                       R12 R12 K4 ["EndKey"]
        27 GETTABLE                         R10 R11 R12
        28 JUMPIFLE                         R2 R10 ; [+2]
        30 LOADB                            R9 0 +1
@@ -246,13 +246,13 @@ PROTO_5:
        37 JUMPIFNOT                        R9 ; [+19]
        38 LOADB                            R9 0
        39 GETTABLEKS                       R11 R8 K5 ["Right"]
-       41 GETUPVAL                         R13 1
-       42 GETTABLEKS                       R12 R13 K3 ["StartKey"]
+       41 GETUPVAL                         R12 1
+       42 GETTABLEKS                       R12 R12 K3 ["StartKey"]
        44 GETTABLE                         R10 R11 R12
        45 JUMPIFNOTLE                      R10 R2 ; [+11]
        47 GETTABLEKS                       R11 R8 K5 ["Right"]
-       49 GETUPVAL                         R13 1
-       50 GETTABLEKS                       R12 R13 K4 ["EndKey"]
+       49 GETUPVAL                         R12 1
+       50 GETTABLEKS                       R12 R12 K4 ["EndKey"]
        52 GETTABLE                         R10 R11 R12
        53 JUMPIFLE                         R2 R10 ; [+2]
        55 LOADB                            R9 0 +1
@@ -286,13 +286,13 @@ PROTO_7:
        10 JUMPIFNOT                        R4 ; [+19]
        11 LOADB                            R4 0
        12 GETTABLEKS                       R6 R3 K1 ["Right"]
-       14 GETUPVAL                         R8 0
-       15 GETTABLEKS                       R7 R8 K2 ["StartKey"]
+       14 GETUPVAL                         R7 0
+       15 GETTABLEKS                       R7 R7 K2 ["StartKey"]
        17 GETTABLE                         R5 R6 R7
        18 JUMPIFNOTLE                      R5 R2 ; [+11]
        20 GETTABLEKS                       R6 R3 K1 ["Right"]
-       22 GETUPVAL                         R8 0
-       23 GETTABLEKS                       R7 R8 K3 ["EndKey"]
+       22 GETUPVAL                         R7 0
+       23 GETTABLEKS                       R7 R7 K3 ["EndKey"]
        25 GETTABLE                         R5 R6 R7
        26 JUMPIFLE                         R2 R5 ; [+2]
        28 LOADB                            R4 0 +1
@@ -312,8 +312,8 @@ PROTO_8:
         6 LOADNIL                          R5
         7 RETURN                           R5 1
         8 GETTABLEKS                       R7 R4 K1 ["start"]
-       10 GETUPVAL                         R10 0
-       11 GETTABLEKS                       R9 R10 K2 ["EndKey"]
+       10 GETUPVAL                         R9 0
+       11 GETTABLEKS                       R9 R9 K2 ["EndKey"]
        13 GETTABLE                         R8 R4 R9
        14 FASTCALL3                        STRING_SUB R2 R7 R8
        16 MOVE                             R6 R2
@@ -331,8 +331,8 @@ PROTO_8:
        31 CALL                             R12 4 2
        32 JUMPIFNOT                        R12 ; [+12]
        33 JUMPIFNOT                        R13 ; [+11]
-       34 GETUPVAL                         R15 1
-       35 GETTABLEKS                       R14 R15 K10 ["MatchBefore"]
+       34 GETUPVAL                         R14 1
+       35 GETTABLEKS                       R14 R14 K10 ["MatchBefore"]
        37 MOVE                             R15 R5
        38 MOVE                             R16 R12
        39 LOADK                            R17 K11 ["[[%s.,(=+-*/\"']"]
@@ -374,8 +374,8 @@ PROTO_9:
        28 CALL                             R9 4 2
        29 JUMPIFNOT                        R9 ; [+13]
        30 JUMPIFNOT                        R10 ; [+12]
-       31 GETUPVAL                         R12 0
-       32 GETTABLEKS                       R11 R12 K9 ["MatchBefore"]
+       31 GETUPVAL                         R11 0
+       32 GETTABLEKS                       R11 R11 K9 ["MatchBefore"]
        34 MOVE                             R12 R8
        35 MOVE                             R13 R9
        36 LOADK                            R14 K10 ["[[%s.,(=+-*/\"']"]
@@ -395,8 +395,8 @@ PROTO_9:
        53 MOVE                             R11 R2
        54 GETIMPORT                        R8 K6 [string.sub]
        56 CALL                             R8 3 1
-       57 GETUPVAL                         R10 0
-       58 GETTABLEKS                       R9 R10 K11 ["RemoveWhitespace"]
+       57 GETUPVAL                         R9 0
+       58 GETTABLEKS                       R9 R9 K11 ["RemoveWhitespace"]
        60 MOVE                             R10 R8
        61 CALL                             R9 1 1
        62 MOVE                             R8 R9
@@ -431,8 +431,8 @@ PROTO_9:
        97 CALL                             R12 4 2
        98 JUMPIFNOT                        R12 ; [+13]
        99 JUMPIFNOT                        R13 ; [+12]
-      100 GETUPVAL                         R15 0
-      101 GETTABLEKS                       R14 R15 K9 ["MatchBefore"]
+      100 GETUPVAL                         R14 0
+      101 GETTABLEKS                       R14 R14 K9 ["MatchBefore"]
       103 MOVE                             R15 R11
       104 MOVE                             R16 R12
       105 LOADK                            R17 K10 ["[[%s.,(=+-*/\"']"]
@@ -452,8 +452,8 @@ PROTO_9:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["Constants"]
         9 CALL                             R1 1 1

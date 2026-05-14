@@ -9,8 +9,8 @@ PROTO_1:
 
 PROTO_2:
         0 LOADB                            R2 0
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["None"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["None"]
         4 JUMPIFEQ                         R0 R3 ; [+5]
         6 JUMPIFEQ                         R0 R1 ; [+2]
         8 LOADB                            R2 0 +1
@@ -19,8 +19,8 @@ PROTO_2:
 
 PROTO_3:
         0 LOADB                            R1 0
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["None"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["None"]
         4 JUMPIFEQ                         R0 R2 ; [+5]
         6 JUMPIFEQKB                       R0 TRUE ; [+2]
         8 LOADB                            R1 0 +1
@@ -47,18 +47,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K10 ["AssetInfoField"]
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K8 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Util"]
-       29 GETTABLEKS                       R5 R6 K12 ["hasMatchingTerm"]
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Util"]
+       29 GETTABLEKS                       R5 R5 K12 ["hasMatchingTerm"]
        31 CALL                             R4 1 1
        32 NEWTABLE                         R5 0 0
        34 DUPCLOSURE                       R6 K13 [PROTO_0]

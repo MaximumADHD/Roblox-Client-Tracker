@@ -6,11 +6,11 @@ PROTO_0:
         7 LOADK                            R7 K4 ["NoDeviceDetected"]
         8 NAMECALL                         R4 R3 K5 ["getText"]
        10 CALL                             R4 3 1
-       11 GETTABLEKS                       R6 R0 K0 ["props"]
-       13 GETTABLEKS                       R5 R6 K6 ["deviceName"]
+       11 GETTABLEKS                       R5 R0 K0 ["props"]
+       13 GETTABLEKS                       R5 R5 K6 ["deviceName"]
        15 JUMPIFEQKS                       R5 K7 [""] ; [+33]
-       17 GETTABLEKS                       R7 R0 K0 ["props"]
-       19 GETTABLEKS                       R6 R7 K8 ["vrEnabled"]
+       17 GETTABLEKS                       R6 R0 K0 ["props"]
+       19 GETTABLEKS                       R6 R6 K8 ["vrEnabled"]
        21 JUMPIFNOT                        R6 ; [+6]
        22 LOADK                            R7 K3 ["AlertDialog"]
        23 LOADK                            R8 K9 ["ModeOn"]
@@ -21,8 +21,8 @@ PROTO_0:
        29 LOADK                            R8 K10 ["ModeOff"]
        30 NAMECALL                         R5 R3 K5 ["getText"]
        32 CALL                             R5 3 1
-       33 GETTABLEKS                       R10 R0 K0 ["props"]
-       35 GETTABLEKS                       R6 R10 K6 ["deviceName"]
+       33 GETTABLEKS                       R6 R0 K0 ["props"]
+       35 GETTABLEKS                       R6 R6 K6 ["deviceName"]
        37 LOADK                            R7 K11 [" "]
        38 LOADK                            R12 K3 ["AlertDialog"]
        39 LOADK                            R13 K12 ["Detected"]
@@ -34,14 +34,14 @@ PROTO_0:
        46 MOVE                             R6 R4
        47 MOVE                             R7 R5
        48 CONCAT                           R4 R6 R7
-       49 GETUPVAL                         R6 0
-       50 GETTABLEKS                       R5 R6 K14 ["createElement"]
+       49 GETUPVAL                         R5 0
+       50 GETTABLEKS                       R5 R5 K14 ["createElement"]
        52 GETUPVAL                         R6 1
        53 DUPTABLE                         R7 K23 [{"Style", "Enabled", "Title", "Buttons", "OnButtonPressed", "OnClose", "MinContentSize", "Modal"}]
        54 LOADK                            R8 K24 ["Alert"]
        55 SETTABLEKS                       R8 R7 K15 ["Style"]
-       57 GETTABLEKS                       R9 R0 K0 ["props"]
-       59 GETTABLEKS                       R8 R9 K25 ["enabled"]
+       57 GETTABLEKS                       R8 R0 K0 ["props"]
+       59 GETTABLEKS                       R8 R8 K25 ["enabled"]
        61 SETTABLEKS                       R8 R7 K16 ["Enabled"]
        63 LOADK                            R8 K26 ["VR Status Information"]
        64 SETTABLEKS                       R8 R7 K17 ["Title"]
@@ -65,8 +65,8 @@ PROTO_0:
        95 LOADB                            R8 1
        96 SETTABLEKS                       R8 R7 K22 ["Modal"]
        98 DUPTABLE                         R8 K34 [{"Label"}]
-       99 GETUPVAL                         R10 0
-      100 GETTABLEKS                       R9 R10 K14 ["createElement"]
+       99 GETUPVAL                         R9 0
+      100 GETTABLEKS                       R9 R9 K14 ["createElement"]
       102 GETUPVAL                         R10 2
       103 DUPTABLE                         R11 K42 [{"Size", "AnchorPoint", "Position", "Text", "TextColor", "TextWrapped", "TextSize", "TextXAlignment"}]
       104 GETIMPORT                        R12 K45 [UDim2.fromScale]
@@ -100,17 +100,17 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]

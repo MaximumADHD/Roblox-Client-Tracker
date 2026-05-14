@@ -6,12 +6,12 @@ PROTO_0:
         8 GETTABLEKS                       R5 R1 K4 ["StatusMessage"]
        10 GETTABLEKS                       R6 R1 K5 ["StatusContext"]
        12 GETTABLEKS                       R7 R1 K6 ["LayoutOrder"]
-       14 GETTABLEKS                       R9 R3 K7 ["PropertyView"]
-       16 GETTABLEKS                       R8 R9 K8 ["IconSize"]
+       14 GETTABLEKS                       R8 R3 K7 ["PropertyView"]
+       16 GETTABLEKS                       R8 R8 K8 ["IconSize"]
        18 LOADB                            R9 1
        19 JUMPIFEQKS                       R4 K9 ["Error"] ; [+8]
-       21 GETUPVAL                         R11 0
-       22 GETTABLEKS                       R10 R11 K9 ["Error"]
+       21 GETUPVAL                         R10 0
+       22 GETTABLEKS                       R10 R10 K9 ["Error"]
        24 JUMPIFEQ                         R4 R10 ; [+2]
        26 LOADB                            R9 0 +1
        27 LOADB                            R9 1
@@ -19,8 +19,8 @@ PROTO_0:
        29 GETTABLEKS                       R10 R3 K10 ["ErrorIcon"]
        31 JUMPIF                           R10 ; [+2]
        32 GETTABLEKS                       R10 R3 K11 ["WarningIcon"]
-       34 GETUPVAL                         R12 1
-       35 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       34 GETUPVAL                         R11 1
+       35 GETTABLEKS                       R11 R11 K12 ["createElement"]
        37 GETUPVAL                         R12 2
        38 DUPTABLE                         R13 K15 [{"Size", "Style", "LayoutOrder"}]
        39 GETIMPORT                        R14 K18 [UDim2.fromOffset]
@@ -31,8 +31,8 @@ PROTO_0:
        46 SETTABLEKS                       R10 R13 K14 ["Style"]
        48 SETTABLEKS                       R7 R13 K6 ["LayoutOrder"]
        50 DUPTABLE                         R14 K20 [{"Tooltip"}]
-       51 GETUPVAL                         R16 1
-       52 GETTABLEKS                       R15 R16 K12 ["createElement"]
+       51 GETUPVAL                         R15 1
+       52 GETTABLEKS                       R15 R15 K12 ["createElement"]
        54 GETUPVAL                         R16 3
        55 DUPTABLE                         R17 K22 [{"Text"}]
        56 LOADK                            R20 K23 ["Statuses"]
@@ -53,12 +53,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
@@ -68,9 +68,9 @@ MAIN:
        31 GETTABLEKS                       R8 R7 K14 ["Tooltip"]
        33 GETTABLEKS                       R9 R7 K15 ["Image"]
        35 GETIMPORT                        R10 K5 [require]
-       37 GETTABLEKS                       R13 R0 K16 ["Src"]
-       39 GETTABLEKS                       R12 R13 K17 ["Resources"]
-       41 GETTABLEKS                       R11 R12 K18 ["StatusLevel"]
+       37 GETTABLEKS                       R11 R0 K16 ["Src"]
+       39 GETTABLEKS                       R11 R11 K17 ["Resources"]
+       41 GETTABLEKS                       R11 R11 K18 ["StatusLevel"]
        43 CALL                             R10 1 1
        44 GETTABLEKS                       R11 R1 K19 ["PureComponent"]
        46 LOADK                            R13 K20 ["PropertyStatus"]

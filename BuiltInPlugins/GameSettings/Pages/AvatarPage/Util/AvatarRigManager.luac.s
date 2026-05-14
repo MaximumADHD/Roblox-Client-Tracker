@@ -18,14 +18,14 @@ PROTO_0:
        26 LOADB                            R4 0
        27 SETTABLEKS                       R4 R3 K4 ["Archivable"]
        29 NEWTABLE                         R3 2 0
-       31 GETUPVAL                         R6 1
-       32 GETTABLEKS                       R5 R6 K6 ["AvatarType"]
-       34 GETTABLEKS                       R4 R5 K7 ["R6"]
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K6 ["AvatarType"]
+       34 GETTABLEKS                       R4 R4 K7 ["R6"]
        36 GETTABLEKS                       R5 R2 K3 ["r6"]
        38 SETTABLE                         R5 R3 R4
-       39 GETUPVAL                         R6 1
-       40 GETTABLEKS                       R5 R6 K6 ["AvatarType"]
-       42 GETTABLEKS                       R4 R5 K8 ["R15"]
+       39 GETUPVAL                         R4 1
+       40 GETTABLEKS                       R4 R4 K6 ["AvatarType"]
+       42 GETTABLEKS                       R4 R4 K8 ["R15"]
        44 GETTABLEKS                       R5 R2 K5 ["r15"]
        46 SETTABLE                         R5 R3 R4
        47 SETTABLEKS                       R3 R2 K9 ["rigs"]
@@ -48,9 +48,9 @@ PROTO_0:
        76 LOADK                            R4 K21 ["CharacterRoot"]
        77 SETTABLEKS                       R4 R3 K22 ["Name"]
        79 GETTABLEKS                       R3 R2 K5 ["r15"]
-       81 GETTABLEKS                       R7 R2 K3 ["r6"]
-       83 GETTABLEKS                       R6 R7 K23 ["PrimaryPart"]
-       85 GETTABLEKS                       R5 R6 K24 ["CFrame"]
+       81 GETTABLEKS                       R5 R2 K3 ["r6"]
+       83 GETTABLEKS                       R5 R5 K23 ["PrimaryPart"]
+       85 GETTABLEKS                       R5 R5 K24 ["CFrame"]
        87 NAMECALL                         R3 R3 K25 ["SetPrimaryPartCFrame"]
        89 CALL                             R3 2 0
        90 GETIMPORT                        R3 K17 [game]
@@ -62,8 +62,8 @@ PROTO_0:
        99 GETTABLEKS                       R3 R2 K3 ["r6"]
       101 GETTABLEKS                       R4 R2 K15 ["characterRoot"]
       103 SETTABLEKS                       R4 R3 K20 ["Parent"]
-      105 GETTABLEKS                       R4 R2 K3 ["r6"]
-      107 GETTABLEKS                       R3 R4 K27 ["Humanoid"]
+      105 GETTABLEKS                       R3 R2 K3 ["r6"]
+      107 GETTABLEKS                       R3 R3 K27 ["Humanoid"]
       109 NAMECALL                         R3 R3 K28 ["CacheDefaults"]
       111 CALL                             R3 1 0
       112 GETTABLEKS                       R3 R2 K3 ["r6"]
@@ -72,20 +72,20 @@ PROTO_0:
       117 GETTABLEKS                       R3 R2 K5 ["r15"]
       119 GETTABLEKS                       R4 R2 K15 ["characterRoot"]
       121 SETTABLEKS                       R4 R3 K20 ["Parent"]
-      123 GETTABLEKS                       R4 R2 K5 ["r15"]
-      125 GETTABLEKS                       R3 R4 K27 ["Humanoid"]
+      123 GETTABLEKS                       R3 R2 K5 ["r15"]
+      125 GETTABLEKS                       R3 R3 K27 ["Humanoid"]
       127 NAMECALL                         R3 R3 K28 ["CacheDefaults"]
       129 CALL                             R3 1 0
       130 GETTABLEKS                       R3 R2 K15 ["characterRoot"]
-      132 GETIMPORT                        R5 K17 [game]
-      134 GETTABLEKS                       R4 R5 K29 ["Workspace"]
+      132 GETIMPORT                        R4 K17 [game]
+      134 GETTABLEKS                       R4 R4 K29 ["Workspace"]
       136 SETTABLEKS                       R4 R3 K20 ["Parent"]
       138 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["currentCharacter"]
-        3 GETTABLEKS                       R0 R1 K1 ["Humanoid"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["currentCharacter"]
+        3 GETTABLEKS                       R0 R0 K1 ["Humanoid"]
         5 GETUPVAL                         R2 1
         6 NAMECALL                         R0 R0 K2 ["ApplyDescription"]
         8 CALL                             R0 2 0
@@ -115,9 +115,9 @@ PROTO_3:
        17 JUMPIFNOT                        R2 ; [+37]
        18 LOADNIL                          R4
        19 LOADNIL                          R5
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K2 ["AvatarType"]
-       23 GETTABLEKS                       R6 R7 K3 ["R6"]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K2 ["AvatarType"]
+       23 GETTABLEKS                       R6 R6 K3 ["R6"]
        25 JUMPIFNOTEQ                      R1 R6 ; [+6]
        27 GETTABLEKS                       R4 R0 K4 ["r6"]
        29 GETTABLEKS                       R5 R0 K5 ["r15"]
@@ -129,18 +129,18 @@ PROTO_3:
        40 GETUPVAL                         R6 1
        41 SETTABLEKS                       R6 R5 K7 ["Parent"]
        43 SETTABLEKS                       R4 R0 K1 ["currentCharacter"]
-       45 GETTABLEKS                       R7 R0 K1 ["currentCharacter"]
-       47 GETTABLEKS                       R6 R7 K8 ["HumanoidRootPart"]
-       49 GETTABLEKS                       R8 R5 K8 ["HumanoidRootPart"]
-       51 GETTABLEKS                       R7 R8 K9 ["CFrame"]
+       45 GETTABLEKS                       R6 R0 K1 ["currentCharacter"]
+       47 GETTABLEKS                       R6 R6 K8 ["HumanoidRootPart"]
+       49 GETTABLEKS                       R7 R5 K8 ["HumanoidRootPart"]
+       51 GETTABLEKS                       R7 R7 K9 ["CFrame"]
        53 SETTABLEKS                       R7 R6 K9 ["CFrame"]
        55 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["currentCharacter"]
         2 JUMPIFNOT                        R2 ; [+6]
-        3 GETTABLEKS                       R3 R0 K0 ["currentCharacter"]
-        5 GETTABLEKS                       R2 R3 K1 ["HumanoidRootPart"]
+        3 GETTABLEKS                       R2 R0 K0 ["currentCharacter"]
+        5 GETTABLEKS                       R2 R2 K1 ["HumanoidRootPart"]
         7 SETTABLEKS                       R1 R2 K2 ["CFrame"]
         9 RETURN                           R0 0
 
@@ -179,12 +179,12 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Util"]
-       11 GETTABLEKS                       R2 R3 K6 ["ConstantAvatar"]
+        9 GETTABLEKS                       R2 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R2 K6 ["ConstantAvatar"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K8 [game]
        16 LOADK                            R4 K9 ["ReplicatedStorage"]

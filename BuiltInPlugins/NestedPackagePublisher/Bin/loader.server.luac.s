@@ -37,35 +37,35 @@ PROTO_3:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
-       10 GETIMPORT                        R2 K3 [script]
-       12 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       14 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       10 GETIMPORT                        R0 K3 [script]
+       12 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       14 GETTABLEKS                       R0 R0 K4 ["Parent"]
        16 GETIMPORT                        R1 K1 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K7 ["Util"]
-       22 GETTABLEKS                       R2 R3 K8 ["shouldPluginRun"]
+       18 GETTABLEKS                       R2 R0 K6 ["Src"]
+       20 GETTABLEKS                       R2 R2 K7 ["Util"]
+       22 GETTABLEKS                       R2 R2 K8 ["shouldPluginRun"]
        24 CALL                             R1 1 1
        25 MOVE                             R2 R1
        26 CALL                             R2 0 1
        27 JUMPIF                           R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K1 [require]
-       31 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       33 GETTABLEKS                       R3 R4 K10 ["PluginLoader"]
+       31 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       33 GETTABLEKS                       R3 R3 K10 ["PluginLoader"]
        35 CALL                             R2 1 1
        36 GETTABLEKS                       R3 R2 K11 ["PluginLoaderBuilder"]
-       38 GETTABLEKS                       R7 R0 K6 ["Src"]
-       40 GETTABLEKS                       R6 R7 K12 ["Resources"]
-       42 GETTABLEKS                       R5 R6 K13 ["Localization"]
-       44 GETTABLEKS                       R4 R5 K14 ["SourceStrings"]
-       46 GETTABLEKS                       R8 R0 K6 ["Src"]
-       48 GETTABLEKS                       R7 R8 K12 ["Resources"]
-       50 GETTABLEKS                       R6 R7 K13 ["Localization"]
-       52 GETTABLEKS                       R5 R6 K15 ["LocalizedStrings"]
+       38 GETTABLEKS                       R4 R0 K6 ["Src"]
+       40 GETTABLEKS                       R4 R4 K12 ["Resources"]
+       42 GETTABLEKS                       R4 R4 K13 ["Localization"]
+       44 GETTABLEKS                       R4 R4 K14 ["SourceStrings"]
+       46 GETTABLEKS                       R5 R0 K6 ["Src"]
+       48 GETTABLEKS                       R5 R5 K12 ["Resources"]
+       50 GETTABLEKS                       R5 R5 K13 ["Localization"]
+       52 GETTABLEKS                       R5 R5 K15 ["LocalizedStrings"]
        54 DUPTABLE                         R6 K25 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
        55 GETIMPORT                        R7 K26 [plugin]
        57 SETTABLEKS                       R7 R6 K16 ["plugin"]
@@ -118,9 +118,9 @@ MAIN:
       128 JUMPIF                           R8 ; [+1]
       129 RETURN                           R0 0
       130 GETIMPORT                        R9 K1 [require]
-      132 GETIMPORT                        R12 K3 [script]
-      134 GETTABLEKS                       R11 R12 K4 ["Parent"]
-      136 GETTABLEKS                       R10 R11 K57 ["main"]
+      132 GETIMPORT                        R10 K3 [script]
+      134 GETTABLEKS                       R10 R10 K4 ["Parent"]
+      136 GETTABLEKS                       R10 R10 K57 ["main"]
       138 CALL                             R9 1 1
       139 MOVE                             R10 R9
       140 GETIMPORT                        R11 K26 [plugin]

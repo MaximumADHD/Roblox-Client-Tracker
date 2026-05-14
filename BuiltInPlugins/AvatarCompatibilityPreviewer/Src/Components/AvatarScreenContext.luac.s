@@ -8,19 +8,19 @@ PROTO_2:
         0 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onIsColorableAcquired"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onIsColorableAcquired"]
         3 NAMECALL                         R0 R0 K1 ["Fire"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["selectedAvatar"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["selectedAvatar"]
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 2
-        6 GETTABLEKS                       R1 R2 K1 ["onIsColorableAcquired"]
+        5 GETUPVAL                         R1 2
+        6 GETTABLEKS                       R1 R1 K1 ["onIsColorableAcquired"]
         8 JUMPIFEQKNIL                     R1 ; [+6]
        10 GETIMPORT                        R1 K4 [task.defer]
        12 NEWCLOSURE                       R2 P0
@@ -29,13 +29,13 @@ PROTO_4:
        15 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Context"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["useState"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["useState"]
        10 NEWTABLE                         R3 0 0
        12 CALL                             R2 1 2
        13 GETUPVAL                         R4 2
@@ -45,8 +45,8 @@ PROTO_5:
        17 GETUPVAL                         R7 3
        18 CALL                             R7 0 1
        19 JUMPIFNOT                        R7 ; [+8]
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K2 ["useState"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K2 ["useState"]
        23 LOADB                            R8 0
        24 CALL                             R7 1 2
        25 MOVE                             R5 R7
@@ -91,10 +91,10 @@ PROTO_5:
        86 SETTABLEKS                       R9 R8 K14 ["isColorable"]
        88 SETTABLEKS                       R5 R8 K15 ["foundationMenuOpen"]
        90 SETTABLEKS                       R6 R8 K16 ["setFoundationMenuOpen"]
-       92 GETUPVAL                         R10 0
-       93 GETTABLEKS                       R9 R10 K24 ["createElement"]
-       95 GETUPVAL                         R11 6
-       96 GETTABLEKS                       R10 R11 K25 ["Provider"]
+       92 GETUPVAL                         R9 0
+       93 GETTABLEKS                       R9 R9 K24 ["createElement"]
+       95 GETUPVAL                         R10 6
+       96 GETTABLEKS                       R10 R10 K25 ["Provider"]
        98 DUPTABLE                         R11 K26 [{"value"}]
        99 SETTABLEKS                       R8 R11 K23 ["value"]
       101 GETTABLEKS                       R12 R0 K27 ["children"]
@@ -108,50 +108,50 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R8 R0 K8 ["Src"]
-       18 GETTABLEKS                       R7 R8 K9 ["Components"]
-       20 GETTABLEKS                       R6 R7 K10 ["Screens"]
-       22 GETTABLEKS                       R5 R6 K11 ["AvatarScreen"]
-       24 GETTABLEKS                       R4 R5 K12 ["Stages"]
-       26 GETTABLEKS                       R3 R4 K13 ["StageType"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Components"]
+       20 GETTABLEKS                       R3 R3 K10 ["Screens"]
+       22 GETTABLEKS                       R3 R3 K11 ["AvatarScreen"]
+       24 GETTABLEKS                       R3 R3 K12 ["Stages"]
+       26 GETTABLEKS                       R3 R3 K13 ["StageType"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K5 [require]
-       31 GETTABLEKS                       R6 R0 K8 ["Src"]
-       33 GETTABLEKS                       R5 R6 K9 ["Components"]
-       35 GETTABLEKS                       R4 R5 K14 ["TestingInterfaceContext"]
+       31 GETTABLEKS                       R4 R0 K8 ["Src"]
+       33 GETTABLEKS                       R4 R4 K9 ["Components"]
+       35 GETTABLEKS                       R4 R4 K14 ["TestingInterfaceContext"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K5 [require]
-       40 GETTABLEKS                       R6 R0 K8 ["Src"]
-       42 GETTABLEKS                       R5 R6 K15 ["Types"]
+       40 GETTABLEKS                       R5 R0 K8 ["Src"]
+       42 GETTABLEKS                       R5 R5 K15 ["Types"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K5 [require]
-       47 GETTABLEKS                       R8 R0 K8 ["Src"]
-       49 GETTABLEKS                       R7 R8 K16 ["Util"]
-       51 GETTABLEKS                       R6 R7 K17 ["createUnimplemented"]
+       47 GETTABLEKS                       R6 R0 K8 ["Src"]
+       49 GETTABLEKS                       R6 R6 K16 ["Util"]
+       51 GETTABLEKS                       R6 R6 K17 ["createUnimplemented"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K5 [require]
-       56 GETTABLEKS                       R9 R0 K8 ["Src"]
-       58 GETTABLEKS                       R8 R9 K16 ["Util"]
-       60 GETTABLEKS                       R7 R8 K18 ["skinToneAvailableAsync"]
+       56 GETTABLEKS                       R7 R0 K8 ["Src"]
+       58 GETTABLEKS                       R7 R7 K16 ["Util"]
+       60 GETTABLEKS                       R7 R7 K18 ["skinToneAvailableAsync"]
        62 CALL                             R6 1 1
        63 GETIMPORT                        R7 K5 [require]
-       65 GETTABLEKS                       R10 R0 K8 ["Src"]
-       67 GETTABLEKS                       R9 R10 K19 ["Flags"]
-       69 GETTABLEKS                       R8 R9 K20 ["getFFlagAvatarPreviewerCatalogButtonUpdatedUi"]
+       65 GETTABLEKS                       R8 R0 K8 ["Src"]
+       67 GETTABLEKS                       R8 R8 K19 ["Flags"]
+       69 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarPreviewerCatalogButtonUpdatedUi"]
        71 CALL                             R7 1 1
        72 GETIMPORT                        R8 K5 [require]
-       74 GETTABLEKS                       R11 R0 K8 ["Src"]
-       76 GETTABLEKS                       R10 R11 K21 ["Hooks"]
-       78 GETTABLEKS                       R9 R10 K22 ["useAsync"]
+       74 GETTABLEKS                       R9 R0 K8 ["Src"]
+       76 GETTABLEKS                       R9 R9 K21 ["Hooks"]
+       78 GETTABLEKS                       R9 R9 K22 ["useAsync"]
        80 CALL                             R8 1 1
        81 GETIMPORT                        R9 K5 [require]
-       83 GETTABLEKS                       R12 R0 K8 ["Src"]
-       85 GETTABLEKS                       R11 R12 K21 ["Hooks"]
-       87 GETTABLEKS                       R10 R11 K23 ["useIncrementedState"]
+       83 GETTABLEKS                       R10 R0 K8 ["Src"]
+       85 GETTABLEKS                       R10 R10 K21 ["Hooks"]
+       87 GETTABLEKS                       R10 R10 K23 ["useIncrementedState"]
        89 CALL                             R9 1 1
        90 DUPTABLE                         R10 K35 [{"openPalette", "focusedAttachments", "setFocusedAttachments", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock", "resetCamera", "stage", "isColorable", "foundationMenuOpen", "setFoundationMenuOpen"}]
        91 MOVE                             R11 R5

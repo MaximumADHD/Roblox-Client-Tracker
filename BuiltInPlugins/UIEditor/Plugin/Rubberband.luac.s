@@ -133,46 +133,46 @@ PROTO_3:
        60 GETTABLEN                        R3 R4 1
        61 GETIMPORT                        R4 K2 [UDim2.new]
        63 LOADN                            R5 0
-       64 GETUPVAL                         R7 2
-       65 GETTABLEKS                       R6 R7 K6 ["X"]
+       64 GETUPVAL                         R6 2
+       65 GETTABLEKS                       R6 R6 K6 ["X"]
        67 LOADN                            R7 0
-       68 GETUPVAL                         R9 2
-       69 GETTABLEKS                       R8 R9 K4 ["Y"]
+       68 GETUPVAL                         R8 2
+       69 GETTABLEKS                       R8 R8 K4 ["Y"]
        71 CALL                             R4 4 1
        72 SETTABLEKS                       R4 R3 K7 ["Position"]
        74 GETUPVAL                         R4 3
        75 GETTABLEN                        R3 R4 2
        76 GETIMPORT                        R4 K2 [UDim2.new]
        78 LOADN                            R5 0
-       79 GETUPVAL                         R8 2
-       80 GETTABLEKS                       R7 R8 K6 ["X"]
+       79 GETUPVAL                         R7 2
+       80 GETTABLEKS                       R7 R7 K6 ["X"]
        82 GETTABLEKS                       R8 R2 K6 ["X"]
        84 ADD                              R6 R7 R8
        85 LOADN                            R7 0
-       86 GETUPVAL                         R9 2
-       87 GETTABLEKS                       R8 R9 K4 ["Y"]
+       86 GETUPVAL                         R8 2
+       87 GETTABLEKS                       R8 R8 K4 ["Y"]
        89 CALL                             R4 4 1
        90 SETTABLEKS                       R4 R3 K7 ["Position"]
        92 GETUPVAL                         R4 3
        93 GETTABLEN                        R3 R4 3
        94 GETIMPORT                        R4 K2 [UDim2.new]
        96 LOADN                            R5 0
-       97 GETUPVAL                         R7 2
-       98 GETTABLEKS                       R6 R7 K6 ["X"]
+       97 GETUPVAL                         R6 2
+       98 GETTABLEKS                       R6 R6 K6 ["X"]
       100 LOADN                            R7 0
-      101 GETUPVAL                         R9 2
-      102 GETTABLEKS                       R8 R9 K4 ["Y"]
+      101 GETUPVAL                         R8 2
+      102 GETTABLEKS                       R8 R8 K4 ["Y"]
       104 CALL                             R4 4 1
       105 SETTABLEKS                       R4 R3 K7 ["Position"]
       107 GETUPVAL                         R4 3
       108 GETTABLEN                        R3 R4 4
       109 GETIMPORT                        R4 K2 [UDim2.new]
       111 LOADN                            R5 0
-      112 GETUPVAL                         R7 2
-      113 GETTABLEKS                       R6 R7 K6 ["X"]
+      112 GETUPVAL                         R6 2
+      113 GETTABLEKS                       R6 R6 K6 ["X"]
       115 LOADN                            R7 0
-      116 GETUPVAL                         R10 2
-      117 GETTABLEKS                       R9 R10 K4 ["Y"]
+      116 GETUPVAL                         R9 2
+      117 GETTABLEKS                       R9 R9 K4 ["Y"]
       119 GETTABLEKS                       R10 R2 K4 ["Y"]
       121 ADD                              R8 R9 R10
       122 CALL                             R4 4 1
@@ -217,14 +217,14 @@ PROTO_7:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["FFlag"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["FFlag"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["CoreGuiManager"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["CoreGuiManager"]
        18 CALL                             R1 1 1
        19 LOADNIL                          R2
        20 LOADB                            R3 0

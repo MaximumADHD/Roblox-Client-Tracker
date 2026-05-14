@@ -1,26 +1,26 @@
 PROTO_0:
         0 GETIMPORT                        R2 K2 [Vector2.new]
-        2 GETTABLEKS                       R6 R0 K3 ["AbsolutePosition"]
-        4 GETTABLEKS                       R5 R6 K4 ["X"]
-        6 GETTABLEKS                       R8 R0 K5 ["AbsoluteSize"]
-        8 GETTABLEKS                       R7 R8 K4 ["X"]
-       10 GETTABLEKS                       R9 R1 K4 ["X"]
-       12 GETTABLEKS                       R8 R9 K6 ["Scale"]
+        2 GETTABLEKS                       R5 R0 K3 ["AbsolutePosition"]
+        4 GETTABLEKS                       R5 R5 K4 ["X"]
+        6 GETTABLEKS                       R7 R0 K5 ["AbsoluteSize"]
+        8 GETTABLEKS                       R7 R7 K4 ["X"]
+       10 GETTABLEKS                       R8 R1 K4 ["X"]
+       12 GETTABLEKS                       R8 R8 K6 ["Scale"]
        14 MUL                              R6 R7 R8
        15 ADD                              R4 R5 R6
-       16 GETTABLEKS                       R6 R1 K4 ["X"]
-       18 GETTABLEKS                       R5 R6 K7 ["Offset"]
+       16 GETTABLEKS                       R5 R1 K4 ["X"]
+       18 GETTABLEKS                       R5 R5 K7 ["Offset"]
        20 ADD                              R3 R4 R5
-       21 GETTABLEKS                       R7 R0 K3 ["AbsolutePosition"]
-       23 GETTABLEKS                       R6 R7 K8 ["Y"]
-       25 GETTABLEKS                       R9 R0 K5 ["AbsoluteSize"]
-       27 GETTABLEKS                       R8 R9 K8 ["Y"]
-       29 GETTABLEKS                       R10 R1 K8 ["Y"]
-       31 GETTABLEKS                       R9 R10 K6 ["Scale"]
+       21 GETTABLEKS                       R6 R0 K3 ["AbsolutePosition"]
+       23 GETTABLEKS                       R6 R6 K8 ["Y"]
+       25 GETTABLEKS                       R8 R0 K5 ["AbsoluteSize"]
+       27 GETTABLEKS                       R8 R8 K8 ["Y"]
+       29 GETTABLEKS                       R9 R1 K8 ["Y"]
+       31 GETTABLEKS                       R9 R9 K6 ["Scale"]
        33 MUL                              R7 R8 R9
        34 ADD                              R5 R6 R7
-       35 GETTABLEKS                       R7 R1 K8 ["Y"]
-       37 GETTABLEKS                       R6 R7 K7 ["Offset"]
+       35 GETTABLEKS                       R6 R1 K8 ["Y"]
+       37 GETTABLEKS                       R6 R6 K7 ["Offset"]
        39 ADD                              R4 R5 R6
        40 CALL                             R2 2 -1
        41 RETURN                           R2 -1
@@ -31,35 +31,35 @@ PROTO_1:
         2 NAMECALL                         R0 R0 K1 ["FindFirstAncestorWhichIsA"]
         4 CALL                             R0 2 1
         5 GETIMPORT                        R1 K4 [Vector2.new]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K5 ["AbsolutePosition"]
-       10 GETTABLEKS                       R4 R5 K6 ["X"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K7 ["AbsoluteSize"]
-       15 GETTABLEKS                       R6 R7 K6 ["X"]
-       17 GETUPVAL                         R9 1
-       18 GETTABLEKS                       R8 R9 K6 ["X"]
-       20 GETTABLEKS                       R7 R8 K8 ["Scale"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K5 ["AbsolutePosition"]
+       10 GETTABLEKS                       R4 R4 K6 ["X"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K7 ["AbsoluteSize"]
+       15 GETTABLEKS                       R6 R6 K6 ["X"]
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R7 R7 K6 ["X"]
+       20 GETTABLEKS                       R7 R7 K8 ["Scale"]
        22 MUL                              R5 R6 R7
        23 ADD                              R3 R4 R5
-       24 GETUPVAL                         R6 1
-       25 GETTABLEKS                       R5 R6 K6 ["X"]
-       27 GETTABLEKS                       R4 R5 K9 ["Offset"]
+       24 GETUPVAL                         R4 1
+       25 GETTABLEKS                       R4 R4 K6 ["X"]
+       27 GETTABLEKS                       R4 R4 K9 ["Offset"]
        29 ADD                              R2 R3 R4
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R6 R7 K5 ["AbsolutePosition"]
-       33 GETTABLEKS                       R5 R6 K10 ["Y"]
-       35 GETUPVAL                         R9 0
-       36 GETTABLEKS                       R8 R9 K7 ["AbsoluteSize"]
-       38 GETTABLEKS                       R7 R8 K10 ["Y"]
-       40 GETUPVAL                         R10 1
-       41 GETTABLEKS                       R9 R10 K10 ["Y"]
-       43 GETTABLEKS                       R8 R9 K8 ["Scale"]
+       30 GETUPVAL                         R5 0
+       31 GETTABLEKS                       R5 R5 K5 ["AbsolutePosition"]
+       33 GETTABLEKS                       R5 R5 K10 ["Y"]
+       35 GETUPVAL                         R7 0
+       36 GETTABLEKS                       R7 R7 K7 ["AbsoluteSize"]
+       38 GETTABLEKS                       R7 R7 K10 ["Y"]
+       40 GETUPVAL                         R8 1
+       41 GETTABLEKS                       R8 R8 K10 ["Y"]
+       43 GETTABLEKS                       R8 R8 K8 ["Scale"]
        45 MUL                              R6 R7 R8
        46 ADD                              R4 R5 R6
-       47 GETUPVAL                         R7 1
-       48 GETTABLEKS                       R6 R7 K10 ["Y"]
-       50 GETTABLEKS                       R5 R6 K9 ["Offset"]
+       47 GETUPVAL                         R5 1
+       48 GETTABLEKS                       R5 R5 K10 ["Y"]
+       50 GETTABLEKS                       R5 R5 K9 ["Offset"]
        52 ADD                              R3 R4 R5
        53 CALL                             R1 2 1
        54 GETUPVAL                         R2 2
@@ -108,20 +108,20 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["AbsolutePosition"]
-        4 GETTABLEKS                       R3 R4 K1 ["X"]
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K3 ["AbsoluteSize"]
-        9 GETTABLEKS                       R5 R6 K1 ["X"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["AbsolutePosition"]
+        4 GETTABLEKS                       R3 R3 K1 ["X"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["AbsoluteSize"]
+        9 GETTABLEKS                       R5 R5 K1 ["X"]
        11 MULK                             R4 R5 K2 [0.5]
        12 ADD                              R2 R3 R4
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R5 R6 K0 ["AbsolutePosition"]
-       16 GETTABLEKS                       R4 R5 K4 ["Y"]
-       18 GETUPVAL                         R8 1
-       19 GETTABLEKS                       R7 R8 K3 ["AbsoluteSize"]
-       21 GETTABLEKS                       R6 R7 K4 ["Y"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K0 ["AbsolutePosition"]
+       16 GETTABLEKS                       R4 R4 K4 ["Y"]
+       18 GETUPVAL                         R6 1
+       19 GETTABLEKS                       R6 R6 K3 ["AbsoluteSize"]
+       21 GETTABLEKS                       R6 R6 K4 ["Y"]
        23 MULK                             R5 R6 K2 [0.5]
        24 ADD                              R3 R4 R5
        25 GETUPVAL                         R4 1
@@ -145,10 +145,10 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["X"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Y"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["X"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K1 ["Y"]
         7 GETUPVAL                         R4 2
         8 NAMECALL                         R0 R0 K2 ["SendMouseMoveEvent"]
        10 CALL                             R0 4 0
@@ -159,10 +159,10 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["X"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Y"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["X"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K1 ["Y"]
         7 LOADN                            R4 0
         8 LOADB                            R5 1
         9 GETUPVAL                         R6 2
@@ -179,10 +179,10 @@ PROTO_7:
         1 NAMECALL                         R0 R0 K0 ["WaitForInputEventsProcessed"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 0
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["X"]
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K2 ["Y"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["X"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K2 ["Y"]
        11 GETUPVAL                         R4 2
        12 NAMECALL                         R0 R0 K3 ["SendMouseMoveEvent"]
        14 CALL                             R0 4 0
@@ -190,10 +190,10 @@ PROTO_7:
        16 NAMECALL                         R0 R0 K0 ["WaitForInputEventsProcessed"]
        18 CALL                             R0 1 0
        19 GETUPVAL                         R0 0
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K1 ["X"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R3 R4 K2 ["Y"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K1 ["X"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K2 ["Y"]
        26 GETUPVAL                         R4 2
        27 NAMECALL                         R0 R0 K3 ["SendMouseMoveEvent"]
        29 CALL                             R0 4 0
@@ -204,10 +204,10 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["X"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Y"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["X"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K1 ["Y"]
         7 LOADN                            R4 0
         8 LOADB                            R5 0
         9 GETUPVAL                         R6 2
@@ -220,8 +220,8 @@ PROTO_8:
        18 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getPosInElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getPosInElement"]
         3 MOVE                             R3 R0
         4 GETIMPORT                        R4 K3 [UDim2.fromScale]
         6 LOADK                            R5 K4 [0.5]
@@ -261,8 +261,8 @@ PROTO_10:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["CaptureFocus"]
         3 CALL                             R0 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["change"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["change"]
         7 GETUPVAL                         R1 0
         8 DUPTABLE                         R2 K3 [{"target"}]
         9 DUPTABLE                         R3 K5 [{"Text"}]
@@ -295,14 +295,14 @@ MAIN:
         3 LOADK                            R2 K2 ["VirtualInputManager"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R4 R5 K10 ["Dev"]
-       21 GETTABLEKS                       R3 R4 K11 ["ReactTestingLibrary"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Dev"]
+       21 GETTABLEKS                       R3 R3 K11 ["ReactTestingLibrary"]
        23 CALL                             R2 1 1
        24 GETTABLEKS                       R3 R2 K12 ["act"]
        26 GETTABLEKS                       R4 R2 K13 ["fireEvent"]

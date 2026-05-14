@@ -6,24 +6,24 @@ PROTO_0:
         5 GETTABLEKS                       R3 R0 K2 ["selected"]
         7 GETTABLEKS                       R4 R0 K3 ["Disabled"]
         9 JUMPIFNOT                        R4 ; [+5]
-       10 GETTABLEKS                       R5 R2 K0 ["Filters"]
-       12 GETTABLEKS                       R4 R5 K4 ["InactiveBackgroundColor"]
+       10 GETTABLEKS                       R4 R2 K0 ["Filters"]
+       12 GETTABLEKS                       R4 R4 K4 ["InactiveBackgroundColor"]
        14 RETURN                           R4 1
        15 JUMPIFNOT                        R3 ; [+6]
        16 JUMPIFNOT                        R1 ; [+5]
-       17 GETTABLEKS                       R5 R2 K0 ["Filters"]
-       19 GETTABLEKS                       R4 R5 K5 ["ActiveHoverBackgroundColor"]
+       17 GETTABLEKS                       R4 R2 K0 ["Filters"]
+       19 GETTABLEKS                       R4 R4 K5 ["ActiveHoverBackgroundColor"]
        21 RETURN                           R4 1
        22 JUMPIFNOT                        R3 ; [+5]
-       23 GETTABLEKS                       R5 R2 K0 ["Filters"]
-       25 GETTABLEKS                       R4 R5 K6 ["ActiveBackgroundColor"]
+       23 GETTABLEKS                       R4 R2 K0 ["Filters"]
+       25 GETTABLEKS                       R4 R4 K6 ["ActiveBackgroundColor"]
        27 RETURN                           R4 1
        28 JUMPIFNOT                        R1 ; [+5]
-       29 GETTABLEKS                       R5 R2 K0 ["Filters"]
-       31 GETTABLEKS                       R4 R5 K7 ["InactiveHoverBackgroundColor"]
+       29 GETTABLEKS                       R4 R2 K0 ["Filters"]
+       31 GETTABLEKS                       R4 R4 K7 ["InactiveHoverBackgroundColor"]
        33 RETURN                           R4 1
-       34 GETTABLEKS                       R5 R2 K0 ["Filters"]
-       36 GETTABLEKS                       R4 R5 K4 ["InactiveBackgroundColor"]
+       34 GETTABLEKS                       R4 R2 K0 ["Filters"]
+       36 GETTABLEKS                       R4 R4 K4 ["InactiveBackgroundColor"]
        38 RETURN                           R4 1
 
 PROTO_1:
@@ -53,24 +53,24 @@ PROTO_3:
        13 GETTABLEKS                       R6 R0 K2 ["selected"]
        15 GETTABLEKS                       R7 R0 K3 ["Disabled"]
        17 JUMPIFNOT                        R7 ; [+5]
-       18 GETTABLEKS                       R7 R5 K0 ["Filters"]
-       20 GETTABLEKS                       R4 R7 K4 ["InactiveBackgroundColor"]
+       18 GETTABLEKS                       R4 R5 K0 ["Filters"]
+       20 GETTABLEKS                       R4 R4 K4 ["InactiveBackgroundColor"]
        22 JUMP                             ; [+23]
        23 JUMPIFNOT                        R6 ; [+6]
        24 JUMPIFNOT                        R2 ; [+5]
-       25 GETTABLEKS                       R7 R5 K0 ["Filters"]
-       27 GETTABLEKS                       R4 R7 K5 ["ActiveHoverBackgroundColor"]
+       25 GETTABLEKS                       R4 R5 K0 ["Filters"]
+       27 GETTABLEKS                       R4 R4 K5 ["ActiveHoverBackgroundColor"]
        29 JUMP                             ; [+16]
        30 JUMPIFNOT                        R6 ; [+5]
-       31 GETTABLEKS                       R7 R5 K0 ["Filters"]
-       33 GETTABLEKS                       R4 R7 K6 ["ActiveBackgroundColor"]
+       31 GETTABLEKS                       R4 R5 K0 ["Filters"]
+       33 GETTABLEKS                       R4 R4 K6 ["ActiveBackgroundColor"]
        35 JUMP                             ; [+10]
        36 JUMPIFNOT                        R2 ; [+5]
-       37 GETTABLEKS                       R7 R5 K0 ["Filters"]
-       39 GETTABLEKS                       R4 R7 K7 ["InactiveHoverBackgroundColor"]
+       37 GETTABLEKS                       R4 R5 K0 ["Filters"]
+       39 GETTABLEKS                       R4 R4 K7 ["InactiveHoverBackgroundColor"]
        41 JUMP                             ; [+4]
-       42 GETTABLEKS                       R7 R5 K0 ["Filters"]
-       44 GETTABLEKS                       R4 R7 K4 ["InactiveBackgroundColor"]
+       42 GETTABLEKS                       R4 R5 K0 ["Filters"]
+       44 GETTABLEKS                       R4 R4 K4 ["InactiveBackgroundColor"]
        46 GETUPVAL                         R5 2
        47 LOADK                            R6 K8 ["TextButton"]
        48 NEWTABLE                         R7 16 0
@@ -90,24 +90,24 @@ PROTO_3:
        75 SETTABLEKS                       R8 R7 K18 ["ZIndex"]
        77 LOADK                            R8 K19 [""]
        78 SETTABLEKS                       R8 R7 K20 ["Text"]
-       80 GETUPVAL                         R10 3
-       81 GETTABLEKS                       R9 R10 K21 ["Event"]
-       83 GETTABLEKS                       R8 R9 K22 ["Activated"]
+       80 GETUPVAL                         R8 3
+       81 GETTABLEKS                       R8 R8 K21 ["Event"]
+       83 GETTABLEKS                       R8 R8 K22 ["Activated"]
        85 GETTABLEKS                       R10 R0 K3 ["Disabled"]
        87 JUMPIF                           R10 ; [+3]
        88 GETTABLEKS                       R9 R0 K23 ["OnClick"]
        90 JUMPIF                           R9 ; [+1]
        91 LOADNIL                          R9
        92 SETTABLE                         R9 R7 R8
-       93 GETUPVAL                         R10 3
-       94 GETTABLEKS                       R9 R10 K21 ["Event"]
-       96 GETTABLEKS                       R8 R9 K24 ["MouseEnter"]
+       93 GETUPVAL                         R8 3
+       94 GETTABLEKS                       R8 R8 K21 ["Event"]
+       96 GETTABLEKS                       R8 R8 K24 ["MouseEnter"]
        98 NEWCLOSURE                       R9 P0
        99 CAPTURE                          VAL R3
       100 SETTABLE                         R9 R7 R8
-      101 GETUPVAL                         R10 3
-      102 GETTABLEKS                       R9 R10 K21 ["Event"]
-      104 GETTABLEKS                       R8 R9 K25 ["MouseLeave"]
+      101 GETUPVAL                         R8 3
+      102 GETTABLEKS                       R8 R8 K21 ["Event"]
+      104 GETTABLEKS                       R8 R8 K25 ["MouseLeave"]
       106 NEWCLOSURE                       R9 P1
       107 CAPTURE                          VAL R3
       108 SETTABLE                         R9 R7 R8
@@ -140,8 +140,8 @@ PROTO_3:
       146 DUPTABLE                         R16 K43 [{"Thickness", "Color"}]
       147 LOADN                            R17 1
       148 SETTABLEKS                       R17 R16 K41 ["Thickness"]
-      150 GETTABLEKS                       R18 R1 K0 ["Filters"]
-      152 GETTABLEKS                       R17 R18 K44 ["BorderColor"]
+      150 GETTABLEKS                       R17 R1 K0 ["Filters"]
+      152 GETTABLEKS                       R17 R17 K44 ["BorderColor"]
       154 SETTABLEKS                       R17 R16 K42 ["Color"]
       156 CALL                             R14 2 1
       157 GETUPVAL                         R15 2
@@ -149,8 +149,8 @@ PROTO_3:
       159 DUPTABLE                         R17 K50 [{"AutomaticSize", "Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
       160 GETIMPORT                        R18 K52 [Enum.AutomaticSize.X]
       162 SETTABLEKS                       R18 R17 K12 ["AutomaticSize"]
-      164 GETTABLEKS                       R19 R1 K0 ["Filters"]
-      166 GETTABLEKS                       R18 R19 K53 ["ChipSize"]
+      164 GETTABLEKS                       R18 R1 K0 ["Filters"]
+      166 GETTABLEKS                       R18 R18 K53 ["ChipSize"]
       168 SETTABLEKS                       R18 R17 K45 ["Size"]
       170 DUPTABLE                         R18 K31 [{"Left", "Right"}]
       171 LOADN                            R19 4
@@ -160,15 +160,15 @@ PROTO_3:
       177 SETTABLEKS                       R18 R17 K27 ["Padding"]
       179 GETTABLEKS                       R18 R0 K20 ["Text"]
       181 SETTABLEKS                       R18 R17 K20 ["Text"]
-      183 GETTABLEKS                       R19 R1 K0 ["Filters"]
-      185 GETTABLEKS                       R18 R19 K46 ["TextColor"]
+      183 GETTABLEKS                       R18 R1 K0 ["Filters"]
+      185 GETTABLEKS                       R18 R18 K46 ["TextColor"]
       187 SETTABLEKS                       R18 R17 K46 ["TextColor"]
       189 GETIMPORT                        R18 K55 [Enum.TextXAlignment.Center]
       191 SETTABLEKS                       R18 R17 K47 ["TextXAlignment"]
       193 GETIMPORT                        R18 K56 [Enum.TextYAlignment.Center]
       195 SETTABLEKS                       R18 R17 K48 ["TextYAlignment"]
-      197 GETTABLEKS                       R19 R1 K0 ["Filters"]
-      199 GETTABLEKS                       R18 R19 K49 ["TextSize"]
+      197 GETTABLEKS                       R18 R1 K0 ["Filters"]
+      199 GETTABLEKS                       R18 R18 K49 ["TextSize"]
       201 SETTABLEKS                       R18 R17 K49 ["TextSize"]
       203 CALL                             R15 2 -1
       204 SETLIST                          R12 R13 -1 [1]
@@ -184,21 +184,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETTABLEKS                       R3 R1 K9 ["useState"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R5 R5 K10 ["Framework"]
        24 CALL                             R4 1 1
-       25 GETTABLEKS                       R6 R4 K11 ["UI"]
-       27 GETTABLEKS                       R5 R6 K12 ["Pane"]
-       29 GETTABLEKS                       R7 R4 K11 ["UI"]
-       31 GETTABLEKS                       R6 R7 K13 ["TextLabel"]
-       33 GETTABLEKS                       R8 R4 K14 ["Style"]
-       35 GETTABLEKS                       R7 R8 K15 ["Stylizer"]
+       25 GETTABLEKS                       R5 R4 K11 ["UI"]
+       27 GETTABLEKS                       R5 R5 K12 ["Pane"]
+       29 GETTABLEKS                       R6 R4 K11 ["UI"]
+       31 GETTABLEKS                       R6 R6 K13 ["TextLabel"]
+       33 GETTABLEKS                       R7 R4 K14 ["Style"]
+       35 GETTABLEKS                       R7 R7 K15 ["Stylizer"]
        37 DUPCLOSURE                       R8 K16 [PROTO_0]
        38 CAPTURE                          VAL R7
        39 DUPCLOSURE                       R9 K17 [PROTO_3]

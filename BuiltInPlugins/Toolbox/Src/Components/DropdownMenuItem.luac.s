@@ -85,8 +85,8 @@ PROTO_2:
        17 MOVE                             R4 R5
        18 JUMP                             ; [+2]
        19 GETTABLEKS                       R4 R1 K4 ["Text"]
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K5 ["createElement"]
        24 GETUPVAL                         R6 2
        25 DUPTABLE                         R7 K15 [{"AutomaticSize", "OnClick", "Position", "Size", "LayoutOrder", "Style", "DisableHover", "OnMouseEnter", "OnMouseLeave"}]
        26 GETIMPORT                        R8 K18 [Enum.AutomaticSize.Y]
@@ -108,8 +108,8 @@ PROTO_2:
        58 GETTABLEKS                       R8 R1 K14 ["OnMouseLeave"]
        60 SETTABLEKS                       R8 R7 K14 ["OnMouseLeave"]
        62 DUPTABLE                         R8 K23 [{"Layout", "ItemLabel", "Separator"}]
-       63 GETUPVAL                         R10 1
-       64 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       63 GETUPVAL                         R9 1
+       64 GETTABLEKS                       R9 R9 K5 ["createElement"]
        66 LOADK                            R10 K24 ["UIListLayout"]
        67 DUPTABLE                         R11 K27 [{"FillDirection", "SortOrder"}]
        68 GETIMPORT                        R12 K29 [Enum.FillDirection.Vertical]
@@ -118,11 +118,11 @@ PROTO_2:
        74 SETTABLEKS                       R12 R11 K26 ["SortOrder"]
        76 CALL                             R9 2 1
        77 SETTABLEKS                       R9 R8 K20 ["Layout"]
-       79 GETTABLEKS                       R11 R0 K0 ["props"]
-       81 GETTABLEKS                       R10 R11 K31 ["ItemButtonContentOverride"]
+       79 GETTABLEKS                       R10 R0 K0 ["props"]
+       81 GETTABLEKS                       R10 R10 K31 ["ItemButtonContentOverride"]
        83 JUMPIFNOT                        R10 ; [+93]
-       84 GETUPVAL                         R10 1
-       85 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       84 GETUPVAL                         R9 1
+       85 GETTABLEKS                       R9 R9 K5 ["createElement"]
        87 LOADK                            R10 K32 ["Frame"]
        88 DUPTABLE                         R11 K34 [{"BackgroundTransparency", "Size"}]
        89 LOADN                            R12 1
@@ -133,8 +133,8 @@ PROTO_2:
        96 CALL                             R12 2 1
        97 SETTABLEKS                       R12 R11 K9 ["Size"]
        99 DUPTABLE                         R12 K39 [{"ItemLabel", "ButtonComponent"}]
-      100 GETUPVAL                         R14 1
-      101 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      100 GETUPVAL                         R13 1
+      101 GETTABLEKS                       R13 R13 K5 ["createElement"]
       103 LOADK                            R14 K40 ["TextLabel"]
       104 DUPTABLE                         R15 K48 [{"BackgroundTransparency", "ClipsDescendants", "Font", "LayoutOrder", "RichText", "Size", "Text", "TextColor3", "TextSize", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
       105 LOADN                            R16 1
@@ -165,8 +165,8 @@ PROTO_2:
       146 GETIMPORT                        R16 K57 [Enum.TextYAlignment.Center]
       148 SETTABLEKS                       R16 R15 K47 ["TextYAlignment"]
       150 DUPTABLE                         R16 K59 [{"Padding"}]
-      151 GETUPVAL                         R18 1
-      152 GETTABLEKS                       R17 R18 K5 ["createElement"]
+      151 GETUPVAL                         R17 1
+      152 GETTABLEKS                       R17 R17 K5 ["createElement"]
       154 LOADK                            R18 K60 ["UIPadding"]
       155 DUPTABLE                         R19 K62 [{"PaddingLeft"}]
       156 GETIMPORT                        R20 K64 [UDim.new]
@@ -178,13 +178,13 @@ PROTO_2:
       164 SETTABLEKS                       R17 R16 K58 ["Padding"]
       166 CALL                             R13 3 1
       167 SETTABLEKS                       R13 R12 K21 ["ItemLabel"]
-      169 GETTABLEKS                       R14 R0 K0 ["props"]
-      171 GETTABLEKS                       R13 R14 K31 ["ItemButtonContentOverride"]
+      169 GETTABLEKS                       R13 R0 K0 ["props"]
+      171 GETTABLEKS                       R13 R13 K31 ["ItemButtonContentOverride"]
       173 SETTABLEKS                       R13 R12 K38 ["ButtonComponent"]
       175 CALL                             R9 3 1
       176 JUMP                             ; [+62]
-      177 GETUPVAL                         R10 1
-      178 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      177 GETUPVAL                         R9 1
+      178 GETTABLEKS                       R9 R9 K5 ["createElement"]
       180 LOADK                            R10 K40 ["TextLabel"]
       181 DUPTABLE                         R11 K48 [{"BackgroundTransparency", "ClipsDescendants", "Font", "LayoutOrder", "RichText", "Size", "Text", "TextColor3", "TextSize", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
       182 LOADN                            R12 1
@@ -210,8 +210,8 @@ PROTO_2:
       218 GETIMPORT                        R12 K57 [Enum.TextYAlignment.Center]
       220 SETTABLEKS                       R12 R11 K47 ["TextYAlignment"]
       222 DUPTABLE                         R12 K59 [{"Padding"}]
-      223 GETUPVAL                         R14 1
-      224 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      223 GETUPVAL                         R13 1
+      224 GETTABLEKS                       R13 R13 K5 ["createElement"]
       226 LOADK                            R14 K60 ["UIPadding"]
       227 DUPTABLE                         R15 K62 [{"PaddingLeft"}]
       228 GETIMPORT                        R16 K64 [UDim.new]
@@ -226,8 +226,8 @@ PROTO_2:
       241 GETTABLEKS                       R10 R1 K65 ["HideSeparator"]
       243 NOT                              R9 R10
       244 JUMPIFNOT                        R9 ; [+13]
-      245 GETUPVAL                         R10 1
-      246 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      245 GETUPVAL                         R9 1
+      246 GETTABLEKS                       R9 R9 K5 ["createElement"]
       248 GETUPVAL                         R10 3
       249 DUPTABLE                         R11 K67 [{"DominantAxis", "LayoutOrder"}]
       250 GETIMPORT                        R12 K69 [Enum.DominantAxis.Width]
@@ -241,10 +241,10 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -253,10 +253,10 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K7 ["Framework"]
        20 CALL                             R3 1 1
        21 GETTABLEKS                       R4 R3 K8 ["ContextServices"]
-       23 GETTABLEKS                       R6 R3 K9 ["UI"]
-       25 GETTABLEKS                       R5 R6 K10 ["Button"]
-       27 GETTABLEKS                       R7 R3 K9 ["UI"]
-       29 GETTABLEKS                       R6 R7 K11 ["Separator"]
+       23 GETTABLEKS                       R5 R3 K9 ["UI"]
+       25 GETTABLEKS                       R5 R5 K10 ["Button"]
+       27 GETTABLEKS                       R6 R3 K9 ["UI"]
+       29 GETTABLEKS                       R6 R6 K11 ["Separator"]
        31 GETTABLEKS                       R7 R2 K12 ["PureComponent"]
        33 LOADK                            R9 K13 ["DropdownMenuItem"]
        34 NAMECALL                         R7 R7 K14 ["extend"]

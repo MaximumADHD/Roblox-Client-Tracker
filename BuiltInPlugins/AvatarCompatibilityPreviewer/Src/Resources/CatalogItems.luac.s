@@ -19,47 +19,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Resources"]
-       20 GETTABLEKS                       R3 R4 K10 ["BuiltinBodyParts"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K10 ["BuiltinBodyParts"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Resources"]
-       29 GETTABLEKS                       R4 R5 K11 ["BuiltinItems"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Resources"]
+       29 GETTABLEKS                       R4 R4 K11 ["BuiltinItems"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Resources"]
-       38 GETTABLEKS                       R5 R6 K12 ["BuiltinSkinColors"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Resources"]
+       38 GETTABLEKS                       R5 R5 K12 ["BuiltinSkinColors"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K13 ["Util"]
-       47 GETTABLEKS                       R6 R7 K14 ["CatalogItemUtil"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K13 ["Util"]
+       47 GETTABLEKS                       R6 R6 K14 ["CatalogItemUtil"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R9 R0 K8 ["Src"]
-       54 GETTABLEKS                       R8 R9 K13 ["Util"]
-       56 GETTABLEKS                       R7 R8 K15 ["Constants"]
+       52 GETTABLEKS                       R7 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R7 K13 ["Util"]
+       56 GETTABLEKS                       R7 R7 K15 ["Constants"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R9 R0 K8 ["Src"]
-       63 GETTABLEKS                       R8 R9 K16 ["Types"]
+       61 GETTABLEKS                       R8 R0 K8 ["Src"]
+       63 GETTABLEKS                       R8 R8 K16 ["Types"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K8 ["Src"]
-       70 GETTABLEKS                       R10 R11 K17 ["Flags"]
-       72 GETTABLEKS                       R9 R10 K18 ["getFFlagAvatarPreviewerMakeup"]
+       68 GETTABLEKS                       R9 R0 K8 ["Src"]
+       70 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       72 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerMakeup"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K8 ["Src"]
-       79 GETTABLEKS                       R11 R12 K17 ["Flags"]
-       81 GETTABLEKS                       R10 R11 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
+       77 GETTABLEKS                       R10 R0 K8 ["Src"]
+       79 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       81 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
        83 CALL                             R9 1 1
        84 DUPCLOSURE                       R10 K20 [PROTO_0]
        85 DUPTABLE                         R11 K29 [{"accessories", "animations", "body", "clothing", "animations_face", "body_face", "accessories_face", "makeup"}]
@@ -80,8 +80,8 @@ MAIN:
       108 CALL                             R24 2 0
       109 FORGLOOP                         R19 2 ; [-9]
       111 MOVE                             R16 R18
-      112 GETTABLEKS                       R18 R6 K41 ["PREFERRED_LAYERS"]
-      114 GETTABLEKS                       R17 R18 K31 ["Hair"]
+      112 GETTABLEKS                       R17 R6 K41 ["PREFERRED_LAYERS"]
+      114 GETTABLEKS                       R17 R17 K31 ["Hair"]
       116 CALL                             R13 4 1
       117 GETTABLEKS                       R14 R5 K42 ["basicAccessoryPalette"]
       119 LOADK                            R15 K43 ["Head"]
@@ -116,8 +116,8 @@ MAIN:
       162 CALL                             R26 2 0
       163 FORGLOOP                         R21 2 ; [-9]
       165 MOVE                             R18 R20
-      166 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-      168 GETTABLEKS                       R19 R20 K47 ["Face"]
+      166 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
+      168 GETTABLEKS                       R19 R19 K47 ["Face"]
       170 CALL                             R15 4 1
       171 GETTABLEKS                       R16 R5 K30 ["layeredClothingPalette"]
       173 LOADK                            R17 K51 ["Eyebrows"]
@@ -135,8 +135,8 @@ MAIN:
       191 CALL                             R27 2 0
       192 FORGLOOP                         R22 2 ; [-9]
       194 MOVE                             R19 R21
-      195 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-      197 GETTABLEKS                       R20 R21 K51 ["Eyebrows"]
+      195 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
+      197 GETTABLEKS                       R20 R20 K51 ["Eyebrows"]
       199 CALL                             R16 4 1
       200 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
       202 LOADK                            R18 K55 ["Eyelashes"]
@@ -154,8 +154,8 @@ MAIN:
       220 CALL                             R28 2 0
       221 FORGLOOP                         R23 2 ; [-9]
       223 MOVE                             R20 R22
-      224 GETTABLEKS                       R22 R6 K41 ["PREFERRED_LAYERS"]
-      226 GETTABLEKS                       R21 R22 K55 ["Eyelashes"]
+      224 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
+      226 GETTABLEKS                       R21 R21 K55 ["Eyelashes"]
       228 CALL                             R17 4 1
       229 GETTABLEKS                       R18 R5 K42 ["basicAccessoryPalette"]
       231 LOADK                            R19 K59 ["Front"]
@@ -307,8 +307,8 @@ MAIN:
       439 CALL                             R14 2 -1
       440 SETLIST                          R12 R13 -1 [1]
       442 SETTABLEKS                       R12 R11 K22 ["animations"]
-      444 GETTABLEKS                       R13 R1 K105 ["List"]
-      446 GETTABLEKS                       R12 R13 K106 ["join"]
+      444 GETTABLEKS                       R12 R1 K105 ["List"]
+      446 GETTABLEKS                       R12 R12 K106 ["join"]
       448 NEWTABLE                         R13 0 2
       450 GETTABLEKS                       R14 R5 K107 ["skinPalette"]
       452 MOVE                             R15 R4
@@ -339,8 +339,8 @@ MAIN:
       491 CALL                             R24 2 0
       492 FORGLOOP                         R19 2 ; [-9]
       494 MOVE                             R16 R18
-      495 GETTABLEKS                       R18 R6 K41 ["PREFERRED_LAYERS"]
-      497 GETTABLEKS                       R17 R18 K116 ["Tops"]
+      495 GETTABLEKS                       R17 R6 K41 ["PREFERRED_LAYERS"]
+      497 GETTABLEKS                       R17 R17 K116 ["Tops"]
       499 CALL                             R13 4 1
       500 GETTABLEKS                       R14 R5 K30 ["layeredClothingPalette"]
       502 LOADK                            R15 K117 ["TShirts"]
@@ -358,8 +358,8 @@ MAIN:
       520 CALL                             R25 2 0
       521 FORGLOOP                         R20 2 ; [-9]
       523 MOVE                             R17 R19
-      524 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
-      526 GETTABLEKS                       R18 R19 K116 ["Tops"]
+      524 GETTABLEKS                       R18 R6 K41 ["PREFERRED_LAYERS"]
+      526 GETTABLEKS                       R18 R18 K116 ["Tops"]
       528 CALL                             R14 4 1
       529 GETTABLEKS                       R15 R5 K30 ["layeredClothingPalette"]
       531 LOADK                            R16 K121 ["Jackets"]
@@ -377,8 +377,8 @@ MAIN:
       549 CALL                             R26 2 0
       550 FORGLOOP                         R21 2 ; [-9]
       552 MOVE                             R18 R20
-      553 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-      555 GETTABLEKS                       R19 R20 K125 ["Outerwear"]
+      553 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
+      555 GETTABLEKS                       R19 R19 K125 ["Outerwear"]
       557 CALL                             R15 4 1
       558 GETTABLEKS                       R16 R5 K30 ["layeredClothingPalette"]
       560 LOADK                            R17 K126 ["Sweaters"]
@@ -396,8 +396,8 @@ MAIN:
       578 CALL                             R27 2 0
       579 FORGLOOP                         R22 2 ; [-9]
       581 MOVE                             R19 R21
-      582 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-      584 GETTABLEKS                       R20 R21 K116 ["Tops"]
+      582 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
+      584 GETTABLEKS                       R20 R20 K116 ["Tops"]
       586 CALL                             R16 4 1
       587 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
       589 LOADK                            R18 K130 ["Pants"]
@@ -415,8 +415,8 @@ MAIN:
       607 CALL                             R28 2 0
       608 FORGLOOP                         R23 2 ; [-9]
       610 MOVE                             R20 R22
-      611 GETTABLEKS                       R22 R6 K41 ["PREFERRED_LAYERS"]
-      613 GETTABLEKS                       R21 R22 K134 ["Bottoms"]
+      611 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
+      613 GETTABLEKS                       R21 R21 K134 ["Bottoms"]
       615 CALL                             R17 4 1
       616 GETTABLEKS                       R18 R5 K30 ["layeredClothingPalette"]
       618 LOADK                            R19 K135 ["Shorts"]
@@ -434,8 +434,8 @@ MAIN:
       636 CALL                             R29 2 0
       637 FORGLOOP                         R24 2 ; [-9]
       639 MOVE                             R21 R23
-      640 GETTABLEKS                       R23 R6 K41 ["PREFERRED_LAYERS"]
-      642 GETTABLEKS                       R22 R23 K134 ["Bottoms"]
+      640 GETTABLEKS                       R22 R6 K41 ["PREFERRED_LAYERS"]
+      642 GETTABLEKS                       R22 R22 K134 ["Bottoms"]
       644 CALL                             R18 4 1
       645 GETTABLEKS                       R19 R5 K30 ["layeredClothingPalette"]
       647 LOADK                            R20 K139 ["Skirts"]
@@ -453,8 +453,8 @@ MAIN:
       665 CALL                             R30 2 0
       666 FORGLOOP                         R25 2 ; [-9]
       668 MOVE                             R22 R24
-      669 GETTABLEKS                       R24 R6 K41 ["PREFERRED_LAYERS"]
-      671 GETTABLEKS                       R23 R24 K134 ["Bottoms"]
+      669 GETTABLEKS                       R23 R6 K41 ["PREFERRED_LAYERS"]
+      671 GETTABLEKS                       R23 R23 K134 ["Bottoms"]
       673 CALL                             R19 4 1
       674 GETTABLEKS                       R20 R5 K143 ["shoesPalette"]
       676 NEWTABLE                         R21 0 3
@@ -516,8 +516,8 @@ MAIN:
       762 CALL                             R24 2 0
       763 FORGLOOP                         R19 2 ; [-9]
       765 MOVE                             R16 R18
-      766 GETTABLEKS                       R18 R6 K41 ["PREFERRED_LAYERS"]
-      768 GETTABLEKS                       R17 R18 K31 ["Hair"]
+      766 GETTABLEKS                       R17 R6 K41 ["PREFERRED_LAYERS"]
+      768 GETTABLEKS                       R17 R17 K31 ["Hair"]
       770 CALL                             R13 4 1
       771 GETTABLEKS                       R14 R5 K42 ["basicAccessoryPalette"]
       773 LOADK                            R15 K43 ["Head"]
@@ -552,8 +552,8 @@ MAIN:
       816 CALL                             R26 2 0
       817 FORGLOOP                         R21 2 ; [-9]
       819 MOVE                             R18 R20
-      820 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-      822 GETTABLEKS                       R19 R20 K47 ["Face"]
+      820 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
+      822 GETTABLEKS                       R19 R19 K47 ["Face"]
       824 CALL                             R15 4 1
       825 MOVE                             R17 R8
       826 CALL                             R17 0 1
@@ -574,8 +574,8 @@ MAIN:
       848 CALL                             R27 2 0
       849 FORGLOOP                         R22 2 ; [-9]
       851 MOVE                             R19 R21
-      852 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-      854 GETTABLEKS                       R20 R21 K51 ["Eyebrows"]
+      852 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
+      854 GETTABLEKS                       R20 R20 K51 ["Eyebrows"]
       856 CALL                             R16 4 1
       857 JUMP                             ; [+1]
       858 LOADNIL                          R16
@@ -598,8 +598,8 @@ MAIN:
       882 CALL                             R28 2 0
       883 FORGLOOP                         R23 2 ; [-9]
       885 MOVE                             R20 R22
-      886 GETTABLEKS                       R22 R6 K41 ["PREFERRED_LAYERS"]
-      888 GETTABLEKS                       R21 R22 K55 ["Eyelashes"]
+      886 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
+      888 GETTABLEKS                       R21 R21 K55 ["Eyelashes"]
       890 CALL                             R17 4 1
       891 JUMP                             ; [+1]
       892 LOADNIL                          R17
@@ -691,8 +691,8 @@ MAIN:
      1015 CALL                             R27 2 0
      1016 FORGLOOP                         R22 2 ; [-9]
      1018 MOVE                             R19 R21
-     1019 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-     1021 GETTABLEKS                       R20 R21 K51 ["Eyebrows"]
+     1019 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
+     1021 GETTABLEKS                       R20 R20 K51 ["Eyebrows"]
      1023 CALL                             R16 4 1
      1024 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
      1026 LOADK                            R18 K55 ["Eyelashes"]
@@ -710,8 +710,8 @@ MAIN:
      1044 CALL                             R28 2 0
      1045 FORGLOOP                         R23 2 ; [-9]
      1047 MOVE                             R20 R22
-     1048 GETTABLEKS                       R22 R6 K41 ["PREFERRED_LAYERS"]
-     1050 GETTABLEKS                       R21 R22 K55 ["Eyelashes"]
+     1048 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
+     1050 GETTABLEKS                       R21 R21 K55 ["Eyelashes"]
      1052 CALL                             R17 4 -1
      1053 SETLIST                          R12 R13 -1 [1]
      1055 JUMP                             ; [+1]

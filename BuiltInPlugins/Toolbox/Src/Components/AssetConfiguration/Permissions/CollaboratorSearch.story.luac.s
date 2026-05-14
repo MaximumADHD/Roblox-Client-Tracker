@@ -28,8 +28,8 @@ PROTO_0:
 PROTO_1:
         0 GETIMPORT                        R1 K1 [print]
         2 LOADK                            R2 K2 ["Selected: "]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K3 ["SubjectNameKey"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K3 ["SubjectNameKey"]
         6 GETTABLE                         R3 R0 R4
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
@@ -51,21 +51,21 @@ PROTO_3:
         2 LOADN                            R2 1
         3 CALL                             R1 1 1
         4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R4 R0 K3 ["controls"]
-        7 GETTABLEKS                       R3 R4 K4 ["PossibleCollaboratorCount"]
+        5 GETTABLEKS                       R3 R0 K3 ["controls"]
+        7 GETTABLEKS                       R3 R3 K4 ["PossibleCollaboratorCount"]
         9 MOVE                             R4 R1
        10 CALL                             R2 2 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K5 ["createElement"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K5 ["createElement"]
        14 GETUPVAL                         R4 2
        15 NEWTABLE                         R5 0 0
-       17 GETUPVAL                         R7 1
-       18 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K5 ["createElement"]
        20 GETUPVAL                         R7 3
        21 NEWTABLE                         R8 0 0
        23 NEWTABLE                         R9 0 1
-       25 GETUPVAL                         R11 1
-       26 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       25 GETUPVAL                         R10 1
+       26 GETTABLEKS                       R10 R10 K5 ["createElement"]
        28 LOADK                            R11 K6 ["Frame"]
        29 DUPTABLE                         R12 K9 [{"Size", "BackgroundTransparency"}]
        30 GETIMPORT                        R13 K12 [UDim2.fromOffset]
@@ -76,8 +76,8 @@ PROTO_3:
        37 LOADN                            R13 1
        38 SETTABLEKS                       R13 R12 K8 ["BackgroundTransparency"]
        40 NEWTABLE                         R13 0 1
-       42 GETUPVAL                         R15 1
-       43 GETTABLEKS                       R14 R15 K5 ["createElement"]
+       42 GETUPVAL                         R14 1
+       43 GETTABLEKS                       R14 R14 K5 ["createElement"]
        45 GETUPVAL                         R15 4
        46 DUPTABLE                         R16 K18 [{"Size", "Collaborators", "CollaboratorSelected", "Filter", "Enabled", "ListItemSize"}]
        47 GETIMPORT                        R17 K19 [UDim2.new]
@@ -94,8 +94,8 @@ PROTO_3:
        62 NEWCLOSURE                       R17 P1
        63 CAPTURE                          VAL R2
        64 SETTABLEKS                       R17 R16 K15 ["Filter"]
-       66 GETTABLEKS                       R18 R0 K3 ["controls"]
-       68 GETTABLEKS                       R17 R18 K16 ["Enabled"]
+       66 GETTABLEKS                       R17 R0 K3 ["controls"]
+       68 GETTABLEKS                       R17 R17 K16 ["Enabled"]
        70 SETTABLEKS                       R17 R16 K16 ["Enabled"]
        72 GETIMPORT                        R17 K22 [Vector2.new]
        74 LOADN                            R18 44
@@ -121,11 +121,11 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["React"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Stories"]
-       18 GETTABLEKS                       R4 R5 K9 ["ToolboxStoryWrapper"]
+       16 GETTABLEKS                       R4 R0 K8 ["Stories"]
+       18 GETTABLEKS                       R4 R4 K9 ["ToolboxStoryWrapper"]
        20 CALL                             R3 1 1
-       21 GETIMPORT                        R5 K1 [script]
-       23 GETTABLEKS                       R4 R5 K10 ["Parent"]
+       21 GETIMPORT                        R4 K1 [script]
+       23 GETTABLEKS                       R4 R4 K10 ["Parent"]
        25 GETIMPORT                        R5 K6 [require]
        27 GETTABLEKS                       R6 R4 K11 ["CollaboratorSearch"]
        29 CALL                             R5 1 1

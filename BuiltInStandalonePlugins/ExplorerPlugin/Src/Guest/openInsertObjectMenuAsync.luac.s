@@ -5,8 +5,8 @@ PROTO_0:
         4 GETUPVAL                         R1 1
         5 NAMECALL                         R1 R1 K0 ["Disconnect"]
         7 CALL                             R1 1 0
-        8 GETUPVAL                         R2 2
-        9 GETTABLEKS                       R1 R2 K1 ["resumeAsync"]
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K1 ["resumeAsync"]
        11 CALL                             R1 0 0
        12 RETURN                           R0 0
 
@@ -54,14 +54,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["ExplorerGuiUri"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["ExplorerGuiUri"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["createAsyncFence"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["createAsyncFence"]
        30 CALL                             R3 1 1
        31 DUPCLOSURE                       R4 K14 [PROTO_1]
        32 CAPTURE                          VAL R0

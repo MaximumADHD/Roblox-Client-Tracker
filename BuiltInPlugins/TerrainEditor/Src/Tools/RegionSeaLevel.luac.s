@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["startOperation"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["startOperation"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 0
@@ -23,42 +23,42 @@ PROTO_2:
         0 NAMECALL                         R2 R0 K0 ["getPayload"]
         2 CALL                             R2 1 1
         3 NEWTABLE                         R3 2 0
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K1 ["MaterialSettings"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["MaterialSettings"]
         8 NEWTABLE                         R5 4 0
-       10 GETUPVAL                         R7 1
-       11 GETTABLEKS                       R6 R7 K2 ["FillMode"]
-       13 GETUPVAL                         R8 2
-       14 GETTABLEKS                       R7 R8 K3 ["Replace"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K2 ["FillMode"]
+       13 GETUPVAL                         R7 2
+       14 GETTABLEKS                       R7 R7 K3 ["Replace"]
        16 SETTABLE                         R7 R5 R6
-       17 GETUPVAL                         R7 1
-       18 GETTABLEKS                       R6 R7 K4 ["SourceMaterial"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K4 ["SourceMaterial"]
        20 GETIMPORT                        R7 K8 [Enum.Material.Air]
        22 SETTABLE                         R7 R5 R6
-       23 GETUPVAL                         R7 1
-       24 GETTABLEKS                       R6 R7 K9 ["TargetMaterial"]
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K9 ["TargetMaterial"]
        26 GETIMPORT                        R7 K11 [Enum.Material.Water]
        28 SETTABLE                         R7 R5 R6
        29 SETTABLE                         R5 R3 R4
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R4 R5 K12 ["SelectionSettings"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K12 ["SelectionSettings"]
        33 NEWTABLE                         R5 2 0
-       35 GETUPVAL                         R7 3
-       36 GETTABLEKS                       R6 R7 K13 ["Size"]
-       38 GETUPVAL                         R10 0
-       39 GETTABLEKS                       R9 R10 K14 ["SeaLevelSettings"]
+       35 GETUPVAL                         R6 3
+       36 GETTABLEKS                       R6 R6 K13 ["Size"]
+       38 GETUPVAL                         R9 0
+       39 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
        41 GETTABLE                         R8 R2 R9
-       42 GETUPVAL                         R10 4
-       43 GETTABLEKS                       R9 R10 K13 ["Size"]
+       42 GETUPVAL                         R9 4
+       43 GETTABLEKS                       R9 R9 K13 ["Size"]
        45 GETTABLE                         R7 R8 R9
        46 SETTABLE                         R7 R5 R6
-       47 GETUPVAL                         R7 3
-       48 GETTABLEKS                       R6 R7 K15 ["Transform"]
-       50 GETUPVAL                         R10 0
-       51 GETTABLEKS                       R9 R10 K14 ["SeaLevelSettings"]
+       47 GETUPVAL                         R6 3
+       48 GETTABLEKS                       R6 R6 K15 ["Transform"]
+       50 GETUPVAL                         R9 0
+       51 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
        53 GETTABLE                         R8 R2 R9
-       54 GETUPVAL                         R10 4
-       55 GETTABLEKS                       R9 R10 K15 ["Transform"]
+       54 GETUPVAL                         R9 4
+       55 GETTABLEKS                       R9 R9 K15 ["Transform"]
        57 GETTABLE                         R7 R8 R9
        58 SETTABLE                         R7 R5 R6
        59 SETTABLE                         R5 R3 R4
@@ -79,15 +79,15 @@ PROTO_2:
        78 GETTABLEKS                       R8 R0 K21 ["_services"]
        80 CALL                             R5 3 1
        81 SETTABLEKS                       R5 R0 K22 ["_operation"]
-       83 GETTABLEKS                       R6 R0 K22 ["_operation"]
-       85 GETTABLEKS                       R5 R6 K23 ["Finished"]
+       83 GETTABLEKS                       R5 R0 K22 ["_operation"]
+       85 GETTABLEKS                       R5 R5 K23 ["Finished"]
        87 NEWCLOSURE                       R7 P0
        88 CAPTURE                          VAL R0
        89 NAMECALL                         R5 R5 K24 ["Connect"]
        91 CALL                             R5 2 1
        92 SETTABLEKS                       R5 R0 K25 ["_operationFinishedConnection"]
-       94 GETUPVAL                         R8 6
-       95 GETTABLEKS                       R7 R8 K26 ["join"]
+       94 GETUPVAL                         R7 6
+       95 GETTABLEKS                       R7 R7 K26 ["join"]
        97 DUPTABLE                         R8 K28 [{"Payload"}]
        98 SETTABLEKS                       R2 R8 K27 ["Payload"]
       100 MOVE                             R9 R1
@@ -106,42 +106,42 @@ PROTO_4:
         0 NAMECALL                         R2 R0 K0 ["getPayload"]
         2 CALL                             R2 1 1
         3 NEWTABLE                         R3 2 0
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K1 ["MaterialSettings"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["MaterialSettings"]
         8 NEWTABLE                         R5 4 0
-       10 GETUPVAL                         R7 1
-       11 GETTABLEKS                       R6 R7 K2 ["FillMode"]
-       13 GETUPVAL                         R8 2
-       14 GETTABLEKS                       R7 R8 K3 ["Replace"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K2 ["FillMode"]
+       13 GETUPVAL                         R7 2
+       14 GETTABLEKS                       R7 R7 K3 ["Replace"]
        16 SETTABLE                         R7 R5 R6
-       17 GETUPVAL                         R7 1
-       18 GETTABLEKS                       R6 R7 K4 ["SourceMaterial"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K4 ["SourceMaterial"]
        20 GETIMPORT                        R7 K8 [Enum.Material.Water]
        22 SETTABLE                         R7 R5 R6
-       23 GETUPVAL                         R7 1
-       24 GETTABLEKS                       R6 R7 K9 ["TargetMaterial"]
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K9 ["TargetMaterial"]
        26 GETIMPORT                        R7 K11 [Enum.Material.Air]
        28 SETTABLE                         R7 R5 R6
        29 SETTABLE                         R5 R3 R4
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R4 R5 K12 ["SelectionSettings"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K12 ["SelectionSettings"]
        33 NEWTABLE                         R5 2 0
-       35 GETUPVAL                         R7 3
-       36 GETTABLEKS                       R6 R7 K13 ["Size"]
-       38 GETUPVAL                         R10 0
-       39 GETTABLEKS                       R9 R10 K14 ["SeaLevelSettings"]
+       35 GETUPVAL                         R6 3
+       36 GETTABLEKS                       R6 R6 K13 ["Size"]
+       38 GETUPVAL                         R9 0
+       39 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
        41 GETTABLE                         R8 R2 R9
-       42 GETUPVAL                         R10 4
-       43 GETTABLEKS                       R9 R10 K13 ["Size"]
+       42 GETUPVAL                         R9 4
+       43 GETTABLEKS                       R9 R9 K13 ["Size"]
        45 GETTABLE                         R7 R8 R9
        46 SETTABLE                         R7 R5 R6
-       47 GETUPVAL                         R7 3
-       48 GETTABLEKS                       R6 R7 K15 ["Transform"]
-       50 GETUPVAL                         R10 0
-       51 GETTABLEKS                       R9 R10 K14 ["SeaLevelSettings"]
+       47 GETUPVAL                         R6 3
+       48 GETTABLEKS                       R6 R6 K15 ["Transform"]
+       50 GETUPVAL                         R9 0
+       51 GETTABLEKS                       R9 R9 K14 ["SeaLevelSettings"]
        53 GETTABLE                         R8 R2 R9
-       54 GETUPVAL                         R10 4
-       55 GETTABLEKS                       R9 R10 K15 ["Transform"]
+       54 GETUPVAL                         R9 4
+       55 GETTABLEKS                       R9 R9 K15 ["Transform"]
        57 GETTABLE                         R7 R8 R9
        58 SETTABLE                         R7 R5 R6
        59 SETTABLE                         R5 R3 R4
@@ -162,15 +162,15 @@ PROTO_4:
        78 GETTABLEKS                       R8 R0 K21 ["_services"]
        80 CALL                             R5 3 1
        81 SETTABLEKS                       R5 R0 K22 ["_operation"]
-       83 GETTABLEKS                       R6 R0 K22 ["_operation"]
-       85 GETTABLEKS                       R5 R6 K23 ["Finished"]
+       83 GETTABLEKS                       R5 R0 K22 ["_operation"]
+       85 GETTABLEKS                       R5 R5 K23 ["Finished"]
        87 NEWCLOSURE                       R7 P0
        88 CAPTURE                          VAL R0
        89 NAMECALL                         R5 R5 K24 ["Connect"]
        91 CALL                             R5 2 1
        92 SETTABLEKS                       R5 R0 K25 ["_operationFinishedConnection"]
-       94 GETUPVAL                         R8 6
-       95 GETTABLEKS                       R7 R8 K26 ["join"]
+       94 GETUPVAL                         R7 6
+       95 GETTABLEKS                       R7 R7 K26 ["join"]
        97 DUPTABLE                         R8 K28 [{"Payload"}]
        98 SETTABLEKS                       R2 R8 K27 ["Payload"]
       100 MOVE                             R9 R1
@@ -192,18 +192,18 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["init"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["init"]
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 MOVE                             R6 R2
         6 CALL                             R3 3 0
         7 NEWTABLE                         R3 1 0
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K1 ["SeaLevelSettings"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K1 ["SeaLevelSettings"]
        12 NEWTABLE                         R5 2 0
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K2 ["Evaporate"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K2 ["Evaporate"]
        17 DUPTABLE                         R7 K7 [{"Hidden", "Label", "Schema", "Value"}]
        18 LOADB                            R8 0
        19 SETTABLEKS                       R8 R7 K3 ["Hidden"]
@@ -217,8 +217,8 @@ PROTO_7:
        31 LOADB                            R8 1
        32 SETTABLEKS                       R8 R7 K6 ["Value"]
        34 SETTABLE                         R7 R5 R6
-       35 GETUPVAL                         R7 2
-       36 GETTABLEKS                       R6 R7 K11 ["Create"]
+       35 GETUPVAL                         R6 2
+       36 GETTABLEKS                       R6 R6 K11 ["Create"]
        38 DUPTABLE                         R7 K7 [{"Hidden", "Label", "Schema", "Value"}]
        39 LOADB                            R8 0
        40 SETTABLEKS                       R8 R7 K3 ["Hidden"]
@@ -239,38 +239,38 @@ PROTO_7:
 PROTO_8:
         0 NAMECALL                         R1 R0 K0 ["hasError"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R5 R0 K1 ["_overrides"]
-        5 GETUPVAL                         R7 0
-        6 GETTABLEKS                       R6 R7 K2 ["SeaLevelSettings"]
-        8 GETTABLE                         R4 R5 R6
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K3 ["Evaporate"]
-       12 GETTABLE                         R3 R4 R5
-       13 GETTABLEKS                       R2 R3 K4 ["Disabled"]
+        3 GETTABLEKS                       R4 R0 K1 ["_overrides"]
+        5 GETUPVAL                         R5 0
+        6 GETTABLEKS                       R5 R5 K2 ["SeaLevelSettings"]
+        8 GETTABLE                         R3 R4 R5
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K3 ["Evaporate"]
+       12 GETTABLE                         R2 R3 R4
+       13 GETTABLEKS                       R2 R2 K4 ["Disabled"]
        15 JUMPIFEQ                         R2 R1 ; [+44]
-       17 GETTABLEKS                       R5 R0 K1 ["_overrides"]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K2 ["SeaLevelSettings"]
-       22 GETTABLE                         R4 R5 R6
-       23 GETUPVAL                         R6 1
-       24 GETTABLEKS                       R5 R6 K5 ["Create"]
-       26 GETTABLE                         R3 R4 R5
-       27 GETTABLEKS                       R2 R3 K4 ["Disabled"]
+       17 GETTABLEKS                       R4 R0 K1 ["_overrides"]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K2 ["SeaLevelSettings"]
+       22 GETTABLE                         R3 R4 R5
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K5 ["Create"]
+       26 GETTABLE                         R2 R3 R4
+       27 GETTABLEKS                       R2 R2 K4 ["Disabled"]
        29 JUMPIFEQ                         R2 R1 ; [+30]
        31 GETTABLEKS                       R4 R0 K1 ["_overrides"]
-       33 GETUPVAL                         R6 0
-       34 GETTABLEKS                       R5 R6 K2 ["SeaLevelSettings"]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R5 R5 K2 ["SeaLevelSettings"]
        36 GETTABLE                         R3 R4 R5
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R4 R5 K3 ["Evaporate"]
+       37 GETUPVAL                         R4 1
+       38 GETTABLEKS                       R4 R4 K3 ["Evaporate"]
        40 GETTABLE                         R2 R3 R4
        41 SETTABLEKS                       R1 R2 K4 ["Disabled"]
        43 GETTABLEKS                       R4 R0 K1 ["_overrides"]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R5 R6 K2 ["SeaLevelSettings"]
+       45 GETUPVAL                         R5 0
+       46 GETTABLEKS                       R5 R5 K2 ["SeaLevelSettings"]
        48 GETTABLE                         R3 R4 R5
-       49 GETUPVAL                         R5 1
-       50 GETTABLEKS                       R4 R5 K5 ["Create"]
+       49 GETUPVAL                         R4 1
+       50 GETTABLEKS                       R4 R4 K5 ["Create"]
        52 GETTABLE                         R2 R3 R4
        53 SETTABLEKS                       R1 R2 K4 ["Disabled"]
        55 GETTABLEKS                       R2 R0 K6 ["OnInternalsChanged"]
@@ -283,14 +283,14 @@ PROTO_9:
         2 RETURN                           R1 1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["activate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["activate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 GETTABLEKS                       R1 R0 K1 ["_analytics"]
         7 LOADK                            R3 K2 ["Activated"]
-        8 GETUPVAL                         R5 1
-        9 GETTABLEKS                       R4 R5 K3 ["SeaLevel"]
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R4 R4 K3 ["SeaLevel"]
        11 NAMECALL                         R1 R1 K4 ["report"]
        13 CALL                             R1 3 0
        14 RETURN                           R0 0
@@ -302,17 +302,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETIMPORT                        R5 K1 [script]
-       18 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       20 GETTABLEKS                       R3 R4 K9 ["BaseTool"]
+       16 GETIMPORT                        R3 K1 [script]
+       18 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K9 ["BaseTool"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K10 ["Src"]
-       27 GETTABLEKS                       R4 R5 K11 ["Types"]
+       25 GETTABLEKS                       R4 R0 K10 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Types"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K12 ["Category"]
        32 GETTABLEKS                       R5 R3 K13 ["FillMode"]
@@ -322,11 +322,11 @@ MAIN:
        40 GETTABLEKS                       R9 R3 K17 ["SelectionSettings"]
        42 GETTABLEKS                       R10 R3 K18 ["Tab"]
        44 GETTABLEKS                       R11 R3 K19 ["Tool"]
-       46 GETTABLEKS                       R13 R0 K10 ["Src"]
-       48 GETTABLEKS                       R12 R13 K20 ["Util"]
+       46 GETTABLEKS                       R12 R0 K10 ["Src"]
+       48 GETTABLEKS                       R12 R12 K20 ["Util"]
        50 GETIMPORT                        R13 K5 [require]
-       52 GETTABLEKS                       R15 R12 K21 ["Operations"]
-       54 GETTABLEKS                       R14 R15 K22 ["FillOperation"]
+       52 GETTABLEKS                       R14 R12 K21 ["Operations"]
+       54 GETTABLEKS                       R14 R14 K22 ["FillOperation"]
        56 CALL                             R13 1 1
        57 NEWTABLE                         R14 0 1
        59 DUPTABLE                         R15 K25 [{"Defaults", "Id"}]

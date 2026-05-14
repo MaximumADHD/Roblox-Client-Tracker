@@ -11,8 +11,8 @@ PROTO_0:
        13 GETTABLEKS                       R3 R0 K0 ["Text"]
        15 GETTABLEKS                       R4 R1 K0 ["Text"]
        17 JUMPIFNOTEQ                      R3 R4 ; [+18]
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K1 ["equals"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K1 ["equals"]
        22 GETTABLEKS                       R3 R0 K2 ["Uri"]
        24 GETTABLEKS                       R4 R1 K2 ["Uri"]
        26 CALL                             R2 2 1
@@ -25,30 +25,30 @@ PROTO_0:
        36 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createSignal"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createSignal"]
         3 LOADK                            R1 K1 ["Default"]
         4 CALL                             R0 1 2
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["createSignal"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["createSignal"]
         8 LOADNIL                          R3
         9 CALL                             R2 1 2
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K0 ["createSignal"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K0 ["createSignal"]
        13 LOADNIL                          R5
        14 CALL                             R4 1 2
-       15 GETUPVAL                         R7 0
-       16 GETTABLEKS                       R6 R7 K0 ["createSignal"]
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K0 ["createSignal"]
        18 LOADNIL                          R7
        19 GETUPVAL                         R8 1
        20 CALL                             R6 2 2
-       21 GETUPVAL                         R9 0
-       22 GETTABLEKS                       R8 R9 K0 ["createSignal"]
+       21 GETUPVAL                         R8 0
+       22 GETTABLEKS                       R8 R8 K0 ["createSignal"]
        24 LOADNIL                          R9
        25 GETUPVAL                         R10 1
        26 CALL                             R8 2 2
-       27 GETUPVAL                         R11 0
-       28 GETTABLEKS                       R10 R11 K0 ["createSignal"]
+       27 GETUPVAL                         R10 0
+       28 GETTABLEKS                       R10 R10 K0 ["createSignal"]
        30 LOADNIL                          R11
        31 GETUPVAL                         R12 1
        32 CALL                             R10 2 2
@@ -58,14 +58,14 @@ PROTO_1:
        36 LOADNIL                          R15
        37 GETUPVAL                         R16 2
        38 JUMPIFNOT                        R16 ; [+14]
-       39 GETUPVAL                         R17 0
-       40 GETTABLEKS                       R16 R17 K0 ["createSignal"]
+       39 GETUPVAL                         R16 0
+       40 GETTABLEKS                       R16 R16 K0 ["createSignal"]
        42 LOADNIL                          R17
        43 CALL                             R16 1 2
        44 MOVE                             R12 R16
        45 MOVE                             R13 R17
-       46 GETUPVAL                         R17 0
-       47 GETTABLEKS                       R16 R17 K0 ["createSignal"]
+       46 GETUPVAL                         R16 0
+       47 GETTABLEKS                       R16 R16 K0 ["createSignal"]
        49 LOADB                            R17 0
        50 CALL                             R16 1 2
        51 MOVE                             R14 R16
@@ -118,26 +118,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Signals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Signals"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["StudioFoundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["StudioFoundation"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K9 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       34 GETTABLEKS                       R5 R6 K12 ["getFFlagDialogManagerUpdateSemantics"]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagDialogManagerUpdateSemantics"]
        36 CALL                             R4 1 1
        37 MOVE                             R5 R4
        38 CALL                             R5 0 1
-       39 GETTABLEKS                       R7 R2 K13 ["Util"]
-       41 GETTABLEKS                       R6 R7 K14 ["StudioUri"]
+       39 GETTABLEKS                       R6 R2 K13 ["Util"]
+       41 GETTABLEKS                       R6 R6 K14 ["StudioUri"]
        43 DUPCLOSURE                       R7 K15 [PROTO_0]
        44 CAPTURE                          VAL R6
        45 DUPCLOSURE                       R8 K16 [PROTO_1]

@@ -90,8 +90,8 @@ PROTO_4:
        15 CALL                             R1 2 1
        16 SETTABLEKS                       R1 R0 K1 ["responseBody"]
        18 GETIMPORT                        R1 K4 [pairs]
-       20 GETTABLEKS                       R4 R0 K1 ["responseBody"]
-       22 GETTABLEKS                       R2 R4 K5 ["events"]
+       20 GETTABLEKS                       R2 R0 K1 ["responseBody"]
+       22 GETTABLEKS                       R2 R2 K5 ["events"]
        24 CALL                             R1 1 3
        25 FORGPREP_NEXT                    R1
        26 GETUPVAL                         R6 1
@@ -130,10 +130,10 @@ PROTO_6:
        28 NAMECALL                         R7 R7 K9 ["ToIsoDate"]
        30 CALL                             R7 1 1
        31 SETTABLEKS                       R7 R6 K10 ["startDate"]
-       33 GETUPVAL                         R8 1
-       34 GETTABLEKS                       R7 R8 K11 ["composeUrl"]
-       36 GETUPVAL                         R9 1
-       37 GETTABLEKS                       R8 R9 K12 ["APIS_URL"]
+       33 GETUPVAL                         R7 1
+       34 GETTABLEKS                       R7 R7 K11 ["composeUrl"]
+       36 GETUPVAL                         R8 1
+       37 GETTABLEKS                       R8 R8 K12 ["APIS_URL"]
        39 LOADK                            R9 K13 ["activity-feed-api/v1/history"]
        40 MOVE                             R10 R6
        41 CALL                             R7 3 1
@@ -236,8 +236,8 @@ PROTO_12:
         9 GETUPVAL                         R0 2
        10 JUMPIFNOTEQKNIL                  R0 ; [+2]
        12 RETURN                           R0 0
-       13 GETUPVAL                         R1 0
-       14 GETTABLEKS                       R0 R1 K1 ["getActivityHistoryManager"]
+       13 GETUPVAL                         R0 0
+       14 GETTABLEKS                       R0 R0 K1 ["getActivityHistoryManager"]
        16 CALL                             R0 0 1
        17 JUMPIFNOTEQKNIL                  R0 ; [+2]
        19 RETURN                           R0 0
@@ -269,8 +269,8 @@ PROTO_13:
         5 RETURN                           R3 1
 
 PROTO_14:
-        0 GETIMPORT                        R1 K1 [game]
-        2 GETTABLEKS                       R0 R1 K2 ["Players"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["Players"]
         4 GETUPVAL                         R2 1
         5 NAMECALL                         R0 R0 K3 ["GetNameFromUserIdAsync"]
         7 CALL                             R0 2 1
@@ -339,8 +339,8 @@ PROTO_19:
         6 CALL                             R4 1 3
         7 FORGPREP_NEXT                    R4
         8 ADDK                             R3 R3 K2 [1]
-        9 GETUPVAL                         R10 0
-       10 GETTABLEKS                       R9 R10 K3 ["new"]
+        9 GETUPVAL                         R9 0
+       10 GETTABLEKS                       R9 R9 K3 ["new"]
        12 NEWCLOSURE                       R10 P0
        13 CAPTURE                          VAL R8
        14 CALL                             R9 1 1
@@ -381,27 +381,27 @@ PROTO_19:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["SharedTypes"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["SharedTypes"]
        24 CALL                             R2 1 1
-       25 GETTABLEKS                       R4 R1 K8 ["Util"]
-       27 GETTABLEKS                       R3 R4 K10 ["Promise"]
-       29 GETTABLEKS                       R6 R1 K11 ["RobloxAPI"]
-       31 GETTABLEKS                       R5 R6 K12 ["Url"]
-       33 GETTABLEKS                       R4 R5 K13 ["new"]
+       25 GETTABLEKS                       R3 R1 K8 ["Util"]
+       27 GETTABLEKS                       R3 R3 K10 ["Promise"]
+       29 GETTABLEKS                       R4 R1 K11 ["RobloxAPI"]
+       31 GETTABLEKS                       R4 R4 K12 ["Url"]
+       33 GETTABLEKS                       R4 R4 K13 ["new"]
        35 CALL                             R4 0 1
-       36 GETTABLEKS                       R6 R1 K14 ["Http"]
-       38 GETTABLEKS                       R5 R6 K15 ["Networking"]
+       36 GETTABLEKS                       R5 R1 K14 ["Http"]
+       38 GETTABLEKS                       R5 R5 K15 ["Networking"]
        40 GETTABLEKS                       R6 R5 K13 ["new"]
        42 DUPTABLE                         R7 K18 [{"isInternal", "loggingLevel"}]
        43 LOADB                            R8 1

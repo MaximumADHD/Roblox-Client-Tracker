@@ -1,42 +1,42 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["toggleRangeProps"]
-        3 GETTABLEKS                       R0 R1 K1 ["toggleValue"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toggleRangeProps"]
+        3 GETTABLEKS                       R0 R0 K1 ["toggleValue"]
         5 JUMPIFNOT                        R0 ; [+17]
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K2 ["setNumberRange"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["setNumberRange"]
         9 GETIMPORT                        R1 K5 [NumberRange.new]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K6 ["round"]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K7 ["numberRange"]
-       17 GETTABLEKS                       R3 R4 K8 ["Max"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K6 ["round"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K7 ["numberRange"]
+       17 GETTABLEKS                       R3 R3 K8 ["Max"]
        19 CALL                             R2 1 -1
        20 CALL                             R1 -1 -1
        21 CALL                             R0 -1 0
        22 JUMP                             ; [+23]
-       23 GETUPVAL                         R1 0
-       24 GETTABLEKS                       R0 R1 K2 ["setNumberRange"]
+       23 GETUPVAL                         R0 0
+       24 GETTABLEKS                       R0 R0 K2 ["setNumberRange"]
        26 GETIMPORT                        R1 K5 [NumberRange.new]
-       28 GETUPVAL                         R3 0
-       29 GETTABLEKS                       R2 R3 K6 ["round"]
-       31 GETUPVAL                         R4 0
-       32 GETTABLEKS                       R3 R4 K9 ["min"]
+       28 GETUPVAL                         R2 0
+       29 GETTABLEKS                       R2 R2 K6 ["round"]
+       31 GETUPVAL                         R3 0
+       32 GETTABLEKS                       R3 R3 K9 ["min"]
        34 CALL                             R2 1 1
-       35 GETUPVAL                         R4 0
-       36 GETTABLEKS                       R3 R4 K6 ["round"]
-       38 GETUPVAL                         R6 0
-       39 GETTABLEKS                       R5 R6 K7 ["numberRange"]
-       41 GETTABLEKS                       R4 R5 K8 ["Max"]
+       35 GETUPVAL                         R3 0
+       36 GETTABLEKS                       R3 R3 K6 ["round"]
+       38 GETUPVAL                         R4 0
+       39 GETTABLEKS                       R4 R4 K7 ["numberRange"]
+       41 GETTABLEKS                       R4 R4 K8 ["Max"]
        43 CALL                             R3 1 -1
        44 CALL                             R1 -1 -1
        45 CALL                             R0 -1 0
-       46 GETUPVAL                         R2 0
-       47 GETTABLEKS                       R1 R2 K0 ["toggleRangeProps"]
-       49 GETTABLEKS                       R0 R1 K10 ["setToggleValue"]
-       51 GETUPVAL                         R4 0
-       52 GETTABLEKS                       R3 R4 K0 ["toggleRangeProps"]
-       54 GETTABLEKS                       R2 R3 K1 ["toggleValue"]
+       46 GETUPVAL                         R0 0
+       47 GETTABLEKS                       R0 R0 K0 ["toggleRangeProps"]
+       49 GETTABLEKS                       R0 R0 K10 ["setToggleValue"]
+       51 GETUPVAL                         R2 0
+       52 GETTABLEKS                       R2 R2 K0 ["toggleRangeProps"]
+       54 GETTABLEKS                       R2 R2 K1 ["toggleValue"]
        56 NOT                              R1 R2
        57 CALL                             R0 1 0
        58 RETURN                           R0 0
@@ -50,17 +50,17 @@ PROTO_1:
         8 GETUPVAL                         R1 0
         9 GETUPVAL                         R2 1
        10 NEWTABLE                         R3 8 0
-       12 GETUPVAL                         R5 2
-       13 GETTABLEKS                       R4 R5 K4 ["Tag"]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R4 R4 K4 ["Tag"]
        15 LOADK                            R5 K5 ["X-Fit X-Left X-Middle X-RowS IconOnly Compact"]
        16 SETTABLE                         R5 R3 R4
        17 GETTABLEKS                       R4 R0 K6 ["LayoutOrder"]
        19 SETTABLEKS                       R4 R3 K6 ["LayoutOrder"]
-       21 GETTABLEKS                       R5 R0 K0 ["toggleRangeProps"]
-       23 GETTABLEKS                       R4 R5 K7 ["toggleValue"]
+       21 GETTABLEKS                       R4 R0 K0 ["toggleRangeProps"]
+       23 GETTABLEKS                       R4 R4 K7 ["toggleValue"]
        25 SETTABLEKS                       R4 R3 K8 ["Checked"]
-       27 GETTABLEKS                       R5 R0 K0 ["toggleRangeProps"]
-       29 GETTABLEKS                       R4 R5 K9 ["toggleText"]
+       27 GETTABLEKS                       R4 R0 K0 ["toggleRangeProps"]
+       29 GETTABLEKS                       R4 R4 K9 ["toggleText"]
        31 SETTABLEKS                       R4 R3 K10 ["Text"]
        33 NEWCLOSURE                       R4 P0
        34 CAPTURE                          VAL R0
@@ -69,8 +69,8 @@ PROTO_1:
        38 RETURN                           R1 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["roundToTenths"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["roundToTenths"]
         3 JUMPIFNOT                        R1 ; [+7]
         4 MULK                             R3 R0 K1 [10]
         5 FASTCALL1                        MATH_ROUND R3 ; [+2]
@@ -88,23 +88,23 @@ PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+6]
         2 GETUPVAL                         R0 1
-        3 GETUPVAL                         R2 2
-        4 GETTABLEKS                       R1 R2 K0 ["numberRange"]
+        3 GETUPVAL                         R1 2
+        4 GETTABLEKS                       R1 R1 K0 ["numberRange"]
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
-        8 GETUPVAL                         R2 2
-        9 GETTABLEKS                       R1 R2 K0 ["numberRange"]
-       11 GETTABLEKS                       R0 R1 K1 ["Min"]
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K0 ["numberRange"]
-       16 GETTABLEKS                       R1 R2 K2 ["Max"]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K0 ["numberRange"]
+       11 GETTABLEKS                       R0 R0 K1 ["Min"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K0 ["numberRange"]
+       16 GETTABLEKS                       R1 R1 K2 ["Max"]
        18 JUMPIFNOTEQ                      R0 R1 ; [+49]
        20 GETUPVAL                         R0 1
        21 GETIMPORT                        R1 K5 [NumberRange.new]
-       23 GETUPVAL                         R4 2
-       24 GETTABLEKS                       R3 R4 K6 ["min"]
-       26 GETUPVAL                         R5 2
-       27 GETTABLEKS                       R4 R5 K7 ["roundToTenths"]
+       23 GETUPVAL                         R3 2
+       24 GETTABLEKS                       R3 R3 K6 ["min"]
+       26 GETUPVAL                         R4 2
+       27 GETTABLEKS                       R4 R4 K7 ["roundToTenths"]
        29 JUMPIFNOT                        R4 ; [+7]
        30 MULK                             R5 R3 K8 [10]
        31 FASTCALL1                        MATH_ROUND R5 ; [+2]
@@ -117,11 +117,11 @@ PROTO_3:
        39 GETIMPORT                        R4 K11 [math.round]
        41 CALL                             R4 1 1
        42 MOVE                             R2 R4
-       43 GETUPVAL                         R6 2
-       44 GETTABLEKS                       R5 R6 K0 ["numberRange"]
-       46 GETTABLEKS                       R4 R5 K2 ["Max"]
-       48 GETUPVAL                         R6 2
-       49 GETTABLEKS                       R5 R6 K7 ["roundToTenths"]
+       43 GETUPVAL                         R4 2
+       44 GETTABLEKS                       R4 R4 K0 ["numberRange"]
+       46 GETTABLEKS                       R4 R4 K2 ["Max"]
+       48 GETUPVAL                         R5 2
+       49 GETTABLEKS                       R5 R5 K7 ["roundToTenths"]
        51 JUMPIFNOT                        R5 ; [+7]
        52 MULK                             R6 R4 K8 [10]
        53 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -137,35 +137,35 @@ PROTO_3:
        65 CALL                             R1 2 -1
        66 CALL                             R0 -1 0
        67 RETURN                           R0 0
-       68 GETUPVAL                         R2 2
-       69 GETTABLEKS                       R1 R2 K12 ["toggleRangeProps"]
+       68 GETUPVAL                         R1 2
+       69 GETTABLEKS                       R1 R1 K12 ["toggleRangeProps"]
        71 FASTCALL2K                       ASSERT R1 K13 ; [+4]
        73 LOADK                            R2 K13 ["toggleRangeProps cannot be nil if hideLowerRange is true"]
        74 GETIMPORT                        R0 K15 [assert]
        76 CALL                             R0 2 0
-       77 GETUPVAL                         R2 2
-       78 GETTABLEKS                       R1 R2 K12 ["toggleRangeProps"]
-       80 GETTABLEKS                       R0 R1 K16 ["setToggleValue"]
+       77 GETUPVAL                         R0 2
+       78 GETTABLEKS                       R0 R0 K12 ["toggleRangeProps"]
+       80 GETTABLEKS                       R0 R0 K16 ["setToggleValue"]
        82 LOADB                            R1 1
        83 CALL                             R0 1 0
        84 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["toggleRangeProps"]
-        3 GETTABLEKS                       R0 R1 K1 ["toggleValue"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toggleRangeProps"]
+        3 GETTABLEKS                       R0 R0 K1 ["toggleValue"]
         5 JUMPIFNOT                        R0 ; [+6]
         6 GETUPVAL                         R0 1
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K2 ["numberRange"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K2 ["numberRange"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
        12 GETUPVAL                         R0 1
        13 GETIMPORT                        R1 K5 [NumberRange.new]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K6 ["min"]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K7 ["roundToTenths"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K6 ["min"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K7 ["roundToTenths"]
        21 JUMPIFNOT                        R4 ; [+7]
        22 MULK                             R5 R3 K8 [10]
        23 FASTCALL1                        MATH_ROUND R5 ; [+2]
@@ -178,11 +178,11 @@ PROTO_4:
        31 GETIMPORT                        R4 K11 [math.round]
        33 CALL                             R4 1 1
        34 MOVE                             R2 R4
-       35 GETUPVAL                         R6 0
-       36 GETTABLEKS                       R5 R6 K2 ["numberRange"]
-       38 GETTABLEKS                       R4 R5 K12 ["Max"]
-       40 GETUPVAL                         R6 0
-       41 GETTABLEKS                       R5 R6 K7 ["roundToTenths"]
+       35 GETUPVAL                         R4 0
+       36 GETTABLEKS                       R4 R4 K2 ["numberRange"]
+       38 GETTABLEKS                       R4 R4 K12 ["Max"]
+       40 GETUPVAL                         R5 0
+       41 GETTABLEKS                       R5 R5 K7 ["roundToTenths"]
        43 JUMPIFNOT                        R5 ; [+7]
        44 MULK                             R6 R4 K8 [10]
        45 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -225,15 +225,15 @@ PROTO_6:
         9 LOADN                            R2 0
        10 JUMPIF                           R1 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K0 ["numberRange"]
-       15 GETTABLEKS                       R3 R4 K1 ["Max"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K0 ["numberRange"]
+       15 GETTABLEKS                       R3 R3 K1 ["Max"]
        17 JUMPIFNOTLT                      R3 R2 ; [+25]
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R3 R4 K2 ["setNumberRange"]
+       19 GETUPVAL                         R3 1
+       20 GETTABLEKS                       R3 R3 K2 ["setNumberRange"]
        22 GETIMPORT                        R4 K5 [NumberRange.new]
-       24 GETUPVAL                         R7 1
-       25 GETTABLEKS                       R6 R7 K6 ["roundToTenths"]
+       24 GETUPVAL                         R6 1
+       25 GETTABLEKS                       R6 R6 K6 ["roundToTenths"]
        27 JUMPIFNOT                        R6 ; [+7]
        28 MULK                             R7 R2 K7 [10]
        29 FASTCALL1                        MATH_ROUND R7 ; [+2]
@@ -248,11 +248,11 @@ PROTO_6:
        40 CALL                             R4 1 -1
        41 CALL                             R3 -1 0
        42 RETURN                           R0 0
-       43 GETUPVAL                         R4 1
-       44 GETTABLEKS                       R3 R4 K2 ["setNumberRange"]
+       43 GETUPVAL                         R3 1
+       44 GETTABLEKS                       R3 R3 K2 ["setNumberRange"]
        46 GETIMPORT                        R4 K5 [NumberRange.new]
-       48 GETUPVAL                         R7 1
-       49 GETTABLEKS                       R6 R7 K6 ["roundToTenths"]
+       48 GETUPVAL                         R6 1
+       49 GETTABLEKS                       R6 R6 K6 ["roundToTenths"]
        51 JUMPIFNOT                        R6 ; [+7]
        52 MULK                             R7 R2 K7 [10]
        53 FASTCALL1                        MATH_ROUND R7 ; [+2]
@@ -264,11 +264,11 @@ PROTO_6:
        60 MOVE                             R6 R2
        61 GETIMPORT                        R5 K10 [math.round]
        63 CALL                             R5 1 1
-       64 GETUPVAL                         R9 1
-       65 GETTABLEKS                       R8 R9 K0 ["numberRange"]
-       67 GETTABLEKS                       R7 R8 K1 ["Max"]
-       69 GETUPVAL                         R9 1
-       70 GETTABLEKS                       R8 R9 K6 ["roundToTenths"]
+       64 GETUPVAL                         R7 1
+       65 GETTABLEKS                       R7 R7 K0 ["numberRange"]
+       67 GETTABLEKS                       R7 R7 K1 ["Max"]
+       69 GETUPVAL                         R8 1
+       70 GETTABLEKS                       R8 R8 K6 ["roundToTenths"]
        72 JUMPIFNOT                        R8 ; [+7]
        73 MULK                             R9 R7 K7 [10]
        74 FASTCALL1                        MATH_ROUND R9 ; [+2]
@@ -300,14 +300,14 @@ PROTO_7:
        11 RETURN                           R0 0
        12 GETUPVAL                         R3 1
        13 JUMPIF                           R3 ; [+5]
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R3 R4 K0 ["Min"]
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K0 ["Min"]
        17 JUMPIFNOTLT                      R2 R3 ; [+25]
-       19 GETUPVAL                         R4 3
-       20 GETTABLEKS                       R3 R4 K1 ["setNumberRange"]
+       19 GETUPVAL                         R3 3
+       20 GETTABLEKS                       R3 R3 K1 ["setNumberRange"]
        22 GETIMPORT                        R4 K4 [NumberRange.new]
-       24 GETUPVAL                         R7 3
-       25 GETTABLEKS                       R6 R7 K5 ["roundToTenths"]
+       24 GETUPVAL                         R6 3
+       25 GETTABLEKS                       R6 R6 K5 ["roundToTenths"]
        27 JUMPIFNOT                        R6 ; [+7]
        28 MULK                             R7 R2 K6 [10]
        29 FASTCALL1                        MATH_ROUND R7 ; [+2]
@@ -322,13 +322,13 @@ PROTO_7:
        40 CALL                             R4 1 -1
        41 CALL                             R3 -1 0
        42 RETURN                           R0 0
-       43 GETUPVAL                         R4 3
-       44 GETTABLEKS                       R3 R4 K1 ["setNumberRange"]
+       43 GETUPVAL                         R3 3
+       44 GETTABLEKS                       R3 R3 K1 ["setNumberRange"]
        46 GETIMPORT                        R4 K4 [NumberRange.new]
-       48 GETUPVAL                         R7 2
-       49 GETTABLEKS                       R6 R7 K0 ["Min"]
-       51 GETUPVAL                         R8 3
-       52 GETTABLEKS                       R7 R8 K5 ["roundToTenths"]
+       48 GETUPVAL                         R6 2
+       49 GETTABLEKS                       R6 R6 K0 ["Min"]
+       51 GETUPVAL                         R7 3
+       52 GETTABLEKS                       R7 R7 K5 ["roundToTenths"]
        54 JUMPIFNOT                        R7 ; [+7]
        55 MULK                             R8 R6 K6 [10]
        56 FASTCALL1                        MATH_ROUND R8 ; [+2]
@@ -341,8 +341,8 @@ PROTO_7:
        64 GETIMPORT                        R7 K9 [math.round]
        66 CALL                             R7 1 1
        67 MOVE                             R5 R7
-       68 GETUPVAL                         R8 3
-       69 GETTABLEKS                       R7 R8 K5 ["roundToTenths"]
+       68 GETUPVAL                         R7 3
+       69 GETTABLEKS                       R7 R7 K5 ["roundToTenths"]
        71 JUMPIFNOT                        R7 ; [+7]
        72 MULK                             R8 R2 K6 [10]
        73 FASTCALL1                        MATH_ROUND R8 ; [+2]
@@ -366,8 +366,8 @@ PROTO_8:
         5 LOADN                            R5 0
         6 JUMP                             ; [+1]
         7 MOVE                             R5 R0
-        8 GETUPVAL                         R7 2
-        9 GETTABLEKS                       R6 R7 K3 ["roundToTenths"]
+        8 GETUPVAL                         R6 2
+        9 GETTABLEKS                       R6 R6 K3 ["roundToTenths"]
        11 JUMPIFNOT                        R6 ; [+7]
        12 MULK                             R7 R5 K4 [10]
        13 FASTCALL1                        MATH_ROUND R7 ; [+2]
@@ -380,8 +380,8 @@ PROTO_8:
        21 GETIMPORT                        R6 K7 [math.round]
        23 CALL                             R6 1 1
        24 MOVE                             R4 R6
-       25 GETUPVAL                         R7 2
-       26 GETTABLEKS                       R6 R7 K3 ["roundToTenths"]
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K3 ["roundToTenths"]
        28 JUMPIFNOT                        R6 ; [+7]
        29 MULK                             R7 R1 K4 [10]
        30 FASTCALL1                        MATH_ROUND R7 ; [+2]
@@ -400,13 +400,13 @@ PROTO_8:
 PROTO_9:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+28]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["setNumberRange"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["setNumberRange"]
         5 GETIMPORT                        R1 K3 [NumberRange.new]
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K4 ["Max"]
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K5 ["roundToTenths"]
+        7 GETUPVAL                         R3 2
+        8 GETTABLEKS                       R3 R3 K4 ["Max"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K5 ["roundToTenths"]
        13 JUMPIFNOT                        R4 ; [+7]
        14 MULK                             R5 R3 K6 [10]
        15 FASTCALL1                        MATH_ROUND R5 ; [+2]
@@ -422,13 +422,13 @@ PROTO_9:
        27 CALL                             R1 1 -1
        28 CALL                             R0 -1 0
        29 RETURN                           R0 0
-       30 GETUPVAL                         R1 1
-       31 GETTABLEKS                       R0 R1 K0 ["setNumberRange"]
+       30 GETUPVAL                         R0 1
+       31 GETTABLEKS                       R0 R0 K0 ["setNumberRange"]
        33 GETIMPORT                        R1 K3 [NumberRange.new]
-       35 GETUPVAL                         R4 2
-       36 GETTABLEKS                       R3 R4 K10 ["Min"]
-       38 GETUPVAL                         R5 1
-       39 GETTABLEKS                       R4 R5 K5 ["roundToTenths"]
+       35 GETUPVAL                         R3 2
+       36 GETTABLEKS                       R3 R3 K10 ["Min"]
+       38 GETUPVAL                         R4 1
+       39 GETTABLEKS                       R4 R4 K5 ["roundToTenths"]
        41 JUMPIFNOT                        R4 ; [+7]
        42 MULK                             R5 R3 K6 [10]
        43 FASTCALL1                        MATH_ROUND R5 ; [+2]
@@ -441,10 +441,10 @@ PROTO_9:
        51 GETIMPORT                        R4 K9 [math.round]
        53 CALL                             R4 1 1
        54 MOVE                             R2 R4
-       55 GETUPVAL                         R5 2
-       56 GETTABLEKS                       R4 R5 K4 ["Max"]
-       58 GETUPVAL                         R6 1
-       59 GETTABLEKS                       R5 R6 K5 ["roundToTenths"]
+       55 GETUPVAL                         R4 2
+       56 GETTABLEKS                       R4 R4 K4 ["Max"]
+       58 GETUPVAL                         R5 1
+       59 GETTABLEKS                       R5 R5 K5 ["roundToTenths"]
        61 JUMPIFNOT                        R5 ; [+7]
        62 MULK                             R6 R4 K6 [10]
        63 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -492,18 +492,18 @@ PROTO_11:
        13 RETURN                           R1 -1
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["toggleRangeProps"]
-        3 GETTABLEKS                       R0 R1 K1 ["toggleValue"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["toggleRangeProps"]
+        3 GETTABLEKS                       R0 R0 K1 ["toggleValue"]
         5 JUMPIFNOT                        R0 ; [+30]
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K2 ["setNumberRange"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["setNumberRange"]
         9 GETIMPORT                        R1 K5 [NumberRange.new]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K6 ["numberRange"]
-       14 GETTABLEKS                       R3 R4 K7 ["Max"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K8 ["roundToTenths"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K6 ["numberRange"]
+       14 GETTABLEKS                       R3 R3 K7 ["Max"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K8 ["roundToTenths"]
        19 JUMPIFNOT                        R4 ; [+7]
        20 MULK                             R5 R3 K9 [10]
        21 FASTCALL1                        MATH_ROUND R5 ; [+2]
@@ -519,13 +519,13 @@ PROTO_12:
        33 CALL                             R1 1 -1
        34 CALL                             R0 -1 0
        35 JUMP                             ; [+49]
-       36 GETUPVAL                         R1 0
-       37 GETTABLEKS                       R0 R1 K2 ["setNumberRange"]
+       36 GETUPVAL                         R0 0
+       37 GETTABLEKS                       R0 R0 K2 ["setNumberRange"]
        39 GETIMPORT                        R1 K5 [NumberRange.new]
-       41 GETUPVAL                         R4 0
-       42 GETTABLEKS                       R3 R4 K13 ["min"]
-       44 GETUPVAL                         R5 0
-       45 GETTABLEKS                       R4 R5 K8 ["roundToTenths"]
+       41 GETUPVAL                         R3 0
+       42 GETTABLEKS                       R3 R3 K13 ["min"]
+       44 GETUPVAL                         R4 0
+       45 GETTABLEKS                       R4 R4 K8 ["roundToTenths"]
        47 JUMPIFNOT                        R4 ; [+7]
        48 MULK                             R5 R3 K9 [10]
        49 FASTCALL1                        MATH_ROUND R5 ; [+2]
@@ -538,11 +538,11 @@ PROTO_12:
        57 GETIMPORT                        R4 K12 [math.round]
        59 CALL                             R4 1 1
        60 MOVE                             R2 R4
-       61 GETUPVAL                         R6 0
-       62 GETTABLEKS                       R5 R6 K6 ["numberRange"]
-       64 GETTABLEKS                       R4 R5 K7 ["Max"]
-       66 GETUPVAL                         R6 0
-       67 GETTABLEKS                       R5 R6 K8 ["roundToTenths"]
+       61 GETUPVAL                         R4 0
+       62 GETTABLEKS                       R4 R4 K6 ["numberRange"]
+       64 GETTABLEKS                       R4 R4 K7 ["Max"]
+       66 GETUPVAL                         R5 0
+       67 GETTABLEKS                       R5 R5 K8 ["roundToTenths"]
        69 JUMPIFNOT                        R5 ; [+7]
        70 MULK                             R6 R4 K9 [10]
        71 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -557,12 +557,12 @@ PROTO_12:
        82 MOVE                             R3 R5
        83 CALL                             R1 2 -1
        84 CALL                             R0 -1 0
-       85 GETUPVAL                         R2 0
-       86 GETTABLEKS                       R1 R2 K0 ["toggleRangeProps"]
-       88 GETTABLEKS                       R0 R1 K14 ["setToggleValue"]
-       90 GETUPVAL                         R4 0
-       91 GETTABLEKS                       R3 R4 K0 ["toggleRangeProps"]
-       93 GETTABLEKS                       R2 R3 K1 ["toggleValue"]
+       85 GETUPVAL                         R0 0
+       86 GETTABLEKS                       R0 R0 K0 ["toggleRangeProps"]
+       88 GETTABLEKS                       R0 R0 K14 ["setToggleValue"]
+       90 GETUPVAL                         R2 0
+       91 GETTABLEKS                       R2 R2 K0 ["toggleRangeProps"]
+       93 GETTABLEKS                       R2 R2 K1 ["toggleValue"]
        95 NOT                              R1 R2
        96 CALL                             R0 1 0
        97 RETURN                           R0 0
@@ -575,23 +575,23 @@ PROTO_13:
         5 CALL                             R2 0 1
         6 GETTABLEKS                       R4 R0 K1 ["toggleRangeProps"]
         8 JUMPIFNOT                        R4 ; [+5]
-        9 GETTABLEKS                       R4 R0 K1 ["toggleRangeProps"]
-       11 GETTABLEKS                       R3 R4 K2 ["toggleValue"]
+        9 GETTABLEKS                       R3 R0 K1 ["toggleRangeProps"]
+       11 GETTABLEKS                       R3 R3 K2 ["toggleValue"]
        13 JUMP                             ; [+1]
        14 LOADB                            R3 0
        15 GETTABLEKS                       R4 R0 K1 ["toggleRangeProps"]
        17 JUMPIFNOT                        R4 ; [+5]
-       18 GETTABLEKS                       R6 R0 K1 ["toggleRangeProps"]
-       20 GETTABLEKS                       R5 R6 K2 ["toggleValue"]
+       18 GETTABLEKS                       R5 R0 K1 ["toggleRangeProps"]
+       20 GETTABLEKS                       R5 R5 K2 ["toggleValue"]
        22 NOT                              R4 R5
        23 NEWCLOSURE                       R5 P0
        24 CAPTURE                          VAL R0
-       25 GETUPVAL                         R7 2
-       26 GETTABLEKS                       R6 R7 K3 ["useState"]
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K3 ["useState"]
        28 GETTABLEKS                       R7 R0 K4 ["numberRange"]
        30 CALL                             R6 1 2
-       31 GETUPVAL                         R9 2
-       32 GETTABLEKS                       R8 R9 K5 ["useEffect"]
+       31 GETUPVAL                         R8 2
+       32 GETTABLEKS                       R8 R8 K5 ["useEffect"]
        34 NEWCLOSURE                       R9 P1
        35 CAPTURE                          VAL R4
        36 CAPTURE                          VAL R7
@@ -602,14 +602,14 @@ PROTO_13:
        44 CALL                             R8 2 0
        45 GETTABLEKS                       R8 R0 K1 ["toggleRangeProps"]
        47 JUMPIFNOT                        R8 ; [+15]
-       48 GETUPVAL                         R9 2
-       49 GETTABLEKS                       R8 R9 K5 ["useEffect"]
+       48 GETUPVAL                         R8 2
+       49 GETTABLEKS                       R8 R8 K5 ["useEffect"]
        51 NEWCLOSURE                       R9 P2
        52 CAPTURE                          VAL R0
        53 CAPTURE                          VAL R7
        54 NEWTABLE                         R10 0 1
-       56 GETTABLEKS                       R12 R0 K1 ["toggleRangeProps"]
-       58 GETTABLEKS                       R11 R12 K2 ["toggleValue"]
+       56 GETTABLEKS                       R11 R0 K1 ["toggleRangeProps"]
+       58 GETTABLEKS                       R11 R11 K2 ["toggleValue"]
        60 SETLIST                          R10 R11 1 [1]
        62 CALL                             R8 2 0
        63 DUPCLOSURE                       R8 K6 [PROTO_5]
@@ -625,8 +625,8 @@ PROTO_13:
        73 GETUPVAL                         R11 4
        74 GETUPVAL                         R12 5
        75 NEWTABLE                         R13 4 0
-       77 GETUPVAL                         R15 2
-       78 GETTABLEKS                       R14 R15 K7 ["Tag"]
+       77 GETUPVAL                         R14 2
+       78 GETTABLEKS                       R14 R14 K7 ["Tag"]
        80 GETUPVAL                         R15 6
        81 LOADK                            R16 K8 ["X-Column"]
        82 LOADK                            R17 K9 ["X-Left"]
@@ -647,8 +647,8 @@ PROTO_13:
       101 GETUPVAL                         R15 4
       102 GETUPVAL                         R16 5
       103 NEWTABLE                         R17 4 0
-      105 GETUPVAL                         R19 2
-      106 GETTABLEKS                       R18 R19 K7 ["Tag"]
+      105 GETUPVAL                         R18 2
+      106 GETTABLEKS                       R18 R18 K7 ["Tag"]
       108 GETUPVAL                         R19 6
       109 JUMPIFNOT                        R3 ; [+2]
       110 LOADK                            R20 K8 ["X-Column"]
@@ -697,8 +697,8 @@ PROTO_13:
       162 SETTABLEKS                       R22 R21 K32 ["VerticalDragTolerance"]
       164 GETIMPORT                        R22 K42 [UDim2.fromOffset]
       166 LOADN                            R23 230
-      167 GETUPVAL                         R25 10
-      168 GETTABLEKS                       R24 R25 K43 ["STANDARD_HEIGHT"]
+      167 GETUPVAL                         R24 10
+      168 GETTABLEKS                       R24 R24 K43 ["STANDARD_HEIGHT"]
       170 CALL                             R22 2 1
       171 SETTABLEKS                       R22 R21 K14 ["Size"]
       173 GETTABLEKS                       R22 R6 K35 ["Min"]
@@ -727,8 +727,8 @@ PROTO_13:
       208 JUMPIFNOT                        R20 ; [+41]
       209 GETTABLEKS                       R20 R0 K1 ["toggleRangeProps"]
       211 JUMPIFNOT                        R20 ; [+5]
-      212 GETTABLEKS                       R21 R0 K1 ["toggleRangeProps"]
-      214 GETTABLEKS                       R20 R21 K2 ["toggleValue"]
+      212 GETTABLEKS                       R20 R0 K1 ["toggleRangeProps"]
+      214 GETTABLEKS                       R20 R20 K2 ["toggleValue"]
       216 JUMPIF                           R20 ; [+2]
       217 LOADNIL                          R19
       218 JUMP                             ; [+32]
@@ -756,8 +756,8 @@ PROTO_13:
       253 GETUPVAL                         R19 4
       254 GETUPVAL                         R20 5
       255 NEWTABLE                         R21 4 0
-      257 GETUPVAL                         R23 2
-      258 GETTABLEKS                       R22 R23 K7 ["Tag"]
+      257 GETUPVAL                         R22 2
+      258 GETTABLEKS                       R22 R22 K7 ["Tag"]
       260 GETUPVAL                         R23 6
       261 LOADK                            R24 K50 ["X-RowS"]
       262 LOADK                            R25 K51 ["X-Middle"]
@@ -801,8 +801,8 @@ PROTO_13:
       308 SETTABLEKS                       R26 R25 K23 ["LayoutOrder"]
       310 GETIMPORT                        R26 K42 [UDim2.fromOffset]
       312 LOADN                            R27 44
-      313 GETUPVAL                         R29 10
-      314 GETTABLEKS                       R28 R29 K43 ["STANDARD_HEIGHT"]
+      313 GETUPVAL                         R28 10
+      314 GETTABLEKS                       R28 R28 K43 ["STANDARD_HEIGHT"]
       316 CALL                             R26 2 1
       317 SETTABLEKS                       R26 R25 K14 ["Size"]
       319 GETTABLEKS                       R28 R6 K35 ["Min"]
@@ -837,14 +837,14 @@ PROTO_13:
       358 GETUPVAL                         R23 4
       359 LOADK                            R24 K69 ["TextLabel"]
       360 NEWTABLE                         R25 8 0
-      362 GETUPVAL                         R27 2
-      363 GETTABLEKS                       R26 R27 K7 ["Tag"]
+      362 GETUPVAL                         R26 2
+      363 GETTABLEKS                       R26 R26 K7 ["Tag"]
       365 LOADK                            R27 K70 ["Component-TextLabel"]
       366 SETTABLE                         R27 R25 R26
       367 GETIMPORT                        R26 K42 [UDim2.fromOffset]
       369 LOADN                            R27 7
-      370 GETUPVAL                         R29 10
-      371 GETTABLEKS                       R28 R29 K43 ["STANDARD_HEIGHT"]
+      370 GETUPVAL                         R28 10
+      371 GETTABLEKS                       R28 R28 K43 ["STANDARD_HEIGHT"]
       373 CALL                             R26 2 1
       374 SETTABLEKS                       R26 R25 K14 ["Size"]
       376 LOADK                            R26 K71 ["-"]
@@ -864,8 +864,8 @@ PROTO_13:
       395 SETTABLEKS                       R26 R25 K23 ["LayoutOrder"]
       397 GETIMPORT                        R26 K42 [UDim2.fromOffset]
       399 LOADN                            R27 44
-      400 GETUPVAL                         R29 10
-      401 GETTABLEKS                       R28 R29 K43 ["STANDARD_HEIGHT"]
+      400 GETUPVAL                         R28 10
+      401 GETTABLEKS                       R28 R28 K43 ["STANDARD_HEIGHT"]
       403 CALL                             R26 2 1
       404 SETTABLEKS                       R26 R25 K14 ["Size"]
       406 GETTABLEKS                       R28 R6 K36 ["Max"]
@@ -897,8 +897,8 @@ PROTO_13:
       442 GETUPVAL                         R23 4
       443 LOADK                            R24 K69 ["TextLabel"]
       444 NEWTABLE                         R25 8 0
-      446 GETUPVAL                         R27 2
-      447 GETTABLEKS                       R26 R27 K7 ["Tag"]
+      446 GETUPVAL                         R26 2
+      447 GETTABLEKS                       R26 R26 K7 ["Tag"]
       449 LOADK                            R27 K70 ["Component-TextLabel"]
       450 SETTABLE                         R27 R25 R26
       451 GETIMPORT                        R26 K42 [UDim2.fromOffset]
@@ -940,8 +940,8 @@ PROTO_13:
       500 JUMPIFNOT                        R16 ; [+41]
       501 GETTABLEKS                       R16 R0 K1 ["toggleRangeProps"]
       503 JUMPIFNOT                        R16 ; [+5]
-      504 GETTABLEKS                       R17 R0 K1 ["toggleRangeProps"]
-      506 GETTABLEKS                       R16 R17 K2 ["toggleValue"]
+      504 GETTABLEKS                       R16 R0 K1 ["toggleRangeProps"]
+      506 GETTABLEKS                       R16 R16 K2 ["toggleValue"]
       508 JUMPIFNOT                        R16 ; [+2]
       509 LOADNIL                          R15
       510 JUMP                             ; [+66]
@@ -971,18 +971,18 @@ PROTO_13:
       547 GETUPVAL                         R15 4
       548 GETUPVAL                         R16 13
       549 NEWTABLE                         R17 8 0
-      551 GETUPVAL                         R19 2
-      552 GETTABLEKS                       R18 R19 K7 ["Tag"]
+      551 GETUPVAL                         R18 2
+      552 GETTABLEKS                       R18 R18 K7 ["Tag"]
       554 LOADK                            R19 K76 ["X-Fit X-Left X-Middle X-RowS IconOnly Compact"]
       555 SETTABLE                         R19 R17 R18
       556 MOVE                             R18 R2
       557 CALL                             R18 0 1
       558 SETTABLEKS                       R18 R17 K23 ["LayoutOrder"]
-      560 GETTABLEKS                       R19 R0 K1 ["toggleRangeProps"]
-      562 GETTABLEKS                       R18 R19 K2 ["toggleValue"]
+      560 GETTABLEKS                       R18 R0 K1 ["toggleRangeProps"]
+      562 GETTABLEKS                       R18 R18 K2 ["toggleValue"]
       564 SETTABLEKS                       R18 R17 K77 ["Checked"]
-      566 GETTABLEKS                       R19 R0 K1 ["toggleRangeProps"]
-      568 GETTABLEKS                       R18 R19 K78 ["toggleText"]
+      566 GETTABLEKS                       R18 R0 K1 ["toggleRangeProps"]
+      568 GETTABLEKS                       R18 R18 K78 ["toggleText"]
       570 SETTABLEKS                       R18 R17 K56 ["Text"]
       572 NEWCLOSURE                       R18 P10
       573 CAPTURE                          VAL R0
@@ -999,36 +999,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       43 GETTABLEKS                       R6 R7 K14 ["getFFlagFeatureMigrateStylingV2"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       43 GETTABLEKS                       R6 R6 K14 ["getFFlagFeatureMigrateStylingV2"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R9 R0 K6 ["Src"]
-       50 GETTABLEKS                       R8 R9 K7 ["Util"]
-       52 GETTABLEKS                       R7 R8 K15 ["isValidNumberInput"]
+       48 GETTABLEKS                       R7 R0 K6 ["Src"]
+       50 GETTABLEKS                       R7 R7 K7 ["Util"]
+       52 GETTABLEKS                       R7 R7 K15 ["isValidNumberInput"]
        54 CALL                             R6 1 1
        55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R10 R0 K6 ["Src"]
-       59 GETTABLEKS                       R9 R10 K13 ["Flags"]
-       61 GETTABLEKS                       R8 R9 K16 ["getFFlagAvatarSettingsReorderCustomScaleComponents"]
+       57 GETTABLEKS                       R8 R0 K6 ["Src"]
+       59 GETTABLEKS                       R8 R8 K13 ["Flags"]
+       61 GETTABLEKS                       R8 R8 K16 ["getFFlagAvatarSettingsReorderCustomScaleComponents"]
        63 CALL                             R7 1 1
        64 GETTABLEKS                       R8 R2 K17 ["ContextServices"]
        66 GETTABLEKS                       R9 R8 K18 ["Localization"]
@@ -1039,8 +1039,8 @@ MAIN:
        76 GETTABLEKS                       R14 R10 K23 ["TextInput"]
        78 GETTABLEKS                       R15 R4 K24 ["createNextOrder"]
        80 GETTABLEKS                       R16 R3 K25 ["createElement"]
-       82 GETTABLEKS                       R18 R2 K26 ["Styling"]
-       84 GETTABLEKS                       R17 R18 K27 ["joinTags"]
+       82 GETTABLEKS                       R17 R2 K26 ["Styling"]
+       84 GETTABLEKS                       R17 R17 K27 ["joinTags"]
        86 DUPCLOSURE                       R18 K28 [PROTO_1]
        87 CAPTURE                          VAL R16
        88 CAPTURE                          VAL R13

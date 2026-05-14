@@ -13,15 +13,15 @@ PROTO_0:
        15 GETIMPORT                        R9 K4 [table.insert]
        17 CALL                             R9 2 0
        18 JUMPIFNOT                        R1 ; [+21]
-       19 GETTABLEKS                       R10 R8 K1 ["Identifier"]
-       21 GETTABLEKS                       R9 R10 K5 ["Type"]
-       23 GETTABLEKS                       R11 R1 K1 ["Identifier"]
-       25 GETTABLEKS                       R10 R11 K5 ["Type"]
+       19 GETTABLEKS                       R9 R8 K1 ["Identifier"]
+       21 GETTABLEKS                       R9 R9 K5 ["Type"]
+       23 GETTABLEKS                       R10 R1 K1 ["Identifier"]
+       25 GETTABLEKS                       R10 R10 K5 ["Type"]
        27 JUMPIFNOTEQ                      R9 R10 ; [+12]
-       29 GETTABLEKS                       R10 R8 K1 ["Identifier"]
-       31 GETTABLEKS                       R9 R10 K6 ["Filename"]
-       33 GETTABLEKS                       R11 R1 K1 ["Identifier"]
-       35 GETTABLEKS                       R10 R11 K6 ["Filename"]
+       29 GETTABLEKS                       R9 R8 K1 ["Identifier"]
+       31 GETTABLEKS                       R9 R9 K6 ["Filename"]
+       33 GETTABLEKS                       R10 R1 K1 ["Identifier"]
+       35 GETTABLEKS                       R10 R10 K6 ["Filename"]
        37 JUMPIFNOTEQ                      R9 R10 ; [+2]
        39 LENGTH                           R2 R3
        40 FORGLOOP                         R4 2 ; [-34]
@@ -60,8 +60,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 RETURN                           R2 1

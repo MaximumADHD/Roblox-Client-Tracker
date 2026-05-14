@@ -9,8 +9,8 @@ PROTO_0:
         8 MOVE                             R7 R3
         9 GETIMPORT                        R4 K2 [string.sub]
        11 CALL                             R4 3 1
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K3 ["FolderForbiddenChars"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K3 ["FolderForbiddenChars"]
        15 GETTABLE                         R5 R6 R4
        16 JUMPIFNOT                        R5 ; [+2]
        17 LOADB                            R5 0
@@ -48,9 +48,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Resources"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Resources"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

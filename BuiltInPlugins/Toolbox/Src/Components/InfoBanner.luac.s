@@ -1,11 +1,11 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["FONT_SIZE_LARGE"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["FONT_SIZE_LARGE"]
         7 LOADN                            R6 2
-        8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R7 R8 K3 ["INFO_BANNER_PADDING"]
+        8 GETUPVAL                         R7 0
+        9 GETTABLEKS                       R7 R7 K3 ["INFO_BANNER_PADDING"]
        11 MUL                              R5 R6 R7
        12 ADD                              R4 R3 R5
        13 GETTABLEKS                       R5 R1 K4 ["Position"]
@@ -37,8 +37,8 @@ PROTO_0:
        49 GETTABLEKS                       R10 R1 K13 ["Text"]
        51 ORK                              R9 R10 K12 [""]
        52 GETTABLEKS                       R10 R2 K14 ["infoBanner"]
-       54 GETUPVAL                         R12 1
-       55 GETTABLEKS                       R11 R12 K15 ["createElement"]
+       54 GETUPVAL                         R11 1
+       55 GETTABLEKS                       R11 R11 K15 ["createElement"]
        57 LOADK                            R12 K16 ["TextLabel"]
        58 DUPTABLE                         R13 K25 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "Visible", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "ClipsDescendants"}]
        59 SETTABLEKS                       R5 R13 K4 ["Position"]
@@ -50,8 +50,8 @@ PROTO_0:
        70 SETTABLEKS                       R9 R13 K13 ["Text"]
        72 GETTABLEKS                       R14 R10 K26 ["textColor"]
        74 SETTABLEKS                       R14 R13 K18 ["TextColor3"]
-       76 GETUPVAL                         R15 0
-       77 GETTABLEKS                       R14 R15 K27 ["FONT"]
+       76 GETUPVAL                         R14 0
+       77 GETTABLEKS                       R14 R14 K27 ["FONT"]
        79 SETTABLEKS                       R14 R13 K19 ["Font"]
        81 SETTABLEKS                       R3 R13 K20 ["TextSize"]
        83 GETIMPORT                        R14 K30 [Enum.TextXAlignment.Center]
@@ -67,10 +67,10 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -79,9 +79,9 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K7 ["Framework"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R7 R0 K8 ["Src"]
-       25 GETTABLEKS                       R6 R7 K9 ["Util"]
-       27 GETTABLEKS                       R5 R6 K10 ["Constants"]
+       23 GETTABLEKS                       R5 R0 K8 ["Src"]
+       25 GETTABLEKS                       R5 R5 K9 ["Util"]
+       27 GETTABLEKS                       R5 R5 K10 ["Constants"]
        29 CALL                             R4 1 1
        30 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
        32 GETTABLEKS                       R6 R5 K12 ["withContext"]

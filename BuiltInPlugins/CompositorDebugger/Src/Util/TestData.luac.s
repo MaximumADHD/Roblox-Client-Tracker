@@ -33,8 +33,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 LOADN                            R3 0
        15 NEWCLOSURE                       R2 P0
@@ -524,11 +524,11 @@ MAIN:
       762 LOADB                            R8 1
       763 SETTABLEKS                       R8 R7 K125 ["Watches"]
       765 SETTABLEKS                       R7 R6 K119 ["ExpandedSections"]
-      767 GETTABLEKS                       R12 R3 K10 ["children"]
-      769 GETTABLEN                        R11 R12 1
-      770 GETTABLEKS                       R10 R11 K10 ["children"]
-      772 GETTABLEN                        R9 R10 1
-      773 GETTABLEKS                       R8 R9 K10 ["children"]
+      767 GETTABLEKS                       R10 R3 K10 ["children"]
+      769 GETTABLEN                        R9 R10 1
+      770 GETTABLEKS                       R9 R9 K10 ["children"]
+      772 GETTABLEN                        R8 R9 1
+      773 GETTABLEKS                       R8 R8 K10 ["children"]
       775 GETTABLEN                        R7 R8 3
       776 SETTABLEKS                       R7 R6 K120 ["LayerData"]
       778 SETTABLEKS                       R6 R5 K98 ["clipLayerView"]
@@ -539,9 +539,9 @@ MAIN:
       786 LOADB                            R8 1
       787 SETTABLEKS                       R8 R7 K123 ["Properties"]
       789 SETTABLEKS                       R7 R6 K119 ["ExpandedSections"]
-      791 GETTABLEKS                       R10 R3 K10 ["children"]
-      793 GETTABLEN                        R9 R10 1
-      794 GETTABLEKS                       R8 R9 K10 ["children"]
+      791 GETTABLEKS                       R9 R3 K10 ["children"]
+      793 GETTABLEN                        R8 R9 1
+      794 GETTABLEKS                       R8 R8 K10 ["children"]
       796 GETTABLEN                        R7 R8 1
       797 SETTABLEKS                       R7 R6 K120 ["LayerData"]
       799 SETTABLEKS                       R6 R5 K99 ["blend1DLayerView"]
@@ -658,9 +658,9 @@ MAIN:
       966 LOADB                            R8 1
       967 SETTABLEKS                       R8 R7 K123 ["Properties"]
       969 SETTABLEKS                       R7 R6 K119 ["ExpandedSections"]
-      971 GETTABLEKS                       R10 R3 K10 ["children"]
-      973 GETTABLEN                        R9 R10 1
-      974 GETTABLEKS                       R8 R9 K10 ["children"]
+      971 GETTABLEKS                       R9 R3 K10 ["children"]
+      973 GETTABLEN                        R8 R9 1
+      974 GETTABLEKS                       R8 R8 K10 ["children"]
       976 GETTABLEN                        R7 R8 2
       977 SETTABLEKS                       R7 R6 K120 ["LayerData"]
       979 SETTABLEKS                       R6 R5 K102 ["blend2DLayerView"]

@@ -4,8 +4,8 @@ PROTO_0:
         3 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
         5 GETIMPORT                        R0 K1 [setmetatable]
         7 CALL                             R0 2 1
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K2 ["SelectionChangedThisFrame"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K2 ["SelectionChangedThisFrame"]
        11 SETTABLEKS                       R1 R0 K3 ["SelectionChanged"]
        13 RETURN                           R0 1
 
@@ -48,8 +48,8 @@ PROTO_2:
        24 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ActiveInstance"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ActiveInstance"]
         3 RETURN                           R1 1
 
 MAIN:
@@ -58,15 +58,15 @@ MAIN:
         3 LOADK                            R2 K2 ["Selection"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       15 GETTABLEKS                       R3 R1 K7 ["Packages"]
-       17 GETTABLEKS                       R2 R3 K8 ["DraggerFramework"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R1 K7 ["Packages"]
+       17 GETTABLEKS                       R2 R2 K8 ["DraggerFramework"]
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R2 K11 ["Utility"]
-       23 GETTABLEKS                       R4 R5 K12 ["isProtectedInstance"]
+       21 GETTABLEKS                       R4 R2 K11 ["Utility"]
+       23 GETTABLEKS                       R4 R4 K12 ["isProtectedInstance"]
        25 CALL                             R3 1 1
        26 NEWTABLE                         R4 8 0
        28 SETTABLEKS                       R4 R4 K13 ["__index"]

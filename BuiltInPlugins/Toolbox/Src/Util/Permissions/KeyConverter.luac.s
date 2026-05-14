@@ -1,37 +1,37 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["GrantAssetPermissionsAction"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["GrantAssetPermissionsAction"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+5]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["OwnKey"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["OwnKey"]
         8 RETURN                           R1 1
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K2 ["UseAction"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K2 ["UseAction"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K3 ["UseViewKey"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K3 ["UseViewKey"]
        17 RETURN                           R1 1
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R1 R2 K4 ["EditAction"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K4 ["EditAction"]
        21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R1 R2 K5 ["EditKey"]
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K5 ["EditKey"]
        26 RETURN                           R1 1
-       27 GETUPVAL                         R2 0
-       28 GETTABLEKS                       R1 R2 K6 ["UseViewAction"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K6 ["UseViewAction"]
        30 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       32 GETUPVAL                         R2 1
-       33 GETTABLEKS                       R1 R2 K3 ["UseViewKey"]
+       32 GETUPVAL                         R1 1
+       33 GETTABLEKS                       R1 R1 K3 ["UseViewKey"]
        35 RETURN                           R1 1
-       36 GETUPVAL                         R2 0
-       37 GETTABLEKS                       R1 R2 K7 ["RevokedAction"]
+       36 GETUPVAL                         R1 0
+       37 GETTABLEKS                       R1 R1 K7 ["RevokedAction"]
        39 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       41 GETUPVAL                         R2 1
-       42 GETTABLEKS                       R1 R2 K8 ["NoAccessKey"]
+       41 GETUPVAL                         R1 1
+       42 GETTABLEKS                       R1 R1 K8 ["NoAccessKey"]
        44 RETURN                           R1 1
        45 JUMPIFNOTEQKNIL                  R0 ; [+5]
-       47 GETUPVAL                         R2 1
-       48 GETTABLEKS                       R1 R2 K8 ["NoAccessKey"]
+       47 GETUPVAL                         R1 1
+       48 GETTABLEKS                       R1 R1 K8 ["NoAccessKey"]
        50 RETURN                           R1 1
        51 GETIMPORT                        R1 K10 [error]
        53 LOADK                            R3 K11 ["Unsupported Action: "]
@@ -44,23 +44,23 @@ PROTO_0:
        61 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["AccountPermissionLevel"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["AccountPermissionLevel"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+5]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["AccountPermissionLevel"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K0 ["AccountPermissionLevel"]
         8 RETURN                           R1 1
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K1 ["UniversePermissionLevel"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K1 ["UniversePermissionLevel"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K1 ["UniversePermissionLevel"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K1 ["UniversePermissionLevel"]
        17 RETURN                           R1 1
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R1 R2 K2 ["AssetPermissionLevel"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K2 ["AssetPermissionLevel"]
        21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R1 R2 K2 ["AssetPermissionLevel"]
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K2 ["AssetPermissionLevel"]
        26 RETURN                           R1 1
        27 GETIMPORT                        R1 K4 [error]
        29 LOADK                            R3 K5 ["Unsupported PermissionLevel: "]
@@ -73,17 +73,17 @@ PROTO_1:
        37 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["AssetPermissionSource"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["AssetPermissionSource"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+5]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["AssetPermissionSource"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K0 ["AssetPermissionSource"]
         8 RETURN                           R1 1
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K1 ["GroupPermissionSource"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K1 ["GroupPermissionSource"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K1 ["GroupPermissionSource"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K1 ["GroupPermissionSource"]
        17 RETURN                           R1 1
        18 GETIMPORT                        R1 K3 [error]
        20 LOADK                            R3 K4 ["Unsupported PermissionSource: "]
@@ -103,23 +103,23 @@ PROTO_3:
         5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
         6 GETIMPORT                        R1 K2 [assert]
         8 CALL                             R1 2 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K3 ["UserSubjectKey"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K3 ["UserSubjectKey"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 2
-       15 GETTABLEKS                       R1 R2 K4 ["UserSubject"]
+       14 GETUPVAL                         R1 2
+       15 GETTABLEKS                       R1 R1 K4 ["UserSubject"]
        17 RETURN                           R1 1
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R1 R2 K5 ["GroupSubjectKey"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K5 ["GroupSubjectKey"]
        21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R2 2
-       24 GETTABLEKS                       R1 R2 K6 ["GroupSubject"]
+       23 GETUPVAL                         R1 2
+       24 GETTABLEKS                       R1 R1 K6 ["GroupSubject"]
        26 RETURN                           R1 1
-       27 GETUPVAL                         R2 1
-       28 GETTABLEKS                       R1 R2 K7 ["RoleSubjectKey"]
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R1 R1 K7 ["RoleSubjectKey"]
        30 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       32 GETUPVAL                         R2 2
-       33 GETTABLEKS                       R1 R2 K8 ["RoleSubject"]
+       32 GETUPVAL                         R1 2
+       33 GETTABLEKS                       R1 R1 K8 ["RoleSubject"]
        35 RETURN                           R1 1
        36 GETIMPORT                        R1 K10 [error]
        38 LOADK                            R3 K11 ["Invalid SubjectType: "]
@@ -139,29 +139,29 @@ PROTO_4:
         5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
         6 GETIMPORT                        R1 K2 [assert]
         8 CALL                             R1 2 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K3 ["UseViewKey"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K3 ["UseViewKey"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 2
-       15 GETTABLEKS                       R1 R2 K4 ["UseViewAction"]
+       14 GETUPVAL                         R1 2
+       15 GETTABLEKS                       R1 R1 K4 ["UseViewAction"]
        17 RETURN                           R1 1
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R1 R2 K5 ["EditKey"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K5 ["EditKey"]
        21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R2 2
-       24 GETTABLEKS                       R1 R2 K6 ["EditAction"]
+       23 GETUPVAL                         R1 2
+       24 GETTABLEKS                       R1 R1 K6 ["EditAction"]
        26 RETURN                           R1 1
-       27 GETUPVAL                         R2 1
-       28 GETTABLEKS                       R1 R2 K7 ["NoAccessKey"]
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R1 R1 K7 ["NoAccessKey"]
        30 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       32 GETUPVAL                         R2 2
-       33 GETTABLEKS                       R1 R2 K8 ["RevokedAction"]
+       32 GETUPVAL                         R1 2
+       33 GETTABLEKS                       R1 R1 K8 ["RevokedAction"]
        35 RETURN                           R1 1
-       36 GETUPVAL                         R2 1
-       37 GETTABLEKS                       R1 R2 K9 ["RevokedKey"]
+       36 GETUPVAL                         R1 1
+       37 GETTABLEKS                       R1 R1 K9 ["RevokedKey"]
        39 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       41 GETUPVAL                         R2 2
-       42 GETTABLEKS                       R1 R2 K8 ["RevokedAction"]
+       41 GETUPVAL                         R1 2
+       42 GETTABLEKS                       R1 R1 K8 ["RevokedAction"]
        44 RETURN                           R1 1
        45 GETIMPORT                        R1 K11 [error]
        47 LOADK                            R3 K12 ["Invalid Action: "]
@@ -181,17 +181,17 @@ PROTO_5:
         5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
         6 GETIMPORT                        R1 K2 [assert]
         8 CALL                             R1 2 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K3 ["UseViewAction"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K3 ["UseViewAction"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K4 ["UseAction"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K4 ["UseAction"]
        17 RETURN                           R1 1
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R1 R2 K5 ["OwnAction"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K5 ["OwnAction"]
        21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R1 R2 K6 ["EditAction"]
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K6 ["EditAction"]
        26 RETURN                           R1 1
        27 RETURN                           R0 1
 
@@ -203,20 +203,20 @@ PROTO_6:
         5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
         6 GETIMPORT                        R1 K2 [assert]
         8 CALL                             R1 2 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K3 ["RoleSubject"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K3 ["RoleSubject"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K4 ["GroupRolesetSubject"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K4 ["GroupRolesetSubject"]
        17 RETURN                           R1 1
        18 RETURN                           R0 1
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["UnknownError"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["UnknownError"]
         3 JUMPIFNOTEQ                      R1 R3 ; [+32]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["shouldDebugWarnings"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["shouldDebugWarnings"]
         8 CALL                             R3 0 1
         9 JUMPIFNOT                        R3 ; [+22]
        10 GETIMPORT                        R3 K3 [warn]
@@ -236,25 +236,25 @@ PROTO_7:
        29 CALL                             R8 1 1
        30 CALL                             R4 4 -1
        31 CALL                             R3 -1 0
-       32 GETUPVAL                         R4 2
-       33 GETTABLEKS                       R3 R4 K10 ["NoneKey"]
+       32 GETUPVAL                         R3 2
+       33 GETTABLEKS                       R3 R3 K10 ["NoneKey"]
        35 RETURN                           R3 1
-       36 GETUPVAL                         R4 0
-       37 GETTABLEKS                       R3 R4 K11 ["HasPermission"]
+       36 GETUPVAL                         R3 0
+       37 GETTABLEKS                       R3 R3 K11 ["HasPermission"]
        39 JUMPIFNOTEQ                      R1 R3 ; [+7]
-       41 GETUPVAL                         R4 3
-       42 GETTABLEKS                       R3 R4 K12 ["getInternalAction"]
+       41 GETUPVAL                         R3 3
+       42 GETTABLEKS                       R3 R3 K12 ["getInternalAction"]
        44 MOVE                             R4 R0
        45 CALL                             R3 1 -1
        46 RETURN                           R3 -1
-       47 GETUPVAL                         R4 0
-       48 GETTABLEKS                       R3 R4 K13 ["NoPermission"]
+       47 GETUPVAL                         R3 0
+       48 GETTABLEKS                       R3 R3 K13 ["NoPermission"]
        50 JUMPIFNOTEQ                      R1 R3 ; [+5]
-       52 GETUPVAL                         R4 2
-       53 GETTABLEKS                       R3 R4 K14 ["NoAccessKey"]
+       52 GETUPVAL                         R3 2
+       53 GETTABLEKS                       R3 R3 K14 ["NoAccessKey"]
        55 RETURN                           R3 1
-       56 GETUPVAL                         R4 0
-       57 GETTABLEKS                       R3 R4 K15 ["AssetNotFound"]
+       56 GETUPVAL                         R3 0
+       57 GETTABLEKS                       R3 R3 K15 ["AssetNotFound"]
        59 JUMPIFNOTEQ                      R1 R3 ; [+19]
        61 GETIMPORT                        R3 K17 [error]
        63 LOADK                            R5 K18 ["Permissions Error: "]
@@ -289,36 +289,36 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R6 R0 K5 ["Src"]
-       15 GETTABLEKS                       R5 R6 K6 ["Components"]
-       17 GETTABLEKS                       R4 R5 K7 ["AssetConfiguration"]
-       19 GETTABLEKS                       R3 R4 K8 ["Permissions"]
-       21 GETTABLEKS                       R2 R3 K9 ["PermissionsConstants"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Components"]
+       17 GETTABLEKS                       R2 R2 K7 ["AssetConfiguration"]
+       19 GETTABLEKS                       R2 R2 K8 ["Permissions"]
+       21 GETTABLEKS                       R2 R2 K9 ["PermissionsConstants"]
        23 CALL                             R1 1 1
        24 GETIMPORT                        R2 K4 [require]
-       26 GETTABLEKS                       R6 R0 K5 ["Src"]
-       28 GETTABLEKS                       R5 R6 K10 ["Util"]
-       30 GETTABLEKS                       R4 R5 K8 ["Permissions"]
-       32 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       26 GETTABLEKS                       R3 R0 K5 ["Src"]
+       28 GETTABLEKS                       R3 R3 K10 ["Util"]
+       30 GETTABLEKS                       R3 R3 K8 ["Permissions"]
+       32 GETTABLEKS                       R3 R3 K11 ["Constants"]
        34 CALL                             R2 1 1
        35 GETTABLEKS                       R3 R2 K12 ["webKeys"]
        37 GETTABLEKS                       R4 R2 K13 ["webValues"]
        39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R8 R0 K5 ["Src"]
-       43 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       45 GETTABLEKS                       R6 R7 K15 ["getFFlagAACPermissionsPage"]
+       41 GETTABLEKS                       R6 R0 K5 ["Src"]
+       43 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K15 ["getFFlagAACPermissionsPage"]
        47 CALL                             R5 1 1
        48 NEWTABLE                         R6 8 0
        50 GETIMPORT                        R7 K4 [require]
-       52 GETTABLEKS                       R10 R0 K5 ["Src"]
-       54 GETTABLEKS                       R9 R10 K10 ["Util"]
-       56 GETTABLEKS                       R8 R9 K16 ["DebugFlags"]
+       52 GETTABLEKS                       R8 R0 K5 ["Src"]
+       54 GETTABLEKS                       R8 R8 K10 ["Util"]
+       56 GETTABLEKS                       R8 R8 K16 ["DebugFlags"]
        58 CALL                             R7 1 1
        59 DUPCLOSURE                       R8 K17 [PROTO_0]
        60 CAPTURE                          VAL R3

@@ -5,19 +5,19 @@ PROTO_0:
         4 LOADB                            R1 0
         5 LENGTH                           R2 R0
         6 JUMPIFNOTEQKN                    R2 K1 [1] ; [+6]
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K2 ["hasInputPin"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K2 ["hasInputPin"]
        11 GETTABLEN                        R2 R0 1
        12 CALL                             R1 1 1
        13 LOADB                            R2 0
        14 LENGTH                           R3 R0
        15 JUMPIFNOTEQKN                    R3 K1 [1] ; [+6]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R2 R3 K3 ["hasOutputPin"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K3 ["hasOutputPin"]
        20 GETTABLEN                        R3 R0 1
        21 CALL                             R2 1 1
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K4 ["getWirableInstances"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K4 ["getWirableInstances"]
        25 MOVE                             R4 R0
        26 CALL                             R3 1 2
        27 LOADB                            R5 0
@@ -38,13 +38,13 @@ PROTO_0:
        48 SETTABLEKS                       R7 R6 K5 ["Uri"]
        50 SETTABLEKS                       R1 R6 K6 ["Enabled"]
        52 SETTABLEKS                       R1 R6 K7 ["Visible"]
-       54 GETUPVAL                         R8 2
-       55 GETTABLEKS                       R7 R8 K21 ["action"]
+       54 GETUPVAL                         R7 2
+       55 GETTABLEKS                       R7 R7 K21 ["action"]
        57 LOADK                            R8 K22 ["InsertBefore"]
        58 CALL                             R7 1 1
        59 SETTABLEKS                       R7 R6 K8 ["Text"]
-       61 GETUPVAL                         R8 2
-       62 GETTABLEKS                       R7 R8 K23 ["tooltip"]
+       61 GETUPVAL                         R7 2
+       62 GETTABLEKS                       R7 R7 K23 ["tooltip"]
        64 LOADK                            R8 K22 ["InsertBefore"]
        65 CALL                             R7 1 1
        66 SETTABLEKS                       R7 R6 K9 ["Tooltip"]
@@ -63,13 +63,13 @@ PROTO_0:
        86 SETTABLEKS                       R8 R7 K5 ["Uri"]
        88 SETTABLEKS                       R2 R7 K6 ["Enabled"]
        90 SETTABLEKS                       R2 R7 K7 ["Visible"]
-       92 GETUPVAL                         R9 2
-       93 GETTABLEKS                       R8 R9 K21 ["action"]
+       92 GETUPVAL                         R8 2
+       93 GETTABLEKS                       R8 R8 K21 ["action"]
        95 LOADK                            R9 K25 ["InsertAfter"]
        96 CALL                             R8 1 1
        97 SETTABLEKS                       R8 R7 K8 ["Text"]
-       99 GETUPVAL                         R9 2
-      100 GETTABLEKS                       R8 R9 K23 ["tooltip"]
+       99 GETUPVAL                         R8 2
+      100 GETTABLEKS                       R8 R8 K23 ["tooltip"]
       102 LOADK                            R9 K25 ["InsertAfter"]
       103 CALL                             R8 1 1
       104 SETTABLEKS                       R8 R7 K9 ["Tooltip"]
@@ -88,13 +88,13 @@ PROTO_0:
       124 SETTABLEKS                       R9 R8 K5 ["Uri"]
       126 SETTABLEKS                       R5 R8 K6 ["Enabled"]
       128 SETTABLEKS                       R5 R8 K7 ["Visible"]
-      130 GETUPVAL                         R10 2
-      131 GETTABLEKS                       R9 R10 K21 ["action"]
+      130 GETUPVAL                         R9 2
+      131 GETTABLEKS                       R9 R9 K21 ["action"]
       133 LOADK                            R10 K27 ["InsertBetween"]
       134 CALL                             R9 1 1
       135 SETTABLEKS                       R9 R8 K8 ["Text"]
-      137 GETUPVAL                         R10 2
-      138 GETTABLEKS                       R9 R10 K23 ["tooltip"]
+      137 GETUPVAL                         R9 2
+      138 GETTABLEKS                       R9 R9 K23 ["tooltip"]
       140 LOADK                            R10 K27 ["InsertBetween"]
       141 CALL                             R9 1 1
       142 SETTABLEKS                       R9 R8 K9 ["Tooltip"]
@@ -133,8 +133,8 @@ PROTO_2:
         8 CAPTURE                          VAL R1
         9 MOVE                             R3 R2
        10 CALL                             R3 0 0
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K2 ["SelectionChanged"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K2 ["SelectionChanged"]
        14 NEWCLOSURE                       R5 P1
        15 CAPTURE                          VAL R2
        16 NAMECALL                         R3 R3 K3 ["Connect"]
@@ -163,14 +163,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["LocalizationUtil"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["LocalizationUtil"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["WiringUtil"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["WiringUtil"]
        30 CALL                             R3 1 1
        31 LOADNIL                          R4
        32 NEWTABLE                         R5 2 0

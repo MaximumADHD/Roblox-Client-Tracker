@@ -142,8 +142,8 @@ PROTO_10:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R3 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R2 R3 K3 ["taxRate"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["taxRate"]
        10 RETURN                           R2 1
 
 PROTO_11:
@@ -151,8 +151,8 @@ PROTO_11:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R3 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R2 R3 K3 ["minimumFee"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["minimumFee"]
        10 RETURN                           R2 1
 
 PROTO_12:
@@ -176,8 +176,8 @@ PROTO_13:
        10 JUMPIFNOTEQKN                    R4 K3 [200] ; [+10]
        12 GETTABLEKS                       R4 R3 K4 ["responseBody"]
        14 JUMPIFNOT                        R4 ; [+6]
-       15 GETTABLEKS                       R5 R3 K4 ["responseBody"]
-       17 GETTABLEKS                       R4 R5 K5 ["isUniverseEligible"]
+       15 GETTABLEKS                       R4 R3 K4 ["responseBody"]
+       17 GETTABLEKS                       R4 R4 K5 ["isUniverseEligible"]
        19 JUMPIFNOTEQKNIL                  R4 ; [+12]
        21 GETUPVAL                         R4 0
        22 LOADK                            R5 K6 ["/developer-ads-stats-api/v1/universe-suitability-criteria"]
@@ -190,20 +190,20 @@ PROTO_13:
        30 LOADNIL                          R4
        31 RETURN                           R4 1
        32 DUPTABLE                         R4 K10 [{"isUniverseEligible", "isUniverseSuspendedFromRewardedAds", "hasUniverseBeenEligible"}]
-       33 GETTABLEKS                       R7 R3 K4 ["responseBody"]
-       35 GETTABLEKS                       R6 R7 K5 ["isUniverseEligible"]
+       33 GETTABLEKS                       R6 R3 K4 ["responseBody"]
+       35 GETTABLEKS                       R6 R6 K5 ["isUniverseEligible"]
        37 JUMPIFEQKB                       R6 TRUE ; [+2]
        39 LOADB                            R5 0 +1
        40 LOADB                            R5 1
        41 SETTABLEKS                       R5 R4 K5 ["isUniverseEligible"]
-       43 GETTABLEKS                       R7 R3 K4 ["responseBody"]
-       45 GETTABLEKS                       R6 R7 K8 ["isUniverseSuspendedFromRewardedAds"]
+       43 GETTABLEKS                       R6 R3 K4 ["responseBody"]
+       45 GETTABLEKS                       R6 R6 K8 ["isUniverseSuspendedFromRewardedAds"]
        47 JUMPIFEQKB                       R6 TRUE ; [+2]
        49 LOADB                            R5 0 +1
        50 LOADB                            R5 1
        51 SETTABLEKS                       R5 R4 K8 ["isUniverseSuspendedFromRewardedAds"]
-       53 GETTABLEKS                       R7 R3 K4 ["responseBody"]
-       55 GETTABLEKS                       R6 R7 K9 ["hasUniverseBeenEligible"]
+       53 GETTABLEKS                       R6 R3 K4 ["responseBody"]
+       55 GETTABLEKS                       R6 R6 K9 ["hasUniverseBeenEligible"]
        57 JUMPIFEQKB                       R6 TRUE ; [+2]
        59 LOADB                            R5 0 +1
        60 LOADB                            R5 1
@@ -233,13 +233,13 @@ PROTO_15:
        12 JUMPIFNOTEQKN                    R4 K3 [200] ; [+10]
        14 GETTABLEKS                       R4 R3 K4 ["responseBody"]
        16 JUMPIFNOT                        R4 ; [+6]
-       17 GETTABLEKS                       R5 R3 K4 ["responseBody"]
-       19 GETTABLEKS                       R4 R5 K5 ["showRewardedAdsToggle"]
+       17 GETTABLEKS                       R4 R3 K4 ["responseBody"]
+       19 GETTABLEKS                       R4 R4 K5 ["showRewardedAdsToggle"]
        21 JUMPIFNOTEQKNIL                  R4 ; [+3]
        23 LOADB                            R4 0
        24 RETURN                           R4 1
-       25 GETTABLEKS                       R6 R3 K4 ["responseBody"]
-       27 GETTABLEKS                       R5 R6 K5 ["showRewardedAdsToggle"]
+       25 GETTABLEKS                       R5 R3 K4 ["responseBody"]
+       27 GETTABLEKS                       R5 R5 K5 ["showRewardedAdsToggle"]
        29 JUMPIFEQKB                       R5 TRUE ; [+2]
        31 LOADB                            R4 0 +1
        32 LOADB                            R4 1
@@ -249,8 +249,8 @@ PROTO_15:
        37 CALL                             R2 2 1
        38 NAMECALL                         R2 R2 K7 ["await"]
        40 CALL                             R2 1 1
-       41 GETTABLEKS                       R4 R2 K4 ["responseBody"]
-       43 GETTABLEKS                       R3 R4 K5 ["showRewardedAdsToggle"]
+       41 GETTABLEKS                       R3 R2 K4 ["responseBody"]
+       43 GETTABLEKS                       R3 R3 K5 ["showRewardedAdsToggle"]
        45 RETURN                           R3 1
 
 PROTO_16:
@@ -259,8 +259,8 @@ PROTO_16:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isRewardedOnDemandAdsAllowed"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isRewardedOnDemandAdsAllowed"]
        11 RETURN                           R3 1
 
 PROTO_17:
@@ -277,8 +277,8 @@ PROTO_18:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isForSale"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isForSale"]
        11 RETURN                           R3 1
 
 PROTO_19:
@@ -295,8 +295,8 @@ PROTO_20:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["price"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["price"]
        11 RETURN                           R3 1
 
 PROTO_21:
@@ -313,8 +313,8 @@ PROTO_22:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isEnabled"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isEnabled"]
        11 RETURN                           R3 1
 
 PROTO_23:
@@ -331,8 +331,8 @@ PROTO_24:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["price"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["price"]
        11 RETURN                           R3 1
 
 PROTO_25:
@@ -349,8 +349,8 @@ PROTO_26:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["activeServersCount"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["activeServersCount"]
        11 RETURN                           R3 1
 
 PROTO_27:
@@ -359,8 +359,8 @@ PROTO_27:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["activeSubscriptionsCount"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["activeSubscriptionsCount"]
        11 RETURN                           R3 1
 
 PROTO_28:
@@ -377,13 +377,13 @@ PROTO_29:
         4 CALL                             R3 3 1
         5 NAMECALL                         R3 R3 K1 ["await"]
         7 CALL                             R3 1 1
-        8 GETTABLEKS                       R5 R3 K2 ["responseBody"]
-       10 GETTABLEKS                       R4 R5 K3 ["nextPageCursor"]
+        8 GETTABLEKS                       R4 R3 K2 ["responseBody"]
+       10 GETTABLEKS                       R4 R4 K3 ["nextPageCursor"]
        12 JUMPIF                           R4 ; [+3]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K4 ["None"]
-       16 GETTABLEKS                       R6 R3 K2 ["responseBody"]
-       18 GETTABLEKS                       R5 R6 K5 ["developerProducts"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K4 ["None"]
+       16 GETTABLEKS                       R5 R3 K2 ["responseBody"]
+       18 GETTABLEKS                       R5 R5 K5 ["developerProducts"]
        20 NEWTABLE                         R6 0 0
        22 GETIMPORT                        R7 K7 [ipairs]
        24 MOVE                             R8 R5
@@ -430,8 +430,8 @@ PROTO_32:
         7 CALL                             R3 1 1
         8 GETTABLEKS                       R4 R3 K2 ["responseBody"]
        10 GETTABLEKS                       R2 R4 K3 ["nextPageCursor"]
-       12 GETTABLEKS                       R5 R3 K2 ["responseBody"]
-       14 GETTABLEKS                       R4 R5 K4 ["data"]
+       12 GETTABLEKS                       R4 R3 K2 ["responseBody"]
+       14 GETTABLEKS                       R4 R4 K4 ["data"]
        16 NEWTABLE                         R5 0 0
        18 GETIMPORT                        R6 K6 [ipairs]
        20 MOVE                             R7 R4
@@ -457,27 +457,27 @@ PROTO_32:
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 32 0
-        3 GETIMPORT                        R5 K1 [script]
-        5 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        7 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R3 K2 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        3 GETIMPORT                        R1 K1 [script]
+        5 GETTABLEKS                       R1 R1 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K2 ["Parent"]
        13 GETIMPORT                        R2 K4 [require]
-       15 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K6 ["Cryo"]
+       15 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K6 ["Cryo"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K4 [require]
-       22 GETIMPORT                        R8 K1 [script]
-       24 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       26 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       28 GETTABLEKS                       R5 R6 K7 ["Util"]
-       30 GETTABLEKS                       R4 R5 K8 ["telemetry"]
+       22 GETIMPORT                        R4 K1 [script]
+       24 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       26 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       28 GETTABLEKS                       R4 R4 K7 ["Util"]
+       30 GETTABLEKS                       R4 R4 K8 ["telemetry"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K4 [require]
-       35 GETIMPORT                        R8 K1 [script]
-       37 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       39 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       41 GETTABLEKS                       R5 R6 K9 ["Flags"]
+       35 GETIMPORT                        R5 K1 [script]
+       37 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       39 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       41 GETTABLEKS                       R5 R5 K9 ["Flags"]
        43 CALL                             R4 1 1
        44 GETTABLEKS                       R5 R4 K10 ["GetFFlagEnableDeveloperAdsStatsApiMonetizationPageFix"]
        46 CALL                             R5 0 1

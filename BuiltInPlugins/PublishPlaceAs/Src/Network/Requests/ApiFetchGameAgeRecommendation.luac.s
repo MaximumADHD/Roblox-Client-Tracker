@@ -14,12 +14,12 @@ PROTO_0:
        19 FORGPREP_NEXT                    R3
        20 GETTABLEKS                       R8 R7 K7 ["ageRecommendationDetails"]
        22 JUMPIFNOT                        R8 ; [+11]
-       23 GETTABLEKS                       R9 R7 K7 ["ageRecommendationDetails"]
-       25 GETTABLEKS                       R8 R9 K8 ["ageRecommendationSummary"]
+       23 GETTABLEKS                       R8 R7 K7 ["ageRecommendationDetails"]
+       25 GETTABLEKS                       R8 R8 K8 ["ageRecommendationSummary"]
        27 JUMPIFNOT                        R8 ; [+6]
-       28 GETTABLEKS                       R10 R7 K7 ["ageRecommendationDetails"]
-       30 GETTABLEKS                       R9 R10 K8 ["ageRecommendationSummary"]
-       32 GETTABLEKS                       R8 R9 K9 ["ageRecommendation"]
+       28 GETTABLEKS                       R8 R7 K7 ["ageRecommendationDetails"]
+       30 GETTABLEKS                       R8 R8 K8 ["ageRecommendationSummary"]
+       32 GETTABLEKS                       R8 R8 K9 ["ageRecommendation"]
        34 JUMPIFNOT                        R8 ; [+3]
        35 GETTABLEKS                       R9 R8 K10 ["minimumAge"]
        37 JUMPIF                           R9 ; [+1]
@@ -38,8 +38,8 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R1 K3 [{"Url", "Method", "Body"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K4 ["BuildRobloxUrl"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K4 ["BuildRobloxUrl"]
         4 LOADK                            R3 K5 ["apis"]
         5 LOADK                            R4 K6 ["experience-guidelines-service/v1beta1/multi-age-recommendation"]
         6 CALL                             R2 2 1
@@ -52,8 +52,8 @@ PROTO_1:
        16 NAMECALL                         R2 R2 K10 ["JSONEncode"]
        18 CALL                             R2 2 1
        19 SETTABLEKS                       R2 R1 K2 ["Body"]
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R2 R3 K11 ["Request"]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K11 ["Request"]
        24 MOVE                             R3 R1
        25 CALL                             R2 1 1
        26 DUPCLOSURE                       R4 K12 [PROTO_0]
@@ -64,15 +64,15 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Network"]
-       17 GETTABLEKS                       R2 R3 K7 ["Http"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Network"]
+       17 GETTABLEKS                       R2 R2 K7 ["Http"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K9 [game]
        22 LOADK                            R4 K10 ["HttpService"]

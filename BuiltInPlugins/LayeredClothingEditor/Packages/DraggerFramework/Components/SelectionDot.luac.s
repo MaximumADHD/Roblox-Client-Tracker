@@ -1,29 +1,29 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["CurrentCamera"]
-        3 GETTABLEKS                       R4 R0 K1 ["props"]
-        5 GETTABLEKS                       R3 R4 K2 ["Position"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["CurrentCamera"]
+        3 GETTABLEKS                       R3 R0 K1 ["props"]
+        5 GETTABLEKS                       R3 R3 K2 ["Position"]
         7 NAMECALL                         R1 R1 K3 ["WorldToScreenPoint"]
         9 CALL                             R1 2 2
        10 JUMPIF                           R2 ; [+2]
        11 LOADNIL                          R3
        12 RETURN                           R3 1
-       13 GETTABLEKS                       R4 R0 K1 ["props"]
-       15 GETTABLEKS                       R3 R4 K4 ["Size"]
-       17 GETUPVAL                         R5 1
-       18 GETTABLEKS                       R4 R5 K5 ["createElement"]
+       13 GETTABLEKS                       R3 R0 K1 ["props"]
+       15 GETTABLEKS                       R3 R3 K4 ["Size"]
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R4 R4 K5 ["createElement"]
        20 LOADK                            R5 K6 ["ScreenGui"]
        21 NEWTABLE                         R6 0 0
        23 NEWTABLE                         R7 0 1
-       25 GETUPVAL                         R9 1
-       26 GETTABLEKS                       R8 R9 K5 ["createElement"]
+       25 GETUPVAL                         R8 1
+       26 GETTABLEKS                       R8 R8 K5 ["createElement"]
        28 LOADK                            R9 K7 ["Frame"]
        29 DUPTABLE                         R10 K12 [{"BackgroundColor3", "BorderColor3", "BorderSizePixel", "Position", "Selectable", "Size"}]
-       30 GETTABLEKS                       R12 R0 K1 ["props"]
-       32 GETTABLEKS                       R11 R12 K8 ["BackgroundColor3"]
+       30 GETTABLEKS                       R11 R0 K1 ["props"]
+       32 GETTABLEKS                       R11 R11 K8 ["BackgroundColor3"]
        34 SETTABLEKS                       R11 R10 K8 ["BackgroundColor3"]
-       36 GETTABLEKS                       R12 R0 K1 ["props"]
-       38 GETTABLEKS                       R11 R12 K9 ["BorderColor3"]
+       36 GETTABLEKS                       R11 R0 K1 ["props"]
+       38 GETTABLEKS                       R11 R11 K9 ["BorderColor3"]
        40 SETTABLEKS                       R11 R10 K9 ["BorderColor3"]
        42 LOADN                            R11 1
        43 SETTABLEKS                       R11 R10 K10 ["BorderSizePixel"]
@@ -54,18 +54,18 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       13 GETTABLEKS                       R3 R1 K6 ["Parent"]
-       15 GETTABLEKS                       R2 R3 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
        17 GETIMPORT                        R3 K8 [require]
-       19 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       21 GETTABLEKS                       R4 R5 K10 ["Roact"]
+       19 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K10 ["Roact"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K8 [require]
-       26 GETTABLEKS                       R6 R1 K11 ["Utility"]
-       28 GETTABLEKS                       R5 R6 K12 ["Colors"]
+       26 GETTABLEKS                       R5 R1 K11 ["Utility"]
+       28 GETTABLEKS                       R5 R5 K12 ["Colors"]
        30 CALL                             R4 1 1
        31 GETTABLEKS                       R5 R3 K13 ["Component"]
        33 LOADK                            R7 K14 ["SelectionDot"]

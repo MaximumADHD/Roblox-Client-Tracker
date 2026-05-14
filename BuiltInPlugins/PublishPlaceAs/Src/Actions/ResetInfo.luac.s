@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        3 GETTABLEKS                       R2 R3 K1 ["CREATE_NEW_GAME"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        3 GETTABLEKS                       R2 R2 K1 ["CREATE_NEW_GAME"]
         5 JUMPIFNOT                        R1 ; [+5]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["SCREENS"]
         9 GETTABLEKS                       R2 R3 K2 ["CHOOSE_GAME"]
        11 DUPTABLE                         R3 K12 [{"placeInfo", "gameInfo", "groupInfo", "current", "changed", "errors", "publishInfo", "isPublishing", "screen"}]
        12 DUPTABLE                         R4 K15 [{"places", "parentGame"}]
@@ -27,8 +27,8 @@ PROTO_0:
        42 SETTABLEKS                       R0 R4 K20 ["name"]
        44 LOADK                            R5 K26 [""]
        45 SETTABLEKS                       R5 R4 K21 ["description"]
-       47 GETUPVAL                         R7 0
-       48 GETTABLEKS                       R6 R7 K27 ["GENRE_IDS"]
+       47 GETUPVAL                         R6 0
+       48 GETTABLEKS                       R6 R6 K27 ["GENRE_IDS"]
        50 GETTABLEN                        R5 R6 1
        51 SETTABLEKS                       R5 R4 K22 ["genre"]
        53 DUPTABLE                         R5 K32 [{"Computer", "Phone", "Tablet", "VR"}]
@@ -65,34 +65,34 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Resources"]
-       15 GETTABLEKS                       R2 R3 K7 ["Constants"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Resources"]
+       15 GETTABLEKS                       R2 R2 K7 ["Constants"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETIMPORT                        R5 K1 [script]
-       22 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       24 GETTABLEKS                       R3 R4 K8 ["Action"]
+       20 GETIMPORT                        R3 K1 [script]
+       22 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       24 GETTABLEKS                       R3 R3 K8 ["Action"]
        26 CALL                             R2 1 1
-       27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R7 R0 K5 ["Src"]
-       31 GETTABLEKS                       R6 R7 K9 ["Util"]
-       33 GETTABLEKS                       R5 R6 K10 ["PublishPlaceAsUtilities"]
-       35 CALL                             R4 1 1
-       36 GETTABLEKS                       R3 R4 K11 ["shouldShowDevPublishLocations"]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Util"]
+       33 GETTABLEKS                       R4 R4 K10 ["PublishPlaceAsUtilities"]
+       35 CALL                             R3 1 1
+       36 GETTABLEKS                       R3 R3 K11 ["shouldShowDevPublishLocations"]
        38 LOADNIL                          R4
        39 MOVE                             R5 R3
        40 CALL                             R5 0 1
        41 JUMPIFNOT                        R5 ; [+2]
        42 NEWTABLE                         R4 0 0
        44 MOVE                             R5 R2
-       45 GETIMPORT                        R7 K1 [script]
-       47 GETTABLEKS                       R6 R7 K12 ["Name"]
+       45 GETIMPORT                        R6 K1 [script]
+       47 GETTABLEKS                       R6 R6 K12 ["Name"]
        49 NEWCLOSURE                       R7 P0
        50 CAPTURE                          VAL R1
        51 CAPTURE                          REF R4

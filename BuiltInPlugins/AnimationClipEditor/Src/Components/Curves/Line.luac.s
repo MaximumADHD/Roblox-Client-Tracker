@@ -54,8 +54,8 @@ PROTO_0:
        78 FASTCALL2                        MATH_ATAN2 R8 R9 ; [+3]
        80 GETIMPORT                        R7 K15 [math.atan2]
        82 CALL                             R7 2 1
-       83 GETUPVAL                         R9 0
-       84 GETTABLEKS                       R8 R9 K16 ["createElement"]
+       83 GETUPVAL                         R8 0
+       84 GETTABLEKS                       R8 R8 K16 ["createElement"]
        86 LOADK                            R9 K17 ["Frame"]
        87 DUPTABLE                         R10 K27 [{"Position", "Size", "AnchorPoint", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Rotation", "ZIndex"}]
        88 SETTABLEKS                       R4 R10 K18 ["Position"]
@@ -90,8 +90,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
        16 LOADK                            R4 K9 ["Line"]

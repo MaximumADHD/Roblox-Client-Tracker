@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["RunningUnderCLI"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["RunningUnderCLI"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+2]
         5 LOADB                            R0 1
@@ -16,26 +16,26 @@ PROTO_0:
        19 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["RunningUnderCLI"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["RunningUnderCLI"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+2]
         5 LOADK                            R0 K1 ["en"]
         6 RETURN                           R0 1
-        7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R0 R1 K2 ["StudioLocaleId"]
+        7 GETUPVAL                         R0 1
+        8 GETTABLEKS                       R0 R0 K2 ["StudioLocaleId"]
        10 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K9 [game]
        20 LOADK                            R4 K10 ["StudioService"]

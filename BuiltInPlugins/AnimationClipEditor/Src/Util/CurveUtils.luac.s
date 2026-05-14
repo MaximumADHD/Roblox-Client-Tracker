@@ -87,14 +87,14 @@ PROTO_1:
        67 MOVE                             R24 R27
        68 SUBRK                            R25 R9 K25 [NULL]
        69 SUBRK                            R26 R9 K26 [NULL]
-       70 GETUPVAL                         R28 0
-       71 GETTABLEKS                       R27 R28 K14 ["getNearestTick"]
+       70 GETUPVAL                         R27 0
+       71 GETTABLEKS                       R27 R27 K14 ["getNearestTick"]
        73 MUL                              R29 R22 R9
        74 ADD                              R28 R1 R29
        75 CALL                             R27 1 1
        76 MOVE                             R20 R27
-       77 GETUPVAL                         R28 1
-       78 GETTABLEKS                       R27 R28 K15 ["keyframe"]
+       77 GETUPVAL                         R27 1
+       78 GETTABLEKS                       R27 R27 K15 ["keyframe"]
        80 CALL                             R27 0 1
        81 MOVE                             R21 R27
        82 GETIMPORT                        R27 K18 [Enum.KeyInterpolationMode.Cubic]
@@ -117,14 +117,14 @@ PROTO_1:
       110 GETTABLEKS                       R16 R21 K21 ["RightSlope"]
       112 JUMP                             ; [+2]
       113 GETTABLEKS                       R16 R21 K20 ["LeftSlope"]
-      115 GETUPVAL                         R28 0
-      116 GETTABLEKS                       R27 R28 K14 ["getNearestTick"]
+      115 GETUPVAL                         R27 0
+      116 GETTABLEKS                       R27 R27 K14 ["getNearestTick"]
       118 MUL                              R29 R25 R9
       119 ADD                              R28 R1 R29
       120 CALL                             R27 1 1
       121 MOVE                             R20 R27
-      122 GETUPVAL                         R28 1
-      123 GETTABLEKS                       R27 R28 K15 ["keyframe"]
+      122 GETUPVAL                         R27 1
+      123 GETTABLEKS                       R27 R27 K15 ["keyframe"]
       125 CALL                             R27 0 1
       126 MOVE                             R21 R27
       127 GETIMPORT                        R27 K18 [Enum.KeyInterpolationMode.Cubic]
@@ -218,13 +218,13 @@ PROTO_2:
        49 JUMPIFNOTEQ                      R0 R18 ; [+3]
        51 SUBRK                            R16 R8 K16 [Enum.PoseEasingDirection.In]
        52 SUBRK                            R17 R8 K17 ["getNearestTick"]
-       53 GETUPVAL                         R19 0
-       54 GETTABLEKS                       R18 R19 K17 ["getNearestTick"]
+       53 GETUPVAL                         R18 0
+       54 GETTABLEKS                       R18 R18 K17 ["getNearestTick"]
        56 MUL                              R20 R16 R9
        57 ADD                              R19 R1 R20
        58 CALL                             R18 1 1
-       59 GETUPVAL                         R20 1
-       60 GETTABLEKS                       R19 R20 K18 ["keyframe"]
+       59 GETUPVAL                         R19 1
+       60 GETTABLEKS                       R19 R19 K18 ["keyframe"]
        62 CALL                             R19 0 1
        63 GETIMPORT                        R20 K21 [Enum.KeyInterpolationMode.Cubic]
        65 SETTABLEKS                       R20 R19 K22 ["InterpolationMode"]
@@ -269,29 +269,29 @@ PROTO_2:
 PROTO_3:
         0 NEWTABLE                         R7 4 0
         2 GETIMPORT                        R8 K3 [Enum.PoseEasingStyle.Cubic]
-        4 GETUPVAL                         R10 0
-        5 GETTABLEKS                       R9 R10 K4 ["makeCubic"]
+        4 GETUPVAL                         R9 0
+        5 GETTABLEKS                       R9 R9 K4 ["makeCubic"]
         7 SETTABLE                         R9 R7 R8
         8 GETIMPORT                        R8 K6 [Enum.PoseEasingStyle.Bounce]
-       10 GETUPVAL                         R10 0
-       11 GETTABLEKS                       R9 R10 K7 ["makeBounce"]
+       10 GETUPVAL                         R9 0
+       11 GETTABLEKS                       R9 R9 K7 ["makeBounce"]
        13 SETTABLE                         R9 R7 R8
        14 GETIMPORT                        R8 K9 [Enum.PoseEasingStyle.Elastic]
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K10 ["makeElastic"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K10 ["makeElastic"]
        19 SETTABLE                         R9 R7 R8
        20 GETIMPORT                        R8 K12 [Enum.PoseEasingStyle.CubicV2]
-       22 GETUPVAL                         R10 0
-       23 GETTABLEKS                       R9 R10 K4 ["makeCubic"]
+       22 GETUPVAL                         R9 0
+       23 GETTABLEKS                       R9 R9 K4 ["makeCubic"]
        25 SETTABLE                         R9 R7 R8
-       26 GETUPVAL                         R11 1
-       27 GETTABLEKS                       R10 R11 K13 ["TRACK_TYPES"]
-       29 GETTABLEKS                       R9 R10 K14 ["Quaternion"]
+       26 GETUPVAL                         R9 1
+       27 GETTABLEKS                       R9 R9 K13 ["TRACK_TYPES"]
+       29 GETTABLEKS                       R9 R9 K14 ["Quaternion"]
        31 JUMPIFEQ                         R0 R9 ; [+2]
        33 LOADB                            R8 0 +1
        34 LOADB                            R8 1
-       35 GETUPVAL                         R11 1
-       36 GETTABLEKS                       R10 R11 K15 ["POSE_EASING_STYLE_TO_KEY_INTERPOLATION"]
+       35 GETUPVAL                         R10 1
+       36 GETTABLEKS                       R10 R10 K15 ["POSE_EASING_STYLE_TO_KEY_INTERPOLATION"]
        38 GETTABLE                         R9 R10 R1
        39 SETTABLEKS                       R9 R4 K16 ["InterpolationMode"]
        41 LOADNIL                          R9
@@ -304,13 +304,13 @@ PROTO_3:
        53 JUMPIFEQ                         R1 R9 ; [+73]
        55 GETIMPORT                        R9 K25 [Enum.PoseEasingStyle.Linear]
        57 JUMPIFEQ                         R1 R9 ; [+69]
-       59 GETUPVAL                         R10 2
-       60 GETTABLEKS                       R9 R10 K26 ["getNearestTick"]
+       59 GETUPVAL                         R9 2
+       60 GETTABLEKS                       R9 R9 K26 ["getNearestTick"]
        62 ADD                              R11 R3 R5
        63 MULK                             R10 R11 K27 [0.5]
        64 CALL                             R9 1 1
-       65 GETUPVAL                         R11 3
-       66 GETTABLEKS                       R10 R11 K28 ["keyframe"]
+       65 GETUPVAL                         R10 3
+       66 GETTABLEKS                       R10 R10 K28 ["keyframe"]
        68 CALL                             R10 0 1
        69 JUMPIFNOT                        R8 ; [+11]
        70 GETTABLEKS                       R11 R4 K29 ["Value"]
@@ -325,8 +325,8 @@ PROTO_3:
        85 ADD                              R12 R13 R14
        86 MULK                             R11 R12 K27 [0.5]
        87 SETTABLEKS                       R11 R10 K29 ["Value"]
-       89 GETUPVAL                         R12 0
-       90 GETTABLEKS                       R11 R12 K31 ["generateCurve"]
+       89 GETUPVAL                         R11 0
+       90 GETTABLEKS                       R11 R11 K31 ["generateCurve"]
        92 MOVE                             R12 R0
        93 MOVE                             R13 R1
        94 GETIMPORT                        R14 K33 [Enum.PoseEasingDirection.In]
@@ -335,8 +335,8 @@ PROTO_3:
        98 MOVE                             R17 R9
        99 MOVE                             R18 R10
       100 CALL                             R11 7 1
-      101 GETUPVAL                         R13 0
-      102 GETTABLEKS                       R12 R13 K31 ["generateCurve"]
+      101 GETUPVAL                         R12 0
+      102 GETTABLEKS                       R12 R12 K31 ["generateCurve"]
       104 MOVE                             R13 R0
       105 MOVE                             R14 R1
       106 GETIMPORT                        R15 K35 [Enum.PoseEasingDirection.Out]
@@ -345,9 +345,9 @@ PROTO_3:
       110 MOVE                             R18 R5
       111 MOVE                             R19 R6
       112 CALL                             R12 7 1
-      113 GETUPVAL                         R15 4
-      114 GETTABLEKS                       R14 R15 K36 ["Dictionary"]
-      116 GETTABLEKS                       R13 R14 K37 ["join"]
+      113 GETUPVAL                         R13 4
+      114 GETTABLEKS                       R13 R13 K36 ["Dictionary"]
+      116 GETTABLEKS                       R13 R13 K37 ["join"]
       118 MOVE                             R14 R11
       119 MOVE                             R15 R12
       120 CALL                             R13 2 1
@@ -501,23 +501,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["KeyframeUtils"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["KeyframeUtils"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["Templates"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K11 ["Templates"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Util"]
+       38 GETTABLEKS                       R5 R5 K12 ["Constants"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 8 0
        43 DUPCLOSURE                       R6 K13 [PROTO_0]

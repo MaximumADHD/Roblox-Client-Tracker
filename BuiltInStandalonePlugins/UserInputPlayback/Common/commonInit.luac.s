@@ -5,24 +5,24 @@ PROTO_0:
         3 LOADB                            R0 1
         4 SETUPVAL                         R0 0
         5 GETIMPORT                        R0 K1 [require]
-        7 GETIMPORT                        R3 K3 [script]
-        9 GETTABLEKS                       R2 R3 K4 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        7 GETIMPORT                        R1 K3 [script]
+        9 GETTABLEKS                       R1 R1 K4 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
        13 CALL                             R0 1 0
-       14 GETIMPORT                        R2 K3 [script]
-       16 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       18 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       14 GETIMPORT                        R0 K3 [script]
+       16 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       18 GETTABLEKS                       R0 R0 K4 ["Parent"]
        20 GETIMPORT                        R1 K1 [require]
-       22 GETTABLEKS                       R4 R0 K6 ["Src"]
-       24 GETTABLEKS                       R3 R4 K7 ["Util"]
-       26 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+       22 GETTABLEKS                       R2 R0 K6 ["Src"]
+       24 GETTABLEKS                       R2 R2 K7 ["Util"]
+       26 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        28 CALL                             R1 1 1
        29 GETTABLEKS                       R2 R1 K9 ["EnableRoactConfigs"]
        31 CALL                             R2 0 1
        32 JUMPIFNOT                        R2 ; [+20]
        33 GETIMPORT                        R2 K1 [require]
-       35 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       37 GETTABLEKS                       R3 R4 K11 ["Roact"]
+       35 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       37 GETTABLEKS                       R3 R3 K11 ["Roact"]
        39 CALL                             R2 1 1
        40 GETTABLEKS                       R3 R2 K12 ["setGlobalConfig"]
        42 DUPTABLE                         R4 K16 [{"elementTracing", "propValidation", "typeChecks"}]

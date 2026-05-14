@@ -1,13 +1,13 @@
 PROTO_0:
         0 JUMPIFNOT                        R0 ; [+7]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["mock"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["mock"]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
         6 CALL                             R1 2 1
         7 JUMP                             ; [+6]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K1 ["new"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K1 ["new"]
        11 GETUPVAL                         R2 1
        12 GETUPVAL                         R3 2
        13 CALL                             R1 2 1
@@ -23,34 +23,34 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["Util"]
        23 GETTABLEKS                       R4 R3 K10 ["StyleModifier"]
        25 GETTABLEKS                       R5 R2 K11 ["Style"]
-       27 GETTABLEKS                       R7 R5 K12 ["Themes"]
-       29 GETTABLEKS                       R6 R7 K13 ["StudioTheme"]
+       27 GETTABLEKS                       R6 R5 K12 ["Themes"]
+       29 GETTABLEKS                       R6 R6 K13 ["StudioTheme"]
        31 GETTABLEKS                       R7 R5 K14 ["StyleKey"]
        33 GETTABLEKS                       R8 R5 K15 ["Colors"]
        35 GETTABLEKS                       R9 R2 K16 ["UI"]
        37 GETTABLEKS                       R10 R9 K17 ["Box"]
        39 GETTABLEKS                       R11 R9 K18 ["RoundBox"]
        41 GETTABLEKS                       R12 R9 K19 ["Image"]
-       43 GETTABLEKS                       R14 R5 K12 ["Themes"]
-       45 GETTABLEKS                       R13 R14 K20 ["LightTheme"]
-       47 GETTABLEKS                       R15 R5 K12 ["Themes"]
-       49 GETTABLEKS                       R14 R15 K21 ["DarkTheme"]
+       43 GETTABLEKS                       R13 R5 K12 ["Themes"]
+       45 GETTABLEKS                       R13 R13 K20 ["LightTheme"]
+       47 GETTABLEKS                       R14 R5 K12 ["Themes"]
+       49 GETTABLEKS                       R14 R14 K21 ["DarkTheme"]
        51 GETTABLEKS                       R15 R5 K22 ["getRawComponentStyle"]
        53 GETTABLEKS                       R16 R5 K23 ["ComponentSymbols"]
        55 GETTABLEKS                       R17 R2 K24 ["Dash"]
        57 GETTABLEKS                       R18 R17 K25 ["join"]
-       59 GETTABLEKS                       R20 R1 K26 ["Dictionary"]
-       61 GETTABLEKS                       R19 R20 K25 ["join"]
+       59 GETTABLEKS                       R19 R1 K26 ["Dictionary"]
+       61 GETTABLEKS                       R19 R19 K25 ["join"]
        63 MOVE                             R20 R13
        64 NEWTABLE                         R21 64 0
        66 GETTABLEKS                       R22 R7 K27 ["DialogButtonTextDisabled"]
@@ -285,8 +285,8 @@ MAIN:
       373 GETTABLEKS                       R23 R8 K36 ["Blue"]
       375 SETTABLE                         R23 R21 R22
       376 CALL                             R19 2 1
-      377 GETTABLEKS                       R21 R1 K26 ["Dictionary"]
-      379 GETTABLEKS                       R20 R21 K25 ["join"]
+      377 GETTABLEKS                       R20 R1 K26 ["Dictionary"]
+      379 GETTABLEKS                       R20 R20 K25 ["join"]
       381 MOVE                             R21 R14
       382 NEWTABLE                         R22 64 0
       384 GETTABLEKS                       R23 R7 K27 ["DialogButtonTextDisabled"]

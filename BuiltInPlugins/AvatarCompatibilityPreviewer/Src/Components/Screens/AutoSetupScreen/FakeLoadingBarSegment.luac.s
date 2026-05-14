@@ -31,8 +31,8 @@ PROTO_3:
         1 GETUPVAL                         R1 1
         2 JUMPIFNOTEQ                      R0 R1 ; [+2]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R1 2
-        6 GETTABLEKS                       R0 R1 K0 ["RenderStepped"]
+        5 GETUPVAL                         R0 2
+        6 GETTABLEKS                       R0 R0 K0 ["RenderStepped"]
         8 NEWCLOSURE                       R2 P0
         9 CAPTURE                          UPVAL U3
        10 CAPTURE                          UPVAL U4
@@ -67,12 +67,12 @@ PROTO_4:
        28 CALL                             R5 0 1
        29 MUL                              R6 R1 R3
        30 SUB                              R4 R5 R6
-       31 GETUPVAL                         R6 0
-       32 GETTABLEKS                       R5 R6 K11 ["useState"]
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R5 R5 K11 ["useState"]
        34 MOVE                             R6 R1
        35 CALL                             R5 1 2
-       36 GETUPVAL                         R8 0
-       37 GETTABLEKS                       R7 R8 K12 ["useEffect"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K12 ["useEffect"]
        39 NEWCLOSURE                       R8 P0
        40 CAPTURE                          VAL R1
        41 CAPTURE                          VAL R2
@@ -85,8 +85,8 @@ PROTO_4:
        49 MOVE                             R11 R2
        50 SETLIST                          R9 R10 2 [1]
        52 CALL                             R7 2 0
-       53 GETUPVAL                         R8 0
-       54 GETTABLEKS                       R7 R8 K13 ["createElement"]
+       53 GETUPVAL                         R7 0
+       54 GETTABLEKS                       R7 R7 K13 ["createElement"]
        56 GETUPVAL                         R8 2
        57 DUPTABLE                         R9 K19 [{"LayoutOrder", "Layout", "HorizontalAlignment", "Size", "Spacing"}]
        58 GETTABLEKS                       R10 R0 K14 ["LayoutOrder"]
@@ -105,8 +105,8 @@ PROTO_4:
        79 LOADN                            R10 10
        80 SETTABLEKS                       R10 R9 K18 ["Spacing"]
        82 DUPTABLE                         R10 K31 [{"LoadingBar", "ProgressPercentage"}]
-       83 GETUPVAL                         R12 0
-       84 GETTABLEKS                       R11 R12 K13 ["createElement"]
+       83 GETUPVAL                         R11 0
+       84 GETTABLEKS                       R11 R11 K13 ["createElement"]
        86 GETUPVAL                         R12 3
        87 DUPTABLE                         R13 K33 [{"LayoutOrder", "Progress", "Size"}]
        88 LOADN                            R14 1
@@ -127,8 +127,8 @@ PROTO_4:
       108 SETTABLEKS                       R11 R10 K29 ["LoadingBar"]
       110 GETTABLEKS                       R12 R0 K34 ["displayPercentLabel"]
       112 JUMPIFNOT                        R12 ; [+32]
-      113 GETUPVAL                         R12 0
-      114 GETTABLEKS                       R11 R12 K13 ["createElement"]
+      113 GETUPVAL                         R11 0
+      114 GETTABLEKS                       R11 R11 K13 ["createElement"]
       116 GETUPVAL                         R12 4
       117 DUPTABLE                         R13 K38 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextXAlignment"}]
       118 GETIMPORT                        R14 K40 [Enum.AutomaticSize.Y]
@@ -165,12 +165,12 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["React"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["React"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R2 K13 ["UI"]
        29 GETTABLEKS                       R5 R4 K14 ["LoadingBar"]

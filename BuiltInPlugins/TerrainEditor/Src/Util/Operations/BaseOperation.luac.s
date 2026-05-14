@@ -1,27 +1,27 @@
 PROTO_0:
         0 DUPTABLE                         R2 K32 [{"Started", "Paused", "Resumed", "Canceled", "Finished", "ProgressChanged", "_name", "_description", "_onStartFunc", "_onStepFunc", "_onPauseFunc", "_onResumeFunc", "_onCancelFunc", "_onFinishFunc", "_onErrorFunc", "_budget", "_timeBetweenSteps", "_timeBetweenPauseChecks", "_options", "_canCancel", "_canPause", "_hasStarted", "_isPaused", "_wasCanceled", "_hasFinished", "_isRunning", "_operationProgress", "_errorMessage", "_steps", "_startTime", "_endTime", "_yieldTime"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K33 ["new"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K33 ["new"]
         4 CALL                             R3 0 1
         5 SETTABLEKS                       R3 R2 K0 ["Started"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K33 ["new"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K33 ["new"]
        10 CALL                             R3 0 1
        11 SETTABLEKS                       R3 R2 K1 ["Paused"]
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R3 R4 K33 ["new"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K33 ["new"]
        16 CALL                             R3 0 1
        17 SETTABLEKS                       R3 R2 K2 ["Resumed"]
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R3 R4 K33 ["new"]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K33 ["new"]
        22 CALL                             R3 0 1
        23 SETTABLEKS                       R3 R2 K3 ["Canceled"]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K33 ["new"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K33 ["new"]
        28 CALL                             R3 0 1
        29 SETTABLEKS                       R3 R2 K4 ["Finished"]
-       31 GETUPVAL                         R4 0
-       32 GETTABLEKS                       R3 R4 K33 ["new"]
+       31 GETUPVAL                         R3 0
+       32 GETTABLEKS                       R3 R3 K33 ["new"]
        34 CALL                             R3 0 1
        35 SETTABLEKS                       R3 R2 K5 ["ProgressChanged"]
        37 GETTABLEKS                       R3 R0 K34 ["Name"]
@@ -248,8 +248,8 @@ PROTO_13:
         2 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["join"]
         3 GETTABLEKS                       R3 R0 K1 ["_options"]
         5 MOVE                             R4 R1
         6 CALL                             R2 2 1
@@ -450,8 +450,8 @@ PROTO_37:
 PROTO_38:
         0 GETIMPORT                        R0 K2 [table.pack]
         2 GETUPVAL                         R1 1
-        3 GETUPVAL                         R3 2
-        4 GETTABLEKS                       R2 R3 K3 ["_options"]
+        3 GETUPVAL                         R2 2
+        4 GETTABLEKS                       R2 R2 K3 ["_options"]
         6 GETUPVAL                         R3 2
         7 CALL                             R1 2 -1
         8 CALL                             R0 -1 1
@@ -584,12 +584,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["Util"]
        23 GETTABLEKS                       R4 R3 K10 ["Signal"]

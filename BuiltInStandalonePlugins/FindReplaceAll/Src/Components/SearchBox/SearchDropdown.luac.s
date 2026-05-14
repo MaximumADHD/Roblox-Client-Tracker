@@ -11,15 +11,15 @@ PROTO_2:
         2 JUMPIF                           R1 ; [+2]
         3 LOADNIL                          R1
         4 RETURN                           R1 1
-        5 GETTABLEKS                       R2 R0 K0 ["dropdownOverlay"]
-        7 GETTABLEKS                       R1 R2 K1 ["current"]
+        5 GETTABLEKS                       R1 R0 K0 ["dropdownOverlay"]
+        7 GETTABLEKS                       R1 R1 K1 ["current"]
         9 JUMPIFNOT                        R1 ; [+3]
        10 GETTABLEKS                       R1 R0 K2 ["currentDropdown"]
        12 JUMPIF                           R1 ; [+2]
        13 LOADNIL                          R1
        14 RETURN                           R1 1
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K3 ["createPortal"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K3 ["createPortal"]
        18 GETUPVAL                         R2 1
        19 LOADK                            R3 K4 ["Frame"]
        20 NEWTABLE                         R4 4 0
@@ -35,8 +35,8 @@ PROTO_2:
        36 LOADN                            R7 0
        37 CALL                             R5 2 1
        38 SETTABLEKS                       R5 R4 K13 ["Size"]
-       40 GETUPVAL                         R6 2
-       41 GETTABLEKS                       R5 R6 K14 ["Tag"]
+       40 GETUPVAL                         R5 2
+       41 GETTABLEKS                       R5 R5 K14 ["Tag"]
        43 LOADK                            R6 K15 ["data-testid=SearchDropdownFrame"]
        44 SETTABLE                         R6 R4 R5
        45 DUPTABLE                         R5 K18 [{"HistoryDropdown", "SettingsDropdown"}]
@@ -78,8 +78,8 @@ PROTO_2:
       100 CALL                             R6 2 1
       101 SETTABLEKS                       R6 R5 K17 ["SettingsDropdown"]
       103 CALL                             R2 3 1
-      104 GETTABLEKS                       R4 R0 K0 ["dropdownOverlay"]
-      106 GETTABLEKS                       R3 R4 K1 ["current"]
+      104 GETTABLEKS                       R3 R0 K0 ["dropdownOverlay"]
+      106 GETTABLEKS                       R3 R3 K1 ["current"]
       108 CALL                             R1 2 -1
       109 RETURN                           R1 -1
 
@@ -90,27 +90,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactRoblox"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactRoblox"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R7 R0 K9 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Components"]
-       27 GETTABLEKS                       R5 R6 K11 ["Dropdown"]
-       29 GETTABLEKS                       R4 R5 K11 ["Dropdown"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Components"]
+       27 GETTABLEKS                       R4 R4 K11 ["Dropdown"]
+       29 GETTABLEKS                       R4 R4 K11 ["Dropdown"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K9 ["Src"]
-       36 GETTABLEKS                       R6 R7 K12 ["Util"]
-       38 GETTABLEKS                       R5 R6 K13 ["mapValues"]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K12 ["Util"]
+       38 GETTABLEKS                       R5 R5 K13 ["mapValues"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R7 R0 K9 ["Src"]
-       45 GETTABLEKS                       R6 R7 K14 ["Types"]
+       43 GETTABLEKS                       R6 R0 K9 ["Src"]
+       45 GETTABLEKS                       R6 R6 K14 ["Types"]
        47 CALL                             R5 1 1
        48 GETTABLEKS                       R6 R1 K15 ["createElement"]
        50 DUPCLOSURE                       R7 K16 [PROTO_2]

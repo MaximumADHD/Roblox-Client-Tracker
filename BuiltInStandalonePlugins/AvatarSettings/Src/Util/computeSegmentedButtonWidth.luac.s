@@ -4,24 +4,24 @@ PROTO_0:
         2 LOADNIL                          R3
         3 LOADNIL                          R4
         4 FORGPREP                         R2
-        5 GETUPVAL                         R8 0
+        5 GETUPVAL                         R7 0
         6 FASTCALL1                        TYPEOF R6 ; [+3]
-        7 MOVE                             R12 R6
-        8 GETIMPORT                        R11 K1 [typeof]
-       10 CALL                             R11 1 1
-       11 JUMPIFNOTEQKS                    R11 K2 ["table"] ; [+4]
-       13 GETTABLEKS                       R10 R6 K3 ["Label"]
+        7 MOVE                             R11 R6
+        8 GETIMPORT                        R10 K1 [typeof]
+       10 CALL                             R10 1 1
+       11 JUMPIFNOTEQKS                    R10 K2 ["table"] ; [+4]
+       13 GETTABLEKS                       R9 R6 K3 ["Label"]
        15 JUMP                             ; [+1]
-       16 MOVE                             R10 R6
-       17 LOADN                            R11 18
-       18 GETIMPORT                        R12 K7 [Enum.Font.SourceSans]
-       20 GETIMPORT                        R13 K10 [Vector2.new]
-       22 LOADK                            R14 K11 [∞]
-       23 LOADK                            R15 K11 [∞]
-       24 CALL                             R13 2 -1
-       25 NAMECALL                         R8 R8 K12 ["GetTextSize"]
-       27 CALL                             R8 -1 1
-       28 GETTABLEKS                       R7 R8 K13 ["X"]
+       16 MOVE                             R9 R6
+       17 LOADN                            R10 18
+       18 GETIMPORT                        R11 K7 [Enum.Font.SourceSans]
+       20 GETIMPORT                        R12 K10 [Vector2.new]
+       22 LOADK                            R13 K11 [∞]
+       23 LOADK                            R14 K11 [∞]
+       24 CALL                             R12 2 -1
+       25 NAMECALL                         R7 R7 K12 ["GetTextSize"]
+       27 CALL                             R7 -1 1
+       28 GETTABLEKS                       R7 R7 K13 ["X"]
        30 FASTCALL2                        MATH_MAX R1 R7 ; [+5]
        32 MOVE                             R9 R1
        33 MOVE                             R10 R7

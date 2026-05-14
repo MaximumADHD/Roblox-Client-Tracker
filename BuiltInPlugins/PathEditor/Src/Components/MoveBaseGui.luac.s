@@ -12,13 +12,13 @@ PROTO_3:
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R4 1
         3 LOADK                            R6 K0 [0.5]
-        4 GETUPVAL                         R8 2
-        5 GETTABLEKS                       R7 R8 K1 ["ParentAbsSize"]
+        4 GETUPVAL                         R7 2
+        5 GETTABLEKS                       R7 R7 K1 ["ParentAbsSize"]
         7 MUL                              R5 R6 R7
         8 ADD                              R3 R4 R5
         9 LOADN                            R5 1
-       10 GETUPVAL                         R7 2
-       11 GETTABLEKS                       R6 R7 K2 ["ParentAbsRotation"]
+       10 GETUPVAL                         R6 2
+       11 GETTABLEKS                       R6 R6 K2 ["ParentAbsRotation"]
        13 MUL                              R4 R5 R6
        14 CALL                             R1 3 1
        15 GETUPVAL                         R2 3
@@ -29,37 +29,37 @@ PROTO_3:
        22 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["state"]
-        3 GETTABLEKS                       R2 R3 K1 ["startingParentPos"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["state"]
+        3 GETTABLEKS                       R2 R2 K1 ["startingParentPos"]
         5 JUMPIFEQKNIL                     R2 ; [+11]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["dispatchSetPathPosition"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["dispatchSetPathPosition"]
        10 MOVE                             R3 R1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K0 ["state"]
-       14 GETTABLEKS                       R4 R5 K1 ["startingParentPos"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K0 ["state"]
+       14 GETTABLEKS                       R4 R4 K1 ["startingParentPos"]
        16 CALL                             R2 2 0
        17 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["state"]
-        3 GETTABLEKS                       R2 R3 K1 ["startingParentPos"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["state"]
+        3 GETTABLEKS                       R2 R2 K1 ["startingParentPos"]
         5 JUMPIFEQKNIL                     R2 ; [+12]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["dispatchSetPathPosition"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["dispatchSetPathPosition"]
        10 MOVE                             R3 R1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K0 ["state"]
-       14 GETTABLEKS                       R4 R5 K1 ["startingParentPos"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K0 ["state"]
+       14 GETTABLEKS                       R4 R4 K1 ["startingParentPos"]
        16 LOADB                            R5 1
        17 CALL                             R2 3 0
        18 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dispatchToggleMoveTool"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dispatchToggleMoveTool"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
@@ -72,8 +72,8 @@ PROTO_7:
         9 LOADNIL                          R2
        10 RETURN                           R2 1
        11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R4 R1 K1 ["SelectedObject"]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
+       12 GETTABLEKS                       R3 R1 K1 ["SelectedObject"]
+       14 GETTABLEKS                       R3 R3 K4 ["Parent"]
        16 CALL                             R2 1 1
        17 GETTABLEKS                       R3 R1 K1 ["SelectedObject"]
        19 NAMECALL                         R3 R3 K5 ["GetBoundingRect"]
@@ -84,8 +84,8 @@ PROTO_7:
        28 GETTABLEKS                       R7 R3 K11 ["Height"]
        30 CALL                             R5 2 1
        31 NEWTABLE                         R6 0 0
-       33 GETUPVAL                         R8 1
-       34 GETTABLEKS                       R7 R8 K12 ["createElement"]
+       33 GETUPVAL                         R7 1
+       34 GETTABLEKS                       R7 R7 K12 ["createElement"]
        36 GETUPVAL                         R8 2
        37 DUPTABLE                         R9 K24 [{"AbsoluteSize", "AbsolutePosition", "Style", "FollowCursorOnDrag", "OnSelected", "OnHover", "OnDeselected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnDoubleClicked"}]
        38 SETTABLEKS                       R5 R9 K13 ["AbsoluteSize"]
@@ -119,8 +119,8 @@ PROTO_7:
        76 SETTABLEKS                       R10 R9 K23 ["OnDoubleClicked"]
        78 CALL                             R7 2 1
        79 SETTABLEKS                       R7 R6 K29 ["RubberbandPane"]
-       81 GETUPVAL                         R8 1
-       82 GETTABLEKS                       R7 R8 K12 ["createElement"]
+       81 GETUPVAL                         R7 1
+       82 GETTABLEKS                       R7 R7 K12 ["createElement"]
        84 GETUPVAL                         R8 4
        85 DUPTABLE                         R9 K31 [{"DisplayOrder"}]
        86 LOADN                            R10 2
@@ -131,20 +131,20 @@ PROTO_7:
 
 PROTO_8:
         0 DUPTABLE                         R2 K5 [{"Refreshed", "SelectedObject", "Path2DToolMode", "ParentAbsRotation", "ParentAbsSize"}]
-        1 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["Refreshed"]
+        1 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["Refreshed"]
         5 SETTABLEKS                       R3 R2 K0 ["Refreshed"]
-        7 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-        9 GETTABLEKS                       R3 R4 K1 ["SelectedObject"]
+        7 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+        9 GETTABLEKS                       R3 R3 K1 ["SelectedObject"]
        11 SETTABLEKS                       R3 R2 K1 ["SelectedObject"]
-       13 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       15 GETTABLEKS                       R3 R4 K2 ["Path2DToolMode"]
+       13 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       15 GETTABLEKS                       R3 R3 K2 ["Path2DToolMode"]
        17 SETTABLEKS                       R3 R2 K2 ["Path2DToolMode"]
-       19 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       21 GETTABLEKS                       R3 R4 K3 ["ParentAbsRotation"]
+       19 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       21 GETTABLEKS                       R3 R3 K3 ["ParentAbsRotation"]
        23 SETTABLEKS                       R3 R2 K3 ["ParentAbsRotation"]
-       25 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       27 GETTABLEKS                       R3 R4 K4 ["ParentAbsSize"]
+       25 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       27 GETTABLEKS                       R3 R3 K4 ["ParentAbsSize"]
        29 SETTABLEKS                       R3 R2 K4 ["ParentAbsSize"]
        31 RETURN                           R2 1
 
@@ -191,51 +191,51 @@ PROTO_12:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["React"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K12 ["withContext"]
-       41 GETTABLEKS                       R8 R0 K5 ["Src"]
-       43 GETTABLEKS                       R7 R8 K13 ["Actions"]
+       41 GETTABLEKS                       R7 R0 K5 ["Src"]
+       43 GETTABLEKS                       R7 R7 K13 ["Actions"]
        45 GETIMPORT                        R8 K4 [require]
        47 GETTABLEKS                       R9 R7 K14 ["PathChanged"]
        49 CALL                             R8 1 1
        50 GETIMPORT                        R9 K4 [require]
        52 GETTABLEKS                       R10 R7 K15 ["ToggleMoveTool"]
        54 CALL                             R9 1 1
-       55 GETTABLEKS                       R11 R0 K5 ["Src"]
-       57 GETTABLEKS                       R10 R11 K16 ["Thunks"]
+       55 GETTABLEKS                       R10 R0 K5 ["Src"]
+       57 GETTABLEKS                       R10 R10 K16 ["Thunks"]
        59 GETIMPORT                        R11 K4 [require]
        61 GETTABLEKS                       R12 R10 K17 ["SetPathPosition"]
        63 CALL                             R11 1 1
-       64 GETTABLEKS                       R13 R0 K5 ["Src"]
-       66 GETTABLEKS                       R12 R13 K18 ["Util"]
+       64 GETTABLEKS                       R12 R0 K5 ["Src"]
+       66 GETTABLEKS                       R12 R12 K18 ["Util"]
        68 GETIMPORT                        R13 K4 [require]
        70 GETTABLEKS                       R14 R12 K19 ["getAbsolutePosition"]
        72 CALL                             R13 1 1
        73 GETIMPORT                        R14 K4 [require]
        75 GETTABLEKS                       R15 R12 K20 ["rotatePoint"]
        77 CALL                             R14 1 1
-       78 GETTABLEKS                       R16 R0 K5 ["Src"]
-       80 GETTABLEKS                       R15 R16 K21 ["Components"]
+       78 GETTABLEKS                       R15 R0 K5 ["Src"]
+       80 GETTABLEKS                       R15 R15 K21 ["Components"]
        82 GETIMPORT                        R16 K4 [require]
        84 GETTABLEKS                       R17 R15 K22 ["DraggablePoint"]
        86 CALL                             R16 1 1

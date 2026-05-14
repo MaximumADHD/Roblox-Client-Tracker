@@ -148,8 +148,8 @@ PROTO_4:
        68 GETUPVAL                         R8 0
        69 CALL                             R8 0 1
        70 JUMPIFNOT                        R8 ; [+20]
-       71 GETUPVAL                         R9 1
-       72 GETTABLEKS                       R8 R9 K15 ["getSurfaceMatrix"]
+       71 GETUPVAL                         R8 1
+       72 GETTABLEKS                       R8 R8 K15 ["getSurfaceMatrix"]
        74 GETTABLEKS                       R9 R0 K9 ["_draggerContext"]
        76 NAMECALL                         R9 R9 K16 ["getMouseRay"]
        78 CALL                             R9 1 1
@@ -164,8 +164,8 @@ PROTO_4:
        90 JUMP                             ; [+28]
        91 LOADNIL                          R8
        92 LOADNIL                          R9
-       93 GETUPVAL                         R11 1
-       94 GETTABLEKS                       R10 R11 K15 ["getSurfaceMatrix"]
+       93 GETUPVAL                         R10 1
+       94 GETTABLEKS                       R10 R10 K15 ["getSurfaceMatrix"]
        96 GETTABLEKS                       R11 R0 K9 ["_draggerContext"]
        98 NAMECALL                         R11 R11 K16 ["getMouseRay"]
       100 CALL                             R11 1 1
@@ -231,10 +231,10 @@ PROTO_6:
        35 NAMECALL                         R3 R3 K7 ["getMouseLocation"]
        37 CALL                             R3 1 1
        38 SETTABLEKS                       R3 R0 K8 ["_cachedMouseLocation"]
-       40 GETTABLEKS                       R4 R0 K2 ["_draggerContext"]
-       42 NAMECALL                         R4 R4 K9 ["getCameraCFrame"]
-       44 CALL                             R4 1 1
-       45 GETTABLEKS                       R3 R4 K10 ["Position"]
+       40 GETTABLEKS                       R3 R0 K2 ["_draggerContext"]
+       42 NAMECALL                         R3 R3 K9 ["getCameraCFrame"]
+       44 CALL                             R3 1 1
+       45 GETTABLEKS                       R3 R3 K10 ["Position"]
        47 SETTABLEKS                       R3 R0 K11 ["_cachedCameraPosition"]
        49 LOADN                            R3 1
        50 SETTABLEKS                       R3 R0 K12 ["_currentIndex"]
@@ -250,10 +250,10 @@ PROTO_6:
        65 RETURN                           R0 0
 
 PROTO_7:
-        0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-        2 NAMECALL                         R2 R2 K1 ["getCameraCFrame"]
-        4 CALL                             R2 1 1
-        5 GETTABLEKS                       R1 R2 K2 ["Position"]
+        0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        2 NAMECALL                         R1 R1 K1 ["getCameraCFrame"]
+        4 CALL                             R1 1 1
+        5 GETTABLEKS                       R1 R1 K2 ["Position"]
         7 GETTABLEKS                       R2 R0 K3 ["_cachedCameraPosition"]
         9 JUMPIFEQ                         R1 R2 ; [+3]
        11 LOADB                            R2 0
@@ -272,20 +272,20 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Utility"]
-       11 GETTABLEKS                       R2 R3 K6 ["CursorGroupName"]
+        9 GETTABLEKS                       R2 R0 K5 ["Utility"]
+       11 GETTABLEKS                       R2 R2 K6 ["CursorGroupName"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K4 [require]
-       16 GETTABLEKS                       R4 R0 K5 ["Utility"]
-       18 GETTABLEKS                       R3 R4 K7 ["DragHelper"]
+       16 GETTABLEKS                       R3 R0 K5 ["Utility"]
+       18 GETTABLEKS                       R3 R3 K7 ["DragHelper"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K4 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Flags"]
-       25 GETTABLEKS                       R4 R5 K9 ["getFFlagDraggerImprovements"]
+       23 GETTABLEKS                       R4 R0 K8 ["Flags"]
+       25 GETTABLEKS                       R4 R4 K9 ["getFFlagDraggerImprovements"]
        27 CALL                             R3 1 1
        28 DUPCLOSURE                       R4 K10 [PROTO_0]
        29 CAPTURE                          VAL R1

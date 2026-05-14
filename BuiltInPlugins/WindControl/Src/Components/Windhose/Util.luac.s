@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETIMPORT                        R3 K1 [game]
-        2 GETTABLEKS                       R2 R3 K2 ["Workspace"]
-        4 GETTABLEKS                       R1 R2 K3 ["CurrentCamera"]
-        6 GETTABLEKS                       R0 R1 K4 ["CameraType"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["Workspace"]
+        4 GETTABLEKS                       R0 R0 K3 ["CurrentCamera"]
+        6 GETTABLEKS                       R0 R0 K4 ["CameraType"]
         8 GETIMPORT                        R1 K7 [Enum.CameraType.Attach]
        10 JUMPIFEQ                         R0 R1 ; [+5]
        12 GETIMPORT                        R1 K9 [Enum.CameraType.Scriptable]

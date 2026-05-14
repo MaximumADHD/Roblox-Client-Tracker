@@ -1,8 +1,8 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["Status"]
-        5 GETTABLEKS                       R2 R3 K2 ["RootInstance"]
+        3 GETTABLEKS                       R2 R1 K1 ["Status"]
+        5 GETTABLEKS                       R2 R2 K2 ["RootInstance"]
         7 GETUPVAL                         R5 0
         8 NEWTABLE                         R6 0 0
        10 CALL                             R5 1 -1
@@ -46,9 +46,9 @@ PROTO_0:
        60 NAMECALL                         R3 R0 K3 ["dispatch"]
        62 CALL                             R3 -1 0
        63 GETUPVAL                         R5 9
-       64 GETUPVAL                         R8 10
-       65 GETTABLEKS                       R7 R8 K4 ["EDITOR_MODE"]
-       67 GETTABLEKS                       R6 R7 K5 ["DopeSheet"]
+       64 GETUPVAL                         R6 10
+       65 GETTABLEKS                       R6 R6 K4 ["EDITOR_MODE"]
+       67 GETTABLEKS                       R6 R6 K5 ["DopeSheet"]
        69 GETUPVAL                         R7 11
        70 CALL                             R5 2 -1
        71 NAMECALL                         R3 R0 K3 ["dispatch"]
@@ -56,8 +56,8 @@ PROTO_0:
        74 GETUPVAL                         R3 12
        75 CALL                             R3 0 1
        76 JUMPIFNOT                        R3 ; [+5]
-       77 GETUPVAL                         R4 13
-       78 GETTABLEKS                       R3 R4 K6 ["clearPose"]
+       77 GETUPVAL                         R3 13
+       78 GETTABLEKS                       R3 R3 K6 ["clearPose"]
        80 MOVE                             R4 R2
        81 CALL                             R3 1 0
        82 GETUPVAL                         R5 14
@@ -66,8 +66,8 @@ PROTO_0:
        85 NAMECALL                         R3 R0 K3 ["dispatch"]
        87 CALL                             R3 -1 0
        88 GETIMPORT                        R3 K8 [pairs]
-       90 GETUPVAL                         R6 15
-       91 GETTABLEKS                       R4 R6 K9 ["Instances"]
+       90 GETUPVAL                         R4 15
+       91 GETTABLEKS                       R4 R4 K9 ["Instances"]
        93 CALL                             R3 1 3
        94 FORGPREP_NEXT                    R3
        95 GETIMPORT                        R8 K8 [pairs]
@@ -86,12 +86,12 @@ PROTO_0:
       110 NAMECALL                         R13 R0 K3 ["dispatch"]
       112 CALL                             R13 -1 0
       113 JUMP                             ; [+22]
-      114 GETUPVAL                         R14 18
-      115 GETTABLEKS                       R13 R14 K11 ["getRotationType"]
+      114 GETUPVAL                         R13 18
+      115 GETTABLEKS                       R13 R13 K11 ["getRotationType"]
       117 MOVE                             R14 R12
       118 CALL                             R13 1 1
-      119 GETUPVAL                         R15 18
-      120 GETTABLEKS                       R14 R15 K12 ["getEulerAnglesOrder"]
+      119 GETUPVAL                         R14 18
+      120 GETTABLEKS                       R14 R14 K12 ["getEulerAnglesOrder"]
       122 MOVE                             R15 R12
       123 CALL                             R14 1 1
       124 GETUPVAL                         R17 19
@@ -122,17 +122,17 @@ PROTO_0:
       155 NAMECALL                         R3 R0 K3 ["dispatch"]
       157 CALL                             R3 -1 0
       158 GETUPVAL                         R5 23
-      159 GETUPVAL                         R8 15
-      160 GETTABLEKS                       R7 R8 K14 ["Metadata"]
-      162 GETTABLEKS                       R6 R7 K15 ["EndTick"]
+      159 GETUPVAL                         R6 15
+      160 GETTABLEKS                       R6 R6 K14 ["Metadata"]
+      162 GETTABLEKS                       R6 R6 K15 ["EndTick"]
       164 CALL                             R5 1 -1
       165 NAMECALL                         R3 R0 K3 ["dispatch"]
       167 CALL                             R3 -1 0
       168 GETUPVAL                         R5 24
       169 GETUPVAL                         R7 25
-      170 GETUPVAL                         R10 15
-      171 GETTABLEKS                       R9 R10 K16 ["Events"]
-      173 GETTABLEKS                       R8 R9 K17 ["Keyframes"]
+      170 GETUPVAL                         R8 15
+      171 GETTABLEKS                       R8 R8 K16 ["Events"]
+      173 GETTABLEKS                       R8 R8 K17 ["Keyframes"]
       175 CALL                             R7 1 1
       176 NOT                              R6 R7
       177 CALL                             R5 1 -1
@@ -176,8 +176,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetFuture"]
        15 CALL                             R2 1 1
@@ -202,8 +202,8 @@ MAIN:
        46 GETIMPORT                        R9 K7 [require]
        48 GETTABLEKS                       R10 R1 K15 ["SetPrevAnimationClip"]
        50 CALL                             R9 1 1
-       51 GETTABLEKS                       R11 R0 K4 ["Src"]
-       53 GETTABLEKS                       R10 R11 K16 ["Thunks"]
+       51 GETTABLEKS                       R10 R0 K4 ["Src"]
+       53 GETTABLEKS                       R10 R10 K16 ["Thunks"]
        55 GETIMPORT                        R11 K7 [require]
        57 GETTABLEKS                       R12 R10 K17 ["AddTrack"]
        59 CALL                             R11 1 1
@@ -220,8 +220,8 @@ MAIN:
        77 GETTABLEKS                       R16 R10 K21 ["SortAndSetTracks"]
        79 CALL                             R15 1 1
        80 GETIMPORT                        R16 K7 [require]
-       82 GETTABLEKS                       R18 R10 K22 ["Playback"]
-       84 GETTABLEKS                       R17 R18 K23 ["StepAnimation"]
+       82 GETTABLEKS                       R17 R10 K22 ["Playback"]
+       84 GETTABLEKS                       R17 R17 K23 ["StepAnimation"]
        86 CALL                             R16 1 1
        87 GETIMPORT                        R17 K7 [require]
        89 GETTABLEKS                       R18 R10 K24 ["SwitchEditorMode"]
@@ -232,8 +232,8 @@ MAIN:
        97 GETIMPORT                        R19 K7 [require]
        99 GETTABLEKS                       R20 R10 K26 ["UpdateEditingLength"]
       101 CALL                             R19 1 1
-      102 GETTABLEKS                       R21 R0 K4 ["Src"]
-      104 GETTABLEKS                       R20 R21 K27 ["Util"]
+      102 GETTABLEKS                       R20 R0 K4 ["Src"]
+      104 GETTABLEKS                       R20 R20 K27 ["Util"]
       106 GETIMPORT                        R21 K7 [require]
       108 GETTABLEKS                       R22 R20 K28 ["Constants"]
       110 CALL                             R21 1 1
@@ -247,12 +247,12 @@ MAIN:
       123 GETTABLEKS                       R25 R20 K31 ["TrackUtils"]
       125 CALL                             R24 1 1
       126 GETIMPORT                        R25 K7 [require]
-      128 GETTABLEKS                       R27 R0 K32 ["LuaFlags"]
-      130 GETTABLEKS                       R26 R27 K33 ["GetFFlagEngineAnimator"]
+      128 GETTABLEKS                       R26 R0 K32 ["LuaFlags"]
+      130 GETTABLEKS                       R26 R26 K33 ["GetFFlagEngineAnimator"]
       132 CALL                             R25 1 1
       133 GETIMPORT                        R26 K7 [require]
-      135 GETTABLEKS                       R28 R0 K32 ["LuaFlags"]
-      137 GETTABLEKS                       R27 R28 K34 ["GetFFlagControlRig"]
+      135 GETTABLEKS                       R27 R0 K32 ["LuaFlags"]
+      137 GETTABLEKS                       R27 R27 K34 ["GetFFlagControlRig"]
       139 CALL                             R26 1 1
       140 GETIMPORT                        R27 K36 [game]
       142 LOADK                            R29 K37 ["LiveAnimationUpdateSupport"]

@@ -1,23 +1,23 @@
 PROTO_0:
         0 NEWTABLE                         R1 4 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["Sphere"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["Sphere"]
         5 LOADK                            R4 K1 ["%*TerrainBrushTypeSphere.png"]
         6 MOVE                             R6 R0
         7 NAMECALL                         R4 R4 K2 ["format"]
         9 CALL                             R4 2 1
        10 MOVE                             R3 R4
        11 SETTABLE                         R3 R1 R2
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K3 ["Cube"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K3 ["Cube"]
        15 LOADK                            R4 K4 ["%*TerrainBrushTypeCube.png"]
        16 MOVE                             R6 R0
        17 NAMECALL                         R4 R4 K2 ["format"]
        19 CALL                             R4 2 1
        20 MOVE                             R3 R4
        21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K5 ["Cylinder"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K5 ["Cylinder"]
        25 LOADK                            R4 K6 ["%*TerrainBrushTypeCylinder.png"]
        26 MOVE                             R6 R0
        27 NAMECALL                         R4 R4 K2 ["format"]
@@ -28,24 +28,24 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R1 4 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["Both"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["Both"]
         5 LOADK                            R4 K1 ["%*FlattenModeRemoveAboveFillBelow.png"]
         6 MOVE                             R6 R0
         7 NAMECALL                         R4 R4 K2 ["format"]
         9 CALL                             R4 2 1
        10 MOVE                             R3 R4
        11 SETTABLE                         R3 R1 R2
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K3 ["Erode"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K3 ["Erode"]
        15 LOADK                            R4 K4 ["%*FlattenModeRemoveAbove.png"]
        16 MOVE                             R6 R0
        17 NAMECALL                         R4 R4 K2 ["format"]
        19 CALL                             R4 2 1
        20 MOVE                             R3 R4
        21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K5 ["Grow"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K5 ["Grow"]
        25 LOADK                            R4 K6 ["%*FlattenModeFillBelow.png"]
        26 MOVE                             R6 R0
        27 NAMECALL                         R4 R4 K2 ["format"]
@@ -57,15 +57,15 @@ PROTO_1:
 PROTO_2:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+8]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["mock"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["mock"]
         5 GETUPVAL                         R3 1
         6 GETUPVAL                         R4 2
         7 CALL                             R2 2 1
         8 MOVE                             R1 R2
         9 JUMP                             ; [+7]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K1 ["new"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K1 ["new"]
        13 GETUPVAL                         R3 1
        14 GETUPVAL                         R4 2
        15 CALL                             R2 2 1
@@ -82,36 +82,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["MaterialFramework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["MaterialFramework"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K10 ["Src"]
-       32 GETTABLEKS                       R5 R6 K11 ["Types"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Types"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R4 K12 ["BrushSettings"]
        37 GETTABLEKS                       R6 R4 K13 ["BrushShape"]
        39 GETTABLEKS                       R7 R4 K14 ["FlattenMode"]
        41 GETTABLEKS                       R8 R2 K15 ["Style"]
        43 GETTABLEKS                       R9 R8 K16 ["StyleKey"]
-       45 GETTABLEKS                       R11 R8 K17 ["Themes"]
-       47 GETTABLEKS                       R10 R11 K18 ["DarkTheme"]
-       49 GETTABLEKS                       R12 R8 K17 ["Themes"]
-       51 GETTABLEKS                       R11 R12 K19 ["LightTheme"]
-       53 GETTABLEKS                       R13 R3 K20 ["Resources"]
-       55 GETTABLEKS                       R12 R13 K21 ["Theme"]
+       45 GETTABLEKS                       R10 R8 K17 ["Themes"]
+       47 GETTABLEKS                       R10 R10 K18 ["DarkTheme"]
+       49 GETTABLEKS                       R11 R8 K17 ["Themes"]
+       51 GETTABLEKS                       R11 R11 K19 ["LightTheme"]
+       53 GETTABLEKS                       R12 R3 K20 ["Resources"]
+       55 GETTABLEKS                       R12 R12 K21 ["Theme"]
        57 GETIMPORT                        R13 K5 [require]
-       59 GETIMPORT                        R16 K1 [script]
-       61 GETTABLEKS                       R15 R16 K22 ["Parent"]
-       63 GETTABLEKS                       R14 R15 K21 ["Theme"]
+       59 GETIMPORT                        R14 K1 [script]
+       61 GETTABLEKS                       R14 R14 K22 ["Parent"]
+       63 GETTABLEKS                       R14 R14 K21 ["Theme"]
        65 CALL                             R13 1 1
        66 DUPCLOSURE                       R14 K23 [PROTO_0]
        67 CAPTURE                          VAL R6

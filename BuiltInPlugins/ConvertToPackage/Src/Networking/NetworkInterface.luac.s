@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R0 K1 [{"_networkImp"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K2 ["new"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K2 ["new"]
         4 CALL                             R1 0 1
         5 SETTABLEKS                       R1 R0 K0 ["_networkImp"]
         7 GETUPVAL                         R3 1
@@ -12,8 +12,8 @@ PROTO_0:
        14 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["shouldDebugUrls"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["shouldDebugUrls"]
         3 CALL                             R4 0 1
         4 JUMPIFNOT                        R4 ; [+33]
         5 GETIMPORT                        R4 K2 [print]
@@ -51,8 +51,8 @@ PROTO_2:
         6 RETURN                           R2 -1
 
 PROTO_3:
-        0 GETUPVAL                         R11 0
-        1 GETTABLEKS                       R10 R11 K0 ["constructPostUploadAssetUrl"]
+        0 GETUPVAL                         R10 0
+        1 GETTABLEKS                       R10 R10 K0 ["constructPostUploadAssetUrl"]
         3 MOVE                             R11 R1
         4 MOVE                             R12 R2
         5 MOVE                             R13 R3
@@ -76,12 +76,12 @@ PROTO_3:
        25 RETURN                           R11 -1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["constructGetGroupsForSurfaceUrl"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["constructGetGroupsForSurfaceUrl"]
         3 LOADK                            R3 K1 ["StudioConvertToPackage"]
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K2 ["shouldDebugUrls"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K2 ["shouldDebugUrls"]
         8 CALL                             R3 0 1
         9 JUMPIFNOT                        R3 ; [+21]
        10 GETIMPORT                        R3 K4 [print]
@@ -108,24 +108,24 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R2 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["DEPRECATED_modules"]
-       13 GETTABLEKS                       R3 R4 K6 ["Http"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K7 ["Networking"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["DEPRECATED_modules"]
+       13 GETTABLEKS                       R2 R2 K6 ["Http"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Networking"]
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K8 ["Src"]
-       22 GETTABLEKS                       R4 R5 K9 ["Util"]
-       24 GETTABLEKS                       R3 R4 K10 ["DebugFlags"]
+       20 GETTABLEKS                       R3 R0 K8 ["Src"]
+       22 GETTABLEKS                       R3 R3 K9 ["Util"]
+       24 GETTABLEKS                       R3 R3 K10 ["DebugFlags"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K8 ["Src"]
-       31 GETTABLEKS                       R5 R6 K9 ["Util"]
-       33 GETTABLEKS                       R4 R5 K11 ["Urls"]
+       29 GETTABLEKS                       R4 R0 K8 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Util"]
+       33 GETTABLEKS                       R4 R4 K11 ["Urls"]
        35 CALL                             R3 1 1
        36 NEWTABLE                         R4 8 0
        38 SETTABLEKS                       R4 R4 K12 ["__index"]

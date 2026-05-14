@@ -2,8 +2,8 @@ PROTO_0:
         0 GETTABLEKS                       R3 R0 K0 ["X"]
         2 GETTABLEKS                       R4 R0 K1 ["Y"]
         4 GETTABLEKS                       R5 R0 K2 ["Z"]
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K3 ["WaterLevel"]
+        6 GETUPVAL                         R6 0
+        7 GETTABLEKS                       R6 R6 K3 ["WaterLevel"]
         9 GETUPVAL                         R9 1
        10 MULK                             R12 R4 K5 [0.25]
        11 FASTCALL3                        VECTOR R3 R12 R5
@@ -64,8 +64,8 @@ PROTO_0:
        75 MOVE                             R13 R8
        76 GETIMPORT                        R11 K8 [Vector3.new]
        78 CALL                             R11 3 1
-       79 GETUPVAL                         R13 2
-       80 GETTABLEKS                       R12 R13 K10 ["Ridge"]
+       79 GETUPVAL                         R12 2
+       80 GETTABLEKS                       R12 R12 K10 ["Ridge"]
        82 GETUPVAL                         R13 3
        83 GETUPVAL                         R14 1
        84 MOVE                             R15 R11
@@ -74,8 +74,8 @@ PROTO_0:
        87 CALL                             R14 3 -1
        88 CALL                             R13 -1 -1
        89 CALL                             R12 -1 1
-       90 GETUPVAL                         R15 2
-       91 GETTABLEKS                       R14 R15 K10 ["Ridge"]
+       90 GETUPVAL                         R14 2
+       91 GETTABLEKS                       R14 R14 K10 ["Ridge"]
        93 GETUPVAL                         R15 3
        94 GETUPVAL                         R16 1
        95 MOVE                             R17 R10
@@ -87,8 +87,8 @@ PROTO_0:
       101 MULK                             R16 R12 K5 [0.25]
       102 ADDK                             R15 R16 K11 [0.75]
       103 MUL                              R13 R14 R15
-      104 GETUPVAL                         R16 2
-      105 GETTABLEKS                       R15 R16 K10 ["Ridge"]
+      104 GETUPVAL                         R15 2
+      105 GETTABLEKS                       R15 R15 K10 ["Ridge"]
       107 GETUPVAL                         R16 3
       108 GETUPVAL                         R17 1
       109 MOVE                             R18 R10
@@ -100,8 +100,8 @@ PROTO_0:
       115 MULK                             R17 R13 K5 [0.25]
       116 ADDK                             R16 R17 K11 [0.75]
       117 MUL                              R14 R15 R16
-      118 GETUPVAL                         R17 2
-      119 GETTABLEKS                       R16 R17 K12 ["Threshold"]
+      118 GETUPVAL                         R16 2
+      119 GETTABLEKS                       R16 R16 K12 ["Threshold"]
       121 GETUPVAL                         R17 3
       122 GETUPVAL                         R18 1
       123 MOVE                             R19 R0
@@ -121,22 +121,22 @@ PROTO_0:
       137 CALL                             R17 -1 1
       138 MUL                              R15 R16 R17
       139 LOADN                            R17 0
-      140 GETUPVAL                         R22 2
-      141 GETTABLEKS                       R21 R22 K12 ["Threshold"]
+      140 GETUPVAL                         R21 2
+      141 GETTABLEKS                       R21 R21 K12 ["Threshold"]
       143 MOVE                             R22 R12
       144 LOADK                            R23 K15 [0.975]
       145 LOADN                            R24 0
       146 CALL                             R21 3 1
       147 SUBRK                            R20 R14 K21 ["CFrame"]
-      148 GETUPVAL                         R22 2
-      149 GETTABLEKS                       R21 R22 K12 ["Threshold"]
+      148 GETUPVAL                         R21 2
+      149 GETTABLEKS                       R21 R21 K12 ["Threshold"]
       151 MOVE                             R22 R13
       152 LOADK                            R23 K16 [0.925]
       153 LOADN                            R24 0
       154 CALL                             R21 3 1
       155 SUB                              R19 R20 R21
-      156 GETUPVAL                         R21 2
-      157 GETTABLEKS                       R20 R21 K12 ["Threshold"]
+      156 GETUPVAL                         R20 2
+      157 GETTABLEKS                       R20 R20 K12 ["Threshold"]
       159 MOVE                             R21 R14
       160 LOADK                            R22 K17 [0.9]
       161 LOADN                            R23 0
@@ -157,8 +157,8 @@ PROTO_0:
       180 GETIMPORT                        R19 K8 [Vector3.new]
       182 CALL                             R19 3 1
       183 MUL                              R17 R18 R19
-      184 GETUPVAL                         R19 2
-      185 GETTABLEKS                       R18 R19 K12 ["Threshold"]
+      184 GETUPVAL                         R18 2
+      185 GETTABLEKS                       R18 R18 K12 ["Threshold"]
       187 GETUPVAL                         R19 3
       188 GETUPVAL                         R20 1
       189 LOADK                            R22 K25 [{40, 300, 30}]
@@ -225,9 +225,9 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["Generation"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["Generation"]
        13 GETIMPORT                        R2 K8 [require]
        15 GETTABLEKS                       R3 R1 K9 ["Filter"]
        17 CALL                             R2 1 1
@@ -238,8 +238,8 @@ MAIN:
        25 GETTABLEKS                       R5 R1 K11 ["ProcessPerlin"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K8 [require]
-       30 GETTABLEKS                       R7 R0 K4 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Types"]
+       30 GETTABLEKS                       R6 R0 K4 ["Src"]
+       32 GETTABLEKS                       R6 R6 K12 ["Types"]
        34 CALL                             R5 1 1
        35 DUPCLOSURE                       R6 K13 [PROTO_1]
        36 CAPTURE                          VAL R2

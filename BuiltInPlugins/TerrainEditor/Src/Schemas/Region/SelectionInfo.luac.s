@@ -18,25 +18,25 @@ PROTO_2:
         2 NAMECALL                         R1 R1 K1 ["shouldUseLocalSpace"]
         4 CALL                             R1 1 1
         5 JUMPIFNOT                        R1 ; [+17]
-        6 GETTABLEKS                       R3 R0 K2 ["_region"]
-        8 GETTABLEKS                       R2 R3 K3 ["Region"]
-       10 GETTABLEKS                       R1 R2 K4 ["transform"]
+        6 GETTABLEKS                       R1 R0 K2 ["_region"]
+        8 GETTABLEKS                       R1 R1 K3 ["Region"]
+       10 GETTABLEKS                       R1 R1 K4 ["transform"]
        12 FASTCALL                         VECTOR ; [+2]
        13 GETIMPORT                        R2 K7 [Vector3.new]
        15 CALL                             R2 0 1
-       16 GETTABLEKS                       R5 R0 K2 ["_region"]
-       18 GETTABLEKS                       R4 R5 K3 ["Region"]
-       20 GETTABLEKS                       R3 R4 K8 ["size"]
+       16 GETTABLEKS                       R3 R0 K2 ["_region"]
+       18 GETTABLEKS                       R3 R3 K3 ["Region"]
+       20 GETTABLEKS                       R3 R3 K8 ["size"]
        22 RETURN                           R1 3
-       23 GETTABLEKS                       R3 R0 K2 ["_region"]
-       25 GETTABLEKS                       R2 R3 K3 ["Region"]
-       27 GETTABLEKS                       R1 R2 K4 ["transform"]
+       23 GETTABLEKS                       R1 R0 K2 ["_region"]
+       25 GETTABLEKS                       R1 R1 K3 ["Region"]
+       27 GETTABLEKS                       R1 R1 K4 ["transform"]
        29 FASTCALL                         VECTOR ; [+2]
        30 GETIMPORT                        R2 K7 [Vector3.new]
        32 CALL                             R2 0 1
-       33 GETTABLEKS                       R5 R0 K2 ["_region"]
-       35 GETTABLEKS                       R4 R5 K3 ["Region"]
-       37 GETTABLEKS                       R3 R4 K8 ["size"]
+       33 GETTABLEKS                       R3 R0 K2 ["_region"]
+       35 GETTABLEKS                       R3 R3 K3 ["Region"]
+       37 GETTABLEKS                       R3 R3 K8 ["size"]
        39 RETURN                           R1 3
 
 PROTO_3:

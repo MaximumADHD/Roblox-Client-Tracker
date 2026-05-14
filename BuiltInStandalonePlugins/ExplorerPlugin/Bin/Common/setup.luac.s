@@ -56,8 +56,8 @@ PROTO_4:
        41 RETURN                           R0 0
        42 LOADB                            R0 1
        43 SETUPVAL                         R0 0
-       44 GETUPVAL                         R1 2
-       45 GETTABLEKS                       R0 R1 K14 ["build"]
+       44 GETUPVAL                         R0 2
+       45 GETTABLEKS                       R0 R0 K14 ["build"]
        47 GETUPVAL                         R1 3
        48 CALL                             R0 1 1
        49 GETTABLEKS                       R1 R0 K15 ["pluginLoader"]
@@ -81,8 +81,8 @@ PROTO_5:
         4 RETURN                           R0 -1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Name"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
         5 DUPTABLE                         R2 K6 [{"getName", "getDescription", "icon", "enabled", "clickableWhenViewportHidden"}]
         6 DUPCLOSURE                       R3 K7 [PROTO_0]
@@ -166,18 +166,18 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["PluginLoader"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["PluginLoader"]
        19 CALL                             R2 1 1
        20 GETTABLEKS                       R3 R2 K12 ["PluginLoaderBuilder"]
-       22 GETTABLEKS                       R7 R1 K13 ["Src"]
-       24 GETTABLEKS                       R6 R7 K14 ["Resources"]
-       26 GETTABLEKS                       R5 R6 K15 ["Localization"]
-       28 GETTABLEKS                       R4 R5 K16 ["SourceStrings"]
-       30 GETTABLEKS                       R8 R1 K13 ["Src"]
-       32 GETTABLEKS                       R7 R8 K14 ["Resources"]
-       34 GETTABLEKS                       R6 R7 K15 ["Localization"]
-       36 GETTABLEKS                       R5 R6 K17 ["LocalizedStrings"]
+       22 GETTABLEKS                       R4 R1 K13 ["Src"]
+       24 GETTABLEKS                       R4 R4 K14 ["Resources"]
+       26 GETTABLEKS                       R4 R4 K15 ["Localization"]
+       28 GETTABLEKS                       R4 R4 K16 ["SourceStrings"]
+       30 GETTABLEKS                       R5 R1 K13 ["Src"]
+       32 GETTABLEKS                       R5 R5 K14 ["Resources"]
+       34 GETTABLEKS                       R5 R5 K15 ["Localization"]
+       36 GETTABLEKS                       R5 R5 K17 ["LocalizedStrings"]
        38 DUPCLOSURE                       R6 K18 [PROTO_6]
        39 CAPTURE                          VAL R1
        40 CAPTURE                          VAL R5

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Renderers"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Renderers"]
         3 GETTABLEKS                       R4 R1 K1 ["Type"]
         5 GETTABLE                         R2 R3 R4
         6 JUMPIFNOT                        R2 ; [+30]
@@ -11,8 +11,8 @@ PROTO_0:
        13 CALL                             R3 3 1
        14 MOVE                             R2 R3
        15 GETUPVAL                         R3 1
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["Renderers"]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K0 ["Renderers"]
        19 GETTABLEKS                       R6 R1 K1 ["Type"]
        21 GETTABLE                         R4 R5 R6
        22 GETUPVAL                         R5 2
@@ -56,8 +56,8 @@ PROTO_1:
        26 NEWTABLE                         R7 2 0
        28 GETTABLEKS                       R8 R0 K6 ["LayoutOrder"]
        30 SETTABLEKS                       R8 R7 K6 ["LayoutOrder"]
-       32 GETUPVAL                         R9 4
-       33 GETTABLEKS                       R8 R9 K7 ["Tag"]
+       32 GETUPVAL                         R8 4
+       33 GETTABLEKS                       R8 R8 K7 ["Tag"]
        35 GETUPVAL                         R9 5
        36 LOADK                            R10 K8 ["Role-Surface X-Fit Role-Column"]
        37 MOVE                             R11 R3
@@ -74,33 +74,33 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Dash"]
        22 CALL                             R3 1 1
        23 GETTABLEKS                       R4 R3 K10 ["collect"]
        25 GETTABLEKS                       R5 R3 K11 ["join"]
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       31 GETTABLEKS                       R7 R8 K12 ["Framework"]
+       29 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       31 GETTABLEKS                       R7 R7 K12 ["Framework"]
        33 CALL                             R6 1 1
-       34 GETTABLEKS                       R8 R6 K13 ["Util"]
-       36 GETTABLEKS                       R7 R8 K14 ["counter"]
+       34 GETTABLEKS                       R7 R6 K13 ["Util"]
+       36 GETTABLEKS                       R7 R7 K14 ["counter"]
        38 GETTABLEKS                       R8 R6 K15 ["Styling"]
        40 GETTABLEKS                       R9 R8 K16 ["joinTags"]
        42 GETIMPORT                        R10 K5 [require]
-       44 GETTABLEKS                       R14 R0 K17 ["Src"]
-       46 GETTABLEKS                       R13 R14 K18 ["Components"]
-       48 GETTABLEKS                       R12 R13 K19 ["ControlsView"]
-       50 GETTABLEKS                       R11 R12 K20 ["ControlProps"]
+       44 GETTABLEKS                       R11 R0 K17 ["Src"]
+       46 GETTABLEKS                       R11 R11 K18 ["Components"]
+       48 GETTABLEKS                       R11 R11 K19 ["ControlsView"]
+       50 GETTABLEKS                       R11 R11 K20 ["ControlProps"]
        52 CALL                             R10 1 1
        53 GETIMPORT                        R11 K5 [require]
-       55 GETTABLEKS                       R13 R0 K17 ["Src"]
-       57 GETTABLEKS                       R12 R13 K21 ["Types"]
+       55 GETTABLEKS                       R12 R0 K17 ["Src"]
+       57 GETTABLEKS                       R12 R12 K21 ["Types"]
        59 CALL                             R11 1 1
        60 DUPCLOSURE                       R12 K22 [PROTO_1]
        61 CAPTURE                          VAL R7

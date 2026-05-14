@@ -4,8 +4,8 @@ PROTO_0:
         3 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
         5 GETIMPORT                        R0 K1 [setmetatable]
         7 CALL                             R0 2 1
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K2 ["new"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K2 ["new"]
        11 CALL                             R1 0 1
        12 SETTABLEKS                       R1 R0 K3 ["_maid"]
        14 NEWTABLE                         R1 0 0
@@ -13,8 +13,8 @@ PROTO_0:
        18 LOADNIL                          R1
        19 SETTABLEKS                       R1 R0 K5 ["_state"]
        21 GETTABLEKS                       R1 R0 K3 ["_maid"]
-       23 GETUPVAL                         R4 2
-       24 GETTABLEKS                       R3 R4 K2 ["new"]
+       23 GETUPVAL                         R3 2
+       24 GETTABLEKS                       R3 R3 K2 ["new"]
        26 CALL                             R3 0 -1
        27 NAMECALL                         R1 R1 K6 ["add"]
        29 CALL                             R1 -1 1
@@ -46,16 +46,16 @@ PROTO_3:
         5 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_maid"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_maid"]
         3 LOADNIL                          R2
         4 SETTABLE                         R2 R1 R0
         5 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_maid"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["ChildAdded"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["ChildAdded"]
         5 NEWCLOSURE                       R5 P0
         6 CAPTURE                          VAL R0
         7 NAMECALL                         R3 R3 K2 ["Connect"]
@@ -63,8 +63,8 @@ PROTO_5:
        10 NAMECALL                         R1 R1 K3 ["giveTask"]
        12 CALL                             R1 -1 0
        13 GETTABLEKS                       R1 R0 K0 ["_maid"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K4 ["ChildRemoved"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K4 ["ChildRemoved"]
        18 NEWCLOSURE                       R5 P1
        19 CAPTURE                          VAL R0
        20 NAMECALL                         R3 R3 K2 ["Connect"]
@@ -114,14 +114,14 @@ PROTO_8:
 
 PROTO_9:
         0 GETIMPORT                        R0 K2 [table.find]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K3 ["_categoryTrackers"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["_categoryTrackers"]
         5 GETUPVAL                         R2 1
         6 CALL                             R0 2 1
         7 JUMPIFNOT                        R0 ; [+7]
         8 GETIMPORT                        R1 K5 [table.remove]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K3 ["_categoryTrackers"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K3 ["_categoryTrackers"]
        13 MOVE                             R3 R0
        14 CALL                             R1 2 0
        15 GETUPVAL                         R1 0
@@ -135,11 +135,11 @@ PROTO_10:
         3 CALL                             R2 2 1
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["new"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["new"]
         9 CALL                             R2 0 1
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R5 R6 K2 ["new"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K2 ["new"]
        13 MOVE                             R6 R1
        14 CALL                             R5 1 -1
        15 NAMECALL                         R3 R2 K3 ["add"]
@@ -168,8 +168,8 @@ PROTO_10:
        48 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_maid"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_maid"]
         3 LOADNIL                          R1
         4 SETTABLEKS                       R1 R0 K1 ["_stateUpdateQueue"]
         6 GETUPVAL                         R0 0
@@ -178,8 +178,8 @@ PROTO_11:
        10 RETURN                           R0 0
 
 PROTO_12:
-        0 GETTABLEKS                       R2 R0 K0 ["_maid"]
-        2 GETTABLEKS                       R1 R2 K1 ["_stateUpdateQueue"]
+        0 GETTABLEKS                       R1 R0 K0 ["_maid"]
+        2 GETTABLEKS                       R1 R1 K1 ["_stateUpdateQueue"]
         4 JUMPIFNOT                        R1 ; [+1]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R1 R0 K0 ["_maid"]
@@ -241,23 +241,23 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Src"]
-       17 GETTABLEKS                       R3 R4 K11 ["Types"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Types"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R0 K10 ["Src"]
-       24 GETTABLEKS                       R5 R6 K12 ["Util"]
-       26 GETTABLEKS                       R4 R5 K13 ["Maid"]
+       22 GETTABLEKS                       R4 R0 K10 ["Src"]
+       24 GETTABLEKS                       R4 R4 K12 ["Util"]
+       26 GETTABLEKS                       R4 R4 K13 ["Maid"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R7 R0 K10 ["Src"]
-       33 GETTABLEKS                       R6 R7 K12 ["Util"]
-       35 GETTABLEKS                       R5 R6 K14 ["Signal"]
+       31 GETTABLEKS                       R5 R0 K10 ["Src"]
+       33 GETTABLEKS                       R5 R5 K12 ["Util"]
+       35 GETTABLEKS                       R5 R5 K14 ["Signal"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K9 [require]
-       40 GETIMPORT                        R8 K1 [script]
-       42 GETTABLEKS                       R7 R8 K15 ["Parent"]
-       44 GETTABLEKS                       R6 R7 K16 ["VisualizationModeCategoryTracker"]
+       40 GETIMPORT                        R6 K1 [script]
+       42 GETTABLEKS                       R6 R6 K15 ["Parent"]
+       44 GETTABLEKS                       R6 R6 K16 ["VisualizationModeCategoryTracker"]
        46 CALL                             R5 1 1
        47 NEWTABLE                         R6 16 0
        49 SETTABLEKS                       R6 R6 K17 ["__index"]

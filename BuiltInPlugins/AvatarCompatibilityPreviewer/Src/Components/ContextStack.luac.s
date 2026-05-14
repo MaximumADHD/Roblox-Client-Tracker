@@ -7,8 +7,8 @@ PROTO_0:
         7 FORNPREP                         R2
         8 GETTABLEKS                       R6 R0 K1 ["providers"]
        10 GETTABLE                         R5 R6 R4
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K2 ["cloneElement"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K2 ["cloneElement"]
        14 MOVE                             R7 R5
        15 LOADNIL                          R8
        16 MOVE                             R9 R1
@@ -24,8 +24,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 CAPTURE                          VAL R1

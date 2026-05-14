@@ -3,8 +3,8 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R2 R5 K0 ["LIMBS"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["LIMBS"]
         5 LOADNIL                          R3
         6 LOADNIL                          R4
         7 FORGPREP                         R2
@@ -25,8 +25,8 @@ PROTO_1:
        28 LOADK                            R12 K3 ["StringValue"]
        29 NAMECALL                         R10 R8 K4 ["IsA"]
        31 CALL                             R10 2 1
-       32 GETUPVAL                         R12 0
-       33 GETTABLEKS                       R11 R12 K5 ["LUAU_ANALYZE_ERROR"]
+       32 GETUPVAL                         R11 0
+       33 GETTABLEKS                       R11 R11 K5 ["LUAU_ANALYZE_ERROR"]
        35 FASTCALL2                        ASSERT R10 R11 ; [+3]
        37 GETIMPORT                        R9 K7 [assert]
        39 CALL                             R9 2 0
@@ -77,8 +77,8 @@ PROTO_3:
        16 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R2 R5 K0 ["LIMBS"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["LIMBS"]
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
@@ -93,8 +93,8 @@ PROTO_4:
        16 NAMECALL                         R8 R7 K3 ["IsA"]
        18 CALL                             R8 2 1
        19 JUMPIFNOT                        R8 ; [+47]
-       20 GETUPVAL                         R9 2
-       21 GETTABLEKS                       R8 R9 K4 ["setAvatarPartScaleType"]
+       20 GETUPVAL                         R8 2
+       21 GETTABLEKS                       R8 R8 K4 ["setAvatarPartScaleType"]
        23 MOVE                             R9 R7
        24 MOVE                             R10 R1
        25 CALL                             R8 2 0
@@ -120,8 +120,8 @@ PROTO_4:
        53 LOADK                            R12 K9 ["StringValue"]
        54 NAMECALL                         R10 R8 K3 ["IsA"]
        56 CALL                             R10 2 1
-       57 GETUPVAL                         R12 0
-       58 GETTABLEKS                       R11 R12 K13 ["LUAU_ANALYZE_ERROR"]
+       57 GETUPVAL                         R11 0
+       58 GETTABLEKS                       R11 R11 K13 ["LUAU_ANALYZE_ERROR"]
        60 FASTCALL2                        ASSERT R10 R11 ; [+3]
        62 GETIMPORT                        R9 K15 [assert]
        64 CALL                             R9 2 0
@@ -145,13 +145,13 @@ PROTO_4:
        88 NAMECALL                         R8 R7 K3 ["IsA"]
        90 CALL                             R8 2 1
        91 JUMPIFNOT                        R8 ; [+13]
-       92 GETUPVAL                         R11 0
-       93 GETTABLEKS                       R10 R11 K19 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+       92 GETUPVAL                         R10 0
+       93 GETTABLEKS                       R10 R10 K19 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
        95 NAMECALL                         R8 R7 K20 ["GetAttribute"]
        97 CALL                             R8 2 1
        98 JUMPIFNOT                        R8 ; [+6]
-       99 GETUPVAL                         R9 2
-      100 GETTABLEKS                       R8 R9 K4 ["setAvatarPartScaleType"]
+       99 GETUPVAL                         R8 2
+      100 GETTABLEKS                       R8 R8 K4 ["setAvatarPartScaleType"]
       102 MOVE                             R9 R7
       103 MOVE                             R10 R1
       104 CALL                             R8 2 0
@@ -165,23 +165,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["HumanoidValueUtil"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["HumanoidValueUtil"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R5 K10 ["Types"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Types"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       38 GETTABLEKS                       R5 R6 K12 ["getFFlagFixLayeredClothingAssignment"]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K12 ["getFFlagFixLayeredClothingAssignment"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 8 0
        43 DUPCLOSURE                       R6 K13 [PROTO_0]

@@ -9,19 +9,19 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["HttpWrapper"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETIMPORT                        R6 K1 [script]
-       18 GETTABLEKS                       R5 R6 K8 ["Api"]
-       20 GETTABLEKS                       R4 R5 K9 ["Conversation"]
+       16 GETIMPORT                        R4 K1 [script]
+       18 GETTABLEKS                       R4 R4 K8 ["Api"]
+       20 GETTABLEKS                       R4 R4 K9 ["Conversation"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K6 [require]
-       25 GETIMPORT                        R7 K1 [script]
-       27 GETTABLEKS                       R6 R7 K8 ["Api"]
-       29 GETTABLEKS                       R5 R6 K10 ["SubagentConversation"]
+       25 GETIMPORT                        R5 K1 [script]
+       27 GETTABLEKS                       R5 R5 K8 ["Api"]
+       29 GETTABLEKS                       R5 R5 K10 ["SubagentConversation"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K6 [require]
-       34 GETIMPORT                        R8 K1 [script]
-       36 GETTABLEKS                       R7 R8 K8 ["Api"]
-       38 GETTABLEKS                       R6 R7 K11 ["SystemPrompt"]
+       34 GETIMPORT                        R6 K1 [script]
+       36 GETTABLEKS                       R6 R6 K8 ["Api"]
+       38 GETTABLEKS                       R6 R6 K11 ["SystemPrompt"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K14 [table.freeze]
        43 DUPTABLE                         R7 K15 [{"Conversation", "SubagentConversation", "SystemPrompt"}]

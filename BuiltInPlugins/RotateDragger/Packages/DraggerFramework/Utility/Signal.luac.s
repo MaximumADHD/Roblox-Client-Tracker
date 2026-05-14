@@ -76,8 +76,8 @@ PROTO_3:
         2 SETTABLEKS                       R1 R0 K0 ["isConnected"]
         4 GETUPVAL                         R0 1
         5 GETUPVAL                         R1 2
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["_listeners"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["_listeners"]
         9 GETUPVAL                         R3 0
        10 CALL                             R1 2 1
        11 SETTABLEKS                       R1 R0 K1 ["_listeners"]
@@ -161,15 +161,15 @@ PROTO_9:
         7 CALL                             R1 3 0
         8 LOADB                            R1 0
         9 SETTABLEKS                       R1 R0 K0 ["_connected"]
-       11 GETTABLEKS                       R2 R0 K4 ["_signal"]
-       13 GETTABLEKS                       R1 R2 K5 ["_handlerListHead"]
+       11 GETTABLEKS                       R1 R0 K4 ["_signal"]
+       13 GETTABLEKS                       R1 R1 K5 ["_handlerListHead"]
        15 JUMPIFNOTEQ                      R1 R0 ; [+8]
        17 GETTABLEKS                       R1 R0 K4 ["_signal"]
        19 GETTABLEKS                       R2 R0 K6 ["_next"]
        21 SETTABLEKS                       R2 R1 K5 ["_handlerListHead"]
        23 RETURN                           R0 0
-       24 GETTABLEKS                       R2 R0 K4 ["_signal"]
-       26 GETTABLEKS                       R1 R2 K5 ["_handlerListHead"]
+       24 GETTABLEKS                       R1 R0 K4 ["_signal"]
+       26 GETTABLEKS                       R1 R1 K5 ["_handlerListHead"]
        28 JUMPIFNOT                        R1 ; [+7]
        29 GETTABLEKS                       R2 R1 K6 ["_next"]
        31 JUMPIFEQ                         R2 R0 ; [+4]
@@ -211,8 +211,8 @@ PROTO_12:
        10 RETURN                           R0 1
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
@@ -305,9 +305,9 @@ PROTO_18:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 DUPCLOSURE                       R1 K3 [PROTO_0]
         8 DUPCLOSURE                       R2 K4 [PROTO_1]
         9 NEWTABLE                         R3 4 0

@@ -60,8 +60,8 @@ PROTO_3:
         2 SETTABLEKS                       R1 R0 K0 ["isConnected"]
         4 GETUPVAL                         R0 1
         5 GETUPVAL                         R1 2
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["_listeners"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["_listeners"]
         9 GETUPVAL                         R3 0
        10 CALL                             R1 2 1
        11 SETTABLEKS                       R1 R0 K1 ["_listeners"]

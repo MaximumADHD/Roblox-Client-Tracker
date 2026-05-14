@@ -1,11 +1,11 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["DebugData"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["DebugData"]
         5 GETTABLEKS                       R2 R1 K2 ["FrameBuffer"]
         7 GETUPVAL                         R4 0
-        8 GETUPVAL                         R6 1
-        9 GETTABLEKS                       R5 R6 K3 ["FRAMERATE"]
+        8 GETUPVAL                         R5 1
+        9 GETTABLEKS                       R5 R5 K3 ["FRAMERATE"]
        11 MUL                              R3 R4 R5
        12 LOADNIL                          R4
        13 JUMPIFNOT                        R2 ; [+12]
@@ -18,8 +18,8 @@ PROTO_0:
        23 CALL                             R5 2 1
        24 MOVE                             R4 R5
        25 JUMP                             ; [+6]
-       26 GETUPVAL                         R6 2
-       27 GETTABLEKS                       R5 R6 K6 ["new"]
+       26 GETUPVAL                         R5 2
+       27 GETTABLEKS                       R5 R5 K6 ["new"]
        29 MOVE                             R6 R3
        30 CALL                             R5 1 1
        31 MOVE                             R4 R5
@@ -44,23 +44,21 @@ MAIN:
         3 LOADK                            R2 K2 ["CompositorDebugger"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AnimationEditor"]
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R0 K8 ["Src"]
-       16 GETTABLEKS                       R2 R3 K9 ["Actions"]
-       18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R4 R2 K10 ["SetFrameBuffer"]
-       22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R0 K8 ["Src"]
-       25 GETTABLEKS                       R4 R5 K11 ["Util"]
-       27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R6 R4 K12 ["CircularBuffer"]
-       31 CALL                             R5 1 1
-       32 GETTABLEKS                       R6 R1 K13 ["Constants"]
-       34 DUPCLOSURE                       R7 K14 [PROTO_1]
-       35 CAPTURE                          VAL R6
-       36 CAPTURE                          VAL R5
-       37 CAPTURE                          VAL R3
-       38 RETURN                           R7 1
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
+       11 GETIMPORT                        R2 K7 [require]
+       13 GETTABLEKS                       R3 R1 K8 ["SetFrameBuffer"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R3 R0 K4 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETIMPORT                        R4 K7 [require]
+       22 GETTABLEKS                       R5 R3 K10 ["CircularBuffer"]
+       24 CALL                             R4 1 1
+       25 GETIMPORT                        R5 K7 [require]
+       27 GETTABLEKS                       R6 R3 K11 ["Constants"]
+       29 CALL                             R5 1 1
+       30 DUPCLOSURE                       R6 K12 [PROTO_1]
+       31 CAPTURE                          VAL R5
+       32 CAPTURE                          VAL R4
+       33 CAPTURE                          VAL R2
+       34 RETURN                           R6 1

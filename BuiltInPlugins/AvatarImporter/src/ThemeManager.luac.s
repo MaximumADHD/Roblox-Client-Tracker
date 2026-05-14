@@ -38,9 +38,9 @@ PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R3 2
-        3 GETUPVAL                         R6 3
-        4 GETTABLEKS                       R5 R6 K0 ["Theme"]
-        6 GETTABLEKS                       R4 R5 K1 ["Name"]
+        3 GETUPVAL                         R4 3
+        4 GETTABLEKS                       R4 R4 K0 ["Theme"]
+        6 GETTABLEKS                       R4 R4 K1 ["Name"]
         8 GETTABLE                         R2 R3 R4
         9 SETTABLE                         R2 R0 R1
        10 RETURN                           R0 0
@@ -58,8 +58,8 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R3 2
-        3 GETTABLEKS                       R2 R3 K0 ["Theme"]
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["Theme"]
         5 GETUPVAL                         R4 3
         6 GETUPVAL                         R5 4
         7 NAMECALL                         R2 R2 K1 ["GetColor"]
@@ -81,8 +81,8 @@ PROTO_7:
 PROTO_8:
         0 MOVE                             R2 R1
         1 CALL                             R2 0 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["ThemeChanged"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["ThemeChanged"]
         5 MOVE                             R4 R1
         6 NAMECALL                         R2 R2 K1 ["Connect"]
         8 CALL                             R2 2 0
@@ -90,9 +90,9 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [settings]
-        3 CALL                             R1 0 1
-        4 GETTABLEKS                       R0 R1 K2 ["Studio"]
+        1 GETIMPORT                        R0 K1 [settings]
+        3 CALL                             R0 0 1
+        4 GETTABLEKS                       R0 R0 K2 ["Studio"]
         6 NEWTABLE                         R1 8 0
         8 DUPCLOSURE                       R2 K3 [PROTO_0]
         9 SETTABLEKS                       R2 R1 K4 ["setImageColor"]

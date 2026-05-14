@@ -8,9 +8,9 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R2 K1 [require]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K2 ["Packages"]
-        5 GETTABLEKS                       R3 R4 K3 ["ReactDeveloperTools"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K2 ["Packages"]
+        5 GETTABLEKS                       R3 R3 K3 ["ReactDeveloperTools"]
         7 CALL                             R2 1 1
         8 GETTABLEKS                       R3 R2 K4 ["tryEnableDevtools"]
        10 DUPTABLE                         R4 K6 [{"pluginName"}]
@@ -18,19 +18,19 @@ PROTO_1:
        12 SETTABLEKS                       R5 R4 K5 ["pluginName"]
        14 CALL                             R3 1 0
        15 GETIMPORT                        R3 K1 [require]
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K2 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K8 ["React"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K2 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K8 ["React"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K1 [require]
-       25 GETUPVAL                         R7 0
-       26 GETTABLEKS                       R6 R7 K2 ["Packages"]
-       28 GETTABLEKS                       R5 R6 K9 ["ReactRoblox"]
+       25 GETUPVAL                         R5 0
+       26 GETTABLEKS                       R5 R5 K2 ["Packages"]
+       28 GETTABLEKS                       R5 R5 K9 ["ReactRoblox"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K1 [require]
-       33 GETUPVAL                         R8 0
-       34 GETTABLEKS                       R7 R8 K10 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["MainPlugin"]
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K10 ["Src"]
+       36 GETTABLEKS                       R6 R6 K11 ["MainPlugin"]
        38 CALL                             R5 1 1
        39 GETTABLEKS                       R6 R3 K12 ["createElement"]
        41 MOVE                             R7 R5
@@ -55,18 +55,18 @@ PROTO_1:
        67 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Name"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Name"]
         3 SETTABLEKS                       R1 R0 K0 ["Name"]
         5 GETIMPORT                        R1 K2 [game]
         7 LOADK                            R3 K3 ["RunService"]
         8 NAMECALL                         R1 R1 K4 ["GetService"]
        10 CALL                             R1 2 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K5 ["get"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K5 ["get"]
        14 CALL                             R3 0 1
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K6 ["Standalone"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K6 ["Standalone"]
        18 JUMPIFEQ                         R3 R4 ; [+2]
        20 LOADB                            R2 0 +1
        21 LOADB                            R2 1
@@ -99,9 +99,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R3 R4 K7 ["Common"]
-       13 GETTABLEKS                       R2 R3 K8 ["pluginType"]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["pluginType"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_1]
        17 CAPTURE                          VAL R0

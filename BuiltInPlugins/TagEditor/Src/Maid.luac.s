@@ -39,8 +39,8 @@ PROTO_2:
        25 RETURN                           R0 0
        26 SETTABLE                         R2 R3 R1
        27 JUMPIFNOT                        R4 ; [+5]
-       28 GETUPVAL                         R6 0
-       29 GETTABLEKS                       R5 R6 K11 ["cleanupTask"]
+       28 GETUPVAL                         R5 0
+       29 GETTABLEKS                       R5 R5 K11 ["cleanupTask"]
        31 MOVE                             R6 R4
        32 CALL                             R5 1 0
        33 RETURN                           R0 0
@@ -102,8 +102,8 @@ PROTO_5:
        25 JUMPIFEQKNIL                     R3 ; [+15]
        27 LOADNIL                          R4
        28 SETTABLE                         R4 R1 R2
-       29 GETUPVAL                         R5 0
-       30 GETTABLEKS                       R4 R5 K9 ["cleanupTask"]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K9 ["cleanupTask"]
        32 MOVE                             R5 R3
        33 CALL                             R4 1 0
        34 GETIMPORT                        R4 K8 [next]

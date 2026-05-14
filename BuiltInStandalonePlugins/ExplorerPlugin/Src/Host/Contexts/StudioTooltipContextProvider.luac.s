@@ -16,10 +16,10 @@ PROTO_0:
        18 LOADN                            R6 0
        19 CALL                             R4 2 1
        20 SETTABLEKS                       R4 R3 K7 ["SubjectAnchorPoint"]
-       22 GETUPVAL                         R7 1
-       23 GETTABLEKS                       R6 R7 K10 ["AbsolutePosition"]
-       25 GETUPVAL                         R8 1
-       26 GETTABLEKS                       R7 R8 K11 ["AbsoluteSize"]
+       22 GETUPVAL                         R6 1
+       23 GETTABLEKS                       R6 R6 K10 ["AbsolutePosition"]
+       25 GETUPVAL                         R7 1
+       26 GETTABLEKS                       R7 R7 K11 ["AbsoluteSize"]
        28 ADD                              R5 R6 R7
        29 ADD                              R4 R5 R0
        30 SETTABLEKS                       R4 R3 K8 ["Offset"]
@@ -39,17 +39,17 @@ PROTO_1:
         7 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["UI"]
-        3 GETTABLEKS                       R2 R3 K1 ["Hooks"]
-        5 GETTABLEKS                       R1 R2 K2 ["useTooltip"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["UI"]
+        3 GETTABLEKS                       R1 R1 K1 ["Hooks"]
+        5 GETTABLEKS                       R1 R1 K2 ["useTooltip"]
         7 DUPTABLE                         R2 K5 [{"Uri", "Text"}]
         8 GETUPVAL                         R3 1
         9 SETTABLEKS                       R3 R2 K3 ["Uri"]
        11 SETTABLEKS                       R0 R2 K4 ["Text"]
        13 CALL                             R1 1 2
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R3 R4 K6 ["useCallback"]
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K6 ["useCallback"]
        17 NEWCLOSURE                       R4 P0
        18 CAPTURE                          VAL R1
        19 NEWTABLE                         R5 0 1
@@ -66,11 +66,11 @@ PROTO_3:
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
         4 GETUPVAL                         R2 3
-        5 GETUPVAL                         R7 4
-        6 GETTABLEKS                       R6 R7 K1 ["Components"]
-        8 GETTABLEKS                       R5 R6 K2 ["Contexts"]
-       10 GETTABLEKS                       R4 R5 K3 ["TooltipContext"]
-       12 GETTABLEKS                       R3 R4 K4 ["Provider"]
+        5 GETUPVAL                         R3 4
+        6 GETTABLEKS                       R3 R3 K1 ["Components"]
+        8 GETTABLEKS                       R3 R3 K2 ["Contexts"]
+       10 GETTABLEKS                       R3 R3 K3 ["TooltipContext"]
+       12 GETTABLEKS                       R3 R3 K4 ["Provider"]
        14 DUPTABLE                         R4 K6 [{"useTooltip"}]
        15 SETTABLEKS                       R1 R4 K5 ["useTooltip"]
        17 GETTABLEKS                       R5 R0 K7 ["children"]
@@ -84,21 +84,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Explorer"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Explorer"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["ExplorerGuiUri"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["ExplorerGuiUri"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["Framework"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["React"]
+       32 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["React"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K13 ["createElement"]
        39 DUPCLOSURE                       R6 K14 [PROTO_3]

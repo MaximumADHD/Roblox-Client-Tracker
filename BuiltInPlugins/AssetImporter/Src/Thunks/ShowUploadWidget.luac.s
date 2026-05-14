@@ -24,8 +24,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetImporter"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetShowUploadWidget"]
        15 CALL                             R2 1 1
@@ -33,9 +33,9 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K9 ["SetUploadWidgetItem"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K7 [require]
-       23 GETTABLEKS                       R7 R0 K4 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Types"]
-       27 GETTABLEKS                       R5 R6 K11 ["QueuedSession"]
+       23 GETTABLEKS                       R5 R0 K4 ["Src"]
+       25 GETTABLEKS                       R5 R5 K10 ["Types"]
+       27 GETTABLEKS                       R5 R5 K11 ["QueuedSession"]
        29 CALL                             R4 1 1
        30 DUPCLOSURE                       R5 K12 [PROTO_1]
        31 CAPTURE                          VAL R3

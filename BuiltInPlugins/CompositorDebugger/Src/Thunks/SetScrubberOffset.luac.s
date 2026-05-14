@@ -38,8 +38,8 @@ PROTO_0:
        50 MOVE                             R10 R9
        51 JUMPIFNOT                        R10 ; [+2]
        52 GETTABLEKS                       R10 R9 K12 ["animationPose"]
-       54 GETTABLEKS                       R12 R7 K11 ["payload"]
-       56 GETTABLEKS                       R11 R12 K13 ["hrpCFrame"]
+       54 GETTABLEKS                       R11 R7 K11 ["payload"]
+       56 GETTABLEKS                       R11 R11 K13 ["hrpCFrame"]
        58 JUMPIFNOT                        R5 ; [+5]
        59 MOVE                             R14 R10
        60 MOVE                             R15 R11
@@ -72,8 +72,8 @@ PROTO_0:
        94 RETURN                           R0 0
        95 GETTABLE                         R8 R4 R7
        96 GETTABLEKS                       R10 R8 K8 ["timestamp"]
-       98 GETTABLEKS                       R12 R4 K6 ["last"]
-      100 GETTABLEKS                       R11 R12 K8 ["timestamp"]
+       98 GETTABLEKS                       R11 R4 K6 ["last"]
+      100 GETTABLEKS                       R11 R11 K8 ["timestamp"]
       102 SUB                              R9 R10 R11
       103 JUMPIFNOT                        R6 ; [+4]
       104 GETTABLEKS                       R11 R8 K10 ["layerMap"]
@@ -83,8 +83,8 @@ PROTO_0:
       110 MOVE                             R11 R10
       111 JUMPIFNOT                        R11 ; [+2]
       112 GETTABLEKS                       R11 R10 K12 ["animationPose"]
-      114 GETTABLEKS                       R13 R8 K11 ["payload"]
-      116 GETTABLEKS                       R12 R13 K13 ["hrpCFrame"]
+      114 GETTABLEKS                       R12 R8 K11 ["payload"]
+      116 GETTABLEKS                       R12 R12 K13 ["hrpCFrame"]
       118 JUMPIFNOT                        R5 ; [+5]
       119 MOVE                             R15 R11
       120 MOVE                             R16 R12
@@ -137,24 +137,24 @@ MAIN:
         3 LOADK                            R2 K2 ["CompositorDebugger"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetHistoryFrame"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [require]
        18 GETTABLEKS                       R4 R1 K9 ["SetHistoryOffset"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K4 ["Src"]
-       23 GETTABLEKS                       R4 R5 K10 ["Reducers"]
+       21 GETTABLEKS                       R4 R0 K4 ["Src"]
+       23 GETTABLEKS                       R4 R4 K10 ["Reducers"]
        25 GETIMPORT                        R5 K7 [require]
        27 GETTABLEKS                       R6 R4 K11 ["DebugData"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K7 [require]
        32 GETTABLEKS                       R7 R4 K12 ["Status"]
        34 CALL                             R6 1 1
-       35 GETTABLEKS                       R8 R0 K4 ["Src"]
-       37 GETTABLEKS                       R7 R8 K13 ["Thunks"]
+       35 GETTABLEKS                       R7 R0 K4 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Thunks"]
        39 GETIMPORT                        R8 K7 [require]
        41 GETTABLEKS                       R9 R7 K14 ["RenderAdornments"]
        43 CALL                             R8 1 1

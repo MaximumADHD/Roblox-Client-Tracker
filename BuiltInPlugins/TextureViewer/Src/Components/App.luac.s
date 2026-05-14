@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R3 K1 [{"rows"}]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K2 ["fetchAllTexturesFromWorkspace"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K2 ["fetchAllTexturesFromWorkspace"]
         4 CALL                             R4 0 1
         5 SETTABLEKS                       R4 R3 K0 ["rows"]
         7 NAMECALL                         R1 R0 K3 ["setState"]
@@ -17,11 +17,11 @@ PROTO_2:
         0 LENGTH                           R3 R1
         1 LOADN                            R4 0
         2 JUMPIFNOTLT                      R4 R3 ; [+35]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K0 ["zoomToExtentsAndSelectInstance"]
-        7 GETIMPORT                        R6 K2 [game]
-        9 GETTABLEKS                       R5 R6 K3 ["Workspace"]
-       11 GETTABLEKS                       R4 R5 K4 ["CurrentCamera"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K0 ["zoomToExtentsAndSelectInstance"]
+        7 GETIMPORT                        R4 K2 [game]
+        9 GETTABLEKS                       R4 R4 K3 ["Workspace"]
+       11 GETTABLEKS                       R4 R4 K4 ["CurrentCamera"]
        13 GETTABLE                         R5 R1 R2
        14 CALL                             R3 2 1
        15 JUMPIFNOT                        R3 ; [+19]
@@ -43,14 +43,14 @@ PROTO_2:
        38 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["state"]
-        2 GETTABLEKS                       R1 R2 K1 ["searchTerm"]
+        0 GETTABLEKS                       R1 R0 K0 ["state"]
+        2 GETTABLEKS                       R1 R1 K1 ["searchTerm"]
         4 NAMECALL                         R1 R1 K2 ["lower"]
         6 CALL                             R1 1 1
         7 NEWTABLE                         R2 0 0
         9 GETIMPORT                        R3 K4 [ipairs]
-       11 GETTABLEKS                       R6 R0 K0 ["state"]
-       13 GETTABLEKS                       R4 R6 K5 ["rows"]
+       11 GETTABLEKS                       R4 R0 K0 ["state"]
+       13 GETTABLEKS                       R4 R4 K5 ["rows"]
        15 CALL                             R3 1 3
        16 FORGPREP_INEXT                   R3
        17 GETTABLEKS                       R8 R7 K6 ["Texture"]
@@ -69,25 +69,25 @@ PROTO_3:
        36 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["showRightClickMenu"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["showRightClickMenu"]
         3 GETUPVAL                         R3 1
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K1 ["props"]
-        7 GETTABLEKS                       R4 R5 K2 ["Plugin"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K1 ["props"]
+        7 GETTABLEKS                       R4 R4 K2 ["Plugin"]
         9 NAMECALL                         R4 R4 K3 ["get"]
        11 CALL                             R4 1 1
-       12 GETUPVAL                         R7 1
-       13 GETTABLEKS                       R6 R7 K1 ["props"]
-       15 GETTABLEKS                       R5 R6 K4 ["Localization"]
+       12 GETUPVAL                         R5 1
+       13 GETTABLEKS                       R5 R5 K1 ["props"]
+       15 GETTABLEKS                       R5 R5 K4 ["Localization"]
        17 MOVE                             R6 R0
        18 MOVE                             R7 R1
        19 CALL                             R2 5 0
        20 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["fetchAllTexturesFromWorkspace"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["fetchAllTexturesFromWorkspace"]
         3 CALL                             R1 0 1
         4 DUPTABLE                         R2 K3 [{"rows", "searchTerm"}]
         5 SETTABLEKS                       R1 R2 K1 ["rows"]
@@ -110,17 +110,17 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["App"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["App"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
         8 NAMECALL                         R4 R0 K4 ["filterRowsBySearchTerm"]
        10 CALL                             R4 1 1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K5 ["calculateAggregateStats"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K5 ["calculateAggregateStats"]
        14 MOVE                             R6 R4
        15 CALL                             R5 1 2
-       16 GETUPVAL                         R8 1
-       17 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R7 R7 K6 ["createElement"]
        19 GETUPVAL                         R8 2
        20 DUPTABLE                         R9 K11 [{"Size", "Layout", "Padding", "Spacing"}]
        21 GETIMPORT                        R10 K14 [UDim2.fromScale]
@@ -141,8 +141,8 @@ PROTO_7:
        44 MOVE                             R14 R6
        45 CALL                             R11 3 1
        46 SETTABLEKS                       R11 R10 K19 ["TopPanel"]
-       48 GETUPVAL                         R12 1
-       49 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       48 GETUPVAL                         R11 1
+       49 GETTABLEKS                       R11 R11 K6 ["createElement"]
        51 GETUPVAL                         R12 4
        52 DUPTABLE                         R13 K28 [{"PlaceholderText", "IncrementalTextSearch", "IncrementalTextSearchDelay", "OnSearchRequested", "Size", "LayoutOrder"}]
        53 LOADK                            R16 K29 ["Search"]
@@ -157,8 +157,8 @@ PROTO_7:
        66 NEWCLOSURE                       R14 P0
        67 CAPTURE                          VAL R0
        68 SETTABLEKS                       R14 R13 K26 ["OnSearchRequested"]
-       70 GETTABLEKS                       R15 R2 K20 ["SearchBar"]
-       72 GETTABLEKS                       R14 R15 K7 ["Size"]
+       70 GETTABLEKS                       R14 R2 K20 ["SearchBar"]
+       72 GETTABLEKS                       R14 R14 K7 ["Size"]
        74 SETTABLEKS                       R14 R13 K7 ["Size"]
        76 LOADN                            R14 2
        77 SETTABLEKS                       R14 R13 K27 ["LayoutOrder"]
@@ -178,44 +178,44 @@ MAIN:
         3 LOADK                            R2 K2 ["Selection"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["React"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["React"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["Framework"]
        28 CALL                             R3 1 1
        29 GETTABLEKS                       R4 R3 K12 ["ContextServices"]
        31 GETTABLEKS                       R5 R4 K13 ["Analytics"]
        33 GETTABLEKS                       R6 R4 K14 ["Localization"]
        35 GETTABLEKS                       R7 R4 K15 ["withContext"]
-       37 GETTABLEKS                       R9 R3 K16 ["Style"]
-       39 GETTABLEKS                       R8 R9 K17 ["Stylizer"]
+       37 GETTABLEKS                       R8 R3 K16 ["Style"]
+       39 GETTABLEKS                       R8 R8 K17 ["Stylizer"]
        41 GETTABLEKS                       R9 R3 K18 ["UI"]
        43 GETTABLEKS                       R10 R9 K19 ["Pane"]
        45 GETTABLEKS                       R11 R9 K20 ["SearchBar"]
        47 GETIMPORT                        R12 K8 [require]
-       49 GETIMPORT                        R15 K5 [script]
-       51 GETTABLEKS                       R14 R15 K6 ["Parent"]
-       53 GETTABLEKS                       R13 R14 K21 ["ContextMenu"]
+       49 GETIMPORT                        R13 K5 [script]
+       51 GETTABLEKS                       R13 R13 K6 ["Parent"]
+       53 GETTABLEKS                       R13 R13 K21 ["ContextMenu"]
        55 CALL                             R12 1 1
        56 GETIMPORT                        R13 K8 [require]
-       58 GETIMPORT                        R16 K5 [script]
-       60 GETTABLEKS                       R15 R16 K6 ["Parent"]
-       62 GETTABLEKS                       R14 R15 K22 ["TextureTable"]
+       58 GETIMPORT                        R14 K5 [script]
+       60 GETTABLEKS                       R14 R14 K6 ["Parent"]
+       62 GETTABLEKS                       R14 R14 K22 ["TextureTable"]
        64 CALL                             R13 1 1
        65 GETIMPORT                        R14 K8 [require]
-       67 GETIMPORT                        R17 K5 [script]
-       69 GETTABLEKS                       R16 R17 K6 ["Parent"]
-       71 GETTABLEKS                       R15 R16 K23 ["TopPanel"]
+       67 GETIMPORT                        R15 K5 [script]
+       69 GETTABLEKS                       R15 R15 K6 ["Parent"]
+       71 GETTABLEKS                       R15 R15 K23 ["TopPanel"]
        73 CALL                             R14 1 1
-       74 GETTABLEKS                       R16 R1 K24 ["Src"]
-       76 GETTABLEKS                       R15 R16 K25 ["Util"]
+       74 GETTABLEKS                       R15 R1 K24 ["Src"]
+       76 GETTABLEKS                       R15 R15 K25 ["Util"]
        78 GETIMPORT                        R16 K8 [require]
        80 GETTABLEKS                       R17 R15 K26 ["Stats"]
        82 CALL                             R16 1 1

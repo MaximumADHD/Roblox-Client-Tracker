@@ -4,33 +4,33 @@ PROTO_0:
         4 LOADNIL                          R4
         5 GETTABLEKS                       R5 R1 K1 ["Components"]
         7 JUMPIFNOT                        R5 ; [+48]
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K2 ["COMPONENT_TRACK_TYPES"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K2 ["COMPONENT_TRACK_TYPES"]
        11 GETTABLE                         R5 R6 R2
        12 JUMPIFNOT                        R5 ; [+43]
        13 NEWTABLE                         R4 0 0
        15 GETUPVAL                         R6 1
        16 CALL                             R6 0 1
        17 JUMPIFNOT                        R6 ; [+6]
-       18 GETUPVAL                         R6 2
-       19 GETTABLEKS                       R5 R6 K3 ["getSortedComponents"]
+       18 GETUPVAL                         R5 2
+       19 GETTABLEKS                       R5 R5 K3 ["getSortedComponents"]
        21 MOVE                             R6 R1
        22 CALL                             R5 1 1
        23 JUMP                             ; [+8]
-       24 GETUPVAL                         R8 0
-       25 GETTABLEKS                       R7 R8 K2 ["COMPONENT_TRACK_TYPES"]
-       27 GETTABLEKS                       R8 R1 K0 ["Type"]
-       29 GETTABLE                         R6 R7 R8
-       30 GETTABLEKS                       R5 R6 K4 ["_Order"]
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K2 ["COMPONENT_TRACK_TYPES"]
+       27 GETTABLEKS                       R7 R1 K0 ["Type"]
+       29 GETTABLE                         R5 R6 R7
+       30 GETTABLEKS                       R5 R5 K4 ["_Order"]
        32 GETIMPORT                        R6 K6 [pairs]
        34 MOVE                             R7 R5
        35 CALL                             R6 1 3
        36 FORGPREP_NEXT                    R6
        37 NEWTABLE                         R11 0 0
        39 SETTABLE                         R11 R4 R10
-       40 GETUPVAL                         R13 3
-       41 GETTABLEKS                       R12 R13 K7 ["Dictionary"]
-       43 GETTABLEKS                       R11 R12 K8 ["join"]
+       40 GETUPVAL                         R11 3
+       41 GETTABLEKS                       R11 R11 K7 ["Dictionary"]
+       43 GETTABLEKS                       R11 R11 K8 ["join"]
        45 MOVE                             R12 R3
        46 GETUPVAL                         R13 4
        47 GETTABLE                         R14 R4 R10
@@ -110,16 +110,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R0 K8 ["Src"]
-       16 GETTABLEKS                       R2 R3 K9 ["Actions"]
+       14 GETTABLEKS                       R2 R0 K8 ["Src"]
+       16 GETTABLEKS                       R2 R2 K9 ["Actions"]
        18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R2 K10 ["SetSelectedKeyframes"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R0 K8 ["Src"]
-       25 GETTABLEKS                       R4 R5 K11 ["Util"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Util"]
        27 GETIMPORT                        R5 K5 [require]
        29 GETTABLEKS                       R6 R4 K12 ["Constants"]
        31 CALL                             R5 1 1
@@ -130,12 +130,12 @@ MAIN:
        39 GETTABLEKS                       R8 R4 K14 ["TrackUtils"]
        41 CALL                             R7 1 1
        42 GETIMPORT                        R8 K5 [require]
-       44 GETTABLEKS                       R10 R0 K8 ["Src"]
-       46 GETTABLEKS                       R9 R10 K15 ["Types"]
+       44 GETTABLEKS                       R9 R0 K8 ["Src"]
+       46 GETTABLEKS                       R9 R9 K15 ["Types"]
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K5 [require]
-       51 GETTABLEKS                       R11 R0 K16 ["LuaFlags"]
-       53 GETTABLEKS                       R10 R11 K17 ["GetFFlagControlRig"]
+       51 GETTABLEKS                       R10 R0 K16 ["LuaFlags"]
+       53 GETTABLEKS                       R10 R10 K17 ["GetFFlagControlRig"]
        55 CALL                             R9 1 1
        56 DUPCLOSURE                       R10 K18 [PROTO_2]
        57 CAPTURE                          VAL R5

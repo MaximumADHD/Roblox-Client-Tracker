@@ -43,8 +43,8 @@ PROTO_4:
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R1
         4 NEWCLOSURE                       R4 P0
         5 CAPTURE                          VAL R0

@@ -9,8 +9,8 @@ PROTO_0:
        11 GETUPVAL                         R2 0
        12 GETUPVAL                         R4 1
        13 DUPTABLE                         R5 K6 [{"url", "statusCode", "errorDetails", "user", "ampresponse"}]
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K7 ["Url"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K7 ["Url"]
        17 SETTABLEKS                       R6 R5 K1 ["url"]
        19 GETTABLEKS                       R6 R1 K0 ["StatusCode"]
        21 SETTABLEKS                       R6 R5 K2 ["statusCode"]
@@ -41,8 +41,8 @@ PROTO_0:
        59 GETUPVAL                         R5 0
        60 GETUPVAL                         R7 1
        61 DUPTABLE                         R8 K6 [{"url", "statusCode", "errorDetails", "user", "ampresponse"}]
-       62 GETUPVAL                         R10 2
-       63 GETTABLEKS                       R9 R10 K7 ["Url"]
+       62 GETUPVAL                         R9 2
+       63 GETTABLEKS                       R9 R9 K7 ["Url"]
        65 SETTABLEKS                       R9 R8 K1 ["url"]
        67 GETTABLEKS                       R9 R1 K0 ["StatusCode"]
        69 SETTABLEKS                       R9 R8 K2 ["statusCode"]
@@ -64,8 +64,8 @@ PROTO_1:
         0 DUPTABLE                         R2 K3 [{"Method", "Url", "Headers"}]
         1 LOADK                            R3 K4 ["GET"]
         2 SETTABLEKS                       R3 R2 K0 ["Method"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K5 ["BuildRobloxUrl"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K5 ["BuildRobloxUrl"]
         7 LOADK                            R4 K6 ["apis"]
         8 LOADK                            R6 K7 ["access-management/v1/upsell-feature-access?featureName="]
         9 GETUPVAL                         R7 1
@@ -95,19 +95,19 @@ PROTO_1:
        39 RETURN                           R3 -1
 
 PROTO_2:
-        0 GETIMPORT                        R3 K1 [game]
-        2 GETTABLEKS                       R2 R3 K2 ["PlaceId"]
+        0 GETIMPORT                        R2 K1 [game]
+        2 GETTABLEKS                       R2 R2 K2 ["PlaceId"]
         4 JUMPIFEQKN                       R2 K3 [0] ; [+4]
         6 GETUPVAL                         R2 0
         7 CALL                             R2 0 1
         8 JUMPIF                           R2 ; [+6]
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K4 ["resolve"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K4 ["resolve"]
        12 LOADB                            R3 0
        13 CALL                             R2 1 -1
        14 RETURN                           R2 -1
-       15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R2 R3 K5 ["new"]
+       15 GETUPVAL                         R2 1
+       16 GETTABLEKS                       R2 R2 K5 ["new"]
        18 NEWCLOSURE                       R3 P0
        19 CAPTURE                          UPVAL U2
        20 CAPTURE                          VAL R0
@@ -121,14 +121,14 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["Util"]
        20 GETTABLEKS                       R3 R2 K8 ["Promise"]
@@ -137,30 +137,30 @@ MAIN:
        25 NAMECALL                         R4 R4 K12 ["GetService"]
        27 CALL                             R4 2 1
        28 GETIMPORT                        R5 K4 [require]
-       30 GETTABLEKS                       R8 R0 K13 ["Src"]
-       32 GETTABLEKS                       R7 R8 K14 ["Networking"]
-       34 GETTABLEKS                       R6 R7 K15 ["Http"]
+       30 GETTABLEKS                       R6 R0 K13 ["Src"]
+       32 GETTABLEKS                       R6 R6 K14 ["Networking"]
+       34 GETTABLEKS                       R6 R6 K15 ["Http"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K10 [game]
        39 LOADK                            R8 K16 ["HttpService"]
        40 NAMECALL                         R6 R6 K12 ["GetService"]
        42 CALL                             R6 2 1
        43 GETIMPORT                        R7 K4 [require]
-       45 GETTABLEKS                       R10 R0 K13 ["Src"]
-       47 GETTABLEKS                       R9 R10 K7 ["Util"]
-       49 GETTABLEKS                       R8 R9 K17 ["IsTeamCreateEnabled"]
+       45 GETTABLEKS                       R8 R0 K13 ["Src"]
+       47 GETTABLEKS                       R8 R8 K7 ["Util"]
+       49 GETTABLEKS                       R8 R8 K17 ["IsTeamCreateEnabled"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K4 [require]
-       54 GETTABLEKS                       R10 R0 K5 ["Packages"]
-       56 GETTABLEKS                       R9 R10 K18 ["TelemetryProtocol"]
+       54 GETTABLEKS                       R9 R0 K5 ["Packages"]
+       56 GETTABLEKS                       R9 R9 K18 ["TelemetryProtocol"]
        58 CALL                             R8 1 1
        59 GETTABLEKS                       R9 R8 K19 ["new"]
        61 CALL                             R9 0 1
        62 GETIMPORT                        R10 K4 [require]
-       64 GETTABLEKS                       R14 R0 K13 ["Src"]
-       66 GETTABLEKS                       R13 R14 K7 ["Util"]
-       68 GETTABLEKS                       R12 R13 K20 ["Telemetry"]
-       70 GETTABLEKS                       R11 R12 K21 ["FetchAMPStatusFailureEvent"]
+       64 GETTABLEKS                       R11 R0 K13 ["Src"]
+       66 GETTABLEKS                       R11 R11 K7 ["Util"]
+       68 GETTABLEKS                       R11 R11 K20 ["Telemetry"]
+       70 GETTABLEKS                       R11 R11 K21 ["FetchAMPStatusFailureEvent"]
        72 CALL                             R10 1 1
        73 DUPCLOSURE                       R11 K22 [PROTO_2]
        74 CAPTURE                          VAL R7

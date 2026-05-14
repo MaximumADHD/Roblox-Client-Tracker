@@ -5,8 +5,8 @@ PROTO_0:
         4 GETTABLEKS                       R3 R1 K1 ["toolEnabled"]
         6 JUMPIFNOT                        R3 ; [+10]
         7 GETTABLEKS                       R3 R1 K2 ["relativeTo"]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K3 ["Active"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["Active"]
        12 JUMPIFEQ                         R3 R4 ; [+2]
        14 LOADB                            R2 0 +1
        15 LOADB                            R2 1
@@ -28,14 +28,14 @@ MAIN:
         3 LOADK                            R2 K2 ["Selection"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R5 R1 K9 ["Src"]
-       19 GETTABLEKS                       R4 R5 K10 ["Utility"]
-       21 GETTABLEKS                       R3 R4 K11 ["RelativeTo"]
+       17 GETTABLEKS                       R3 R1 K9 ["Src"]
+       19 GETTABLEKS                       R3 R3 K10 ["Utility"]
+       21 GETTABLEKS                       R3 R3 K11 ["RelativeTo"]
        23 CALL                             R2 1 1
        24 DUPCLOSURE                       R3 K12 [PROTO_1]
        25 CAPTURE                          VAL R2

@@ -74,8 +74,8 @@ PROTO_1:
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["CharacterConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["worldModels"]
+        3 GETTABLEKS                       R2 R1 K1 ["CharacterConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["worldModels"]
         7 GETUPVAL                         R4 0
         8 GETTABLE                         R3 R2 R4
         9 JUMPIFNOT                        R3 ; [+1]
@@ -86,8 +86,8 @@ PROTO_2:
        15 GETUPVAL                         R4 1
        16 NAMECALL                         R4 R4 K3 ["Clone"]
        18 CALL                             R4 1 1
-       19 GETUPVAL                         R6 2
-       20 GETTABLEKS                       R5 R6 K4 ["ConvertR6ToR15"]
+       19 GETUPVAL                         R5 2
+       20 GETTABLEKS                       R5 R5 K4 ["ConvertR6ToR15"]
        22 MOVE                             R6 R4
        23 CALL                             R5 1 0
        24 GETUPVAL                         R5 3
@@ -137,21 +137,21 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Modules"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Modules"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["NpcManager"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R5 R0 K4 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["AnimationConversion"]
+       16 GETTABLEKS                       R3 R0 K4 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["AnimationConversion"]
        22 GETIMPORT                        R4 K7 [require]
        24 GETTABLEKS                       R5 R3 K11 ["resetCharacter"]
        26 CALL                             R4 1 1
        27 GETIMPORT                        R5 K7 [require]
-       29 GETTABLEKS                       R8 R0 K4 ["Src"]
-       31 GETTABLEKS                       R7 R8 K12 ["Actions"]
-       33 GETTABLEKS                       R6 R7 K13 ["SetWorldModels"]
+       29 GETTABLEKS                       R6 R0 K4 ["Src"]
+       31 GETTABLEKS                       R6 R6 K12 ["Actions"]
+       33 GETTABLEKS                       R6 R6 K13 ["SetWorldModels"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K15 [game]
        38 LOADK                            R8 K16 ["RobloxReplicatedStorage"]

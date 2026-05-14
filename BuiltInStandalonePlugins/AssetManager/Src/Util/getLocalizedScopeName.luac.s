@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R0 K0 ["Type"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["ScopeType"]
-        5 GETTABLEKS                       R3 R4 K2 ["ProjectPlaces"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+        5 GETTABLEKS                       R3 R3 K2 ["ProjectPlaces"]
         7 JUMPIFNOTEQ                      R2 R3 ; [+7]
         9 LOADK                            R4 K3 ["Scopes"]
        10 LOADK                            R5 K4 ["ExperiencePlaces"]
@@ -10,9 +10,9 @@ PROTO_0:
        13 CALL                             R2 3 -1
        14 RETURN                           R2 -1
        15 GETTABLEKS                       R2 R0 K0 ["Type"]
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K1 ["ScopeType"]
-       20 GETTABLEKS                       R3 R4 K6 ["ProjectShared"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+       20 GETTABLEKS                       R3 R3 K6 ["ProjectShared"]
        22 JUMPIFNOTEQ                      R2 R3 ; [+7]
        24 LOADK                            R4 K3 ["Scopes"]
        25 LOADK                            R5 K7 ["ExperienceShared"]
@@ -20,9 +20,9 @@ PROTO_0:
        28 CALL                             R2 3 -1
        29 RETURN                           R2 -1
        30 GETTABLEKS                       R2 R0 K0 ["Type"]
-       32 GETUPVAL                         R5 0
-       33 GETTABLEKS                       R4 R5 K1 ["ScopeType"]
-       35 GETTABLEKS                       R3 R4 K8 ["RecentUploads"]
+       32 GETUPVAL                         R3 0
+       33 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+       35 GETTABLEKS                       R3 R3 K8 ["RecentUploads"]
        37 JUMPIFNOTEQ                      R2 R3 ; [+7]
        39 LOADK                            R4 K3 ["Scopes"]
        40 LOADK                            R5 K8 ["RecentUploads"]
@@ -39,8 +39,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 CAPTURE                          VAL R1

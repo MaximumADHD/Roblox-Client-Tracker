@@ -70,12 +70,12 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["AssistantUI"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["AssistantUI"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R5 R2 K12 ["Flags"]
-       22 GETTABLEKS                       R4 R5 K13 ["Shared"]
-       24 GETTABLEKS                       R3 R4 K14 ["FFlagDebugLogAssistantUI"]
+       20 GETTABLEKS                       R3 R2 K12 ["Flags"]
+       22 GETTABLEKS                       R3 R3 K13 ["Shared"]
+       24 GETTABLEKS                       R3 R3 K14 ["FFlagDebugLogAssistantUI"]
        26 DUPTABLE                         R4 K19 [{"EventIngest", "Points", "RobloxTelemetryCounter", "RobloxTelemetryStat"}]
        27 LOADK                            R5 K15 ["EventIngest"]
        28 SETTABLEKS                       R5 R4 K15 ["EventIngest"]

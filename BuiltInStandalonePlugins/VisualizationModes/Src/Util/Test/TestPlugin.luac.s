@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["TestHelpers"]
-        3 GETTABLEKS                       R2 R3 K1 ["Instances"]
-        5 GETTABLEKS                       R1 R2 K2 ["MockPlugin"]
-        7 GETTABLEKS                       R0 R1 K3 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["TestHelpers"]
+        3 GETTABLEKS                       R0 R0 K1 ["Instances"]
+        5 GETTABLEKS                       R0 R0 K2 ["MockPlugin"]
+        7 GETTABLEKS                       R0 R0 K3 ["new"]
         9 CALL                             R0 0 1
        10 GETIMPORT                        R1 K5 [Instance.new]
        12 LOADK                            R2 K6 ["BindableEvent"]
@@ -13,32 +13,32 @@ PROTO_0:
        18 SETTABLEKS                       R1 R0 K8 ["_invocationData"]
        20 NEWTABLE                         R1 0 0
        22 SETTABLEKS                       R1 R0 K9 ["_pluginActionWrappers"]
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R1 R2 K10 ["OnInvoke"]
+       24 GETUPVAL                         R1 1
+       25 GETTABLEKS                       R1 R1 K10 ["OnInvoke"]
        27 SETTABLEKS                       R1 R0 K10 ["OnInvoke"]
-       29 GETUPVAL                         R2 1
-       30 GETTABLEKS                       R1 R2 K11 ["Invoke"]
+       29 GETUPVAL                         R1 1
+       30 GETTABLEKS                       R1 R1 K11 ["Invoke"]
        32 SETTABLEKS                       R1 R0 K11 ["Invoke"]
-       34 GETUPVAL                         R2 1
-       35 GETTABLEKS                       R1 R2 K12 ["CreatePluginAction"]
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K12 ["CreatePluginAction"]
        37 SETTABLEKS                       R1 R0 K12 ["CreatePluginAction"]
-       39 GETUPVAL                         R2 1
-       40 GETTABLEKS                       R1 R2 K13 ["GetPropertyChangedSignal"]
+       39 GETUPVAL                         R1 1
+       40 GETTABLEKS                       R1 R1 K13 ["GetPropertyChangedSignal"]
        42 SETTABLEKS                       R1 R0 K13 ["GetPropertyChangedSignal"]
-       44 GETUPVAL                         R2 1
-       45 GETTABLEKS                       R1 R2 K14 ["triggerPluginAction"]
+       44 GETUPVAL                         R1 1
+       45 GETTABLEKS                       R1 R1 K14 ["triggerPluginAction"]
        47 SETTABLEKS                       R1 R0 K14 ["triggerPluginAction"]
        49 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_invocationData"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_invocationData"]
         3 GETUPVAL                         R2 1
         4 GETTABLE                         R0 R1 R2
         5 GETUPVAL                         R1 2
         6 JUMPIFNOTEQ                      R0 R1 ; [+7]
-        8 GETUPVAL                         R1 0
-        9 GETTABLEKS                       R0 R1 K0 ["_invocationData"]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K0 ["_invocationData"]
        11 GETUPVAL                         R1 1
        12 LOADNIL                          R2
        13 SETTABLE                         R2 R0 R1
@@ -101,8 +101,8 @@ PROTO_5:
 
 PROTO_6:
         0 JUMPIFNOTEQKS                    R1 K0 ["Triggered"] ; [+5]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["Event"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["Event"]
         5 RETURN                           R2 1
         6 GETUPVAL                         R3 1
         7 GETTABLE                         R2 R3 R1
@@ -172,8 +172,8 @@ PROTO_9:
        18 RETURN                           R0 0
 
 PROTO_10:
-        0 GETTABLEKS                       R3 R0 K0 ["_mockPropertyEvent"]
-        2 GETTABLEKS                       R2 R3 K1 ["Event"]
+        0 GETTABLEKS                       R2 R0 K0 ["_mockPropertyEvent"]
+        2 GETTABLEKS                       R2 R2 K1 ["Event"]
         4 RETURN                           R2 1
 
 MAIN:
@@ -183,8 +183,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 DUPCLOSURE                       R3 K8 [PROTO_0]

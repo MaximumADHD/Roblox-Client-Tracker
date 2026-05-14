@@ -13,20 +13,20 @@ PROTO_1:
         2 LOADNIL                          R5
         3 FORGPREP                         R3
         4 GETTABLE                         R8 R1 R6
-        5 GETUPVAL                         R11 0
-        6 GETTABLEKS                       R10 R11 K0 ["AssetType"]
-        8 GETTABLEKS                       R9 R10 K1 ["Place"]
+        5 GETUPVAL                         R9 0
+        6 GETTABLEKS                       R9 R9 K0 ["AssetType"]
+        8 GETTABLEKS                       R9 R9 K1 ["Place"]
        10 JUMPIFNOTEQ                      R8 R9 ; [+42]
        12 LOADB                            R9 1
        13 GETTABLEKS                       R10 R2 K2 ["Type"]
-       15 GETUPVAL                         R13 0
-       16 GETTABLEKS                       R12 R13 K3 ["ScopeType"]
-       18 GETTABLEKS                       R11 R12 K4 ["ProjectPlaces"]
+       15 GETUPVAL                         R11 0
+       16 GETTABLEKS                       R11 R11 K3 ["ScopeType"]
+       18 GETTABLEKS                       R11 R11 K4 ["ProjectPlaces"]
        20 JUMPIFEQ                         R10 R11 ; [+12]
        22 GETTABLEKS                       R10 R2 K2 ["Type"]
-       24 GETUPVAL                         R13 0
-       25 GETTABLEKS                       R12 R13 K3 ["ScopeType"]
-       27 GETTABLEKS                       R11 R12 K5 ["Universe"]
+       24 GETUPVAL                         R11 0
+       25 GETTABLEKS                       R11 R11 K3 ["ScopeType"]
+       27 GETTABLEKS                       R11 R11 K5 ["Universe"]
        29 JUMPIFEQ                         R10 R11 ; [+2]
        31 LOADB                            R9 0 +1
        32 LOADB                            R9 1
@@ -61,18 +61,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["createAssetUrl"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["createAssetUrl"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K8 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["Services"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K8 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["Services"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K11 ["GetService"]
        34 LOADK                            R5 K12 ["GuiService"]

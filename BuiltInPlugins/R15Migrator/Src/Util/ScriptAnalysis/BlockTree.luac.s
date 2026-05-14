@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R1 K1 [{"_root"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K2 ["new"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K2 ["new"]
         4 LOADN                            R3 1
         5 LOADN                            R4 1
         6 CALL                             R2 2 1
@@ -58,8 +58,8 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["CodeBlock"]
         9 CALL                             R1 1 1

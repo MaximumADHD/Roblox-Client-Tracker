@@ -1,21 +1,21 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_isMounted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_isMounted"]
         3 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["checkIsMounted"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["checkIsMounted"]
         3 CALL                             R2 0 1
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
         6 JUMPIFNOT                        R0 ; [+23]
         7 JUMPIFNOT                        R1 ; [+22]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K1 ["errorMessage"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K1 ["errorMessage"]
        11 JUMPIFNOT                        R2 ; [+5]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K1 ["errorMessage"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K1 ["errorMessage"]
        15 JUMPIFNOTEQKS                    R2 K2 [""] ; [+14]
        17 GETUPVAL                         R2 0
        18 DUPTABLE                         R4 K4 [{"importAsset"}]
@@ -35,8 +35,8 @@ PROTO_1:
        39 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["PBRMaterial"]
         5 GETTABLEKS                       R2 R0 K2 ["GeneralServiceController"]
         7 MOVE                             R4 R1
@@ -44,15 +44,15 @@ PROTO_2:
        10 LOADK                            R6 K4 [""]
        11 NAMECALL                         R2 R2 K5 ["setTextureMap"]
        13 CALL                             R2 4 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K6 ["setImportAsset"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K6 ["setImportAsset"]
        17 LOADNIL                          R3
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["checkIsMounted"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["checkIsMounted"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+1]
         5 RETURN                           R0 0
@@ -64,8 +64,8 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["props"]
         3 GETTABLEKS                       R4 R3 K1 ["PBRMaterial"]
         5 GETTABLEKS                       R5 R3 K2 ["GeneralServiceController"]
         7 MOVE                             R7 R4
@@ -79,54 +79,54 @@ PROTO_4:
        19 CALL                             R5 2 0
        20 GETUPVAL                         R5 0
        21 SETTABLEKS                       R2 R5 K7 ["errorMessage"]
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R5 R6 K8 ["setImportAsset"]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K8 ["setImportAsset"]
        26 LOADNIL                          R6
        27 CALL                             R5 1 0
-       28 GETUPVAL                         R6 0
-       29 GETTABLEKS                       R5 R6 K9 ["setUploading"]
+       28 GETUPVAL                         R5 0
+       29 GETTABLEKS                       R5 R5 K9 ["setUploading"]
        31 LOADB                            R6 0
        32 CALL                             R5 1 0
        33 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["ImportAssetHandler"]
         5 GETTABLEKS                       R2 R0 K2 ["GeneralServiceController"]
         7 GETTABLEKS                       R4 R0 K3 ["PBRMaterial"]
         9 GETTABLEKS                       R5 R0 K4 ["MapType"]
        11 MOVE                             R6 R1
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K5 ["setUploading"]
-       15 GETUPVAL                         R9 0
-       16 GETTABLEKS                       R8 R9 K6 ["setImportAsset"]
-       18 GETUPVAL                         R10 0
-       19 GETTABLEKS                       R9 R10 K7 ["updateTextureMap"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K5 ["setUploading"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R8 R8 K6 ["setImportAsset"]
+       18 GETUPVAL                         R9 0
+       19 GETTABLEKS                       R9 R9 K7 ["updateTextureMap"]
        21 NAMECALL                         R2 R2 K8 ["setTextureMapFromFile"]
        23 CALL                             R2 7 0
        24 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R1 K1 ["Text"]
         5 JUMPIF                           R0 ; [+1]
         6 RETURN                           R0 0
         7 JUMPIFNOT                        R3 ; [+2]
         8 JUMPIFNOTEQKS                    R3 K2 [""] ; [+6]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K3 ["clearTextureMap"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K3 ["clearTextureMap"]
        13 CALL                             R4 0 0
        14 RETURN                           R0 0
        15 GETTABLEKS                       R4 R2 K4 ["GeneralServiceController"]
        17 GETTABLEKS                       R6 R2 K5 ["PBRMaterial"]
        19 GETTABLEKS                       R7 R2 K6 ["MapType"]
        21 MOVE                             R8 R3
-       22 GETUPVAL                         R10 0
-       23 GETTABLEKS                       R9 R10 K7 ["checkIsMounted"]
-       25 GETUPVAL                         R11 0
-       26 GETTABLEKS                       R10 R11 K8 ["updateTextureMap"]
+       22 GETUPVAL                         R9 0
+       23 GETTABLEKS                       R9 R9 K7 ["checkIsMounted"]
+       25 GETUPVAL                         R10 0
+       26 GETTABLEKS                       R10 R10 K8 ["updateTextureMap"]
        28 NAMECALL                         R4 R4 K9 ["setTextureMapFromURL"]
        30 CALL                             R4 6 0
        31 RETURN                           R0 0
@@ -175,8 +175,8 @@ PROTO_9:
 
 PROTO_10:
         0 GETTABLEKS                       R2 R1 K0 ["PBRMaterial"]
-        2 GETTABLEKS                       R4 R0 K1 ["props"]
-        4 GETTABLEKS                       R3 R4 K0 ["PBRMaterial"]
+        2 GETTABLEKS                       R3 R0 K1 ["props"]
+        4 GETTABLEKS                       R3 R3 K0 ["PBRMaterial"]
         6 JUMPIFEQ                         R2 R3 ; [+15]
         8 DUPTABLE                         R4 K4 [{"importAsset", "uploading"}]
         9 NEWTABLE                         R5 0 0
@@ -206,24 +206,24 @@ PROTO_11:
        18 GETIMPORT                        R9 K7 [typeof]
        20 CALL                             R9 1 1
        21 JUMPIFNOTEQKS                    R9 K8 ["Content"] ; [+8]
-       23 GETTABLEKS                       R11 R1 K5 ["MapType"]
-       25 GETTABLE                         R10 R7 R11
-       26 GETTABLEKS                       R9 R10 K9 ["Uri"]
+       23 GETTABLEKS                       R10 R1 K5 ["MapType"]
+       25 GETTABLE                         R9 R7 R10
+       26 GETTABLEKS                       R9 R9 K9 ["Uri"]
        28 ORK                              R8 R9 K3 [""]
        29 JUMP                             ; [+3]
        30 GETTABLEKS                       R9 R1 K5 ["MapType"]
        32 GETTABLE                         R8 R7 R9
        33 GETTABLEKS                       R9 R2 K10 ["importAsset"]
        35 JUMPIFNOT                        R9 ; [+5]
-       36 GETTABLEKS                       R10 R2 K10 ["importAsset"]
-       38 GETTABLEKS                       R9 R10 K11 ["tempId"]
+       36 GETTABLEKS                       R9 R2 K10 ["importAsset"]
+       38 GETTABLEKS                       R9 R9 K11 ["tempId"]
        40 JUMPIF                           R9 ; [+2]
        41 JUMPIFEQKS                       R8 K3 [""] ; [+34]
-       43 GETTABLEKS                       R10 R2 K10 ["importAsset"]
-       45 GETTABLEKS                       R9 R10 K12 ["file"]
+       43 GETTABLEKS                       R9 R2 K10 ["importAsset"]
+       45 GETTABLEKS                       R9 R9 K12 ["file"]
        47 JUMPIFNOT                        R9 ; [+7]
-       48 GETTABLEKS                       R10 R2 K10 ["importAsset"]
-       50 GETTABLEKS                       R9 R10 K12 ["file"]
+       48 GETTABLEKS                       R9 R2 K10 ["importAsset"]
+       50 GETTABLEKS                       R9 R9 K12 ["file"]
        52 GETTABLEKS                       R4 R9 K13 ["Name"]
        54 JUMP                             ; [+1]
        55 MOVE                             R4 R8
@@ -231,8 +231,8 @@ PROTO_11:
        58 JUMPIFNOTEQKB                    R9 TRUE ; [+15]
        60 GETTABLEKS                       R9 R2 K10 ["importAsset"]
        62 JUMPIFNOT                        R9 ; [+11]
-       63 GETTABLEKS                       R10 R2 K10 ["importAsset"]
-       65 GETTABLEKS                       R9 R10 K11 ["tempId"]
+       63 GETTABLEKS                       R9 R2 K10 ["importAsset"]
+       65 GETTABLEKS                       R9 R9 K11 ["tempId"]
        67 JUMPIFNOT                        R9 ; [+6]
        68 GETTABLEKS                       R9 R2 K10 ["importAsset"]
        70 GETTABLEKS                       R5 R9 K11 ["tempId"]
@@ -248,8 +248,8 @@ PROTO_11:
        83 GETTABLEKS                       R11 R0 K15 ["errorMessage"]
        85 JUMPIFEQKS                       R11 K3 [""] ; [+40]
        87 GETTABLEKS                       R11 R0 K15 ["errorMessage"]
-       89 GETUPVAL                         R13 1
-       90 GETTABLEKS                       R12 R13 K16 ["FailedToInsertAssetManager"]
+       89 GETUPVAL                         R12 1
+       90 GETTABLEKS                       R12 R12 K16 ["FailedToInsertAssetManager"]
        92 JUMPIFEQ                         R11 R12 ; [+33]
        94 GETIMPORT                        R9 K20 [Enum.PropertyStatus.Error]
        96 LOADK                            R13 K21 ["CreateDialog"]
@@ -259,8 +259,8 @@ PROTO_11:
       102 MOVE                             R10 R11
       103 JUMP                             ; [+22]
       104 GETTABLEKS                       R11 R0 K15 ["errorMessage"]
-      106 GETUPVAL                         R13 1
-      107 GETTABLEKS                       R12 R13 K16 ["FailedToInsertAssetManager"]
+      106 GETUPVAL                         R12 1
+      107 GETTABLEKS                       R12 R12 K16 ["FailedToInsertAssetManager"]
       109 JUMPIFNOTEQ                      R11 R12 ; [+11]
       111 GETIMPORT                        R9 K24 [Enum.PropertyStatus.Warning]
       113 LOADK                            R13 K21 ["CreateDialog"]
@@ -272,8 +272,8 @@ PROTO_11:
       121 GETIMPORT                        R9 K26 [Enum.PropertyStatus.Ok]
       123 LOADNIL                          R11
       124 SETTABLEKS                       R11 R0 K15 ["errorMessage"]
-      126 GETUPVAL                         R12 2
-      127 GETTABLEKS                       R11 R12 K27 ["createElement"]
+      126 GETUPVAL                         R11 2
+      127 GETTABLEKS                       R11 R11 K27 ["createElement"]
       129 GETUPVAL                         R12 3
       130 DUPTABLE                         R13 K34 [{"FillDirection", "LayoutOrder", "LabelColumnWidth", "Text", "StatusText", "Status"}]
       131 GETIMPORT                        R14 K36 [Enum.FillDirection.Vertical]
@@ -287,8 +287,8 @@ PROTO_11:
       147 SETTABLEKS                       R10 R13 K32 ["StatusText"]
       149 SETTABLEKS                       R9 R13 K33 ["Status"]
       151 NEWTABLE                         R14 0 1
-      153 GETUPVAL                         R16 2
-      154 GETTABLEKS                       R15 R16 K27 ["createElement"]
+      153 GETUPVAL                         R15 2
+      154 GETTABLEKS                       R15 R15 K27 ["createElement"]
       156 GETUPVAL                         R16 4
       157 DUPTABLE                         R17 K47 [{"SelectionName", "PreviewTitle", "IsTempId", "ImageId", "LabelWidth", "PromptSelection", "SearchUrl", "ClearSelection", "OnFocusLost", "ColumnWidth"}]
       158 SETTABLEKS                       R4 R17 K37 ["SelectionName"]
@@ -314,26 +314,26 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       17 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       15 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       17 GETTABLEKS                       R2 R2 K6 ["Roact"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K7 ["Framework"]
        26 CALL                             R2 1 1
        27 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        29 GETTABLEKS                       R4 R3 K9 ["withContext"]
        31 GETTABLEKS                       R5 R3 K10 ["Analytics"]
        33 GETTABLEKS                       R6 R3 K11 ["Localization"]
-       35 GETTABLEKS                       R8 R0 K12 ["Src"]
-       37 GETTABLEKS                       R7 R8 K13 ["Controllers"]
+       35 GETTABLEKS                       R7 R0 K12 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Controllers"]
        39 GETIMPORT                        R8 K4 [require]
        41 GETTABLEKS                       R9 R7 K14 ["ImportAssetHandler"]
        43 CALL                             R8 1 1
@@ -341,29 +341,29 @@ MAIN:
        46 GETTABLEKS                       R10 R7 K15 ["GeneralServiceController"]
        48 CALL                             R9 1 1
        49 GETIMPORT                        R10 K4 [require]
-       51 GETTABLEKS                       R15 R0 K12 ["Src"]
-       53 GETTABLEKS                       R14 R15 K16 ["Components"]
-       55 GETTABLEKS                       R13 R14 K17 ["MaterialBrowser"]
-       57 GETTABLEKS                       R12 R13 K18 ["MaterialEditor"]
-       59 GETTABLEKS                       R11 R12 K19 ["LabeledElement"]
+       51 GETTABLEKS                       R11 R0 K12 ["Src"]
+       53 GETTABLEKS                       R11 R11 K16 ["Components"]
+       55 GETTABLEKS                       R11 R11 K17 ["MaterialBrowser"]
+       57 GETTABLEKS                       R11 R11 K18 ["MaterialEditor"]
+       59 GETTABLEKS                       R11 R11 K19 ["LabeledElement"]
        61 CALL                             R10 1 1
        62 GETIMPORT                        R11 K4 [require]
-       64 GETTABLEKS                       R14 R0 K12 ["Src"]
-       66 GETTABLEKS                       R13 R14 K16 ["Components"]
-       68 GETTABLEKS                       R12 R13 K20 ["PromptSelectorWithPreview"]
+       64 GETTABLEKS                       R12 R0 K12 ["Src"]
+       66 GETTABLEKS                       R12 R12 K16 ["Components"]
+       68 GETTABLEKS                       R12 R12 K20 ["PromptSelectorWithPreview"]
        70 CALL                             R11 1 1
        71 GETIMPORT                        R12 K4 [require]
-       73 GETTABLEKS                       R16 R0 K12 ["Src"]
-       75 GETTABLEKS                       R15 R16 K21 ["Resources"]
-       77 GETTABLEKS                       R14 R15 K22 ["Constants"]
-       79 GETTABLEKS                       R13 R14 K23 ["getErrorTypes"]
+       73 GETTABLEKS                       R13 R0 K12 ["Src"]
+       75 GETTABLEKS                       R13 R13 K21 ["Resources"]
+       77 GETTABLEKS                       R13 R13 K22 ["Constants"]
+       79 GETTABLEKS                       R13 R13 K23 ["getErrorTypes"]
        81 CALL                             R12 1 1
        82 MOVE                             R13 R12
        83 CALL                             R13 0 1
        84 GETIMPORT                        R14 K4 [require]
-       86 GETTABLEKS                       R17 R0 K12 ["Src"]
-       88 GETTABLEKS                       R16 R17 K24 ["Flags"]
-       90 GETTABLEKS                       R15 R16 K25 ["getEFEnableEmissiveMask"]
+       86 GETTABLEKS                       R15 R0 K12 ["Src"]
+       88 GETTABLEKS                       R15 R15 K24 ["Flags"]
+       90 GETTABLEKS                       R15 R15 K25 ["getEFEnableEmissiveMask"]
        92 CALL                             R14 1 1
        93 GETTABLEKS                       R15 R1 K26 ["PureComponent"]
        95 LOADK                            R17 K27 ["TextureMapSelector"]

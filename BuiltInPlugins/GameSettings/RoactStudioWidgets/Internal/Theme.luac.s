@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getMainBackgroundColor"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getMainBackgroundColor"]
         3 CALL                             R0 0 1
         4 GETTABLEKS                       R5 R0 K2 ["r"]
         6 GETTABLEKS                       R6 R0 K3 ["g"]
@@ -39,8 +39,8 @@ PROTO_4:
         4 RETURN                           R0 -1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isDarkerTheme"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isDarkerTheme"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+5]
         5 GETUPVAL                         R0 1
@@ -83,8 +83,8 @@ PROTO_10:
         4 RETURN                           R0 -1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isDarkerTheme"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isDarkerTheme"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+5]
         5 GETUPVAL                         R0 1
@@ -97,8 +97,8 @@ PROTO_11:
        14 RETURN                           R0 1
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isDarkerTheme"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isDarkerTheme"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+5]
         5 GETUPVAL                         R0 1
@@ -113,8 +113,8 @@ PROTO_12:
        16 RETURN                           R0 1
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isDarkerTheme"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isDarkerTheme"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+5]
         5 GETUPVAL                         R0 1
@@ -133,8 +133,8 @@ PROTO_14:
         4 LOADN                            R3 255
         5 CALL                             R0 3 1
         6 DUPTABLE                         R1 K10 [{"ButtonColor", "ButtonHoverColor", "ButtonPressedColor", "ButtonDisabledColor", "TextColor", "TextDisabledColor", "BorderColor"}]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K11 ["isDarkerTheme"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K11 ["isDarkerTheme"]
        10 CALL                             R3 0 1
        11 JUMPIFNOT                        R3 ; [+5]
        12 GETUPVAL                         R2 1
@@ -154,8 +154,8 @@ PROTO_14:
        32 GETIMPORT                        R4 K24 [Enum.StudioStyleGuideModifier.Pressed]
        34 CALL                             R2 2 1
        35 SETTABLEKS                       R2 R1 K5 ["ButtonPressedColor"]
-       37 GETUPVAL                         R4 0
-       38 GETTABLEKS                       R3 R4 K11 ["isDarkerTheme"]
+       37 GETUPVAL                         R3 0
+       38 GETTABLEKS                       R3 R3 K11 ["isDarkerTheme"]
        40 CALL                             R3 0 1
        41 JUMPIFNOT                        R3 ; [+7]
        42 GETUPVAL                         R2 1
@@ -171,12 +171,12 @@ PROTO_14:
        56 LOADN                            R5 1
        57 CALL                             R2 3 1
        58 SETTABLEKS                       R2 R1 K7 ["TextColor"]
-       60 GETUPVAL                         R4 0
-       61 GETTABLEKS                       R3 R4 K11 ["isDarkerTheme"]
+       60 GETUPVAL                         R3 0
+       61 GETTABLEKS                       R3 R3 K11 ["isDarkerTheme"]
        63 CALL                             R3 0 1
        64 JUMPIFNOT                        R3 ; [+5]
-       65 GETUPVAL                         R3 0
-       66 GETTABLEKS                       R2 R3 K29 ["getTextDescriptionColor"]
+       65 GETUPVAL                         R2 0
+       66 GETTABLEKS                       R2 R2 K29 ["getTextDescriptionColor"]
        68 CALL                             R2 0 1
        69 JUMPIF                           R2 ; [+6]
        70 GETIMPORT                        R2 K28 [Color3.new]
@@ -216,8 +216,8 @@ PROTO_15:
        32 GETIMPORT                        R2 K20 [Enum.StudioStyleGuideColor.MainText]
        34 CALL                             R1 1 1
        35 SETTABLEKS                       R1 R0 K4 ["TextColor"]
-       37 GETUPVAL                         R2 1
-       38 GETTABLEKS                       R1 R2 K21 ["getTextDescriptionColor"]
+       37 GETUPVAL                         R1 1
+       38 GETTABLEKS                       R1 R1 K21 ["getTextDescriptionColor"]
        40 CALL                             R1 0 1
        41 SETTABLEKS                       R1 R0 K5 ["TextDisabledColor"]
        43 GETUPVAL                         R1 0
@@ -227,10 +227,10 @@ PROTO_15:
        49 RETURN                           R0 1
 
 PROTO_16:
-        0 GETIMPORT                        R4 K1 [settings]
-        2 CALL                             R4 0 1
-        3 GETTABLEKS                       R3 R4 K2 ["Studio"]
-        5 GETTABLEKS                       R2 R3 K3 ["Theme"]
+        0 GETIMPORT                        R2 K1 [settings]
+        2 CALL                             R2 0 1
+        3 GETTABLEKS                       R2 R2 K2 ["Studio"]
+        5 GETTABLEKS                       R2 R2 K3 ["Theme"]
         7 MOVE                             R4 R0
         8 MOVE                             R5 R1
         9 NAMECALL                         R2 R2 K4 ["GetColor"]

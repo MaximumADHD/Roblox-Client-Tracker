@@ -1,17 +1,17 @@
 PROTO_0:
-        0 GETIMPORT                        R1 K1 [game]
-        2 GETTABLEKS                       R0 R1 K2 ["CreatorType"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["CreatorType"]
         4 GETIMPORT                        R1 K5 [Enum.CreatorType.Group]
         6 JUMPIFNOTEQ                      R0 R1 ; [+20]
-        8 GETIMPORT                        R1 K1 [game]
-       10 GETTABLEKS                       R0 R1 K6 ["CreatorId"]
+        8 GETIMPORT                        R0 K1 [game]
+       10 GETTABLEKS                       R0 R0 K6 ["CreatorId"]
        12 LOADN                            R1 0
        13 JUMPIFNOTLT                      R1 R0 ; [+13]
        15 DUPTABLE                         R0 K9 [{"creatorType", "creatorId"}]
        16 GETIMPORT                        R1 K11 [Enum.AssetCreatorType.Group]
        18 SETTABLEKS                       R1 R0 K7 ["creatorType"]
-       20 GETIMPORT                        R2 K1 [game]
-       22 GETTABLEKS                       R1 R2 K6 ["CreatorId"]
+       20 GETIMPORT                        R1 K1 [game]
+       22 GETTABLEKS                       R1 R1 K6 ["CreatorId"]
        24 SETTABLEKS                       R1 R0 K8 ["creatorId"]
        26 RETURN                           R0 1
        27 DUPTABLE                         R0 K9 [{"creatorType", "creatorId"}]

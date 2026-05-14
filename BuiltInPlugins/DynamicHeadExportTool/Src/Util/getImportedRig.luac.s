@@ -19,8 +19,8 @@ PROTO_0:
        22 NAMECALL                         R5 R4 K2 ["IsA"]
        24 CALL                             R5 2 1
        25 JUMPIFNOT                        R5 ; [+8]
-       26 GETUPVAL                         R7 1
-       27 GETTABLEKS                       R6 R7 K7 ["AvatarImporterRigNames"]
+       26 GETUPVAL                         R6 1
+       27 GETTABLEKS                       R6 R6 K7 ["AvatarImporterRigNames"]
        29 GETTABLEKS                       R7 R4 K3 ["Name"]
        31 GETTABLE                         R5 R6 R7
        32 JUMPIFNOT                        R5 ; [+1]
@@ -40,8 +40,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Src"]
-       17 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Constants"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K12 [PROTO_0]
        21 CAPTURE                          VAL R1

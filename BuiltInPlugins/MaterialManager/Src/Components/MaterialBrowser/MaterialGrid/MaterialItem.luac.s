@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["dispatchSetMaterial"]
         5 GETTABLEKS                       R2 R0 K2 ["MaterialItem"]
         7 CALL                             R1 1 0
@@ -25,15 +25,15 @@ PROTO_2:
         8 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["MaterialItem"]
         5 GETTABLEKS                       R2 R0 K2 ["GeneralServiceController"]
         7 GETTABLEKS                       R4 R1 K3 ["Material"]
         9 GETTABLEKS                       R6 R1 K4 ["MaterialVariant"]
        11 JUMPIFNOT                        R6 ; [+5]
-       12 GETTABLEKS                       R6 R1 K4 ["MaterialVariant"]
-       14 GETTABLEKS                       R5 R6 K5 ["Name"]
+       12 GETTABLEKS                       R5 R1 K4 ["MaterialVariant"]
+       14 GETTABLEKS                       R5 R5 K5 ["Name"]
        16 JUMP                             ; [+1]
        17 LOADNIL                          R5
        18 NAMECALL                         R2 R2 K6 ["ApplyToSelection"]
@@ -83,14 +83,14 @@ PROTO_5:
        22 GETTABLEKS                       R6 R5 K7 ["Name"]
        24 GETTABLEKS                       R7 R1 K8 ["ViewType"]
        26 JUMPIFNOTEQKS                    R7 K9 ["List"] ; [+56]
-       28 GETUPVAL                         R9 2
-       29 GETTABLEKS                       R8 R9 K10 ["createElement"]
+       28 GETUPVAL                         R8 2
+       29 GETTABLEKS                       R8 R8 K10 ["createElement"]
        31 GETUPVAL                         R9 3
        32 DUPTABLE                         R10 K22 [{"ApplyToSelection", "Hover", "LayoutOrder", "Material", "MaterialDescription", "MaterialName", "MenuHover", "OnClick", "OnMouseEnter", "OnMouseLeave", "Selected", "Status"}]
        33 GETTABLEKS                       R11 R0 K23 ["applyToSelection"]
        35 SETTABLEKS                       R11 R10 K11 ["ApplyToSelection"]
-       37 GETTABLEKS                       R12 R0 K24 ["state"]
-       39 GETTABLEKS                       R11 R12 K25 ["hover"]
+       37 GETTABLEKS                       R11 R0 K24 ["state"]
+       39 GETTABLEKS                       R11 R11 K25 ["hover"]
        41 SETTABLEKS                       R11 R10 K12 ["Hover"]
        43 GETTABLEKS                       R11 R1 K13 ["LayoutOrder"]
        45 SETTABLEKS                       R11 R10 K13 ["LayoutOrder"]
@@ -114,14 +114,14 @@ PROTO_5:
        79 SETTABLEKS                       R11 R10 K21 ["Status"]
        81 CALL                             R8 2 -1
        82 RETURN                           R8 -1
-       83 GETUPVAL                         R9 2
-       84 GETTABLEKS                       R8 R9 K10 ["createElement"]
+       83 GETUPVAL                         R8 2
+       84 GETTABLEKS                       R8 R8 K10 ["createElement"]
        86 GETUPVAL                         R9 4
        87 DUPTABLE                         R10 K31 [{"ApplyToSelection", "Hover", "LayoutOrder", "Material", "MaterialDescription", "MaterialName", "MaterialTileSize", "MenuHover", "OnClick", "OnMouseEnter", "OnMouseLeave", "Selected", "Status"}]
        88 GETTABLEKS                       R11 R0 K23 ["applyToSelection"]
        90 SETTABLEKS                       R11 R10 K11 ["ApplyToSelection"]
-       92 GETTABLEKS                       R12 R0 K24 ["state"]
-       94 GETTABLEKS                       R11 R12 K25 ["hover"]
+       92 GETTABLEKS                       R11 R0 K24 ["state"]
+       94 GETTABLEKS                       R11 R11 K25 ["hover"]
        96 SETTABLEKS                       R11 R10 K12 ["Hover"]
        98 GETTABLEKS                       R11 R1 K13 ["LayoutOrder"]
       100 SETTABLEKS                       R11 R10 K13 ["LayoutOrder"]
@@ -150,28 +150,28 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R2 K5 [{"Material", "MaterialStatus", "MaterialTileSize", "MenuHover", "ViewType"}]
-        1 GETTABLEKS                       R4 R0 K6 ["MaterialBrowserReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["Material"]
+        1 GETTABLEKS                       R3 R0 K6 ["MaterialBrowserReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["Material"]
         5 SETTABLEKS                       R3 R2 K0 ["Material"]
-        7 GETTABLEKS                       R5 R1 K7 ["MaterialItem"]
-        9 GETTABLEKS                       R4 R5 K8 ["MaterialVariant"]
+        7 GETTABLEKS                       R4 R1 K7 ["MaterialItem"]
+        9 GETTABLEKS                       R4 R4 K8 ["MaterialVariant"]
        11 JUMPIF                           R4 ; [+10]
-       12 GETTABLEKS                       R5 R0 K6 ["MaterialBrowserReducer"]
-       14 GETTABLEKS                       R4 R5 K1 ["MaterialStatus"]
-       16 GETTABLEKS                       R6 R1 K7 ["MaterialItem"]
-       18 GETTABLEKS                       R5 R6 K0 ["Material"]
+       12 GETTABLEKS                       R4 R0 K6 ["MaterialBrowserReducer"]
+       14 GETTABLEKS                       R4 R4 K1 ["MaterialStatus"]
+       16 GETTABLEKS                       R5 R1 K7 ["MaterialItem"]
+       18 GETTABLEKS                       R5 R5 K0 ["Material"]
        20 GETTABLE                         R3 R4 R5
        21 JUMP                             ; [+1]
        22 LOADNIL                          R3
        23 SETTABLEKS                       R3 R2 K1 ["MaterialStatus"]
-       25 GETTABLEKS                       R4 R0 K6 ["MaterialBrowserReducer"]
-       27 GETTABLEKS                       R3 R4 K2 ["MaterialTileSize"]
+       25 GETTABLEKS                       R3 R0 K6 ["MaterialBrowserReducer"]
+       27 GETTABLEKS                       R3 R3 K2 ["MaterialTileSize"]
        29 SETTABLEKS                       R3 R2 K2 ["MaterialTileSize"]
-       31 GETTABLEKS                       R4 R0 K6 ["MaterialBrowserReducer"]
-       33 GETTABLEKS                       R3 R4 K3 ["MenuHover"]
+       31 GETTABLEKS                       R3 R0 K6 ["MaterialBrowserReducer"]
+       33 GETTABLEKS                       R3 R3 K3 ["MenuHover"]
        35 SETTABLEKS                       R3 R2 K3 ["MenuHover"]
-       37 GETTABLEKS                       R4 R0 K6 ["MaterialBrowserReducer"]
-       39 GETTABLEKS                       R3 R4 K4 ["ViewType"]
+       37 GETTABLEKS                       R3 R0 K6 ["MaterialBrowserReducer"]
+       39 GETTABLEKS                       R3 R3 K4 ["ViewType"]
        41 SETTABLEKS                       R3 R2 K4 ["ViewType"]
        43 RETURN                           R2 1
 
@@ -193,60 +193,60 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Src"]
-       17 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 GETTABLEKS                       R2 R0 K5 ["Src"]
+       17 GETTABLEKS                       R2 R2 K6 ["Types"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       22 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K8 ["Roact"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       29 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       38 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       36 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K10 ["Framework"]
        40 CALL                             R4 1 1
        41 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        43 GETTABLEKS                       R6 R5 K12 ["withContext"]
        45 GETTABLEKS                       R7 R5 K13 ["Analytics"]
        47 GETTABLEKS                       R8 R5 K14 ["Localization"]
        49 GETIMPORT                        R9 K4 [require]
-       51 GETTABLEKS                       R12 R0 K5 ["Src"]
-       53 GETTABLEKS                       R11 R12 K15 ["Controllers"]
-       55 GETTABLEKS                       R10 R11 K16 ["GeneralServiceController"]
+       51 GETTABLEKS                       R10 R0 K5 ["Src"]
+       53 GETTABLEKS                       R10 R10 K15 ["Controllers"]
+       55 GETTABLEKS                       R10 R10 K16 ["GeneralServiceController"]
        57 CALL                             R9 1 1
        58 GETIMPORT                        R10 K4 [require]
-       60 GETTABLEKS                       R13 R0 K5 ["Src"]
-       62 GETTABLEKS                       R12 R13 K17 ["Reducers"]
-       64 GETTABLEKS                       R11 R12 K18 ["MainReducer"]
+       60 GETTABLEKS                       R11 R0 K5 ["Src"]
+       62 GETTABLEKS                       R11 R11 K17 ["Reducers"]
+       64 GETTABLEKS                       R11 R11 K18 ["MainReducer"]
        66 CALL                             R10 1 1
        67 GETIMPORT                        R11 K4 [require]
-       69 GETTABLEKS                       R14 R0 K5 ["Src"]
-       71 GETTABLEKS                       R13 R14 K19 ["Actions"]
-       73 GETTABLEKS                       R12 R13 K20 ["SetMaterial"]
+       69 GETTABLEKS                       R12 R0 K5 ["Src"]
+       71 GETTABLEKS                       R12 R12 K19 ["Actions"]
+       73 GETTABLEKS                       R12 R12 K20 ["SetMaterial"]
        75 CALL                             R11 1 1
-       76 GETTABLEKS                       R14 R0 K5 ["Src"]
-       78 GETTABLEKS                       R13 R14 K21 ["Resources"]
-       80 GETTABLEKS                       R12 R13 K22 ["Constants"]
+       76 GETTABLEKS                       R12 R0 K5 ["Src"]
+       78 GETTABLEKS                       R12 R12 K21 ["Resources"]
+       80 GETTABLEKS                       R12 R12 K22 ["Constants"]
        82 GETIMPORT                        R13 K4 [require]
        84 GETTABLEKS                       R14 R12 K23 ["getFullMaterialType"]
        86 CALL                             R13 1 1
        87 GETIMPORT                        R14 K4 [require]
        89 GETTABLEKS                       R15 R12 K24 ["getMaterialName"]
        91 CALL                             R14 1 1
-       92 GETTABLEKS                       R18 R0 K5 ["Src"]
-       94 GETTABLEKS                       R17 R18 K25 ["Components"]
-       96 GETTABLEKS                       R16 R17 K26 ["MaterialBrowser"]
-       98 GETTABLEKS                       R15 R16 K27 ["MaterialGrid"]
+       92 GETTABLEKS                       R15 R0 K5 ["Src"]
+       94 GETTABLEKS                       R15 R15 K25 ["Components"]
+       96 GETTABLEKS                       R15 R15 K26 ["MaterialBrowser"]
+       98 GETTABLEKS                       R15 R15 K27 ["MaterialGrid"]
       100 GETIMPORT                        R16 K4 [require]
       102 GETTABLEKS                       R17 R15 K28 ["MaterialListItem"]
       104 CALL                             R16 1 1

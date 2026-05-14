@@ -8,22 +8,22 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["getPreviewType"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["getPreviewType"]
         7 GETTABLEKS                       R4 R1 K3 ["assetTypeEnum"]
         9 GETTABLEKS                       R5 R1 K4 ["instances"]
        11 CALL                             R3 2 1
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R5 R6 K5 ["ModelPreview"]
+       12 GETUPVAL                         R5 1
+       13 GETTABLEKS                       R5 R5 K5 ["ModelPreview"]
        15 JUMPIFEQ                         R3 R5 ; [+2]
        17 LOADB                            R4 0 +1
        18 LOADB                            R4 1
        19 LOADB                            R5 1
-       20 GETUPVAL                         R7 1
-       21 GETTABLEKS                       R6 R7 K6 ["Thumbnail"]
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R6 R6 K6 ["Thumbnail"]
        23 JUMPIFEQ                         R3 R6 ; [+8]
-       25 GETUPVAL                         R7 1
-       26 GETTABLEKS                       R6 R7 K7 ["ImagePicker"]
+       25 GETUPVAL                         R6 1
+       26 GETTABLEKS                       R6 R6 K7 ["ImagePicker"]
        28 JUMPIFEQ                         R3 R6 ; [+2]
        30 LOADB                            R5 0 +1
        31 LOADB                            R5 1
@@ -33,12 +33,12 @@ PROTO_1:
        38 LOADN                            R6 150
        39 JUMP                             ; [+1]
        40 LOADN                            R6 186
-       41 GETUPVAL                         R8 2
-       42 GETTABLEKS                       R7 R8 K12 ["createElement"]
+       41 GETUPVAL                         R7 2
+       42 GETTABLEKS                       R7 R7 K12 ["createElement"]
        44 LOADK                            R8 K13 ["Frame"]
        45 DUPTABLE                         R9 K18 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
-       46 GETTABLEKS                       R11 R2 K19 ["typeValidation"]
-       48 GETTABLEKS                       R10 R11 K20 ["background"]
+       46 GETTABLEKS                       R10 R2 K19 ["typeValidation"]
+       48 GETTABLEKS                       R10 R10 K20 ["background"]
        50 SETTABLEKS                       R10 R9 K14 ["BackgroundColor3"]
        52 LOADN                            R10 0
        53 SETTABLEKS                       R10 R9 K15 ["BackgroundTransparency"]
@@ -49,8 +49,8 @@ PROTO_1:
        62 DUPTABLE                         R10 K23 [{"ModelPreview", "ThumbnailPreview", "LoadingBar"}]
        63 MOVE                             R11 R4
        64 JUMPIFNOT                        R11 ; [+59]
-       65 GETUPVAL                         R12 2
-       66 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       65 GETUPVAL                         R11 2
+       66 GETTABLEKS                       R11 R11 K12 ["createElement"]
        68 GETUPVAL                         R12 3
        69 DUPTABLE                         R13 K29 [{"title", "titleHeight", "titlePadding", "Position", "Size", "AssetType", "AllowedBundleTypeSettings"}]
        70 GETTABLEKS                       R14 R1 K30 ["assetName"]
@@ -83,8 +83,8 @@ PROTO_1:
       107 GETUPVAL                         R15 4
       108 CALL                             R15 0 1
       109 JUMPIFNOT                        R15 ; [+10]
-      110 GETUPVAL                         R16 0
-      111 GETTABLEKS                       R15 R16 K35 ["isUGCBundleType"]
+      110 GETUPVAL                         R15 0
+      111 GETTABLEKS                       R15 R15 K35 ["isUGCBundleType"]
       113 GETTABLEKS                       R16 R1 K3 ["assetTypeEnum"]
       115 CALL                             R15 1 1
       116 JUMPIFNOT                        R15 ; [+3]
@@ -96,8 +96,8 @@ PROTO_1:
       124 SETTABLEKS                       R11 R10 K5 ["ModelPreview"]
       126 MOVE                             R11 R5
       127 JUMPIFNOT                        R11 ; [+40]
-      128 GETUPVAL                         R12 2
-      129 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      128 GETUPVAL                         R11 2
+      129 GETTABLEKS                       R11 R11 K12 ["createElement"]
       131 LOADK                            R12 K37 ["ImageLabel"]
       132 DUPTABLE                         R13 K39 [{"Position", "Size", "Image", "BackgroundTransparency", "BorderSizePixel"}]
       133 GETIMPORT                        R14 K33 [UDim2.new]
@@ -114,8 +114,8 @@ PROTO_1:
       147 LOADN                            R18 150
       148 CALL                             R14 4 1
       149 SETTABLEKS                       R14 R13 K17 ["Size"]
-      151 GETUPVAL                         R15 0
-      152 GETTABLEKS                       R14 R15 K40 ["getResultThumbnail"]
+      151 GETUPVAL                         R14 0
+      152 GETTABLEKS                       R14 R14 K40 ["getResultThumbnail"]
       154 GETTABLEKS                       R15 R1 K41 ["assetId"]
       156 GETTABLEKS                       R16 R1 K42 ["iconFile"]
       158 CALL                             R14 2 1
@@ -126,21 +126,21 @@ PROTO_1:
       165 SETTABLEKS                       R14 R13 K16 ["BorderSizePixel"]
       167 CALL                             R11 2 1
       168 SETTABLEKS                       R11 R10 K21 ["ThumbnailPreview"]
-      170 GETUPVAL                         R13 0
-      171 GETTABLEKS                       R12 R13 K35 ["isUGCBundleType"]
+      170 GETUPVAL                         R12 0
+      171 GETTABLEKS                       R12 R12 K35 ["isUGCBundleType"]
       173 GETTABLEKS                       R13 R1 K3 ["assetTypeEnum"]
       175 CALL                             R12 1 1
       176 JUMPIFNOT                        R12 ; [+11]
-      177 GETUPVAL                         R12 2
-      178 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      177 GETUPVAL                         R11 2
+      178 GETTABLEKS                       R11 R11 K12 ["createElement"]
       180 GETUPVAL                         R12 5
       181 DUPTABLE                         R13 K44 [{"onFinish"}]
       182 GETTABLEKS                       R14 R1 K45 ["onNext"]
       184 SETTABLEKS                       R14 R13 K43 ["onFinish"]
       186 CALL                             R11 2 1
       187 JUMP                             ; [+43]
-      188 GETUPVAL                         R12 2
-      189 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      188 GETUPVAL                         R11 2
+      189 GETTABLEKS                       R11 R11 K12 ["createElement"]
       191 GETUPVAL                         R12 6
       192 DUPTABLE                         R13 K49 [{"loadingText", "loadingTime", "holdPercent", "Size", "Position", "onFinish"}]
       193 LOADK                            R14 K50 ["Uploading"]
@@ -188,8 +188,8 @@ PROTO_2:
        16 SETTABLEKS                       R3 R2 K2 ["assetId"]
        18 GETTABLEKS                       R4 R0 K10 ["changed"]
        20 JUMPIFNOT                        R4 ; [+5]
-       21 GETTABLEKS                       R4 R0 K10 ["changed"]
-       23 GETTABLEKS                       R3 R4 K11 ["AssetConfigName"]
+       21 GETTABLEKS                       R3 R0 K10 ["changed"]
+       23 GETTABLEKS                       R3 R3 K11 ["AssetConfigName"]
        25 JUMPIF                           R3 ; [+2]
        26 GETTABLEKS                       R3 R0 K3 ["assetName"]
        28 SETTABLEKS                       R3 R2 K3 ["assetName"]
@@ -213,9 +213,9 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        5 GETTABLEKS                       R2 R3 K1 ["UPLOAD_ASSET_RESULT"]
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        5 GETTABLEKS                       R2 R2 K1 ["UPLOAD_ASSET_RESULT"]
         7 CALL                             R1 1 -1
         8 CALL                             R0 -1 0
         9 RETURN                           R0 0
@@ -231,11 +231,11 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -246,8 +246,8 @@ MAIN:
        23 GETIMPORT                        R4 K5 [require]
        25 GETTABLEKS                       R5 R1 K8 ["Framework"]
        27 CALL                             R4 1 1
-       28 GETTABLEKS                       R6 R0 K9 ["Src"]
-       30 GETTABLEKS                       R5 R6 K10 ["Util"]
+       28 GETTABLEKS                       R5 R0 K9 ["Src"]
+       30 GETTABLEKS                       R5 R5 K10 ["Util"]
        32 GETIMPORT                        R6 K5 [require]
        34 GETTABLEKS                       R7 R5 K11 ["AssetConfigConstants"]
        36 CALL                             R6 1 1
@@ -255,16 +255,16 @@ MAIN:
        39 GETIMPORT                        R8 K5 [require]
        41 GETTABLEKS                       R9 R5 K13 ["AssetConfigUtil"]
        43 CALL                             R8 1 1
-       44 GETTABLEKS                       R10 R0 K9 ["Src"]
-       46 GETTABLEKS                       R9 R10 K14 ["Actions"]
+       44 GETTABLEKS                       R9 R0 K9 ["Src"]
+       46 GETTABLEKS                       R9 R9 K14 ["Actions"]
        48 GETIMPORT                        R10 K5 [require]
        50 GETTABLEKS                       R11 R9 K15 ["SetCurrentScreen"]
        52 CALL                             R10 1 1
        53 GETTABLEKS                       R11 R4 K16 ["ContextServices"]
        55 GETTABLEKS                       R12 R11 K17 ["withContext"]
-       57 GETTABLEKS                       R15 R0 K9 ["Src"]
-       59 GETTABLEKS                       R14 R15 K18 ["Components"]
-       61 GETTABLEKS                       R13 R14 K19 ["AssetConfiguration"]
+       57 GETTABLEKS                       R13 R0 K9 ["Src"]
+       59 GETTABLEKS                       R13 R13 K18 ["Components"]
+       61 GETTABLEKS                       R13 R13 K19 ["AssetConfiguration"]
        63 GETIMPORT                        R14 K5 [require]
        65 GETTABLEKS                       R15 R13 K20 ["LoadingBarWrapper"]
        67 CALL                             R14 1 1
@@ -275,10 +275,10 @@ MAIN:
        75 GETTABLEKS                       R17 R13 K22 ["AssetThumbnailPreview"]
        77 CALL                             R16 1 1
        78 GETIMPORT                        R17 K5 [require]
-       80 GETTABLEKS                       R21 R0 K9 ["Src"]
-       82 GETTABLEKS                       R20 R21 K10 ["Util"]
-       84 GETTABLEKS                       R19 R20 K23 ["SharedFlags"]
-       86 GETTABLEKS                       R18 R19 K24 ["getFFlagToolboxFilterMeshPartsInBundleUpload"]
+       80 GETTABLEKS                       R18 R0 K9 ["Src"]
+       82 GETTABLEKS                       R18 R18 K10 ["Util"]
+       84 GETTABLEKS                       R18 R18 K23 ["SharedFlags"]
+       86 GETTABLEKS                       R18 R18 K24 ["getFFlagToolboxFilterMeshPartsInBundleUpload"]
        88 CALL                             R17 1 1
        89 GETTABLEKS                       R18 R2 K25 ["PureComponent"]
        91 LOADK                            R20 K26 ["AssetUpload"]

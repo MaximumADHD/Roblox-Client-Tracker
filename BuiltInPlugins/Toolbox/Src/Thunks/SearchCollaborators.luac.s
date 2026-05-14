@@ -11,8 +11,8 @@ PROTO_0:
        12 MOVE                             R8 R0
        13 CALL                             R6 2 0
        14 FORGLOOP                         R1 2 [inext] ; [-6]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R1 R2 K6 ["IsFinished"]
+       16 GETUPVAL                         R1 0
+       17 GETTABLEKS                       R1 R1 K6 ["IsFinished"]
        19 JUMPIF                           R1 ; [+6]
        20 GETUPVAL                         R1 0
        21 NAMECALL                         R1 R1 K7 ["AdvanceToNextPageAsync"]
@@ -50,12 +50,12 @@ PROTO_2:
        23 MOVE                             R5 R8
        24 FORGPREP                         R3
        25 NEWTABLE                         R10 2 0
-       27 GETUPVAL                         R12 1
-       28 GETTABLEKS                       R11 R12 K8 ["SubjectNameKey"]
+       27 GETUPVAL                         R11 1
+       28 GETTABLEKS                       R11 R11 K8 ["SubjectNameKey"]
        30 GETTABLEKS                       R12 R6 K9 ["Username"]
        32 SETTABLE                         R12 R10 R11
-       33 GETUPVAL                         R12 1
-       34 GETTABLEKS                       R11 R12 K10 ["SubjectIdKey"]
+       33 GETUPVAL                         R11 1
+       34 GETTABLEKS                       R11 R11 K10 ["SubjectIdKey"]
        36 GETTABLEKS                       R12 R6 K11 ["Id"]
        38 SETTABLE                         R12 R10 R11
        39 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
@@ -64,8 +64,8 @@ PROTO_2:
        44 CALL                             R8 2 0
        45 FORGLOOP                         R3 2 ; [-21]
        47 GETUPVAL                         R3 2
-       48 GETUPVAL                         R6 3
-       49 GETTABLEKS                       R5 R6 K15 ["LoadedLocalUserFriends"]
+       48 GETUPVAL                         R5 3
+       49 GETTABLEKS                       R5 R5 K15 ["LoadedLocalUserFriends"]
        51 MOVE                             R6 R1
        52 MOVE                             R7 R2
        53 CALL                             R5 2 -1
@@ -91,12 +91,12 @@ PROTO_3:
        19 CALL                             R3 1 3
        20 FORGPREP_INEXT                   R3
        21 NEWTABLE                         R10 2 0
-       23 GETUPVAL                         R12 1
-       24 GETTABLEKS                       R11 R12 K7 ["SubjectNameKey"]
+       23 GETUPVAL                         R11 1
+       24 GETTABLEKS                       R11 R11 K7 ["SubjectNameKey"]
        26 GETTABLEKS                       R12 R7 K8 ["Name"]
        28 SETTABLE                         R12 R10 R11
-       29 GETUPVAL                         R12 1
-       30 GETTABLEKS                       R11 R12 K9 ["SubjectIdKey"]
+       29 GETUPVAL                         R11 1
+       30 GETTABLEKS                       R11 R11 K9 ["SubjectIdKey"]
        32 GETTABLEKS                       R12 R7 K10 ["Id"]
        34 SETTABLE                         R12 R10 R11
        35 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
@@ -105,8 +105,8 @@ PROTO_3:
        40 CALL                             R8 2 0
        41 FORGLOOP                         R3 2 [inext] ; [-21]
        43 GETUPVAL                         R3 2
-       44 GETUPVAL                         R6 3
-       45 GETTABLEKS                       R5 R6 K14 ["LoadedLocalUserGroups"]
+       44 GETUPVAL                         R5 3
+       45 GETTABLEKS                       R5 R5 K14 ["LoadedLocalUserGroups"]
        47 MOVE                             R6 R1
        48 MOVE                             R7 R2
        49 CALL                             R5 2 -1
@@ -117,8 +117,8 @@ PROTO_3:
 PROTO_4:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K1 ["SearchTextChanged"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K1 ["SearchTextChanged"]
         6 GETUPVAL                         R5 1
         7 CALL                             R4 1 -1
         8 NAMECALL                         R2 R0 K2 ["dispatch"]
@@ -128,8 +128,8 @@ PROTO_4:
        14 RETURN                           R0 0
        15 GETTABLEKS                       R2 R1 K4 ["localUserFriends"]
        17 JUMPIF                           R2 ; [+15]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K5 ["LoadingLocalUserFriends"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K5 ["LoadingLocalUserFriends"]
        21 CALL                             R4 0 -1
        22 NAMECALL                         R2 R0 K2 ["dispatch"]
        24 CALL                             R2 -1 0
@@ -145,8 +145,8 @@ PROTO_4:
        35 JUMPIFNOT                        R2 ; [+18]
        36 GETTABLEKS                       R2 R1 K8 ["localUserGroups"]
        38 JUMPIF                           R2 ; [+15]
-       39 GETUPVAL                         R5 0
-       40 GETTABLEKS                       R4 R5 K9 ["LoadingLocalUserGroups"]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K9 ["LoadingLocalUserGroups"]
        42 CALL                             R4 0 -1
        43 NAMECALL                         R2 R0 K2 ["dispatch"]
        45 CALL                             R2 -1 0
@@ -170,31 +170,31 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Src"]
-       11 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R1 K4 ["Util"]
        13 GETIMPORT                        R2 K6 [require]
        15 GETTABLEKS                       R3 R1 K7 ["getUserId"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K6 [require]
-       20 GETTABLEKS                       R6 R0 K3 ["Src"]
-       22 GETTABLEKS                       R5 R6 K8 ["Actions"]
-       24 GETTABLEKS                       R4 R5 K9 ["CollaboratorSearchActions"]
+       20 GETTABLEKS                       R4 R0 K3 ["Src"]
+       22 GETTABLEKS                       R4 R4 K8 ["Actions"]
+       24 GETTABLEKS                       R4 R4 K9 ["CollaboratorSearchActions"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K6 [require]
-       29 GETTABLEKS                       R9 R0 K3 ["Src"]
-       31 GETTABLEKS                       R8 R9 K10 ["Components"]
-       33 GETTABLEKS                       R7 R8 K11 ["AssetConfiguration"]
-       35 GETTABLEKS                       R6 R7 K12 ["Permissions"]
-       37 GETTABLEKS                       R5 R6 K13 ["PermissionsConstants"]
+       29 GETTABLEKS                       R5 R0 K3 ["Src"]
+       31 GETTABLEKS                       R5 R5 K10 ["Components"]
+       33 GETTABLEKS                       R5 R5 K11 ["AssetConfiguration"]
+       35 GETTABLEKS                       R5 R5 K12 ["Permissions"]
+       37 GETTABLEKS                       R5 R5 K13 ["PermissionsConstants"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K6 [require]
-       42 GETTABLEKS                       R8 R0 K3 ["Src"]
-       44 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       46 GETTABLEKS                       R6 R7 K15 ["getFFlagAACAddGroups"]
+       42 GETTABLEKS                       R6 R0 K3 ["Src"]
+       44 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       46 GETTABLEKS                       R6 R6 K15 ["getFFlagAACAddGroups"]
        48 CALL                             R5 1 1
        49 DUPCLOSURE                       R6 K16 [PROTO_1]
        50 DUPCLOSURE                       R7 K17 [PROTO_5]

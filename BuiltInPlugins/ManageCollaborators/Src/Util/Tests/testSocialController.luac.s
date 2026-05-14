@@ -51,31 +51,31 @@ PROTO_3:
        26 LOADNIL                          R1
        27 MOVE                             R2 R0
        28 CALL                             R1 1 1
-       29 GETUPVAL                         R3 1
-       30 LENGTH                           R4 R1
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R2 R3 K2 ["toEqual"]
+       29 GETUPVAL                         R2 1
+       30 LENGTH                           R3 R1
+       31 CALL                             R2 1 1
+       32 GETTABLEKS                       R2 R2 K2 ["toEqual"]
        34 LOADN                            R3 3
        35 CALL                             R2 1 0
-       36 GETUPVAL                         R3 1
-       37 GETTABLEN                        R5 R1 1
-       38 GETTABLEKS                       R4 R5 K0 ["foo"]
-       40 CALL                             R3 1 1
-       41 GETTABLEKS                       R2 R3 K2 ["toEqual"]
+       36 GETUPVAL                         R2 1
+       37 GETTABLEN                        R3 R1 1
+       38 GETTABLEKS                       R3 R3 K0 ["foo"]
+       40 CALL                             R2 1 1
+       41 GETTABLEKS                       R2 R2 K2 ["toEqual"]
        43 LOADN                            R3 1
        44 CALL                             R2 1 0
-       45 GETUPVAL                         R3 1
-       46 GETTABLEN                        R5 R1 2
-       47 GETTABLEKS                       R4 R5 K0 ["foo"]
-       49 CALL                             R3 1 1
-       50 GETTABLEKS                       R2 R3 K2 ["toEqual"]
+       45 GETUPVAL                         R2 1
+       46 GETTABLEN                        R3 R1 2
+       47 GETTABLEKS                       R3 R3 K0 ["foo"]
+       49 CALL                             R2 1 1
+       50 GETTABLEKS                       R2 R2 K2 ["toEqual"]
        52 LOADN                            R3 2
        53 CALL                             R2 1 0
-       54 GETUPVAL                         R3 1
-       55 GETTABLEN                        R5 R1 3
-       56 GETTABLEKS                       R4 R5 K0 ["foo"]
-       58 CALL                             R3 1 1
-       59 GETTABLEKS                       R2 R3 K2 ["toEqual"]
+       54 GETUPVAL                         R2 1
+       55 GETTABLEN                        R3 R1 3
+       56 GETTABLEKS                       R3 R3 K0 ["foo"]
+       58 CALL                             R2 1 1
+       59 GETTABLEKS                       R2 R2 K2 ["toEqual"]
        61 LOADN                            R3 3
        62 CALL                             R2 1 0
        63 RETURN                           R0 0
@@ -93,17 +93,17 @@ PROTO_4:
        14 LOADNIL                          R1
        15 MOVE                             R2 R0
        16 CALL                             R1 1 1
-       17 GETUPVAL                         R3 1
-       18 LENGTH                           R4 R1
-       19 CALL                             R3 1 1
-       20 GETTABLEKS                       R2 R3 K3 ["toEqual"]
+       17 GETUPVAL                         R2 1
+       18 LENGTH                           R3 R1
+       19 CALL                             R2 1 1
+       20 GETTABLEKS                       R2 R2 K3 ["toEqual"]
        22 LOADN                            R3 1
        23 CALL                             R2 1 0
-       24 GETUPVAL                         R3 1
-       25 GETTABLEN                        R5 R1 1
-       26 GETTABLEKS                       R4 R5 K0 ["foo"]
-       28 CALL                             R3 1 1
-       29 GETTABLEKS                       R2 R3 K3 ["toEqual"]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEN                        R3 R1 1
+       26 GETTABLEKS                       R3 R3 K0 ["foo"]
+       28 CALL                             R2 1 1
+       29 GETTABLEKS                       R2 R2 K3 ["toEqual"]
        31 LOADK                            R3 K2 ["only"]
        32 CALL                             R2 1 0
        33 RETURN                           R0 0
@@ -117,10 +117,10 @@ PROTO_5:
         7 LOADNIL                          R1
         8 MOVE                             R2 R0
         9 CALL                             R1 1 1
-       10 GETUPVAL                         R3 1
-       11 LENGTH                           R4 R1
-       12 CALL                             R3 1 1
-       13 GETTABLEKS                       R2 R3 K1 ["toEqual"]
+       10 GETUPVAL                         R2 1
+       11 LENGTH                           R3 R1
+       12 CALL                             R2 1 1
+       13 GETTABLEKS                       R2 R2 K1 ["toEqual"]
        15 LOADN                            R3 0
        16 CALL                             R2 1 0
        17 RETURN                           R0 0
@@ -147,16 +147,16 @@ PROTO_6:
        18 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 LOADNIL                          R1
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 1
-        6 LOADNIL                          R5
-        7 NAMECALL                         R3 R0 K1 ["getUserFriendsNew"]
-        9 CALL                             R3 2 -1
-       10 CALL                             R2 -1 1
-       11 GETTABLEKS                       R1 R2 K2 ["toEqual"]
+        5 GETUPVAL                         R1 1
+        6 LOADNIL                          R4
+        7 NAMECALL                         R2 R0 K1 ["getUserFriendsNew"]
+        9 CALL                             R2 2 -1
+       10 CALL                             R1 -1 1
+       11 GETTABLEKS                       R1 R1 K2 ["toEqual"]
        13 NEWTABLE                         R2 0 0
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
@@ -179,17 +179,17 @@ PROTO_8:
        21 SETLIST                          R3 R4 1 [1]
        23 SETLIST                          R1 R2 2 [1]
        25 CALL                             R0 1 1
-       26 GETUPVAL                         R2 1
-       27 GETTABLEKS                       R1 R2 K5 ["new"]
+       26 GETUPVAL                         R1 1
+       27 GETTABLEKS                       R1 R1 K5 ["new"]
        29 LOADNIL                          R2
        30 CALL                             R1 1 1
        31 MOVE                             R4 R0
        32 NAMECALL                         R2 R1 K6 ["getUserFriendsNew"]
        34 CALL                             R2 2 1
-       35 GETUPVAL                         R4 2
-       36 MOVE                             R5 R2
-       37 CALL                             R4 1 1
-       38 GETTABLEKS                       R3 R4 K7 ["toEqual"]
+       35 GETUPVAL                         R3 2
+       36 MOVE                             R4 R2
+       37 CALL                             R3 1 1
+       38 GETTABLEKS                       R3 R3 K7 ["toEqual"]
        40 NEWTABLE                         R4 0 3
        42 LOADK                            R5 K2 ["A"]
        43 LOADK                            R6 K3 ["B"]
@@ -224,9 +224,9 @@ MAIN:
         8 NAMECALL                         R1 R1 K5 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K1 [require]
-       13 GETTABLEKS                       R5 R1 K6 ["Packages"]
-       15 GETTABLEKS                       R4 R5 K7 ["Dev"]
-       17 GETTABLEKS                       R3 R4 K8 ["JestGlobals"]
+       13 GETTABLEKS                       R3 R1 K6 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K7 ["Dev"]
+       17 GETTABLEKS                       R3 R3 K8 ["JestGlobals"]
        19 CALL                             R2 1 1
        20 GETTABLEKS                       R3 R2 K9 ["describe"]
        22 GETTABLEKS                       R4 R2 K10 ["expect"]

@@ -40,8 +40,8 @@ PROTO_3:
         0 MOVE                             R5 R1
         1 NAMECALL                         R3 R0 K0 ["configurationV2GET"]
         3 CALL                             R3 2 1
-        4 GETTABLEKS                       R5 R3 K1 ["responseBody"]
-        6 GETTABLEKS                       R4 R5 K2 ["permissions"]
+        4 GETTABLEKS                       R4 R3 K1 ["responseBody"]
+        6 GETTABLEKS                       R4 R4 K2 ["permissions"]
         8 GETTABLE                         R5 R4 R2
         9 RETURN                           R5 1
 
@@ -136,24 +136,24 @@ PROTO_14:
 
 PROTO_15:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Secrets"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Secrets"]
         4 NAMECALL                         R0 R0 K1 ["JSONDecode"]
         6 CALL                             R0 2 1
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["convertSecretsToTableRows"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["convertSecretsToTableRows"]
        10 MOVE                             R2 R0
        11 CALL                             R1 1 1
-       12 GETUPVAL                         R3 2
-       13 GETTABLEKS                       R2 R3 K3 ["sortAndReindexSecretsTableRows"]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K3 ["sortAndReindexSecretsTableRows"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 0
        17 RETURN                           R1 1
 
 PROTO_16:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Secrets"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Secrets"]
         4 NAMECALL                         R0 R0 K1 ["JSONDecode"]
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
@@ -193,12 +193,12 @@ PROTO_17:
        40 CAPTURE                          VAL R1
        41 CALL                             R3 1 2
        42 JUMPIFNOT                        R3 ; [+11]
-       43 GETUPVAL                         R6 1
-       44 GETTABLEKS                       R5 R6 K12 ["convertSecretsToTableRows"]
+       43 GETUPVAL                         R5 1
+       44 GETTABLEKS                       R5 R5 K12 ["convertSecretsToTableRows"]
        46 MOVE                             R6 R4
        47 CALL                             R5 1 1
-       48 GETUPVAL                         R7 1
-       49 GETTABLEKS                       R6 R7 K13 ["sortAndReindexSecretsTableRows"]
+       48 GETUPVAL                         R6 1
+       49 GETTABLEKS                       R6 R6 K13 ["sortAndReindexSecretsTableRows"]
        51 MOVE                             R7 R5
        52 CALL                             R6 1 0
        53 RETURN                           R5 1
@@ -254,8 +254,8 @@ PROTO_20:
         1 SETTABLEKS                       R0 R1 K0 ["Url"]
         3 LOADK                            R2 K3 ["GET"]
         4 SETTABLEKS                       R2 R1 K1 ["Method"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K4 ["Request"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K4 ["Request"]
         9 MOVE                             R3 R1
        10 CALL                             R2 1 1
        11 DUPCLOSURE                       R4 K5 [PROTO_19]
@@ -265,8 +265,8 @@ PROTO_20:
        16 RETURN                           R2 -1
 
 PROTO_21:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BuildRobloxUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BuildRobloxUrl"]
         3 LOADK                            R1 K1 ["apis"]
         4 LOADK                            R2 K2 ["access-management/v1/feature-access?featureNames=CanEnableMeshTextureApi"]
         5 CALL                             R0 2 1
@@ -281,9 +281,9 @@ PROTO_22:
         3 LOADN                            R2 0
         4 JUMPIFNOTLT                      R2 R1 ; [+8]
         6 LOADB                            R1 1
-        7 GETTABLEKS                       R4 R0 K0 ["features"]
-        9 GETTABLEN                        R3 R4 1
-       10 GETTABLEKS                       R2 R3 K1 ["access"]
+        7 GETTABLEKS                       R3 R0 K0 ["features"]
+        9 GETTABLEN                        R2 R3 1
+       10 GETTABLEKS                       R2 R2 K1 ["access"]
        12 RETURN                           R1 2
        13 LOADB                            R1 0
        14 LOADK                            R2 K2 ["Denied"]
@@ -297,8 +297,8 @@ PROTO_23:
 PROTO_24:
         0 DUPCLOSURE                       R0 K0 [PROTO_22]
         1 DUPCLOSURE                       R1 K1 [PROTO_23]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["BuildRobloxUrl"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K2 ["BuildRobloxUrl"]
         5 LOADK                            R4 K3 ["apis"]
         6 LOADK                            R5 K4 ["access-management/v1/feature-access?featureNames=CanEnableMeshTextureApi"]
         7 CALL                             R3 2 1
@@ -355,22 +355,22 @@ PROTO_29:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["SecretUtils"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["SecretUtils"]
        19 CALL                             R1 1 1
        20 NEWTABLE                         R2 32 0
        22 SETTABLEKS                       R2 R2 K8 ["__index"]
        24 GETIMPORT                        R3 K4 [require]
-       26 GETTABLEKS                       R6 R0 K5 ["Src"]
-       28 GETTABLEKS                       R5 R6 K9 ["Flags"]
-       30 GETTABLEKS                       R4 R5 K10 ["getFFlagSecretsHandleConversionErrors"]
+       26 GETTABLEKS                       R4 R0 K5 ["Src"]
+       28 GETTABLEKS                       R4 R4 K9 ["Flags"]
+       30 GETTABLEKS                       R4 R4 K10 ["getFFlagSecretsHandleConversionErrors"]
        32 CALL                             R3 1 1
        33 CALL                             R3 0 1
        34 DUPCLOSURE                       R4 K11 [PROTO_0]
@@ -411,15 +411,15 @@ MAIN:
        85 DUPCLOSURE                       R4 K43 [PROTO_18]
        86 CAPTURE                          VAL R2
        87 SETTABLEKS                       R4 R2 K44 ["SetSecretsFromSecretsAsTableRows"]
-       89 GETIMPORT                        R8 K1 [script]
-       91 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       93 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       95 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       97 GETTABLEKS                       R4 R5 K2 ["Parent"]
+       89 GETIMPORT                        R4 K1 [script]
+       91 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       93 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       95 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       97 GETTABLEKS                       R4 R4 K2 ["Parent"]
        99 GETIMPORT                        R5 K4 [require]
-      101 GETTABLEKS                       R8 R4 K5 ["Src"]
-      103 GETTABLEKS                       R7 R8 K45 ["Networking"]
-      105 GETTABLEKS                       R6 R7 K46 ["Http"]
+      101 GETTABLEKS                       R6 R4 K5 ["Src"]
+      103 GETTABLEKS                       R6 R6 K45 ["Networking"]
+      105 GETTABLEKS                       R6 R6 K46 ["Http"]
       107 CALL                             R5 1 1
       108 GETIMPORT                        R6 K48 [game]
       110 LOADK                            R8 K49 ["HttpService"]

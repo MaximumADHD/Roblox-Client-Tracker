@@ -20,12 +20,12 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETTABLEKS                       R1 R0 K3 ["Packages"]
        15 GETIMPORT                        R2 K5 [require]
        17 GETTABLEKS                       R3 R1 K6 ["Cryo"]
@@ -281,8 +281,8 @@ MAIN:
       345 SETTABLEKS                       R6 R5 K59 ["MaxSearchResultsPerSubjectType"]
       347 LOADN                            R6 100
       348 SETTABLEKS                       R6 R5 K60 ["MaxPackageAssetIdsForHighestPermissionsRequest"]
-      350 GETTABLEKS                       R7 R2 K62 ["Dictionary"]
-      352 GETTABLEKS                       R6 R7 K63 ["join"]
+      350 GETTABLEKS                       R6 R2 K62 ["Dictionary"]
+      352 GETTABLEKS                       R6 R6 K63 ["join"]
       354 MOVE                             R7 R4
       355 MOVE                             R8 R5
       356 CALL                             R6 2 -1

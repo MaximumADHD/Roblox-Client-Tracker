@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["value"]
         3 JUMPIFNOTEQ                      R1 R0 ; [+2]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K1 ["set"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K1 ["set"]
         9 GETUPVAL                         R3 1
        10 JUMPIFNOT                        R3 ; [+4]
        11 GETUPVAL                         R2 1
@@ -26,8 +26,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["fromAssetDm"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["fromAssetDm"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U2
         6 CAPTURE                          UPVAL U3
@@ -38,8 +38,8 @@ PROTO_2:
        12 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["useEffect"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["useEffect"]
         3 NEWCLOSURE                       R5 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          VAL R2
@@ -52,14 +52,14 @@ PROTO_3:
        15 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["useCreateInvokes"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["useCreateInvokes"]
         3 MOVE                             R4 R0
         4 GETTABLEKS                       R5 R1 K1 ["assetId"]
         6 GETTABLEKS                       R6 R2 K1 ["assetId"]
         8 CALL                             R3 3 0
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K0 ["useCreateInvokes"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K0 ["useCreateInvokes"]
        12 MOVE                             R4 R0
        13 GETTABLEKS                       R5 R1 K2 ["enabled"]
        15 GETTABLEKS                       R6 R2 K2 ["enabled"]
@@ -73,23 +73,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AvatarSettingsProviderTypes"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarSettingsProviderTypes"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["ProviderTypes"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["ProviderTypes"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K11 ["React"]
+       27 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K11 ["React"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K7 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["InvokeKeys"]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K7 ["Util"]
+       38 GETTABLEKS                       R5 R5 K12 ["InvokeKeys"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 2 0
        43 DUPCLOSURE                       R6 K13 [PROTO_3]

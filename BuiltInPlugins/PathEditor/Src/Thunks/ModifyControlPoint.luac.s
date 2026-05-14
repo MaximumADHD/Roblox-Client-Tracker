@@ -1,7 +1,7 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PathReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PathReducer"]
         5 GETUPVAL                         R2 0
         6 LOADN                            R3 0
         7 JUMPIFLE                         R2 R3 ; [+7]
@@ -17,8 +17,8 @@ PROTO_0:
        22 GETUPVAL                         R4 3
        23 GETUPVAL                         R5 4
        24 MOVE                             R6 R2
-       25 GETTABLEKS                       R8 R1 K5 ["SelectedObject"]
-       27 GETTABLEKS                       R7 R8 K6 ["Parent"]
+       25 GETTABLEKS                       R7 R1 K5 ["SelectedObject"]
+       27 GETTABLEKS                       R7 R7 K6 ["Parent"]
        29 CALL                             R5 2 1
        30 GETTABLEKS                       R7 R1 K8 ["ParentAbsSize"]
        32 MULK                             R6 R7 K7 [0.5]
@@ -33,8 +33,8 @@ PROTO_0:
        44 JUMPIFNOT                        R4 ; [+8]
        45 GETUPVAL                         R4 5
        46 MOVE                             R5 R2
-       47 GETTABLEKS                       R7 R1 K5 ["SelectedObject"]
-       49 GETTABLEKS                       R6 R7 K6 ["Parent"]
+       47 GETTABLEKS                       R6 R1 K5 ["SelectedObject"]
+       49 GETTABLEKS                       R6 R6 K6 ["Parent"]
        51 CALL                             R4 2 1
        52 MOVE                             R2 R4
        53 GETUPVAL                         R5 0
@@ -60,29 +60,29 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["getUDim2ScaleFromOffset"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["getUDim2ScaleFromOffset"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Util"]
-       24 GETTABLEKS                       R3 R4 K8 ["getVector2FromUDim2Scale"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["getVector2FromUDim2Scale"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K6 ["Util"]
-       33 GETTABLEKS                       R4 R5 K9 ["getUDim2FromVector2"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K6 ["Util"]
+       33 GETTABLEKS                       R4 R4 K9 ["getUDim2FromVector2"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K5 ["Src"]
-       40 GETTABLEKS                       R6 R7 K6 ["Util"]
-       42 GETTABLEKS                       R5 R6 K10 ["rotatePoint"]
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R5 R5 K6 ["Util"]
+       42 GETTABLEKS                       R5 R5 K10 ["rotatePoint"]
        44 CALL                             R4 1 1
        45 DUPCLOSURE                       R5 K11 [PROTO_1]
        46 CAPTURE                          VAL R3

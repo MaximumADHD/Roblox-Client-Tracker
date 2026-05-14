@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Localization"]
         5 GETUPVAL                         R2 0
         6 LOADB                            R3 1
@@ -17,22 +17,22 @@ PROTO_0:
        21 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["state"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["state"]
         6 GETTABLEKS                       R2 R0 K2 ["Localization"]
         8 GETTABLEKS                       R3 R0 K3 ["EditingItemContext"]
        10 NAMECALL                         R3 R3 K4 ["getItem"]
        12 CALL                             R3 1 1
        13 GETTABLEKS                       R4 R1 K5 ["generateKey"]
-       15 GETUPVAL                         R6 1
-       16 GETTABLEKS                       R5 R6 K6 ["isMeshPartWithSurfaceAppearance"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K6 ["isMeshPartWithSurfaceAppearance"]
        18 MOVE                             R6 R3
        19 CALL                             R5 1 1
        20 JUMPIFNOT                        R5 ; [+52]
-       21 GETUPVAL                         R7 2
-       22 GETTABLEKS                       R6 R7 K7 ["GENERATE_LEGACY_KEY"]
+       21 GETUPVAL                         R6 2
+       22 GETTABLEKS                       R6 R6 K7 ["GENERATE_LEGACY_KEY"]
        24 JUMPIFNOTEQ                      R4 R6 ; [+48]
        26 GETUPVAL                         R6 3
        27 GETTABLEKS                       R7 R0 K8 ["Plugin"]
@@ -44,8 +44,8 @@ PROTO_1:
        34 NAMECALL                         R11 R2 K17 ["getText"]
        36 CALL                             R11 3 1
        37 SETTABLEKS                       R11 R10 K9 ["Text"]
-       39 GETUPVAL                         R12 0
-       40 GETTABLEKS                       R11 R12 K18 ["startGeneration"]
+       39 GETUPVAL                         R11 0
+       40 GETTABLEKS                       R11 R11 K18 ["startGeneration"]
        42 SETTABLEKS                       R11 R10 K10 ["OnConfirm"]
        44 LOADK                            R13 K19 ["Dialog"]
        45 LOADK                            R14 K20 ["DefaultTitle"]
@@ -68,35 +68,35 @@ PROTO_1:
        69 SETTABLEKS                       R11 R10 K13 ["Link"]
        71 CALL                             R6 4 0
        72 RETURN                           R0 0
-       73 GETUPVAL                         R7 0
-       74 GETTABLEKS                       R6 R7 K18 ["startGeneration"]
+       73 GETUPVAL                         R6 0
+       74 GETTABLEKS                       R6 R6 K18 ["startGeneration"]
        76 CALL                             R6 0 0
        77 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setupDropdownMenu"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setupDropdownMenu"]
         3 CALL                             R2 0 0
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["EditingItemContext"]
         5 NAMECALL                         R1 R1 K2 ["getItem"]
         7 CALL                             R1 1 1
         8 GETTABLEKS                       R2 R0 K3 ["Localization"]
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K4 ["hasAnyCage"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K4 ["hasAnyCage"]
        13 MOVE                             R4 R1
        14 CALL                             R3 1 1
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K5 ["isLegacyAccessory"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K5 ["isLegacyAccessory"]
        18 MOVE                             R5 R1
        19 CALL                             R4 1 1
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K6 ["state"]
-       23 GETTABLEKS                       R5 R6 K7 ["generateKey"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K6 ["state"]
+       23 GETTABLEKS                       R5 R5 K7 ["generateKey"]
        25 NEWTABLE                         R6 0 0
        27 LOADNIL                          R7
        28 JUMPIFNOT                        R3 ; [+4]
@@ -108,15 +108,15 @@ PROTO_3:
        35 GETTABLEKS                       R7 R8 K9 ["GENERATE_LEGACY_KEY"]
        37 JUMP                             ; [+37]
        38 JUMPIFNOT                        R5 ; [+5]
-       39 GETUPVAL                         R9 2
-       40 GETTABLEKS                       R8 R9 K9 ["GENERATE_LEGACY_KEY"]
+       39 GETUPVAL                         R8 2
+       40 GETTABLEKS                       R8 R8 K9 ["GENERATE_LEGACY_KEY"]
        42 JUMPIFNOTEQ                      R5 R8 ; [+17]
        44 GETUPVAL                         R8 2
        45 GETTABLEKS                       R7 R8 K8 ["GENERATE_MESH_PART_KEY"]
        47 MOVE                             R9 R6
        48 LOADK                            R12 K10 ["Flow"]
-       49 GETUPVAL                         R14 2
-       50 GETTABLEKS                       R13 R14 K9 ["GENERATE_LEGACY_KEY"]
+       49 GETUPVAL                         R13 2
+       50 GETTABLEKS                       R13 R13 K9 ["GENERATE_LEGACY_KEY"]
        52 NAMECALL                         R10 R2 K11 ["getText"]
        54 CALL                             R10 3 -1
        55 FASTCALL                         TABLE_INSERT ; [+2]
@@ -127,8 +127,8 @@ PROTO_3:
        61 GETTABLEKS                       R7 R8 K9 ["GENERATE_LEGACY_KEY"]
        63 MOVE                             R9 R6
        64 LOADK                            R12 K10 ["Flow"]
-       65 GETUPVAL                         R14 2
-       66 GETTABLEKS                       R13 R14 K8 ["GENERATE_MESH_PART_KEY"]
+       65 GETUPVAL                         R13 2
+       66 GETTABLEKS                       R13 R13 K8 ["GENERATE_MESH_PART_KEY"]
        68 NAMECALL                         R10 R2 K11 ["getText"]
        70 CALL                             R10 3 -1
        71 FASTCALL                         TABLE_INSERT ; [+2]
@@ -204,11 +204,11 @@ PROTO_6:
        27 NAMECALL                         R10 R7 K10 ["getText"]
        29 CALL                             R10 3 1
        30 MOVE                             R9 R10
-       31 GETUPVAL                         R11 0
-       32 GETTABLEKS                       R10 R11 K12 ["new"]
+       31 GETUPVAL                         R10 0
+       32 GETTABLEKS                       R10 R10 K12 ["new"]
        34 CALL                             R10 0 1
-       35 GETUPVAL                         R12 1
-       36 GETTABLEKS                       R11 R12 K13 ["createElement"]
+       35 GETUPVAL                         R11 1
+       36 GETTABLEKS                       R11 R11 K13 ["createElement"]
        38 GETUPVAL                         R12 2
        39 DUPTABLE                         R13 K19 [{"Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing"}]
        40 GETIMPORT                        R14 K21 [UDim2.new]
@@ -227,8 +227,8 @@ PROTO_6:
        61 LOADN                            R14 10
        62 SETTABLEKS                       R14 R13 K18 ["Spacing"]
        64 DUPTABLE                         R14 K31 [{"BackButton", "GenerateDropdownButton"}]
-       65 GETUPVAL                         R16 1
-       66 GETTABLEKS                       R15 R16 K13 ["createElement"]
+       65 GETUPVAL                         R15 1
+       66 GETTABLEKS                       R15 R15 K13 ["createElement"]
        68 GETUPVAL                         R16 3
        69 DUPTABLE                         R17 K36 [{"Text", "Style", "Size", "OnClick", "LayoutOrder"}]
        70 LOADK                            R20 K37 ["Flow"]
@@ -251,8 +251,8 @@ PROTO_6:
        96 SETTABLEKS                       R18 R17 K35 ["LayoutOrder"]
        98 CALL                             R15 2 1
        99 SETTABLEKS                       R15 R14 K29 ["BackButton"]
-      101 GETUPVAL                         R16 1
-      102 GETTABLEKS                       R15 R16 K13 ["createElement"]
+      101 GETUPVAL                         R15 1
+      102 GETTABLEKS                       R15 R15 K13 ["createElement"]
       104 GETUPVAL                         R16 4
       105 DUPTABLE                         R17 K54 [{"AutomaticSize", "Height", "ButtonWidth", "ArrowWidth", "LayoutOrder", "TooltipText", "ButtonIcon", "IconSize", "ButtonText", "Items", "ItemHeight", "OnSelectItem", "OnClick"}]
       106 GETIMPORT                        R18 K56 [Enum.AutomaticSize.XY]
@@ -291,33 +291,33 @@ PROTO_7:
         0 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["EditingItemContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["EditingItemContext"]
         5 NAMECALL                         R0 R0 K2 ["getItem"]
         7 CALL                             R0 1 1
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K0 ["props"]
-       11 GETTABLEKS                       R1 R2 K1 ["EditingItemContext"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K0 ["props"]
+       11 GETTABLEKS                       R1 R1 K1 ["EditingItemContext"]
        13 NAMECALL                         R1 R1 K3 ["getSourceItemWithUniqueDeformerNames"]
        15 CALL                             R1 1 1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K0 ["props"]
-       19 GETTABLEKS                       R2 R3 K4 ["Analytics"]
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R4 R5 K0 ["props"]
-       24 GETTABLEKS                       R3 R4 K5 ["FinishEditing"]
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K0 ["props"]
-       29 GETTABLEKS                       R4 R5 K6 ["LuaMeshEditingModuleContext"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K0 ["props"]
+       19 GETTABLEKS                       R2 R2 K4 ["Analytics"]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K0 ["props"]
+       24 GETTABLEKS                       R3 R3 K5 ["FinishEditing"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K0 ["props"]
+       29 GETTABLEKS                       R4 R4 K6 ["LuaMeshEditingModuleContext"]
        31 MOVE                             R5 R0
        32 MOVE                             R6 R1
        33 MOVE                             R7 R2
-       34 GETUPVAL                         R11 0
-       35 GETTABLEKS                       R10 R11 K7 ["state"]
-       37 GETTABLEKS                       R9 R10 K8 ["generateKey"]
-       39 GETUPVAL                         R11 1
-       40 GETTABLEKS                       R10 R11 K9 ["GENERATE_LEGACY_KEY"]
+       34 GETUPVAL                         R9 0
+       35 GETTABLEKS                       R9 R9 K7 ["state"]
+       37 GETTABLEKS                       R9 R9 K8 ["generateKey"]
+       39 GETUPVAL                         R10 1
+       40 GETTABLEKS                       R10 R10 K9 ["GENERATE_LEGACY_KEY"]
        42 JUMPIFEQ                         R9 R10 ; [+2]
        44 LOADB                            R8 0 +1
        45 LOADB                            R8 1
@@ -326,27 +326,27 @@ PROTO_8:
        48 NAMECALL                         R3 R2 K11 ["getHandler"]
        50 CALL                             R3 2 1
        51 CALL                             R3 0 0
-       52 GETUPVAL                         R5 0
-       53 GETTABLEKS                       R4 R5 K0 ["props"]
-       55 GETTABLEKS                       R3 R4 K12 ["SetControlsPanelBlockerActivity"]
+       52 GETUPVAL                         R3 0
+       53 GETTABLEKS                       R3 R3 K0 ["props"]
+       55 GETTABLEKS                       R3 R3 K12 ["SetControlsPanelBlockerActivity"]
        57 LOADB                            R4 0
        58 CALL                             R3 1 0
-       59 GETUPVAL                         R5 0
-       60 GETTABLEKS                       R4 R5 K0 ["props"]
-       62 GETTABLEKS                       R3 R4 K1 ["EditingItemContext"]
+       59 GETUPVAL                         R3 0
+       60 GETTABLEKS                       R3 R3 K0 ["props"]
+       62 GETTABLEKS                       R3 R3 K1 ["EditingItemContext"]
        64 NAMECALL                         R3 R3 K13 ["clear"]
        66 CALL                             R3 1 0
-       67 GETUPVAL                         R5 0
-       68 GETTABLEKS                       R4 R5 K0 ["props"]
-       70 GETTABLEKS                       R3 R4 K14 ["GoToNext"]
+       67 GETUPVAL                         R3 0
+       68 GETTABLEKS                       R3 R3 K0 ["props"]
+       70 GETTABLEKS                       R3 R3 K14 ["GoToNext"]
        72 CALL                             R3 0 0
-       73 GETUPVAL                         R5 0
-       74 GETTABLEKS                       R4 R5 K0 ["props"]
-       76 GETTABLEKS                       R3 R4 K15 ["ReleaseEditor"]
+       73 GETUPVAL                         R3 0
+       74 GETTABLEKS                       R3 R3 K0 ["props"]
+       76 GETTABLEKS                       R3 R3 K15 ["ReleaseEditor"]
        78 CALL                             R3 0 0
-       79 GETUPVAL                         R5 0
-       80 GETTABLEKS                       R4 R5 K0 ["props"]
-       82 GETTABLEKS                       R3 R4 K1 ["EditingItemContext"]
+       79 GETUPVAL                         R3 0
+       80 GETTABLEKS                       R3 R3 K0 ["props"]
+       82 GETTABLEKS                       R3 R3 K1 ["EditingItemContext"]
        84 LOADNIL                          R5
        85 NAMECALL                         R3 R3 K16 ["setSourceItem"]
        87 CALL                             R3 2 0
@@ -354,17 +354,17 @@ PROTO_8:
        89 LOADB                            R4 0
        90 SETTABLEKS                       R4 R3 K17 ["generateClicked"]
        92 GETUPVAL                         R3 2
-       93 GETUPVAL                         R6 0
-       94 GETTABLEKS                       R5 R6 K0 ["props"]
-       96 GETTABLEKS                       R4 R5 K18 ["Plugin"]
-       98 GETUPVAL                         R7 0
-       99 GETTABLEKS                       R6 R7 K0 ["props"]
-      101 GETTABLEKS                       R5 R6 K19 ["Localization"]
+       93 GETUPVAL                         R4 0
+       94 GETTABLEKS                       R4 R4 K0 ["props"]
+       96 GETTABLEKS                       R4 R4 K18 ["Plugin"]
+       98 GETUPVAL                         R5 0
+       99 GETTABLEKS                       R5 R5 K0 ["props"]
+      101 GETTABLEKS                       R5 R5 K19 ["Localization"]
       103 GETUPVAL                         R6 3
       104 DUPTABLE                         R7 K22 [{"Text", "OnClose"}]
-      105 GETUPVAL                         R10 0
-      106 GETTABLEKS                       R9 R10 K0 ["props"]
-      108 GETTABLEKS                       R8 R9 K19 ["Localization"]
+      105 GETUPVAL                         R8 0
+      106 GETTABLEKS                       R8 R8 K0 ["props"]
+      108 GETTABLEKS                       R8 R8 K19 ["Localization"]
       110 LOADK                            R10 K23 ["Generate"]
       111 LOADK                            R11 K24 ["Success"]
       112 DUPTABLE                         R12 K26 [{"name"}]
@@ -379,12 +379,12 @@ PROTO_8:
       126 RETURN                           R0 0
 
 PROTO_9:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["IsControlsPanelBlockerActive"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["IsControlsPanelBlockerActive"]
         4 GETTABLEKS                       R3 R1 K1 ["IsControlsPanelBlockerActive"]
         6 JUMPIFEQ                         R2 R3 ; [+18]
-        8 GETTABLEKS                       R3 R0 K0 ["props"]
-       10 GETTABLEKS                       R2 R3 K1 ["IsControlsPanelBlockerActive"]
+        8 GETTABLEKS                       R2 R0 K0 ["props"]
+       10 GETTABLEKS                       R2 R2 K1 ["IsControlsPanelBlockerActive"]
        12 JUMPIFNOT                        R2 ; [+12]
        13 GETTABLEKS                       R2 R0 K2 ["generateClicked"]
        15 JUMPIFNOT                        R2 ; [+9]
@@ -465,22 +465,22 @@ PROTO_15:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["AvatarToolsShared"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["AvatarToolsShared"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K9 ["Components"]
        34 GETTABLEKS                       R5 R4 K10 ["InputBlocker"]
@@ -488,12 +488,12 @@ MAIN:
        38 GETTABLEKS                       R7 R4 K12 ["ButtonWithDropdown"]
        40 GETTABLEKS                       R8 R4 K13 ["ConfirmDialog"]
        42 GETTABLEKS                       R9 R4 K14 ["ConfirmCancelDialog"]
-       44 GETTABLEKS                       R12 R3 K15 ["Util"]
-       46 GETTABLEKS                       R11 R12 K16 ["AccessoryAndBodyToolShared"]
-       48 GETTABLEKS                       R10 R11 K17 ["ItemCharacteristics"]
+       44 GETTABLEKS                       R10 R3 K15 ["Util"]
+       46 GETTABLEKS                       R10 R10 K16 ["AccessoryAndBodyToolShared"]
+       48 GETTABLEKS                       R10 R10 K17 ["ItemCharacteristics"]
        50 GETIMPORT                        R11 K4 [require]
-       52 GETTABLEKS                       R13 R0 K5 ["Packages"]
-       54 GETTABLEKS                       R12 R13 K18 ["Framework"]
+       52 GETTABLEKS                       R12 R0 K5 ["Packages"]
+       54 GETTABLEKS                       R12 R12 K18 ["Framework"]
        56 CALL                             R11 1 1
        57 GETTABLEKS                       R12 R11 K19 ["ContextServices"]
        59 GETTABLEKS                       R13 R12 K20 ["withContext"]
@@ -501,43 +501,43 @@ MAIN:
        63 GETTABLEKS                       R15 R14 K22 ["Button"]
        65 GETTABLEKS                       R16 R14 K23 ["Pane"]
        67 GETIMPORT                        R17 K4 [require]
-       69 GETTABLEKS                       R20 R0 K24 ["Src"]
-       71 GETTABLEKS                       R19 R20 K15 ["Util"]
-       73 GETTABLEKS                       R18 R19 K25 ["ShowDialog"]
+       69 GETTABLEKS                       R18 R0 K24 ["Src"]
+       71 GETTABLEKS                       R18 R18 K15 ["Util"]
+       73 GETTABLEKS                       R18 R18 K25 ["ShowDialog"]
        75 CALL                             R17 1 1
-       76 GETTABLEKS                       R19 R3 K26 ["Contexts"]
-       78 GETTABLEKS                       R18 R19 K27 ["EditingItemContext"]
-       80 GETTABLEKS                       R20 R3 K26 ["Contexts"]
-       82 GETTABLEKS                       R19 R20 K28 ["LuaMeshEditingModuleContext"]
+       76 GETTABLEKS                       R18 R3 K26 ["Contexts"]
+       78 GETTABLEKS                       R18 R18 K27 ["EditingItemContext"]
+       80 GETTABLEKS                       R19 R3 K26 ["Contexts"]
+       82 GETTABLEKS                       R19 R19 K28 ["LuaMeshEditingModuleContext"]
        84 GETIMPORT                        R20 K4 [require]
-       86 GETTABLEKS                       R23 R0 K24 ["Src"]
-       88 GETTABLEKS                       R22 R23 K29 ["Actions"]
-       90 GETTABLEKS                       R21 R22 K30 ["SetControlsPanelBlockerActivity"]
+       86 GETTABLEKS                       R21 R0 K24 ["Src"]
+       88 GETTABLEKS                       R21 R21 K29 ["Actions"]
+       90 GETTABLEKS                       R21 R21 K30 ["SetControlsPanelBlockerActivity"]
        92 CALL                             R20 1 1
        93 GETIMPORT                        R21 K4 [require]
-       95 GETTABLEKS                       R24 R0 K24 ["Src"]
-       97 GETTABLEKS                       R23 R24 K29 ["Actions"]
-       99 GETTABLEKS                       R22 R23 K31 ["SetControlsPanelBlockerMessage"]
+       95 GETTABLEKS                       R22 R0 K24 ["Src"]
+       97 GETTABLEKS                       R22 R22 K29 ["Actions"]
+       99 GETTABLEKS                       R22 R22 K31 ["SetControlsPanelBlockerMessage"]
       101 CALL                             R21 1 1
       102 GETIMPORT                        R22 K4 [require]
-      104 GETTABLEKS                       R25 R0 K24 ["Src"]
-      106 GETTABLEKS                       R24 R25 K32 ["Thunks"]
-      108 GETTABLEKS                       R23 R24 K33 ["ReleaseEditor"]
+      104 GETTABLEKS                       R23 R0 K24 ["Src"]
+      106 GETTABLEKS                       R23 R23 K32 ["Thunks"]
+      108 GETTABLEKS                       R23 R23 K33 ["ReleaseEditor"]
       110 CALL                             R22 1 1
       111 GETIMPORT                        R23 K4 [require]
-      113 GETTABLEKS                       R26 R0 K24 ["Src"]
-      115 GETTABLEKS                       R25 R26 K32 ["Thunks"]
-      117 GETTABLEKS                       R24 R25 K34 ["FinishEditing"]
+      113 GETTABLEKS                       R24 R0 K24 ["Src"]
+      115 GETTABLEKS                       R24 R24 K32 ["Thunks"]
+      117 GETTABLEKS                       R24 R24 K34 ["FinishEditing"]
       119 CALL                             R23 1 1
       120 GETIMPORT                        R24 K4 [require]
-      122 GETTABLEKS                       R27 R0 K24 ["Src"]
-      124 GETTABLEKS                       R26 R27 K15 ["Util"]
-      126 GETTABLEKS                       R25 R26 K35 ["Constants"]
+      122 GETTABLEKS                       R25 R0 K24 ["Src"]
+      124 GETTABLEKS                       R25 R25 K15 ["Util"]
+      126 GETTABLEKS                       R25 R25 K35 ["Constants"]
       128 CALL                             R24 1 1
       129 GETIMPORT                        R25 K4 [require]
-      131 GETTABLEKS                       R28 R0 K24 ["Src"]
-      133 GETTABLEKS                       R27 R28 K15 ["Util"]
-      135 GETTABLEKS                       R26 R27 K25 ["ShowDialog"]
+      131 GETTABLEKS                       R26 R0 K24 ["Src"]
+      133 GETTABLEKS                       R26 R26 K15 ["Util"]
+      135 GETTABLEKS                       R26 R26 K25 ["ShowDialog"]
       137 CALL                             R25 1 1
       138 GETTABLEKS                       R26 R1 K36 ["PureComponent"]
       140 LOADK                            R28 K37 ["GenerateScreen"]

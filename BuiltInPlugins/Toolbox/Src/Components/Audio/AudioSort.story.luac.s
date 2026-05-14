@@ -3,38 +3,38 @@ PROTO_0:
         1 RETURN                           R0 1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["controls"]
-        2 GETTABLEKS                       R2 R3 K1 ["isSceneSuggestions"]
+        0 GETTABLEKS                       R2 R0 K0 ["controls"]
+        2 GETTABLEKS                       R2 R2 K1 ["isSceneSuggestions"]
         4 JUMPIFNOT                        R2 ; [+5]
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["createMockContextualRecommendations"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["createMockContextualRecommendations"]
         8 CALL                             R1 0 1
         9 JUMP                             ; [+5]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K3 ["createMockList"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K3 ["createMockList"]
        13 LOADK                            R2 K4 ["Sample"]
        14 CALL                             R1 1 1
        15 GETTABLEKS                       R2 R1 K5 ["ResultsState"]
        17 JUMPIFNOT                        R2 ; [+21]
-       18 GETTABLEKS                       R3 R0 K0 ["controls"]
-       20 GETTABLEKS                       R2 R3 K6 ["isLoading"]
+       18 GETTABLEKS                       R2 R0 K0 ["controls"]
+       20 GETTABLEKS                       R2 R2 K6 ["isLoading"]
        22 JUMPIFNOT                        R2 ; [+5]
        23 GETTABLEKS                       R2 R1 K5 ["ResultsState"]
        25 LOADB                            R3 1
        26 SETTABLEKS                       R3 R2 K7 ["loading"]
-       28 GETTABLEKS                       R3 R0 K0 ["controls"]
-       30 GETTABLEKS                       R2 R3 K8 ["noResults"]
+       28 GETTABLEKS                       R2 R0 K0 ["controls"]
+       30 GETTABLEKS                       R2 R2 K8 ["noResults"]
        32 JUMPIFNOT                        R2 ; [+6]
        33 GETTABLEKS                       R2 R1 K5 ["ResultsState"]
        35 NEWTABLE                         R3 0 0
        37 SETTABLEKS                       R3 R2 K9 ["assets"]
-       39 GETUPVAL                         R3 1
-       40 GETTABLEKS                       R2 R3 K10 ["createElement"]
+       39 GETUPVAL                         R2 1
+       40 GETTABLEKS                       R2 R2 K10 ["createElement"]
        42 GETUPVAL                         R3 2
        43 NEWTABLE                         R4 0 0
        45 DUPTABLE                         R5 K12 [{"AudioSort"}]
-       46 GETUPVAL                         R7 1
-       47 GETTABLEKS                       R6 R7 K10 ["createElement"]
+       46 GETUPVAL                         R6 1
+       47 GETTABLEKS                       R6 R6 K10 ["createElement"]
        49 GETUPVAL                         R7 3
        50 DUPTABLE                         R8 K15 [{"AudioSection", "AssetLogicWrapperProps"}]
        51 SETTABLEKS                       R1 R8 K13 ["AudioSection"]
@@ -62,22 +62,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["MockWrapper"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["MockWrapper"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETIMPORT                        R6 K1 [script]
-       27 GETTABLEKS                       R5 R6 K11 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K12 ["AudioSort"]
+       25 GETIMPORT                        R4 K1 [script]
+       27 GETTABLEKS                       R4 R4 K11 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K12 ["AudioSort"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETIMPORT                        R7 K1 [script]
-       36 GETTABLEKS                       R6 R7 K11 ["Parent"]
+       34 GETIMPORT                        R6 K1 [script]
+       36 GETTABLEKS                       R6 R6 K11 ["Parent"]
        38 GETTABLEKS                       R5 R6 K13 ["AudioView.mocks"]
        40 CALL                             R4 1 1
        41 DUPCLOSURE                       R5 K14 [PROTO_0]

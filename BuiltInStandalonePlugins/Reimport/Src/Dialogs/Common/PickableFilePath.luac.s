@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["doPickFile"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["doPickFile"]
         3 CALL                             R0 0 1
         4 JUMPIFEQKNIL                     R0 ; [+3]
         6 JUMPIFNOTEQKS                    R0 K1 [""] ; [+2]
@@ -8,21 +8,21 @@ PROTO_0:
         9 GETUPVAL                         R1 1
        10 MOVE                             R2 R0
        11 CALL                             R1 1 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K2 ["onFilepathChanged"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K2 ["onFilepathChanged"]
        15 MOVE                             R2 R0
        16 CALL                             R1 1 0
        17 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 GETTABLEKS                       R3 R0 K2 ["filepath"]
         5 ORK                              R2 R3 K1 [""]
         6 CALL                             R1 1 2
         7 GETUPVAL                         R3 1
-        8 GETUPVAL                         R5 2
-        9 GETTABLEKS                       R4 R5 K3 ["View"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K3 ["View"]
        11 DUPTABLE                         R5 K6 [{"tag", "onActivated"}]
        12 LOADK                            R6 K7 ["size-full-800 bg-shift-100 radius-small padding-small align-y-center stroke-default data-testid=pickable-filepath-click-target"]
        13 SETTABLEKS                       R6 R5 K4 ["tag"]
@@ -32,8 +32,8 @@ PROTO_1:
        18 SETTABLEKS                       R6 R5 K5 ["onActivated"]
        20 DUPTABLE                         R6 K9 [{"filepathText"}]
        21 GETUPVAL                         R7 1
-       22 GETUPVAL                         R9 2
-       23 GETTABLEKS                       R8 R9 K10 ["Text"]
+       22 GETUPVAL                         R8 2
+       23 GETTABLEKS                       R8 R8 K10 ["Text"]
        25 DUPTABLE                         R9 K12 [{"Text", "TextTruncate", "tag"}]
        26 JUMPIFNOT                        R1 ; [+2]
        27 JUMPIFNOTEQKS                    R1 K1 [""] ; [+3]
@@ -57,12 +57,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["createElement"]
        23 DUPCLOSURE                       R4 K10 [PROTO_1]

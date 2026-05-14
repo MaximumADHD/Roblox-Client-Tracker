@@ -18,25 +18,25 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Name"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Name"]
         4 SETTABLEKS                       R1 R0 K0 ["Name"]
-        6 GETUPVAL                         R1 2
-        7 GETTABLEKS                       R0 R1 K1 ["new"]
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K1 ["new"]
         9 DUPTABLE                         R1 K3 [{"isInternal"}]
        10 LOADB                            R2 1
        11 SETTABLEKS                       R2 R1 K2 ["isInternal"]
        13 CALL                             R0 1 1
-       14 GETUPVAL                         R2 4
-       15 GETTABLEKS                       R1 R2 K1 ["new"]
+       14 GETUPVAL                         R1 4
+       15 GETTABLEKS                       R1 R1 K1 ["new"]
        17 MOVE                             R2 R0
        18 CALL                             R1 1 1
        19 SETUPVAL                         R1 3
        20 GETUPVAL                         R1 3
        21 NAMECALL                         R1 R1 K4 ["start"]
        23 CALL                             R1 1 0
-       24 GETUPVAL                         R2 5
-       25 GETTABLEKS                       R1 R2 K5 ["createElement"]
+       24 GETUPVAL                         R1 5
+       25 GETTABLEKS                       R1 R1 K5 ["createElement"]
        27 GETUPVAL                         R2 6
        28 DUPTABLE                         R3 K10 [{"Plugin", "pluginLoaderContext", "SoundAssetChecker", "toggleUri"}]
        29 GETUPVAL                         R4 0
@@ -45,8 +45,8 @@ PROTO_2:
        33 SETTABLEKS                       R4 R3 K7 ["pluginLoaderContext"]
        35 GETUPVAL                         R4 3
        36 SETTABLEKS                       R4 R3 K8 ["SoundAssetChecker"]
-       38 GETUPVAL                         R6 8
-       39 GETTABLEKS                       R5 R6 K11 ["shouldMigrateToActions"]
+       38 GETUPVAL                         R5 8
+       39 GETTABLEKS                       R5 R5 K11 ["shouldMigrateToActions"]
        41 CALL                             R5 0 1
        42 JUMPIFNOT                        R5 ; [+2]
        43 GETUPVAL                         R4 9
@@ -54,8 +54,8 @@ PROTO_2:
        45 LOADNIL                          R4
        46 SETTABLEKS                       R4 R3 K9 ["toggleUri"]
        48 CALL                             R1 2 1
-       49 GETUPVAL                         R3 5
-       50 GETTABLEKS                       R2 R3 K12 ["mount"]
+       49 GETUPVAL                         R2 5
+       50 GETTABLEKS                       R2 R2 K12 ["mount"]
        52 MOVE                             R3 R1
        53 CALL                             R2 1 1
        54 SETUPVAL                         R2 10
@@ -83,8 +83,8 @@ PROTO_3:
        13 CALL                             R0 1 0
        14 GETUPVAL                         R0 2
        15 JUMPIFNOT                        R0 ; [+7]
-       16 GETUPVAL                         R1 3
-       17 GETTABLEKS                       R0 R1 K1 ["unmount"]
+       16 GETUPVAL                         R0 3
+       17 GETTABLEKS                       R0 R0 K1 ["unmount"]
        19 GETUPVAL                         R1 2
        20 CALL                             R0 1 0
        21 LOADNIL                          R0
@@ -92,12 +92,12 @@ PROTO_3:
        23 RETURN                           R0 0
 
 PROTO_4:
-        0 GETIMPORT                        R5 K1 [script]
-        2 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        4 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        0 GETIMPORT                        R3 K1 [script]
+        2 GETTABLEKS                       R3 R3 K2 ["Parent"]
+        4 GETTABLEKS                       R3 R3 K2 ["Parent"]
         6 GETIMPORT                        R4 K4 [require]
-        8 GETTABLEKS                       R6 R3 K5 ["Packages"]
-       10 GETTABLEKS                       R5 R6 K6 ["Framework"]
+        8 GETTABLEKS                       R5 R3 K5 ["Packages"]
+       10 GETTABLEKS                       R5 R5 K6 ["Framework"]
        12 CALL                             R4 1 1
        13 GETIMPORT                        R5 K8 [pcall]
        15 DUPCLOSURE                       R6 K9 [PROTO_0]
@@ -106,33 +106,33 @@ PROTO_4:
        19 DUPCLOSURE                       R8 K10 [PROTO_1]
        20 CALL                             R7 1 2
        21 GETIMPORT                        R9 K4 [require]
-       23 GETTABLEKS                       R11 R3 K11 ["Bin"]
-       25 GETTABLEKS                       R10 R11 K12 ["defineLuaFlags"]
+       23 GETTABLEKS                       R10 R3 K11 ["Bin"]
+       25 GETTABLEKS                       R10 R10 K12 ["defineLuaFlags"]
        27 CALL                             R9 1 1
        28 GETIMPORT                        R10 K4 [require]
-       30 GETTABLEKS                       R12 R3 K5 ["Packages"]
-       32 GETTABLEKS                       R11 R12 K13 ["Roact"]
+       30 GETTABLEKS                       R11 R3 K5 ["Packages"]
+       32 GETTABLEKS                       R11 R11 K13 ["Roact"]
        34 CALL                             R10 1 1
-       35 GETTABLEKS                       R12 R4 K14 ["Http"]
-       37 GETTABLEKS                       R11 R12 K15 ["Networking"]
+       35 GETTABLEKS                       R11 R4 K14 ["Http"]
+       37 GETTABLEKS                       R11 R11 K15 ["Networking"]
        39 GETIMPORT                        R12 K4 [require]
-       41 GETTABLEKS                       R14 R3 K16 ["Src"]
-       43 GETTABLEKS                       R13 R14 K17 ["MainPlugin"]
+       41 GETTABLEKS                       R13 R3 K16 ["Src"]
+       43 GETTABLEKS                       R13 R13 K17 ["MainPlugin"]
        45 CALL                             R12 1 1
        46 GETIMPORT                        R13 K4 [require]
-       48 GETTABLEKS                       R16 R3 K16 ["Src"]
-       50 GETTABLEKS                       R15 R16 K18 ["Util"]
-       52 GETTABLEKS                       R14 R15 K19 ["SoundAssetChecker"]
+       48 GETTABLEKS                       R14 R3 K16 ["Src"]
+       50 GETTABLEKS                       R14 R14 K18 ["Util"]
+       52 GETTABLEKS                       R14 R14 K19 ["SoundAssetChecker"]
        54 CALL                             R13 1 1
        55 LOADNIL                          R14
        56 LOADNIL                          R15
        57 LOADNIL                          R16
        58 JUMPIFNOT                        R6 ; [+14]
-       59 GETIMPORT                        R18 K4 [require]
-       61 GETTABLEKS                       R20 R3 K5 ["Packages"]
-       63 GETTABLEKS                       R19 R20 K20 ["DeveloperTools"]
-       65 CALL                             R18 1 1
-       66 GETTABLEKS                       R17 R18 K21 ["forPlugin"]
+       59 GETIMPORT                        R17 K4 [require]
+       61 GETTABLEKS                       R18 R3 K5 ["Packages"]
+       63 GETTABLEKS                       R18 R18 K20 ["DeveloperTools"]
+       65 CALL                             R17 1 1
+       66 GETTABLEKS                       R17 R17 K21 ["forPlugin"]
        68 GETTABLEKS                       R18 R3 K22 ["Name"]
        70 MOVE                             R19 R0
        71 CALL                             R17 2 1

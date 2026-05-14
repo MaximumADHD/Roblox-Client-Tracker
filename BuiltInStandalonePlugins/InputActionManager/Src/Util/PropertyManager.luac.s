@@ -141,8 +141,8 @@ PROTO_4:
        10 LOADNIL                          R3
        11 LOADNIL                          R4
        12 FORGPREP                         R2
-       13 GETUPVAL                         R8 1
-       14 GETTABLEKS                       R7 R8 K4 ["serializeContextProperty"]
+       13 GETUPVAL                         R7 1
+       14 GETTABLEKS                       R7 R7 K4 ["serializeContextProperty"]
        16 MOVE                             R8 R0
        17 MOVE                             R9 R1
        18 MOVE                             R10 R6
@@ -160,8 +160,8 @@ PROTO_5:
        10 LOADNIL                          R3
        11 LOADNIL                          R4
        12 FORGPREP                         R2
-       13 GETUPVAL                         R8 1
-       14 GETTABLEKS                       R7 R8 K4 ["serializeActionProperty"]
+       13 GETUPVAL                         R7 1
+       14 GETTABLEKS                       R7 R7 K4 ["serializeActionProperty"]
        16 MOVE                             R8 R0
        17 MOVE                             R9 R1
        18 MOVE                             R10 R6
@@ -177,8 +177,8 @@ PROTO_6:
         6 LOADNIL                          R3
         7 LOADNIL                          R4
         8 FORGPREP                         R2
-        9 GETUPVAL                         R8 1
-       10 GETTABLEKS                       R7 R8 K3 ["serializeBindingProperty"]
+        9 GETUPVAL                         R7 1
+       10 GETTABLEKS                       R7 R7 K3 ["serializeBindingProperty"]
        12 MOVE                             R8 R0
        13 MOVE                             R9 R1
        14 MOVE                             R10 R6
@@ -352,8 +352,8 @@ PROTO_10:
         1 LOADNIL                          R3
         2 LOADNIL                          R4
         3 FORGPREP                         R2
-        4 GETUPVAL                         R8 1
-        5 GETTABLEKS                       R7 R8 K0 ["deserializeContextProperty"]
+        4 GETUPVAL                         R7 1
+        5 GETTABLEKS                       R7 R7 K0 ["deserializeContextProperty"]
         7 MOVE                             R8 R0
         8 MOVE                             R9 R1
         9 MOVE                             R10 R6
@@ -366,8 +366,8 @@ PROTO_11:
         1 LOADNIL                          R3
         2 LOADNIL                          R4
         3 FORGPREP                         R2
-        4 GETUPVAL                         R8 1
-        5 GETTABLEKS                       R7 R8 K0 ["deserializeActionProperty"]
+        4 GETUPVAL                         R7 1
+        5 GETTABLEKS                       R7 R7 K0 ["deserializeActionProperty"]
         7 MOVE                             R8 R0
         8 MOVE                             R9 R1
         9 MOVE                             R10 R6
@@ -380,8 +380,8 @@ PROTO_12:
         1 LOADNIL                          R3
         2 LOADNIL                          R4
         3 FORGPREP                         R2
-        4 GETUPVAL                         R8 1
-        5 GETTABLEKS                       R7 R8 K0 ["deserializeBindingProperty"]
+        4 GETUPVAL                         R7 1
+        5 GETTABLEKS                       R7 R7 K0 ["deserializeBindingProperty"]
         7 MOVE                             R8 R0
         8 MOVE                             R9 R1
         9 MOVE                             R10 R6
@@ -393,8 +393,8 @@ PROTO_13:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["InputContext"]
         3 CALL                             R0 1 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K4 ["serializeContext"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K4 ["serializeContext"]
         7 MOVE                             R2 R0
         8 CALL                             R1 1 1
         9 NAMECALL                         R2 R0 K5 ["Destroy"]
@@ -405,8 +405,8 @@ PROTO_14:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["InputAction"]
         3 CALL                             R0 1 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K4 ["serializeAction"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K4 ["serializeAction"]
         7 MOVE                             R2 R0
         8 CALL                             R1 1 1
         9 NAMECALL                         R2 R0 K5 ["Destroy"]
@@ -417,8 +417,8 @@ PROTO_15:
         0 GETIMPORT                        R0 K2 [Instance.new]
         2 LOADK                            R1 K3 ["InputBinding"]
         3 CALL                             R0 1 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K4 ["serializeBinding"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K4 ["serializeBinding"]
         7 MOVE                             R2 R0
         8 CALL                             R1 1 1
         9 NAMECALL                         R2 R0 K5 ["Destroy"]
@@ -432,8 +432,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 32 0
        16 NEWTABLE                         R3 0 4

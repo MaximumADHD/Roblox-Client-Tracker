@@ -120,8 +120,8 @@ PROTO_0:
       174 CALL                             R3 2 0
       175 GETTABLEKS                       R3 R0 K19 ["assetType"]
       177 JUMPIFEQKNIL                     R3 ; [+16]
-      179 GETUPVAL                         R4 0
-      180 GETTABLEKS                       R3 R4 K20 ["fromResponse"]
+      179 GETUPVAL                         R3 0
+      180 GETTABLEKS                       R3 R3 K20 ["fromResponse"]
       182 GETTABLEKS                       R4 R0 K19 ["assetType"]
       184 MOVE                             R5 R1
       185 LOADK                            R7 K21 ["%*\"assetType\" > "]
@@ -133,8 +133,8 @@ PROTO_0:
       192 SETTABLEKS                       R3 R0 K19 ["assetType"]
       194 GETTABLEKS                       R3 R0 K22 ["creationContext"]
       196 JUMPIFEQKNIL                     R3 ; [+16]
-      198 GETUPVAL                         R4 1
-      199 GETTABLEKS                       R3 R4 K20 ["fromResponse"]
+      198 GETUPVAL                         R3 1
+      199 GETTABLEKS                       R3 R3 K20 ["fromResponse"]
       201 GETTABLEKS                       R4 R0 K22 ["creationContext"]
       203 MOVE                             R5 R1
       204 LOADK                            R7 K23 ["%*\"creationContext\" > "]
@@ -146,8 +146,8 @@ PROTO_0:
       211 SETTABLEKS                       R3 R0 K22 ["creationContext"]
       213 GETTABLEKS                       R3 R0 K24 ["state"]
       215 JUMPIFEQKNIL                     R3 ; [+16]
-      217 GETUPVAL                         R4 2
-      218 GETTABLEKS                       R3 R4 K20 ["fromResponse"]
+      217 GETUPVAL                         R3 2
+      218 GETTABLEKS                       R3 R3 K20 ["fromResponse"]
       220 GETTABLEKS                       R4 R0 K24 ["state"]
       222 MOVE                             R5 R1
       223 LOADK                            R7 K25 ["%*\"state\" > "]
@@ -185,22 +185,22 @@ PROTO_1:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R1 K3 ["assetType"]
         6 JUMPIFEQKNIL                     R2 ; [+9]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        11 GETTABLEKS                       R3 R1 K3 ["assetType"]
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R1 K3 ["assetType"]
        16 GETTABLEKS                       R2 R1 K5 ["creationContext"]
        18 JUMPIFEQKNIL                     R2 ; [+9]
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        23 GETTABLEKS                       R3 R1 K5 ["creationContext"]
        25 CALL                             R2 1 1
        26 SETTABLEKS                       R2 R1 K5 ["creationContext"]
        28 GETTABLEKS                       R2 R1 K6 ["state"]
        30 JUMPIFEQKNIL                     R2 ; [+9]
-       32 GETUPVAL                         R3 2
-       33 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+       32 GETUPVAL                         R2 2
+       33 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        35 GETTABLEKS                       R3 R1 K6 ["state"]
        37 CALL                             R2 1 1
        38 SETTABLEKS                       R2 R1 K6 ["state"]
@@ -220,16 +220,16 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["AssetType"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["AssetType"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K7 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Models"]
-       29 GETTABLEKS                       R6 R7 K11 ["CreationContext"]
+       27 GETTABLEKS                       R6 R0 K9 ["Models"]
+       29 GETTABLEKS                       R6 R6 K11 ["CreationContext"]
        31 CALL                             R5 1 1
        32 GETIMPORT                        R6 K7 [require]
-       34 GETTABLEKS                       R8 R0 K9 ["Models"]
-       36 GETTABLEKS                       R7 R8 K12 ["State"]
+       34 GETTABLEKS                       R7 R0 K9 ["Models"]
+       36 GETTABLEKS                       R7 R7 K12 ["State"]
        38 CALL                             R6 1 1
        39 DUPCLOSURE                       R7 K13 [PROTO_0]
        40 CAPTURE                          VAL R4

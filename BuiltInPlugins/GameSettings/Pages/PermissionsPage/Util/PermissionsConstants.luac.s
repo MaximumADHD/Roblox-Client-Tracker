@@ -20,14 +20,14 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K7 [PROTO_1]
        19 DUPTABLE                         R3 K28 [{"NoAccessKey", "PlayKey", "EditKey", "NoEditMustBeFriendKey", "NoUserEditGroupGameKey", "AdminKey", "OwnerKey", "MultipleKey", "UserSubjectKey", "GroupSubjectKey", "RoleSubjectKey", "ActionKey", "SubjectIdKey", "SubjectNameKey", "SubjectTypeKey", "SubjectRankKey", "GroupIdKey", "GroupNameKey", "GroupMemberCountKey", "IsFriendKey"}]
@@ -298,8 +298,8 @@ MAIN:
       365 SETTABLEKS                       R5 R4 K54 ["MaxSearchResultsPerSubjectTypeUsers"]
       367 LOADN                            R5 2
       368 SETTABLEKS                       R5 R4 K55 ["MaxSearchResultsPerSubjectTypeGroups"]
-      370 GETTABLEKS                       R6 R1 K57 ["Dictionary"]
-      372 GETTABLEKS                       R5 R6 K58 ["join"]
+      370 GETTABLEKS                       R5 R1 K57 ["Dictionary"]
+      372 GETTABLEKS                       R5 R5 K58 ["join"]
       374 MOVE                             R6 R3
       375 MOVE                             R7 R4
       376 CALL                             R5 2 -1

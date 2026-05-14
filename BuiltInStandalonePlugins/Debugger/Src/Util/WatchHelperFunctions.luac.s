@@ -83,13 +83,13 @@ PROTO_1:
        34 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["debuggerStateToken"]
-        3 GETUPVAL                         R5 1
-        4 NAMECALL                         R5 R5 K1 ["getState"]
-        6 CALL                             R5 1 1
-        7 GETTABLEKS                       R4 R5 K2 ["Common"]
-        9 GETTABLEKS                       R3 R4 K3 ["debuggerConnectionIdToDST"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["debuggerStateToken"]
+        3 GETUPVAL                         R3 1
+        4 NAMECALL                         R3 R3 K1 ["getState"]
+        6 CALL                             R3 1 1
+        7 GETTABLEKS                       R3 R3 K2 ["Common"]
+        9 GETTABLEKS                       R3 R3 K3 ["debuggerConnectionIdToDST"]
        11 GETTABLEKS                       R4 R1 K4 ["debuggerConnectionId"]
        13 GETTABLE                         R2 R3 R4
        14 JUMPIFEQ                         R1 R2 ; [+4]
@@ -100,9 +100,9 @@ PROTO_2:
        21 FASTCALL1                        TOSTRING R3 ; [+2]
        22 GETIMPORT                        R2 K7 [tostring]
        24 CALL                             R2 1 1
-       25 GETUPVAL                         R5 3
-       26 GETTABLEKS                       R4 R5 K8 ["DebuggerStatus"]
-       28 GETTABLEKS                       R3 R4 K9 ["Success"]
+       25 GETUPVAL                         R3 3
+       26 GETTABLEKS                       R3 R3 K8 ["DebuggerStatus"]
+       28 GETTABLEKS                       R3 R3 K9 ["Success"]
        30 JUMPIFEQ                         R2 R3 ; [+4]
        32 GETUPVAL                         R2 2
        33 LOADNIL                          R3
@@ -115,10 +115,10 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R5 R1 K0 ["debuggerStateToken"]
-        2 NAMECALL                         R9 R3 K1 ["getState"]
-        4 CALL                             R9 1 1
-        5 GETTABLEKS                       R8 R9 K2 ["Common"]
-        7 GETTABLEKS                       R7 R8 K3 ["debuggerConnectionIdToDST"]
+        2 NAMECALL                         R7 R3 K1 ["getState"]
+        4 CALL                             R7 1 1
+        5 GETTABLEKS                       R7 R7 K2 ["Common"]
+        7 GETTABLEKS                       R7 R7 K3 ["debuggerConnectionIdToDST"]
         9 GETTABLEKS                       R8 R5 K4 ["debuggerConnectionId"]
        11 GETTABLE                         R6 R7 R8
        12 JUMPIFEQ                         R5 R6 ; [+4]
@@ -299,19 +299,19 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["Constants"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["Constants"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Models"]
-       24 GETTABLEKS                       R3 R4 K9 ["StepStateBundle"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Models"]
+       24 GETTABLEKS                       R3 R3 K9 ["StepStateBundle"]
        26 CALL                             R2 1 1
        27 NEWTABLE                         R3 4 0
        29 DUPCLOSURE                       R4 K10 [PROTO_0]

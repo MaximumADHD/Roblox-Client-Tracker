@@ -2,22 +2,22 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["GenerateGUID"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["SetNpcWithId"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["SetNpcWithId"]
         7 MOVE                             R3 R0
         8 MOVE                             R4 R1
         9 CALL                             R2 2 0
        10 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Npcs"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Npcs"]
         3 SETTABLE                         R0 R2 R1
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Npcs"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Npcs"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 

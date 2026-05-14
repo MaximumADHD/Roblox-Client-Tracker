@@ -16,8 +16,8 @@ PROTO_2:
         1 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OpenStyleEditor"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OpenStyleEditor"]
         3 RETURN                           R0 1
 
 PROTO_4:
@@ -32,14 +32,14 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
        10 GETIMPORT                        R0 K1 [require]
-       12 GETIMPORT                        R3 K3 [script]
-       14 GETTABLEKS                       R2 R3 K4 ["Parent"]
-       16 GETTABLEKS                       R1 R2 K6 ["runTests"]
+       12 GETIMPORT                        R1 K3 [script]
+       14 GETTABLEKS                       R1 R1 K4 ["Parent"]
+       16 GETTABLEKS                       R1 R1 K6 ["runTests"]
        18 CALL                             R0 1 1
        19 MOVE                             R1 R0
        20 CALL                             R1 0 0
@@ -47,30 +47,30 @@ MAIN:
        23 LOADK                            R3 K9 ["GuiService"]
        24 NAMECALL                         R1 R1 K10 ["GetService"]
        26 CALL                             R1 2 1
-       27 GETIMPORT                        R4 K3 [script]
-       29 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       31 GETTABLEKS                       R2 R3 K4 ["Parent"]
+       27 GETIMPORT                        R2 K3 [script]
+       29 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       31 GETTABLEKS                       R2 R2 K4 ["Parent"]
        33 GETIMPORT                        R3 K1 [require]
-       35 GETIMPORT                        R6 K3 [script]
-       37 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       39 GETTABLEKS                       R4 R5 K11 ["main"]
+       35 GETIMPORT                        R4 K3 [script]
+       37 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       39 GETTABLEKS                       R4 R4 K11 ["main"]
        41 CALL                             R3 1 1
        42 GETIMPORT                        R4 K13 [plugin]
        44 GETTABLEKS                       R5 R2 K14 ["Name"]
        46 SETTABLEKS                       R5 R4 K14 ["Name"]
        48 GETIMPORT                        R4 K1 [require]
-       50 GETTABLEKS                       R6 R2 K15 ["Packages"]
-       52 GETTABLEKS                       R5 R6 K16 ["PluginLoader"]
+       50 GETTABLEKS                       R5 R2 K15 ["Packages"]
+       52 GETTABLEKS                       R5 R5 K16 ["PluginLoader"]
        54 CALL                             R4 1 1
        55 GETTABLEKS                       R5 R4 K17 ["PluginLoaderBuilder"]
-       57 GETTABLEKS                       R9 R2 K18 ["Src"]
-       59 GETTABLEKS                       R8 R9 K19 ["Resources"]
-       61 GETTABLEKS                       R7 R8 K20 ["Localization"]
-       63 GETTABLEKS                       R6 R7 K21 ["SourceStrings"]
-       65 GETTABLEKS                       R10 R2 K18 ["Src"]
-       67 GETTABLEKS                       R9 R10 K19 ["Resources"]
-       69 GETTABLEKS                       R8 R9 K20 ["Localization"]
-       71 GETTABLEKS                       R7 R8 K22 ["LocalizedStrings"]
+       57 GETTABLEKS                       R6 R2 K18 ["Src"]
+       59 GETTABLEKS                       R6 R6 K19 ["Resources"]
+       61 GETTABLEKS                       R6 R6 K20 ["Localization"]
+       63 GETTABLEKS                       R6 R6 K21 ["SourceStrings"]
+       65 GETTABLEKS                       R7 R2 K18 ["Src"]
+       67 GETTABLEKS                       R7 R7 K19 ["Resources"]
+       69 GETTABLEKS                       R7 R7 K20 ["Localization"]
+       71 GETTABLEKS                       R7 R7 K22 ["LocalizedStrings"]
        73 DUPTABLE                         R8 K27 [{"getName", "getDescription", "icon", "enabled"}]
        74 DUPCLOSURE                       R9 K28 [PROTO_0]
        75 SETTABLEKS                       R9 R8 K23 ["getName"]

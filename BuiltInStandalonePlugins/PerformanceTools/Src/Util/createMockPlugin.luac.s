@@ -33,8 +33,8 @@ PROTO_1:
         1 GETUPVAL                         R1 1
         2 LOADNIL                          R2
         3 SETTABLE                         R2 R0 R1
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K0 ["MockOnInvokeDisconnect"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K0 ["MockOnInvokeDisconnect"]
         7 GETUPVAL                         R1 1
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
@@ -57,25 +57,25 @@ PROTO_3:
 PROTO_4:
         0 NEWTABLE                         R0 4 0
         2 NEWTABLE                         R1 0 0
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K0 ["fn"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K0 ["fn"]
         7 NEWCLOSURE                       R3 P0
         8 CAPTURE                          VAL R1
         9 CALL                             R2 1 1
        10 SETTABLEKS                       R2 R0 K1 ["Invoke"]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K0 ["fn"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K0 ["fn"]
        15 CALL                             R2 0 1
        16 SETTABLEKS                       R2 R0 K2 ["MockOnInvokeDisconnect"]
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K0 ["fn"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K0 ["fn"]
        21 NEWCLOSURE                       R3 P1
        22 CAPTURE                          VAL R1
        23 CAPTURE                          VAL R0
        24 CALL                             R2 1 1
        25 SETTABLEKS                       R2 R0 K3 ["OnInvoke"]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K0 ["fn"]
+       27 GETUPVAL                         R2 0
+       28 GETTABLEKS                       R2 R2 K0 ["fn"]
        30 DUPCLOSURE                       R3 K4 [PROTO_3]
        31 CALL                             R2 1 1
        32 SETTABLEKS                       R2 R0 K5 ["GetSetting"]
@@ -88,9 +88,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
-       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["jest"]
        18 DUPCLOSURE                       R3 K10 [PROTO_4]

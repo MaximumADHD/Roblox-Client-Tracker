@@ -8,17 +8,17 @@ PROTO_0:
         8 SETTABLEKS                       R5 R4 K1 ["abilityCharacterControllerMode"]
        10 NAMECALL                         R1 R1 K4 ["logCounter"]
        12 CALL                             R1 3 0
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K5 ["characterControllerModeSetting"]
-       16 GETTABLEKS                       R1 R2 K6 ["set"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K5 ["characterControllerModeSetting"]
+       16 GETTABLEKS                       R1 R1 K6 ["set"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 0
        20 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableRunningSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableRunningSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilityRunningToggled"]
@@ -26,17 +26,17 @@ PROTO_1:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableRunningSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableRunningSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableJumpingSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableJumpingSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilityJumpingToggled"]
@@ -44,17 +44,17 @@ PROTO_2:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableJumpingSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableJumpingSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableSittingSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableSittingSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilitySittingToggled"]
@@ -62,17 +62,17 @@ PROTO_3:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableSittingSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableSittingSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableFallingDownSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableFallingDownSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilityFallingDownToggled"]
@@ -80,17 +80,17 @@ PROTO_4:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableFallingDownSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableFallingDownSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableGettingUpSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableGettingUpSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilityGettingUpToggled"]
@@ -98,17 +98,17 @@ PROTO_5:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableGettingUpSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableGettingUpSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableClimbingSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableClimbingSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilityClimbingToggled"]
@@ -116,17 +116,17 @@ PROTO_6:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableClimbingSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableClimbingSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableSwimmingSetting"]
-        3 GETTABLEKS                       R1 R2 K1 ["value"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableSwimmingSetting"]
+        3 GETTABLEKS                       R1 R1 K1 ["value"]
         5 NOT                              R0 R1
         6 GETUPVAL                         R1 1
         7 LOADK                            R3 K2 ["AbilitySwimmingToggled"]
@@ -134,9 +134,9 @@ PROTO_7:
         9 SETTABLEKS                       R0 R4 K3 ["enabled"]
        11 NAMECALL                         R1 R1 K5 ["logCounter"]
        13 CALL                             R1 3 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K0 ["defaultAbilitiesEnableSwimmingSetting"]
-       17 GETTABLEKS                       R1 R2 K6 ["set"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["defaultAbilitiesEnableSwimmingSetting"]
+       17 GETTABLEKS                       R1 R1 K6 ["set"]
        19 MOVE                             R2 R0
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
@@ -150,8 +150,8 @@ PROTO_8:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -162,10 +162,10 @@ PROTO_8:
        23 LOADK                            R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
        24 GETIMPORT                        R5 K5 [assert]
        26 CALL                             R5 2 0
-       27 GETTABLEKS                       R6 R4 K2 ["settings"]
-       29 GETTABLEKS                       R5 R6 K6 ["movementSettings"]
-       31 GETTABLEKS                       R7 R5 K7 ["characterControllerModeSetting"]
-       33 GETTABLEKS                       R6 R7 K8 ["value"]
+       27 GETTABLEKS                       R5 R4 K2 ["settings"]
+       29 GETTABLEKS                       R5 R5 K6 ["movementSettings"]
+       31 GETTABLEKS                       R6 R5 K7 ["characterControllerModeSetting"]
+       33 GETTABLEKS                       R6 R6 K8 ["value"]
        35 GETIMPORT                        R8 K12 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
        37 JUMPIFEQ                         R6 R8 ; [+2]
        39 LOADB                            R7 0 +1
@@ -234,8 +234,8 @@ PROTO_8:
       124 MOVE                             R16 R3
       125 CALL                             R16 0 1
       126 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      128 GETTABLEKS                       R17 R5 K48 ["defaultAbilitiesEnableRunningSetting"]
-      130 GETTABLEKS                       R16 R17 K8 ["value"]
+      128 GETTABLEKS                       R16 R5 K48 ["defaultAbilitiesEnableRunningSetting"]
+      130 GETTABLEKS                       R16 R16 K8 ["value"]
       132 SETTABLEKS                       R16 R15 K44 ["Checked"]
       134 LOADK                            R18 K18 ["MovementSettings"]
       135 LOADK                            R19 K49 ["DefaultAbilitiesSectionEnableRunning"]
@@ -256,8 +256,8 @@ PROTO_8:
       154 MOVE                             R16 R3
       155 CALL                             R16 0 1
       156 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      158 GETTABLEKS                       R17 R5 K50 ["defaultAbilitiesEnableJumpingSetting"]
-      160 GETTABLEKS                       R16 R17 K8 ["value"]
+      158 GETTABLEKS                       R16 R5 K50 ["defaultAbilitiesEnableJumpingSetting"]
+      160 GETTABLEKS                       R16 R16 K8 ["value"]
       162 SETTABLEKS                       R16 R15 K44 ["Checked"]
       164 LOADK                            R18 K18 ["MovementSettings"]
       165 LOADK                            R19 K51 ["DefaultAbilitiesSectionEnableJumping"]
@@ -278,8 +278,8 @@ PROTO_8:
       184 MOVE                             R16 R3
       185 CALL                             R16 0 1
       186 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      188 GETTABLEKS                       R17 R5 K52 ["defaultAbilitiesEnableSittingSetting"]
-      190 GETTABLEKS                       R16 R17 K8 ["value"]
+      188 GETTABLEKS                       R16 R5 K52 ["defaultAbilitiesEnableSittingSetting"]
+      190 GETTABLEKS                       R16 R16 K8 ["value"]
       192 SETTABLEKS                       R16 R15 K44 ["Checked"]
       194 LOADK                            R18 K18 ["MovementSettings"]
       195 LOADK                            R19 K53 ["DefaultAbilitiesSectionEnableSitting"]
@@ -300,8 +300,8 @@ PROTO_8:
       214 MOVE                             R16 R3
       215 CALL                             R16 0 1
       216 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      218 GETTABLEKS                       R17 R5 K54 ["defaultAbilitiesEnableFallingDownSetting"]
-      220 GETTABLEKS                       R16 R17 K8 ["value"]
+      218 GETTABLEKS                       R16 R5 K54 ["defaultAbilitiesEnableFallingDownSetting"]
+      220 GETTABLEKS                       R16 R16 K8 ["value"]
       222 SETTABLEKS                       R16 R15 K44 ["Checked"]
       224 LOADK                            R18 K18 ["MovementSettings"]
       225 LOADK                            R19 K55 ["DefaultAbilitiesSectionEnableFallingDown"]
@@ -322,8 +322,8 @@ PROTO_8:
       244 MOVE                             R16 R3
       245 CALL                             R16 0 1
       246 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      248 GETTABLEKS                       R17 R5 K56 ["defaultAbilitiesEnableGettingUpSetting"]
-      250 GETTABLEKS                       R16 R17 K8 ["value"]
+      248 GETTABLEKS                       R16 R5 K56 ["defaultAbilitiesEnableGettingUpSetting"]
+      250 GETTABLEKS                       R16 R16 K8 ["value"]
       252 SETTABLEKS                       R16 R15 K44 ["Checked"]
       254 LOADK                            R18 K18 ["MovementSettings"]
       255 LOADK                            R19 K57 ["DefaultAbilitiesSectionEnableGettingUp"]
@@ -344,8 +344,8 @@ PROTO_8:
       274 MOVE                             R16 R3
       275 CALL                             R16 0 1
       276 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      278 GETTABLEKS                       R17 R5 K58 ["defaultAbilitiesEnableClimbingSetting"]
-      280 GETTABLEKS                       R16 R17 K8 ["value"]
+      278 GETTABLEKS                       R16 R5 K58 ["defaultAbilitiesEnableClimbingSetting"]
+      280 GETTABLEKS                       R16 R16 K8 ["value"]
       282 SETTABLEKS                       R16 R15 K44 ["Checked"]
       284 LOADK                            R18 K18 ["MovementSettings"]
       285 LOADK                            R19 K59 ["DefaultAbilitiesSectionEnableClimbing"]
@@ -366,8 +366,8 @@ PROTO_8:
       304 MOVE                             R16 R3
       305 CALL                             R16 0 1
       306 SETTABLEKS                       R16 R15 K43 ["LayoutOrder"]
-      308 GETTABLEKS                       R17 R5 K60 ["defaultAbilitiesEnableSwimmingSetting"]
-      310 GETTABLEKS                       R16 R17 K8 ["value"]
+      308 GETTABLEKS                       R16 R5 K60 ["defaultAbilitiesEnableSwimmingSetting"]
+      310 GETTABLEKS                       R16 R16 K8 ["value"]
       312 SETTABLEKS                       R16 R15 K44 ["Checked"]
       314 LOADK                            R18 K18 ["MovementSettings"]
       315 LOADK                            R19 K61 ["DefaultAbilitiesSectionEnableSwimming"]
@@ -390,45 +390,45 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K7 ["Components"]
-       24 GETTABLEKS                       R3 R4 K10 ["ExpandableSection"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Components"]
+       24 GETTABLEKS                       R3 R3 K10 ["ExpandableSection"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R5 R0 K11 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       29 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K12 ["Framework"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K7 ["Components"]
-       40 GETTABLEKS                       R5 R6 K13 ["GenericModeSelector"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K7 ["Components"]
+       40 GETTABLEKS                       R5 R5 K13 ["GenericModeSelector"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       47 GETTABLEKS                       R6 R7 K14 ["React"]
+       45 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       47 GETTABLEKS                       R6 R6 K14 ["React"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R8 R0 K11 ["Packages"]
-       54 GETTABLEKS                       R7 R8 K15 ["ReactUtils"]
+       52 GETTABLEKS                       R7 R0 K11 ["Packages"]
+       54 GETTABLEKS                       R7 R7 K15 ["ReactUtils"]
        56 CALL                             R6 1 1
        57 GETTABLEKS                       R7 R3 K16 ["ContextServices"]
        59 GETTABLEKS                       R8 R7 K17 ["Localization"]
        61 GETIMPORT                        R9 K5 [require]
-       63 GETTABLEKS                       R13 R0 K6 ["Src"]
-       65 GETTABLEKS                       R12 R13 K18 ["Util"]
-       67 GETTABLEKS                       R11 R12 K19 ["Telemetry"]
-       69 GETTABLEKS                       R10 R11 K20 ["TelemetryContext"]
+       63 GETTABLEKS                       R10 R0 K6 ["Src"]
+       65 GETTABLEKS                       R10 R10 K18 ["Util"]
+       67 GETTABLEKS                       R10 R10 K19 ["Telemetry"]
+       69 GETTABLEKS                       R10 R10 K20 ["TelemetryContext"]
        71 CALL                             R9 1 1
        72 GETIMPORT                        R10 K5 [require]
-       74 GETTABLEKS                       R13 R0 K6 ["Src"]
-       76 GETTABLEKS                       R12 R13 K21 ["Flags"]
-       78 GETTABLEKS                       R11 R12 K22 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
+       74 GETTABLEKS                       R11 R0 K6 ["Src"]
+       76 GETTABLEKS                       R11 R11 K21 ["Flags"]
+       78 GETTABLEKS                       R11 R11 K22 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
        80 CALL                             R10 1 1
        81 GETTABLEKS                       R11 R6 K23 ["createNextOrder"]
        83 GETTABLEKS                       R12 R5 K24 ["createElement"]

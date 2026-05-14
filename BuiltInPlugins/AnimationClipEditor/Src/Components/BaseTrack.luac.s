@@ -14,8 +14,8 @@ PROTO_0:
        22 JUMP                             ; [+3]
        23 JUMPIFNOT                        R9 ; [+2]
        24 GETTABLEKS                       R10 R3 K10 ["titleBackgroundColor"]
-       26 GETUPVAL                         R12 0
-       27 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       26 GETUPVAL                         R11 0
+       27 GETTABLEKS                       R11 R11 K11 ["createElement"]
        29 LOADK                            R12 K12 ["Frame"]
        30 DUPTABLE                         R13 K16 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "ZIndex", "LayoutOrder"}]
        31 SETTABLEKS                       R4 R13 K3 ["Size"]
@@ -30,8 +30,8 @@ PROTO_0:
        44 SETTABLEKS                       R7 R13 K6 ["ZIndex"]
        46 SETTABLEKS                       R6 R13 K5 ["LayoutOrder"]
        48 DUPTABLE                         R14 K18 [{"KeyframeDisplayArea"}]
-       49 GETUPVAL                         R16 0
-       50 GETTABLEKS                       R15 R16 K11 ["createElement"]
+       49 GETUPVAL                         R15 0
+       50 GETTABLEKS                       R15 R15 K11 ["createElement"]
        52 LOADK                            R16 K12 ["Frame"]
        53 DUPTABLE                         R17 K21 [{"BackgroundTransparency", "AnchorPoint", "Position", "Size", "ZIndex"}]
        54 LOADN                            R18 1
@@ -57,8 +57,8 @@ PROTO_0:
        80 SETTABLEKS                       R18 R17 K3 ["Size"]
        82 SETTABLEKS                       R7 R17 K6 ["ZIndex"]
        84 GETTABLEKS                       R19 R0 K0 ["props"]
-       86 GETUPVAL                         R21 0
-       87 GETTABLEKS                       R20 R21 K28 ["Children"]
+       86 GETUPVAL                         R20 0
+       87 GETTABLEKS                       R20 R20 K28 ["Children"]
        89 GETTABLE                         R18 R19 R20
        90 CALL                             R15 3 1
        91 SETTABLEKS                       R15 R14 K17 ["KeyframeDisplayArea"]
@@ -72,14 +72,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
        16 GETTABLEKS                       R3 R2 K9 ["withContext"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R5 R6 K10 ["Roact"]
+       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R5 R5 K10 ["Roact"]
        24 CALL                             R4 1 1
        25 GETTABLEKS                       R5 R4 K11 ["PureComponent"]
        27 LOADK                            R7 K12 ["BaseTrack"]

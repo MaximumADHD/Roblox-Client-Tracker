@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["BaseUrl"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["convertAssetTypeValueToEnum"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["BaseUrl"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["convertAssetTypeValueToEnum"]
         6 MOVE                             R4 R1
         7 CALL                             R3 1 1
         8 GETIMPORT                        R4 K4 [string.format]
@@ -25,12 +25,12 @@ MAIN:
         9 LOADK                            R3 K4 ["HttpService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
-       21 GETTABLEKS                       R4 R2 K8 ["Src"]
-       23 GETTABLEKS                       R3 R4 K9 ["Util"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       21 GETTABLEKS                       R3 R2 K8 ["Src"]
+       23 GETTABLEKS                       R3 R3 K9 ["Util"]
        25 GETIMPORT                        R4 K11 [require]
        27 GETTABLEKS                       R5 R3 K12 ["AssetConfigConstants"]
        29 CALL                             R4 1 1

@@ -16,29 +16,29 @@ PROTO_0:
        18 SETTABLEKS                       R2 R1 K6 ["dimension"]
        20 DUPTABLE                         R2 K20 [{"Arrow", "BackgroundColor", "ButtonColor", "HoverColor", "PressedColor", "BorderColor", "TextColor", "ErrorColor", "LinkColor", "Green", "White", "DisabledColor"}]
        21 SETTABLEKS                       R1 R2 K8 ["Arrow"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R3 R4 K21 ["MainBackground"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K21 ["MainBackground"]
        26 SETTABLEKS                       R3 R2 K9 ["BackgroundColor"]
-       28 GETUPVAL                         R4 1
-       29 GETTABLEKS                       R3 R4 K21 ["MainBackground"]
+       28 GETUPVAL                         R3 1
+       29 GETTABLEKS                       R3 R3 K21 ["MainBackground"]
        31 SETTABLEKS                       R3 R2 K10 ["ButtonColor"]
-       33 GETUPVAL                         R4 1
-       34 GETTABLEKS                       R3 R4 K22 ["ButtonHover"]
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R3 R3 K22 ["ButtonHover"]
        36 SETTABLEKS                       R3 R2 K11 ["HoverColor"]
-       38 GETUPVAL                         R4 1
-       39 GETTABLEKS                       R3 R4 K23 ["ButtonPressed"]
+       38 GETUPVAL                         R3 1
+       39 GETTABLEKS                       R3 R3 K23 ["ButtonPressed"]
        41 SETTABLEKS                       R3 R2 K12 ["PressedColor"]
-       43 GETUPVAL                         R4 1
-       44 GETTABLEKS                       R3 R4 K24 ["Border"]
+       43 GETUPVAL                         R3 1
+       44 GETTABLEKS                       R3 R3 K24 ["Border"]
        46 SETTABLEKS                       R3 R2 K13 ["BorderColor"]
-       48 GETUPVAL                         R4 1
-       49 GETTABLEKS                       R3 R4 K25 ["MainText"]
+       48 GETUPVAL                         R3 1
+       49 GETTABLEKS                       R3 R3 K25 ["MainText"]
        51 SETTABLEKS                       R3 R2 K14 ["TextColor"]
-       53 GETUPVAL                         R4 1
-       54 GETTABLEKS                       R3 R4 K26 ["ErrorText"]
+       53 GETUPVAL                         R3 1
+       54 GETTABLEKS                       R3 R3 K26 ["ErrorText"]
        56 SETTABLEKS                       R3 R2 K15 ["ErrorColor"]
-       58 GETUPVAL                         R4 1
-       59 GETTABLEKS                       R3 R4 K27 ["LinkText"]
+       58 GETUPVAL                         R3 1
+       59 GETTABLEKS                       R3 R3 K27 ["LinkText"]
        61 SETTABLEKS                       R3 R2 K16 ["LinkColor"]
        63 GETIMPORT                        R3 K30 [Color3.fromRGB]
        65 LOADN                            R4 64
@@ -52,8 +52,8 @@ PROTO_0:
        75 LOADN                            R6 255
        76 CALL                             R3 3 1
        77 SETTABLEKS                       R3 R2 K18 ["White"]
-       79 GETUPVAL                         R4 1
-       80 GETTABLEKS                       R3 R4 K31 ["MainTextDisabled"]
+       79 GETUPVAL                         R3 1
+       80 GETTABLEKS                       R3 R3 K31 ["MainTextDisabled"]
        82 SETTABLEKS                       R3 R2 K19 ["DisabledColor"]
        84 DUPTABLE                         R3 K60 [{"ROW_HEIGHT", "MAINVIEW_PADDING_TOP", "MAINVIEW_PADDING_LEFT", "MAINSWITCH_LABEL_SIZE", "TEXT_INDENT_PADDING", "HORIZONTAL_LISTLAYOUT_PADDING", "DROPDOWN_BUTTON_SIZE", "DROPDOWN_ARROW_IMAGE", "DROPDOWN_ARROW_POSITION", "DROPDOWN_ARROW_SIZE", "SELECTOR_SIZE", "DROPDOWN_MAX_HEIGHT", "SCROLLBAR_THICKNESS", "LANGUAGE_SECTION_SIZE", "LANGUAGE_INSTRUCTION_SIZE", "LANGUAGE_INSTRUCTION_TEXT_SIZE", "LOCALEID_TEXTBOX_SIZE", "PSEUDOLOCALIZATION_SECTION_SIZE", "TOGGLE_ITEM_FRAME_SIZE", "TOGGLE_BUTTON_HEIGHT", "TOGGLE_BUTTON_WIDTH", "TOGGLE_BUTTON_OFFSET", "COLLAPSE_ARROW_OFFSET", "LISTITEM_INDENT_LEFT", "LISTITEM_CHECKBOX_HEIGHT", "CHECKBOX_FRAME_SIZE", "CHECKBOX_HEIGHT", "CHECKBOX_TEXT_SIZE"}]
        85 LOADN                            R4 25
@@ -182,27 +182,27 @@ PROTO_0:
       250 SETTABLEKS                       R4 R3 K58 ["CHECKBOX_HEIGHT"]
       252 LOADN                            R4 11
       253 SETTABLEKS                       R4 R3 K59 ["CHECKBOX_TEXT_SIZE"]
-      255 GETUPVAL                         R6 2
-      256 GETTABLEKS                       R5 R6 K68 ["Dictionary"]
-      258 GETTABLEKS                       R4 R5 K69 ["join"]
+      255 GETUPVAL                         R4 2
+      256 GETTABLEKS                       R4 R4 K68 ["Dictionary"]
+      258 GETTABLEKS                       R4 R4 K69 ["join"]
       260 MOVE                             R5 R2
       261 MOVE                             R6 R3
       262 CALL                             R4 2 -1
       263 RETURN                           R4 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["RunningUnderCLI"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["RunningUnderCLI"]
         3 CALL                             R0 0 1
         4 LOADNIL                          R1
         5 JUMPIFNOT                        R0 ; [+6]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["mock"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["mock"]
         9 CALL                             R2 0 1
        10 MOVE                             R1 R2
        11 JUMP                             ; [+5]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K2 ["new"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K2 ["new"]
        15 CALL                             R2 0 1
        16 MOVE                             R1 R2
        17 GETUPVAL                         R4 2
@@ -213,30 +213,30 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K9 ["Cryo"]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Cryo"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K10 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["Framework"]
        31 CALL                             R3 1 1
-       32 GETTABLEKS                       R6 R3 K11 ["Style"]
-       34 GETTABLEKS                       R5 R6 K12 ["Themes"]
-       36 GETTABLEKS                       R4 R5 K13 ["StudioTheme"]
-       38 GETTABLEKS                       R6 R3 K11 ["Style"]
-       40 GETTABLEKS                       R5 R6 K14 ["StyleKey"]
-       42 GETTABLEKS                       R7 R3 K6 ["Util"]
-       44 GETTABLEKS                       R6 R7 K15 ["Spritesheet"]
+       32 GETTABLEKS                       R4 R3 K11 ["Style"]
+       34 GETTABLEKS                       R4 R4 K12 ["Themes"]
+       36 GETTABLEKS                       R4 R4 K13 ["StudioTheme"]
+       38 GETTABLEKS                       R5 R3 K11 ["Style"]
+       40 GETTABLEKS                       R5 R5 K14 ["StyleKey"]
+       42 GETTABLEKS                       R6 R3 K6 ["Util"]
+       44 GETTABLEKS                       R6 R6 K15 ["Spritesheet"]
        46 DUPCLOSURE                       R7 K16 [PROTO_0]
        47 CAPTURE                          VAL R6
        48 CAPTURE                          VAL R5

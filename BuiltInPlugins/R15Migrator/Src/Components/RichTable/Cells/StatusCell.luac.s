@@ -40,8 +40,8 @@ PROTO_0:
        54 JUMPIFNOTEQKS                    R6 K24 [""] ; [+2]
        56 LOADB                            R7 0 +1
        57 LOADB                            R7 1
-       58 GETUPVAL                         R9 0
-       59 GETTABLEKS                       R8 R9 K25 ["createElement"]
+       58 GETUPVAL                         R8 0
+       59 GETTABLEKS                       R8 R8 K25 ["createElement"]
        61 GETUPVAL                         R9 1
        62 DUPTABLE                         R10 K33 [{"LayoutOrder", "Padding", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
        63 GETTABLEKS                       R11 R0 K34 ["ColumnIndex"]
@@ -74,12 +74,12 @@ PROTO_0:
       106 SETTABLEKS                       R11 R10 K32 ["ClipsDescendants"]
       108 DUPTABLE                         R11 K47 [{"Image", "Tooltip"}]
       109 LOADB                            R12 0
-      110 GETUPVAL                         R15 2
-      111 GETTABLEKS                       R14 R15 K48 ["AnimationStatus"]
-      113 GETTABLEKS                       R13 R14 K49 ["Done"]
+      110 GETUPVAL                         R13 2
+      111 GETTABLEKS                       R13 R13 K48 ["AnimationStatus"]
+      113 GETTABLEKS                       R13 R13 K49 ["Done"]
       115 JUMPIFNOTEQ                      R1 R13 ; [+31]
-      117 GETUPVAL                         R13 0
-      118 GETTABLEKS                       R12 R13 K25 ["createElement"]
+      117 GETUPVAL                         R12 0
+      118 GETTABLEKS                       R12 R12 K25 ["createElement"]
       120 GETUPVAL                         R13 3
       121 DUPTABLE                         R14 K52 [{"Size", "AnchorPoint", "Position", "Image"}]
       122 GETIMPORT                        R15 K54 [UDim2.fromOffset]
@@ -103,12 +103,12 @@ PROTO_0:
       147 SETTABLEKS                       R12 R11 K46 ["Image"]
       149 MOVE                             R12 R7
       150 JUMPIFNOT                        R12 ; [+18]
-      151 GETUPVAL                         R13 0
-      152 GETTABLEKS                       R12 R13 K25 ["createElement"]
+      151 GETUPVAL                         R12 0
+      152 GETTABLEKS                       R12 R12 K25 ["createElement"]
       154 GETUPVAL                         R13 4
       155 DUPTABLE                         R14 K64 [{"MaxWidth", "Text", "TextXAlignment"}]
-      156 GETTABLEKS                       R16 R2 K23 ["Tooltip"]
-      158 GETTABLEKS                       R15 R16 K61 ["MaxWidth"]
+      156 GETTABLEKS                       R15 R2 K23 ["Tooltip"]
+      158 GETTABLEKS                       R15 R15 K61 ["MaxWidth"]
       160 SETTABLEKS                       R15 R14 K61 ["MaxWidth"]
       162 SETTABLEKS                       R6 R14 K62 ["Text"]
       164 GETIMPORT                        R15 K66 [Enum.TextXAlignment.Left]
@@ -125,18 +125,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R7 R0 K9 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Util"]
-       27 GETTABLEKS                       R5 R6 K11 ["AnimationConversion"]
-       29 GETTABLEKS                       R4 R5 K12 ["constants"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["AnimationConversion"]
+       29 GETTABLEKS                       R4 R4 K12 ["constants"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R1 K13 ["UI"]
        34 GETTABLEKS                       R5 R4 K14 ["Image"]

@@ -4,12 +4,12 @@ PROTO_0:
         3 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
         5 GETIMPORT                        R0 K1 [setmetatable]
         7 CALL                             R0 2 1
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K2 ["new"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K2 ["new"]
        11 CALL                             R1 0 1
        12 SETTABLEKS                       R1 R0 K3 ["UploadProgress"]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K2 ["new"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K2 ["new"]
        17 CALL                             R1 0 1
        18 SETTABLEKS                       R1 R0 K4 ["UploadComplete"]
        20 LOADB                            R1 0
@@ -157,20 +157,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R6 R0 K6 ["Src"]
-       18 GETTABLEKS                       R5 R6 K8 ["Testing"]
-       20 GETTABLEKS                       R4 R5 K9 ["Mocks"]
-       22 GETTABLEKS                       R3 R4 K10 ["EventMock"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Testing"]
+       20 GETTABLEKS                       R3 R3 K9 ["Mocks"]
+       22 GETTABLEKS                       R3 R3 K10 ["EventMock"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R7 R0 K6 ["Src"]
-       29 GETTABLEKS                       R6 R7 K8 ["Testing"]
-       31 GETTABLEKS                       R5 R6 K9 ["Mocks"]
-       33 GETTABLEKS                       R4 R5 K11 ["MakeMockStatus"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K8 ["Testing"]
+       31 GETTABLEKS                       R4 R4 K9 ["Mocks"]
+       33 GETTABLEKS                       R4 R4 K11 ["MakeMockStatus"]
        35 CALL                             R3 1 1
        36 NEWTABLE                         R4 32 0
        38 SETTABLEKS                       R4 R4 K12 ["__index"]

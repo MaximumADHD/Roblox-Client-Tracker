@@ -44,8 +44,8 @@ PROTO_3:
 
 PROTO_4:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["StatusChanged"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["StatusChanged"]
         5 NEWCLOSURE                       R3 P0
         6 CAPTURE                          VAL R0
         7 CAPTURE                          UPVAL U0

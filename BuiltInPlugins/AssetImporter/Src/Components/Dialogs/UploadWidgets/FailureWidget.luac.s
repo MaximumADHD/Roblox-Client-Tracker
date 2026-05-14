@@ -6,9 +6,9 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["state"]
-        3 GETTABLEKS                       R0 R1 K1 ["uploadErrorsExpanded"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["state"]
+        3 GETTABLEKS                       R0 R0 K1 ["uploadErrorsExpanded"]
         5 GETUPVAL                         R1 0
         6 DUPTABLE                         R3 K2 [{"uploadErrorsExpanded"}]
         7 GETUPVAL                         R4 1
@@ -28,8 +28,8 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R4 R2 K2 ["ErrorWidget"]
-        6 GETTABLEKS                       R3 R4 K3 ["Dropdown"]
+        4 GETTABLEKS                       R3 R2 K2 ["ErrorWidget"]
+        6 GETTABLEKS                       R3 R3 K3 ["Dropdown"]
         8 GETTABLEKS                       R4 R2 K4 ["UploadWidget"]
        10 NEWTABLE                         R5 0 0
        12 LOADN                            R6 1
@@ -38,12 +38,12 @@ PROTO_2:
        17 CALL                             R7 1 3
        18 FORGPREP_NEXT                    R7
        19 MOVE                             R12 R6
-       20 GETUPVAL                         R14 0
-       21 GETTABLEKS                       R13 R14 K8 ["createElement"]
+       20 GETUPVAL                         R13 0
+       21 GETTABLEKS                       R13 R13 K8 ["createElement"]
        23 GETUPVAL                         R14 1
        24 DUPTABLE                         R15 K17 [{"Expanded", "OnExpandedChanged", "LayoutOrder", "Layout", "AutomaticSize", "VerticalAlignment", "Style", "Text"}]
-       25 GETTABLEKS                       R18 R0 K18 ["state"]
-       27 GETTABLEKS                       R17 R18 K19 ["uploadErrorsExpanded"]
+       25 GETTABLEKS                       R17 R0 K18 ["state"]
+       27 GETTABLEKS                       R17 R17 K19 ["uploadErrorsExpanded"]
        29 GETTABLE                         R16 R17 R12
        30 SETTABLEKS                       R16 R15 K9 ["Expanded"]
        32 NEWCLOSURE                       R16 P0
@@ -61,8 +61,8 @@ PROTO_2:
        52 SETTABLEKS                       R3 R15 K15 ["Style"]
        54 SETTABLEKS                       R10 R15 K16 ["Text"]
        56 DUPTABLE                         R16 K29 [{"ErrorDetails"}]
-       57 GETUPVAL                         R18 0
-       58 GETTABLEKS                       R17 R18 K8 ["createElement"]
+       57 GETUPVAL                         R17 0
+       58 GETTABLEKS                       R17 R17 K8 ["createElement"]
        60 GETUPVAL                         R18 3
        61 DUPTABLE                         R19 K34 [{"Text", "TextWrapped", "TextSelectable", "AutomaticSize", "TextXAlignment", "TextSize", "Style"}]
        62 GETUPVAL                         R20 4
@@ -92,8 +92,8 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R0 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["Localization"]
+        2 GETTABLEKS                       R2 R0 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["Localization"]
         6 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
         8 GETTABLEKS                       R4 R3 K3 ["UploadWidget"]
        10 GETTABLEKS                       R7 R4 K5 ["TextSize"]
@@ -115,8 +115,8 @@ PROTO_3:
        33 CALL                             R6 3 1
        34 NAMECALL                         R7 R0 K14 ["_getErrorSections"]
        36 CALL                             R7 1 1
-       37 GETUPVAL                         R9 0
-       38 GETTABLEKS                       R8 R9 K15 ["createElement"]
+       37 GETUPVAL                         R8 0
+       38 GETTABLEKS                       R8 R8 K15 ["createElement"]
        40 GETUPVAL                         R9 1
        41 DUPTABLE                         R10 K22 [{"LayoutOrder", "Layout", "VerticalAlignment", "HorizontalAlignment", "Size", "Padding"}]
        42 LOADN                            R11 1
@@ -134,12 +134,12 @@ PROTO_3:
        62 LOADN                            R15 0
        63 CALL                             R11 4 1
        64 SETTABLEKS                       R11 R10 K20 ["Size"]
-       66 GETTABLEKS                       R12 R4 K34 ["FailureWidget"]
-       68 GETTABLEKS                       R11 R12 K21 ["Padding"]
+       66 GETTABLEKS                       R11 R4 K34 ["FailureWidget"]
+       68 GETTABLEKS                       R11 R11 K21 ["Padding"]
        70 SETTABLEKS                       R11 R10 K21 ["Padding"]
        72 DUPTABLE                         R11 K37 [{"Title", "Messages"}]
-       73 GETUPVAL                         R13 0
-       74 GETTABLEKS                       R12 R13 K15 ["createElement"]
+       73 GETUPVAL                         R12 0
+       74 GETTABLEKS                       R12 R12 K15 ["createElement"]
        76 GETUPVAL                         R13 1
        77 DUPTABLE                         R14 K39 [{"Layout", "VerticalAlignment", "HorizontalAlignment", "AutomaticSize", "LayoutOrder"}]
        78 GETIMPORT                        R15 K26 [Enum.FillDirection.Vertical]
@@ -153,8 +153,8 @@ PROTO_3:
        94 LOADN                            R15 1
        95 SETTABLEKS                       R15 R14 K16 ["LayoutOrder"]
        97 DUPTABLE                         R15 K44 [{"Text", "Description"}]
-       98 GETUPVAL                         R17 0
-       99 GETTABLEKS                       R16 R17 K15 ["createElement"]
+       98 GETUPVAL                         R16 0
+       99 GETTABLEKS                       R16 R16 K15 ["createElement"]
       101 GETUPVAL                         R17 2
       102 DUPTABLE                         R18 K47 [{"LayoutOrder", "Size", "Text", "TextSize", "TextXAlignment", "TextColor"}]
       103 LOADN                            R19 1
@@ -174,8 +174,8 @@ PROTO_3:
       127 SETTABLEKS                       R19 R18 K46 ["TextColor"]
       129 CALL                             R16 2 1
       130 SETTABLEKS                       R16 R15 K42 ["Text"]
-      132 GETUPVAL                         R17 0
-      133 GETTABLEKS                       R16 R17 K15 ["createElement"]
+      132 GETUPVAL                         R16 0
+      133 GETTABLEKS                       R16 R16 K15 ["createElement"]
       135 GETUPVAL                         R17 2
       136 DUPTABLE                         R18 K53 [{"LayoutOrder", "Size", "Text", "TextSize", "TextXAlignment", "Font"}]
       137 LOADN                            R19 2
@@ -193,8 +193,8 @@ PROTO_3:
       159 SETTABLEKS                       R16 R15 K43 ["Description"]
       161 CALL                             R12 3 1
       162 SETTABLEKS                       R12 R11 K35 ["Title"]
-      164 GETUPVAL                         R13 0
-      165 GETTABLEKS                       R12 R13 K15 ["createElement"]
+      164 GETUPVAL                         R12 0
+      165 GETTABLEKS                       R12 R12 K15 ["createElement"]
       167 GETUPVAL                         R13 3
       168 DUPTABLE                         R14 K58 [{"LayoutOrder", "Size", "CanvasSize", "ScrollingDirection", "AutomaticCanvasSize", "Layout"}]
       169 LOADN                            R15 2
@@ -232,21 +232,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactCompat"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactCompat"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dash"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["join"]
        30 GETTABLEKS                       R5 R1 K11 ["ContextServices"]
-       32 GETTABLEKS                       R7 R1 K12 ["Style"]
-       34 GETTABLEKS                       R6 R7 K13 ["Stylizer"]
+       32 GETTABLEKS                       R6 R1 K12 ["Style"]
+       34 GETTABLEKS                       R6 R6 K13 ["Stylizer"]
        36 GETTABLEKS                       R7 R5 K14 ["withContext"]
        38 GETTABLEKS                       R8 R5 K15 ["Localization"]
        40 GETTABLEKS                       R9 R1 K16 ["UI"]
@@ -255,9 +255,9 @@ MAIN:
        46 GETTABLEKS                       R12 R9 K19 ["TextLabel"]
        48 GETTABLEKS                       R13 R9 K20 ["ExpandablePane"]
        50 GETIMPORT                        R14 K5 [require]
-       52 GETTABLEKS                       R17 R0 K21 ["Src"]
-       54 GETTABLEKS                       R16 R17 K22 ["Utility"]
-       56 GETTABLEKS                       R15 R16 K23 ["parseErrorTable"]
+       52 GETTABLEKS                       R15 R0 K21 ["Src"]
+       54 GETTABLEKS                       R15 R15 K22 ["Utility"]
+       56 GETTABLEKS                       R15 R15 K23 ["parseErrorTable"]
        58 CALL                             R14 1 1
        59 GETTABLEKS                       R15 R2 K24 ["PureComponent"]
        61 LOADK                            R17 K25 ["FailureWidget"]

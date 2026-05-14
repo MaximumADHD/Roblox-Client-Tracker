@@ -11,8 +11,8 @@ PROTO_1:
         1 DUPTABLE                         R3 K2 [{"studsPerTileMessage", "status"}]
         2 MOVE                             R4 R0
         3 JUMPIF                           R4 ; [+3]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K3 ["None"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K3 ["None"]
         7 SETTABLEKS                       R4 R3 K0 ["studsPerTileMessage"]
         9 JUMPIFNOT                        R0 ; [+3]
        10 GETIMPORT                        R4 K7 [Enum.PropertyStatus.Warning]
@@ -24,13 +24,13 @@ PROTO_1:
        20 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Localization"]
         5 GETUPVAL                         R2 1
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K2 ["state"]
-        9 GETTABLEKS                       R3 R4 K3 ["studsPerTile"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K2 ["state"]
+        9 GETTABLEKS                       R3 R3 K3 ["studsPerTile"]
        11 CALL                             R2 1 1
        12 JUMPIFNOT                        R2 ; [+14]
        13 GETTABLEKS                       R3 R0 K4 ["GeneralServiceController"]
@@ -38,24 +38,24 @@ PROTO_2:
        17 MOVE                             R6 R2
        18 NAMECALL                         R3 R3 K6 ["setStudsPerTile"]
        20 CALL                             R3 3 0
-       21 GETUPVAL                         R4 0
-       22 GETTABLEKS                       R3 R4 K7 ["setStudsPerTileStatus"]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K7 ["setStudsPerTileStatus"]
        24 LOADNIL                          R4
        25 CALL                             R3 1 0
        26 RETURN                           R0 0
        27 GETUPVAL                         R3 0
        28 DUPTABLE                         R5 K8 [{"studsPerTile"}]
        29 GETUPVAL                         R6 2
-       30 GETUPVAL                         R10 0
-       31 GETTABLEKS                       R9 R10 K0 ["props"]
-       33 GETTABLEKS                       R8 R9 K5 ["PBRMaterial"]
-       35 GETTABLEKS                       R7 R8 K9 ["StudsPerTile"]
+       30 GETUPVAL                         R7 0
+       31 GETTABLEKS                       R7 R7 K0 ["props"]
+       33 GETTABLEKS                       R7 R7 K5 ["PBRMaterial"]
+       35 GETTABLEKS                       R7 R7 K9 ["StudsPerTile"]
        37 CALL                             R6 1 1
        38 SETTABLEKS                       R6 R5 K3 ["studsPerTile"]
        40 NAMECALL                         R3 R3 K10 ["setState"]
        42 CALL                             R3 2 0
-       43 GETUPVAL                         R4 0
-       44 GETTABLEKS                       R3 R4 K7 ["setStudsPerTileStatus"]
+       43 GETUPVAL                         R3 0
+       44 GETTABLEKS                       R3 R3 K7 ["setStudsPerTileStatus"]
        46 LOADK                            R6 K11 ["CreateDialog"]
        47 LOADK                            R7 K12 ["ErrorStudsPerTile"]
        48 NAMECALL                         R4 R1 K13 ["getText"]
@@ -64,8 +64,8 @@ PROTO_2:
        52 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 JUMPIFNOT                        R0 ; [+9]
         4 GETTABLEKS                       R3 R2 K1 ["GeneralServiceController"]
         6 GETTABLEKS                       R5 R2 K2 ["PBRMaterial"]
@@ -76,10 +76,10 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["TilingSettings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["TilingSettings"]
         6 GETTABLEKS                       R2 R0 K2 ["dispatchSetExpandedPane"]
         8 MOVE                             R3 R1
         9 GETTABLEKS                       R5 R0 K3 ["ExpandedPane"]
@@ -90,9 +90,9 @@ PROTO_4:
 PROTO_5:
         0 DUPTABLE                         R1 K1 [{"studsPerTile"}]
         1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R5 R0 K2 ["props"]
-        4 GETTABLEKS                       R4 R5 K3 ["PBRMaterial"]
-        6 GETTABLEKS                       R3 R4 K4 ["StudsPerTile"]
+        2 GETTABLEKS                       R3 R0 K2 ["props"]
+        4 GETTABLEKS                       R3 R3 K3 ["PBRMaterial"]
+        6 GETTABLEKS                       R3 R3 K4 ["StudsPerTile"]
         8 CALL                             R2 1 1
         9 SETTABLEKS                       R2 R1 K0 ["studsPerTile"]
        11 SETTABLEKS                       R1 R0 K5 ["state"]
@@ -144,27 +144,27 @@ PROTO_6:
        29 RETURN                           R0 0
 
 PROTO_7:
-        0 GETTABLEKS                       R4 R0 K0 ["state"]
-        2 GETTABLEKS                       R3 R4 K1 ["studsPerTile"]
+        0 GETTABLEKS                       R3 R0 K0 ["state"]
+        2 GETTABLEKS                       R3 R3 K1 ["studsPerTile"]
         4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R7 R0 K2 ["props"]
-        7 GETTABLEKS                       R6 R7 K3 ["PBRMaterial"]
-        9 GETTABLEKS                       R5 R6 K4 ["StudsPerTile"]
+        5 GETTABLEKS                       R5 R0 K2 ["props"]
+        7 GETTABLEKS                       R5 R5 K3 ["PBRMaterial"]
+        9 GETTABLEKS                       R5 R5 K4 ["StudsPerTile"]
        11 CALL                             R4 1 1
        12 JUMPIFEQ                         R3 R4 ; [+32]
        14 GETTABLEKS                       R3 R2 K1 ["studsPerTile"]
-       16 GETTABLEKS                       R5 R0 K0 ["state"]
-       18 GETTABLEKS                       R4 R5 K1 ["studsPerTile"]
+       16 GETTABLEKS                       R4 R0 K0 ["state"]
+       18 GETTABLEKS                       R4 R4 K1 ["studsPerTile"]
        20 JUMPIFNOTEQ                      R3 R4 ; [+24]
        22 DUPTABLE                         R5 K7 [{"studsPerTile", "studsPerTileMessage", "status"}]
        23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R9 R0 K2 ["props"]
-       26 GETTABLEKS                       R8 R9 K3 ["PBRMaterial"]
-       28 GETTABLEKS                       R7 R8 K4 ["StudsPerTile"]
+       24 GETTABLEKS                       R7 R0 K2 ["props"]
+       26 GETTABLEKS                       R7 R7 K3 ["PBRMaterial"]
+       28 GETTABLEKS                       R7 R7 K4 ["StudsPerTile"]
        30 CALL                             R6 1 1
        31 SETTABLEKS                       R6 R5 K1 ["studsPerTile"]
-       33 GETUPVAL                         R7 1
-       34 GETTABLEKS                       R6 R7 K8 ["None"]
+       33 GETUPVAL                         R6 1
+       34 GETTABLEKS                       R6 R6 K8 ["None"]
        36 SETTABLEKS                       R6 R5 K5 ["studsPerTileMessage"]
        38 GETIMPORT                        R6 K12 [Enum.PropertyStatus.Ok]
        40 SETTABLEKS                       R6 R5 K6 ["status"]
@@ -174,25 +174,25 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["TilingSettings"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["TilingSettings"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["new"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["new"]
        11 CALL                             R4 0 1
        12 LOADN                            R5 1
        13 GETIMPORT                        R6 K6 [ipairs]
        15 GETUPVAL                         R7 1
        16 CALL                             R6 1 3
        17 FORGPREP_INEXT                   R6
-       18 GETTABLEKS                       R12 R1 K7 ["PBRMaterial"]
-       20 GETTABLEKS                       R11 R12 K8 ["MaterialPattern"]
+       18 GETTABLEKS                       R11 R1 K7 ["PBRMaterial"]
+       20 GETTABLEKS                       R11 R11 K8 ["MaterialPattern"]
        22 JUMPIFNOTEQ                      R10 R11 ; [+2]
        24 MOVE                             R5 R9
        25 FORGLOOP                         R6 2 [inext] ; [-8]
        27 DUPTABLE                         R6 K10 [{"StudsPerTile", "MaterialPattern"}]
-       28 GETUPVAL                         R8 2
-       29 GETTABLEKS                       R7 R8 K11 ["createElement"]
+       28 GETUPVAL                         R7 2
+       29 GETTABLEKS                       R7 R7 K11 ["createElement"]
        31 GETUPVAL                         R8 3
        32 DUPTABLE                         R9 K17 [{"LabelColumnWidth", "LayoutOrder", "Text", "StatusText", "Status"}]
        33 GETTABLEKS                       R10 R1 K18 ["LabelWidth"]
@@ -207,23 +207,23 @@ PROTO_8:
        47 NAMECALL                         R10 R3 K21 ["getText"]
        49 CALL                             R10 3 1
        50 SETTABLEKS                       R10 R9 K14 ["Text"]
-       52 GETTABLEKS                       R11 R0 K22 ["state"]
-       54 GETTABLEKS                       R10 R11 K23 ["studsPerTileMessage"]
+       52 GETTABLEKS                       R10 R0 K22 ["state"]
+       54 GETTABLEKS                       R10 R10 K23 ["studsPerTileMessage"]
        56 SETTABLEKS                       R10 R9 K15 ["StatusText"]
-       58 GETTABLEKS                       R11 R0 K22 ["state"]
-       60 GETTABLEKS                       R10 R11 K24 ["status"]
+       58 GETTABLEKS                       R10 R0 K22 ["state"]
+       60 GETTABLEKS                       R10 R10 K24 ["status"]
        62 SETTABLEKS                       R10 R9 K16 ["Status"]
        64 NEWTABLE                         R10 0 1
-       66 GETUPVAL                         R12 2
-       67 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       66 GETUPVAL                         R11 2
+       67 GETTABLEKS                       R11 R11 K11 ["createElement"]
        69 GETUPVAL                         R12 4
        70 DUPTABLE                         R13 K29 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
        71 LOADK                            R14 K30 ["FilledRoundedBorder"]
        72 SETTABLEKS                       R14 R13 K25 ["Style"]
        74 GETTABLEKS                       R14 R2 K31 ["DialogColumnSize"]
        76 SETTABLEKS                       R14 R13 K26 ["Size"]
-       78 GETTABLEKS                       R15 R0 K22 ["state"]
-       80 GETTABLEKS                       R14 R15 K32 ["studsPerTile"]
+       78 GETTABLEKS                       R14 R0 K22 ["state"]
+       80 GETTABLEKS                       R14 R14 K32 ["studsPerTile"]
        82 SETTABLEKS                       R14 R13 K14 ["Text"]
        84 GETTABLEKS                       R14 R0 K33 ["onStudsPerTileChanged"]
        86 SETTABLEKS                       R14 R13 K27 ["OnTextChanged"]
@@ -233,8 +233,8 @@ PROTO_8:
        93 SETLIST                          R10 R11 -1 [1]
        95 CALL                             R7 3 1
        96 SETTABLEKS                       R7 R6 K9 ["StudsPerTile"]
-       98 GETUPVAL                         R8 2
-       99 GETTABLEKS                       R7 R8 K11 ["createElement"]
+       98 GETUPVAL                         R7 2
+       99 GETTABLEKS                       R7 R7 K11 ["createElement"]
       101 GETUPVAL                         R8 3
       102 DUPTABLE                         R9 K35 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
       103 GETTABLEKS                       R10 R1 K18 ["LabelWidth"]
@@ -250,8 +250,8 @@ PROTO_8:
       119 CALL                             R10 3 1
       120 SETTABLEKS                       R10 R9 K14 ["Text"]
       122 NEWTABLE                         R10 0 1
-      124 GETUPVAL                         R12 2
-      125 GETTABLEKS                       R11 R12 K11 ["createElement"]
+      124 GETUPVAL                         R11 2
+      125 GETTABLEKS                       R11 R11 K11 ["createElement"]
       127 GETUPVAL                         R12 5
       128 DUPTABLE                         R13 K40 [{"Style", "Items", "Size", "OnItemActivated", "SelectedIndex"}]
       129 GETTABLEKS                       R14 R2 K41 ["CustomSelectInput"]
@@ -269,8 +269,8 @@ PROTO_8:
       151 SETTABLEKS                       R7 R6 K8 ["MaterialPattern"]
       153 GETTABLEKS                       R7 R1 K44 ["Expandable"]
       155 JUMPIFNOT                        R7 ; [+39]
-      156 GETUPVAL                         R8 2
-      157 GETTABLEKS                       R7 R8 K11 ["createElement"]
+      156 GETUPVAL                         R7 2
+      157 GETTABLEKS                       R7 R7 K11 ["createElement"]
       159 GETUPVAL                         R8 6
       160 DUPTABLE                         R9 K49 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
       161 GETTABLEKS                       R10 R1 K13 ["LayoutOrder"]
@@ -293,8 +293,8 @@ PROTO_8:
       192 MOVE                             R10 R6
       193 CALL                             R7 3 -1
       194 RETURN                           R7 -1
-      195 GETUPVAL                         R8 2
-      196 GETTABLEKS                       R7 R8 K11 ["createElement"]
+      195 GETUPVAL                         R7 2
+      196 GETTABLEKS                       R7 R7 K11 ["createElement"]
       198 GETUPVAL                         R8 7
       199 DUPTABLE                         R9 K59 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "HorizontalAlignment"}]
       200 GETIMPORT                        R10 K62 [Enum.AutomaticSize.Y]
@@ -313,14 +313,14 @@ PROTO_8:
 
 PROTO_9:
         0 DUPTABLE                         R1 K2 [{"ExpandedPane", "Material"}]
-        1 GETTABLEKS                       R4 R0 K3 ["MaterialBrowserReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["ExpandedPane"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K4 ["TilingSettings"]
+        1 GETTABLEKS                       R3 R0 K3 ["MaterialBrowserReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["ExpandedPane"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K4 ["TilingSettings"]
         8 GETTABLE                         R2 R3 R4
         9 SETTABLEKS                       R2 R1 K0 ["ExpandedPane"]
-       11 GETTABLEKS                       R3 R0 K3 ["MaterialBrowserReducer"]
-       13 GETTABLEKS                       R2 R3 K1 ["Material"]
+       11 GETTABLEKS                       R2 R0 K3 ["MaterialBrowserReducer"]
+       13 GETTABLEKS                       R2 R2 K1 ["Material"]
        15 SETTABLEKS                       R2 R1 K1 ["Material"]
        17 RETURN                           R1 1
 
@@ -343,32 +343,32 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Src"]
-       17 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 GETTABLEKS                       R2 R0 K5 ["Src"]
+       17 GETTABLEKS                       R2 R2 K6 ["Types"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       22 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K8 ["Roact"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       29 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K9 ["Framework"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       38 GETTABLEKS                       R5 R6 K10 ["RoactRodux"]
+       36 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K10 ["RoactRodux"]
        40 CALL                             R4 1 1
-       41 GETTABLEKS                       R6 R3 K11 ["Util"]
-       43 GETTABLEKS                       R5 R6 K12 ["LayoutOrderIterator"]
-       45 GETTABLEKS                       R7 R3 K13 ["Style"]
-       47 GETTABLEKS                       R6 R7 K14 ["Stylizer"]
+       41 GETTABLEKS                       R5 R3 K11 ["Util"]
+       43 GETTABLEKS                       R5 R5 K12 ["LayoutOrderIterator"]
+       45 GETTABLEKS                       R6 R3 K13 ["Style"]
+       47 GETTABLEKS                       R6 R6 K14 ["Stylizer"]
        49 GETTABLEKS                       R7 R3 K15 ["ContextServices"]
        51 GETTABLEKS                       R8 R7 K16 ["withContext"]
        53 GETTABLEKS                       R9 R7 K17 ["Analytics"]
@@ -378,31 +378,31 @@ MAIN:
        61 GETTABLEKS                       R13 R11 K21 ["ExpandablePane"]
        63 GETTABLEKS                       R14 R11 K22 ["DEPRECATED_TextInput"]
        65 GETTABLEKS                       R15 R11 K23 ["SelectInput"]
-       67 GETTABLEKS                       R17 R0 K5 ["Src"]
-       69 GETTABLEKS                       R16 R17 K24 ["Actions"]
+       67 GETTABLEKS                       R16 R0 K5 ["Src"]
+       69 GETTABLEKS                       R16 R16 K24 ["Actions"]
        71 GETIMPORT                        R17 K4 [require]
        73 GETTABLEKS                       R18 R16 K25 ["SetExpandedPane"]
        75 CALL                             R17 1 1
        76 GETIMPORT                        R18 K4 [require]
-       78 GETTABLEKS                       R21 R0 K5 ["Src"]
-       80 GETTABLEKS                       R20 R21 K26 ["Reducers"]
-       82 GETTABLEKS                       R19 R20 K27 ["MainReducer"]
+       78 GETTABLEKS                       R19 R0 K5 ["Src"]
+       80 GETTABLEKS                       R19 R19 K26 ["Reducers"]
+       82 GETTABLEKS                       R19 R19 K27 ["MainReducer"]
        84 CALL                             R18 1 1
-       85 GETTABLEKS                       R20 R0 K5 ["Src"]
-       87 GETTABLEKS                       R19 R20 K28 ["Controllers"]
+       85 GETTABLEKS                       R19 R0 K5 ["Src"]
+       87 GETTABLEKS                       R19 R19 K28 ["Controllers"]
        89 GETIMPORT                        R20 K4 [require]
        91 GETTABLEKS                       R21 R19 K29 ["GeneralServiceController"]
        93 CALL                             R20 1 1
        94 GETIMPORT                        R21 K4 [require]
-       96 GETTABLEKS                       R26 R0 K5 ["Src"]
-       98 GETTABLEKS                       R25 R26 K30 ["Components"]
-      100 GETTABLEKS                       R24 R25 K31 ["MaterialBrowser"]
-      102 GETTABLEKS                       R23 R24 K32 ["MaterialEditor"]
-      104 GETTABLEKS                       R22 R23 K33 ["LabeledElement"]
+       96 GETTABLEKS                       R22 R0 K5 ["Src"]
+       98 GETTABLEKS                       R22 R22 K30 ["Components"]
+      100 GETTABLEKS                       R22 R22 K31 ["MaterialBrowser"]
+      102 GETTABLEKS                       R22 R22 K32 ["MaterialEditor"]
+      104 GETTABLEKS                       R22 R22 K33 ["LabeledElement"]
       106 CALL                             R21 1 1
-      107 GETTABLEKS                       R24 R0 K5 ["Src"]
-      109 GETTABLEKS                       R23 R24 K34 ["Resources"]
-      111 GETTABLEKS                       R22 R23 K35 ["Constants"]
+      107 GETTABLEKS                       R22 R0 K5 ["Src"]
+      109 GETTABLEKS                       R22 R22 K34 ["Resources"]
+      111 GETTABLEKS                       R22 R22 K35 ["Constants"]
       113 GETIMPORT                        R23 K4 [require]
       115 GETTABLEKS                       R24 R22 K36 ["getMaterialPatterns"]
       117 CALL                             R23 1 1
@@ -412,8 +412,8 @@ MAIN:
       123 GETIMPORT                        R25 K4 [require]
       125 GETTABLEKS                       R26 R22 K38 ["getSettingsNames"]
       127 CALL                             R25 1 1
-      128 GETTABLEKS                       R27 R0 K5 ["Src"]
-      130 GETTABLEKS                       R26 R27 K11 ["Util"]
+      128 GETTABLEKS                       R26 R0 K5 ["Src"]
+      130 GETTABLEKS                       R26 R26 K11 ["Util"]
       132 GETIMPORT                        R27 K4 [require]
       134 GETTABLEKS                       R28 R26 K39 ["getNumberFromText"]
       136 CALL                             R27 1 1

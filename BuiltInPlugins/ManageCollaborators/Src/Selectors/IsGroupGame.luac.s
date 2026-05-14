@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R3 R0 K0 ["GameOwnerMetadata"]
-        2 GETTABLEKS                       R2 R3 K1 ["creatorType"]
+        0 GETTABLEKS                       R2 R0 K0 ["GameOwnerMetadata"]
+        2 GETTABLEKS                       R2 R2 K1 ["creatorType"]
         4 GETIMPORT                        R3 K5 [Enum.CreatorType.Group]
         6 JUMPIFEQ                         R2 R3 ; [+2]
         8 LOADB                            R1 0 +1

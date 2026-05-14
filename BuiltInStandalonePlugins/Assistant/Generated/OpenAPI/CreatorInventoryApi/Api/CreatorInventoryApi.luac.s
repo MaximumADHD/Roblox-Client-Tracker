@@ -1,114 +1,122 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["buildRequest"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["buildRequest"]
         3 LOADK                            R4 K1 ["GET"]
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K2 ["host"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K2 ["host"]
         7 LOADK                            R6 K3 ["/v1/users/{userId}/creator-inventory-items"]
-        8 GETUPVAL                         R8 1
-        9 GETTABLEKS                       R7 R8 K4 ["pathPrefix"]
-       11 CALL                             R3 4 1
-       12 LOADK                            R5 K5 ["{userId}"]
-       13 MOVE                             R6 R0
-       14 NAMECALL                         R3 R3 K6 ["addPathParameter"]
-       16 CALL                             R3 3 1
-       17 LOADK                            R5 K7 ["maxPageSize"]
-       18 MOVE                             R6 R1
-       19 NAMECALL                         R3 R3 K8 ["addQueryParameter"]
-       21 CALL                             R3 3 1
-       22 LOADK                            R5 K9 ["pageToken"]
-       23 MOVE                             R6 R2
-       24 NAMECALL                         R3 R3 K8 ["addQueryParameter"]
-       26 CALL                             R3 3 1
-       27 GETUPVAL                         R5 2
-       28 NAMECALL                         R3 R3 K10 ["sendAsync"]
-       30 CALL                             R3 2 -1
-       31 RETURN                           R3 -1
+        8 GETUPVAL                         R7 1
+        9 GETTABLEKS                       R7 R7 K4 ["pathPrefix"]
+       11 GETUPVAL                         R8 1
+       12 GETTABLEKS                       R8 R8 K5 ["baseUrl"]
+       14 CALL                             R3 5 1
+       15 LOADK                            R5 K6 ["{userId}"]
+       16 MOVE                             R6 R0
+       17 NAMECALL                         R3 R3 K7 ["addPathParameter"]
+       19 CALL                             R3 3 1
+       20 LOADK                            R5 K8 ["maxPageSize"]
+       21 MOVE                             R6 R1
+       22 NAMECALL                         R3 R3 K9 ["addQueryParameter"]
+       24 CALL                             R3 3 1
+       25 LOADK                            R5 K10 ["pageToken"]
+       26 MOVE                             R6 R2
+       27 NAMECALL                         R3 R3 K9 ["addQueryParameter"]
+       29 CALL                             R3 3 1
+       30 GETUPVAL                         R5 2
+       31 NAMECALL                         R3 R3 K11 ["sendAsync"]
+       33 CALL                             R3 2 -1
+       34 RETURN                           R3 -1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["buildRequest"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["buildRequest"]
         3 LOADK                            R4 K1 ["GET"]
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K2 ["host"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K2 ["host"]
         7 LOADK                            R6 K3 ["/v1/groups/{groupId}/creator-inventory-items"]
-        8 GETUPVAL                         R8 1
-        9 GETTABLEKS                       R7 R8 K4 ["pathPrefix"]
-       11 CALL                             R3 4 1
-       12 LOADK                            R5 K5 ["{groupId}"]
-       13 MOVE                             R6 R0
-       14 NAMECALL                         R3 R3 K6 ["addPathParameter"]
-       16 CALL                             R3 3 1
-       17 LOADK                            R5 K7 ["maxPageSize"]
-       18 MOVE                             R6 R1
-       19 NAMECALL                         R3 R3 K8 ["addQueryParameter"]
-       21 CALL                             R3 3 1
-       22 LOADK                            R5 K9 ["pageToken"]
-       23 MOVE                             R6 R2
-       24 NAMECALL                         R3 R3 K8 ["addQueryParameter"]
-       26 CALL                             R3 3 1
-       27 GETUPVAL                         R5 2
-       28 NAMECALL                         R3 R3 K10 ["sendAsync"]
-       30 CALL                             R3 2 -1
-       31 RETURN                           R3 -1
+        8 GETUPVAL                         R7 1
+        9 GETTABLEKS                       R7 R7 K4 ["pathPrefix"]
+       11 GETUPVAL                         R8 1
+       12 GETTABLEKS                       R8 R8 K5 ["baseUrl"]
+       14 CALL                             R3 5 1
+       15 LOADK                            R5 K6 ["{groupId}"]
+       16 MOVE                             R6 R0
+       17 NAMECALL                         R3 R3 K7 ["addPathParameter"]
+       19 CALL                             R3 3 1
+       20 LOADK                            R5 K8 ["maxPageSize"]
+       21 MOVE                             R6 R1
+       22 NAMECALL                         R3 R3 K9 ["addQueryParameter"]
+       24 CALL                             R3 3 1
+       25 LOADK                            R5 K10 ["pageToken"]
+       26 MOVE                             R6 R2
+       27 NAMECALL                         R3 R3 K9 ["addQueryParameter"]
+       29 CALL                             R3 3 1
+       30 GETUPVAL                         R5 2
+       31 NAMECALL                         R3 R3 K11 ["sendAsync"]
+       33 CALL                             R3 2 -1
+       34 RETURN                           R3 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["buildRequest"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["buildRequest"]
         3 LOADK                            R4 K1 ["GET"]
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K2 ["host"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K2 ["host"]
         7 LOADK                            R6 K3 ["/v1/universes/{universeId}/creator-inventory-items"]
-        8 GETUPVAL                         R8 1
-        9 GETTABLEKS                       R7 R8 K4 ["pathPrefix"]
-       11 CALL                             R3 4 1
-       12 LOADK                            R5 K5 ["{universeId}"]
-       13 MOVE                             R6 R0
-       14 NAMECALL                         R3 R3 K6 ["addPathParameter"]
-       16 CALL                             R3 3 1
-       17 LOADK                            R5 K7 ["maxPageSize"]
-       18 MOVE                             R6 R1
-       19 NAMECALL                         R3 R3 K8 ["addQueryParameter"]
-       21 CALL                             R3 3 1
-       22 LOADK                            R5 K9 ["pageToken"]
-       23 MOVE                             R6 R2
-       24 NAMECALL                         R3 R3 K8 ["addQueryParameter"]
-       26 CALL                             R3 3 1
-       27 GETUPVAL                         R5 2
-       28 NAMECALL                         R3 R3 K10 ["sendAsync"]
-       30 CALL                             R3 2 -1
-       31 RETURN                           R3 -1
+        8 GETUPVAL                         R7 1
+        9 GETTABLEKS                       R7 R7 K4 ["pathPrefix"]
+       11 GETUPVAL                         R8 1
+       12 GETTABLEKS                       R8 R8 K5 ["baseUrl"]
+       14 CALL                             R3 5 1
+       15 LOADK                            R5 K6 ["{universeId}"]
+       16 MOVE                             R6 R0
+       17 NAMECALL                         R3 R3 K7 ["addPathParameter"]
+       19 CALL                             R3 3 1
+       20 LOADK                            R5 K8 ["maxPageSize"]
+       21 MOVE                             R6 R1
+       22 NAMECALL                         R3 R3 K9 ["addQueryParameter"]
+       24 CALL                             R3 3 1
+       25 LOADK                            R5 K10 ["pageToken"]
+       26 MOVE                             R6 R2
+       27 NAMECALL                         R3 R3 K9 ["addQueryParameter"]
+       29 CALL                             R3 3 1
+       30 GETUPVAL                         R5 2
+       31 NAMECALL                         R3 R3 K11 ["sendAsync"]
+       33 CALL                             R3 2 -1
+       34 RETURN                           R3 -1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["buildRequest"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["buildRequest"]
         3 LOADK                            R5 K1 ["GET"]
-        4 GETUPVAL                         R7 1
-        5 GETTABLEKS                       R6 R7 K2 ["host"]
+        4 GETUPVAL                         R6 1
+        5 GETTABLEKS                       R6 R6 K2 ["host"]
         7 LOADK                            R7 K3 ["/v1/-/creator-inventory-items:search"]
-        8 GETUPVAL                         R9 1
-        9 GETTABLEKS                       R8 R9 K4 ["pathPrefix"]
-       11 CALL                             R4 4 1
-       12 LOADK                            R6 K5 ["query"]
-       13 MOVE                             R7 R0
-       14 NAMECALL                         R4 R4 K6 ["addQueryParameter"]
-       16 CALL                             R4 3 1
-       17 LOADK                            R6 K7 ["filter"]
-       18 MOVE                             R7 R1
-       19 NAMECALL                         R4 R4 K6 ["addQueryParameter"]
-       21 CALL                             R4 3 1
-       22 LOADK                            R6 K8 ["maxPageSize"]
-       23 MOVE                             R7 R2
-       24 NAMECALL                         R4 R4 K6 ["addQueryParameter"]
-       26 CALL                             R4 3 1
-       27 LOADK                            R6 K9 ["pageToken"]
-       28 MOVE                             R7 R3
-       29 NAMECALL                         R4 R4 K6 ["addQueryParameter"]
-       31 CALL                             R4 3 1
-       32 GETUPVAL                         R6 2
-       33 NAMECALL                         R4 R4 K10 ["sendAsync"]
-       35 CALL                             R4 2 -1
-       36 RETURN                           R4 -1
+        8 GETUPVAL                         R8 1
+        9 GETTABLEKS                       R8 R8 K4 ["pathPrefix"]
+       11 GETUPVAL                         R9 1
+       12 GETTABLEKS                       R9 R9 K5 ["baseUrl"]
+       14 CALL                             R4 5 1
+       15 LOADK                            R6 K6 ["query"]
+       16 MOVE                             R7 R0
+       17 NAMECALL                         R4 R4 K7 ["addQueryParameter"]
+       19 CALL                             R4 3 1
+       20 LOADK                            R6 K8 ["filter"]
+       21 MOVE                             R7 R1
+       22 NAMECALL                         R4 R4 K7 ["addQueryParameter"]
+       24 CALL                             R4 3 1
+       25 LOADK                            R6 K9 ["maxPageSize"]
+       26 MOVE                             R7 R2
+       27 NAMECALL                         R4 R4 K7 ["addQueryParameter"]
+       29 CALL                             R4 3 1
+       30 LOADK                            R6 K10 ["pageToken"]
+       31 MOVE                             R7 R3
+       32 NAMECALL                         R4 R4 K7 ["addQueryParameter"]
+       34 CALL                             R4 3 1
+       35 GETUPVAL                         R6 2
+       36 NAMECALL                         R4 R4 K11 ["sendAsync"]
+       38 CALL                             R4 2 -1
+       39 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -127,12 +135,12 @@ MAIN:
        20 GETTABLEKS                       R5 R0 K9 ["PathMetadata"]
        22 CALL                             R4 1 1
        23 GETIMPORT                        R5 K7 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Models"]
-       27 GETTABLEKS                       R6 R7 K11 ["ListCreatorInventoryItemsResponse"]
+       25 GETTABLEKS                       R6 R0 K10 ["Models"]
+       27 GETTABLEKS                       R6 R6 K11 ["ListCreatorInventoryItemsResponse"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K7 [require]
-       32 GETTABLEKS                       R8 R0 K10 ["Models"]
-       34 GETTABLEKS                       R7 R8 K12 ["SearchCreatorInventoryItemsResponse"]
+       32 GETTABLEKS                       R7 R0 K10 ["Models"]
+       34 GETTABLEKS                       R7 R7 K12 ["SearchCreatorInventoryItemsResponse"]
        36 CALL                             R6 1 1
        37 NEWTABLE                         R7 4 0
        39 DUPCLOSURE                       R8 K13 [PROTO_0]

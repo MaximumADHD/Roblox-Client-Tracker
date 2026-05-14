@@ -9,11 +9,11 @@ PROTO_0:
         8 DUPTABLE                         R6 K7 [{"searchTerm", "sortIndex", "groupIndex", "targetPage", "currentPage", "requestReason"}]
         9 LOADK                            R7 K8 [""]
        10 SETTABLEKS                       R7 R6 K1 ["searchTerm"]
-       12 GETUPVAL                         R8 3
-       13 GETTABLEKS                       R7 R8 K9 ["getDefaultSortForGroups"]
-       15 NAMECALL                         R9 R0 K10 ["getState"]
-       17 CALL                             R9 1 1
-       18 GETTABLEKS                       R8 R9 K11 ["pageInfo"]
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R7 R7 K9 ["getDefaultSortForGroups"]
+       15 NAMECALL                         R8 R0 K10 ["getState"]
+       17 CALL                             R8 1 1
+       18 GETTABLEKS                       R8 R8 K11 ["pageInfo"]
        20 CALL                             R7 1 1
        21 SETTABLEKS                       R7 R6 K2 ["sortIndex"]
        23 GETUPVAL                         R7 4
@@ -22,8 +22,8 @@ PROTO_0:
        27 SETTABLEKS                       R7 R6 K4 ["targetPage"]
        29 LOADN                            R7 0
        30 SETTABLEKS                       R7 R6 K5 ["currentPage"]
-       32 GETUPVAL                         R8 5
-       33 GETTABLEKS                       R7 R8 K12 ["ChangeGroup"]
+       32 GETUPVAL                         R7 5
+       33 GETTABLEKS                       R7 R7 K12 ["ChangeGroup"]
        35 SETTABLEKS                       R7 R6 K6 ["requestReason"]
        37 CALL                             R3 3 -1
        38 NAMECALL                         R1 R0 K0 ["dispatch"]
@@ -42,31 +42,31 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Types"]
-       17 GETTABLEKS                       R2 R3 K7 ["Sort"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Types"]
+       17 GETTABLEKS                       R2 R2 K7 ["Sort"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K6 ["Types"]
-       26 GETTABLEKS                       R3 R4 K8 ["RequestReason"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Types"]
+       26 GETTABLEKS                       R3 R3 K8 ["RequestReason"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R7 R0 K5 ["Src"]
-       33 GETTABLEKS                       R6 R7 K9 ["Networking"]
-       35 GETTABLEKS                       R5 R6 K10 ["Requests"]
-       37 GETTABLEKS                       R4 R5 K11 ["UpdatePageInfoAndSendRequest"]
+       31 GETTABLEKS                       R4 R0 K5 ["Src"]
+       33 GETTABLEKS                       R4 R4 K9 ["Networking"]
+       35 GETTABLEKS                       R4 R4 K10 ["Requests"]
+       37 GETTABLEKS                       R4 R4 K11 ["UpdatePageInfoAndSendRequest"]
        39 CALL                             R3 1 1
        40 GETIMPORT                        R4 K4 [require]
-       42 GETTABLEKS                       R7 R0 K5 ["Src"]
-       44 GETTABLEKS                       R6 R7 K12 ["Actions"]
-       46 GETTABLEKS                       R5 R6 K13 ["StopAllSounds"]
+       42 GETTABLEKS                       R5 R0 K5 ["Src"]
+       44 GETTABLEKS                       R5 R5 K12 ["Actions"]
+       46 GETTABLEKS                       R5 R5 K13 ["StopAllSounds"]
        48 CALL                             R4 1 1
        49 DUPCLOSURE                       R5 K14 [PROTO_1]
        50 CAPTURE                          VAL R4

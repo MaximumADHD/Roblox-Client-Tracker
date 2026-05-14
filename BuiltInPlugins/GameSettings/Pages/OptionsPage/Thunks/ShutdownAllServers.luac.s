@@ -1,8 +1,8 @@
 PROTO_0:
         0 NAMECALL                         R2 R0 K0 ["getState"]
         2 CALL                             R2 1 1
-        3 GETTABLEKS                       R4 R2 K1 ["Metadata"]
-        5 GETTABLEKS                       R3 R4 K2 ["gameId"]
+        3 GETTABLEKS                       R3 R2 K1 ["Metadata"]
+        5 GETTABLEKS                       R3 R3 K2 ["gameId"]
         7 GETTABLEKS                       R4 R1 K3 ["gameOptionsController"]
         9 MOVE                             R7 R3
        10 NAMECALL                         R5 R4 K4 ["shutdownAllServers"]

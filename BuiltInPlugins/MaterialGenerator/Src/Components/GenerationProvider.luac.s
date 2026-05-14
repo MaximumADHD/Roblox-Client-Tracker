@@ -9,8 +9,8 @@ PROTO_0:
         9 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["collectArray"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["collectArray"]
         3 GETUPVAL                         R1 1
         4 NAMECALL                         R1 R1 K1 ["GetDescendants"]
         6 CALL                             R1 1 1
@@ -19,8 +19,8 @@ PROTO_1:
         9 RETURN                           R0 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["CustomMessage"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["CustomMessage"]
         3 JUMPIFNOTEQ                      R1 R3 ; [+9]
         5 MOVE                             R3 R2
         6 JUMPIF                           R3 ; [+5]
@@ -29,80 +29,80 @@ PROTO_2:
         9 NAMECALL                         R3 R0 K3 ["getText"]
        11 CALL                             R3 3 1
        12 RETURN                           R3 1
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R3 R4 K4 ["NoSession"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K4 ["NoSession"]
        16 JUMPIFNOTEQ                      R1 R3 ; [+7]
        18 LOADK                            R5 K1 ["Errors"]
        19 LOADK                            R6 K4 ["NoSession"]
        20 NAMECALL                         R3 R0 K3 ["getText"]
        22 CALL                             R3 3 -1
        23 RETURN                           R3 -1
-       24 GETUPVAL                         R4 0
-       25 GETTABLEKS                       R3 R4 K5 ["ServerError500"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K5 ["ServerError500"]
        27 JUMPIFNOTEQ                      R1 R3 ; [+7]
        29 LOADK                            R5 K1 ["Errors"]
        30 LOADK                            R6 K5 ["ServerError500"]
        31 NAMECALL                         R3 R0 K3 ["getText"]
        33 CALL                             R3 3 -1
        34 RETURN                           R3 -1
-       35 GETUPVAL                         R4 0
-       36 GETTABLEKS                       R3 R4 K6 ["ServerError504"]
+       35 GETUPVAL                         R3 0
+       36 GETTABLEKS                       R3 R3 K6 ["ServerError504"]
        38 JUMPIFNOTEQ                      R1 R3 ; [+7]
        40 LOADK                            R5 K1 ["Errors"]
        41 LOADK                            R6 K6 ["ServerError504"]
        42 NAMECALL                         R3 R0 K3 ["getText"]
        44 CALL                             R3 3 -1
        45 RETURN                           R3 -1
-       46 GETUPVAL                         R4 0
-       47 GETTABLEKS                       R3 R4 K7 ["TextFullyFiltered"]
+       46 GETUPVAL                         R3 0
+       47 GETTABLEKS                       R3 R3 K7 ["TextFullyFiltered"]
        49 JUMPIFNOTEQ                      R1 R3 ; [+7]
        51 LOADK                            R5 K1 ["Errors"]
        52 LOADK                            R6 K7 ["TextFullyFiltered"]
        53 NAMECALL                         R3 R0 K3 ["getText"]
        55 CALL                             R3 3 -1
        56 RETURN                           R3 -1
-       57 GETUPVAL                         R4 0
-       58 GETTABLEKS                       R3 R4 K8 ["NoSelectedMaterial"]
+       57 GETUPVAL                         R3 0
+       58 GETTABLEKS                       R3 R3 K8 ["NoSelectedMaterial"]
        60 JUMPIFNOTEQ                      R1 R3 ; [+7]
        62 LOADK                            R5 K1 ["Errors"]
        63 LOADK                            R6 K8 ["NoSelectedMaterial"]
        64 NAMECALL                         R3 R0 K3 ["getText"]
        66 CALL                             R3 3 -1
        67 RETURN                           R3 -1
-       68 GETUPVAL                         R4 0
-       69 GETTABLEKS                       R3 R4 K9 ["FailedToGenerateMaps"]
+       68 GETUPVAL                         R3 0
+       69 GETTABLEKS                       R3 R3 K9 ["FailedToGenerateMaps"]
        71 JUMPIFNOTEQ                      R1 R3 ; [+7]
        73 LOADK                            R5 K1 ["Errors"]
        74 LOADK                            R6 K9 ["FailedToGenerateMaps"]
        75 NAMECALL                         R3 R0 K3 ["getText"]
        77 CALL                             R3 3 -1
        78 RETURN                           R3 -1
-       79 GETUPVAL                         R4 0
-       80 GETTABLEKS                       R3 R4 K10 ["TooManyRequests"]
+       79 GETUPVAL                         R3 0
+       80 GETTABLEKS                       R3 R3 K10 ["TooManyRequests"]
        82 JUMPIFNOTEQ                      R1 R3 ; [+7]
        84 LOADK                            R5 K1 ["Errors"]
        85 LOADK                            R6 K10 ["TooManyRequests"]
        86 NAMECALL                         R3 R0 K3 ["getText"]
        88 CALL                             R3 3 -1
        89 RETURN                           R3 -1
-       90 GETUPVAL                         R4 0
-       91 GETTABLEKS                       R3 R4 K11 ["AccountingFailedDecrement"]
+       90 GETUPVAL                         R3 0
+       91 GETTABLEKS                       R3 R3 K11 ["AccountingFailedDecrement"]
        93 JUMPIFNOTEQ                      R1 R3 ; [+7]
        95 LOADK                            R5 K1 ["Errors"]
        96 LOADK                            R6 K11 ["AccountingFailedDecrement"]
        97 NAMECALL                         R3 R0 K3 ["getText"]
        99 CALL                             R3 3 -1
       100 RETURN                           R3 -1
-      101 GETUPVAL                         R4 0
-      102 GETTABLEKS                       R3 R4 K12 ["FailedToSetImage"]
+      101 GETUPVAL                         R3 0
+      102 GETTABLEKS                       R3 R3 K12 ["FailedToSetImage"]
       104 JUMPIFNOTEQ                      R1 R3 ; [+7]
       106 LOADK                            R5 K1 ["Errors"]
       107 LOADK                            R6 K12 ["FailedToSetImage"]
       108 NAMECALL                         R3 R0 K3 ["getText"]
       110 CALL                             R3 3 -1
       111 RETURN                           R3 -1
-      112 GETUPVAL                         R4 0
-      113 GETTABLEKS                       R3 R4 K13 ["Unknown"]
+      112 GETUPVAL                         R3 0
+      113 GETTABLEKS                       R3 R3 K13 ["Unknown"]
       115 JUMPIFNOTEQ                      R1 R3 ; [+7]
       117 LOADK                            R5 K1 ["Errors"]
       118 LOADK                            R6 K2 ["UnknownGenerationError"]
@@ -136,8 +136,8 @@ PROTO_3:
        19 LOADK                            R3 K5 ["Returned no MaterialVariants"]
        20 CALL                             R2 1 0
        21 GETTABLEKS                       R2 R1 K1 ["materialVariants"]
-       23 GETUPVAL                         R4 3
-       24 GETTABLEKS                       R3 R4 K6 ["collectArray"]
+       23 GETUPVAL                         R3 3
+       24 GETTABLEKS                       R3 R3 K6 ["collectArray"]
        26 GETUPVAL                         R4 4
        27 NAMECALL                         R4 R4 K7 ["GetDescendants"]
        29 CALL                             R4 1 1
@@ -167,8 +167,8 @@ PROTO_3:
        58 GETTABLEKS                       R11 R1 K15 ["filteredText"]
        60 NAMECALL                         R4 R4 K16 ["report"]
        62 CALL                             R4 7 0
-       63 GETUPVAL                         R5 8
-       64 GETTABLEKS                       R4 R5 K17 ["current"]
+       63 GETUPVAL                         R4 8
+       64 GETTABLEKS                       R4 R4 K17 ["current"]
        66 MOVE                             R5 R2
        67 GETUPVAL                         R6 2
        68 GETTABLEKS                       R7 R1 K15 ["filteredText"]
@@ -192,21 +192,21 @@ PROTO_4:
        12 MOVE                             R9 R3
        13 NAMECALL                         R4 R4 K1 ["report"]
        15 CALL                             R4 5 0
-       16 GETUPVAL                         R5 5
-       17 GETTABLEKS                       R4 R5 K2 ["push"]
+       16 GETUPVAL                         R4 5
+       17 GETTABLEKS                       R4 R4 K2 ["push"]
        19 MOVE                             R5 R3
        20 CALL                             R4 1 0
        21 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["disable"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["disable"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["enabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["enabled"]
         3 JUMPIFNOT                        R1 ; [+5]
         4 GETIMPORT                        R1 K2 [error]
         6 LOADK                            R2 K3 ["Generation already in progress"]
@@ -215,11 +215,11 @@ PROTO_6:
         9 GETUPVAL                         R1 1
        10 GETUPVAL                         R2 2
        11 CALL                             R1 1 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K4 ["enable"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K4 ["enable"]
        15 CALL                             R1 0 0
-       16 GETUPVAL                         R2 3
-       17 GETTABLEKS                       R1 R2 K5 ["try"]
+       16 GETUPVAL                         R1 3
+       17 GETTABLEKS                       R1 R1 K5 ["try"]
        19 NEWCLOSURE                       R2 P0
        20 CAPTURE                          UPVAL U4
        21 CAPTURE                          UPVAL U5
@@ -268,8 +268,8 @@ PROTO_8:
         9 GETUPVAL                         R3 4
        10 LOADK                            R4 K2 ["None"]
        11 CALL                             R2 2 0
-       12 GETUPVAL                         R3 5
-       13 GETTABLEKS                       R2 R3 K3 ["push"]
+       12 GETUPVAL                         R2 5
+       13 GETTABLEKS                       R2 R2 K3 ["push"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 0
        17 RETURN                           R0 0
@@ -280,8 +280,8 @@ PROTO_8:
        23 GETUPVAL                         R3 4
        24 LOADK                            R4 K2 ["None"]
        25 CALL                             R2 2 0
-       26 GETUPVAL                         R3 5
-       27 GETTABLEKS                       R2 R3 K3 ["push"]
+       26 GETUPVAL                         R2 5
+       27 GETTABLEKS                       R2 R2 K3 ["push"]
        29 LOADK                            R3 K5 ["Returned no materials"]
        30 CALL                             R2 1 0
        31 RETURN                           R0 0
@@ -292,8 +292,8 @@ PROTO_8:
        37 GETUPVAL                         R3 4
        38 LOADK                            R4 K2 ["None"]
        39 CALL                             R2 2 0
-       40 GETUPVAL                         R3 5
-       41 GETTABLEKS                       R2 R3 K3 ["push"]
+       40 GETUPVAL                         R2 5
+       41 GETTABLEKS                       R2 R2 K3 ["push"]
        43 LOADK                            R3 K6 ["Returned more than one MaterialVariant"]
        44 CALL                             R2 1 0
        45 RETURN                           R0 0
@@ -349,8 +349,8 @@ PROTO_9:
        18 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R2 R1 K1 ["addMaterials"]
@@ -359,12 +359,12 @@ PROTO_10:
        11 GETUPVAL                         R5 2
        12 LOADB                            R6 0
        13 CALL                             R5 1 1
-       14 GETUPVAL                         R7 0
-       15 GETTABLEKS                       R6 R7 K4 ["useState"]
+       14 GETUPVAL                         R6 0
+       15 GETTABLEKS                       R6 R6 K4 ["useState"]
        17 LOADK                            R7 K5 [""]
        18 CALL                             R6 1 2
-       19 GETUPVAL                         R9 0
-       20 GETTABLEKS                       R8 R9 K4 ["useState"]
+       19 GETUPVAL                         R8 0
+       20 GETTABLEKS                       R8 R8 K4 ["useState"]
        22 LOADK                            R9 K5 [""]
        23 CALL                             R8 1 2
        24 GETUPVAL                         R10 3
@@ -376,15 +376,15 @@ PROTO_10:
        32 GETUPVAL                         R12 5
        33 NAMECALL                         R12 R12 K6 ["use"]
        35 CALL                             R12 1 1
-       36 GETUPVAL                         R14 6
-       37 GETTABLEKS                       R13 R14 K6 ["use"]
+       36 GETUPVAL                         R13 6
+       37 GETTABLEKS                       R13 R13 K6 ["use"]
        39 CALL                             R13 0 1
        40 LOADK                            R16 K7 ["MaterialGenerationService"]
        41 NAMECALL                         R14 R13 K8 ["getService"]
        43 CALL                             R14 2 1
-       44 GETUPVAL                         R17 7
-       45 GETTABLEKS                       R16 R17 K9 ["Plugin"]
-       47 GETTABLEKS                       R15 R16 K6 ["use"]
+       44 GETUPVAL                         R15 7
+       45 GETTABLEKS                       R15 R15 K9 ["Plugin"]
+       47 GETTABLEKS                       R15 R15 K6 ["use"]
        49 CALL                             R15 0 1
        50 NAMECALL                         R15 R15 K10 ["get"]
        52 CALL                             R15 1 1
@@ -394,8 +394,8 @@ PROTO_10:
        57 GETUPVAL                         R17 8
        58 MOVE                             R18 R2
        59 CALL                             R17 1 1
-       60 GETUPVAL                         R19 0
-       61 GETTABLEKS                       R18 R19 K13 ["useCallback"]
+       60 GETUPVAL                         R18 0
+       61 GETTABLEKS                       R18 R18 K13 ["useCallback"]
        63 NEWCLOSURE                       R19 P0
        64 CAPTURE                          VAL R5
        65 CAPTURE                          VAL R7
@@ -419,8 +419,8 @@ PROTO_10:
        85 MOVE                             R24 R10
        86 SETLIST                          R20 R21 4 [1]
        88 CALL                             R18 2 1
-       89 GETUPVAL                         R20 0
-       90 GETTABLEKS                       R19 R20 K13 ["useCallback"]
+       89 GETUPVAL                         R19 0
+       90 GETTABLEKS                       R19 R19 K13 ["useCallback"]
        92 NEWCLOSURE                       R20 P1
        93 CAPTURE                          VAL R3
        94 CAPTURE                          VAL R4
@@ -445,10 +445,10 @@ PROTO_10:
       123 SETTABLEKS                       R21 R20 K20 ["popError"]
       125 SETTABLEKS                       R18 R20 K21 ["generateMaterialVariants"]
       127 SETTABLEKS                       R19 R20 K22 ["uploadMaterialVariant"]
-      129 GETUPVAL                         R22 0
-      130 GETTABLEKS                       R21 R22 K26 ["createElement"]
-      132 GETUPVAL                         R23 16
-      133 GETTABLEKS                       R22 R23 K27 ["Provider"]
+      129 GETUPVAL                         R21 0
+      130 GETTABLEKS                       R21 R21 K26 ["createElement"]
+      132 GETUPVAL                         R22 16
+      133 GETTABLEKS                       R22 R22 K27 ["Provider"]
       135 DUPTABLE                         R23 K29 [{"value"}]
       136 SETTABLEKS                       R20 R23 K28 ["value"]
       138 GETTABLEKS                       R24 R0 K30 ["children"]
@@ -466,43 +466,43 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Dash"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Framework"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["MaterialFramework"]
+       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["MaterialFramework"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R7 R1 K10 ["Packages"]
-       38 GETTABLEKS                       R6 R7 K14 ["Promise"]
+       36 GETTABLEKS                       R6 R1 K10 ["Packages"]
+       38 GETTABLEKS                       R6 R6 K14 ["Promise"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K9 [require]
-       43 GETTABLEKS                       R8 R1 K10 ["Packages"]
-       45 GETTABLEKS                       R7 R8 K15 ["React"]
+       43 GETTABLEKS                       R7 R1 K10 ["Packages"]
+       45 GETTABLEKS                       R7 R7 K15 ["React"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K9 [require]
-       50 GETTABLEKS                       R9 R1 K10 ["Packages"]
-       52 GETTABLEKS                       R8 R9 K16 ["ReactUtils"]
+       50 GETTABLEKS                       R8 R1 K10 ["Packages"]
+       52 GETTABLEKS                       R8 R8 K16 ["ReactUtils"]
        54 CALL                             R7 1 1
        55 GETTABLEKS                       R8 R3 K17 ["ContextServices"]
        57 GETTABLEKS                       R9 R8 K18 ["Analytics"]
        59 GETTABLEKS                       R10 R8 K19 ["Localization"]
        61 GETTABLEKS                       R11 R7 K20 ["useStackState"]
        63 GETTABLEKS                       R12 R7 K21 ["useToggleState"]
-       65 GETTABLEKS                       R14 R4 K22 ["Context"]
-       67 GETTABLEKS                       R13 R14 K23 ["StudioServices"]
+       65 GETTABLEKS                       R13 R4 K22 ["Context"]
+       67 GETTABLEKS                       R13 R13 K23 ["StudioServices"]
        69 GETIMPORT                        R14 K9 [require]
-       71 GETTABLEKS                       R17 R1 K24 ["Src"]
-       73 GETTABLEKS                       R16 R17 K25 ["Enum"]
-       75 GETTABLEKS                       R15 R16 K26 ["GenerationErrorType"]
+       71 GETTABLEKS                       R15 R1 K24 ["Src"]
+       73 GETTABLEKS                       R15 R15 K25 ["Enum"]
+       75 GETTABLEKS                       R15 R15 K26 ["GenerationErrorType"]
        77 CALL                             R14 1 1
-       78 GETTABLEKS                       R16 R1 K24 ["Src"]
-       80 GETTABLEKS                       R15 R16 K27 ["Util"]
+       78 GETTABLEKS                       R15 R1 K24 ["Src"]
+       80 GETTABLEKS                       R15 R15 K27 ["Util"]
        82 GETIMPORT                        R16 K9 [require]
        84 GETTABLEKS                       R17 R15 K28 ["GeneratedMaterialsContext"]
        86 CALL                             R16 1 1
@@ -522,8 +522,8 @@ MAIN:
       109 GETTABLEKS                       R22 R15 K33 ["useRefToState"]
       111 CALL                             R21 1 1
       112 GETIMPORT                        R22 K9 [require]
-      114 GETTABLEKS                       R24 R1 K24 ["Src"]
-      116 GETTABLEKS                       R23 R24 K34 ["Types"]
+      114 GETTABLEKS                       R23 R1 K24 ["Src"]
+      116 GETTABLEKS                       R23 R23 K34 ["Types"]
       118 CALL                             R22 1 1
       119 DUPCLOSURE                       R23 K35 [PROTO_1]
       120 CAPTURE                          VAL R2

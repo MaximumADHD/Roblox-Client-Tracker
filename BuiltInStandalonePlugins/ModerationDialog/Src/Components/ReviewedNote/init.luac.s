@@ -4,8 +4,8 @@ PROTO_0:
         3 CALL                             R1 1 1
         4 NAMECALL                         R2 R1 K1 ["getLocale"]
         6 CALL                             R2 1 1
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K2 ["new"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K2 ["new"]
        10 CALL                             R3 0 1
        11 GETIMPORT                        R4 K5 [DateTime.fromIsoDate]
        13 GETTABLEKS                       R5 R0 K6 ["ReviewDateTime"]
@@ -16,12 +16,12 @@ PROTO_0:
        19 MOVE                             R8 R2
        20 NAMECALL                         R5 R4 K8 ["FormatLocalTime"]
        22 CALL                             R5 3 1
-       23 GETUPVAL                         R7 2
-       24 GETTABLEKS                       R6 R7 K9 ["createElement"]
+       23 GETUPVAL                         R6 2
+       24 GETTABLEKS                       R6 R6 K9 ["createElement"]
        26 LOADK                            R7 K10 ["Frame"]
        27 NEWTABLE                         R8 2 0
-       29 GETUPVAL                         R10 2
-       30 GETTABLEKS                       R9 R10 K11 ["Tag"]
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R9 R9 K11 ["Tag"]
        32 LOADK                            R10 K12 ["Component-ReviewedNote X-FitY"]
        33 SETTABLE                         R10 R8 R9
        34 GETTABLEKS                       R9 R0 K13 ["LayoutOrder"]
@@ -29,8 +29,8 @@ PROTO_0:
        38 DUPTABLE                         R9 K16 [{"ReviewedDateTime", "ModeratorNote"}]
        39 MOVE                             R10 R5
        40 JUMPIFNOT                        R10 ; [+27]
-       41 GETUPVAL                         R11 2
-       42 GETTABLEKS                       R10 R11 K9 ["createElement"]
+       41 GETUPVAL                         R10 2
+       42 GETTABLEKS                       R10 R10 K9 ["createElement"]
        44 LOADK                            R11 K17 ["TextLabel"]
        45 NEWTABLE                         R12 4 0
        47 LOADK                            R15 K18 ["ReviewedNote"]
@@ -43,14 +43,14 @@ PROTO_0:
        57 NAMECALL                         R13 R3 K24 ["getNextOrder"]
        59 CALL                             R13 1 1
        60 SETTABLEKS                       R13 R12 K13 ["LayoutOrder"]
-       62 GETUPVAL                         R14 2
-       63 GETTABLEKS                       R13 R14 K11 ["Tag"]
+       62 GETUPVAL                         R13 2
+       63 GETTABLEKS                       R13 R13 K11 ["Tag"]
        65 LOADK                            R14 K25 ["X-FitY"]
        66 SETTABLE                         R14 R12 R13
        67 CALL                             R10 2 1
        68 SETTABLEKS                       R10 R9 K14 ["ReviewedDateTime"]
-       70 GETUPVAL                         R11 2
-       71 GETTABLEKS                       R10 R11 K9 ["createElement"]
+       70 GETUPVAL                         R10 2
+       71 GETTABLEKS                       R10 R10 K9 ["createElement"]
        73 LOADK                            R11 K17 ["TextLabel"]
        74 NEWTABLE                         R12 4 0
        76 LOADK                            R15 K18 ["ReviewedNote"]
@@ -64,8 +64,8 @@ PROTO_0:
        88 NAMECALL                         R13 R3 K24 ["getNextOrder"]
        90 CALL                             R13 1 1
        91 SETTABLEKS                       R13 R12 K13 ["LayoutOrder"]
-       93 GETUPVAL                         R14 2
-       94 GETTABLEKS                       R13 R14 K11 ["Tag"]
+       93 GETUPVAL                         R13 2
+       94 GETTABLEKS                       R13 R13 K11 ["Tag"]
        96 LOADK                            R14 K25 ["X-FitY"]
        97 SETTABLE                         R14 R12 R13
        98 CALL                             R10 2 1
@@ -80,17 +80,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["Localization"]
-       25 GETTABLEKS                       R6 R2 K11 ["Util"]
-       27 GETTABLEKS                       R5 R6 K12 ["LayoutOrderIterator"]
+       25 GETTABLEKS                       R5 R2 K11 ["Util"]
+       27 GETTABLEKS                       R5 R5 K12 ["LayoutOrderIterator"]
        29 DUPCLOSURE                       R6 K13 [PROTO_0]
        30 CAPTURE                          VAL R4
        31 CAPTURE                          VAL R5

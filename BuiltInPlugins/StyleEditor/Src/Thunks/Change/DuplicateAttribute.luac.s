@@ -81,24 +81,24 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Reducers"]
-       17 GETTABLEKS                       R2 R3 K7 ["RootReducer"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Reducers"]
+       17 GETTABLEKS                       R2 R2 K7 ["RootReducer"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K5 ["Src"]
-       24 GETTABLEKS                       R3 R4 K8 ["Types"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K8 ["Types"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K9 ["Thunks"]
-       33 GETTABLEKS                       R4 R5 K8 ["Types"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Thunks"]
+       33 GETTABLEKS                       R4 R4 K8 ["Types"]
        35 CALL                             R3 1 1
        36 DUPCLOSURE                       R4 K10 [PROTO_0]
        37 DUPCLOSURE                       R5 K11 [PROTO_3]

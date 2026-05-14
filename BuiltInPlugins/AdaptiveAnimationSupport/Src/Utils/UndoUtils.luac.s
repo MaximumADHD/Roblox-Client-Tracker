@@ -14,8 +14,8 @@ PROTO_1:
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 CALL                             R2 3 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K4 ["addWaypoint"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K4 ["addWaypoint"]
         9 MOVE                             R4 R2
        10 CALL                             R3 1 0
        11 RETURN                           R0 0
@@ -26,8 +26,8 @@ PROTO_2:
         3 MOVE                             R4 R1
         4 MOVE                             R5 R0
         5 CALL                             R2 3 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K4 ["addWaypoint"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K4 ["addWaypoint"]
         9 MOVE                             R4 R2
        10 CALL                             R3 1 0
        11 RETURN                           R0 0
@@ -37,8 +37,8 @@ PROTO_3:
         2 LOADK                            R2 K3 ["T-pose %s"]
         3 MOVE                             R3 R0
         4 CALL                             R1 2 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K4 ["addWaypoint"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K4 ["addWaypoint"]
         8 MOVE                             R3 R1
         9 CALL                             R2 1 0
        10 RETURN                           R0 0
@@ -49,8 +49,8 @@ PROTO_4:
         3 ORK                              R4 R1 K4 ["common"]
         4 ORK                              R5 R0 K5 ["all"]
         5 CALL                             R2 3 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K6 ["addWaypoint"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K6 ["addWaypoint"]
         9 MOVE                             R4 R2
        10 CALL                             R3 1 0
        11 RETURN                           R0 0

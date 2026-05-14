@@ -11,21 +11,21 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         2 JUMPIFNOT                        R2 ; [+5]
-        3 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        5 GETTABLEKS                       R1 R2 K1 ["status"]
+        3 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        5 GETTABLEKS                       R1 R1 K1 ["status"]
         7 JUMP                             ; [+1]
         8 LOADNIL                          R1
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K2 ["Success"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K2 ["Success"]
        12 JUMPIFNOTEQ                      R1 R2 ; [+10]
        14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R4 R0 K0 ["responseBody"]
-       17 GETTABLEKS                       R3 R4 K3 ["bundleId"]
+       15 GETTABLEKS                       R3 R0 K0 ["responseBody"]
+       17 GETTABLEKS                       R3 R3 K3 ["bundleId"]
        19 GETTABLEKS                       R4 R0 K0 ["responseBody"]
        21 CALL                             R2 2 0
        22 RETURN                           R0 0
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R2 R3 K4 ["InProgress"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K4 ["InProgress"]
        26 JUMPIFNOTEQ                      R1 R2 ; [+26]
        28 GETUPVAL                         R2 2
        29 GETUPVAL                         R3 3
@@ -56,8 +56,8 @@ PROTO_1:
        58 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -113,8 +113,8 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["DebugFlags"]
        15 CALL                             R2 1 1

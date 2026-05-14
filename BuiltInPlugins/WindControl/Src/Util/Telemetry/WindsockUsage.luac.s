@@ -1,16 +1,16 @@
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["TelemetryProtocol"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["TelemetryProtocol"]
         9 CALL                             R0 1 1
        10 DUPTABLE                         R1 K12 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
        11 LOADK                            R2 K13 ["windsockUsage"]
        12 SETTABLEKS                       R2 R1 K6 ["eventName"]
        14 NEWTABLE                         R2 0 1
-       16 GETTABLEKS                       R4 R0 K14 ["TelemetryBackends"]
-       18 GETTABLEKS                       R3 R4 K15 ["EventIngest"]
+       16 GETTABLEKS                       R3 R0 K14 ["TelemetryBackends"]
+       18 GETTABLEKS                       R3 R3 K15 ["EventIngest"]
        20 SETLIST                          R2 R3 1 [1]
        22 SETTABLEKS                       R2 R1 K7 ["backends"]
        24 GETTABLEKS                       R2 R0 K16 ["ONE_HUNDRED_PERCENT"]

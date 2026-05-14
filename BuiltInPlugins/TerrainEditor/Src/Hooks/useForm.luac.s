@@ -45,28 +45,28 @@ PROTO_4:
        16 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnToolChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnToolChanged"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 NAMECALL                         R0 R0 K1 ["Connect"]
         7 CALL                             R0 2 1
-        8 GETUPVAL                         R2 2
-        9 GETTABLEKS                       R1 R2 K2 ["OnGizmoChanged"]
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K2 ["OnGizmoChanged"]
        11 NEWCLOSURE                       R3 P1
        12 CAPTURE                          UPVAL U1
        13 CAPTURE                          UPVAL U2
        14 NAMECALL                         R1 R1 K1 ["Connect"]
        16 CALL                             R1 2 1
-       17 GETUPVAL                         R3 2
-       18 GETTABLEKS                       R2 R3 K3 ["OnInternalsChanged"]
+       17 GETUPVAL                         R2 2
+       18 GETTABLEKS                       R2 R2 K3 ["OnInternalsChanged"]
        20 NEWCLOSURE                       R4 P2
        21 CAPTURE                          UPVAL U1
        22 CAPTURE                          UPVAL U2
        23 NAMECALL                         R2 R2 K1 ["Connect"]
        25 CALL                             R2 2 1
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R3 R4 K4 ["OnShortcutChanged"]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K4 ["OnShortcutChanged"]
        29 NEWCLOSURE                       R5 P3
        30 CAPTURE                          UPVAL U1
        31 CAPTURE                          UPVAL U2
@@ -124,8 +124,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useState"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]

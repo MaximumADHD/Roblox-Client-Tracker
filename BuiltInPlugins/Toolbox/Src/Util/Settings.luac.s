@@ -16,8 +16,8 @@ PROTO_1:
         6 MOVE                             R5 R1
         7 NAMECALL                         R3 R3 K1 ["GetSetting"]
         9 CALL                             R3 2 1
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K2 ["shouldLogSettings"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K2 ["shouldLogSettings"]
        13 CALL                             R4 0 1
        14 JUMPIFNOT                        R4 ; [+56]
        15 GETIMPORT                        R4 K4 [print]
@@ -73,8 +73,8 @@ PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["_plugin"]
         2 JUMPIF                           R3 ; [+1]
         3 RETURN                           R0 0
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K1 ["shouldLogSettings"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["shouldLogSettings"]
         7 CALL                             R3 0 1
         8 JUMPIFNOT                        R3 ; [+34]
         9 GETIMPORT                        R3 K3 [print]
@@ -113,9 +113,9 @@ PROTO_2:
 
 PROTO_3:
         0 LOADK                            R3 K0 ["Toolbox_SelectedCategoryName"]
-        1 GETUPVAL                         R6 0
-        2 GETTABLEKS                       R5 R6 K1 ["DEFAULT"]
-        4 GETTABLEKS                       R4 R5 K2 ["name"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K1 ["DEFAULT"]
+        4 GETTABLEKS                       R4 R4 K2 ["name"]
         6 NAMECALL                         R1 R0 K3 ["_getSetting"]
         8 CALL                             R1 3 -1
         9 RETURN                           R1 -1
@@ -194,8 +194,8 @@ PROTO_12:
 
 PROTO_13:
         0 LOADK                            R3 K0 ["Toolbox_LayoutModeKey"]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K1 ["Grid"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K1 ["Grid"]
         4 NAMECALL                         R1 R0 K2 ["_getSetting"]
         6 CALL                             R1 3 -1
         7 RETURN                           R1 -1
@@ -211,8 +211,8 @@ PROTO_14:
         9 RETURN                           R2 -1
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["shouldLogSettings"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["shouldLogSettings"]
         3 CALL                             R2 0 1
         4 JUMPIFNOT                        R2 ; [+4]
         5 GETIMPORT                        R2 K2 [print]
@@ -230,8 +230,8 @@ PROTO_15:
        24 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldLogSettings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldLogSettings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [print]
@@ -241,35 +241,35 @@ PROTO_16:
        11 GETUPVAL                         R2 1
        12 CALL                             R2 0 1
        13 JUMPIFNOT                        R2 ; [+8]
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R3 R4 K4 ["DEFAULT"]
-       17 GETTABLEKS                       R2 R3 K5 ["name"]
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R2 R2 K4 ["DEFAULT"]
+       17 GETTABLEKS                       R2 R2 K5 ["name"]
        19 SETTABLEKS                       R2 R1 K6 ["categoryName"]
        21 JUMP                             ; [+19]
        22 NAMECALL                         R2 R0 K7 ["getSelectedCategoryName"]
        24 CALL                             R2 1 1
        25 SETTABLEKS                       R2 R1 K6 ["categoryName"]
-       27 GETUPVAL                         R3 2
-       28 GETTABLEKS                       R2 R3 K8 ["getCategoryByName"]
+       27 GETUPVAL                         R2 2
+       28 GETTABLEKS                       R2 R2 K8 ["getCategoryByName"]
        30 GETTABLEKS                       R3 R1 K6 ["categoryName"]
        32 CALL                             R2 1 1
        33 JUMPIF                           R2 ; [+7]
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R3 R4 K4 ["DEFAULT"]
-       37 GETTABLEKS                       R2 R3 K5 ["name"]
+       34 GETUPVAL                         R2 2
+       35 GETTABLEKS                       R2 R2 K4 ["DEFAULT"]
+       37 GETTABLEKS                       R2 R2 K5 ["name"]
        39 SETTABLEKS                       R2 R1 K6 ["categoryName"]
        41 GETUPVAL                         R2 3
        42 CALL                             R2 0 1
        43 JUMPIFNOT                        R2 ; [+17]
-       44 GETUPVAL                         R3 2
-       45 GETTABLEKS                       R2 R3 K9 ["MARKETPLACE_KEY"]
+       44 GETUPVAL                         R2 2
+       45 GETTABLEKS                       R2 R2 K9 ["MARKETPLACE_KEY"]
        47 SETTABLEKS                       R2 R1 K10 ["tab"]
-       49 GETUPVAL                         R4 2
-       50 GETTABLEKS                       R3 R4 K4 ["DEFAULT"]
-       52 GETTABLEKS                       R2 R3 K5 ["name"]
+       49 GETUPVAL                         R2 2
+       50 GETTABLEKS                       R2 R2 K4 ["DEFAULT"]
+       52 GETTABLEKS                       R2 R2 K5 ["name"]
        54 SETTABLEKS                       R2 R1 K6 ["categoryName"]
-       56 GETUPVAL                         R3 2
-       57 GETTABLEKS                       R2 R3 K11 ["CREATOR_ROBLOX"]
+       56 GETUPVAL                         R2 2
+       57 GETTABLEKS                       R2 R2 K11 ["CREATOR_ROBLOX"]
        59 SETTABLEKS                       R2 R1 K12 ["creator"]
        61 NAMECALL                         R2 R0 K13 ["getSelectedSearchTerm"]
        63 CALL                             R2 1 1
@@ -277,14 +277,14 @@ PROTO_16:
        66 NAMECALL                         R2 R0 K15 ["getSelectedSortIndex"]
        68 CALL                             R2 1 1
        69 SETTABLEKS                       R2 R1 K16 ["sortIndex"]
-       71 GETUPVAL                         R3 4
-       72 GETTABLEKS                       R2 R3 K17 ["canSort"]
+       71 GETUPVAL                         R2 4
+       72 GETTABLEKS                       R2 R2 K17 ["canSort"]
        74 GETTABLEKS                       R3 R1 K14 ["searchTerm"]
        76 GETTABLEKS                       R4 R1 K6 ["categoryName"]
        78 CALL                             R2 2 1
        79 JUMPIF                           R2 ; [+8]
-       80 GETUPVAL                         R3 4
-       81 GETTABLEKS                       R2 R3 K18 ["getDefaultSortForCategory"]
+       80 GETUPVAL                         R2 4
+       81 GETTABLEKS                       R2 R2 K18 ["getDefaultSortForCategory"]
        83 GETTABLEKS                       R3 R1 K6 ["categoryName"]
        85 CALL                             R2 1 1
        86 SETTABLEKS                       R2 R1 K16 ["sortIndex"]
@@ -292,49 +292,49 @@ PROTO_16:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Types"]
-       24 GETTABLEKS                       R3 R4 K9 ["Category"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Types"]
+       24 GETTABLEKS                       R3 R3 K9 ["Category"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K8 ["Types"]
-       33 GETTABLEKS                       R4 R5 K10 ["Sort"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K8 ["Types"]
+       33 GETTABLEKS                       R4 R4 K10 ["Sort"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K5 ["Src"]
-       40 GETTABLEKS                       R6 R7 K8 ["Types"]
-       42 GETTABLEKS                       R5 R6 K11 ["LayoutMode"]
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R5 R5 K8 ["Types"]
+       42 GETTABLEKS                       R5 R5 K11 ["LayoutMode"]
        44 CALL                             R4 1 1
        45 NEWTABLE                         R5 32 0
        47 SETTABLEKS                       R5 R5 K12 ["__index"]
-       49 GETIMPORT                        R7 K4 [require]
-       51 GETTABLEKS                       R10 R0 K5 ["Src"]
-       53 GETTABLEKS                       R9 R10 K6 ["Util"]
-       55 GETTABLEKS                       R8 R9 K13 ["ToolboxUtilities"]
-       57 CALL                             R7 1 1
-       58 GETTABLEKS                       R6 R7 K14 ["disableMarketplaceAndRecents"]
-       60 GETIMPORT                        R8 K4 [require]
-       62 GETTABLEKS                       R11 R0 K5 ["Src"]
-       64 GETTABLEKS                       R10 R11 K6 ["Util"]
-       66 GETTABLEKS                       R9 R10 K13 ["ToolboxUtilities"]
-       68 CALL                             R8 1 1
-       69 GETTABLEKS                       R7 R8 K15 ["showRobloxCreatedAssets"]
+       49 GETIMPORT                        R6 K4 [require]
+       51 GETTABLEKS                       R7 R0 K5 ["Src"]
+       53 GETTABLEKS                       R7 R7 K6 ["Util"]
+       55 GETTABLEKS                       R7 R7 K13 ["ToolboxUtilities"]
+       57 CALL                             R6 1 1
+       58 GETTABLEKS                       R6 R6 K14 ["disableMarketplaceAndRecents"]
+       60 GETIMPORT                        R7 K4 [require]
+       62 GETTABLEKS                       R8 R0 K5 ["Src"]
+       64 GETTABLEKS                       R8 R8 K6 ["Util"]
+       66 GETTABLEKS                       R8 R8 K13 ["ToolboxUtilities"]
+       68 CALL                             R7 1 1
+       69 GETTABLEKS                       R7 R7 K15 ["showRobloxCreatedAssets"]
        71 GETIMPORT                        R8 K4 [require]
-       73 GETTABLEKS                       R12 R0 K5 ["Src"]
-       75 GETTABLEKS                       R11 R12 K6 ["Util"]
-       77 GETTABLEKS                       R10 R11 K16 ["SharedFlags"]
-       79 GETTABLEKS                       R9 R10 K17 ["getFFlagToolboxEnableAssetRows"]
+       73 GETTABLEKS                       R9 R0 K5 ["Src"]
+       75 GETTABLEKS                       R9 R9 K6 ["Util"]
+       77 GETTABLEKS                       R9 R9 K16 ["SharedFlags"]
+       79 GETTABLEKS                       R9 R9 K17 ["getFFlagToolboxEnableAssetRows"]
        81 CALL                             R8 1 1
        82 DUPCLOSURE                       R9 K18 [PROTO_0]
        83 CAPTURE                          VAL R5

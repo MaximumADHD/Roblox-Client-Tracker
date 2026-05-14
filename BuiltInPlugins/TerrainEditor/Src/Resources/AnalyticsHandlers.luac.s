@@ -4,8 +4,8 @@ PROTO_0:
         2 NAMECALL                         R3 R3 K4 ["GetSessionId"]
         4 CALL                             R3 1 1
         5 SETTABLEKS                       R3 R2 K0 ["studioSid"]
-        7 GETIMPORT                        R4 K6 [game]
-        9 GETTABLEKS                       R3 R4 K7 ["PlaceId"]
+        7 GETIMPORT                        R3 K6 [game]
+        9 GETTABLEKS                       R3 R3 K7 ["PlaceId"]
        11 SETTABLEKS                       R3 R2 K1 ["placeId"]
        13 GETUPVAL                         R3 1
        14 NAMECALL                         R3 R3 K8 ["GetUserId"]
@@ -18,8 +18,8 @@ PROTO_0:
        23 CALL                             R4 2 -1
        24 CALL                             R3 -1 1
        25 MOVE                             R1 R3
-       26 GETUPVAL                         R4 4
-       27 GETTABLEKS                       R3 R4 K9 ["LogAnalytics"]
+       26 GETUPVAL                         R3 4
+       27 GETTABLEKS                       R3 R3 K9 ["LogAnalytics"]
        29 CALL                             R3 0 1
        30 JUMPIFNOT                        R3 ; [+18]
        31 GETIMPORT                        R3 K11 [print]
@@ -47,8 +47,8 @@ PROTO_0:
 
 PROTO_1:
         0 ORK                              R1 R1 K0 [1]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K1 ["LogAnalytics"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K1 ["LogAnalytics"]
         4 CALL                             R2 0 1
         5 JUMPIFNOT                        R2 ; [+10]
         6 GETIMPORT                        R2 K3 [print]
@@ -67,8 +67,8 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["LogAnalytics"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["LogAnalytics"]
         3 CALL                             R2 0 1
         4 JUMPIFNOT                        R2 ; [+10]
         5 GETIMPORT                        R2 K2 [print]
@@ -94,8 +94,8 @@ PROTO_3:
         5 MOVE                             R3 R4
         6 MOVE                             R4 R2
         7 ORK                              R4 R4 K2 [1]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K3 ["LogAnalytics"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K3 ["LogAnalytics"]
        11 CALL                             R5 0 1
        12 JUMPIFNOT                        R5 ; [+10]
        13 GETIMPORT                        R5 K5 [print]
@@ -121,8 +121,8 @@ PROTO_4:
         5 MOVE                             R3 R4
         6 MOVE                             R4 R2
         7 ORK                              R4 R4 K2 [1]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K3 ["LogAnalytics"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K3 ["LogAnalytics"]
        11 CALL                             R5 0 1
        12 JUMPIFNOT                        R5 ; [+10]
        13 GETIMPORT                        R5 K5 [print]
@@ -146,8 +146,8 @@ PROTO_5:
         2 NAMECALL                         R4 R4 K1 ["format"]
         4 CALL                             R4 2 1
         5 MOVE                             R3 R4
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K2 ["LogAnalytics"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K2 ["LogAnalytics"]
         9 CALL                             R4 0 1
        10 JUMPIFNOT                        R4 ; [+10]
        11 GETIMPORT                        R4 K4 [print]
@@ -231,12 +231,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["join"]
-       16 GETTABLEKS                       R4 R0 K9 ["Src"]
-       18 GETTABLEKS                       R3 R4 K10 ["Util"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Util"]
        20 GETIMPORT                        R4 K5 [require]
        22 GETTABLEKS                       R5 R3 K11 ["ConvertForAnalytics"]
        24 CALL                             R4 1 1
@@ -244,8 +244,8 @@ MAIN:
        27 GETTABLEKS                       R6 R3 K12 ["DebugFlags"]
        29 CALL                             R5 1 1
        30 GETIMPORT                        R6 K5 [require]
-       32 GETTABLEKS                       R8 R0 K9 ["Src"]
-       34 GETTABLEKS                       R7 R8 K13 ["Types"]
+       32 GETTABLEKS                       R7 R0 K9 ["Src"]
+       34 GETTABLEKS                       R7 R7 K13 ["Types"]
        36 CALL                             R6 1 1
        37 GETIMPORT                        R7 K15 [game]
        39 LOADK                            R9 K16 ["HttpService"]

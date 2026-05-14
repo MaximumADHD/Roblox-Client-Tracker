@@ -4,8 +4,8 @@ PROTO_0:
         2 GETIMPORT                        R1 K1 [tonumber]
         4 CALL                             R1 1 1
         5 JUMPIFNOT                        R1 ; [+7]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R2 R5 K2 ["BaseUrl"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["BaseUrl"]
         9 LOADK                            R3 K3 ["asset/?id="]
        10 MOVE                             R4 R0
        11 CONCAT                           R1 R2 R4
@@ -80,8 +80,8 @@ PROTO_4:
        10 JUMPIFNOT                        R7 ; [+11]
        11 GETTABLEKS                       R8 R7 K3 ["TextureID"]
        13 JUMPIFEQKS                       R8 K4 [""] ; [+8]
-       15 GETUPVAL                         R9 1
-       16 GETTABLEKS                       R8 R9 K5 ["RemoveAssetUrlFromText"]
+       15 GETUPVAL                         R8 1
+       16 GETTABLEKS                       R8 R8 K5 ["RemoveAssetUrlFromText"]
        18 GETTABLEKS                       R9 R7 K3 ["TextureID"]
        20 CALL                             R8 1 -1
        21 RETURN                           R8 -1
@@ -111,8 +111,8 @@ PROTO_5:
 PROTO_6:
         0 LOADB                            R1 0
         1 JUMPIFEQKS                       R0 K0 [""] ; [+8]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["DEFAULT_FACE_TEXTURE"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["DEFAULT_FACE_TEXTURE"]
         6 JUMPIFNOTEQ                      R0 R2 ; [+2]
         8 LOADB                            R1 0 +1
         9 LOADB                            R1 1
@@ -131,8 +131,8 @@ PROTO_7:
        11 GETTABLEKS                       R5 R3 K3 ["Texture"]
        13 LOADB                            R4 0
        14 JUMPIFEQKS                       R5 K4 [""] ; [+8]
-       16 GETUPVAL                         R7 0
-       17 GETTABLEKS                       R6 R7 K5 ["DEFAULT_FACE_TEXTURE"]
+       16 GETUPVAL                         R6 0
+       17 GETTABLEKS                       R6 R6 K5 ["DEFAULT_FACE_TEXTURE"]
        19 JUMPIFNOTEQ                      R5 R6 ; [+2]
        21 LOADB                            R4 0 +1
        22 LOADB                            R4 1
@@ -159,8 +159,8 @@ PROTO_7:
        50 GETTABLEKS                       R5 R3 K3 ["Texture"]
        52 LOADB                            R4 0
        53 JUMPIFEQKS                       R5 K4 [""] ; [+8]
-       55 GETUPVAL                         R7 0
-       56 GETTABLEKS                       R6 R7 K5 ["DEFAULT_FACE_TEXTURE"]
+       55 GETUPVAL                         R6 0
+       56 GETTABLEKS                       R6 R6 K5 ["DEFAULT_FACE_TEXTURE"]
        58 JUMPIFNOTEQ                      R5 R6 ; [+2]
        60 LOADB                            R4 0 +1
        61 LOADB                            R4 1
@@ -180,8 +180,8 @@ PROTO_8:
         8 NAMECALL                         R7 R6 K4 ["IsA"]
        10 CALL                             R7 2 1
        11 JUMPIFNOT                        R7 ; [+36]
-       12 GETTABLEKS                       R8 R6 K5 ["BodyPart"]
-       14 GETTABLEKS                       R7 R8 K6 ["Name"]
+       12 GETTABLEKS                       R7 R6 K5 ["BodyPart"]
+       14 GETTABLEKS                       R7 R7 K6 ["Name"]
        16 JUMPIFNOTEQ                      R7 R1 ; [+31]
        18 GETTABLEKS                       R8 R6 K7 ["MeshId"]
        20 FASTCALL1                        TYPEOF R8 ; [+3]
@@ -234,8 +234,8 @@ PROTO_8:
        85 JUMP                             ; [+1]
        86 LOADNIL                          R8
        87 JUMPIFNOT                        R8 ; [+7]
-       88 GETUPVAL                         R9 0
-       89 GETTABLEKS                       R8 R9 K17 ["RemoveAssetUrlFromText"]
+       88 GETUPVAL                         R8 0
+       89 GETTABLEKS                       R8 R8 K17 ["RemoveAssetUrlFromText"]
        91 GETTABLEKS                       R9 R7 K7 ["MeshId"]
        93 CALL                             R8 1 -1
        94 RETURN                           R8 -1
@@ -291,8 +291,8 @@ PROTO_10:
        12 GETIMPORT                        R10 K4 [tonumber]
        14 CALL                             R10 1 1
        15 JUMPIFNOT                        R10 ; [+7]
-       16 GETUPVAL                         R13 0
-       17 GETTABLEKS                       R10 R13 K5 ["BaseUrl"]
+       16 GETUPVAL                         R10 0
+       17 GETTABLEKS                       R10 R10 K5 ["BaseUrl"]
        19 LOADK                            R11 K6 ["asset/?id="]
        20 MOVE                             R12 R2
        21 CONCAT                           R9 R10 R12
@@ -403,8 +403,8 @@ PROTO_15:
        33 SETTABLEKS                       R1 R8 K15 ["Parent"]
        35 SETTABLEKS                       R7 R8 K16 ["MeshId"]
        37 FORGLOOP                         R2 2 ; [-29]
-       39 GETIMPORT                        R3 K10 [Enum.BodyPart.Head]
-       41 GETTABLEKS                       R2 R3 K6 ["Name"]
+       39 GETIMPORT                        R2 K10 [Enum.BodyPart.Head]
+       41 GETTABLEKS                       R2 R2 K6 ["Name"]
        43 GETUPVAL                         R3 1
        44 MOVE                             R4 R2
        45 MOVE                             R5 R1
@@ -424,8 +424,8 @@ PROTO_15:
        61 GETIMPORT                        R7 K8 [tonumber]
        63 CALL                             R7 1 1
        64 JUMPIFNOT                        R7 ; [+7]
-       65 GETUPVAL                         R10 2
-       66 GETTABLEKS                       R7 R10 K19 ["BaseUrl"]
+       65 GETUPVAL                         R7 2
+       66 GETTABLEKS                       R7 R7 K19 ["BaseUrl"]
        68 LOADK                            R8 K20 ["asset/?id="]
        69 MOVE                             R9 R4
        70 CONCAT                           R6 R7 R9
@@ -487,8 +487,8 @@ PROTO_17:
        34 GETIMPORT                        R5 K14 [tonumber]
        36 CALL                             R5 1 1
        37 JUMPIFNOT                        R5 ; [+7]
-       38 GETUPVAL                         R8 0
-       39 GETTABLEKS                       R5 R8 K15 ["BaseUrl"]
+       38 GETUPVAL                         R5 0
+       39 GETTABLEKS                       R5 R5 K15 ["BaseUrl"]
        41 LOADK                            R6 K16 ["asset/?id="]
        42 MOVE                             R7 R0
        43 CONCAT                           R4 R5 R7
@@ -498,11 +498,11 @@ PROTO_17:
        48 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Create"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Create"]
         3 CALL                             R2 0 1
-        4 GETTABLEKS                       R4 R0 K1 ["HumanoidRootPart"]
-        6 GETTABLEKS                       R3 R4 K2 ["CFrame"]
+        4 GETTABLEKS                       R3 R0 K1 ["HumanoidRootPart"]
+        6 GETTABLEKS                       R3 R3 K2 ["CFrame"]
         8 GETTABLEKS                       R4 R2 K1 ["HumanoidRootPart"]
        10 GETTABLEKS                       R7 R3 K4 ["rightVector"]
        12 MULK                             R6 R7 K3 [5]
@@ -518,9 +518,9 @@ PROTO_19:
         4 JUMPIFNOT                        R1 ; [+3]
         5 GETTABLEKS                       R2 R1 K2 ["Value"]
         7 RETURN                           R2 1
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K3 ["AVATAR_PART_SCALE_TYPE"]
-       11 GETTABLEKS                       R2 R3 K4 ["PROPORTIONS_CLASSIC"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K3 ["AVATAR_PART_SCALE_TYPE"]
+       11 GETTABLEKS                       R2 R2 K4 ["PROPORTIONS_CLASSIC"]
        13 RETURN                           R2 1
 
 PROTO_20:
@@ -531,29 +531,29 @@ PROTO_20:
         6 JUMPIFNOT                        R3 ; [+3]
         7 GETTABLEKS                       R1 R3 K3 ["Value"]
         9 JUMP                             ; [+5]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K4 ["AVATAR_PART_SCALE_TYPE"]
-       13 GETTABLEKS                       R1 R4 K5 ["PROPORTIONS_CLASSIC"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K4 ["AVATAR_PART_SCALE_TYPE"]
-       18 GETTABLEKS                       R2 R3 K6 ["PROPORTIONS_NORMAL"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K4 ["AVATAR_PART_SCALE_TYPE"]
+       13 GETTABLEKS                       R1 R1 K5 ["PROPORTIONS_CLASSIC"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K4 ["AVATAR_PART_SCALE_TYPE"]
+       18 GETTABLEKS                       R2 R2 K6 ["PROPORTIONS_NORMAL"]
        20 JUMPIFNOTEQ                      R1 R2 ; [+8]
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K7 ["AnthroNormalFixedRigAttachmentMap"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K7 ["AnthroNormalFixedRigAttachmentMap"]
        25 GETTABLEKS                       R4 R0 K8 ["Name"]
        27 GETTABLE                         R2 R3 R4
        28 RETURN                           R2 1
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K4 ["AVATAR_PART_SCALE_TYPE"]
-       32 GETTABLEKS                       R2 R3 K9 ["PROPORTIONS_SLENDER"]
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K4 ["AVATAR_PART_SCALE_TYPE"]
+       32 GETTABLEKS                       R2 R2 K9 ["PROPORTIONS_SLENDER"]
        34 JUMPIFNOTEQ                      R1 R2 ; [+8]
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R3 R4 K10 ["AnthroSlenderFixedRigAttachmentMap"]
+       36 GETUPVAL                         R3 1
+       37 GETTABLEKS                       R3 R3 K10 ["AnthroSlenderFixedRigAttachmentMap"]
        39 GETTABLEKS                       R4 R0 K8 ["Name"]
        41 GETTABLE                         R2 R3 R4
        42 RETURN                           R2 1
-       43 GETUPVAL                         R4 1
-       44 GETTABLEKS                       R3 R4 K11 ["R15FixedRigAttachmentMap"]
+       43 GETUPVAL                         R3 1
+       44 GETTABLEKS                       R3 R3 K11 ["R15FixedRigAttachmentMap"]
        46 GETTABLEKS                       R4 R0 K8 ["Name"]
        48 GETTABLE                         R2 R3 R4
        49 RETURN                           R2 1
@@ -577,29 +577,29 @@ PROTO_21:
        20 JUMPIFNOT                        R5 ; [+3]
        21 GETTABLEKS                       R3 R5 K7 ["Value"]
        23 JUMP                             ; [+5]
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R6 R7 K8 ["AVATAR_PART_SCALE_TYPE"]
-       27 GETTABLEKS                       R3 R6 K9 ["PROPORTIONS_CLASSIC"]
-       29 GETUPVAL                         R6 0
-       30 GETTABLEKS                       R5 R6 K8 ["AVATAR_PART_SCALE_TYPE"]
-       32 GETTABLEKS                       R4 R5 K10 ["PROPORTIONS_NORMAL"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K8 ["AVATAR_PART_SCALE_TYPE"]
+       27 GETTABLEKS                       R3 R3 K9 ["PROPORTIONS_CLASSIC"]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K8 ["AVATAR_PART_SCALE_TYPE"]
+       32 GETTABLEKS                       R4 R4 K10 ["PROPORTIONS_NORMAL"]
        34 JUMPIFNOTEQ                      R3 R4 ; [+8]
-       36 GETUPVAL                         R5 1
-       37 GETTABLEKS                       R4 R5 K11 ["AnthroNormalFixedRigAttachmentMap"]
+       36 GETUPVAL                         R4 1
+       37 GETTABLEKS                       R4 R4 K11 ["AnthroNormalFixedRigAttachmentMap"]
        39 GETTABLEKS                       R5 R1 K12 ["Name"]
        41 GETTABLE                         R2 R4 R5
        42 JUMP                             ; [+20]
-       43 GETUPVAL                         R6 0
-       44 GETTABLEKS                       R5 R6 K8 ["AVATAR_PART_SCALE_TYPE"]
-       46 GETTABLEKS                       R4 R5 K13 ["PROPORTIONS_SLENDER"]
+       43 GETUPVAL                         R4 0
+       44 GETTABLEKS                       R4 R4 K8 ["AVATAR_PART_SCALE_TYPE"]
+       46 GETTABLEKS                       R4 R4 K13 ["PROPORTIONS_SLENDER"]
        48 JUMPIFNOTEQ                      R3 R4 ; [+8]
-       50 GETUPVAL                         R5 1
-       51 GETTABLEKS                       R4 R5 K14 ["AnthroSlenderFixedRigAttachmentMap"]
+       50 GETUPVAL                         R4 1
+       51 GETTABLEKS                       R4 R4 K14 ["AnthroSlenderFixedRigAttachmentMap"]
        53 GETTABLEKS                       R5 R1 K12 ["Name"]
        55 GETTABLE                         R2 R4 R5
        56 JUMP                             ; [+6]
-       57 GETUPVAL                         R5 1
-       58 GETTABLEKS                       R4 R5 K15 ["R15FixedRigAttachmentMap"]
+       57 GETUPVAL                         R4 1
+       58 GETTABLEKS                       R4 R4 K15 ["R15FixedRigAttachmentMap"]
        60 GETTABLEKS                       R5 R1 K12 ["Name"]
        62 GETTABLE                         R2 R4 R5
        63 JUMPIFNOT                        R2 ; [+27]
@@ -656,15 +656,15 @@ PROTO_22:
 PROTO_23:
         0 NAMECALL                         R2 R0 K0 ["Clone"]
         2 CALL                             R2 1 1
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["R15_FIXED_FOLDER_NAME"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["R15_FIXED_FOLDER_NAME"]
         6 SETTABLEKS                       R3 R2 K2 ["Name"]
         8 GETUPVAL                         R3 1
         9 MOVE                             R4 R2
        10 CALL                             R3 1 0
        11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R5 R2 K3 ["HumanoidRootPart"]
-       14 GETTABLEKS                       R4 R5 K4 ["RootRigAttachment"]
+       12 GETTABLEKS                       R4 R2 K3 ["HumanoidRootPart"]
+       14 GETTABLEKS                       R4 R4 K4 ["RootRigAttachment"]
        16 MOVE                             R5 R2
        17 CALL                             R3 2 0
        18 LOADK                            R5 K5 ["Humanoid"]
@@ -675,8 +675,8 @@ PROTO_23:
        25 SETTABLEKS                       R4 R3 K8 ["NameOcclusion"]
        27 NAMECALL                         R4 R3 K11 ["BuildRigFromAttachments"]
        29 CALL                             R4 1 0
-       30 GETTABLEKS                       R5 R0 K3 ["HumanoidRootPart"]
-       32 GETTABLEKS                       R4 R5 K12 ["CFrame"]
+       30 GETTABLEKS                       R4 R0 K3 ["HumanoidRootPart"]
+       32 GETTABLEKS                       R4 R4 K12 ["CFrame"]
        34 GETTABLEKS                       R5 R2 K3 ["HumanoidRootPart"]
        36 GETTABLEKS                       R8 R4 K14 ["rightVector"]
        38 MULK                             R7 R8 K13 [-5]
@@ -693,8 +693,8 @@ PROTO_24:
         7 CALL                             R1 -1 3
         8 FORGPREP_NEXT                    R1
         9 GETTABLEKS                       R6 R5 K5 ["Name"]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K6 ["IMPORTED_RIGS_MODEL_NAME"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K6 ["IMPORTED_RIGS_MODEL_NAME"]
        14 JUMPIFNOTEQ                      R6 R7 ; [+4]
        16 NAMECALL                         R6 R5 K7 ["Destroy"]
        18 CALL                             R6 1 0
@@ -702,18 +702,18 @@ PROTO_24:
        21 GETIMPORT                        R1 K10 [Instance.new]
        23 LOADK                            R2 K11 ["Model"]
        24 CALL                             R1 1 1
-       25 GETUPVAL                         R3 0
-       26 GETTABLEKS                       R2 R3 K6 ["IMPORTED_RIGS_MODEL_NAME"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K6 ["IMPORTED_RIGS_MODEL_NAME"]
        28 SETTABLEKS                       R2 R1 K5 ["Name"]
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K12 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R2 R2 K12 ["R15_ARTIST_INTENT_FOLDER_NAME"]
        33 SETTABLEKS                       R2 R0 K5 ["Name"]
        35 SETTABLEKS                       R1 R0 K13 ["Parent"]
-       37 GETUPVAL                         R3 1
-       38 GETTABLEKS                       R2 R3 K14 ["Create"]
+       37 GETUPVAL                         R2 1
+       38 GETTABLEKS                       R2 R2 K14 ["Create"]
        40 CALL                             R2 0 1
-       41 GETTABLEKS                       R4 R0 K15 ["HumanoidRootPart"]
-       43 GETTABLEKS                       R3 R4 K16 ["CFrame"]
+       41 GETTABLEKS                       R3 R0 K15 ["HumanoidRootPart"]
+       43 GETTABLEKS                       R3 R3 K16 ["CFrame"]
        45 GETTABLEKS                       R4 R2 K15 ["HumanoidRootPart"]
        47 GETTABLEKS                       R7 R3 K18 ["rightVector"]
        49 MULK                             R6 R7 K17 [5]
@@ -730,15 +730,15 @@ PROTO_24:
 
 PROTO_25:
         0 GETIMPORT                        R0 K1 [workspace]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K2 ["IMPORTED_RIGS_MODEL_NAME"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["IMPORTED_RIGS_MODEL_NAME"]
         5 NAMECALL                         R0 R0 K3 ["FindFirstChild"]
         7 CALL                             R0 2 1
         8 RETURN                           R0 1
 
 PROTO_26:
-        0 GETTABLEKS                       R4 R0 K0 ["HumanoidRootPart"]
-        2 GETTABLEKS                       R3 R4 K1 ["Position"]
+        0 GETTABLEKS                       R3 R0 K0 ["HumanoidRootPart"]
+        2 GETTABLEKS                       R3 R3 K1 ["Position"]
         4 MOVE                             R6 R1
         5 NAMECALL                         R4 R0 K2 ["FindFirstChild"]
         7 CALL                             R4 2 1
@@ -768,8 +768,8 @@ PROTO_27:
        13 LOADK                            R10 K6 [""]
        14 NAMECALL                         R7 R1 K7 ["gsub"]
        16 CALL                             R7 3 1
-       17 GETTABLEKS                       R9 R6 K8 ["BodyPart"]
-       19 GETTABLEKS                       R8 R9 K9 ["Name"]
+       17 GETTABLEKS                       R8 R6 K8 ["BodyPart"]
+       19 GETTABLEKS                       R8 R8 K9 ["Name"]
        21 JUMPIFNOTEQ                      R8 R7 ; [+5]
        23 NAMECALL                         R8 R6 K10 ["Clone"]
        25 CALL                             R8 1 -1
@@ -782,18 +782,18 @@ PROTO_28:
         1 NAMECALL                         R0 R0 K0 ["ClearAllChildren"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 1
-        5 GETUPVAL                         R3 2
-        6 GETTABLEKS                       R2 R3 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+        5 GETUPVAL                         R2 2
+        6 GETTABLEKS                       R2 R2 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
         8 NAMECALL                         R0 R0 K2 ["FindFirstChild"]
        10 CALL                             R0 2 1
        11 GETUPVAL                         R1 1
-       12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R3 R4 K3 ["R15_FIXED_FOLDER_NAME"]
+       12 GETUPVAL                         R3 2
+       13 GETTABLEKS                       R3 R3 K3 ["R15_FIXED_FOLDER_NAME"]
        15 NAMECALL                         R1 R1 K2 ["FindFirstChild"]
        17 CALL                             R1 2 1
        18 GETUPVAL                         R2 1
-       19 GETUPVAL                         R5 2
-       20 GETTABLEKS                       R4 R5 K4 ["R6_FOLDER_NAME"]
+       19 GETUPVAL                         R4 2
+       20 GETTABLEKS                       R4 R4 K4 ["R6_FOLDER_NAME"]
        22 NAMECALL                         R2 R2 K2 ["FindFirstChild"]
        24 CALL                             R2 2 1
        25 JUMPIFNOT                        R0 ; [+2]
@@ -813,22 +813,22 @@ PROTO_28:
        43 LOADK                            R10 K10 ["Folder"]
        44 MOVE                             R11 R8
        45 CALL                             R9 2 1
-       46 GETUPVAL                         R11 2
-       47 GETTABLEKS                       R10 R11 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+       46 GETUPVAL                         R10 2
+       47 GETTABLEKS                       R10 R10 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
        49 SETTABLEKS                       R10 R9 K11 ["Name"]
        51 GETIMPORT                        R10 K9 [Instance.new]
        53 LOADK                            R11 K10 ["Folder"]
        54 MOVE                             R12 R8
        55 CALL                             R10 2 1
-       56 GETUPVAL                         R12 2
-       57 GETTABLEKS                       R11 R12 K3 ["R15_FIXED_FOLDER_NAME"]
+       56 GETUPVAL                         R11 2
+       57 GETTABLEKS                       R11 R11 K3 ["R15_FIXED_FOLDER_NAME"]
        59 SETTABLEKS                       R11 R10 K11 ["Name"]
        61 GETIMPORT                        R11 K6 [pairs]
        63 MOVE                             R12 R7
        64 CALL                             R11 1 3
        65 FORGPREP_NEXT                    R11
-       66 GETTABLEKS                       R17 R0 K12 ["HumanoidRootPart"]
-       68 GETTABLEKS                       R16 R17 K13 ["Position"]
+       66 GETTABLEKS                       R16 R0 K12 ["HumanoidRootPart"]
+       68 GETTABLEKS                       R16 R16 K13 ["Position"]
        70 MOVE                             R19 R15
        71 NAMECALL                         R17 R0 K2 ["FindFirstChild"]
        73 CALL                             R17 2 1
@@ -842,8 +842,8 @@ PROTO_28:
        84 SUB                              R19 R20 R16
        85 SETTABLEKS                       R19 R18 K15 ["CFrame"]
        87 SETTABLEKS                       R9 R18 K17 ["Parent"]
-       89 GETTABLEKS                       R17 R1 K12 ["HumanoidRootPart"]
-       91 GETTABLEKS                       R16 R17 K13 ["Position"]
+       89 GETTABLEKS                       R16 R1 K12 ["HumanoidRootPart"]
+       91 GETTABLEKS                       R16 R16 K13 ["Position"]
        93 MOVE                             R19 R15
        94 NAMECALL                         R17 R1 K2 ["FindFirstChild"]
        96 CALL                             R17 2 1
@@ -864,8 +864,8 @@ PROTO_28:
       118 CALL                             R11 2 1
       119 LOADK                            R12 K18 ["R6"]
       120 SETTABLEKS                       R12 R11 K11 ["Name"]
-      122 GETIMPORT                        R13 K22 [Enum.BodyPart.Head]
-      124 GETTABLEKS                       R12 R13 K11 ["Name"]
+      122 GETIMPORT                        R12 K22 [Enum.BodyPart.Head]
+      124 GETTABLEKS                       R12 R12 K11 ["Name"]
       126 JUMPIFNOTEQ                      R6 R12 ; [+67]
       128 GETUPVAL                         R13 4
       129 MOVE                             R14 R12
@@ -928,8 +928,8 @@ PROTO_28:
 PROTO_29:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+16]
-        2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R0 R1 K0 ["Parent"]
+        2 GETUPVAL                         R0 0
+        3 GETTABLEKS                       R0 R0 K0 ["Parent"]
         5 JUMPIFEQKNIL                     R0 ; [+12]
         7 GETUPVAL                         R0 1
         8 JUMPIFNOT                        R0 ; [+4]
@@ -987,8 +987,8 @@ PROTO_34:
         6 CALL                             R1 -1 3
         7 FORGPREP_NEXT                    R1
         8 GETTABLEKS                       R6 R5 K3 ["Name"]
-       10 GETUPVAL                         R8 1
-       11 GETTABLEKS                       R7 R8 K4 ["PACKAGE_EXPORT_MODEL_NAME"]
+       10 GETUPVAL                         R7 1
+       11 GETTABLEKS                       R7 R7 K4 ["PACKAGE_EXPORT_MODEL_NAME"]
        13 JUMPIFNOTEQ                      R6 R7 ; [+4]
        15 NAMECALL                         R6 R5 K5 ["Destroy"]
        17 CALL                             R6 1 0
@@ -996,8 +996,8 @@ PROTO_34:
        20 GETIMPORT                        R1 K8 [Instance.new]
        22 LOADK                            R2 K9 ["Model"]
        23 CALL                             R1 1 1
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R2 R3 K4 ["PACKAGE_EXPORT_MODEL_NAME"]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K4 ["PACKAGE_EXPORT_MODEL_NAME"]
        27 SETTABLEKS                       R2 R1 K3 ["Name"]
        29 GETUPVAL                         R2 0
        30 SETTABLEKS                       R2 R1 K10 ["Parent"]
@@ -1023,8 +1023,8 @@ PROTO_34:
        52 MOVE                             R5 R4
        53 MOVE                             R6 R0
        54 CALL                             R5 1 0
-       55 GETUPVAL                         R8 1
-       56 GETTABLEKS                       R7 R8 K13 ["R6_FOLDER_NAME"]
+       55 GETUPVAL                         R7 1
+       56 GETTABLEKS                       R7 R7 K13 ["R6_FOLDER_NAME"]
        58 NAMECALL                         R5 R0 K14 ["FindFirstChild"]
        60 CALL                             R5 2 1
        61 JUMPIFNOT                        R5 ; [+15]
@@ -1044,8 +1044,8 @@ PROTO_34:
 
 PROTO_35:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["PACKAGE_EXPORT_MODEL_NAME"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["PACKAGE_EXPORT_MODEL_NAME"]
         4 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
         6 CALL                             R1 2 1
         7 JUMPIF                           R1 ; [+1]
@@ -1067,8 +1067,8 @@ PROTO_35:
        30 CALL                             R8 2 1
        31 JUMPIFNOT                        R8 ; [+1]
        32 MOVE                             R6 R8
-       33 GETIMPORT                        R9 K10 [game]
-       35 GETTABLEKS                       R8 R9 K11 ["Selection"]
+       33 GETIMPORT                        R8 K10 [game]
+       35 GETTABLEKS                       R8 R8 K11 ["Selection"]
        37 NAMECALL                         R10 R6 K4 ["GetChildren"]
        39 CALL                             R10 1 -1
        40 NAMECALL                         R8 R8 K12 ["Set"]
@@ -1095,19 +1095,19 @@ MAIN:
        18 NAMECALL                         R3 R3 K3 ["GetService"]
        20 CALL                             R3 2 1
        21 GETIMPORT                        R4 K7 [require]
-       23 GETIMPORT                        R7 K9 [script]
-       25 GETTABLEKS                       R6 R7 K10 ["Parent"]
-       27 GETTABLEKS                       R5 R6 K11 ["Constants"]
+       23 GETIMPORT                        R5 K9 [script]
+       25 GETTABLEKS                       R5 R5 K10 ["Parent"]
+       27 GETTABLEKS                       R5 R5 K11 ["Constants"]
        29 CALL                             R4 1 1
        30 GETIMPORT                        R5 K7 [require]
-       32 GETIMPORT                        R8 K9 [script]
-       34 GETTABLEKS                       R7 R8 K10 ["Parent"]
-       36 GETTABLEKS                       R6 R7 K12 ["FixedRigPositions"]
+       32 GETIMPORT                        R6 K9 [script]
+       34 GETTABLEKS                       R6 R6 K10 ["Parent"]
+       36 GETTABLEKS                       R6 R6 K12 ["FixedRigPositions"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K7 [require]
-       41 GETIMPORT                        R9 K9 [script]
-       43 GETTABLEKS                       R8 R9 K10 ["Parent"]
-       45 GETTABLEKS                       R7 R8 K13 ["R6"]
+       41 GETIMPORT                        R7 K9 [script]
+       43 GETTABLEKS                       R7 R7 K10 ["Parent"]
+       45 GETTABLEKS                       R7 R7 K13 ["R6"]
        47 CALL                             R6 1 1
        48 NEWTABLE                         R7 8 0
        50 NEWTABLE                         R8 0 1

@@ -25,8 +25,8 @@ PROTO_1:
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 NEWTABLE                         R3 0 0
         6 DUPTABLE                         R6 K5 [{"key", "text", "children"}]
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K6 ["InProgress"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K6 ["InProgress"]
        10 SETTABLEKS                       R7 R6 K2 ["key"]
        12 LOADK                            R9 K7 ["CharacterConversion"]
        13 LOADK                            R10 K8 ["Issues"]
@@ -42,8 +42,8 @@ PROTO_1:
        29 GETIMPORT                        R4 K14 [table.insert]
        31 CALL                             R4 2 0
        32 DUPTABLE                         R6 K5 [{"key", "text", "children"}]
-       33 GETUPVAL                         R8 0
-       34 GETTABLEKS                       R7 R8 K15 ["Completed"]
+       33 GETUPVAL                         R7 0
+       34 GETTABLEKS                       R7 R7 K15 ["Completed"]
        36 SETTABLEKS                       R7 R6 K2 ["key"]
        38 LOADK                            R9 K7 ["CharacterConversion"]
        39 LOADK                            R10 K16 ["Converted"]
@@ -66,8 +66,8 @@ PROTO_2:
         4 GETTABLEKS                       R3 R1 K2 ["LayoutOrder"]
         6 NAMECALL                         R4 R0 K3 ["getItems"]
         8 CALL                             R4 1 1
-        9 GETUPVAL                         R6 0
-       10 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R5 R5 K4 ["createElement"]
        12 GETUPVAL                         R6 1
        13 DUPTABLE                         R7 K7 [{"OnResetPlugin", "Size", "LayoutOrder", "Items"}]
        14 GETTABLEKS                       R8 R1 K5 ["OnResetPlugin"]
@@ -80,11 +80,11 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K2 [{"characters", "convertedCharacters"}]
-        1 GETTABLEKS                       R4 R0 K3 ["CharacterConversion"]
-        3 GETTABLEKS                       R3 R4 K0 ["characters"]
+        1 GETTABLEKS                       R3 R0 K3 ["CharacterConversion"]
+        3 GETTABLEKS                       R3 R3 K0 ["characters"]
         5 SETTABLEKS                       R3 R2 K0 ["characters"]
-        7 GETTABLEKS                       R4 R0 K3 ["CharacterConversion"]
-        9 GETTABLEKS                       R3 R4 K1 ["convertedCharacters"]
+        7 GETTABLEKS                       R3 R0 K3 ["CharacterConversion"]
+        9 GETTABLEKS                       R3 R3 K1 ["convertedCharacters"]
        11 SETTABLEKS                       R3 R2 K1 ["convertedCharacters"]
        13 RETURN                           R2 1
 
@@ -95,32 +95,32 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K10 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Util"]
-       34 GETTABLEKS                       R5 R6 K12 ["ItemState"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Util"]
+       34 GETTABLEKS                       R5 R5 K12 ["ItemState"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R9 R0 K10 ["Src"]
-       41 GETTABLEKS                       R8 R9 K13 ["Components"]
-       43 GETTABLEKS                       R7 R8 K14 ["CharacterConversion"]
-       45 GETTABLEKS                       R6 R7 K15 ["CharacterList"]
+       39 GETTABLEKS                       R6 R0 K10 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Components"]
+       43 GETTABLEKS                       R6 R6 K14 ["CharacterConversion"]
+       45 GETTABLEKS                       R6 R6 K15 ["CharacterList"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K10 ["Src"]
-       52 GETTABLEKS                       R8 R9 K11 ["Util"]
-       54 GETTABLEKS                       R7 R8 K16 ["sanitizeString"]
+       50 GETTABLEKS                       R7 R0 K10 ["Src"]
+       52 GETTABLEKS                       R7 R7 K11 ["Util"]
+       54 GETTABLEKS                       R7 R7 K16 ["sanitizeString"]
        56 CALL                             R6 1 1
        57 GETTABLEKS                       R7 R1 K17 ["ContextServices"]
        59 GETTABLEKS                       R8 R2 K18 ["PureComponent"]

@@ -44,16 +44,16 @@ PROTO_2:
        35 CALL                             R2 3 -1
        36 RETURN                           R1 -1
        37 GETTABLEKS                       R1 R0 K7 ["X"]
-       39 GETUPVAL                         R3 2
-       40 GETTABLEKS                       R2 R3 K11 ["MaxRegion"]
+       39 GETUPVAL                         R2 2
+       40 GETTABLEKS                       R2 R2 K11 ["MaxRegion"]
        42 JUMPIFLT                         R2 R1 ; [+15]
        44 GETTABLEKS                       R1 R0 K8 ["Y"]
-       46 GETUPVAL                         R3 2
-       47 GETTABLEKS                       R2 R3 K11 ["MaxRegion"]
+       46 GETUPVAL                         R2 2
+       47 GETTABLEKS                       R2 R2 K11 ["MaxRegion"]
        49 JUMPIFLT                         R2 R1 ; [+8]
        51 GETTABLEKS                       R1 R0 K9 ["Z"]
-       53 GETUPVAL                         R3 2
-       54 GETTABLEKS                       R2 R3 K11 ["MaxRegion"]
+       53 GETUPVAL                         R2 2
+       54 GETTABLEKS                       R2 R2 K11 ["MaxRegion"]
        56 JUMPIFNOTLT                      R2 R1 ; [+10]
        58 GETIMPORT                        R1 K3 [Enum.PropertyStatus.Error]
        60 GETUPVAL                         R2 1
@@ -67,11 +67,11 @@ PROTO_2:
        70 RETURN                           R1 2
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["Transform"]
-        4 GETTABLE                         R2 R3 R4
-        5 GETTABLEKS                       R1 R2 K1 ["Rotation"]
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["Transform"]
+        4 GETTABLE                         R1 R2 R3
+        5 GETTABLEKS                       R1 R1 K1 ["Rotation"]
         7 GETTABLEN                        R4 R0 1
         8 GETTABLEN                        R5 R0 2
         9 GETTABLEN                        R6 R0 3
@@ -91,8 +91,8 @@ PROTO_4:
        12 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Tool"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Tool"]
         3 NAMECALL                         R1 R1 K1 ["getPayload"]
         5 CALL                             R1 1 1
         6 GETUPVAL                         R2 1
@@ -110,8 +110,8 @@ PROTO_5:
        21 MOVE                             R3 R0
        22 GETUPVAL                         R6 4
        23 GETTABLE                         R5 R1 R6
-       24 GETUPVAL                         R7 5
-       25 GETTABLEKS                       R6 R7 K10 ["Size"]
+       24 GETUPVAL                         R6 5
+       25 GETTABLEKS                       R6 R6 K10 ["Size"]
        27 GETTABLE                         R4 R5 R6
        28 CALL                             R2 2 1
        29 JUMPIF                           R2 ; [+9]
@@ -132,8 +132,8 @@ PROTO_6:
         3 MOVE                             R6 R0
         4 NEWTABLE                         R7 0 5
         6 DUPTABLE                         R8 K6 [{"Id", "Height", "Schema", "Validate", "Value"}]
-        7 GETUPVAL                         R10 1
-        8 GETTABLEKS                       R9 R10 K7 ["Size"]
+        7 GETUPVAL                         R9 1
+        8 GETTABLEKS                       R9 R9 K7 ["Size"]
        10 SETTABLEKS                       R9 R8 K1 ["Id"]
        12 GETUPVAL                         R10 2
        13 CALL                             R10 0 1
@@ -161,18 +161,18 @@ PROTO_6:
        43 CAPTURE                          VAL R4
        44 CAPTURE                          UPVAL U4
        45 SETTABLEKS                       R9 R8 K4 ["Validate"]
-       47 GETUPVAL                         R11 1
-       48 GETTABLEKS                       R10 R11 K7 ["Size"]
+       47 GETUPVAL                         R10 1
+       48 GETTABLEKS                       R10 R10 K7 ["Size"]
        50 GETTABLE                         R9 R1 R10
        51 SETTABLEKS                       R9 R8 K5 ["Value"]
        53 DUPTABLE                         R9 K21 [{"DataId", "Hidden", "Id", "Height", "Schema", "Validate", "Value"}]
-       54 GETUPVAL                         R11 1
-       55 GETTABLEKS                       R10 R11 K22 ["Transform"]
+       54 GETUPVAL                         R10 1
+       55 GETTABLEKS                       R10 R10 K22 ["Transform"]
        57 SETTABLEKS                       R10 R9 K19 ["DataId"]
        59 LOADB                            R10 0
        60 SETTABLEKS                       R10 R9 K20 ["Hidden"]
-       62 GETUPVAL                         R11 1
-       63 GETTABLEKS                       R10 R11 K23 ["Position"]
+       62 GETUPVAL                         R10 1
+       63 GETTABLEKS                       R10 R10 K23 ["Position"]
        65 SETTABLEKS                       R10 R9 K1 ["Id"]
        67 GETUPVAL                         R11 2
        68 CALL                             R11 0 1
@@ -205,28 +205,28 @@ PROTO_6:
       103 CAPTURE                          UPVAL U6
       104 CAPTURE                          UPVAL U1
       105 SETTABLEKS                       R10 R9 K4 ["Validate"]
-      107 GETUPVAL                         R12 1
-      108 GETTABLEKS                       R11 R12 K22 ["Transform"]
+      107 GETUPVAL                         R11 1
+      108 GETTABLEKS                       R11 R11 K22 ["Transform"]
       110 GETTABLE                         R10 R1 R11
       111 SETTABLEKS                       R10 R9 K5 ["Value"]
       113 DUPTABLE                         R10 K25 [{"Id", "Schema"}]
-      114 GETUPVAL                         R12 1
-      115 GETTABLEKS                       R11 R12 K26 ["SnapToVoxels"]
+      114 GETUPVAL                         R11 1
+      115 GETTABLEKS                       R11 R11 K26 ["SnapToVoxels"]
       117 SETTABLEKS                       R11 R10 K1 ["Id"]
       119 DUPTABLE                         R11 K27 [{"Type"}]
       120 LOADK                            R12 K28 ["Checkbox"]
       121 SETTABLEKS                       R12 R11 K8 ["Type"]
       123 SETTABLEKS                       R11 R10 K3 ["Schema"]
       125 DUPTABLE                         R11 K30 [{"Id", "Layout", "Schema"}]
-      126 GETUPVAL                         R13 1
-      127 GETTABLEKS                       R12 R13 K31 ["Evaporate"]
+      126 GETUPVAL                         R12 1
+      127 GETTABLEKS                       R12 R12 K31 ["Evaporate"]
       129 SETTABLEKS                       R12 R11 K1 ["Id"]
       131 GETIMPORT                        R12 K35 [Enum.FillDirection.Vertical]
       133 SETTABLEKS                       R12 R11 K29 ["Layout"]
       135 DUPTABLE                         R12 K37 [{"Label", "Type"}]
       136 GETUPVAL                         R15 6
-      137 GETUPVAL                         R17 1
-      138 GETTABLEKS                       R16 R17 K31 ["Evaporate"]
+      137 GETUPVAL                         R16 1
+      138 GETTABLEKS                       R16 R16 K31 ["Evaporate"]
       140 NAMECALL                         R13 R4 K38 ["getText"]
       142 CALL                             R13 3 1
       143 SETTABLEKS                       R13 R12 K36 ["Label"]
@@ -234,15 +234,15 @@ PROTO_6:
       146 SETTABLEKS                       R13 R12 K8 ["Type"]
       148 SETTABLEKS                       R12 R11 K3 ["Schema"]
       150 DUPTABLE                         R12 K30 [{"Id", "Layout", "Schema"}]
-      151 GETUPVAL                         R14 1
-      152 GETTABLEKS                       R13 R14 K40 ["Create"]
+      151 GETUPVAL                         R13 1
+      152 GETTABLEKS                       R13 R13 K40 ["Create"]
       154 SETTABLEKS                       R13 R12 K1 ["Id"]
       156 GETIMPORT                        R13 K35 [Enum.FillDirection.Vertical]
       158 SETTABLEKS                       R13 R12 K29 ["Layout"]
       160 DUPTABLE                         R13 K37 [{"Label", "Type"}]
       161 GETUPVAL                         R16 6
-      162 GETUPVAL                         R18 1
-      163 GETTABLEKS                       R17 R18 K40 ["Create"]
+      162 GETUPVAL                         R17 1
+      163 GETTABLEKS                       R17 R17 K40 ["Create"]
       165 NAMECALL                         R14 R4 K38 ["getText"]
       167 CALL                             R14 3 1
       168 SETTABLEKS                       R14 R13 K36 ["Label"]
@@ -265,37 +265,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["ApplyById"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["ApplyById"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K10 ["Category"]
        25 GETTABLEKS                       R4 R2 K11 ["SeaLevelSettings"]
        27 GETTABLEKS                       R5 R2 K12 ["Storage"]
        29 GETIMPORT                        R6 K5 [require]
-       31 GETTABLEKS                       R9 R0 K6 ["Src"]
-       33 GETTABLEKS                       R8 R9 K13 ["Resources"]
-       35 GETTABLEKS                       R7 R8 K14 ["Constants"]
+       31 GETTABLEKS                       R7 R0 K6 ["Src"]
+       33 GETTABLEKS                       R7 R7 K13 ["Resources"]
+       35 GETTABLEKS                       R7 R7 K14 ["Constants"]
        37 CALL                             R6 1 1
        38 GETTABLEKS                       R7 R3 K11 ["SeaLevelSettings"]
        40 GETIMPORT                        R8 K5 [require]
-       42 GETTABLEKS                       R11 R0 K6 ["Src"]
-       44 GETTABLEKS                       R10 R11 K7 ["Util"]
-       46 GETTABLEKS                       R9 R10 K15 ["getWithinTerrainBounds"]
+       42 GETTABLEKS                       R9 R0 K6 ["Src"]
+       44 GETTABLEKS                       R9 R9 K7 ["Util"]
+       46 GETTABLEKS                       R9 R9 K15 ["getWithinTerrainBounds"]
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K5 [require]
-       51 GETTABLEKS                       R12 R0 K6 ["Src"]
-       53 GETTABLEKS                       R11 R12 K7 ["Util"]
-       55 GETTABLEKS                       R10 R11 K16 ["isVectorNaNOrInf"]
+       51 GETTABLEKS                       R10 R0 K6 ["Src"]
+       53 GETTABLEKS                       R10 R10 K7 ["Util"]
+       55 GETTABLEKS                       R10 R10 K16 ["isVectorNaNOrInf"]
        57 CALL                             R9 1 1
        58 GETIMPORT                        R10 K5 [require]
-       60 GETTABLEKS                       R13 R0 K6 ["Src"]
-       62 GETTABLEKS                       R12 R13 K17 ["Flags"]
-       64 GETTABLEKS                       R11 R12 K18 ["getFFlagTerrainEditorExplicitVectorHeight"]
+       60 GETTABLEKS                       R11 R0 K6 ["Src"]
+       62 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       64 GETTABLEKS                       R11 R11 K18 ["getFFlagTerrainEditorExplicitVectorHeight"]
        66 CALL                             R10 1 1
        67 NEWTABLE                         R11 2 0
        69 NEWTABLE                         R12 8 0

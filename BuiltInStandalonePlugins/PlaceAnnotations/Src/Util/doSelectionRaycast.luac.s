@@ -6,10 +6,10 @@ PROTO_0:
         6 LOADB                            R2 1
         7 SETTABLEKS                       R2 R1 K5 ["BruteForceAllSlow"]
         9 GETIMPORT                        R2 K7 [workspace]
-       11 GETTABLEKS                       R5 R0 K8 ["Origin"]
-       13 GETTABLEKS                       R4 R5 K9 ["Position"]
-       15 GETTABLEKS                       R7 R0 K11 ["UnitRay"]
-       17 GETTABLEKS                       R6 R7 K12 ["Direction"]
+       11 GETTABLEKS                       R4 R0 K8 ["Origin"]
+       13 GETTABLEKS                       R4 R4 K9 ["Position"]
+       15 GETTABLEKS                       R6 R0 K11 ["UnitRay"]
+       17 GETTABLEKS                       R6 R6 K12 ["Direction"]
        19 MULK                             R5 R6 K10 [1000]
        20 MOVE                             R6 R1
        21 NAMECALL                         R2 R2 K13 ["Raycast"]

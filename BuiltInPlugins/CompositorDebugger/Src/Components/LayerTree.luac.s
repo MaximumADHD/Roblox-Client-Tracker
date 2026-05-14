@@ -6,9 +6,9 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 DUPTABLE                         R3 K1 [{"Expansion"}]
         2 GETUPVAL                         R4 1
-        3 GETUPVAL                         R7 0
-        4 GETTABLEKS                       R6 R7 K2 ["state"]
-        6 GETTABLEKS                       R5 R6 K0 ["Expansion"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K2 ["state"]
+        6 GETTABLEKS                       R5 R5 K0 ["Expansion"]
         8 MOVE                             R6 R0
         9 CALL                             R4 2 1
        10 SETTABLEKS                       R4 R3 K0 ["Expansion"]
@@ -17,33 +17,33 @@ PROTO_1:
        15 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["OnToggleAdornment"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["OnToggleAdornment"]
         5 JUMPIFNOT                        R1 ; [+7]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["props"]
-        9 GETTABLEKS                       R1 R2 K1 ["OnToggleAdornment"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["props"]
+        9 GETTABLEKS                       R1 R1 K1 ["OnToggleAdornment"]
        11 MOVE                             R2 R0
        12 CALL                             R1 1 0
        13 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SetLayerSelection"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SetLayerSelection"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 0
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K2 ["SetScrubberOffset"]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K0 ["props"]
-       15 GETTABLEKS                       R2 R3 K3 ["HistoryOffset"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K2 ["SetScrubberOffset"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K0 ["props"]
+       15 GETTABLEKS                       R2 R2 K3 ["HistoryOffset"]
        17 CALL                             R1 1 0
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K0 ["props"]
-       21 GETTABLEKS                       R1 R2 K4 ["ClearHistoryField"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K0 ["props"]
+       21 GETTABLEKS                       R1 R1 K4 ["ClearHistoryField"]
        23 CALL                             R1 0 0
        24 GETUPVAL                         R1 0
        25 DUPTABLE                         R3 K6 [{"Selection"}]
@@ -171,8 +171,8 @@ PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R0 K1 ["props"]
         4 GETTABLEKS                       R3 R2 K2 ["FramePayload"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K16 [{"Size", "LayoutOrder", "RootItems", "Expansion", "Selection", "GetItemId", "RowComponent", "RowProps", "RowHeight", "OnExpansionChange", "OnSelectionChange", "ScrollingDirection"}]
        11 GETTABLEKS                       R7 R2 K4 ["Size"]
@@ -213,8 +213,8 @@ PROTO_9:
 
 PROTO_10:
         0 DUPTABLE                         R2 K1 [{"HistoryOffset"}]
-        1 GETTABLEKS                       R4 R0 K2 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["HistoryOffset"]
+        1 GETTABLEKS                       R3 R0 K2 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["HistoryOffset"]
         5 SETTABLEKS                       R3 R2 K0 ["HistoryOffset"]
         7 RETURN                           R2 1
 
@@ -279,20 +279,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["RoactRodux"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["RoactRodux"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R1 K11 ["join"]
        37 GETTABLEKS                       R6 R2 K12 ["ContextServices"]
@@ -301,40 +301,40 @@ MAIN:
        43 GETTABLEKS                       R9 R6 K15 ["Localization"]
        45 GETTABLEKS                       R10 R2 K16 ["UI"]
        47 GETTABLEKS                       R11 R10 K17 ["TreeView"]
-       49 GETTABLEKS                       R13 R0 K18 ["Src"]
-       51 GETTABLEKS                       R12 R13 K19 ["Actions"]
+       49 GETTABLEKS                       R12 R0 K18 ["Src"]
+       51 GETTABLEKS                       R12 R12 K19 ["Actions"]
        53 GETIMPORT                        R13 K5 [require]
        55 GETTABLEKS                       R14 R12 K20 ["SetHistoryField"]
        57 CALL                             R13 1 1
        58 GETIMPORT                        R14 K5 [require]
        60 GETTABLEKS                       R15 R12 K21 ["SetSelectedLayer"]
        62 CALL                             R14 1 1
-       63 GETTABLEKS                       R16 R0 K18 ["Src"]
-       65 GETTABLEKS                       R15 R16 K22 ["Components"]
+       63 GETTABLEKS                       R15 R0 K18 ["Src"]
+       65 GETTABLEKS                       R15 R15 K22 ["Components"]
        67 GETIMPORT                        R16 K5 [require]
        69 GETTABLEKS                       R17 R15 K23 ["LayerTreeRow"]
        71 CALL                             R16 1 1
-       72 GETTABLEKS                       R18 R0 K18 ["Src"]
-       74 GETTABLEKS                       R17 R18 K24 ["Thunks"]
+       72 GETTABLEKS                       R17 R0 K18 ["Src"]
+       74 GETTABLEKS                       R17 R17 K24 ["Thunks"]
        76 GETIMPORT                        R18 K5 [require]
        78 GETTABLEKS                       R19 R17 K25 ["SetLayerSelection"]
        80 CALL                             R18 1 1
        81 GETIMPORT                        R19 K5 [require]
        83 GETTABLEKS                       R20 R17 K26 ["SetScrubberOffset"]
        85 CALL                             R19 1 1
-       86 GETTABLEKS                       R21 R0 K18 ["Src"]
-       88 GETTABLEKS                       R20 R21 K27 ["Util"]
+       86 GETTABLEKS                       R20 R0 K18 ["Src"]
+       88 GETTABLEKS                       R20 R20 K27 ["Util"]
        90 GETIMPORT                        R21 K5 [require]
        92 GETTABLEKS                       R22 R20 K28 ["traverse"]
        94 CALL                             R21 1 1
        95 GETIMPORT                        R22 K5 [require]
-       97 GETTABLEKS                       R25 R0 K29 ["Bin"]
-       99 GETTABLEKS                       R24 R25 K30 ["Common"]
-      101 GETTABLEKS                       R23 R24 K31 ["defineLuaFlags"]
+       97 GETTABLEKS                       R23 R0 K29 ["Bin"]
+       99 GETTABLEKS                       R23 R23 K30 ["Common"]
+      101 GETTABLEKS                       R23 R23 K31 ["defineLuaFlags"]
       103 CALL                             R22 1 1
       104 GETIMPORT                        R23 K5 [require]
-      106 GETTABLEKS                       R25 R0 K18 ["Src"]
-      108 GETTABLEKS                       R24 R25 K32 ["Types"]
+      106 GETTABLEKS                       R24 R0 K18 ["Src"]
+      108 GETTABLEKS                       R24 R24 K32 ["Types"]
       110 CALL                             R23 1 1
       111 GETTABLEKS                       R24 R3 K33 ["PureComponent"]
       113 LOADK                            R26 K34 ["LayerTree"]

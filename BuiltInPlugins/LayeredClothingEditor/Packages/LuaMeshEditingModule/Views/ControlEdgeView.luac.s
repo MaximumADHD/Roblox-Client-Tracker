@@ -9,12 +9,12 @@ PROTO_0:
        14 JUMPIF                           R8 ; [+1]
        15 GETUPVAL                         R8 0
        16 GETTABLEKS                       R9 R1 K7 ["Visible"]
-       18 SUB                              R11 R2 R3
-       19 GETTABLEKS                       R10 R11 K8 ["Magnitude"]
+       18 SUB                              R10 R2 R3
+       19 GETTABLEKS                       R10 R10 K8 ["Magnitude"]
        21 GETIMPORT                        R11 K11 [CFrame.new]
        23 LOADK                            R12 K12 [{0, 0, 0}]
-       24 SUB                              R14 R3 R2
-       25 GETTABLEKS                       R13 R14 K13 ["Unit"]
+       24 SUB                              R13 R3 R2
+       25 GETTABLEKS                       R13 R13 K13 ["Unit"]
        27 CALL                             R11 2 1
        28 ADD                              R11 R11 R2
        29 GETTABLEKS                       R12 R0 K14 ["edge"]
@@ -76,21 +76,21 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["types"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["types"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R6 K3 [script]
-       14 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       16 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       18 GETTABLEKS                       R3 R4 K6 ["Util"]
-       20 GETTABLEKS                       R2 R3 K7 ["Constants"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       18 GETTABLEKS                       R2 R2 K6 ["Util"]
+       20 GETTABLEKS                       R2 R2 K7 ["Constants"]
        22 CALL                             R1 1 1
        23 NEWTABLE                         R2 2 0
        25 SETTABLEKS                       R2 R2 K8 ["__index"]
-       27 GETTABLEKS                       R4 R1 K9 ["ControlEdge"]
-       29 GETTABLEKS                       R3 R4 K10 ["DefaultThickness"]
+       27 GETTABLEKS                       R3 R1 K9 ["ControlEdge"]
+       29 GETTABLEKS                       R3 R3 K10 ["DefaultThickness"]
        31 DUPCLOSURE                       R4 K11 [PROTO_2]
        32 CAPTURE                          VAL R2
        33 CAPTURE                          VAL R3

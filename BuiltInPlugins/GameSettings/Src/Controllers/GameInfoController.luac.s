@@ -87,8 +87,8 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["__networking"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["GetAssetPublishRequestInfo"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["GetAssetPublishRequestInfo"]
         5 MOVE                             R5 R2
         6 CALL                             R4 1 1
         7 LOADNIL                          R5
@@ -105,8 +105,8 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["__networking"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["GetAssetPublishRequestInfo"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["GetAssetPublishRequestInfo"]
         5 MOVE                             R5 R2
         6 CALL                             R4 1 1
         7 LOADNIL                          R5
@@ -167,22 +167,22 @@ PROTO_12:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["name"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["name"]
        11 RETURN                           R3 1
 
 PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
         2 JUMPIFNOTEQKN                    R1 K1 [400] ; [+19]
         4 GETIMPORT                        R1 K3 [ipairs]
-        6 GETTABLEKS                       R4 R0 K4 ["responseBody"]
-        8 GETTABLEKS                       R2 R4 K5 ["errors"]
+        6 GETTABLEKS                       R2 R0 K4 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K5 ["errors"]
        10 CALL                             R1 1 3
        11 FORGPREP_INEXT                   R1
        12 GETTABLEKS                       R6 R5 K6 ["code"]
        14 JUMPIFNOTEQKN                    R6 K7 [7] ; [+5]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K8 ["NameModerated"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K8 ["NameModerated"]
        19 SETUPVAL                         R6 0
        20 FORGLOOP                         R1 2 [inext] ; [-9]
        22 RETURN                           R0 0
@@ -219,8 +219,8 @@ PROTO_15:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R5 R2 K3 ["responseBody"]
-        9 GETTABLEKS                       R4 R5 K4 ["description"]
+        7 GETTABLEKS                       R4 R2 K3 ["responseBody"]
+        9 GETTABLEKS                       R4 R4 K4 ["description"]
        11 ORK                              R3 R4 K2 [""]
        12 RETURN                           R3 1
 
@@ -234,8 +234,8 @@ PROTO_16:
         8 CALL                             R2 2 1
         9 NAMECALL                         R2 R2 K3 ["await"]
        11 CALL                             R2 1 1
-       12 GETTABLEKS                       R5 R2 K4 ["responseBody"]
-       14 GETTABLEKS                       R4 R5 K5 ["ageRecommendationDetailsByUniverse"]
+       12 GETTABLEKS                       R4 R2 K4 ["responseBody"]
+       14 GETTABLEKS                       R4 R4 K5 ["ageRecommendationDetailsByUniverse"]
        16 GETTABLEN                        R3 R4 1
        17 FASTCALL1                        ASSERT R3 ; [+3]
        18 MOVE                             R5 R3
@@ -249,9 +249,9 @@ PROTO_16:
        29 GETIMPORT                        R4 K1 [assert]
        31 CALL                             R4 1 0
        32 JUMPIFNOT                        R3 ; [+16]
-       33 GETTABLEKS                       R6 R3 K7 ["ageRecommendationDetails"]
-       35 GETTABLEKS                       R5 R6 K8 ["ageRecommendationSummary"]
-       37 GETTABLEKS                       R4 R5 K9 ["ageRecommendation"]
+       33 GETTABLEKS                       R4 R3 K7 ["ageRecommendationDetails"]
+       35 GETTABLEKS                       R4 R4 K8 ["ageRecommendationSummary"]
+       37 GETTABLEKS                       R4 R4 K9 ["ageRecommendation"]
        39 JUMPIFNOT                        R4 ; [+7]
        40 GETTABLEKS                       R5 R4 K10 ["contentMaturity"]
        42 JUMPIFEQKS                       R5 K11 ["unrated"] ; [+4]
@@ -292,8 +292,8 @@ PROTO_18:
        18 RETURN                           R3 1
        19 GETTABLEKS                       R4 R2 K4 ["responseBody"]
        21 JUMPIFNOT                        R4 ; [+5]
-       22 GETTABLEKS                       R4 R2 K4 ["responseBody"]
-       24 GETTABLEKS                       R3 R4 K5 ["genre"]
+       22 GETTABLEKS                       R3 R2 K4 ["responseBody"]
+       24 GETTABLEKS                       R3 R3 K5 ["genre"]
        26 JUMPIF                           R3 ; [+1]
        27 LOADNIL                          R3
        28 RETURN                           R3 1
@@ -314,8 +314,8 @@ PROTO_20:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["genre"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["genre"]
        11 RETURN                           R3 1
 
 PROTO_21:
@@ -334,8 +334,8 @@ PROTO_22:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["playableDevices"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["playableDevices"]
        11 RETURN                           R3 1
 
 PROTO_23:
@@ -354,13 +354,13 @@ PROTO_24:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["data"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["data"]
        11 RETURN                           R3 1
 
 PROTO_25:
-        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R2 K1 ["targetId"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["targetId"]
         4 GETUPVAL                         R2 0
         5 GETUPVAL                         R3 1
         6 SETTABLE                         R1 R2 R3
@@ -387,8 +387,8 @@ PROTO_26:
        22 GETIMPORT                        R10 K6 [table.insert]
        24 CALL                             R10 -1 0
        25 FORGLOOP                         R5 2 [inext] ; [-17]
-       27 GETUPVAL                         R6 0
-       28 GETTABLEKS                       R5 R6 K7 ["all"]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K7 ["all"]
        30 MOVE                             R6 R3
        31 CALL                             R5 1 1
        32 NAMECALL                         R5 R5 K8 ["await"]
@@ -410,8 +410,8 @@ PROTO_27:
        14 GETIMPORT                        R9 K5 [table.insert]
        16 CALL                             R9 -1 0
        17 FORGLOOP                         R4 2 [inext] ; [-11]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R4 R5 K6 ["all"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K6 ["all"]
        22 MOVE                             R5 R3
        23 CALL                             R4 1 1
        24 NAMECALL                         R4 R4 K7 ["await"]
@@ -427,14 +427,14 @@ PROTO_29:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
         2 JUMPIFNOTEQKN                    R1 K1 [400] ; [+19]
         4 GETIMPORT                        R1 K3 [ipairs]
-        6 GETTABLEKS                       R4 R0 K4 ["responseBody"]
-        8 GETTABLEKS                       R2 R4 K5 ["errors"]
+        6 GETTABLEKS                       R2 R0 K4 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K5 ["errors"]
        10 CALL                             R1 1 3
        11 FORGPREP_INEXT                   R1
        12 GETTABLEKS                       R6 R5 K6 ["code"]
        14 JUMPIFNOTEQKN                    R6 K7 [19] ; [+5]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K8 ["AltTextModerated"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K8 ["AltTextModerated"]
        19 SETUPVAL                         R6 0
        20 FORGLOOP                         R1 2 [inext] ; [-9]
        22 RETURN                           R0 0
@@ -484,10 +484,10 @@ PROTO_32:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["imageId"]
-       11 GETTABLEKS                       R5 R2 K2 ["responseBody"]
-       13 GETTABLEKS                       R4 R5 K4 ["isApproved"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["imageId"]
+       11 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+       13 GETTABLEKS                       R4 R4 K4 ["isApproved"]
        15 JUMPIFNOT                        R3 ; [+4]
        16 LOADK                            R6 K5 ["rbxassetid://"]
        17 MOVE                             R7 R3
@@ -512,8 +512,8 @@ PROTO_34:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["optInRegions"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["optInRegions"]
        11 RETURN                           R3 1
 
 PROTO_35:
@@ -527,19 +527,19 @@ PROTO_35:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R2 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K6 ["Framework"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K7 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Util"]
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K8 ["Src"]
-       22 GETTABLEKS                       R4 R5 K7 ["Util"]
-       24 GETTABLEKS                       R3 R4 K9 ["FileUtils"]
+       20 GETTABLEKS                       R3 R0 K8 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
+       24 GETTABLEKS                       R3 R3 K9 ["FileUtils"]
        26 CALL                             R2 1 1
        27 GETTABLEKS                       R3 R1 K10 ["Promise"]
        29 GETTABLEKS                       R4 R1 K11 ["Symbol"]

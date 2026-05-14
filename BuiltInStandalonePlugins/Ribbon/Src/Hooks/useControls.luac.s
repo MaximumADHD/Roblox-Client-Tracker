@@ -50,26 +50,26 @@ PROTO_0:
        69 MULK                             R5 R6 K13 [1000]
        70 DIV                              R6 R5 R4
        71 GETUPVAL                         R7 4
-       72 GETUPVAL                         R10 5
-       73 GETTABLEKS                       R9 R10 K17 ["USE_CONTROLS_TIME_TO_FETCH_MS"]
-       75 GETUPVAL                         R11 5
-       76 GETTABLEKS                       R10 R11 K18 ["DEFAULT_METADATA"]
+       72 GETUPVAL                         R9 5
+       73 GETTABLEKS                       R9 R9 K17 ["USE_CONTROLS_TIME_TO_FETCH_MS"]
+       75 GETUPVAL                         R10 5
+       76 GETTABLEKS                       R10 R10 K18 ["DEFAULT_METADATA"]
        78 MOVE                             R11 R5
        79 NAMECALL                         R7 R7 K19 ["LogStat"]
        81 CALL                             R7 4 0
        82 GETUPVAL                         R7 4
-       83 GETUPVAL                         R10 5
-       84 GETTABLEKS                       R9 R10 K20 ["USE_CONTROLS_NUM_ITEMS"]
-       86 GETUPVAL                         R11 5
-       87 GETTABLEKS                       R10 R11 K18 ["DEFAULT_METADATA"]
+       83 GETUPVAL                         R9 5
+       84 GETTABLEKS                       R9 R9 K20 ["USE_CONTROLS_NUM_ITEMS"]
+       86 GETUPVAL                         R10 5
+       87 GETTABLEKS                       R10 R10 K18 ["DEFAULT_METADATA"]
        89 MOVE                             R11 R4
        90 NAMECALL                         R7 R7 K19 ["LogStat"]
        92 CALL                             R7 4 0
        93 GETUPVAL                         R7 4
-       94 GETUPVAL                         R10 5
-       95 GETTABLEKS                       R9 R10 K21 ["USE_CONTROLS_TIME_PER_ITEM_FETCHED_MS"]
-       97 GETUPVAL                         R11 5
-       98 GETTABLEKS                       R10 R11 K18 ["DEFAULT_METADATA"]
+       94 GETUPVAL                         R9 5
+       95 GETTABLEKS                       R9 R9 K21 ["USE_CONTROLS_TIME_PER_ITEM_FETCHED_MS"]
+       97 GETUPVAL                         R10 5
+       98 GETTABLEKS                       R10 R10 K18 ["DEFAULT_METADATA"]
       100 MOVE                             R11 R6
       101 NAMECALL                         R7 R7 K19 ["LogStat"]
       103 CALL                             R7 4 0
@@ -83,8 +83,8 @@ PROTO_1:
         5 GETUPVAL                         R4 1
         6 NAMECALL                         R2 R2 K3 ["watchControls"]
         8 CALL                             R2 2 1
-        9 GETUPVAL                         R4 2
-       10 GETTABLEKS                       R3 R4 K4 ["createComputed"]
+        9 GETUPVAL                         R3 2
+       10 GETTABLEKS                       R3 R3 K4 ["createComputed"]
        12 NEWCLOSURE                       R4 P0
        13 CAPTURE                          VAL R2
        14 CAPTURE                          UPVAL U1
@@ -112,8 +112,8 @@ PROTO_2:
        13 MOVE                             R6 R0
        14 SETLIST                          R4 R5 2 [1]
        16 CALL                             R2 2 1
-       17 GETUPVAL                         R4 6
-       18 GETTABLEKS                       R3 R4 K0 ["useSignalState"]
+       17 GETUPVAL                         R3 6
+       18 GETTABLEKS                       R3 R3 K0 ["useSignalState"]
        20 MOVE                             R4 R2
        21 CALL                             R3 1 -1
        22 RETURN                           R3 -1
@@ -129,32 +129,32 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETTABLEKS                       R3 R2 K12 ["useContext"]
        22 GETTABLEKS                       R4 R2 K13 ["useMemo"]
        24 GETIMPORT                        R5 K9 [require]
-       26 GETTABLEKS                       R8 R0 K14 ["Src"]
-       28 GETTABLEKS                       R7 R8 K15 ["Contexts"]
-       30 GETTABLEKS                       R6 R7 K16 ["ControlSignalStoreContext"]
+       26 GETTABLEKS                       R6 R0 K14 ["Src"]
+       28 GETTABLEKS                       R6 R6 K15 ["Contexts"]
+       30 GETTABLEKS                       R6 R6 K16 ["ControlSignalStoreContext"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K9 [require]
-       35 GETTABLEKS                       R8 R0 K10 ["Packages"]
-       37 GETTABLEKS                       R7 R8 K17 ["Signals"]
+       35 GETTABLEKS                       R7 R0 K10 ["Packages"]
+       37 GETTABLEKS                       R7 R7 K17 ["Signals"]
        39 CALL                             R6 1 1
        40 GETIMPORT                        R7 K9 [require]
-       42 GETTABLEKS                       R9 R0 K10 ["Packages"]
-       44 GETTABLEKS                       R8 R9 K18 ["SignalsReact"]
+       42 GETTABLEKS                       R8 R0 K10 ["Packages"]
+       44 GETTABLEKS                       R8 R8 K18 ["SignalsReact"]
        46 CALL                             R7 1 1
        47 GETIMPORT                        R8 K9 [require]
-       49 GETTABLEKS                       R10 R0 K14 ["Src"]
-       51 GETTABLEKS                       R9 R10 K19 ["Types"]
+       49 GETTABLEKS                       R9 R0 K14 ["Src"]
+       51 GETTABLEKS                       R9 R9 K19 ["Types"]
        53 CALL                             R8 1 1
        54 GETIMPORT                        R9 K9 [require]
-       56 GETTABLEKS                       R12 R0 K14 ["Src"]
-       58 GETTABLEKS                       R11 R12 K20 ["Resources"]
-       60 GETTABLEKS                       R10 R11 K21 ["TelemetryConfigs"]
+       56 GETTABLEKS                       R10 R0 K14 ["Src"]
+       58 GETTABLEKS                       R10 R10 K20 ["Resources"]
+       60 GETTABLEKS                       R10 R10 K21 ["TelemetryConfigs"]
        62 CALL                             R9 1 1
        63 DUPCLOSURE                       R10 K22 [PROTO_2]
        64 CAPTURE                          VAL R3

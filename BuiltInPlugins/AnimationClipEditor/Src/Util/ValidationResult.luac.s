@@ -21,9 +21,9 @@ PROTO_1:
        12 SETTABLEKS                       R5 R4 K4 ["details"]
        14 MOVE                             R5 R3
        15 JUMPIF                           R5 ; [+5]
-       16 GETUPVAL                         R7 0
-       17 GETTABLEKS                       R6 R7 K7 ["SEVERITY"]
-       19 GETTABLEKS                       R5 R6 K8 ["Error"]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K7 ["SEVERITY"]
+       19 GETTABLEKS                       R5 R5 K8 ["Error"]
        21 SETTABLEKS                       R5 R4 K5 ["severity"]
        23 GETTABLEKS                       R6 R0 K9 ["messages"]
        25 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
@@ -51,9 +51,9 @@ PROTO_3:
         3 LOADNIL                          R3
         4 FORGPREP                         R1
         5 GETTABLEKS                       R6 R5 K1 ["severity"]
-        7 GETUPVAL                         R9 0
-        8 GETTABLEKS                       R8 R9 K2 ["SEVERITY"]
-       10 GETTABLEKS                       R7 R8 K3 ["Error"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K2 ["SEVERITY"]
+       10 GETTABLEKS                       R7 R7 K3 ["Error"]
        12 JUMPIFNOTLE                      R7 R6 ; [+3]
        14 LOADB                            R6 1
        15 RETURN                           R6 1
@@ -245,9 +245,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 8 0
        18 SETTABLEKS                       R2 R2 K9 ["__index"]

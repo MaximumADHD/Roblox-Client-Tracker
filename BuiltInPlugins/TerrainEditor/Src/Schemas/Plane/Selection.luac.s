@@ -7,8 +7,8 @@ PROTO_0:
         7 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
         9 GETIMPORT                        R1 K5 [setmetatable]
        11 CALL                             R1 2 1
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K6 ["new"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K6 ["new"]
        15 CALL                             R2 0 1
        16 SETTABLEKS                       R2 R1 K7 ["SelectionChanged"]
        18 RETURN                           R1 1
@@ -42,11 +42,11 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R2 K5 ["DraggerFramework"]
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
+       15 GETTABLEKS                       R3 R3 K9 ["Signal"]
        17 CALL                             R2 1 1
        18 NEWTABLE                         R3 8 0
        20 SETTABLEKS                       R3 R3 K10 ["__index"]

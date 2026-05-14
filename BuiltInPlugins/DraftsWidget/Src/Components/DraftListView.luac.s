@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Drafts"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Drafts"]
         5 GETIMPORT                        R2 K3 [next]
         7 MOVE                             R3 R0
         8 CALL                             R2 1 1
@@ -10,23 +10,23 @@ PROTO_0:
        12 LOADB                            R1 1
        13 JUMPIFNOT                        R1 ; [+1]
        14 RETURN                           R0 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K4 ["GetCurrentSelection"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K4 ["GetCurrentSelection"]
        18 NAMECALL                         R2 R2 K5 ["Invoke"]
        20 CALL                             R2 1 1
        21 LENGTH                           R3 R2
        22 JUMPIFNOTEQKN                    R3 K6 [0] ; [+2]
        24 RETURN                           R0 0
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K7 ["commitChanges"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K7 ["commitChanges"]
        28 MOVE                             R4 R2
        29 CALL                             R3 1 0
        30 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 GETIMPORT                        R2 K4 [pairs]
@@ -40,9 +40,9 @@ PROTO_1:
        19 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 1
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["DraftService"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["DraftService"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 SETUPVAL                         R1 0
@@ -53,15 +53,15 @@ PROTO_2:
        14 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 1
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["DraftService"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["DraftService"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 SETUPVAL                         R1 0
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K0 ["props"]
-       12 GETTABLEKS                       R1 R2 K3 ["DraftsCommitted"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K0 ["props"]
+       12 GETTABLEKS                       R1 R1 K3 ["DraftsCommitted"]
        14 MOVE                             R2 R0
        15 CALL                             R1 1 0
        16 GETUPVAL                         R1 0
@@ -71,9 +71,9 @@ PROTO_3:
        21 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 1
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["DraftService"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["DraftService"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 SETUPVAL                         R1 0
@@ -84,9 +84,9 @@ PROTO_4:
        14 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 1
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["DraftService"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["DraftService"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
         8 SETUPVAL                         R1 0
@@ -106,45 +106,45 @@ PROTO_6:
 
 PROTO_7:
         0 JUMPIFNOT                        R0 ; [+18]
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["props"]
-        4 GETTABLEKS                       R1 R2 K1 ["DraftService"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["props"]
+        4 GETTABLEKS                       R1 R1 K1 ["DraftService"]
         6 NAMECALL                         R1 R1 K2 ["get"]
         8 CALL                             R1 1 1
         9 SETUPVAL                         R1 0
        10 GETUPVAL                         R1 0
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K3 ["state"]
-       14 GETTABLEKS                       R3 R4 K4 ["draftsPendingDiscard"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["state"]
+       14 GETTABLEKS                       R3 R3 K4 ["draftsPendingDiscard"]
        16 NAMECALL                         R1 R1 K5 ["DiscardEdits"]
        18 CALL                             R1 2 0
        19 GETUPVAL                         R1 1
        20 DUPTABLE                         R3 K6 [{"draftsPendingDiscard"}]
-       21 GETUPVAL                         R5 2
-       22 GETTABLEKS                       R4 R5 K7 ["None"]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K7 ["None"]
        24 SETTABLEKS                       R4 R3 K4 ["draftsPendingDiscard"]
        26 NAMECALL                         R1 R1 K8 ["setState"]
        28 CALL                             R1 2 0
        29 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["Drafts"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["Drafts"]
         5 GETTABLE                         R1 R2 R0
         6 LOADB                            R2 1
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K2 ["Committed"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K2 ["Committed"]
        10 GETTABLE                         R3 R1 R4
-       11 GETUPVAL                         R5 2
-       12 GETTABLEKS                       R4 R5 K2 ["Committed"]
+       11 GETUPVAL                         R4 2
+       12 GETTABLEKS                       R4 R4 K2 ["Committed"]
        14 JUMPIFEQ                         R3 R4 ; [+10]
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R3 R4 K3 ["Deleted"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K3 ["Deleted"]
        19 GETTABLE                         R2 R1 R3
        20 JUMPIF                           R2 ; [+4]
-       21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R3 R4 K4 ["Outdated"]
+       21 GETUPVAL                         R3 1
+       22 GETTABLEKS                       R3 R3 K4 ["Outdated"]
        24 GETTABLE                         R2 R1 R3
        25 RETURN                           R2 1
 
@@ -153,14 +153,14 @@ PROTO_9:
         1 NAMECALL                         R0 R0 K0 ["IsEdit"]
         3 CALL                             R0 1 1
         4 JUMPIFNOT                        R0 ; [+5]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["state"]
-        8 GETTABLEKS                       R0 R1 K2 ["draftsHasActiveSelection"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K1 ["state"]
+        8 GETTABLEKS                       R0 R0 K2 ["draftsHasActiveSelection"]
        10 RETURN                           R0 1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["openScripts"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["openScripts"]
         3 NEWTABLE                         R2 0 1
         5 MOVE                             R3 R0
         6 SETLIST                          R2 R3 1 [1]
@@ -189,51 +189,51 @@ PROTO_11:
        24 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["openScripts"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["openScripts"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["diffChanges"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["diffChanges"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["updateSource"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["updateSource"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["commitChanges"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["commitChanges"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["restoreScripts"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["restoreScripts"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["promptDiscardEdits"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["promptDiscardEdits"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Localization"]
         5 LOADB                            R2 1
         6 LOADB                            R3 1
         7 LOADB                            R4 1
@@ -246,35 +246,35 @@ PROTO_18:
        15 MOVE                             R11 R0
        16 CALL                             R10 1 3
        17 FORGPREP_INEXT                   R10
-       18 GETUPVAL                         R18 0
-       19 GETTABLEKS                       R17 R18 K0 ["props"]
-       21 GETTABLEKS                       R16 R17 K4 ["Drafts"]
+       18 GETUPVAL                         R16 0
+       19 GETTABLEKS                       R16 R16 K0 ["props"]
+       21 GETTABLEKS                       R16 R16 K4 ["Drafts"]
        23 GETTABLE                         R15 R16 R14
-       24 GETUPVAL                         R18 1
-       25 GETTABLEKS                       R17 R18 K5 ["Deleted"]
+       24 GETUPVAL                         R17 1
+       25 GETTABLEKS                       R17 R17 K5 ["Deleted"]
        27 GETTABLE                         R16 R15 R17
        28 JUMPIFNOT                        R16 ; [+4]
        29 LOADB                            R5 0
        30 LOADB                            R7 0
        31 LOADB                            R2 0
        32 JUMP                             ; [+8]
-       33 GETUPVAL                         R18 1
-       34 GETTABLEKS                       R17 R18 K6 ["Outdated"]
+       33 GETUPVAL                         R17 1
+       34 GETTABLEKS                       R17 R17 K6 ["Outdated"]
        36 GETTABLE                         R16 R15 R17
        37 JUMPIFNOT                        R16 ; [+2]
        38 LOADB                            R7 0
        39 JUMP                             ; [+1]
        40 LOADB                            R2 0
-       41 GETUPVAL                         R18 1
-       42 GETTABLEKS                       R17 R18 K5 ["Deleted"]
+       41 GETUPVAL                         R17 1
+       42 GETTABLEKS                       R17 R17 K5 ["Deleted"]
        44 GETTABLE                         R16 R15 R17
        45 JUMPIF                           R16 ; [+1]
        46 LOADB                            R3 0
-       47 GETUPVAL                         R18 1
-       48 GETTABLEKS                       R17 R18 K7 ["Committed"]
+       47 GETUPVAL                         R17 1
+       48 GETTABLEKS                       R17 R17 K7 ["Committed"]
        50 GETTABLE                         R16 R15 R17
-       51 GETUPVAL                         R18 2
-       52 GETTABLEKS                       R17 R18 K8 ["Committing"]
+       51 GETUPVAL                         R17 2
+       52 GETTABLEKS                       R17 R17 K8 ["Committing"]
        54 JUMPIFNOTEQ                      R16 R17 ; [+7]
        56 LOADB                            R4 0
        57 LOADB                            R8 0
@@ -446,8 +446,8 @@ PROTO_20:
        14 RETURN                           R2 1
 
 PROTO_21:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K4 [{"Draft", "RowProps", "IndicatorMargin"}]
         5 SETTABLEKS                       R0 R4 K1 ["Draft"]
@@ -462,14 +462,14 @@ PROTO_21:
        17 RETURN                           R2 -1
 
 PROTO_22:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["Stylizer"]
-        8 GETTABLEKS                       R4 R0 K0 ["props"]
-       10 GETTABLEKS                       R3 R4 K3 ["Drafts"]
-       12 GETTABLEKS                       R5 R0 K4 ["state"]
-       14 GETTABLEKS                       R4 R5 K5 ["draftsPendingDiscard"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["Stylizer"]
+        8 GETTABLEKS                       R3 R0 K0 ["props"]
+       10 GETTABLEKS                       R3 R3 K3 ["Drafts"]
+       12 GETTABLEKS                       R4 R0 K4 ["state"]
+       14 GETTABLEKS                       R4 R4 K5 ["draftsPendingDiscard"]
        16 JUMPIFNOTEQKNIL                  R4 ; [+2]
        18 LOADB                            R5 0 +1
        19 LOADB                            R5 1
@@ -506,8 +506,8 @@ PROTO_22:
        60 LOADK                            R13 K19 ["CommitButton"]
        61 NAMECALL                         R10 R1 K20 ["getText"]
        63 CALL                             R10 3 1
-       64 GETUPVAL                         R12 0
-       65 GETTABLEKS                       R11 R12 K21 ["createElement"]
+       64 GETUPVAL                         R11 0
+       65 GETTABLEKS                       R11 R11 K21 ["createElement"]
        67 LOADK                            R12 K22 ["Frame"]
        68 DUPTABLE                         R13 K25 [{"BackgroundTransparency", "Size"}]
        69 LOADN                            R14 1
@@ -520,8 +520,8 @@ PROTO_22:
        78 CALL                             R14 4 1
        79 SETTABLEKS                       R14 R13 K24 ["Size"]
        81 DUPTABLE                         R14 K32 [{"UIListLayout", "Toolbar", "Container", "DiscardDialog"}]
-       82 GETUPVAL                         R16 0
-       83 GETTABLEKS                       R15 R16 K21 ["createElement"]
+       82 GETUPVAL                         R15 0
+       83 GETTABLEKS                       R15 R15 K21 ["createElement"]
        85 LOADK                            R16 K29 ["UIListLayout"]
        86 DUPTABLE                         R17 K35 [{"FillDirection", "SortOrder"}]
        87 GETIMPORT                        R18 K38 [Enum.FillDirection.Vertical]
@@ -530,8 +530,8 @@ PROTO_22:
        93 SETTABLEKS                       R18 R17 K34 ["SortOrder"]
        95 CALL                             R15 2 1
        96 SETTABLEKS                       R15 R14 K29 ["UIListLayout"]
-       98 GETUPVAL                         R16 0
-       99 GETTABLEKS                       R15 R16 K21 ["createElement"]
+       98 GETUPVAL                         R15 0
+       99 GETTABLEKS                       R15 R15 K21 ["createElement"]
       101 LOADK                            R16 K22 ["Frame"]
       102 DUPTABLE                         R17 K41 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
       103 LOADN                            R18 1
@@ -546,8 +546,8 @@ PROTO_22:
       115 LOADN                            R18 0
       116 SETTABLEKS                       R18 R17 K39 ["LayoutOrder"]
       118 DUPTABLE                         R18 K43 [{"UIPadding", "UIListLayout", "CommitButton"}]
-      119 GETUPVAL                         R20 0
-      120 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      119 GETUPVAL                         R19 0
+      120 GETTABLEKS                       R19 R19 K21 ["createElement"]
       122 LOADK                            R20 K42 ["UIPadding"]
       123 DUPTABLE                         R21 K48 [{"PaddingTop", "PaddingRight", "PaddingBottom", "PaddingLeft"}]
       124 GETIMPORT                        R22 K50 [UDim.new]
@@ -572,8 +572,8 @@ PROTO_22:
       150 SETTABLEKS                       R22 R21 K47 ["PaddingLeft"]
       152 CALL                             R19 2 1
       153 SETTABLEKS                       R19 R18 K42 ["UIPadding"]
-      155 GETUPVAL                         R20 0
-      156 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      155 GETUPVAL                         R19 0
+      156 GETTABLEKS                       R19 R19 K21 ["createElement"]
       158 LOADK                            R20 K29 ["UIListLayout"]
       159 DUPTABLE                         R21 K53 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
       160 GETIMPORT                        R22 K55 [Enum.FillDirection.Horizontal]
@@ -584,26 +584,26 @@ PROTO_22:
       170 SETTABLEKS                       R22 R21 K52 ["VerticalAlignment"]
       172 CALL                             R19 2 1
       173 SETTABLEKS                       R19 R18 K29 ["UIListLayout"]
-      175 GETUPVAL                         R20 0
-      176 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      175 GETUPVAL                         R19 0
+      176 GETTABLEKS                       R19 R19 K21 ["createElement"]
       178 GETUPVAL                         R20 1
       179 DUPTABLE                         R21 K64 [{"OnClick", "Size", "StyleModifier", "Style", "Text"}]
       180 GETTABLEKS                       R22 R0 K65 ["commitSelectedScripts"]
       182 SETTABLEKS                       R22 R21 K60 ["OnClick"]
       184 GETIMPORT                        R22 K28 [UDim2.new]
       186 LOADN                            R23 0
-      187 GETUPVAL                         R26 2
-      188 MOVE                             R27 R10
-      189 CALL                             R26 1 1
-      190 GETTABLEKS                       R25 R26 K67 ["X"]
+      187 GETUPVAL                         R25 2
+      188 MOVE                             R26 R10
+      189 CALL                             R25 1 1
+      190 GETTABLEKS                       R25 R25 K67 ["X"]
       192 ADDK                             R24 R25 K66 [20]
       193 LOADN                            R25 1
       194 LOADN                            R26 0
       195 CALL                             R22 4 1
       196 SETTABLEKS                       R22 R21 K24 ["Size"]
       198 JUMPIF                           R7 ; [+4]
-      199 GETUPVAL                         R23 3
-      200 GETTABLEKS                       R22 R23 K68 ["Disabled"]
+      199 GETUPVAL                         R22 3
+      200 GETTABLEKS                       R22 R22 K68 ["Disabled"]
       202 JUMP                             ; [+1]
       203 LOADNIL                          R22
       204 SETTABLEKS                       R22 R21 K61 ["StyleModifier"]
@@ -614,8 +614,8 @@ PROTO_22:
       212 SETTABLEKS                       R19 R18 K19 ["CommitButton"]
       214 CALL                             R15 3 1
       215 SETTABLEKS                       R15 R14 K18 ["Toolbar"]
-      217 GETUPVAL                         R16 0
-      218 GETTABLEKS                       R15 R16 K21 ["createElement"]
+      217 GETUPVAL                         R15 0
+      218 GETTABLEKS                       R15 R15 K21 ["createElement"]
       220 LOADK                            R16 K22 ["Frame"]
       221 DUPTABLE                         R17 K41 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
       222 LOADN                            R18 1
@@ -630,8 +630,8 @@ PROTO_22:
       234 LOADN                            R18 1
       235 SETTABLEKS                       R18 R17 K39 ["LayoutOrder"]
       237 DUPTABLE                         R18 K72 [{"ListItemView", "EmptyLabel"}]
-      238 GETUPVAL                         R20 0
-      239 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      238 GETUPVAL                         R19 0
+      239 GETTABLEKS                       R19 R19 K21 ["createElement"]
       241 GETUPVAL                         R20 4
       242 DUPTABLE                         R21 K80 [{"Items", "ItemHeight", "GetCurrentSelection", "OnDoubleClicked", "OnSelectionChanged", "MakeMenuActions", "RenderItem"}]
       243 SETTABLEKS                       R9 R21 K73 ["Items"]
@@ -654,8 +654,8 @@ PROTO_22:
       271 SETTABLEKS                       R19 R18 K70 ["ListItemView"]
       273 MOVE                             R19 R6
       274 JUMPIFNOT                        R19 ; [+64]
-      275 GETUPVAL                         R20 0
-      276 GETTABLEKS                       R19 R20 K21 ["createElement"]
+      275 GETUPVAL                         R19 0
+      276 GETTABLEKS                       R19 R19 K21 ["createElement"]
       278 LOADK                            R20 K84 ["TextLabel"]
       279 DUPTABLE                         R21 K92 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Text", "TextColor3", "TextSize", "Font", "TextXAlignment", "TextYAlignment"}]
       280 LOADN                            R22 1
@@ -684,13 +684,13 @@ PROTO_22:
       310 NAMECALL                         R22 R1 K20 ["getText"]
       312 CALL                             R22 3 1
       313 SETTABLEKS                       R22 R21 K63 ["Text"]
-      315 GETTABLEKS                       R23 R2 K98 ["labels"]
-      317 GETTABLEKS                       R22 R23 K99 ["MainText"]
+      315 GETTABLEKS                       R22 R2 K98 ["labels"]
+      317 GETTABLEKS                       R22 R22 K99 ["MainText"]
       319 SETTABLEKS                       R22 R21 K87 ["TextColor3"]
       321 LOADN                            R22 22
       322 SETTABLEKS                       R22 R21 K88 ["TextSize"]
-      324 GETTABLEKS                       R23 R2 K98 ["labels"]
-      326 GETTABLEKS                       R22 R23 K100 ["MainFont"]
+      324 GETTABLEKS                       R22 R2 K98 ["labels"]
+      326 GETTABLEKS                       R22 R22 K100 ["MainFont"]
       328 SETTABLEKS                       R22 R21 K89 ["Font"]
       330 GETIMPORT                        R22 K102 [Enum.TextXAlignment.Left]
       332 SETTABLEKS                       R22 R21 K90 ["TextXAlignment"]
@@ -702,8 +702,8 @@ PROTO_22:
       342 SETTABLEKS                       R15 R14 K30 ["Container"]
       344 MOVE                             R15 R5
       345 JUMPIFNOT                        R15 ; [+12]
-      346 GETUPVAL                         R16 0
-      347 GETTABLEKS                       R15 R16 K21 ["createElement"]
+      346 GETUPVAL                         R15 0
+      347 GETTABLEKS                       R15 R15 K21 ["createElement"]
       349 GETUPVAL                         R16 6
       350 DUPTABLE                         R17 K106 [{"Drafts", "ChoiceSelected"}]
       351 SETTABLEKS                       R4 R17 K3 ["Drafts"]
@@ -729,10 +729,10 @@ PROTO_24:
         5 GETUPVAL                         R6 0
         6 GETUPVAL                         R7 1
         7 MOVE                             R8 R5
-        8 GETUPVAL                         R10 2
-        9 GETTABLEKS                       R9 R10 K2 ["Committed"]
-       11 GETUPVAL                         R11 3
-       12 GETTABLEKS                       R10 R11 K3 ["Committing"]
+        8 GETUPVAL                         R9 2
+        9 GETTABLEKS                       R9 R9 K2 ["Committed"]
+       11 GETUPVAL                         R10 3
+       12 GETTABLEKS                       R10 R10 K3 ["Committing"]
        14 CALL                             R7 3 -1
        15 CALL                             R6 -1 0
        16 FORGLOOP                         R1 2 [inext] ; [-12]
@@ -754,64 +754,64 @@ MAIN:
         3 LOADK                            R2 K2 ["RunService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R5 R1 K9 ["Src"]
-       19 GETTABLEKS                       R4 R5 K10 ["ContextServices"]
-       21 GETTABLEKS                       R3 R4 K11 ["DraftsService"]
+       17 GETTABLEKS                       R3 R1 K9 ["Src"]
+       19 GETTABLEKS                       R3 R3 K10 ["ContextServices"]
+       21 GETTABLEKS                       R3 R3 K11 ["DraftsService"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K8 [require]
-       26 GETTABLEKS                       R5 R1 K12 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K13 ["Roact"]
+       26 GETTABLEKS                       R4 R1 K12 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K13 ["Roact"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K8 [require]
-       33 GETTABLEKS                       R6 R1 K12 ["Packages"]
-       35 GETTABLEKS                       R5 R6 K14 ["RoactRodux"]
+       33 GETTABLEKS                       R5 R1 K12 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K14 ["RoactRodux"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K8 [require]
-       40 GETTABLEKS                       R7 R1 K12 ["Packages"]
-       42 GETTABLEKS                       R6 R7 K15 ["Framework"]
+       40 GETTABLEKS                       R6 R1 K12 ["Packages"]
+       42 GETTABLEKS                       R6 R6 K15 ["Framework"]
        44 CALL                             R5 1 1
        45 GETTABLEKS                       R6 R5 K10 ["ContextServices"]
        47 GETTABLEKS                       R7 R6 K16 ["withContext"]
-       49 GETTABLEKS                       R9 R5 K17 ["Util"]
-       51 GETTABLEKS                       R8 R9 K18 ["GetTextSize"]
+       49 GETTABLEKS                       R8 R5 K17 ["Util"]
+       51 GETTABLEKS                       R8 R8 K18 ["GetTextSize"]
        53 GETIMPORT                        R9 K8 [require]
-       55 GETTABLEKS                       R12 R1 K9 ["Src"]
-       57 GETTABLEKS                       R11 R12 K19 ["Components"]
-       59 GETTABLEKS                       R10 R11 K20 ["DraftDiscardDialog"]
+       55 GETTABLEKS                       R10 R1 K9 ["Src"]
+       57 GETTABLEKS                       R10 R10 K19 ["Components"]
+       59 GETTABLEKS                       R10 R10 K20 ["DraftDiscardDialog"]
        61 CALL                             R9 1 1
        62 GETIMPORT                        R10 K8 [require]
-       64 GETTABLEKS                       R13 R1 K9 ["Src"]
-       66 GETTABLEKS                       R12 R13 K19 ["Components"]
-       68 GETTABLEKS                       R11 R12 K21 ["DraftListItem"]
+       64 GETTABLEKS                       R11 R1 K9 ["Src"]
+       66 GETTABLEKS                       R11 R11 K19 ["Components"]
+       68 GETTABLEKS                       R11 R11 K21 ["DraftListItem"]
        70 CALL                             R10 1 1
        71 GETIMPORT                        R11 K8 [require]
-       73 GETTABLEKS                       R14 R1 K9 ["Src"]
-       75 GETTABLEKS                       R13 R14 K19 ["Components"]
-       77 GETTABLEKS                       R12 R13 K22 ["ListItemView"]
+       73 GETTABLEKS                       R12 R1 K9 ["Src"]
+       75 GETTABLEKS                       R12 R12 K19 ["Components"]
+       77 GETTABLEKS                       R12 R12 K22 ["ListItemView"]
        79 CALL                             R11 1 1
        80 GETTABLEKS                       R12 R5 K23 ["UI"]
        82 GETTABLEKS                       R13 R12 K24 ["Button"]
-       84 GETTABLEKS                       R15 R5 K17 ["Util"]
-       86 GETTABLEKS                       R14 R15 K25 ["StyleModifier"]
+       84 GETTABLEKS                       R14 R5 K17 ["Util"]
+       86 GETTABLEKS                       R14 R14 K25 ["StyleModifier"]
        88 GETIMPORT                        R15 K8 [require]
-       90 GETTABLEKS                       R18 R1 K9 ["Src"]
-       92 GETTABLEKS                       R17 R18 K26 ["Actions"]
-       94 GETTABLEKS                       R16 R17 K27 ["DraftStateChangedAction"]
+       90 GETTABLEKS                       R16 R1 K9 ["Src"]
+       92 GETTABLEKS                       R16 R16 K26 ["Actions"]
+       94 GETTABLEKS                       R16 R16 K27 ["DraftStateChangedAction"]
        96 CALL                             R15 1 1
        97 GETIMPORT                        R16 K8 [require]
-       99 GETTABLEKS                       R19 R1 K9 ["Src"]
-      101 GETTABLEKS                       R18 R19 K28 ["Symbols"]
-      103 GETTABLEKS                       R17 R18 K29 ["DraftState"]
+       99 GETTABLEKS                       R17 R1 K9 ["Src"]
+      101 GETTABLEKS                       R17 R17 K28 ["Symbols"]
+      103 GETTABLEKS                       R17 R17 K29 ["DraftState"]
       105 CALL                             R16 1 1
       106 GETIMPORT                        R17 K8 [require]
-      108 GETTABLEKS                       R20 R1 K9 ["Src"]
-      110 GETTABLEKS                       R19 R20 K28 ["Symbols"]
-      112 GETTABLEKS                       R18 R19 K30 ["CommitState"]
+      108 GETTABLEKS                       R18 R1 K9 ["Src"]
+      110 GETTABLEKS                       R18 R18 K28 ["Symbols"]
+      112 GETTABLEKS                       R18 R18 K30 ["CommitState"]
       114 CALL                             R17 1 1
       115 GETTABLEKS                       R18 R3 K31 ["Component"]
       117 LOADK                            R20 K32 ["DraftListView"]

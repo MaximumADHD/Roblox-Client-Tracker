@@ -18,9 +18,9 @@ PROTO_0:
        22 SETTABLEKS                       R3 R2 K10 ["HasScripts"]
        24 SETTABLEKS                       R2 R1 K0 ["Asset"]
        26 DUPTABLE                         R2 K18 [{"Type", "SoundEffectCategory", "SoundEffectSubcategory"}]
-       27 GETUPVAL                         R5 0
-       28 GETTABLEKS                       R4 R5 K19 ["SOUND_EFFECTS"]
-       30 GETTABLEKS                       R3 R4 K20 ["name"]
+       27 GETUPVAL                         R3 0
+       28 GETTABLEKS                       R3 R3 K19 ["SOUND_EFFECTS"]
+       30 GETTABLEKS                       R3 R3 K20 ["name"]
        32 SETTABLEKS                       R3 R2 K15 ["Type"]
        34 LOADK                            R3 K21 ["Instrument"]
        35 SETTABLEKS                       R3 R2 K16 ["SoundEffectCategory"]
@@ -77,8 +77,8 @@ PROTO_2:
         4 CALL                             R2 3 1
         5 NAMECALL                         R2 R2 K3 ["lower"]
         7 CALL                             R2 1 1
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K4 ["createMockSubcategory"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K4 ["createMockSubcategory"]
        11 LOADK                            R4 K5 ["Genres"]
        12 CALL                             R3 1 1
        13 MOVE                             R4 R1
@@ -86,8 +86,8 @@ PROTO_2:
        15 LOADNIL                          R6
        16 FORGPREP                         R4
        17 GETTABLEKS                       R9 R3 K6 ["children"]
-       19 GETUPVAL                         R11 0
-       20 GETTABLEKS                       R10 R11 K4 ["createMockSubcategory"]
+       19 GETUPVAL                         R10 0
+       20 GETTABLEKS                       R10 R10 K4 ["createMockSubcategory"]
        22 MOVE                             R11 R8
        23 CALL                             R10 1 1
        24 SETTABLE                         R10 R9 R8
@@ -113,8 +113,8 @@ PROTO_3:
        12 LOADN                            R4 1
        13 FORNPREP                         R3
        14 MOVE                             R7 R2
-       15 GETUPVAL                         R9 0
-       16 GETTABLEKS                       R8 R9 K4 ["createAudioInfo"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R8 R8 K4 ["createAudioInfo"]
        18 MOVE                             R9 R5
        19 CALL                             R8 1 -1
        20 FASTCALL                         TABLE_INSERT ; [+2]
@@ -144,8 +144,8 @@ PROTO_4:
         4 LOADN                            R2 1
         5 FORNPREP                         R1
         6 MOVE                             R5 R0
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["createAudioInfo"]
+        7 GETUPVAL                         R6 0
+        8 GETTABLEKS                       R6 R6 K0 ["createAudioInfo"]
        10 MOVE                             R7 R3
        11 CALL                             R6 1 -1
        12 FASTCALL                         TABLE_INSERT ; [+2]
@@ -165,8 +165,8 @@ PROTO_4:
        34 DUPTABLE                         R2 K14 [{"displayName", "name"}]
        35 LOADK                            R3 K15 ["Scene Suggestions"]
        36 SETTABLEKS                       R3 R2 K12 ["displayName"]
-       38 GETUPVAL                         R4 1
-       39 GETTABLEKS                       R3 R4 K16 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+       38 GETUPVAL                         R3 1
+       39 GETTABLEKS                       R3 R3 K16 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
        41 SETTABLEKS                       R3 R2 K13 ["name"]
        43 SETTABLEKS                       R2 R1 K5 ["Section"]
        45 RETURN                           R1 1
@@ -178,29 +178,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Models"]
-       13 GETTABLEKS                       R2 R3 K8 ["AssetInfo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Models"]
+       13 GETTABLEKS                       R2 R2 K8 ["AssetInfo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Types"]
-       22 GETTABLEKS                       R3 R4 K10 ["Category"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
+       22 GETTABLEKS                       R3 R3 K10 ["Category"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K9 ["Types"]
-       31 GETTABLEKS                       R4 R5 K11 ["HomeTypes"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K9 ["Types"]
+       31 GETTABLEKS                       R4 R4 K11 ["HomeTypes"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K9 ["Types"]
-       40 GETTABLEKS                       R5 R6 K12 ["AudioTypes"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K9 ["Types"]
+       40 GETTABLEKS                       R5 R5 K12 ["AudioTypes"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K13 ["Util"]
-       49 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K13 ["Util"]
+       49 GETTABLEKS                       R6 R6 K14 ["Constants"]
        51 CALL                             R5 1 1
        52 NEWTABLE                         R6 8 0
        54 NEWTABLE                         R7 0 11

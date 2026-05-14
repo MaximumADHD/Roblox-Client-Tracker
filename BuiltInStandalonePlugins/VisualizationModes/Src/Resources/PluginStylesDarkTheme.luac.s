@@ -5,8 +5,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 DUPTABLE                         R2 K16 [{"VisualizationModesHighlightColor", "VisualizationModesHighlightTextColor", "VisualizationModesDivider", "VisualizationModesDimActionHover", "VisualizationModesBadgeBackground", "VisualizationModesBadgeText", "VisualizationModesCameraSpeedUnlocked", "VisualizationModesCameraSpeedLocked"}]
        15 LOADK                            R3 K17 ["$Blue70"]
@@ -25,8 +25,8 @@ MAIN:
        34 SETTABLEKS                       R3 R2 K14 ["VisualizationModesCameraSpeedUnlocked"]
        36 LOADK                            R3 K23 ["rbxasset://studio_svg_textures/Lua/VisualizationModes/Dark/Standard/cameraSpeedLockClosed.png"]
        37 SETTABLEKS                       R3 R2 K15 ["VisualizationModesCameraSpeedLocked"]
-       39 GETTABLEKS                       R4 R1 K24 ["Styling"]
-       41 GETTABLEKS                       R3 R4 K25 ["createStyleSheet"]
+       39 GETTABLEKS                       R3 R1 K24 ["Styling"]
+       41 GETTABLEKS                       R3 R3 K25 ["createStyleSheet"]
        43 LOADK                            R4 K26 ["VisualizationModesDarkTheme"]
        44 NEWTABLE                         R5 0 0
        46 MOVE                             R6 R2

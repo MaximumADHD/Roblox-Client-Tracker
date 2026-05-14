@@ -12,10 +12,10 @@ PROTO_0:
        16 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["DragStartLocation"]
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["DragEndLocation"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["DragStartLocation"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["DragEndLocation"]
         8 JUMPIFNOT                        R1 ; [+1]
         9 JUMPIF                           R2 ; [+2]
        10 LOADNIL                          R3
@@ -27,24 +27,24 @@ PROTO_1:
        18 SUB                              R5 R1 R3
        19 SUB                              R6 R2 R3
        20 CALL                             R4 2 1
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K7 ["createElement"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K7 ["createElement"]
        24 LOADK                            R6 K8 ["ScreenGui"]
        25 DUPTABLE                         R7 K10 [{"ClipToDeviceSafeArea"}]
        26 LOADB                            R8 0
        27 SETTABLEKS                       R8 R7 K9 ["ClipToDeviceSafeArea"]
        29 NEWTABLE                         R8 0 1
-       31 GETUPVAL                         R10 1
-       32 GETTABLEKS                       R9 R10 K7 ["createElement"]
+       31 GETUPVAL                         R9 1
+       32 GETTABLEKS                       R9 R9 K7 ["createElement"]
        34 LOADK                            R10 K11 ["Frame"]
        35 DUPTABLE                         R11 K17 [{"Position", "Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
        36 GETIMPORT                        R12 K19 [UDim2.new]
        38 LOADN                            R13 0
-       39 GETTABLEKS                       R15 R4 K20 ["Min"]
-       41 GETTABLEKS                       R14 R15 K21 ["X"]
+       39 GETTABLEKS                       R14 R4 K20 ["Min"]
+       41 GETTABLEKS                       R14 R14 K21 ["X"]
        43 LOADN                            R15 0
-       44 GETTABLEKS                       R17 R4 K20 ["Min"]
-       46 GETTABLEKS                       R16 R17 K22 ["Y"]
+       44 GETTABLEKS                       R16 R4 K20 ["Min"]
+       46 GETTABLEKS                       R16 R16 K22 ["Y"]
        48 CALL                             R12 4 1
        49 SETTABLEKS                       R12 R11 K12 ["Position"]
        51 GETIMPORT                        R12 K19 [UDim2.new]
@@ -54,17 +54,17 @@ PROTO_1:
        57 GETTABLEKS                       R16 R4 K24 ["Height"]
        59 CALL                             R12 4 1
        60 SETTABLEKS                       R12 R11 K13 ["Size"]
-       62 GETTABLEKS                       R13 R0 K0 ["props"]
-       64 GETTABLEKS                       R12 R13 K14 ["BackgroundColor3"]
+       62 GETTABLEKS                       R12 R0 K0 ["props"]
+       64 GETTABLEKS                       R12 R12 K14 ["BackgroundColor3"]
        66 SETTABLEKS                       R12 R11 K14 ["BackgroundColor3"]
-       68 GETTABLEKS                       R13 R0 K0 ["props"]
-       70 GETTABLEKS                       R12 R13 K15 ["BackgroundTransparency"]
+       68 GETTABLEKS                       R12 R0 K0 ["props"]
+       70 GETTABLEKS                       R12 R12 K15 ["BackgroundTransparency"]
        72 SETTABLEKS                       R12 R11 K15 ["BackgroundTransparency"]
        74 LOADN                            R12 0
        75 SETTABLEKS                       R12 R11 K16 ["BorderSizePixel"]
        77 DUPTABLE                         R12 K29 [{"Left", "Top", "Right", "Bottom"}]
-       78 GETUPVAL                         R14 1
-       79 GETTABLEKS                       R13 R14 K7 ["createElement"]
+       78 GETUPVAL                         R13 1
+       79 GETTABLEKS                       R13 R13 K7 ["createElement"]
        81 LOADK                            R14 K11 ["Frame"]
        82 DUPTABLE                         R15 K30 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
        83 GETIMPORT                        R16 K19 [UDim2.new]
@@ -74,15 +74,15 @@ PROTO_1:
        88 LOADN                            R20 0
        89 CALL                             R16 4 1
        90 SETTABLEKS                       R16 R15 K13 ["Size"]
-       92 GETTABLEKS                       R17 R0 K0 ["props"]
-       94 GETTABLEKS                       R16 R17 K31 ["BorderColor3"]
+       92 GETTABLEKS                       R16 R0 K0 ["props"]
+       94 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
        96 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
        98 LOADN                            R16 0
        99 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
       101 CALL                             R13 2 1
       102 SETTABLEKS                       R13 R12 K25 ["Left"]
-      104 GETUPVAL                         R14 1
-      105 GETTABLEKS                       R13 R14 K7 ["createElement"]
+      104 GETUPVAL                         R13 1
+      105 GETTABLEKS                       R13 R13 K7 ["createElement"]
       107 LOADK                            R14 K11 ["Frame"]
       108 DUPTABLE                         R15 K30 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
       109 GETIMPORT                        R16 K19 [UDim2.new]
@@ -92,15 +92,15 @@ PROTO_1:
       114 LOADN                            R20 1
       115 CALL                             R16 4 1
       116 SETTABLEKS                       R16 R15 K13 ["Size"]
-      118 GETTABLEKS                       R17 R0 K0 ["props"]
-      120 GETTABLEKS                       R16 R17 K31 ["BorderColor3"]
+      118 GETTABLEKS                       R16 R0 K0 ["props"]
+      120 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
       122 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
       124 LOADN                            R16 0
       125 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
       127 CALL                             R13 2 1
       128 SETTABLEKS                       R13 R12 K26 ["Top"]
-      130 GETUPVAL                         R14 1
-      131 GETTABLEKS                       R13 R14 K7 ["createElement"]
+      130 GETUPVAL                         R13 1
+      131 GETTABLEKS                       R13 R13 K7 ["createElement"]
       133 LOADK                            R14 K11 ["Frame"]
       134 DUPTABLE                         R15 K33 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
       135 GETIMPORT                        R16 K35 [Vector2.new]
@@ -122,15 +122,15 @@ PROTO_1:
       156 LOADN                            R20 0
       157 CALL                             R16 4 1
       158 SETTABLEKS                       R16 R15 K13 ["Size"]
-      160 GETTABLEKS                       R17 R0 K0 ["props"]
-      162 GETTABLEKS                       R16 R17 K31 ["BorderColor3"]
+      160 GETTABLEKS                       R16 R0 K0 ["props"]
+      162 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
       164 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
       166 LOADN                            R16 0
       167 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
       169 CALL                             R13 2 1
       170 SETTABLEKS                       R13 R12 K27 ["Right"]
-      172 GETUPVAL                         R14 1
-      173 GETTABLEKS                       R13 R14 K7 ["createElement"]
+      172 GETUPVAL                         R13 1
+      173 GETTABLEKS                       R13 R13 K7 ["createElement"]
       175 LOADK                            R14 K11 ["Frame"]
       176 DUPTABLE                         R15 K33 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
       177 GETIMPORT                        R16 K35 [Vector2.new]
@@ -152,8 +152,8 @@ PROTO_1:
       198 LOADN                            R20 1
       199 CALL                             R16 4 1
       200 SETTABLEKS                       R16 R15 K13 ["Size"]
-      202 GETTABLEKS                       R17 R0 K0 ["props"]
-      204 GETTABLEKS                       R16 R17 K31 ["BorderColor3"]
+      202 GETTABLEKS                       R16 R0 K0 ["props"]
+      204 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
       206 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
       208 LOADN                            R16 0
       209 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
@@ -170,18 +170,18 @@ MAIN:
         3 LOADK                            R2 K2 ["GuiService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       13 GETTABLEKS                       R3 R1 K6 ["Parent"]
-       15 GETTABLEKS                       R2 R3 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
        17 GETIMPORT                        R3 K8 [require]
-       19 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       21 GETTABLEKS                       R4 R5 K10 ["Roact"]
+       19 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K10 ["Roact"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K8 [require]
-       26 GETTABLEKS                       R6 R1 K11 ["Utility"]
-       28 GETTABLEKS                       R5 R6 K12 ["Colors"]
+       26 GETTABLEKS                       R5 R1 K11 ["Utility"]
+       28 GETTABLEKS                       R5 R5 K12 ["Colors"]
        30 CALL                             R4 1 1
        31 GETTABLEKS                       R5 R3 K13 ["PureComponent"]
        33 LOADK                            R7 K14 ["DragSelectionView"]

@@ -12,8 +12,8 @@ PROTO_1:
         6 GETTABLEKS                       R1 R0 K0 ["tutorial"]
         8 NAMECALL                         R1 R1 K2 ["resetAttachment"]
        10 CALL                             R1 1 0
-       11 GETTABLEKS                       R2 R0 K0 ["tutorial"]
-       13 GETTABLEKS                       R1 R2 K3 ["Spotlight"]
+       11 GETTABLEKS                       R1 R0 K0 ["tutorial"]
+       13 GETTABLEKS                       R1 R1 K3 ["Spotlight"]
        15 GETUPVAL                         R3 0
        16 NAMECALL                         R1 R1 K4 ["ApplyHighlightAsync"]
        18 CALL                             R1 2 0
@@ -28,9 +28,9 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["TutorialStep"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["TutorialStep"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K6 ["extend"]
        12 LOADK                            R2 K7 ["StopPlaytest"]

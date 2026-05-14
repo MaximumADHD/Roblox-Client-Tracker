@@ -7,9 +7,9 @@ PROTO_0:
         6 RETURN                           R2 -1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["Localization"]
-        3 GETTABLEKS                       R3 R4 K1 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Localization"]
+        3 GETTABLEKS                       R3 R3 K1 ["new"]
         5 DUPTABLE                         R4 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
         6 GETUPVAL                         R5 1
         7 SETTABLEKS                       R5 R4 K2 ["stringResourceTable"]
@@ -31,24 +31,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R6 R0 K8 ["Src"]
-       18 GETTABLEKS                       R5 R6 K9 ["Util"]
-       20 GETTABLEKS                       R4 R5 K10 ["Interfaces"]
-       22 GETTABLEKS                       R3 R4 K11 ["InterfaceTypes"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Interfaces"]
+       22 GETTABLEKS                       R3 R3 K11 ["InterfaceTypes"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R1 K12 ["ContextServices"]
-       27 GETTABLEKS                       R7 R0 K8 ["Src"]
-       29 GETTABLEKS                       R6 R7 K13 ["Resources"]
-       31 GETTABLEKS                       R5 R6 K14 ["Localization"]
-       33 GETTABLEKS                       R4 R5 K15 ["SourceStrings"]
-       35 GETTABLEKS                       R8 R0 K8 ["Src"]
-       37 GETTABLEKS                       R7 R8 K13 ["Resources"]
-       39 GETTABLEKS                       R6 R7 K14 ["Localization"]
-       41 GETTABLEKS                       R5 R6 K16 ["LocalizedStrings"]
+       27 GETTABLEKS                       R4 R0 K8 ["Src"]
+       29 GETTABLEKS                       R4 R4 K13 ["Resources"]
+       31 GETTABLEKS                       R4 R4 K14 ["Localization"]
+       33 GETTABLEKS                       R4 R4 K15 ["SourceStrings"]
+       35 GETTABLEKS                       R5 R0 K8 ["Src"]
+       37 GETTABLEKS                       R5 R5 K13 ["Resources"]
+       39 GETTABLEKS                       R5 R5 K14 ["Localization"]
+       41 GETTABLEKS                       R5 R5 K16 ["LocalizedStrings"]
        43 DUPCLOSURE                       R6 K17 [PROTO_1]
        44 CAPTURE                          VAL R3
        45 CAPTURE                          VAL R4

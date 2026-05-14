@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETTABLEKS                       R2 R0 K1 ["props"]
         6 GETTABLEKS                       R3 R2 K2 ["Stylizer"]
-        8 GETUPVAL                         R5 1
-        9 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R4 R4 K3 ["createElement"]
        11 LOADK                            R5 K4 ["Frame"]
        12 DUPTABLE                         R6 K8 [{"Size", "BackgroundColor3", "Position"}]
        13 GETIMPORT                        R7 K10 [UDim2.new]
@@ -25,8 +25,8 @@ PROTO_0:
        32 CALL                             R7 4 1
        33 SETTABLEKS                       R7 R6 K7 ["Position"]
        35 DUPTABLE                         R7 K21 [{"Padding", "Layout", "MainSwitchSection", "Separator", "LanguageSection", "PseudolocalizationSection", "CountryRegionSection", "CustomPolicySwitchSection", "PolicySection"}]
-       36 GETUPVAL                         R9 1
-       37 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       36 GETUPVAL                         R8 1
+       37 GETTABLEKS                       R8 R8 K3 ["createElement"]
        39 LOADK                            R9 K22 ["UIPadding"]
        40 DUPTABLE                         R10 K26 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
        41 GETTABLEKS                       R11 R3 K27 ["MAINVIEW_PADDING_TOP"]
@@ -37,8 +37,8 @@ PROTO_0:
        51 SETTABLEKS                       R11 R10 K25 ["PaddingRight"]
        53 CALL                             R8 2 1
        54 SETTABLEKS                       R8 R7 K12 ["Padding"]
-       56 GETUPVAL                         R9 1
-       57 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       56 GETUPVAL                         R8 1
+       57 GETTABLEKS                       R8 R8 K3 ["createElement"]
        59 LOADK                            R9 K29 ["UIListLayout"]
        60 DUPTABLE                         R10 K32 [{"SortOrder", "FillDirection", "Padding"}]
        61 GETIMPORT                        R11 K35 [Enum.SortOrder.LayoutOrder]
@@ -49,8 +49,8 @@ PROTO_0:
        71 SETTABLEKS                       R11 R10 K12 ["Padding"]
        73 CALL                             R8 2 1
        74 SETTABLEKS                       R8 R7 K13 ["Layout"]
-       76 GETUPVAL                         R9 1
-       77 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       76 GETUPVAL                         R8 1
+       77 GETTABLEKS                       R8 R8 K3 ["createElement"]
        79 GETUPVAL                         R9 2
        80 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
        81 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -58,8 +58,8 @@ PROTO_0:
        84 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
        86 CALL                             R8 2 1
        87 SETTABLEKS                       R8 R7 K14 ["MainSwitchSection"]
-       89 GETUPVAL                         R9 1
-       90 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       89 GETUPVAL                         R8 1
+       90 GETTABLEKS                       R8 R8 K3 ["createElement"]
        92 GETUPVAL                         R9 3
        93 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
        94 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -67,8 +67,8 @@ PROTO_0:
        97 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
        99 CALL                             R8 2 1
       100 SETTABLEKS                       R8 R7 K15 ["Separator"]
-      102 GETUPVAL                         R9 1
-      103 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      102 GETUPVAL                         R8 1
+      103 GETTABLEKS                       R8 R8 K3 ["createElement"]
       105 GETUPVAL                         R9 4
       106 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
       107 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -76,8 +76,8 @@ PROTO_0:
       110 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
       112 CALL                             R8 2 1
       113 SETTABLEKS                       R8 R7 K16 ["LanguageSection"]
-      115 GETUPVAL                         R9 1
-      116 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      115 GETUPVAL                         R8 1
+      116 GETTABLEKS                       R8 R8 K3 ["createElement"]
       118 GETUPVAL                         R9 5
       119 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
       120 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -85,8 +85,8 @@ PROTO_0:
       123 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
       125 CALL                             R8 2 1
       126 SETTABLEKS                       R8 R7 K17 ["PseudolocalizationSection"]
-      128 GETUPVAL                         R9 1
-      129 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      128 GETUPVAL                         R8 1
+      129 GETTABLEKS                       R8 R8 K3 ["createElement"]
       131 GETUPVAL                         R9 6
       132 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
       133 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -94,8 +94,8 @@ PROTO_0:
       136 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
       138 CALL                             R8 2 1
       139 SETTABLEKS                       R8 R7 K18 ["CountryRegionSection"]
-      141 GETUPVAL                         R9 1
-      142 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      141 GETUPVAL                         R8 1
+      142 GETTABLEKS                       R8 R8 K3 ["createElement"]
       144 GETUPVAL                         R9 7
       145 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
       146 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -103,8 +103,8 @@ PROTO_0:
       149 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
       151 CALL                             R8 2 1
       152 SETTABLEKS                       R8 R7 K19 ["CustomPolicySwitchSection"]
-      154 GETUPVAL                         R9 1
-      155 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      154 GETUPVAL                         R8 1
+      155 GETTABLEKS                       R8 R8 K3 ["createElement"]
       157 GETUPVAL                         R9 8
       158 DUPTABLE                         R10 K39 [{"LayoutOrder"}]
       159 NAMECALL                         R11 R1 K40 ["getNextOrder"]
@@ -117,53 +117,53 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
-       27 GETTABLEKS                       R6 R2 K10 ["UI"]
-       29 GETTABLEKS                       R5 R6 K11 ["Separator"]
-       31 GETTABLEKS                       R7 R2 K12 ["Util"]
-       33 GETTABLEKS                       R6 R7 K13 ["LayoutOrderIterator"]
+       27 GETTABLEKS                       R5 R2 K10 ["UI"]
+       29 GETTABLEKS                       R5 R5 K11 ["Separator"]
+       31 GETTABLEKS                       R6 R2 K12 ["Util"]
+       33 GETTABLEKS                       R6 R6 K13 ["LayoutOrderIterator"]
        35 GETIMPORT                        R7 K4 [require]
-       37 GETTABLEKS                       R10 R0 K14 ["Src"]
-       39 GETTABLEKS                       R9 R10 K15 ["Components"]
-       41 GETTABLEKS                       R8 R9 K16 ["MainSwitchSection"]
+       37 GETTABLEKS                       R8 R0 K14 ["Src"]
+       39 GETTABLEKS                       R8 R8 K15 ["Components"]
+       41 GETTABLEKS                       R8 R8 K16 ["MainSwitchSection"]
        43 CALL                             R7 1 1
        44 GETIMPORT                        R8 K4 [require]
-       46 GETTABLEKS                       R11 R0 K14 ["Src"]
-       48 GETTABLEKS                       R10 R11 K15 ["Components"]
-       50 GETTABLEKS                       R9 R10 K17 ["CustomPolicySwitchSection"]
+       46 GETTABLEKS                       R9 R0 K14 ["Src"]
+       48 GETTABLEKS                       R9 R9 K15 ["Components"]
+       50 GETTABLEKS                       R9 R9 K17 ["CustomPolicySwitchSection"]
        52 CALL                             R8 1 1
        53 GETIMPORT                        R9 K4 [require]
-       55 GETTABLEKS                       R12 R0 K14 ["Src"]
-       57 GETTABLEKS                       R11 R12 K15 ["Components"]
-       59 GETTABLEKS                       R10 R11 K18 ["LanguageSection"]
+       55 GETTABLEKS                       R10 R0 K14 ["Src"]
+       57 GETTABLEKS                       R10 R10 K15 ["Components"]
+       59 GETTABLEKS                       R10 R10 K18 ["LanguageSection"]
        61 CALL                             R9 1 1
        62 GETIMPORT                        R10 K4 [require]
-       64 GETTABLEKS                       R13 R0 K14 ["Src"]
-       66 GETTABLEKS                       R12 R13 K15 ["Components"]
-       68 GETTABLEKS                       R11 R12 K19 ["PseudolocalizationSection"]
+       64 GETTABLEKS                       R11 R0 K14 ["Src"]
+       66 GETTABLEKS                       R11 R11 K15 ["Components"]
+       68 GETTABLEKS                       R11 R11 K19 ["PseudolocalizationSection"]
        70 CALL                             R10 1 1
        71 GETIMPORT                        R11 K4 [require]
-       73 GETTABLEKS                       R14 R0 K14 ["Src"]
-       75 GETTABLEKS                       R13 R14 K15 ["Components"]
-       77 GETTABLEKS                       R12 R13 K20 ["CountryRegionSection"]
+       73 GETTABLEKS                       R12 R0 K14 ["Src"]
+       75 GETTABLEKS                       R12 R12 K15 ["Components"]
+       77 GETTABLEKS                       R12 R12 K20 ["CountryRegionSection"]
        79 CALL                             R11 1 1
        80 GETIMPORT                        R12 K4 [require]
-       82 GETTABLEKS                       R15 R0 K14 ["Src"]
-       84 GETTABLEKS                       R14 R15 K15 ["Components"]
-       86 GETTABLEKS                       R13 R14 K21 ["PolicySection"]
+       82 GETTABLEKS                       R13 R0 K14 ["Src"]
+       84 GETTABLEKS                       R13 R13 K15 ["Components"]
+       86 GETTABLEKS                       R13 R13 K21 ["PolicySection"]
        88 CALL                             R12 1 1
        89 GETTABLEKS                       R13 R1 K22 ["PureComponent"]
        91 LOADK                            R15 K23 ["MainView"]

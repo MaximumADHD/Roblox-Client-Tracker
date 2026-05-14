@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["canvasRef"]
-        3 GETTABLEKS                       R1 R2 K1 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["canvasRef"]
+        3 GETTABLEKS                       R1 R1 K1 ["current"]
         5 JUMPIFNOT                        R1 ; [+10]
         6 GETIMPORT                        R2 K4 [UDim2.new]
         8 LOADN                            R3 1
@@ -16,8 +16,8 @@ PROTO_1:
         0 NEWTABLE                         R3 0 0
         2 NAMECALL                         R1 R0 K0 ["setState"]
         4 CALL                             R1 2 0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K1 ["createRef"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K1 ["createRef"]
         8 CALL                             R1 0 1
         9 SETTABLEKS                       R1 R0 K2 ["canvasRef"]
        11 NEWCLOSURE                       R1 P0
@@ -26,8 +26,8 @@ PROTO_1:
        15 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["contentSizeChanged"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["contentSizeChanged"]
         3 GETTABLEKS                       R2 R0 K1 ["AbsoluteContentSize"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
@@ -38,8 +38,8 @@ PROTO_3:
         4 MOVE                             R3 R0
         5 CALL                             R2 1 3
         6 FORGPREP_NEXT                    R2
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K2 ["createElement"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K2 ["createElement"]
        10 LOADK                            R8 K3 ["Frame"]
        11 DUPTABLE                         R9 K7 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
        12 GETTABLEKS                       R10 R6 K8 ["Index"]
@@ -59,20 +59,20 @@ PROTO_3:
        33 CALL                             R7 3 1
        34 SETTABLE                         R7 R1 R5
        35 FORGLOOP                         R2 2 ; [-29]
-       37 GETUPVAL                         R3 0
-       38 GETTABLEKS                       R2 R3 K2 ["createElement"]
+       37 GETUPVAL                         R2 0
+       38 GETTABLEKS                       R2 R2 K2 ["createElement"]
        40 GETUPVAL                         R3 2
        41 NEWTABLE                         R4 2 0
        43 GETIMPORT                        R5 K17 [Enum.AutomaticSize.Y]
        45 SETTABLEKS                       R5 R4 K18 ["AutomaticCanvasSize"]
-       47 GETUPVAL                         R6 0
-       48 GETTABLEKS                       R5 R6 K19 ["Ref"]
-       50 GETUPVAL                         R7 3
-       51 GETTABLEKS                       R6 R7 K20 ["canvasRef"]
+       47 GETUPVAL                         R5 0
+       48 GETTABLEKS                       R5 R5 K19 ["Ref"]
+       50 GETUPVAL                         R6 3
+       51 GETTABLEKS                       R6 R6 K20 ["canvasRef"]
        53 SETTABLE                         R6 R4 R5
        54 DUPTABLE                         R5 K23 [{"UIListLayout", "FitContent"}]
-       55 GETUPVAL                         R7 0
-       56 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       55 GETUPVAL                         R6 0
+       56 GETTABLEKS                       R6 R6 K2 ["createElement"]
        58 LOADK                            R7 K21 ["UIListLayout"]
        59 NEWTABLE                         R8 8 0
        61 GETUPVAL                         R9 4
@@ -83,16 +83,16 @@ PROTO_3:
        69 SETTABLEKS                       R9 R8 K26 ["SortOrder"]
        71 GETIMPORT                        R9 K30 [Enum.FillDirection.Horizontal]
        73 SETTABLEKS                       R9 R8 K28 ["FillDirection"]
-       75 GETUPVAL                         R11 0
-       76 GETTABLEKS                       R10 R11 K31 ["Change"]
-       78 GETTABLEKS                       R9 R10 K32 ["AbsoluteContentSize"]
+       75 GETUPVAL                         R9 0
+       76 GETTABLEKS                       R9 R9 K31 ["Change"]
+       78 GETTABLEKS                       R9 R9 K32 ["AbsoluteContentSize"]
        80 NEWCLOSURE                       R10 P0
        81 CAPTURE                          UPVAL U3
        82 SETTABLE                         R10 R8 R9
        83 CALL                             R6 2 1
        84 SETTABLEKS                       R6 R5 K21 ["UIListLayout"]
-       86 GETUPVAL                         R7 0
-       87 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       86 GETUPVAL                         R6 0
+       87 GETTABLEKS                       R6 R6 K2 ["createElement"]
        89 GETUPVAL                         R7 6
        90 DUPTABLE                         R8 K35 [{"AutomaticSize", "HorizontalAlignment", "Layout"}]
        91 GETIMPORT                        R9 K17 [Enum.AutomaticSize.Y]
@@ -108,28 +108,28 @@ PROTO_3:
       108 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["ItemHeight"]
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["Items"]
-        8 GETTABLEKS                       R4 R0 K0 ["props"]
-       10 GETTABLEKS                       R3 R4 K3 ["RenderItem"]
-       12 GETTABLEKS                       R5 R0 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["MakeMenuActions"]
-       16 GETTABLEKS                       R6 R0 K0 ["props"]
-       18 GETTABLEKS                       R5 R6 K5 ["OnDoubleClicked"]
-       20 GETTABLEKS                       R7 R0 K0 ["props"]
-       22 GETTABLEKS                       R6 R7 K6 ["OnSelectionChanged"]
-       24 GETTABLEKS                       R8 R0 K0 ["props"]
-       26 GETTABLEKS                       R7 R8 K7 ["ButtonStyle"]
-       28 GETTABLEKS                       R9 R0 K0 ["props"]
-       30 GETTABLEKS                       R8 R9 K8 ["GetCurrentSelection"]
-       32 GETTABLEKS                       R10 R0 K0 ["props"]
-       34 GETTABLEKS                       R9 R10 K9 ["VerticalAlignment"]
-       36 GETTABLEKS                       R11 R0 K0 ["props"]
-       38 GETTABLEKS                       R10 R11 K10 ["Padding"]
-       40 GETUPVAL                         R12 0
-       41 GETTABLEKS                       R11 R12 K11 ["createElement"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["ItemHeight"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["Items"]
+        8 GETTABLEKS                       R3 R0 K0 ["props"]
+       10 GETTABLEKS                       R3 R3 K3 ["RenderItem"]
+       12 GETTABLEKS                       R4 R0 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["MakeMenuActions"]
+       16 GETTABLEKS                       R5 R0 K0 ["props"]
+       18 GETTABLEKS                       R5 R5 K5 ["OnDoubleClicked"]
+       20 GETTABLEKS                       R6 R0 K0 ["props"]
+       22 GETTABLEKS                       R6 R6 K6 ["OnSelectionChanged"]
+       24 GETTABLEKS                       R7 R0 K0 ["props"]
+       26 GETTABLEKS                       R7 R7 K7 ["ButtonStyle"]
+       28 GETTABLEKS                       R8 R0 K0 ["props"]
+       30 GETTABLEKS                       R8 R8 K8 ["GetCurrentSelection"]
+       32 GETTABLEKS                       R9 R0 K0 ["props"]
+       34 GETTABLEKS                       R9 R9 K9 ["VerticalAlignment"]
+       36 GETTABLEKS                       R10 R0 K0 ["props"]
+       38 GETTABLEKS                       R10 R10 K10 ["Padding"]
+       40 GETUPVAL                         R11 0
+       41 GETTABLEKS                       R11 R11 K11 ["createElement"]
        43 GETUPVAL                         R12 1
        44 DUPTABLE                         R13 K14 [{"Size", "GetCurrentSelection", "OnDoubleClicked", "OnSelectionChanged", "MakeMenuActions", "ButtonStyle", "Items", "RenderItem", "RenderContents"}]
        45 GETIMPORT                        R14 K17 [UDim2.new]
@@ -160,22 +160,22 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Roact"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Roact"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Components"]
-       29 GETTABLEKS                       R4 R5 K10 ["AbstractItemView"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Components"]
+       29 GETTABLEKS                       R4 R4 K10 ["AbstractItemView"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R1 K11 ["UI"]
        34 GETTABLEKS                       R5 R4 K12 ["Pane"]

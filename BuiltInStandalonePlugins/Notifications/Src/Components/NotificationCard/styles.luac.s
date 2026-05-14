@@ -1,41 +1,41 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Resources"]
-       24 GETTABLEKS                       R3 R4 K9 ["PluginStyles"]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Resources"]
+       24 GETTABLEKS                       R3 R3 K9 ["PluginStyles"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K7 ["Src"]
-       31 GETTABLEKS                       R5 R6 K10 ["Util"]
-       33 GETTABLEKS                       R4 R5 K11 ["TraySize"]
+       29 GETTABLEKS                       R4 R0 K7 ["Src"]
+       31 GETTABLEKS                       R4 R4 K10 ["Util"]
+       33 GETTABLEKS                       R4 R4 K11 ["TraySize"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K7 ["Src"]
-       40 GETTABLEKS                       R6 R7 K10 ["Util"]
-       42 GETTABLEKS                       R5 R6 K12 ["TextUtils"]
+       38 GETTABLEKS                       R5 R0 K7 ["Src"]
+       40 GETTABLEKS                       R5 R5 K10 ["Util"]
+       42 GETTABLEKS                       R5 R5 K12 ["TextUtils"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K4 [require]
-       47 GETTABLEKS                       R8 R0 K7 ["Src"]
-       49 GETTABLEKS                       R7 R8 K10 ["Util"]
-       51 GETTABLEKS                       R6 R7 K13 ["LocalizationInstance"]
+       47 GETTABLEKS                       R6 R0 K7 ["Src"]
+       49 GETTABLEKS                       R6 R6 K10 ["Util"]
+       51 GETTABLEKS                       R6 R6 K13 ["LocalizationInstance"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K4 [require]
-       56 GETTABLEKS                       R9 R0 K7 ["Src"]
-       58 GETTABLEKS                       R8 R9 K10 ["Util"]
-       60 GETTABLEKS                       R7 R8 K14 ["TimeConstants"]
+       56 GETTABLEKS                       R7 R0 K7 ["Src"]
+       58 GETTABLEKS                       R7 R7 K10 ["Util"]
+       60 GETTABLEKS                       R7 R7 K14 ["TimeConstants"]
        62 CALL                             R6 1 1
-       63 GETTABLEKS                       R8 R1 K15 ["Styling"]
-       65 GETTABLEKS                       R7 R8 K16 ["createStyleRule"]
+       63 GETTABLEKS                       R7 R1 K15 ["Styling"]
+       65 GETTABLEKS                       R7 R7 K16 ["createStyleRule"]
        67 GETTABLEKS                       R8 R6 K17 ["LOCALE_SCOPE_LONG"]
        69 GETTABLEKS                       R9 R6 K18 ["LOCALE_SCOPE"]
        71 LOADK                            R12 K19 ["FontPrimary"]
@@ -43,34 +43,34 @@ MAIN:
        74 CALL                             R10 2 1
        75 GETTABLEKS                       R12 R3 K22 ["TRAY_WIDTH"]
        77 ADDK                             R11 R12 K21 [2]
-       78 LOADK                            R15 K23 ["Margin"]
-       79 NAMECALL                         R13 R2 K20 ["GetAttribute"]
-       81 CALL                             R13 2 1
-       82 GETTABLEKS                       R12 R13 K24 ["Offset"]
-       84 LOADK                            R16 K25 ["MarginSmall"]
-       85 NAMECALL                         R14 R2 K20 ["GetAttribute"]
-       87 CALL                             R14 2 1
-       88 GETTABLEKS                       R13 R14 K24 ["Offset"]
+       78 LOADK                            R14 K23 ["Margin"]
+       79 NAMECALL                         R12 R2 K20 ["GetAttribute"]
+       81 CALL                             R12 2 1
+       82 GETTABLEKS                       R12 R12 K24 ["Offset"]
+       84 LOADK                            R15 K25 ["MarginSmall"]
+       85 NAMECALL                         R13 R2 K20 ["GetAttribute"]
+       87 CALL                             R13 2 1
+       88 GETTABLEKS                       R13 R13 K24 ["Offset"]
        90 LOADK                            R16 K26 ["ScrollBarGutter"]
        91 NAMECALL                         R14 R2 K20 ["GetAttribute"]
        93 CALL                             R14 2 1
-       94 LOADK                            R19 K27 ["CardIconSize"]
-       95 NAMECALL                         R17 R2 K20 ["GetAttribute"]
-       97 CALL                             R17 2 1
-       98 GETTABLEKS                       R16 R17 K28 ["Width"]
-      100 GETTABLEKS                       R15 R16 K24 ["Offset"]
-      102 LOADK                            R19 K29 ["CardIconTextMargin"]
-      103 NAMECALL                         R17 R2 K20 ["GetAttribute"]
-      105 CALL                             R17 2 1
-      106 GETTABLEKS                       R16 R17 K24 ["Offset"]
+       94 LOADK                            R17 K27 ["CardIconSize"]
+       95 NAMECALL                         R15 R2 K20 ["GetAttribute"]
+       97 CALL                             R15 2 1
+       98 GETTABLEKS                       R15 R15 K28 ["Width"]
+      100 GETTABLEKS                       R15 R15 K24 ["Offset"]
+      102 LOADK                            R18 K29 ["CardIconTextMargin"]
+      103 NAMECALL                         R16 R2 K20 ["GetAttribute"]
+      105 CALL                             R16 2 1
+      106 GETTABLEKS                       R16 R16 K24 ["Offset"]
       108 LOADK                            R19 K30 ["CardStatusMinWidth"]
       109 NAMECALL                         R17 R2 K20 ["GetAttribute"]
       111 CALL                             R17 2 1
-      112 LOADK                            R22 K31 ["CardStatusIndicatorSize"]
-      113 NAMECALL                         R20 R2 K20 ["GetAttribute"]
-      115 CALL                             R20 2 1
-      116 GETTABLEKS                       R19 R20 K28 ["Width"]
-      118 GETTABLEKS                       R18 R19 K24 ["Offset"]
+      112 LOADK                            R20 K31 ["CardStatusIndicatorSize"]
+      113 NAMECALL                         R18 R2 K20 ["GetAttribute"]
+      115 CALL                             R18 2 1
+      116 GETTABLEKS                       R18 R18 K28 ["Width"]
+      118 GETTABLEKS                       R18 R18 K24 ["Offset"]
       120 LOADK                            R21 K32 ["CardElapsedTimeTextSize"]
       121 NAMECALL                         R19 R2 K20 ["GetAttribute"]
       123 CALL                             R19 2 1

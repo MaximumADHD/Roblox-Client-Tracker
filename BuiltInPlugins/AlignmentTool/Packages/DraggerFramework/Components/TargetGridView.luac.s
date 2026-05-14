@@ -66,8 +66,8 @@ PROTO_1:
        31 GETIMPORT                        R17 K10 [math.floor]
        33 CALL                             R17 1 1
        34 MUL                              R16 R17 R9
-       35 GETUPVAL                         R18 2
-       36 GETTABLEKS                       R17 R18 K11 ["createElement"]
+       35 GETUPVAL                         R17 2
+       36 GETTABLEKS                       R17 R17 K11 ["createElement"]
        38 GETUPVAL                         R18 3
        39 DUPTABLE                         R19 K19 [{"Color3", "MainTransparency", "DimTransparency", "GridSize", "MajorStep", "CFrame", "Size", "ExtraSize"}]
        40 GETTABLEKS                       R20 R2 K20 ["PrimaryColor"]
@@ -112,14 +112,14 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["DragTarget"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K8 [{"Part", "WorldPosition", "PrimaryColor", "Color", "GridSize"}]
         9 GETTABLEKS                       R6 R2 K9 ["targetPart"]
        11 SETTABLEKS                       R6 R5 K3 ["Part"]
-       13 GETTABLEKS                       R7 R2 K10 ["targetMatrix"]
-       15 GETTABLEKS                       R6 R7 K11 ["Position"]
+       13 GETTABLEKS                       R6 R2 K10 ["targetMatrix"]
+       15 GETTABLEKS                       R6 R6 K11 ["Position"]
        17 SETTABLEKS                       R6 R5 K4 ["WorldPosition"]
        19 GETTABLEKS                       R6 R1 K5 ["PrimaryColor"]
        21 SETTABLEKS                       R6 R5 K5 ["PrimaryColor"]
@@ -136,11 +136,11 @@ PROTO_3:
         3 LOADN                            R2 3
         4 LOADN                            R3 1
         5 FORNPREP                         R2
-        6 GETIMPORT                        R7 K2 [Vector2.new]
-        8 LOADN                            R8 253
-        9 MOVE                             R9 R4
-       10 CALL                             R7 2 1
-       11 GETTABLEKS                       R6 R7 K3 ["Unit"]
+        6 GETIMPORT                        R6 K2 [Vector2.new]
+        8 LOADN                            R7 253
+        9 MOVE                             R8 R4
+       10 CALL                             R6 2 1
+       11 GETTABLEKS                       R6 R6 K3 ["Unit"]
        13 GETUPVAL                         R7 0
        14 MUL                              R5 R6 R7
        15 GETUPVAL                         R9 1
@@ -158,11 +158,11 @@ PROTO_3:
        32 LOADN                            R2 3
        33 LOADN                            R3 1
        34 FORNPREP                         R2
-       35 GETIMPORT                        R7 K2 [Vector2.new]
-       37 MOVE                             R8 R4
-       38 LOADN                            R9 3
-       39 CALL                             R7 2 1
-       40 GETTABLEKS                       R6 R7 K3 ["Unit"]
+       35 GETIMPORT                        R6 K2 [Vector2.new]
+       37 MOVE                             R7 R4
+       38 LOADN                            R8 3
+       39 CALL                             R6 2 1
+       40 GETTABLEKS                       R6 R6 K3 ["Unit"]
        42 GETUPVAL                         R7 0
        43 MUL                              R5 R6 R7
        44 GETUPVAL                         R9 1
@@ -180,11 +180,11 @@ PROTO_3:
        61 LOADN                            R2 253
        62 LOADN                            R3 255
        63 FORNPREP                         R2
-       64 GETIMPORT                        R7 K2 [Vector2.new]
-       66 LOADN                            R8 3
-       67 MOVE                             R9 R4
-       68 CALL                             R7 2 1
-       69 GETTABLEKS                       R6 R7 K3 ["Unit"]
+       64 GETIMPORT                        R6 K2 [Vector2.new]
+       66 LOADN                            R7 3
+       67 MOVE                             R8 R4
+       68 CALL                             R6 2 1
+       69 GETTABLEKS                       R6 R6 K3 ["Unit"]
        71 GETUPVAL                         R7 0
        72 MUL                              R5 R6 R7
        73 GETUPVAL                         R9 1
@@ -202,11 +202,11 @@ PROTO_3:
        90 LOADN                            R2 253
        91 LOADN                            R3 255
        92 FORNPREP                         R2
-       93 GETIMPORT                        R7 K2 [Vector2.new]
-       95 MOVE                             R8 R4
-       96 LOADN                            R9 253
-       97 CALL                             R7 2 1
-       98 GETTABLEKS                       R6 R7 K3 ["Unit"]
+       93 GETIMPORT                        R6 K2 [Vector2.new]
+       95 MOVE                             R7 R4
+       96 LOADN                            R8 253
+       97 CALL                             R6 2 1
+       98 GETTABLEKS                       R6 R6 K3 ["Unit"]
       100 GETUPVAL                         R7 0
       101 MUL                              R5 R6 R7
       102 GETUPVAL                         R9 1
@@ -238,12 +238,12 @@ PROTO_4:
        16 GETIMPORT                        R10 K10 [math.min]
        18 CALL                             R10 2 1
        19 MULK                             R9 R10 K5 [0.5]
-       20 MOVE                             R13 R1
-       21 NAMECALL                         R11 R7 K11 ["PointToObjectSpace"]
-       23 CALL                             R11 2 1
-       24 GETTABLEKS                       R10 R11 K12 ["X"]
-       26 GETUPVAL                         R12 0
-       27 GETTABLEKS                       R11 R12 K13 ["createElement"]
+       20 MOVE                             R12 R1
+       21 NAMECALL                         R10 R7 K11 ["PointToObjectSpace"]
+       23 CALL                             R10 2 1
+       24 GETTABLEKS                       R10 R10 K12 ["X"]
+       26 GETUPVAL                         R11 0
+       27 GETTABLEKS                       R11 R11 K13 ["createElement"]
        29 GETUPVAL                         R12 1
        30 DUPTABLE                         R13 K18 [{"Color3", "AlwaysOnTop", "Adornee", "Render"}]
        31 SETTABLEKS                       R2 R13 K14 ["Color3"]
@@ -257,16 +257,16 @@ PROTO_4:
        43 RETURN                           R11 -1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["SphereHandleAdornment"]
         4 DUPTABLE                         R3 K8 [{"Color3", "AlwaysOnTop", "Adornee", "CFrame", "ZIndex", "Radius"}]
         5 GETTABLEKS                       R4 R0 K9 ["Color"]
         7 SETTABLEKS                       R4 R3 K2 ["Color3"]
         9 LOADB                            R4 1
        10 SETTABLEKS                       R4 R3 K3 ["AlwaysOnTop"]
-       12 GETIMPORT                        R5 K11 [workspace]
-       14 GETTABLEKS                       R4 R5 K12 ["Terrain"]
+       12 GETIMPORT                        R4 K11 [workspace]
+       14 GETTABLEKS                       R4 R4 K12 ["Terrain"]
        16 SETTABLEKS                       R4 R3 K4 ["Adornee"]
        18 GETIMPORT                        R4 K14 [CFrame.new]
        20 GETTABLEKS                       R5 R0 K15 ["Position"]
@@ -333,8 +333,8 @@ PROTO_7:
         4 GETTABLEKS                       R3 R1 K2 ["DragTarget"]
         6 GETTABLEKS                       R4 R3 K3 ["targetPart"]
         8 NEWTABLE                         R5 8 0
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K4 ["createElement"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K4 ["createElement"]
        13 GETUPVAL                         R7 1
        14 DUPTABLE                         R8 K8 [{"Part", "Color3", "GridSnap"}]
        15 SETTABLEKS                       R4 R8 K5 ["Part"]
@@ -343,12 +343,12 @@ PROTO_7:
        21 SETTABLEKS                       R2 R8 K7 ["GridSnap"]
        23 CALL                             R6 2 1
        24 SETTABLEKS                       R6 R5 K10 ["MajorLines"]
-       26 GETTABLEKS                       R9 R4 K12 ["Size"]
-       28 GETTABLEKS                       R8 R9 K13 ["X"]
-       30 GETTABLEKS                       R10 R4 K12 ["Size"]
-       32 GETTABLEKS                       R9 R10 K14 ["Y"]
-       34 GETTABLEKS                       R11 R4 K12 ["Size"]
-       36 GETTABLEKS                       R10 R11 K15 ["Z"]
+       26 GETTABLEKS                       R8 R4 K12 ["Size"]
+       28 GETTABLEKS                       R8 R8 K13 ["X"]
+       30 GETTABLEKS                       R9 R4 K12 ["Size"]
+       32 GETTABLEKS                       R9 R9 K14 ["Y"]
+       34 GETTABLEKS                       R10 R4 K12 ["Size"]
+       36 GETTABLEKS                       R10 R10 K15 ["Z"]
        38 FASTCALL                         MATH_MIN ; [+2]
        39 GETIMPORT                        R7 K18 [math.min]
        41 CALL                             R7 3 1
@@ -381,8 +381,8 @@ PROTO_7:
        75 MOVE                             R13 R3
        76 CALL                             R12 1 5
        77 DIV                              R17 R11 R2
-       78 GETUPVAL                         R19 0
-       79 GETTABLEKS                       R18 R19 K4 ["createElement"]
+       78 GETUPVAL                         R18 0
+       79 GETTABLEKS                       R18 R18 K4 ["createElement"]
        81 GETUPVAL                         R19 3
        82 DUPTABLE                         R20 K30 [{"Color3", "AlwaysOnTop", "Render"}]
        83 GETTABLEKS                       R21 R1 K31 ["PrimaryColor"]
@@ -400,8 +400,8 @@ PROTO_7:
        98 SETTABLEKS                       R21 R20 K29 ["Render"]
       100 CALL                             R18 2 1
       101 SETTABLEKS                       R18 R5 K32 ["LinearGuides"]
-      103 GETUPVAL                         R19 0
-      104 GETTABLEKS                       R18 R19 K4 ["createElement"]
+      103 GETUPVAL                         R18 0
+      104 GETTABLEKS                       R18 R18 K4 ["createElement"]
       106 GETUPVAL                         R19 4
       107 DUPTABLE                         R20 K35 [{"Color", "Scale", "Position"}]
       108 GETTABLEKS                       R21 R1 K9 ["Color"]
@@ -411,8 +411,8 @@ PROTO_7:
       116 SETTABLEKS                       R12 R20 K34 ["Position"]
       118 CALL                             R18 2 1
       119 SETTABLEKS                       R18 R5 K36 ["CenterPoint"]
-      121 GETUPVAL                         R19 0
-      122 GETTABLEKS                       R18 R19 K4 ["createElement"]
+      121 GETUPVAL                         R18 0
+      122 GETTABLEKS                       R18 R18 K4 ["createElement"]
       124 GETUPVAL                         R19 5
       125 DUPTABLE                         R20 K46 [{"Position", "Radius", "UnitA", "UnitB", "MinA", "MaxA", "MinB", "MaxB", "ExcludeA", "ExcludeB", "Color3"}]
       126 SETTABLEKS                       R12 R20 K34 ["Position"]
@@ -439,8 +439,8 @@ PROTO_7:
       160 NAMECALL                         R12 R0 K48 ["_renderLattitudeGuide"]
       162 CALL                             R12 1 1
       163 SETTABLEKS                       R12 R5 K49 ["LattitudeGuide"]
-      165 GETUPVAL                         R13 0
-      166 GETTABLEKS                       R12 R13 K50 ["createFragment"]
+      165 GETUPVAL                         R12 0
+      166 GETTABLEKS                       R12 R12 K50 ["createFragment"]
       168 MOVE                             R13 R5
       169 CALL                             R12 1 -1
       170 RETURN                           R12 -1
@@ -464,8 +464,8 @@ PROTO_9:
         6 CALL                             R3 1 5
         7 GETTABLEKS                       R8 R1 K2 ["GridSize"]
         9 LOADK                            R10 K3 [0.5]
-       10 GETTABLEKS                       R12 R2 K4 ["targetSize"]
-       12 GETTABLEKS                       R11 R12 K5 ["Z"]
+       10 GETTABLEKS                       R11 R2 K4 ["targetSize"]
+       12 GETTABLEKS                       R11 R11 K5 ["Z"]
        14 MUL                              R9 R10 R11
        15 DIV                              R10 R7 R8
        16 ADDK                             R12 R10 K3 [0.5]
@@ -481,8 +481,8 @@ PROTO_9:
        33 CALL                             R15 2 1
        34 MULK                             R14 R15 K3 [0.5]
        35 NEWTABLE                         R15 8 0
-       37 GETUPVAL                         R17 1
-       38 GETTABLEKS                       R16 R17 K14 ["createElement"]
+       37 GETUPVAL                         R16 1
+       38 GETTABLEKS                       R16 R16 K14 ["createElement"]
        40 GETUPVAL                         R17 2
        41 DUPTABLE                         R18 K17 [{"Part", "Color3"}]
        42 SETTABLEKS                       R12 R18 K15 ["Part"]
@@ -492,8 +492,8 @@ PROTO_9:
        49 SETTABLEKS                       R16 R15 K19 ["MajorLines"]
        51 GETTABLEKS                       R16 R2 K20 ["dragTargetType"]
        53 JUMPIFNOTEQKS                    R16 K21 ["Polygon"] ; [+26]
-       55 GETUPVAL                         R17 1
-       56 GETTABLEKS                       R16 R17 K14 ["createElement"]
+       55 GETUPVAL                         R16 1
+       56 GETTABLEKS                       R16 R16 K14 ["createElement"]
        58 GETUPVAL                         R17 3
        59 DUPTABLE                         R18 K24 [{"Color", "Scale", "Position"}]
        60 GETTABLEKS                       R19 R1 K18 ["Color"]
@@ -508,8 +508,8 @@ PROTO_9:
        76 CALL                             R16 2 1
        77 SETTABLEKS                       R16 R15 K27 ["PolygonGrid"]
        79 JUMP                             ; [+68]
-       80 GETUPVAL                         R17 1
-       81 GETTABLEKS                       R16 R17 K14 ["createElement"]
+       80 GETUPVAL                         R16 1
+       81 GETTABLEKS                       R16 R16 K14 ["createElement"]
        83 GETUPVAL                         R17 4
        84 DUPTABLE                         R18 K36 [{"Position", "UnitA", "UnitB", "MinA", "MaxA", "MinB", "MaxB", "ExcludeA", "ExcludeB", "Color3"}]
        85 SETTABLEKS                       R3 R18 K23 ["Position"]
@@ -532,8 +532,8 @@ PROTO_9:
       112 SETTABLEKS                       R19 R18 K16 ["Color3"]
       114 CALL                             R16 2 1
       115 SETTABLEKS                       R16 R15 K37 ["CylinderGrid"]
-      117 GETUPVAL                         R17 1
-      118 GETTABLEKS                       R16 R17 K14 ["createElement"]
+      117 GETUPVAL                         R16 1
+      118 GETTABLEKS                       R16 R16 K14 ["createElement"]
       120 GETUPVAL                         R17 5
       121 DUPTABLE                         R18 K40 [{"Color3", "AlwaysOnTop", "Render"}]
       122 GETTABLEKS                       R19 R1 K41 ["PrimaryColor"]
@@ -554,8 +554,8 @@ PROTO_9:
       143 NAMECALL                         R16 R0 K43 ["_renderCylinderRingGuide"]
       145 CALL                             R16 3 1
       146 SETTABLEKS                       R16 R15 K44 ["RadialGuide"]
-      148 GETUPVAL                         R17 1
-      149 GETTABLEKS                       R16 R17 K45 ["createFragment"]
+      148 GETUPVAL                         R16 1
+      149 GETTABLEKS                       R16 R16 K45 ["createFragment"]
       151 MOVE                             R17 R15
       152 CALL                             R16 1 -1
       153 RETURN                           R16 -1
@@ -622,13 +622,13 @@ PROTO_13:
         4 GETUPVAL                         R3 0
         5 MOVE                             R4 R2
         6 CALL                             R3 1 5
-        7 GETTABLEKS                       R9 R2 K2 ["targetSize"]
-        9 GETTABLEKS                       R8 R9 K3 ["Z"]
+        7 GETTABLEKS                       R8 R2 K2 ["targetSize"]
+        9 GETTABLEKS                       R8 R8 K3 ["Z"]
        11 NEWTABLE                         R9 4 0
        13 GETTABLEKS                       R10 R2 K4 ["dragTargetType"]
        15 JUMPIFNOTEQKS                    R10 K5 ["Sphere"] ; [+23]
-       17 GETUPVAL                         R11 1
-       18 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       17 GETUPVAL                         R10 1
+       18 GETTABLEKS                       R10 R10 K6 ["createElement"]
        20 GETUPVAL                         R11 2
        21 DUPTABLE                         R12 K9 [{"Part", "Color3"}]
        22 GETTABLEKS                       R13 R2 K10 ["targetPart"]
@@ -643,8 +643,8 @@ PROTO_13:
        38 JUMP                             ; [+120]
        39 GETTABLEKS                       R10 R2 K4 ["dragTargetType"]
        41 JUMPIFNOTEQKS                    R10 K15 ["Cylinder"] ; [+49]
-       43 GETUPVAL                         R11 1
-       44 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       43 GETUPVAL                         R10 1
+       44 GETTABLEKS                       R10 R10 K6 ["createElement"]
        46 GETUPVAL                         R11 3
        47 DUPTABLE                         R12 K9 [{"Part", "Color3"}]
        48 GETTABLEKS                       R13 R2 K10 ["targetPart"]
@@ -660,8 +660,8 @@ PROTO_13:
        64 NAMECALL                         R10 R0 K17 ["_renderCylinderRingGuide"]
        66 CALL                             R10 4 1
        67 SETTABLEKS                       R10 R9 K18 ["RadialGuide"]
-       69 GETUPVAL                         R11 1
-       70 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       69 GETUPVAL                         R10 1
+       70 GETTABLEKS                       R10 R10 K6 ["createElement"]
        72 GETUPVAL                         R11 4
        73 DUPTABLE                         R12 K21 [{"Color3", "AlwaysOnTop", "Render"}]
        74 GETTABLEKS                       R13 R1 K16 ["PrimaryColor"]
@@ -695,8 +695,8 @@ PROTO_13:
       117 LOADNIL                          R10
       118 GETIMPORT                        R11 K28 [Enum.PartType.Ball]
       120 JUMPIFNOTEQ                      R10 R11 ; [+18]
-      122 GETUPVAL                         R12 1
-      123 GETTABLEKS                       R11 R12 K6 ["createElement"]
+      122 GETUPVAL                         R11 1
+      123 GETTABLEKS                       R11 R11 K6 ["createElement"]
       125 GETUPVAL                         R12 2
       126 DUPTABLE                         R13 K9 [{"Part", "Color3"}]
       127 GETTABLEKS                       R14 R2 K10 ["targetPart"]
@@ -708,8 +708,8 @@ PROTO_13:
       138 JUMP                             ; [+20]
       139 GETIMPORT                        R11 K29 [Enum.PartType.Cylinder]
       141 JUMPIFNOTEQ                      R10 R11 ; [+17]
-      143 GETUPVAL                         R12 1
-      144 GETTABLEKS                       R11 R12 K6 ["createElement"]
+      143 GETUPVAL                         R11 1
+      144 GETTABLEKS                       R11 R11 K6 ["createElement"]
       146 GETUPVAL                         R12 3
       147 DUPTABLE                         R13 K9 [{"Part", "Color3"}]
       148 GETTABLEKS                       R14 R2 K10 ["targetPart"]
@@ -718,15 +718,15 @@ PROTO_13:
       154 SETTABLEKS                       R14 R13 K8 ["Color3"]
       156 CALL                             R11 2 1
       157 SETTABLEKS                       R11 R9 K12 ["MajorLines"]
-      159 GETUPVAL                         R11 1
-      160 GETTABLEKS                       R10 R11 K30 ["createFragment"]
+      159 GETUPVAL                         R10 1
+      160 GETTABLEKS                       R10 R10 K30 ["createFragment"]
       162 MOVE                             R11 R9
       163 CALL                             R10 1 -1
       164 RETURN                           R10 -1
 
 PROTO_14:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["GridSize"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["GridSize"]
         4 JUMPIFNOT                        R1 ; [+4]
         5 NAMECALL                         R1 R0 K2 ["_renderGridSnap"]
         7 CALL                             R1 1 -1
@@ -737,38 +737,38 @@ PROTO_14:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Components"]
-       22 GETTABLEKS                       R4 R5 K8 ["Grid3D"]
+       20 GETTABLEKS                       R4 R0 K7 ["Components"]
+       22 GETTABLEKS                       R4 R4 K8 ["Grid3D"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R6 R0 K7 ["Components"]
-       29 GETTABLEKS                       R5 R6 K9 ["WireframeHandleAdornment"]
+       27 GETTABLEKS                       R5 R0 K7 ["Components"]
+       29 GETTABLEKS                       R5 R5 K9 ["WireframeHandleAdornment"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K4 [require]
-       34 GETTABLEKS                       R7 R0 K7 ["Components"]
-       36 GETTABLEKS                       R6 R7 K10 ["SphereMajorLines"]
+       34 GETTABLEKS                       R6 R0 K7 ["Components"]
+       36 GETTABLEKS                       R6 R6 K10 ["SphereMajorLines"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K4 [require]
-       41 GETTABLEKS                       R8 R0 K7 ["Components"]
-       43 GETTABLEKS                       R7 R8 K11 ["CylinderMajorLines"]
+       41 GETTABLEKS                       R7 R0 K7 ["Components"]
+       43 GETTABLEKS                       R7 R7 K11 ["CylinderMajorLines"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K4 [require]
-       48 GETTABLEKS                       R9 R0 K7 ["Components"]
-       50 GETTABLEKS                       R8 R9 K12 ["LatLonGuide"]
+       48 GETTABLEKS                       R8 R0 K7 ["Components"]
+       50 GETTABLEKS                       R8 R8 K12 ["LatLonGuide"]
        52 CALL                             R7 1 1
        53 GETIMPORT                        R8 K4 [require]
-       55 GETTABLEKS                       R10 R0 K7 ["Components"]
-       57 GETTABLEKS                       R9 R10 K13 ["RulerView"]
+       55 GETTABLEKS                       R9 R0 K7 ["Components"]
+       57 GETTABLEKS                       R9 R9 K13 ["RulerView"]
        59 CALL                             R8 1 1
        60 GETIMPORT                        R9 K15 [game]
        62 LOADK                            R11 K16 ["DraggerShowFullCross"]

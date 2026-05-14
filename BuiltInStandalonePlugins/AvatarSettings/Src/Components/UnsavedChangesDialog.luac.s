@@ -18,15 +18,15 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["hasUnpublishedAvatarTypeChanges"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["hasUnpublishedAvatarTypeChanges"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U2
         6 NAMECALL                         R0 R0 K1 ["OnInvoke"]
         8 CALL                             R0 3 0
         9 GETUPVAL                         R0 0
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K2 ["requestUnpublishedChangesStatus"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K2 ["requestUnpublishedChangesStatus"]
        13 NAMECALL                         R0 R0 K3 ["Invoke"]
        15 CALL                             R0 2 0
        16 RETURN                           R0 0
@@ -42,8 +42,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["onAvatarSettingsPublish"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["onAvatarSettingsPublish"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U2
         6 CAPTURE                          UPVAL U3
@@ -62,8 +62,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["onStudioPublishHold"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["onStudioPublishHold"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U2
         6 CAPTURE                          UPVAL U3
@@ -82,8 +82,8 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["onStudioCloseHold"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["onStudioCloseHold"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U2
         6 CAPTURE                          UPVAL U3
@@ -105,18 +105,18 @@ PROTO_9:
        11 NAMECALL                         R0 R0 K4 ["logCounter"]
        13 CALL                             R0 3 0
        14 GETUPVAL                         R0 3
-       15 GETUPVAL                         R3 4
-       16 GETTABLEKS                       R2 R3 K5 ["publishSettings"]
+       15 GETUPVAL                         R2 4
+       16 GETTABLEKS                       R2 R2 K5 ["publishSettings"]
        18 NAMECALL                         R0 R0 K6 ["Invoke"]
        20 CALL                             R0 2 0
        21 GETUPVAL                         R0 3
-       22 GETUPVAL                         R3 4
-       23 GETTABLEKS                       R2 R3 K7 ["releaseStudioCloseHold"]
+       22 GETUPVAL                         R2 4
+       23 GETTABLEKS                       R2 R2 K7 ["releaseStudioCloseHold"]
        25 NAMECALL                         R0 R0 K6 ["Invoke"]
        27 CALL                             R0 2 0
        28 GETUPVAL                         R0 3
-       29 GETUPVAL                         R3 4
-       30 GETTABLEKS                       R2 R3 K8 ["releaseStudioPublishHold"]
+       29 GETUPVAL                         R2 4
+       30 GETTABLEKS                       R2 R2 K8 ["releaseStudioPublishHold"]
        32 NAMECALL                         R0 R0 K6 ["Invoke"]
        34 CALL                             R0 2 0
        35 GETUPVAL                         R0 5
@@ -138,18 +138,18 @@ PROTO_10:
        11 NAMECALL                         R0 R0 K4 ["logCounter"]
        13 CALL                             R0 3 0
        14 GETUPVAL                         R0 3
-       15 GETUPVAL                         R3 4
-       16 GETTABLEKS                       R2 R3 K5 ["publishSettings"]
+       15 GETUPVAL                         R2 4
+       16 GETTABLEKS                       R2 R2 K5 ["publishSettings"]
        18 NAMECALL                         R0 R0 K6 ["Invoke"]
        20 CALL                             R0 2 0
        21 GETUPVAL                         R0 3
-       22 GETUPVAL                         R3 4
-       23 GETTABLEKS                       R2 R3 K7 ["releaseStudioCloseHold"]
+       22 GETUPVAL                         R2 4
+       23 GETTABLEKS                       R2 R2 K7 ["releaseStudioCloseHold"]
        25 NAMECALL                         R0 R0 K6 ["Invoke"]
        27 CALL                             R0 2 0
        28 GETUPVAL                         R0 3
-       29 GETUPVAL                         R3 4
-       30 GETTABLEKS                       R2 R3 K8 ["releaseStudioPublishHold"]
+       29 GETUPVAL                         R2 4
+       30 GETTABLEKS                       R2 R2 K8 ["releaseStudioPublishHold"]
        32 NAMECALL                         R0 R0 K6 ["Invoke"]
        34 CALL                             R0 2 0
        35 GETUPVAL                         R0 5
@@ -158,17 +158,17 @@ PROTO_10:
        38 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["discardUnpublishedSettings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["discardUnpublishedSettings"]
         3 CALL                             R0 0 0
         4 GETUPVAL                         R0 1
-        5 GETUPVAL                         R3 2
-        6 GETTABLEKS                       R2 R3 K1 ["releaseStudioCloseHold"]
+        5 GETUPVAL                         R2 2
+        6 GETTABLEKS                       R2 R2 K1 ["releaseStudioCloseHold"]
         8 NAMECALL                         R0 R0 K2 ["Invoke"]
        10 CALL                             R0 2 0
        11 GETUPVAL                         R0 1
-       12 GETUPVAL                         R3 2
-       13 GETTABLEKS                       R2 R3 K3 ["releaseStudioPublishHold"]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K3 ["releaseStudioPublishHold"]
        15 NAMECALL                         R0 R0 K2 ["Invoke"]
        17 CALL                             R0 2 0
        18 GETUPVAL                         R0 3
@@ -178,13 +178,13 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["releaseStudioCloseHold"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["releaseStudioCloseHold"]
         4 NAMECALL                         R0 R0 K1 ["Invoke"]
         6 CALL                             R0 2 0
         7 GETUPVAL                         R0 0
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["releaseStudioPublishHold"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["releaseStudioPublishHold"]
        11 NAMECALL                         R0 R0 K1 ["Invoke"]
        13 CALL                             R0 2 0
        14 GETUPVAL                         R0 2
@@ -218,8 +218,8 @@ PROTO_14:
        17 GETUPVAL                         R3 2
        18 LOADB                            R4 1
        19 CALL                             R3 1 2
-       20 GETUPVAL                         R6 3
-       21 GETTABLEKS                       R5 R6 K4 ["useRef"]
+       20 GETUPVAL                         R5 3
+       21 GETTABLEKS                       R5 R5 K4 ["useRef"]
        23 LOADB                            R6 1
        24 CALL                             R5 1 1
        25 GETUPVAL                         R6 2
@@ -233,14 +233,14 @@ PROTO_14:
        35 GETUPVAL                         R9 5
        36 NAMECALL                         R9 R9 K5 ["use"]
        38 CALL                             R9 1 1
-       39 GETUPVAL                         R11 3
-       40 GETTABLEKS                       R10 R11 K7 ["useContext"]
+       39 GETUPVAL                         R10 3
+       40 GETTABLEKS                       R10 R10 K7 ["useContext"]
        42 GETUPVAL                         R11 6
        43 CALL                             R10 1 1
        44 GETUPVAL                         R12 7
        45 JUMPIFNOT                        R12 ; [+6]
-       46 GETUPVAL                         R12 8
-       47 GETTABLEKS                       R11 R12 K8 ["computeCurrentPresetType"]
+       46 GETUPVAL                         R11 8
+       47 GETTABLEKS                       R11 R11 K8 ["computeCurrentPresetType"]
        49 MOVE                             R12 R10
        50 CALL                             R11 1 1
        51 JUMP                             ; [+1]
@@ -406,8 +406,8 @@ PROTO_14:
       250 SETLIST                          R22 R23 1 [1]
       252 CALL                             R20 2 0
       253 GETUPVAL                         R20 13
-      254 GETUPVAL                         R22 3
-      255 GETTABLEKS                       R21 R22 K36 ["Fragment"]
+      254 GETUPVAL                         R21 3
+      255 GETTABLEKS                       R21 R21 K36 ["Fragment"]
       257 CALL                             R20 1 -1
       258 RETURN                           R20 -1
 
@@ -418,56 +418,56 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AvatarPresetUtil"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarPresetUtil"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K9 ["Components"]
-       22 GETTABLEKS                       R4 R5 K10 ["Contexts"]
-       24 GETTABLEKS                       R3 R4 K11 ["AvatarSettingsContext"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Components"]
+       22 GETTABLEKS                       R3 R3 K10 ["Contexts"]
+       24 GETTABLEKS                       R3 R3 K11 ["AvatarSettingsContext"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R5 R0 K12 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K13 ["Framework"]
+       29 GETTABLEKS                       R4 R0 K12 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K13 ["Framework"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R9 R0 K6 ["Src"]
-       38 GETTABLEKS                       R8 R9 K9 ["Components"]
-       40 GETTABLEKS                       R7 R8 K10 ["Contexts"]
-       42 GETTABLEKS                       R6 R7 K14 ["PublishProvider"]
-       44 GETTABLEKS                       R5 R6 K15 ["PublishContext"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K9 ["Components"]
+       40 GETTABLEKS                       R5 R5 K10 ["Contexts"]
+       42 GETTABLEKS                       R5 R5 K14 ["PublishProvider"]
+       44 GETTABLEKS                       R5 R5 K15 ["PublishContext"]
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K5 [require]
-       49 GETTABLEKS                       R7 R0 K12 ["Packages"]
-       51 GETTABLEKS                       R6 R7 K16 ["React"]
+       49 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       51 GETTABLEKS                       R6 R6 K16 ["React"]
        53 CALL                             R5 1 1
-       54 GETTABLEKS                       R8 R3 K17 ["UI"]
-       56 GETTABLEKS                       R7 R8 K18 ["Hooks"]
-       58 GETTABLEKS                       R6 R7 K19 ["useDialog"]
+       54 GETTABLEKS                       R6 R3 K17 ["UI"]
+       56 GETTABLEKS                       R6 R6 K18 ["Hooks"]
+       58 GETTABLEKS                       R6 R6 K19 ["useDialog"]
        60 GETTABLEKS                       R7 R3 K20 ["ContextServices"]
        62 GETTABLEKS                       R8 R7 K21 ["Plugin"]
        64 GETTABLEKS                       R9 R7 K22 ["Localization"]
        66 GETIMPORT                        R10 K5 [require]
-       68 GETTABLEKS                       R14 R0 K6 ["Src"]
-       70 GETTABLEKS                       R13 R14 K7 ["Util"]
-       72 GETTABLEKS                       R12 R13 K23 ["Telemetry"]
-       74 GETTABLEKS                       R11 R12 K24 ["TelemetryContext"]
+       68 GETTABLEKS                       R11 R0 K6 ["Src"]
+       70 GETTABLEKS                       R11 R11 K7 ["Util"]
+       72 GETTABLEKS                       R11 R11 K23 ["Telemetry"]
+       74 GETTABLEKS                       R11 R11 K24 ["TelemetryContext"]
        76 CALL                             R10 1 1
        77 GETTABLEKS                       R11 R5 K25 ["createElement"]
        79 GETTABLEKS                       R12 R5 K26 ["useState"]
        81 GETTABLEKS                       R13 R5 K27 ["useEffect"]
        83 GETTABLEKS                       R14 R5 K28 ["useContext"]
        85 GETIMPORT                        R15 K5 [require]
-       87 GETTABLEKS                       R18 R0 K6 ["Src"]
-       89 GETTABLEKS                       R17 R18 K7 ["Util"]
-       91 GETTABLEKS                       R16 R17 K29 ["InvokeKeys"]
+       87 GETTABLEKS                       R16 R0 K6 ["Src"]
+       89 GETTABLEKS                       R16 R16 K7 ["Util"]
+       91 GETTABLEKS                       R16 R16 K29 ["InvokeKeys"]
        93 CALL                             R15 1 1
        94 GETIMPORT                        R16 K5 [require]
-       96 GETTABLEKS                       R19 R0 K6 ["Src"]
-       98 GETTABLEKS                       R18 R19 K30 ["Flags"]
-      100 GETTABLEKS                       R17 R18 K31 ["getFFlagReportPresetOnPublish"]
+       96 GETTABLEKS                       R17 R0 K6 ["Src"]
+       98 GETTABLEKS                       R17 R17 K30 ["Flags"]
+      100 GETTABLEKS                       R17 R17 K31 ["getFFlagReportPresetOnPublish"]
       102 CALL                             R16 1 1
       103 CALL                             R16 0 1
       104 DUPCLOSURE                       R17 K32 [PROTO_14]

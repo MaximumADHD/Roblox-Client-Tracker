@@ -1,13 +1,13 @@
 PROTO_0:
         0 NEWTABLE                         R1 0 4
-        2 GETTABLEKS                       R3 R0 K0 ["Min"]
-        4 GETTABLEKS                       R2 R3 K1 ["X"]
-        6 GETTABLEKS                       R4 R0 K2 ["Max"]
-        8 GETTABLEKS                       R3 R4 K1 ["X"]
-       10 GETTABLEKS                       R5 R0 K0 ["Min"]
-       12 GETTABLEKS                       R4 R5 K3 ["Y"]
-       14 GETTABLEKS                       R6 R0 K2 ["Max"]
-       16 GETTABLEKS                       R5 R6 K3 ["Y"]
+        2 GETTABLEKS                       R2 R0 K0 ["Min"]
+        4 GETTABLEKS                       R2 R2 K1 ["X"]
+        6 GETTABLEKS                       R3 R0 K2 ["Max"]
+        8 GETTABLEKS                       R3 R3 K1 ["X"]
+       10 GETTABLEKS                       R4 R0 K0 ["Min"]
+       12 GETTABLEKS                       R4 R4 K3 ["Y"]
+       14 GETTABLEKS                       R5 R0 K2 ["Max"]
+       16 GETTABLEKS                       R5 R5 K3 ["Y"]
        18 SETLIST                          R1 R2 4 [1]
        20 RETURN                           R1 1
 
@@ -25,9 +25,9 @@ PROTO_1:
        11 RETURN                           R1 -1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Dictionary"]
-        3 GETTABLEKS                       R1 R2 K1 ["join"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Dictionary"]
+        3 GETTABLEKS                       R1 R1 K1 ["join"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 -1
         7 RETURN                           R1 -1
@@ -68,35 +68,35 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["Orientation"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["Orientation"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Src"]
-       22 GETTABLEKS                       R3 R4 K8 ["Types"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Types"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K10 ["Cryo"]
+       27 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["Cryo"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 8 0
-       34 GETTABLEKS                       R6 R1 K11 ["Left"]
-       36 GETTABLEKS                       R5 R6 K12 ["rawValue"]
+       34 GETTABLEKS                       R5 R1 K11 ["Left"]
+       36 GETTABLEKS                       R5 R5 K12 ["rawValue"]
        38 CALL                             R5 0 1
-       39 GETTABLEKS                       R7 R1 K13 ["Right"]
-       41 GETTABLEKS                       R6 R7 K12 ["rawValue"]
+       39 GETTABLEKS                       R6 R1 K13 ["Right"]
+       41 GETTABLEKS                       R6 R6 K12 ["rawValue"]
        43 CALL                             R6 0 1
-       44 GETTABLEKS                       R8 R1 K14 ["Top"]
-       46 GETTABLEKS                       R7 R8 K12 ["rawValue"]
+       44 GETTABLEKS                       R7 R1 K14 ["Top"]
+       46 GETTABLEKS                       R7 R7 K12 ["rawValue"]
        48 CALL                             R7 0 1
-       49 GETTABLEKS                       R9 R1 K15 ["Bottom"]
-       51 GETTABLEKS                       R8 R9 K12 ["rawValue"]
+       49 GETTABLEKS                       R8 R1 K15 ["Bottom"]
+       51 GETTABLEKS                       R8 R8 K12 ["rawValue"]
        53 CALL                             R8 0 1
        54 DUPCLOSURE                       R9 K16 [PROTO_0]
        55 SETTABLEKS                       R9 R4 K17 ["getSliceRectFromSliceCenter"]

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getNameFromResult"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getNameFromResult"]
         3 MOVE                             R2 R0
         4 GETUPVAL                         R3 1
         5 CALL                             R1 2 1
@@ -57,21 +57,21 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Actions"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["NetworkError"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K6 [require]
        22 GETTABLEKS                       R4 R1 K8 ["SetCachedCreatorInfo"]
        24 CALL                             R3 1 1
-       25 GETTABLEKS                       R5 R0 K3 ["Src"]
-       27 GETTABLEKS                       R4 R5 K9 ["Util"]
+       25 GETTABLEKS                       R4 R0 K3 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
        29 GETIMPORT                        R5 K6 [require]
        31 GETTABLEKS                       R6 R4 K10 ["CreatorInfoHelper"]
        33 CALL                             R5 1 1

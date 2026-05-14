@@ -191,10 +191,10 @@ PROTO_17:
        31 GETIMPORT                        R3 K6 [table.insert]
        33 CALL                             R3 -1 0
        34 MOVE                             R4 R2
-       35 LOADK                            R8 K7 ["AssetExportController"]
-       36 NAMECALL                         R6 R0 K1 ["GetPluginComponent"]
-       38 CALL                             R6 2 1
-       39 GETTABLEKS                       R5 R6 K8 ["OnExportFileNameInputted"]
+       35 LOADK                            R7 K7 ["AssetExportController"]
+       36 NAMECALL                         R5 R0 K1 ["GetPluginComponent"]
+       38 CALL                             R5 2 1
+       39 GETTABLEKS                       R5 R5 K8 ["OnExportFileNameInputted"]
        41 NEWCLOSURE                       R7 P2
        42 CAPTURE                          VAL R0
        43 NAMECALL                         R5 R5 K3 ["Connect"]
@@ -203,10 +203,10 @@ PROTO_17:
        47 GETIMPORT                        R3 K6 [table.insert]
        49 CALL                             R3 -1 0
        50 MOVE                             R4 R2
-       51 LOADK                            R8 K7 ["AssetExportController"]
-       52 NAMECALL                         R6 R0 K1 ["GetPluginComponent"]
-       54 CALL                             R6 2 1
-       55 GETTABLEKS                       R5 R6 K9 ["OnExportCompleteSuccess"]
+       51 LOADK                            R7 K7 ["AssetExportController"]
+       52 NAMECALL                         R5 R0 K1 ["GetPluginComponent"]
+       54 CALL                             R5 2 1
+       55 GETTABLEKS                       R5 R5 K9 ["OnExportCompleteSuccess"]
        57 NEWCLOSURE                       R7 P3
        58 CAPTURE                          VAL R0
        59 NAMECALL                         R5 R5 K3 ["Connect"]
@@ -215,10 +215,10 @@ PROTO_17:
        63 GETIMPORT                        R3 K6 [table.insert]
        65 CALL                             R3 -1 0
        66 MOVE                             R4 R2
-       67 LOADK                            R8 K7 ["AssetExportController"]
-       68 NAMECALL                         R6 R0 K1 ["GetPluginComponent"]
-       70 CALL                             R6 2 1
-       71 GETTABLEKS                       R5 R6 K10 ["OnExportErrored"]
+       67 LOADK                            R7 K7 ["AssetExportController"]
+       68 NAMECALL                         R5 R0 K1 ["GetPluginComponent"]
+       70 CALL                             R5 2 1
+       71 GETTABLEKS                       R5 R5 K10 ["OnExportErrored"]
        73 NEWCLOSURE                       R7 P4
        74 CAPTURE                          VAL R0
        75 NAMECALL                         R5 R5 K3 ["Connect"]
@@ -227,10 +227,10 @@ PROTO_17:
        79 GETIMPORT                        R3 K6 [table.insert]
        81 CALL                             R3 -1 0
        82 MOVE                             R4 R2
-       83 LOADK                            R8 K7 ["AssetExportController"]
-       84 NAMECALL                         R6 R0 K1 ["GetPluginComponent"]
-       86 CALL                             R6 2 1
-       87 GETTABLEKS                       R5 R6 K11 ["OnFileSelectCanceled"]
+       83 LOADK                            R7 K7 ["AssetExportController"]
+       84 NAMECALL                         R5 R0 K1 ["GetPluginComponent"]
+       86 CALL                             R5 2 1
+       87 GETTABLEKS                       R5 R5 K11 ["OnFileSelectCanceled"]
        89 NEWCLOSURE                       R7 P5
        90 CAPTURE                          VAL R0
        91 NAMECALL                         R5 R5 K3 ["Connect"]
@@ -239,10 +239,10 @@ PROTO_17:
        95 GETIMPORT                        R3 K6 [table.insert]
        97 CALL                             R3 -1 0
        98 MOVE                             R4 R2
-       99 LOADK                            R8 K7 ["AssetExportController"]
-      100 NAMECALL                         R6 R0 K1 ["GetPluginComponent"]
-      102 CALL                             R6 2 1
-      103 GETTABLEKS                       R5 R6 K12 ["OnPermissionCheckComplete"]
+       99 LOADK                            R7 K7 ["AssetExportController"]
+      100 NAMECALL                         R5 R0 K1 ["GetPluginComponent"]
+      102 CALL                             R5 2 1
+      103 GETTABLEKS                       R5 R5 K12 ["OnPermissionCheckComplete"]
       105 NEWCLOSURE                       R7 P6
       106 CAPTURE                          VAL R0
       107 NAMECALL                         R5 R5 K3 ["Connect"]
@@ -251,10 +251,10 @@ PROTO_17:
       111 GETIMPORT                        R3 K6 [table.insert]
       113 CALL                             R3 -1 0
       114 MOVE                             R4 R2
-      115 LOADK                            R8 K7 ["AssetExportController"]
-      116 NAMECALL                         R6 R0 K1 ["GetPluginComponent"]
-      118 CALL                             R6 2 1
-      119 GETTABLEKS                       R5 R6 K13 ["OnPermissionCheckFailed"]
+      115 LOADK                            R7 K7 ["AssetExportController"]
+      116 NAMECALL                         R5 R0 K1 ["GetPluginComponent"]
+      118 CALL                             R5 2 1
+      119 GETTABLEKS                       R5 R5 K13 ["OnPermissionCheckFailed"]
       121 NEWCLOSURE                       R7 P7
       122 CAPTURE                          VAL R0
       123 NAMECALL                         R5 R5 K3 ["Connect"]
@@ -362,39 +362,39 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["selectAssetsWithId"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["selectAssetsWithId"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["createCages"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["createCages"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["Util"]
-       31 GETTABLEKS                       R4 R5 K10 ["destroyCages"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Util"]
+       31 GETTABLEKS                       R4 R4 K10 ["destroyCages"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K7 ["Util"]
-       40 GETTABLEKS                       R5 R6 K11 ["createAttachments"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K7 ["Util"]
+       40 GETTABLEKS                       R5 R5 K11 ["createAttachments"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K7 ["Util"]
-       49 GETTABLEKS                       R6 R7 K12 ["destroyAttachments"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K7 ["Util"]
+       49 GETTABLEKS                       R6 R6 K12 ["destroyAttachments"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R9 R0 K6 ["Src"]
-       56 GETTABLEKS                       R8 R9 K13 ["Flags"]
-       58 GETTABLEKS                       R7 R8 K14 ["getFFlagCreateCagesOnAssetDm"]
+       54 GETTABLEKS                       R7 R0 K6 ["Src"]
+       56 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       58 GETTABLEKS                       R7 R7 K14 ["getFFlagCreateCagesOnAssetDm"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R10 R0 K6 ["Src"]
-       65 GETTABLEKS                       R9 R10 K13 ["Flags"]
-       67 GETTABLEKS                       R8 R9 K15 ["getFFlagCreateAttachmentsOnAssetDm"]
+       63 GETTABLEKS                       R8 R0 K6 ["Src"]
+       65 GETTABLEKS                       R8 R8 K13 ["Flags"]
+       67 GETTABLEKS                       R8 R8 K15 ["getFFlagCreateAttachmentsOnAssetDm"]
        69 CALL                             R7 1 1
        70 DUPTABLE                         R8 K21 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
        71 LOADK                            R9 K22 ["Standalone"]

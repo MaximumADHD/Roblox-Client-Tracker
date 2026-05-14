@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWrappers"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWrappers"]
         3 CALL                             R0 0 1
         4 GETTABLEN                        R1 R0 1
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["new"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["new"]
         8 CALL                             R2 0 1
         9 GETUPVAL                         R3 2
        10 LOADK                            R5 K2 ["Cube1"]
@@ -26,13 +26,13 @@ PROTO_0:
        32 RETURN                           R5 2
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getWrappers"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getWrappers"]
         3 CALL                             R0 0 1
         4 GETTABLEN                        R1 R0 1
         5 GETTABLEN                        R2 R0 2
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K1 ["new"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K1 ["new"]
         9 CALL                             R3 0 1
        10 GETUPVAL                         R4 2
        11 LOADK                            R6 K2 ["Cube1"]
@@ -71,21 +71,21 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [game]
-        3 GETTABLEKS                       R0 R1 K2 ["Workspace"]
+        1 GETIMPORT                        R0 K1 [game]
+        3 GETTABLEKS                       R0 R0 K2 ["Workspace"]
         5 NEWTABLE                         R1 0 0
         7 GETIMPORT                        R2 K4 [require]
-        9 GETIMPORT                        R5 K6 [script]
-       11 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       13 GETTABLEKS                       R3 R4 K8 ["MeshWrapperObjectTestHelper"]
+        9 GETIMPORT                        R3 K6 [script]
+       11 GETTABLEKS                       R3 R3 K7 ["Parent"]
+       13 GETTABLEKS                       R3 R3 K8 ["MeshWrapperObjectTestHelper"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K4 [require]
-       18 GETIMPORT                        R9 K6 [script]
-       20 GETTABLEKS                       R8 R9 K7 ["Parent"]
-       22 GETTABLEKS                       R7 R8 K7 ["Parent"]
-       24 GETTABLEKS                       R6 R7 K7 ["Parent"]
-       26 GETTABLEKS                       R5 R6 K9 ["MeshEditingContexts"]
-       28 GETTABLEKS                       R4 R5 K10 ["MeshEditingContextBase"]
+       18 GETIMPORT                        R4 K6 [script]
+       20 GETTABLEKS                       R4 R4 K7 ["Parent"]
+       22 GETTABLEKS                       R4 R4 K7 ["Parent"]
+       24 GETTABLEKS                       R4 R4 K7 ["Parent"]
+       26 GETTABLEKS                       R4 R4 K9 ["MeshEditingContexts"]
+       28 GETTABLEKS                       R4 R4 K10 ["MeshEditingContextBase"]
        30 CALL                             R3 1 1
        31 DUPCLOSURE                       R4 K11 [PROTO_0]
        32 CAPTURE                          VAL R2

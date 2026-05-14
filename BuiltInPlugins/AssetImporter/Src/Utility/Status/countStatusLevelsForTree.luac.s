@@ -51,10 +51,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Utility"]
-       13 GETTABLEKS                       R3 R4 K8 ["Status"]
-       15 GETTABLEKS                       R2 R3 K9 ["getStatusLevelCounts"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Status"]
+       15 GETTABLEKS                       R2 R2 K9 ["getStatusLevelCounts"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K10 [PROTO_1]
        19 CAPTURE                          VAL R1

@@ -17,8 +17,8 @@ PROTO_1:
         6 CAPTURE                          UPVAL U3
         7 CALL                             R0 1 2
         8 GETUPVAL                         R2 4
-        9 GETUPVAL                         R5 5
-       10 GETTABLEKS                       R4 R5 K2 ["LoadedWebResults"]
+        9 GETUPVAL                         R4 5
+       10 GETTABLEKS                       R4 R4 K2 ["LoadedWebResults"]
        12 MOVE                             R5 R0
        13 GETUPVAL                         R6 1
        14 MOVE                             R7 R1
@@ -31,8 +31,8 @@ PROTO_2:
         0 NAMECALL                         R2 R0 K0 ["getState"]
         2 CALL                             R2 1 1
         3 GETTABLEKS                       R3 R1 K1 ["gamePermissionsController"]
-        5 GETUPVAL                         R7 0
-        6 GETTABLEKS                       R6 R7 K2 ["SearchTextChanged"]
+        5 GETUPVAL                         R6 0
+        6 GETTABLEKS                       R6 R6 K2 ["SearchTextChanged"]
         8 GETUPVAL                         R7 1
         9 CALL                             R6 1 -1
        10 NAMECALL                         R4 R0 K3 ["dispatch"]
@@ -42,13 +42,13 @@ PROTO_2:
        16 GETUPVAL                         R4 2
        17 JUMPIF                           R4 ; [+1]
        18 RETURN                           R0 0
-       19 GETTABLEKS                       R6 R2 K5 ["CollaboratorSearch"]
-       21 GETTABLEKS                       R5 R6 K6 ["CachedSearchResults"]
+       19 GETTABLEKS                       R5 R2 K5 ["CollaboratorSearch"]
+       21 GETTABLEKS                       R5 R5 K6 ["CachedSearchResults"]
        23 GETUPVAL                         R6 1
        24 GETTABLE                         R4 R5 R6
        25 JUMPIF                           R4 ; [+18]
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R6 R7 K7 ["LoadWebResults"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K7 ["LoadWebResults"]
        29 GETUPVAL                         R7 1
        30 CALL                             R6 1 -1
        31 NAMECALL                         R4 R0 K3 ["dispatch"]
@@ -74,19 +74,19 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["CollaboratorSearchActions"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["CollaboratorSearchActions"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Selectors"]
-       24 GETTABLEKS                       R3 R4 K9 ["IsGame17Plus"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Selectors"]
+       24 GETTABLEKS                       R3 R3 K9 ["IsGame17Plus"]
        26 CALL                             R2 1 1
        27 DUPCLOSURE                       R3 K10 [PROTO_3]
        28 CAPTURE                          VAL R1

@@ -1,16 +1,16 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R4 R1 K2 ["voting"]
-        6 GETTABLEKS                       R3 R4 K3 ["UpVotes"]
-        8 GETTABLEKS                       R5 R1 K2 ["voting"]
-       10 GETTABLEKS                       R4 R5 K4 ["DownVotes"]
-       12 GETTABLEKS                       R6 R1 K2 ["voting"]
-       14 GETTABLEKS                       R5 R6 K5 ["VoteCount"]
-       16 GETTABLEKS                       R7 R1 K2 ["voting"]
-       18 GETTABLEKS                       R6 R7 K6 ["UpVotePercent"]
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K7 ["createElement"]
+        4 GETTABLEKS                       R3 R1 K2 ["voting"]
+        6 GETTABLEKS                       R3 R3 K3 ["UpVotes"]
+        8 GETTABLEKS                       R4 R1 K2 ["voting"]
+       10 GETTABLEKS                       R4 R4 K4 ["DownVotes"]
+       12 GETTABLEKS                       R5 R1 K2 ["voting"]
+       14 GETTABLEKS                       R5 R5 K5 ["VoteCount"]
+       16 GETTABLEKS                       R6 R1 K2 ["voting"]
+       18 GETTABLEKS                       R6 R6 K6 ["UpVotePercent"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K7 ["createElement"]
        23 LOADK                            R8 K8 ["Frame"]
        24 DUPTABLE                         R9 K11 [{"BackgroundTransparency", "Size"}]
        25 LOADN                            R10 1
@@ -26,13 +26,13 @@ PROTO_0:
        38 LOADN                            R11 1
        39 LOADN                            R12 0
        40 LOADN                            R13 0
-       41 GETUPVAL                         R15 1
-       42 GETTABLEKS                       R14 R15 K15 ["ASSET_VOTING_HEIGHT"]
+       41 GETUPVAL                         R14 1
+       42 GETTABLEKS                       R14 R14 K15 ["ASSET_VOTING_HEIGHT"]
        44 CALL                             R10 4 1
        45 SETTABLEKS                       R10 R9 K10 ["Size"]
        47 DUPTABLE                         R10 K18 [{"UIListLayout", "Votes"}]
-       48 GETUPVAL                         R12 0
-       49 GETTABLEKS                       R11 R12 K7 ["createElement"]
+       48 GETUPVAL                         R11 0
+       49 GETTABLEKS                       R11 R11 K7 ["createElement"]
        51 LOADK                            R12 K16 ["UIListLayout"]
        52 DUPTABLE                         R13 K23 [{"SortOrder", "HorizontalAlignment", "FillDirection", "Padding"}]
        53 GETIMPORT                        R14 K26 [Enum.SortOrder.LayoutOrder]
@@ -43,14 +43,14 @@ PROTO_0:
        63 SETTABLEKS                       R14 R13 K21 ["FillDirection"]
        65 GETIMPORT                        R14 K32 [UDim.new]
        67 LOADN                            R15 0
-       68 GETUPVAL                         R17 1
-       69 GETTABLEKS                       R16 R17 K33 ["ASSET_INNER_PADDING"]
+       68 GETUPVAL                         R16 1
+       69 GETTABLEKS                       R16 R16 K33 ["ASSET_INNER_PADDING"]
        71 CALL                             R14 2 1
        72 SETTABLEKS                       R14 R13 K22 ["Padding"]
        74 CALL                             R11 2 1
        75 SETTABLEKS                       R11 R10 K16 ["UIListLayout"]
-       77 GETUPVAL                         R12 0
-       78 GETTABLEKS                       R11 R12 K7 ["createElement"]
+       77 GETUPVAL                         R11 0
+       78 GETTABLEKS                       R11 R11 K7 ["createElement"]
        80 GETUPVAL                         R12 2
        81 DUPTABLE                         R13 K41 [{"Voting", "TextSize", "AutomaticSize", "Font", "Size", "VerticalAlignment", "Padding", "IncludeVoteCount", "VoteCountHeight"}]
        82 DUPTABLE                         R14 K42 [{"UpVotes", "DownVotes", "VoteCount", "UpVotePercent"}]
@@ -59,13 +59,13 @@ PROTO_0:
        87 SETTABLEKS                       R5 R14 K5 ["VoteCount"]
        89 SETTABLEKS                       R6 R14 K6 ["UpVotePercent"]
        91 SETTABLEKS                       R14 R13 K34 ["Voting"]
-       93 GETUPVAL                         R15 1
-       94 GETTABLEKS                       R14 R15 K43 ["ASSET_VOTE_COUNT_FONT_SIZE"]
+       93 GETUPVAL                         R14 1
+       94 GETTABLEKS                       R14 R14 K43 ["ASSET_VOTE_COUNT_FONT_SIZE"]
        96 SETTABLEKS                       R14 R13 K35 ["TextSize"]
        98 GETIMPORT                        R14 K45 [Enum.AutomaticSize.X]
       100 SETTABLEKS                       R14 R13 K36 ["AutomaticSize"]
-      102 GETUPVAL                         R15 1
-      103 GETTABLEKS                       R14 R15 K46 ["FONT"]
+      102 GETUPVAL                         R14 1
+      103 GETTABLEKS                       R14 R14 K46 ["FONT"]
       105 SETTABLEKS                       R14 R13 K37 ["Font"]
       107 GETIMPORT                        R14 K14 [UDim2.new]
       109 LOADN                            R15 0
@@ -76,13 +76,13 @@ PROTO_0:
       114 SETTABLEKS                       R14 R13 K10 ["Size"]
       116 GETIMPORT                        R14 K48 [Enum.VerticalAlignment.Center]
       118 SETTABLEKS                       R14 R13 K38 ["VerticalAlignment"]
-      120 GETUPVAL                         R15 1
-      121 GETTABLEKS                       R14 R15 K49 ["ASSET_VOTE_COUNT_HORIZONTAL_PADDING"]
+      120 GETUPVAL                         R14 1
+      121 GETTABLEKS                       R14 R14 K49 ["ASSET_VOTE_COUNT_HORIZONTAL_PADDING"]
       123 SETTABLEKS                       R14 R13 K22 ["Padding"]
       125 LOADB                            R14 1
       126 SETTABLEKS                       R14 R13 K39 ["IncludeVoteCount"]
-      128 GETUPVAL                         R15 1
-      129 GETTABLEKS                       R14 R15 K50 ["ASSET_VOTE_COUNT_HEIGHT"]
+      128 GETUPVAL                         R14 1
+      129 GETTABLEKS                       R14 R14 K50 ["ASSET_VOTE_COUNT_HEIGHT"]
       131 SETTABLEKS                       R14 R13 K40 ["VoteCountHeight"]
       133 CALL                             R11 2 1
       134 SETTABLEKS                       R11 R10 K17 ["Votes"]
@@ -91,12 +91,12 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETTABLEKS                       R1 R0 K3 ["Packages"]
        15 GETIMPORT                        R2 K5 [require]
        17 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -105,16 +105,16 @@ MAIN:
        22 GETTABLEKS                       R4 R1 K7 ["Framework"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R7 R0 K8 ["Src"]
-       29 GETTABLEKS                       R6 R7 K9 ["Util"]
-       31 GETTABLEKS                       R5 R6 K10 ["Constants"]
+       27 GETTABLEKS                       R5 R0 K8 ["Src"]
+       29 GETTABLEKS                       R5 R5 K9 ["Util"]
+       31 GETTABLEKS                       R5 R5 K10 ["Constants"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R3 K11 ["UI"]
        36 GETTABLEKS                       R6 R5 K12 ["Votes"]
-       38 GETIMPORT                        R8 K5 [require]
-       40 GETTABLEKS                       R9 R1 K7 ["Framework"]
-       42 CALL                             R8 1 1
-       43 GETTABLEKS                       R7 R8 K13 ["ContextServices"]
+       38 GETIMPORT                        R7 K5 [require]
+       40 GETTABLEKS                       R8 R1 K7 ["Framework"]
+       42 CALL                             R7 1 1
+       43 GETTABLEKS                       R7 R7 K13 ["ContextServices"]
        45 GETTABLEKS                       R8 R7 K14 ["withContext"]
        47 GETTABLEKS                       R9 R2 K15 ["PureComponent"]
        49 LOADK                            R11 K16 ["VoteBar"]

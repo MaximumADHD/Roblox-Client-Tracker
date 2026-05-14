@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"incomingReplicationLag"}]
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K2 ["IncomingReplicationLag"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K2 ["IncomingReplicationLag"]
         5 FASTCALL1                        TOSTRING R4 ; [+2]
         6 GETIMPORT                        R3 K4 [tostring]
         8 CALL                             R3 1 1
@@ -13,8 +13,8 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R2 K1 [{"incomingReplicationLag"}]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K2 ["IncomingReplicationLag"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K2 ["IncomingReplicationLag"]
         4 FASTCALL1                        TOSTRING R4 ; [+2]
         5 GETIMPORT                        R3 K4 [tostring]
         7 CALL                             R3 1 1
@@ -90,8 +90,8 @@ PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K9 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
        11 GETIMPORT                        R7 K12 [Enum.AutomaticSize.Y]
@@ -105,8 +105,8 @@ PROTO_6:
        26 LOADN                            R7 10
        27 SETTABLEKS                       R7 R6 K8 ["Spacing"]
        29 DUPTABLE                         R7 K19 [{"networkPane"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
        33 GETUPVAL                         R9 2
        34 DUPTABLE                         R10 K24 [{"AutomaticSize", "HorizontalAlignment", "Layout", "AlwaysExpanded", "LayoutOrder", "Style", "Text"}]
        35 GETIMPORT                        R11 K12 [Enum.AutomaticSize.Y]
@@ -127,8 +127,8 @@ PROTO_6:
        60 CALL                             R11 3 1
        61 SETTABLEKS                       R11 R10 K23 ["Text"]
        63 NEWTABLE                         R11 0 1
-       65 GETUPVAL                         R13 0
-       66 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       65 GETUPVAL                         R12 0
+       66 GETTABLEKS                       R12 R12 K3 ["createElement"]
        68 GETUPVAL                         R13 3
        69 DUPTABLE                         R14 K36 [{"PlaceholderText", "ShouldFocus", "Width", "MaxLength", "OnValidateText", "OnFormatText", "Text", "OnTextChanged"}]
        70 LOADK                            R17 K26 ["NetworkSettings"]
@@ -162,17 +162,17 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
@@ -185,9 +185,9 @@ MAIN:
        39 LOADK                            R12 K16 ["NetworkPane"]
        40 NAMECALL                         R10 R10 K17 ["extend"]
        42 CALL                             R10 2 1
-       43 GETIMPORT                        R12 K19 [settings]
-       45 CALL                             R12 0 1
-       46 GETTABLEKS                       R11 R12 K20 ["Network"]
+       43 GETIMPORT                        R11 K19 [settings]
+       45 CALL                             R11 0 1
+       46 GETTABLEKS                       R11 R11 K20 ["Network"]
        48 LOADK                            R14 K21 ["IncomingReplicationLag"]
        49 NAMECALL                         R12 R11 K22 ["GetPropertyChangedSignal"]
        51 CALL                             R12 2 1

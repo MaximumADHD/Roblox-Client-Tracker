@@ -1,24 +1,24 @@
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R2 K3 [script]
-        5 GETTABLEKS                       R1 R2 K4 ["HttpResponse"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["HttpResponse"]
         7 CALL                             R0 1 1
         8 GETIMPORT                        R1 K1 [require]
-       10 GETIMPORT                        R3 K3 [script]
-       12 GETTABLEKS                       R2 R3 K5 ["Networking"]
+       10 GETIMPORT                        R2 K3 [script]
+       12 GETTABLEKS                       R2 R2 K5 ["Networking"]
        14 CALL                             R1 1 1
        15 GETIMPORT                        R2 K1 [require]
-       17 GETIMPORT                        R4 K3 [script]
-       19 GETTABLEKS                       R3 R4 K6 ["StatusCodes"]
+       17 GETIMPORT                        R3 K3 [script]
+       19 GETTABLEKS                       R3 R3 K6 ["StatusCodes"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K1 [require]
-       24 GETIMPORT                        R5 K3 [script]
-       26 GETTABLEKS                       R4 R5 K7 ["Promise"]
+       24 GETIMPORT                        R4 K3 [script]
+       26 GETTABLEKS                       R4 R4 K7 ["Promise"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K1 [require]
-       31 GETIMPORT                        R6 K3 [script]
-       33 GETTABLEKS                       R5 R6 K8 ["Url"]
+       31 GETIMPORT                        R5 K3 [script]
+       33 GETTABLEKS                       R5 R5 K8 ["Url"]
        35 CALL                             R4 1 1
        36 DUPTABLE                         R5 K9 [{"HttpResponse", "Networking", "Promise", "StatusCodes", "Url"}]
        37 SETTABLEKS                       R0 R5 K4 ["HttpResponse"]

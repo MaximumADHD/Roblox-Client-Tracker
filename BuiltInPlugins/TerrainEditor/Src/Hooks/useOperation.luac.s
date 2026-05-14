@@ -25,8 +25,8 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnOperationChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnOperationChanged"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U0
         5 CAPTURE                          UPVAL U1
@@ -51,8 +51,8 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["join"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["join"]
         4 GETUPVAL                         R2 2
         5 DUPTABLE                         R3 K2 [{"Paused"}]
         6 LOADB                            R4 1
@@ -63,8 +63,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["join"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["join"]
         4 GETUPVAL                         R4 2
         5 DUPTABLE                         R5 K3 [{"Progress", "TimeRemaining"}]
         6 SETTABLEKS                       R0 R5 K1 ["Progress"]
@@ -75,8 +75,8 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["join"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["join"]
         4 GETUPVAL                         R2 2
         5 DUPTABLE                         R3 K2 [{"Paused"}]
         6 LOADB                            R4 0
@@ -113,60 +113,60 @@ PROTO_9:
        24 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Operation"]
         3 JUMPIF                           R0 ; [+1]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K0 ["Operation"]
-        8 GETTABLEKS                       R0 R1 K1 ["Canceled"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K0 ["Operation"]
+        8 GETTABLEKS                       R0 R0 K1 ["Canceled"]
        10 NEWCLOSURE                       R2 P0
        11 CAPTURE                          UPVAL U1
        12 NAMECALL                         R0 R0 K2 ["Connect"]
        14 CALL                             R0 2 1
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K0 ["Operation"]
-       18 GETTABLEKS                       R1 R2 K3 ["Finished"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K0 ["Operation"]
+       18 GETTABLEKS                       R1 R1 K3 ["Finished"]
        20 NEWCLOSURE                       R3 P1
        21 CAPTURE                          UPVAL U1
        22 NAMECALL                         R1 R1 K2 ["Connect"]
        24 CALL                             R1 2 1
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K0 ["Operation"]
-       28 GETTABLEKS                       R2 R3 K4 ["Paused"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K0 ["Operation"]
+       28 GETTABLEKS                       R2 R2 K4 ["Paused"]
        30 NEWCLOSURE                       R4 P2
        31 CAPTURE                          UPVAL U2
        32 CAPTURE                          UPVAL U3
        33 CAPTURE                          UPVAL U0
        34 NAMECALL                         R2 R2 K2 ["Connect"]
        36 CALL                             R2 2 1
-       37 GETUPVAL                         R5 0
-       38 GETTABLEKS                       R4 R5 K0 ["Operation"]
-       40 GETTABLEKS                       R3 R4 K5 ["ProgressChanged"]
+       37 GETUPVAL                         R3 0
+       38 GETTABLEKS                       R3 R3 K0 ["Operation"]
+       40 GETTABLEKS                       R3 R3 K5 ["ProgressChanged"]
        42 NEWCLOSURE                       R5 P3
        43 CAPTURE                          UPVAL U2
        44 CAPTURE                          UPVAL U3
        45 CAPTURE                          UPVAL U0
        46 NAMECALL                         R3 R3 K2 ["Connect"]
        48 CALL                             R3 2 1
-       49 GETUPVAL                         R6 0
-       50 GETTABLEKS                       R5 R6 K0 ["Operation"]
-       52 GETTABLEKS                       R4 R5 K6 ["Resumed"]
+       49 GETUPVAL                         R4 0
+       50 GETTABLEKS                       R4 R4 K0 ["Operation"]
+       52 GETTABLEKS                       R4 R4 K6 ["Resumed"]
        54 NEWCLOSURE                       R6 P4
        55 CAPTURE                          UPVAL U2
        56 CAPTURE                          UPVAL U3
        57 CAPTURE                          UPVAL U0
        58 NAMECALL                         R4 R4 K2 ["Connect"]
        60 CALL                             R4 2 1
-       61 GETUPVAL                         R7 0
-       62 GETTABLEKS                       R6 R7 K0 ["Operation"]
-       64 GETTABLEKS                       R5 R6 K7 ["Started"]
+       61 GETUPVAL                         R5 0
+       62 GETTABLEKS                       R5 R5 K0 ["Operation"]
+       64 GETTABLEKS                       R5 R5 K7 ["Started"]
        66 NEWCLOSURE                       R7 P5
        67 CAPTURE                          UPVAL U1
        68 NAMECALL                         R5 R5 K2 ["Connect"]
        70 CALL                             R5 2 1
-       71 GETUPVAL                         R7 0
-       72 GETTABLEKS                       R6 R7 K0 ["Operation"]
+       71 GETUPVAL                         R6 0
+       72 GETTABLEKS                       R6 R6 K0 ["Operation"]
        74 NAMECALL                         R6 R6 K8 ["hasFinished"]
        76 CALL                             R6 1 1
        77 JUMPIFNOT                        R6 ; [+3]
@@ -183,41 +183,41 @@ PROTO_10:
        88 RETURN                           R6 1
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Operation"]
         3 JUMPIFNOT                        R0 ; [+13]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["Operation"]
         7 NAMECALL                         R0 R0 K1 ["isPaused"]
         9 CALL                             R0 1 1
        10 JUMPIF                           R0 ; [+6]
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R0 R1 K0 ["Operation"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K0 ["Operation"]
        14 NAMECALL                         R0 R0 K2 ["pause"]
        16 CALL                             R0 1 0
        17 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Operation"]
         3 JUMPIFNOT                        R0 ; [+13]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["Operation"]
         7 NAMECALL                         R0 R0 K1 ["isPaused"]
         9 CALL                             R0 1 1
        10 JUMPIFNOT                        R0 ; [+6]
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R0 R1 K0 ["Operation"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K0 ["Operation"]
        14 NAMECALL                         R0 R0 K2 ["resume"]
        16 CALL                             R0 1 0
        17 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Operation"]
         3 JUMPIFNOT                        R0 ; [+6]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["Operation"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["Operation"]
         7 NAMECALL                         R0 R0 K1 ["cancel"]
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
@@ -345,12 +345,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["useCallback"]
        23 GETTABLEKS                       R4 R2 K10 ["useState"]

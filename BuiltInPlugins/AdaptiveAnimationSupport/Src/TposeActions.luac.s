@@ -3,8 +3,8 @@ PROTO_0:
         2 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["mirrorTransformMotor6DDelta"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["mirrorTransformMotor6DDelta"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
@@ -13,8 +13,8 @@ PROTO_2:
         0 JUMPIFNOT                        R2 ; [+1]
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K0 ["addTPoseWaypoint"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K0 ["addTPoseWaypoint"]
         6 MOVE                             R5 R0
         7 CALL                             R4 1 0
         8 GETUPVAL                         R4 1
@@ -37,22 +37,22 @@ PROTO_2:
        27 MOVE                             R16 R12
        28 NAMECALL                         R14 R1 K2 ["GetJoint"]
        30 CALL                             R14 2 1
-       31 GETUPVAL                         R16 2
-       32 GETTABLEKS                       R15 R16 K3 ["isValidTJoint"]
+       31 GETUPVAL                         R15 2
+       32 GETTABLEKS                       R15 R15 K3 ["isValidTJoint"]
        34 MOVE                             R16 R13
        35 CALL                             R15 1 1
        36 JUMPIFNOT                        R15 ; [+59]
-       37 GETUPVAL                         R16 2
-       38 GETTABLEKS                       R15 R16 K3 ["isValidTJoint"]
+       37 GETUPVAL                         R15 2
+       38 GETTABLEKS                       R15 R15 K3 ["isValidTJoint"]
        40 MOVE                             R16 R14
        41 CALL                             R15 1 1
        42 JUMPIFNOT                        R15 ; [+53]
-       43 GETUPVAL                         R16 2
-       44 GETTABLEKS                       R15 R16 K4 ["getJointTransform"]
+       43 GETUPVAL                         R15 2
+       44 GETTABLEKS                       R15 R15 K4 ["getJointTransform"]
        46 MOVE                             R16 R13
        47 CALL                             R15 1 1
-       48 GETUPVAL                         R17 2
-       49 GETTABLEKS                       R16 R17 K4 ["getJointTransform"]
+       48 GETUPVAL                         R16 2
+       49 GETTABLEKS                       R16 R16 K4 ["getJointTransform"]
        51 MOVE                             R17 R14
        52 CALL                             R16 1 1
        53 JUMPIFNOT                        R15 ; [+42]
@@ -70,16 +70,16 @@ PROTO_2:
        68 NAMECALL                         R20 R13 K11 ["IsA"]
        70 CALL                             R20 2 1
        71 JUMPIFNOT                        R20 ; [+6]
-       72 GETUPVAL                         R20 3
-       73 GETTABLEKS                       R19 R20 K12 ["mirrorTransformMotor6DDelta"]
+       72 GETUPVAL                         R19 3
+       73 GETTABLEKS                       R19 R19 K12 ["mirrorTransformMotor6DDelta"]
        75 MOVE                             R20 R15
        76 CALL                             R19 1 1
        77 JUMP                             ; [+9]
        78 GETUPVAL                         R20 4
        79 CALL                             R20 0 1
        80 JUMPIFNOT                        R20 ; [+6]
-       81 GETUPVAL                         R21 3
-       82 GETTABLEKS                       R20 R21 K13 ["mirrorTransformAnimationConstraint"]
+       81 GETUPVAL                         R20 3
+       82 GETTABLEKS                       R20 R20 K13 ["mirrorTransformAnimationConstraint"]
        84 MOVE                             R21 R15
        85 CALL                             R20 1 1
        86 MOVE                             R19 R20
@@ -91,8 +91,8 @@ PROTO_2:
        93 NAMECALL                         R21 R1 K14 ["SetTposeAdjustment"]
        95 CALL                             R21 3 0
        96 FORGLOOP                         R4 2 ; [-85]
-       98 GETUPVAL                         R5 2
-       99 GETTABLEKS                       R4 R5 K15 ["applyTposeAdjustment"]
+       98 GETUPVAL                         R4 2
+       99 GETTABLEKS                       R4 R4 K15 ["applyTposeAdjustment"]
       101 MOVE                             R5 R1
       102 MOVE                             R6 R2
       103 CALL                             R4 2 0
@@ -109,19 +109,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AdaptiveAnimationTools"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AdaptiveAnimationTools"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["SymmetryUtils"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R6 R0 K9 ["Src"]
-       20 GETTABLEKS                       R5 R6 K10 ["Utils"]
-       22 GETTABLEKS                       R4 R5 K11 ["UndoUtils"]
+       18 GETTABLEKS                       R4 R0 K9 ["Src"]
+       20 GETTABLEKS                       R4 R4 K10 ["Utils"]
+       22 GETTABLEKS                       R4 R4 K11 ["UndoUtils"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Src"]
-       29 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       31 GETTABLEKS                       R5 R6 K13 ["getFFlagAdaptiveAnimationConstraints"]
+       27 GETTABLEKS                       R5 R0 K9 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       31 GETTABLEKS                       R5 R5 K13 ["getFFlagAdaptiveAnimationConstraints"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K15 [pcall]
        36 DUPCLOSURE                       R6 K16 [PROTO_0]

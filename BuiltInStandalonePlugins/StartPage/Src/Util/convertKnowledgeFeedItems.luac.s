@@ -36,9 +36,9 @@ PROTO_1:
        10 GETTABLEKS                       R10 R7 K2 ["thumbnails"]
        12 GETTABLEKS                       R9 R10 K3 ["studio"]
        14 JUMPIFNOT                        R9 ; [+7]
-       15 GETTABLEKS                       R10 R7 K2 ["thumbnails"]
-       17 GETTABLEKS                       R9 R10 K3 ["studio"]
-       19 GETTABLEKS                       R8 R9 K4 ["url"]
+       15 GETTABLEKS                       R9 R7 K2 ["thumbnails"]
+       17 GETTABLEKS                       R8 R9 K3 ["studio"]
+       19 GETTABLEKS                       R8 R8 K4 ["url"]
        21 JUMPIF                           R8 ; [+1]
        22 LOADNIL                          R8
        23 JUMPIF                           R8 ; [+17]
@@ -47,9 +47,9 @@ PROTO_1:
        27 GETTABLEKS                       R11 R7 K2 ["thumbnails"]
        29 GETTABLEKS                       R10 R11 K5 ["default"]
        31 JUMPIFNOT                        R10 ; [+7]
-       32 GETTABLEKS                       R11 R7 K2 ["thumbnails"]
-       34 GETTABLEKS                       R10 R11 K5 ["default"]
-       36 GETTABLEKS                       R9 R10 K4 ["url"]
+       32 GETTABLEKS                       R10 R7 K2 ["thumbnails"]
+       34 GETTABLEKS                       R9 R10 K5 ["default"]
+       36 GETTABLEKS                       R9 R9 K4 ["url"]
        38 JUMPIF                           R9 ; [+1]
        39 LOADNIL                          R9
        40 MOVE                             R8 R9
@@ -155,13 +155,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Models"]
-       13 GETTABLEKS                       R2 R3 K8 ["GetKnowledgeFeedsResponse"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Models"]
+       13 GETTABLEKS                       R2 R2 K8 ["GetKnowledgeFeedsResponse"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K10 [PROTO_0]
        24 DUPCLOSURE                       R4 K11 [PROTO_1]

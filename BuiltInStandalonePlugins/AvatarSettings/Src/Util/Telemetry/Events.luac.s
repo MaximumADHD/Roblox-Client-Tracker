@@ -5,13 +5,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K10 ["getFIntAvatarSettingsDefaultThrottle"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K10 ["getFIntAvatarSettingsDefaultThrottle"]
        22 CALL                             R2 1 1
        23 CALL                             R2 0 1
        24 NEWTABLE                         R3 0 0
@@ -174,8 +174,8 @@ MAIN:
       253 MOVE                             R16 R12
       254 LOADK                            R17 K91 ["Selected"]
       255 CONCAT                           R15 R16 R17
-      256 GETTABLEKS                       R17 R1 K92 ["Dictionary"]
-      258 GETTABLEKS                       R16 R17 K93 ["join"]
+      256 GETTABLEKS                       R16 R1 K92 ["Dictionary"]
+      258 GETTABLEKS                       R16 R16 K93 ["join"]
       260 MOVE                             R17 R6
       261 DUPTABLE                         R18 K95 [{"description"}]
       262 GETIMPORT                        R19 K98 [string.format]
@@ -196,8 +196,8 @@ MAIN:
       280 MOVE                             R13 R11
       281 GETIMPORT                        R12 K90 [table.unpack]
       283 CALL                             R12 1 2
-      284 GETTABLEKS                       R15 R1 K92 ["Dictionary"]
-      286 GETTABLEKS                       R14 R15 K93 ["join"]
+      284 GETTABLEKS                       R14 R1 K92 ["Dictionary"]
+      286 GETTABLEKS                       R14 R14 K93 ["join"]
       288 MOVE                             R15 R6
       289 DUPTABLE                         R16 K95 [{"description"}]
       290 SETTABLEKS                       R13 R16 K94 ["description"]

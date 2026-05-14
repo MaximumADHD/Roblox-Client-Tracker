@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 GETTABLE                         R1 R2 R0
         4 JUMPIFEQKNIL                     R1 ; [+4]
         6 GETTABLEKS                       R2 R1 K1 ["value"]
@@ -9,16 +9,16 @@ PROTO_0:
        10 MOVE                             R4 R0
        11 NAMECALL                         R2 R2 K2 ["GetSetting"]
        13 CALL                             R2 2 1
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R3 R4 K0 ["current"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K0 ["current"]
        17 DUPTABLE                         R4 K3 [{"value"}]
        18 SETTABLEKS                       R2 R4 K1 ["value"]
        20 SETTABLE                         R4 R3 R0
        21 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["current"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["current"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIFNOT                        R2 ; [+13]
         5 GETTABLEKS                       R3 R2 K1 ["value"]
@@ -35,8 +35,8 @@ PROTO_1:
        20 MOVE                             R6 R1
        21 NAMECALL                         R3 R3 K2 ["SetSetting"]
        23 CALL                             R3 3 0
-       24 GETUPVAL                         R4 0
-       25 GETTABLEKS                       R3 R4 K0 ["current"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K0 ["current"]
        27 DUPTABLE                         R4 K3 [{"value"}]
        28 SETTABLEKS                       R1 R4 K1 ["value"]
        30 SETTABLE                         R4 R3 R0
@@ -62,8 +62,8 @@ PROTO_4:
         3 CAPTURE                          UPVAL U0
         4 CAPTURE                          UPVAL U1
         5 CALL                             R0 1 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R0 R1 K3 ["ShowPlusButtonOnHoverChanged"]
+        6 GETUPVAL                         R0 1
+        7 GETTABLEKS                       R0 R0 K3 ["ShowPlusButtonOnHoverChanged"]
         9 GETUPVAL                         R2 0
        10 NAMECALL                         R0 R0 K4 ["Connect"]
        12 CALL                             R0 2 1
@@ -81,8 +81,8 @@ PROTO_7:
         0 LOADK                            R3 K0 ["ExplorerPluginSearchHistory"]
         1 MOVE                             R4 R0
         2 CONCAT                           R2 R3 R4
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K1 ["current"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K1 ["current"]
         6 GETTABLE                         R3 R4 R2
         7 JUMPIFEQKNIL                     R3 ; [+4]
         9 GETTABLEKS                       R1 R3 K2 ["value"]
@@ -91,8 +91,8 @@ PROTO_7:
        13 MOVE                             R6 R2
        14 NAMECALL                         R4 R4 K3 ["GetSetting"]
        16 CALL                             R4 2 1
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K1 ["current"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K1 ["current"]
        20 DUPTABLE                         R6 K4 [{"value"}]
        21 SETTABLEKS                       R4 R6 K2 ["value"]
        23 SETTABLE                         R6 R5 R2
@@ -142,8 +142,8 @@ PROTO_12:
         6 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K1 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K1 ["current"]
         3 GETTABLEKS                       R1 R2 K0 ["ExplorerPluginExpandHierarchy"]
         5 JUMPIFEQKNIL                     R1 ; [+4]
         7 GETTABLEKS                       R0 R1 K2 ["value"]
@@ -152,8 +152,8 @@ PROTO_13:
        11 LOADK                            R4 K0 ["ExplorerPluginExpandHierarchy"]
        12 NAMECALL                         R2 R2 K3 ["GetSetting"]
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K1 ["current"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K1 ["current"]
        18 DUPTABLE                         R4 K4 [{"value"}]
        19 SETTABLEKS                       R2 R4 K2 ["value"]
        21 SETTABLEKS                       R4 R3 K0 ["ExplorerPluginExpandHierarchy"]
@@ -171,9 +171,9 @@ PROTO_14:
         4 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["ContextServices"]
-        3 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ContextServices"]
+        3 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         5 NAMECALL                         R1 R1 K2 ["use"]
         7 CALL                             R1 1 1
         8 NAMECALL                         R1 R1 K3 ["get"]
@@ -181,13 +181,13 @@ PROTO_15:
        11 LOADK                            R4 K4 ["InsertObjectSettings"]
        12 NAMECALL                         R2 R1 K5 ["GetPluginComponent"]
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K6 ["useRef"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K6 ["useRef"]
        18 NEWTABLE                         R4 0 0
        20 CALL                             R3 1 1
-       21 GETUPVAL                         R6 2
-       22 GETTABLEKS                       R5 R6 K7 ["Observable"]
-       24 GETTABLEKS                       R4 R5 K8 ["useState"]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K7 ["Observable"]
+       24 GETTABLEKS                       R4 R4 K8 ["useState"]
        26 LOADB                            R5 0
        27 CALL                             R4 1 2
        28 NEWCLOSURE                       R6 P0
@@ -196,18 +196,18 @@ PROTO_15:
        31 NEWCLOSURE                       R7 P1
        32 CAPTURE                          VAL R3
        33 CAPTURE                          VAL R1
-       34 GETUPVAL                         R9 1
-       35 GETTABLEKS                       R8 R9 K9 ["useEffect"]
+       34 GETUPVAL                         R8 1
+       35 GETTABLEKS                       R8 R8 K9 ["useEffect"]
        37 NEWCLOSURE                       R9 P2
        38 CAPTURE                          VAL R5
        39 CAPTURE                          VAL R2
        40 NEWTABLE                         R10 0 0
        42 CALL                             R8 2 0
        43 GETUPVAL                         R8 3
-       44 GETUPVAL                         R12 2
-       45 GETTABLEKS                       R11 R12 K10 ["Components"]
-       47 GETTABLEKS                       R10 R11 K11 ["Contexts"]
-       49 GETTABLEKS                       R9 R10 K12 ["SettingsContextProvider"]
+       44 GETUPVAL                         R9 2
+       45 GETTABLEKS                       R9 R9 K10 ["Components"]
+       47 GETTABLEKS                       R9 R9 K11 ["Contexts"]
+       49 GETTABLEKS                       R9 R9 K12 ["SettingsContextProvider"]
        51 DUPTABLE                         R10 K23 [{"rememberedFields", "addField", "removeField", "getSearchHistory", "saveSearchHistory", "getIncrementNamesAsync", "setIncrementNames", "getExpandHierarchy", "setExpandHierarchy", "showPlusButtonOnHoverObservable"}]
        52 NEWTABLE                         R11 0 0
        54 SETTABLEKS                       R11 R10 K13 ["rememberedFields"]
@@ -247,16 +247,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Explorer"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Explorer"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["createElement"]
        30 DUPCLOSURE                       R5 K11 [PROTO_15]

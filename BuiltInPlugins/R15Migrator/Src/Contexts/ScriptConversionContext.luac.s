@@ -18,28 +18,28 @@ PROTO_0:
 
 PROTO_1:
         0 JUMPIFNOTEQKNIL                  R1 ; [+32]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["_scriptDestroyingCallback"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["_scriptDestroyingCallback"]
         5 GETUPVAL                         R3 1
         6 CALL                             R2 1 0
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K1 ["_connections"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K1 ["_connections"]
        10 GETUPVAL                         R4 2
        11 GETTABLE                         R2 R3 R4
        12 NAMECALL                         R2 R2 K2 ["Disconnect"]
        14 CALL                             R2 1 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K1 ["_connections"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K1 ["_connections"]
        18 GETUPVAL                         R3 2
        19 LOADNIL                          R4
        20 SETTABLE                         R4 R2 R3
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R2 R3 K3 ["_scripts"]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K3 ["_scripts"]
        24 GETUPVAL                         R3 1
        25 LOADNIL                          R4
        26 SETTABLE                         R4 R2 R3
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K4 ["_scriptGUIDs"]
+       27 GETUPVAL                         R2 0
+       28 GETTABLEKS                       R2 R2 K4 ["_scriptGUIDs"]
        30 GETUPVAL                         R3 2
        31 LOADNIL                          R4
        32 SETTABLE                         R4 R2 R3
@@ -137,11 +137,11 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R2 K11 ["Packages"]
-       23 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["Framework"]
        25 CALL                             R3 1 1
-       26 GETTABLEKS                       R5 R3 K13 ["ContextServices"]
-       28 GETTABLEKS                       R4 R5 K14 ["ContextItem"]
+       26 GETTABLEKS                       R4 R3 K13 ["ContextServices"]
+       28 GETTABLEKS                       R4 R4 K14 ["ContextItem"]
        30 LOADK                            R7 K15 ["ScriptConversionContext"]
        31 NAMECALL                         R5 R4 K16 ["extend"]
        33 CALL                             R5 2 1

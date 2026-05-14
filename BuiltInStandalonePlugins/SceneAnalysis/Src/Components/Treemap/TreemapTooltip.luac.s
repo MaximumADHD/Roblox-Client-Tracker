@@ -117,8 +117,8 @@ PROTO_0:
       149 MOVE                             R8 R6
       150 CALL                             R7 1 0
       151 DUPTABLE                         R7 K39 [{"UICorner", "UIStroke", "UIPadding", "UIListLayout", "NameLabel"}]
-      152 GETUPVAL                         R9 1
-      153 GETTABLEKS                       R8 R9 K40 ["createElement"]
+      152 GETUPVAL                         R8 1
+      153 GETTABLEKS                       R8 R8 K40 ["createElement"]
       155 LOADK                            R9 K34 ["UICorner"]
       156 DUPTABLE                         R10 K42 [{"CornerRadius"}]
       157 GETIMPORT                        R11 K45 [UDim.new]
@@ -128,20 +128,20 @@ PROTO_0:
       162 SETTABLEKS                       R11 R10 K41 ["CornerRadius"]
       164 CALL                             R8 2 1
       165 SETTABLEKS                       R8 R7 K34 ["UICorner"]
-      167 GETUPVAL                         R9 1
-      168 GETTABLEKS                       R8 R9 K40 ["createElement"]
+      167 GETUPVAL                         R8 1
+      168 GETTABLEKS                       R8 R8 K40 ["createElement"]
       170 LOADK                            R9 K35 ["UIStroke"]
       171 DUPTABLE                         R10 K48 [{"Color", "Thickness"}]
-      172 GETUPVAL                         R12 2
-      173 GETTABLEKS                       R11 R12 K49 ["getTooltipStrokeColor"]
+      172 GETUPVAL                         R11 2
+      173 GETTABLEKS                       R11 R11 K49 ["getTooltipStrokeColor"]
       175 CALL                             R11 0 1
       176 SETTABLEKS                       R11 R10 K46 ["Color"]
       178 LOADK                            R11 K50 [1.5]
       179 SETTABLEKS                       R11 R10 K47 ["Thickness"]
       181 CALL                             R8 2 1
       182 SETTABLEKS                       R8 R7 K35 ["UIStroke"]
-      184 GETUPVAL                         R9 1
-      185 GETTABLEKS                       R8 R9 K40 ["createElement"]
+      184 GETUPVAL                         R8 1
+      185 GETTABLEKS                       R8 R8 K40 ["createElement"]
       187 LOADK                            R9 K36 ["UIPadding"]
       188 DUPTABLE                         R10 K55 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
       189 GETIMPORT                        R11 K45 [UDim.new]
@@ -166,8 +166,8 @@ PROTO_0:
       215 SETTABLEKS                       R11 R10 K54 ["PaddingBottom"]
       217 CALL                             R8 2 1
       218 SETTABLEKS                       R8 R7 K36 ["UIPadding"]
-      220 GETUPVAL                         R9 1
-      221 GETTABLEKS                       R8 R9 K40 ["createElement"]
+      220 GETUPVAL                         R8 1
+      221 GETTABLEKS                       R8 R8 K40 ["createElement"]
       223 LOADK                            R9 K37 ["UIListLayout"]
       224 DUPTABLE                         R10 K59 [{"FillDirection", "SortOrder", "Padding"}]
       225 GETIMPORT                        R11 K62 [Enum.FillDirection.Vertical]
@@ -181,8 +181,8 @@ PROTO_0:
       238 SETTABLEKS                       R11 R10 K58 ["Padding"]
       240 CALL                             R8 2 1
       241 SETTABLEKS                       R8 R7 K37 ["UIListLayout"]
-      243 GETUPVAL                         R9 1
-      244 GETTABLEKS                       R8 R9 K40 ["createElement"]
+      243 GETUPVAL                         R8 1
+      244 GETTABLEKS                       R8 R8 K40 ["createElement"]
       246 LOADK                            R9 K65 ["TextLabel"]
       247 NEWTABLE                         R10 8 0
       249 LOADN                            R11 1
@@ -196,8 +196,8 @@ PROTO_0:
       262 SETTABLEKS                       R11 R10 K71 ["BackgroundTransparency"]
       264 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
       266 SETTABLEKS                       R11 R10 K72 ["AutomaticSize"]
-      268 GETUPVAL                         R12 1
-      269 GETTABLEKS                       R11 R12 K75 ["Tag"]
+      268 GETUPVAL                         R11 1
+      269 GETTABLEKS                       R11 R11 K75 ["Tag"]
       271 LOADK                            R12 K76 ["SceneAnalysis-TooltipText"]
       272 SETTABLE                         R12 R10 R11
       273 CALL                             R8 2 1
@@ -212,8 +212,8 @@ PROTO_0:
       284 GETIMPORT                        R15 K15 [tostring]
       286 CALL                             R15 1 1
       287 CONCAT                           R13 R14 R15
-      288 GETUPVAL                         R15 1
-      289 GETTABLEKS                       R14 R15 K40 ["createElement"]
+      288 GETUPVAL                         R14 1
+      289 GETTABLEKS                       R14 R14 K40 ["createElement"]
       291 LOADK                            R15 K65 ["TextLabel"]
       292 NEWTABLE                         R16 8 0
       294 LOADN                            R18 1
@@ -228,15 +228,15 @@ PROTO_0:
       308 SETTABLEKS                       R17 R16 K71 ["BackgroundTransparency"]
       310 GETIMPORT                        R17 K74 [Enum.AutomaticSize.XY]
       312 SETTABLEKS                       R17 R16 K72 ["AutomaticSize"]
-      314 GETUPVAL                         R18 1
-      315 GETTABLEKS                       R17 R18 K75 ["Tag"]
+      314 GETUPVAL                         R17 1
+      315 GETTABLEKS                       R17 R17 K75 ["Tag"]
       317 LOADK                            R18 K76 ["SceneAnalysis-TooltipText"]
       318 SETTABLE                         R18 R16 R17
       319 CALL                             R14 2 1
       320 SETTABLE                         R14 R7 R13
       321 FORGLOOP                         R8 2 [inext] ; [-41]
-      323 GETUPVAL                         R9 1
-      324 GETTABLEKS                       R8 R9 K40 ["createElement"]
+      323 GETUPVAL                         R8 1
+      324 GETTABLEKS                       R8 R8 K40 ["createElement"]
       326 LOADK                            R9 K80 ["Frame"]
       327 NEWTABLE                         R10 8 0
       329 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
@@ -252,13 +252,13 @@ PROTO_0:
       345 LOADN                            R11 100
       346 SETTABLEKS                       R11 R10 K86 ["ZIndex"]
       348 SETTABLEKS                       R3 R10 K87 ["Visible"]
-      350 GETUPVAL                         R13 1
-      351 GETTABLEKS                       R12 R13 K88 ["Change"]
-      353 GETTABLEKS                       R11 R12 K89 ["AbsoluteSize"]
+      350 GETUPVAL                         R11 1
+      351 GETTABLEKS                       R11 R11 K88 ["Change"]
+      353 GETTABLEKS                       R11 R11 K89 ["AbsoluteSize"]
       355 GETTABLEKS                       R12 R0 K90 ["onSizeChange"]
       357 SETTABLE                         R12 R10 R11
-      358 GETUPVAL                         R12 1
-      359 GETTABLEKS                       R11 R12 K75 ["Tag"]
+      358 GETUPVAL                         R11 1
+      359 GETTABLEKS                       R11 R11 K75 ["Tag"]
       361 LOADK                            R12 K91 ["SceneAnalysis-TooltipFill"]
       362 SETTABLE                         R12 R10 R11
       363 MOVE                             R11 R7
@@ -272,18 +272,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["formatSize"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["formatSize"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Resources"]
-       29 GETTABLEKS                       R4 R5 K12 ["StyleConstants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Resources"]
+       29 GETTABLEKS                       R4 R4 K12 ["StyleConstants"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K13 [PROTO_0]
        33 CAPTURE                          VAL R2

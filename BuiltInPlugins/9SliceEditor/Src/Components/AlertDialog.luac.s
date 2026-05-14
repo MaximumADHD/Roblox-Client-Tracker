@@ -5,9 +5,9 @@ PROTO_0:
         3 SETTABLEKS                       R3 R2 K0 ["enabled"]
         5 NAMECALL                         R0 R0 K2 ["setState"]
         7 CALL                             R0 2 0
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K3 ["props"]
-       11 GETTABLEKS                       R0 R1 K4 ["OnClose"]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K3 ["props"]
+       11 GETTABLEKS                       R0 R0 K4 ["OnClose"]
        13 CALL                             R0 0 0
        14 RETURN                           R0 0
 
@@ -26,14 +26,14 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K12 [{"Style", "Enabled", "Title", "Buttons", "OnButtonPressed", "OnClose", "MinContentSize", "Modal"}]
        11 LOADK                            R7 K13 ["Alert"]
        12 SETTABLEKS                       R7 R6 K4 ["Style"]
-       14 GETTABLEKS                       R8 R0 K14 ["state"]
-       16 GETTABLEKS                       R7 R8 K15 ["enabled"]
+       14 GETTABLEKS                       R7 R0 K14 ["state"]
+       16 GETTABLEKS                       R7 R7 K15 ["enabled"]
        18 SETTABLEKS                       R7 R6 K5 ["Enabled"]
        20 LOADK                            R9 K16 ["AlertDialog"]
        21 GETTABLEKS                       R10 R1 K17 ["TitleKey"]
@@ -60,8 +60,8 @@ PROTO_2:
        57 LOADB                            R7 1
        58 SETTABLEKS                       R7 R6 K11 ["Modal"]
        60 DUPTABLE                         R7 K27 [{"Label"}]
-       61 GETUPVAL                         R9 0
-       62 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       61 GETUPVAL                         R8 0
+       62 GETTABLEKS                       R8 R8 K3 ["createElement"]
        64 GETUPVAL                         R9 2
        65 DUPTABLE                         R10 K35 [{"Size", "AnchorPoint", "Position", "Text", "TextColor", "TextWrapped", "TextSize", "TextXAlignment"}]
        66 GETIMPORT                        R11 K38 [UDim2.fromScale]
@@ -100,17 +100,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]

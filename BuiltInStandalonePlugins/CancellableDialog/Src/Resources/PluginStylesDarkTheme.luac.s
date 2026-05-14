@@ -5,11 +5,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Styling"]
-       16 GETTABLEKS                       R2 R3 K9 ["createStyleSheet"]
+       14 GETTABLEKS                       R2 R1 K8 ["Styling"]
+       16 GETTABLEKS                       R2 R2 K9 ["createStyleSheet"]
        18 DUPTABLE                         R3 K15 [{"LoadingSpinnerImage", "CancelButtonBorderSizePixel", "CancelButtonBorderColor3", "CancelButtonBorderTransparency", "SemanticColorBackdrop"}]
        19 LOADK                            R4 K16 ["rbxasset://studio_svg_textures/Lua/Dialog/Dark/Standard/Spinner.png"]
        20 SETTABLEKS                       R4 R3 K10 ["LoadingSpinnerImage"]

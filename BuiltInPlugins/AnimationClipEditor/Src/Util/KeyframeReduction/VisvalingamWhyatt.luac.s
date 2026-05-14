@@ -27,8 +27,8 @@ PROTO_1:
        16 CALL                             R7 2 0
        17 FORGLOOP                         R2 2 ; [-8]
        19 RETURN                           R1 1
-       20 GETUPVAL                         R2 0
-       21 GETTABLEKS                       R1 R2 K3 ["new"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K3 ["new"]
        23 CALL                             R1 0 1
        24 LOADNIL                          R2
        25 LOADN                            R5 2
@@ -36,8 +36,8 @@ PROTO_1:
        27 SUBK                             R3 R6 K4 [1]
        28 LOADN                            R4 1
        29 FORNPREP                         R3
-       30 GETUPVAL                         R7 1
-       31 GETTABLEKS                       R6 R7 K3 ["new"]
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K3 ["new"]
        33 SUBK                             R8 R5 K4 [1]
        34 GETTABLE                         R7 R0 R8
        35 GETTABLE                         R8 R0 R5
@@ -118,8 +118,8 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["MinHeap"]
         9 CALL                             R1 1 1

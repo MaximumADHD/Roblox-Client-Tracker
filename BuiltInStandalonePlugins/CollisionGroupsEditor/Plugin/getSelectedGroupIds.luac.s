@@ -38,9 +38,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R4 K7 [script]
-       11 GETTABLEKS                       R3 R4 K8 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K9 ["getSelectedParts"]
+        9 GETIMPORT                        R2 K7 [script]
+       11 GETTABLEKS                       R2 R2 K8 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K9 ["getSelectedParts"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K10 [PROTO_0]
        17 CAPTURE                          VAL R1

@@ -9,8 +9,8 @@ PROTO_0:
         9 GETUPVAL                         R2 3
        10 CALL                             R2 0 1
        11 GETUPVAL                         R3 4
-       12 GETUPVAL                         R6 5
-       13 GETTABLEKS                       R5 R6 K2 ["Tag"]
+       12 GETUPVAL                         R5 5
+       13 GETTABLEKS                       R5 R5 K2 ["Tag"]
        15 NAMECALL                         R3 R3 K3 ["GetTagged"]
        17 CALL                             R3 2 3
        18 FORGPREP                         R3
@@ -42,9 +42,9 @@ PROTO_0:
        52 NAMECALL                         R3 R0 K8 ["dispatch"]
        54 CALL                             R3 -1 0
        55 GETUPVAL                         R5 9
-       56 GETUPVAL                         R8 5
-       57 GETTABLEKS                       R7 R8 K13 ["Screens"]
-       59 GETTABLEKS                       R6 R7 K14 ["OwnershipTransfer"]
+       56 GETUPVAL                         R6 5
+       57 GETTABLEKS                       R6 R6 K13 ["Screens"]
+       59 GETTABLEKS                       R6 R6 K14 ["OwnershipTransfer"]
        61 CALL                             R5 1 -1
        62 NAMECALL                         R3 R0 K8 ["dispatch"]
        64 CALL                             R3 -1 0
@@ -87,28 +87,28 @@ MAIN:
        28 NAMECALL                         R4 R4 K7 ["GetService"]
        30 CALL                             R4 2 1
        31 GETIMPORT                        R5 K12 [require]
-       33 GETTABLEKS                       R7 R0 K13 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       33 GETTABLEKS                       R6 R0 K13 ["Src"]
+       35 GETTABLEKS                       R6 R6 K14 ["Constants"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K12 [require]
-       40 GETTABLEKS                       R9 R0 K13 ["Src"]
-       42 GETTABLEKS                       R8 R9 K15 ["Actions"]
-       44 GETTABLEKS                       R7 R8 K16 ["SetEnabled"]
+       40 GETTABLEKS                       R7 R0 K13 ["Src"]
+       42 GETTABLEKS                       R7 R7 K15 ["Actions"]
+       44 GETTABLEKS                       R7 R7 K16 ["SetEnabled"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K12 [require]
-       49 GETTABLEKS                       R10 R0 K13 ["Src"]
-       51 GETTABLEKS                       R9 R10 K15 ["Actions"]
-       53 GETTABLEKS                       R8 R9 K17 ["SetScreen"]
+       49 GETTABLEKS                       R8 R0 K13 ["Src"]
+       51 GETTABLEKS                       R8 R8 K15 ["Actions"]
+       53 GETTABLEKS                       R8 R8 K17 ["SetScreen"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K12 [require]
-       58 GETTABLEKS                       R11 R0 K13 ["Src"]
-       60 GETTABLEKS                       R10 R11 K15 ["Actions"]
-       62 GETTABLEKS                       R9 R10 K18 ["SetOwnershipTransferText"]
+       58 GETTABLEKS                       R9 R0 K13 ["Src"]
+       60 GETTABLEKS                       R9 R9 K15 ["Actions"]
+       62 GETTABLEKS                       R9 R9 K18 ["SetOwnershipTransferText"]
        64 CALL                             R8 1 1
        65 GETIMPORT                        R9 K12 [require]
-       67 GETTABLEKS                       R12 R0 K13 ["Src"]
-       69 GETTABLEKS                       R11 R12 K19 ["Util"]
-       71 GETTABLEKS                       R10 R11 K20 ["getOwnershipTransferAssetIds"]
+       67 GETTABLEKS                       R10 R0 K13 ["Src"]
+       69 GETTABLEKS                       R10 R10 K19 ["Util"]
+       71 GETTABLEKS                       R10 R10 K20 ["getOwnershipTransferAssetIds"]
        73 CALL                             R9 1 1
        74 DUPCLOSURE                       R10 K21 [PROTO_1]
        75 CAPTURE                          VAL R4

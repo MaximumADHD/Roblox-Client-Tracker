@@ -4,12 +4,12 @@ PROTO_0:
         2 LOADNIL                          R5
         3 LOADNIL                          R6
         4 FORGPREP                         R4
-        5 GETTABLEKS                       R10 R8 K0 ["Identifier"]
-        7 GETTABLEKS                       R9 R10 K1 ["Filename"]
+        5 GETTABLEKS                       R9 R8 K0 ["Identifier"]
+        7 GETTABLEKS                       R9 R9 K1 ["Filename"]
         9 GETTABLEKS                       R10 R1 K1 ["Filename"]
        11 JUMPIFNOTEQ                      R9 R10 ; [+11]
-       13 GETTABLEKS                       R10 R8 K0 ["Identifier"]
-       15 GETTABLEKS                       R9 R10 K2 ["Type"]
+       13 GETTABLEKS                       R9 R8 K0 ["Identifier"]
+       15 GETTABLEKS                       R9 R9 K2 ["Type"]
        17 GETTABLEKS                       R10 R1 K2 ["Type"]
        19 JUMPIFNOTEQ                      R9 R10 ; [+3]
        21 MOVE                             R3 R7

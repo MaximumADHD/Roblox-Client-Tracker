@@ -104,14 +104,14 @@ PROTO_1:
        15 GETTABLEKS                       R1 R0 K0 ["Lower"]
        17 JUMPIF                           R2 ; [+2]
        18 GETTABLEKS                       R2 R0 K1 ["Upper"]
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R4 R5 K3 ["minVector3"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K3 ["minVector3"]
        23 GETTABLEKS                       R5 R0 K0 ["Lower"]
        25 MOVE                             R6 R1
        26 CALL                             R4 2 1
        27 MOVE                             R1 R4
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R4 R5 K4 ["maxVector3"]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K4 ["maxVector3"]
        31 GETTABLEKS                       R5 R0 K1 ["Upper"]
        33 MOVE                             R6 R2
        34 CALL                             R4 2 1
@@ -451,8 +451,8 @@ PROTO_5:
        15 FORGPREP_INEXT                   R4
        16 GETTABLEKS                       R9 R8 K7 ["Parent"]
        18 JUMPIFNOT                        R9 ; [+36]
-       19 GETTABLEKS                       R10 R8 K7 ["Parent"]
-       21 GETTABLEKS                       R9 R10 K7 ["Parent"]
+       19 GETTABLEKS                       R9 R8 K7 ["Parent"]
+       21 GETTABLEKS                       R9 R9 K7 ["Parent"]
        23 JUMPIFNOT                        R9 ; [+31]
        24 GETIMPORT                        R11 K9 [workspace]
        26 NAMECALL                         R9 R8 K10 ["IsDescendantOf"]
@@ -555,8 +555,8 @@ PROTO_8:
         6 LOADNIL                          R2
         7 LOADNIL                          R3
         8 RETURN                           R2 2
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K2 ["absVector3"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K2 ["absVector3"]
        12 GETTABLEKS                       R4 R0 K1 ["Upper"]
        14 GETTABLEKS                       R5 R0 K0 ["Lower"]
        16 SUB                              R3 R4 R5
@@ -629,9 +629,9 @@ PROTO_12:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Utility"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Utility"]
         9 CALL                             R0 1 1
        10 DUPCLOSURE                       R1 K6 [PROTO_0]
        11 SETGLOBAL                        R1 K7 ["unionVector3"]
@@ -648,9 +648,9 @@ MAIN:
        26 SETGLOBAL                        R2 K14 ["getExtentsRecursive"]
        28 DUPCLOSURE                       R2 K15 [PROTO_5]
        29 GETIMPORT                        R3 K1 [require]
-       31 GETIMPORT                        R6 K3 [script]
-       33 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       35 GETTABLEKS                       R4 R5 K16 ["FuzzyMath"]
+       31 GETIMPORT                        R4 K3 [script]
+       33 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       35 GETTABLEKS                       R4 R4 K16 ["FuzzyMath"]
        37 CALL                             R3 1 1
        38 DUPCLOSURE                       R4 K17 [PROTO_6]
        39 SETGLOBAL                        R4 K18 ["getExtentsOfList"]

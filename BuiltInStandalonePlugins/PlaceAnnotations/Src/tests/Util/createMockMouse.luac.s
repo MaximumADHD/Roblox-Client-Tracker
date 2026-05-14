@@ -47,8 +47,8 @@ PROTO_6:
         6 NEWCLOSURE                       R3 P0
         7 CAPTURE                          REF R1
         8 SETTABLEKS                       R3 R2 K3 ["Fire"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K6 ["fn"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K6 ["fn"]
        13 NEWCLOSURE                       R4 P1
        14 CAPTURE                          REF R1
        15 CALL                             R3 1 1
@@ -59,8 +59,8 @@ PROTO_6:
        22 NEWCLOSURE                       R4 P2
        23 CAPTURE                          REF R2
        24 SETTABLEKS                       R4 R3 K3 ["Fire"]
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R4 R5 K6 ["fn"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K6 ["fn"]
        29 NEWCLOSURE                       R5 P3
        30 CAPTURE                          REF R2
        31 CALL                             R4 1 1
@@ -77,8 +77,8 @@ PROTO_6:
        49 LOADK                            R5 K17 [{0, 0, -1}]
        50 CALL                             R3 2 1
        51 SETTABLEKS                       R3 R0 K18 ["UnitRay"]
-       53 GETUPVAL                         R4 0
-       54 GETTABLEKS                       R3 R4 K6 ["fn"]
+       53 GETUPVAL                         R3 0
+       54 GETTABLEKS                       R3 R3 K6 ["fn"]
        56 CALL                             R3 0 1
        57 SETTABLEKS                       R3 R0 K10 ["new"]
        59 CLOSEUPVALS                      R1
@@ -91,9 +91,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
-       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["jest"]
        18 DUPCLOSURE                       R3 K10 [PROTO_6]

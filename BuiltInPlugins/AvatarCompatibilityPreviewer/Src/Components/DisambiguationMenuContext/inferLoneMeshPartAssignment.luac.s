@@ -3,8 +3,8 @@ PROTO_0:
         1 CALL                             R3 0 1
         2 JUMPIFNOT                        R3 ; [+11]
         3 GETIMPORT                        R3 K2 [table.find]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K3 ["LIMBS"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K3 ["LIMBS"]
         8 GETTABLEKS                       R5 R0 K4 ["Name"]
        10 CALL                             R3 2 1
        11 JUMPIFNOT                        R3 ; [+2]
@@ -46,8 +46,8 @@ PROTO_0:
        56 GETTABLE                         R12 R2 R11
        57 JUMPIFEQKNIL                     R12 ; [+43]
        59 GETIMPORT                        R13 K7 [string.lower]
-       61 GETUPVAL                         R15 2
-       62 GETTABLEKS                       R14 R15 K16 ["removePostfix"]
+       61 GETUPVAL                         R14 2
+       62 GETTABLEKS                       R14 R14 K16 ["removePostfix"]
        64 GETTABLEKS                       R15 R10 K15 ["Id"]
        66 LOADK                            R16 K17 ["Accessory"]
        67 CALL                             R14 2 -1
@@ -89,8 +89,8 @@ PROTO_0:
       112 GETUPVAL                         R13 4
       113 GETTABLE                         R12 R13 R9
       114 GETIMPORT                        R13 K7 [string.lower]
-      116 GETUPVAL                         R15 2
-      117 GETTABLEKS                       R14 R15 K16 ["removePostfix"]
+      116 GETUPVAL                         R14 2
+      117 GETTABLEKS                       R14 R14 K16 ["removePostfix"]
       119 GETTABLEKS                       R15 R10 K15 ["Id"]
       121 LOADK                            R16 K17 ["Accessory"]
       122 CALL                             R14 2 -1
@@ -128,29 +128,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R7 R0 K6 ["Src"]
-       27 GETTABLEKS                       R6 R7 K10 ["Components"]
-       29 GETTABLEKS                       R5 R6 K11 ["DisambiguationMenu"]
-       31 GETTABLEKS                       R4 R5 K12 ["getChoosableAssetTypes"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Components"]
+       29 GETTABLEKS                       R4 R4 K11 ["DisambiguationMenu"]
+       31 GETTABLEKS                       R4 R4 K12 ["getChoosableAssetTypes"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K7 ["Util"]
-       40 GETTABLEKS                       R5 R6 K13 ["StringUtil"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K7 ["Util"]
+       40 GETTABLEKS                       R5 R5 K13 ["StringUtil"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       49 GETTABLEKS                       R6 R7 K15 ["getFFlagAvatarPreviewerProcessRigidOnly"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       49 GETTABLEKS                       R6 R6 K15 ["getFFlagAvatarPreviewerProcessRigidOnly"]
        51 CALL                             R5 1 1
        52 NEWTABLE                         R6 0 2
        54 DUPTABLE                         R7 K18 [{"Id", "Label"}]

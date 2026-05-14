@@ -65,8 +65,8 @@ PROTO_2:
 PROTO_3:
         0 LOADNIL                          R0
         1 GETUPVAL                         R1 0
-        2 GETIMPORT                        R3 K3 [Enum.AssetType.Audio]
-        4 GETTABLEKS                       R2 R3 K4 ["Value"]
+        2 GETIMPORT                        R2 K3 [Enum.AssetType.Audio]
+        4 GETTABLEKS                       R2 R2 K4 ["Value"]
         6 JUMPIFNOTEQ                      R1 R2 ; [+32]
         8 GETUPVAL                         R1 1
         9 NAMECALL                         R1 R1 K5 ["GetAudioApiByDefault"]
@@ -93,8 +93,8 @@ PROTO_3:
        37 MOVE                             R0 R1
        38 JUMP                             ; [+46]
        39 GETUPVAL                         R1 0
-       40 GETIMPORT                        R3 K16 [Enum.AssetType.Image]
-       42 GETTABLEKS                       R2 R3 K4 ["Value"]
+       40 GETIMPORT                        R2 K16 [Enum.AssetType.Image]
+       42 GETTABLEKS                       R2 R2 K4 ["Value"]
        44 JUMPIFNOTEQ                      R1 R2 ; [+14]
        46 GETIMPORT                        R1 K8 [Instance.new]
        48 LOADK                            R2 K17 ["Decal"]
@@ -109,8 +109,8 @@ PROTO_3:
        59 GETUPVAL                         R1 3
        60 JUMPIFNOT                        R1 ; [+20]
        61 GETUPVAL                         R1 0
-       62 GETIMPORT                        R3 K20 [Enum.AssetType.Video]
-       64 GETTABLEKS                       R2 R3 K4 ["Value"]
+       62 GETIMPORT                        R2 K20 [Enum.AssetType.Video]
+       64 GETTABLEKS                       R2 R2 K4 ["Value"]
        66 JUMPIFNOTEQ                      R1 R2 ; [+14]
        68 GETIMPORT                        R1 K8 [Instance.new]
        70 LOADK                            R2 K21 ["VideoFrame"]
@@ -154,8 +154,8 @@ PROTO_4:
        11 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R1
         5 CAPTURE                          UPVAL U1
@@ -167,16 +167,16 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R3 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       15 CALL                             R3 1 1
-       16 GETTABLEKS                       R2 R3 K7 ["Util"]
-       18 GETTABLEKS                       R1 R2 K8 ["Promise"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Util"]
+       18 GETTABLEKS                       R1 R1 K8 ["Promise"]
        20 GETIMPORT                        R2 K10 [game]
        22 LOADK                            R4 K11 ["AssetManagerVideoPreviewFix"]
        23 NAMECALL                         R2 R2 K12 ["GetFastFlag"]

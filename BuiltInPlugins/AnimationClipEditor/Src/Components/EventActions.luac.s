@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["PluginActions"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
         4 JUMPIFNOT                        R1 ; [+50]
         5 GETTABLEKS                       R2 R0 K0 ["props"]
         7 NEWTABLE                         R3 0 5
         9 LOADK                            R6 K2 ["DeleteEvents"]
        10 NAMECALL                         R4 R1 K3 ["get"]
        12 CALL                             R4 2 1
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K4 ["MENU_SEPARATOR"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K4 ["MENU_SEPARATOR"]
        16 LOADK                            R8 K5 ["CutEvents"]
        17 NAMECALL                         R6 R1 K3 ["get"]
        19 CALL                             R6 2 1
@@ -42,8 +42,8 @@ PROTO_0:
        55 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["PluginActions"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
         4 JUMPIFNOT                        R1 ; [+35]
         5 GETTABLEKS                       R2 R0 K0 ["props"]
         7 NEWTABLE                         R3 0 6
@@ -57,8 +57,8 @@ PROTO_1:
        18 LOADK                            R7 K6 ["DeleteEvents"]
        19 NAMECALL                         R5 R1 K5 ["get"]
        21 CALL                             R5 2 1
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K7 ["MENU_SEPARATOR"]
+       22 GETUPVAL                         R6 0
+       23 GETTABLEKS                       R6 R6 K7 ["MENU_SEPARATOR"]
        25 LOADK                            R9 K8 ["CutEvents"]
        26 NAMECALL                         R7 R1 K5 ["get"]
        28 CALL                             R7 2 1
@@ -93,8 +93,8 @@ PROTO_2:
        24 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Tick"]
         5 GETTABLEKS                       R2 R0 K2 ["OnEditEvents"]
         7 MOVE                             R3 R1
@@ -102,8 +102,8 @@ PROTO_3:
         9 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Tick"]
         5 JUMPIF                           R1 ; [+2]
         6 GETTABLEKS                       R1 R0 K2 ["Playhead"]
@@ -113,43 +113,43 @@ PROTO_4:
        12 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["CopySelectedEvents"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["props"]
-        8 GETTABLEKS                       R2 R3 K2 ["EventFilters"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["props"]
+        8 GETTABLEKS                       R2 R2 K2 ["EventFilters"]
        10 CALL                             R1 1 0
        11 GETTABLEKS                       R1 R0 K3 ["DeleteSelectedEvents"]
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R3 R4 K0 ["props"]
-       16 GETTABLEKS                       R2 R3 K2 ["EventFilters"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K0 ["props"]
+       16 GETTABLEKS                       R2 R2 K2 ["EventFilters"]
        18 CALL                             R1 1 0
        19 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["CopySelectedEvents"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["props"]
-        8 GETTABLEKS                       R1 R2 K2 ["EventFilters"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["CopySelectedEvents"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["props"]
+        8 GETTABLEKS                       R1 R1 K2 ["EventFilters"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["DeleteSelectedEvents"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["props"]
-        8 GETTABLEKS                       R1 R2 K2 ["EventFilters"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["DeleteSelectedEvents"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["props"]
+        8 GETTABLEKS                       R1 R1 K2 ["EventFilters"]
        10 CALL                             R0 1 0
        11 RETURN                           R0 0
 
 PROTO_8:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["PluginActions"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
         4 NEWTABLE                         R2 0 0
         6 SETTABLEKS                       R2 R0 K2 ["Connections"]
         8 NEWTABLE                         R2 0 0
@@ -199,8 +199,8 @@ PROTO_9:
         8 GETTABLEKS                       R5 R1 K4 ["SelectedEvents"]
        10 GETTABLEKS                       R6 R1 K5 ["OnMenuOpened"]
        12 GETTABLEKS                       R7 R0 K6 ["Actions"]
-       14 GETTABLEKS                       R9 R0 K0 ["props"]
-       16 GETTABLEKS                       R8 R9 K7 ["PluginActions"]
+       14 GETTABLEKS                       R8 R0 K0 ["props"]
+       16 GETTABLEKS                       R8 R8 K7 ["PluginActions"]
        18 GETUPVAL                         R9 0
        19 MOVE                             R10 R8
        20 CALL                             R9 1 1
@@ -218,9 +218,9 @@ PROTO_9:
        36 MOVE                             R10 R3
        37 CALL                             R9 1 1
        38 JUMPIF                           R9 ; [+14]
-       39 GETUPVAL                         R11 1
-       40 GETTABLEKS                       R10 R11 K11 ["CLIPBOARD_TYPE"]
-       42 GETTABLEKS                       R9 R10 K12 ["Events"]
+       39 GETUPVAL                         R9 1
+       40 GETTABLEKS                       R9 R9 K11 ["CLIPBOARD_TYPE"]
+       42 GETTABLEKS                       R9 R9 K12 ["Events"]
        44 JUMPIFNOTEQ                      R4 R9 ; [+8]
        46 LOADK                            R11 K13 ["PasteEvents"]
        47 NAMECALL                         R9 R8 K14 ["get"]
@@ -258,8 +258,8 @@ PROTO_9:
        91 CALL                             R9 1 1
        92 JUMPIFNOT                        R2 ; [+15]
        93 JUMPIFNOT                        R9 ; [+14]
-       94 GETUPVAL                         R11 2
-       95 GETTABLEKS                       R10 R11 K21 ["createElement"]
+       94 GETUPVAL                         R10 2
+       95 GETTABLEKS                       R10 R10 K21 ["createElement"]
        97 GETUPVAL                         R11 3
        98 DUPTABLE                         R12 K22 [{"Actions", "OnMenuOpened"}]
        99 NAMECALL                         R13 R0 K20 ["makeMenuActions"]
@@ -305,11 +305,11 @@ PROTO_11:
        13 SETTABLEKS                       R4 R3 K3 ["SelectedEvents"]
        15 GETTABLEKS                       R4 R2 K4 ["Playhead"]
        17 SETTABLEKS                       R4 R3 K4 ["Playhead"]
-       19 GETTABLEKS                       R5 R2 K8 ["RightClickContextInfo"]
-       21 GETTABLEKS                       R4 R5 K5 ["OnEvent"]
+       19 GETTABLEKS                       R4 R2 K8 ["RightClickContextInfo"]
+       21 GETTABLEKS                       R4 R4 K5 ["OnEvent"]
        23 SETTABLEKS                       R4 R3 K5 ["OnEvent"]
-       25 GETTABLEKS                       R5 R2 K8 ["RightClickContextInfo"]
-       27 GETTABLEKS                       R4 R5 K6 ["Tick"]
+       25 GETTABLEKS                       R4 R2 K8 ["RightClickContextInfo"]
+       27 GETTABLEKS                       R4 R4 K6 ["Tick"]
        29 SETTABLEKS                       R4 R3 K6 ["Tick"]
        31 RETURN                           R3 1
 
@@ -388,62 +388,62 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["isEmpty"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["isEmpty"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["Constants"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       43 GETTABLEKS                       R6 R7 K13 ["Framework"]
+       41 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       43 GETTABLEKS                       R6 R6 K13 ["Framework"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R5 K14 ["ContextServices"]
        48 GETTABLEKS                       R7 R6 K15 ["withContext"]
        50 GETIMPORT                        R8 K5 [require]
-       52 GETTABLEKS                       R11 R0 K9 ["Src"]
-       54 GETTABLEKS                       R10 R11 K16 ["Components"]
-       56 GETTABLEKS                       R9 R10 K17 ["ContextMenu"]
+       52 GETTABLEKS                       R9 R0 K9 ["Src"]
+       54 GETTABLEKS                       R9 R9 K16 ["Components"]
+       56 GETTABLEKS                       R9 R9 K17 ["ContextMenu"]
        58 CALL                             R8 1 1
        59 GETIMPORT                        R9 K5 [require]
-       61 GETTABLEKS                       R13 R0 K9 ["Src"]
-       63 GETTABLEKS                       R12 R13 K18 ["Thunks"]
-       65 GETTABLEKS                       R11 R12 K19 ["History"]
-       67 GETTABLEKS                       R10 R11 K20 ["AddWaypoint"]
+       61 GETTABLEKS                       R10 R0 K9 ["Src"]
+       63 GETTABLEKS                       R10 R10 K18 ["Thunks"]
+       65 GETTABLEKS                       R10 R10 K19 ["History"]
+       67 GETTABLEKS                       R10 R10 K20 ["AddWaypoint"]
        69 CALL                             R9 1 1
        70 GETIMPORT                        R10 K5 [require]
-       72 GETTABLEKS                       R14 R0 K9 ["Src"]
-       74 GETTABLEKS                       R13 R14 K18 ["Thunks"]
-       76 GETTABLEKS                       R12 R13 K21 ["Events"]
-       78 GETTABLEKS                       R11 R12 K22 ["PasteEvents"]
+       72 GETTABLEKS                       R11 R0 K9 ["Src"]
+       74 GETTABLEKS                       R11 R11 K18 ["Thunks"]
+       76 GETTABLEKS                       R11 R11 K21 ["Events"]
+       78 GETTABLEKS                       R11 R11 K22 ["PasteEvents"]
        80 CALL                             R10 1 1
        81 GETIMPORT                        R11 K5 [require]
-       83 GETTABLEKS                       R15 R0 K9 ["Src"]
-       85 GETTABLEKS                       R14 R15 K18 ["Thunks"]
-       87 GETTABLEKS                       R13 R14 K21 ["Events"]
-       89 GETTABLEKS                       R12 R13 K23 ["CopySelectedEvents"]
+       83 GETTABLEKS                       R12 R0 K9 ["Src"]
+       85 GETTABLEKS                       R12 R12 K18 ["Thunks"]
+       87 GETTABLEKS                       R12 R12 K21 ["Events"]
+       89 GETTABLEKS                       R12 R12 K23 ["CopySelectedEvents"]
        91 CALL                             R11 1 1
        92 GETIMPORT                        R12 K5 [require]
-       94 GETTABLEKS                       R16 R0 K9 ["Src"]
-       96 GETTABLEKS                       R15 R16 K18 ["Thunks"]
-       98 GETTABLEKS                       R14 R15 K21 ["Events"]
-      100 GETTABLEKS                       R13 R14 K24 ["DeleteSelectedEvents"]
+       94 GETTABLEKS                       R13 R0 K9 ["Src"]
+       96 GETTABLEKS                       R13 R13 K18 ["Thunks"]
+       98 GETTABLEKS                       R13 R13 K21 ["Events"]
+      100 GETTABLEKS                       R13 R13 K24 ["DeleteSelectedEvents"]
       102 CALL                             R12 1 1
       103 GETIMPORT                        R13 K5 [require]
-      105 GETTABLEKS                       R16 R0 K9 ["Src"]
-      107 GETTABLEKS                       R15 R16 K25 ["Actions"]
-      109 GETTABLEKS                       R14 R15 K26 ["SetRightClickContextInfo"]
+      105 GETTABLEKS                       R14 R0 K9 ["Src"]
+      107 GETTABLEKS                       R14 R14 K25 ["Actions"]
+      109 GETTABLEKS                       R14 R14 K26 ["SetRightClickContextInfo"]
       111 CALL                             R13 1 1
       112 GETTABLEKS                       R14 R1 K27 ["PureComponent"]
       114 LOADK                            R16 K28 ["EventActions"]

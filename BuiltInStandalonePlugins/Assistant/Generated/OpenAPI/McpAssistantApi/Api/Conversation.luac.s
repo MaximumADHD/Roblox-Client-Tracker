@@ -1,38 +1,42 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["buildRequest"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["buildRequest"]
         3 LOADK                            R2 K1 ["POST"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K2 ["host"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K2 ["host"]
         7 LOADK                            R4 K3 ["/v1/conversation"]
-        8 GETUPVAL                         R6 1
-        9 GETTABLEKS                       R5 R6 K4 ["pathPrefix"]
-       11 CALL                             R1 4 1
-       12 GETUPVAL                         R3 2
-       13 MOVE                             R4 R0
-       14 NAMECALL                         R1 R1 K5 ["setBody"]
-       16 CALL                             R1 3 1
-       17 NAMECALL                         R1 R1 K6 ["sendAsync"]
-       19 CALL                             R1 1 -1
-       20 RETURN                           R1 -1
+        8 GETUPVAL                         R5 1
+        9 GETTABLEKS                       R5 R5 K4 ["pathPrefix"]
+       11 GETUPVAL                         R6 1
+       12 GETTABLEKS                       R6 R6 K5 ["baseUrl"]
+       14 CALL                             R1 5 1
+       15 GETUPVAL                         R3 2
+       16 MOVE                             R4 R0
+       17 NAMECALL                         R1 R1 K6 ["setBody"]
+       19 CALL                             R1 3 1
+       20 NAMECALL                         R1 R1 K7 ["sendAsync"]
+       22 CALL                             R1 1 -1
+       23 RETURN                           R1 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["buildRequest"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["buildRequest"]
         3 LOADK                            R2 K1 ["POST"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K2 ["host"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K2 ["host"]
         7 LOADK                            R4 K3 ["/v1/conversation:sse"]
-        8 GETUPVAL                         R6 1
-        9 GETTABLEKS                       R5 R6 K4 ["pathPrefix"]
-       11 CALL                             R1 4 1
-       12 GETUPVAL                         R3 2
-       13 MOVE                             R4 R0
-       14 NAMECALL                         R1 R1 K5 ["setBody"]
-       16 CALL                             R1 3 1
-       17 NAMECALL                         R1 R1 K6 ["sendAsync"]
-       19 CALL                             R1 1 -1
-       20 RETURN                           R1 -1
+        8 GETUPVAL                         R5 1
+        9 GETTABLEKS                       R5 R5 K4 ["pathPrefix"]
+       11 GETUPVAL                         R6 1
+       12 GETTABLEKS                       R6 R6 K5 ["baseUrl"]
+       14 CALL                             R1 5 1
+       15 GETUPVAL                         R3 2
+       16 MOVE                             R4 R0
+       17 NAMECALL                         R1 R1 K6 ["setBody"]
+       19 CALL                             R1 3 1
+       20 NAMECALL                         R1 R1 K7 ["sendAsync"]
+       22 CALL                             R1 1 -1
+       23 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -51,8 +55,8 @@ MAIN:
        20 GETTABLEKS                       R5 R0 K9 ["PathMetadata"]
        22 CALL                             R4 1 1
        23 GETIMPORT                        R5 K7 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Models"]
-       27 GETTABLEKS                       R6 R7 K11 ["CreateConversationRequest"]
+       25 GETTABLEKS                       R6 R0 K10 ["Models"]
+       27 GETTABLEKS                       R6 R6 K11 ["CreateConversationRequest"]
        29 CALL                             R5 1 1
        30 NEWTABLE                         R6 2 0
        32 DUPCLOSURE                       R7 K12 [PROTO_0]

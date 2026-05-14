@@ -23,8 +23,8 @@ PROTO_1:
        12 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -48,24 +48,24 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R2 0
         1 LOADN                            R3 1
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K0 ["NAME_CHARACTER_LIMIT"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K0 ["NAME_CHARACTER_LIMIT"]
         5 FASTCALL                         STRING_SUB ; [+2]
         6 GETIMPORT                        R1 K3 [string.sub]
         8 CALL                             R1 3 1
         9 SETUPVAL                         R1 0
        10 GETUPVAL                         R2 2
        11 LOADN                            R3 1
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K4 ["DESCRIPTION_CHARACTER_LIMIT"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K4 ["DESCRIPTION_CHARACTER_LIMIT"]
        15 FASTCALL                         STRING_SUB ; [+2]
        16 GETIMPORT                        R1 K3 [string.sub]
        18 CALL                             R1 3 1
        19 SETUPVAL                         R1 2
        20 GETUPVAL                         R3 3
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K5 ["SCREENS"]
-       24 GETTABLEKS                       R4 R5 K6 ["UPLOADING_ASSET"]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K5 ["SCREENS"]
+       24 GETTABLEKS                       R4 R4 K6 ["UPLOADING_ASSET"]
        26 CALL                             R3 1 -1
        27 NAMECALL                         R1 R0 K7 ["dispatch"]
        29 CALL                             R1 -1 0
@@ -123,41 +123,41 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       17 GETTABLEKS                       R2 R3 K7 ["NetworkError"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       17 GETTABLEKS                       R2 R2 K7 ["NetworkError"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       26 GETTABLEKS                       R3 R4 K8 ["SetCurrentScreen"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       26 GETTABLEKS                       R3 R3 K8 ["SetCurrentScreen"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R6 R0 K5 ["Src"]
-       33 GETTABLEKS                       R5 R6 K6 ["Actions"]
-       35 GETTABLEKS                       R4 R5 K9 ["UploadResult"]
+       31 GETTABLEKS                       R4 R0 K5 ["Src"]
+       33 GETTABLEKS                       R4 R4 K6 ["Actions"]
+       35 GETTABLEKS                       R4 R4 K9 ["UploadResult"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K4 [require]
-       40 GETTABLEKS                       R7 R0 K5 ["Src"]
-       42 GETTABLEKS                       R6 R7 K10 ["Util"]
-       44 GETTABLEKS                       R5 R6 K11 ["DebugFlags"]
+       40 GETTABLEKS                       R5 R0 K5 ["Src"]
+       42 GETTABLEKS                       R5 R5 K10 ["Util"]
+       44 GETTABLEKS                       R5 R5 K11 ["DebugFlags"]
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K4 [require]
-       49 GETTABLEKS                       R8 R0 K5 ["Src"]
-       51 GETTABLEKS                       R7 R8 K10 ["Util"]
-       53 GETTABLEKS                       R6 R7 K12 ["AssetConfigConstants"]
+       49 GETTABLEKS                       R6 R0 K5 ["Src"]
+       51 GETTABLEKS                       R6 R6 K10 ["Util"]
+       53 GETTABLEKS                       R6 R6 K12 ["AssetConfigConstants"]
        55 CALL                             R5 1 1
        56 GETIMPORT                        R6 K4 [require]
-       58 GETTABLEKS                       R10 R0 K5 ["Src"]
-       60 GETTABLEKS                       R9 R10 K13 ["Networking"]
-       62 GETTABLEKS                       R8 R9 K14 ["Requests"]
-       64 GETTABLEKS                       R7 R8 K15 ["ConfigureSalesRequest"]
+       58 GETTABLEKS                       R7 R0 K5 ["Src"]
+       60 GETTABLEKS                       R7 R7 K13 ["Networking"]
+       62 GETTABLEKS                       R7 R7 K14 ["Requests"]
+       64 GETTABLEKS                       R7 R7 K15 ["ConfigureSalesRequest"]
        66 CALL                             R6 1 1
        67 DUPCLOSURE                       R7 K16 [PROTO_0]
        68 DUPCLOSURE                       R8 K17 [PROTO_4]

@@ -31,8 +31,8 @@ PROTO_3:
         5 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["OnClick"]
         5 JUMPIFEQKNIL                     R1 ; [+6]
         7 GETTABLEKS                       R1 R0 K1 ["OnClick"]
@@ -41,8 +41,8 @@ PROTO_4:
        12 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["OnAbsoluteSizeChanged"]
         5 JUMPIFNOT                        R2 ; [+5]
         6 GETTABLEKS                       R2 R1 K1 ["OnAbsoluteSizeChanged"]
@@ -72,10 +72,10 @@ PROTO_6:
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
-        4 GETTABLEKS                       R4 R1 K2 ["Stylizer"]
-        6 GETTABLEKS                       R3 R4 K3 ["iconTile"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["new"]
+        4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
+        6 GETTABLEKS                       R3 R3 K3 ["iconTile"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["new"]
        11 CALL                             R4 0 1
        12 GETTABLEKS                       R6 R1 K5 ["ContentsLayoutOverride"]
        14 JUMPIFNOT                        R6 ; [+2]
@@ -87,8 +87,8 @@ PROTO_7:
        22 GETTABLEKS                       R6 R1 K10 ["ContentsPadding"]
        24 JUMP                             ; [+2]
        25 GETTABLEKS                       R6 R3 K11 ["padding"]
-       27 GETUPVAL                         R8 1
-       28 GETTABLEKS                       R7 R8 K12 ["createElement"]
+       27 GETUPVAL                         R7 1
+       28 GETTABLEKS                       R7 R7 K12 ["createElement"]
        30 GETUPVAL                         R8 2
        31 NEWTABLE                         R9 8 0
        33 GETTABLEKS                       R10 R1 K13 ["BackgroundColor"]
@@ -101,24 +101,24 @@ PROTO_7:
        47 SETTABLEKS                       R10 R9 K16 ["Size"]
        49 GETTABLEKS                       R10 R0 K17 ["onClick"]
        51 SETTABLEKS                       R10 R9 K18 ["OnClick"]
-       53 GETUPVAL                         R12 1
-       54 GETTABLEKS                       R11 R12 K19 ["Event"]
-       56 GETTABLEKS                       R10 R11 K20 ["MouseEnter"]
+       53 GETUPVAL                         R10 1
+       54 GETTABLEKS                       R10 R10 K19 ["Event"]
+       56 GETTABLEKS                       R10 R10 K20 ["MouseEnter"]
        58 GETTABLEKS                       R11 R0 K21 ["onMouseEnter"]
        60 SETTABLE                         R11 R9 R10
-       61 GETUPVAL                         R12 1
-       62 GETTABLEKS                       R11 R12 K19 ["Event"]
-       64 GETTABLEKS                       R10 R11 K22 ["MouseLeave"]
+       61 GETUPVAL                         R10 1
+       62 GETTABLEKS                       R10 R10 K19 ["Event"]
+       64 GETTABLEKS                       R10 R10 K22 ["MouseLeave"]
        66 GETTABLEKS                       R11 R0 K23 ["onMouseLeave"]
        68 SETTABLE                         R11 R9 R10
-       69 GETUPVAL                         R12 1
-       70 GETTABLEKS                       R11 R12 K24 ["Change"]
-       72 GETTABLEKS                       R10 R11 K25 ["AbsoluteSize"]
+       69 GETUPVAL                         R10 1
+       70 GETTABLEKS                       R10 R10 K24 ["Change"]
+       72 GETTABLEKS                       R10 R10 K25 ["AbsoluteSize"]
        74 GETTABLEKS                       R11 R0 K26 ["onAbsoluteSizeChanged"]
        76 SETTABLE                         R11 R9 R10
        77 DUPTABLE                         R10 K32 [{"UICorner", "DarkOverlay", "Contents", "UIGradientContainer", "HoverArea"}]
-       78 GETUPVAL                         R12 1
-       79 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       78 GETUPVAL                         R11 1
+       79 GETTABLEKS                       R11 R11 K12 ["createElement"]
        81 LOADK                            R12 K27 ["UICorner"]
        82 DUPTABLE                         R13 K34 [{"CornerRadius"}]
        83 GETIMPORT                        R14 K36 [UDim.new]
@@ -130,8 +130,8 @@ PROTO_7:
        91 SETTABLEKS                       R11 R10 K27 ["UICorner"]
        93 GETTABLEKS                       R11 R2 K37 ["isHovered"]
        95 JUMPIFNOT                        R11 ; [+33]
-       96 GETUPVAL                         R12 1
-       97 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       96 GETUPVAL                         R11 1
+       97 GETTABLEKS                       R11 R11 K12 ["createElement"]
        99 GETUPVAL                         R12 2
       100 DUPTABLE                         R13 K40 [{"BackgroundTransparency", "BackgroundColor", "ZIndex"}]
       101 GETTABLEKS                       R14 R3 K41 ["overlayTransparency"]
@@ -141,8 +141,8 @@ PROTO_7:
       109 LOADN                            R14 2
       110 SETTABLEKS                       R14 R13 K39 ["ZIndex"]
       112 DUPTABLE                         R14 K43 [{"UICorner"}]
-      113 GETUPVAL                         R16 1
-      114 GETTABLEKS                       R15 R16 K12 ["createElement"]
+      113 GETUPVAL                         R15 1
+      114 GETTABLEKS                       R15 R15 K12 ["createElement"]
       116 LOADK                            R16 K27 ["UICorner"]
       117 DUPTABLE                         R17 K34 [{"CornerRadius"}]
       118 GETIMPORT                        R18 K36 [UDim.new]
@@ -154,8 +154,8 @@ PROTO_7:
       126 SETTABLEKS                       R15 R14 K27 ["UICorner"]
       128 CALL                             R11 3 1
       129 SETTABLEKS                       R11 R10 K28 ["DarkOverlay"]
-      131 GETUPVAL                         R12 1
-      132 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      131 GETUPVAL                         R11 1
+      132 GETTABLEKS                       R11 R11 K12 ["createElement"]
       134 GETUPVAL                         R12 2
       135 DUPTABLE                         R13 K48 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
       136 GETIMPORT                        R14 K50 [Enum.AutomaticSize.XY]
@@ -167,8 +167,8 @@ PROTO_7:
       148 GETTABLEKS                       R14 R3 K53 ["spacing"]
       150 SETTABLEKS                       R14 R13 K47 ["Spacing"]
       152 DUPTABLE                         R14 K56 [{"Title", "ImageIcon"}]
-      153 GETUPVAL                         R16 1
-      154 GETTABLEKS                       R15 R16 K12 ["createElement"]
+      153 GETUPVAL                         R15 1
+      154 GETTABLEKS                       R15 R15 K12 ["createElement"]
       156 GETUPVAL                         R16 3
       157 DUPTABLE                         R17 K63 [{"AutomaticSize", "Font", "LayoutOrder", "Text", "TextColor", "TextSize", "TextTruncate", "TextXAlignment"}]
       158 GETIMPORT                        R18 K50 [Enum.AutomaticSize.XY]
@@ -190,8 +190,8 @@ PROTO_7:
       189 SETTABLEKS                       R18 R17 K62 ["TextXAlignment"]
       191 CALL                             R15 2 1
       192 SETTABLEKS                       R15 R14 K54 ["Title"]
-      194 GETUPVAL                         R16 1
-      195 GETTABLEKS                       R15 R16 K12 ["createElement"]
+      194 GETUPVAL                         R15 1
+      195 GETTABLEKS                       R15 R15 K12 ["createElement"]
       197 LOADK                            R16 K71 ["ImageLabel"]
       198 DUPTABLE                         R17 K74 [{"BackgroundTransparency", "Image", "LayoutOrder", "Size", "Position"}]
       199 LOADN                            R18 1
@@ -209,8 +209,8 @@ PROTO_7:
       220 SETTABLEKS                       R15 R14 K55 ["ImageIcon"]
       222 CALL                             R11 3 1
       223 SETTABLEKS                       R11 R10 K29 ["Contents"]
-      225 GETUPVAL                         R12 1
-      226 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      225 GETUPVAL                         R11 1
+      226 GETTABLEKS                       R11 R11 K12 ["createElement"]
       228 LOADK                            R12 K77 ["Frame"]
       229 DUPTABLE                         R13 K80 [{"BackgroundColor3", "BackgroundTransparency", "ClipsDescendants", "Size", "ZIndex"}]
       230 GETTABLEKS                       R14 R1 K13 ["BackgroundColor"]
@@ -227,8 +227,8 @@ PROTO_7:
       247 LOADN                            R14 255
       248 SETTABLEKS                       R14 R13 K39 ["ZIndex"]
       250 DUPTABLE                         R14 K86 [{"UIGradient"}]
-      251 GETUPVAL                         R16 1
-      252 GETTABLEKS                       R15 R16 K12 ["createElement"]
+      251 GETUPVAL                         R15 1
+      252 GETTABLEKS                       R15 R15 K12 ["createElement"]
       254 LOADK                            R16 K85 ["UIGradient"]
       255 DUPTABLE                         R17 K90 [{"Transparency", "Rotation", "Color"}]
       256 GETIMPORT                        R18 K92 [NumberSequence.new]
@@ -269,8 +269,8 @@ PROTO_7:
       308 SETTABLEKS                       R11 R10 K30 ["UIGradientContainer"]
       310 GETTABLEKS                       R11 R1 K18 ["OnClick"]
       312 JUMPIFNOT                        R11 ; [+16]
-      313 GETUPVAL                         R12 1
-      314 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      313 GETUPVAL                         R11 1
+      314 GETTABLEKS                       R11 R11 K12 ["createElement"]
       316 GETUPVAL                         R12 4
       317 DUPTABLE                         R13 K101 [{"Cursor", "Size"}]
       318 LOADK                            R14 K102 ["PointingHand"]
@@ -299,17 +299,17 @@ MAIN:
        16 GETTABLEKS                       R4 R1 K8 ["Roact"]
        18 CALL                             R3 1 1
        19 GETIMPORT                        R4 K6 [require]
-       21 GETTABLEKS                       R7 R0 K9 ["Src"]
-       23 GETTABLEKS                       R6 R7 K10 ["Util"]
-       25 GETTABLEKS                       R5 R6 K11 ["LayoutOrderIterator"]
+       21 GETTABLEKS                       R5 R0 K9 ["Src"]
+       23 GETTABLEKS                       R5 R5 K10 ["Util"]
+       25 GETTABLEKS                       R5 R5 K11 ["LayoutOrderIterator"]
        27 CALL                             R4 1 1
        28 GETTABLEKS                       R5 R2 K12 ["ContextServices"]
-       30 GETTABLEKS                       R7 R2 K13 ["UI"]
-       32 GETTABLEKS                       R6 R7 K14 ["HoverArea"]
-       34 GETTABLEKS                       R8 R2 K13 ["UI"]
-       36 GETTABLEKS                       R7 R8 K15 ["Pane"]
-       38 GETTABLEKS                       R9 R2 K13 ["UI"]
-       40 GETTABLEKS                       R8 R9 K16 ["TextLabel"]
+       30 GETTABLEKS                       R6 R2 K13 ["UI"]
+       32 GETTABLEKS                       R6 R6 K14 ["HoverArea"]
+       34 GETTABLEKS                       R7 R2 K13 ["UI"]
+       36 GETTABLEKS                       R7 R7 K15 ["Pane"]
+       38 GETTABLEKS                       R8 R2 K13 ["UI"]
+       40 GETTABLEKS                       R8 R8 K16 ["TextLabel"]
        42 GETTABLEKS                       R9 R5 K17 ["withContext"]
        44 GETTABLEKS                       R10 R3 K18 ["PureComponent"]
        46 LOADK                            R12 K19 ["IconTile"]

@@ -13,8 +13,8 @@ PROTO_0:
        17 CALL                             R4 1 3
        18 FORGPREP_INEXT                   R4
        19 MOVE                             R10 R3
-       20 GETUPVAL                         R12 1
-       21 GETTABLEKS                       R11 R12 K5 ["fromDevelop"]
+       20 GETUPVAL                         R11 1
+       21 GETTABLEKS                       R11 R11 K5 ["fromDevelop"]
        23 MOVE                             R12 R8
        24 CALL                             R11 1 -1
        25 FASTCALL                         TABLE_INSERT ; [+2]
@@ -24,8 +24,8 @@ PROTO_0:
        31 RETURN                           R3 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+5]
         5 GETIMPORT                        R1 K2 [warn]
@@ -110,30 +110,30 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Util"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["DebugFlags"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K6 [require]
        22 GETTABLEKS                       R4 R1 K8 ["createAssetMediaMetadata"]
        24 CALL                             R3 1 1
-       25 GETTABLEKS                       R5 R0 K3 ["Src"]
-       27 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       25 GETTABLEKS                       R4 R0 K3 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Actions"]
        29 GETIMPORT                        R5 K6 [require]
        31 GETTABLEKS                       R6 R4 K10 ["NetworkError"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K6 [require]
        36 GETTABLEKS                       R7 R4 K11 ["SetAssetMediaMetadataArray"]
        38 CALL                             R6 1 1
-       39 GETTABLEKS                       R9 R0 K3 ["Src"]
-       41 GETTABLEKS                       R8 R9 K12 ["Networking"]
-       43 GETTABLEKS                       R7 R8 K13 ["Requests"]
+       39 GETTABLEKS                       R7 R0 K3 ["Src"]
+       41 GETTABLEKS                       R7 R7 K12 ["Networking"]
+       43 GETTABLEKS                       R7 R7 K13 ["Requests"]
        45 GETIMPORT                        R8 K6 [require]
        47 GETTABLEKS                       R9 R7 K14 ["GetAssetMediaIdsRequest"]
        49 CALL                             R8 1 1

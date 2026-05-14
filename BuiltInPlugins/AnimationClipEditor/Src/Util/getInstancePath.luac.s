@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["Parent"]
         2 JUMPIFNOT                        R1 ; [+16]
-        3 GETIMPORT                        R2 K2 [game]
-        5 GETTABLEKS                       R1 R2 K3 ["Workspace"]
+        3 GETIMPORT                        R1 K2 [game]
+        5 GETTABLEKS                       R1 R1 K3 ["Workspace"]
         7 JUMPIFEQ                         R0 R1 ; [+11]
         9 GETUPVAL                         R5 0
        10 GETTABLEKS                       R6 R0 K0 ["Parent"]

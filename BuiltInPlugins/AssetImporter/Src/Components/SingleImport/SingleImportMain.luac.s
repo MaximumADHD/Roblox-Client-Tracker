@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"text"}]
         5 GETUPVAL                         R3 2
@@ -20,8 +20,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K3 [{"text", "resultCallback"}]
         5 GETUPVAL                         R3 2
@@ -37,8 +37,8 @@ PROTO_2:
        18 RETURN                           R0 -1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"text"}]
         5 GETUPVAL                         R3 2
@@ -51,8 +51,8 @@ PROTO_3:
        14 RETURN                           R0 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"text"}]
         5 GETUPVAL                         R3 2
@@ -65,8 +65,8 @@ PROTO_4:
        14 RETURN                           R0 -1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["use"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
         4 GETUPVAL                         R1 1
         5 NAMECALL                         R1 R1 K0 ["use"]
@@ -96,13 +96,13 @@ PROTO_5:
        33 CAPTURE                          VAL R1
        34 SETTABLEKS                       R4 R3 K4 ["failed"]
        36 GETTABLE                         R4 R3 R2
-       37 GETUPVAL                         R6 3
-       38 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       37 GETUPVAL                         R5 3
+       38 GETTABLEKS                       R5 R5 K6 ["createElement"]
        40 GETUPVAL                         R6 7
        41 DUPTABLE                         R7 K9 [{"enabled", "size"}]
-       42 GETUPVAL                         R11 0
-       43 GETTABLEKS                       R10 R11 K10 ["state"]
-       45 GETTABLEKS                       R9 R10 K11 ["closed"]
+       42 GETUPVAL                         R9 0
+       43 GETTABLEKS                       R9 R9 K10 ["state"]
+       45 GETTABLEKS                       R9 R9 K11 ["closed"]
        47 JUMPIFNOTEQ                      R2 R9 ; [+2]
        49 LOADB                            R8 0 +1
        50 LOADB                            R8 1
@@ -129,12 +129,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R4 R0 K8 ["Src"]
-       16 GETTABLEKS                       R3 R4 K9 ["Components"]
-       18 GETTABLEKS                       R2 R3 K10 ["SingleImport"]
+       14 GETTABLEKS                       R2 R0 K8 ["Src"]
+       16 GETTABLEKS                       R2 R2 K9 ["Components"]
+       18 GETTABLEKS                       R2 R2 K10 ["SingleImport"]
        20 GETIMPORT                        R3 K5 [require]
        22 GETTABLEKS                       R4 R2 K11 ["SingleImportDialog"]
        24 CALL                             R3 1 1
@@ -148,20 +148,20 @@ MAIN:
        37 GETTABLEKS                       R7 R2 K14 ["FailureWidget"]
        39 CALL                             R6 1 1
        40 GETIMPORT                        R7 K5 [require]
-       42 GETTABLEKS                       R9 R0 K6 ["Packages"]
-       44 GETTABLEKS                       R8 R9 K15 ["Framework"]
+       42 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       44 GETTABLEKS                       R8 R8 K15 ["Framework"]
        46 CALL                             R7 1 1
        47 GETTABLEKS                       R8 R7 K16 ["ContextServices"]
        49 GETTABLEKS                       R9 R8 K17 ["Localization"]
        51 GETIMPORT                        R10 K5 [require]
-       53 GETTABLEKS                       R13 R0 K8 ["Src"]
-       55 GETTABLEKS                       R12 R13 K18 ["Hooks"]
-       57 GETTABLEKS                       R11 R12 K19 ["useState"]
+       53 GETTABLEKS                       R11 R0 K8 ["Src"]
+       55 GETTABLEKS                       R11 R11 K18 ["Hooks"]
+       57 GETTABLEKS                       R11 R11 K19 ["useState"]
        59 CALL                             R10 1 1
        60 GETIMPORT                        R11 K5 [require]
-       62 GETTABLEKS                       R14 R0 K8 ["Src"]
-       64 GETTABLEKS                       R13 R14 K20 ["Controllers"]
-       66 GETTABLEKS                       R12 R13 K21 ["SingleMeshController"]
+       62 GETTABLEKS                       R12 R0 K8 ["Src"]
+       64 GETTABLEKS                       R12 R12 K20 ["Controllers"]
+       66 GETTABLEKS                       R12 R12 K21 ["SingleMeshController"]
        68 CALL                             R11 1 1
        69 DUPCLOSURE                       R12 K22 [PROTO_5]
        70 CAPTURE                          VAL R11

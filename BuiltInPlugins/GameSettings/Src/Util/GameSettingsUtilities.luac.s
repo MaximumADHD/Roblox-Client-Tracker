@@ -53,9 +53,9 @@ PROTO_9:
         4 SETTABLE                         R5 R4 R6
         5 GETUPVAL                         R6 2
         6 SETTABLE                         R2 R4 R6
-        7 GETUPVAL                         R7 3
-        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       10 GETTABLEKS                       R5 R6 K1 ["join"]
+        7 GETUPVAL                         R5 3
+        8 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R5 K1 ["join"]
        12 MOVE                             R6 R4
        13 MOVE                             R7 R3
        14 CALL                             R5 2 1
@@ -117,18 +117,18 @@ MAIN:
        25 LOADK                            R5 K8 ["GameSettings"]
        26 NAMECALL                         R3 R3 K9 ["getPluginPolicy"]
        28 CALL                             R3 2 1
-       29 GETIMPORT                        R7 K11 [script]
-       31 GETTABLEKS                       R6 R7 K12 ["Parent"]
-       33 GETTABLEKS                       R5 R6 K12 ["Parent"]
-       35 GETTABLEKS                       R4 R5 K12 ["Parent"]
+       29 GETIMPORT                        R4 K11 [script]
+       31 GETTABLEKS                       R4 R4 K12 ["Parent"]
+       33 GETTABLEKS                       R4 R4 K12 ["Parent"]
+       35 GETTABLEKS                       R4 R4 K12 ["Parent"]
        37 GETIMPORT                        R5 K14 [require]
-       39 GETTABLEKS                       R7 R4 K15 ["Packages"]
-       41 GETTABLEKS                       R6 R7 K16 ["Cryo"]
+       39 GETTABLEKS                       R6 R4 K15 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K16 ["Cryo"]
        43 CALL                             R5 1 1
        44 GETIMPORT                        R6 K14 [require]
-       46 GETTABLEKS                       R9 R4 K17 ["Src"]
-       48 GETTABLEKS                       R8 R9 K18 ["Util"]
-       50 GETTABLEKS                       R7 R8 K19 ["KeyProvider"]
+       46 GETTABLEKS                       R7 R4 K17 ["Src"]
+       48 GETTABLEKS                       R7 R7 K18 ["Util"]
+       50 GETTABLEKS                       R7 R7 K19 ["KeyProvider"]
        52 CALL                             R6 1 1
        53 GETTABLEKS                       R7 R6 K20 ["getContextKeyName"]
        55 CALL                             R7 0 1

@@ -1,7 +1,7 @@
 PROTO_0:
         0 LOADK                            R2 K0 ["%*abusereport/asset?id=%*"]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K1 ["BaseUrl"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K1 ["BaseUrl"]
         4 GETUPVAL                         R5 1
         5 FASTCALL1                        TOSTRING R0 ; [+3]
         6 MOVE                             R8 R0
@@ -29,9 +29,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["Services"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["Services"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K3 ["GetService"]
        24 LOADK                            R4 K13 ["BrowserService"]

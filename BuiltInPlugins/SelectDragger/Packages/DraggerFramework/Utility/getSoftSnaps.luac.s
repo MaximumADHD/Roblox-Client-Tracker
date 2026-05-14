@@ -146,12 +146,12 @@ PROTO_2:
        67 GETTABLEKS                       R9 R5 K23 ["Instance"]
        69 CALL                             R8 1 1
        70 JUMPIFNOT                        R8 ; [+23]
-       71 GETTABLEKS                       R9 R5 K23 ["Instance"]
-       73 GETTABLEKS                       R8 R9 K25 ["CFrame"]
+       71 GETTABLEKS                       R8 R5 K23 ["Instance"]
+       73 GETTABLEKS                       R8 R8 K25 ["CFrame"]
        75 LOADN                            R11 0
-       76 GETTABLEKS                       R16 R5 K23 ["Instance"]
-       78 GETTABLEKS                       R15 R16 K27 ["Size"]
-       80 GETTABLEKS                       R14 R15 K28 ["Y"]
+       76 GETTABLEKS                       R14 R5 K23 ["Instance"]
+       78 GETTABLEKS                       R14 R14 K27 ["Size"]
+       80 GETTABLEKS                       R14 R14 K28 ["Y"]
        82 MINUS                            R13 R14
        83 DIVK                             R12 R13 K26 [4]
        84 LOADN                            R13 0
@@ -162,8 +162,8 @@ PROTO_2:
        91 CALL                             R8 2 1
        92 SUB                              R7 R8 R6
        93 JUMP                             ; [+5]
-       94 GETTABLEKS                       R9 R5 K23 ["Instance"]
-       96 GETTABLEKS                       R8 R9 K0 ["Position"]
+       94 GETTABLEKS                       R8 R5 K23 ["Instance"]
+       96 GETTABLEKS                       R8 R8 K0 ["Position"]
        98 SUB                              R7 R8 R6
        99 GETTABLEKS                       R9 R2 K4 ["Unit"]
       101 GETTABLEKS                       R12 R2 K4 ["Unit"]
@@ -242,8 +242,8 @@ PROTO_2:
       211 MOVE                             R16 R11
       212 CALL                             R12 4 -1
       213 RETURN                           R12 -1
-      214 GETUPVAL                         R12 4
-      215 GETTABLEKS                       R11 R12 K37 ["intersectRayPlane"]
+      214 GETUPVAL                         R11 4
+      215 GETTABLEKS                       R11 R11 K37 ["intersectRayPlane"]
       217 MOVE                             R12 R4
       218 MOVE                             R13 R2
       219 GETTABLEKS                       R14 R10 K0 ["Position"]
@@ -267,8 +267,8 @@ PROTO_2:
       245 MOVE                             R15 R12
       246 CALL                             R13 2 0
       247 RETURN                           R12 1
-      248 GETUPVAL                         R12 4
-      249 GETTABLEKS                       R11 R12 K37 ["intersectRayPlane"]
+      248 GETUPVAL                         R11 4
+      249 GETTABLEKS                       R11 R11 K37 ["intersectRayPlane"]
       251 MOVE                             R12 R4
       252 MOVE                             R13 R2
       253 GETTABLEKS                       R14 R10 K0 ["Position"]
@@ -422,8 +422,8 @@ PROTO_6:
         9 GETTABLEKS                       R10 R1 K3 ["Magnitude"]
        11 JUMPIFEQKN                       R10 K4 [∞] ; [+9]
        13 JUMPIFNOTEQ                      R0 R0 ; [+7]
-       15 GETTABLEKS                       R11 R0 K5 ["Position"]
-       17 GETTABLEKS                       R10 R11 K3 ["Magnitude"]
+       15 GETTABLEKS                       R10 R0 K5 ["Position"]
+       17 GETTABLEKS                       R10 R10 K3 ["Magnitude"]
        19 JUMPIFNOTEQKN                    R10 K4 [∞] ; [+3]
        21 CLOSEUPVALS                      R7
        22 RETURN                           R9 1
@@ -456,8 +456,8 @@ PROTO_6:
        57 CALL                             R18 4 1
        58 JUMPIFNOT                        R18 ; [+19]
        59 GETUPVAL                         R19 2
-       60 ADD                              R21 R0 R17
-       61 GETTABLEKS                       R20 R21 K5 ["Position"]
+       60 ADD                              R20 R0 R17
+       61 GETTABLEKS                       R20 R20 K5 ["Position"]
        63 MINUS                            R22 R16
        64 MUL                              R21 R22 R2
        65 MOVE                             R22 R18
@@ -560,8 +560,8 @@ PROTO_6:
       190 DIVK                             R24 R6 K20 [2]
       191 JUMPIFEQ                         R23 R24 ; [+20]
       193 LOADN                            R25 244
-      194 GETTABLEKS                       R27 R22 K38 ["Size"]
-      196 GETTABLEKS                       R26 R27 K3 ["Magnitude"]
+      194 GETTABLEKS                       R26 R22 K38 ["Size"]
+      196 GETTABLEKS                       R26 R26 K3 ["Magnitude"]
       198 FASTCALL2                        MATH_MIN R25 R26 ; [+3]
       200 GETIMPORT                        R24 K40 [math.min]
       202 CALL                             R24 2 1
@@ -619,25 +619,25 @@ PROTO_6:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Math"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Math"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["isGoodRaycastResult"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["isGoodRaycastResult"]
        18 CALL                             R1 1 1
-       19 GETIMPORT                        R4 K3 [script]
-       21 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       23 GETTABLEKS                       R2 R3 K4 ["Parent"]
+       19 GETIMPORT                        R2 K3 [script]
+       21 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       23 GETTABLEKS                       R2 R2 K4 ["Parent"]
        25 GETIMPORT                        R3 K1 [require]
-       27 GETTABLEKS                       R5 R2 K7 ["Utility"]
-       29 GETTABLEKS                       R4 R5 K8 ["CursorGroupName"]
+       27 GETTABLEKS                       R4 R2 K7 ["Utility"]
+       29 GETTABLEKS                       R4 R4 K8 ["CursorGroupName"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K1 [require]
-       34 GETTABLEKS                       R6 R2 K9 ["Flags"]
-       36 GETTABLEKS                       R5 R6 K10 ["getFFlagDraggerSoftSnapHandleThinParts"]
+       34 GETTABLEKS                       R5 R2 K9 ["Flags"]
+       36 GETTABLEKS                       R5 R5 K10 ["getFFlagDraggerSoftSnapHandleThinParts"]
        38 CALL                             R4 1 1
        39 CALL                             R4 0 1
        40 DUPCLOSURE                       R5 K11 [PROTO_0]

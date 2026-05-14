@@ -6,14 +6,14 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["AncestryChanged"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["AncestryChanged"]
         3 GETUPVAL                         R2 2
         4 NAMECALL                         R0 R0 K1 ["Connect"]
         6 CALL                             R0 2 1
         7 SETUPVAL                         R0 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K2 ["ChildRemoved"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K2 ["ChildRemoved"]
        11 GETUPVAL                         R2 2
        12 NAMECALL                         R0 R0 K1 ["Connect"]
        14 CALL                             R0 2 1
@@ -21,8 +21,8 @@ PROTO_1:
        16 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 JUMPIFEQKS                       R0 K1 ["ControlEdgeViews"] ; [+5]
         5 GETUPVAL                         R0 0
         6 LOADK                            R1 K1 ["ControlEdgeViews"]
@@ -57,14 +57,14 @@ PROTO_3:
        34 CAPTURE                          UPVAL U1
        35 NAMECALL                         R7 R7 K14 ["Connect"]
        37 CALL                             R7 2 0
-       38 GETUPVAL                         R8 1
-       39 GETTABLEKS                       R7 R8 K15 ["AncestryChanged"]
+       38 GETUPVAL                         R7 1
+       39 GETTABLEKS                       R7 R7 K15 ["AncestryChanged"]
        41 GETUPVAL                         R9 4
        42 NAMECALL                         R7 R7 K14 ["Connect"]
        44 CALL                             R7 2 1
        45 SETUPVAL                         R7 3
-       46 GETUPVAL                         R8 1
-       47 GETTABLEKS                       R7 R8 K16 ["ChildRemoved"]
+       46 GETUPVAL                         R7 1
+       47 GETTABLEKS                       R7 R7 K16 ["ChildRemoved"]
        49 GETUPVAL                         R9 4
        50 NAMECALL                         R7 R7 K14 ["Connect"]
        52 CALL                             R7 2 1
@@ -89,8 +89,8 @@ PROTO_3:
        76 LOADK                            R22 K21 ["Adornee part should exist for: "]
        77 MOVE                             R23 R10
        78 LOADK                            R24 K22 [" in game.Workspace."]
-       79 GETUPVAL                         R26 7
-       80 GETTABLEKS                       R25 R26 K23 ["ControlPointsFolderName"]
+       79 GETUPVAL                         R25 7
+       80 GETTABLEKS                       R25 R25 K23 ["ControlPointsFolderName"]
        82 CONCAT                           R21 R22 R25
        83 FASTCALL2                        ASSERT R18 R21 ; [+4]
        85 MOVE                             R20 R18
@@ -108,16 +108,16 @@ PROTO_3:
        99 JUMPIF                           R19 ; [+7]
       100 GETUPVAL                         R20 8
       101 GETTABLE                         R19 R20 R10
-      102 GETUPVAL                         R21 9
-      103 GETTABLEKS                       R20 R21 K7 ["new"]
+      102 GETUPVAL                         R20 9
+      103 GETTABLEKS                       R20 R20 K7 ["new"]
       105 CALL                             R20 0 1
       106 SETTABLE                         R20 R19 R16
-      107 GETTABLE                         R21 R3 R10
-      108 GETTABLE                         R20 R21 R16
-      109 GETTABLEKS                       R19 R20 K26 ["Start"]
-      111 GETTABLE                         R22 R3 R10
-      112 GETTABLE                         R21 R22 R16
-      113 GETTABLEKS                       R20 R21 K27 ["End"]
+      107 GETTABLE                         R20 R3 R10
+      108 GETTABLE                         R19 R20 R16
+      109 GETTABLEKS                       R19 R19 K26 ["Start"]
+      111 GETTABLE                         R21 R3 R10
+      112 GETTABLE                         R20 R21 R16
+      113 GETTABLEKS                       R20 R20 K27 ["End"]
       115 GETUPVAL                         R23 8
       116 GETTABLE                         R22 R23 R10
       117 GETTABLE                         R21 R22 R16
@@ -152,14 +152,14 @@ PROTO_3:
       158 GETUPVAL                         R9 8
       159 MOVE                             R10 R7
       160 CALL                             R8 2 0
-      161 GETUPVAL                         R9 1
-      162 GETTABLEKS                       R8 R9 K15 ["AncestryChanged"]
+      161 GETUPVAL                         R8 1
+      162 GETTABLEKS                       R8 R8 K15 ["AncestryChanged"]
       164 GETUPVAL                         R10 4
       165 NAMECALL                         R8 R8 K14 ["Connect"]
       167 CALL                             R8 2 1
       168 SETUPVAL                         R8 3
-      169 GETUPVAL                         R9 1
-      170 GETTABLEKS                       R8 R9 K16 ["ChildRemoved"]
+      169 GETUPVAL                         R8 1
+      170 GETTABLEKS                       R8 R8 K16 ["ChildRemoved"]
       172 GETUPVAL                         R10 4
       173 NAMECALL                         R8 R8 K14 ["Connect"]
       175 CALL                             R8 2 1
@@ -259,9 +259,9 @@ MAIN:
         3 LOADK                            R2 K2 ["CoreGui"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETTABLEKS                       R2 R1 K7 ["Views"]
        15 GETTABLEKS                       R3 R1 K8 ["Util"]
        17 GETIMPORT                        R4 K10 [require]

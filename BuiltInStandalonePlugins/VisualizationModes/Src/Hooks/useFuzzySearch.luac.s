@@ -4,8 +4,8 @@ PROTO_0:
         3 LOADB                            R1 1
         4 LOADNIL                          R2
         5 RETURN                           R1 2
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["positions"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["positions"]
         9 GETUPVAL                         R2 2
        10 GETUPVAL                         R3 0
        11 MOVE                             R4 R0
@@ -44,14 +44,14 @@ PROTO_4:
         6 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createConfig"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createConfig"]
         3 DUPTABLE                         R2 K2 [{"caseSensitive"}]
         4 LOADB                            R3 0
         5 SETTABLEKS                       R3 R2 K1 ["caseSensitive"]
         7 CALL                             R1 1 1
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K3 ["getScoreFloor"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K3 ["getScoreFloor"]
        11 MOVE                             R3 R1
        12 CALL                             R2 1 1
        13 GETUPVAL                         R3 1
@@ -94,18 +94,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Fzy"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Fzy"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K10 ["Hooks"]
-       29 GETTABLEKS                       R4 R5 K11 ["usePluginSetting"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Hooks"]
+       29 GETTABLEKS                       R4 R4 K11 ["usePluginSetting"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K12 [PROTO_5]
        33 CAPTURE                          VAL R2

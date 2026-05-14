@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"currentScreen"}]
         7 GETTABLEKS                       R5 R1 K2 ["currentScreen"]
@@ -10,9 +10,9 @@ PROTO_0:
        12 RETURN                           R2 -1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"assetConfigData"}]
         7 GETTABLEKS                       R5 R1 K2 ["assetConfigData"]
@@ -21,9 +21,9 @@ PROTO_1:
        12 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"assetName"}]
         7 GETTABLEKS                       R5 R1 K2 ["assetName"]
@@ -34,14 +34,14 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R2 R1 K0 ["setting"]
         2 GETTABLEKS                       R3 R1 K1 ["value"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["Dictionary"]
-        7 GETTABLEKS                       R4 R5 K3 ["join"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["Dictionary"]
+        7 GETTABLEKS                       R4 R4 K3 ["join"]
         9 MOVE                             R5 R0
        10 DUPTABLE                         R6 K5 [{"changed"}]
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K2 ["Dictionary"]
-       14 GETTABLEKS                       R7 R8 K3 ["join"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K2 ["Dictionary"]
+       14 GETTABLEKS                       R7 R7 K3 ["join"]
        16 GETTABLEKS                       R8 R0 K4 ["changed"]
        18 JUMPIF                           R8 ; [+2]
        19 NEWTABLE                         R8 0 0
@@ -54,20 +54,20 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R2 R1 K0 ["setting"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["Dictionary"]
-        5 GETTABLEKS                       R3 R4 K2 ["join"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
+        5 GETTABLEKS                       R3 R3 K2 ["join"]
         7 MOVE                             R4 R0
         8 DUPTABLE                         R5 K4 [{"changed"}]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R7 R8 K1 ["Dictionary"]
-       12 GETTABLEKS                       R6 R7 K2 ["join"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K1 ["Dictionary"]
+       12 GETTABLEKS                       R6 R6 K2 ["join"]
        14 GETTABLEKS                       R7 R0 K3 ["changed"]
        16 JUMPIF                           R7 ; [+2]
        17 NEWTABLE                         R7 0 0
        19 NEWTABLE                         R8 1 0
-       21 GETUPVAL                         R10 0
-       22 GETTABLEKS                       R9 R10 K5 ["None"]
+       21 GETUPVAL                         R9 0
+       22 GETTABLEKS                       R9 R9 K5 ["None"]
        24 SETTABLE                         R9 R8 R2
        25 CALL                             R6 2 1
        26 SETTABLEKS                       R6 R5 K3 ["changed"]
@@ -75,9 +75,9 @@ PROTO_4:
        29 RETURN                           R3 -1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"uploadSucceeded"}]
         7 GETTABLEKS                       R5 R1 K2 ["uploadSucceeded"]
@@ -87,10 +87,10 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Cryo"]
@@ -98,8 +98,8 @@ MAIN:
        16 GETIMPORT                        R3 K5 [require]
        18 GETTABLEKS                       R4 R1 K7 ["Rodux"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K8 ["Src"]
-       23 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       21 GETTABLEKS                       R4 R0 K8 ["Src"]
+       23 GETTABLEKS                       R4 R4 K9 ["Actions"]
        25 GETIMPORT                        R5 K5 [require]
        27 GETTABLEKS                       R6 R4 K10 ["SetAssetConfigData"]
        29 CALL                             R5 1 1
@@ -119,9 +119,9 @@ MAIN:
        52 GETTABLEKS                       R11 R4 K15 ["UploadResult"]
        54 CALL                             R10 1 1
        55 GETIMPORT                        R11 K5 [require]
-       57 GETTABLEKS                       R14 R0 K8 ["Src"]
-       59 GETTABLEKS                       R13 R14 K16 ["Util"]
-       61 GETTABLEKS                       R12 R13 K17 ["Constants"]
+       57 GETTABLEKS                       R12 R0 K8 ["Src"]
+       59 GETTABLEKS                       R12 R12 K16 ["Util"]
+       61 GETTABLEKS                       R12 R12 K17 ["Constants"]
        63 CALL                             R11 1 1
        64 DUPTABLE                         R12 K32 [{"assetConfigData", "versionHistory", "changed", "assetId", "assetName", "instances", "clonedInstance", "assetTypeEnum", "screenConfigs", "isCatalogItemCreator", "currentScreen", "totalResults", "resultsArray", "filteredResultsArray"}]
        65 NEWTABLE                         R13 0 0
@@ -144,8 +144,8 @@ MAIN:
        93 SETTABLEKS                       R13 R12 K26 ["screenConfigs"]
        95 LOADB                            R13 0
        96 SETTABLEKS                       R13 R12 K27 ["isCatalogItemCreator"]
-       98 GETTABLEKS                       R14 R11 K33 ["SCREENS"]
-      100 GETTABLEKS                       R13 R14 K34 ["CONFIGURE_ASSET"]
+       98 GETTABLEKS                       R13 R11 K33 ["SCREENS"]
+      100 GETTABLEKS                       R13 R13 K34 ["CONFIGURE_ASSET"]
       102 SETTABLEKS                       R13 R12 K28 ["currentScreen"]
       104 LOADN                            R13 0
       105 SETTABLEKS                       R13 R12 K29 ["totalResults"]

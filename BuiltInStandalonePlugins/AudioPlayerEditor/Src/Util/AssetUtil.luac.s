@@ -64,8 +64,8 @@ PROTO_2:
         5 DUPTABLE                         R1 K10 [{"Type", "AssetId", "Volume", "PlaybackSpeed", "Looping", "PlaybackRegion", "LoopRegion", "TimePosition"}]
         6 LOADK                            R2 K0 ["Sound"]
         7 SETTABLEKS                       R2 R1 K2 ["Type"]
-        9 GETTABLEKS                       R4 R0 K12 ["AudioContent"]
-       11 GETTABLEKS                       R3 R4 K13 ["Uri"]
+        9 GETTABLEKS                       R3 R0 K12 ["AudioContent"]
+       11 GETTABLEKS                       R3 R3 K13 ["Uri"]
        13 ORK                              R2 R3 K11 [""]
        14 SETTABLEKS                       R2 R1 K3 ["AssetId"]
        16 GETTABLEKS                       R2 R0 K4 ["Volume"]
@@ -102,8 +102,8 @@ PROTO_2:
        64 DUPTABLE                         R1 K10 [{"Type", "AssetId", "Volume", "PlaybackSpeed", "Looping", "PlaybackRegion", "LoopRegion", "TimePosition"}]
        65 LOADK                            R2 K20 ["AudioPlayer"]
        66 SETTABLEKS                       R2 R1 K2 ["Type"]
-       68 GETTABLEKS                       R4 R0 K12 ["AudioContent"]
-       70 GETTABLEKS                       R3 R4 K13 ["Uri"]
+       68 GETTABLEKS                       R3 R0 K12 ["AudioContent"]
+       70 GETTABLEKS                       R3 R3 K13 ["Uri"]
        72 ORK                              R2 R3 K11 [""]
        73 SETTABLEKS                       R2 R1 K3 ["AssetId"]
        75 GETTABLEKS                       R2 R0 K4 ["Volume"]
@@ -180,18 +180,18 @@ PROTO_4:
         7 CALL                             R2 2 1
         8 JUMPIFNOT                        R2 ; [+392]
         9 JUMPIFNOTEQKS                    R1 K2 ["AudioContent"] ; [+13]
-       11 GETTABLEKS                       R4 R0 K2 ["AudioContent"]
-       13 GETTABLEKS                       R3 R4 K3 ["Uri"]
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K4 ["AssetId"]
+       11 GETTABLEKS                       R3 R0 K2 ["AudioContent"]
+       13 GETTABLEKS                       R3 R3 K3 ["Uri"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K4 ["AssetId"]
        18 JUMPIFNOTEQ                      R3 R4 ; [+2]
        20 LOADB                            R2 0 +1
        21 LOADB                            R2 1
        22 RETURN                           R2 1
        23 JUMPIFNOTEQKS                    R1 K5 ["Volume"] ; [+29]
        25 GETTABLEKS                       R4 R0 K5 ["Volume"]
-       27 GETUPVAL                         R6 0
-       28 GETTABLEKS                       R5 R6 K5 ["Volume"]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K5 ["Volume"]
        30 LOADNIL                          R6
        31 ORK                              R6 R6 K6 [0.0001]
        32 JUMPIFNOTEQKNIL                  R6 ; [+2]
@@ -212,8 +212,8 @@ PROTO_4:
        52 RETURN                           R2 1
        53 JUMPIFNOTEQKS                    R1 K13 ["PlaybackSpeed"] ; [+29]
        55 GETTABLEKS                       R4 R0 K13 ["PlaybackSpeed"]
-       57 GETUPVAL                         R6 0
-       58 GETTABLEKS                       R5 R6 K13 ["PlaybackSpeed"]
+       57 GETUPVAL                         R5 0
+       58 GETTABLEKS                       R5 R5 K13 ["PlaybackSpeed"]
        60 LOADNIL                          R6
        61 ORK                              R6 R6 K6 [0.0001]
        62 JUMPIFNOTEQKNIL                  R6 ; [+2]
@@ -234,8 +234,8 @@ PROTO_4:
        82 RETURN                           R2 1
        83 JUMPIFNOTEQKS                    R1 K14 ["Looped"] ; [+11]
        85 GETTABLEKS                       R3 R0 K14 ["Looped"]
-       87 GETUPVAL                         R5 0
-       88 GETTABLEKS                       R4 R5 K15 ["Looping"]
+       87 GETUPVAL                         R4 0
+       88 GETTABLEKS                       R4 R4 K15 ["Looping"]
        90 JUMPIFNOTEQ                      R3 R4 ; [+2]
        92 LOADB                            R2 0 +1
        93 LOADB                            R2 1
@@ -257,8 +257,8 @@ PROTO_4:
       116 LOADN                            R4 0
       117 LOADK                            R5 K21 [60000]
       118 CALL                             R3 2 1
-      119 GETUPVAL                         R7 0
-      120 GETTABLEKS                       R6 R7 K17 ["PlaybackRegion"]
+      119 GETUPVAL                         R6 0
+      120 GETTABLEKS                       R6 R6 K17 ["PlaybackRegion"]
       122 GETTABLEKS                       R7 R2 K23 ["Min"]
       124 GETTABLEKS                       R8 R6 K23 ["Min"]
       126 LOADNIL                          R9
@@ -298,8 +298,8 @@ PROTO_4:
       172 LOADB                            R5 1
       173 NOT                              R4 R5
       174 JUMPIF                           R4 ; [+55]
-      175 GETUPVAL                         R7 0
-      176 GETTABLEKS                       R6 R7 K22 ["LoopRegion"]
+      175 GETUPVAL                         R6 0
+      176 GETTABLEKS                       R6 R6 K22 ["LoopRegion"]
       178 GETTABLEKS                       R7 R3 K23 ["Min"]
       180 GETTABLEKS                       R8 R6 K23 ["Min"]
       182 LOADNIL                          R9
@@ -348,8 +348,8 @@ PROTO_4:
       241 LOADN                            R3 0
       242 LOADK                            R4 K21 [60000]
       243 CALL                             R2 2 1
-      244 GETUPVAL                         R6 0
-      245 GETTABLEKS                       R5 R6 K17 ["PlaybackRegion"]
+      244 GETUPVAL                         R5 0
+      245 GETTABLEKS                       R5 R5 K17 ["PlaybackRegion"]
       247 GETTABLEKS                       R6 R2 K23 ["Min"]
       249 GETTABLEKS                       R7 R5 K23 ["Min"]
       251 LOADNIL                          R8
@@ -398,8 +398,8 @@ PROTO_4:
       310 LOADN                            R3 0
       311 LOADK                            R4 K21 [60000]
       312 CALL                             R2 2 1
-      313 GETUPVAL                         R6 0
-      314 GETTABLEKS                       R5 R6 K22 ["LoopRegion"]
+      313 GETUPVAL                         R5 0
+      314 GETTABLEKS                       R5 R5 K22 ["LoopRegion"]
       316 GETTABLEKS                       R6 R2 K23 ["Min"]
       318 GETTABLEKS                       R7 R5 K23 ["Min"]
       320 LOADNIL                          R8
@@ -441,8 +441,8 @@ PROTO_4:
       368 RETURN                           R3 1
       369 JUMPIFNOTEQKS                    R1 K25 ["TimePosition"] ; [+29]
       371 GETTABLEKS                       R4 R0 K25 ["TimePosition"]
-      373 GETUPVAL                         R6 0
-      374 GETTABLEKS                       R5 R6 K25 ["TimePosition"]
+      373 GETUPVAL                         R5 0
+      374 GETTABLEKS                       R5 R5 K25 ["TimePosition"]
       376 LOADNIL                          R6
       377 ORK                              R6 R6 K6 [0.0001]
       378 JUMPIFNOTEQKNIL                  R6 ; [+2]
@@ -468,18 +468,18 @@ PROTO_4:
       404 CALL                             R2 2 1
       405 JUMPIFNOT                        R2 ; [+238]
       406 JUMPIFNOTEQKS                    R1 K2 ["AudioContent"] ; [+13]
-      408 GETTABLEKS                       R4 R0 K2 ["AudioContent"]
-      410 GETTABLEKS                       R3 R4 K3 ["Uri"]
-      412 GETUPVAL                         R5 0
-      413 GETTABLEKS                       R4 R5 K4 ["AssetId"]
+      408 GETTABLEKS                       R3 R0 K2 ["AudioContent"]
+      410 GETTABLEKS                       R3 R3 K3 ["Uri"]
+      412 GETUPVAL                         R4 0
+      413 GETTABLEKS                       R4 R4 K4 ["AssetId"]
       415 JUMPIFNOTEQ                      R3 R4 ; [+2]
       417 LOADB                            R2 0 +1
       418 LOADB                            R2 1
       419 RETURN                           R2 1
       420 JUMPIFNOTEQKS                    R1 K5 ["Volume"] ; [+29]
       422 GETTABLEKS                       R4 R0 K5 ["Volume"]
-      424 GETUPVAL                         R6 0
-      425 GETTABLEKS                       R5 R6 K5 ["Volume"]
+      424 GETUPVAL                         R5 0
+      425 GETTABLEKS                       R5 R5 K5 ["Volume"]
       427 LOADNIL                          R6
       428 ORK                              R6 R6 K6 [0.0001]
       429 JUMPIFNOTEQKNIL                  R6 ; [+2]
@@ -500,8 +500,8 @@ PROTO_4:
       449 RETURN                           R2 1
       450 JUMPIFNOTEQKS                    R1 K13 ["PlaybackSpeed"] ; [+29]
       452 GETTABLEKS                       R4 R0 K13 ["PlaybackSpeed"]
-      454 GETUPVAL                         R6 0
-      455 GETTABLEKS                       R5 R6 K13 ["PlaybackSpeed"]
+      454 GETUPVAL                         R5 0
+      455 GETTABLEKS                       R5 R5 K13 ["PlaybackSpeed"]
       457 LOADNIL                          R6
       458 ORK                              R6 R6 K6 [0.0001]
       459 JUMPIFNOTEQKNIL                  R6 ; [+2]
@@ -522,16 +522,16 @@ PROTO_4:
       479 RETURN                           R2 1
       480 JUMPIFNOTEQKS                    R1 K15 ["Looping"] ; [+11]
       482 GETTABLEKS                       R3 R0 K15 ["Looping"]
-      484 GETUPVAL                         R5 0
-      485 GETTABLEKS                       R4 R5 K15 ["Looping"]
+      484 GETUPVAL                         R4 0
+      485 GETTABLEKS                       R4 R4 K15 ["Looping"]
       487 JUMPIFNOTEQ                      R3 R4 ; [+2]
       489 LOADB                            R2 0 +1
       490 LOADB                            R2 1
       491 RETURN                           R2 1
       492 JUMPIFNOTEQKS                    R1 K17 ["PlaybackRegion"] ; [+59]
       494 GETTABLEKS                       R4 R0 K17 ["PlaybackRegion"]
-      496 GETUPVAL                         R6 0
-      497 GETTABLEKS                       R5 R6 K17 ["PlaybackRegion"]
+      496 GETUPVAL                         R5 0
+      497 GETTABLEKS                       R5 R5 K17 ["PlaybackRegion"]
       499 GETTABLEKS                       R6 R4 K23 ["Min"]
       501 GETTABLEKS                       R7 R5 K23 ["Min"]
       503 LOADNIL                          R8
@@ -573,8 +573,8 @@ PROTO_4:
       551 RETURN                           R2 1
       552 JUMPIFNOTEQKS                    R1 K22 ["LoopRegion"] ; [+59]
       554 GETTABLEKS                       R4 R0 K22 ["LoopRegion"]
-      556 GETUPVAL                         R6 0
-      557 GETTABLEKS                       R5 R6 K22 ["LoopRegion"]
+      556 GETUPVAL                         R5 0
+      557 GETTABLEKS                       R5 R5 K22 ["LoopRegion"]
       559 GETTABLEKS                       R6 R4 K23 ["Min"]
       561 GETTABLEKS                       R7 R5 K23 ["Min"]
       563 LOADNIL                          R8
@@ -616,8 +616,8 @@ PROTO_4:
       611 RETURN                           R2 1
       612 JUMPIFNOTEQKS                    R1 K25 ["TimePosition"] ; [+29]
       614 GETTABLEKS                       R4 R0 K25 ["TimePosition"]
-      616 GETUPVAL                         R6 0
-      617 GETTABLEKS                       R5 R6 K25 ["TimePosition"]
+      616 GETUPVAL                         R5 0
+      617 GETTABLEKS                       R5 R5 K25 ["TimePosition"]
       619 LOADNIL                          R6
       620 ORK                              R6 R6 K6 [0.0001]
       621 JUMPIFNOTEQKNIL                  R6 ; [+2]
@@ -642,14 +642,14 @@ PROTO_4:
       645 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isPropertyChanged"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isPropertyChanged"]
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R1 2 1
         6 JUMPIFNOT                        R1 ; [+12]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K1 ["getInstanceData"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["getInstanceData"]
        10 GETUPVAL                         R2 1
        11 CALL                             R1 1 1
        12 SETUPVAL                         R1 2
@@ -705,12 +705,12 @@ PROTO_6:
        52 NAMECALL                         R3 R3 K13 ["format"]
        54 CALL                             R3 3 1
        55 MOVE                             R2 R3
-       56 GETUPVAL                         R4 2
-       57 GETTABLEKS                       R3 R4 K15 ["setupForInstance"]
+       56 GETUPVAL                         R3 2
+       57 GETTABLEKS                       R3 R3 K15 ["setupForInstance"]
        59 MOVE                             R4 R1
        60 CALL                             R3 1 0
-       61 GETUPVAL                         R4 4
-       62 GETTABLEKS                       R3 R4 K16 ["getInstanceData"]
+       61 GETUPVAL                         R3 4
+       62 GETTABLEKS                       R3 R3 K16 ["getInstanceData"]
        64 MOVE                             R4 R1
        65 CALL                             R3 1 1
        66 SETUPVAL                         R3 3
@@ -742,8 +742,8 @@ PROTO_7:
         2 LOADNIL                          R2
         3 LOADNIL                          R3
         4 FORGPREP                         R1
-        5 GETUPVAL                         R7 2
-        6 GETTABLEKS                       R6 R7 K0 ["setInstanceData"]
+        5 GETUPVAL                         R6 2
+        6 GETTABLEKS                       R6 R6 K0 ["setInstanceData"]
         8 MOVE                             R7 R5
         9 MOVE                             R8 R0
        10 CALL                             R6 2 0
@@ -762,14 +762,14 @@ PROTO_8:
        10 SETUPVAL                         R0 1
        11 LOADNIL                          R0
        12 SETUPVAL                         R0 2
-       13 GETUPVAL                         R1 3
-       14 GETTABLEKS                       R0 R1 K1 ["teardown"]
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K1 ["teardown"]
        16 CALL                             R0 0 0
        17 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onOpen"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onOpen"]
         3 GETUPVAL                         R1 1
         4 NAMECALL                         R1 R1 K1 ["Get"]
         6 CALL                             R1 1 -1
@@ -791,8 +791,8 @@ PROTO_10:
        14 NAMECALL                         R2 R2 K5 ["GetPluginComponent"]
        16 CALL                             R2 2 1
        17 DUPTABLE                         R5 K11 [{"Uri", "Enabled", "Visible", "IsCheckable", "Checked"}]
-       18 GETUPVAL                         R7 1
-       19 GETTABLEKS                       R6 R7 K12 ["join"]
+       18 GETUPVAL                         R6 1
+       19 GETTABLEKS                       R6 R6 K12 ["join"]
        21 MOVE                             R7 R1
        22 DUPTABLE                         R8 K15 [{"Category", "ItemId"}]
        23 LOADK                            R9 K4 ["Actions"]
@@ -820,14 +820,14 @@ PROTO_10:
        54 CALL                             R4 2 0
        55 GETUPVAL                         R4 0
        56 LOADK                            R6 K20 ["OnEdit"]
-       57 GETUPVAL                         R8 2
-       58 GETTABLEKS                       R7 R8 K21 ["onEdit"]
+       57 GETUPVAL                         R7 2
+       58 GETTABLEKS                       R7 R7 K21 ["onEdit"]
        60 NAMECALL                         R4 R4 K22 ["OnInvoke"]
        62 CALL                             R4 3 0
        63 GETUPVAL                         R4 0
        64 LOADK                            R6 K23 ["OnStopEditing"]
-       65 GETUPVAL                         R8 2
-       66 GETTABLEKS                       R7 R8 K24 ["onStopEditing"]
+       65 GETUPVAL                         R7 2
+       66 GETTABLEKS                       R7 R7 K24 ["onStopEditing"]
        68 NAMECALL                         R4 R4 K22 ["OnInvoke"]
        70 CALL                             R4 3 0
        71 RETURN                           R0 0
@@ -839,19 +839,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["StudioFoundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["StudioFoundation"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["StudioUri"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["StudioUri"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R6 K8 ["Util"]
-       24 GETTABLEKS                       R4 R5 K11 ["PlayerUtil"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K8 ["Util"]
+       24 GETTABLEKS                       R4 R4 K11 ["PlayerUtil"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R6 R0 K10 ["Src"]
-       31 GETTABLEKS                       R5 R6 K12 ["Types"]
+       29 GETTABLEKS                       R5 R0 K10 ["Src"]
+       31 GETTABLEKS                       R5 R5 K12 ["Types"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K14 [game]
        36 LOADK                            R7 K15 ["Selection"]

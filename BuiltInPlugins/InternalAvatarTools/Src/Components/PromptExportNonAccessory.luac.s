@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onCancel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onCancel"]
         5 CALL                             R0 0 0
         6 RETURN                           R0 0
 
@@ -13,24 +13,24 @@ PROTO_1:
 
 PROTO_2:
         0 JUMPIFNOTEQKS                    R0 K0 ["Export"] ; [+8]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["props"]
-        5 GETTABLEKS                       R1 R2 K2 ["onConfirm"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["props"]
+        5 GETTABLEKS                       R1 R1 K2 ["onConfirm"]
         7 CALL                             R1 0 0
         8 RETURN                           R0 0
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K1 ["props"]
-       12 GETTABLEKS                       R1 R2 K3 ["onCancel"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K1 ["props"]
+       12 GETTABLEKS                       R1 R1 K3 ["onCancel"]
        14 CALL                             R1 0 0
        15 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K7 [{"Title", "Buttons", "Resizable", "MinContentSize", "OnButtonPressed", "OnClose"}]
-        5 GETTABLEKS                       R5 R0 K8 ["props"]
-        7 GETTABLEKS                       R4 R5 K9 ["Localization"]
+        5 GETTABLEKS                       R4 R0 K8 ["props"]
+        7 GETTABLEKS                       R4 R4 K9 ["Localization"]
         9 LOADK                            R6 K10 ["DialogTitle"]
        10 LOADK                            R7 K11 ["ExportNonAccessory"]
        11 NAMECALL                         R4 R4 K12 ["getText"]
@@ -40,8 +40,8 @@ PROTO_3:
        18 DUPTABLE                         R5 K16 [{"Key", "Text", "Style"}]
        19 LOADK                            R6 K17 ["Export"]
        20 SETTABLEKS                       R6 R5 K13 ["Key"]
-       22 GETTABLEKS                       R7 R0 K8 ["props"]
-       24 GETTABLEKS                       R6 R7 K9 ["Localization"]
+       22 GETTABLEKS                       R6 R0 K8 ["props"]
+       24 GETTABLEKS                       R6 R6 K9 ["Localization"]
        26 LOADK                            R8 K18 ["Dialog"]
        27 LOADK                            R9 K17 ["Export"]
        28 NAMECALL                         R6 R6 K12 ["getText"]
@@ -52,8 +52,8 @@ PROTO_3:
        36 DUPTABLE                         R6 K16 [{"Key", "Text", "Style"}]
        37 LOADK                            R7 K20 ["Cancel"]
        38 SETTABLEKS                       R7 R6 K13 ["Key"]
-       40 GETTABLEKS                       R8 R0 K8 ["props"]
-       42 GETTABLEKS                       R7 R8 K9 ["Localization"]
+       40 GETTABLEKS                       R7 R0 K8 ["props"]
+       42 GETTABLEKS                       R7 R7 K9 ["Localization"]
        44 LOADK                            R9 K18 ["Dialog"]
        45 LOADK                            R10 K20 ["Cancel"]
        46 NAMECALL                         R7 R7 K12 ["getText"]
@@ -73,25 +73,25 @@ PROTO_3:
        68 NEWCLOSURE                       R4 P0
        69 CAPTURE                          VAL R0
        70 SETTABLEKS                       R4 R3 K5 ["OnButtonPressed"]
-       72 GETTABLEKS                       R5 R0 K8 ["props"]
-       74 GETTABLEKS                       R4 R5 K25 ["onCancel"]
+       72 GETTABLEKS                       R4 R0 K8 ["props"]
+       74 GETTABLEKS                       R4 R4 K25 ["onCancel"]
        76 SETTABLEKS                       R4 R3 K6 ["OnClose"]
        78 CALL                             R1 2 -1
        79 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["UI"]
        25 GETTABLEKS                       R4 R3 K9 ["StyledDialog"]

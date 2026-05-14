@@ -240,11 +240,11 @@ PROTO_2:
       303 CALL                             R6 2 0
       304 GETTABLEKS                       R4 R0 K23 ["uiButton"]
       306 JUMPIFNOT                        R4 ; [+16]
-      307 GETTABLEKS                       R5 R0 K23 ["uiButton"]
-      309 GETTABLEKS                       R4 R5 K24 ["name"]
+      307 GETTABLEKS                       R4 R0 K23 ["uiButton"]
+      309 GETTABLEKS                       R4 R4 K24 ["name"]
       311 JUMPIFEQKS                       R4 K25 [""] ; [+11]
-      313 GETTABLEKS                       R7 R0 K23 ["uiButton"]
-      315 GETTABLEKS                       R6 R7 K24 ["name"]
+      313 GETTABLEKS                       R6 R0 K23 ["uiButton"]
+      315 GETTABLEKS                       R6 R6 K24 ["name"]
       317 FASTCALL2                        TABLE_INSERT R2 R6 ; [+4]
       319 MOVE                             R5 R2
       320 GETIMPORT                        R4 K12 [table.insert]
@@ -286,8 +286,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 DUPCLOSURE                       R3 K9 [PROTO_1]

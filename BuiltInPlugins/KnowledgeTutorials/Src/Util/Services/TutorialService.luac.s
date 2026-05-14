@@ -7,10 +7,10 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [require]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["Packages"]
-        5 GETTABLEKS                       R2 R3 K3 ["Dev"]
-        7 GETTABLEKS                       R1 R2 K4 ["JestGlobals"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["Packages"]
+        5 GETTABLEKS                       R1 R1 K3 ["Dev"]
+        7 GETTABLEKS                       R1 R1 K4 ["JestGlobals"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K5 ["jest"]
        12 DUPTABLE                         R2 K9 [{"HideWidgets", "ShowWidgets", "ShouldLaunchTutorial"}]

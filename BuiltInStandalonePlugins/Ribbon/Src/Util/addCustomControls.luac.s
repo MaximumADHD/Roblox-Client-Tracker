@@ -1,21 +1,21 @@
 PROTO_0:
-        0 GETTABLEKS                       R3 R0 K0 ["Uri"]
-        2 GETTABLEKS                       R2 R3 K1 ["PluginId"]
-        4 GETTABLEKS                       R4 R1 K0 ["Uri"]
-        6 GETTABLEKS                       R3 R4 K1 ["PluginId"]
+        0 GETTABLEKS                       R2 R0 K0 ["Uri"]
+        2 GETTABLEKS                       R2 R2 K1 ["PluginId"]
+        4 GETTABLEKS                       R3 R1 K0 ["Uri"]
+        6 GETTABLEKS                       R3 R3 K1 ["PluginId"]
         8 JUMPIFNOTEQ                      R2 R3 ; [+14]
-       10 GETTABLEKS                       R4 R0 K0 ["Uri"]
-       12 GETTABLEKS                       R3 R4 K2 ["ItemId"]
-       14 GETTABLEKS                       R5 R1 K0 ["Uri"]
-       16 GETTABLEKS                       R4 R5 K2 ["ItemId"]
+       10 GETTABLEKS                       R3 R0 K0 ["Uri"]
+       12 GETTABLEKS                       R3 R3 K2 ["ItemId"]
+       14 GETTABLEKS                       R4 R1 K0 ["Uri"]
+       16 GETTABLEKS                       R4 R4 K2 ["ItemId"]
        18 JUMPIFLT                         R3 R4 ; [+2]
        20 LOADB                            R2 0 +1
        21 LOADB                            R2 1
        22 RETURN                           R2 1
-       23 GETTABLEKS                       R4 R0 K0 ["Uri"]
-       25 GETTABLEKS                       R3 R4 K1 ["PluginId"]
-       27 GETTABLEKS                       R5 R1 K0 ["Uri"]
-       29 GETTABLEKS                       R4 R5 K1 ["PluginId"]
+       23 GETTABLEKS                       R3 R0 K0 ["Uri"]
+       25 GETTABLEKS                       R3 R3 K1 ["PluginId"]
+       27 GETTABLEKS                       R4 R1 K0 ["Uri"]
+       29 GETTABLEKS                       R4 R4 K1 ["PluginId"]
        31 JUMPIFLT                         R3 R4 ; [+2]
        33 LOADB                            R2 0 +1
        34 LOADB                            R2 1
@@ -35,20 +35,20 @@ PROTO_1:
        13 LOADNIL                          R6
        14 LOADNIL                          R7
        15 FORGPREP                         R5
-       16 GETTABLEKS                       R11 R9 K5 ["PreferredToolbarUri"]
-       18 GETTABLEKS                       R10 R11 K6 ["PluginId"]
+       16 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
+       18 GETTABLEKS                       R10 R10 K6 ["PluginId"]
        20 GETTABLEKS                       R11 R0 K6 ["PluginId"]
        22 JUMPIFNOTEQ                      R10 R11 ; [+48]
-       24 GETTABLEKS                       R11 R9 K5 ["PreferredToolbarUri"]
-       26 GETTABLEKS                       R10 R11 K7 ["DataModel"]
+       24 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
+       26 GETTABLEKS                       R10 R10 K7 ["DataModel"]
        28 GETTABLEKS                       R11 R0 K7 ["DataModel"]
        30 JUMPIFNOTEQ                      R10 R11 ; [+40]
-       32 GETTABLEKS                       R11 R9 K5 ["PreferredToolbarUri"]
-       34 GETTABLEKS                       R10 R11 K8 ["PluginType"]
+       32 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
+       34 GETTABLEKS                       R10 R10 K8 ["PluginType"]
        36 GETTABLEKS                       R11 R0 K8 ["PluginType"]
        38 JUMPIFNOTEQ                      R10 R11 ; [+32]
-       40 GETTABLEKS                       R11 R9 K5 ["PreferredToolbarUri"]
-       42 GETTABLEKS                       R10 R11 K9 ["ItemId"]
+       40 GETTABLEKS                       R10 R9 K5 ["PreferredToolbarUri"]
+       42 GETTABLEKS                       R10 R10 K9 ["ItemId"]
        44 LOADK                            R12 K10 ["Tabs/%*"]
        45 MOVE                             R14 R1
        46 NAMECALL                         R12 R12 K11 ["format"]
@@ -83,12 +83,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Dash"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K10 ["append"]
        23 DUPTABLE                         R4 K13 [{"Type", "Size"}]

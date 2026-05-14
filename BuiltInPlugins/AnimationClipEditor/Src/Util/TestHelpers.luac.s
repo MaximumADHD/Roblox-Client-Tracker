@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["Model"]
-        3 GETIMPORT                        R4 K5 [game]
-        5 GETTABLEKS                       R3 R4 K6 ["Workspace"]
+        3 GETIMPORT                        R3 K5 [game]
+        5 GETTABLEKS                       R3 R3 K6 ["Workspace"]
         7 CALL                             R1 2 1
         8 NEWTABLE                         R2 0 0
        10 GETTABLEKS                       R3 R0 K7 ["Names"]
@@ -26,10 +26,10 @@ PROTO_0:
        36 CALL                             R8 1 1
        37 GETIMPORT                        R9 K16 [string.format]
        39 LOADK                            R10 K17 ["%s_to_%s"]
-       40 GETTABLE                         R12 R2 R6
-       41 GETTABLEKS                       R11 R12 K9 ["Name"]
-       43 GETTABLE                         R13 R2 R7
-       44 GETTABLEKS                       R12 R13 K9 ["Name"]
+       40 GETTABLE                         R11 R2 R6
+       41 GETTABLEKS                       R11 R11 K9 ["Name"]
+       43 GETTABLE                         R12 R2 R7
+       44 GETTABLEKS                       R12 R12 K9 ["Name"]
        46 CALL                             R9 3 1
        47 SETTABLEKS                       R9 R8 K9 ["Name"]
        49 GETTABLE                         R9 R2 R6
@@ -69,8 +69,8 @@ PROTO_1:
        24 LOADN                            R9 7
        25 SETLIST                          R1 R2 8 [1]
        27 SETTABLEKS                       R1 R0 K1 ["Parents"]
-       29 GETUPVAL                         R2 0
-       30 GETTABLEKS                       R1 R2 K11 ["makeRigFromSkeleton"]
+       29 GETUPVAL                         R1 0
+       30 GETTABLEKS                       R1 R1 K11 ["makeRigFromSkeleton"]
        32 MOVE                             R2 R0
        33 CALL                             R1 1 -1
        34 RETURN                           R1 -1
@@ -110,50 +110,50 @@ PROTO_3:
         0 DUPTABLE                         R0 K4 [{"IsCurveTrack", "Type", "Components", "Instance"}]
         1 LOADB                            R1 1
         2 SETTABLEKS                       R1 R0 K0 ["IsCurveTrack"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K5 ["TRACK_TYPES"]
-        7 GETTABLEKS                       R1 R2 K6 ["CFrame"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K5 ["TRACK_TYPES"]
+        7 GETTABLEKS                       R1 R1 K6 ["CFrame"]
         9 SETTABLEKS                       R1 R0 K1 ["Type"]
        11 DUPTABLE                         R1 K9 [{"Position", "Rotation"}]
        12 DUPTABLE                         R2 K10 [{"IsCurveTrack", "Type", "Components"}]
        13 LOADB                            R3 1
        14 SETTABLEKS                       R3 R2 K0 ["IsCurveTrack"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K5 ["TRACK_TYPES"]
-       19 GETTABLEKS                       R3 R4 K7 ["Position"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K5 ["TRACK_TYPES"]
+       19 GETTABLEKS                       R3 R3 K7 ["Position"]
        21 SETTABLEKS                       R3 R2 K1 ["Type"]
        23 DUPTABLE                         R3 K14 [{"X", "Y", "Z"}]
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R4 R5 K15 ["makeCurveTrack"]
-       27 GETUPVAL                         R7 0
-       28 GETTABLEKS                       R6 R7 K5 ["TRACK_TYPES"]
-       30 GETTABLEKS                       R5 R6 K16 ["Number"]
+       24 GETUPVAL                         R4 1
+       25 GETTABLEKS                       R4 R4 K15 ["makeCurveTrack"]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K5 ["TRACK_TYPES"]
+       30 GETTABLEKS                       R5 R5 K16 ["Number"]
        32 NEWTABLE                         R6 0 0
        34 CALL                             R4 2 1
        35 SETTABLEKS                       R4 R3 K11 ["X"]
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R4 R5 K15 ["makeCurveTrack"]
-       40 GETUPVAL                         R7 0
-       41 GETTABLEKS                       R6 R7 K5 ["TRACK_TYPES"]
-       43 GETTABLEKS                       R5 R6 K16 ["Number"]
+       37 GETUPVAL                         R4 1
+       38 GETTABLEKS                       R4 R4 K15 ["makeCurveTrack"]
+       40 GETUPVAL                         R5 0
+       41 GETTABLEKS                       R5 R5 K5 ["TRACK_TYPES"]
+       43 GETTABLEKS                       R5 R5 K16 ["Number"]
        45 NEWTABLE                         R6 0 0
        47 CALL                             R4 2 1
        48 SETTABLEKS                       R4 R3 K12 ["Y"]
-       50 GETUPVAL                         R5 1
-       51 GETTABLEKS                       R4 R5 K15 ["makeCurveTrack"]
-       53 GETUPVAL                         R7 0
-       54 GETTABLEKS                       R6 R7 K5 ["TRACK_TYPES"]
-       56 GETTABLEKS                       R5 R6 K16 ["Number"]
+       50 GETUPVAL                         R4 1
+       51 GETTABLEKS                       R4 R4 K15 ["makeCurveTrack"]
+       53 GETUPVAL                         R5 0
+       54 GETTABLEKS                       R5 R5 K5 ["TRACK_TYPES"]
+       56 GETTABLEKS                       R5 R5 K16 ["Number"]
        58 NEWTABLE                         R6 0 0
        60 CALL                             R4 2 1
        61 SETTABLEKS                       R4 R3 K13 ["Z"]
        63 SETTABLEKS                       R3 R2 K2 ["Components"]
        65 SETTABLEKS                       R2 R1 K7 ["Position"]
-       67 GETUPVAL                         R3 1
-       68 GETTABLEKS                       R2 R3 K15 ["makeCurveTrack"]
-       70 GETUPVAL                         R5 0
-       71 GETTABLEKS                       R4 R5 K5 ["TRACK_TYPES"]
-       73 GETTABLEKS                       R3 R4 K17 ["Quaternion"]
+       67 GETUPVAL                         R2 1
+       68 GETTABLEKS                       R2 R2 K15 ["makeCurveTrack"]
+       70 GETUPVAL                         R3 0
+       71 GETTABLEKS                       R3 R3 K5 ["TRACK_TYPES"]
+       73 GETTABLEKS                       R3 R3 K17 ["Quaternion"]
        75 NEWTABLE                         R4 2 0
        77 GETIMPORT                        R5 K19 [CFrame.fromEulerAngles]
        79 LOADN                            R6 0
@@ -177,8 +177,8 @@ PROTO_3:
       103 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["animationData"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["animationData"]
         3 CALL                             R1 0 1
         4 GETTABLEKS                       R2 R1 K1 ["Metadata"]
         6 LOADB                            R3 1
@@ -187,11 +187,11 @@ PROTO_4:
        10 LOADNIL                          R3
        11 LOADNIL                          R4
        12 FORGPREP                         R2
-       13 GETTABLEKS                       R9 R1 K3 ["Instances"]
-       15 GETTABLEKS                       R8 R9 K4 ["Root"]
-       17 GETTABLEKS                       R7 R8 K5 ["Tracks"]
-       19 GETUPVAL                         R9 1
-       20 GETTABLEKS                       R8 R9 K6 ["makeCFrameTrack"]
+       13 GETTABLEKS                       R7 R1 K3 ["Instances"]
+       15 GETTABLEKS                       R7 R7 K4 ["Root"]
+       17 GETTABLEKS                       R7 R7 K5 ["Tracks"]
+       19 GETUPVAL                         R8 1
+       20 GETTABLEKS                       R8 R8 K6 ["makeCFrameTrack"]
        22 CALL                             R8 0 1
        23 SETTABLE                         R8 R7 R6
        24 FORGLOOP                         R2 2 ; [-12]
@@ -199,12 +199,12 @@ PROTO_4:
 
 PROTO_5:
         0 NEWTABLE                         R3 0 1
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["thunkMiddleware"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K0 ["thunkMiddleware"]
         5 SETLIST                          R3 R4 1 [1]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K1 ["Store"]
-       10 GETTABLEKS                       R4 R5 K2 ["new"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K1 ["Store"]
+       10 GETTABLEKS                       R4 R4 K2 ["new"]
        12 GETUPVAL                         R5 1
        13 LOADNIL                          R6
        14 MOVE                             R7 R3
@@ -228,8 +228,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["Constants"]
        15 CALL                             R2 1 1
@@ -237,25 +237,25 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K9 ["Templates"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K7 [require]
-       23 GETTABLEKS                       R6 R0 K4 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Types"]
+       23 GETTABLEKS                       R5 R0 K4 ["Src"]
+       25 GETTABLEKS                       R5 R5 K10 ["Types"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K7 [require]
-       30 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       32 GETTABLEKS                       R6 R7 K12 ["Rodux"]
+       30 GETTABLEKS                       R6 R0 K11 ["Packages"]
+       32 GETTABLEKS                       R6 R6 K12 ["Rodux"]
        34 CALL                             R5 1 1
        35 GETIMPORT                        R6 K7 [require]
-       37 GETTABLEKS                       R9 R0 K4 ["Src"]
-       39 GETTABLEKS                       R8 R9 K13 ["Reducers"]
-       41 GETTABLEKS                       R7 R8 K14 ["MainReducer"]
+       37 GETTABLEKS                       R7 R0 K4 ["Src"]
+       39 GETTABLEKS                       R7 R7 K13 ["Reducers"]
+       41 GETTABLEKS                       R7 R7 K14 ["MainReducer"]
        43 CALL                             R6 1 1
-       44 GETTABLEKS                       R8 R0 K4 ["Src"]
-       46 GETTABLEKS                       R7 R8 K15 ["Actions"]
+       44 GETTABLEKS                       R7 R0 K4 ["Src"]
+       46 GETTABLEKS                       R7 R7 K15 ["Actions"]
        48 GETIMPORT                        R8 K7 [require]
        50 GETTABLEKS                       R9 R7 K16 ["SetRootInstance"]
        52 CALL                             R8 1 1
-       53 GETTABLEKS                       R10 R0 K4 ["Src"]
-       55 GETTABLEKS                       R9 R10 K17 ["Thunks"]
+       53 GETTABLEKS                       R9 R0 K4 ["Src"]
+       55 GETTABLEKS                       R9 R9 K17 ["Thunks"]
        57 GETIMPORT                        R10 K7 [require]
        59 GETTABLEKS                       R11 R9 K18 ["LoadAnimationData"]
        61 CALL                             R10 1 1

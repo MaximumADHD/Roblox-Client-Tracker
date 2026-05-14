@@ -2,8 +2,8 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Message"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 LOADK                            R5 K4 ["Frame"]
        10 DUPTABLE                         R6 K11 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "BackgroundColor3", "BorderColor3"}]
        11 GETIMPORT                        R7 K14 [UDim2.new]
@@ -32,8 +32,8 @@ PROTO_0:
        44 GETTABLEKS                       R7 R2 K19 ["BorderColor"]
        46 SETTABLEKS                       R7 R6 K10 ["BorderColor3"]
        48 DUPTABLE                         R7 K22 [{"Padding", "MessageTextLabel"}]
-       49 GETUPVAL                         R9 0
-       50 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       49 GETUPVAL                         R8 0
+       50 GETTABLEKS                       R8 R8 K3 ["createElement"]
        52 LOADK                            R9 K23 ["UIPadding"]
        53 DUPTABLE                         R10 K25 [{"PaddingLeft"}]
        54 GETIMPORT                        R11 K27 [UDim.new]
@@ -43,8 +43,8 @@ PROTO_0:
        60 SETTABLEKS                       R11 R10 K24 ["PaddingLeft"]
        62 CALL                             R8 2 1
        63 SETTABLEKS                       R8 R7 K20 ["Padding"]
-       65 GETUPVAL                         R9 0
-       66 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       65 GETUPVAL                         R8 0
+       66 GETTABLEKS                       R8 R8 K3 ["createElement"]
        68 GETUPVAL                         R9 1
        69 DUPTABLE                         R10 K31 [{"AutomaticSize", "Text", "TextWrapped"}]
        70 GETIMPORT                        R11 K34 [Enum.AutomaticSize.XY]
@@ -65,21 +65,21 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]

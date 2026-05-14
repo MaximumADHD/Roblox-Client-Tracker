@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 LOADNIL                          R1
         4 LOADK                            R4 K1 ["PluginGui"]
         5 NAMECALL                         R2 R0 K2 ["FindFirstAncestorWhichIsA"]
@@ -66,8 +66,8 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 JUMPIFNOTEQKNIL                  R2 ; [+2]
         5 LOADB                            R1 0 +1
         6 LOADB                            R1 1
@@ -93,19 +93,19 @@ PROTO_3:
        30 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ContextServices"]
-        3 GETTABLEKS                       R0 R1 K1 ["Plugin"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ContextServices"]
+        3 GETTABLEKS                       R0 R0 K1 ["Plugin"]
         5 NAMECALL                         R0 R0 K2 ["use"]
         7 CALL                             R0 1 1
         8 NAMECALL                         R0 R0 K3 ["get"]
        10 CALL                             R0 1 1
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R1 R2 K4 ["useRef"]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K4 ["useRef"]
        14 LOADNIL                          R2
        15 CALL                             R1 1 1
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R2 R3 K5 ["useEffect"]
+       16 GETUPVAL                         R2 1
+       17 GETTABLEKS                       R2 R2 K5 ["useEffect"]
        19 NEWCLOSURE                       R3 P0
        20 CAPTURE                          VAL R1
        21 CAPTURE                          VAL R0
@@ -138,17 +138,17 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["ExplorerGuiUri"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["ExplorerGuiUri"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R5 R1 K13 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K14 ["Framework"]
+       24 GETTABLEKS                       R4 R1 K13 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K14 ["Framework"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R6 R1 K13 ["Packages"]
-       33 GETTABLEKS                       R5 R6 K15 ["React"]
+       31 GETTABLEKS                       R5 R1 K13 ["Packages"]
+       33 GETTABLEKS                       R5 R5 K15 ["React"]
        35 CALL                             R4 1 1
        36 GETTABLEKS                       R5 R4 K16 ["createElement"]
        38 DUPCLOSURE                       R6 K17 [PROTO_4]

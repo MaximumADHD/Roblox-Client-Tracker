@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onPackageNoteCreated"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["onPackageNoteCreated"]
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 GETUPVAL                         R4 3
@@ -61,14 +61,14 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["Analytics"]
-       15 GETTABLEKS                       R3 R4 K8 ["Analytics"]
+       13 GETTABLEKS                       R3 R1 K8 ["Analytics"]
+       15 GETTABLEKS                       R3 R3 K8 ["Analytics"]
        17 CALL                             R2 1 1
-       18 GETTABLEKS                       R4 R0 K4 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       18 GETTABLEKS                       R3 R0 K4 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Actions"]
        22 GETIMPORT                        R4 K7 [require]
        24 GETTABLEKS                       R5 R3 K10 ["NetworkError"]
        26 CALL                             R4 1 1

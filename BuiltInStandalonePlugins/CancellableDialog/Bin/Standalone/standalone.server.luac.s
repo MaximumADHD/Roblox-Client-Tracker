@@ -5,8 +5,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["TestLoader"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["TestLoader"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["isCli"]
        16 CALL                             R2 0 1
@@ -16,9 +16,9 @@ MAIN:
        21 CALL                             R2 1 0
        22 RETURN                           R0 0
        23 GETIMPORT                        R2 K5 [require]
-       25 GETTABLEKS                       R5 R0 K12 ["Bin"]
-       27 GETTABLEKS                       R4 R5 K13 ["Common"]
-       29 GETTABLEKS                       R3 R4 K14 ["pluginType"]
+       25 GETTABLEKS                       R3 R0 K12 ["Bin"]
+       27 GETTABLEKS                       R3 R3 K13 ["Common"]
+       29 GETTABLEKS                       R3 R3 K14 ["pluginType"]
        31 CALL                             R2 1 1
        32 GETTABLEKS                       R3 R2 K15 ["get"]
        34 CALL                             R3 0 1
@@ -26,23 +26,23 @@ MAIN:
        37 JUMPIFEQ                         R3 R4 ; [+2]
        39 RETURN                           R0 0
        40 GETIMPORT                        R3 K5 [require]
-       42 GETTABLEKS                       R6 R0 K17 ["Src"]
-       44 GETTABLEKS                       R5 R6 K18 ["Flags"]
-       46 GETTABLEKS                       R4 R5 K19 ["getFFlagNewOpenPlaceDialog"]
+       42 GETTABLEKS                       R4 R0 K17 ["Src"]
+       44 GETTABLEKS                       R4 R4 K18 ["Flags"]
+       46 GETTABLEKS                       R4 R4 K19 ["getFFlagNewOpenPlaceDialog"]
        48 CALL                             R3 1 1
        49 MOVE                             R4 R3
        50 CALL                             R4 0 1
        51 JUMPIFNOT                        R4 ; [+1]
        52 RETURN                           R0 0
        53 GETIMPORT                        R4 K5 [require]
-       55 GETTABLEKS                       R7 R0 K12 ["Bin"]
-       57 GETTABLEKS                       R6 R7 K13 ["Common"]
-       59 GETTABLEKS                       R5 R6 K20 ["setup"]
+       55 GETTABLEKS                       R5 R0 K12 ["Bin"]
+       57 GETTABLEKS                       R5 R5 K13 ["Common"]
+       59 GETTABLEKS                       R5 R5 K20 ["setup"]
        61 CALL                             R4 1 1
        62 GETIMPORT                        R5 K5 [require]
-       64 GETTABLEKS                       R8 R0 K12 ["Bin"]
-       66 GETTABLEKS                       R7 R8 K13 ["Common"]
-       68 GETTABLEKS                       R6 R7 K21 ["setupMain"]
+       64 GETTABLEKS                       R6 R0 K12 ["Bin"]
+       66 GETTABLEKS                       R6 R6 K13 ["Common"]
+       68 GETTABLEKS                       R6 R6 K21 ["setupMain"]
        70 CALL                             R5 1 1
        71 MOVE                             R6 R4
        72 GETIMPORT                        R7 K23 [plugin]

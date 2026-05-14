@@ -10,9 +10,9 @@ PROTO_1:
         5 GETUPVAL                         R3 0
         6 GETTABLE                         R2 R3 R1
         7 JUMPIFNOT                        R2 ; [+4]
-        8 GETUPVAL                         R4 0
-        9 GETTABLE                         R3 R4 R1
-       10 GETTABLEKS                       R2 R3 K1 ["HasInput"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLE                         R2 R3 R1
+       10 GETTABLEKS                       R2 R2 K1 ["HasInput"]
        12 RETURN                           R2 1
 
 PROTO_2:
@@ -23,9 +23,9 @@ PROTO_2:
         5 GETUPVAL                         R3 0
         6 GETTABLE                         R2 R3 R1
         7 JUMPIFNOT                        R2 ; [+4]
-        8 GETUPVAL                         R4 0
-        9 GETTABLE                         R3 R4 R1
-       10 GETTABLEKS                       R2 R3 K1 ["HasOutput"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLE                         R2 R3 R1
+       10 GETTABLEKS                       R2 R2 K1 ["HasOutput"]
        12 RETURN                           R2 1
 
 PROTO_3:
@@ -36,9 +36,9 @@ PROTO_3:
         5 GETUPVAL                         R3 0
         6 GETTABLE                         R2 R3 R1
         7 JUMPIFNOT                        R2 ; [+8]
-        8 GETUPVAL                         R5 0
-        9 GETTABLE                         R4 R5 R1
-       10 GETTABLEKS                       R3 R4 K1 ["HasSidechain"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLE                         R3 R4 R1
+       10 GETTABLEKS                       R3 R3 K1 ["HasSidechain"]
        12 JUMPIFEQKB                       R3 TRUE ; [+2]
        14 LOADB                            R2 0 +1
        15 LOADB                            R2 1
@@ -55,26 +55,26 @@ PROTO_4:
         8 LOADNIL                          R1
         9 LOADNIL                          R2
        10 RETURN                           R1 2
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K1 ["hasOutputPin"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K1 ["hasOutputPin"]
        14 GETTABLEN                        R2 R0 1
        15 CALL                             R1 1 1
        16 JUMPIFNOT                        R1 ; [+9]
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K2 ["hasInputPin"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K2 ["hasInputPin"]
        20 GETTABLEN                        R2 R0 2
        21 CALL                             R1 1 1
        22 JUMPIFNOT                        R1 ; [+3]
        23 GETTABLEN                        R1 R0 1
        24 GETTABLEN                        R2 R0 2
        25 RETURN                           R1 2
-       26 GETUPVAL                         R2 0
-       27 GETTABLEKS                       R1 R2 K2 ["hasInputPin"]
+       26 GETUPVAL                         R1 0
+       27 GETTABLEKS                       R1 R1 K2 ["hasInputPin"]
        29 GETTABLEN                        R2 R0 1
        30 CALL                             R1 1 1
        31 JUMPIFNOT                        R1 ; [+9]
-       32 GETUPVAL                         R2 0
-       33 GETTABLEKS                       R1 R2 K1 ["hasOutputPin"]
+       32 GETUPVAL                         R1 0
+       33 GETTABLEKS                       R1 R1 K1 ["hasOutputPin"]
        35 GETTABLEN                        R2 R0 2
        36 CALL                             R1 1 1
        37 JUMPIFNOT                        R1 ; [+3]
@@ -126,20 +126,20 @@ PROTO_6:
        38 RETURN                           R4 1
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["hasOutputPin"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["hasOutputPin"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 JUMPIFNOT                        R2 ; [+6]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["hasInputPin"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["hasInputPin"]
         9 MOVE                             R3 R1
        10 CALL                             R2 1 1
        11 JUMPIF                           R2 ; [+2]
        12 LOADNIL                          R2
        13 RETURN                           R2 1
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K2 ["findWire"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K2 ["findWire"]
        17 MOVE                             R3 R0
        18 MOVE                             R4 R1
        19 CALL                             R2 2 1
@@ -148,8 +148,8 @@ PROTO_7:
        22 GETIMPORT                        R3 K5 [Instance.new]
        24 LOADK                            R4 K6 ["Wire"]
        25 CALL                             R3 1 1
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R4 R5 K7 ["rewire"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K7 ["rewire"]
        29 MOVE                             R5 R3
        30 MOVE                             R6 R0
        31 MOVE                             R7 R1

@@ -8,8 +8,8 @@ PROTO_0:
         6 GETUPVAL                         R0 2
         7 JUMPIFEQKNIL                     R0 ; [+8]
         9 GETUPVAL                         R0 2
-       10 GETUPVAL                         R2 3
-       11 GETTABLEKS                       R1 R2 K0 ["keypointsToStrTable"]
+       10 GETUPVAL                         R1 3
+       11 GETTABLEKS                       R1 R1 K0 ["keypointsToStrTable"]
        13 GETUPVAL                         R2 4
        14 CALL                             R1 1 -1
        15 CALL                             R0 -1 0
@@ -83,16 +83,16 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R2 0
-        1 GETTABLE                         R4 R0 R1
-        2 GETTABLEKS                       R3 R4 K0 ["X"]
+        1 GETTABLE                         R3 R0 R1
+        2 GETTABLEKS                       R3 R3 K0 ["X"]
         4 LOADN                            R4 3
         5 CALL                             R2 2 1
         6 LOADN                            R3 2
         7 JUMPIFNOTLE                      R3 R1 ; [+17]
         9 GETUPVAL                         R3 0
-       10 SUBK                             R6 R1 K1 [1]
-       11 GETTABLE                         R5 R0 R6
-       12 GETTABLEKS                       R4 R5 K0 ["X"]
+       10 SUBK                             R5 R1 K1 [1]
+       11 GETTABLE                         R4 R0 R5
+       12 GETTABLEKS                       R4 R4 K0 ["X"]
        14 LOADN                            R5 3
        15 CALL                             R3 2 1
        16 JUMPIFNOTEQ                      R3 R2 ; [+8]
@@ -106,9 +106,9 @@ PROTO_4:
        26 SUBK                             R3 R4 K1 [1]
        27 JUMPIFNOTLE                      R1 R3 ; [+16]
        29 GETUPVAL                         R3 0
-       30 ADDK                             R6 R1 K1 [1]
-       31 GETTABLE                         R5 R0 R6
-       32 GETTABLEKS                       R4 R5 K0 ["X"]
+       30 ADDK                             R5 R1 K1 [1]
+       31 GETTABLE                         R4 R0 R5
+       32 GETTABLEKS                       R4 R4 K0 ["X"]
        34 LOADN                            R5 3
        35 CALL                             R3 2 1
        36 JUMPIFNOTEQ                      R3 R2 ; [+7]
@@ -181,17 +181,17 @@ PROTO_6:
         7 FASTCALL1                        MATH_FLOOR R4 ; [+2]
         8 GETIMPORT                        R3 K3 [math.floor]
        10 CALL                             R3 1 1
-       11 GETUPVAL                         R6 0
-       12 GETTABLE                         R5 R6 R3
-       13 GETTABLEKS                       R4 R5 K4 ["X"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLE                         R4 R5 R3
+       13 GETTABLEKS                       R4 R4 K4 ["X"]
        15 GETTABLEKS                       R5 R0 K4 ["X"]
        17 JUMPIFNOTEQ                      R4 R5 ; [+3]
        19 MOVE                             R1 R3
        20 RETURN                           R1 1
        21 GETTABLEKS                       R4 R0 K4 ["X"]
-       23 GETUPVAL                         R7 0
-       24 GETTABLE                         R6 R7 R3
-       25 GETTABLEKS                       R5 R6 K4 ["X"]
+       23 GETUPVAL                         R6 0
+       24 GETTABLE                         R5 R6 R3
+       25 GETTABLEKS                       R5 R5 K4 ["X"]
        27 JUMPIFNOTLT                      R4 R5 ; [+3]
        29 SUBK                             R2 R3 K5 [1]
        30 JUMP                             ; [+1]
@@ -214,8 +214,8 @@ PROTO_7:
        12 CALL                             R2 1 1
        13 LENGTH                           R3 R1
        14 JUMPIFNOTLE                      R2 R3 ; [+10]
-       16 GETTABLE                         R4 R1 R2
-       17 GETTABLEKS                       R3 R4 K0 ["X"]
+       16 GETTABLE                         R3 R1 R2
+       17 GETTABLEKS                       R3 R3 K0 ["X"]
        19 GETTABLEKS                       R4 R0 K0 ["X"]
        21 JUMPIFNOTEQ                      R3 R4 ; [+3]
        23 SETTABLE                         R0 R1 R2
@@ -300,16 +300,16 @@ PROTO_12:
         7 LOADN                            R9 1
         8 CALL                             R8 1 2
         9 LOADN                            R10 1
-       10 GETUPVAL                         R12 1
-       11 GETTABLEKS                       R11 R12 K0 ["DISTANCE"]
+       10 GETUPVAL                         R11 1
+       11 GETTABLEKS                       R11 R11 K0 ["DISTANCE"]
        13 JUMPIFNOTEQ                      R1 R11 ; [+20]
        15 LENGTH                           R11 R6
        16 LOADN                            R12 0
        17 JUMPIFNOTLT                      R12 R11 ; [+14]
        19 LOADN                            R12 100
-       20 LENGTH                           R16 R6
-       21 GETTABLE                         R15 R6 R16
-       22 GETTABLEKS                       R14 R15 K2 ["X"]
+       20 LENGTH                           R15 R6
+       21 GETTABLE                         R14 R6 R15
+       22 GETTABLEKS                       R14 R14 K2 ["X"]
        24 MULK                             R13 R14 K1 [1.1]
        25 FASTCALL2                        MATH_MAX R12 R13 ; [+3]
        27 GETIMPORT                        R11 K5 [math.max]
@@ -318,8 +318,8 @@ PROTO_12:
        31 JUMP                             ; [+8]
        32 LOADN                            R10 100
        33 JUMP                             ; [+6]
-       34 GETUPVAL                         R12 1
-       35 GETTABLEKS                       R11 R12 K6 ["ANGLE"]
+       34 GETUPVAL                         R11 1
+       35 GETTABLEKS                       R11 R11 K6 ["ANGLE"]
        37 JUMPIFNOTEQ                      R1 R11 ; [+2]
        39 LOADN                            R10 180
        40 GETUPVAL                         R11 0
@@ -331,11 +331,11 @@ PROTO_12:
        47 CALL                             R12 4 -1
        48 CALL                             R11 -1 2
        49 GETUPVAL                         R13 0
-       50 GETUPVAL                         R15 1
-       51 GETTABLEKS                       R14 R15 K10 ["INVERSE"]
+       50 GETUPVAL                         R14 1
+       51 GETTABLEKS                       R14 R14 K10 ["INVERSE"]
        53 CALL                             R13 1 2
-       54 GETUPVAL                         R16 2
-       55 GETTABLEKS                       R15 R16 K11 ["areKeypointsEqual"]
+       54 GETUPVAL                         R15 2
+       55 GETTABLEKS                       R15 R15 K11 ["areKeypointsEqual"]
        57 MOVE                             R16 R0
        58 MOVE                             R17 R4
        59 CALL                             R15 2 1
@@ -479,36 +479,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R3 R4 K7 ["Common"]
-       13 GETTABLEKS                       R2 R3 K8 ["defineLuaFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K11 ["join"]
        25 GETTABLEKS                       R4 R2 K12 ["copy"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R7 R0 K9 ["Packages"]
-       31 GETTABLEKS                       R6 R7 K13 ["React"]
+       29 GETTABLEKS                       R6 R0 K9 ["Packages"]
+       31 GETTABLEKS                       R6 R6 K13 ["React"]
        33 CALL                             R5 1 1
        34 GETTABLEKS                       R6 R5 K14 ["useCallback"]
        36 GETTABLEKS                       R7 R5 K15 ["useEffect"]
        38 GETTABLEKS                       R8 R5 K16 ["useState"]
        40 GETIMPORT                        R9 K5 [require]
-       42 GETTABLEKS                       R12 R0 K17 ["Src"]
-       44 GETTABLEKS                       R11 R12 K18 ["Util"]
-       46 GETTABLEKS                       R10 R11 K19 ["AttenuationUtil"]
+       42 GETTABLEKS                       R10 R0 K17 ["Src"]
+       44 GETTABLEKS                       R10 R10 K18 ["Util"]
+       46 GETTABLEKS                       R10 R10 K19 ["AttenuationUtil"]
        48 CALL                             R9 1 1
        49 GETIMPORT                        R10 K5 [require]
-       51 GETTABLEKS                       R13 R0 K17 ["Src"]
-       53 GETTABLEKS                       R12 R13 K18 ["Util"]
-       55 GETTABLEKS                       R11 R12 K20 ["roundDecimal"]
+       51 GETTABLEKS                       R11 R0 K17 ["Src"]
+       53 GETTABLEKS                       R11 R11 K18 ["Util"]
+       55 GETTABLEKS                       R11 R11 K20 ["roundDecimal"]
        57 CALL                             R10 1 1
        58 GETIMPORT                        R11 K5 [require]
-       60 GETTABLEKS                       R13 R0 K17 ["Src"]
-       62 GETTABLEKS                       R12 R13 K21 ["Types"]
+       60 GETTABLEKS                       R12 R0 K17 ["Src"]
+       62 GETTABLEKS                       R12 R12 K21 ["Types"]
        64 CALL                             R11 1 1
        65 GETTABLEKS                       R12 R1 K22 ["getFIntDistanceAttenuationMaxPoints"]
        67 CALL                             R12 0 1

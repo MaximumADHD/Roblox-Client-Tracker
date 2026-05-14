@@ -11,8 +11,8 @@ PROTO_0:
        12 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["shouldLogAnalytics"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["shouldLogAnalytics"]
         3 CALL                             R5 0 1
         4 JUMPIF                           R5 ; [+1]
         5 RETURN                           R0 0
@@ -102,8 +102,8 @@ PROTO_1:
       108 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["shouldLogAnalytics"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["shouldLogAnalytics"]
         3 CALL                             R5 0 1
         4 JUMPIF                           R5 ; [+1]
         5 RETURN                           R0 0
@@ -147,8 +147,8 @@ PROTO_2:
        52 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["shouldLogAnalytics"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["shouldLogAnalytics"]
         3 CALL                             R3 0 1
         4 JUMPIF                           R3 ; [+1]
         5 RETURN                           R0 0
@@ -183,15 +183,15 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        19 CALL                             R1 1 1
        20 NEWTABLE                         R2 4 0
        22 DUPCLOSURE                       R3 K8 [PROTO_0]

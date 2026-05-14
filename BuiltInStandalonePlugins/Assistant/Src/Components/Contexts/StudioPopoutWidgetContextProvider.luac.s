@@ -40,18 +40,18 @@ PROTO_2:
         7 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useMemo"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
         3 DUPCLOSURE                       R2 K1 [PROTO_2]
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 NEWTABLE                         R3 0 0
         8 CALL                             R1 2 1
         9 GETUPVAL                         R2 3
-       10 GETUPVAL                         R6 4
-       11 GETTABLEKS                       R5 R6 K2 ["Components"]
-       13 GETTABLEKS                       R4 R5 K3 ["Contexts"]
-       15 GETTABLEKS                       R3 R4 K4 ["PopoutWidgetContextProvider"]
+       10 GETUPVAL                         R3 4
+       11 GETTABLEKS                       R3 R3 K2 ["Components"]
+       13 GETTABLEKS                       R3 R3 K3 ["Contexts"]
+       15 GETTABLEKS                       R3 R3 K4 ["PopoutWidgetContextProvider"]
        17 DUPTABLE                         R4 K6 [{"option"}]
        18 SETTABLEKS                       R1 R4 K5 ["option"]
        20 GETTABLEKS                       R5 R0 K7 ["children"]
@@ -65,26 +65,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AssistantUI"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Hooks"]
-       27 GETTABLEKS                       R4 R5 K11 ["useDialogWidget"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Hooks"]
+       27 GETTABLEKS                       R4 R4 K11 ["useDialogWidget"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Hooks"]
-       36 GETTABLEKS                       R5 R6 K12 ["usePopoutMenu"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Hooks"]
+       36 GETTABLEKS                       R5 R5 K12 ["usePopoutMenu"]
        38 CALL                             R4 1 1
-       39 GETTABLEKS                       R7 R1 K13 ["Flags"]
-       41 GETTABLEKS                       R6 R7 K14 ["Shared"]
-       43 GETTABLEKS                       R5 R6 K15 ["FFlagAssistantMultipleChatPersistence"]
+       39 GETTABLEKS                       R5 R1 K13 ["Flags"]
+       41 GETTABLEKS                       R5 R5 K14 ["Shared"]
+       43 GETTABLEKS                       R5 R5 K15 ["FFlagAssistantMultipleChatPersistence"]
        45 GETTABLEKS                       R6 R2 K16 ["createElement"]
        47 DUPCLOSURE                       R7 K17 [PROTO_0]
        48 CAPTURE                          VAL R4

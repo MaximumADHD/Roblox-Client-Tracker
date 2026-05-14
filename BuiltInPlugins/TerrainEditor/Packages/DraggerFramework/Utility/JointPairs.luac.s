@@ -78,10 +78,10 @@ PROTO_2:
        36 CALL                             R14 2 1
        37 DIV                              R13 R14 R8
        38 DIV                              R12 R13 R8
-       39 MUL                              R16 R12 R6
-       40 ADD                              R15 R2 R16
-       41 SUB                              R14 R0 R15
-       42 GETTABLEKS                       R13 R14 K0 ["Magnitude"]
+       39 MUL                              R15 R12 R6
+       40 ADD                              R14 R2 R15
+       41 SUB                              R13 R0 R14
+       42 GETTABLEKS                       R13 R13 K0 ["Magnitude"]
        44 LOADK                            R14 K8 [0.001]
        45 JUMPIFNOTLT                      R14 R13 ; [+3]
        47 LOADB                            R14 0
@@ -110,8 +110,8 @@ PROTO_2:
        76 LOADB                            R16 0 +1
        77 LOADB                            R16 1
        78 RETURN                           R16 1
-       79 GETUPVAL                         R13 0
-       80 GETTABLEKS                       R12 R13 K11 ["intersectRayRay"]
+       79 GETUPVAL                         R12 0
+       80 GETTABLEKS                       R12 R12 K11 ["intersectRayRay"]
        82 MOVE                             R13 R0
        83 MOVE                             R14 R5
        84 MOVE                             R15 R2
@@ -123,8 +123,8 @@ PROTO_2:
        91 JUMPIFNOTLT                      R14 R13 ; [+3]
        93 LOADB                            R14 0
        94 RETURN                           R14 1
-       95 GETUPVAL                         R15 0
-       96 GETTABLEKS                       R14 R15 K11 ["intersectRayRay"]
+       95 GETUPVAL                         R14 0
+       96 GETTABLEKS                       R14 R14 K11 ["intersectRayRay"]
        98 MOVE                             R15 R2
        99 MOVE                             R16 R6
       100 MOVE                             R17 R0
@@ -457,16 +457,16 @@ PROTO_11:
        10 NEWCLOSURE                       R8 P0
        11 CAPTURE                          VAL R7
        12 CAPTURE                          VAL R8
-       13 GETUPVAL                         R10 1
-       14 GETTABLEKS                       R9 R10 K2 ["Terrain"]
+       13 GETUPVAL                         R9 1
+       14 GETTABLEKS                       R9 R9 K2 ["Terrain"]
        16 NEWTABLE                         R10 0 0
        18 NEWTABLE                         R11 0 0
        20 GETIMPORT                        R12 K4 [ipairs]
        22 MOVE                             R13 R0
        23 CALL                             R12 1 3
        24 FORGPREP_INEXT                   R12
-       25 GETTABLEKS                       R19 R16 K6 ["Size"]
-       27 GETTABLEKS                       R18 R19 K7 ["Magnitude"]
+       25 GETTABLEKS                       R18 R16 K6 ["Size"]
+       27 GETTABLEKS                       R18 R18 K7 ["Magnitude"]
        29 DIVK                             R17 R18 K5 [2]
        30 ADDK                             R19 R17 K8 [0.1]
        31 ADDK                             R20 R17 K8 [0.1]
@@ -522,13 +522,13 @@ PROTO_11:
       103 GETTABLE                         R25 R2 R26
       104 JUMPIF                           R25 ; [+37]
       105 JUMPIFEQ                         R24 R9 ; [+36]
-      107 GETTABLEKS                       R27 R24 K6 ["Size"]
-      109 GETTABLEKS                       R26 R27 K7 ["Magnitude"]
+      107 GETTABLEKS                       R26 R24 K6 ["Size"]
+      109 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
       111 DIVK                             R25 R26 K5 [2]
-      112 GETTABLEKS                       R28 R24 K14 ["Position"]
-      114 GETTABLEKS                       R29 R16 K14 ["Position"]
-      116 SUB                              R27 R28 R29
-      117 GETTABLEKS                       R26 R27 K7 ["Magnitude"]
+      112 GETTABLEKS                       R27 R24 K14 ["Position"]
+      114 GETTABLEKS                       R28 R16 K14 ["Position"]
+      116 SUB                              R26 R27 R28
+      117 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
       119 ADD                              R28 R17 R25
       120 ADDK                             R27 R28 K30 [0.05]
       121 JUMPIFNOTLE                      R26 R27 ; [+20]
@@ -582,10 +582,10 @@ PROTO_12:
        33 GETTABLE                         R12 R14 R15
        34 GETTABLEKS                       R14 R6 K3 ["vertices"]
        36 GETTABLE                         R13 R14 R11
-       37 SUB                              R15 R12 R13
-       38 GETTABLEKS                       R14 R15 K5 ["Magnitude"]
-       40 GETUPVAL                         R16 0
-       41 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       37 SUB                              R14 R12 R13
+       38 GETTABLEKS                       R14 R14 K5 ["Magnitude"]
+       40 GETUPVAL                         R15 0
+       41 GETTABLEKS                       R15 R15 K6 ["createElement"]
        43 LOADK                            R16 K7 ["CylinderHandleAdornment"]
        44 DUPTABLE                         R17 K13 [{"CFrame", "Color3", "Radius", "Height", "Adornee"}]
        45 GETIMPORT                        R20 K15 [CFrame.new]
@@ -616,8 +616,8 @@ PROTO_12:
        76 ADD                              R18 R19 R20
        77 SETTABLEKS                       R18 R17 K10 ["Radius"]
        79 SETTABLEKS                       R14 R17 K11 ["Height"]
-       81 GETUPVAL                         R19 2
-       82 GETTABLEKS                       R18 R19 K22 ["Terrain"]
+       81 GETUPVAL                         R18 2
+       82 GETTABLEKS                       R18 R18 K22 ["Terrain"]
        84 SETTABLEKS                       R18 R17 K12 ["Adornee"]
        86 CALL                             R15 2 1
        87 SETTABLE                         R15 R8 R11
@@ -626,16 +626,16 @@ PROTO_12:
        90 MOVE                             R10 R6
        91 GETIMPORT                        R9 K24 [tostring]
        93 CALL                             R9 1 1
-       94 GETUPVAL                         R11 0
-       95 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       94 GETUPVAL                         R10 0
+       95 GETTABLEKS                       R10 R10 K6 ["createElement"]
        97 LOADK                            R11 K25 ["Folder"]
        98 NEWTABLE                         R12 0 0
       100 MOVE                             R13 R8
       101 CALL                             R10 3 1
       102 SETTABLE                         R10 R2 R9
       103 FORGLOOP                         R3 2 ; [-96]
-      105 GETUPVAL                         R4 0
-      106 GETTABLEKS                       R3 R4 K26 ["createFragment"]
+      105 GETUPVAL                         R3 0
+      106 GETTABLEKS                       R3 R3 K26 ["createFragment"]
       108 MOVE                             R4 R2
       109 CALL                             R3 1 -1
       110 RETURN                           R3 -1
@@ -667,22 +667,22 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       13 GETTABLEKS                       R3 R1 K6 ["Parent"]
-       15 GETTABLEKS                       R2 R3 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
        17 GETIMPORT                        R3 K8 [require]
-       19 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       21 GETTABLEKS                       R4 R5 K10 ["Roact"]
+       19 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K10 ["Roact"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K8 [require]
-       26 GETTABLEKS                       R6 R1 K11 ["Utility"]
-       28 GETTABLEKS                       R5 R6 K12 ["Colors"]
+       26 GETTABLEKS                       R5 R1 K11 ["Utility"]
+       28 GETTABLEKS                       R5 R5 K12 ["Colors"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K8 [require]
-       33 GETTABLEKS                       R7 R1 K11 ["Utility"]
-       35 GETTABLEKS                       R6 R7 K13 ["Math"]
+       33 GETTABLEKS                       R6 R1 K11 ["Utility"]
+       35 GETTABLEKS                       R6 R6 K13 ["Math"]
        37 CALL                             R5 1 1
        38 NEWTABLE                         R6 4 0
        40 SETTABLEKS                       R6 R6 K14 ["__index"]

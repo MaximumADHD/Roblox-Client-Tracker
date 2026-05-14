@@ -467,37 +467,37 @@ PROTO_13:
        46 LENGTH                           R6 R9
        47 LOADN                            R7 1
        48 FORNPREP                         R6
-       49 GETUPVAL                         R12 0
-       50 GETTABLE                         R11 R12 R8
-       51 GETTABLEKS                       R10 R11 K10 ["AbsolutePosition"]
-       53 GETTABLEKS                       R9 R10 K3 ["X"]
+       49 GETUPVAL                         R10 0
+       50 GETTABLE                         R9 R10 R8
+       51 GETTABLEKS                       R9 R9 K10 ["AbsolutePosition"]
+       53 GETTABLEKS                       R9 R9 K3 ["X"]
        55 GETTABLEKS                       R10 R3 K3 ["X"]
        57 JUMPIFNOTLE                      R10 R9 ; [+53]
-       59 GETUPVAL                         R12 0
-       60 GETTABLE                         R11 R12 R8
-       61 GETTABLEKS                       R10 R11 K10 ["AbsolutePosition"]
-       63 GETTABLEKS                       R9 R10 K7 ["Y"]
+       59 GETUPVAL                         R10 0
+       60 GETTABLE                         R9 R10 R8
+       61 GETTABLEKS                       R9 R9 K10 ["AbsolutePosition"]
+       63 GETTABLEKS                       R9 R9 K7 ["Y"]
        65 GETTABLEKS                       R10 R3 K7 ["Y"]
        67 JUMPIFNOTLE                      R10 R9 ; [+43]
-       69 GETUPVAL                         R13 0
-       70 GETTABLE                         R12 R13 R8
-       71 GETTABLEKS                       R11 R12 K10 ["AbsolutePosition"]
-       73 GETTABLEKS                       R10 R11 K3 ["X"]
-       75 GETUPVAL                         R14 0
-       76 GETTABLE                         R13 R14 R8
-       77 GETTABLEKS                       R12 R13 K11 ["AbsoluteSize"]
-       79 GETTABLEKS                       R11 R12 K3 ["X"]
+       69 GETUPVAL                         R11 0
+       70 GETTABLE                         R10 R11 R8
+       71 GETTABLEKS                       R10 R10 K10 ["AbsolutePosition"]
+       73 GETTABLEKS                       R10 R10 K3 ["X"]
+       75 GETUPVAL                         R12 0
+       76 GETTABLE                         R11 R12 R8
+       77 GETTABLEKS                       R11 R11 K11 ["AbsoluteSize"]
+       79 GETTABLEKS                       R11 R11 K3 ["X"]
        81 ADD                              R9 R10 R11
        82 GETTABLEKS                       R10 R4 K3 ["X"]
        84 JUMPIFNOTLE                      R9 R10 ; [+26]
-       86 GETUPVAL                         R13 0
-       87 GETTABLE                         R12 R13 R8
-       88 GETTABLEKS                       R11 R12 K10 ["AbsolutePosition"]
-       90 GETTABLEKS                       R10 R11 K7 ["Y"]
-       92 GETUPVAL                         R14 0
-       93 GETTABLE                         R13 R14 R8
-       94 GETTABLEKS                       R12 R13 K11 ["AbsoluteSize"]
-       96 GETTABLEKS                       R11 R12 K7 ["Y"]
+       86 GETUPVAL                         R11 0
+       87 GETTABLE                         R10 R11 R8
+       88 GETTABLEKS                       R10 R10 K10 ["AbsolutePosition"]
+       90 GETTABLEKS                       R10 R10 K7 ["Y"]
+       92 GETUPVAL                         R12 0
+       93 GETTABLE                         R11 R12 R8
+       94 GETTABLEKS                       R11 R11 K11 ["AbsoluteSize"]
+       96 GETTABLEKS                       R11 R11 K7 ["Y"]
        98 ADD                              R9 R10 R11
        99 GETTABLEKS                       R10 R4 K7 ["Y"]
       101 JUMPIFNOTLE                      R9 R10 ; [+9]
@@ -545,37 +545,37 @@ PROTO_14:
        46 LENGTH                           R7 R10
        47 LOADN                            R8 1
        48 FORNPREP                         R7
-       49 GETUPVAL                         R13 0
-       50 GETTABLE                         R12 R13 R9
-       51 GETTABLEKS                       R11 R12 K10 ["AbsolutePosition"]
-       53 GETTABLEKS                       R10 R11 K3 ["X"]
+       49 GETUPVAL                         R11 0
+       50 GETTABLE                         R10 R11 R9
+       51 GETTABLEKS                       R10 R10 K10 ["AbsolutePosition"]
+       53 GETTABLEKS                       R10 R10 K3 ["X"]
        55 GETTABLEKS                       R11 R4 K3 ["X"]
        57 JUMPIFNOTLE                      R11 R10 ; [+53]
-       59 GETUPVAL                         R13 0
-       60 GETTABLE                         R12 R13 R9
-       61 GETTABLEKS                       R11 R12 K10 ["AbsolutePosition"]
-       63 GETTABLEKS                       R10 R11 K7 ["Y"]
+       59 GETUPVAL                         R11 0
+       60 GETTABLE                         R10 R11 R9
+       61 GETTABLEKS                       R10 R10 K10 ["AbsolutePosition"]
+       63 GETTABLEKS                       R10 R10 K7 ["Y"]
        65 GETTABLEKS                       R11 R4 K7 ["Y"]
        67 JUMPIFNOTLE                      R11 R10 ; [+43]
-       69 GETUPVAL                         R14 0
-       70 GETTABLE                         R13 R14 R9
-       71 GETTABLEKS                       R12 R13 K10 ["AbsolutePosition"]
-       73 GETTABLEKS                       R11 R12 K3 ["X"]
-       75 GETUPVAL                         R15 0
-       76 GETTABLE                         R14 R15 R9
-       77 GETTABLEKS                       R13 R14 K11 ["AbsoluteSize"]
-       79 GETTABLEKS                       R12 R13 K3 ["X"]
+       69 GETUPVAL                         R12 0
+       70 GETTABLE                         R11 R12 R9
+       71 GETTABLEKS                       R11 R11 K10 ["AbsolutePosition"]
+       73 GETTABLEKS                       R11 R11 K3 ["X"]
+       75 GETUPVAL                         R13 0
+       76 GETTABLE                         R12 R13 R9
+       77 GETTABLEKS                       R12 R12 K11 ["AbsoluteSize"]
+       79 GETTABLEKS                       R12 R12 K3 ["X"]
        81 ADD                              R10 R11 R12
        82 GETTABLEKS                       R11 R5 K3 ["X"]
        84 JUMPIFNOTLE                      R10 R11 ; [+26]
-       86 GETUPVAL                         R14 0
-       87 GETTABLE                         R13 R14 R9
-       88 GETTABLEKS                       R12 R13 K10 ["AbsolutePosition"]
-       90 GETTABLEKS                       R11 R12 K7 ["Y"]
-       92 GETUPVAL                         R15 0
-       93 GETTABLE                         R14 R15 R9
-       94 GETTABLEKS                       R13 R14 K11 ["AbsoluteSize"]
-       96 GETTABLEKS                       R12 R13 K7 ["Y"]
+       86 GETUPVAL                         R12 0
+       87 GETTABLE                         R11 R12 R9
+       88 GETTABLEKS                       R11 R11 K10 ["AbsolutePosition"]
+       90 GETTABLEKS                       R11 R11 K7 ["Y"]
+       92 GETUPVAL                         R13 0
+       93 GETTABLE                         R12 R13 R9
+       94 GETTABLEKS                       R12 R12 K11 ["AbsoluteSize"]
+       96 GETTABLEKS                       R12 R12 K7 ["Y"]
        98 ADD                              R10 R11 R12
        99 GETTABLEKS                       R11 R5 K7 ["Y"]
       101 JUMPIFNOTLE                      R10 R11 ; [+9]
@@ -616,24 +616,24 @@ PROTO_14:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Utility"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Utility"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["SelectionManager"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["SelectionManager"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K1 [require]
-       21 GETIMPORT                        R5 K3 [script]
-       23 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K7 ["InstanceInfo"]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["InstanceInfo"]
        27 CALL                             R2 1 1
        28 GETIMPORT                        R3 K1 [require]
-       30 GETIMPORT                        R6 K3 [script]
-       32 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       34 GETTABLEKS                       R4 R5 K8 ["Analytics"]
+       30 GETIMPORT                        R4 K3 [script]
+       32 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       34 GETTABLEKS                       R4 R4 K8 ["Analytics"]
        36 CALL                             R3 1 1
        37 GETIMPORT                        R4 K10 [game]
        39 LOADK                            R6 K11 ["StarterGui"]

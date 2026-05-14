@@ -8,8 +8,8 @@ PROTO_0:
         7 NAMECALL                         R2 R2 K1 ["dispatch"]
         9 CALL                             R2 -1 0
        10 RETURN                           R1 1
-       11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R2 R3 K2 ["shouldDebugWarnings"]
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K2 ["shouldDebugWarnings"]
        14 CALL                             R2 0 1
        15 JUMPIFNOT                        R2 ; [+4]
        16 GETIMPORT                        R2 K4 [warn]
@@ -24,8 +24,8 @@ PROTO_0:
        27 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+9]
         5 GETIMPORT                        R1 K2 [warn]
@@ -89,18 +89,18 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        19 CALL                             R1 1 1
-       20 GETTABLEKS                       R3 R0 K5 ["Src"]
-       22 GETTABLEKS                       R2 R3 K8 ["Actions"]
+       20 GETTABLEKS                       R2 R0 K5 ["Src"]
+       22 GETTABLEKS                       R2 R2 K8 ["Actions"]
        24 GETIMPORT                        R3 K4 [require]
        26 GETTABLEKS                       R4 R2 K9 ["NetworkError"]
        28 CALL                             R3 1 1
@@ -108,14 +108,14 @@ MAIN:
        31 GETTABLEKS                       R5 R2 K10 ["SetPublishingRequirements"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K4 [require]
-       36 GETTABLEKS                       R8 R0 K5 ["Src"]
-       38 GETTABLEKS                       R7 R8 K11 ["Types"]
-       40 GETTABLEKS                       R6 R7 K12 ["AssetSubTypes"]
+       36 GETTABLEKS                       R6 R0 K5 ["Src"]
+       38 GETTABLEKS                       R6 R6 K11 ["Types"]
+       40 GETTABLEKS                       R6 R6 K12 ["AssetSubTypes"]
        42 CALL                             R5 1 1
        43 GETIMPORT                        R6 K4 [require]
-       45 GETTABLEKS                       R9 R0 K5 ["Src"]
-       47 GETTABLEKS                       R8 R9 K11 ["Types"]
-       49 GETTABLEKS                       R7 R8 K13 ["PublishingRequirementsType"]
+       45 GETTABLEKS                       R7 R0 K5 ["Src"]
+       47 GETTABLEKS                       R7 R7 K11 ["Types"]
+       49 GETTABLEKS                       R7 R7 K13 ["PublishingRequirementsType"]
        51 CALL                             R6 1 1
        52 DUPCLOSURE                       R7 K14 [PROTO_3]
        53 CAPTURE                          VAL R4

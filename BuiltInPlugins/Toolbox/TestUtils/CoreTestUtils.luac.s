@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 LOADK                            R3 K1 ["TextLabel"]
         4 DUPTABLE                         R4 K7 [{"Text", "Size", "TextSize", "TextWrapped", "BackgroundTransparency"}]
         5 GETIMPORT                        R5 K10 [string.format]
@@ -68,9 +68,9 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Packages"]
         9 GETIMPORT                        R2 K5 [require]
        11 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -78,8 +78,8 @@ MAIN:
        14 GETIMPORT                        R3 K5 [require]
        16 GETTABLEKS                       R4 R1 K7 ["Framework"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R3 K8 ["Util"]
-       21 GETTABLEKS                       R4 R5 K9 ["ThunkWithArgsMiddleware"]
+       19 GETTABLEKS                       R4 R3 K8 ["Util"]
+       21 GETTABLEKS                       R4 R4 K9 ["ThunkWithArgsMiddleware"]
        23 DUPCLOSURE                       R5 K10 [PROTO_0]
        24 CAPTURE                          VAL R2
        25 DUPCLOSURE                       R6 K11 [PROTO_2]

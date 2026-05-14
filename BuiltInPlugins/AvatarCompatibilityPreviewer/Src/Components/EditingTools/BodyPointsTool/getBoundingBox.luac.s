@@ -17,8 +17,8 @@ PROTO_0:
        20 LOADK                            R4 K8 [-∞]
        21 LOADK                            R5 K7 [∞]
        22 LOADK                            R6 K8 [-∞]
-       23 GETTABLEKS                       R8 R0 K9 ["worldModel"]
-       25 GETTABLEKS                       R7 R8 K10 ["PrimaryPart"]
+       23 GETTABLEKS                       R7 R0 K9 ["worldModel"]
+       25 GETTABLEKS                       R7 R7 K10 ["PrimaryPart"]
        27 GETTABLEKS                       R8 R0 K0 ["selectedPoints"]
        29 LOADNIL                          R9
        30 LOADNIL                          R10
@@ -77,8 +77,8 @@ PROTO_0:
        98 GETIMPORT                        R8 K6 [Vector3.new]
       100 CALL                             R8 3 1
       101 GETTABLEKS                       R10 R7 K2 ["CFrame"]
-      103 GETTABLEKS                       R13 R7 K2 ["CFrame"]
-      105 GETTABLEKS                       R12 R13 K19 ["Rotation"]
+      103 GETTABLEKS                       R12 R7 K2 ["CFrame"]
+      105 GETTABLEKS                       R12 R12 K19 ["Rotation"]
       107 MUL                              R11 R12 R8
       108 ADD                              R9 R10 R11
       109 FASTCALL                         VECTOR ; [+2]
@@ -96,11 +96,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R6 R0 K6 ["Src"]
-       11 GETTABLEKS                       R5 R6 K7 ["Components"]
-       13 GETTABLEKS                       R4 R5 K8 ["EditingTools"]
-       15 GETTABLEKS                       R3 R4 K9 ["BodyPointsTool"]
-       17 GETTABLEKS                       R2 R3 K10 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["EditingTools"]
+       15 GETTABLEKS                       R2 R2 K9 ["BodyPointsTool"]
+       17 GETTABLEKS                       R2 R2 K10 ["Types"]
        19 CALL                             R1 1 1
        20 DUPCLOSURE                       R2 K11 [PROTO_0]
        21 RETURN                           R2 1

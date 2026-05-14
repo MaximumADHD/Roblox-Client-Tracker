@@ -10,18 +10,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R4 K1 [script]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K7 ["Action"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["Action"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K8 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Util"]
-       22 GETTABLEKS                       R3 R4 K10 ["PathUtils"]
+       18 GETTABLEKS                       R3 R0 K8 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["PathUtils"]
        24 CALL                             R2 1 1
        25 MOVE                             R3 R1
-       26 GETIMPORT                        R5 K1 [script]
-       28 GETTABLEKS                       R4 R5 K11 ["Name"]
+       26 GETIMPORT                        R4 K1 [script]
+       28 GETTABLEKS                       R4 R4 K11 ["Name"]
        30 DUPCLOSURE                       R5 K12 [PROTO_0]
        31 CALL                             R3 2 -1
        32 RETURN                           R3 -1

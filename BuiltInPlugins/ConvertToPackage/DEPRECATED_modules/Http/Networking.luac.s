@@ -18,8 +18,8 @@ PROTO_0:
        21 NAMECALL                         R1 R0 K4 ["find"]
        23 CALL                             R1 2 1
        24 JUMPIFNOT                        R1 ; [+4]
-       25 GETUPVAL                         R2 0
-       26 GETTABLEKS                       R1 R2 K6 ["OK"]
+       25 GETUPVAL                         R1 0
+       26 GETTABLEKS                       R1 R1 K6 ["OK"]
        28 RETURN                           R1 1
        29 LOADK                            R3 K7 ["curl_easy_perform"]
        30 NAMECALL                         R1 R0 K4 ["find"]
@@ -29,11 +29,11 @@ PROTO_0:
        35 NAMECALL                         R1 R0 K4 ["find"]
        37 CALL                             R1 2 1
        38 JUMPIFNOT                        R1 ; [+4]
-       39 GETUPVAL                         R2 0
-       40 GETTABLEKS                       R1 R2 K9 ["BAD_TLS"]
+       39 GETUPVAL                         R1 0
+       40 GETTABLEKS                       R1 R1 K9 ["BAD_TLS"]
        42 RETURN                           R1 1
-       43 GETUPVAL                         R2 0
-       44 GETTABLEKS                       R1 R2 K10 ["UNKNOWN_ERROR"]
+       43 GETUPVAL                         R1 0
+       44 GETTABLEKS                       R1 R1 K10 ["UNKNOWN_ERROR"]
        46 RETURN                           R1 1
 
 PROTO_1:
@@ -46,15 +46,15 @@ PROTO_1:
         9 CALL                             R6 0 1
        10 SUB                              R8 R6 R3
        11 MULK                             R7 R8 K4 [1000]
-       12 GETUPVAL                         R9 0
-       13 GETTABLEKS                       R8 R9 K5 ["OK"]
+       12 GETUPVAL                         R8 0
+       13 GETTABLEKS                       R8 R8 K5 ["OK"]
        15 JUMPIF                           R4 ; [+4]
        16 GETUPVAL                         R9 1
        17 MOVE                             R10 R5
        18 CALL                             R9 1 1
        19 MOVE                             R8 R9
-       20 GETUPVAL                         R10 2
-       21 GETTABLEKS                       R9 R10 K6 ["new"]
+       20 GETUPVAL                         R9 2
+       21 GETTABLEKS                       R9 R9 K6 ["new"]
        23 MOVE                             R10 R5
        24 MOVE                             R11 R7
        25 MOVE                             R12 R8
@@ -147,8 +147,8 @@ PROTO_10:
         5 CALL                             R1 1 -1
         6 CALL                             R0 -1 1
         7 GETTABLEKS                       R1 R0 K2 ["responseCode"]
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K3 ["OK"]
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K3 ["OK"]
        12 JUMPIFNOTEQ                      R1 R2 ; [+5]
        14 GETUPVAL                         R1 3
        15 MOVE                             R2 R0
@@ -175,8 +175,8 @@ PROTO_12:
         1 NEWTABLE                         R1 0 0
         3 GETVARARGS                       R2 -1
         4 SETLIST                          R1 R2 -1 [1]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["new"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K0 ["new"]
         9 NEWCLOSURE                       R3 P0
        10 CAPTURE                          VAL R0
        11 CAPTURE                          VAL R1
@@ -307,8 +307,8 @@ PROTO_25:
 PROTO_26:
         0 JUMPIFNOT                        R0 ; [+23]
         1 GETTABLEKS                       R2 R1 K0 ["StatusCode"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["BAD_REQUEST"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["BAD_REQUEST"]
         6 JUMPIFNOTLE                      R3 R2 ; [+12]
         8 GETUPVAL                         R2 1
         9 LOADK                            R4 K2 ["HTTP error: "]
@@ -358,8 +358,8 @@ PROTO_28:
         9 RETURN                           R0 0
 
 PROTO_29:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R1
@@ -370,19 +370,19 @@ PROTO_29:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Promise"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Promise"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["HttpResponse"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["HttpResponse"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K1 [require]
-       21 GETIMPORT                        R5 K3 [script]
-       23 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K7 ["StatusCodes"]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["StatusCodes"]
        27 CALL                             R2 1 1
        28 GETIMPORT                        R3 K9 [game]
        30 LOADK                            R5 K10 ["HttpService"]

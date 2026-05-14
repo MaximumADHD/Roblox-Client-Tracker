@@ -125,34 +125,34 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R1 K8 [{"DraftAdded", "DraftRemoved", "DraftStatusChanged", "EditorsListChanged", "UpdateStatusChanged", "CommitStatusChanged", "__testCase", "__drafts"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K9 ["new"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K9 ["new"]
         4 CALL                             R2 0 1
         5 SETTABLEKS                       R2 R1 K0 ["DraftAdded"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K9 ["new"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K9 ["new"]
        10 CALL                             R2 0 1
        11 SETTABLEKS                       R2 R1 K1 ["DraftRemoved"]
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R2 R3 K9 ["new"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K9 ["new"]
        16 CALL                             R2 0 1
        17 SETTABLEKS                       R2 R1 K2 ["DraftStatusChanged"]
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K9 ["new"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K9 ["new"]
        22 CALL                             R2 0 1
        23 SETTABLEKS                       R2 R1 K3 ["EditorsListChanged"]
-       25 GETUPVAL                         R3 0
-       26 GETTABLEKS                       R2 R3 K9 ["new"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K9 ["new"]
        28 CALL                             R2 0 1
        29 SETTABLEKS                       R2 R1 K4 ["UpdateStatusChanged"]
-       31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R2 R3 K9 ["new"]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEKS                       R2 R2 K9 ["new"]
        34 CALL                             R2 0 1
        35 SETTABLEKS                       R2 R1 K5 ["CommitStatusChanged"]
        37 MOVE                             R2 R0
        38 JUMPIF                           R2 ; [+3]
-       39 GETUPVAL                         R3 1
-       40 GETTABLEKS                       R2 R3 K10 ["DEFAULT"]
+       39 GETUPVAL                         R2 1
+       40 GETTABLEKS                       R2 R2 K10 ["DEFAULT"]
        42 SETTABLEKS                       R2 R1 K6 ["__testCase"]
        44 NEWTABLE                         R2 0 0
        46 SETTABLEKS                       R2 R1 K7 ["__drafts"]
@@ -182,8 +182,8 @@ PROTO_6:
        79 GETIMPORT                        R3 K15 [assert]
        81 CALL                             R3 2 0
        82 GETTABLEKS                       R2 R1 K6 ["__testCase"]
-       84 GETUPVAL                         R4 1
-       85 GETTABLEKS                       R3 R4 K20 ["EMPTY_TEST"]
+       84 GETUPVAL                         R3 1
+       85 GETTABLEKS                       R3 R3 K20 ["EMPTY_TEST"]
        87 JUMPIFEQ                         R2 R3 ; [+6]
        89 GETUPVAL                         R2 2
        90 LOADN                            R3 10
@@ -202,8 +202,8 @@ PROTO_7:
         3 CALL                             R2 0 -1
         4 CALL                             R1 -1 0
         5 GETTABLEKS                       R1 R0 K2 ["__testCase"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K3 ["SERVICE_DISABLED"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K3 ["SERVICE_DISABLED"]
        10 JUMPIFNOTEQ                      R1 R2 ; [+5]
        12 GETIMPORT                        R1 K5 [error]
        14 LOADK                            R2 K6 ["DraftsService is not available"]
@@ -411,8 +411,8 @@ PROTO_13:
        61 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["DraftRemoved"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["DraftRemoved"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R0 R0 K1 ["fire"]
         6 CALL                             R0 2 0
@@ -458,8 +458,8 @@ PROTO_15:
        48 MOVE                             R3 R1
        49 CALL                             R2 1 3
        50 FORGPREP_INEXT                   R2
-       51 GETIMPORT                        R8 K17 [game]
-       53 GETTABLEKS                       R7 R8 K18 ["ServerScriptService"]
+       51 GETIMPORT                        R7 K17 [game]
+       53 GETTABLEKS                       R7 R7 K18 ["ServerScriptService"]
        55 SETTABLEKS                       R7 R6 K19 ["Parent"]
        57 GETTABLEKS                       R7 R0 K20 ["CommitStatusChanged"]
        59 MOVE                             R9 R6
@@ -485,14 +485,14 @@ MAIN:
         4 LOADN                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
         7 CALL                             R0 3 0
-        8 GETIMPORT                        R3 K5 [script]
-       10 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       12 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       14 GETTABLEKS                       R0 R1 K6 ["Parent"]
+        8 GETIMPORT                        R0 K5 [script]
+       10 GETTABLEKS                       R0 R0 K6 ["Parent"]
+       12 GETTABLEKS                       R0 R0 K6 ["Parent"]
+       14 GETTABLEKS                       R0 R0 K6 ["Parent"]
        16 GETIMPORT                        R1 K8 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Src"]
-       20 GETTABLEKS                       R3 R4 K10 ["Util"]
-       22 GETTABLEKS                       R2 R3 K11 ["Signal"]
+       18 GETTABLEKS                       R2 R0 K9 ["Src"]
+       20 GETTABLEKS                       R2 R2 K10 ["Util"]
+       22 GETTABLEKS                       R2 R2 K11 ["Signal"]
        24 CALL                             R1 1 1
        25 DUPTABLE                         R2 K15 [{"DEFAULT", "EMPTY_TEST", "SERVICE_DISABLED"}]
        26 LOADN                            R3 1

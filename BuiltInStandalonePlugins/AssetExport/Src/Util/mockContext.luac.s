@@ -21,8 +21,8 @@ PROTO_0:
        26 LOADK                            R5 K5 ["Expected children to be a table"]
        27 GETIMPORT                        R3 K7 [assert]
        29 CALL                             R3 2 0
-       30 GETUPVAL                         R4 0
-       31 GETTABLEKS                       R3 R4 K8 ["provideMockContext"]
+       30 GETUPVAL                         R3 0
+       31 GETTABLEKS                       R3 R3 K8 ["provideMockContext"]
        33 MOVE                             R4 R2
        34 MOVE                             R5 R0
        35 CALL                             R3 2 -1
@@ -35,8 +35,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["TestHelpers"]
        16 DUPCLOSURE                       R3 K9 [PROTO_0]

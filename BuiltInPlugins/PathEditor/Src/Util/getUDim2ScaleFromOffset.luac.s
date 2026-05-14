@@ -7,10 +7,10 @@ PROTO_0:
         7 GETTABLEKS                       R2 R1 K2 ["AbsoluteSize"]
         9 GETTABLEKS                       R4 R2 K3 ["X"]
        11 JUMPIFEQKN                       R4 K4 [0] ; [+14]
-       13 GETTABLEKS                       R5 R0 K3 ["X"]
-       15 GETTABLEKS                       R4 R5 K5 ["Scale"]
-       17 GETTABLEKS                       R7 R0 K3 ["X"]
-       19 GETTABLEKS                       R6 R7 K6 ["Offset"]
+       13 GETTABLEKS                       R4 R0 K3 ["X"]
+       15 GETTABLEKS                       R4 R4 K5 ["Scale"]
+       17 GETTABLEKS                       R6 R0 K3 ["X"]
+       19 GETTABLEKS                       R6 R6 K6 ["Offset"]
        21 GETTABLEKS                       R7 R2 K3 ["X"]
        23 DIV                              R5 R6 R7
        24 ADD                              R3 R4 R5
@@ -18,10 +18,10 @@ PROTO_0:
        26 LOADN                            R3 0
        27 GETTABLEKS                       R5 R2 K7 ["Y"]
        29 JUMPIFEQKN                       R5 K4 [0] ; [+14]
-       31 GETTABLEKS                       R6 R0 K7 ["Y"]
-       33 GETTABLEKS                       R5 R6 K5 ["Scale"]
-       35 GETTABLEKS                       R8 R0 K7 ["Y"]
-       37 GETTABLEKS                       R7 R8 K6 ["Offset"]
+       31 GETTABLEKS                       R5 R0 K7 ["Y"]
+       33 GETTABLEKS                       R5 R5 K5 ["Scale"]
+       35 GETTABLEKS                       R7 R0 K7 ["Y"]
+       37 GETTABLEKS                       R7 R7 K6 ["Offset"]
        39 GETTABLEKS                       R8 R2 K7 ["Y"]
        41 DIV                              R6 R7 R8
        42 ADD                              R4 R5 R6
@@ -38,9 +38,9 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 DUPCLOSURE                       R1 K3 [PROTO_0]
        10 RETURN                           R1 1

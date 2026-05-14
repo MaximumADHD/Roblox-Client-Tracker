@@ -24,14 +24,14 @@ PROTO_1:
         9 LOADN                            R2 0
        10 JUMPIF                           R1 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K0 ["setValue"]
-       15 GETUPVAL                         R8 1
-       16 GETTABLEKS                       R7 R8 K1 ["value"]
-       18 GETTABLEKS                       R6 R7 K2 ["Y"]
-       20 GETUPVAL                         R9 1
-       21 GETTABLEKS                       R8 R9 K1 ["value"]
-       23 GETTABLEKS                       R7 R8 K3 ["Z"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K0 ["setValue"]
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R6 R6 K1 ["value"]
+       18 GETTABLEKS                       R6 R6 K2 ["Y"]
+       20 GETUPVAL                         R7 1
+       21 GETTABLEKS                       R7 R7 K1 ["value"]
+       23 GETTABLEKS                       R7 R7 K3 ["Z"]
        25 FASTCALL3                        VECTOR R2 R6 R7
        27 MOVE                             R5 R2
        28 GETIMPORT                        R4 K6 [Vector3.new]
@@ -52,14 +52,14 @@ PROTO_2:
         9 LOADN                            R2 0
        10 JUMPIF                           R1 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K0 ["setValue"]
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K1 ["value"]
-       18 GETTABLEKS                       R5 R6 K2 ["X"]
-       20 GETUPVAL                         R9 1
-       21 GETTABLEKS                       R8 R9 K1 ["value"]
-       23 GETTABLEKS                       R7 R8 K3 ["Z"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K0 ["setValue"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K1 ["value"]
+       18 GETTABLEKS                       R5 R5 K2 ["X"]
+       20 GETUPVAL                         R7 1
+       21 GETTABLEKS                       R7 R7 K1 ["value"]
+       23 GETTABLEKS                       R7 R7 K3 ["Z"]
        25 FASTCALL3                        VECTOR R5 R2 R7
        27 MOVE                             R6 R2
        28 GETIMPORT                        R4 K6 [Vector3.new]
@@ -80,14 +80,14 @@ PROTO_3:
         9 LOADN                            R2 0
        10 JUMPIF                           R1 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K0 ["setValue"]
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K1 ["value"]
-       18 GETTABLEKS                       R5 R6 K2 ["X"]
-       20 GETUPVAL                         R8 1
-       21 GETTABLEKS                       R7 R8 K1 ["value"]
-       23 GETTABLEKS                       R6 R7 K3 ["Y"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K0 ["setValue"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K1 ["value"]
+       18 GETTABLEKS                       R5 R5 K2 ["X"]
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R6 R6 K1 ["value"]
+       23 GETTABLEKS                       R6 R6 K3 ["Y"]
        25 FASTCALL3                        VECTOR R5 R6 R2
        27 MOVE                             R7 R2
        28 GETIMPORT                        R4 K6 [Vector3.new]
@@ -148,8 +148,8 @@ PROTO_7:
         5 CALL                             R2 0 1
         6 GETIMPORT                        R3 K3 [UDim2.fromOffset]
         8 LOADN                            R4 48
-        9 GETUPVAL                         R6 2
-       10 GETTABLEKS                       R5 R6 K4 ["STANDARD_HEIGHT"]
+        9 GETUPVAL                         R5 2
+       10 GETTABLEKS                       R5 R5 K4 ["STANDARD_HEIGHT"]
        12 CALL                             R3 2 1
        13 DUPCLOSURE                       R4 K5 [PROTO_0]
        14 CAPTURE                          UPVAL U3
@@ -165,8 +165,8 @@ PROTO_7:
        24 GETUPVAL                         R8 4
        25 GETUPVAL                         R9 5
        26 NEWTABLE                         R10 4 0
-       28 GETUPVAL                         R12 6
-       29 GETTABLEKS                       R11 R12 K6 ["Tag"]
+       28 GETUPVAL                         R11 6
+       29 GETTABLEKS                       R11 R11 K6 ["Tag"]
        31 LOADK                            R12 K7 ["X-Left X-RowM"]
        32 SETTABLE                         R12 R10 R11
        33 GETTABLEKS                       R11 R0 K8 ["layoutOrder"]
@@ -181,8 +181,8 @@ PROTO_7:
        46 CALL                             R15 0 1
        47 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
        49 SETTABLEKS                       R3 R14 K19 ["Size"]
-       51 GETTABLEKS                       R17 R0 K26 ["value"]
-       53 GETTABLEKS                       R16 R17 K27 ["X"]
+       51 GETTABLEKS                       R16 R0 K26 ["value"]
+       53 GETTABLEKS                       R16 R16 K27 ["X"]
        55 FASTCALL1                        TOSTRING R16 ; [+2]
        56 GETIMPORT                        R15 K29 [tostring]
        58 CALL                             R15 1 1
@@ -209,8 +209,8 @@ PROTO_7:
        85 CALL                             R15 0 1
        86 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
        88 SETTABLEKS                       R3 R14 K19 ["Size"]
-       90 GETTABLEKS                       R17 R0 K26 ["value"]
-       92 GETTABLEKS                       R16 R17 K30 ["Y"]
+       90 GETTABLEKS                       R16 R0 K26 ["value"]
+       92 GETTABLEKS                       R16 R16 K30 ["Y"]
        94 FASTCALL1                        TOSTRING R16 ; [+2]
        95 GETIMPORT                        R15 K29 [tostring]
        97 CALL                             R15 1 1
@@ -237,8 +237,8 @@ PROTO_7:
       124 CALL                             R15 0 1
       125 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
       127 SETTABLEKS                       R3 R14 K19 ["Size"]
-      129 GETTABLEKS                       R17 R0 K26 ["value"]
-      131 GETTABLEKS                       R16 R17 K31 ["Z"]
+      129 GETTABLEKS                       R16 R0 K26 ["value"]
+      131 GETTABLEKS                       R16 R16 K31 ["Z"]
       133 FASTCALL1                        TOSTRING R16 ; [+2]
       134 GETIMPORT                        R15 K29 [tostring]
       136 CALL                             R15 1 1
@@ -261,8 +261,8 @@ PROTO_7:
       159 GETUPVAL                         R12 4
       160 LOADK                            R13 K32 ["TextLabel"]
       161 NEWTABLE                         R14 8 0
-      163 GETUPVAL                         R16 6
-      164 GETTABLEKS                       R15 R16 K6 ["Tag"]
+      163 GETUPVAL                         R15 6
+      164 GETTABLEKS                       R15 R15 K6 ["Tag"]
       166 LOADK                            R16 K33 ["Component-TextLabel"]
       167 SETTABLE                         R16 R14 R15
       168 MOVE                             R15 R2
@@ -289,31 +289,31 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K7 ["Util"]
-       43 GETTABLEKS                       R6 R7 K13 ["isValidNumberInput"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K7 ["Util"]
+       43 GETTABLEKS                       R6 R6 K13 ["isValidNumberInput"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R9 R0 K6 ["Src"]
-       50 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       52 GETTABLEKS                       R7 R8 K15 ["getFFlagAvatarSettingsRemoveVector3PlaceholderLabels"]
+       48 GETTABLEKS                       R7 R0 K6 ["Src"]
+       50 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       52 GETTABLEKS                       R7 R7 K15 ["getFFlagAvatarSettingsRemoveVector3PlaceholderLabels"]
        54 CALL                             R6 1 1
        55 GETTABLEKS                       R7 R2 K16 ["ContextServices"]
        57 GETTABLEKS                       R8 R7 K17 ["Localization"]

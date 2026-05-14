@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getSingleWrapper"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getSingleWrapper"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["new"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["new"]
         7 CALL                             R1 0 1
         8 NEWTABLE                         R4 0 1
        10 MOVE                             R5 R0
@@ -15,14 +15,14 @@ PROTO_0:
        19 RETURN                           R2 2
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getSingleWrapper"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getSingleWrapper"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["getSecondWrapper"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K1 ["getSecondWrapper"]
         7 CALL                             R1 0 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["new"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["new"]
        11 CALL                             R2 0 1
        12 GETIMPORT                        R3 K4 [Instance.new]
        14 LOADK                            R4 K5 ["WrapLayer"]
@@ -58,13 +58,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Util"]
-       11 GETTABLEKS                       R3 R4 K7 ["TestHelpers"]
-       13 GETTABLEKS                       R2 R3 K8 ["MeshWrapperObjectTestHelper"]
+        9 GETTABLEKS                       R2 R0 K6 ["Util"]
+       11 GETTABLEKS                       R2 R2 K7 ["TestHelpers"]
+       13 GETTABLEKS                       R2 R2 K8 ["MeshWrapperObjectTestHelper"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["MeshEditingContexts"]
-       20 GETTABLEKS                       R3 R4 K10 ["MeshEditingContextBase"]
+       18 GETTABLEKS                       R3 R0 K9 ["MeshEditingContexts"]
+       20 GETTABLEKS                       R3 R3 K10 ["MeshEditingContextBase"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 2 0
        25 DUPCLOSURE                       R4 K11 [PROTO_0]

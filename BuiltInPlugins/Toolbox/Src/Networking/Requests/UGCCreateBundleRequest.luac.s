@@ -2,14 +2,14 @@ PROTO_0:
         0 JUMPIFNOT                        R0 ; [+8]
         1 GETTABLEKS                       R1 R0 K0 ["Body"]
         3 JUMPIFNOT                        R1 ; [+5]
-        4 GETTABLEKS                       R2 R0 K0 ["Body"]
-        6 GETTABLEKS                       R1 R2 K1 ["errors"]
+        4 GETTABLEKS                       R1 R0 K0 ["Body"]
+        6 GETTABLEKS                       R1 R1 K1 ["errors"]
         8 JUMPIF                           R1 ; [+2]
         9 LOADNIL                          R1
        10 RETURN                           R1 1
        11 LOADNIL                          R1
-       12 GETTABLEKS                       R5 R0 K0 ["Body"]
-       14 GETTABLEKS                       R2 R5 K1 ["errors"]
+       12 GETTABLEKS                       R2 R0 K0 ["Body"]
+       14 GETTABLEKS                       R2 R2 K1 ["errors"]
        16 LOADNIL                          R3
        17 LOADNIL                          R4
        18 FORGPREP                         R2
@@ -109,11 +109,11 @@ PROTO_2:
        62 JUMPIFEQKNIL                     R15 ; [+50]
        64 GETTABLEKS                       R16 R2 K16 ["Body"]
        66 JUMPIFEQKNIL                     R16 ; [+46]
-       68 GETTABLEKS                       R17 R2 K16 ["Body"]
-       70 GETTABLEKS                       R16 R17 K17 ["errors"]
+       68 GETTABLEKS                       R16 R2 K16 ["Body"]
+       70 GETTABLEKS                       R16 R16 K17 ["errors"]
        72 JUMPIFEQKNIL                     R16 ; [+40]
-       74 GETTABLEKS                       R19 R2 K16 ["Body"]
-       76 GETTABLEKS                       R16 R19 K17 ["errors"]
+       74 GETTABLEKS                       R16 R2 K16 ["Body"]
+       76 GETTABLEKS                       R16 R16 K17 ["errors"]
        78 LOADNIL                          R17
        79 LOADNIL                          R18
        80 FORGPREP                         R16
@@ -145,11 +145,11 @@ PROTO_2:
       113 GETUPVAL                         R16 1
       114 CALL                             R16 0 1
       115 JUMPIFNOT                        R16 ; [+16]
-      116 GETUPVAL                         R17 2
-      117 GETTABLEKS                       R16 R17 K22 ["UGCUploadRequestBundleCreationStatusEvent"]
-      119 GETUPVAL                         R19 2
-      120 GETTABLEKS                       R18 R19 K23 ["Status"]
-      122 GETTABLEKS                       R17 R18 K24 ["Failure"]
+      116 GETUPVAL                         R16 2
+      117 GETTABLEKS                       R16 R16 K22 ["UGCUploadRequestBundleCreationStatusEvent"]
+      119 GETUPVAL                         R17 2
+      120 GETTABLEKS                       R17 R17 K23 ["Status"]
+      122 GETTABLEKS                       R17 R17 K24 ["Failure"]
       124 MOVE                             R18 R3
       125 MOVE                             R19 R4
       126 MOVE                             R20 R5
@@ -158,8 +158,8 @@ PROTO_2:
       129 MOVE                             R23 R2
       130 CALL                             R22 1 1
       131 CALL                             R16 6 0
-      132 GETUPVAL                         R17 4
-      133 GETTABLEKS                       R16 R17 K25 ["shouldDebugWarnings"]
+      132 GETUPVAL                         R16 4
+      133 GETTABLEKS                       R16 R16 K25 ["shouldDebugWarnings"]
       135 CALL                             R16 0 1
       136 JUMPIFNOT                        R16 ; [+5]
       137 GETIMPORT                        R16 K27 [warn]
@@ -220,19 +220,19 @@ PROTO_3:
        27 GETUPVAL                         R2 3
        28 CALL                             R2 0 1
        29 JUMPIFNOT                        R2 ; [+14]
-       30 GETUPVAL                         R3 4
-       31 GETTABLEKS                       R2 R3 K8 ["UGCUploadGetBundleCreationStatusEvent"]
-       33 GETUPVAL                         R5 4
-       34 GETTABLEKS                       R4 R5 K9 ["Status"]
-       36 GETTABLEKS                       R3 R4 K10 ["Success"]
+       30 GETUPVAL                         R2 4
+       31 GETTABLEKS                       R2 R2 K8 ["UGCUploadGetBundleCreationStatusEvent"]
+       33 GETUPVAL                         R3 4
+       34 GETTABLEKS                       R3 R3 K9 ["Status"]
+       36 GETTABLEKS                       R3 R3 K10 ["Success"]
        38 GETUPVAL                         R4 5
        39 GETUPVAL                         R5 6
        40 GETUPVAL                         R6 7
        41 GETUPVAL                         R7 8
        42 MOVE                             R8 R0
        43 CALL                             R2 6 0
-       44 GETUPVAL                         R3 9
-       45 GETTABLEKS                       R2 R3 K11 ["shouldDebugWarnings"]
+       44 GETUPVAL                         R2 9
+       45 GETTABLEKS                       R2 R2 K11 ["shouldDebugWarnings"]
        47 CALL                             R2 0 1
        48 JUMPIFNOT                        R2 ; [+5]
        49 GETIMPORT                        R2 K13 [warn]
@@ -266,11 +266,11 @@ PROTO_3:
        82 GETUPVAL                         R2 3
        83 CALL                             R2 0 1
        84 JUMPIFNOT                        R2 ; [+17]
-       85 GETUPVAL                         R3 4
-       86 GETTABLEKS                       R2 R3 K8 ["UGCUploadGetBundleCreationStatusEvent"]
-       88 GETUPVAL                         R5 4
-       89 GETTABLEKS                       R4 R5 K9 ["Status"]
-       91 GETTABLEKS                       R3 R4 K15 ["Failure"]
+       85 GETUPVAL                         R2 4
+       86 GETTABLEKS                       R2 R2 K8 ["UGCUploadGetBundleCreationStatusEvent"]
+       88 GETUPVAL                         R3 4
+       89 GETTABLEKS                       R3 R3 K9 ["Status"]
+       91 GETTABLEKS                       R3 R3 K15 ["Failure"]
        93 GETUPVAL                         R4 5
        94 GETUPVAL                         R5 6
        95 GETUPVAL                         R6 7
@@ -280,8 +280,8 @@ PROTO_3:
        99 MOVE                             R10 R1
       100 CALL                             R9 1 1
       101 CALL                             R2 7 0
-      102 GETUPVAL                         R3 9
-      103 GETTABLEKS                       R2 R3 K11 ["shouldDebugWarnings"]
+      102 GETUPVAL                         R2 9
+      103 GETTABLEKS                       R2 R2 K11 ["shouldDebugWarnings"]
       105 CALL                             R2 0 1
       106 JUMPIFNOT                        R2 ; [+5]
       107 GETIMPORT                        R2 K13 [warn]
@@ -339,18 +339,18 @@ PROTO_4:
         3 GETUPVAL                         R2 0
         4 CALL                             R2 0 1
         5 JUMPIFNOT                        R2 ; [+13]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["UGCUploadRequestBundleCreationStatusEvent"]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K2 ["Status"]
-       12 GETTABLEKS                       R3 R4 K3 ["Success"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["UGCUploadRequestBundleCreationStatusEvent"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K2 ["Status"]
+       12 GETTABLEKS                       R3 R3 K3 ["Success"]
        14 GETUPVAL                         R4 2
        15 GETUPVAL                         R5 3
        16 GETUPVAL                         R6 4
        17 MOVE                             R7 R1
        18 CALL                             R2 5 0
-       19 GETUPVAL                         R3 5
-       20 GETTABLEKS                       R2 R3 K4 ["shouldDebugWarnings"]
+       19 GETUPVAL                         R2 5
+       20 GETTABLEKS                       R2 R2 K4 ["shouldDebugWarnings"]
        22 CALL                             R2 0 1
        23 JUMPIFNOT                        R2 ; [+5]
        24 GETIMPORT                        R2 K6 [warn]
@@ -381,11 +381,11 @@ PROTO_4:
        55 GETUPVAL                         R2 0
        56 CALL                             R2 0 1
        57 JUMPIFNOT                        R2 ; [+13]
-       58 GETUPVAL                         R3 1
-       59 GETTABLEKS                       R2 R3 K17 ["UGCUploadGetBundleCreationStatusEvent"]
-       61 GETUPVAL                         R5 1
-       62 GETTABLEKS                       R4 R5 K2 ["Status"]
-       64 GETTABLEKS                       R3 R4 K18 ["Start"]
+       58 GETUPVAL                         R2 1
+       59 GETTABLEKS                       R2 R2 K17 ["UGCUploadGetBundleCreationStatusEvent"]
+       61 GETUPVAL                         R3 1
+       62 GETTABLEKS                       R3 R3 K2 ["Status"]
+       64 GETTABLEKS                       R3 R3 K18 ["Start"]
        66 GETUPVAL                         R4 2
        67 GETUPVAL                         R5 3
        68 GETUPVAL                         R6 4
@@ -423,11 +423,11 @@ PROTO_4:
       101 GETUPVAL                         R2 0
       102 CALL                             R2 0 1
       103 JUMPIFNOT                        R2 ; [+16]
-      104 GETUPVAL                         R3 1
-      105 GETTABLEKS                       R2 R3 K1 ["UGCUploadRequestBundleCreationStatusEvent"]
-      107 GETUPVAL                         R5 1
-      108 GETTABLEKS                       R4 R5 K2 ["Status"]
-      110 GETTABLEKS                       R3 R4 K19 ["Failure"]
+      104 GETUPVAL                         R2 1
+      105 GETTABLEKS                       R2 R2 K1 ["UGCUploadRequestBundleCreationStatusEvent"]
+      107 GETUPVAL                         R3 1
+      108 GETTABLEKS                       R3 R3 K2 ["Status"]
+      110 GETTABLEKS                       R3 R3 K19 ["Failure"]
       112 GETUPVAL                         R4 2
       113 GETUPVAL                         R5 3
       114 GETUPVAL                         R6 4
@@ -436,8 +436,8 @@ PROTO_4:
       117 MOVE                             R9 R0
       118 CALL                             R8 1 1
       119 CALL                             R2 6 0
-      120 GETUPVAL                         R3 5
-      121 GETTABLEKS                       R2 R3 K4 ["shouldDebugWarnings"]
+      120 GETUPVAL                         R2 5
+      121 GETTABLEKS                       R2 R2 K4 ["shouldDebugWarnings"]
       123 CALL                             R2 0 1
       124 JUMPIFNOT                        R2 ; [+5]
       125 GETIMPORT                        R2 K6 [warn]
@@ -495,8 +495,8 @@ PROTO_6:
         9 GETUPVAL                         R3 0
        10 CALL                             R3 0 1
        11 JUMPIFNOT                        R3 ; [+6]
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["getAvatarAssetTypeAsString"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["getAvatarAssetTypeAsString"]
        15 GETUPVAL                         R4 2
        16 CALL                             R3 1 1
        17 MOVE                             R2 R3
@@ -580,11 +580,11 @@ PROTO_6:
       104 GETUPVAL                         R6 0
       105 CALL                             R6 0 1
       106 JUMPIFNOT                        R6 ; [+12]
-      107 GETUPVAL                         R7 4
-      108 GETTABLEKS                       R6 R7 K21 ["UGCUploadRequestBundleCreationStatusEvent"]
-      110 GETUPVAL                         R9 4
-      111 GETTABLEKS                       R8 R9 K22 ["Status"]
-      113 GETTABLEKS                       R7 R8 K23 ["Start"]
+      107 GETUPVAL                         R6 4
+      108 GETTABLEKS                       R6 R6 K21 ["UGCUploadRequestBundleCreationStatusEvent"]
+      110 GETUPVAL                         R7 4
+      111 GETTABLEKS                       R7 R7 K22 ["Status"]
+      113 GETTABLEKS                       R7 R7 K23 ["Start"]
       115 MOVE                             R8 R2
       116 GETUPVAL                         R9 5
       117 MOVE                             R10 R3
@@ -637,8 +637,8 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["NetworkError"]
        15 CALL                             R2 1 1
@@ -651,17 +651,17 @@ MAIN:
        26 GETIMPORT                        R5 K7 [require]
        28 GETTABLEKS                       R6 R1 K11 ["UploadResult"]
        30 CALL                             R5 1 1
-       31 GETTABLEKS                       R8 R0 K4 ["Src"]
-       33 GETTABLEKS                       R7 R8 K12 ["Networking"]
-       35 GETTABLEKS                       R6 R7 K13 ["Requests"]
+       31 GETTABLEKS                       R6 R0 K4 ["Src"]
+       33 GETTABLEKS                       R6 R6 K12 ["Networking"]
+       35 GETTABLEKS                       R6 R6 K13 ["Requests"]
        37 GETIMPORT                        R7 K7 [require]
        39 GETTABLEKS                       R8 R6 K14 ["PollForBundleCreationStatus"]
        41 CALL                             R7 1 1
-       42 GETTABLEKS                       R9 R0 K4 ["Src"]
-       44 GETTABLEKS                       R8 R9 K15 ["Util"]
+       42 GETTABLEKS                       R8 R0 K4 ["Src"]
+       44 GETTABLEKS                       R8 R8 K15 ["Util"]
        46 GETIMPORT                        R9 K7 [require]
-       48 GETTABLEKS                       R11 R8 K16 ["Analytics"]
-       50 GETTABLEKS                       R10 R11 K16 ["Analytics"]
+       48 GETTABLEKS                       R10 R8 K16 ["Analytics"]
+       50 GETTABLEKS                       R10 R10 K16 ["Analytics"]
        52 CALL                             R9 1 1
        53 GETIMPORT                        R10 K7 [require]
        55 GETTABLEKS                       R11 R8 K17 ["AssetConfigUtil"]
@@ -670,8 +670,8 @@ MAIN:
        60 GETTABLEKS                       R12 R8 K18 ["DebugFlags"]
        62 CALL                             R11 1 1
        63 GETIMPORT                        R12 K7 [require]
-       65 GETTABLEKS                       R14 R8 K19 ["SharedFlags"]
-       67 GETTABLEKS                       R13 R14 K20 ["getFFlagEnableUGCUploadFlowAnalytics"]
+       65 GETTABLEKS                       R13 R8 K19 ["SharedFlags"]
+       67 GETTABLEKS                       R13 R13 K20 ["getFFlagEnableUGCUploadFlowAnalytics"]
        69 CALL                             R12 1 1
        70 GETIMPORT                        R13 K7 [require]
        72 GETTABLEKS                       R14 R6 K21 ["UGCBundleUploadDataSharingRequest"]

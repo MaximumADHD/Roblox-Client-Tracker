@@ -10,18 +10,18 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R4 R0 K5 ["Src"]
-       11 GETTABLEKS                       R3 R4 K6 ["Util"]
-       13 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Util"]
+       13 GETTABLEKS                       R2 R2 K7 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETIMPORT                        R5 K1 [script]
-       20 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       22 GETTABLEKS                       R3 R4 K8 ["defineLuaFlags"]
+       18 GETIMPORT                        R3 K1 [script]
+       20 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       22 GETTABLEKS                       R3 R3 K8 ["defineLuaFlags"]
        24 CALL                             R2 1 0
        25 GETTABLEKS                       R2 R1 K9 ["RunningUnderCLI"]
        27 CALL                             R2 0 1
@@ -30,22 +30,22 @@ MAIN:
        31 CALL                             R2 0 1
        32 JUMPIFNOT                        R2 ; [+70]
        33 GETIMPORT                        R2 K4 [require]
-       35 GETIMPORT                        R5 K1 [script]
-       37 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       39 GETTABLEKS                       R3 R4 K11 ["commonInit"]
+       35 GETIMPORT                        R3 K1 [script]
+       37 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       39 GETTABLEKS                       R3 R3 K11 ["commonInit"]
        41 CALL                             R2 1 1
        42 MOVE                             R3 R2
        43 CALL                             R3 0 0
        44 GETIMPORT                        R3 K4 [require]
-       46 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       48 GETTABLEKS                       R5 R6 K13 ["Dev"]
-       50 GETTABLEKS                       R4 R5 K14 ["TestEZ"]
+       46 GETTABLEKS                       R4 R0 K12 ["Packages"]
+       48 GETTABLEKS                       R4 R4 K13 ["Dev"]
+       50 GETTABLEKS                       R4 R4 K14 ["TestEZ"]
        52 CALL                             R3 1 1
        53 GETTABLEKS                       R4 R3 K15 ["TestBootstrap"]
-       55 GETTABLEKS                       R6 R3 K16 ["Reporters"]
-       57 GETTABLEKS                       R5 R6 K17 ["TeamCityReporter"]
-       59 GETTABLEKS                       R7 R3 K16 ["Reporters"]
-       61 GETTABLEKS                       R6 R7 K18 ["TextReporter"]
+       55 GETTABLEKS                       R5 R3 K16 ["Reporters"]
+       57 GETTABLEKS                       R5 R5 K17 ["TeamCityReporter"]
+       59 GETTABLEKS                       R6 R3 K16 ["Reporters"]
+       61 GETTABLEKS                       R6 R6 K18 ["TextReporter"]
        63 GETIMPORT                        R9 K21 [_G]
        65 GETTABLEKS                       R8 R9 K19 ["TEAMCITY"]
        67 JUMPIFNOT                        R8 ; [+2]
@@ -60,9 +60,9 @@ MAIN:
        79 CONCAT                           R10 R11 R13
        80 CALL                             R9 1 0
        81 GETIMPORT                        R9 K4 [require]
-       83 GETIMPORT                        R12 K1 [script]
-       85 GETTABLEKS                       R11 R12 K2 ["Parent"]
-       87 GETTABLEKS                       R10 R11 K8 ["defineLuaFlags"]
+       83 GETIMPORT                        R10 K1 [script]
+       85 GETTABLEKS                       R10 R10 K2 ["Parent"]
+       87 GETTABLEKS                       R10 R10 K8 ["defineLuaFlags"]
        89 CALL                             R9 1 0
        90 NEWTABLE                         R11 0 1
        92 MOVE                             R12 R8

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["Localization"]
         5 GETTABLEKS                       R3 R1 K2 ["initialIssueCounts"]
         7 GETUPVAL                         R5 1
@@ -14,8 +14,8 @@ PROTO_0:
        15 FORGPREP                         R6
        16 ADD                              R5 R5 R10
        17 FORGLOOP                         R6 2 ; [-2]
-       19 GETUPVAL                         R7 2
-       20 GETTABLEKS                       R6 R7 K3 ["createElement"]
+       19 GETUPVAL                         R6 2
+       20 GETTABLEKS                       R6 R6 K3 ["createElement"]
        22 GETUPVAL                         R7 3
        23 GETUPVAL                         R8 4
        24 DUPTABLE                         R9 K6 [{"HorizontalAlignment", "Layout"}]
@@ -26,8 +26,8 @@ PROTO_0:
        33 MOVE                             R10 R0
        34 CALL                             R8 2 1
        35 DUPTABLE                         R9 K14 [{"MessageText"}]
-       36 GETUPVAL                         R11 2
-       37 GETTABLEKS                       R10 R11 K3 ["createElement"]
+       36 GETUPVAL                         R10 2
+       37 GETTABLEKS                       R10 R10 K3 ["createElement"]
        39 GETUPVAL                         R11 5
        40 DUPTABLE                         R12 K17 [{"AutomaticSize", "Text"}]
        41 GETIMPORT                        R13 K19 [Enum.AutomaticSize.XY]
@@ -70,11 +70,11 @@ PROTO_2:
         4 GETTABLEKS                       R3 R1 K2 ["LayoutOrder"]
         6 GETTABLEKS                       R4 R1 K3 ["HeaderSize"]
         8 GETTABLEKS                       R5 R1 K4 ["ContentSize"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["new"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["new"]
        13 CALL                             R6 0 1
-       14 GETUPVAL                         R8 1
-       15 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R7 R7 K6 ["createElement"]
        17 GETUPVAL                         R8 2
        18 DUPTABLE                         R9 K14 [{"HeaderComponent", "Size", "Style", "LayoutOrder", "Text", "Expanded", "ContentPadding", "ContentSpacing"}]
        19 GETTABLEKS                       R10 R0 K15 ["customHeader"]
@@ -92,8 +92,8 @@ PROTO_2:
        39 LOADN                            R10 0
        40 SETTABLEKS                       R10 R9 K13 ["ContentSpacing"]
        42 DUPTABLE                         R10 K19 [{"Container"}]
-       43 GETUPVAL                         R12 1
-       44 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       43 GETUPVAL                         R11 1
+       44 GETTABLEKS                       R11 R11 K6 ["createElement"]
        46 GETUPVAL                         R12 3
        47 DUPTABLE                         R13 K23 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
        48 GETIMPORT                        R14 K27 [Enum.FillDirection.Vertical]
@@ -104,8 +104,8 @@ PROTO_2:
        58 SETTABLEKS                       R14 R13 K22 ["VerticalAlignment"]
        60 SETTABLEKS                       R5 R13 K8 ["Size"]
        62 DUPTABLE                         R14 K35 [{"ScriptConversionPaneHeader", "ScriptIssueTreeView", "ScriptConversionPaneFooter"}]
-       63 GETUPVAL                         R16 1
-       64 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       63 GETUPVAL                         R15 1
+       64 GETTABLEKS                       R15 R15 K6 ["createElement"]
        66 GETUPVAL                         R16 4
        67 DUPTABLE                         R17 K36 [{"LayoutOrder", "Size"}]
        68 NAMECALL                         R18 R6 K37 ["getNextOrder"]
@@ -120,8 +120,8 @@ PROTO_2:
        81 SETTABLEKS                       R18 R17 K8 ["Size"]
        83 CALL                             R15 2 1
        84 SETTABLEKS                       R15 R14 K32 ["ScriptConversionPaneHeader"]
-       86 GETUPVAL                         R16 1
-       87 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       86 GETUPVAL                         R15 1
+       87 GETTABLEKS                       R15 R15 K6 ["createElement"]
        89 GETUPVAL                         R16 5
        90 DUPTABLE                         R17 K42 [{"LayoutOrder", "Size", "OnResetPlugin"}]
        91 NAMECALL                         R18 R6 K37 ["getNextOrder"]
@@ -141,8 +141,8 @@ PROTO_2:
       112 SETTABLEKS                       R18 R17 K41 ["OnResetPlugin"]
       114 CALL                             R15 2 1
       115 SETTABLEKS                       R15 R14 K33 ["ScriptIssueTreeView"]
-      117 GETUPVAL                         R16 1
-      118 GETTABLEKS                       R15 R16 K6 ["createElement"]
+      117 GETUPVAL                         R15 1
+      118 GETTABLEKS                       R15 R15 K6 ["createElement"]
       120 GETUPVAL                         R16 6
       121 DUPTABLE                         R17 K36 [{"LayoutOrder", "Size"}]
       122 NAMECALL                         R18 R6 K37 ["getNextOrder"]
@@ -164,8 +164,8 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"initialIssueCounts"}]
-        1 GETTABLEKS                       R4 R0 K2 ["ScriptConversion"]
-        3 GETTABLEKS                       R3 R4 K0 ["initialIssueCounts"]
+        1 GETTABLEKS                       R3 R0 K2 ["ScriptConversion"]
+        3 GETTABLEKS                       R3 R3 K0 ["initialIssueCounts"]
         5 SETTABLEKS                       R3 R2 K0 ["initialIssueCounts"]
         7 RETURN                           R2 1
 
@@ -176,20 +176,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["Dash"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["Dash"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R4 K11 ["join"]
        37 GETTABLEKS                       R6 R4 K12 ["keys"]
@@ -201,19 +201,19 @@ MAIN:
        49 GETTABLEKS                       R12 R1 K18 ["Util"]
        51 GETTABLEKS                       R13 R12 K19 ["LayoutOrderIterator"]
        53 GETIMPORT                        R14 K5 [require]
-       55 GETTABLEKS                       R17 R0 K20 ["Src"]
-       57 GETTABLEKS                       R16 R17 K21 ["Components"]
-       59 GETTABLEKS                       R15 R16 K22 ["ScriptIssueTreeView"]
+       55 GETTABLEKS                       R15 R0 K20 ["Src"]
+       57 GETTABLEKS                       R15 R15 K21 ["Components"]
+       59 GETTABLEKS                       R15 R15 K22 ["ScriptIssueTreeView"]
        61 CALL                             R14 1 1
        62 GETIMPORT                        R15 K5 [require]
-       64 GETTABLEKS                       R18 R0 K20 ["Src"]
-       66 GETTABLEKS                       R17 R18 K21 ["Components"]
-       68 GETTABLEKS                       R16 R17 K23 ["ScriptConversionPaneHeader"]
+       64 GETTABLEKS                       R16 R0 K20 ["Src"]
+       66 GETTABLEKS                       R16 R16 K21 ["Components"]
+       68 GETTABLEKS                       R16 R16 K23 ["ScriptConversionPaneHeader"]
        70 CALL                             R15 1 1
        71 GETIMPORT                        R16 K5 [require]
-       73 GETTABLEKS                       R19 R0 K20 ["Src"]
-       75 GETTABLEKS                       R18 R19 K21 ["Components"]
-       77 GETTABLEKS                       R17 R18 K24 ["ScriptConversionPaneFooter"]
+       73 GETTABLEKS                       R17 R0 K20 ["Src"]
+       75 GETTABLEKS                       R17 R17 K21 ["Components"]
+       77 GETTABLEKS                       R17 R17 K24 ["ScriptConversionPaneFooter"]
        79 CALL                             R16 1 1
        80 GETTABLEKS                       R17 R2 K25 ["PureComponent"]
        82 LOADK                            R19 K26 ["ScriptConversionExpandablePane"]

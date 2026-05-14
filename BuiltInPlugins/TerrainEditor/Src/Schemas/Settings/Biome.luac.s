@@ -78,8 +78,8 @@ PROTO_3:
        17 MOVE                             R7 R0
        18 NEWTABLE                         R8 0 6
        20 DUPTABLE                         R9 K6 [{"Id", "Schema", "Validate"}]
-       21 GETUPVAL                         R11 2
-       22 GETTABLEKS                       R10 R11 K1 ["Biomes"]
+       21 GETUPVAL                         R10 2
+       22 GETTABLEKS                       R10 R10 K1 ["Biomes"]
        24 SETTABLEKS                       R10 R9 K3 ["Id"]
        26 DUPTABLE                         R10 K10 [{"Items", "Labels", "Type"}]
        27 GETUPVAL                         R11 0
@@ -92,8 +92,8 @@ PROTO_3:
        38 CAPTURE                          VAL R4
        39 SETTABLEKS                       R10 R9 K5 ["Validate"]
        41 DUPTABLE                         R10 K12 [{"Id", "Schema"}]
-       42 GETUPVAL                         R12 2
-       43 GETTABLEKS                       R11 R12 K13 ["BiomeBlending"]
+       42 GETUPVAL                         R11 2
+       43 GETTABLEKS                       R11 R11 K13 ["BiomeBlending"]
        45 SETTABLEKS                       R11 R10 K3 ["Id"]
        47 DUPTABLE                         R11 K18 [{"Type", "Min", "Max", "ShowInput", "SnapIncrement"}]
        48 LOADK                            R12 K19 ["Slider"]
@@ -108,16 +108,16 @@ PROTO_3:
        61 SETTABLEKS                       R12 R11 K17 ["SnapIncrement"]
        63 SETTABLEKS                       R11 R10 K4 ["Schema"]
        65 DUPTABLE                         R11 K12 [{"Id", "Schema"}]
-       66 GETUPVAL                         R13 2
-       67 GETTABLEKS                       R12 R13 K21 ["Caves"]
+       66 GETUPVAL                         R12 2
+       67 GETTABLEKS                       R12 R12 K21 ["Caves"]
        69 SETTABLEKS                       R12 R11 K3 ["Id"]
        71 DUPTABLE                         R12 K22 [{"Type"}]
        72 LOADK                            R13 K23 ["Checkbox"]
        73 SETTABLEKS                       R13 R12 K9 ["Type"]
        75 SETTABLEKS                       R12 R11 K4 ["Schema"]
        77 DUPTABLE                         R12 K6 [{"Id", "Schema", "Validate"}]
-       78 GETUPVAL                         R14 2
-       79 GETTABLEKS                       R13 R14 K24 ["BiomeSize"]
+       78 GETUPVAL                         R13 2
+       79 GETTABLEKS                       R13 R13 K24 ["BiomeSize"]
        81 SETTABLEKS                       R13 R12 K3 ["Id"]
        83 DUPTABLE                         R13 K22 [{"Type"}]
        84 LOADK                            R14 K25 ["Number"]
@@ -127,8 +127,8 @@ PROTO_3:
        90 CAPTURE                          VAL R4
        91 SETTABLEKS                       R13 R12 K5 ["Validate"]
        93 DUPTABLE                         R13 K6 [{"Id", "Schema", "Validate"}]
-       94 GETUPVAL                         R15 2
-       95 GETTABLEKS                       R14 R15 K26 ["Seed"]
+       94 GETUPVAL                         R14 2
+       95 GETTABLEKS                       R14 R14 K26 ["Seed"]
        97 SETTABLEKS                       R14 R13 K3 ["Id"]
        99 DUPTABLE                         R14 K22 [{"Type"}]
       100 LOADK                            R15 K25 ["Number"]
@@ -138,15 +138,15 @@ PROTO_3:
       106 CAPTURE                          VAL R4
       107 SETTABLEKS                       R14 R13 K5 ["Validate"]
       109 DUPTABLE                         R14 K28 [{"Id", "Layout", "Schema"}]
-      110 GETUPVAL                         R16 2
-      111 GETTABLEKS                       R15 R16 K29 ["Generate"]
+      110 GETUPVAL                         R15 2
+      111 GETTABLEKS                       R15 R15 K29 ["Generate"]
       113 SETTABLEKS                       R15 R14 K3 ["Id"]
       115 GETIMPORT                        R15 K33 [Enum.FillDirection.Vertical]
       117 SETTABLEKS                       R15 R14 K27 ["Layout"]
       119 DUPTABLE                         R15 K35 [{"Label", "Type"}]
       120 GETUPVAL                         R18 3
-      121 GETUPVAL                         R20 2
-      122 GETTABLEKS                       R19 R20 K29 ["Generate"]
+      121 GETUPVAL                         R19 2
+      122 GETTABLEKS                       R19 R19 K29 ["Generate"]
       124 NAMECALL                         R16 R4 K2 ["getText"]
       126 CALL                             R16 3 1
       127 SETTABLEKS                       R16 R15 K34 ["Label"]
@@ -169,13 +169,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["ApplyById"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["ApplyById"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K10 ["Category"]
        25 GETTABLEKS                       R4 R2 K11 ["Biome"]

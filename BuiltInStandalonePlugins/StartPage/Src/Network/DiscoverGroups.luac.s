@@ -49,14 +49,14 @@ PROTO_3:
         9 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["composeUrl"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["CREATOR_GROUPS_SEARCH_URL"]
-        6 GETTABLEKS                       R2 R3 K2 ["Prefix"]
-        8 GETUPVAL                         R5 1
-        9 GETTABLEKS                       R4 R5 K1 ["CREATOR_GROUPS_SEARCH_URL"]
-       11 GETTABLEKS                       R3 R4 K3 ["Url"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["composeUrl"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["CREATOR_GROUPS_SEARCH_URL"]
+        6 GETTABLEKS                       R2 R2 K2 ["Prefix"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K1 ["CREATOR_GROUPS_SEARCH_URL"]
+       11 GETTABLEKS                       R3 R3 K3 ["Url"]
        13 LOADK                            R4 K4 ["StudioStartPage"]
        14 CALL                             R3 1 -1
        15 CALL                             R1 -1 1
@@ -85,42 +85,42 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       19 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K10 ["Framework"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R5 R0 K6 ["Src"]
-       28 GETTABLEKS                       R4 R5 K11 ["Types"]
+       26 GETTABLEKS                       R4 R0 K6 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Types"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K5 [require]
-       33 GETTABLEKS                       R7 R0 K6 ["Src"]
-       35 GETTABLEKS                       R6 R7 K12 ["Models"]
-       37 GETTABLEKS                       R5 R6 K13 ["ApiArrayResponseGroupModel"]
+       33 GETTABLEKS                       R5 R0 K6 ["Src"]
+       35 GETTABLEKS                       R5 R5 K12 ["Models"]
+       37 GETTABLEKS                       R5 R5 K13 ["ApiArrayResponseGroupModel"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Src"]
-       44 GETTABLEKS                       R7 R8 K14 ["Network"]
-       46 GETTABLEKS                       R6 R7 K15 ["Urls"]
+       42 GETTABLEKS                       R6 R0 K6 ["Src"]
+       44 GETTABLEKS                       R6 R6 K14 ["Network"]
+       46 GETTABLEKS                       R6 R6 K15 ["Urls"]
        48 CALL                             R5 1 1
-       49 GETIMPORT                        R7 K5 [require]
-       51 GETTABLEKS                       R10 R0 K6 ["Src"]
-       53 GETTABLEKS                       R9 R10 K16 ["Util"]
-       55 GETTABLEKS                       R8 R9 K17 ["Services"]
-       57 CALL                             R7 1 1
-       58 GETTABLEKS                       R6 R7 K18 ["Networking"]
+       49 GETIMPORT                        R6 K5 [require]
+       51 GETTABLEKS                       R7 R0 K6 ["Src"]
+       53 GETTABLEKS                       R7 R7 K16 ["Util"]
+       55 GETTABLEKS                       R7 R7 K17 ["Services"]
+       57 CALL                             R6 1 1
+       58 GETTABLEKS                       R6 R6 K18 ["Networking"]
        60 GETIMPORT                        R7 K5 [require]
-       62 GETTABLEKS                       R10 R0 K6 ["Src"]
-       64 GETTABLEKS                       R9 R10 K16 ["Util"]
-       66 GETTABLEKS                       R8 R9 K19 ["createResponseValidator"]
+       62 GETTABLEKS                       R8 R0 K6 ["Src"]
+       64 GETTABLEKS                       R8 R8 K16 ["Util"]
+       66 GETTABLEKS                       R8 R8 K19 ["createResponseValidator"]
        68 CALL                             R7 1 1
-       69 GETTABLEKS                       R9 R2 K20 ["RobloxAPI"]
-       71 GETTABLEKS                       R8 R9 K21 ["Url"]
+       69 GETTABLEKS                       R8 R2 K20 ["RobloxAPI"]
+       71 GETTABLEKS                       R8 R8 K21 ["Url"]
        73 GETTABLEKS                       R9 R6 K22 ["new"]
        75 DUPTABLE                         R10 K25 [{"isInternal", "loggingLevel"}]
        76 LOADB                            R11 1
@@ -128,8 +128,8 @@ MAIN:
        79 SETTABLEKS                       R1 R10 K24 ["loggingLevel"]
        81 CALL                             R9 1 1
        82 GETIMPORT                        R10 K5 [require]
-       84 GETTABLEKS                       R12 R0 K9 ["Packages"]
-       86 GETTABLEKS                       R11 R12 K26 ["Dash"]
+       84 GETTABLEKS                       R11 R0 K9 ["Packages"]
+       86 GETTABLEKS                       R11 R11 K26 ["Dash"]
        88 CALL                             R10 1 1
        89 GETTABLEKS                       R11 R10 K27 ["collectArray"]
        91 MOVE                             R12 R7

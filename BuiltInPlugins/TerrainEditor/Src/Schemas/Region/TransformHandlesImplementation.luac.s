@@ -18,19 +18,19 @@ PROTO_1:
         8 GETIMPORT                        R3 K3 [assert]
        10 CALL                             R3 2 0
        11 GETTABLEN                        R3 R1 1
-       12 GETTABLEKS                       R5 R3 K4 ["Region"]
-       14 GETTABLEKS                       R4 R5 K5 ["transform"]
+       12 GETTABLEKS                       R4 R3 K4 ["Region"]
+       14 GETTABLEKS                       R4 R4 K5 ["transform"]
        16 SETTABLEKS                       R4 R0 K6 ["_transform"]
-       18 GETTABLEKS                       R5 R3 K4 ["Region"]
-       20 GETTABLEKS                       R4 R5 K7 ["size"]
+       18 GETTABLEKS                       R4 R3 K4 ["Region"]
+       20 GETTABLEKS                       R4 R4 K7 ["size"]
        22 SETTABLEKS                       R4 R0 K8 ["_size"]
        24 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["_transform"]
         2 MUL                              R2 R1 R3
-        3 GETTABLEKS                       R4 R0 K1 ["_draggerContext"]
-        5 GETTABLEKS                       R3 R4 K2 ["updateRegion"]
+        3 GETTABLEKS                       R3 R0 K1 ["_draggerContext"]
+        5 GETTABLEKS                       R3 R3 K2 ["updateRegion"]
         7 MOVE                             R4 R2
         8 GETTABLEKS                       R5 R0 K3 ["_size"]
        10 CALL                             R3 2 0

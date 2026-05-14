@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Terrain"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Terrain"]
         3 LENGTH                           R4 R0
         4 LOADN                            R2 1
         5 LOADN                            R3 255

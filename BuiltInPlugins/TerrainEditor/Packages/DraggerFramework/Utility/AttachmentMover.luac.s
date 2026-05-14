@@ -72,9 +72,9 @@ MAIN:
         3 LOADK                            R2 K2 ["RunService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 NEWTABLE                         R2 8 0
        15 SETTABLEKS                       R2 R2 K7 ["__index"]
        17 DUPCLOSURE                       R3 K8 [PROTO_0]

@@ -22,13 +22,13 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K2 [{"enabled", "assetId"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K3 ["mockUseSetting"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K3 ["mockUseSetting"]
         4 MOVE                             R4 R0
         5 CALL                             R3 1 1
         6 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K3 ["mockUseSetting"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K3 ["mockUseSetting"]
        11 MOVE                             R4 R1
        12 CALL                             R3 1 1
        13 SETTABLEKS                       R3 R2 K1 ["assetId"]
@@ -41,14 +41,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AvatarSettingsProviderTypes"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarSettingsProviderTypes"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["ProviderTypes"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["ProviderTypes"]
        24 CALL                             R2 1 1
        25 NEWTABLE                         R3 2 0
        27 DUPCLOSURE                       R4 K10 [PROTO_2]

@@ -25,9 +25,9 @@ PROTO_1:
        12 MOVE                             R5 R1
        13 CALL                             R3 2 1
        14 LOADK                            R4 K6 ["{\n"]
-       15 GETUPVAL                         R7 0
-       16 GETTABLEKS                       R6 R7 K7 ["Dictionary"]
-       18 GETTABLEKS                       R5 R6 K8 ["keys"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K7 ["Dictionary"]
+       18 GETTABLEKS                       R5 R5 K8 ["keys"]
        20 MOVE                             R6 R0
        21 CALL                             R5 1 1
        22 GETIMPORT                        R6 K11 [table.sort]
@@ -111,14 +111,14 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K7 [PROTO_1]
        19 CAPTURE                          VAL R1

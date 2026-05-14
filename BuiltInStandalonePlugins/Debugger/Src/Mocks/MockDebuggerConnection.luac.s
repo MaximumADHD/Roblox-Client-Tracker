@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["MockThreadMap"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["MockThreadMap"]
         3 SETTABLE                         R1 R2 R0
         4 RETURN                           R0 0
 
@@ -14,28 +14,28 @@ PROTO_1:
         7 FASTCALL1                        ASSERT R3 ; [+2]
         8 GETIMPORT                        R2 K1 [assert]
        10 CALL                             R2 1 0
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K2 ["MockThreadIdToCallstackMap"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K2 ["MockThreadIdToCallstackMap"]
        14 SETTABLE                         R1 R2 R0
        15 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["MockCallstackFrameToDebuggerVariables"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["MockCallstackFrameToDebuggerVariables"]
         3 SETTABLE                         R1 R2 R0
         4 RETURN                           R0 0
 
 PROTO_3:
         0 NEWTABLE                         R1 16 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["new"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["new"]
         5 LOADN                            R3 1
         6 LOADK                            R4 K1 ["Alex"]
         7 LOADK                            R5 K2 ["Instance"]
         8 LOADK                            R6 K3 ["Map"]
         9 CALL                             R2 4 1
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K0 ["new"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K0 ["new"]
        13 LOADN                            R4 3
        14 LOADK                            R5 K4 ["Alex2"]
        15 LOADK                            R6 K5 ["somePreview"]
@@ -46,22 +46,22 @@ PROTO_3:
        21 SETLIST                          R6 R7 1 [1]
        23 NAMECALL                         R4 R2 K7 ["MockSetChildren"]
        25 CALL                             R4 2 0
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R4 R5 K0 ["new"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K0 ["new"]
        29 LOADN                            R5 2
        30 LOADK                            R6 K8 ["UnitedStates"]
        31 LOADK                            R7 K2 ["Instance"]
        32 LOADK                            R8 K3 ["Map"]
        33 CALL                             R4 4 1
-       34 GETUPVAL                         R6 0
-       35 GETTABLEKS                       R5 R6 K0 ["new"]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K0 ["new"]
        37 LOADN                            R6 4
        38 LOADK                            R7 K9 ["Wisconsin"]
        39 LOADK                            R8 K2 ["Instance"]
        40 LOADK                            R9 K3 ["Map"]
        41 CALL                             R5 4 1
-       42 GETUPVAL                         R7 0
-       43 GETTABLEKS                       R6 R7 K0 ["new"]
+       42 GETUPVAL                         R6 0
+       43 GETTABLEKS                       R6 R6 K0 ["new"]
        45 LOADN                            R7 5
        46 LOADK                            R8 K10 ["Madison"]
        47 LOADK                            R9 K5 ["somePreview"]
@@ -95,12 +95,12 @@ PROTO_3:
        91 NEWTABLE                         R7 0 0
        93 SETTABLEKS                       R7 R1 K16 ["MockCallstackFrameToDebuggerVariables"]
        95 SETTABLEKS                       R0 R1 K17 ["Id"]
-       97 GETUPVAL                         R8 1
-       98 GETTABLEKS                       R7 R8 K0 ["new"]
+       97 GETUPVAL                         R7 1
+       98 GETTABLEKS                       R7 R7 K0 ["new"]
       100 CALL                             R7 0 1
       101 SETTABLEKS                       R7 R1 K18 ["Paused"]
-      103 GETUPVAL                         R8 1
-      104 GETTABLEKS                       R7 R8 K0 ["new"]
+      103 GETUPVAL                         R7 1
+      104 GETTABLEKS                       R7 R7 K0 ["new"]
       106 CALL                             R7 0 1
       107 SETTABLEKS                       R7 R1 K19 ["Resumed"]
       109 NEWCLOSURE                       R7 P0
@@ -132,13 +132,13 @@ PROTO_5:
 
 PROTO_6:
         0 LOADNIL                          R1
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["watchMap"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["watchMap"]
         4 GETUPVAL                         R4 1
         5 GETTABLE                         R2 R3 R4
         6 JUMPIFEQKNIL                     R2 ; [+7]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K0 ["watchMap"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K0 ["watchMap"]
        11 GETUPVAL                         R3 1
        12 GETTABLE                         R1 R2 R3
        13 JUMP                             ; [+5]
@@ -146,12 +146,12 @@ PROTO_6:
        15 LOADN                            R3 1
        16 SETTABLEKS                       R3 R2 K1 ["VariableId"]
        18 MOVE                             R1 R2
-       19 GETUPVAL                         R3 2
-       20 GETTABLEKS                       R2 R3 K3 ["new"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K3 ["new"]
        22 MOVE                             R3 R1
-       23 GETUPVAL                         R6 3
-       24 GETTABLEKS                       R5 R6 K4 ["DebuggerStatus"]
-       26 GETTABLEKS                       R4 R5 K5 ["Success"]
+       23 GETUPVAL                         R4 3
+       24 GETTABLEKS                       R4 R4 K4 ["DebuggerStatus"]
+       26 GETTABLEKS                       R4 R4 K5 ["Success"]
        28 CALL                             R2 2 1
        29 MOVE                             R3 R0
        30 MOVE                             R4 R2
@@ -159,8 +159,8 @@ PROTO_6:
        32 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 NEWCLOSURE                       R5 P0
         4 CAPTURE                          VAL R3
         5 CALL                             R4 1 1
@@ -181,13 +181,13 @@ PROTO_8:
         3 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["MockThreadMap"]
-        6 GETUPVAL                         R5 2
-        7 GETTABLEKS                       R4 R5 K2 ["DebuggerStatus"]
-        9 GETTABLEKS                       R3 R4 K3 ["Success"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["MockThreadMap"]
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K2 ["DebuggerStatus"]
+        9 GETTABLEKS                       R3 R3 K3 ["Success"]
        11 CALL                             R1 2 1
        12 MOVE                             R2 R0
        13 MOVE                             R3 R1
@@ -195,8 +195,8 @@ PROTO_9:
        15 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R1
         5 CALL                             R2 1 1
@@ -239,8 +239,8 @@ PROTO_13:
        22 GETTABLE                         R5 R6 R1
        23 NAMECALL                         R3 R1 K5 ["MockSetChildren"]
        25 CALL                             R3 2 0
-       26 GETUPVAL                         R4 0
-       27 GETTABLEKS                       R3 R4 K8 ["new"]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K8 ["new"]
        29 NEWCLOSURE                       R4 P0
        30 CAPTURE                          VAL R2
        31 CALL                             R3 1 1
@@ -262,45 +262,45 @@ PROTO_15:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Signal"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Signal"]
        20 GETIMPORT                        R3 K4 [require]
-       22 GETIMPORT                        R6 K1 [script]
-       24 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       26 GETTABLEKS                       R4 R5 K9 ["ThreadState"]
+       22 GETIMPORT                        R4 K1 [script]
+       24 GETTABLEKS                       R4 R4 K2 ["Parent"]
+       26 GETTABLEKS                       R4 R4 K9 ["ThreadState"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K4 [require]
-       31 GETIMPORT                        R7 K1 [script]
-       33 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       35 GETTABLEKS                       R5 R6 K10 ["StackFrame"]
+       31 GETIMPORT                        R5 K1 [script]
+       33 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       35 GETTABLEKS                       R5 R5 K10 ["StackFrame"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K4 [require]
-       40 GETIMPORT                        R8 K1 [script]
-       42 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       44 GETTABLEKS                       R6 R7 K11 ["DebuggerVariable"]
+       40 GETIMPORT                        R6 K1 [script]
+       42 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       44 GETTABLEKS                       R6 R6 K11 ["DebuggerVariable"]
        46 CALL                             R5 1 1
        47 GETIMPORT                        R6 K4 [require]
-       49 GETIMPORT                        R9 K1 [script]
-       51 GETTABLEKS                       R8 R9 K2 ["Parent"]
-       53 GETTABLEKS                       R7 R8 K12 ["MockDebuggerLuaResponse"]
+       49 GETIMPORT                        R7 K1 [script]
+       51 GETTABLEKS                       R7 R7 K2 ["Parent"]
+       53 GETTABLEKS                       R7 R7 K12 ["MockDebuggerLuaResponse"]
        55 CALL                             R6 1 1
        56 GETIMPORT                        R7 K4 [require]
-       58 GETIMPORT                        R12 K1 [script]
-       60 GETTABLEKS                       R11 R12 K2 ["Parent"]
-       62 GETTABLEKS                       R10 R11 K2 ["Parent"]
-       64 GETTABLEKS                       R9 R10 K7 ["Util"]
-       66 GETTABLEKS                       R8 R9 K13 ["Constants"]
+       58 GETIMPORT                        R8 K1 [script]
+       60 GETTABLEKS                       R8 R8 K2 ["Parent"]
+       62 GETTABLEKS                       R8 R8 K2 ["Parent"]
+       64 GETTABLEKS                       R8 R8 K7 ["Util"]
+       66 GETTABLEKS                       R8 R8 K13 ["Constants"]
        68 CALL                             R7 1 1
-       69 GETTABLEKS                       R9 R1 K7 ["Util"]
-       71 GETTABLEKS                       R8 R9 K14 ["Promise"]
+       69 GETTABLEKS                       R8 R1 K7 ["Util"]
+       71 GETTABLEKS                       R8 R8 K14 ["Promise"]
        73 NEWTABLE                         R9 8 0
        75 SETTABLEKS                       R9 R9 K15 ["__index"]
        77 DUPCLOSURE                       R10 K16 [PROTO_3]

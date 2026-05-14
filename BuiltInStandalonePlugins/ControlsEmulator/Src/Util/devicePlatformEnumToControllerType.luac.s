@@ -24,14 +24,14 @@ PROTO_0:
        34 JUMPIFNOT                        R1 ; [+18]
        35 GETIMPORT                        R2 K17 [string.find]
        37 MOVE                             R3 R1
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R4 R5 K18 ["QUEST3_EMULATED_DEVICE_ID"]
+       38 GETUPVAL                         R4 0
+       39 GETTABLEKS                       R4 R4 K18 ["QUEST3_EMULATED_DEVICE_ID"]
        41 CALL                             R2 2 1
        42 JUMPIF                           R2 ; [+8]
        43 GETIMPORT                        R2 K17 [string.find]
        45 MOVE                             R3 R1
-       46 GETUPVAL                         R5 0
-       47 GETTABLEKS                       R4 R5 K19 ["META_QUEST_3_NAME"]
+       46 GETUPVAL                         R4 0
+       47 GETTABLEKS                       R4 R4 K19 ["META_QUEST_3_NAME"]
        49 CALL                             R2 2 1
        50 JUMPIFNOT                        R2 ; [+2]
        51 LOADK                            R2 K20 ["Quest3"]
@@ -43,14 +43,14 @@ PROTO_0:
        59 JUMPIFNOT                        R1 ; [+18]
        60 GETIMPORT                        R2 K17 [string.find]
        62 MOVE                             R3 R1
-       63 GETUPVAL                         R5 0
-       64 GETTABLEKS                       R4 R5 K24 ["GENERIC_HANDHELD_720_EMULATED_DEVICE_ID"]
+       63 GETUPVAL                         R4 0
+       64 GETTABLEKS                       R4 R4 K24 ["GENERIC_HANDHELD_720_EMULATED_DEVICE_ID"]
        66 CALL                             R2 2 1
        67 JUMPIF                           R2 ; [+8]
        68 GETIMPORT                        R2 K17 [string.find]
        70 MOVE                             R3 R1
-       71 GETUPVAL                         R5 0
-       72 GETTABLEKS                       R4 R5 K25 ["GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID"]
+       71 GETUPVAL                         R4 0
+       72 GETTABLEKS                       R4 R4 K25 ["GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID"]
        74 CALL                             R2 2 1
        75 JUMPIFNOT                        R2 ; [+2]
        76 LOADK                            R2 K26 ["GenericHandheld"]
@@ -65,9 +65,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

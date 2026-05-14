@@ -22,8 +22,8 @@ PROTO_0:
        30 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 GETTABLEKS                       R2 R0 K1 ["__size"]
         5 CALL                             R1 1 1
         6 GETTABLEKS                       R2 R0 K2 ["__buffer"]
@@ -40,8 +40,8 @@ PROTO_1:
        24 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 GETTABLEKS                       R2 R0 K1 ["__size"]
         5 CALL                             R1 1 1
         6 RETURN                           R1 1
@@ -109,8 +109,8 @@ PROTO_5:
        43 RETURN                           R3 1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
         5 GETTABLEKS                       R4 R0 K1 ["__size"]

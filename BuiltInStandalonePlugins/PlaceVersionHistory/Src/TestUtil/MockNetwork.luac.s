@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETIMPORT                        R3 K2 [DateTime.now]
-        2 CALL                             R3 0 1
-        3 GETTABLEKS                       R2 R3 K3 ["UnixTimestamp"]
+        0 GETIMPORT                        R2 K2 [DateTime.now]
+        2 CALL                             R2 0 1
+        3 GETTABLEKS                       R2 R2 K3 ["UnixTimestamp"]
         5 GETTABLEKS                       R5 R0 K6 ["numVersions"]
         7 DIVK                             R4 R5 K5 [4]
         8 MULK                             R3 R4 K4 [86400]
@@ -82,8 +82,8 @@ PROTO_1:
         2 LOADN                            R2 1
         3 LOADN                            R3 100
         4 CALL                             R1 2 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K3 ["failureRate"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K3 ["failureRate"]
         8 JUMPIFLE                         R1 R2 ; [+2]
        10 LOADB                            R0 0 +1
        11 LOADB                            R0 1
@@ -91,8 +91,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K2 [task.wait]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K3 ["latencySec"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["latencySec"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
@@ -123,8 +123,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 0 5
        16 DUPTABLE                         R3 K10 [{"title", "description"}]

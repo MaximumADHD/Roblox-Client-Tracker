@@ -34,27 +34,27 @@ PROTO_0:
        51 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["CreateImportedFbxModel"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["CreateImportedFbxModel"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R6 1
-        6 GETTABLEKS                       R5 R6 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+        5 GETUPVAL                         R5 1
+        6 GETTABLEKS                       R5 R5 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
         8 NAMECALL                         R3 R2 K2 ["FindFirstChild"]
        10 CALL                             R3 2 1
        11 SETTABLEKS                       R3 R0 K3 ["_r15Avatar"]
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R5 R6 K4 ["R15_FIXED_FOLDER_NAME"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K4 ["R15_FIXED_FOLDER_NAME"]
        16 NAMECALL                         R3 R2 K2 ["FindFirstChild"]
        18 CALL                             R3 2 1
        19 SETTABLEKS                       R3 R0 K5 ["_r15Fixed"]
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K6 ["R6_FOLDER_NAME"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K6 ["R6_FOLDER_NAME"]
        24 NAMECALL                         R3 R2 K2 ["FindFirstChild"]
        26 CALL                             R3 2 1
        27 SETTABLEKS                       R3 R0 K7 ["_r6Avatar"]
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K8 ["MakeExportVersion"]
+       29 GETUPVAL                         R3 0
+       30 GETTABLEKS                       R3 R3 K8 ["MakeExportVersion"]
        32 MOVE                             R4 R2
        33 CALL                             R3 1 0
        34 GETTABLEKS                       R3 R0 K9 ["_onConfigureStarted"]
@@ -68,23 +68,23 @@ PROTO_1:
        47 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["R15_ARTIST_INTENT_FOLDER_NAME"]
         3 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
         5 CALL                             R2 2 1
         6 SETTABLEKS                       R2 R0 K2 ["_r15Avatar"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K3 ["R15_FIXED_FOLDER_NAME"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K3 ["R15_FIXED_FOLDER_NAME"]
        11 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
        13 CALL                             R2 2 1
        14 SETTABLEKS                       R2 R0 K4 ["_r15Fixed"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K5 ["R6_FOLDER_NAME"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K5 ["R6_FOLDER_NAME"]
        19 NAMECALL                         R2 R1 K1 ["FindFirstChild"]
        21 CALL                             R2 2 1
        22 SETTABLEKS                       R2 R0 K6 ["_r6Avatar"]
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R2 R3 K7 ["MakeExportVersion"]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K7 ["MakeExportVersion"]
        27 MOVE                             R3 R1
        28 CALL                             R2 1 0
        29 GETTABLEKS                       R2 R0 K8 ["_onConfigureStarted"]
@@ -98,17 +98,17 @@ PROTO_2:
        42 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["FindExistingImportedFbx"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["FindExistingImportedFbx"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+25]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
         8 NAMECALL                         R2 R1 K2 ["FindFirstChild"]
        10 CALL                             R2 2 1
        11 SETTABLEKS                       R2 R0 K3 ["_r15Avatar"]
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R4 R5 K4 ["R6_FOLDER_NAME"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K4 ["R6_FOLDER_NAME"]
        16 NAMECALL                         R2 R1 K2 ["FindFirstChild"]
        18 CALL                             R2 2 1
        19 SETTABLEKS                       R2 R0 K5 ["_r6Avatar"]
@@ -127,38 +127,38 @@ PROTO_4:
         8 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["CopyTexturesToRig"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["CopyTexturesToRig"]
         3 GETTABLEKS                       R2 R0 K1 ["_r15TexturesMap"]
         5 GETTABLEKS                       R3 R0 K2 ["_r15Avatar"]
         7 CALL                             R1 2 0
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K3 ["AddFaceToRig"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K3 ["AddFaceToRig"]
        11 GETTABLEKS                       R2 R0 K4 ["_faceTextureId"]
        13 GETTABLEKS                       R3 R0 K2 ["_r15Avatar"]
        15 CALL                             R1 2 0
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R1 R2 K0 ["CopyTexturesToRig"]
+       16 GETUPVAL                         R1 0
+       17 GETTABLEKS                       R1 R1 K0 ["CopyTexturesToRig"]
        19 GETTABLEKS                       R2 R0 K1 ["_r15TexturesMap"]
        21 GETTABLEKS                       R3 R0 K5 ["_r15Fixed"]
        23 CALL                             R1 2 0
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R1 R2 K3 ["AddFaceToRig"]
+       24 GETUPVAL                         R1 0
+       25 GETTABLEKS                       R1 R1 K3 ["AddFaceToRig"]
        27 GETTABLEKS                       R2 R0 K4 ["_faceTextureId"]
        29 GETTABLEKS                       R3 R0 K5 ["_r15Fixed"]
        31 CALL                             R1 2 0
-       32 GETUPVAL                         R2 0
-       33 GETTABLEKS                       R1 R2 K6 ["CopyCharacterMeshesToRig"]
+       32 GETUPVAL                         R1 0
+       33 GETTABLEKS                       R1 R1 K6 ["CopyCharacterMeshesToRig"]
        35 GETTABLEKS                       R2 R0 K7 ["_r6MeshesMap"]
        37 GETTABLEKS                       R3 R0 K8 ["_r6Avatar"]
        39 CALL                             R1 2 0
-       40 GETUPVAL                         R2 0
-       41 GETTABLEKS                       R1 R2 K0 ["CopyTexturesToRig"]
+       40 GETUPVAL                         R1 0
+       41 GETTABLEKS                       R1 R1 K0 ["CopyTexturesToRig"]
        43 GETTABLEKS                       R2 R0 K9 ["_r6TexturesMap"]
        45 GETTABLEKS                       R3 R0 K8 ["_r6Avatar"]
        47 CALL                             R1 2 0
-       48 GETUPVAL                         R2 0
-       49 GETTABLEKS                       R1 R2 K3 ["AddFaceToRig"]
+       48 GETUPVAL                         R1 0
+       49 GETTABLEKS                       R1 R1 K3 ["AddFaceToRig"]
        51 GETTABLEKS                       R2 R0 K4 ["_faceTextureId"]
        53 GETTABLEKS                       R3 R0 K8 ["_r6Avatar"]
        55 CALL                             R1 2 0
@@ -180,8 +180,8 @@ PROTO_7:
         5 LOADK                            R5 K4 ["<"]
         6 CALL                             R3 2 1
         7 JUMPIFNOTEQKNIL                  R3 ; [+14]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K5 ["RemoveAssetUrlFromText"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K5 ["RemoveAssetUrlFromText"]
        12 MOVE                             R4 R2
        13 CALL                             R3 1 1
        14 SETTABLEKS                       R3 R1 K6 ["Text"]
@@ -194,16 +194,16 @@ PROTO_7:
 PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R2 R3 K0 ["Text"]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["Text"]
         5 JUMPIFEQKS                       R2 K1 [""] ; [+21]
         7 GETIMPORT                        R3 K4 [string.find]
         9 MOVE                             R4 R2
        10 LOADK                            R5 K5 ["<"]
        11 CALL                             R3 2 1
        12 JUMPIFNOTEQKNIL                  R3 ; [+14]
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R3 R4 K6 ["RemoveAssetUrlFromText"]
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K6 ["RemoveAssetUrlFromText"]
        17 MOVE                             R4 R2
        18 CALL                             R3 1 1
        19 SETTABLEKS                       R3 R1 K0 ["Text"]
@@ -252,8 +252,8 @@ PROTO_9:
        44 LOADK                            R13 K18 ["<"]
        45 CALL                             R11 2 1
        46 JUMPIFNOTEQKNIL                  R11 ; [+13]
-       48 GETUPVAL                         R12 0
-       49 GETTABLEKS                       R11 R12 K19 ["RemoveAssetUrlFromText"]
+       48 GETUPVAL                         R11 0
+       49 GETTABLEKS                       R11 R11 K19 ["RemoveAssetUrlFromText"]
        51 MOVE                             R12 R10
        52 CALL                             R11 1 1
        53 SETTABLEKS                       R11 R9 K11 ["Text"]
@@ -265,8 +265,8 @@ PROTO_9:
 
 PROTO_10:
         0 GETIMPORT                        R0 K2 [string.find]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K3 ["Text"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["Text"]
         5 LOADK                            R2 K4 ["<"]
         6 CALL                             R0 2 1
         7 JUMPIFEQKNIL                     R0 ; [+5]
@@ -314,9 +314,9 @@ PROTO_13:
        11 NAMECALL                         R10 R2 K5 ["Clone"]
        13 CALL                             R10 1 1
        14 SUBK                             R12 R8 K6 [1]
-       15 GETTABLEKS                       R15 R10 K7 ["Size"]
-       17 GETTABLEKS                       R14 R15 K8 ["Y"]
-       19 GETTABLEKS                       R13 R14 K9 ["Offset"]
+       15 GETTABLEKS                       R13 R10 K7 ["Size"]
+       17 GETTABLEKS                       R13 R13 K8 ["Y"]
+       19 GETTABLEKS                       R13 R13 K9 ["Offset"]
        21 MUL                              R11 R12 R13
        22 SETTABLEKS                       R9 R10 K10 ["Name"]
        24 GETTABLEKS                       R13 R2 K11 ["Position"]
@@ -560,13 +560,13 @@ PROTO_19:
         7 LOADK                            R4 K5 ["<"]
         8 CALL                             R2 2 1
         9 JUMPIFNOTEQKNIL                  R2 ; [+16]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K6 ["RemoveAssetUrlFromText"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K6 ["RemoveAssetUrlFromText"]
        14 MOVE                             R3 R1
        15 CALL                             R2 1 1
        16 SETTABLEKS                       R2 R0 K0 ["Text"]
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R2 R3 K7 ["_r6TexturesMap"]
+       18 GETUPVAL                         R2 1
+       19 GETTABLEKS                       R2 R2 K7 ["_r6TexturesMap"]
        21 GETTABLEKS                       R3 R0 K8 ["Name"]
        23 GETTABLEKS                       R4 R0 K0 ["Text"]
        25 SETTABLE                         R4 R2 R3
@@ -581,13 +581,13 @@ PROTO_20:
         8 LOADK                            R4 K5 ["<"]
         9 CALL                             R2 2 1
        10 JUMPIFNOTEQKNIL                  R2 ; [+16]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K6 ["RemoveAssetUrlFromText"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K6 ["RemoveAssetUrlFromText"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 1
        17 SETTABLEKS                       R2 R0 K0 ["Text"]
-       19 GETUPVAL                         R3 2
-       20 GETTABLEKS                       R2 R3 K7 ["_r6TexturesMap"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K7 ["_r6TexturesMap"]
        22 GETTABLEKS                       R3 R0 K8 ["Name"]
        24 GETTABLEKS                       R4 R0 K0 ["Text"]
        26 SETTABLE                         R4 R2 R3
@@ -602,13 +602,13 @@ PROTO_21:
         8 LOADK                            R4 K5 ["<"]
         9 CALL                             R2 2 1
        10 JUMPIFNOTEQKNIL                  R2 ; [+16]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K6 ["RemoveAssetUrlFromText"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K6 ["RemoveAssetUrlFromText"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 1
        17 SETTABLEKS                       R2 R0 K0 ["Text"]
-       19 GETUPVAL                         R3 2
-       20 GETTABLEKS                       R2 R3 K7 ["_r6TexturesMap"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K7 ["_r6TexturesMap"]
        22 GETTABLEKS                       R3 R0 K8 ["Name"]
        24 GETTABLEKS                       R4 R0 K0 ["Text"]
        26 SETTABLE                         R4 R2 R3
@@ -618,29 +618,29 @@ PROTO_22:
         0 GETUPVAL                         R2 0
         1 NEWTABLE                         R3 0 0
         3 SETTABLEKS                       R3 R2 K0 ["_r6TexturesMap"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["GetCharacterMeshPropertyFromRig"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["GetCharacterMeshPropertyFromRig"]
         8 MOVE                             R3 R1
-        9 GETUPVAL                         R5 2
-       10 GETTABLEKS                       R4 R5 K2 ["Name"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K2 ["Name"]
        12 CALL                             R2 2 1
        13 JUMPIFNOT                        R2 ; [+8]
        14 GETUPVAL                         R3 2
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K3 ["RemoveAssetUrlFromText"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K3 ["RemoveAssetUrlFromText"]
        18 MOVE                             R5 R2
        19 CALL                             R4 1 1
        20 SETTABLEKS                       R4 R3 K4 ["Text"]
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K1 ["GetCharacterMeshPropertyFromRig"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K1 ["GetCharacterMeshPropertyFromRig"]
        25 MOVE                             R4 R1
-       26 GETUPVAL                         R6 3
-       27 GETTABLEKS                       R5 R6 K2 ["Name"]
+       26 GETUPVAL                         R5 3
+       27 GETTABLEKS                       R5 R5 K2 ["Name"]
        29 CALL                             R3 2 1
        30 JUMPIFNOT                        R3 ; [+8]
        31 GETUPVAL                         R4 3
-       32 GETUPVAL                         R6 1
-       33 GETTABLEKS                       R5 R6 K3 ["RemoveAssetUrlFromText"]
+       32 GETUPVAL                         R5 1
+       33 GETTABLEKS                       R5 R5 K3 ["RemoveAssetUrlFromText"]
        35 MOVE                             R6 R3
        36 CALL                             R5 1 1
        37 SETTABLEKS                       R5 R4 K4 ["Text"]
@@ -652,13 +652,13 @@ PROTO_22:
        47 LOADK                            R8 K9 ["<"]
        48 CALL                             R6 2 1
        49 JUMPIFNOTEQKNIL                  R6 ; [+16]
-       51 GETUPVAL                         R7 1
-       52 GETTABLEKS                       R6 R7 K3 ["RemoveAssetUrlFromText"]
+       51 GETUPVAL                         R6 1
+       52 GETTABLEKS                       R6 R6 K3 ["RemoveAssetUrlFromText"]
        54 MOVE                             R7 R5
        55 CALL                             R6 1 1
        56 SETTABLEKS                       R6 R4 K4 ["Text"]
-       58 GETUPVAL                         R7 0
-       59 GETTABLEKS                       R6 R7 K0 ["_r6TexturesMap"]
+       58 GETUPVAL                         R6 0
+       59 GETTABLEKS                       R6 R6 K0 ["_r6TexturesMap"]
        61 GETTABLEKS                       R7 R4 K2 ["Name"]
        63 GETTABLEKS                       R8 R4 K4 ["Text"]
        65 SETTABLE                         R8 R6 R7
@@ -670,13 +670,13 @@ PROTO_22:
        74 LOADK                            R8 K9 ["<"]
        75 CALL                             R6 2 1
        76 JUMPIFNOTEQKNIL                  R6 ; [+16]
-       78 GETUPVAL                         R7 1
-       79 GETTABLEKS                       R6 R7 K3 ["RemoveAssetUrlFromText"]
+       78 GETUPVAL                         R6 1
+       79 GETTABLEKS                       R6 R6 K3 ["RemoveAssetUrlFromText"]
        81 MOVE                             R7 R5
        82 CALL                             R6 1 1
        83 SETTABLEKS                       R6 R4 K4 ["Text"]
-       85 GETUPVAL                         R7 0
-       86 GETTABLEKS                       R6 R7 K0 ["_r6TexturesMap"]
+       85 GETUPVAL                         R6 0
+       86 GETTABLEKS                       R6 R6 K0 ["_r6TexturesMap"]
        88 GETTABLEKS                       R7 R4 K2 ["Name"]
        90 GETTABLEKS                       R8 R4 K4 ["Text"]
        92 SETTABLE                         R8 R6 R7
@@ -751,8 +751,8 @@ PROTO_23:
        78 CAPTURE                          VAL R0
        79 NAMECALL                         R6 R6 K17 ["Connect"]
        81 CALL                             R6 2 0
-       82 GETTABLEKS                       R7 R0 K18 ["_onConfigureStarted"]
-       84 GETTABLEKS                       R6 R7 K19 ["Event"]
+       82 GETTABLEKS                       R6 R0 K18 ["_onConfigureStarted"]
+       84 GETTABLEKS                       R6 R6 K19 ["Event"]
        86 NEWCLOSURE                       R8 P3
        87 CAPTURE                          VAL R0
        88 CAPTURE                          UPVAL U2
@@ -767,8 +767,8 @@ PROTO_24:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["ClearAllChildren"]
         3 CALL                             R2 1 0
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["GetBodyPartNames"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["GetBodyPartNames"]
         7 CALL                             R2 0 1
         8 GETUPVAL                         R3 2
         9 GETUPVAL                         R5 0
@@ -780,8 +780,8 @@ PROTO_24:
        17 MOVE                             R5 R3
        18 CALL                             R4 1 3
        19 FORGPREP_NEXT                    R4
-       20 GETUPVAL                         R10 1
-       21 GETTABLEKS                       R9 R10 K5 ["GetCurrentCharacterMeshIdFromRig"]
+       20 GETUPVAL                         R9 1
+       21 GETTABLEKS                       R9 R9 K5 ["GetCurrentCharacterMeshIdFromRig"]
        23 MOVE                             R10 R1
        24 GETTABLEKS                       R11 R8 K6 ["Name"]
        26 CALL                             R9 2 1
@@ -793,8 +793,8 @@ PROTO_24:
        35 NEWTABLE                         R5 0 0
        37 SETTABLEKS                       R5 R4 K9 ["_r6MeshesMap"]
        39 GETUPVAL                         R4 4
-       40 GETUPVAL                         R6 2
-       41 GETTABLEKS                       R5 R6 K9 ["_r6MeshesMap"]
+       40 GETUPVAL                         R5 2
+       41 GETTABLEKS                       R5 R5 K9 ["_r6MeshesMap"]
        43 MOVE                             R6 R3
        44 LOADK                            R7 K7 ["MeshId"]
        45 CALL                             R4 3 0
@@ -827,8 +827,8 @@ PROTO_25:
        31 GETUPVAL                         R3 0
        32 LOADK                            R4 K12 ["MeshId"]
        33 CALL                             R3 1 1
-       34 GETTABLEKS                       R5 R0 K13 ["_onConfigureStarted"]
-       36 GETTABLEKS                       R4 R5 K14 ["Event"]
+       34 GETTABLEKS                       R4 R0 K13 ["_onConfigureStarted"]
+       36 GETTABLEKS                       R4 R4 K14 ["Event"]
        38 NEWCLOSURE                       R6 P0
        39 CAPTURE                          VAL R2
        40 CAPTURE                          UPVAL U1
@@ -847,47 +847,47 @@ PROTO_26:
         5 LOADK                            R3 K4 ["<"]
         6 CALL                             R1 2 1
         7 JUMPIFNOTEQKNIL                  R1 ; [+19]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K5 ["TextureId"]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K6 ["RemoveAssetUrlFromText"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K5 ["TextureId"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K6 ["RemoveAssetUrlFromText"]
        15 MOVE                             R3 R0
        16 CALL                             R2 1 1
        17 SETTABLEKS                       R2 R1 K7 ["Text"]
        19 GETUPVAL                         R1 2
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K5 ["TextureId"]
-       23 GETTABLEKS                       R2 R3 K7 ["Text"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K5 ["TextureId"]
+       23 GETTABLEKS                       R2 R2 K7 ["Text"]
        25 SETTABLEKS                       R2 R1 K8 ["_faceTextureId"]
        27 RETURN                           R0 0
 
 PROTO_27:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["TextureId"]
-        3 GETTABLEKS                       R0 R1 K1 ["Text"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["TextureId"]
+        3 GETTABLEKS                       R0 R0 K1 ["Text"]
         5 JUMPIFEQKS                       R0 K2 [""] ; [+26]
         7 GETIMPORT                        R1 K5 [string.find]
         9 MOVE                             R2 R0
        10 LOADK                            R3 K6 ["<"]
        11 CALL                             R1 2 1
        12 JUMPIFNOTEQKNIL                  R1 ; [+19]
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K0 ["TextureId"]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R2 R3 K7 ["RemoveAssetUrlFromText"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K0 ["TextureId"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K7 ["RemoveAssetUrlFromText"]
        20 MOVE                             R3 R0
        21 CALL                             R2 1 1
        22 SETTABLEKS                       R2 R1 K1 ["Text"]
        24 GETUPVAL                         R1 2
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K0 ["TextureId"]
-       28 GETTABLEKS                       R2 R3 K1 ["Text"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K0 ["TextureId"]
+       28 GETTABLEKS                       R2 R2 K1 ["Text"]
        30 SETTABLEKS                       R2 R1 K8 ["_faceTextureId"]
        32 RETURN                           R0 0
 
 PROTO_28:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["FindFaceTexture"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["FindFaceTexture"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
@@ -898,17 +898,17 @@ PROTO_28:
        12 LOADK                            R5 K5 ["<"]
        13 CALL                             R3 2 1
        14 JUMPIFNOTEQKNIL                  R3 ; [+19]
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R3 R4 K6 ["TextureId"]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R4 R5 K7 ["RemoveAssetUrlFromText"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K6 ["TextureId"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K7 ["RemoveAssetUrlFromText"]
        22 MOVE                             R5 R2
        23 CALL                             R4 1 1
        24 SETTABLEKS                       R4 R3 K8 ["Text"]
        26 GETUPVAL                         R3 2
-       27 GETUPVAL                         R6 1
-       28 GETTABLEKS                       R5 R6 K6 ["TextureId"]
-       30 GETTABLEKS                       R4 R5 K8 ["Text"]
+       27 GETUPVAL                         R4 1
+       28 GETTABLEKS                       R4 R4 K6 ["TextureId"]
+       30 GETTABLEKS                       R4 R4 K8 ["Text"]
        32 SETTABLEKS                       R4 R3 K9 ["_faceTextureId"]
        34 RETURN                           R0 0
 
@@ -940,8 +940,8 @@ PROTO_29:
        30 CAPTURE                          VAL R0
        31 NAMECALL                         R4 R4 K9 ["Connect"]
        33 CALL                             R4 2 0
-       34 GETTABLEKS                       R5 R0 K10 ["_onConfigureStarted"]
-       36 GETTABLEKS                       R4 R5 K11 ["Event"]
+       34 GETTABLEKS                       R4 R0 K10 ["_onConfigureStarted"]
+       36 GETTABLEKS                       R4 R4 K11 ["Event"]
        38 NEWCLOSURE                       R6 P2
        39 CAPTURE                          UPVAL U1
        40 CAPTURE                          VAL R2
@@ -1027,8 +1027,8 @@ PROTO_31:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["ClearAllChildren"]
         3 CALL                             R1 1 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["GetLimbNames"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["GetLimbNames"]
         7 CALL                             R1 0 1
         8 GETUPVAL                         R2 2
         9 GETUPVAL                         R4 0
@@ -1040,8 +1040,8 @@ PROTO_31:
        17 MOVE                             R4 R2
        18 CALL                             R3 1 3
        19 FORGPREP_NEXT                    R3
-       20 GETUPVAL                         R9 1
-       21 GETTABLEKS                       R8 R9 K5 ["GetCurrentTextureIdFromRig"]
+       20 GETUPVAL                         R8 1
+       21 GETTABLEKS                       R8 R8 K5 ["GetCurrentTextureIdFromRig"]
        23 MOVE                             R9 R0
        24 GETTABLEKS                       R10 R7 K6 ["Name"]
        26 CALL                             R8 2 1
@@ -1053,8 +1053,8 @@ PROTO_31:
        35 NEWTABLE                         R4 0 0
        37 SETTABLEKS                       R4 R3 K9 ["_r15TexturesMap"]
        39 GETUPVAL                         R3 4
-       40 GETUPVAL                         R5 2
-       41 GETTABLEKS                       R4 R5 K9 ["_r15TexturesMap"]
+       40 GETUPVAL                         R4 2
+       41 GETTABLEKS                       R4 R4 K9 ["_r15TexturesMap"]
        43 MOVE                             R5 R2
        44 LOADK                            R6 K7 ["TextureID"]
        45 CALL                             R3 3 0
@@ -1087,8 +1087,8 @@ PROTO_32:
        31 GETUPVAL                         R3 0
        32 LOADK                            R4 K12 ["TextureID"]
        33 CALL                             R3 1 1
-       34 GETTABLEKS                       R5 R0 K13 ["_onConfigureStarted"]
-       36 GETTABLEKS                       R4 R5 K14 ["Event"]
+       34 GETTABLEKS                       R4 R0 K13 ["_onConfigureStarted"]
+       36 GETTABLEKS                       R4 R4 K14 ["Event"]
        38 NEWCLOSURE                       R6 P0
        39 CAPTURE                          VAL R2
        40 CAPTURE                          UPVAL U1
@@ -1433,17 +1433,17 @@ PROTO_36:
       375 RETURN                           R0 0
 
 PROTO_37:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["FindExistingImportedFbx"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["FindExistingImportedFbx"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+36]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K1 ["R15_ARTIST_INTENT_FOLDER_NAME"]
         8 NAMECALL                         R2 R1 K2 ["FindFirstChild"]
        10 CALL                             R2 2 1
        11 SETTABLEKS                       R2 R0 K3 ["_r15Avatar"]
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R4 R5 K4 ["R6_FOLDER_NAME"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K4 ["R6_FOLDER_NAME"]
        16 NAMECALL                         R2 R1 K2 ["FindFirstChild"]
        18 CALL                             R2 2 1
        19 SETTABLEKS                       R2 R0 K5 ["_r6Avatar"]
@@ -1456,15 +1456,15 @@ PROTO_37:
        31 GETTABLEKS                       R5 R0 K5 ["_r6Avatar"]
        33 NAMECALL                         R2 R2 K7 ["Fire"]
        35 CALL                             R2 3 0
-       36 GETUPVAL                         R3 0
-       37 GETTABLEKS                       R2 R3 K8 ["MakeExportVersion"]
+       36 GETUPVAL                         R2 0
+       37 GETTABLEKS                       R2 R2 K8 ["MakeExportVersion"]
        39 MOVE                             R3 R1
        40 CALL                             R2 1 0
        41 RETURN                           R0 0
 
 PROTO_38:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["FindExistingImportedFbx"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["FindExistingImportedFbx"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+5]
         5 GETUPVAL                         R1 1
@@ -1474,17 +1474,17 @@ PROTO_38:
        10 RETURN                           R0 0
 
 PROTO_39:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Export"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Export"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_40:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["SetupCharacterForTesting"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["_r15Avatar"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["SetupCharacterForTesting"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["_r15Avatar"]
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
@@ -1529,19 +1529,19 @@ MAIN:
         1 NEWTABLE                         R0 32 0
         3 SETTABLEKS                       R0 R0 K0 ["__index"]
         5 GETIMPORT                        R1 K2 [require]
-        7 GETIMPORT                        R4 K4 [script]
-        9 GETTABLEKS                       R3 R4 K5 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["RigFunctions"]
+        7 GETIMPORT                        R2 K4 [script]
+        9 GETTABLEKS                       R2 R2 K5 ["Parent"]
+       11 GETTABLEKS                       R2 R2 K6 ["RigFunctions"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K2 [require]
-       16 GETIMPORT                        R5 K4 [script]
-       18 GETTABLEKS                       R4 R5 K5 ["Parent"]
-       20 GETTABLEKS                       R3 R4 K7 ["CharacterTester"]
+       16 GETIMPORT                        R3 K4 [script]
+       18 GETTABLEKS                       R3 R3 K5 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K7 ["CharacterTester"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K2 [require]
-       25 GETIMPORT                        R6 K4 [script]
-       27 GETTABLEKS                       R5 R6 K5 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K8 ["Constants"]
+       25 GETIMPORT                        R4 K4 [script]
+       27 GETTABLEKS                       R4 R4 K5 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K8 ["Constants"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K9 [PROTO_0]
        33 CAPTURE                          VAL R0

@@ -1,20 +1,20 @@
 PROTO_0:
         0 MOVE                             R1 R0
         1 JUMPIF                           R1 ; [+4]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["createTestStore"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["createTestStore"]
         5 CALL                             R1 0 1
         6 MOVE                             R0 R1
         7 NEWTABLE                         R1 0 2
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K1 ["Store"]
-       12 GETTABLEKS                       R2 R3 K2 ["new"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K1 ["Store"]
+       12 GETTABLEKS                       R2 R2 K2 ["new"]
        14 MOVE                             R3 R0
        15 CALL                             R2 1 1
-       16 GETUPVAL                         R4 2
-       17 GETTABLEKS                       R3 R4 K2 ["new"]
-       19 GETUPVAL                         R5 3
-       20 GETTABLEKS                       R4 R5 K2 ["new"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K2 ["new"]
+       19 GETUPVAL                         R4 3
+       20 GETTABLEKS                       R4 R4 K2 ["new"]
        22 CALL                             R4 0 -1
        23 CALL                             R3 -1 -1
        24 SETLIST                          R1 R2 -1 [1]
@@ -22,8 +22,8 @@ PROTO_0:
        27 RETURN                           R1 2
 
 PROTO_1:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["mount"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["mount"]
         3 GETUPVAL                         R1 2
         4 GETUPVAL                         R2 3
         5 CALL                             R0 2 1
@@ -40,8 +40,8 @@ PROTO_2:
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getTempScreenGui"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getTempScreenGui"]
         3 CALL                             R3 0 1
         4 GETUPVAL                         R4 1
         5 MOVE                             R5 R2
@@ -52,8 +52,8 @@ PROTO_3:
        10 SETTABLEKS                       R0 R8 K1 ["test"]
        12 CALL                             R6 2 1
        13 LOADNIL                          R7
-       14 GETUPVAL                         R9 3
-       15 GETTABLEKS                       R8 R9 K3 ["act"]
+       14 GETUPVAL                         R8 3
+       15 GETTABLEKS                       R8 R8 K3 ["act"]
        17 NEWCLOSURE                       R9 P0
        18 CAPTURE                          REF R7
        19 CAPTURE                          UPVAL U3
@@ -66,8 +66,8 @@ PROTO_3:
        27 CAPTURE                          VAL R3
        28 CAPTURE                          VAL R5
        29 CALL                             R8 1 2
-       30 GETUPVAL                         R11 3
-       31 GETTABLEKS                       R10 R11 K6 ["unmount"]
+       30 GETUPVAL                         R10 3
+       31 GETTABLEKS                       R10 R10 K6 ["unmount"]
        33 MOVE                             R11 R7
        34 CALL                             R10 1 0
        35 JUMPIF                           R2 ; [+3]
@@ -89,32 +89,32 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R2 K9 ["TestHelpers"]
-       27 GETTABLEKS                       R6 R4 K10 ["Instances"]
-       29 GETTABLEKS                       R5 R6 K11 ["MockToastNotificationService"]
+       27 GETTABLEKS                       R5 R4 K10 ["Instances"]
+       29 GETTABLEKS                       R5 R5 K11 ["MockToastNotificationService"]
        31 GETTABLEKS                       R6 R4 K12 ["provideMockContext"]
        33 GETIMPORT                        R7 K4 [require]
-       35 GETTABLEKS                       R10 R0 K13 ["Src"]
-       37 GETTABLEKS                       R9 R10 K14 ["Utility"]
-       39 GETTABLEKS                       R8 R9 K15 ["TestHelper"]
+       35 GETTABLEKS                       R8 R0 K13 ["Src"]
+       37 GETTABLEKS                       R8 R8 K14 ["Utility"]
+       39 GETTABLEKS                       R8 R8 K15 ["TestHelper"]
        41 CALL                             R7 1 1
        42 GETIMPORT                        R8 K4 [require]
-       44 GETTABLEKS                       R11 R0 K13 ["Src"]
-       46 GETTABLEKS                       R10 R11 K14 ["Utility"]
-       48 GETTABLEKS                       R9 R10 K16 ["ToastNotification"]
+       44 GETTABLEKS                       R9 R0 K13 ["Src"]
+       46 GETTABLEKS                       R9 R9 K14 ["Utility"]
+       48 GETTABLEKS                       R9 R9 K16 ["ToastNotification"]
        50 CALL                             R8 1 1
        51 NEWTABLE                         R9 1 0
        53 DUPCLOSURE                       R10 K17 [PROTO_0]

@@ -5,9 +5,9 @@ PROTO_0:
         3 GETIMPORT                        R2 K8 [tostring]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["notificationId"]
-        8 GETIMPORT                        R4 K12 [DateTime.now]
-       10 CALL                             R4 0 1
-       11 GETTABLEKS                       R3 R4 K13 ["UnixTimestampMillis"]
+        8 GETIMPORT                        R3 K12 [DateTime.now]
+       10 CALL                             R3 0 1
+       11 GETTABLEKS                       R3 R3 K13 ["UnixTimestampMillis"]
        13 SUBK                             R2 R3 K9 [5000]
        14 SETTABLEKS                       R2 R1 K1 ["createdUtcTimeInMs"]
        16 LOADB                            R2 0
@@ -29,9 +29,9 @@ PROTO_0:
        38 SETTABLEKS                       R3 R2 K20 ["body"]
        40 LOADK                            R3 K27 ["CreateFilledEmphasis"]
        41 SETTABLEKS                       R3 R2 K21 ["targetId"]
-       43 GETUPVAL                         R5 0
-       44 GETTABLEKS                       R4 R5 K28 ["Static"]
-       46 GETTABLEKS                       R3 R4 K29 ["rawValue"]
+       43 GETUPVAL                         R3 0
+       44 GETTABLEKS                       R3 R3 K28 ["Static"]
+       46 GETTABLEKS                       R3 R3 K29 ["rawValue"]
        48 CALL                             R3 0 1
        49 SETTABLEKS                       R3 R2 K22 ["targetType"]
        51 LOADK                            R3 K30 ["https://create.roblox.com"]
@@ -46,9 +46,9 @@ PROTO_1:
         3 GETIMPORT                        R2 K8 [tostring]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["notificationId"]
-        8 GETIMPORT                        R4 K12 [DateTime.now]
-       10 CALL                             R4 0 1
-       11 GETTABLEKS                       R3 R4 K13 ["UnixTimestampMillis"]
+        8 GETIMPORT                        R3 K12 [DateTime.now]
+       10 CALL                             R3 0 1
+       11 GETTABLEKS                       R3 R3 K13 ["UnixTimestampMillis"]
        13 SUBK                             R2 R3 K9 [120000]
        14 SETTABLEKS                       R2 R1 K1 ["createdUtcTimeInMs"]
        16 LOADB                            R2 0
@@ -70,9 +70,9 @@ PROTO_1:
        38 SETTABLEKS                       R3 R2 K20 ["body"]
        40 LOADK                            R3 K27 ["2067243959"]
        41 SETTABLEKS                       R3 R2 K21 ["targetId"]
-       43 GETUPVAL                         R5 0
-       44 GETTABLEKS                       R4 R5 K28 ["User"]
-       46 GETTABLEKS                       R3 R4 K29 ["rawValue"]
+       43 GETUPVAL                         R3 0
+       44 GETTABLEKS                       R3 R3 K28 ["User"]
+       46 GETTABLEKS                       R3 R3 K29 ["rawValue"]
        48 CALL                             R3 0 1
        49 SETTABLEKS                       R3 R2 K22 ["targetType"]
        51 LOADK                            R3 K30 ["https://www.roblox.com/users/2067243959/profile"]
@@ -87,9 +87,9 @@ PROTO_2:
         3 GETIMPORT                        R2 K8 [tostring]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["notificationId"]
-        8 GETIMPORT                        R4 K12 [DateTime.now]
-       10 CALL                             R4 0 1
-       11 GETTABLEKS                       R3 R4 K13 ["UnixTimestampMillis"]
+        8 GETIMPORT                        R3 K12 [DateTime.now]
+       10 CALL                             R3 0 1
+       11 GETTABLEKS                       R3 R3 K13 ["UnixTimestampMillis"]
        13 SUBK                             R2 R3 K9 [3700000]
        14 SETTABLEKS                       R2 R1 K1 ["createdUtcTimeInMs"]
        16 LOADB                            R2 0
@@ -111,9 +111,9 @@ PROTO_2:
        38 SETTABLEKS                       R3 R2 K20 ["body"]
        40 LOADK                            R3 K27 ["2653064683"]
        41 SETTABLEKS                       R3 R2 K21 ["targetId"]
-       43 GETUPVAL                         R5 0
-       44 GETTABLEKS                       R4 R5 K28 ["Universe"]
-       46 GETTABLEKS                       R3 R4 K29 ["rawValue"]
+       43 GETUPVAL                         R3 0
+       44 GETTABLEKS                       R3 R3 K28 ["Universe"]
+       46 GETTABLEKS                       R3 R3 K29 ["rawValue"]
        48 CALL                             R3 0 1
        49 SETTABLEKS                       R3 R2 K22 ["targetType"]
        51 LOADK                            R3 K30 ["https://www.roblox.com/games/2653064683/Word-Bomb"]
@@ -128,9 +128,9 @@ PROTO_3:
         3 GETIMPORT                        R2 K8 [tostring]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["notificationId"]
-        8 GETIMPORT                        R3 K11 [DateTime.now]
-       10 CALL                             R3 0 1
-       11 GETTABLEKS                       R2 R3 K12 ["UnixTimestampMillis"]
+        8 GETIMPORT                        R2 K11 [DateTime.now]
+       10 CALL                             R2 0 1
+       11 GETTABLEKS                       R2 R2 K12 ["UnixTimestampMillis"]
        13 SETTABLEKS                       R2 R1 K1 ["createdUtcTimeInMs"]
        15 LOADB                            R2 0
        16 SETTABLEKS                       R2 R1 K2 ["read"]
@@ -151,9 +151,9 @@ PROTO_3:
        37 SETTABLEKS                       R3 R2 K19 ["body"]
        39 LOADK                            R3 K26 [""]
        40 SETTABLEKS                       R3 R2 K20 ["targetId"]
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R4 R5 K27 ["Static"]
-       45 GETTABLEKS                       R3 R4 K28 ["rawValue"]
+       42 GETUPVAL                         R3 0
+       43 GETTABLEKS                       R3 R3 K27 ["Static"]
+       45 GETTABLEKS                       R3 R3 K28 ["rawValue"]
        47 CALL                             R3 0 1
        48 SETTABLEKS                       R3 R2 K21 ["targetType"]
        50 LOADK                            R3 K26 [""]
@@ -163,14 +163,14 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Enums"]
-       15 GETTABLEKS                       R2 R3 K7 ["NotificationTargetType"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Enums"]
+       15 GETTABLEKS                       R2 R2 K7 ["NotificationTargetType"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 0 4
        20 DUPCLOSURE                       R3 K8 [PROTO_0]

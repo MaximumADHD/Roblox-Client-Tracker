@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
@@ -16,12 +16,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Tools"]
-       11 GETTABLEKS                       R2 R3 K7 ["VertexToolBase"]
+        9 GETTABLEKS                       R2 R0 K6 ["Tools"]
+       11 GETTABLEKS                       R2 R2 K7 ["VertexToolBase"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["MeshEditingContexts"]
-       18 GETTABLEKS                       R3 R4 K9 ["MeshEditingContextBase"]
+       16 GETTABLEKS                       R3 R0 K8 ["MeshEditingContexts"]
+       18 GETTABLEKS                       R3 R3 K9 ["MeshEditingContextBase"]
        20 CALL                             R2 1 1
        21 NEWTABLE                         R4 2 0
        23 FASTCALL2                        SETMETATABLE R4 R1 ; [+4]

@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getVerticesFromWrap"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getVerticesFromWrap"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R3 R0 K1 ["instance"]
         6 CALL                             R1 2 -1
         7 RETURN                           R1 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getFacesForWrap"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getFacesForWrap"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R3 R0 K1 ["instance"]
         6 CALL                             R1 2 1
@@ -35,8 +35,8 @@ PROTO_1:
        32 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getCageOrigin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getCageOrigin"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R3 R0 K1 ["instance"]
         6 CALL                             R1 2 -1
@@ -65,9 +65,9 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Util"]
         9 GETIMPORT                        R2 K5 [require]
        11 GETTABLEKS                       R3 R1 K6 ["WrapUtil"]

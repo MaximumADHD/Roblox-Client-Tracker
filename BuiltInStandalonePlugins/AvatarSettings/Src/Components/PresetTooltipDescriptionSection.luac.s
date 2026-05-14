@@ -2,8 +2,8 @@ PROTO_0:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R4 1
         2 NEWTABLE                         R5 2 0
-        4 GETUPVAL                         R7 2
-        5 GETTABLEKS                       R6 R7 K0 ["Tag"]
+        4 GETUPVAL                         R6 2
+        5 GETTABLEKS                       R6 R6 K0 ["Tag"]
         7 LOADK                            R7 K1 ["X-Row X-Middle VerticalFlex-Fill"]
         8 SETTABLE                         R7 R5 R6
         9 GETIMPORT                        R6 K4 [UDim2.new]
@@ -17,8 +17,8 @@ PROTO_0:
        19 GETUPVAL                         R7 0
        20 LOADK                            R8 K9 ["ImageLabel"]
        21 NEWTABLE                         R9 4 0
-       23 GETUPVAL                         R11 2
-       24 GETTABLEKS                       R10 R11 K0 ["Tag"]
+       23 GETUPVAL                         R10 2
+       24 GETTABLEKS                       R10 R10 K0 ["Tag"]
        26 JUMPIFNOT                        R2 ; [+2]
        27 LOADK                            R11 K10 ["PresetHoverTooltipXImage"]
        28 JUMP                             ; [+1]
@@ -38,11 +38,11 @@ PROTO_0:
        48 GETUPVAL                         R7 0
        49 LOADK                            R8 K19 ["TextLabel"]
        50 NEWTABLE                         R9 8 0
-       52 GETUPVAL                         R11 2
-       53 GETTABLEKS                       R10 R11 K0 ["Tag"]
-       55 GETUPVAL                         R13 3
-       56 GETTABLEKS                       R12 R13 K20 ["Styling"]
-       58 GETTABLEKS                       R11 R12 K21 ["joinTags"]
+       52 GETUPVAL                         R10 2
+       53 GETTABLEKS                       R10 R10 K0 ["Tag"]
+       55 GETUPVAL                         R11 3
+       56 GETTABLEKS                       R11 R11 K20 ["Styling"]
+       58 GETTABLEKS                       R11 R11 K21 ["joinTags"]
        60 LOADK                            R12 K22 ["Component-TextLabel"]
        61 JUMPIFNOT                        R2 ; [+2]
        62 LOADK                            R13 K23 ["Disabled"]
@@ -153,16 +153,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["ReactUtils"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["ReactUtils"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["Localization"]

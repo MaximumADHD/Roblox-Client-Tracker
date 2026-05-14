@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_capabilitiesHandlerComponent"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_capabilitiesHandlerComponent"]
         3 JUMPIFNOT                        R1 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R1 0
@@ -44,16 +44,16 @@ PROTO_1:
        36 FORGLOOP                         R4 2 ; [-32]
        38 JUMPIF                           R3 ; [+1]
        39 RETURN                           R0 0
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R4 R5 K4 ["setUpCapabilitiesHandlerComponent"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K4 ["setUpCapabilitiesHandlerComponent"]
        43 MOVE                             R5 R2
        44 CALL                             R4 1 0
        45 MOVE                             R4 R0
        46 LOADNIL                          R5
        47 LOADNIL                          R6
        48 FORGPREP                         R4
-       49 GETUPVAL                         R10 0
-       50 GETTABLEKS                       R9 R10 K5 ["_capabilitiesHandlerComponent"]
+       49 GETUPVAL                         R9 0
+       50 GETTABLEKS                       R9 R9 K5 ["_capabilitiesHandlerComponent"]
        52 MOVE                             R11 R8
        53 GETUPVAL                         R12 1
        54 NAMECALL                         R9 R9 K6 ["SetUpCapabilitiesForTreeAsync"]
@@ -74,28 +74,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["Inserts"]
-       15 GETTABLEKS                       R2 R3 K9 ["sandboxProceduralModels"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Inserts"]
+       15 GETTABLEKS                       R2 R2 K9 ["sandboxProceduralModels"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K7 ["Util"]
-       24 GETTABLEKS                       R4 R5 K10 ["SharedFlags"]
-       26 GETTABLEKS                       R3 R4 K11 ["getFFlagToolboxCapabilities"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
+       24 GETTABLEKS                       R3 R3 K10 ["SharedFlags"]
+       26 GETTABLEKS                       R3 R3 K11 ["getFFlagToolboxCapabilities"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K5 [require]
-       31 GETTABLEKS                       R7 R0 K6 ["Src"]
-       33 GETTABLEKS                       R6 R7 K7 ["Util"]
-       35 GETTABLEKS                       R5 R6 K10 ["SharedFlags"]
-       37 GETTABLEKS                       R4 R5 K12 ["getFFlagToolboxSandboxProceduralModels"]
+       31 GETTABLEKS                       R4 R0 K6 ["Src"]
+       33 GETTABLEKS                       R4 R4 K7 ["Util"]
+       35 GETTABLEKS                       R4 R4 K10 ["SharedFlags"]
+       37 GETTABLEKS                       R4 R4 K12 ["getFFlagToolboxSandboxProceduralModels"]
        39 CALL                             R3 1 1
        40 GETIMPORT                        R4 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Src"]
-       44 GETTABLEKS                       R7 R8 K7 ["Util"]
-       46 GETTABLEKS                       R6 R7 K10 ["SharedFlags"]
-       48 GETTABLEKS                       R5 R6 K13 ["getFFlagToolboxRemoveLoadOwnedAsset"]
+       42 GETTABLEKS                       R5 R0 K6 ["Src"]
+       44 GETTABLEKS                       R5 R5 K7 ["Util"]
+       46 GETTABLEKS                       R5 R5 K10 ["SharedFlags"]
+       48 GETTABLEKS                       R5 R5 K13 ["getFFlagToolboxRemoveLoadOwnedAsset"]
        50 CALL                             R4 1 1
        51 MOVE                             R5 R2
        52 CALL                             R5 0 1

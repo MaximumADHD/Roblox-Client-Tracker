@@ -1,50 +1,50 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Terrain"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Terrain"]
         3 NAMECALL                         R0 R0 K1 ["Clear"]
         5 CALL                             R0 1 0
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K2 ["ChangeHistoryService"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["ChangeHistoryService"]
         9 LOADK                            R2 K3 ["Cleared Terrain"]
        10 NAMECALL                         R0 R0 K4 ["SetWaypoint"]
        12 CALL                             R0 2 0
-       13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R2 R3 K5 ["_overrides"]
-       16 GETUPVAL                         R4 2
-       17 GETTABLEKS                       R3 R4 K6 ["ClearSettings"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K5 ["_overrides"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K6 ["ClearSettings"]
        19 GETTABLE                         R1 R2 R3
-       20 GETUPVAL                         R3 3
-       21 GETTABLEKS                       R2 R3 K1 ["Clear"]
+       20 GETUPVAL                         R2 3
+       21 GETTABLEKS                       R2 R2 K1 ["Clear"]
        23 GETTABLE                         R0 R1 R2
        24 LOADB                            R1 1
        25 SETTABLEKS                       R1 R0 K7 ["Disabled"]
-       27 GETUPVAL                         R1 1
-       28 GETTABLEKS                       R0 R1 K8 ["OnInternalsChanged"]
+       27 GETUPVAL                         R0 1
+       28 GETTABLEKS                       R0 R0 K8 ["OnInternalsChanged"]
        30 NAMECALL                         R0 R0 K9 ["Fire"]
        32 CALL                             R0 1 0
-       33 GETUPVAL                         R1 1
-       34 GETTABLEKS                       R0 R1 K10 ["_analytics"]
+       33 GETUPVAL                         R0 1
+       34 GETTABLEKS                       R0 R0 K10 ["_analytics"]
        36 LOADK                            R2 K11 ["Usage"]
-       37 GETUPVAL                         R4 4
-       38 GETTABLEKS                       R3 R4 K1 ["Clear"]
+       37 GETUPVAL                         R3 4
+       38 GETTABLEKS                       R3 R3 K1 ["Clear"]
        40 LOADN                            R4 1
        41 NAMECALL                         R0 R0 K12 ["report"]
        43 CALL                             R0 4 0
        44 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["init"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["init"]
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 MOVE                             R6 R2
         6 CALL                             R3 3 0
         7 NEWTABLE                         R3 1 0
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K1 ["ClearSettings"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K1 ["ClearSettings"]
        12 NEWTABLE                         R5 1 0
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K2 ["Clear"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K2 ["Clear"]
        17 DUPTABLE                         R7 K8 [{"Disabled", "Hidden", "Label", "Schema", "Value"}]
        18 GETTABLEKS                       R9 R2 K9 ["Terrain"]
        20 NAMECALL                         R9 R9 K10 ["CountCells"]
@@ -76,28 +76,28 @@ PROTO_1:
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["getPayload"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R4 R0 K1 ["_services"]
-        5 GETTABLEKS                       R3 R4 K2 ["Terrain"]
+        3 GETTABLEKS                       R3 R0 K1 ["_services"]
+        5 GETTABLEKS                       R3 R3 K2 ["Terrain"]
         7 NAMECALL                         R3 R3 K3 ["CountCells"]
         9 CALL                             R3 1 1
        10 JUMPIFEQKN                       R3 K4 [0] ; [+2]
        12 LOADB                            R2 0 +1
        13 LOADB                            R2 1
-       14 GETTABLEKS                       R6 R0 K5 ["_overrides"]
-       16 GETUPVAL                         R8 0
-       17 GETTABLEKS                       R7 R8 K6 ["ClearSettings"]
-       19 GETTABLE                         R5 R6 R7
-       20 GETUPVAL                         R7 1
-       21 GETTABLEKS                       R6 R7 K7 ["Clear"]
-       23 GETTABLE                         R4 R5 R6
-       24 GETTABLEKS                       R3 R4 K8 ["Disabled"]
+       14 GETTABLEKS                       R5 R0 K5 ["_overrides"]
+       16 GETUPVAL                         R6 0
+       17 GETTABLEKS                       R6 R6 K6 ["ClearSettings"]
+       19 GETTABLE                         R4 R5 R6
+       20 GETUPVAL                         R5 1
+       21 GETTABLEKS                       R5 R5 K7 ["Clear"]
+       23 GETTABLE                         R3 R4 R5
+       24 GETTABLEKS                       R3 R3 K8 ["Disabled"]
        26 JUMPIFEQ                         R3 R2 ; [+18]
        28 GETTABLEKS                       R5 R0 K5 ["_overrides"]
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R6 R7 K6 ["ClearSettings"]
+       30 GETUPVAL                         R6 0
+       31 GETTABLEKS                       R6 R6 K6 ["ClearSettings"]
        33 GETTABLE                         R4 R5 R6
-       34 GETUPVAL                         R6 1
-       35 GETTABLEKS                       R5 R6 K7 ["Clear"]
+       34 GETUPVAL                         R5 1
+       35 GETTABLEKS                       R5 R5 K7 ["Clear"]
        37 GETTABLE                         R3 R4 R5
        38 SETTABLEKS                       R2 R3 K8 ["Disabled"]
        40 GETTABLEKS                       R3 R0 K9 ["OnInternalsChanged"]
@@ -107,14 +107,14 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["_overrides"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["ClearSettings"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["ClearSettings"]
         5 GETTABLE                         R2 R3 R4
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K2 ["Clear"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K2 ["Clear"]
         9 GETTABLE                         R1 R2 R3
-       10 GETTABLEKS                       R4 R0 K3 ["_services"]
-       12 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+       10 GETTABLEKS                       R3 R0 K3 ["_services"]
+       12 GETTABLEKS                       R3 R3 K4 ["Terrain"]
        14 NAMECALL                         R3 R3 K5 ["CountCells"]
        16 CALL                             R3 1 1
        17 JUMPIFEQKN                       R3 K6 [0] ; [+2]
@@ -136,23 +136,23 @@ PROTO_5:
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["activate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["activate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 NAMECALL                         R1 R0 K1 ["setDisabledState"]
         7 CALL                             R1 1 0
-        8 GETTABLEKS                       R3 R0 K2 ["_services"]
-       10 GETTABLEKS                       R2 R3 K3 ["ChangeHistoryService"]
-       12 GETTABLEKS                       R1 R2 K4 ["OnUndo"]
+        8 GETTABLEKS                       R1 R0 K2 ["_services"]
+       10 GETTABLEKS                       R1 R1 K3 ["ChangeHistoryService"]
+       12 GETTABLEKS                       R1 R1 K4 ["OnUndo"]
        14 NEWCLOSURE                       R3 P0
        15 CAPTURE                          VAL R0
        16 NAMECALL                         R1 R1 K5 ["Connect"]
        18 CALL                             R1 2 1
        19 SETTABLEKS                       R1 R0 K6 ["_undo"]
-       21 GETTABLEKS                       R3 R0 K2 ["_services"]
-       23 GETTABLEKS                       R2 R3 K3 ["ChangeHistoryService"]
-       25 GETTABLEKS                       R1 R2 K7 ["OnRedo"]
+       21 GETTABLEKS                       R1 R0 K2 ["_services"]
+       23 GETTABLEKS                       R1 R1 K3 ["ChangeHistoryService"]
+       25 GETTABLEKS                       R1 R1 K7 ["OnRedo"]
        27 NEWCLOSURE                       R3 P1
        28 CAPTURE                          VAL R0
        29 NAMECALL                         R1 R1 K5 ["Connect"]
@@ -160,15 +160,15 @@ PROTO_6:
        32 SETTABLEKS                       R1 R0 K8 ["_redo"]
        34 GETTABLEKS                       R1 R0 K9 ["_analytics"]
        36 LOADK                            R3 K10 ["Activated"]
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R4 R5 K11 ["Clear"]
+       37 GETUPVAL                         R4 1
+       38 GETTABLEKS                       R4 R4 K11 ["Clear"]
        40 NAMECALL                         R1 R1 K12 ["report"]
        42 CALL                             R1 3 0
        43 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["deactivate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["deactivate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 GETTABLEKS                       R1 R0 K1 ["_undo"]
@@ -190,13 +190,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R4 K1 [script]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K7 ["BaseTool"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["BaseTool"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K8 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K8 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K10 ["Category"]
        25 GETTABLEKS                       R4 R2 K11 ["ClearSettings"]

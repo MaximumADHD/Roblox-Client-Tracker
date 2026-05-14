@@ -17,9 +17,9 @@ PROTO_1:
        10 JUMPIF                           R1 ; [+2]
        11 GETUPVAL                         R1 2
        12 RETURN                           R1 1
-       13 GETUPVAL                         R3 1
-       14 GETTABLE                         R2 R0 R3
-       15 GETTABLEKS                       R1 R2 K2 ["Value"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLE                         R1 R0 R2
+       15 GETTABLEKS                       R1 R1 K2 ["Value"]
        17 RETURN                           R1 1
 
 PROTO_2:

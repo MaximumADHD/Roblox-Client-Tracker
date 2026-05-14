@@ -36,9 +36,9 @@ PROTO_1:
         4 MOVE                             R4 R0
         5 CALL                             R1 3 0
         6 GETUPVAL                         R1 2
-        7 GETUPVAL                         R5 3
-        8 GETTABLEKS                       R4 R5 K1 ["fromHost"]
-       10 GETTABLEKS                       R3 R4 K2 ["message"]
+        7 GETUPVAL                         R3 3
+        8 GETTABLEKS                       R3 R3 K1 ["fromHost"]
+       10 GETTABLEKS                       R3 R3 K2 ["message"]
        12 GETUPVAL                         R4 1
        13 MOVE                             R5 R0
        14 GETVARARGS                       R6 -1
@@ -89,8 +89,8 @@ PROTO_2:
        51 MOVE                             R6 R2
        52 MOVE                             R7 R1
        53 CALL                             R3 4 0
-       54 GETUPVAL                         R4 3
-       55 GETTABLEKS                       R3 R4 K12 ["logCounter"]
+       54 GETUPVAL                         R3 3
+       55 GETTABLEKS                       R3 R3 K12 ["logCounter"]
        57 DUPTABLE                         R4 K18 [{"eventName", "backends", "throttlingPercentage", "description", "lastUpdated"}]
        58 LOADK                            R5 K19 ["LuaExplorerSloppyShutdown"]
        59 SETTABLEKS                       R5 R4 K13 ["eventName"]
@@ -143,14 +143,14 @@ PROTO_2:
       123 CALL                             R3 3 0
       124 DUPTABLE                         R3 K35 [{"identifier", "disconnectSignal", "messageReceivedSignal", "sendMessage"}]
       125 SETTABLEKS                       R0 R3 K29 ["identifier"]
-      127 GETUPVAL                         R6 4
-      128 GETTABLEKS                       R5 R6 K36 ["Signal"]
-      130 GETTABLEKS                       R4 R5 K37 ["new"]
+      127 GETUPVAL                         R4 4
+      128 GETTABLEKS                       R4 R4 K36 ["Signal"]
+      130 GETTABLEKS                       R4 R4 K37 ["new"]
       132 CALL                             R4 0 1
       133 SETTABLEKS                       R4 R3 K30 ["disconnectSignal"]
-      135 GETUPVAL                         R6 4
-      136 GETTABLEKS                       R5 R6 K36 ["Signal"]
-      138 GETTABLEKS                       R4 R5 K37 ["new"]
+      135 GETUPVAL                         R4 4
+      136 GETTABLEKS                       R4 R4 K36 ["Signal"]
+      138 GETTABLEKS                       R4 R4 K37 ["new"]
       140 CALL                             R4 0 1
       141 SETTABLEKS                       R4 R3 K33 ["messageReceivedSignal"]
       143 NEWCLOSURE                       R4 P0
@@ -291,9 +291,9 @@ PROTO_6:
        23 CALL                             R5 1 0
        24 FORGLOOP                         R0 2 ; [-6]
        26 GETUPVAL                         R0 5
-       27 GETUPVAL                         R4 6
-       28 GETTABLEKS                       R3 R4 K4 ["fromHost"]
-       30 GETTABLEKS                       R2 R3 K5 ["itemStarted"]
+       27 GETUPVAL                         R2 6
+       28 GETTABLEKS                       R2 R2 K4 ["fromHost"]
+       30 GETTABLEKS                       R2 R2 K5 ["itemStarted"]
        32 NAMECALL                         R0 R0 K6 ["RemoveItem"]
        34 CALL                             R0 2 0
        35 RETURN                           R0 0
@@ -306,9 +306,9 @@ PROTO_7:
         6 CAPTURE                          VAL R1
         7 CAPTURE                          VAL R2
         8 GETUPVAL                         R4 1
-        9 GETUPVAL                         R8 2
-       10 GETTABLEKS                       R7 R8 K0 ["fromGuest"]
-       12 GETTABLEKS                       R6 R7 K1 ["connect"]
+        9 GETUPVAL                         R6 2
+       10 GETTABLEKS                       R6 R6 K0 ["fromGuest"]
+       12 GETTABLEKS                       R6 R6 K1 ["connect"]
        14 NEWCLOSURE                       R7 P1
        15 CAPTURE                          VAL R1
        16 CAPTURE                          VAL R2
@@ -321,18 +321,18 @@ PROTO_7:
        23 NAMECALL                         R4 R4 K2 ["OnInvokeSuspendOverride"]
        25 CALL                             R4 3 1
        26 GETUPVAL                         R5 1
-       27 GETUPVAL                         R9 2
-       28 GETTABLEKS                       R8 R9 K0 ["fromGuest"]
-       30 GETTABLEKS                       R7 R8 K3 ["message"]
+       27 GETUPVAL                         R7 2
+       28 GETTABLEKS                       R7 R7 K0 ["fromGuest"]
+       30 GETTABLEKS                       R7 R7 K3 ["message"]
        32 NEWCLOSURE                       R8 P2
        33 CAPTURE                          VAL R1
        34 CAPTURE                          UPVAL U0
        35 NAMECALL                         R5 R5 K2 ["OnInvokeSuspendOverride"]
        37 CALL                             R5 3 1
        38 GETUPVAL                         R6 1
-       39 GETUPVAL                         R10 2
-       40 GETTABLEKS                       R9 R10 K0 ["fromGuest"]
-       42 GETTABLEKS                       R8 R9 K4 ["disconnect"]
+       39 GETUPVAL                         R8 2
+       40 GETTABLEKS                       R8 R8 K0 ["fromGuest"]
+       42 GETTABLEKS                       R8 R8 K4 ["disconnect"]
        44 NEWCLOSURE                       R9 P3
        45 CAPTURE                          UPVAL U0
        46 CAPTURE                          VAL R1
@@ -340,15 +340,15 @@ PROTO_7:
        48 NAMECALL                         R6 R6 K2 ["OnInvokeSuspendOverride"]
        50 CALL                             R6 3 1
        51 GETUPVAL                         R7 1
-       52 GETUPVAL                         R11 2
-       53 GETTABLEKS                       R10 R11 K5 ["fromHost"]
-       55 GETTABLEKS                       R9 R10 K6 ["starting"]
+       52 GETUPVAL                         R9 2
+       53 GETTABLEKS                       R9 R9 K5 ["fromHost"]
+       55 GETTABLEKS                       R9 R9 K6 ["starting"]
        57 NAMECALL                         R7 R7 K7 ["Invoke"]
        59 CALL                             R7 2 0
        60 GETUPVAL                         R7 5
-       61 GETUPVAL                         R11 2
-       62 GETTABLEKS                       R10 R11 K5 ["fromHost"]
-       64 GETTABLEKS                       R9 R10 K8 ["itemStarted"]
+       61 GETUPVAL                         R9 2
+       62 GETTABLEKS                       R9 R9 K5 ["fromHost"]
+       64 GETTABLEKS                       R9 R9 K8 ["itemStarted"]
        66 NAMECALL                         R7 R7 K9 ["SetItem"]
        68 CALL                             R7 2 0
        69 NEWCLOSURE                       R7 P4
@@ -367,13 +367,13 @@ PROTO_8:
         3 CALL                             R1 1 1
         4 NAMECALL                         R1 R1 K1 ["get"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["useContext"]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K3 ["AnalyticsContext"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["useContext"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K3 ["AnalyticsContext"]
        13 CALL                             R2 1 1
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R3 R4 K4 ["useCallback"]
+       14 GETUPVAL                         R3 1
+       15 GETTABLEKS                       R3 R3 K4 ["useCallback"]
        17 NEWCLOSURE                       R4 P0
        18 CAPTURE                          UPVAL U3
        19 CAPTURE                          VAL R1
@@ -384,10 +384,10 @@ PROTO_8:
        24 NEWTABLE                         R5 0 0
        26 CALL                             R3 2 1
        27 GETUPVAL                         R4 7
-       28 GETUPVAL                         R8 5
-       29 GETTABLEKS                       R7 R8 K5 ["Components"]
-       31 GETTABLEKS                       R6 R7 K6 ["Contexts"]
-       33 GETTABLEKS                       R5 R6 K7 ["NetworkContextProvider"]
+       28 GETUPVAL                         R5 5
+       29 GETTABLEKS                       R5 R5 K5 ["Components"]
+       31 GETTABLEKS                       R5 R5 K6 ["Contexts"]
+       33 GETTABLEKS                       R5 R5 K7 ["NetworkContextProvider"]
        35 DUPTABLE                         R6 K9 [{"registerOnConnect"}]
        36 SETTABLEKS                       R3 R6 K8 ["registerOnConnect"]
        38 GETTABLEKS                       R7 R0 K10 ["children"]
@@ -405,31 +405,31 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Analytics"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Analytics"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Explorer"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Explorer"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["Framework"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R7 R1 K10 ["Packages"]
-       38 GETTABLEKS                       R6 R7 K14 ["React"]
+       36 GETTABLEKS                       R6 R1 K10 ["Packages"]
+       38 GETTABLEKS                       R6 R6 K14 ["React"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K9 [require]
-       43 GETTABLEKS                       R9 R1 K15 ["Src"]
-       45 GETTABLEKS                       R8 R9 K16 ["Util"]
-       47 GETTABLEKS                       R7 R8 K17 ["StudioProtocolConstants"]
+       43 GETTABLEKS                       R7 R1 K15 ["Src"]
+       45 GETTABLEKS                       R7 R7 K16 ["Util"]
+       47 GETTABLEKS                       R7 R7 K17 ["StudioProtocolConstants"]
        49 CALL                             R6 1 1
        50 GETTABLEKS                       R7 R5 K18 ["createElement"]
-       52 GETTABLEKS                       R9 R4 K19 ["ContextServices"]
-       54 GETTABLEKS                       R8 R9 K20 ["Plugin"]
-       56 GETTABLEKS                       R10 R3 K16 ["Util"]
-       58 GETTABLEKS                       R9 R10 K21 ["createDebugLogger"]
+       52 GETTABLEKS                       R8 R4 K19 ["ContextServices"]
+       54 GETTABLEKS                       R8 R8 K20 ["Plugin"]
+       56 GETTABLEKS                       R9 R3 K16 ["Util"]
+       58 GETTABLEKS                       R9 R9 K21 ["createDebugLogger"]
        60 LOADK                            R10 K22 ["StudioNetworkContextProvider"]
        61 CALL                             R9 1 1
        62 DUPCLOSURE                       R10 K23 [PROTO_8]

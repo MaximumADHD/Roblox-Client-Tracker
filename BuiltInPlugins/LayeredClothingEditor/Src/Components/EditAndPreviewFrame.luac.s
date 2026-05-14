@@ -5,8 +5,8 @@ PROTO_0:
         6 GETTABLEKS                       R4 R1 K3 ["GoToNext"]
         8 GETTABLEKS                       R5 R1 K4 ["GoToPrevious"]
        10 GETTABLEKS                       R6 R1 K5 ["Localization"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 GETUPVAL                         R8 1
        16 DUPTABLE                         R9 K13 [{"Title", "PromptText", "NextButtonText", "BackButtonText", "NextButtonEnabled", "BackButtonEnabled", "HasBackButton", "GoToNext", "GoToPrevious"}]
        17 LOADK                            R12 K14 ["Editor"]
@@ -44,27 +44,27 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETIMPORT                        R6 K4 [require]
-       36 GETTABLEKS                       R8 R0 K5 ["Packages"]
-       38 GETTABLEKS                       R7 R8 K11 ["AvatarToolsShared"]
+       36 GETTABLEKS                       R7 R0 K5 ["Packages"]
+       38 GETTABLEKS                       R7 R7 K11 ["AvatarToolsShared"]
        40 CALL                             R6 1 1
        41 GETTABLEKS                       R7 R6 K12 ["Components"]
        43 GETTABLEKS                       R8 R7 K13 ["FlowScreenLayout"]

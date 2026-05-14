@@ -6,8 +6,8 @@ PROTO_0:
         4 NEWTABLE                         R4 2 0
         6 GETTABLEKS                       R5 R0 K1 ["LayoutOrder"]
         8 SETTABLEKS                       R5 R4 K1 ["LayoutOrder"]
-       10 GETUPVAL                         R6 2
-       11 GETTABLEKS                       R5 R6 K2 ["Tag"]
+       10 GETUPVAL                         R5 2
+       11 GETTABLEKS                       R5 R5 K2 ["Tag"]
        13 LOADK                            R6 K3 ["Role-Surface X-Fit X-RowS"]
        14 SETTABLE                         R6 R4 R5
        15 DUPTABLE                         R5 K6 [{"ColorBox", "Token"}]
@@ -21,8 +21,8 @@ PROTO_0:
        26 SETTABLEKS                       R9 R8 K1 ["LayoutOrder"]
        28 GETUPVAL                         R9 3
        29 SETTABLEKS                       R9 R8 K9 ["Size"]
-       31 GETUPVAL                         R10 2
-       32 GETTABLEKS                       R9 R10 K2 ["Tag"]
+       31 GETUPVAL                         R9 2
+       32 GETTABLEKS                       R9 R9 K2 ["Tag"]
        34 LOADK                            R10 K10 ["Role-Surface100 X-Stroke"]
        35 SETTABLE                         R10 R8 R9
        36 CALL                             R6 2 1
@@ -35,8 +35,8 @@ PROTO_0:
        45 SETTABLEKS                       R9 R8 K1 ["LayoutOrder"]
        47 GETTABLEKS                       R9 R0 K5 ["Token"]
        49 SETTABLEKS                       R9 R8 K11 ["Text"]
-       51 GETUPVAL                         R10 2
-       52 GETTABLEKS                       R9 R10 K2 ["Tag"]
+       51 GETUPVAL                         R9 2
+       52 GETTABLEKS                       R9 R9 K2 ["Tag"]
        54 LOADK                            R10 K12 ["X-Fit"]
        55 SETTABLE                         R10 R8 R9
        56 CALL                             R6 2 1
@@ -94,8 +94,8 @@ PROTO_1:
        70 LOADK                            R10 K20 [0.5]
        71 CALL                             R8 2 1
        72 SETTABLEKS                       R8 R7 K22 ["AnchorPoint"]
-       74 GETUPVAL                         R9 3
-       75 GETTABLEKS                       R8 R9 K23 ["Tag"]
+       74 GETUPVAL                         R8 3
+       75 GETTABLEKS                       R8 R8 K23 ["Tag"]
        77 LOADK                            R9 K24 ["Role-Surface"]
        78 SETTABLE                         R9 R7 R8
        79 CALL                             R5 2 1
@@ -131,8 +131,8 @@ PROTO_1:
       119 GETIMPORT                        R16 K42 [Enum.Font.BuilderSansMedium]
       121 SETTABLEKS                       R16 R15 K40 ["Font"]
       123 SETTABLEKS                       R11 R15 K43 ["Text"]
-      125 GETUPVAL                         R17 3
-      126 GETTABLEKS                       R16 R17 K23 ["Tag"]
+      125 GETUPVAL                         R16 3
+      126 GETTABLEKS                       R16 R16 K23 ["Tag"]
       128 LOADK                            R17 K44 ["Role-Surface200 X-Fit X-PadS X-Corner"]
       129 SETTABLE                         R17 R15 R16
       130 CALL                             R13 2 1
@@ -143,16 +143,16 @@ PROTO_1:
       136 NEWTABLE                         R9 2 0
       138 GETTABLEKS                       R10 R0 K18 ["LayoutOrder"]
       140 SETTABLEKS                       R10 R9 K18 ["LayoutOrder"]
-      142 GETUPVAL                         R11 3
-      143 GETTABLEKS                       R10 R11 K23 ["Tag"]
+      142 GETUPVAL                         R10 3
+      143 GETTABLEKS                       R10 R10 K23 ["Tag"]
       145 LOADK                            R11 K46 ["Role-Surface X-FitY X-ColumnS"]
       146 SETTABLE                         R11 R9 R10
       147 DUPTABLE                         R10 K49 [{"Heading", "Content"}]
       148 GETUPVAL                         R11 2
       149 LOADK                            R12 K45 ["Frame"]
       150 NEWTABLE                         R13 1 0
-      152 GETUPVAL                         R15 3
-      153 GETTABLEKS                       R14 R15 K23 ["Tag"]
+      152 GETUPVAL                         R14 3
+      153 GETTABLEKS                       R14 R14 K23 ["Tag"]
       155 LOADK                            R15 K50 ["Role-Surface X-Fit X-RowS"]
       156 SETTABLE                         R15 R13 R14
       157 DUPTABLE                         R14 K53 [{"Icon", "Label"}]
@@ -167,8 +167,8 @@ PROTO_1:
       170 SETTABLEKS                       R18 R17 K18 ["LayoutOrder"]
       172 GETTABLEKS                       R18 R2 K54 ["Name"]
       174 SETTABLEKS                       R18 R17 K43 ["Text"]
-      176 GETUPVAL                         R19 3
-      177 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      176 GETUPVAL                         R18 3
+      177 GETTABLEKS                       R18 R18 K23 ["Tag"]
       179 LOADK                            R19 K55 ["X-Fit"]
       180 SETTABLE                         R19 R17 R18
       181 CALL                             R15 2 1
@@ -180,8 +180,8 @@ PROTO_1:
       189 NEWTABLE                         R13 2 0
       191 GETTABLEKS                       R14 R0 K18 ["LayoutOrder"]
       193 SETTABLEKS                       R14 R13 K18 ["LayoutOrder"]
-      195 GETUPVAL                         R15 3
-      196 GETTABLEKS                       R14 R15 K23 ["Tag"]
+      195 GETUPVAL                         R14 3
+      196 GETTABLEKS                       R14 R14 K23 ["Tag"]
       198 LOADK                            R15 K56 ["Role-Surface X-FitY X-ColumnS X-Pad"]
       199 SETTABLE                         R15 R13 R14
       200 DUPTABLE                         R14 K60 [{"Styles", "Text", "Font", "Background", "Padding", "Layout", "Stroke", "Gradient"}]
@@ -190,8 +190,8 @@ PROTO_1:
       204 GETUPVAL                         R15 2
       205 LOADK                            R16 K45 ["Frame"]
       206 NEWTABLE                         R17 1 0
-      208 GETUPVAL                         R19 3
-      209 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      208 GETUPVAL                         R18 3
+      209 GETTABLEKS                       R18 R18 K23 ["Tag"]
       211 LOADK                            R19 K61 ["Role-Surface X-FitY"]
       212 SETTABLE                         R19 R17 R18
       213 MOVE                             R18 R6
@@ -235,8 +235,8 @@ PROTO_1:
       266 CALL                             R19 3 1
       267 MOVE                             R18 R19
       268 SETTABLEKS                       R18 R17 K43 ["Text"]
-      270 GETUPVAL                         R19 3
-      271 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      270 GETUPVAL                         R18 3
+      271 GETTABLEKS                       R18 R18 K23 ["Tag"]
       273 LOADK                            R19 K55 ["X-Fit"]
       274 SETTABLE                         R19 R17 R18
       275 CALL                             R15 2 1
@@ -274,8 +274,8 @@ PROTO_1:
       320 CALL                             R19 2 1
       321 MOVE                             R18 R19
       322 SETTABLEKS                       R18 R17 K43 ["Text"]
-      324 GETUPVAL                         R19 3
-      325 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      324 GETUPVAL                         R18 3
+      325 GETTABLEKS                       R18 R18 K23 ["Tag"]
       327 LOADK                            R19 K55 ["X-Fit"]
       328 SETTABLE                         R19 R17 R18
       329 CALL                             R15 2 1
@@ -296,8 +296,8 @@ PROTO_1:
       350 CALL                             R19 2 1
       351 MOVE                             R18 R19
       352 SETTABLEKS                       R18 R17 K43 ["Text"]
-      354 GETUPVAL                         R19 3
-      355 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      354 GETUPVAL                         R18 3
+      355 GETTABLEKS                       R18 R18 K23 ["Tag"]
       357 LOADK                            R19 K55 ["X-Fit"]
       358 SETTABLE                         R19 R17 R18
       359 CALL                             R15 2 1
@@ -318,8 +318,8 @@ PROTO_1:
       380 CALL                             R19 2 1
       381 MOVE                             R18 R19
       382 SETTABLEKS                       R18 R17 K43 ["Text"]
-      384 GETUPVAL                         R19 3
-      385 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      384 GETUPVAL                         R18 3
+      385 GETTABLEKS                       R18 R18 K23 ["Tag"]
       387 LOADK                            R19 K55 ["X-Fit"]
       388 SETTABLE                         R19 R17 R18
       389 CALL                             R15 2 1
@@ -340,8 +340,8 @@ PROTO_1:
       410 CALL                             R19 2 1
       411 MOVE                             R18 R19
       412 SETTABLEKS                       R18 R17 K43 ["Text"]
-      414 GETUPVAL                         R19 3
-      415 GETTABLEKS                       R18 R19 K23 ["Tag"]
+      414 GETUPVAL                         R18 3
+      415 GETTABLEKS                       R18 R18 K23 ["Tag"]
       417 LOADK                            R19 K55 ["X-Fit"]
       418 SETTABLE                         R19 R17 R18
       419 CALL                             R15 2 1
@@ -372,8 +372,8 @@ PROTO_2:
        19 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
        21 GETTABLEKS                       R7 R0 K4 ["GuiName"]
        23 SETTABLEKS                       R7 R6 K5 ["Text"]
-       25 GETUPVAL                         R8 4
-       26 GETTABLEKS                       R7 R8 K6 ["Tag"]
+       25 GETUPVAL                         R7 4
+       26 GETTABLEKS                       R7 R7 K6 ["Tag"]
        28 LOADK                            R8 K7 ["Semibold X-Fit"]
        29 SETTABLE                         R8 R6 R7
        30 CALL                             R4 2 1
@@ -408,8 +408,8 @@ PROTO_2:
        67 GETUPVAL                         R4 2
        68 LOADK                            R5 K17 ["Frame"]
        69 NEWTABLE                         R6 1 0
-       71 GETUPVAL                         R8 4
-       72 GETTABLEKS                       R7 R8 K6 ["Tag"]
+       71 GETUPVAL                         R7 4
+       72 GETTABLEKS                       R7 R7 K6 ["Tag"]
        74 LOADK                            R8 K18 ["Role-Surface100 X-FitY X-Pad X-ColumnM"]
        75 SETTABLE                         R8 R6 R7
        76 MOVE                             R7 R2
@@ -423,8 +423,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETIMPORT                        R3 K10 [game]
@@ -436,17 +436,17 @@ MAIN:
        25 NAMECALL                         R4 R4 K12 ["GetService"]
        27 CALL                             R4 2 1
        28 GETIMPORT                        R5 K5 [require]
-       30 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R6 R7 K14 ["Framework"]
+       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R6 R6 K14 ["Framework"]
        34 CALL                             R5 1 1
        35 GETTABLEKS                       R6 R5 K15 ["UI"]
        37 GETTABLEKS                       R7 R6 K16 ["TextLabel"]
-       39 GETTABLEKS                       R9 R5 K17 ["Util"]
-       41 GETTABLEKS                       R8 R9 K18 ["counter"]
+       39 GETTABLEKS                       R8 R5 K17 ["Util"]
+       41 GETTABLEKS                       R8 R8 K18 ["counter"]
        43 GETIMPORT                        R9 K5 [require]
-       45 GETIMPORT                        R12 K1 [script]
-       47 GETTABLEKS                       R11 R12 K19 ["Parent"]
-       49 GETTABLEKS                       R10 R11 K20 ["ViewData"]
+       45 GETIMPORT                        R10 K1 [script]
+       47 GETTABLEKS                       R10 R10 K19 ["Parent"]
+       49 GETTABLEKS                       R10 R10 K20 ["ViewData"]
        51 CALL                             R9 1 1
        52 GETIMPORT                        R10 K23 [UDim2.fromOffset]
        54 LOADN                            R11 24

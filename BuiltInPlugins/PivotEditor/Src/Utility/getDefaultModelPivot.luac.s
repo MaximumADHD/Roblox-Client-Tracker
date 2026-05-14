@@ -126,9 +126,9 @@ PROTO_4:
         9 NAMECALL                         R8 R7 K2 ["IsA"]
        11 CALL                             R8 2 1
        12 JUMPIFNOT                        R8 ; [+51]
-       13 NAMECALL                         R9 R7 K3 ["GetPivot"]
-       15 CALL                             R9 1 1
-       16 GETTABLEKS                       R8 R9 K4 ["Rotation"]
+       13 NAMECALL                         R8 R7 K3 ["GetPivot"]
+       15 CALL                             R8 1 1
+       16 GETTABLEKS                       R8 R8 K4 ["Rotation"]
        18 GETUPVAL                         R10 0
        19 MOVE                             R11 R8
        20 CALL                             R10 1 1
@@ -201,15 +201,15 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Packages"]
-       11 GETTABLEKS                       R1 R2 K4 ["DraggerFramework"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       11 GETTABLEKS                       R1 R1 K4 ["DraggerFramework"]
        13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R4 R1 K7 ["Utility"]
-       17 GETTABLEKS                       R3 R4 K8 ["snapRotationToPrimaryDirection"]
+       15 GETTABLEKS                       R3 R1 K7 ["Utility"]
+       17 GETTABLEKS                       R3 R3 K8 ["snapRotationToPrimaryDirection"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K9 [PROTO_0]
        21 DUPCLOSURE                       R4 K10 [PROTO_1]

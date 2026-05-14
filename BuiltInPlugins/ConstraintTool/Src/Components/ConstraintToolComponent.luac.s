@@ -14,16 +14,16 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R2 R1 K0 ["DraggerContext"]
-        2 GETTABLEKS                       R4 R0 K1 ["props"]
-        4 GETTABLEKS                       R3 R4 K0 ["DraggerContext"]
+        2 GETTABLEKS                       R3 R0 K1 ["props"]
+        4 GETTABLEKS                       R3 R3 K0 ["DraggerContext"]
         6 JUMPIFNOTEQ                      R2 R3 ; [+17]
         8 GETTABLEKS                       R2 R1 K2 ["DraggerSchema"]
-       10 GETTABLEKS                       R4 R0 K1 ["props"]
-       12 GETTABLEKS                       R3 R4 K2 ["DraggerSchema"]
+       10 GETTABLEKS                       R3 R0 K1 ["props"]
+       12 GETTABLEKS                       R3 R3 K2 ["DraggerSchema"]
        14 JUMPIFNOTEQ                      R2 R3 ; [+9]
        16 GETTABLEKS                       R2 R1 K3 ["DraggerSettings"]
-       18 GETTABLEKS                       R4 R0 K1 ["props"]
-       20 GETTABLEKS                       R3 R4 K3 ["DraggerSettings"]
+       18 GETTABLEKS                       R3 R0 K1 ["props"]
+       20 GETTABLEKS                       R3 R3 K3 ["DraggerSettings"]
        22 JUMPIFEQ                         R2 R3 ; [+8]
        24 NAMECALL                         R2 R0 K4 ["teardown"]
        26 CALL                             R2 1 0
@@ -39,11 +39,11 @@ PROTO_4:
         5 RETURN                           R1 -1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_isMounted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_isMounted"]
         3 JUMPIFNOT                        R0 ; [+15]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K1 ["forceUpdate"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["forceUpdate"]
         7 JUMPIFNOT                        R0 ; [+5]
         8 GETUPVAL                         R0 0
         9 NAMECALL                         R0 R0 K1 ["forceUpdate"]
@@ -67,8 +67,8 @@ PROTO_7:
         2 GETTABLEKS                       R2 R0 K0 ["UserInputType"]
         4 GETIMPORT                        R3 K3 [Enum.UserInputType.Keyboard]
         6 JUMPIFNOTEQ                      R2 R3 ; [+10]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K4 ["_constraintToolModel"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K4 ["_constraintToolModel"]
        11 GETTABLEKS                       R5 R0 K5 ["KeyCode"]
        13 NAMECALL                         R3 R3 K6 ["_processKeyDown"]
        15 CALL                             R3 2 0
@@ -77,8 +77,8 @@ PROTO_7:
        19 JUMPIFEQ                         R2 R3 ; [+5]
        21 GETIMPORT                        R3 K10 [Enum.UserInputType.Touch]
        23 JUMPIFNOTEQ                      R2 R3 ; [+7]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K4 ["_constraintToolModel"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K4 ["_constraintToolModel"]
        28 NAMECALL                         R3 R3 K11 ["_processMouseDown"]
        30 CALL                             R3 1 0
        31 RETURN                           R0 0
@@ -87,8 +87,8 @@ PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["UserInputType"]
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.Keyboard]
         4 JUMPIFNOTEQ                      R2 R3 ; [+10]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K4 ["_constraintToolModel"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K4 ["_constraintToolModel"]
         9 GETTABLEKS                       R5 R0 K5 ["KeyCode"]
        11 NAMECALL                         R3 R3 K6 ["_processKeyUp"]
        13 CALL                             R3 2 0
@@ -97,19 +97,19 @@ PROTO_8:
        17 JUMPIFEQ                         R2 R3 ; [+5]
        19 GETIMPORT                        R3 K10 [Enum.UserInputType.Touch]
        21 JUMPIFNOTEQ                      R2 R3 ; [+7]
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K4 ["_constraintToolModel"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K4 ["_constraintToolModel"]
        26 NAMECALL                         R3 R3 K11 ["_processMouseUp"]
        28 CALL                             R3 1 0
        29 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_isMounted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_isMounted"]
         3 JUMPIF                           R0 ; [+1]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K1 ["_constraintToolModel"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K1 ["_constraintToolModel"]
         8 NAMECALL                         R0 R0 K2 ["update"]
        10 CALL                             R0 1 0
        11 LOADB                            R0 0
@@ -118,36 +118,36 @@ PROTO_9:
        15 CALL                             R1 1 1
        16 JUMPIFNOT                        R1 ; [+1]
        17 LOADB                            R0 1
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R1 R2 K4 ["_viewBoundsAreDirty"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K4 ["_viewBoundsAreDirty"]
        21 JUMPIFNOT                        R1 ; [+5]
        22 GETUPVAL                         R1 0
        23 LOADB                            R2 0
        24 SETTABLEKS                       R2 R1 K4 ["_viewBoundsAreDirty"]
        26 LOADB                            R0 1
-       27 GETUPVAL                         R2 0
-       28 GETTABLEKS                       R1 R2 K5 ["_prevConstraintDetails"]
-       30 GETUPVAL                         R3 2
-       31 GETTABLEKS                       R2 R3 K6 ["ShowConstraintDetails"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K5 ["_prevConstraintDetails"]
+       30 GETUPVAL                         R2 2
+       31 GETTABLEKS                       R2 R2 K6 ["ShowConstraintDetails"]
        33 JUMPIFNOTEQ                      R1 R2 ; [+9]
-       35 GETUPVAL                         R2 0
-       36 GETTABLEKS                       R1 R2 K7 ["_prevWeldDetails"]
-       38 GETUPVAL                         R3 2
-       39 GETTABLEKS                       R2 R3 K8 ["ShowWeldDetails"]
+       35 GETUPVAL                         R1 0
+       36 GETTABLEKS                       R1 R1 K7 ["_prevWeldDetails"]
+       38 GETUPVAL                         R2 2
+       39 GETTABLEKS                       R2 R2 K8 ["ShowWeldDetails"]
        41 JUMPIFEQ                         R1 R2 ; [+2]
        43 LOADB                            R0 1
        44 JUMPIFNOT                        R0 ; [+6]
-       45 GETUPVAL                         R2 0
-       46 GETTABLEKS                       R1 R2 K1 ["_constraintToolModel"]
+       45 GETUPVAL                         R1 0
+       46 GETTABLEKS                       R1 R1 K1 ["_constraintToolModel"]
        48 NAMECALL                         R1 R1 K9 ["_processViewChanged"]
        50 CALL                             R1 1 0
        51 GETUPVAL                         R1 0
-       52 GETUPVAL                         R3 2
-       53 GETTABLEKS                       R2 R3 K6 ["ShowConstraintDetails"]
+       52 GETUPVAL                         R2 2
+       53 GETTABLEKS                       R2 R2 K6 ["ShowConstraintDetails"]
        55 SETTABLEKS                       R2 R1 K5 ["_prevConstraintDetails"]
        57 GETUPVAL                         R1 0
-       58 GETUPVAL                         R3 2
-       59 GETTABLEKS                       R2 R3 K8 ["ShowWeldDetails"]
+       58 GETUPVAL                         R2 2
+       59 GETTABLEKS                       R2 R2 K8 ["ShowWeldDetails"]
        61 SETTABLEKS                       R2 R1 K7 ["_prevWeldDetails"]
        63 RETURN                           R0 0
 
@@ -176,11 +176,11 @@ PROTO_10:
        31 SETTABLEKS                       R2 R0 K7 ["_selectionBoundsAreDirty"]
        33 LOADB                            R2 0
        34 SETTABLEKS                       R2 R0 K8 ["_viewBoundsAreDirty"]
-       36 GETUPVAL                         R3 0
-       37 GETTABLEKS                       R2 R3 K9 ["ShowConstraintDetails"]
+       36 GETUPVAL                         R2 0
+       37 GETTABLEKS                       R2 R2 K9 ["ShowConstraintDetails"]
        39 SETTABLEKS                       R2 R0 K10 ["_prevConstraintDetails"]
-       41 GETUPVAL                         R3 0
-       42 GETTABLEKS                       R2 R3 K11 ["ShowWeldDetails"]
+       41 GETUPVAL                         R2 0
+       42 GETTABLEKS                       R2 R2 K11 ["ShowWeldDetails"]
        44 SETTABLEKS                       R2 R0 K12 ["_prevWeldDetails"]
        46 LOADK                            R2 K13 ["ConstraintToolViewUpdate"]
        47 SETTABLEKS                       R2 R0 K14 ["_bindName"]
@@ -194,8 +194,8 @@ PROTO_10:
        58 SETTABLEKS                       R3 R0 K14 ["_bindName"]
        60 NEWCLOSURE                       R3 P0
        61 CAPTURE                          VAL R0
-       62 GETUPVAL                         R5 2
-       63 GETTABLEKS                       R4 R5 K16 ["new"]
+       62 GETUPVAL                         R4 2
+       63 GETTABLEKS                       R4 R4 K16 ["new"]
        65 GETTABLEKS                       R5 R1 K0 ["DraggerContext"]
        67 GETTABLEKS                       R6 R1 K3 ["DraggerSchema"]
        69 GETTABLEKS                       R7 R1 K4 ["DraggerSettings"]
@@ -228,28 +228,28 @@ PROTO_10:
       114 NAMECALL                         R4 R4 K27 ["Set"]
       116 CALL                             R4 2 0
       117 GETTABLEKS                       R4 R1 K28 ["Mouse"]
-      119 GETUPVAL                         R6 4
-      120 GETTABLEKS                       R5 R6 K29 ["InputBegan"]
+      119 GETUPVAL                         R5 4
+      120 GETTABLEKS                       R5 R5 K29 ["InputBegan"]
       122 NEWCLOSURE                       R7 P2
       123 CAPTURE                          VAL R0
       124 NAMECALL                         R5 R5 K30 ["Connect"]
       126 CALL                             R5 2 1
       127 SETTABLEKS                       R5 R0 K31 ["_inputBeganConnection"]
-      129 GETUPVAL                         R6 4
-      130 GETTABLEKS                       R5 R6 K32 ["InputEnded"]
+      129 GETUPVAL                         R5 4
+      130 GETTABLEKS                       R5 R5 K32 ["InputEnded"]
       132 NEWCLOSURE                       R7 P3
       133 CAPTURE                          VAL R0
       134 NAMECALL                         R5 R5 K30 ["Connect"]
       136 CALL                             R5 2 1
       137 SETTABLEKS                       R5 R0 K33 ["_inputEndedConnection"]
-      139 GETUPVAL                         R6 5
-      140 GETTABLEKS                       R5 R6 K16 ["new"]
+      139 GETUPVAL                         R5 5
+      140 GETTABLEKS                       R5 R5 K16 ["new"]
       142 MOVE                             R6 R4
       143 CALL                             R5 1 1
       144 GETUPVAL                         R6 6
       145 GETTABLEKS                       R8 R0 K14 ["_bindName"]
-      147 GETIMPORT                        R10 K37 [Enum.RenderPriority.First]
-      149 GETTABLEKS                       R9 R10 K38 ["Value"]
+      147 GETIMPORT                        R9 K37 [Enum.RenderPriority.First]
+      149 GETTABLEKS                       R9 R9 K38 ["Value"]
       151 NEWCLOSURE                       R10 P4
       152 CAPTURE                          VAL R0
       153 CAPTURE                          VAL R5
@@ -308,19 +308,19 @@ MAIN:
        33 LOADK                            R7 K11 ["StudioService"]
        34 NAMECALL                         R5 R5 K7 ["GetService"]
        36 CALL                             R5 2 1
-       37 GETTABLEKS                       R7 R0 K12 ["Packages"]
-       39 GETTABLEKS                       R6 R7 K13 ["DraggerFramework"]
+       37 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K13 ["DraggerFramework"]
        41 GETIMPORT                        R7 K15 [require]
-       43 GETTABLEKS                       R9 R0 K12 ["Packages"]
-       45 GETTABLEKS                       R8 R9 K16 ["Roact"]
+       43 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       45 GETTABLEKS                       R8 R8 K16 ["Roact"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K15 [require]
-       50 GETTABLEKS                       R10 R0 K17 ["Src"]
-       52 GETTABLEKS                       R9 R10 K18 ["ConstraintToolModel"]
+       50 GETTABLEKS                       R9 R0 K17 ["Src"]
+       52 GETTABLEKS                       R9 R9 K18 ["ConstraintToolModel"]
        54 CALL                             R8 1 1
        55 GETIMPORT                        R9 K15 [require]
-       57 GETTABLEKS                       R11 R6 K19 ["Utility"]
-       59 GETTABLEKS                       R10 R11 K20 ["ViewChangeDetector"]
+       57 GETTABLEKS                       R10 R6 K19 ["Utility"]
+       59 GETTABLEKS                       R10 R10 K20 ["ViewChangeDetector"]
        61 CALL                             R9 1 1
        62 GETTABLEKS                       R10 R7 K21 ["PureComponent"]
        64 LOADK                            R12 K22 ["ConstraintToolComponent"]

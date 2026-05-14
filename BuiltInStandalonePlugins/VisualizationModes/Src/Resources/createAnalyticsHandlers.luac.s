@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["join"]
         3 DUPTABLE                         R3 K5 [{"studioSid", "clientId", "placeId", "userId"}]
         4 GETUPVAL                         R4 1
         5 NAMECALL                         R4 R4 K6 ["GetSessionId"]
@@ -10,8 +10,8 @@ PROTO_0:
        11 NAMECALL                         R4 R4 K7 ["GetClientId"]
        13 CALL                             R4 1 1
        14 SETTABLEKS                       R4 R3 K2 ["clientId"]
-       16 GETIMPORT                        R5 K9 [game]
-       18 GETTABLEKS                       R4 R5 K10 ["PlaceId"]
+       16 GETIMPORT                        R4 K9 [game]
+       18 GETTABLEKS                       R4 R4 K10 ["PlaceId"]
        20 SETTABLEKS                       R4 R3 K3 ["placeId"]
        22 GETUPVAL                         R4 2
        23 NAMECALL                         R4 R4 K11 ["GetUserId"]
@@ -111,17 +111,17 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R0 K11 ["Packages"]
-       23 GETTABLEKS                       R4 R5 K12 ["Dash"]
+       21 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["Dash"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K10 [require]
-       28 GETTABLEKS                       R6 R0 K13 ["Src"]
-       30 GETTABLEKS                       R5 R6 K14 ["Types"]
+       28 GETTABLEKS                       R5 R0 K13 ["Src"]
+       30 GETTABLEKS                       R5 R5 K14 ["Types"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K10 [require]
-       35 GETTABLEKS                       R8 R0 K13 ["Src"]
-       37 GETTABLEKS                       R7 R8 K15 ["Flags"]
-       39 GETTABLEKS                       R6 R7 K16 ["getFFlagStudioSendVisualizationModeCounter"]
+       35 GETTABLEKS                       R6 R0 K13 ["Src"]
+       37 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       39 GETTABLEKS                       R6 R6 K16 ["getFFlagStudioSendVisualizationModeCounter"]
        41 CALL                             R5 1 1
        42 DUPTABLE                         R6 K22 [{"eventName", "lastUpdated", "description", "links", "backends"}]
        43 LOADK                            R7 K23 ["SBT_VisModeEnabled"]

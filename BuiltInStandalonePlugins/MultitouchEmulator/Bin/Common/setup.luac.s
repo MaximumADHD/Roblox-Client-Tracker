@@ -160,8 +160,8 @@ PROTO_6:
        68 CAPTURE                          REF R4
        69 NAMECALL                         R7 R7 K20 ["Connect"]
        71 CALL                             R7 2 1
-       72 GETUPVAL                         R9 2
-       73 GETTABLEKS                       R8 R9 K21 ["RenderStepped"]
+       72 GETUPVAL                         R8 2
+       73 GETTABLEKS                       R8 R8 K21 ["RenderStepped"]
        75 NEWCLOSURE                       R10 P3
        76 CAPTURE                          REF R4
        77 CAPTURE                          VAL R6
@@ -183,8 +183,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["PluginLoader"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["PluginLoader"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K9 [game]
        16 LOADK                            R4 K10 ["CoreGui"]

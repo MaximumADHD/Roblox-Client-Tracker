@@ -6,8 +6,8 @@ PROTO_0:
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["cloneLizard"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["cloneLizard"]
         3 LOADK                            R1 K1 ["SymmetryMapLizard"]
         4 CALL                             R0 1 1
         5 NAMECALL                         R1 R0 K2 ["GetDescendants"]
@@ -41,23 +41,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["LuaMeshEditingModule"]
-       13 GETTABLEKS                       R2 R3 K8 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["LuaMeshEditingModule"]
+       13 GETTABLEKS                       R2 R2 K8 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["RhodiumTests"]
-       20 GETTABLEKS                       R3 R4 K10 ["RhodiumTestHelpers"]
+       18 GETTABLEKS                       R3 R0 K9 ["RhodiumTests"]
+       20 GETTABLEKS                       R3 R3 K10 ["RhodiumTestHelpers"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K11 ["Src"]
-       27 GETTABLEKS                       R4 R5 K8 ["Types"]
+       25 GETTABLEKS                       R4 R0 K11 ["Src"]
+       27 GETTABLEKS                       R4 R4 K8 ["Types"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R8 R0 K11 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Components"]
-       36 GETTABLEKS                       R6 R7 K13 ["EditingTools"]
-       38 GETTABLEKS                       R5 R6 K14 ["createSymmetryMapAsync"]
+       32 GETTABLEKS                       R5 R0 K11 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Components"]
+       36 GETTABLEKS                       R5 R5 K13 ["EditingTools"]
+       38 GETTABLEKS                       R5 R5 K14 ["createSymmetryMapAsync"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 1 0
        43 DUPCLOSURE                       R6 K15 [PROTO_1]

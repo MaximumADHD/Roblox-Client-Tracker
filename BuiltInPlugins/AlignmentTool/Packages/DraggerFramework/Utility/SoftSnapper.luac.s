@@ -110,8 +110,8 @@ PROTO_4:
        32 LOADK                            R13 K7 ["SnapPoint"]
        33 MOVE                             R14 R6
        34 CONCAT                           R12 R13 R14
-       35 GETUPVAL                         R14 0
-       36 GETTABLEKS                       R13 R14 K8 ["createElement"]
+       35 GETUPVAL                         R13 0
+       36 GETTABLEKS                       R13 R13 K8 ["createElement"]
        38 LOADK                            R14 K9 ["SphereHandleAdornment"]
        39 DUPTABLE                         R15 K16 [{"AlwaysOnTop", "Color3", "Radius", "CFrame", "Adornee", "ZIndex"}]
        40 LOADB                            R16 1
@@ -131,25 +131,25 @@ PROTO_4:
        58 GETTABLEKS                       R17 R7 K5 ["Point"]
        60 CALL                             R16 1 1
        61 SETTABLEKS                       R16 R15 K13 ["CFrame"]
-       63 GETIMPORT                        R17 K22 [workspace]
-       65 GETTABLEKS                       R16 R17 K23 ["Terrain"]
+       63 GETIMPORT                        R16 K22 [workspace]
+       65 GETTABLEKS                       R16 R16 K23 ["Terrain"]
        67 SETTABLEKS                       R16 R15 K14 ["Adornee"]
        69 LOADN                            R16 1
        70 SETTABLEKS                       R16 R15 K15 ["ZIndex"]
        72 CALL                             R13 2 1
        73 SETTABLE                         R13 R2 R12
        74 FORGLOOP                         R3 2 ; [-68]
-       76 GETUPVAL                         R4 0
-       77 GETTABLEKS                       R3 R4 K24 ["createFragment"]
+       76 GETUPVAL                         R3 0
+       77 GETTABLEKS                       R3 R3 K24 ["createFragment"]
        79 MOVE                             R4 R2
        80 CALL                             R3 1 -1
        81 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K2 ["Parent"]
         9 GETIMPORT                        R2 K4 [require]
        11 GETTABLEKS                       R3 R1 K5 ["Roact"]

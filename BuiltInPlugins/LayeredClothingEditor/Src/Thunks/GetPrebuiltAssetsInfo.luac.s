@@ -38,9 +38,9 @@ PROTO_2:
        18 GETUPVAL                         R4 1
        19 GETUPVAL                         R5 2
        20 CALL                             R3 2 1
-       21 GETUPVAL                         R6 3
-       22 GETTABLEKS                       R5 R6 K5 ["Dictionary"]
-       24 GETTABLEKS                       R4 R5 K6 ["join"]
+       21 GETUPVAL                         R4 3
+       22 GETTABLEKS                       R4 R4 K5 ["Dictionary"]
+       24 GETTABLEKS                       R4 R4 K6 ["join"]
        26 MOVE                             R5 R2
        27 MOVE                             R6 R3
        28 CALL                             R4 2 1
@@ -57,8 +57,8 @@ PROTO_3:
         1 JUMPIFNOT                        R1 ; [+7]
         2 GETTABLEKS                       R1 R0 K0 ["responseBody"]
         4 JUMPIFNOT                        R1 ; [+4]
-        5 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        7 GETTABLEKS                       R1 R2 K1 ["errors"]
+        5 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        7 GETTABLEKS                       R1 R1 K1 ["errors"]
         9 JUMPIF                           R1 ; [+5]
        10 GETIMPORT                        R2 K3 [warn]
        12 LOADK                            R3 K4 ["Could not fetch information for assets"]
@@ -92,12 +92,12 @@ PROTO_4:
         9 CAPTURE                          VAL R0
        10 CAPTURE                          UPVAL U5
        11 DUPCLOSURE                       R2 K0 [PROTO_3]
-       12 GETUPVAL                         R8 6
-       13 GETTABLEKS                       R7 R8 K1 ["api"]
-       15 GETTABLEKS                       R6 R7 K2 ["Develop"]
-       17 GETTABLEKS                       R5 R6 K3 ["V1"]
-       19 GETTABLEKS                       R4 R5 K4 ["Assets"]
-       21 GETTABLEKS                       R3 R4 K5 ["assets"]
+       12 GETUPVAL                         R3 6
+       13 GETTABLEKS                       R3 R3 K1 ["api"]
+       15 GETTABLEKS                       R3 R3 K2 ["Develop"]
+       17 GETTABLEKS                       R3 R3 K3 ["V1"]
+       19 GETTABLEKS                       R3 R3 K4 ["Assets"]
+       21 GETTABLEKS                       R3 R3 K5 ["assets"]
        23 GETUPVAL                         R4 7
        24 CALL                             R3 1 1
        25 NAMECALL                         R3 R3 K6 ["makeRequest"]
@@ -126,24 +126,24 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Cryo"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Cryo"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["AvatarToolsShared"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["AvatarToolsShared"]
        28 CALL                             R3 1 1
-       29 GETTABLEKS                       R5 R3 K12 ["Util"]
-       31 GETTABLEKS                       R4 R5 K13 ["isProductionEnvironment"]
+       29 GETTABLEKS                       R4 R3 K12 ["Util"]
+       31 GETTABLEKS                       R4 R4 K13 ["isProductionEnvironment"]
        33 GETIMPORT                        R5 K8 [require]
-       35 GETTABLEKS                       R8 R1 K14 ["Src"]
-       37 GETTABLEKS                       R7 R8 K15 ["Actions"]
-       39 GETTABLEKS                       R6 R7 K16 ["SetPrebuiltAssetsInfo"]
+       35 GETTABLEKS                       R6 R1 K14 ["Src"]
+       37 GETTABLEKS                       R6 R6 K15 ["Actions"]
+       39 GETTABLEKS                       R6 R6 K16 ["SetPrebuiltAssetsInfo"]
        41 CALL                             R5 1 1
        42 DUPCLOSURE                       R6 K17 [PROTO_0]
        43 DUPCLOSURE                       R7 K18 [PROTO_1]

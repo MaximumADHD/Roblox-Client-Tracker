@@ -115,11 +115,11 @@ PROTO_2:
        52 DUPTABLE                         R3 K19 [{"affordance", "inset", "mode"}]
        53 GETTABLEKS                       R5 R0 K20 ["isSingle"]
        55 JUMPIFNOT                        R5 ; [+4]
-       56 GETUPVAL                         R5 4
-       57 GETTABLEKS                       R4 R5 K21 ["None"]
+       56 GETUPVAL                         R4 4
+       57 GETTABLEKS                       R4 R4 K21 ["None"]
        59 JUMP                             ; [+3]
-       60 GETUPVAL                         R5 4
-       61 GETTABLEKS                       R4 R5 K22 ["Background"]
+       60 GETUPVAL                         R4 4
+       61 GETTABLEKS                       R4 R4 K22 ["Background"]
        63 SETTABLEKS                       R4 R3 K16 ["affordance"]
        65 LOADNIL                          R4
        66 SETTABLEKS                       R4 R3 K17 ["inset"]
@@ -171,8 +171,8 @@ PROTO_4:
        22 CALL                             R2 1 1
        23 SETTABLEKS                       R2 R1 K7 ["sizeConstraint"]
        25 DUPTABLE                         R2 K20 [{"affordance", "inset", "mode"}]
-       26 GETUPVAL                         R4 6
-       27 GETTABLEKS                       R3 R4 K21 ["None"]
+       26 GETUPVAL                         R3 6
+       27 GETTABLEKS                       R3 R3 K21 ["None"]
        29 SETTABLEKS                       R3 R2 K17 ["affordance"]
        31 LOADNIL                          R3
        32 SETTABLEKS                       R3 R2 K18 ["inset"]
@@ -190,34 +190,34 @@ PROTO_4:
        52 SETTABLEKS                       R1 R0 K1 ["actionContainer"]
        54 GETUPVAL                         R1 8
        55 DUPTABLE                         R2 K27 [{"selected", "isCompact", "isSmall", "isSingle"}]
-       56 GETUPVAL                         R4 9
-       57 GETTABLEKS                       R3 R4 K25 ["selected"]
+       56 GETUPVAL                         R3 9
+       57 GETTABLEKS                       R3 R3 K25 ["selected"]
        59 JUMPIFNOT                        R3 ; [+4]
-       60 GETUPVAL                         R5 9
-       61 GETTABLEKS                       R4 R5 K26 ["isSingle"]
+       60 GETUPVAL                         R4 9
+       61 GETTABLEKS                       R4 R4 K26 ["isSingle"]
        63 NOT                              R3 R4
        64 SETTABLEKS                       R3 R2 K25 ["selected"]
        66 GETUPVAL                         R3 2
        67 SETTABLEKS                       R3 R2 K12 ["isCompact"]
        69 GETUPVAL                         R3 1
        70 SETTABLEKS                       R3 R2 K11 ["isSmall"]
-       72 GETUPVAL                         R4 9
-       73 GETTABLEKS                       R3 R4 K26 ["isSingle"]
+       72 GETUPVAL                         R3 9
+       73 GETTABLEKS                       R3 R3 K26 ["isSingle"]
        75 SETTABLEKS                       R3 R2 K26 ["isSingle"]
        77 CALL                             R1 1 1
        78 SETTABLEKS                       R1 R0 K2 ["ribbonTool"]
        80 GETUPVAL                         R1 10
        81 GETUPVAL                         R2 2
-       82 GETUPVAL                         R4 9
-       83 GETTABLEKS                       R3 R4 K28 ["disabled"]
+       82 GETUPVAL                         R3 9
+       83 GETTABLEKS                       R3 R3 K28 ["disabled"]
        85 CALL                             R1 2 1
        86 SETTABLEKS                       R1 R0 K3 ["text"]
        88 GETUPVAL                         R1 11
        89 DUPTABLE                         R2 K29 [{"isSmall", "disabled"}]
        90 GETUPVAL                         R3 1
        91 SETTABLEKS                       R3 R2 K11 ["isSmall"]
-       93 GETUPVAL                         R4 9
-       94 GETTABLEKS                       R3 R4 K28 ["disabled"]
+       93 GETUPVAL                         R3 9
+       94 GETTABLEKS                       R3 R3 K28 ["disabled"]
        96 SETTABLEKS                       R3 R2 K28 ["disabled"]
        98 CALL                             R1 1 1
        99 SETTABLEKS                       R1 R0 K4 ["icon"]
@@ -275,25 +275,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useMemo"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R3 K10 ["Enums"]
-       25 GETTABLEKS                       R4 R5 K11 ["StateLayerAffordance"]
+       23 GETTABLEKS                       R4 R3 K10 ["Enums"]
+       25 GETTABLEKS                       R4 R4 K11 ["StateLayerAffordance"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K12 ["Src"]
-       31 GETTABLEKS                       R7 R8 K13 ["Contexts"]
-       33 GETTABLEKS                       R6 R7 K14 ["Density"]
+       29 GETTABLEKS                       R6 R0 K12 ["Src"]
+       31 GETTABLEKS                       R6 R6 K13 ["Contexts"]
+       33 GETTABLEKS                       R6 R6 K14 ["Density"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R9 R0 K12 ["Src"]
-       40 GETTABLEKS                       R8 R9 K15 ["SharedFlags"]
-       42 GETTABLEKS                       R7 R8 K16 ["getFFlagRibbonTextLengthImprovements"]
+       38 GETTABLEKS                       R7 R0 K12 ["Src"]
+       40 GETTABLEKS                       R7 R7 K15 ["SharedFlags"]
+       42 GETTABLEKS                       R7 R7 K16 ["getFFlagRibbonTextLengthImprovements"]
        44 CALL                             R6 1 1
        45 GETIMPORT                        R7 K19 [Vector2.new]
        47 LOADN                            R8 24

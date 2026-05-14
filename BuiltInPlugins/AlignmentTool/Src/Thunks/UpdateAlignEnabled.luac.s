@@ -41,11 +41,11 @@ PROTO_2:
        20 LOADNIL                          R5
        21 JUMPIFNOT                        R4 ; [+44]
        22 GETTABLEKS                       R6 R1 K6 ["relativeTo"]
-       24 GETUPVAL                         R8 0
-       25 GETTABLEKS                       R7 R8 K7 ["Active"]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K7 ["Active"]
        27 JUMPIFNOTEQ                      R6 R7 ; [+38]
-       29 GETUPVAL                         R7 1
-       30 GETTABLEKS                       R6 R7 K8 ["ActiveInstance"]
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K8 ["ActiveInstance"]
        32 LOADK                            R10 K9 ["BasePart"]
        33 NAMECALL                         R8 R6 K10 ["IsA"]
        35 CALL                             R8 2 1
@@ -64,8 +64,8 @@ PROTO_2:
        50 JUMPIF                           R7 ; [+15]
        51 LOADB                            R4 0
        52 DUPTABLE                         R7 K14 [{"errorCode", "formatParameters"}]
-       53 GETUPVAL                         R9 3
-       54 GETTABLEKS                       R8 R9 K15 ["InvalidActiveObject"]
+       53 GETUPVAL                         R8 3
+       54 GETTABLEKS                       R8 R8 K15 ["InvalidActiveObject"]
        56 SETTABLEKS                       R8 R7 K12 ["errorCode"]
        58 DUPTABLE                         R8 K17 [{"name"}]
        59 GETTABLEKS                       R9 R6 K18 ["Name"]
@@ -81,8 +81,8 @@ PROTO_2:
        73 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Terrain"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Terrain"]
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          VAL R0
         5 NEWCLOSURE                       R2 P1
@@ -103,24 +103,24 @@ MAIN:
         9 LOADK                            R3 K4 ["Workspace"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R6 R2 K10 ["Src"]
-       25 GETTABLEKS                       R5 R6 K11 ["Actions"]
-       27 GETTABLEKS                       R4 R5 K12 ["SetAlignEnabled"]
+       23 GETTABLEKS                       R4 R2 K10 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Actions"]
+       27 GETTABLEKS                       R4 R4 K12 ["SetAlignEnabled"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K9 [require]
-       32 GETTABLEKS                       R7 R2 K10 ["Src"]
-       34 GETTABLEKS                       R6 R7 K13 ["Utility"]
-       36 GETTABLEKS                       R5 R6 K14 ["AlignToolError"]
+       32 GETTABLEKS                       R5 R2 K10 ["Src"]
+       34 GETTABLEKS                       R5 R5 K13 ["Utility"]
+       36 GETTABLEKS                       R5 R5 K14 ["AlignToolError"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K9 [require]
-       41 GETTABLEKS                       R8 R2 K10 ["Src"]
-       43 GETTABLEKS                       R7 R8 K13 ["Utility"]
-       45 GETTABLEKS                       R6 R7 K15 ["RelativeTo"]
+       41 GETTABLEKS                       R6 R2 K10 ["Src"]
+       43 GETTABLEKS                       R6 R6 K13 ["Utility"]
+       45 GETTABLEKS                       R6 R6 K15 ["RelativeTo"]
        47 CALL                             R5 1 1
        48 DUPCLOSURE                       R6 K16 [PROTO_0]
        49 DUPCLOSURE                       R7 K17 [PROTO_3]

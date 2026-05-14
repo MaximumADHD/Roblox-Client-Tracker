@@ -13,9 +13,9 @@ PROTO_0:
        14 GETTABLEKS                       R6 R0 K0 ["Components"]
        16 CALL                             R5 1 3
        17 FORGPREP_NEXT                    R5
-       18 GETUPVAL                         R12 0
-       19 GETTABLEKS                       R11 R12 K3 ["List"]
-       21 GETTABLEKS                       R10 R11 K4 ["join"]
+       18 GETUPVAL                         R10 0
+       19 GETTABLEKS                       R10 R10 K3 ["List"]
+       21 GETTABLEKS                       R10 R10 K4 ["join"]
        23 MOVE                             R11 R4
        24 JUMPIF                           R11 ; [+2]
        25 NEWTABLE                         R11 0 0
@@ -23,8 +23,8 @@ PROTO_0:
        29 MOVE                             R13 R8
        30 SETLIST                          R12 R13 1 [1]
        32 CALL                             R10 2 1
-       33 GETUPVAL                         R12 1
-       34 GETTABLEKS                       R11 R12 K5 ["traverse"]
+       33 GETUPVAL                         R11 1
+       34 GETTABLEKS                       R11 R11 K5 ["traverse"]
        36 MOVE                             R12 R9
        37 JUMPIFNOT                        R1 ; [+4]
        38 GETTABLEKS                       R14 R1 K0 ["Components"]
@@ -53,13 +53,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["PathUtils"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["PathUtils"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 1 0
        25 DUPCLOSURE                       R4 K11 [PROTO_0]

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["handlers"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["handlers"]
         3 GETUPVAL                         R2 1
         4 GETTABLE                         R0 R1 R2
         5 LOADNIL                          R1

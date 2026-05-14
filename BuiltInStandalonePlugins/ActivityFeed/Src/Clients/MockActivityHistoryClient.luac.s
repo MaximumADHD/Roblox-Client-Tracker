@@ -52,9 +52,9 @@ PROTO_1:
        33 LOADN                            R4 1
        34 FORNPREP                         R3
        35 ADD                              R6 R1 R5
-       36 GETUPVAL                         R9 0
-       37 GETTABLEKS                       R8 R9 K9 ["Util"]
-       39 GETTABLEKS                       R7 R8 K10 ["deepCopy"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K9 ["Util"]
+       39 GETTABLEKS                       R7 R7 K10 ["deepCopy"]
        41 GETUPVAL                         R9 1
        42 GETUPVAL                         R12 2
        43 MOD                              R11 R6 R12
@@ -62,28 +62,27 @@ PROTO_1:
        45 GETTABLE                         R8 R9 R10
        46 CALL                             R7 1 1
        47 GETUPVAL                         R9 3
-       48 LOADK                            R11 K12 [10800000]
-       49 MUL                              R10 R11 R6
-       50 SUB                              R8 R9 R10
-       51 SETTABLEKS                       R8 R7 K13 ["createdUnixTimeMs"]
-       53 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
-       55 MOVE                             R9 R2
-       56 MOVE                             R10 R7
-       57 GETIMPORT                        R8 K16 [table.insert]
-       59 CALL                             R8 2 0
-       60 FORNLOOP                         R3
-       61 MOVE                             R3 R2
-       62 ADDK                             R5 R1 K17 [100]
-       63 FASTCALL1                        TOSTRING R5 ; [+2]
-       64 GETIMPORT                        R4 K19 [tostring]
-       66 CALL                             R4 1 1
-       67 LOADK                            R6 K3 ["p"]
-       68 FASTCALL1                        TOSTRING R1 ; [+3]
-       69 MOVE                             R8 R1
-       70 GETIMPORT                        R7 K19 [tostring]
-       72 CALL                             R7 1 1
-       73 CONCAT                           R5 R6 R7
-       74 RETURN                           R3 3
+       48 MULK                             R10 R6 K12 [10800000]
+       49 SUB                              R8 R9 R10
+       50 SETTABLEKS                       R8 R7 K13 ["createdUnixTimeMs"]
+       52 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
+       54 MOVE                             R9 R2
+       55 MOVE                             R10 R7
+       56 GETIMPORT                        R8 K16 [table.insert]
+       58 CALL                             R8 2 0
+       59 FORNLOOP                         R3
+       60 MOVE                             R3 R2
+       61 ADDK                             R5 R1 K17 [100]
+       62 FASTCALL1                        TOSTRING R5 ; [+2]
+       63 GETIMPORT                        R4 K19 [tostring]
+       65 CALL                             R4 1 1
+       66 LOADK                            R6 K3 ["p"]
+       67 FASTCALL1                        TOSTRING R1 ; [+3]
+       68 MOVE                             R8 R1
+       69 GETIMPORT                        R7 K19 [tostring]
+       71 CALL                             R7 1 1
+       72 CONCAT                           R5 R6 R7
+       73 RETURN                           R3 3
 
 PROTO_2:
         0 GETUPVAL                         R4 0
@@ -225,8 +224,8 @@ PROTO_11:
         6 CALL                             R4 1 3
         7 FORGPREP_NEXT                    R4
         8 ADDK                             R3 R3 K2 [1]
-        9 GETUPVAL                         R10 0
-       10 GETTABLEKS                       R9 R10 K3 ["new"]
+        9 GETUPVAL                         R9 0
+       10 GETTABLEKS                       R9 R9 K3 ["new"]
        12 NEWCLOSURE                       R10 P0
        13 CAPTURE                          VAL R8
        14 CALL                             R9 1 1
@@ -267,30 +266,30 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["SharedTypes"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["SharedTypes"]
        17 CALL                             R1 1 1
-       18 GETIMPORT                        R3 K4 [require]
-       20 GETTABLEKS                       R6 R0 K5 ["Src"]
-       22 GETTABLEKS                       R5 R6 K6 ["Util"]
-       24 GETTABLEKS                       R4 R5 K8 ["MockActivityHistoryEvents"]
-       26 CALL                             R3 1 1
-       27 GETTABLEKS                       R2 R3 K8 ["MockActivityHistoryEvents"]
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["MockActivityHistoryEvents"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R2 R2 K8 ["MockActivityHistoryEvents"]
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       33 GETTABLEKS                       R4 R5 K10 ["Framework"]
+       31 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       33 GETTABLEKS                       R4 R4 K10 ["Framework"]
        35 CALL                             R3 1 1
-       36 GETTABLEKS                       R5 R3 K6 ["Util"]
-       38 GETTABLEKS                       R4 R5 K11 ["Promise"]
-       40 GETIMPORT                        R6 K14 [DateTime.now]
-       42 CALL                             R6 0 1
-       43 GETTABLEKS                       R5 R6 K15 ["UnixTimestampMillis"]
+       36 GETTABLEKS                       R4 R3 K6 ["Util"]
+       38 GETTABLEKS                       R4 R4 K11 ["Promise"]
+       40 GETIMPORT                        R5 K14 [DateTime.now]
+       42 CALL                             R5 0 1
+       43 GETTABLEKS                       R5 R5 K15 ["UnixTimestampMillis"]
        45 LENGTH                           R6 R2
        46 DUPCLOSURE                       R7 K16 [PROTO_0]
        47 DUPCLOSURE                       R8 K17 [PROTO_1]

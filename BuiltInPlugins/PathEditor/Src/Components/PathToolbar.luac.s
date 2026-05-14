@@ -1,24 +1,24 @@
 PROTO_0:
         0 JUMPIFNOTEQKS                    R0 K0 ["Move"] ; [+6]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["dispatchToggleMoveTool"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["dispatchToggleMoveTool"]
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
         7 JUMPIFNOTEQKS                    R0 K2 ["AddPoint"] ; [+6]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K3 ["dispatchToggleAddPointTool"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K3 ["dispatchToggleAddPointTool"]
        12 CALL                             R1 0 0
        13 RETURN                           R0 0
        14 JUMPIFNOTEQKS                    R0 K4 ["AddTangent"] ; [+5]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R1 R2 K5 ["dispatchToggleAddTangentTool"]
+       16 GETUPVAL                         R1 0
+       17 GETTABLEKS                       R1 R1 K5 ["dispatchToggleAddTangentTool"]
        19 CALL                             R1 0 0
        20 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["PathToolbar"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["PathToolbar"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
         8 LOADNIL                          R4
         9 GETTABLEKS                       R5 R1 K4 ["SelectedObject"]
@@ -47,16 +47,16 @@ PROTO_1:
        42 LOADK                            R15 K20 ["Select"]
        43 NAMECALL                         R12 R3 K21 ["getText"]
        45 CALL                             R12 3 1
-       46 GETUPVAL                         R14 0
-       47 GETTABLEKS                       R13 R14 K17 ["Move"]
+       46 GETUPVAL                         R13 0
+       47 GETTABLEKS                       R13 R13 K17 ["Move"]
        49 NAMECALL                         R10 R10 K22 ["format"]
        51 CALL                             R10 3 1
        52 MOVE                             R9 R10
        53 SETTABLEKS                       R9 R8 K14 ["Tooltip"]
        55 GETTABLEKS                       R9 R2 K23 ["MoveImage"]
        57 SETTABLEKS                       R9 R8 K15 ["Icon"]
-       59 GETUPVAL                         R11 1
-       60 GETTABLEKS                       R10 R11 K24 ["MaxControlPoints"]
+       59 GETUPVAL                         R10 1
+       60 GETTABLEKS                       R10 R10 K24 ["MaxControlPoints"]
        62 JUMPIFNOTLT                      R4 R10 ; [+25]
        64 DUPTABLE                         R9 K16 [{"Id", "Tooltip", "Icon"}]
        65 LOADK                            R10 K25 ["AddPoint"]
@@ -66,8 +66,8 @@ PROTO_1:
        70 LOADK                            R16 K26 ["AddPointTool"]
        71 NAMECALL                         R13 R3 K21 ["getText"]
        73 CALL                             R13 3 1
-       74 GETUPVAL                         R15 0
-       75 GETTABLEKS                       R14 R15 K25 ["AddPoint"]
+       74 GETUPVAL                         R14 0
+       75 GETTABLEKS                       R14 R14 K25 ["AddPoint"]
        77 NAMECALL                         R11 R11 K22 ["format"]
        79 CALL                             R11 3 1
        80 MOVE                             R10 R11
@@ -84,8 +84,8 @@ PROTO_1:
        95 LOADK                            R17 K29 ["AddTangentTool"]
        96 NAMECALL                         R14 R3 K21 ["getText"]
        98 CALL                             R14 3 1
-       99 GETUPVAL                         R16 0
-      100 GETTABLEKS                       R15 R16 K28 ["AddTangent"]
+       99 GETUPVAL                         R15 0
+      100 GETTABLEKS                       R15 R15 K28 ["AddTangent"]
       102 NAMECALL                         R12 R12 K22 ["format"]
       104 CALL                             R12 3 1
       105 MOVE                             R11 R12
@@ -111,8 +111,8 @@ PROTO_1:
       139 MOVE                             R7 R5
       140 GETIMPORT                        R6 K40 [table.insert]
       142 CALL                             R6 2 0
-      143 GETUPVAL                         R7 2
-      144 GETTABLEKS                       R6 R7 K41 ["createElement"]
+      143 GETUPVAL                         R6 2
+      144 GETTABLEKS                       R6 R6 K41 ["createElement"]
       146 GETUPVAL                         R7 3
       147 DUPTABLE                         R8 K44 [{"DisplayOrder", "HorizontalItems"}]
       148 LOADN                            R9 4
@@ -123,20 +123,20 @@ PROTO_1:
 
 PROTO_2:
         0 DUPTABLE                         R2 K5 [{"ControlPointStates", "SelectedObject", "Path2DToolMode", "SelectedControlPointIndex", "SelectedTangentSide"}]
-        1 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["ControlPointStates"]
+        1 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["ControlPointStates"]
         5 SETTABLEKS                       R3 R2 K0 ["ControlPointStates"]
-        7 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-        9 GETTABLEKS                       R3 R4 K1 ["SelectedObject"]
+        7 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+        9 GETTABLEKS                       R3 R3 K1 ["SelectedObject"]
        11 SETTABLEKS                       R3 R2 K1 ["SelectedObject"]
-       13 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       15 GETTABLEKS                       R3 R4 K2 ["Path2DToolMode"]
+       13 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       15 GETTABLEKS                       R3 R3 K2 ["Path2DToolMode"]
        17 SETTABLEKS                       R3 R2 K2 ["Path2DToolMode"]
-       19 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       21 GETTABLEKS                       R3 R4 K3 ["SelectedControlPointIndex"]
+       19 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       21 GETTABLEKS                       R3 R3 K3 ["SelectedControlPointIndex"]
        23 SETTABLEKS                       R3 R2 K3 ["SelectedControlPointIndex"]
-       25 GETTABLEKS                       R4 R0 K6 ["PathReducer"]
-       27 GETTABLEKS                       R3 R4 K4 ["SelectedTangentSide"]
+       25 GETTABLEKS                       R3 R0 K6 ["PathReducer"]
+       27 GETTABLEKS                       R3 R3 K4 ["SelectedTangentSide"]
        29 SETTABLEKS                       R3 R2 K4 ["SelectedTangentSide"]
        31 RETURN                           R2 1
 
@@ -284,29 +284,29 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["React"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K4 [require]
-       39 GETTABLEKS                       R7 R0 K7 ["Packages"]
-       41 GETTABLEKS                       R6 R7 K11 ["ViewportToolingFramework"]
+       39 GETTABLEKS                       R6 R0 K7 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K11 ["ViewportToolingFramework"]
        43 CALL                             R5 1 1
        44 GETTABLEKS                       R6 R4 K12 ["ContextServices"]
        46 GETTABLEKS                       R7 R6 K13 ["withContext"]
@@ -315,8 +315,8 @@ MAIN:
        52 GETTABLEKS                       R10 R6 K16 ["Stylizer"]
        54 GETTABLEKS                       R11 R6 K17 ["Localization"]
        56 GETTABLEKS                       R12 R5 K18 ["Toolbar"]
-       58 GETTABLEKS                       R14 R0 K5 ["Src"]
-       60 GETTABLEKS                       R13 R14 K19 ["Actions"]
+       58 GETTABLEKS                       R13 R0 K5 ["Src"]
+       60 GETTABLEKS                       R13 R13 K19 ["Actions"]
        62 GETIMPORT                        R14 K4 [require]
        64 GETTABLEKS                       R15 R13 K20 ["ToggleAddPointTool"]
        66 CALL                             R14 1 1
@@ -335,8 +335,8 @@ MAIN:
        87 GETIMPORT                        R19 K4 [require]
        89 GETTABLEKS                       R20 R13 K25 ["ToolbarHovered"]
        91 CALL                             R19 1 1
-       92 GETTABLEKS                       R21 R0 K5 ["Src"]
-       94 GETTABLEKS                       R20 R21 K26 ["Thunks"]
+       92 GETTABLEKS                       R20 R0 K5 ["Src"]
+       94 GETTABLEKS                       R20 R20 K26 ["Thunks"]
        96 GETIMPORT                        R21 K4 [require]
        98 GETTABLEKS                       R22 R20 K27 ["AddControlPointTangent"]
       100 CALL                             R21 1 1
@@ -347,20 +347,20 @@ MAIN:
       108 GETTABLEKS                       R24 R20 K29 ["RemoveControlPoint"]
       110 CALL                             R23 1 1
       111 GETIMPORT                        R24 K4 [require]
-      113 GETTABLEKS                       R27 R0 K5 ["Src"]
-      115 GETTABLEKS                       R26 R27 K30 ["Util"]
-      117 GETTABLEKS                       R25 R26 K31 ["getShortcuts"]
+      113 GETTABLEKS                       R25 R0 K5 ["Src"]
+      115 GETTABLEKS                       R25 R25 K30 ["Util"]
+      117 GETTABLEKS                       R25 R25 K31 ["getShortcuts"]
       119 CALL                             R24 1 1
       120 CALL                             R24 0 1
       121 GETIMPORT                        R25 K4 [require]
-      123 GETTABLEKS                       R28 R0 K5 ["Src"]
-      125 GETTABLEKS                       R27 R28 K30 ["Util"]
-      127 GETTABLEKS                       R26 R27 K32 ["TelemetryGlobals"]
+      123 GETTABLEKS                       R26 R0 K5 ["Src"]
+      125 GETTABLEKS                       R26 R26 K30 ["Util"]
+      127 GETTABLEKS                       R26 R26 K32 ["TelemetryGlobals"]
       129 CALL                             R25 1 1
       130 GETIMPORT                        R26 K4 [require]
-      132 GETTABLEKS                       R29 R0 K5 ["Src"]
-      134 GETTABLEKS                       R28 R29 K33 ["Resources"]
-      136 GETTABLEKS                       R27 R28 K34 ["Constants"]
+      132 GETTABLEKS                       R27 R0 K5 ["Src"]
+      134 GETTABLEKS                       R27 R27 K33 ["Resources"]
+      136 GETTABLEKS                       R27 R27 K34 ["Constants"]
       138 CALL                             R26 1 1
       139 GETTABLEKS                       R27 R2 K35 ["PureComponent"]
       141 LOADK                            R29 K36 ["PathToolbar"]

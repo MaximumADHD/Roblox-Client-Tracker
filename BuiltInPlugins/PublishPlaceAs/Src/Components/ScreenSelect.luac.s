@@ -3,8 +3,8 @@ PROTO_0:
         2 GETTABLEKS                       R2 R0 K1 ["IsPublish"]
         4 GETTABLEKS                       R3 R0 K2 ["CloseMode"]
         6 GETTABLEKS                       R4 R0 K3 ["Screen"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 GETUPVAL                         R7 1
        12 GETTABLE                         R6 R7 R4
        13 DUPTABLE                         R7 K5 [{"OnClose", "IsPublish", "CloseMode"}]
@@ -15,78 +15,78 @@ PROTO_0:
        21 RETURN                           R5 -1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["Screen"]
-        2 GETTABLEKS                       R2 R3 K1 ["screen"]
+        0 GETTABLEKS                       R2 R0 K0 ["Screen"]
+        2 GETTABLEKS                       R2 R2 K1 ["screen"]
         4 DUPTABLE                         R3 K2 [{"Screen"}]
         5 SETTABLEKS                       R2 R3 K0 ["Screen"]
         7 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Resources"]
-       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Resources"]
+       29 GETTABLEKS                       R4 R4 K10 ["Constants"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 8 0
-       34 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
-       36 GETTABLEKS                       R5 R6 K12 ["CREATE_NEW_GAME"]
+       34 GETTABLEKS                       R5 R3 K11 ["SCREENS"]
+       36 GETTABLEKS                       R5 R5 K12 ["CREATE_NEW_GAME"]
        38 GETIMPORT                        R6 K4 [require]
-       40 GETTABLEKS                       R9 R0 K8 ["Src"]
-       42 GETTABLEKS                       R8 R9 K13 ["Components"]
-       44 GETTABLEKS                       R7 R8 K14 ["ScreenCreateNewGame"]
+       40 GETTABLEKS                       R7 R0 K8 ["Src"]
+       42 GETTABLEKS                       R7 R7 K13 ["Components"]
+       44 GETTABLEKS                       R7 R7 K14 ["ScreenCreateNewGame"]
        46 CALL                             R6 1 1
        47 SETTABLE                         R6 R4 R5
-       48 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
-       50 GETTABLEKS                       R5 R6 K15 ["CHOOSE_GAME"]
+       48 GETTABLEKS                       R5 R3 K11 ["SCREENS"]
+       50 GETTABLEKS                       R5 R5 K15 ["CHOOSE_GAME"]
        52 GETIMPORT                        R6 K4 [require]
-       54 GETTABLEKS                       R9 R0 K8 ["Src"]
-       56 GETTABLEKS                       R8 R9 K13 ["Components"]
-       58 GETTABLEKS                       R7 R8 K16 ["ScreenChooseGame"]
+       54 GETTABLEKS                       R7 R0 K8 ["Src"]
+       56 GETTABLEKS                       R7 R7 K13 ["Components"]
+       58 GETTABLEKS                       R7 R7 K16 ["ScreenChooseGame"]
        60 CALL                             R6 1 1
        61 SETTABLE                         R6 R4 R5
-       62 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
-       64 GETTABLEKS                       R5 R6 K17 ["CHOOSE_PLACE"]
+       62 GETTABLEKS                       R5 R3 K11 ["SCREENS"]
+       64 GETTABLEKS                       R5 R5 K17 ["CHOOSE_PLACE"]
        66 GETIMPORT                        R6 K4 [require]
-       68 GETTABLEKS                       R9 R0 K8 ["Src"]
-       70 GETTABLEKS                       R8 R9 K13 ["Components"]
-       72 GETTABLEKS                       R7 R8 K18 ["ScreenChoosePlace"]
+       68 GETTABLEKS                       R7 R0 K8 ["Src"]
+       70 GETTABLEKS                       R7 R7 K13 ["Components"]
+       72 GETTABLEKS                       R7 R7 K18 ["ScreenChoosePlace"]
        74 CALL                             R6 1 1
        75 SETTABLE                         R6 R4 R5
-       76 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
-       78 GETTABLEKS                       R5 R6 K19 ["PUBLISH_IN_PROGRESS"]
+       76 GETTABLEKS                       R5 R3 K11 ["SCREENS"]
+       78 GETTABLEKS                       R5 R5 K19 ["PUBLISH_IN_PROGRESS"]
        80 GETIMPORT                        R6 K4 [require]
-       82 GETTABLEKS                       R9 R0 K8 ["Src"]
-       84 GETTABLEKS                       R8 R9 K13 ["Components"]
-       86 GETTABLEKS                       R7 R8 K20 ["ScreenPublishInProgress"]
+       82 GETTABLEKS                       R7 R0 K8 ["Src"]
+       84 GETTABLEKS                       R7 R7 K13 ["Components"]
+       86 GETTABLEKS                       R7 R7 K20 ["ScreenPublishInProgress"]
        88 CALL                             R6 1 1
        89 SETTABLE                         R6 R4 R5
-       90 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
-       92 GETTABLEKS                       R5 R6 K21 ["PUBLISH_SUCCESSFUL"]
+       90 GETTABLEKS                       R5 R3 K11 ["SCREENS"]
+       92 GETTABLEKS                       R5 R5 K21 ["PUBLISH_SUCCESSFUL"]
        94 GETIMPORT                        R6 K4 [require]
-       96 GETTABLEKS                       R9 R0 K8 ["Src"]
-       98 GETTABLEKS                       R8 R9 K13 ["Components"]
-      100 GETTABLEKS                       R7 R8 K22 ["ScreenPublishSuccessful"]
+       96 GETTABLEKS                       R7 R0 K8 ["Src"]
+       98 GETTABLEKS                       R7 R7 K13 ["Components"]
+      100 GETTABLEKS                       R7 R7 K22 ["ScreenPublishSuccessful"]
       102 CALL                             R6 1 1
       103 SETTABLE                         R6 R4 R5
-      104 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
-      106 GETTABLEKS                       R5 R6 K23 ["PUBLISH_FAIL"]
+      104 GETTABLEKS                       R5 R3 K11 ["SCREENS"]
+      106 GETTABLEKS                       R5 R5 K23 ["PUBLISH_FAIL"]
       108 GETIMPORT                        R6 K4 [require]
-      110 GETTABLEKS                       R9 R0 K8 ["Src"]
-      112 GETTABLEKS                       R8 R9 K13 ["Components"]
-      114 GETTABLEKS                       R7 R8 K24 ["ScreenPublishFail"]
+      110 GETTABLEKS                       R7 R0 K8 ["Src"]
+      112 GETTABLEKS                       R7 R7 K13 ["Components"]
+      114 GETTABLEKS                       R7 R7 K24 ["ScreenPublishFail"]
       116 CALL                             R6 1 1
       117 SETTABLE                         R6 R4 R5
       118 GETIMPORT                        R5 K26 [pairs]

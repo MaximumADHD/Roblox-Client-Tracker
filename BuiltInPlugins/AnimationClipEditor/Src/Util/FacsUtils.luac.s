@@ -5,9 +5,9 @@ PROTO_0:
         5 CALL                             R2 1 3
         6 FORGPREP_NEXT                    R2
         7 GETTABLEKS                       R7 R6 K2 ["Type"]
-        9 GETUPVAL                         R10 0
-       10 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
-       12 GETTABLEKS                       R8 R9 K4 ["Facs"]
+        9 GETUPVAL                         R8 0
+       10 GETTABLEKS                       R8 R8 K3 ["TRACK_TYPES"]
+       12 GETTABLEKS                       R8 R8 K4 ["Facs"]
        14 JUMPIFNOTEQ                      R7 R8 ; [+8]
        16 FASTCALL2                        TABLE_INSERT R1 R6 ; [+5]
        18 MOVE                             R8 R1
@@ -28,17 +28,17 @@ PROTO_1:
 PROTO_2:
         0 NEWTABLE                         R1 0 0
         2 GETIMPORT                        R2 K1 [pairs]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R3 R5 K2 ["FacsControlToRegionMap"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["FacsControlToRegionMap"]
         7 CALL                             R2 1 3
         8 FORGPREP_NEXT                    R2
         9 DUPTABLE                         R7 K6 [{"Name", "Instance", "Type"}]
        10 SETTABLEKS                       R5 R7 K3 ["Name"]
        12 LOADK                            R8 K7 ["Root"]
        13 SETTABLEKS                       R8 R7 K4 ["Instance"]
-       15 GETUPVAL                         R10 0
-       16 GETTABLEKS                       R9 R10 K8 ["TRACK_TYPES"]
-       18 GETTABLEKS                       R8 R9 K9 ["Facs"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R8 R8 K8 ["TRACK_TYPES"]
+       18 GETTABLEKS                       R8 R8 K9 ["Facs"]
        20 SETTABLEKS                       R8 R7 K5 ["Type"]
        22 SETTABLE                         R7 R1 R5
        23 FORGLOOP                         R2 2 ; [-15]
@@ -50,9 +50,9 @@ PROTO_2:
        32 LOADNIL                          R8
        33 SETTABLE                         R8 R1 R7
        34 FORGLOOP                         R2 2 ; [-5]
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R3 R4 K10 ["Dictionary"]
-       39 GETTABLEKS                       R2 R3 K11 ["values"]
+       36 GETUPVAL                         R2 1
+       37 GETTABLEKS                       R2 R2 K10 ["Dictionary"]
+       39 GETTABLEKS                       R2 R2 K11 ["values"]
        41 MOVE                             R3 R1
        42 CALL                             R2 1 1
        43 MOVE                             R1 R2
@@ -69,13 +69,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Cryo"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 2 0
        25 DUPCLOSURE                       R4 K11 [PROTO_0]

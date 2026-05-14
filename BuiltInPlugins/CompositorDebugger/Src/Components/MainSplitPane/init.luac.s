@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 DUPTABLE                         R3 K1 [{"layout"}]
-        2 GETTABLEKS                       R6 R0 K2 ["AbsoluteSize"]
-        4 GETTABLEKS                       R5 R6 K3 ["X"]
-        6 GETTABLEKS                       R7 R0 K2 ["AbsoluteSize"]
-        8 GETTABLEKS                       R6 R7 K4 ["Y"]
+        2 GETTABLEKS                       R5 R0 K2 ["AbsoluteSize"]
+        4 GETTABLEKS                       R5 R5 K3 ["X"]
+        6 GETTABLEKS                       R6 R0 K2 ["AbsoluteSize"]
+        8 GETTABLEKS                       R6 R6 K4 ["Y"]
        10 JUMPIFNOTLT                      R6 R5 ; [+4]
        12 GETIMPORT                        R4 K8 [Enum.FillDirection.Horizontal]
        14 JUMP                             ; [+2]
@@ -41,22 +41,22 @@ PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R0 K1 ["props"]
         4 GETTABLEKS                       R3 R1 K2 ["layout"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 NEWTABLE                         R6 2 0
-       12 GETUPVAL                         R9 0
-       13 GETTABLEKS                       R8 R9 K4 ["Change"]
-       15 GETTABLEKS                       R7 R8 K5 ["AbsoluteSize"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K4 ["Change"]
+       15 GETTABLEKS                       R7 R7 K5 ["AbsoluteSize"]
        17 GETTABLEKS                       R8 R0 K6 ["onAbsoluteSizeChanged"]
        19 SETTABLE                         R8 R6 R7
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K7 ["Tag"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K7 ["Tag"]
        23 LOADK                            R8 K8 ["X-Fill SplitPane"]
        24 SETTABLE                         R8 R6 R7
        25 DUPTABLE                         R7 K10 [{"SplitPane"}]
-       26 GETUPVAL                         R9 0
-       27 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R8 R8 K3 ["createElement"]
        29 GETUPVAL                         R9 2
        30 DUPTABLE                         R10 K18 [{"Sizes", "OnSizesChange", "MinSizes", "BarStyle", "UseScale", "ClampSize", "Layout"}]
        31 GETTABLEKS                       R11 R1 K19 ["sizes"]
@@ -80,8 +80,8 @@ PROTO_3:
 
 PROTO_4:
         0 DUPTABLE                         R1 K1 [{"FrameBuffer"}]
-        1 GETTABLEKS                       R3 R0 K2 ["DebugData"]
-        3 GETTABLEKS                       R2 R3 K0 ["FrameBuffer"]
+        1 GETTABLEKS                       R2 R0 K2 ["DebugData"]
+        3 GETTABLEKS                       R2 R2 K0 ["FrameBuffer"]
         5 SETTABLEKS                       R2 R1 K0 ["FrameBuffer"]
         7 RETURN                           R1 1
 
@@ -92,16 +92,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
@@ -111,8 +111,8 @@ MAIN:
        38 GETTABLEKS                       R9 R8 K15 ["Pane"]
        40 GETTABLEKS                       R10 R8 K16 ["SplitPane"]
        42 GETIMPORT                        R11 K5 [require]
-       44 GETTABLEKS                       R13 R0 K17 ["Src"]
-       46 GETTABLEKS                       R12 R13 K18 ["Types"]
+       44 GETTABLEKS                       R12 R0 K17 ["Src"]
+       46 GETTABLEKS                       R12 R12 K18 ["Types"]
        48 CALL                             R11 1 1
        49 NEWTABLE                         R12 0 2
        51 GETIMPORT                        R13 K21 [UDim.new]

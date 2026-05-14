@@ -6,35 +6,35 @@ PROTO_0:
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["oneChild"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["oneChild"]
         3 GETTABLEKS                       R3 R0 K1 ["props"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K2 ["Children"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K2 ["Children"]
         8 GETTABLE                         R2 R3 R4
         9 CALL                             R1 1 -1
        10 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K3 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K7 ["Framework"]
+       18 GETTABLEKS                       R4 R0 K3 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K7 ["Framework"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R3 K8 ["ContextServices"]
-       25 GETTABLEKS                       R4 R5 K9 ["ContextItem"]
+       23 GETTABLEKS                       R4 R3 K8 ["ContextServices"]
+       25 GETTABLEKS                       R4 R4 K9 ["ContextItem"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Util"]
-       33 GETTABLEKS                       R6 R7 K12 ["Symbol"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Util"]
+       33 GETTABLEKS                       R6 R6 K12 ["Symbol"]
        35 CALL                             R5 1 1
        36 GETTABLEKS                       R6 R5 K13 ["named"]
        38 LOADK                            R7 K14 ["NetworkInterface"]

@@ -7,18 +7,18 @@ PROTO_0:
         5 GETUPVAL                         R1 1
         6 NAMECALL                         R1 R1 K0 ["use"]
         8 CALL                             R1 1 1
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K1 ["new"]
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K1 ["new"]
        12 CALL                             R2 0 1
-       13 GETUPVAL                         R4 3
-       14 GETTABLEKS                       R3 R4 K2 ["createElement"]
+       13 GETUPVAL                         R3 3
+       14 GETTABLEKS                       R3 R3 K2 ["createElement"]
        16 GETUPVAL                         R4 4
        17 DUPTABLE                         R5 K4 [{"tag"}]
        18 LOADK                            R6 K5 ["col align-x-center align-y-center size-full gap-medium padding-large"]
        19 SETTABLEKS                       R6 R5 K3 ["tag"]
        21 DUPTABLE                         R6 K9 [{"Thumbnail", "Title", "Subtitle"}]
-       22 GETUPVAL                         R8 3
-       23 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       22 GETUPVAL                         R7 3
+       23 GETTABLEKS                       R7 R7 K2 ["createElement"]
        25 GETUPVAL                         R8 4
        26 DUPTABLE                         R9 K12 [{"LayoutOrder", "AutomaticSize"}]
        27 NAMECALL                         R10 R2 K13 ["getNextOrder"]
@@ -31,8 +31,8 @@ PROTO_0:
        39 SETTABLEKS                       R11 R10 K17 ["ThumbnailContent"]
        41 CALL                             R7 3 1
        42 SETTABLEKS                       R7 R6 K6 ["Thumbnail"]
-       44 GETUPVAL                         R8 3
-       45 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       44 GETUPVAL                         R7 3
+       45 GETTABLEKS                       R7 R7 K2 ["createElement"]
        47 GETUPVAL                         R8 5
        48 DUPTABLE                         R9 K21 [{"Text", "tag", "LayoutOrder"}]
        49 LOADK                            R12 K22 ["LookComposerDialog"]
@@ -47,8 +47,8 @@ PROTO_0:
        62 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
        64 CALL                             R7 2 1
        65 SETTABLEKS                       R7 R6 K7 ["Title"]
-       67 GETUPVAL                         R8 3
-       68 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       67 GETUPVAL                         R7 3
+       68 GETTABLEKS                       R7 R7 K2 ["createElement"]
        70 GETUPVAL                         R8 5
        71 DUPTABLE                         R9 K21 [{"Text", "tag", "LayoutOrder"}]
        72 LOADK                            R12 K22 ["LookComposerDialog"]
@@ -73,27 +73,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETTABLEKS                       R4 R2 K10 ["Text"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R6 R7 K11 ["Framework"]
+       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R6 R6 K11 ["Framework"]
        31 CALL                             R5 1 1
-       32 GETTABLEKS                       R7 R5 K12 ["ContextServices"]
-       34 GETTABLEKS                       R6 R7 K13 ["Localization"]
-       36 GETTABLEKS                       R8 R5 K14 ["Util"]
-       38 GETTABLEKS                       R7 R8 K15 ["LayoutOrderIterator"]
+       32 GETTABLEKS                       R6 R5 K12 ["ContextServices"]
+       34 GETTABLEKS                       R6 R6 K13 ["Localization"]
+       36 GETTABLEKS                       R7 R5 K14 ["Util"]
+       38 GETTABLEKS                       R7 R7 K15 ["LayoutOrderIterator"]
        40 GETIMPORT                        R8 K5 [require]
-       42 GETTABLEKS                       R11 R0 K16 ["Src"]
-       44 GETTABLEKS                       R10 R11 K17 ["Flags"]
-       46 GETTABLEKS                       R9 R10 K18 ["getFFlagAvatarPreviewerLookComposer"]
+       42 GETTABLEKS                       R9 R0 K16 ["Src"]
+       44 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       46 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerLookComposer"]
        48 CALL                             R8 1 1
        49 DUPCLOSURE                       R9 K19 [PROTO_0]
        50 CAPTURE                          VAL R8

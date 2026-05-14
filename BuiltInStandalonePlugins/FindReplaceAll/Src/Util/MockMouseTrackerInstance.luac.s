@@ -17,9 +17,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["MockSignal"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["MockSignal"]
        15 CALL                             R1 1 1
        16 DUPTABLE                         R2 K12 [{"GetAttribute", "GetAttributeChangedSignal", "Destroy"}]
        17 DUPCLOSURE                       R3 K13 [PROTO_0]

@@ -7,8 +7,8 @@ PROTO_0:
         6 LOADK                            R7 K2 [-∞]
         7 LOADK                            R8 K1 [∞]
         8 LOADK                            R9 K2 [-∞]
-        9 GETUPVAL                         R11 0
-       10 GETTABLEKS                       R10 R11 K3 ["Terrain"]
+        9 GETUPVAL                         R10 0
+       10 GETTABLEKS                       R10 R10 K3 ["Terrain"]
        12 GETIMPORT                        R11 K5 [ipairs]
        14 MOVE                             R12 R1
        15 CALL                             R11 1 3
@@ -192,8 +192,8 @@ PROTO_1:
        18 LOADK                            R16 K5 [-∞]
        19 LOADK                            R17 K4 [∞]
        20 LOADK                            R18 K5 [-∞]
-       21 GETUPVAL                         R20 0
-       22 GETTABLEKS                       R19 R20 K6 ["Terrain"]
+       21 GETUPVAL                         R19 0
+       22 GETTABLEKS                       R19 R19 K6 ["Terrain"]
        24 GETIMPORT                        R20 K8 [ipairs]
        26 MOVE                             R21 R1
        27 CALL                             R20 1 3
@@ -529,8 +529,8 @@ PROTO_2:
        11 CALL                             R4 1 -1
        12 CALL                             R3 -1 3
        13 FORGPREP_INEXT                   R3
-       14 GETUPVAL                         R9 0
-       15 GETTABLEKS                       R8 R9 K3 ["markBoneRecursive"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K3 ["markBoneRecursive"]
        17 MOVE                             R9 R7
        18 MOVE                             R10 R1
        19 MOVE                             R11 R2
@@ -551,8 +551,8 @@ PROTO_3:
        12 NAMECALL                         R8 R7 K3 ["FindFirstAncestorWhichIsA"]
        14 CALL                             R8 2 1
        15 SETTABLE                         R8 R1 R7
-       16 GETUPVAL                         R9 0
-       17 GETTABLEKS                       R8 R9 K4 ["markBoneRecursive"]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K4 ["markBoneRecursive"]
        19 MOVE                             R9 R7
        20 MOVE                             R10 R2
        21 MOVE                             R11 R1
@@ -571,8 +571,8 @@ PROTO_4:
        11 NEWTABLE                         R6 0 0
        13 NEWTABLE                         R7 0 0
        15 LOADNIL                          R8
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K4 ["Terrain"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K4 ["Terrain"]
        19 GETIMPORT                        R10 K6 [ipairs]
        21 MOVE                             R11 R1
        22 CALL                             R10 1 3
@@ -693,8 +693,8 @@ PROTO_4:
       173 GETIMPORT                        R16 K15 [table.insert]
       175 CALL                             R16 2 0
       176 FORGLOOP                         R11 2 [inext] ; [-12]
-      178 GETUPVAL                         R12 2
-      179 GETTABLEKS                       R11 R12 K27 ["findRootBoneMap"]
+      178 GETUPVAL                         R11 2
+      179 GETTABLEKS                       R11 R11 K27 ["findRootBoneMap"]
       181 MOVE                             R12 R6
       182 CALL                             R11 1 1
       183 GETIMPORT                        R12 K29 [pairs]
@@ -726,8 +726,8 @@ PROTO_4:
       217 LOADNIL                          R16
       218 LOADNIL                          R17
       219 JUMPIFNOT                        R2 ; [+13]
-      220 GETUPVAL                         R19 2
-      221 GETTABLEKS                       R18 R19 K30 ["computeBoundingBox"]
+      220 GETUPVAL                         R18 2
+      221 GETTABLEKS                       R18 R18 K30 ["computeBoundingBox"]
       223 MOVE                             R19 R12
       224 MOVE                             R20 R3
       225 MOVE                             R21 R5
@@ -738,8 +738,8 @@ PROTO_4:
       230 MOVE                             R16 R13
       231 MOVE                             R17 R14
       232 JUMP                             ; [+17]
-      233 GETUPVAL                         R19 2
-      234 GETTABLEKS                       R18 R19 K31 ["computeTwoBoundingBoxes"]
+      233 GETUPVAL                         R18 2
+      234 GETTABLEKS                       R18 R18 K31 ["computeTwoBoundingBoxes"]
       236 MOVE                             R19 R12
       237 MOVE                             R20 R3
       238 MOVE                             R21 R5
@@ -778,11 +778,11 @@ MAIN:
         9 LOADK                            R3 K6 ["AnimationClipEditor"]
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
-       13 GETTABLEKS                       R3 R1 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["DraggerFramework"]
+       13 GETTABLEKS                       R2 R1 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["DraggerFramework"]
        17 GETIMPORT                        R3 K11 [require]
-       19 GETTABLEKS                       R5 R2 K12 ["Utility"]
-       21 GETTABLEKS                       R4 R5 K13 ["shouldDragAsFace"]
+       19 GETTABLEKS                       R4 R2 K12 ["Utility"]
+       21 GETTABLEKS                       R4 R4 K13 ["shouldDragAsFace"]
        23 CALL                             R3 1 1
        24 NEWTABLE                         R4 8 0
        26 DUPCLOSURE                       R5 K14 [PROTO_0]

@@ -41,8 +41,8 @@ PROTO_3:
         0 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 DUPTABLE                         R2 K2 [{"logRobloxTelemetryEvent"}]
         4 MOVE                             R3 R0
         5 JUMPIF                           R3 ; [+1]
@@ -58,27 +58,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["RbxAnalyticsService"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETIMPORT                        R6 K1 [script]
-       22 GETTABLEKS                       R5 R6 K10 ["Parent"]
-       24 GETTABLEKS                       R4 R5 K11 ["TelemetryProtocolTypes"]
+       20 GETIMPORT                        R4 K1 [script]
+       22 GETTABLEKS                       R4 R4 K10 ["Parent"]
+       24 GETTABLEKS                       R4 R4 K11 ["TelemetryProtocolTypes"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       29 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["Framework"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K5 [require]
-       36 GETTABLEKS                       R7 R0 K12 ["Packages"]
-       38 GETTABLEKS                       R6 R7 K14 ["Dash"]
+       36 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       38 GETTABLEKS                       R6 R6 K14 ["Dash"]
        40 CALL                             R5 1 1
        41 GETTABLEKS                       R6 R5 K15 ["join"]
-       43 GETTABLEKS                       R8 R4 K16 ["ContextServices"]
-       45 GETTABLEKS                       R7 R8 K17 ["ContextItem"]
+       43 GETTABLEKS                       R7 R4 K16 ["ContextServices"]
+       45 GETTABLEKS                       R7 R7 K17 ["ContextItem"]
        47 LOADK                            R10 K18 ["Telemetry"]
        48 NAMECALL                         R8 R7 K19 ["extend"]
        50 CALL                             R8 2 1

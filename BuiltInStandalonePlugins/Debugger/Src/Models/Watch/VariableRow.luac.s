@@ -27,8 +27,8 @@ PROTO_0:
 PROTO_1:
         0 JUMPIFNOT                        R1 ; [+7]
         1 GETTABLEKS                       R6 R1 K0 ["pathColumn"]
-        3 GETUPVAL                         R8 0
-        4 GETTABLEKS                       R7 R8 K1 ["SeparationToken"]
+        3 GETUPVAL                         R7 0
+        4 GETTABLEKS                       R7 R7 K1 ["SeparationToken"]
         6 CONCAT                           R5 R6 R7
         7 JUMP                             ; [+1]
         8 LOADK                            R5 K2 [""]
@@ -58,15 +58,15 @@ PROTO_1:
        47 SETTABLEKS                       R7 R6 K10 ["textFilteredOut"]
        49 LOADB                            R7 0
        50 SETTABLEKS                       R7 R6 K11 ["scopeFilteredOut"]
-       52 GETUPVAL                         R9 1
-       53 GETTABLEKS                       R8 R9 K17 ["textMatchRow"]
+       52 GETUPVAL                         R8 1
+       53 GETTABLEKS                       R8 R8 K17 ["textMatchRow"]
        55 MOVE                             R9 R3
        56 MOVE                             R10 R6
        57 CALL                             R8 2 1
        58 NOT                              R7 R8
        59 SETTABLEKS                       R7 R6 K10 ["textFilteredOut"]
-       61 GETUPVAL                         R8 1
-       62 GETTABLEKS                       R7 R8 K18 ["isScopeFiltered"]
+       61 GETUPVAL                         R7 1
+       62 GETTABLEKS                       R7 R7 K18 ["isScopeFiltered"]
        64 MOVE                             R8 R4
        65 MOVE                             R9 R6
        66 CALL                             R7 2 1
@@ -75,8 +75,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R3 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["newDummyRow"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["newDummyRow"]
         4 CALL                             R4 0 1
         5 MOVE                             R5 R0
         6 LOADK                            R6 K1 [""]
@@ -88,25 +88,25 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["WatchWindowTableRow"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["WatchWindowTableRow"]
         9 CALL                             R0 1 1
-       10 GETIMPORT                        R4 K3 [script]
-       12 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       14 GETTABLEKS                       R2 R3 K4 ["Parent"]
-       16 GETTABLEKS                       R1 R2 K4 ["Parent"]
+       10 GETIMPORT                        R1 K3 [script]
+       12 GETTABLEKS                       R1 R1 K4 ["Parent"]
+       14 GETTABLEKS                       R1 R1 K4 ["Parent"]
+       16 GETTABLEKS                       R1 R1 K4 ["Parent"]
        18 GETIMPORT                        R2 K1 [require]
-       20 GETTABLEKS                       R4 R1 K6 ["Mocks"]
-       22 GETTABLEKS                       R3 R4 K7 ["DebuggerVariable"]
+       20 GETTABLEKS                       R3 R1 K6 ["Mocks"]
+       22 GETTABLEKS                       R3 R3 K7 ["DebuggerVariable"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K1 [require]
-       27 GETTABLEKS                       R5 R1 K8 ["Util"]
-       29 GETTABLEKS                       R4 R5 K9 ["Constants"]
+       27 GETTABLEKS                       R4 R1 K8 ["Util"]
+       29 GETTABLEKS                       R4 R4 K9 ["Constants"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K1 [require]
-       34 GETTABLEKS                       R6 R1 K8 ["Util"]
-       36 GETTABLEKS                       R5 R6 K10 ["WatchHelperFunctions"]
+       34 GETTABLEKS                       R5 R1 K8 ["Util"]
+       36 GETTABLEKS                       R5 R5 K10 ["WatchHelperFunctions"]
        38 CALL                             R4 1 1
        39 DUPCLOSURE                       R5 K11 [PROTO_0]
        40 DUPCLOSURE                       R6 K12 [PROTO_1]

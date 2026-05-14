@@ -1,19 +1,19 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Data"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Data"]
         4 JUMPIF                           R1 ; [+2]
         5 NEWTABLE                         R1 0 0
-        7 GETTABLEKS                       R3 R0 K0 ["props"]
-        9 GETTABLEKS                       R2 R3 K2 ["OnRenderItem"]
-       11 GETTABLEKS                       R4 R0 K0 ["props"]
-       13 GETTABLEKS                       R3 R4 K3 ["Position"]
-       15 GETTABLEKS                       R5 R0 K0 ["props"]
-       17 GETTABLEKS                       R4 R5 K4 ["LayoutOrder"]
-       19 GETTABLEKS                       R6 R0 K0 ["props"]
-       21 GETTABLEKS                       R5 R6 K5 ["DisplayCount"]
+        7 GETTABLEKS                       R2 R0 K0 ["props"]
+        9 GETTABLEKS                       R2 R2 K2 ["OnRenderItem"]
+       11 GETTABLEKS                       R3 R0 K0 ["props"]
+       13 GETTABLEKS                       R3 R3 K3 ["Position"]
+       15 GETTABLEKS                       R4 R0 K0 ["props"]
+       17 GETTABLEKS                       R4 R4 K4 ["LayoutOrder"]
+       19 GETTABLEKS                       R5 R0 K0 ["props"]
+       21 GETTABLEKS                       R5 R5 K5 ["DisplayCount"]
        23 DUPTABLE                         R6 K7 [{"Layout"}]
-       24 GETUPVAL                         R8 0
-       25 GETTABLEKS                       R7 R8 K8 ["createElement"]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K8 ["createElement"]
        27 LOADK                            R8 K9 ["UIListLayout"]
        28 DUPTABLE                         R9 K13 [{"FillDirection", "SortOrder", "Padding"}]
        29 GETIMPORT                        R10 K16 [Enum.FillDirection.Horizontal]
@@ -53,8 +53,8 @@ PROTO_0:
        78 CALL                             R15 2 1
        79 SETTABLE                         R15 R6 R14
        80 FORGLOOP                         R8 2 ; [-28]
-       82 GETUPVAL                         R9 0
-       83 GETTABLEKS                       R8 R9 K8 ["createElement"]
+       82 GETUPVAL                         R8 0
+       83 GETTABLEKS                       R8 R8 K8 ["createElement"]
        85 LOADK                            R9 K30 ["Frame"]
        86 DUPTABLE                         R10 K34 [{"LayoutOrder", "AutomaticSize", "Size", "Position", "BackgroundTransparency"}]
        87 SETTABLEKS                       R4 R10 K4 ["LayoutOrder"]
@@ -74,11 +74,11 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]

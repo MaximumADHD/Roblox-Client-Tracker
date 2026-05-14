@@ -47,8 +47,8 @@ PROTO_2:
         6 CALL                             R2 1 3
         7 FORGPREP_NEXT                    R2
         8 LOADNIL                          R7
-        9 GETUPVAL                         R9 0
-       10 GETTABLEKS                       R8 R9 K2 ["fromItemDetailsRequest"]
+        9 GETUPVAL                         R8 0
+       10 GETTABLEKS                       R8 R8 K2 ["fromItemDetailsRequest"]
        12 MOVE                             R9 R6
        13 CALL                             R8 1 1
        14 MOVE                             R7 R8
@@ -66,8 +66,8 @@ PROTO_3:
         6 CALL                             R5 1 3
         7 FORGPREP_NEXT                    R5
         8 LOADNIL                          R10
-        9 GETUPVAL                         R12 0
-       10 GETTABLEKS                       R11 R12 K2 ["fromCreationsDetails"]
+        9 GETUPVAL                         R11 0
+       10 GETTABLEKS                       R11 R11 K2 ["fromCreationsDetails"]
        12 MOVE                             R12 R9
        13 MOVE                             R13 R1
        14 MOVE                             R14 R2
@@ -86,14 +86,14 @@ PROTO_4:
         2 LOADN                            R2 0
         3 JUMPIFNOTLT                      R2 R1 ; [+19]
         5 GETTABLEN                        R1 R0 1
-        6 GETTABLEKS                       R3 R1 K0 ["Creator"]
-        8 GETTABLEKS                       R2 R3 K1 ["Id"]
-       10 GETTABLEKS                       R4 R1 K0 ["Creator"]
-       12 GETTABLEKS                       R3 R4 K2 ["Name"]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K3 ["backendToClient"]
-       17 GETTABLEKS                       R6 R1 K0 ["Creator"]
-       19 GETTABLEKS                       R5 R6 K4 ["Type"]
+        6 GETTABLEKS                       R2 R1 K0 ["Creator"]
+        8 GETTABLEKS                       R2 R2 K1 ["Id"]
+       10 GETTABLEKS                       R3 R1 K0 ["Creator"]
+       12 GETTABLEKS                       R3 R3 K2 ["Name"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R4 R4 K3 ["backendToClient"]
+       17 GETTABLEKS                       R5 R1 K0 ["Creator"]
+       19 GETTABLEKS                       R5 R5 K4 ["Type"]
        21 CALL                             R4 1 -1
        22 RETURN                           R2 -1
        23 RETURN                           R0 0
@@ -110,8 +110,8 @@ PROTO_5:
        12 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["isPageInfoStale"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["isPageInfoStale"]
         3 MOVE                             R5 R1
         4 MOVE                             R6 R0
         5 CALL                             R4 2 1
@@ -140,15 +140,15 @@ PROTO_6:
        31 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R7 0
-        1 GETTABLEKS                       R6 R7 K0 ["isPageInfoStale"]
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["isPageInfoStale"]
         3 MOVE                             R7 R1
         4 MOVE                             R8 R0
         5 CALL                             R6 2 1
         6 JUMPIFNOT                        R6 ; [+1]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K1 ["getEngineAssetTypeForPageInfoCategory"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K1 ["getEngineAssetTypeForPageInfoCategory"]
        11 MOVE                             R7 R1
        12 CALL                             R6 1 1
        13 GETUPVAL                         R7 1
@@ -177,8 +177,8 @@ PROTO_7:
        39 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["shouldDebugWarnings"]
         3 CALL                             R3 0 1
         4 JUMPIFNOT                        R3 ; [+5]
         5 JUMPIFNOT                        R1 ; [+4]
@@ -200,8 +200,8 @@ PROTO_8:
        25 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isPageInfoStale"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isPageInfoStale"]
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 CALL                             R1 2 1
@@ -223,15 +223,15 @@ PROTO_9:
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
-        2 GETUPVAL                         R3 0
-        3 NAMECALL                         R3 R3 K1 ["getState"]
-        5 CALL                             R3 1 1
-        6 GETTABLEKS                       R2 R3 K2 ["pageInfo"]
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K3 ["categoryName"]
+        2 GETUPVAL                         R2 0
+        3 NAMECALL                         R2 R2 K1 ["getState"]
+        5 CALL                             R2 1 1
+        6 GETTABLEKS                       R2 R2 K2 ["pageInfo"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K3 ["categoryName"]
        11 GETTABLEKS                       R4 R2 K3 ["categoryName"]
-       13 GETUPVAL                         R7 2
-       14 GETTABLEKS                       R6 R7 K4 ["isPageInfoStale"]
+       13 GETUPVAL                         R6 2
+       14 GETTABLEKS                       R6 R6 K4 ["isPageInfoStale"]
        16 GETUPVAL                         R7 1
        17 GETUPVAL                         R8 0
        18 CALL                             R6 2 1
@@ -245,14 +245,14 @@ PROTO_10:
        27 LOADN                            R12 0
        28 JUMPIFNOTLT                      R12 R11 ; [+20]
        30 GETTABLEN                        R11 R10 1
-       31 GETTABLEKS                       R12 R11 K6 ["Creator"]
-       33 GETTABLEKS                       R7 R12 K7 ["Id"]
-       35 GETTABLEKS                       R12 R11 K6 ["Creator"]
-       37 GETTABLEKS                       R8 R12 K8 ["Name"]
-       39 GETUPVAL                         R13 3
-       40 GETTABLEKS                       R12 R13 K9 ["backendToClient"]
-       42 GETTABLEKS                       R14 R11 K6 ["Creator"]
-       44 GETTABLEKS                       R13 R14 K10 ["Type"]
+       31 GETTABLEKS                       R7 R11 K6 ["Creator"]
+       33 GETTABLEKS                       R7 R7 K7 ["Id"]
+       35 GETTABLEKS                       R8 R11 K6 ["Creator"]
+       37 GETTABLEKS                       R8 R8 K8 ["Name"]
+       39 GETUPVAL                         R12 3
+       40 GETTABLEKS                       R12 R12 K9 ["backendToClient"]
+       42 GETTABLEKS                       R13 R11 K6 ["Creator"]
+       44 GETTABLEKS                       R13 R13 K10 ["Type"]
        46 CALL                             R12 1 1
        47 MOVE                             R9 R12
        48 JUMP                             ; [+3]
@@ -279,8 +279,8 @@ PROTO_10:
        77 CALL                             R7 -1 0
        78 GETUPVAL                         R7 0
        79 GETUPVAL                         R9 6
-       80 GETUPVAL                         R11 1
-       81 GETTABLEKS                       R10 R11 K14 ["targetPage"]
+       80 GETUPVAL                         R10 1
+       81 GETTABLEKS                       R10 R10 K14 ["targetPage"]
        83 CALL                             R9 1 -1
        84 NAMECALL                         R7 R7 K12 ["dispatch"]
        86 CALL                             R7 -1 0
@@ -296,8 +296,8 @@ PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         3 JUMPIFNOT                        R2 ; [+4]
-        4 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-        6 GETTABLEKS                       R2 R3 K1 ["data"]
+        4 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+        6 GETTABLEKS                       R2 R2 K1 ["data"]
         8 CALL                             R1 1 1
         9 MOVE                             R2 R0
        10 RETURN                           R1 2
@@ -318,8 +318,8 @@ PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         3 JUMPIFNOT                        R2 ; [+4]
-        4 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-        6 GETTABLEKS                       R2 R3 K1 ["data"]
+        4 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+        6 GETTABLEKS                       R2 R2 K1 ["data"]
         8 CALL                             R1 1 1
         9 MOVE                             R2 R0
        10 RETURN                           R1 2
@@ -337,8 +337,8 @@ PROTO_14:
        11 RETURN                           R1 -1
 
 PROTO_15:
-        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R2 K1 ["data"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["data"]
         4 JUMPIFNOT                        R1 ; [+11]
         5 LENGTH                           R2 R1
         6 LOADN                            R3 0
@@ -358,8 +358,8 @@ PROTO_15:
        21 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createCursor"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createCursor"]
         3 GETTABLEKS                       R3 R1 K1 ["responseBody"]
         5 CALL                             R2 1 1
         6 JUMPIFNOT                        R0 ; [+20]
@@ -388,8 +388,8 @@ PROTO_16:
        32 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getNameFromResult"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getNameFromResult"]
         3 MOVE                             R2 R0
         4 GETUPVAL                         R3 1
         5 CALL                             R1 2 1
@@ -418,27 +418,27 @@ PROTO_18:
         0 JUMPIFNOT                        R0 ; [+264]
         1 GETTABLEKS                       R1 R0 K0 ["responseBody"]
         3 JUMPIFNOT                        R1 ; [+261]
-        4 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        6 GETTABLEKS                       R1 R2 K1 ["items"]
+        4 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        6 GETTABLEKS                       R1 R1 K1 ["items"]
         8 JUMPIFNOT                        R1 ; [+256]
-        9 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-       11 GETTABLEKS                       R2 R3 K1 ["items"]
+        9 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+       11 GETTABLEKS                       R2 R2 K1 ["items"]
        13 LENGTH                           R1 R2
        14 LOADN                            R2 0
        15 JUMPIFNOTLT                      R2 R1 ; [+249]
-       17 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-       19 GETTABLEKS                       R1 R2 K1 ["items"]
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R2 R3 K2 ["createCursor"]
+       17 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+       19 GETTABLEKS                       R1 R1 K1 ["items"]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K2 ["createCursor"]
        24 DUPTABLE                         R3 K4 [{"nextPageCursor"}]
-       25 GETTABLEKS                       R5 R0 K0 ["responseBody"]
-       27 GETTABLEKS                       R4 R5 K5 ["nextCursor"]
+       25 GETTABLEKS                       R4 R0 K0 ["responseBody"]
+       27 GETTABLEKS                       R4 R4 K5 ["nextCursor"]
        29 SETTABLEKS                       R4 R3 K3 ["nextPageCursor"]
        31 CALL                             R2 1 1
        32 LOADB                            R3 0
-       33 GETTABLEN                        R7 R1 1
-       34 GETTABLEKS                       R6 R7 K6 ["creator"]
-       36 GETTABLEKS                       R5 R6 K7 ["KindCase"]
+       33 GETTABLEN                        R5 R1 1
+       34 GETTABLEKS                       R5 R5 K6 ["creator"]
+       36 GETTABLEKS                       R5 R5 K7 ["KindCase"]
        38 JUMPIFEQKN                       R5 K8 [1] ; [+2]
        40 LOADB                            R4 0 +1
        41 LOADB                            R4 1
@@ -451,31 +451,31 @@ PROTO_18:
        51 JUMPIFNOT                        R11 ; [+57]
        52 GETTABLEKS                       R11 R10 K12 ["marketplaceItemDetails"]
        54 JUMPIFNOT                        R11 ; [+54]
-       55 GETTABLEKS                       R12 R10 K12 ["marketplaceItemDetails"]
-       57 GETTABLEKS                       R11 R12 K13 ["assetDetails"]
+       55 GETTABLEKS                       R11 R10 K12 ["marketplaceItemDetails"]
+       57 GETTABLEKS                       R11 R11 K13 ["assetDetails"]
        59 JUMPIFNOT                        R11 ; [+49]
-       60 GETTABLEKS                       R13 R10 K12 ["marketplaceItemDetails"]
-       62 GETTABLEKS                       R12 R13 K13 ["assetDetails"]
-       64 GETTABLEKS                       R11 R12 K14 ["assetType"]
+       60 GETTABLEKS                       R11 R10 K12 ["marketplaceItemDetails"]
+       62 GETTABLEKS                       R11 R11 K13 ["assetDetails"]
+       64 GETTABLEKS                       R11 R11 K14 ["assetType"]
        66 JUMPIFNOT                        R11 ; [+42]
        67 GETTABLEKS                       R11 R10 K15 ["createdTime"]
        69 JUMPIFNOT                        R11 ; [+39]
        70 GETTABLEKS                       R12 R10 K6 ["creator"]
        72 JUMPIFNOT                        R12 ; [+13]
        73 JUMPIFNOT                        R4 ; [+12]
-       74 GETTABLEKS                       R13 R10 K6 ["creator"]
-       76 GETTABLEKS                       R12 R13 K16 ["User"]
+       74 GETTABLEKS                       R12 R10 K6 ["creator"]
+       76 GETTABLEKS                       R12 R12 K16 ["User"]
        78 JUMPIFNOT                        R12 ; [+7]
-       79 GETTABLEKS                       R14 R10 K6 ["creator"]
-       81 GETTABLEKS                       R13 R14 K16 ["User"]
-       83 GETTABLEKS                       R12 R13 K17 ["UserId"]
+       79 GETTABLEKS                       R12 R10 K6 ["creator"]
+       81 GETTABLEKS                       R12 R12 K16 ["User"]
+       83 GETTABLEKS                       R12 R12 K17 ["UserId"]
        85 JUMPIF                           R12 ; [+12]
-       86 GETTABLEKS                       R12 R10 K6 ["creator"]
-       88 GETTABLEKS                       R11 R12 K18 ["Group"]
+       86 GETTABLEKS                       R11 R10 K6 ["creator"]
+       88 GETTABLEKS                       R11 R11 K18 ["Group"]
        90 JUMPIFNOT                        R11 ; [+18]
-       91 GETTABLEKS                       R13 R10 K6 ["creator"]
-       93 GETTABLEKS                       R12 R13 K18 ["Group"]
-       95 GETTABLEKS                       R11 R12 K19 ["GroupId"]
+       91 GETTABLEKS                       R11 R10 K6 ["creator"]
+       93 GETTABLEKS                       R11 R11 K18 ["Group"]
+       95 GETTABLEKS                       R11 R11 K19 ["GroupId"]
        97 JUMPIFNOT                        R11 ; [+11]
        98 GETTABLEKS                       R11 R10 K20 ["description"]
       100 JUMPIFNOT                        R11 ; [+8]
@@ -491,20 +491,20 @@ PROTO_18:
       114 GETIMPORT                        R15 K32 [tonumber]
       116 CALL                             R15 1 1
       117 SETTABLEKS                       R15 R14 K24 ["assetId"]
-      119 GETTABLEKS                       R17 R10 K12 ["marketplaceItemDetails"]
-      121 GETTABLEKS                       R16 R17 K13 ["assetDetails"]
-      123 GETTABLEKS                       R15 R16 K14 ["assetType"]
+      119 GETTABLEKS                       R15 R10 K12 ["marketplaceItemDetails"]
+      121 GETTABLEKS                       R15 R15 K13 ["assetDetails"]
+      123 GETTABLEKS                       R15 R15 K14 ["assetType"]
       125 SETTABLEKS                       R15 R14 K14 ["assetType"]
       127 GETTABLEKS                       R15 R10 K15 ["createdTime"]
       129 SETTABLEKS                       R15 R14 K25 ["created"]
       131 JUMPIFNOT                        R4 ; [+7]
-      132 GETTABLEKS                       R17 R10 K6 ["creator"]
-      134 GETTABLEKS                       R16 R17 K16 ["User"]
-      136 GETTABLEKS                       R15 R16 K17 ["UserId"]
+      132 GETTABLEKS                       R15 R10 K6 ["creator"]
+      134 GETTABLEKS                       R15 R15 K16 ["User"]
+      136 GETTABLEKS                       R15 R15 K17 ["UserId"]
       138 JUMP                             ; [+6]
-      139 GETTABLEKS                       R17 R10 K6 ["creator"]
-      141 GETTABLEKS                       R16 R17 K18 ["Group"]
-      143 GETTABLEKS                       R15 R16 K19 ["GroupId"]
+      139 GETTABLEKS                       R15 R10 K6 ["creator"]
+      141 GETTABLEKS                       R15 R15 K18 ["Group"]
+      143 GETTABLEKS                       R15 R15 K19 ["GroupId"]
       145 SETTABLEKS                       R15 R14 K26 ["creatorTargetId"]
       147 JUMPIFNOT                        R4 ; [+2]
       148 LOADK                            R15 K16 ["User"]
@@ -515,8 +515,8 @@ PROTO_18:
       155 SETTABLEKS                       R15 R14 K20 ["description"]
       157 GETTABLEKS                       R15 R10 K21 ["name"]
       159 SETTABLEKS                       R15 R14 K21 ["name"]
-      161 GETUPVAL                         R16 1
-      162 GETTABLEKS                       R15 R16 K33 ["getStatus"]
+      161 GETUPVAL                         R15 1
+      162 GETTABLEKS                       R15 R15 K33 ["getStatus"]
       164 GETTABLEKS                       R16 R10 K22 ["moderationStatus"]
       166 GETTABLEKS                       R17 R10 K23 ["saleStatus"]
       168 CALL                             R15 2 1
@@ -536,24 +536,24 @@ PROTO_18:
       189 CALL                             R12 2 0
       190 FORGLOOP                         R6 2 ; [-142]
       192 JUMPIFNOT                        R4 ; [+8]
-      193 GETTABLEN                        R9 R1 1
-      194 GETTABLEKS                       R8 R9 K6 ["creator"]
-      196 GETTABLEKS                       R7 R8 K16 ["User"]
-      198 GETTABLEKS                       R6 R7 K17 ["UserId"]
+      193 GETTABLEN                        R6 R1 1
+      194 GETTABLEKS                       R6 R6 K6 ["creator"]
+      196 GETTABLEKS                       R6 R6 K16 ["User"]
+      198 GETTABLEKS                       R6 R6 K17 ["UserId"]
       200 JUMPIF                           R6 ; [+7]
-      201 GETTABLEN                        R9 R1 1
-      202 GETTABLEKS                       R8 R9 K6 ["creator"]
-      204 GETTABLEKS                       R7 R8 K18 ["Group"]
-      206 GETTABLEKS                       R6 R7 K19 ["GroupId"]
-      208 GETUPVAL                         R8 2
-      209 GETTABLEKS                       R7 R8 K41 ["getCreatorTypeValueFromName"]
+      201 GETTABLEN                        R6 R1 1
+      202 GETTABLEKS                       R6 R6 K6 ["creator"]
+      204 GETTABLEKS                       R6 R6 K18 ["Group"]
+      206 GETTABLEKS                       R6 R6 K19 ["GroupId"]
+      208 GETUPVAL                         R7 2
+      209 GETTABLEKS                       R7 R7 K41 ["getCreatorTypeValueFromName"]
       211 JUMPIFNOT                        R4 ; [+2]
       212 LOADK                            R8 K16 ["User"]
       213 JUMP                             ; [+1]
       214 LOADK                            R8 K18 ["Group"]
       215 CALL                             R7 1 1
-      216 GETUPVAL                         R9 2
-      217 GETTABLEKS                       R8 R9 K42 ["isCached"]
+      216 GETUPVAL                         R8 2
+      217 GETTABLEKS                       R8 R8 K42 ["isCached"]
       219 GETUPVAL                         R9 3
       220 MOVE                             R10 R6
       221 MOVE                             R11 R7
@@ -579,12 +579,12 @@ PROTO_18:
       242 NAMECALL                         R8 R8 K44 ["andThen"]
       244 CALL                             R8 3 0
       245 RETURN                           R0 0
-      246 GETUPVAL                         R11 3
-      247 NAMECALL                         R11 R11 K45 ["getState"]
-      249 CALL                             R11 1 1
-      250 GETTABLEKS                       R10 R11 K46 ["assets"]
-      252 GETTABLEKS                       R9 R10 K47 ["cachedCreatorInfo"]
-      254 GETTABLEKS                       R8 R9 K48 ["Name"]
+      246 GETUPVAL                         R8 3
+      247 NAMECALL                         R8 R8 K45 ["getState"]
+      249 CALL                             R8 1 1
+      250 GETTABLEKS                       R8 R8 K46 ["assets"]
+      252 GETTABLEKS                       R8 R8 K47 ["cachedCreatorInfo"]
+      254 GETTABLEKS                       R8 R8 K48 ["Name"]
       256 GETUPVAL                         R9 6
       257 GETUPVAL                         R10 3
       258 GETUPVAL                         R11 7
@@ -606,35 +606,35 @@ PROTO_19:
         2 CALL                             R3 1 -1
         3 NAMECALL                         R1 R0 K0 ["dispatch"]
         5 CALL                             R1 -1 0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["creator"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["creator"]
         9 JUMPIFNOT                        R1 ; [+9]
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K1 ["creator"]
-       13 GETTABLEKS                       R2 R3 K2 ["Id"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K1 ["creator"]
+       13 GETTABLEKS                       R2 R2 K2 ["Id"]
        15 JUMPIFEQKN                       R2 K3 [-1] ; [+2]
        17 LOADB                            R1 0 +1
        18 LOADB                            R1 1
-       19 GETUPVAL                         R4 2
-       20 GETTABLEKS                       R3 R4 K4 ["getTabForCategoryName"]
-       22 GETUPVAL                         R5 1
-       23 GETTABLEKS                       R4 R5 K5 ["categoryName"]
+       19 GETUPVAL                         R3 2
+       20 GETTABLEKS                       R3 R3 K4 ["getTabForCategoryName"]
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R4 R4 K5 ["categoryName"]
        25 CALL                             R3 1 1
-       26 GETUPVAL                         R5 2
-       27 GETTABLEKS                       R4 R5 K6 ["CREATIONS"]
+       26 GETUPVAL                         R4 2
+       27 GETTABLEKS                       R4 R4 K6 ["CREATIONS"]
        29 JUMPIFEQ                         R3 R4 ; [+2]
        31 LOADB                            R2 0 +1
        32 LOADB                            R2 1
-       33 GETUPVAL                         R4 2
-       34 GETTABLEKS                       R3 R4 K7 ["categoryIsGroupAsset"]
-       36 GETUPVAL                         R5 1
-       37 GETTABLEKS                       R4 R5 K5 ["categoryName"]
+       33 GETUPVAL                         R3 2
+       34 GETTABLEKS                       R3 R3 K7 ["categoryIsGroupAsset"]
+       36 GETUPVAL                         R4 1
+       37 GETTABLEKS                       R4 R4 K5 ["categoryName"]
        39 CALL                             R3 1 1
        40 JUMPIFNOT                        R3 ; [+11]
-       41 GETUPVAL                         R5 2
-       42 GETTABLEKS                       R4 R5 K8 ["categoryIsAvatarAssetByCategoryName"]
-       44 GETUPVAL                         R6 1
-       45 GETTABLEKS                       R5 R6 K5 ["categoryName"]
+       41 GETUPVAL                         R4 2
+       42 GETTABLEKS                       R4 R4 K8 ["categoryIsAvatarAssetByCategoryName"]
+       44 GETUPVAL                         R5 1
+       45 GETTABLEKS                       R5 R5 K5 ["categoryName"]
        47 CALL                             R4 1 1
        48 NOT                              R3 R4
        49 JUMPIF                           R3 ; [+2]
@@ -687,12 +687,12 @@ PROTO_19:
       104 CALL                             R9 -1 0
       105 RETURN                           R0 0
       106 JUMPIFNOT                        R2 ; [+139]
-      107 NAMECALL                         R10 R0 K12 ["getState"]
-      109 CALL                             R10 1 1
-      110 GETTABLEKS                       R9 R10 K13 ["assets"]
-      112 GETTABLEKS                       R8 R9 K14 ["currentCursor"]
-      114 GETUPVAL                         R10 13
-      115 GETTABLEKS                       R9 R10 K15 ["isNextPageAvailable"]
+      107 NAMECALL                         R8 R0 K12 ["getState"]
+      109 CALL                             R8 1 1
+      110 GETTABLEKS                       R8 R8 K13 ["assets"]
+      112 GETTABLEKS                       R8 R8 K14 ["currentCursor"]
+      114 GETUPVAL                         R9 13
+      115 GETTABLEKS                       R9 R9 K15 ["isNextPageAvailable"]
       117 MOVE                             R10 R8
       118 CALL                             R9 1 1
       119 JUMPIFNOT                        R9 ; [+180]
@@ -700,38 +700,38 @@ PROTO_19:
       121 MOVE                             R9 R6
       122 JUMP                             ; [+1]
       123 MOVE                             R9 R7
-      124 GETUPVAL                         R12 2
-      125 GETTABLEKS                       R11 R12 K16 ["getCategoryByName"]
-      127 GETUPVAL                         R13 1
-      128 GETTABLEKS                       R12 R13 K5 ["categoryName"]
+      124 GETUPVAL                         R11 2
+      125 GETTABLEKS                       R11 R11 K16 ["getCategoryByName"]
+      127 GETUPVAL                         R12 1
+      128 GETTABLEKS                       R12 R12 K5 ["categoryName"]
       130 CALL                             R11 1 1
       131 JUMPIFNOT                        R11 ; [+10]
-      132 GETUPVAL                         R12 2
-      133 GETTABLEKS                       R11 R12 K16 ["getCategoryByName"]
-      135 GETUPVAL                         R13 1
-      136 GETTABLEKS                       R12 R13 K5 ["categoryName"]
-      138 CALL                             R11 1 1
-      139 GETTABLEKS                       R10 R11 K17 ["assetType"]
+      132 GETUPVAL                         R10 2
+      133 GETTABLEKS                       R10 R10 K16 ["getCategoryByName"]
+      135 GETUPVAL                         R11 1
+      136 GETTABLEKS                       R11 R11 K5 ["categoryName"]
+      138 CALL                             R10 1 1
+      139 GETTABLEKS                       R10 R10 K17 ["assetType"]
       141 JUMP                             ; [+1]
       142 LOADNIL                          R10
       143 LOADB                            R11 0
       144 GETUPVAL                         R12 14
       145 CALL                             R12 0 1
       146 JUMPIFNOT                        R12 ; [+9]
-      147 GETUPVAL                         R14 2
-      148 GETTABLEKS                       R13 R14 K18 ["ToolboxMarketplaceAssetTypes"]
+      147 GETUPVAL                         R13 2
+      148 GETTABLEKS                       R13 R13 K18 ["ToolboxMarketplaceAssetTypes"]
       150 GETTABLE                         R12 R13 R10
       151 JUMPIFNOTEQKNIL                  R12 ; [+2]
       153 LOADB                            R11 0 +1
       154 LOADB                            R11 1
       155 JUMP                             ; [+17]
       156 LOADB                            R12 0
-      157 GETUPVAL                         R15 2
-      158 GETTABLEKS                       R14 R15 K19 ["AssetType"]
-      160 GETTABLEKS                       R13 R14 K20 ["ANIMATION"]
+      157 GETUPVAL                         R13 2
+      158 GETTABLEKS                       R13 R13 K19 ["AssetType"]
+      160 GETTABLEKS                       R13 R13 K20 ["ANIMATION"]
       162 JUMPIFEQ                         R10 R13 ; [+9]
-      164 GETUPVAL                         R15 2
-      165 GETTABLEKS                       R14 R15 K18 ["ToolboxMarketplaceAssetTypes"]
+      164 GETUPVAL                         R14 2
+      165 GETTABLEKS                       R14 R14 K18 ["ToolboxMarketplaceAssetTypes"]
       167 GETTABLE                         R13 R14 R10
       168 JUMPIFNOTEQKNIL                  R13 ; [+2]
       170 LOADB                            R12 0 +1
@@ -739,8 +739,8 @@ PROTO_19:
       172 MOVE                             R11 R12
       173 JUMPIFNOT                        R11 ; [+20]
       174 MOVE                             R12 R9
-      175 GETUPVAL                         R14 13
-      176 GETTABLEKS                       R13 R14 K21 ["getNextPageCursor"]
+      175 GETUPVAL                         R13 13
+      176 GETTABLEKS                       R13 R13 K21 ["getNextPageCursor"]
       178 MOVE                             R14 R8
       179 CALL                             R13 1 -1
       180 CALL                             R12 -1 1
@@ -756,8 +756,8 @@ PROTO_19:
       190 NAMECALL                         R12 R12 K22 ["andThen"]
       192 CALL                             R12 3 -1
       193 RETURN                           R12 -1
-      194 GETUPVAL                         R13 4
-      195 GETTABLEKS                       R12 R13 K23 ["getEngineAssetTypeForPageInfoCategory"]
+      194 GETUPVAL                         R12 4
+      195 GETTABLEKS                       R12 R12 K23 ["getEngineAssetTypeForPageInfoCategory"]
       197 GETUPVAL                         R13 1
       198 CALL                             R12 1 1
       199 JUMPIFNOTEQKNIL                  R12 ; [+6]
@@ -768,15 +768,15 @@ PROTO_19:
       206 GETUPVAL                         R13 10
       207 LOADNIL                          R15
       208 GETTABLEKS                       R16 R12 K27 ["Value"]
-      210 GETUPVAL                         R18 13
-      211 GETTABLEKS                       R17 R18 K21 ["getNextPageCursor"]
+      210 GETUPVAL                         R17 13
+      211 GETTABLEKS                       R17 R17 K21 ["getNextPageCursor"]
       213 MOVE                             R18 R8
       214 CALL                             R17 1 1
-      215 GETUPVAL                         R19 17
-      216 GETTABLEKS                       R18 R19 K28 ["GET_ITEMS_BY_CREATOR_PAGE_SIZE_LIMIT"]
+      215 GETUPVAL                         R18 17
+      216 GETTABLEKS                       R18 R18 K28 ["GET_ITEMS_BY_CREATOR_PAGE_SIZE_LIMIT"]
       218 JUMPIFNOT                        R3 ; [+6]
-      219 GETUPVAL                         R20 4
-      220 GETTABLEKS                       R19 R20 K29 ["getGroupIdForPageInfo"]
+      219 GETUPVAL                         R19 4
+      220 GETTABLEKS                       R19 R19 K29 ["getGroupIdForPageInfo"]
       222 GETUPVAL                         R20 1
       223 CALL                             R19 1 1
       224 JUMP                             ; [+1]
@@ -800,23 +800,23 @@ PROTO_19:
       244 RETURN                           R13 -1
       245 RETURN                           R0 0
       246 LOADB                            R8 0
-      247 GETUPVAL                         R10 2
-      248 GETTABLEKS                       R9 R10 K31 ["categoryIsAudio"]
-      250 GETUPVAL                         R11 1
-      251 GETTABLEKS                       R10 R11 K5 ["categoryName"]
+      247 GETUPVAL                         R9 2
+      248 GETTABLEKS                       R9 R9 K31 ["categoryIsAudio"]
+      250 GETUPVAL                         R10 1
+      251 GETTABLEKS                       R10 R10 K5 ["categoryName"]
       253 CALL                             R9 1 1
-      254 GETUPVAL                         R11 2
-      255 GETTABLEKS                       R10 R11 K32 ["categoryIsVideo"]
-      257 GETUPVAL                         R12 1
-      258 GETTABLEKS                       R11 R12 K5 ["categoryName"]
+      254 GETUPVAL                         R10 2
+      255 GETTABLEKS                       R10 R10 K32 ["categoryIsVideo"]
+      257 GETUPVAL                         R11 1
+      258 GETTABLEKS                       R11 R11 K5 ["categoryName"]
       260 CALL                             R10 1 1
-      261 GETUPVAL                         R12 4
-      262 GETTABLEKS                       R11 R12 K33 ["isDeveloperCategory"]
+      261 GETUPVAL                         R11 4
+      262 GETTABLEKS                       R11 R11 K33 ["isDeveloperCategory"]
       264 GETUPVAL                         R12 1
       265 CALL                             R11 1 1
       266 JUMPIF                           R11 ; [+9]
-      267 GETUPVAL                         R12 4
-      268 GETTABLEKS                       R11 R12 K34 ["isPackagesCategory"]
+      267 GETUPVAL                         R11 4
+      268 GETTABLEKS                       R11 R11 K34 ["isPackagesCategory"]
       270 GETUPVAL                         R12 1
       271 CALL                             R11 1 1
       272 JUMPIF                           R11 ; [+3]
@@ -871,13 +871,13 @@ PROTO_20:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Actions"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["GetAssets"]
        19 CALL                             R2 1 1
@@ -894,12 +894,12 @@ MAIN:
        37 GETTABLEKS                       R7 R1 K11 ["SetCurrentPage"]
        39 CALL                             R6 1 1
        40 GETIMPORT                        R7 K6 [require]
-       42 GETTABLEKS                       R10 R0 K3 ["Src"]
-       44 GETTABLEKS                       R9 R10 K12 ["Types"]
-       46 GETTABLEKS                       R8 R9 K13 ["Category"]
+       42 GETTABLEKS                       R8 R0 K3 ["Src"]
+       44 GETTABLEKS                       R8 R8 K12 ["Types"]
+       46 GETTABLEKS                       R8 R8 K13 ["Category"]
        48 CALL                             R7 1 1
-       49 GETTABLEKS                       R9 R0 K3 ["Src"]
-       51 GETTABLEKS                       R8 R9 K14 ["Util"]
+       49 GETTABLEKS                       R8 R0 K3 ["Src"]
+       51 GETTABLEKS                       R8 R8 K14 ["Util"]
        53 GETIMPORT                        R9 K6 [require]
        55 GETTABLEKS                       R10 R8 K15 ["CreatorInfoHelper"]
        57 CALL                             R9 1 1
@@ -919,21 +919,21 @@ MAIN:
        80 GETTABLEKS                       R15 R8 K20 ["AssetUtil"]
        82 CALL                             R14 1 1
        83 GETIMPORT                        R15 K6 [require]
-       85 GETTABLEKS                       R18 R0 K3 ["Src"]
-       87 GETTABLEKS                       R17 R18 K21 ["Models"]
-       89 GETTABLEKS                       R16 R17 K22 ["AssetInfo"]
+       85 GETTABLEKS                       R16 R0 K3 ["Src"]
+       87 GETTABLEKS                       R16 R16 K21 ["Models"]
+       89 GETTABLEKS                       R16 R16 K22 ["AssetInfo"]
        91 CALL                             R15 1 1
        92 GETIMPORT                        R16 K6 [require]
-       94 GETTABLEKS                       R20 R0 K3 ["Src"]
-       96 GETTABLEKS                       R19 R20 K14 ["Util"]
-       98 GETTABLEKS                       R18 R19 K23 ["SharedFlags"]
-      100 GETTABLEKS                       R17 R18 K24 ["getFFlagToolboxFixGroupCreatedAvatarAssetRequest"]
+       94 GETTABLEKS                       R17 R0 K3 ["Src"]
+       96 GETTABLEKS                       R17 R17 K14 ["Util"]
+       98 GETTABLEKS                       R17 R17 K23 ["SharedFlags"]
+      100 GETTABLEKS                       R17 R17 K24 ["getFFlagToolboxFixGroupCreatedAvatarAssetRequest"]
       102 CALL                             R16 1 1
       103 GETIMPORT                        R17 K6 [require]
-      105 GETTABLEKS                       R21 R0 K3 ["Src"]
-      107 GETTABLEKS                       R20 R21 K14 ["Util"]
-      109 GETTABLEKS                       R19 R20 K23 ["SharedFlags"]
-      111 GETTABLEKS                       R18 R19 K24 ["getFFlagToolboxFixGroupCreatedAvatarAssetRequest"]
+      105 GETTABLEKS                       R18 R0 K3 ["Src"]
+      107 GETTABLEKS                       R18 R18 K14 ["Util"]
+      109 GETTABLEKS                       R18 R18 K23 ["SharedFlags"]
+      111 GETTABLEKS                       R18 R18 K24 ["getFFlagToolboxFixGroupCreatedAvatarAssetRequest"]
       113 CALL                             R17 1 1
       114 DUPCLOSURE                       R18 K25 [PROTO_0]
       115 CAPTURE                          VAL R16

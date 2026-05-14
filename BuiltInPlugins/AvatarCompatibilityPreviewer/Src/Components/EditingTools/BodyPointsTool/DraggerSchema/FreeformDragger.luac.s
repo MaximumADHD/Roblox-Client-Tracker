@@ -37,8 +37,8 @@ PROTO_3:
         7 JUMPIFNOTEQKNIL                  R3 ; [+2]
         9 LOADB                            R2 0 +1
        10 LOADB                            R2 1
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K1 ["LUAU_ANALYZE_ERROR"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K1 ["LUAU_ANALYZE_ERROR"]
        14 FASTCALL2                        ASSERT R2 R3 ; [+3]
        16 GETIMPORT                        R1 K3 [assert]
        18 CALL                             R1 2 0
@@ -50,8 +50,8 @@ PROTO_3:
        27 GETIMPORT                        R3 K12 [Enum.RaycastFilterType.Include]
        29 SETTABLEKS                       R3 R2 K13 ["FilterType"]
        31 NEWTABLE                         R3 0 1
-       33 GETTABLEKS                       R5 R0 K14 ["_selectedPoint"]
-       35 GETTABLEKS                       R4 R5 K15 ["limb"]
+       33 GETTABLEKS                       R4 R0 K14 ["_selectedPoint"]
+       35 GETTABLEKS                       R4 R4 K15 ["limb"]
        37 SETLIST                          R3 R4 1 [1]
        39 SETTABLEKS                       R3 R2 K16 ["FilterDescendantsInstances"]
        41 GETUPVAL                         R3 1
@@ -64,15 +64,15 @@ PROTO_3:
        51 GETUPVAL                         R5 2
        52 JUMPIFNOT                        R5 ; [+29]
        53 JUMPIFNOTEQKNIL                  R3 ; [+25]
-       55 GETTABLEKS                       R6 R0 K14 ["_selectedPoint"]
-       57 GETTABLEKS                       R5 R6 K15 ["limb"]
+       55 GETTABLEKS                       R5 R0 K14 ["_selectedPoint"]
+       57 GETTABLEKS                       R5 R5 K15 ["limb"]
        59 GETTABLEKS                       R9 R1 K17 ["Origin"]
-       61 GETTABLEKS                       R12 R1 K18 ["Direction"]
-       63 GETTABLEKS                       R11 R12 K20 ["Unit"]
-       65 GETTABLEKS                       R14 R5 K21 ["Position"]
-       67 GETTABLEKS                       R15 R1 K17 ["Origin"]
-       69 SUB                              R13 R14 R15
-       70 GETTABLEKS                       R12 R13 K22 ["Magnitude"]
+       61 GETTABLEKS                       R11 R1 K18 ["Direction"]
+       63 GETTABLEKS                       R11 R11 K20 ["Unit"]
+       65 GETTABLEKS                       R13 R5 K21 ["Position"]
+       67 GETTABLEKS                       R14 R1 K17 ["Origin"]
+       69 SUB                              R12 R13 R14
+       70 GETTABLEKS                       R12 R12 K22 ["Magnitude"]
        72 MUL                              R10 R11 R12
        73 ADD                              R8 R9 R10
        74 NAMECALL                         R6 R5 K23 ["GetClosestPointOnSurface"]
@@ -86,14 +86,14 @@ PROTO_3:
        85 JUMPIFNOTEQKNIL                  R3 ; [+2]
        87 LOADB                            R6 0 +1
        88 LOADB                            R6 1
-       89 GETUPVAL                         R8 0
-       90 GETTABLEKS                       R7 R8 K1 ["LUAU_ANALYZE_ERROR"]
+       89 GETUPVAL                         R7 0
+       90 GETTABLEKS                       R7 R7 K1 ["LUAU_ANALYZE_ERROR"]
        92 FASTCALL2                        ASSERT R6 R7 ; [+3]
        94 GETIMPORT                        R5 K3 [assert]
        96 CALL                             R5 2 0
        97 GETTABLEKS                       R4 R3 K21 ["Position"]
-       99 GETTABLEKS                       R6 R0 K4 ["_draggerContext"]
-      101 GETTABLEKS                       R5 R6 K24 ["projectionEnabled"]
+       99 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
+      101 GETTABLEKS                       R5 R5 K24 ["projectionEnabled"]
       103 JUMPIFNOT                        R5 ; [+70]
       104 LOADNIL                          R5
       105 LOADN                            R6 10
@@ -114,8 +114,8 @@ PROTO_3:
       126 JUMPIFNOTEQKNIL                  R7 ; [+2]
       128 LOADB                            R9 0 +1
       129 LOADB                            R9 1
-      130 GETUPVAL                         R11 0
-      131 GETTABLEKS                       R10 R11 K1 ["LUAU_ANALYZE_ERROR"]
+      130 GETUPVAL                         R10 0
+      131 GETTABLEKS                       R10 R10 K1 ["LUAU_ANALYZE_ERROR"]
       133 FASTCALL2                        ASSERT R9 R10 ; [+3]
       135 GETIMPORT                        R8 K3 [assert]
       137 CALL                             R8 2 0
@@ -128,42 +128,42 @@ PROTO_3:
       146 CALL                             R7 3 1
       147 GETTABLEKS                       R8 R0 K0 ["_updatePointPositionCallback"]
       149 GETIMPORT                        R10 K30 [CFrame.new]
-      151 GETTABLEKS                       R14 R0 K4 ["_draggerContext"]
-      153 GETTABLEKS                       R13 R14 K31 ["worldModel"]
-      155 GETTABLEKS                       R12 R13 K32 ["PrimaryPart"]
-      157 GETTABLEKS                       R11 R12 K29 ["CFrame"]
+      151 GETTABLEKS                       R11 R0 K4 ["_draggerContext"]
+      153 GETTABLEKS                       R11 R11 K31 ["worldModel"]
+      155 GETTABLEKS                       R11 R11 K32 ["PrimaryPart"]
+      157 GETTABLEKS                       R11 R11 K29 ["CFrame"]
       159 MOVE                             R13 R7
       160 NAMECALL                         R11 R11 K33 ["PointToObjectSpace"]
       162 CALL                             R11 2 -1
       163 CALL                             R10 -1 1
-      164 GETTABLEKS                       R13 R0 K14 ["_selectedPoint"]
-      166 GETTABLEKS                       R12 R13 K34 ["getCFrame"]
-      168 CALL                             R12 0 1
-      169 GETTABLEKS                       R11 R12 K35 ["Rotation"]
+      164 GETTABLEKS                       R11 R0 K14 ["_selectedPoint"]
+      166 GETTABLEKS                       R11 R11 K34 ["getCFrame"]
+      168 CALL                             R11 0 1
+      169 GETTABLEKS                       R11 R11 K35 ["Rotation"]
       171 MUL                              R9 R10 R11
       172 CALL                             R8 1 0
       173 RETURN                           R0 0
       174 GETTABLEKS                       R5 R0 K0 ["_updatePointPositionCallback"]
       176 GETIMPORT                        R7 K30 [CFrame.new]
-      178 GETTABLEKS                       R11 R0 K4 ["_draggerContext"]
-      180 GETTABLEKS                       R10 R11 K31 ["worldModel"]
-      182 GETTABLEKS                       R9 R10 K32 ["PrimaryPart"]
-      184 GETTABLEKS                       R8 R9 K29 ["CFrame"]
+      178 GETTABLEKS                       R8 R0 K4 ["_draggerContext"]
+      180 GETTABLEKS                       R8 R8 K31 ["worldModel"]
+      182 GETTABLEKS                       R8 R8 K32 ["PrimaryPart"]
+      184 GETTABLEKS                       R8 R8 K29 ["CFrame"]
       186 MOVE                             R10 R4
       187 NAMECALL                         R8 R8 K33 ["PointToObjectSpace"]
       189 CALL                             R8 2 -1
       190 CALL                             R7 -1 1
-      191 GETTABLEKS                       R10 R0 K14 ["_selectedPoint"]
-      193 GETTABLEKS                       R9 R10 K34 ["getCFrame"]
-      195 CALL                             R9 0 1
-      196 GETTABLEKS                       R8 R9 K35 ["Rotation"]
+      191 GETTABLEKS                       R8 R0 K14 ["_selectedPoint"]
+      193 GETTABLEKS                       R8 R8 K34 ["getCFrame"]
+      195 CALL                             R8 0 1
+      196 GETTABLEKS                       R8 R8 K35 ["Rotation"]
       198 MUL                              R6 R7 R8
       199 CALL                             R5 1 0
       200 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-        2 GETTABLEKS                       R1 R2 K1 ["onFreeformDragEnd"]
+        0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        2 GETTABLEKS                       R1 R1 K1 ["onFreeformDragEnd"]
         4 CALL                             R1 0 0
         5 RETURN                           R0 0
 
@@ -178,16 +178,16 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R7 R1 K10 ["Src"]
-       17 GETTABLEKS                       R6 R7 K11 ["Components"]
-       19 GETTABLEKS                       R5 R6 K12 ["EditingTools"]
-       21 GETTABLEKS                       R4 R5 K13 ["BodyPointsTool"]
-       23 GETTABLEKS                       R3 R4 K14 ["Types"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Components"]
+       19 GETTABLEKS                       R3 R3 K12 ["EditingTools"]
+       21 GETTABLEKS                       R3 R3 K13 ["BodyPointsTool"]
+       23 GETTABLEKS                       R3 R3 K14 ["Types"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K9 [require]
-       28 GETTABLEKS                       R6 R1 K10 ["Src"]
-       30 GETTABLEKS                       R5 R6 K15 ["Util"]
-       32 GETTABLEKS                       R4 R5 K16 ["Constants"]
+       28 GETTABLEKS                       R4 R1 K10 ["Src"]
+       30 GETTABLEKS                       R4 R4 K15 ["Util"]
+       32 GETTABLEKS                       R4 R4 K16 ["Constants"]
        34 CALL                             R3 1 1
        35 GETIMPORT                        R4 K1 [game]
        37 LOADK                            R6 K17 ["AvatarPreviewerEditingToolsDraggerClosestPoint"]

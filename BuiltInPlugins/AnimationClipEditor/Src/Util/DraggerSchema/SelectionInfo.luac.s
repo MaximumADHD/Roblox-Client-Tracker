@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["computeInfo"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["computeInfo"]
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 CALL                             R3 2 1
@@ -8,14 +8,14 @@ PROTO_0:
         7 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
         9 GETIMPORT                        R2 K2 [setmetatable]
        11 CALL                             R2 2 1
-       12 GETTABLEKS                       R5 R2 K3 ["draggerContext"]
-       14 GETTABLEKS                       R4 R5 K4 ["RootInstance"]
+       12 GETTABLEKS                       R4 R2 K3 ["draggerContext"]
+       14 GETTABLEKS                       R4 R4 K4 ["RootInstance"]
        16 JUMPIFNOT                        R4 ; [+11]
-       17 GETUPVAL                         R4 2
-       18 GETTABLEKS                       R3 R4 K5 ["getJoints"]
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R3 R3 K5 ["getJoints"]
        20 GETTABLEKS                       R4 R2 K6 ["parts"]
-       22 GETTABLEKS                       R6 R2 K3 ["draggerContext"]
-       24 GETTABLEKS                       R5 R6 K4 ["RootInstance"]
+       22 GETTABLEKS                       R5 R2 K3 ["draggerContext"]
+       24 GETTABLEKS                       R5 R5 K4 ["RootInstance"]
        26 CALL                             R3 2 1
        27 JUMPIF                           R3 ; [+1]
        28 LOADNIL                          R3
@@ -69,8 +69,8 @@ PROTO_2:
        37 CALL                             R7 0 1
        38 RETURN                           R5 3
        39 GETIMPORT                        R5 K10 [CFrame.new]
-       41 GETTABLEKS                       R7 R4 K5 ["TransformedWorldCFrame"]
-       43 GETTABLEKS                       R6 R7 K11 ["Position"]
+       41 GETTABLEKS                       R6 R4 K5 ["TransformedWorldCFrame"]
+       43 GETTABLEKS                       R6 R6 K11 ["Position"]
        45 CALL                             R5 1 1
        46 FASTCALL                         VECTOR ; [+2]
        47 GETIMPORT                        R6 K8 [Vector3.new]
@@ -82,8 +82,8 @@ PROTO_2:
        55 GETTABLEKS                       R5 R4 K12 ["Part1"]
        57 JUMPIFEQKNIL                     R5 ; [+39]
        59 JUMPIFNOT                        R1 ; [+16]
-       60 GETTABLEKS                       R7 R4 K12 ["Part1"]
-       62 GETTABLEKS                       R6 R7 K9 ["CFrame"]
+       60 GETTABLEKS                       R6 R4 K12 ["Part1"]
+       62 GETTABLEKS                       R6 R6 K9 ["CFrame"]
        64 GETTABLEKS                       R7 R4 K13 ["C1"]
        66 MUL                              R5 R6 R7
        67 FASTCALL                         VECTOR ; [+2]
@@ -94,11 +94,11 @@ PROTO_2:
        74 CALL                             R7 0 1
        75 RETURN                           R5 3
        76 GETIMPORT                        R5 K10 [CFrame.new]
-       78 GETTABLEKS                       R9 R4 K12 ["Part1"]
-       80 GETTABLEKS                       R8 R9 K9 ["CFrame"]
-       82 GETTABLEKS                       R9 R4 K13 ["C1"]
-       84 MUL                              R7 R8 R9
-       85 GETTABLEKS                       R6 R7 K11 ["Position"]
+       78 GETTABLEKS                       R7 R4 K12 ["Part1"]
+       80 GETTABLEKS                       R7 R7 K9 ["CFrame"]
+       82 GETTABLEKS                       R8 R4 K13 ["C1"]
+       84 MUL                              R6 R7 R8
+       85 GETTABLEKS                       R6 R6 K11 ["Position"]
        87 CALL                             R5 1 1
        88 FASTCALL                         VECTOR ; [+2]
        89 GETIMPORT                        R6 K8 [Vector3.new]
@@ -147,18 +147,18 @@ PROTO_6:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["BoundingBoxUtils"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["BoundingBoxUtils"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K3 [script]
        12 LOADK                            R3 K6 ["AnimationClipEditor"]
        13 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        15 CALL                             R1 2 1
        16 GETIMPORT                        R2 K1 [require]
-       18 GETTABLEKS                       R5 R1 K8 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Util"]
-       22 GETTABLEKS                       R3 R4 K10 ["RigUtils"]
+       18 GETTABLEKS                       R3 R1 K8 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["RigUtils"]
        24 CALL                             R2 1 1
        25 NEWTABLE                         R3 8 0
        27 SETTABLEKS                       R3 R3 K11 ["__index"]

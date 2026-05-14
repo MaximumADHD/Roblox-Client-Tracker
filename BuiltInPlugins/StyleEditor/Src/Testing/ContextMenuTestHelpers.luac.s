@@ -45,8 +45,8 @@ PROTO_1:
        10 SETLIST                          R2 R3 1 [1]
        12 JUMP                             ; [+1]
        13 MOVE                             R2 R1
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R3 R4 K3 ["findItem"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K3 ["findItem"]
        17 MOVE                             R4 R0
        18 MOVE                             R5 R1
        19 CALL                             R3 2 1
@@ -63,13 +63,13 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 2 0
        18 DUPCLOSURE                       R3 K7 [PROTO_0]

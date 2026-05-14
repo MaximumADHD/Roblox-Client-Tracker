@@ -15,8 +15,8 @@ PROTO_1:
         2 CALL                             R4 1 1
         3 GETTABLE                         R3 R4 R1
         4 JUMPIFNOT                        R3 ; [+11]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K1 ["find"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["find"]
         8 MOVE                             R5 R3
         9 DUPCLOSURE                       R6 K2 [PROTO_0]
        10 CALL                             R4 2 1

@@ -2,8 +2,8 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["new"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["new"]
         9 CALL                             R4 0 1
        10 GETTABLEKS                       R6 R1 K4 ["TaxRate"]
        12 JUMPIFNOT                        R6 ; [+3]
@@ -32,12 +32,12 @@ PROTO_0:
        44 JUMPIFNOT                        R10 ; [+20]
        45 GETUPVAL                         R10 1
        46 MOVE                             R11 R9
-       47 GETTABLEKS                       R14 R2 K16 ["fontStyle"]
-       49 GETTABLEKS                       R13 R14 K17 ["Subtitle"]
-       51 GETTABLEKS                       R12 R13 K18 ["TextSize"]
-       53 GETTABLEKS                       R15 R2 K16 ["fontStyle"]
-       55 GETTABLEKS                       R14 R15 K17 ["Subtitle"]
-       57 GETTABLEKS                       R13 R14 K19 ["Font"]
+       47 GETTABLEKS                       R12 R2 K16 ["fontStyle"]
+       49 GETTABLEKS                       R12 R12 K17 ["Subtitle"]
+       51 GETTABLEKS                       R12 R12 K18 ["TextSize"]
+       53 GETTABLEKS                       R13 R2 K16 ["fontStyle"]
+       55 GETTABLEKS                       R13 R13 K17 ["Subtitle"]
+       57 GETTABLEKS                       R13 R13 K19 ["Font"]
        59 GETIMPORT                        R14 K21 [Vector2.new]
        61 LOADN                            R15 244
        62 LOADK                            R16 K22 [∞]
@@ -51,12 +51,12 @@ PROTO_0:
        73 CALL                             R13 3 1
        74 GETUPVAL                         R14 1
        75 MOVE                             R15 R13
-       76 GETTABLEKS                       R18 R2 K16 ["fontStyle"]
-       78 GETTABLEKS                       R17 R18 K28 ["Normal"]
-       80 GETTABLEKS                       R16 R17 K18 ["TextSize"]
-       82 GETTABLEKS                       R19 R2 K16 ["fontStyle"]
-       84 GETTABLEKS                       R18 R19 K28 ["Normal"]
-       86 GETTABLEKS                       R17 R18 K19 ["Font"]
+       76 GETTABLEKS                       R16 R2 K16 ["fontStyle"]
+       78 GETTABLEKS                       R16 R16 K28 ["Normal"]
+       80 GETTABLEKS                       R16 R16 K18 ["TextSize"]
+       82 GETTABLEKS                       R17 R2 K16 ["fontStyle"]
+       84 GETTABLEKS                       R17 R17 K28 ["Normal"]
+       86 GETTABLEKS                       R17 R17 K19 ["Font"]
        88 CALL                             R14 3 1
        89 LOADK                            R17 K25 ["Monetization"]
        90 LOADK                            R18 K29 ["MarketplaceFeeIs"]
@@ -74,16 +74,16 @@ PROTO_0:
       106 JUMP                             ; [+25]
       107 GETUPVAL                         R16 1
       108 MOVE                             R17 R15
-      109 GETTABLEKS                       R20 R2 K16 ["fontStyle"]
-      111 GETTABLEKS                       R19 R20 K32 ["Subtext"]
-      113 GETTABLEKS                       R18 R19 K18 ["TextSize"]
-      115 GETTABLEKS                       R21 R2 K16 ["fontStyle"]
-      117 GETTABLEKS                       R20 R21 K32 ["Subtext"]
-      119 GETTABLEKS                       R19 R20 K19 ["Font"]
+      109 GETTABLEKS                       R18 R2 K16 ["fontStyle"]
+      111 GETTABLEKS                       R18 R18 K32 ["Subtext"]
+      113 GETTABLEKS                       R18 R18 K18 ["TextSize"]
+      115 GETTABLEKS                       R19 R2 K16 ["fontStyle"]
+      117 GETTABLEKS                       R19 R19 K32 ["Subtext"]
+      119 GETTABLEKS                       R19 R19 K19 ["Font"]
       121 GETIMPORT                        R20 K21 [Vector2.new]
-      123 GETTABLEKS                       R23 R2 K33 ["robuxFeeBase"]
-      125 GETTABLEKS                       R22 R23 K34 ["subText"]
-      127 GETTABLEKS                       R21 R22 K35 ["width"]
+      123 GETTABLEKS                       R21 R2 K33 ["robuxFeeBase"]
+      125 GETTABLEKS                       R21 R21 K34 ["subText"]
+      127 GETTABLEKS                       R21 R21 K35 ["width"]
       129 LOADK                            R22 K22 [∞]
       130 CALL                             R20 2 -1
       131 CALL                             R16 -1 1
@@ -105,12 +105,12 @@ PROTO_0:
       152 CALL                             R19 3 1
       153 GETUPVAL                         R20 1
       154 MOVE                             R21 R19
-      155 GETTABLEKS                       R24 R2 K16 ["fontStyle"]
-      157 GETTABLEKS                       R23 R24 K28 ["Normal"]
-      159 GETTABLEKS                       R22 R23 K18 ["TextSize"]
-      161 GETTABLEKS                       R25 R2 K16 ["fontStyle"]
-      163 GETTABLEKS                       R24 R25 K28 ["Normal"]
-      165 GETTABLEKS                       R23 R24 K19 ["Font"]
+      155 GETTABLEKS                       R22 R2 K16 ["fontStyle"]
+      157 GETTABLEKS                       R22 R22 K28 ["Normal"]
+      159 GETTABLEKS                       R22 R22 K18 ["TextSize"]
+      161 GETTABLEKS                       R23 R2 K16 ["fontStyle"]
+      163 GETTABLEKS                       R23 R23 K28 ["Normal"]
+      165 GETTABLEKS                       R23 R23 K19 ["Font"]
       167 CALL                             R20 3 1
       168 SUB                              R22 R6 R17
       169 LOADN                            R23 0
@@ -126,17 +126,17 @@ PROTO_0:
       181 JUMPIF                           R23 ; [+2]
       182 GETTABLEKS                       R23 R1 K42 ["ShowPriceChangeWarning"]
       184 JUMPIFNOT                        R11 ; [+7]
-      185 GETTABLEKS                       R26 R2 K33 ["robuxFeeBase"]
-      187 GETTABLEKS                       R25 R26 K43 ["transparency"]
-      189 GETTABLEKS                       R24 R25 K44 ["enabled"]
+      185 GETTABLEKS                       R24 R2 K33 ["robuxFeeBase"]
+      187 GETTABLEKS                       R24 R24 K43 ["transparency"]
+      189 GETTABLEKS                       R24 R24 K44 ["enabled"]
       191 JUMPIF                           R24 ; [+6]
-      192 GETTABLEKS                       R26 R2 K33 ["robuxFeeBase"]
-      194 GETTABLEKS                       R25 R26 K43 ["transparency"]
-      196 GETTABLEKS                       R24 R25 K45 ["disabled"]
+      192 GETTABLEKS                       R24 R2 K33 ["robuxFeeBase"]
+      194 GETTABLEKS                       R24 R24 K43 ["transparency"]
+      196 GETTABLEKS                       R24 R24 K45 ["disabled"]
       198 MOVE                             R25 R23
       199 JUMPIFNOT                        R25 ; [+258]
-      200 GETUPVAL                         R26 3
-      201 GETTABLEKS                       R25 R26 K46 ["createElement"]
+      200 GETUPVAL                         R25 3
+      201 GETTABLEKS                       R25 R25 K46 ["createElement"]
       203 GETUPVAL                         R27 2
       204 JUMPIFNOT                        R27 ; [+2]
       205 GETUPVAL                         R26 4
@@ -152,8 +152,8 @@ PROTO_0:
       218 SETTABLEKS                       R28 R27 K49 ["LayoutOrder"]
       220 GETIMPORT                        R28 K59 [Enum.FillDirection.Horizontal]
       222 SETTABLEKS                       R28 R27 K50 ["Layout"]
-      224 GETTABLEKS                       R29 R2 K33 ["robuxFeeBase"]
-      226 GETTABLEKS                       R28 R29 K60 ["spacing"]
+      224 GETTABLEKS                       R28 R2 K33 ["robuxFeeBase"]
+      226 GETTABLEKS                       R28 R28 K60 ["spacing"]
       228 SETTABLEKS                       R28 R27 K51 ["Spacing"]
       230 JUMP                             ; [+19]
       231 DUPTABLE                         R27 K63 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
@@ -174,8 +174,8 @@ PROTO_0:
       252 JUMPIFNOT                        R30 ; [+2]
       253 LOADNIL                          R29
       254 JUMP                             ; [+18]
-      255 GETUPVAL                         R30 3
-      256 GETTABLEKS                       R29 R30 K46 ["createElement"]
+      255 GETUPVAL                         R29 3
+      256 GETTABLEKS                       R29 R29 K46 ["createElement"]
       258 LOADK                            R30 K72 ["UIListLayout"]
       259 DUPTABLE                         R31 K75 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
       260 GETIMPORT                        R32 K59 [Enum.FillDirection.Horizontal]
@@ -188,8 +188,8 @@ PROTO_0:
       273 SETTABLEKS                       R29 R28 K67 ["HorizontalLayout"]
       275 GETUPVAL                         R30 2
       276 JUMPIFNOT                        R30 ; [+16]
-      277 GETUPVAL                         R30 3
-      278 GETTABLEKS                       R29 R30 K46 ["createElement"]
+      277 GETUPVAL                         R29 3
+      278 GETTABLEKS                       R29 R29 K46 ["createElement"]
       280 GETUPVAL                         R30 5
       281 DUPTABLE                         R31 K80 [{"AutomaticSize", "LayoutOrder", "Text"}]
       282 GETIMPORT                        R32 K55 [Enum.AutomaticSize.XY]
@@ -199,14 +199,14 @@ PROTO_0:
       289 SETTABLEKS                       R13 R31 K79 ["Text"]
       291 CALL                             R29 2 1
       292 JUMP                             ; [+44]
-      293 GETUPVAL                         R30 3
-      294 GETTABLEKS                       R29 R30 K46 ["createElement"]
+      293 GETUPVAL                         R29 3
+      294 GETTABLEKS                       R29 R29 K46 ["createElement"]
       296 LOADK                            R30 K81 ["TextLabel"]
-      297 GETUPVAL                         R33 6
-      298 GETTABLEKS                       R32 R33 K82 ["Dictionary"]
-      300 GETTABLEKS                       R31 R32 K83 ["join"]
-      302 GETTABLEKS                       R33 R2 K16 ["fontStyle"]
-      304 GETTABLEKS                       R32 R33 K28 ["Normal"]
+      297 GETUPVAL                         R31 6
+      298 GETTABLEKS                       R31 R31 K82 ["Dictionary"]
+      300 GETTABLEKS                       R31 R31 K83 ["join"]
+      302 GETTABLEKS                       R32 R2 K16 ["fontStyle"]
+      304 GETTABLEKS                       R32 R32 K28 ["Normal"]
       306 DUPTABLE                         R33 K87 [{"Size", "BackgroundTransparency", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
       307 GETIMPORT                        R34 K65 [UDim2.new]
       309 LOADN                            R35 0
@@ -228,28 +228,28 @@ PROTO_0:
       335 CALL                             R31 2 -1
       336 CALL                             R29 -1 1
       337 SETTABLEKS                       R29 R28 K68 ["FeeLabel"]
-      339 GETUPVAL                         R30 3
-      340 GETTABLEKS                       R29 R30 K46 ["createElement"]
+      339 GETUPVAL                         R29 3
+      340 GETTABLEKS                       R29 R29 K46 ["createElement"]
       342 LOADK                            R30 K92 ["ImageLabel"]
       343 DUPTABLE                         R31 K96 [{"Size", "ImageColor3", "Image", "ImageTransparency", "BackgroundTransparency", "LayoutOrder"}]
       344 GETIMPORT                        R32 K65 [UDim2.new]
       346 LOADN                            R33 0
-      347 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      349 GETTABLEKS                       R35 R36 K97 ["icon"]
-      351 GETTABLEKS                       R34 R35 K98 ["size"]
+      347 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
+      349 GETTABLEKS                       R34 R34 K97 ["icon"]
+      351 GETTABLEKS                       R34 R34 K98 ["size"]
       353 LOADN                            R35 0
-      354 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
-      356 GETTABLEKS                       R37 R38 K97 ["icon"]
-      358 GETTABLEKS                       R36 R37 K98 ["size"]
+      354 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      356 GETTABLEKS                       R36 R36 K97 ["icon"]
+      358 GETTABLEKS                       R36 R36 K98 ["size"]
       360 CALL                             R32 4 1
       361 SETTABLEKS                       R32 R31 K61 ["Size"]
-      363 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
-      365 GETTABLEKS                       R33 R34 K97 ["icon"]
-      367 GETTABLEKS                       R32 R33 K99 ["imageColor"]
+      363 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
+      365 GETTABLEKS                       R32 R32 K97 ["icon"]
+      367 GETTABLEKS                       R32 R32 K99 ["imageColor"]
       369 SETTABLEKS                       R32 R31 K93 ["ImageColor3"]
-      371 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
-      373 GETTABLEKS                       R33 R34 K97 ["icon"]
-      375 GETTABLEKS                       R32 R33 K100 ["image"]
+      371 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
+      373 GETTABLEKS                       R32 R32 K97 ["icon"]
+      375 GETTABLEKS                       R32 R32 K100 ["image"]
       377 SETTABLEKS                       R32 R31 K94 ["Image"]
       379 SETTABLEKS                       R24 R31 K95 ["ImageTransparency"]
       381 LOADN                            R32 1
@@ -260,8 +260,8 @@ PROTO_0:
       388 SETTABLEKS                       R29 R28 K69 ["RobuxIcon"]
       390 GETUPVAL                         R30 2
       391 JUMPIFNOT                        R30 ; [+16]
-      392 GETUPVAL                         R30 3
-      393 GETTABLEKS                       R29 R30 K46 ["createElement"]
+      392 GETUPVAL                         R29 3
+      393 GETTABLEKS                       R29 R29 K46 ["createElement"]
       395 GETUPVAL                         R30 5
       396 DUPTABLE                         R31 K80 [{"AutomaticSize", "LayoutOrder", "Text"}]
       397 GETIMPORT                        R32 K55 [Enum.AutomaticSize.XY]
@@ -271,14 +271,14 @@ PROTO_0:
       404 SETTABLEKS                       R18 R31 K79 ["Text"]
       406 CALL                             R29 2 1
       407 JUMP                             ; [+47]
-      408 GETUPVAL                         R30 3
-      409 GETTABLEKS                       R29 R30 K46 ["createElement"]
+      408 GETUPVAL                         R29 3
+      409 GETTABLEKS                       R29 R29 K46 ["createElement"]
       411 LOADK                            R30 K81 ["TextLabel"]
-      412 GETUPVAL                         R33 6
-      413 GETTABLEKS                       R32 R33 K82 ["Dictionary"]
-      415 GETTABLEKS                       R31 R32 K83 ["join"]
-      417 GETTABLEKS                       R33 R2 K16 ["fontStyle"]
-      419 GETTABLEKS                       R32 R33 K28 ["Normal"]
+      412 GETUPVAL                         R31 6
+      413 GETTABLEKS                       R31 R31 K82 ["Dictionary"]
+      415 GETTABLEKS                       R31 R31 K83 ["join"]
+      417 GETTABLEKS                       R32 R2 K16 ["fontStyle"]
+      419 GETTABLEKS                       R32 R32 K28 ["Normal"]
       421 DUPTABLE                         R33 K102 [{"Size", "BackgroundTransparency", "BorderSizePixel", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
       422 GETIMPORT                        R34 K65 [UDim2.new]
       424 LOADN                            R35 1
@@ -307,8 +307,8 @@ PROTO_0:
       459 JUMPIFNOT                        R26 ; [+78]
       460 GETUPVAL                         R27 2
       461 JUMPIFNOT                        R27 ; [+24]
-      462 GETUPVAL                         R27 3
-      463 GETTABLEKS                       R26 R27 K46 ["createElement"]
+      462 GETUPVAL                         R26 3
+      463 GETTABLEKS                       R26 R26 K46 ["createElement"]
       465 GETUPVAL                         R27 5
       466 DUPTABLE                         R28 K105 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextWrapped"}]
       467 GETIMPORT                        R29 K55 [Enum.AutomaticSize.XY]
@@ -323,14 +323,14 @@ PROTO_0:
       482 SETTABLEKS                       R29 R28 K104 ["TextWrapped"]
       484 CALL                             R26 2 1
       485 JUMP                             ; [+52]
-      486 GETUPVAL                         R27 3
-      487 GETTABLEKS                       R26 R27 K46 ["createElement"]
+      486 GETUPVAL                         R26 3
+      487 GETTABLEKS                       R26 R26 K46 ["createElement"]
       489 LOADK                            R27 K81 ["TextLabel"]
-      490 GETUPVAL                         R30 6
-      491 GETTABLEKS                       R29 R30 K82 ["Dictionary"]
-      493 GETTABLEKS                       R28 R29 K83 ["join"]
-      495 GETTABLEKS                       R30 R2 K16 ["fontStyle"]
-      497 GETTABLEKS                       R29 R30 K32 ["Subtext"]
+      490 GETUPVAL                         R28 6
+      491 GETTABLEKS                       R28 R28 K82 ["Dictionary"]
+      493 GETTABLEKS                       R28 R28 K83 ["join"]
+      495 GETTABLEKS                       R29 R2 K16 ["fontStyle"]
+      497 GETTABLEKS                       R29 R29 K32 ["Subtext"]
       499 DUPTABLE                         R30 K107 [{"Size", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
       500 GETIMPORT                        R31 K65 [UDim2.new]
       502 LOADN                            R32 0
@@ -358,8 +358,8 @@ PROTO_0:
       537 CALL                             R26 -1 1
       538 MOVE                             R27 R23
       539 JUMPIFNOT                        R27 ; [+263]
-      540 GETUPVAL                         R28 3
-      541 GETTABLEKS                       R27 R28 K46 ["createElement"]
+      540 GETUPVAL                         R27 3
+      541 GETTABLEKS                       R27 R27 K46 ["createElement"]
       543 GETUPVAL                         R29 2
       544 JUMPIFNOT                        R29 ; [+2]
       545 GETUPVAL                         R28 4
@@ -375,8 +375,8 @@ PROTO_0:
       558 SETTABLEKS                       R30 R29 K49 ["LayoutOrder"]
       560 GETIMPORT                        R30 K59 [Enum.FillDirection.Horizontal]
       562 SETTABLEKS                       R30 R29 K50 ["Layout"]
-      564 GETTABLEKS                       R31 R2 K33 ["robuxFeeBase"]
-      566 GETTABLEKS                       R30 R31 K60 ["spacing"]
+      564 GETTABLEKS                       R30 R2 K33 ["robuxFeeBase"]
+      566 GETTABLEKS                       R30 R30 K60 ["spacing"]
       568 SETTABLEKS                       R30 R29 K51 ["Spacing"]
       570 JUMP                             ; [+19]
       571 DUPTABLE                         R29 K63 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
@@ -397,8 +397,8 @@ PROTO_0:
       592 JUMPIFNOT                        R32 ; [+2]
       593 LOADNIL                          R31
       594 JUMP                             ; [+18]
-      595 GETUPVAL                         R32 3
-      596 GETTABLEKS                       R31 R32 K46 ["createElement"]
+      595 GETUPVAL                         R31 3
+      596 GETTABLEKS                       R31 R31 K46 ["createElement"]
       598 LOADK                            R32 K72 ["UIListLayout"]
       599 DUPTABLE                         R33 K75 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
       600 GETIMPORT                        R34 K59 [Enum.FillDirection.Horizontal]
@@ -411,8 +411,8 @@ PROTO_0:
       613 SETTABLEKS                       R31 R30 K67 ["HorizontalLayout"]
       615 GETUPVAL                         R32 2
       616 JUMPIFNOT                        R32 ; [+16]
-      617 GETUPVAL                         R32 3
-      618 GETTABLEKS                       R31 R32 K46 ["createElement"]
+      617 GETUPVAL                         R31 3
+      618 GETTABLEKS                       R31 R31 K46 ["createElement"]
       620 GETUPVAL                         R32 5
       621 DUPTABLE                         R33 K80 [{"AutomaticSize", "LayoutOrder", "Text"}]
       622 GETIMPORT                        R34 K55 [Enum.AutomaticSize.XY]
@@ -422,14 +422,14 @@ PROTO_0:
       629 SETTABLEKS                       R19 R33 K79 ["Text"]
       631 CALL                             R31 2 1
       632 JUMP                             ; [+47]
-      633 GETUPVAL                         R32 3
-      634 GETTABLEKS                       R31 R32 K46 ["createElement"]
+      633 GETUPVAL                         R31 3
+      634 GETTABLEKS                       R31 R31 K46 ["createElement"]
       636 LOADK                            R32 K81 ["TextLabel"]
-      637 GETUPVAL                         R35 6
-      638 GETTABLEKS                       R34 R35 K82 ["Dictionary"]
-      640 GETTABLEKS                       R33 R34 K83 ["join"]
-      642 GETTABLEKS                       R35 R2 K16 ["fontStyle"]
-      644 GETTABLEKS                       R34 R35 K28 ["Normal"]
+      637 GETUPVAL                         R33 6
+      638 GETTABLEKS                       R33 R33 K82 ["Dictionary"]
+      640 GETTABLEKS                       R33 R33 K83 ["join"]
+      642 GETTABLEKS                       R34 R2 K16 ["fontStyle"]
+      644 GETTABLEKS                       R34 R34 K28 ["Normal"]
       646 DUPTABLE                         R35 K102 [{"Size", "BackgroundTransparency", "BorderSizePixel", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
       647 GETIMPORT                        R36 K65 [UDim2.new]
       649 LOADN                            R37 0
@@ -453,28 +453,28 @@ PROTO_0:
       678 CALL                             R33 2 -1
       679 CALL                             R31 -1 1
       680 SETTABLEKS                       R31 R30 K41 ["EarnLabel"]
-      682 GETUPVAL                         R32 3
-      683 GETTABLEKS                       R31 R32 K46 ["createElement"]
+      682 GETUPVAL                         R31 3
+      683 GETTABLEKS                       R31 R31 K46 ["createElement"]
       685 LOADK                            R32 K92 ["ImageLabel"]
       686 DUPTABLE                         R33 K96 [{"Size", "ImageColor3", "Image", "ImageTransparency", "BackgroundTransparency", "LayoutOrder"}]
       687 GETIMPORT                        R34 K65 [UDim2.new]
       689 LOADN                            R35 0
-      690 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
-      692 GETTABLEKS                       R37 R38 K97 ["icon"]
-      694 GETTABLEKS                       R36 R37 K98 ["size"]
+      690 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      692 GETTABLEKS                       R36 R36 K97 ["icon"]
+      694 GETTABLEKS                       R36 R36 K98 ["size"]
       696 LOADN                            R37 0
-      697 GETTABLEKS                       R40 R2 K33 ["robuxFeeBase"]
-      699 GETTABLEKS                       R39 R40 K97 ["icon"]
-      701 GETTABLEKS                       R38 R39 K98 ["size"]
+      697 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
+      699 GETTABLEKS                       R38 R38 K97 ["icon"]
+      701 GETTABLEKS                       R38 R38 K98 ["size"]
       703 CALL                             R34 4 1
       704 SETTABLEKS                       R34 R33 K61 ["Size"]
-      706 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      708 GETTABLEKS                       R35 R36 K97 ["icon"]
-      710 GETTABLEKS                       R34 R35 K99 ["imageColor"]
+      706 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
+      708 GETTABLEKS                       R34 R34 K97 ["icon"]
+      710 GETTABLEKS                       R34 R34 K99 ["imageColor"]
       712 SETTABLEKS                       R34 R33 K93 ["ImageColor3"]
-      714 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      716 GETTABLEKS                       R35 R36 K97 ["icon"]
-      718 GETTABLEKS                       R34 R35 K100 ["image"]
+      714 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
+      716 GETTABLEKS                       R34 R34 K97 ["icon"]
+      718 GETTABLEKS                       R34 R34 K100 ["image"]
       720 SETTABLEKS                       R34 R33 K94 ["Image"]
       722 SETTABLEKS                       R24 R33 K95 ["ImageTransparency"]
       724 LOADN                            R34 1
@@ -485,8 +485,8 @@ PROTO_0:
       731 SETTABLEKS                       R31 R30 K69 ["RobuxIcon"]
       733 GETUPVAL                         R32 2
       734 JUMPIFNOT                        R32 ; [+18]
-      735 GETUPVAL                         R32 3
-      736 GETTABLEKS                       R31 R32 K46 ["createElement"]
+      735 GETUPVAL                         R31 3
+      736 GETTABLEKS                       R31 R31 K46 ["createElement"]
       738 GETUPVAL                         R32 5
       739 DUPTABLE                         R33 K111 [{"AutomaticSize", "LayoutOrder", "Text", "TextTransparency"}]
       740 GETIMPORT                        R34 K55 [Enum.AutomaticSize.XY]
@@ -497,14 +497,14 @@ PROTO_0:
       749 SETTABLEKS                       R24 R33 K86 ["TextTransparency"]
       751 CALL                             R31 2 1
       752 JUMP                             ; [+47]
-      753 GETUPVAL                         R32 3
-      754 GETTABLEKS                       R31 R32 K46 ["createElement"]
+      753 GETUPVAL                         R31 3
+      754 GETTABLEKS                       R31 R31 K46 ["createElement"]
       756 LOADK                            R32 K81 ["TextLabel"]
-      757 GETUPVAL                         R35 6
-      758 GETTABLEKS                       R34 R35 K82 ["Dictionary"]
-      760 GETTABLEKS                       R33 R34 K83 ["join"]
-      762 GETTABLEKS                       R35 R2 K16 ["fontStyle"]
-      764 GETTABLEKS                       R34 R35 K28 ["Normal"]
+      757 GETUPVAL                         R33 6
+      758 GETTABLEKS                       R33 R33 K82 ["Dictionary"]
+      760 GETTABLEKS                       R33 R33 K83 ["join"]
+      762 GETTABLEKS                       R34 R2 K16 ["fontStyle"]
+      764 GETTABLEKS                       R34 R34 K28 ["Normal"]
       766 DUPTABLE                         R35 K102 [{"Size", "BackgroundTransparency", "BorderSizePixel", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
       767 GETIMPORT                        R36 K65 [UDim2.new]
       769 LOADN                            R37 1
@@ -529,8 +529,8 @@ PROTO_0:
       799 CALL                             R31 -1 1
       800 SETTABLEKS                       R31 R30 K109 ["EarnAmount"]
       802 CALL                             R27 3 1
-      803 GETUPVAL                         R29 3
-      804 GETTABLEKS                       R28 R29 K46 ["createElement"]
+      803 GETUPVAL                         R28 3
+      804 GETTABLEKS                       R28 R28 K46 ["createElement"]
       806 GETUPVAL                         R29 4
       807 DUPTABLE                         R30 K113 [{"AutomaticSize", "Layout", "Spacing", "HorizontalAlignment"}]
       808 GETIMPORT                        R31 K55 [Enum.AutomaticSize.XY]
@@ -539,8 +539,8 @@ PROTO_0:
       814 SETTABLEKS                       R31 R30 K50 ["Layout"]
       816 GETUPVAL                         R32 2
       817 JUMPIFNOT                        R32 ; [+5]
-      818 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
-      820 GETTABLEKS                       R31 R32 K116 ["pricePadding"]
+      818 GETTABLEKS                       R31 R2 K33 ["robuxFeeBase"]
+      820 GETTABLEKS                       R31 R31 K116 ["pricePadding"]
       822 JUMP                             ; [+1]
       823 LOADNIL                          R31
       824 SETTABLEKS                       R31 R30 K51 ["Spacing"]
@@ -551,8 +551,8 @@ PROTO_0:
       831 LOADNIL                          R31
       832 SETTABLEKS                       R31 R30 K112 ["HorizontalAlignment"]
       834 DUPTABLE                         R31 K122 [{"TextInput", "SubText", "FeeFrame", "FeeSubText", "EarnFrame"}]
-      835 GETUPVAL                         R33 3
-      836 GETTABLEKS                       R32 R33 K46 ["createElement"]
+      835 GETUPVAL                         R32 3
+      836 GETTABLEKS                       R32 R32 K46 ["createElement"]
       838 GETUPVAL                         R33 7
       839 DUPTABLE                         R34 K128 [{"Disabled", "LayoutOrder", "LeadingComponent", "LeadingComponentProps", "OnTextChanged", "Width", "Text"}]
       840 NOT                              R35 R11
@@ -562,44 +562,44 @@ PROTO_0:
       846 GETUPVAL                         R35 8
       847 SETTABLEKS                       R35 R34 K124 ["LeadingComponent"]
       849 DUPTABLE                         R35 K129 [{"ImageColor3", "Image", "Size"}]
-      850 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
-      852 GETTABLEKS                       R37 R38 K97 ["icon"]
-      854 GETTABLEKS                       R36 R37 K99 ["imageColor"]
+      850 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      852 GETTABLEKS                       R36 R36 K97 ["icon"]
+      854 GETTABLEKS                       R36 R36 K99 ["imageColor"]
       856 SETTABLEKS                       R36 R35 K93 ["ImageColor3"]
-      858 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
-      860 GETTABLEKS                       R37 R38 K97 ["icon"]
-      862 GETTABLEKS                       R36 R37 K100 ["image"]
+      858 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      860 GETTABLEKS                       R36 R36 K97 ["icon"]
+      862 GETTABLEKS                       R36 R36 K100 ["image"]
       864 SETTABLEKS                       R36 R35 K94 ["Image"]
       866 GETIMPORT                        R36 K65 [UDim2.new]
       868 LOADN                            R37 0
-      869 GETTABLEKS                       R40 R2 K33 ["robuxFeeBase"]
-      871 GETTABLEKS                       R39 R40 K97 ["icon"]
-      873 GETTABLEKS                       R38 R39 K98 ["size"]
+      869 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
+      871 GETTABLEKS                       R38 R38 K97 ["icon"]
+      873 GETTABLEKS                       R38 R38 K98 ["size"]
       875 LOADN                            R39 0
-      876 GETTABLEKS                       R42 R2 K33 ["robuxFeeBase"]
-      878 GETTABLEKS                       R41 R42 K97 ["icon"]
-      880 GETTABLEKS                       R40 R41 K98 ["size"]
+      876 GETTABLEKS                       R40 R2 K33 ["robuxFeeBase"]
+      878 GETTABLEKS                       R40 R40 K97 ["icon"]
+      880 GETTABLEKS                       R40 R40 K98 ["size"]
       882 CALL                             R36 4 1
       883 SETTABLEKS                       R36 R35 K61 ["Size"]
       885 SETTABLEKS                       R35 R34 K125 ["LeadingComponentProps"]
       887 SETTABLEKS                       R12 R34 K126 ["OnTextChanged"]
-      889 GETTABLEKS                       R37 R2 K33 ["robuxFeeBase"]
-      891 GETTABLEKS                       R36 R37 K130 ["priceField"]
-      893 GETTABLEKS                       R35 R36 K35 ["width"]
+      889 GETTABLEKS                       R35 R2 K33 ["robuxFeeBase"]
+      891 GETTABLEKS                       R35 R35 K130 ["priceField"]
+      893 GETTABLEKS                       R35 R35 K35 ["width"]
       895 SETTABLEKS                       R35 R34 K127 ["Width"]
       897 SETTABLEKS                       R8 R34 K79 ["Text"]
       899 CALL                             R32 2 1
       900 SETTABLEKS                       R32 R31 K118 ["TextInput"]
       902 MOVE                             R32 R10
       903 JUMPIFNOT                        R32 ; [+50]
-      904 GETUPVAL                         R33 3
-      905 GETTABLEKS                       R32 R33 K46 ["createElement"]
+      904 GETUPVAL                         R32 3
+      905 GETTABLEKS                       R32 R32 K46 ["createElement"]
       907 LOADK                            R33 K81 ["TextLabel"]
-      908 GETUPVAL                         R36 6
-      909 GETTABLEKS                       R35 R36 K82 ["Dictionary"]
-      911 GETTABLEKS                       R34 R35 K83 ["join"]
-      913 GETTABLEKS                       R36 R2 K16 ["fontStyle"]
-      915 GETTABLEKS                       R35 R36 K17 ["Subtitle"]
+      908 GETUPVAL                         R34 6
+      909 GETTABLEKS                       R34 R34 K82 ["Dictionary"]
+      911 GETTABLEKS                       R34 R34 K83 ["join"]
+      913 GETTABLEKS                       R35 R2 K16 ["fontStyle"]
+      915 GETTABLEKS                       R35 R35 K17 ["Subtitle"]
       917 DUPTABLE                         R36 K131 [{"Size", "BackgroundTransparency", "Text", "TextWrapped", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
       918 GETIMPORT                        R37 K65 [UDim2.new]
       920 LOADN                            R38 0
@@ -633,27 +633,27 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Roact"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Roact"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["Framework"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R7 R0 K9 ["Src"]
-       36 GETTABLEKS                       R6 R7 K10 ["Flags"]
-       38 GETTABLEKS                       R5 R6 K11 ["getFFlagGameSettingsFixMoreLayoutIssues"]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K11 ["getFFlagGameSettingsFixMoreLayoutIssues"]
        40 CALL                             R4 1 1
        41 CALL                             R4 0 1
        42 GETTABLEKS                       R5 R3 K12 ["Util"]

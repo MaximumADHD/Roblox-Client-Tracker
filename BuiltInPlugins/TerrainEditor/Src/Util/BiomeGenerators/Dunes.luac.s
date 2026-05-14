@@ -15,8 +15,8 @@ PROTO_0:
        17 CALL                             R8 3 -1
        18 CALL                             R7 -1 1
        19 MULK                             R6 R7 K5 [24]
-       20 GETUPVAL                         R8 2
-       21 GETTABLEKS                       R7 R8 K6 ["Ridge"]
+       20 GETUPVAL                         R7 2
+       21 GETTABLEKS                       R7 R7 K6 ["Ridge"]
        23 GETUPVAL                         R8 0
        24 GETUPVAL                         R9 1
        25 MOVE                             R10 R5
@@ -25,8 +25,8 @@ PROTO_0:
        28 CALL                             R9 3 -1
        29 CALL                             R8 -1 -1
        30 CALL                             R7 -1 1
-       31 GETUPVAL                         R9 2
-       32 GETTABLEKS                       R8 R9 K6 ["Ridge"]
+       31 GETUPVAL                         R8 2
+       32 GETTABLEKS                       R8 R8 K6 ["Ridge"]
        34 GETUPVAL                         R9 0
        35 GETUPVAL                         R10 1
        36 DIVK                             R13 R3 K7 [10]
@@ -63,9 +63,9 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["Generation"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["Generation"]
        13 GETIMPORT                        R2 K8 [require]
        15 GETTABLEKS                       R3 R1 K9 ["Filter"]
        17 CALL                             R2 1 1
@@ -76,8 +76,8 @@ MAIN:
        25 GETTABLEKS                       R5 R1 K11 ["ProcessPerlin"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K8 [require]
-       30 GETTABLEKS                       R7 R0 K4 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Types"]
+       30 GETTABLEKS                       R6 R0 K4 ["Src"]
+       32 GETTABLEKS                       R6 R6 K12 ["Types"]
        34 CALL                             R5 1 1
        35 DUPCLOSURE                       R6 K13 [PROTO_1]
        36 CAPTURE                          VAL R4

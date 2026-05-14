@@ -5,104 +5,64 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagTerrainEditorGenerationFeature"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagTerrainEditorMigrateFoundationFonts"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagTerrainEditorMigrateFoundationFonts"]
-       24 CALL                             R2 1 1
-       25 DUPTABLE                         R3 K24 [{"BrushSize", "Button", "ConfirmGeneration", "DelayedSlider", "Label", "Image", "Material", "MaterialRanges", "MultiSelection", "PlaneLock", "Seed", "SegmentedControl", "TerrainType", "Upgrade"}]
-       26 GETIMPORT                        R4 K5 [require]
-       28 GETIMPORT                        R6 K1 [script]
-       30 GETTABLEKS                       R5 R6 K10 ["BrushSize"]
-       32 CALL                             R4 1 1
-       33 SETTABLEKS                       R4 R3 K10 ["BrushSize"]
-       35 GETIMPORT                        R4 K5 [require]
-       37 GETIMPORT                        R6 K1 [script]
-       39 GETTABLEKS                       R5 R6 K11 ["Button"]
-       41 CALL                             R4 1 1
-       42 SETTABLEKS                       R4 R3 K11 ["Button"]
-       44 MOVE                             R5 R1
-       45 CALL                             R5 0 1
-       46 JUMPIFNOT                        R5 ; [+8]
-       47 GETIMPORT                        R4 K5 [require]
-       49 GETIMPORT                        R6 K1 [script]
-       51 GETTABLEKS                       R5 R6 K12 ["ConfirmGeneration"]
-       53 CALL                             R4 1 1
-       54 JUMP                             ; [+1]
-       55 LOADNIL                          R4
-       56 SETTABLEKS                       R4 R3 K12 ["ConfirmGeneration"]
-       58 MOVE                             R5 R1
-       59 CALL                             R5 0 1
-       60 JUMPIFNOT                        R5 ; [+8]
-       61 GETIMPORT                        R4 K5 [require]
-       63 GETIMPORT                        R6 K1 [script]
-       65 GETTABLEKS                       R5 R6 K13 ["DelayedSlider"]
-       67 CALL                             R4 1 1
-       68 JUMP                             ; [+1]
-       69 LOADNIL                          R4
-       70 SETTABLEKS                       R4 R3 K13 ["DelayedSlider"]
-       72 GETIMPORT                        R4 K5 [require]
-       74 GETIMPORT                        R6 K1 [script]
-       76 GETTABLEKS                       R5 R6 K14 ["Label"]
-       78 CALL                             R4 1 1
-       79 SETTABLEKS                       R4 R3 K14 ["Label"]
-       81 GETIMPORT                        R4 K5 [require]
-       83 GETIMPORT                        R6 K1 [script]
-       85 GETTABLEKS                       R5 R6 K15 ["Image"]
-       87 CALL                             R4 1 1
-       88 SETTABLEKS                       R4 R3 K15 ["Image"]
-       90 GETIMPORT                        R4 K5 [require]
-       92 GETIMPORT                        R6 K1 [script]
-       94 GETTABLEKS                       R5 R6 K16 ["Material"]
-       96 CALL                             R4 1 1
-       97 SETTABLEKS                       R4 R3 K16 ["Material"]
-       99 MOVE                             R5 R1
-      100 CALL                             R5 0 1
-      101 JUMPIFNOT                        R5 ; [+8]
-      102 GETIMPORT                        R4 K5 [require]
-      104 GETIMPORT                        R6 K1 [script]
-      106 GETTABLEKS                       R5 R6 K17 ["MaterialRanges"]
-      108 CALL                             R4 1 1
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R4
-      111 SETTABLEKS                       R4 R3 K17 ["MaterialRanges"]
-      113 GETIMPORT                        R4 K5 [require]
-      115 GETIMPORT                        R6 K1 [script]
-      117 GETTABLEKS                       R5 R6 K18 ["MultiSelection"]
-      119 CALL                             R4 1 1
-      120 SETTABLEKS                       R4 R3 K18 ["MultiSelection"]
-      122 GETIMPORT                        R4 K5 [require]
-      124 GETIMPORT                        R6 K1 [script]
-      126 GETTABLEKS                       R5 R6 K19 ["PlaneLock"]
-      128 CALL                             R4 1 1
-      129 SETTABLEKS                       R4 R3 K19 ["PlaneLock"]
-      131 GETIMPORT                        R4 K5 [require]
-      133 GETIMPORT                        R6 K1 [script]
-      135 GETTABLEKS                       R5 R6 K20 ["Seed"]
-      137 CALL                             R4 1 1
-      138 SETTABLEKS                       R4 R3 K20 ["Seed"]
-      140 MOVE                             R5 R2
-      141 CALL                             R5 0 1
-      142 JUMPIFNOT                        R5 ; [+8]
-      143 GETIMPORT                        R4 K5 [require]
-      145 GETIMPORT                        R6 K1 [script]
-      147 GETTABLEKS                       R5 R6 K21 ["SegmentedControl"]
-      149 CALL                             R4 1 1
-      150 JUMP                             ; [+1]
-      151 LOADNIL                          R4
-      152 SETTABLEKS                       R4 R3 K21 ["SegmentedControl"]
-      154 GETIMPORT                        R4 K5 [require]
-      156 GETIMPORT                        R6 K1 [script]
-      158 GETTABLEKS                       R5 R6 K22 ["TerrainType"]
-      160 CALL                             R4 1 1
-      161 SETTABLEKS                       R4 R3 K22 ["TerrainType"]
-      163 GETIMPORT                        R4 K5 [require]
-      165 GETIMPORT                        R6 K1 [script]
-      167 GETTABLEKS                       R5 R6 K23 ["Upgrade"]
-      169 CALL                             R4 1 1
-      170 SETTABLEKS                       R4 R3 K23 ["Upgrade"]
-      172 RETURN                           R3 1
+       16 DUPTABLE                         R2 K19 [{"BrushSize", "Button", "Label", "Image", "Material", "MultiSelection", "PlaneLock", "Seed", "SegmentedControl", "Upgrade"}]
+       17 GETIMPORT                        R3 K5 [require]
+       19 GETIMPORT                        R4 K1 [script]
+       21 GETTABLEKS                       R4 R4 K9 ["BrushSize"]
+       23 CALL                             R3 1 1
+       24 SETTABLEKS                       R3 R2 K9 ["BrushSize"]
+       26 GETIMPORT                        R3 K5 [require]
+       28 GETIMPORT                        R4 K1 [script]
+       30 GETTABLEKS                       R4 R4 K10 ["Button"]
+       32 CALL                             R3 1 1
+       33 SETTABLEKS                       R3 R2 K10 ["Button"]
+       35 GETIMPORT                        R3 K5 [require]
+       37 GETIMPORT                        R4 K1 [script]
+       39 GETTABLEKS                       R4 R4 K11 ["Label"]
+       41 CALL                             R3 1 1
+       42 SETTABLEKS                       R3 R2 K11 ["Label"]
+       44 GETIMPORT                        R3 K5 [require]
+       46 GETIMPORT                        R4 K1 [script]
+       48 GETTABLEKS                       R4 R4 K12 ["Image"]
+       50 CALL                             R3 1 1
+       51 SETTABLEKS                       R3 R2 K12 ["Image"]
+       53 GETIMPORT                        R3 K5 [require]
+       55 GETIMPORT                        R4 K1 [script]
+       57 GETTABLEKS                       R4 R4 K13 ["Material"]
+       59 CALL                             R3 1 1
+       60 SETTABLEKS                       R3 R2 K13 ["Material"]
+       62 GETIMPORT                        R3 K5 [require]
+       64 GETIMPORT                        R4 K1 [script]
+       66 GETTABLEKS                       R4 R4 K14 ["MultiSelection"]
+       68 CALL                             R3 1 1
+       69 SETTABLEKS                       R3 R2 K14 ["MultiSelection"]
+       71 GETIMPORT                        R3 K5 [require]
+       73 GETIMPORT                        R4 K1 [script]
+       75 GETTABLEKS                       R4 R4 K15 ["PlaneLock"]
+       77 CALL                             R3 1 1
+       78 SETTABLEKS                       R3 R2 K15 ["PlaneLock"]
+       80 GETIMPORT                        R3 K5 [require]
+       82 GETIMPORT                        R4 K1 [script]
+       84 GETTABLEKS                       R4 R4 K16 ["Seed"]
+       86 CALL                             R3 1 1
+       87 SETTABLEKS                       R3 R2 K16 ["Seed"]
+       89 MOVE                             R4 R1
+       90 CALL                             R4 0 1
+       91 JUMPIFNOT                        R4 ; [+8]
+       92 GETIMPORT                        R3 K5 [require]
+       94 GETIMPORT                        R4 K1 [script]
+       96 GETTABLEKS                       R4 R4 K17 ["SegmentedControl"]
+       98 CALL                             R3 1 1
+       99 JUMP                             ; [+1]
+      100 LOADNIL                          R3
+      101 SETTABLEKS                       R3 R2 K17 ["SegmentedControl"]
+      103 GETIMPORT                        R3 K5 [require]
+      105 GETIMPORT                        R4 K1 [script]
+      107 GETTABLEKS                       R4 R4 K18 ["Upgrade"]
+      109 CALL                             R3 1 1
+      110 SETTABLEKS                       R3 R2 K18 ["Upgrade"]
+      112 RETURN                           R2 1

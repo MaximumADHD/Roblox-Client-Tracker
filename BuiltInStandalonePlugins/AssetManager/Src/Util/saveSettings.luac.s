@@ -3,9 +3,9 @@ PROTO_0:
         2 NAMECALL                         R2 R2 K1 ["getBrowserLayout"]
         4 CALL                             R2 1 1
         5 GETTABLEKS                       R4 R2 K2 ["ViewType"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K2 ["ViewType"]
-       10 GETTABLEKS                       R5 R6 K3 ["List"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K2 ["ViewType"]
+       10 GETTABLEKS                       R5 R5 K3 ["List"]
        12 JUMPIFNOTEQ                      R4 R5 ; [+3]
        14 LOADK                            R3 K3 ["List"]
        15 JUMP                             ; [+1]
@@ -51,8 +51,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Src"]
-       17 GETTABLEKS                       R3 R4 K11 ["Types"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Types"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K12 [PROTO_0]
        21 CAPTURE                          VAL R2

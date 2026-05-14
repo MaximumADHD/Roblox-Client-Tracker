@@ -1,39 +1,39 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["ScriptStatus"]
-        3 GETTABLEKS                       R3 R4 K2 ["Reverted"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["ScriptStatus"]
+        3 GETTABLEKS                       R3 R3 K2 ["Reverted"]
         5 GETTABLE                         R2 R0 R3
         6 ORK                              R1 R2 K0 [0]
         7 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["ScriptStatus"]
-        3 GETTABLEKS                       R3 R4 K2 ["Complete"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["ScriptStatus"]
+        3 GETTABLEKS                       R3 R3 K2 ["Complete"]
         5 GETTABLE                         R2 R0 R3
         6 ORK                              R1 R2 K0 [0]
         7 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["ScriptStatus"]
-        3 GETTABLEKS                       R3 R4 K2 ["Error"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["ScriptStatus"]
+        3 GETTABLEKS                       R3 R3 K2 ["Error"]
         5 GETTABLE                         R2 R0 R3
         6 ORK                              R1 R2 K0 [0]
         7 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["ScriptStatus"]
-        3 GETTABLEKS                       R3 R4 K2 ["VariableError"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["ScriptStatus"]
+        3 GETTABLEKS                       R3 R3 K2 ["VariableError"]
         5 GETTABLE                         R2 R0 R3
         6 ORK                              R1 R2 K0 [0]
         7 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["ScriptStatus"]
-        3 GETTABLEKS                       R3 R4 K2 ["Warning"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["ScriptStatus"]
+        3 GETTABLEKS                       R3 R3 K2 ["Warning"]
         5 GETTABLE                         R2 R0 R3
         6 ORK                              R1 R2 K0 [0]
         7 RETURN                           R1 1
@@ -43,8 +43,8 @@ PROTO_5:
         2 GETTABLEKS                       R6 R5 K1 ["Localization"]
         4 GETTABLEKS                       R7 R5 K2 ["Stylizer"]
         6 GETTABLEKS                       R8 R5 K3 ["AllowTooltips"]
-        8 GETUPVAL                         R10 0
-        9 GETTABLEKS                       R9 R10 K4 ["createElement"]
+        8 GETUPVAL                         R9 0
+        9 GETTABLEKS                       R9 R9 K4 ["createElement"]
        11 GETUPVAL                         R10 1
        12 DUPTABLE                         R11 K9 [{"Image", "ImageColor3", "Size", "LayoutOrder"}]
        13 SETTABLEKS                       R1 R11 K5 ["Image"]
@@ -54,8 +54,8 @@ PROTO_5:
        21 SETTABLEKS                       R4 R11 K8 ["LayoutOrder"]
        23 DUPTABLE                         R12 K12 [{"Tooltip"}]
        24 JUMPIFNOT                        R8 ; [+14]
-       25 GETUPVAL                         R14 0
-       26 GETTABLEKS                       R13 R14 K4 ["createElement"]
+       25 GETUPVAL                         R13 0
+       26 GETTABLEKS                       R13 R13 K4 ["createElement"]
        28 GETUPVAL                         R14 2
        29 DUPTABLE                         R15 K14 [{"Text"}]
        30 LOADK                            R18 K15 ["ScriptStatus"]
@@ -73,8 +73,8 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
         2 GETTABLEKS                       R4 R3 K1 ["Stylizer"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["createElement"]
+        4 GETUPVAL                         R5 0
+        5 GETTABLEKS                       R5 R5 K2 ["createElement"]
         7 GETUPVAL                         R6 1
         8 DUPTABLE                         R7 K7 [{"Text", "AutomaticSize", "LayoutOrder", "TextSize"}]
         9 FASTCALL1                        TOSTRING R1 ; [+3]
@@ -96,36 +96,36 @@ PROTO_7:
         4 GETTABLEKS                       R3 R1 K2 ["Statuses"]
         6 GETTABLEKS                       R4 R1 K3 ["ShowCounts"]
         8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
-       10 GETUPVAL                         R10 0
-       11 GETTABLEKS                       R9 R10 K6 ["ScriptStatus"]
-       13 GETTABLEKS                       R8 R9 K7 ["Error"]
+       10 GETUPVAL                         R8 0
+       11 GETTABLEKS                       R8 R8 K6 ["ScriptStatus"]
+       13 GETTABLEKS                       R8 R8 K7 ["Error"]
        15 GETTABLE                         R7 R3 R8
        16 ORK                              R6 R7 K5 [0]
-       17 GETUPVAL                         R11 0
-       18 GETTABLEKS                       R10 R11 K6 ["ScriptStatus"]
-       20 GETTABLEKS                       R9 R10 K8 ["VariableError"]
+       17 GETUPVAL                         R9 0
+       18 GETTABLEKS                       R9 R9 K6 ["ScriptStatus"]
+       20 GETTABLEKS                       R9 R9 K8 ["VariableError"]
        22 GETTABLE                         R8 R3 R9
        23 ORK                              R7 R8 K5 [0]
-       24 GETUPVAL                         R12 0
-       25 GETTABLEKS                       R11 R12 K6 ["ScriptStatus"]
-       27 GETTABLEKS                       R10 R11 K9 ["Warning"]
+       24 GETUPVAL                         R10 0
+       25 GETTABLEKS                       R10 R10 K6 ["ScriptStatus"]
+       27 GETTABLEKS                       R10 R10 K9 ["Warning"]
        29 GETTABLE                         R9 R3 R10
        30 ORK                              R8 R9 K5 [0]
-       31 GETUPVAL                         R13 0
-       32 GETTABLEKS                       R12 R13 K6 ["ScriptStatus"]
-       34 GETTABLEKS                       R11 R12 K10 ["Complete"]
+       31 GETUPVAL                         R11 0
+       32 GETTABLEKS                       R11 R11 K6 ["ScriptStatus"]
+       34 GETTABLEKS                       R11 R11 K10 ["Complete"]
        36 GETTABLE                         R10 R3 R11
        37 ORK                              R9 R10 K5 [0]
-       38 GETUPVAL                         R14 0
-       39 GETTABLEKS                       R13 R14 K6 ["ScriptStatus"]
-       41 GETTABLEKS                       R12 R13 K11 ["Reverted"]
+       38 GETUPVAL                         R12 0
+       39 GETTABLEKS                       R12 R12 K6 ["ScriptStatus"]
+       41 GETTABLEKS                       R12 R12 K11 ["Reverted"]
        43 GETTABLE                         R11 R3 R12
        44 ORK                              R10 R11 K5 [0]
-       45 GETUPVAL                         R12 1
-       46 GETTABLEKS                       R11 R12 K12 ["new"]
+       45 GETUPVAL                         R11 1
+       46 GETTABLEKS                       R11 R11 K12 ["new"]
        48 CALL                             R11 0 1
-       49 GETUPVAL                         R13 2
-       50 GETTABLEKS                       R12 R13 K13 ["createElement"]
+       49 GETUPVAL                         R12 2
+       50 GETTABLEKS                       R12 R12 K13 ["createElement"]
        52 GETUPVAL                         R13 3
        53 DUPTABLE                         R14 K18 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Size"}]
        54 GETIMPORT                        R15 K22 [Enum.FillDirection.Horizontal]
@@ -140,12 +140,12 @@ PROTO_7:
        72 DUPTABLE                         R15 K37 [{"CompleteIcon", "CompleteCount", "ErrorIcon", "ErrorCount", "VarErrorIcon", "VarErrorCount", "WarningIcon", "WarningCount", "RevertedIcon", "RevertedCount"}]
        73 LOADN                            R17 0
        74 JUMPIFNOTLT                      R17 R9 ; [+18]
-       76 GETTABLEKS                       R19 R5 K38 ["StatusIcons"]
-       78 GETTABLEKS                       R18 R19 K10 ["Complete"]
+       76 GETTABLEKS                       R18 R5 K38 ["StatusIcons"]
+       78 GETTABLEKS                       R18 R18 K10 ["Complete"]
        80 LOADNIL                          R19
-       81 GETUPVAL                         R22 0
-       82 GETTABLEKS                       R21 R22 K6 ["ScriptStatus"]
-       84 GETTABLEKS                       R20 R21 K10 ["Complete"]
+       81 GETUPVAL                         R20 0
+       82 GETTABLEKS                       R20 R20 K6 ["ScriptStatus"]
+       84 GETTABLEKS                       R20 R20 K10 ["Complete"]
        86 NAMECALL                         R21 R11 K39 ["getNextOrder"]
        88 CALL                             R21 1 -1
        89 NAMECALL                         R16 R0 K40 ["renderIcon"]
@@ -166,12 +166,12 @@ PROTO_7:
       109 SETTABLEKS                       R16 R15 K28 ["CompleteCount"]
       111 LOADN                            R17 0
       112 JUMPIFNOTLT                      R17 R6 ; [+18]
-      114 GETTABLEKS                       R19 R5 K38 ["StatusIcons"]
-      116 GETTABLEKS                       R18 R19 K7 ["Error"]
+      114 GETTABLEKS                       R18 R5 K38 ["StatusIcons"]
+      116 GETTABLEKS                       R18 R18 K7 ["Error"]
       118 LOADNIL                          R19
-      119 GETUPVAL                         R22 0
-      120 GETTABLEKS                       R21 R22 K6 ["ScriptStatus"]
-      122 GETTABLEKS                       R20 R21 K7 ["Error"]
+      119 GETUPVAL                         R20 0
+      120 GETTABLEKS                       R20 R20 K6 ["ScriptStatus"]
+      122 GETTABLEKS                       R20 R20 K7 ["Error"]
       124 NAMECALL                         R21 R11 K39 ["getNextOrder"]
       126 CALL                             R21 1 -1
       127 NAMECALL                         R16 R0 K40 ["renderIcon"]
@@ -192,12 +192,12 @@ PROTO_7:
       147 SETTABLEKS                       R16 R15 K30 ["ErrorCount"]
       149 LOADN                            R17 0
       150 JUMPIFNOTLT                      R17 R7 ; [+18]
-      152 GETTABLEKS                       R19 R5 K38 ["StatusIcons"]
-      154 GETTABLEKS                       R18 R19 K8 ["VariableError"]
+      152 GETTABLEKS                       R18 R5 K38 ["StatusIcons"]
+      154 GETTABLEKS                       R18 R18 K8 ["VariableError"]
       156 LOADNIL                          R19
-      157 GETUPVAL                         R22 0
-      158 GETTABLEKS                       R21 R22 K6 ["ScriptStatus"]
-      160 GETTABLEKS                       R20 R21 K8 ["VariableError"]
+      157 GETUPVAL                         R20 0
+      158 GETTABLEKS                       R20 R20 K6 ["ScriptStatus"]
+      160 GETTABLEKS                       R20 R20 K8 ["VariableError"]
       162 NAMECALL                         R21 R11 K39 ["getNextOrder"]
       164 CALL                             R21 1 -1
       165 NAMECALL                         R16 R0 K40 ["renderIcon"]
@@ -218,12 +218,12 @@ PROTO_7:
       185 SETTABLEKS                       R16 R15 K32 ["VarErrorCount"]
       187 LOADN                            R17 0
       188 JUMPIFNOTLT                      R17 R8 ; [+18]
-      190 GETTABLEKS                       R19 R5 K38 ["StatusIcons"]
-      192 GETTABLEKS                       R18 R19 K9 ["Warning"]
+      190 GETTABLEKS                       R18 R5 K38 ["StatusIcons"]
+      192 GETTABLEKS                       R18 R18 K9 ["Warning"]
       194 LOADNIL                          R19
-      195 GETUPVAL                         R22 0
-      196 GETTABLEKS                       R21 R22 K6 ["ScriptStatus"]
-      198 GETTABLEKS                       R20 R21 K9 ["Warning"]
+      195 GETUPVAL                         R20 0
+      196 GETTABLEKS                       R20 R20 K6 ["ScriptStatus"]
+      198 GETTABLEKS                       R20 R20 K9 ["Warning"]
       200 NAMECALL                         R21 R11 K39 ["getNextOrder"]
       202 CALL                             R21 1 -1
       203 NAMECALL                         R16 R0 K40 ["renderIcon"]
@@ -244,12 +244,12 @@ PROTO_7:
       223 SETTABLEKS                       R16 R15 K34 ["WarningCount"]
       225 LOADN                            R17 0
       226 JUMPIFNOTLT                      R17 R10 ; [+19]
-      228 GETTABLEKS                       R19 R5 K38 ["StatusIcons"]
-      230 GETTABLEKS                       R18 R19 K11 ["Reverted"]
+      228 GETTABLEKS                       R18 R5 K38 ["StatusIcons"]
+      230 GETTABLEKS                       R18 R18 K11 ["Reverted"]
       232 GETTABLEKS                       R19 R5 K42 ["RevertedIconColor"]
-      234 GETUPVAL                         R22 0
-      235 GETTABLEKS                       R21 R22 K6 ["ScriptStatus"]
-      237 GETTABLEKS                       R20 R21 K11 ["Reverted"]
+      234 GETUPVAL                         R20 0
+      235 GETTABLEKS                       R20 R20 K6 ["ScriptStatus"]
+      237 GETTABLEKS                       R20 R20 K11 ["Reverted"]
       239 NAMECALL                         R21 R11 K39 ["getNextOrder"]
       241 CALL                             R21 1 -1
       242 NAMECALL                         R16 R0 K40 ["renderIcon"]
@@ -278,19 +278,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R8 R0 K10 ["Src"]
-       27 GETTABLEKS                       R7 R8 K11 ["Util"]
-       29 GETTABLEKS                       R6 R7 K12 ["ScriptAnalysis"]
-       31 GETTABLEKS                       R5 R6 K13 ["Constants"]
+       25 GETTABLEKS                       R5 R0 K10 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Util"]
+       29 GETTABLEKS                       R5 R5 K12 ["ScriptAnalysis"]
+       31 GETTABLEKS                       R5 R5 K13 ["Constants"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R2 K14 ["UI"]
        36 GETTABLEKS                       R6 R5 K15 ["Image"]

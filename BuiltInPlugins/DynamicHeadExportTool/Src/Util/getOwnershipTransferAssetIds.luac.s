@@ -380,8 +380,8 @@ PROTO_2:
 PROTO_3:
         0 NEWTABLE                         R0 0 0
         2 GETUPVAL                         R1 0
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K0 ["Tag"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["Tag"]
         6 NAMECALL                         R1 R1 K1 ["GetTagged"]
         8 CALL                             R1 2 3
         9 FORGPREP                         R1
@@ -422,8 +422,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Src"]
-       17 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Constants"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K12 [PROTO_0]
        21 DUPCLOSURE                       R4 K13 [PROTO_1]

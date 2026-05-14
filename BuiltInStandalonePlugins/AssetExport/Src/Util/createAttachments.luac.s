@@ -5,8 +5,8 @@ PROTO_0:
         4 CALL                             R1 1 1
         5 JUMP                             ; [+8]
         6 NEWTABLE                         R1 0 1
-        8 GETIMPORT                        R3 K2 [game]
-       10 GETTABLEKS                       R2 R3 K3 ["Workspace"]
+        8 GETIMPORT                        R2 K2 [game]
+       10 GETTABLEKS                       R2 R2 K3 ["Workspace"]
        12 SETLIST                          R1 R2 1 [1]
        14 NEWTABLE                         R2 0 0
        16 NEWTABLE                         R3 0 0

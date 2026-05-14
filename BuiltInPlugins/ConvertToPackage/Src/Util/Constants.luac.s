@@ -20,8 +20,8 @@ PROTO_0:
        25 SETTABLEKS                       R4 R3 K4 ["Text"]
        27 SETLIST                          R2 R3 1 [1]
        29 LOADN                            R3 2
-       30 GETIMPORT                        R5 K11 [game]
-       32 GETTABLEKS                       R4 R5 K12 ["CreatorType"]
+       30 GETIMPORT                        R4 K11 [game]
+       32 GETTABLEKS                       R4 R4 K12 ["CreatorType"]
        34 GETIMPORT                        R5 K15 [Enum.CreatorType.Group]
        36 JUMPIFNOTEQ                      R4 R5 ; [+33]
        38 GETIMPORT                        R4 K17 [next]
@@ -35,8 +35,8 @@ PROTO_0:
        49 SETTABLEKS                       R5 R4 K4 ["Text"]
        51 LOADK                            R5 K14 ["Group"]
        52 SETTABLEKS                       R5 R4 K1 ["creatorType"]
-       54 GETIMPORT                        R6 K11 [game]
-       56 GETTABLEKS                       R5 R6 K20 ["CreatorId"]
+       54 GETIMPORT                        R5 K11 [game]
+       56 GETTABLEKS                       R5 R5 K20 ["CreatorId"]
        58 SETTABLEKS                       R5 R4 K0 ["creatorId"]
        60 SETTABLEKS                       R3 R4 K2 ["Key"]
        62 FASTCALL2                        TABLE_INSERT R2 R4 ; [+5]
@@ -71,24 +71,24 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["wrapStrictTable"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["wrapStrictTable"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Util"]
-       24 GETTABLEKS                       R3 R4 K8 ["convertArrayToTable"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["convertArrayToTable"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K6 ["Util"]
-       33 GETTABLEKS                       R4 R5 K9 ["getUserId"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K6 ["Util"]
+       33 GETTABLEKS                       R4 R4 K9 ["getUserId"]
        35 CALL                             R3 1 1
        36 NEWTABLE                         R4 16 0
        38 GETIMPORT                        R5 K13 [Enum.Font.SourceSans]
@@ -139,12 +139,12 @@ MAIN:
       107 SETTABLEKS                       R5 R4 K48 ["OWNER_TYPES"]
       109 NEWTABLE                         R5 2 0
       111 GETIMPORT                        R6 K50 [Enum.CreatorType.User]
-      113 GETTABLEKS                       R8 R4 K48 ["OWNER_TYPES"]
-      115 GETTABLEKS                       R7 R8 K45 ["User"]
+      113 GETTABLEKS                       R7 R4 K48 ["OWNER_TYPES"]
+      115 GETTABLEKS                       R7 R7 K45 ["User"]
       117 SETTABLE                         R7 R5 R6
       118 GETIMPORT                        R6 K51 [Enum.CreatorType.Group]
-      120 GETTABLEKS                       R8 R4 K48 ["OWNER_TYPES"]
-      122 GETTABLEKS                       R7 R8 K46 ["Group"]
+      120 GETTABLEKS                       R7 R4 K48 ["OWNER_TYPES"]
+      122 GETTABLEKS                       R7 R7 K46 ["Group"]
       124 SETTABLE                         R7 R5 R6
       125 SETTABLEKS                       R5 R4 K52 ["CREATOR_ENUM_TO_OWNER_TYPE"]
       127 MOVE                             R5 R2

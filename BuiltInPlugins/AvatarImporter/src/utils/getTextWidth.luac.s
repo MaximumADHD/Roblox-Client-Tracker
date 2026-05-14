@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 MOVE                             R6 R0
-        2 MOVE                             R7 R1
-        3 MOVE                             R8 R2
-        4 GETUPVAL                         R9 1
-        5 NAMECALL                         R4 R4 K0 ["GetTextSize"]
-        7 CALL                             R4 5 1
-        8 GETTABLEKS                       R3 R4 K1 ["X"]
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R5 R0
+        2 MOVE                             R6 R1
+        3 MOVE                             R7 R2
+        4 GETUPVAL                         R8 1
+        5 NAMECALL                         R3 R3 K0 ["GetTextSize"]
+        7 CALL                             R3 5 1
+        8 GETTABLEKS                       R3 R3 K1 ["X"]
        10 RETURN                           R3 1
 
 MAIN:

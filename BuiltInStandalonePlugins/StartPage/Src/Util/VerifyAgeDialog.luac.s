@@ -29,8 +29,8 @@ PROTO_1:
        26 CALL                             R5 3 1
        27 CONCAT                           R2 R3 R5
        28 SETTABLEKS                       R2 R1 K3 ["Body"]
-       30 GETUPVAL                         R3 1
-       31 GETTABLEKS                       R2 R3 K15 ["CANCEL"]
+       30 GETUPVAL                         R2 1
+       31 GETTABLEKS                       R2 R2 K15 ["CANCEL"]
        33 SETTABLEKS                       R2 R1 K4 ["ActionPrimary"]
        35 DUPTABLE                         R2 K20 [{"Label", "OnActivated", "Enabled", "HidesDialog"}]
        36 LOADK                            R5 K9 ["Plugin"]
@@ -57,17 +57,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["Localization"]
-       18 GETTABLEKS                       R4 R1 K10 ["Util"]
-       20 GETTABLEKS                       R3 R4 K11 ["DialogAction"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["Localization"]
+       18 GETTABLEKS                       R3 R1 K10 ["Util"]
+       20 GETTABLEKS                       R3 R3 K11 ["DialogAction"]
        22 GETIMPORT                        R4 K5 [require]
-       24 GETTABLEKS                       R7 R0 K12 ["Src"]
-       26 GETTABLEKS                       R6 R7 K10 ["Util"]
-       28 GETTABLEKS                       R5 R6 K13 ["Services"]
+       24 GETTABLEKS                       R5 R0 K12 ["Src"]
+       26 GETTABLEKS                       R5 R5 K10 ["Util"]
+       28 GETTABLEKS                       R5 R5 K13 ["Services"]
        30 CALL                             R4 1 1
        31 GETTABLEKS                       R5 R4 K14 ["StartPageManager"]
        33 NEWTABLE                         R6 1 0

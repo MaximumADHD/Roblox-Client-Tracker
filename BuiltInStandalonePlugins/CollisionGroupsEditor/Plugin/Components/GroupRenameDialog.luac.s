@@ -32,14 +32,14 @@ PROTO_3:
         5 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["OnClose"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["OnClose"]
         3 CALL                             R1 0 0
         4 GETUPVAL                         R1 1
         5 LOADK                            R3 K1 ["userRequestedRenameDialogNeverShow"]
-        6 GETUPVAL                         R6 2
-        7 GETTABLEKS                       R5 R6 K2 ["state"]
-        9 GETTABLEKS                       R4 R5 K3 ["neverShowCheckboxToggled"]
+        6 GETUPVAL                         R4 2
+        7 GETTABLEKS                       R4 R4 K2 ["state"]
+        9 GETTABLEKS                       R4 R4 K3 ["neverShowCheckboxToggled"]
        11 NAMECALL                         R1 R1 K4 ["SetSetting"]
        13 CALL                             R1 3 0
        14 GETUPVAL                         R1 2
@@ -49,27 +49,27 @@ PROTO_4:
        19 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnClose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnClose"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["GroupRenameDialog"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["GroupRenameDialog"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
         8 GETTABLEKS                       R4 R1 K4 ["Plugin"]
        10 NAMECALL                         R4 R4 K5 ["get"]
        12 CALL                             R4 1 1
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K6 ["createElement"]
        16 GETUPVAL                         R6 1
        17 DUPTABLE                         R7 K14 [{"Style", "Enabled", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
        18 LOADK                            R8 K15 ["Alert"]
        19 SETTABLEKS                       R8 R7 K7 ["Style"]
-       21 GETTABLEKS                       R10 R0 K16 ["state"]
-       23 GETTABLEKS                       R9 R10 K17 ["userRequestedDialogNeverShow"]
+       21 GETTABLEKS                       R9 R0 K16 ["state"]
+       23 GETTABLEKS                       R9 R9 K17 ["userRequestedDialogNeverShow"]
        25 NOT                              R8 R9
        26 JUMPIFNOT                        R8 ; [+2]
        27 GETTABLEKS                       R8 R1 K8 ["Enabled"]
@@ -101,8 +101,8 @@ PROTO_6:
        66 CAPTURE                          VAL R1
        67 SETTABLEKS                       R8 R7 K13 ["OnClose"]
        69 DUPTABLE                         R8 K28 [{"Contents"}]
-       70 GETUPVAL                         R10 0
-       71 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       70 GETUPVAL                         R9 0
+       71 GETTABLEKS                       R9 R9 K6 ["createElement"]
        73 GETUPVAL                         R10 2
        74 DUPTABLE                         R11 K32 [{"Style", "Layout", "Padding", "Spacing"}]
        75 LOADK                            R12 K33 ["Box"]
@@ -114,8 +114,8 @@ PROTO_6:
        86 GETTABLEKS                       R12 R2 K31 ["Spacing"]
        88 SETTABLEKS                       R12 R11 K31 ["Spacing"]
        90 DUPTABLE                         R12 K40 [{"TextLabel", "Checkbox"}]
-       91 GETUPVAL                         R14 0
-       92 GETTABLEKS                       R13 R14 K6 ["createElement"]
+       91 GETUPVAL                         R13 0
+       92 GETTABLEKS                       R13 R13 K6 ["createElement"]
        94 GETUPVAL                         R14 3
        95 DUPTABLE                         R15 K44 [{"LayoutOrder", "TextWrapped", "Size", "Text"}]
        96 LOADN                            R16 1
@@ -131,8 +131,8 @@ PROTO_6:
       111 SETTABLEKS                       R16 R15 K23 ["Text"]
       113 CALL                             R13 2 1
       114 SETTABLEKS                       R13 R12 K38 ["TextLabel"]
-      116 GETUPVAL                         R14 0
-      117 GETTABLEKS                       R13 R14 K6 ["createElement"]
+      116 GETUPVAL                         R13 0
+      117 GETTABLEKS                       R13 R13 K6 ["createElement"]
       119 GETUPVAL                         R14 4
       120 DUPTABLE                         R15 K49 [{"LayoutOrder", "Text", "Checked", "OnClick"}]
       121 LOADN                            R16 2
@@ -142,8 +142,8 @@ PROTO_6:
       126 NAMECALL                         R16 R3 K20 ["getText"]
       128 CALL                             R16 3 1
       129 SETTABLEKS                       R16 R15 K23 ["Text"]
-      131 GETTABLEKS                       R17 R0 K16 ["state"]
-      133 GETTABLEKS                       R16 R17 K51 ["neverShowCheckboxToggled"]
+      131 GETTABLEKS                       R16 R0 K16 ["state"]
+      133 GETTABLEKS                       R16 R16 K51 ["neverShowCheckboxToggled"]
       135 SETTABLEKS                       R16 R15 K47 ["Checked"]
       137 GETTABLEKS                       R16 R0 K52 ["toggleDialogNeverShow"]
       139 SETTABLEKS                       R16 R15 K48 ["OnClick"]
@@ -155,8 +155,8 @@ PROTO_6:
       148 RETURN                           R5 -1
 
 PROTO_7:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
         7 LOADK                            R4 K3 ["userRequestedRenameDialogNeverShow"]
@@ -170,17 +170,17 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R2 K9 ["UI"]

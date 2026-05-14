@@ -135,8 +135,8 @@ PROTO_6:
        10 DUPTABLE                         R9 K2 [{"Checked", "_signal"}]
        11 LOADB                            R10 0
        12 SETTABLEKS                       R10 R9 K0 ["Checked"]
-       14 GETUPVAL                         R11 1
-       15 GETTABLEKS                       R10 R11 K3 ["new"]
+       14 GETUPVAL                         R10 1
+       15 GETTABLEKS                       R10 R10 K3 ["new"]
        17 CALL                             R10 0 1
        18 SETTABLEKS                       R10 R9 K1 ["_signal"]
        20 SETTABLE                         R9 R8 R7
@@ -156,17 +156,17 @@ PROTO_7:
         3 RETURN                           R0 0
         4 GETUPVAL                         R3 0
         5 GETTABLE                         R2 R3 R1
-        6 GETUPVAL                         R6 0
-        7 GETTABLE                         R5 R6 R1
-        8 GETTABLEKS                       R4 R5 K0 ["Checked"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLE                         R4 R5 R1
+        8 GETTABLEKS                       R4 R4 K0 ["Checked"]
        10 NOT                              R3 R4
        11 SETTABLEKS                       R3 R2 K0 ["Checked"]
-       13 GETUPVAL                         R4 0
-       14 GETTABLE                         R3 R4 R1
-       15 GETTABLEKS                       R2 R3 K1 ["_signal"]
-       17 GETUPVAL                         R6 0
-       18 GETTABLE                         R5 R6 R1
-       19 GETTABLEKS                       R4 R5 K0 ["Checked"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLE                         R2 R3 R1
+       15 GETTABLEKS                       R2 R2 K1 ["_signal"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLE                         R4 R5 R1
+       19 GETTABLEKS                       R4 R4 K0 ["Checked"]
        21 NAMECALL                         R2 R2 K2 ["Fire"]
        23 CALL                             R2 2 0
        24 RETURN                           R0 0
@@ -175,13 +175,13 @@ PROTO_8:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 JUMPIF                           R2 ; [+5]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["new"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["new"]
         6 CALL                             R2 0 -1
         7 RETURN                           R2 -1
-        8 GETUPVAL                         R4 0
-        9 GETTABLE                         R3 R4 R1
-       10 GETTABLEKS                       R2 R3 K1 ["_signal"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLE                         R2 R3 R1
+       10 GETTABLEKS                       R2 R2 K1 ["_signal"]
        12 RETURN                           R2 1
 
 PROTO_9:
@@ -207,13 +207,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Signal"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 2 0
        25 DUPCLOSURE                       R4 K10 [PROTO_0]

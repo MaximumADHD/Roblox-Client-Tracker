@@ -5,8 +5,8 @@ PROTO_0:
         4 LOADNIL                          R3
         5 LOADNIL                          R4
         6 FORGPREP                         R2
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K1 ["Create"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K1 ["Create"]
        10 JUMPIFNOTEQ                      R6 R7 ; [+3]
        12 LOADB                            R7 1
        13 RETURN                           R7 1
@@ -41,8 +41,8 @@ PROTO_2:
        13 LOADNIL                          R9
        14 LOADNIL                          R10
        15 FORGPREP                         R8
-       16 GETUPVAL                         R14 0
-       17 GETTABLEKS                       R13 R14 K4 ["Create"]
+       16 GETUPVAL                         R13 0
+       17 GETTABLEKS                       R13 R13 K4 ["Create"]
        19 JUMPIFNOTEQ                      R12 R13 ; [+3]
        21 LOADB                            R6 1
        22 JUMP                             ; [+3]
@@ -65,74 +65,74 @@ PROTO_3:
         6 LOADB                            R3 1
         7 RETURN                           R3 1
         8 LOADB                            R3 0
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K0 ["None"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K0 ["None"]
        12 JUMPIFEQ                         R0 R4 ; [+8]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K1 ["InProgress"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R4 R4 K1 ["InProgress"]
        17 JUMPIFNOTEQ                      R0 R4 ; [+2]
        19 LOADB                            R3 0 +1
        20 LOADB                            R3 1
        21 RETURN                           R3 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Success"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Success"]
         3 JUMPIFNOTEQ                      R0 R2 ; [+5]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["None"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["None"]
         8 RETURN                           R2 1
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K2 ["Loading"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K2 ["Loading"]
        12 JUMPIFNOTEQ                      R0 R2 ; [+5]
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K3 ["InProgress"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K3 ["InProgress"]
        17 RETURN                           R2 1
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K4 ["ErrorModerated"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K4 ["ErrorModerated"]
        21 JUMPIFNOTEQ                      R0 R2 ; [+5]
-       23 GETUPVAL                         R3 1
-       24 GETTABLEKS                       R2 R3 K4 ["ErrorModerated"]
+       23 GETUPVAL                         R2 1
+       24 GETTABLEKS                       R2 R2 K4 ["ErrorModerated"]
        26 RETURN                           R2 1
-       27 GETUPVAL                         R3 2
-       28 GETTABLEKS                       R2 R3 K5 ["Create"]
+       27 GETUPVAL                         R2 2
+       28 GETTABLEKS                       R2 R2 K5 ["Create"]
        30 JUMPIFNOTEQ                      R1 R2 ; [+5]
-       32 GETUPVAL                         R3 1
-       33 GETTABLEKS                       R2 R3 K6 ["ErrorCreating"]
+       32 GETUPVAL                         R2 1
+       33 GETTABLEKS                       R2 R2 K6 ["ErrorCreating"]
        35 RETURN                           R2 1
-       36 GETUPVAL                         R3 2
-       37 GETTABLEKS                       R2 R3 K7 ["Resolve"]
+       36 GETUPVAL                         R2 2
+       37 GETTABLEKS                       R2 R2 K7 ["Resolve"]
        39 JUMPIFNOTEQ                      R1 R2 ; [+5]
-       41 GETUPVAL                         R3 1
-       42 GETTABLEKS                       R2 R3 K8 ["ErrorResolving"]
+       41 GETUPVAL                         R2 1
+       42 GETTABLEKS                       R2 R2 K8 ["ErrorResolving"]
        44 RETURN                           R2 1
-       45 GETUPVAL                         R3 2
-       46 GETTABLEKS                       R2 R3 K9 ["Delete"]
+       45 GETUPVAL                         R2 2
+       46 GETTABLEKS                       R2 R2 K9 ["Delete"]
        48 JUMPIFNOTEQ                      R1 R2 ; [+5]
-       50 GETUPVAL                         R3 1
-       51 GETTABLEKS                       R2 R3 K10 ["ErrorDeleting"]
+       50 GETUPVAL                         R2 1
+       51 GETTABLEKS                       R2 R2 K10 ["ErrorDeleting"]
        53 RETURN                           R2 1
-       54 GETUPVAL                         R3 2
-       55 GETTABLEKS                       R2 R3 K11 ["Edit"]
+       54 GETUPVAL                         R2 2
+       55 GETTABLEKS                       R2 R2 K11 ["Edit"]
        57 JUMPIFNOTEQ                      R1 R2 ; [+5]
-       59 GETUPVAL                         R3 1
-       60 GETTABLEKS                       R2 R3 K12 ["ErrorEditing"]
+       59 GETUPVAL                         R2 1
+       60 GETTABLEKS                       R2 R2 K12 ["ErrorEditing"]
        62 RETURN                           R2 1
-       63 GETUPVAL                         R3 1
-       64 GETTABLEKS                       R2 R3 K13 ["Error"]
+       63 GETUPVAL                         R2 1
+       64 GETTABLEKS                       R2 R2 K13 ["Error"]
        66 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["ErrorCreating"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["ErrorCreating"]
         3 JUMPIFNOTEQ                      R0 R5 ; [+7]
         5 LOADK                            R7 K1 ["AddAnnotation"]
         6 LOADK                            R8 K2 ["Failed"]
         7 NAMECALL                         R5 R2 K3 ["getText"]
         9 CALL                             R5 3 -1
        10 RETURN                           R5 -1
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K4 ["ErrorResolving"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K4 ["ErrorResolving"]
        14 JUMPIFNOTEQ                      R0 R5 ; [+23]
        16 FASTCALL2K                       ASSERT R1 K5 ; [+5]
        18 MOVE                             R6 R1
@@ -151,8 +151,8 @@ PROTO_5:
        34 NAMECALL                         R5 R2 K3 ["getText"]
        36 CALL                             R5 3 -1
        37 RETURN                           R5 -1
-       38 GETUPVAL                         R6 0
-       39 GETTABLEKS                       R5 R6 K12 ["ErrorDeleting"]
+       38 GETUPVAL                         R5 0
+       39 GETTABLEKS                       R5 R5 K12 ["ErrorDeleting"]
        41 JUMPIFNOTEQ                      R0 R5 ; [+30]
        43 FASTCALL2K                       ASSERT R1 K13 ; [+5]
        45 MOVE                             R6 R1
@@ -176,16 +176,16 @@ PROTO_5:
        68 NAMECALL                         R5 R2 K3 ["getText"]
        70 CALL                             R5 3 -1
        71 RETURN                           R5 -1
-       72 GETUPVAL                         R6 0
-       73 GETTABLEKS                       R5 R6 K19 ["ErrorEditing"]
+       72 GETUPVAL                         R5 0
+       73 GETTABLEKS                       R5 R5 K19 ["ErrorEditing"]
        75 JUMPIFNOTEQ                      R0 R5 ; [+7]
        77 LOADK                            R7 K9 ["Error"]
        78 LOADK                            R8 K20 ["Edit"]
        79 NAMECALL                         R5 R2 K3 ["getText"]
        81 CALL                             R5 3 -1
        82 RETURN                           R5 -1
-       83 GETUPVAL                         R6 0
-       84 GETTABLEKS                       R5 R6 K21 ["ErrorModerated"]
+       83 GETUPVAL                         R5 0
+       84 GETTABLEKS                       R5 R5 K21 ["ErrorModerated"]
        86 JUMPIFNOTEQ                      R0 R5 ; [+7]
        88 LOADK                            R7 K9 ["Error"]
        89 LOADK                            R8 K22 ["Moderated"]
@@ -216,23 +216,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Enums"]
-       13 GETTABLEKS                       R2 R3 K8 ["AnnotationRequestType"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Enums"]
+       13 GETTABLEKS                       R2 R2 K8 ["AnnotationRequestType"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Enums"]
-       22 GETTABLEKS                       R3 R4 K9 ["AnnotationRequestStatus"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Enums"]
+       22 GETTABLEKS                       R3 R3 K9 ["AnnotationRequestStatus"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["Enums"]
-       31 GETTABLEKS                       R4 R5 K10 ["UIRequestStatus"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Enums"]
+       31 GETTABLEKS                       R4 R4 K10 ["UIRequestStatus"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R6 R0 K6 ["Src"]
-       38 GETTABLEKS                       R5 R6 K11 ["Types"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K11 ["Types"]
        40 CALL                             R4 1 1
        41 DUPCLOSURE                       R5 K12 [PROTO_0]
        42 CAPTURE                          VAL R1

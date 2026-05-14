@@ -1,13 +1,13 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["panel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["panel"]
         3 JUMPIFNOT                        R0 ; [+6]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["panel"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["panel"]
         7 LOADB                            R1 0
         8 SETTABLEKS                       R1 R0 K1 ["Enabled"]
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K2 ["cancelShowTooltip"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K2 ["cancelShowTooltip"]
        13 CALL                             R0 0 0
        14 RETURN                           R0 0
 

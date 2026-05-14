@@ -1,19 +1,19 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R1 2 -1
         6 RETURN                           R1 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 NEWTABLE                         R3 0 1
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K0 ["createElement"]
        11 LOADK                            R5 K1 ["Frame"]
        12 DUPTABLE                         R6 K5 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
        13 GETIMPORT                        R7 K8 [Enum.AutomaticSize.Y]
@@ -28,8 +28,8 @@ PROTO_1:
        26 CALL                             R7 4 1
        27 SETTABLEKS                       R7 R6 K4 ["Size"]
        29 DUPTABLE                         R7 K13 [{"SearchList"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
        33 GETUPVAL                         R9 2
        34 DUPTABLE                         R10 K16 [{"Items", "ItemMinWidth"}]
        35 GETUPVAL                         R11 3
@@ -44,13 +44,13 @@ PROTO_1:
        48 RETURN                           R0 -1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 NEWTABLE                         R3 0 1
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K0 ["createElement"]
        11 LOADK                            R5 K1 ["Frame"]
        12 DUPTABLE                         R6 K5 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
        13 GETIMPORT                        R7 K8 [Enum.AutomaticSize.Y]
@@ -65,8 +65,8 @@ PROTO_2:
        26 CALL                             R7 4 1
        27 SETTABLEKS                       R7 R6 K4 ["Size"]
        29 DUPTABLE                         R7 K13 [{"SearchList"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
        33 GETUPVAL                         R9 2
        34 DUPTABLE                         R10 K17 [{"Items", "ItemMinWidth", "MaxRowCount"}]
        35 GETUPVAL                         R11 3
@@ -84,22 +84,22 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Packages"]
         9 GETIMPORT                        R2 K5 [require]
        11 GETTABLEKS                       R3 R1 K6 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K5 [require]
-       16 GETTABLEKS                       R5 R0 K7 ["Stories"]
-       18 GETTABLEKS                       R4 R5 K8 ["ToolboxStoryWrapper"]
+       16 GETTABLEKS                       R4 R0 K7 ["Stories"]
+       18 GETTABLEKS                       R4 R4 K8 ["ToolboxStoryWrapper"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R8 R0 K9 ["Src"]
-       25 GETTABLEKS                       R7 R8 K10 ["Components"]
-       27 GETTABLEKS                       R6 R7 K11 ["Categorization"]
-       29 GETTABLEKS                       R5 R6 K12 ["SearchList"]
+       23 GETTABLEKS                       R5 R0 K9 ["Src"]
+       25 GETTABLEKS                       R5 R5 K10 ["Components"]
+       27 GETTABLEKS                       R5 R5 K11 ["Categorization"]
+       29 GETTABLEKS                       R5 R5 K12 ["SearchList"]
        31 CALL                             R4 1 1
        32 DUPCLOSURE                       R5 K13 [PROTO_0]
        33 CAPTURE                          VAL R2

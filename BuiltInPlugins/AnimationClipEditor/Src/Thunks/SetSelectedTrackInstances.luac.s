@@ -4,9 +4,9 @@ PROTO_0:
         2 CALL                             R3 1 -1
         3 NAMECALL                         R1 R0 K0 ["dispatch"]
         5 CALL                             R1 -1 0
-        6 NAMECALL                         R2 R0 K1 ["getState"]
-        8 CALL                             R2 1 1
-        9 GETTABLEKS                       R1 R2 K2 ["Status"]
+        6 NAMECALL                         R1 R0 K1 ["getState"]
+        8 CALL                             R1 1 1
+        9 GETTABLEKS                       R1 R1 K2 ["Status"]
        11 GETTABLEKS                       R2 R1 K3 ["RootInstance"]
        13 JUMPIF                           R2 ; [+1]
        14 RETURN                           R0 0
@@ -21,8 +21,8 @@ PROTO_0:
        25 CALL                             R5 1 -1
        26 NAMECALL                         R3 R0 K0 ["dispatch"]
        28 CALL                             R3 -1 0
-       29 GETUPVAL                         R4 3
-       30 GETTABLEKS                       R3 R4 K6 ["getRigInfo"]
+       29 GETUPVAL                         R3 3
+       30 GETTABLEKS                       R3 R3 K6 ["getRigInfo"]
        32 MOVE                             R4 R2
        33 CALL                             R3 1 1
        34 GETTABLEKS                       R4 R3 K7 ["Parts"]
@@ -79,13 +79,13 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["RigInfo"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R0 K4 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       16 GETTABLEKS                       R3 R0 K4 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Actions"]
        20 GETIMPORT                        R4 K7 [require]
        22 GETTABLEKS                       R5 R3 K10 ["SetSelectedTracks"]
        24 CALL                             R4 1 1

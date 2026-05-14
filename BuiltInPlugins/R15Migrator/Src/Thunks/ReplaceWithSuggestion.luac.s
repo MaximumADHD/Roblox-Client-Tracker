@@ -1,12 +1,12 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["diagnostics"]
+        3 GETTABLEKS                       R2 R1 K1 ["ScriptConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["diagnostics"]
         7 GETUPVAL                         R4 0
         8 GETTABLE                         R3 R2 R4
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K3 ["replaceWithSuggestion"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K3 ["replaceWithSuggestion"]
        12 GETUPVAL                         R5 0
        13 GETUPVAL                         R6 2
        14 GETUPVAL                         R7 3
@@ -49,12 +49,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["SetProcessResult"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["SetProcessResult"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R2 R3 K9 ["Util"]
+       16 GETTABLEKS                       R2 R0 K6 ["Src"]
+       18 GETTABLEKS                       R2 R2 K9 ["Util"]
        20 GETIMPORT                        R3 K5 [require]
        22 GETTABLEKS                       R4 R2 K10 ["ScriptReplacement"]
        24 CALL                             R3 1 1

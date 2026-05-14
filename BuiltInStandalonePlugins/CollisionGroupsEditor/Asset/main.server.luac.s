@@ -168,11 +168,11 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R1 0
-        1 GETIMPORT                        R3 K1 [game]
-        3 LOADK                            R5 K2 ["Selection"]
-        4 NAMECALL                         R3 R3 K3 ["GetService"]
-        6 CALL                             R3 2 1
-        7 GETTABLEKS                       R2 R3 K4 ["SelectionChanged"]
+        1 GETIMPORT                        R2 K1 [game]
+        3 LOADK                            R4 K2 ["Selection"]
+        4 NAMECALL                         R2 R2 K3 ["GetService"]
+        6 CALL                             R2 2 1
+        7 GETTABLEKS                       R2 R2 K4 ["SelectionChanged"]
         9 DUPCLOSURE                       R4 K5 [PROTO_4]
        10 CAPTURE                          UPVAL U1
        11 CAPTURE                          UPVAL U2
@@ -182,8 +182,8 @@ PROTO_7:
        16 GETIMPORT                        R0 K9 [table.insert]
        18 CALL                             R0 -1 0
        19 GETUPVAL                         R1 0
-       20 GETUPVAL                         R3 3
-       21 GETTABLEKS                       R2 R3 K10 ["OnUndo"]
+       20 GETUPVAL                         R2 3
+       21 GETTABLEKS                       R2 R2 K10 ["OnUndo"]
        23 DUPCLOSURE                       R4 K11 [PROTO_5]
        24 CAPTURE                          UPVAL U1
        25 CAPTURE                          UPVAL U2
@@ -193,8 +193,8 @@ PROTO_7:
        30 GETIMPORT                        R0 K9 [table.insert]
        32 CALL                             R0 -1 0
        33 GETUPVAL                         R1 0
-       34 GETUPVAL                         R3 3
-       35 GETTABLEKS                       R2 R3 K12 ["OnRedo"]
+       34 GETUPVAL                         R2 3
+       35 GETTABLEKS                       R2 R2 K12 ["OnRedo"]
        37 DUPCLOSURE                       R4 K13 [PROTO_6]
        38 CAPTURE                          UPVAL U1
        39 CAPTURE                          UPVAL U2
@@ -224,8 +224,8 @@ PROTO_9:
         6 LOADB                            R1 1
         7 RETURN                           R1 1
         8 GETIMPORT                        R1 K2 [pcall]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K3 ["RegisterCollisionGroup"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K3 ["RegisterCollisionGroup"]
        13 GETUPVAL                         R3 0
        14 MOVE                             R4 R0
        15 CALL                             R1 3 2
@@ -402,8 +402,8 @@ PROTO_14:
         8 LOADB                            R1 1
         9 JUMP                             ; [+9]
        10 GETIMPORT                        R3 K3 [pcall]
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K4 ["RegisterCollisionGroup"]
        15 GETUPVAL                         R5 0
        16 MOVE                             R6 R2
        17 CALL                             R3 3 2
@@ -418,8 +418,8 @@ PROTO_14:
        28 LOADB                            R1 1
        29 JUMP                             ; [+9]
        30 GETIMPORT                        R3 K3 [pcall]
-       32 GETUPVAL                         R5 0
-       33 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
+       32 GETUPVAL                         R4 0
+       33 GETTABLEKS                       R4 R4 K4 ["RegisterCollisionGroup"]
        35 GETUPVAL                         R5 0
        36 MOVE                             R6 R2
        37 CALL                             R3 3 2
@@ -660,8 +660,8 @@ PROTO_21:
         2 RETURN                           R0 0
 
 PROTO_22:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelType"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelType"]
         4 GETIMPORT                        R1 K6 [Enum.StudioDataModelType.PlayClient]
         6 JUMPIFNOTEQ                      R0 R1 ; [+32]
         8 DUPTABLE                         R0 K8 [{"InPlayMode"}]
@@ -727,9 +727,9 @@ PROTO_22:
        85 GETUPVAL                         R0 5
        86 JUMPIFNOT                        R0 ; [+21]
        87 GETIMPORT                        R0 K18 [require]
-       89 GETUPVAL                         R3 6
-       90 GETTABLEKS                       R2 R3 K19 ["Packages"]
-       92 GETTABLEKS                       R1 R2 K20 ["DeveloperTools"]
+       89 GETUPVAL                         R1 6
+       90 GETTABLEKS                       R1 R1 K19 ["Packages"]
+       92 GETTABLEKS                       R1 R1 K20 ["DeveloperTools"]
        94 CALL                             R0 1 1
        95 GETTABLEKS                       R1 R0 K21 ["forPlugin"]
        97 LOADK                            R2 K22 ["CollisionGroupsEditor"]
@@ -767,8 +767,8 @@ PROTO_23:
        28 RETURN                           R0 0
 
 PROTO_24:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIFNOT                        R0 ; [+28]
         5 GETIMPORT                        R0 K4 [ipairs]
         7 GETUPVAL                         R1 0
@@ -794,8 +794,8 @@ PROTO_24:
        33 RETURN                           R0 0
 
 PROTO_25:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIFNOT                        R0 ; [+2]
         5 GETUPVAL                         R0 0
         6 CALL                             R0 0 0
@@ -815,8 +815,8 @@ PROTO_26:
        13 CAPTURE                          UPVAL U4
        14 NAMECALL                         R1 R1 K1 ["Connect"]
        16 CALL                             R1 2 0
-       17 GETIMPORT                        R2 K5 [plugin]
-       19 GETTABLEKS                       R1 R2 K6 ["HostDataModelTypeIsCurrent"]
+       17 GETIMPORT                        R1 K5 [plugin]
+       19 GETTABLEKS                       R1 R1 K6 ["HostDataModelTypeIsCurrent"]
        21 JUMPIFNOT                        R1 ; [+2]
        22 GETUPVAL                         R1 4
        23 CALL                             R1 0 0
@@ -824,12 +824,12 @@ PROTO_26:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Common"]
-       11 GETTABLEKS                       R2 R3 K6 ["commonInit"]
+        9 GETTABLEKS                       R2 R0 K5 ["Common"]
+       11 GETTABLEKS                       R2 R2 K6 ["commonInit"]
        13 CALL                             R1 1 1
        14 MOVE                             R2 R1
        15 CALL                             R2 0 0
@@ -842,20 +842,20 @@ MAIN:
        25 NAMECALL                         R3 R3 K10 ["GetService"]
        27 CALL                             R3 2 1
        28 GETIMPORT                        R4 K4 [require]
-       30 GETTABLEKS                       R6 R0 K12 ["Plugin"]
-       32 GETTABLEKS                       R5 R6 K13 ["getSelectedParts"]
+       30 GETTABLEKS                       R5 R0 K12 ["Plugin"]
+       32 GETTABLEKS                       R5 R5 K13 ["getSelectedParts"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K4 [require]
-       37 GETTABLEKS                       R7 R0 K12 ["Plugin"]
-       39 GETTABLEKS                       R6 R7 K14 ["getPartsInGroup"]
+       37 GETTABLEKS                       R6 R0 K12 ["Plugin"]
+       39 GETTABLEKS                       R6 R6 K14 ["getPartsInGroup"]
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K4 [require]
-       44 GETTABLEKS                       R8 R0 K12 ["Plugin"]
-       46 GETTABLEKS                       R7 R8 K15 ["getGroups"]
+       44 GETTABLEKS                       R7 R0 K12 ["Plugin"]
+       46 GETTABLEKS                       R7 R7 K15 ["getGroups"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K4 [require]
-       51 GETTABLEKS                       R9 R0 K12 ["Plugin"]
-       53 GETTABLEKS                       R8 R9 K16 ["getSelectedGroupIds"]
+       51 GETTABLEKS                       R8 R0 K12 ["Plugin"]
+       53 GETTABLEKS                       R8 R8 K16 ["getSelectedGroupIds"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K8 [game]
        58 LOADK                            R10 K17 ["StudioService"]
@@ -926,8 +926,8 @@ MAIN:
       127 CAPTURE                          REF R21
       128 CAPTURE                          REF R24
       129 CAPTURE                          VAL R25
-      130 GETIMPORT                        R29 K27 [plugin]
-      132 GETTABLEKS                       R28 R29 K28 ["MultipleDocumentInterfaceInstance"]
+      130 GETIMPORT                        R28 K27 [plugin]
+      132 GETTABLEKS                       R28 R28 K28 ["MultipleDocumentInterfaceInstance"]
       134 MOVE                             R29 R27
       135 GETTABLEKS                       R30 R28 K29 ["FocusedDataModelSession"]
       137 CALL                             R29 1 0

@@ -1,9 +1,9 @@
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["TelemetryProtocol"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["TelemetryProtocol"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K7 [game]
        12 LOADK                            R3 K8 ["PathEditorToolUsageEventsThrottleHundredthsPercent"]
@@ -14,8 +14,8 @@ MAIN:
        18 LOADK                            R3 K17 ["Path2DToolUsage"]
        19 SETTABLEKS                       R3 R2 K10 ["eventName"]
        21 NEWTABLE                         R3 0 1
-       23 GETTABLEKS                       R5 R0 K18 ["TelemetryBackends"]
-       25 GETTABLEKS                       R4 R5 K19 ["EventIngest"]
+       23 GETTABLEKS                       R4 R0 K18 ["TelemetryBackends"]
+       25 GETTABLEKS                       R4 R4 K19 ["EventIngest"]
        27 SETLIST                          R3 R4 1 [1]
        29 SETTABLEKS                       R3 R2 K11 ["backends"]
        31 SETTABLEKS                       R1 R2 K12 ["throttlingPercentage"]

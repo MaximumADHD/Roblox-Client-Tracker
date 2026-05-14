@@ -45,14 +45,14 @@ PROTO_3:
        10 LOADN                            R1 0
        11 SETTABLEKS                       R1 R0 K3 ["lastUpdateTimeUnixTimeStamp"]
        13 NEWTABLE                         R1 0 3
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K7 ["visualizationMode"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K7 ["visualizationMode"]
        18 CALL                             R2 0 1
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R3 R4 K8 ["disabledVisualizationMode"]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K8 ["disabledVisualizationMode"]
        22 CALL                             R3 0 1
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K9 ["noToolTipVisualizationMode"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K9 ["noToolTipVisualizationMode"]
        26 CALL                             R4 0 -1
        27 SETLIST                          R1 R2 -1 [1]
        29 SETTABLEKS                       R1 R0 K4 ["visualizationModeList"]
@@ -60,8 +60,8 @@ PROTO_3:
 
 PROTO_4:
         0 NEWTABLE                         R0 0 1
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["visualizationModeCategory"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["visualizationModeCategory"]
         5 CALL                             R1 0 -1
         6 SETLIST                          R0 R1 -1 [1]
         8 RETURN                           R0 1
@@ -110,8 +110,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 DUPCLOSURE                       R3 K8 [PROTO_0]

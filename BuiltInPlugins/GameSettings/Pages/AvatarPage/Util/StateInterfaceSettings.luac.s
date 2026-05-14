@@ -3,13 +3,13 @@ PROTO_0:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["height"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["height"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["Height"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["Height"]
        13 RETURN                           R1 1
 
 PROTO_1:
@@ -17,13 +17,13 @@ PROTO_1:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["width"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["width"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["Width"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["Width"]
        13 RETURN                           R1 1
 
 PROTO_2:
@@ -31,13 +31,13 @@ PROTO_2:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["head"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["head"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["Head"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["Head"]
        13 RETURN                           R1 1
 
 PROTO_3:
@@ -45,13 +45,13 @@ PROTO_3:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["bodyType"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["bodyType"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["BodyType"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["BodyType"]
        13 RETURN                           R1 1
 
 PROTO_4:
@@ -59,31 +59,31 @@ PROTO_4:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+6]
-        4 GETUPVAL                         R2 0
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K0 ["proportion"]
+        4 GETUPVAL                         R1 0
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K0 ["proportion"]
         9 JUMPIF                           R1 ; [+3]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["Proportion"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["Proportion"]
        13 RETURN                           R1 1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["StateSettings"]
         2 JUMPIFNOT                        R1 ; [+6]
-        3 GETTABLEKS                       R3 R0 K0 ["StateSettings"]
-        5 GETTABLEKS                       R2 R3 K1 ["scaleBoundaries"]
-        7 GETTABLEKS                       R1 R2 K2 ["boundaries"]
+        3 GETTABLEKS                       R1 R0 K0 ["StateSettings"]
+        5 GETTABLEKS                       R1 R1 K1 ["scaleBoundaries"]
+        7 GETTABLEKS                       R1 R1 K2 ["boundaries"]
         9 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Util"]
-       11 GETTABLEKS                       R2 R3 K6 ["ConstantScaleBoundaries"]
+        9 GETTABLEKS                       R2 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R2 K6 ["ConstantScaleBoundaries"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 LOADNIL                          R3

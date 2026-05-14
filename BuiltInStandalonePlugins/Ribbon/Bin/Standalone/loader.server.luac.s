@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["DataModelSessionStarted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["DataModelSessionStarted"]
         3 RETURN                           R0 1
 
 PROTO_1:
@@ -14,13 +14,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R3 R4 K7 ["Common"]
-       13 GETTABLEKS                       R2 R3 K8 ["defineLuaFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
        15 CALL                             R1 1 0
        16 GETIMPORT                        R1 K5 [require]
-       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R2 R3 K10 ["TestLoader"]
+       18 GETTABLEKS                       R2 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R2 R2 K10 ["TestLoader"]
        22 CALL                             R1 1 1
        23 GETTABLEKS                       R2 R1 K11 ["launch"]
        25 LOADK                            R3 K2 ["Ribbon"]
@@ -34,20 +34,20 @@ MAIN:
        36 GETTABLEKS                       R3 R0 K16 ["Name"]
        38 SETTABLEKS                       R3 R2 K16 ["Name"]
        40 GETIMPORT                        R2 K5 [require]
-       42 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       44 GETTABLEKS                       R3 R4 K17 ["PluginLoader"]
+       42 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       44 GETTABLEKS                       R3 R3 K17 ["PluginLoader"]
        46 CALL                             R2 1 1
        47 GETTABLEKS                       R3 R2 K18 ["PluginLoaderBuilder"]
-       49 GETTABLEKS                       R7 R0 K12 ["Src"]
-       51 GETTABLEKS                       R6 R7 K19 ["Resources"]
-       53 GETTABLEKS                       R5 R6 K20 ["Localization"]
-       55 GETTABLEKS                       R4 R5 K21 ["SourceStrings"]
-       57 GETTABLEKS                       R8 R0 K12 ["Src"]
-       59 GETTABLEKS                       R7 R8 K19 ["Resources"]
-       61 GETTABLEKS                       R6 R7 K20 ["Localization"]
-       63 GETTABLEKS                       R5 R6 K22 ["LocalizedStrings"]
-       65 GETIMPORT                        R7 K15 [plugin]
-       67 GETTABLEKS                       R6 R7 K23 ["MultipleDocumentInterfaceInstance"]
+       49 GETTABLEKS                       R4 R0 K12 ["Src"]
+       51 GETTABLEKS                       R4 R4 K19 ["Resources"]
+       53 GETTABLEKS                       R4 R4 K20 ["Localization"]
+       55 GETTABLEKS                       R4 R4 K21 ["SourceStrings"]
+       57 GETTABLEKS                       R5 R0 K12 ["Src"]
+       59 GETTABLEKS                       R5 R5 K19 ["Resources"]
+       61 GETTABLEKS                       R5 R5 K20 ["Localization"]
+       63 GETTABLEKS                       R5 R5 K22 ["LocalizedStrings"]
+       65 GETIMPORT                        R6 K15 [plugin]
+       67 GETTABLEKS                       R6 R6 K23 ["MultipleDocumentInterfaceInstance"]
        69 DUPTABLE                         R7 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "extraTriggers", "shouldImmediatelyOpen"}]
        70 GETIMPORT                        R8 K15 [plugin]
        72 SETTABLEKS                       R8 R7 K14 ["plugin"]
@@ -73,9 +73,9 @@ MAIN:
       103 JUMPIF                           R9 ; [+1]
       104 RETURN                           R0 0
       105 GETIMPORT                        R10 K5 [require]
-      107 GETIMPORT                        R13 K1 [script]
-      109 GETTABLEKS                       R12 R13 K38 ["Parent"]
-      111 GETTABLEKS                       R11 R12 K39 ["main"]
+      107 GETIMPORT                        R11 K1 [script]
+      109 GETTABLEKS                       R11 R11 K38 ["Parent"]
+      111 GETTABLEKS                       R11 R11 K39 ["main"]
       113 CALL                             R10 1 1
       114 MOVE                             R11 R10
       115 GETIMPORT                        R12 K15 [plugin]

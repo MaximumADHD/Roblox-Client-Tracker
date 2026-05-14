@@ -31,16 +31,16 @@ PROTO_0:
        39 CALL                             R3 1 -1
        40 NAMECALL                         R1 R0 K2 ["dispatch"]
        42 CALL                             R1 -1 0
-       43 GETUPVAL                         R2 6
-       44 GETTABLEKS                       R1 R2 K4 ["Path"]
-       46 GETUPVAL                         R4 7
-       47 GETTABLEKS                       R3 R4 K5 ["MAIN"]
-       49 GETTABLEKS                       R2 R3 K4 ["Path"]
+       43 GETUPVAL                         R1 6
+       44 GETTABLEKS                       R1 R1 K4 ["Path"]
+       46 GETUPVAL                         R2 7
+       47 GETTABLEKS                       R2 R2 K5 ["MAIN"]
+       49 GETTABLEKS                       R2 R2 K4 ["Path"]
        51 JUMPIFEQ                         R1 R2 ; [+10]
        53 GETUPVAL                         R3 8
        54 GETUPVAL                         R4 9
-       55 GETUPVAL                         R6 6
-       56 GETTABLEKS                       R5 R6 K6 ["AssetType"]
+       55 GETUPVAL                         R5 6
+       56 GETTABLEKS                       R5 R5 K6 ["AssetType"]
        58 CALL                             R3 2 -1
        59 NAMECALL                         R1 R0 K2 ["dispatch"]
        61 CALL                             R1 -1 0
@@ -62,49 +62,49 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetAssets"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetAssets"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       24 GETTABLEKS                       R3 R4 K8 ["SetAssetsModerationData"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K8 ["SetAssetsModerationData"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K6 ["Actions"]
-       33 GETTABLEKS                       R4 R5 K9 ["SetIsFetchingAssets"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K6 ["Actions"]
+       33 GETTABLEKS                       R4 R4 K9 ["SetIsFetchingAssets"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K5 ["Src"]
-       40 GETTABLEKS                       R6 R7 K6 ["Actions"]
-       42 GETTABLEKS                       R5 R6 K10 ["SetEditingAssets"]
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R5 R5 K6 ["Actions"]
+       42 GETTABLEKS                       R5 R5 K10 ["SetEditingAssets"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K4 [require]
-       47 GETTABLEKS                       R8 R0 K5 ["Src"]
-       49 GETTABLEKS                       R7 R8 K6 ["Actions"]
-       51 GETTABLEKS                       R6 R7 K11 ["SetSelectedAssets"]
+       47 GETTABLEKS                       R6 R0 K5 ["Src"]
+       49 GETTABLEKS                       R6 R6 K6 ["Actions"]
+       51 GETTABLEKS                       R6 R6 K11 ["SetSelectedAssets"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K4 [require]
-       56 GETTABLEKS                       R9 R0 K5 ["Src"]
-       58 GETTABLEKS                       R8 R9 K6 ["Actions"]
-       60 GETTABLEKS                       R7 R8 K12 ["SetSearchTerm"]
+       56 GETTABLEKS                       R7 R0 K5 ["Src"]
+       58 GETTABLEKS                       R7 R7 K6 ["Actions"]
+       60 GETTABLEKS                       R7 R7 K12 ["SetSearchTerm"]
        62 CALL                             R6 1 1
        63 GETIMPORT                        R7 K4 [require]
-       65 GETTABLEKS                       R10 R0 K5 ["Src"]
-       67 GETTABLEKS                       R9 R10 K13 ["Thunks"]
-       69 GETTABLEKS                       R8 R9 K14 ["GetAssets"]
+       65 GETTABLEKS                       R8 R0 K5 ["Src"]
+       67 GETTABLEKS                       R8 R8 K13 ["Thunks"]
+       69 GETTABLEKS                       R8 R8 K14 ["GetAssets"]
        71 CALL                             R7 1 1
        72 GETIMPORT                        R8 K4 [require]
-       74 GETTABLEKS                       R11 R0 K5 ["Src"]
-       76 GETTABLEKS                       R10 R11 K15 ["Util"]
-       78 GETTABLEKS                       R9 R10 K16 ["Screens"]
+       74 GETTABLEKS                       R9 R0 K5 ["Src"]
+       76 GETTABLEKS                       R9 R9 K15 ["Util"]
+       78 GETTABLEKS                       R9 R9 K16 ["Screens"]
        80 CALL                             R8 1 1
        81 DUPCLOSURE                       R9 K17 [PROTO_1]
        82 CAPTURE                          VAL R1

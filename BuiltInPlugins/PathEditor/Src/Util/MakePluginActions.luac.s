@@ -38,20 +38,20 @@ PROTO_1:
        27 SETTABLE                         R8 R2 R7
        28 FORGLOOP                         R3 2 [inext] ; [-22]
        30 GETTABLEKS                       R3 R2 K10 ["MoveTool"]
-       32 GETUPVAL                         R5 1
-       33 GETTABLEKS                       R4 R5 K11 ["Move"]
+       32 GETUPVAL                         R4 1
+       33 GETTABLEKS                       R4 R4 K11 ["Move"]
        35 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
        37 GETTABLEKS                       R3 R2 K13 ["AddPointMode"]
-       39 GETUPVAL                         R5 1
-       40 GETTABLEKS                       R4 R5 K14 ["AddPoint"]
+       39 GETUPVAL                         R4 1
+       40 GETTABLEKS                       R4 R4 K14 ["AddPoint"]
        42 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
        44 GETTABLEKS                       R3 R2 K15 ["AddTangentMode"]
-       46 GETUPVAL                         R5 1
-       47 GETTABLEKS                       R4 R5 K16 ["AddTangent"]
+       46 GETUPVAL                         R4 1
+       47 GETTABLEKS                       R4 R4 K16 ["AddTangent"]
        49 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
        51 GETTABLEKS                       R3 R2 K17 ["DoneEditing"]
-       53 GETUPVAL                         R5 1
-       54 GETTABLEKS                       R4 R5 K18 ["Done"]
+       53 GETUPVAL                         R4 1
+       54 GETTABLEKS                       R4 R4 K18 ["Done"]
        56 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
        58 RETURN                           R2 1
 
@@ -62,9 +62,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["getShortcuts"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["getShortcuts"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 NEWTABLE                         R2 0 4

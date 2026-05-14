@@ -7,21 +7,21 @@ PROTO_0:
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["selection"]
-        7 GETTABLEKS                       R4 R1 K1 ["ScriptConversion"]
-        9 GETTABLEKS                       R3 R4 K3 ["diagnostics"]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K4 ["Dictionary"]
-       14 GETTABLEKS                       R4 R5 K5 ["keys"]
+        3 GETTABLEKS                       R2 R1 K1 ["ScriptConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["selection"]
+        7 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
+        9 GETTABLEKS                       R3 R3 K3 ["diagnostics"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K4 ["Dictionary"]
+       14 GETTABLEKS                       R4 R4 K5 ["keys"]
        16 GETUPVAL                         R5 1
        17 MOVE                             R7 R2
        18 MOVE                             R8 R3
        19 NAMECALL                         R5 R5 K6 ["sortSelectionForConversion"]
        21 CALL                             R5 3 -1
        22 CALL                             R4 -1 1
-       23 GETUPVAL                         R6 2
-       24 GETTABLEKS                       R5 R6 K7 ["new"]
+       23 GETUPVAL                         R5 2
+       24 GETTABLEKS                       R5 R5 K7 ["new"]
        26 LOADK                            R6 K8 ["Revert"]
        27 LENGTH                           R7 R4
        28 MOVE                             R8 R0
@@ -40,9 +40,9 @@ PROTO_1:
        42 NAMECALL                         R7 R0 K10 ["dispatch"]
        44 CALL                             R7 -1 0
        45 DUPTABLE                         R7 K12 [{"revertResult"}]
-       46 GETUPVAL                         R11 0
-       47 GETTABLEKS                       R10 R11 K4 ["Dictionary"]
-       49 GETTABLEKS                       R9 R10 K5 ["keys"]
+       46 GETUPVAL                         R9 0
+       47 GETTABLEKS                       R9 R9 K4 ["Dictionary"]
+       49 GETTABLEKS                       R9 R9 K5 ["keys"]
        51 MOVE                             R10 R6
        52 CALL                             R9 1 1
        53 LENGTH                           R8 R9
@@ -79,34 +79,34 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Thunks"]
-       20 GETTABLEKS                       R3 R4 K10 ["OnScriptsReverted"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Thunks"]
+       20 GETTABLEKS                       R3 R3 K10 ["OnScriptsReverted"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Actions"]
-       29 GETTABLEKS                       R4 R5 K12 ["SetProcessResult"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Actions"]
+       29 GETTABLEKS                       R4 R4 K12 ["SetProcessResult"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R8 R0 K8 ["Src"]
-       36 GETTABLEKS                       R7 R8 K13 ["Util"]
-       38 GETTABLEKS                       R6 R7 K14 ["ScriptHistory"]
-       40 GETTABLEKS                       R5 R6 K15 ["revertScripts"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K13 ["Util"]
+       38 GETTABLEKS                       R5 R5 K14 ["ScriptHistory"]
+       40 GETTABLEKS                       R5 R5 K15 ["revertScripts"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K8 ["Src"]
-       47 GETTABLEKS                       R7 R8 K13 ["Util"]
-       49 GETTABLEKS                       R6 R7 K16 ["ScriptIssueSorting"]
+       45 GETTABLEKS                       R6 R0 K8 ["Src"]
+       47 GETTABLEKS                       R6 R6 K13 ["Util"]
+       49 GETTABLEKS                       R6 R6 K16 ["ScriptIssueSorting"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R9 R0 K8 ["Src"]
-       56 GETTABLEKS                       R8 R9 K13 ["Util"]
-       58 GETTABLEKS                       R7 R8 K17 ["ScriptConversionProgressTracker"]
+       54 GETTABLEKS                       R7 R0 K8 ["Src"]
+       56 GETTABLEKS                       R7 R7 K13 ["Util"]
+       58 GETTABLEKS                       R7 R7 K17 ["ScriptConversionProgressTracker"]
        60 CALL                             R6 1 1
        61 DUPCLOSURE                       R7 K18 [PROTO_2]
        62 CAPTURE                          VAL R1

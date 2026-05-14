@@ -89,8 +89,8 @@ PROTO_2:
        52 CALL                             R2 3 0
        53 JUMPIFNOT                        R1 ; [+7]
        54 GETUPVAL                         R2 2
-       55 GETUPVAL                         R5 2
-       56 GETTABLEKS                       R4 R5 K23 ["clickSelects"]
+       55 GETUPVAL                         R4 2
+       56 GETTABLEKS                       R4 R4 K23 ["clickSelects"]
        58 ADDK                             R3 R4 K22 [1]
        59 SETTABLEKS                       R3 R2 K23 ["clickSelects"]
        61 RETURN                           R0 0
@@ -121,8 +121,8 @@ PROTO_3:
        28 FORGLOOP                         R6 2 ; [-7]
        30 FORGLOOP                         R1 2 ; [-22]
        32 GETUPVAL                         R1 1
-       33 GETUPVAL                         R4 1
-       34 GETTABLEKS                       R3 R4 K7 ["freeformDrags"]
+       33 GETUPVAL                         R3 1
+       34 GETTABLEKS                       R3 R3 K7 ["freeformDrags"]
        36 ADDK                             R2 R3 K5 [1]
        37 SETTABLEKS                       R2 R1 K7 ["freeformDrags"]
        39 DUPTABLE                         R1 K13 [{"dragTilts", "dragRotates", "partCount", "attachmentCount", "timeToStartDrag"}]
@@ -149,9 +149,9 @@ PROTO_4:
         6 GETUPVAL                         R1 1
         7 JUMPIFNOT                        R1 ; [+8]
         8 GETUPVAL                         R1 0
-        9 GETUPVAL                         R4 1
-       10 SUB                              R3 R0 R4
-       11 GETTABLEKS                       R2 R3 K2 ["Magnitude"]
+        9 GETUPVAL                         R3 1
+       10 SUB                              R2 R0 R3
+       11 GETTABLEKS                       R2 R2 K2 ["Magnitude"]
        13 SETTABLEKS                       R2 R1 K3 ["dragDistance"]
        15 JUMP                             ; [+5]
        16 GETUPVAL                         R1 0
@@ -159,12 +159,12 @@ PROTO_4:
        18 SETTABLEKS                       R2 R1 K3 ["dragDistance"]
        20 SETUPVAL                         R0 1
        21 GETUPVAL                         R1 0
-       22 GETUPVAL                         R7 2
-       23 GETTABLEKS                       R6 R7 K4 ["CurrentCamera"]
-       25 GETTABLEKS                       R5 R6 K5 ["CFrame"]
-       27 GETTABLEKS                       R4 R5 K6 ["Position"]
-       29 SUB                              R3 R4 R0
-       30 GETTABLEKS                       R2 R3 K2 ["Magnitude"]
+       22 GETUPVAL                         R3 2
+       23 GETTABLEKS                       R3 R3 K4 ["CurrentCamera"]
+       25 GETTABLEKS                       R3 R3 K5 ["CFrame"]
+       27 GETTABLEKS                       R3 R3 K6 ["Position"]
+       29 SUB                              R2 R3 R0
+       30 GETTABLEKS                       R2 R2 K2 ["Magnitude"]
        32 SETTABLEKS                       R2 R1 K7 ["distanceToCamera"]
        34 RETURN                           R0 0
 
@@ -172,8 +172,8 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+30]
         2 GETUPVAL                         R0 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["GridSize"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["GridSize"]
         6 SETTABLEKS                       R1 R0 K1 ["gridSize"]
         8 GETUPVAL                         R0 0
         9 LOADK                            R1 K2 ["Transform"]
@@ -202,11 +202,11 @@ PROTO_6:
         2 DUPTABLE                         R4 K9 [{"toolName", "gridSize", "rotateIncrement", "useLocalSpace", "joinSurfaces", "useConstraints", "haveCollisions", "wasAutoSelected"}]
         3 LOADK                            R5 K10 ["Transform"]
         4 SETTABLEKS                       R5 R4 K1 ["toolName"]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K11 ["GridSize"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K11 ["GridSize"]
         9 SETTABLEKS                       R5 R4 K2 ["gridSize"]
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R5 R6 K12 ["RotateIncrement"]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K12 ["RotateIncrement"]
        14 SETTABLEKS                       R5 R4 K3 ["rotateIncrement"]
        16 LOADB                            R5 0
        17 SETTABLEKS                       R5 R4 K4 ["useLocalSpace"]
@@ -223,11 +223,11 @@ PROTO_6:
        34 GETUPVAL                         R1 0
        35 LOADK                            R3 K14 ["transformHandleDragged"]
        36 DUPTABLE                         R4 K16 [{"gridSize", "rotateIncrement", "handleName"}]
-       37 GETUPVAL                         R6 1
-       38 GETTABLEKS                       R5 R6 K11 ["GridSize"]
+       37 GETUPVAL                         R5 1
+       38 GETTABLEKS                       R5 R5 K11 ["GridSize"]
        40 SETTABLEKS                       R5 R4 K2 ["gridSize"]
-       42 GETUPVAL                         R6 1
-       43 GETTABLEKS                       R5 R6 K12 ["RotateIncrement"]
+       42 GETUPVAL                         R5 1
+       43 GETTABLEKS                       R5 R5 K12 ["RotateIncrement"]
        45 SETTABLEKS                       R5 R4 K3 ["rotateIncrement"]
        47 SETTABLEKS                       R0 R4 K15 ["handleName"]
        49 NAMECALL                         R1 R1 K13 ["sendEvent"]
@@ -306,8 +306,8 @@ PROTO_10:
        32 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelection"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K2 [workspace]
         6 MOVE                             R3 R0
@@ -319,8 +319,8 @@ PROTO_11:
        14 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelection"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K2 [workspace]
         6 MOVE                             R3 R0
@@ -354,8 +354,8 @@ PROTO_13:
        28 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelection"]
         3 CALL                             R0 0 1
         4 NEWTABLE                         R1 0 0
         6 SETUPVAL                         R1 1
@@ -408,8 +408,8 @@ PROTO_16:
        19 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelection"]
         3 CALL                             R0 0 1
         4 LENGTH                           R1 R0
         5 LOADN                            R2 0
@@ -418,15 +418,15 @@ PROTO_17:
         9 JUMPIF                           R1 ; [+13]
        10 GETIMPORT                        R1 K3 [Instance.new]
        12 LOADK                            R2 K4 ["Part"]
-       13 GETIMPORT                        R4 K6 [game]
-       15 GETTABLEKS                       R3 R4 K7 ["CoreGui"]
+       13 GETIMPORT                        R3 K6 [game]
+       15 GETTABLEKS                       R3 R3 K7 ["CoreGui"]
        17 CALL                             R1 2 1
        18 SETUPVAL                         R1 1
        19 GETUPVAL                         R1 1
        20 LOADK                            R2 K8 ["RotateAdornPart"]
        21 SETTABLEKS                       R2 R1 K9 ["Name"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R1 R2 K10 ["getFilteredSelectionMetapart"]
+       23 GETUPVAL                         R1 0
+       24 GETTABLEKS                       R1 R1 K10 ["getFilteredSelectionMetapart"]
        26 CALL                             R1 0 1
        27 GETUPVAL                         R2 1
        28 GETTABLEKS                       R3 R1 K11 ["CFrame"]
@@ -434,15 +434,15 @@ PROTO_17:
        32 GETUPVAL                         R2 1
        33 GETTABLEKS                       R3 R1 K12 ["Size"]
        35 SETTABLEKS                       R3 R2 K12 ["Size"]
-       37 GETUPVAL                         R3 2
-       38 GETTABLEKS                       R2 R3 K13 ["adornInstanceWithRotate"]
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R2 R2 K13 ["adornInstanceWithRotate"]
        40 GETUPVAL                         R3 1
        41 CALL                             R2 1 0
        42 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelectionMetapart"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelectionMetapart"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+3]
         5 GETTABLEKS                       R1 R0 K1 ["ClearCache"]
@@ -456,39 +456,39 @@ PROTO_18:
 PROTO_19:
         0 LOADB                            R0 0
         1 SETUPVAL                         R0 0
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["grabHandle"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["grabHandle"]
         5 CALL                             R0 0 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R0 R1 K1 ["getCurrentHandle"]
+        6 GETUPVAL                         R0 1
+        7 GETTABLEKS                       R0 R0 K1 ["getCurrentHandle"]
         9 CALL                             R0 0 1
        10 JUMPIFNOTEQKN                    R0 K2 [0] ; [+9]
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K3 ["isPlaneSelectingModeOn"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K3 ["isPlaneSelectingModeOn"]
        15 CALL                             R1 0 1
        16 JUMPIF                           R1 ; [+3]
        17 GETGLOBAL                        R1 K4 ["selectPart"]
        19 CALL                             R1 0 0
        20 JUMPIFNOTEQKN                    R0 K5 [14] ; [+11]
-       22 GETUPVAL                         R3 3
-       23 GETTABLEKS                       R2 R3 K6 ["Origin"]
-       25 GETTABLEKS                       R1 R2 K7 ["p"]
+       22 GETUPVAL                         R1 3
+       23 GETTABLEKS                       R1 R1 K6 ["Origin"]
+       25 GETTABLEKS                       R1 R1 K7 ["p"]
        27 SETUPVAL                         R1 2
        28 GETGLOBAL                        R1 K8 ["analyticsSendSetPlane"]
        30 CALL                             R1 0 0
        31 JUMP                             ; [+17]
-       32 GETUPVAL                         R2 1
-       33 GETTABLEKS                       R1 R2 K9 ["getCurrentAdornment"]
+       32 GETUPVAL                         R1 1
+       33 GETTABLEKS                       R1 R1 K9 ["getCurrentAdornment"]
        35 CALL                             R1 0 1
        36 JUMPIFNOT                        R1 ; [+12]
-       37 GETUPVAL                         R4 1
-       38 GETTABLEKS                       R3 R4 K10 ["getAdornmentWorldCFrame"]
-       40 GETUPVAL                         R6 1
-       41 GETTABLEKS                       R5 R6 K9 ["getCurrentAdornment"]
-       43 CALL                             R5 0 1
-       44 GETTABLEN                        R4 R5 1
-       45 CALL                             R3 1 1
-       46 GETTABLEKS                       R2 R3 K7 ["p"]
+       37 GETUPVAL                         R2 1
+       38 GETTABLEKS                       R2 R2 K10 ["getAdornmentWorldCFrame"]
+       40 GETUPVAL                         R4 1
+       41 GETTABLEKS                       R4 R4 K9 ["getCurrentAdornment"]
+       43 CALL                             R4 0 1
+       44 GETTABLEN                        R3 R4 1
+       45 CALL                             R2 1 1
+       46 GETTABLEKS                       R2 R2 K7 ["p"]
        48 SETUPVAL                         R2 2
        49 GETGLOBAL                        R1 K0 ["grabHandle"]
        51 MOVE                             R2 R0
@@ -501,8 +501,8 @@ PROTO_20:
         1 SETUPVAL                         R0 0
         2 GETUPVAL                         R0 1
         3 JUMPIFNOT                        R0 ; [+12]
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K0 ["isRubberBandDragInProgress"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K0 ["isRubberBandDragInProgress"]
         7 CALL                             R0 0 1
         8 JUMPIFNOT                        R0 ; [+4]
         9 GETGLOBAL                        R0 K1 ["analyticsSendBoxSelect"]
@@ -510,16 +510,16 @@ PROTO_20:
        12 JUMP                             ; [+3]
        13 GETGLOBAL                        R0 K2 ["analyticsSendFreeformDragged"]
        15 CALL                             R0 0 0
-       16 GETUPVAL                         R1 2
-       17 GETTABLEKS                       R0 R1 K0 ["isRubberBandDragInProgress"]
+       16 GETUPVAL                         R0 2
+       17 GETTABLEKS                       R0 R0 K0 ["isRubberBandDragInProgress"]
        19 CALL                             R0 0 1
        20 JUMPIF                           R0 ; [+3]
        21 GETGLOBAL                        R0 K3 ["releaseHandle"]
        23 CALL                             R0 0 0
        24 GETGLOBAL                        R0 K4 ["releasePart"]
        26 CALL                             R0 0 0
-       27 GETUPVAL                         R1 3
-       28 GETTABLEKS                       R0 R1 K3 ["releaseHandle"]
+       27 GETUPVAL                         R0 3
+       28 GETTABLEKS                       R0 R0 K3 ["releaseHandle"]
        30 CALL                             R0 0 0
        31 LOADB                            R0 0
        32 SETUPVAL                         R0 4
@@ -726,20 +726,20 @@ PROTO_31:
         3 GETTABLEKS                       R6 R0 K4 ["Origin"]
         5 NAMECALL                         R4 R1 K5 ["pointToObjectSpace"]
         7 CALL                             R4 2 1
-        8 GETTABLEKS                       R9 R0 K6 ["Direction"]
-       10 GETTABLEKS                       R10 R1 K7 ["p"]
-       12 ADD                              R8 R9 R10
-       13 NAMECALL                         R6 R1 K5 ["pointToObjectSpace"]
-       15 CALL                             R6 2 1
-       16 GETTABLEKS                       R5 R6 K8 ["unit"]
+        8 GETTABLEKS                       R8 R0 K6 ["Direction"]
+       10 GETTABLEKS                       R9 R1 K7 ["p"]
+       12 ADD                              R7 R8 R9
+       13 NAMECALL                         R5 R1 K5 ["pointToObjectSpace"]
+       15 CALL                             R5 2 1
+       16 GETTABLEKS                       R5 R5 K8 ["unit"]
        18 CALL                             R3 2 1
-       19 GETTABLEKS                       R5 R3 K4 ["Origin"]
-       21 GETTABLEKS                       R4 R5 K9 ["x"]
+       19 GETTABLEKS                       R4 R3 K4 ["Origin"]
+       21 GETTABLEKS                       R4 R4 K9 ["x"]
        23 GETTABLEKS                       R6 R2 K9 ["x"]
        25 MINUS                            R5 R6
        26 JUMPIFNOTLT                      R4 R5 ; [+21]
-       28 GETTABLEKS                       R5 R3 K6 ["Direction"]
-       30 GETTABLEKS                       R4 R5 K9 ["x"]
+       28 GETTABLEKS                       R4 R3 K6 ["Direction"]
+       30 GETTABLEKS                       R4 R4 K9 ["x"]
        32 LOADN                            R5 0
        33 JUMPIFNOTLT                      R5 R4 ; [+14]
        35 GETGLOBAL                        R4 K10 ["boxSideTest"]
@@ -753,12 +753,12 @@ PROTO_31:
        45 CALL                             R5 2 -1
        46 RETURN                           R5 -1
        47 JUMP                             ; [+28]
-       48 GETTABLEKS                       R5 R3 K4 ["Origin"]
-       50 GETTABLEKS                       R4 R5 K9 ["x"]
+       48 GETTABLEKS                       R4 R3 K4 ["Origin"]
+       50 GETTABLEKS                       R4 R4 K9 ["x"]
        52 GETTABLEKS                       R5 R2 K9 ["x"]
        54 JUMPIFNOTLT                      R5 R4 ; [+21]
-       56 GETTABLEKS                       R5 R3 K6 ["Direction"]
-       58 GETTABLEKS                       R4 R5 K9 ["x"]
+       56 GETTABLEKS                       R4 R3 K6 ["Direction"]
+       58 GETTABLEKS                       R4 R4 K9 ["x"]
        60 LOADN                            R5 0
        61 JUMPIFNOTLT                      R4 R5 ; [+14]
        63 GETGLOBAL                        R4 K10 ["boxSideTest"]
@@ -772,13 +772,13 @@ PROTO_31:
        72 NAMECALL                         R5 R1 K12 ["pointToWorldSpace"]
        74 CALL                             R5 2 -1
        75 RETURN                           R5 -1
-       76 GETTABLEKS                       R5 R3 K4 ["Origin"]
-       78 GETTABLEKS                       R4 R5 K14 ["y"]
+       76 GETTABLEKS                       R4 R3 K4 ["Origin"]
+       78 GETTABLEKS                       R4 R4 K14 ["y"]
        80 GETTABLEKS                       R6 R2 K14 ["y"]
        82 MINUS                            R5 R6
        83 JUMPIFNOTLT                      R4 R5 ; [+21]
-       85 GETTABLEKS                       R5 R3 K6 ["Direction"]
-       87 GETTABLEKS                       R4 R5 K14 ["y"]
+       85 GETTABLEKS                       R4 R3 K6 ["Direction"]
+       87 GETTABLEKS                       R4 R4 K14 ["y"]
        89 LOADN                            R5 0
        90 JUMPIFNOTLT                      R5 R4 ; [+14]
        92 GETGLOBAL                        R4 K10 ["boxSideTest"]
@@ -792,12 +792,12 @@ PROTO_31:
       102 CALL                             R5 2 -1
       103 RETURN                           R5 -1
       104 JUMP                             ; [+27]
-      105 GETTABLEKS                       R5 R3 K4 ["Origin"]
-      107 GETTABLEKS                       R4 R5 K14 ["y"]
+      105 GETTABLEKS                       R4 R3 K4 ["Origin"]
+      107 GETTABLEKS                       R4 R4 K14 ["y"]
       109 GETTABLEKS                       R5 R2 K14 ["y"]
       111 JUMPIFNOTLT                      R5 R4 ; [+20]
-      113 GETTABLEKS                       R5 R3 K6 ["Direction"]
-      115 GETTABLEKS                       R4 R5 K14 ["y"]
+      113 GETTABLEKS                       R4 R3 K6 ["Direction"]
+      115 GETTABLEKS                       R4 R4 K14 ["y"]
       117 LOADN                            R5 0
       118 JUMPIFNOTLT                      R4 R5 ; [+13]
       120 GETGLOBAL                        R4 K10 ["boxSideTest"]
@@ -810,13 +810,13 @@ PROTO_31:
       128 NAMECALL                         R5 R1 K12 ["pointToWorldSpace"]
       130 CALL                             R5 2 -1
       131 RETURN                           R5 -1
-      132 GETTABLEKS                       R5 R3 K4 ["Origin"]
-      134 GETTABLEKS                       R4 R5 K17 ["z"]
+      132 GETTABLEKS                       R4 R3 K4 ["Origin"]
+      134 GETTABLEKS                       R4 R4 K17 ["z"]
       136 GETTABLEKS                       R6 R2 K17 ["z"]
       138 MINUS                            R5 R6
       139 JUMPIFNOTLT                      R4 R5 ; [+21]
-      141 GETTABLEKS                       R5 R3 K6 ["Direction"]
-      143 GETTABLEKS                       R4 R5 K17 ["z"]
+      141 GETTABLEKS                       R4 R3 K6 ["Direction"]
+      143 GETTABLEKS                       R4 R4 K17 ["z"]
       145 LOADN                            R5 0
       146 JUMPIFNOTLT                      R5 R4 ; [+14]
       148 GETGLOBAL                        R4 K10 ["boxSideTest"]
@@ -830,12 +830,12 @@ PROTO_31:
       158 CALL                             R5 2 -1
       159 RETURN                           R5 -1
       160 JUMP                             ; [+27]
-      161 GETTABLEKS                       R5 R3 K4 ["Origin"]
-      163 GETTABLEKS                       R4 R5 K17 ["z"]
+      161 GETTABLEKS                       R4 R3 K4 ["Origin"]
+      163 GETTABLEKS                       R4 R4 K17 ["z"]
       165 GETTABLEKS                       R5 R2 K17 ["z"]
       167 JUMPIFNOTLT                      R5 R4 ; [+20]
-      169 GETTABLEKS                       R5 R3 K6 ["Direction"]
-      171 GETTABLEKS                       R4 R5 K17 ["z"]
+      169 GETTABLEKS                       R4 R3 K6 ["Direction"]
+      171 GETTABLEKS                       R4 R4 K17 ["z"]
       173 LOADN                            R5 0
       174 JUMPIFNOTLT                      R4 R5 ; [+13]
       176 GETGLOBAL                        R4 K10 ["boxSideTest"]
@@ -865,8 +865,8 @@ PROTO_32:
 PROTO_33:
         0 JUMPIF                           R2 ; [+2]
         1 NEWTABLE                         R2 0 0
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K0 ["moveUntilCollide"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K0 ["moveUntilCollide"]
         6 MOVE                             R6 R0
         7 MOVE                             R7 R2
         8 MOVE                             R8 R3
@@ -876,8 +876,8 @@ PROTO_33:
        12 RETURN                           R5 -1
 
 PROTO_34:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["SafeMove"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["SafeMove"]
         3 MOVE                             R5 R0
         4 MOVE                             R6 R2
         5 MOVE                             R7 R3
@@ -885,13 +885,13 @@ PROTO_34:
         7 RETURN                           R0 0
 
 PROTO_35:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SafeMove"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["SafeMove"]
         3 MOVE                             R4 R0
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K1 ["createIgnoreListGivenWhiteList"]
-        7 GETIMPORT                        R7 K3 [game]
-        9 GETTABLEKS                       R6 R7 K4 ["Workspace"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K1 ["createIgnoreListGivenWhiteList"]
+        7 GETIMPORT                        R6 K3 [game]
+        9 GETTABLEKS                       R6 R6 K4 ["Workspace"]
        11 MOVE                             R7 R2
        12 CALL                             R5 2 1
        13 MOVE                             R6 R1
@@ -905,18 +905,18 @@ PROTO_36:
         5 RETURN                           R0 0
 
 PROTO_37:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["GridSize"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["fuzzyCompare"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["GridSize"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["fuzzyCompare"]
         6 MOVE                             R2 R0
         7 LOADK                            R3 K2 [0.2]
         8 CALL                             R1 2 1
         9 JUMPIFNOT                        R1 ; [+2]
        10 LOADN                            R1 15
        11 RETURN                           R1 1
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K1 ["fuzzyCompare"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K1 ["fuzzyCompare"]
        15 MOVE                             R2 R0
        16 LOADK                            R3 K3 [0.01]
        17 CALL                             R1 2 1
@@ -927,11 +927,11 @@ PROTO_37:
        22 RETURN                           R1 1
 
 PROTO_38:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["GridSize"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["GridSize"]
         3 JUMPIFEQKN                       R1 K1 [0] ; [+8]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["roundToNearest"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["roundToNearest"]
         8 MOVE                             R3 R0
         9 MOVE                             R4 R1
        10 CALL                             R2 2 -1
@@ -994,8 +994,8 @@ PROTO_41:
        12 GETGLOBAL                        R4 K6 ["roundToNearestGrid"]
        14 GETTABLEKS                       R5 R0 K7 ["X"]
        16 CALL                             R4 1 1
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K8 ["GridSize"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K8 ["GridSize"]
        20 FASTCALL2                        MATH_MAX R4 R5 ; [+3]
        22 GETIMPORT                        R3 K11 [math.max]
        24 CALL                             R3 2 1
@@ -1016,8 +1016,8 @@ PROTO_41:
        50 GETGLOBAL                        R6 K6 ["roundToNearestGrid"]
        52 GETTABLEKS                       R7 R0 K13 ["Z"]
        54 CALL                             R6 1 1
-       55 GETUPVAL                         R8 0
-       56 GETTABLEKS                       R7 R8 K8 ["GridSize"]
+       55 GETUPVAL                         R7 0
+       56 GETTABLEKS                       R7 R7 K8 ["GridSize"]
        58 FASTCALL2                        MATH_MAX R6 R7 ; [+3]
        60 GETIMPORT                        R5 K11 [math.max]
        62 CALL                             R5 2 1
@@ -1031,8 +1031,8 @@ PROTO_41:
        74 GETGLOBAL                        R5 K6 ["roundToNearestGrid"]
        76 GETTABLEKS                       R6 R0 K12 ["Y"]
        78 CALL                             R5 1 1
-       79 GETUPVAL                         R7 0
-       80 GETTABLEKS                       R6 R7 K8 ["GridSize"]
+       79 GETUPVAL                         R6 0
+       80 GETTABLEKS                       R6 R6 K8 ["GridSize"]
        82 FASTCALL2                        MATH_MAX R5 R6 ; [+3]
        84 GETIMPORT                        R4 K11 [math.max]
        86 CALL                             R4 2 1
@@ -1044,8 +1044,8 @@ PROTO_41:
        94 RETURN                           R0 1
 
 PROTO_42:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelection"]
         3 CALL                             R0 0 1
         4 LENGTH                           R1 R0
         5 LOADN                            R2 1
@@ -1059,8 +1059,8 @@ PROTO_43:
         0 JUMPIF                           R1 ; [+2]
         1 NEWTABLE                         R1 0 0
         3 JUMPIF                           R0 ; [+5]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K0 ["getFilteredSelection"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K0 ["getFilteredSelection"]
         7 CALL                             R2 0 1
         8 MOVE                             R0 R2
         9 GETIMPORT                        R2 K2 [pairs]
@@ -1091,8 +1091,8 @@ PROTO_43:
 
 PROTO_44:
         0 GETTABLEKS                       R4 R0 K0 ["CFrame"]
-        2 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-        4 GETTABLEKS                       R5 R6 K1 ["p"]
+        2 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+        4 GETTABLEKS                       R5 R5 K1 ["p"]
         6 SUB                              R3 R4 R5
         7 ADD                              R2 R3 R1
         8 SETTABLEKS                       R2 R0 K0 ["CFrame"]
@@ -1101,8 +1101,8 @@ PROTO_44:
 PROTO_45:
         0 GETTABLEKS                       R4 R1 K0 ["p"]
         2 SUB                              R3 R1 R4
-        3 GETTABLEKS                       R5 R0 K1 ["CFrame"]
-        5 GETTABLEKS                       R4 R5 K0 ["p"]
+        3 GETTABLEKS                       R4 R0 K1 ["CFrame"]
+        5 GETTABLEKS                       R4 R4 K0 ["p"]
         7 ADD                              R2 R3 R4
         8 SETTABLEKS                       R2 R0 K1 ["CFrame"]
        10 RETURN                           R0 0
@@ -1174,11 +1174,11 @@ PROTO_46:
 PROTO_47:
         0 GETGLOBAL                        R0 K0 ["removeDragPart"]
         2 CALL                             R0 0 0
-        3 GETUPVAL                         R1 0
-        4 GETTABLEKS                       R0 R1 K1 ["getFilteredSelectionMetapart"]
+        3 GETUPVAL                         R0 0
+        4 GETTABLEKS                       R0 R0 K1 ["getFilteredSelectionMetapart"]
         6 CALL                             R0 0 1
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["getCurrentHandle"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["getCurrentHandle"]
        10 CALL                             R1 0 1
        11 LOADK                            R2 K3 ["Unknown"]
        12 JUMPIFEQKN                       R1 K4 [2] ; [+17]
@@ -1271,8 +1271,8 @@ PROTO_50:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["getFilteredSelection"]
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["getFilteredSelection"]
         6 CALL                             R0 0 1
         7 LENGTH                           R1 R0
         8 LOADN                            R2 1
@@ -1281,8 +1281,8 @@ PROTO_50:
        12 LENGTH                           R1 R0
        13 LOADN                            R2 1
        14 JUMPIFNOTLT                      R2 R1 ; [+1]
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R1 R2 K1 ["getFilteredSelectionMetapart"]
+       16 GETUPVAL                         R1 1
+       17 GETTABLEKS                       R1 R1 K1 ["getFilteredSelectionMetapart"]
        19 CALL                             R1 0 1
        20 GETUPVAL                         R2 2
        21 JUMPIFNOT                        R2 ; [+40]
@@ -1296,17 +1296,17 @@ PROTO_50:
        32 GETTABLEKS                       R3 R1 K5 ["PlaneAlignedSize"]
        34 SETTABLEKS                       R3 R2 K6 ["Size"]
        36 JUMP                             ; [+31]
-       37 GETUPVAL                         R3 2
-       38 GETTABLEKS                       R2 R3 K4 ["CFrame"]
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R2 R2 K4 ["CFrame"]
        40 GETUPVAL                         R3 0
        41 GETIMPORT                        R4 K8 [CFrame.new]
-       43 GETUPVAL                         R7 0
-       44 GETTABLEKS                       R6 R7 K4 ["CFrame"]
-       46 GETTABLEKS                       R5 R6 K9 ["p"]
+       43 GETUPVAL                         R5 0
+       44 GETTABLEKS                       R5 R5 K4 ["CFrame"]
+       46 GETTABLEKS                       R5 R5 K9 ["p"]
        48 CALL                             R4 1 1
        49 SETTABLEKS                       R4 R3 K4 ["CFrame"]
-       51 GETUPVAL                         R4 4
-       52 GETTABLEKS                       R3 R4 K10 ["setPartCFrameToExtents"]
+       51 GETUPVAL                         R3 4
+       52 GETTABLEKS                       R3 R3 K10 ["setPartCFrameToExtents"]
        54 GETUPVAL                         R4 0
        55 GETGLOBAL                        R5 K11 ["rotateCFrame"]
        57 MOVE                             R6 R2
@@ -1314,26 +1314,26 @@ PROTO_50:
        59 CALL                             R5 2 -1
        60 CALL                             R3 -1 0
        61 JUMP                             ; [+6]
-       62 GETUPVAL                         R3 4
-       63 GETTABLEKS                       R2 R3 K10 ["setPartCFrameToExtents"]
+       62 GETUPVAL                         R2 4
+       63 GETTABLEKS                       R2 R2 K10 ["setPartCFrameToExtents"]
        65 GETUPVAL                         R3 0
        66 LOADNIL                          R4
        67 CALL                             R2 2 0
        68 GETUPVAL                         R2 6
        69 JUMPIFNOT                        R2 ; [+11]
-       70 GETUPVAL                         R5 0
-       71 GETTABLEKS                       R4 R5 K4 ["CFrame"]
-       73 GETUPVAL                         R6 6
-       74 NAMECALL                         R4 R4 K12 ["pointToObjectSpace"]
-       76 CALL                             R4 2 1
-       77 GETTABLEKS                       R3 R4 K13 ["y"]
+       70 GETUPVAL                         R3 0
+       71 GETTABLEKS                       R3 R3 K4 ["CFrame"]
+       73 GETUPVAL                         R5 6
+       74 NAMECALL                         R3 R3 K12 ["pointToObjectSpace"]
+       76 CALL                             R3 2 1
+       77 GETTABLEKS                       R3 R3 K13 ["y"]
        79 MINUS                            R2 R3
        80 SETUPVAL                         R2 7
        81 RETURN                           R0 0
 
 PROTO_51:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["resetDragger"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["resetDragger"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
@@ -1386,8 +1386,8 @@ PROTO_52:
        69 RETURN                           R1 1
 
 PROTO_53:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getCurrentHandle"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getCurrentHandle"]
         3 CALL                             R0 0 1
         4 JUMPIFNOTEQKN                    R0 K1 [0] ; [+2]
         6 RETURN                           R0 0
@@ -1396,29 +1396,29 @@ PROTO_53:
         9 RETURN                           R0 0
        10 JUMPIFNOTEQKN                    R0 K2 [14] ; [+2]
        12 RETURN                           R0 0
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K3 ["getCurrentAdornment"]
+       13 GETUPVAL                         R1 0
+       14 GETTABLEKS                       R1 R1 K3 ["getCurrentAdornment"]
        16 CALL                             R1 0 1
-       17 GETTABLEN                        R3 R1 1
-       18 GETTABLEKS                       R2 R3 K4 ["Adornee"]
+       17 GETTABLEN                        R2 R1 1
+       18 GETTABLEKS                       R2 R2 K4 ["Adornee"]
        20 JUMPIF                           R2 ; [+1]
        21 RETURN                           R0 0
-       22 GETUPVAL                         R4 0
-       23 GETTABLEKS                       R3 R4 K5 ["getAdornmentWorldCFrame"]
+       22 GETUPVAL                         R3 0
+       23 GETTABLEKS                       R3 R3 K5 ["getAdornmentWorldCFrame"]
        25 GETTABLEN                        R4 R1 1
        26 CALL                             R3 1 1
-       27 GETUPVAL                         R5 2
-       28 GETTABLEKS                       R4 R5 K6 ["UnitRay"]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K6 ["UnitRay"]
        30 JUMPIFEQKN                       R0 K7 [1] ; [+3]
        32 JUMPIFNOTEQKN                    R0 K8 [6] ; [+90]
-       34 GETTABLEKS                       R7 R2 K9 ["CFrame"]
-       36 LOADK                            R9 K10 [{0, 1, 0}]
-       37 NAMECALL                         R7 R7 K11 ["pointToWorldSpace"]
-       39 CALL                             R7 2 1
-       40 GETTABLEKS                       R9 R2 K9 ["CFrame"]
-       42 GETTABLEKS                       R8 R9 K12 ["p"]
-       44 SUB                              R6 R7 R8
-       45 GETTABLEKS                       R5 R6 K13 ["Unit"]
+       34 GETTABLEKS                       R6 R2 K9 ["CFrame"]
+       36 LOADK                            R8 K10 [{0, 1, 0}]
+       37 NAMECALL                         R6 R6 K11 ["pointToWorldSpace"]
+       39 CALL                             R6 2 1
+       40 GETTABLEKS                       R7 R2 K9 ["CFrame"]
+       42 GETTABLEKS                       R7 R7 K12 ["p"]
+       44 SUB                              R5 R6 R7
+       45 GETTABLEKS                       R5 R5 K13 ["Unit"]
        47 GETTABLEKS                       R7 R4 K14 ["Direction"]
        49 GETTABLEKS                       R9 R4 K14 ["Direction"]
        51 MOVE                             R11 R5
@@ -1469,22 +1469,22 @@ PROTO_53:
       113 CALL                             R14 2 1
       114 MOVE                             R12 R14
       115 MULK                             R13 R13 K22 [-1]
-      116 GETUPVAL                         R17 1
-      117 SUB                              R16 R12 R17
-      118 GETTABLEKS                       R15 R16 K23 ["Magnitude"]
+      116 GETUPVAL                         R16 1
+      117 SUB                              R15 R12 R16
+      118 GETTABLEKS                       R15 R15 K23 ["Magnitude"]
       120 MUL                              R14 R15 R13
       121 SETUPVAL                         R14 3
       122 JUMP                             ; [+367]
       123 JUMPIFEQKN                       R0 K24 [2] ; [+3]
       125 JUMPIFNOTEQKN                    R0 K25 [3] ; [+95]
-      127 GETTABLEKS                       R7 R2 K9 ["CFrame"]
-      129 LOADK                            R9 K26 [{1, 0, 0}]
-      130 NAMECALL                         R7 R7 K11 ["pointToWorldSpace"]
-      132 CALL                             R7 2 1
-      133 GETTABLEKS                       R9 R2 K9 ["CFrame"]
-      135 GETTABLEKS                       R8 R9 K12 ["p"]
-      137 SUB                              R6 R7 R8
-      138 GETTABLEKS                       R5 R6 K13 ["Unit"]
+      127 GETTABLEKS                       R6 R2 K9 ["CFrame"]
+      129 LOADK                            R8 K26 [{1, 0, 0}]
+      130 NAMECALL                         R6 R6 K11 ["pointToWorldSpace"]
+      132 CALL                             R6 2 1
+      133 GETTABLEKS                       R7 R2 K9 ["CFrame"]
+      135 GETTABLEKS                       R7 R7 K12 ["p"]
+      137 SUB                              R5 R6 R7
+      138 GETTABLEKS                       R5 R5 K13 ["Unit"]
       140 GETTABLEKS                       R7 R4 K14 ["Direction"]
       142 GETTABLEKS                       R9 R4 K14 ["Direction"]
       144 MOVE                             R11 R5
@@ -1535,9 +1535,9 @@ PROTO_53:
       206 CALL                             R14 2 1
       207 MOVE                             R12 R14
       208 MULK                             R13 R13 K22 [-1]
-      209 GETUPVAL                         R17 1
-      210 SUB                              R16 R12 R17
-      211 GETTABLEKS                       R15 R16 K23 ["Magnitude"]
+      209 GETUPVAL                         R16 1
+      210 SUB                              R15 R12 R16
+      211 GETTABLEKS                       R15 R15 K23 ["Magnitude"]
       213 MUL                              R14 R15 R13
       214 SETUPVAL                         R14 3
       215 JUMPIFNOTEQKN                    R0 K25 [3] ; [+274]
@@ -1547,14 +1547,14 @@ PROTO_53:
       220 JUMP                             ; [+269]
       221 JUMPIFEQKN                       R0 K27 [4] ; [+3]
       223 JUMPIFNOTEQKN                    R0 K28 [5] ; [+95]
-      225 GETTABLEKS                       R7 R2 K9 ["CFrame"]
-      227 LOADK                            R9 K29 [{0, 0, 1}]
-      228 NAMECALL                         R7 R7 K11 ["pointToWorldSpace"]
-      230 CALL                             R7 2 1
-      231 GETTABLEKS                       R9 R2 K9 ["CFrame"]
-      233 GETTABLEKS                       R8 R9 K12 ["p"]
-      235 SUB                              R6 R7 R8
-      236 GETTABLEKS                       R5 R6 K13 ["Unit"]
+      225 GETTABLEKS                       R6 R2 K9 ["CFrame"]
+      227 LOADK                            R8 K29 [{0, 0, 1}]
+      228 NAMECALL                         R6 R6 K11 ["pointToWorldSpace"]
+      230 CALL                             R6 2 1
+      231 GETTABLEKS                       R7 R2 K9 ["CFrame"]
+      233 GETTABLEKS                       R7 R7 K12 ["p"]
+      235 SUB                              R5 R6 R7
+      236 GETTABLEKS                       R5 R5 K13 ["Unit"]
       238 GETTABLEKS                       R7 R4 K14 ["Direction"]
       240 GETTABLEKS                       R9 R4 K14 ["Direction"]
       242 MOVE                             R11 R5
@@ -1605,9 +1605,9 @@ PROTO_53:
       304 CALL                             R14 2 1
       305 MOVE                             R12 R14
       306 MULK                             R13 R13 K22 [-1]
-      307 GETUPVAL                         R17 1
-      308 SUB                              R16 R12 R17
-      309 GETTABLEKS                       R15 R16 K23 ["Magnitude"]
+      307 GETUPVAL                         R16 1
+      308 SUB                              R15 R12 R16
+      309 GETTABLEKS                       R15 R15 K23 ["Magnitude"]
       311 MUL                              R14 R15 R13
       312 SETUPVAL                         R14 3
       313 JUMPIFNOTEQKN                    R0 K28 [5] ; [+176]
@@ -1619,14 +1619,14 @@ PROTO_53:
       321 JUMPIFEQKN                       R0 K31 [10] ; [+5]
       323 JUMPIFEQKN                       R0 K32 [8] ; [+3]
       325 JUMPIFNOTEQKN                    R0 K33 [9] ; [+77]
-      327 GETTABLEKS                       R7 R2 K9 ["CFrame"]
-      329 LOADK                            R9 K10 [{0, 1, 0}]
-      330 NAMECALL                         R7 R7 K11 ["pointToWorldSpace"]
-      332 CALL                             R7 2 1
-      333 GETTABLEKS                       R9 R2 K9 ["CFrame"]
-      335 GETTABLEKS                       R8 R9 K12 ["p"]
-      337 SUB                              R6 R7 R8
-      338 GETTABLEKS                       R5 R6 K13 ["Unit"]
+      327 GETTABLEKS                       R6 R2 K9 ["CFrame"]
+      329 LOADK                            R8 K10 [{0, 1, 0}]
+      330 NAMECALL                         R6 R6 K11 ["pointToWorldSpace"]
+      332 CALL                             R6 2 1
+      333 GETTABLEKS                       R7 R2 K9 ["CFrame"]
+      335 GETTABLEKS                       R7 R7 K12 ["p"]
+      337 SUB                              R5 R6 R7
+      338 GETTABLEKS                       R5 R5 K13 ["Unit"]
       340 GETTABLEKS                       R8 R3 K12 ["p"]
       342 NAMECALL                         R6 R5 K15 ["Dot"]
       344 CALL                             R6 2 1
@@ -1647,15 +1647,15 @@ PROTO_53:
       365 MUL                              R11 R12 R8
       366 ADD                              R9 R10 R11
       367 GETUPVAL                         R11 4
-      368 GETUPVAL                         R15 4
-      369 GETTABLEKS                       R14 R15 K12 ["p"]
+      368 GETUPVAL                         R14 4
+      369 GETTABLEKS                       R14 R14 K12 ["p"]
       371 ADD                              R13 R9 R14
       372 NAMECALL                         R11 R11 K34 ["pointToObjectSpace"]
       374 CALL                             R11 2 1
       375 GETUPVAL                         R12 4
       376 GETUPVAL                         R15 1
-      377 GETUPVAL                         R17 4
-      378 GETTABLEKS                       R16 R17 K12 ["p"]
+      377 GETUPVAL                         R16 4
+      378 GETTABLEKS                       R16 R16 K12 ["p"]
       380 ADD                              R14 R15 R16
       381 NAMECALL                         R12 R12 K34 ["pointToObjectSpace"]
       383 CALL                             R12 2 1
@@ -1677,28 +1677,28 @@ PROTO_53:
       403 JUMPIFEQKN                       R0 K37 [11] ; [+5]
       405 JUMPIFEQKN                       R0 K38 [12] ; [+3]
       407 JUMPIFNOTEQKN                    R0 K39 [13] ; [+82]
-      409 GETTABLEKS                       R7 R2 K9 ["CFrame"]
+      409 GETTABLEKS                       R6 R2 K9 ["CFrame"]
       411 JUMPIFNOTEQKN                    R0 K39 [13] ; [+3]
-      413 LOADN                            R10 1
+      413 LOADN                            R9 1
       414 JUMP                             ; [+1]
-      415 LOADN                            R10 0
+      415 LOADN                            R9 0
       416 JUMPIFNOTEQKN                    R0 K38 [12] ; [+3]
-      418 LOADN                            R11 1
+      418 LOADN                            R10 1
       419 JUMP                             ; [+1]
-      420 LOADN                            R11 0
+      420 LOADN                            R10 0
       421 JUMPIFNOTEQKN                    R0 K37 [11] ; [+3]
-      423 LOADN                            R12 1
+      423 LOADN                            R11 1
       424 JUMP                             ; [+1]
-      425 LOADN                            R12 0
+      425 LOADN                            R11 0
       426 FASTCALL                         VECTOR ; [+2]
-      427 GETIMPORT                        R9 K41 [Vector3.new]
-      429 CALL                             R9 3 1
-      430 NAMECALL                         R7 R7 K11 ["pointToWorldSpace"]
-      432 CALL                             R7 2 1
-      433 GETTABLEKS                       R9 R2 K9 ["CFrame"]
-      435 GETTABLEKS                       R8 R9 K12 ["p"]
-      437 SUB                              R6 R7 R8
-      438 GETTABLEKS                       R5 R6 K13 ["Unit"]
+      427 GETIMPORT                        R8 K41 [Vector3.new]
+      429 CALL                             R8 3 1
+      430 NAMECALL                         R6 R6 K11 ["pointToWorldSpace"]
+      432 CALL                             R6 2 1
+      433 GETTABLEKS                       R7 R2 K9 ["CFrame"]
+      435 GETTABLEKS                       R7 R7 K12 ["p"]
+      437 SUB                              R5 R6 R7
+      438 GETTABLEKS                       R5 R5 K13 ["Unit"]
       440 GETTABLEKS                       R8 R3 K12 ["p"]
       442 NAMECALL                         R6 R5 K15 ["Dot"]
       444 CALL                             R6 2 1
@@ -1721,15 +1721,15 @@ PROTO_53:
       467 SETUPVAL                         R9 5
       468 GETUPVAL                         R10 4
       469 GETUPVAL                         R13 5
-      470 GETUPVAL                         R15 4
-      471 GETTABLEKS                       R14 R15 K12 ["p"]
+      470 GETUPVAL                         R14 4
+      471 GETTABLEKS                       R14 R14 K12 ["p"]
       473 ADD                              R12 R13 R14
       474 NAMECALL                         R10 R10 K34 ["pointToObjectSpace"]
       476 CALL                             R10 2 1
       477 GETUPVAL                         R11 4
       478 GETUPVAL                         R14 1
-      479 GETUPVAL                         R16 4
-      480 GETTABLEKS                       R15 R16 K12 ["p"]
+      479 GETUPVAL                         R15 4
+      480 GETTABLEKS                       R15 R15 K12 ["p"]
       482 ADD                              R13 R14 R15
       483 NAMECALL                         R11 R11 K34 ["pointToObjectSpace"]
       485 CALL                             R11 2 1
@@ -1872,14 +1872,14 @@ PROTO_58:
         4 RETURN                           R0 -1
 
 PROTO_59:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelectionMetapart"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelectionMetapart"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["getFilteredSelection"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K1 ["getFilteredSelection"]
         7 CALL                             R1 0 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["getCurrentHandle"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["getCurrentHandle"]
        11 CALL                             R2 0 1
        12 JUMPIFNOTEQKN                    R2 K3 [0] ; [+2]
        14 RETURN                           R0 0
@@ -1920,8 +1920,8 @@ PROTO_59:
        61 LOADB                            R3 1
        62 GETGLOBAL                        R4 K15 ["selectedPart"]
        64 JUMPIFNOT                        R4 ; [+10]
-       65 GETUPVAL                         R5 0
-       66 GETTABLEKS                       R4 R5 K1 ["getFilteredSelection"]
+       65 GETUPVAL                         R4 0
+       66 GETTABLEKS                       R4 R4 K1 ["getFilteredSelection"]
        68 CALL                             R4 0 1
        69 GETIMPORT                        R5 K17 [workspace]
        71 MOVE                             R7 R4
@@ -1939,24 +1939,24 @@ PROTO_59:
        88 GETTABLEKS                       R5 R6 K20 ["Size"]
        90 LOADB                            R6 1
        91 SETUPVAL                         R6 9
-       92 GETUPVAL                         R7 0
-       93 GETTABLEKS                       R6 R7 K1 ["getFilteredSelection"]
+       92 GETUPVAL                         R6 0
+       93 GETTABLEKS                       R6 R6 K1 ["getFilteredSelection"]
        95 CALL                             R6 0 1
        96 LENGTH                           R7 R6
        97 JUMPIFNOTEQKN                    R7 K3 [0] ; [+6]
-       99 GETUPVAL                         R8 1
-      100 GETTABLEKS                       R7 R8 K21 ["resetDragger"]
+       99 GETUPVAL                         R7 1
+      100 GETTABLEKS                       R7 R7 K21 ["resetDragger"]
       102 CALL                             R7 0 0
       103 RETURN                           R0 0
       104 LOADB                            R7 0
-      105 GETUPVAL                         R9 10
-      106 GETTABLEKS                       R8 R9 K22 ["CollisionEnabled"]
+      105 GETUPVAL                         R8 10
+      106 GETTABLEKS                       R8 R8 K22 ["CollisionEnabled"]
       108 JUMPIFNOT                        R8 ; [+20]
       109 GETUPVAL                         R8 11
       110 GETIMPORT                        R9 K17 [workspace]
       112 SETTABLEKS                       R9 R8 K23 ["Parent"]
-      114 GETUPVAL                         R9 12
-      115 GETTABLEKS                       R8 R9 K24 ["itemsHasItemNotInList"]
+      114 GETUPVAL                         R8 12
+      115 GETTABLEKS                       R8 R8 K24 ["itemsHasItemNotInList"]
       117 GETUPVAL                         R9 11
       118 NAMECALL                         R9 R9 K25 ["GetTouchingParts"]
       120 CALL                             R9 1 1
@@ -1974,8 +1974,8 @@ PROTO_59:
       134 CALL                             R8 3 1
       135 SETUPVAL                         R8 7
       136 JUMPIFNOTEQKN                    R2 K26 [6] ; [+260]
-      138 GETUPVAL                         R10 1
-      139 GETTABLEKS                       R9 R10 K27 ["getYScale"]
+      138 GETUPVAL                         R9 1
+      139 GETTABLEKS                       R9 R9 K27 ["getYScale"]
       141 CALL                             R9 0 1
       142 MINUS                            R8 R9
       143 GETUPVAL                         R10 7
@@ -1990,8 +1990,8 @@ PROTO_59:
       154 MOVE                             R12 R2
       155 CALL                             R10 2 1
       156 SETTABLEKS                       R10 R9 K20 ["Size"]
-      158 GETUPVAL                         R10 0
-      159 GETTABLEKS                       R9 R10 K1 ["getFilteredSelection"]
+      158 GETUPVAL                         R9 0
+      159 GETTABLEKS                       R9 R9 K1 ["getFilteredSelection"]
       161 CALL                             R9 0 1
       162 GETIMPORT                        R10 K17 [workspace]
       164 MOVE                             R12 R9
@@ -2004,8 +2004,8 @@ PROTO_59:
       174 GETUPVAL                         R10 6
       175 GETIMPORT                        R12 K30 [CFrame.new]
       177 GETUPVAL                         R16 5
-      178 GETGLOBAL                        R18 K15 ["selectedPart"]
-      180 GETTABLEKS                       R17 R18 K20 ["Size"]
+      178 GETGLOBAL                        R17 K15 ["selectedPart"]
+      180 GETTABLEKS                       R17 R17 K20 ["Size"]
       182 SUB                              R15 R16 R17
       183 DIVK                             R14 R15 K31 [2]
       184 MUL                              R13 R8 R14
@@ -2013,21 +2013,21 @@ PROTO_59:
       186 NAMECALL                         R10 R10 K32 ["toWorldSpace"]
       188 CALL                             R10 -1 1
       189 SETTABLEKS                       R10 R9 K19 ["CFrame"]
-      191 GETUPVAL                         R10 15
-      192 GETTABLEKS                       R9 R10 K33 ["distanceVector3"]
+      191 GETUPVAL                         R9 15
+      192 GETTABLEKS                       R9 R9 K33 ["distanceVector3"]
       194 GETTABLEKS                       R10 R4 K34 ["p"]
-      196 GETGLOBAL                        R13 K15 ["selectedPart"]
-      198 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-      200 GETTABLEKS                       R11 R12 K34 ["p"]
+      196 GETGLOBAL                        R11 K15 ["selectedPart"]
+      198 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+      200 GETTABLEKS                       R11 R11 K34 ["p"]
       202 CALL                             R9 2 1
-      203 GETTABLEKS                       R12 R4 K34 ["p"]
-      205 GETGLOBAL                        R15 K15 ["selectedPart"]
-      207 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      209 GETTABLEKS                       R13 R14 K34 ["p"]
-      211 SUB                              R11 R12 R13
-      212 GETTABLEKS                       R10 R11 K35 ["unit"]
-      214 GETUPVAL                         R12 10
-      215 GETTABLEKS                       R11 R12 K22 ["CollisionEnabled"]
+      203 GETTABLEKS                       R11 R4 K34 ["p"]
+      205 GETGLOBAL                        R12 K15 ["selectedPart"]
+      207 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      209 GETTABLEKS                       R12 R12 K34 ["p"]
+      211 SUB                              R10 R11 R12
+      212 GETTABLEKS                       R10 R10 K35 ["unit"]
+      214 GETUPVAL                         R11 10
+      215 GETTABLEKS                       R11 R11 K22 ["CollisionEnabled"]
       217 JUMPIFNOT                        R11 ; [+102]
       218 GETGLOBAL                        R12 K15 ["selectedPart"]
       220 NAMECALL                         R12 R12 K25 ["GetTouchingParts"]
@@ -2037,8 +2037,8 @@ PROTO_59:
       225 JUMPIFNOTLT                      R12 R11 ; [+94]
       227 GETGLOBAL                        R11 K15 ["selectedPart"]
       229 SETTABLEKS                       R5 R11 K20 ["Size"]
-      231 GETUPVAL                         R12 0
-      232 GETTABLEKS                       R11 R12 K1 ["getFilteredSelection"]
+      231 GETUPVAL                         R11 0
+      232 GETTABLEKS                       R11 R11 K1 ["getFilteredSelection"]
       234 CALL                             R11 0 1
       235 GETIMPORT                        R12 K17 [workspace]
       237 MOVE                             R14 R11
@@ -2057,25 +2057,25 @@ PROTO_59:
       255 MULK                             R14 R9 K31 [2]
       256 JUMPIF                           R12 ; [+2]
       257 NEWTABLE                         R12 0 0
-      259 GETUPVAL                         R16 16
-      260 GETTABLEKS                       R15 R16 K37 ["moveUntilCollide"]
+      259 GETUPVAL                         R15 16
+      260 GETTABLEKS                       R15 R15 K37 ["moveUntilCollide"]
       262 MOVE                             R16 R11
       263 MOVE                             R17 R12
       264 MOVE                             R18 R13
       265 LOADK                            R19 K38 [1E-05]
       266 MOVE                             R20 R14
       267 CALL                             R15 5 1
-      268 GETUPVAL                         R12 15
-      269 GETTABLEKS                       R11 R12 K33 ["distanceVector3"]
+      268 GETUPVAL                         R11 15
+      269 GETTABLEKS                       R11 R11 K33 ["distanceVector3"]
       271 GETTABLEKS                       R12 R4 K34 ["p"]
-      273 GETGLOBAL                        R15 K15 ["selectedPart"]
-      275 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      277 GETTABLEKS                       R13 R14 K34 ["p"]
+      273 GETGLOBAL                        R13 K15 ["selectedPart"]
+      275 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      277 GETTABLEKS                       R13 R13 K34 ["p"]
       279 CALL                             R11 2 1
       280 GETTABLEKS                       R13 R4 K34 ["p"]
-      282 GETGLOBAL                        R16 K15 ["selectedPart"]
-      284 GETTABLEKS                       R15 R16 K19 ["CFrame"]
-      286 GETTABLEKS                       R14 R15 K34 ["p"]
+      282 GETGLOBAL                        R14 K15 ["selectedPart"]
+      284 GETTABLEKS                       R14 R14 K19 ["CFrame"]
+      286 GETTABLEKS                       R14 R14 K34 ["p"]
       288 SUB                              R12 R13 R14
       289 GETGLOBAL                        R13 K15 ["selectedPart"]
       291 GETGLOBAL                        R17 K39 ["getScaleHandleLocalVector"]
@@ -2085,8 +2085,8 @@ PROTO_59:
       296 MUL                              R15 R16 R8
       297 SUB                              R14 R5 R15
       298 SETTABLEKS                       R14 R13 K20 ["Size"]
-      300 GETUPVAL                         R14 0
-      301 GETTABLEKS                       R13 R14 K1 ["getFilteredSelection"]
+      300 GETUPVAL                         R13 0
+      301 GETTABLEKS                       R13 R13 K1 ["getFilteredSelection"]
       303 CALL                             R13 0 1
       304 GETIMPORT                        R14 K17 [workspace]
       306 MOVE                             R16 R13
@@ -2099,48 +2099,48 @@ PROTO_59:
       316 DIVK                             R15 R12 K31 [2]
       317 SUB                              R14 R4 R15
       318 SETTABLEKS                       R14 R13 K19 ["CFrame"]
-      320 GETGLOBAL                        R13 K15 ["selectedPart"]
-      322 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-      324 GETGLOBAL                        R17 K15 ["selectedPart"]
-      326 GETTABLEKS                       R16 R17 K20 ["Size"]
+      320 GETGLOBAL                        R12 K15 ["selectedPart"]
+      322 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      324 GETGLOBAL                        R16 K15 ["selectedPart"]
+      326 GETTABLEKS                       R16 R16 K20 ["Size"]
       328 DIVK                             R15 R16 K31 [2]
       329 LOADK                            R16 K40 [{0, 1, 0}]
       330 MUL                              R14 R15 R16
       331 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
       333 CALL                             R12 2 1
-      334 GETGLOBAL                        R15 K15 ["selectedPart"]
-      336 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      338 GETTABLEKS                       R13 R14 K34 ["p"]
+      334 GETGLOBAL                        R13 K15 ["selectedPart"]
+      336 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      338 GETTABLEKS                       R13 R13 K34 ["p"]
       340 SUB                              R11 R12 R13
-      341 GETIMPORT                        R16 K43 [game]
-      343 GETTABLEKS                       R15 R16 K44 ["Workspace"]
-      345 GETTABLEKS                       R14 R15 K45 ["CurrentCamera"]
-      347 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      349 GETTABLEKS                       R12 R13 K46 ["LookVector"]
+      341 GETIMPORT                        R12 K43 [game]
+      343 GETTABLEKS                       R12 R12 K44 ["Workspace"]
+      345 GETTABLEKS                       R12 R12 K45 ["CurrentCamera"]
+      347 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      349 GETTABLEKS                       R12 R12 K46 ["LookVector"]
       351 MOVE                             R17 R11
       352 NAMECALL                         R15 R12 K47 ["Dot"]
       354 CALL                             R15 2 1
       355 MUL                              R14 R15 R11
       356 SUB                              R13 R12 R14
-      357 MOVE                             R17 R11
-      358 NAMECALL                         R15 R13 K48 ["Cross"]
-      360 CALL                             R15 2 1
-      361 GETTABLEKS                       R14 R15 K35 ["unit"]
-      363 GETUPVAL                         R16 1
-      364 GETTABLEKS                       R15 R16 K49 ["scaleOne"]
-      366 GETGLOBAL                        R17 K15 ["selectedPart"]
-      368 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-      370 GETGLOBAL                        R21 K15 ["selectedPart"]
-      372 GETTABLEKS                       R20 R21 K20 ["Size"]
+      357 MOVE                             R16 R11
+      358 NAMECALL                         R14 R13 K48 ["Cross"]
+      360 CALL                             R14 2 1
+      361 GETTABLEKS                       R14 R14 K35 ["unit"]
+      363 GETUPVAL                         R15 1
+      364 GETTABLEKS                       R15 R15 K49 ["scaleOne"]
+      366 GETGLOBAL                        R16 K15 ["selectedPart"]
+      368 GETTABLEKS                       R16 R16 K19 ["CFrame"]
+      370 GETGLOBAL                        R20 K15 ["selectedPart"]
+      372 GETTABLEKS                       R20 R20 K20 ["Size"]
       374 DIVK                             R19 R20 K31 [2]
       375 LOADK                            R20 K50 [{0, -1, 0}]
       376 MUL                              R18 R19 R20
       377 NAMECALL                         R16 R16 K41 ["pointToWorldSpace"]
       379 CALL                             R16 2 1
-      380 GETGLOBAL                        R18 K15 ["selectedPart"]
-      382 GETTABLEKS                       R17 R18 K19 ["CFrame"]
-      384 GETGLOBAL                        R22 K15 ["selectedPart"]
-      386 GETTABLEKS                       R21 R22 K20 ["Size"]
+      380 GETGLOBAL                        R17 K15 ["selectedPart"]
+      382 GETTABLEKS                       R17 R17 K19 ["CFrame"]
+      384 GETGLOBAL                        R21 K15 ["selectedPart"]
+      386 GETTABLEKS                       R21 R21 K20 ["Size"]
       388 DIVK                             R20 R21 K31 [2]
       389 LOADK                            R21 K40 [{0, 1, 0}]
       390 MUL                              R19 R20 R21
@@ -2151,8 +2151,8 @@ PROTO_59:
       396 JUMP                             ; [+2535]
       397 JUMPIFEQKN                       R2 K31 [2] ; [+3]
       399 JUMPIFNOTEQKN                    R2 K51 [4] ; [+347]
-      401 GETUPVAL                         R9 0
-      402 GETTABLEKS                       R8 R9 K1 ["getFilteredSelection"]
+      401 GETUPVAL                         R8 0
+      402 GETTABLEKS                       R8 R8 K1 ["getFilteredSelection"]
       404 CALL                             R8 0 1
       405 GETIMPORT                        R9 K17 [workspace]
       407 MOVE                             R11 R8
@@ -2173,8 +2173,8 @@ PROTO_59:
       428 GETUPVAL                         R9 6
       429 GETIMPORT                        R11 K30 [CFrame.new]
       431 GETUPVAL                         R15 5
-      432 GETGLOBAL                        R17 K15 ["selectedPart"]
-      434 GETTABLEKS                       R16 R17 K20 ["Size"]
+      432 GETGLOBAL                        R16 K15 ["selectedPart"]
+      434 GETTABLEKS                       R16 R16 K20 ["Size"]
       436 SUB                              R14 R15 R16
       437 MULK                             R13 R14 K52 [0.5]
       438 MINUS                            R12 R13
@@ -2182,21 +2182,21 @@ PROTO_59:
       440 NAMECALL                         R9 R9 K32 ["toWorldSpace"]
       442 CALL                             R9 -1 1
       443 SETTABLEKS                       R9 R8 K19 ["CFrame"]
-      445 GETUPVAL                         R9 15
-      446 GETTABLEKS                       R8 R9 K33 ["distanceVector3"]
+      445 GETUPVAL                         R8 15
+      446 GETTABLEKS                       R8 R8 K33 ["distanceVector3"]
       448 GETTABLEKS                       R9 R4 K34 ["p"]
-      450 GETGLOBAL                        R12 K15 ["selectedPart"]
-      452 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-      454 GETTABLEKS                       R10 R11 K34 ["p"]
+      450 GETGLOBAL                        R10 K15 ["selectedPart"]
+      452 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+      454 GETTABLEKS                       R10 R10 K34 ["p"]
       456 CALL                             R8 2 1
-      457 GETTABLEKS                       R11 R4 K34 ["p"]
-      459 GETGLOBAL                        R14 K15 ["selectedPart"]
-      461 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      463 GETTABLEKS                       R12 R13 K34 ["p"]
-      465 SUB                              R10 R11 R12
-      466 GETTABLEKS                       R9 R10 K35 ["unit"]
-      468 GETUPVAL                         R11 10
-      469 GETTABLEKS                       R10 R11 K22 ["CollisionEnabled"]
+      457 GETTABLEKS                       R10 R4 K34 ["p"]
+      459 GETGLOBAL                        R11 K15 ["selectedPart"]
+      461 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+      463 GETTABLEKS                       R11 R11 K34 ["p"]
+      465 SUB                              R9 R10 R11
+      466 GETTABLEKS                       R9 R9 K35 ["unit"]
+      468 GETUPVAL                         R10 10
+      469 GETTABLEKS                       R10 R10 K22 ["CollisionEnabled"]
       471 JUMPIFNOT                        R10 ; [+101]
       472 GETGLOBAL                        R11 K15 ["selectedPart"]
       474 NAMECALL                         R11 R11 K25 ["GetTouchingParts"]
@@ -2206,8 +2206,8 @@ PROTO_59:
       479 JUMPIFNOTLT                      R11 R10 ; [+93]
       481 GETGLOBAL                        R10 K15 ["selectedPart"]
       483 SETTABLEKS                       R5 R10 K20 ["Size"]
-      485 GETUPVAL                         R11 0
-      486 GETTABLEKS                       R10 R11 K1 ["getFilteredSelection"]
+      485 GETUPVAL                         R10 0
+      486 GETTABLEKS                       R10 R10 K1 ["getFilteredSelection"]
       488 CALL                             R10 0 1
       489 GETIMPORT                        R11 K17 [workspace]
       491 MOVE                             R13 R10
@@ -2226,25 +2226,25 @@ PROTO_59:
       509 MULK                             R13 R8 K31 [2]
       510 JUMPIF                           R11 ; [+2]
       511 NEWTABLE                         R11 0 0
-      513 GETUPVAL                         R15 16
-      514 GETTABLEKS                       R14 R15 K37 ["moveUntilCollide"]
+      513 GETUPVAL                         R14 16
+      514 GETTABLEKS                       R14 R14 K37 ["moveUntilCollide"]
       516 MOVE                             R15 R10
       517 MOVE                             R16 R11
       518 MOVE                             R17 R12
       519 LOADK                            R18 K38 [1E-05]
       520 MOVE                             R19 R13
       521 CALL                             R14 5 1
-      522 GETUPVAL                         R11 15
-      523 GETTABLEKS                       R10 R11 K33 ["distanceVector3"]
+      522 GETUPVAL                         R10 15
+      523 GETTABLEKS                       R10 R10 K33 ["distanceVector3"]
       525 GETTABLEKS                       R11 R4 K34 ["p"]
-      527 GETGLOBAL                        R14 K15 ["selectedPart"]
-      529 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      531 GETTABLEKS                       R12 R13 K34 ["p"]
+      527 GETGLOBAL                        R12 K15 ["selectedPart"]
+      529 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      531 GETTABLEKS                       R12 R12 K34 ["p"]
       533 CALL                             R10 2 1
       534 GETTABLEKS                       R12 R4 K34 ["p"]
-      536 GETGLOBAL                        R15 K15 ["selectedPart"]
-      538 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      540 GETTABLEKS                       R13 R14 K34 ["p"]
+      536 GETGLOBAL                        R13 K15 ["selectedPart"]
+      538 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      540 GETTABLEKS                       R13 R13 K34 ["p"]
       542 SUB                              R11 R12 R13
       543 GETGLOBAL                        R12 K15 ["selectedPart"]
       545 GETGLOBAL                        R15 K39 ["getScaleHandleLocalVector"]
@@ -2253,8 +2253,8 @@ PROTO_59:
       549 MUL                              R14 R10 R15
       550 ADD                              R13 R5 R14
       551 SETTABLEKS                       R13 R12 K20 ["Size"]
-      553 GETUPVAL                         R13 0
-      554 GETTABLEKS                       R12 R13 K1 ["getFilteredSelection"]
+      553 GETUPVAL                         R12 0
+      554 GETTABLEKS                       R12 R12 K1 ["getFilteredSelection"]
       556 CALL                             R12 0 1
       557 GETIMPORT                        R13 K17 [workspace]
       559 MOVE                             R15 R12
@@ -2268,25 +2268,25 @@ PROTO_59:
       570 SUB                              R13 R4 R14
       571 SETTABLEKS                       R13 R12 K19 ["CFrame"]
       573 JUMPIFNOTEQKN                    R2 K31 [2] ; [+86]
-      575 GETGLOBAL                        R11 K15 ["selectedPart"]
-      577 GETTABLEKS                       R10 R11 K19 ["CFrame"]
-      579 GETIMPORT                        R16 K43 [game]
-      581 GETTABLEKS                       R15 R16 K44 ["Workspace"]
-      583 GETTABLEKS                       R14 R15 K45 ["CurrentCamera"]
-      585 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      587 GETTABLEKS                       R12 R13 K53 ["Position"]
+      575 GETGLOBAL                        R10 K15 ["selectedPart"]
+      577 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+      579 GETIMPORT                        R12 K43 [game]
+      581 GETTABLEKS                       R12 R12 K44 ["Workspace"]
+      583 GETTABLEKS                       R12 R12 K45 ["CurrentCamera"]
+      585 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      587 GETTABLEKS                       R12 R12 K53 ["Position"]
       589 NAMECALL                         R10 R10 K54 ["PointToObjectSpace"]
       591 CALL                             R10 2 1
-      592 GETUPVAL                         R12 15
-      593 GETTABLEKS                       R11 R12 K55 ["getVector3Sign"]
+      592 GETUPVAL                         R11 15
+      593 GETTABLEKS                       R11 R11 K55 ["getVector3Sign"]
       595 MOVE                             R12 R10
       596 CALL                             R11 1 1
-      597 GETUPVAL                         R13 1
-      598 GETTABLEKS                       R12 R13 K49 ["scaleOne"]
-      600 GETGLOBAL                        R14 K15 ["selectedPart"]
-      602 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      604 GETGLOBAL                        R18 K15 ["selectedPart"]
-      606 GETTABLEKS                       R17 R18 K20 ["Size"]
+      597 GETUPVAL                         R12 1
+      598 GETTABLEKS                       R12 R12 K49 ["scaleOne"]
+      600 GETGLOBAL                        R13 K15 ["selectedPart"]
+      602 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      604 GETGLOBAL                        R17 K15 ["selectedPart"]
+      606 GETTABLEKS                       R17 R17 K20 ["Size"]
       608 DIVK                             R16 R17 K31 [2]
       609 LOADN                            R18 255
       610 LOADN                            R19 255
@@ -2297,10 +2297,10 @@ PROTO_59:
       617 MUL                              R15 R16 R17
       618 NAMECALL                         R13 R13 K41 ["pointToWorldSpace"]
       620 CALL                             R13 2 1
-      621 GETGLOBAL                        R15 K15 ["selectedPart"]
-      623 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      625 GETGLOBAL                        R19 K15 ["selectedPart"]
-      627 GETTABLEKS                       R18 R19 K20 ["Size"]
+      621 GETGLOBAL                        R14 K15 ["selectedPart"]
+      623 GETTABLEKS                       R14 R14 K19 ["CFrame"]
+      625 GETGLOBAL                        R18 K15 ["selectedPart"]
+      627 GETTABLEKS                       R18 R18 K20 ["Size"]
       629 DIVK                             R17 R18 K31 [2]
       630 LOADN                            R19 1
       631 LOADN                            R20 255
@@ -2311,38 +2311,38 @@ PROTO_59:
       638 MUL                              R16 R17 R18
       639 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
       641 CALL                             R14 2 1
-      642 GETGLOBAL                        R17 K15 ["selectedPart"]
-      644 GETTABLEKS                       R16 R17 K19 ["CFrame"]
+      642 GETGLOBAL                        R16 K15 ["selectedPart"]
+      644 GETTABLEKS                       R16 R16 K19 ["CFrame"]
       646 LOADK                            R19 K59 [{0, 0, 1}]
       647 MUL                              R18 R11 R19
       648 NAMECALL                         R16 R16 K41 ["pointToWorldSpace"]
       650 CALL                             R16 2 1
-      651 GETGLOBAL                        R19 K15 ["selectedPart"]
-      653 GETTABLEKS                       R18 R19 K19 ["CFrame"]
-      655 GETTABLEKS                       R17 R18 K34 ["p"]
+      651 GETGLOBAL                        R17 K15 ["selectedPart"]
+      653 GETTABLEKS                       R17 R17 K19 ["CFrame"]
+      655 GETTABLEKS                       R17 R17 K34 ["p"]
       657 SUB                              R15 R16 R17
       658 CALL                             R12 3 0
       659 JUMP                             ; [+2272]
       660 JUMPIFNOTEQKN                    R2 K51 [4] ; [+2271]
-      662 GETGLOBAL                        R11 K15 ["selectedPart"]
-      664 GETTABLEKS                       R10 R11 K19 ["CFrame"]
-      666 GETIMPORT                        R16 K43 [game]
-      668 GETTABLEKS                       R15 R16 K44 ["Workspace"]
-      670 GETTABLEKS                       R14 R15 K45 ["CurrentCamera"]
-      672 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      674 GETTABLEKS                       R12 R13 K53 ["Position"]
+      662 GETGLOBAL                        R10 K15 ["selectedPart"]
+      664 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+      666 GETIMPORT                        R12 K43 [game]
+      668 GETTABLEKS                       R12 R12 K44 ["Workspace"]
+      670 GETTABLEKS                       R12 R12 K45 ["CurrentCamera"]
+      672 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      674 GETTABLEKS                       R12 R12 K53 ["Position"]
       676 NAMECALL                         R10 R10 K54 ["PointToObjectSpace"]
       678 CALL                             R10 2 1
-      679 GETUPVAL                         R12 15
-      680 GETTABLEKS                       R11 R12 K55 ["getVector3Sign"]
+      679 GETUPVAL                         R11 15
+      680 GETTABLEKS                       R11 R11 K55 ["getVector3Sign"]
       682 MOVE                             R12 R10
       683 CALL                             R11 1 1
-      684 GETUPVAL                         R13 1
-      685 GETTABLEKS                       R12 R13 K49 ["scaleOne"]
-      687 GETGLOBAL                        R14 K15 ["selectedPart"]
-      689 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      691 GETGLOBAL                        R18 K15 ["selectedPart"]
-      693 GETTABLEKS                       R17 R18 K20 ["Size"]
+      684 GETUPVAL                         R12 1
+      685 GETTABLEKS                       R12 R12 K49 ["scaleOne"]
+      687 GETGLOBAL                        R13 K15 ["selectedPart"]
+      689 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      691 GETGLOBAL                        R17 K15 ["selectedPart"]
+      693 GETTABLEKS                       R17 R17 K20 ["Size"]
       695 DIVK                             R16 R17 K31 [2]
       696 GETTABLEKS                       R18 R11 K60 ["x"]
       698 LOADN                            R19 255
@@ -2353,10 +2353,10 @@ PROTO_59:
       704 MUL                              R15 R16 R17
       705 NAMECALL                         R13 R13 K41 ["pointToWorldSpace"]
       707 CALL                             R13 2 1
-      708 GETGLOBAL                        R15 K15 ["selectedPart"]
-      710 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      712 GETGLOBAL                        R19 K15 ["selectedPart"]
-      714 GETTABLEKS                       R18 R19 K20 ["Size"]
+      708 GETGLOBAL                        R14 K15 ["selectedPart"]
+      710 GETTABLEKS                       R14 R14 K19 ["CFrame"]
+      712 GETGLOBAL                        R18 K15 ["selectedPart"]
+      714 GETTABLEKS                       R18 R18 K20 ["Size"]
       716 DIVK                             R17 R18 K31 [2]
       717 GETTABLEKS                       R19 R11 K60 ["x"]
       719 LOADN                            R20 255
@@ -2367,22 +2367,22 @@ PROTO_59:
       725 MUL                              R16 R17 R18
       726 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
       728 CALL                             R14 2 1
-      729 GETGLOBAL                        R17 K15 ["selectedPart"]
-      731 GETTABLEKS                       R16 R17 K19 ["CFrame"]
+      729 GETGLOBAL                        R16 K15 ["selectedPart"]
+      731 GETTABLEKS                       R16 R16 K19 ["CFrame"]
       733 LOADK                            R19 K61 [{1, 0, 0}]
       734 MUL                              R18 R11 R19
       735 NAMECALL                         R16 R16 K41 ["pointToWorldSpace"]
       737 CALL                             R16 2 1
-      738 GETGLOBAL                        R19 K15 ["selectedPart"]
-      740 GETTABLEKS                       R18 R19 K19 ["CFrame"]
-      742 GETTABLEKS                       R17 R18 K34 ["p"]
+      738 GETGLOBAL                        R17 K15 ["selectedPart"]
+      740 GETTABLEKS                       R17 R17 K19 ["CFrame"]
+      742 GETTABLEKS                       R17 R17 K34 ["p"]
       744 SUB                              R15 R16 R17
       745 CALL                             R12 3 0
       746 JUMP                             ; [+2185]
       747 JUMPIFEQKN                       R2 K62 [3] ; [+3]
       749 JUMPIFNOTEQKN                    R2 K63 [5] ; [+346]
-      751 GETUPVAL                         R9 0
-      752 GETTABLEKS                       R8 R9 K1 ["getFilteredSelection"]
+      751 GETUPVAL                         R8 0
+      752 GETTABLEKS                       R8 R8 K1 ["getFilteredSelection"]
       754 CALL                             R8 0 1
       755 GETIMPORT                        R9 K17 [workspace]
       757 MOVE                             R11 R8
@@ -2403,29 +2403,29 @@ PROTO_59:
       778 GETUPVAL                         R9 6
       779 GETIMPORT                        R11 K30 [CFrame.new]
       781 GETUPVAL                         R14 5
-      782 GETGLOBAL                        R16 K15 ["selectedPart"]
-      784 GETTABLEKS                       R15 R16 K20 ["Size"]
+      782 GETGLOBAL                        R15 K15 ["selectedPart"]
+      784 GETTABLEKS                       R15 R15 K20 ["Size"]
       786 SUB                              R13 R14 R15
       787 MULK                             R12 R13 K52 [0.5]
       788 CALL                             R11 1 -1
       789 NAMECALL                         R9 R9 K32 ["toWorldSpace"]
       791 CALL                             R9 -1 1
       792 SETTABLEKS                       R9 R8 K19 ["CFrame"]
-      794 GETUPVAL                         R9 15
-      795 GETTABLEKS                       R8 R9 K33 ["distanceVector3"]
+      794 GETUPVAL                         R8 15
+      795 GETTABLEKS                       R8 R8 K33 ["distanceVector3"]
       797 GETTABLEKS                       R9 R4 K34 ["p"]
-      799 GETGLOBAL                        R12 K15 ["selectedPart"]
-      801 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-      803 GETTABLEKS                       R10 R11 K34 ["p"]
+      799 GETGLOBAL                        R10 K15 ["selectedPart"]
+      801 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+      803 GETTABLEKS                       R10 R10 K34 ["p"]
       805 CALL                             R8 2 1
-      806 GETTABLEKS                       R11 R4 K34 ["p"]
-      808 GETGLOBAL                        R14 K15 ["selectedPart"]
-      810 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      812 GETTABLEKS                       R12 R13 K34 ["p"]
-      814 SUB                              R10 R11 R12
-      815 GETTABLEKS                       R9 R10 K35 ["unit"]
-      817 GETUPVAL                         R11 10
-      818 GETTABLEKS                       R10 R11 K22 ["CollisionEnabled"]
+      806 GETTABLEKS                       R10 R4 K34 ["p"]
+      808 GETGLOBAL                        R11 K15 ["selectedPart"]
+      810 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+      812 GETTABLEKS                       R11 R11 K34 ["p"]
+      814 SUB                              R9 R10 R11
+      815 GETTABLEKS                       R9 R9 K35 ["unit"]
+      817 GETUPVAL                         R10 10
+      818 GETTABLEKS                       R10 R10 K22 ["CollisionEnabled"]
       820 JUMPIFNOT                        R10 ; [+101]
       821 GETGLOBAL                        R11 K15 ["selectedPart"]
       823 NAMECALL                         R11 R11 K25 ["GetTouchingParts"]
@@ -2435,8 +2435,8 @@ PROTO_59:
       828 JUMPIFNOTLT                      R11 R10 ; [+93]
       830 GETGLOBAL                        R10 K15 ["selectedPart"]
       832 SETTABLEKS                       R5 R10 K20 ["Size"]
-      834 GETUPVAL                         R11 0
-      835 GETTABLEKS                       R10 R11 K1 ["getFilteredSelection"]
+      834 GETUPVAL                         R10 0
+      835 GETTABLEKS                       R10 R10 K1 ["getFilteredSelection"]
       837 CALL                             R10 0 1
       838 GETIMPORT                        R11 K17 [workspace]
       840 MOVE                             R13 R10
@@ -2455,25 +2455,25 @@ PROTO_59:
       858 MULK                             R13 R8 K31 [2]
       859 JUMPIF                           R11 ; [+2]
       860 NEWTABLE                         R11 0 0
-      862 GETUPVAL                         R15 16
-      863 GETTABLEKS                       R14 R15 K37 ["moveUntilCollide"]
+      862 GETUPVAL                         R14 16
+      863 GETTABLEKS                       R14 R14 K37 ["moveUntilCollide"]
       865 MOVE                             R15 R10
       866 MOVE                             R16 R11
       867 MOVE                             R17 R12
       868 LOADK                            R18 K38 [1E-05]
       869 MOVE                             R19 R13
       870 CALL                             R14 5 1
-      871 GETUPVAL                         R11 15
-      872 GETTABLEKS                       R10 R11 K33 ["distanceVector3"]
+      871 GETUPVAL                         R10 15
+      872 GETTABLEKS                       R10 R10 K33 ["distanceVector3"]
       874 GETTABLEKS                       R11 R4 K34 ["p"]
-      876 GETGLOBAL                        R14 K15 ["selectedPart"]
-      878 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      880 GETTABLEKS                       R12 R13 K34 ["p"]
+      876 GETGLOBAL                        R12 K15 ["selectedPart"]
+      878 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      880 GETTABLEKS                       R12 R12 K34 ["p"]
       882 CALL                             R10 2 1
       883 GETTABLEKS                       R12 R4 K34 ["p"]
-      885 GETGLOBAL                        R15 K15 ["selectedPart"]
-      887 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      889 GETTABLEKS                       R13 R14 K34 ["p"]
+      885 GETGLOBAL                        R13 K15 ["selectedPart"]
+      887 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      889 GETTABLEKS                       R13 R13 K34 ["p"]
       891 SUB                              R11 R12 R13
       892 GETGLOBAL                        R12 K15 ["selectedPart"]
       894 GETGLOBAL                        R15 K39 ["getScaleHandleLocalVector"]
@@ -2482,8 +2482,8 @@ PROTO_59:
       898 MUL                              R14 R10 R15
       899 SUB                              R13 R5 R14
       900 SETTABLEKS                       R13 R12 K20 ["Size"]
-      902 GETUPVAL                         R13 0
-      903 GETTABLEKS                       R12 R13 K1 ["getFilteredSelection"]
+      902 GETUPVAL                         R12 0
+      903 GETTABLEKS                       R12 R12 K1 ["getFilteredSelection"]
       905 CALL                             R12 0 1
       906 GETIMPORT                        R13 K17 [workspace]
       908 MOVE                             R15 R12
@@ -2497,25 +2497,25 @@ PROTO_59:
       919 SUB                              R13 R4 R14
       920 SETTABLEKS                       R13 R12 K19 ["CFrame"]
       922 JUMPIFNOTEQKN                    R2 K62 [3] ; [+86]
-      924 GETGLOBAL                        R11 K15 ["selectedPart"]
-      926 GETTABLEKS                       R10 R11 K19 ["CFrame"]
-      928 GETIMPORT                        R16 K43 [game]
-      930 GETTABLEKS                       R15 R16 K44 ["Workspace"]
-      932 GETTABLEKS                       R14 R15 K45 ["CurrentCamera"]
-      934 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      936 GETTABLEKS                       R12 R13 K53 ["Position"]
+      924 GETGLOBAL                        R10 K15 ["selectedPart"]
+      926 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+      928 GETIMPORT                        R12 K43 [game]
+      930 GETTABLEKS                       R12 R12 K44 ["Workspace"]
+      932 GETTABLEKS                       R12 R12 K45 ["CurrentCamera"]
+      934 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+      936 GETTABLEKS                       R12 R12 K53 ["Position"]
       938 NAMECALL                         R10 R10 K54 ["PointToObjectSpace"]
       940 CALL                             R10 2 1
-      941 GETUPVAL                         R12 15
-      942 GETTABLEKS                       R11 R12 K55 ["getVector3Sign"]
+      941 GETUPVAL                         R11 15
+      942 GETTABLEKS                       R11 R11 K55 ["getVector3Sign"]
       944 MOVE                             R12 R10
       945 CALL                             R11 1 1
-      946 GETUPVAL                         R13 1
-      947 GETTABLEKS                       R12 R13 K49 ["scaleOne"]
-      949 GETGLOBAL                        R14 K15 ["selectedPart"]
-      951 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-      953 GETGLOBAL                        R18 K15 ["selectedPart"]
-      955 GETTABLEKS                       R17 R18 K20 ["Size"]
+      946 GETUPVAL                         R12 1
+      947 GETTABLEKS                       R12 R12 K49 ["scaleOne"]
+      949 GETGLOBAL                        R13 K15 ["selectedPart"]
+      951 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+      953 GETGLOBAL                        R17 K15 ["selectedPart"]
+      955 GETTABLEKS                       R17 R17 K20 ["Size"]
       957 DIVK                             R16 R17 K31 [2]
       958 LOADN                            R18 255
       959 LOADN                            R19 255
@@ -2526,10 +2526,10 @@ PROTO_59:
       966 MUL                              R15 R16 R17
       967 NAMECALL                         R13 R13 K41 ["pointToWorldSpace"]
       969 CALL                             R13 2 1
-      970 GETGLOBAL                        R15 K15 ["selectedPart"]
-      972 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-      974 GETGLOBAL                        R19 K15 ["selectedPart"]
-      976 GETTABLEKS                       R18 R19 K20 ["Size"]
+      970 GETGLOBAL                        R14 K15 ["selectedPart"]
+      972 GETTABLEKS                       R14 R14 K19 ["CFrame"]
+      974 GETGLOBAL                        R18 K15 ["selectedPart"]
+      976 GETTABLEKS                       R18 R18 K20 ["Size"]
       978 DIVK                             R17 R18 K31 [2]
       979 LOADN                            R19 1
       980 LOADN                            R20 255
@@ -2540,38 +2540,38 @@ PROTO_59:
       987 MUL                              R16 R17 R18
       988 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
       990 CALL                             R14 2 1
-      991 GETGLOBAL                        R17 K15 ["selectedPart"]
-      993 GETTABLEKS                       R16 R17 K19 ["CFrame"]
+      991 GETGLOBAL                        R16 K15 ["selectedPart"]
+      993 GETTABLEKS                       R16 R16 K19 ["CFrame"]
       995 LOADK                            R19 K59 [{0, 0, 1}]
       996 MUL                              R18 R11 R19
       997 NAMECALL                         R16 R16 K41 ["pointToWorldSpace"]
       999 CALL                             R16 2 1
-     1000 GETGLOBAL                        R19 K15 ["selectedPart"]
-     1002 GETTABLEKS                       R18 R19 K19 ["CFrame"]
-     1004 GETTABLEKS                       R17 R18 K34 ["p"]
+     1000 GETGLOBAL                        R17 K15 ["selectedPart"]
+     1002 GETTABLEKS                       R17 R17 K19 ["CFrame"]
+     1004 GETTABLEKS                       R17 R17 K34 ["p"]
      1006 SUB                              R15 R16 R17
      1007 CALL                             R12 3 0
      1008 JUMP                             ; [+1923]
      1009 JUMPIFNOTEQKN                    R2 K63 [5] ; [+1922]
-     1011 GETGLOBAL                        R11 K15 ["selectedPart"]
-     1013 GETTABLEKS                       R10 R11 K19 ["CFrame"]
-     1015 GETIMPORT                        R16 K43 [game]
-     1017 GETTABLEKS                       R15 R16 K44 ["Workspace"]
-     1019 GETTABLEKS                       R14 R15 K45 ["CurrentCamera"]
-     1021 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-     1023 GETTABLEKS                       R12 R13 K53 ["Position"]
+     1011 GETGLOBAL                        R10 K15 ["selectedPart"]
+     1013 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+     1015 GETIMPORT                        R12 K43 [game]
+     1017 GETTABLEKS                       R12 R12 K44 ["Workspace"]
+     1019 GETTABLEKS                       R12 R12 K45 ["CurrentCamera"]
+     1021 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1023 GETTABLEKS                       R12 R12 K53 ["Position"]
      1025 NAMECALL                         R10 R10 K54 ["PointToObjectSpace"]
      1027 CALL                             R10 2 1
-     1028 GETUPVAL                         R12 15
-     1029 GETTABLEKS                       R11 R12 K55 ["getVector3Sign"]
+     1028 GETUPVAL                         R11 15
+     1029 GETTABLEKS                       R11 R11 K55 ["getVector3Sign"]
      1031 MOVE                             R12 R10
      1032 CALL                             R11 1 1
-     1033 GETUPVAL                         R13 1
-     1034 GETTABLEKS                       R12 R13 K49 ["scaleOne"]
-     1036 GETGLOBAL                        R14 K15 ["selectedPart"]
-     1038 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-     1040 GETGLOBAL                        R18 K15 ["selectedPart"]
-     1042 GETTABLEKS                       R17 R18 K20 ["Size"]
+     1033 GETUPVAL                         R12 1
+     1034 GETTABLEKS                       R12 R12 K49 ["scaleOne"]
+     1036 GETGLOBAL                        R13 K15 ["selectedPart"]
+     1038 GETTABLEKS                       R13 R13 K19 ["CFrame"]
+     1040 GETGLOBAL                        R17 K15 ["selectedPart"]
+     1042 GETTABLEKS                       R17 R17 K20 ["Size"]
      1044 DIVK                             R16 R17 K31 [2]
      1045 GETTABLEKS                       R18 R11 K60 ["x"]
      1047 LOADN                            R19 255
@@ -2582,10 +2582,10 @@ PROTO_59:
      1053 MUL                              R15 R16 R17
      1054 NAMECALL                         R13 R13 K41 ["pointToWorldSpace"]
      1056 CALL                             R13 2 1
-     1057 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1059 GETTABLEKS                       R14 R15 K19 ["CFrame"]
-     1061 GETGLOBAL                        R19 K15 ["selectedPart"]
-     1063 GETTABLEKS                       R18 R19 K20 ["Size"]
+     1057 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1059 GETTABLEKS                       R14 R14 K19 ["CFrame"]
+     1061 GETGLOBAL                        R18 K15 ["selectedPart"]
+     1063 GETTABLEKS                       R18 R18 K20 ["Size"]
      1065 DIVK                             R17 R18 K31 [2]
      1066 GETTABLEKS                       R19 R11 K60 ["x"]
      1068 LOADN                            R20 255
@@ -2596,21 +2596,21 @@ PROTO_59:
      1074 MUL                              R16 R17 R18
      1075 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1077 CALL                             R14 2 1
-     1078 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1080 GETTABLEKS                       R16 R17 K19 ["CFrame"]
+     1078 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1080 GETTABLEKS                       R16 R16 K19 ["CFrame"]
      1082 LOADK                            R19 K61 [{1, 0, 0}]
      1083 MUL                              R18 R11 R19
      1084 NAMECALL                         R16 R16 K41 ["pointToWorldSpace"]
      1086 CALL                             R16 2 1
-     1087 GETGLOBAL                        R19 K15 ["selectedPart"]
-     1089 GETTABLEKS                       R18 R19 K19 ["CFrame"]
-     1091 GETTABLEKS                       R17 R18 K34 ["p"]
+     1087 GETGLOBAL                        R17 K15 ["selectedPart"]
+     1089 GETTABLEKS                       R17 R17 K19 ["CFrame"]
+     1091 GETTABLEKS                       R17 R17 K34 ["p"]
      1093 SUB                              R15 R16 R17
      1094 CALL                             R12 3 0
      1095 JUMP                             ; [+1836]
      1096 JUMPIFNOTEQKN                    R2 K64 [7] ; [+192]
-     1098 GETUPVAL                         R9 0
-     1099 GETTABLEKS                       R8 R9 K1 ["getFilteredSelection"]
+     1098 GETUPVAL                         R8 0
+     1099 GETTABLEKS                       R8 R8 K1 ["getFilteredSelection"]
      1101 CALL                             R8 0 1
      1102 GETIMPORT                        R9 K17 [workspace]
      1104 MOVE                             R11 R8
@@ -2631,8 +2631,8 @@ PROTO_59:
      1125 GETUPVAL                         R9 6
      1126 GETIMPORT                        R11 K30 [CFrame.new]
      1128 GETUPVAL                         R15 5
-     1129 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1131 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1129 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1131 GETTABLEKS                       R16 R16 K20 ["Size"]
      1133 SUB                              R14 R15 R16
      1134 DIVK                             R13 R14 K31 [2]
      1135 MINUS                            R12 R13
@@ -2640,25 +2640,25 @@ PROTO_59:
      1137 NAMECALL                         R9 R9 K32 ["toWorldSpace"]
      1139 CALL                             R9 -1 1
      1140 SETTABLEKS                       R9 R8 K19 ["CFrame"]
-     1142 GETGLOBAL                        R9 K15 ["selectedPart"]
-     1144 GETTABLEKS                       R8 R9 K19 ["CFrame"]
-     1146 GETIMPORT                        R14 K43 [game]
-     1148 GETTABLEKS                       R13 R14 K44 ["Workspace"]
-     1150 GETTABLEKS                       R12 R13 K45 ["CurrentCamera"]
-     1152 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1154 GETTABLEKS                       R10 R11 K53 ["Position"]
+     1142 GETGLOBAL                        R8 K15 ["selectedPart"]
+     1144 GETTABLEKS                       R8 R8 K19 ["CFrame"]
+     1146 GETIMPORT                        R10 K43 [game]
+     1148 GETTABLEKS                       R10 R10 K44 ["Workspace"]
+     1150 GETTABLEKS                       R10 R10 K45 ["CurrentCamera"]
+     1152 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+     1154 GETTABLEKS                       R10 R10 K53 ["Position"]
      1156 NAMECALL                         R8 R8 K54 ["PointToObjectSpace"]
      1158 CALL                             R8 2 1
-     1159 GETUPVAL                         R10 15
-     1160 GETTABLEKS                       R9 R10 K55 ["getVector3Sign"]
+     1159 GETUPVAL                         R9 15
+     1160 GETTABLEKS                       R9 R9 K55 ["getVector3Sign"]
      1162 MOVE                             R10 R8
      1163 CALL                             R9 1 1
-     1164 GETUPVAL                         R11 1
-     1165 GETTABLEKS                       R10 R11 K49 ["scaleOne"]
-     1167 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1169 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1171 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1173 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1164 GETUPVAL                         R10 1
+     1165 GETTABLEKS                       R10 R10 K49 ["scaleOne"]
+     1167 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1169 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1171 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1173 GETTABLEKS                       R15 R15 K20 ["Size"]
      1175 DIVK                             R14 R15 K31 [2]
      1176 LOADN                            R16 255
      1177 LOADN                            R17 255
@@ -2669,10 +2669,10 @@ PROTO_59:
      1184 MUL                              R13 R14 R15
      1185 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1187 CALL                             R11 2 1
-     1188 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1190 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1192 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1194 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1188 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1190 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1192 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1194 GETTABLEKS                       R16 R16 K20 ["Size"]
      1196 DIVK                             R15 R16 K31 [2]
      1197 LOADN                            R17 1
      1198 LOADN                            R18 255
@@ -2683,23 +2683,23 @@ PROTO_59:
      1205 MUL                              R14 R15 R16
      1206 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1208 CALL                             R12 2 1
-     1209 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1211 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1209 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1211 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1213 LOADK                            R17 K59 [{0, 0, 1}]
      1214 MUL                              R16 R9 R17
      1215 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1217 CALL                             R14 2 1
-     1218 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1220 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1222 GETTABLEKS                       R15 R16 K34 ["p"]
+     1218 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1220 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1222 GETTABLEKS                       R15 R15 K34 ["p"]
      1224 SUB                              R13 R14 R15
      1225 CALL                             R10 3 0
-     1226 GETUPVAL                         R11 1
-     1227 GETTABLEKS                       R10 R11 K65 ["scaleTwo"]
-     1229 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1231 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1233 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1235 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1226 GETUPVAL                         R10 1
+     1227 GETTABLEKS                       R10 R10 K65 ["scaleTwo"]
+     1229 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1231 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1233 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1235 GETTABLEKS                       R15 R15 K20 ["Size"]
      1237 DIVK                             R14 R15 K31 [2]
      1238 GETTABLEKS                       R16 R9 K60 ["x"]
      1240 LOADN                            R17 255
@@ -2710,10 +2710,10 @@ PROTO_59:
      1246 MUL                              R13 R14 R15
      1247 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1249 CALL                             R11 2 1
-     1250 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1252 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1254 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1256 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1250 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1252 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1254 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1256 GETTABLEKS                       R16 R16 K20 ["Size"]
      1258 DIVK                             R15 R16 K31 [2]
      1259 GETTABLEKS                       R17 R9 K60 ["x"]
      1261 LOADN                            R18 255
@@ -2724,21 +2724,21 @@ PROTO_59:
      1267 MUL                              R14 R15 R16
      1268 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1270 CALL                             R12 2 1
-     1271 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1273 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1271 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1273 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1275 LOADK                            R17 K61 [{1, 0, 0}]
      1276 MUL                              R16 R9 R17
      1277 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1279 CALL                             R14 2 1
-     1280 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1282 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1284 GETTABLEKS                       R15 R16 K34 ["p"]
+     1280 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1282 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1284 GETTABLEKS                       R15 R15 K34 ["p"]
      1286 SUB                              R13 R14 R15
      1287 CALL                             R10 3 0
      1288 JUMP                             ; [+1643]
      1289 JUMPIFNOTEQKN                    R2 K66 [9] ; [+194]
-     1291 GETUPVAL                         R9 0
-     1292 GETTABLEKS                       R8 R9 K1 ["getFilteredSelection"]
+     1291 GETUPVAL                         R8 0
+     1292 GETTABLEKS                       R8 R8 K1 ["getFilteredSelection"]
      1294 CALL                             R8 0 1
      1295 GETIMPORT                        R9 K17 [workspace]
      1297 MOVE                             R11 R8
@@ -2759,8 +2759,8 @@ PROTO_59:
      1318 GETUPVAL                         R9 6
      1319 GETIMPORT                        R11 K30 [CFrame.new]
      1321 GETUPVAL                         R16 5
-     1322 GETGLOBAL                        R18 K15 ["selectedPart"]
-     1324 GETTABLEKS                       R17 R18 K20 ["Size"]
+     1322 GETGLOBAL                        R17 K15 ["selectedPart"]
+     1324 GETTABLEKS                       R17 R17 K20 ["Size"]
      1326 SUB                              R15 R16 R17
      1327 DIVK                             R14 R15 K31 [2]
      1328 MINUS                            R13 R14
@@ -2770,25 +2770,25 @@ PROTO_59:
      1332 NAMECALL                         R9 R9 K32 ["toWorldSpace"]
      1334 CALL                             R9 -1 1
      1335 SETTABLEKS                       R9 R8 K19 ["CFrame"]
-     1337 GETGLOBAL                        R9 K15 ["selectedPart"]
-     1339 GETTABLEKS                       R8 R9 K19 ["CFrame"]
-     1341 GETIMPORT                        R14 K43 [game]
-     1343 GETTABLEKS                       R13 R14 K44 ["Workspace"]
-     1345 GETTABLEKS                       R12 R13 K45 ["CurrentCamera"]
-     1347 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1349 GETTABLEKS                       R10 R11 K53 ["Position"]
+     1337 GETGLOBAL                        R8 K15 ["selectedPart"]
+     1339 GETTABLEKS                       R8 R8 K19 ["CFrame"]
+     1341 GETIMPORT                        R10 K43 [game]
+     1343 GETTABLEKS                       R10 R10 K44 ["Workspace"]
+     1345 GETTABLEKS                       R10 R10 K45 ["CurrentCamera"]
+     1347 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+     1349 GETTABLEKS                       R10 R10 K53 ["Position"]
      1351 NAMECALL                         R8 R8 K54 ["PointToObjectSpace"]
      1353 CALL                             R8 2 1
-     1354 GETUPVAL                         R10 15
-     1355 GETTABLEKS                       R9 R10 K55 ["getVector3Sign"]
+     1354 GETUPVAL                         R9 15
+     1355 GETTABLEKS                       R9 R9 K55 ["getVector3Sign"]
      1357 MOVE                             R10 R8
      1358 CALL                             R9 1 1
-     1359 GETUPVAL                         R11 1
-     1360 GETTABLEKS                       R10 R11 K49 ["scaleOne"]
-     1362 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1364 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1366 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1368 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1359 GETUPVAL                         R10 1
+     1360 GETTABLEKS                       R10 R10 K49 ["scaleOne"]
+     1362 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1364 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1366 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1368 GETTABLEKS                       R15 R15 K20 ["Size"]
      1370 DIVK                             R14 R15 K31 [2]
      1371 LOADN                            R16 255
      1372 LOADN                            R17 255
@@ -2799,10 +2799,10 @@ PROTO_59:
      1379 MUL                              R13 R14 R15
      1380 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1382 CALL                             R11 2 1
-     1383 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1385 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1387 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1389 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1383 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1385 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1387 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1389 GETTABLEKS                       R16 R16 K20 ["Size"]
      1391 DIVK                             R15 R16 K31 [2]
      1392 LOADN                            R17 1
      1393 LOADN                            R18 255
@@ -2813,23 +2813,23 @@ PROTO_59:
      1400 MUL                              R14 R15 R16
      1401 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1403 CALL                             R12 2 1
-     1404 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1406 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1404 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1406 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1408 LOADK                            R17 K59 [{0, 0, 1}]
      1409 MUL                              R16 R9 R17
      1410 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1412 CALL                             R14 2 1
-     1413 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1415 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1417 GETTABLEKS                       R15 R16 K34 ["p"]
+     1413 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1415 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1417 GETTABLEKS                       R15 R15 K34 ["p"]
      1419 SUB                              R13 R14 R15
      1420 CALL                             R10 3 0
-     1421 GETUPVAL                         R11 1
-     1422 GETTABLEKS                       R10 R11 K65 ["scaleTwo"]
-     1424 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1426 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1428 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1430 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1421 GETUPVAL                         R10 1
+     1422 GETTABLEKS                       R10 R10 K65 ["scaleTwo"]
+     1424 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1426 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1428 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1430 GETTABLEKS                       R15 R15 K20 ["Size"]
      1432 DIVK                             R14 R15 K31 [2]
      1433 GETTABLEKS                       R16 R9 K60 ["x"]
      1435 LOADN                            R17 255
@@ -2840,10 +2840,10 @@ PROTO_59:
      1441 MUL                              R13 R14 R15
      1442 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1444 CALL                             R11 2 1
-     1445 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1447 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1449 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1451 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1445 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1447 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1449 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1451 GETTABLEKS                       R16 R16 K20 ["Size"]
      1453 DIVK                             R15 R16 K31 [2]
      1454 GETTABLEKS                       R17 R9 K60 ["x"]
      1456 LOADN                            R18 255
@@ -2854,21 +2854,21 @@ PROTO_59:
      1462 MUL                              R14 R15 R16
      1463 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1465 CALL                             R12 2 1
-     1466 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1468 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1466 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1468 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1470 LOADK                            R17 K61 [{1, 0, 0}]
      1471 MUL                              R16 R9 R17
      1472 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1474 CALL                             R14 2 1
-     1475 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1477 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1479 GETTABLEKS                       R15 R16 K34 ["p"]
+     1475 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1477 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1479 GETTABLEKS                       R15 R15 K34 ["p"]
      1481 SUB                              R13 R14 R15
      1482 CALL                             R10 3 0
      1483 JUMP                             ; [+1448]
      1484 JUMPIFNOTEQKN                    R2 K68 [10] ; [+194]
-     1486 GETUPVAL                         R9 0
-     1487 GETTABLEKS                       R8 R9 K1 ["getFilteredSelection"]
+     1486 GETUPVAL                         R8 0
+     1487 GETTABLEKS                       R8 R8 K1 ["getFilteredSelection"]
      1489 CALL                             R8 0 1
      1490 GETIMPORT                        R9 K17 [workspace]
      1492 MOVE                             R11 R8
@@ -2889,8 +2889,8 @@ PROTO_59:
      1513 GETUPVAL                         R9 6
      1514 GETIMPORT                        R11 K30 [CFrame.new]
      1516 GETUPVAL                         R16 5
-     1517 GETGLOBAL                        R18 K15 ["selectedPart"]
-     1519 GETTABLEKS                       R17 R18 K20 ["Size"]
+     1517 GETGLOBAL                        R17 K15 ["selectedPart"]
+     1519 GETTABLEKS                       R17 R17 K20 ["Size"]
      1521 SUB                              R15 R16 R17
      1522 DIVK                             R14 R15 K31 [2]
      1523 MINUS                            R13 R14
@@ -2900,25 +2900,25 @@ PROTO_59:
      1527 NAMECALL                         R9 R9 K32 ["toWorldSpace"]
      1529 CALL                             R9 -1 1
      1530 SETTABLEKS                       R9 R8 K19 ["CFrame"]
-     1532 GETGLOBAL                        R9 K15 ["selectedPart"]
-     1534 GETTABLEKS                       R8 R9 K19 ["CFrame"]
-     1536 GETIMPORT                        R14 K43 [game]
-     1538 GETTABLEKS                       R13 R14 K44 ["Workspace"]
-     1540 GETTABLEKS                       R12 R13 K45 ["CurrentCamera"]
-     1542 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1544 GETTABLEKS                       R10 R11 K53 ["Position"]
+     1532 GETGLOBAL                        R8 K15 ["selectedPart"]
+     1534 GETTABLEKS                       R8 R8 K19 ["CFrame"]
+     1536 GETIMPORT                        R10 K43 [game]
+     1538 GETTABLEKS                       R10 R10 K44 ["Workspace"]
+     1540 GETTABLEKS                       R10 R10 K45 ["CurrentCamera"]
+     1542 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+     1544 GETTABLEKS                       R10 R10 K53 ["Position"]
      1546 NAMECALL                         R8 R8 K54 ["PointToObjectSpace"]
      1548 CALL                             R8 2 1
-     1549 GETUPVAL                         R10 15
-     1550 GETTABLEKS                       R9 R10 K55 ["getVector3Sign"]
+     1549 GETUPVAL                         R9 15
+     1550 GETTABLEKS                       R9 R9 K55 ["getVector3Sign"]
      1552 MOVE                             R10 R8
      1553 CALL                             R9 1 1
-     1554 GETUPVAL                         R11 1
-     1555 GETTABLEKS                       R10 R11 K49 ["scaleOne"]
-     1557 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1559 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1561 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1563 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1554 GETUPVAL                         R10 1
+     1555 GETTABLEKS                       R10 R10 K49 ["scaleOne"]
+     1557 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1559 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1561 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1563 GETTABLEKS                       R15 R15 K20 ["Size"]
      1565 DIVK                             R14 R15 K31 [2]
      1566 LOADN                            R16 255
      1567 LOADN                            R17 255
@@ -2929,10 +2929,10 @@ PROTO_59:
      1574 MUL                              R13 R14 R15
      1575 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1577 CALL                             R11 2 1
-     1578 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1580 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1582 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1584 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1578 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1580 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1582 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1584 GETTABLEKS                       R16 R16 K20 ["Size"]
      1586 DIVK                             R15 R16 K31 [2]
      1587 LOADN                            R17 1
      1588 LOADN                            R18 255
@@ -2943,23 +2943,23 @@ PROTO_59:
      1595 MUL                              R14 R15 R16
      1596 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1598 CALL                             R12 2 1
-     1599 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1601 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1599 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1601 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1603 LOADK                            R17 K59 [{0, 0, 1}]
      1604 MUL                              R16 R9 R17
      1605 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1607 CALL                             R14 2 1
-     1608 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1610 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1612 GETTABLEKS                       R15 R16 K34 ["p"]
+     1608 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1610 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1612 GETTABLEKS                       R15 R15 K34 ["p"]
      1614 SUB                              R13 R14 R15
      1615 CALL                             R10 3 0
-     1616 GETUPVAL                         R11 1
-     1617 GETTABLEKS                       R10 R11 K65 ["scaleTwo"]
-     1619 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1621 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1623 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1625 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1616 GETUPVAL                         R10 1
+     1617 GETTABLEKS                       R10 R10 K65 ["scaleTwo"]
+     1619 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1621 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1623 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1625 GETTABLEKS                       R15 R15 K20 ["Size"]
      1627 DIVK                             R14 R15 K31 [2]
      1628 GETTABLEKS                       R16 R9 K60 ["x"]
      1630 LOADN                            R17 255
@@ -2970,10 +2970,10 @@ PROTO_59:
      1636 MUL                              R13 R14 R15
      1637 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1639 CALL                             R11 2 1
-     1640 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1642 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1644 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1646 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1640 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1642 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1644 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1646 GETTABLEKS                       R16 R16 K20 ["Size"]
      1648 DIVK                             R15 R16 K31 [2]
      1649 GETTABLEKS                       R17 R9 K60 ["x"]
      1651 LOADN                            R18 255
@@ -2984,21 +2984,21 @@ PROTO_59:
      1657 MUL                              R14 R15 R16
      1658 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1660 CALL                             R12 2 1
-     1661 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1663 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1661 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1663 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1665 LOADK                            R17 K61 [{1, 0, 0}]
      1666 MUL                              R16 R9 R17
      1667 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1669 CALL                             R14 2 1
-     1670 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1672 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1674 GETTABLEKS                       R15 R16 K34 ["p"]
+     1670 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1672 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1674 GETTABLEKS                       R15 R15 K34 ["p"]
      1676 SUB                              R13 R14 R15
      1677 CALL                             R10 3 0
      1678 JUMP                             ; [+1253]
      1679 JUMPIFNOTEQKN                    R2 K70 [8] ; [+194]
-     1681 GETUPVAL                         R9 0
-     1682 GETTABLEKS                       R8 R9 K1 ["getFilteredSelection"]
+     1681 GETUPVAL                         R8 0
+     1682 GETTABLEKS                       R8 R8 K1 ["getFilteredSelection"]
      1684 CALL                             R8 0 1
      1685 GETIMPORT                        R9 K17 [workspace]
      1687 MOVE                             R11 R8
@@ -3019,8 +3019,8 @@ PROTO_59:
      1708 GETUPVAL                         R9 6
      1709 GETIMPORT                        R11 K30 [CFrame.new]
      1711 GETUPVAL                         R16 5
-     1712 GETGLOBAL                        R18 K15 ["selectedPart"]
-     1714 GETTABLEKS                       R17 R18 K20 ["Size"]
+     1712 GETGLOBAL                        R17 K15 ["selectedPart"]
+     1714 GETTABLEKS                       R17 R17 K20 ["Size"]
      1716 SUB                              R15 R16 R17
      1717 DIVK                             R14 R15 K31 [2]
      1718 MINUS                            R13 R14
@@ -3030,25 +3030,25 @@ PROTO_59:
      1722 NAMECALL                         R9 R9 K32 ["toWorldSpace"]
      1724 CALL                             R9 -1 1
      1725 SETTABLEKS                       R9 R8 K19 ["CFrame"]
-     1727 GETGLOBAL                        R9 K15 ["selectedPart"]
-     1729 GETTABLEKS                       R8 R9 K19 ["CFrame"]
-     1731 GETIMPORT                        R14 K43 [game]
-     1733 GETTABLEKS                       R13 R14 K44 ["Workspace"]
-     1735 GETTABLEKS                       R12 R13 K45 ["CurrentCamera"]
-     1737 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1739 GETTABLEKS                       R10 R11 K53 ["Position"]
+     1727 GETGLOBAL                        R8 K15 ["selectedPart"]
+     1729 GETTABLEKS                       R8 R8 K19 ["CFrame"]
+     1731 GETIMPORT                        R10 K43 [game]
+     1733 GETTABLEKS                       R10 R10 K44 ["Workspace"]
+     1735 GETTABLEKS                       R10 R10 K45 ["CurrentCamera"]
+     1737 GETTABLEKS                       R10 R10 K19 ["CFrame"]
+     1739 GETTABLEKS                       R10 R10 K53 ["Position"]
      1741 NAMECALL                         R8 R8 K54 ["PointToObjectSpace"]
      1743 CALL                             R8 2 1
-     1744 GETUPVAL                         R10 15
-     1745 GETTABLEKS                       R9 R10 K55 ["getVector3Sign"]
+     1744 GETUPVAL                         R9 15
+     1745 GETTABLEKS                       R9 R9 K55 ["getVector3Sign"]
      1747 MOVE                             R10 R8
      1748 CALL                             R9 1 1
-     1749 GETUPVAL                         R11 1
-     1750 GETTABLEKS                       R10 R11 K49 ["scaleOne"]
-     1752 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1754 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1756 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1758 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1749 GETUPVAL                         R10 1
+     1750 GETTABLEKS                       R10 R10 K49 ["scaleOne"]
+     1752 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1754 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1756 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1758 GETTABLEKS                       R15 R15 K20 ["Size"]
      1760 DIVK                             R14 R15 K31 [2]
      1761 LOADN                            R16 255
      1762 LOADN                            R17 255
@@ -3059,10 +3059,10 @@ PROTO_59:
      1769 MUL                              R13 R14 R15
      1770 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1772 CALL                             R11 2 1
-     1773 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1775 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1777 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1779 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1773 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1775 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1777 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1779 GETTABLEKS                       R16 R16 K20 ["Size"]
      1781 DIVK                             R15 R16 K31 [2]
      1782 LOADN                            R17 1
      1783 LOADN                            R18 255
@@ -3073,23 +3073,23 @@ PROTO_59:
      1790 MUL                              R14 R15 R16
      1791 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1793 CALL                             R12 2 1
-     1794 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1796 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1794 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1796 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1798 LOADK                            R17 K59 [{0, 0, 1}]
      1799 MUL                              R16 R9 R17
      1800 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1802 CALL                             R14 2 1
-     1803 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1805 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1807 GETTABLEKS                       R15 R16 K34 ["p"]
+     1803 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1805 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1807 GETTABLEKS                       R15 R15 K34 ["p"]
      1809 SUB                              R13 R14 R15
      1810 CALL                             R10 3 0
-     1811 GETUPVAL                         R11 1
-     1812 GETTABLEKS                       R10 R11 K65 ["scaleTwo"]
-     1814 GETGLOBAL                        R12 K15 ["selectedPart"]
-     1816 GETTABLEKS                       R11 R12 K19 ["CFrame"]
-     1818 GETGLOBAL                        R16 K15 ["selectedPart"]
-     1820 GETTABLEKS                       R15 R16 K20 ["Size"]
+     1811 GETUPVAL                         R10 1
+     1812 GETTABLEKS                       R10 R10 K65 ["scaleTwo"]
+     1814 GETGLOBAL                        R11 K15 ["selectedPart"]
+     1816 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1818 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1820 GETTABLEKS                       R15 R15 K20 ["Size"]
      1822 DIVK                             R14 R15 K31 [2]
      1823 GETTABLEKS                       R16 R9 K60 ["x"]
      1825 LOADN                            R17 255
@@ -3100,10 +3100,10 @@ PROTO_59:
      1831 MUL                              R13 R14 R15
      1832 NAMECALL                         R11 R11 K41 ["pointToWorldSpace"]
      1834 CALL                             R11 2 1
-     1835 GETGLOBAL                        R13 K15 ["selectedPart"]
-     1837 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1839 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1841 GETTABLEKS                       R16 R17 K20 ["Size"]
+     1835 GETGLOBAL                        R12 K15 ["selectedPart"]
+     1837 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1839 GETGLOBAL                        R16 K15 ["selectedPart"]
+     1841 GETTABLEKS                       R16 R16 K20 ["Size"]
      1843 DIVK                             R15 R16 K31 [2]
      1844 GETTABLEKS                       R17 R9 K60 ["x"]
      1846 LOADN                            R18 255
@@ -3114,21 +3114,21 @@ PROTO_59:
      1852 MUL                              R14 R15 R16
      1853 NAMECALL                         R12 R12 K41 ["pointToWorldSpace"]
      1855 CALL                             R12 2 1
-     1856 GETGLOBAL                        R15 K15 ["selectedPart"]
-     1858 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+     1856 GETGLOBAL                        R14 K15 ["selectedPart"]
+     1858 GETTABLEKS                       R14 R14 K19 ["CFrame"]
      1860 LOADK                            R17 K61 [{1, 0, 0}]
      1861 MUL                              R16 R9 R17
      1862 NAMECALL                         R14 R14 K41 ["pointToWorldSpace"]
      1864 CALL                             R14 2 1
-     1865 GETGLOBAL                        R17 K15 ["selectedPart"]
-     1867 GETTABLEKS                       R16 R17 K19 ["CFrame"]
-     1869 GETTABLEKS                       R15 R16 K34 ["p"]
+     1865 GETGLOBAL                        R15 K15 ["selectedPart"]
+     1867 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+     1869 GETTABLEKS                       R15 R15 K34 ["p"]
      1871 SUB                              R13 R14 R15
      1872 CALL                             R10 3 0
      1873 JUMP                             ; [+1058]
      1874 JUMPIFNOTEQKN                    R2 K10 [1] ; [+219]
-     1876 GETUPVAL                         R9 11
-     1877 GETTABLEKS                       R8 R9 K19 ["CFrame"]
+     1876 GETUPVAL                         R8 11
+     1877 GETTABLEKS                       R8 R8 K19 ["CFrame"]
      1879 GETUPVAL                         R9 11
      1880 GETUPVAL                         R10 17
      1881 GETIMPORT                        R12 K30 [CFrame.new]
@@ -3137,28 +3137,28 @@ PROTO_59:
      1885 NAMECALL                         R10 R10 K32 ["toWorldSpace"]
      1887 CALL                             R10 -1 1
      1888 SETTABLEKS                       R10 R9 K19 ["CFrame"]
-     1890 GETUPVAL                         R13 11
-     1891 GETTABLEKS                       R12 R13 K19 ["CFrame"]
-     1893 GETUPVAL                         R14 18
-     1894 NAMECALL                         R12 R12 K72 ["pointToObjectSpace"]
-     1896 CALL                             R12 2 1
-     1897 GETTABLEKS                       R11 R12 K73 ["y"]
+     1890 GETUPVAL                         R11 11
+     1891 GETTABLEKS                       R11 R11 K19 ["CFrame"]
+     1893 GETUPVAL                         R13 18
+     1894 NAMECALL                         R11 R11 K72 ["pointToObjectSpace"]
+     1896 CALL                             R11 2 1
+     1897 GETTABLEKS                       R11 R11 K73 ["y"]
      1899 MINUS                            R10 R11
-     1900 GETUPVAL                         R14 11
-     1901 GETTABLEKS                       R13 R14 K20 ["Size"]
-     1903 GETTABLEKS                       R12 R13 K74 ["Y"]
+     1900 GETUPVAL                         R12 11
+     1901 GETTABLEKS                       R12 R12 K20 ["Size"]
+     1903 GETTABLEKS                       R12 R12 K74 ["Y"]
      1905 DIVK                             R11 R12 K31 [2]
      1906 SUB                              R9 R10 R11
-     1907 GETUPVAL                         R14 11
-     1908 GETTABLEKS                       R13 R14 K19 ["CFrame"]
-     1910 GETUPVAL                         R15 18
-     1911 NAMECALL                         R13 R13 K72 ["pointToObjectSpace"]
-     1913 CALL                             R13 2 1
-     1914 GETTABLEKS                       R12 R13 K73 ["y"]
+     1907 GETUPVAL                         R12 11
+     1908 GETTABLEKS                       R12 R12 K19 ["CFrame"]
+     1910 GETUPVAL                         R14 18
+     1911 NAMECALL                         R12 R12 K72 ["pointToObjectSpace"]
+     1913 CALL                             R12 2 1
+     1914 GETTABLEKS                       R12 R12 K73 ["y"]
      1916 MINUS                            R11 R12
-     1917 GETUPVAL                         R15 11
-     1918 GETTABLEKS                       R14 R15 K20 ["Size"]
-     1920 GETTABLEKS                       R13 R14 K74 ["Y"]
+     1917 GETUPVAL                         R13 11
+     1918 GETTABLEKS                       R13 R13 K20 ["Size"]
+     1920 GETTABLEKS                       R13 R13 K74 ["Y"]
      1922 DIVK                             R12 R13 K31 [2]
      1923 ADD                              R10 R11 R12
      1924 GETGLOBAL                        R11 K75 ["roundToNearestGrid"]
@@ -3181,8 +3181,8 @@ PROTO_59:
      1946 MOVE                             R15 R13
      1947 JUMPIF                           R15 ; [+1]
      1948 MOVE                             R15 R14
-     1949 GETUPVAL                         R17 11
-     1950 GETTABLEKS                       R16 R17 K19 ["CFrame"]
+     1949 GETUPVAL                         R16 11
+     1950 GETTABLEKS                       R16 R16 K19 ["CFrame"]
      1952 LOADN                            R19 0
      1953 LOADN                            R21 0
      1954 FASTCALL3                        VECTOR R19 R15 R21
@@ -3192,38 +3192,38 @@ PROTO_59:
      1960 NAMECALL                         R16 R16 K41 ["pointToWorldSpace"]
      1962 CALL                             R16 2 1
      1963 GETUPVAL                         R17 11
-     1964 GETUPVAL                         R21 11
-     1965 GETTABLEKS                       R20 R21 K19 ["CFrame"]
-     1967 GETUPVAL                         R23 11
-     1968 GETTABLEKS                       R22 R23 K19 ["CFrame"]
-     1970 GETTABLEKS                       R21 R22 K34 ["p"]
+     1964 GETUPVAL                         R20 11
+     1965 GETTABLEKS                       R20 R20 K19 ["CFrame"]
+     1967 GETUPVAL                         R21 11
+     1968 GETTABLEKS                       R21 R21 K19 ["CFrame"]
+     1970 GETTABLEKS                       R21 R21 K34 ["p"]
      1972 SUB                              R19 R20 R21
      1973 ADD                              R18 R19 R16
      1974 SETTABLEKS                       R18 R17 K19 ["CFrame"]
-     1976 GETUPVAL                         R18 10
-     1977 GETTABLEKS                       R17 R18 K22 ["CollisionEnabled"]
+     1976 GETUPVAL                         R17 10
+     1977 GETTABLEKS                       R17 R17 K22 ["CollisionEnabled"]
      1979 JUMPIFNOT                        R17 ; [+106]
-     1980 GETUPVAL                         R20 11
-     1981 GETTABLEKS                       R19 R20 K19 ["CFrame"]
-     1983 GETTABLEKS                       R18 R19 K34 ["p"]
+     1980 GETUPVAL                         R18 11
+     1981 GETTABLEKS                       R18 R18 K19 ["CFrame"]
+     1983 GETTABLEKS                       R18 R18 K34 ["p"]
      1985 GETTABLEKS                       R19 R8 K34 ["p"]
      1987 SUB                              R17 R18 R19
-     1988 GETUPVAL                         R19 15
-     1989 GETTABLEKS                       R18 R19 K33 ["distanceVector3"]
+     1988 GETUPVAL                         R18 15
+     1989 GETTABLEKS                       R18 R18 K33 ["distanceVector3"]
      1991 GETTABLEKS                       R19 R8 K34 ["p"]
-     1993 GETUPVAL                         R22 11
-     1994 GETTABLEKS                       R21 R22 K19 ["CFrame"]
-     1996 GETTABLEKS                       R20 R21 K34 ["p"]
+     1993 GETUPVAL                         R20 11
+     1994 GETTABLEKS                       R20 R20 K19 ["CFrame"]
+     1996 GETTABLEKS                       R20 R20 K34 ["p"]
      1998 CALL                             R18 2 1
      1999 GETTABLEKS                       R19 R0 K79 ["CanSimulate"]
      2001 JUMPIFNOT                        R19 ; [+36]
      2002 GETTABLEKS                       R19 R0 K80 ["TranslateFromTo"]
      2004 MOVE                             R20 R8
-     2005 GETUPVAL                         R22 11
-     2006 GETTABLEKS                       R21 R22 K19 ["CFrame"]
+     2005 GETUPVAL                         R21 11
+     2006 GETTABLEKS                       R21 R21 K19 ["CFrame"]
      2008 CALL                             R19 2 0
-     2009 GETUPVAL                         R20 12
-     2010 GETTABLEKS                       R19 R20 K24 ["itemsHasItemNotInList"]
+     2009 GETUPVAL                         R19 12
+     2010 GETTABLEKS                       R19 R19 K24 ["itemsHasItemNotInList"]
      2012 NAMECALL                         R20 R0 K25 ["GetTouchingParts"]
      2014 CALL                             R20 1 1
      2015 GETTABLEKS                       R21 R0 K81 ["Children"]
@@ -3231,12 +3231,12 @@ PROTO_59:
      2018 JUMPIFNOT                        R19 ; [+913]
      2019 GETTABLEKS                       R19 R17 K82 ["Unit"]
      2021 GETTABLEKS                       R20 R0 K80 ["TranslateFromTo"]
-     2023 GETUPVAL                         R22 11
-     2024 GETTABLEKS                       R21 R22 K19 ["CFrame"]
+     2023 GETUPVAL                         R21 11
+     2024 GETTABLEKS                       R21 R21 K19 ["CFrame"]
      2026 MOVE                             R22 R8
      2027 CALL                             R20 2 0
-     2028 GETUPVAL                         R21 16
-     2029 GETTABLEKS                       R20 R21 K83 ["moveUntilCollideMetapart"]
+     2028 GETUPVAL                         R20 16
+     2029 GETTABLEKS                       R20 R20 K83 ["moveUntilCollideMetapart"]
      2031 MOVE                             R21 R0
      2032 GETTABLEKS                       R22 R0 K81 ["Children"]
      2034 MOVE                             R23 R19
@@ -3246,8 +3246,8 @@ PROTO_59:
      2038 GETUPVAL                         R19 11
      2039 GETIMPORT                        R20 K17 [workspace]
      2041 SETTABLEKS                       R20 R19 K23 ["Parent"]
-     2043 GETUPVAL                         R20 12
-     2044 GETTABLEKS                       R19 R20 K24 ["itemsHasItemNotInList"]
+     2043 GETUPVAL                         R19 12
+     2044 GETTABLEKS                       R19 R19 K24 ["itemsHasItemNotInList"]
      2046 GETUPVAL                         R20 11
      2047 NAMECALL                         R20 R20 K25 ["GetTouchingParts"]
      2049 CALL                             R20 1 1
@@ -3261,8 +3261,8 @@ PROTO_59:
      2060 GETTABLEKS                       R21 R0 K81 ["Children"]
      2062 JUMPIF                           R21 ; [+2]
      2063 NEWTABLE                         R21 0 0
-     2065 GETUPVAL                         R23 16
-     2066 GETTABLEKS                       R22 R23 K37 ["moveUntilCollide"]
+     2065 GETUPVAL                         R22 16
+     2066 GETTABLEKS                       R22 R22 K37 ["moveUntilCollide"]
      2068 MOVE                             R23 R20
      2069 MOVE                             R24 R21
      2070 MOVE                             R25 R19
@@ -3274,14 +3274,14 @@ PROTO_59:
      2076 SETTABLEKS                       R20 R19 K23 ["Parent"]
      2078 GETTABLEKS                       R19 R0 K80 ["TranslateFromTo"]
      2080 MOVE                             R20 R8
-     2081 GETUPVAL                         R22 11
-     2082 GETTABLEKS                       R21 R22 K19 ["CFrame"]
+     2081 GETUPVAL                         R21 11
+     2082 GETTABLEKS                       R21 R21 K19 ["CFrame"]
      2084 CALL                             R19 2 0
      2085 JUMP                             ; [+846]
      2086 GETTABLEKS                       R17 R0 K80 ["TranslateFromTo"]
      2088 MOVE                             R18 R8
-     2089 GETUPVAL                         R20 11
-     2090 GETTABLEKS                       R19 R20 K19 ["CFrame"]
+     2089 GETUPVAL                         R19 11
+     2090 GETTABLEKS                       R19 R19 K19 ["CFrame"]
      2092 CALL                             R17 2 0
      2093 JUMP                             ; [+838]
      2094 JUMPIFNOTEQKN                    R2 K11 [11] ; [+259]
@@ -3297,29 +3297,29 @@ PROTO_59:
      2108 GETIMPORT                        R11 K78 [math.abs]
      2110 CALL                             R11 1 1
      2111 DIV                              R9 R10 R11
-     2112 GETUPVAL                         R12 5
-     2113 GETTABLEKS                       R11 R12 K86 ["X"]
-     2115 GETUPVAL                         R13 5
-     2116 GETTABLEKS                       R12 R13 K74 ["Y"]
+     2112 GETUPVAL                         R11 5
+     2113 GETTABLEKS                       R11 R11 K86 ["X"]
+     2115 GETUPVAL                         R12 5
+     2116 GETTABLEKS                       R12 R12 K74 ["Y"]
      2118 FASTCALL2                        MATH_MAX R11 R12 ; [+3]
      2120 GETIMPORT                        R10 K88 [math.max]
      2122 CALL                             R10 2 1
-     2123 GETUPVAL                         R15 6
-     2124 GETIMPORT                        R17 K30 [CFrame.new]
-     2126 LOADN                            R19 0
-     2127 LOADN                            R20 0
-     2128 GETTABLEKS                       R22 R8 K85 ["Z"]
-     2130 MUL                              R21 R22 R9
+     2123 GETUPVAL                         R13 6
+     2124 GETIMPORT                        R15 K30 [CFrame.new]
+     2126 LOADN                            R17 0
+     2127 LOADN                            R18 0
+     2128 GETTABLEKS                       R20 R8 K85 ["Z"]
+     2130 MUL                              R19 R20 R9
      2131 FASTCALL                         VECTOR ; [+2]
-     2132 GETIMPORT                        R18 K58 [Vector3.new]
-     2134 CALL                             R18 3 1
-     2135 CALL                             R17 1 -1
-     2136 NAMECALL                         R15 R15 K32 ["toWorldSpace"]
-     2138 CALL                             R15 -1 1
-     2139 GETTABLEKS                       R14 R15 K34 ["p"]
-     2141 GETUPVAL                         R15 20
-     2142 SUB                              R13 R14 R15
-     2143 GETTABLEKS                       R12 R13 K89 ["magnitude"]
+     2132 GETIMPORT                        R16 K58 [Vector3.new]
+     2134 CALL                             R16 3 1
+     2135 CALL                             R15 1 -1
+     2136 NAMECALL                         R13 R13 K32 ["toWorldSpace"]
+     2138 CALL                             R13 -1 1
+     2139 GETTABLEKS                       R13 R13 K34 ["p"]
+     2141 GETUPVAL                         R14 20
+     2142 SUB                              R12 R13 R14
+     2143 GETTABLEKS                       R12 R12 K89 ["magnitude"]
      2145 JUMPIFLT                         R12 R10 ; [+2]
      2147 LOADB                            R11 0 +1
      2148 LOADB                            R11 1
@@ -3340,8 +3340,8 @@ PROTO_59:
      2171 GETIMPORT                        R16 K91 [math.atan2]
      2173 CALL                             R16 2 1
      2174 SUB                              R14 R15 R16
-     2175 GETUPVAL                         R16 22
-     2176 GETTABLEKS                       R15 R16 K92 ["roundToNearest"]
+     2175 GETUPVAL                         R15 22
+     2176 GETTABLEKS                       R15 R15 K92 ["roundToNearest"]
      2178 FASTCALL1                        MATH_DEG R14 ; [+3]
      2179 MOVE                             R17 R14
      2180 GETIMPORT                        R16 K94 [math.deg]
@@ -3381,8 +3381,8 @@ PROTO_59:
      2222 MOVE                             R19 R0
      2223 MOVE                             R20 R16
      2224 CALL                             R18 2 0
-     2225 GETUPVAL                         R19 10
-     2226 GETTABLEKS                       R18 R19 K22 ["CollisionEnabled"]
+     2225 GETUPVAL                         R18 10
+     2226 GETTABLEKS                       R18 R18 K22 ["CollisionEnabled"]
      2228 JUMPIFNOT                        R18 ; [+34]
      2229 NAMECALL                         R19 R0 K25 ["GetTouchingParts"]
      2231 CALL                             R19 1 1
@@ -3400,8 +3400,8 @@ PROTO_59:
      2245 JUMPIFNOT                        R17 ; [+17]
      2246 GETTABLEKS                       R17 R0 K19 ["CFrame"]
      2248 SETTABLEKS                       R16 R0 K19 ["CFrame"]
-     2250 GETUPVAL                         R19 10
-     2251 GETTABLEKS                       R18 R19 K22 ["CollisionEnabled"]
+     2250 GETUPVAL                         R18 10
+     2251 GETTABLEKS                       R18 R18 K22 ["CollisionEnabled"]
      2253 JUMPIFNOT                        R18 ; [+9]
      2254 NAMECALL                         R19 R0 K25 ["GetTouchingParts"]
      2256 CALL                             R19 1 1
@@ -3410,31 +3410,31 @@ PROTO_59:
      2259 JUMPIFNOTLT                      R19 R18 ; [+3]
      2261 SETTABLEKS                       R17 R0 K19 ["CFrame"]
      2263 JUMPIFNOT                        R0 ; [+668]
-     2264 GETUPVAL                         R18 10
-     2265 GETTABLEKS                       R17 R18 K22 ["CollisionEnabled"]
+     2264 GETUPVAL                         R17 10
+     2265 GETTABLEKS                       R17 R17 K22 ["CollisionEnabled"]
      2267 JUMPIFNOT                        R17 ; [+9]
-     2268 GETUPVAL                         R18 12
-     2269 GETTABLEKS                       R17 R18 K24 ["itemsHasItemNotInList"]
+     2268 GETUPVAL                         R17 12
+     2269 GETTABLEKS                       R17 R17 K24 ["itemsHasItemNotInList"]
      2271 NAMECALL                         R18 R0 K25 ["GetTouchingParts"]
      2273 CALL                             R18 1 1
      2274 MOVE                             R19 R6
      2275 CALL                             R17 2 1
      2276 JUMPIF                           R17 ; [+655]
-     2277 GETUPVAL                         R19 6
-     2278 LOADK                            R21 K59 [{0, 0, 1}]
-     2279 NAMECALL                         R19 R19 K41 ["pointToWorldSpace"]
-     2281 CALL                             R19 2 1
-     2282 GETUPVAL                         R21 6
-     2283 GETTABLEKS                       R20 R21 K34 ["p"]
-     2285 SUB                              R18 R19 R20
-     2286 GETTABLEKS                       R17 R18 K82 ["Unit"]
-     2288 GETUPVAL                         R20 6
-     2289 GETUPVAL                         R22 19
-     2290 NAMECALL                         R20 R20 K72 ["pointToObjectSpace"]
-     2292 CALL                             R20 2 1
-     2293 LOADK                            R21 K105 [{1, 1, 0}]
-     2294 MUL                              R19 R20 R21
-     2295 GETTABLEKS                       R18 R19 K35 ["unit"]
+     2277 GETUPVAL                         R18 6
+     2278 LOADK                            R20 K59 [{0, 0, 1}]
+     2279 NAMECALL                         R18 R18 K41 ["pointToWorldSpace"]
+     2281 CALL                             R18 2 1
+     2282 GETUPVAL                         R19 6
+     2283 GETTABLEKS                       R19 R19 K34 ["p"]
+     2285 SUB                              R17 R18 R19
+     2286 GETTABLEKS                       R17 R17 K82 ["Unit"]
+     2288 GETUPVAL                         R19 6
+     2289 GETUPVAL                         R21 19
+     2290 NAMECALL                         R19 R19 K72 ["pointToObjectSpace"]
+     2292 CALL                             R19 2 1
+     2293 LOADK                            R20 K105 [{1, 1, 0}]
+     2294 MUL                              R18 R19 R20
+     2295 GETTABLEKS                       R18 R18 K35 ["unit"]
      2297 GETGLOBAL                        R19 K106 ["cosineSimilarity"]
      2299 LOADK                            R20 K50 [{0, -1, 0}]
      2300 MOVE                             R21 R18
@@ -3452,8 +3452,8 @@ PROTO_59:
      2316 ADDK                             R20 R21 K108 [45]
      2317 JUMP                             ; [+1]
      2318 SUBK                             R20 R20 K108 [45]
-     2319 GETUPVAL                         R22 1
-     2320 GETTABLEKS                       R21 R22 K110 ["showRotate"]
+     2319 GETUPVAL                         R21 1
+     2320 GETTABLEKS                       R21 R21 K110 ["showRotate"]
      2322 GETUPVAL                         R23 6
      2323 GETIMPORT                        R25 K30 [CFrame.new]
      2325 LOADN                            R27 0
@@ -3493,29 +3493,29 @@ PROTO_59:
      2368 GETIMPORT                        R11 K78 [math.abs]
      2370 CALL                             R11 1 1
      2371 DIV                              R9 R10 R11
-     2372 GETUPVAL                         R12 5
-     2373 GETTABLEKS                       R11 R12 K86 ["X"]
-     2375 GETUPVAL                         R13 5
-     2376 GETTABLEKS                       R12 R13 K85 ["Z"]
+     2372 GETUPVAL                         R11 5
+     2373 GETTABLEKS                       R11 R11 K86 ["X"]
+     2375 GETUPVAL                         R12 5
+     2376 GETTABLEKS                       R12 R12 K85 ["Z"]
      2378 FASTCALL2                        MATH_MAX R11 R12 ; [+3]
      2380 GETIMPORT                        R10 K88 [math.max]
      2382 CALL                             R10 2 1
-     2383 GETUPVAL                         R15 6
-     2384 GETIMPORT                        R17 K30 [CFrame.new]
-     2386 LOADN                            R19 0
-     2387 GETTABLEKS                       R21 R8 K74 ["Y"]
-     2389 MUL                              R20 R21 R9
-     2390 LOADN                            R21 0
+     2383 GETUPVAL                         R13 6
+     2384 GETIMPORT                        R15 K30 [CFrame.new]
+     2386 LOADN                            R17 0
+     2387 GETTABLEKS                       R19 R8 K74 ["Y"]
+     2389 MUL                              R18 R19 R9
+     2390 LOADN                            R19 0
      2391 FASTCALL                         VECTOR ; [+2]
-     2392 GETIMPORT                        R18 K58 [Vector3.new]
-     2394 CALL                             R18 3 1
-     2395 CALL                             R17 1 -1
-     2396 NAMECALL                         R15 R15 K32 ["toWorldSpace"]
-     2398 CALL                             R15 -1 1
-     2399 GETTABLEKS                       R14 R15 K34 ["p"]
-     2401 GETUPVAL                         R15 20
-     2402 SUB                              R13 R14 R15
-     2403 GETTABLEKS                       R12 R13 K89 ["magnitude"]
+     2392 GETIMPORT                        R16 K58 [Vector3.new]
+     2394 CALL                             R16 3 1
+     2395 CALL                             R15 1 -1
+     2396 NAMECALL                         R13 R13 K32 ["toWorldSpace"]
+     2398 CALL                             R13 -1 1
+     2399 GETTABLEKS                       R13 R13 K34 ["p"]
+     2401 GETUPVAL                         R14 20
+     2402 SUB                              R12 R13 R14
+     2403 GETTABLEKS                       R12 R12 K89 ["magnitude"]
      2405 JUMPIFLT                         R12 R10 ; [+2]
      2407 LOADB                            R11 0 +1
      2408 LOADB                            R11 1
@@ -3536,8 +3536,8 @@ PROTO_59:
      2431 GETIMPORT                        R16 K91 [math.atan2]
      2433 CALL                             R16 2 1
      2434 SUB                              R14 R15 R16
-     2435 GETUPVAL                         R16 22
-     2436 GETTABLEKS                       R15 R16 K92 ["roundToNearest"]
+     2435 GETUPVAL                         R15 22
+     2436 GETTABLEKS                       R15 R15 K92 ["roundToNearest"]
      2438 FASTCALL1                        MATH_DEG R14 ; [+3]
      2439 MOVE                             R17 R14
      2440 GETIMPORT                        R16 K94 [math.deg]
@@ -3578,8 +3578,8 @@ PROTO_59:
      2483 JUMPIF                           R17 ; [+17]
      2484 GETTABLEKS                       R17 R0 K19 ["CFrame"]
      2486 SETTABLEKS                       R16 R0 K19 ["CFrame"]
-     2488 GETUPVAL                         R19 10
-     2489 GETTABLEKS                       R18 R19 K22 ["CollisionEnabled"]
+     2488 GETUPVAL                         R18 10
+     2489 GETTABLEKS                       R18 R18 K22 ["CollisionEnabled"]
      2491 JUMPIFNOT                        R18 ; [+9]
      2492 NAMECALL                         R19 R0 K25 ["GetTouchingParts"]
      2494 CALL                             R19 1 1
@@ -3588,45 +3588,45 @@ PROTO_59:
      2497 JUMPIFNOTLT                      R19 R18 ; [+3]
      2499 SETTABLEKS                       R17 R0 K19 ["CFrame"]
      2501 JUMPIFNOT                        R0 ; [+430]
-     2502 GETUPVAL                         R18 10
-     2503 GETTABLEKS                       R17 R18 K22 ["CollisionEnabled"]
+     2502 GETUPVAL                         R17 10
+     2503 GETTABLEKS                       R17 R17 K22 ["CollisionEnabled"]
      2505 JUMPIFNOT                        R17 ; [+9]
-     2506 GETUPVAL                         R18 12
-     2507 GETTABLEKS                       R17 R18 K24 ["itemsHasItemNotInList"]
+     2506 GETUPVAL                         R17 12
+     2507 GETTABLEKS                       R17 R17 K24 ["itemsHasItemNotInList"]
      2509 NAMECALL                         R18 R0 K25 ["GetTouchingParts"]
      2511 CALL                             R18 1 1
      2512 MOVE                             R19 R6
      2513 CALL                             R17 2 1
      2514 JUMPIF                           R17 ; [+417]
-     2515 GETUPVAL                         R19 6
+     2515 GETUPVAL                         R18 6
      2516 JUMPIFNOTEQKN                    R2 K13 [13] ; [+3]
-     2518 LOADN                            R22 1
+     2518 LOADN                            R21 1
      2519 JUMP                             ; [+1]
-     2520 LOADN                            R22 0
+     2520 LOADN                            R21 0
      2521 JUMPIFNOTEQKN                    R2 K12 [12] ; [+3]
-     2523 LOADN                            R23 1
+     2523 LOADN                            R22 1
      2524 JUMP                             ; [+1]
-     2525 LOADN                            R23 0
+     2525 LOADN                            R22 0
      2526 JUMPIFNOTEQKN                    R2 K11 [11] ; [+3]
-     2528 LOADN                            R24 1
+     2528 LOADN                            R23 1
      2529 JUMP                             ; [+1]
-     2530 LOADN                            R24 0
+     2530 LOADN                            R23 0
      2531 FASTCALL                         VECTOR ; [+2]
-     2532 GETIMPORT                        R21 K58 [Vector3.new]
-     2534 CALL                             R21 3 1
-     2535 NAMECALL                         R19 R19 K41 ["pointToWorldSpace"]
-     2537 CALL                             R19 2 1
-     2538 GETUPVAL                         R21 6
-     2539 GETTABLEKS                       R20 R21 K34 ["p"]
-     2541 SUB                              R18 R19 R20
-     2542 GETTABLEKS                       R17 R18 K82 ["Unit"]
-     2544 GETUPVAL                         R20 6
-     2545 GETUPVAL                         R22 19
-     2546 NAMECALL                         R20 R20 K72 ["pointToObjectSpace"]
-     2548 CALL                             R20 2 1
-     2549 LOADK                            R21 K111 [{1, 0, 1}]
-     2550 MUL                              R19 R20 R21
-     2551 GETTABLEKS                       R18 R19 K35 ["unit"]
+     2532 GETIMPORT                        R20 K58 [Vector3.new]
+     2534 CALL                             R20 3 1
+     2535 NAMECALL                         R18 R18 K41 ["pointToWorldSpace"]
+     2537 CALL                             R18 2 1
+     2538 GETUPVAL                         R19 6
+     2539 GETTABLEKS                       R19 R19 K34 ["p"]
+     2541 SUB                              R17 R18 R19
+     2542 GETTABLEKS                       R17 R17 K82 ["Unit"]
+     2544 GETUPVAL                         R19 6
+     2545 GETUPVAL                         R21 19
+     2546 NAMECALL                         R19 R19 K72 ["pointToObjectSpace"]
+     2548 CALL                             R19 2 1
+     2549 LOADK                            R20 K111 [{1, 0, 1}]
+     2550 MUL                              R18 R19 R20
+     2551 GETTABLEKS                       R18 R18 K35 ["unit"]
      2553 GETGLOBAL                        R20 K106 ["cosineSimilarity"]
      2555 LOADK                            R21 K112 [{0, 0, -1}]
      2556 MOVE                             R22 R18
@@ -3639,8 +3639,8 @@ PROTO_59:
      2565 LOADN                            R21 255
      2566 MUL                              R19 R20 R21
      2567 ADDK                             R20 R19 K107 [90]
-     2568 GETUPVAL                         R22 1
-     2569 GETTABLEKS                       R21 R22 K110 ["showRotate"]
+     2568 GETUPVAL                         R21 1
+     2569 GETTABLEKS                       R21 R21 K110 ["showRotate"]
      2571 GETUPVAL                         R23 6
      2572 GETIMPORT                        R25 K30 [CFrame.new]
      2574 LOADN                            R27 0
@@ -3680,29 +3680,29 @@ PROTO_59:
      2617 GETIMPORT                        R11 K78 [math.abs]
      2619 CALL                             R11 1 1
      2620 DIV                              R9 R10 R11
-     2621 GETUPVAL                         R12 5
-     2622 GETTABLEKS                       R11 R12 K74 ["Y"]
-     2624 GETUPVAL                         R13 5
-     2625 GETTABLEKS                       R12 R13 K85 ["Z"]
+     2621 GETUPVAL                         R11 5
+     2622 GETTABLEKS                       R11 R11 K74 ["Y"]
+     2624 GETUPVAL                         R12 5
+     2625 GETTABLEKS                       R12 R12 K85 ["Z"]
      2627 FASTCALL2                        MATH_MAX R11 R12 ; [+3]
      2629 GETIMPORT                        R10 K88 [math.max]
      2631 CALL                             R10 2 1
-     2632 GETUPVAL                         R15 6
-     2633 GETIMPORT                        R17 K30 [CFrame.new]
-     2635 GETTABLEKS                       R20 R8 K86 ["X"]
-     2637 MUL                              R19 R20 R9
-     2638 LOADN                            R20 0
-     2639 LOADN                            R21 0
+     2632 GETUPVAL                         R13 6
+     2633 GETIMPORT                        R15 K30 [CFrame.new]
+     2635 GETTABLEKS                       R18 R8 K86 ["X"]
+     2637 MUL                              R17 R18 R9
+     2638 LOADN                            R18 0
+     2639 LOADN                            R19 0
      2640 FASTCALL                         VECTOR ; [+2]
-     2641 GETIMPORT                        R18 K58 [Vector3.new]
-     2643 CALL                             R18 3 1
-     2644 CALL                             R17 1 -1
-     2645 NAMECALL                         R15 R15 K32 ["toWorldSpace"]
-     2647 CALL                             R15 -1 1
-     2648 GETTABLEKS                       R14 R15 K34 ["p"]
-     2650 GETUPVAL                         R15 20
-     2651 SUB                              R13 R14 R15
-     2652 GETTABLEKS                       R12 R13 K89 ["magnitude"]
+     2641 GETIMPORT                        R16 K58 [Vector3.new]
+     2643 CALL                             R16 3 1
+     2644 CALL                             R15 1 -1
+     2645 NAMECALL                         R13 R13 K32 ["toWorldSpace"]
+     2647 CALL                             R13 -1 1
+     2648 GETTABLEKS                       R13 R13 K34 ["p"]
+     2650 GETUPVAL                         R14 20
+     2651 SUB                              R12 R13 R14
+     2652 GETTABLEKS                       R12 R12 K89 ["magnitude"]
      2654 JUMPIFLT                         R12 R10 ; [+2]
      2656 LOADB                            R11 0 +1
      2657 LOADB                            R11 1
@@ -3723,8 +3723,8 @@ PROTO_59:
      2680 GETIMPORT                        R16 K91 [math.atan2]
      2682 CALL                             R16 2 1
      2683 SUB                              R14 R15 R16
-     2684 GETUPVAL                         R16 22
-     2685 GETTABLEKS                       R15 R16 K92 ["roundToNearest"]
+     2684 GETUPVAL                         R15 22
+     2685 GETTABLEKS                       R15 R15 K92 ["roundToNearest"]
      2687 FASTCALL1                        MATH_DEG R14 ; [+3]
      2688 MOVE                             R17 R14
      2689 GETIMPORT                        R16 K94 [math.deg]
@@ -3764,8 +3764,8 @@ PROTO_59:
      2731 MOVE                             R19 R0
      2732 MOVE                             R20 R16
      2733 CALL                             R18 2 0
-     2734 GETUPVAL                         R19 10
-     2735 GETTABLEKS                       R18 R19 K22 ["CollisionEnabled"]
+     2734 GETUPVAL                         R18 10
+     2735 GETTABLEKS                       R18 R18 K22 ["CollisionEnabled"]
      2737 JUMPIFNOT                        R18 ; [+34]
      2738 NAMECALL                         R19 R0 K25 ["GetTouchingParts"]
      2740 CALL                             R19 1 1
@@ -3783,8 +3783,8 @@ PROTO_59:
      2754 JUMPIFNOT                        R17 ; [+17]
      2755 GETTABLEKS                       R17 R0 K19 ["CFrame"]
      2757 SETTABLEKS                       R16 R0 K19 ["CFrame"]
-     2759 GETUPVAL                         R19 10
-     2760 GETTABLEKS                       R18 R19 K22 ["CollisionEnabled"]
+     2759 GETUPVAL                         R18 10
+     2760 GETTABLEKS                       R18 R18 K22 ["CollisionEnabled"]
      2762 JUMPIFNOT                        R18 ; [+9]
      2763 NAMECALL                         R19 R0 K25 ["GetTouchingParts"]
      2765 CALL                             R19 1 1
@@ -3793,31 +3793,31 @@ PROTO_59:
      2768 JUMPIFNOTLT                      R19 R18 ; [+3]
      2770 SETTABLEKS                       R17 R0 K19 ["CFrame"]
      2772 JUMPIFNOT                        R0 ; [+159]
-     2773 GETUPVAL                         R18 10
-     2774 GETTABLEKS                       R17 R18 K22 ["CollisionEnabled"]
+     2773 GETUPVAL                         R17 10
+     2774 GETTABLEKS                       R17 R17 K22 ["CollisionEnabled"]
      2776 JUMPIFNOT                        R17 ; [+9]
-     2777 GETUPVAL                         R18 12
-     2778 GETTABLEKS                       R17 R18 K24 ["itemsHasItemNotInList"]
+     2777 GETUPVAL                         R17 12
+     2778 GETTABLEKS                       R17 R17 K24 ["itemsHasItemNotInList"]
      2780 NAMECALL                         R18 R0 K25 ["GetTouchingParts"]
      2782 CALL                             R18 1 1
      2783 MOVE                             R19 R6
      2784 CALL                             R17 2 1
      2785 JUMPIF                           R17 ; [+146]
-     2786 GETUPVAL                         R19 6
-     2787 LOADK                            R21 K61 [{1, 0, 0}]
-     2788 NAMECALL                         R19 R19 K41 ["pointToWorldSpace"]
-     2790 CALL                             R19 2 1
-     2791 GETUPVAL                         R21 6
-     2792 GETTABLEKS                       R20 R21 K34 ["p"]
-     2794 SUB                              R18 R19 R20
-     2795 GETTABLEKS                       R17 R18 K82 ["Unit"]
-     2797 GETUPVAL                         R20 6
-     2798 GETUPVAL                         R22 19
-     2799 NAMECALL                         R20 R20 K72 ["pointToObjectSpace"]
-     2801 CALL                             R20 2 1
-     2802 LOADK                            R21 K114 [{0, 1, 1}]
-     2803 MUL                              R19 R20 R21
-     2804 GETTABLEKS                       R18 R19 K35 ["unit"]
+     2786 GETUPVAL                         R18 6
+     2787 LOADK                            R20 K61 [{1, 0, 0}]
+     2788 NAMECALL                         R18 R18 K41 ["pointToWorldSpace"]
+     2790 CALL                             R18 2 1
+     2791 GETUPVAL                         R19 6
+     2792 GETTABLEKS                       R19 R19 K34 ["p"]
+     2794 SUB                              R17 R18 R19
+     2795 GETTABLEKS                       R17 R17 K82 ["Unit"]
+     2797 GETUPVAL                         R19 6
+     2798 GETUPVAL                         R21 19
+     2799 NAMECALL                         R19 R19 K72 ["pointToObjectSpace"]
+     2801 CALL                             R19 2 1
+     2802 LOADK                            R20 K114 [{0, 1, 1}]
+     2803 MUL                              R18 R19 R20
+     2804 GETTABLEKS                       R18 R18 K35 ["unit"]
      2806 GETGLOBAL                        R20 K106 ["cosineSimilarity"]
      2808 LOADK                            R21 K112 [{0, 0, -1}]
      2809 MOVE                             R22 R18
@@ -3830,8 +3830,8 @@ PROTO_59:
      2818 LOADN                            R21 255
      2819 MUL                              R19 R20 R21
      2820 ADDK                             R20 R19 K109 [180]
-     2821 GETUPVAL                         R22 1
-     2822 GETTABLEKS                       R21 R22 K110 ["showRotate"]
+     2821 GETUPVAL                         R21 1
+     2822 GETTABLEKS                       R21 R21 K110 ["showRotate"]
      2824 GETUPVAL                         R23 6
      2825 GETIMPORT                        R25 K30 [CFrame.new]
      2827 GETTABLEKS                       R28 R8 K86 ["X"]
@@ -3859,14 +3859,14 @@ PROTO_59:
      2854 CALL                             R21 4 0
      2855 JUMP                             ; [+76]
      2856 JUMPIFNOTEQKN                    R2 K14 [14] ; [+74]
-     2858 GETUPVAL                         R9 1
-     2859 GETTABLEKS                       R8 R9 K115 ["setAllAdornVisibility"]
+     2858 GETUPVAL                         R8 1
+     2859 GETTABLEKS                       R8 R8 K115 ["setAllAdornVisibility"]
      2861 LOADB                            R9 0
      2862 CALL                             R8 1 0
      2863 GETUPVAL                         R8 24
      2864 JUMPIF                           R8 ; [+67]
-     2865 GETUPVAL                         R9 1
-     2866 GETTABLEKS                       R8 R9 K116 ["isPlaneSelectingModeOn"]
+     2865 GETUPVAL                         R8 1
+     2866 GETTABLEKS                       R8 R8 K116 ["isPlaneSelectingModeOn"]
      2868 CALL                             R8 0 1
      2869 JUMPIF                           R8 ; [+1]
      2870 RETURN                           R0 0
@@ -3902,9 +3902,9 @@ PROTO_59:
      2906 GETUPVAL                         R9 25
      2907 SETTABLEKS                       R9 R8 K125 ["Adornee"]
      2909 GETUPVAL                         R8 27
-     2910 GETUPVAL                         R11 27
-     2911 GETTABLEKS                       R10 R11 K125 ["Adornee"]
-     2913 GETTABLEKS                       R9 R10 K20 ["Size"]
+     2910 GETUPVAL                         R9 27
+     2911 GETTABLEKS                       R9 R9 K125 ["Adornee"]
+     2913 GETTABLEKS                       R9 R9 K20 ["Size"]
      2915 SETTABLEKS                       R9 R8 K20 ["Size"]
      2917 GETUPVAL                         R8 27
      2918 LOADK                            R9 K126 [0.6]
@@ -3918,8 +3918,8 @@ PROTO_59:
      2928 SETTABLEKS                       R9 R8 K127 ["Color3"]
      2930 JUMP                             ; [+1]
      2931 LOADB                            R3 0
-     2932 GETUPVAL                         R9 10
-     2933 GETTABLEKS                       R8 R9 K22 ["CollisionEnabled"]
+     2932 GETUPVAL                         R8 10
+     2933 GETTABLEKS                       R8 R8 K22 ["CollisionEnabled"]
      2935 JUMPIFNOT                        R8 ; [+58]
      2936 GETIMPORT                        R9 K43 [game]
      2938 LOADK                            R11 K132 ["Selection"]
@@ -3942,8 +3942,8 @@ PROTO_59:
      2968 JUMPIFNOTEQKN                    R2 K13 [13] ; [+25]
      2970 GETGLOBAL                        R8 K15 ["selectedPart"]
      2972 JUMPIFNOT                        R8 ; [+21]
-     2973 GETUPVAL                         R9 12
-     2974 GETTABLEKS                       R8 R9 K24 ["itemsHasItemNotInList"]
+     2973 GETUPVAL                         R8 12
+     2974 GETTABLEKS                       R8 R8 K24 ["itemsHasItemNotInList"]
      2976 GETGLOBAL                        R9 K15 ["selectedPart"]
      2978 NAMECALL                         R9 R9 K25 ["GetTouchingParts"]
      2980 CALL                             R9 1 1
@@ -3961,8 +3961,8 @@ PROTO_59:
      2997 GETGLOBAL                        R8 K135 ["updatePivotAndChildAttachments"]
      2999 GETGLOBAL                        R9 K15 ["selectedPart"]
      3001 MOVE                             R10 R5
-     3002 GETGLOBAL                        R12 K15 ["selectedPart"]
-     3004 GETTABLEKS                       R11 R12 K20 ["Size"]
+     3002 GETGLOBAL                        R11 K15 ["selectedPart"]
+     3004 GETTABLEKS                       R11 R11 K20 ["Size"]
      3006 CALL                             R8 3 0
      3007 JUMPIFNOT                        R3 ; [+3]
      3008 GETGLOBAL                        R8 K136 ["updateDragPart"]
@@ -4035,8 +4035,8 @@ PROTO_60:
        68 CALL                             R1 1 1
        69 LENGTH                           R0 R1
        70 JUMPIFNOTEQKN                    R0 K27 [1] ; [+26]
-       72 GETUPVAL                         R1 4
-       73 GETTABLEKS                       R0 R1 K28 ["convertToPart"]
+       72 GETUPVAL                         R0 4
+       73 GETTABLEKS                       R0 R0 K28 ["convertToPart"]
        75 GETIMPORT                        R2 K23 [game]
        77 LOADK                            R4 K24 ["Selection"]
        78 NAMECALL                         R2 R2 K25 ["GetService"]
@@ -4053,12 +4053,12 @@ PROTO_60:
        94 SETTABLEKS                       R2 R1 K30 ["CFrame"]
        96 JUMP                             ; [+12]
        97 GETUPVAL                         R0 0
-       98 GETUPVAL                         R2 5
-       99 GETTABLEKS                       R1 R2 K29 ["Size"]
+       98 GETUPVAL                         R1 5
+       99 GETTABLEKS                       R1 R1 K29 ["Size"]
       101 SETTABLEKS                       R1 R0 K29 ["Size"]
       103 GETUPVAL                         R0 0
-      104 GETUPVAL                         R2 5
-      105 GETTABLEKS                       R1 R2 K30 ["CFrame"]
+      104 GETUPVAL                         R1 5
+      105 GETTABLEKS                       R1 R1 K30 ["CFrame"]
       107 SETTABLEKS                       R1 R0 K30 ["CFrame"]
       109 GETUPVAL                         R0 0
       110 LOADK                            R1 K4 ["DragParte1b1aec5"]
@@ -4086,19 +4086,19 @@ PROTO_60:
       140 GETUPVAL                         R1 0
       141 SETTABLEKS                       R1 R0 K34 ["Adornee"]
       143 GETUPVAL                         R0 2
-      144 GETUPVAL                         R3 2
-      145 GETTABLEKS                       R2 R3 K34 ["Adornee"]
-      147 GETTABLEKS                       R1 R2 K29 ["Size"]
+      144 GETUPVAL                         R1 2
+      145 GETTABLEKS                       R1 R1 K34 ["Adornee"]
+      147 GETTABLEKS                       R1 R1 K29 ["Size"]
       149 SETTABLEKS                       R1 R0 K29 ["Size"]
       151 GETUPVAL                         R0 2
       152 LOADB                            R1 1
       153 SETTABLEKS                       R1 R0 K21 ["AlwaysOnTop"]
       155 GETUPVAL                         R0 2
-      156 GETUPVAL                         R3 0
-      157 GETTABLEKS                       R2 R3 K30 ["CFrame"]
-      159 GETUPVAL                         R5 0
-      160 GETTABLEKS                       R4 R5 K30 ["CFrame"]
-      162 GETTABLEKS                       R3 R4 K35 ["p"]
+      156 GETUPVAL                         R2 0
+      157 GETTABLEKS                       R2 R2 K30 ["CFrame"]
+      159 GETUPVAL                         R3 0
+      160 GETTABLEKS                       R3 R3 K30 ["CFrame"]
+      162 GETTABLEKS                       R3 R3 K35 ["p"]
       164 SUB                              R1 R2 R3
       165 SETTABLEKS                       R1 R0 K30 ["CFrame"]
       167 RETURN                           R0 0
@@ -4106,8 +4106,8 @@ PROTO_60:
 PROTO_61:
         0 GETGLOBAL                        R0 K0 ["updateInvisiblePart"]
         2 CALL                             R0 0 0
-        3 GETUPVAL                         R1 0
-        4 GETTABLEKS                       R0 R1 K1 ["getFilteredSelectionMetapart"]
+        3 GETUPVAL                         R0 0
+        4 GETTABLEKS                       R0 R0 K1 ["getFilteredSelectionMetapart"]
         6 CALL                             R0 0 1
         7 JUMPIF                           R0 ; [+1]
         8 RETURN                           R0 0
@@ -4123,8 +4123,8 @@ PROTO_61:
        22 CALL                             R1 0 1
        23 JUMPIF                           R1 ; [+1]
        24 RETURN                           R0 0
-       25 GETUPVAL                         R4 4
-       26 GETTABLEKS                       R3 R4 K6 ["p"]
+       25 GETUPVAL                         R3 4
+       26 GETTABLEKS                       R3 R3 K6 ["p"]
        28 ADD                              R2 R1 R3
        29 SETGLOBAL                        R2 K7 ["originalDragPartOrientation"]
        31 GETGLOBAL                        R2 K8 ["updateDragPart"]
@@ -4133,8 +4133,8 @@ PROTO_61:
        36 GETUPVAL                         R3 5
        37 GETGLOBAL                        R4 K7 ["originalDragPartOrientation"]
        39 CALL                             R2 2 0
-       40 GETUPVAL                         R3 6
-       41 GETTABLEKS                       R2 R3 K10 ["setPartCFrameToExtents"]
+       40 GETUPVAL                         R2 6
+       41 GETTABLEKS                       R2 R2 K10 ["setPartCFrameToExtents"]
        43 GETUPVAL                         R3 5
        44 GETGLOBAL                        R4 K7 ["originalDragPartOrientation"]
        46 CALL                             R2 2 0
@@ -4142,74 +4142,74 @@ PROTO_61:
 
 PROTO_62:
         0 NEWTABLE                         R1 0 0
-        2 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-        4 LOADK                            R8 K1 [{1, 0, 0}]
-        5 NAMECALL                         R6 R6 K2 ["pointToWorldSpace"]
-        7 CALL                             R6 2 1
-        8 GETTABLEKS                       R8 R0 K0 ["CFrame"]
-       10 GETTABLEKS                       R7 R8 K3 ["p"]
-       12 SUB                              R5 R6 R7
-       13 GETTABLEKS                       R4 R5 K4 ["Unit"]
+        2 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+        4 LOADK                            R7 K1 [{1, 0, 0}]
+        5 NAMECALL                         R5 R5 K2 ["pointToWorldSpace"]
+        7 CALL                             R5 2 1
+        8 GETTABLEKS                       R6 R0 K0 ["CFrame"]
+       10 GETTABLEKS                       R6 R6 K3 ["p"]
+       12 SUB                              R4 R5 R6
+       13 GETTABLEKS                       R4 R4 K4 ["Unit"]
        15 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
        17 MOVE                             R3 R1
        18 GETIMPORT                        R2 K7 [table.insert]
        20 CALL                             R2 2 0
-       21 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-       23 LOADK                            R8 K8 [{-1, 0, 0}]
-       24 NAMECALL                         R6 R6 K2 ["pointToWorldSpace"]
-       26 CALL                             R6 2 1
-       27 GETTABLEKS                       R8 R0 K0 ["CFrame"]
-       29 GETTABLEKS                       R7 R8 K3 ["p"]
-       31 SUB                              R5 R6 R7
-       32 GETTABLEKS                       R4 R5 K4 ["Unit"]
+       21 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+       23 LOADK                            R7 K8 [{-1, 0, 0}]
+       24 NAMECALL                         R5 R5 K2 ["pointToWorldSpace"]
+       26 CALL                             R5 2 1
+       27 GETTABLEKS                       R6 R0 K0 ["CFrame"]
+       29 GETTABLEKS                       R6 R6 K3 ["p"]
+       31 SUB                              R4 R5 R6
+       32 GETTABLEKS                       R4 R4 K4 ["Unit"]
        34 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
        36 MOVE                             R3 R1
        37 GETIMPORT                        R2 K7 [table.insert]
        39 CALL                             R2 2 0
-       40 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-       42 LOADK                            R8 K9 [{0, 1, 0}]
-       43 NAMECALL                         R6 R6 K2 ["pointToWorldSpace"]
-       45 CALL                             R6 2 1
-       46 GETTABLEKS                       R8 R0 K0 ["CFrame"]
-       48 GETTABLEKS                       R7 R8 K3 ["p"]
-       50 SUB                              R5 R6 R7
-       51 GETTABLEKS                       R4 R5 K4 ["Unit"]
+       40 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+       42 LOADK                            R7 K9 [{0, 1, 0}]
+       43 NAMECALL                         R5 R5 K2 ["pointToWorldSpace"]
+       45 CALL                             R5 2 1
+       46 GETTABLEKS                       R6 R0 K0 ["CFrame"]
+       48 GETTABLEKS                       R6 R6 K3 ["p"]
+       50 SUB                              R4 R5 R6
+       51 GETTABLEKS                       R4 R4 K4 ["Unit"]
        53 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
        55 MOVE                             R3 R1
        56 GETIMPORT                        R2 K7 [table.insert]
        58 CALL                             R2 2 0
-       59 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-       61 LOADK                            R8 K10 [{0, -1, 0}]
-       62 NAMECALL                         R6 R6 K2 ["pointToWorldSpace"]
-       64 CALL                             R6 2 1
-       65 GETTABLEKS                       R8 R0 K0 ["CFrame"]
-       67 GETTABLEKS                       R7 R8 K3 ["p"]
-       69 SUB                              R5 R6 R7
-       70 GETTABLEKS                       R4 R5 K4 ["Unit"]
+       59 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+       61 LOADK                            R7 K10 [{0, -1, 0}]
+       62 NAMECALL                         R5 R5 K2 ["pointToWorldSpace"]
+       64 CALL                             R5 2 1
+       65 GETTABLEKS                       R6 R0 K0 ["CFrame"]
+       67 GETTABLEKS                       R6 R6 K3 ["p"]
+       69 SUB                              R4 R5 R6
+       70 GETTABLEKS                       R4 R4 K4 ["Unit"]
        72 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
        74 MOVE                             R3 R1
        75 GETIMPORT                        R2 K7 [table.insert]
        77 CALL                             R2 2 0
-       78 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-       80 LOADK                            R8 K11 [{0, 0, 1}]
-       81 NAMECALL                         R6 R6 K2 ["pointToWorldSpace"]
-       83 CALL                             R6 2 1
-       84 GETTABLEKS                       R8 R0 K0 ["CFrame"]
-       86 GETTABLEKS                       R7 R8 K3 ["p"]
-       88 SUB                              R5 R6 R7
-       89 GETTABLEKS                       R4 R5 K4 ["Unit"]
+       78 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+       80 LOADK                            R7 K11 [{0, 0, 1}]
+       81 NAMECALL                         R5 R5 K2 ["pointToWorldSpace"]
+       83 CALL                             R5 2 1
+       84 GETTABLEKS                       R6 R0 K0 ["CFrame"]
+       86 GETTABLEKS                       R6 R6 K3 ["p"]
+       88 SUB                              R4 R5 R6
+       89 GETTABLEKS                       R4 R4 K4 ["Unit"]
        91 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
        93 MOVE                             R3 R1
        94 GETIMPORT                        R2 K7 [table.insert]
        96 CALL                             R2 2 0
-       97 GETTABLEKS                       R6 R0 K0 ["CFrame"]
-       99 LOADK                            R8 K12 [{0, 0, -1}]
-      100 NAMECALL                         R6 R6 K2 ["pointToWorldSpace"]
-      102 CALL                             R6 2 1
-      103 GETTABLEKS                       R8 R0 K0 ["CFrame"]
-      105 GETTABLEKS                       R7 R8 K3 ["p"]
-      107 SUB                              R5 R6 R7
-      108 GETTABLEKS                       R4 R5 K4 ["Unit"]
+       97 GETTABLEKS                       R5 R0 K0 ["CFrame"]
+       99 LOADK                            R7 K12 [{0, 0, -1}]
+      100 NAMECALL                         R5 R5 K2 ["pointToWorldSpace"]
+      102 CALL                             R5 2 1
+      103 GETTABLEKS                       R6 R0 K0 ["CFrame"]
+      105 GETTABLEKS                       R6 R6 K3 ["p"]
+      107 SUB                              R4 R5 R6
+      108 GETTABLEKS                       R4 R4 K4 ["Unit"]
       110 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
       112 MOVE                             R3 R1
       113 GETIMPORT                        R2 K7 [table.insert]
@@ -4221,21 +4221,21 @@ PROTO_63:
         2 MOVE                             R3 R0
         3 CALL                             R2 1 1
         4 NEWTABLE                         R3 0 0
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R5 R6 K1 ["CFrame"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K1 ["CFrame"]
         9 LOADK                            R7 K2 [{0, 1, 0}]
        10 NAMECALL                         R5 R5 K3 ["pointToWorldSpace"]
        12 CALL                             R5 2 1
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K4 ["Position"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K4 ["Position"]
        16 SUB                              R4 R5 R6
        17 MOVE                             R8 R1
        18 NAMECALL                         R6 R4 K5 ["Cross"]
        20 CALL                             R6 2 1
-       21 MOVE                             R10 R1
-       22 NAMECALL                         R8 R4 K5 ["Cross"]
-       24 CALL                             R8 2 1
-       25 GETTABLEKS                       R7 R8 K6 ["Magnitude"]
+       21 MOVE                             R9 R1
+       22 NAMECALL                         R7 R4 K5 ["Cross"]
+       24 CALL                             R7 2 1
+       25 GETTABLEKS                       R7 R7 K6 ["Magnitude"]
        27 DIV                              R5 R6 R7
        28 GETIMPORT                        R6 K8 [ipairs]
        30 MOVE                             R7 R2
@@ -4250,8 +4250,8 @@ PROTO_63:
        41 MOVE                             R14 R5
        42 CALL                             R12 2 1
        43 GETTABLEKS                       R11 R12 K10 ["Unit"]
-       45 GETUPVAL                         R13 1
-       46 GETTABLEKS                       R12 R13 K11 ["fuzzyCompareVector3"]
+       45 GETUPVAL                         R12 1
+       46 GETTABLEKS                       R12 R12 K11 ["fuzzyCompareVector3"]
        48 MOVE                             R13 R11
        49 MOVE                             R14 R1
        50 CALL                             R12 2 1
@@ -4299,8 +4299,8 @@ PROTO_64:
        38 MOVE                             R14 R10
        39 NAMECALL                         R12 R12 K7 ["pointToWorldSpace"]
        41 CALL                             R12 2 1
-       42 GETTABLEKS                       R14 R0 K6 ["CFrame"]
-       44 GETTABLEKS                       R13 R14 K8 ["p"]
+       42 GETTABLEKS                       R13 R0 K6 ["CFrame"]
+       44 GETTABLEKS                       R13 R13 K8 ["p"]
        46 SUB                              R11 R12 R13
        47 GETGLOBAL                        R12 K9 ["cosineSimilarity"]
        49 GETTABLEKS                       R13 R11 K10 ["Unit"]
@@ -4379,8 +4379,8 @@ PROTO_66:
        30 JUMPIF                           R6 ; [+20]
        31 GETTABLEKS                       R6 R5 K14 ["PrimaryPart"]
        33 JUMPIFNOT                        R6 ; [+5]
-       34 GETTABLEKS                       R7 R5 K14 ["PrimaryPart"]
-       36 GETTABLEKS                       R6 R7 K6 ["CFrame"]
+       34 GETTABLEKS                       R6 R5 K14 ["PrimaryPart"]
+       36 GETTABLEKS                       R6 R6 K6 ["CFrame"]
        38 RETURN                           R6 1
        39 GETGLOBAL                        R6 K15 ["getFirstPart"]
        41 MOVE                             R7 R0
@@ -4412,16 +4412,16 @@ PROTO_67:
         9 NAMECALL                         R3 R3 K3 ["pointToObjectSpace"]
        11 CALL                             R3 2 1
        12 LOADK                            R4 K4 [{0, 0, 0}]
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K5 ["fuzzyCompare"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K5 ["fuzzyCompare"]
        16 GETTABLEKS                       R6 R3 K6 ["X"]
        18 GETTABLEKS                       R7 R2 K6 ["X"]
        20 CALL                             R5 2 1
        21 JUMPIFNOT                        R5 ; [+2]
        22 LOADK                            R4 K7 [{1, 0, 0}]
        23 JUMP                             ; [+57]
-       24 GETUPVAL                         R6 0
-       25 GETTABLEKS                       R5 R6 K5 ["fuzzyCompare"]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K5 ["fuzzyCompare"]
        27 GETTABLEKS                       R6 R3 K6 ["X"]
        29 GETTABLEKS                       R8 R2 K6 ["X"]
        31 MINUS                            R7 R8
@@ -4429,16 +4429,16 @@ PROTO_67:
        33 JUMPIFNOT                        R5 ; [+2]
        34 LOADK                            R4 K8 [{-1, 0, 0}]
        35 JUMP                             ; [+45]
-       36 GETUPVAL                         R6 0
-       37 GETTABLEKS                       R5 R6 K5 ["fuzzyCompare"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K5 ["fuzzyCompare"]
        39 GETTABLEKS                       R6 R3 K9 ["Y"]
        41 GETTABLEKS                       R7 R2 K9 ["Y"]
        43 CALL                             R5 2 1
        44 JUMPIFNOT                        R5 ; [+2]
        45 LOADK                            R4 K10 [{0, 1, 0}]
        46 JUMP                             ; [+34]
-       47 GETUPVAL                         R6 0
-       48 GETTABLEKS                       R5 R6 K5 ["fuzzyCompare"]
+       47 GETUPVAL                         R5 0
+       48 GETTABLEKS                       R5 R5 K5 ["fuzzyCompare"]
        50 GETTABLEKS                       R6 R3 K9 ["Y"]
        52 GETTABLEKS                       R8 R2 K9 ["Y"]
        54 MINUS                            R7 R8
@@ -4446,16 +4446,16 @@ PROTO_67:
        56 JUMPIFNOT                        R5 ; [+2]
        57 LOADK                            R4 K11 [{0, -1, 0}]
        58 JUMP                             ; [+22]
-       59 GETUPVAL                         R6 0
-       60 GETTABLEKS                       R5 R6 K5 ["fuzzyCompare"]
+       59 GETUPVAL                         R5 0
+       60 GETTABLEKS                       R5 R5 K5 ["fuzzyCompare"]
        62 GETTABLEKS                       R6 R3 K12 ["Z"]
        64 GETTABLEKS                       R7 R2 K12 ["Z"]
        66 CALL                             R5 2 1
        67 JUMPIFNOT                        R5 ; [+2]
        68 LOADK                            R4 K13 [{0, 0, 1}]
        69 JUMP                             ; [+11]
-       70 GETUPVAL                         R6 0
-       71 GETTABLEKS                       R5 R6 K5 ["fuzzyCompare"]
+       70 GETUPVAL                         R5 0
+       71 GETTABLEKS                       R5 R5 K5 ["fuzzyCompare"]
        73 GETTABLEKS                       R6 R3 K12 ["Z"]
        75 GETTABLEKS                       R8 R2 K12 ["Z"]
        77 MINUS                            R7 R8
@@ -4466,8 +4466,8 @@ PROTO_67:
        83 MOVE                             R8 R4
        84 NAMECALL                         R6 R6 K15 ["pointToWorldSpace"]
        86 CALL                             R6 2 1
-       87 GETTABLEKS                       R8 R0 K2 ["CFrame"]
-       89 GETTABLEKS                       R7 R8 K16 ["p"]
+       87 GETTABLEKS                       R7 R0 K2 ["CFrame"]
+       89 GETTABLEKS                       R7 R7 K16 ["p"]
        91 SUB                              R5 R6 R7
        92 RETURN                           R5 1
 
@@ -4482,8 +4482,8 @@ PROTO_68:
         9 CALL                             R2 2 1
        10 GETTABLEKS                       R4 R0 K3 ["Size"]
        12 DIVK                             R3 R4 K2 [2]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K4 ["absVector3"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K4 ["absVector3"]
        16 MOVE                             R5 R2
        17 CALL                             R4 1 1
        18 GETTABLEKS                       R6 R3 K5 ["x"]
@@ -4535,14 +4535,14 @@ PROTO_68:
        87 LOADK                            R7 K13 [{0, 0, -1}]
        88 JUMP                             ; [+1]
        89 LOADK                            R7 K14 [{0, 0, 1}]
-       90 GETTABLEKS                       R10 R0 K0 ["CFrame"]
-       92 MOVE                             R12 R7
-       93 NAMECALL                         R10 R10 K15 ["pointToWorldSpace"]
-       95 CALL                             R10 2 1
-       96 GETTABLEKS                       R12 R0 K0 ["CFrame"]
-       98 GETTABLEKS                       R11 R12 K16 ["p"]
-      100 SUB                              R9 R10 R11
-      101 GETTABLEKS                       R8 R9 K17 ["Unit"]
+       90 GETTABLEKS                       R9 R0 K0 ["CFrame"]
+       92 MOVE                             R11 R7
+       93 NAMECALL                         R9 R9 K15 ["pointToWorldSpace"]
+       95 CALL                             R9 2 1
+       96 GETTABLEKS                       R10 R0 K0 ["CFrame"]
+       98 GETTABLEKS                       R10 R10 K16 ["p"]
+      100 SUB                              R8 R9 R10
+      101 GETTABLEKS                       R8 R8 K17 ["Unit"]
       103 RETURN                           R8 1
 
 PROTO_69:
@@ -4631,8 +4631,8 @@ PROTO_73:
        27 RETURN                           R13 -1
 
 PROTO_74:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setAllAdornVisibility"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setAllAdornVisibility"]
         3 LOADB                            R3 0
         4 CALL                             R2 1 0
         5 GETUPVAL                         R2 1
@@ -4684,65 +4684,65 @@ PROTO_74:
        61 JUMPIFNOT                        R4 ; [+10]
        62 LOADB                            R4 0
        63 SETUPVAL                         R4 9
-       64 GETUPVAL                         R5 10
-       65 GETTABLEKS                       R4 R5 K9 ["setPartCFrameToExtents"]
+       64 GETUPVAL                         R4 10
+       65 GETTABLEKS                       R4 R4 K9 ["setPartCFrameToExtents"]
        67 GETUPVAL                         R5 2
-       68 GETUPVAL                         R7 2
-       69 GETTABLEKS                       R6 R7 K10 ["CFrame"]
+       68 GETUPVAL                         R6 2
+       69 GETTABLEKS                       R6 R6 K10 ["CFrame"]
        71 CALL                             R4 2 0
-       72 GETUPVAL                         R5 2
-       73 GETTABLEKS                       R4 R5 K10 ["CFrame"]
+       72 GETUPVAL                         R4 2
+       73 GETTABLEKS                       R4 R4 K10 ["CFrame"]
        75 GETUPVAL                         R5 11
        76 JUMPIF                           R5 ; [+24]
-       77 GETUPVAL                         R6 12
-       78 GETTABLEKS                       R5 R6 K10 ["CFrame"]
-       80 GETUPVAL                         R9 2
-       81 GETTABLEKS                       R8 R9 K11 ["Position"]
+       77 GETUPVAL                         R5 12
+       78 GETTABLEKS                       R5 R5 K10 ["CFrame"]
+       80 GETUPVAL                         R8 2
+       81 GETTABLEKS                       R8 R8 K11 ["Position"]
        83 ADD                              R7 R0 R8
        84 NAMECALL                         R5 R5 K12 ["pointToObjectSpace"]
        86 CALL                             R5 2 1
        87 LOADK                            R6 K13 [{1, 0, 1}]
        88 MUL                              R5 R5 R6
-       89 GETUPVAL                         R7 12
-       90 GETTABLEKS                       R6 R7 K10 ["CFrame"]
+       89 GETUPVAL                         R6 12
+       90 GETTABLEKS                       R6 R6 K10 ["CFrame"]
        92 MOVE                             R8 R5
        93 NAMECALL                         R6 R6 K14 ["pointToWorldSpace"]
        95 CALL                             R6 2 1
        96 MOVE                             R0 R6
-       97 GETUPVAL                         R7 12
-       98 GETTABLEKS                       R6 R7 K11 ["Position"]
+       97 GETUPVAL                         R6 12
+       98 GETTABLEKS                       R6 R6 K11 ["Position"]
       100 SUB                              R0 R0 R6
-      101 GETUPVAL                         R6 13
-      102 GETTABLEKS                       R5 R6 K15 ["getFilteredSelectionMetapart"]
+      101 GETUPVAL                         R5 13
+      102 GETTABLEKS                       R5 R5 K15 ["getFilteredSelectionMetapart"]
       104 CALL                             R5 0 1
       105 GETGLOBAL                        R6 K16 ["setPartPosition"]
       107 GETUPVAL                         R7 2
-      108 GETUPVAL                         R10 14
-      109 GETTABLEKS                       R9 R10 K17 ["p"]
+      108 GETUPVAL                         R9 14
+      109 GETTABLEKS                       R9 R9 K17 ["p"]
       111 ADD                              R8 R9 R0
       112 CALL                             R6 2 0
-      113 GETUPVAL                         R7 13
-      114 GETTABLEKS                       R6 R7 K18 ["getFilteredSelection"]
+      113 GETUPVAL                         R6 13
+      114 GETTABLEKS                       R6 R6 K18 ["getFilteredSelection"]
       116 CALL                             R6 0 1
       117 GETIMPORT                        R7 K20 [workspace]
       119 MOVE                             R9 R6
       120 NAMECALL                         R7 R7 K21 ["UnjoinFromOutsiders"]
       122 CALL                             R7 2 0
       123 GETUPVAL                         R6 8
-      124 GETUPVAL                         R9 2
-      125 GETTABLEKS                       R8 R9 K10 ["CFrame"]
+      124 GETUPVAL                         R8 2
+      125 GETTABLEKS                       R8 R8 K10 ["CFrame"]
       127 NAMECALL                         R6 R6 K22 ["toObjectSpace"]
       129 CALL                             R6 2 1
       130 NEWTABLE                         R7 0 8
-      132 GETGLOBAL                        R10 K7 ["selectedPart"]
-      134 GETTABLEKS                       R9 R10 K24 ["Size"]
+      132 GETGLOBAL                        R9 K7 ["selectedPart"]
+      134 GETTABLEKS                       R9 R9 K24 ["Size"]
       136 DIVK                             R8 R9 K23 [2]
-      137 GETUPVAL                         R11 2
-      138 GETTABLEKS                       R10 R11 K24 ["Size"]
+      137 GETUPVAL                         R10 2
+      138 GETTABLEKS                       R10 R10 K24 ["Size"]
       140 DIVK                             R9 R10 K23 [2]
       141 GETUPVAL                         R10 8
-      142 GETUPVAL                         R13 2
-      143 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      142 GETUPVAL                         R12 2
+      143 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       145 LOADK                            R15 K25 [{-1, -1, -1}]
       146 MUL                              R14 R9 R15
       147 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4751,8 +4751,8 @@ PROTO_74:
       152 CALL                             R10 -1 1
       153 SETTABLEN                        R10 R7 1
       154 GETUPVAL                         R10 8
-      155 GETUPVAL                         R13 2
-      156 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      155 GETUPVAL                         R12 2
+      156 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       158 LOADK                            R15 K26 [{-1, -1, 1}]
       159 MUL                              R14 R9 R15
       160 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4761,8 +4761,8 @@ PROTO_74:
       165 CALL                             R10 -1 1
       166 SETTABLEN                        R10 R7 2
       167 GETUPVAL                         R10 8
-      168 GETUPVAL                         R13 2
-      169 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      168 GETUPVAL                         R12 2
+      169 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       171 LOADK                            R15 K27 [{-1, 1, -1}]
       172 MUL                              R14 R9 R15
       173 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4771,8 +4771,8 @@ PROTO_74:
       178 CALL                             R10 -1 1
       179 SETTABLEN                        R10 R7 3
       180 GETUPVAL                         R10 8
-      181 GETUPVAL                         R13 2
-      182 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      181 GETUPVAL                         R12 2
+      182 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       184 LOADK                            R15 K28 [{-1, 1, 1}]
       185 MUL                              R14 R9 R15
       186 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4781,8 +4781,8 @@ PROTO_74:
       191 CALL                             R10 -1 1
       192 SETTABLEN                        R10 R7 4
       193 GETUPVAL                         R10 8
-      194 GETUPVAL                         R13 2
-      195 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      194 GETUPVAL                         R12 2
+      195 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       197 LOADK                            R15 K29 [{1, -1, -1}]
       198 MUL                              R14 R9 R15
       199 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4791,8 +4791,8 @@ PROTO_74:
       204 CALL                             R10 -1 1
       205 SETTABLEN                        R10 R7 5
       206 GETUPVAL                         R10 8
-      207 GETUPVAL                         R13 2
-      208 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      207 GETUPVAL                         R12 2
+      208 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       210 LOADK                            R15 K30 [{1, -1, 1}]
       211 MUL                              R14 R9 R15
       212 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4801,8 +4801,8 @@ PROTO_74:
       217 CALL                             R10 -1 1
       218 SETTABLEN                        R10 R7 6
       219 GETUPVAL                         R10 8
-      220 GETUPVAL                         R13 2
-      221 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      220 GETUPVAL                         R12 2
+      221 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       223 LOADK                            R15 K31 [{1, 1, -1}]
       224 MUL                              R14 R9 R15
       225 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4811,8 +4811,8 @@ PROTO_74:
       230 CALL                             R10 -1 1
       231 SETTABLEN                        R10 R7 7
       232 GETUPVAL                         R10 8
-      233 GETUPVAL                         R13 2
-      234 GETTABLEKS                       R12 R13 K10 ["CFrame"]
+      233 GETUPVAL                         R12 2
+      234 GETTABLEKS                       R12 R12 K10 ["CFrame"]
       236 LOADK                            R15 K32 [{1, 1, 1}]
       237 MUL                              R14 R9 R15
       238 NAMECALL                         R12 R12 K14 ["pointToWorldSpace"]
@@ -4830,25 +4830,25 @@ PROTO_74:
       252 LENGTH                           R16 R7
       253 LOADN                            R17 1
       254 FORNPREP                         R16
-      255 GETTABLE                         R21 R7 R18
-      256 GETTABLEKS                       R20 R21 K33 ["x"]
+      255 GETTABLE                         R20 R7 R18
+      256 GETTABLEKS                       R20 R20 K33 ["x"]
       258 GETGLOBAL                        R21 K34 ["roundToNearestGrid"]
-      260 GETTABLE                         R23 R7 R18
-      261 GETTABLEKS                       R22 R23 K33 ["x"]
+      260 GETTABLE                         R22 R7 R18
+      261 GETTABLEKS                       R22 R22 K33 ["x"]
       263 CALL                             R21 1 1
       264 SUB                              R19 R20 R21
-      265 GETTABLE                         R22 R7 R18
-      266 GETTABLEKS                       R21 R22 K35 ["y"]
+      265 GETTABLE                         R21 R7 R18
+      266 GETTABLEKS                       R21 R21 K35 ["y"]
       268 GETGLOBAL                        R22 K34 ["roundToNearestGrid"]
-      270 GETTABLE                         R24 R7 R18
-      271 GETTABLEKS                       R23 R24 K35 ["y"]
+      270 GETTABLE                         R23 R7 R18
+      271 GETTABLEKS                       R23 R23 K35 ["y"]
       273 CALL                             R22 1 1
       274 SUB                              R20 R21 R22
-      275 GETTABLE                         R23 R7 R18
-      276 GETTABLEKS                       R22 R23 K36 ["z"]
+      275 GETTABLE                         R22 R7 R18
+      276 GETTABLEKS                       R22 R22 K36 ["z"]
       278 GETGLOBAL                        R23 K34 ["roundToNearestGrid"]
-      280 GETTABLE                         R25 R7 R18
-      281 GETTABLEKS                       R24 R25 K36 ["z"]
+      280 GETTABLE                         R24 R7 R18
+      281 GETTABLEKS                       R24 R24 K36 ["z"]
       283 CALL                             R23 1 1
       284 SUB                              R21 R22 R23
       285 FASTCALL1                        MATH_ABS R19 ; [+3]
@@ -4905,21 +4905,21 @@ PROTO_74:
       349 JUMPIFNOT                        R1 ; [+936]
       350 GETUPVAL                         R17 11
       351 JUMPIF                           R17 ; [+934]
-      352 GETUPVAL                         R19 12
-      353 GETTABLEKS                       R18 R19 K10 ["CFrame"]
+      352 GETUPVAL                         R18 12
+      353 GETTABLEKS                       R18 R18 K10 ["CFrame"]
       355 LOADK                            R20 K45 [{0, 1, 0}]
       356 NAMECALL                         R18 R18 K14 ["pointToWorldSpace"]
       358 CALL                             R18 2 1
-      359 GETUPVAL                         R20 12
-      360 GETTABLEKS                       R19 R20 K11 ["Position"]
+      359 GETUPVAL                         R19 12
+      360 GETTABLEKS                       R19 R19 K11 ["Position"]
       362 SUB                              R17 R18 R19
       363 GETGLOBAL                        R18 K16 ["setPartPosition"]
       365 GETUPVAL                         R19 2
-      366 GETUPVAL                         R21 8
-      367 MOVE                             R23 R6
-      368 NAMECALL                         R21 R21 K46 ["toWorldSpace"]
-      370 CALL                             R21 2 1
-      371 GETTABLEKS                       R20 R21 K17 ["p"]
+      366 GETUPVAL                         R20 8
+      367 MOVE                             R22 R6
+      368 NAMECALL                         R20 R20 K46 ["toWorldSpace"]
+      370 CALL                             R20 2 1
+      371 GETTABLEKS                       R20 R20 K17 ["p"]
       373 CALL                             R18 2 0
       374 GETGLOBAL                        R18 K47 ["originalDragPartOrientation"]
       376 JUMPIF                           R18 ; [+1]
@@ -4933,8 +4933,8 @@ PROTO_74:
       386 JUMPIF                           R20 ; [+2]
       387 GETGLOBAL                        R20 K47 ["originalDragPartOrientation"]
       389 CALL                             R18 2 0
-      390 GETUPVAL                         R19 2
-      391 GETTABLEKS                       R18 R19 K10 ["CFrame"]
+      390 GETUPVAL                         R18 2
+      391 GETTABLEKS                       R18 R18 K10 ["CFrame"]
       393 GETUPVAL                         R21 2
       394 FASTCALL2                        TABLE_INSERT R2 R21 ; [+4]
       396 MOVE                             R20 R2
@@ -4947,20 +4947,20 @@ PROTO_74:
       406 SETTABLEKS                       R4 R19 K10 ["CFrame"]
       408 GETUPVAL                         R19 2
       409 SETTABLEKS                       R18 R19 K10 ["CFrame"]
-      411 GETUPVAL                         R20 15
-      412 GETTABLEKS                       R19 R20 K52 ["itemsHasItemNotInList"]
+      411 GETUPVAL                         R19 15
+      412 GETTABLEKS                       R19 R19 K52 ["itemsHasItemNotInList"]
       414 GETUPVAL                         R20 2
       415 NAMECALL                         R20 R20 K53 ["GetTouchingParts"]
       417 CALL                             R20 1 1
       418 MOVE                             R21 R2
       419 CALL                             R19 2 1
       420 JUMPIFNOT                        R19 ; [+811]
-      421 GETUPVAL                         R23 2
-      422 GETTABLEKS                       R22 R23 K10 ["CFrame"]
-      424 GETTABLEKS                       R21 R22 K17 ["p"]
-      426 GETTABLEKS                       R22 R4 K17 ["p"]
-      428 SUB                              R20 R21 R22
-      429 GETTABLEKS                       R19 R20 K54 ["Unit"]
+      421 GETUPVAL                         R20 2
+      422 GETTABLEKS                       R20 R20 K10 ["CFrame"]
+      424 GETTABLEKS                       R20 R20 K17 ["p"]
+      426 GETTABLEKS                       R21 R4 K17 ["p"]
+      428 SUB                              R19 R20 R21
+      429 GETTABLEKS                       R19 R19 K54 ["Unit"]
       431 GETTABLEKS                       R20 R19 K33 ["x"]
       433 GETTABLEKS                       R21 R19 K33 ["x"]
       435 JUMPIFEQ                         R20 R21 ; [+2]
@@ -4968,38 +4968,38 @@ PROTO_74:
       438 NEWTABLE                         R20 0 0
       440 GETUPVAL                         R21 2
       441 MULK                             R22 R19 K56 [-1]
-      442 GETUPVAL                         R24 16
-      443 GETTABLEKS                       R23 R24 K57 ["SafeMove"]
+      442 GETUPVAL                         R23 16
+      443 GETTABLEKS                       R23 R23 K57 ["SafeMove"]
       445 MOVE                             R24 R21
       446 MOVE                             R25 R2
       447 MOVE                             R26 R22
       448 CALL                             R23 3 0
-      449 GETUPVAL                         R22 17
-      450 GETTABLEKS                       R21 R22 K58 ["distanceVector3"]
+      449 GETUPVAL                         R21 17
+      450 GETTABLEKS                       R21 R21 K58 ["distanceVector3"]
       452 GETTABLEKS                       R22 R4 K17 ["p"]
       454 GETTABLEKS                       R23 R18 K17 ["p"]
       456 CALL                             R21 2 1
-      457 GETUPVAL                         R23 17
-      458 GETTABLEKS                       R22 R23 K58 ["distanceVector3"]
-      460 GETUPVAL                         R25 2
-      461 GETTABLEKS                       R24 R25 K10 ["CFrame"]
-      463 GETTABLEKS                       R23 R24 K17 ["p"]
+      457 GETUPVAL                         R22 17
+      458 GETTABLEKS                       R22 R22 K58 ["distanceVector3"]
+      460 GETUPVAL                         R23 2
+      461 GETTABLEKS                       R23 R23 K10 ["CFrame"]
+      463 GETTABLEKS                       R23 R23 K17 ["p"]
       465 GETTABLEKS                       R24 R18 K17 ["p"]
       467 CALL                             R22 2 1
       468 JUMPIFNOTLE                      R21 R22 ; [+4]
       470 GETUPVAL                         R21 2
       471 SETTABLEKS                       R4 R21 K10 ["CFrame"]
-      473 GETUPVAL                         R22 2
-      474 GETTABLEKS                       R21 R22 K10 ["CFrame"]
+      473 GETUPVAL                         R21 2
+      474 GETTABLEKS                       R21 R21 K10 ["CFrame"]
       476 GETUPVAL                         R22 2
-      477 GETUPVAL                         R25 2
-      478 GETTABLEKS                       R24 R25 K10 ["CFrame"]
+      477 GETUPVAL                         R24 2
+      478 GETTABLEKS                       R24 R24 K10 ["CFrame"]
       480 MULK                             R25 R19 K59 [0.0001]
       481 ADD                              R23 R24 R25
       482 SETTABLEKS                       R23 R22 K10 ["CFrame"]
       484 LOADN                            R22 0
-      485 GETUPVAL                         R24 15
-      486 GETTABLEKS                       R23 R24 K52 ["itemsHasItemNotInList"]
+      485 GETUPVAL                         R23 15
+      486 GETTABLEKS                       R23 R23 K52 ["itemsHasItemNotInList"]
       488 GETUPVAL                         R24 2
       489 NAMECALL                         R24 R24 K53 ["GetTouchingParts"]
       491 CALL                             R24 1 1
@@ -5009,17 +5009,17 @@ PROTO_74:
       495 LOADN                            R23 100
       496 JUMPIFNOTLT                      R22 R23 ; [+11]
       498 GETUPVAL                         R23 2
-      499 GETUPVAL                         R26 2
-      500 GETTABLEKS                       R25 R26 K10 ["CFrame"]
+      499 GETUPVAL                         R25 2
+      500 GETTABLEKS                       R25 R25 K10 ["CFrame"]
       502 MULK                             R26 R19 K59 [0.0001]
       503 ADD                              R24 R25 R26
       504 SETTABLEKS                       R24 R23 K10 ["CFrame"]
       506 ADDK                             R22 R22 K60 [1]
       507 JUMPBACK                         ; [-23]
-      508 GETUPVAL                         R24 2
-      509 GETTABLEKS                       R23 R24 K10 ["CFrame"]
-      511 GETUPVAL                         R25 15
-      512 GETTABLEKS                       R24 R25 K61 ["filterOutItems"]
+      508 GETUPVAL                         R23 2
+      509 GETTABLEKS                       R23 R23 K10 ["CFrame"]
+      511 GETUPVAL                         R24 15
+      512 GETTABLEKS                       R24 R24 K61 ["filterOutItems"]
       514 MOVE                             R25 R2
       515 GETUPVAL                         R26 2
       516 NAMECALL                         R26 R26 K53 ["GetTouchingParts"]
@@ -5033,8 +5033,8 @@ PROTO_74:
       528 CALL                             R27 1 3
       529 FORGPREP_NEXT                    R27
       530 GETTABLEKS                       R33 R31 K10 ["CFrame"]
-      532 GETTABLEKS                       R35 R31 K10 ["CFrame"]
-      534 GETTABLEKS                       R34 R35 K17 ["p"]
+      532 GETTABLEKS                       R34 R31 K10 ["CFrame"]
+      534 GETTABLEKS                       R34 R34 K17 ["p"]
       536 SUB                              R32 R33 R34
       537 FASTCALL2                        TABLE_INSERT R25 R32 ; [+5]
       539 MOVE                             R34 R25
@@ -5042,26 +5042,26 @@ PROTO_74:
       541 GETIMPORT                        R33 K50 [table.insert]
       543 CALL                             R33 2 0
       544 GETGLOBAL                        R33 K66 ["getNormalOfCollidingFace"]
-      546 GETUPVAL                         R36 2
-      547 GETTABLEKS                       R35 R36 K10 ["CFrame"]
-      549 GETTABLEKS                       R34 R35 K17 ["p"]
-      551 GETTABLEKS                       R36 R31 K10 ["CFrame"]
-      553 GETTABLEKS                       R35 R36 K17 ["p"]
+      546 GETUPVAL                         R34 2
+      547 GETTABLEKS                       R34 R34 K10 ["CFrame"]
+      549 GETTABLEKS                       R34 R34 K17 ["p"]
+      551 GETTABLEKS                       R35 R31 K10 ["CFrame"]
+      553 GETTABLEKS                       R35 R35 K17 ["p"]
       555 MOVE                             R36 R17
       556 CALL                             R33 3 1
-      557 GETGLOBAL                        R35 K67 ["getNormalFromClosestPoint"]
-      559 MOVE                             R36 R31
-      560 MOVE                             R37 R33
-      561 CALL                             R35 2 1
-      562 GETTABLEKS                       R34 R35 K54 ["Unit"]
+      557 GETGLOBAL                        R34 K67 ["getNormalFromClosestPoint"]
+      559 MOVE                             R35 R31
+      560 MOVE                             R36 R33
+      561 CALL                             R34 2 1
+      562 GETTABLEKS                       R34 R34 K54 ["Unit"]
       564 GETTABLEKS                       R38 R17 K54 ["Unit"]
       566 NAMECALL                         R36 R34 K68 ["Dot"]
       568 CALL                             R36 2 1
       569 GETTABLEKS                       R37 R17 K54 ["Unit"]
       571 MUL                              R35 R36 R37
       572 SUB                              R34 R34 R35
-      573 GETUPVAL                         R38 18
-      574 GETTABLEKS                       R37 R38 K69 ["fuzzyCompare"]
+      573 GETUPVAL                         R37 18
+      574 GETTABLEKS                       R37 R37 K69 ["fuzzyCompare"]
       576 LOADN                            R38 0
       577 GETTABLEKS                       R39 R34 K33 ["x"]
       579 CALL                             R37 2 1
@@ -5069,8 +5069,8 @@ PROTO_74:
       581 LOADN                            R36 0
       582 JUMP                             ; [+2]
       583 GETTABLEKS                       R36 R34 K33 ["x"]
-      585 GETUPVAL                         R39 18
-      586 GETTABLEKS                       R38 R39 K69 ["fuzzyCompare"]
+      585 GETUPVAL                         R38 18
+      586 GETTABLEKS                       R38 R38 K69 ["fuzzyCompare"]
       588 LOADN                            R39 0
       589 GETTABLEKS                       R40 R34 K35 ["y"]
       591 CALL                             R38 2 1
@@ -5078,8 +5078,8 @@ PROTO_74:
       593 LOADN                            R37 0
       594 JUMP                             ; [+2]
       595 GETTABLEKS                       R37 R34 K35 ["y"]
-      597 GETUPVAL                         R40 18
-      598 GETTABLEKS                       R39 R40 K69 ["fuzzyCompare"]
+      597 GETUPVAL                         R39 18
+      598 GETTABLEKS                       R39 R39 K69 ["fuzzyCompare"]
       600 LOADN                            R40 0
       601 GETTABLEKS                       R41 R34 K36 ["z"]
       603 CALL                             R39 2 1
@@ -5091,8 +5091,8 @@ PROTO_74:
       610 GETIMPORT                        R35 K42 [Vector3.new]
       612 CALL                             R35 3 1
       613 MOVE                             R34 R35
-      614 GETUPVAL                         R36 19
-      615 GETTABLEKS                       R35 R36 K70 ["roundVector3ToNearest"]
+      614 GETUPVAL                         R35 19
+      615 GETTABLEKS                       R35 R35 K70 ["roundVector3ToNearest"]
       617 MOVE                             R36 R34
       618 LOADK                            R37 K59 [0.0001]
       619 CALL                             R35 2 1
@@ -5121,54 +5121,54 @@ PROTO_74:
       652 FORGPREP_NEXT                    R30
       653 GETUPVAL                         R35 2
       654 SETTABLEKS                       R4 R35 K10 ["CFrame"]
-      656 GETUPVAL                         R36 10
-      657 GETTABLEKS                       R35 R36 K72 ["getPartBounds"]
+      656 GETUPVAL                         R35 10
+      657 GETTABLEKS                       R35 R35 K72 ["getPartBounds"]
       659 GETUPVAL                         R36 2
-      660 GETTABLEN                        R38 R34 1
-      661 GETTABLEKS                       R37 R38 K10 ["CFrame"]
+      660 GETTABLEN                        R37 R34 1
+      661 GETTABLEKS                       R37 R37 K10 ["CFrame"]
       663 CALL                             R35 2 2
-      664 GETTABLEN                        R38 R34 1
-      665 GETTABLEKS                       R37 R38 K10 ["CFrame"]
+      664 GETTABLEN                        R37 R34 1
+      665 GETTABLEKS                       R37 R37 K10 ["CFrame"]
       667 MOVE                             R39 R35
       668 NAMECALL                         R37 R37 K12 ["pointToObjectSpace"]
       670 CALL                             R37 2 1
       671 MOVE                             R35 R37
-      672 GETTABLEN                        R38 R34 1
-      673 GETTABLEKS                       R37 R38 K10 ["CFrame"]
+      672 GETTABLEN                        R37 R34 1
+      673 GETTABLEKS                       R37 R37 K10 ["CFrame"]
       675 MOVE                             R39 R36
       676 NAMECALL                         R37 R37 K12 ["pointToObjectSpace"]
       678 CALL                             R37 2 1
       679 MOVE                             R36 R37
       680 GETUPVAL                         R37 2
       681 SETTABLEKS                       R18 R37 K10 ["CFrame"]
-      683 GETUPVAL                         R38 10
-      684 GETTABLEKS                       R37 R38 K72 ["getPartBounds"]
+      683 GETUPVAL                         R37 10
+      684 GETTABLEKS                       R37 R37 K72 ["getPartBounds"]
       686 GETUPVAL                         R38 2
-      687 GETTABLEN                        R40 R34 1
-      688 GETTABLEKS                       R39 R40 K10 ["CFrame"]
+      687 GETTABLEN                        R39 R34 1
+      688 GETTABLEKS                       R39 R39 K10 ["CFrame"]
       690 CALL                             R37 2 2
-      691 GETTABLEN                        R40 R34 1
-      692 GETTABLEKS                       R39 R40 K10 ["CFrame"]
+      691 GETTABLEN                        R39 R34 1
+      692 GETTABLEKS                       R39 R39 K10 ["CFrame"]
       694 MOVE                             R41 R37
       695 NAMECALL                         R39 R39 K12 ["pointToObjectSpace"]
       697 CALL                             R39 2 1
       698 MOVE                             R37 R39
-      699 GETTABLEN                        R40 R34 1
-      700 GETTABLEKS                       R39 R40 K10 ["CFrame"]
+      699 GETTABLEN                        R39 R34 1
+      700 GETTABLEKS                       R39 R39 K10 ["CFrame"]
       702 MOVE                             R41 R38
       703 NAMECALL                         R39 R39 K12 ["pointToObjectSpace"]
       705 CALL                             R39 2 1
       706 MOVE                             R38 R39
-      707 GETUPVAL                         R40 10
-      708 GETTABLEKS                       R39 R40 K73 ["unionVector3NoSpaceChange"]
+      707 GETUPVAL                         R39 10
+      708 GETTABLEKS                       R39 R39 K73 ["unionVector3NoSpaceChange"]
       710 MOVE                             R40 R37
       711 MOVE                             R41 R35
       712 MOVE                             R42 R36
       713 CALL                             R39 3 2
       714 MOVE                             R35 R39
       715 MOVE                             R36 R40
-      716 GETUPVAL                         R40 10
-      717 GETTABLEKS                       R39 R40 K73 ["unionVector3NoSpaceChange"]
+      716 GETUPVAL                         R39 10
+      717 GETTABLEKS                       R39 R39 K73 ["unionVector3NoSpaceChange"]
       719 MOVE                             R40 R38
       720 MOVE                             R41 R35
       721 MOVE                             R42 R36
@@ -5178,51 +5178,51 @@ PROTO_74:
       725 GETTABLEKS                       R39 R21 K17 ["p"]
       727 GETGLOBAL                        R40 K16 ["setPartPosition"]
       729 GETUPVAL                         R41 2
-      730 GETTABLEN                        R44 R34 1
-      731 GETTABLEKS                       R43 R44 K10 ["CFrame"]
-      733 GETTABLEKS                       R42 R43 K17 ["p"]
+      730 GETTABLEN                        R42 R34 1
+      731 GETTABLEKS                       R42 R42 K10 ["CFrame"]
+      733 GETTABLEKS                       R42 R42 K17 ["p"]
       735 CALL                             R40 2 0
       736 GETUPVAL                         R40 2
       737 GETTABLEN                        R41 R34 2
       738 NEWTABLE                         R42 0 1
       740 GETTABLEN                        R43 R34 1
       741 SETLIST                          R42 R43 1 [1]
-      743 GETUPVAL                         R44 16
-      744 GETTABLEKS                       R43 R44 K57 ["SafeMove"]
+      743 GETUPVAL                         R43 16
+      744 GETTABLEKS                       R43 R43 K57 ["SafeMove"]
       746 MOVE                             R44 R40
-      747 GETUPVAL                         R46 15
-      748 GETTABLEKS                       R45 R46 K74 ["createIgnoreListGivenWhiteList"]
-      750 GETIMPORT                        R47 K76 [game]
-      752 GETTABLEKS                       R46 R47 K77 ["Workspace"]
+      747 GETUPVAL                         R45 15
+      748 GETTABLEKS                       R45 R45 K74 ["createIgnoreListGivenWhiteList"]
+      750 GETIMPORT                        R46 K76 [game]
+      752 GETTABLEKS                       R46 R46 K77 ["Workspace"]
       754 MOVE                             R47 R42
       755 CALL                             R45 2 1
       756 MOVE                             R46 R41
       757 CALL                             R43 3 0
-      758 GETUPVAL                         R42 2
-      759 GETTABLEKS                       R41 R42 K10 ["CFrame"]
-      761 GETTABLEKS                       R40 R41 K17 ["p"]
-      763 GETUPVAL                         R42 19
-      764 GETTABLEKS                       R41 R42 K70 ["roundVector3ToNearest"]
+      758 GETUPVAL                         R40 2
+      759 GETTABLEKS                       R40 R40 K10 ["CFrame"]
+      761 GETTABLEKS                       R40 R40 K17 ["p"]
+      763 GETUPVAL                         R41 19
+      764 GETTABLEKS                       R41 R41 K70 ["roundVector3ToNearest"]
       766 MOVE                             R42 R39
       767 LOADK                            R43 K59 [0.0001]
       768 CALL                             R41 2 1
       769 MOVE                             R39 R41
-      770 GETUPVAL                         R42 19
-      771 GETTABLEKS                       R41 R42 K70 ["roundVector3ToNearest"]
+      770 GETUPVAL                         R41 19
+      771 GETTABLEKS                       R41 R41 K70 ["roundVector3ToNearest"]
       773 MOVE                             R42 R40
       774 LOADK                            R43 K59 [0.0001]
       775 CALL                             R41 2 1
       776 MOVE                             R40 R41
-      777 SUB                              R42 R39 R40
-      778 GETTABLEKS                       R41 R42 K54 ["Unit"]
-      780 GETUPVAL                         R43 17
-      781 GETTABLEKS                       R42 R43 K58 ["distanceVector3"]
+      777 SUB                              R41 R39 R40
+      778 GETTABLEKS                       R41 R41 K54 ["Unit"]
+      780 GETUPVAL                         R42 17
+      781 GETTABLEKS                       R42 R42 K58 ["distanceVector3"]
       783 GETTABLEKS                       R43 R18 K17 ["p"]
       785 GETTABLEKS                       R45 R21 K17 ["p"]
       787 SUB                              R44 R45 R41
       788 CALL                             R42 2 1
-      789 GETUPVAL                         R44 17
-      790 GETTABLEKS                       R43 R44 K58 ["distanceVector3"]
+      789 GETUPVAL                         R43 17
+      790 GETTABLEKS                       R43 R43 K58 ["distanceVector3"]
       792 GETTABLEKS                       R44 R18 K17 ["p"]
       794 GETTABLEKS                       R46 R21 K17 ["p"]
       796 ADD                              R45 R46 R41
@@ -5246,8 +5246,8 @@ PROTO_74:
       820 GETTABLEN                        R41 R41 1
       821 JUMP                             ; [+1]
       822 LOADNIL                          R41
-      823 GETUPVAL                         R45 18
-      824 GETTABLEKS                       R44 R45 K69 ["fuzzyCompare"]
+      823 GETUPVAL                         R44 18
+      824 GETTABLEKS                       R44 R44 K69 ["fuzzyCompare"]
       826 LOADN                            R45 0
       827 GETTABLEKS                       R46 R41 K33 ["x"]
       829 CALL                             R44 2 1
@@ -5255,8 +5255,8 @@ PROTO_74:
       831 LOADN                            R43 0
       832 JUMP                             ; [+2]
       833 GETTABLEKS                       R43 R41 K33 ["x"]
-      835 GETUPVAL                         R46 18
-      836 GETTABLEKS                       R45 R46 K69 ["fuzzyCompare"]
+      835 GETUPVAL                         R45 18
+      836 GETTABLEKS                       R45 R45 K69 ["fuzzyCompare"]
       838 LOADN                            R46 0
       839 GETTABLEKS                       R47 R41 K35 ["y"]
       841 CALL                             R45 2 1
@@ -5264,8 +5264,8 @@ PROTO_74:
       843 LOADN                            R44 0
       844 JUMP                             ; [+2]
       845 GETTABLEKS                       R44 R41 K35 ["y"]
-      847 GETUPVAL                         R47 18
-      848 GETTABLEKS                       R46 R47 K69 ["fuzzyCompare"]
+      847 GETUPVAL                         R46 18
+      848 GETTABLEKS                       R46 R46 K69 ["fuzzyCompare"]
       850 LOADN                            R47 0
       851 GETTABLEKS                       R48 R41 K36 ["z"]
       853 CALL                             R46 2 1
@@ -5288,22 +5288,22 @@ PROTO_74:
       874 NEWTABLE                         R44 0 1
       876 GETTABLEN                        R45 R34 1
       877 SETLIST                          R44 R45 1 [1]
-      879 GETUPVAL                         R46 16
-      880 GETTABLEKS                       R45 R46 K57 ["SafeMove"]
+      879 GETUPVAL                         R45 16
+      880 GETTABLEKS                       R45 R45 K57 ["SafeMove"]
       882 MOVE                             R46 R42
-      883 GETUPVAL                         R48 15
-      884 GETTABLEKS                       R47 R48 K74 ["createIgnoreListGivenWhiteList"]
-      886 GETIMPORT                        R49 K76 [game]
-      888 GETTABLEKS                       R48 R49 K77 ["Workspace"]
+      883 GETUPVAL                         R47 15
+      884 GETTABLEKS                       R47 R47 K74 ["createIgnoreListGivenWhiteList"]
+      886 GETIMPORT                        R48 K76 [game]
+      888 GETTABLEKS                       R48 R48 K77 ["Workspace"]
       890 MOVE                             R49 R44
       891 CALL                             R47 2 1
       892 MOVE                             R48 R43
       893 CALL                             R45 3 0
-      894 GETUPVAL                         R43 17
-      895 GETTABLEKS                       R42 R43 K58 ["distanceVector3"]
-      897 GETUPVAL                         R45 2
-      898 GETTABLEKS                       R44 R45 K10 ["CFrame"]
-      900 GETTABLEKS                       R43 R44 K17 ["p"]
+      894 GETUPVAL                         R42 17
+      895 GETTABLEKS                       R42 R42 K58 ["distanceVector3"]
+      897 GETUPVAL                         R43 2
+      898 GETTABLEKS                       R43 R43 K10 ["CFrame"]
+      900 GETTABLEKS                       R43 R43 K17 ["p"]
       902 MOVE                             R44 R18
       903 CALL                             R42 2 1
       904 GETUPVAL                         R43 2
@@ -5313,30 +5313,30 @@ PROTO_74:
       909 NEWTABLE                         R45 0 1
       911 GETTABLEN                        R46 R34 1
       912 SETLIST                          R45 R46 1 [1]
-      914 GETUPVAL                         R47 16
-      915 GETTABLEKS                       R46 R47 K57 ["SafeMove"]
+      914 GETUPVAL                         R46 16
+      915 GETTABLEKS                       R46 R46 K57 ["SafeMove"]
       917 MOVE                             R47 R43
-      918 GETUPVAL                         R49 15
-      919 GETTABLEKS                       R48 R49 K74 ["createIgnoreListGivenWhiteList"]
-      921 GETIMPORT                        R50 K76 [game]
-      923 GETTABLEKS                       R49 R50 K77 ["Workspace"]
+      918 GETUPVAL                         R48 15
+      919 GETTABLEKS                       R48 R48 K74 ["createIgnoreListGivenWhiteList"]
+      921 GETIMPORT                        R49 K76 [game]
+      923 GETTABLEKS                       R49 R49 K77 ["Workspace"]
       925 MOVE                             R50 R45
       926 CALL                             R48 2 1
       927 MOVE                             R49 R44
       928 CALL                             R46 3 0
-      929 GETUPVAL                         R44 17
-      930 GETTABLEKS                       R43 R44 K58 ["distanceVector3"]
-      932 GETUPVAL                         R46 2
-      933 GETTABLEKS                       R45 R46 K10 ["CFrame"]
-      935 GETTABLEKS                       R44 R45 K17 ["p"]
+      929 GETUPVAL                         R43 17
+      930 GETTABLEKS                       R43 R43 K58 ["distanceVector3"]
+      932 GETUPVAL                         R44 2
+      933 GETTABLEKS                       R44 R44 K10 ["CFrame"]
+      935 GETTABLEKS                       R44 R44 K17 ["p"]
       937 MOVE                             R45 R21
       938 CALL                             R43 2 1
       939 JUMPIFNOTLT                      R43 R42 ; [+2]
       941 MOVE                             R42 R43
       942 GETUPVAL                         R44 2
       943 SETTABLEKS                       R21 R44 K10 ["CFrame"]
-      945 GETIMPORT                        R45 K76 [game]
-      947 GETTABLEKS                       R44 R45 K79 ["Selection"]
+      945 GETIMPORT                        R44 K76 [game]
+      947 GETTABLEKS                       R44 R44 K79 ["Selection"]
       949 NAMECALL                         R44 R44 K80 ["Get"]
       951 CALL                             R44 1 1
       952 GETTABLEN                        R47 R34 1
@@ -5350,8 +5350,8 @@ PROTO_74:
       962 MOVE                             R49 R42
       963 JUMPIF                           R47 ; [+2]
       964 NEWTABLE                         R47 0 0
-      966 GETUPVAL                         R51 16
-      967 GETTABLEKS                       R50 R51 K81 ["moveUntilCollide"]
+      966 GETUPVAL                         R50 16
+      967 GETTABLEKS                       R50 R50 K81 ["moveUntilCollide"]
       969 MOVE                             R51 R46
       970 MOVE                             R52 R47
       971 MOVE                             R53 R48
@@ -5360,38 +5360,38 @@ PROTO_74:
       974 CALL                             R50 5 1
       975 MOVE                             R45 R50
       976 JUMPIF                           R45 ; [+26]
-      977 GETUPVAL                         R47 2
-      978 GETTABLEKS                       R46 R47 K10 ["CFrame"]
-      980 GETTABLEKS                       R45 R46 K17 ["p"]
+      977 GETUPVAL                         R45 2
+      978 GETTABLEKS                       R45 R45 K10 ["CFrame"]
+      980 GETTABLEKS                       R45 R45 K17 ["p"]
       982 GETUPVAL                         R46 2
       983 SETTABLEKS                       R18 R46 K10 ["CFrame"]
-      985 GETUPVAL                         R50 2
-      986 GETTABLEKS                       R49 R50 K10 ["CFrame"]
-      988 GETTABLEKS                       R48 R49 K17 ["p"]
-      990 SUB                              R47 R48 R45
-      991 GETTABLEKS                       R46 R47 K54 ["Unit"]
+      985 GETUPVAL                         R47 2
+      986 GETTABLEKS                       R47 R47 K10 ["CFrame"]
+      988 GETTABLEKS                       R47 R47 K17 ["p"]
+      990 SUB                              R46 R47 R45
+      991 GETTABLEKS                       R46 R46 K54 ["Unit"]
       993 GETUPVAL                         R47 2
       994 GETTABLEN                        R48 R34 2
-      995 GETUPVAL                         R50 16
-      996 GETTABLEKS                       R49 R50 K57 ["SafeMove"]
+      995 GETUPVAL                         R49 16
+      996 GETTABLEKS                       R49 R49 K57 ["SafeMove"]
       998 MOVE                             R50 R47
       999 MOVE                             R51 R2
      1000 MOVE                             R52 R48
      1001 CALL                             R49 3 0
      1002 JUMP                             ; [+11]
-     1003 GETUPVAL                         R46 17
-     1004 GETTABLEKS                       R45 R46 K58 ["distanceVector3"]
-     1006 GETUPVAL                         R48 2
-     1007 GETTABLEKS                       R47 R48 K10 ["CFrame"]
-     1009 GETTABLEKS                       R46 R47 K17 ["p"]
+     1003 GETUPVAL                         R45 17
+     1004 GETTABLEKS                       R45 R45 K58 ["distanceVector3"]
+     1006 GETUPVAL                         R46 2
+     1007 GETTABLEKS                       R46 R46 K10 ["CFrame"]
+     1009 GETTABLEKS                       R46 R46 K17 ["p"]
      1011 GETTABLEKS                       R47 R21 K17 ["p"]
      1013 CALL                             R45 2 1
      1014 LOADNIL                          R45
-     1015 GETTABLEN                        R47 R34 1
-     1016 GETTABLEKS                       R46 R47 K10 ["CFrame"]
-     1018 GETUPVAL                         R50 2
-     1019 GETTABLEKS                       R49 R50 K10 ["CFrame"]
-     1021 GETTABLEKS                       R48 R49 K17 ["p"]
+     1015 GETTABLEN                        R46 R34 1
+     1016 GETTABLEKS                       R46 R46 K10 ["CFrame"]
+     1018 GETUPVAL                         R48 2
+     1019 GETTABLEKS                       R48 R48 K10 ["CFrame"]
+     1021 GETTABLEKS                       R48 R48 K17 ["p"]
      1023 NAMECALL                         R46 R46 K12 ["pointToObjectSpace"]
      1025 CALL                             R46 2 1
      1026 GETGLOBAL                        R47 K83 ["vector3LessThanOrEqualTo"]
@@ -5404,40 +5404,40 @@ PROTO_74:
      1035 CALL                             R48 2 1
      1036 JUMPIFNOT                        R47 ; [+28]
      1037 JUMPIFNOT                        R48 ; [+27]
-     1038 GETUPVAL                         R50 15
-     1039 GETTABLEKS                       R49 R50 K52 ["itemsHasItemNotInList"]
+     1038 GETUPVAL                         R49 15
+     1039 GETTABLEKS                       R49 R49 K52 ["itemsHasItemNotInList"]
      1041 GETUPVAL                         R50 2
      1042 NAMECALL                         R50 R50 K53 ["GetTouchingParts"]
      1044 CALL                             R50 1 1
      1045 MOVE                             R51 R2
      1046 CALL                             R49 2 1
      1047 JUMPIF                           R49 ; [+12]
-     1048 GETUPVAL                         R53 2
-     1049 GETTABLEKS                       R52 R53 K10 ["CFrame"]
-     1051 GETTABLEKS                       R51 R52 K17 ["p"]
+     1048 GETUPVAL                         R51 2
+     1049 GETTABLEKS                       R51 R51 K10 ["CFrame"]
+     1051 GETTABLEKS                       R51 R51 K17 ["p"]
      1053 FASTCALL2                        TABLE_INSERT R28 R51 ; [+4]
      1055 MOVE                             R50 R28
      1056 GETIMPORT                        R49 K50 [table.insert]
      1058 CALL                             R49 2 0
      1059 JUMP                             ; [+5]
-     1060 GETUPVAL                         R50 2
-     1061 GETTABLEKS                       R49 R50 K10 ["CFrame"]
+     1060 GETUPVAL                         R49 2
+     1061 GETTABLEKS                       R49 R49 K10 ["CFrame"]
      1063 GETTABLEKS                       R45 R49 K17 ["p"]
      1065 GETUPVAL                         R49 2
      1066 SETTABLEKS                       R18 R49 K10 ["CFrame"]
      1068 GETUPVAL                         R49 2
      1069 GETTABLEN                        R50 R34 2
-     1070 GETUPVAL                         R52 16
-     1071 GETTABLEKS                       R51 R52 K57 ["SafeMove"]
+     1070 GETUPVAL                         R51 16
+     1071 GETTABLEKS                       R51 R51 K57 ["SafeMove"]
      1073 MOVE                             R52 R49
      1074 MOVE                             R53 R2
      1075 MOVE                             R54 R50
      1076 CALL                             R51 3 0
-     1077 GETTABLEN                        R50 R34 1
-     1078 GETTABLEKS                       R49 R50 K10 ["CFrame"]
-     1080 GETUPVAL                         R53 2
-     1081 GETTABLEKS                       R52 R53 K10 ["CFrame"]
-     1083 GETTABLEKS                       R51 R52 K17 ["p"]
+     1077 GETTABLEN                        R49 R34 1
+     1078 GETTABLEKS                       R49 R49 K10 ["CFrame"]
+     1080 GETUPVAL                         R51 2
+     1081 GETTABLEKS                       R51 R51 K10 ["CFrame"]
+     1083 GETTABLEKS                       R51 R51 K17 ["p"]
      1085 NAMECALL                         R49 R49 K12 ["pointToObjectSpace"]
      1087 CALL                             R49 2 1
      1088 MOVE                             R46 R49
@@ -5451,17 +5451,17 @@ PROTO_74:
      1098 MOVE                             R51 R35
      1099 CALL                             R49 2 1
      1100 JUMPIFNOT                        R49 ; [+21]
-     1101 GETUPVAL                         R50 15
-     1102 GETTABLEKS                       R49 R50 K52 ["itemsHasItemNotInList"]
+     1101 GETUPVAL                         R49 15
+     1102 GETTABLEKS                       R49 R49 K52 ["itemsHasItemNotInList"]
      1104 GETUPVAL                         R50 2
      1105 NAMECALL                         R50 R50 K53 ["GetTouchingParts"]
      1107 CALL                             R50 1 1
      1108 MOVE                             R51 R2
      1109 CALL                             R49 2 1
      1110 JUMPIF                           R49 ; [+11]
-     1111 GETUPVAL                         R53 2
-     1112 GETTABLEKS                       R52 R53 K10 ["CFrame"]
-     1114 GETTABLEKS                       R51 R52 K17 ["p"]
+     1111 GETUPVAL                         R51 2
+     1112 GETTABLEKS                       R51 R51 K10 ["CFrame"]
+     1114 GETTABLEKS                       R51 R51 K17 ["p"]
      1116 FASTCALL2                        TABLE_INSERT R28 R51 ; [+4]
      1118 MOVE                             R50 R28
      1119 GETIMPORT                        R49 K50 [table.insert]
@@ -5475,8 +5475,8 @@ PROTO_74:
      1130 MOVE                             R51 R49
      1131 CALL                             R50 1 3
      1132 FORGPREP_NEXT                    R50
-     1133 GETUPVAL                         R56 15
-     1134 GETTABLEKS                       R55 R56 K86 ["itemExistsInList"]
+     1133 GETUPVAL                         R55 15
+     1134 GETTABLEKS                       R55 R55 K86 ["itemExistsInList"]
      1136 MOVE                             R56 R54
      1137 MOVE                             R57 R29
      1138 CALL                             R55 2 1
@@ -5491,31 +5491,31 @@ PROTO_74:
      1150 MOVE                             R57 R45
      1151 CALL                             R55 2 0
      1152 GETUPVAL                         R55 2
-     1153 GETUPVAL                         R57 16
-     1154 GETTABLEKS                       R56 R57 K57 ["SafeMove"]
+     1153 GETUPVAL                         R56 16
+     1154 GETTABLEKS                       R56 R56 K57 ["SafeMove"]
      1156 MOVE                             R57 R55
      1157 MOVE                             R58 R2
      1158 MOVE                             R59 R54
      1159 CALL                             R56 3 0
-     1160 GETTABLEN                        R56 R34 1
-     1161 GETTABLEKS                       R55 R56 K10 ["CFrame"]
-     1163 GETUPVAL                         R59 2
-     1164 GETTABLEKS                       R58 R59 K10 ["CFrame"]
-     1166 GETTABLEKS                       R57 R58 K17 ["p"]
+     1160 GETTABLEN                        R55 R34 1
+     1161 GETTABLEKS                       R55 R55 K10 ["CFrame"]
+     1163 GETUPVAL                         R57 2
+     1164 GETTABLEKS                       R57 R57 K10 ["CFrame"]
+     1166 GETTABLEKS                       R57 R57 K17 ["p"]
      1168 NAMECALL                         R55 R55 K12 ["pointToObjectSpace"]
      1170 CALL                             R55 2 1
      1171 MOVE                             R46 R55
-     1172 GETUPVAL                         R56 15
-     1173 GETTABLEKS                       R55 R56 K52 ["itemsHasItemNotInList"]
+     1172 GETUPVAL                         R55 15
+     1173 GETTABLEKS                       R55 R55 K52 ["itemsHasItemNotInList"]
      1175 GETUPVAL                         R56 2
      1176 NAMECALL                         R56 R56 K53 ["GetTouchingParts"]
      1178 CALL                             R56 1 1
      1179 MOVE                             R57 R2
      1180 CALL                             R55 2 1
      1181 JUMPIF                           R55 ; [+11]
-     1182 GETUPVAL                         R59 2
-     1183 GETTABLEKS                       R58 R59 K10 ["CFrame"]
-     1185 GETTABLEKS                       R57 R58 K17 ["p"]
+     1182 GETUPVAL                         R57 2
+     1183 GETTABLEKS                       R57 R57 K10 ["CFrame"]
+     1185 GETTABLEKS                       R57 R57 K17 ["p"]
      1187 FASTCALL2                        TABLE_INSERT R28 R57 ; [+4]
      1189 MOVE                             R56 R28
      1190 GETIMPORT                        R55 K50 [table.insert]
@@ -5525,8 +5525,8 @@ PROTO_74:
      1197 GETIMPORT                        R30 K63 [tick]
      1199 CALL                             R30 0 1
      1200 GETTABLEKS                       R31 R4 K17 ["p"]
-     1202 GETUPVAL                         R33 17
-     1203 GETTABLEKS                       R32 R33 K58 ["distanceVector3"]
+     1202 GETUPVAL                         R32 17
+     1203 GETTABLEKS                       R32 R32 K58 ["distanceVector3"]
      1205 MOVE                             R33 R31
      1206 GETTABLEKS                       R34 R18 K17 ["p"]
      1208 CALL                             R32 2 1
@@ -5534,8 +5534,8 @@ PROTO_74:
      1211 MOVE                             R34 R28
      1212 CALL                             R33 1 3
      1213 FORGPREP_NEXT                    R33
-     1214 GETUPVAL                         R39 17
-     1215 GETTABLEKS                       R38 R39 K58 ["distanceVector3"]
+     1214 GETUPVAL                         R38 17
+     1215 GETTABLEKS                       R38 R38 K58 ["distanceVector3"]
      1217 MOVE                             R39 R37
      1218 GETTABLEKS                       R40 R18 K17 ["p"]
      1220 CALL                             R38 2 1
@@ -5547,15 +5547,15 @@ PROTO_74:
      1229 GETUPVAL                         R34 2
      1230 MOVE                             R35 R31
      1231 CALL                             R33 2 0
-     1232 GETUPVAL                         R20 17
-     1233 GETTABLEKS                       R19 R20 K58 ["distanceVector3"]
-     1235 GETUPVAL                         R22 2
-     1236 GETTABLEKS                       R21 R22 K10 ["CFrame"]
-     1238 GETTABLEKS                       R20 R21 K17 ["p"]
+     1232 GETUPVAL                         R19 17
+     1233 GETTABLEKS                       R19 R19 K58 ["distanceVector3"]
+     1235 GETUPVAL                         R20 2
+     1236 GETTABLEKS                       R20 R20 K10 ["CFrame"]
+     1238 GETTABLEKS                       R20 R20 K17 ["p"]
      1240 GETTABLEKS                       R21 R18 K17 ["p"]
      1242 CALL                             R19 2 1
-     1243 GETUPVAL                         R21 17
-     1244 GETTABLEKS                       R20 R21 K58 ["distanceVector3"]
+     1243 GETUPVAL                         R20 17
+     1244 GETTABLEKS                       R20 R20 K58 ["distanceVector3"]
      1246 GETTABLEKS                       R21 R4 K17 ["p"]
      1248 GETTABLEKS                       R22 R18 K17 ["p"]
      1250 CALL                             R20 2 1
@@ -5564,16 +5564,16 @@ PROTO_74:
      1255 GETUPVAL                         R20 2
      1256 GETTABLEKS                       R21 R4 K17 ["p"]
      1258 CALL                             R19 2 0
-     1259 GETUPVAL                         R20 15
-     1260 GETTABLEKS                       R19 R20 K52 ["itemsHasItemNotInList"]
+     1259 GETUPVAL                         R19 15
+     1260 GETTABLEKS                       R19 R19 K52 ["itemsHasItemNotInList"]
      1262 GETUPVAL                         R20 2
      1263 NAMECALL                         R20 R20 K53 ["GetTouchingParts"]
      1265 CALL                             R20 1 1
      1266 MOVE                             R21 R2
      1267 CALL                             R19 2 1
      1268 JUMPIFNOT                        R19 ; [+12]
-     1269 GETUPVAL                         R20 15
-     1270 GETTABLEKS                       R19 R20 K61 ["filterOutItems"]
+     1269 GETUPVAL                         R19 15
+     1270 GETTABLEKS                       R19 R19 K61 ["filterOutItems"]
      1272 MOVE                             R20 R2
      1273 GETUPVAL                         R21 2
      1274 NAMECALL                         R21 R21 K53 ["GetTouchingParts"]
@@ -5594,30 +5594,30 @@ PROTO_74:
      1295 CALL                             R18 1 1
      1296 MOVE                             R17 R18
      1297 GETUPVAL                         R18 2
-     1298 GETUPVAL                         R22 2
-     1299 GETTABLEKS                       R21 R22 K10 ["CFrame"]
-     1301 GETUPVAL                         R24 2
-     1302 GETTABLEKS                       R23 R24 K10 ["CFrame"]
-     1304 GETTABLEKS                       R22 R23 K17 ["p"]
+     1298 GETUPVAL                         R21 2
+     1299 GETTABLEKS                       R21 R21 K10 ["CFrame"]
+     1301 GETUPVAL                         R22 2
+     1302 GETTABLEKS                       R22 R22 K10 ["CFrame"]
+     1304 GETTABLEKS                       R22 R22 K17 ["p"]
      1306 SUB                              R20 R21 R22
      1307 ADD                              R19 R20 R17
      1308 SETTABLEKS                       R19 R18 K10 ["CFrame"]
      1310 GETUPVAL                         R18 11
      1311 JUMPIFNOT                        R18 ; [+38]
-     1312 GETUPVAL                         R20 2
-     1313 GETTABLEKS                       R19 R20 K10 ["CFrame"]
-     1315 GETTABLEKS                       R18 R19 K17 ["p"]
+     1312 GETUPVAL                         R18 2
+     1313 GETTABLEKS                       R18 R18 K10 ["CFrame"]
+     1315 GETTABLEKS                       R18 R18 K17 ["p"]
      1317 GETUPVAL                         R19 2
-     1318 GETIMPORT                        R21 K76 [game]
-     1320 GETTABLEKS                       R20 R21 K77 ["Workspace"]
+     1318 GETIMPORT                        R20 K76 [game]
+     1320 GETTABLEKS                       R20 R20 K77 ["Workspace"]
      1322 SETTABLEKS                       R20 R19 K51 ["Parent"]
      1324 GETUPVAL                         R19 2
-     1325 GETIMPORT                        R21 K76 [game]
-     1327 GETTABLEKS                       R20 R21 K79 ["Selection"]
+     1325 GETIMPORT                        R20 K76 [game]
+     1327 GETTABLEKS                       R20 R20 K79 ["Selection"]
      1329 NAMECALL                         R20 R20 K80 ["Get"]
      1331 CALL                             R20 1 1
-     1332 GETUPVAL                         R22 16
-     1333 GETTABLEKS                       R21 R22 K57 ["SafeMove"]
+     1332 GETUPVAL                         R21 16
+     1333 GETTABLEKS                       R21 R21 K57 ["SafeMove"]
      1335 MOVE                             R22 R19
      1336 MOVE                             R23 R20
      1337 LOADK                            R24 K45 [{0, 1, 0}]
@@ -5625,26 +5625,26 @@ PROTO_74:
      1339 GETUPVAL                         R19 2
      1340 LOADNIL                          R20
      1341 SETTABLEKS                       R20 R19 K51 ["Parent"]
-     1343 GETUPVAL                         R21 2
-     1344 GETTABLEKS                       R20 R21 K10 ["CFrame"]
-     1346 GETTABLEKS                       R19 R20 K17 ["p"]
+     1343 GETUPVAL                         R19 2
+     1344 GETTABLEKS                       R19 R19 K10 ["CFrame"]
+     1346 GETTABLEKS                       R19 R19 K17 ["p"]
      1348 LOADB                            R20 0
      1349 SETUPVAL                         R20 11
      1350 GETTABLEKS                       R17 R5 K87 ["TranslateFromTo"]
      1352 MOVE                             R18 R4
-     1353 GETUPVAL                         R20 2
-     1354 GETTABLEKS                       R19 R20 K10 ["CFrame"]
+     1353 GETUPVAL                         R19 2
+     1354 GETTABLEKS                       R19 R19 K10 ["CFrame"]
      1356 CALL                             R17 2 0
      1357 RETURN                           R0 0
 
 PROTO_75:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setAllAdornVisibility"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setAllAdornVisibility"]
         3 LOADB                            R1 0
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["UnitRay"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["UnitRay"]
         9 GETIMPORT                        R2 K4 [RaycastParams.new]
        11 CALL                             R2 0 1
        12 LOADB                            R3 1
@@ -5695,8 +5695,8 @@ PROTO_75:
        73 GETTABLEKS                       R13 R0 K19 ["CFrame"]
        75 SETTABLEKS                       R13 R12 K19 ["CFrame"]
        77 GETUPVAL                         R12 3
-       78 GETUPVAL                         R15 3
-       79 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+       78 GETUPVAL                         R14 3
+       79 GETTABLEKS                       R14 R14 K19 ["CFrame"]
        81 GETIMPORT                        R15 K25 [CFrame.Angles]
        83 LOADN                            R16 0
        84 LOADK                            R17 K26 [1.5707963267949]
@@ -5704,8 +5704,8 @@ PROTO_75:
        86 CALL                             R15 3 1
        87 MUL                              R13 R14 R15
        88 SETTABLEKS                       R13 R12 K19 ["CFrame"]
-       90 GETUPVAL                         R13 4
-       91 GETTABLEKS                       R12 R13 K27 ["fuzzyCompare"]
+       90 GETUPVAL                         R12 4
+       91 GETTABLEKS                       R12 R12 K27 ["fuzzyCompare"]
        93 GETTABLEKS                       R14 R5 K28 ["X"]
        95 FASTCALL1                        MATH_ABS R14 ; [+2]
        96 GETIMPORT                        R13 K31 [math.abs]
@@ -5719,16 +5719,16 @@ PROTO_75:
       106 ADD                              R7 R5 R12
       107 LOADK                            R12 K34 [{0, 1, 0}]
       108 ADD                              R8 R5 R12
-      109 GETUPVAL                         R13 4
-      110 GETTABLEKS                       R12 R13 K27 ["fuzzyCompare"]
+      109 GETUPVAL                         R12 4
+      110 GETTABLEKS                       R12 R12 K27 ["fuzzyCompare"]
       112 GETTABLEKS                       R13 R5 K28 ["X"]
       114 GETTABLEKS                       R14 R9 K28 ["X"]
       116 CALL                             R12 2 1
       117 JUMPIFNOT                        R12 ; [+24]
-      118 GETTABLEKS                       R14 R0 K20 ["Size"]
-      120 GETTABLEKS                       R13 R14 K35 ["z"]
-      122 GETTABLEKS                       R15 R0 K20 ["Size"]
-      124 GETTABLEKS                       R14 R15 K36 ["y"]
+      118 GETTABLEKS                       R13 R0 K20 ["Size"]
+      120 GETTABLEKS                       R13 R13 K35 ["z"]
+      122 GETTABLEKS                       R14 R0 K20 ["Size"]
+      124 GETTABLEKS                       R14 R14 K36 ["y"]
       126 LOADK                            R15 K37 [0.01]
       127 FASTCALL                         VECTOR ; [+2]
       128 GETIMPORT                        R12 K39 [Vector3.new]
@@ -5742,10 +5742,10 @@ PROTO_75:
       139 CALL                             R12 3 1
       140 MOVE                             R11 R12
       141 JUMP                             ; [+204]
-      142 GETTABLEKS                       R14 R0 K20 ["Size"]
-      144 GETTABLEKS                       R13 R14 K35 ["z"]
-      146 GETTABLEKS                       R15 R0 K20 ["Size"]
-      148 GETTABLEKS                       R14 R15 K36 ["y"]
+      142 GETTABLEKS                       R13 R0 K20 ["Size"]
+      144 GETTABLEKS                       R13 R13 K35 ["z"]
+      146 GETTABLEKS                       R14 R0 K20 ["Size"]
+      148 GETTABLEKS                       R14 R14 K36 ["y"]
       150 LOADK                            R15 K37 [0.01]
       151 FASTCALL                         VECTOR ; [+2]
       152 GETIMPORT                        R12 K39 [Vector3.new]
@@ -5760,8 +5760,8 @@ PROTO_75:
       164 CALL                             R12 3 1
       165 MOVE                             R11 R12
       166 JUMP                             ; [+179]
-      167 GETUPVAL                         R13 4
-      168 GETTABLEKS                       R12 R13 K27 ["fuzzyCompare"]
+      167 GETUPVAL                         R12 4
+      168 GETTABLEKS                       R12 R12 K27 ["fuzzyCompare"]
       170 GETTABLEKS                       R14 R5 K41 ["Y"]
       172 FASTCALL1                        MATH_ABS R14 ; [+2]
       173 GETIMPORT                        R13 K31 [math.abs]
@@ -5776,8 +5776,8 @@ PROTO_75:
       184 LOADK                            R12 K43 [{1, 0, 0}]
       185 ADD                              R8 R5 R12
       186 GETUPVAL                         R12 3
-      187 GETUPVAL                         R15 3
-      188 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+      187 GETUPVAL                         R14 3
+      188 GETTABLEKS                       R14 R14 K19 ["CFrame"]
       190 GETIMPORT                        R15 K25 [CFrame.Angles]
       192 LOADK                            R16 K26 [1.5707963267949]
       193 LOADN                            R17 0
@@ -5785,16 +5785,16 @@ PROTO_75:
       195 CALL                             R15 3 1
       196 MUL                              R13 R14 R15
       197 SETTABLEKS                       R13 R12 K19 ["CFrame"]
-      199 GETUPVAL                         R13 4
-      200 GETTABLEKS                       R12 R13 K27 ["fuzzyCompare"]
+      199 GETUPVAL                         R12 4
+      200 GETTABLEKS                       R12 R12 K27 ["fuzzyCompare"]
       202 GETTABLEKS                       R13 R5 K41 ["Y"]
       204 GETTABLEKS                       R14 R9 K41 ["Y"]
       206 CALL                             R12 2 1
       207 JUMPIFNOT                        R12 ; [+24]
-      208 GETTABLEKS                       R14 R0 K20 ["Size"]
-      210 GETTABLEKS                       R13 R14 K35 ["z"]
-      212 GETTABLEKS                       R15 R0 K20 ["Size"]
-      214 GETTABLEKS                       R14 R15 K40 ["x"]
+      208 GETTABLEKS                       R13 R0 K20 ["Size"]
+      210 GETTABLEKS                       R13 R13 K35 ["z"]
+      212 GETTABLEKS                       R14 R0 K20 ["Size"]
+      214 GETTABLEKS                       R14 R14 K40 ["x"]
       216 LOADK                            R15 K37 [0.01]
       217 FASTCALL                         VECTOR ; [+2]
       218 GETIMPORT                        R12 K39 [Vector3.new]
@@ -5808,10 +5808,10 @@ PROTO_75:
       229 CALL                             R12 3 1
       230 MOVE                             R11 R12
       231 JUMP                             ; [+114]
-      232 GETTABLEKS                       R14 R0 K20 ["Size"]
-      234 GETTABLEKS                       R13 R14 K35 ["z"]
-      236 GETTABLEKS                       R15 R0 K20 ["Size"]
-      238 GETTABLEKS                       R14 R15 K40 ["x"]
+      232 GETTABLEKS                       R13 R0 K20 ["Size"]
+      234 GETTABLEKS                       R13 R13 K35 ["z"]
+      236 GETTABLEKS                       R14 R0 K20 ["Size"]
+      238 GETTABLEKS                       R14 R14 K40 ["x"]
       240 LOADK                            R15 K37 [0.01]
       241 FASTCALL                         VECTOR ; [+2]
       242 GETIMPORT                        R12 K39 [Vector3.new]
@@ -5826,8 +5826,8 @@ PROTO_75:
       254 CALL                             R12 3 1
       255 MOVE                             R11 R12
       256 JUMP                             ; [+89]
-      257 GETUPVAL                         R13 4
-      258 GETTABLEKS                       R12 R13 K27 ["fuzzyCompare"]
+      257 GETUPVAL                         R12 4
+      258 GETTABLEKS                       R12 R12 K27 ["fuzzyCompare"]
       260 GETTABLEKS                       R14 R5 K44 ["Z"]
       262 FASTCALL1                        MATH_ABS R14 ; [+2]
       263 GETIMPORT                        R13 K31 [math.abs]
@@ -5842,8 +5842,8 @@ PROTO_75:
       274 LOADK                            R12 K43 [{1, 0, 0}]
       275 ADD                              R8 R5 R12
       276 GETUPVAL                         R12 3
-      277 GETUPVAL                         R15 3
-      278 GETTABLEKS                       R14 R15 K19 ["CFrame"]
+      277 GETUPVAL                         R14 3
+      278 GETTABLEKS                       R14 R14 K19 ["CFrame"]
       280 GETIMPORT                        R15 K25 [CFrame.Angles]
       282 LOADN                            R16 0
       283 LOADK                            R17 K26 [1.5707963267949]
@@ -5851,16 +5851,16 @@ PROTO_75:
       285 CALL                             R15 3 1
       286 MUL                              R13 R14 R15
       287 SETTABLEKS                       R13 R12 K19 ["CFrame"]
-      289 GETUPVAL                         R13 4
-      290 GETTABLEKS                       R12 R13 K27 ["fuzzyCompare"]
+      289 GETUPVAL                         R12 4
+      290 GETTABLEKS                       R12 R12 K27 ["fuzzyCompare"]
       292 GETTABLEKS                       R13 R5 K44 ["Z"]
       294 GETTABLEKS                       R14 R9 K44 ["Z"]
       296 CALL                             R12 2 1
       297 JUMPIFNOT                        R12 ; [+24]
-      298 GETTABLEKS                       R14 R0 K20 ["Size"]
-      300 GETTABLEKS                       R13 R14 K40 ["x"]
-      302 GETTABLEKS                       R15 R0 K20 ["Size"]
-      304 GETTABLEKS                       R14 R15 K36 ["y"]
+      298 GETTABLEKS                       R13 R0 K20 ["Size"]
+      300 GETTABLEKS                       R13 R13 K40 ["x"]
+      302 GETTABLEKS                       R14 R0 K20 ["Size"]
+      304 GETTABLEKS                       R14 R14 K36 ["y"]
       306 LOADK                            R15 K37 [0.01]
       307 FASTCALL                         VECTOR ; [+2]
       308 GETIMPORT                        R12 K39 [Vector3.new]
@@ -5874,10 +5874,10 @@ PROTO_75:
       319 CALL                             R12 3 1
       320 MOVE                             R11 R12
       321 JUMP                             ; [+24]
-      322 GETTABLEKS                       R14 R0 K20 ["Size"]
-      324 GETTABLEKS                       R13 R14 K40 ["x"]
-      326 GETTABLEKS                       R15 R0 K20 ["Size"]
-      328 GETTABLEKS                       R14 R15 K36 ["y"]
+      322 GETTABLEKS                       R13 R0 K20 ["Size"]
+      324 GETTABLEKS                       R13 R13 K40 ["x"]
+      326 GETTABLEKS                       R14 R0 K20 ["Size"]
+      328 GETTABLEKS                       R14 R14 K36 ["y"]
       330 LOADK                            R15 K37 [0.01]
       331 FASTCALL                         VECTOR ; [+2]
       332 GETIMPORT                        R12 K39 [Vector3.new]
@@ -5950,11 +5950,11 @@ PROTO_75:
       420 CALL                             R16 2 1
       421 MOVE                             R11 R16
       422 GETUPVAL                         R16 3
-      423 GETUPVAL                         R20 3
-      424 GETTABLEKS                       R19 R20 K19 ["CFrame"]
-      426 GETUPVAL                         R22 3
-      427 GETTABLEKS                       R21 R22 K19 ["CFrame"]
-      429 GETTABLEKS                       R20 R21 K48 ["p"]
+      423 GETUPVAL                         R19 3
+      424 GETTABLEKS                       R19 R19 K19 ["CFrame"]
+      426 GETUPVAL                         R20 3
+      427 GETTABLEKS                       R20 R20 K19 ["CFrame"]
+      429 GETTABLEKS                       R20 R20 K48 ["p"]
       431 SUB                              R18 R19 R20
       432 ADD                              R17 R18 R11
       433 SETTABLEKS                       R17 R16 K19 ["CFrame"]
@@ -5964,22 +5964,22 @@ PROTO_75:
       439 SETTABLEKS                       R10 R16 K20 ["Size"]
       441 GETTABLEKS                       R13 R0 K20 ["Size"]
       443 MULK                             R12 R13 K49 [0.5]
-      444 GETUPVAL                         R15 7
-      445 GETTABLEKS                       R14 R15 K50 ["absVector3"]
+      444 GETUPVAL                         R14 7
+      445 GETTABLEKS                       R14 R14 K50 ["absVector3"]
       447 MOVE                             R15 R5
       448 CALL                             R14 1 1
       449 DIV                              R13 R5 R14
       450 GETTABLEKS                       R16 R0 K19 ["CFrame"]
-      452 GETTABLEKS                       R18 R0 K19 ["CFrame"]
-      454 GETTABLEKS                       R17 R18 K48 ["p"]
+      452 GETTABLEKS                       R17 R0 K19 ["CFrame"]
+      454 GETTABLEKS                       R17 R17 K48 ["p"]
       456 SUB                              R15 R16 R17
       457 GETTABLEKS                       R16 R0 K19 ["CFrame"]
       459 MUL                              R18 R12 R13
       460 NAMECALL                         R16 R16 K46 ["pointToWorldSpace"]
       462 CALL                             R16 2 1
       463 ADD                              R14 R15 R16
-      464 GETUPVAL                         R16 0
-      465 GETTABLEKS                       R15 R16 K51 ["drawPlaneCenter"]
+      464 GETUPVAL                         R15 0
+      465 GETTABLEKS                       R15 R15 K51 ["drawPlaneCenter"]
       467 MOVE                             R16 R14
       468 CALL                             R15 1 0
       469 RETURN                           R0 0
@@ -6001,20 +6001,20 @@ PROTO_76:
        15 JUMPIF                           R0 ; [+16]
        16 LOADB                            R0 1
        17 SETUPVAL                         R0 3
-       18 GETUPVAL                         R1 4
-       19 GETTABLEKS                       R0 R1 K2 ["updateRubberBand"]
+       18 GETUPVAL                         R0 4
+       19 GETTABLEKS                       R0 R0 K2 ["updateRubberBand"]
        21 GETIMPORT                        R1 K5 [Vector2.new]
-       23 GETUPVAL                         R3 5
-       24 GETTABLEKS                       R2 R3 K6 ["X"]
-       26 GETUPVAL                         R4 5
-       27 GETTABLEKS                       R3 R4 K7 ["Y"]
+       23 GETUPVAL                         R2 5
+       24 GETTABLEKS                       R2 R2 K6 ["X"]
+       26 GETUPVAL                         R3 5
+       27 GETTABLEKS                       R3 R3 K7 ["Y"]
        29 CALL                             R1 2 -1
        30 CALL                             R0 -1 0
        31 RETURN                           R0 0
        32 LOADNIL                          R0
        33 SETUPVAL                         R0 6
-       34 GETUPVAL                         R1 5
-       35 GETTABLEKS                       R0 R1 K8 ["UnitRay"]
+       34 GETUPVAL                         R0 5
+       35 GETTABLEKS                       R0 R0 K8 ["UnitRay"]
        37 GETIMPORT                        R1 K10 [Ray.new]
        39 GETTABLEKS                       R2 R0 K11 ["Origin"]
        41 GETTABLEKS                       R4 R0 K13 ["Direction"]
@@ -6032,8 +6032,8 @@ PROTO_76:
        55 JUMPIF                           R2 ; [+24]
        56 GETTABLEKS                       R3 R0 K11 ["Origin"]
        58 SUB                              R2 R1 R3
-       59 GETTABLEKS                       R4 R0 K15 ["Unit"]
-       61 GETTABLEKS                       R3 R4 K13 ["Direction"]
+       59 GETTABLEKS                       R3 R0 K15 ["Unit"]
+       61 GETTABLEKS                       R3 R3 K13 ["Direction"]
        63 DIV                              R2 R2 R3
        64 GETTABLEKS                       R3 R2 K6 ["X"]
        66 LOADN                            R4 0
@@ -6054,8 +6054,8 @@ PROTO_76:
        87 MOVE                             R1 R2
        88 GETIMPORT                        R2 K18 [RaycastParams.new]
        90 CALL                             R2 0 1
-       91 GETIMPORT                        R4 K20 [game]
-       93 GETTABLEKS                       R3 R4 K21 ["Selection"]
+       91 GETIMPORT                        R3 K20 [game]
+       93 GETTABLEKS                       R3 R3 K21 ["Selection"]
        95 NAMECALL                         R3 R3 K22 ["Get"]
        97 CALL                             R3 1 1
        98 SETTABLEKS                       R3 R2 K23 ["FilterDescendantsInstances"]
@@ -6074,26 +6074,26 @@ PROTO_76:
       118 GETTABLEKS                       R5 R0 K11 ["Origin"]
       120 GETTABLEKS                       R6 R0 K13 ["Direction"]
       122 ADD                              R4 R5 R6
-      123 GETIMPORT                        R8 K26 [workspace]
-      125 GETTABLEKS                       R7 R8 K29 ["CurrentCamera"]
-      127 GETTABLEKS                       R6 R7 K30 ["CoordinateFrame"]
-      129 GETTABLEKS                       R5 R6 K31 ["p"]
-      131 GETUPVAL                         R7 10
-      132 GETTABLEKS                       R6 R7 K32 ["distanceVector3"]
+      123 GETIMPORT                        R5 K26 [workspace]
+      125 GETTABLEKS                       R5 R5 K29 ["CurrentCamera"]
+      127 GETTABLEKS                       R5 R5 K30 ["CoordinateFrame"]
+      129 GETTABLEKS                       R5 R5 K31 ["p"]
+      131 GETUPVAL                         R6 10
+      132 GETTABLEKS                       R6 R6 K32 ["distanceVector3"]
       134 MOVE                             R7 R4
       135 MOVE                             R8 R5
       136 CALL                             R6 2 1
-      137 GETUPVAL                         R8 10
-      138 GETTABLEKS                       R7 R8 K32 ["distanceVector3"]
+      137 GETUPVAL                         R7 10
+      138 GETTABLEKS                       R7 R7 K32 ["distanceVector3"]
       140 MOVE                             R8 R1
       141 MOVE                             R9 R5
       142 CALL                             R7 2 1
-      143 GETUPVAL                         R9 11
-      144 GETTABLEKS                       R8 R9 K33 ["fuzzyCompareVector3"]
-      146 GETTABLEKS                       R10 R0 K13 ["Direction"]
-      148 GETTABLEKS                       R9 R10 K15 ["Unit"]
-      150 SUB                              R11 R5 R1
-      151 GETTABLEKS                       R10 R11 K15 ["Unit"]
+      143 GETUPVAL                         R8 11
+      144 GETTABLEKS                       R8 R8 K33 ["fuzzyCompareVector3"]
+      146 GETTABLEKS                       R9 R0 K13 ["Direction"]
+      148 GETTABLEKS                       R9 R9 K15 ["Unit"]
+      150 SUB                              R10 R5 R1
+      151 GETTABLEKS                       R10 R10 K15 ["Unit"]
       153 CALL                             R8 2 1
       154 JUMPIFNOT                        R8 ; [+1]
       155 LOADN                            R7 32
@@ -6104,8 +6104,8 @@ PROTO_76:
       161 JUMPIFNOTLT                      R8 R7 ; [+10]
       163 LOADN                            R8 244
       164 JUMPIFNOTLT                      R8 R6 ; [+7]
-      166 GETTABLEKS                       R10 R0 K13 ["Direction"]
-      168 GETTABLEKS                       R9 R10 K15 ["Unit"]
+      166 GETTABLEKS                       R9 R0 K13 ["Direction"]
+      168 GETTABLEKS                       R9 R9 K15 ["Unit"]
       170 MULK                             R8 R9 K34 [30]
       171 ADD                              R1 R5 R8
       172 LOADK                            R2 K35 [{0, 0, 0}]
@@ -6114,15 +6114,15 @@ PROTO_76:
       176 GETGLOBAL                        R3 K36 ["selectedPart"]
       178 GETTABLEKS                       R2 R3 K28 ["Position"]
       180 JUMP                             ; [+16]
-      181 GETUPVAL                         R4 12
-      182 GETTABLEKS                       R3 R4 K37 ["getFilteredSelection"]
+      181 GETUPVAL                         R3 12
+      182 GETTABLEKS                       R3 R3 K37 ["getFilteredSelection"]
       184 CALL                             R3 0 1
       185 JUMPIFNOT                        R3 ; [+3]
       186 LENGTH                           R4 R3
       187 JUMPIFNOTEQKN                    R4 K38 [0] ; [+2]
       189 RETURN                           R0 0
-      190 GETUPVAL                         R5 13
-      191 GETTABLEKS                       R4 R5 K39 ["convertToPart"]
+      190 GETUPVAL                         R4 13
+      191 GETTABLEKS                       R4 R4 K39 ["convertToPart"]
       193 GETTABLEN                        R5 R3 1
       194 CALL                             R4 1 1
       195 SETGLOBAL                        R4 K36 ["selectedPart"]
@@ -6141,12 +6141,12 @@ PROTO_76:
       211 GETGLOBAL                        R3 K42 ["movePart"]
       213 GETUPVAL                         R5 14
       214 SUB                              R4 R1 R5
-      215 GETUPVAL                         R6 15
-      216 GETTABLEKS                       R5 R6 K43 ["CollisionEnabled"]
+      215 GETUPVAL                         R5 15
+      216 GETTABLEKS                       R5 R5 K43 ["CollisionEnabled"]
       218 CALL                             R3 2 0
       219 GETUPVAL                         R4 16
-      220 GETGLOBAL                        R7 K36 ["selectedPart"]
-      222 GETTABLEKS                       R6 R7 K28 ["Position"]
+      220 GETGLOBAL                        R6 K36 ["selectedPart"]
+      222 GETTABLEKS                       R6 R6 K28 ["Position"]
       224 SUB                              R5 R6 R2
       225 ADD                              R3 R4 R5
       226 SETUPVAL                         R3 16
@@ -6156,12 +6156,12 @@ PROTO_76:
 
 PROTO_77:
         0 LOADNIL                          R1
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["isOverPlaneSelect"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["isOverPlaneSelect"]
         4 CALL                             R2 0 1
         5 JUMPIFNOT                        R2 ; [+6]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["setPlaneSelectingMode"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["setPlaneSelectingMode"]
         9 LOADB                            R3 0
        10 CALL                             R2 1 0
        11 RETURN                           R0 0
@@ -6197,8 +6197,8 @@ PROTO_77:
        50 CALL                             R5 0 1
        51 LOADB                            R6 1
        52 SETTABLEKS                       R6 R5 K21 ["BruteForceAllSlow"]
-       54 GETIMPORT                        R7 K23 [game]
-       56 GETTABLEKS                       R6 R7 K24 ["Workspace"]
+       54 GETIMPORT                        R6 K23 [game]
+       56 GETTABLEKS                       R6 R6 K24 ["Workspace"]
        58 GETTABLEKS                       R8 R1 K6 ["Origin"]
        60 GETTABLEKS                       R9 R1 K8 ["Direction"]
        62 MOVE                             R10 R5
@@ -6207,8 +6207,8 @@ PROTO_77:
        66 JUMPIFNOT                        R6 ; [+2]
        67 GETTABLEKS                       R2 R6 K9 ["Instance"]
        69 JUMPIF                           R2 ; [+6]
-       70 GETUPVAL                         R6 0
-       71 GETTABLEKS                       R5 R6 K1 ["setPlaneSelectingMode"]
+       70 GETUPVAL                         R5 0
+       71 GETTABLEKS                       R5 R5 K1 ["setPlaneSelectingMode"]
        73 LOADB                            R6 0
        74 CALL                             R5 1 0
        75 RETURN                           R0 0
@@ -6230,18 +6230,18 @@ PROTO_77:
        96 LOADK                            R6 K11 ["Part"]
        97 GETUPVAL                         R7 2
        98 CALL                             R5 2 1
-       99 GETUPVAL                         R7 3
-      100 GETTABLEKS                       R6 R7 K13 ["Size"]
+       99 GETUPVAL                         R6 3
+      100 GETTABLEKS                       R6 R6 K13 ["Size"]
       102 SETTABLEKS                       R6 R5 K13 ["Size"]
-      104 GETUPVAL                         R7 3
-      105 GETTABLEKS                       R6 R7 K14 ["CFrame"]
+      104 GETUPVAL                         R6 3
+      105 GETTABLEKS                       R6 R6 K14 ["CFrame"]
       107 SETTABLEKS                       R6 R5 K14 ["CFrame"]
       109 SETUPVAL                         R5 3
-      110 GETUPVAL                         R7 3
-      111 GETTABLEKS                       R6 R7 K14 ["CFrame"]
+      110 GETUPVAL                         R6 3
+      111 GETTABLEKS                       R6 R6 K14 ["CFrame"]
       113 GETIMPORT                        R8 K15 [CFrame.new]
-      115 GETUPVAL                         R11 3
-      116 GETTABLEKS                       R10 R11 K13 ["Size"]
+      115 GETUPVAL                         R10 3
+      116 GETTABLEKS                       R10 R10 K13 ["Size"]
       118 DIVK                             R9 R10 K28 [2]
       119 CALL                             R8 1 -1
       120 NAMECALL                         R6 R6 K29 ["toWorldSpace"]
@@ -6255,8 +6255,8 @@ PROTO_77:
       129 JUMPIFNOT                        R8 ; [+309]
       130 GETUPVAL                         R8 4
       131 JUMPIFNOT                        R8 ; [+307]
-      132 GETUPVAL                         R9 3
-      133 GETTABLEKS                       R8 R9 K14 ["CFrame"]
+      132 GETUPVAL                         R8 3
+      133 GETTABLEKS                       R8 R8 K14 ["CFrame"]
       135 GETUPVAL                         R10 4
       136 NAMECALL                         R8 R8 K30 ["pointToObjectSpace"]
       138 CALL                             R8 2 1
@@ -6272,11 +6272,11 @@ PROTO_77:
       148 SETUPVAL                         R12 8
       149 SETUPVAL                         R13 9
       150 SETUPVAL                         R14 10
-      151 GETUPVAL                         R12 3
-      152 GETTABLEKS                       R11 R12 K13 ["Size"]
+      151 GETUPVAL                         R11 3
+      152 GETTABLEKS                       R11 R11 K13 ["Size"]
       154 DIVK                             R7 R11 K28 [2]
-      155 GETUPVAL                         R12 11
-      156 GETTABLEKS                       R11 R12 K31 ["fuzzyCompare"]
+      155 GETUPVAL                         R11 11
+      156 GETTABLEKS                       R11 R11 K31 ["fuzzyCompare"]
       158 GETTABLEKS                       R13 R6 K32 ["X"]
       160 FASTCALL1                        MATH_ABS R13 ; [+2]
       161 GETIMPORT                        R12 K35 [math.abs]
@@ -6330,8 +6330,8 @@ PROTO_77:
       219 MUL                              R13 R14 R7
       220 ADD                              R11 R12 R13
       221 SETUPVAL                         R11 10
-      222 GETUPVAL                         R12 11
-      223 GETTABLEKS                       R11 R12 K31 ["fuzzyCompare"]
+      222 GETUPVAL                         R11 11
+      223 GETTABLEKS                       R11 R11 K31 ["fuzzyCompare"]
       225 GETTABLEKS                       R12 R6 K32 ["X"]
       227 GETTABLEKS                       R13 R7 K32 ["X"]
       229 CALL                             R11 2 1
@@ -6342,8 +6342,8 @@ PROTO_77:
       234 LOADN                            R11 2
       235 SETUPVAL                         R11 6
       236 JUMP                             ; [+163]
-      237 GETUPVAL                         R12 11
-      238 GETTABLEKS                       R11 R12 K31 ["fuzzyCompare"]
+      237 GETUPVAL                         R11 11
+      238 GETTABLEKS                       R11 R11 K31 ["fuzzyCompare"]
       240 GETTABLEKS                       R13 R6 K43 ["Y"]
       242 FASTCALL1                        MATH_ABS R13 ; [+2]
       243 GETIMPORT                        R12 K35 [math.abs]
@@ -6397,8 +6397,8 @@ PROTO_77:
       301 MUL                              R13 R14 R7
       302 ADD                              R11 R12 R13
       303 SETUPVAL                         R11 10
-      304 GETUPVAL                         R12 11
-      305 GETTABLEKS                       R11 R12 K31 ["fuzzyCompare"]
+      304 GETUPVAL                         R11 11
+      305 GETTABLEKS                       R11 R11 K31 ["fuzzyCompare"]
       307 GETTABLEKS                       R12 R6 K43 ["Y"]
       309 GETTABLEKS                       R13 R7 K43 ["Y"]
       311 CALL                             R11 2 1
@@ -6409,8 +6409,8 @@ PROTO_77:
       316 LOADN                            R11 1
       317 SETUPVAL                         R11 6
       318 JUMP                             ; [+81]
-      319 GETUPVAL                         R12 11
-      320 GETTABLEKS                       R11 R12 K31 ["fuzzyCompare"]
+      319 GETUPVAL                         R11 11
+      320 GETTABLEKS                       R11 R11 K31 ["fuzzyCompare"]
       322 GETTABLEKS                       R13 R6 K49 ["Z"]
       324 FASTCALL1                        MATH_ABS R13 ; [+2]
       325 GETIMPORT                        R12 K35 [math.abs]
@@ -6464,8 +6464,8 @@ PROTO_77:
       383 MUL                              R13 R14 R7
       384 ADD                              R11 R12 R13
       385 SETUPVAL                         R11 10
-      386 GETUPVAL                         R12 11
-      387 GETTABLEKS                       R11 R12 K31 ["fuzzyCompare"]
+      386 GETUPVAL                         R11 11
+      387 GETTABLEKS                       R11 R11 K31 ["fuzzyCompare"]
       389 GETTABLEKS                       R12 R6 K49 ["Z"]
       391 GETTABLEKS                       R13 R7 K49 ["Z"]
       393 CALL                             R11 2 1
@@ -6481,20 +6481,20 @@ PROTO_77:
       403 SETUPVAL                         R8 12
       404 SETUPVAL                         R9 13
       405 SETUPVAL                         R10 14
-      406 GETUPVAL                         R12 3
-      407 GETTABLEKS                       R11 R12 K14 ["CFrame"]
+      406 GETUPVAL                         R11 3
+      407 GETTABLEKS                       R11 R11 K14 ["CFrame"]
       409 MOVE                             R13 R8
       410 NAMECALL                         R11 R11 K54 ["pointToWorldSpace"]
       412 CALL                             R11 2 1
       413 MOVE                             R8 R11
-      414 GETUPVAL                         R12 3
-      415 GETTABLEKS                       R11 R12 K14 ["CFrame"]
+      414 GETUPVAL                         R11 3
+      415 GETTABLEKS                       R11 R11 K14 ["CFrame"]
       417 MOVE                             R13 R9
       418 NAMECALL                         R11 R11 K54 ["pointToWorldSpace"]
       420 CALL                             R11 2 1
       421 MOVE                             R9 R11
-      422 GETUPVAL                         R12 3
-      423 GETTABLEKS                       R11 R12 K14 ["CFrame"]
+      422 GETUPVAL                         R11 3
+      423 GETTABLEKS                       R11 R11 K14 ["CFrame"]
       425 MOVE                             R13 R10
       426 NAMECALL                         R11 R11 K54 ["pointToWorldSpace"]
       428 CALL                             R11 2 1
@@ -6507,27 +6507,27 @@ PROTO_77:
       436 SETUPVAL                         R11 15
       437 LOADNIL                          R11
       438 SETUPVAL                         R11 16
-      439 GETUPVAL                         R11 17
-      440 GETTABLEKS                       R10 R11 K57 ["absVector3"]
+      439 GETUPVAL                         R10 17
+      440 GETTABLEKS                       R10 R10 K57 ["absVector3"]
       442 MOVE                             R11 R6
       443 CALL                             R10 1 1
       444 DIV                              R9 R6 R10
       445 MULK                             R8 R9 K56 [-1]
-      446 GETUPVAL                         R10 17
-      447 GETTABLEKS                       R9 R10 K58 ["cleanVector3"]
+      446 GETUPVAL                         R9 17
+      447 GETTABLEKS                       R9 R9 K58 ["cleanVector3"]
       449 MOVE                             R10 R8
       450 CALL                             R9 1 1
       451 MOVE                             R8 R9
-      452 GETUPVAL                         R11 3
-      453 GETTABLEKS                       R10 R11 K14 ["CFrame"]
-      455 GETUPVAL                         R13 3
-      456 GETTABLEKS                       R12 R13 K14 ["CFrame"]
+      452 GETUPVAL                         R10 3
+      453 GETTABLEKS                       R10 R10 K14 ["CFrame"]
+      455 GETUPVAL                         R12 3
+      456 GETTABLEKS                       R12 R12 K14 ["CFrame"]
       458 MUL                              R14 R7 R8
       459 NAMECALL                         R12 R12 K54 ["pointToWorldSpace"]
       461 CALL                             R12 2 1
-      462 GETUPVAL                         R15 3
-      463 GETTABLEKS                       R14 R15 K14 ["CFrame"]
-      465 GETTABLEKS                       R13 R14 K59 ["p"]
+      462 GETUPVAL                         R13 3
+      463 GETTABLEKS                       R13 R13 K14 ["CFrame"]
+      465 GETTABLEKS                       R13 R13 K59 ["p"]
       467 SUB                              R11 R12 R13
       468 SUB                              R9 R10 R11
       469 SETUPVAL                         R9 18
@@ -6558,14 +6558,14 @@ PROTO_77:
       500 SETUPVAL                         R9 18
       501 GETGLOBAL                        R9 K66 ["updateInvisiblePart"]
       503 CALL                             R9 0 0
-      504 GETUPVAL                         R10 19
-      505 GETTABLEKS                       R9 R10 K67 ["getFilteredSelectionMetapart"]
+      504 GETUPVAL                         R9 19
+      505 GETTABLEKS                       R9 R9 K67 ["getFilteredSelectionMetapart"]
       507 CALL                             R9 0 1
       508 JUMPIFNOT                        R9 ; [+3]
       509 GETUPVAL                         R10 18
       510 SETTABLEKS                       R10 R9 K68 ["UpdatePlaneCFrame"]
-      512 GETUPVAL                         R11 0
-      513 GETTABLEKS                       R10 R11 K1 ["setPlaneSelectingMode"]
+      512 GETUPVAL                         R10 0
+      513 GETTABLEKS                       R10 R10 K1 ["setPlaneSelectingMode"]
       515 LOADB                            R11 0
       516 CALL                             R10 1 0
       517 RETURN                           R0 0
@@ -6634,8 +6634,8 @@ PROTO_79:
        20 FORGLOOP                         R1 2 [inext] ; [-5]
        22 NEWTABLE                         R1 0 0
        24 SETUPVAL                         R1 3
-       25 GETUPVAL                         R1 4
-       26 GETTABLEKS                       R0 R1 K4 ["finishRubberbandDrag"]
+       25 GETUPVAL                         R0 4
+       26 GETTABLEKS                       R0 R0 K4 ["finishRubberbandDrag"]
        28 CALL                             R0 0 0
        29 GETGLOBAL                        R0 K5 ["recreateAdornment"]
        31 CALL                             R0 0 0
@@ -6643,14 +6643,14 @@ PROTO_79:
        34 CALL                             R0 0 0
        35 GETUPVAL                         R0 5
        36 JUMPIFNOT                        R0 ; [+49]
-       37 GETIMPORT                        R2 K8 [game]
-       39 GETTABLEKS                       R1 R2 K9 ["Selection"]
+       37 GETIMPORT                        R1 K8 [game]
+       39 GETTABLEKS                       R1 R1 K9 ["Selection"]
        41 NAMECALL                         R1 R1 K10 ["Get"]
        43 CALL                             R1 1 1
        44 LENGTH                           R0 R1
        45 JUMPIFNOTEQKN                    R0 K11 [1] ; [+19]
-       47 GETIMPORT                        R2 K8 [game]
-       49 GETTABLEKS                       R1 R2 K9 ["Selection"]
+       47 GETIMPORT                        R1 K8 [game]
+       49 GETTABLEKS                       R1 R1 K9 ["Selection"]
        51 NAMECALL                         R1 R1 K10 ["Get"]
        53 CALL                             R1 1 1
        54 GETTABLEN                        R0 R1 1
@@ -6658,8 +6658,8 @@ PROTO_79:
        56 NAMECALL                         R0 R0 K13 ["IsA"]
        58 CALL                             R0 2 1
        59 JUMPIFNOT                        R0 ; [+5]
-       60 GETUPVAL                         R1 6
-       61 GETTABLEKS                       R0 R1 K14 ["setAllAdornVisibility"]
+       60 GETUPVAL                         R0 6
+       61 GETTABLEKS                       R0 R0 K14 ["setAllAdornVisibility"]
        63 LOADB                            R1 1
        64 CALL                             R0 1 0
        65 LOADK                            R0 K15 [{0, 0, 0}]
@@ -6668,8 +6668,8 @@ PROTO_79:
        68 SETUPVAL                         R0 8
        69 GETUPVAL                         R0 9
        70 JUMPIFNOT                        R0 ; [+31]
-       71 GETUPVAL                         R1 10
-       72 GETTABLEKS                       R0 R1 K16 ["getFilteredSelection"]
+       71 GETUPVAL                         R0 10
+       72 GETTABLEKS                       R0 R0 K16 ["getFilteredSelection"]
        74 CALL                             R0 0 1
        75 GETIMPORT                        R1 K18 [workspace]
        77 MOVE                             R3 R0
@@ -6681,8 +6681,8 @@ PROTO_79:
        85 JUMP                             ; [+16]
        86 GETUPVAL                         R0 12
        87 JUMPIFNOT                        R0 ; [+14]
-       88 GETUPVAL                         R1 10
-       89 GETTABLEKS                       R0 R1 K16 ["getFilteredSelection"]
+       88 GETUPVAL                         R0 10
+       89 GETTABLEKS                       R0 R0 K16 ["getFilteredSelection"]
        91 CALL                             R0 0 1
        92 GETIMPORT                        R1 K18 [workspace]
        94 MOVE                             R3 R0
@@ -6713,25 +6713,25 @@ PROTO_79:
       124 GETUPVAL                         R1 14
       125 SETTABLEKS                       R1 R0 K24 ["Adornee"]
       127 GETUPVAL                         R0 15
-      128 GETUPVAL                         R3 15
-      129 GETTABLEKS                       R2 R3 K24 ["Adornee"]
-      131 GETTABLEKS                       R1 R2 K25 ["Size"]
+      128 GETUPVAL                         R1 15
+      129 GETTABLEKS                       R1 R1 K24 ["Adornee"]
+      131 GETTABLEKS                       R1 R1 K25 ["Size"]
       133 SETTABLEKS                       R1 R0 K25 ["Size"]
       135 GETUPVAL                         R0 15
       136 LOADB                            R1 1
       137 SETTABLEKS                       R1 R0 K26 ["AlwaysOnTop"]
       139 GETUPVAL                         R0 15
-      140 GETUPVAL                         R3 14
-      141 GETTABLEKS                       R2 R3 K27 ["CFrame"]
-      143 GETUPVAL                         R5 14
-      144 GETTABLEKS                       R4 R5 K27 ["CFrame"]
-      146 GETTABLEKS                       R3 R4 K28 ["p"]
+      140 GETUPVAL                         R2 14
+      141 GETTABLEKS                       R2 R2 K27 ["CFrame"]
+      143 GETUPVAL                         R3 14
+      144 GETTABLEKS                       R3 R3 K27 ["CFrame"]
+      146 GETTABLEKS                       R3 R3 K28 ["p"]
       148 SUB                              R1 R2 R3
       149 SETTABLEKS                       R1 R0 K27 ["CFrame"]
       151 GETUPVAL                         R0 16
       152 JUMPIFNOT                        R0 ; [+10]
-      153 GETUPVAL                         R1 6
-      154 GETTABLEKS                       R0 R1 K29 ["isPlaneSelectingModeOn"]
+      153 GETUPVAL                         R0 6
+      154 GETTABLEKS                       R0 R0 K29 ["isPlaneSelectingModeOn"]
       156 CALL                             R0 0 1
       157 JUMPIFNOT                        R0 ; [+5]
       158 GETGLOBAL                        R0 K30 ["selectDragPlane"]
@@ -6768,8 +6768,8 @@ PROTO_80:
        11 JUMPIFEQKN                       R0 K4 [14] ; [+4]
        13 GETGLOBAL                        R2 K5 ["updateDragPart"]
        15 CALL                             R2 0 0
-       16 GETUPVAL                         R3 2
-       17 GETTABLEKS                       R2 R3 K6 ["getFilteredSelectionMetapart"]
+       16 GETUPVAL                         R2 2
+       17 GETTABLEKS                       R2 R2 K6 ["getFilteredSelectionMetapart"]
        19 CALL                             R2 0 1
        20 JUMPIF                           R2 ; [+1]
        21 RETURN                           R0 0
@@ -6777,8 +6777,8 @@ PROTO_80:
        24 SETUPVAL                         R3 3
        25 GETTABLEKS                       R3 R2 K8 ["Size"]
        27 SETUPVAL                         R3 4
-       28 GETUPVAL                         R4 6
-       29 GETTABLEKS                       R3 R4 K7 ["CFrame"]
+       28 GETUPVAL                         R3 6
+       29 GETTABLEKS                       R3 R3 K7 ["CFrame"]
        31 SETUPVAL                         R3 5
        32 LOADNIL                          R3
        33 SETUPVAL                         R3 7
@@ -6791,8 +6791,8 @@ PROTO_81:
         1 SETUPVAL                         R0 0
         2 LOADN                            R0 0
         3 SETUPVAL                         R0 1
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K0 ["getCurrentHandle"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K0 ["getCurrentHandle"]
         7 CALL                             R0 0 1
         8 JUMPIFNOTEQKN                    R0 K1 [0] ; [+2]
        10 RETURN                           R0 0
@@ -6801,8 +6801,8 @@ PROTO_81:
        15 GETUPVAL                         R3 3
        16 GETTABLE                         R2 R3 R0
        17 CALL                             R1 1 0
-       18 GETUPVAL                         R2 4
-       19 GETTABLEKS                       R1 R2 K4 ["getFilteredSelection"]
+       18 GETUPVAL                         R1 4
+       19 GETTABLEKS                       R1 R1 K4 ["getFilteredSelection"]
        21 CALL                             R1 0 1
        22 GETIMPORT                        R2 K6 [workspace]
        24 MOVE                             R4 R1
@@ -6857,22 +6857,22 @@ PROTO_82:
        39 LOADK                            R1 K3 ["Part"]
        40 CALL                             R0 1 1
        41 SETUPVAL                         R0 2
-       42 GETUPVAL                         R1 3
-       43 GETTABLEKS                       R0 R1 K14 ["adornInstanceWithTranslate"]
+       42 GETUPVAL                         R0 3
+       43 GETTABLEKS                       R0 R0 K14 ["adornInstanceWithTranslate"]
        45 GETUPVAL                         R1 1
        46 CALL                             R0 1 0
-       47 GETUPVAL                         R1 3
-       48 GETTABLEKS                       R0 R1 K15 ["adornInstanceWithPlane"]
+       47 GETUPVAL                         R0 3
+       48 GETTABLEKS                       R0 R0 K15 ["adornInstanceWithPlane"]
        50 GETUPVAL                         R1 1
        51 CALL                             R0 1 0
-       52 GETUPVAL                         R1 4
-       53 GETTABLEKS                       R0 R1 K16 ["getFilteredSelection"]
+       52 GETUPVAL                         R0 4
+       53 GETTABLEKS                       R0 R0 K16 ["getFilteredSelection"]
        55 CALL                             R0 0 1
        56 LENGTH                           R1 R0
        57 LOADN                            R2 0
        58 JUMPIFNOTLT                      R2 R1 ; [+26]
-       60 GETUPVAL                         R2 3
-       61 GETTABLEKS                       R1 R2 K17 ["setPlaneVisibility"]
+       60 GETUPVAL                         R1 3
+       61 GETTABLEKS                       R1 R1 K17 ["setPlaneVisibility"]
        63 LOADB                            R2 1
        64 CALL                             R1 1 0
        65 LENGTH                           R1 R0
@@ -6882,13 +6882,13 @@ PROTO_82:
        70 NAMECALL                         R1 R1 K20 ["IsA"]
        72 CALL                             R1 2 1
        73 JUMPIFNOT                        R1 ; [+6]
-       74 GETUPVAL                         R2 3
-       75 GETTABLEKS                       R1 R2 K21 ["adornInstanceWithScale"]
+       74 GETUPVAL                         R1 3
+       75 GETTABLEKS                       R1 R1 K21 ["adornInstanceWithScale"]
        77 GETTABLEN                        R2 R0 1
        78 CALL                             R1 1 0
        79 JUMP                             ; [+5]
-       80 GETUPVAL                         R2 3
-       81 GETTABLEKS                       R1 R2 K22 ["setScaleAdornVisibility"]
+       80 GETUPVAL                         R1 3
+       81 GETTABLEKS                       R1 R1 K22 ["setScaleAdornVisibility"]
        83 LOADB                            R2 0
        84 CALL                             R1 1 0
        85 GETUPVAL                         R1 5
@@ -6901,8 +6901,8 @@ PROTO_83:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 RETURN                           R1 1
-        3 GETIMPORT                        R2 K1 [game]
-        5 GETTABLEKS                       R1 R2 K2 ["Selection"]
+        3 GETIMPORT                        R1 K1 [game]
+        5 GETTABLEKS                       R1 R1 K2 ["Selection"]
         7 NAMECALL                         R1 R1 K3 ["Get"]
         9 CALL                             R1 1 1
        10 GETIMPORT                        R2 K5 [ipairs]
@@ -6920,8 +6920,8 @@ PROTO_84:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 RETURN                           R1 1
-        3 GETIMPORT                        R2 K1 [game]
-        5 GETTABLEKS                       R1 R2 K2 ["Workspace"]
+        3 GETIMPORT                        R1 K1 [game]
+        5 GETTABLEKS                       R1 R1 K2 ["Workspace"]
         7 JUMPIFNOTEQ                      R0 R1 ; [+3]
         9 LOADNIL                          R1
        10 RETURN                           R1 1
@@ -6961,8 +6961,8 @@ PROTO_86:
         1 LOADNIL                          R1
         2 RETURN                           R1 1
         3 GETTABLEKS                       R1 R0 K0 ["Parent"]
-        5 GETIMPORT                        R3 K2 [game]
-        7 GETTABLEKS                       R2 R3 K3 ["Workspace"]
+        5 GETIMPORT                        R2 K2 [game]
+        7 GETTABLEKS                       R2 R2 K3 ["Workspace"]
         9 JUMPIFNOTEQ                      R1 R2 ; [+14]
        11 LOADK                            R3 K4 ["PVInstance"]
        12 NAMECALL                         R1 R0 K5 ["IsA"]
@@ -7022,11 +7022,11 @@ PROTO_88:
         2 JUMPIF                           R1 ; [+2]
         3 LOADNIL                          R1
         4 RETURN                           R1 1
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K1 ["itemExistsInList"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K1 ["itemExistsInList"]
         8 GETTABLEKS                       R2 R0 K0 ["Parent"]
-       10 GETIMPORT                        R4 K3 [game]
-       12 GETTABLEKS                       R3 R4 K4 ["Selection"]
+       10 GETIMPORT                        R3 K3 [game]
+       12 GETTABLEKS                       R3 R3 K4 ["Selection"]
        14 NAMECALL                         R3 R3 K5 ["Get"]
        16 CALL                             R3 1 -1
        17 CALL                             R1 -1 1
@@ -7041,8 +7041,8 @@ PROTO_88:
 PROTO_89:
         0 LOADNIL                          R1
         1 SETUPVAL                         R1 0
-        2 GETUPVAL                         R2 1
-        3 GETTABLEKS                       R1 R2 K0 ["UnitRay"]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["UnitRay"]
         5 GETIMPORT                        R2 K3 [RaycastParams.new]
         7 CALL                             R2 0 1
         8 LOADB                            R3 1
@@ -7063,11 +7063,11 @@ PROTO_89:
        29 GETTABLEKS                       R4 R3 K13 ["Instance"]
        31 GETTABLEKS                       R5 R3 K14 ["Position"]
        33 LOADB                            R6 0
-       34 GETUPVAL                         R8 2
-       35 GETTABLEKS                       R7 R8 K15 ["itemExistsInList"]
+       34 GETUPVAL                         R7 2
+       35 GETTABLEKS                       R7 R7 K15 ["itemExistsInList"]
        37 MOVE                             R8 R4
-       38 GETIMPORT                        R10 K6 [game]
-       40 GETTABLEKS                       R9 R10 K16 ["Selection"]
+       38 GETIMPORT                        R9 K6 [game]
+       40 GETTABLEKS                       R9 R9 K16 ["Selection"]
        42 NAMECALL                         R9 R9 K17 ["Get"]
        44 CALL                             R9 1 -1
        45 CALL                             R7 -1 1
@@ -7120,8 +7120,8 @@ PROTO_89:
       104 NAMECALL                         R8 R8 K28 ["IsKeyDown"]
       106 CALL                             R8 2 1
       107 JUMPIFNOT                        R8 ; [+25]
-      108 GETIMPORT                        R9 K6 [game]
-      110 GETTABLEKS                       R8 R9 K16 ["Selection"]
+      108 GETIMPORT                        R8 K6 [game]
+      110 GETTABLEKS                       R8 R8 K16 ["Selection"]
       112 NAMECALL                         R8 R8 K17 ["Get"]
       114 CALL                             R8 1 1
       115 FASTCALL2                        TABLE_INSERT R8 R4 ; [+5]
@@ -7156,8 +7156,8 @@ PROTO_89:
       156 JUMPIFNOT                        R8 ; [+35]
       157 NEWTABLE                         R8 0 0
       159 GETIMPORT                        R9 K39 [ipairs]
-      161 GETIMPORT                        R11 K6 [game]
-      163 GETTABLEKS                       R10 R11 K16 ["Selection"]
+      161 GETIMPORT                        R10 K6 [game]
+      163 GETTABLEKS                       R10 R10 K16 ["Selection"]
       165 NAMECALL                         R10 R10 K17 ["Get"]
       167 CALL                             R10 1 -1
       168 CALL                             R9 -1 3
@@ -7184,18 +7184,18 @@ PROTO_89:
       196 JUMPIFNOT                        R8 ; [+107]
       197 GETUPVAL                         R8 8
       198 JUMPIFNOT                        R8 ; [+105]
-      199 GETUPVAL                         R9 9
-      200 GETTABLEKS                       R8 R9 K40 ["convertToPart"]
+      199 GETUPVAL                         R8 9
+      200 GETTABLEKS                       R8 R8 K40 ["convertToPart"]
       202 MOVE                             R9 R4
       203 CALL                             R8 1 1
       204 MOVE                             R4 R8
-      205 GETUPVAL                         R9 10
-      206 GETTABLEKS                       R8 R9 K19 ["CFrame"]
+      205 GETUPVAL                         R8 10
+      206 GETTABLEKS                       R8 R8 K19 ["CFrame"]
       208 GETUPVAL                         R10 11
       209 NAMECALL                         R8 R8 K41 ["pointToObjectSpace"]
       211 CALL                             R8 2 1
-      212 GETUPVAL                         R11 10
-      213 GETTABLEKS                       R10 R11 K19 ["CFrame"]
+      212 GETUPVAL                         R10 10
+      213 GETTABLEKS                       R10 R10 K19 ["CFrame"]
       215 MOVE                             R12 R5
       216 NAMECALL                         R10 R10 K41 ["pointToObjectSpace"]
       218 CALL                             R10 2 1
@@ -7206,20 +7206,20 @@ PROTO_89:
       223 ADD                              R11 R12 R9
       224 GETUPVAL                         R13 8
       225 ADD                              R12 R13 R9
-      226 GETUPVAL                         R14 10
-      227 GETTABLEKS                       R13 R14 K19 ["CFrame"]
+      226 GETUPVAL                         R13 10
+      227 GETTABLEKS                       R13 R13 K19 ["CFrame"]
       229 MOVE                             R15 R10
       230 NAMECALL                         R13 R13 K42 ["pointToWorldSpace"]
       232 CALL                             R13 2 1
       233 MOVE                             R10 R13
-      234 GETUPVAL                         R14 10
-      235 GETTABLEKS                       R13 R14 K19 ["CFrame"]
+      234 GETUPVAL                         R13 10
+      235 GETTABLEKS                       R13 R13 K19 ["CFrame"]
       237 MOVE                             R15 R11
       238 NAMECALL                         R13 R13 K42 ["pointToWorldSpace"]
       240 CALL                             R13 2 1
       241 MOVE                             R11 R13
-      242 GETUPVAL                         R14 10
-      243 GETTABLEKS                       R13 R14 K19 ["CFrame"]
+      242 GETUPVAL                         R13 10
+      243 GETTABLEKS                       R13 R13 K19 ["CFrame"]
       245 MOVE                             R15 R12
       246 NAMECALL                         R13 R13 K42 ["pointToWorldSpace"]
       248 CALL                             R13 2 1
@@ -7231,16 +7231,16 @@ PROTO_89:
       255 CALL                             R13 3 1
       256 SETUPVAL                         R13 12
       257 GETTABLEKS                       R15 R4 K19 ["CFrame"]
-      259 GETTABLEKS                       R17 R4 K19 ["CFrame"]
-      261 GETTABLEKS                       R16 R17 K20 ["p"]
+      259 GETTABLEKS                       R16 R4 K19 ["CFrame"]
+      261 GETTABLEKS                       R16 R16 K20 ["p"]
       263 SUB                              R14 R15 R16
       264 GETUPVAL                         R15 5
       265 ADD                              R13 R14 R15
-      266 GETUPVAL                         R16 10
-      267 GETTABLEKS                       R15 R16 K19 ["CFrame"]
-      269 GETUPVAL                         R18 10
-      270 GETTABLEKS                       R17 R18 K19 ["CFrame"]
-      272 GETTABLEKS                       R16 R17 K20 ["p"]
+      266 GETUPVAL                         R15 10
+      267 GETTABLEKS                       R15 R15 K19 ["CFrame"]
+      269 GETUPVAL                         R16 10
+      270 GETTABLEKS                       R16 R16 K19 ["CFrame"]
+      272 GETTABLEKS                       R16 R16 K20 ["p"]
       274 SUB                              R14 R15 R16
       275 GETIMPORT                        R16 K44 [CFrame.new]
       277 GETTABLEKS                       R17 R13 K20 ["p"]
@@ -7253,8 +7253,8 @@ PROTO_89:
       287 JUMPIFNOT                        R16 ; [+16]
       288 LOADB                            R16 1
       289 SETUPVAL                         R16 13
-      290 GETUPVAL                         R17 14
-      291 GETTABLEKS                       R16 R17 K47 ["getFilteredSelectionMetapart"]
+      290 GETUPVAL                         R16 14
+      291 GETTABLEKS                       R16 R16 K47 ["getFilteredSelectionMetapart"]
       293 CALL                             R16 0 1
       294 GETTABLEKS                       R21 R16 K19 ["CFrame"]
       296 NAMECALL                         R19 R13 K48 ["toObjectSpace"]
@@ -7266,17 +7266,17 @@ PROTO_89:
       306 GETGLOBAL                        R9 K53 ["grabPart"]
       308 CALL                             R8 1 0
       309 JUMP                             ; [+25]
-      310 GETUPVAL                         R9 15
-      311 GETTABLEKS                       R8 R9 K54 ["startRubberbandDrag"]
+      310 GETUPVAL                         R8 15
+      311 GETTABLEKS                       R8 R8 K54 ["startRubberbandDrag"]
       313 GETIMPORT                        R9 K56 [Vector2.new]
-      315 GETUPVAL                         R11 1
-      316 GETTABLEKS                       R10 R11 K57 ["X"]
-      318 GETUPVAL                         R12 1
-      319 GETTABLEKS                       R11 R12 K58 ["Y"]
+      315 GETUPVAL                         R10 1
+      316 GETTABLEKS                       R10 R10 K57 ["X"]
+      318 GETUPVAL                         R11 1
+      319 GETTABLEKS                       R11 R11 K58 ["Y"]
       321 CALL                             R9 2 -1
       322 CALL                             R8 -1 0
-      323 GETIMPORT                        R10 K6 [game]
-      325 GETTABLEKS                       R9 R10 K16 ["Selection"]
+      323 GETIMPORT                        R9 K6 [game]
+      325 GETTABLEKS                       R9 R9 K16 ["Selection"]
       327 NAMECALL                         R9 R9 K17 ["Get"]
       329 CALL                             R9 1 1
       330 LENGTH                           R8 R9
@@ -7297,12 +7297,12 @@ PROTO_90:
         3 GETUPVAL                         R0 0
         4 JUMPIF                           R0 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R0 R1 K1 ["resetDragger"]
+        6 GETUPVAL                         R0 1
+        7 GETTABLEKS                       R0 R0 K1 ["resetDragger"]
         9 CALL                             R0 0 0
        10 GETUPVAL                         R0 2
-       11 GETUPVAL                         R2 3
-       12 GETTABLEKS                       R1 R2 K2 ["getFilteredSelection"]
+       11 GETUPVAL                         R1 3
+       12 GETTABLEKS                       R1 R1 K2 ["getFilteredSelection"]
        14 CALL                             R1 0 -1
        15 CALL                             R0 -1 0
        16 GETGLOBAL                        R0 K3 ["updateInvisiblePart"]
@@ -7312,22 +7312,22 @@ PROTO_90:
 PROTO_91:
         0 LOADB                            R0 1
         1 SETUPVAL                         R0 0
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["updateSelection"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["updateSelection"]
         5 CALL                             R0 0 0
-        6 GETUPVAL                         R1 2
-        7 GETTABLEKS                       R0 R1 K1 ["resetDragger"]
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K1 ["resetDragger"]
         9 CALL                             R0 0 0
-       10 GETUPVAL                         R1 3
-       11 GETTABLEKS                       R0 R1 K2 ["isRubberBandDragInProgress"]
+       10 GETUPVAL                         R0 3
+       11 GETTABLEKS                       R0 R0 K2 ["isRubberBandDragInProgress"]
        13 CALL                             R0 0 1
        14 JUMPIFNOT                        R0 ; [+1]
        15 RETURN                           R0 0
-       16 GETUPVAL                         R1 1
-       17 GETTABLEKS                       R0 R1 K3 ["getCurrentSelection"]
+       16 GETUPVAL                         R0 1
+       17 GETTABLEKS                       R0 R0 K3 ["getCurrentSelection"]
        19 CALL                             R0 0 1
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R1 R2 K4 ["getFilteredSelectionMetapart"]
+       20 GETUPVAL                         R1 1
+       21 GETTABLEKS                       R1 R1 K4 ["getFilteredSelectionMetapart"]
        23 CALL                             R1 0 1
        24 LENGTH                           R2 R0
        25 JUMPIFNOTEQKN                    R2 K5 [0] ; [+8]
@@ -7349,8 +7349,8 @@ PROTO_91:
        46 SETUPVAL                         R2 7
        47 LENGTH                           R2 R0
        48 JUMPIFNOTEQKN                    R2 K10 [1] ; [+8]
-       50 GETUPVAL                         R3 8
-       51 GETTABLEKS                       R2 R3 K11 ["convertToPart"]
+       50 GETUPVAL                         R2 8
+       51 GETTABLEKS                       R2 R2 K11 ["convertToPart"]
        53 GETTABLEN                        R3 R0 1
        54 CALL                             R2 1 1
        55 SETGLOBAL                        R2 K12 ["selectedPart"]
@@ -7364,20 +7364,20 @@ PROTO_92:
         3 RETURN                           R0 0
         4 LOADB                            R1 1
         5 SETUPVAL                         R1 0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["getButtonState"]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K2 ["Enum"]
-       12 GETTABLEKS                       R3 R4 K3 ["Key"]
-       14 GETTABLEKS                       R2 R3 K4 ["MOUSE_BUTTON1"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["getButtonState"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K2 ["Enum"]
+       12 GETTABLEKS                       R2 R2 K3 ["Key"]
+       14 GETTABLEKS                       R2 R2 K4 ["MOUSE_BUTTON1"]
        16 CALL                             R1 1 1
        17 JUMPIF                           R1 ; [+16]
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R1 R2 K5 ["setButtonState"]
-       21 GETUPVAL                         R5 1
-       22 GETTABLEKS                       R4 R5 K2 ["Enum"]
-       24 GETTABLEKS                       R3 R4 K3 ["Key"]
-       26 GETTABLEKS                       R2 R3 K4 ["MOUSE_BUTTON1"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K5 ["setButtonState"]
+       21 GETUPVAL                         R2 1
+       22 GETTABLEKS                       R2 R2 K2 ["Enum"]
+       24 GETTABLEKS                       R2 R2 K3 ["Key"]
+       26 GETTABLEKS                       R2 R2 K4 ["MOUSE_BUTTON1"]
        28 LOADB                            R3 1
        29 CALL                             R1 2 0
        30 GETGLOBAL                        R1 K6 ["selectPart"]
@@ -7386,12 +7386,12 @@ PROTO_92:
        34 RETURN                           R0 0
 
 PROTO_93:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["isPlaneSelectingModeOn"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["isPlaneSelectingModeOn"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+16]
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K1 ["setPlaneSelectingMode"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K1 ["setPlaneSelectingMode"]
         8 LOADB                            R1 0
         9 CALL                             R0 1 0
        10 LOADB                            R0 0
@@ -7399,12 +7399,12 @@ PROTO_93:
        12 GETUPVAL                         R0 2
        13 LOADB                            R1 0
        14 SETTABLEKS                       R1 R0 K2 ["Visible"]
-       16 GETUPVAL                         R1 0
-       17 GETTABLEKS                       R0 R1 K3 ["clearExtraAdorns"]
+       16 GETUPVAL                         R0 0
+       17 GETTABLEKS                       R0 R0 K3 ["clearExtraAdorns"]
        19 CALL                             R0 0 0
        20 RETURN                           R0 0
-       21 GETUPVAL                         R1 0
-       22 GETTABLEKS                       R0 R1 K1 ["setPlaneSelectingMode"]
+       21 GETUPVAL                         R0 0
+       22 GETTABLEKS                       R0 R0 K1 ["setPlaneSelectingMode"]
        24 LOADB                            R1 1
        25 CALL                             R0 1 0
        26 LOADB                            R0 1
@@ -7439,9 +7439,9 @@ PROTO_93:
        61 GETUPVAL                         R1 3
        62 SETTABLEKS                       R1 R0 K14 ["Adornee"]
        64 GETUPVAL                         R0 2
-       65 GETUPVAL                         R3 2
-       66 GETTABLEKS                       R2 R3 K14 ["Adornee"]
-       68 GETTABLEKS                       R1 R2 K9 ["Size"]
+       65 GETUPVAL                         R1 2
+       66 GETTABLEKS                       R1 R1 K14 ["Adornee"]
+       68 GETTABLEKS                       R1 R1 K9 ["Size"]
        70 SETTABLEKS                       R1 R0 K9 ["Size"]
        72 GETUPVAL                         R0 2
        73 LOADK                            R1 K15 [0.6]
@@ -7480,12 +7480,12 @@ PROTO_94:
        33 GETTABLEKS                       R2 R0 K4 ["UserInputState"]
        35 GETIMPORT                        R3 K6 [Enum.UserInputState.Begin]
        37 JUMPIFNOTEQ                      R2 R3 ; [+16]
-       39 GETUPVAL                         R3 2
-       40 GETTABLEKS                       R2 R3 K12 ["setButtonState"]
-       42 GETUPVAL                         R6 2
-       43 GETTABLEKS                       R5 R6 K1 ["Enum"]
-       45 GETTABLEKS                       R4 R5 K13 ["Key"]
-       47 GETTABLEKS                       R3 R4 K14 ["MOUSE_BUTTON1"]
+       39 GETUPVAL                         R2 2
+       40 GETTABLEKS                       R2 R2 K12 ["setButtonState"]
+       42 GETUPVAL                         R3 2
+       43 GETTABLEKS                       R3 R3 K1 ["Enum"]
+       45 GETTABLEKS                       R3 R3 K13 ["Key"]
+       47 GETTABLEKS                       R3 R3 K14 ["MOUSE_BUTTON1"]
        49 LOADB                            R4 1
        50 CALL                             R2 2 0
        51 GETUPVAL                         R2 3
@@ -7494,53 +7494,53 @@ PROTO_94:
        54 GETTABLEKS                       R2 R0 K4 ["UserInputState"]
        56 GETIMPORT                        R3 K16 [Enum.UserInputState.End]
        58 JUMPIFNOTEQ                      R2 R3 ; [+21]
-       60 GETUPVAL                         R3 2
-       61 GETTABLEKS                       R2 R3 K12 ["setButtonState"]
-       63 GETUPVAL                         R6 2
-       64 GETTABLEKS                       R5 R6 K1 ["Enum"]
-       66 GETTABLEKS                       R4 R5 K13 ["Key"]
-       68 GETTABLEKS                       R3 R4 K14 ["MOUSE_BUTTON1"]
-       70 GETUPVAL                         R7 2
-       71 GETTABLEKS                       R6 R7 K1 ["Enum"]
-       73 GETTABLEKS                       R5 R6 K17 ["State"]
-       75 GETTABLEKS                       R4 R5 K18 ["UP"]
+       60 GETUPVAL                         R2 2
+       61 GETTABLEKS                       R2 R2 K12 ["setButtonState"]
+       63 GETUPVAL                         R3 2
+       64 GETTABLEKS                       R3 R3 K1 ["Enum"]
+       66 GETTABLEKS                       R3 R3 K13 ["Key"]
+       68 GETTABLEKS                       R3 R3 K14 ["MOUSE_BUTTON1"]
+       70 GETUPVAL                         R4 2
+       71 GETTABLEKS                       R4 R4 K1 ["Enum"]
+       73 GETTABLEKS                       R4 R4 K17 ["State"]
+       75 GETTABLEKS                       R4 R4 K18 ["UP"]
        77 CALL                             R2 2 0
        78 GETUPVAL                         R2 4
        79 CALL                             R2 0 0
        80 RETURN                           R0 0
 
 PROTO_95:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getButtonState"]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K1 ["Enum"]
-        6 GETTABLEKS                       R3 R4 K2 ["Key"]
-        8 GETTABLEKS                       R2 R3 K3 ["MOUSE_BUTTON1"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getButtonState"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["Enum"]
+        6 GETTABLEKS                       R2 R2 K2 ["Key"]
+        8 GETTABLEKS                       R2 R2 K3 ["MOUSE_BUTTON1"]
        10 CALL                             R1 1 1
        11 JUMPIFNOT                        R1 ; [+6]
        12 GETTABLEKS                       R1 R0 K4 ["UserInputType"]
        14 GETIMPORT                        R2 K6 [Enum.UserInputType.MouseMovement]
        16 JUMPIFEQ                         R1 R2 ; [+12]
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R1 R2 K7 ["isPlaneSelectingModeOn"]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K7 ["isPlaneSelectingModeOn"]
        21 CALL                             R1 0 1
        22 JUMPIFNOT                        R1 ; [+31]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R1 R2 K8 ["getCurrentHandle"]
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K8 ["getCurrentHandle"]
        26 CALL                             R1 0 1
        27 JUMPIFNOTEQKN                    R1 K9 [14] ; [+26]
        29 GETUPVAL                         R1 2
        30 JUMPIF                           R1 ; [+8]
-       31 GETUPVAL                         R2 3
-       32 GETTABLEKS                       R1 R2 K10 ["getFilteredSelectionMetapart"]
+       31 GETUPVAL                         R1 3
+       32 GETTABLEKS                       R1 R1 K10 ["getFilteredSelectionMetapart"]
        34 CALL                             R1 0 1
        35 JUMPIFNOT                        R1 ; [+3]
        36 GETTABLEKS                       R2 R1 K11 ["CFrame"]
        38 SETUPVAL                         R2 2
        39 GETUPVAL                         R1 4
        40 JUMPIF                           R1 ; [+8]
-       41 GETUPVAL                         R2 3
-       42 GETTABLEKS                       R1 R2 K10 ["getFilteredSelectionMetapart"]
+       41 GETUPVAL                         R1 3
+       42 GETTABLEKS                       R1 R1 K10 ["getFilteredSelectionMetapart"]
        44 CALL                             R1 0 1
        45 JUMPIFNOT                        R1 ; [+3]
        46 GETTABLEKS                       R2 R1 K12 ["Size"]
@@ -7590,8 +7590,8 @@ PROTO_96:
        41 GETUPVAL                         R0 9
        42 NAMECALL                         R0 R0 K4 ["disconnect"]
        44 CALL                             R0 1 0
-       45 GETUPVAL                         R1 10
-       46 GETTABLEKS                       R0 R1 K5 ["destroyAdorns"]
+       45 GETUPVAL                         R0 10
+       46 GETTABLEKS                       R0 R0 K5 ["destroyAdorns"]
        48 CALL                             R0 0 0
        49 GETGLOBAL                        R0 K6 ["analyticsSendSession"]
        51 CALL                             R0 0 0
@@ -7640,8 +7640,8 @@ PROTO_98:
        25 RETURN                           R0 0
 
 PROTO_99:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelectionMetapart"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelectionMetapart"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+3]
         5 GETTABLEKS                       R1 R0 K1 ["ClearCache"]
@@ -7653,14 +7653,14 @@ PROTO_99:
        13 RETURN                           R0 0
 
 PROTO_100:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFilteredSelectionMetapart"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFilteredSelectionMetapart"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+13]
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K0 ["getFilteredSelectionMetapart"]
-        8 CALL                             R1 0 1
-        9 GETTABLEKS                       R0 R1 K1 ["IsUpdateRequired"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K0 ["getFilteredSelectionMetapart"]
+        8 CALL                             R0 0 1
+        9 GETTABLEKS                       R0 R0 K1 ["IsUpdateRequired"]
        11 JUMPIFNOT                        R0 ; [+6]
        12 GETIMPORT                        R0 K3 [spawn]
        14 DUPCLOSURE                       R1 K4 [PROTO_99]
@@ -7700,53 +7700,53 @@ PROTO_101:
        29 CALL                             R0 1 0
        30 LOADNIL                          R0
        31 SETUPVAL                         R0 4
-       32 GETUPVAL                         R1 5
-       33 GETTABLEKS                       R0 R1 K8 ["initializeAdorns"]
+       32 GETUPVAL                         R0 5
+       33 GETTABLEKS                       R0 R0 K8 ["initializeAdorns"]
        35 CALL                             R0 0 0
-       36 GETIMPORT                        R1 K10 [game]
-       38 LOADK                            R3 K11 ["ChangeHistoryService"]
-       39 NAMECALL                         R1 R1 K12 ["GetService"]
-       41 CALL                             R1 2 1
-       42 GETTABLEKS                       R0 R1 K13 ["OnUndo"]
+       36 GETIMPORT                        R0 K10 [game]
+       38 LOADK                            R2 K11 ["ChangeHistoryService"]
+       39 NAMECALL                         R0 R0 K12 ["GetService"]
+       41 CALL                             R0 2 1
+       42 GETTABLEKS                       R0 R0 K13 ["OnUndo"]
        44 GETGLOBAL                        R2 K14 ["waypointChanged"]
        46 NAMECALL                         R0 R0 K15 ["connect"]
        48 CALL                             R0 2 1
        49 SETUPVAL                         R0 6
-       50 GETIMPORT                        R1 K10 [game]
-       52 LOADK                            R3 K11 ["ChangeHistoryService"]
-       53 NAMECALL                         R1 R1 K12 ["GetService"]
-       55 CALL                             R1 2 1
-       56 GETTABLEKS                       R0 R1 K16 ["OnRedo"]
+       50 GETIMPORT                        R0 K10 [game]
+       52 LOADK                            R2 K11 ["ChangeHistoryService"]
+       53 NAMECALL                         R0 R0 K12 ["GetService"]
+       55 CALL                             R0 2 1
+       56 GETTABLEKS                       R0 R0 K16 ["OnRedo"]
        58 GETGLOBAL                        R2 K14 ["waypointChanged"]
        60 NAMECALL                         R0 R0 K15 ["connect"]
        62 CALL                             R0 2 1
        63 SETUPVAL                         R0 7
-       64 GETUPVAL                         R1 9
-       65 GETTABLEKS                       R0 R1 K17 ["InputEnded"]
+       64 GETUPVAL                         R0 9
+       65 GETTABLEKS                       R0 R0 K17 ["InputEnded"]
        67 GETGLOBAL                        R2 K18 ["keyPress"]
        69 NAMECALL                         R0 R0 K15 ["connect"]
        71 CALL                             R0 2 1
        72 SETUPVAL                         R0 8
-       73 GETUPVAL                         R1 9
-       74 GETTABLEKS                       R0 R1 K19 ["InputChanged"]
+       73 GETUPVAL                         R0 9
+       74 GETTABLEKS                       R0 R0 K19 ["InputChanged"]
        76 GETGLOBAL                        R2 K20 ["inputChanged"]
        78 NAMECALL                         R0 R0 K15 ["connect"]
        80 CALL                             R0 2 1
        81 SETUPVAL                         R0 10
-       82 GETIMPORT                        R1 K10 [game]
-       84 LOADK                            R3 K21 ["Selection"]
-       85 NAMECALL                         R1 R1 K12 ["GetService"]
-       87 CALL                             R1 2 1
-       88 GETTABLEKS                       R0 R1 K22 ["SelectionChanged"]
+       82 GETIMPORT                        R0 K10 [game]
+       84 LOADK                            R2 K21 ["Selection"]
+       85 NAMECALL                         R0 R0 K12 ["GetService"]
+       87 CALL                             R0 2 1
+       88 GETTABLEKS                       R0 R0 K22 ["SelectionChanged"]
        90 GETGLOBAL                        R2 K23 ["selectionChanged"]
        92 NAMECALL                         R0 R0 K15 ["connect"]
        94 CALL                             R0 2 1
        95 SETUPVAL                         R0 11
-       96 GETIMPORT                        R1 K10 [game]
-       98 LOADK                            R3 K24 ["RunService"]
-       99 NAMECALL                         R1 R1 K12 ["GetService"]
-      101 CALL                             R1 2 1
-      102 GETTABLEKS                       R0 R1 K25 ["RenderStepped"]
+       96 GETIMPORT                        R0 K10 [game]
+       98 LOADK                            R2 K24 ["RunService"]
+       99 NAMECALL                         R0 R0 K12 ["GetService"]
+      101 CALL                             R0 2 1
+      102 GETTABLEKS                       R0 R0 K25 ["RenderStepped"]
       104 DUPCLOSURE                       R2 K26 [PROTO_100]
       105 CAPTURE                          UPVAL U13
       106 CAPTURE                          UPVAL U14
@@ -7754,10 +7754,10 @@ PROTO_101:
       108 NAMECALL                         R0 R0 K15 ["connect"]
       110 CALL                             R0 2 1
       111 SETUPVAL                         R0 12
-      112 GETUPVAL                         R1 1
-      113 NAMECALL                         R1 R1 K27 ["GetMouse"]
-      115 CALL                             R1 1 1
-      116 GETTABLEKS                       R0 R1 K28 ["DragEnter"]
+      112 GETUPVAL                         R0 1
+      113 NAMECALL                         R0 R0 K27 ["GetMouse"]
+      115 CALL                             R0 1 1
+      116 GETTABLEKS                       R0 R0 K28 ["DragEnter"]
       118 GETGLOBAL                        R2 K29 ["onDragEnter"]
       120 NAMECALL                         R0 R0 K15 ["connect"]
       122 CALL                             R0 2 1
@@ -7797,64 +7797,64 @@ MAIN:
        21 NAMECALL                         R4 R4 K11 ["GetFastFlag"]
        23 CALL                             R4 2 1
        24 GETIMPORT                        R5 K13 [require]
-       26 GETIMPORT                        R8 K15 [script]
-       28 GETTABLEKS                       R7 R8 K16 ["Parent"]
-       30 GETTABLEKS                       R6 R7 K17 ["Collision"]
+       26 GETIMPORT                        R6 K15 [script]
+       28 GETTABLEKS                       R6 R6 K16 ["Parent"]
+       30 GETTABLEKS                       R6 R6 K17 ["Collision"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K13 [require]
-       35 GETIMPORT                        R9 K15 [script]
-       37 GETTABLEKS                       R8 R9 K16 ["Parent"]
-       39 GETTABLEKS                       R7 R8 K18 ["Utility"]
+       35 GETIMPORT                        R7 K15 [script]
+       37 GETTABLEKS                       R7 R7 K16 ["Parent"]
+       39 GETTABLEKS                       R7 R7 K18 ["Utility"]
        41 CALL                             R6 1 1
        42 GETIMPORT                        R7 K13 [require]
-       44 GETIMPORT                        R10 K15 [script]
-       46 GETTABLEKS                       R9 R10 K16 ["Parent"]
-       48 GETTABLEKS                       R8 R9 K19 ["List"]
+       44 GETIMPORT                        R8 K15 [script]
+       46 GETTABLEKS                       R8 R8 K16 ["Parent"]
+       48 GETTABLEKS                       R8 R8 K19 ["List"]
        50 CALL                             R7 1 1
        51 GETIMPORT                        R8 K13 [require]
-       53 GETIMPORT                        R11 K15 [script]
-       55 GETTABLEKS                       R10 R11 K16 ["Parent"]
-       57 GETTABLEKS                       R9 R10 K20 ["Selection"]
+       53 GETIMPORT                        R9 K15 [script]
+       55 GETTABLEKS                       R9 R9 K16 ["Parent"]
+       57 GETTABLEKS                       R9 R9 K20 ["Selection"]
        59 CALL                             R8 1 1
        60 GETIMPORT                        R9 K13 [require]
-       62 GETIMPORT                        R12 K15 [script]
-       64 GETTABLEKS                       R11 R12 K16 ["Parent"]
-       66 GETTABLEKS                       R10 R11 K21 ["Metapart"]
+       62 GETIMPORT                        R10 K15 [script]
+       64 GETTABLEKS                       R10 R10 K16 ["Parent"]
+       66 GETTABLEKS                       R10 R10 K21 ["Metapart"]
        68 CALL                             R9 1 1
        69 GETIMPORT                        R10 K13 [require]
-       71 GETIMPORT                        R13 K15 [script]
-       73 GETTABLEKS                       R12 R13 K16 ["Parent"]
-       75 GETTABLEKS                       R11 R12 K22 ["FuzzyMath"]
+       71 GETIMPORT                        R11 K15 [script]
+       73 GETTABLEKS                       R11 R11 K16 ["Parent"]
+       75 GETTABLEKS                       R11 R11 K22 ["FuzzyMath"]
        77 CALL                             R10 1 1
        78 GETIMPORT                        R11 K13 [require]
-       80 GETIMPORT                        R14 K15 [script]
-       82 GETTABLEKS                       R13 R14 K16 ["Parent"]
-       84 GETTABLEKS                       R12 R13 K23 ["Round"]
+       80 GETIMPORT                        R12 K15 [script]
+       82 GETTABLEKS                       R12 R12 K16 ["Parent"]
+       84 GETTABLEKS                       R12 R12 K23 ["Round"]
        86 CALL                             R11 1 1
        87 GETIMPORT                        R12 K13 [require]
-       89 GETIMPORT                        R15 K15 [script]
-       91 GETTABLEKS                       R14 R15 K16 ["Parent"]
-       93 GETTABLEKS                       R13 R14 K24 ["Extent"]
+       89 GETIMPORT                        R13 K15 [script]
+       91 GETTABLEKS                       R13 R13 K16 ["Parent"]
+       93 GETTABLEKS                       R13 R13 K24 ["Extent"]
        95 CALL                             R12 1 1
        96 GETIMPORT                        R13 K13 [require]
-       98 GETIMPORT                        R16 K15 [script]
-      100 GETTABLEKS                       R15 R16 K16 ["Parent"]
-      102 GETTABLEKS                       R14 R15 K25 ["Adornments"]
+       98 GETIMPORT                        R14 K15 [script]
+      100 GETTABLEKS                       R14 R14 K16 ["Parent"]
+      102 GETTABLEKS                       R14 R14 K25 ["Adornments"]
       104 CALL                             R13 1 1
       105 GETIMPORT                        R14 K13 [require]
-      107 GETIMPORT                        R17 K15 [script]
-      109 GETTABLEKS                       R16 R17 K16 ["Parent"]
-      111 GETTABLEKS                       R15 R16 K26 ["Input"]
+      107 GETIMPORT                        R15 K15 [script]
+      109 GETTABLEKS                       R15 R15 K16 ["Parent"]
+      111 GETTABLEKS                       R15 R15 K26 ["Input"]
       113 CALL                             R14 1 1
       114 GETIMPORT                        R15 K13 [require]
-      116 GETIMPORT                        R18 K15 [script]
-      118 GETTABLEKS                       R17 R18 K16 ["Parent"]
-      120 GETTABLEKS                       R16 R17 K27 ["Rubberband"]
+      116 GETIMPORT                        R16 K15 [script]
+      118 GETTABLEKS                       R16 R16 K16 ["Parent"]
+      120 GETTABLEKS                       R16 R16 K27 ["Rubberband"]
       122 CALL                             R15 1 1
       123 GETIMPORT                        R16 K13 [require]
-      125 GETIMPORT                        R19 K15 [script]
-      127 GETTABLEKS                       R18 R19 K16 ["Parent"]
-      129 GETTABLEKS                       R17 R18 K28 ["Analytics"]
+      125 GETIMPORT                        R17 K15 [script]
+      127 GETTABLEKS                       R17 R17 K16 ["Parent"]
+      129 GETTABLEKS                       R17 R17 K28 ["Analytics"]
       131 CALL                             R16 1 1
       132 GETIMPORT                        R17 K5 [game]
       134 LOADK                            R19 K29 ["UserInputService"]

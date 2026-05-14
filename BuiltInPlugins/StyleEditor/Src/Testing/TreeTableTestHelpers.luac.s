@@ -12,8 +12,8 @@ PROTO_0:
        13 FORGPREP                         R2
        14 GETTABLEKS                       R7 R6 K4 ["Name"]
        16 JUMPIFNOT                        R7 ; [+7]
-       17 GETTABLEKS                       R8 R6 K4 ["Name"]
-       19 GETTABLEKS                       R7 R8 K5 ["Value"]
+       17 GETTABLEKS                       R7 R6 K4 ["Name"]
+       19 GETTABLEKS                       R7 R7 K5 ["Value"]
        21 JUMPIFNOTEQ                      R7 R1 ; [+2]
        23 RETURN                           R6 1
        24 FORGLOOP                         R2 2 ; [-11]

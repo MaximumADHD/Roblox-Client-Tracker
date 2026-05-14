@@ -19,9 +19,9 @@ PROTO_0:
        22 SETTABLEKS                       R1 R0 K2 ["BorderColor3"]
        24 LOADN                            R1 0
        25 SETTABLEKS                       R1 R0 K3 ["BorderSizePixel"]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K11 ["Dictionary"]
-       30 GETTABLEKS                       R1 R2 K12 ["join"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K11 ["Dictionary"]
+       30 GETTABLEKS                       R1 R1 K12 ["join"]
        32 MOVE                             R2 R0
        33 DUPTABLE                         R3 K16 [{"Size", "FontFace", "TextSize", "TextColor3"}]
        34 GETIMPORT                        R4 K7 [UDim2.fromOffset]
@@ -42,9 +42,9 @@ PROTO_0:
        56 CALL                             R4 3 1
        57 SETTABLEKS                       R4 R3 K15 ["TextColor3"]
        59 CALL                             R1 2 1
-       60 GETUPVAL                         R4 0
-       61 GETTABLEKS                       R3 R4 K11 ["Dictionary"]
-       63 GETTABLEKS                       R2 R3 K12 ["join"]
+       60 GETUPVAL                         R2 0
+       61 GETTABLEKS                       R2 R2 K11 ["Dictionary"]
+       63 GETTABLEKS                       R2 R2 K12 ["join"]
        65 MOVE                             R3 R0
        66 DUPTABLE                         R4 K24 [{"Image"}]
        67 LOADK                            R5 K25 ["rbxasset://textures/ui/GuiImagePlaceholder.png"]
@@ -62,9 +62,9 @@ PROTO_0:
        83 CALL                             R7 2 1
        84 GETUPVAL                         R8 2
        85 LOADK                            R9 K32 ["ScrollingFrame"]
-       86 GETUPVAL                         R12 0
-       87 GETTABLEKS                       R11 R12 K11 ["Dictionary"]
-       89 GETTABLEKS                       R10 R11 K12 ["join"]
+       86 GETUPVAL                         R10 0
+       87 GETTABLEKS                       R10 R10 K11 ["Dictionary"]
+       89 GETTABLEKS                       R10 R10 K12 ["join"]
        91 MOVE                             R11 R0
        92 DUPTABLE                         R12 K35 [{"Active", "ScrollBarImageColor3"}]
        93 LOADB                            R13 1
@@ -150,9 +150,9 @@ PROTO_1:
        22 SETTABLEKS                       R1 R0 K2 ["BorderColor3"]
        24 LOADN                            R1 0
        25 SETTABLEKS                       R1 R0 K3 ["BorderSizePixel"]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K11 ["Dictionary"]
-       30 GETTABLEKS                       R1 R2 K12 ["join"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K11 ["Dictionary"]
+       30 GETTABLEKS                       R1 R1 K12 ["join"]
        32 MOVE                             R2 R0
        33 DUPTABLE                         R3 K16 [{"Size", "FontFace", "TextSize", "TextColor3"}]
        34 GETIMPORT                        R4 K7 [UDim2.fromOffset]
@@ -173,9 +173,9 @@ PROTO_1:
        56 CALL                             R4 3 1
        57 SETTABLEKS                       R4 R3 K15 ["TextColor3"]
        59 CALL                             R1 2 1
-       60 GETUPVAL                         R4 0
-       61 GETTABLEKS                       R3 R4 K11 ["Dictionary"]
-       63 GETTABLEKS                       R2 R3 K12 ["join"]
+       60 GETUPVAL                         R2 0
+       61 GETTABLEKS                       R2 R2 K11 ["Dictionary"]
+       63 GETTABLEKS                       R2 R2 K12 ["join"]
        65 MOVE                             R3 R0
        66 DUPTABLE                         R4 K24 [{"Image"}]
        67 LOADK                            R5 K25 ["rbxasset://textures/ui/GuiImagePlaceholder.png"]
@@ -184,9 +184,9 @@ PROTO_1:
        71 DUPTABLE                         R3 K27 [{"SortOrder"}]
        72 GETIMPORT                        R4 K29 [Enum.SortOrder.LayoutOrder]
        74 SETTABLEKS                       R4 R3 K26 ["SortOrder"]
-       76 GETUPVAL                         R6 0
-       77 GETTABLEKS                       R5 R6 K11 ["Dictionary"]
-       79 GETTABLEKS                       R4 R5 K12 ["join"]
+       76 GETUPVAL                         R4 0
+       77 GETTABLEKS                       R4 R4 K11 ["Dictionary"]
+       79 GETTABLEKS                       R4 R4 K12 ["join"]
        81 MOVE                             R5 R0
        82 DUPTABLE                         R6 K32 [{"Active", "ScrollBarImageColor3"}]
        83 LOADB                            R7 1
@@ -278,31 +278,31 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R1 K8 ["Styling"]
-       25 GETTABLEKS                       R3 R4 K9 ["createStyleRule"]
-       27 GETTABLEKS                       R5 R1 K8 ["Styling"]
-       29 GETTABLEKS                       R4 R5 K10 ["createStyleSheet"]
+       23 GETTABLEKS                       R3 R1 K8 ["Styling"]
+       25 GETTABLEKS                       R3 R3 K9 ["createStyleRule"]
+       27 GETTABLEKS                       R4 R1 K8 ["Styling"]
+       29 GETTABLEKS                       R4 R4 K10 ["createStyleSheet"]
        31 GETIMPORT                        R5 K4 [require]
-       33 GETTABLEKS                       R8 R0 K11 ["Src"]
-       35 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       37 GETTABLEKS                       R6 R7 K13 ["getEngineFeatureCustomizedDefaultInstances"]
+       33 GETTABLEKS                       R6 R0 K11 ["Src"]
+       35 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       37 GETTABLEKS                       R6 R6 K13 ["getEngineFeatureCustomizedDefaultInstances"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K4 [require]
-       42 GETTABLEKS                       R9 R0 K11 ["Src"]
-       44 GETTABLEKS                       R8 R9 K12 ["Flags"]
-       46 GETTABLEKS                       R7 R8 K14 ["getEngineFeatureUIShadow"]
+       42 GETTABLEKS                       R7 R0 K11 ["Src"]
+       44 GETTABLEKS                       R7 R7 K12 ["Flags"]
+       46 GETTABLEKS                       R7 R7 K14 ["getEngineFeatureUIShadow"]
        48 CALL                             R6 1 1
        49 DUPCLOSURE                       R7 K15 [PROTO_0]
        50 CAPTURE                          VAL R2

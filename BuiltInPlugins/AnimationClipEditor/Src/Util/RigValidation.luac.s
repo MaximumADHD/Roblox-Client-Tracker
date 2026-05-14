@@ -53,8 +53,8 @@ PROTO_0:
        59 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 NEWTABLE                         R5 0 0
         6 MOVE                             R6 R1
@@ -72,115 +72,93 @@ PROTO_1:
        22 LOADB                            R12 1
        23 SETTABLE                         R12 R5 R11
        24 FORGLOOP                         R6 2 ; [-15]
-       26 GETUPVAL                         R6 1
-       27 CALL                             R6 0 1
-       28 JUMPIF                           R6 ; [+22]
-       29 MOVE                             R6 R2
-       30 LOADNIL                          R7
-       31 LOADNIL                          R8
-       32 FORGPREP                         R6
-       33 GETUPVAL                         R12 2
-       34 GETTABLEKS                       R11 R12 K3 ["getPart0"]
-       36 MOVE                             R12 R10
-       37 CALL                             R11 1 1
-       38 GETUPVAL                         R13 2
-       39 GETTABLEKS                       R12 R13 K4 ["getPart1"]
-       41 MOVE                             R13 R10
-       42 CALL                             R12 1 1
-       43 JUMPIFNOT                        R11 ; [+2]
-       44 LOADB                            R13 1
-       45 SETTABLE                         R13 R5 R11
-       46 JUMPIFNOT                        R12 ; [+2]
-       47 LOADB                            R13 1
-       48 SETTABLE                         R13 R5 R12
-       49 FORGLOOP                         R6 2 ; [-17]
-       51 NEWTABLE                         R6 0 0
-       53 NEWTABLE                         R7 0 0
-       55 NEWTABLE                         R8 0 0
-       57 NEWCLOSURE                       R9 P0
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R4
-       61 CAPTURE                          VAL R8
-       62 CAPTURE                          UPVAL U3
-       63 MOVE                             R10 R9
-       64 GETUPVAL                         R11 3
-       65 MOVE                             R12 R5
-       66 CALL                             R11 1 1
-       67 GETUPVAL                         R14 4
-       68 GETTABLEKS                       R13 R14 K5 ["RIG_ERRORS"]
-       70 GETTABLEKS                       R12 R13 K6 ["NameCollision"]
-       72 CALL                             R10 2 0
-       73 MOVE                             R10 R9
-       74 MOVE                             R11 R3
-       75 GETUPVAL                         R14 4
-       76 GETTABLEKS                       R13 R14 K5 ["RIG_ERRORS"]
-       78 GETTABLEKS                       R12 R13 K7 ["BoneNameCollision"]
-       80 CALL                             R10 2 0
-       81 GETUPVAL                         R13 4
-       82 GETTABLEKS                       R12 R13 K5 ["RIG_ERRORS"]
-       84 GETTABLEKS                       R11 R12 K7 ["BoneNameCollision"]
-       86 GETTABLE                         R10 R6 R11
-       87 JUMPIFNOT                        R10 ; [+78]
-       88 GETUPVAL                         R10 3
-       89 MOVE                             R11 R5
-       90 CALL                             R10 1 3
-       91 FORGPREP                         R10
-       92 GETUPVAL                         R19 4
-       93 GETTABLEKS                       R18 R19 K5 ["RIG_ERRORS"]
-       95 GETTABLEKS                       R17 R18 K7 ["BoneNameCollision"]
-       97 GETTABLE                         R16 R6 R17
-       98 GETTABLEKS                       R17 R14 K8 ["Name"]
-      100 GETTABLE                         R15 R16 R17
-      101 JUMPIFNOT                        R15 ; [+62]
-      102 GETUPVAL                         R17 4
-      103 GETTABLEKS                       R16 R17 K5 ["RIG_ERRORS"]
-      105 GETTABLEKS                       R15 R16 K9 ["PartBoneNameCollision"]
-      107 GETUPVAL                         R19 4
-      108 GETTABLEKS                       R18 R19 K5 ["RIG_ERRORS"]
-      110 GETTABLEKS                       R17 R18 K9 ["PartBoneNameCollision"]
-      112 GETTABLE                         R16 R7 R17
-      113 JUMPIF                           R16 ; [+8]
-      114 GETUPVAL                         R20 4
-      115 GETTABLEKS                       R19 R20 K5 ["RIG_ERRORS"]
-      117 GETTABLEKS                       R18 R19 K9 ["PartBoneNameCollision"]
-      119 NAMECALL                         R16 R4 K10 ["insert"]
-      121 CALL                             R16 2 1
-      122 SETTABLE                         R16 R7 R15
-      123 GETUPVAL                         R17 4
-      124 GETTABLEKS                       R16 R17 K5 ["RIG_ERRORS"]
-      126 GETTABLEKS                       R15 R16 K9 ["PartBoneNameCollision"]
-      128 GETUPVAL                         R19 4
-      129 GETTABLEKS                       R18 R19 K5 ["RIG_ERRORS"]
-      131 GETTABLEKS                       R17 R18 K9 ["PartBoneNameCollision"]
-      133 GETTABLE                         R16 R8 R17
-      134 JUMPIF                           R16 ; [+2]
-      135 NEWTABLE                         R16 0 0
-      137 SETTABLE                         R16 R8 R15
-      138 GETUPVAL                         R18 4
-      139 GETTABLEKS                       R17 R18 K5 ["RIG_ERRORS"]
-      141 GETTABLEKS                       R16 R17 K9 ["PartBoneNameCollision"]
-      143 GETTABLE                         R15 R8 R16
-      144 GETTABLEKS                       R16 R14 K8 ["Name"]
-      146 LOADB                            R17 1
-      147 SETTABLE                         R17 R15 R16
-      148 GETUPVAL                         R18 4
-      149 GETTABLEKS                       R17 R18 K5 ["RIG_ERRORS"]
-      151 GETTABLEKS                       R16 R17 K9 ["PartBoneNameCollision"]
-      153 GETTABLE                         R15 R7 R16
-      154 GETUPVAL                         R16 3
-      155 GETUPVAL                         R20 4
-      156 GETTABLEKS                       R19 R20 K5 ["RIG_ERRORS"]
-      158 GETTABLEKS                       R18 R19 K9 ["PartBoneNameCollision"]
-      160 GETTABLE                         R17 R8 R18
-      161 CALL                             R16 1 1
-      162 SETTABLEKS                       R16 R15 K11 ["details"]
-      164 FORGLOOP                         R10 2 ; [-73]
-      166 RETURN                           R4 1
+       26 NEWTABLE                         R6 0 0
+       28 NEWTABLE                         R7 0 0
+       30 NEWTABLE                         R8 0 0
+       32 NEWCLOSURE                       R9 P0
+       33 CAPTURE                          VAL R6
+       34 CAPTURE                          VAL R7
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R8
+       37 CAPTURE                          UPVAL U1
+       38 MOVE                             R10 R9
+       39 GETUPVAL                         R11 1
+       40 MOVE                             R12 R5
+       41 CALL                             R11 1 1
+       42 GETUPVAL                         R12 2
+       43 GETTABLEKS                       R12 R12 K3 ["RIG_ERRORS"]
+       45 GETTABLEKS                       R12 R12 K4 ["NameCollision"]
+       47 CALL                             R10 2 0
+       48 MOVE                             R10 R9
+       49 MOVE                             R11 R3
+       50 GETUPVAL                         R12 2
+       51 GETTABLEKS                       R12 R12 K3 ["RIG_ERRORS"]
+       53 GETTABLEKS                       R12 R12 K5 ["BoneNameCollision"]
+       55 CALL                             R10 2 0
+       56 GETUPVAL                         R11 2
+       57 GETTABLEKS                       R11 R11 K3 ["RIG_ERRORS"]
+       59 GETTABLEKS                       R11 R11 K5 ["BoneNameCollision"]
+       61 GETTABLE                         R10 R6 R11
+       62 JUMPIFNOT                        R10 ; [+78]
+       63 GETUPVAL                         R10 1
+       64 MOVE                             R11 R5
+       65 CALL                             R10 1 3
+       66 FORGPREP                         R10
+       67 GETUPVAL                         R17 2
+       68 GETTABLEKS                       R17 R17 K3 ["RIG_ERRORS"]
+       70 GETTABLEKS                       R17 R17 K5 ["BoneNameCollision"]
+       72 GETTABLE                         R16 R6 R17
+       73 GETTABLEKS                       R17 R14 K6 ["Name"]
+       75 GETTABLE                         R15 R16 R17
+       76 JUMPIFNOT                        R15 ; [+62]
+       77 GETUPVAL                         R15 2
+       78 GETTABLEKS                       R15 R15 K3 ["RIG_ERRORS"]
+       80 GETTABLEKS                       R15 R15 K7 ["PartBoneNameCollision"]
+       82 GETUPVAL                         R17 2
+       83 GETTABLEKS                       R17 R17 K3 ["RIG_ERRORS"]
+       85 GETTABLEKS                       R17 R17 K7 ["PartBoneNameCollision"]
+       87 GETTABLE                         R16 R7 R17
+       88 JUMPIF                           R16 ; [+8]
+       89 GETUPVAL                         R18 2
+       90 GETTABLEKS                       R18 R18 K3 ["RIG_ERRORS"]
+       92 GETTABLEKS                       R18 R18 K7 ["PartBoneNameCollision"]
+       94 NAMECALL                         R16 R4 K8 ["insert"]
+       96 CALL                             R16 2 1
+       97 SETTABLE                         R16 R7 R15
+       98 GETUPVAL                         R15 2
+       99 GETTABLEKS                       R15 R15 K3 ["RIG_ERRORS"]
+      101 GETTABLEKS                       R15 R15 K7 ["PartBoneNameCollision"]
+      103 GETUPVAL                         R17 2
+      104 GETTABLEKS                       R17 R17 K3 ["RIG_ERRORS"]
+      106 GETTABLEKS                       R17 R17 K7 ["PartBoneNameCollision"]
+      108 GETTABLE                         R16 R8 R17
+      109 JUMPIF                           R16 ; [+2]
+      110 NEWTABLE                         R16 0 0
+      112 SETTABLE                         R16 R8 R15
+      113 GETUPVAL                         R16 2
+      114 GETTABLEKS                       R16 R16 K3 ["RIG_ERRORS"]
+      116 GETTABLEKS                       R16 R16 K7 ["PartBoneNameCollision"]
+      118 GETTABLE                         R15 R8 R16
+      119 GETTABLEKS                       R16 R14 K6 ["Name"]
+      121 LOADB                            R17 1
+      122 SETTABLE                         R17 R15 R16
+      123 GETUPVAL                         R16 2
+      124 GETTABLEKS                       R16 R16 K3 ["RIG_ERRORS"]
+      126 GETTABLEKS                       R16 R16 K7 ["PartBoneNameCollision"]
+      128 GETTABLE                         R15 R7 R16
+      129 GETUPVAL                         R16 1
+      130 GETUPVAL                         R18 2
+      131 GETTABLEKS                       R18 R18 K3 ["RIG_ERRORS"]
+      133 GETTABLEKS                       R18 R18 K7 ["PartBoneNameCollision"]
+      135 GETTABLE                         R17 R8 R18
+      136 CALL                             R16 1 1
+      137 SETTABLEKS                       R16 R15 K9 ["details"]
+      139 FORGLOOP                         R10 2 ; [-73]
+      141 RETURN                           R4 1
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 LENGTH                           R5 R1
         5 JUMPIFNOTEQKN                    R5 K1 [0] ; [+15]
@@ -188,19 +166,19 @@ PROTO_2:
         8 JUMPIFNOTEQKN                    R5 K1 [0] ; [+12]
        10 LENGTH                           R5 R3
        11 JUMPIFNOTEQKN                    R5 K1 [0] ; [+9]
-       13 GETUPVAL                         R9 1
-       14 GETTABLEKS                       R8 R9 K2 ["RIG_ERRORS"]
-       16 GETTABLEKS                       R7 R8 K3 ["NoJoints"]
+       13 GETUPVAL                         R7 1
+       14 GETTABLEKS                       R7 R7 K2 ["RIG_ERRORS"]
+       16 GETTABLEKS                       R7 R7 K3 ["NoJoints"]
        18 NAMECALL                         R5 R4 K4 ["insert"]
        20 CALL                             R5 2 0
-       21 GETUPVAL                         R6 2
-       22 GETTABLEKS                       R5 R6 K5 ["findRootPart"]
+       21 GETUPVAL                         R5 2
+       22 GETTABLEKS                       R5 R5 K5 ["findRootPart"]
        24 MOVE                             R6 R0
        25 CALL                             R5 1 1
        26 JUMPIF                           R5 ; [+8]
-       27 GETUPVAL                         R9 1
-       28 GETTABLEKS                       R8 R9 K2 ["RIG_ERRORS"]
-       30 GETTABLEKS                       R7 R8 K6 ["NoRoot"]
+       27 GETUPVAL                         R7 1
+       28 GETTABLEKS                       R7 R7 K2 ["RIG_ERRORS"]
+       30 GETTABLEKS                       R7 R7 K6 ["NoRoot"]
        32 NAMECALL                         R5 R4 K4 ["insert"]
        34 CALL                             R5 2 0
        35 RETURN                           R4 1
@@ -217,8 +195,8 @@ PROTO_3:
        12 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 NEWTABLE                         R5 0 0
         6 NEWTABLE                         R6 0 0
@@ -252,9 +230,9 @@ PROTO_4:
        50 MOVE                             R11 R5
        51 CALL                             R10 1 1
        52 JUMPIFNOT                        R10 ; [+9]
-       53 GETUPVAL                         R14 1
-       54 GETTABLEKS                       R13 R14 K13 ["RIG_ERRORS"]
-       56 GETTABLEKS                       R12 R13 K14 ["MissingPart0"]
+       53 GETUPVAL                         R12 1
+       54 GETTABLEKS                       R12 R12 K13 ["RIG_ERRORS"]
+       56 GETTABLEKS                       R12 R12 K14 ["MissingPart0"]
        58 MOVE                             R13 R5
        59 NAMECALL                         R10 R4 K8 ["insert"]
        61 CALL                             R10 3 0
@@ -262,9 +240,9 @@ PROTO_4:
        64 MOVE                             R11 R6
        65 CALL                             R10 1 1
        66 JUMPIFNOT                        R10 ; [+9]
-       67 GETUPVAL                         R14 1
-       68 GETTABLEKS                       R13 R14 K13 ["RIG_ERRORS"]
-       70 GETTABLEKS                       R12 R13 K15 ["MissingPart1"]
+       67 GETUPVAL                         R12 1
+       68 GETTABLEKS                       R12 R12 K13 ["RIG_ERRORS"]
+       70 GETTABLEKS                       R12 R12 K15 ["MissingPart1"]
        72 MOVE                             R13 R6
        73 NAMECALL                         R10 R4 K8 ["insert"]
        75 CALL                             R10 3 0
@@ -272,8 +250,8 @@ PROTO_4:
        78 MOVE                             R11 R2
        79 CALL                             R10 1 3
        80 FORGPREP_NEXT                    R10
-       81 GETUPVAL                         R16 2
-       82 GETTABLEKS                       R15 R16 K16 ["getPart0"]
+       81 GETUPVAL                         R15 2
+       82 GETTABLEKS                       R15 R15 K16 ["getPart0"]
        84 MOVE                             R16 R14
        85 CALL                             R15 1 1
        86 JUMPIFNOT                        R15 ; [+3]
@@ -284,8 +262,8 @@ PROTO_4:
        94 MOVE                             R17 R7
        95 GETIMPORT                        R16 K9 [table.insert]
        97 CALL                             R16 2 0
-       98 GETUPVAL                         R16 2
-       99 GETTABLEKS                       R15 R16 K17 ["getPart1"]
+       98 GETUPVAL                         R15 2
+       99 GETTABLEKS                       R15 R15 K17 ["getPart1"]
       101 MOVE                             R16 R14
       102 CALL                             R15 1 1
       103 JUMPIFNOT                        R15 ; [+3]
@@ -301,9 +279,9 @@ PROTO_4:
       119 MOVE                             R11 R7
       120 CALL                             R10 1 1
       121 JUMPIFNOT                        R10 ; [+9]
-      122 GETUPVAL                         R14 1
-      123 GETTABLEKS                       R13 R14 K13 ["RIG_ERRORS"]
-      125 GETTABLEKS                       R12 R13 K18 ["AnimConstraintMissingPart0"]
+      122 GETUPVAL                         R12 1
+      123 GETTABLEKS                       R12 R12 K13 ["RIG_ERRORS"]
+      125 GETTABLEKS                       R12 R12 K18 ["AnimConstraintMissingPart0"]
       127 MOVE                             R13 R7
       128 NAMECALL                         R10 R4 K8 ["insert"]
       130 CALL                             R10 3 0
@@ -311,9 +289,9 @@ PROTO_4:
       133 MOVE                             R11 R8
       134 CALL                             R10 1 1
       135 JUMPIFNOT                        R10 ; [+9]
-      136 GETUPVAL                         R14 1
-      137 GETTABLEKS                       R13 R14 K13 ["RIG_ERRORS"]
-      139 GETTABLEKS                       R12 R13 K19 ["AnimConstraintMissingPart1"]
+      136 GETUPVAL                         R12 1
+      137 GETTABLEKS                       R12 R12 K13 ["RIG_ERRORS"]
+      139 GETTABLEKS                       R12 R12 K19 ["AnimConstraintMissingPart1"]
       141 MOVE                             R13 R8
       142 NAMECALL                         R10 R4 K8 ["insert"]
       144 CALL                             R10 3 0
@@ -336,8 +314,8 @@ PROTO_5:
        16 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 LOADB                            R5 0
         5 NEWTABLE                         R6 0 0
@@ -349,8 +327,8 @@ PROTO_6:
        13 LOADB                            R8 0
        14 CLOSEUPVALS                      R5
        15 RETURN                           R7 2
-       16 GETUPVAL                         R8 1
-       17 GETTABLEKS                       R7 R8 K3 ["findRootPart"]
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R7 R7 K3 ["findRootPart"]
        19 MOVE                             R8 R0
        20 CALL                             R7 1 1
        21 NEWCLOSURE                       R8 P0
@@ -388,8 +366,8 @@ PROTO_6:
        64 MOVE                             R10 R2
        65 CALL                             R9 1 3
        66 FORGPREP_NEXT                    R9
-       67 GETUPVAL                         R15 1
-       68 GETTABLEKS                       R14 R15 K10 ["getPart0"]
+       67 GETUPVAL                         R14 1
+       68 GETTABLEKS                       R14 R14 K10 ["getPart0"]
        70 MOVE                             R15 R13
        71 CALL                             R14 1 1
        72 JUMPIFNOT                        R14 ; [+12]
@@ -402,8 +380,8 @@ PROTO_6:
        82 SETTABLE                         R16 R6 R15
        83 JUMP                             ; [+1]
        84 LOADB                            R5 1
-       85 GETUPVAL                         R15 1
-       86 GETTABLEKS                       R14 R15 K11 ["getPart1"]
+       85 GETUPVAL                         R14 1
+       86 GETTABLEKS                       R14 R14 K11 ["getPart1"]
        88 MOVE                             R15 R13
        89 CALL                             R14 1 1
        90 JUMPIFNOT                        R14 ; [+12]
@@ -418,9 +396,9 @@ PROTO_6:
       102 LOADB                            R5 1
       103 FORGLOOP                         R9 2 ; [-37]
       105 JUMPIF                           R5 ; [+9]
-      106 GETUPVAL                         R13 2
-      107 GETTABLEKS                       R12 R13 K12 ["RIG_ERRORS"]
-      109 GETTABLEKS                       R11 R12 K13 ["PartsAnchored"]
+      106 GETUPVAL                         R11 2
+      107 GETTABLEKS                       R11 R11 K12 ["RIG_ERRORS"]
+      109 GETTABLEKS                       R11 R11 K13 ["PartsAnchored"]
       111 NAMECALL                         R9 R4 K14 ["insert"]
       113 CALL                             R9 2 0
       114 JUMP                             ; [+21]
@@ -428,23 +406,23 @@ PROTO_6:
       117 MOVE                             R10 R6
       118 CALL                             R9 1 1
       119 JUMPIFNOT                        R9 ; [+16]
-      120 GETUPVAL                         R13 2
-      121 GETTABLEKS                       R12 R13 K15 ["RIG_WARNINGS"]
-      123 GETTABLEKS                       R11 R12 K13 ["PartsAnchored"]
+      120 GETUPVAL                         R11 2
+      121 GETTABLEKS                       R11 R11 K15 ["RIG_WARNINGS"]
+      123 GETTABLEKS                       R11 R11 K13 ["PartsAnchored"]
       125 GETUPVAL                         R12 3
       126 MOVE                             R13 R6
       127 CALL                             R12 1 1
-      128 GETUPVAL                         R15 2
-      129 GETTABLEKS                       R14 R15 K16 ["SEVERITY"]
-      131 GETTABLEKS                       R13 R14 K17 ["Warning"]
+      128 GETUPVAL                         R13 2
+      129 GETTABLEKS                       R13 R13 K16 ["SEVERITY"]
+      131 GETTABLEKS                       R13 R13 K17 ["Warning"]
       133 NAMECALL                         R9 R4 K14 ["insert"]
       135 CALL                             R9 4 0
       136 CLOSEUPVALS                      R5
       137 RETURN                           R4 1
 
 PROTO_7:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 NEWTABLE                         R5 0 0
         6 NEWTABLE                         R6 0 0
@@ -507,12 +485,12 @@ PROTO_7:
        87 MOVE                             R9 R2
        88 CALL                             R8 1 3
        89 FORGPREP_NEXT                    R8
-       90 GETUPVAL                         R14 1
-       91 GETTABLEKS                       R13 R14 K19 ["getPart0"]
+       90 GETUPVAL                         R13 1
+       91 GETTABLEKS                       R13 R13 K19 ["getPart0"]
        93 MOVE                             R14 R12
        94 CALL                             R13 1 1
-       95 GETUPVAL                         R15 1
-       96 GETTABLEKS                       R14 R15 K20 ["getPart1"]
+       95 GETUPVAL                         R14 1
+       96 GETTABLEKS                       R14 R14 K20 ["getPart1"]
        98 MOVE                             R15 R12
        99 CALL                             R14 1 1
       100 JUMPIFNOT                        R13 ; [+33]
@@ -567,9 +545,9 @@ PROTO_7:
       168 MOVE                             R9 R7
       169 CALL                             R8 1 1
       170 JUMPIFNOT                        R8 ; [+9]
-      171 GETUPVAL                         R12 2
-      172 GETTABLEKS                       R11 R12 K23 ["RIG_ERRORS"]
-      174 GETTABLEKS                       R10 R11 K24 ["MultipleMotorsOrAnimConstraints"]
+      171 GETUPVAL                         R10 2
+      172 GETTABLEKS                       R10 R10 K23 ["RIG_ERRORS"]
+      174 GETTABLEKS                       R10 R10 K24 ["MultipleMotorsOrAnimConstraints"]
       176 MOVE                             R11 R7
       177 NAMECALL                         R8 R4 K8 ["insert"]
       179 CALL                             R8 3 0
@@ -600,8 +578,8 @@ PROTO_8:
        26 RETURN                           R1 1
 
 PROTO_9:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 DUPCLOSURE                       R5 K1 [PROTO_8]
         5 NEWTABLE                         R6 0 0
@@ -620,9 +598,9 @@ PROTO_9:
        23 JUMPIFNOT                        R12 ; [+28]
        24 JUMPIFNOT                        R10 ; [+27]
        25 JUMPIFNOTEQ                      R12 R10 ; [+26]
-       27 GETUPVAL                         R17 1
-       28 GETTABLEKS                       R16 R17 K6 ["RIG_ERRORS"]
-       30 GETTABLEKS                       R15 R16 K7 ["CircularRig"]
+       27 GETUPVAL                         R15 1
+       28 GETTABLEKS                       R15 R15 K6 ["RIG_ERRORS"]
+       30 GETTABLEKS                       R15 R15 K7 ["CircularRig"]
        32 NEWTABLE                         R16 0 1
        34 GETIMPORT                        R17 K10 [table.concat]
        36 NEWTABLE                         R18 0 2
@@ -640,8 +618,8 @@ PROTO_9:
        56 GETTABLEKS                       R15 R10 K11 ["Name"]
        58 SETLIST                          R14 R15 1 [1]
        60 JUMPIFEQKNIL                     R12 ; [+54]
-       62 GETIMPORT                        R16 K15 [game]
-       64 GETTABLEKS                       R15 R16 K16 ["Workspace"]
+       62 GETIMPORT                        R15 K15 [game]
+       64 GETTABLEKS                       R15 R15 K16 ["Workspace"]
        66 JUMPIFEQ                         R12 R15 ; [+48]
        68 GETTABLE                         R15 R6 R12
        69 JUMPIFNOT                        R15 ; [+45]
@@ -658,9 +636,9 @@ PROTO_9:
        86 MOVE                             R17 R14
        87 GETIMPORT                        R16 K17 [table.insert]
        89 CALL                             R16 2 0
-       90 GETUPVAL                         R20 1
-       91 GETTABLEKS                       R19 R20 K6 ["RIG_ERRORS"]
-       93 GETTABLEKS                       R18 R19 K7 ["CircularRig"]
+       90 GETUPVAL                         R18 1
+       91 GETTABLEKS                       R18 R18 K6 ["RIG_ERRORS"]
+       93 GETTABLEKS                       R18 R18 K7 ["CircularRig"]
        95 NEWTABLE                         R19 0 1
        97 GETIMPORT                        R20 K10 [table.concat]
        99 MOVE                             R21 R5
@@ -683,8 +661,8 @@ PROTO_9:
       120 LOADNIL                          R9
       121 LOADNIL                          R10
       122 FORGPREP                         R8
-      123 GETUPVAL                         R14 2
-      124 GETTABLEKS                       R13 R14 K18 ["getPart1"]
+      123 GETUPVAL                         R13 2
+      124 GETTABLEKS                       R13 R13 K18 ["getPart1"]
       126 MOVE                             R14 R12
       127 CALL                             R13 1 1
       128 SETTABLE                         R12 R7 R13
@@ -693,16 +671,16 @@ PROTO_9:
       133 MOVE                             R9 R7
       134 CALL                             R8 1 3
       135 FORGPREP_NEXT                    R8
-      136 GETUPVAL                         R14 2
-      137 GETTABLEKS                       R13 R14 K19 ["getPart0"]
+      136 GETUPVAL                         R13 2
+      137 GETTABLEKS                       R13 R13 K19 ["getPart0"]
       139 MOVE                             R14 R12
       140 CALL                             R13 1 1
       141 JUMPIFNOT                        R13 ; [+28]
       142 JUMPIFNOT                        R11 ; [+27]
       143 JUMPIFNOTEQ                      R13 R11 ; [+26]
-      145 GETUPVAL                         R18 1
-      146 GETTABLEKS                       R17 R18 K6 ["RIG_ERRORS"]
-      148 GETTABLEKS                       R16 R17 K7 ["CircularRig"]
+      145 GETUPVAL                         R16 1
+      146 GETTABLEKS                       R16 R16 K6 ["RIG_ERRORS"]
+      148 GETTABLEKS                       R16 R16 K7 ["CircularRig"]
       150 NEWTABLE                         R17 0 1
       152 GETIMPORT                        R18 K10 [table.concat]
       154 NEWTABLE                         R19 0 2
@@ -720,8 +698,8 @@ PROTO_9:
       174 GETTABLEKS                       R16 R11 K11 ["Name"]
       176 SETLIST                          R15 R16 1 [1]
       178 JUMPIFEQKNIL                     R13 ; [+58]
-      180 GETIMPORT                        R17 K15 [game]
-      182 GETTABLEKS                       R16 R17 K16 ["Workspace"]
+      180 GETIMPORT                        R16 K15 [game]
+      182 GETTABLEKS                       R16 R16 K16 ["Workspace"]
       184 JUMPIFEQ                         R13 R16 ; [+52]
       186 GETTABLE                         R16 R7 R13
       187 JUMPIFNOT                        R16 ; [+49]
@@ -730,8 +708,8 @@ PROTO_9:
       192 MOVE                             R18 R15
       193 GETIMPORT                        R17 K17 [table.insert]
       195 CALL                             R17 2 0
-      196 GETUPVAL                         R18 2
-      197 GETTABLEKS                       R17 R18 K19 ["getPart0"]
+      196 GETUPVAL                         R17 2
+      197 GETTABLEKS                       R17 R17 K19 ["getPart0"]
       199 MOVE                             R18 R16
       200 CALL                             R17 1 1
       201 MOVE                             R13 R17
@@ -742,9 +720,9 @@ PROTO_9:
       208 MOVE                             R18 R15
       209 GETIMPORT                        R17 K17 [table.insert]
       211 CALL                             R17 2 0
-      212 GETUPVAL                         R21 1
-      213 GETTABLEKS                       R20 R21 K6 ["RIG_ERRORS"]
-      215 GETTABLEKS                       R19 R20 K7 ["CircularRig"]
+      212 GETUPVAL                         R19 1
+      213 GETTABLEKS                       R19 R19 K6 ["RIG_ERRORS"]
+      215 GETTABLEKS                       R19 R19 K7 ["CircularRig"]
       217 NEWTABLE                         R20 0 1
       219 GETIMPORT                        R21 K10 [table.concat]
       221 MOVE                             R22 R5
@@ -765,8 +743,8 @@ PROTO_9:
       239 RETURN                           R4 1
 
 PROTO_10:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 GETUPVAL                         R5 1
         5 JUMPIF                           R5 ; [+1]
@@ -778,12 +756,12 @@ PROTO_10:
        12 FORGPREP                         R6
        13 GETTABLEKS                       R11 R10 K1 ["Part0"]
        15 JUMPIFNOT                        R11 ; [+4]
-       16 GETTABLEKS                       R12 R10 K1 ["Part0"]
-       18 GETTABLEKS                       R11 R12 K2 ["Name"]
+       16 GETTABLEKS                       R11 R10 K1 ["Part0"]
+       18 GETTABLEKS                       R11 R11 K2 ["Name"]
        20 GETTABLEKS                       R12 R10 K3 ["Part1"]
        22 JUMPIFNOT                        R12 ; [+4]
-       23 GETTABLEKS                       R13 R10 K3 ["Part1"]
-       25 GETTABLEKS                       R12 R13 K2 ["Name"]
+       23 GETTABLEKS                       R12 R10 K3 ["Part1"]
+       25 GETTABLEKS                       R12 R12 K2 ["Name"]
        27 JUMPIFNOT                        R11 ; [+28]
        28 JUMPIFNOT                        R12 ; [+27]
        29 JUMPIFNOTLT                      R12 R11 ; [+4]
@@ -811,12 +789,12 @@ PROTO_10:
        60 MOVE                             R7 R2
        61 CALL                             R6 1 3
        62 FORGPREP_NEXT                    R6
-       63 GETUPVAL                         R12 2
-       64 GETTABLEKS                       R11 R12 K9 ["getPart0"]
+       63 GETUPVAL                         R11 2
+       64 GETTABLEKS                       R11 R11 K9 ["getPart0"]
        66 MOVE                             R12 R10
        67 CALL                             R11 1 1
-       68 GETUPVAL                         R13 2
-       69 GETTABLEKS                       R12 R13 K10 ["getPart1"]
+       68 GETUPVAL                         R12 2
+       69 GETTABLEKS                       R12 R12 K10 ["getPart1"]
        71 MOVE                             R13 R10
        72 CALL                             R12 1 1
        73 MOVE                             R13 R11
@@ -892,36 +870,36 @@ PROTO_10:
       163 MOVE                             R8 R6
       164 CALL                             R7 1 1
       165 JUMPIFNOT                        R7 ; [+9]
-      166 GETUPVAL                         R11 3
-      167 GETTABLEKS                       R10 R11 K17 ["RIG_ERRORS"]
-      169 GETTABLEKS                       R9 R10 K18 ["DoubleJoints"]
+      166 GETUPVAL                         R9 3
+      167 GETTABLEKS                       R9 R9 K17 ["RIG_ERRORS"]
+      169 GETTABLEKS                       R9 R9 K18 ["DoubleJoints"]
       171 MOVE                             R10 R6
       172 NAMECALL                         R7 R4 K5 ["insert"]
       174 CALL                             R7 3 0
       175 RETURN                           R4 1
 
 PROTO_11:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K1 ["getAnimator"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K1 ["getAnimator"]
         7 MOVE                             R6 R0
         8 CALL                             R5 1 1
         9 JUMPIF                           R5 ; [+8]
-       10 GETUPVAL                         R9 2
-       11 GETTABLEKS                       R8 R9 K2 ["RIG_ERRORS"]
-       13 GETTABLEKS                       R7 R8 K3 ["NoAnimationController"]
+       10 GETUPVAL                         R7 2
+       11 GETTABLEKS                       R7 R7 K2 ["RIG_ERRORS"]
+       13 GETTABLEKS                       R7 R7 K3 ["NoAnimationController"]
        15 NAMECALL                         R5 R4 K4 ["insert"]
        17 CALL                             R5 2 0
        18 RETURN                           R4 1
 
 PROTO_12:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K1 ["getFaceControls"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K1 ["getFaceControls"]
         7 MOVE                             R6 R0
         8 CALL                             R5 1 2
         9 LENGTH                           R7 R6
@@ -938,9 +916,9 @@ PROTO_12:
        24 GETIMPORT                        R13 K5 [table.insert]
        26 CALL                             R13 2 0
        27 FORGLOOP                         R8 2 ; [-9]
-       29 GETUPVAL                         R12 2
-       30 GETTABLEKS                       R11 R12 K6 ["RIG_ERRORS"]
-       32 GETTABLEKS                       R10 R11 K7 ["MultipleFaceControls"]
+       29 GETUPVAL                         R10 2
+       30 GETTABLEKS                       R10 R10 K6 ["RIG_ERRORS"]
+       32 GETTABLEKS                       R10 R10 K7 ["MultipleFaceControls"]
        34 MOVE                             R11 R7
        35 NAMECALL                         R8 R4 K4 ["insert"]
        37 CALL                             R8 3 0
@@ -973,20 +951,20 @@ PROTO_12:
        74 LENGTH                           R8 R7
        75 LOADN                            R9 0
        76 JUMPIFNOTLT                      R9 R8 ; [+10]
-       78 GETUPVAL                         R12 2
-       79 GETTABLEKS                       R11 R12 K6 ["RIG_ERRORS"]
-       81 GETTABLEKS                       R10 R11 K12 ["FaceControlsParent"]
+       78 GETUPVAL                         R10 2
+       79 GETTABLEKS                       R10 R10 K6 ["RIG_ERRORS"]
+       81 GETTABLEKS                       R10 R10 K12 ["FaceControlsParent"]
        83 MOVE                             R11 R7
        84 NAMECALL                         R8 R4 K4 ["insert"]
        86 CALL                             R8 3 0
        87 RETURN                           R4 1
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["clearCache"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["clearCache"]
         3 CALL                             R1 0 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["new"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["new"]
         7 CALL                             R1 0 1
         8 NEWTABLE                         R2 0 9
        10 GETUPVAL                         R3 2
@@ -999,16 +977,16 @@ PROTO_13:
        17 GETUPVAL                         R10 9
        18 GETUPVAL                         R11 10
        19 SETLIST                          R2 R3 9 [1]
-       21 GETUPVAL                         R4 0
-       22 GETTABLEKS                       R3 R4 K2 ["getMotors"]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K2 ["getMotors"]
        24 MOVE                             R4 R0
        25 CALL                             R3 1 1
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R4 R5 K3 ["getBones"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K3 ["getBones"]
        29 MOVE                             R5 R0
        30 CALL                             R4 1 1
-       31 GETUPVAL                         R6 0
-       32 GETTABLEKS                       R5 R6 K4 ["getAnimationConstraints"]
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R5 R5 K4 ["getAnimationConstraints"]
        34 MOVE                             R6 R0
        35 CALL                             R5 1 1
        36 MOVE                             R6 R2
@@ -1039,92 +1017,86 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Dash"]
        16 GETTABLEKS                       R3 R2 K9 ["keys"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R7 R0 K10 ["Src"]
-       22 GETTABLEKS                       R6 R7 K11 ["Util"]
-       24 GETTABLEKS                       R5 R6 K12 ["RigInfo"]
+       20 GETTABLEKS                       R5 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R5 K11 ["Util"]
+       24 GETTABLEKS                       R5 R5 K12 ["RigInfo"]
        26 CALL                             R4 1 1
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Util"]
-       33 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Util"]
+       33 GETTABLEKS                       R6 R6 K13 ["Constants"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R9 R0 K10 ["Src"]
-       40 GETTABLEKS                       R8 R9 K11 ["Util"]
-       42 GETTABLEKS                       R7 R8 K14 ["ValidationResult"]
+       38 GETTABLEKS                       R7 R0 K10 ["Src"]
+       40 GETTABLEKS                       R7 R7 K11 ["Util"]
+       42 GETTABLEKS                       R7 R7 K14 ["ValidationResult"]
        44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K5 [require]
-       47 GETTABLEKS                       R9 R0 K15 ["LuaFlags"]
-       49 GETTABLEKS                       R8 R9 K16 ["GetFFlagAnimConstraintParent"]
-       51 CALL                             R7 1 1
-       52 GETIMPORT                        R8 K18 [game]
-       54 LOADK                            R10 K19 ["ACECheckDoubleJoints"]
-       55 LOADB                            R11 0
-       56 NAMECALL                         R8 R8 K20 ["DefineFastFlag"]
-       58 CALL                             R8 3 1
-       59 GETIMPORT                        R9 K5 [require]
-       61 GETTABLEKS                       R11 R0 K15 ["LuaFlags"]
-       63 GETTABLEKS                       R10 R11 K21 ["GetFFlagFaceControlsBoneParent"]
-       65 CALL                             R9 1 1
-       66 NEWTABLE                         R10 1 0
-       68 DUPCLOSURE                       R11 K22 [PROTO_1]
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R4
-       72 CAPTURE                          VAL R3
-       73 CAPTURE                          VAL R5
-       74 DUPCLOSURE                       R12 K23 [PROTO_2]
-       75 CAPTURE                          VAL R6
+       45 GETIMPORT                        R7 K16 [game]
+       47 LOADK                            R9 K17 ["ACECheckDoubleJoints"]
+       48 LOADB                            R10 0
+       49 NAMECALL                         R7 R7 K18 ["DefineFastFlag"]
+       51 CALL                             R7 3 1
+       52 GETIMPORT                        R8 K5 [require]
+       54 GETTABLEKS                       R9 R0 K19 ["LuaFlags"]
+       56 GETTABLEKS                       R9 R9 K20 ["GetFFlagFaceControlsBoneParent"]
+       58 CALL                             R8 1 1
+       59 NEWTABLE                         R9 1 0
+       61 DUPCLOSURE                       R10 K21 [PROTO_1]
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R5
+       65 DUPCLOSURE                       R11 K22 [PROTO_2]
+       66 CAPTURE                          VAL R6
+       67 CAPTURE                          VAL R5
+       68 CAPTURE                          VAL R4
+       69 DUPCLOSURE                       R12 K23 [PROTO_4]
+       70 CAPTURE                          VAL R6
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R4
+       73 DUPCLOSURE                       R13 K24 [PROTO_6]
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R4
        76 CAPTURE                          VAL R5
-       77 CAPTURE                          VAL R4
-       78 DUPCLOSURE                       R13 K24 [PROTO_4]
+       77 CAPTURE                          VAL R3
+       78 DUPCLOSURE                       R14 K25 [PROTO_7]
        79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R5
-       81 CAPTURE                          VAL R4
-       82 DUPCLOSURE                       R14 K25 [PROTO_6]
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          VAL R5
+       82 DUPCLOSURE                       R15 K26 [PROTO_9]
        83 CAPTURE                          VAL R6
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          VAL R3
-       87 DUPCLOSURE                       R15 K26 [PROTO_7]
-       88 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R5
+       85 CAPTURE                          VAL R4
+       86 DUPCLOSURE                       R16 K27 [PROTO_10]
+       87 CAPTURE                          VAL R6
+       88 CAPTURE                          VAL R7
        89 CAPTURE                          VAL R4
        90 CAPTURE                          VAL R5
-       91 DUPCLOSURE                       R16 K27 [PROTO_9]
+       91 DUPCLOSURE                       R17 K28 [PROTO_11]
        92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R5
-       94 CAPTURE                          VAL R4
-       95 DUPCLOSURE                       R17 K28 [PROTO_10]
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R5
+       95 DUPCLOSURE                       R18 K29 [PROTO_12]
        96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R5
-      100 DUPCLOSURE                       R18 K29 [PROTO_11]
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R5
-      104 DUPCLOSURE                       R19 K30 [PROTO_12]
-      105 CAPTURE                          VAL R6
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R9
-      109 DUPCLOSURE                       R20 K31 [PROTO_13]
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          VAL R6
-      112 CAPTURE                          VAL R11
-      113 CAPTURE                          VAL R12
-      114 CAPTURE                          VAL R13
-      115 CAPTURE                          VAL R14
-      116 CAPTURE                          VAL R15
-      117 CAPTURE                          VAL R16
-      118 CAPTURE                          VAL R17
-      119 CAPTURE                          VAL R18
-      120 CAPTURE                          VAL R19
-      121 SETTABLEKS                       R20 R10 K32 ["validate"]
-      123 RETURN                           R10 1
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R5
+       99 CAPTURE                          VAL R8
+      100 DUPCLOSURE                       R19 K30 [PROTO_13]
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          VAL R10
+      104 CAPTURE                          VAL R11
+      105 CAPTURE                          VAL R12
+      106 CAPTURE                          VAL R13
+      107 CAPTURE                          VAL R14
+      108 CAPTURE                          VAL R15
+      109 CAPTURE                          VAL R16
+      110 CAPTURE                          VAL R17
+      111 CAPTURE                          VAL R18
+      112 SETTABLEKS                       R19 R9 K31 ["validate"]
+      114 RETURN                           R9 1

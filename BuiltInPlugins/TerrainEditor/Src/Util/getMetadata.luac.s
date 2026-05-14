@@ -5,8 +5,8 @@ PROTO_0:
         4 SETTABLEKS                       R3 R2 K0 ["Label"]
         6 GETTABLEKS                       R4 R0 K4 ["File"]
         8 JUMPIFNOT                        R4 ; [+5]
-        9 GETTABLEKS                       R4 R0 K4 ["File"]
-       11 GETTABLEKS                       R3 R4 K5 ["Name"]
+        9 GETTABLEKS                       R3 R0 K4 ["File"]
+       11 GETTABLEKS                       R3 R3 K5 ["Name"]
        13 JUMP                             ; [+1]
        14 LOADK                            R3 K6 [""]
        15 SETTABLEKS                       R3 R2 K1 ["Value"]
@@ -30,8 +30,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 RETURN                           R2 1

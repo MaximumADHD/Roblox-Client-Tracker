@@ -252,8 +252,8 @@ PROTO_7:
        93 GETIMPORT                        R8 K12 [string.sub]
        95 CALL                             R8 3 1
        96 MOVE                             R5 R8
-       97 GETUPVAL                         R9 4
-       98 GETTABLEKS                       R8 R9 K13 ["diff"]
+       97 GETUPVAL                         R8 4
+       98 GETTABLEKS                       R8 R8 K13 ["diff"]
       100 MOVE                             R9 R4
       101 MOVE                             R10 R5
       102 DUPTABLE                         R11 K21 [{"contextLines", "expand", "omitAnnotationLines", "aColor", "bColor", "patchColor", "changeColor", "commonColor"}]
@@ -277,17 +277,17 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["JestDiff"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["JestDiff"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["pretty"]
        25 DUPTABLE                         R4 K10 [{"contextLines"}]

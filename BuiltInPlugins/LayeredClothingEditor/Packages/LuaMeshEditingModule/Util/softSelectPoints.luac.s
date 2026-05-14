@@ -91,8 +91,8 @@ PROTO_3:
        36 GETTABLEKS                       R23 R4 K3 ["MeshName"]
        38 GETTABLE                         R22 R5 R23
        39 GETTABLE                         R21 R22 R20
-       40 SUB                              R23 R21 R8
-       41 GETTABLEKS                       R22 R23 K7 ["Magnitude"]
+       40 SUB                              R22 R21 R8
+       41 GETTABLEKS                       R22 R22 K7 ["Magnitude"]
        43 GETTABLEKS                       R24 R4 K8 ["Distance"]
        45 ADD                              R23 R24 R22
        46 JUMPIFNOTLT                      R23 R3 ; [+37]
@@ -312,8 +312,8 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["deepCopy"]
         9 CALL                             R1 1 1

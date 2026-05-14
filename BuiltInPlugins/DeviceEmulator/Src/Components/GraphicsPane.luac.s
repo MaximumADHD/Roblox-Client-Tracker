@@ -5,8 +5,8 @@ PROTO_0:
         4 MOVE                             R2 R0
         5 GETIMPORT                        R1 K2 [math.clamp]
         7 CALL                             R1 3 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["GraphicsQualityLevel"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["GraphicsQualityLevel"]
        11 GETUPVAL                         R3 1
        12 SETTABLEKS                       R1 R3 K3 ["GraphicsQualityLevel"]
        14 GETUPVAL                         R3 2
@@ -16,9 +16,9 @@ PROTO_0:
        19 RETURN                           R3 2
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["graphicsQualityAutoMode"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["graphicsQualityAutoMode"]
         5 NOT                              R0 R1
         6 JUMPIFNOT                        R0 ; [+9]
         7 GETUPVAL                         R1 1
@@ -29,14 +29,14 @@ PROTO_1:
        13 SETTABLEKS                       R2 R1 K3 ["QualityLevel"]
        15 JUMP                             ; [+16]
        16 GETUPVAL                         R1 1
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K0 ["state"]
-       20 GETTABLEKS                       R2 R3 K4 ["graphicsQuality"]
+       17 GETUPVAL                         R2 0
+       18 GETTABLEKS                       R2 R2 K0 ["state"]
+       20 GETTABLEKS                       R2 R2 K4 ["graphicsQuality"]
        22 SETTABLEKS                       R2 R1 K2 ["GraphicsQualityLevel"]
        24 GETUPVAL                         R1 2
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K0 ["state"]
-       28 GETTABLEKS                       R2 R3 K4 ["graphicsQuality"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K0 ["state"]
+       28 GETTABLEKS                       R2 R2 K4 ["graphicsQuality"]
        30 SETTABLEKS                       R2 R1 K3 ["QualityLevel"]
        32 GETUPVAL                         R1 0
        33 DUPTABLE                         R3 K5 [{"graphicsQualityAutoMode"}]
@@ -46,8 +46,8 @@ PROTO_1:
        39 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["GraphicsQualityLevel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["GraphicsQualityLevel"]
         3 JUMPIFEQKN                       R0 K1 [0] ; [+8]
         5 GETUPVAL                         R1 1
         6 DUPTABLE                         R3 K3 [{"graphicsQuality"}]
@@ -66,11 +66,11 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K2 [{"graphicsQuality", "graphicsQualityAutoMode"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K3 ["GraphicsQualityLevel"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K3 ["GraphicsQualityLevel"]
         4 SETTABLEKS                       R3 R2 K0 ["graphicsQuality"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["GraphicsQualityLevel"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["GraphicsQualityLevel"]
         9 JUMPIFEQKN                       R4 K4 [0] ; [+2]
        11 LOADB                            R3 0 +1
        12 LOADB                            R3 1
@@ -114,8 +114,8 @@ PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K9 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
        11 GETIMPORT                        R7 K12 [Enum.AutomaticSize.Y]
@@ -129,8 +129,8 @@ PROTO_5:
        26 LOADN                            R7 10
        27 SETTABLEKS                       R7 R6 K8 ["Spacing"]
        29 DUPTABLE                         R7 K19 [{"GraphicsQualityPane"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
        33 GETUPVAL                         R9 2
        34 DUPTABLE                         R10 K24 [{"AutomaticSize", "HorizontalAlignment", "Layout", "AlwaysExpanded", "LayoutOrder", "Style", "Text"}]
        35 GETIMPORT                        R11 K12 [Enum.AutomaticSize.Y]
@@ -151,8 +151,8 @@ PROTO_5:
        60 CALL                             R11 3 1
        61 SETTABLEKS                       R11 R10 K23 ["Text"]
        63 NEWTABLE                         R11 0 2
-       65 GETUPVAL                         R13 0
-       66 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       65 GETUPVAL                         R12 0
+       66 GETTABLEKS                       R12 R12 K3 ["createElement"]
        68 GETUPVAL                         R13 3
        69 DUPTABLE                         R14 K38 [{"AnchorPoint", "Disabled", "Value", "Min", "Max", "OnValueChanged", "Size", "Padding", "SnapIncrement", "VerticalDragTolerance"}]
        70 GETIMPORT                        R15 K41 [Vector2.new]
@@ -187,8 +187,8 @@ PROTO_5:
       114 LOADN                            R15 0
       115 SETTABLEKS                       R15 R14 K37 ["VerticalDragTolerance"]
       117 CALL                             R12 2 1
-      118 GETUPVAL                         R14 0
-      119 GETTABLEKS                       R13 R14 K3 ["createElement"]
+      118 GETUPVAL                         R13 0
+      119 GETTABLEKS                       R13 R13 K3 ["createElement"]
       121 GETUPVAL                         R14 5
       122 DUPTABLE                         R15 K53 [{"Checked", "Key", "OnClick", "Text"}]
       123 GETTABLEKS                       R16 R2 K43 ["graphicsQualityAutoMode"]
@@ -211,17 +211,17 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
@@ -240,9 +240,9 @@ MAIN:
        48 LOADK                            R14 K21 ["UserGameSettings"]
        49 NAMECALL                         R12 R12 K22 ["GetService"]
        51 CALL                             R12 2 1
-       52 GETIMPORT                        R14 K24 [settings]
-       54 CALL                             R14 0 1
-       55 GETTABLEKS                       R13 R14 K25 ["Rendering"]
+       52 GETIMPORT                        R13 K24 [settings]
+       54 CALL                             R13 0 1
+       55 GETTABLEKS                       R13 R13 K25 ["Rendering"]
        57 LOADK                            R16 K26 ["SavedQualityLevel"]
        58 NAMECALL                         R14 R12 K27 ["GetPropertyChangedSignal"]
        60 CALL                             R14 2 1

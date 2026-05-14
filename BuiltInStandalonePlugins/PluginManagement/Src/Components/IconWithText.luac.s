@@ -1,24 +1,24 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Stylizer"]
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["Image"]
-        8 GETTABLEKS                       R4 R0 K0 ["props"]
-       10 GETTABLEKS                       R3 R4 K3 ["imageSize"]
-       12 GETTABLEKS                       R5 R0 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["imageTopPadding"]
-       16 GETTABLEKS                       R6 R0 K0 ["props"]
-       18 GETTABLEKS                       R5 R6 K5 ["LayoutOrder"]
-       20 GETTABLEKS                       R7 R0 K0 ["props"]
-       22 GETTABLEKS                       R6 R7 K6 ["Text"]
-       24 GETTABLEKS                       R8 R0 K0 ["props"]
-       26 GETTABLEKS                       R7 R8 K7 ["TextColor3"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["Image"]
+        8 GETTABLEKS                       R3 R0 K0 ["props"]
+       10 GETTABLEKS                       R3 R3 K3 ["imageSize"]
+       12 GETTABLEKS                       R4 R0 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["imageTopPadding"]
+       16 GETTABLEKS                       R5 R0 K0 ["props"]
+       18 GETTABLEKS                       R5 R5 K5 ["LayoutOrder"]
+       20 GETTABLEKS                       R6 R0 K0 ["props"]
+       22 GETTABLEKS                       R6 R6 K6 ["Text"]
+       24 GETTABLEKS                       R7 R0 K0 ["props"]
+       26 GETTABLEKS                       R7 R7 K7 ["TextColor3"]
        28 JUMPIF                           R7 ; [+2]
        29 GETTABLEKS                       R7 R1 K8 ["TextColor"]
-       31 GETTABLEKS                       R9 R0 K0 ["props"]
-       33 GETTABLEKS                       R8 R9 K9 ["TextSize"]
-       35 GETUPVAL                         R10 0
-       36 GETTABLEKS                       R9 R10 K10 ["createElement"]
+       31 GETTABLEKS                       R8 R0 K0 ["props"]
+       33 GETTABLEKS                       R8 R8 K9 ["TextSize"]
+       35 GETUPVAL                         R9 0
+       36 GETTABLEKS                       R9 R9 K10 ["createElement"]
        38 GETUPVAL                         R10 1
        39 DUPTABLE                         R11 K15 [{"BackgroundTransparency", "FillDirection", "height", "LayoutOrder", "VerticalAlignment"}]
        40 LOADN                            R12 1
@@ -34,8 +34,8 @@ PROTO_0:
        56 GETIMPORT                        R12 K23 [Enum.VerticalAlignment.Center]
        58 SETTABLEKS                       R12 R11 K14 ["VerticalAlignment"]
        60 DUPTABLE                         R12 K26 [{"IconContainer", "CountText"}]
-       61 GETUPVAL                         R14 0
-       62 GETTABLEKS                       R13 R14 K10 ["createElement"]
+       61 GETUPVAL                         R13 0
+       62 GETTABLEKS                       R13 R13 K10 ["createElement"]
        64 LOADK                            R14 K27 ["Frame"]
        65 DUPTABLE                         R15 K29 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
        66 LOADN                            R16 1
@@ -50,8 +50,8 @@ PROTO_0:
        78 CALL                             R16 4 1
        79 SETTABLEKS                       R16 R15 K28 ["Size"]
        81 DUPTABLE                         R16 K34 [{"Padding", "Icon"}]
-       82 GETUPVAL                         R18 0
-       83 GETTABLEKS                       R17 R18 K10 ["createElement"]
+       82 GETUPVAL                         R17 0
+       83 GETTABLEKS                       R17 R17 K10 ["createElement"]
        85 LOADK                            R18 K35 ["UIPadding"]
        86 DUPTABLE                         R19 K37 [{"PaddingTop"}]
        87 GETIMPORT                        R20 K21 [UDim.new]
@@ -61,8 +61,8 @@ PROTO_0:
        92 SETTABLEKS                       R20 R19 K36 ["PaddingTop"]
        94 CALL                             R17 2 1
        95 SETTABLEKS                       R17 R16 K32 ["Padding"]
-       97 GETUPVAL                         R18 0
-       98 GETTABLEKS                       R17 R18 K10 ["createElement"]
+       97 GETUPVAL                         R17 0
+       98 GETTABLEKS                       R17 R17 K10 ["createElement"]
       100 LOADK                            R18 K38 ["ImageLabel"]
       101 DUPTABLE                         R19 K40 [{"BackgroundTransparency", "Image", "ImageColor3", "LayoutOrder", "Size"}]
       102 LOADN                            R20 1
@@ -82,8 +82,8 @@ PROTO_0:
       122 SETTABLEKS                       R17 R16 K33 ["Icon"]
       124 CALL                             R13 3 1
       125 SETTABLEKS                       R13 R12 K24 ["IconContainer"]
-      127 GETUPVAL                         R14 0
-      128 GETTABLEKS                       R13 R14 K10 ["createElement"]
+      127 GETUPVAL                         R13 0
+      128 GETTABLEKS                       R13 R13 K10 ["createElement"]
       130 GETUPVAL                         R14 2
       131 DUPTABLE                         R15 K43 [{"BackgroundTransparency", "LayoutOrder", "Font", "Text", "TextColor3", "TextSize", "width"}]
       132 LOADN                            R16 1
@@ -95,9 +95,9 @@ PROTO_0:
       142 SETTABLEKS                       R6 R15 K6 ["Text"]
       144 SETTABLEKS                       R7 R15 K7 ["TextColor3"]
       146 SETTABLEKS                       R8 R15 K9 ["TextSize"]
-      148 GETUPVAL                         R18 2
-      149 GETTABLEKS                       R17 R18 K44 ["Width"]
-      151 GETTABLEKS                       R16 R17 K45 ["FitToText"]
+      148 GETUPVAL                         R16 2
+      149 GETTABLEKS                       R16 R16 K44 ["Width"]
+      151 GETTABLEKS                       R16 R16 K45 ["FitToText"]
       153 SETTABLEKS                       R16 R15 K42 ["width"]
       155 CALL                             R13 2 1
       156 SETTABLEKS                       R13 R12 K25 ["CountText"]
@@ -106,23 +106,23 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["FitFrame"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["FitFrame"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R4 K4 [require]
-       25 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K8 ["Framework"]
-       29 CALL                             R4 1 1
-       30 GETTABLEKS                       R3 R4 K9 ["ContextServices"]
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R3 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R4 R3 K10 ["withContext"]
        34 GETTABLEKS                       R5 R2 K11 ["FitFrameHorizontal"]
        36 GETTABLEKS                       R6 R2 K12 ["FitTextLabel"]

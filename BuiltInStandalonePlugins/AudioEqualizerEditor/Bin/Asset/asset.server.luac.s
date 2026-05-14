@@ -4,14 +4,14 @@ PROTO_0:
         2 SETTABLEKS                       R2 R1 K0 ["InstanceType"]
         4 LOADB                            R2 0
         5 SETTABLEKS                       R2 R1 K1 ["Bypass"]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K4 ["EQUALIZER"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K4 ["EQUALIZER"]
        10 NAMECALL                         R2 R0 K5 ["IsA"]
        12 CALL                             R2 2 1
        13 JUMPIFNOT                        R2 ; [+28]
        14 DUPTABLE                         R2 K10 [{"InstanceType", "LowGain", "MidGain", "HighGain", "MidRange", "Bypass"}]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K4 ["EQUALIZER"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K4 ["EQUALIZER"]
        18 SETTABLEKS                       R3 R2 K0 ["InstanceType"]
        20 GETTABLEKS                       R3 R0 K6 ["LowGain"]
        22 SETTABLEKS                       R3 R2 K6 ["LowGain"]
@@ -25,14 +25,14 @@ PROTO_0:
        38 SETTABLEKS                       R3 R2 K1 ["Bypass"]
        40 MOVE                             R1 R2
        41 RETURN                           R1 1
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R4 R5 K11 ["FILTER"]
+       42 GETUPVAL                         R4 0
+       43 GETTABLEKS                       R4 R4 K11 ["FILTER"]
        45 NAMECALL                         R2 R0 K5 ["IsA"]
        47 CALL                             R2 2 1
        48 JUMPIFNOT                        R2 ; [+28]
        49 DUPTABLE                         R2 K16 [{"InstanceType", "FilterType", "Frequency", "Gain", "Q", "Bypass"}]
-       50 GETUPVAL                         R4 0
-       51 GETTABLEKS                       R3 R4 K11 ["FILTER"]
+       50 GETUPVAL                         R3 0
+       51 GETTABLEKS                       R3 R3 K11 ["FILTER"]
        53 SETTABLEKS                       R3 R2 K0 ["InstanceType"]
        55 GETTABLEKS                       R3 R0 K12 ["FilterType"]
        57 SETTABLEKS                       R3 R2 K12 ["FilterType"]
@@ -60,8 +60,8 @@ PROTO_1:
         5 JUMPIF                           R2 ; [+1]
         6 RETURN                           R0 0
         7 GETTABLEKS                       R2 R1 K0 ["InstanceType"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K2 ["EQUALIZER"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K2 ["EQUALIZER"]
        12 JUMPIFNOTEQ                      R2 R3 ; [+22]
        14 GETTABLEKS                       R2 R1 K3 ["LowGain"]
        16 SETTABLEKS                       R2 R0 K3 ["LowGain"]
@@ -75,8 +75,8 @@ PROTO_1:
        32 SETTABLEKS                       R2 R0 K7 ["Bypass"]
        34 RETURN                           R0 0
        35 GETTABLEKS                       R2 R1 K0 ["InstanceType"]
-       37 GETUPVAL                         R4 0
-       38 GETTABLEKS                       R3 R4 K8 ["FILTER"]
+       37 GETUPVAL                         R3 0
+       38 GETTABLEKS                       R3 R3 K8 ["FILTER"]
        40 JUMPIFNOTEQ                      R2 R3 ; [+21]
        42 GETTABLEKS                       R2 R1 K9 ["FilterType"]
        44 SETTABLEKS                       R2 R0 K9 ["FilterType"]
@@ -135,13 +135,13 @@ PROTO_3:
         3 FORNPREP                         R1
         4 GETTABLE                         R4 R0 R3
         5 JUMPIFNOT                        R4 ; [+14]
-        6 GETUPVAL                         R8 0
-        7 GETTABLEKS                       R7 R8 K0 ["EQUALIZER"]
+        6 GETUPVAL                         R7 0
+        7 GETTABLEKS                       R7 R7 K0 ["EQUALIZER"]
         9 NAMECALL                         R5 R4 K1 ["IsA"]
        11 CALL                             R5 2 1
        12 JUMPIF                           R5 ; [+12]
-       13 GETUPVAL                         R8 0
-       14 GETTABLEKS                       R7 R8 K2 ["FILTER"]
+       13 GETUPVAL                         R7 0
+       14 GETTABLEKS                       R7 R7 K2 ["FILTER"]
        16 NAMECALL                         R5 R4 K1 ["IsA"]
        18 CALL                             R5 2 1
        19 JUMPIF                           R5 ; [+5]
@@ -170,8 +170,8 @@ PROTO_3:
        49 NAMECALL                         R3 R3 K10 ["format"]
        51 CALL                             R3 3 1
        52 MOVE                             R2 R3
-       53 GETUPVAL                         R4 2
-       54 GETTABLEKS                       R3 R4 K12 ["createInstances"]
+       53 GETUPVAL                         R3 2
+       54 GETTABLEKS                       R3 R3 K12 ["createInstances"]
        56 MOVE                             R4 R1
        57 GETUPVAL                         R5 3
        58 CALL                             R3 2 0
@@ -229,8 +229,8 @@ PROTO_5:
        10 SETUPVAL                         R0 1
        11 LOADNIL                          R0
        12 SETUPVAL                         R0 2
-       13 GETUPVAL                         R1 3
-       14 GETTABLEKS                       R0 R1 K1 ["destroyInstances"]
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K1 ["destroyInstances"]
        16 GETUPVAL                         R1 4
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
@@ -245,8 +245,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["AudioEqualizerEditor"]
@@ -257,21 +257,21 @@ MAIN:
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R5 R0 K13 ["Bin"]
-       33 GETTABLEKS                       R4 R5 K14 ["Common"]
-       35 GETTABLEKS                       R3 R4 K15 ["pluginType"]
+       31 GETTABLEKS                       R3 R0 K13 ["Bin"]
+       33 GETTABLEKS                       R3 R3 K14 ["Common"]
+       35 GETTABLEKS                       R3 R3 K15 ["pluginType"]
        37 CALL                             R2 1 1
        38 GETIMPORT                        R3 K7 [require]
-       40 GETTABLEKS                       R6 R0 K11 ["Src"]
-       42 GETTABLEKS                       R5 R6 K16 ["Util"]
-       44 GETTABLEKS                       R4 R5 K17 ["AnalyzerUtil"]
+       40 GETTABLEKS                       R4 R0 K11 ["Src"]
+       42 GETTABLEKS                       R4 R4 K16 ["Util"]
+       44 GETTABLEKS                       R4 R4 K17 ["AnalyzerUtil"]
        46 CALL                             R3 1 1
        47 GETTABLEKS                       R4 R3 K18 ["setPlugin"]
        49 GETIMPORT                        R5 K1 [plugin]
        51 CALL                             R4 1 0
        52 GETIMPORT                        R4 K7 [require]
-       54 GETTABLEKS                       R6 R0 K11 ["Src"]
-       56 GETTABLEKS                       R5 R6 K19 ["Types"]
+       54 GETTABLEKS                       R5 R0 K11 ["Src"]
+       56 GETTABLEKS                       R5 R5 K19 ["Types"]
        58 CALL                             R4 1 1
        59 NEWTABLE                         R5 0 0
        61 LOADNIL                          R6
@@ -327,14 +327,14 @@ MAIN:
       124 CLOSEUPVALS                      R5
       125 RETURN                           R0 0
       126 GETIMPORT                        R15 K7 [require]
-      128 GETTABLEKS                       R18 R0 K13 ["Bin"]
-      130 GETTABLEKS                       R17 R18 K14 ["Common"]
-      132 GETTABLEKS                       R16 R17 K34 ["setup"]
+      128 GETTABLEKS                       R16 R0 K13 ["Bin"]
+      130 GETTABLEKS                       R16 R16 K14 ["Common"]
+      132 GETTABLEKS                       R16 R16 K34 ["setup"]
       134 CALL                             R15 1 1
       135 GETIMPORT                        R16 K7 [require]
-      137 GETTABLEKS                       R19 R0 K13 ["Bin"]
-      139 GETTABLEKS                       R18 R19 K14 ["Common"]
-      141 GETTABLEKS                       R17 R18 K35 ["setupMain"]
+      137 GETTABLEKS                       R17 R0 K13 ["Bin"]
+      139 GETTABLEKS                       R17 R17 K14 ["Common"]
+      141 GETTABLEKS                       R17 R17 K35 ["setupMain"]
       143 CALL                             R16 1 1
       144 MOVE                             R17 R15
       145 GETIMPORT                        R18 K1 [plugin]

@@ -91,8 +91,8 @@ PROTO_3:
        36 GETTABLE                         R22 R5 R23
        37 GETTABLE                         R21 R22 R20
        38 JUMPIFEQKNIL                     R21 ; [+41]
-       40 SUB                              R23 R21 R8
-       41 GETTABLEKS                       R22 R23 K5 ["Magnitude"]
+       40 SUB                              R22 R21 R8
+       41 GETTABLEKS                       R22 R22 K5 ["Magnitude"]
        43 GETTABLEKS                       R24 R4 K6 ["Distance"]
        45 ADD                              R23 R24 R22
        46 JUMPIFNOTLT                      R23 R3 ; [+33]
@@ -167,8 +167,8 @@ PROTO_4:
        58 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 1
         4 MOVE                             R5 R2
         5 LOADNIL                          R6
@@ -293,12 +293,12 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Types"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K5 [require]
-       14 GETTABLEKS                       R4 R0 K7 ["Util"]
-       16 GETTABLEKS                       R3 R4 K8 ["deepCopy"]
+       14 GETTABLEKS                       R3 R0 K7 ["Util"]
+       16 GETTABLEKS                       R3 R3 K8 ["deepCopy"]
        18 CALL                             R2 1 1
        19 GETIMPORT                        R3 K5 [require]
-       21 GETTABLEKS                       R5 R0 K7 ["Util"]
-       23 GETTABLEKS                       R4 R5 K9 ["Queue"]
+       21 GETTABLEKS                       R4 R0 K7 ["Util"]
+       23 GETTABLEKS                       R4 R4 K9 ["Queue"]
        25 CALL                             R3 1 1
        26 DUPCLOSURE                       R4 K10 [PROTO_0]
        27 DUPCLOSURE                       R5 K11 [PROTO_1]

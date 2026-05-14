@@ -51,8 +51,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K2 ["RequestAsync"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["RequestAsync"]
         5 GETUPVAL                         R2 0
         6 GETUPVAL                         R3 1
         7 CALL                             R0 3 2
@@ -80,8 +80,8 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["new"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
@@ -142,8 +142,8 @@ PROTO_8:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["new"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
@@ -157,9 +157,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["HttpRbxApiService"]
@@ -171,8 +171,8 @@ MAIN:
        26 LOADK                            R5 K12 ["ContentProvider"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K5 [require]
-       30 GETTABLEKS                       R7 R0 K13 ["Packages"]
-       32 GETTABLEKS                       R6 R7 K14 ["Promise"]
+       30 GETTABLEKS                       R6 R0 K13 ["Packages"]
+       32 GETTABLEKS                       R6 R6 K14 ["Promise"]
        34 CALL                             R5 1 1
        35 GETTABLEKS                       R6 R4 K15 ["BaseUrl"]
        37 LOADK                            R9 K16 ["https://www."]

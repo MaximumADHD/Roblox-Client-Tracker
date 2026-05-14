@@ -1,16 +1,16 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 GETTABLEKS                       R3 R0 K2 ["assetIdToCountsMap"]
         7 NEWTABLE                         R4 1 0
         9 GETTABLEKS                       R5 R1 K3 ["assetId"]
        11 GETTABLEKS                       R6 R1 K4 ["favoriteCounts"]
        13 SETTABLE                         R6 R4 R5
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K0 ["Dictionary"]
-       18 GETTABLEKS                       R3 R4 K1 ["join"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K0 ["Dictionary"]
+       18 GETTABLEKS                       R3 R3 K1 ["join"]
        20 MOVE                             R4 R0
        21 DUPTABLE                         R5 K5 [{"assetIdToCountsMap"}]
        22 SETTABLEKS                       R2 R5 K2 ["assetIdToCountsMap"]
@@ -18,18 +18,18 @@ PROTO_0:
        25 RETURN                           R3 -1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 GETTABLEKS                       R3 R0 K2 ["assetIdToFavoritedMap"]
         7 NEWTABLE                         R4 1 0
         9 GETTABLEKS                       R5 R1 K3 ["assetId"]
        11 GETTABLEKS                       R6 R1 K4 ["favorited"]
        13 SETTABLE                         R6 R4 R5
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K0 ["Dictionary"]
-       18 GETTABLEKS                       R3 R4 K1 ["join"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K0 ["Dictionary"]
+       18 GETTABLEKS                       R3 R3 K1 ["join"]
        20 MOVE                             R4 R0
        21 DUPTABLE                         R5 K5 [{"assetIdToFavoritedMap"}]
        22 SETTABLEKS                       R2 R5 K2 ["assetIdToFavoritedMap"]
@@ -38,9 +38,9 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["assetId"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["Dictionary"]
-        5 GETTABLEKS                       R3 R4 K2 ["join"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
+        5 GETTABLEKS                       R3 R3 K2 ["join"]
         7 GETTABLEKS                       R4 R0 K3 ["assetIdToCountsMap"]
         9 NEWTABLE                         R5 1 0
        11 GETTABLEKS                       R6 R1 K0 ["assetId"]
@@ -50,18 +50,18 @@ PROTO_2:
        17 ADDK                             R7 R8 K4 [1]
        18 SETTABLE                         R7 R5 R6
        19 CALL                             R3 2 1
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R5 R6 K1 ["Dictionary"]
-       23 GETTABLEKS                       R4 R5 K2 ["join"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K1 ["Dictionary"]
+       23 GETTABLEKS                       R4 R4 K2 ["join"]
        25 GETTABLEKS                       R5 R0 K6 ["assetIdToFavoritedMap"]
        27 NEWTABLE                         R6 1 0
        29 GETTABLEKS                       R7 R1 K0 ["assetId"]
        31 LOADB                            R8 1
        32 SETTABLE                         R8 R6 R7
        33 CALL                             R4 2 1
-       34 GETUPVAL                         R7 0
-       35 GETTABLEKS                       R6 R7 K1 ["Dictionary"]
-       37 GETTABLEKS                       R5 R6 K2 ["join"]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K1 ["Dictionary"]
+       37 GETTABLEKS                       R5 R5 K2 ["join"]
        39 MOVE                             R6 R0
        40 DUPTABLE                         R7 K7 [{"assetIdToCountsMap", "assetIdToFavoritedMap"}]
        41 SETTABLEKS                       R3 R7 K3 ["assetIdToCountsMap"]
@@ -71,9 +71,9 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R2 R1 K0 ["assetId"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["Dictionary"]
-        5 GETTABLEKS                       R3 R4 K2 ["join"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
+        5 GETTABLEKS                       R3 R3 K2 ["join"]
         7 GETTABLEKS                       R4 R0 K3 ["assetIdToCountsMap"]
         9 NEWTABLE                         R5 1 0
        11 GETTABLEKS                       R6 R1 K0 ["assetId"]
@@ -83,18 +83,18 @@ PROTO_3:
        17 SUBK                             R7 R8 K4 [1]
        18 SETTABLE                         R7 R5 R6
        19 CALL                             R3 2 1
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R5 R6 K1 ["Dictionary"]
-       23 GETTABLEKS                       R4 R5 K2 ["join"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K1 ["Dictionary"]
+       23 GETTABLEKS                       R4 R4 K2 ["join"]
        25 GETTABLEKS                       R5 R0 K6 ["assetIdToFavoritedMap"]
        27 NEWTABLE                         R6 1 0
        29 GETTABLEKS                       R7 R1 K0 ["assetId"]
        31 LOADB                            R8 0
        32 SETTABLE                         R8 R6 R7
        33 CALL                             R4 2 1
-       34 GETUPVAL                         R7 0
-       35 GETTABLEKS                       R6 R7 K1 ["Dictionary"]
-       37 GETTABLEKS                       R5 R6 K2 ["join"]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K1 ["Dictionary"]
+       37 GETTABLEKS                       R5 R5 K2 ["join"]
        39 MOVE                             R6 R0
        40 DUPTABLE                         R7 K7 [{"assetIdToCountsMap", "assetIdToFavoritedMap"}]
        41 SETTABLEKS                       R3 R7 K3 ["assetIdToCountsMap"]
@@ -104,10 +104,10 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Rodux"]
@@ -115,8 +115,8 @@ MAIN:
        16 GETIMPORT                        R3 K5 [require]
        18 GETTABLEKS                       R4 R1 K7 ["Cryo"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K8 ["Src"]
-       23 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       21 GETTABLEKS                       R4 R0 K8 ["Src"]
+       23 GETTABLEKS                       R4 R4 K9 ["Actions"]
        25 GETIMPORT                        R5 K5 [require]
        27 GETTABLEKS                       R6 R4 K10 ["GetFavoriteCounts"]
        29 CALL                             R5 1 1

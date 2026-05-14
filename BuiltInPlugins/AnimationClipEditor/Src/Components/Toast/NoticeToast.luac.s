@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K1 ["ShowTime"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K1 ["ShowTime"]
         3 ORK                              R0 R1 K0 [3]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K3 ["FadeTime"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K3 ["FadeTime"]
         7 ORK                              R1 R2 K2 [0.5]
         8 GETUPVAL                         R2 1
         9 GETIMPORT                        R4 K5 [tick]
@@ -11,8 +11,8 @@ PROTO_0:
        12 ADD                              R3 R4 R0
        13 SETTABLEKS                       R3 R2 K6 ["hideTime"]
        15 GETUPVAL                         R2 1
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R4 R5 K6 ["hideTime"]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K6 ["hideTime"]
        19 SUB                              R3 R4 R1
        20 SETTABLEKS                       R3 R2 K7 ["fadeTime"]
        22 GETUPVAL                         R2 1
@@ -32,20 +32,20 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+57]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["state"]
-        5 GETTABLEKS                       R0 R1 K1 ["showingToast"]
+        2 GETUPVAL                         R0 0
+        3 GETTABLEKS                       R0 R0 K0 ["state"]
+        5 GETTABLEKS                       R0 R0 K1 ["showingToast"]
         7 JUMPIFNOT                        R0 ; [+51]
         8 GETIMPORT                        R0 K3 [tick]
        10 CALL                             R0 0 1
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K4 ["hideTime"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K4 ["hideTime"]
        14 JUMPIFNOTLE                      R1 R0 ; [+18]
-       16 GETUPVAL                         R1 0
-       17 GETTABLEKS                       R0 R1 K5 ["disconnectTimer"]
+       16 GETUPVAL                         R0 0
+       17 GETTABLEKS                       R0 R0 K5 ["disconnectTimer"]
        19 CALL                             R0 0 0
-       20 GETUPVAL                         R1 0
-       21 GETTABLEKS                       R0 R1 K6 ["onClose"]
+       20 GETUPVAL                         R0 0
+       21 GETTABLEKS                       R0 R0 K6 ["onClose"]
        23 CALL                             R0 0 0
        24 GETUPVAL                         R0 0
        25 DUPTABLE                         R2 K7 [{"showingToast"}]
@@ -56,18 +56,18 @@ PROTO_1:
        32 RETURN                           R0 0
        33 GETIMPORT                        R0 K3 [tick]
        35 CALL                             R0 0 1
-       36 GETUPVAL                         R2 0
-       37 GETTABLEKS                       R1 R2 K9 ["fadeTime"]
+       36 GETUPVAL                         R1 0
+       37 GETTABLEKS                       R1 R1 K9 ["fadeTime"]
        39 JUMPIFNOTLE                      R1 R0 ; [+19]
        41 GETUPVAL                         R0 0
        42 DUPTABLE                         R2 K11 [{"fadeAmount"}]
        43 GETIMPORT                        R5 K3 [tick]
        45 CALL                             R5 0 1
-       46 GETUPVAL                         R7 0
-       47 GETTABLEKS                       R6 R7 K9 ["fadeTime"]
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K9 ["fadeTime"]
        49 SUB                              R4 R5 R6
-       50 GETUPVAL                         R6 0
-       51 GETTABLEKS                       R5 R6 K12 ["fadeMultiplier"]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K12 ["fadeMultiplier"]
        53 MUL                              R3 R4 R5
        54 SETTABLEKS                       R3 R2 K10 ["fadeAmount"]
        56 NAMECALL                         R0 R0 K8 ["setState"]
@@ -76,8 +76,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Heartbeat"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Heartbeat"]
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U0
         6 NAMECALL                         R1 R1 K1 ["Connect"]
@@ -86,23 +86,23 @@ PROTO_2:
        11 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["timerConnection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["timerConnection"]
         3 JUMPIFNOT                        R0 ; [+6]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["timerConnection"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["timerConnection"]
         7 NAMECALL                         R0 R0 K1 ["Disconnect"]
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["OnClose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["OnClose"]
         5 JUMPIFNOT                        R0 ; [+6]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["OnClose"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["OnClose"]
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
 
@@ -130,8 +130,8 @@ PROTO_5:
        27 RETURN                           R0 0
 
 PROTO_6:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["Text"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["Text"]
         4 GETTABLEKS                       R3 R1 K1 ["Text"]
         6 JUMPIFEQ                         R2 R3 ; [+4]
         8 GETTABLEKS                       R2 R0 K2 ["startTimer"]
@@ -158,8 +158,8 @@ PROTO_9:
         8 GETTABLEKS                       R5 R1 K4 ["Text"]
        10 GETTABLEKS                       R6 R4 K5 ["showingToast"]
        12 GETTABLEKS                       R7 R4 K6 ["fadeAmount"]
-       14 GETUPVAL                         R10 0
-       15 GETTABLEKS                       R9 R10 K8 ["getTextWidth"]
+       14 GETUPVAL                         R9 0
+       15 GETTABLEKS                       R9 R9 K8 ["getTextWidth"]
        17 MOVE                             R10 R5
        18 GETTABLEKS                       R11 R3 K9 ["textSize"]
        20 GETTABLEKS                       R12 R2 K10 ["font"]
@@ -167,8 +167,8 @@ PROTO_9:
        23 ADDK                             R8 R9 K7 [40]
        24 MOVE                             R9 R6
        25 JUMPIFNOT                        R9 ; [+84]
-       26 GETUPVAL                         R10 1
-       27 GETTABLEKS                       R9 R10 K11 ["createElement"]
+       26 GETUPVAL                         R9 1
+       27 GETTABLEKS                       R9 R9 K11 ["createElement"]
        29 GETUPVAL                         R10 2
        30 DUPTABLE                         R11 K15 [{"AnchorPoint", "Size", "Transparency"}]
        31 GETIMPORT                        R12 K18 [Vector2.new]
@@ -185,8 +185,8 @@ PROTO_9:
        45 SETTABLEKS                       R12 R11 K13 ["Size"]
        47 SETTABLEKS                       R7 R11 K14 ["Transparency"]
        49 DUPTABLE                         R12 K22 [{"Text"}]
-       50 GETUPVAL                         R14 1
-       51 GETTABLEKS                       R13 R14 K11 ["createElement"]
+       50 GETUPVAL                         R13 1
+       51 GETTABLEKS                       R13 R13 K11 ["createElement"]
        53 LOADK                            R14 K23 ["TextLabel"]
        54 DUPTABLE                         R15 K29 [{"Size", "BackgroundTransparency", "Text", "TextSize", "TextColor3", "TextTransparency", "Font"}]
        55 GETIMPORT                        R16 K21 [UDim2.new]
@@ -207,8 +207,8 @@ PROTO_9:
        79 GETTABLEKS                       R16 R2 K10 ["font"]
        81 SETTABLEKS                       R16 R15 K28 ["Font"]
        83 DUPTABLE                         R16 K32 [{"Padding"}]
-       84 GETUPVAL                         R18 1
-       85 GETTABLEKS                       R17 R18 K11 ["createElement"]
+       84 GETUPVAL                         R17 1
+       85 GETTABLEKS                       R17 R17 K11 ["createElement"]
        87 LOADK                            R18 K33 ["UIPadding"]
        88 DUPTABLE                         R19 K36 [{"PaddingLeft", "PaddingRight"}]
        89 GETIMPORT                        R20 K38 [UDim.new]
@@ -239,25 +239,25 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Roact"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Roact"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Util"]
-       26 GETTABLEKS                       R4 R5 K14 ["StringUtils"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Util"]
+       26 GETTABLEKS                       R4 R4 K14 ["StringUtils"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       33 GETTABLEKS                       R5 R6 K15 ["Framework"]
+       31 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       33 GETTABLEKS                       R5 R5 K15 ["Framework"]
        35 CALL                             R4 1 1
        36 GETTABLEKS                       R5 R4 K16 ["ContextServices"]
        38 GETTABLEKS                       R6 R5 K17 ["withContext"]
        40 GETIMPORT                        R7 K9 [require]
-       42 GETTABLEKS                       R11 R1 K12 ["Src"]
-       44 GETTABLEKS                       R10 R11 K18 ["Components"]
-       46 GETTABLEKS                       R9 R10 K19 ["Toast"]
-       48 GETTABLEKS                       R8 R9 K20 ["BaseToast"]
+       42 GETTABLEKS                       R8 R1 K12 ["Src"]
+       44 GETTABLEKS                       R8 R8 K18 ["Components"]
+       46 GETTABLEKS                       R8 R8 K19 ["Toast"]
+       48 GETTABLEKS                       R8 R8 K20 ["BaseToast"]
        50 CALL                             R7 1 1
        51 GETTABLEKS                       R8 R2 K21 ["PureComponent"]
        53 LOADK                            R10 K22 ["NoticeToast"]

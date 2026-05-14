@@ -9,24 +9,24 @@ PROTO_0:
        10 CALL                             R1 2 0
        11 GETUPVAL                         R1 1
        12 SETTABLEKS                       R0 R1 K5 ["plugin"]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K6 ["delay"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K6 ["delay"]
        17 CALL                             R1 0 0
        18 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["mock"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["mock"]
         3 CALL                             R2 0 1
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["mock"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["mock"]
         7 CALL                             R3 0 1
-        8 GETUPVAL                         R5 2
-        9 GETTABLEKS                       R4 R5 K1 ["clearCache"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K1 ["clearCache"]
        11 CALL                             R4 0 0
        12 GETUPVAL                         R6 3
-       13 GETUPVAL                         R8 4
-       14 GETTABLEKS                       R7 R8 K2 ["Dummy"]
+       13 GETUPVAL                         R7 4
+       14 GETTABLEKS                       R7 R7 K2 ["Dummy"]
        16 MOVE                             R8 R2
        17 MOVE                             R9 R3
        18 CALL                             R6 3 -1
@@ -47,20 +47,20 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 NAMECALL                         R2 R1 K1 ["click"]
         7 CALL                             R2 1 0
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K2 ["delay"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["delay"]
        11 CALL                             R2 0 0
        12 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 MOVE                             R4 R0
         4 CALL                             R3 1 1
         5 NAMECALL                         R4 R3 K1 ["getCenter"]
@@ -79,8 +79,8 @@ PROTO_4:
        24 CALL                             R12 2 -1
        25 NAMECALL                         R5 R5 K9 ["SendScroll"]
        27 CALL                             R5 -1 0
-       28 GETUPVAL                         R6 2
-       29 GETTABLEKS                       R5 R6 K10 ["delay"]
+       28 GETUPVAL                         R5 2
+       29 GETTABLEKS                       R5 R5 K10 ["delay"]
        31 CALL                             R5 0 0
        32 RETURN                           R0 0
 
@@ -92,8 +92,8 @@ PROTO_5:
         4 GETUPVAL                         R5 2
         5 NAMECALL                         R0 R0 K0 ["SendKeyEvent"]
         7 CALL                             R0 5 0
-        8 GETUPVAL                         R1 3
-        9 GETTABLEKS                       R0 R1 K1 ["delay"]
+        8 GETUPVAL                         R0 3
+        9 GETTABLEKS                       R0 R0 K1 ["delay"]
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
 
@@ -108,8 +108,8 @@ PROTO_6:
         8 MOVE                             R8 R2
         9 NAMECALL                         R3 R3 K2 ["SendKeyEvent"]
        11 CALL                             R3 5 0
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["delay"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["delay"]
        15 CALL                             R3 0 0
        16 NEWCLOSURE                       R3 P0
        17 CAPTURE                          UPVAL U0
@@ -119,10 +119,10 @@ PROTO_6:
        21 RETURN                           R3 1
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["plugin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["plugin"]
         6 CALL                             R3 1 1
         7 MOVE                             R6 R0
         8 MOVE                             R7 R1
@@ -152,37 +152,37 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R2 K11 ["Packages"]
-       23 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["Framework"]
        25 CALL                             R3 1 1
-       26 GETTABLEKS                       R5 R3 K13 ["ContextServices"]
-       28 GETTABLEKS                       R4 R5 K14 ["Analytics"]
-       30 GETTABLEKS                       R6 R3 K13 ["ContextServices"]
-       32 GETTABLEKS                       R5 R6 K15 ["Localization"]
-       34 GETIMPORT                        R7 K10 [require]
-       36 GETTABLEKS                       R10 R2 K11 ["Packages"]
-       38 GETTABLEKS                       R9 R10 K16 ["Dev"]
-       40 GETTABLEKS                       R8 R9 K17 ["Rhodium"]
-       42 CALL                             R7 1 1
-       43 GETTABLEKS                       R6 R7 K18 ["Element"]
+       26 GETTABLEKS                       R4 R3 K13 ["ContextServices"]
+       28 GETTABLEKS                       R4 R4 K14 ["Analytics"]
+       30 GETTABLEKS                       R5 R3 K13 ["ContextServices"]
+       32 GETTABLEKS                       R5 R5 K15 ["Localization"]
+       34 GETIMPORT                        R6 K10 [require]
+       36 GETTABLEKS                       R7 R2 K11 ["Packages"]
+       38 GETTABLEKS                       R7 R7 K16 ["Dev"]
+       40 GETTABLEKS                       R7 R7 K17 ["Rhodium"]
+       42 CALL                             R6 1 1
+       43 GETTABLEKS                       R6 R6 K18 ["Element"]
        45 GETIMPORT                        R7 K10 [require]
-       47 GETTABLEKS                       R9 R2 K19 ["RhodiumTests"]
-       49 GETTABLEKS                       R8 R9 K20 ["Test"]
+       47 GETTABLEKS                       R8 R2 K19 ["RhodiumTests"]
+       49 GETTABLEKS                       R8 R8 K20 ["Test"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K10 [require]
-       54 GETTABLEKS                       R11 R2 K21 ["Src"]
-       56 GETTABLEKS                       R10 R11 K22 ["Util"]
-       58 GETTABLEKS                       R9 R10 K23 ["RigInfo"]
+       54 GETTABLEKS                       R9 R2 K21 ["Src"]
+       56 GETTABLEKS                       R9 R9 K22 ["Util"]
+       58 GETTABLEKS                       R9 R9 K23 ["RigInfo"]
        60 CALL                             R8 1 1
        61 GETIMPORT                        R9 K10 [require]
-       63 GETTABLEKS                       R12 R2 K21 ["Src"]
-       65 GETTABLEKS                       R11 R12 K24 ["Thunks"]
-       67 GETTABLEKS                       R10 R11 K25 ["LoadAnimationData"]
+       63 GETTABLEKS                       R10 R2 K21 ["Src"]
+       65 GETTABLEKS                       R10 R10 K24 ["Thunks"]
+       67 GETTABLEKS                       R10 R10 K25 ["LoadAnimationData"]
        69 CALL                             R9 1 1
        70 GETIMPORT                        R10 K10 [require]
-       72 GETTABLEKS                       R13 R2 K21 ["Src"]
-       74 GETTABLEKS                       R12 R13 K24 ["Thunks"]
-       76 GETTABLEKS                       R11 R12 K26 ["UpdateRootInstance"]
+       72 GETTABLEKS                       R11 R2 K21 ["Src"]
+       74 GETTABLEKS                       R11 R11 K24 ["Thunks"]
+       76 GETTABLEKS                       R11 R11 K26 ["UpdateRootInstance"]
        78 CALL                             R10 1 1
        79 DUPTABLE                         R11 K28 [{"plugin"}]
        80 LOADNIL                          R12

@@ -16,21 +16,21 @@ PROTO_1:
         3 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
         5 GETIMPORT                        R2 K1 [setmetatable]
         7 CALL                             R2 2 1
-        8 ORK                              R3 R0 K2 [10]
+        8 ORK                              R3 R0 K2 [100]
         9 SETTABLEKS                       R3 R2 K3 ["_maxScopesCached"]
        11 MOVE                             R3 R1
        12 JUMPIF                           R3 ; [+3]
-       13 GETUPVAL                         R4 1
-       14 GETTABLEKS                       R3 R4 K4 ["ItemFetchMax"]
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R3 R3 K4 ["ItemFetchMax"]
        16 SETTABLEKS                       R3 R2 K5 ["_maxItems"]
        18 NEWTABLE                         R3 0 0
        20 SETTABLEKS                       R3 R2 K6 ["_indexMap"]
        22 NEWTABLE                         R3 0 0
        24 SETTABLEKS                       R3 R2 K7 ["_scopeQueue"]
        26 GETTABLEKS                       R3 R2 K6 ["_indexMap"]
-       28 GETUPVAL                         R6 1
-       29 GETTABLEKS                       R5 R6 K8 ["RecentUploads"]
-       31 GETTABLEKS                       R4 R5 K9 ["Uid"]
+       28 GETUPVAL                         R4 1
+       29 GETTABLEKS                       R4 R4 K8 ["RecentUploads"]
+       31 GETTABLEKS                       R4 R4 K9 ["Uid"]
        33 DUPTABLE                         R5 K14 [{"PathIndexMap", "NextPageToken", "FetchProgress", "Loading"}]
        34 NEWTABLE                         R6 0 0
        36 SETTABLEKS                       R6 R5 K10 ["PathIndexMap"]
@@ -44,18 +44,18 @@ PROTO_1:
        48 NEWTABLE                         R3 0 0
        50 SETTABLEKS                       R3 R2 K16 ["_recentHistory"]
        52 NEWTABLE                         R3 0 0
-       54 GETUPVAL                         R5 2
-       55 GETTABLEKS                       R4 R5 K17 ["asList"]
-       57 GETUPVAL                         R7 2
-       58 GETTABLEKS                       R5 R7 K18 ["AssetInfoField"]
+       54 GETUPVAL                         R4 2
+       55 GETTABLEKS                       R4 R4 K17 ["asList"]
+       57 GETUPVAL                         R5 2
+       58 GETTABLEKS                       R5 R5 K18 ["AssetInfoField"]
        60 CALL                             R4 1 3
        61 FORGPREP                         R4
        62 NEWTABLE                         R9 0 0
        64 SETTABLE                         R9 R3 R8
        65 FORGLOOP                         R4 2 ; [-4]
        67 SETTABLEKS                       R3 R2 K19 ["_dataArrays"]
-       69 GETUPVAL                         R5 3
-       70 GETTABLEKS                       R4 R5 K20 ["new"]
+       69 GETUPVAL                         R4 3
+       70 GETTABLEKS                       R4 R4 K20 ["new"]
        72 CALL                             R4 0 1
        73 SETTABLEKS                       R4 R2 K21 ["OnItemChanged"]
        75 RETURN                           R2 1
@@ -75,22 +75,22 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["_indexMap"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["RecentUploads"]
-        5 GETTABLEKS                       R3 R4 K2 ["Uid"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["RecentUploads"]
+        5 GETTABLEKS                       R3 R3 K2 ["Uid"]
         7 GETTABLE                         R1 R2 R3
         8 NEWTABLE                         R2 0 0
        10 SETTABLEKS                       R2 R0 K0 ["_indexMap"]
        12 GETTABLEKS                       R2 R0 K0 ["_indexMap"]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K1 ["RecentUploads"]
-       17 GETTABLEKS                       R3 R4 K2 ["Uid"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K1 ["RecentUploads"]
+       17 GETTABLEKS                       R3 R3 K2 ["Uid"]
        19 SETTABLE                         R1 R2 R3
        20 NEWTABLE                         R2 0 0
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K3 ["asList"]
-       25 GETUPVAL                         R6 1
-       26 GETTABLEKS                       R4 R6 K4 ["AssetInfoField"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K3 ["asList"]
+       25 GETUPVAL                         R4 1
+       26 GETTABLEKS                       R4 R4 K4 ["AssetInfoField"]
        28 CALL                             R3 1 3
        29 FORGPREP                         R3
        30 NEWTABLE                         R8 0 0
@@ -102,10 +102,10 @@ PROTO_3:
        39 LOADNIL                          R6
        40 LOADNIL                          R7
        41 FORGPREP                         R5
-       42 GETUPVAL                         R11 1
-       43 GETTABLEKS                       R10 R11 K3 ["asList"]
-       45 GETUPVAL                         R13 1
-       46 GETTABLEKS                       R11 R13 K4 ["AssetInfoField"]
+       42 GETUPVAL                         R10 1
+       43 GETTABLEKS                       R10 R10 K3 ["asList"]
+       45 GETUPVAL                         R11 1
+       46 GETTABLEKS                       R11 R11 K4 ["AssetInfoField"]
        48 CALL                             R10 1 3
        49 FORGPREP                         R10
        50 GETTABLE                         R16 R2 R14
@@ -137,8 +137,8 @@ PROTO_4:
        11 RETURN                           R0 0
 
 PROTO_5:
-        0 GETTABLEKS                       R3 R0 K0 ["_dataArrays"]
-        2 GETTABLEKS                       R2 R3 K1 ["AssetId"]
+        0 GETTABLEKS                       R2 R0 K0 ["_dataArrays"]
+        2 GETTABLEKS                       R2 R2 K1 ["AssetId"]
         4 LENGTH                           R1 R2
         5 RETURN                           R1 1
 
@@ -152,8 +152,8 @@ PROTO_7:
         3 JUMPIF                           R2 ; [+2]
         4 LOADN                            R3 0
         5 RETURN                           R3 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["count"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["count"]
         9 GETTABLEKS                       R4 R2 K2 ["PathIndexMap"]
        11 CALL                             R3 1 -1
        12 RETURN                           R3 -1
@@ -162,8 +162,8 @@ PROTO_8:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["_getScopeItemCount"]
         3 CALL                             R2 2 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["ItemFetchMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["ItemFetchMax"]
         7 DIV                              R3 R2 R4
         8 RETURN                           R3 1
 
@@ -178,8 +178,8 @@ PROTO_9:
         9 GETTABLEKS                       R9 R0 K2 ["_dataArrays"]
        11 GETTABLE                         R8 R9 R3
        12 GETTABLE                         R7 R8 R6
-       13 GETUPVAL                         R9 0
-       14 GETTABLEKS                       R8 R9 K3 ["None"]
+       13 GETUPVAL                         R8 0
+       14 GETTABLEKS                       R8 R8 K3 ["None"]
        16 JUMPIFNOTEQ                      R7 R8 ; [+3]
        18 LOADNIL                          R8
        19 RETURN                           R8 1
@@ -204,17 +204,17 @@ PROTO_10:
 
 PROTO_11:
         0 NEWTABLE                         R2 0 0
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["asList"]
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R4 R6 K1 ["AssetInfoField"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["asList"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["AssetInfoField"]
         8 CALL                             R3 1 3
         9 FORGPREP                         R3
        10 GETTABLEKS                       R10 R0 K2 ["_dataArrays"]
        12 GETTABLE                         R9 R10 R7
        13 GETTABLE                         R8 R9 R1
-       14 GETUPVAL                         R10 1
-       15 GETTABLEKS                       R9 R10 K3 ["None"]
+       14 GETUPVAL                         R9 1
+       15 GETTABLEKS                       R9 R9 K3 ["None"]
        17 JUMPIFNOTEQ                      R8 R9 ; [+2]
        19 LOADNIL                          R8
        20 SETTABLE                         R8 R2 R7
@@ -281,18 +281,18 @@ PROTO_15:
        12 RETURN                           R4 -1
 
 PROTO_16:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["asList"]
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R4 R6 K1 ["AssetInfoField"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["asList"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K1 ["AssetInfoField"]
         6 CALL                             R3 1 3
         7 FORGPREP                         R3
         8 GETTABLE                         R9 R2 R7
         9 JUMPIFEQKNIL                     R9 ; [+3]
        11 GETTABLE                         R8 R2 R7
        12 JUMP                             ; [+3]
-       13 GETUPVAL                         R9 1
-       14 GETTABLEKS                       R8 R9 K2 ["None"]
+       13 GETUPVAL                         R8 1
+       14 GETTABLEKS                       R8 R8 K2 ["None"]
        16 GETTABLEKS                       R10 R0 K3 ["_dataArrays"]
        18 GETTABLE                         R9 R10 R7
        19 SETTABLE                         R8 R9 R1
@@ -320,9 +320,9 @@ PROTO_17:
        23 NAMECALL                         R4 R0 K7 ["_updateItem"]
        25 CALL                             R4 3 0
        26 RETURN                           R0 0
-       27 GETTABLEKS                       R6 R0 K0 ["_indexMap"]
-       29 GETTABLE                         R5 R6 R2
-       30 GETTABLEKS                       R4 R5 K8 ["PathIndexMap"]
+       27 GETTABLEKS                       R5 R0 K0 ["_indexMap"]
+       29 GETTABLE                         R4 R5 R2
+       30 GETTABLEKS                       R4 R4 K8 ["PathIndexMap"]
        32 GETTABLEKS                       R5 R1 K5 ["Path"]
        34 MOVE                             R8 R5
        35 MOVE                             R9 R2
@@ -340,101 +340,101 @@ PROTO_17:
        50 CALL                             R6 1 1
        51 ADDK                             R7 R6 K13 [1]
        52 SETTABLE                         R7 R4 R5
-       53 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-       55 GETTABLEKS                       R8 R9 K5 ["Path"]
+       53 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       55 GETTABLEKS                       R8 R8 K5 ["Path"]
        57 FASTCALL2                        TABLE_INSERT R8 R5 ; [+4]
        59 MOVE                             R9 R5
        60 GETIMPORT                        R7 K17 [table.insert]
        62 CALL                             R7 2 0
-       63 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-       65 GETTABLEKS                       R8 R9 K18 ["AssetId"]
+       63 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       65 GETTABLEKS                       R8 R8 K18 ["AssetId"]
        67 GETTABLEKS                       R9 R1 K18 ["AssetId"]
        69 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
        71 GETIMPORT                        R7 K17 [table.insert]
        73 CALL                             R7 2 0
-       74 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-       76 GETTABLEKS                       R8 R9 K19 ["AssetType"]
+       74 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       76 GETTABLEKS                       R8 R8 K19 ["AssetType"]
        78 GETTABLEKS                       R9 R1 K19 ["AssetType"]
        80 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
        82 GETIMPORT                        R7 K17 [table.insert]
        84 CALL                             R7 2 0
-       85 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-       87 GETTABLEKS                       R8 R9 K20 ["DisplayName"]
+       85 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       87 GETTABLEKS                       R8 R8 K20 ["DisplayName"]
        89 GETTABLEKS                       R9 R1 K20 ["DisplayName"]
        91 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
        93 GETIMPORT                        R7 K17 [table.insert]
        95 CALL                             R7 2 0
-       96 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-       98 GETTABLEKS                       R8 R9 K21 ["VersionNumber"]
+       96 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+       98 GETTABLEKS                       R8 R8 K21 ["VersionNumber"]
       100 GETTABLEKS                       R10 R1 K21 ["VersionNumber"]
       102 JUMPIFEQKNIL                     R10 ; [+4]
       104 GETTABLEKS                       R9 R1 K21 ["VersionNumber"]
       106 JUMP                             ; [+3]
-      107 GETUPVAL                         R10 1
-      108 GETTABLEKS                       R9 R10 K22 ["None"]
+      107 GETUPVAL                         R9 1
+      108 GETTABLEKS                       R9 R9 K22 ["None"]
       110 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       112 GETIMPORT                        R7 K17 [table.insert]
       114 CALL                             R7 2 0
-      115 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      117 GETTABLEKS                       R8 R9 K23 ["Created"]
+      115 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      117 GETTABLEKS                       R8 R8 K23 ["Created"]
       119 GETTABLEKS                       R9 R1 K23 ["Created"]
       121 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       123 GETIMPORT                        R7 K17 [table.insert]
       125 CALL                             R7 2 0
-      126 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      128 GETTABLEKS                       R8 R9 K24 ["Modified"]
+      126 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      128 GETTABLEKS                       R8 R8 K24 ["Modified"]
       130 GETTABLEKS                       R9 R1 K24 ["Modified"]
       132 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       134 GETIMPORT                        R7 K17 [table.insert]
       136 CALL                             R7 2 0
-      137 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      139 GETTABLEKS                       R8 R9 K25 ["ModerationStatus"]
+      137 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      139 GETTABLEKS                       R8 R8 K25 ["ModerationStatus"]
       141 GETTABLEKS                       R9 R1 K25 ["ModerationStatus"]
       143 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       145 GETIMPORT                        R7 K17 [table.insert]
       147 CALL                             R7 2 0
-      148 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      150 GETTABLEKS                       R8 R9 K26 ["Creator"]
+      148 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      150 GETTABLEKS                       R8 R8 K26 ["Creator"]
       152 GETTABLEKS                       R9 R1 K26 ["Creator"]
       154 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       156 GETIMPORT                        R7 K17 [table.insert]
       158 CALL                             R7 2 0
-      159 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      161 GETTABLEKS                       R8 R9 K27 ["SearchRank"]
+      159 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      161 GETTABLEKS                       R8 R8 K27 ["SearchRank"]
       163 GETTABLEKS                       R10 R1 K27 ["SearchRank"]
       165 JUMPIFEQKNIL                     R10 ; [+4]
       167 GETTABLEKS                       R9 R1 K27 ["SearchRank"]
       169 JUMP                             ; [+3]
-      170 GETUPVAL                         R10 1
-      171 GETTABLEKS                       R9 R10 K22 ["None"]
+      170 GETUPVAL                         R9 1
+      171 GETTABLEKS                       R9 R9 K22 ["None"]
       173 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       175 GETIMPORT                        R7 K17 [table.insert]
       177 CALL                             R7 2 0
-      178 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      180 GETTABLEKS                       R8 R9 K28 ["Source"]
+      178 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      180 GETTABLEKS                       R8 R8 K28 ["Source"]
       182 GETTABLEKS                       R10 R1 K28 ["Source"]
       184 JUMPIFEQKNIL                     R10 ; [+4]
       186 GETTABLEKS                       R9 R1 K28 ["Source"]
       188 JUMP                             ; [+3]
-      189 GETUPVAL                         R10 1
-      190 GETTABLEKS                       R9 R10 K22 ["None"]
+      189 GETUPVAL                         R9 1
+      190 GETTABLEKS                       R9 R9 K22 ["None"]
       192 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       194 GETIMPORT                        R7 K17 [table.insert]
       196 CALL                             R7 2 0
-      197 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      199 GETTABLEKS                       R8 R9 K29 ["Archived"]
+      197 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      199 GETTABLEKS                       R8 R8 K29 ["Archived"]
       201 GETTABLEKS                       R9 R1 K29 ["Archived"]
       203 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       205 GETIMPORT                        R7 K17 [table.insert]
       207 CALL                             R7 2 0
-      208 GETTABLEKS                       R9 R0 K14 ["_dataArrays"]
-      210 GETTABLEKS                       R8 R9 K30 ["IsPackage"]
+      208 GETTABLEKS                       R8 R0 K14 ["_dataArrays"]
+      210 GETTABLEKS                       R8 R8 K30 ["IsPackage"]
       212 GETTABLEKS                       R10 R1 K30 ["IsPackage"]
       214 JUMPIFEQKNIL                     R10 ; [+4]
       216 GETTABLEKS                       R9 R1 K30 ["IsPackage"]
       218 JUMP                             ; [+3]
-      219 GETUPVAL                         R10 1
-      220 GETTABLEKS                       R9 R10 K22 ["None"]
+      219 GETUPVAL                         R9 1
+      220 GETTABLEKS                       R9 R9 K22 ["None"]
       222 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       224 GETIMPORT                        R7 K17 [table.insert]
       226 CALL                             R7 2 0
@@ -481,8 +481,8 @@ PROTO_18:
        13 CALL                             R8 1 0
        14 FORGLOOP                         R3 2 ; [-5]
        16 RETURN                           R0 0
-       17 GETTABLEKS                       R5 R0 K1 ["_dataArrays"]
-       19 GETTABLEKS                       R4 R5 K5 ["Path"]
+       17 GETTABLEKS                       R4 R0 K1 ["_dataArrays"]
+       19 GETTABLEKS                       R4 R4 K5 ["Path"]
        21 GETTABLE                         R3 R4 R2
        22 LOADB                            R4 0
        23 GETTABLEKS                       R5 R0 K6 ["_indexMap"]
@@ -564,9 +564,9 @@ PROTO_21:
 
 PROTO_22:
         0 GETTABLEKS                       R4 R1 K0 ["Path"]
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K1 ["RecentUploads"]
-        5 GETTABLEKS                       R5 R6 K2 ["Uid"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["RecentUploads"]
+        5 GETTABLEKS                       R5 R5 K2 ["Uid"]
         7 NAMECALL                         R2 R0 K3 ["_hasItem"]
         9 CALL                             R2 3 1
        10 JUMPIFNOT                        R2 ; [+4]
@@ -574,30 +574,30 @@ PROTO_22:
        12 LOADK                            R3 K4 ["ItemsCache - attempting adding recent item that already exists"]
        13 CALL                             R2 1 0
        14 RETURN                           R0 0
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K1 ["RecentUploads"]
-       18 GETTABLEKS                       R4 R5 K2 ["Uid"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K1 ["RecentUploads"]
+       18 GETTABLEKS                       R4 R4 K2 ["Uid"]
        20 NAMECALL                         R2 R0 K5 ["_getScopeItemCount"]
        22 CALL                             R2 2 1
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K6 ["RecentMax"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K6 ["RecentMax"]
        26 JUMPIFNOTLE                      R3 R2 ; [+30]
-       28 GETUPVAL                         R6 0
-       29 GETTABLEKS                       R5 R6 K1 ["RecentUploads"]
-       31 GETTABLEKS                       R4 R5 K2 ["Uid"]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K1 ["RecentUploads"]
+       31 GETTABLEKS                       R4 R4 K2 ["Uid"]
        33 NAMECALL                         R2 R0 K5 ["_getScopeItemCount"]
        35 CALL                             R2 2 1
-       36 GETUPVAL                         R4 0
-       37 GETTABLEKS                       R3 R4 K6 ["RecentMax"]
+       36 GETUPVAL                         R3 0
+       37 GETTABLEKS                       R3 R3 K6 ["RecentMax"]
        39 JUMPIFNOTLE                      R3 R2 ; [+17]
        41 GETIMPORT                        R2 K9 [table.remove]
        43 GETTABLEKS                       R3 R0 K10 ["_recentHistory"]
        45 LOADN                            R4 1
        46 CALL                             R2 2 1
        47 MOVE                             R5 R2
-       48 GETUPVAL                         R8 0
-       49 GETTABLEKS                       R7 R8 K1 ["RecentUploads"]
-       51 GETTABLEKS                       R6 R7 K2 ["Uid"]
+       48 GETUPVAL                         R6 0
+       49 GETTABLEKS                       R6 R6 K1 ["RecentUploads"]
+       51 GETTABLEKS                       R6 R6 K2 ["Uid"]
        53 NAMECALL                         R3 R0 K11 ["removeItem"]
        55 CALL                             R3 3 0
        56 JUMPBACK                         ; [-29]
@@ -607,9 +607,9 @@ PROTO_22:
        63 GETIMPORT                        R2 K13 [table.insert]
        65 CALL                             R2 2 0
        66 MOVE                             R4 R1
-       67 GETUPVAL                         R7 0
-       68 GETTABLEKS                       R6 R7 K1 ["RecentUploads"]
-       70 GETTABLEKS                       R5 R6 K2 ["Uid"]
+       67 GETUPVAL                         R5 0
+       68 GETTABLEKS                       R5 R5 K1 ["RecentUploads"]
+       70 GETTABLEKS                       R5 R5 K2 ["Uid"]
        72 NAMECALL                         R2 R0 K14 ["addItem"]
        74 CALL                             R2 3 0
        75 RETURN                           R0 0
@@ -620,9 +620,9 @@ PROTO_23:
         3 LOADNIL                          R3
         4 FORGPREP                         R1
         5 MOVE                             R8 R5
-        6 GETUPVAL                         R11 0
-        7 GETTABLEKS                       R10 R11 K1 ["RecentUploads"]
-        9 GETTABLEKS                       R9 R10 K2 ["Uid"]
+        6 GETUPVAL                         R9 0
+        7 GETTABLEKS                       R9 R9 K1 ["RecentUploads"]
+        9 GETTABLEKS                       R9 R9 K2 ["Uid"]
        11 NAMECALL                         R6 R0 K3 ["removeItem"]
        13 CALL                             R6 3 0
        14 FORGLOOP                         R1 2 ; [-10]
@@ -710,19 +710,19 @@ PROTO_27:
         6 MOVE                             R9 R2
         7 NAMECALL                         R6 R0 K0 ["_getItemIndex"]
         9 CALL                             R6 3 1
-       10 GETTABLEKS                       R9 R0 K1 ["_dataArrays"]
-       12 GETTABLEKS                       R8 R9 K2 ["SearchRank"]
+       10 GETTABLEKS                       R8 R0 K1 ["_dataArrays"]
+       12 GETTABLEKS                       R8 R8 K2 ["SearchRank"]
        14 GETTABLE                         R7 R8 R5
-       15 GETTABLEKS                       R10 R0 K1 ["_dataArrays"]
-       17 GETTABLEKS                       R9 R10 K2 ["SearchRank"]
+       15 GETTABLEKS                       R9 R0 K1 ["_dataArrays"]
+       17 GETTABLEKS                       R9 R9 K2 ["SearchRank"]
        19 GETTABLE                         R8 R9 R6
        20 LENGTH                           R9 R4
        21 JUMPIFNOTEQKN                    R9 K3 [0] ; [+18]
-       23 GETUPVAL                         R10 0
-       24 GETTABLEKS                       R9 R10 K4 ["None"]
+       23 GETUPVAL                         R9 0
+       24 GETTABLEKS                       R9 R9 K4 ["None"]
        26 JUMPIFEQ                         R7 R9 ; [+13]
-       28 GETUPVAL                         R10 0
-       29 GETTABLEKS                       R9 R10 K4 ["None"]
+       28 GETUPVAL                         R9 0
+       29 GETTABLEKS                       R9 R9 K4 ["None"]
        31 JUMPIFEQ                         R8 R9 ; [+8]
        33 JUMPIFEQ                         R7 R8 ; [+6]
        35 JUMPIFLT                         R7 R8 ; [+2]
@@ -796,8 +796,8 @@ PROTO_29:
        35 CALL                             R12 2 0
        36 FORGLOOP                         R7 2 ; [-16]
        38 JUMP                             ; [+6]
-       39 GETUPVAL                         R8 0
-       40 GETTABLEKS                       R7 R8 K9 ["keys"]
+       39 GETUPVAL                         R7 0
+       40 GETTABLEKS                       R7 R7 K9 ["keys"]
        42 MOVE                             R8 R6
        43 CALL                             R7 1 1
        44 MOVE                             R5 R7
@@ -850,9 +850,9 @@ PROTO_33:
         8 NEWTABLE                         R6 0 0
        10 GETTABLEKS                       R7 R5 K1 ["PathIndexMap"]
        12 GETTABLEKS                       R9 R0 K2 ["_dataArrays"]
-       14 GETUPVAL                         R12 0
-       15 GETTABLEKS                       R11 R12 K3 ["AssetInfoField"]
-       17 GETTABLEKS                       R10 R11 K4 ["AssetType"]
+       14 GETUPVAL                         R10 0
+       15 GETTABLEKS                       R10 R10 K3 ["AssetInfoField"]
+       17 GETTABLEKS                       R10 R10 K4 ["AssetType"]
        19 GETTABLE                         R8 R9 R10
        20 NEWTABLE                         R9 0 0
        22 MOVE                             R10 R7
@@ -860,9 +860,9 @@ PROTO_33:
        24 LOADNIL                          R12
        25 FORGPREP                         R10
        26 GETTABLE                         R15 R8 R14
-       27 GETUPVAL                         R18 0
-       28 GETTABLEKS                       R17 R18 K4 ["AssetType"]
-       30 GETTABLEKS                       R16 R17 K5 ["Folder"]
+       27 GETUPVAL                         R16 0
+       28 GETTABLEKS                       R16 R16 K4 ["AssetType"]
+       30 GETTABLEKS                       R16 R16 K5 ["Folder"]
        32 JUMPIFNOTEQ                      R15 R16 ; [+14]
        34 MOVE                             R17 R14
        35 MOVE                             R18 R2
@@ -914,8 +914,8 @@ PROTO_33:
        97 CAPTURE                          VAL R1
        98 CAPTURE                          VAL R3
        99 CALL                             R12 2 0
-      100 GETUPVAL                         R13 1
-      101 GETTABLEKS                       R12 R13 K18 ["append"]
+      100 GETUPVAL                         R12 1
+      101 GETTABLEKS                       R12 R12 K18 ["append"]
       103 MOVE                             R13 R6
       104 MOVE                             R14 R11
       105 CALL                             R12 2 0
@@ -945,8 +945,8 @@ PROTO_33:
       137 CAPTURE                          VAL R1
       138 CAPTURE                          VAL R3
       139 CALL                             R12 2 0
-      140 GETUPVAL                         R13 1
-      141 GETTABLEKS                       R12 R13 K18 ["append"]
+      140 GETUPVAL                         R12 1
+      141 GETTABLEKS                       R12 R12 K18 ["append"]
       143 MOVE                             R13 R6
       144 MOVE                             R14 R11
       145 CALL                             R12 2 0
@@ -961,38 +961,38 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["Dash"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K8 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Util"]
-       34 GETTABLEKS                       R5 R6 K12 ["compareItemField"]
+       30 GETTABLEKS                       R5 R0 K8 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Util"]
+       34 GETTABLEKS                       R5 R5 K12 ["compareItemField"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K8 ["Src"]
-       41 GETTABLEKS                       R7 R8 K11 ["Util"]
-       43 GETTABLEKS                       R6 R7 K13 ["filterItemField"]
+       39 GETTABLEKS                       R6 R0 K8 ["Src"]
+       41 GETTABLEKS                       R6 R6 K11 ["Util"]
+       43 GETTABLEKS                       R6 R6 K13 ["filterItemField"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R9 R0 K8 ["Src"]
-       50 GETTABLEKS                       R8 R9 K11 ["Util"]
-       52 GETTABLEKS                       R7 R8 K14 ["logIfDebug"]
+       48 GETTABLEKS                       R7 R0 K8 ["Src"]
+       50 GETTABLEKS                       R7 R7 K11 ["Util"]
+       52 GETTABLEKS                       R7 R7 K14 ["logIfDebug"]
        54 CALL                             R6 1 1
        55 GETTABLEKS                       R7 R1 K11 ["Util"]
        57 GETTABLEKS                       R8 R7 K15 ["Signal"]
        59 GETIMPORT                        R9 K5 [require]
-       61 GETTABLEKS                       R12 R0 K8 ["Src"]
-       63 GETTABLEKS                       R11 R12 K16 ["Resources"]
-       65 GETTABLEKS                       R10 R11 K17 ["Constants"]
+       61 GETTABLEKS                       R10 R0 K8 ["Src"]
+       63 GETTABLEKS                       R10 R10 K16 ["Resources"]
+       65 GETTABLEKS                       R10 R10 K17 ["Constants"]
        67 CALL                             R9 1 1
        68 NEWTABLE                         R10 32 0
        70 SETTABLEKS                       R10 R10 K18 ["__index"]

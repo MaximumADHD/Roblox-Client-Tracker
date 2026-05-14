@@ -126,12 +126,12 @@ PROTO_7:
        30 JUMP                             ; [+1]
        31 LOADB                            R6 0
        32 JUMPIFNOT                        R6 ; [+13]
-       33 GETUPVAL                         R8 2
-       34 GETTABLEKS                       R7 R8 K6 ["pluginLoader"]
-       36 GETTABLEKS                       R6 R7 K7 ["_userHasInteracted"]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K6 ["pluginLoader"]
+       36 GETTABLEKS                       R6 R6 K7 ["_userHasInteracted"]
        38 JUMPIF                           R6 ; [+9]
-       39 GETUPVAL                         R7 2
-       40 GETTABLEKS                       R6 R7 K6 ["pluginLoader"]
+       39 GETUPVAL                         R6 2
+       40 GETTABLEKS                       R6 R6 K6 ["pluginLoader"]
        42 NAMECALL                         R6 R6 K8 ["_onUserInteracted"]
        44 CALL                             R6 1 0
        45 RETURN                           R0 0
@@ -150,15 +150,15 @@ PROTO_9:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["pluginLoader"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["pluginLoader"]
         7 NAMECALL                         R0 R0 K2 ["_onUserInteracted"]
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Name"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
         5 LOADNIL                          R2
         6 LOADNIL                          R3
@@ -253,20 +253,20 @@ PROTO_10:
       126 LOADNIL                          R5
       127 SETTABLEKS                       R5 R4 K36 ["actionInfos"]
       129 GETIMPORT                        R5 K40 [require]
-      131 GETUPVAL                         R9 0
-      132 GETTABLEKS                       R8 R9 K41 ["Src"]
-      134 GETTABLEKS                       R7 R8 K42 ["Flags"]
-      136 GETTABLEKS                       R6 R7 K43 ["getFFlagAdaptiveAnimationHandRig"]
+      131 GETUPVAL                         R6 0
+      132 GETTABLEKS                       R6 R6 K41 ["Src"]
+      134 GETTABLEKS                       R6 R6 K42 ["Flags"]
+      136 GETTABLEKS                       R6 R6 K43 ["getFFlagAdaptiveAnimationHandRig"]
       138 CALL                             R5 1 1
       139 GETIMPORT                        R6 K45 [game]
       141 LOADK                            R8 K46 ["RunService"]
       142 NAMECALL                         R6 R6 K47 ["GetService"]
       144 CALL                             R6 2 1
-      145 GETUPVAL                         R9 6
-      146 GETTABLEKS                       R8 R9 K48 ["get"]
+      145 GETUPVAL                         R8 6
+      146 GETTABLEKS                       R8 R8 K48 ["get"]
       148 CALL                             R8 0 1
-      149 GETUPVAL                         R10 6
-      150 GETTABLEKS                       R9 R10 K9 ["Standalone"]
+      149 GETUPVAL                         R9 6
+      150 GETTABLEKS                       R9 R9 K9 ["Standalone"]
       152 JUMPIFEQ                         R8 R9 ; [+2]
       154 LOADB                            R7 0 +1
       155 LOADB                            R7 1
@@ -278,8 +278,8 @@ PROTO_10:
       162 JUMPIF                           R9 ; [+3]
       163 LOADB                            R9 1
       164 SETTABLEKS                       R9 R2 K16 ["enabled"]
-      166 GETUPVAL                         R10 7
-      167 GETTABLEKS                       R9 R10 K50 ["build"]
+      166 GETUPVAL                         R9 7
+      167 GETTABLEKS                       R9 R9 K50 ["build"]
       169 MOVE                             R10 R4
       170 CALL                             R9 1 1
       171 GETIMPORT                        R10 K45 [game]
@@ -325,8 +325,8 @@ PROTO_10:
       221 MOVE                             R18 R9
       222 CALL                             R16 2 0
       223 RETURN                           R0 0
-      224 GETUPVAL                         R10 7
-      225 GETTABLEKS                       R9 R10 K50 ["build"]
+      224 GETUPVAL                         R9 7
+      225 GETTABLEKS                       R9 R9 K50 ["build"]
       227 MOVE                             R10 R4
       228 CALL                             R9 1 0
       229 RETURN                           R0 0
@@ -338,27 +338,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["PluginLoader"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["PluginLoader"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PluginLoaderBuilder"]
-       16 GETTABLEKS                       R6 R0 K9 ["Src"]
-       18 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       20 GETTABLEKS                       R4 R5 K11 ["Localization"]
-       22 GETTABLEKS                       R3 R4 K12 ["SourceStrings"]
-       24 GETTABLEKS                       R7 R0 K9 ["Src"]
-       26 GETTABLEKS                       R6 R7 K10 ["Resources"]
-       28 GETTABLEKS                       R5 R6 K11 ["Localization"]
-       30 GETTABLEKS                       R4 R5 K13 ["LocalizedStrings"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K11 ["Localization"]
+       22 GETTABLEKS                       R3 R3 K12 ["SourceStrings"]
+       24 GETTABLEKS                       R4 R0 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       28 GETTABLEKS                       R4 R4 K11 ["Localization"]
+       30 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K14 ["Bin"]
-       36 GETTABLEKS                       R7 R8 K15 ["Common"]
-       38 GETTABLEKS                       R6 R7 K16 ["pluginType"]
+       34 GETTABLEKS                       R6 R0 K14 ["Bin"]
+       36 GETTABLEKS                       R6 R6 K15 ["Common"]
+       38 GETTABLEKS                       R6 R6 K16 ["pluginType"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R9 R0 K14 ["Bin"]
-       45 GETTABLEKS                       R8 R9 K15 ["Common"]
-       47 GETTABLEKS                       R7 R8 K17 ["defineLuaFlags"]
+       43 GETTABLEKS                       R7 R0 K14 ["Bin"]
+       45 GETTABLEKS                       R7 R7 K15 ["Common"]
+       47 GETTABLEKS                       R7 R7 K17 ["defineLuaFlags"]
        49 CALL                             R6 1 1
        50 GETTABLEKS                       R7 R6 K18 ["getFFlagRegisterActionsPluginLoader"]
        52 CALL                             R7 0 1
@@ -367,9 +367,9 @@ MAIN:
        56 NAMECALL                         R8 R8 K22 ["GetEngineFeature"]
        58 CALL                             R8 2 1
        59 GETIMPORT                        R9 K5 [require]
-       61 GETTABLEKS                       R12 R0 K9 ["Src"]
-       63 GETTABLEKS                       R11 R12 K23 ["Flags"]
-       65 GETTABLEKS                       R10 R11 K24 ["getFFlagAdaptiveAnimationHandRig"]
+       61 GETTABLEKS                       R10 R0 K9 ["Src"]
+       63 GETTABLEKS                       R10 R10 K23 ["Flags"]
+       65 GETTABLEKS                       R10 R10 K24 ["getFFlagAdaptiveAnimationHandRig"]
        67 CALL                             R9 1 1
        68 DUPCLOSURE                       R10 K25 [PROTO_10]
        69 CAPTURE                          VAL R0

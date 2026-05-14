@@ -67,17 +67,17 @@ PROTO_1:
        52 GETTABLEKS                       R11 R1 K3 ["Components"]
        54 GETTABLE                         R10 R11 R6
        55 CALL                             R8 2 1
-       56 GETUPVAL                         R11 3
-       57 GETTABLEKS                       R10 R11 K4 ["Dictionary"]
-       59 GETTABLEKS                       R9 R10 K5 ["join"]
+       56 GETUPVAL                         R9 3
+       57 GETTABLEKS                       R9 R9 K4 ["Dictionary"]
+       59 GETTABLEKS                       R9 R9 K5 ["join"]
        61 MOVE                             R10 R2
        62 MOVE                             R11 R8
        63 CALL                             R9 2 1
        64 MOVE                             R2 R9
        65 FORGLOOP                         R3 2 ; [-36]
-       67 GETUPVAL                         R5 3
-       68 GETTABLEKS                       R4 R5 K4 ["Dictionary"]
-       70 GETTABLEKS                       R3 R4 K5 ["join"]
+       67 GETUPVAL                         R3 3
+       68 GETTABLEKS                       R3 R3 K4 ["Dictionary"]
+       70 GETTABLEKS                       R3 R3 K5 ["join"]
        72 GETTABLEKS                       R4 R1 K6 ["Selection"]
        74 JUMPIF                           R4 ; [+2]
        75 NEWTABLE                         R4 0 0
@@ -95,8 +95,8 @@ PROTO_2:
         7 GETTABLEKS                       R3 R1 K2 ["AnimationData"]
         9 JUMPIF                           R3 ; [+1]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K3 ["getTrack"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K3 ["getTrack"]
        14 MOVE                             R5 R3
        15 GETUPVAL                         R6 1
        16 GETUPVAL                         R7 2
@@ -122,17 +122,17 @@ PROTO_2:
        40 SETTABLE                         R9 R7 R8
        41 MOVE                             R6 R7
        42 JUMP                             ; [+40]
-       43 GETUPVAL                         R9 6
-       44 GETTABLEKS                       R8 R9 K5 ["Dictionary"]
-       46 GETTABLEKS                       R7 R8 K6 ["join"]
+       43 GETUPVAL                         R7 6
+       44 GETTABLEKS                       R7 R7 K5 ["Dictionary"]
+       46 GETTABLEKS                       R7 R7 K6 ["join"]
        48 MOVE                             R8 R6
        49 NEWTABLE                         R9 0 0
        51 CALL                             R7 2 1
        52 MOVE                             R6 R7
        53 GETUPVAL                         R7 1
-       54 GETUPVAL                         R10 6
-       55 GETTABLEKS                       R9 R10 K5 ["Dictionary"]
-       57 GETTABLEKS                       R8 R9 K6 ["join"]
+       54 GETUPVAL                         R8 6
+       55 GETTABLEKS                       R8 R8 K5 ["Dictionary"]
+       57 GETTABLEKS                       R8 R8 K6 ["join"]
        59 GETUPVAL                         R10 1
        60 GETTABLE                         R9 R6 R10
        61 JUMPIF                           R9 ; [+2]
@@ -167,8 +167,8 @@ PROTO_2:
        95 GETUPVAL                         R14 2
        96 LENGTH                           R13 R14
        97 JUMPIFNOTLT                      R11 R13 ; [+14]
-       99 GETTABLE                         R14 R7 R12
-      100 GETTABLEKS                       R13 R14 K9 ["Components"]
+       99 GETTABLE                         R13 R7 R12
+      100 GETTABLEKS                       R13 R13 K9 ["Components"]
       102 JUMPIF                           R13 ; [+5]
       103 GETTABLE                         R13 R7 R12
       104 NEWTABLE                         R14 0 0
@@ -214,23 +214,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["AnimationData"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["AnimationData"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["deepCopy"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K11 ["deepCopy"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K12 ["Actions"]
-       38 GETTABLEKS                       R5 R6 K13 ["SetSelectedKeyframes"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K12 ["Actions"]
+       38 GETTABLEKS                       R5 R5 K13 ["SetSelectedKeyframes"]
        40 CALL                             R4 1 1
        41 DUPCLOSURE                       R5 K14 [PROTO_3]
        42 CAPTURE                          VAL R2

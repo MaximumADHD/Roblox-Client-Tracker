@@ -7,19 +7,19 @@ PROTO_0:
         7 DUPTABLE                         R3 K8 [{"TopTrackName", "TopTrackType", "RelPath", "Type", "RotationType", "EulerAnglesOrder", "Data"}]
         8 GETUPVAL                         R4 0
         9 SETTABLEKS                       R4 R3 K2 ["TopTrackName"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K5 ["Type"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K5 ["Type"]
        14 SETTABLEKS                       R4 R3 K3 ["TopTrackType"]
        16 SETTABLEKS                       R2 R3 K4 ["RelPath"]
        18 GETTABLEKS                       R4 R1 K5 ["Type"]
        20 SETTABLEKS                       R4 R3 K5 ["Type"]
-       22 GETUPVAL                         R5 2
-       23 GETTABLEKS                       R4 R5 K9 ["getRotationType"]
+       22 GETUPVAL                         R4 2
+       23 GETTABLEKS                       R4 R4 K9 ["getRotationType"]
        25 GETUPVAL                         R5 1
        26 CALL                             R4 1 1
        27 SETTABLEKS                       R4 R3 K6 ["RotationType"]
-       29 GETUPVAL                         R5 2
-       30 GETTABLEKS                       R4 R5 K10 ["getEulerAnglesOrder"]
+       29 GETUPVAL                         R4 2
+       30 GETTABLEKS                       R4 R4 K10 ["getEulerAnglesOrder"]
        32 GETUPVAL                         R5 1
        33 CALL                             R4 1 1
        34 SETTABLEKS                       R4 R3 K7 ["EulerAnglesOrder"]
@@ -48,8 +48,8 @@ PROTO_0:
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["Status"]
-        5 GETTABLEKS                       R2 R3 K2 ["SelectedKeyframes"]
+        3 GETTABLEKS                       R2 R1 K1 ["Status"]
+        5 GETTABLEKS                       R2 R2 K2 ["SelectedKeyframes"]
         7 GETTABLEKS                       R3 R1 K3 ["AnimationData"]
         9 JUMPIFNOT                        R3 ; [+1]
        10 JUMPIF                           R2 ; [+1]
@@ -68,8 +68,8 @@ PROTO_1:
        28 FORGPREP_NEXT                    R12
        29 GETTABLEKS                       R18 R10 K7 ["Tracks"]
        31 GETTABLE                         R17 R18 R15
-       32 GETUPVAL                         R19 0
-       33 GETTABLEKS                       R18 R19 K8 ["traverse"]
+       32 GETUPVAL                         R18 0
+       33 GETTABLEKS                       R18 R18 K8 ["traverse"]
        35 MOVE                             R19 R16
        36 MOVE                             R20 R17
        37 NEWCLOSURE                       R21 P0
@@ -90,18 +90,18 @@ PROTO_1:
        54 LOADK                            R7 K9 [""]
        55 NAMECALL                         R5 R5 K10 ["CopyToClipboard"]
        57 CALL                             R5 2 0
-       58 GETUPVAL                         R7 5
-       59 GETTABLEKS                       R6 R7 K11 ["isChannelAnimation"]
+       58 GETUPVAL                         R6 5
+       59 GETTABLEKS                       R6 R6 K11 ["isChannelAnimation"]
        61 MOVE                             R7 R3
        62 CALL                             R6 1 1
        63 JUMPIFNOT                        R6 ; [+6]
-       64 GETUPVAL                         R7 6
-       65 GETTABLEKS                       R6 R7 K12 ["CLIPBOARD_TYPE"]
-       67 GETTABLEKS                       R5 R6 K13 ["Channels"]
+       64 GETUPVAL                         R5 6
+       65 GETTABLEKS                       R5 R5 K12 ["CLIPBOARD_TYPE"]
+       67 GETTABLEKS                       R5 R5 K13 ["Channels"]
        69 JUMPIF                           R5 ; [+5]
-       70 GETUPVAL                         R7 6
-       71 GETTABLEKS                       R6 R7 K12 ["CLIPBOARD_TYPE"]
-       73 GETTABLEKS                       R5 R6 K14 ["Keyframes"]
+       70 GETUPVAL                         R5 6
+       71 GETTABLEKS                       R5 R5 K12 ["CLIPBOARD_TYPE"]
+       73 GETTABLEKS                       R5 R5 K14 ["Keyframes"]
        75 GETUPVAL                         R8 7
        76 MOVE                             R9 R4
        77 MOVE                             R10 R5
@@ -133,39 +133,39 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["deepCopy"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["deepCopy"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["isEmpty"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["isEmpty"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K9 [require]
-       33 GETTABLEKS                       R7 R1 K10 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Actions"]
-       37 GETTABLEKS                       R5 R6 K15 ["SetClipboard"]
+       33 GETTABLEKS                       R5 R1 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K14 ["Actions"]
+       37 GETTABLEKS                       R5 R5 K15 ["SetClipboard"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K9 [require]
-       42 GETTABLEKS                       R8 R1 K10 ["Src"]
-       44 GETTABLEKS                       R7 R8 K11 ["Util"]
-       46 GETTABLEKS                       R6 R7 K16 ["Constants"]
+       42 GETTABLEKS                       R6 R1 K10 ["Src"]
+       44 GETTABLEKS                       R6 R6 K11 ["Util"]
+       46 GETTABLEKS                       R6 R6 K16 ["Constants"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K9 [require]
-       51 GETTABLEKS                       R9 R1 K10 ["Src"]
-       53 GETTABLEKS                       R8 R9 K11 ["Util"]
-       55 GETTABLEKS                       R7 R8 K17 ["AnimationData"]
+       51 GETTABLEKS                       R7 R1 K10 ["Src"]
+       53 GETTABLEKS                       R7 R7 K11 ["Util"]
+       55 GETTABLEKS                       R7 R7 K17 ["AnimationData"]
        57 CALL                             R6 1 1
        58 GETIMPORT                        R7 K9 [require]
-       60 GETTABLEKS                       R10 R1 K10 ["Src"]
-       62 GETTABLEKS                       R9 R10 K11 ["Util"]
-       64 GETTABLEKS                       R8 R9 K18 ["SelectionUtils"]
+       60 GETTABLEKS                       R8 R1 K10 ["Src"]
+       62 GETTABLEKS                       R8 R8 K11 ["Util"]
+       64 GETTABLEKS                       R8 R8 K18 ["SelectionUtils"]
        66 CALL                             R7 1 1
        67 GETIMPORT                        R8 K9 [require]
-       69 GETTABLEKS                       R11 R1 K10 ["Src"]
-       71 GETTABLEKS                       R10 R11 K11 ["Util"]
-       73 GETTABLEKS                       R9 R10 K19 ["TrackUtils"]
+       69 GETTABLEKS                       R9 R1 K10 ["Src"]
+       71 GETTABLEKS                       R9 R9 K11 ["Util"]
+       73 GETTABLEKS                       R9 R9 K19 ["TrackUtils"]
        75 CALL                             R8 1 1
        76 DUPCLOSURE                       R9 K20 [PROTO_2]
        77 CAPTURE                          VAL R7

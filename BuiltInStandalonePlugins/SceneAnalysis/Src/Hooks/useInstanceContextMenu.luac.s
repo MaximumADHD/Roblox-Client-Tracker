@@ -3,16 +3,16 @@ PROTO_0:
         1 RETURN                           R0 0
         2 GETUPVAL                         R1 0
         3 JUMPIFNOT                        R1 ; [+10]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K0 ["onRightClick"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K0 ["onRightClick"]
         7 JUMPIFNOT                        R1 ; [+6]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K0 ["onRightClick"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K0 ["onRightClick"]
        11 MOVE                             R2 R0
        12 CALL                             R1 1 0
        13 RETURN                           R0 0
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K1 ["getNodeById"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K1 ["getNodeById"]
        17 MOVE                             R2 R0
        18 CALL                             R1 1 1
        19 JUMPIFNOT                        R1 ; [+3]
@@ -32,16 +32,16 @@ PROTO_1:
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 1
         4 JUMPIFNOT                        R1 ; [+10]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["onRightClick"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K0 ["onRightClick"]
         8 JUMPIFNOT                        R1 ; [+6]
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K0 ["onRightClick"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K0 ["onRightClick"]
        12 MOVE                             R2 R0
        13 CALL                             R1 1 0
        14 RETURN                           R0 0
-       15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R1 R2 K1 ["getNodeById"]
+       15 GETUPVAL                         R1 1
+       16 GETTABLEKS                       R1 R1 K1 ["getNodeById"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 1
        20 JUMPIFNOT                        R1 ; [+11]
@@ -89,11 +89,11 @@ PROTO_3:
        28 JUMPIFNOT                        R1 ; [+41]
        29 GETUPVAL                         R4 1
        30 JUMPIFNOT                        R4 ; [+39]
-       31 GETUPVAL                         R5 1
-       32 GETTABLEKS                       R4 R5 K10 ["getNodeById"]
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K10 ["getNodeById"]
        34 JUMPIFNOT                        R4 ; [+35]
-       35 GETUPVAL                         R5 1
-       36 GETTABLEKS                       R4 R5 K10 ["getNodeById"]
+       35 GETUPVAL                         R4 1
+       36 GETTABLEKS                       R4 R4 K10 ["getNodeById"]
        38 MOVE                             R5 R1
        39 CALL                             R4 1 1
        40 MOVE                             R5 R4
@@ -126,21 +126,21 @@ PROTO_3:
        75 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Plugin"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Plugin"]
         3 NAMECALL                         R2 R2 K1 ["use"]
         5 CALL                             R2 1 1
         6 NAMECALL                         R2 R2 K2 ["get"]
         8 CALL                             R2 1 1
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["Localization"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["Localization"]
        12 NAMECALL                         R3 R3 K1 ["use"]
        14 CALL                             R3 1 1
        15 NEWCLOSURE                       R4 P0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          UPVAL U1
-       18 GETUPVAL                         R6 2
-       19 GETTABLEKS                       R5 R6 K4 ["useCallback"]
+       18 GETUPVAL                         R5 2
+       19 GETTABLEKS                       R5 R5 K4 ["useCallback"]
        21 NEWCLOSURE                       R6 P1
        22 CAPTURE                          VAL R3
        23 CAPTURE                          VAL R0
@@ -164,20 +164,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["showContextMenu"]
        25 GETTABLEKS                       R5 R2 K11 ["ContextServices"]
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R9 R0 K12 ["Src"]
-       31 GETTABLEKS                       R8 R9 K13 ["Util"]
-       33 GETTABLEKS                       R7 R8 K14 ["AssetDMBridge"]
+       29 GETTABLEKS                       R7 R0 K12 ["Src"]
+       31 GETTABLEKS                       R7 R7 K13 ["Util"]
+       33 GETTABLEKS                       R7 R7 K14 ["AssetDMBridge"]
        35 CALL                             R6 1 1
        36 GETIMPORT                        R7 K16 [game]
        38 LOADK                            R9 K17 ["StudioService"]

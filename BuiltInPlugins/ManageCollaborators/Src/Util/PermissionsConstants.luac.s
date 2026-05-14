@@ -20,18 +20,18 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["IsLikelyCollaboratorPrefetchEnabled"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["IsLikelyCollaboratorPrefetchEnabled"]
        24 CALL                             R2 1 1
        25 MOVE                             R3 R2
        26 CALL                             R3 0 1
@@ -398,8 +398,8 @@ MAIN:
       496 SETTABLEKS                       R7 R6 K70 ["MaxSearchResultsPerSubjectTypeUsers"]
       498 LOADN                            R7 2
       499 SETTABLEKS                       R7 R6 K71 ["MaxSearchResultsPerSubjectTypeGroups"]
-      501 GETTABLEKS                       R8 R1 K73 ["Dictionary"]
-      503 GETTABLEKS                       R7 R8 K74 ["join"]
+      501 GETTABLEKS                       R7 R1 K73 ["Dictionary"]
+      503 GETTABLEKS                       R7 R7 K74 ["join"]
       505 MOVE                             R8 R5
       506 MOVE                             R9 R6
       507 CALL                             R7 2 -1

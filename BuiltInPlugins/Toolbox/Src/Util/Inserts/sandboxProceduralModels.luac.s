@@ -57,10 +57,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["SharedFlags"]
-       15 GETTABLEKS                       R2 R3 K9 ["getFFlagToolboxSandboxProceduralModels"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["SharedFlags"]
+       15 GETTABLEKS                       R2 R2 K9 ["getFFlagToolboxSandboxProceduralModels"]
        17 CALL                             R1 1 1
        18 MOVE                             R2 R1
        19 CALL                             R2 0 1

@@ -1,10 +1,10 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["CharacterConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["selection"]
-        7 GETTABLEKS                       R4 R1 K1 ["CharacterConversion"]
-        9 GETTABLEKS                       R3 R4 K3 ["convertedCharacters"]
+        3 GETTABLEKS                       R2 R1 K1 ["CharacterConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["selection"]
+        7 GETTABLEKS                       R3 R1 K1 ["CharacterConversion"]
+        9 GETTABLEKS                       R3 R3 K3 ["convertedCharacters"]
        11 MOVE                             R4 R2
        12 LOADNIL                          R5
        13 LOADNIL                          R6
@@ -24,8 +24,8 @@ PROTO_0:
        32 GETTABLEKS                       R10 R9 K4 ["model"]
        34 NAMECALL                         R10 R10 K6 ["Clone"]
        36 CALL                             R10 1 1
-       37 GETUPVAL                         R12 2
-       38 GETTABLEKS                       R11 R12 K7 ["ReplaceModel"]
+       37 GETUPVAL                         R11 2
+       38 GETTABLEKS                       R11 R11 K7 ["ReplaceModel"]
        40 MOVE                             R12 R8
        41 MOVE                             R13 R10
        42 LOADB                            R14 0
@@ -44,11 +44,11 @@ PROTO_0:
        58 NAMECALL                         R4 R0 K0 ["getState"]
        60 CALL                             R4 1 1
        61 MOVE                             R1 R4
-       62 GETTABLEKS                       R5 R1 K1 ["CharacterConversion"]
-       64 GETTABLEKS                       R4 R5 K3 ["convertedCharacters"]
-       66 GETUPVAL                         R8 5
-       67 GETTABLEKS                       R7 R8 K10 ["Dictionary"]
-       69 GETTABLEKS                       R6 R7 K11 ["keys"]
+       62 GETTABLEKS                       R4 R1 K1 ["CharacterConversion"]
+       64 GETTABLEKS                       R4 R4 K3 ["convertedCharacters"]
+       66 GETUPVAL                         R6 5
+       67 GETTABLEKS                       R6 R6 K10 ["Dictionary"]
+       69 GETTABLEKS                       R6 R6 K11 ["keys"]
        71 MOVE                             R7 R4
        72 CALL                             R6 1 1
        73 LENGTH                           R5 R6
@@ -104,36 +104,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R0 K8 ["Src"]
-       16 GETTABLEKS                       R2 R3 K9 ["Actions"]
+       14 GETTABLEKS                       R2 R0 K8 ["Src"]
+       16 GETTABLEKS                       R2 R2 K9 ["Actions"]
        18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R2 K10 ["SetAdapted"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
        25 GETTABLEKS                       R5 R2 K11 ["SetCharacterConverted"]
        27 CALL                             R4 1 1
-       28 GETTABLEKS                       R6 R0 K8 ["Src"]
-       30 GETTABLEKS                       R5 R6 K12 ["Modules"]
+       28 GETTABLEKS                       R5 R0 K8 ["Src"]
+       30 GETTABLEKS                       R5 R5 K12 ["Modules"]
        32 GETIMPORT                        R6 K5 [require]
        34 GETTABLEKS                       R7 R5 K13 ["NpcManager"]
        36 CALL                             R6 1 1
-       37 GETTABLEKS                       R8 R0 K8 ["Src"]
-       39 GETTABLEKS                       R7 R8 K14 ["Util"]
-       41 GETIMPORT                        R9 K5 [require]
-       43 GETTABLEKS                       R10 R7 K15 ["PublishTagging"]
-       45 CALL                             R9 1 1
-       46 GETTABLEKS                       R8 R9 K16 ["CharacterTagging"]
-       48 GETIMPORT                        R10 K5 [require]
-       50 GETTABLEKS                       R11 R7 K15 ["PublishTagging"]
-       52 CALL                             R10 1 1
-       53 GETTABLEKS                       R9 R10 K17 ["AdapterTagging"]
-       55 GETIMPORT                        R11 K5 [require]
-       57 GETTABLEKS                       R12 R7 K18 ["QuickAccessTagging"]
-       59 CALL                             R11 1 1
-       60 GETTABLEKS                       R10 R11 K19 ["CharactersConvertedToR15Tagging"]
+       37 GETTABLEKS                       R7 R0 K8 ["Src"]
+       39 GETTABLEKS                       R7 R7 K14 ["Util"]
+       41 GETIMPORT                        R8 K5 [require]
+       43 GETTABLEKS                       R9 R7 K15 ["PublishTagging"]
+       45 CALL                             R8 1 1
+       46 GETTABLEKS                       R8 R8 K16 ["CharacterTagging"]
+       48 GETIMPORT                        R9 K5 [require]
+       50 GETTABLEKS                       R10 R7 K15 ["PublishTagging"]
+       52 CALL                             R9 1 1
+       53 GETTABLEKS                       R9 R9 K17 ["AdapterTagging"]
+       55 GETIMPORT                        R10 K5 [require]
+       57 GETTABLEKS                       R11 R7 K18 ["QuickAccessTagging"]
+       59 CALL                             R10 1 1
+       60 GETTABLEKS                       R10 R10 K19 ["CharactersConvertedToR15Tagging"]
        62 DUPCLOSURE                       R11 K20 [PROTO_1]
        63 CAPTURE                          VAL R9
        64 CAPTURE                          VAL R10

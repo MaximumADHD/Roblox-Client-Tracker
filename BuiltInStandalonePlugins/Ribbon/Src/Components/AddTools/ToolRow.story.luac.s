@@ -63,14 +63,14 @@ MAIN:
        20 CALL                             R4 1 1
        21 GETTABLEKS                       R5 R4 K10 ["join"]
        23 GETIMPORT                        R6 K6 [require]
-       25 GETIMPORT                        R9 K1 [script]
-       27 GETTABLEKS                       R8 R9 K11 ["Parent"]
-       29 GETTABLEKS                       R7 R8 K12 ["ToolRow"]
+       25 GETIMPORT                        R7 K1 [script]
+       27 GETTABLEKS                       R7 R7 K11 ["Parent"]
+       29 GETTABLEKS                       R7 R7 K12 ["ToolRow"]
        31 CALL                             R6 1 1
        32 GETIMPORT                        R7 K6 [require]
-       34 GETTABLEKS                       R10 R0 K13 ["Src"]
-       36 GETTABLEKS                       R9 R10 K14 ["Util"]
-       38 GETTABLEKS                       R8 R9 K15 ["IconHelper"]
+       34 GETTABLEKS                       R8 R0 K13 ["Src"]
+       36 GETTABLEKS                       R8 R8 K14 ["Util"]
+       38 GETTABLEKS                       R8 R8 K15 ["IconHelper"]
        40 CALL                             R7 1 1
        41 DUPCLOSURE                       R8 K16 [PROTO_3]
        42 CAPTURE                          VAL R3

@@ -1,19 +1,19 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R7 R0 K0 ["upperRangeInput"]
-        3 GETTABLEKS                       R6 R7 K1 ["Text"]
-        5 CALL                             R5 1 1
-        6 GETTABLEKS                       R4 R5 K2 ["toBe"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R5 R0 K0 ["upperRangeInput"]
+        3 GETTABLEKS                       R5 R5 K1 ["Text"]
+        5 CALL                             R4 1 1
+        6 GETTABLEKS                       R4 R4 K2 ["toBe"]
         8 FASTCALL1                        TOSTRING R2 ; [+3]
         9 MOVE                             R6 R2
        10 GETIMPORT                        R5 K4 [tostring]
        12 CALL                             R5 1 1
        13 CALL                             R4 1 0
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R7 R1 K5 ["CustomHeight"]
-       17 GETTABLEKS                       R6 R7 K6 ["Max"]
-       19 CALL                             R5 1 1
-       20 GETTABLEKS                       R4 R5 K2 ["toBe"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R5 R1 K5 ["CustomHeight"]
+       17 GETTABLEKS                       R5 R5 K6 ["Max"]
+       19 CALL                             R4 1 1
+       20 GETTABLEKS                       R4 R4 K2 ["toBe"]
        22 MOVE                             R5 R2
        23 CALL                             R4 1 0
        24 JUMPIFNOT                        R3 ; [+40]
@@ -27,42 +27,42 @@ PROTO_0:
        36 LOADK                            R6 K10 ["LowerRangeInput not found"]
        37 GETIMPORT                        R4 K12 [assert]
        39 CALL                             R4 2 0
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R7 R0 K7 ["lowerRangeInput"]
-       43 GETTABLEKS                       R6 R7 K1 ["Text"]
-       45 CALL                             R5 1 1
-       46 GETTABLEKS                       R4 R5 K2 ["toBe"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R5 R0 K7 ["lowerRangeInput"]
+       43 GETTABLEKS                       R5 R5 K1 ["Text"]
+       45 CALL                             R4 1 1
+       46 GETTABLEKS                       R4 R4 K2 ["toBe"]
        48 FASTCALL1                        TOSTRING R3 ; [+3]
        49 MOVE                             R6 R3
        50 GETIMPORT                        R5 K4 [tostring]
        52 CALL                             R5 1 1
        53 CALL                             R4 1 0
-       54 GETUPVAL                         R5 0
-       55 GETTABLEKS                       R7 R1 K5 ["CustomHeight"]
-       57 GETTABLEKS                       R6 R7 K13 ["Min"]
-       59 CALL                             R5 1 1
-       60 GETTABLEKS                       R4 R5 K2 ["toBe"]
+       54 GETUPVAL                         R4 0
+       55 GETTABLEKS                       R5 R1 K5 ["CustomHeight"]
+       57 GETTABLEKS                       R5 R5 K13 ["Min"]
+       59 CALL                             R4 1 1
+       60 GETTABLEKS                       R4 R4 K2 ["toBe"]
        62 MOVE                             R5 R3
        63 CALL                             R4 1 0
        64 RETURN                           R0 0
-       65 GETUPVAL                         R6 0
-       66 GETTABLEKS                       R7 R0 K7 ["lowerRangeInput"]
-       68 CALL                             R6 1 1
-       69 GETTABLEKS                       R5 R6 K14 ["never"]
-       71 GETTABLEKS                       R4 R5 K15 ["toBeDefined"]
+       65 GETUPVAL                         R4 0
+       66 GETTABLEKS                       R5 R0 K7 ["lowerRangeInput"]
+       68 CALL                             R4 1 1
+       69 GETTABLEKS                       R4 R4 K14 ["never"]
+       71 GETTABLEKS                       R4 R4 K15 ["toBeDefined"]
        73 CALL                             R4 0 0
-       74 GETUPVAL                         R5 0
-       75 GETTABLEKS                       R7 R1 K5 ["CustomHeight"]
-       77 GETTABLEKS                       R6 R7 K13 ["Min"]
-       79 CALL                             R5 1 1
-       80 GETTABLEKS                       R4 R5 K2 ["toBe"]
+       74 GETUPVAL                         R4 0
+       75 GETTABLEKS                       R5 R1 K5 ["CustomHeight"]
+       77 GETTABLEKS                       R5 R5 K13 ["Min"]
+       79 CALL                             R4 1 1
+       80 GETTABLEKS                       R4 R4 K2 ["toBe"]
        82 MOVE                             R5 R2
        83 CALL                             R4 1 0
        84 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["screen"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["screen"]
         3 JUMPIFNOTEQKS                    R1 K1 ["CustomParts"] ; [+13]
         5 GETTABLEKS                       R3 R0 K2 ["mouseClickOverInstance"]
         7 GETTABLEKS                       R4 R2 K3 ["getByText"]
@@ -114,25 +114,25 @@ PROTO_2:
        37 LOADK                            R7 K10 ["LowerRangeInput not found"]
        38 GETIMPORT                        R5 K4 [assert]
        40 CALL                             R5 2 0
-       41 GETUPVAL                         R6 0
-       42 GETTABLEKS                       R8 R4 K9 ["lowerRangeInput"]
-       44 GETTABLEKS                       R7 R8 K11 ["Text"]
-       46 CALL                             R6 1 1
-       47 GETTABLEKS                       R5 R6 K12 ["toBe"]
+       41 GETUPVAL                         R5 0
+       42 GETTABLEKS                       R6 R4 K9 ["lowerRangeInput"]
+       44 GETTABLEKS                       R6 R6 K11 ["Text"]
+       46 CALL                             R5 1 1
+       47 GETTABLEKS                       R5 R5 K12 ["toBe"]
        49 MOVE                             R6 R2
        50 CALL                             R5 1 0
-       51 GETUPVAL                         R6 0
-       52 GETTABLEKS                       R8 R4 K5 ["upperRangeInput"]
-       54 GETTABLEKS                       R7 R8 K11 ["Text"]
-       56 CALL                             R6 1 1
-       57 GETTABLEKS                       R5 R6 K12 ["toBe"]
+       51 GETUPVAL                         R5 0
+       52 GETTABLEKS                       R6 R4 K5 ["upperRangeInput"]
+       54 GETTABLEKS                       R6 R6 K11 ["Text"]
+       56 CALL                             R5 1 1
+       57 GETTABLEKS                       R5 R5 K12 ["toBe"]
        59 MOVE                             R6 R3
        60 CALL                             R5 1 0
-       61 GETUPVAL                         R7 0
-       62 GETTABLEKS                       R8 R4 K13 ["minMaxToggle"]
-       64 CALL                             R7 1 1
-       65 GETTABLEKS                       R6 R7 K14 ["never"]
-       67 GETTABLEKS                       R5 R6 K15 ["toBeDefined"]
+       61 GETUPVAL                         R5 0
+       62 GETTABLEKS                       R6 R4 K13 ["minMaxToggle"]
+       64 CALL                             R5 1 1
+       65 GETTABLEKS                       R5 R5 K14 ["never"]
+       67 GETTABLEKS                       R5 R5 K15 ["toBeDefined"]
        69 CALL                             R5 0 0
        70 RETURN                           R0 0
 
@@ -143,20 +143,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
-       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K7 ["Dev"]
-       22 GETTABLEKS                       R3 R4 K9 ["ReactTestingLibrary"]
+       18 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dev"]
+       22 GETTABLEKS                       R3 R3 K9 ["ReactTestingLibrary"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R7 R0 K10 ["Src"]
-       29 GETTABLEKS                       R6 R7 K11 ["tests"]
-       31 GETTABLEKS                       R5 R6 K12 ["Util"]
-       33 GETTABLEKS                       R4 R5 K13 ["setup"]
+       27 GETTABLEKS                       R4 R0 K10 ["Src"]
+       29 GETTABLEKS                       R4 R4 K11 ["tests"]
+       31 GETTABLEKS                       R4 R4 K12 ["Util"]
+       33 GETTABLEKS                       R4 R4 K13 ["setup"]
        35 CALL                             R3 1 1
        36 GETTABLEKS                       R4 R1 K14 ["expect"]
        38 NEWTABLE                         R5 4 0

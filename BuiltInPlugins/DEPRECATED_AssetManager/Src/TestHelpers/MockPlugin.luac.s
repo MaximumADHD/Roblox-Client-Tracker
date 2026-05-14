@@ -8,8 +8,8 @@ PROTO_0:
         8 SETTABLEKS                       R1 R0 K2 ["Icon"]
        10 LOADB                            R1 0
        11 SETTABLEKS                       R1 R0 K3 ["Enabled"]
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K7 ["new"]
+       13 GETUPVAL                         R1 0
+       14 GETTABLEKS                       R1 R1 K7 ["new"]
        16 CALL                             R1 0 1
        17 SETTABLEKS                       R1 R0 K4 ["Click"]
        19 GETUPVAL                         R3 1
@@ -36,8 +36,8 @@ PROTO_2:
        14 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 -1
         4 RETURN                           R4 -1
 
@@ -96,8 +96,8 @@ PROTO_5:
        58 MOVE                             R5 R2
        59 CALL                             R4 1 3
        60 FORGPREP_NEXT                    R4
-       61 GETUPVAL                         R10 0
-       62 GETTABLEKS                       R9 R10 K21 ["new"]
+       61 GETUPVAL                         R9 0
+       62 GETTABLEKS                       R9 R9 K21 ["new"]
        64 CALL                             R9 0 1
        65 SETTABLE                         R9 R3 R7
        66 FORGLOOP                         R4 2 ; [-6]
@@ -140,20 +140,20 @@ PROTO_7:
         0 DUPTABLE                         R1 K6 [{"Name", "Deactivation", "Unloading", "_activated", "_activatedWithExclusiveMouse", "_mouse"}]
         1 LOADK                            R2 K7 [""]
         2 SETTABLEKS                       R2 R1 K0 ["Name"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K8 ["new"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K8 ["new"]
         7 CALL                             R2 0 1
         8 SETTABLEKS                       R2 R1 K1 ["Deactivation"]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K8 ["new"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K8 ["new"]
        13 CALL                             R2 0 1
        14 SETTABLEKS                       R2 R1 K2 ["Unloading"]
        16 LOADB                            R2 0
        17 SETTABLEKS                       R2 R1 K3 ["_activated"]
        19 LOADB                            R2 0
        20 SETTABLEKS                       R2 R1 K4 ["_activatedWithExclusiveMouse"]
-       22 GETUPVAL                         R3 1
-       23 GETTABLEKS                       R2 R3 K8 ["new"]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEKS                       R2 R2 K8 ["new"]
        25 CALL                             R2 0 1
        26 SETTABLEKS                       R2 R1 K5 ["_mouse"]
        28 GETUPVAL                         R2 2
@@ -172,15 +172,15 @@ PROTO_8:
         3 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 -1
         5 RETURN                           R2 -1
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 -1
@@ -231,20 +231,20 @@ PROTO_15:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R3 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       15 CALL                             R3 1 1
-       16 GETTABLEKS                       R2 R3 K7 ["Util"]
-       18 GETTABLEKS                       R1 R2 K8 ["Signal"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Util"]
+       18 GETTABLEKS                       R1 R1 K8 ["Signal"]
        20 GETIMPORT                        R2 K4 [require]
-       22 GETIMPORT                        R5 K1 [script]
-       24 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       26 GETTABLEKS                       R3 R4 K9 ["MockMouse"]
+       22 GETIMPORT                        R3 K1 [script]
+       24 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       26 GETTABLEKS                       R3 R3 K9 ["MockMouse"]
        28 CALL                             R2 1 1
        29 NEWTABLE                         R3 4 0
        31 SETTABLEKS                       R3 R3 K10 ["__index"]

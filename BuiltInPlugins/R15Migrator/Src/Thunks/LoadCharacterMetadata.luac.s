@@ -6,10 +6,10 @@ PROTO_0:
         5 LOADNIL                          R5
         6 FORGPREP                         R3
         7 LOADNIL                          R8
-        8 LOADK                            R12 K0 ["Humanoid"]
-        9 NAMECALL                         R10 R7 K1 ["FindFirstChildOfClass"]
-       11 CALL                             R10 2 1
-       12 GETTABLEKS                       R9 R10 K2 ["RigType"]
+        8 LOADK                            R11 K0 ["Humanoid"]
+        9 NAMECALL                         R9 R7 K1 ["FindFirstChildOfClass"]
+       11 CALL                             R9 2 1
+       12 GETTABLEKS                       R9 R9 K2 ["RigType"]
        14 GETIMPORT                        R10 K6 [Enum.HumanoidRigType.R6]
        16 JUMPIFNOTEQ                      R9 R10 ; [+6]
        18 NAMECALL                         R9 R7 K7 ["Clone"]
@@ -18,12 +18,12 @@ PROTO_0:
        22 JUMP                             ; [+49]
        23 MOVE                             R9 R1
        24 JUMPIF                           R9 ; [+4]
-       25 GETUPVAL                         R10 0
-       26 GETTABLEKS                       R9 R10 K8 ["getR6Characters"]
+       25 GETUPVAL                         R9 0
+       26 GETTABLEKS                       R9 R9 K8 ["getR6Characters"]
        28 CALL                             R9 0 1
        29 MOVE                             R1 R9
-       30 GETUPVAL                         R11 0
-       31 GETTABLEKS                       R10 R11 K9 ["getConversionId"]
+       30 GETUPVAL                         R10 0
+       31 GETTABLEKS                       R10 R10 K9 ["getConversionId"]
        33 MOVE                             R11 R7
        34 CALL                             R10 1 1
        35 GETTABLE                         R9 R1 R10
@@ -36,8 +36,8 @@ PROTO_0:
        43 MOVE                             R12 R7
        44 NAMECALL                         R10 R10 K13 ["addTag"]
        46 CALL                             R10 2 0
-       47 GETUPVAL                         R11 2
-       48 GETTABLEKS                       R10 R11 K14 ["HasUnificationScripts"]
+       47 GETUPVAL                         R10 2
+       48 GETTABLEKS                       R10 R10 K14 ["HasUnificationScripts"]
        50 MOVE                             R11 R7
        51 CALL                             R10 1 1
        52 JUMPIFNOT                        R10 ; [+6]
@@ -57,19 +57,19 @@ PROTO_0:
        70 SETTABLEKS                       R10 R8 K16 ["Name"]
        72 NAMECALL                         R9 R7 K17 ["GetFullName"]
        74 CALL                             R9 1 1
-       75 GETUPVAL                         R11 0
-       76 GETTABLEKS                       R10 R11 K9 ["getConversionId"]
+       75 GETUPVAL                         R10 0
+       76 GETTABLEKS                       R10 R10 K9 ["getConversionId"]
        78 MOVE                             R11 R7
        79 CALL                             R10 1 1
        80 JUMPIFNOT                        R10 ; [+7]
-       81 GETUPVAL                         R12 4
-       82 GETTABLEKS                       R11 R12 K18 ["SetNpcWithId"]
+       81 GETUPVAL                         R11 4
+       82 GETTABLEKS                       R11 R11 K18 ["SetNpcWithId"]
        84 MOVE                             R12 R7
        85 MOVE                             R13 R10
        86 CALL                             R11 2 0
        87 JUMP                             ; [+6]
-       88 GETUPVAL                         R12 4
-       89 GETTABLEKS                       R11 R12 K19 ["AddNpc"]
+       88 GETUPVAL                         R11 4
+       89 GETTABLEKS                       R11 R11 K19 ["AddNpc"]
        91 MOVE                             R12 R7
        92 CALL                             R11 1 1
        93 MOVE                             R10 R11
@@ -92,8 +92,8 @@ PROTO_1:
         9 CALL                             R7 2 1
        10 JUMPIFNOT                        R7 ; [+21]
        11 JUMPIFNOT                        R1 ; [+10]
-       12 GETUPVAL                         R8 1
-       13 GETTABLEKS                       R7 R8 K3 ["SetupUnificationScripts"]
+       12 GETUPVAL                         R7 1
+       13 GETTABLEKS                       R7 R7 K3 ["SetupUnificationScripts"]
        15 MOVE                             R8 R6
        16 CALL                             R7 1 0
        17 GETUPVAL                         R7 2
@@ -114,24 +114,24 @@ PROTO_1:
 PROTO_2:
         0 NAMECALL                         R2 R0 K0 ["getState"]
         2 CALL                             R2 1 1
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["Reset"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["Reset"]
         6 CALL                             R3 0 0
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K2 ["GetR6Npcs"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K2 ["GetR6Npcs"]
        10 CALL                             R3 0 1
-       11 GETUPVAL                         R5 2
-       12 GETTABLEKS                       R4 R5 K3 ["addConvertibleCharacters"]
+       11 GETUPVAL                         R4 2
+       12 GETTABLEKS                       R4 R4 K3 ["addConvertibleCharacters"]
        14 MOVE                             R5 R3
        15 CALL                             R4 1 0
        16 GETUPVAL                         R4 3
        17 MOVE                             R5 R3
        18 CALL                             R4 1 1
-       19 GETUPVAL                         R6 1
-       20 GETTABLEKS                       R5 R6 K4 ["GetR15ConvertedNpcs"]
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R5 R5 K4 ["GetR15ConvertedNpcs"]
        22 CALL                             R5 0 1
-       23 GETTABLEKS                       R7 R2 K5 ["Adapter"]
-       25 GETTABLEKS                       R6 R7 K6 ["adapted"]
+       23 GETTABLEKS                       R6 R2 K5 ["Adapter"]
+       25 GETTABLEKS                       R6 R6 K6 ["adapted"]
        27 GETUPVAL                         R7 4
        28 MOVE                             R8 R5
        29 MOVE                             R9 R6
@@ -202,38 +202,38 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Modules"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Modules"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["NpcManager"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [require]
        18 GETTABLEKS                       R4 R1 K9 ["NpcIdManager"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K4 ["Src"]
-       23 GETTABLEKS                       R4 R5 K10 ["Util"]
+       21 GETTABLEKS                       R4 R0 K4 ["Src"]
+       23 GETTABLEKS                       R4 R4 K10 ["Util"]
        25 GETIMPORT                        R5 K7 [require]
        27 GETTABLEKS                       R6 R4 K11 ["SaveInterface"]
        29 CALL                             R5 1 1
-       30 GETIMPORT                        R7 K7 [require]
-       32 GETTABLEKS                       R8 R4 K12 ["PublishTagging"]
-       34 CALL                             R7 1 1
-       35 GETTABLEKS                       R6 R7 K13 ["CharacterTagging"]
-       37 GETIMPORT                        R8 K7 [require]
-       39 GETTABLEKS                       R9 R4 K12 ["PublishTagging"]
-       41 CALL                             R8 1 1
-       42 GETTABLEKS                       R7 R8 K14 ["AdapterTagging"]
-       44 GETIMPORT                        R9 K7 [require]
-       46 GETTABLEKS                       R10 R4 K15 ["QuickAccessTagging"]
-       48 CALL                             R9 1 1
-       49 GETTABLEKS                       R8 R9 K16 ["CharactersConvertedToR15Tagging"]
+       30 GETIMPORT                        R6 K7 [require]
+       32 GETTABLEKS                       R7 R4 K12 ["PublishTagging"]
+       34 CALL                             R6 1 1
+       35 GETTABLEKS                       R6 R6 K13 ["CharacterTagging"]
+       37 GETIMPORT                        R7 K7 [require]
+       39 GETTABLEKS                       R8 R4 K12 ["PublishTagging"]
+       41 CALL                             R7 1 1
+       42 GETTABLEKS                       R7 R7 K14 ["AdapterTagging"]
+       44 GETIMPORT                        R8 K7 [require]
+       46 GETTABLEKS                       R9 R4 K15 ["QuickAccessTagging"]
+       48 CALL                             R8 1 1
+       49 GETTABLEKS                       R8 R8 K16 ["CharactersConvertedToR15Tagging"]
        51 GETIMPORT                        R9 K7 [require]
-       53 GETTABLEKS                       R12 R0 K4 ["Src"]
-       55 GETTABLEKS                       R11 R12 K17 ["Actions"]
-       57 GETTABLEKS                       R10 R11 K18 ["SetCharacterMetadata"]
+       53 GETTABLEKS                       R10 R0 K4 ["Src"]
+       55 GETTABLEKS                       R10 R10 K17 ["Actions"]
+       57 GETTABLEKS                       R10 R10 K18 ["SetCharacterMetadata"]
        59 CALL                             R9 1 1
-       60 GETTABLEKS                       R11 R0 K4 ["Src"]
-       62 GETTABLEKS                       R10 R11 K17 ["Actions"]
+       60 GETTABLEKS                       R10 R0 K4 ["Src"]
+       62 GETTABLEKS                       R10 R10 K17 ["Actions"]
        64 GETIMPORT                        R11 K7 [require]
        66 GETTABLEKS                       R12 R10 K19 ["SetAdapted"]
        68 CALL                             R11 1 1

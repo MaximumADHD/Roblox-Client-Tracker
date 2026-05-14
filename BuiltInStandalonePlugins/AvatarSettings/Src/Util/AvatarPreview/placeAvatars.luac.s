@@ -7,8 +7,8 @@ PROTO_0:
         7 LOADK                            R4 K2 ["Humanoid not found in avatar"]
         8 GETIMPORT                        R2 K4 [assert]
        10 CALL                             R2 2 0
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K5 ["avatarRules"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K5 ["avatarRules"]
        14 CALL                             R4 0 -1
        15 NAMECALL                         R2 R1 K6 ["ApplyAvatarRules"]
        17 CALL                             R2 -1 0
@@ -49,15 +49,15 @@ PROTO_2:
        13 MOVE                             R10 R5
        14 CALL                             R6 4 1
        15 MOVE                             R3 R6
-       16 GETTABLEKS                       R6 R0 K7 ["Position"]
-       18 GETTABLEKS                       R5 R6 K8 ["X"]
-       20 GETTABLEKS                       R8 R1 K7 ["Position"]
-       22 GETTABLEKS                       R7 R8 K9 ["Y"]
+       16 GETTABLEKS                       R5 R0 K7 ["Position"]
+       18 GETTABLEKS                       R5 R5 K8 ["X"]
+       20 GETTABLEKS                       R7 R1 K7 ["Position"]
+       22 GETTABLEKS                       R7 R7 K9 ["Y"]
        24 GETTABLEKS                       R9 R2 K9 ["Y"]
        26 DIVK                             R8 R9 K10 [2]
        27 ADD                              R6 R7 R8
-       28 GETTABLEKS                       R8 R0 K7 ["Position"]
-       30 GETTABLEKS                       R7 R8 K11 ["Z"]
+       28 GETTABLEKS                       R7 R0 K7 ["Position"]
+       30 GETTABLEKS                       R7 R7 K11 ["Z"]
        32 FASTCALL                         VECTOR ; [+2]
        33 GETIMPORT                        R4 K14 [Vector3.new]
        35 CALL                             R4 3 1
@@ -90,8 +90,8 @@ PROTO_3:
        17 LOADK                            R17 K2 ["Humanoid not found in avatar"]
        18 GETIMPORT                        R15 K4 [assert]
        20 CALL                             R15 2 0
-       21 GETUPVAL                         R18 0
-       22 GETTABLEKS                       R17 R18 K5 ["avatarRules"]
+       21 GETUPVAL                         R17 0
+       22 GETTABLEKS                       R17 R17 K5 ["avatarRules"]
        24 CALL                             R17 0 -1
        25 NAMECALL                         R15 R14 K6 ["ApplyAvatarRules"]
        27 CALL                             R15 -1 0
@@ -102,9 +102,9 @@ PROTO_3:
        32 MOVE                             R12 R15
        33 MOVE                             R13 R16
        34 GETTABLEKS                       R15 R12 K7 ["Position"]
-       36 NAMECALL                         R17 R11 K8 ["GetPivot"]
-       38 CALL                             R17 1 1
-       39 GETTABLEKS                       R16 R17 K7 ["Position"]
+       36 NAMECALL                         R16 R11 K8 ["GetPivot"]
+       38 CALL                             R16 1 1
+       39 GETTABLEKS                       R16 R16 K7 ["Position"]
        41 SUB                              R14 R15 R16
        42 DIVK                             R15 R13 K9 [2]
        43 DIVK                             R19 R2 K9 [2]
@@ -112,8 +112,8 @@ PROTO_3:
        45 GETTABLEKS                       R19 R15 K10 ["X"]
        47 ADD                              R17 R18 R19
        48 JUMPIFEQKN                       R10 K11 [1] ; [+5]
-       50 GETUPVAL                         R19 2
-       51 GETTABLEKS                       R18 R19 K12 ["AvatarSpacing"]
+       50 GETUPVAL                         R18 2
+       51 GETTABLEKS                       R18 R18 K12 ["AvatarSpacing"]
        53 JUMP                             ; [+1]
        54 LOADN                            R18 0
        55 ADD                              R16 R17 R18
@@ -191,16 +191,16 @@ PROTO_5:
         6 DIVK                             R4 R5 K1 [2]
         7 JUMPIFLT                         R3 R4 ; [+2]
         9 RETURN                           R0 1
-       10 GETTABLEKS                       R7 R2 K3 ["Normal"]
-       12 GETTABLEKS                       R6 R7 K2 ["Y"]
+       10 GETTABLEKS                       R6 R2 K3 ["Normal"]
+       12 GETTABLEKS                       R6 R6 K2 ["Y"]
        14 LOADN                            R7 0
        15 JUMPIFLE                         R7 R6 ; [+2]
        17 LOADB                            R5 0 +1
        18 LOADB                            R5 1
        19 LOADN                            R9 0
        20 SUB                              R11 R4 R3
-       21 GETUPVAL                         R13 0
-       22 GETTABLEKS                       R12 R13 K4 ["BLOCKCAST_VERTICAL_PADDING"]
+       21 GETUPVAL                         R12 0
+       22 GETTABLEKS                       R12 R12 K4 ["BLOCKCAST_VERTICAL_PADDING"]
        24 ADD                              R10 R11 R12
        25 LOADN                            R11 0
        26 FASTCALL                         VECTOR ; [+2]
@@ -218,15 +218,15 @@ PROTO_6:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K0 ["CurrentCamera"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["CurrentCamera"]
         6 FASTCALL2K                       ASSERT R3 K1 ; [+4]
         8 LOADK                            R4 K1 ["CurrentCamera should exist"]
         9 GETIMPORT                        R2 K3 [assert]
        11 CALL                             R2 2 0
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K0 ["CurrentCamera"]
-       15 GETTABLEKS                       R2 R3 K4 ["CFrame"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K0 ["CurrentCamera"]
+       15 GETTABLEKS                       R2 R2 K4 ["CFrame"]
        17 GETTABLEKS                       R5 R2 K6 ["XVector"]
        19 MULK                             R4 R5 K5 [-1]
        20 LOADK                            R7 K7 [{0, 1, 0}]
@@ -247,8 +247,8 @@ PROTO_6:
        40 MUL                              R7 R8 R9
        41 NAMECALL                         R4 R4 K15 ["Raycast"]
        43 CALL                             R4 3 1
-       44 GETUPVAL                         R6 2
-       45 GETTABLEKS                       R5 R6 K16 ["adjustBlockcastCFramePosition_DEPRECATED"]
+       44 GETUPVAL                         R5 2
+       45 GETTABLEKS                       R5 R5 K16 ["adjustBlockcastCFramePosition_DEPRECATED"]
        47 MOVE                             R6 R3
        48 MOVE                             R7 R1
        49 MOVE                             R8 R4
@@ -257,15 +257,15 @@ PROTO_6:
        52 MOVE                             R8 R5
        53 MOVE                             R9 R1
        54 GETTABLEKS                       R11 R2 K17 ["LookVector"]
-       56 GETUPVAL                         R13 3
-       57 GETTABLEKS                       R12 R13 K18 ["MaxPreviewPlacementDistance"]
+       56 GETUPVAL                         R12 3
+       57 GETTABLEKS                       R12 R12 K18 ["MaxPreviewPlacementDistance"]
        59 MUL                              R10 R11 R12
        60 NAMECALL                         R6 R6 K19 ["Blockcast"]
        62 CALL                             R6 4 1
        63 GETTABLEKS                       R8 R2 K11 ["Position"]
        65 GETTABLEKS                       R10 R2 K17 ["LookVector"]
-       67 GETUPVAL                         R12 3
-       68 GETTABLEKS                       R11 R12 K18 ["MaxPreviewPlacementDistance"]
+       67 GETUPVAL                         R11 3
+       68 GETTABLEKS                       R11 R11 K18 ["MaxPreviewPlacementDistance"]
        70 MUL                              R9 R10 R11
        71 ADD                              R7 R8 R9
        72 JUMPIFNOT                        R6 ; [+48]
@@ -281,15 +281,15 @@ PROTO_6:
        86 MOVE                             R15 R10
        87 CALL                             R11 4 1
        88 MOVE                             R8 R11
-       89 GETTABLEKS                       R11 R2 K11 ["Position"]
-       91 GETTABLEKS                       R10 R11 K21 ["X"]
-       93 GETTABLEKS                       R13 R6 K11 ["Position"]
-       95 GETTABLEKS                       R12 R13 K14 ["Y"]
+       89 GETTABLEKS                       R10 R2 K11 ["Position"]
+       91 GETTABLEKS                       R10 R10 K21 ["X"]
+       93 GETTABLEKS                       R12 R6 K11 ["Position"]
+       95 GETTABLEKS                       R12 R12 K14 ["Y"]
        97 GETTABLEKS                       R14 R1 K14 ["Y"]
        99 DIVK                             R13 R14 K13 [2]
       100 ADD                              R11 R12 R13
-      101 GETTABLEKS                       R13 R2 K11 ["Position"]
-      103 GETTABLEKS                       R12 R13 K22 ["Z"]
+      101 GETTABLEKS                       R12 R2 K11 ["Position"]
+      103 GETTABLEKS                       R12 R12 K22 ["Z"]
       105 FASTCALL                         VECTOR ; [+2]
       106 GETIMPORT                        R9 K25 [Vector3.new]
       108 CALL                             R9 3 1
@@ -323,8 +323,8 @@ PROTO_7:
         8 GETIMPORT                        R3 K4 [assert]
        10 CALL                             R3 2 0
        11 JUMPIFNOT                        R1 ; [+7]
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K5 ["avatarRules"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K5 ["avatarRules"]
        15 CALL                             R5 0 -1
        16 NAMECALL                         R3 R2 K6 ["ApplyAvatarRules"]
        18 CALL                             R3 -1 0
@@ -394,8 +394,8 @@ PROTO_10:
        18 LOADK                            R13 K3 ["Humanoid not found in avatar"]
        19 GETIMPORT                        R11 K5 [assert]
        21 CALL                             R11 2 0
-       22 GETUPVAL                         R14 0
-       23 GETTABLEKS                       R13 R14 K6 ["avatarRules"]
+       22 GETUPVAL                         R13 0
+       23 GETTABLEKS                       R13 R13 K6 ["avatarRules"]
        25 CALL                             R13 0 -1
        26 NAMECALL                         R11 R10 K7 ["ApplyAvatarRules"]
        28 CALL                             R11 -1 0
@@ -410,15 +410,15 @@ PROTO_10:
        38 JUMPIFNOT                        R11 ; [+9]
        39 NAMECALL                         R11 R8 K9 ["Inverse"]
        41 CALL                             R11 1 1
-       42 GETTABLEKS                       R13 R7 K8 ["PrimaryPart"]
-       44 GETTABLEKS                       R12 R13 K10 ["Position"]
+       42 GETTABLEKS                       R12 R7 K8 ["PrimaryPart"]
+       44 GETTABLEKS                       R12 R12 K10 ["Position"]
        46 MUL                              R10 R11 R12
        47 JUMP                             ; [+9]
        48 NAMECALL                         R11 R8 K9 ["Inverse"]
        50 CALL                             R11 1 1
-       51 NAMECALL                         R13 R7 K11 ["GetPivot"]
-       53 CALL                             R13 1 1
-       54 GETTABLEKS                       R12 R13 K10 ["Position"]
+       51 NAMECALL                         R12 R7 K11 ["GetPivot"]
+       53 CALL                             R12 1 1
+       54 GETTABLEKS                       R12 R12 K10 ["Position"]
        56 MUL                              R10 R11 R12
        57 GETIMPORT                        R13 K14 [CFrame.new]
        59 MOVE                             R14 R1
@@ -511,8 +511,8 @@ PROTO_10:
       184 SETTABLEN                        R11 R2 2
       185 GETTABLEKS                       R12 R9 K18 ["X"]
       187 ADD                              R11 R1 R12
-      188 GETUPVAL                         R13 2
-      189 GETTABLEKS                       R12 R13 K27 ["AvatarSpacing"]
+      188 GETUPVAL                         R12 2
+      189 GETTABLEKS                       R12 R12 K27 ["AvatarSpacing"]
       191 ADD                              R1 R11 R12
       192 FORGLOOP                         R3 2 ; [-182]
       194 GETIMPORT                        R3 K14 [CFrame.new]
@@ -668,8 +668,8 @@ PROTO_13:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 2
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K0 ["CurrentCamera"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["CurrentCamera"]
         6 FASTCALL2K                       ASSERT R3 K1 ; [+5]
         8 MOVE                             R5 R3
         9 LOADK                            R6 K1 ["CurrentCamera should exist"]
@@ -733,11 +733,11 @@ PROTO_13:
        87 LOADN                            R13 0
        88 CALL                             R10 3 1
        89 MUL                              R8 R9 R10
-       90 GETTABLEKS                       R12 R8 K23 ["LookVector"]
-       92 GETTABLEKS                       R11 R12 K9 ["X"]
+       90 GETTABLEKS                       R11 R8 K23 ["LookVector"]
+       92 GETTABLEKS                       R11 R11 K9 ["X"]
        94 MINUS                            R10 R11
-       95 GETTABLEKS                       R13 R8 K23 ["LookVector"]
-       97 GETTABLEKS                       R12 R13 K20 ["Z"]
+       95 GETTABLEKS                       R12 R8 K23 ["LookVector"]
+       97 GETTABLEKS                       R12 R12 K20 ["Z"]
        99 MINUS                            R11 R12
       100 FASTCALL2                        MATH_ATAN2 R10 R11 ; [+3]
       102 GETIMPORT                        R9 K25 [math.atan2]
@@ -830,23 +830,23 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R6 R0 K10 ["Src"]
-       17 GETTABLEKS                       R5 R6 K11 ["Util"]
-       19 GETTABLEKS                       R4 R5 K12 ["AvatarPreview"]
-       21 GETTABLEKS                       R3 R4 K13 ["AvatarPreviewConstants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["AvatarPreview"]
+       21 GETTABLEKS                       R3 R3 K13 ["AvatarPreviewConstants"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R8 R0 K10 ["Src"]
-       28 GETTABLEKS                       R7 R8 K11 ["Util"]
-       30 GETTABLEKS                       R6 R7 K14 ["BridgingFiles"]
-       32 GETTABLEKS                       R5 R6 K15 ["AssetDmFiles"]
-       34 GETTABLEKS                       R4 R5 K16 ["assetDmUtils"]
+       26 GETTABLEKS                       R4 R0 K10 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Util"]
+       30 GETTABLEKS                       R4 R4 K14 ["BridgingFiles"]
+       32 GETTABLEKS                       R4 R4 K15 ["AssetDmFiles"]
+       34 GETTABLEKS                       R4 R4 K16 ["assetDmUtils"]
        36 CALL                             R3 1 1
        37 GETIMPORT                        R4 K9 [require]
-       39 GETTABLEKS                       R8 R0 K10 ["Src"]
-       41 GETTABLEKS                       R7 R8 K11 ["Util"]
-       43 GETTABLEKS                       R6 R7 K12 ["AvatarPreview"]
-       45 GETTABLEKS                       R5 R6 K17 ["getHumanoidBoundingBox"]
+       39 GETTABLEKS                       R5 R0 K10 ["Src"]
+       41 GETTABLEKS                       R5 R5 K11 ["Util"]
+       43 GETTABLEKS                       R5 R5 K12 ["AvatarPreview"]
+       45 GETTABLEKS                       R5 R5 K17 ["getHumanoidBoundingBox"]
        47 CALL                             R4 1 1
        48 NEWTABLE                         R5 4 0
        50 DUPCLOSURE                       R6 K18 [PROTO_0]

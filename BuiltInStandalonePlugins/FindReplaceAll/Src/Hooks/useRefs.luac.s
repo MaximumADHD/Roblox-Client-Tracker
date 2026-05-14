@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R0 K2 [table.move]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K3 ["current"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["current"]
         5 LOADN                            R2 1
         6 GETUPVAL                         R3 1
         7 LOADN                            R4 1
@@ -10,12 +10,12 @@ PROTO_0:
        11 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useRef"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useRef"]
         3 NEWTABLE                         R3 0 0
         5 CALL                             R2 1 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K0 ["useRef"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["useRef"]
         9 MOVE                             R4 R0
        10 CALL                             R3 1 1
        11 GETTABLEKS                       R5 R2 K1 ["current"]
@@ -27,8 +27,8 @@ PROTO_1:
        20 SUB                              R4 R0 R7
        21 LOADN                            R5 1
        22 FORNPREP                         R4
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K2 ["createRef"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K2 ["createRef"]
        26 CALL                             R7 0 1
        27 SETTABLEKS                       R1 R7 K1 ["current"]
        29 GETTABLEKS                       R9 R2 K1 ["current"]
@@ -49,8 +49,8 @@ PROTO_1:
        51 SETTABLEKS                       R1 R7 K1 ["current"]
        53 FORNLOOP                         R4
        54 SETTABLEKS                       R0 R3 K1 ["current"]
-       56 GETUPVAL                         R5 0
-       57 GETTABLEKS                       R4 R5 K7 ["useMemo"]
+       56 GETUPVAL                         R4 0
+       57 GETTABLEKS                       R4 R4 K7 ["useMemo"]
        59 NEWCLOSURE                       R5 P0
        60 CAPTURE                          VAL R2
        61 CAPTURE                          VAL R0
@@ -67,8 +67,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_1]
        15 CAPTURE                          VAL R1

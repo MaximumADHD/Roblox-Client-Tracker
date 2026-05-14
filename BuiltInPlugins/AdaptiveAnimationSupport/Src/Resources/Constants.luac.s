@@ -49,54 +49,56 @@ MAIN:
        70 SETTABLEKS                       R1 R0 K39 ["CIRCLE_SEGMENTS"]
        72 LOADK                            R1 K40 [0.7]
        73 SETTABLEKS                       R1 R0 K41 ["MESH_TRANSPARENCY"]
-       75 DUPTABLE                         R1 K50 [{"BONE_MAPPED", "BONE_UNMAPPED", "BONE_SELECTED", "BONE_MAPPED_HOVER", "BONE_UNMAPPED_HOVER", "BONE_UNMAPPED_DARK", "BONE_OTHER_MAPPED", "BONE_EDGE"}]
-       76 GETIMPORT                        R2 K53 [Color3.fromRGB]
-       78 LOADN                            R3 230
-       79 LOADN                            R4 104
-       80 LOADN                            R5 10
-       81 CALL                             R2 3 1
-       82 SETTABLEKS                       R2 R1 K42 ["BONE_MAPPED"]
-       84 GETIMPORT                        R2 K53 [Color3.fromRGB]
-       86 LOADN                            R3 128
-       87 LOADN                            R4 137
-       88 LOADN                            R5 172
-       89 CALL                             R2 3 1
-       90 SETTABLEKS                       R2 R1 K43 ["BONE_UNMAPPED"]
-       92 GETIMPORT                        R2 K53 [Color3.fromRGB]
-       94 LOADN                            R3 51
-       95 LOADN                            R4 95
-       96 LOADN                            R5 255
-       97 CALL                             R2 3 1
-       98 SETTABLEKS                       R2 R1 K44 ["BONE_SELECTED"]
-      100 GETIMPORT                        R2 K53 [Color3.fromRGB]
-      102 LOADN                            R3 239
-      103 LOADN                            R4 209
-      104 LOADN                            R5 184
-      105 CALL                             R2 3 1
-      106 SETTABLEKS                       R2 R1 K45 ["BONE_MAPPED_HOVER"]
-      108 GETIMPORT                        R2 K53 [Color3.fromRGB]
-      110 LOADN                            R3 196
-      111 LOADN                            R4 201
-      112 LOADN                            R5 217
-      113 CALL                             R2 3 1
-      114 SETTABLEKS                       R2 R1 K46 ["BONE_UNMAPPED_HOVER"]
-      116 GETIMPORT                        R2 K53 [Color3.fromRGB]
-      118 LOADN                            R3 100
-      119 LOADN                            R4 100
-      120 LOADN                            R5 100
-      121 CALL                             R2 3 1
-      122 SETTABLEKS                       R2 R1 K47 ["BONE_UNMAPPED_DARK"]
-      124 GETIMPORT                        R2 K53 [Color3.fromRGB]
-      126 LOADN                            R3 153
-      127 LOADN                            R4 69
-      128 LOADN                            R5 7
-      129 CALL                             R2 3 1
-      130 SETTABLEKS                       R2 R1 K48 ["BONE_OTHER_MAPPED"]
-      132 GETIMPORT                        R2 K53 [Color3.fromRGB]
-      134 LOADN                            R3 68
-      135 LOADN                            R4 73
-      136 LOADN                            R5 100
-      137 CALL                             R2 3 1
-      138 SETTABLEKS                       R2 R1 K49 ["BONE_EDGE"]
-      140 SETTABLEKS                       R1 R0 K54 ["Colors"]
-      142 RETURN                           R0 1
+       75 LOADK                            R1 K42 [0.35]
+       76 SETTABLEKS                       R1 R0 K43 ["ADORNMENT_TRANSPARENCY"]
+       78 DUPTABLE                         R1 K52 [{"BONE_MAPPED", "BONE_UNMAPPED", "BONE_SELECTED", "BONE_MAPPED_HOVER", "BONE_UNMAPPED_HOVER", "BONE_UNMAPPED_DARK", "BONE_OTHER_MAPPED", "BONE_EDGE"}]
+       79 GETIMPORT                        R2 K55 [Color3.fromRGB]
+       81 LOADN                            R3 230
+       82 LOADN                            R4 104
+       83 LOADN                            R5 10
+       84 CALL                             R2 3 1
+       85 SETTABLEKS                       R2 R1 K44 ["BONE_MAPPED"]
+       87 GETIMPORT                        R2 K55 [Color3.fromRGB]
+       89 LOADN                            R3 128
+       90 LOADN                            R4 137
+       91 LOADN                            R5 172
+       92 CALL                             R2 3 1
+       93 SETTABLEKS                       R2 R1 K45 ["BONE_UNMAPPED"]
+       95 GETIMPORT                        R2 K55 [Color3.fromRGB]
+       97 LOADN                            R3 51
+       98 LOADN                            R4 95
+       99 LOADN                            R5 255
+      100 CALL                             R2 3 1
+      101 SETTABLEKS                       R2 R1 K46 ["BONE_SELECTED"]
+      103 GETIMPORT                        R2 K55 [Color3.fromRGB]
+      105 LOADN                            R3 239
+      106 LOADN                            R4 209
+      107 LOADN                            R5 184
+      108 CALL                             R2 3 1
+      109 SETTABLEKS                       R2 R1 K47 ["BONE_MAPPED_HOVER"]
+      111 GETIMPORT                        R2 K55 [Color3.fromRGB]
+      113 LOADN                            R3 196
+      114 LOADN                            R4 201
+      115 LOADN                            R5 217
+      116 CALL                             R2 3 1
+      117 SETTABLEKS                       R2 R1 K48 ["BONE_UNMAPPED_HOVER"]
+      119 GETIMPORT                        R2 K55 [Color3.fromRGB]
+      121 LOADN                            R3 100
+      122 LOADN                            R4 100
+      123 LOADN                            R5 100
+      124 CALL                             R2 3 1
+      125 SETTABLEKS                       R2 R1 K49 ["BONE_UNMAPPED_DARK"]
+      127 GETIMPORT                        R2 K55 [Color3.fromRGB]
+      129 LOADN                            R3 153
+      130 LOADN                            R4 69
+      131 LOADN                            R5 7
+      132 CALL                             R2 3 1
+      133 SETTABLEKS                       R2 R1 K50 ["BONE_OTHER_MAPPED"]
+      135 GETIMPORT                        R2 K55 [Color3.fromRGB]
+      137 LOADN                            R3 68
+      138 LOADN                            R4 73
+      139 LOADN                            R5 100
+      140 CALL                             R2 3 1
+      141 SETTABLEKS                       R2 R1 K51 ["BONE_EDGE"]
+      143 SETTABLEKS                       R1 R0 K56 ["Colors"]
+      145 RETURN                           R0 1

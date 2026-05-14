@@ -3,10 +3,10 @@ PROTO_0:
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["LayoutOrder"]
         6 GETTABLEKS                       R4 R1 K3 ["OnClick"]
-        8 GETTABLEKS                       R6 R1 K4 ["Stylizer"]
-       10 GETTABLEKS                       R5 R6 K5 ["itemRow"]
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K6 ["createElement"]
+        8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
+       10 GETTABLEKS                       R5 R5 K5 ["itemRow"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K6 ["createElement"]
        15 LOADK                            R7 K7 ["Frame"]
        16 DUPTABLE                         R8 K10 [{"Size", "LayoutOrder", "BackgroundTransparency"}]
        17 GETIMPORT                        R9 K13 [UDim2.new]
@@ -20,8 +20,8 @@ PROTO_0:
        28 LOADN                            R9 1
        29 SETTABLEKS                       R9 R8 K9 ["BackgroundTransparency"]
        31 DUPTABLE                         R9 K16 [{"Layout", "Button"}]
-       32 GETUPVAL                         R11 0
-       33 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       32 GETUPVAL                         R10 0
+       33 GETTABLEKS                       R10 R10 K6 ["createElement"]
        35 LOADK                            R11 K17 ["UIListLayout"]
        36 DUPTABLE                         R12 K21 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
        37 GETIMPORT                        R13 K24 [Enum.FillDirection.Vertical]
@@ -32,14 +32,14 @@ PROTO_0:
        47 SETTABLEKS                       R13 R12 K20 ["VerticalAlignment"]
        49 CALL                             R10 2 1
        50 SETTABLEKS                       R10 R9 K14 ["Layout"]
-       52 GETUPVAL                         R11 0
-       53 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       52 GETUPVAL                         R10 0
+       53 GETTABLEKS                       R10 R10 K6 ["createElement"]
        55 LOADK                            R11 K28 ["TextButton"]
        56 NEWTABLE                         R12 8 0
        58 GETTABLEKS                       R13 R5 K29 ["insertButtonTextColor"]
        60 SETTABLEKS                       R13 R12 K30 ["TextColor3"]
-       62 GETUPVAL                         R14 1
-       63 GETTABLEKS                       R13 R14 K31 ["FONT"]
+       62 GETUPVAL                         R13 1
+       63 GETTABLEKS                       R13 R13 K31 ["FONT"]
        65 SETTABLEKS                       R13 R12 K32 ["Font"]
        67 LOADN                            R13 15
        68 SETTABLEKS                       R13 R12 K33 ["TextSize"]
@@ -57,13 +57,13 @@ PROTO_0:
        84 SETTABLEKS                       R13 R12 K8 ["Size"]
        86 GETTABLEKS                       R13 R5 K38 ["insertButtonColor"]
        88 SETTABLEKS                       R13 R12 K39 ["BackgroundColor3"]
-       90 GETUPVAL                         R15 0
-       91 GETTABLEKS                       R14 R15 K40 ["Event"]
-       93 GETTABLEKS                       R13 R14 K41 ["MouseButton1Click"]
+       90 GETUPVAL                         R13 0
+       91 GETTABLEKS                       R13 R13 K40 ["Event"]
+       93 GETTABLEKS                       R13 R13 K41 ["MouseButton1Click"]
        95 SETTABLE                         R4 R12 R13
        96 DUPTABLE                         R13 K43 [{"UICorner"}]
-       97 GETUPVAL                         R15 0
-       98 GETTABLEKS                       R14 R15 K6 ["createElement"]
+       97 GETUPVAL                         R14 0
+       98 GETTABLEKS                       R14 R14 K6 ["createElement"]
       100 LOADK                            R15 K42 ["UICorner"]
       101 DUPTABLE                         R16 K45 [{"CornerRadius"}]
       102 GETIMPORT                        R17 K47 [UDim.new]
@@ -91,8 +91,8 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Framework"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R0 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Util"]
+       19 GETTABLEKS                       R4 R0 K9 ["Src"]
+       21 GETTABLEKS                       R4 R4 K10 ["Util"]
        23 GETIMPORT                        R5 K6 [require]
        25 GETTABLEKS                       R6 R4 K11 ["Constants"]
        27 CALL                             R5 1 1

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["OnMenuItemClicked"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["OnMenuItemClicked"]
         3 GETTABLEKS                       R2 R0 K1 ["Data"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
@@ -16,9 +16,9 @@ PROTO_1:
         9 NAMECALL                         R8 R1 K7 ["getText"]
        11 CALL                             R8 3 1
        12 SETTABLEKS                       R8 R7 K1 ["Text"]
-       14 GETUPVAL                         R10 0
-       15 GETTABLEKS                       R9 R10 K8 ["ACTION_KEYS"]
-       17 GETTABLEKS                       R8 R9 K9 ["Edit"]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K8 ["ACTION_KEYS"]
+       17 GETTABLEKS                       R8 R8 K9 ["Edit"]
        19 SETTABLEKS                       R8 R7 K2 ["Data"]
        21 SETTABLEKS                       R4 R7 K3 ["OnItemClicked"]
        23 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
@@ -31,9 +31,9 @@ PROTO_1:
        32 NAMECALL                         R8 R1 K7 ["getText"]
        34 CALL                             R8 3 1
        35 SETTABLEKS                       R8 R7 K1 ["Text"]
-       37 GETUPVAL                         R10 0
-       38 GETTABLEKS                       R9 R10 K8 ["ACTION_KEYS"]
-       40 GETTABLEKS                       R8 R9 K14 ["Delete"]
+       37 GETUPVAL                         R8 0
+       38 GETTABLEKS                       R8 R8 K8 ["ACTION_KEYS"]
+       40 GETTABLEKS                       R8 R8 K14 ["Delete"]
        42 SETTABLEKS                       R8 R7 K2 ["Data"]
        44 SETTABLEKS                       R4 R7 K3 ["OnItemClicked"]
        46 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
@@ -43,13 +43,13 @@ PROTO_1:
        52 RETURN                           R3 1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 GETTABLEKS                       R2 R0 K0 ["props"]
         6 GETTABLEKS                       R3 R2 K2 ["ShowMenu"]
         8 JUMPIFNOT                        R3 ; [+17]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["createElement"]
        12 GETUPVAL                         R5 1
        13 DUPTABLE                         R6 K6 [{"Actions", "OnMenuOpened"}]
        14 MOVE                             R9 R1
@@ -70,24 +70,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["Constants"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R2 K12 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K13 ["withContext"]
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K9 ["Src"]
-       38 GETTABLEKS                       R8 R9 K14 ["Components"]
-       40 GETTABLEKS                       R7 R8 K15 ["ContextMenu"]
+       36 GETTABLEKS                       R7 R0 K9 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Components"]
+       40 GETTABLEKS                       R7 R7 K15 ["ContextMenu"]
        42 CALL                             R6 1 1
        43 GETTABLEKS                       R7 R1 K16 ["PureComponent"]
        45 LOADK                            R9 K17 ["EditEventMenu"]

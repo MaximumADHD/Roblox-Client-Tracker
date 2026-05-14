@@ -18,20 +18,20 @@ PROTO_0:
        18 NAMECALL                         R3 R3 K2 ["GetPermissions"]
        20 CALL                             R3 2 1
        21 MOVE                             R2 R3
-       22 GETUPVAL                         R4 4
-       23 GETTABLEKS                       R3 R4 K3 ["index"]
+       22 GETUPVAL                         R3 4
+       23 GETTABLEKS                       R3 R3 K3 ["index"]
        25 DUPTABLE                         R4 K6 [{"Type", "Data"}]
-       26 GETUPVAL                         R6 4
-       27 GETTABLEKS                       R5 R6 K7 ["type"]
+       26 GETUPVAL                         R5 4
+       27 GETTABLEKS                       R5 R5 K7 ["type"]
        29 SETTABLEKS                       R5 R4 K4 ["Type"]
        31 DUPTABLE                         R5 K10 [{"Allowed", "Domain"}]
-       32 GETUPVAL                         R8 4
-       33 GETTABLEKS                       R7 R8 K11 ["allowed"]
+       32 GETUPVAL                         R7 4
+       33 GETTABLEKS                       R7 R7 K11 ["allowed"]
        35 NOT                              R6 R7
        36 SETTABLEKS                       R6 R5 K8 ["Allowed"]
-       38 GETUPVAL                         R8 4
-       39 GETTABLEKS                       R7 R8 K12 ["data"]
-       41 GETTABLEKS                       R6 R7 K13 ["domain"]
+       38 GETUPVAL                         R6 4
+       39 GETTABLEKS                       R6 R6 K12 ["data"]
+       41 GETTABLEKS                       R6 R6 K13 ["domain"]
        43 SETTABLEKS                       R6 R5 K9 ["Domain"]
        45 SETTABLEKS                       R5 R4 K5 ["Data"]
        47 SETTABLE                         R4 R2 R3
@@ -71,18 +71,18 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Thunks"]
-       22 GETTABLEKS                       R3 R4 K9 ["GetAllPluginPermissions"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Thunks"]
+       22 GETTABLEKS                       R3 R3 K9 ["GetAllPluginPermissions"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K10 [PROTO_1]
        26 CAPTURE                          VAL R1

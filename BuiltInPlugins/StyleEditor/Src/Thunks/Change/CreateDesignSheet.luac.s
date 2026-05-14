@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["createDesign"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["createDesign"]
         3 GETUPVAL                         R1 2
         4 CALL                             R0 1 1
         5 SETUPVAL                         R0 0
@@ -29,8 +29,8 @@ PROTO_1:
        24 SETTABLEKS                       R6 R5 K6 ["DoChange"]
        26 CALL                             R4 1 0
        27 JUMPIFNOT                        R3 ; [+11]
-       28 GETUPVAL                         R5 2
-       29 GETTABLEKS                       R4 R5 K10 ["createItemId"]
+       28 GETUPVAL                         R4 2
+       29 GETTABLEKS                       R4 R4 K10 ["createItemId"]
        31 MOVE                             R5 R3
        32 CALL                             R4 1 1
        33 GETUPVAL                         R7 3
@@ -51,42 +51,42 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R3 K7 ["getFFlagStyleEditorPluginStyleSheets"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStyleEditorPluginStyleSheets"]
        19 CALL                             R1 1 1
        20 CALL                             R1 0 1
        21 GETIMPORT                        R2 K4 [require]
-       23 GETTABLEKS                       R5 R0 K5 ["Src"]
-       25 GETTABLEKS                       R4 R5 K8 ["Util"]
-       27 GETTABLEKS                       R3 R4 K9 ["DesignHelpers"]
+       23 GETTABLEKS                       R3 R0 K5 ["Src"]
+       25 GETTABLEKS                       R3 R3 K8 ["Util"]
+       27 GETTABLEKS                       R3 R3 K9 ["DesignHelpers"]
        29 CALL                             R2 1 1
        30 GETIMPORT                        R3 K4 [require]
-       32 GETTABLEKS                       R6 R0 K5 ["Src"]
-       34 GETTABLEKS                       R5 R6 K8 ["Util"]
-       36 GETTABLEKS                       R4 R5 K10 ["TreeTableHelpers"]
+       32 GETTABLEKS                       R4 R0 K5 ["Src"]
+       34 GETTABLEKS                       R4 R4 K8 ["Util"]
+       36 GETTABLEKS                       R4 R4 K10 ["TreeTableHelpers"]
        38 CALL                             R3 1 1
-       39 GETTABLEKS                       R5 R0 K5 ["Src"]
-       41 GETTABLEKS                       R4 R5 K11 ["Actions"]
+       39 GETTABLEKS                       R4 R0 K5 ["Src"]
+       41 GETTABLEKS                       R4 R4 K11 ["Actions"]
        43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R7 R4 K12 ["Window"]
-       47 GETTABLEKS                       R6 R7 K13 ["SelectItem"]
+       45 GETTABLEKS                       R6 R4 K12 ["Window"]
+       47 GETTABLEKS                       R6 R6 K13 ["SelectItem"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K4 [require]
-       52 GETTABLEKS                       R9 R0 K5 ["Src"]
-       54 GETTABLEKS                       R8 R9 K14 ["Reducers"]
-       56 GETTABLEKS                       R7 R8 K15 ["RootReducer"]
+       52 GETTABLEKS                       R7 R0 K5 ["Src"]
+       54 GETTABLEKS                       R7 R7 K14 ["Reducers"]
+       56 GETTABLEKS                       R7 R7 K15 ["RootReducer"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K4 [require]
-       61 GETTABLEKS                       R10 R0 K5 ["Src"]
-       63 GETTABLEKS                       R9 R10 K16 ["Thunks"]
-       65 GETTABLEKS                       R8 R9 K17 ["Types"]
+       61 GETTABLEKS                       R8 R0 K5 ["Src"]
+       63 GETTABLEKS                       R8 R8 K16 ["Thunks"]
+       65 GETTABLEKS                       R8 R8 K17 ["Types"]
        67 CALL                             R7 1 1
        68 DUPCLOSURE                       R8 K18 [PROTO_2]
        69 CAPTURE                          VAL R1

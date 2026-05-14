@@ -23,48 +23,48 @@ PROTO_2:
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useState"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["Signal"]
-        6 GETTABLEKS                       R2 R3 K2 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Signal"]
+        6 GETTABLEKS                       R2 R2 K2 ["new"]
         8 CALL                             R1 1 1
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K0 ["useState"]
-       12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R4 R5 K1 ["Signal"]
-       15 GETTABLEKS                       R3 R4 K2 ["new"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K0 ["useState"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K1 ["Signal"]
+       15 GETTABLEKS                       R3 R3 K2 ["new"]
        17 CALL                             R2 1 1
-       18 GETUPVAL                         R4 0
-       19 GETTABLEKS                       R3 R4 K0 ["useState"]
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K1 ["Signal"]
-       24 GETTABLEKS                       R4 R5 K2 ["new"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K0 ["useState"]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K1 ["Signal"]
+       24 GETTABLEKS                       R4 R4 K2 ["new"]
        26 CALL                             R3 1 1
-       27 GETUPVAL                         R5 2
-       28 GETTABLEKS                       R4 R5 K3 ["useEventConnection"]
-       30 GETTABLEKS                       R6 R0 K4 ["dockWidget"]
-       32 GETTABLEKS                       R5 R6 K5 ["InputBegan"]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K3 ["useEventConnection"]
+       30 GETTABLEKS                       R5 R0 K4 ["dockWidget"]
+       32 GETTABLEKS                       R5 R5 K5 ["InputBegan"]
        34 NEWCLOSURE                       R6 P0
        35 CAPTURE                          VAL R1
        36 NEWTABLE                         R7 0 1
        38 MOVE                             R8 R1
        39 SETLIST                          R7 R8 1 [1]
        41 CALL                             R4 3 0
-       42 GETUPVAL                         R5 2
-       43 GETTABLEKS                       R4 R5 K3 ["useEventConnection"]
-       45 GETTABLEKS                       R6 R0 K4 ["dockWidget"]
-       47 GETTABLEKS                       R5 R6 K6 ["InputChanged"]
+       42 GETUPVAL                         R4 2
+       43 GETTABLEKS                       R4 R4 K3 ["useEventConnection"]
+       45 GETTABLEKS                       R5 R0 K4 ["dockWidget"]
+       47 GETTABLEKS                       R5 R5 K6 ["InputChanged"]
        49 NEWCLOSURE                       R6 P1
        50 CAPTURE                          VAL R2
        51 NEWTABLE                         R7 0 1
        53 MOVE                             R8 R2
        54 SETLIST                          R7 R8 1 [1]
        56 CALL                             R4 3 0
-       57 GETUPVAL                         R5 2
-       58 GETTABLEKS                       R4 R5 K3 ["useEventConnection"]
-       60 GETTABLEKS                       R6 R0 K4 ["dockWidget"]
-       62 GETTABLEKS                       R5 R6 K7 ["InputEnded"]
+       57 GETUPVAL                         R4 2
+       58 GETTABLEKS                       R4 R4 K3 ["useEventConnection"]
+       60 GETTABLEKS                       R5 R0 K4 ["dockWidget"]
+       62 GETTABLEKS                       R5 R5 K7 ["InputEnded"]
        64 NEWCLOSURE                       R6 P2
        65 CAPTURE                          VAL R3
        66 NEWTABLE                         R7 0 1
@@ -72,10 +72,10 @@ PROTO_3:
        69 SETLIST                          R7 R8 1 [1]
        71 CALL                             R4 3 0
        72 GETUPVAL                         R4 3
-       73 GETUPVAL                         R8 1
-       74 GETTABLEKS                       R7 R8 K8 ["Components"]
-       76 GETTABLEKS                       R6 R7 K9 ["Contexts"]
-       78 GETTABLEKS                       R5 R6 K10 ["WindowInputContextProvider"]
+       73 GETUPVAL                         R5 1
+       74 GETTABLEKS                       R5 R5 K8 ["Components"]
+       76 GETTABLEKS                       R5 R5 K9 ["Contexts"]
+       78 GETTABLEKS                       R5 R5 K10 ["WindowInputContextProvider"]
        80 DUPTABLE                         R6 K14 [{"inputBeganSignal", "inputChangedSignal", "inputEndedSignal"}]
        81 SETTABLEKS                       R1 R6 K11 ["inputBeganSignal"]
        83 SETTABLEKS                       R2 R6 K12 ["inputChangedSignal"]
@@ -85,8 +85,8 @@ PROTO_3:
        90 RETURN                           R4 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["fire"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fire"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
@@ -97,8 +97,8 @@ PROTO_5:
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["MouseEnterStudioViewport"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["MouseEnterStudioViewport"]
         3 DUPCLOSURE                       R2 K1 [PROTO_4]
         4 CAPTURE                          UPVAL U1
         5 NAMECALL                         R0 R0 K2 ["Connect"]
@@ -118,21 +118,21 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Explorer"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Explorer"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["React"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["React"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["ReactUtils"]
+       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["ReactUtils"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R8 R1 K14 ["Src"]
-       38 GETTABLEKS                       R7 R8 K15 ["SharedFeatures"]
-       40 GETTABLEKS                       R6 R7 K16 ["createPluginRpcMethod"]
+       36 GETTABLEKS                       R6 R1 K14 ["Src"]
+       38 GETTABLEKS                       R6 R6 K15 ["SharedFeatures"]
+       40 GETTABLEKS                       R6 R6 K16 ["createPluginRpcMethod"]
        42 CALL                             R5 1 1
        43 GETTABLEKS                       R6 R3 K17 ["createElement"]
        45 NEWTABLE                         R7 2 0

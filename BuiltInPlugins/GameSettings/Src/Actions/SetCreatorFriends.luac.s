@@ -6,8 +6,8 @@ PROTO_0:
         5 JUMPIFEQKS                       R3 K2 ["table"] ; [+2]
         7 LOADB                            R2 0 +1
         8 LOADB                            R2 1
-        9 GETIMPORT                        R7 K4 [script]
-       11 GETTABLEKS                       R4 R7 K5 ["Name"]
+        9 GETIMPORT                        R4 K4 [script]
+       11 GETTABLEKS                       R4 R4 K5 ["Name"]
        13 LOADK                            R5 K6 [" requires friends to be a table, not "]
        14 FASTCALL1                        TYPEOF R0 ; [+3]
        15 MOVE                             R7 R0
@@ -28,8 +28,8 @@ PROTO_0:
        35 JUMPIFEQKS                       R8 K11 ["number"] ; [+2]
        37 LOADB                            R7 0 +1
        38 LOADB                            R7 1
-       39 GETIMPORT                        R12 K4 [script]
-       41 GETTABLEKS                       R9 R12 K5 ["Name"]
+       39 GETIMPORT                        R9 K4 [script]
+       41 GETTABLEKS                       R9 R9 K5 ["Name"]
        43 LOADK                            R10 K12 [" requires a table of numbers for friends, not "]
        44 FASTCALL1                        TYPEOF R5 ; [+3]
        45 MOVE                             R12 R5
@@ -46,19 +46,19 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R3 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       15 CALL                             R3 1 1
-       16 GETTABLEKS                       R2 R3 K7 ["Util"]
-       18 GETTABLEKS                       R1 R2 K8 ["Action"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Util"]
+       18 GETTABLEKS                       R1 R1 K8 ["Action"]
        20 MOVE                             R2 R1
-       21 GETIMPORT                        R4 K1 [script]
-       23 GETTABLEKS                       R3 R4 K9 ["Name"]
+       21 GETIMPORT                        R3 K1 [script]
+       23 GETTABLEKS                       R3 R3 K9 ["Name"]
        25 DUPCLOSURE                       R4 K10 [PROTO_0]
        26 CALL                             R2 2 -1
        27 RETURN                           R2 -1

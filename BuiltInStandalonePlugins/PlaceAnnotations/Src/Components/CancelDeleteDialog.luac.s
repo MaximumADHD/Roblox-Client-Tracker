@@ -4,8 +4,8 @@ PROTO_0:
         3 CALL                             R1 1 1
         4 GETUPVAL                         R3 1
         5 JUMPIFNOT                        R3 ; [+8]
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R2 R3 K0 ["use"]
+        6 GETUPVAL                         R2 2
+        7 GETTABLEKS                       R2 R2 K0 ["use"]
         9 CALL                             R2 0 1
        10 NAMECALL                         R2 R2 K1 ["get"]
        12 CALL                             R2 1 1
@@ -13,8 +13,8 @@ PROTO_0:
        14 LOADNIL                          R2
        15 GETUPVAL                         R3 3
        16 CALL                             R3 0 1
-       17 GETUPVAL                         R5 4
-       18 GETTABLEKS                       R4 R5 K2 ["createElement"]
+       17 GETUPVAL                         R4 4
+       18 GETTABLEKS                       R4 R4 K2 ["createElement"]
        20 GETUPVAL                         R5 5
        21 DUPTABLE                         R6 K10 [{"Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
        22 LOADK                            R9 K11 ["ConfirmDeleteDialog"]
@@ -39,8 +39,8 @@ PROTO_0:
        51 SETTABLEKS                       R7 R6 K9 ["Size"]
        53 DUPTABLE                         R7 K23 [{"StyleLink", "Contents", "Provider"}]
        54 JUMPIFNOT                        R2 ; [+9]
-       55 GETUPVAL                         R9 4
-       56 GETTABLEKS                       R8 R9 K2 ["createElement"]
+       55 GETUPVAL                         R8 4
+       56 GETTABLEKS                       R8 R8 K2 ["createElement"]
        58 LOADK                            R9 K20 ["StyleLink"]
        59 DUPTABLE                         R10 K25 [{"StyleSheet"}]
        60 SETTABLEKS                       R2 R10 K24 ["StyleSheet"]
@@ -50,8 +50,8 @@ PROTO_0:
        65 SETTABLEKS                       R8 R7 K20 ["StyleLink"]
        67 GETUPVAL                         R9 1
        68 JUMPIFNOT                        R9 ; [+19]
-       69 GETUPVAL                         R9 4
-       70 GETTABLEKS                       R8 R9 K2 ["createElement"]
+       69 GETUPVAL                         R8 4
+       70 GETTABLEKS                       R8 R8 K2 ["createElement"]
        72 GETUPVAL                         R9 6
        73 DUPTABLE                         R10 K28 [{"Text", "OnDelete", "OnCancel"}]
        74 GETTABLEKS                       R11 R0 K26 ["Text"]
@@ -66,18 +66,18 @@ PROTO_0:
        89 SETTABLEKS                       R8 R7 K21 ["Contents"]
        91 GETUPVAL                         R9 1
        92 JUMPIF                           R9 ; [+36]
-       93 GETUPVAL                         R9 4
-       94 GETTABLEKS                       R8 R9 K2 ["createElement"]
-       96 GETUPVAL                         R10 7
-       97 GETTABLEKS                       R9 R10 K29 ["FoundationProvider"]
+       93 GETUPVAL                         R8 4
+       94 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       96 GETUPVAL                         R9 7
+       97 GETTABLEKS                       R9 R9 K29 ["FoundationProvider"]
        99 DUPTABLE                         R10 K31 [{"theme"}]
       100 MOVE                             R11 R3
       101 JUMPIFNOT                        R11 ; [+2]
       102 GETTABLEKS                       R11 R3 K32 ["Name"]
       104 SETTABLEKS                       R11 R10 K30 ["theme"]
       106 DUPTABLE                         R11 K33 [{"Contents"}]
-      107 GETUPVAL                         R13 4
-      108 GETTABLEKS                       R12 R13 K2 ["createElement"]
+      107 GETUPVAL                         R12 4
+      108 GETTABLEKS                       R12 R12 K2 ["createElement"]
       110 GETUPVAL                         R13 6
       111 DUPTABLE                         R14 K28 [{"Text", "OnDelete", "OnCancel"}]
       112 GETTABLEKS                       R15 R0 K26 ["Text"]
@@ -102,36 +102,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K10 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Hooks"]
-       34 GETTABLEKS                       R5 R6 K12 ["useTheme"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Hooks"]
+       34 GETTABLEKS                       R5 R5 K12 ["useTheme"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R2 K13 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K14 ["Localization"]
        41 GETTABLEKS                       R7 R5 K15 ["Design"]
-       43 GETTABLEKS                       R9 R2 K16 ["UI"]
-       45 GETTABLEKS                       R8 R9 K17 ["Dialog"]
+       43 GETTABLEKS                       R8 R2 K16 ["UI"]
+       45 GETTABLEKS                       R8 R8 K17 ["Dialog"]
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R12 R0 K10 ["Src"]
-       51 GETTABLEKS                       R11 R12 K18 ["Components"]
-       53 GETTABLEKS                       R10 R11 K19 ["CancelDeleteContents"]
+       49 GETTABLEKS                       R10 R0 K10 ["Src"]
+       51 GETTABLEKS                       R10 R10 K18 ["Components"]
+       53 GETTABLEKS                       R10 R10 K19 ["CancelDeleteContents"]
        55 CALL                             R9 1 1
        56 GETIMPORT                        R10 K5 [require]
-       58 GETTABLEKS                       R13 R0 K20 ["Bin"]
-       60 GETTABLEKS                       R12 R13 K21 ["Common"]
-       62 GETTABLEKS                       R11 R12 K22 ["defineLuaFlags"]
+       58 GETTABLEKS                       R11 R0 K20 ["Bin"]
+       60 GETTABLEKS                       R11 R11 K21 ["Common"]
+       62 GETTABLEKS                       R11 R11 K22 ["defineLuaFlags"]
        64 CALL                             R10 1 1
        65 GETTABLEKS                       R11 R10 K23 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
        67 DUPCLOSURE                       R12 K24 [PROTO_0]

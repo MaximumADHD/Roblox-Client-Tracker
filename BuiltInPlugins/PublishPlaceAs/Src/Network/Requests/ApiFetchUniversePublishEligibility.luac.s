@@ -35,8 +35,8 @@ PROTO_1:
        18 CALL                             R7 2 0
        19 FORGLOOP                         R2 2 ; [-14]
        21 DUPTABLE                         R2 K8 [{"Url", "Method"}]
-       22 GETUPVAL                         R8 0
-       23 GETTABLEKS                       R7 R8 K9 ["BuildRobloxUrl"]
+       22 GETUPVAL                         R7 0
+       23 GETTABLEKS                       R7 R7 K9 ["BuildRobloxUrl"]
        25 LOADK                            R8 K10 ["develop"]
        26 LOADK                            R9 K11 ["v2/universes/canUserPublish"]
        27 CALL                             R7 2 1
@@ -50,8 +50,8 @@ PROTO_1:
        36 SETTABLEKS                       R3 R2 K6 ["Url"]
        38 LOADK                            R3 K16 ["GET"]
        39 SETTABLEKS                       R3 R2 K7 ["Method"]
-       41 GETUPVAL                         R4 0
-       42 GETTABLEKS                       R3 R4 K17 ["RequestInternal"]
+       41 GETUPVAL                         R3 0
+       42 GETTABLEKS                       R3 R3 K17 ["RequestInternal"]
        44 MOVE                             R4 R2
        45 CALL                             R3 1 1
        46 DUPCLOSURE                       R5 K18 [PROTO_0]
@@ -62,15 +62,15 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Network"]
-       17 GETTABLEKS                       R2 R3 K7 ["Http"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Network"]
+       17 GETTABLEKS                       R2 R2 K7 ["Http"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K9 [game]
        22 LOADK                            R4 K10 ["HttpService"]

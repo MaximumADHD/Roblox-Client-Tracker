@@ -11,16 +11,16 @@ MAIN:
        13 NAMECALL                         R1 R1 K7 ["FindFirstAncestorWhichIsA"]
        15 CALL                             R1 2 1
        16 GETIMPORT                        R2 K9 [require]
-       18 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K11 ["TestLoader"]
+       18 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K11 ["TestLoader"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K12 ["isCli"]
        25 CALL                             R3 0 1
        26 JUMPIFNOT                        R3 ; [+115]
        27 GETIMPORT                        R3 K9 [require]
-       29 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["Dev"]
-       33 GETTABLEKS                       R4 R5 K14 ["JestGlobals"]
+       29 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K13 ["Dev"]
+       33 GETTABLEKS                       R4 R4 K14 ["JestGlobals"]
        35 CALL                             R3 1 1
        36 GETTABLEKS                       R4 R3 K15 ["jest"]
        38 DUPTABLE                         R5 K20 [{"Spotlight", "Panels", "Widgets", "RibbonConfiguration"}]
@@ -41,9 +41,9 @@ MAIN:
        61 SETTABLEKS                       R7 R6 K26 ["FocusAsync"]
        63 SETTABLEKS                       R6 R5 K17 ["Panels"]
        65 DUPTABLE                         R6 K29 [{"GetWidgetAsync"}]
-       66 GETTABLEKS                       R8 R4 K25 ["fn"]
-       68 CALL                             R8 0 1
-       69 GETTABLEKS                       R7 R8 K30 ["mockReturnValue"]
+       66 GETTABLEKS                       R7 R4 K25 ["fn"]
+       68 CALL                             R7 0 1
+       69 GETTABLEKS                       R7 R7 K30 ["mockReturnValue"]
        71 DUPTABLE                         R8 K32 [{"Exists"}]
        72 LOADB                            R9 1
        73 SETTABLEKS                       R9 R8 K31 ["Exists"]
@@ -51,9 +51,9 @@ MAIN:
        76 SETTABLEKS                       R7 R6 K28 ["GetWidgetAsync"]
        78 SETTABLEKS                       R6 R5 K18 ["Widgets"]
        80 DUPTABLE                         R6 K34 [{"GetRibbonDefinitionAsync"}]
-       81 GETTABLEKS                       R8 R4 K25 ["fn"]
-       83 CALL                             R8 0 1
-       84 GETTABLEKS                       R7 R8 K30 ["mockReturnValue"]
+       81 GETTABLEKS                       R7 R4 K25 ["fn"]
+       83 CALL                             R7 0 1
+       84 GETTABLEKS                       R7 R7 K30 ["mockReturnValue"]
        86 DUPTABLE                         R8 K37 [{"MezzanineControls", "TabControls"}]
        87 DUPTABLE                         R9 K40 [{"Left", "Right"}]
        88 DUPTABLE                         R10 K42 [{"Controls"}]

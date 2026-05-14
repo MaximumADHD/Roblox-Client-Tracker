@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Actor"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Actor"]
         5 GETUPVAL                         R1 1
         6 NAMECALL                         R1 R1 K2 ["Get"]
         8 CALL                             R1 1 1
@@ -30,8 +30,8 @@ PROTO_1:
         2 GETTABLEKS                       R2 R1 K1 ["IsSelectedInstanceValid"]
         4 GETTABLEKS                       R3 R1 K2 ["OnValidSelection"]
         6 GETTABLEKS                       R4 R1 K3 ["OnInvalidSelection"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["SelectionChanged"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["SelectionChanged"]
        11 NEWCLOSURE                       R7 P0
        12 CAPTURE                          VAL R0
        13 CAPTURE                          UPVAL U0
@@ -57,8 +57,8 @@ PROTO_3:
 
 PROTO_4:
         0 DUPTABLE                         R2 K1 [{"Actor"}]
-        1 GETTABLEKS                       R4 R0 K2 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["Actor"]
+        1 GETTABLEKS                       R3 R0 K2 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["Actor"]
         5 SETTABLEKS                       R3 R2 K0 ["Actor"]
         7 RETURN                           R2 1
 
@@ -69,16 +69,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]

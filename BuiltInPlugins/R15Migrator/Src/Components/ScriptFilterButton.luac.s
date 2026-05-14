@@ -23,16 +23,16 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 LOADK                            R2 K0 ["R6"]
         2 MOVE                             R3 R0
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["Filters"]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K2 ["OnFilterSelected"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["Filters"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K2 ["OnFilterSelected"]
         9 CALL                             R1 4 1
        10 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Localization"]
         5 GETTABLEKS                       R2 R0 K2 ["Plugin"]
         7 NAMECALL                         R2 R2 K3 ["get"]
@@ -115,8 +115,8 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R0 K1 ["props"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K7 [{"LayoutOrder", "Size", "LeftIcon", "OnClick"}]
         9 GETTABLEKS                       R6 R2 K3 ["LayoutOrder"]
@@ -137,12 +137,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
@@ -153,21 +153,21 @@ MAIN:
        33 GETTABLEKS                       R9 R2 K15 ["UI"]
        35 GETTABLEKS                       R10 R9 K16 ["IconButton"]
        37 GETTABLEKS                       R11 R9 K17 ["showContextMenu"]
-       39 GETTABLEKS                       R13 R0 K18 ["Src"]
-       41 GETTABLEKS                       R12 R13 K19 ["Actions"]
-       43 GETTABLEKS                       R14 R0 K18 ["Src"]
-       45 GETTABLEKS                       R13 R14 K20 ["Components"]
-       47 GETTABLEKS                       R15 R0 K18 ["Src"]
-       49 GETTABLEKS                       R14 R15 K21 ["Util"]
+       39 GETTABLEKS                       R12 R0 K18 ["Src"]
+       41 GETTABLEKS                       R12 R12 K19 ["Actions"]
+       43 GETTABLEKS                       R13 R0 K18 ["Src"]
+       45 GETTABLEKS                       R13 R13 K20 ["Components"]
+       47 GETTABLEKS                       R14 R0 K18 ["Src"]
+       49 GETTABLEKS                       R14 R14 K21 ["Util"]
        51 GETIMPORT                        R15 K5 [require]
        53 GETTABLEKS                       R16 R14 K22 ["ScriptReplacement"]
        55 CALL                             R15 1 1
        56 GETIMPORT                        R16 K5 [require]
-       58 GETTABLEKS                       R18 R0 K18 ["Src"]
-       60 GETTABLEKS                       R17 R18 K23 ["Types"]
+       58 GETTABLEKS                       R17 R0 K18 ["Src"]
+       60 GETTABLEKS                       R17 R17 K23 ["Types"]
        62 CALL                             R16 1 1
-       63 GETTABLEKS                       R18 R0 K18 ["Src"]
-       65 GETTABLEKS                       R17 R18 K21 ["Util"]
+       63 GETTABLEKS                       R17 R0 K18 ["Src"]
+       65 GETTABLEKS                       R17 R17 K21 ["Util"]
        67 GETTABLEKS                       R18 R1 K24 ["PureComponent"]
        69 LOADK                            R20 K25 ["ScriptFilterButton"]
        70 NAMECALL                         R18 R18 K26 ["extend"]
@@ -187,8 +187,8 @@ MAIN:
        87 DUPTABLE                         R21 K35 [{"Localization", "Stylizer", "Plugin"}]
        88 GETTABLEKS                       R22 R3 K32 ["Localization"]
        90 SETTABLEKS                       R22 R21 K32 ["Localization"]
-       92 GETTABLEKS                       R23 R2 K36 ["Style"]
-       94 GETTABLEKS                       R22 R23 K33 ["Stylizer"]
+       92 GETTABLEKS                       R22 R2 K36 ["Style"]
+       94 GETTABLEKS                       R22 R22 K33 ["Stylizer"]
        96 SETTABLEKS                       R22 R21 K33 ["Stylizer"]
        98 GETTABLEKS                       R22 R3 K34 ["Plugin"]
       100 SETTABLEKS                       R22 R21 K34 ["Plugin"]

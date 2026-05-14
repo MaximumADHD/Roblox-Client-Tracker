@@ -30,15 +30,15 @@ PROTO_3:
        12 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["status"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["status"]
         3 JUMPIFEQKS                       R0 K1 ["ok"] ; [+2]
         5 RETURN                           R0 0
         6 GETUPVAL                         R0 1
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["Unloading"]
-       10 GETUPVAL                         R3 3
-       11 GETTABLEKS                       R2 R3 K3 ["authorizerManager"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["Unloading"]
+       10 GETUPVAL                         R2 3
+       11 GETTABLEKS                       R2 R2 K3 ["authorizerManager"]
        13 CALL                             R0 2 1
        14 NEWCLOSURE                       R2 P0
        15 CAPTURE                          UPVAL U4
@@ -83,8 +83,8 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Unloading"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Unloading"]
         4 LOADNIL                          R2
         5 CALL                             R0 2 1
         6 NEWCLOSURE                       R2 P0
@@ -103,27 +103,27 @@ PROTO_10:
         3 CALL                             R0 1 1
         4 NAMECALL                         R0 R0 K1 ["get"]
         6 CALL                             R0 1 1
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["useState"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["useState"]
        10 LOADNIL                          R2
        11 CALL                             R1 1 2
        12 GETUPVAL                         R3 2
        13 CALL                             R3 0 1
        14 JUMPIFNOT                        R3 ; [+35]
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K3 ["useContext"]
-       18 GETUPVAL                         R5 3
-       19 GETTABLEKS                       R4 R5 K4 ["Context"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K3 ["useContext"]
+       18 GETUPVAL                         R4 3
+       19 GETTABLEKS                       R4 R4 K4 ["Context"]
        21 CALL                             R3 1 1
        22 GETTABLEKS                       R4 R3 K5 ["persistedIntegrations"]
        24 GETTABLEKS                       R5 R4 K6 ["initialReadTask"]
-       26 GETUPVAL                         R7 1
-       27 GETTABLEKS                       R6 R7 K3 ["useContext"]
-       29 GETUPVAL                         R8 4
-       30 GETTABLEKS                       R7 R8 K4 ["Context"]
+       26 GETUPVAL                         R6 1
+       27 GETTABLEKS                       R6 R6 K3 ["useContext"]
+       29 GETUPVAL                         R7 4
+       30 GETTABLEKS                       R7 R7 K4 ["Context"]
        32 CALL                             R6 1 1
-       33 GETUPVAL                         R8 1
-       34 GETTABLEKS                       R7 R8 K7 ["useEffect"]
+       33 GETUPVAL                         R7 1
+       34 GETTABLEKS                       R7 R7 K7 ["useEffect"]
        36 NEWCLOSURE                       R8 P0
        37 CAPTURE                          VAL R5
        38 CAPTURE                          UPVAL U5
@@ -136,8 +136,8 @@ PROTO_10:
        46 SETLIST                          R9 R10 2 [1]
        48 CALL                             R7 2 0
        49 RETURN                           R1 1
-       50 GETUPVAL                         R4 1
-       51 GETTABLEKS                       R3 R4 K7 ["useEffect"]
+       50 GETUPVAL                         R3 1
+       51 GETTABLEKS                       R3 R3 K7 ["useEffect"]
        53 NEWCLOSURE                       R4 P1
        54 CAPTURE                          UPVAL U5
        55 CAPTURE                          VAL R0
@@ -152,10 +152,10 @@ PROTO_11:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 GETUPVAL                         R2 1
-        3 GETUPVAL                         R6 2
-        4 GETTABLEKS                       R5 R6 K0 ["Components"]
-        6 GETTABLEKS                       R4 R5 K1 ["Contexts"]
-        8 GETTABLEKS                       R3 R4 K2 ["McpClientContextProvider"]
+        3 GETUPVAL                         R3 2
+        4 GETTABLEKS                       R3 R3 K0 ["Components"]
+        6 GETTABLEKS                       R3 R3 K1 ["Contexts"]
+        8 GETTABLEKS                       R3 R3 K2 ["McpClientContextProvider"]
        10 DUPTABLE                         R4 K4 [{"runWithClient"}]
        11 SETTABLEKS                       R1 R4 K3 ["runWithClient"]
        13 GETTABLEKS                       R5 R0 K5 ["children"]
@@ -169,39 +169,39 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AssistantUI"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["ModelContextProtocol"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["ModelContextProtocol"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["React"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["React"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R7 R0 K11 ["Src"]
-       39 GETTABLEKS                       R6 R7 K12 ["Types"]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Types"]
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K5 [require]
-       44 GETTABLEKS                       R9 R0 K11 ["Src"]
-       46 GETTABLEKS                       R8 R9 K13 ["Host"]
-       48 GETTABLEKS                       R7 R8 K14 ["startMcpHost"]
+       44 GETTABLEKS                       R7 R0 K11 ["Src"]
+       46 GETTABLEKS                       R7 R7 K13 ["Host"]
+       48 GETTABLEKS                       R7 R7 K14 ["startMcpHost"]
        50 CALL                             R6 1 1
-       51 GETTABLEKS                       R9 R1 K15 ["Flags"]
-       53 GETTABLEKS                       R8 R9 K16 ["Shared"]
-       55 GETTABLEKS                       R7 R8 K17 ["FFlagMCPAssistantManagementMenu"]
-       57 GETTABLEKS                       R10 R1 K18 ["Components"]
-       59 GETTABLEKS                       R9 R10 K19 ["Contexts"]
-       61 GETTABLEKS                       R8 R9 K20 ["McpAuthorizerManagerContext"]
-       63 GETTABLEKS                       R11 R1 K18 ["Components"]
-       65 GETTABLEKS                       R10 R11 K19 ["Contexts"]
-       67 GETTABLEKS                       R9 R10 K21 ["PersistedIntegrationContext"]
+       51 GETTABLEKS                       R7 R1 K15 ["Flags"]
+       53 GETTABLEKS                       R7 R7 K16 ["Shared"]
+       55 GETTABLEKS                       R7 R7 K17 ["FFlagMCPAssistantManagementMenu"]
+       57 GETTABLEKS                       R8 R1 K18 ["Components"]
+       59 GETTABLEKS                       R8 R8 K19 ["Contexts"]
+       61 GETTABLEKS                       R8 R8 K20 ["McpAuthorizerManagerContext"]
+       63 GETTABLEKS                       R9 R1 K18 ["Components"]
+       65 GETTABLEKS                       R9 R9 K19 ["Contexts"]
+       67 GETTABLEKS                       R9 R9 K21 ["PersistedIntegrationContext"]
        69 GETTABLEKS                       R10 R6 K22 ["promiseMcpHost"]
        71 GETTABLEKS                       R11 R2 K23 ["ContextServices"]
        73 GETTABLEKS                       R12 R11 K24 ["Plugin"]

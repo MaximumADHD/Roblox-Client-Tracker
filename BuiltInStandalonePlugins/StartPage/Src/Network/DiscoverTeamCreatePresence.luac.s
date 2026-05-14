@@ -102,16 +102,16 @@ PROTO_6:
        45 SETTABLEKS                       R5 R4 K8 ["format"]
        47 LOADB                            R5 1
        48 SETTABLEKS                       R5 R4 K9 ["isCircular"]
-       50 GETUPVAL                         R6 2
-       51 GETTABLEKS                       R5 R6 K13 ["new"]
+       50 GETUPVAL                         R5 2
+       51 GETTABLEKS                       R5 R5 K13 ["new"]
        53 CALL                             R5 0 1
        54 GETTABLEKS                       R6 R5 K14 ["composeUrl"]
-       56 GETUPVAL                         R9 3
-       57 GETTABLEKS                       R8 R9 K15 ["AVATAR_ICON_URL"]
-       59 GETTABLEKS                       R7 R8 K16 ["Prefix"]
-       61 GETUPVAL                         R10 3
-       62 GETTABLEKS                       R9 R10 K15 ["AVATAR_ICON_URL"]
-       64 GETTABLEKS                       R8 R9 K17 ["Url"]
+       56 GETUPVAL                         R7 3
+       57 GETTABLEKS                       R7 R7 K15 ["AVATAR_ICON_URL"]
+       59 GETTABLEKS                       R7 R7 K16 ["Prefix"]
+       61 GETUPVAL                         R8 3
+       62 GETTABLEKS                       R8 R8 K15 ["AVATAR_ICON_URL"]
+       64 GETTABLEKS                       R8 R8 K17 ["Url"]
        66 CALL                             R8 0 1
        67 MOVE                             R9 R4
        68 CALL                             R6 3 1
@@ -155,12 +155,12 @@ PROTO_8:
         5 SETTABLEKS                       R0 R1 K1 ["ids"]
         7 LOADN                            R2 10
         8 SETTABLEKS                       R2 R1 K2 ["maxUsers"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K4 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-       13 GETTABLEKS                       R3 R5 K5 ["Prefix"]
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K4 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-       18 GETTABLEKS                       R4 R5 K6 ["Url"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K4 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+       13 GETTABLEKS                       R3 R3 K5 ["Prefix"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K4 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+       18 GETTABLEKS                       R4 R4 K6 ["Url"]
        20 CALL                             R4 0 1
        21 CONCAT                           R2 R3 R4
        22 MOVE                             R3 R2
@@ -208,47 +208,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K6 ["Src"]
-       21 GETTABLEKS                       R3 R4 K9 ["Types"]
+       19 GETTABLEKS                       R3 R0 K6 ["Src"]
+       21 GETTABLEKS                       R3 R3 K9 ["Types"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R6 R0 K6 ["Src"]
-       28 GETTABLEKS                       R5 R6 K10 ["Models"]
-       30 GETTABLEKS                       R4 R5 K11 ["ApiArrayResponseThumbnailResponse"]
+       26 GETTABLEKS                       R4 R0 K6 ["Src"]
+       28 GETTABLEKS                       R4 R4 K10 ["Models"]
+       30 GETTABLEKS                       R4 R4 K11 ["ApiArrayResponseThumbnailResponse"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K5 [require]
-       35 GETTABLEKS                       R7 R0 K6 ["Src"]
-       37 GETTABLEKS                       R6 R7 K10 ["Models"]
-       39 GETTABLEKS                       R5 R6 K12 ["MultiGetUniversesActiveSessionMembersResponse"]
+       35 GETTABLEKS                       R5 R0 K6 ["Src"]
+       37 GETTABLEKS                       R5 R5 K10 ["Models"]
+       39 GETTABLEKS                       R5 R5 K12 ["MultiGetUniversesActiveSessionMembersResponse"]
        41 CALL                             R4 1 1
        42 GETIMPORT                        R5 K5 [require]
-       44 GETTABLEKS                       R7 R0 K13 ["Packages"]
-       46 GETTABLEKS                       R6 R7 K14 ["Framework"]
+       44 GETTABLEKS                       R6 R0 K13 ["Packages"]
+       46 GETTABLEKS                       R6 R6 K14 ["Framework"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K5 [require]
-       51 GETTABLEKS                       R9 R0 K6 ["Src"]
-       53 GETTABLEKS                       R8 R9 K15 ["Network"]
-       55 GETTABLEKS                       R7 R8 K16 ["Urls"]
+       51 GETTABLEKS                       R7 R0 K6 ["Src"]
+       53 GETTABLEKS                       R7 R7 K15 ["Network"]
+       55 GETTABLEKS                       R7 R7 K16 ["Urls"]
        57 CALL                             R6 1 1
-       58 GETIMPORT                        R8 K5 [require]
-       60 GETTABLEKS                       R11 R0 K6 ["Src"]
-       62 GETTABLEKS                       R10 R11 K17 ["Util"]
-       64 GETTABLEKS                       R9 R10 K18 ["Services"]
-       66 CALL                             R8 1 1
-       67 GETTABLEKS                       R7 R8 K19 ["Networking"]
+       58 GETIMPORT                        R7 K5 [require]
+       60 GETTABLEKS                       R8 R0 K6 ["Src"]
+       62 GETTABLEKS                       R8 R8 K17 ["Util"]
+       64 GETTABLEKS                       R8 R8 K18 ["Services"]
+       66 CALL                             R7 1 1
+       67 GETTABLEKS                       R7 R7 K19 ["Networking"]
        69 GETIMPORT                        R8 K5 [require]
-       71 GETTABLEKS                       R11 R0 K6 ["Src"]
-       73 GETTABLEKS                       R10 R11 K17 ["Util"]
-       75 GETTABLEKS                       R9 R10 K20 ["createResponseValidator"]
+       71 GETTABLEKS                       R9 R0 K6 ["Src"]
+       73 GETTABLEKS                       R9 R9 K17 ["Util"]
+       75 GETTABLEKS                       R9 R9 K20 ["createResponseValidator"]
        77 CALL                             R8 1 1
-       78 GETTABLEKS                       R10 R5 K21 ["RobloxAPI"]
-       80 GETTABLEKS                       R9 R10 K22 ["Url"]
+       78 GETTABLEKS                       R9 R5 K21 ["RobloxAPI"]
+       80 GETTABLEKS                       R9 R9 K22 ["Url"]
        82 GETTABLEKS                       R10 R7 K23 ["new"]
        84 DUPTABLE                         R11 K26 [{"isInternal", "loggingLevel"}]
        85 LOADB                            R12 1
@@ -256,21 +256,21 @@ MAIN:
        88 SETTABLEKS                       R1 R11 K25 ["loggingLevel"]
        90 CALL                             R10 1 1
        91 GETIMPORT                        R11 K5 [require]
-       93 GETTABLEKS                       R14 R0 K6 ["Src"]
-       95 GETTABLEKS                       R13 R14 K17 ["Util"]
-       97 GETTABLEKS                       R12 R13 K18 ["Services"]
+       93 GETTABLEKS                       R12 R0 K6 ["Src"]
+       95 GETTABLEKS                       R12 R12 K17 ["Util"]
+       97 GETTABLEKS                       R12 R12 K18 ["Services"]
        99 CALL                             R11 1 1
       100 GETTABLEKS                       R12 R11 K27 ["StartPageManager"]
       102 GETIMPORT                        R13 K5 [require]
-      104 GETTABLEKS                       R15 R0 K13 ["Packages"]
-      106 GETTABLEKS                       R14 R15 K28 ["Dash"]
+      104 GETTABLEKS                       R14 R0 K13 ["Packages"]
+      106 GETTABLEKS                       R14 R14 K28 ["Dash"]
       108 CALL                             R13 1 1
       109 GETTABLEKS                       R14 R13 K29 ["collect"]
       111 GETTABLEKS                       R15 R13 K30 ["collectArray"]
       113 GETIMPORT                        R16 K5 [require]
-      115 GETTABLEKS                       R19 R0 K6 ["Src"]
-      117 GETTABLEKS                       R18 R19 K15 ["Network"]
-      119 GETTABLEKS                       R17 R18 K31 ["GameCache"]
+      115 GETTABLEKS                       R17 R0 K6 ["Src"]
+      117 GETTABLEKS                       R17 R17 K15 ["Network"]
+      119 GETTABLEKS                       R17 R17 K31 ["GameCache"]
       121 CALL                             R16 1 1
       122 MOVE                             R17 R8
       123 GETTABLEKS                       R18 R4 K32 ["validate"]

@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
         2 JUMPIFNOT                        R1 ; [+9]
-        3 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        5 GETTABLEKS                       R1 R2 K1 ["totalCount"]
+        3 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        5 GETTABLEKS                       R1 R1 K1 ["totalCount"]
         7 LOADN                            R2 0
         8 JUMPIFNOTLT                      R2 R1 ; [+3]
        10 LOADB                            R1 1
@@ -16,8 +16,8 @@ PROTO_1:
         2 GETUPVAL                         R4 2
         3 GETTABLEKS                       R6 R0 K0 ["responseBody"]
         5 JUMPIFNOT                        R6 ; [+9]
-        6 GETTABLEKS                       R7 R0 K0 ["responseBody"]
-        8 GETTABLEKS                       R6 R7 K1 ["totalCount"]
+        6 GETTABLEKS                       R6 R0 K0 ["responseBody"]
+        8 GETTABLEKS                       R6 R6 K1 ["totalCount"]
        10 LOADN                            R7 0
        11 JUMPIFNOTLT                      R7 R6 ; [+3]
        13 LOADB                            R5 1
@@ -65,20 +65,20 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       17 GETTABLEKS                       R2 R3 K7 ["GetFavorited"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       17 GETTABLEKS                       R2 R2 K7 ["GetFavorited"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       26 GETTABLEKS                       R3 R4 K8 ["NetworkError"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       26 GETTABLEKS                       R3 R3 K8 ["NetworkError"]
        28 CALL                             R2 1 1
        29 DUPCLOSURE                       R3 K9 [PROTO_0]
        30 DUPCLOSURE                       R4 K10 [PROTO_4]

@@ -20,8 +20,8 @@ PROTO_0:
        28 GETTABLEKS                       R10 R3 K5 ["currentDebuggerConnectionId"]
        30 GETTABLE                         R8 R9 R10
        31 GETTABLE                         R7 R8 R6
-       32 GETUPVAL                         R9 2
-       33 GETTABLEKS                       R8 R9 K8 ["ctor"]
+       32 GETUPVAL                         R8 2
+       33 GETTABLEKS                       R8 R8 K8 ["ctor"]
        35 MOVE                             R9 R5
        36 MOVE                             R10 R6
        37 MOVE                             R11 R7
@@ -58,8 +58,8 @@ PROTO_0:
        77 MOVE                             R17 R13
        78 CALL                             R16 1 3
        79 FORGPREP_NEXT                    R16
-       80 GETUPVAL                         R22 3
-       81 GETTABLEKS                       R21 R22 K17 ["isScopeFiltered"]
+       80 GETUPVAL                         R21 3
+       81 GETTABLEKS                       R21 R21 K17 ["isScopeFiltered"]
        83 GETUPVAL                         R22 1
        84 GETTABLE                         R23 R14 R20
        85 CALL                             R21 2 1
@@ -84,30 +84,30 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Models"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Models"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["StepStateBundle"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R0 K3 ["Src"]
-       22 GETTABLEKS                       R3 R4 K8 ["Actions"]
+       20 GETTABLEKS                       R3 R0 K3 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Actions"]
        24 GETIMPORT                        R4 K6 [require]
-       26 GETTABLEKS                       R6 R3 K9 ["Watch"]
-       28 GETTABLEKS                       R5 R6 K10 ["SetVariablesScopeFilteredOut"]
+       26 GETTABLEKS                       R5 R3 K9 ["Watch"]
+       28 GETTABLEKS                       R5 R5 K10 ["SetVariablesScopeFilteredOut"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K6 [require]
-       33 GETTABLEKS                       R7 R3 K9 ["Watch"]
-       35 GETTABLEKS                       R6 R7 K11 ["ScopeFilterChange"]
+       33 GETTABLEKS                       R6 R3 K9 ["Watch"]
+       35 GETTABLEKS                       R6 R6 K11 ["ScopeFilterChange"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K6 [require]
-       40 GETTABLEKS                       R9 R0 K3 ["Src"]
-       42 GETTABLEKS                       R8 R9 K12 ["Util"]
-       44 GETTABLEKS                       R7 R8 K13 ["WatchHelperFunctions"]
+       40 GETTABLEKS                       R7 R0 K3 ["Src"]
+       42 GETTABLEKS                       R7 R7 K12 ["Util"]
+       44 GETTABLEKS                       R7 R7 K13 ["WatchHelperFunctions"]
        46 CALL                             R6 1 1
        47 DUPCLOSURE                       R7 K14 [PROTO_1]
        48 CAPTURE                          VAL R5

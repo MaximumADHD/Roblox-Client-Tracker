@@ -5,9 +5,9 @@ PROTO_0:
         3 GETUPVAL                         R1 1
         4 ADDK                             R1 R1 K0 [1]
         5 SETUPVAL                         R1 1
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R2 R3 K1 ["FuzzySearch"]
-        9 GETTABLEKS                       R1 R2 K2 ["incrementEntryCount"]
+        6 GETUPVAL                         R1 2
+        7 GETTABLEKS                       R1 R1 K1 ["FuzzySearch"]
+        9 GETTABLEKS                       R1 R1 K2 ["incrementEntryCount"]
        11 CALL                             R1 0 0
        12 GETUPVAL                         R2 3
        13 FASTCALL2                        TABLE_INSERT R2 R0 ; [+4]
@@ -20,9 +20,9 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 ADDK                             R1 R1 K0 [1]
         2 SETUPVAL                         R1 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["FuzzySearch"]
-        6 GETTABLEKS                       R1 R2 K2 ["incrementEntryCount"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["FuzzySearch"]
+        6 GETTABLEKS                       R1 R1 K2 ["incrementEntryCount"]
         8 CALL                             R1 0 0
         9 GETTABLEKS                       R1 R0 K3 ["Visible"]
        11 JUMPIFEQKB                       R1 FALSE ; [+4]
@@ -30,8 +30,8 @@ PROTO_1:
        14 ADDK                             R1 R1 K0 [1]
        15 SETUPVAL                         R1 2
        16 GETUPVAL                         R2 3
-       17 GETUPVAL                         R4 4
-       18 GETTABLEKS                       R3 R4 K4 ["createElement"]
+       17 GETUPVAL                         R3 4
+       18 GETTABLEKS                       R3 R3 K4 ["createElement"]
        20 GETUPVAL                         R4 5
        21 MOVE                             R5 R0
        22 CALL                             R3 2 -1
@@ -46,26 +46,26 @@ PROTO_2:
         2 DUPTABLE                         R3 K5 [{"actionSource", "visualizationModeCategory", "visualizationMode", "isEnabled"}]
         3 LOADK                            R4 K6 ["button"]
         4 SETTABLEKS                       R4 R3 K1 ["actionSource"]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K7 ["name"]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K7 ["name"]
         9 SETTABLEKS                       R4 R3 K2 ["visualizationModeCategory"]
-       11 GETUPVAL                         R5 2
-       12 GETTABLEKS                       R4 R5 K7 ["name"]
+       11 GETUPVAL                         R4 2
+       12 GETTABLEKS                       R4 R4 K7 ["name"]
        14 SETTABLEKS                       R4 R3 K3 ["visualizationMode"]
-       16 GETUPVAL                         R6 2
-       17 GETTABLEKS                       R5 R6 K8 ["enabled"]
+       16 GETUPVAL                         R5 2
+       17 GETTABLEKS                       R5 R5 K8 ["enabled"]
        19 NOT                              R4 R5
        20 SETTABLEKS                       R4 R3 K4 ["isEnabled"]
        22 NAMECALL                         R0 R0 K9 ["report"]
        24 CALL                             R0 3 0
-       25 GETUPVAL                         R1 3
-       26 GETTABLEKS                       R0 R1 K10 ["OnVisualizationModeToggle"]
-       28 GETUPVAL                         R2 1
-       29 GETTABLEKS                       R1 R2 K7 ["name"]
-       31 GETUPVAL                         R3 2
-       32 GETTABLEKS                       R2 R3 K7 ["name"]
-       34 GETUPVAL                         R5 2
-       35 GETTABLEKS                       R4 R5 K8 ["enabled"]
+       25 GETUPVAL                         R0 3
+       26 GETTABLEKS                       R0 R0 K10 ["OnVisualizationModeToggle"]
+       28 GETUPVAL                         R1 1
+       29 GETTABLEKS                       R1 R1 K7 ["name"]
+       31 GETUPVAL                         R2 2
+       32 GETTABLEKS                       R2 R2 K7 ["name"]
+       34 GETUPVAL                         R4 2
+       35 GETTABLEKS                       R4 R4 K8 ["enabled"]
        37 NOT                              R3 R4
        38 LOADB                            R4 1
        39 CALL                             R0 4 0
@@ -75,13 +75,13 @@ PROTO_3:
         0 GETUPVAL                         R2 0
         1 ADDK                             R2 R2 K0 [1]
         2 SETUPVAL                         R2 0
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["FuzzySearch"]
-        6 GETTABLEKS                       R2 R3 K2 ["includeEntry"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["FuzzySearch"]
+        6 GETTABLEKS                       R2 R2 K2 ["includeEntry"]
         8 GETTABLEKS                       R3 R1 K3 ["title"]
        10 CALL                             R2 1 2
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K4 ["ForceVisible"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K4 ["ForceVisible"]
        14 JUMPIFNOT                        R4 ; [+1]
        15 LOADB                            R2 1
        16 JUMPIFEQKNIL                     R3 ; [+4]
@@ -89,9 +89,9 @@ PROTO_3:
        19 ADDK                             R4 R4 K0 [1]
        20 SETUPVAL                         R4 2
        21 JUMPIF                           R2 ; [+6]
-       22 GETUPVAL                         R6 1
-       23 GETTABLEKS                       R5 R6 K1 ["FuzzySearch"]
-       25 GETTABLEKS                       R4 R5 K5 ["incrementFilteredCount"]
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R4 R4 K1 ["FuzzySearch"]
+       25 GETTABLEKS                       R4 R4 K5 ["incrementFilteredCount"]
        27 CALL                             R4 0 0
        28 GETTABLEKS                       R4 R1 K6 ["enabled"]
        30 JUMPIFNOT                        R4 ; [+3]
@@ -124,9 +124,9 @@ PROTO_3:
        71 GETUPVAL                         R5 6
        72 ADDK                             R5 R5 K0 [1]
        73 SETUPVAL                         R5 6
-       74 GETUPVAL                         R7 1
-       75 GETTABLEKS                       R6 R7 K1 ["FuzzySearch"]
-       77 GETTABLEKS                       R5 R6 K20 ["incrementEntryCount"]
+       74 GETUPVAL                         R5 1
+       75 GETTABLEKS                       R5 R5 K1 ["FuzzySearch"]
+       77 GETTABLEKS                       R5 R5 K20 ["incrementEntryCount"]
        79 CALL                             R5 0 0
        80 GETTABLEKS                       R5 R4 K9 ["Visible"]
        82 JUMPIFEQKB                       R5 FALSE ; [+4]
@@ -134,8 +134,8 @@ PROTO_3:
        85 ADDK                             R5 R5 K0 [1]
        86 SETUPVAL                         R5 7
        87 GETUPVAL                         R6 8
-       88 GETUPVAL                         R8 9
-       89 GETTABLEKS                       R7 R8 K21 ["createElement"]
+       88 GETUPVAL                         R7 9
+       89 GETTABLEKS                       R7 R7 K21 ["createElement"]
        91 GETUPVAL                         R8 10
        92 MOVE                             R9 R4
        93 CALL                             R7 2 -1
@@ -173,12 +173,12 @@ PROTO_9:
         1 RETURN                           R0 1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Analytics"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Analytics"]
         3 NAMECALL                         R1 R1 K1 ["use"]
         5 CALL                             R1 1 1
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["new"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["new"]
         9 CALL                             R2 0 1
        10 NEWTABLE                         R3 0 0
        12 LOADN                            R4 0
@@ -242,30 +242,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["React"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K6 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Components"]
-       34 GETTABLEKS                       R5 R6 K12 ["VisualizationModeEntry"]
+       30 GETTABLEKS                       R5 R0 K6 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Components"]
+       34 GETTABLEKS                       R5 R5 K12 ["VisualizationModeEntry"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K13 ["Hooks"]
-       43 GETTABLEKS                       R6 R7 K14 ["useFuzzySearch"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Hooks"]
+       43 GETTABLEKS                       R6 R6 K14 ["useFuzzySearch"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R2 K15 ["ContextServices"]
-       48 GETTABLEKS                       R8 R2 K16 ["Util"]
-       50 GETTABLEKS                       R7 R8 K17 ["LayoutOrderIterator"]
+       48 GETTABLEKS                       R7 R2 K16 ["Util"]
+       50 GETTABLEKS                       R7 R7 K17 ["LayoutOrderIterator"]
        52 DUPCLOSURE                       R8 K18 [PROTO_10]
        53 CAPTURE                          VAL R6
        54 CAPTURE                          VAL R7

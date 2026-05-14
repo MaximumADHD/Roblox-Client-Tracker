@@ -6,8 +6,8 @@ PROTO_0:
         4 LOADK                            R1 K0 [""]
         5 LOADK                            R2 K0 [""]
         6 RETURN                           R0 3
-        7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R0 R1 K1 ["BaseUrl"]
+        7 GETUPVAL                         R0 1
+        8 GETTABLEKS                       R0 R0 K1 ["BaseUrl"]
        10 LENGTH                           R3 R0
        11 NAMECALL                         R1 R0 K2 ["sub"]
        13 CALL                             R1 2 1
@@ -112,9 +112,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Flags"]
-       19 GETTABLEKS                       R3 R4 K12 ["getFFlagAvatarPreviewerLookComposer"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Flags"]
+       19 GETTABLEKS                       R3 R3 K12 ["getFFlagAvatarPreviewerLookComposer"]
        21 CALL                             R2 1 1
        22 NEWTABLE                         R3 8 0
        24 DUPCLOSURE                       R4 K13 [PROTO_0]

@@ -1,18 +1,18 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["GeneralServiceController"]
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R5 R6 K0 ["props"]
-        8 GETTABLEKS                       R4 R5 K2 ["MaterialVariant"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K0 ["props"]
+        8 GETTABLEKS                       R4 R4 K2 ["MaterialVariant"]
        10 MOVE                             R5 R0
        11 NAMECALL                         R2 R2 K3 ["createTerrainDetail"]
        13 CALL                             R2 3 0
        14 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["GeneralServiceController"]
         5 MOVE                             R4 R0
         6 NAMECALL                         R2 R2 K2 ["destroyWithUndo"]
@@ -20,11 +20,11 @@ PROTO_1:
         9 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["dispatchSetExpandedPane"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["TerrainDetailsSettings"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["TerrainDetailsSettings"]
         8 GETTABLEKS                       R4 R0 K3 ["ExpandedPane"]
        10 NOT                              R3 R4
        11 CALL                             R1 2 0
@@ -44,32 +44,32 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onDelete"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onDelete"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onClick"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onClick"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["TerrainDetailsSettings"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["TerrainDetailsSettings"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["new"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["new"]
        11 CALL                             R4 0 1
        12 GETTABLEKS                       R5 R1 K5 ["Material"]
        14 GETTABLEKS                       R6 R5 K6 ["MaterialVariant"]
        16 JUMPIF                           R6 ; [+6]
-       17 GETUPVAL                         R7 1
-       18 GETTABLEKS                       R6 R7 K7 ["createElement"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K7 ["createElement"]
        20 GETUPVAL                         R7 2
        21 CALL                             R6 1 -1
        22 RETURN                           R6 -1
@@ -86,8 +86,8 @@ PROTO_6:
        36 CALL                             R13 1 1
        37 GETTABLE                         R14 R6 R12
        38 JUMPIFNOT                        R14 ; [+26]
-       39 GETUPVAL                         R16 1
-       40 GETTABLEKS                       R15 R16 K7 ["createElement"]
+       39 GETUPVAL                         R15 1
+       40 GETTABLEKS                       R15 R15 K7 ["createElement"]
        42 GETUPVAL                         R16 6
        43 DUPTABLE                         R17 K15 [{"LabelColumnWidth", "LayoutOrder", "TerrainDetail", "TerrainFace", "OnDelete"}]
        44 GETTABLEKS                       R18 R2 K10 ["LabelColumnWidth"]
@@ -104,8 +104,8 @@ PROTO_6:
        62 CALL                             R15 2 1
        63 SETTABLE                         R15 R7 R13
        64 JUMP                             ; [+56]
-       65 GETUPVAL                         R16 1
-       66 GETTABLEKS                       R15 R16 K7 ["createElement"]
+       65 GETUPVAL                         R15 1
+       66 GETTABLEKS                       R15 R15 K7 ["createElement"]
        68 GETUPVAL                         R16 7
        69 DUPTABLE                         R17 K18 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
        70 GETTABLEKS                       R18 R2 K10 ["LabelColumnWidth"]
@@ -119,8 +119,8 @@ PROTO_6:
        83 CALL                             R18 3 1
        84 SETTABLEKS                       R18 R17 K17 ["Text"]
        86 NEWTABLE                         R18 0 1
-       88 GETUPVAL                         R20 1
-       89 GETTABLEKS                       R19 R20 K7 ["createElement"]
+       88 GETUPVAL                         R19 1
+       89 GETTABLEKS                       R19 R19 K7 ["createElement"]
        91 GETUPVAL                         R20 8
        92 DUPTABLE                         R21 K25 [{"Size", "Text", "TextXAlignment", "OnClick", "Style"}]
        93 GETTABLEKS                       R22 R2 K26 ["DialogColumnSize"]
@@ -143,8 +143,8 @@ PROTO_6:
       119 CALL                             R15 3 1
       120 SETTABLE                         R15 R7 R13
       121 FORGLOOP                         R8 2 [inext] ; [-88]
-      123 GETUPVAL                         R9 1
-      124 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      123 GETUPVAL                         R8 1
+      124 GETTABLEKS                       R8 R8 K7 ["createElement"]
       126 GETUPVAL                         R9 9
       127 DUPTABLE                         R10 K36 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
       128 GETTABLEKS                       R11 R1 K11 ["LayoutOrder"]
@@ -172,13 +172,13 @@ PROTO_7:
         0 DUPTABLE                         R2 K2 [{"Material", "ExpandedPane"}]
         1 GETTABLEKS                       R3 R1 K3 ["MockMaterial"]
         3 JUMPIF                           R3 ; [+4]
-        4 GETTABLEKS                       R4 R0 K4 ["MaterialBrowserReducer"]
-        6 GETTABLEKS                       R3 R4 K0 ["Material"]
+        4 GETTABLEKS                       R3 R0 K4 ["MaterialBrowserReducer"]
+        6 GETTABLEKS                       R3 R3 K0 ["Material"]
         8 SETTABLEKS                       R3 R2 K0 ["Material"]
-       10 GETTABLEKS                       R5 R0 K4 ["MaterialBrowserReducer"]
-       12 GETTABLEKS                       R4 R5 K1 ["ExpandedPane"]
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K5 ["TerrainDetailsSettings"]
+       10 GETTABLEKS                       R4 R0 K4 ["MaterialBrowserReducer"]
+       12 GETTABLEKS                       R4 R4 K1 ["ExpandedPane"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K5 ["TerrainDetailsSettings"]
        17 GETTABLE                         R3 R4 R5
        18 SETTABLEKS                       R3 R2 K1 ["ExpandedPane"]
        20 RETURN                           R2 1
@@ -202,32 +202,32 @@ PROTO_9:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Src"]
-       17 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 GETTABLEKS                       R2 R0 K5 ["Src"]
+       17 GETTABLEKS                       R2 R2 K6 ["Types"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       22 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K8 ["Roact"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       29 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K9 ["Framework"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       38 GETTABLEKS                       R5 R6 K10 ["RoactRodux"]
+       36 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K10 ["RoactRodux"]
        40 CALL                             R4 1 1
-       41 GETTABLEKS                       R6 R3 K11 ["Util"]
-       43 GETTABLEKS                       R5 R6 K12 ["LayoutOrderIterator"]
-       45 GETTABLEKS                       R7 R3 K13 ["Style"]
-       47 GETTABLEKS                       R6 R7 K14 ["Stylizer"]
+       41 GETTABLEKS                       R5 R3 K11 ["Util"]
+       43 GETTABLEKS                       R5 R5 K12 ["LayoutOrderIterator"]
+       45 GETTABLEKS                       R6 R3 K13 ["Style"]
+       47 GETTABLEKS                       R6 R6 K14 ["Stylizer"]
        49 GETTABLEKS                       R7 R3 K15 ["ContextServices"]
        51 GETTABLEKS                       R8 R7 K16 ["withContext"]
        53 GETTABLEKS                       R9 R7 K17 ["Analytics"]
@@ -237,38 +237,38 @@ MAIN:
        61 GETTABLEKS                       R13 R11 K21 ["ExpandablePane"]
        63 GETTABLEKS                       R14 R11 K22 ["Pane"]
        65 GETIMPORT                        R15 K4 [require]
-       67 GETTABLEKS                       R18 R0 K5 ["Src"]
-       69 GETTABLEKS                       R17 R18 K11 ["Util"]
-       71 GETTABLEKS                       R16 R17 K23 ["getTerrainDetails"]
+       67 GETTABLEKS                       R16 R0 K5 ["Src"]
+       69 GETTABLEKS                       R16 R16 K11 ["Util"]
+       71 GETTABLEKS                       R16 R16 K23 ["getTerrainDetails"]
        73 CALL                             R15 1 1
-       74 GETTABLEKS                       R17 R0 K5 ["Src"]
-       76 GETTABLEKS                       R16 R17 K24 ["Actions"]
+       74 GETTABLEKS                       R16 R0 K5 ["Src"]
+       76 GETTABLEKS                       R16 R16 K24 ["Actions"]
        78 GETIMPORT                        R17 K4 [require]
        80 GETTABLEKS                       R18 R16 K25 ["SetExpandedPane"]
        82 CALL                             R17 1 1
        83 GETIMPORT                        R18 K4 [require]
-       85 GETTABLEKS                       R21 R0 K5 ["Src"]
-       87 GETTABLEKS                       R20 R21 K26 ["Reducers"]
-       89 GETTABLEKS                       R19 R20 K27 ["MainReducer"]
+       85 GETTABLEKS                       R19 R0 K5 ["Src"]
+       87 GETTABLEKS                       R19 R19 K26 ["Reducers"]
+       89 GETTABLEKS                       R19 R19 K27 ["MainReducer"]
        91 CALL                             R18 1 1
-       92 GETTABLEKS                       R20 R0 K5 ["Src"]
-       94 GETTABLEKS                       R19 R20 K28 ["Controllers"]
+       92 GETTABLEKS                       R19 R0 K5 ["Src"]
+       94 GETTABLEKS                       R19 R19 K28 ["Controllers"]
        96 GETIMPORT                        R20 K4 [require]
        98 GETTABLEKS                       R21 R19 K29 ["GeneralServiceController"]
       100 CALL                             R20 1 1
-      101 GETTABLEKS                       R24 R0 K5 ["Src"]
-      103 GETTABLEKS                       R23 R24 K30 ["Components"]
-      105 GETTABLEKS                       R22 R23 K31 ["MaterialBrowser"]
-      107 GETTABLEKS                       R21 R22 K32 ["MaterialEditor"]
+      101 GETTABLEKS                       R21 R0 K5 ["Src"]
+      103 GETTABLEKS                       R21 R21 K30 ["Components"]
+      105 GETTABLEKS                       R21 R21 K31 ["MaterialBrowser"]
+      107 GETTABLEKS                       R21 R21 K32 ["MaterialEditor"]
       109 GETIMPORT                        R22 K4 [require]
       111 GETTABLEKS                       R23 R21 K33 ["LabeledElement"]
       113 CALL                             R22 1 1
       114 GETIMPORT                        R23 K4 [require]
       116 GETTABLEKS                       R24 R21 K34 ["TerrainDetailsEditor"]
       118 CALL                             R23 1 1
-      119 GETTABLEKS                       R26 R0 K5 ["Src"]
-      121 GETTABLEKS                       R25 R26 K35 ["Resources"]
-      123 GETTABLEKS                       R24 R25 K36 ["Constants"]
+      119 GETTABLEKS                       R24 R0 K5 ["Src"]
+      121 GETTABLEKS                       R24 R24 K35 ["Resources"]
+      123 GETTABLEKS                       R24 R24 K36 ["Constants"]
       125 GETIMPORT                        R25 K4 [require]
       127 GETTABLEKS                       R26 R24 K37 ["getTerrainFaceName"]
       129 CALL                             R25 1 1

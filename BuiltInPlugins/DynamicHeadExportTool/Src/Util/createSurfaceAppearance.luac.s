@@ -12,9 +12,9 @@ PROTO_0:
        12 RETURN                           R0 1
 
 PROTO_1:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PluginReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PluginReducer"]
         5 GETTABLEKS                       R2 R1 K2 ["colorMap"]
         7 GETTABLEKS                       R3 R1 K3 ["metalnessMap"]
         9 GETTABLEKS                       R4 R1 K4 ["normalMap"]

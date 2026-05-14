@@ -163,19 +163,19 @@ PROTO_11:
 
 PROTO_12:
         0 LOADB                            R2 0
-        1 GETTABLEKS                       R4 R1 K0 ["X"]
-        3 GETTABLEKS                       R3 R4 K1 ["Offset"]
+        1 GETTABLEKS                       R3 R1 K0 ["X"]
+        3 GETTABLEKS                       R3 R3 K1 ["Offset"]
         5 JUMPIFNOTEQKN                    R3 K2 [0] ; [+23]
         7 LOADB                            R2 0
-        8 GETTABLEKS                       R4 R1 K3 ["Y"]
-       10 GETTABLEKS                       R3 R4 K1 ["Offset"]
+        8 GETTABLEKS                       R3 R1 K3 ["Y"]
+       10 GETTABLEKS                       R3 R3 K1 ["Offset"]
        12 JUMPIFNOTEQKN                    R3 K2 [0] ; [+16]
        14 LOADB                            R2 1
-       15 GETTABLEKS                       R4 R1 K0 ["X"]
-       17 GETTABLEKS                       R3 R4 K4 ["Scale"]
+       15 GETTABLEKS                       R3 R1 K0 ["X"]
+       17 GETTABLEKS                       R3 R3 K4 ["Scale"]
        19 JUMPIFNOTEQKN                    R3 K2 [0] ; [+9]
-       21 GETTABLEKS                       R4 R1 K3 ["Y"]
-       23 GETTABLEKS                       R3 R4 K4 ["Scale"]
+       21 GETTABLEKS                       R3 R1 K3 ["Y"]
+       23 GETTABLEKS                       R3 R3 K4 ["Scale"]
        25 JUMPIFNOTEQKN                    R3 K2 [0] ; [+2]
        27 LOADB                            R2 0 +1
        28 LOADB                            R2 1
@@ -183,19 +183,19 @@ PROTO_12:
 
 PROTO_13:
         0 LOADB                            R2 0
-        1 GETTABLEKS                       R4 R1 K0 ["X"]
-        3 GETTABLEKS                       R3 R4 K1 ["Scale"]
+        1 GETTABLEKS                       R3 R1 K0 ["X"]
+        3 GETTABLEKS                       R3 R3 K1 ["Scale"]
         5 JUMPIFNOTEQKN                    R3 K2 [0] ; [+23]
         7 LOADB                            R2 0
-        8 GETTABLEKS                       R4 R1 K3 ["Y"]
-       10 GETTABLEKS                       R3 R4 K1 ["Scale"]
+        8 GETTABLEKS                       R3 R1 K3 ["Y"]
+       10 GETTABLEKS                       R3 R3 K1 ["Scale"]
        12 JUMPIFNOTEQKN                    R3 K2 [0] ; [+16]
        14 LOADB                            R2 1
-       15 GETTABLEKS                       R4 R1 K0 ["X"]
-       17 GETTABLEKS                       R3 R4 K4 ["Offset"]
+       15 GETTABLEKS                       R3 R1 K0 ["X"]
+       17 GETTABLEKS                       R3 R3 K4 ["Offset"]
        19 JUMPIFNOTEQKN                    R3 K2 [0] ; [+9]
-       21 GETTABLEKS                       R4 R1 K3 ["Y"]
-       23 GETTABLEKS                       R3 R4 K4 ["Offset"]
+       21 GETTABLEKS                       R3 R1 K3 ["Y"]
+       23 GETTABLEKS                       R3 R3 K4 ["Offset"]
        25 JUMPIFNOTEQKN                    R3 K2 [0] ; [+2]
        27 LOADB                            R2 0 +1
        28 LOADB                            R2 1
@@ -229,8 +229,8 @@ PROTO_14:
        29 LOADK                            R6 K6 ["passed in one number and one non number"]
        30 CALL                             R5 1 0
        31 RETURN                           R0 0
-       32 SUB                              R6 R2 R1
-       33 GETTABLEKS                       R5 R6 K7 ["magnitude"]
+       32 SUB                              R5 R2 R1
+       33 GETTABLEKS                       R5 R5 K7 ["magnitude"]
        35 RETURN                           R5 1
        36 RETURN                           R0 0
 
@@ -348,16 +348,16 @@ PROTO_17:
 
 PROTO_18:
         0 GETIMPORT                        R4 K2 [Vector2.new]
-        2 GETTABLEKS                       R6 R1 K3 ["X"]
-        4 GETTABLEKS                       R5 R6 K4 ["Offset"]
-        6 GETTABLEKS                       R7 R1 K5 ["Y"]
-        8 GETTABLEKS                       R6 R7 K4 ["Offset"]
+        2 GETTABLEKS                       R5 R1 K3 ["X"]
+        4 GETTABLEKS                       R5 R5 K4 ["Offset"]
+        6 GETTABLEKS                       R6 R1 K5 ["Y"]
+        8 GETTABLEKS                       R6 R6 K4 ["Offset"]
        10 CALL                             R4 2 1
        11 GETIMPORT                        R6 K2 [Vector2.new]
-       13 GETTABLEKS                       R8 R1 K3 ["X"]
-       15 GETTABLEKS                       R7 R8 K6 ["Scale"]
-       17 GETTABLEKS                       R9 R1 K5 ["Y"]
-       19 GETTABLEKS                       R8 R9 K6 ["Scale"]
+       13 GETTABLEKS                       R7 R1 K3 ["X"]
+       15 GETTABLEKS                       R7 R7 K6 ["Scale"]
+       17 GETTABLEKS                       R8 R1 K5 ["Y"]
+       19 GETTABLEKS                       R8 R8 K6 ["Scale"]
        21 CALL                             R6 2 1
        22 MUL                              R5 R6 R2
        23 ADD                              R3 R4 R5
@@ -366,9 +366,9 @@ PROTO_18:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Error"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Error"]
         9 CALL                             R0 1 1
        10 NEWTABLE                         R1 32 0
        12 DUPCLOSURE                       R2 K6 [PROTO_0]

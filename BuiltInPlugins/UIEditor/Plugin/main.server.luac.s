@@ -47,10 +47,10 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K2 [Vector2.new]
-        2 GETTABLEKS                       R3 R0 K3 ["Position"]
-        4 GETTABLEKS                       R2 R3 K4 ["x"]
-        6 GETTABLEKS                       R4 R0 K3 ["Position"]
-        8 GETTABLEKS                       R3 R4 K5 ["y"]
+        2 GETTABLEKS                       R2 R0 K3 ["Position"]
+        4 GETTABLEKS                       R2 R2 K4 ["x"]
+        6 GETTABLEKS                       R3 R0 K3 ["Position"]
+        8 GETTABLEKS                       R3 R3 K5 ["y"]
        10 CALL                             R1 2 1
        11 GETUPVAL                         R2 0
        12 MOVE                             R4 R1
@@ -190,10 +190,10 @@ PROTO_6:
        37 LOADB                            R1 1
        38 SETUPVAL                         R1 5
        39 GETIMPORT                        R1 K15 [Vector2.new]
-       41 GETTABLEKS                       R3 R0 K16 ["Position"]
-       43 GETTABLEKS                       R2 R3 K17 ["X"]
-       45 GETTABLEKS                       R4 R0 K16 ["Position"]
-       47 GETTABLEKS                       R3 R4 K18 ["Y"]
+       41 GETTABLEKS                       R2 R0 K16 ["Position"]
+       43 GETTABLEKS                       R2 R2 K17 ["X"]
+       45 GETTABLEKS                       R3 R0 K16 ["Position"]
+       47 GETTABLEKS                       R3 R3 K18 ["Y"]
        49 CALL                             R1 2 1
        50 GETUPVAL                         R2 6
        51 NAMECALL                         R2 R2 K19 ["isOverAHandle"]
@@ -258,10 +258,10 @@ PROTO_7:
         6 LOADB                            R1 0
         7 SETUPVAL                         R1 0
         8 GETIMPORT                        R1 K6 [Vector2.new]
-       10 GETTABLEKS                       R3 R0 K7 ["Position"]
-       12 GETTABLEKS                       R2 R3 K8 ["X"]
-       14 GETTABLEKS                       R4 R0 K7 ["Position"]
-       16 GETTABLEKS                       R3 R4 K9 ["Y"]
+       10 GETTABLEKS                       R2 R0 K7 ["Position"]
+       12 GETTABLEKS                       R2 R2 K8 ["X"]
+       14 GETTABLEKS                       R3 R0 K7 ["Position"]
+       16 GETTABLEKS                       R3 R3 K9 ["Y"]
        18 CALL                             R1 2 1
        19 GETUPVAL                         R2 1
        20 NAMECALL                         R2 R2 K10 ["isDragInProgress"]
@@ -373,10 +373,10 @@ PROTO_8:
         8 GETIMPORT                        R2 K4 [Enum.UserInputType.MouseMovement]
        10 JUMPIFNOTEQ                      R1 R2 ; [+96]
        12 GETIMPORT                        R1 K7 [Vector2.new]
-       14 GETTABLEKS                       R3 R0 K8 ["Position"]
-       16 GETTABLEKS                       R2 R3 K9 ["x"]
-       18 GETTABLEKS                       R4 R0 K8 ["Position"]
-       20 GETTABLEKS                       R3 R4 K10 ["y"]
+       14 GETTABLEKS                       R2 R0 K8 ["Position"]
+       16 GETTABLEKS                       R2 R2 K9 ["x"]
+       18 GETTABLEKS                       R3 R0 K8 ["Position"]
+       20 GETTABLEKS                       R3 R3 K10 ["y"]
        22 CALL                             R1 2 1
        23 GETUPVAL                         R2 1
        24 NAMECALL                         R2 R2 K11 ["isDragInProgress"]
@@ -459,14 +459,14 @@ PROTO_9:
        11 LOADB                            R1 1
        12 SETUPVAL                         R1 0
        13 GETIMPORT                        R1 K5 [Vector2.new]
-       15 GETUPVAL                         R3 1
-       16 NAMECALL                         R3 R3 K6 ["GetMouse"]
-       18 CALL                             R3 1 1
-       19 GETTABLEKS                       R2 R3 K7 ["X"]
-       21 GETUPVAL                         R4 1
-       22 NAMECALL                         R4 R4 K6 ["GetMouse"]
-       24 CALL                             R4 1 1
-       25 GETTABLEKS                       R3 R4 K8 ["Y"]
+       15 GETUPVAL                         R2 1
+       16 NAMECALL                         R2 R2 K6 ["GetMouse"]
+       18 CALL                             R2 1 1
+       19 GETTABLEKS                       R2 R2 K7 ["X"]
+       21 GETUPVAL                         R3 1
+       22 NAMECALL                         R3 R3 K6 ["GetMouse"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R3 R3 K8 ["Y"]
        27 CALL                             R1 2 1
        28 GETUPVAL                         R2 2
        29 MOVE                             R4 R0
@@ -482,8 +482,8 @@ PROTO_9:
        42 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ShowDevelopmentGui"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ShowDevelopmentGui"]
         3 JUMPIFNOT                        R1 ; [+5]
         4 GETUPVAL                         R1 1
         5 NAMECALL                         R1 R1 K1 ["IsRunning"]
@@ -546,8 +546,8 @@ PROTO_14:
        14 GETUPVAL                         R0 3
        15 NAMECALL                         R0 R0 K2 ["disconnect"]
        17 CALL                             R0 1 0
-       18 GETUPVAL                         R1 5
-       19 GETTABLEKS                       R0 R1 K3 ["InputBegan"]
+       18 GETUPVAL                         R0 5
+       19 GETTABLEKS                       R0 R0 K3 ["InputBegan"]
        21 GETUPVAL                         R2 6
        22 NAMECALL                         R0 R0 K4 ["connect"]
        24 CALL                             R0 2 1
@@ -657,8 +657,8 @@ PROTO_15:
        52 GETUPVAL                         R0 8
        53 NAMECALL                         R0 R0 K9 ["On"]
        55 CALL                             R0 1 0
-       56 GETUPVAL                         R1 10
-       57 GETTABLEKS                       R0 R1 K11 ["DescendantAdded"]
+       56 GETUPVAL                         R0 10
+       57 GETTABLEKS                       R0 R0 K11 ["DescendantAdded"]
        59 GETUPVAL                         R2 11
        60 NAMECALL                         R0 R0 K12 ["connect"]
        62 CALL                             R0 2 1
@@ -666,40 +666,40 @@ PROTO_15:
        64 GETUPVAL                         R0 12
        65 NAMECALL                         R0 R0 K13 ["disconnect"]
        67 CALL                             R0 1 0
-       68 GETUPVAL                         R1 14
-       69 GETTABLEKS                       R0 R1 K14 ["InputBegan"]
+       68 GETUPVAL                         R0 14
+       69 GETTABLEKS                       R0 R0 K14 ["InputBegan"]
        71 GETUPVAL                         R2 15
        72 NAMECALL                         R0 R0 K12 ["connect"]
        74 CALL                             R0 2 1
        75 SETUPVAL                         R0 13
-       76 GETUPVAL                         R1 14
-       77 GETTABLEKS                       R0 R1 K15 ["InputChanged"]
+       76 GETUPVAL                         R0 14
+       77 GETTABLEKS                       R0 R0 K15 ["InputChanged"]
        79 GETUPVAL                         R2 17
        80 NAMECALL                         R0 R0 K12 ["connect"]
        82 CALL                             R0 2 1
        83 SETUPVAL                         R0 16
-       84 GETUPVAL                         R1 14
-       85 GETTABLEKS                       R0 R1 K16 ["InputEnded"]
+       84 GETUPVAL                         R0 14
+       85 GETTABLEKS                       R0 R0 K16 ["InputEnded"]
        87 GETUPVAL                         R2 19
        88 NAMECALL                         R0 R0 K12 ["connect"]
        90 CALL                             R0 2 1
        91 SETUPVAL                         R0 18
-       92 GETUPVAL                         R1 21
-       93 GETTABLEKS                       R0 R1 K17 ["SelectionChanged"]
+       92 GETUPVAL                         R0 21
+       93 GETTABLEKS                       R0 R0 K17 ["SelectionChanged"]
        95 GETUPVAL                         R2 22
        96 NAMECALL                         R0 R0 K12 ["connect"]
        98 CALL                             R0 2 1
        99 SETUPVAL                         R0 20
-      100 GETUPVAL                         R1 2
-      101 NAMECALL                         R1 R1 K10 ["GetMouse"]
-      103 CALL                             R1 1 1
-      104 GETTABLEKS                       R0 R1 K18 ["DragEnter"]
+      100 GETUPVAL                         R0 2
+      101 NAMECALL                         R0 R0 K10 ["GetMouse"]
+      103 CALL                             R0 1 1
+      104 GETTABLEKS                       R0 R0 K18 ["DragEnter"]
       106 GETUPVAL                         R2 24
       107 NAMECALL                         R0 R0 K12 ["connect"]
       109 CALL                             R0 2 1
       110 SETUPVAL                         R0 23
-      111 GETUPVAL                         R1 2
-      112 GETTABLEKS                       R0 R1 K19 ["Deactivation"]
+      111 GETUPVAL                         R0 2
+      112 GETTABLEKS                       R0 R0 K19 ["Deactivation"]
       114 GETGLOBAL                        R2 K20 ["Off"]
       116 NAMECALL                         R0 R0 K12 ["connect"]
       118 CALL                             R0 2 1
@@ -709,14 +709,14 @@ PROTO_15:
       122 NAMECALL                         R0 R0 K21 ["connectSelectionInstancesChanged"]
       124 CALL                             R0 2 1
       125 SETUPVAL                         R0 26
-      126 GETUPVAL                         R1 30
-      127 GETTABLEKS                       R0 R1 K22 ["OnUndo"]
+      126 GETUPVAL                         R0 30
+      127 GETTABLEKS                       R0 R0 K22 ["OnUndo"]
       129 GETUPVAL                         R2 31
       130 NAMECALL                         R0 R0 K12 ["connect"]
       132 CALL                             R0 2 1
       133 SETUPVAL                         R0 29
-      134 GETUPVAL                         R1 30
-      135 GETTABLEKS                       R0 R1 K23 ["OnRedo"]
+      134 GETUPVAL                         R0 30
+      135 GETTABLEKS                       R0 R0 K23 ["OnRedo"]
       137 GETUPVAL                         R2 33
       138 NAMECALL                         R0 R0 K12 ["connect"]
       140 CALL                             R0 2 1
@@ -802,104 +802,104 @@ MAIN:
         1 GETIMPORT                        R0 K1 [plugin]
         3 GETIMPORT                        R1 K3 [settings]
         5 GETIMPORT                        R2 K5 [require]
-        7 GETIMPORT                        R5 K7 [script]
-        9 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K9 ["ActionMediator"]
+        7 GETIMPORT                        R3 K7 [script]
+        9 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       11 GETTABLEKS                       R3 R3 K9 ["ActionMediator"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K5 [require]
-       16 GETIMPORT                        R6 K7 [script]
-       18 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       20 GETTABLEKS                       R4 R5 K10 ["CoreGuiManager"]
+       16 GETIMPORT                        R4 K7 [script]
+       18 GETTABLEKS                       R4 R4 K8 ["Parent"]
+       20 GETTABLEKS                       R4 R4 K10 ["CoreGuiManager"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETIMPORT                        R7 K7 [script]
-       27 GETTABLEKS                       R6 R7 K8 ["Parent"]
-       29 GETTABLEKS                       R5 R6 K11 ["DoubleClickDetector"]
+       25 GETIMPORT                        R5 K7 [script]
+       27 GETTABLEKS                       R5 R5 K8 ["Parent"]
+       29 GETTABLEKS                       R5 R5 K11 ["DoubleClickDetector"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETIMPORT                        R8 K7 [script]
-       36 GETTABLEKS                       R7 R8 K8 ["Parent"]
-       38 GETTABLEKS                       R6 R7 K12 ["FFlag"]
+       34 GETIMPORT                        R6 K7 [script]
+       36 GETTABLEKS                       R6 R6 K8 ["Parent"]
+       38 GETTABLEKS                       R6 R6 K12 ["FFlag"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETIMPORT                        R9 K7 [script]
-       45 GETTABLEKS                       R8 R9 K8 ["Parent"]
-       47 GETTABLEKS                       R7 R8 K13 ["RotationBox"]
+       43 GETIMPORT                        R7 K7 [script]
+       45 GETTABLEKS                       R7 R7 K8 ["Parent"]
+       47 GETTABLEKS                       R7 R7 K13 ["RotationBox"]
        49 CALL                             R6 1 1
        50 GETIMPORT                        R7 K5 [require]
-       52 GETIMPORT                        R10 K7 [script]
-       54 GETTABLEKS                       R9 R10 K8 ["Parent"]
-       56 GETTABLEKS                       R8 R9 K14 ["Rubberband"]
+       52 GETIMPORT                        R8 K7 [script]
+       54 GETTABLEKS                       R8 R8 K8 ["Parent"]
+       56 GETTABLEKS                       R8 R8 K14 ["Rubberband"]
        58 CALL                             R7 1 1
        59 GETIMPORT                        R8 K5 [require]
-       61 GETIMPORT                        R11 K7 [script]
-       63 GETTABLEKS                       R10 R11 K8 ["Parent"]
-       65 GETTABLEKS                       R9 R10 K15 ["SizeBox"]
+       61 GETIMPORT                        R9 K7 [script]
+       63 GETTABLEKS                       R9 R9 K8 ["Parent"]
+       65 GETTABLEKS                       R9 R9 K15 ["SizeBox"]
        67 CALL                             R8 1 1
        68 GETIMPORT                        R9 K5 [require]
-       70 GETIMPORT                        R12 K7 [script]
-       72 GETTABLEKS                       R11 R12 K8 ["Parent"]
-       74 GETTABLEKS                       R10 R11 K16 ["DistanceLinesManager"]
+       70 GETIMPORT                        R10 K7 [script]
+       72 GETTABLEKS                       R10 R10 K8 ["Parent"]
+       74 GETTABLEKS                       R10 R10 K16 ["DistanceLinesManager"]
        76 CALL                             R9 1 1
        77 GETIMPORT                        R10 K5 [require]
-       79 GETIMPORT                        R13 K7 [script]
-       81 GETTABLEKS                       R12 R13 K8 ["Parent"]
-       83 GETTABLEKS                       R11 R12 K17 ["TextEditor"]
+       79 GETIMPORT                        R11 K7 [script]
+       81 GETTABLEKS                       R11 R11 K8 ["Parent"]
+       83 GETTABLEKS                       R11 R11 K17 ["TextEditor"]
        85 CALL                             R10 1 1
        86 GETIMPORT                        R11 K5 [require]
-       88 GETIMPORT                        R14 K7 [script]
-       90 GETTABLEKS                       R13 R14 K8 ["Parent"]
-       92 GETTABLEKS                       R12 R13 K18 ["Utility"]
+       88 GETIMPORT                        R12 K7 [script]
+       90 GETTABLEKS                       R12 R12 K8 ["Parent"]
+       92 GETTABLEKS                       R12 R12 K18 ["Utility"]
        94 CALL                             R11 1 1
        95 GETIMPORT                        R12 K5 [require]
-       97 GETIMPORT                        R15 K7 [script]
-       99 GETTABLEKS                       R14 R15 K8 ["Parent"]
-      101 GETTABLEKS                       R13 R14 K19 ["GlobalValues"]
+       97 GETIMPORT                        R13 K7 [script]
+       99 GETTABLEKS                       R13 R13 K8 ["Parent"]
+      101 GETTABLEKS                       R13 R13 K19 ["GlobalValues"]
       103 CALL                             R12 1 1
       104 GETIMPORT                        R13 K5 [require]
-      106 GETIMPORT                        R16 K7 [script]
-      108 GETTABLEKS                       R15 R16 K8 ["Parent"]
-      110 GETTABLEKS                       R14 R15 K20 ["InstanceInfo"]
+      106 GETIMPORT                        R14 K7 [script]
+      108 GETTABLEKS                       R14 R14 K8 ["Parent"]
+      110 GETTABLEKS                       R14 R14 K20 ["InstanceInfo"]
       112 CALL                             R13 1 1
       113 GETIMPORT                        R14 K5 [require]
-      115 GETIMPORT                        R17 K7 [script]
-      117 GETTABLEKS                       R16 R17 K8 ["Parent"]
-      119 GETTABLEKS                       R15 R16 K21 ["Select"]
+      115 GETIMPORT                        R15 K7 [script]
+      117 GETTABLEKS                       R15 R15 K8 ["Parent"]
+      119 GETTABLEKS                       R15 R15 K21 ["Select"]
       121 CALL                             R14 1 1
       122 GETIMPORT                        R15 K5 [require]
-      124 GETIMPORT                        R18 K7 [script]
-      126 GETTABLEKS                       R17 R18 K8 ["Parent"]
-      128 GETTABLEKS                       R16 R17 K22 ["Resize"]
+      124 GETIMPORT                        R16 K7 [script]
+      126 GETTABLEKS                       R16 R16 K8 ["Parent"]
+      128 GETTABLEKS                       R16 R16 K22 ["Resize"]
       130 CALL                             R15 1 1
       131 GETIMPORT                        R16 K5 [require]
-      133 GETIMPORT                        R19 K7 [script]
-      135 GETTABLEKS                       R18 R19 K8 ["Parent"]
-      137 GETTABLEKS                       R17 R18 K23 ["Rotate"]
+      133 GETIMPORT                        R17 K7 [script]
+      135 GETTABLEKS                       R17 R17 K8 ["Parent"]
+      137 GETTABLEKS                       R17 R17 K23 ["Rotate"]
       139 CALL                             R16 1 1
       140 GETIMPORT                        R17 K5 [require]
-      142 GETIMPORT                        R20 K7 [script]
-      144 GETTABLEKS                       R19 R20 K8 ["Parent"]
-      146 GETTABLEKS                       R18 R19 K24 ["Move"]
+      142 GETIMPORT                        R18 K7 [script]
+      144 GETTABLEKS                       R18 R18 K8 ["Parent"]
+      146 GETTABLEKS                       R18 R18 K24 ["Move"]
       148 CALL                             R17 1 1
       149 GETIMPORT                        R18 K5 [require]
-      151 GETIMPORT                        R21 K7 [script]
-      153 GETTABLEKS                       R20 R21 K8 ["Parent"]
-      155 GETTABLEKS                       R19 R20 K25 ["MouseIconManager"]
+      151 GETIMPORT                        R19 K7 [script]
+      153 GETTABLEKS                       R19 R19 K8 ["Parent"]
+      155 GETTABLEKS                       R19 R19 K25 ["MouseIconManager"]
       157 CALL                             R18 1 1
       158 GETIMPORT                        R19 K5 [require]
-      160 GETIMPORT                        R22 K7 [script]
-      162 GETTABLEKS                       R21 R22 K8 ["Parent"]
-      164 GETTABLEKS                       R20 R21 K26 ["SelectionManager"]
+      160 GETIMPORT                        R20 K7 [script]
+      162 GETTABLEKS                       R20 R20 K8 ["Parent"]
+      164 GETTABLEKS                       R20 R20 K26 ["SelectionManager"]
       166 CALL                             R19 1 1
       167 GETIMPORT                        R20 K5 [require]
-      169 GETIMPORT                        R23 K7 [script]
-      171 GETTABLEKS                       R22 R23 K8 ["Parent"]
-      173 GETTABLEKS                       R21 R22 K27 ["SnappingPointManager"]
+      169 GETIMPORT                        R21 K7 [script]
+      171 GETTABLEKS                       R21 R21 K8 ["Parent"]
+      173 GETTABLEKS                       R21 R21 K27 ["SnappingPointManager"]
       175 CALL                             R20 1 1
       176 GETIMPORT                        R21 K5 [require]
-      178 GETIMPORT                        R24 K7 [script]
-      180 GETTABLEKS                       R23 R24 K8 ["Parent"]
-      182 GETTABLEKS                       R22 R23 K28 ["Analytics"]
+      178 GETIMPORT                        R22 K7 [script]
+      180 GETTABLEKS                       R22 R22 K8 ["Parent"]
+      182 GETTABLEKS                       R22 R22 K28 ["Analytics"]
       184 CALL                             R21 1 1
       185 GETIMPORT                        R22 K30 [game]
       187 LOADK                            R24 K31 ["ChangeHistoryService"]
@@ -944,8 +944,8 @@ MAIN:
       239 LOADNIL                          R37
       240 LOADB                            R38 0
       241 NEWTABLE                         R39 0 0
-      243 GETIMPORT                        R41 K41 [workspace]
-      245 GETTABLEKS                       R40 R41 K42 ["CurrentCamera"]
+      243 GETIMPORT                        R40 K41 [workspace]
+      245 GETTABLEKS                       R40 R40 K42 ["CurrentCamera"]
       247 GETIMPORT                        R41 K30 [game]
       249 LOADK                            R43 K43 ["UIDragDetectorEnableUseWithMorePlugins"]
       250 NAMECALL                         R41 R41 K44 ["GetEngineFeature"]

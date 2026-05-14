@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R2 K1 ["nextPageCursor"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["nextPageCursor"]
         4 SETUPVAL                         R1 0
-        5 GETTABLEKS                       R4 R0 K0 ["responseBody"]
-        7 GETTABLEKS                       R1 R4 K2 ["data"]
+        5 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        7 GETTABLEKS                       R1 R1 K2 ["data"]
         9 LOADNIL                          R2
        10 LOADNIL                          R3
        11 FORGPREP                         R1
@@ -28,34 +28,34 @@ PROTO_0:
        39 RETURN                           R1 -1
 
 PROTO_1:
-        0 GETTABLEKS                       R4 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R4 K1 ["data"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["data"]
         4 LOADNIL                          R2
         5 LOADNIL                          R3
         6 FORGPREP                         R1
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K2 ["fromItemDetailsRequest"]
+        7 GETUPVAL                         R6 0
+        8 GETTABLEKS                       R6 R6 K2 ["fromItemDetailsRequest"]
        10 MOVE                             R7 R5
        11 CALL                             R6 1 1
        12 GETTABLEKS                       R7 R5 K3 ["Asset"]
        14 JUMPIFNOT                        R7 ; [+17]
-       15 GETTABLEKS                       R8 R5 K3 ["Asset"]
-       17 GETTABLEKS                       R7 R8 K4 ["id"]
+       15 GETTABLEKS                       R7 R5 K3 ["Asset"]
+       17 GETTABLEKS                       R7 R7 K4 ["id"]
        19 JUMPIFNOT                        R7 ; [+12]
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R7 R8 K5 ["AddContextToItemDetails"]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K5 ["AddContextToItemDetails"]
        23 MOVE                             R8 R6
        24 GETUPVAL                         R10 1
-       25 GETTABLEKS                       R12 R5 K3 ["Asset"]
-       27 GETTABLEKS                       R11 R12 K4 ["id"]
+       25 GETTABLEKS                       R11 R5 K3 ["Asset"]
+       27 GETTABLEKS                       R11 R11 K4 ["id"]
        29 GETTABLE                         R9 R10 R11
        30 CALL                             R7 2 1
        31 MOVE                             R6 R7
        32 GETTABLEKS                       R7 R6 K3 ["Asset"]
        34 JUMPIFNOT                        R7 ; [+6]
        35 GETUPVAL                         R7 2
-       36 GETTABLEKS                       R9 R6 K3 ["Asset"]
-       38 GETTABLEKS                       R8 R9 K6 ["Id"]
+       36 GETTABLEKS                       R8 R6 K3 ["Asset"]
+       38 GETTABLEKS                       R8 R8 K6 ["Id"]
        40 SETTABLE                         R6 R7 R8
        41 FORGLOOP                         R1 2 ; [-35]
        43 DUPTABLE                         R1 K10 [{"assetIds", "assetMap", "nextPageCursor"}]
@@ -72,9 +72,9 @@ PROTO_2:
         2 NEWTABLE                         R5 0 0
         4 NEWTABLE                         R6 0 0
         6 LOADNIL                          R7
-        7 GETUPVAL                         R12 0
-        8 GETTABLEKS                       R11 R12 K0 ["Dictionary"]
-       10 GETTABLEKS                       R10 R11 K1 ["join"]
+        7 GETUPVAL                         R10 0
+        8 GETTABLEKS                       R10 R10 K0 ["Dictionary"]
+       10 GETTABLEKS                       R10 R10 K1 ["join"]
        12 DUPTABLE                         R11 K5 [{"categoryName", "sectionName", "ownerId"}]
        13 SETTABLEKS                       R1 R11 K2 ["categoryName"]
        15 SETTABLEKS                       R2 R11 K3 ["sectionName"]
@@ -124,22 +124,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["LuauPolyfill"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["LuauPolyfill"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["getUserId"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["getUserId"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Models"]
-       36 GETTABLEKS                       R5 R6 K13 ["AssetInfo"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Models"]
+       36 GETTABLEKS                       R5 R5 K13 ["AssetInfo"]
        38 CALL                             R4 1 1
        39 DUPCLOSURE                       R5 K14 [PROTO_2]
        40 CAPTURE                          VAL R1

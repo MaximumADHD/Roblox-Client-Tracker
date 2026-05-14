@@ -54,8 +54,8 @@ PROTO_3:
        20 SETTABLEKS                       R5 R4 K0 ["Property"]
        22 GETUPVAL                         R6 1
        23 JUMPIFNOT                        R6 ; [+4]
-       24 GETUPVAL                         R6 2
-       25 GETTABLEKS                       R5 R6 K9 ["None"]
+       24 GETUPVAL                         R5 2
+       25 GETTABLEKS                       R5 R5 K9 ["None"]
        27 JUMP                             ; [+1]
        28 LOADNIL                          R5
        29 SETTABLEKS                       R5 R4 K1 ["Transition"]
@@ -76,37 +76,37 @@ PROTO_4:
        14 GETTABLEKS                       R6 R1 K4 ["transitionValue"]
        16 SETTABLEKS                       R6 R5 K6 ["TransitionValue"]
        18 JUMP                             ; [+3]
-       19 GETUPVAL                         R6 1
-       20 GETTABLEKS                       R5 R6 K8 ["None"]
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R5 R5 K8 ["None"]
        22 SETTABLEKS                       R5 R4 K0 ["Transition"]
-       24 GETUPVAL                         R6 1
-       25 GETTABLEKS                       R5 R6 K8 ["None"]
+       24 GETUPVAL                         R5 1
+       25 GETTABLEKS                       R5 R5 K8 ["None"]
        27 SETTABLEKS                       R5 R4 K1 ["Property"]
        29 CALL                             R2 2 -1
        30 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["join"]
        25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R6 R0 K9 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Types"]
+       27 GETTABLEKS                       R5 R0 K9 ["Src"]
+       29 GETTABLEKS                       R5 R5 K10 ["Types"]
        31 CALL                             R4 1 1
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K11 ["Actions"]
-       36 GETTABLEKS                       R5 R6 K12 ["Clipboard"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K11 ["Actions"]
+       36 GETTABLEKS                       R5 R5 K12 ["Clipboard"]
        38 GETIMPORT                        R6 K4 [require]
        40 GETTABLEKS                       R7 R5 K13 ["CopyInstanceToClipboard"]
        42 CALL                             R6 1 1
@@ -123,15 +123,15 @@ MAIN:
        60 GETTABLEKS                       R11 R5 K17 ["CopyTransitionToClipboard"]
        62 CALL                             R10 1 1
        63 GETIMPORT                        R11 K4 [require]
-       65 GETTABLEKS                       R14 R0 K9 ["Src"]
-       67 GETTABLEKS                       R13 R14 K18 ["Flags"]
-       69 GETTABLEKS                       R12 R13 K19 ["getFFlagStyleQuery"]
+       65 GETTABLEKS                       R12 R0 K9 ["Src"]
+       67 GETTABLEKS                       R12 R12 K18 ["Flags"]
+       69 GETTABLEKS                       R12 R12 K19 ["getFFlagStyleQuery"]
        71 CALL                             R11 1 1
        72 CALL                             R11 0 1
        73 GETIMPORT                        R12 K4 [require]
-       75 GETTABLEKS                       R15 R0 K9 ["Src"]
-       77 GETTABLEKS                       R14 R15 K18 ["Flags"]
-       79 GETTABLEKS                       R13 R14 K20 ["getFFlagStyleEditorSupportTransitions"]
+       75 GETTABLEKS                       R13 R0 K9 ["Src"]
+       77 GETTABLEKS                       R13 R13 K18 ["Flags"]
+       79 GETTABLEKS                       R13 R13 K20 ["getFFlagStyleEditorSupportTransitions"]
        81 CALL                             R12 1 1
        82 CALL                             R12 0 1
        83 DUPTABLE                         R13 K26 [{"DEPRECATED_Instance", "Instances", "Attribute", "Property", "Transition"}]

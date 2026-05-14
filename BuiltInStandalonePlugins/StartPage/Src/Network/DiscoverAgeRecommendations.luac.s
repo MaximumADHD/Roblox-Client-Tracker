@@ -3,17 +3,17 @@ PROTO_0:
         2 JUMPIFNOT                        R2 ; [+15]
         3 GETTABLEKS                       R2 R1 K1 ["ageRecommendationDetails"]
         5 JUMPIFNOT                        R2 ; [+12]
-        6 GETTABLEKS                       R3 R1 K1 ["ageRecommendationDetails"]
-        8 GETTABLEKS                       R2 R3 K2 ["ageRecommendationSummary"]
+        6 GETTABLEKS                       R2 R1 K1 ["ageRecommendationDetails"]
+        8 GETTABLEKS                       R2 R2 K2 ["ageRecommendationSummary"]
        10 JUMPIFNOT                        R2 ; [+7]
-       11 GETTABLEKS                       R4 R1 K1 ["ageRecommendationDetails"]
-       13 GETTABLEKS                       R3 R4 K2 ["ageRecommendationSummary"]
-       15 GETTABLEKS                       R2 R3 K3 ["ageRecommendation"]
+       11 GETTABLEKS                       R2 R1 K1 ["ageRecommendationDetails"]
+       13 GETTABLEKS                       R2 R2 K2 ["ageRecommendationSummary"]
+       15 GETTABLEKS                       R2 R2 K3 ["ageRecommendation"]
        17 JUMPIF                           R2 ; [+1]
        18 RETURN                           R0 0
-       19 GETTABLEKS                       R4 R1 K1 ["ageRecommendationDetails"]
-       21 GETTABLEKS                       R3 R4 K2 ["ageRecommendationSummary"]
-       23 GETTABLEKS                       R2 R3 K3 ["ageRecommendation"]
+       19 GETTABLEKS                       R2 R1 K1 ["ageRecommendationDetails"]
+       21 GETTABLEKS                       R2 R2 K2 ["ageRecommendationSummary"]
+       23 GETTABLEKS                       R2 R2 K3 ["ageRecommendation"]
        25 GETTABLEKS                       R3 R2 K4 ["minimumAge"]
        27 JUMPIF                           R3 ; [+4]
        28 GETTABLEKS                       R3 R2 K5 ["contentMaturity"]
@@ -58,16 +58,16 @@ PROTO_2:
 PROTO_3:
         0 DUPTABLE                         R1 K1 [{"universeIds"}]
         1 SETTABLEKS                       R0 R1 K0 ["universeIds"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K2 ["new"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K2 ["new"]
         6 CALL                             R2 0 1
         7 GETTABLEKS                       R3 R2 K3 ["composeUrl"]
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K4 ["MULTI_AGE_RECOMMENDATION"]
-       12 GETTABLEKS                       R4 R5 K5 ["Prefix"]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K4 ["MULTI_AGE_RECOMMENDATION"]
-       17 GETTABLEKS                       R5 R6 K6 ["Url"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K4 ["MULTI_AGE_RECOMMENDATION"]
+       12 GETTABLEKS                       R4 R4 K5 ["Prefix"]
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R5 R5 K4 ["MULTI_AGE_RECOMMENDATION"]
+       17 GETTABLEKS                       R5 R5 K6 ["Url"]
        19 CALL                             R5 0 -1
        20 CALL                             R3 -1 1
        21 GETUPVAL                         R4 2
@@ -101,47 +101,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       19 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K10 ["Framework"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R5 R0 K6 ["Src"]
-       28 GETTABLEKS                       R4 R5 K11 ["Types"]
+       26 GETTABLEKS                       R4 R0 K6 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Types"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K5 [require]
-       33 GETTABLEKS                       R7 R0 K6 ["Src"]
-       35 GETTABLEKS                       R6 R7 K12 ["Models"]
-       37 GETTABLEKS                       R5 R6 K13 ["MultiGetAgeRecommendationResponse"]
+       33 GETTABLEKS                       R5 R0 K6 ["Src"]
+       35 GETTABLEKS                       R5 R5 K12 ["Models"]
+       37 GETTABLEKS                       R5 R5 K13 ["MultiGetAgeRecommendationResponse"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Src"]
-       44 GETTABLEKS                       R7 R8 K14 ["Network"]
-       46 GETTABLEKS                       R6 R7 K15 ["Urls"]
+       42 GETTABLEKS                       R6 R0 K6 ["Src"]
+       44 GETTABLEKS                       R6 R6 K14 ["Network"]
+       46 GETTABLEKS                       R6 R6 K15 ["Urls"]
        48 CALL                             R5 1 1
-       49 GETIMPORT                        R7 K5 [require]
-       51 GETTABLEKS                       R10 R0 K6 ["Src"]
-       53 GETTABLEKS                       R9 R10 K16 ["Util"]
-       55 GETTABLEKS                       R8 R9 K17 ["Services"]
-       57 CALL                             R7 1 1
-       58 GETTABLEKS                       R6 R7 K18 ["Networking"]
+       49 GETIMPORT                        R6 K5 [require]
+       51 GETTABLEKS                       R7 R0 K6 ["Src"]
+       53 GETTABLEKS                       R7 R7 K16 ["Util"]
+       55 GETTABLEKS                       R7 R7 K17 ["Services"]
+       57 CALL                             R6 1 1
+       58 GETTABLEKS                       R6 R6 K18 ["Networking"]
        60 GETIMPORT                        R7 K5 [require]
-       62 GETTABLEKS                       R10 R0 K6 ["Src"]
-       64 GETTABLEKS                       R9 R10 K16 ["Util"]
-       66 GETTABLEKS                       R8 R9 K19 ["createResponseValidator"]
+       62 GETTABLEKS                       R8 R0 K6 ["Src"]
+       64 GETTABLEKS                       R8 R8 K16 ["Util"]
+       66 GETTABLEKS                       R8 R8 K19 ["createResponseValidator"]
        68 CALL                             R7 1 1
        69 GETIMPORT                        R8 K5 [require]
-       71 GETTABLEKS                       R10 R0 K9 ["Packages"]
-       73 GETTABLEKS                       R9 R10 K20 ["Dash"]
+       71 GETTABLEKS                       R9 R0 K9 ["Packages"]
+       73 GETTABLEKS                       R9 R9 K20 ["Dash"]
        75 CALL                             R8 1 1
        76 GETTABLEKS                       R9 R8 K21 ["collectArray"]
-       78 GETTABLEKS                       R11 R2 K22 ["RobloxAPI"]
-       80 GETTABLEKS                       R10 R11 K23 ["Url"]
+       78 GETTABLEKS                       R10 R2 K22 ["RobloxAPI"]
+       80 GETTABLEKS                       R10 R10 K23 ["Url"]
        82 GETTABLEKS                       R11 R6 K24 ["new"]
        84 DUPTABLE                         R12 K28 [{"isInternal", "loggingLevel", "retryAmount"}]
        85 LOADB                            R13 1
@@ -158,9 +158,9 @@ MAIN:
       102 NAMECALL                         R13 R13 K34 ["GetService"]
       104 CALL                             R13 2 1
       105 GETIMPORT                        R14 K5 [require]
-      107 GETTABLEKS                       R17 R0 K6 ["Src"]
-      109 GETTABLEKS                       R16 R17 K14 ["Network"]
-      111 GETTABLEKS                       R15 R16 K35 ["GameCache"]
+      107 GETTABLEKS                       R15 R0 K6 ["Src"]
+      109 GETTABLEKS                       R15 R15 K14 ["Network"]
+      111 GETTABLEKS                       R15 R15 K35 ["GameCache"]
       113 CALL                             R14 1 1
       114 MOVE                             R15 R7
       115 GETTABLEKS                       R16 R4 K36 ["validate"]

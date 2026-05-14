@@ -60,8 +60,8 @@ PROTO_5:
         6 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Mirrored"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Mirrored"]
         3 JUMPIFNOT                        R0 ; [+7]
         4 GETUPVAL                         R0 1
         5 GETUPVAL                         R2 2
@@ -72,17 +72,17 @@ PROTO_6:
        11 GETUPVAL                         R0 1
        12 GETUPVAL                         R2 4
        13 GETUPVAL                         R3 3
-       14 GETUPVAL                         R5 5
-       15 GETTABLEKS                       R4 R5 K2 ["SelectedTangentSide"]
+       14 GETUPVAL                         R4 5
+       15 GETTABLEKS                       R4 R4 K2 ["SelectedTangentSide"]
        17 CALL                             R2 2 -1
        18 NAMECALL                         R0 R0 K1 ["dispatch"]
        20 CALL                             R0 -1 0
        21 RETURN                           R0 0
 
 PROTO_7:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PathReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PathReducer"]
         5 GETTABLEKS                       R2 R1 K2 ["SelectedObject"]
         7 JUMPIFNOTEQKNIL                  R2 ; [+2]
         9 RETURN                           R1 1
@@ -252,17 +252,17 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Src"]
-       11 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R1 K4 ["Actions"]
        13 GETIMPORT                        R2 K6 [require]
        15 GETTABLEKS                       R3 R1 K7 ["ToggleMirrored"]
        17 CALL                             R2 1 1
-       18 GETTABLEKS                       R4 R0 K3 ["Src"]
-       20 GETTABLEKS                       R3 R4 K8 ["Thunks"]
+       18 GETTABLEKS                       R3 R0 K3 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Thunks"]
        22 GETIMPORT                        R4 K6 [require]
        24 GETTABLEKS                       R5 R3 K9 ["AddControlPointTangent"]
        26 CALL                             R4 1 1
@@ -276,9 +276,9 @@ MAIN:
        39 GETTABLEKS                       R8 R3 K12 ["ToggleClosed"]
        41 CALL                             R7 1 1
        42 GETIMPORT                        R8 K6 [require]
-       44 GETTABLEKS                       R11 R0 K3 ["Src"]
-       46 GETTABLEKS                       R10 R11 K13 ["Util"]
-       48 GETTABLEKS                       R9 R10 K14 ["createContextMenu"]
+       44 GETTABLEKS                       R9 R0 K3 ["Src"]
+       46 GETTABLEKS                       R9 R9 K13 ["Util"]
+       48 GETTABLEKS                       R9 R9 K14 ["createContextMenu"]
        50 CALL                             R8 1 1
        51 DUPCLOSURE                       R9 K15 [PROTO_8]
        52 CAPTURE                          VAL R2

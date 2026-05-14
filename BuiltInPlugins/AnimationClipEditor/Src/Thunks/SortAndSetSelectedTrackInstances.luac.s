@@ -21,8 +21,8 @@ PROTO_0:
        22 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["buildRigHierarchy"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["buildRigHierarchy"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 NEWTABLE                         R2 0 0
@@ -55,10 +55,10 @@ PROTO_2:
        24 RETURN                           R8 1
 
 PROTO_3:
-        0 NAMECALL                         R3 R0 K0 ["getState"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["Status"]
-        5 GETTABLEKS                       R1 R2 K2 ["RootInstance"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["Status"]
+        5 GETTABLEKS                       R1 R1 K2 ["RootInstance"]
         7 JUMPIF                           R1 ; [+1]
         8 RETURN                           R0 0
         9 GETUPVAL                         R2 0
@@ -80,8 +80,8 @@ PROTO_3:
        28 CALL                             R9 2 1
        29 DUPTABLE                         R10 K7 [{"depth", "order"}]
        30 JUMPIFNOT                        R9 ; [+5]
-       31 GETTABLEKS                       R14 R9 K9 ["Value"]
-       33 GETTABLEKS                       R13 R14 K10 ["Name"]
+       31 GETTABLEKS                       R13 R9 K9 ["Value"]
+       33 GETTABLEKS                       R13 R13 K10 ["Name"]
        35 JUMP                             ; [+2]
        36 GETTABLEKS                       R13 R8 K10 ["Name"]
        38 GETTABLE                         R12 R2 R13
@@ -116,14 +116,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["RigInfo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["RigInfo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Actions"]
-       22 GETTABLEKS                       R3 R4 K10 ["SetSelectedTrackInstances"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K10 ["SetSelectedTrackInstances"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K11 [PROTO_1]
        26 CAPTURE                          VAL R1

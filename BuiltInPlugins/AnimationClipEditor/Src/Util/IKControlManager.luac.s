@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["IK_MODE"]
-        3 GETTABLEKS                       R4 R5 K1 ["BodyPart"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["IK_MODE"]
+        3 GETTABLEKS                       R4 R4 K1 ["BodyPart"]
         5 JUMPIFEQ                         R1 R4 ; [+2]
         7 LOADB                            R3 0 +1
         8 LOADB                            R3 1
@@ -9,8 +9,8 @@ PROTO_0:
        11 LOADK                            R4 K2 ["Only Body Part IK mode is currrently supported with IK Controls"]
        12 GETIMPORT                        R2 K4 [assert]
        14 CALL                             R2 2 0
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K5 ["isR15Humanoid"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K5 ["isR15Humanoid"]
        18 MOVE                             R4 R0
        19 CALL                             R3 1 1
        20 FASTCALL2K                       ASSERT R3 K6 ; [+4]
@@ -193,8 +193,8 @@ PROTO_4:
 
 PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["_hrd"]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K1 ["PART1_TO_JOINT"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["PART1_TO_JOINT"]
         5 GETTABLE                         R4 R5 R1
         6 GETTABLE                         R2 R3 R4
         7 RETURN                           R2 1
@@ -220,20 +220,20 @@ PROTO_6:
        24 LOADB                            R3 0 +1
        25 LOADB                            R3 1
        26 JUMPIFNOT                        R3 ; [+37]
-       27 GETTABLEKS                       R7 R0 K7 ["_hrd"]
-       29 GETTABLEKS                       R6 R7 K8 ["LeftAnkle"]
-       31 GETTABLEKS                       R5 R6 K9 ["Parent"]
-       33 GETTABLEKS                       R8 R0 K7 ["_hrd"]
-       35 GETTABLEKS                       R7 R8 K10 ["LeftHip"]
-       37 GETTABLEKS                       R6 R7 K9 ["Parent"]
+       27 GETTABLEKS                       R5 R0 K7 ["_hrd"]
+       29 GETTABLEKS                       R5 R5 K8 ["LeftAnkle"]
+       31 GETTABLEKS                       R5 R5 K9 ["Parent"]
+       33 GETTABLEKS                       R6 R0 K7 ["_hrd"]
+       35 GETTABLEKS                       R6 R6 K10 ["LeftHip"]
+       37 GETTABLEKS                       R6 R6 K9 ["Parent"]
        39 NAMECALL                         R3 R0 K11 ["getOrCreateIKControl"]
        41 CALL                             R3 3 1
-       42 GETTABLEKS                       R8 R0 K7 ["_hrd"]
-       44 GETTABLEKS                       R7 R8 K12 ["RightAnkle"]
-       46 GETTABLEKS                       R6 R7 K9 ["Parent"]
-       48 GETTABLEKS                       R9 R0 K7 ["_hrd"]
-       50 GETTABLEKS                       R8 R9 K13 ["RightHip"]
-       52 GETTABLEKS                       R7 R8 K9 ["Parent"]
+       42 GETTABLEKS                       R6 R0 K7 ["_hrd"]
+       44 GETTABLEKS                       R6 R6 K12 ["RightAnkle"]
+       46 GETTABLEKS                       R6 R6 K9 ["Parent"]
+       48 GETTABLEKS                       R7 R0 K7 ["_hrd"]
+       50 GETTABLEKS                       R7 R7 K13 ["RightHip"]
+       52 GETTABLEKS                       R7 R7 K9 ["Parent"]
        54 NAMECALL                         R4 R0 K11 ["getOrCreateIKControl"]
        56 CALL                             R4 3 1
        57 AND                              R6 R3 R4
@@ -265,14 +265,14 @@ PROTO_7:
         2 JUMPIF                           R2 ; [+1]
         3 RETURN                           R0 0
         4 GETTABLEKS                       R3 R0 K1 ["_ikControls"]
-        6 GETTABLEKS                       R5 R0 K0 ["_selectedPart"]
-        8 GETTABLEKS                       R4 R5 K2 ["Name"]
+        6 GETTABLEKS                       R4 R0 K0 ["_selectedPart"]
+        8 GETTABLEKS                       R4 R4 K2 ["Name"]
        10 GETTABLE                         R2 R3 R4
        11 JUMPIF                           R2 ; [+10]
        12 GETIMPORT                        R3 K4 [warn]
        14 LOADK                            R5 K5 ["IK Control not found for end effector: "]
-       15 GETTABLEKS                       R7 R0 K0 ["_selectedPart"]
-       17 GETTABLEKS                       R6 R7 K2 ["Name"]
+       15 GETTABLEKS                       R6 R0 K0 ["_selectedPart"]
+       17 GETTABLEKS                       R6 R6 K2 ["Name"]
        19 CONCAT                           R4 R5 R6
        20 CALL                             R3 1 0
        21 RETURN                           R0 0
@@ -294,8 +294,8 @@ PROTO_7:
        44 CALL                             R3 1 0
        45 NAMECALL                         R3 R2 K12 ["Solve"]
        47 CALL                             R3 1 0
-       48 GETTABLEKS                       R5 R0 K0 ["_selectedPart"]
-       50 GETTABLEKS                       R4 R5 K2 ["Name"]
+       48 GETTABLEKS                       R4 R0 K0 ["_selectedPart"]
+       50 GETTABLEKS                       R4 R4 K2 ["Name"]
        52 LOADB                            R3 1
        53 JUMPIFEQKS                       R4 K13 ["UpperTorso"] ; [+5]
        55 JUMPIFEQKS                       R4 K14 ["LowerTorso"] ; [+2]
@@ -334,8 +334,8 @@ PROTO_7:
       100 LOADN                            R6 0
       101 NAMECALL                         R4 R3 K22 ["StepAnimations"]
       103 CALL                             R4 2 0
-      104 GETUPVAL                         R5 2
-      105 GETTABLEKS                       R4 R5 K23 ["updateSimulatedAnimConstraintParts"]
+      104 GETUPVAL                         R4 2
+      105 GETTABLEKS                       R4 R4 K23 ["updateSimulatedAnimConstraintParts"]
       107 GETTABLEKS                       R5 R0 K18 ["_model"]
       109 CALL                             R4 1 0
       110 RETURN                           R0 0
@@ -371,20 +371,20 @@ PROTO_9:
         3 NEWTABLE                         R1 0 0
         5 RETURN                           R1 1
         6 GETTABLEKS                       R2 R0 K1 ["_ikControls"]
-        8 GETTABLEKS                       R4 R0 K0 ["_selectedPart"]
-       10 GETTABLEKS                       R3 R4 K2 ["Name"]
+        8 GETTABLEKS                       R3 R0 K0 ["_selectedPart"]
+       10 GETTABLEKS                       R3 R3 K2 ["Name"]
        12 GETTABLE                         R1 R2 R3
        13 LOADK                            R5 K3 ["IK Control not found for end effector: "]
-       14 GETTABLEKS                       R7 R0 K0 ["_selectedPart"]
-       16 GETTABLEKS                       R6 R7 K2 ["Name"]
+       14 GETTABLEKS                       R6 R0 K0 ["_selectedPart"]
+       16 GETTABLEKS                       R6 R6 K2 ["Name"]
        18 CONCAT                           R4 R5 R6
        19 FASTCALL2                        ASSERT R1 R4 ; [+4]
        21 MOVE                             R3 R1
        22 GETIMPORT                        R2 K5 [assert]
        24 CALL                             R2 2 0
        25 NEWTABLE                         R2 0 0
-       27 GETTABLEKS                       R5 R0 K0 ["_selectedPart"]
-       29 GETTABLEKS                       R4 R5 K2 ["Name"]
+       27 GETTABLEKS                       R4 R0 K0 ["_selectedPart"]
+       29 GETTABLEKS                       R4 R4 K2 ["Name"]
        31 LOADB                            R3 1
        32 JUMPIFEQKS                       R4 K6 ["UpperTorso"] ; [+5]
        34 JUMPIFEQKS                       R4 K7 ["LowerTorso"] ; [+2]
@@ -439,19 +439,19 @@ MAIN:
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R5 R1 K7 ["Src"]
-       15 GETTABLEKS                       R4 R5 K8 ["Util"]
-       17 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       13 GETTABLEKS                       R3 R1 K7 ["Src"]
+       15 GETTABLEKS                       R3 R3 K8 ["Util"]
+       17 GETTABLEKS                       R3 R3 K9 ["Constants"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K6 [require]
-       22 GETTABLEKS                       R6 R1 K7 ["Src"]
-       24 GETTABLEKS                       R5 R6 K8 ["Util"]
-       26 GETTABLEKS                       R4 R5 K10 ["RigInfo"]
+       22 GETTABLEKS                       R4 R1 K7 ["Src"]
+       24 GETTABLEKS                       R4 R4 K8 ["Util"]
+       26 GETTABLEKS                       R4 R4 K10 ["RigInfo"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K6 [require]
-       31 GETTABLEKS                       R7 R1 K7 ["Src"]
-       33 GETTABLEKS                       R6 R7 K8 ["Util"]
-       35 GETTABLEKS                       R5 R6 K11 ["RigUtils"]
+       31 GETTABLEKS                       R5 R1 K7 ["Src"]
+       33 GETTABLEKS                       R5 R5 K8 ["Util"]
+       35 GETTABLEKS                       R5 R5 K11 ["RigUtils"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K13 [game]
        40 LOADK                            R7 K14 ["RunService"]

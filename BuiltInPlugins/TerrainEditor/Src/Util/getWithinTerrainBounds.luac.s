@@ -19,27 +19,27 @@ PROTO_1:
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
         3 CALL                             R2 2 2
-        4 GETUPVAL                         R7 1
-        5 GETTABLEKS                       R6 R7 K0 ["Min"]
-        7 GETTABLEKS                       R5 R6 K1 ["X"]
-        9 GETUPVAL                         R8 1
-       10 GETTABLEKS                       R7 R8 K0 ["Min"]
-       12 GETTABLEKS                       R6 R7 K2 ["Y"]
-       14 GETUPVAL                         R9 1
-       15 GETTABLEKS                       R8 R9 K0 ["Min"]
-       17 GETTABLEKS                       R7 R8 K3 ["Z"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K0 ["Min"]
+        7 GETTABLEKS                       R5 R5 K1 ["X"]
+        9 GETUPVAL                         R6 1
+       10 GETTABLEKS                       R6 R6 K0 ["Min"]
+       12 GETTABLEKS                       R6 R6 K2 ["Y"]
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R7 R7 K0 ["Min"]
+       17 GETTABLEKS                       R7 R7 K3 ["Z"]
        19 FASTCALL                         VECTOR ; [+2]
        20 GETIMPORT                        R4 K6 [Vector3.new]
        22 CALL                             R4 3 1
-       23 GETUPVAL                         R8 1
-       24 GETTABLEKS                       R7 R8 K7 ["Max"]
-       26 GETTABLEKS                       R6 R7 K1 ["X"]
-       28 GETUPVAL                         R9 1
-       29 GETTABLEKS                       R8 R9 K7 ["Max"]
-       31 GETTABLEKS                       R7 R8 K2 ["Y"]
-       33 GETUPVAL                         R10 1
-       34 GETTABLEKS                       R9 R10 K7 ["Max"]
-       36 GETTABLEKS                       R8 R9 K3 ["Z"]
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K7 ["Max"]
+       26 GETTABLEKS                       R6 R6 K1 ["X"]
+       28 GETUPVAL                         R7 1
+       29 GETTABLEKS                       R7 R7 K7 ["Max"]
+       31 GETTABLEKS                       R7 R7 K2 ["Y"]
+       33 GETUPVAL                         R8 1
+       34 GETTABLEKS                       R8 R8 K7 ["Max"]
+       36 GETTABLEKS                       R8 R8 K3 ["Z"]
        38 FASTCALL                         VECTOR ; [+2]
        39 GETIMPORT                        R5 K6 [Vector3.new]
        41 CALL                             R5 3 1
@@ -79,14 +79,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["getBoundingBox"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["getBoundingBox"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R5 K10 [game]
-       18 GETTABLEKS                       R4 R5 K11 ["workspace"]
-       20 GETTABLEKS                       R3 R4 K12 ["Terrain"]
-       22 GETTABLEKS                       R2 R3 K13 ["MaxExtents"]
+       16 GETIMPORT                        R2 K10 [game]
+       18 GETTABLEKS                       R2 R2 K11 ["workspace"]
+       20 GETTABLEKS                       R2 R2 K12 ["Terrain"]
+       22 GETTABLEKS                       R2 R2 K13 ["MaxExtents"]
        24 DUPCLOSURE                       R3 K14 [PROTO_0]
        25 DUPCLOSURE                       R4 K15 [PROTO_1]
        26 CAPTURE                          VAL R1

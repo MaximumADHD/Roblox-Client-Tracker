@@ -41,32 +41,32 @@ PROTO_3:
        20 JUMPIFNOT                        R3 ; [+8]
        21 GETTABLEKS                       R11 R3 K11 ["info"]
        23 JUMPIFNOT                        R11 ; [+5]
-       24 GETTABLEKS                       R11 R3 K11 ["info"]
-       26 GETTABLEKS                       R10 R11 K12 ["title"]
+       24 GETTABLEKS                       R10 R3 K11 ["info"]
+       26 GETTABLEKS                       R10 R10 K12 ["title"]
        28 JUMP                             ; [+1]
        29 LOADNIL                          R10
        30 SETTABLEKS                       R10 R9 K4 ["tutorialTitle"]
        32 JUMPIFNOT                        R3 ; [+8]
        33 GETTABLEKS                       R11 R3 K11 ["info"]
        35 JUMPIFNOT                        R11 ; [+5]
-       36 GETTABLEKS                       R11 R3 K11 ["info"]
-       38 GETTABLEKS                       R10 R11 K13 ["summary"]
+       36 GETTABLEKS                       R10 R3 K11 ["info"]
+       38 GETTABLEKS                       R10 R10 K13 ["summary"]
        40 JUMP                             ; [+1]
        41 LOADNIL                          R10
        42 SETTABLEKS                       R10 R9 K5 ["tutorialSummary"]
        44 JUMPIFNOT                        R3 ; [+8]
        45 GETTABLEKS                       R11 R3 K11 ["info"]
        47 JUMPIFNOT                        R11 ; [+5]
-       48 GETTABLEKS                       R11 R3 K11 ["info"]
-       50 GETTABLEKS                       R10 R11 K14 ["difficulty"]
+       48 GETTABLEKS                       R10 R3 K11 ["info"]
+       50 GETTABLEKS                       R10 R10 K14 ["difficulty"]
        52 JUMP                             ; [+1]
        53 LOADNIL                          R10
        54 SETTABLEKS                       R10 R9 K6 ["tutorialDifficulty"]
        56 JUMPIFNOT                        R3 ; [+8]
        57 GETTABLEKS                       R11 R3 K11 ["info"]
        59 JUMPIFNOT                        R11 ; [+5]
-       60 GETTABLEKS                       R11 R3 K11 ["info"]
-       62 GETTABLEKS                       R10 R11 K15 ["categories"]
+       60 GETTABLEKS                       R10 R3 K11 ["info"]
+       62 GETTABLEKS                       R10 R10 K15 ["categories"]
        64 JUMP                             ; [+1]
        65 LOADNIL                          R10
        66 SETTABLEKS                       R10 R9 K7 ["tutorialCategories"]
@@ -80,8 +80,8 @@ PROTO_4:
         0 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 DUPTABLE                         R2 K2 [{"logRobloxTelemetryEvent"}]
         4 MOVE                             R3 R0
         5 JUMPIF                           R3 ; [+1]
@@ -97,31 +97,31 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Services"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Services"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K10 ["RbxAnalyticsService"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETIMPORT                        R7 K1 [script]
-       29 GETTABLEKS                       R6 R7 K11 ["Parent"]
-       31 GETTABLEKS                       R5 R6 K12 ["TelemetryProtocolTypes"]
+       27 GETIMPORT                        R5 K1 [script]
+       29 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       31 GETTABLEKS                       R5 R5 K12 ["TelemetryProtocolTypes"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K5 [require]
-       36 GETTABLEKS                       R7 R0 K13 ["Packages"]
-       38 GETTABLEKS                       R6 R7 K14 ["Framework"]
+       36 GETTABLEKS                       R6 R0 K13 ["Packages"]
+       38 GETTABLEKS                       R6 R6 K14 ["Framework"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R8 R0 K13 ["Packages"]
-       45 GETTABLEKS                       R7 R8 K15 ["Dash"]
+       43 GETTABLEKS                       R7 R0 K13 ["Packages"]
+       45 GETTABLEKS                       R7 R7 K15 ["Dash"]
        47 CALL                             R6 1 1
        48 GETTABLEKS                       R7 R6 K16 ["join"]
-       50 GETTABLEKS                       R9 R5 K17 ["ContextServices"]
-       52 GETTABLEKS                       R8 R9 K18 ["ContextItem"]
+       50 GETTABLEKS                       R8 R5 K17 ["ContextServices"]
+       52 GETTABLEKS                       R8 R8 K18 ["ContextItem"]
        54 LOADK                            R11 K19 ["Telemetry"]
        55 NAMECALL                         R9 R8 K20 ["extend"]
        57 CALL                             R9 2 1

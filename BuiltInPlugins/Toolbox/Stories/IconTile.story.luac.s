@@ -11,8 +11,8 @@ PROTO_0:
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"maxTileHeight"}]
         1 GETTABLEKS                       R3 R0 K0 ["maxTileHeight"]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K2 ["Y"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K2 ["Y"]
         6 FASTCALL2                        MATH_MAX R3 R4 ; [+3]
         8 GETIMPORT                        R2 K5 [math.max]
        10 CALL                             R2 2 1
@@ -40,8 +40,8 @@ PROTO_3:
 PROTO_4:
         0 NEWTABLE                         R1 0 0
         2 LOADN                            R4 1
-        3 GETTABLEKS                       R5 R0 K0 ["props"]
-        5 GETTABLEKS                       R2 R5 K1 ["numTiles"]
+        3 GETTABLEKS                       R2 R0 K0 ["props"]
+        5 GETTABLEKS                       R2 R2 K1 ["numTiles"]
         7 LOADN                            R3 1
         8 FORNPREP                         R2
         9 LOADK                            R6 K2 ["Tile%*"]
@@ -49,8 +49,8 @@ PROTO_4:
        11 NAMECALL                         R6 R6 K3 ["format"]
        13 CALL                             R6 2 1
        14 MOVE                             R5 R6
-       15 GETUPVAL                         R7 0
-       16 GETTABLEKS                       R6 R7 K4 ["createElement"]
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K4 ["createElement"]
        18 GETUPVAL                         R7 1
        19 DUPTABLE                         R8 K10 [{"Title", "BackgroundColor", "Image", "LayoutOrder", "OnAbsoluteSizeChanged"}]
        20 LOADK                            R10 K11 ["Category %*"]
@@ -62,8 +62,8 @@ PROTO_4:
        28 GETUPVAL                         R10 2
        29 GETTABLE                         R9 R10 R4
        30 SETTABLEKS                       R9 R8 K6 ["BackgroundColor"]
-       32 GETUPVAL                         R10 3
-       33 GETTABLEKS                       R9 R10 K12 ["constructAssetThumbnailUrl"]
+       32 GETUPVAL                         R9 3
+       33 GETTABLEKS                       R9 R9 K12 ["constructAssetThumbnailUrl"]
        35 GETUPVAL                         R11 4
        36 GETIMPORT                        R12 K15 [Random.new]
        38 CALL                             R12 0 1
@@ -82,8 +82,8 @@ PROTO_4:
        56 CALL                             R6 2 1
        57 SETTABLE                         R6 R1 R5
        58 FORNLOOP                         R2
-       59 GETUPVAL                         R3 0
-       60 GETTABLEKS                       R2 R3 K4 ["createElement"]
+       59 GETUPVAL                         R2 0
+       60 GETTABLEKS                       R2 R2 K4 ["createElement"]
        62 GETUPVAL                         R3 6
        63 DUPTABLE                         R4 K22 [{"AutomaticSize", "CutOffs", "ItemHeight", "Size"}]
        64 GETIMPORT                        R5 K25 [Enum.AutomaticSize.Y]
@@ -97,23 +97,23 @@ PROTO_4:
        77 DUPTABLE                         R7 K28 [{"ColumnCount", "MinWidth"}]
        78 LOADN                            R8 2
        79 SETTABLEKS                       R8 R7 K26 ["ColumnCount"]
-       81 GETTABLEKS                       R10 R0 K0 ["props"]
-       83 GETTABLEKS                       R9 R10 K30 ["tileWidth"]
+       81 GETTABLEKS                       R9 R0 K0 ["props"]
+       83 GETTABLEKS                       R9 R9 K30 ["tileWidth"]
        85 MULK                             R8 R9 K29 [3]
        86 SETTABLEKS                       R8 R7 K27 ["MinWidth"]
        88 DUPTABLE                         R8 K28 [{"ColumnCount", "MinWidth"}]
        89 LOADN                            R9 3
        90 SETTABLEKS                       R9 R8 K26 ["ColumnCount"]
-       92 GETTABLEKS                       R11 R0 K0 ["props"]
-       94 GETTABLEKS                       R10 R11 K30 ["tileWidth"]
+       92 GETTABLEKS                       R10 R0 K0 ["props"]
+       94 GETTABLEKS                       R10 R10 K30 ["tileWidth"]
        96 MULK                             R9 R10 K31 [8]
        97 SETTABLEKS                       R9 R8 K27 ["MinWidth"]
        99 SETLIST                          R5 R6 3 [1]
       101 SETTABLEKS                       R5 R4 K19 ["CutOffs"]
       103 GETIMPORT                        R5 K33 [UDim.new]
       105 LOADN                            R6 0
-      106 GETTABLEKS                       R8 R0 K34 ["state"]
-      108 GETTABLEKS                       R7 R8 K35 ["maxTileHeight"]
+      106 GETTABLEKS                       R7 R0 K34 ["state"]
+      108 GETTABLEKS                       R7 R7 K35 ["maxTileHeight"]
       110 CALL                             R5 2 1
       111 SETTABLEKS                       R5 R4 K20 ["ItemHeight"]
       113 GETIMPORT                        R5 K38 [UDim2.fromScale]
@@ -132,13 +132,13 @@ PROTO_5:
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"IconTile"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K9 [{"BackgroundColor", "Image", "Key", "OnClick", "Size", "Title"}]
        12 GETIMPORT                        R7 K12 [Color3.fromRGB]
@@ -147,8 +147,8 @@ PROTO_6:
        16 LOADN                            R10 82
        17 CALL                             R7 3 1
        18 SETTABLEKS                       R7 R6 K3 ["BackgroundColor"]
-       20 GETUPVAL                         R8 3
-       21 GETTABLEKS                       R7 R8 K13 ["constructAssetThumbnailUrl"]
+       20 GETUPVAL                         R7 3
+       21 GETTABLEKS                       R7 R7 K13 ["constructAssetThumbnailUrl"]
        23 GETUPVAL                         R9 4
        24 GETTABLEN                        R8 R9 1
        25 GETUPVAL                         R9 5
@@ -174,13 +174,13 @@ PROTO_6:
        52 RETURN                           R0 -1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"GridStory"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 CALL                             R4 1 1
        12 SETTABLEKS                       R4 R3 K1 ["GridStory"]
@@ -194,13 +194,13 @@ PROTO_8:
         4 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"IconTile"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K10 [{"BackgroundColor", "Image", "Key", "OnClick", "Size", "AutomaticSize", "Title"}]
        12 GETIMPORT                        R7 K13 [Color3.fromRGB]
@@ -209,8 +209,8 @@ PROTO_9:
        16 LOADN                            R10 82
        17 CALL                             R7 3 1
        18 SETTABLEKS                       R7 R6 K3 ["BackgroundColor"]
-       20 GETUPVAL                         R8 3
-       21 GETTABLEKS                       R7 R8 K14 ["constructAssetThumbnailUrl"]
+       20 GETUPVAL                         R7 3
+       21 GETTABLEKS                       R7 R7 K14 ["constructAssetThumbnailUrl"]
        23 GETUPVAL                         R9 4
        24 GETTABLEN                        R8 R9 1
        25 GETUPVAL                         R9 5
@@ -242,37 +242,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["MockWrapper"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["MockWrapper"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["Urls"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["Urls"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K9 ["Src"]
-       43 GETTABLEKS                       R7 R8 K10 ["Util"]
-       45 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       41 GETTABLEKS                       R6 R0 K9 ["Src"]
+       43 GETTABLEKS                       R6 R6 K10 ["Util"]
+       45 GETTABLEKS                       R6 R6 K13 ["Constants"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R10 R0 K9 ["Src"]
-       52 GETTABLEKS                       R9 R10 K14 ["Components"]
-       54 GETTABLEKS                       R8 R9 K15 ["Categorization"]
-       56 GETTABLEKS                       R7 R8 K16 ["IconTile"]
+       50 GETTABLEKS                       R7 R0 K9 ["Src"]
+       52 GETTABLEKS                       R7 R7 K14 ["Components"]
+       54 GETTABLEKS                       R7 R7 K15 ["Categorization"]
+       56 GETTABLEKS                       R7 R7 K16 ["IconTile"]
        58 CALL                             R6 1 1
        59 GETTABLEKS                       R7 R5 K17 ["ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE"]
-       61 GETTABLEKS                       R9 R1 K18 ["UI"]
-       63 GETTABLEKS                       R8 R9 K19 ["ResponsiveGrid"]
+       61 GETTABLEKS                       R8 R1 K18 ["UI"]
+       63 GETTABLEKS                       R8 R8 K19 ["ResponsiveGrid"]
        65 NEWTABLE                         R9 0 8
        67 LOADK                            R10 K20 [5657301130]
        68 LOADK                            R11 K21 [13986559755]

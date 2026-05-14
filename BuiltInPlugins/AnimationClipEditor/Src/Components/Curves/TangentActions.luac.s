@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["PluginActions"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
         4 NEWTABLE                         R2 0 2
         6 LOADK                            R5 K2 ["ClearTangent"]
         7 NAMECALL                         R3 R1 K3 ["get"]
@@ -31,8 +31,8 @@ PROTO_1:
        24 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["OnSetTangent"]
         5 GETTABLEKS                       R2 R0 K2 ["InstanceName"]
         7 GETTABLEKS                       R3 R0 K3 ["Path"]
@@ -42,8 +42,8 @@ PROTO_2:
        14 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["OnSetTangent"]
         5 GETTABLEKS                       R2 R0 K2 ["InstanceName"]
         7 GETTABLEKS                       R3 R0 K3 ["Path"]
@@ -54,8 +54,8 @@ PROTO_3:
        15 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["PluginActions"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
         4 NEWTABLE                         R2 0 0
         6 SETTABLEKS                       R2 R0 K2 ["Connections"]
         8 NEWTABLE                         R2 0 0
@@ -80,8 +80,8 @@ PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["ShowMenu"]
         4 GETTABLEKS                       R3 R0 K2 ["Actions"]
-        6 GETTABLEKS                       R5 R0 K0 ["props"]
-        8 GETTABLEKS                       R4 R5 K3 ["PluginActions"]
+        6 GETTABLEKS                       R4 R0 K0 ["props"]
+        8 GETTABLEKS                       R4 R4 K3 ["PluginActions"]
        10 GETUPVAL                         R5 0
        11 MOVE                             R6 R4
        12 CALL                             R5 1 1
@@ -105,8 +105,8 @@ PROTO_5:
        37 LOADB                            R6 1
        38 SETTABLEKS                       R6 R5 K6 ["Enabled"]
        40 JUMPIFNOT                        R2 ; [+16]
-       41 GETUPVAL                         R6 1
-       42 GETTABLEKS                       R5 R6 K10 ["createElement"]
+       41 GETUPVAL                         R5 1
+       42 GETTABLEKS                       R5 R5 K10 ["createElement"]
        44 GETUPVAL                         R6 2
        45 DUPTABLE                         R7 K12 [{"Actions", "OnMenuOpened"}]
        46 NAMECALL                         R8 R0 K13 ["makeMenuActions"]
@@ -145,17 +145,17 @@ PROTO_6:
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["Status"]
         2 DUPTABLE                         R2 K5 [{"InstanceName", "Path", "Tick", "Side"}]
-        3 GETTABLEKS                       R4 R1 K6 ["RightClickContextInfo"]
-        5 GETTABLEKS                       R3 R4 K1 ["InstanceName"]
+        3 GETTABLEKS                       R3 R1 K6 ["RightClickContextInfo"]
+        5 GETTABLEKS                       R3 R3 K1 ["InstanceName"]
         7 SETTABLEKS                       R3 R2 K1 ["InstanceName"]
-        9 GETTABLEKS                       R4 R1 K6 ["RightClickContextInfo"]
-       11 GETTABLEKS                       R3 R4 K2 ["Path"]
+        9 GETTABLEKS                       R3 R1 K6 ["RightClickContextInfo"]
+       11 GETTABLEKS                       R3 R3 K2 ["Path"]
        13 SETTABLEKS                       R3 R2 K2 ["Path"]
-       15 GETTABLEKS                       R4 R1 K6 ["RightClickContextInfo"]
-       17 GETTABLEKS                       R3 R4 K3 ["Tick"]
+       15 GETTABLEKS                       R3 R1 K6 ["RightClickContextInfo"]
+       17 GETTABLEKS                       R3 R3 K3 ["Tick"]
        19 SETTABLEKS                       R3 R2 K3 ["Tick"]
-       21 GETTABLEKS                       R4 R1 K6 ["RightClickContextInfo"]
-       23 GETTABLEKS                       R3 R4 K4 ["Side"]
+       21 GETTABLEKS                       R3 R1 K6 ["RightClickContextInfo"]
+       23 GETTABLEKS                       R3 R3 K4 ["Side"]
        25 SETTABLEKS                       R3 R2 K4 ["Side"]
        27 RETURN                           R2 1
 
@@ -170,26 +170,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["isEmpty"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["isEmpty"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Components"]
-       36 GETTABLEKS                       R5 R6 K13 ["ContextMenu"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Components"]
+       36 GETTABLEKS                       R5 R5 K13 ["ContextMenu"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       43 GETTABLEKS                       R6 R7 K14 ["Framework"]
+       41 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       43 GETTABLEKS                       R6 R6 K14 ["Framework"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R5 K15 ["ContextServices"]
        48 GETTABLEKS                       R7 R6 K16 ["withContext"]

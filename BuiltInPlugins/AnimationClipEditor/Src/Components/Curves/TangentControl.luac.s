@@ -5,9 +5,9 @@ PROTO_0:
         6 GETTABLEKS                       R4 R1 K3 ["Slope"]
         8 GETTABLEKS                       R5 R1 K4 ["Length"]
        10 GETTABLEKS                       R7 R1 K5 ["Side"]
-       12 GETUPVAL                         R10 0
-       13 GETTABLEKS                       R9 R10 K6 ["SLOPES"]
-       15 GETTABLEKS                       R8 R9 K7 ["Left"]
+       12 GETUPVAL                         R8 0
+       13 GETTABLEKS                       R8 R8 K6 ["SLOPES"]
+       15 GETTABLEKS                       R8 R8 K7 ["Left"]
        17 JUMPIFEQ                         R7 R8 ; [+2]
        19 LOADB                            R6 0 +1
        20 LOADB                            R6 1
@@ -21,8 +21,8 @@ PROTO_0:
        32 FASTCALL1                        MATH_DEG R10 ; [+2]
        33 GETIMPORT                        R9 K15 [math.deg]
        35 CALL                             R9 1 1
-       36 GETUPVAL                         R11 1
-       37 GETTABLEKS                       R10 R11 K16 ["createElement"]
+       36 GETUPVAL                         R10 1
+       37 GETTABLEKS                       R10 R10 K16 ["createElement"]
        39 LOADK                            R11 K17 ["Frame"]
        40 DUPTABLE                         R12 K23 [{"Position", "AnchorPoint", "Size", "BackgroundTransparency", "BorderSizePixel", "Rotation", "ZIndex"}]
        41 SETTABLEKS                       R3 R12 K2 ["Position"]
@@ -45,8 +45,8 @@ PROTO_0:
        65 SETTABLEKS                       R9 R12 K22 ["Rotation"]
        67 SETTABLEKS                       R8 R12 K9 ["ZIndex"]
        69 DUPTABLE                         R13 K33 [{"Line", "Control"}]
-       70 GETUPVAL                         R15 1
-       71 GETTABLEKS                       R14 R15 K16 ["createElement"]
+       70 GETUPVAL                         R14 1
+       71 GETTABLEKS                       R14 R14 K16 ["createElement"]
        73 LOADK                            R15 K17 ["Frame"]
        74 DUPTABLE                         R16 K35 [{"Position", "Size", "BorderSizePixel", "BackgroundTransparency", "BackgroundColor3"}]
        75 GETIMPORT                        R17 K29 [UDim2.new]
@@ -70,13 +70,13 @@ PROTO_0:
        97 SETTABLEKS                       R17 R16 K21 ["BorderSizePixel"]
        99 LOADN                            R17 0
       100 SETTABLEKS                       R17 R16 K20 ["BackgroundTransparency"]
-      102 GETTABLEKS                       R18 R2 K36 ["curveTheme"]
-      104 GETTABLEKS                       R17 R18 K37 ["tangentControlColor"]
+      102 GETTABLEKS                       R17 R2 K36 ["curveTheme"]
+      104 GETTABLEKS                       R17 R17 K37 ["tangentControlColor"]
       106 SETTABLEKS                       R17 R16 K34 ["BackgroundColor3"]
       108 CALL                             R14 2 1
       109 SETTABLEKS                       R14 R13 K31 ["Line"]
-      111 GETUPVAL                         R15 1
-      112 GETTABLEKS                       R14 R15 K16 ["createElement"]
+      111 GETUPVAL                         R14 1
+      112 GETTABLEKS                       R14 R14 K16 ["createElement"]
       114 LOADK                            R15 K38 ["ImageButton"]
       115 NEWTABLE                         R16 16 0
       117 GETIMPORT                        R17 K29 [UDim2.new]
@@ -105,14 +105,14 @@ PROTO_0:
       145 CALL                             R17 4 1
       146 SETTABLEKS                       R17 R16 K2 ["Position"]
       148 JUMPIFNOT                        R7 ; [+5]
-      149 GETTABLEKS                       R18 R2 K36 ["curveTheme"]
-      151 GETTABLEKS                       R17 R18 K39 ["tangentAutoButton"]
+      149 GETTABLEKS                       R17 R2 K36 ["curveTheme"]
+      151 GETTABLEKS                       R17 R17 K39 ["tangentAutoButton"]
       153 JUMP                             ; [+4]
-      154 GETTABLEKS                       R18 R2 K36 ["curveTheme"]
-      156 GETTABLEKS                       R17 R18 K40 ["tangentDefinedButton"]
+      154 GETTABLEKS                       R17 R2 K36 ["curveTheme"]
+      156 GETTABLEKS                       R17 R17 K40 ["tangentDefinedButton"]
       158 SETTABLEKS                       R17 R16 K41 ["Image"]
-      160 GETTABLEKS                       R18 R2 K36 ["curveTheme"]
-      162 GETTABLEKS                       R17 R18 K37 ["tangentControlColor"]
+      160 GETTABLEKS                       R17 R2 K36 ["curveTheme"]
+      162 GETTABLEKS                       R17 R17 K37 ["tangentControlColor"]
       164 SETTABLEKS                       R17 R16 K42 ["ImageColor3"]
       166 LOADN                            R17 0
       167 SETTABLEKS                       R17 R16 K43 ["ImageTransparency"]
@@ -122,25 +122,25 @@ PROTO_0:
       173 SETTABLEKS                       R17 R16 K44 ["AutoButtonColor"]
       175 LOADN                            R17 1
       176 SETTABLEKS                       R17 R16 K21 ["BorderSizePixel"]
-      178 GETTABLEKS                       R18 R2 K36 ["curveTheme"]
-      180 GETTABLEKS                       R17 R18 K37 ["tangentControlColor"]
+      178 GETTABLEKS                       R17 R2 K36 ["curveTheme"]
+      180 GETTABLEKS                       R17 R17 K37 ["tangentControlColor"]
       182 SETTABLEKS                       R17 R16 K45 ["BorderColor3"]
-      184 GETTABLEKS                       R18 R2 K36 ["curveTheme"]
-      186 GETTABLEKS                       R17 R18 K37 ["tangentControlColor"]
+      184 GETTABLEKS                       R17 R2 K36 ["curveTheme"]
+      186 GETTABLEKS                       R17 R17 K37 ["tangentControlColor"]
       188 SETTABLEKS                       R17 R16 K34 ["BackgroundColor3"]
-      190 GETUPVAL                         R19 1
-      191 GETTABLEKS                       R18 R19 K46 ["Event"]
-      193 GETTABLEKS                       R17 R18 K47 ["MouseButton2Click"]
+      190 GETUPVAL                         R17 1
+      191 GETTABLEKS                       R17 R17 K46 ["Event"]
+      193 GETTABLEKS                       R17 R17 K47 ["MouseButton2Click"]
       195 GETTABLEKS                       R18 R1 K48 ["OnRightClick"]
       197 SETTABLE                         R18 R16 R17
-      198 GETUPVAL                         R19 1
-      199 GETTABLEKS                       R18 R19 K46 ["Event"]
-      201 GETTABLEKS                       R17 R18 K49 ["InputBegan"]
+      198 GETUPVAL                         R17 1
+      199 GETTABLEKS                       R17 R17 K46 ["Event"]
+      201 GETTABLEKS                       R17 R17 K49 ["InputBegan"]
       203 GETTABLEKS                       R18 R1 K50 ["OnInputBegan"]
       205 SETTABLE                         R18 R16 R17
-      206 GETUPVAL                         R19 1
-      207 GETTABLEKS                       R18 R19 K46 ["Event"]
-      209 GETTABLEKS                       R17 R18 K51 ["InputEnded"]
+      206 GETUPVAL                         R17 1
+      207 GETTABLEKS                       R17 R17 K46 ["Event"]
+      209 GETTABLEKS                       R17 R17 K51 ["InputEnded"]
       211 GETTABLEKS                       R18 R1 K52 ["OnInputEnded"]
       213 SETTABLE                         R18 R16 R17
       214 CALL                             R14 2 1
@@ -155,19 +155,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Util"]
-       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Util"]
+       31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETTABLEKS                       R6 R1 K14 ["PureComponent"]
        36 LOADK                            R8 K15 ["TangentControl"]

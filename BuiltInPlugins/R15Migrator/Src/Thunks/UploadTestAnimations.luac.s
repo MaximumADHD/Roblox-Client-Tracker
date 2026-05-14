@@ -76,11 +76,11 @@ PROTO_4:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
         3 GETIMPORT                        R2 K2 [next]
-        5 GETTABLEKS                       R6 R1 K3 ["AnimationConversion"]
-        7 GETTABLEKS                       R5 R6 K4 ["animations"]
-        9 GETUPVAL                         R6 0
-       10 GETTABLE                         R4 R5 R6
-       11 GETTABLEKS                       R3 R4 K5 ["refs"]
+        5 GETTABLEKS                       R4 R1 K3 ["AnimationConversion"]
+        7 GETTABLEKS                       R4 R4 K4 ["animations"]
+        9 GETUPVAL                         R5 0
+       10 GETTABLE                         R3 R4 R5
+       11 GETTABLEKS                       R3 R3 K5 ["refs"]
        13 CALL                             R2 1 2
        14 LOADN                            R6 1
        15 LOADN                            R4 44
@@ -109,10 +109,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["AnimationConversion"]
-       15 GETTABLEKS                       R2 R3 K9 ["serializeInstances"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AnimationConversion"]
+       15 GETTABLEKS                       R2 R2 K9 ["serializeInstances"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K11 [game]
        20 LOADK                            R4 K12 ["StudioService"]

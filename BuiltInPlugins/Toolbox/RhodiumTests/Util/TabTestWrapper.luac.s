@@ -23,8 +23,8 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K7 [{"Size", "Position", "CurrentWidth", "CurrentTab", "Tabs", "onTabSelected"}]
         5 GETIMPORT                        R5 K10 [UDim2.new]
@@ -39,8 +39,8 @@ PROTO_3:
        17 SETTABLEKS                       R5 R4 K2 ["Position"]
        19 LOADK                            R5 K11 [565.5]
        20 SETTABLEKS                       R5 R4 K3 ["CurrentWidth"]
-       22 GETTABLEKS                       R6 R0 K12 ["state"]
-       24 GETTABLEKS                       R5 R6 K13 ["currentTab"]
+       22 GETTABLEKS                       R5 R0 K12 ["state"]
+       24 GETTABLEKS                       R5 R5 K13 ["currentTab"]
        26 SETTABLEKS                       R5 R4 K4 ["CurrentTab"]
        28 NEWTABLE                         R5 0 2
        30 DUPTABLE                         R6 K17 [{"Image", "Key", "Text"}]
@@ -67,18 +67,18 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R6 R0 K7 ["Src"]
-       20 GETTABLEKS                       R5 R6 K8 ["Components"]
-       22 GETTABLEKS                       R4 R5 K9 ["TabSet"]
+       18 GETTABLEKS                       R4 R0 K7 ["Src"]
+       20 GETTABLEKS                       R4 R4 K8 ["Components"]
+       22 GETTABLEKS                       R4 R4 K9 ["TabSet"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R2 K10 ["PureComponent"]
        27 LOADK                            R6 K11 ["TabTestWrapper"]

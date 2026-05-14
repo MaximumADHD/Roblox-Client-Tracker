@@ -5,9 +5,9 @@ PROTO_0:
         4 GETTABLEKS                       R3 R0 K1 ["currentDebuggerConnectionId"]
         6 GETTABLEKS                       R4 R1 K2 ["currentThreadId"]
         8 SETTABLE                         R4 R2 R3
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K3 ["Dictionary"]
-       12 GETTABLEKS                       R3 R4 K4 ["join"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K3 ["Dictionary"]
+       12 GETTABLEKS                       R3 R3 K4 ["join"]
        14 MOVE                             R4 R0
        15 DUPTABLE                         R5 K5 [{"debuggerConnectionIdToCurrentThreadId"}]
        16 SETTABLEKS                       R2 R5 K0 ["debuggerConnectionIdToCurrentThreadId"]
@@ -31,9 +31,9 @@ PROTO_1:
        18 GETTABLEKS                       R4 R1 K4 ["threadId"]
        20 GETTABLEKS                       R5 R1 K5 ["currentFrame"]
        22 SETTABLE                         R5 R3 R4
-       23 GETUPVAL                         R5 1
-       24 GETTABLEKS                       R4 R5 K6 ["Dictionary"]
-       26 GETTABLEKS                       R3 R4 K7 ["join"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K6 ["Dictionary"]
+       26 GETTABLEKS                       R3 R3 K7 ["join"]
        28 MOVE                             R4 R0
        29 DUPTABLE                         R5 K8 [{"currentFrameMap"}]
        30 SETTABLEKS                       R2 R5 K0 ["currentFrameMap"]
@@ -41,20 +41,20 @@ PROTO_1:
        33 RETURN                           R3 -1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K8 [{"debuggerConnectionIdToDST", "debuggerConnectionIdToCurrentThreadId", "currentFrameMap", "isPaused", "hitException", "pausedDebuggerConnectionIds"}]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       10 GETTABLEKS                       R5 R6 K1 ["join"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R5 K1 ["join"]
        12 GETTABLEKS                       R6 R0 K2 ["debuggerConnectionIdToDST"]
        14 NEWTABLE                         R7 1 0
-       16 GETTABLEKS                       R9 R1 K9 ["debuggerStateToken"]
-       18 GETTABLEKS                       R8 R9 K10 ["debuggerConnectionId"]
-       20 GETUPVAL                         R10 0
-       21 GETTABLEKS                       R9 R10 K11 ["None"]
+       16 GETTABLEKS                       R8 R1 K9 ["debuggerStateToken"]
+       18 GETTABLEKS                       R8 R8 K10 ["debuggerConnectionId"]
+       20 GETUPVAL                         R9 0
+       21 GETTABLEKS                       R9 R9 K11 ["None"]
        23 SETTABLE                         R9 R7 R8
        24 CALL                             R5 2 1
        25 SETTABLEKS                       R5 R4 K2 ["debuggerConnectionIdToDST"]
@@ -66,15 +66,15 @@ PROTO_2:
        36 SETTABLEKS                       R5 R4 K5 ["isPaused"]
        38 NEWTABLE                         R5 0 0
        40 SETTABLEKS                       R5 R4 K6 ["hitException"]
-       42 GETUPVAL                         R7 0
-       43 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       45 GETTABLEKS                       R5 R6 K1 ["join"]
+       42 GETUPVAL                         R5 0
+       43 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       45 GETTABLEKS                       R5 R5 K1 ["join"]
        47 GETTABLEKS                       R6 R0 K7 ["pausedDebuggerConnectionIds"]
        49 NEWTABLE                         R7 1 0
-       51 GETTABLEKS                       R9 R1 K9 ["debuggerStateToken"]
-       53 GETTABLEKS                       R8 R9 K10 ["debuggerConnectionId"]
-       55 GETUPVAL                         R10 0
-       56 GETTABLEKS                       R9 R10 K11 ["None"]
+       51 GETTABLEKS                       R8 R1 K9 ["debuggerStateToken"]
+       53 GETTABLEKS                       R8 R8 K10 ["debuggerConnectionId"]
+       55 GETUPVAL                         R9 0
+       56 GETTABLEKS                       R9 R9 K11 ["None"]
        58 SETTABLE                         R9 R7 R8
        59 CALL                             R5 2 1
        60 SETTABLEKS                       R5 R4 K7 ["pausedDebuggerConnectionIds"]
@@ -82,8 +82,8 @@ PROTO_2:
        63 RETURN                           R2 -1
 
 PROTO_3:
-        0 GETTABLEKS                       R3 R1 K0 ["debuggerStateToken"]
-        2 GETTABLEKS                       R2 R3 K1 ["debuggerConnectionId"]
+        0 GETTABLEKS                       R2 R1 K0 ["debuggerStateToken"]
+        2 GETTABLEKS                       R2 R2 K1 ["debuggerConnectionId"]
         4 GETTABLEKS                       R3 R0 K2 ["isPaused"]
         6 GETTABLEKS                       R4 R0 K3 ["currentDebuggerConnectionId"]
         8 GETTABLEKS                       R5 R0 K3 ["currentDebuggerConnectionId"]
@@ -91,13 +91,13 @@ PROTO_3:
        12 GETUPVAL                         R5 0
        13 GETTABLEKS                       R4 R5 K4 ["kInvalidDebuggerConnectionId"]
        15 LOADB                            R3 0
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K5 ["Dictionary"]
-       19 GETTABLEKS                       R5 R6 K6 ["join"]
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K5 ["Dictionary"]
+       19 GETTABLEKS                       R5 R5 K6 ["join"]
        21 GETTABLEKS                       R6 R0 K7 ["pausedDebuggerConnectionIds"]
        23 NEWTABLE                         R7 1 0
-       25 GETUPVAL                         R9 1
-       26 GETTABLEKS                       R8 R9 K8 ["None"]
+       25 GETUPVAL                         R8 1
+       26 GETTABLEKS                       R8 R8 K8 ["None"]
        28 SETTABLE                         R8 R7 R2
        29 CALL                             R5 2 1
        30 GETIMPORT                        R6 K10 [next]
@@ -116,43 +116,43 @@ PROTO_3:
        49 GETTABLE                         R8 R10 R2
        50 CALL                             R7 1 3
        51 FORGPREP_NEXT                    R7
-       52 GETUPVAL                         R14 1
-       53 GETTABLEKS                       R13 R14 K5 ["Dictionary"]
-       55 GETTABLEKS                       R12 R13 K6 ["join"]
+       52 GETUPVAL                         R12 1
+       53 GETTABLEKS                       R12 R12 K5 ["Dictionary"]
+       55 GETTABLEKS                       R12 R12 K6 ["join"]
        57 MOVE                             R13 R6
        58 NEWTABLE                         R14 1 0
-       60 GETUPVAL                         R16 1
-       61 GETTABLEKS                       R15 R16 K8 ["None"]
+       60 GETUPVAL                         R15 1
+       61 GETTABLEKS                       R15 R15 K8 ["None"]
        63 SETTABLE                         R15 R14 R10
        64 CALL                             R12 2 1
        65 MOVE                             R6 R12
        66 FORGLOOP                         R7 2 ; [-15]
-       68 GETUPVAL                         R9 1
-       69 GETTABLEKS                       R8 R9 K5 ["Dictionary"]
-       71 GETTABLEKS                       R7 R8 K6 ["join"]
+       68 GETUPVAL                         R7 1
+       69 GETTABLEKS                       R7 R7 K5 ["Dictionary"]
+       71 GETTABLEKS                       R7 R7 K6 ["join"]
        73 MOVE                             R8 R0
        74 DUPTABLE                         R9 K17 [{"debuggerConnectionIdToDST", "currentDebuggerConnectionId", "debuggerConnectionIdToCurrentThreadId", "currentFrameMap", "isPaused", "hitException", "pausedDebuggerConnectionIds"}]
-       75 GETUPVAL                         R12 1
-       76 GETTABLEKS                       R11 R12 K5 ["Dictionary"]
-       78 GETTABLEKS                       R10 R11 K6 ["join"]
+       75 GETUPVAL                         R10 1
+       76 GETTABLEKS                       R10 R10 K5 ["Dictionary"]
+       78 GETTABLEKS                       R10 R10 K6 ["join"]
        80 GETTABLEKS                       R11 R0 K15 ["debuggerConnectionIdToDST"]
        82 NEWTABLE                         R12 1 0
-       84 GETUPVAL                         R14 1
-       85 GETTABLEKS                       R13 R14 K8 ["None"]
+       84 GETUPVAL                         R13 1
+       85 GETTABLEKS                       R13 R13 K8 ["None"]
        87 SETTABLE                         R13 R12 R2
        88 CALL                             R10 2 1
        89 SETTABLEKS                       R10 R9 K15 ["debuggerConnectionIdToDST"]
        91 SETTABLEKS                       R4 R9 K3 ["currentDebuggerConnectionId"]
-       93 GETUPVAL                         R12 1
-       94 GETTABLEKS                       R11 R12 K18 ["List"]
-       96 GETTABLEKS                       R10 R11 K19 ["removeValue"]
+       93 GETUPVAL                         R10 1
+       94 GETTABLEKS                       R10 R10 K18 ["List"]
+       96 GETTABLEKS                       R10 R10 K19 ["removeValue"]
        98 GETTABLEKS                       R11 R0 K16 ["debuggerConnectionIdToCurrentThreadId"]
       100 MOVE                             R12 R2
       101 CALL                             R10 2 1
       102 SETTABLEKS                       R10 R9 K16 ["debuggerConnectionIdToCurrentThreadId"]
-      104 GETUPVAL                         R12 1
-      105 GETTABLEKS                       R11 R12 K18 ["List"]
-      107 GETTABLEKS                       R10 R11 K19 ["removeValue"]
+      104 GETUPVAL                         R10 1
+      105 GETTABLEKS                       R10 R10 K18 ["List"]
+      107 GETTABLEKS                       R10 R10 K19 ["removeValue"]
       109 GETTABLEKS                       R11 R0 K12 ["currentFrameMap"]
       111 MOVE                             R12 R2
       112 CALL                             R10 2 1
@@ -164,29 +164,29 @@ PROTO_3:
       122 RETURN                           R7 -1
 
 PROTO_4:
-        0 GETTABLEKS                       R3 R1 K0 ["debuggerStateToken"]
-        2 GETTABLEKS                       R2 R3 K1 ["debuggerConnectionId"]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K2 ["Dictionary"]
-        7 GETTABLEKS                       R3 R4 K3 ["join"]
+        0 GETTABLEKS                       R2 R1 K0 ["debuggerStateToken"]
+        2 GETTABLEKS                       R2 R2 K1 ["debuggerConnectionId"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["Dictionary"]
+        7 GETTABLEKS                       R3 R3 K3 ["join"]
         9 MOVE                             R4 R0
        10 DUPTABLE                         R5 K10 [{"debuggerConnectionIdToDST", "isPaused", "hitException", "pausedDebuggerConnectionIds", "debuggerConnectionIdToCurrentThreadId", "currentFrameMap"}]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K2 ["Dictionary"]
-       14 GETTABLEKS                       R6 R7 K3 ["join"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K2 ["Dictionary"]
+       14 GETTABLEKS                       R6 R6 K3 ["join"]
        16 GETTABLEKS                       R7 R0 K4 ["debuggerConnectionIdToDST"]
        18 NEWTABLE                         R8 1 0
-       20 GETTABLEKS                       R10 R1 K0 ["debuggerStateToken"]
-       22 GETTABLEKS                       R9 R10 K1 ["debuggerConnectionId"]
+       20 GETTABLEKS                       R9 R1 K0 ["debuggerStateToken"]
+       22 GETTABLEKS                       R9 R9 K1 ["debuggerConnectionId"]
        24 GETTABLEKS                       R10 R1 K0 ["debuggerStateToken"]
        26 SETTABLE                         R10 R8 R9
        27 CALL                             R6 2 1
        28 SETTABLEKS                       R6 R5 K4 ["debuggerConnectionIdToDST"]
        30 LOADB                            R6 1
        31 SETTABLEKS                       R6 R5 K5 ["isPaused"]
-       33 GETUPVAL                         R8 0
-       34 GETTABLEKS                       R7 R8 K2 ["Dictionary"]
-       36 GETTABLEKS                       R6 R7 K3 ["join"]
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K2 ["Dictionary"]
+       36 GETTABLEKS                       R6 R6 K3 ["join"]
        38 GETTABLEKS                       R7 R0 K6 ["hitException"]
        40 NEWTABLE                         R8 1 0
        42 GETTABLEKS                       R9 R1 K11 ["threadId"]
@@ -194,26 +194,26 @@ PROTO_4:
        46 SETTABLE                         R10 R8 R9
        47 CALL                             R6 2 1
        48 SETTABLEKS                       R6 R5 K6 ["hitException"]
-       50 GETUPVAL                         R8 0
-       51 GETTABLEKS                       R7 R8 K2 ["Dictionary"]
-       53 GETTABLEKS                       R6 R7 K3 ["join"]
+       50 GETUPVAL                         R6 0
+       51 GETTABLEKS                       R6 R6 K2 ["Dictionary"]
+       53 GETTABLEKS                       R6 R6 K3 ["join"]
        55 GETTABLEKS                       R7 R0 K7 ["pausedDebuggerConnectionIds"]
        57 NEWTABLE                         R8 1 0
        59 SETTABLE                         R2 R8 R2
        60 CALL                             R6 2 1
        61 SETTABLEKS                       R6 R5 K7 ["pausedDebuggerConnectionIds"]
-       63 GETUPVAL                         R8 0
-       64 GETTABLEKS                       R7 R8 K2 ["Dictionary"]
-       66 GETTABLEKS                       R6 R7 K3 ["join"]
+       63 GETUPVAL                         R6 0
+       64 GETTABLEKS                       R6 R6 K2 ["Dictionary"]
+       66 GETTABLEKS                       R6 R6 K3 ["join"]
        68 GETTABLEKS                       R7 R0 K8 ["debuggerConnectionIdToCurrentThreadId"]
        70 NEWTABLE                         R8 1 0
        72 LOADNIL                          R9
        73 SETTABLE                         R9 R8 R2
        74 CALL                             R6 2 1
        75 SETTABLEKS                       R6 R5 K8 ["debuggerConnectionIdToCurrentThreadId"]
-       77 GETUPVAL                         R8 0
-       78 GETTABLEKS                       R7 R8 K2 ["Dictionary"]
-       80 GETTABLEKS                       R6 R7 K3 ["join"]
+       77 GETUPVAL                         R6 0
+       78 GETTABLEKS                       R6 R6 K2 ["Dictionary"]
+       80 GETTABLEKS                       R6 R6 K3 ["join"]
        82 GETTABLEKS                       R7 R0 K9 ["currentFrameMap"]
        84 NEWTABLE                         R8 1 0
        86 LOADNIL                          R9
@@ -224,9 +224,9 @@ PROTO_4:
        92 RETURN                           R3 -1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"currentBreakpointId"}]
         7 GETTABLEKS                       R5 R1 K4 ["breakpointId"]
@@ -237,18 +237,18 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R2 R1 K0 ["pause"]
         2 JUMPIFNOT                        R2 ; [+13]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["Dictionary"]
-        6 GETTABLEKS                       R2 R3 K2 ["join"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["Dictionary"]
+        6 GETTABLEKS                       R2 R2 K2 ["join"]
         8 MOVE                             R3 R0
         9 DUPTABLE                         R4 K4 [{"isPaused"}]
        10 GETTABLEKS                       R5 R1 K0 ["pause"]
        12 SETTABLEKS                       R5 R4 K3 ["isPaused"]
        14 CALL                             R2 2 -1
        15 RETURN                           R2 -1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K1 ["Dictionary"]
-       19 GETTABLEKS                       R2 R3 K2 ["join"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K1 ["Dictionary"]
+       19 GETTABLEKS                       R2 R2 K2 ["join"]
        21 MOVE                             R3 R0
        22 DUPTABLE                         R4 K6 [{"isPaused", "debuggerConnectionIdToCurrentThreadId"}]
        23 GETTABLEKS                       R5 R1 K0 ["pause"]
@@ -290,18 +290,18 @@ PROTO_7:
        47 GETTABLEKS                       R4 R1 K2 ["threadId"]
        49 LOADN                            R5 1
        50 SETTABLE                         R5 R3 R4
-       51 GETUPVAL                         R5 1
-       52 GETTABLEKS                       R4 R5 K4 ["Dictionary"]
-       54 GETTABLEKS                       R3 R4 K5 ["join"]
+       51 GETUPVAL                         R3 1
+       52 GETTABLEKS                       R3 R3 K4 ["Dictionary"]
+       54 GETTABLEKS                       R3 R3 K5 ["join"]
        56 MOVE                             R4 R0
        57 MOVE                             R5 R2
        58 CALL                             R3 2 -1
        59 RETURN                           R3 -1
 
 PROTO_8:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"currentDebuggerConnectionId"}]
         7 GETTABLEKS                       R5 R1 K4 ["debuggerConnectionId"]
@@ -311,71 +311,71 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["Constants"]
        31 CALL                             R3 1 1
-       32 GETTABLEKS                       R5 R0 K8 ["Src"]
-       34 GETTABLEKS                       R4 R5 K11 ["Actions"]
+       32 GETTABLEKS                       R4 R0 K8 ["Src"]
+       34 GETTABLEKS                       R4 R4 K11 ["Actions"]
        36 GETIMPORT                        R5 K4 [require]
-       38 GETTABLEKS                       R7 R4 K12 ["Callstack"]
-       40 GETTABLEKS                       R6 R7 K13 ["SetCurrentThread"]
+       38 GETTABLEKS                       R6 R4 K12 ["Callstack"]
+       40 GETTABLEKS                       R6 R6 K13 ["SetCurrentThread"]
        42 CALL                             R5 1 1
        43 GETIMPORT                        R6 K4 [require]
-       45 GETTABLEKS                       R8 R4 K12 ["Callstack"]
-       47 GETTABLEKS                       R7 R8 K14 ["SetCurrentFrameNumber"]
+       45 GETTABLEKS                       R7 R4 K12 ["Callstack"]
+       47 GETTABLEKS                       R7 R7 K14 ["SetCurrentFrameNumber"]
        49 CALL                             R6 1 1
        50 GETIMPORT                        R7 K4 [require]
-       52 GETTABLEKS                       R9 R4 K15 ["Common"]
-       54 GETTABLEKS                       R8 R9 K16 ["Resumed"]
+       52 GETTABLEKS                       R8 R4 K15 ["Common"]
+       54 GETTABLEKS                       R8 R8 K16 ["Resumed"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K4 [require]
-       59 GETTABLEKS                       R10 R4 K15 ["Common"]
-       61 GETTABLEKS                       R9 R10 K17 ["SetPausedState"]
+       59 GETTABLEKS                       R9 R4 K15 ["Common"]
+       61 GETTABLEKS                       R9 R9 K17 ["SetPausedState"]
        63 CALL                             R8 1 1
        64 GETIMPORT                        R9 K4 [require]
-       66 GETTABLEKS                       R11 R4 K15 ["Common"]
-       68 GETTABLEKS                       R10 R11 K18 ["SimPaused"]
+       66 GETTABLEKS                       R10 R4 K15 ["Common"]
+       68 GETTABLEKS                       R10 R10 K18 ["SimPaused"]
        70 CALL                             R9 1 1
        71 GETIMPORT                        R10 K4 [require]
-       73 GETTABLEKS                       R12 R4 K15 ["Common"]
-       75 GETTABLEKS                       R11 R12 K19 ["SetCurrentBreakpointId"]
+       73 GETTABLEKS                       R11 R4 K15 ["Common"]
+       75 GETTABLEKS                       R11 R11 K19 ["SetCurrentBreakpointId"]
        77 CALL                             R10 1 1
        78 GETIMPORT                        R11 K4 [require]
-       80 GETTABLEKS                       R13 R4 K15 ["Common"]
-       82 GETTABLEKS                       R12 R13 K20 ["ClearConnectionData"]
+       80 GETTABLEKS                       R12 R4 K15 ["Common"]
+       82 GETTABLEKS                       R12 R12 K20 ["ClearConnectionData"]
        84 CALL                             R11 1 1
        85 GETIMPORT                        R12 K4 [require]
-       87 GETTABLEKS                       R14 R4 K12 ["Callstack"]
-       89 GETTABLEKS                       R13 R14 K21 ["AddThreadId"]
+       87 GETTABLEKS                       R13 R4 K12 ["Callstack"]
+       89 GETTABLEKS                       R13 R13 K21 ["AddThreadId"]
        91 CALL                             R12 1 1
        92 GETIMPORT                        R13 K4 [require]
-       94 GETTABLEKS                       R15 R4 K15 ["Common"]
-       96 GETTABLEKS                       R14 R15 K22 ["SetFocusedDebuggerConnection"]
+       94 GETTABLEKS                       R14 R4 K15 ["Common"]
+       96 GETTABLEKS                       R14 R14 K22 ["SetFocusedDebuggerConnection"]
        98 CALL                             R13 1 1
        99 GETIMPORT                        R14 K4 [require]
-      101 GETTABLEKS                       R16 R0 K5 ["Packages"]
-      103 GETTABLEKS                       R15 R16 K23 ["Framework"]
+      101 GETTABLEKS                       R15 R0 K5 ["Packages"]
+      103 GETTABLEKS                       R15 R15 K23 ["Framework"]
       105 CALL                             R14 1 1
       106 GETTABLEKS                       R15 R14 K9 ["Util"]
       108 GETTABLEKS                       R16 R15 K24 ["deepCopy"]
       110 GETIMPORT                        R17 K4 [require]
-      112 GETTABLEKS                       R20 R0 K8 ["Src"]
-      114 GETTABLEKS                       R19 R20 K25 ["Models"]
-      116 GETTABLEKS                       R18 R19 K26 ["DebuggerStateToken"]
+      112 GETTABLEKS                       R18 R0 K8 ["Src"]
+      114 GETTABLEKS                       R18 R18 K25 ["Models"]
+      116 GETTABLEKS                       R18 R18 K26 ["DebuggerStateToken"]
       118 CALL                             R17 1 1
       119 DUPTABLE                         R18 K35 [{"debuggerConnectionIdToDST", "currentDebuggerConnectionId", "debuggerConnectionIdToCurrentThreadId", "currentFrameMap", "currentBreakpointId", "isPaused", "hitException", "pausedDebuggerConnectionIds"}]
       120 NEWTABLE                         R19 0 0

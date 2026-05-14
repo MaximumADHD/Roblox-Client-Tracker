@@ -3,8 +3,8 @@ PROTO_0:
         1 DUPTABLE                         R4 K2 [{"nameMessage", "status"}]
         2 MOVE                             R5 R0
         3 JUMPIF                           R5 ; [+3]
-        4 GETUPVAL                         R6 1
-        5 GETTABLEKS                       R5 R6 K3 ["None"]
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R5 R5 K3 ["None"]
         7 SETTABLEKS                       R5 R4 K0 ["nameMessage"]
         9 JUMPIFNOT                        R1 ; [+2]
        10 MOVE                             R5 R1
@@ -24,36 +24,36 @@ PROTO_1:
         7 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Localization"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["state"]
-        8 GETTABLEKS                       R2 R3 K3 ["name"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K2 ["state"]
+        8 GETTABLEKS                       R2 R2 K3 ["name"]
        10 JUMPIFNOT                        R2 ; [+53]
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K2 ["state"]
-       14 GETTABLEKS                       R2 R3 K3 ["name"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K2 ["state"]
+       14 GETTABLEKS                       R2 R2 K3 ["name"]
        16 JUMPIFEQKS                       R2 K4 [""] ; [+47]
        18 GETTABLEKS                       R2 R0 K5 ["GeneralServiceController"]
        20 GETTABLEKS                       R4 R0 K6 ["MaterialVariant"]
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K2 ["state"]
-       25 GETTABLEKS                       R5 R6 K3 ["name"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K2 ["state"]
+       25 GETTABLEKS                       R5 R5 K3 ["name"]
        27 NAMECALL                         R2 R2 K7 ["setName"]
        29 CALL                             R2 3 0
-       30 GETTABLEKS                       R3 R0 K6 ["MaterialVariant"]
-       32 GETTABLEKS                       R2 R3 K8 ["BaseMaterial"]
+       30 GETTABLEKS                       R2 R0 K6 ["MaterialVariant"]
+       32 GETTABLEKS                       R2 R2 K8 ["BaseMaterial"]
        34 GETTABLEKS                       R3 R0 K9 ["MaterialServiceController"]
-       36 GETUPVAL                         R7 0
-       37 GETTABLEKS                       R6 R7 K2 ["state"]
-       39 GETTABLEKS                       R5 R6 K3 ["name"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K2 ["state"]
+       39 GETTABLEKS                       R5 R5 K3 ["name"]
        41 MOVE                             R6 R2
        42 NAMECALL                         R3 R3 K10 ["checkMaterialName"]
        44 CALL                             R3 3 1
        45 JUMPIFNOT                        R3 ; [+12]
-       46 GETUPVAL                         R4 0
-       47 GETTABLEKS                       R3 R4 K11 ["setNameStatus"]
+       46 GETUPVAL                         R3 0
+       47 GETTABLEKS                       R3 R3 K11 ["setNameStatus"]
        49 LOADK                            R6 K12 ["CreateDialog"]
        50 LOADK                            R7 K13 ["ErrorNameExists"]
        51 NAMECALL                         R4 R1 K14 ["getText"]
@@ -61,23 +61,23 @@ PROTO_2:
        54 GETIMPORT                        R5 K18 [Enum.PropertyStatus.Warning]
        56 CALL                             R3 2 0
        57 RETURN                           R0 0
-       58 GETUPVAL                         R4 0
-       59 GETTABLEKS                       R3 R4 K11 ["setNameStatus"]
+       58 GETUPVAL                         R3 0
+       59 GETTABLEKS                       R3 R3 K11 ["setNameStatus"]
        61 LOADNIL                          R4
        62 CALL                             R3 1 0
        63 RETURN                           R0 0
        64 GETUPVAL                         R2 0
        65 DUPTABLE                         R4 K19 [{"name"}]
-       66 GETTABLEKS                       R6 R0 K6 ["MaterialVariant"]
-       68 GETTABLEKS                       R5 R6 K20 ["Name"]
+       66 GETTABLEKS                       R5 R0 K6 ["MaterialVariant"]
+       68 GETTABLEKS                       R5 R5 K20 ["Name"]
        70 SETTABLEKS                       R5 R4 K3 ["name"]
        72 NAMECALL                         R2 R2 K21 ["setState"]
        74 CALL                             R2 2 0
        75 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R2 K1 ["Localization"]
         5 GETTABLEKS                       R4 R2 K2 ["GeneralServiceController"]
         7 GETTABLEKS                       R6 R2 K3 ["MaterialVariant"]
@@ -87,23 +87,23 @@ PROTO_3:
        13 CALL                             R4 3 0
        14 GETTABLEKS                       R4 R2 K5 ["MaterialServiceController"]
        16 GETUPVAL                         R6 2
-       17 GETTABLEKS                       R8 R2 K3 ["MaterialVariant"]
-       19 GETTABLEKS                       R7 R8 K6 ["BaseMaterial"]
+       17 GETTABLEKS                       R7 R2 K3 ["MaterialVariant"]
+       19 GETTABLEKS                       R7 R7 K6 ["BaseMaterial"]
        21 CALL                             R6 1 -1
        22 NAMECALL                         R4 R4 K7 ["setPath"]
        24 CALL                             R4 -1 0
-       25 GETTABLEKS                       R5 R2 K3 ["MaterialVariant"]
-       27 GETTABLEKS                       R4 R5 K8 ["Name"]
-       29 GETTABLEKS                       R6 R2 K3 ["MaterialVariant"]
-       31 GETTABLEKS                       R5 R6 K6 ["BaseMaterial"]
+       25 GETTABLEKS                       R4 R2 K3 ["MaterialVariant"]
+       27 GETTABLEKS                       R4 R4 K8 ["Name"]
+       29 GETTABLEKS                       R5 R2 K3 ["MaterialVariant"]
+       31 GETTABLEKS                       R5 R5 K6 ["BaseMaterial"]
        33 GETTABLEKS                       R6 R2 K5 ["MaterialServiceController"]
        35 MOVE                             R8 R4
        36 MOVE                             R9 R5
        37 NAMECALL                         R6 R6 K9 ["checkMaterialName"]
        39 CALL                             R6 3 1
        40 JUMPIFNOT                        R6 ; [+12]
-       41 GETUPVAL                         R7 0
-       42 GETTABLEKS                       R6 R7 K10 ["setNameStatus"]
+       41 GETUPVAL                         R6 0
+       42 GETTABLEKS                       R6 R6 K10 ["setNameStatus"]
        44 LOADK                            R9 K11 ["CreateDialog"]
        45 LOADK                            R10 K12 ["ErrorNameExists"]
        46 NAMECALL                         R7 R3 K13 ["getText"]
@@ -111,18 +111,18 @@ PROTO_3:
        49 GETIMPORT                        R8 K17 [Enum.PropertyStatus.Warning]
        51 CALL                             R6 2 0
        52 RETURN                           R0 0
-       53 GETUPVAL                         R7 0
-       54 GETTABLEKS                       R6 R7 K10 ["setNameStatus"]
+       53 GETUPVAL                         R6 0
+       54 GETTABLEKS                       R6 R6 K10 ["setNameStatus"]
        56 LOADNIL                          R7
        57 CALL                             R6 1 0
        58 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["dispatchSetExpandedPane"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["GeneralSettings"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["GeneralSettings"]
         8 GETTABLEKS                       R4 R0 K3 ["ExpandedPane"]
        10 NOT                              R3 R4
        11 CALL                             R1 2 0
@@ -130,9 +130,9 @@ PROTO_4:
 
 PROTO_5:
         0 DUPTABLE                         R1 K1 [{"name"}]
-        1 GETTABLEKS                       R4 R0 K2 ["props"]
-        3 GETTABLEKS                       R3 R4 K3 ["MaterialVariant"]
-        5 GETTABLEKS                       R2 R3 K4 ["Name"]
+        1 GETTABLEKS                       R2 R0 K2 ["props"]
+        3 GETTABLEKS                       R2 R2 K3 ["MaterialVariant"]
+        5 GETTABLEKS                       R2 R2 K4 ["Name"]
         7 SETTABLEKS                       R2 R1 K0 ["name"]
         9 SETTABLEKS                       R1 R0 K5 ["state"]
        11 NEWTABLE                         R1 0 0
@@ -182,20 +182,20 @@ PROTO_6:
        29 RETURN                           R0 0
 
 PROTO_7:
-        0 GETTABLEKS                       R4 R0 K0 ["state"]
-        2 GETTABLEKS                       R3 R4 K1 ["name"]
-        4 GETTABLEKS                       R6 R0 K2 ["props"]
-        6 GETTABLEKS                       R5 R6 K3 ["MaterialVariant"]
-        8 GETTABLEKS                       R4 R5 K4 ["Name"]
+        0 GETTABLEKS                       R3 R0 K0 ["state"]
+        2 GETTABLEKS                       R3 R3 K1 ["name"]
+        4 GETTABLEKS                       R4 R0 K2 ["props"]
+        6 GETTABLEKS                       R4 R4 K3 ["MaterialVariant"]
+        8 GETTABLEKS                       R4 R4 K4 ["Name"]
        10 JUMPIFEQ                         R3 R4 ; [+21]
        12 GETTABLEKS                       R3 R2 K1 ["name"]
-       14 GETTABLEKS                       R5 R0 K0 ["state"]
-       16 GETTABLEKS                       R4 R5 K1 ["name"]
+       14 GETTABLEKS                       R4 R0 K0 ["state"]
+       16 GETTABLEKS                       R4 R4 K1 ["name"]
        18 JUMPIFNOTEQ                      R3 R4 ; [+13]
        20 DUPTABLE                         R5 K5 [{"name"}]
-       21 GETTABLEKS                       R8 R0 K2 ["props"]
-       23 GETTABLEKS                       R7 R8 K3 ["MaterialVariant"]
-       25 GETTABLEKS                       R6 R7 K4 ["Name"]
+       21 GETTABLEKS                       R6 R0 K2 ["props"]
+       23 GETTABLEKS                       R6 R6 K3 ["MaterialVariant"]
+       25 GETTABLEKS                       R6 R6 K4 ["Name"]
        27 SETTABLEKS                       R6 R5 K1 ["name"]
        29 NAMECALL                         R3 R0 K6 ["setState"]
        31 CALL                             R3 2 0
@@ -203,16 +203,16 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["GeneralSettings"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["GeneralSettings"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
         8 LOADN                            R4 255
         9 GETIMPORT                        R5 K5 [ipairs]
        11 GETUPVAL                         R6 0
        12 CALL                             R5 1 3
        13 FORGPREP_INEXT                   R5
-       14 GETTABLEKS                       R11 R1 K6 ["MaterialVariant"]
-       16 GETTABLEKS                       R10 R11 K7 ["BaseMaterial"]
+       14 GETTABLEKS                       R10 R1 K6 ["MaterialVariant"]
+       16 GETTABLEKS                       R10 R10 K7 ["BaseMaterial"]
        18 JUMPIFNOTEQ                      R9 R10 ; [+2]
        20 MOVE                             R4 R8
        21 GETIMPORT                        R10 K11 [Enum.Material.Plastic]
@@ -222,8 +222,8 @@ PROTO_8:
        28 FORGLOOP                         R5 2 [inext] ; [-15]
        30 JUMPIFNOTEQKN                    R4 K12 [-1] ; [+2]
        32 LOADN                            R4 1
-       33 GETUPVAL                         R6 1
-       34 GETTABLEKS                       R5 R6 K13 ["createElement"]
+       33 GETUPVAL                         R5 1
+       34 GETTABLEKS                       R5 R5 K13 ["createElement"]
        36 GETUPVAL                         R6 2
        37 DUPTABLE                         R7 K21 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
        38 GETTABLEKS                       R8 R1 K14 ["LayoutOrder"]
@@ -244,8 +244,8 @@ PROTO_8:
        65 GETTABLEKS                       R8 R0 K28 ["onExpandedChanged"]
        67 SETTABLEKS                       R8 R7 K20 ["OnExpandedChanged"]
        69 DUPTABLE                         R8 K30 [{"Name", "BaseMaterial"}]
-       70 GETUPVAL                         R10 1
-       71 GETTABLEKS                       R9 R10 K13 ["createElement"]
+       70 GETUPVAL                         R9 1
+       71 GETTABLEKS                       R9 R9 K13 ["createElement"]
        73 GETUPVAL                         R10 3
        74 DUPTABLE                         R11 K34 [{"LabelColumnWidth", "LayoutOrder", "Text", "StatusText", "Status"}]
        75 GETTABLEKS                       R12 R2 K31 ["LabelColumnWidth"]
@@ -257,23 +257,23 @@ PROTO_8:
        84 NAMECALL                         R12 R3 K25 ["getText"]
        86 CALL                             R12 3 1
        87 SETTABLEKS                       R12 R11 K17 ["Text"]
-       89 GETTABLEKS                       R13 R0 K37 ["state"]
-       91 GETTABLEKS                       R12 R13 K38 ["nameMessage"]
+       89 GETTABLEKS                       R12 R0 K37 ["state"]
+       91 GETTABLEKS                       R12 R12 K38 ["nameMessage"]
        93 SETTABLEKS                       R12 R11 K32 ["StatusText"]
-       95 GETTABLEKS                       R13 R0 K37 ["state"]
-       97 GETTABLEKS                       R12 R13 K39 ["status"]
+       95 GETTABLEKS                       R12 R0 K37 ["state"]
+       97 GETTABLEKS                       R12 R12 K39 ["status"]
        99 SETTABLEKS                       R12 R11 K33 ["Status"]
       101 NEWTABLE                         R12 0 1
-      103 GETUPVAL                         R14 1
-      104 GETTABLEKS                       R13 R14 K13 ["createElement"]
+      103 GETUPVAL                         R13 1
+      104 GETTABLEKS                       R13 R13 K13 ["createElement"]
       106 GETUPVAL                         R14 4
       107 DUPTABLE                         R15 K43 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
       108 LOADK                            R16 K44 ["FilledRoundedBorder"]
       109 SETTABLEKS                       R16 R15 K18 ["Style"]
       111 GETTABLEKS                       R16 R2 K45 ["DialogColumnSize"]
       113 SETTABLEKS                       R16 R15 K40 ["Size"]
-      115 GETTABLEKS                       R17 R0 K37 ["state"]
-      117 GETTABLEKS                       R16 R17 K46 ["name"]
+      115 GETTABLEKS                       R16 R0 K37 ["state"]
+      117 GETTABLEKS                       R16 R16 K46 ["name"]
       119 SETTABLEKS                       R16 R15 K17 ["Text"]
       121 GETTABLEKS                       R16 R0 K47 ["onNameChanged"]
       123 SETTABLEKS                       R16 R15 K41 ["OnTextChanged"]
@@ -283,8 +283,8 @@ PROTO_8:
       130 SETLIST                          R12 R13 -1 [1]
       132 CALL                             R9 3 1
       133 SETTABLEKS                       R9 R8 K29 ["Name"]
-      135 GETUPVAL                         R10 1
-      136 GETTABLEKS                       R9 R10 K13 ["createElement"]
+      135 GETUPVAL                         R9 1
+      136 GETTABLEKS                       R9 R9 K13 ["createElement"]
       138 GETUPVAL                         R10 3
       139 DUPTABLE                         R11 K49 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
       140 GETTABLEKS                       R12 R2 K31 ["LabelColumnWidth"]
@@ -297,8 +297,8 @@ PROTO_8:
       151 CALL                             R12 3 1
       152 SETTABLEKS                       R12 R11 K17 ["Text"]
       154 NEWTABLE                         R12 0 1
-      156 GETUPVAL                         R14 1
-      157 GETTABLEKS                       R13 R14 K13 ["createElement"]
+      156 GETUPVAL                         R13 1
+      157 GETTABLEKS                       R13 R13 K13 ["createElement"]
       159 GETUPVAL                         R14 5
       160 DUPTABLE                         R15 K55 [{"Style", "Items", "Size", "OnItemActivated", "PlaceholderText", "SelectedIndex"}]
       161 GETTABLEKS                       R16 R2 K56 ["CustomSelectInput"]
@@ -324,14 +324,14 @@ PROTO_8:
 
 PROTO_9:
         0 DUPTABLE                         R1 K2 [{"ExpandedPane", "Material"}]
-        1 GETTABLEKS                       R4 R0 K3 ["MaterialBrowserReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["ExpandedPane"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K4 ["GeneralSettings"]
+        1 GETTABLEKS                       R3 R0 K3 ["MaterialBrowserReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["ExpandedPane"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K4 ["GeneralSettings"]
         8 GETTABLE                         R2 R3 R4
         9 SETTABLEKS                       R2 R1 K0 ["ExpandedPane"]
-       11 GETTABLEKS                       R3 R0 K3 ["MaterialBrowserReducer"]
-       13 GETTABLEKS                       R2 R3 K1 ["Material"]
+       11 GETTABLEKS                       R2 R0 K3 ["MaterialBrowserReducer"]
+       13 GETTABLEKS                       R2 R2 K1 ["Material"]
        15 SETTABLEKS                       R2 R1 K1 ["Material"]
        17 RETURN                           R1 1
 
@@ -354,50 +354,50 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Src"]
-       17 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 GETTABLEKS                       R2 R0 K5 ["Src"]
+       17 GETTABLEKS                       R2 R2 K6 ["Types"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       22 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K8 ["Roact"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       29 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       38 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       36 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K10 ["Framework"]
        40 CALL                             R4 1 1
        41 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        43 GETTABLEKS                       R6 R5 K12 ["withContext"]
        45 GETTABLEKS                       R7 R5 K13 ["Analytics"]
        47 GETTABLEKS                       R8 R5 K14 ["Localization"]
-       49 GETTABLEKS                       R10 R4 K15 ["Style"]
-       51 GETTABLEKS                       R9 R10 K16 ["Stylizer"]
+       49 GETTABLEKS                       R9 R4 K15 ["Style"]
+       51 GETTABLEKS                       R9 R9 K16 ["Stylizer"]
        53 GETTABLEKS                       R10 R4 K17 ["UI"]
        55 GETTABLEKS                       R11 R10 K18 ["DEPRECATED_TextInput"]
        57 GETTABLEKS                       R12 R10 K19 ["SelectInput"]
        59 GETTABLEKS                       R13 R10 K20 ["ExpandablePane"]
-       61 GETTABLEKS                       R15 R0 K5 ["Src"]
-       63 GETTABLEKS                       R14 R15 K21 ["Actions"]
+       61 GETTABLEKS                       R14 R0 K5 ["Src"]
+       63 GETTABLEKS                       R14 R14 K21 ["Actions"]
        65 GETIMPORT                        R15 K4 [require]
        67 GETTABLEKS                       R16 R14 K22 ["SetExpandedPane"]
        69 CALL                             R15 1 1
        70 GETIMPORT                        R16 K4 [require]
-       72 GETTABLEKS                       R19 R0 K5 ["Src"]
-       74 GETTABLEKS                       R18 R19 K23 ["Reducers"]
-       76 GETTABLEKS                       R17 R18 K24 ["MainReducer"]
+       72 GETTABLEKS                       R17 R0 K5 ["Src"]
+       74 GETTABLEKS                       R17 R17 K23 ["Reducers"]
+       76 GETTABLEKS                       R17 R17 K24 ["MainReducer"]
        78 CALL                             R16 1 1
-       79 GETTABLEKS                       R18 R0 K5 ["Src"]
-       81 GETTABLEKS                       R17 R18 K25 ["Controllers"]
+       79 GETTABLEKS                       R17 R0 K5 ["Src"]
+       81 GETTABLEKS                       R17 R17 K25 ["Controllers"]
        83 GETIMPORT                        R18 K4 [require]
        85 GETTABLEKS                       R19 R17 K26 ["MaterialServiceController"]
        87 CALL                             R18 1 1
@@ -405,15 +405,15 @@ MAIN:
        90 GETTABLEKS                       R20 R17 K27 ["GeneralServiceController"]
        92 CALL                             R19 1 1
        93 GETIMPORT                        R20 K4 [require]
-       95 GETTABLEKS                       R25 R0 K5 ["Src"]
-       97 GETTABLEKS                       R24 R25 K28 ["Components"]
-       99 GETTABLEKS                       R23 R24 K29 ["MaterialBrowser"]
-      101 GETTABLEKS                       R22 R23 K30 ["MaterialEditor"]
-      103 GETTABLEKS                       R21 R22 K31 ["LabeledElement"]
+       95 GETTABLEKS                       R21 R0 K5 ["Src"]
+       97 GETTABLEKS                       R21 R21 K28 ["Components"]
+       99 GETTABLEKS                       R21 R21 K29 ["MaterialBrowser"]
+      101 GETTABLEKS                       R21 R21 K30 ["MaterialEditor"]
+      103 GETTABLEKS                       R21 R21 K31 ["LabeledElement"]
       105 CALL                             R20 1 1
-      106 GETTABLEKS                       R23 R0 K5 ["Src"]
-      108 GETTABLEKS                       R22 R23 K32 ["Resources"]
-      110 GETTABLEKS                       R21 R22 K33 ["Constants"]
+      106 GETTABLEKS                       R21 R0 K5 ["Src"]
+      108 GETTABLEKS                       R21 R21 K32 ["Resources"]
+      110 GETTABLEKS                       R21 R21 K33 ["Constants"]
       112 GETIMPORT                        R22 K4 [require]
       114 GETTABLEKS                       R23 R21 K34 ["getMaterialPath"]
       116 CALL                             R22 1 1

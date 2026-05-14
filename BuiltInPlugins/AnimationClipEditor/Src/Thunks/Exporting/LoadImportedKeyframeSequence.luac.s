@@ -1,8 +1,8 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["Status"]
-        5 GETTABLEKS                       R2 R3 K2 ["RootInstance"]
+        3 GETTABLEKS                       R2 R1 K1 ["Status"]
+        5 GETTABLEKS                       R2 R2 K2 ["RootInstance"]
         7 JUMPIF                           R2 ; [+1]
         8 RETURN                           R0 0
         9 LOADNIL                          R3
@@ -12,8 +12,8 @@ PROTO_0:
        13 NAMECALL                         R5 R5 K4 ["IsA"]
        15 CALL                             R5 2 1
        16 JUMPIFNOT                        R5 ; [+8]
-       17 GETUPVAL                         R6 1
-       18 GETTABLEKS                       R5 R6 K5 ["fromKeyframeSequence"]
+       17 GETUPVAL                         R5 1
+       18 GETTABLEKS                       R5 R5 K5 ["fromKeyframeSequence"]
        20 GETUPVAL                         R6 0
        21 CALL                             R5 1 2
        22 MOVE                             R3 R5
@@ -24,16 +24,16 @@ PROTO_0:
        27 CALL                             R5 0 1
        28 JUMPIFNOT                        R5 ; [+12]
        29 GETTABLEKS                       R5 R3 K6 ["Metadata"]
-       31 GETUPVAL                         R7 0
-       32 GETTABLEKS                       R6 R7 K7 ["Name"]
+       31 GETUPVAL                         R6 0
+       32 GETTABLEKS                       R6 R6 K7 ["Name"]
        34 JUMPIF                           R6 ; [+3]
-       35 GETUPVAL                         R7 3
-       36 GETTABLEKS                       R6 R7 K8 ["DEFAULT_IMPORTED_NAME"]
+       35 GETUPVAL                         R6 3
+       36 GETTABLEKS                       R6 R6 K8 ["DEFAULT_IMPORTED_NAME"]
        38 SETTABLEKS                       R6 R5 K7 ["Name"]
        40 JUMP                             ; [+7]
        41 GETTABLEKS                       R5 R3 K6 ["Metadata"]
-       43 GETUPVAL                         R7 3
-       44 GETTABLEKS                       R6 R7 K8 ["DEFAULT_IMPORTED_NAME"]
+       43 GETUPVAL                         R6 3
+       44 GETTABLEKS                       R6 R6 K8 ["DEFAULT_IMPORTED_NAME"]
        46 SETTABLEKS                       R6 R5 K7 ["Name"]
        48 GETUPVAL                         R7 4
        49 MOVE                             R8 R3
@@ -62,8 +62,8 @@ PROTO_0:
        76 LOADK                            R7 K10 ["onImportAnimationFromFile"]
        77 GETTABLEKS                       R9 R3 K6 ["Metadata"]
        79 JUMPIFNOT                        R9 ; [+5]
-       80 GETTABLEKS                       R9 R3 K6 ["Metadata"]
-       82 GETTABLEKS                       R8 R9 K11 ["Guid"]
+       80 GETTABLEKS                       R8 R3 K6 ["Metadata"]
+       82 GETTABLEKS                       R8 R8 K11 ["Guid"]
        84 JUMP                             ; [+1]
        85 LOADNIL                          R8
        86 NAMECALL                         R5 R5 K12 ["report"]
@@ -89,8 +89,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetIsDirty"]
        15 CALL                             R2 1 1
@@ -100,13 +100,13 @@ MAIN:
        21 GETIMPORT                        R4 K7 [require]
        23 GETTABLEKS                       R5 R1 K10 ["SetFrameRate"]
        25 CALL                             R4 1 1
-       26 GETTABLEKS                       R6 R0 K4 ["Src"]
-       28 GETTABLEKS                       R5 R6 K11 ["Thunks"]
+       26 GETTABLEKS                       R5 R0 K4 ["Src"]
+       28 GETTABLEKS                       R5 R5 K11 ["Thunks"]
        30 GETIMPORT                        R6 K7 [require]
        32 GETTABLEKS                       R7 R5 K12 ["LoadAnimationData"]
        34 CALL                             R6 1 1
-       35 GETTABLEKS                       R8 R0 K4 ["Src"]
-       37 GETTABLEKS                       R7 R8 K13 ["Util"]
+       35 GETTABLEKS                       R7 R0 K4 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Util"]
        39 GETIMPORT                        R8 K7 [require]
        41 GETTABLEKS                       R9 R7 K14 ["Constants"]
        43 CALL                             R8 1 1
@@ -114,8 +114,8 @@ MAIN:
        46 GETTABLEKS                       R10 R7 K15 ["RigSerialization"]
        48 CALL                             R9 1 1
        49 GETIMPORT                        R10 K7 [require]
-       51 GETTABLEKS                       R12 R0 K16 ["LuaFlags"]
-       53 GETTABLEKS                       R11 R12 K17 ["GetFFlagUseFileNameForImportedAnimation"]
+       51 GETTABLEKS                       R11 R0 K16 ["LuaFlags"]
+       53 GETTABLEKS                       R11 R11 K17 ["GetFFlagUseFileNameForImportedAnimation"]
        55 CALL                             R10 1 1
        56 DUPCLOSURE                       R11 K18 [PROTO_1]
        57 CAPTURE                          VAL R9

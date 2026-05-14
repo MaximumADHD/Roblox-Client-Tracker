@@ -46,8 +46,8 @@ PROTO_1:
        11 LOADK                            R5 K2 ["Path must begin with '/'"]
        12 GETIMPORT                        R3 K4 [assert]
        14 CALL                             R3 2 0
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K5 ["composeUrl"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K5 ["composeUrl"]
        18 LOADK                            R5 K6 ["https://"]
        19 MOVE                             R6 R0
        20 LOADK                            R7 K7 ["."]
@@ -93,18 +93,18 @@ PROTO_3:
        26 JUMP                             ; [+1]
        27 SETTABLE                         R7 R2 R6
        28 FORGLOOP                         R3 2 ; [-22]
-       30 GETUPVAL                         R5 1
-       31 GETTABLEKS                       R4 R5 K5 ["Dictionary"]
-       33 GETTABLEKS                       R3 R4 K6 ["join"]
+       30 GETUPVAL                         R3 1
+       31 GETTABLEKS                       R3 R3 K5 ["Dictionary"]
+       33 GETTABLEKS                       R3 R3 K6 ["join"]
        35 MOVE                             R4 R0
        36 MOVE                             R5 R2
        37 CALL                             R3 2 -1
        38 RETURN                           R3 -1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Dictionary"]
-        3 GETTABLEKS                       R1 R2 K1 ["join"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Dictionary"]
+        3 GETTABLEKS                       R1 R1 K1 ["join"]
         5 DUPTABLE                         R2 K4 [{"isInternal", "retryAmount"}]
         6 LOADB                            R3 1
         7 SETTABLEKS                       R3 R2 K2 ["isInternal"]
@@ -118,9 +118,9 @@ PROTO_4:
        18 DUPTABLE                         R1 K8 [{"__retryAmount", "__baseImpl", "__coalescedRequests"}]
        19 GETTABLEKS                       R2 R0 K3 ["retryAmount"]
        21 SETTABLEKS                       R2 R1 K5 ["__retryAmount"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R3 R4 K9 ["Networking"]
-       26 GETTABLEKS                       R2 R3 K10 ["new"]
+       23 GETUPVAL                         R2 1
+       24 GETTABLEKS                       R2 R2 K9 ["Networking"]
+       26 GETTABLEKS                       R2 R2 K10 ["new"]
        28 MOVE                             R3 R0
        29 CALL                             R2 1 1
        30 SETTABLEKS                       R2 R1 K6 ["__baseImpl"]
@@ -154,8 +154,8 @@ PROTO_5:
        13 LOADK                            R8 K3 ["Path must begin with '/'"]
        14 GETIMPORT                        R6 K5 [assert]
        16 CALL                             R6 2 0
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R6 R7 K6 ["composeUrl"]
+       17 GETUPVAL                         R6 0
+       18 GETTABLEKS                       R6 R6 K6 ["composeUrl"]
        20 LOADK                            R8 K7 ["https://"]
        21 MOVE                             R9 R1
        22 LOADK                            R10 K8 ["."]
@@ -168,13 +168,13 @@ PROTO_5:
        30 MOVE                             R9 R5
        31 CALL                             R6 3 1
        32 MOVE                             R4 R6
-       33 GETUPVAL                         R7 2
-       34 GETTABLEKS                       R6 R7 K9 ["Dictionary"]
-       36 GETTABLEKS                       R5 R6 K10 ["join"]
+       33 GETUPVAL                         R5 2
+       34 GETTABLEKS                       R5 R5 K9 ["Dictionary"]
+       36 GETTABLEKS                       R5 R5 K10 ["join"]
        38 MOVE                             R6 R3
        39 DUPTABLE                         R7 K12 [{"Params", "Url"}]
-       40 GETUPVAL                         R9 2
-       41 GETTABLEKS                       R8 R9 K13 ["None"]
+       40 GETUPVAL                         R8 2
+       41 GETTABLEKS                       R8 R8 K13 ["None"]
        43 SETTABLEKS                       R8 R7 K0 ["Params"]
        45 SETTABLEKS                       R4 R7 K11 ["Url"]
        47 CALL                             R5 2 1
@@ -198,9 +198,9 @@ PROTO_5:
 PROTO_6:
         0 MOVE                             R6 R1
         1 MOVE                             R7 R2
-        2 GETUPVAL                         R10 0
-        3 GETTABLEKS                       R9 R10 K0 ["Dictionary"]
-        5 GETTABLEKS                       R8 R9 K1 ["join"]
+        2 GETUPVAL                         R8 0
+        3 GETTABLEKS                       R8 R8 K0 ["Dictionary"]
+        5 GETTABLEKS                       R8 R8 K1 ["join"]
         7 MOVE                             R9 R3
         8 JUMPIF                           R9 ; [+2]
         9 NEWTABLE                         R9 0 0
@@ -239,15 +239,15 @@ PROTO_7:
        32 JUMPIF                           R5 ; [+2]
        33 GETTABLEKS                       R5 R1 K0 ["Body"]
        35 MOVE                             R2 R5
-       36 GETUPVAL                         R7 1
-       37 GETTABLEKS                       R6 R7 K11 ["Dictionary"]
-       39 GETTABLEKS                       R5 R6 K12 ["join"]
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K11 ["Dictionary"]
+       39 GETTABLEKS                       R5 R5 K12 ["join"]
        41 MOVE                             R6 R1
        42 DUPTABLE                         R7 K13 [{"Body", "Headers"}]
        43 SETTABLEKS                       R2 R7 K0 ["Body"]
-       45 GETUPVAL                         R10 1
-       46 GETTABLEKS                       R9 R10 K11 ["Dictionary"]
-       48 GETTABLEKS                       R8 R9 K12 ["join"]
+       45 GETUPVAL                         R8 1
+       46 GETTABLEKS                       R8 R8 K11 ["Dictionary"]
+       48 GETTABLEKS                       R8 R8 K12 ["join"]
        50 NEWTABLE                         R9 1 0
        52 LOADK                            R10 K14 ["application/json"]
        53 SETTABLEKS                       R10 R9 K5 ["Content-Type"]
@@ -273,8 +273,8 @@ PROTO_7:
        84 RETURN                           R3 -1
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["__coalescedRequests"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["__coalescedRequests"]
         3 GETUPVAL                         R3 1
         4 GETTABLE                         R1 R2 R3
         5 GETUPVAL                         R2 2
@@ -285,20 +285,20 @@ PROTO_8:
        10 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["__coalescedRequests"]
-        3 GETUPVAL                         R6 1
-        4 GETTABLE                         R4 R5 R6
-        5 GETUPVAL                         R5 2
-        6 GETTABLE                         R3 R4 R5
-        7 GETUPVAL                         R4 3
-        8 GETTABLE                         R2 R3 R4
-        9 GETTABLEKS                       R1 R2 K1 ["options"]
-       11 GETTABLEKS                       R0 R1 K2 ["Body"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["__coalescedRequests"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLE                         R2 R3 R4
+        5 GETUPVAL                         R3 2
+        6 GETTABLE                         R1 R2 R3
+        7 GETUPVAL                         R2 3
+        8 GETTABLE                         R0 R1 R2
+        9 GETTABLEKS                       R0 R0 K1 ["options"]
+       11 GETTABLEKS                       R0 R0 K2 ["Body"]
        13 GETUPVAL                         R1 0
-       14 GETUPVAL                         R5 4
-       15 GETTABLEKS                       R4 R5 K3 ["Dictionary"]
-       17 GETTABLEKS                       R3 R4 K4 ["join"]
+       14 GETUPVAL                         R3 4
+       15 GETTABLEKS                       R3 R3 K3 ["Dictionary"]
+       17 GETTABLEKS                       R3 R3 K4 ["join"]
        19 GETUPVAL                         R4 5
        20 DUPTABLE                         R5 K5 [{"Body"}]
        21 SETTABLEKS                       R0 R5 K2 ["Body"]
@@ -309,8 +309,8 @@ PROTO_9:
        28 GETUPVAL                         R4 7
        29 NAMECALL                         R1 R1 K7 ["andThen"]
        31 CALL                             R1 3 0
-       32 GETUPVAL                         R4 0
-       33 GETTABLEKS                       R3 R4 K0 ["__coalescedRequests"]
+       32 GETUPVAL                         R3 0
+       33 GETTABLEKS                       R3 R3 K0 ["__coalescedRequests"]
        35 GETUPVAL                         R4 1
        36 GETTABLE                         R2 R3 R4
        37 GETUPVAL                         R3 2
@@ -371,8 +371,8 @@ PROTO_11:
        46 CALL                             R8 3 0
        47 JUMP                             ; [+20]
        48 JUMPIFNOTEQKS                    R2 K3 ["PATCH"] ; [+14]
-       50 GETUPVAL                         R9 2
-       51 GETTABLEKS                       R8 R9 K12 ["new"]
+       50 GETUPVAL                         R8 2
+       51 GETTABLEKS                       R8 R8 K12 ["new"]
        53 NEWCLOSURE                       R9 P1
        54 CAPTURE                          VAL R0
        55 CAPTURE                          VAL R2
@@ -413,13 +413,13 @@ PROTO_12:
         8 JUMPIF                           R4 ; [+2]
         9 LOADNIL                          R5
        10 RETURN                           R5 1
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["Dictionary"]
-       14 GETTABLEKS                       R5 R6 K4 ["join"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["Dictionary"]
+       14 GETTABLEKS                       R5 R5 K4 ["join"]
        16 MOVE                             R6 R1
        17 DUPTABLE                         R7 K6 [{"Body"}]
-       18 GETUPVAL                         R9 0
-       19 GETTABLEKS                       R8 R9 K7 ["None"]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K7 ["None"]
        21 SETTABLEKS                       R8 R7 K5 ["Body"]
        23 CALL                             R5 2 1
        24 LOADNIL                          R6
@@ -427,13 +427,13 @@ PROTO_12:
        27 MOVE                             R8 R4
        28 CALL                             R7 1 3
        29 FORGPREP_NEXT                    R7
-       30 GETUPVAL                         R14 0
-       31 GETTABLEKS                       R13 R14 K3 ["Dictionary"]
-       33 GETTABLEKS                       R12 R13 K4 ["join"]
+       30 GETUPVAL                         R12 0
+       31 GETTABLEKS                       R12 R12 K3 ["Dictionary"]
+       33 GETTABLEKS                       R12 R12 K4 ["join"]
        35 GETTABLEKS                       R13 R11 K10 ["options"]
        37 DUPTABLE                         R14 K6 [{"Body"}]
-       38 GETUPVAL                         R16 0
-       39 GETTABLEKS                       R15 R16 K7 ["None"]
+       38 GETUPVAL                         R15 0
+       39 GETTABLEKS                       R15 R15 K7 ["None"]
        41 SETTABLEKS                       R15 R14 K5 ["Body"]
        43 CALL                             R12 2 1
        44 GETUPVAL                         R13 1
@@ -451,35 +451,35 @@ PROTO_12:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R3 K4 [require]
-       18 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K7 ["Framework"]
-       22 CALL                             R3 1 1
-       23 GETTABLEKS                       R2 R3 K8 ["Http"]
-       25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K7 ["Framework"]
-       31 CALL                             R4 1 1
-       32 GETTABLEKS                       R3 R4 K9 ["Util"]
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R2 R2 K8 ["Http"]
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K7 ["Framework"]
+       31 CALL                             R3 1 1
+       32 GETTABLEKS                       R3 R3 K9 ["Util"]
        34 GETTABLEKS                       R4 R3 K10 ["Promise"]
-       36 GETIMPORT                        R7 K4 [require]
-       38 GETTABLEKS                       R9 R0 K5 ["Packages"]
-       40 GETTABLEKS                       R8 R9 K7 ["Framework"]
-       42 CALL                             R7 1 1
-       43 GETTABLEKS                       R6 R7 K11 ["RobloxAPI"]
-       45 GETTABLEKS                       R5 R6 K12 ["Url"]
+       36 GETIMPORT                        R5 K4 [require]
+       38 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       40 GETTABLEKS                       R6 R6 K7 ["Framework"]
+       42 CALL                             R5 1 1
+       43 GETTABLEKS                       R5 R5 K11 ["RobloxAPI"]
+       45 GETTABLEKS                       R5 R5 K12 ["Url"]
        47 GETIMPORT                        R6 K4 [require]
-       49 GETTABLEKS                       R9 R0 K13 ["Src"]
-       51 GETTABLEKS                       R8 R9 K9 ["Util"]
-       53 GETTABLEKS                       R7 R8 K14 ["tablesDeepEqual"]
+       49 GETTABLEKS                       R7 R0 K13 ["Src"]
+       51 GETTABLEKS                       R7 R7 K9 ["Util"]
+       53 GETTABLEKS                       R7 R7 K14 ["tablesDeepEqual"]
        55 CALL                             R6 1 1
        56 GETIMPORT                        R7 K16 [game]
        58 LOADK                            R9 K17 ["ContentProvider"]

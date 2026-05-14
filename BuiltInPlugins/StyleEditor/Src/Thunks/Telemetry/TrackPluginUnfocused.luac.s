@@ -15,30 +15,30 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Actions"]
        15 GETIMPORT                        R2 K6 [require]
-       17 GETTABLEKS                       R4 R1 K7 ["SessionStats"]
-       19 GETTABLEKS                       R3 R4 K8 ["PluginFocusEnd"]
+       17 GETTABLEKS                       R3 R1 K7 ["SessionStats"]
+       19 GETTABLEKS                       R3 R3 K8 ["PluginFocusEnd"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K6 [require]
-       24 GETTABLEKS                       R5 R0 K3 ["Src"]
-       26 GETTABLEKS                       R4 R5 K9 ["Types"]
+       24 GETTABLEKS                       R4 R0 K3 ["Src"]
+       26 GETTABLEKS                       R4 R4 K9 ["Types"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K6 [require]
-       31 GETTABLEKS                       R7 R0 K3 ["Src"]
-       33 GETTABLEKS                       R6 R7 K10 ["Reducers"]
-       35 GETTABLEKS                       R5 R6 K11 ["RootReducer"]
+       31 GETTABLEKS                       R5 R0 K3 ["Src"]
+       33 GETTABLEKS                       R5 R5 K10 ["Reducers"]
+       35 GETTABLEKS                       R5 R5 K11 ["RootReducer"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K6 [require]
-       40 GETTABLEKS                       R8 R0 K3 ["Src"]
-       42 GETTABLEKS                       R7 R8 K12 ["Thunks"]
-       44 GETTABLEKS                       R6 R7 K9 ["Types"]
+       40 GETTABLEKS                       R6 R0 K3 ["Src"]
+       42 GETTABLEKS                       R6 R6 K12 ["Thunks"]
+       44 GETTABLEKS                       R6 R6 K9 ["Types"]
        46 CALL                             R5 1 1
        47 DUPCLOSURE                       R6 K13 [PROTO_1]
        48 CAPTURE                          VAL R2

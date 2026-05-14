@@ -1,12 +1,12 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["Settings"]
-        5 GETTABLEKS                       R1 R3 K3 ["Warnings"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["Settings"]
+        5 GETTABLEKS                       R1 R1 K3 ["Warnings"]
         7 CALL                             R0 1 3
         8 FORGPREP_NEXT                    R0
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K4 ["showDialog"]
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R5 R5 K4 ["showDialog"]
        12 GETUPVAL                         R6 2
        13 GETUPVAL                         R8 3
        14 GETTABLE                         R7 R8 R4
@@ -37,8 +37,8 @@ PROTO_2:
         0 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["showDialog"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["showDialog"]
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 CALL                             R1 2 1
@@ -155,8 +155,8 @@ PROTO_6:
       121 CALL                             R6 3 -1
       122 SETLIST                          R5 R6 -1 [1]
       124 SETTABLEKS                       R5 R4 K7 ["Buttons"]
-      126 GETUPVAL                         R6 2
-      127 GETTABLEKS                       R5 R6 K24 ["new"]
+      126 GETUPVAL                         R5 2
+      127 GETTABLEKS                       R5 R5 K24 ["new"]
       129 NEWCLOSURE                       R6 P0
       130 CAPTURE                          VAL R1
       131 CAPTURE                          UPVAL U3
@@ -189,37 +189,37 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETIMPORT                        R6 K1 [script]
-       13 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       15 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K5 ["Flags"]
-       19 GETTABLEKS                       R2 R3 K6 ["getFFlagGameSettingsGameToExperience"]
+       11 GETIMPORT                        R2 K1 [script]
+       13 GETTABLEKS                       R2 R2 K2 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K2 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K5 ["Flags"]
+       19 GETTABLEKS                       R2 R2 K6 ["getFFlagGameSettingsGameToExperience"]
        21 CALL                             R1 1 1
        22 GETIMPORT                        R2 K4 [require]
-       24 GETTABLEKS                       R5 R0 K7 ["Src"]
-       26 GETTABLEKS                       R4 R5 K8 ["Thunks"]
-       28 GETTABLEKS                       R3 R4 K9 ["SaveChanges"]
+       24 GETTABLEKS                       R3 R0 K7 ["Src"]
+       26 GETTABLEKS                       R3 R3 K8 ["Thunks"]
+       28 GETTABLEKS                       R3 R3 K9 ["SaveChanges"]
        30 CALL                             R2 1 1
        31 GETIMPORT                        R3 K4 [require]
-       33 GETTABLEKS                       R7 R0 K7 ["Src"]
-       35 GETTABLEKS                       R6 R7 K10 ["Components"]
-       37 GETTABLEKS                       R5 R6 K11 ["Dialog"]
-       39 GETTABLEKS                       R4 R5 K12 ["WarningDialog"]
+       33 GETTABLEKS                       R4 R0 K7 ["Src"]
+       35 GETTABLEKS                       R4 R4 K10 ["Components"]
+       37 GETTABLEKS                       R4 R4 K11 ["Dialog"]
+       39 GETTABLEKS                       R4 R4 K12 ["WarningDialog"]
        41 CALL                             R3 1 1
        42 GETIMPORT                        R4 K4 [require]
-       44 GETTABLEKS                       R8 R0 K7 ["Src"]
-       46 GETTABLEKS                       R7 R8 K10 ["Components"]
-       48 GETTABLEKS                       R6 R7 K11 ["Dialog"]
-       50 GETTABLEKS                       R5 R6 K13 ["SimpleDialog"]
+       44 GETTABLEKS                       R5 R0 K7 ["Src"]
+       46 GETTABLEKS                       R5 R5 K10 ["Components"]
+       48 GETTABLEKS                       R5 R5 K11 ["Dialog"]
+       50 GETTABLEKS                       R5 R5 K13 ["SimpleDialog"]
        52 CALL                             R4 1 1
        53 GETIMPORT                        R5 K4 [require]
-       55 GETTABLEKS                       R7 R0 K14 ["Packages"]
-       57 GETTABLEKS                       R6 R7 K15 ["Framework"]
+       55 GETTABLEKS                       R6 R0 K14 ["Packages"]
+       57 GETTABLEKS                       R6 R6 K15 ["Framework"]
        59 CALL                             R5 1 1
        60 GETTABLEKS                       R6 R5 K16 ["Util"]
        62 GETTABLEKS                       R7 R6 K17 ["Promise"]

@@ -46,38 +46,38 @@ PROTO_0:
        65 MOVE                             R9 R12
        66 JUMPIFNOT                        R1 ; [+30]
        67 GETIMPORT                        R14 K17 [Vector2.new]
-       69 GETTABLEKS                       R16 R3 K14 ["X"]
-       71 GETTABLEKS                       R15 R16 K18 ["Offset"]
-       73 GETTABLEKS                       R17 R3 K16 ["Y"]
-       75 GETTABLEKS                       R16 R17 K18 ["Offset"]
+       69 GETTABLEKS                       R15 R3 K14 ["X"]
+       71 GETTABLEKS                       R15 R15 K18 ["Offset"]
+       73 GETTABLEKS                       R16 R3 K16 ["Y"]
+       75 GETTABLEKS                       R16 R16 K18 ["Offset"]
        77 CALL                             R14 2 1
        78 SUB                              R13 R2 R14
        79 DIV                              R12 R13 R9
        80 GETIMPORT                        R13 K7 [UDim2.new]
        82 GETTABLEKS                       R14 R12 K14 ["X"]
-       84 GETTABLEKS                       R16 R3 K14 ["X"]
-       86 GETTABLEKS                       R15 R16 K18 ["Offset"]
+       84 GETTABLEKS                       R15 R3 K14 ["X"]
+       86 GETTABLEKS                       R15 R15 K18 ["Offset"]
        88 GETTABLEKS                       R16 R12 K16 ["Y"]
-       90 GETTABLEKS                       R18 R3 K16 ["Y"]
-       92 GETTABLEKS                       R17 R18 K18 ["Offset"]
+       90 GETTABLEKS                       R17 R3 K16 ["Y"]
+       92 GETTABLEKS                       R17 R17 K18 ["Offset"]
        94 CALL                             R13 4 1
        95 MOVE                             R5 R13
        96 RETURN                           R5 1
        97 GETIMPORT                        R14 K17 [Vector2.new]
-       99 GETTABLEKS                       R16 R3 K14 ["X"]
-      101 GETTABLEKS                       R15 R16 K19 ["Scale"]
-      103 GETTABLEKS                       R17 R3 K16 ["Y"]
-      105 GETTABLEKS                       R16 R17 K19 ["Scale"]
+       99 GETTABLEKS                       R15 R3 K14 ["X"]
+      101 GETTABLEKS                       R15 R15 K19 ["Scale"]
+      103 GETTABLEKS                       R16 R3 K16 ["Y"]
+      105 GETTABLEKS                       R16 R16 K19 ["Scale"]
       107 CALL                             R14 2 1
       108 GETTABLEKS                       R15 R4 K10 ["AbsoluteSize"]
       110 MUL                              R13 R14 R15
       111 SUB                              R12 R2 R13
       112 GETIMPORT                        R13 K7 [UDim2.new]
-      114 GETTABLEKS                       R15 R3 K14 ["X"]
-      116 GETTABLEKS                       R14 R15 K19 ["Scale"]
+      114 GETTABLEKS                       R14 R3 K14 ["X"]
+      116 GETTABLEKS                       R14 R14 K19 ["Scale"]
       118 GETTABLEKS                       R15 R12 K14 ["X"]
-      120 GETTABLEKS                       R17 R3 K16 ["Y"]
-      122 GETTABLEKS                       R16 R17 K19 ["Scale"]
+      120 GETTABLEKS                       R16 R3 K16 ["Y"]
+      122 GETTABLEKS                       R16 R16 K19 ["Scale"]
       124 GETTABLEKS                       R17 R12 K16 ["Y"]
       126 CALL                             R13 4 1
       127 MOVE                             R5 R13
@@ -181,40 +181,40 @@ PROTO_1:
       132 MOVE                             R20 R23
       133 JUMPIFNOT                        R1 ; [+31]
       134 GETIMPORT                        R23 K24 [Vector2.new]
-      136 GETTABLEKS                       R25 R4 K21 ["X"]
-      138 GETTABLEKS                       R24 R25 K25 ["Offset"]
-      140 GETTABLEKS                       R26 R4 K23 ["Y"]
-      142 GETTABLEKS                       R25 R26 K25 ["Offset"]
+      136 GETTABLEKS                       R24 R4 K21 ["X"]
+      138 GETTABLEKS                       R24 R24 K25 ["Offset"]
+      140 GETTABLEKS                       R25 R4 K23 ["Y"]
+      142 GETTABLEKS                       R25 R25 K25 ["Offset"]
       144 CALL                             R23 2 1
       145 SUB                              R26 R19 R9
       146 SUB                              R25 R26 R23
       147 DIV                              R24 R25 R20
       148 GETIMPORT                        R25 K7 [UDim2.new]
       150 GETTABLEKS                       R26 R24 K21 ["X"]
-      152 GETTABLEKS                       R28 R4 K21 ["X"]
-      154 GETTABLEKS                       R27 R28 K25 ["Offset"]
+      152 GETTABLEKS                       R27 R4 K21 ["X"]
+      154 GETTABLEKS                       R27 R27 K25 ["Offset"]
       156 GETTABLEKS                       R28 R24 K23 ["Y"]
-      158 GETTABLEKS                       R30 R4 K23 ["Y"]
-      160 GETTABLEKS                       R29 R30 K25 ["Offset"]
+      158 GETTABLEKS                       R29 R4 K23 ["Y"]
+      160 GETTABLEKS                       R29 R29 K25 ["Offset"]
       162 CALL                             R25 4 1
       163 MOVE                             R7 R25
       164 RETURN                           R7 1
       165 GETIMPORT                        R24 K24 [Vector2.new]
-      167 GETTABLEKS                       R26 R4 K21 ["X"]
-      169 GETTABLEKS                       R25 R26 K26 ["Scale"]
-      171 GETTABLEKS                       R27 R4 K23 ["Y"]
-      173 GETTABLEKS                       R26 R27 K26 ["Scale"]
+      167 GETTABLEKS                       R25 R4 K21 ["X"]
+      169 GETTABLEKS                       R25 R25 K26 ["Scale"]
+      171 GETTABLEKS                       R26 R4 K23 ["Y"]
+      173 GETTABLEKS                       R26 R26 K26 ["Scale"]
       175 CALL                             R24 2 1
       176 GETTABLEKS                       R25 R5 K10 ["AbsoluteSize"]
       178 MUL                              R23 R24 R25
       179 SUB                              R25 R19 R9
       180 SUB                              R24 R25 R23
       181 GETIMPORT                        R25 K7 [UDim2.new]
-      183 GETTABLEKS                       R27 R4 K21 ["X"]
-      185 GETTABLEKS                       R26 R27 K26 ["Scale"]
+      183 GETTABLEKS                       R26 R4 K21 ["X"]
+      185 GETTABLEKS                       R26 R26 K26 ["Scale"]
       187 GETTABLEKS                       R27 R24 K21 ["X"]
-      189 GETTABLEKS                       R29 R4 K23 ["Y"]
-      191 GETTABLEKS                       R28 R29 K26 ["Scale"]
+      189 GETTABLEKS                       R28 R4 K23 ["Y"]
+      191 GETTABLEKS                       R28 R28 K26 ["Scale"]
       193 GETTABLEKS                       R29 R24 K23 ["Y"]
       195 CALL                             R25 4 1
       196 MOVE                             R7 R25
@@ -240,15 +240,15 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Utility"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Utility"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R5 K3 [script]
-       14 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       16 GETTABLEKS                       R3 R4 K6 ["Flags"]
-       18 GETTABLEKS                       R2 R3 K7 ["GetFFlagUIEditorFixCrashInConvert"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       18 GETTABLEKS                       R2 R2 K7 ["GetFFlagUIEditorFixCrashInConvert"]
        20 CALL                             R1 1 1
        21 GETIMPORT                        R2 K9 [game]
        23 LOADK                            R4 K10 ["UIEditorFixScrollingFrame"]

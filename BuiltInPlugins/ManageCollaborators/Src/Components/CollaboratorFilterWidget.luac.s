@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["key"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["key"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
@@ -12,13 +12,13 @@ PROTO_1:
         6 GETTABLEKS                       R4 R1 K3 ["SetSelectedFilterPill"]
         8 GETTABLEKS                       R5 R1 K4 ["SelectedPill"]
        10 DUPTABLE                         R6 K7 [{"Layout", "Padding"}]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K8 ["createElement"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K8 ["createElement"]
        14 LOADK                            R8 K9 ["UIListLayout"]
        15 DUPTABLE                         R9 K13 [{"Padding", "HorizontalAlignment", "SortOrder", "FillDirection"}]
-       16 GETTABLEKS                       R12 R2 K14 ["collaboratorFilter"]
-       18 GETTABLEKS                       R11 R12 K15 ["pills"]
-       20 GETTABLEKS                       R10 R11 K16 ["paddingHorizontal"]
+       16 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
+       18 GETTABLEKS                       R10 R10 K15 ["pills"]
+       20 GETTABLEKS                       R10 R10 K16 ["paddingHorizontal"]
        22 SETTABLEKS                       R10 R9 K6 ["Padding"]
        24 GETIMPORT                        R10 K19 [Enum.HorizontalAlignment.Left]
        26 SETTABLEKS                       R10 R9 K10 ["HorizontalAlignment"]
@@ -29,20 +29,20 @@ PROTO_1:
        36 LOADNIL                          R10
        37 CALL                             R7 3 1
        38 SETTABLEKS                       R7 R6 K5 ["Layout"]
-       40 GETUPVAL                         R8 0
-       41 GETTABLEKS                       R7 R8 K8 ["createElement"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K8 ["createElement"]
        43 LOADK                            R8 K24 ["UIPadding"]
        44 DUPTABLE                         R9 K28 [{"PaddingLeft", "PaddingRight", "PaddingTop"}]
-       45 GETTABLEKS                       R11 R2 K14 ["collaboratorFilter"]
-       47 GETTABLEKS                       R10 R11 K16 ["paddingHorizontal"]
+       45 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
+       47 GETTABLEKS                       R10 R10 K16 ["paddingHorizontal"]
        49 SETTABLEKS                       R10 R9 K25 ["PaddingLeft"]
-       51 GETTABLEKS                       R11 R2 K14 ["collaboratorFilter"]
-       53 GETTABLEKS                       R10 R11 K16 ["paddingHorizontal"]
+       51 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
+       53 GETTABLEKS                       R10 R10 K16 ["paddingHorizontal"]
        55 SETTABLEKS                       R10 R9 K26 ["PaddingRight"]
        57 GETUPVAL                         R11 1
        58 JUMPIFNOT                        R11 ; [+5]
-       59 GETTABLEKS                       R11 R2 K14 ["collaboratorFilter"]
-       61 GETTABLEKS                       R10 R11 K29 ["paddingTop"]
+       59 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
+       61 GETTABLEKS                       R10 R10 K29 ["paddingTop"]
        63 JUMP                             ; [+1]
        64 LOADNIL                          R10
        65 SETTABLEKS                       R10 R9 K27 ["PaddingTop"]
@@ -53,16 +53,16 @@ PROTO_1:
        74 CALL                             R7 1 3
        75 FORGPREP_NEXT                    R7
        76 MOVE                             R13 R6
-       77 GETUPVAL                         R15 0
-       78 GETTABLEKS                       R14 R15 K8 ["createElement"]
+       77 GETUPVAL                         R14 0
+       78 GETTABLEKS                       R14 R14 K8 ["createElement"]
        80 GETUPVAL                         R15 2
        81 DUPTABLE                         R16 K39 [{"LayoutOrder", "Style", "Size", "Text", "StyleModifier", "ZIndex", "OnClick"}]
        82 SETTABLEKS                       R10 R16 K20 ["LayoutOrder"]
        84 LOADK                            R17 K40 ["Pill"]
        85 SETTABLEKS                       R17 R16 K33 ["Style"]
-       87 GETTABLEKS                       R19 R2 K14 ["collaboratorFilter"]
-       89 GETTABLEKS                       R18 R19 K15 ["pills"]
-       91 GETTABLEKS                       R17 R18 K41 ["size"]
+       87 GETTABLEKS                       R17 R2 K14 ["collaboratorFilter"]
+       89 GETTABLEKS                       R17 R17 K15 ["pills"]
+       91 GETTABLEKS                       R17 R17 K41 ["size"]
        93 SETTABLEKS                       R17 R16 K34 ["Size"]
        95 LOADK                            R19 K42 ["Permissions"]
        96 LOADK                            R21 K43 ["FilterPill.%*.Label"]
@@ -76,8 +76,8 @@ PROTO_1:
       108 GETTABLEKS                       R18 R5 K44 ["key"]
       110 GETTABLEKS                       R19 R11 K44 ["key"]
       112 JUMPIFNOTEQ                      R18 R19 ; [+5]
-      114 GETUPVAL                         R18 3
-      115 GETTABLEKS                       R17 R18 K47 ["Hover"]
+      114 GETUPVAL                         R17 3
+      115 GETTABLEKS                       R17 R17 K47 ["Hover"]
       117 JUMP                             ; [+1]
       118 LOADNIL                          R17
       119 SETTABLEKS                       R17 R16 K36 ["StyleModifier"]
@@ -97,15 +97,15 @@ PROTO_1:
       138 JUMPIFNOTLE                      R7 R8 ; [+3]
       140 LOADNIL                          R7
       141 RETURN                           R7 1
-      142 GETUPVAL                         R8 0
-      143 GETTABLEKS                       R7 R8 K8 ["createElement"]
+      142 GETUPVAL                         R7 0
+      143 GETTABLEKS                       R7 R7 K8 ["createElement"]
       145 LOADK                            R8 K51 ["Frame"]
       146 DUPTABLE                         R9 K53 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
       147 GETTABLEKS                       R11 R1 K20 ["LayoutOrder"]
       149 ORK                              R10 R11 K54 [1]
       150 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
-      152 GETTABLEKS                       R11 R2 K14 ["collaboratorFilter"]
-      154 GETTABLEKS                       R10 R11 K41 ["size"]
+      152 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
+      154 GETTABLEKS                       R10 R10 K41 ["size"]
       156 SETTABLEKS                       R10 R9 K34 ["Size"]
       158 LOADN                            R10 1
       159 SETTABLEKS                       R10 R9 K52 ["BackgroundTransparency"]
@@ -144,45 +144,45 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R5 R3 K9 ["Style"]
-       32 GETTABLEKS                       R4 R5 K10 ["Stylizer"]
+       30 GETTABLEKS                       R4 R3 K9 ["Style"]
+       32 GETTABLEKS                       R4 R4 K10 ["Stylizer"]
        34 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
        36 GETTABLEKS                       R6 R5 K12 ["withContext"]
        38 GETTABLEKS                       R7 R5 K13 ["Localization"]
-       40 GETTABLEKS                       R9 R3 K14 ["Util"]
-       42 GETTABLEKS                       R8 R9 K15 ["StyleModifier"]
-       44 GETTABLEKS                       R10 R3 K16 ["UI"]
-       46 GETTABLEKS                       R9 R10 K17 ["Button"]
+       40 GETTABLEKS                       R8 R3 K14 ["Util"]
+       42 GETTABLEKS                       R8 R8 K15 ["StyleModifier"]
+       44 GETTABLEKS                       R9 R3 K16 ["UI"]
+       46 GETTABLEKS                       R9 R9 K17 ["Button"]
        48 GETIMPORT                        R10 K4 [require]
-       50 GETTABLEKS                       R13 R0 K18 ["Src"]
-       52 GETTABLEKS                       R12 R13 K19 ["Selectors"]
-       54 GETTABLEKS                       R11 R12 K20 ["GetFilterPills"]
+       50 GETTABLEKS                       R11 R0 K18 ["Src"]
+       52 GETTABLEKS                       R11 R11 K19 ["Selectors"]
+       54 GETTABLEKS                       R11 R11 K20 ["GetFilterPills"]
        56 CALL                             R10 1 1
        57 GETIMPORT                        R11 K4 [require]
-       59 GETTABLEKS                       R14 R0 K18 ["Src"]
-       61 GETTABLEKS                       R13 R14 K19 ["Selectors"]
-       63 GETTABLEKS                       R12 R13 K21 ["GetSelectedFilterPill"]
+       59 GETTABLEKS                       R12 R0 K18 ["Src"]
+       61 GETTABLEKS                       R12 R12 K19 ["Selectors"]
+       63 GETTABLEKS                       R12 R12 K21 ["GetSelectedFilterPill"]
        65 CALL                             R11 1 1
        66 GETIMPORT                        R12 K4 [require]
-       68 GETTABLEKS                       R15 R0 K18 ["Src"]
-       70 GETTABLEKS                       R14 R15 K22 ["Thunks"]
-       72 GETTABLEKS                       R13 R14 K23 ["SetSelectedFilterPill"]
+       68 GETTABLEKS                       R13 R0 K18 ["Src"]
+       70 GETTABLEKS                       R13 R13 K22 ["Thunks"]
+       72 GETTABLEKS                       R13 R13 K23 ["SetSelectedFilterPill"]
        74 CALL                             R12 1 1
        75 GETIMPORT                        R13 K25 [game]
        77 LOADK                            R15 K26 ["ManageCollabFilterWidgetSpacingFix"]

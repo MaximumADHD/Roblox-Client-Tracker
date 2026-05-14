@@ -3,8 +3,8 @@ PROTO_0:
         2 GETTABLEKS                       R2 R1 K1 ["Size"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
         6 GETTABLEKS                       R4 R1 K3 ["LayoutOrder"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 GETUPVAL                         R6 1
        12 DUPTABLE                         R7 K10 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Padding"}]
        13 SETTABLEKS                       R2 R7 K1 ["Size"]
@@ -20,8 +20,8 @@ PROTO_0:
        33 GETTABLEKS                       R8 R3 K9 ["Padding"]
        35 SETTABLEKS                       R8 R7 K9 ["Padding"]
        37 DUPTABLE                         R8 K20 [{"Buttons"}]
-       38 GETUPVAL                         R10 0
-       39 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       38 GETUPVAL                         R9 0
+       39 GETTABLEKS                       R9 R9 K4 ["createElement"]
        41 GETUPVAL                         R10 2
        42 CALL                             R9 1 1
        43 SETTABLEKS                       R9 R8 K19 ["Buttons"]
@@ -35,20 +35,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]
        25 GETTABLEKS                       R5 R1 K11 ["ContextServices"]
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R9 R0 K12 ["Src"]
-       31 GETTABLEKS                       R8 R9 K13 ["Components"]
-       33 GETTABLEKS                       R7 R8 K14 ["ReplaceRevertButtons"]
+       29 GETTABLEKS                       R7 R0 K12 ["Src"]
+       31 GETTABLEKS                       R7 R7 K13 ["Components"]
+       33 GETTABLEKS                       R7 R7 K14 ["ReplaceRevertButtons"]
        35 CALL                             R6 1 1
        36 GETTABLEKS                       R7 R2 K15 ["PureComponent"]
        38 LOADK                            R9 K16 ["AnimationConversionPaneFooter"]

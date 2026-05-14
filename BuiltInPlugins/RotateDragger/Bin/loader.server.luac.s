@@ -12,20 +12,20 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K3 ["Packages"]
-        9 GETTABLEKS                       R1 R2 K4 ["DraggerFramework"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K3 ["Packages"]
+        9 GETTABLEKS                       R1 R1 K4 ["DraggerFramework"]
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R0 K3 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K7 ["PluginLoader"]
+       13 GETTABLEKS                       R3 R0 K3 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K7 ["PluginLoader"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K8 ["PluginLoaderBuilder"]
-       20 GETTABLEKS                       R5 R1 K9 ["Resources"]
-       22 GETTABLEKS                       R4 R5 K10 ["SourceStrings"]
-       24 GETTABLEKS                       R6 R1 K9 ["Resources"]
-       26 GETTABLEKS                       R5 R6 K11 ["LocalizedStrings"]
+       20 GETTABLEKS                       R4 R1 K9 ["Resources"]
+       22 GETTABLEKS                       R4 R4 K10 ["SourceStrings"]
+       24 GETTABLEKS                       R5 R1 K9 ["Resources"]
+       26 GETTABLEKS                       R5 R5 K11 ["LocalizedStrings"]
        28 DUPTABLE                         R6 K20 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo"}]
        29 GETIMPORT                        R7 K21 [plugin]
        31 SETTABLEKS                       R7 R6 K12 ["plugin"]
@@ -58,9 +58,9 @@ MAIN:
        73 JUMPIF                           R8 ; [+1]
        74 RETURN                           R0 0
        75 GETIMPORT                        R9 K6 [require]
-       77 GETIMPORT                        R12 K1 [script]
-       79 GETTABLEKS                       R11 R12 K2 ["Parent"]
-       81 GETTABLEKS                       R10 R11 K35 ["main"]
+       77 GETIMPORT                        R10 K1 [script]
+       79 GETTABLEKS                       R10 R10 K2 ["Parent"]
+       81 GETTABLEKS                       R10 R10 K35 ["main"]
        83 CALL                             R9 1 1
        84 MOVE                             R10 R9
        85 GETIMPORT                        R11 K21 [plugin]

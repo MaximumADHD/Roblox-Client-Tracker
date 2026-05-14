@@ -6,18 +6,18 @@ PROTO_0:
         4 GETIMPORT                        R1 K1 [assert]
         6 CALL                             R1 -1 0
         7 DUPTABLE                         R1 K5 [{"eventType", "config", "data"}]
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K6 ["RobloxTelemetry"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K6 ["RobloxTelemetry"]
        11 SETTABLEKS                       R2 R1 K2 ["eventType"]
        13 GETUPVAL                         R2 2
        14 SETTABLEKS                       R2 R1 K3 ["config"]
        16 DUPTABLE                         R2 K9 [{"customFields", "standardizedFields"}]
        17 SETTABLEKS                       R0 R2 K7 ["customFields"]
        19 NEWTABLE                         R3 0 2
-       21 GETUPVAL                         R5 3
-       22 GETTABLEKS                       R4 R5 K10 ["addPlaceId"]
-       24 GETUPVAL                         R6 3
-       25 GETTABLEKS                       R5 R6 K11 ["addSessionId"]
+       21 GETUPVAL                         R4 3
+       22 GETTABLEKS                       R4 R4 K10 ["addPlaceId"]
+       24 GETUPVAL                         R5 3
+       25 GETTABLEKS                       R5 R5 K11 ["addSessionId"]
        27 SETLIST                          R3 R4 2 [1]
        29 SETTABLEKS                       R3 R2 K8 ["standardizedFields"]
        31 SETTABLEKS                       R2 R1 K4 ["data"]
@@ -25,39 +25,39 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R4 R1 K7 ["Util"]
-       20 GETTABLEKS                       R3 R4 K8 ["Typecheck"]
-       22 GETTABLEKS                       R2 R3 K9 ["t"]
+       18 GETTABLEKS                       R2 R1 K7 ["Util"]
+       20 GETTABLEKS                       R2 R2 K8 ["Typecheck"]
+       22 GETTABLEKS                       R2 R2 K9 ["t"]
        24 GETIMPORT                        R3 K4 [require]
-       26 GETTABLEKS                       R7 R0 K10 ["Src"]
-       28 GETTABLEKS                       R6 R7 K11 ["Contexts"]
-       30 GETTABLEKS                       R5 R6 K12 ["Telemetry"]
-       32 GETTABLEKS                       R4 R5 K13 ["TelemetryProtocol"]
+       26 GETTABLEKS                       R4 R0 K10 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Contexts"]
+       30 GETTABLEKS                       R4 R4 K12 ["Telemetry"]
+       32 GETTABLEKS                       R4 R4 K13 ["TelemetryProtocol"]
        34 CALL                             R3 1 1
        35 GETTABLEKS                       R4 R3 K14 ["EventTypes"]
        37 GETTABLEKS                       R5 R3 K15 ["Backends"]
        39 GETTABLEKS                       R6 R3 K16 ["StandardizedFields"]
        41 GETIMPORT                        R7 K4 [require]
-       43 GETTABLEKS                       R11 R0 K10 ["Src"]
-       45 GETTABLEKS                       R10 R11 K11 ["Contexts"]
-       47 GETTABLEKS                       R9 R10 K12 ["Telemetry"]
-       49 GETTABLEKS                       R8 R9 K17 ["Types"]
+       43 GETTABLEKS                       R8 R0 K10 ["Src"]
+       45 GETTABLEKS                       R8 R8 K11 ["Contexts"]
+       47 GETTABLEKS                       R8 R8 K12 ["Telemetry"]
+       49 GETTABLEKS                       R8 R8 K17 ["Types"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K4 [require]
-       54 GETTABLEKS                       R10 R0 K10 ["Src"]
-       56 GETTABLEKS                       R9 R10 K17 ["Types"]
+       54 GETTABLEKS                       R9 R0 K10 ["Src"]
+       56 GETTABLEKS                       R9 R9 K17 ["Types"]
        58 CALL                             R8 1 1
-       59 GETTABLEKS                       R10 R0 K10 ["Src"]
-       61 GETTABLEKS                       R9 R10 K18 ["Flags"]
+       59 GETTABLEKS                       R9 R0 K10 ["Src"]
+       61 GETTABLEKS                       R9 R9 K18 ["Flags"]
        63 GETIMPORT                        R10 K4 [require]
        65 GETTABLEKS                       R11 R9 K19 ["getFFlagStyleEditorThrottleHundrethsPercent"]
        67 CALL                             R10 1 1

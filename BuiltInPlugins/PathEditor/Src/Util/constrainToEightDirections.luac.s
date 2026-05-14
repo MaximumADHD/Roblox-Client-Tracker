@@ -16,26 +16,26 @@ PROTO_0:
        19 LOADN                            R6 0
        20 LOADN                            R7 255
        21 CALL                             R5 2 1
-       22 GETIMPORT                        R7 K2 [Vector2.new]
-       24 LOADN                            R8 1
-       25 LOADN                            R9 1
-       26 CALL                             R7 2 1
-       27 GETTABLEKS                       R6 R7 K3 ["Unit"]
-       29 GETIMPORT                        R8 K2 [Vector2.new]
-       31 LOADN                            R9 255
-       32 LOADN                            R10 1
-       33 CALL                             R8 2 1
-       34 GETTABLEKS                       R7 R8 K3 ["Unit"]
-       36 GETIMPORT                        R9 K2 [Vector2.new]
-       38 LOADN                            R10 1
-       39 LOADN                            R11 255
-       40 CALL                             R9 2 1
-       41 GETTABLEKS                       R8 R9 K3 ["Unit"]
-       43 GETIMPORT                        R10 K2 [Vector2.new]
-       45 LOADN                            R11 255
-       46 LOADN                            R12 255
-       47 CALL                             R10 2 1
-       48 GETTABLEKS                       R9 R10 K3 ["Unit"]
+       22 GETIMPORT                        R6 K2 [Vector2.new]
+       24 LOADN                            R7 1
+       25 LOADN                            R8 1
+       26 CALL                             R6 2 1
+       27 GETTABLEKS                       R6 R6 K3 ["Unit"]
+       29 GETIMPORT                        R7 K2 [Vector2.new]
+       31 LOADN                            R8 255
+       32 LOADN                            R9 1
+       33 CALL                             R7 2 1
+       34 GETTABLEKS                       R7 R7 K3 ["Unit"]
+       36 GETIMPORT                        R8 K2 [Vector2.new]
+       38 LOADN                            R9 1
+       39 LOADN                            R10 255
+       40 CALL                             R8 2 1
+       41 GETTABLEKS                       R8 R8 K3 ["Unit"]
+       43 GETIMPORT                        R9 K2 [Vector2.new]
+       45 LOADN                            R10 255
+       46 LOADN                            R11 255
+       47 CALL                             R9 2 1
+       48 GETTABLEKS                       R9 R9 K3 ["Unit"]
        50 SETLIST                          R1 R2 8 [1]
        52 GETTABLEKS                       R2 R0 K3 ["Unit"]
        54 LOADK                            R3 K4 [-∞]

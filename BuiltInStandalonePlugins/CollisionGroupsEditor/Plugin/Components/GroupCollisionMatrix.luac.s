@@ -2,11 +2,11 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R1 K1 ["Groups"]
         4 LENGTH                           R2 R3
-        5 GETTABLEKS                       R4 R1 K2 ["Stylizer"]
-        7 GETTABLEKS                       R3 R4 K3 ["GroupCollisionMatrix"]
+        5 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
+        7 GETTABLEKS                       R3 R3 K3 ["GroupCollisionMatrix"]
         9 DUPTABLE                         R4 K6 [{"Padding", "UIGridLayout"}]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K7 ["createElement"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K7 ["createElement"]
        13 LOADK                            R6 K8 ["UIPadding"]
        14 DUPTABLE                         R7 K13 [{"PaddingBottom", "PaddingTop", "PaddingLeft", "PaddingRight"}]
        15 GETIMPORT                        R8 K16 [UDim.new]
@@ -31,8 +31,8 @@ PROTO_0:
        41 SETTABLEKS                       R8 R7 K12 ["PaddingRight"]
        43 CALL                             R5 2 1
        44 SETTABLEKS                       R5 R4 K4 ["Padding"]
-       46 GETUPVAL                         R6 0
-       47 GETTABLEKS                       R5 R6 K7 ["createElement"]
+       46 GETUPVAL                         R5 0
+       47 GETTABLEKS                       R5 R5 K7 ["createElement"]
        49 LOADK                            R6 K5 ["UIGridLayout"]
        50 DUPTABLE                         R7 K21 [{"CellPadding", "CellSize", "HorizontalAlignment", "SortOrder"}]
        51 GETIMPORT                        R8 K24 [UDim2.fromOffset]
@@ -40,8 +40,8 @@ PROTO_0:
        54 LOADN                            R10 1
        55 CALL                             R8 2 1
        56 SETTABLEKS                       R8 R7 K17 ["CellPadding"]
-       58 GETUPVAL                         R9 1
-       59 GETTABLEKS                       R8 R9 K25 ["GridCellSize"]
+       58 GETUPVAL                         R8 1
+       59 GETTABLEKS                       R8 R8 K25 ["GridCellSize"]
        61 SETTABLEKS                       R8 R7 K18 ["CellSize"]
        63 GETIMPORT                        R8 K28 [Enum.HorizontalAlignment.Left]
        65 SETTABLEKS                       R8 R7 K19 ["HorizontalAlignment"]
@@ -83,12 +83,12 @@ PROTO_0:
       123 FORGLOOP                         R11 2 [inext] ; [-37]
       125 SUBK                             R5 R5 K42 [1]
       126 FORGLOOP                         R6 2 [inext] ; [-46]
-      128 GETUPVAL                         R7 0
-      129 GETTABLEKS                       R6 R7 K7 ["createElement"]
+      128 GETUPVAL                         R6 0
+      129 GETTABLEKS                       R6 R6 K7 ["createElement"]
       131 LOADK                            R7 K43 ["Frame"]
       132 DUPTABLE                         R8 K47 [{"Size", "BackgroundTransparency", "BorderSizePixel"}]
-      133 GETUPVAL                         R10 1
-      134 GETTABLEKS                       R9 R10 K48 ["CalculateTableSize"]
+      133 GETUPVAL                         R9 1
+      134 GETTABLEKS                       R9 R9 K48 ["CalculateTableSize"]
       136 MOVE                             R10 R2
       137 CALL                             R9 1 1
       138 SETTABLEKS                       R9 R8 K44 ["Size"]
@@ -102,29 +102,29 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETIMPORT                        R4 K4 [require]
-       27 GETIMPORT                        R7 K1 [script]
-       29 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       31 GETTABLEKS                       R5 R6 K9 ["CollisionCheckbox"]
+       27 GETIMPORT                        R5 K1 [script]
+       29 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       31 GETTABLEKS                       R5 R5 K9 ["CollisionCheckbox"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K4 [require]
-       36 GETIMPORT                        R9 K1 [script]
-       38 GETTABLEKS                       R8 R9 K2 ["Parent"]
-       40 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       42 GETTABLEKS                       R6 R7 K10 ["Constants"]
+       36 GETIMPORT                        R6 K1 [script]
+       38 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       40 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       42 GETTABLEKS                       R6 R6 K10 ["Constants"]
        44 CALL                             R5 1 1
        45 GETTABLEKS                       R6 R1 K11 ["PureComponent"]
        47 LOADK                            R8 K12 ["GroupCollisionMatrix"]

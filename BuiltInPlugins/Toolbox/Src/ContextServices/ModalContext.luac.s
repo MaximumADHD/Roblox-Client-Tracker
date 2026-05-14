@@ -67,8 +67,8 @@ PROTO_9:
 PROTO_10:
         0 NEWTABLE                         R1 16 0
         2 SETTABLEKS                       R0 R1 K0 ["modalTarget"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K1 ["new"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["new"]
         7 CALL                             R2 0 1
         8 SETTABLEKS                       R2 R1 K2 ["modalStatus"]
        10 NEWCLOSURE                       R3 P0
@@ -110,23 +110,23 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Framework"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R2 K7 ["ContextServices"]
-       18 GETTABLEKS                       R3 R4 K8 ["ContextItem"]
+       16 GETTABLEKS                       R3 R2 K7 ["ContextServices"]
+       18 GETTABLEKS                       R3 R3 K8 ["ContextItem"]
        20 GETIMPORT                        R4 K5 [require]
        22 GETTABLEKS                       R5 R1 K9 ["Roact"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K10 ["Src"]
-       29 GETTABLEKS                       R7 R8 K11 ["Util"]
-       31 GETTABLEKS                       R6 R7 K12 ["ModalStatus"]
+       27 GETTABLEKS                       R6 R0 K10 ["Src"]
+       29 GETTABLEKS                       R6 R6 K11 ["Util"]
+       31 GETTABLEKS                       R6 R6 K12 ["ModalStatus"]
        33 CALL                             R5 1 1
        34 LOADK                            R8 K13 ["ModalContext"]
        35 NAMECALL                         R6 R3 K14 ["extend"]

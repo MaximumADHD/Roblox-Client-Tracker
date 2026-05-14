@@ -12,8 +12,8 @@ PROTO_0:
        13 NAMECALL                         R5 R5 K6 ["GetClientId"]
        15 CALL                             R5 1 1
        16 SETTABLEKS                       R5 R4 K1 ["clientId"]
-       18 GETIMPORT                        R6 K8 [game]
-       20 GETTABLEKS                       R5 R6 K9 ["PlaceId"]
+       18 GETIMPORT                        R5 K8 [game]
+       20 GETTABLEKS                       R5 R5 K9 ["PlaceId"]
        22 SETTABLEKS                       R5 R4 K2 ["placeId"]
        24 GETUPVAL                         R5 2
        25 NAMECALL                         R5 R5 K10 ["GetUserId"]
@@ -106,13 +106,13 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Dash"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 GETTABLEKS                       R3 R2 K12 ["join"]
        22 GETIMPORT                        R4 K9 [require]
-       24 GETTABLEKS                       R6 R1 K13 ["Src"]
-       26 GETTABLEKS                       R5 R6 K14 ["Types"]
+       24 GETTABLEKS                       R5 R1 K13 ["Src"]
+       26 GETTABLEKS                       R5 R5 K14 ["Types"]
        28 CALL                             R4 1 1
        29 DUPCLOSURE                       R5 K15 [PROTO_5]
        30 CAPTURE                          VAL R3

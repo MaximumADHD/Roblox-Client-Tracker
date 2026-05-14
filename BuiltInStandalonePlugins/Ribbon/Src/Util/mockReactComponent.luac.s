@@ -16,15 +16,15 @@ PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIF                           R1 ; [+8]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["mock"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["mock"]
         6 MOVE                             R2 R0
         7 NEWCLOSURE                       R3 P0
         8 CAPTURE                          UPVAL U0
         9 CAPTURE                          VAL R0
        10 CALL                             R1 2 0
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R1 R2 K1 ["fn"]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K1 ["fn"]
        14 CALL                             R1 0 1
        15 GETUPVAL                         R2 0
        16 SETTABLE                         R1 R2 R0
@@ -37,9 +37,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
-       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["jest"]
        18 NEWTABLE                         R3 0 0

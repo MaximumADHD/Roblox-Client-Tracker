@@ -5,8 +5,8 @@ PROTO_0:
         6 GETTABLEKS                       R4 R0 K3 ["Size"]
         8 GETTABLEKS                       R5 R0 K4 ["Transform"]
        10 GETTABLEKS                       R6 R0 K5 ["Transparency"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 LOADK                            R8 K7 ["BoxHandleAdornment"]
        16 DUPTABLE                         R9 K11 [{"Adornee", "AlwaysOnTop", "Color3", "CFrame", "Size", "Transparency", "ZIndex"}]
        17 SETTABLEKS                       R1 R9 K0 ["Adornee"]
@@ -31,8 +31,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 CAPTURE                          VAL R1

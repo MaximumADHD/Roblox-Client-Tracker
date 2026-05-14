@@ -2,8 +2,8 @@ PROTO_0:
         0 SETTABLEKS                       R1 R0 K0 ["Enabled"]
         2 GETTABLEKS                       R2 R0 K1 ["mockMetaBreakpointManager"]
         4 JUMPIFNOT                        R2 ; [+8]
-        5 GETTABLEKS                       R3 R0 K1 ["mockMetaBreakpointManager"]
-        7 GETTABLEKS                       R2 R3 K2 ["MetaBreakpointChanged"]
+        5 GETTABLEKS                       R2 R0 K1 ["mockMetaBreakpointManager"]
+        7 GETTABLEKS                       R2 R2 K2 ["MetaBreakpointChanged"]
         9 MOVE                             R4 R0
        10 NAMECALL                         R2 R2 K3 ["Fire"]
        12 CALL                             R2 2 0
@@ -13,8 +13,8 @@ PROTO_1:
         0 SETTABLEKS                       R1 R0 K0 ["ContinueExecution"]
         2 GETTABLEKS                       R2 R0 K1 ["mockMetaBreakpointManager"]
         4 JUMPIFNOT                        R2 ; [+8]
-        5 GETTABLEKS                       R3 R0 K1 ["mockMetaBreakpointManager"]
-        7 GETTABLEKS                       R2 R3 K2 ["MetaBreakpointChanged"]
+        5 GETTABLEKS                       R2 R0 K1 ["mockMetaBreakpointManager"]
+        7 GETTABLEKS                       R2 R2 K2 ["MetaBreakpointChanged"]
         9 MOVE                             R4 R0
        10 NAMECALL                         R2 R2 K3 ["Fire"]
        12 CALL                             R2 2 0
@@ -24,8 +24,8 @@ PROTO_2:
         0 SETTABLEKS                       R1 R0 K0 ["RemoveOnHit"]
         2 GETTABLEKS                       R2 R0 K1 ["mockMetaBreakpointManager"]
         4 JUMPIFNOT                        R2 ; [+8]
-        5 GETTABLEKS                       R3 R0 K1 ["mockMetaBreakpointManager"]
-        7 GETTABLEKS                       R2 R3 K2 ["MetaBreakpointChanged"]
+        5 GETTABLEKS                       R2 R0 K1 ["mockMetaBreakpointManager"]
+        7 GETTABLEKS                       R2 R2 K2 ["MetaBreakpointChanged"]
         9 MOVE                             R4 R0
        10 NAMECALL                         R2 R2 K3 ["Fire"]
        12 CALL                             R2 2 0

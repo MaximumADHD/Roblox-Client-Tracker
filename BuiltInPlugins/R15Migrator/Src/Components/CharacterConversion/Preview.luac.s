@@ -7,13 +7,13 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["OnSelectionChange"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["OnSelectionChange"]
         5 JUMPIFNOT                        R1 ; [+7]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["props"]
-        9 GETTABLEKS                       R1 R2 K1 ["OnSelectionChange"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["props"]
+        9 GETTABLEKS                       R1 R1 K1 ["OnSelectionChange"]
        11 MOVE                             R2 R0
        12 CALL                             R1 1 0
        13 RETURN                           R0 0
@@ -24,8 +24,8 @@ PROTO_2:
         3 FORGPREP                         R2
         4 GETTABLEKS                       R7 R6 K1 ["Name"]
         6 JUMPIFNOTEQ                      R7 R1 ; [+8]
-        8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R7 R8 K2 ["isValidDisplayInstance"]
+        8 GETUPVAL                         R7 0
+        9 GETTABLEKS                       R7 R7 K2 ["isValidDisplayInstance"]
        11 MOVE                             R8 R6
        12 CALL                             R7 1 1
        13 JUMPIFNOT                        R7 ; [+1]
@@ -113,9 +113,9 @@ PROTO_5:
        46 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Stylizer"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Stylizer"]
         5 GETTABLEKS                       R2 R1 K2 ["SelectionColor"]
         7 JUMPIF                           R0 ; [+1]
         8 RETURN                           R0 0
@@ -253,9 +253,9 @@ PROTO_7:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 RETURN                           R1 1
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K0 ["props"]
-        6 GETTABLEKS                       R1 R2 K1 ["Selection"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K0 ["props"]
+        6 GETTABLEKS                       R1 R1 K1 ["Selection"]
         8 NAMECALL                         R2 R0 K2 ["Clone"]
        10 CALL                             R2 1 1
        11 MOVE                             R3 R1
@@ -263,13 +263,13 @@ PROTO_7:
        13 LOADNIL                          R5
        14 FORGPREP                         R3
        15 JUMPIFNOT                        R7 ; [+11]
-       16 GETUPVAL                         R9 0
-       17 GETTABLEKS                       R8 R9 K3 ["getMatchingInstance"]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K3 ["getMatchingInstance"]
        19 MOVE                             R9 R2
        20 MOVE                             R10 R6
        21 CALL                             R8 2 1
-       22 GETUPVAL                         R10 0
-       23 GETTABLEKS                       R9 R10 K4 ["applySelectionEffect"]
+       22 GETUPVAL                         R9 0
+       23 GETTABLEKS                       R9 R9 K4 ["applySelectionEffect"]
        25 MOVE                             R10 R8
        26 CALL                             R9 1 0
        27 FORGLOOP                         R3 2 ; [-13]
@@ -301,15 +301,15 @@ PROTO_9:
         6 GETTABLEKS                       R4 R0 K3 ["setupAssetRenderModel"]
         8 MOVE                             R5 R2
         9 CALL                             R4 1 1
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K4 ["LayoutOrderIterator"]
-       13 GETTABLEKS                       R5 R6 K5 ["new"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K4 ["LayoutOrderIterator"]
+       13 GETTABLEKS                       R5 R5 K5 ["new"]
        15 CALL                             R5 0 1
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K6 ["createFragment"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K6 ["createFragment"]
        19 DUPTABLE                         R7 K8 [{"ViewPortPane"}]
-       20 GETUPVAL                         R9 1
-       21 GETTABLEKS                       R8 R9 K9 ["createElement"]
+       20 GETUPVAL                         R8 1
+       21 GETTABLEKS                       R8 R8 K9 ["createElement"]
        23 GETUPVAL                         R9 2
        24 DUPTABLE                         R10 K17 [{"BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
        25 GETTABLEKS                       R11 R3 K18 ["ViewportBackgroundColor"]
@@ -333,8 +333,8 @@ PROTO_9:
        56 CALL                             R11 4 1
        57 SETTABLEKS                       R11 R10 K16 ["Size"]
        59 DUPTABLE                         R11 K32 [{"Viewport"}]
-       60 GETUPVAL                         R13 1
-       61 GETTABLEKS                       R12 R13 K9 ["createElement"]
+       60 GETUPVAL                         R12 1
+       61 GETTABLEKS                       R12 R12 K9 ["createElement"]
        63 GETUPVAL                         R13 3
        64 DUPTABLE                         R14 K39 [{"DisablePan", "DisableZoom", "FocusDirection", "Model", "OnViewModelLoaded", "RecenterModelOnUpdate", "Size"}]
        65 LOADB                            R15 1
@@ -367,18 +367,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R0 K9 ["Src"]
-       23 GETTABLEKS                       R3 R4 K10 ["Components"]
+       21 GETTABLEKS                       R3 R0 K9 ["Src"]
+       23 GETTABLEKS                       R3 R3 K10 ["Components"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R3 K11 ["CharacterConversion"]
-       29 GETTABLEKS                       R5 R6 K12 ["InstanceTree"]
+       27 GETTABLEKS                       R5 R3 K11 ["CharacterConversion"]
+       29 GETTABLEKS                       R5 R5 K12 ["InstanceTree"]
        31 CALL                             R4 1 1
        32 GETTABLEKS                       R5 R1 K13 ["ContextServices"]
        34 GETTABLEKS                       R6 R1 K14 ["UI"]

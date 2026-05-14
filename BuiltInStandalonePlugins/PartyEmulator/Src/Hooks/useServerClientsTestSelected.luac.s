@@ -8,8 +8,8 @@ PROTO_0:
         9 JUMPIFNOT                        R0 ; [+11]
        10 GETTABLEN                        R1 R0 1
        11 JUMPIFNOT                        R1 ; [+9]
-       12 GETTABLEN                        R2 R0 1
-       13 GETTABLEKS                       R1 R2 K1 ["Value"]
+       12 GETTABLEN                        R1 R0 1
+       13 GETTABLEKS                       R1 R1 K1 ["Value"]
        15 GETUPVAL                         R2 2
        16 JUMPIFEQKN                       R1 K2 [4] ; [+2]
        18 LOADB                            R3 0 +1
@@ -63,17 +63,17 @@ PROTO_3:
        32 RETURN                           R4 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["use"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
         4 NAMECALL                         R0 R0 K1 ["get"]
         6 CALL                             R0 1 1
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["useState"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["useState"]
        10 LOADB                            R2 0
        11 CALL                             R1 1 2
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["useEffect"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["useEffect"]
        15 NEWCLOSURE                       R4 P0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          UPVAL U2
@@ -89,21 +89,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["StudioFoundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["StudioFoundation"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R5 R2 K10 ["Util"]
-       30 GETTABLEKS                       R4 R5 K11 ["StudioUri"]
-       32 GETTABLEKS                       R6 R3 K12 ["ContextServices"]
-       34 GETTABLEKS                       R5 R6 K13 ["Plugin"]
+       28 GETTABLEKS                       R4 R2 K10 ["Util"]
+       30 GETTABLEKS                       R4 R4 K11 ["StudioUri"]
+       32 GETTABLEKS                       R5 R3 K12 ["ContextServices"]
+       34 GETTABLEKS                       R5 R5 K13 ["Plugin"]
        36 GETTABLEKS                       R6 R4 K14 ["fromSetting"]
        38 LOADK                            R7 K15 ["RunTools"]
        39 LOADK                            R8 K16 ["TestMode"]

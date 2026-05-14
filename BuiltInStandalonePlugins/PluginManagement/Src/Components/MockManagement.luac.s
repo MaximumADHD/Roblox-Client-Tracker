@@ -67,21 +67,21 @@ PROTO_5:
        23 RETURN                           R2 1
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Store"]
-        3 GETTABLEKS                       R2 R3 K1 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Store"]
+        3 GETTABLEKS                       R2 R2 K1 ["new"]
         5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R5 R0 K2 ["props"]
-        8 GETTABLEKS                       R4 R5 K3 ["initialStoreState"]
+        6 GETTABLEKS                       R4 R0 K2 ["props"]
+        8 GETTABLEKS                       R4 R4 K3 ["initialStoreState"]
        10 NEWTABLE                         R5 0 1
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K4 ["thunkMiddleware"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K4 ["thunkMiddleware"]
        15 SETLIST                          R5 R6 1 [1]
        17 CALL                             R2 3 1
        18 SETTABLEKS                       R2 R0 K5 ["store"]
-       20 GETUPVAL                         R4 2
-       21 GETTABLEKS                       R3 R4 K6 ["API"]
-       23 GETTABLEKS                       R2 R3 K7 ["mock"]
+       20 GETUPVAL                         R2 2
+       21 GETTABLEKS                       R2 R2 K6 ["API"]
+       23 GETTABLEKS                       R2 R2 K7 ["mock"]
        25 NEWTABLE                         R3 0 0
        27 CALL                             R2 1 1
        28 SETTABLEKS                       R2 R0 K8 ["api"]
@@ -102,28 +102,28 @@ PROTO_6:
        50 JUMPIFNOT                        R2 ; [+49]
        51 GETTABLEKS                       R2 R1 K18 ["MockStudioService"]
        53 JUMPIF                           R2 ; [+4]
-       54 GETUPVAL                         R3 5
-       55 GETTABLEKS                       R2 R3 K1 ["new"]
+       54 GETUPVAL                         R2 5
+       55 GETTABLEKS                       R2 R2 K1 ["new"]
        57 CALL                             R2 0 1
        58 SETTABLEKS                       R2 R0 K19 ["_mockStudioService"]
-       60 GETUPVAL                         R3 6
-       61 GETTABLEKS                       R2 R3 K1 ["new"]
+       60 GETUPVAL                         R2 6
+       61 GETTABLEKS                       R2 R2 K1 ["new"]
        63 CALL                             R2 0 1
        64 SETTABLEKS                       R2 R0 K20 ["_mockPluginManagementService"]
-       66 GETUPVAL                         R3 7
-       67 GETTABLEKS                       R2 R3 K1 ["new"]
+       66 GETUPVAL                         R2 7
+       67 GETTABLEKS                       R2 R2 K1 ["new"]
        69 CALL                             R2 0 1
        70 SETTABLEKS                       R2 R0 K21 ["_mockPermissionsService"]
-       72 GETUPVAL                         R3 8
-       73 GETTABLEKS                       R2 R3 K1 ["new"]
+       72 GETUPVAL                         R2 8
+       73 GETTABLEKS                       R2 R2 K1 ["new"]
        75 CALL                             R2 0 1
        76 SETTABLEKS                       R2 R0 K22 ["_mockMarketplaceService"]
-       78 GETUPVAL                         R3 9
-       79 GETTABLEKS                       R2 R3 K1 ["new"]
+       78 GETUPVAL                         R2 9
+       79 GETTABLEKS                       R2 R2 K1 ["new"]
        81 CALL                             R2 0 1
        82 SETTABLEKS                       R2 R0 K23 ["_mockPluginPolicyService"]
-       84 GETUPVAL                         R3 10
-       85 GETTABLEKS                       R2 R3 K1 ["new"]
+       84 GETUPVAL                         R2 10
+       85 GETTABLEKS                       R2 R2 K1 ["new"]
        87 GETTABLEKS                       R3 R0 K19 ["_mockStudioService"]
        89 GETTABLEKS                       R4 R0 K20 ["_mockPluginManagementService"]
        91 GETTABLEKS                       R5 R0 K21 ["_mockPermissionsService"]
@@ -135,106 +135,106 @@ PROTO_6:
 
 PROTO_7:
         0 NEWTABLE                         R1 0 9
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["Plugin"]
-        5 GETTABLEKS                       R2 R3 K1 ["new"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["Plugin"]
+        5 GETTABLEKS                       R2 R2 K1 ["new"]
         7 GETTABLEKS                       R3 R0 K2 ["plugin"]
         9 CALL                             R2 1 1
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K1 ["new"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K1 ["new"]
        13 GETTABLEKS                       R4 R0 K3 ["api"]
        15 CALL                             R3 1 1
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K4 ["Localization"]
-       19 GETTABLEKS                       R4 R5 K5 ["mock"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K4 ["Localization"]
+       19 GETTABLEKS                       R4 R4 K5 ["mock"]
        21 CALL                             R4 0 1
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K6 ["Mouse"]
-       25 GETTABLEKS                       R5 R6 K1 ["new"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K6 ["Mouse"]
+       25 GETTABLEKS                       R5 R5 K1 ["new"]
        27 GETTABLEKS                       R6 R0 K2 ["plugin"]
        29 NAMECALL                         R6 R6 K7 ["GetMouse"]
        31 CALL                             R6 1 -1
        32 CALL                             R5 -1 1
        33 GETUPVAL                         R6 2
-       34 GETUPVAL                         R9 0
-       35 GETTABLEKS                       R8 R9 K8 ["Focus"]
-       37 GETTABLEKS                       R7 R8 K1 ["new"]
+       34 GETUPVAL                         R7 0
+       35 GETTABLEKS                       R7 R7 K8 ["Focus"]
+       37 GETTABLEKS                       R7 R7 K1 ["new"]
        39 GETTABLEKS                       R8 R0 K9 ["target"]
        41 CALL                             R7 1 1
-       42 GETUPVAL                         R10 0
-       43 GETTABLEKS                       R9 R10 K10 ["Store"]
-       45 GETTABLEKS                       R8 R9 K1 ["new"]
+       42 GETUPVAL                         R8 0
+       43 GETTABLEKS                       R8 R8 K10 ["Store"]
+       45 GETTABLEKS                       R8 R8 K1 ["new"]
        47 GETTABLEKS                       R9 R0 K11 ["store"]
        49 CALL                             R8 1 1
-       50 GETUPVAL                         R11 0
-       51 GETTABLEKS                       R10 R11 K12 ["Analytics"]
-       53 GETTABLEKS                       R9 R10 K5 ["mock"]
+       50 GETUPVAL                         R9 0
+       51 GETTABLEKS                       R9 R9 K12 ["Analytics"]
+       53 GETTABLEKS                       R9 R9 K5 ["mock"]
        55 CALL                             R9 0 1
        56 GETTABLEKS                       R10 R0 K13 ["_pluginManagementApi"]
        58 SETLIST                          R1 R2 9 [1]
        60 MOVE                             R3 R1
-       61 GETUPVAL                         R5 3
-       62 GETTABLEKS                       R4 R5 K1 ["new"]
+       61 GETUPVAL                         R4 3
+       62 GETTABLEKS                       R4 R4 K1 ["new"]
        64 CALL                             R4 0 -1
        65 FASTCALL                         TABLE_INSERT ; [+2]
        66 GETIMPORT                        R2 K16 [table.insert]
        68 CALL                             R2 -1 0
-       69 GETUPVAL                         R3 0
-       70 GETTABLEKS                       R2 R3 K17 ["provide"]
+       69 GETUPVAL                         R2 0
+       70 GETTABLEKS                       R2 R2 K17 ["provide"]
        72 MOVE                             R3 R1
        73 GETTABLEKS                       R5 R0 K18 ["props"]
-       75 GETUPVAL                         R7 4
-       76 GETTABLEKS                       R6 R7 K19 ["Children"]
+       75 GETUPVAL                         R6 4
+       76 GETTABLEKS                       R6 R6 K19 ["Children"]
        78 GETTABLE                         R4 R5 R6
        79 CALL                             R2 2 -1
        80 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Roact"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["Rodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["Rodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Http"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Http"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K4 [require]
-       39 GETTABLEKS                       R8 R0 K11 ["Src"]
-       41 GETTABLEKS                       R7 R8 K12 ["Reducers"]
-       43 GETTABLEKS                       R6 R7 K13 ["MainReducer"]
+       39 GETTABLEKS                       R6 R0 K11 ["Src"]
+       41 GETTABLEKS                       R6 R6 K12 ["Reducers"]
+       43 GETTABLEKS                       R6 R6 K13 ["MainReducer"]
        45 CALL                             R5 1 1
-       46 GETIMPORT                        R7 K4 [require]
-       48 GETTABLEKS                       R9 R0 K7 ["Packages"]
-       50 GETTABLEKS                       R8 R9 K14 ["Framework"]
-       52 CALL                             R7 1 1
-       53 GETTABLEKS                       R6 R7 K15 ["ContextServices"]
+       46 GETIMPORT                        R6 K4 [require]
+       48 GETTABLEKS                       R7 R0 K7 ["Packages"]
+       50 GETTABLEKS                       R7 R7 K14 ["Framework"]
+       52 CALL                             R6 1 1
+       53 GETTABLEKS                       R6 R6 K15 ["ContextServices"]
        55 GETIMPORT                        R7 K4 [require]
-       57 GETTABLEKS                       R10 R0 K11 ["Src"]
-       59 GETTABLEKS                       R9 R10 K15 ["ContextServices"]
-       61 GETTABLEKS                       R8 R9 K16 ["PluginAPI2"]
+       57 GETTABLEKS                       R8 R0 K11 ["Src"]
+       59 GETTABLEKS                       R8 R8 K15 ["ContextServices"]
+       61 GETTABLEKS                       R8 R8 K16 ["PluginAPI2"]
        63 CALL                             R7 1 1
        64 GETIMPORT                        R8 K4 [require]
-       66 GETTABLEKS                       R11 R0 K11 ["Src"]
-       68 GETTABLEKS                       R10 R11 K15 ["ContextServices"]
-       70 GETTABLEKS                       R9 R10 K17 ["Navigation"]
+       66 GETTABLEKS                       R9 R0 K11 ["Src"]
+       68 GETTABLEKS                       R9 R9 K15 ["ContextServices"]
+       70 GETTABLEKS                       R9 R9 K17 ["Navigation"]
        72 CALL                             R8 1 1
        73 GETIMPORT                        R9 K4 [require]
-       75 GETTABLEKS                       R12 R0 K11 ["Src"]
-       77 GETTABLEKS                       R11 R12 K18 ["Resources"]
-       79 GETTABLEKS                       R10 R11 K19 ["makeTheme"]
+       75 GETTABLEKS                       R10 R0 K11 ["Src"]
+       77 GETTABLEKS                       R10 R10 K18 ["Resources"]
+       79 GETTABLEKS                       R10 R10 K19 ["makeTheme"]
        81 CALL                             R9 1 1
        82 LOADNIL                          R10
        83 LOADNIL                          R11
@@ -246,44 +246,44 @@ MAIN:
        89 CALL                             R16 0 1
        90 JUMPIFNOT                        R16 ; [+70]
        91 GETIMPORT                        R16 K4 [require]
-       93 GETTABLEKS                       R19 R0 K11 ["Src"]
-       95 GETTABLEKS                       R18 R19 K20 ["Util"]
-       97 GETTABLEKS                       R17 R18 K21 ["PluginManagementApi"]
+       93 GETTABLEKS                       R17 R0 K11 ["Src"]
+       95 GETTABLEKS                       R17 R17 K20 ["Util"]
+       97 GETTABLEKS                       R17 R17 K21 ["PluginManagementApi"]
        99 CALL                             R16 1 1
       100 MOVE                             R10 R16
       101 GETIMPORT                        R16 K4 [require]
-      103 GETTABLEKS                       R20 R0 K11 ["Src"]
-      105 GETTABLEKS                       R19 R20 K20 ["Util"]
-      107 GETTABLEKS                       R18 R19 K22 ["Mocks"]
-      109 GETTABLEKS                       R17 R18 K23 ["MockPluginManagementService"]
+      103 GETTABLEKS                       R17 R0 K11 ["Src"]
+      105 GETTABLEKS                       R17 R17 K20 ["Util"]
+      107 GETTABLEKS                       R17 R17 K22 ["Mocks"]
+      109 GETTABLEKS                       R17 R17 K23 ["MockPluginManagementService"]
       111 CALL                             R16 1 1
       112 MOVE                             R11 R16
       113 GETIMPORT                        R16 K4 [require]
-      115 GETTABLEKS                       R20 R0 K11 ["Src"]
-      117 GETTABLEKS                       R19 R20 K20 ["Util"]
-      119 GETTABLEKS                       R18 R19 K22 ["Mocks"]
-      121 GETTABLEKS                       R17 R18 K24 ["MockStudioService"]
+      115 GETTABLEKS                       R17 R0 K11 ["Src"]
+      117 GETTABLEKS                       R17 R17 K20 ["Util"]
+      119 GETTABLEKS                       R17 R17 K22 ["Mocks"]
+      121 GETTABLEKS                       R17 R17 K24 ["MockStudioService"]
       123 CALL                             R16 1 1
       124 MOVE                             R12 R16
       125 GETIMPORT                        R16 K4 [require]
-      127 GETTABLEKS                       R20 R0 K11 ["Src"]
-      129 GETTABLEKS                       R19 R20 K20 ["Util"]
-      131 GETTABLEKS                       R18 R19 K22 ["Mocks"]
-      133 GETTABLEKS                       R17 R18 K25 ["MockPermissionsService"]
+      127 GETTABLEKS                       R17 R0 K11 ["Src"]
+      129 GETTABLEKS                       R17 R17 K20 ["Util"]
+      131 GETTABLEKS                       R17 R17 K22 ["Mocks"]
+      133 GETTABLEKS                       R17 R17 K25 ["MockPermissionsService"]
       135 CALL                             R16 1 1
       136 MOVE                             R13 R16
       137 GETIMPORT                        R16 K4 [require]
-      139 GETTABLEKS                       R20 R0 K11 ["Src"]
-      141 GETTABLEKS                       R19 R20 K20 ["Util"]
-      143 GETTABLEKS                       R18 R19 K22 ["Mocks"]
-      145 GETTABLEKS                       R17 R18 K26 ["MockMarketplaceService"]
+      139 GETTABLEKS                       R17 R0 K11 ["Src"]
+      141 GETTABLEKS                       R17 R17 K20 ["Util"]
+      143 GETTABLEKS                       R17 R17 K22 ["Mocks"]
+      145 GETTABLEKS                       R17 R17 K26 ["MockMarketplaceService"]
       147 CALL                             R16 1 1
       148 MOVE                             R14 R16
       149 GETIMPORT                        R16 K4 [require]
-      151 GETTABLEKS                       R20 R0 K11 ["Src"]
-      153 GETTABLEKS                       R19 R20 K20 ["Util"]
-      155 GETTABLEKS                       R18 R19 K22 ["Mocks"]
-      157 GETTABLEKS                       R17 R18 K27 ["MockPluginPolicyService"]
+      151 GETTABLEKS                       R17 R0 K11 ["Src"]
+      153 GETTABLEKS                       R17 R17 K20 ["Util"]
+      155 GETTABLEKS                       R17 R17 K22 ["Mocks"]
+      157 GETTABLEKS                       R17 R17 K27 ["MockPluginPolicyService"]
       159 CALL                             R16 1 1
       160 MOVE                             R15 R16
       161 GETTABLEKS                       R16 R2 K28 ["PureComponent"]

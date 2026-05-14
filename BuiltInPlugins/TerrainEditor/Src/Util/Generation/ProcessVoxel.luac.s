@@ -3,22 +3,22 @@ PROTO_0:
         2 GETTABLEKS                       R4 R1 K1 ["X"]
         4 GETTABLEKS                       R5 R1 K0 ["Y"]
         6 GETTABLEKS                       R6 R1 K2 ["Z"]
-        8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R7 R8 K3 ["Biomes"]
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K4 ["DefaultBiomeFill"]
-       14 GETUPVAL                         R10 0
-       15 GETTABLEKS                       R9 R10 K5 ["DefaultBiomeSurface"]
-       17 GETUPVAL                         R11 0
-       18 GETTABLEKS                       R10 R11 K6 ["DefaultBiomeValue"]
-       20 GETUPVAL                         R12 0
-       21 GETTABLEKS                       R11 R12 K7 ["HasCaves"]
-       23 GETUPVAL                         R13 0
-       24 GETTABLEKS                       R12 R13 K8 ["MapHeight"]
-       26 GETUPVAL                         R14 0
-       27 GETTABLEKS                       R13 R14 K9 ["SurfaceThickness"]
-       29 GETUPVAL                         R15 0
-       30 GETTABLEKS                       R14 R15 K10 ["WaterLevel"]
+        8 GETUPVAL                         R7 0
+        9 GETTABLEKS                       R7 R7 K3 ["Biomes"]
+       11 GETUPVAL                         R8 0
+       12 GETTABLEKS                       R8 R8 K4 ["DefaultBiomeFill"]
+       14 GETUPVAL                         R9 0
+       15 GETTABLEKS                       R9 R9 K5 ["DefaultBiomeSurface"]
+       17 GETUPVAL                         R10 0
+       18 GETTABLEKS                       R10 R10 K6 ["DefaultBiomeValue"]
+       20 GETUPVAL                         R11 0
+       21 GETTABLEKS                       R11 R11 K7 ["HasCaves"]
+       23 GETUPVAL                         R12 0
+       24 GETTABLEKS                       R12 R12 K8 ["MapHeight"]
+       26 GETUPVAL                         R13 0
+       27 GETTABLEKS                       R13 R13 K9 ["SurfaceThickness"]
+       29 GETUPVAL                         R14 0
+       30 GETTABLEKS                       R14 R14 K10 ["WaterLevel"]
        32 FASTCALL3                        VECTOR R4 R3 R6
        34 MOVE                             R16 R4
        35 MOVE                             R17 R3
@@ -144,8 +144,8 @@ PROTO_0:
       184 JUMPIFNOT                        R24 ; [+85]
       185 JUMPIFNOT                        R25 ; [+84]
       186 JUMPIFNOT                        R26 ; [+83]
-      187 GETUPVAL                         R28 5
-      188 GETTABLEKS                       R27 R28 K32 ["Ridge"]
+      187 GETUPVAL                         R27 5
+      188 GETTABLEKS                       R27 R27 K32 ["Ridge"]
       190 GETUPVAL                         R28 1
       191 GETUPVAL                         R29 2
       192 MOVE                             R30 R15
@@ -154,14 +154,14 @@ PROTO_0:
       195 CALL                             R29 3 -1
       196 CALL                             R28 -1 -1
       197 CALL                             R27 -1 1
-      198 GETUPVAL                         R29 5
-      199 GETTABLEKS                       R28 R29 K33 ["Threshold"]
+      198 GETUPVAL                         R28 5
+      199 GETTABLEKS                       R28 R28 K33 ["Threshold"]
       201 MOVE                             R29 R27
       202 LOADK                            R30 K34 [0.84]
       203 LOADK                            R31 K35 [0.01]
       204 CALL                             R28 3 1
-      205 GETUPVAL                         R30 5
-      206 GETTABLEKS                       R29 R30 K32 ["Ridge"]
+      205 GETUPVAL                         R29 5
+      206 GETTABLEKS                       R29 R29 K32 ["Ridge"]
       208 GETUPVAL                         R30 1
       209 GETUPVAL                         R31 2
       210 MOVE                             R32 R15
@@ -170,14 +170,14 @@ PROTO_0:
       213 CALL                             R31 3 -1
       214 CALL                             R30 -1 -1
       215 CALL                             R29 -1 1
-      216 GETUPVAL                         R31 5
-      217 GETTABLEKS                       R30 R31 K33 ["Threshold"]
+      216 GETUPVAL                         R30 5
+      217 GETTABLEKS                       R30 R30 K33 ["Threshold"]
       219 MOVE                             R31 R29
       220 LOADK                            R32 K34 [0.84]
       221 LOADK                            R33 K35 [0.01]
       222 CALL                             R30 3 1
-      223 GETUPVAL                         R32 5
-      224 GETTABLEKS                       R31 R32 K32 ["Ridge"]
+      223 GETUPVAL                         R31 5
+      224 GETTABLEKS                       R31 R31 K32 ["Ridge"]
       226 GETUPVAL                         R32 1
       227 GETUPVAL                         R33 2
       228 MOVE                             R34 R15
@@ -186,8 +186,8 @@ PROTO_0:
       231 CALL                             R33 3 -1
       232 CALL                             R32 -1 -1
       233 CALL                             R31 -1 1
-      234 GETUPVAL                         R33 5
-      235 GETTABLEKS                       R32 R33 K33 ["Threshold"]
+      234 GETUPVAL                         R32 5
+      235 GETTABLEKS                       R32 R32 K33 ["Threshold"]
       237 MOVE                             R33 R31
       238 LOADK                            R34 K34 [0.84]
       239 LOADK                            R35 K35 [0.01]
@@ -195,8 +195,8 @@ PROTO_0:
       241 JUMPIF                           R22 ; [+2]
       242 LOADN                            R33 0
       243 JUMP                             ; [+14]
-      244 GETUPVAL                         R34 5
-      245 GETTABLEKS                       R33 R34 K33 ["Threshold"]
+      244 GETUPVAL                         R33 5
+      245 GETTABLEKS                       R33 R33 K33 ["Threshold"]
       247 GETUPVAL                         R34 1
       248 GETUPVAL                         R35 2
       249 LOADK                            R37 K36 [{1, 0, 1}]
@@ -219,8 +219,8 @@ PROTO_0:
       268 CALL                             R34 3 1
       269 MOVE                             R23 R34
       270 SUB                              R27 R21 R23
-      271 GETUPVAL                         R29 5
-      272 GETTABLEKS                       R28 R29 K33 ["Threshold"]
+      271 GETUPVAL                         R28 5
+      272 GETTABLEKS                       R28 R28 K33 ["Threshold"]
       274 MOVE                             R29 R27
       275 LOADK                            R30 K24 [0.5]
       276 MOVE                             R31 R12
@@ -295,19 +295,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["BiomeGenerators"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["BiomeGenerators"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K7 ["Util"]
-       22 GETTABLEKS                       R4 R5 K9 ["Generation"]
-       24 GETTABLEKS                       R3 R4 K10 ["FindBiomeTransitionValue"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["Generation"]
+       24 GETTABLEKS                       R3 R3 K10 ["FindBiomeTransitionValue"]
        26 CALL                             R2 1 1
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R5 K7 ["Util"]
-       31 GETTABLEKS                       R3 R4 K9 ["Generation"]
+       27 GETTABLEKS                       R3 R0 K6 ["Src"]
+       29 GETTABLEKS                       R3 R3 K7 ["Util"]
+       31 GETTABLEKS                       R3 R3 K9 ["Generation"]
        33 GETIMPORT                        R4 K5 [require]
        35 GETTABLEKS                       R5 R3 K11 ["Filter"]
        37 CALL                             R4 1 1
@@ -321,8 +321,8 @@ MAIN:
        50 GETTABLEKS                       R8 R3 K14 ["ProcessPerlin"]
        52 CALL                             R7 1 1
        53 GETIMPORT                        R8 K5 [require]
-       55 GETTABLEKS                       R10 R0 K6 ["Src"]
-       57 GETTABLEKS                       R9 R10 K15 ["Types"]
+       55 GETTABLEKS                       R9 R0 K6 ["Src"]
+       57 GETTABLEKS                       R9 R9 K15 ["Types"]
        59 CALL                             R8 1 1
        60 DUPCLOSURE                       R9 K16 [PROTO_1]
        61 CAPTURE                          VAL R1

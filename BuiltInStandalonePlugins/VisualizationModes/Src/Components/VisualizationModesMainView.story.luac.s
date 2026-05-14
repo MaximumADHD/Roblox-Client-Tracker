@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 -1
         4 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["plugin"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["plugin"]
         6 GETUPVAL                         R2 2
         7 CALL                             R0 2 -1
         8 RETURN                           R0 -1
@@ -29,28 +29,28 @@ PROTO_3:
         3 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Styling"]
-        3 GETTABLEKS                       R1 R2 K1 ["registerPluginStyles"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Styling"]
+        3 GETTABLEKS                       R1 R1 K1 ["registerPluginStyles"]
         5 GETTABLEKS                       R2 R0 K2 ["plugin"]
         7 GETUPVAL                         R3 1
         8 CALL                             R1 2 1
         9 GETUPVAL                         R2 2
        10 CALL                             R2 0 1
-       11 GETUPVAL                         R4 3
-       12 GETTABLEKS                       R3 R4 K3 ["useState"]
+       11 GETUPVAL                         R3 3
+       12 GETTABLEKS                       R3 R3 K3 ["useState"]
        14 DUPCLOSURE                       R4 K4 [PROTO_0]
        15 CAPTURE                          UPVAL U4
        16 CALL                             R3 1 1
-       17 GETUPVAL                         R5 3
-       18 GETTABLEKS                       R4 R5 K3 ["useState"]
+       17 GETUPVAL                         R4 3
+       18 GETTABLEKS                       R4 R4 K3 ["useState"]
        20 NEWCLOSURE                       R5 P1
        21 CAPTURE                          UPVAL U5
        22 CAPTURE                          VAL R0
        23 CAPTURE                          VAL R3
        24 CALL                             R4 1 1
-       25 GETUPVAL                         R6 3
-       26 GETTABLEKS                       R5 R6 K5 ["useEffect"]
+       25 GETUPVAL                         R5 3
+       26 GETTABLEKS                       R5 R5 K5 ["useEffect"]
        28 NEWCLOSURE                       R6 P2
        29 CAPTURE                          VAL R3
        30 CAPTURE                          VAL R4
@@ -69,31 +69,31 @@ PROTO_4:
        48 GETIMPORT                        R7 K14 [Vector2.zero]
        50 SETTABLEKS                       R7 R6 K10 ["Padding"]
        52 CALL                             R5 1 1
-       53 GETUPVAL                         R7 3
-       54 GETTABLEKS                       R6 R7 K15 ["createElement"]
+       53 GETUPVAL                         R6 3
+       54 GETTABLEKS                       R6 R6 K15 ["createElement"]
        56 GETUPVAL                         R7 7
        57 NEWTABLE                         R8 2 0
-       59 GETUPVAL                         R10 3
-       60 GETTABLEKS                       R9 R10 K16 ["Tag"]
+       59 GETUPVAL                         R9 3
+       60 GETTABLEKS                       R9 R9 K16 ["Tag"]
        62 LOADK                            R10 K17 ["X-Fill X-Column X-Top"]
        63 SETTABLE                         R10 R8 R9
        64 GETIMPORT                        R9 K20 [UDim2.fromOffset]
-       66 GETTABLEKS                       R11 R5 K21 ["size"]
-       68 GETTABLEKS                       R10 R11 K22 ["X"]
-       70 GETTABLEKS                       R12 R5 K21 ["size"]
-       72 GETTABLEKS                       R11 R12 K23 ["Y"]
+       66 GETTABLEKS                       R10 R5 K21 ["size"]
+       68 GETTABLEKS                       R10 R10 K22 ["X"]
+       70 GETTABLEKS                       R11 R5 K21 ["size"]
+       72 GETTABLEKS                       R11 R11 K23 ["Y"]
        74 CALL                             R9 2 1
        75 SETTABLEKS                       R9 R8 K24 ["Size"]
        77 DUPTABLE                         R9 K27 [{"StyleLink", "VisualizationModesMainView"}]
-       78 GETUPVAL                         R11 3
-       79 GETTABLEKS                       R10 R11 K15 ["createElement"]
+       78 GETUPVAL                         R10 3
+       79 GETTABLEKS                       R10 R10 K15 ["createElement"]
        81 LOADK                            R11 K25 ["StyleLink"]
        82 DUPTABLE                         R12 K29 [{"StyleSheet"}]
        83 SETTABLEKS                       R1 R12 K28 ["StyleSheet"]
        85 CALL                             R10 2 1
        86 SETTABLEKS                       R10 R9 K25 ["StyleLink"]
-       88 GETUPVAL                         R11 3
-       89 GETTABLEKS                       R10 R11 K15 ["createElement"]
+       88 GETUPVAL                         R10 3
+       89 GETTABLEKS                       R10 R10 K15 ["createElement"]
        91 GETUPVAL                         R11 8
        92 DUPTABLE                         R12 K35 [{"OnVisualizationModeToggle", "OnVisualizationModeCategoryToggle", "SizeCalculator", "RecentVisualizationModes", "VisualizationModeCategories"}]
        93 GETTABLEKS                       R13 R2 K36 ["onVisualizationModeToggle"]
@@ -101,11 +101,11 @@ PROTO_4:
        97 GETTABLEKS                       R13 R2 K37 ["onVisualizationModeCategoryToggle"]
        99 SETTABLEKS                       R13 R12 K31 ["OnVisualizationModeCategoryToggle"]
       101 SETTABLEKS                       R5 R12 K32 ["SizeCalculator"]
-      103 GETTABLEKS                       R14 R2 K38 ["state"]
-      105 GETTABLEKS                       R13 R14 K39 ["recentModes"]
+      103 GETTABLEKS                       R13 R2 K38 ["state"]
+      105 GETTABLEKS                       R13 R13 K39 ["recentModes"]
       107 SETTABLEKS                       R13 R12 K33 ["RecentVisualizationModes"]
-      109 GETTABLEKS                       R14 R2 K38 ["state"]
-      111 GETTABLEKS                       R13 R14 K40 ["categories"]
+      109 GETTABLEKS                       R13 R2 K38 ["state"]
+      111 GETTABLEKS                       R13 R13 K40 ["categories"]
       113 SETTABLEKS                       R13 R12 K34 ["VisualizationModeCategories"]
       115 CALL                             R10 2 1
       116 SETTABLEKS                       R10 R9 K26 ["VisualizationModesMainView"]
@@ -119,38 +119,38 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Model"]
-       27 GETTABLEKS                       R4 R5 K11 ["VisualizationModeCombinerClient"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Model"]
+       27 GETTABLEKS                       R4 R4 K11 ["VisualizationModeCombinerClient"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R8 R0 K9 ["Src"]
-       34 GETTABLEKS                       R7 R8 K10 ["Model"]
-       36 GETTABLEKS                       R6 R7 K12 ["Tracking"]
-       38 GETTABLEKS                       R5 R6 K13 ["VisualizationModeServiceTracker"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Model"]
+       36 GETTABLEKS                       R5 R5 K12 ["Tracking"]
+       38 GETTABLEKS                       R5 R5 K13 ["VisualizationModeServiceTracker"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K9 ["Src"]
-       45 GETTABLEKS                       R7 R8 K14 ["Components"]
-       47 GETTABLEKS                       R6 R7 K15 ["VisualizationModesMainView"]
+       43 GETTABLEKS                       R6 R0 K9 ["Src"]
+       45 GETTABLEKS                       R6 R6 K14 ["Components"]
+       47 GETTABLEKS                       R6 R6 K15 ["VisualizationModesMainView"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R9 R0 K9 ["Src"]
-       54 GETTABLEKS                       R8 R9 K16 ["Hooks"]
-       56 GETTABLEKS                       R7 R8 K17 ["useSizeCalculator"]
+       52 GETTABLEKS                       R7 R0 K9 ["Src"]
+       54 GETTABLEKS                       R7 R7 K16 ["Hooks"]
+       56 GETTABLEKS                       R7 R7 K17 ["useSizeCalculator"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R10 R0 K9 ["Src"]
-       63 GETTABLEKS                       R9 R10 K16 ["Hooks"]
-       65 GETTABLEKS                       R8 R9 K18 ["useVisualizationModeCombiner"]
+       61 GETTABLEKS                       R8 R0 K9 ["Src"]
+       63 GETTABLEKS                       R8 R8 K16 ["Hooks"]
+       65 GETTABLEKS                       R8 R8 K18 ["useVisualizationModeCombiner"]
        67 CALL                             R7 1 1
        68 GETTABLEKS                       R8 R1 K19 ["UI"]
        70 GETTABLEKS                       R9 R8 K20 ["Pane"]

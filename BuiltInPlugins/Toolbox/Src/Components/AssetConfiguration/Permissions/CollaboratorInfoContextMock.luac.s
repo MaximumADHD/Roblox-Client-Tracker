@@ -94,8 +94,8 @@ PROTO_2:
        21 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["MockLoadTime"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["MockLoadTime"]
         3 JUMPIFNOT                        R0 ; [+6]
         4 GETIMPORT                        R0 K3 [task.spawn]
         6 NEWCLOSURE                       R1 P0
@@ -110,8 +110,8 @@ PROTO_4:
         3 JUMPIFNOTLT                      R1 R2 ; [+3]
         5 LOADNIL                          R1
         6 RETURN                           R1 1
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K1 ["MockLoadTime"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["MockLoadTime"]
        10 JUMPIFNOT                        R1 ; [+13]
        11 GETIMPORT                        R1 K4 [Random.new]
        13 GETTABLEKS                       R2 R0 K0 ["Id"]
@@ -147,8 +147,8 @@ PROTO_5:
        19 MOD                              R4 R5 R6
        20 ADDK                             R3 R4 K6 [1]
        21 GETTABLE                         R2 R1 R3
-       22 GETUPVAL                         R4 2
-       23 GETTABLEKS                       R3 R4 K7 ["GetThumbnail"]
+       22 GETUPVAL                         R3 2
+       23 GETTABLEKS                       R3 R3 K7 ["GetThumbnail"]
        25 DUPTABLE                         R4 K8 [{"Type", "Id"}]
        26 GETTABLEKS                       R5 R0 K1 ["Type"]
        28 SETTABLEKS                       R5 R4 K1 ["Type"]
@@ -157,22 +157,22 @@ PROTO_5:
        33 RETURN                           R3 -1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Context"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["useMemo"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["useMemo"]
        10 GETIMPORT                        R3 K4 [tick]
        12 NEWTABLE                         R4 0 0
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K5 ["useState"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K5 ["useState"]
        18 LOADN                            R4 0
        19 CALL                             R3 1 2
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R5 R6 K6 ["useEffect"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K6 ["useEffect"]
        23 NEWCLOSURE                       R6 P0
        24 CAPTURE                          VAL R0
        25 CAPTURE                          VAL R2
@@ -192,11 +192,11 @@ PROTO_6:
        43 CAPTURE                          UPVAL U4
        44 CAPTURE                          VAL R1
        45 SETTABLEKS                       R6 R5 K9 ["GetThumbnail"]
-       47 GETUPVAL                         R7 0
-       48 GETTABLEKS                       R6 R7 K11 ["createElement"]
-       50 GETUPVAL                         R9 1
-       51 GETTABLEKS                       R8 R9 K1 ["Context"]
-       53 GETTABLEKS                       R7 R8 K12 ["Provider"]
+       47 GETUPVAL                         R6 0
+       48 GETTABLEKS                       R6 R6 K11 ["createElement"]
+       50 GETUPVAL                         R7 1
+       51 GETTABLEKS                       R7 R7 K1 ["Context"]
+       53 GETTABLEKS                       R7 R7 K12 ["Provider"]
        55 DUPTABLE                         R8 K14 [{"value"}]
        56 SETTABLEKS                       R5 R8 K13 ["value"]
        58 GETTABLEKS                       R9 R0 K15 ["children"]
@@ -213,8 +213,8 @@ MAIN:
         9 GETIMPORT                        R2 K6 [require]
        11 GETTABLEKS                       R3 R1 K7 ["React"]
        13 CALL                             R2 1 1
-       14 GETIMPORT                        R4 K1 [script]
-       16 GETTABLEKS                       R3 R4 K8 ["Parent"]
+       14 GETIMPORT                        R3 K1 [script]
+       16 GETTABLEKS                       R3 R3 K8 ["Parent"]
        18 GETIMPORT                        R4 K6 [require]
        20 GETTABLEKS                       R5 R3 K9 ["CollaboratorInfo"]
        22 CALL                             R4 1 1

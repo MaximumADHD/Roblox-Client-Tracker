@@ -4,12 +4,12 @@ PROTO_0:
         4 LOADNIL                          R3
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R5 R1 K2 ["Title"]
-        8 GETTABLEKS                       R8 R2 K3 ["fontStyle"]
-       10 GETTABLEKS                       R7 R8 K4 ["Header"]
-       12 GETTABLEKS                       R6 R7 K5 ["TextSize"]
-       14 GETTABLEKS                       R9 R2 K3 ["fontStyle"]
-       16 GETTABLEKS                       R8 R9 K4 ["Header"]
-       18 GETTABLEKS                       R7 R8 K6 ["Font"]
+        8 GETTABLEKS                       R6 R2 K3 ["fontStyle"]
+       10 GETTABLEKS                       R6 R6 K4 ["Header"]
+       12 GETTABLEKS                       R6 R6 K5 ["TextSize"]
+       14 GETTABLEKS                       R7 R2 K3 ["fontStyle"]
+       16 GETTABLEKS                       R7 R7 K4 ["Header"]
+       18 GETTABLEKS                       R7 R7 K6 ["Font"]
        20 CALL                             R4 3 1
        21 GETIMPORT                        R5 K9 [UDim2.new]
        23 LOADN                            R6 0
@@ -18,14 +18,14 @@ PROTO_0:
        27 GETTABLEKS                       R9 R4 K11 ["Y"]
        29 CALL                             R5 4 1
        30 MOVE                             R3 R5
-       31 GETUPVAL                         R6 1
-       32 GETTABLEKS                       R5 R6 K12 ["createElement"]
+       31 GETUPVAL                         R5 1
+       32 GETTABLEKS                       R5 R5 K12 ["createElement"]
        34 LOADK                            R6 K13 ["TextLabel"]
-       35 GETUPVAL                         R9 2
-       36 GETTABLEKS                       R8 R9 K14 ["Dictionary"]
-       38 GETTABLEKS                       R7 R8 K15 ["join"]
-       40 GETTABLEKS                       R9 R2 K3 ["fontStyle"]
-       42 GETTABLEKS                       R8 R9 K4 ["Header"]
+       35 GETUPVAL                         R7 2
+       36 GETTABLEKS                       R7 R7 K14 ["Dictionary"]
+       38 GETTABLEKS                       R7 R7 K15 ["join"]
+       40 GETTABLEKS                       R8 R2 K3 ["fontStyle"]
+       42 GETTABLEKS                       R8 R8 K4 ["Header"]
        44 DUPTABLE                         R9 K23 [{"Size", "Text", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
        45 SETTABLEKS                       R3 R9 K16 ["Size"]
        47 GETTABLEKS                       R10 R1 K2 ["Title"]
@@ -47,21 +47,21 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Cryo"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Cryo"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]

@@ -5,8 +5,8 @@ PROTO_0:
         3 GETUPVAL                         R2 0
         4 GETTABLE                         R1 R2 R0
         5 RETURN                           R1 1
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K0 ["new"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K0 ["new"]
         9 CALL                             R1 0 1
        10 GETUPVAL                         R2 0
        11 SETTABLE                         R1 R2 R0
@@ -83,8 +83,8 @@ PROTO_3:
        17 GETUPVAL                         R3 2
        18 GETTABLE                         R2 R3 R0
        19 JUMP                             ; [+7]
-       20 GETUPVAL                         R4 3
-       21 GETTABLEKS                       R3 R4 K5 ["new"]
+       20 GETUPVAL                         R3 3
+       21 GETTABLEKS                       R3 R3 K5 ["new"]
        23 CALL                             R3 0 1
        24 GETUPVAL                         R4 2
        25 SETTABLE                         R3 R4 R0
@@ -185,8 +185,8 @@ PROTO_8:
        17 GETTABLEKS                       R5 R0 K3 ["IsConnected"]
        19 JUMP                             ; [+1]
        20 LOADB                            R5 1
-       21 GETUPVAL                         R7 2
-       22 GETTABLEKS                       R6 R7 K4 ["new"]
+       21 GETUPVAL                         R6 2
+       22 GETTABLEKS                       R6 R6 K4 ["new"]
        24 CALL                             R6 0 1
        25 NEWCLOSURE                       R7 P0
        26 CAPTURE                          VAL R2
@@ -245,18 +245,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["NotificationManagerStore"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["NotificationManagerStore"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Signal"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Signal"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Flags"]
-       29 GETTABLEKS                       R4 R5 K12 ["FFlagAssistantNotificationManager"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K12 ["FFlagAssistantNotificationManager"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K14 [game]
        34 LOADK                            R6 K15 ["NotificationServiceIsConnectedAvailable"]

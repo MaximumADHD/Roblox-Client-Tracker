@@ -18,26 +18,26 @@ PROTO_0:
        27 JUMP                             ; [+3]
        28 JUMPIFNOT                        R8 ; [+2]
        29 GETTABLEKS                       R10 R9 K12 ["selectedBackgroundColor"]
-       31 GETUPVAL                         R13 0
-       32 GETTABLEKS                       R12 R13 K13 ["Children"]
+       31 GETUPVAL                         R12 0
+       32 GETTABLEKS                       R12 R12 K13 ["Children"]
        34 GETTABLE                         R11 R1 R12
        35 JUMPIF                           R11 ; [+2]
        36 NEWTABLE                         R11 0 0
-       38 GETUPVAL                         R13 0
-       39 GETTABLEKS                       R12 R13 K14 ["createElement"]
+       38 GETUPVAL                         R12 0
+       39 GETTABLEKS                       R12 R12 K14 ["createElement"]
        41 LOADK                            R13 K15 ["UIPadding"]
        42 DUPTABLE                         R14 K17 [{"PaddingLeft"}]
        43 GETIMPORT                        R15 K20 [UDim.new]
        45 LOADN                            R16 0
-       46 GETUPVAL                         R19 1
-       47 GETTABLEKS                       R18 R19 K21 ["INDENT_PADDING"]
+       46 GETUPVAL                         R18 1
+       47 GETTABLEKS                       R18 R18 K21 ["INDENT_PADDING"]
        49 MUL                              R17 R18 R4
        50 CALL                             R15 2 1
        51 SETTABLEKS                       R15 R14 K16 ["PaddingLeft"]
        53 CALL                             R12 2 1
        54 SETTABLEKS                       R12 R11 K22 ["Padding"]
-       56 GETUPVAL                         R13 0
-       57 GETTABLEKS                       R12 R13 K14 ["createElement"]
+       56 GETUPVAL                         R12 0
+       57 GETTABLEKS                       R12 R12 K14 ["createElement"]
        59 LOADK                            R13 K23 ["Frame"]
        60 DUPTABLE                         R14 K28 [{"Size", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency", "LayoutOrder"}]
        61 GETIMPORT                        R15 K30 [UDim2.new]
@@ -67,19 +67,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Util"]
-       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Util"]
+       31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETTABLEKS                       R6 R1 K14 ["PureComponent"]
        36 LOADK                            R8 K15 ["TrackListEntry"]

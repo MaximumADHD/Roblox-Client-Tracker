@@ -25,8 +25,8 @@ PROTO_1:
        16 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["disconnectOnInvoke"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["disconnectOnInvoke"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 0
         5 GETUPVAL                         R2 1
@@ -41,16 +41,16 @@ PROTO_2:
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+28]
         1 GETIMPORT                        R4 K2 [Instance.new]
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K3 ["Wire"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K3 ["Wire"]
         6 CALL                             R4 1 1
         7 GETUPVAL                         R5 1
         8 SETTABLEKS                       R5 R4 K4 ["SourceInstance"]
        10 GETTABLEKS                       R5 R2 K5 ["TargetName"]
        12 SETTABLEKS                       R5 R4 K5 ["TargetName"]
        14 SETTABLEKS                       R3 R4 K6 ["TargetInstance"]
-       16 GETUPVAL                         R6 1
-       17 GETTABLEKS                       R5 R6 K7 ["Parent"]
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K7 ["Parent"]
        19 SETTABLEKS                       R5 R4 K7 ["Parent"]
        21 GETUPVAL                         R6 2
        22 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
@@ -62,14 +62,14 @@ PROTO_3:
        30 LOADNIL                          R5
        31 LOADNIL                          R6
        32 FORGPREP                         R4
-       33 GETUPVAL                         R12 0
-       34 GETTABLEKS                       R11 R12 K3 ["Wire"]
+       33 GETUPVAL                         R11 0
+       34 GETTABLEKS                       R11 R11 K3 ["Wire"]
        36 NAMECALL                         R9 R8 K11 ["IsA"]
        38 CALL                             R9 2 1
        39 JUMPIF                           R9 ; [+1]
        40 RETURN                           R0 0
-       41 GETUPVAL                         R12 0
-       42 GETTABLEKS                       R11 R12 K3 ["Wire"]
+       41 GETUPVAL                         R11 0
+       42 GETTABLEKS                       R11 R11 K3 ["Wire"]
        44 NAMECALL                         R9 R8 K11 ["IsA"]
        46 CALL                             R9 2 1
        47 JUMPIFNOT                        R9 ; [+19]
@@ -89,13 +89,13 @@ PROTO_3:
        69 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["teardownPreviewInstances"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["teardownPreviewInstances"]
         3 CALL                             R2 0 0
         4 GETUPVAL                         R2 1
         5 JUMPIFNOT                        R2 ; [+4]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K1 ["Parent"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["Parent"]
         9 JUMPIF                           R2 ; [+1]
        10 RETURN                           R0 0
        11 JUMPIFNOT                        R0 ; [+48]
@@ -105,8 +105,8 @@ PROTO_4:
        16 CALL                             R2 2 3
        17 FORGPREP                         R2
        18 GETIMPORT                        R7 K6 [Instance.new]
-       20 GETUPVAL                         R9 2
-       21 GETTABLEKS                       R8 R9 K7 ["Wire"]
+       20 GETUPVAL                         R8 2
+       21 GETTABLEKS                       R8 R8 K7 ["Wire"]
        23 CALL                             R7 1 1
        24 GETUPVAL                         R8 1
        25 SETTABLEKS                       R8 R7 K8 ["SourceInstance"]
@@ -114,8 +114,8 @@ PROTO_4:
        29 SETTABLEKS                       R8 R7 K9 ["TargetName"]
        31 GETTABLEKS                       R8 R6 K10 ["TargetInstance"]
        33 SETTABLEKS                       R8 R7 K10 ["TargetInstance"]
-       35 GETUPVAL                         R9 1
-       36 GETTABLEKS                       R8 R9 K1 ["Parent"]
+       35 GETUPVAL                         R8 1
+       36 GETTABLEKS                       R8 R8 K1 ["Parent"]
        38 SETTABLEKS                       R8 R7 K1 ["Parent"]
        40 GETUPVAL                         R9 3
        41 FASTCALL2                        TABLE_INSERT R9 R7 ; [+4]
@@ -133,21 +133,21 @@ PROTO_4:
        58 SETUPVAL                         R2 4
        59 RETURN                           R0 0
        60 GETIMPORT                        R2 K6 [Instance.new]
-       62 GETUPVAL                         R4 2
-       63 GETTABLEKS                       R3 R4 K16 ["AudioDeviceOutput"]
+       62 GETUPVAL                         R3 2
+       63 GETTABLEKS                       R3 R3 K16 ["AudioDeviceOutput"]
        65 CALL                             R2 1 1
        66 GETIMPORT                        R3 K6 [Instance.new]
-       68 GETUPVAL                         R5 2
-       69 GETTABLEKS                       R4 R5 K7 ["Wire"]
+       68 GETUPVAL                         R4 2
+       69 GETTABLEKS                       R4 R4 K7 ["Wire"]
        71 CALL                             R3 1 1
        72 GETUPVAL                         R4 1
        73 SETTABLEKS                       R4 R3 K8 ["SourceInstance"]
        75 SETTABLEKS                       R2 R3 K10 ["TargetInstance"]
-       77 GETUPVAL                         R5 1
-       78 GETTABLEKS                       R4 R5 K1 ["Parent"]
+       77 GETUPVAL                         R4 1
+       78 GETTABLEKS                       R4 R4 K1 ["Parent"]
        80 SETTABLEKS                       R4 R2 K1 ["Parent"]
-       82 GETUPVAL                         R5 1
-       83 GETTABLEKS                       R4 R5 K1 ["Parent"]
+       82 GETUPVAL                         R4 1
+       83 GETTABLEKS                       R4 R4 K1 ["Parent"]
        85 SETTABLEKS                       R4 R3 K1 ["Parent"]
        87 GETUPVAL                         R5 3
        88 FASTCALL2                        TABLE_INSERT R5 R2 ; [+4]
@@ -205,47 +205,47 @@ PROTO_7:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R1 0
-        4 GETIMPORT                        R2 K2 [Content.fromUri]
-        6 MOVE                             R3 R0
-        7 CALL                             R2 1 1
-        8 SETTABLEKS                       R2 R1 K3 ["AudioContent"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K4 ["IsReady"]
-       13 JUMPIF                           R1 ; [+14]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K3 ["AudioContent"]
-       17 GETTABLEKS                       R1 R2 K5 ["Uri"]
-       19 JUMPIFNOTEQ                      R1 R0 ; [+8]
-       21 GETUPVAL                         R2 1
-       22 GETTABLEKS                       R1 R2 K6 ["Heartbeat"]
-       24 NAMECALL                         R1 R1 K7 ["Wait"]
-       26 CALL                             R1 1 0
-       27 JUMPBACK                         ; [-18]
-       28 GETUPVAL                         R3 0
-       29 GETTABLEKS                       R2 R3 K3 ["AudioContent"]
-       31 GETTABLEKS                       R1 R2 K5 ["Uri"]
-       33 JUMPIFEQ                         R1 R0 ; [+2]
-       35 RETURN                           R0 0
-       36 GETUPVAL                         R1 2
-       37 GETUPVAL                         R4 3
-       38 GETTABLEKS                       R3 R4 K8 ["OnTimeLengthReceived"]
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R4 R5 K9 ["TimeLength"]
-       43 NAMECALL                         R1 R1 K10 ["Invoke"]
-       45 CALL                             R1 3 0
-       46 RETURN                           R0 0
+        3 GETUPVAL                         R1 1
+        4 ADDK                             R1 R1 K0 [1]
+        5 SETUPVAL                         R1 1
+        6 GETUPVAL                         R1 1
+        7 GETUPVAL                         R2 0
+        8 GETIMPORT                        R3 K3 [Content.fromUri]
+       10 MOVE                             R4 R0
+       11 CALL                             R3 1 1
+       12 SETTABLEKS                       R3 R2 K4 ["AudioContent"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K5 ["IsReady"]
+       17 JUMPIF                           R2 ; [+10]
+       18 GETUPVAL                         R2 1
+       19 JUMPIFNOTEQ                      R2 R1 ; [+8]
+       21 GETUPVAL                         R2 2
+       22 GETTABLEKS                       R2 R2 K6 ["Heartbeat"]
+       24 NAMECALL                         R2 R2 K7 ["Wait"]
+       26 CALL                             R2 1 0
+       27 JUMPBACK                         ; [-14]
+       28 GETUPVAL                         R2 1
+       29 JUMPIFEQ                         R2 R1 ; [+2]
+       31 RETURN                           R0 0
+       32 GETUPVAL                         R2 3
+       33 GETUPVAL                         R4 4
+       34 GETTABLEKS                       R4 R4 K8 ["OnTimeLengthReceived"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K9 ["TimeLength"]
+       39 NAMECALL                         R2 R2 K10 ["Invoke"]
+       41 CALL                             R2 3 0
+       42 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K0 ["IsReady"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K0 ["IsReady"]
         6 JUMPIF                           R1 ; [+10]
         7 GETUPVAL                         R1 1
-        8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R3 R4 K1 ["OnWaveformReceived"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K1 ["OnWaveformReceived"]
        11 NEWTABLE                         R4 0 0
        13 NAMECALL                         R1 R1 K2 ["Invoke"]
        15 CALL                             R1 3 0
@@ -253,15 +253,15 @@ PROTO_8:
        17 GETUPVAL                         R1 0
        18 GETIMPORT                        R3 K5 [NumberRange.new]
        20 LOADN                            R4 0
-       21 GETUPVAL                         R6 0
-       22 GETTABLEKS                       R5 R6 K6 ["TimeLength"]
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K6 ["TimeLength"]
        24 CALL                             R3 2 1
        25 MOVE                             R4 R0
        26 NAMECALL                         R1 R1 K7 ["GetWaveformAsync"]
        28 CALL                             R1 3 1
        29 GETUPVAL                         R2 1
-       30 GETUPVAL                         R5 2
-       31 GETTABLEKS                       R4 R5 K1 ["OnWaveformReceived"]
+       30 GETUPVAL                         R4 2
+       31 GETTABLEKS                       R4 R4 K1 ["OnWaveformReceived"]
        33 MOVE                             R5 R1
        34 NAMECALL                         R2 R2 K2 ["Invoke"]
        36 CALL                             R2 3 0
@@ -271,43 +271,43 @@ PROTO_9:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R1 0
-        4 GETTABLEKS                       R0 R1 K0 ["IsPlaying"]
+        3 GETUPVAL                         R0 0
+        4 GETTABLEKS                       R0 R0 K0 ["IsPlaying"]
         6 JUMPIF                           R0 ; [+12]
         7 GETUPVAL                         R0 0
         8 NAMECALL                         R0 R0 K1 ["Play"]
        10 CALL                             R0 1 0
        11 GETUPVAL                         R0 1
-       12 GETUPVAL                         R3 2
-       13 GETTABLEKS                       R2 R3 K2 ["OnIsPlayingUpdated"]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K2 ["OnIsPlayingUpdated"]
        15 LOADB                            R3 1
        16 NAMECALL                         R0 R0 K3 ["Invoke"]
        18 CALL                             R0 3 0
-       19 GETUPVAL                         R1 0
-       20 GETTABLEKS                       R0 R1 K4 ["TimePosition"]
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R1 R2 K0 ["IsPlaying"]
+       19 GETUPVAL                         R0 0
+       20 GETTABLEKS                       R0 R0 K4 ["TimePosition"]
+       22 GETUPVAL                         R1 0
+       23 GETTABLEKS                       R1 R1 K0 ["IsPlaying"]
        25 JUMPIFNOT                        R1 ; [+25]
-       26 GETUPVAL                         R2 3
-       27 GETTABLEKS                       R1 R2 K5 ["Heartbeat"]
+       26 GETUPVAL                         R1 3
+       27 GETTABLEKS                       R1 R1 K5 ["Heartbeat"]
        29 NAMECALL                         R1 R1 K6 ["Wait"]
        31 CALL                             R1 1 0
-       32 GETUPVAL                         R2 0
-       33 GETTABLEKS                       R1 R2 K4 ["TimePosition"]
+       32 GETUPVAL                         R1 0
+       33 GETTABLEKS                       R1 R1 K4 ["TimePosition"]
        35 JUMPIFEQ                         R1 R0 ; [+14]
        37 GETUPVAL                         R1 1
-       38 GETUPVAL                         R4 2
-       39 GETTABLEKS                       R3 R4 K7 ["OnTimePositionUpdated"]
-       41 GETUPVAL                         R5 0
-       42 GETTABLEKS                       R4 R5 K4 ["TimePosition"]
+       38 GETUPVAL                         R3 2
+       39 GETTABLEKS                       R3 R3 K7 ["OnTimePositionUpdated"]
+       41 GETUPVAL                         R4 0
+       42 GETTABLEKS                       R4 R4 K4 ["TimePosition"]
        44 NAMECALL                         R1 R1 K3 ["Invoke"]
        46 CALL                             R1 3 0
        47 GETUPVAL                         R1 0
        48 GETTABLEKS                       R0 R1 K4 ["TimePosition"]
        50 JUMPBACK                         ; [-29]
        51 GETUPVAL                         R1 1
-       52 GETUPVAL                         R4 2
-       53 GETTABLEKS                       R3 R4 K2 ["OnIsPlayingUpdated"]
+       52 GETUPVAL                         R3 2
+       53 GETTABLEKS                       R3 R3 K2 ["OnIsPlayingUpdated"]
        55 LOADB                            R4 0
        56 NAMECALL                         R1 R1 K3 ["Invoke"]
        58 CALL                             R1 3 0
@@ -348,32 +348,32 @@ PROTO_12:
        16 NAMECALL                         R2 R2 K3 ["GetUnderlyingAudioPlayer"]
        18 CALL                             R2 1 1
        19 MOVE                             R1 R2
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K4 ["setupPreviewInstances"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K4 ["setupPreviewInstances"]
        23 MOVE                             R3 R0
        24 MOVE                             R4 R1
        25 CALL                             R2 2 0
        26 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["teardown"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["teardown"]
         3 CALL                             R1 0 0
         4 GETUPVAL                         R1 1
         5 JUMPIF                           R1 ; [+1]
         6 RETURN                           R0 0
         7 GETIMPORT                        R1 K3 [Instance.new]
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K4 ["Folder"]
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K4 ["Folder"]
        12 CALL                             R1 1 1
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K5 ["InstanceContainer"]
+       13 GETUPVAL                         R2 2
+       14 GETTABLEKS                       R2 R2 K5 ["InstanceContainer"]
        16 SETTABLEKS                       R2 R1 K6 ["Name"]
        18 GETUPVAL                         R2 3
        19 SETTABLEKS                       R2 R1 K7 ["Parent"]
        21 GETIMPORT                        R2 K3 [Instance.new]
-       23 GETUPVAL                         R4 2
-       24 GETTABLEKS                       R3 R4 K8 ["AudioPlayer"]
+       23 GETUPVAL                         R3 2
+       24 GETTABLEKS                       R3 R3 K8 ["AudioPlayer"]
        26 CALL                             R2 1 1
        27 SETUPVAL                         R2 4
        28 GETUPVAL                         R3 4
@@ -383,81 +383,84 @@ PROTO_13:
        34 CALL                             R2 2 0
        35 GETUPVAL                         R2 4
        36 SETTABLEKS                       R1 R2 K7 ["Parent"]
-       38 GETUPVAL                         R3 0
-       39 GETTABLEKS                       R2 R3 K12 ["setupPreviewInstances"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K12 ["setupPreviewInstances"]
        41 LOADB                            R3 0
        42 CALL                             R2 1 0
-       43 GETUPVAL                         R3 0
-       44 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-       46 GETUPVAL                         R4 2
-       47 GETTABLEKS                       R3 R4 K14 ["OnAssignPropertiesRequested"]
-       49 NEWCLOSURE                       R4 P0
-       50 CAPTURE                          UPVAL U4
-       51 CALL                             R2 2 0
-       52 GETUPVAL                         R3 0
-       53 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-       55 GETUPVAL                         R4 2
-       56 GETTABLEKS                       R3 R4 K15 ["OnLoadAndTimeLengthRequested"]
-       58 NEWCLOSURE                       R4 P1
-       59 CAPTURE                          UPVAL U4
-       60 CAPTURE                          UPVAL U5
-       61 CAPTURE                          UPVAL U1
-       62 CAPTURE                          UPVAL U2
-       63 CALL                             R2 2 0
-       64 GETUPVAL                         R3 0
-       65 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-       67 GETUPVAL                         R4 2
-       68 GETTABLEKS                       R3 R4 K16 ["OnWaveformRequested"]
-       70 NEWCLOSURE                       R4 P2
-       71 CAPTURE                          UPVAL U4
-       72 CAPTURE                          UPVAL U1
-       73 CAPTURE                          UPVAL U2
-       74 CALL                             R2 2 0
-       75 GETUPVAL                         R3 0
-       76 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-       78 GETUPVAL                         R4 2
-       79 GETTABLEKS                       R3 R4 K17 ["OnPlayRequested"]
-       81 NEWCLOSURE                       R4 P3
-       82 CAPTURE                          UPVAL U4
-       83 CAPTURE                          UPVAL U1
-       84 CAPTURE                          UPVAL U2
-       85 CAPTURE                          UPVAL U5
-       86 CALL                             R2 2 0
-       87 GETUPVAL                         R3 0
-       88 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-       90 GETUPVAL                         R4 2
-       91 GETTABLEKS                       R3 R4 K18 ["OnStopRequested"]
-       93 NEWCLOSURE                       R4 P4
-       94 CAPTURE                          UPVAL U4
-       95 CALL                             R2 2 0
-       96 GETUPVAL                         R3 0
-       97 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-       99 GETUPVAL                         R4 2
-      100 GETTABLEKS                       R3 R4 K19 ["OnSeekRequested"]
-      102 NEWCLOSURE                       R4 P5
-      103 CAPTURE                          UPVAL U4
-      104 CALL                             R2 2 0
-      105 GETUPVAL                         R3 0
-      106 GETTABLEKS                       R2 R3 K13 ["onInvoke"]
-      108 GETUPVAL                         R4 2
-      109 GETTABLEKS                       R3 R4 K20 ["OnTogglePreviewInWorld"]
-      111 NEWCLOSURE                       R4 P6
-      112 CAPTURE                          VAL R0
-      113 CAPTURE                          UPVAL U0
-      114 CALL                             R2 2 0
-      115 RETURN                           R0 0
+       43 LOADN                            R2 0
+       44 GETUPVAL                         R3 0
+       45 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+       47 GETUPVAL                         R4 2
+       48 GETTABLEKS                       R4 R4 K14 ["OnAssignPropertiesRequested"]
+       50 NEWCLOSURE                       R5 P0
+       51 CAPTURE                          UPVAL U4
+       52 CALL                             R3 2 0
+       53 GETUPVAL                         R3 0
+       54 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+       56 GETUPVAL                         R4 2
+       57 GETTABLEKS                       R4 R4 K15 ["OnLoadAndTimeLengthRequested"]
+       59 NEWCLOSURE                       R5 P1
+       60 CAPTURE                          UPVAL U4
+       61 CAPTURE                          REF R2
+       62 CAPTURE                          UPVAL U5
+       63 CAPTURE                          UPVAL U1
+       64 CAPTURE                          UPVAL U2
+       65 CALL                             R3 2 0
+       66 GETUPVAL                         R3 0
+       67 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+       69 GETUPVAL                         R4 2
+       70 GETTABLEKS                       R4 R4 K16 ["OnWaveformRequested"]
+       72 NEWCLOSURE                       R5 P2
+       73 CAPTURE                          UPVAL U4
+       74 CAPTURE                          UPVAL U1
+       75 CAPTURE                          UPVAL U2
+       76 CALL                             R3 2 0
+       77 GETUPVAL                         R3 0
+       78 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+       80 GETUPVAL                         R4 2
+       81 GETTABLEKS                       R4 R4 K17 ["OnPlayRequested"]
+       83 NEWCLOSURE                       R5 P3
+       84 CAPTURE                          UPVAL U4
+       85 CAPTURE                          UPVAL U1
+       86 CAPTURE                          UPVAL U2
+       87 CAPTURE                          UPVAL U5
+       88 CALL                             R3 2 0
+       89 GETUPVAL                         R3 0
+       90 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+       92 GETUPVAL                         R4 2
+       93 GETTABLEKS                       R4 R4 K18 ["OnStopRequested"]
+       95 NEWCLOSURE                       R5 P4
+       96 CAPTURE                          UPVAL U4
+       97 CALL                             R3 2 0
+       98 GETUPVAL                         R3 0
+       99 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+      101 GETUPVAL                         R4 2
+      102 GETTABLEKS                       R4 R4 K19 ["OnSeekRequested"]
+      104 NEWCLOSURE                       R5 P5
+      105 CAPTURE                          UPVAL U4
+      106 CALL                             R3 2 0
+      107 GETUPVAL                         R3 0
+      108 GETTABLEKS                       R3 R3 K13 ["onInvoke"]
+      110 GETUPVAL                         R4 2
+      111 GETTABLEKS                       R4 R4 K20 ["OnTogglePreviewInWorld"]
+      113 NEWCLOSURE                       R5 P6
+      114 CAPTURE                          VAL R0
+      115 CAPTURE                          UPVAL U0
+      116 CALL                             R3 2 0
+      117 CLOSEUPVALS                      R2
+      118 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["InstanceContainer"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["InstanceContainer"]
         4 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
         6 CALL                             R0 2 1
         7 JUMPIFNOT                        R0 ; [+3]
         8 NAMECALL                         R1 R0 K2 ["Destroy"]
        10 CALL                             R1 1 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K3 ["teardownPreviewInstances"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K3 ["teardownPreviewInstances"]
        14 CALL                             R1 0 0
        15 LOADNIL                          R1
        16 SETUPVAL                         R1 3
@@ -468,8 +471,8 @@ PROTO_15:
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["OnAssignPropertiesRequested"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["OnAssignPropertiesRequested"]
         7 MOVE                             R4 R0
         8 NAMECALL                         R1 R1 K1 ["Invoke"]
        10 CALL                             R1 3 0
@@ -479,15 +482,15 @@ PROTO_16:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["onInvoke"]
-        6 GETUPVAL                         R4 2
-        7 GETTABLEKS                       R3 R4 K1 ["OnTimeLengthReceived"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["onInvoke"]
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K1 ["OnTimeLengthReceived"]
         9 MOVE                             R4 R1
        10 CALL                             R2 2 0
        11 GETUPVAL                         R2 0
-       12 GETUPVAL                         R5 2
-       13 GETTABLEKS                       R4 R5 K2 ["OnLoadAndTimeLengthRequested"]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R4 R4 K2 ["OnLoadAndTimeLengthRequested"]
        15 MOVE                             R5 R0
        16 NAMECALL                         R2 R2 K3 ["Invoke"]
        18 CALL                             R2 3 0
@@ -497,15 +500,15 @@ PROTO_17:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["onInvoke"]
-        6 GETUPVAL                         R4 2
-        7 GETTABLEKS                       R3 R4 K1 ["OnWaveformReceived"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["onInvoke"]
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K1 ["OnWaveformReceived"]
         9 MOVE                             R4 R1
        10 CALL                             R2 2 0
        11 GETUPVAL                         R2 0
-       12 GETUPVAL                         R5 2
-       13 GETTABLEKS                       R4 R5 K2 ["OnWaveformRequested"]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R4 R4 K2 ["OnWaveformRequested"]
        15 MOVE                             R5 R0
        16 NAMECALL                         R2 R2 K3 ["Invoke"]
        18 CALL                             R2 3 0
@@ -515,21 +518,21 @@ PROTO_18:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["onInvoke"]
-        6 GETUPVAL                         R4 2
-        7 GETTABLEKS                       R3 R4 K1 ["OnIsPlayingUpdated"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["onInvoke"]
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K1 ["OnIsPlayingUpdated"]
         9 MOVE                             R4 R0
        10 CALL                             R2 2 0
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R2 R3 K0 ["onInvoke"]
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R3 R4 K2 ["OnTimePositionUpdated"]
+       11 GETUPVAL                         R2 1
+       12 GETTABLEKS                       R2 R2 K0 ["onInvoke"]
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K2 ["OnTimePositionUpdated"]
        17 MOVE                             R4 R1
        18 CALL                             R2 2 0
        19 GETUPVAL                         R2 0
-       20 GETUPVAL                         R5 2
-       21 GETTABLEKS                       R4 R5 K3 ["OnPlayRequested"]
+       20 GETUPVAL                         R4 2
+       21 GETTABLEKS                       R4 R4 K3 ["OnPlayRequested"]
        23 NAMECALL                         R2 R2 K4 ["Invoke"]
        25 CALL                             R2 2 0
        26 RETURN                           R0 0
@@ -539,8 +542,8 @@ PROTO_19:
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R0 0
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K0 ["OnStopRequested"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["OnStopRequested"]
         7 NAMECALL                         R0 R0 K1 ["Invoke"]
         9 CALL                             R0 2 0
        10 RETURN                           R0 0
@@ -550,8 +553,8 @@ PROTO_20:
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["OnSeekRequested"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["OnSeekRequested"]
         7 MOVE                             R4 R0
         8 NAMECALL                         R1 R1 K1 ["Invoke"]
        10 CALL                             R1 3 0
@@ -595,8 +598,8 @@ PROTO_22:
        30 CALL                             R6 1 0
        31 RETURN                           R0 0
        32 GETTABLEKS                       R6 R5 K9 ["AssetTypeId"]
-       34 GETIMPORT                        R8 K13 [Enum.AssetType.Audio]
-       36 GETTABLEKS                       R7 R8 K14 ["Value"]
+       34 GETIMPORT                        R7 K13 [Enum.AssetType.Audio]
+       36 GETTABLEKS                       R7 R7 K14 ["Value"]
        38 JUMPIFEQ                         R6 R7 ; [+5]
        40 MOVE                             R6 R1
        41 LOADK                            R7 K4 [""]
@@ -613,8 +616,8 @@ PROTO_23:
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["OnTogglePreviewInWorld"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["OnTogglePreviewInWorld"]
         7 MOVE                             R4 R0
         8 NAMECALL                         R1 R1 K1 ["Invoke"]
        10 CALL                             R1 3 0
@@ -643,8 +646,8 @@ MAIN:
        28 NAMECALL                         R4 R4 K7 ["GetService"]
        30 CALL                             R4 2 1
        31 GETIMPORT                        R5 K12 [require]
-       33 GETTABLEKS                       R7 R0 K13 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Types"]
+       33 GETTABLEKS                       R6 R0 K13 ["Src"]
+       35 GETTABLEKS                       R6 R6 K14 ["Types"]
        37 CALL                             R5 1 1
        38 DUPTABLE                         R6 K31 [{"OnAssignPropertiesRequested", "OnLoadAndTimeLengthRequested", "OnTimeLengthReceived", "OnWaveformRequested", "OnWaveformReceived", "OnPlayRequested", "OnStopRequested", "OnSeekRequested", "OnIsPlayingUpdated", "OnTimePositionUpdated", "OnTogglePreviewInWorld", "InstanceContainer", "Folder", "AudioPlayer", "AudioDeviceOutput", "Wire"}]
        39 LOADK                            R7 K15 ["OnAssignPropertiesRequested"]

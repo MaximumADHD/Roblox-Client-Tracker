@@ -5,8 +5,8 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnToolIndexChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnToolIndexChanged"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R0 R0 K1 ["Connect"]
         6 CALL                             R0 2 1
@@ -21,8 +21,8 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnTabIndexChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnTabIndexChanged"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R0 R0 K1 ["Connect"]
         6 CALL                             R0 2 1
@@ -69,18 +69,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Controllers"]
-       20 GETTABLEKS                       R3 R4 K10 ["ToolController"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Controllers"]
+       20 GETTABLEKS                       R3 R3 K10 ["ToolController"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Tools"]
-       29 GETTABLEKS                       R4 R5 K12 ["BaseTool"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Tools"]
+       29 GETTABLEKS                       R4 R4 K12 ["BaseTool"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R1 K13 ["useState"]
        34 GETTABLEKS                       R5 R1 K14 ["useEffect"]

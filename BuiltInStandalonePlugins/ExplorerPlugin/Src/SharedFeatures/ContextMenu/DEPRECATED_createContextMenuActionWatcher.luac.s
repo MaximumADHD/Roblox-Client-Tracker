@@ -1,17 +1,17 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["source"]
-        4 GETTABLEKS                       R2 R3 K1 ["uri"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["source"]
+        4 GETTABLEKS                       R2 R2 K1 ["uri"]
         6 SETTABLE                         R0 R1 R2
         7 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R6 2
-        3 GETTABLEKS                       R5 R6 K0 ["source"]
-        5 GETTABLEKS                       R4 R5 K1 ["uri"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["source"]
+        5 GETTABLEKS                       R4 R4 K1 ["uri"]
         7 NAMECALL                         R2 R2 K2 ["BindToChangedAsync"]
         9 CALL                             R2 2 1
        10 NEWCLOSURE                       R4 P0
@@ -25,12 +25,12 @@ PROTO_1:
        20 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["source"]
-        2 GETTABLEKS                       R1 R2 K1 ["type"]
+        0 GETTABLEKS                       R1 R0 K0 ["source"]
+        2 GETTABLEKS                       R1 R1 K1 ["type"]
         4 JUMPIFNOTEQKS                    R1 K2 ["studioAction"] ; [+20]
         6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R4 R0 K0 ["source"]
-        9 GETTABLEKS                       R3 R4 K3 ["uri"]
+        7 GETTABLEKS                       R3 R0 K0 ["source"]
+        9 GETTABLEKS                       R3 R3 K3 ["uri"]
        11 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
        13 GETIMPORT                        R1 K6 [table.insert]
        15 CALL                             R1 2 0
@@ -42,11 +42,11 @@ PROTO_2:
        22 CAPTURE                          UPVAL U3
        23 CALL                             R1 1 0
        24 RETURN                           R0 0
-       25 GETTABLEKS                       R2 R0 K0 ["source"]
-       27 GETTABLEKS                       R1 R2 K1 ["type"]
+       25 GETTABLEKS                       R1 R0 K0 ["source"]
+       27 GETTABLEKS                       R1 R1 K1 ["type"]
        29 JUMPIFNOTEQKS                    R1 K10 ["submenu"] ; [+20]
-       31 GETTABLEKS                       R4 R0 K0 ["source"]
-       33 GETTABLEKS                       R1 R4 K11 ["submenuCategories"]
+       31 GETTABLEKS                       R1 R0 K0 ["source"]
+       33 GETTABLEKS                       R1 R1 K11 ["submenuCategories"]
        35 LOADNIL                          R2
        36 LOADNIL                          R3
        37 FORGPREP                         R1
@@ -61,8 +61,8 @@ PROTO_2:
        47 FORGLOOP                         R1 2 ; [-10]
        49 RETURN                           R0 0
        50 GETUPVAL                         R1 5
-       51 GETTABLEKS                       R3 R0 K0 ["source"]
-       53 GETTABLEKS                       R2 R3 K1 ["type"]
+       51 GETTABLEKS                       R2 R0 K0 ["source"]
+       53 GETTABLEKS                       R2 R2 K1 ["type"]
        55 CALL                             R1 1 0
        56 RETURN                           R0 0
 
@@ -161,21 +161,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["SharedFeatures"]
-       13 GETTABLEKS                       R3 R4 K8 ["ContextMenu"]
-       15 GETTABLEKS                       R2 R3 K9 ["ContextMenuActionList"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFeatures"]
+       13 GETTABLEKS                       R2 R2 K8 ["ContextMenu"]
+       15 GETTABLEKS                       R2 R2 K9 ["ContextMenuActionList"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K7 ["SharedFeatures"]
-       24 GETTABLEKS                       R4 R5 K8 ["ContextMenu"]
-       26 GETTABLEKS                       R3 R4 K10 ["ContextMenuTypes"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["SharedFeatures"]
+       24 GETTABLEKS                       R3 R3 K8 ["ContextMenu"]
+       26 GETTABLEKS                       R3 R3 K10 ["ContextMenuTypes"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K5 [require]
-       31 GETTABLEKS                       R6 R0 K6 ["Src"]
-       33 GETTABLEKS                       R5 R6 K11 ["Util"]
-       35 GETTABLEKS                       R4 R5 K12 ["exhaustiveMatch"]
+       31 GETTABLEKS                       R4 R0 K6 ["Src"]
+       33 GETTABLEKS                       R4 R4 K11 ["Util"]
+       35 GETTABLEKS                       R4 R4 K12 ["exhaustiveMatch"]
        37 CALL                             R3 1 1
        38 DUPCLOSURE                       R4 K13 [PROTO_6]
        39 CAPTURE                          VAL R3

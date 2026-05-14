@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["TableHeader"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["TableHeader"]
         6 NEWTABLE                         R3 0 0
         8 GETIMPORT                        R4 K4 [ipairs]
        10 GETTABLEKS                       R5 R1 K5 ["Groups"]
@@ -9,20 +9,20 @@ PROTO_0:
        13 FORGPREP_INEXT                   R4
        14 GETTABLEKS                       R9 R8 K6 ["Name"]
        16 GETTABLEKS                       R10 R8 K6 ["Name"]
-       18 GETUPVAL                         R12 0
-       19 GETTABLEKS                       R11 R12 K7 ["createElement"]
+       18 GETUPVAL                         R11 0
+       19 GETTABLEKS                       R11 R11 K7 ["createElement"]
        21 GETUPVAL                         R12 1
        22 DUPTABLE                         R13 K12 [{"Size", "Style", "StyleModifier", "LayoutOrder"}]
-       23 GETUPVAL                         R15 2
-       24 GETTABLEKS                       R14 R15 K13 ["GridHeaderLabelSize"]
+       23 GETUPVAL                         R14 2
+       24 GETTABLEKS                       R14 R14 K13 ["GridHeaderLabelSize"]
        26 SETTABLEKS                       R14 R13 K8 ["Size"]
        28 LOADK                            R14 K14 ["GroupLabel"]
        29 SETTABLEKS                       R14 R13 K9 ["Style"]
        31 GETTABLEKS                       R15 R8 K6 ["Name"]
        33 GETTABLEKS                       R16 R1 K15 ["ColHovered"]
        35 JUMPIFNOTEQ                      R15 R16 ; [+5]
-       37 GETUPVAL                         R15 3
-       38 GETTABLEKS                       R14 R15 K16 ["Hover"]
+       37 GETUPVAL                         R14 3
+       38 GETTABLEKS                       R14 R14 K16 ["Hover"]
        40 JUMP                             ; [+1]
        41 LOADNIL                          R14
        42 SETTABLEKS                       R14 R13 K10 ["StyleModifier"]
@@ -31,8 +31,8 @@ PROTO_0:
        47 SUB                              R14 R15 R7
        48 SETTABLEKS                       R14 R13 K11 ["LayoutOrder"]
        50 DUPTABLE                         R14 K18 [{"TextLabel"}]
-       51 GETUPVAL                         R16 0
-       52 GETTABLEKS                       R15 R16 K7 ["createElement"]
+       51 GETUPVAL                         R15 0
+       52 GETTABLEKS                       R15 R15 K7 ["createElement"]
        54 GETUPVAL                         R16 4
        55 DUPTABLE                         R17 K22 [{"Style", "TextWrapped", "TextTruncate", "Size", "Text"}]
        56 LOADK                            R18 K14 ["GroupLabel"]
@@ -54,16 +54,16 @@ PROTO_0:
        80 CALL                             R11 3 1
        81 SETTABLE                         R11 R3 R10
        82 FORGLOOP                         R4 2 [inext] ; [-69]
-       84 GETUPVAL                         R5 0
-       85 GETTABLEKS                       R4 R5 K7 ["createElement"]
+       84 GETUPVAL                         R4 0
+       85 GETTABLEKS                       R4 R4 K7 ["createElement"]
        87 GETUPVAL                         R5 1
        88 DUPTABLE                         R6 K32 [{"Size", "LayoutOrder", "Layout", "Padding", "Spacing"}]
        89 GETIMPORT                        R7 K28 [UDim2.new]
        91 LOADN                            R8 1
        92 LOADN                            R9 0
        93 LOADN                            R10 0
-       94 GETUPVAL                         R12 2
-       95 GETTABLEKS                       R11 R12 K33 ["GroupRowHeight"]
+       94 GETUPVAL                         R11 2
+       95 GETTABLEKS                       R11 R11 K33 ["GroupRowHeight"]
        97 CALL                             R7 4 1
        98 SETTABLEKS                       R7 R6 K8 ["Size"]
       100 GETTABLEKS                       R7 R1 K11 ["LayoutOrder"]
@@ -75,8 +75,8 @@ PROTO_0:
       112 LOADN                            R7 255
       113 SETTABLEKS                       R7 R6 K31 ["Spacing"]
       115 DUPTABLE                         R7 K39 [{"GroupCountDisplay", "Headers"}]
-      116 GETUPVAL                         R9 0
-      117 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      116 GETUPVAL                         R8 0
+      117 GETTABLEKS                       R8 R8 K7 ["createElement"]
       119 GETUPVAL                         R9 5
       120 DUPTABLE                         R10 K41 [{"GroupCount", "LayoutOrder"}]
       121 GETTABLEKS                       R12 R1 K5 ["Groups"]
@@ -86,8 +86,8 @@ PROTO_0:
       127 SETTABLEKS                       R11 R10 K11 ["LayoutOrder"]
       129 CALL                             R8 2 1
       130 SETTABLEKS                       R8 R7 K37 ["GroupCountDisplay"]
-      132 GETUPVAL                         R9 0
-      133 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      132 GETUPVAL                         R8 0
+      133 GETTABLEKS                       R8 R8 K7 ["createElement"]
       135 GETUPVAL                         R9 6
       136 DUPTABLE                         R10 K47 [{"Size", "AutomaticCanvasSize", "CanvasPosition", "ScrollingDirection", "Layout", "Padding", "LayoutOrder", "ScrollBarThickness", "ScrollingEnabled"}]
       137 GETTABLEKS                       R11 R2 K48 ["ScrollingFrameSize"]
@@ -119,35 +119,35 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R2 K9 ["UI"]
        27 GETTABLEKS                       R5 R4 K10 ["Pane"]
        29 GETTABLEKS                       R6 R4 K11 ["ScrollingFrame"]
        31 GETTABLEKS                       R7 R4 K12 ["TextLabel"]
-       33 GETTABLEKS                       R9 R2 K13 ["Util"]
-       35 GETTABLEKS                       R8 R9 K14 ["StyleModifier"]
+       33 GETTABLEKS                       R8 R2 K13 ["Util"]
+       35 GETTABLEKS                       R8 R8 K14 ["StyleModifier"]
        37 GETIMPORT                        R9 K4 [require]
-       39 GETIMPORT                        R13 K1 [script]
-       41 GETTABLEKS                       R12 R13 K2 ["Parent"]
-       43 GETTABLEKS                       R11 R12 K2 ["Parent"]
-       45 GETTABLEKS                       R10 R11 K15 ["Constants"]
+       39 GETIMPORT                        R10 K1 [script]
+       41 GETTABLEKS                       R10 R10 K2 ["Parent"]
+       43 GETTABLEKS                       R10 R10 K2 ["Parent"]
+       45 GETTABLEKS                       R10 R10 K15 ["Constants"]
        47 CALL                             R9 1 1
        48 GETIMPORT                        R10 K4 [require]
-       50 GETIMPORT                        R13 K1 [script]
-       52 GETTABLEKS                       R12 R13 K2 ["Parent"]
-       54 GETTABLEKS                       R11 R12 K16 ["GroupCountDisplay"]
+       50 GETIMPORT                        R11 K1 [script]
+       52 GETTABLEKS                       R11 R11 K2 ["Parent"]
+       54 GETTABLEKS                       R11 R11 K16 ["GroupCountDisplay"]
        56 CALL                             R10 1 1
        57 GETTABLEKS                       R11 R1 K17 ["Component"]
        59 LOADK                            R13 K18 ["TableHeader"]

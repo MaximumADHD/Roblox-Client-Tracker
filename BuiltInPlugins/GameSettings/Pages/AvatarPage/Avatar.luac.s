@@ -24,19 +24,19 @@ PROTO_0:
        27 LOADK                            R4 K16 ["universeAvatarMaxScales"]
        28 CALL                             R3 1 1
        29 SETTABLEKS                       R3 R2 K5 ["AvatarScalingMax"]
-       31 GETTABLEKS                       R5 R1 K17 ["Settings"]
-       33 GETTABLEKS                       R4 R5 K18 ["Current"]
-       35 GETTABLEKS                       R3 R4 K11 ["universeAvatarType"]
+       31 GETTABLEKS                       R3 R1 K17 ["Settings"]
+       33 GETTABLEKS                       R3 R3 K18 ["Current"]
+       35 GETTABLEKS                       R3 R3 K11 ["universeAvatarType"]
        37 SETTABLEKS                       R3 R2 K6 ["CurrentAvatarType"]
-       39 GETTABLEKS                       R5 R1 K17 ["Settings"]
-       41 GETTABLEKS                       R4 R5 K19 ["Errors"]
-       43 GETTABLEKS                       R3 R4 K14 ["universeAvatarAssetOverrides"]
+       39 GETTABLEKS                       R3 R1 K17 ["Settings"]
+       41 GETTABLEKS                       R3 R3 K19 ["Errors"]
+       43 GETTABLEKS                       R3 R3 K14 ["universeAvatarAssetOverrides"]
        45 SETTABLEKS                       R3 R2 K7 ["AssetOverrideErrors"]
-       47 GETTABLEKS                       R4 R1 K20 ["GameOwnerMetadata"]
-       49 GETTABLEKS                       R3 R4 K21 ["creatorId"]
+       47 GETTABLEKS                       R3 R1 K20 ["GameOwnerMetadata"]
+       49 GETTABLEKS                       R3 R3 K21 ["creatorId"]
        51 SETTABLEKS                       R3 R2 K8 ["OwnerId"]
-       53 GETTABLEKS                       R4 R1 K20 ["GameOwnerMetadata"]
-       55 GETTABLEKS                       R3 R4 K22 ["creatorType"]
+       53 GETTABLEKS                       R3 R1 K20 ["GameOwnerMetadata"]
+       55 GETTABLEKS                       R3 R3 K22 ["creatorType"]
        57 SETTABLEKS                       R3 R2 K9 ["OwnerType"]
        59 RETURN                           R2 1
 
@@ -68,8 +68,8 @@ PROTO_2:
         3 MOVE                             R4 R0
         4 CALL                             R2 2 -1
         5 CALL                             R1 -1 0
-        6 GETUPVAL                         R2 2
-        7 GETTABLEKS                       R1 R2 K1 ["getErrors"]
+        6 GETUPVAL                         R1 2
+        7 GETTABLEKS                       R1 R1 K1 ["getErrors"]
         9 MOVE                             R2 R0
        10 CALL                             R1 1 1
        11 JUMPIFNOT                        R1 ; [+7]
@@ -127,8 +127,8 @@ PROTO_4:
        40 RETURN                           R2 1
 
 PROTO_5:
-        0 GETIMPORT                        R3 K1 [game]
-        2 GETTABLEKS                       R2 R3 K2 ["GameId"]
+        0 GETIMPORT                        R2 K1 [game]
+        2 GETTABLEKS                       R2 R2 K2 ["GameId"]
         4 JUMPIFNOTEQKN                    R2 K3 [0] ; [+2]
         6 LOADB                            R1 0 +1
         7 LOADB                            R1 1
@@ -159,27 +159,27 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R2 0
-        1 GETIMPORT                        R4 K1 [game]
-        3 GETTABLEKS                       R3 R4 K2 ["GameId"]
+        1 GETIMPORT                        R3 K1 [game]
+        3 GETTABLEKS                       R3 R3 K2 ["GameId"]
         5 JUMPIFNOTEQKN                    R3 K3 [0] ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 JUMPIFNOT                        R1 ; [+17]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K4 ["CurrentAvatarType"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K4 ["CurrentAvatarType"]
        13 LOADB                            R1 0
        14 JUMPIFEQKS                       R2 K5 ["PlayerChoice"] ; [+5]
        16 JUMPIFNOTEQ                      R0 R2 ; [+2]
        18 LOADB                            R1 0 +1
        19 LOADB                            R1 1
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K6 ["AvatarTypeChanged"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K6 ["AvatarTypeChanged"]
        23 MOVE                             R3 R0
        24 MOVE                             R4 R1
        25 CALL                             R2 2 0
        26 RETURN                           R0 0
-       27 GETUPVAL                         R2 0
-       28 GETTABLEKS                       R1 R2 K6 ["AvatarTypeChanged"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K6 ["AvatarTypeChanged"]
        30 MOVE                             R2 R0
        31 CALL                             R1 1 0
        32 RETURN                           R0 0
@@ -189,8 +189,8 @@ PROTO_9:
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Mouse"]
         6 DUPTABLE                         R4 K4 [{"Morpher"}]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K5 ["createElement"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K5 ["createElement"]
        10 GETUPVAL                         R6 1
        11 DUPTABLE                         R7 K23 [{"ThemeData", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "AvatarType", "AvatarAnimation", "AvatarCollision", "AvatarAssetOverrides", "AvatarScalingMin", "AvatarScalingMax", "OnAvatarTypeChanged", "OnAvatarAnimationChanged", "OnAvatarCollisionChanged", "OnAvatarAssetOverridesChanged", "OnAvatarScalingMinChanged", "OnAvatarScalingMaxChanged"}]
        12 SETTABLEKS                       R2 R7 K6 ["ThemeData"]
@@ -209,8 +209,8 @@ PROTO_9:
        34 NAMECALL                         R8 R3 K26 ["get"]
        36 CALL                             R8 1 1
        37 SETTABLEKS                       R8 R7 K2 ["Mouse"]
-       39 GETIMPORT                        R10 K28 [game]
-       41 GETTABLEKS                       R9 R10 K29 ["GameId"]
+       39 GETIMPORT                        R9 K28 [game]
+       41 GETTABLEKS                       R9 R9 K29 ["GameId"]
        43 JUMPIFNOTEQKN                    R9 K30 [0] ; [+2]
        45 LOADB                            R8 0 +1
        46 LOADB                            R8 1
@@ -245,16 +245,16 @@ PROTO_9:
       100 RETURN                           R4 1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
 PROTO_11:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Settings"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Settings"]
         4 MOVE                             R3 R0
         5 CALL                             R1 2 -1
         6 RETURN                           R1 -1
@@ -303,65 +303,65 @@ MAIN:
         3 LOADK                            R2 K2 ["StudioService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [script]
-        9 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       11 GETIMPORT                        R5 K5 [script]
-       13 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       15 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       17 GETTABLEKS                       R2 R3 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETIMPORT                        R2 K5 [script]
+       13 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K6 ["Parent"]
        19 GETIMPORT                        R3 K8 [require]
-       21 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       23 GETTABLEKS                       R4 R5 K10 ["Roact"]
+       21 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K10 ["Roact"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K8 [require]
-       28 GETTABLEKS                       R6 R2 K9 ["Packages"]
-       30 GETTABLEKS                       R5 R6 K11 ["RoactRodux"]
+       28 GETTABLEKS                       R5 R2 K9 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K11 ["RoactRodux"]
        32 CALL                             R4 1 1
-       33 GETIMPORT                        R6 K8 [require]
-       35 GETTABLEKS                       R8 R2 K9 ["Packages"]
-       37 GETTABLEKS                       R7 R8 K12 ["Framework"]
-       39 CALL                             R6 1 1
-       40 GETTABLEKS                       R5 R6 K13 ["ContextServices"]
+       33 GETIMPORT                        R5 K8 [require]
+       35 GETTABLEKS                       R6 R2 K9 ["Packages"]
+       37 GETTABLEKS                       R6 R6 K12 ["Framework"]
+       39 CALL                             R5 1 1
+       40 GETTABLEKS                       R5 R5 K13 ["ContextServices"]
        42 GETTABLEKS                       R6 R5 K14 ["withContext"]
        44 GETIMPORT                        R7 K8 [require]
-       46 GETTABLEKS                       R10 R2 K15 ["Src"]
-       48 GETTABLEKS                       R9 R10 K16 ["Actions"]
-       50 GETTABLEKS                       R8 R9 K17 ["AddChange"]
+       46 GETTABLEKS                       R8 R2 K15 ["Src"]
+       48 GETTABLEKS                       R8 R8 K16 ["Actions"]
+       50 GETTABLEKS                       R8 R8 K17 ["AddChange"]
        52 CALL                             R7 1 1
        53 GETIMPORT                        R8 K8 [require]
-       55 GETTABLEKS                       R11 R2 K15 ["Src"]
-       57 GETTABLEKS                       R10 R11 K16 ["Actions"]
-       59 GETTABLEKS                       R9 R10 K18 ["AddWarning"]
+       55 GETTABLEKS                       R9 R2 K15 ["Src"]
+       57 GETTABLEKS                       R9 R9 K16 ["Actions"]
+       59 GETTABLEKS                       R9 R9 K18 ["AddWarning"]
        61 CALL                             R8 1 1
        62 GETIMPORT                        R9 K8 [require]
-       64 GETTABLEKS                       R12 R2 K15 ["Src"]
-       66 GETTABLEKS                       R11 R12 K16 ["Actions"]
-       68 GETTABLEKS                       R10 R11 K19 ["DiscardWarning"]
+       64 GETTABLEKS                       R10 R2 K15 ["Src"]
+       66 GETTABLEKS                       R10 R10 K16 ["Actions"]
+       68 GETTABLEKS                       R10 R10 K19 ["DiscardWarning"]
        70 CALL                             R9 1 1
        71 GETIMPORT                        R10 K8 [require]
-       73 GETTABLEKS                       R12 R1 K16 ["Actions"]
-       75 GETTABLEKS                       R11 R12 K20 ["SettingsSaveScaleBoundaries"]
+       73 GETTABLEKS                       R11 R1 K16 ["Actions"]
+       75 GETTABLEKS                       R11 R11 K20 ["SettingsSaveScaleBoundaries"]
        77 CALL                             R10 1 1
        78 GETIMPORT                        R11 K8 [require]
-       80 GETTABLEKS                       R14 R2 K15 ["Src"]
-       82 GETTABLEKS                       R13 R14 K21 ["Util"]
-       84 GETTABLEKS                       R12 R13 K22 ["AssetOverrides"]
+       80 GETTABLEKS                       R12 R2 K15 ["Src"]
+       82 GETTABLEKS                       R12 R12 K21 ["Util"]
+       84 GETTABLEKS                       R12 R12 K22 ["AssetOverrides"]
        86 CALL                             R11 1 1
        87 GETIMPORT                        R12 K8 [require]
-       89 GETTABLEKS                       R15 R2 K15 ["Src"]
-       91 GETTABLEKS                       R14 R15 K16 ["Actions"]
-       93 GETTABLEKS                       R13 R14 K23 ["AddErrors"]
+       89 GETTABLEKS                       R13 R2 K15 ["Src"]
+       91 GETTABLEKS                       R13 R13 K16 ["Actions"]
+       93 GETTABLEKS                       R13 R13 K23 ["AddErrors"]
        95 CALL                             R12 1 1
        96 GETIMPORT                        R13 K8 [require]
-       98 GETTABLEKS                       R15 R1 K24 ["Components"]
-      100 GETTABLEKS                       R14 R15 K25 ["RootPanelExternal"]
+       98 GETTABLEKS                       R14 R1 K24 ["Components"]
+      100 GETTABLEKS                       R14 R14 K25 ["RootPanelExternal"]
       102 CALL                             R13 1 1
       103 GETIMPORT                        R14 K8 [require]
-      105 GETTABLEKS                       R16 R1 K24 ["Components"]
-      107 GETTABLEKS                       R15 R16 K26 ["RedirectToAvatarSettings"]
+      105 GETTABLEKS                       R15 R1 K24 ["Components"]
+      107 GETTABLEKS                       R15 R15 K26 ["RedirectToAvatarSettings"]
       109 CALL                             R14 1 1
-      110 GETIMPORT                        R16 K5 [script]
-      112 GETTABLEKS                       R15 R16 K27 ["Name"]
+      110 GETIMPORT                        R15 K5 [script]
+      112 GETTABLEKS                       R15 R15 K27 ["Name"]
       114 DUPCLOSURE                       R16 K28 [PROTO_0]
       115 DUPCLOSURE                       R17 K29 [PROTO_4]
       116 CAPTURE                          VAL R8
@@ -373,8 +373,8 @@ MAIN:
       122 DUPCLOSURE                       R18 K30 [PROTO_5]
       123 DUPCLOSURE                       R19 K31 [PROTO_6]
       124 GETTABLEKS                       R20 R3 K32 ["PureComponent"]
-      126 GETIMPORT                        R23 K5 [script]
-      128 GETTABLEKS                       R22 R23 K27 ["Name"]
+      126 GETIMPORT                        R22 K5 [script]
+      128 GETTABLEKS                       R22 R22 K27 ["Name"]
       130 NAMECALL                         R20 R20 K33 ["extend"]
       132 CALL                             R20 2 1
       133 DUPCLOSURE                       R21 K34 [PROTO_7]
@@ -401,9 +401,9 @@ MAIN:
       163 CALL                             R21 1 1
       164 MOVE                             R20 R21
       165 GETIMPORT                        R21 K8 [require]
-      167 GETTABLEKS                       R24 R2 K15 ["Src"]
-      169 GETTABLEKS                       R23 R24 K44 ["Networking"]
-      171 GETTABLEKS                       R22 R23 K45 ["settingFromState"]
+      167 GETTABLEKS                       R22 R2 K15 ["Src"]
+      169 GETTABLEKS                       R22 R22 K44 ["Networking"]
+      171 GETTABLEKS                       R22 R22 K45 ["settingFromState"]
       173 CALL                             R21 1 1
       174 GETTABLEKS                       R22 R4 K46 ["connect"]
       176 DUPCLOSURE                       R23 K47 [PROTO_12]

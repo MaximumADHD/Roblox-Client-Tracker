@@ -24,8 +24,8 @@ PROTO_0:
        35 GETTABLEKS                       R9 R0 K5 ["Position"]
        37 CALL                             R7 2 -1
        38 SETLIST                          R2 R3 -1 [1]
-       40 GETUPVAL                         R4 0
-       41 GETTABLEKS                       R3 R4 K6 ["makePolarCurve"]
+       40 GETUPVAL                         R3 0
+       41 GETTABLEKS                       R3 R3 K6 ["makePolarCurve"]
        43 MOVE                             R4 R2
        44 LOADB                            R5 1
        45 GETTABLEKS                       R6 R0 K7 ["PlotAbsoluteSize"]
@@ -44,15 +44,15 @@ PROTO_0:
        66 LOADN                            R6 1
        67 CALL                             R4 2 -1
        68 SETLIST                          R2 R3 -1 [1]
-       70 GETUPVAL                         R4 0
-       71 GETTABLEKS                       R3 R4 K6 ["makePolarCurve"]
+       70 GETUPVAL                         R3 0
+       71 GETTABLEKS                       R3 R3 K6 ["makePolarCurve"]
        73 MOVE                             R4 R2
        74 LOADB                            R5 1
        75 GETTABLEKS                       R6 R0 K7 ["PlotAbsoluteSize"]
        77 CALL                             R3 3 1
        78 MOVE                             R1 R3
-       79 GETUPVAL                         R3 1
-       80 GETTABLEKS                       R2 R3 K9 ["createElement"]
+       79 GETUPVAL                         R2 1
+       80 GETTABLEKS                       R2 R2 K9 ["createElement"]
        82 GETUPVAL                         R3 2
        83 DUPTABLE                         R4 K11 [{"Size"}]
        84 GETIMPORT                        R5 K14 [UDim2.fromScale]
@@ -61,8 +61,8 @@ PROTO_0:
        88 CALL                             R5 2 1
        89 SETTABLEKS                       R5 R4 K10 ["Size"]
        91 DUPTABLE                         R5 K16 [{"Path"}]
-       92 GETUPVAL                         R7 1
-       93 GETTABLEKS                       R6 R7 K9 ["createElement"]
+       92 GETUPVAL                         R6 1
+       93 GETTABLEKS                       R6 R6 K9 ["createElement"]
        95 GETUPVAL                         R7 3
        96 DUPTABLE                         R8 K19 [{"ControlPoints", "Tag"}]
        97 SETTABLEKS                       R1 R8 K17 ["ControlPoints"]
@@ -75,22 +75,22 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K1 [script]
         7 LOADK                            R3 K3 ["DirectionalCurveEditor"]
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       13 GETTABLEKS                       R3 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K8 ["React"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K6 [require]
-       20 GETTABLEKS                       R5 R1 K7 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       20 GETTABLEKS                       R4 R1 K7 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K9 ["Framework"]
        24 CALL                             R3 1 1
-       25 GETTABLEKS                       R5 R3 K10 ["UI"]
-       27 GETTABLEKS                       R4 R5 K11 ["Pane"]
+       25 GETTABLEKS                       R4 R3 K10 ["UI"]
+       27 GETTABLEKS                       R4 R4 K11 ["Pane"]
        29 GETIMPORT                        R5 K6 [require]
        31 GETTABLEKS                       R6 R0 K12 ["Path2DWrapper"]
        33 CALL                             R5 1 1

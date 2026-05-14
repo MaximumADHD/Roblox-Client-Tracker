@@ -44,8 +44,8 @@ PROTO_4:
         8 RETURN                           R2 -1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createReducer"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createReducer"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K6 [{"SetGamepadEnabled", "SetKeyboardEnabled", "SetMouseClickEnabled", "SetMouseMoveEnabled", "SetTouchEnabled"}]
         5 DUPCLOSURE                       R3 K7 [PROTO_0]
@@ -94,49 +94,49 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R2 K8 ["Dictionary"]
-       25 GETTABLEKS                       R3 R4 K9 ["join"]
+       23 GETTABLEKS                       R3 R2 K8 ["Dictionary"]
+       25 GETTABLEKS                       R3 R3 K9 ["join"]
        27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Actions"]
-       33 GETTABLEKS                       R6 R7 K12 ["EventTypeEnabled"]
-       35 GETTABLEKS                       R5 R6 K13 ["SetGamepadEnabled"]
+       29 GETTABLEKS                       R5 R0 K10 ["Src"]
+       31 GETTABLEKS                       R5 R5 K11 ["Actions"]
+       33 GETTABLEKS                       R5 R5 K12 ["EventTypeEnabled"]
+       35 GETTABLEKS                       R5 R5 K13 ["SetGamepadEnabled"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K4 [require]
-       40 GETTABLEKS                       R9 R0 K10 ["Src"]
-       42 GETTABLEKS                       R8 R9 K11 ["Actions"]
-       44 GETTABLEKS                       R7 R8 K12 ["EventTypeEnabled"]
-       46 GETTABLEKS                       R6 R7 K14 ["SetKeyboardEnabled"]
+       40 GETTABLEKS                       R6 R0 K10 ["Src"]
+       42 GETTABLEKS                       R6 R6 K11 ["Actions"]
+       44 GETTABLEKS                       R6 R6 K12 ["EventTypeEnabled"]
+       46 GETTABLEKS                       R6 R6 K14 ["SetKeyboardEnabled"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K4 [require]
-       51 GETTABLEKS                       R10 R0 K10 ["Src"]
-       53 GETTABLEKS                       R9 R10 K11 ["Actions"]
-       55 GETTABLEKS                       R8 R9 K12 ["EventTypeEnabled"]
-       57 GETTABLEKS                       R7 R8 K15 ["SetMouseClickEnabled"]
+       51 GETTABLEKS                       R7 R0 K10 ["Src"]
+       53 GETTABLEKS                       R7 R7 K11 ["Actions"]
+       55 GETTABLEKS                       R7 R7 K12 ["EventTypeEnabled"]
+       57 GETTABLEKS                       R7 R7 K15 ["SetMouseClickEnabled"]
        59 CALL                             R6 1 1
        60 GETIMPORT                        R7 K4 [require]
-       62 GETTABLEKS                       R11 R0 K10 ["Src"]
-       64 GETTABLEKS                       R10 R11 K11 ["Actions"]
-       66 GETTABLEKS                       R9 R10 K12 ["EventTypeEnabled"]
-       68 GETTABLEKS                       R8 R9 K16 ["SetMouseMoveEnabled"]
+       62 GETTABLEKS                       R8 R0 K10 ["Src"]
+       64 GETTABLEKS                       R8 R8 K11 ["Actions"]
+       66 GETTABLEKS                       R8 R8 K12 ["EventTypeEnabled"]
+       68 GETTABLEKS                       R8 R8 K16 ["SetMouseMoveEnabled"]
        70 CALL                             R7 1 1
        71 GETIMPORT                        R8 K4 [require]
-       73 GETTABLEKS                       R12 R0 K10 ["Src"]
-       75 GETTABLEKS                       R11 R12 K11 ["Actions"]
-       77 GETTABLEKS                       R10 R11 K12 ["EventTypeEnabled"]
-       79 GETTABLEKS                       R9 R10 K17 ["SetTouchEnabled"]
+       73 GETTABLEKS                       R9 R0 K10 ["Src"]
+       75 GETTABLEKS                       R9 R9 K11 ["Actions"]
+       77 GETTABLEKS                       R9 R9 K12 ["EventTypeEnabled"]
+       79 GETTABLEKS                       R9 R9 K17 ["SetTouchEnabled"]
        81 CALL                             R8 1 1
        82 DUPTABLE                         R9 K23 [{"mouseMove", "mouseClick", "keyboard", "gamepad", "touch"}]
        83 LOADB                            R10 1

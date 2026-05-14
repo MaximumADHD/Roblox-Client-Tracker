@@ -12,31 +12,31 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [require]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["Packages"]
-        5 GETTABLEKS                       R2 R3 K3 ["React"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Packages"]
+        5 GETTABLEKS                       R2 R2 K3 ["React"]
         7 CALL                             R1 1 1
         8 GETIMPORT                        R2 K1 [require]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K2 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K4 ["ReactRoblox"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["Packages"]
+       13 GETTABLEKS                       R3 R3 K4 ["ReactRoblox"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K1 [require]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K5 ["Src"]
-       21 GETTABLEKS                       R4 R5 K6 ["VisualizationModesPlugin"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K5 ["Src"]
+       21 GETTABLEKS                       R4 R4 K6 ["VisualizationModesPlugin"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K1 [require]
-       26 GETUPVAL                         R8 0
-       27 GETTABLEKS                       R7 R8 K5 ["Src"]
-       29 GETTABLEKS                       R6 R7 K7 ["Modes"]
-       31 GETTABLEKS                       R5 R6 K8 ["StudioVisualizationModeProvider"]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K5 ["Src"]
+       29 GETTABLEKS                       R5 R5 K7 ["Modes"]
+       31 GETTABLEKS                       R5 R5 K8 ["StudioVisualizationModeProvider"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K1 [require]
-       36 GETUPVAL                         R9 0
-       37 GETTABLEKS                       R8 R9 K5 ["Src"]
-       39 GETTABLEKS                       R7 R8 K9 ["Util"]
-       41 GETTABLEKS                       R6 R7 K10 ["Maid"]
+       36 GETUPVAL                         R6 0
+       37 GETTABLEKS                       R6 R6 K5 ["Src"]
+       39 GETTABLEKS                       R6 R6 K9 ["Util"]
+       41 GETTABLEKS                       R6 R6 K10 ["Maid"]
        43 CALL                             R5 1 1
        44 GETTABLEKS                       R6 R5 K11 ["new"]
        46 CALL                             R6 0 1

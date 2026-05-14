@@ -29,12 +29,12 @@ PROTO_0:
        38 CALL                             R4 3 1
        39 MOVE                             R3 R4
        40 GETUPVAL                         R4 3
-       41 GETUPVAL                         R7 4
-       42 GETTABLEKS                       R6 R7 K8 ["RIBBON_DEFINITION"]
-       44 GETUPVAL                         R8 5
-       45 GETTABLEKS                       R7 R8 K9 ["joinDeep"]
-       47 GETUPVAL                         R9 4
-       48 GETTABLEKS                       R8 R9 K10 ["DEFAULT_METADATA"]
+       41 GETUPVAL                         R6 4
+       42 GETTABLEKS                       R6 R6 K8 ["RIBBON_DEFINITION"]
+       44 GETUPVAL                         R7 5
+       45 GETTABLEKS                       R7 R7 K9 ["joinDeep"]
+       47 GETUPVAL                         R8 4
+       48 GETTABLEKS                       R8 R8 K10 ["DEFAULT_METADATA"]
        50 DUPTABLE                         R9 K12 [{"customFields"}]
        51 DUPTABLE                         R10 K16 [{"ribbonDefinition", "sessionId", "clientId"}]
        52 SETTABLEKS                       R3 R10 K13 ["ribbonDefinition"]
@@ -71,22 +71,22 @@ MAIN:
        22 NAMECALL                         R3 R3 K7 ["GetService"]
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
-       27 GETTABLEKS                       R6 R0 K12 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K13 ["Dash"]
+       27 GETTABLEKS                       R5 R0 K12 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K13 ["Dash"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K11 [require]
-       34 GETTABLEKS                       R8 R0 K14 ["Src"]
-       36 GETTABLEKS                       R7 R8 K15 ["Resources"]
-       38 GETTABLEKS                       R6 R7 K16 ["TelemetryConfigs"]
+       34 GETTABLEKS                       R6 R0 K14 ["Src"]
+       36 GETTABLEKS                       R6 R6 K15 ["Resources"]
+       38 GETTABLEKS                       R6 R6 K16 ["TelemetryConfigs"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K11 [require]
-       43 GETTABLEKS                       R8 R0 K14 ["Src"]
-       45 GETTABLEKS                       R7 R8 K17 ["Types"]
+       43 GETTABLEKS                       R7 R0 K14 ["Src"]
+       45 GETTABLEKS                       R7 R7 K17 ["Types"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K11 [require]
-       50 GETTABLEKS                       R10 R0 K14 ["Src"]
-       52 GETTABLEKS                       R9 R10 K18 ["Util"]
-       54 GETTABLEKS                       R8 R9 K19 ["stringToControlsIdentifier"]
+       50 GETTABLEKS                       R8 R0 K14 ["Src"]
+       52 GETTABLEKS                       R8 R8 K18 ["Util"]
+       54 GETTABLEKS                       R8 R8 K19 ["stringToControlsIdentifier"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K5 [game]
        59 LOADK                            R10 K20 ["RibbonDefinitionEventMaxStringLength"]

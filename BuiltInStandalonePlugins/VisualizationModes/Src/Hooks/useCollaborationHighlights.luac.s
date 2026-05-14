@@ -17,8 +17,8 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ToggleSelectionHighlightsSignal"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ToggleSelectionHighlightsSignal"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 NAMECALL                         R0 R0 K1 ["Connect"]
@@ -35,19 +35,19 @@ PROTO_4:
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Context"]
-        6 CALL                             R1 1 1
-        7 GETTABLEKS                       R0 R1 K2 ["collaboratorsService"]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K3 ["useState"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useContext"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Context"]
+        6 CALL                             R0 1 1
+        7 GETTABLEKS                       R0 R0 K2 ["collaboratorsService"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K3 ["useState"]
        12 NEWCLOSURE                       R2 P0
        13 CAPTURE                          VAL R0
        14 CALL                             R1 1 2
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K4 ["useEffect"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K4 ["useEffect"]
        18 NEWCLOSURE                       R4 P1
        19 CAPTURE                          VAL R0
        20 CAPTURE                          VAL R2
@@ -55,8 +55,8 @@ PROTO_5:
        23 MOVE                             R6 R2
        24 SETLIST                          R5 R6 1 [1]
        26 CALL                             R3 2 0
-       27 GETUPVAL                         R4 0
-       28 GETTABLEKS                       R3 R4 K4 ["useEffect"]
+       27 GETUPVAL                         R3 0
+       28 GETTABLEKS                       R3 R3 K4 ["useEffect"]
        30 NEWCLOSURE                       R4 P2
        31 CAPTURE                          VAL R0
        32 CAPTURE                          VAL R1
@@ -73,13 +73,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Contexts"]
-       13 GETTABLEKS                       R2 R3 K8 ["CollaboratorsServiceContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Contexts"]
+       13 GETTABLEKS                       R2 R2 K8 ["CollaboratorsServiceContext"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["React"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["React"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_5]
        24 CAPTURE                          VAL R2

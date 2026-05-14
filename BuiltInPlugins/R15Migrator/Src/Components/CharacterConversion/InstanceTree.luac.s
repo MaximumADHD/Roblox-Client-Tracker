@@ -51,15 +51,15 @@ PROTO_2:
         4 NAMECALL                         R3 R0 K0 ["GetChildren"]
         6 CALL                             R3 1 1
         7 GETTABLEN                        R2 R3 1
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K1 ["isValidDisplayInstance"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K1 ["isValidDisplayInstance"]
        11 CALL                             R1 2 1
        12 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["Selection"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["Selection"]
         5 MOVE                             R2 R1
         6 LOADNIL                          R3
         7 LOADNIL                          R4
@@ -75,13 +75,13 @@ PROTO_3:
        18 SETTABLEKS                       R0 R4 K1 ["Selection"]
        20 NAMECALL                         R2 R2 K3 ["setState"]
        22 CALL                             R2 2 0
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K4 ["props"]
-       26 GETTABLEKS                       R2 R3 K5 ["OnSelectionChange"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K4 ["props"]
+       26 GETTABLEKS                       R2 R2 K5 ["OnSelectionChange"]
        28 JUMPIFNOT                        R2 ; [+7]
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K4 ["props"]
-       32 GETTABLEKS                       R2 R3 K5 ["OnSelectionChange"]
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K4 ["props"]
+       32 GETTABLEKS                       R2 R2 K5 ["OnSelectionChange"]
        34 MOVE                             R3 R0
        35 CALL                             R2 1 0
        36 RETURN                           R0 0
@@ -89,12 +89,12 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R1 0
         1 DUPTABLE                         R3 K1 [{"Expansion"}]
-        2 GETUPVAL                         R6 1
-        3 GETTABLEKS                       R5 R6 K2 ["Dictionary"]
-        5 GETTABLEKS                       R4 R5 K3 ["join"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K4 ["state"]
-       10 GETTABLEKS                       R5 R6 K0 ["Expansion"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K2 ["Dictionary"]
+        5 GETTABLEKS                       R4 R4 K3 ["join"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K4 ["state"]
+       10 GETTABLEKS                       R5 R5 K0 ["Expansion"]
        12 MOVE                             R6 R0
        13 CALL                             R4 2 1
        14 SETTABLEKS                       R4 R3 K0 ["Expansion"]
@@ -104,8 +104,8 @@ PROTO_4:
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["getInstanceTreeRoot"]
-        2 GETTABLEKS                       R3 R0 K1 ["props"]
-        4 GETTABLEKS                       R2 R3 K2 ["Instance"]
+        2 GETTABLEKS                       R2 R0 K1 ["props"]
+        4 GETTABLEKS                       R2 R2 K2 ["Instance"]
         6 CALL                             R1 1 1
         7 SETTABLEKS                       R1 R0 K3 ["instanceTreeRoot"]
         9 DUPTABLE                         R1 K6 [{"Expansion", "Selection"}]
@@ -129,8 +129,8 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K11 [{"Size", "LayoutOrder", "Instances", "Selection", "Expansion", "OnSelectionChange", "OnExpansionChange", "Style"}]
         9 GETIMPORT                        R6 K14 [UDim2.fromScale]
@@ -138,18 +138,18 @@ PROTO_6:
        12 LOADN                            R8 1
        13 CALL                             R6 2 1
        14 SETTABLEKS                       R6 R5 K3 ["Size"]
-       16 GETTABLEKS                       R7 R0 K0 ["props"]
-       18 GETTABLEKS                       R6 R7 K4 ["LayoutOrder"]
+       16 GETTABLEKS                       R6 R0 K0 ["props"]
+       18 GETTABLEKS                       R6 R6 K4 ["LayoutOrder"]
        20 SETTABLEKS                       R6 R5 K4 ["LayoutOrder"]
        22 NEWTABLE                         R6 0 1
        24 GETTABLEKS                       R7 R0 K15 ["instanceTreeRoot"]
        26 SETLIST                          R6 R7 1 [1]
        28 SETTABLEKS                       R6 R5 K5 ["Instances"]
-       30 GETTABLEKS                       R7 R0 K16 ["state"]
-       32 GETTABLEKS                       R6 R7 K6 ["Selection"]
+       30 GETTABLEKS                       R6 R0 K16 ["state"]
+       32 GETTABLEKS                       R6 R6 K6 ["Selection"]
        34 SETTABLEKS                       R6 R5 K6 ["Selection"]
-       36 GETTABLEKS                       R7 R0 K16 ["state"]
-       38 GETTABLEKS                       R6 R7 K7 ["Expansion"]
+       36 GETTABLEKS                       R6 R0 K16 ["state"]
+       38 GETTABLEKS                       R6 R6 K7 ["Expansion"]
        40 SETTABLEKS                       R6 R5 K7 ["Expansion"]
        42 GETTABLEKS                       R6 R0 K17 ["onSelectionChanged"]
        44 SETTABLEKS                       R6 R5 K8 ["OnSelectionChange"]
@@ -162,12 +162,12 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R2 R1 K0 ["Instance"]
-        2 GETTABLEKS                       R4 R0 K1 ["props"]
-        4 GETTABLEKS                       R3 R4 K0 ["Instance"]
+        2 GETTABLEKS                       R3 R0 K1 ["props"]
+        4 GETTABLEKS                       R3 R3 K0 ["Instance"]
         6 JUMPIFEQ                         R2 R3 ; [+27]
         8 GETTABLEKS                       R2 R0 K2 ["getInstanceTreeRoot"]
-       10 GETTABLEKS                       R4 R0 K1 ["props"]
-       12 GETTABLEKS                       R3 R4 K0 ["Instance"]
+       10 GETTABLEKS                       R3 R0 K1 ["props"]
+       12 GETTABLEKS                       R3 R3 K0 ["Instance"]
        14 CALL                             R2 1 1
        15 SETTABLEKS                       R2 R0 K3 ["instanceTreeRoot"]
        17 DUPTABLE                         R4 K6 [{"Expansion", "Selection"}]
@@ -182,12 +182,12 @@ PROTO_7:
        32 CALL                             R2 2 0
        33 RETURN                           R0 0
        34 GETTABLEKS                       R2 R1 K5 ["Selection"]
-       36 GETTABLEKS                       R4 R0 K1 ["props"]
-       38 GETTABLEKS                       R3 R4 K5 ["Selection"]
+       36 GETTABLEKS                       R3 R0 K1 ["props"]
+       38 GETTABLEKS                       R3 R3 K5 ["Selection"]
        40 JUMPIFEQ                         R2 R3 ; [+28]
        42 NEWTABLE                         R2 0 0
-       44 GETTABLEKS                       R6 R0 K1 ["props"]
-       46 GETTABLEKS                       R3 R6 K5 ["Selection"]
+       44 GETTABLEKS                       R3 R0 K1 ["props"]
+       46 GETTABLEKS                       R3 R3 K5 ["Selection"]
        48 LOADNIL                          R4
        49 LOADNIL                          R5
        50 FORGPREP                         R3
@@ -213,16 +213,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Roact"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Roact"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R2 K11 ["UI"]

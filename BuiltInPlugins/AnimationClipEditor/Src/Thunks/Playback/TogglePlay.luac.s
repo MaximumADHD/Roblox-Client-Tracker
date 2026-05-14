@@ -5,30 +5,30 @@ PROTO_0:
         5 JUMPIFNOT                        R2 ; [+45]
         6 GETTABLEKS                       R3 R2 K2 ["Metadata"]
         8 JUMPIFNOT                        R3 ; [+42]
-        9 GETTABLEKS                       R4 R2 K2 ["Metadata"]
-       11 GETTABLEKS                       R3 R4 K3 ["EndTick"]
+        9 GETTABLEKS                       R3 R2 K2 ["Metadata"]
+       11 GETTABLEKS                       R3 R3 K3 ["EndTick"]
        13 LOADN                            R4 0
        14 JUMPIFNOTLT                      R4 R3 ; [+36]
-       16 NAMECALL                         R5 R0 K0 ["getState"]
-       18 CALL                             R5 1 1
-       19 GETTABLEKS                       R4 R5 K4 ["Status"]
-       21 GETTABLEKS                       R3 R4 K5 ["PlayState"]
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R5 R6 K6 ["PLAY_STATE"]
-       26 GETTABLEKS                       R4 R5 K7 ["Pause"]
+       16 NAMECALL                         R3 R0 K0 ["getState"]
+       18 CALL                             R3 1 1
+       19 GETTABLEKS                       R3 R3 K4 ["Status"]
+       21 GETTABLEKS                       R3 R3 K5 ["PlayState"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K6 ["PLAY_STATE"]
+       26 GETTABLEKS                       R4 R4 K7 ["Pause"]
        28 JUMPIFNOTEQ                      R3 R4 ; [+12]
        30 GETUPVAL                         R5 1
-       31 GETUPVAL                         R8 0
-       32 GETTABLEKS                       R7 R8 K6 ["PLAY_STATE"]
-       34 GETTABLEKS                       R6 R7 K8 ["Play"]
+       31 GETUPVAL                         R6 0
+       32 GETTABLEKS                       R6 R6 K6 ["PLAY_STATE"]
+       34 GETTABLEKS                       R6 R6 K8 ["Play"]
        36 CALL                             R5 1 -1
        37 NAMECALL                         R3 R0 K9 ["dispatch"]
        39 CALL                             R3 -1 0
        40 JUMP                             ; [+10]
        41 GETUPVAL                         R5 1
-       42 GETUPVAL                         R8 0
-       43 GETTABLEKS                       R7 R8 K6 ["PLAY_STATE"]
-       45 GETTABLEKS                       R6 R7 K7 ["Pause"]
+       42 GETUPVAL                         R6 0
+       43 GETTABLEKS                       R6 R6 K6 ["PLAY_STATE"]
+       45 GETTABLEKS                       R6 R6 K7 ["Pause"]
        47 CALL                             R5 1 -1
        48 NAMECALL                         R3 R0 K9 ["dispatch"]
        50 CALL                             R3 -1 0
@@ -53,14 +53,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["Actions"]
-       22 GETTABLEKS                       R3 R4 K10 ["SetPlayState"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K10 ["SetPlayState"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K11 [PROTO_1]
        26 CAPTURE                          VAL R1

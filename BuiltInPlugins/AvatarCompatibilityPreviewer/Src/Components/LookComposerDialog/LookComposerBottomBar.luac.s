@@ -61,23 +61,23 @@ PROTO_0:
        74 LOADK                            R10 K14 ["Cancel"]
        75 NAMECALL                         R7 R1 K8 ["getText"]
        77 CALL                             R7 3 1
-       78 GETUPVAL                         R9 2
-       79 GETTABLEKS                       R8 R9 K15 ["createElement"]
+       78 GETUPVAL                         R8 2
+       79 GETTABLEKS                       R8 R8 K15 ["createElement"]
        81 GETUPVAL                         R9 3
        82 DUPTABLE                         R10 K22 [{"text", "variant", "onActivated", "icon", "LayoutOrder", "isDisabled"}]
        83 SETTABLEKS                       R6 R10 K16 ["text"]
-       85 GETUPVAL                         R14 4
-       86 GETTABLEKS                       R13 R14 K23 ["Enums"]
-       88 GETTABLEKS                       R12 R13 K24 ["ButtonVariant"]
-       90 GETTABLEKS                       R11 R12 K25 ["Emphasis"]
+       85 GETUPVAL                         R11 4
+       86 GETTABLEKS                       R11 R11 K23 ["Enums"]
+       88 GETTABLEKS                       R11 R11 K24 ["ButtonVariant"]
+       90 GETTABLEKS                       R11 R11 K25 ["Emphasis"]
        92 SETTABLEKS                       R11 R10 K17 ["variant"]
        94 GETTABLEKS                       R11 R0 K26 ["onForward"]
        96 SETTABLEKS                       R11 R10 K18 ["onActivated"]
        98 JUMPIFNOT                        R4 ; [+8]
-       99 GETUPVAL                         R14 4
-      100 GETTABLEKS                       R13 R14 K23 ["Enums"]
-      102 GETTABLEKS                       R12 R13 K27 ["IconName"]
-      104 GETTABLEKS                       R11 R12 K28 ["ArrowUpRightFromSquare"]
+       99 GETUPVAL                         R11 4
+      100 GETTABLEKS                       R11 R11 K23 ["Enums"]
+      102 GETTABLEKS                       R11 R11 K27 ["IconName"]
+      104 GETTABLEKS                       R11 R11 K28 ["ArrowUpRightFromSquare"]
       106 JUMP                             ; [+1]
       107 LOADNIL                          R11
       108 SETTABLEKS                       R11 R10 K19 ["icon"]
@@ -86,8 +86,8 @@ PROTO_0:
       113 GETTABLEKS                       R11 R0 K29 ["isForwardDisabled"]
       115 SETTABLEKS                       R11 R10 K21 ["isDisabled"]
       117 CALL                             R8 2 1
-      118 GETUPVAL                         R10 2
-      119 GETTABLEKS                       R9 R10 K15 ["createElement"]
+      118 GETUPVAL                         R9 2
+      119 GETTABLEKS                       R9 R9 K15 ["createElement"]
       121 GETUPVAL                         R10 5
       122 DUPTABLE                         R11 K31 [{"tag", "LayoutOrder"}]
       123 LOADK                            R12 K32 ["row gap-medium align-x-right align-y-center padding-large bg-surface-100 size-full-0 auto-y"]
@@ -97,8 +97,8 @@ PROTO_0:
       130 DUPTABLE                         R12 K35 [{"PrimaryButton", "SecondaryButton"}]
       131 SETTABLEKS                       R8 R12 K33 ["PrimaryButton"]
       133 JUMPIF                           R5 ; [+20]
-      134 GETUPVAL                         R14 2
-      135 GETTABLEKS                       R13 R14 K15 ["createElement"]
+      134 GETUPVAL                         R13 2
+      135 GETTABLEKS                       R13 R13 K15 ["createElement"]
       137 GETUPVAL                         R14 3
       138 DUPTABLE                         R15 K36 [{"text", "onActivated", "LayoutOrder", "isDisabled"}]
       139 SETTABLEKS                       R7 R15 K16 ["text"]
@@ -122,29 +122,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
        23 GETTABLEKS                       R4 R2 K10 ["Button"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R6 R7 K11 ["Framework"]
+       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R6 R6 K11 ["Framework"]
        31 CALL                             R5 1 1
-       32 GETTABLEKS                       R7 R5 K12 ["ContextServices"]
-       34 GETTABLEKS                       R6 R7 K13 ["Localization"]
+       32 GETTABLEKS                       R6 R5 K12 ["ContextServices"]
+       34 GETTABLEKS                       R6 R6 K13 ["Localization"]
        36 GETIMPORT                        R7 K5 [require]
-       38 GETTABLEKS                       R9 R0 K14 ["Src"]
-       40 GETTABLEKS                       R8 R9 K15 ["Types"]
+       38 GETTABLEKS                       R8 R0 K14 ["Src"]
+       40 GETTABLEKS                       R8 R8 K15 ["Types"]
        42 CALL                             R7 1 1
        43 GETIMPORT                        R8 K5 [require]
-       45 GETTABLEKS                       R11 R0 K14 ["Src"]
-       47 GETTABLEKS                       R10 R11 K16 ["Flags"]
-       49 GETTABLEKS                       R9 R10 K17 ["getFFlagAvatarPreviewerLookComposer"]
+       45 GETTABLEKS                       R9 R0 K14 ["Src"]
+       47 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       49 GETTABLEKS                       R9 R9 K17 ["getFFlagAvatarPreviewerLookComposer"]
        51 CALL                             R8 1 1
        52 DUPCLOSURE                       R9 K18 [PROTO_0]
        53 CAPTURE                          VAL R8

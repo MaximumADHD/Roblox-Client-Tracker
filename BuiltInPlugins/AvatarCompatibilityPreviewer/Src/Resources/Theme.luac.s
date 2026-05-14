@@ -5,72 +5,72 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["Style"]
        23 GETTABLEKS                       R4 R3 K10 ["StyleKey"]
-       25 GETTABLEKS                       R6 R2 K11 ["Util"]
-       27 GETTABLEKS                       R5 R6 K12 ["StyleModifier"]
+       25 GETTABLEKS                       R5 R2 K11 ["Util"]
+       27 GETTABLEKS                       R5 R5 K12 ["StyleModifier"]
        29 GETTABLEKS                       R6 R3 K13 ["ComponentSymbols"]
        31 GETTABLEKS                       R7 R2 K14 ["UIData"]
        33 GETIMPORT                        R8 K5 [require]
-       35 GETTABLEKS                       R10 R7 K15 ["Alert"]
-       37 GETTABLEKS                       R9 R10 K16 ["style"]
+       35 GETTABLEKS                       R9 R7 K15 ["Alert"]
+       37 GETTABLEKS                       R9 R9 K16 ["style"]
        39 CALL                             R8 1 1
        40 GETIMPORT                        R9 K5 [require]
-       42 GETTABLEKS                       R11 R7 K17 ["Button"]
-       44 GETTABLEKS                       R10 R11 K16 ["style"]
+       42 GETTABLEKS                       R10 R7 K17 ["Button"]
+       44 GETTABLEKS                       R10 R10 K16 ["style"]
        46 CALL                             R9 1 1
        47 GETIMPORT                        R10 K5 [require]
-       49 GETTABLEKS                       R12 R7 K18 ["DropdownMenu"]
-       51 GETTABLEKS                       R11 R12 K16 ["style"]
+       49 GETTABLEKS                       R11 R7 K18 ["DropdownMenu"]
+       51 GETTABLEKS                       R11 R11 K16 ["style"]
        53 CALL                             R10 1 1
        54 GETIMPORT                        R11 K5 [require]
-       56 GETTABLEKS                       R13 R7 K19 ["IconButton"]
-       58 GETTABLEKS                       R12 R13 K16 ["style"]
+       56 GETTABLEKS                       R12 R7 K19 ["IconButton"]
+       58 GETTABLEKS                       R12 R12 K16 ["style"]
        60 CALL                             R11 1 1
        61 GETIMPORT                        R12 K5 [require]
-       63 GETTABLEKS                       R14 R7 K20 ["Image"]
-       65 GETTABLEKS                       R13 R14 K16 ["style"]
+       63 GETTABLEKS                       R13 R7 K20 ["Image"]
+       65 GETTABLEKS                       R13 R13 K16 ["style"]
        67 CALL                             R12 1 1
        68 GETIMPORT                        R13 K5 [require]
-       70 GETTABLEKS                       R15 R7 K21 ["Pane"]
-       72 GETTABLEKS                       R14 R15 K16 ["style"]
+       70 GETTABLEKS                       R14 R7 K21 ["Pane"]
+       72 GETTABLEKS                       R14 R14 K16 ["style"]
        74 CALL                             R13 1 1
        75 GETIMPORT                        R14 K5 [require]
-       77 GETTABLEKS                       R16 R7 K22 ["ScrollingFrame"]
-       79 GETTABLEKS                       R15 R16 K16 ["style"]
+       77 GETTABLEKS                       R15 R7 K22 ["ScrollingFrame"]
+       79 GETTABLEKS                       R15 R15 K16 ["style"]
        81 CALL                             R14 1 1
        82 GETIMPORT                        R15 K5 [require]
-       84 GETTABLEKS                       R17 R7 K23 ["SelectInput"]
-       86 GETTABLEKS                       R16 R17 K16 ["style"]
+       84 GETTABLEKS                       R16 R7 K23 ["SelectInput"]
+       86 GETTABLEKS                       R16 R16 K16 ["style"]
        88 CALL                             R15 1 1
        89 GETIMPORT                        R16 K5 [require]
-       91 GETTABLEKS                       R18 R7 K24 ["Separator"]
-       93 GETTABLEKS                       R17 R18 K16 ["style"]
+       91 GETTABLEKS                       R17 R7 K24 ["Separator"]
+       93 GETTABLEKS                       R17 R17 K16 ["style"]
        95 CALL                             R16 1 1
        96 GETIMPORT                        R17 K5 [require]
-       98 GETTABLEKS                       R19 R7 K25 ["SimpleTab"]
-      100 GETTABLEKS                       R18 R19 K16 ["style"]
+       98 GETTABLEKS                       R18 R7 K25 ["SimpleTab"]
+      100 GETTABLEKS                       R18 R18 K16 ["style"]
       102 CALL                             R17 1 1
       103 GETIMPORT                        R18 K5 [require]
-      105 GETTABLEKS                       R20 R7 K26 ["Tooltip"]
-      107 GETTABLEKS                       R19 R20 K16 ["style"]
+      105 GETTABLEKS                       R19 R7 K26 ["Tooltip"]
+      107 GETTABLEKS                       R19 R19 K16 ["style"]
       109 CALL                             R18 1 1
       110 GETIMPORT                        R19 K5 [require]
-      112 GETTABLEKS                       R22 R0 K27 ["Src"]
-      114 GETTABLEKS                       R21 R22 K28 ["Flags"]
-      116 GETTABLEKS                       R20 R21 K29 ["getFFlagAvatarPreviewerEditingTools"]
+      112 GETTABLEKS                       R20 R0 K27 ["Src"]
+      114 GETTABLEKS                       R20 R20 K28 ["Flags"]
+      116 GETTABLEKS                       R20 R20 K29 ["getFFlagAvatarPreviewerEditingTools"]
       118 CALL                             R19 1 1
       119 GETIMPORT                        R20 K5 [require]
-      121 GETTABLEKS                       R23 R0 K27 ["Src"]
-      123 GETTABLEKS                       R22 R23 K28 ["Flags"]
-      125 GETTABLEKS                       R21 R22 K30 ["getFFlagAvatarPreviewerSortClothingUI"]
+      121 GETTABLEKS                       R21 R0 K27 ["Src"]
+      123 GETTABLEKS                       R21 R21 K28 ["Flags"]
+      125 GETTABLEKS                       R21 R21 K30 ["getFFlagAvatarPreviewerSortClothingUI"]
       127 CALL                             R20 1 1
       128 GETIMPORT                        R21 K32 [game]
       130 LOADK                            R23 K33 ["DebugAvatarPreviewerDropdownMenuInfiniteMaxHeight"]
@@ -174,8 +174,8 @@ MAIN:
       273 SETTABLEKS                       R25 R24 K81 ["BackgroundColor"]
       275 GETTABLEKS                       R25 R4 K85 ["ActionHover"]
       277 SETTABLEKS                       R25 R24 K82 ["BackgroundColorHover"]
-      279 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-      281 GETTABLEKS                       R25 R26 K87 ["join"]
+      279 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+      281 GETTABLEKS                       R25 R25 K87 ["join"]
       283 MOVE                             R26 R14
       284 DUPTABLE                         R27 K92 [{"BackgroundColor3", "BackgroundTransparency", "Padding", "ScrollBarThickness", "Spacing"}]
       285 GETTABLEKS                       R28 R4 K84 ["SubBackground2"]
@@ -382,8 +382,8 @@ MAIN:
       579 CALL                             R23 2 0
       580 GETTABLEKS                       R23 R6 K159 ["Catalog"]
       582 DUPTABLE                         R24 K162 [{"ScrollingFrame", "ScrollingFrameHeight", "CellSize"}]
-      583 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-      585 GETTABLEKS                       R25 R26 K87 ["join"]
+      583 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+      585 GETTABLEKS                       R25 R25 K87 ["join"]
       587 MOVE                             R26 R14
       588 DUPTABLE                         R27 K165 [{"BorderColor3", "Padding", "ScrollBarThickness", "VerticalScrollBarInset"}]
       589 GETTABLEKS                       R28 R4 K166 ["Border"]
@@ -830,15 +830,15 @@ MAIN:
      1235 LOADN                            R28 43
      1236 CALL                             R25 3 1
      1237 SETTABLEKS                       R25 R24 K295 ["IconColor"]
-     1239 GETTABLEKS                       R27 R2 K9 ["Style"]
-     1241 GETTABLEKS                       R26 R27 K301 ["Colors"]
-     1243 GETTABLEKS                       R25 R26 K302 ["Gray_Mid"]
+     1239 GETTABLEKS                       R25 R2 K9 ["Style"]
+     1241 GETTABLEKS                       R25 R25 K301 ["Colors"]
+     1243 GETTABLEKS                       R25 R25 K302 ["Gray_Mid"]
      1245 SETTABLEKS                       R25 R24 K296 ["LineColor"]
      1247 GETIMPORT                        R25 K303 [Font.new]
-     1249 GETIMPORT                        R27 K305 [Font.fromEnum]
-     1251 GETIMPORT                        R28 K207 [Enum.Font.SourceSans]
-     1253 CALL                             R27 1 1
-     1254 GETTABLEKS                       R26 R27 K306 ["Family"]
+     1249 GETIMPORT                        R26 K305 [Font.fromEnum]
+     1251 GETIMPORT                        R27 K207 [Enum.Font.SourceSans]
+     1253 CALL                             R26 1 1
+     1254 GETTABLEKS                       R26 R26 K306 ["Family"]
      1256 GETIMPORT                        R27 K309 [Enum.FontWeight.SemiBold]
      1258 CALL                             R25 2 1
      1259 SETTABLEKS                       R25 R24 K297 ["FontFace"]
@@ -1135,8 +1135,8 @@ MAIN:
      1679 SETTABLEKS                       R24 R23 K56 ["Size"]
      1681 GETTABLEKS                       R24 R6 K380 ["UGCValidationStatusIcon"]
      1683 NEWTABLE                         R25 4 0
-     1685 GETTABLEKS                       R27 R1 K86 ["Dictionary"]
-     1687 GETTABLEKS                       R26 R27 K87 ["join"]
+     1685 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
+     1687 GETTABLEKS                       R26 R26 K87 ["join"]
      1689 MOVE                             R27 R23
      1690 DUPTABLE                         R28 K382 [{"Color", "Image"}]
      1691 GETTABLEKS                       R29 R4 K373 ["WarningText"]
@@ -1145,8 +1145,8 @@ MAIN:
      1696 SETTABLEKS                       R29 R28 K20 ["Image"]
      1698 CALL                             R26 2 1
      1699 SETTABLEKS                       R26 R25 K383 ["&Failure"]
-     1701 GETTABLEKS                       R27 R1 K86 ["Dictionary"]
-     1703 GETTABLEKS                       R26 R27 K87 ["join"]
+     1701 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
+     1703 GETTABLEKS                       R26 R26 K87 ["join"]
      1705 MOVE                             R27 R23
      1706 DUPTABLE                         R28 K138 [{"Image"}]
      1707 GETTABLEKS                       R29 R4 K384 ["UGCValidationSuccessImage"]
@@ -1260,12 +1260,12 @@ MAIN:
      1862 SETTABLEKS                       R26 R25 K416 ["NeutralTransparency"]
      1864 SETTABLE                         R25 R22 R24
      1865 GETTABLEKS                       R24 R6 K15 ["Alert"]
-     1867 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     1869 GETTABLEKS                       R25 R26 K87 ["join"]
+     1867 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     1869 GETTABLEKS                       R25 R25 K87 ["join"]
      1871 MOVE                             R26 R8
      1872 NEWTABLE                         R27 8 0
-     1874 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     1876 GETTABLEKS                       R28 R29 K87 ["join"]
+     1874 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     1876 GETTABLEKS                       R28 R28 K87 ["join"]
      1878 GETTABLEKS                       R29 R8 K418 ["&Warning"]
      1880 DUPTABLE                         R30 K421 [{"HorizontalPadding", "TopPadding"}]
      1881 GETIMPORT                        R31 K52 [UDim.new]
@@ -1280,8 +1280,8 @@ MAIN:
      1893 SETTABLEKS                       R31 R30 K420 ["TopPadding"]
      1895 CALL                             R28 2 1
      1896 SETTABLEKS                       R28 R27 K418 ["&Warning"]
-     1898 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     1900 GETTABLEKS                       R28 R29 K87 ["join"]
+     1898 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     1900 GETTABLEKS                       R28 R28 K87 ["join"]
      1902 GETTABLEKS                       R29 R8 K422 ["&Error"]
      1904 DUPTABLE                         R30 K421 [{"HorizontalPadding", "TopPadding"}]
      1905 GETIMPORT                        R31 K52 [UDim.new]
@@ -1296,8 +1296,8 @@ MAIN:
      1917 SETTABLEKS                       R31 R30 K420 ["TopPadding"]
      1919 CALL                             R28 2 1
      1920 SETTABLEKS                       R28 R27 K422 ["&Error"]
-     1922 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     1924 GETTABLEKS                       R28 R29 K87 ["join"]
+     1922 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     1924 GETTABLEKS                       R28 R28 K87 ["join"]
      1926 GETTABLEKS                       R29 R8 K385 ["&Success"]
      1928 DUPTABLE                         R30 K421 [{"HorizontalPadding", "TopPadding"}]
      1929 GETIMPORT                        R31 K52 [UDim.new]
@@ -1312,8 +1312,8 @@ MAIN:
      1941 SETTABLEKS                       R31 R30 K420 ["TopPadding"]
      1943 CALL                             R28 2 1
      1944 SETTABLEKS                       R28 R27 K385 ["&Success"]
-     1946 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     1948 GETTABLEKS                       R28 R29 K87 ["join"]
+     1946 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     1948 GETTABLEKS                       R28 R28 K87 ["join"]
      1950 GETTABLEKS                       R29 R8 K423 ["&Info"]
      1952 DUPTABLE                         R30 K421 [{"HorizontalPadding", "TopPadding"}]
      1953 GETIMPORT                        R31 K52 [UDim.new]
@@ -1328,8 +1328,8 @@ MAIN:
      1965 SETTABLEKS                       R31 R30 K420 ["TopPadding"]
      1967 CALL                             R28 2 1
      1968 SETTABLEKS                       R28 R27 K423 ["&Info"]
-     1970 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     1972 GETTABLEKS                       R28 R29 K87 ["join"]
+     1970 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     1972 GETTABLEKS                       R28 R28 K87 ["join"]
      1974 GETTABLEKS                       R29 R8 K418 ["&Warning"]
      1976 DUPTABLE                         R30 K424 [{"HorizontalPadding", "TopPadding", "MaxWidth"}]
      1977 GETIMPORT                        R31 K52 [UDim.new]
@@ -1349,16 +1349,16 @@ MAIN:
      1997 CALL                             R25 2 1
      1998 SETTABLE                         R25 R22 R24
      1999 GETTABLEKS                       R24 R6 K17 ["Button"]
-     2001 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2003 GETTABLEKS                       R25 R26 K87 ["join"]
+     2001 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2003 GETTABLEKS                       R25 R25 K87 ["join"]
      2005 MOVE                             R26 R9
      2006 NEWTABLE                         R27 1 0
-     2008 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     2010 GETTABLEKS                       R28 R29 K87 ["join"]
+     2008 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     2010 GETTABLEKS                       R28 R28 K87 ["join"]
      2012 GETTABLEKS                       R29 R9 K426 ["&Round"]
      2014 NEWTABLE                         R30 2 0
-     2016 GETTABLEKS                       R32 R1 K86 ["Dictionary"]
-     2018 GETTABLEKS                       R31 R32 K87 ["join"]
+     2016 GETTABLEKS                       R31 R1 K86 ["Dictionary"]
+     2018 GETTABLEKS                       R31 R31 K87 ["join"]
      2020 GETTABLEKS                       R32 R9 K427 ["BackgroundStyle"]
      2022 DUPTABLE                         R33 K428 [{"BorderColor"}]
      2023 GETTABLEKS                       R34 R4 K429 ["SubText"]
@@ -1366,16 +1366,16 @@ MAIN:
      2027 CALL                             R31 2 1
      2028 SETTABLEKS                       R31 R30 K427 ["BackgroundStyle"]
      2030 GETTABLEKS                       R31 R5 K430 ["Hover"]
-     2032 GETTABLEKS                       R33 R1 K86 ["Dictionary"]
-     2034 GETTABLEKS                       R32 R33 K87 ["join"]
+     2032 GETTABLEKS                       R32 R1 K86 ["Dictionary"]
+     2034 GETTABLEKS                       R32 R32 K87 ["join"]
      2036 GETTABLEKS                       R34 R5 K430 ["Hover"]
      2038 GETTABLE                         R33 R9 R34
      2039 DUPTABLE                         R34 K431 [{"BackgroundStyle"}]
-     2040 GETTABLEKS                       R36 R1 K86 ["Dictionary"]
-     2042 GETTABLEKS                       R35 R36 K87 ["join"]
-     2044 GETTABLEKS                       R38 R5 K430 ["Hover"]
-     2046 GETTABLE                         R37 R9 R38
-     2047 GETTABLEKS                       R36 R37 K427 ["BackgroundStyle"]
+     2040 GETTABLEKS                       R35 R1 K86 ["Dictionary"]
+     2042 GETTABLEKS                       R35 R35 K87 ["join"]
+     2044 GETTABLEKS                       R37 R5 K430 ["Hover"]
+     2046 GETTABLE                         R36 R9 R37
+     2047 GETTABLEKS                       R36 R36 K427 ["BackgroundStyle"]
      2049 DUPTABLE                         R37 K428 [{"BorderColor"}]
      2050 GETTABLEKS                       R38 R4 K429 ["SubText"]
      2052 SETTABLEKS                       R38 R37 K326 ["BorderColor"]
@@ -1389,8 +1389,8 @@ MAIN:
      2063 SETTABLE                         R25 R22 R24
      2064 JUMPIFNOT                        R21 ; [+36]
      2065 GETTABLEKS                       R24 R6 K18 ["DropdownMenu"]
-     2067 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2069 GETTABLEKS                       R25 R26 K87 ["join"]
+     2067 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2069 GETTABLEKS                       R25 R25 K87 ["join"]
      2071 MOVE                             R26 R10
      2072 DUPTABLE                         R27 K434 [{"MaxHeight"}]
      2073 LOADK                            R28 K179 ["Color"]
@@ -1398,12 +1398,12 @@ MAIN:
      2076 CALL                             R25 2 1
      2077 SETTABLE                         R25 R22 R24
      2078 GETTABLEKS                       R24 R6 K23 ["SelectInput"]
-     2080 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2082 GETTABLEKS                       R25 R26 K87 ["join"]
+     2080 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2082 GETTABLEKS                       R25 R25 K87 ["join"]
      2084 MOVE                             R26 R15
      2085 DUPTABLE                         R27 K436 [{"DropdownMenu"}]
-     2086 GETTABLEKS                       R29 R1 K86 ["Dictionary"]
-     2088 GETTABLEKS                       R28 R29 K87 ["join"]
+     2086 GETTABLEKS                       R28 R1 K86 ["Dictionary"]
+     2088 GETTABLEKS                       R28 R28 K87 ["join"]
      2090 GETTABLEKS                       R29 R15 K18 ["DropdownMenu"]
      2092 DUPTABLE                         R30 K434 [{"MaxHeight"}]
      2093 LOADK                            R31 K179 ["Color"]
@@ -1413,8 +1413,8 @@ MAIN:
      2099 CALL                             R25 2 1
      2100 SETTABLE                         R25 R22 R24
      2101 GETTABLEKS                       R24 R6 K19 ["IconButton"]
-     2103 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2105 GETTABLEKS                       R25 R26 K87 ["join"]
+     2103 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2105 GETTABLEKS                       R25 R25 K87 ["join"]
      2107 MOVE                             R26 R11
      2108 NEWTABLE                         R27 1 0
      2110 DUPTABLE                         R28 K437 [{"BackgroundColor", "TextColor", "Hover"}]
@@ -1430,8 +1430,8 @@ MAIN:
      2128 CALL                             R25 2 1
      2129 SETTABLE                         R25 R22 R24
      2130 GETTABLEKS                       R24 R6 K20 ["Image"]
-     2132 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2134 GETTABLEKS                       R25 R26 K87 ["join"]
+     2132 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2134 GETTABLEKS                       R25 R25 K87 ["join"]
      2136 MOVE                             R26 R12
      2137 NEWTABLE                         R27 16 0
      2139 DUPTABLE                         R28 K442 [{"Image", "Size"}]
@@ -1499,8 +1499,8 @@ MAIN:
      2243 CALL                             R25 2 1
      2244 SETTABLE                         R25 R22 R24
      2245 GETTABLEKS                       R24 R6 K24 ["Separator"]
-     2247 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2249 GETTABLEKS                       R25 R26 K87 ["join"]
+     2247 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2249 GETTABLEKS                       R25 R25 K87 ["join"]
      2251 MOVE                             R26 R16
      2252 NEWTABLE                         R27 1 0
      2254 DUPTABLE                         R28 K467 [{"StretchMargin"}]
@@ -1510,8 +1510,8 @@ MAIN:
      2260 CALL                             R25 2 1
      2261 SETTABLE                         R25 R22 R24
      2262 GETTABLEKS                       R24 R6 K21 ["Pane"]
-     2264 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2266 GETTABLEKS                       R25 R26 K87 ["join"]
+     2264 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2266 GETTABLEKS                       R25 R25 K87 ["join"]
      2268 MOVE                             R26 R13
      2269 NEWTABLE                         R27 4 0
      2271 NEWTABLE                         R28 4 0
@@ -1554,8 +1554,8 @@ MAIN:
      2329 CALL                             R25 2 1
      2330 SETTABLE                         R25 R22 R24
      2331 GETTABLEKS                       R24 R6 K25 ["SimpleTab"]
-     2333 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2335 GETTABLEKS                       R25 R26 K87 ["join"]
+     2333 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2335 GETTABLEKS                       R25 R25 K87 ["join"]
      2337 MOVE                             R26 R17
      2338 NEWTABLE                         R27 2 0
      2340 NEWTABLE                         R28 8 0
@@ -1594,8 +1594,8 @@ MAIN:
      2393 CALL                             R25 2 1
      2394 SETTABLE                         R25 R22 R24
      2395 GETTABLEKS                       R24 R6 K26 ["Tooltip"]
-     2397 GETTABLEKS                       R26 R1 K86 ["Dictionary"]
-     2399 GETTABLEKS                       R25 R26 K87 ["join"]
+     2397 GETTABLEKS                       R25 R1 K86 ["Dictionary"]
+     2399 GETTABLEKS                       R25 R25 K87 ["join"]
      2401 MOVE                             R26 R18
      2402 NEWTABLE                         R27 1 0
      2404 DUPTABLE                         R28 K486 [{"ShowDelay"}]

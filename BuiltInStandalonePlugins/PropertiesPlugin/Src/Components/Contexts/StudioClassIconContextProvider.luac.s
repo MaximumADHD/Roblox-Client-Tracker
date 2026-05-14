@@ -10,10 +10,10 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["Components"]
-        4 GETTABLEKS                       R3 R4 K1 ["Contexts"]
-        6 GETTABLEKS                       R2 R3 K2 ["ClassIconContextProvider"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Components"]
+        4 GETTABLEKS                       R2 R2 K1 ["Contexts"]
+        6 GETTABLEKS                       R2 R2 K2 ["ClassIconContextProvider"]
         8 DUPTABLE                         R3 K4 [{"getClassIcon"}]
         9 DUPCLOSURE                       R4 K5 [PROTO_0]
        10 CAPTURE                          UPVAL U2
@@ -33,12 +33,12 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Properties"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Properties"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["React"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["React"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R3 K13 ["createElement"]
        29 DUPCLOSURE                       R5 K14 [PROTO_1]

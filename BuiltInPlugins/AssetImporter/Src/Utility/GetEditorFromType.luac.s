@@ -26,10 +26,10 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetImporter"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R4 R0 K4 ["Src"]
-        9 GETTABLEKS                       R3 R4 K5 ["Components"]
-       11 GETTABLEKS                       R2 R3 K6 ["Properties"]
-       13 GETTABLEKS                       R1 R2 K7 ["Types"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Components"]
+       11 GETTABLEKS                       R1 R1 K6 ["Properties"]
+       13 GETTABLEKS                       R1 R1 K7 ["Types"]
        15 GETIMPORT                        R2 K9 [require]
        17 GETTABLEKS                       R3 R1 K10 ["BooleanProperty"]
        19 CALL                             R2 1 1

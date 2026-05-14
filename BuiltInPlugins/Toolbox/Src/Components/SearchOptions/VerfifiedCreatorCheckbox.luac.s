@@ -15,11 +15,11 @@ PROTO_0:
        19 LOADK                            R10 K8 ["SearchOptionsIncludeUnverifiedTooltip"]
        20 NAMECALL                         R7 R4 K6 ["getText"]
        22 CALL                             R7 3 1
-       23 GETUPVAL                         R9 0
-       24 GETTABLEKS                       R8 R9 K9 ["new"]
+       23 GETUPVAL                         R8 0
+       24 GETTABLEKS                       R8 R8 K9 ["new"]
        26 CALL                             R8 0 1
-       27 GETUPVAL                         R10 1
-       28 GETTABLEKS                       R9 R10 K10 ["createElement"]
+       27 GETUPVAL                         R9 1
+       28 GETTABLEKS                       R9 R9 K10 ["createElement"]
        30 GETUPVAL                         R10 2
        31 DUPTABLE                         R11 K16 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
        32 GETIMPORT                        R12 K19 [Enum.AutomaticSize.XY]
@@ -33,8 +33,8 @@ PROTO_0:
        48 LOADN                            R12 3
        49 SETTABLEKS                       R12 R11 K15 ["Spacing"]
        51 DUPTABLE                         R12 K27 [{"IncludeUnverifiedToggle", "VerifiedDescriptionContainer"}]
-       52 GETUPVAL                         R14 1
-       53 GETTABLEKS                       R13 R14 K10 ["createElement"]
+       52 GETUPVAL                         R13 1
+       53 GETTABLEKS                       R13 R13 K10 ["createElement"]
        55 GETUPVAL                         R14 3
        56 DUPTABLE                         R15 K32 [{"Checked", "LayoutOrder", "OnClick", "Text", "TextWrapped"}]
        57 GETTABLEKS                       R16 R1 K33 ["IsChecked"]
@@ -49,8 +49,8 @@ PROTO_0:
        73 SETTABLEKS                       R16 R15 K31 ["TextWrapped"]
        75 CALL                             R13 2 1
        76 SETTABLEKS                       R13 R12 K25 ["IncludeUnverifiedToggle"]
-       78 GETUPVAL                         R14 1
-       79 GETTABLEKS                       R13 R14 K10 ["createElement"]
+       78 GETUPVAL                         R13 1
+       79 GETTABLEKS                       R13 R13 K10 ["createElement"]
        81 GETUPVAL                         R14 2
        82 DUPTABLE                         R15 K37 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Spacing", "VerticalAlignment"}]
        83 GETIMPORT                        R16 K19 [Enum.AutomaticSize.XY]
@@ -71,8 +71,8 @@ PROTO_0:
       109 GETIMPORT                        R16 K42 [Enum.VerticalAlignment.Top]
       111 SETTABLEKS                       R16 R15 K36 ["VerticalAlignment"]
       113 DUPTABLE                         R16 K45 [{"Image", "VerifiedDescription"}]
-      114 GETUPVAL                         R18 1
-      115 GETTABLEKS                       R17 R18 K10 ["createElement"]
+      114 GETUPVAL                         R17 1
+      115 GETTABLEKS                       R17 R17 K10 ["createElement"]
       117 GETUPVAL                         R18 4
       118 DUPTABLE                         R19 K49 [{"AnchorPoint", "Image", "ImageColor3", "LayoutOrder", "Size"}]
       119 GETIMPORT                        R20 K51 [Vector2.new]
@@ -80,8 +80,8 @@ PROTO_0:
       122 LOADK                            R22 K52 [0.5]
       123 CALL                             R20 2 1
       124 SETTABLEKS                       R20 R19 K46 ["AnchorPoint"]
-      126 GETUPVAL                         R21 5
-      127 GETTABLEKS                       R20 R21 K53 ["WARNING_ICON_SMALL"]
+      126 GETUPVAL                         R20 5
+      127 GETTABLEKS                       R20 R20 K53 ["WARNING_ICON_SMALL"]
       129 SETTABLEKS                       R20 R19 K43 ["Image"]
       131 GETTABLEKS                       R20 R3 K54 ["warningIconColor"]
       133 SETTABLEKS                       R20 R19 K47 ["ImageColor3"]
@@ -94,8 +94,8 @@ PROTO_0:
       144 CALL                             R20 2 1
       145 SETTABLEKS                       R20 R19 K48 ["Size"]
       147 DUPTABLE                         R20 K59 [{"Tooltip"}]
-      148 GETUPVAL                         R22 1
-      149 GETTABLEKS                       R21 R22 K10 ["createElement"]
+      148 GETUPVAL                         R21 1
+      149 GETTABLEKS                       R21 R21 K10 ["createElement"]
       151 GETUPVAL                         R22 6
       152 DUPTABLE                         R23 K61 [{"Text", "Priority"}]
       153 SETTABLEKS                       R7 R23 K30 ["Text"]
@@ -105,8 +105,8 @@ PROTO_0:
       159 SETTABLEKS                       R21 R20 K58 ["Tooltip"]
       161 CALL                             R17 3 1
       162 SETTABLEKS                       R17 R16 K43 ["Image"]
-      164 GETUPVAL                         R18 1
-      165 GETTABLEKS                       R17 R18 K10 ["createElement"]
+      164 GETUPVAL                         R17 1
+      165 GETTABLEKS                       R17 R17 K10 ["createElement"]
       167 GETUPVAL                         R18 7
       168 DUPTABLE                         R19 K65 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextSize", "TextWrapped", "TextXAlignment"}]
       169 GETIMPORT                        R20 K19 [Enum.AutomaticSize.XY]
@@ -143,18 +143,18 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Framework"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R0 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Util"]
+       19 GETTABLEKS                       R4 R0 K9 ["Src"]
+       21 GETTABLEKS                       R4 R4 K10 ["Util"]
        23 GETIMPORT                        R5 K6 [require]
        25 GETTABLEKS                       R6 R4 K11 ["Images"]
        27 CALL                             R5 1 1
-       28 GETTABLEKS                       R7 R3 K12 ["UI"]
-       30 GETTABLEKS                       R6 R7 K13 ["Checkbox"]
+       28 GETTABLEKS                       R6 R3 K12 ["UI"]
+       30 GETTABLEKS                       R6 R6 K13 ["Checkbox"]
        32 GETTABLEKS                       R7 R3 K12 ["UI"]
        34 GETTABLEKS                       R8 R7 K14 ["Image"]
        36 GETTABLEKS                       R9 R7 K15 ["TextLabel"]
-       38 GETTABLEKS                       R11 R3 K10 ["Util"]
-       40 GETTABLEKS                       R10 R11 K16 ["LayoutOrderIterator"]
+       38 GETTABLEKS                       R10 R3 K10 ["Util"]
+       40 GETTABLEKS                       R10 R10 K16 ["LayoutOrderIterator"]
        42 GETTABLEKS                       R11 R7 K17 ["Pane"]
        44 GETTABLEKS                       R12 R7 K18 ["Tooltip"]
        46 GETTABLEKS                       R13 R3 K19 ["ContextServices"]

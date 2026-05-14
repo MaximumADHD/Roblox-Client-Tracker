@@ -14,27 +14,27 @@ PROTO_0:
        17 LOADK                            R3 K6 ["rbxasset://Textures/PivotEditor/SelectedPivot.png"]
        18 GETUPVAL                         R5 0
        19 GETTABLEKS                       R4 R5 K7 ["WHITE"]
-       21 GETTABLEKS                       R8 R1 K8 ["Pivot"]
-       23 GETTABLEKS                       R7 R8 K9 ["Position"]
+       21 GETTABLEKS                       R7 R1 K8 ["Pivot"]
+       23 GETTABLEKS                       R7 R7 K9 ["Position"]
        25 NAMECALL                         R5 R2 K10 ["worldToViewportPoint"]
        27 CALL                             R5 2 2
        28 JUMPIFNOT                        R6 ; [+69]
-       29 GETUPVAL                         R8 1
-       30 GETTABLEKS                       R7 R8 K11 ["createElement"]
-       32 GETUPVAL                         R9 1
-       33 GETTABLEKS                       R8 R9 K12 ["Portal"]
+       29 GETUPVAL                         R7 1
+       30 GETTABLEKS                       R7 R7 K11 ["createElement"]
+       32 GETUPVAL                         R8 1
+       33 GETTABLEKS                       R8 R8 K12 ["Portal"]
        35 DUPTABLE                         R9 K14 [{"target"}]
        36 NAMECALL                         R10 R2 K15 ["getGuiParent"]
        38 CALL                             R10 1 1
        39 SETTABLEKS                       R10 R9 K13 ["target"]
        41 DUPTABLE                         R10 K17 [{"PivotHoverHighlight"}]
-       42 GETUPVAL                         R12 1
-       43 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       42 GETUPVAL                         R11 1
+       43 GETTABLEKS                       R11 R11 K11 ["createElement"]
        45 LOADK                            R12 K18 ["ScreenGui"]
        46 NEWTABLE                         R13 0 0
        48 DUPTABLE                         R14 K20 [{"PivotHoverImage"}]
-       49 GETUPVAL                         R16 1
-       50 GETTABLEKS                       R15 R16 K11 ["createElement"]
+       49 GETUPVAL                         R15 1
+       50 GETTABLEKS                       R15 R15 K11 ["createElement"]
        52 LOADK                            R16 K21 ["ImageLabel"]
        53 DUPTABLE                         R17 K27 [{"Image", "ImageColor3", "Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
        54 SETTABLEKS                       R3 R17 K22 ["Image"]
@@ -73,19 +73,19 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R5 R6 K7 ["DraggerFramework"]
-       22 GETTABLEKS                       R4 R5 K8 ["Utility"]
-       24 GETTABLEKS                       R3 R4 K9 ["Colors"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["DraggerFramework"]
+       22 GETTABLEKS                       R3 R3 K8 ["Utility"]
+       24 GETTABLEKS                       R3 R3 K9 ["Colors"]
        26 CALL                             R2 1 1
        27 GETTABLEKS                       R3 R1 K10 ["Component"]
        29 LOADK                            R5 K11 ["PivotRing"]

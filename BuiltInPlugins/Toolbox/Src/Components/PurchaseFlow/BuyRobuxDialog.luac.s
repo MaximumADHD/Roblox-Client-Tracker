@@ -8,8 +8,8 @@ PROTO_0:
        12 GETTABLEKS                       R7 R1 K6 ["Cost"]
        14 GETTABLEKS                       R8 R1 K7 ["Balance"]
        16 SUB                              R9 R7 R8
-       17 GETUPVAL                         R11 0
-       18 GETTABLEKS                       R10 R11 K8 ["createElement"]
+       17 GETUPVAL                         R10 0
+       18 GETTABLEKS                       R10 R10 K8 ["createElement"]
        20 GETUPVAL                         R11 1
        21 DUPTABLE                         R12 K12 [{"Buttons", "OnButtonClicked", "OnClose", "Title", "Prompt", "Thumbnail", "Balance"}]
        22 NEWTABLE                         R13 0 2
@@ -60,11 +60,11 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -73,10 +73,10 @@ MAIN:
        20 GETTABLEKS                       R4 R1 K7 ["Framework"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R8 R0 K8 ["Src"]
-       27 GETTABLEKS                       R7 R8 K9 ["Components"]
-       29 GETTABLEKS                       R6 R7 K10 ["PurchaseFlow"]
-       31 GETTABLEKS                       R5 R6 K11 ["PurchaseDialog"]
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R5 K9 ["Components"]
+       29 GETTABLEKS                       R5 R5 K10 ["PurchaseFlow"]
+       31 GETTABLEKS                       R5 R5 K11 ["PurchaseDialog"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R3 K12 ["ContextServices"]
        36 GETTABLEKS                       R6 R5 K13 ["withContext"]

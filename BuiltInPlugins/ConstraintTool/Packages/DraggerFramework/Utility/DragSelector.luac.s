@@ -53,34 +53,34 @@ PROTO_1:
         3 MOVE                             R5 R2
         4 CALL                             R3 2 1
         5 GETIMPORT                        R6 K4 [Vector2.new]
-        7 GETTABLEKS                       R8 R3 K5 ["Min"]
-        9 GETTABLEKS                       R7 R8 K6 ["X"]
-       11 GETTABLEKS                       R9 R3 K5 ["Min"]
-       13 GETTABLEKS                       R8 R9 K7 ["Y"]
+        7 GETTABLEKS                       R7 R3 K5 ["Min"]
+        9 GETTABLEKS                       R7 R7 K6 ["X"]
+       11 GETTABLEKS                       R8 R3 K5 ["Min"]
+       13 GETTABLEKS                       R8 R8 K7 ["Y"]
        15 CALL                             R6 2 -1
        16 NAMECALL                         R4 R0 K8 ["viewportPointToRay"]
        18 CALL                             R4 -1 1
        19 GETIMPORT                        R7 K4 [Vector2.new]
-       21 GETTABLEKS                       R9 R3 K9 ["Max"]
-       23 GETTABLEKS                       R8 R9 K6 ["X"]
-       25 GETTABLEKS                       R10 R3 K5 ["Min"]
-       27 GETTABLEKS                       R9 R10 K7 ["Y"]
+       21 GETTABLEKS                       R8 R3 K9 ["Max"]
+       23 GETTABLEKS                       R8 R8 K6 ["X"]
+       25 GETTABLEKS                       R9 R3 K5 ["Min"]
+       27 GETTABLEKS                       R9 R9 K7 ["Y"]
        29 CALL                             R7 2 -1
        30 NAMECALL                         R5 R0 K8 ["viewportPointToRay"]
        32 CALL                             R5 -1 1
        33 GETIMPORT                        R8 K4 [Vector2.new]
-       35 GETTABLEKS                       R10 R3 K9 ["Max"]
-       37 GETTABLEKS                       R9 R10 K6 ["X"]
-       39 GETTABLEKS                       R11 R3 K9 ["Max"]
-       41 GETTABLEKS                       R10 R11 K7 ["Y"]
+       35 GETTABLEKS                       R9 R3 K9 ["Max"]
+       37 GETTABLEKS                       R9 R9 K6 ["X"]
+       39 GETTABLEKS                       R10 R3 K9 ["Max"]
+       41 GETTABLEKS                       R10 R10 K7 ["Y"]
        43 CALL                             R8 2 -1
        44 NAMECALL                         R6 R0 K8 ["viewportPointToRay"]
        46 CALL                             R6 -1 1
        47 GETIMPORT                        R9 K4 [Vector2.new]
-       49 GETTABLEKS                       R11 R3 K5 ["Min"]
-       51 GETTABLEKS                       R10 R11 K6 ["X"]
-       53 GETTABLEKS                       R12 R3 K9 ["Max"]
-       55 GETTABLEKS                       R11 R12 K7 ["Y"]
+       49 GETTABLEKS                       R10 R3 K5 ["Min"]
+       51 GETTABLEKS                       R10 R10 K6 ["X"]
+       53 GETTABLEKS                       R11 R3 K9 ["Max"]
+       55 GETTABLEKS                       R11 R11 K7 ["Y"]
        57 CALL                             R9 2 -1
        58 NAMECALL                         R7 R0 K8 ["viewportPointToRay"]
        60 CALL                             R7 -1 1
@@ -292,8 +292,8 @@ PROTO_5:
       117 CAPTURE                          VAL R9
       118 CALL                             R10 2 0
       119 LOADNIL                          R10
-      120 GETUPVAL                         R12 1
-      121 GETTABLEKS                       R11 R12 K29 ["updateSelectionWithMultipleSelectables"]
+      120 GETUPVAL                         R11 1
+      121 GETTABLEKS                       R11 R11 K29 ["updateSelectionWithMultipleSelectables"]
       123 MOVE                             R12 R7
       124 MOVE                             R13 R4
       125 MOVE                             R14 R2
@@ -328,12 +328,12 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R4 R1 K9 ["Utility"]
-       17 GETTABLEKS                       R3 R4 K10 ["SelectionHelper"]
+       15 GETTABLEKS                       R3 R1 K9 ["Utility"]
+       17 GETTABLEKS                       R3 R3 K10 ["SelectionHelper"]
        19 CALL                             R2 1 1
        20 NEWTABLE                         R3 8 0
        22 SETTABLEKS                       R3 R3 K11 ["__index"]

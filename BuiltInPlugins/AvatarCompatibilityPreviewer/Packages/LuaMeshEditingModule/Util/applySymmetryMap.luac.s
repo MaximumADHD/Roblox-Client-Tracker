@@ -78,8 +78,8 @@ PROTO_3:
        40 GETUPVAL                         R7 0
        41 NAMECALL                         R5 R5 K4 ["PointToObjectSpace"]
        43 CALL                             R5 2 1
-       44 GETUPVAL                         R7 3
-       45 GETTABLEKS                       R6 R7 K5 ["RightVector"]
+       44 GETUPVAL                         R6 3
+       45 GETTABLEKS                       R6 R6 K5 ["RightVector"]
        47 LOADN                            R9 2
        48 MOVE                             R13 R6
        49 NAMECALL                         R11 R5 K6 ["Dot"]
@@ -93,8 +93,8 @@ PROTO_3:
        59 SUB                              R4 R5 R7
        60 NAMECALL                         R2 R2 K3 ["PointToWorldSpace"]
        62 CALL                             R2 2 1
-       63 SUB                              R4 R1 R2
-       64 GETTABLEKS                       R3 R4 K7 ["Magnitude"]
+       63 SUB                              R3 R1 R2
+       64 GETTABLEKS                       R3 R3 K7 ["Magnitude"]
        66 LOADK                            R4 K8 [0.2]
        67 JUMPIFNOTLT                      R4 R3 ; [+3]
        69 LOADB                            R4 0
@@ -202,8 +202,8 @@ PROTO_4:
       124 SUB                              R32 R33 R35
       125 NAMECALL                         R30 R4 K1 ["PointToWorldSpace"]
       127 CALL                             R30 2 1
-      128 SUB                              R32 R29 R30
-      129 GETTABLEKS                       R31 R32 K7 ["Magnitude"]
+      128 SUB                              R31 R29 R30
+      129 GETTABLEKS                       R31 R31 K7 ["Magnitude"]
       131 LOADK                            R32 K8 [0.2]
       132 JUMPIFNOTLT                      R32 R31 ; [+3]
       134 LOADB                            R28 0
@@ -245,8 +245,8 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Types"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K5 [require]
-       14 GETTABLEKS                       R4 R0 K7 ["MeshEditingContexts"]
-       16 GETTABLEKS                       R3 R4 K8 ["MeshEditingContextBase"]
+       14 GETTABLEKS                       R3 R0 K7 ["MeshEditingContexts"]
+       16 GETTABLEKS                       R3 R3 K8 ["MeshEditingContextBase"]
        18 CALL                             R2 1 1
        19 DUPCLOSURE                       R3 K9 [PROTO_0]
        20 DUPCLOSURE                       R4 K10 [PROTO_4]

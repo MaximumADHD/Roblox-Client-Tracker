@@ -75,27 +75,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["BuildSettings"]
-       16 GETTABLEKS                       R3 R1 K9 ["HeightmapSettings"]
-       18 NEWTABLE                         R4 4 0
-       20 GETTABLEKS                       R5 R2 K10 ["Material"]
-       22 LOADB                            R6 1
-       23 SETTABLE                         R6 R4 R5
-       24 GETTABLEKS                       R5 R3 K11 ["Heightmap"]
-       26 LOADB                            R6 1
-       27 SETTABLE                         R6 R4 R5
-       28 GETTABLEKS                       R5 R3 K12 ["Colormap"]
-       30 LOADB                            R6 1
-       31 SETTABLE                         R6 R4 R5
-       32 NEWTABLE                         R5 1 0
-       34 GETTABLEKS                       R6 R2 K13 ["MaterialLUT"]
-       36 LOADB                            R7 1
-       37 SETTABLE                         R7 R5 R6
-       38 DUPCLOSURE                       R6 K14 [PROTO_0]
-       39 CAPTURE                          VAL R4
-       40 CAPTURE                          VAL R6
-       41 CAPTURE                          VAL R5
-       42 RETURN                           R6 1
+       14 GETTABLEKS                       R2 R1 K8 ["HeightmapSettings"]
+       16 NEWTABLE                         R3 2 0
+       18 GETTABLEKS                       R4 R2 K9 ["Heightmap"]
+       20 LOADB                            R5 1
+       21 SETTABLE                         R5 R3 R4
+       22 GETTABLEKS                       R4 R2 K10 ["Colormap"]
+       24 LOADB                            R5 1
+       25 SETTABLE                         R5 R3 R4
+       26 NEWTABLE                         R4 0 0
+       28 DUPCLOSURE                       R5 K11 [PROTO_0]
+       29 CAPTURE                          VAL R3
+       30 CAPTURE                          VAL R5
+       31 CAPTURE                          VAL R4
+       32 RETURN                           R5 1

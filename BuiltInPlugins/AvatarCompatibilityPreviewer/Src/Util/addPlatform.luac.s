@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 1
-        1 GETUPVAL                         R3 2
-        2 GETTABLEKS                       R2 R3 K0 ["PEDESTAL_PATH"]
+        1 GETUPVAL                         R2 2
+        2 GETTABLEKS                       R2 R2 K0 ["PEDESTAL_PATH"]
         4 NAMECALL                         R0 R0 K1 ["LoadLocalAsset"]
         6 CALL                             R0 2 1
         7 SETUPVAL                         R0 0
@@ -19,26 +19,26 @@ PROTO_2:
         7 LOADK                            R4 K0 ["Humanoid"]
         8 NAMECALL                         R2 R0 K2 ["IsA"]
        10 CALL                             R2 2 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K3 ["LUAU_ANALYZE_ERROR"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["LUAU_ANALYZE_ERROR"]
        14 FASTCALL2                        ASSERT R2 R3 ; [+3]
        16 GETIMPORT                        R1 K5 [assert]
        18 CALL                             R1 2 0
        19 GETTABLEKS                       R2 R0 K6 ["HipHeight"]
        21 MINUS                            R1 R2
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R5 R6 K8 ["PrimaryPart"]
-       25 GETTABLEKS                       R4 R5 K9 ["Size"]
-       27 GETTABLEKS                       R3 R4 K10 ["Y"]
+       22 GETUPVAL                         R3 0
+       23 GETTABLEKS                       R3 R3 K8 ["PrimaryPart"]
+       25 GETTABLEKS                       R3 R3 K9 ["Size"]
+       27 GETTABLEKS                       R3 R3 K10 ["Y"]
        29 MULK                             R2 R3 K7 [0.5]
        30 SUB                              R1 R1 R2
        31 GETUPVAL                         R3 2
        32 MULK                             R2 R3 K7 [0.5]
        33 SUB                              R1 R1 R2
        34 GETUPVAL                         R2 3
-       35 GETUPVAL                         R6 0
-       36 GETTABLEKS                       R5 R6 K8 ["PrimaryPart"]
-       38 GETTABLEKS                       R4 R5 K11 ["CFrame"]
+       35 GETUPVAL                         R4 0
+       36 GETTABLEKS                       R4 R4 K8 ["PrimaryPart"]
+       38 GETTABLEKS                       R4 R4 K11 ["CFrame"]
        40 GETIMPORT                        R5 K13 [CFrame.new]
        42 LOADN                            R6 0
        43 MOVE                             R7 R1
@@ -50,8 +50,8 @@ PROTO_2:
        50 GETUPVAL                         R1 0
        51 NAMECALL                         R1 R1 K14 ["GetBoundingBox"]
        53 CALL                             R1 1 2
-       54 GETUPVAL                         R4 4
-       55 GETTABLEKS                       R3 R4 K15 ["axisAlignedBoxSize"]
+       54 GETUPVAL                         R3 4
+       55 GETTABLEKS                       R3 R3 K15 ["axisAlignedBoxSize"]
        57 MOVE                             R4 R1
        58 MOVE                             R5 R2
        59 CALL                             R3 2 1
@@ -115,8 +115,8 @@ PROTO_5:
        23 RETURN                           R7 1
        24 JUMP                             ; [+8]
        25 GETUPVAL                         R5 1
-       26 GETUPVAL                         R8 2
-       27 GETTABLEKS                       R7 R8 K7 ["PEDESTAL_PATH"]
+       26 GETUPVAL                         R7 2
+       27 GETTABLEKS                       R7 R7 K7 ["PEDESTAL_PATH"]
        29 NAMECALL                         R5 R5 K8 ["LoadLocalAsset"]
        31 CALL                             R5 2 1
        32 MOVE                             R4 R5
@@ -163,23 +163,23 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["Constants"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["Constants"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["BoundingBoxUtils"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["BoundingBoxUtils"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K9 [require]
-       33 GETTABLEKS                       R7 R1 K10 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Flags"]
-       37 GETTABLEKS                       R5 R6 K15 ["getFFlagAvatarCompatibilityPreviewerFixUnitTests"]
+       33 GETTABLEKS                       R5 R1 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K14 ["Flags"]
+       37 GETTABLEKS                       R5 R5 K15 ["getFFlagAvatarCompatibilityPreviewerFixUnitTests"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K9 [require]
-       42 GETTABLEKS                       R7 R1 K10 ["Src"]
-       44 GETTABLEKS                       R6 R7 K16 ["Types"]
+       42 GETTABLEKS                       R6 R1 K10 ["Src"]
+       44 GETTABLEKS                       R6 R6 K16 ["Types"]
        46 CALL                             R5 1 1
        47 DUPCLOSURE                       R6 K17 [PROTO_5]
        48 CAPTURE                          VAL R4

@@ -6,20 +6,20 @@ PROTO_0:
         8 GETTABLEKS                       R5 R1 K4 ["Width"]
        10 GETTABLEKS                       R6 R1 K5 ["Position"]
        12 GETTABLEKS                       R7 R1 K6 ["ScaleType"]
-       14 GETUPVAL                         R11 0
-       15 GETTABLEKS                       R10 R11 K7 ["SCALE_TYPE"]
-       17 GETTABLEKS                       R9 R10 K8 ["Number"]
+       14 GETUPVAL                         R9 0
+       15 GETTABLEKS                       R9 R9 K7 ["SCALE_TYPE"]
+       17 GETTABLEKS                       R9 R9 K8 ["Number"]
        19 JUMPIFEQ                         R7 R9 ; [+2]
        21 LOADB                            R8 0 +1
        22 LOADB                            R8 1
-       23 GETUPVAL                         R10 0
-       24 GETTABLEKS                       R9 R10 K9 ["TICK_LABEL_SIZE"]
+       23 GETUPVAL                         R9 0
+       24 GETTABLEKS                       R9 R9 K9 ["TICK_LABEL_SIZE"]
        26 GETTABLEKS                       R10 R1 K10 ["TickWidthScale"]
-       28 GETUPVAL                         R13 0
-       29 GETTABLEKS                       R12 R13 K11 ["TICK_LABEL_POSITION"]
+       28 GETUPVAL                         R12 0
+       29 GETTABLEKS                       R12 R12 K11 ["TICK_LABEL_POSITION"]
        31 GETTABLE                         R11 R12 R7
-       32 GETUPVAL                         R13 1
-       33 GETTABLEKS                       R12 R13 K12 ["createElement"]
+       32 GETUPVAL                         R12 1
+       33 GETTABLEKS                       R12 R12 K12 ["createElement"]
        35 LOADK                            R13 K13 ["Frame"]
        36 DUPTABLE                         R14 K18 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "BorderSizePixel"}]
        37 GETIMPORT                        R15 K21 [UDim2.new]
@@ -41,8 +41,8 @@ PROTO_0:
        59 SETTABLEKS                       R15 R14 K17 ["BorderSizePixel"]
        61 DUPTABLE                         R15 K27 [{"TimeLabel", "Tick", "Line"}]
        62 JUMPIFEQKS                       R4 K28 [""] ; [+50]
-       64 GETUPVAL                         R17 1
-       65 GETTABLEKS                       R16 R17 K12 ["createElement"]
+       64 GETUPVAL                         R16 1
+       65 GETTABLEKS                       R16 R16 K12 ["createElement"]
        67 LOADK                            R17 K29 ["TextLabel"]
        68 DUPTABLE                         R18 K37 [{"Position", "Size", "AnchorPoint", "TextColor3", "BorderSizePixel", "BackgroundTransparency", "TextSize", "TextXAlignment", "TextYAlignment", "Font", "Text", "Rotation"}]
        69 SETTABLEKS                       R11 R18 K5 ["Position"]
@@ -73,8 +73,8 @@ PROTO_0:
       112 JUMP                             ; [+1]
       113 LOADNIL                          R16
       114 SETTABLEKS                       R16 R15 K24 ["TimeLabel"]
-      116 GETUPVAL                         R18 1
-      117 GETTABLEKS                       R17 R18 K12 ["createElement"]
+      116 GETUPVAL                         R17 1
+      117 GETTABLEKS                       R17 R17 K12 ["createElement"]
       119 LOADK                            R18 K13 ["Frame"]
       120 DUPTABLE                         R19 K49 [{"AnchorPoint", "Position", "Size", "BorderSizePixel", "BackgroundColor3"}]
       121 GETIMPORT                        R20 K23 [Vector2.new]
@@ -110,8 +110,8 @@ PROTO_0:
       160 ORK                              R16 R17 K47 []
       161 SETTABLEKS                       R16 R15 K25 ["Tick"]
       163 JUMPIFNOT                        R8 ; [+43]
-      164 GETUPVAL                         R17 1
-      165 GETTABLEKS                       R16 R17 K12 ["createElement"]
+      164 GETUPVAL                         R16 1
+      165 GETTABLEKS                       R16 R16 K12 ["createElement"]
       167 LOADK                            R17 K13 ["Frame"]
       168 DUPTABLE                         R18 K51 [{"Position", "Size", "AnchorPoint", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
       169 GETIMPORT                        R19 K21 [UDim2.new]
@@ -153,19 +153,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Util"]
-       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Util"]
+       31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETTABLEKS                       R6 R1 K14 ["PureComponent"]
        36 LOADK                            R8 K15 ["ScaleTick"]

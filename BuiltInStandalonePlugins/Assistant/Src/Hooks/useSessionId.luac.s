@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["SessionId"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["current"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["current"]
         5 LOADNIL                          R3
         6 SETTABLE                         R3 R2 R1
         7 RETURN                           R0 0
@@ -32,8 +32,8 @@ PROTO_3:
         3 LOADK                            R1 K0 [""]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
-        6 GETUPVAL                         R2 2
-        7 GETTABLEKS                       R1 R2 K1 ["current"]
+        6 GETUPVAL                         R1 2
+        7 GETTABLEKS                       R1 R1 K1 ["current"]
         9 GETUPVAL                         R2 0
        10 GETTABLE                         R0 R1 R2
        11 JUMPIF                           R0 ; [+11]
@@ -42,8 +42,8 @@ PROTO_3:
        14 NAMECALL                         R1 R1 K2 ["GenerateGUID"]
        16 CALL                             R1 2 1
        17 MOVE                             R0 R1
-       18 GETUPVAL                         R2 2
-       19 GETTABLEKS                       R1 R2 K1 ["current"]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R1 R1 K1 ["current"]
        21 GETUPVAL                         R2 0
        22 SETTABLE                         R0 R1 R2
        23 GETUPVAL                         R1 1
@@ -60,16 +60,16 @@ PROTO_4:
         6 FASTCALL1                        TOSTRING R3 ; [+2]
         7 GETIMPORT                        R2 K2 [tostring]
         9 CALL                             R2 1 1
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K3 ["useState"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K3 ["useState"]
        13 LOADK                            R4 K4 [""]
        14 CALL                             R3 1 2
-       15 GETUPVAL                         R6 1
-       16 GETTABLEKS                       R5 R6 K5 ["useRef"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K5 ["useRef"]
        18 NEWTABLE                         R6 0 0
        20 CALL                             R5 1 1
-       21 GETUPVAL                         R7 1
-       22 GETTABLEKS                       R6 R7 K6 ["useEffect"]
+       21 GETUPVAL                         R6 1
+       22 GETTABLEKS                       R6 R6 K6 ["useEffect"]
        24 NEWCLOSURE                       R7 P0
        25 CAPTURE                          VAL R1
        26 CAPTURE                          VAL R5
@@ -77,8 +77,8 @@ PROTO_4:
        29 MOVE                             R9 R1
        30 SETLIST                          R8 R9 1 [1]
        32 CALL                             R6 2 0
-       33 GETUPVAL                         R7 1
-       34 GETTABLEKS                       R6 R7 K6 ["useEffect"]
+       33 GETUPVAL                         R6 1
+       34 GETTABLEKS                       R6 R6 K6 ["useEffect"]
        36 NEWCLOSURE                       R7 P1
        37 CAPTURE                          VAL R2
        38 CAPTURE                          VAL R4
@@ -101,13 +101,13 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R0 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Hooks"]
-       26 GETTABLEKS                       R4 R5 K14 ["useFocusedDataModelSession"]
+       22 GETTABLEKS                       R4 R0 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Hooks"]
+       26 GETTABLEKS                       R4 R4 K14 ["useFocusedDataModelSession"]
        28 CALL                             R3 1 1
        29 DUPCLOSURE                       R4 K15 [PROTO_4]
        30 CAPTURE                          VAL R3

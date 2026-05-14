@@ -3,16 +3,16 @@ PROTO_0:
         2 GETTABLEKS                       R2 R1 K1 ["Color"]
         4 GETTABLEKS                       R3 R1 K2 ["Size"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 LOADK                            R6 K5 ["Frame"]
        12 DUPTABLE                         R7 K7 [{"BackgroundTransparency", "Size"}]
        13 LOADN                            R8 1
        14 SETTABLEKS                       R8 R7 K6 ["BackgroundTransparency"]
        16 SETTABLEKS                       R3 R7 K2 ["Size"]
        18 DUPTABLE                         R8 K9 [{"Thumbnail"}]
-       19 GETUPVAL                         R10 0
-       20 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       19 GETUPVAL                         R9 0
+       20 GETTABLEKS                       R9 R9 K4 ["createElement"]
        22 LOADK                            R10 K10 ["ImageLabel"]
        23 DUPTABLE                         R11 K13 [{"Size", "BackgroundTransparency", "ImageColor3", "Image"}]
        24 GETIMPORT                        R12 K16 [UDim2.fromScale]
@@ -26,8 +26,8 @@ PROTO_0:
        36 MOVE                             R13 R2
        37 CALL                             R12 1 1
        38 SETTABLEKS                       R12 R11 K11 ["ImageColor3"]
-       40 GETTABLEKS                       R13 R4 K20 ["orgRoleThumbnail"]
-       42 GETTABLEKS                       R12 R13 K12 ["Image"]
+       40 GETTABLEKS                       R12 R4 K20 ["orgRoleThumbnail"]
+       42 GETTABLEKS                       R12 R12 K12 ["Image"]
        44 SETTABLEKS                       R12 R11 K12 ["Image"]
        46 CALL                             R9 2 1
        47 SETTABLEKS                       R9 R8 K8 ["Thumbnail"]
@@ -36,26 +36,26 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
-       25 GETTABLEKS                       R4 R2 K8 ["Style"]
-       27 GETTABLEKS                       R3 R4 K9 ["Stylizer"]
+       25 GETTABLEKS                       R3 R2 K8 ["Style"]
+       27 GETTABLEKS                       R3 R3 K9 ["Stylizer"]
        29 GETTABLEKS                       R4 R2 K10 ["ContextServices"]
        31 GETTABLEKS                       R5 R4 K11 ["withContext"]
        33 GETTABLEKS                       R6 R1 K12 ["Component"]
-       35 GETIMPORT                        R9 K1 [script]
-       37 GETTABLEKS                       R8 R9 K13 ["Name"]
+       35 GETIMPORT                        R8 K1 [script]
+       37 GETTABLEKS                       R8 R8 K13 ["Name"]
        39 NAMECALL                         R6 R6 K14 ["extend"]
        41 CALL                             R6 2 1
        42 DUPCLOSURE                       R7 K15 [PROTO_0]

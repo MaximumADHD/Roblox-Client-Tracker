@@ -19,8 +19,8 @@ PROTO_0:
        19 CALL                             R18 1 1
        20 JUMPIFNOT                        R18 ; [+15]
        21 GETIMPORT                        R18 K5 [table.remove]
-       23 GETTABLE                         R21 R2 R6
-       24 GETTABLEKS                       R20 R21 K3 ["pages"]
+       23 GETTABLE                         R20 R2 R6
+       24 GETTABLEKS                       R20 R20 K3 ["pages"]
        26 GETTABLE                         R19 R20 R11
        27 MOVE                             R20 R16
        28 CALL                             R18 2 0
@@ -41,8 +41,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 RETURN                           R2 1

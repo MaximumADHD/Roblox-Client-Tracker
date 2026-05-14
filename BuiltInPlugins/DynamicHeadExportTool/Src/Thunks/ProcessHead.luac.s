@@ -19,8 +19,8 @@ PROTO_0:
        20 SETTABLEKS                       R5 R4 K9 ["Name"]
        22 GETUPVAL                         R5 1
        23 MOVE                             R7 R4
-       24 GETUPVAL                         R9 2
-       25 GETTABLEKS                       R8 R9 K10 ["Tag"]
+       24 GETUPVAL                         R8 2
+       25 GETTABLEKS                       R8 R8 K10 ["Tag"]
        27 NAMECALL                         R5 R5 K11 ["AddTag"]
        29 CALL                             R5 3 0
        30 NAMECALL                         R5 R3 K12 ["Clone"]
@@ -180,8 +180,8 @@ PROTO_1:
        20 SETTABLEKS                       R5 R4 K10 ["Name"]
        22 GETUPVAL                         R5 1
        23 MOVE                             R7 R4
-       24 GETUPVAL                         R9 2
-       25 GETTABLEKS                       R8 R9 K11 ["Tag"]
+       24 GETUPVAL                         R8 2
+       25 GETTABLEKS                       R8 R8 K11 ["Tag"]
        27 NAMECALL                         R5 R5 K12 ["AddTag"]
        29 CALL                             R5 3 0
        30 GETIMPORT                        R5 K7 [Instance.new]
@@ -236,10 +236,10 @@ PROTO_1:
       104 RETURN                           R7 1
 
 PROTO_2:
-        0 NAMECALL                         R3 R0 K0 ["getState"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["PluginReducer"]
-        5 GETTABLEKS                       R1 R2 K2 ["rig"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PluginReducer"]
+        5 GETTABLEKS                       R1 R1 K2 ["rig"]
         7 GETUPVAL                         R2 0
         8 MOVE                             R3 R0
         9 CALL                             R2 1 1
@@ -281,18 +281,18 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R0 K11 ["Src"]
-       23 GETTABLEKS                       R4 R5 K12 ["Constants"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Constants"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K10 [require]
-       28 GETTABLEKS                       R7 R0 K11 ["Src"]
-       30 GETTABLEKS                       R6 R7 K13 ["Util"]
-       32 GETTABLEKS                       R5 R6 K14 ["createSurfaceAppearance"]
+       28 GETTABLEKS                       R5 R0 K11 ["Src"]
+       30 GETTABLEKS                       R5 R5 K13 ["Util"]
+       32 GETTABLEKS                       R5 R5 K14 ["createSurfaceAppearance"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K10 [require]
-       37 GETTABLEKS                       R8 R0 K11 ["Src"]
-       39 GETTABLEKS                       R7 R8 K13 ["Util"]
-       41 GETTABLEKS                       R6 R7 K15 ["fail"]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K13 ["Util"]
+       41 GETTABLEKS                       R6 R6 K15 ["fail"]
        43 CALL                             R5 1 1
        44 DUPCLOSURE                       R6 K16 [PROTO_0]
        45 CAPTURE                          VAL R5

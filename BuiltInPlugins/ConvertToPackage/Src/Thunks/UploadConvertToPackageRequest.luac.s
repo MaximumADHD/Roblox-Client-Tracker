@@ -63,8 +63,8 @@ PROTO_3:
        23 SETUPVAL                         R2 2
        24 GETUPVAL                         R2 4
        25 JUMPIFNOT                        R2 ; [+11]
-       26 GETUPVAL                         R3 5
-       27 GETTABLEKS                       R2 R3 K8 ["createAssetWithAddParamErrorJson"]
+       26 GETUPVAL                         R2 5
+       27 GETTABLEKS                       R2 R2 K8 ["createAssetWithAddParamErrorJson"]
        29 GETUPVAL                         R3 6
        30 MOVE                             R4 R0
        31 MOVE                             R5 R1
@@ -90,9 +90,9 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R3 0
-        1 GETUPVAL                         R6 1
-        2 GETTABLEKS                       R5 R6 K0 ["SCREENS"]
-        4 GETTABLEKS                       R4 R5 K1 ["UPLOADING_ASSET"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["SCREENS"]
+        4 GETTABLEKS                       R4 R4 K1 ["UPLOADING_ASSET"]
         6 CALL                             R3 1 -1
         7 NAMECALL                         R1 R0 K2 ["dispatch"]
         9 CALL                             R1 -1 0
@@ -185,26 +185,26 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["Constants"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["Constants"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Util"]
-       24 GETTABLEKS                       R3 R4 K8 ["reportUploadedAssetId"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Util"]
+       24 GETTABLEKS                       R3 R3 K8 ["reportUploadedAssetId"]
        26 CALL                             R2 1 1
-       27 GETTABLEKS                       R4 R0 K5 ["Src"]
-       29 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       27 GETTABLEKS                       R3 R0 K5 ["Src"]
+       29 GETTABLEKS                       R3 R3 K9 ["Actions"]
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R7 R0 K5 ["Src"]
-       35 GETTABLEKS                       R6 R7 K6 ["Util"]
-       37 GETTABLEKS                       R5 R6 K10 ["computeTranslatedErrorMessage"]
+       33 GETTABLEKS                       R5 R0 K5 ["Src"]
+       35 GETTABLEKS                       R5 R5 K6 ["Util"]
+       37 GETTABLEKS                       R5 R5 K10 ["computeTranslatedErrorMessage"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K4 [require]
        42 GETTABLEKS                       R6 R3 K11 ["NetworkError"]
@@ -215,12 +215,12 @@ MAIN:
        50 GETIMPORT                        R7 K4 [require]
        52 GETTABLEKS                       R8 R3 K13 ["UploadResult"]
        54 CALL                             R7 1 1
-       55 GETIMPORT                        R10 K4 [require]
-       57 GETTABLEKS                       R12 R0 K14 ["Packages"]
-       59 GETTABLEKS                       R11 R12 K15 ["Framework"]
-       61 CALL                             R10 1 1
-       62 GETTABLEKS                       R9 R10 K6 ["Util"]
-       64 GETTABLEKS                       R8 R9 K16 ["sendResultToKibana"]
+       55 GETIMPORT                        R8 K4 [require]
+       57 GETTABLEKS                       R9 R0 K14 ["Packages"]
+       59 GETTABLEKS                       R9 R9 K15 ["Framework"]
+       61 CALL                             R8 1 1
+       62 GETTABLEKS                       R8 R8 K6 ["Util"]
+       64 GETTABLEKS                       R8 R8 K16 ["sendResultToKibana"]
        66 GETIMPORT                        R9 K18 [game]
        68 LOADK                            R11 K19 ["NewPackageAnalyticsWithRefactor2"]
        69 NAMECALL                         R9 R9 K20 ["GetFastFlag"]
@@ -230,9 +230,9 @@ MAIN:
        75 NAMECALL                         R10 R10 K20 ["GetFastFlag"]
        77 CALL                             R10 2 1
        78 GETIMPORT                        R11 K4 [require]
-       80 GETTABLEKS                       R14 R0 K5 ["Src"]
-       82 GETTABLEKS                       R13 R14 K6 ["Util"]
-       84 GETTABLEKS                       R12 R13 K22 ["PublishServiceHelper"]
+       80 GETTABLEKS                       R12 R0 K5 ["Src"]
+       82 GETTABLEKS                       R12 R12 K6 ["Util"]
+       84 GETTABLEKS                       R12 R12 K22 ["PublishServiceHelper"]
        86 CALL                             R11 1 1
        87 GETIMPORT                        R13 K18 [game]
        89 LOADK                            R15 K24 ["PublishService"]

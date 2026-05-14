@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getAllAttributes"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getAllAttributes"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K1 ["evaluateToken"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["evaluateToken"]
         8 MOVE                             R4 R2
         9 MOVE                             R5 R1
        10 CALL                             R3 2 -1
@@ -61,8 +61,8 @@ PROTO_2:
        51 NAMECALL                         R2 R0 K4 ["IsA"]
        53 CALL                             R2 2 1
        54 JUMPIFNOT                        R2 ; [+20]
-       55 GETUPVAL                         R3 3
-       56 GETTABLEKS                       R2 R3 K12 ["getDerivedAttributes"]
+       55 GETUPVAL                         R2 3
+       56 GETTABLEKS                       R2 R2 K12 ["getDerivedAttributes"]
        58 GETTABLEKS                       R3 R0 K13 ["Parent"]
        60 CALL                             R2 1 1
        61 MOVE                             R1 R2
@@ -71,8 +71,8 @@ PROTO_2:
        64 NAMECALL                         R2 R0 K4 ["IsA"]
        66 CALL                             R2 2 1
        67 JUMPIFNOT                        R2 ; [+7]
-       68 GETUPVAL                         R3 3
-       69 GETTABLEKS                       R2 R3 K12 ["getDerivedAttributes"]
+       68 GETUPVAL                         R2 3
+       69 GETTABLEKS                       R2 R2 K12 ["getDerivedAttributes"]
        71 GETTABLEKS                       R3 R0 K13 ["Parent"]
        73 CALL                             R2 1 1
        74 MOVE                             R1 R2
@@ -89,8 +89,8 @@ PROTO_3:
        10 LOADK                            R3 K0 ["styleInstance cannot be invalid"]
        11 GETIMPORT                        R1 K2 [assert]
        13 CALL                             R1 2 0
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K3 ["getDerivedAttributes"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K3 ["getDerivedAttributes"]
        17 MOVE                             R2 R0
        18 CALL                             R1 1 1
        19 LOADK                            R4 K4 ["StyleBase"]
@@ -128,8 +128,8 @@ PROTO_5:
        14 LOADK                            R4 K5 ["expecting valid StyleBase"]
        15 GETIMPORT                        R2 K7 [assert]
        17 CALL                             R2 2 0
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K8 ["parseAttributeName"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K8 ["parseAttributeName"]
        21 MOVE                             R3 R1
        22 CALL                             R2 1 1
        23 JUMPIF                           R2 ; [+2]
@@ -197,16 +197,16 @@ PROTO_7:
         4 LOADN                            R4 15
         5 LOADN                            R5 1
         6 FORNPREP                         R4
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K0 ["parseAttributeName"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K0 ["parseAttributeName"]
        10 MOVE                             R8 R2
        11 CALL                             R7 1 1
        12 JUMPIFNOT                        R7 ; [+13]
        13 GETTABLE                         R8 R3 R2
        14 JUMPIFNOT                        R8 ; [+5]
        15 LOADNIL                          R8
-       16 GETUPVAL                         R10 1
-       17 GETTABLEKS                       R9 R10 K1 ["CyclicReference"]
+       16 GETUPVAL                         R9 1
+       17 GETTABLEKS                       R9 R9 K1 ["CyclicReference"]
        19 RETURN                           R8 2
        20 LOADB                            R8 1
        21 SETTABLE                         R8 R3 R2
@@ -215,31 +215,31 @@ PROTO_7:
        25 FORNLOOP                         R4
        26 JUMPIFNOTEQKNIL                  R2 ; [+6]
        28 LOADNIL                          R4
-       29 GETUPVAL                         R6 1
-       30 GETTABLEKS                       R5 R6 K2 ["DoesNotExist"]
+       29 GETUPVAL                         R5 1
+       30 GETTABLEKS                       R5 R5 K2 ["DoesNotExist"]
        32 RETURN                           R4 2
        33 MOVE                             R4 R2
-       34 GETUPVAL                         R6 1
-       35 GETTABLEKS                       R5 R6 K3 ["None"]
+       34 GETUPVAL                         R5 1
+       35 GETTABLEKS                       R5 R5 K3 ["None"]
        37 RETURN                           R4 2
 
 PROTO_8:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["parseAttributeName"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["parseAttributeName"]
         3 MOVE                             R4 R1
         4 CALL                             R3 1 1
         5 JUMPIF                           R3 ; [+5]
         6 LOADNIL                          R3
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K1 ["InvalidSyntax"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K1 ["InvalidSyntax"]
        10 RETURN                           R3 2
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K2 ["evaluateToken"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K2 ["evaluateToken"]
        14 MOVE                             R4 R0
        15 MOVE                             R5 R1
        16 CALL                             R3 2 2
-       17 GETUPVAL                         R6 1
-       18 GETTABLEKS                       R5 R6 K3 ["None"]
+       17 GETUPVAL                         R5 1
+       18 GETTABLEKS                       R5 R5 K3 ["None"]
        20 JUMPIFEQ                         R4 R5 ; [+2]
        22 RETURN                           R3 2
        23 JUMPIFNOT                        R2 ; [+14]
@@ -252,12 +252,12 @@ PROTO_8:
        31 CALL                             R5 2 1
        32 JUMPIF                           R5 ; [+5]
        33 MOVE                             R5 R3
-       34 GETUPVAL                         R7 1
-       35 GETTABLEKS                       R6 R7 K6 ["IncorrectType"]
+       34 GETUPVAL                         R6 1
+       35 GETTABLEKS                       R6 R6 K6 ["IncorrectType"]
        37 RETURN                           R5 2
        38 MOVE                             R5 R3
-       39 GETUPVAL                         R7 1
-       40 GETTABLEKS                       R6 R7 K3 ["None"]
+       39 GETUPVAL                         R6 1
+       40 GETTABLEKS                       R6 R6 K3 ["None"]
        42 RETURN                           R5 2
 
 PROTO_9:
@@ -287,32 +287,32 @@ MAIN:
         3 LOADK                            R2 K2 ["StylingService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R5 R1 K9 ["Src"]
-       19 GETTABLEKS                       R4 R5 K10 ["Flags"]
-       21 GETTABLEKS                       R3 R4 K11 ["getFFlagStyleEditorFixFolderTokens"]
+       17 GETTABLEKS                       R3 R1 K9 ["Src"]
+       19 GETTABLEKS                       R3 R3 K10 ["Flags"]
+       21 GETTABLEKS                       R3 R3 K11 ["getFFlagStyleEditorFixFolderTokens"]
        23 CALL                             R2 1 1
        24 CALL                             R2 0 1
        25 GETIMPORT                        R3 K8 [require]
-       27 GETTABLEKS                       R5 R1 K12 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K13 ["Dash"]
+       27 GETTABLEKS                       R4 R1 K12 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K13 ["Dash"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K14 ["assign"]
        34 GETTABLEKS                       R5 R3 K15 ["includes"]
        36 GETTABLEKS                       R6 R3 K16 ["omit"]
        38 GETTABLEKS                       R7 R3 K17 ["reverse"]
        40 GETIMPORT                        R8 K8 [require]
-       42 GETTABLEKS                       R11 R1 K9 ["Src"]
-       44 GETTABLEKS                       R10 R11 K18 ["Enums"]
-       46 GETTABLEKS                       R9 R10 K19 ["TokenValidationError"]
+       42 GETTABLEKS                       R9 R1 K9 ["Src"]
+       44 GETTABLEKS                       R9 R9 K18 ["Enums"]
+       46 GETTABLEKS                       R9 R9 K19 ["TokenValidationError"]
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K8 [require]
-       51 GETTABLEKS                       R11 R1 K9 ["Src"]
-       53 GETTABLEKS                       R10 R11 K20 ["Types"]
+       51 GETTABLEKS                       R10 R1 K9 ["Src"]
+       53 GETTABLEKS                       R10 R10 K20 ["Types"]
        55 CALL                             R9 1 1
        56 NEWTABLE                         R10 8 0
        58 DUPCLOSURE                       R11 K21 [PROTO_0]

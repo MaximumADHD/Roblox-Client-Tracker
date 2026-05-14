@@ -45,8 +45,8 @@ PROTO_4:
        17 JUMPIF                           R7 ; [+1]
        18 DUPCLOSURE                       R7 K7 [PROTO_3]
        19 GETTABLEKS                       R8 R2 K8 ["hovering"]
-       21 GETUPVAL                         R10 0
-       22 GETTABLEKS                       R9 R10 K9 ["createElement"]
+       21 GETUPVAL                         R9 0
+       22 GETTABLEKS                       R9 R9 K9 ["createElement"]
        24 LOADK                            R10 K10 ["ImageButton"]
        25 NEWTABLE                         R11 16 0
        27 SETTABLEKS                       R3 R11 K2 ["Position"]
@@ -68,27 +68,27 @@ PROTO_4:
        48 SETTABLEKS                       R12 R11 K17 ["ImageTransparency"]
        50 LOADN                            R12 1
        51 SETTABLEKS                       R12 R11 K18 ["BackgroundTransparency"]
-       53 GETUPVAL                         R14 0
-       54 GETTABLEKS                       R13 R14 K19 ["Event"]
-       56 GETTABLEKS                       R12 R13 K20 ["Activated"]
+       53 GETUPVAL                         R12 0
+       54 GETTABLEKS                       R12 R12 K19 ["Event"]
+       56 GETTABLEKS                       R12 R12 K20 ["Activated"]
        58 SETTABLE                         R6 R11 R12
-       59 GETUPVAL                         R14 0
-       60 GETTABLEKS                       R13 R14 K19 ["Event"]
-       62 GETTABLEKS                       R12 R13 K21 ["MouseButton2Click"]
+       59 GETUPVAL                         R12 0
+       60 GETTABLEKS                       R12 R12 K19 ["Event"]
+       62 GETTABLEKS                       R12 R12 K21 ["MouseButton2Click"]
        64 SETTABLE                         R7 R11 R12
-       65 GETUPVAL                         R14 0
-       66 GETTABLEKS                       R13 R14 K19 ["Event"]
-       68 GETTABLEKS                       R12 R13 K22 ["MouseEnter"]
+       65 GETUPVAL                         R12 0
+       66 GETTABLEKS                       R12 R12 K19 ["Event"]
+       68 GETTABLEKS                       R12 R12 K22 ["MouseEnter"]
        70 GETTABLEKS                       R13 R0 K23 ["mouseEnter"]
        72 SETTABLE                         R13 R11 R12
-       73 GETUPVAL                         R14 0
-       74 GETTABLEKS                       R13 R14 K19 ["Event"]
-       76 GETTABLEKS                       R12 R13 K24 ["MouseLeave"]
+       73 GETUPVAL                         R12 0
+       74 GETTABLEKS                       R12 R12 K19 ["Event"]
+       76 GETTABLEKS                       R12 R12 K24 ["MouseLeave"]
        78 GETTABLEKS                       R13 R0 K25 ["mouseLeave"]
        80 SETTABLE                         R13 R11 R12
        81 DUPTABLE                         R12 K27 [{"Hover"}]
-       82 GETUPVAL                         R14 0
-       83 GETTABLEKS                       R13 R14 K9 ["createElement"]
+       82 GETUPVAL                         R13 0
+       83 GETTABLEKS                       R13 R13 K9 ["createElement"]
        85 GETUPVAL                         R14 3
        86 DUPTABLE                         R15 K29 [{"Cursor"}]
        87 LOADK                            R16 K30 ["PointingHand"]
@@ -100,17 +100,17 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["UI"]
        25 GETTABLEKS                       R4 R3 K9 ["HoverArea"]

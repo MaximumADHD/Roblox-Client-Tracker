@@ -286,48 +286,48 @@ PROTO_10:
        11 NEWTABLE                         R1 0 0
        13 NEWCLOSURE                       R2 P0
        14 CAPTURE                          VAL R1
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K5 ["createElement"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K5 ["createElement"]
        18 GETUPVAL                         R4 0
        19 NEWCLOSURE                       R5 P1
        20 CAPTURE                          VAL R1
        21 CAPTURE                          VAL R0
        22 CAPTURE                          VAL R3
        23 SETTABLEKS                       R5 R4 K5 ["createElement"]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K6 ["useEffect"]
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K6 ["useEffect"]
        28 GETUPVAL                         R5 0
        29 NEWCLOSURE                       R6 P2
        30 CAPTURE                          VAL R1
        31 CAPTURE                          VAL R4
        32 SETTABLEKS                       R6 R5 K6 ["useEffect"]
-       34 GETUPVAL                         R6 0
-       35 GETTABLEKS                       R5 R6 K7 ["useMemo"]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K7 ["useMemo"]
        37 GETUPVAL                         R6 0
        38 NEWCLOSURE                       R7 P3
        39 CAPTURE                          VAL R5
        40 CAPTURE                          VAL R1
        41 SETTABLEKS                       R7 R6 K7 ["useMemo"]
-       43 GETUPVAL                         R7 0
-       44 GETTABLEKS                       R6 R7 K8 ["useContext"]
+       43 GETUPVAL                         R6 0
+       44 GETTABLEKS                       R6 R6 K8 ["useContext"]
        46 GETUPVAL                         R7 0
        47 NEWCLOSURE                       R8 P4
        48 CAPTURE                          VAL R6
        49 SETTABLEKS                       R8 R7 K8 ["useContext"]
-       51 GETUPVAL                         R8 0
-       52 GETTABLEKS                       R7 R8 K9 ["useCallback"]
+       51 GETUPVAL                         R7 0
+       52 GETTABLEKS                       R7 R7 K9 ["useCallback"]
        54 GETUPVAL                         R8 0
        55 NEWCLOSURE                       R9 P5
        56 CAPTURE                          VAL R1
        57 CAPTURE                          VAL R7
        58 SETTABLEKS                       R9 R8 K9 ["useCallback"]
        60 GETIMPORT                        R8 K11 [require]
-       62 GETUPVAL                         R11 1
-       63 GETTABLEKS                       R10 R11 K12 ["Packages"]
-       65 GETTABLEKS                       R9 R10 K13 ["Framework"]
+       62 GETUPVAL                         R9 1
+       63 GETTABLEKS                       R9 R9 K12 ["Packages"]
+       65 GETTABLEKS                       R9 R9 K13 ["Framework"]
        67 CALL                             R8 1 1
-       68 GETTABLEKS                       R10 R8 K14 ["Styling"]
-       70 GETTABLEKS                       R9 R10 K15 ["joinTags"]
+       68 GETTABLEKS                       R9 R8 K14 ["Styling"]
+       70 GETTABLEKS                       R9 R9 K15 ["joinTags"]
        72 GETTABLEKS                       R10 R8 K14 ["Styling"]
        74 NEWCLOSURE                       R11 P6
        75 CAPTURE                          VAL R9
@@ -341,8 +341,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_10]
        15 CAPTURE                          VAL R1

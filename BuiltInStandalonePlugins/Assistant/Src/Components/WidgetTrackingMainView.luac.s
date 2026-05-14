@@ -4,8 +4,8 @@ PROTO_0:
         3 CALL                             R0 1 1
         4 NAMECALL                         R1 R0 K1 ["GetUri"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["join"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["join"]
        10 MOVE                             R3 R1
        11 DUPTABLE                         R4 K5 [{"Category", "ItemId"}]
        12 LOADK                            R5 K6 ["Widgets"]
@@ -16,11 +16,11 @@ PROTO_0:
        19 RETURN                           R2 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["use"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["useMemo"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["useMemo"]
         7 NEWCLOSURE                       R2 P0
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U2
@@ -78,29 +78,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AssistantUI"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Components"]
-       16 GETTABLEKS                       R2 R3 K9 ["MainView"]
+       14 GETTABLEKS                       R2 R1 K8 ["Components"]
+       16 GETTABLEKS                       R2 R2 K9 ["MainView"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["Framework"]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["Framework"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K11 ["React"]
+       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K11 ["React"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       36 GETTABLEKS                       R6 R7 K12 ["StudioFoundation"]
+       34 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       36 GETTABLEKS                       R6 R6 K12 ["StudioFoundation"]
        38 CALL                             R5 1 1
        39 GETTABLEKS                       R6 R3 K13 ["ContextServices"]
        41 GETTABLEKS                       R7 R6 K14 ["Plugin"]
-       43 GETTABLEKS                       R9 R5 K15 ["Util"]
-       45 GETTABLEKS                       R8 R9 K16 ["StudioUri"]
-       47 GETTABLEKS                       R10 R5 K17 ["Hooks"]
-       49 GETTABLEKS                       R9 R10 K18 ["useWidgetRef"]
+       43 GETTABLEKS                       R8 R5 K15 ["Util"]
+       45 GETTABLEKS                       R8 R8 K16 ["StudioUri"]
+       47 GETTABLEKS                       R9 R5 K17 ["Hooks"]
+       49 GETTABLEKS                       R9 R9 K18 ["useWidgetRef"]
        51 GETTABLEKS                       R10 R4 K19 ["createElement"]
        53 DUPCLOSURE                       R11 K20 [PROTO_1]
        54 CAPTURE                          VAL R7

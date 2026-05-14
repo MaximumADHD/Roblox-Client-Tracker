@@ -2,11 +2,11 @@ PROTO_0:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
-        4 GETTABLEKS                       R3 R0 K3 ["palette"]
-        6 GETTABLEKS                       R2 R3 K4 ["Key"]
+        4 GETTABLEKS                       R2 R0 K3 ["palette"]
+        6 GETTABLEKS                       R2 R2 K4 ["Key"]
         8 SETTABLEKS                       R2 R1 K3 ["palette"]
-       10 GETTABLEKS                       R3 R0 K5 ["assetType"]
-       12 GETTABLEKS                       R2 R3 K6 ["Name"]
+       10 GETTABLEKS                       R2 R0 K5 ["assetType"]
+       12 GETTABLEKS                       R2 R2 K6 ["Name"]
        14 SETTABLEKS                       R2 R1 K5 ["assetType"]
        16 GETUPVAL                         R2 0
        17 MOVE                             R4 R1
@@ -53,8 +53,8 @@ PROTO_1:
        40 GETTABLEKS                       R10 R8 K5 ["palette"]
        42 SETTABLEKS                       R10 R9 K5 ["palette"]
        44 DUPTABLE                         R10 K14 [{"source", "marketplaceItem"}]
-       45 GETUPVAL                         R12 2
-       46 GETTABLEKS                       R11 R12 K15 ["SOURCE_MARKETPLACE"]
+       45 GETUPVAL                         R11 2
+       46 GETTABLEKS                       R11 R11 K15 ["SOURCE_MARKETPLACE"]
        48 SETTABLEKS                       R11 R10 K12 ["source"]
        50 GETTABLEKS                       R11 R8 K13 ["marketplaceItem"]
        52 SETTABLEKS                       R11 R10 K13 ["marketplaceItem"]
@@ -76,19 +76,19 @@ PROTO_2:
         5 LOADK                            R3 K2 ["catalog folder is nil when trying to add new marketplace items"]
         6 CALL                             R2 1 0
         7 RETURN                           R0 0
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["removeEquippedItem"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["removeEquippedItem"]
        11 DUPTABLE                         R3 K6 [{"palette", "item"}]
        12 SETTABLEKS                       R0 R3 K4 ["palette"]
        14 DUPTABLE                         R4 K9 [{"source", "marketplaceItem"}]
-       15 GETUPVAL                         R6 2
-       16 GETTABLEKS                       R5 R6 K10 ["SOURCE_MARKETPLACE"]
+       15 GETUPVAL                         R5 2
+       16 GETTABLEKS                       R5 R5 K10 ["SOURCE_MARKETPLACE"]
        18 SETTABLEKS                       R5 R4 K7 ["source"]
        20 SETTABLEKS                       R1 R4 K8 ["marketplaceItem"]
        22 SETTABLEKS                       R4 R3 K5 ["item"]
        24 CALL                             R2 1 0
-       25 GETUPVAL                         R3 3
-       26 GETTABLEKS                       R2 R3 K11 ["extractUniqueId"]
+       25 GETUPVAL                         R2 3
+       26 GETTABLEKS                       R2 R2 K11 ["extractUniqueId"]
        28 MOVE                             R3 R1
        29 CALL                             R2 1 1
        30 GETUPVAL                         R3 4
@@ -98,8 +98,8 @@ PROTO_2:
        34 DUPTABLE                         R4 K6 [{"palette", "item"}]
        35 SETTABLEKS                       R0 R4 K4 ["palette"]
        37 DUPTABLE                         R5 K9 [{"source", "marketplaceItem"}]
-       38 GETUPVAL                         R7 2
-       39 GETTABLEKS                       R6 R7 K10 ["SOURCE_MARKETPLACE"]
+       38 GETUPVAL                         R6 2
+       39 GETTABLEKS                       R6 R6 K10 ["SOURCE_MARKETPLACE"]
        41 SETTABLEKS                       R6 R5 K7 ["source"]
        43 SETTABLEKS                       R1 R5 K8 ["marketplaceItem"]
        45 SETTABLEKS                       R5 R4 K5 ["item"]
@@ -145,8 +145,8 @@ PROTO_4:
        18 DUPTABLE                         R2 K7 [{"palette", "item"}]
        19 SETTABLEKS                       R1 R2 K5 ["palette"]
        21 DUPTABLE                         R3 K9 [{"source", "marketplaceItem"}]
-       22 GETUPVAL                         R5 3
-       23 GETTABLEKS                       R4 R5 K10 ["SOURCE_MARKETPLACE"]
+       22 GETUPVAL                         R4 3
+       23 GETTABLEKS                       R4 R4 K10 ["SOURCE_MARKETPLACE"]
        25 SETTABLEKS                       R4 R3 K8 ["source"]
        27 GETTABLEKS                       R4 R0 K4 ["marketplaceItem"]
        29 SETTABLEKS                       R4 R3 K4 ["marketplaceItem"]
@@ -155,8 +155,8 @@ PROTO_4:
        34 NEWCLOSURE                       R4 P0
        35 CAPTURE                          VAL R2
        36 CALL                             R3 1 0
-       37 GETUPVAL                         R4 5
-       38 GETTABLEKS                       R3 R4 K11 ["addEquippedItem"]
+       37 GETUPVAL                         R3 5
+       38 GETTABLEKS                       R3 R3 K11 ["addEquippedItem"]
        40 MOVE                             R4 R2
        41 CALL                             R3 1 0
        42 GETUPVAL                         R3 1
@@ -171,36 +171,36 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["extractUniqueId"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["extractUniqueId"]
         4 MOVE                             R4 R0
         5 CALL                             R3 1 1
         6 GETTABLE                         R1 R2 R3
         7 RETURN                           R1 1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["Context"]
-        6 CALL                             R2 1 1
-        7 GETTABLEKS                       R1 R2 K2 ["marketplaceCatalogFolder"]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["marketplaceCatalogFolder"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K0 ["useContext"]
        12 GETUPVAL                         R3 2
        13 CALL                             R2 1 1
        14 GETUPVAL                         R3 3
        15 MOVE                             R4 R1
        16 CALL                             R3 1 2
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K3 ["useState"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K3 ["useState"]
        20 MOVE                             R6 R4
        21 CALL                             R5 1 2
        22 GETUPVAL                         R7 4
        23 MOVE                             R8 R6
        24 CALL                             R7 1 1
-       25 GETUPVAL                         R9 0
-       26 GETTABLEKS                       R8 R9 K4 ["useCallback"]
+       25 GETUPVAL                         R8 0
+       26 GETTABLEKS                       R8 R8 K4 ["useCallback"]
        28 NEWCLOSURE                       R9 P0
        29 CAPTURE                          VAL R1
        30 CAPTURE                          VAL R2
@@ -214,8 +214,8 @@ PROTO_6:
        40 MOVE                             R13 R3
        41 SETLIST                          R10 R11 3 [1]
        43 CALL                             R8 2 1
-       44 GETUPVAL                         R10 0
-       45 GETTABLEKS                       R9 R10 K4 ["useCallback"]
+       44 GETUPVAL                         R9 0
+       45 GETTABLEKS                       R9 R9 K4 ["useCallback"]
        47 NEWCLOSURE                       R10 P1
        48 CAPTURE                          VAL R1
        49 CAPTURE                          VAL R3
@@ -229,8 +229,8 @@ PROTO_6:
        58 MOVE                             R13 R3
        59 SETLIST                          R11 R12 2 [1]
        61 CALL                             R9 2 1
-       62 GETUPVAL                         R11 0
-       63 GETTABLEKS                       R10 R11 K4 ["useCallback"]
+       62 GETUPVAL                         R10 0
+       63 GETTABLEKS                       R10 R10 K4 ["useCallback"]
        65 NEWCLOSURE                       R11 P2
        66 CAPTURE                          VAL R3
        67 CAPTURE                          UPVAL U6
@@ -243,10 +243,10 @@ PROTO_6:
        77 SETTABLEKS                       R9 R11 K7 ["addNewItemAndEquip"]
        79 SETTABLEKS                       R8 R11 K8 ["removeItem"]
        81 SETTABLEKS                       R10 R11 K9 ["getItemData"]
-       83 GETUPVAL                         R13 0
-       84 GETTABLEKS                       R12 R13 K11 ["createElement"]
-       86 GETUPVAL                         R14 8
-       87 GETTABLEKS                       R13 R14 K12 ["Provider"]
+       83 GETUPVAL                         R12 0
+       84 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       86 GETUPVAL                         R13 8
+       87 GETTABLEKS                       R13 R13 K12 ["Provider"]
        89 DUPTABLE                         R14 K14 [{"value"}]
        90 SETTABLEKS                       R11 R14 K13 ["value"]
        92 GETTABLEKS                       R15 R0 K15 ["children"]
@@ -264,47 +264,47 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Util"]
-       26 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Util"]
+       26 GETTABLEKS                       R4 R4 K14 ["Constants"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R7 R1 K12 ["Src"]
-       33 GETTABLEKS                       R6 R7 K13 ["Util"]
-       35 GETTABLEKS                       R5 R6 K15 ["MarketplaceCatalogUtils"]
+       31 GETTABLEKS                       R5 R1 K12 ["Src"]
+       33 GETTABLEKS                       R5 R5 K13 ["Util"]
+       35 GETTABLEKS                       R5 R5 K15 ["MarketplaceCatalogUtils"]
        37 CALL                             R4 1 1
        38 GETIMPORT                        R5 K9 [require]
-       40 GETTABLEKS                       R8 R1 K12 ["Src"]
-       42 GETTABLEKS                       R7 R8 K13 ["Util"]
-       44 GETTABLEKS                       R6 R7 K16 ["EquipmentStateContext"]
+       40 GETTABLEKS                       R6 R1 K12 ["Src"]
+       42 GETTABLEKS                       R6 R6 K13 ["Util"]
+       44 GETTABLEKS                       R6 R6 K16 ["EquipmentStateContext"]
        46 CALL                             R5 1 1
        47 GETIMPORT                        R6 K9 [require]
-       49 GETTABLEKS                       R9 R1 K12 ["Src"]
-       51 GETTABLEKS                       R8 R9 K17 ["Components"]
-       53 GETTABLEKS                       R7 R8 K18 ["MarketplaceCatalogContext"]
+       49 GETTABLEKS                       R7 R1 K12 ["Src"]
+       51 GETTABLEKS                       R7 R7 K17 ["Components"]
+       53 GETTABLEKS                       R7 R7 K18 ["MarketplaceCatalogContext"]
        55 CALL                             R6 1 1
        56 GETIMPORT                        R7 K9 [require]
-       58 GETTABLEKS                       R10 R1 K12 ["Src"]
-       60 GETTABLEKS                       R9 R10 K17 ["Components"]
-       62 GETTABLEKS                       R8 R9 K19 ["MarketplaceCatalogFolderContext"]
+       58 GETTABLEKS                       R8 R1 K12 ["Src"]
+       60 GETTABLEKS                       R8 R8 K17 ["Components"]
+       62 GETTABLEKS                       R8 R8 K19 ["MarketplaceCatalogFolderContext"]
        64 CALL                             R7 1 1
        65 GETIMPORT                        R8 K9 [require]
-       67 GETTABLEKS                       R11 R1 K12 ["Src"]
-       69 GETTABLEKS                       R10 R11 K13 ["Util"]
-       71 GETTABLEKS                       R9 R10 K20 ["getPaletteFromKey"]
+       67 GETTABLEKS                       R9 R1 K12 ["Src"]
+       69 GETTABLEKS                       R9 R9 K13 ["Util"]
+       71 GETTABLEKS                       R9 R9 K20 ["getPaletteFromKey"]
        73 CALL                             R8 1 1
        74 GETIMPORT                        R9 K9 [require]
-       76 GETTABLEKS                       R12 R1 K12 ["Src"]
-       78 GETTABLEKS                       R11 R12 K21 ["Hooks"]
-       80 GETTABLEKS                       R10 R11 K22 ["useRemoveEquippedItem"]
+       76 GETTABLEKS                       R10 R1 K12 ["Src"]
+       78 GETTABLEKS                       R10 R10 K21 ["Hooks"]
+       80 GETTABLEKS                       R10 R10 K22 ["useRemoveEquippedItem"]
        82 CALL                             R9 1 1
        83 GETIMPORT                        R10 K9 [require]
-       85 GETTABLEKS                       R12 R1 K12 ["Src"]
-       87 GETTABLEKS                       R11 R12 K23 ["Types"]
+       85 GETTABLEKS                       R11 R1 K12 ["Src"]
+       87 GETTABLEKS                       R11 R11 K23 ["Types"]
        89 CALL                             R10 1 1
        90 DUPCLOSURE                       R11 K24 [PROTO_0]
        91 CAPTURE                          VAL R0

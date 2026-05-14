@@ -2,18 +2,18 @@ PROTO_0:
         0 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["LayoutOrder"]
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["renderContent"]
-        8 GETTABLEKS                       R4 R0 K0 ["props"]
-       10 GETTABLEKS                       R3 R4 K3 ["title"]
-       12 GETTABLEKS                       R5 R0 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["titleWidth"]
-       16 GETTABLEKS                       R6 R0 K0 ["props"]
-       18 GETTABLEKS                       R5 R6 K5 ["Stylizer"]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K6 ["createElement"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["LayoutOrder"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["renderContent"]
+        8 GETTABLEKS                       R3 R0 K0 ["props"]
+       10 GETTABLEKS                       R3 R3 K3 ["title"]
+       12 GETTABLEKS                       R4 R0 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["titleWidth"]
+       16 GETTABLEKS                       R5 R0 K0 ["props"]
+       18 GETTABLEKS                       R5 R5 K5 ["Stylizer"]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K6 ["createElement"]
        23 GETUPVAL                         R7 1
        24 DUPTABLE                         R8 K11 [{"BackgroundTransparency", "contentPadding", "FillDirection", "LayoutOrder", "width"}]
        25 LOADN                            R9 1
@@ -32,8 +32,8 @@ PROTO_1:
        45 CALL                             R9 2 1
        46 SETTABLEKS                       R9 R8 K10 ["width"]
        48 DUPTABLE                         R9 K20 [{"Title", "Container"}]
-       49 GETUPVAL                         R11 0
-       50 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       49 GETUPVAL                         R10 0
+       50 GETTABLEKS                       R10 R10 K6 ["createElement"]
        52 GETUPVAL                         R11 2
        53 DUPTABLE                         R12 K26 [{"BackgroundTransparency", "Font", "LayoutOrder", "Text", "TextColor3", "TextXAlignment", "TextSize", "width"}]
        54 LOADN                            R13 1
@@ -56,8 +56,8 @@ PROTO_1:
        82 SETTABLEKS                       R13 R12 K10 ["width"]
        84 CALL                             R10 2 1
        85 SETTABLEKS                       R10 R9 K18 ["Title"]
-       87 GETUPVAL                         R11 0
-       88 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       87 GETUPVAL                         R10 0
+       88 GETTABLEKS                       R10 R10 K6 ["createElement"]
        90 GETUPVAL                         R11 1
        91 DUPTABLE                         R12 K30 [{"BackgroundTransparency", "LayoutOrder", "width"}]
        92 LOADN                            R13 1
@@ -81,29 +81,29 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["FitFrame"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["FitFrame"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R6 R0 K8 ["Src"]
-       29 GETTABLEKS                       R5 R6 K9 ["Util"]
-       31 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       27 GETTABLEKS                       R4 R0 K8 ["Src"]
+       29 GETTABLEKS                       R4 R4 K9 ["Util"]
+       31 GETTABLEKS                       R4 R4 K10 ["Constants"]
        33 CALL                             R3 1 1
-       34 GETIMPORT                        R5 K4 [require]
-       36 GETTABLEKS                       R7 R0 K5 ["Packages"]
-       38 GETTABLEKS                       R6 R7 K11 ["Framework"]
-       40 CALL                             R5 1 1
-       41 GETTABLEKS                       R4 R5 K12 ["ContextServices"]
+       34 GETIMPORT                        R4 K4 [require]
+       36 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K11 ["Framework"]
+       40 CALL                             R4 1 1
+       41 GETTABLEKS                       R4 R4 K12 ["ContextServices"]
        43 GETTABLEKS                       R5 R4 K13 ["withContext"]
        45 GETTABLEKS                       R6 R2 K14 ["FitFrameVertical"]
        47 GETTABLEKS                       R7 R2 K15 ["FitTextLabel"]

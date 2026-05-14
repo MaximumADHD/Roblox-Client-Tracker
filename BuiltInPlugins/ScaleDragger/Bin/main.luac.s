@@ -20,8 +20,8 @@ PROTO_1:
        10 LOADB                            R2 1
        11 NAMECALL                         R0 R0 K3 ["Activate"]
        13 CALL                             R0 2 0
-       14 GETUPVAL                         R1 3
-       15 GETTABLEKS                       R0 R1 K4 ["mainButton"]
+       14 GETUPVAL                         R0 3
+       15 GETTABLEKS                       R0 R0 K4 ["mainButton"]
        17 LOADB                            R2 1
        18 NAMECALL                         R0 R0 K5 ["SetActive"]
        20 CALL                             R0 2 0
@@ -30,10 +30,10 @@ PROTO_1:
        23 CALL                             R1 0 1
        24 JUMPIFNOT                        R1 ; [+1]
        25 DUPCLOSURE                       R0 K6 [PROTO_0]
-       26 GETUPVAL                         R2 5
-       27 GETTABLEKS                       R1 R2 K7 ["mount"]
-       29 GETUPVAL                         R3 5
-       30 GETTABLEKS                       R2 R3 K8 ["createElement"]
+       26 GETUPVAL                         R1 5
+       27 GETTABLEKS                       R1 R1 K7 ["mount"]
+       29 GETUPVAL                         R2 5
+       30 GETTABLEKS                       R2 R2 K8 ["createElement"]
        32 GETUPVAL                         R3 6
        33 DUPTABLE                         R4 K13 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
        34 GETUPVAL                         R5 2
@@ -56,8 +56,8 @@ PROTO_1:
        59 LOADB                            R6 1
        60 SETTABLEKS                       R6 R5 K19 ["ShowPivotIndicator"]
        62 NEWTABLE                         R6 0 1
-       64 GETUPVAL                         R8 9
-       65 GETTABLEKS                       R7 R8 K23 ["new"]
+       64 GETUPVAL                         R7 9
+       65 GETTABLEKS                       R7 R7 K23 ["new"]
        67 GETUPVAL                         R8 7
        68 DUPTABLE                         R9 K27 [{"ShowBoundingBox", "Summonable", "IsEnabledFunction"}]
        69 LOADB                            R10 1
@@ -71,9 +71,9 @@ PROTO_1:
        79 JUMPIF                           R10 ; [+1]
        80 LOADNIL                          R10
        81 SETTABLEKS                       R10 R9 K26 ["IsEnabledFunction"]
-       83 GETUPVAL                         R12 8
-       84 GETTABLEKS                       R11 R12 K28 ["ExtrudeHandlesImplementation"]
-       86 GETTABLEKS                       R10 R11 K23 ["new"]
+       83 GETUPVAL                         R10 8
+       84 GETTABLEKS                       R10 R10 K28 ["ExtrudeHandlesImplementation"]
+       86 GETTABLEKS                       R10 R10 K23 ["new"]
        88 GETUPVAL                         R11 7
        89 CALL                             R10 1 -1
        90 CALL                             R7 -1 -1
@@ -88,15 +88,15 @@ PROTO_1:
 PROTO_2:
         0 LOADB                            R0 0
         1 SETUPVAL                         R0 0
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["mainButton"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["mainButton"]
         5 LOADB                            R2 0
         6 NAMECALL                         R0 R0 K1 ["SetActive"]
         8 CALL                             R0 2 0
         9 GETUPVAL                         R0 2
        10 JUMPIFNOT                        R0 ; [+7]
-       11 GETUPVAL                         R1 3
-       12 GETTABLEKS                       R0 R1 K2 ["unmount"]
+       11 GETUPVAL                         R0 3
+       12 GETTABLEKS                       R0 R0 K2 ["unmount"]
        14 GETUPVAL                         R1 2
        15 CALL                             R0 1 0
        16 LOADNIL                          R0
@@ -108,15 +108,15 @@ PROTO_3:
         1 JUMPIFNOT                        R0 ; [+18]
         2 LOADB                            R0 0
         3 SETUPVAL                         R0 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K0 ["mainButton"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K0 ["mainButton"]
         7 LOADB                            R2 0
         8 NAMECALL                         R0 R0 K1 ["SetActive"]
        10 CALL                             R0 2 0
        11 GETUPVAL                         R0 2
        12 JUMPIFNOT                        R0 ; [+7]
-       13 GETUPVAL                         R1 3
-       14 GETTABLEKS                       R0 R1 K2 ["unmount"]
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K2 ["unmount"]
        16 GETUPVAL                         R1 2
        17 CALL                             R0 1 0
        18 LOADNIL                          R0
@@ -128,15 +128,15 @@ PROTO_4:
         1 JUMPIFNOT                        R0 ; [+19]
         2 LOADB                            R0 0
         3 SETUPVAL                         R0 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K0 ["mainButton"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K0 ["mainButton"]
         7 LOADB                            R2 0
         8 NAMECALL                         R0 R0 K1 ["SetActive"]
        10 CALL                             R0 2 0
        11 GETUPVAL                         R0 2
        12 JUMPIFNOT                        R0 ; [+10]
-       13 GETUPVAL                         R1 3
-       14 GETTABLEKS                       R0 R1 K2 ["unmount"]
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K2 ["unmount"]
        16 GETUPVAL                         R1 2
        17 CALL                             R0 1 0
        18 LOADNIL                          R0
@@ -150,20 +150,20 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["ScaleDragger"]
         2 SETTABLEKS                       R1 R0 K1 ["Name"]
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K2 ["new"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K2 ["new"]
         7 GETUPVAL                         R1 0
         8 GETIMPORT                        R2 K4 [game]
        10 GETIMPORT                        R3 K6 [settings]
        12 CALL                             R3 0 1
-       13 GETUPVAL                         R6 3
-       14 GETTABLEKS                       R5 R6 K7 ["Selection"]
-       16 GETTABLEKS                       R4 R5 K2 ["new"]
+       13 GETUPVAL                         R4 3
+       14 GETTABLEKS                       R4 R4 K7 ["Selection"]
+       16 GETTABLEKS                       R4 R4 K2 ["new"]
        18 CALL                             R4 0 -1
        19 CALL                             R0 -1 1
        20 SETUPVAL                         R0 1
-       21 GETUPVAL                         R1 0
-       22 GETTABLEKS                       R0 R1 K8 ["Deactivation"]
+       21 GETUPVAL                         R0 0
+       22 GETTABLEKS                       R0 R0 K8 ["Deactivation"]
        24 NEWCLOSURE                       R2 P0
        25 CAPTURE                          UPVAL U4
        26 CAPTURE                          UPVAL U5
@@ -171,8 +171,8 @@ PROTO_5:
        28 CAPTURE                          UPVAL U7
        29 NAMECALL                         R0 R0 K9 ["Connect"]
        31 CALL                             R0 2 0
-       32 GETUPVAL                         R1 5
-       33 GETTABLEKS                       R0 R1 K10 ["mainButtonClickedSignal"]
+       32 GETUPVAL                         R0 5
+       33 GETTABLEKS                       R0 R0 K10 ["mainButtonClickedSignal"]
        35 NEWCLOSURE                       R2 P1
        36 CAPTURE                          UPVAL U4
        37 CAPTURE                          UPVAL U5
@@ -184,33 +184,33 @@ PROTO_5:
        44 RETURN                           R0 0
 
 PROTO_6:
-        0 GETIMPORT                        R4 K1 [script]
-        2 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        4 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        6 GETTABLEKS                       R4 R2 K3 ["Packages"]
-        8 GETTABLEKS                       R3 R4 K4 ["DraggerFramework"]
+        0 GETIMPORT                        R2 K1 [script]
+        2 GETTABLEKS                       R2 R2 K2 ["Parent"]
+        4 GETTABLEKS                       R2 R2 K2 ["Parent"]
+        6 GETTABLEKS                       R3 R2 K3 ["Packages"]
+        8 GETTABLEKS                       R3 R3 K4 ["DraggerFramework"]
        10 GETIMPORT                        R4 K6 [require]
-       12 GETTABLEKS                       R6 R2 K3 ["Packages"]
-       14 GETTABLEKS                       R5 R6 K7 ["Roact"]
+       12 GETTABLEKS                       R5 R2 K3 ["Packages"]
+       14 GETTABLEKS                       R5 R5 K7 ["Roact"]
        16 CALL                             R4 1 1
        17 GETIMPORT                        R5 K6 [require]
-       19 GETTABLEKS                       R7 R3 K8 ["Implementation"]
-       21 GETTABLEKS                       R6 R7 K9 ["DraggerContext_PluginImpl"]
+       19 GETTABLEKS                       R6 R3 K8 ["Implementation"]
+       21 GETTABLEKS                       R6 R6 K9 ["DraggerContext_PluginImpl"]
        23 CALL                             R5 1 1
        24 GETIMPORT                        R6 K6 [require]
-       26 GETTABLEKS                       R8 R3 K10 ["DraggerTools"]
-       28 GETTABLEKS                       R7 R8 K11 ["DraggerToolComponent"]
+       26 GETTABLEKS                       R7 R3 K10 ["DraggerTools"]
+       28 GETTABLEKS                       R7 R7 K11 ["DraggerToolComponent"]
        30 CALL                             R6 1 1
        31 GETIMPORT                        R7 K6 [require]
-       33 GETTABLEKS                       R9 R3 K12 ["Flags"]
-       35 GETTABLEKS                       R8 R9 K13 ["getFFlagDraggerHandlesIsEnabledFunction"]
+       33 GETTABLEKS                       R8 R3 K12 ["Flags"]
+       35 GETTABLEKS                       R8 R8 K13 ["getFFlagDraggerHandlesIsEnabledFunction"]
        37 CALL                             R7 1 1
        38 GETIMPORT                        R8 K6 [require]
-       40 GETTABLEKS                       R10 R3 K14 ["Handles"]
-       42 GETTABLEKS                       R9 R10 K15 ["ExtrudeHandles"]
+       40 GETTABLEKS                       R9 R3 K14 ["Handles"]
+       42 GETTABLEKS                       R9 R9 K15 ["ExtrudeHandles"]
        44 CALL                             R8 1 1
-       45 GETTABLEKS                       R10 R2 K3 ["Packages"]
-       47 GETTABLEKS                       R9 R10 K16 ["DraggerSchemaCore"]
+       45 GETTABLEKS                       R9 R2 K3 ["Packages"]
+       47 GETTABLEKS                       R9 R9 K16 ["DraggerSchemaCore"]
        49 GETIMPORT                        R10 K6 [require]
        51 GETTABLEKS                       R11 R9 K17 ["DraggerSchema"]
        53 CALL                             R10 1 1

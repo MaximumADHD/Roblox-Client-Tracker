@@ -25,9 +25,9 @@ PROTO_1:
         7 MINUS                            R5 R6
         8 DIVK                             R4 R5 K3 [2]
         9 CALL                             R1 3 1
-       10 GETUPVAL                         R6 2
-       11 GETTABLEKS                       R5 R6 K4 ["props"]
-       13 GETTABLEKS                       R4 R5 K5 ["HandleCFrame"]
+       10 GETUPVAL                         R4 2
+       11 GETTABLEKS                       R4 R4 K4 ["props"]
+       13 GETTABLEKS                       R4 R4 K5 ["HandleCFrame"]
        15 GETIMPORT                        R5 K7 [CFrame.Angles]
        17 MOVE                             R6 R0
        18 LOADN                            R7 0
@@ -35,19 +35,19 @@ PROTO_1:
        20 CALL                             R5 3 1
        21 MUL                              R3 R4 R5
        22 MUL                              R2 R3 R1
-       23 GETUPVAL                         R4 3
-       24 GETTABLEKS                       R3 R4 K8 ["createElement"]
+       23 GETUPVAL                         R3 3
+       24 GETTABLEKS                       R3 R3 K8 ["createElement"]
        26 LOADK                            R4 K9 ["CylinderHandleAdornment"]
        27 DUPTABLE                         R5 K16 [{"Adornee", "AlwaysOnTop", "CFrame", "Color3", "Height", "Radius", "ZIndex"}]
-       28 GETUPVAL                         R7 4
-       29 GETTABLEKS                       R6 R7 K17 ["Terrain"]
+       28 GETUPVAL                         R6 4
+       29 GETTABLEKS                       R6 R6 K17 ["Terrain"]
        31 SETTABLEKS                       R6 R5 K10 ["Adornee"]
        33 LOADB                            R6 1
        34 SETTABLEKS                       R6 R5 K11 ["AlwaysOnTop"]
        36 SETTABLEKS                       R2 R5 K0 ["CFrame"]
-       38 GETUPVAL                         R8 2
-       39 GETTABLEKS                       R7 R8 K4 ["props"]
-       41 GETTABLEKS                       R6 R7 K18 ["Color"]
+       38 GETUPVAL                         R6 2
+       39 GETTABLEKS                       R6 R6 K4 ["props"]
+       41 GETTABLEKS                       R6 R6 K18 ["Color"]
        43 SETTABLEKS                       R6 R5 K12 ["Color3"]
        45 GETUPVAL                         R7 0
        46 GETUPVAL                         R8 1
@@ -62,10 +62,10 @@ PROTO_1:
        58 RETURN                           R3 -1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Scale"]
-        4 GETTABLEKS                       R4 R0 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K3 ["RadiusOffset"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Scale"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K3 ["RadiusOffset"]
         8 ORK                              R2 R3 K2 [0]
         9 LOADK                            R5 K4 [4.5]
        10 ADD                              R4 R5 R2
@@ -75,19 +75,19 @@ PROTO_2:
        14 GETUPVAL                         R5 1
        15 CALL                             R5 0 1
        16 JUMPIF                           R5 ; [+11]
-       17 GETTABLEKS                       R6 R0 K0 ["props"]
-       19 GETTABLEKS                       R5 R6 K5 ["Hovered"]
+       17 GETTABLEKS                       R5 R0 K0 ["props"]
+       19 GETTABLEKS                       R5 R5 K5 ["Hovered"]
        21 JUMPIFNOT                        R5 ; [+6]
-       22 GETTABLEKS                       R7 R0 K0 ["props"]
-       24 GETTABLEKS                       R6 R7 K1 ["Scale"]
+       22 GETTABLEKS                       R6 R0 K0 ["props"]
+       24 GETTABLEKS                       R6 R6 K1 ["Scale"]
        26 MULK                             R5 R6 K6 [0.1]
        27 ADD                              R3 R3 R5
-       28 GETTABLEKS                       R6 R0 K0 ["props"]
-       30 GETTABLEKS                       R5 R6 K7 ["Thin"]
+       28 GETTABLEKS                       R5 R0 K0 ["props"]
+       30 GETTABLEKS                       R5 R5 K7 ["Thin"]
        32 JUMPIFNOT                        R5 ; [+1]
        33 MULK                             R4 R4 K2 [0]
-       34 GETTABLEKS                       R6 R0 K0 ["props"]
-       36 GETTABLEKS                       R5 R6 K5 ["Hovered"]
+       34 GETTABLEKS                       R5 R0 K0 ["props"]
+       36 GETTABLEKS                       R5 R5 K5 ["Hovered"]
        38 JUMPIFNOT                        R5 ; [+1]
        39 MULK                             R4 R4 K8 [1.5]
        40 LOADNIL                          R5
@@ -95,30 +95,30 @@ PROTO_2:
        42 GETUPVAL                         R7 1
        43 CALL                             R7 0 1
        44 JUMPIFNOT                        R7 ; [+28]
-       45 GETTABLEKS                       R10 R0 K0 ["props"]
-       47 GETTABLEKS                       R9 R10 K9 ["StartAngle"]
+       45 GETTABLEKS                       R9 R0 K0 ["props"]
+       47 GETTABLEKS                       R9 R9 K9 ["StartAngle"]
        49 ORK                              R8 R9 K2 [0]
-       50 GETTABLEKS                       R11 R0 K0 ["props"]
-       52 GETTABLEKS                       R10 R11 K10 ["SlideAngle"]
+       50 GETTABLEKS                       R10 R0 K0 ["props"]
+       52 GETTABLEKS                       R10 R10 K10 ["SlideAngle"]
        54 ORK                              R9 R10 K2 [0]
        55 ADD                              R7 R8 R9
-       56 GETTABLEKS                       R9 R0 K0 ["props"]
-       58 GETTABLEKS                       R8 R9 K11 ["HandleCFrame"]
+       56 GETTABLEKS                       R8 R0 K0 ["props"]
+       58 GETTABLEKS                       R8 R8 K11 ["HandleCFrame"]
        60 GETIMPORT                        R9 K14 [CFrame.Angles]
        62 MOVE                             R10 R7
        63 LOADK                            R11 K15 [1.5707963267949]
        64 LOADK                            R12 K15 [1.5707963267949]
        65 CALL                             R9 3 1
        66 MUL                              R5 R8 R9
-       67 GETTABLEKS                       R9 R0 K0 ["props"]
-       69 GETTABLEKS                       R8 R9 K17 ["ArcAngle"]
+       67 GETTABLEKS                       R8 R0 K0 ["props"]
+       69 GETTABLEKS                       R8 R8 K17 ["ArcAngle"]
        71 ORK                              R6 R8 K16 [360]
        72 JUMP                             ; [+15]
-       73 GETTABLEKS                       R8 R0 K0 ["props"]
-       75 GETTABLEKS                       R7 R8 K11 ["HandleCFrame"]
+       73 GETTABLEKS                       R7 R0 K0 ["props"]
+       75 GETTABLEKS                       R7 R7 K11 ["HandleCFrame"]
        77 GETIMPORT                        R8 K14 [CFrame.Angles]
-       79 GETTABLEKS                       R11 R0 K0 ["props"]
-       81 GETTABLEKS                       R10 R11 K9 ["StartAngle"]
+       79 GETTABLEKS                       R10 R0 K0 ["props"]
+       81 GETTABLEKS                       R10 R10 K9 ["StartAngle"]
        83 ORK                              R9 R10 K2 [0]
        84 LOADK                            R10 K15 [1.5707963267949]
        85 LOADK                            R11 K15 [1.5707963267949]
@@ -127,12 +127,12 @@ PROTO_2:
        88 NEWTABLE                         R7 4 0
        90 LOADK                            R9 K18 [0.5]
        91 MUL                              R8 R9 R4
-       92 GETUPVAL                         R10 2
-       93 GETTABLEKS                       R9 R10 K19 ["createElement"]
+       92 GETUPVAL                         R9 2
+       93 GETTABLEKS                       R9 R9 K19 ["createElement"]
        95 LOADK                            R10 K20 ["CylinderHandleAdornment"]
        96 DUPTABLE                         R11 K31 [{"Adornee", "CFrame", "Height", "Radius", "InnerRadius", "Color3", "AlwaysOnTop", "Transparency", "ZIndex", "AdornCullingMode", "Angle"}]
-       97 GETUPVAL                         R13 3
-       98 GETTABLEKS                       R12 R13 K32 ["Terrain"]
+       97 GETUPVAL                         R12 3
+       98 GETTABLEKS                       R12 R12 K32 ["Terrain"]
       100 SETTABLEKS                       R12 R11 K21 ["Adornee"]
       102 SETTABLEKS                       R5 R11 K12 ["CFrame"]
       104 SETTABLEKS                       R4 R11 K22 ["Height"]
@@ -140,8 +140,8 @@ PROTO_2:
       107 SETTABLEKS                       R12 R11 K23 ["Radius"]
       109 SUB                              R12 R3 R8
       110 SETTABLEKS                       R12 R11 K24 ["InnerRadius"]
-      112 GETTABLEKS                       R13 R0 K0 ["props"]
-      114 GETTABLEKS                       R12 R13 K33 ["Color"]
+      112 GETTABLEKS                       R12 R0 K0 ["props"]
+      114 GETTABLEKS                       R12 R12 K33 ["Color"]
       116 SETTABLEKS                       R12 R11 K25 ["Color3"]
       118 LOADB                            R12 1
       119 SETTABLEKS                       R12 R11 K26 ["AlwaysOnTop"]
@@ -168,12 +168,12 @@ PROTO_2:
       146 GETUPVAL                         R9 1
       147 CALL                             R9 0 1
       148 JUMPIF                           R9 ; [+41]
-      149 GETUPVAL                         R10 2
-      150 GETTABLEKS                       R9 R10 K19 ["createElement"]
+      149 GETUPVAL                         R9 2
+      150 GETTABLEKS                       R9 R9 K19 ["createElement"]
       152 LOADK                            R10 K20 ["CylinderHandleAdornment"]
       153 DUPTABLE                         R11 K36 [{"Adornee", "CFrame", "Height", "Radius", "InnerRadius", "Color3", "AlwaysOnTop", "Transparency", "ZIndex", "AdornCullingMode"}]
-      154 GETUPVAL                         R13 3
-      155 GETTABLEKS                       R12 R13 K32 ["Terrain"]
+      154 GETUPVAL                         R12 3
+      155 GETTABLEKS                       R12 R12 K32 ["Terrain"]
       157 SETTABLEKS                       R12 R11 K21 ["Adornee"]
       159 SETTABLEKS                       R5 R11 K12 ["CFrame"]
       161 SETTABLEKS                       R4 R11 K22 ["Height"]
@@ -181,8 +181,8 @@ PROTO_2:
       164 SETTABLEKS                       R12 R11 K23 ["Radius"]
       166 SUB                              R12 R3 R8
       167 SETTABLEKS                       R12 R11 K24 ["InnerRadius"]
-      169 GETTABLEKS                       R13 R0 K0 ["props"]
-      171 GETTABLEKS                       R12 R13 K33 ["Color"]
+      169 GETTABLEKS                       R12 R0 K0 ["props"]
+      171 GETTABLEKS                       R12 R12 K33 ["Color"]
       173 SETTABLEKS                       R12 R11 K25 ["Color3"]
       175 LOADB                            R12 0
       176 SETTABLEKS                       R12 R11 K26 ["AlwaysOnTop"]
@@ -194,11 +194,11 @@ PROTO_2:
       185 SETTABLEKS                       R12 R11 K29 ["AdornCullingMode"]
       187 CALL                             R9 2 1
       188 SETTABLEKS                       R9 R7 K37 ["BrightHandle"]
-      190 GETTABLEKS                       R10 R0 K0 ["props"]
-      192 GETTABLEKS                       R9 R10 K38 ["TickAngle"]
+      190 GETTABLEKS                       R9 R0 K0 ["props"]
+      192 GETTABLEKS                       R9 R9 K38 ["TickAngle"]
       194 JUMPIFNOT                        R9 ; [+235]
-      195 GETTABLEKS                       R10 R0 K0 ["props"]
-      197 GETTABLEKS                       R9 R10 K38 ["TickAngle"]
+      195 GETTABLEKS                       R9 R0 K0 ["props"]
+      197 GETTABLEKS                       R9 R9 K38 ["TickAngle"]
       199 LOADNIL                          R10
       200 GETUPVAL                         R11 1
       201 CALL                             R11 0 1
@@ -230,13 +230,13 @@ PROTO_2:
       230 LOADN                            R16 0
       231 LOADB                            R17 0
       232 LOADN                            R18 0
-      233 GETTABLEKS                       R20 R0 K0 ["props"]
-      235 GETTABLEKS                       R19 R20 K9 ["StartAngle"]
+      233 GETTABLEKS                       R19 R0 K0 ["props"]
+      235 GETTABLEKS                       R19 R19 K9 ["StartAngle"]
       237 JUMPIFNOT                        R19 ; [+14]
-      238 GETTABLEKS                       R20 R0 K0 ["props"]
-      240 GETTABLEKS                       R19 R20 K47 ["EndAngle"]
-      242 GETTABLEKS                       R21 R0 K0 ["props"]
-      244 GETTABLEKS                       R20 R21 K9 ["StartAngle"]
+      238 GETTABLEKS                       R19 R0 K0 ["props"]
+      240 GETTABLEKS                       R19 R19 K47 ["EndAngle"]
+      242 GETTABLEKS                       R20 R0 K0 ["props"]
+      244 GETTABLEKS                       R20 R20 K9 ["StartAngle"]
       246 SUB                              R15 R19 R20
       247 GETTABLEKS                       R19 R0 K0 ["props"]
       249 GETTABLEKS                       R16 R19 K9 ["StartAngle"]
@@ -244,11 +244,11 @@ PROTO_2:
       252 GETUPVAL                         R19 1
       253 CALL                             R19 0 1
       254 JUMPIFNOT                        R19 ; [+16]
-      255 GETTABLEKS                       R20 R0 K0 ["props"]
-      257 GETTABLEKS                       R19 R20 K10 ["SlideAngle"]
+      255 GETTABLEKS                       R19 R0 K0 ["props"]
+      257 GETTABLEKS                       R19 R19 K10 ["SlideAngle"]
       259 JUMPIFNOT                        R19 ; [+11]
-      260 GETTABLEKS                       R23 R0 K0 ["props"]
-      262 GETTABLEKS                       R22 R23 K10 ["SlideAngle"]
+      260 GETTABLEKS                       R22 R0 K0 ["props"]
+      262 GETTABLEKS                       R22 R22 K10 ["SlideAngle"]
       264 ADDK                             R21 R22 K15 [1.5707963267949]
       265 DIV                              R20 R21 R9
       266 FASTCALL1                        MATH_CEIL R20 ; [+2]
@@ -290,8 +290,8 @@ PROTO_2:
       306 MOVE                             R25 R13
       307 JUMPIF                           R25 ; [+1]
       308 MOVE                             R25 R11
-      309 GETTABLEKS                       R29 R0 K0 ["props"]
-      311 GETTABLEKS                       R28 R29 K11 ["HandleCFrame"]
+      309 GETTABLEKS                       R28 R0 K0 ["props"]
+      311 GETTABLEKS                       R28 R28 K11 ["HandleCFrame"]
       313 GETIMPORT                        R29 K14 [CFrame.Angles]
       315 MOVE                             R30 R22
       316 LOADN                            R31 0
@@ -312,18 +312,18 @@ PROTO_2:
       332 GETIMPORT                        R29 K59 [tostring]
       334 CALL                             R29 1 1
       335 CONCAT                           R27 R28 R29
-      336 GETUPVAL                         R29 2
-      337 GETTABLEKS                       R28 R29 K19 ["createElement"]
+      336 GETUPVAL                         R28 2
+      337 GETTABLEKS                       R28 R28 K19 ["createElement"]
       339 LOADK                            R29 K60 ["BoxHandleAdornment"]
       340 DUPTABLE                         R30 K62 [{"Adornee", "AlwaysOnTop", "CFrame", "Color3", "Size", "ZIndex", "AdornCullingMode"}]
-      341 GETUPVAL                         R32 3
-      342 GETTABLEKS                       R31 R32 K32 ["Terrain"]
+      341 GETUPVAL                         R31 3
+      342 GETTABLEKS                       R31 R31 K32 ["Terrain"]
       344 SETTABLEKS                       R31 R30 K21 ["Adornee"]
       346 LOADB                            R31 0
       347 SETTABLEKS                       R31 R30 K26 ["AlwaysOnTop"]
       349 SETTABLEKS                       R26 R30 K12 ["CFrame"]
-      351 GETTABLEKS                       R32 R0 K0 ["props"]
-      353 GETTABLEKS                       R31 R32 K33 ["Color"]
+      351 GETTABLEKS                       R31 R0 K0 ["props"]
+      353 GETTABLEKS                       R31 R31 K33 ["Color"]
       355 SETTABLEKS                       R31 R30 K25 ["Color3"]
       357 FASTCALL3                        VECTOR R25 R25 R24
       359 MOVE                             R32 R25
@@ -344,12 +344,12 @@ PROTO_2:
       378 GETIMPORT                        R29 K59 [tostring]
       380 CALL                             R29 1 1
       381 CONCAT                           R27 R28 R29
-      382 GETUPVAL                         R29 2
-      383 GETTABLEKS                       R28 R29 K19 ["createElement"]
+      382 GETUPVAL                         R28 2
+      383 GETTABLEKS                       R28 R28 K19 ["createElement"]
       385 LOADK                            R29 K60 ["BoxHandleAdornment"]
       386 DUPTABLE                         R30 K66 [{"Adornee", "AlwaysOnTop", "Transparency", "CFrame", "Color3", "Size", "ZIndex", "AdornCullingMode"}]
-      387 GETUPVAL                         R32 3
-      388 GETTABLEKS                       R31 R32 K32 ["Terrain"]
+      387 GETUPVAL                         R31 3
+      388 GETTABLEKS                       R31 R31 K32 ["Terrain"]
       390 SETTABLEKS                       R31 R30 K21 ["Adornee"]
       392 LOADB                            R31 1
       393 SETTABLEKS                       R31 R30 K26 ["AlwaysOnTop"]
@@ -361,8 +361,8 @@ PROTO_2:
       400 LOADK                            R31 K34 [0.45]
       401 SETTABLEKS                       R31 R30 K27 ["Transparency"]
       403 SETTABLEKS                       R26 R30 K12 ["CFrame"]
-      405 GETTABLEKS                       R32 R0 K0 ["props"]
-      407 GETTABLEKS                       R31 R32 K33 ["Color"]
+      405 GETTABLEKS                       R31 R0 K0 ["props"]
+      407 GETTABLEKS                       R31 R31 K33 ["Color"]
       409 SETTABLEKS                       R31 R30 K25 ["Color3"]
       411 FASTCALL3                        VECTOR R25 R25 R24
       413 MOVE                             R32 R25
@@ -378,12 +378,12 @@ PROTO_2:
       427 CALL                             R28 2 1
       428 SETTABLE                         R28 R7 R27
       429 FORNLOOP                         R19
-      430 GETTABLEKS                       R10 R0 K0 ["props"]
-      432 GETTABLEKS                       R9 R10 K9 ["StartAngle"]
-      434 JUMPIFNOT                        R9 ; [+229]
-      435 GETTABLEKS                       R10 R0 K0 ["props"]
-      437 GETTABLEKS                       R9 R10 K47 ["EndAngle"]
-      439 JUMPIFNOT                        R9 ; [+224]
+      430 GETTABLEKS                       R9 R0 K0 ["props"]
+      432 GETTABLEKS                       R9 R9 K9 ["StartAngle"]
+      434 JUMPIFNOT                        R9 ; [+239]
+      435 GETTABLEKS                       R9 R0 K0 ["props"]
+      437 GETTABLEKS                       R9 R9 K47 ["EndAngle"]
+      439 JUMPIFNOT                        R9 ; [+234]
       440 LOADK                            R10 K6 [0.1]
       441 MUL                              R9 R10 R3
       442 LOADK                            R11 K46 [0.3]
@@ -395,13 +395,13 @@ PROTO_2:
       448 LOADK                            R12 K18 [0.5]
       449 SUB                              R13 R10 R9
       450 MUL                              R11 R12 R13
-      451 GETTABLEKS                       R14 R0 K0 ["props"]
-      453 GETTABLEKS                       R13 R14 K47 ["EndAngle"]
-      455 GETTABLEKS                       R15 R0 K0 ["props"]
-      457 GETTABLEKS                       R14 R15 K9 ["StartAngle"]
+      451 GETTABLEKS                       R13 R0 K0 ["props"]
+      453 GETTABLEKS                       R13 R13 K47 ["EndAngle"]
+      455 GETTABLEKS                       R14 R0 K0 ["props"]
+      457 GETTABLEKS                       R14 R14 K9 ["StartAngle"]
       459 SUB                              R12 R13 R14
-      460 GETTABLEKS                       R14 R0 K0 ["props"]
-      462 GETTABLEKS                       R13 R14 K9 ["StartAngle"]
+      460 GETTABLEKS                       R13 R0 K0 ["props"]
+      462 GETTABLEKS                       R13 R13 K9 ["StartAngle"]
       464 LOADK                            R14 K48 [3.14159265358979]
       465 JUMPIFNOTLT                      R14 R12 ; [+2]
       467 SUBK                             R12 R12 K44 [6.28318530717959]
@@ -422,15 +422,15 @@ PROTO_2:
       486 CALL                             R14 1 1
       487 LOADK                            R15 K54 [0.001]
       488 JUMPIFNOTLT                      R15 R14 ; [+57]
-      490 GETUPVAL                         R15 2
-      491 GETTABLEKS                       R14 R15 K19 ["createElement"]
+      490 GETUPVAL                         R14 2
+      491 GETTABLEKS                       R14 R14 K19 ["createElement"]
       493 LOADK                            R15 K20 ["CylinderHandleAdornment"]
       494 DUPTABLE                         R16 K68 [{"Adornee", "CFrame", "Height", "Radius", "InnerRadius", "Angle", "Color3", "AlwaysOnTop", "Transparency", "ZIndex"}]
-      495 GETUPVAL                         R18 3
-      496 GETTABLEKS                       R17 R18 K32 ["Terrain"]
+      495 GETUPVAL                         R17 3
+      496 GETTABLEKS                       R17 R17 K32 ["Terrain"]
       498 SETTABLEKS                       R17 R16 K21 ["Adornee"]
-      500 GETTABLEKS                       R19 R0 K0 ["props"]
-      502 GETTABLEKS                       R18 R19 K11 ["HandleCFrame"]
+      500 GETTABLEKS                       R18 R0 K0 ["props"]
+      502 GETTABLEKS                       R18 R18 K11 ["HandleCFrame"]
       504 GETIMPORT                        R19 K14 [CFrame.Angles]
       506 SUBK                             R20 R13 K15 [1.5707963267949]
       507 LOADK                            R21 K15 [1.5707963267949]
@@ -448,8 +448,8 @@ PROTO_2:
       523 GETIMPORT                        R17 K70 [math.deg]
       525 CALL                             R17 1 1
       526 SETTABLEKS                       R17 R16 K30 ["Angle"]
-      528 GETTABLEKS                       R18 R0 K0 ["props"]
-      530 GETTABLEKS                       R17 R18 K33 ["Color"]
+      528 GETTABLEKS                       R17 R0 K0 ["props"]
+      530 GETTABLEKS                       R17 R17 K33 ["Color"]
       532 SETTABLEKS                       R17 R16 K25 ["Color3"]
       534 LOADB                            R17 1
       535 SETTABLEKS                       R17 R16 K26 ["AlwaysOnTop"]
@@ -469,20 +469,20 @@ PROTO_2:
       553 CAPTURE                          UPVAL U3
       554 CAPTURE                          VAL R14
       555 MOVE                             R16 R15
-      556 GETTABLEKS                       R18 R0 K0 ["props"]
-      558 GETTABLEKS                       R17 R18 K47 ["EndAngle"]
+      556 GETTABLEKS                       R17 R0 K0 ["props"]
+      558 GETTABLEKS                       R17 R17 K47 ["EndAngle"]
       560 CALL                             R16 1 1
       561 SETTABLEKS                       R16 R7 K74 ["EndAngleElement"]
       563 GETUPVAL                         R16 5
       564 CALL                             R16 0 1
-      565 JUMPIFNOT                        R16 ; [+97]
-      566 GETTABLEKS                       R17 R0 K0 ["props"]
-      568 GETTABLEKS                       R16 R17 K75 ["DraggerContext"]
+      565 JUMPIFNOT                        R16 ; [+107]
+      566 GETTABLEKS                       R16 R0 K0 ["props"]
+      568 GETTABLEKS                       R16 R16 K75 ["DraggerContext"]
       570 NAMECALL                         R16 R16 K76 ["shouldShowPreciseInput"]
       572 CALL                             R16 1 1
-      573 JUMPIFNOT                        R16 ; [+89]
-      574 GETTABLEKS                       R17 R0 K0 ["props"]
-      576 GETTABLEKS                       R16 R17 K11 ["HandleCFrame"]
+      573 JUMPIFNOT                        R16 ; [+99]
+      574 GETTABLEKS                       R16 R0 K0 ["props"]
+      576 GETTABLEKS                       R16 R16 K11 ["HandleCFrame"]
       578 GETTABLEKS                       R17 R16 K77 ["Position"]
       580 GETIMPORT                        R18 K56 [CFrame.new]
       582 LOADN                            R19 0
@@ -491,21 +491,21 @@ PROTO_2:
       585 MINUS                            R22 R23
       586 DIVK                             R21 R22 K78 [2]
       587 CALL                             R18 3 1
-      588 GETIMPORT                        R22 K14 [CFrame.Angles]
-      590 MULK                             R24 R12 K18 [0.5]
-      591 ADD                              R23 R13 R24
-      592 LOADN                            R24 0
-      593 LOADN                            R25 0
-      594 CALL                             R22 3 1
-      595 MUL                              R21 R16 R22
-      596 MUL                              R20 R21 R18
-      597 GETTABLEKS                       R19 R20 K79 ["LookVector"]
+      588 GETIMPORT                        R21 K14 [CFrame.Angles]
+      590 MULK                             R23 R12 K18 [0.5]
+      591 ADD                              R22 R13 R23
+      592 LOADN                            R23 0
+      593 LOADN                            R24 0
+      594 CALL                             R21 3 1
+      595 MUL                              R20 R16 R21
+      596 MUL                              R19 R20 R18
+      597 GETTABLEKS                       R19 R19 K79 ["LookVector"]
       599 LOADK                            R23 K80 [1.2]
       600 MUL                              R22 R23 R3
       601 MUL                              R21 R19 R22
       602 ADD                              R20 R17 R21
-      603 GETTABLEKS                       R22 R0 K0 ["props"]
-      605 GETTABLEKS                       R21 R22 K75 ["DraggerContext"]
+      603 GETTABLEKS                       R21 R0 K0 ["props"]
+      605 GETTABLEKS                       R21 R21 K75 ["DraggerContext"]
       607 MOVE                             R23 R20
       608 NAMECALL                         R21 R21 K81 ["worldToViewportPoint"]
       610 CALL                             R21 2 2
@@ -513,8 +513,8 @@ PROTO_2:
       612 GETUPVAL                         R24 1
       613 CALL                             R24 0 1
       614 JUMPIFNOT                        R24 ; [+14]
-      615 GETTABLEKS                       R25 R0 K0 ["props"]
-      617 GETTABLEKS                       R24 R25 K75 ["DraggerContext"]
+      615 GETTABLEKS                       R24 R0 K0 ["props"]
+      617 GETTABLEKS                       R24 R24 K75 ["DraggerContext"]
       619 NAMECALL                         R25 R24 K82 ["shouldAngleSnap"]
       621 CALL                             R25 1 1
       622 JUMPIFNOT                        R25 ; [+5]
@@ -523,38 +523,46 @@ PROTO_2:
       626 MOVE                             R23 R25
       627 JUMP                             ; [+1]
       628 LOADNIL                          R23
-      629 JUMPIFNOT                        R22 ; [+33]
-      630 GETUPVAL                         R25 2
-      631 GETTABLEKS                       R24 R25 K19 ["createElement"]
-      633 GETUPVAL                         R25 6
-      634 DUPTABLE                         R26 K85 [{"DraggerContext", "Position", "Value"}]
-      635 GETTABLEKS                       R28 R0 K0 ["props"]
-      637 GETTABLEKS                       R27 R28 K75 ["DraggerContext"]
-      639 SETTABLEKS                       R27 R26 K75 ["DraggerContext"]
-      641 GETIMPORT                        R27 K88 [UDim2.fromOffset]
-      643 GETTABLEKS                       R28 R21 K89 ["X"]
-      645 GETTABLEKS                       R29 R21 K90 ["Y"]
-      647 CALL                             R27 2 1
-      648 SETTABLEKS                       R27 R26 K77 ["Position"]
-      650 GETUPVAL                         R27 7
-      651 FASTCALL1                        MATH_DEG R12 ; [+3]
-      652 MOVE                             R29 R12
-      653 GETIMPORT                        R28 K70 [math.deg]
-      655 CALL                             R28 1 1
-      656 MOVE                             R29 R23
-      657 CALL                             R27 2 1
-      658 SETTABLEKS                       R27 R26 K84 ["Value"]
-      660 CALL                             R24 2 1
-      661 SETTABLEKS                       R24 R7 K91 ["ValueDisplay"]
-      663 CLOSEUPVALS                      R11
-      664 GETUPVAL                         R10 2
-      665 GETTABLEKS                       R9 R10 K19 ["createElement"]
-      667 LOADK                            R10 K92 ["Folder"]
-      668 NEWTABLE                         R11 0 0
-      670 MOVE                             R12 R7
-      671 CALL                             R9 3 -1
-      672 CLOSEUPVALS                      R3
-      673 RETURN                           R9 -1
+      629 JUMPIFNOT                        R22 ; [+43]
+      630 GETUPVAL                         R25 1
+      631 CALL                             R25 0 1
+      632 JUMPIFNOT                        R25 ; [+5]
+      633 GETTABLEKS                       R24 R0 K0 ["props"]
+      635 GETTABLEKS                       R24 R24 K84 ["AxisId"]
+      637 JUMP                             ; [+1]
+      638 LOADNIL                          R24
+      639 GETUPVAL                         R25 2
+      640 GETTABLEKS                       R25 R25 K19 ["createElement"]
+      642 GETUPVAL                         R26 6
+      643 DUPTABLE                         R27 K86 [{"DraggerContext", "Position", "Value"}]
+      644 GETTABLEKS                       R28 R0 K0 ["props"]
+      646 GETTABLEKS                       R28 R28 K75 ["DraggerContext"]
+      648 SETTABLEKS                       R28 R27 K75 ["DraggerContext"]
+      650 GETIMPORT                        R28 K89 [UDim2.fromOffset]
+      652 GETTABLEKS                       R29 R21 K90 ["X"]
+      654 GETTABLEKS                       R30 R21 K91 ["Y"]
+      656 CALL                             R28 2 1
+      657 SETTABLEKS                       R28 R27 K77 ["Position"]
+      659 GETUPVAL                         R28 7
+      660 FASTCALL1                        MATH_DEG R12 ; [+3]
+      661 MOVE                             R30 R12
+      662 GETIMPORT                        R29 K70 [math.deg]
+      664 CALL                             R29 1 1
+      665 MOVE                             R30 R23
+      666 MOVE                             R31 R24
+      667 CALL                             R28 3 1
+      668 SETTABLEKS                       R28 R27 K85 ["Value"]
+      670 CALL                             R25 2 1
+      671 SETTABLEKS                       R25 R7 K92 ["ValueDisplay"]
+      673 CLOSEUPVALS                      R11
+      674 GETUPVAL                         R9 2
+      675 GETTABLEKS                       R9 R9 K19 ["createElement"]
+      677 LOADK                            R10 K93 ["Folder"]
+      678 NEWTABLE                         R11 0 0
+      680 MOVE                             R12 R7
+      681 CALL                             R9 3 -1
+      682 CLOSEUPVALS                      R3
+      683 RETURN                           R9 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["Scale"]
@@ -576,8 +584,8 @@ PROTO_3:
        22 MULK                             R16 R8 K9 [0.5]
        23 MUL                              R15 R16 R7
        24 ADD                              R14 R9 R15
-       25 GETUPVAL                         R16 1
-       26 GETTABLEKS                       R15 R16 K10 ["intersectRayPlane"]
+       25 GETUPVAL                         R15 1
+       26 GETTABLEKS                       R15 R15 K10 ["intersectRayPlane"]
        28 GETTABLEKS                       R16 R4 K11 ["Origin"]
        30 GETTABLEKS                       R17 R4 K12 ["Direction"]
        32 MOVE                             R18 R14
@@ -595,8 +603,8 @@ PROTO_3:
        48 GETTABLEKS                       R18 R4 K12 ["Direction"]
        50 MUL                              R17 R18 R13
        51 ADD                              R15 R16 R17
-       52 SUB                              R17 R15 R14
-       53 GETTABLEKS                       R16 R17 K13 ["Magnitude"]
+       52 SUB                              R16 R15 R14
+       53 GETTABLEKS                       R16 R16 K13 ["Magnitude"]
        55 SUB                              R18 R16 R6
        56 FASTCALL1                        MATH_ABS R18 ; [+2]
        57 GETIMPORT                        R17 K16 [math.abs]
@@ -609,8 +617,8 @@ PROTO_3:
        66 MULK                             R17 R8 K9 [0.5]
        67 MUL                              R16 R17 R7
        68 SUB                              R15 R9 R16
-       69 GETUPVAL                         R17 1
-       70 GETTABLEKS                       R16 R17 K10 ["intersectRayPlane"]
+       69 GETUPVAL                         R16 1
+       70 GETTABLEKS                       R16 R16 K10 ["intersectRayPlane"]
        72 GETTABLEKS                       R17 R4 K11 ["Origin"]
        74 GETTABLEKS                       R18 R4 K12 ["Direction"]
        76 MOVE                             R19 R15
@@ -628,8 +636,8 @@ PROTO_3:
        92 GETTABLEKS                       R19 R4 K12 ["Direction"]
        94 MUL                              R18 R19 R13
        95 ADD                              R16 R17 R18
-       96 SUB                              R18 R16 R15
-       97 GETTABLEKS                       R17 R18 K13 ["Magnitude"]
+       96 SUB                              R17 R16 R15
+       97 GETTABLEKS                       R17 R17 K13 ["Magnitude"]
        99 SUB                              R19 R17 R6
       100 FASTCALL1                        MATH_ABS R19 ; [+2]
       101 GETIMPORT                        R18 K16 [math.abs]
@@ -648,8 +656,8 @@ PROTO_3:
       120 LOADK                            R20 K9 [0.5]
       121 MUL                              R19 R20 R7
       122 SUB                              R18 R6 R19
-      123 GETUPVAL                         R20 1
-      124 GETTABLEKS                       R19 R20 K19 ["intersectRayCylinder"]
+      123 GETUPVAL                         R19 1
+      124 GETTABLEKS                       R19 R19 K19 ["intersectRayCylinder"]
       126 MOVE                             R20 R16
       127 MOVE                             R21 R17
       128 MOVE                             R22 R18
@@ -664,8 +672,8 @@ PROTO_3:
       138 LOADK                            R21 K9 [0.5]
       139 MUL                              R20 R21 R7
       140 ADD                              R19 R6 R20
-      141 GETUPVAL                         R21 1
-      142 GETTABLEKS                       R20 R21 K19 ["intersectRayCylinder"]
+      141 GETUPVAL                         R20 1
+      142 GETTABLEKS                       R20 R20 K19 ["intersectRayCylinder"]
       144 MOVE                             R21 R16
       145 MOVE                             R22 R17
       146 MOVE                             R23 R19
@@ -688,32 +696,32 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETTABLEKS                       R2 R1 K6 ["Parent"]
        15 GETIMPORT                        R3 K8 [require]
        17 GETTABLEKS                       R4 R2 K9 ["Roact"]
        19 CALL                             R3 1 1
        20 GETIMPORT                        R4 K8 [require]
-       22 GETTABLEKS                       R6 R1 K10 ["Utility"]
-       24 GETTABLEKS                       R5 R6 K11 ["Math"]
+       22 GETTABLEKS                       R5 R1 K10 ["Utility"]
+       24 GETTABLEKS                       R5 R5 K11 ["Math"]
        26 CALL                             R4 1 1
        27 GETIMPORT                        R5 K8 [require]
-       29 GETTABLEKS                       R7 R1 K12 ["Components"]
-       31 GETTABLEKS                       R6 R7 K13 ["FloatingValueInput"]
+       29 GETTABLEKS                       R6 R1 K12 ["Components"]
+       31 GETTABLEKS                       R6 R6 K13 ["FloatingValueInput"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K8 [require]
-       36 GETTABLEKS                       R8 R1 K10 ["Utility"]
-       38 GETTABLEKS                       R7 R8 K14 ["conciseNumberFormat"]
+       36 GETTABLEKS                       R7 R1 K10 ["Utility"]
+       38 GETTABLEKS                       R7 R7 K14 ["conciseNumberFormat"]
        40 CALL                             R6 1 1
        41 GETIMPORT                        R7 K8 [require]
-       43 GETTABLEKS                       R9 R1 K15 ["Flags"]
-       45 GETTABLEKS                       R8 R9 K16 ["getFFlagDraggerImprovements"]
+       43 GETTABLEKS                       R8 R1 K15 ["Flags"]
+       45 GETTABLEKS                       R8 R8 K16 ["getFFlagDraggerImprovements"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K8 [require]
-       50 GETTABLEKS                       R10 R1 K15 ["Flags"]
-       52 GETTABLEKS                       R9 R10 K17 ["getFFlagNextGenDraggers"]
+       50 GETTABLEKS                       R9 R1 K15 ["Flags"]
+       52 GETTABLEKS                       R9 R9 K17 ["getFFlagNextGenDraggers"]
        54 CALL                             R8 1 1
        55 GETIMPORT                        R9 K21 [Enum.AdornCullingMode.Never]
        57 GETTABLEKS                       R10 R3 K22 ["PureComponent"]

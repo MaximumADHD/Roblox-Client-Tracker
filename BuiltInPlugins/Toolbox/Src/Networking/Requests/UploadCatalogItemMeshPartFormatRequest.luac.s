@@ -2,8 +2,8 @@ PROTO_0:
         0 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -44,13 +44,13 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R5 2
-        3 GETTABLEKS                       R4 R5 K0 ["Name"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["Name"]
         5 GETUPVAL                         R5 3
         6 GETUPVAL                         R6 4
         7 LOADB                            R7 1
-        8 GETUPVAL                         R9 5
-        9 GETTABLEKS                       R8 R9 K1 ["AVATAR_MESHPART_ACCESSORY_FORMAT"]
+        8 GETUPVAL                         R8 5
+        9 GETTABLEKS                       R8 R8 K1 ["AVATAR_MESHPART_ACCESSORY_FORMAT"]
        11 MOVE                             R9 R0
        12 NAMECALL                         R1 R1 K2 ["uploadCatalogItemFormat"]
        14 CALL                             R1 8 1
@@ -113,23 +113,23 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       17 GETTABLEKS                       R2 R3 K7 ["NetworkError"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       17 GETTABLEKS                       R2 R2 K7 ["NetworkError"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       26 GETTABLEKS                       R3 R4 K8 ["UploadResult"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       26 GETTABLEKS                       R3 R3 K8 ["UploadResult"]
        28 CALL                             R2 1 1
-       29 GETTABLEKS                       R4 R0 K5 ["Src"]
-       31 GETTABLEKS                       R3 R4 K9 ["Util"]
+       29 GETTABLEKS                       R3 R0 K5 ["Src"]
+       31 GETTABLEKS                       R3 R3 K9 ["Util"]
        33 GETIMPORT                        R4 K4 [require]
        35 GETTABLEKS                       R5 R3 K10 ["DebugFlags"]
        37 CALL                             R4 1 1

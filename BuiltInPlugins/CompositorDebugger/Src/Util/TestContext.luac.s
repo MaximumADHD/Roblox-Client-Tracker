@@ -6,14 +6,14 @@ PROTO_0:
         5 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Store"]
-        3 GETTABLEKS                       R2 R3 K1 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Store"]
+        3 GETTABLEKS                       R2 R2 K1 ["new"]
         5 GETUPVAL                         R3 1
         6 LOADNIL                          R4
         7 NEWTABLE                         R5 0 1
-        9 GETUPVAL                         R7 0
-       10 GETTABLEKS                       R6 R7 K2 ["thunkMiddleware"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K2 ["thunkMiddleware"]
        12 SETLIST                          R5 R6 1 [1]
        14 CALL                             R2 3 1
        15 LOADNIL                          R3
@@ -23,8 +23,8 @@ PROTO_1:
        19 JUMPIFNOT                        R0 ; [+70]
        20 GETUPVAL                         R7 2
        21 DUPTABLE                         R8 K4 [{"Canvas"}]
-       22 GETUPVAL                         R10 3
-       23 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       22 GETUPVAL                         R9 3
+       23 GETTABLEKS                       R9 R9 K5 ["createElement"]
        25 LOADK                            R10 K6 ["Frame"]
        26 DUPTABLE                         R11 K8 [{"Size"}]
        27 GETIMPORT                        R12 K11 [UDim2.fromOffset]
@@ -33,8 +33,8 @@ PROTO_1:
        31 CALL                             R12 2 1
        32 SETTABLEKS                       R12 R11 K7 ["Size"]
        34 DUPTABLE                         R12 K13 [{"Component"}]
-       35 GETUPVAL                         R14 3
-       36 GETTABLEKS                       R13 R14 K5 ["createElement"]
+       35 GETUPVAL                         R13 3
+       36 GETTABLEKS                       R13 R13 K5 ["createElement"]
        38 MOVE                             R14 R0
        39 GETUPVAL                         R15 4
        40 DUPTABLE                         R16 K8 [{"Size"}]
@@ -60,13 +60,13 @@ PROTO_1:
        67 CALL                             R9 2 -1
        68 CALL                             R7 -1 1
        69 MOVE                             R3 R7
-       70 GETUPVAL                         R8 5
-       71 GETTABLEKS                       R7 R8 K23 ["createRoot"]
+       70 GETUPVAL                         R7 5
+       71 GETTABLEKS                       R7 R7 K23 ["createRoot"]
        73 MOVE                             R8 R3
        74 CALL                             R7 1 1
        75 MOVE                             R6 R7
-       76 GETUPVAL                         R8 5
-       77 GETTABLEKS                       R7 R8 K24 ["act"]
+       76 GETUPVAL                         R7 5
+       77 GETTABLEKS                       R7 R7 K24 ["act"]
        79 NEWCLOSURE                       R8 P0
        80 CAPTURE                          REF R6
        81 CAPTURE                          REF R4
@@ -90,10 +90,10 @@ PROTO_1:
       108 RETURN                           R7 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["root"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["element"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["root"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["element"]
         6 NAMECALL                         R0 R0 K2 ["render"]
         8 CALL                             R0 2 0
         9 RETURN                           R0 0
@@ -103,14 +103,14 @@ PROTO_3:
         2 FASTCALL1                        ASSERT R2 ; [+2]
         3 GETIMPORT                        R1 K2 [assert]
         5 CALL                             R1 1 0
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K3 ["act"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K3 ["act"]
         9 NEWCLOSURE                       R2 P0
        10 CAPTURE                          VAL R0
        11 CALL                             R1 1 0
-       12 GETTABLEKS                       R3 R0 K4 ["container"]
-       14 GETTABLEKS                       R2 R3 K5 ["Canvas"]
-       16 GETTABLEKS                       R1 R2 K6 ["Component"]
+       12 GETTABLEKS                       R1 R0 K4 ["container"]
+       14 GETTABLEKS                       R1 R1 K5 ["Canvas"]
+       16 GETTABLEKS                       R1 R1 K6 ["Component"]
        18 SETTABLEKS                       R1 R0 K7 ["main"]
        20 GETIMPORT                        R1 K10 [task.wait]
        22 LOADK                            R2 K11 [0.1]
@@ -133,35 +133,35 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactRoblox"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactRoblox"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Rodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Rodux"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["Dash"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["Dash"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R4 K11 ["join"]
        37 GETIMPORT                        R6 K5 [require]
-       39 GETTABLEKS                       R9 R0 K6 ["Packages"]
-       41 GETTABLEKS                       R8 R9 K12 ["Dev"]
-       43 GETTABLEKS                       R7 R8 K13 ["JestGlobals"]
+       39 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       41 GETTABLEKS                       R7 R7 K12 ["Dev"]
+       43 GETTABLEKS                       R7 R7 K13 ["JestGlobals"]
        45 CALL                             R6 1 1
        46 GETTABLEKS                       R7 R6 K14 ["expect"]
-       48 GETTABLEKS                       R9 R0 K15 ["Src"]
-       50 GETTABLEKS                       R8 R9 K16 ["Reducers"]
+       48 GETTABLEKS                       R8 R0 K15 ["Src"]
+       50 GETTABLEKS                       R8 R8 K16 ["Reducers"]
        52 GETIMPORT                        R9 K5 [require]
        54 GETTABLEKS                       R10 R8 K17 ["MainReducer"]
        56 CALL                             R9 1 1
-       57 GETTABLEKS                       R11 R0 K15 ["Src"]
-       59 GETTABLEKS                       R10 R11 K18 ["Util"]
+       57 GETTABLEKS                       R10 R0 K15 ["Src"]
+       59 GETTABLEKS                       R10 R10 K18 ["Util"]
        61 GETIMPORT                        R11 K5 [require]
        63 GETTABLEKS                       R12 R10 K19 ["mockContext"]
        65 CALL                             R11 1 1

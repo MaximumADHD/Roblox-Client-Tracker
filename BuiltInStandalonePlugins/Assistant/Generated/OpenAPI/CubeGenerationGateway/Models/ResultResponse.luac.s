@@ -20,8 +20,8 @@ PROTO_0:
        24 RETURN                           R0 1
        25 GETTABLEKS                       R3 R0 K7 ["textureGeneration"]
        27 JUMPIFEQKNIL                     R3 ; [+16]
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K8 ["fromResponse"]
+       29 GETUPVAL                         R3 0
+       30 GETTABLEKS                       R3 R3 K8 ["fromResponse"]
        32 GETTABLEKS                       R4 R0 K7 ["textureGeneration"]
        34 MOVE                             R5 R1
        35 LOADK                            R7 K9 ["%*\"textureGeneration\" > "]
@@ -33,8 +33,8 @@ PROTO_0:
        42 SETTABLEKS                       R3 R0 K7 ["textureGeneration"]
        44 GETTABLEKS                       R3 R0 K10 ["meshGeneration"]
        46 JUMPIFEQKNIL                     R3 ; [+16]
-       48 GETUPVAL                         R4 1
-       49 GETTABLEKS                       R3 R4 K8 ["fromResponse"]
+       48 GETUPVAL                         R3 1
+       49 GETTABLEKS                       R3 R3 K8 ["fromResponse"]
        51 GETTABLEKS                       R4 R0 K10 ["meshGeneration"]
        53 MOVE                             R5 R1
        54 LOADK                            R7 K11 ["%*\"meshGeneration\" > "]
@@ -52,15 +52,15 @@ PROTO_1:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R1 K3 ["textureGeneration"]
         6 JUMPIFEQKNIL                     R2 ; [+9]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        11 GETTABLEKS                       R3 R1 K3 ["textureGeneration"]
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R1 K3 ["textureGeneration"]
        16 GETTABLEKS                       R2 R1 K5 ["meshGeneration"]
        18 JUMPIFEQKNIL                     R2 ; [+9]
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        23 GETTABLEKS                       R3 R1 K5 ["meshGeneration"]
        25 CALL                             R2 1 1
        26 SETTABLEKS                       R2 R1 K5 ["meshGeneration"]
@@ -80,12 +80,12 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["MeshGenerationResponse"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["MeshGenerationResponse"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K7 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Models"]
-       29 GETTABLEKS                       R6 R7 K11 ["TextureGenerationResponse"]
+       27 GETTABLEKS                       R6 R0 K9 ["Models"]
+       29 GETTABLEKS                       R6 R6 K11 ["TextureGenerationResponse"]
        31 CALL                             R5 1 1
        32 DUPCLOSURE                       R6 K12 [PROTO_0]
        33 CAPTURE                          VAL R5

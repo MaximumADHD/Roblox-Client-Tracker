@@ -38,8 +38,8 @@ PROTO_1:
        24 GETTABLEKS                       R4 R0 K7 ["_initialBone"]
        26 GETTABLEKS                       R5 R4 K10 ["Part0"]
        28 JUMPIFNOT                        R5 ; [+10]
-       29 GETTABLEKS                       R7 R4 K10 ["Part0"]
-       31 GETTABLEKS                       R6 R7 K2 ["CFrame"]
+       29 GETTABLEKS                       R6 R4 K10 ["Part0"]
+       31 GETTABLEKS                       R6 R6 K2 ["CFrame"]
        33 GETTABLEKS                       R7 R4 K11 ["C0"]
        35 MUL                              R5 R6 R7
        36 SETTABLEKS                       R5 R0 K12 ["_initialWorldCFrame"]
@@ -68,8 +68,8 @@ PROTO_1:
        73 GETTABLEKS                       R4 R0 K7 ["_initialBone"]
        75 GETTABLEKS                       R5 R4 K17 ["Attachment1"]
        77 JUMPIFNOT                        R5 ; [+10]
-       78 GETTABLEKS                       R7 R4 K17 ["Attachment1"]
-       80 GETTABLEKS                       R6 R7 K18 ["WorldCFrame"]
+       78 GETTABLEKS                       R6 R4 K17 ["Attachment1"]
+       80 GETTABLEKS                       R6 R6 K18 ["WorldCFrame"]
        82 GETTABLEKS                       R7 R4 K15 ["Transform"]
        84 MUL                              R5 R6 R7
        85 SETTABLEKS                       R5 R0 K12 ["_initialWorldCFrame"]
@@ -97,15 +97,15 @@ PROTO_2:
        12 CALL                             R2 4 0
        13 GETTABLEKS                       R2 R0 K4 ["_draggerContext"]
        15 JUMPIFNOT                        R2 ; [+19]
-       16 GETTABLEKS                       R3 R0 K4 ["_draggerContext"]
-       18 GETTABLEKS                       R2 R3 K5 ["_selection"]
+       16 GETTABLEKS                       R2 R0 K4 ["_draggerContext"]
+       18 GETTABLEKS                       R2 R2 K5 ["_selection"]
        20 JUMPIFNOT                        R2 ; [+14]
        21 GETTABLEKS                       R2 R0 K2 ["_initialWorldCFrame"]
        23 JUMPIFNOT                        R2 ; [+11]
        24 GETTABLEKS                       R3 R0 K2 ["_initialWorldCFrame"]
        26 MUL                              R2 R1 R3
-       27 GETTABLEKS                       R4 R0 K4 ["_draggerContext"]
-       29 GETTABLEKS                       R3 R4 K5 ["_selection"]
+       27 GETTABLEKS                       R3 R0 K4 ["_draggerContext"]
+       29 GETTABLEKS                       R3 R3 K5 ["_selection"]
        31 MOVE                             R5 R2
        32 NAMECALL                         R3 R3 K6 ["SetTransform"]
        34 CALL                             R3 2 0
@@ -118,11 +118,11 @@ PROTO_3:
         5 JUMPIFNOT                        R1 ; [+17]
         6 GETTABLEKS                       R1 R0 K2 ["_draggerContext"]
         8 JUMPIFNOT                        R1 ; [+14]
-        9 GETTABLEKS                       R2 R0 K2 ["_draggerContext"]
-       11 GETTABLEKS                       R1 R2 K3 ["_selection"]
+        9 GETTABLEKS                       R1 R0 K2 ["_draggerContext"]
+       11 GETTABLEKS                       R1 R1 K3 ["_selection"]
        13 JUMPIFNOT                        R1 ; [+9]
-       14 GETTABLEKS                       R2 R0 K2 ["_draggerContext"]
-       16 GETTABLEKS                       R1 R2 K3 ["_selection"]
+       14 GETTABLEKS                       R1 R0 K2 ["_draggerContext"]
+       16 GETTABLEKS                       R1 R1 K3 ["_selection"]
        18 GETTABLEKS                       R3 R0 K1 ["_initialBone"]
        20 NAMECALL                         R1 R1 K4 ["SetJoint"]
        22 CALL                             R1 2 0
@@ -130,8 +130,8 @@ PROTO_3:
        25 JUMPIFNOT                        R1 ; [+8]
        26 GETTABLEKS                       R1 R0 K5 ["_hrd"]
        28 JUMPIFNOT                        R1 ; [+5]
-       29 GETUPVAL                         R2 0
-       30 GETTABLEKS                       R1 R2 K6 ["addTPoseWaypoint"]
+       29 GETUPVAL                         R1 0
+       30 GETTABLEKS                       R1 R1 K6 ["addTPoseWaypoint"]
        32 LOADK                            R2 K7 ["Bone Transform"]
        33 CALL                             R1 1 0
        34 LOADNIL                          R1
@@ -158,9 +158,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utils"]
-       13 GETTABLEKS                       R2 R3 K8 ["UndoUtils"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utils"]
+       13 GETTABLEKS                       R2 R2 K8 ["UndoUtils"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 8 0
        18 SETTABLEKS                       R2 R2 K9 ["__index"]

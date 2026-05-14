@@ -1,9 +1,9 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R5 R0 K0 ["responseBody"]
-        3 GETTABLEKS                       R4 R5 K1 ["data"]
-        5 GETTABLEN                        R3 R4 1
-        6 GETTABLEKS                       R2 R3 K2 ["id"]
+        1 GETTABLEKS                       R3 R0 K0 ["responseBody"]
+        3 GETTABLEKS                       R3 R3 K1 ["data"]
+        5 GETTABLEN                        R2 R3 1
+        6 GETTABLEKS                       R2 R2 K2 ["id"]
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
 
@@ -17,10 +17,10 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R6 R1 K0 ["Develop"]
-        2 GETTABLEKS                       R5 R6 K1 ["V2"]
-        4 GETTABLEKS                       R4 R5 K2 ["Universes"]
-        6 GETTABLEKS                       R3 R4 K3 ["places"]
+        0 GETTABLEKS                       R3 R1 K0 ["Develop"]
+        2 GETTABLEKS                       R3 R3 K1 ["V2"]
+        4 GETTABLEKS                       R3 R3 K2 ["Universes"]
+        6 GETTABLEKS                       R3 R3 K3 ["places"]
         8 MOVE                             R4 R0
         9 CALL                             R3 1 1
        10 NAMECALL                         R3 R3 K4 ["makeRequest"]

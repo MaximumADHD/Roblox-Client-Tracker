@@ -15,11 +15,11 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [game]
-        3 LOADK                            R3 K2 ["ContentProvider"]
-        4 NAMECALL                         R1 R1 K3 ["GetService"]
-        6 CALL                             R1 2 1
-        7 GETTABLEKS                       R0 R1 K4 ["BaseUrl"]
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["ContentProvider"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R0 R0 K4 ["BaseUrl"]
         9 NAMECALL                         R0 R0 K5 ["lower"]
        11 CALL                             R0 1 1
        12 LOADK                            R3 K6 ["https://www."]

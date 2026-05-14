@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["CurrentCamera"]
-        3 GETTABLEKS                       R0 R1 K1 ["CFrame"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CurrentCamera"]
+        3 GETTABLEKS                       R0 R0 K1 ["CFrame"]
         5 GETIMPORT                        R1 K3 [CFrame.Angles]
         7 LOADK                            R2 K4 [1.5707963267949]
         8 LOADN                            R3 0

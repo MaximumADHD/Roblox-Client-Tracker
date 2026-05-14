@@ -26,8 +26,8 @@ PROTO_0:
        33 JUMPIFNOTLT                      R16 R15 ; [+18]
        35 GETTABLEKS                       R15 R12 K10 ["enabled"]
        37 JUMPIFNOT                        R15 ; [+14]
-       38 GETTABLEKS                       R18 R12 K11 ["colorEntry"]
-       40 GETTABLEKS                       R17 R18 K12 ["color"]
+       38 GETTABLEKS                       R17 R12 K11 ["colorEntry"]
+       40 GETTABLEKS                       R17 R17 K12 ["color"]
        42 NAMECALL                         R15 R13 K13 ["SetColor"]
        44 CALL                             R15 2 0
        45 GETTABLEKS                       R17 R14 K14 ["animationPose"]

@@ -10,10 +10,10 @@ PROTO_0:
        12 GETIMPORT                        R3 K6 [Enum.UserInputState.Begin]
        14 JUMPIFNOTEQ                      R2 R3 ; [+12]
        16 GETIMPORT                        R2 K9 [Vector2.new]
-       18 GETTABLEKS                       R4 R1 K10 ["Position"]
-       20 GETTABLEKS                       R3 R4 K11 ["x"]
-       22 GETTABLEKS                       R5 R1 K10 ["Position"]
-       24 GETTABLEKS                       R4 R5 K12 ["y"]
+       18 GETTABLEKS                       R3 R1 K10 ["Position"]
+       20 GETTABLEKS                       R3 R3 K11 ["x"]
+       22 GETTABLEKS                       R4 R1 K10 ["Position"]
+       24 GETTABLEKS                       R4 R4 K12 ["y"]
        26 CALL                             R2 2 1
        27 RETURN                           R0 0
 
@@ -165,8 +165,8 @@ PROTO_5:
       122 GETUPVAL                         R4 4
       123 GETUPVAL                         R5 2
       124 SETTABLEKS                       R5 R4 K27 ["Parent"]
-      126 GETUPVAL                         R5 4
-      127 GETTABLEKS                       R4 R5 K28 ["FocusLost"]
+      126 GETUPVAL                         R4 4
+      127 GETTABLEKS                       R4 R4 K28 ["FocusLost"]
       129 GETUPVAL                         R6 6
       130 NAMECALL                         R4 R4 K29 ["connect"]
       132 CALL                             R4 2 1
@@ -189,9 +189,9 @@ PROTO_6:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["CoreGuiManager"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["CoreGuiManager"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K7 [game]
        12 LOADK                            R3 K8 ["ChangeHistoryService"]

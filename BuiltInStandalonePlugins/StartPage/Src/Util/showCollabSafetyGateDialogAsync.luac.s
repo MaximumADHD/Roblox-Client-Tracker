@@ -18,8 +18,8 @@ PROTO_1:
        15 LOADNIL                          R9
        16 LOADNIL                          R10
        17 LOADNIL                          R11
-       18 GETUPVAL                         R13 1
-       19 GETTABLEKS                       R12 R13 K3 ["NotAgeVerified"]
+       18 GETUPVAL                         R12 1
+       19 GETTABLEKS                       R12 R12 K3 ["NotAgeVerified"]
        21 JUMPIFNOTEQ                      R5 R12 ; [+28]
        23 LOADK                            R14 K4 ["Plugin"]
        24 LOADK                            R15 K5 ["VerifyAgeGateDialog.Title"]
@@ -44,11 +44,11 @@ PROTO_1:
        47 CALL                             R12 3 1
        48 MOVE                             R9 R12
        49 JUMP                             ; [+36]
-       50 GETUPVAL                         R13 1
-       51 GETTABLEKS                       R12 R13 K12 ["OutsideAgeBucket"]
+       50 GETUPVAL                         R12 1
+       51 GETTABLEKS                       R12 R12 K12 ["OutsideAgeBucket"]
        53 JUMPIFEQ                         R5 R12 ; [+6]
-       55 GETUPVAL                         R13 1
-       56 GETTABLEKS                       R12 R13 K13 ["PCBlock"]
+       55 GETUPVAL                         R12 1
+       56 GETTABLEKS                       R12 R12 K13 ["PCBlock"]
        58 JUMPIFNOTEQ                      R5 R12 ; [+27]
        60 LOADK                            R14 K4 ["Plugin"]
        61 LOADK                            R15 K14 ["TrustedConnectionsGateDialog.Title"]
@@ -106,11 +106,11 @@ PROTO_1:
       133 JUMPIFNOT                        R12 ; [+47]
       134 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
       136 JUMPIFNOT                        R13 ; [+44]
-      137 GETTABLEKS                       R14 R12 K35 ["SelectedButtonUri"]
-      139 GETTABLEKS                       R13 R14 K20 ["ItemId"]
+      137 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
+      139 GETTABLEKS                       R13 R13 K20 ["ItemId"]
       141 JUMPIFNOT                        R13 ; [+39]
-      142 GETTABLEKS                       R14 R12 K35 ["SelectedButtonUri"]
-      144 GETTABLEKS                       R13 R14 K20 ["ItemId"]
+      142 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
+      144 GETTABLEKS                       R13 R13 K20 ["ItemId"]
       146 JUMPIFNOTEQKS                    R13 K8 ["SafetyDialog/Verify"] ; [+7]
       148 GETUPVAL                         R13 2
       149 GETUPVAL                         R15 3
@@ -120,11 +120,11 @@ PROTO_1:
       154 GETUPVAL                         R13 4
       155 CALL                             R13 0 1
       156 JUMPIFNOT                        R13 ; [+24]
-      157 GETTABLEKS                       R14 R12 K35 ["SelectedButtonUri"]
-      159 GETTABLEKS                       R13 R14 K20 ["ItemId"]
+      157 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
+      159 GETTABLEKS                       R13 R13 K20 ["ItemId"]
       161 JUMPIFNOTEQKS                    R13 K16 ["SafetyDialog/AddTrustedConnections"] ; [+19]
-      163 GETUPVAL                         R14 5
-      164 GETTABLEKS                       R13 R14 K37 ["map"]
+      163 GETUPVAL                         R13 5
+      164 GETTABLEKS                       R13 R13 K37 ["map"]
       166 GETTABLEKS                       R14 R0 K38 ["RequiresTrustedConnection"]
       168 DUPCLOSURE                       R15 K39 [PROTO_0]
       169 CALL                             R13 2 1
@@ -146,50 +146,50 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["StartPageManager"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K11 ["Dash"]
+       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K11 ["Dash"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       27 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K12 ["Framework"]
        31 CALL                             R4 1 1
-       32 GETTABLEKS                       R6 R4 K7 ["Util"]
-       34 GETTABLEKS                       R5 R6 K13 ["CrossPluginCommunication"]
+       32 GETTABLEKS                       R5 R4 K7 ["Util"]
+       34 GETTABLEKS                       R5 R5 K13 ["CrossPluginCommunication"]
        36 GETTABLEKS                       R6 R5 K14 ["new"]
        38 LOADK                            R7 K15 ["StartPageTeamCreateCollaborators"]
        39 CALL                             R6 1 1
        40 GETIMPORT                        R7 K5 [require]
-       42 GETTABLEKS                       R10 R0 K6 ["Src"]
-       44 GETTABLEKS                       R9 R10 K16 ["SharedFlags"]
-       46 GETTABLEKS                       R8 R9 K17 ["getFStringLuaStartPageVerifyAgeLink"]
+       42 GETTABLEKS                       R8 R0 K6 ["Src"]
+       44 GETTABLEKS                       R8 R8 K16 ["SharedFlags"]
+       46 GETTABLEKS                       R8 R8 K17 ["getFStringLuaStartPageVerifyAgeLink"]
        48 CALL                             R7 1 1
        49 GETIMPORT                        R8 K5 [require]
-       51 GETTABLEKS                       R11 R0 K6 ["Src"]
-       53 GETTABLEKS                       R10 R11 K18 ["Models"]
-       55 GETTABLEKS                       R9 R10 K19 ["CanCollaborateError"]
+       51 GETTABLEKS                       R9 R0 K6 ["Src"]
+       53 GETTABLEKS                       R9 R9 K18 ["Models"]
+       55 GETTABLEKS                       R9 R9 K19 ["CanCollaborateError"]
        57 CALL                             R8 1 1
        58 GETIMPORT                        R9 K5 [require]
-       60 GETTABLEKS                       R12 R0 K6 ["Src"]
-       62 GETTABLEKS                       R11 R12 K18 ["Models"]
-       64 GETTABLEKS                       R10 R11 K20 ["CanCollaborateResponse"]
+       60 GETTABLEKS                       R10 R0 K6 ["Src"]
+       62 GETTABLEKS                       R10 R10 K18 ["Models"]
+       64 GETTABLEKS                       R10 R10 K20 ["CanCollaborateResponse"]
        66 CALL                             R9 1 1
        67 MOVE                             R10 R7
        68 CALL                             R10 0 1
        69 GETIMPORT                        R11 K5 [require]
-       71 GETTABLEKS                       R14 R0 K6 ["Src"]
-       73 GETTABLEKS                       R13 R14 K16 ["SharedFlags"]
-       75 GETTABLEKS                       R12 R13 K21 ["getFFlagEnableTeamCreateCollaborators"]
+       71 GETTABLEKS                       R12 R0 K6 ["Src"]
+       73 GETTABLEKS                       R12 R12 K16 ["SharedFlags"]
+       75 GETTABLEKS                       R12 R12 K21 ["getFFlagEnableTeamCreateCollaborators"]
        77 CALL                             R11 1 1
        78 GETIMPORT                        R12 K5 [require]
-       80 GETTABLEKS                       R15 R0 K6 ["Src"]
-       82 GETTABLEKS                       R14 R15 K16 ["SharedFlags"]
-       84 GETTABLEKS                       R13 R14 K22 ["getFFlagLuaStartPageTCAgeGatingCheck"]
+       80 GETTABLEKS                       R13 R0 K6 ["Src"]
+       82 GETTABLEKS                       R13 R13 K16 ["SharedFlags"]
+       84 GETTABLEKS                       R13 R13 K22 ["getFFlagLuaStartPageTCAgeGatingCheck"]
        86 CALL                             R12 1 1
        87 CALL                             R12 0 1
        88 DUPTABLE                         R13 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]

@@ -4,8 +4,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AssetExport"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Bin"]
-        9 GETTABLEKS                       R1 R2 K5 ["Common"]
+        7 GETTABLEKS                       R1 R0 K4 ["Bin"]
+        9 GETTABLEKS                       R1 R1 K5 ["Common"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["safeGetFFlagCallback"]
        15 CALL                             R2 1 1

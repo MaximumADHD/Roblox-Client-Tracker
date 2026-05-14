@@ -46,14 +46,14 @@ PROTO_4:
         3 FASTCALL                         ASSERT ; [+2]
         4 GETIMPORT                        R2 K1 [assert]
         6 CALL                             R2 -1 0
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["LogTelemetry"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["LogTelemetry"]
        10 CALL                             R2 0 1
        11 JUMPIFNOT                        R2 ; [+13]
        12 GETIMPORT                        R2 K4 [print]
        14 LOADK                            R4 K5 ["StyleEditor logged telemetry event '%*':"]
-       15 GETTABLEKS                       R7 R1 K6 ["config"]
-       17 GETTABLEKS                       R6 R7 K7 ["eventName"]
+       15 GETTABLEKS                       R6 R1 K6 ["config"]
+       17 GETTABLEKS                       R6 R6 K7 ["eventName"]
        19 NAMECALL                         R4 R4 K8 ["format"]
        21 CALL                             R4 2 1
        22 MOVE                             R3 R4
@@ -72,27 +72,27 @@ MAIN:
         3 LOADK                            R2 K2 ["MessageBusService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       19 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K10 ["Framework"]
        23 CALL                             R2 1 1
-       24 GETTABLEKS                       R5 R2 K11 ["Util"]
-       26 GETTABLEKS                       R4 R5 K12 ["Typecheck"]
-       28 GETTABLEKS                       R3 R4 K13 ["t"]
+       24 GETTABLEKS                       R3 R2 K11 ["Util"]
+       26 GETTABLEKS                       R3 R3 K12 ["Typecheck"]
+       28 GETTABLEKS                       R3 R3 K13 ["t"]
        30 GETIMPORT                        R4 K8 [require]
-       32 GETTABLEKS                       R7 R1 K14 ["Src"]
-       34 GETTABLEKS                       R6 R7 K11 ["Util"]
-       36 GETTABLEKS                       R5 R6 K15 ["DebugFlags"]
+       32 GETTABLEKS                       R5 R1 K14 ["Src"]
+       34 GETTABLEKS                       R5 R5 K11 ["Util"]
+       36 GETTABLEKS                       R5 R5 K15 ["DebugFlags"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K8 [require]
-       41 GETIMPORT                        R8 K5 [script]
-       43 GETTABLEKS                       R7 R8 K6 ["Parent"]
-       45 GETTABLEKS                       R6 R7 K16 ["Types"]
+       41 GETIMPORT                        R6 K5 [script]
+       43 GETTABLEKS                       R6 R6 K6 ["Parent"]
+       45 GETTABLEKS                       R6 R6 K16 ["Types"]
        47 CALL                             R5 1 1
        48 DUPTABLE                         R6 K20 [{"RobloxTelemetry", "EphemeralCounter", "EphemeralStat"}]
        49 LOADK                            R7 K17 ["RobloxTelemetry"]

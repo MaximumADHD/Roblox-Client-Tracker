@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["CameraSpeedLockedUpdated"]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K1 ["LockCameraSpeed"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K1 ["LockCameraSpeed"]
         5 NAMECALL                         R0 R0 K2 ["Invoke"]
         7 CALL                             R0 3 0
         8 RETURN                           R0 0
@@ -20,15 +20,15 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["CameraSpeedLockedUpdated"]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K1 ["LockCameraSpeed"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K1 ["LockCameraSpeed"]
         5 NAMECALL                         R0 R0 K2 ["Invoke"]
         7 CALL                             R0 3 0
         8 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 CALL                             R2 0 1
         4 LOADK                            R7 K1 ["RequestCameraSpeedLockedUpdate"]
         5 NEWCLOSURE                       R8 P0
@@ -65,9 +65,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Maid"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Maid"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 1 0
        18 DUPCLOSURE                       R3 K9 [PROTO_3]

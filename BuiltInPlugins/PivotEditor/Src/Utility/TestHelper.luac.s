@@ -6,8 +6,8 @@ PROTO_0:
         6 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETIMPORT                        R1 K1 [game]
-        2 GETTABLEKS                       R0 R1 K2 ["CoreGui"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["CoreGui"]
         4 LOADK                            R2 K3 ["TempScreenGui"]
         5 NAMECALL                         R0 R0 K4 ["FindFirstChild"]
         7 CALL                             R0 2 -1
@@ -21,8 +21,8 @@ PROTO_2:
         6 JUMPIFNOT                        R0 ; [+3]
         7 NAMECALL                         R1 R0 K4 ["Destroy"]
         9 CALL                             R1 1 0
-       10 GETIMPORT                        R2 K6 [game]
-       12 GETTABLEKS                       R1 R2 K7 ["CoreGui"]
+       10 GETIMPORT                        R1 K6 [game]
+       12 GETTABLEKS                       R1 R1 K7 ["CoreGui"]
        14 LOADK                            R3 K8 ["TempScreenGui"]
        15 NAMECALL                         R1 R1 K3 ["FindFirstChild"]
        17 CALL                             R1 2 1
@@ -49,8 +49,8 @@ PROTO_3:
        20 RETURN                           R0 1
 
 PROTO_4:
-        0 GETIMPORT                        R1 K1 [game]
-        2 GETTABLEKS                       R0 R1 K2 ["CoreGui"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["CoreGui"]
         4 LOADK                            R2 K3 ["TempScreenGui"]
         5 NAMECALL                         R0 R0 K4 ["FindFirstChild"]
         7 CALL                             R0 2 1
@@ -58,8 +58,8 @@ PROTO_4:
         9 RETURN                           R0 1
        10 GETIMPORT                        R1 K7 [Instance.new]
        12 LOADK                            R2 K8 ["ScreenGui"]
-       13 GETIMPORT                        R4 K1 [game]
-       15 GETTABLEKS                       R3 R4 K2 ["CoreGui"]
+       13 GETIMPORT                        R3 K1 [game]
+       15 GETTABLEKS                       R3 R3 K2 ["CoreGui"]
        17 CALL                             R1 2 1
        18 MOVE                             R0 R1
        19 LOADK                            R1 K3 ["TempScreenGui"]
@@ -69,8 +69,8 @@ PROTO_4:
        26 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getTempInstancesFolder"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getTempInstancesFolder"]
         3 CALL                             R1 0 1
         4 GETIMPORT                        R2 K3 [Instance.new]
         6 MOVE                             R3 R0
@@ -81,16 +81,16 @@ PROTO_5:
 PROTO_6:
         0 MOVE                             R1 R0
         1 JUMPIF                           R1 ; [+4]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["getTempScreenGui"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["getTempScreenGui"]
         5 CALL                             R1 0 1
         6 MOVE                             R0 R1
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K1 ["new"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K1 ["new"]
        10 MOVE                             R2 R0
-       11 GETUPVAL                         R5 2
-       12 GETTABLEKS                       R4 R5 K2 ["Selection"]
-       14 GETTABLEKS                       R3 R4 K1 ["new"]
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R3 R3 K2 ["Selection"]
+       14 GETTABLEKS                       R3 R3 K1 ["new"]
        16 CALL                             R3 0 1
        17 LOADB                            R4 1
        18 CALL                             R1 3 -1
@@ -98,12 +98,12 @@ PROTO_6:
 
 PROTO_7:
         0 NEWTABLE                         R0 0 1
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["thunkMiddleware"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["thunkMiddleware"]
         5 SETLIST                          R0 R1 1 [1]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K1 ["Store"]
-       10 GETTABLEKS                       R1 R2 K2 ["new"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["Store"]
+       10 GETTABLEKS                       R1 R1 K2 ["new"]
        12 GETUPVAL                         R2 1
        13 LOADNIL                          R3
        14 MOVE                             R4 R0
@@ -112,28 +112,28 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       18 GETTABLEKS                       R2 R3 K7 ["DraggerSchemaCore"]
+       16 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       18 GETTABLEKS                       R2 R2 K7 ["DraggerSchemaCore"]
        20 GETIMPORT                        R3 K4 [require]
        22 GETTABLEKS                       R4 R2 K8 ["DraggerSchema"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Src"]
-       29 GETTABLEKS                       R6 R7 K10 ["Reducers"]
-       31 GETTABLEKS                       R5 R6 K11 ["MainReducer"]
+       27 GETTABLEKS                       R5 R0 K9 ["Src"]
+       29 GETTABLEKS                       R5 R5 K10 ["Reducers"]
+       31 GETTABLEKS                       R5 R5 K11 ["MainReducer"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K4 [require]
-       36 GETTABLEKS                       R8 R0 K9 ["Src"]
-       38 GETTABLEKS                       R7 R8 K12 ["Utility"]
-       40 GETTABLEKS                       R6 R7 K13 ["MockDraggerContext_Pivot"]
+       36 GETTABLEKS                       R6 R0 K9 ["Src"]
+       38 GETTABLEKS                       R6 R6 K12 ["Utility"]
+       40 GETTABLEKS                       R6 R6 K13 ["MockDraggerContext_Pivot"]
        42 CALL                             R5 1 1
        43 DUPCLOSURE                       R6 K14 [PROTO_0]
        44 DUPCLOSURE                       R7 K15 [PROTO_1]

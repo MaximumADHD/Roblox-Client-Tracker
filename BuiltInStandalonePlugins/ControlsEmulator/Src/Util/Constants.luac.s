@@ -21,8 +21,8 @@ PROTO_2:
         6 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["KEY_NAMES_DEFINITIONS"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["KEY_NAMES_DEFINITIONS"]
         3 GETTABLE                         R2 R3 R1
         4 GETTABLEKS                       R4 R2 K1 ["keyCode"]
         6 GETTABLE                         R3 R0 R4
@@ -43,13 +43,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["KeyNamesConstants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["KeyNamesConstants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Dash"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 8 0
        25 GETIMPORT                        R4 K14 [Enum.GamepadType.Unknown]

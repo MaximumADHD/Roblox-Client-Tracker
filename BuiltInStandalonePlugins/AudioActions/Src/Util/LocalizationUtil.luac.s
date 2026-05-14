@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 1
-        1 GETTABLEKS                       R1 R2 K0 ["Localization"]
-        3 GETTABLEKS                       R0 R1 K1 ["new"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["Localization"]
+        3 GETTABLEKS                       R0 R0 K1 ["new"]
         5 DUPTABLE                         R1 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
         6 GETUPVAL                         R2 2
         7 SETTABLEKS                       R2 R1 K2 ["stringResourceTable"]
@@ -56,18 +56,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R6 R0 K9 ["Src"]
-       18 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       20 GETTABLEKS                       R4 R5 K11 ["Localization"]
-       22 GETTABLEKS                       R3 R4 K12 ["LocalizedStrings"]
-       24 GETTABLEKS                       R7 R0 K9 ["Src"]
-       26 GETTABLEKS                       R6 R7 K10 ["Resources"]
-       28 GETTABLEKS                       R5 R6 K11 ["Localization"]
-       30 GETTABLEKS                       R4 R5 K13 ["SourceStrings"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K11 ["Localization"]
+       22 GETTABLEKS                       R3 R3 K12 ["LocalizedStrings"]
+       24 GETTABLEKS                       R4 R0 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       28 GETTABLEKS                       R4 R4 K11 ["Localization"]
+       30 GETTABLEKS                       R4 R4 K13 ["SourceStrings"]
        32 LOADNIL                          R5
        33 NEWTABLE                         R6 4 0
        35 NEWCLOSURE                       R7 P0

@@ -5,12 +5,12 @@ PROTO_0:
         4 RETURN                           R1 1
         5 LOADB                            R1 1
         6 GETTABLEKS                       R2 R0 K1 ["reviewStatus"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["Finished"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["Finished"]
        11 JUMPIFEQ                         R2 R3 ; [+10]
        13 GETTABLEKS                       R2 R0 K1 ["reviewStatus"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K3 ["DoesNotRequire"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K3 ["DoesNotRequire"]
        18 JUMPIFEQ                         R2 R3 ; [+2]
        20 LOADB                            R1 0 +1
        21 LOADB                            R1 1
@@ -18,8 +18,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["reviewStatus"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["Pending"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["Pending"]
         5 JUMPIFNOTEQ                      R2 R3 ; [+7]
         7 LOADK                            R4 K2 ["AssetItem"]
         8 LOADK                            R5 K3 ["PendingModerationTooltip"]
@@ -37,14 +37,14 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["ReviewStatus"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["ReviewStatus"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 2 0
        20 DUPCLOSURE                       R3 K8 [PROTO_0]

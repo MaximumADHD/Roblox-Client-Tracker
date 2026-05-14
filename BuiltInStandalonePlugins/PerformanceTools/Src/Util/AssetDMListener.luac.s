@@ -49,11 +49,11 @@ PROTO_2:
         2 RETURN                           R1 1
 
 PROTO_3:
-        0 GETIMPORT                        R3 K1 [settings]
-        2 CALL                             R3 0 1
-        3 GETTABLEKS                       R2 R3 K2 ["Studio"]
-        5 GETTABLEKS                       R1 R2 K3 ["Theme"]
-        7 GETTABLEKS                       R0 R1 K4 ["Name"]
+        0 GETIMPORT                        R0 K1 [settings]
+        2 CALL                             R0 0 1
+        3 GETTABLEKS                       R0 R0 K2 ["Studio"]
+        5 GETTABLEKS                       R0 R0 K3 ["Theme"]
+        7 GETTABLEKS                       R0 R0 K4 ["Name"]
         9 RETURN                           R0 1
 
 PROTO_4:
@@ -67,9 +67,9 @@ PROTO_4:
         8 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 GETTABLEKS                       R3 R0 K2 ["currentData"]
         7 MOVE                             R4 R1
         8 CALL                             R2 2 1
@@ -102,8 +102,8 @@ PROTO_6:
 PROTO_7:
         0 SETTABLEKS                       R2 R0 K0 ["mainButton"]
         2 GETTABLEKS                       R3 R0 K1 ["currentData"]
-        4 GETUPVAL                         R10 0
-        5 GETTABLEKS                       R8 R10 K3 ["SettingsPrefix"]
+        4 GETUPVAL                         R8 0
+        5 GETTABLEKS                       R8 R8 K3 ["SettingsPrefix"]
         7 LOADK                            R9 K4 ["maxTriangles"]
         8 CONCAT                           R7 R8 R9
         9 NAMECALL                         R5 R1 K5 ["GetSetting"]
@@ -111,8 +111,8 @@ PROTO_7:
        12 ORK                              R4 R5 K2 [1000000]
        13 SETTABLEKS                       R4 R3 K4 ["maxTriangles"]
        15 GETTABLEKS                       R3 R0 K1 ["currentData"]
-       17 GETUPVAL                         R10 0
-       18 GETTABLEKS                       R8 R10 K3 ["SettingsPrefix"]
+       17 GETUPVAL                         R8 0
+       18 GETTABLEKS                       R8 R8 K3 ["SettingsPrefix"]
        20 LOADK                            R9 K7 ["maxDrawCalls"]
        21 CONCAT                           R7 R8 R9
        22 NAMECALL                         R5 R1 K5 ["GetSetting"]
@@ -120,8 +120,8 @@ PROTO_7:
        25 ORK                              R4 R5 K6 [1000]
        26 SETTABLEKS                       R4 R3 K7 ["maxDrawCalls"]
        28 GETTABLEKS                       R3 R0 K1 ["currentData"]
-       30 GETUPVAL                         R10 0
-       31 GETTABLEKS                       R8 R10 K3 ["SettingsPrefix"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K3 ["SettingsPrefix"]
        33 LOADK                            R9 K9 ["maxTotalRenderMs"]
        34 CONCAT                           R7 R8 R9
        35 NAMECALL                         R5 R1 K5 ["GetSetting"]
@@ -129,8 +129,8 @@ PROTO_7:
        38 ORK                              R4 R5 K8 [14]
        39 SETTABLEKS                       R4 R3 K9 ["maxTotalRenderMs"]
        41 GETTABLEKS                       R3 R0 K1 ["currentData"]
-       43 GETUPVAL                         R10 0
-       44 GETTABLEKS                       R8 R10 K3 ["SettingsPrefix"]
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R8 R8 K3 ["SettingsPrefix"]
        46 LOADK                            R9 K10 ["maxTotalTaskMs"]
        47 CONCAT                           R7 R8 R9
        48 NAMECALL                         R5 R1 K5 ["GetSetting"]
@@ -165,13 +165,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["ThermometerConstants"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["ThermometerConstants"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 8 0
        25 SETTABLEKS                       R3 R3 K11 ["__index"]

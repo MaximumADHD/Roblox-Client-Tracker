@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["unmount"]
         5 GETUPVAL                         R1 0
         6 CALL                             R0 1 0
         7 GETUPVAL                         R0 2
@@ -13,8 +13,8 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["unmount"]
         5 GETUPVAL                         R1 0
         6 CALL                             R0 1 0
         7 GETUPVAL                         R0 2
@@ -34,14 +34,14 @@ PROTO_1:
        24 GETUPVAL                         R0 6
        25 NAMECALL                         R0 R0 K7 ["ShowPublishToRoblox"]
        27 CALL                             R0 1 0
-       28 GETUPVAL                         R1 7
-       29 GETTABLEKS                       R0 R1 K8 ["new"]
-       31 GETUPVAL                         R2 8
-       32 GETTABLEKS                       R1 R2 K9 ["CrossPluginCommunicationName"]
+       28 GETUPVAL                         R0 7
+       29 GETTABLEKS                       R0 R0 K8 ["new"]
+       31 GETUPVAL                         R1 8
+       32 GETTABLEKS                       R1 R1 K9 ["CrossPluginCommunicationName"]
        34 CALL                             R0 1 1
-       35 GETUPVAL                         R5 8
-       36 GETTABLEKS                       R4 R5 K10 ["CrossPluginCommunicationInstructions"]
-       38 GETTABLEKS                       R3 R4 K11 ["Published"]
+       35 GETUPVAL                         R3 8
+       36 GETTABLEKS                       R3 R3 K10 ["CrossPluginCommunicationInstructions"]
+       38 GETTABLEKS                       R3 R3 K11 ["Published"]
        40 NAMECALL                         R1 R0 K12 ["Fire"]
        42 CALL                             R1 2 0
        43 RETURN                           R0 0
@@ -49,8 +49,8 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["unmount"]
         5 GETUPVAL                         R1 0
         6 CALL                             R0 1 0
         7 GETUPVAL                         R0 2
@@ -78,8 +78,8 @@ PROTO_3:
        22 CALL                             R0 3 1
        23 SETUPVAL                         R0 0
        24 GETUPVAL                         R0 0
-       25 GETUPVAL                         R2 3
-       26 GETTABLEKS                       R1 R2 K10 ["Name"]
+       25 GETUPVAL                         R1 3
+       26 GETTABLEKS                       R1 R1 K10 ["Name"]
        28 SETTABLEKS                       R1 R0 K10 ["Name"]
        30 GETUPVAL                         R0 0
        31 GETUPVAL                         R1 4
@@ -103,8 +103,8 @@ PROTO_3:
 PROTO_4:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+17]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["createElement"]
         5 GETUPVAL                         R3 1
         6 DUPTABLE                         R4 K4 [{"OnClose", "PluginLoaderContext", "Localization"}]
         7 GETUPVAL                         R5 2
@@ -116,8 +116,8 @@ PROTO_4:
        16 CALL                             R2 2 1
        17 MOVE                             R1 R2
        18 JUMP                             ; [+19]
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K0 ["createElement"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K0 ["createElement"]
        22 GETUPVAL                         R3 5
        23 DUPTABLE                         R4 K7 [{"OnCancel", "OnContinue", "PluginLoaderContext", "Localization"}]
        24 GETUPVAL                         R5 2
@@ -130,8 +130,8 @@ PROTO_4:
        34 SETTABLEKS                       R5 R4 K3 ["Localization"]
        36 CALL                             R2 2 1
        37 MOVE                             R1 R2
-       38 GETUPVAL                         R3 0
-       39 GETTABLEKS                       R2 R3 K8 ["mount"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K8 ["mount"]
        41 MOVE                             R3 R1
        42 GETUPVAL                         R4 8
        43 CALL                             R2 2 1
@@ -203,13 +203,13 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Name"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Name"]
         4 SETTABLEKS                       R1 R0 K0 ["Name"]
         6 GETUPVAL                         R0 2
         7 CALL                             R0 0 0
-        8 GETUPVAL                         R2 3
-        9 GETTABLEKS                       R1 R2 K2 ["signals"]
+        8 GETUPVAL                         R1 3
+        9 GETTABLEKS                       R1 R1 K2 ["signals"]
        11 GETTABLEKS                       R0 R1 K1 ["StudioPublishService.OnPublishAttempt"]
        13 NEWCLOSURE                       R2 P0
        14 CAPTURE                          UPVAL U4
@@ -226,58 +226,58 @@ PROTO_7:
         0 JUMPIF                           R0 ; [+1]
         1 RETURN                           R0 0
         2 GETIMPORT                        R2 K1 [require]
-        4 GETIMPORT                        R5 K3 [script]
-        6 GETTABLEKS                       R4 R5 K4 ["Parent"]
-        8 GETTABLEKS                       R3 R4 K5 ["defineLuaFlags"]
+        4 GETIMPORT                        R3 K3 [script]
+        6 GETTABLEKS                       R3 R3 K4 ["Parent"]
+        8 GETTABLEKS                       R3 R3 K5 ["defineLuaFlags"]
        10 CALL                             R2 1 0
        11 GETIMPORT                        R2 K3 [script]
        13 LOADK                            R4 K6 ["R15Migrator"]
        14 NAMECALL                         R2 R2 K7 ["FindFirstAncestor"]
        16 CALL                             R2 2 1
        17 GETIMPORT                        R3 K1 [require]
-       19 GETTABLEKS                       R5 R2 K8 ["Packages"]
-       21 GETTABLEKS                       R4 R5 K9 ["Roact"]
+       19 GETTABLEKS                       R4 R2 K8 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K9 ["Roact"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K1 [require]
-       26 GETTABLEKS                       R6 R2 K8 ["Packages"]
-       28 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       26 GETTABLEKS                       R5 R2 K8 ["Packages"]
+       28 GETTABLEKS                       R5 R5 K10 ["Framework"]
        30 CALL                             R4 1 1
-       31 GETTABLEKS                       R6 R4 K11 ["Util"]
-       33 GETTABLEKS                       R5 R6 K12 ["CrossPluginCommunication"]
+       31 GETTABLEKS                       R5 R4 K11 ["Util"]
+       33 GETTABLEKS                       R5 R5 K12 ["CrossPluginCommunication"]
        35 GETIMPORT                        R6 K1 [require]
-       37 GETTABLEKS                       R9 R2 K13 ["Src"]
-       39 GETTABLEKS                       R8 R9 K14 ["Resources"]
-       41 GETTABLEKS                       R7 R8 K15 ["Constants"]
+       37 GETTABLEKS                       R7 R2 K13 ["Src"]
+       39 GETTABLEKS                       R7 R7 K14 ["Resources"]
+       41 GETTABLEKS                       R7 R7 K15 ["Constants"]
        43 CALL                             R6 1 1
        44 GETIMPORT                        R7 K1 [require]
-       46 GETTABLEKS                       R9 R2 K13 ["Src"]
-       48 GETTABLEKS                       R8 R9 K16 ["PublishBlockedPlugin"]
+       46 GETTABLEKS                       R8 R2 K13 ["Src"]
+       48 GETTABLEKS                       R8 R8 K16 ["PublishBlockedPlugin"]
        50 CALL                             R7 1 1
        51 GETIMPORT                        R8 K1 [require]
-       53 GETTABLEKS                       R10 R2 K13 ["Src"]
-       55 GETTABLEKS                       R9 R10 K17 ["PublishWarningPlugin"]
+       53 GETTABLEKS                       R9 R2 K13 ["Src"]
+       55 GETTABLEKS                       R9 R9 K17 ["PublishWarningPlugin"]
        57 CALL                             R8 1 1
        58 GETIMPORT                        R9 K1 [require]
-       60 GETTABLEKS                       R12 R2 K13 ["Src"]
-       62 GETTABLEKS                       R11 R12 K11 ["Util"]
-       64 GETTABLEKS                       R10 R11 K18 ["PublishTagging"]
+       60 GETTABLEKS                       R10 R2 K13 ["Src"]
+       62 GETTABLEKS                       R10 R10 K11 ["Util"]
+       64 GETTABLEKS                       R10 R10 K18 ["PublishTagging"]
        66 CALL                             R9 1 1
        67 GETIMPORT                        R10 K1 [require]
-       69 GETTABLEKS                       R13 R2 K13 ["Src"]
-       71 GETTABLEKS                       R12 R13 K11 ["Util"]
-       73 GETTABLEKS                       R11 R12 K19 ["prepareToPublish"]
+       69 GETTABLEKS                       R11 R2 K13 ["Src"]
+       71 GETTABLEKS                       R11 R11 K11 ["Util"]
+       73 GETTABLEKS                       R11 R11 K19 ["prepareToPublish"]
        75 CALL                             R10 1 1
-       76 GETTABLEKS                       R12 R2 K13 ["Src"]
-       78 GETTABLEKS                       R11 R12 K20 ["Contexts"]
+       76 GETTABLEKS                       R11 R2 K13 ["Src"]
+       78 GETTABLEKS                       R11 R11 K20 ["Contexts"]
        80 GETIMPORT                        R12 K1 [require]
        82 GETTABLEKS                       R13 R11 K21 ["NetworkInterface"]
        84 CALL                             R12 1 1
        85 GETTABLEKS                       R13 R12 K22 ["new"]
        87 CALL                             R13 0 1
        88 GETIMPORT                        R14 K1 [require]
-       90 GETTABLEKS                       R17 R2 K13 ["Src"]
-       92 GETTABLEKS                       R16 R17 K14 ["Resources"]
-       94 GETTABLEKS                       R15 R16 K23 ["createAnalyticsHandlers"]
+       90 GETTABLEKS                       R15 R2 K13 ["Src"]
+       92 GETTABLEKS                       R15 R15 K14 ["Resources"]
+       94 GETTABLEKS                       R15 R15 K23 ["createAnalyticsHandlers"]
        96 CALL                             R14 1 1
        97 LOADNIL                          R15
        98 LOADNIL                          R16
@@ -297,24 +297,24 @@ PROTO_7:
       112 CAPTURE                          VAL R5
       113 CAPTURE                          VAL R6
       114 GETTABLEKS                       R20 R4 K24 ["ContextServices"]
-      116 GETTABLEKS                       R22 R20 K25 ["Localization"]
-      118 GETTABLEKS                       R21 R22 K22 ["new"]
+      116 GETTABLEKS                       R21 R20 K25 ["Localization"]
+      118 GETTABLEKS                       R21 R21 K22 ["new"]
       120 DUPTABLE                         R22 K29 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
       121 GETTABLEKS                       R23 R2 K30 ["Name"]
       123 SETTABLEKS                       R23 R22 K26 ["pluginName"]
-      125 GETTABLEKS                       R26 R2 K13 ["Src"]
-      127 GETTABLEKS                       R25 R26 K14 ["Resources"]
-      129 GETTABLEKS                       R24 R25 K25 ["Localization"]
-      131 GETTABLEKS                       R23 R24 K31 ["SourceStrings"]
+      125 GETTABLEKS                       R23 R2 K13 ["Src"]
+      127 GETTABLEKS                       R23 R23 K14 ["Resources"]
+      129 GETTABLEKS                       R23 R23 K25 ["Localization"]
+      131 GETTABLEKS                       R23 R23 K31 ["SourceStrings"]
       133 SETTABLEKS                       R23 R22 K27 ["stringResourceTable"]
-      135 GETTABLEKS                       R26 R2 K13 ["Src"]
-      137 GETTABLEKS                       R25 R26 K14 ["Resources"]
-      139 GETTABLEKS                       R24 R25 K25 ["Localization"]
-      141 GETTABLEKS                       R23 R24 K32 ["LocalizedStrings"]
+      135 GETTABLEKS                       R23 R2 K13 ["Src"]
+      137 GETTABLEKS                       R23 R23 K14 ["Resources"]
+      139 GETTABLEKS                       R23 R23 K25 ["Localization"]
+      141 GETTABLEKS                       R23 R23 K32 ["LocalizedStrings"]
       143 SETTABLEKS                       R23 R22 K28 ["translationResourceTable"]
       145 CALL                             R21 1 1
-      146 GETTABLEKS                       R23 R20 K33 ["Analytics"]
-      148 GETTABLEKS                       R22 R23 K22 ["new"]
+      146 GETTABLEKS                       R22 R20 K33 ["Analytics"]
+      148 GETTABLEKS                       R22 R22 K22 ["new"]
       150 MOVE                             R23 R14
       151 CALL                             R22 1 1
       152 NEWCLOSURE                       R23 P2
@@ -379,9 +379,9 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R2 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Resources"]
-       25 GETTABLEKS                       R4 R5 K13 ["Constants"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Resources"]
+       25 GETTABLEKS                       R4 R4 K13 ["Constants"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K14 ["PublishTags"]
        30 GETIMPORT                        R5 K1 [game]

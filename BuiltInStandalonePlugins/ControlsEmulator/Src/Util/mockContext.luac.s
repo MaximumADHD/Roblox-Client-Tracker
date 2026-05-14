@@ -10,8 +10,8 @@ PROTO_0:
        11 LOADK                            R3 K3 ["Expected children to be a table"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K6 ["provideMockContext"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["provideMockContext"]
        18 GETUPVAL                         R2 1
        19 MOVE                             R3 R0
        20 CALL                             R1 2 -1
@@ -24,17 +24,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
        16 GETTABLEKS                       R3 R1 K9 ["TestHelpers"]
        18 NEWTABLE                         R4 0 2
-       20 GETTABLEKS                       R6 R2 K10 ["Analytics"]
-       22 GETTABLEKS                       R5 R6 K11 ["mock"]
+       20 GETTABLEKS                       R5 R2 K10 ["Analytics"]
+       22 GETTABLEKS                       R5 R5 K11 ["mock"]
        24 CALL                             R5 0 1
-       25 GETTABLEKS                       R7 R2 K12 ["Localization"]
-       27 GETTABLEKS                       R6 R7 K11 ["mock"]
+       25 GETTABLEKS                       R6 R2 K12 ["Localization"]
+       27 GETTABLEKS                       R6 R6 K11 ["mock"]
        29 CALL                             R6 0 -1
        30 SETLIST                          R4 R5 -1 [1]
        32 DUPCLOSURE                       R5 K13 [PROTO_0]

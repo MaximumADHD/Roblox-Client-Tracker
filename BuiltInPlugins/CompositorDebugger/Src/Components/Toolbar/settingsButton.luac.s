@@ -1,21 +1,21 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Plugin"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K0 ["props"]
-       11 GETTABLEKS                       R3 R4 K3 ["ActiveLayersFilter"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K0 ["props"]
+       11 GETTABLEKS                       R3 R3 K3 ["ActiveLayersFilter"]
        13 NOT                              R2 R3
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K0 ["props"]
-       17 GETTABLEKS                       R3 R4 K4 ["SetActiveLayersFilter"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K0 ["props"]
+       17 GETTABLEKS                       R3 R3 K4 ["SetActiveLayersFilter"]
        19 MOVE                             R4 R2
        20 CALL                             R3 1 0
-       21 GETUPVAL                         R7 1
-       22 GETTABLEKS                       R6 R7 K5 ["SETTINGS"]
-       24 GETTABLEKS                       R5 R6 K3 ["ActiveLayersFilter"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K5 ["SETTINGS"]
+       24 GETTABLEKS                       R5 R5 K3 ["ActiveLayersFilter"]
        26 MOVE                             R6 R2
        27 NAMECALL                         R3 R1 K6 ["SetSetting"]
        29 CALL                             R3 3 0
@@ -28,40 +28,40 @@ PROTO_0:
        38 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         5 NAMECALL                         R2 R2 K2 ["get"]
         7 CALL                             R2 1 1
         8 GETTABLEKS                       R3 R0 K3 ["Data"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K0 ["props"]
-       13 GETTABLEKS                       R4 R5 K4 ["SetSkipLimit"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K0 ["props"]
+       13 GETTABLEKS                       R4 R4 K4 ["SetSkipLimit"]
        15 MOVE                             R5 R3
        16 CALL                             R4 1 0
-       17 GETUPVAL                         R8 1
-       18 GETTABLEKS                       R7 R8 K5 ["SETTINGS"]
-       20 GETTABLEKS                       R6 R7 K6 ["SkipUIFrames"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K5 ["SETTINGS"]
+       20 GETTABLEKS                       R6 R6 K6 ["SkipUIFrames"]
        22 MOVE                             R7 R3
        23 NAMECALL                         R4 R2 K7 ["SetSetting"]
        25 CALL                             R4 3 0
        26 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         5 NAMECALL                         R2 R2 K2 ["get"]
         7 CALL                             R2 1 1
         8 GETTABLEKS                       R3 R0 K3 ["Data"]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K0 ["props"]
-       13 GETTABLEKS                       R4 R5 K4 ["SetFrameBufferDuration"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K0 ["props"]
+       13 GETTABLEKS                       R4 R4 K4 ["SetFrameBufferDuration"]
        15 MOVE                             R5 R3
        16 CALL                             R4 1 0
-       17 GETUPVAL                         R8 1
-       18 GETTABLEKS                       R7 R8 K5 ["SETTINGS"]
-       20 GETTABLEKS                       R6 R7 K6 ["FrameBufferDuration"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R6 R6 K5 ["SETTINGS"]
+       20 GETTABLEKS                       R6 R6 K6 ["FrameBufferDuration"]
        22 MOVE                             R7 R3
        23 NAMECALL                         R4 R2 K7 ["SetSetting"]
        25 CALL                             R4 3 0
@@ -74,8 +74,8 @@ PROTO_2:
        34 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Localization"]
         5 GETTABLEKS                       R2 R0 K2 ["Plugin"]
         7 NAMECALL                         R2 R2 K3 ["get"]
@@ -89,12 +89,12 @@ PROTO_3:
        18 NAMECALL                         R5 R1 K11 ["getText"]
        20 CALL                             R5 3 1
        21 SETTABLEKS                       R5 R4 K5 ["Text"]
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R6 R7 K0 ["props"]
-       26 GETTABLEKS                       R5 R6 K12 ["ActiveLayersFilter"]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K0 ["props"]
+       26 GETTABLEKS                       R5 R5 K12 ["ActiveLayersFilter"]
        28 SETTABLEKS                       R5 R4 K6 ["Checked"]
-       30 GETUPVAL                         R6 0
-       31 GETTABLEKS                       R5 R6 K13 ["toggleActiveLayersFilter"]
+       30 GETUPVAL                         R5 0
+       31 GETTABLEKS                       R5 R5 K13 ["toggleActiveLayersFilter"]
        33 SETTABLEKS                       R5 R4 K7 ["OnItemClicked"]
        35 GETUPVAL                         R5 0
        36 NAMECALL                         R5 R5 K14 ["makeReplaySubmenu"]
@@ -133,8 +133,8 @@ PROTO_5:
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["SkipLimit"]
         6 NEWTABLE                         R4 2 0
-        8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R5 R8 K3 ["SKIP_UI_FRAMES"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K3 ["SKIP_UI_FRAMES"]
        11 LOADNIL                          R6
        12 LOADNIL                          R7
        13 FORGPREP                         R5
@@ -190,14 +190,14 @@ PROTO_7:
         7 GETTABLEKS                       R4 R1 K2 ["FrameBuffer"]
         9 NAMECALL                         R4 R4 K3 ["getSize"]
        11 CALL                             R4 1 1
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K4 ["FRAMERATE"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K4 ["FRAMERATE"]
        15 DIV                              R3 R4 R5
        16 JUMP                             ; [+1]
        17 LOADNIL                          R3
        18 NEWTABLE                         R4 2 0
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R5 R8 K5 ["TIMECONTROLS_INVERVALS"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K5 ["TIMECONTROLS_INVERVALS"]
        23 LOADNIL                          R6
        24 LOADNIL                          R7
        25 FORGPREP                         R5
@@ -246,8 +246,8 @@ PROTO_8:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R3 R1 K1 ["children"]
         5 DUPTABLE                         R4 K3 [{"Icon"}]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K4 ["createElement"]
         9 GETUPVAL                         R6 2
        10 DUPTABLE                         R7 K9 [{"Size", "Position", "AnchorPoint", "Image"}]
        11 GETIMPORT                        R8 K12 [UDim2.fromOffset]
@@ -270,8 +270,8 @@ PROTO_8:
        35 CALL                             R5 2 1
        36 SETTABLEKS                       R5 R4 K2 ["Icon"]
        38 CALL                             R2 2 1
-       39 GETUPVAL                         R4 1
-       40 GETTABLEKS                       R3 R4 K4 ["createElement"]
+       39 GETUPVAL                         R3 1
+       40 GETTABLEKS                       R3 R3 K4 ["createElement"]
        42 GETUPVAL                         R4 3
        43 DUPTABLE                         R5 K23 [{"Style", "Size", "Position", "AnchorPoint", "LayoutOrder", "OnClick"}]
        44 LOADK                            R6 K24 ["Round"]
@@ -298,14 +298,14 @@ PROTO_8:
 
 PROTO_9:
         0 DUPTABLE                         R2 K3 [{"ActiveLayersFilter", "LayerFilters", "SkipLimit"}]
-        1 GETTABLEKS                       R4 R0 K4 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["ActiveLayersFilter"]
+        1 GETTABLEKS                       R3 R0 K4 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["ActiveLayersFilter"]
         5 SETTABLEKS                       R3 R2 K0 ["ActiveLayersFilter"]
-        7 GETTABLEKS                       R4 R0 K4 ["Status"]
-        9 GETTABLEKS                       R3 R4 K1 ["LayerFilters"]
+        7 GETTABLEKS                       R3 R0 K4 ["Status"]
+        9 GETTABLEKS                       R3 R3 K1 ["LayerFilters"]
        11 SETTABLEKS                       R3 R2 K1 ["LayerFilters"]
-       13 GETTABLEKS                       R4 R0 K4 ["Status"]
-       15 GETTABLEKS                       R3 R4 K2 ["SkipLimit"]
+       13 GETTABLEKS                       R3 R0 K4 ["Status"]
+       15 GETTABLEKS                       R3 R3 K2 ["SkipLimit"]
        17 SETTABLEKS                       R3 R2 K2 ["SkipLimit"]
        19 RETURN                           R2 1
 
@@ -369,80 +369,80 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AnimationEditor"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["React"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["RoactRodux"]
        34 CALL                             R4 1 1
-       35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       39 GETTABLEKS                       R6 R7 K11 ["RoactRodux"]
-       41 CALL                             R5 1 1
-       42 GETTABLEKS                       R6 R2 K12 ["join"]
-       44 GETTABLEKS                       R7 R3 K13 ["ContextServices"]
-       46 GETTABLEKS                       R8 R7 K14 ["withContext"]
-       48 GETTABLEKS                       R10 R0 K15 ["Src"]
-       50 GETTABLEKS                       R9 R10 K16 ["Actions"]
-       52 GETIMPORT                        R10 K5 [require]
-       54 GETTABLEKS                       R11 R9 K17 ["SetActiveLayersFilter"]
-       56 CALL                             R10 1 1
-       57 GETIMPORT                        R11 K5 [require]
-       59 GETTABLEKS                       R12 R9 K18 ["SetLayerFilter"]
-       61 CALL                             R11 1 1
-       62 GETIMPORT                        R12 K5 [require]
-       64 GETTABLEKS                       R13 R9 K19 ["SetSkipLimit"]
-       66 CALL                             R12 1 1
-       67 GETTABLEKS                       R14 R0 K15 ["Src"]
-       69 GETTABLEKS                       R13 R14 K20 ["Thunks"]
-       71 GETIMPORT                        R14 K5 [require]
-       73 GETTABLEKS                       R15 R13 K21 ["SetFrameBufferDuration"]
-       75 CALL                             R14 1 1
-       76 GETTABLEKS                       R15 R3 K22 ["UI"]
-       78 GETTABLEKS                       R16 R15 K23 ["Button"]
-       80 GETTABLEKS                       R17 R15 K24 ["Image"]
-       82 GETTABLEKS                       R18 R15 K25 ["showContextMenu"]
-       84 GETIMPORT                        R19 K5 [require]
-       86 GETTABLEKS                       R21 R0 K15 ["Src"]
-       88 GETTABLEKS                       R20 R21 K26 ["Types"]
-       90 CALL                             R19 1 1
-       91 GETTABLEKS                       R20 R1 K27 ["Constants"]
-       93 GETTABLEKS                       R21 R4 K28 ["PureComponent"]
+       35 GETTABLEKS                       R5 R1 K11 ["join"]
+       37 GETTABLEKS                       R6 R2 K12 ["ContextServices"]
+       39 GETTABLEKS                       R7 R6 K13 ["withContext"]
+       41 GETTABLEKS                       R8 R0 K14 ["Src"]
+       43 GETTABLEKS                       R8 R8 K15 ["Actions"]
+       45 GETIMPORT                        R9 K5 [require]
+       47 GETTABLEKS                       R10 R8 K16 ["SetActiveLayersFilter"]
+       49 CALL                             R9 1 1
+       50 GETIMPORT                        R10 K5 [require]
+       52 GETTABLEKS                       R11 R8 K17 ["SetLayerFilter"]
+       54 CALL                             R10 1 1
+       55 GETIMPORT                        R11 K5 [require]
+       57 GETTABLEKS                       R12 R8 K18 ["SetSkipLimit"]
+       59 CALL                             R11 1 1
+       60 GETTABLEKS                       R12 R0 K14 ["Src"]
+       62 GETTABLEKS                       R12 R12 K19 ["Thunks"]
+       64 GETIMPORT                        R13 K5 [require]
+       66 GETTABLEKS                       R14 R12 K20 ["SetFrameBufferDuration"]
+       68 CALL                             R13 1 1
+       69 GETTABLEKS                       R14 R0 K14 ["Src"]
+       71 GETTABLEKS                       R14 R14 K21 ["Util"]
+       73 GETIMPORT                        R15 K5 [require]
+       75 GETTABLEKS                       R16 R14 K22 ["Constants"]
+       77 CALL                             R15 1 1
+       78 GETTABLEKS                       R16 R2 K23 ["UI"]
+       80 GETTABLEKS                       R17 R16 K24 ["Button"]
+       82 GETTABLEKS                       R18 R16 K25 ["Image"]
+       84 GETTABLEKS                       R19 R16 K26 ["showContextMenu"]
+       86 GETIMPORT                        R20 K5 [require]
+       88 GETTABLEKS                       R21 R0 K14 ["Src"]
+       90 GETTABLEKS                       R21 R21 K27 ["Types"]
+       92 CALL                             R20 1 1
+       93 GETTABLEKS                       R21 R3 K28 ["PureComponent"]
        95 LOADK                            R23 K29 ["SettingsButton"]
        96 NAMECALL                         R21 R21 K30 ["extend"]
        98 CALL                             R21 2 1
        99 DUPCLOSURE                       R22 K31 [PROTO_4]
-      100 CAPTURE                          VAL R20
-      101 CAPTURE                          VAL R18
+      100 CAPTURE                          VAL R15
+      101 CAPTURE                          VAL R19
       102 SETTABLEKS                       R22 R21 K32 ["init"]
       104 DUPCLOSURE                       R22 K33 [PROTO_5]
-      105 CAPTURE                          VAL R20
+      105 CAPTURE                          VAL R15
       106 SETTABLEKS                       R22 R21 K34 ["makeSkipUIFramesSubmenu"]
       108 DUPCLOSURE                       R22 K35 [PROTO_7]
-      109 CAPTURE                          VAL R20
+      109 CAPTURE                          VAL R15
       110 SETTABLEKS                       R22 R21 K36 ["makeReplaySubmenu"]
       112 DUPCLOSURE                       R22 K37 [PROTO_8]
-      113 CAPTURE                          VAL R6
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R17
-      116 CAPTURE                          VAL R16
+      113 CAPTURE                          VAL R5
+      114 CAPTURE                          VAL R3
+      115 CAPTURE                          VAL R18
+      116 CAPTURE                          VAL R17
       117 SETTABLEKS                       R22 R21 K38 ["render"]
-      119 MOVE                             R22 R8
+      119 MOVE                             R22 R7
       120 DUPTABLE                         R23 K42 [{"Analytics", "Localization", "Plugin"}]
-      121 GETTABLEKS                       R24 R7 K39 ["Analytics"]
+      121 GETTABLEKS                       R24 R6 K39 ["Analytics"]
       123 SETTABLEKS                       R24 R23 K39 ["Analytics"]
-      125 GETTABLEKS                       R24 R7 K40 ["Localization"]
+      125 GETTABLEKS                       R24 R6 K40 ["Localization"]
       127 SETTABLEKS                       R24 R23 K40 ["Localization"]
-      129 GETTABLEKS                       R24 R7 K41 ["Plugin"]
+      129 GETTABLEKS                       R24 R6 K41 ["Plugin"]
       131 SETTABLEKS                       R24 R23 K41 ["Plugin"]
       133 CALL                             R22 1 1
       134 MOVE                             R23 R21
@@ -450,11 +450,11 @@ MAIN:
       136 MOVE                             R21 R22
       137 DUPCLOSURE                       R22 K43 [PROTO_9]
       138 DUPCLOSURE                       R23 K44 [PROTO_14]
-      139 CAPTURE                          VAL R10
-      140 CAPTURE                          VAL R14
-      141 CAPTURE                          VAL R11
-      142 CAPTURE                          VAL R12
-      143 GETTABLEKS                       R24 R5 K45 ["connect"]
+      139 CAPTURE                          VAL R9
+      140 CAPTURE                          VAL R13
+      141 CAPTURE                          VAL R10
+      142 CAPTURE                          VAL R11
+      143 GETTABLEKS                       R24 R4 K45 ["connect"]
       145 MOVE                             R25 R22
       146 MOVE                             R26 R23
       147 CALL                             R24 2 1

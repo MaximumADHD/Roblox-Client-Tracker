@@ -3,28 +3,28 @@ PROTO_0:
         2 JUMPIFNOT                        R2 ; [+10]
         3 GETTABLEKS                       R4 R2 K1 ["Scope"]
         5 JUMPIFNOT                        R4 ; [+7]
-        6 GETTABLEKS                       R7 R2 K1 ["Scope"]
-        8 GETTABLEKS                       R6 R7 K2 ["Uid"]
+        6 GETTABLEKS                       R6 R2 K1 ["Scope"]
+        8 GETTABLEKS                       R6 R6 K2 ["Uid"]
        10 NAMECALL                         R4 R3 K3 ["toggleVisibleInventory"]
        12 CALL                             R4 2 0
        13 RETURN                           R0 0
 
 PROTO_1:
         0 LOADB                            R3 0
-        1 GETUPVAL                         R6 0
-        2 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        4 GETTABLEKS                       R4 R5 K1 ["Sidebar"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        4 GETTABLEKS                       R4 R4 K1 ["Sidebar"]
         6 JUMPIFNOTEQ                      R0 R4 ; [+22]
         8 LOADB                            R3 0
         9 JUMPIFEQKNIL                     R2 ; [+19]
        11 LOADB                            R3 0
        12 GETTABLEKS                       R4 R2 K2 ["Scope"]
        14 JUMPIFEQKNIL                     R4 ; [+14]
-       16 GETTABLEKS                       R5 R2 K2 ["Scope"]
-       18 GETTABLEKS                       R4 R5 K3 ["Type"]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K4 ["ScopeType"]
-       23 GETTABLEKS                       R5 R6 K5 ["Group"]
+       16 GETTABLEKS                       R4 R2 K2 ["Scope"]
+       18 GETTABLEKS                       R4 R4 K3 ["Type"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K4 ["ScopeType"]
+       23 GETTABLEKS                       R5 R5 K5 ["Group"]
        25 JUMPIFEQ                         R4 R5 ; [+2]
        27 LOADB                            R3 0 +1
        28 LOADB                            R3 1
@@ -37,9 +37,9 @@ PROTO_2:
         5 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Sidebar"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Sidebar"]
         5 JUMPIFEQ                         R0 R4 ; [+2]
         7 LOADB                            R3 0 +1
         8 LOADB                            R3 1
@@ -52,9 +52,9 @@ PROTO_4:
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Sidebar"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Sidebar"]
         5 JUMPIFEQ                         R0 R4 ; [+2]
         7 LOADB                            R3 0 +1
         8 LOADB                            R3 1
@@ -67,8 +67,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPTABLE                         R2 K12 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
        15 LOADK                            R3 K13 ["Scopes"]

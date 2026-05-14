@@ -37,8 +37,8 @@ PROTO_4:
         3 CAPTURE                          UPVAL U0
         4 CAPTURE                          UPVAL U1
         5 CALL                             R0 1 1
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K3 ["UpdateStateChanged"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K3 ["UpdateStateChanged"]
         9 NEWCLOSURE                       R3 P1
        10 CAPTURE                          VAL R0
        11 CAPTURE                          UPVAL U0
@@ -55,20 +55,20 @@ PROTO_5:
         2 FASTCALL                         ASSERT ; [+2]
         3 GETIMPORT                        R1 K1 [assert]
         5 CALL                             R1 -1 0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K2 ["useState"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K2 ["useState"]
         9 GETIMPORT                        R2 K6 [Enum.UpdateState.UpdateNotAvailable]
        11 CALL                             R1 1 2
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K7 ["useMemo"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K7 ["useMemo"]
        15 NEWCLOSURE                       R4 P0
        16 CAPTURE                          VAL R0
        17 NEWTABLE                         R5 0 1
        19 MOVE                             R6 R0
        20 SETLIST                          R5 R6 1 [1]
        22 CALL                             R3 2 1
-       23 GETUPVAL                         R5 1
-       24 GETTABLEKS                       R4 R5 K8 ["useEffect"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K8 ["useEffect"]
        26 NEWCLOSURE                       R5 P1
        27 CAPTURE                          VAL R2
        28 CAPTURE                          VAL R3
@@ -85,13 +85,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["SharedFlags"]
-       20 GETTABLEKS                       R3 R4 K10 ["getFeatureStudioBackgroundUpdates"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["SharedFlags"]
+       20 GETTABLEKS                       R3 R3 K10 ["getFeatureStudioBackgroundUpdates"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_5]
        24 CAPTURE                          VAL R2

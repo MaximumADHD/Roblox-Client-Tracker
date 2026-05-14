@@ -13,8 +13,8 @@ PROTO_1:
         4 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
         6 GETIMPORT                        R1 K3 [setmetatable]
         8 CALL                             R1 2 1
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K4 ["new"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K4 ["new"]
        12 NEWCLOSURE                       R3 P0
        13 CAPTURE                          VAL R1
        14 CALL                             R2 1 1
@@ -38,11 +38,11 @@ PROTO_2:
        15 RETURN                           R1 1
 
 PROTO_3:
-        0 GETTABLEKS                       R4 R0 K0 ["_constraintToolModel"]
-        2 GETTABLEKS                       R3 R4 K1 ["_lastDragTarget"]
+        0 GETTABLEKS                       R3 R0 K0 ["_constraintToolModel"]
+        2 GETTABLEKS                       R3 R3 K1 ["_lastDragTarget"]
         4 JUMPIFNOT                        R2 ; [+12]
-        5 GETTABLEKS                       R5 R0 K0 ["_constraintToolModel"]
-        7 GETTABLEKS                       R4 R5 K2 ["_attachmentMover"]
+        5 GETTABLEKS                       R4 R0 K0 ["_constraintToolModel"]
+        7 GETTABLEKS                       R4 R4 K2 ["_attachmentMover"]
         9 GETTABLEKS                       R6 R3 K3 ["mainCFrame"]
        11 GETTABLEKS                       R7 R3 K4 ["targetPart"]
        13 NAMECALL                         R4 R4 K5 ["moveTo"]
@@ -64,8 +64,8 @@ PROTO_3:
        32 MUL                              R4 R6 R7
        33 GETTABLEKS                       R5 R0 K13 ["_animateFrom"]
        35 GETTABLEKS                       R6 R5 K14 ["tiltRotate"]
-       37 GETTABLEKS                       R9 R0 K0 ["_constraintToolModel"]
-       39 GETTABLEKS                       R8 R9 K15 ["_tiltRotate"]
+       37 GETTABLEKS                       R8 R0 K0 ["_constraintToolModel"]
+       39 GETTABLEKS                       R8 R8 K15 ["_tiltRotate"]
        41 MOVE                             R9 R4
        42 NAMECALL                         R6 R6 K16 ["Lerp"]
        44 CALL                             R6 3 1
@@ -77,20 +77,20 @@ PROTO_3:
        52 GETTABLEKS                       R8 R0 K18 ["_overrideBaseRotation"]
        54 MUL                              R7 R8 R7
        55 GETTABLEKS                       R8 R0 K0 ["_constraintToolModel"]
-       57 GETTABLEKS                       R11 R0 K0 ["_constraintToolModel"]
-       59 GETTABLEKS                       R10 R11 K19 ["_attachmentAdornment"]
+       57 GETTABLEKS                       R10 R0 K0 ["_constraintToolModel"]
+       59 GETTABLEKS                       R10 R10 K19 ["_attachmentAdornment"]
        61 MOVE                             R11 R7
        62 NAMECALL                         R8 R8 K20 ["_orientAttachmentAdornment"]
        64 CALL                             R8 3 0
        65 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R3 R0 K0 ["_constraintToolModel"]
-        2 GETTABLEKS                       R2 R3 K1 ["_lastDragTarget"]
+        0 GETTABLEKS                       R2 R0 K0 ["_constraintToolModel"]
+        2 GETTABLEKS                       R2 R2 K1 ["_lastDragTarget"]
         4 GETIMPORT                        R3 K4 [table.freeze]
         6 DUPTABLE                         R4 K8 [{"tiltRotate", "baseCFrame", "offsetCFrame"}]
-        7 GETTABLEKS                       R6 R0 K0 ["_constraintToolModel"]
-        9 GETTABLEKS                       R5 R6 K9 ["_tiltRotate"]
+        7 GETTABLEKS                       R5 R0 K0 ["_constraintToolModel"]
+        9 GETTABLEKS                       R5 R5 K9 ["_tiltRotate"]
        11 SETTABLEKS                       R5 R4 K5 ["tiltRotate"]
        13 GETTABLEKS                       R5 R2 K6 ["baseCFrame"]
        15 SETTABLEKS                       R5 R4 K6 ["baseCFrame"]
@@ -124,11 +124,11 @@ MAIN:
         3 LOADK                            R2 K2 ["ConstraintTool"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R2 K5 ["DraggerFramework"]
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R4 K9 ["AnimationTask"]
+       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
+       15 GETTABLEKS                       R3 R3 K9 ["AnimationTask"]
        17 CALL                             R2 1 1
        18 NEWTABLE                         R3 8 0
        20 SETTABLEKS                       R3 R3 K10 ["__index"]

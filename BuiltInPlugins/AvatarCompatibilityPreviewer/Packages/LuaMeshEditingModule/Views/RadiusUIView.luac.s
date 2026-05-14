@@ -168,8 +168,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Util"]
-       17 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Util"]
+       17 GETTABLEKS                       R3 R3 K11 ["Constants"]
        19 CALL                             R2 1 1
        20 NEWTABLE                         R3 4 0
        22 SETTABLEKS                       R3 R3 K12 ["__index"]

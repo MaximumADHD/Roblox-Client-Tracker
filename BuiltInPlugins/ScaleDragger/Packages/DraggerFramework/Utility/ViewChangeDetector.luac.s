@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["CurrentCamera"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["CurrentCamera"]
         3 DUPTABLE                         R3 K5 [{"_mouse", "_lastCameraCFrame", "_lastMouseX", "_lastMouseY"}]
         4 SETTABLEKS                       R0 R3 K1 ["_mouse"]
         6 JUMPIFNOT                        R1 ; [+3]
@@ -20,8 +20,8 @@ PROTO_0:
        29 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["CurrentCamera"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["CurrentCamera"]
         3 JUMPIF                           R1 ; [+2]
         4 LOADB                            R2 0
         5 RETURN                           R2 1
@@ -48,9 +48,9 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [game]
         9 LOADK                            R3 K5 ["Workspace"]
        10 NAMECALL                         R1 R1 K6 ["GetService"]

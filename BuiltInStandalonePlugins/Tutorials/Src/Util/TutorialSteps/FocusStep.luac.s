@@ -5,8 +5,8 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["tutorial"]
-        2 GETTABLEKS                       R1 R2 K1 ["dataModel"]
+        0 GETTABLEKS                       R1 R0 K0 ["tutorial"]
+        2 GETTABLEKS                       R1 R1 K1 ["dataModel"]
         4 LOADK                            R4 K2 ["Workspace"]
         5 NAMECALL                         R2 R1 K3 ["GetService"]
         7 CALL                             R2 2 1
@@ -28,9 +28,9 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["TutorialStep"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["TutorialStep"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K6 ["extend"]
        12 LOADK                            R2 K7 ["Focus"]

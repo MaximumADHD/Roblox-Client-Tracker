@@ -21,8 +21,8 @@ PROTO_1:
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
         4 JUMPIFNOT                        R1 ; [+6]
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["watchRoot"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["watchRoot"]
         8 GETUPVAL                         R2 1
         9 MOVE                             R3 R0
        10 CALL                             R1 2 0
@@ -33,8 +33,8 @@ PROTO_2:
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
         4 JUMPIFNOT                        R1 ; [+6]
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["watchRoot"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["watchRoot"]
         8 GETUPVAL                         R2 1
         9 MOVE                             R3 R0
        10 CALL                             R1 2 0
@@ -45,8 +45,8 @@ PROTO_3:
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
         4 JUMPIFNOT                        R1 ; [+14]
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["watchPluginGui"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["watchPluginGui"]
         8 GETUPVAL                         R2 1
         9 MOVE                             R3 R0
        10 CALL                             R1 2 0
@@ -69,8 +69,8 @@ PROTO_4:
         8 NAMECALL                         R8 R7 K2 ["IsA"]
        10 CALL                             R8 2 1
        11 JUMPIFNOT                        R8 ; [+14]
-       12 GETUPVAL                         R9 0
-       13 GETTABLEKS                       R8 R9 K3 ["watchPluginGui"]
+       12 GETUPVAL                         R8 0
+       13 GETTABLEKS                       R8 R8 K3 ["watchPluginGui"]
        15 MOVE                             R9 R0
        16 MOVE                             R10 R7
        17 CALL                             R8 2 0
@@ -108,8 +108,8 @@ PROTO_6:
         7 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["root"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["root"]
         3 GETUPVAL                         R3 1
         4 GETUPVAL                         R4 2
         5 DUPTABLE                         R5 K3 [{"GuiName", "Views"}]
@@ -124,17 +124,17 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Enabled"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Enabled"]
         4 SETTABLEKS                       R1 R0 K1 ["enabled"]
         6 GETUPVAL                         R0 2
         7 LOADK                            R2 K2 ["SetEnabled"]
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K0 ["Enabled"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K0 ["Enabled"]
        11 NAMECALL                         R0 R0 K3 ["Invoke"]
        13 CALL                             R0 3 0
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R0 R1 K0 ["Enabled"]
+       14 GETUPVAL                         R0 1
+       15 GETTABLEKS                       R0 R0 K0 ["Enabled"]
        17 JUMPIF                           R0 ; [+4]
        18 GETUPVAL                         R0 3
        19 LOADNIL                          R1
@@ -166,8 +166,8 @@ PROTO_9:
        28 LOADK                            R3 K15 ["Foundation Inspector"]
        29 SETTABLEKS                       R3 R2 K16 ["Title"]
        31 GETUPVAL                         R3 0
-       32 GETUPVAL                         R5 1
-       33 GETTABLEKS                       R4 R5 K17 ["createRoot"]
+       32 GETUPVAL                         R4 1
+       33 GETTABLEKS                       R4 R4 K17 ["createRoot"]
        35 MOVE                             R5 R2
        36 CALL                             R4 1 1
        37 SETTABLEKS                       R4 R3 K18 ["root"]
@@ -205,8 +205,8 @@ PROTO_10:
        10 NAMECALL                         R7 R6 K1 ["IsA"]
        12 CALL                             R7 2 1
        13 JUMPIFNOT                        R7 ; [+6]
-       14 GETUPVAL                         R8 0
-       15 GETTABLEKS                       R7 R8 K4 ["watchRoot"]
+       14 GETUPVAL                         R7 0
+       15 GETTABLEKS                       R7 R7 K4 ["watchRoot"]
        17 MOVE                             R8 R0
        18 MOVE                             R9 R6
        19 CALL                             R7 2 0
@@ -214,24 +214,24 @@ PROTO_10:
        22 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["enabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["enabled"]
         3 JUMPIF                           R1 ; [+1]
         4 RETURN                           R0 0
         5 GETTABLEKS                       R1 R0 K1 ["UserInputType"]
         7 GETIMPORT                        R2 K4 [Enum.UserInputType.MouseMovement]
         9 JUMPIFNOTEQ                      R1 R2 ; [+140]
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K5 ["intersect"]
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K5 ["intersect"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
        17 GETTABLEKS                       R3 R0 K7 ["Position"]
        19 NEWTABLE                         R4 0 0
        21 CALL                             R1 3 1
        22 GETTABLEN                        R2 R1 1
        23 JUMPIFNOT                        R2 ; [+67]
-       24 GETUPVAL                         R4 2
-       25 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       24 GETUPVAL                         R3 2
+       25 GETTABLEKS                       R3 R3 K6 ["Parent"]
        27 JUMPIF                           R3 ; [+24]
        28 GETIMPORT                        R4 K10 [Instance.new]
        30 LOADK                            R5 K11 ["Frame"]
@@ -252,27 +252,27 @@ PROTO_11:
        51 SETUPVAL                         R3 2
        52 GETUPVAL                         R3 2
        53 GETIMPORT                        R4 K21 [UDim2.fromOffset]
-       55 GETTABLEKS                       R7 R2 K7 ["Position"]
-       57 GETTABLEKS                       R6 R7 K23 ["X"]
+       55 GETTABLEKS                       R6 R2 K7 ["Position"]
+       57 GETTABLEKS                       R6 R6 K23 ["X"]
        59 SUBK                             R5 R6 K22 [4]
-       60 GETTABLEKS                       R8 R2 K7 ["Position"]
-       62 GETTABLEKS                       R7 R8 K24 ["Y"]
+       60 GETTABLEKS                       R7 R2 K7 ["Position"]
+       62 GETTABLEKS                       R7 R7 K24 ["Y"]
        64 SUBK                             R6 R7 K22 [4]
        65 CALL                             R4 2 1
        66 SETTABLEKS                       R4 R3 K7 ["Position"]
        68 GETUPVAL                         R3 2
        69 GETIMPORT                        R4 K21 [UDim2.fromOffset]
-       71 GETTABLEKS                       R7 R2 K26 ["Size"]
-       73 GETTABLEKS                       R6 R7 K23 ["X"]
+       71 GETTABLEKS                       R6 R2 K26 ["Size"]
+       73 GETTABLEKS                       R6 R6 K23 ["X"]
        75 ADDK                             R5 R6 K25 [8]
-       76 GETTABLEKS                       R8 R2 K26 ["Size"]
-       78 GETTABLEKS                       R7 R8 K24 ["Y"]
+       76 GETTABLEKS                       R7 R2 K26 ["Size"]
+       78 GETTABLEKS                       R7 R7 K24 ["Y"]
        80 ADDK                             R6 R7 K25 [8]
        81 CALL                             R4 2 1
        82 SETTABLEKS                       R4 R3 K26 ["Size"]
        84 GETUPVAL                         R3 2
-       85 GETUPVAL                         R5 1
-       86 GETTABLEKS                       R4 R5 K6 ["Parent"]
+       85 GETUPVAL                         R4 1
+       86 GETTABLEKS                       R4 R4 K6 ["Parent"]
        88 SETTABLEKS                       R4 R3 K6 ["Parent"]
        90 JUMP                             ; [+4]
        91 GETUPVAL                         R3 2
@@ -281,14 +281,14 @@ PROTO_11:
        95 LENGTH                           R3 R1
        96 JUMPIFNOTEQKN                    R3 K27 [0] ; [+2]
        98 RETURN                           R0 0
-       99 GETUPVAL                         R4 1
-      100 GETTABLEKS                       R3 R4 K6 ["Parent"]
-      102 GETUPVAL                         R5 0
-      103 GETTABLEKS                       R4 R5 K28 ["root"]
+       99 GETUPVAL                         R3 1
+      100 GETTABLEKS                       R3 R3 K6 ["Parent"]
+      102 GETUPVAL                         R4 0
+      103 GETTABLEKS                       R4 R4 K28 ["root"]
       105 JUMPIFNOT                        R4 ; [+25]
       106 JUMPIFNOT                        R3 ; [+24]
-      107 GETUPVAL                         R5 0
-      108 GETTABLEKS                       R4 R5 K28 ["root"]
+      107 GETUPVAL                         R4 0
+      108 GETTABLEKS                       R4 R4 K28 ["root"]
       110 GETUPVAL                         R6 4
       111 GETUPVAL                         R7 5
       112 DUPTABLE                         R8 K31 [{"GuiName", "Views"}]
@@ -430,13 +430,13 @@ PROTO_15:
        79 JUMPIFNOT                        R10 ; [+9]
        80 GETTABLEKS                       R10 R8 K10 ["Visible"]
        82 JUMPIFNOT                        R10 ; [+20]
-       83 GETUPVAL                         R11 2
-       84 GETTABLEKS                       R10 R11 K11 ["processChild"]
+       83 GETUPVAL                         R10 2
+       84 GETTABLEKS                       R10 R10 K11 ["processChild"]
        86 MOVE                             R11 R8
        87 CALL                             R10 1 1
        88 MOVE                             R9 R10
-       89 GETUPVAL                         R11 2
-       90 GETTABLEKS                       R10 R11 K12 ["intersect"]
+       89 GETUPVAL                         R10 2
+       90 GETTABLEKS                       R10 R10 K12 ["intersect"]
        92 MOVE                             R11 R8
        93 MOVE                             R12 R1
        94 MOVE                             R13 R2
@@ -811,12 +811,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactRoblox"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactRoblox"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["createElement"]
        23 GETIMPORT                        R4 K11 [game]
@@ -825,21 +825,21 @@ MAIN:
        27 NAMECALL                         R4 R4 K13 ["DefineFastFlag"]
        29 CALL                             R4 3 1
        30 GETIMPORT                        R5 K5 [require]
-       32 GETIMPORT                        R7 K1 [script]
-       34 GETTABLEKS                       R6 R7 K14 ["Display"]
+       32 GETIMPORT                        R6 K1 [script]
+       34 GETTABLEKS                       R6 R6 K14 ["Display"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K5 [require]
-       39 GETIMPORT                        R8 K1 [script]
-       41 GETTABLEKS                       R7 R8 K15 ["ViewData"]
+       39 GETIMPORT                        R7 K1 [script]
+       41 GETTABLEKS                       R7 R7 K15 ["ViewData"]
        43 CALL                             R6 1 1
        44 GETIMPORT                        R7 K18 [table.insert]
        46 GETIMPORT                        R8 K20 [table.sort]
        48 GETIMPORT                        R9 K5 [require]
-       50 GETTABLEKS                       R11 R0 K6 ["Packages"]
-       52 GETTABLEKS                       R10 R11 K21 ["Framework"]
+       50 GETTABLEKS                       R10 R0 K6 ["Packages"]
+       52 GETTABLEKS                       R10 R10 K21 ["Framework"]
        54 CALL                             R9 1 1
-       55 GETTABLEKS                       R11 R9 K22 ["Style"]
-       57 GETTABLEKS                       R10 R11 K23 ["ColorSystem"]
+       55 GETTABLEKS                       R10 R9 K22 ["Style"]
+       57 GETTABLEKS                       R10 R10 K23 ["ColorSystem"]
        59 DUPTABLE                         R11 K25 [{"enabled"}]
        60 LOADB                            R12 1
        61 SETTABLEKS                       R12 R11 K24 ["enabled"]

@@ -1,17 +1,17 @@
 PROTO_0:
         0 GETUPVAL                         R4 0
-        1 GETUPVAL                         R7 1
-        2 GETTABLEKS                       R6 R7 K0 ["state"]
-        4 GETTABLEKS                       R5 R6 K1 ["rules"]
+        1 GETUPVAL                         R5 1
+        2 GETTABLEKS                       R5 R5 K0 ["state"]
+        4 GETTABLEKS                       R5 R5 K1 ["rules"]
         6 CALL                             R4 1 1
         7 DUPTABLE                         R5 K5 [{"FromText", "ToText", "Enabled"}]
         8 SETTABLEKS                       R1 R5 K2 ["FromText"]
        10 SETTABLEKS                       R2 R5 K3 ["ToText"]
        12 SETTABLEKS                       R3 R5 K4 ["Enabled"]
        14 SETTABLE                         R5 R4 R0
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K6 ["props"]
-       18 GETTABLEKS                       R5 R6 K7 ["Analytics"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K6 ["props"]
+       18 GETTABLEKS                       R5 R5 K7 ["Analytics"]
        20 LOADK                            R7 K8 ["onScriptRulesUpdate"]
        21 NAMECALL                         R5 R5 K9 ["getHandler"]
        23 CALL                             R5 2 1
@@ -24,9 +24,9 @@ PROTO_0:
        30 SETTABLEKS                       R4 R7 K1 ["rules"]
        32 NAMECALL                         R5 R5 K11 ["setState"]
        34 CALL                             R5 2 0
-       35 GETUPVAL                         R7 1
-       36 GETTABLEKS                       R6 R7 K6 ["props"]
-       38 GETTABLEKS                       R5 R6 K12 ["ReplaceRules"]
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R5 R5 K6 ["props"]
+       38 GETTABLEKS                       R5 R5 K12 ["ReplaceRules"]
        40 GETUPVAL                         R6 0
        41 MOVE                             R7 R4
        42 CALL                             R6 1 -1
@@ -45,8 +45,8 @@ PROTO_1:
        15 SETTABLEKS                       R5 R4 K3 ["Enabled"]
        17 GETTABLEKS                       R5 R0 K4 ["Selectable"]
        19 SETTABLEKS                       R5 R4 K4 ["Selectable"]
-       21 GETUPVAL                         R6 0
-       22 GETTABLEKS                       R5 R6 K9 ["onRuleUpdated"]
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K9 ["onRuleUpdated"]
        24 SETTABLEKS                       R5 R4 K5 ["UpdateReplaceRules"]
        26 SETTABLEKS                       R2 R4 K6 ["Position"]
        28 SETTABLEKS                       R3 R4 K7 ["Size"]
@@ -93,8 +93,8 @@ PROTO_3:
        35 GETIMPORT                        R11 K12 [table.insert]
        37 CALL                             R11 2 0
        38 FORGLOOP                         R6 2 ; [-25]
-       40 GETUPVAL                         R7 0
-       41 GETTABLEKS                       R6 R7 K13 ["createElement"]
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K13 ["createElement"]
        43 GETUPVAL                         R7 1
        44 DUPTABLE                         R8 K19 [{"Rows", "RowComponent", "RowHeight", "GetRowProps", "Size"}]
        45 SETTABLEKS                       R5 R8 K14 ["Rows"]
@@ -133,8 +133,8 @@ PROTO_4:
 
 PROTO_5:
         0 DUPTABLE                         R2 K1 [{"replaceRules"}]
-        1 GETTABLEKS                       R4 R0 K2 ["ScriptConversion"]
-        3 GETTABLEKS                       R3 R4 K0 ["replaceRules"]
+        1 GETTABLEKS                       R3 R0 K2 ["ScriptConversion"]
+        3 GETTABLEKS                       R3 R3 K0 ["replaceRules"]
         5 SETTABLEKS                       R3 R2 K0 ["replaceRules"]
         7 RETURN                           R2 1
 
@@ -161,16 +161,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R1 K11 ["UI"]
@@ -178,14 +178,14 @@ MAIN:
        34 GETTABLEKS                       R7 R1 K13 ["Util"]
        36 GETTABLEKS                       R8 R7 K14 ["deepCopy"]
        38 GETIMPORT                        R9 K5 [require]
-       40 GETTABLEKS                       R12 R0 K15 ["Src"]
-       42 GETTABLEKS                       R11 R12 K16 ["Components"]
-       44 GETTABLEKS                       R10 R11 K17 ["ReplaceOptionItem"]
+       40 GETTABLEKS                       R10 R0 K15 ["Src"]
+       42 GETTABLEKS                       R10 R10 K16 ["Components"]
+       44 GETTABLEKS                       R10 R10 K17 ["ReplaceOptionItem"]
        46 CALL                             R9 1 1
        47 GETIMPORT                        R10 K5 [require]
-       49 GETTABLEKS                       R13 R0 K15 ["Src"]
-       51 GETTABLEKS                       R12 R13 K18 ["Thunks"]
-       53 GETTABLEKS                       R11 R12 K19 ["ReplaceRules"]
+       49 GETTABLEKS                       R11 R0 K15 ["Src"]
+       51 GETTABLEKS                       R11 R11 K18 ["Thunks"]
+       53 GETTABLEKS                       R11 R11 K19 ["ReplaceRules"]
        55 CALL                             R10 1 1
        56 GETTABLEKS                       R11 R2 K20 ["PureComponent"]
        58 LOADK                            R13 K21 ["ReplaceOptionsPane"]

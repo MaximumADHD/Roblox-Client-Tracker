@@ -10,13 +10,13 @@ PROTO_0:
        11 LOADK                            R3 K3 ["Expected story to be a table"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K6 ["provideMockContext"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["provideMockContext"]
        18 NEWTABLE                         R2 0 1
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K7 ["new"]
-       23 GETUPVAL                         R5 2
-       24 GETTABLEKS                       R4 R5 K7 ["new"]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K7 ["new"]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R4 R4 K7 ["new"]
        26 LOADK                            R5 K8 ["Ribbon"]
        27 LOADNIL                          R6
        28 GETUPVAL                         R7 3
@@ -35,15 +35,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["TestHelpers"]
-       16 GETTABLEKS                       R4 R1 K9 ["ContextServices"]
-       18 GETTABLEKS                       R3 R4 K10 ["Plugin"]
-       20 GETTABLEKS                       R6 R1 K8 ["TestHelpers"]
-       22 GETTABLEKS                       R5 R6 K11 ["Instances"]
-       24 GETTABLEKS                       R4 R5 K12 ["MockPlugin"]
+       16 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
+       18 GETTABLEKS                       R3 R3 K10 ["Plugin"]
+       20 GETTABLEKS                       R4 R1 K8 ["TestHelpers"]
+       22 GETTABLEKS                       R4 R4 K11 ["Instances"]
+       24 GETTABLEKS                       R4 R4 K12 ["MockPlugin"]
        26 LOADK                            R7 K10 ["Plugin"]
        27 NAMECALL                         R5 R0 K13 ["FindFirstAncestorWhichIsA"]
        29 CALL                             R5 2 1

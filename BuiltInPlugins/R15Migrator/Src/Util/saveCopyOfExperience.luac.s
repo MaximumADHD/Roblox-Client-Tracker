@@ -7,8 +7,8 @@ PROTO_0:
         7 MOVE                             R4 R2
         8 CALL                             R3 1 0
         9 GETIMPORT                        R3 K5 [pairs]
-       11 GETTABLEKS                       R6 R0 K6 ["responseBody"]
-       13 GETTABLEKS                       R4 R6 K7 ["errors"]
+       11 GETTABLEKS                       R4 R0 K6 ["responseBody"]
+       13 GETTABLEKS                       R4 R4 K7 ["errors"]
        15 CALL                             R3 1 3
        16 FORGPREP_NEXT                    R3
        17 GETIMPORT                        R8 K3 [warn]
@@ -19,8 +19,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["name"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["name"]
         4 NAMECALL                         R0 R0 K1 ["SetUniverseDisplayName"]
         6 CALL                             R0 2 0
         7 GETUPVAL                         R0 0
@@ -54,8 +54,8 @@ PROTO_3:
         9 RETURN                           R0 0
 
 PROTO_4:
-        0 GETIMPORT                        R4 K1 [game]
-        2 GETTABLEKS                       R3 R4 K2 ["GameId"]
+        0 GETIMPORT                        R3 K1 [game]
+        2 GETTABLEKS                       R3 R3 K2 ["GameId"]
         4 GETTABLEKS                       R5 R2 K3 ["teamCreateEnabled"]
         6 JUMPIFNOT                        R5 ; [+2]
         7 LOADB                            R4 1
@@ -83,24 +83,24 @@ PROTO_4:
        35 CALL                             R5 8 0
        36 LOADNIL                          R5
        37 LOADNIL                          R6
-       38 GETUPVAL                         R8 0
-       39 GETTABLEKS                       R7 R8 K8 ["GamePublishFinished"]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R7 R7 K8 ["GamePublishFinished"]
        41 NAMECALL                         R7 R7 K9 ["wait"]
        43 CALL                             R7 1 2
        44 MOVE                             R5 R7
        45 MOVE                             R6 R8
-       46 GETIMPORT                        R8 K1 [game]
-       48 GETTABLEKS                       R7 R8 K2 ["GameId"]
+       46 GETIMPORT                        R7 K1 [game]
+       48 GETTABLEKS                       R7 R7 K2 ["GameId"]
        50 JUMPIFEQ                         R3 R7 ; [+5]
        52 GETIMPORT                        R7 K10 [wait]
        54 CALL                             R7 0 0
        55 JUMPBACK                         ; [-10]
        56 JUMPIF                           R5 ; [+1]
        57 RETURN                           R0 0
-       58 GETTABLEKS                       R10 R1 K11 ["Develop"]
-       60 GETTABLEKS                       R9 R10 K12 ["V2"]
-       62 GETTABLEKS                       R8 R9 K13 ["Universes"]
-       64 GETTABLEKS                       R7 R8 K14 ["configuration"]
+       58 GETTABLEKS                       R7 R1 K11 ["Develop"]
+       60 GETTABLEKS                       R7 R7 K12 ["V2"]
+       62 GETTABLEKS                       R7 R7 K13 ["Universes"]
+       64 GETTABLEKS                       R7 R7 K14 ["configuration"]
        66 MOVE                             R8 R6
        67 MOVE                             R9 R2
        68 CALL                             R7 2 1
@@ -114,10 +114,10 @@ PROTO_4:
        77 CAPTURE                          VAL R0
        78 NAMECALL                         R7 R7 K16 ["andThen"]
        80 CALL                             R7 3 0
-       81 GETTABLEKS                       R10 R1 K11 ["Develop"]
-       83 GETTABLEKS                       R9 R10 K17 ["V1"]
-       85 GETTABLEKS                       R8 R9 K13 ["Universes"]
-       87 GETTABLEKS                       R7 R8 K18 ["deactivate"]
+       81 GETTABLEKS                       R7 R1 K11 ["Develop"]
+       83 GETTABLEKS                       R7 R7 K17 ["V1"]
+       85 GETTABLEKS                       R7 R7 K13 ["Universes"]
+       87 GETTABLEKS                       R7 R7 K18 ["deactivate"]
        89 MOVE                             R8 R6
        90 CALL                             R7 1 1
        91 NAMECALL                         R7 R7 K15 ["makeRequest"]

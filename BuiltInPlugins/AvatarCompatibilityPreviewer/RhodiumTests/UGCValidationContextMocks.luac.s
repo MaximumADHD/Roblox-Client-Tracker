@@ -14,8 +14,8 @@ PROTO_2:
         1 GETTABLE                         R1 R0 R2
         2 JUMPIFEQKNIL                     R1 ; [+2]
         4 RETURN                           R0 1
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["createCachedResponse"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K0 ["createCachedResponse"]
         8 CALL                             R1 0 1
         9 JUMPIFNOTEQKNIL                  R1 ; [+2]
        11 RETURN                           R0 1
@@ -39,8 +39,8 @@ PROTO_4:
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K0 ["waitForSignal"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["waitForSignal"]
         7 JUMPIFNOTEQKNIL                  R2 ; [+7]
         9 GETUPVAL                         R2 0
        10 NEWCLOSURE                       R3 P1
@@ -48,8 +48,8 @@ PROTO_4:
        12 CAPTURE                          UPVAL U1
        13 CALL                             R2 1 0
        14 RETURN                           R0 0
-       15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R2 R3 K0 ["waitForSignal"]
+       15 GETUPVAL                         R2 1
+       16 GETTABLEKS                       R2 R2 K0 ["waitForSignal"]
        18 MOVE                             R4 R1
        19 NAMECALL                         R2 R2 K1 ["Once"]
        21 CALL                             R2 2 0
@@ -80,37 +80,37 @@ PROTO_7:
         1 RETURN                           R0 1
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 NEWTABLE                         R2 0 0
         5 CALL                             R1 1 2
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["useCallback"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["useCallback"]
         9 NEWCLOSURE                       R4 P0
        10 CAPTURE                          VAL R1
        11 NEWTABLE                         R5 0 1
        13 MOVE                             R6 R1
        14 SETLIST                          R5 R6 1 [1]
        16 CALL                             R3 2 1
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K1 ["useCallback"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K1 ["useCallback"]
        20 NEWCLOSURE                       R5 P1
        21 CAPTURE                          VAL R2
        22 CAPTURE                          VAL R0
        23 NEWTABLE                         R6 0 0
        25 CALL                             R4 2 1
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K1 ["useCallback"]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K1 ["useCallback"]
        29 DUPCLOSURE                       R6 K2 [PROTO_5]
        30 NEWTABLE                         R7 0 0
        32 CALL                             R5 2 1
-       33 GETUPVAL                         R7 0
-       34 GETTABLEKS                       R6 R7 K1 ["useCallback"]
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K1 ["useCallback"]
        36 DUPCLOSURE                       R7 K3 [PROTO_6]
        37 NEWTABLE                         R8 0 0
        39 CALL                             R6 2 1
-       40 GETUPVAL                         R8 0
-       41 GETTABLEKS                       R7 R8 K1 ["useCallback"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K1 ["useCallback"]
        43 DUPCLOSURE                       R8 K4 [PROTO_7]
        44 NEWTABLE                         R9 0 0
        46 CALL                             R7 2 1
@@ -129,11 +129,11 @@ PROTO_8:
        66 SETTABLEKS                       R3 R10 K12 ["findCachedValidationResponse"]
        68 SETTABLEKS                       R8 R10 K13 ["canUploadBundles"]
        70 SETTABLEKS                       R9 R10 K14 ["requestCanUploadBundles"]
-       72 GETUPVAL                         R12 0
-       73 GETTABLEKS                       R11 R12 K16 ["createElement"]
-       75 GETUPVAL                         R14 3
-       76 GETTABLEKS                       R13 R14 K17 ["Context"]
-       78 GETTABLEKS                       R12 R13 K18 ["Provider"]
+       72 GETUPVAL                         R11 0
+       73 GETTABLEKS                       R11 R11 K16 ["createElement"]
+       75 GETUPVAL                         R12 3
+       76 GETTABLEKS                       R12 R12 K17 ["Context"]
+       78 GETTABLEKS                       R12 R12 K18 ["Provider"]
        80 DUPTABLE                         R13 K20 [{"value"}]
        81 SETTABLEKS                       R10 R13 K19 ["value"]
        83 GETTABLEKS                       R14 R0 K21 ["children"]
@@ -153,8 +153,8 @@ PROTO_9:
        15 RETURN                           R0 1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K4 [{"waitForSignal", "canUploadBundlesAsync", "createCachedResponse"}]
         5 GETTABLEKS                       R4 R0 K1 ["waitForSignal"]
@@ -206,8 +206,8 @@ PROTO_11:
        55 RETURN                           R0 1
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K2 [{"createCachedResponse"}]
         5 DUPCLOSURE                       R4 K3 [PROTO_11]
@@ -221,8 +221,8 @@ PROTO_13:
         1 RETURN                           R0 1
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K2 [{"createCachedResponse"}]
         5 DUPCLOSURE                       R4 K3 [PROTO_13]
@@ -244,8 +244,8 @@ PROTO_15:
        15 RETURN                           R0 1
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K2 [{"createCachedResponse"}]
         5 DUPCLOSURE                       R4 K3 [PROTO_15]
@@ -277,8 +277,8 @@ PROTO_17:
        31 RETURN                           R0 1
 
 PROTO_18:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K2 [{"createCachedResponse"}]
         5 DUPCLOSURE                       R4 K3 [PROTO_17]
@@ -294,28 +294,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Signal"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Signal"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["UGCValidation"]
+       25 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["UGCValidation"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K8 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Components"]
-       36 GETTABLEKS                       R5 R6 K13 ["UGCValidationContext"]
+       32 GETTABLEKS                       R5 R0 K8 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Components"]
+       36 GETTABLEKS                       R5 R5 K13 ["UGCValidationContext"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R9 R0 K8 ["Src"]
-       43 GETTABLEKS                       R8 R9 K12 ["Components"]
-       45 GETTABLEKS                       R7 R8 K13 ["UGCValidationContext"]
-       47 GETTABLEKS                       R6 R7 K14 ["useCanUploadBundles"]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K12 ["Components"]
+       45 GETTABLEKS                       R6 R6 K13 ["UGCValidationContext"]
+       47 GETTABLEKS                       R6 R6 K14 ["useCanUploadBundles"]
        49 CALL                             R5 1 1
        50 NEWTABLE                         R6 8 0
        52 DUPCLOSURE                       R7 K15 [PROTO_0]

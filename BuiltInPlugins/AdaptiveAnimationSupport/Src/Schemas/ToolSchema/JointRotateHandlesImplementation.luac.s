@@ -29,8 +29,8 @@ PROTO_1:
        11 RETURN                           R0 0
        12 GETTABLEN                        R3 R1 1
        13 SETTABLEKS                       R3 R0 K6 ["_initialJoint"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K7 ["getJointTransform"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K7 ["getJointTransform"]
        18 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
        20 CALL                             R3 1 1
        21 JUMPIF                           R3 ; [+2]
@@ -50,14 +50,14 @@ PROTO_1:
        40 GETTABLEKS                       R5 R4 K11 ["Transform"]
        42 SETTABLEKS                       R5 R0 K12 ["_initialWorldCFrame"]
        44 JUMP                             ; [+17]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R5 R6 K13 ["getGlobalCoordinateFrame"]
+       45 GETUPVAL                         R5 0
+       46 GETTABLEKS                       R5 R5 K13 ["getGlobalCoordinateFrame"]
        48 GETTABLEKS                       R6 R0 K6 ["_initialJoint"]
        50 CALL                             R5 1 1
        51 SETTABLEKS                       R5 R0 K12 ["_initialWorldCFrame"]
        53 JUMP                             ; [+8]
-       54 GETUPVAL                         R4 0
-       55 GETTABLEKS                       R3 R4 K13 ["getGlobalCoordinateFrame"]
+       54 GETUPVAL                         R3 0
+       55 GETTABLEKS                       R3 R3 K13 ["getGlobalCoordinateFrame"]
        57 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
        59 CALL                             R3 1 1
        60 SETTABLEKS                       R3 R0 K12 ["_initialWorldCFrame"]
@@ -73,8 +73,8 @@ PROTO_1:
        75 CALL                             R4 2 1
        76 JUMPIFNOT                        R4 ; [+19]
        77 GETTABLEKS                       R4 R0 K14 ["_hrd"]
-       79 GETUPVAL                         R6 2
-       80 GETTABLEKS                       R5 R6 K17 ["getRigLabelForJoint"]
+       79 GETUPVAL                         R5 2
+       80 GETTABLEKS                       R5 R5 K17 ["getRigLabelForJoint"]
        82 MOVE                             R6 R4
        83 GETTABLEKS                       R7 R0 K6 ["_initialJoint"]
        85 CALL                             R5 2 1
@@ -91,8 +91,8 @@ PROTO_1:
        99 NAMECALL                         R4 R4 K16 ["IsA"]
       101 CALL                             R4 2 1
       102 JUMPIFNOT                        R4 ; [+27]
-      103 GETUPVAL                         R7 0
-      104 GETTABLEKS                       R4 R7 K20 ["bodyRigLabels"]
+      103 GETUPVAL                         R4 0
+      104 GETTABLEKS                       R4 R4 K20 ["bodyRigLabels"]
       106 LOADNIL                          R5
       107 LOADNIL                          R6
       108 FORGPREP                         R4
@@ -143,8 +143,8 @@ PROTO_3:
         5 JUMPIFNOT                        R1 ; [+8]
         6 GETTABLEKS                       R1 R0 K2 ["_hrd"]
         8 JUMPIFNOT                        R1 ; [+5]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K3 ["addTPoseWaypoint"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K3 ["addTPoseWaypoint"]
        12 LOADK                            R2 K4 ["Bone Rotate"]
        13 CALL                             R1 1 0
        14 LOADNIL                          R1
@@ -171,23 +171,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utils"]
-       13 GETTABLEKS                       R2 R3 K8 ["UndoUtils"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utils"]
+       13 GETTABLEKS                       R2 R2 K8 ["UndoUtils"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["AdaptiveAnimationTools"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["AdaptiveAnimationTools"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K7 ["Utils"]
-       29 GETTABLEKS                       R4 R5 K11 ["DigitsRigUtils"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K7 ["Utils"]
+       29 GETTABLEKS                       R4 R4 K11 ["DigitsRigUtils"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       38 GETTABLEKS                       R5 R6 K13 ["getFFlagAdaptiveAnimationHandRig"]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K13 ["getFFlagAdaptiveAnimationHandRig"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 8 0
        43 SETTABLEKS                       R5 R5 K14 ["__index"]

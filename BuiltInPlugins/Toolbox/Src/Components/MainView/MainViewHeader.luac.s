@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Network"]
-        5 GETTABLEKS                       R0 R1 K2 ["networkInterface"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["Settings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Network"]
+        5 GETTABLEKS                       R0 R0 K2 ["networkInterface"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["Settings"]
        12 LOADK                            R3 K4 ["Plugin"]
        13 NAMECALL                         R1 R1 K5 ["get"]
        15 CALL                             R1 2 1
@@ -15,11 +15,11 @@ PROTO_0:
        19 DUPTABLE                         R2 K13 [{"Creator", "AudioSearch", "AdditionalAudioSearch", "includeUnverifiedCreators", "creatorTargetIds", "groupTargetIds", "uiSortIntent"}]
        20 LOADK                            R3 K14 [""]
        21 SETTABLEKS                       R3 R2 K6 ["Creator"]
-       23 GETUPVAL                         R4 2
-       24 GETTABLEKS                       R3 R4 K15 ["None"]
+       23 GETUPVAL                         R3 2
+       24 GETTABLEKS                       R3 R3 K15 ["None"]
        26 SETTABLEKS                       R3 R2 K7 ["AudioSearch"]
-       28 GETUPVAL                         R4 2
-       29 GETTABLEKS                       R3 R4 K15 ["None"]
+       28 GETUPVAL                         R3 2
+       29 GETTABLEKS                       R3 R3 K15 ["None"]
        31 SETTABLEKS                       R3 R2 K8 ["AdditionalAudioSearch"]
        33 LOADB                            R3 0
        34 SETTABLEKS                       R3 R2 K9 ["includeUnverifiedCreators"]
@@ -27,27 +27,27 @@ PROTO_0:
        38 SETTABLEKS                       R3 R2 K10 ["creatorTargetIds"]
        40 NEWTABLE                         R3 0 0
        42 SETTABLEKS                       R3 R2 K11 ["groupTargetIds"]
-       44 GETUPVAL                         R4 2
-       45 GETTABLEKS                       R3 R4 K15 ["None"]
+       44 GETUPVAL                         R3 2
+       45 GETTABLEKS                       R3 R3 K15 ["None"]
        47 SETTABLEKS                       R3 R2 K12 ["uiSortIntent"]
        49 JUMP                             ; [+22]
        50 DUPTABLE                         R2 K16 [{"Creator", "AudioSearch", "AdditionalAudioSearch", "includeUnverifiedCreators", "uiSortIntent"}]
        51 LOADK                            R3 K14 [""]
        52 SETTABLEKS                       R3 R2 K6 ["Creator"]
-       54 GETUPVAL                         R4 2
-       55 GETTABLEKS                       R3 R4 K15 ["None"]
+       54 GETUPVAL                         R3 2
+       55 GETTABLEKS                       R3 R3 K15 ["None"]
        57 SETTABLEKS                       R3 R2 K7 ["AudioSearch"]
-       59 GETUPVAL                         R4 2
-       60 GETTABLEKS                       R3 R4 K15 ["None"]
+       59 GETUPVAL                         R3 2
+       60 GETTABLEKS                       R3 R3 K15 ["None"]
        62 SETTABLEKS                       R3 R2 K8 ["AdditionalAudioSearch"]
        64 LOADB                            R3 0
        65 SETTABLEKS                       R3 R2 K9 ["includeUnverifiedCreators"]
-       67 GETUPVAL                         R4 2
-       68 GETTABLEKS                       R3 R4 K15 ["None"]
+       67 GETUPVAL                         R3 2
+       68 GETTABLEKS                       R3 R3 K15 ["None"]
        70 SETTABLEKS                       R3 R2 K12 ["uiSortIntent"]
-       72 GETUPVAL                         R5 0
-       73 GETTABLEKS                       R4 R5 K0 ["props"]
-       75 GETTABLEKS                       R3 R4 K17 ["searchWithOptions"]
+       72 GETUPVAL                         R3 0
+       73 GETTABLEKS                       R3 R3 K0 ["props"]
+       75 GETTABLEKS                       R3 R3 K17 ["searchWithOptions"]
        77 MOVE                             R4 R0
        78 MOVE                             R5 R1
        79 MOVE                             R6 R2
@@ -55,44 +55,44 @@ PROTO_0:
        81 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Network"]
-        5 GETTABLEKS                       R0 R1 K2 ["networkInterface"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["Settings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Network"]
+        5 GETTABLEKS                       R0 R0 K2 ["networkInterface"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["Settings"]
        12 LOADK                            R3 K4 ["Plugin"]
        13 NAMECALL                         R1 R1 K5 ["get"]
        15 CALL                             R1 2 1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K0 ["props"]
-       19 GETTABLEKS                       R2 R3 K6 ["includeUnverifiedCreators"]
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R4 R5 K0 ["props"]
-       24 GETTABLEKS                       R3 R4 K7 ["searchWithOptions"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K0 ["props"]
+       19 GETTABLEKS                       R2 R2 K6 ["includeUnverifiedCreators"]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K0 ["props"]
+       24 GETTABLEKS                       R3 R3 K7 ["searchWithOptions"]
        26 MOVE                             R4 R0
        27 MOVE                             R5 R1
        28 DUPTABLE                         R6 K11 [{"Creator", "AudioSearch", "AdditionalAudioSearch", "includeUnverifiedCreators"}]
        29 LOADK                            R7 K12 [""]
        30 SETTABLEKS                       R7 R6 K8 ["Creator"]
-       32 GETUPVAL                         R9 0
-       33 GETTABLEKS                       R8 R9 K0 ["props"]
-       35 GETTABLEKS                       R7 R8 K13 ["audioSearchInfo"]
+       32 GETUPVAL                         R7 0
+       33 GETTABLEKS                       R7 R7 K0 ["props"]
+       35 GETTABLEKS                       R7 R7 K13 ["audioSearchInfo"]
        37 SETTABLEKS                       R7 R6 K9 ["AudioSearch"]
-       39 GETUPVAL                         R9 0
-       40 GETTABLEKS                       R8 R9 K0 ["props"]
-       42 GETTABLEKS                       R7 R8 K14 ["additionalAudioSearchInfo"]
+       39 GETUPVAL                         R7 0
+       40 GETTABLEKS                       R7 R7 K0 ["props"]
+       42 GETTABLEKS                       R7 R7 K14 ["additionalAudioSearchInfo"]
        44 SETTABLEKS                       R7 R6 K10 ["AdditionalAudioSearch"]
        46 SETTABLEKS                       R2 R6 K6 ["includeUnverifiedCreators"]
        48 CALL                             R3 3 0
        49 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R3 R1 K1 ["Network"]
-        5 GETTABLEKS                       R2 R3 K2 ["networkInterface"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R2 R1 K1 ["Network"]
+        5 GETTABLEKS                       R2 R2 K2 ["networkInterface"]
         7 GETTABLEKS                       R3 R1 K3 ["Settings"]
         9 LOADK                            R5 K4 ["Plugin"]
        10 NAMECALL                         R3 R3 K5 ["get"]
@@ -111,9 +111,9 @@ PROTO_2:
        29 GETTABLEKS                       R8 R1 K12 ["uiSortIntent"]
        31 LOADNIL                          R9
        32 SETTABLE                         R9 R6 R4
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R10 R11 K0 ["props"]
-       36 GETTABLEKS                       R9 R10 K13 ["searchWithOptions"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K0 ["props"]
+       36 GETTABLEKS                       R9 R9 K13 ["searchWithOptions"]
        38 MOVE                             R10 R2
        39 MOVE                             R11 R3
        40 DUPTABLE                         R12 K14 [{"creatorTargetIds", "groupTargetIds", "includeUnverifiedCreators", "uiSortIntent"}]
@@ -128,10 +128,10 @@ PROTO_3:
         0 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R3 R1 K1 ["Network"]
-        5 GETTABLEKS                       R2 R3 K2 ["networkInterface"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R2 R1 K1 ["Network"]
+        5 GETTABLEKS                       R2 R2 K2 ["networkInterface"]
         7 GETTABLEKS                       R3 R1 K3 ["Settings"]
         9 LOADK                            R5 K4 ["Plugin"]
        10 NAMECALL                         R3 R3 K5 ["get"]
@@ -150,9 +150,9 @@ PROTO_4:
        29 GETTABLEKS                       R8 R1 K12 ["uiSortIntent"]
        31 LOADNIL                          R9
        32 SETTABLE                         R9 R7 R4
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R10 R11 K0 ["props"]
-       36 GETTABLEKS                       R9 R10 K13 ["searchWithOptions"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K0 ["props"]
+       36 GETTABLEKS                       R9 R9 K13 ["searchWithOptions"]
        38 MOVE                             R10 R2
        39 MOVE                             R11 R3
        40 DUPTABLE                         R12 K14 [{"creatorTargetIds", "groupTargetIds", "includeUnverifiedCreators", "uiSortIntent"}]
@@ -167,42 +167,42 @@ PROTO_5:
         0 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["creator"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["props"]
-        8 GETTABLEKS                       R1 R2 K2 ["includeUnverifiedCreators"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["creator"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["props"]
+        8 GETTABLEKS                       R1 R1 K2 ["includeUnverifiedCreators"]
        10 DUPTABLE                         R2 K6 [{"Creator", "AudioSearch", "AdditionalAudioSearch", "includeUnverifiedCreators"}]
        11 JUMPIFNOT                        R0 ; [+3]
        12 GETTABLEKS                       R3 R0 K7 ["Name"]
        14 JUMPIF                           R3 ; [+1]
        15 LOADK                            R3 K8 [""]
        16 SETTABLEKS                       R3 R2 K3 ["Creator"]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K0 ["props"]
-       21 GETTABLEKS                       R3 R4 K9 ["audioSearchInfo"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K0 ["props"]
+       21 GETTABLEKS                       R3 R3 K9 ["audioSearchInfo"]
        23 SETTABLEKS                       R3 R2 K4 ["AudioSearch"]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K0 ["props"]
-       28 GETTABLEKS                       R3 R4 K10 ["additionalAudioSearchInfo"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K0 ["props"]
+       28 GETTABLEKS                       R3 R3 K10 ["additionalAudioSearchInfo"]
        30 SETTABLEKS                       R3 R2 K5 ["AdditionalAudioSearch"]
        32 SETTABLEKS                       R1 R2 K2 ["includeUnverifiedCreators"]
        34 RETURN                           R2 1
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["Network"]
-        5 GETTABLEKS                       R1 R2 K2 ["networkInterface"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K0 ["props"]
-       10 GETTABLEKS                       R2 R3 K3 ["Settings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Network"]
+        5 GETTABLEKS                       R1 R1 K2 ["networkInterface"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K0 ["props"]
+       10 GETTABLEKS                       R2 R2 K3 ["Settings"]
        12 LOADK                            R4 K4 ["Plugin"]
        13 NAMECALL                         R2 R2 K5 ["get"]
        15 CALL                             R2 2 1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K6 ["createOptions"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K6 ["createOptions"]
        19 CALL                             R3 0 1
        20 GETIMPORT                        R4 K8 [ipairs]
        22 MOVE                             R5 R0
@@ -218,9 +218,9 @@ PROTO_7:
        36 JUMPIFNOTEQKNIL                  R4 ; [+4]
        38 LOADNIL                          R4
        39 SETTABLEKS                       R4 R3 K9 ["AdditionalAudioSearch"]
-       41 GETUPVAL                         R6 0
-       42 GETTABLEKS                       R5 R6 K0 ["props"]
-       44 GETTABLEKS                       R4 R5 K12 ["searchWithOptions"]
+       41 GETUPVAL                         R4 0
+       42 GETTABLEKS                       R4 R4 K0 ["props"]
+       44 GETTABLEKS                       R4 R4 K12 ["searchWithOptions"]
        46 MOVE                             R5 R1
        47 MOVE                             R6 R2
        48 MOVE                             R7 R3
@@ -228,80 +228,80 @@ PROTO_7:
        50 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearAdditionalAudioSearchByKeys"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearAdditionalAudioSearchByKeys"]
         3 NEWTABLE                         R1 0 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
-        8 GETTABLEKS                       R2 R3 K2 ["ARTIST"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+        8 GETTABLEKS                       R2 R2 K2 ["ARTIST"]
        10 SETLIST                          R1 R2 1 [1]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearAdditionalAudioSearchByKeys"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearAdditionalAudioSearchByKeys"]
         3 NEWTABLE                         R1 0 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
-        8 GETTABLEKS                       R2 R3 K2 ["CATEGORIES"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+        8 GETTABLEKS                       R2 R2 K2 ["CATEGORIES"]
        10 SETLIST                          R1 R2 1 [1]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearAdditionalAudioSearchByKeys"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearAdditionalAudioSearchByKeys"]
         3 NEWTABLE                         R1 0 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
-        8 GETTABLEKS                       R2 R3 K2 ["GENRE"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+        8 GETTABLEKS                       R2 R2 K2 ["GENRE"]
        10 SETLIST                          R1 R2 1 [1]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearAdditionalAudioSearchByKeys"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearAdditionalAudioSearchByKeys"]
         3 NEWTABLE                         R1 0 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
-        8 GETTABLEKS                       R2 R3 K2 ["ALBUM"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+        8 GETTABLEKS                       R2 R2 K2 ["ALBUM"]
        10 SETLIST                          R1 R2 1 [1]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearAdditionalAudioSearchByKeys"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearAdditionalAudioSearchByKeys"]
         3 NEWTABLE                         R1 0 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
-        8 GETTABLEKS                       R2 R3 K2 ["AUDIO_TYPE"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["ADDITIONAL_AUDIO_SEARCH_KEYS"]
+        8 GETTABLEKS                       R2 R2 K2 ["AUDIO_TYPE"]
        10 SETLIST                          R1 R2 1 [1]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Network"]
-        5 GETTABLEKS                       R0 R1 K2 ["networkInterface"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["Settings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Network"]
+        5 GETTABLEKS                       R0 R0 K2 ["networkInterface"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["Settings"]
        12 LOADK                            R3 K4 ["Plugin"]
        13 NAMECALL                         R1 R1 K5 ["get"]
        15 CALL                             R1 2 1
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K6 ["createOptions"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K6 ["createOptions"]
        19 CALL                             R2 0 1
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K7 ["None"]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K7 ["None"]
        23 SETTABLEKS                       R3 R2 K8 ["AudioSearch"]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K0 ["props"]
-       28 GETTABLEKS                       R3 R4 K9 ["searchWithOptions"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K0 ["props"]
+       28 GETTABLEKS                       R3 R3 K9 ["searchWithOptions"]
        30 MOVE                             R4 R0
        31 MOVE                             R5 R1
        32 MOVE                             R6 R2
@@ -309,34 +309,34 @@ PROTO_13:
        34 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Network"]
-        5 GETTABLEKS                       R0 R1 K2 ["networkInterface"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["Settings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Network"]
+        5 GETTABLEKS                       R0 R0 K2 ["networkInterface"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["Settings"]
        12 LOADK                            R3 K4 ["Plugin"]
        13 NAMECALL                         R1 R1 K5 ["get"]
        15 CALL                             R1 2 1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K0 ["props"]
-       19 GETTABLEKS                       R2 R3 K6 ["creator"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K0 ["props"]
+       19 GETTABLEKS                       R2 R2 K6 ["creator"]
        21 DUPTABLE                         R3 K10 [{"Creator", "AudioSearch", "includeUnverifiedCreators"}]
        22 JUMPIFNOT                        R2 ; [+3]
        23 GETTABLEKS                       R4 R2 K11 ["Name"]
        25 JUMPIF                           R4 ; [+1]
        26 LOADK                            R4 K12 [""]
        27 SETTABLEKS                       R4 R3 K7 ["Creator"]
-       29 GETUPVAL                         R6 0
-       30 GETTABLEKS                       R5 R6 K0 ["props"]
-       32 GETTABLEKS                       R4 R5 K13 ["audioSearchInfo"]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K0 ["props"]
+       32 GETTABLEKS                       R4 R4 K13 ["audioSearchInfo"]
        34 SETTABLEKS                       R4 R3 K8 ["AudioSearch"]
        36 LOADB                            R4 0
        37 SETTABLEKS                       R4 R3 K9 ["includeUnverifiedCreators"]
-       39 GETUPVAL                         R6 0
-       40 GETTABLEKS                       R5 R6 K0 ["props"]
-       42 GETTABLEKS                       R4 R5 K14 ["searchWithOptions"]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K0 ["props"]
+       42 GETTABLEKS                       R4 R4 K14 ["searchWithOptions"]
        44 MOVE                             R5 R0
        45 MOVE                             R6 R1
        46 MOVE                             R7 R3
@@ -344,25 +344,25 @@ PROTO_14:
        48 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Network"]
-        5 GETTABLEKS                       R0 R1 K2 ["networkInterface"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["Settings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Network"]
+        5 GETTABLEKS                       R0 R0 K2 ["networkInterface"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["Settings"]
        12 LOADK                            R3 K4 ["Plugin"]
        13 NAMECALL                         R1 R1 K5 ["get"]
        15 CALL                             R1 2 1
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K6 ["createOptions"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K6 ["createOptions"]
        19 CALL                             R2 0 1
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K7 ["None"]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K7 ["None"]
        23 SETTABLEKS                       R3 R2 K8 ["uiSortIntent"]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K0 ["props"]
-       28 GETTABLEKS                       R3 R4 K9 ["searchWithOptions"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K0 ["props"]
+       28 GETTABLEKS                       R3 R3 K9 ["searchWithOptions"]
        30 MOVE                             R4 R0
        31 MOVE                             R5 R1
        32 MOVE                             R6 R2
@@ -439,8 +439,8 @@ PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R1 K2 ["searchTerm"]
         4 ORK                              R2 R3 K1 [""]
-        5 GETTABLEKS                       R4 R1 K3 ["creatorFilter"]
-        7 GETTABLEKS                       R3 R4 K4 ["Name"]
+        5 GETTABLEKS                       R3 R1 K3 ["creatorFilter"]
+        7 GETTABLEKS                       R3 R3 K4 ["Name"]
         9 GETTABLEKS                       R4 R1 K5 ["includeUnverifiedCreators"]
        11 GETTABLEKS                       R5 R1 K6 ["uiSortIntent"]
        13 GETTABLEKS                       R6 R1 K7 ["sortDirection"]
@@ -468,20 +468,20 @@ PROTO_17:
        43 NEWTABLE                         R11 2 0
        45 GETTABLEKS                       R12 R1 K15 ["showTags"]
        47 JUMPIFNOT                        R12 ; [+526]
-       48 GETTABLEKS                       R14 R0 K0 ["props"]
-       50 GETTABLEKS                       R13 R14 K16 ["Localization"]
+       48 GETTABLEKS                       R13 R0 K0 ["props"]
+       50 GETTABLEKS                       R13 R13 K16 ["Localization"]
        52 LOADK                            R15 K17 ["General"]
        53 LOADK                            R16 K18 ["SearchTagCreator"]
        54 NAMECALL                         R13 R13 K19 ["getText"]
        56 CALL                             R13 3 1
-       57 GETTABLEKS                       R15 R0 K0 ["props"]
-       59 GETTABLEKS                       R14 R15 K16 ["Localization"]
+       57 GETTABLEKS                       R14 R0 K0 ["props"]
+       59 GETTABLEKS                       R14 R14 K16 ["Localization"]
        61 LOADK                            R16 K17 ["General"]
        62 LOADK                            R17 K20 ["SearchTagLength"]
        63 NAMECALL                         R14 R14 K19 ["getText"]
        65 CALL                             R14 3 1
-       66 GETTABLEKS                       R16 R0 K0 ["props"]
-       68 GETTABLEKS                       R15 R16 K16 ["Localization"]
+       66 GETTABLEKS                       R15 R0 K0 ["props"]
+       68 GETTABLEKS                       R15 R15 K16 ["Localization"]
        70 LOADK                            R17 K17 ["General"]
        71 LOADK                            R18 K21 ["SearchTagIdUnverified"]
        72 NAMECALL                         R15 R15 K19 ["getText"]
@@ -561,8 +561,8 @@ PROTO_17:
       190 GETTABLEKS                       R18 R17 K43 ["artist"]
       192 JUMPIFNOT                        R18 ; [+29]
       193 DUPTABLE                         R20 K25 [{"prefix", "text", "onDelete"}]
-      194 GETTABLEKS                       R25 R0 K0 ["props"]
-      196 GETTABLEKS                       R24 R25 K16 ["Localization"]
+      194 GETTABLEKS                       R24 R0 K0 ["props"]
+      196 GETTABLEKS                       R24 R24 K16 ["Localization"]
       198 LOADK                            R26 K44 ["AudioView"]
       199 LOADK                            R27 K45 ["Artist"]
       200 NAMECALL                         R24 R24 K19 ["getText"]
@@ -587,8 +587,8 @@ PROTO_17:
       231 CALL                             R19 1 3
       232 FORGPREP_INEXT                   R19
       233 MOVE                             R25 R18
-      234 GETTABLEKS                       R27 R0 K0 ["props"]
-      236 GETTABLEKS                       R26 R27 K16 ["Localization"]
+      234 GETTABLEKS                       R26 R0 K0 ["props"]
+      236 GETTABLEKS                       R26 R26 K16 ["Localization"]
       238 LOADK                            R28 K51 ["Audio.SoundEffect.Category"]
       239 MOVE                             R29 R23
       240 NAMECALL                         R26 R26 K19 ["getText"]
@@ -598,8 +598,8 @@ PROTO_17:
       246 CALL                             R24 -1 0
       247 FORGLOOP                         R19 2 [inext] ; [-15]
       249 DUPTABLE                         R21 K25 [{"prefix", "text", "onDelete"}]
-      250 GETTABLEKS                       R26 R0 K0 ["props"]
-      252 GETTABLEKS                       R25 R26 K16 ["Localization"]
+      250 GETTABLEKS                       R25 R0 K0 ["props"]
+      252 GETTABLEKS                       R25 R25 K16 ["Localization"]
       254 LOADK                            R27 K44 ["AudioView"]
       255 LOADK                            R28 K52 ["Category"]
       256 NAMECALL                         R25 R25 K19 ["getText"]
@@ -622,8 +622,8 @@ PROTO_17:
       281 GETTABLEKS                       R18 R17 K56 ["genre"]
       283 JUMPIFNOT                        R18 ; [+37]
       284 DUPTABLE                         R20 K25 [{"prefix", "text", "onDelete"}]
-      285 GETTABLEKS                       R25 R0 K0 ["props"]
-      287 GETTABLEKS                       R24 R25 K16 ["Localization"]
+      285 GETTABLEKS                       R24 R0 K0 ["props"]
+      287 GETTABLEKS                       R24 R24 K16 ["Localization"]
       289 LOADK                            R26 K17 ["General"]
       290 LOADK                            R27 K57 ["Genre"]
       291 NAMECALL                         R24 R24 K19 ["getText"]
@@ -632,8 +632,8 @@ PROTO_17:
       295 LOADK                            R23 K46 [":"]
       296 CONCAT                           R21 R22 R23
       297 SETTABLEKS                       R21 R20 K22 ["prefix"]
-      299 GETTABLEKS                       R22 R0 K0 ["props"]
-      301 GETTABLEKS                       R21 R22 K16 ["Localization"]
+      299 GETTABLEKS                       R21 R0 K0 ["props"]
+      301 GETTABLEKS                       R21 R21 K16 ["Localization"]
       303 LOADK                            R23 K58 ["Audio.Music.Genre"]
       304 GETTABLEKS                       R24 R17 K56 ["genre"]
       306 NAMECALL                         R21 R21 K19 ["getText"]
@@ -648,8 +648,8 @@ PROTO_17:
       321 GETTABLEKS                       R18 R17 K60 ["album"]
       323 JUMPIFNOT                        R18 ; [+29]
       324 DUPTABLE                         R20 K25 [{"prefix", "text", "onDelete"}]
-      325 GETTABLEKS                       R25 R0 K0 ["props"]
-      327 GETTABLEKS                       R24 R25 K16 ["Localization"]
+      325 GETTABLEKS                       R24 R0 K0 ["props"]
+      327 GETTABLEKS                       R24 R24 K16 ["Localization"]
       329 LOADK                            R26 K44 ["AudioView"]
       330 LOADK                            R27 K61 ["Album"]
       331 NAMECALL                         R24 R24 K19 ["getText"]
@@ -668,15 +668,15 @@ PROTO_17:
       352 CALL                             R18 2 0
       353 GETTABLEKS                       R18 R17 K63 ["audioType"]
       355 JUMPIFNOT                        R18 ; [+37]
-      356 GETTABLEKS                       R19 R0 K0 ["props"]
-      358 GETTABLEKS                       R18 R19 K16 ["Localization"]
+      356 GETTABLEKS                       R18 R0 K0 ["props"]
+      358 GETTABLEKS                       R18 R18 K16 ["Localization"]
       360 LOADK                            R20 K64 ["SearchOptionsType"]
       361 GETTABLEKS                       R21 R17 K63 ["audioType"]
       363 NAMECALL                         R18 R18 K19 ["getText"]
       365 CALL                             R18 3 1
       366 DUPTABLE                         R21 K25 [{"prefix", "text", "onDelete"}]
-      367 GETTABLEKS                       R26 R0 K0 ["props"]
-      369 GETTABLEKS                       R25 R26 K16 ["Localization"]
+      367 GETTABLEKS                       R25 R0 K0 ["props"]
+      369 GETTABLEKS                       R25 R25 K16 ["Localization"]
       371 LOADK                            R27 K44 ["AudioView"]
       372 LOADK                            R28 K65 ["Type"]
       373 NAMECALL                         R25 R25 K19 ["getText"]
@@ -693,15 +693,15 @@ PROTO_17:
       390 GETIMPORT                        R19 K29 [table.insert]
       392 CALL                             R19 2 0
       393 JUMPIFNOT                        R5 ; [+58]
-      394 GETTABLEKS                       R19 R0 K0 ["props"]
-      396 GETTABLEKS                       R18 R19 K16 ["Localization"]
+      394 GETTABLEKS                       R18 R0 K0 ["props"]
+      396 GETTABLEKS                       R18 R18 K16 ["Localization"]
       398 LOADK                            R20 K67 ["UiSortIntent"]
       399 MOVE                             R21 R5
       400 NAMECALL                         R18 R18 K19 ["getText"]
       402 CALL                             R18 3 1
       403 JUMPIFNOT                        R6 ; [+10]
-      404 GETTABLEKS                       R20 R0 K0 ["props"]
-      406 GETTABLEKS                       R19 R20 K16 ["Localization"]
+      404 GETTABLEKS                       R19 R0 K0 ["props"]
+      406 GETTABLEKS                       R19 R19 K16 ["Localization"]
       408 LOADK                            R21 K68 ["SortDirection"]
       409 MOVE                             R22 R6
       410 NAMECALL                         R19 R19 K19 ["getText"]
@@ -709,8 +709,8 @@ PROTO_17:
       413 JUMP                             ; [+1]
       414 LOADNIL                          R19
       415 DUPTABLE                         R22 K25 [{"prefix", "text", "onDelete"}]
-      416 GETTABLEKS                       R27 R0 K0 ["props"]
-      418 GETTABLEKS                       R26 R27 K16 ["Localization"]
+      416 GETTABLEKS                       R26 R0 K0 ["props"]
+      418 GETTABLEKS                       R26 R26 K16 ["Localization"]
       420 LOADK                            R28 K17 ["General"]
       421 LOADK                            R29 K69 ["SearchOptionSort"]
       422 NAMECALL                         R26 R26 K19 ["getText"]
@@ -751,8 +751,8 @@ PROTO_17:
       470 MOVE                             R20 R16
       471 GETIMPORT                        R19 K29 [table.insert]
       473 CALL                             R19 2 0
-      474 GETUPVAL                         R20 2
-      475 GETTABLEKS                       R19 R20 K74 ["createElement"]
+      474 GETUPVAL                         R19 2
+      475 GETTABLEKS                       R19 R19 K74 ["createElement"]
       477 GETUPVAL                         R20 3
       478 DUPTABLE                         R21 K80 [{"Tags", "onClearTags", "searchTerm", "categoryName", "onBackToHome", "LayoutOrder"}]
       479 SETTABLEKS                       R16 R21 K75 ["Tags"]
@@ -769,9 +769,9 @@ PROTO_17:
       499 SETTABLEKS                       R19 R11 K82 ["SearchTags"]
       501 LOADB                            R19 0
       502 GETTABLEKS                       R20 R1 K83 ["correctionState"]
-      504 GETUPVAL                         R23 4
-      505 GETTABLEKS                       R22 R23 K84 ["AutocorrectResponseState"]
-      507 GETTABLEKS                       R21 R22 K85 ["CorrectionAvailable"]
+      504 GETUPVAL                         R21 4
+      505 GETTABLEKS                       R21 R21 K84 ["AutocorrectResponseState"]
+      507 GETTABLEKS                       R21 R21 K85 ["CorrectionAvailable"]
       509 JUMPIFNOTEQ                      R20 R21 ; [+7]
       511 GETTABLEKS                       R20 R1 K86 ["correctedQuery"]
       513 JUMPIFNOTEQKS                    R20 K1 [""] ; [+2]
@@ -779,9 +779,9 @@ PROTO_17:
       516 LOADB                            R19 1
       517 LOADB                            R20 0
       518 GETTABLEKS                       R21 R1 K83 ["correctionState"]
-      520 GETUPVAL                         R24 4
-      521 GETTABLEKS                       R23 R24 K84 ["AutocorrectResponseState"]
-      523 GETTABLEKS                       R22 R23 K87 ["CorrectionAccepted"]
+      520 GETUPVAL                         R22 4
+      521 GETTABLEKS                       R22 R22 K84 ["AutocorrectResponseState"]
+      523 GETTABLEKS                       R22 R22 K87 ["CorrectionAccepted"]
       525 JUMPIFNOTEQ                      R21 R22 ; [+7]
       527 GETTABLEKS                       R21 R1 K88 ["userQuery"]
       529 JUMPIFNOTEQKS                    R21 K1 [""] ; [+2]
@@ -793,13 +793,13 @@ PROTO_17:
       537 CALL                             R22 1 1
       538 JUMPIFEQKNIL                     R22 ; [+7]
       540 JUMPIF                           R21 ; [+5]
-      541 GETUPVAL                         R23 5
-      542 GETTABLEKS                       R22 R23 K89 ["MAIN_VIEW_VERTICAL_PADDING"]
+      541 GETUPVAL                         R22 5
+      542 GETTABLEKS                       R22 R22 K89 ["MAIN_VIEW_VERTICAL_PADDING"]
       544 ADD                              R10 R10 R22
       545 JUMP                             ; [0]
       546 JUMPIFNOT                        R21 ; [+24]
-      547 GETUPVAL                         R23 2
-      548 GETTABLEKS                       R22 R23 K74 ["createElement"]
+      547 GETUPVAL                         R22 2
+      548 GETTABLEKS                       R22 R22 K74 ["createElement"]
       550 GETUPVAL                         R23 6
       551 DUPTABLE                         R24 K94 [{"CorrectedQuery", "CorrectionState", "CurrentQuery", "LayoutOrder", "UserQuery"}]
       552 GETTABLEKS                       R25 R1 K86 ["correctedQuery"]
@@ -815,8 +815,8 @@ PROTO_17:
       570 JUMP                             ; [+1]
       571 LOADNIL                          R22
       572 SETTABLEKS                       R22 R11 K95 ["Autocorrect"]
-      574 GETUPVAL                         R14 2
-      575 GETTABLEKS                       R13 R14 K74 ["createElement"]
+      574 GETUPVAL                         R13 2
+      575 GETTABLEKS                       R13 R13 K74 ["createElement"]
       577 GETUPVAL                         R14 7
       578 DUPTABLE                         R15 K103 [{"Position", "Size", "BackgroundTransparency", "HorizontalAlignment", "Layout", "VerticalAlignment", "ZIndex"}]
       579 GETIMPORT                        R16 K106 [UDim2.new]
@@ -858,8 +858,8 @@ PROTO_18:
        10 GETTABLEKS                       R4 R2 K1 ["creatorTargetIds"]
        12 JUMPIFNOT                        R4 ; [+10]
        13 GETTABLEKS                       R4 R2 K1 ["creatorTargetIds"]
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K2 ["None"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K2 ["None"]
        18 JUMPIFEQ                         R4 R5 ; [+4]
        20 GETTABLEKS                       R3 R2 K1 ["creatorTargetIds"]
        22 JUMP                             ; [+2]
@@ -867,8 +867,8 @@ PROTO_18:
        25 GETTABLEKS                       R5 R2 K3 ["groupTargetIds"]
        27 JUMPIFNOT                        R5 ; [+10]
        28 GETTABLEKS                       R5 R2 K3 ["groupTargetIds"]
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R6 R7 K2 ["None"]
+       30 GETUPVAL                         R6 0
+       31 GETTABLEKS                       R6 R6 K2 ["None"]
        33 JUMPIFEQ                         R5 R6 ; [+4]
        35 GETTABLEKS                       R4 R2 K3 ["groupTargetIds"]
        37 JUMP                             ; [+2]
@@ -876,8 +876,8 @@ PROTO_18:
        40 GETTABLEKS                       R6 R2 K4 ["uiSortIntent"]
        42 JUMPIFNOT                        R6 ; [+10]
        43 GETTABLEKS                       R6 R2 K4 ["uiSortIntent"]
-       45 GETUPVAL                         R8 0
-       46 GETTABLEKS                       R7 R8 K2 ["None"]
+       45 GETUPVAL                         R7 0
+       46 GETTABLEKS                       R7 R7 K2 ["None"]
        48 JUMPIFEQ                         R6 R7 ; [+4]
        50 GETTABLEKS                       R5 R2 K4 ["uiSortIntent"]
        52 JUMP                             ; [+1]
@@ -885,8 +885,8 @@ PROTO_18:
        54 GETTABLEKS                       R7 R2 K5 ["sortDirection"]
        56 JUMPIFNOT                        R7 ; [+10]
        57 GETTABLEKS                       R7 R2 K5 ["sortDirection"]
-       59 GETUPVAL                         R9 0
-       60 GETTABLEKS                       R8 R9 K2 ["None"]
+       59 GETUPVAL                         R8 0
+       60 GETTABLEKS                       R8 R8 K2 ["None"]
        62 JUMPIFEQ                         R7 R8 ; [+4]
        64 GETTABLEKS                       R6 R2 K5 ["sortDirection"]
        66 JUMP                             ; [+1]
@@ -900,9 +900,9 @@ PROTO_18:
        79 SETTABLEKS                       R8 R7 K8 ["creator"]
        81 GETTABLEKS                       R8 R2 K9 ["categoryName"]
        83 JUMPIF                           R8 ; [+5]
-       84 GETUPVAL                         R10 1
-       85 GETTABLEKS                       R9 R10 K17 ["DEFAULT"]
-       87 GETTABLEKS                       R8 R9 K18 ["name"]
+       84 GETUPVAL                         R8 1
+       85 GETTABLEKS                       R8 R8 K17 ["DEFAULT"]
+       87 GETTABLEKS                       R8 R8 K18 ["name"]
        89 SETTABLEKS                       R8 R7 K9 ["categoryName"]
        91 GETTABLEKS                       R9 R2 K10 ["searchTerm"]
        93 ORK                              R8 R9 K19 [""]
@@ -963,11 +963,11 @@ PROTO_20:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -979,71 +979,71 @@ MAIN:
        25 GETTABLEKS                       R5 R1 K8 ["Framework"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K5 [require]
-       30 GETTABLEKS                       R8 R0 K9 ["Src"]
-       32 GETTABLEKS                       R7 R8 K10 ["Util"]
-       34 GETTABLEKS                       R6 R7 K11 ["Constants"]
+       30 GETTABLEKS                       R6 R0 K9 ["Src"]
+       32 GETTABLEKS                       R6 R6 K10 ["Util"]
+       34 GETTABLEKS                       R6 R6 K11 ["Constants"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K5 [require]
-       39 GETTABLEKS                       R9 R0 K9 ["Src"]
-       41 GETTABLEKS                       R8 R9 K10 ["Util"]
-       43 GETTABLEKS                       R7 R8 K12 ["getTimeString"]
+       39 GETTABLEKS                       R7 R0 K9 ["Src"]
+       41 GETTABLEKS                       R7 R7 K10 ["Util"]
+       43 GETTABLEKS                       R7 R7 K12 ["getTimeString"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K5 [require]
-       48 GETTABLEKS                       R10 R0 K9 ["Src"]
-       50 GETTABLEKS                       R9 R10 K13 ["ContextServices"]
-       52 GETTABLEKS                       R8 R9 K14 ["Settings"]
+       48 GETTABLEKS                       R8 R0 K9 ["Src"]
+       50 GETTABLEKS                       R8 R8 K13 ["ContextServices"]
+       52 GETTABLEKS                       R8 R8 K14 ["Settings"]
        54 CALL                             R7 1 1
        55 GETIMPORT                        R8 K5 [require]
-       57 GETTABLEKS                       R11 R0 K9 ["Src"]
-       59 GETTABLEKS                       R10 R11 K15 ["Types"]
-       61 GETTABLEKS                       R9 R10 K16 ["Category"]
+       57 GETTABLEKS                       R9 R0 K9 ["Src"]
+       59 GETTABLEKS                       R9 R9 K15 ["Types"]
+       61 GETTABLEKS                       R9 R9 K16 ["Category"]
        63 CALL                             R8 1 1
        64 GETIMPORT                        R9 K5 [require]
-       66 GETTABLEKS                       R12 R0 K9 ["Src"]
-       68 GETTABLEKS                       R11 R12 K15 ["Types"]
-       70 GETTABLEKS                       R10 R11 K17 ["AutocorrectTypes"]
+       66 GETTABLEKS                       R10 R0 K9 ["Src"]
+       68 GETTABLEKS                       R10 R10 K15 ["Types"]
+       70 GETTABLEKS                       R10 R10 K17 ["AutocorrectTypes"]
        72 CALL                             R9 1 1
        73 GETTABLEKS                       R10 R4 K13 ["ContextServices"]
        75 GETTABLEKS                       R11 R10 K18 ["withContext"]
        77 GETIMPORT                        R12 K5 [require]
-       79 GETTABLEKS                       R15 R0 K9 ["Src"]
-       81 GETTABLEKS                       R14 R15 K13 ["ContextServices"]
-       83 GETTABLEKS                       R13 R14 K19 ["NetworkContext"]
+       79 GETTABLEKS                       R13 R0 K9 ["Src"]
+       81 GETTABLEKS                       R13 R13 K13 ["ContextServices"]
+       83 GETTABLEKS                       R13 R13 K19 ["NetworkContext"]
        85 CALL                             R12 1 1
        86 GETIMPORT                        R13 K5 [require]
        88 GETTABLEKS                       R14 R1 K20 ["Cryo"]
        90 CALL                             R13 1 1
-       91 GETTABLEKS                       R15 R4 K10 ["Util"]
-       93 GETTABLEKS                       R14 R15 K21 ["deepCopy"]
-       95 GETTABLEKS                       R16 R4 K22 ["UI"]
-       97 GETTABLEKS                       R15 R16 K23 ["Pane"]
+       91 GETTABLEKS                       R14 R4 K10 ["Util"]
+       93 GETTABLEKS                       R14 R14 K21 ["deepCopy"]
+       95 GETTABLEKS                       R15 R4 K22 ["UI"]
+       97 GETTABLEKS                       R15 R15 K23 ["Pane"]
        99 GETIMPORT                        R16 K5 [require]
-      101 GETTABLEKS                       R20 R0 K9 ["Src"]
-      103 GETTABLEKS                       R19 R20 K24 ["Components"]
-      105 GETTABLEKS                       R18 R19 K25 ["Autocorrect"]
-      107 GETTABLEKS                       R17 R18 K25 ["Autocorrect"]
+      101 GETTABLEKS                       R17 R0 K9 ["Src"]
+      103 GETTABLEKS                       R17 R17 K24 ["Components"]
+      105 GETTABLEKS                       R17 R17 K25 ["Autocorrect"]
+      107 GETTABLEKS                       R17 R17 K25 ["Autocorrect"]
       109 CALL                             R16 1 1
       110 GETIMPORT                        R17 K5 [require]
-      112 GETTABLEKS                       R21 R0 K9 ["Src"]
-      114 GETTABLEKS                       R20 R21 K26 ["Networking"]
-      116 GETTABLEKS                       R19 R20 K27 ["Requests"]
-      118 GETTABLEKS                       R18 R19 K28 ["SearchWithOptions"]
+      112 GETTABLEKS                       R18 R0 K9 ["Src"]
+      114 GETTABLEKS                       R18 R18 K26 ["Networking"]
+      116 GETTABLEKS                       R18 R18 K27 ["Requests"]
+      118 GETTABLEKS                       R18 R18 K28 ["SearchWithOptions"]
       120 CALL                             R17 1 1
       121 GETIMPORT                        R18 K5 [require]
-      123 GETTABLEKS                       R22 R0 K9 ["Src"]
-      125 GETTABLEKS                       R21 R22 K10 ["Util"]
-      127 GETTABLEKS                       R20 R21 K29 ["SharedFlags"]
-      129 GETTABLEKS                       R19 R20 K30 ["getFFlagToolboxEnableSearchOptionsRefactor"]
+      123 GETTABLEKS                       R19 R0 K9 ["Src"]
+      125 GETTABLEKS                       R19 R19 K10 ["Util"]
+      127 GETTABLEKS                       R19 R19 K29 ["SharedFlags"]
+      129 GETTABLEKS                       R19 R19 K30 ["getFFlagToolboxEnableSearchOptionsRefactor"]
       131 CALL                             R18 1 1
       132 GETTABLEKS                       R19 R2 K31 ["PureComponent"]
       134 LOADK                            R21 K32 ["MainViewHeader"]
       135 NAMECALL                         R19 R19 K33 ["extend"]
       137 CALL                             R19 2 1
       138 GETIMPORT                        R20 K5 [require]
-      140 GETTABLEKS                       R24 R0 K9 ["Src"]
-      142 GETTABLEKS                       R23 R24 K24 ["Components"]
-      144 GETTABLEKS                       R22 R23 K34 ["SearchOptions"]
-      146 GETTABLEKS                       R21 R22 K35 ["SearchTags"]
+      140 GETTABLEKS                       R21 R0 K9 ["Src"]
+      142 GETTABLEKS                       R21 R21 K24 ["Components"]
+      144 GETTABLEKS                       R21 R21 K34 ["SearchOptions"]
+      146 GETTABLEKS                       R21 R21 K35 ["SearchTags"]
       148 CALL                             R20 1 1
       149 DUPCLOSURE                       R21 K36 [PROTO_16]
       150 CAPTURE                          VAL R18

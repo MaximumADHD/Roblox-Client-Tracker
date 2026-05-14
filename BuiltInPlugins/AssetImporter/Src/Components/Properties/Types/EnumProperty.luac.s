@@ -35,8 +35,8 @@ PROTO_2:
         8 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["OnSelectItem"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["OnSelectItem"]
         3 GETUPVAL                         R4 1
         4 GETTABLE                         R3 R4 R1
         5 CALL                             R2 1 0
@@ -78,8 +78,8 @@ PROTO_4:
        45 CALL                             R9 3 1
        46 SETTABLE                         R9 R3 R7
        47 FORGLOOP                         R4 2 [inext] ; [-9]
-       49 GETUPVAL                         R5 2
-       50 GETTABLEKS                       R4 R5 K11 ["createElement"]
+       49 GETUPVAL                         R4 2
+       50 GETTABLEKS                       R4 R4 K11 ["createElement"]
        52 GETUPVAL                         R5 3
        53 DUPTABLE                         R6 K15 [{"LayoutOrder", "AutomaticSize", "Size"}]
        54 GETTABLEKS                       R7 R0 K12 ["LayoutOrder"]
@@ -89,8 +89,8 @@ PROTO_4:
        62 GETTABLEKS                       R7 R0 K14 ["Size"]
        64 SETTABLEKS                       R7 R6 K14 ["Size"]
        66 DUPTABLE                         R7 K20 [{"WrapperContents"}]
-       67 GETUPVAL                         R9 2
-       68 GETTABLEKS                       R8 R9 K11 ["createElement"]
+       67 GETUPVAL                         R8 2
+       68 GETTABLEKS                       R8 R8 K11 ["createElement"]
        70 GETUPVAL                         R9 4
        71 DUPTABLE                         R10 K26 [{"OnItemActivated", "Items", "SelectedIndex", "Focus", "Size", "TextWrapped"}]
        72 NEWCLOSURE                       R11 P1
@@ -111,8 +111,8 @@ PROTO_4:
        93 FORGLOOP                         R14 2 [inext] ; [-7]
        95 LOADNIL                          R11
        96 SETTABLEKS                       R11 R10 K23 ["SelectedIndex"]
-       98 GETTABLEKS                       R12 R0 K0 ["Value"]
-      100 GETTABLEKS                       R11 R12 K5 ["Name"]
+       98 GETTABLEKS                       R11 R0 K0 ["Value"]
+      100 GETTABLEKS                       R11 R11 K5 ["Name"]
       102 SETTABLEKS                       R11 R10 K24 ["Focus"]
       104 GETIMPORT                        R11 K29 [UDim2.fromScale]
       106 LOADN                            R12 1
@@ -134,25 +134,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactCompat"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactCompat"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dash"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["UI"]
        30 GETTABLEKS                       R5 R4 K11 ["Pane"]
        32 GETTABLEKS                       R6 R4 K12 ["SelectInput"]
        34 GETTABLEKS                       R7 R3 K13 ["filter"]
        36 GETIMPORT                        R8 K5 [require]
-       38 GETTABLEKS                       R11 R0 K14 ["Src"]
-       40 GETTABLEKS                       R10 R11 K15 ["Utility"]
-       42 GETTABLEKS                       R9 R10 K16 ["DependencyHandler"]
+       38 GETTABLEKS                       R9 R0 K14 ["Src"]
+       40 GETTABLEKS                       R9 R9 K15 ["Utility"]
+       42 GETTABLEKS                       R9 R9 K16 ["DependencyHandler"]
        44 CALL                             R8 1 1
        45 DUPCLOSURE                       R9 K17 [PROTO_0]
        46 DUPCLOSURE                       R10 K18 [PROTO_1]

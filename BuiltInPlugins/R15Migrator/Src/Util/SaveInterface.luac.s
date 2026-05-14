@@ -176,36 +176,36 @@ PROTO_6:
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["clearPublishTags"]
         4 CALL                             R1 2 0
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["clearTags"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["clearTags"]
         8 MOVE                             R2 R0
         9 CALL                             R1 1 0
        10 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 JUMPIF                           R4 ; [+24]
-        2 GETUPVAL                         R5 1
-        3 LOADK                            R8 K0 ["R15MigratorProgress"]
-        4 NAMECALL                         R6 R5 K1 ["FindFirstChild"]
-        6 CALL                             R6 2 1
-        7 JUMPIFNOT                        R6 ; [+7]
-        8 LOADK                            R9 K2 ["Folder"]
-        9 NAMECALL                         R7 R6 K3 ["IsA"]
-       11 CALL                             R7 2 1
-       12 JUMPIFNOT                        R7 ; [+2]
-       13 MOVE                             R4 R6
+        0 GETUPVAL                         R3 0
+        1 JUMPIF                           R3 ; [+24]
+        2 GETUPVAL                         R4 1
+        3 LOADK                            R7 K0 ["R15MigratorProgress"]
+        4 NAMECALL                         R5 R4 K1 ["FindFirstChild"]
+        6 CALL                             R5 2 1
+        7 JUMPIFNOT                        R5 ; [+7]
+        8 LOADK                            R8 K2 ["Folder"]
+        9 NAMECALL                         R6 R5 K3 ["IsA"]
+       11 CALL                             R6 2 1
+       12 JUMPIFNOT                        R6 ; [+2]
+       13 MOVE                             R3 R5
        14 JUMP                             ; [+10]
-       15 GETIMPORT                        R7 K6 [Instance.new]
-       17 LOADK                            R8 K2 ["Folder"]
-       18 CALL                             R7 1 1
-       19 LOADK                            R8 K0 ["R15MigratorProgress"]
-       20 SETTABLEKS                       R8 R7 K7 ["Name"]
-       22 SETTABLEKS                       R5 R7 K8 ["Parent"]
-       24 MOVE                             R4 R7
-       25 SETUPVAL                         R4 0
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K8 ["Parent"]
+       15 GETIMPORT                        R6 K6 [Instance.new]
+       17 LOADK                            R7 K2 ["Folder"]
+       18 CALL                             R6 1 1
+       19 LOADK                            R7 K0 ["R15MigratorProgress"]
+       20 SETTABLEKS                       R7 R6 K7 ["Name"]
+       22 SETTABLEKS                       R4 R6 K8 ["Parent"]
+       24 MOVE                             R3 R6
+       25 SETUPVAL                         R3 0
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K8 ["Parent"]
        29 JUMPIFEQ                         R2 R0 ; [+2]
        31 LOADB                            R1 0 +1
        32 LOADB                            R1 1
@@ -358,8 +358,8 @@ PROTO_16:
        24 MOVE                             R2 R5
        25 SETUPVAL                         R2 0
        26 GETUPVAL                         R1 0
-       27 GETUPVAL                         R5 2
-       28 GETTABLEKS                       R4 R5 K9 ["Adapted"]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K9 ["Adapted"]
        30 MOVE                             R5 R0
        31 NAMECALL                         R2 R1 K10 ["SetAttribute"]
        33 CALL                             R2 3 0
@@ -388,13 +388,13 @@ PROTO_17:
        24 MOVE                             R1 R4
        25 SETUPVAL                         R1 0
        26 GETUPVAL                         R0 0
-       27 GETUPVAL                         R4 2
-       28 GETTABLEKS                       R3 R4 K9 ["Adapted"]
+       27 GETUPVAL                         R3 2
+       28 GETTABLEKS                       R3 R3 K9 ["Adapted"]
        30 NAMECALL                         R1 R0 K10 ["GetAttribute"]
        32 CALL                             R1 2 1
        33 JUMPIFNOTEQKNIL                  R1 ; [+10]
-       35 GETUPVAL                         R5 2
-       36 GETTABLEKS                       R4 R5 K9 ["Adapted"]
+       35 GETUPVAL                         R4 2
+       36 GETTABLEKS                       R4 R4 K9 ["Adapted"]
        38 LOADB                            R5 1
        39 NAMECALL                         R2 R0 K11 ["SetAttribute"]
        41 CALL                             R2 3 0
@@ -412,8 +412,8 @@ PROTO_18:
         4 RETURN                           R1 -1
 
 PROTO_19:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getConversionId"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getConversionId"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 JUMPIFNOTEQKNIL                  R2 ; [+2]
@@ -485,8 +485,8 @@ PROTO_20:
        76 MOVE                             R11 R8
        77 NAMECALL                         R9 R9 K14 ["clearPublishTags"]
        79 CALL                             R9 2 0
-       80 GETUPVAL                         R10 5
-       81 GETTABLEKS                       R9 R10 K15 ["clearTags"]
+       80 GETUPVAL                         R9 5
+       81 GETTABLEKS                       R9 R9 K15 ["clearTags"]
        83 MOVE                             R10 R8
        84 CALL                             R9 1 0
        85 FORGLOOP                         R2 2 ; [-33]
@@ -697,8 +697,8 @@ PROTO_25:
        73 NAMECALL                         R8 R6 K14 ["Clone"]
        75 CALL                             R8 1 1
        76 SETTABLEKS                       R7 R8 K7 ["Name"]
-       78 GETUPVAL                         R12 4
-       79 GETTABLEKS                       R11 R12 K15 ["OriginalId"]
+       78 GETUPVAL                         R11 4
+       79 GETTABLEKS                       R11 R11 K15 ["OriginalId"]
        81 LOADNIL                          R12
        82 NAMECALL                         R9 R8 K13 ["SetAttribute"]
        84 CALL                             R9 3 0
@@ -707,8 +707,8 @@ PROTO_25:
        88 MOVE                             R11 R8
        89 NAMECALL                         R9 R9 K16 ["clearPublishTags"]
        91 CALL                             R9 2 0
-       92 GETUPVAL                         R10 6
-       93 GETTABLEKS                       R9 R10 K17 ["clearTags"]
+       92 GETUPVAL                         R9 6
+       93 GETTABLEKS                       R9 R9 K17 ["clearTags"]
        95 MOVE                             R10 R8
        96 CALL                             R9 1 0
        97 FORGLOOP                         R2 2 ; [-45]
@@ -879,8 +879,8 @@ PROTO_27:
        63 LOADNIL                          R5
        64 LOADNIL                          R6
        65 FORGPREP                         R4
-       66 GETUPVAL                         R10 2
-       67 GETTABLEKS                       R9 R10 K11 ["getR6KeyframeSequence"]
+       66 GETUPVAL                         R9 2
+       67 GETTABLEKS                       R9 R9 K11 ["getR6KeyframeSequence"]
        69 MOVE                             R10 R8
        70 MOVE                             R11 R2
        71 CALL                             R9 2 1
@@ -945,8 +945,8 @@ PROTO_28:
        68 FORGPREP                         R3
        69 GETTABLE                         R8 R2 R7
        70 JUMPIF                           R8 ; [+34]
-       71 GETUPVAL                         R9 2
-       72 GETTABLEKS                       R8 R9 K13 ["getConvertedKeyframeSequence"]
+       71 GETUPVAL                         R8 2
+       72 GETTABLEKS                       R8 R8 K13 ["getConvertedKeyframeSequence"]
        74 MOVE                             R9 R7
        75 CALL                             R8 1 1
        76 JUMPIFNOT                        R8 ; [+28]
@@ -956,8 +956,8 @@ PROTO_28:
        81 NAMECALL                         R9 R9 K14 ["Clone"]
        83 CALL                             R9 1 1
        84 SETTABLEKS                       R7 R9 K7 ["Name"]
-       86 GETUPVAL                         R13 3
-       87 GETTABLEKS                       R12 R13 K15 ["TempId"]
+       86 GETUPVAL                         R12 3
+       87 GETTABLEKS                       R12 R12 K15 ["TempId"]
        89 LOADNIL                          R13
        90 NAMECALL                         R10 R9 K16 ["SetAttribute"]
        92 CALL                             R10 3 0
@@ -966,8 +966,8 @@ PROTO_28:
        96 MOVE                             R12 R9
        97 NAMECALL                         R10 R10 K17 ["clearPublishTags"]
        99 CALL                             R10 2 0
-      100 GETUPVAL                         R11 5
-      101 GETTABLEKS                       R10 R11 K18 ["clearTags"]
+      100 GETUPVAL                         R10 5
+      101 GETTABLEKS                       R10 R10 K18 ["clearTags"]
       103 MOVE                             R11 R9
       104 CALL                             R10 1 0
       105 FORGLOOP                         R3 2 ; [-37]
@@ -1079,8 +1079,8 @@ PROTO_30:
         7 NAMECALL                         R7 R6 K1 ["IsA"]
         9 CALL                             R7 2 1
        10 JUMPIFNOT                        R7 ; [+27]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K2 ["getNormalizedAssetId"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K2 ["getNormalizedAssetId"]
        14 MOVE                             R8 R6
        15 CALL                             R7 1 1
        16 MOVE                             R9 R7
@@ -1101,8 +1101,8 @@ PROTO_30:
        35 GETIMPORT                        R8 K10 [table.insert]
        37 CALL                             R8 2 0
        38 FORGLOOP                         R2 2 ; [-33]
-       40 GETUPVAL                         R3 1
-       41 GETTABLEKS                       R2 R3 K11 ["addConvertibleAssetIds"]
+       40 GETUPVAL                         R2 1
+       41 GETTABLEKS                       R2 R2 K11 ["addConvertibleAssetIds"]
        43 MOVE                             R3 R1
        44 CALL                             R2 1 0
        45 RETURN                           R0 0
@@ -1171,8 +1171,8 @@ PROTO_31:
        78 NAMECALL                         R10 R6 K20 ["FindFirstChildWhichIsA"]
        80 CALL                             R10 2 1
        81 SETTABLEKS                       R10 R9 K16 ["kfs"]
-       83 GETUPVAL                         R13 2
-       84 GETTABLEKS                       R12 R13 K7 ["Name"]
+       83 GETUPVAL                         R12 2
+       84 GETTABLEKS                       R12 R12 K7 ["Name"]
        86 NAMECALL                         R10 R6 K21 ["GetAttribute"]
        88 CALL                             R10 2 1
        89 SETTABLEKS                       R10 R9 K17 ["name"]
@@ -1285,28 +1285,28 @@ MAIN:
        18 NAMECALL                         R3 R3 K8 ["FindFirstAncestor"]
        20 CALL                             R3 2 1
        21 GETIMPORT                        R4 K10 [require]
-       23 GETTABLEKS                       R6 R3 K11 ["Src"]
-       25 GETTABLEKS                       R5 R6 K12 ["Types"]
+       23 GETTABLEKS                       R5 R3 K11 ["Src"]
+       25 GETTABLEKS                       R5 R5 K12 ["Types"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K10 [require]
-       30 GETTABLEKS                       R8 R3 K11 ["Src"]
-       32 GETTABLEKS                       R7 R8 K13 ["Resources"]
-       34 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       30 GETTABLEKS                       R6 R3 K11 ["Src"]
+       32 GETTABLEKS                       R6 R6 K13 ["Resources"]
+       34 GETTABLEKS                       R6 R6 K14 ["Constants"]
        36 CALL                             R5 1 1
        37 GETTABLEKS                       R6 R5 K15 ["Attributes"]
        39 GETIMPORT                        R7 K10 [require]
-       41 GETTABLEKS                       R10 R3 K11 ["Src"]
-       43 GETTABLEKS                       R9 R10 K16 ["Util"]
-       45 GETTABLEKS                       R8 R9 K17 ["PublishTagging"]
+       41 GETTABLEKS                       R8 R3 K11 ["Src"]
+       43 GETTABLEKS                       R8 R8 K16 ["Util"]
+       45 GETTABLEKS                       R8 R8 K17 ["PublishTagging"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K10 [require]
-       50 GETTABLEKS                       R11 R3 K11 ["Src"]
-       52 GETTABLEKS                       R10 R11 K16 ["Util"]
-       54 GETTABLEKS                       R9 R10 K18 ["QuickAccessTagging"]
+       50 GETTABLEKS                       R9 R3 K11 ["Src"]
+       52 GETTABLEKS                       R9 R9 K16 ["Util"]
+       54 GETTABLEKS                       R9 R9 K18 ["QuickAccessTagging"]
        56 CALL                             R8 1 1
-       57 GETTABLEKS                       R11 R3 K11 ["Src"]
-       59 GETTABLEKS                       R10 R11 K16 ["Util"]
-       61 GETTABLEKS                       R9 R10 K19 ["AnimationConversion"]
+       57 GETTABLEKS                       R9 R3 K11 ["Src"]
+       59 GETTABLEKS                       R9 R9 K16 ["Util"]
+       61 GETTABLEKS                       R9 R9 K19 ["AnimationConversion"]
        63 GETIMPORT                        R10 K10 [require]
        65 GETTABLEKS                       R11 R9 K20 ["AnimationConversionManager"]
        67 CALL                             R10 1 1

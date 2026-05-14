@@ -5,18 +5,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K10 ["getFFlagAvatarPreviewerReplaceBuiltinBodyParts"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K10 ["getFFlagAvatarPreviewerReplaceBuiltinBodyParts"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Flags"]
-       29 GETTABLEKS                       R4 R5 K11 ["getFFlagAvatarPreviewerMakeupDescription"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K11 ["getFFlagAvatarPreviewerMakeupDescription"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 2 0
        34 NEWTABLE                         R5 0 9
@@ -314,8 +314,8 @@ MAIN:
       448 LOADK                            R26 K72 [7200824015]
       449 SETTABLEKS                       R26 R25 K41 ["RightLeg"]
       451 SETLIST                          R9 R10 16 [1]
-      453 GETTABLEKS                       R11 R1 K138 ["List"]
-      455 GETTABLEKS                       R10 R11 K139 ["join"]
+      453 GETTABLEKS                       R10 R1 K138 ["List"]
+      455 GETTABLEKS                       R10 R10 K139 ["join"]
       457 MOVE                             R12 R3
       458 CALL                             R12 0 1
       459 JUMPIFNOT                        R12 ; [+6]
@@ -332,8 +332,8 @@ MAIN:
       473 MOVE                             R12 R5
       474 CALL                             R10 2 1
       475 SETTABLEKS                       R10 R4 K141 ["heads"]
-      477 GETTABLEKS                       R11 R1 K138 ["List"]
-      479 GETTABLEKS                       R10 R11 K139 ["join"]
+      477 GETTABLEKS                       R10 R1 K138 ["List"]
+      479 GETTABLEKS                       R10 R10 K139 ["join"]
       481 MOVE                             R12 R3
       482 CALL                             R12 0 1
       483 JUMPIFNOT                        R12 ; [+6]

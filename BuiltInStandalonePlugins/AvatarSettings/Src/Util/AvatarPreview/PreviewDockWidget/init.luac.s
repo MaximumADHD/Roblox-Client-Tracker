@@ -12,8 +12,8 @@ PROTO_1:
         4 LOADK                            R4 K0 ["PreviewDockWidget should only be used when FFlagPreviewToolbar is enabled"]
         5 GETIMPORT                        R2 K2 [assert]
         7 CALL                             R2 2 0
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["createRoot"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["createRoot"]
        11 GETIMPORT                        R3 K6 [Instance.new]
        13 LOADK                            R4 K7 ["Folder"]
        14 CALL                             R3 1 -1
@@ -22,16 +22,16 @@ PROTO_1:
        17 NAMECALL                         R4 R4 K8 ["GetDerives"]
        19 CALL                             R4 1 1
        20 GETTABLEN                        R3 R4 1
-       21 GETUPVAL                         R5 3
-       22 GETTABLEKS                       R4 R5 K9 ["registerPluginStyles"]
+       21 GETUPVAL                         R4 3
+       22 GETTABLEKS                       R4 R4 K9 ["registerPluginStyles"]
        24 MOVE                             R5 R1
        25 CALL                             R4 1 1
-       26 GETUPVAL                         R8 4
-       27 GETTABLEKS                       R7 R8 K10 ["provide"]
+       26 GETUPVAL                         R7 4
+       27 GETTABLEKS                       R7 R7 K10 ["provide"]
        29 NEWTABLE                         R8 0 1
-       31 GETUPVAL                         R11 4
-       32 GETTABLEKS                       R10 R11 K11 ["Design"]
-       34 GETTABLEKS                       R9 R10 K5 ["new"]
+       31 GETUPVAL                         R9 4
+       32 GETTABLEKS                       R9 R9 K11 ["Design"]
+       34 GETTABLEKS                       R9 R9 K5 ["new"]
        36 MOVE                             R10 R4
        37 CALL                             R9 1 -1
        38 SETLIST                          R8 R9 -1 [1]
@@ -64,39 +64,39 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Resources"]
-       20 GETTABLEKS                       R3 R4 K10 ["PluginStyles"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K10 ["PluginStyles"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R8 R0 K8 ["Src"]
-       27 GETTABLEKS                       R7 R8 K11 ["Util"]
-       29 GETTABLEKS                       R6 R7 K12 ["AvatarPreview"]
-       31 GETTABLEKS                       R5 R6 K13 ["PreviewDockWidget"]
-       33 GETTABLEKS                       R4 R5 K14 ["PreviewToolbar"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Util"]
+       29 GETTABLEKS                       R4 R4 K12 ["AvatarPreview"]
+       31 GETTABLEKS                       R4 R4 K13 ["PreviewDockWidget"]
+       33 GETTABLEKS                       R4 R4 K14 ["PreviewToolbar"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K15 ["React"]
+       38 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K15 ["React"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       47 GETTABLEKS                       R6 R7 K16 ["ReactRoblox"]
+       45 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       47 GETTABLEKS                       R6 R6 K16 ["ReactRoblox"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R10 R0 K8 ["Src"]
-       54 GETTABLEKS                       R9 R10 K11 ["Util"]
-       56 GETTABLEKS                       R8 R9 K17 ["Interfaces"]
-       58 GETTABLEKS                       R7 R8 K18 ["RegisterPluginStylesInterface"]
+       52 GETTABLEKS                       R7 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R7 K11 ["Util"]
+       56 GETTABLEKS                       R7 R7 K17 ["Interfaces"]
+       58 GETTABLEKS                       R7 R7 K18 ["RegisterPluginStylesInterface"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R10 R0 K8 ["Src"]
-       65 GETTABLEKS                       R9 R10 K19 ["Flags"]
-       67 GETTABLEKS                       R8 R9 K20 ["getFFlagPreviewToolbar"]
+       63 GETTABLEKS                       R8 R0 K8 ["Src"]
+       65 GETTABLEKS                       R8 R8 K19 ["Flags"]
+       67 GETTABLEKS                       R8 R8 K20 ["getFFlagPreviewToolbar"]
        69 CALL                             R7 1 1
        70 GETTABLEKS                       R8 R1 K21 ["ContextServices"]
        72 GETTABLEKS                       R9 R4 K22 ["createElement"]

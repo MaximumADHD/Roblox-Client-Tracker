@@ -21,9 +21,9 @@ PROTO_1:
         3 CALL                             R2 2 1
         4 JUMPIFNOT                        R2 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["Packages"]
-        9 GETTABLEKS                       R2 R3 K2 ["_Index"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["Packages"]
+        9 GETTABLEKS                       R2 R2 K2 ["_Index"]
        11 MOVE                             R4 R0
        12 LOADK                            R5 K3 ["-"]
        13 CONCAT                           R3 R4 R5
@@ -69,17 +69,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["ReplicatedStorage"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
        14 CALL                             R1 2 1
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Dash"]
+       17 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Dash"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K11 ["find"]
        24 DUPCLOSURE                       R4 K12 [PROTO_1]

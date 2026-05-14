@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["render"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["render"]
         4 CALL                             R1 0 -1
         5 RETURN                           R1 -1
 
@@ -18,10 +18,10 @@ PROTO_2:
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 GETIMPORT                        R3 K1 [settings]
-        2 CALL                             R3 0 1
-        3 GETTABLEKS                       R2 R3 K2 ["Studio"]
-        5 GETTABLEKS                       R1 R2 K3 ["ThemeChanged"]
+        0 GETIMPORT                        R1 K1 [settings]
+        2 CALL                             R1 0 1
+        3 GETTABLEKS                       R1 R1 K2 ["Studio"]
+        5 GETTABLEKS                       R1 R1 K3 ["ThemeChanged"]
         7 NEWCLOSURE                       R3 P0
         8 CAPTURE                          VAL R0
         9 NAMECALL                         R1 R1 K4 ["Connect"]
@@ -40,9 +40,9 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["RequireRoact"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["RequireRoact"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K6 ["Component"]
        12 LOADK                            R3 K7 ["ThemeChangeListener"]

@@ -56,15 +56,15 @@ PROTO_1:
        43 JUMPIFNOT                        R1 ; [+3]
        44 NAMECALL                         R2 R1 K9 ["Destroy"]
        46 CALL                             R2 1 0
-       47 GETUPVAL                         R1 5
-       48 GETTABLEKS                       R0 R1 K10 ["createElement"]
+       47 GETUPVAL                         R0 5
+       48 GETTABLEKS                       R0 R0 K10 ["createElement"]
        50 GETUPVAL                         R1 6
        51 DUPTABLE                         R2 K12 [{"plugin"}]
        52 GETIMPORT                        R3 K13 [plugin]
        54 SETTABLEKS                       R3 R2 K11 ["plugin"]
        56 CALL                             R0 2 1
-       57 GETUPVAL                         R2 5
-       58 GETTABLEKS                       R1 R2 K14 ["mount"]
+       57 GETUPVAL                         R1 5
+       58 GETTABLEKS                       R1 R1 K14 ["mount"]
        60 MOVE                             R2 R0
        61 CALL                             R1 1 1
        62 SETUPVAL                         R1 7
@@ -89,8 +89,8 @@ PROTO_2:
        19 RETURN                           R0 0
        20 GETUPVAL                         R0 3
        21 JUMPIFNOT                        R0 ; [+5]
-       22 GETUPVAL                         R1 4
-       23 GETTABLEKS                       R0 R1 K3 ["unmount"]
+       22 GETUPVAL                         R0 4
+       23 GETTABLEKS                       R0 R0 K3 ["unmount"]
        25 GETUPVAL                         R1 3
        26 CALL                             R0 1 0
        27 RETURN                           R0 0
@@ -110,38 +110,38 @@ MAIN:
        16 NAMECALL                         R2 R2 K3 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K7 [require]
-       21 GETIMPORT                        R6 K9 [script]
-       23 GETTABLEKS                       R5 R6 K10 ["Parent"]
-       25 GETTABLEKS                       R4 R5 K11 ["defineLuaFlags"]
+       21 GETIMPORT                        R4 K9 [script]
+       23 GETTABLEKS                       R4 R4 K10 ["Parent"]
+       25 GETTABLEKS                       R4 R4 K11 ["defineLuaFlags"]
        27 CALL                             R3 1 0
-       28 GETIMPORT                        R5 K9 [script]
-       30 GETTABLEKS                       R4 R5 K10 ["Parent"]
-       32 GETTABLEKS                       R3 R4 K10 ["Parent"]
+       28 GETIMPORT                        R3 K9 [script]
+       30 GETTABLEKS                       R3 R3 K10 ["Parent"]
+       32 GETTABLEKS                       R3 R3 K10 ["Parent"]
        34 GETIMPORT                        R4 K7 [require]
-       36 GETTABLEKS                       R8 R3 K12 ["Src"]
-       38 GETTABLEKS                       R7 R8 K13 ["Components"]
-       40 GETTABLEKS                       R6 R7 K14 ["InExperiencePreviewer"]
-       42 GETTABLEKS                       R5 R6 K15 ["InExperiencePreviewerClient"]
+       36 GETTABLEKS                       R5 R3 K12 ["Src"]
+       38 GETTABLEKS                       R5 R5 K13 ["Components"]
+       40 GETTABLEKS                       R5 R5 K14 ["InExperiencePreviewer"]
+       42 GETTABLEKS                       R5 R5 K15 ["InExperiencePreviewerClient"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K7 [require]
-       47 GETTABLEKS                       R9 R3 K12 ["Src"]
-       49 GETTABLEKS                       R8 R9 K13 ["Components"]
-       51 GETTABLEKS                       R7 R8 K14 ["InExperiencePreviewer"]
-       53 GETTABLEKS                       R6 R7 K16 ["InExperiencePreviewerServer"]
+       47 GETTABLEKS                       R6 R3 K12 ["Src"]
+       49 GETTABLEKS                       R6 R6 K13 ["Components"]
+       51 GETTABLEKS                       R6 R6 K14 ["InExperiencePreviewer"]
+       53 GETTABLEKS                       R6 R6 K16 ["InExperiencePreviewerServer"]
        55 CALL                             R5 1 1
        56 GETIMPORT                        R6 K7 [require]
-       58 GETTABLEKS                       R8 R3 K17 ["Packages"]
-       60 GETTABLEKS                       R7 R8 K18 ["Roact"]
+       58 GETTABLEKS                       R7 R3 K17 ["Packages"]
+       60 GETTABLEKS                       R7 R7 K18 ["Roact"]
        62 CALL                             R6 1 1
        63 GETIMPORT                        R7 K7 [require]
-       65 GETTABLEKS                       R10 R3 K12 ["Src"]
-       67 GETTABLEKS                       R9 R10 K19 ["Util"]
-       69 GETTABLEKS                       R8 R9 K20 ["DebugFlags"]
+       65 GETTABLEKS                       R8 R3 K12 ["Src"]
+       67 GETTABLEKS                       R8 R8 K19 ["Util"]
+       69 GETTABLEKS                       R8 R8 K20 ["DebugFlags"]
        71 CALL                             R7 1 1
        72 GETIMPORT                        R8 K7 [require]
-       74 GETTABLEKS                       R11 R3 K12 ["Src"]
-       76 GETTABLEKS                       R10 R11 K21 ["Flags"]
-       78 GETTABLEKS                       R9 R10 K22 ["GetAccessoryToolEngineFeature"]
+       74 GETTABLEKS                       R9 R3 K12 ["Src"]
+       76 GETTABLEKS                       R9 R9 K21 ["Flags"]
+       78 GETTABLEKS                       R9 R9 K22 ["GetAccessoryToolEngineFeature"]
        80 CALL                             R8 1 1
        81 MOVE                             R9 R8
        82 CALL                             R9 0 1
@@ -158,9 +158,9 @@ MAIN:
        97 JUMPIFNOT                        R9 ; [+1]
        98 RETURN                           R0 0
        99 GETIMPORT                        R10 K7 [require]
-      101 GETTABLEKS                       R13 R3 K12 ["Src"]
-      103 GETTABLEKS                       R12 R13 K13 ["Components"]
-      105 GETTABLEKS                       R11 R12 K26 ["LayeredClothingEditorPlugin"]
+      101 GETTABLEKS                       R11 R3 K12 ["Src"]
+      103 GETTABLEKS                       R11 R11 K13 ["Components"]
+      105 GETTABLEKS                       R11 R11 K26 ["LayeredClothingEditorPlugin"]
       107 CALL                             R10 1 1
       108 LOADNIL                          R11
       109 DUPCLOSURE                       R12 K27 [PROTO_0]
@@ -175,8 +175,8 @@ MAIN:
       118 CAPTURE                          VAL R6
       119 CAPTURE                          VAL R10
       120 CAPTURE                          REF R11
-      121 GETIMPORT                        R15 K29 [plugin]
-      123 GETTABLEKS                       R14 R15 K30 ["Unloading"]
+      121 GETIMPORT                        R14 K29 [plugin]
+      123 GETTABLEKS                       R14 R14 K30 ["Unloading"]
       125 NEWCLOSURE                       R16 P2
       126 CAPTURE                          VAL R0
       127 CAPTURE                          VAL R4

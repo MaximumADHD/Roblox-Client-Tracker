@@ -9,71 +9,71 @@ PROTO_0:
        10 CALL                             R2 1 0
        11 JUMPIFNOT                        R0 ; [+51]
        12 GETUPVAL                         R2 2
-       13 GETTABLEKS                       R4 R0 K2 ["height"]
-       15 GETTABLEKS                       R3 R4 K3 ["min"]
-       17 GETTABLEKS                       R5 R0 K4 ["width"]
-       19 GETTABLEKS                       R4 R5 K3 ["min"]
-       21 GETTABLEKS                       R6 R0 K5 ["head"]
-       23 GETTABLEKS                       R5 R6 K3 ["min"]
-       25 GETTABLEKS                       R7 R0 K6 ["bodyType"]
-       27 GETTABLEKS                       R6 R7 K3 ["min"]
-       29 GETTABLEKS                       R8 R0 K7 ["proportion"]
-       31 GETTABLEKS                       R7 R8 K3 ["min"]
+       13 GETTABLEKS                       R3 R0 K2 ["height"]
+       15 GETTABLEKS                       R3 R3 K3 ["min"]
+       17 GETTABLEKS                       R4 R0 K4 ["width"]
+       19 GETTABLEKS                       R4 R4 K3 ["min"]
+       21 GETTABLEKS                       R5 R0 K5 ["head"]
+       23 GETTABLEKS                       R5 R5 K3 ["min"]
+       25 GETTABLEKS                       R6 R0 K6 ["bodyType"]
+       27 GETTABLEKS                       R6 R6 K3 ["min"]
+       29 GETTABLEKS                       R7 R0 K7 ["proportion"]
+       31 GETTABLEKS                       R7 R7 K3 ["min"]
        33 LOADN                            R8 0
        34 CALL                             R2 6 1
        35 SETTABLEKS                       R2 R1 K8 ["ScalesMin"]
        37 GETUPVAL                         R2 2
-       38 GETTABLEKS                       R4 R0 K2 ["height"]
-       40 GETTABLEKS                       R3 R4 K9 ["max"]
-       42 GETTABLEKS                       R5 R0 K4 ["width"]
-       44 GETTABLEKS                       R4 R5 K9 ["max"]
-       46 GETTABLEKS                       R6 R0 K5 ["head"]
-       48 GETTABLEKS                       R5 R6 K9 ["max"]
-       50 GETTABLEKS                       R7 R0 K6 ["bodyType"]
-       52 GETTABLEKS                       R6 R7 K9 ["max"]
-       54 GETTABLEKS                       R8 R0 K7 ["proportion"]
-       56 GETTABLEKS                       R7 R8 K9 ["max"]
+       38 GETTABLEKS                       R3 R0 K2 ["height"]
+       40 GETTABLEKS                       R3 R3 K9 ["max"]
+       42 GETTABLEKS                       R4 R0 K4 ["width"]
+       44 GETTABLEKS                       R4 R4 K9 ["max"]
+       46 GETTABLEKS                       R5 R0 K5 ["head"]
+       48 GETTABLEKS                       R5 R5 K9 ["max"]
+       50 GETTABLEKS                       R6 R0 K6 ["bodyType"]
+       52 GETTABLEKS                       R6 R6 K9 ["max"]
+       54 GETTABLEKS                       R7 R0 K7 ["proportion"]
+       56 GETTABLEKS                       R7 R7 K9 ["max"]
        58 LOADN                            R8 0
        59 CALL                             R2 6 1
        60 SETTABLEKS                       R2 R1 K10 ["ScalesMax"]
        62 JUMP                             ; [+51]
        63 GETUPVAL                         R0 3
        64 GETUPVAL                         R2 2
-       65 GETTABLEKS                       R4 R0 K11 ["Height"]
-       67 GETTABLEKS                       R3 R4 K3 ["min"]
-       69 GETTABLEKS                       R5 R0 K12 ["Width"]
-       71 GETTABLEKS                       R4 R5 K3 ["min"]
-       73 GETTABLEKS                       R6 R0 K13 ["Head"]
-       75 GETTABLEKS                       R5 R6 K3 ["min"]
-       77 GETTABLEKS                       R7 R0 K14 ["BodyType"]
-       79 GETTABLEKS                       R6 R7 K3 ["min"]
-       81 GETTABLEKS                       R8 R0 K15 ["Proportion"]
-       83 GETTABLEKS                       R7 R8 K3 ["min"]
+       65 GETTABLEKS                       R3 R0 K11 ["Height"]
+       67 GETTABLEKS                       R3 R3 K3 ["min"]
+       69 GETTABLEKS                       R4 R0 K12 ["Width"]
+       71 GETTABLEKS                       R4 R4 K3 ["min"]
+       73 GETTABLEKS                       R5 R0 K13 ["Head"]
+       75 GETTABLEKS                       R5 R5 K3 ["min"]
+       77 GETTABLEKS                       R6 R0 K14 ["BodyType"]
+       79 GETTABLEKS                       R6 R6 K3 ["min"]
+       81 GETTABLEKS                       R7 R0 K15 ["Proportion"]
+       83 GETTABLEKS                       R7 R7 K3 ["min"]
        85 LOADN                            R8 0
        86 CALL                             R2 6 1
        87 SETTABLEKS                       R2 R1 K8 ["ScalesMin"]
        89 GETUPVAL                         R2 2
-       90 GETTABLEKS                       R4 R0 K11 ["Height"]
-       92 GETTABLEKS                       R3 R4 K9 ["max"]
-       94 GETTABLEKS                       R5 R0 K12 ["Width"]
-       96 GETTABLEKS                       R4 R5 K9 ["max"]
-       98 GETTABLEKS                       R6 R0 K13 ["Head"]
-      100 GETTABLEKS                       R5 R6 K9 ["max"]
-      102 GETTABLEKS                       R7 R0 K14 ["BodyType"]
-      104 GETTABLEKS                       R6 R7 K9 ["max"]
-      106 GETTABLEKS                       R8 R0 K15 ["Proportion"]
-      108 GETTABLEKS                       R7 R8 K9 ["max"]
+       90 GETTABLEKS                       R3 R0 K11 ["Height"]
+       92 GETTABLEKS                       R3 R3 K9 ["max"]
+       94 GETTABLEKS                       R4 R0 K12 ["Width"]
+       96 GETTABLEKS                       R4 R4 K9 ["max"]
+       98 GETTABLEKS                       R5 R0 K13 ["Head"]
+      100 GETTABLEKS                       R5 R5 K9 ["max"]
+      102 GETTABLEKS                       R6 R0 K14 ["BodyType"]
+      104 GETTABLEKS                       R6 R6 K9 ["max"]
+      106 GETTABLEKS                       R7 R0 K15 ["Proportion"]
+      108 GETTABLEKS                       R7 R7 K9 ["max"]
       110 LOADN                            R8 0
       111 CALL                             R2 6 1
       112 SETTABLEKS                       R2 R1 K10 ["ScalesMax"]
-      114 GETUPVAL                         R3 4
-      115 GETTABLEKS                       R2 R3 K16 ["OuterCollision"]
+      114 GETUPVAL                         R2 4
+      115 GETTABLEKS                       R2 R2 K16 ["OuterCollision"]
       117 SETTABLEKS                       R2 R1 K17 ["CollisionValue"]
-      119 GETUPVAL                         R3 4
-      120 GETTABLEKS                       R2 R3 K18 ["PlayerChoice"]
+      119 GETUPVAL                         R2 4
+      120 GETTABLEKS                       R2 R2 K18 ["PlayerChoice"]
       122 SETTABLEKS                       R2 R1 K19 ["AnimationValue"]
-      124 GETUPVAL                         R3 4
-      125 GETTABLEKS                       R2 R3 K18 ["PlayerChoice"]
+      124 GETUPVAL                         R2 4
+      125 GETTABLEKS                       R2 R2 K18 ["PlayerChoice"]
       127 SETTABLEKS                       R2 R1 K20 ["RigTypeValue"]
       129 RETURN                           R1 1
 
@@ -81,8 +81,8 @@ PROTO_1:
         0 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 DUPTABLE                         R2 K4 [{"AssetsOverrides", "ScalesMin", "ScalesMax"}]
         5 GETUPVAL                         R3 1
@@ -107,8 +107,8 @@ PROTO_2:
        29 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETTABLEKS                       R2 R0 K1 ["AvatarType"]
         6 JUMPIF                           R2 ; [+2]
@@ -138,116 +138,116 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R3 R1 K0 ["HeightScale"]
-        2 GETTABLEKS                       R5 R0 K1 ["ScalesMin"]
-        4 GETTABLEKS                       R4 R5 K2 ["height"]
-        6 GETTABLEKS                       R6 R0 K3 ["ScalesMax"]
-        8 GETTABLEKS                       R5 R6 K2 ["height"]
+        2 GETTABLEKS                       R4 R0 K1 ["ScalesMin"]
+        4 GETTABLEKS                       R4 R4 K2 ["height"]
+        6 GETTABLEKS                       R5 R0 K3 ["ScalesMax"]
+        8 GETTABLEKS                       R5 R5 K2 ["height"]
        10 FASTCALL                         MATH_CLAMP ; [+2]
        11 GETIMPORT                        R2 K6 [math.clamp]
        13 CALL                             R2 3 1
        14 SETTABLEKS                       R2 R1 K0 ["HeightScale"]
        16 GETTABLEKS                       R3 R1 K7 ["WidthScale"]
-       18 GETTABLEKS                       R5 R0 K1 ["ScalesMin"]
-       20 GETTABLEKS                       R4 R5 K8 ["width"]
-       22 GETTABLEKS                       R6 R0 K3 ["ScalesMax"]
-       24 GETTABLEKS                       R5 R6 K8 ["width"]
+       18 GETTABLEKS                       R4 R0 K1 ["ScalesMin"]
+       20 GETTABLEKS                       R4 R4 K8 ["width"]
+       22 GETTABLEKS                       R5 R0 K3 ["ScalesMax"]
+       24 GETTABLEKS                       R5 R5 K8 ["width"]
        26 FASTCALL                         MATH_CLAMP ; [+2]
        27 GETIMPORT                        R2 K6 [math.clamp]
        29 CALL                             R2 3 1
        30 SETTABLEKS                       R2 R1 K7 ["WidthScale"]
        32 GETTABLEKS                       R3 R1 K9 ["HeadScale"]
-       34 GETTABLEKS                       R5 R0 K1 ["ScalesMin"]
-       36 GETTABLEKS                       R4 R5 K10 ["head"]
-       38 GETTABLEKS                       R6 R0 K3 ["ScalesMax"]
-       40 GETTABLEKS                       R5 R6 K10 ["head"]
+       34 GETTABLEKS                       R4 R0 K1 ["ScalesMin"]
+       36 GETTABLEKS                       R4 R4 K10 ["head"]
+       38 GETTABLEKS                       R5 R0 K3 ["ScalesMax"]
+       40 GETTABLEKS                       R5 R5 K10 ["head"]
        42 FASTCALL                         MATH_CLAMP ; [+2]
        43 GETIMPORT                        R2 K6 [math.clamp]
        45 CALL                             R2 3 1
        46 SETTABLEKS                       R2 R1 K9 ["HeadScale"]
        48 GETTABLEKS                       R3 R1 K11 ["BodyTypeScale"]
-       50 GETTABLEKS                       R5 R0 K1 ["ScalesMin"]
-       52 GETTABLEKS                       R4 R5 K12 ["bodyType"]
-       54 GETTABLEKS                       R6 R0 K3 ["ScalesMax"]
-       56 GETTABLEKS                       R5 R6 K12 ["bodyType"]
+       50 GETTABLEKS                       R4 R0 K1 ["ScalesMin"]
+       52 GETTABLEKS                       R4 R4 K12 ["bodyType"]
+       54 GETTABLEKS                       R5 R0 K3 ["ScalesMax"]
+       56 GETTABLEKS                       R5 R5 K12 ["bodyType"]
        58 FASTCALL                         MATH_CLAMP ; [+2]
        59 GETIMPORT                        R2 K6 [math.clamp]
        61 CALL                             R2 3 1
        62 SETTABLEKS                       R2 R1 K11 ["BodyTypeScale"]
        64 GETTABLEKS                       R3 R1 K13 ["ProportionScale"]
-       66 GETTABLEKS                       R5 R0 K1 ["ScalesMin"]
-       68 GETTABLEKS                       R4 R5 K14 ["proportion"]
-       70 GETTABLEKS                       R6 R0 K3 ["ScalesMax"]
-       72 GETTABLEKS                       R5 R6 K14 ["proportion"]
+       66 GETTABLEKS                       R4 R0 K1 ["ScalesMin"]
+       68 GETTABLEKS                       R4 R4 K14 ["proportion"]
+       70 GETTABLEKS                       R5 R0 K3 ["ScalesMax"]
+       72 GETTABLEKS                       R5 R5 K14 ["proportion"]
        74 FASTCALL                         MATH_CLAMP ; [+2]
        75 GETIMPORT                        R2 K6 [math.clamp]
        77 CALL                             R2 3 1
        78 SETTABLEKS                       R2 R1 K13 ["ProportionScale"]
        80 NEWTABLE                         R2 16 0
-       82 GETUPVAL                         R5 0
-       83 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-       85 GETTABLEKS                       R3 R4 K16 ["Face"]
+       82 GETUPVAL                         R3 0
+       83 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+       85 GETTABLEKS                       R3 R3 K16 ["Face"]
        87 LOADK                            R4 K16 ["Face"]
        88 SETTABLE                         R4 R2 R3
-       89 GETUPVAL                         R5 0
-       90 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-       92 GETTABLEKS                       R3 R4 K17 ["Head"]
+       89 GETUPVAL                         R3 0
+       90 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+       92 GETTABLEKS                       R3 R3 K17 ["Head"]
        94 LOADK                            R4 K17 ["Head"]
        95 SETTABLE                         R4 R2 R3
-       96 GETUPVAL                         R5 0
-       97 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-       99 GETTABLEKS                       R3 R4 K18 ["Torso"]
+       96 GETUPVAL                         R3 0
+       97 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+       99 GETTABLEKS                       R3 R3 K18 ["Torso"]
       101 LOADK                            R4 K18 ["Torso"]
       102 SETTABLE                         R4 R2 R3
-      103 GETUPVAL                         R5 0
-      104 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      106 GETTABLEKS                       R3 R4 K19 ["LeftArm"]
+      103 GETUPVAL                         R3 0
+      104 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      106 GETTABLEKS                       R3 R3 K19 ["LeftArm"]
       108 LOADK                            R4 K19 ["LeftArm"]
       109 SETTABLE                         R4 R2 R3
-      110 GETUPVAL                         R5 0
-      111 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      113 GETTABLEKS                       R3 R4 K20 ["RightArm"]
+      110 GETUPVAL                         R3 0
+      111 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      113 GETTABLEKS                       R3 R3 K20 ["RightArm"]
       115 LOADK                            R4 K20 ["RightArm"]
       116 SETTABLE                         R4 R2 R3
-      117 GETUPVAL                         R5 0
-      118 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      120 GETTABLEKS                       R3 R4 K21 ["LeftLeg"]
+      117 GETUPVAL                         R3 0
+      118 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      120 GETTABLEKS                       R3 R3 K21 ["LeftLeg"]
       122 LOADK                            R4 K21 ["LeftLeg"]
       123 SETTABLE                         R4 R2 R3
-      124 GETUPVAL                         R5 0
-      125 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      127 GETTABLEKS                       R3 R4 K22 ["RightLeg"]
+      124 GETUPVAL                         R3 0
+      125 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      127 GETTABLEKS                       R3 R3 K22 ["RightLeg"]
       129 LOADK                            R4 K22 ["RightLeg"]
       130 SETTABLE                         R4 R2 R3
-      131 GETUPVAL                         R5 0
-      132 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      134 GETTABLEKS                       R3 R4 K23 ["Shirt"]
+      131 GETUPVAL                         R3 0
+      132 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      134 GETTABLEKS                       R3 R3 K23 ["Shirt"]
       136 LOADK                            R4 K23 ["Shirt"]
       137 SETTABLE                         R4 R2 R3
-      138 GETUPVAL                         R5 0
-      139 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      141 GETTABLEKS                       R3 R4 K24 ["Pants"]
+      138 GETUPVAL                         R3 0
+      139 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      141 GETTABLEKS                       R3 R3 K24 ["Pants"]
       143 LOADK                            R4 K24 ["Pants"]
       144 SETTABLE                         R4 R2 R3
-      145 GETUPVAL                         R5 0
-      146 GETTABLEKS                       R4 R5 K15 ["AssetTypes"]
-      148 GETTABLEKS                       R3 R4 K25 ["ShirtGraphic"]
+      145 GETUPVAL                         R3 0
+      146 GETTABLEKS                       R3 R3 K15 ["AssetTypes"]
+      148 GETTABLEKS                       R3 R3 K25 ["ShirtGraphic"]
       150 LOADK                            R4 K26 ["GraphicTShirt"]
       151 SETTABLE                         R4 R2 R3
       152 GETIMPORT                        R3 K28 [pairs]
       154 MOVE                             R4 R2
       155 CALL                             R3 1 3
       156 FORGPREP_NEXT                    R3
-      157 GETTABLEKS                       R10 R0 K29 ["AssetsOverrides"]
-      159 GETTABLE                         R9 R10 R6
-      160 GETTABLEKS                       R8 R9 K30 ["isPlayerChoice"]
+      157 GETTABLEKS                       R9 R0 K29 ["AssetsOverrides"]
+      159 GETTABLE                         R8 R9 R6
+      160 GETTABLEKS                       R8 R8 K30 ["isPlayerChoice"]
       162 JUMPIF                           R8 ; [+13]
-      163 GETTABLEKS                       R10 R0 K29 ["AssetsOverrides"]
-      165 GETTABLE                         R9 R10 R6
-      166 GETTABLEKS                       R8 R9 K31 ["assetID"]
+      163 GETTABLEKS                       R9 R0 K29 ["AssetsOverrides"]
+      165 GETTABLE                         R8 R9 R6
+      166 GETTABLEKS                       R8 R8 K31 ["assetID"]
       168 JUMPIFEQKN                       R8 K32 [0] ; [+7]
-      170 GETTABLEKS                       R10 R0 K29 ["AssetsOverrides"]
-      172 GETTABLE                         R9 R10 R6
-      173 GETTABLEKS                       R8 R9 K31 ["assetID"]
+      170 GETTABLEKS                       R9 R0 K29 ["AssetsOverrides"]
+      172 GETTABLE                         R8 R9 R6
+      173 GETTABLEKS                       R8 R8 K31 ["assetID"]
       175 SETTABLE                         R8 R1 R7
       176 FORGLOOP                         R3 2 ; [-20]
       178 RETURN                           R0 0
@@ -342,8 +342,8 @@ PROTO_13:
 
 PROTO_14:
         0 GETTABLEKS                       R2 R0 K0 ["RigTypeValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["PlayerChoice"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["PlayerChoice"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
@@ -351,8 +351,8 @@ PROTO_14:
 
 PROTO_15:
         0 GETTABLEKS                       R2 R0 K0 ["RigTypeValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["R6"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["R6"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
@@ -360,35 +360,35 @@ PROTO_15:
 
 PROTO_16:
         0 GETTABLEKS                       R2 R0 K0 ["RigTypeValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["R15"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["R15"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["R6"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["R6"]
         3 SETTABLEKS                       R1 R0 K1 ["RigTypeValue"]
         5 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["R15"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["R15"]
         3 SETTABLEKS                       R1 R0 K1 ["RigTypeValue"]
         5 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["PlayerChoice"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["PlayerChoice"]
         3 SETTABLEKS                       R1 R0 K1 ["RigTypeValue"]
         5 RETURN                           R0 0
 
 PROTO_20:
         0 GETTABLEKS                       R2 R0 K0 ["AnimationValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["AnimationStandard"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["AnimationStandard"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
@@ -396,65 +396,65 @@ PROTO_20:
 
 PROTO_21:
         0 GETTABLEKS                       R2 R0 K0 ["AnimationValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["PlayerChoice"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["PlayerChoice"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_22:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["AnimationStandard"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["AnimationStandard"]
         3 SETTABLEKS                       R1 R0 K1 ["AnimationValue"]
         5 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["PlayerChoice"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["PlayerChoice"]
         3 SETTABLEKS                       R1 R0 K1 ["AnimationValue"]
         5 RETURN                           R0 0
 
 PROTO_24:
         0 GETTABLEKS                       R2 R0 K0 ["CollisionValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["InnerCollision"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["InnerCollision"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_25:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["InnerCollision"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["InnerCollision"]
         3 SETTABLEKS                       R1 R0 K1 ["CollisionValue"]
         5 RETURN                           R0 0
 
 PROTO_26:
         0 GETTABLEKS                       R2 R0 K0 ["CollisionValue"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["OuterCollision"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["OuterCollision"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_27:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["OuterCollision"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["OuterCollision"]
         3 SETTABLEKS                       R1 R0 K1 ["CollisionValue"]
         5 RETURN                           R0 0
 
 PROTO_28:
-        0 GETTABLEKS                       R5 R2 K0 ["height"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["height"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["height"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["height"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -465,15 +465,15 @@ PROTO_28:
        26 RETURN                           R0 0
 
 PROTO_29:
-        0 GETTABLEKS                       R5 R2 K0 ["width"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["width"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["width"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["width"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -484,15 +484,15 @@ PROTO_29:
        26 RETURN                           R0 0
 
 PROTO_30:
-        0 GETTABLEKS                       R5 R2 K0 ["head"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["head"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["head"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["head"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -503,15 +503,15 @@ PROTO_30:
        26 RETURN                           R0 0
 
 PROTO_31:
-        0 GETTABLEKS                       R5 R2 K0 ["bodyType"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["bodyType"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["bodyType"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["bodyType"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -522,15 +522,15 @@ PROTO_31:
        26 RETURN                           R0 0
 
 PROTO_32:
-        0 GETTABLEKS                       R5 R2 K0 ["proportion"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["proportion"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["proportion"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["proportion"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -541,15 +541,15 @@ PROTO_32:
        26 RETURN                           R0 0
 
 PROTO_33:
-        0 GETTABLEKS                       R5 R2 K0 ["height"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["height"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["height"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["height"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -560,15 +560,15 @@ PROTO_33:
        26 RETURN                           R0 0
 
 PROTO_34:
-        0 GETTABLEKS                       R5 R2 K0 ["width"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["width"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["width"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["width"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -579,15 +579,15 @@ PROTO_34:
        26 RETURN                           R0 0
 
 PROTO_35:
-        0 GETTABLEKS                       R5 R2 K0 ["head"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["head"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["head"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["head"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -598,15 +598,15 @@ PROTO_35:
        26 RETURN                           R0 0
 
 PROTO_36:
-        0 GETTABLEKS                       R5 R2 K0 ["bodyType"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["bodyType"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["bodyType"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["bodyType"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -617,15 +617,15 @@ PROTO_36:
        26 RETURN                           R0 0
 
 PROTO_37:
-        0 GETTABLEKS                       R5 R2 K0 ["proportion"]
-        2 GETTABLEKS                       R4 R5 K1 ["max"]
+        0 GETTABLEKS                       R4 R2 K0 ["proportion"]
+        2 GETTABLEKS                       R4 R4 K1 ["max"]
         4 FASTCALL2                        MATH_MIN R4 R1 ; [+4]
         6 MOVE                             R5 R1
         7 GETIMPORT                        R3 K4 [math.min]
         9 CALL                             R3 2 1
        10 MOVE                             R1 R3
-       11 GETTABLEKS                       R5 R2 K0 ["proportion"]
-       13 GETTABLEKS                       R4 R5 K3 ["min"]
+       11 GETTABLEKS                       R4 R2 K0 ["proportion"]
+       13 GETTABLEKS                       R4 R4 K3 ["min"]
        15 FASTCALL2                        MATH_MAX R4 R1 ; [+4]
        17 MOVE                             R5 R1
        18 GETIMPORT                        R3 K5 [math.max]
@@ -636,53 +636,53 @@ PROTO_37:
        26 RETURN                           R0 0
 
 PROTO_38:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMin"]
-        2 GETTABLEKS                       R1 R2 K1 ["height"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMin"]
+        2 GETTABLEKS                       R1 R1 K1 ["height"]
         4 RETURN                           R1 1
 
 PROTO_39:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMin"]
-        2 GETTABLEKS                       R1 R2 K1 ["width"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMin"]
+        2 GETTABLEKS                       R1 R1 K1 ["width"]
         4 RETURN                           R1 1
 
 PROTO_40:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMin"]
-        2 GETTABLEKS                       R1 R2 K1 ["head"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMin"]
+        2 GETTABLEKS                       R1 R1 K1 ["head"]
         4 RETURN                           R1 1
 
 PROTO_41:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMin"]
-        2 GETTABLEKS                       R1 R2 K1 ["bodyType"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMin"]
+        2 GETTABLEKS                       R1 R1 K1 ["bodyType"]
         4 RETURN                           R1 1
 
 PROTO_42:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMin"]
-        2 GETTABLEKS                       R1 R2 K1 ["proportion"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMin"]
+        2 GETTABLEKS                       R1 R1 K1 ["proportion"]
         4 RETURN                           R1 1
 
 PROTO_43:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMax"]
-        2 GETTABLEKS                       R1 R2 K1 ["height"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMax"]
+        2 GETTABLEKS                       R1 R1 K1 ["height"]
         4 RETURN                           R1 1
 
 PROTO_44:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMax"]
-        2 GETTABLEKS                       R1 R2 K1 ["width"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMax"]
+        2 GETTABLEKS                       R1 R1 K1 ["width"]
         4 RETURN                           R1 1
 
 PROTO_45:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMax"]
-        2 GETTABLEKS                       R1 R2 K1 ["head"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMax"]
+        2 GETTABLEKS                       R1 R1 K1 ["head"]
         4 RETURN                           R1 1
 
 PROTO_46:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMax"]
-        2 GETTABLEKS                       R1 R2 K1 ["bodyType"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMax"]
+        2 GETTABLEKS                       R1 R1 K1 ["bodyType"]
         4 RETURN                           R1 1
 
 PROTO_47:
-        0 GETTABLEKS                       R2 R0 K0 ["ScalesMax"]
-        2 GETTABLEKS                       R1 R2 K1 ["proportion"]
+        0 GETTABLEKS                       R1 R0 K0 ["ScalesMax"]
+        2 GETTABLEKS                       R1 R1 K1 ["proportion"]
         4 RETURN                           R1 1
 
 PROTO_48:
@@ -703,12 +703,12 @@ PROTO_49:
         0 GETTABLEKS                       R3 R0 K0 ["AssetsOverrides"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+11]
-        4 GETTABLEKS                       R4 R0 K0 ["AssetsOverrides"]
-        6 GETTABLE                         R3 R4 R1
-        7 GETTABLEKS                       R2 R3 K1 ["assetID"]
-        9 GETTABLEKS                       R5 R0 K0 ["AssetsOverrides"]
-       11 GETTABLE                         R4 R5 R1
-       12 GETTABLEKS                       R3 R4 K2 ["isPlayerChoice"]
+        4 GETTABLEKS                       R3 R0 K0 ["AssetsOverrides"]
+        6 GETTABLE                         R2 R3 R1
+        7 GETTABLEKS                       R2 R2 K1 ["assetID"]
+        9 GETTABLEKS                       R4 R0 K0 ["AssetsOverrides"]
+       11 GETTABLE                         R3 R4 R1
+       12 GETTABLEKS                       R3 R3 K2 ["isPlayerChoice"]
        14 RETURN                           R2 2
        15 LOADNIL                          R2
        16 LOADNIL                          R3
@@ -816,12 +816,12 @@ PROTO_57:
         8 LOADB                            R7 0
         9 RETURN                           R7 1
        10 FORGLOOP                         R2 2 ; [-6]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K2 ["countDictionaryKeys"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K2 ["countDictionaryKeys"]
        15 MOVE                             R4 R0
        16 CALL                             R3 1 1
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K2 ["countDictionaryKeys"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K2 ["countDictionaryKeys"]
        20 MOVE                             R5 R1
        21 CALL                             R4 1 1
        22 JUMPIFEQ                         R3 R4 ; [+2]
@@ -831,24 +831,24 @@ PROTO_57:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Util"]
-       11 GETTABLEKS                       R2 R3 K6 ["ConstantAvatar"]
+        9 GETTABLEKS                       R2 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R2 K6 ["ConstantAvatar"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K4 [require]
-       16 GETTABLEKS                       R4 R0 K5 ["Util"]
-       18 GETTABLEKS                       R3 R4 K7 ["ConstantScaleBoundaries"]
+       16 GETTABLEKS                       R3 R0 K5 ["Util"]
+       18 GETTABLEKS                       R3 R3 K7 ["ConstantScaleBoundaries"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K4 [require]
-       23 GETTABLEKS                       R5 R0 K5 ["Util"]
-       25 GETTABLEKS                       R4 R5 K8 ["ConstantTemplate"]
+       23 GETTABLEKS                       R4 R0 K5 ["Util"]
+       25 GETTABLEKS                       R4 R4 K8 ["ConstantTemplate"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K4 [require]
-       30 GETTABLEKS                       R6 R0 K5 ["Util"]
-       32 GETTABLEKS                       R5 R6 K9 ["UtilityFunctionsTable"]
+       30 GETTABLEKS                       R5 R0 K5 ["Util"]
+       32 GETTABLEKS                       R5 R5 K9 ["UtilityFunctionsTable"]
        34 CALL                             R4 1 1
        35 NEWTABLE                         R5 64 0
        37 SETTABLEKS                       R5 R5 K10 ["__index"]
@@ -861,26 +861,26 @@ MAIN:
        45 LOADNIL                          R12
        46 LOADNIL                          R13
        47 NEWTABLE                         R14 0 10
-       49 GETTABLEKS                       R16 R1 K11 ["AssetTypes"]
-       51 GETTABLEKS                       R15 R16 K12 ["Face"]
-       53 GETTABLEKS                       R17 R1 K11 ["AssetTypes"]
-       55 GETTABLEKS                       R16 R17 K13 ["Head"]
-       57 GETTABLEKS                       R18 R1 K11 ["AssetTypes"]
-       59 GETTABLEKS                       R17 R18 K14 ["Torso"]
-       61 GETTABLEKS                       R19 R1 K11 ["AssetTypes"]
-       63 GETTABLEKS                       R18 R19 K15 ["LeftArm"]
-       65 GETTABLEKS                       R20 R1 K11 ["AssetTypes"]
-       67 GETTABLEKS                       R19 R20 K16 ["RightArm"]
-       69 GETTABLEKS                       R21 R1 K11 ["AssetTypes"]
-       71 GETTABLEKS                       R20 R21 K17 ["LeftLeg"]
-       73 GETTABLEKS                       R22 R1 K11 ["AssetTypes"]
-       75 GETTABLEKS                       R21 R22 K18 ["RightLeg"]
-       77 GETTABLEKS                       R23 R1 K11 ["AssetTypes"]
-       79 GETTABLEKS                       R22 R23 K19 ["Shirt"]
-       81 GETTABLEKS                       R24 R1 K11 ["AssetTypes"]
-       83 GETTABLEKS                       R23 R24 K20 ["Pants"]
-       85 GETTABLEKS                       R25 R1 K11 ["AssetTypes"]
-       87 GETTABLEKS                       R24 R25 K21 ["ShirtGraphic"]
+       49 GETTABLEKS                       R15 R1 K11 ["AssetTypes"]
+       51 GETTABLEKS                       R15 R15 K12 ["Face"]
+       53 GETTABLEKS                       R16 R1 K11 ["AssetTypes"]
+       55 GETTABLEKS                       R16 R16 K13 ["Head"]
+       57 GETTABLEKS                       R17 R1 K11 ["AssetTypes"]
+       59 GETTABLEKS                       R17 R17 K14 ["Torso"]
+       61 GETTABLEKS                       R18 R1 K11 ["AssetTypes"]
+       63 GETTABLEKS                       R18 R18 K15 ["LeftArm"]
+       65 GETTABLEKS                       R19 R1 K11 ["AssetTypes"]
+       67 GETTABLEKS                       R19 R19 K16 ["RightArm"]
+       69 GETTABLEKS                       R20 R1 K11 ["AssetTypes"]
+       71 GETTABLEKS                       R20 R20 K17 ["LeftLeg"]
+       73 GETTABLEKS                       R21 R1 K11 ["AssetTypes"]
+       75 GETTABLEKS                       R21 R21 K18 ["RightLeg"]
+       77 GETTABLEKS                       R22 R1 K11 ["AssetTypes"]
+       79 GETTABLEKS                       R22 R22 K19 ["Shirt"]
+       81 GETTABLEKS                       R23 R1 K11 ["AssetTypes"]
+       83 GETTABLEKS                       R23 R23 K20 ["Pants"]
+       85 GETTABLEKS                       R24 R1 K11 ["AssetTypes"]
+       87 GETTABLEKS                       R24 R24 K21 ["ShirtGraphic"]
        89 SETLIST                          R14 R15 10 [1]
        91 NEWCLOSURE                       R15 P0
        92 CAPTURE                          VAL R5

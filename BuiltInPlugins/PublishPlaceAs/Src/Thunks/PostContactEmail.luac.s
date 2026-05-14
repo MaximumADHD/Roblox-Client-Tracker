@@ -10,9 +10,9 @@ PROTO_1:
 
 PROTO_2:
         0 LOADN                            R3 255
-        1 GETTABLEKS                       R6 R0 K0 ["APIS"]
-        3 GETTABLEKS                       R5 R6 K1 ["StudioModeration"]
-        5 GETTABLEKS                       R4 R5 K2 ["contacts"]
+        1 GETTABLEKS                       R4 R0 K0 ["APIS"]
+        3 GETTABLEKS                       R4 R4 K1 ["StudioModeration"]
+        5 GETTABLEKS                       R4 R4 K2 ["contacts"]
         7 MOVE                             R5 R2
         8 MOVE                             R6 R1
         9 CALL                             R4 2 1

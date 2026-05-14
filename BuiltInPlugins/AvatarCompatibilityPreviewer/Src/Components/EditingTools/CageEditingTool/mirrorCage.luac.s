@@ -24,8 +24,8 @@ PROTO_0:
        28 LOADK                            R4 K4 ["Luau"]
        29 GETIMPORT                        R2 K6 [assert]
        31 CALL                             R2 2 0
-       32 GETUPVAL                         R3 3
-       33 GETTABLEKS                       R2 R3 K7 ["getVerticesFromWrap"]
+       32 GETUPVAL                         R2 3
+       33 GETTABLEKS                       R2 R2 K7 ["getVerticesFromWrap"]
        35 GETIMPORT                        R3 K11 [Enum.CageType.Outer]
        37 MOVE                             R4 R1
        38 CALL                             R2 2 1
@@ -73,8 +73,8 @@ PROTO_3:
         9 NEWCLOSURE                       R6 P1
        10 CAPTURE                          VAL R4
        11 DUPCLOSURE                       R7 K0 [PROTO_2]
-       12 GETTABLEKS                       R9 R0 K1 ["PrimaryPart"]
-       14 GETTABLEKS                       R8 R9 K2 ["CFrame"]
+       12 GETTABLEKS                       R8 R0 K1 ["PrimaryPart"]
+       14 GETTABLEKS                       R8 R8 K2 ["CFrame"]
        16 GETTABLEKS                       R9 R8 K3 ["RightVector"]
        18 MOVE                             R10 R1
        19 LOADNIL                          R11
@@ -112,9 +112,9 @@ PROTO_3:
        60 CALL                             R33 1 -1
        61 NAMECALL                         R31 R17 K9 ["ToWorldSpace"]
        63 CALL                             R31 -1 1
-       64 GETTABLEKS                       R36 R8 K10 ["Position"]
-       66 SUB                              R35 R31 R36
-       67 GETTABLEKS                       R34 R35 K10 ["Position"]
+       64 GETTABLEKS                       R35 R8 K10 ["Position"]
+       66 SUB                              R34 R31 R35
+       67 GETTABLEKS                       R34 R34 K10 ["Position"]
        69 LOADN                            R37 2
        70 MOVE                             R41 R9
        71 NAMECALL                         R39 R34 K11 ["Dot"]
@@ -128,20 +128,20 @@ PROTO_3:
        81 SUB                              R33 R34 R35
        82 GETTABLEKS                       R34 R8 K10 ["Position"]
        84 ADD                              R32 R33 R34
-       85 GETIMPORT                        R36 K8 [CFrame.new]
-       87 MOVE                             R37 R32
-       88 CALL                             R36 1 -1
-       89 NAMECALL                         R34 R29 K12 ["ToObjectSpace"]
-       91 CALL                             R34 -1 1
-       92 GETTABLEKS                       R33 R34 K10 ["Position"]
+       85 GETIMPORT                        R35 K8 [CFrame.new]
+       87 MOVE                             R36 R32
+       88 CALL                             R35 1 -1
+       89 NAMECALL                         R33 R29 K12 ["ToObjectSpace"]
+       91 CALL                             R33 -1 1
+       92 GETTABLEKS                       R33 R33 K10 ["Position"]
        94 MOVE                             R34 R5
        95 GETTABLEKS                       R35 R27 K6 ["targetName"]
        97 CALL                             R34 1 1
        98 GETTABLEKS                       R36 R27 K13 ["vertex"]
       100 GETTABLE                         R35 R34 R36
       101 JUMPIFEQKNIL                     R35 ; [+21]
-      103 SUB                              R37 R35 R33
-      104 GETTABLEKS                       R36 R37 K14 ["Magnitude"]
+      103 SUB                              R36 R35 R33
+      104 GETTABLEKS                       R36 R36 K14 ["Magnitude"]
       106 LOADK                            R37 K15 [0.01]
       107 JUMPIFLE                         R36 R37 ; [+15]
       109 GETTABLEKS                       R38 R27 K6 ["targetName"]
@@ -166,27 +166,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["LuaMeshEditingModule"]
-       13 GETTABLEKS                       R2 R3 K8 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["LuaMeshEditingModule"]
+       13 GETTABLEKS                       R2 R2 K8 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Src"]
-       20 GETTABLEKS                       R3 R4 K8 ["Types"]
+       18 GETTABLEKS                       R3 R0 K9 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Types"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R8 R0 K9 ["Src"]
-       27 GETTABLEKS                       R7 R8 K10 ["Components"]
-       29 GETTABLEKS                       R6 R7 K11 ["EditingTools"]
-       31 GETTABLEKS                       R5 R6 K12 ["CageEditingTool"]
-       33 GETTABLEKS                       R4 R5 K13 ["findWrapTargetWithName"]
+       25 GETTABLEKS                       R4 R0 K9 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Components"]
+       29 GETTABLEKS                       R4 R4 K11 ["EditingTools"]
+       31 GETTABLEKS                       R4 R4 K12 ["CageEditingTool"]
+       33 GETTABLEKS                       R4 R4 K13 ["findWrapTargetWithName"]
        35 CALL                             R3 1 1
-       36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       40 GETTABLEKS                       R7 R8 K7 ["LuaMeshEditingModule"]
-       42 CALL                             R6 1 1
-       43 GETTABLEKS                       R5 R6 K14 ["Util"]
-       45 GETTABLEKS                       R4 R5 K15 ["WrapUtil"]
+       36 GETIMPORT                        R4 K5 [require]
+       38 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K7 ["LuaMeshEditingModule"]
+       42 CALL                             R4 1 1
+       43 GETTABLEKS                       R4 R4 K14 ["Util"]
+       45 GETTABLEKS                       R4 R4 K15 ["WrapUtil"]
        47 DUPCLOSURE                       R5 K16 [PROTO_3]
        48 CAPTURE                          VAL R3
        49 CAPTURE                          VAL R4

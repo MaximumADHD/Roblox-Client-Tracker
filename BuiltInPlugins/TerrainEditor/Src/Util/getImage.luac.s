@@ -80,8 +80,8 @@ PROTO_3:
        30 LOADNIL                          R10
        31 LOADNIL                          R11
        32 LOADNIL                          R12
-       33 GETUPVAL                         R14 1
-       34 GETTABLEKS                       R13 R14 K6 ["Heightmap"]
+       33 GETUPVAL                         R13 1
+       34 GETTABLEKS                       R13 R13 K6 ["Heightmap"]
        36 JUMPIFNOTEQ                      R1 R13 ; [+13]
        38 GETUPVAL                         R13 2
        39 MOVE                             R15 R6
@@ -94,8 +94,8 @@ PROTO_3:
        47 MOVE                             R11 R17
        48 MOVE                             R12 R18
        49 JUMP                             ; [+15]
-       50 GETUPVAL                         R14 1
-       51 GETTABLEKS                       R13 R14 K8 ["Colormap"]
+       50 GETUPVAL                         R13 1
+       51 GETTABLEKS                       R13 R13 K8 ["Colormap"]
        53 JUMPIFNOTEQ                      R1 R13 ; [+11]
        55 GETUPVAL                         R13 2
        56 MOVE                             R15 R6
@@ -141,8 +141,8 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R0 K11 ["Src"]
-       23 GETTABLEKS                       R4 R5 K12 ["Types"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Types"]
        25 CALL                             R3 1 1
        26 GETTABLEKS                       R4 R3 K13 ["ImageType"]
        28 DUPCLOSURE                       R5 K14 [PROTO_3]

@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R2 K21 [{"soundsFound", "_soundAssets", "_nonSoundAssetIds", "_currentBatch", "_pendingAssetIds", "_batchesToSend", "_batchRequestsInFlight", "_maxAssetsPerRequest", "_perRequestCooldown", "_cooldownAfterHttp429", "_maxRecentRequests", "_lastSentRequests", "_hit429", "_started", "_dead", "_httpTask", "_renderSteppedConnection", "_goodAssets", "_badAssets", "_resolvedAssets", "_networking"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K22 ["new"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K22 ["new"]
         4 CALL                             R3 0 1
         5 SETTABLEKS                       R3 R2 K0 ["soundsFound"]
         7 NEWTABLE                         R3 0 0
@@ -70,8 +70,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_dead"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_dead"]
         3 JUMPIF                           R0 ; [+5]
         4 GETUPVAL                         R0 0
         5 NAMECALL                         R0 R0 K1 ["_stepHttpTask"]
@@ -87,8 +87,8 @@ PROTO_3:
         6 RETURN                           R0 0
         7 LOADB                            R1 1
         8 SETTABLEKS                       R1 R0 K0 ["_started"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K2 ["RenderStepped"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K2 ["RenderStepped"]
        13 NEWCLOSURE                       R3 P0
        14 CAPTURE                          VAL R0
        15 NAMECALL                         R1 R1 K3 ["Connect"]
@@ -307,11 +307,11 @@ PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
         2 JUMPIFNOTEQKN                    R1 K1 [429] ; [+17]
         4 GETUPVAL                         R1 0
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K2 ["_cooldownAfterHttp429"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K2 ["_cooldownAfterHttp429"]
         8 SETTABLEKS                       R2 R1 K3 ["_hit429"]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K4 ["_batchesToSend"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K4 ["_batchesToSend"]
        13 GETUPVAL                         R3 1
        14 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
        16 GETIMPORT                        R1 K7 [table.insert]
@@ -323,8 +323,8 @@ PROTO_14:
        25 GETTABLEKS                       R1 R0 K0 ["responseCode"]
        27 LOADN                            R2 244
        28 JUMPIFLT                         R1 R2 ; [+11]
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K4 ["_batchesToSend"]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R2 R2 K4 ["_batchesToSend"]
        33 GETUPVAL                         R3 1
        34 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
        36 GETIMPORT                        R1 K7 [table.insert]
@@ -333,8 +333,8 @@ PROTO_14:
        40 GETIMPORT                        R1 K9 [warn]
        42 LOADK                            R2 K10 ["Fetching sound asset details failed: %d %s"]
        43 GETTABLEKS                       R4 R0 K0 ["responseCode"]
-       45 GETTABLEKS                       R6 R0 K11 ["responseBody"]
-       47 GETTABLEKS                       R5 R6 K12 ["message"]
+       45 GETTABLEKS                       R5 R0 K11 ["responseBody"]
+       47 GETTABLEKS                       R5 R5 K12 ["message"]
        49 NAMECALL                         R2 R2 K13 ["format"]
        51 CALL                             R2 3 -1
        52 CALL                             R1 -1 0
@@ -345,10 +345,10 @@ PROTO_15:
         2 MOVE                             R3 R1
         3 LOADK                            R4 K3 [","]
         4 CALL                             R2 2 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K4 ["composeUrl"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K5 ["APIS_URL"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K4 ["composeUrl"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K5 ["APIS_URL"]
        11 LOADK                            R5 K6 ["toolbox-service/v1/items/details"]
        12 DUPTABLE                         R6 K8 [{"assetIds"}]
        13 SETTABLEKS                       R2 R6 K7 ["assetIds"]
@@ -407,15 +407,15 @@ PROTO_17:
         2 NAMECALL                         R4 R4 K0 ["reportPermissionCheck"]
         4 CALL                             R4 2 0
         5 NEWTABLE                         R4 0 0
-        7 GETTABLEKS                       R6 R1 K1 ["responseBody"]
-        9 GETTABLEKS                       R5 R6 K2 ["results"]
+        7 GETTABLEKS                       R5 R1 K1 ["responseBody"]
+        9 GETTABLEKS                       R5 R5 K2 ["results"]
        11 GETIMPORT                        R6 K4 [pairs]
        13 MOVE                             R7 R3
        14 CALL                             R6 1 3
        15 FORGPREP_NEXT                    R6
-       16 GETTABLE                         R13 R5 R9
-       17 GETTABLEKS                       R12 R13 K5 ["value"]
-       19 GETTABLEKS                       R11 R12 K6 ["status"]
+       16 GETTABLE                         R11 R5 R9
+       17 GETTABLEKS                       R11 R11 K5 ["value"]
+       19 GETTABLEKS                       R11 R11 K6 ["status"]
        21 JUMPIFNOTEQKS                    R11 K7 ["HasPermission"] ; [+11]
        23 GETTABLE                         R11 R2 R10
        24 LOADK                            R12 K8 ["ok"]
@@ -424,17 +424,17 @@ PROTO_17:
        29 ADDK                             R11 R11 K11 [1]
        30 SETTABLEKS                       R11 R0 K10 ["_goodAssets"]
        32 JUMP                             ; [+32]
-       33 GETTABLE                         R13 R5 R9
-       34 GETTABLEKS                       R12 R13 K12 ["error"]
-       36 GETTABLEKS                       R11 R12 K13 ["message"]
+       33 GETTABLE                         R11 R5 R9
+       34 GETTABLEKS                       R11 R11 K12 ["error"]
+       36 GETTABLEKS                       R11 R11 K13 ["message"]
        38 JUMPIFEQKNIL                     R11 ; [+21]
        40 GETUPVAL                         R11 1
        41 JUMPIFNOT                        R11 ; [+12]
        42 GETIMPORT                        R11 K15 [warn]
        44 LOADK                            R12 K16 ["Fetching sound asset universe permissions failed: %s"]
-       45 GETTABLE                         R16 R5 R9
-       46 GETTABLEKS                       R15 R16 K12 ["error"]
-       48 GETTABLEKS                       R14 R15 K17 ["code"]
+       45 GETTABLE                         R14 R5 R9
+       46 GETTABLEKS                       R14 R14 K12 ["error"]
+       48 GETTABLEKS                       R14 R14 K17 ["code"]
        50 NAMECALL                         R12 R12 K18 ["format"]
        52 CALL                             R12 2 -1
        53 CALL                             R11 -1 0
@@ -486,8 +486,8 @@ PROTO_19:
         0 GETIMPORT                        R1 K1 [warn]
         2 LOADK                            R2 K2 ["Fetching sound asset permissions failed: %d %s"]
         3 GETTABLEKS                       R4 R0 K3 ["responseCode"]
-        5 GETTABLEKS                       R6 R0 K4 ["responseBody"]
-        7 GETTABLEKS                       R5 R6 K5 ["message"]
+        5 GETTABLEKS                       R5 R0 K4 ["responseBody"]
+        7 GETTABLEKS                       R5 R5 K5 ["message"]
         9 NAMECALL                         R2 R2 K6 ["format"]
        11 CALL                             R2 3 -1
        12 CALL                             R1 -1 0
@@ -506,8 +506,8 @@ PROTO_21:
         0 GETIMPORT                        R1 K1 [warn]
         2 LOADK                            R2 K2 ["Fetching sound asset permissions failed: %d %s"]
         3 GETTABLEKS                       R4 R0 K3 ["responseCode"]
-        5 GETTABLEKS                       R6 R0 K4 ["responseBody"]
-        7 GETTABLEKS                       R5 R6 K5 ["message"]
+        5 GETTABLEKS                       R5 R0 K4 ["responseBody"]
+        7 GETTABLEKS                       R5 R5 K5 ["message"]
         9 NAMECALL                         R2 R2 K6 ["format"]
        11 CALL                             R2 3 -1
        12 CALL                             R1 -1 0
@@ -517,10 +517,10 @@ PROTO_22:
         0 NEWTABLE                         R2 1 0
         2 LOADK                            R3 K0 ["application/json"]
         3 SETTABLEKS                       R3 R2 K1 ["Content-Type"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["composeUrl"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K3 ["APIS_URL"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K2 ["composeUrl"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K3 ["APIS_URL"]
        11 LOADK                            R5 K4 ["asset-permissions-api/v1/assets/check-permissions"]
        12 CALL                             R3 2 1
        13 GETIMPORT                        R4 K6 [game]
@@ -565,8 +565,8 @@ PROTO_22:
        67 DUPTABLE                         R14 K25 [{"subjectType", "subjectId"}]
        68 LOADK                            R15 K26 ["Universe"]
        69 SETTABLEKS                       R15 R14 K23 ["subjectType"]
-       71 GETIMPORT                        R17 K6 [game]
-       73 GETTABLEKS                       R16 R17 K27 ["GameId"]
+       71 GETIMPORT                        R16 K6 [game]
+       73 GETTABLEKS                       R16 R16 K27 ["GameId"]
        75 FASTCALL1                        TOSTRING R16 ; [+2]
        76 GETIMPORT                        R15 K29 [tostring]
        78 CALL                             R15 1 1
@@ -631,28 +631,28 @@ PROTO_23:
        17 GETTABLEKS                       R7 R2 K2 ["data"]
        19 CALL                             R6 1 3
        20 FORGPREP_INEXT                   R6
-       21 GETTABLEKS                       R12 R10 K3 ["asset"]
-       23 GETTABLEKS                       R11 R12 K4 ["id"]
+       21 GETTABLEKS                       R11 R10 K3 ["asset"]
+       23 GETTABLEKS                       R11 R11 K4 ["id"]
        25 GETTABLEKS                       R12 R0 K5 ["_pendingAssetIds"]
        27 LOADNIL                          R13
        28 SETTABLE                         R13 R12 R11
        29 LOADNIL                          R12
        30 SETTABLE                         R12 R3 R11
-       31 GETTABLEKS                       R13 R10 K3 ["asset"]
-       33 GETTABLEKS                       R12 R13 K6 ["typeId"]
+       31 GETTABLEKS                       R12 R10 K3 ["asset"]
+       33 GETTABLEKS                       R12 R12 K6 ["typeId"]
        35 JUMPIFEQKN                       R12 K7 [3] ; [+6]
        37 GETTABLEKS                       R12 R0 K8 ["_nonSoundAssetIds"]
        39 LOADB                            R13 1
        40 SETTABLE                         R13 R12 R11
        41 JUMP                             ; [+97]
-       42 GETTABLEKS                       R14 R10 K9 ["creator"]
-       44 GETTABLEKS                       R13 R14 K10 ["type"]
+       42 GETTABLEKS                       R13 R10 K9 ["creator"]
+       44 GETTABLEKS                       R13 R13 K10 ["type"]
        46 JUMPIFNOTEQKN                    R13 K11 [1] ; [+4]
        48 GETIMPORT                        R12 K15 [Enum.CreatorType.User]
        50 JUMP                             ; [+2]
        51 GETIMPORT                        R12 K17 [Enum.CreatorType.Group]
-       53 GETTABLEKS                       R16 R10 K9 ["creator"]
-       55 GETTABLEKS                       R15 R16 K4 ["id"]
+       53 GETTABLEKS                       R15 R10 K9 ["creator"]
+       55 GETTABLEKS                       R15 R15 K4 ["id"]
        57 MOVE                             R16 R12
        58 NAMECALL                         R13 R0 K18 ["_checkSound"]
        60 CALL                             R13 3 1
@@ -667,28 +667,28 @@ PROTO_23:
        70 GETIMPORT                        R16 K29 [tostring]
        72 CALL                             R16 1 1
        73 SETTABLEKS                       R16 R15 K22 ["Id"]
-       75 GETTABLEKS                       R17 R10 K3 ["asset"]
-       77 GETTABLEKS                       R16 R17 K30 ["name"]
+       75 GETTABLEKS                       R16 R10 K3 ["asset"]
+       77 GETTABLEKS                       R16 R16 K30 ["name"]
        79 SETTABLEKS                       R16 R15 K23 ["Name"]
-       81 GETTABLEKS                       R17 R10 K9 ["creator"]
-       83 GETTABLEKS                       R16 R17 K4 ["id"]
+       81 GETTABLEKS                       R16 R10 K9 ["creator"]
+       83 GETTABLEKS                       R16 R16 K4 ["id"]
        85 SETTABLEKS                       R16 R15 K24 ["CreatorId"]
-       87 GETTABLEKS                       R18 R10 K9 ["creator"]
-       89 GETTABLEKS                       R17 R18 K10 ["type"]
+       87 GETTABLEKS                       R17 R10 K9 ["creator"]
+       89 GETTABLEKS                       R17 R17 K10 ["type"]
        91 JUMPIFNOTEQKN                    R17 K11 [1] ; [+3]
        93 LOADK                            R16 K14 ["User"]
        94 JUMP                             ; [+1]
        95 LOADK                            R16 K16 ["Group"]
        96 SETTABLEKS                       R16 R15 K13 ["CreatorType"]
-       98 GETTABLEKS                       R17 R10 K9 ["creator"]
-      100 GETTABLEKS                       R16 R17 K30 ["name"]
+       98 GETTABLEKS                       R16 R10 K9 ["creator"]
+      100 GETTABLEKS                       R16 R16 K30 ["name"]
       102 SETTABLEKS                       R16 R15 K25 ["Creator"]
-      104 GETTABLEKS                       R17 R10 K3 ["asset"]
-      106 GETTABLEKS                       R16 R17 K31 ["duration"]
+      104 GETTABLEKS                       R16 R10 K3 ["asset"]
+      106 GETTABLEKS                       R16 R16 K31 ["duration"]
       108 SETTABLEKS                       R16 R15 K26 ["Time"]
       110 SETTABLE                         R15 R5 R11
-      111 GETIMPORT                        R17 K33 [game]
-      113 GETTABLEKS                       R16 R17 K34 ["GameId"]
+      111 GETIMPORT                        R16 K33 [game]
+      113 GETTABLEKS                       R16 R16 K34 ["GameId"]
       115 JUMPIFNOTEQKN                    R16 K35 [0] ; [+23]
       117 JUMPIFNOT                        R13 ; [+6]
       118 GETTABLEKS                       R16 R0 K36 ["_goodAssets"]
@@ -717,8 +717,8 @@ PROTO_23:
       152 LOADB                            R12 1
       153 SETTABLE                         R12 R11 R9
       154 FORGLOOP                         R6 1 ; [-9]
-      156 GETIMPORT                        R7 K33 [game]
-      158 GETTABLEKS                       R6 R7 K34 ["GameId"]
+      156 GETIMPORT                        R6 K33 [game]
+      158 GETTABLEKS                       R6 R6 K34 ["GameId"]
       160 JUMPIFEQKN                       R6 K35 [0] ; [+6]
       162 MOVE                             R8 R5
       163 NAMECALL                         R6 R0 K44 ["_sendBatchCheckUniversePermission"]
@@ -765,23 +765,23 @@ MAIN:
        27 LOADK                            R6 K7 ["DEBUG_StudioAudioDiscoveryPermissionCheckErrors"]
        28 NAMECALL                         R4 R4 K8 ["GetFastFlag"]
        30 CALL                             R4 2 1
-       31 GETIMPORT                        R8 K10 [script]
-       33 GETTABLEKS                       R7 R8 K11 ["Parent"]
-       35 GETTABLEKS                       R6 R7 K11 ["Parent"]
-       37 GETTABLEKS                       R5 R6 K11 ["Parent"]
+       31 GETIMPORT                        R5 K10 [script]
+       33 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       35 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       37 GETTABLEKS                       R5 R5 K11 ["Parent"]
        39 GETIMPORT                        R6 K13 [require]
-       41 GETTABLEKS                       R8 R5 K14 ["Packages"]
-       43 GETTABLEKS                       R7 R8 K15 ["Framework"]
+       41 GETTABLEKS                       R7 R5 K14 ["Packages"]
+       43 GETTABLEKS                       R7 R7 K15 ["Framework"]
        45 CALL                             R6 1 1
-       46 GETTABLEKS                       R8 R6 K16 ["RobloxAPI"]
-       48 GETTABLEKS                       R7 R8 K17 ["Url"]
+       46 GETTABLEKS                       R7 R6 K16 ["RobloxAPI"]
+       48 GETTABLEKS                       R7 R7 K17 ["Url"]
        50 GETTABLEKS                       R8 R7 K18 ["new"]
        52 CALL                             R8 0 1
-       53 GETTABLEKS                       R10 R6 K19 ["Util"]
-       55 GETTABLEKS                       R9 R10 K20 ["Signal"]
+       53 GETTABLEKS                       R9 R6 K19 ["Util"]
+       55 GETTABLEKS                       R9 R9 K20 ["Signal"]
        57 GETIMPORT                        R10 K13 [require]
-       59 GETTABLEKS                       R12 R5 K21 ["Src"]
-       61 GETTABLEKS                       R11 R12 K22 ["Types"]
+       59 GETTABLEKS                       R11 R5 K21 ["Src"]
+       61 GETTABLEKS                       R11 R11 K22 ["Types"]
        63 CALL                             R10 1 1
        64 GETIMPORT                        R11 K1 [game]
        66 LOADK                            R13 K23 ["RunService"]
@@ -792,9 +792,9 @@ MAIN:
        73 NAMECALL                         R12 R12 K24 ["GetService"]
        75 CALL                             R12 2 1
        76 GETIMPORT                        R13 K13 [require]
-       78 GETTABLEKS                       R16 R5 K21 ["Src"]
-       80 GETTABLEKS                       R15 R16 K19 ["Util"]
-       82 GETTABLEKS                       R14 R15 K26 ["Analytics"]
+       78 GETTABLEKS                       R14 R5 K21 ["Src"]
+       80 GETTABLEKS                       R14 R14 K19 ["Util"]
+       82 GETTABLEKS                       R14 R14 K26 ["Analytics"]
        84 CALL                             R13 1 1
        85 NEWTABLE                         R14 16 0
        87 SETTABLEKS                       R14 R14 K27 ["__index"]
@@ -828,10 +828,10 @@ MAIN:
       126 DUPCLOSURE                       R15 K47 [PROTO_15]
       127 CAPTURE                          VAL R8
       128 SETTABLEKS                       R15 R14 K48 ["_sendBatch"]
-      130 GETIMPORT                        R16 K1 [game]
-      132 GETTABLEKS                       R15 R16 K49 ["CreatorId"]
-      134 GETIMPORT                        R17 K1 [game]
-      136 GETTABLEKS                       R16 R17 K50 ["CreatorType"]
+      130 GETIMPORT                        R15 K1 [game]
+      132 GETTABLEKS                       R15 R15 K49 ["CreatorId"]
+      134 GETIMPORT                        R16 K1 [game]
+      136 GETTABLEKS                       R16 R16 K50 ["CreatorType"]
       138 DUPCLOSURE                       R17 K51 [PROTO_16]
       139 CAPTURE                          VAL R15
       140 CAPTURE                          VAL R16

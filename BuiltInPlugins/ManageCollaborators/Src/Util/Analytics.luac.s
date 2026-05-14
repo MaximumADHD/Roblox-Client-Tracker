@@ -4,8 +4,8 @@ PROTO_0:
         2 NAMECALL                         R1 R1 K4 ["GetSessionId"]
         4 CALL                             R1 1 1
         5 SETTABLEKS                       R1 R0 K0 ["studioSid"]
-        7 GETIMPORT                        R2 K6 [game]
-        9 GETTABLEKS                       R1 R2 K7 ["PlaceId"]
+        7 GETIMPORT                        R1 K6 [game]
+        9 GETTABLEKS                       R1 R1 K7 ["PlaceId"]
        11 SETTABLEKS                       R1 R0 K1 ["placeId"]
        13 GETIMPORT                        R1 K10 [os.time]
        15 CALL                             R1 0 1
@@ -189,14 +189,14 @@ MAIN:
         9 LOADK                            R3 K4 ["Collab7855_LogUnknownPermissions"]
        10 NAMECALL                         R1 R1 K3 ["GetFastFlag"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R6 R2 K10 ["Src"]
-       25 GETTABLEKS                       R5 R6 K11 ["Util"]
-       27 GETTABLEKS                       R4 R5 K12 ["IsTeamCreateEnabled"]
+       23 GETTABLEKS                       R4 R2 K10 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Util"]
+       27 GETTABLEKS                       R4 R4 K12 ["IsTeamCreateEnabled"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K1 [game]
        32 LOADK                            R6 K13 ["RbxAnalyticsService"]

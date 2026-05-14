@@ -63,11 +63,11 @@ PROTO_1:
        63 FASTCALL2                        ASSERT R7 R8 ; [+3]
        65 GETIMPORT                        R6 K8 [assert]
        67 CALL                             R6 2 0
-       68 GETUPVAL                         R7 0
-       69 GETTABLEKS                       R6 R7 K16 ["Outdated"]
+       68 GETUPVAL                         R6 0
+       69 GETTABLEKS                       R6 R6 K16 ["Outdated"]
        71 JUMPIFEQ                         R1 R6 ; [+6]
-       73 GETUPVAL                         R7 0
-       74 GETTABLEKS                       R6 R7 K17 ["Deleted"]
+       73 GETUPVAL                         R6 0
+       74 GETTABLEKS                       R6 R6 K17 ["Deleted"]
        76 JUMPIFNOTEQ                      R1 R6 ; [+22]
        78 FASTCALL1                        TYPEOF R2 ; [+3]
        79 MOVE                             R7 R2
@@ -86,8 +86,8 @@ PROTO_1:
        95 GETIMPORT                        R7 K8 [assert]
        97 CALL                             R7 2 0
        98 JUMP                             ; [+59]
-       99 GETUPVAL                         R7 0
-      100 GETTABLEKS                       R6 R7 K21 ["Autosaved"]
+       99 GETUPVAL                         R6 0
+      100 GETTABLEKS                       R6 R6 K21 ["Autosaved"]
       102 JUMPIFNOTEQ                      R1 R6 ; [+26]
       104 GETUPVAL                         R8 1
       105 GETIMPORT                        R9 K14 [pairs]
@@ -109,8 +109,8 @@ PROTO_1:
       125 GETIMPORT                        R6 K8 [assert]
       127 CALL                             R6 2 0
       128 JUMP                             ; [+29]
-      129 GETUPVAL                         R7 0
-      130 GETTABLEKS                       R6 R7 K23 ["Committed"]
+      129 GETUPVAL                         R6 0
+      130 GETTABLEKS                       R6 R6 K23 ["Committed"]
       132 JUMPIFNOTEQ                      R1 R6 ; [+25]
       134 GETUPVAL                         R8 2
       135 GETIMPORT                        R9 K14 [pairs]
@@ -139,34 +139,34 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETIMPORT                        R4 K1 [script]
-       13 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       15 GETTABLEKS                       R2 R3 K5 ["Action"]
+       11 GETIMPORT                        R2 K1 [script]
+       13 GETTABLEKS                       R2 R2 K2 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K5 ["Action"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K7 ["Symbols"]
-       24 GETTABLEKS                       R3 R4 K8 ["AutosaveState"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Symbols"]
+       24 GETTABLEKS                       R3 R3 K8 ["AutosaveState"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Symbols"]
-       33 GETTABLEKS                       R4 R5 K9 ["CommitState"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Symbols"]
+       33 GETTABLEKS                       R4 R4 K9 ["CommitState"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K6 ["Src"]
-       40 GETTABLEKS                       R6 R7 K7 ["Symbols"]
-       42 GETTABLEKS                       R5 R6 K10 ["DraftState"]
+       38 GETTABLEKS                       R5 R0 K6 ["Src"]
+       40 GETTABLEKS                       R5 R5 K7 ["Symbols"]
+       42 GETTABLEKS                       R5 R5 K10 ["DraftState"]
        44 CALL                             R4 1 1
        45 DUPCLOSURE                       R5 K11 [PROTO_0]
        46 MOVE                             R6 R1
-       47 GETIMPORT                        R8 K1 [script]
-       49 GETTABLEKS                       R7 R8 K12 ["Name"]
+       47 GETIMPORT                        R7 K1 [script]
+       49 GETTABLEKS                       R7 R7 K12 ["Name"]
        51 DUPCLOSURE                       R8 K13 [PROTO_1]
        52 CAPTURE                          VAL R4
        53 CAPTURE                          VAL R2

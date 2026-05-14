@@ -17,8 +17,8 @@ PROTO_1:
         3 LOADK                            R3 K0 ["ImageUploader.mock expects a mock PublishService"]
         4 GETIMPORT                        R1 K2 [assert]
         6 CALL                             R1 2 0
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K3 ["new"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K3 ["new"]
        10 CALL                             R1 0 1
        11 SETTABLEKS                       R0 R1 K4 ["_publishService"]
        13 RETURN                           R1 1
@@ -36,12 +36,12 @@ PROTO_3:
         2 GETUPVAL                         R5 0
         3 CALL                             R5 0 1
         4 JUMPIFNOT                        R5 ; [+22]
-        5 GETIMPORT                        R6 K1 [game]
-        7 GETTABLEKS                       R5 R6 K2 ["CreatorType"]
+        5 GETIMPORT                        R5 K1 [game]
+        7 GETTABLEKS                       R5 R5 K2 ["CreatorType"]
         9 GETIMPORT                        R6 K5 [Enum.CreatorType.Group]
        11 JUMPIFNOTEQ                      R5 R6 ; [+15]
-       13 GETIMPORT                        R6 K1 [game]
-       15 GETTABLEKS                       R5 R6 K6 ["CreatorId"]
+       13 GETIMPORT                        R5 K1 [game]
+       15 GETTABLEKS                       R5 R5 K6 ["CreatorId"]
        17 LOADN                            R6 0
        18 JUMPIFNOTLT                      R6 R5 ; [+8]
        20 GETIMPORT                        R3 K8 [Enum.AssetCreatorType.Group]
@@ -54,8 +54,8 @@ PROTO_3:
        32 CALL                             R5 1 1
        33 MOVE                             R4 R5
        34 MOVE                             R5 R0
-       35 GETUPVAL                         R7 2
-       36 GETTABLEKS                       R6 R7 K12 ["_publishService"]
+       35 GETUPVAL                         R6 2
+       36 GETTABLEKS                       R6 R6 K12 ["_publishService"]
        38 GETUPVAL                         R8 3
        39 MOVE                             R9 R3
        40 MOVE                             R10 R4
@@ -134,8 +134,8 @@ PROTO_5:
        75 GETTABLE                         R5 R6 R1
        76 CLOSEUPVALS                      R3
        77 RETURN                           R5 1
-       78 GETUPVAL                         R6 0
-       79 GETTABLEKS                       R5 R6 K12 ["new"]
+       78 GETUPVAL                         R5 0
+       79 GETTABLEKS                       R5 R5 K12 ["new"]
        81 NEWCLOSURE                       R6 P0
        82 CAPTURE                          UPVAL U1
        83 CAPTURE                          UPVAL U2
@@ -155,10 +155,10 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["PublishService"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
@@ -167,16 +167,16 @@ MAIN:
        17 LOADK                            R4 K7 ["StudioService"]
        18 NAMECALL                         R2 R2 K6 ["GetService"]
        20 CALL                             R2 2 1
-       21 GETIMPORT                        R5 K9 [require]
-       23 GETTABLEKS                       R7 R0 K10 ["Packages"]
-       25 GETTABLEKS                       R6 R7 K11 ["Framework"]
-       27 CALL                             R5 1 1
-       28 GETTABLEKS                       R4 R5 K12 ["Util"]
-       30 GETTABLEKS                       R3 R4 K13 ["Promise"]
+       21 GETIMPORT                        R3 K9 [require]
+       23 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Framework"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R3 R3 K12 ["Util"]
+       30 GETTABLEKS                       R3 R3 K13 ["Promise"]
        32 GETIMPORT                        R4 K9 [require]
-       34 GETTABLEKS                       R7 R0 K14 ["Src"]
-       36 GETTABLEKS                       R6 R7 K15 ["Flags"]
-       38 GETTABLEKS                       R5 R6 K16 ["getFFlagFixMaterialManagerGroupUpload"]
+       34 GETTABLEKS                       R5 R0 K14 ["Src"]
+       36 GETTABLEKS                       R5 R5 K15 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K16 ["getFFlagFixMaterialManagerGroupUpload"]
        40 CALL                             R4 1 1
        41 NEWTABLE                         R5 8 0
        43 SETTABLEKS                       R5 R5 K17 ["__index"]

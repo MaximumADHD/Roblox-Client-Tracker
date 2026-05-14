@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["layoutRef"]
-        3 GETTABLEKS                       R0 R1 K1 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["layoutRef"]
+        3 GETTABLEKS                       R0 R0 K1 ["current"]
         5 JUMPIFEQKNIL                     R0 ; [+12]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K2 ["containerRef"]
-       10 GETTABLEKS                       R0 R1 K1 ["current"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K2 ["containerRef"]
+       10 GETTABLEKS                       R0 R0 K1 ["current"]
        12 JUMPIFEQKNIL                     R0 ; [+5]
        14 GETUPVAL                         R0 0
        15 NAMECALL                         R0 R0 K3 ["resizeContainer"]
@@ -13,26 +13,26 @@ PROTO_0:
        18 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["layoutRef"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["createRef"]
         9 CALL                             R1 0 1
        10 SETTABLEKS                       R1 R0 K2 ["containerRef"]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K3 ["Dictionary"]
-       15 GETTABLEKS                       R1 R2 K4 ["join"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K3 ["Dictionary"]
+       15 GETTABLEKS                       R1 R1 K4 ["join"]
        17 GETUPVAL                         R2 2
        18 NEWTABLE                         R3 2 0
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R4 R5 K5 ["Ref"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K5 ["Ref"]
        23 GETTABLEKS                       R5 R0 K1 ["layoutRef"]
        25 SETTABLE                         R5 R3 R4
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K6 ["Change"]
-       29 GETTABLEKS                       R4 R5 K7 ["AbsoluteContentSize"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K6 ["Change"]
+       29 GETTABLEKS                       R4 R4 K7 ["AbsoluteContentSize"]
        31 NEWCLOSURE                       R5 P0
        32 CAPTURE                          VAL R0
        33 SETTABLE                         R5 R3 R4
@@ -41,8 +41,8 @@ PROTO_1:
        37 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R4 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R4 K1 ["Size"]
+        0 GETTABLEKS                       R3 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R3 K1 ["Size"]
         4 JUMPIFEQKNIL                     R3 ; [+2]
         6 LOADB                            R2 0 +1
         7 LOADB                            R2 1
@@ -50,12 +50,12 @@ PROTO_2:
        10 LOADK                            R3 K2 ["Size must not be specified!"]
        11 GETIMPORT                        R1 K4 [assert]
        13 CALL                             R1 2 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K5 ["Dictionary"]
-       17 GETTABLEKS                       R1 R2 K6 ["join"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K5 ["Dictionary"]
+       17 GETTABLEKS                       R1 R1 K6 ["join"]
        19 NEWTABLE                         R2 2 0
-       21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       21 GETUPVAL                         R3 1
+       22 GETTABLEKS                       R3 R3 K7 ["createElement"]
        24 GETUPVAL                         R4 2
        25 GETTABLEKS                       R5 R0 K8 ["layoutProps"]
        27 CALL                             R3 2 1
@@ -64,8 +64,8 @@ PROTO_2:
        31 GETUPVAL                         R4 3
        32 LOADN                            R5 0
        33 JUMPIFNOTLT                      R5 R4 ; [+35]
-       35 GETUPVAL                         R4 1
-       36 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       35 GETUPVAL                         R3 1
+       36 GETTABLEKS                       R3 R3 K7 ["createElement"]
        38 LOADK                            R4 K10 ["UIPadding"]
        39 DUPTABLE                         R5 K15 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
        40 GETIMPORT                        R6 K18 [UDim.new]
@@ -91,25 +91,25 @@ PROTO_2:
        68 CALL                             R3 2 1
        69 SETTABLEKS                       R3 R2 K19 ["Padding"]
        71 GETTABLEKS                       R4 R0 K0 ["props"]
-       73 GETUPVAL                         R6 1
-       74 GETTABLEKS                       R5 R6 K20 ["Children"]
+       73 GETUPVAL                         R5 1
+       74 GETTABLEKS                       R5 R5 K20 ["Children"]
        76 GETTABLE                         R3 R4 R5
        77 CALL                             R1 2 1
-       78 GETUPVAL                         R4 0
-       79 GETTABLEKS                       R3 R4 K5 ["Dictionary"]
-       81 GETTABLEKS                       R2 R3 K6 ["join"]
+       78 GETUPVAL                         R2 0
+       79 GETTABLEKS                       R2 R2 K5 ["Dictionary"]
+       81 GETTABLEKS                       R2 R2 K6 ["join"]
        83 GETTABLEKS                       R3 R0 K0 ["props"]
        85 NEWTABLE                         R4 2 0
-       87 GETUPVAL                         R6 1
-       88 GETTABLEKS                       R5 R6 K20 ["Children"]
+       87 GETUPVAL                         R5 1
+       88 GETTABLEKS                       R5 R5 K20 ["Children"]
        90 SETTABLE                         R1 R4 R5
-       91 GETUPVAL                         R6 1
-       92 GETTABLEKS                       R5 R6 K21 ["Ref"]
+       91 GETUPVAL                         R5 1
+       92 GETTABLEKS                       R5 R5 K21 ["Ref"]
        94 GETTABLEKS                       R6 R0 K22 ["containerRef"]
        96 SETTABLE                         R6 R4 R5
        97 CALL                             R2 2 1
-       98 GETUPVAL                         R4 1
-       99 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       98 GETUPVAL                         R3 1
+       99 GETTABLEKS                       R3 R3 K7 ["createElement"]
       101 GETUPVAL                         R4 4
       102 MOVE                             R5 R2
       103 CALL                             R3 2 -1
@@ -121,11 +121,11 @@ PROTO_3:
         3 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R3 R0 K0 ["layoutRef"]
-        2 GETTABLEKS                       R2 R3 K1 ["current"]
-        4 GETTABLEKS                       R1 R2 K2 ["AbsoluteContentSize"]
-        6 GETTABLEKS                       R3 R0 K3 ["containerRef"]
-        8 GETTABLEKS                       R2 R3 K1 ["current"]
+        0 GETTABLEKS                       R1 R0 K0 ["layoutRef"]
+        2 GETTABLEKS                       R1 R1 K1 ["current"]
+        4 GETTABLEKS                       R1 R1 K2 ["AbsoluteContentSize"]
+        6 GETTABLEKS                       R2 R0 K3 ["containerRef"]
+        8 GETTABLEKS                       R2 R2 K1 ["current"]
        10 GETIMPORT                        R3 K6 [UDim2.new]
        12 LOADN                            R4 1
        13 LOADN                            R5 0
@@ -144,20 +144,20 @@ PROTO_5:
         2 MOVE                             R6 R1
         3 NAMECALL                         R3 R3 K1 ["format"]
         5 CALL                             R3 3 1
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K2 ["Component"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K2 ["Component"]
         9 MOVE                             R6 R3
        10 NAMECALL                         R4 R4 K3 ["extend"]
        12 CALL                             R4 2 1
        13 GETTABLEKS                       R6 R2 K5 ["BorderSize"]
        15 ORK                              R5 R6 K4 [0]
-       16 GETUPVAL                         R8 1
-       17 GETTABLEKS                       R7 R8 K6 ["Dictionary"]
-       19 GETTABLEKS                       R6 R7 K7 ["join"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K6 ["Dictionary"]
+       19 GETTABLEKS                       R6 R6 K7 ["join"]
        21 MOVE                             R7 R2
        22 DUPTABLE                         R8 K8 [{"BorderSize"}]
-       23 GETUPVAL                         R10 1
-       24 GETTABLEKS                       R9 R10 K9 ["None"]
+       23 GETUPVAL                         R9 1
+       24 GETTABLEKS                       R9 R9 K9 ["None"]
        26 SETTABLEKS                       R9 R8 K5 ["BorderSize"]
        28 CALL                             R6 2 1
        29 MOVE                             R2 R6
@@ -188,12 +188,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Cryo"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
        20 CALL                             R2 1 1
        21 DUPCLOSURE                       R3 K9 [PROTO_5]
        22 CAPTURE                          VAL R1

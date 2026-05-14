@@ -12,28 +12,28 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R2 K1 [require]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K2 ["Src"]
-        5 GETTABLEKS                       R4 R5 K3 ["Util"]
-        7 GETTABLEKS                       R3 R4 K4 ["AssetDMBridge"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K2 ["Src"]
+        5 GETTABLEKS                       R3 R3 K3 ["Util"]
+        7 GETTABLEKS                       R3 R3 K4 ["AssetDMBridge"]
         9 CALL                             R2 1 1
        10 MOVE                             R5 R0
        11 NAMECALL                         R3 R2 K5 ["connect"]
        13 CALL                             R3 2 0
        14 GETIMPORT                        R3 K1 [require]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K6 ["Packages"]
-       19 GETTABLEKS                       R4 R5 K7 ["React"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K6 ["Packages"]
+       19 GETTABLEKS                       R4 R4 K7 ["React"]
        21 CALL                             R3 1 1
        22 GETIMPORT                        R4 K1 [require]
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R6 R7 K6 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K8 ["ReactRoblox"]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K6 ["Packages"]
+       27 GETTABLEKS                       R5 R5 K8 ["ReactRoblox"]
        29 CALL                             R4 1 1
        30 GETIMPORT                        R5 K1 [require]
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K2 ["Src"]
-       35 GETTABLEKS                       R6 R7 K9 ["MainPlugin"]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R6 R6 K2 ["Src"]
+       35 GETTABLEKS                       R6 R6 K9 ["MainPlugin"]
        37 CALL                             R5 1 1
        38 GETTABLEKS                       R6 R3 K10 ["createElement"]
        40 MOVE                             R7 R5

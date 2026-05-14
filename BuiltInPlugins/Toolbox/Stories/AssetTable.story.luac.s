@@ -15,13 +15,13 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"Frame"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 LOADK                            R5 K1 ["Frame"]
        11 DUPTABLE                         R6 K6 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
        12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
@@ -36,8 +36,8 @@ PROTO_3:
        25 CALL                             R7 4 1
        26 SETTABLEKS                       R7 R6 K5 ["Size"]
        28 DUPTABLE                         R7 K14 [{"List"}]
-       29 GETUPVAL                         R9 0
-       30 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       29 GETUPVAL                         R8 0
+       30 GETTABLEKS                       R8 R8 K0 ["createElement"]
        32 GETUPVAL                         R9 2
        33 DUPTABLE                         R10 K21 [{"Assets", "CanInsertAsset", "LayoutOrder", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
        34 NEWTABLE                         R11 0 3
@@ -83,13 +83,13 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"Frame"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 LOADK                            R5 K1 ["Frame"]
        11 DUPTABLE                         R6 K6 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
        12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
@@ -104,8 +104,8 @@ PROTO_7:
        25 CALL                             R7 4 1
        26 SETTABLEKS                       R7 R6 K5 ["Size"]
        28 DUPTABLE                         R7 K14 [{"List"}]
-       29 GETUPVAL                         R9 0
-       30 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       29 GETUPVAL                         R8 0
+       30 GETTABLEKS                       R8 R8 K0 ["createElement"]
        32 GETUPVAL                         R9 2
        33 DUPTABLE                         R10 K21 [{"Assets", "CanInsertAsset", "LayoutOrder", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
        34 NEWTABLE                         R11 0 0
@@ -137,22 +137,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["AssetTable"]
-       15 GETTABLEKS                       R2 R3 K8 ["AssetTable"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["AssetTable"]
+       15 GETTABLEKS                       R2 R2 K8 ["AssetTable"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R4 R0 K9 ["TestUtils"]
-       22 GETTABLEKS                       R3 R4 K10 ["MockItems"]
+       20 GETTABLEKS                       R3 R0 K9 ["TestUtils"]
+       22 GETTABLEKS                       R3 R3 K10 ["MockItems"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R5 R0 K11 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K12 ["Roact"]
+       27 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K12 ["Roact"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R6 R0 K13 ["Stories"]
-       36 GETTABLEKS                       R5 R6 K14 ["ToolboxStoryWrapper"]
+       34 GETTABLEKS                       R5 R0 K13 ["Stories"]
+       36 GETTABLEKS                       R5 R5 K14 ["ToolboxStoryWrapper"]
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R5 R2 K15 ["getSimpleAsset"]
        41 LOADN                            R6 1

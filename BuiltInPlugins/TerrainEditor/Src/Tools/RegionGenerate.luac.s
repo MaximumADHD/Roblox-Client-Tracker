@@ -5,8 +5,8 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["startOperation"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["startOperation"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 0
@@ -23,23 +23,23 @@ PROTO_1:
        20 NAMECALL                         R4 R4 K5 ["getText"]
        22 CALL                             R4 3 1
        23 GETUPVAL                         R5 1
-       24 GETUPVAL                         R9 2
-       25 GETTABLEKS                       R8 R9 K7 ["SelectionSettings"]
+       24 GETUPVAL                         R8 2
+       25 GETTABLEKS                       R8 R8 K7 ["SelectionSettings"]
        27 GETTABLE                         R7 R2 R8
-       28 GETUPVAL                         R9 3
-       29 GETTABLEKS                       R8 R9 K8 ["Transform"]
+       28 GETUPVAL                         R8 3
+       29 GETTABLEKS                       R8 R8 K8 ["Transform"]
        31 GETTABLE                         R6 R7 R8
-       32 GETUPVAL                         R10 2
-       33 GETTABLEKS                       R9 R10 K7 ["SelectionSettings"]
+       32 GETUPVAL                         R9 2
+       33 GETTABLEKS                       R9 R9 K7 ["SelectionSettings"]
        35 GETTABLE                         R8 R2 R9
-       36 GETUPVAL                         R10 3
-       37 GETTABLEKS                       R9 R10 K9 ["Size"]
+       36 GETUPVAL                         R9 3
+       37 GETTABLEKS                       R9 R9 K9 ["Size"]
        39 GETTABLE                         R7 R8 R9
        40 LOADB                            R8 1
        41 CALL                             R5 3 1
        42 SETTABLEKS                       R5 R0 K10 ["_region"]
-       44 GETTABLEKS                       R6 R0 K11 ["_services"]
-       46 GETTABLEKS                       R5 R6 K12 ["Terrain"]
+       44 GETTABLEKS                       R5 R0 K11 ["_services"]
+       46 GETTABLEKS                       R5 R5 K12 ["Terrain"]
        48 GETTABLEKS                       R7 R0 K10 ["_region"]
        50 NAMECALL                         R5 R5 K13 ["CopyRegion"]
        52 CALL                             R5 2 1
@@ -50,16 +50,16 @@ PROTO_1:
        58 GETTABLEKS                       R8 R0 K11 ["_services"]
        60 CALL                             R5 3 1
        61 SETTABLEKS                       R5 R0 K15 ["_operation"]
-       63 GETTABLEKS                       R6 R0 K15 ["_operation"]
-       65 GETTABLEKS                       R5 R6 K16 ["Finished"]
+       63 GETTABLEKS                       R5 R0 K15 ["_operation"]
+       65 GETTABLEKS                       R5 R5 K16 ["Finished"]
        67 NEWCLOSURE                       R7 P0
        68 CAPTURE                          VAL R0
        69 NAMECALL                         R5 R5 K17 ["Connect"]
        71 CALL                             R5 2 1
        72 SETTABLEKS                       R5 R0 K18 ["_operationFinishedConnection"]
        74 GETTABLEKS                       R5 R0 K15 ["_operation"]
-       76 GETUPVAL                         R8 5
-       77 GETTABLEKS                       R7 R8 K19 ["join"]
+       76 GETUPVAL                         R7 5
+       77 GETTABLEKS                       R7 R7 K19 ["join"]
        79 DUPTABLE                         R8 K21 [{"Payload"}]
        80 SETTABLEKS                       R2 R8 K20 ["Payload"]
        82 MOVE                             R9 R1
@@ -74,21 +74,21 @@ PROTO_1:
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["hasError"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R5 R0 K1 ["_overrides"]
-        5 GETUPVAL                         R7 0
-        6 GETTABLEKS                       R6 R7 K2 ["BiomeSettings"]
-        8 GETTABLE                         R4 R5 R6
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K3 ["Generate"]
-       12 GETTABLE                         R3 R4 R5
-       13 GETTABLEKS                       R2 R3 K4 ["Disabled"]
+        3 GETTABLEKS                       R4 R0 K1 ["_overrides"]
+        5 GETUPVAL                         R5 0
+        6 GETTABLEKS                       R5 R5 K2 ["BiomeSettings"]
+        8 GETTABLE                         R3 R4 R5
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K3 ["Generate"]
+       12 GETTABLE                         R2 R3 R4
+       13 GETTABLEKS                       R2 R2 K4 ["Disabled"]
        15 JUMPIFEQ                         R2 R1 ; [+18]
        17 GETTABLEKS                       R4 R0 K1 ["_overrides"]
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R5 R6 K2 ["BiomeSettings"]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K2 ["BiomeSettings"]
        22 GETTABLE                         R3 R4 R5
-       23 GETUPVAL                         R5 1
-       24 GETTABLEKS                       R4 R5 K3 ["Generate"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K3 ["Generate"]
        26 GETTABLE                         R2 R3 R4
        27 SETTABLEKS                       R1 R2 K4 ["Disabled"]
        29 GETTABLEKS                       R2 R0 K5 ["OnInternalsChanged"]
@@ -102,28 +102,28 @@ PROTO_3:
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+11]
         4 GETIMPORT                        R1 K3 [Enum.PropertyStatus.Error]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K4 ["_localization"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K4 ["_localization"]
         9 LOADK                            R4 K5 ["SelectionWarning"]
        10 LOADK                            R5 K6 ["NaN"]
        11 NAMECALL                         R2 R2 K7 ["getText"]
        13 CALL                             R2 3 -1
        14 RETURN                           R1 -1
        15 GETTABLEKS                       R1 R0 K8 ["X"]
-       17 GETUPVAL                         R3 2
-       18 GETTABLEKS                       R2 R3 K9 ["VoxelResolution"]
+       17 GETUPVAL                         R2 2
+       18 GETTABLEKS                       R2 R2 K9 ["VoxelResolution"]
        20 JUMPIFLT                         R1 R2 ; [+15]
        22 GETTABLEKS                       R1 R0 K10 ["Y"]
-       24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R2 R3 K9 ["VoxelResolution"]
+       24 GETUPVAL                         R2 2
+       25 GETTABLEKS                       R2 R2 K9 ["VoxelResolution"]
        27 JUMPIFLT                         R1 R2 ; [+8]
        29 GETTABLEKS                       R1 R0 K11 ["Z"]
-       31 GETUPVAL                         R3 2
-       32 GETTABLEKS                       R2 R3 K9 ["VoxelResolution"]
+       31 GETUPVAL                         R2 2
+       32 GETTABLEKS                       R2 R2 K9 ["VoxelResolution"]
        34 JUMPIFNOTLT                      R1 R2 ; [+12]
        36 GETIMPORT                        R1 K3 [Enum.PropertyStatus.Error]
-       38 GETUPVAL                         R3 1
-       39 GETTABLEKS                       R2 R3 K4 ["_localization"]
+       38 GETUPVAL                         R2 1
+       39 GETTABLEKS                       R2 R2 K4 ["_localization"]
        41 LOADK                            R4 K5 ["SelectionWarning"]
        42 LOADK                            R5 K12 ["Size"]
        43 NAMECALL                         R2 R2 K7 ["getText"]
@@ -134,12 +134,12 @@ PROTO_3:
        51 MUL                              R2 R3 R4
        52 GETTABLEKS                       R3 R0 K11 ["Z"]
        54 MUL                              R1 R2 R3
-       55 GETUPVAL                         R3 2
-       56 GETTABLEKS                       R2 R3 K13 ["MaxImportVolume"]
+       55 GETUPVAL                         R2 2
+       56 GETTABLEKS                       R2 R2 K13 ["MaxImportVolume"]
        58 JUMPIFNOTLT                      R2 R1 ; [+12]
        60 GETIMPORT                        R1 K3 [Enum.PropertyStatus.Error]
-       62 GETUPVAL                         R3 1
-       63 GETTABLEKS                       R2 R3 K4 ["_localization"]
+       62 GETUPVAL                         R2 1
+       63 GETTABLEKS                       R2 R2 K4 ["_localization"]
        65 LOADK                            R4 K14 ["ImportWarning"]
        66 LOADK                            R5 K15 ["Volume"]
        67 NAMECALL                         R2 R2 K7 ["getText"]
@@ -156,18 +156,18 @@ PROTO_4:
         4 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["init"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["init"]
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 MOVE                             R6 R2
         6 CALL                             R3 3 0
         7 NEWTABLE                         R3 2 0
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K1 ["SelectionSettings"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K1 ["SelectionSettings"]
        12 NEWTABLE                         R5 1 0
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K2 ["Size"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K2 ["Size"]
        17 DUPTABLE                         R7 K4 [{"Validate"}]
        18 NEWCLOSURE                       R8 P0
        19 CAPTURE                          UPVAL U3
@@ -176,11 +176,11 @@ PROTO_5:
        22 SETTABLEKS                       R8 R7 K3 ["Validate"]
        24 SETTABLE                         R7 R5 R6
        25 SETTABLE                         R5 R3 R4
-       26 GETUPVAL                         R5 1
-       27 GETTABLEKS                       R4 R5 K5 ["BiomeSettings"]
+       26 GETUPVAL                         R4 1
+       27 GETTABLEKS                       R4 R4 K5 ["BiomeSettings"]
        29 NEWTABLE                         R5 1 0
-       31 GETUPVAL                         R7 5
-       32 GETTABLEKS                       R6 R7 K6 ["Generate"]
+       31 GETUPVAL                         R6 5
+       32 GETTABLEKS                       R6 R6 K6 ["Generate"]
        34 DUPTABLE                         R7 K11 [{"Hidden", "Label", "Schema", "Value"}]
        35 LOADB                            R8 0
        36 SETTABLEKS                       R8 R7 K7 ["Hidden"]
@@ -199,8 +199,8 @@ PROTO_5:
        55 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["saveForm"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["saveForm"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 0
@@ -211,14 +211,14 @@ PROTO_7:
         2 RETURN                           R1 1
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["activate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["activate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 GETTABLEKS                       R1 R0 K1 ["_analytics"]
         7 LOADK                            R3 K2 ["Activated"]
-        8 GETUPVAL                         R5 1
-        9 GETTABLEKS                       R4 R5 K3 ["Generate"]
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R4 R4 K3 ["Generate"]
        11 NAMECALL                         R1 R1 K4 ["report"]
        13 CALL                             R1 3 0
        14 RETURN                           R0 0
@@ -230,38 +230,38 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETIMPORT                        R5 K1 [script]
-       18 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       20 GETTABLEKS                       R3 R4 K9 ["BaseTool"]
+       16 GETIMPORT                        R3 K1 [script]
+       18 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K9 ["BaseTool"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R0 K10 ["Src"]
-       25 GETTABLEKS                       R3 R4 K11 ["Util"]
+       23 GETTABLEKS                       R3 R0 K10 ["Src"]
+       25 GETTABLEKS                       R3 R3 K11 ["Util"]
        27 GETIMPORT                        R4 K5 [require]
        29 GETTABLEKS                       R5 R3 K12 ["ConvertTransformToRegion"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K10 ["Src"]
-       36 GETTABLEKS                       R7 R8 K13 ["Resources"]
-       38 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       34 GETTABLEKS                       R6 R0 K10 ["Src"]
+       36 GETTABLEKS                       R6 R6 K13 ["Resources"]
+       38 GETTABLEKS                       R6 R6 K14 ["Constants"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R10 R0 K10 ["Src"]
-       45 GETTABLEKS                       R9 R10 K11 ["Util"]
-       47 GETTABLEKS                       R8 R9 K15 ["Operations"]
-       49 GETTABLEKS                       R7 R8 K16 ["GenerateOperation"]
+       43 GETTABLEKS                       R7 R0 K10 ["Src"]
+       45 GETTABLEKS                       R7 R7 K11 ["Util"]
+       47 GETTABLEKS                       R7 R7 K15 ["Operations"]
+       49 GETTABLEKS                       R7 R7 K16 ["GenerateOperation"]
        51 CALL                             R6 1 1
        52 GETIMPORT                        R7 K5 [require]
-       54 GETTABLEKS                       R10 R0 K10 ["Src"]
-       56 GETTABLEKS                       R9 R10 K11 ["Util"]
-       58 GETTABLEKS                       R8 R9 K17 ["isVectorNaNOrInf"]
+       54 GETTABLEKS                       R8 R0 K10 ["Src"]
+       56 GETTABLEKS                       R8 R8 K11 ["Util"]
+       58 GETTABLEKS                       R8 R8 K17 ["isVectorNaNOrInf"]
        60 CALL                             R7 1 1
        61 GETIMPORT                        R8 K5 [require]
-       63 GETTABLEKS                       R10 R0 K10 ["Src"]
-       65 GETTABLEKS                       R9 R10 K18 ["Types"]
+       63 GETTABLEKS                       R9 R0 K10 ["Src"]
+       65 GETTABLEKS                       R9 R9 K18 ["Types"]
        67 CALL                             R8 1 1
        68 GETTABLEKS                       R9 R8 K19 ["Biome"]
        70 GETTABLEKS                       R10 R8 K20 ["BiomeSettings"]

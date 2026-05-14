@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_onFolderChangedCallback"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_onFolderChangedCallback"]
         3 JUMPIFEQKNIL                     R0 ; [+5]
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K0 ["_onFolderChangedCallback"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K0 ["_onFolderChangedCallback"]
         8 CALL                             R0 0 0
         9 RETURN                           R0 0
 
@@ -244,23 +244,23 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Views"]
-       17 GETTABLEKS                       R3 R4 K11 ["DEPRECATED_WireframeMeshView"]
+       15 GETTABLEKS                       R3 R1 K10 ["Views"]
+       17 GETTABLEKS                       R3 R3 K11 ["DEPRECATED_WireframeMeshView"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K12 ["MeshWrapperObjects"]
-       24 GETTABLEKS                       R4 R5 K13 ["CageMeshWrapperObject"]
+       22 GETTABLEKS                       R4 R1 K12 ["MeshWrapperObjects"]
+       24 GETTABLEKS                       R4 R4 K13 ["CageMeshWrapperObject"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R1 K10 ["Views"]
-       31 GETTABLEKS                       R5 R6 K14 ["ToolAdornees"]
+       29 GETTABLEKS                       R5 R1 K10 ["Views"]
+       31 GETTABLEKS                       R5 R5 K14 ["ToolAdornees"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
        36 GETTABLEKS                       R6 R1 K15 ["Types"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K9 [require]
-       41 GETTABLEKS                       R8 R1 K16 ["Flags"]
-       43 GETTABLEKS                       R7 R8 K17 ["getFFlagAvatarPreviewerCageEditingTools"]
+       41 GETTABLEKS                       R7 R1 K16 ["Flags"]
+       43 GETTABLEKS                       R7 R7 K17 ["getFFlagAvatarPreviewerCageEditingTools"]
        45 CALL                             R6 1 1
        46 NEWTABLE                         R7 8 0
        48 SETTABLEKS                       R7 R7 K18 ["__index"]

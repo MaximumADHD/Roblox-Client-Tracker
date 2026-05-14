@@ -191,10 +191,10 @@ PROTO_14:
        12 GETTABLEKS                       R5 R3 K5 ["supportedLocales"]
        14 CALL                             R4 1 3
        15 FORGPREP_NEXT                    R4
-       16 GETTABLEKS                       R10 R8 K6 ["language"]
-       18 GETTABLEKS                       R9 R10 K7 ["languageCode"]
-       20 GETTABLEKS                       R11 R8 K6 ["language"]
-       22 GETTABLEKS                       R10 R11 K8 ["nativeName"]
+       16 GETTABLEKS                       R9 R8 K6 ["language"]
+       18 GETTABLEKS                       R9 R9 K7 ["languageCode"]
+       20 GETTABLEKS                       R10 R8 K6 ["language"]
+       22 GETTABLEKS                       R10 R10 K8 ["nativeName"]
        24 SETTABLE                         R10 R2 R9
        25 FORGLOOP                         R4 2 ; [-10]
        27 RETURN                           R2 1
@@ -207,18 +207,18 @@ PROTO_15:
         6 CALL                             R2 1 1
         7 NEWTABLE                         R3 0 0
         9 GETIMPORT                        R4 K3 [pairs]
-       11 GETTABLEKS                       R7 R2 K4 ["responseBody"]
-       13 GETTABLEKS                       R5 R7 K5 ["data"]
+       11 GETTABLEKS                       R5 R2 K4 ["responseBody"]
+       13 GETTABLEKS                       R5 R5 K5 ["data"]
        15 CALL                             R4 1 3
        16 FORGPREP_NEXT                    R4
-       17 GETTABLEKS                       R11 R8 K6 ["locale"]
-       19 GETTABLEKS                       R10 R11 K7 ["language"]
-       21 GETTABLEKS                       R9 R10 K8 ["languageCode"]
+       17 GETTABLEKS                       R9 R8 K6 ["locale"]
+       19 GETTABLEKS                       R9 R9 K7 ["language"]
+       21 GETTABLEKS                       R9 R9 K8 ["languageCode"]
        23 GETTABLE                         R10 R3 R9
        24 JUMPIFNOTEQKNIL                  R10 ; [+8]
-       26 GETTABLEKS                       R12 R8 K6 ["locale"]
-       28 GETTABLEKS                       R11 R12 K7 ["language"]
-       30 GETTABLEKS                       R10 R11 K9 ["name"]
+       26 GETTABLEKS                       R10 R8 K6 ["locale"]
+       28 GETTABLEKS                       R10 R10 K7 ["language"]
+       30 GETTABLEKS                       R10 R10 K9 ["name"]
        32 SETTABLE                         R10 R3 R9
        33 FORGLOOP                         R4 2 ; [-17]
        35 RETURN                           R3 1
@@ -229,8 +229,8 @@ PROTO_16:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["languageCode"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["languageCode"]
        11 RETURN                           R3 1
 
 PROTO_17:
@@ -292,8 +292,8 @@ PROTO_22:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isAutomaticTranslationAllowed"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isAutomaticTranslationAllowed"]
        11 RETURN                           R3 1
 
 PROTO_23:
@@ -307,8 +307,8 @@ PROTO_23:
        10 CALL                             R2 1 1
        11 NEWTABLE                         R3 0 0
        13 GETIMPORT                        R4 K3 [pairs]
-       15 GETTABLEKS                       R7 R2 K4 ["responseBody"]
-       17 GETTABLEKS                       R5 R7 K5 ["targetLanguages"]
+       15 GETTABLEKS                       R5 R2 K4 ["responseBody"]
+       17 GETTABLEKS                       R5 R5 K5 ["targetLanguages"]
        19 CALL                             R4 1 3
        20 FORGPREP_NEXT                    R4
        21 GETTABLEKS                       R9 R8 K6 ["languageCode"]
@@ -325,8 +325,8 @@ PROTO_24:
         6 CALL                             R2 1 1
         7 NEWTABLE                         R3 0 0
         9 GETIMPORT                        R4 K3 [pairs]
-       11 GETTABLEKS                       R7 R2 K4 ["responseBody"]
-       13 GETTABLEKS                       R5 R7 K5 ["data"]
+       11 GETTABLEKS                       R5 R2 K4 ["responseBody"]
+       13 GETTABLEKS                       R5 R5 K5 ["data"]
        15 CALL                             R4 1 3
        16 FORGPREP_NEXT                    R4
        17 GETTABLEKS                       R9 R8 K6 ["languageCode"]
@@ -367,17 +367,17 @@ PROTO_25:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETIMPORT                        R3 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       17 CALL                             R3 1 1
-       18 GETTABLEKS                       R2 R3 K7 ["Util"]
-       20 GETTABLEKS                       R1 R2 K8 ["Promise"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R1 R1 K7 ["Util"]
+       20 GETTABLEKS                       R1 R1 K8 ["Promise"]
        22 NEWTABLE                         R2 32 0
        24 SETTABLEKS                       R2 R2 K9 ["__index"]
        26 DUPCLOSURE                       R3 K10 [PROTO_0]

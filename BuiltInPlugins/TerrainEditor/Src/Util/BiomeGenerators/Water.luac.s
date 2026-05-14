@@ -30,9 +30,9 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["Generation"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["Generation"]
        13 GETIMPORT                        R2 K8 [require]
        15 GETTABLEKS                       R3 R1 K9 ["Perlin"]
        17 CALL                             R2 1 1
@@ -40,8 +40,8 @@ MAIN:
        20 GETTABLEKS                       R4 R1 K10 ["ProcessPerlin"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K8 [require]
-       25 GETTABLEKS                       R6 R0 K4 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Types"]
+       25 GETTABLEKS                       R5 R0 K4 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Types"]
        29 CALL                             R4 1 1
        30 DUPCLOSURE                       R5 K12 [PROTO_1]
        31 CAPTURE                          VAL R3

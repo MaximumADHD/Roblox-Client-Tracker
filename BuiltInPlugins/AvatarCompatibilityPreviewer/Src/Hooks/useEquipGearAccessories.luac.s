@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K2 ["LoadAsset"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["LoadAsset"]
         5 GETUPVAL                         R2 0
         6 GETUPVAL                         R3 1
         7 CALL                             R0 3 2
@@ -14,8 +14,8 @@ PROTO_0:
        15 NAMECALL                         R2 R1 K7 ["FindFirstChildWhichIsA"]
        17 CALL                             R2 2 1
        18 JUMPIFEQKNIL                     R2 ; [+11]
-       20 GETUPVAL                         R6 2
-       21 GETTABLEKS                       R5 R6 K8 ["ATTRIBUTE_ORIGINAL_BUILTIN_ASSET_ID"]
+       20 GETUPVAL                         R5 2
+       21 GETTABLEKS                       R5 R5 K8 ["ATTRIBUTE_ORIGINAL_BUILTIN_ASSET_ID"]
        23 GETUPVAL                         R6 1
        24 NAMECALL                         R3 R2 K9 ["SetAttribute"]
        26 CALL                             R3 3 0
@@ -31,9 +31,9 @@ PROTO_1:
         5 LOADNIL                          R1
         6 LOADNIL                          R2
         7 FORGPREP                         R0
-        8 GETUPVAL                         R8 2
-        9 GETTABLEKS                       R7 R8 K0 ["avatarAssets"]
-       11 GETTABLEKS                       R6 R7 K1 ["gear"]
+        8 GETUPVAL                         R6 2
+        9 GETTABLEKS                       R6 R6 K0 ["avatarAssets"]
+       11 GETTABLEKS                       R6 R6 K1 ["gear"]
        13 GETTABLE                         R5 R6 R4
        14 JUMPIFNOTEQKS                    R4 K2 ["left"] ; [+3]
        16 LOADK                            R6 K3 ["LeftGripAttachment"]
@@ -56,8 +56,8 @@ PROTO_1:
        36 NAMECALL                         R14 R13 K9 ["FindFirstChild"]
        38 CALL                             R14 2 1
        39 JUMPIFNOT                        R14 ; [+13]
-       40 GETUPVAL                         R17 3
-       41 GETTABLEKS                       R16 R17 K10 ["ATTRIBUTE_ORIGINAL_BUILTIN_ASSET_ID"]
+       40 GETUPVAL                         R16 3
+       41 GETTABLEKS                       R16 R16 K10 ["ATTRIBUTE_ORIGINAL_BUILTIN_ASSET_ID"]
        43 NAMECALL                         R14 R12 K11 ["GetAttribute"]
        45 CALL                             R14 2 1
        46 JUMPIFNOTEQ                      R5 R14 ; [+3]
@@ -79,12 +79,12 @@ PROTO_1:
        68 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["useCallback"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["useCallback"]
         8 NEWCLOSURE                       R3 P0
         9 CAPTURE                          VAL R0
        10 CAPTURE                          UPVAL U2
@@ -93,8 +93,8 @@ PROTO_2:
        13 CAPTURE                          UPVAL U4
        14 NEWTABLE                         R4 0 2
        16 MOVE                             R5 R0
-       17 GETTABLEKS                       R7 R1 K2 ["avatarAssets"]
-       19 GETTABLEKS                       R6 R7 K3 ["gear"]
+       17 GETTABLEKS                       R6 R1 K2 ["avatarAssets"]
+       19 GETTABLEKS                       R6 R6 K3 ["gear"]
        21 SETLIST                          R4 R5 2 [1]
        23 CALL                             R2 2 -1
        24 RETURN                           R2 -1
@@ -110,22 +110,22 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Util"]
-       26 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Util"]
+       26 GETTABLEKS                       R4 R4 K14 ["Constants"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R6 R1 K12 ["Src"]
-       33 GETTABLEKS                       R5 R6 K15 ["Types"]
+       31 GETTABLEKS                       R5 R1 K12 ["Src"]
+       33 GETTABLEKS                       R5 R5 K15 ["Types"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K9 [require]
-       38 GETTABLEKS                       R8 R1 K12 ["Src"]
-       40 GETTABLEKS                       R7 R8 K13 ["Util"]
-       42 GETTABLEKS                       R6 R7 K16 ["EquipmentStateContext"]
+       38 GETTABLEKS                       R6 R1 K12 ["Src"]
+       40 GETTABLEKS                       R6 R6 K13 ["Util"]
+       42 GETTABLEKS                       R6 R6 K16 ["EquipmentStateContext"]
        44 CALL                             R5 1 1
        45 NEWTABLE                         R6 0 2
        47 LOADK                            R7 K17 ["left"]

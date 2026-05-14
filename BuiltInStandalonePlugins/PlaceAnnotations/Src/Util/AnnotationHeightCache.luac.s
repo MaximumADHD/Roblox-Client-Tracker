@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R2 1
-        1 GETUPVAL                         R4 2
-        2 NAMECALL                         R2 R2 K1 ["GetTextBoundsAsync"]
-        4 CALL                             R2 2 1
-        5 GETTABLEKS                       R1 R2 K2 ["Y"]
+        0 GETUPVAL                         R1 1
+        1 GETUPVAL                         R3 2
+        2 NAMECALL                         R1 R1 K1 ["GetTextBoundsAsync"]
+        4 CALL                             R1 2 1
+        5 GETTABLEKS                       R1 R1 K2 ["Y"]
         7 MULK                             R0 R1 K0 [1.2]
         8 SETUPVAL                         R0 0
         9 RETURN                           R0 0
@@ -51,17 +51,17 @@ PROTO_1:
        54 CAPTURE                          VAL R8
        55 CALL                             R9 1 2
        56 JUMPIF                           R9 ; [+16]
-       57 GETUPVAL                         R12 1
-       58 MOVE                             R14 R5
-       59 LOADN                            R15 18
-       60 GETIMPORT                        R16 K13 [Enum.Font.SourceSans]
-       62 GETIMPORT                        R17 K22 [Vector2.new]
-       64 SUBK                             R18 R1 K15 [77]
-       65 LOADN                            R19 232
-       66 CALL                             R17 2 -1
-       67 NAMECALL                         R12 R12 K23 ["GetTextSize"]
-       69 CALL                             R12 -1 1
-       70 GETTABLEKS                       R11 R12 K24 ["Y"]
+       57 GETUPVAL                         R11 1
+       58 MOVE                             R13 R5
+       59 LOADN                            R14 18
+       60 GETIMPORT                        R15 K13 [Enum.Font.SourceSans]
+       62 GETIMPORT                        R16 K22 [Vector2.new]
+       64 SUBK                             R17 R1 K15 [77]
+       65 LOADN                            R18 232
+       66 CALL                             R16 2 -1
+       67 NAMECALL                         R11 R11 K23 ["GetTextSize"]
+       69 CALL                             R11 -1 1
+       70 GETTABLEKS                       R11 R11 K24 ["Y"]
        72 MULK                             R7 R11 K20 [1.2]
        73 NAMECALL                         R11 R8 K25 ["Destroy"]
        75 CALL                             R11 1 0
@@ -164,10 +164,10 @@ PROTO_4:
        48 RETURN                           R6 2
 
 PROTO_5:
-        0 GETTABLEKS                       R4 R0 K0 ["Annotation"]
-        2 GETTABLEKS                       R3 R4 K1 ["CreationTimeUnix"]
-        4 GETTABLEKS                       R5 R1 K0 ["Annotation"]
-        6 GETTABLEKS                       R4 R5 K1 ["CreationTimeUnix"]
+        0 GETTABLEKS                       R3 R0 K0 ["Annotation"]
+        2 GETTABLEKS                       R3 R3 K1 ["CreationTimeUnix"]
+        4 GETTABLEKS                       R4 R1 K0 ["Annotation"]
+        6 GETTABLEKS                       R4 R4 K1 ["CreationTimeUnix"]
         8 JUMPIFLT                         R4 R3 ; [+2]
        10 LOADB                            R2 0 +1
        11 LOADB                            R2 1
@@ -199,9 +199,9 @@ PROTO_6:
        34 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
        36 GETIMPORT                        R3 K11 [table.insert]
        38 CALL                             R3 2 0
-       39 GETUPVAL                         R5 1
-       40 GETTABLEKS                       R4 R5 K12 ["List"]
-       42 GETTABLEKS                       R3 R4 K13 ["sort"]
+       39 GETUPVAL                         R3 1
+       40 GETTABLEKS                       R3 R3 K12 ["List"]
+       42 GETTABLEKS                       R3 R3 K13 ["sort"]
        44 GETTABLEKS                       R4 R0 K8 ["indices"]
        46 DUPCLOSURE                       R5 K14 [PROTO_5]
        47 CALL                             R3 2 1
@@ -272,23 +272,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K11 [game]
        23 LOADK                            R5 K12 ["TextService"]
        24 NAMECALL                         R3 R3 K13 ["GetService"]
        26 CALL                             R3 2 1
-       27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K8 ["Src"]
-       31 GETTABLEKS                       R7 R8 K14 ["Util"]
-       33 GETTABLEKS                       R6 R7 K15 ["TaggedUsersUtils"]
-       35 CALL                             R5 1 1
-       36 GETTABLEKS                       R4 R5 K16 ["GetContentsWithBoldTags"]
+       27 GETIMPORT                        R4 K5 [require]
+       29 GETTABLEKS                       R5 R0 K8 ["Src"]
+       31 GETTABLEKS                       R5 R5 K14 ["Util"]
+       33 GETTABLEKS                       R5 R5 K15 ["TaggedUsersUtils"]
+       35 CALL                             R4 1 1
+       36 GETTABLEKS                       R4 R4 K16 ["GetContentsWithBoldTags"]
        38 DUPCLOSURE                       R5 K17 [PROTO_1]
        39 CAPTURE                          VAL R4
        40 CAPTURE                          VAL R3

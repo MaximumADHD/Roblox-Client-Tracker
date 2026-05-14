@@ -11,8 +11,8 @@ PROTO_1:
         8 CALL                             R2 1 3
         9 FORGPREP                         R2
        10 GETTABLEKS                       R7 R6 K1 ["UserId"]
-       12 GETUPVAL                         R9 1
-       13 GETTABLEKS                       R8 R9 K1 ["UserId"]
+       12 GETUPVAL                         R8 1
+       13 GETTABLEKS                       R8 R8 K1 ["UserId"]
        15 JUMPIFNOTEQ                      R7 R8 ; [+7]
        17 GETTABLEKS                       R1 R6 K2 ["CollaboratorColor3"]
        19 GETUPVAL                         R7 0
@@ -91,13 +91,13 @@ PROTO_5:
        25 NAMECALL                         R8 R8 K4 ["Connect"]
        27 CALL                             R8 2 0
        28 FORGLOOP                         R3 2 ; [-11]
-       30 GETUPVAL                         R4 2
-       31 GETTABLEKS                       R3 R4 K5 ["PlayerAdded"]
+       30 GETUPVAL                         R3 2
+       31 GETTABLEKS                       R3 R3 K5 ["PlayerAdded"]
        33 MOVE                             R5 R2
        34 NAMECALL                         R3 R3 K4 ["Connect"]
        36 CALL                             R3 2 1
-       37 GETUPVAL                         R5 2
-       38 GETTABLEKS                       R4 R5 K6 ["PlayerRemoving"]
+       37 GETUPVAL                         R4 2
+       38 GETTABLEKS                       R4 R4 K6 ["PlayerRemoving"]
        40 NEWCLOSURE                       R6 P3
        41 CAPTURE                          VAL R1
        42 CAPTURE                          VAL R0

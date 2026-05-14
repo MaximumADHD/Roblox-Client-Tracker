@@ -24,8 +24,8 @@ PROTO_2:
        12 LOADK                            R8 K7 ["Manage"]
        13 NAMECALL                         R5 R3 K5 ["getText"]
        15 CALL                             R5 3 1
-       16 GETUPVAL                         R7 0
-       17 GETTABLEKS                       R6 R7 K8 ["createElement"]
+       16 GETUPVAL                         R6 0
+       17 GETTABLEKS                       R6 R6 K8 ["createElement"]
        19 LOADK                            R7 K9 ["Frame"]
        20 DUPTABLE                         R8 K15 [{"Position", "Size", "AutomaticSize", "BackgroundColor3", "BackgroundTransparency"}]
        21 GETTABLEKS                       R9 R1 K10 ["Position"]
@@ -39,14 +39,14 @@ PROTO_2:
        32 SETTABLEKS                       R9 R8 K11 ["Size"]
        34 GETIMPORT                        R9 K21 [Enum.AutomaticSize.Y]
        36 SETTABLEKS                       R9 R8 K12 ["AutomaticSize"]
-       38 GETTABLEKS                       R10 R2 K22 ["eligibilityBanner"]
-       40 GETTABLEKS                       R9 R10 K23 ["backgroundColor"]
+       38 GETTABLEKS                       R9 R2 K22 ["eligibilityBanner"]
+       40 GETTABLEKS                       R9 R9 K23 ["backgroundColor"]
        42 SETTABLEKS                       R9 R8 K13 ["BackgroundColor3"]
        44 LOADN                            R9 0
        45 SETTABLEKS                       R9 R8 K14 ["BackgroundTransparency"]
        47 DUPTABLE                         R9 K28 [{"UICorner", "UIPadding", "LeftContent", "ManageButton"}]
-       48 GETUPVAL                         R11 0
-       49 GETTABLEKS                       R10 R11 K8 ["createElement"]
+       48 GETUPVAL                         R10 0
+       49 GETTABLEKS                       R10 R10 K8 ["createElement"]
        51 LOADK                            R11 K24 ["UICorner"]
        52 DUPTABLE                         R12 K30 [{"CornerRadius"}]
        53 GETIMPORT                        R13 K32 [UDim.new]
@@ -56,8 +56,8 @@ PROTO_2:
        58 SETTABLEKS                       R13 R12 K29 ["CornerRadius"]
        60 CALL                             R10 2 1
        61 SETTABLEKS                       R10 R9 K24 ["UICorner"]
-       63 GETUPVAL                         R11 0
-       64 GETTABLEKS                       R10 R11 K8 ["createElement"]
+       63 GETUPVAL                         R10 0
+       64 GETTABLEKS                       R10 R10 K8 ["createElement"]
        66 LOADK                            R11 K25 ["UIPadding"]
        67 DUPTABLE                         R12 K37 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
        68 GETIMPORT                        R13 K32 [UDim.new]
@@ -82,8 +82,8 @@ PROTO_2:
        94 SETTABLEKS                       R13 R12 K36 ["PaddingRight"]
        96 CALL                             R10 2 1
        97 SETTABLEKS                       R10 R9 K25 ["UIPadding"]
-       99 GETUPVAL                         R11 0
-      100 GETTABLEKS                       R10 R11 K8 ["createElement"]
+       99 GETUPVAL                         R10 0
+      100 GETTABLEKS                       R10 R10 K8 ["createElement"]
       102 GETUPVAL                         R11 1
       103 DUPTABLE                         R12 K42 [{"Size", "AutomaticSize", "Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment", "BackgroundTransparency"}]
       104 GETIMPORT                        R13 K18 [UDim2.new]
@@ -106,38 +106,38 @@ PROTO_2:
       132 LOADN                            R13 1
       133 SETTABLEKS                       R13 R12 K14 ["BackgroundTransparency"]
       135 DUPTABLE                         R13 K52 [{"InfoIcon", "BannerText"}]
-      136 GETUPVAL                         R15 0
-      137 GETTABLEKS                       R14 R15 K8 ["createElement"]
+      136 GETUPVAL                         R14 0
+      137 GETTABLEKS                       R14 R14 K8 ["createElement"]
       139 LOADK                            R15 K53 ["ImageLabel"]
       140 DUPTABLE                         R16 K56 [{"Image", "BackgroundTransparency", "Size", "LayoutOrder"}]
-      141 GETTABLEKS                       R18 R2 K57 ["genreInfo"]
-      143 GETTABLEKS                       R17 R18 K58 ["image"]
+      141 GETTABLEKS                       R17 R2 K57 ["genreInfo"]
+      143 GETTABLEKS                       R17 R17 K58 ["image"]
       145 SETTABLEKS                       R17 R16 K54 ["Image"]
       147 LOADN                            R17 1
       148 SETTABLEKS                       R17 R16 K14 ["BackgroundTransparency"]
       150 GETIMPORT                        R17 K60 [UDim2.fromOffset]
-      152 GETTABLEKS                       R19 R2 K57 ["genreInfo"]
-      154 GETTABLEKS                       R18 R19 K61 ["imageSize"]
-      156 GETTABLEKS                       R20 R2 K57 ["genreInfo"]
-      158 GETTABLEKS                       R19 R20 K61 ["imageSize"]
+      152 GETTABLEKS                       R18 R2 K57 ["genreInfo"]
+      154 GETTABLEKS                       R18 R18 K61 ["imageSize"]
+      156 GETTABLEKS                       R19 R2 K57 ["genreInfo"]
+      158 GETTABLEKS                       R19 R19 K61 ["imageSize"]
       160 CALL                             R17 2 1
       161 SETTABLEKS                       R17 R16 K11 ["Size"]
       163 LOADN                            R17 0
       164 SETTABLEKS                       R17 R16 K55 ["LayoutOrder"]
       166 CALL                             R14 2 1
       167 SETTABLEKS                       R14 R13 K50 ["InfoIcon"]
-      169 GETUPVAL                         R15 0
-      170 GETTABLEKS                       R14 R15 K8 ["createElement"]
+      169 GETUPVAL                         R14 0
+      170 GETTABLEKS                       R14 R14 K8 ["createElement"]
       172 LOADK                            R15 K62 ["TextLabel"]
-      173 GETUPVAL                         R18 2
-      174 GETTABLEKS                       R17 R18 K63 ["Dictionary"]
-      176 GETTABLEKS                       R16 R17 K64 ["join"]
-      178 GETTABLEKS                       R18 R2 K65 ["fontStyle"]
-      180 GETTABLEKS                       R17 R18 K66 ["Normal"]
+      173 GETUPVAL                         R16 2
+      174 GETTABLEKS                       R16 R16 K63 ["Dictionary"]
+      176 GETTABLEKS                       R16 R16 K64 ["join"]
+      178 GETTABLEKS                       R17 R2 K65 ["fontStyle"]
+      180 GETTABLEKS                       R17 R17 K66 ["Normal"]
       182 DUPTABLE                         R18 K72 [{"Text", "TextColor3", "TextXAlignment", "TextYAlignment", "TextWrapped", "AutomaticSize", "BackgroundTransparency", "LayoutOrder"}]
       183 SETTABLEKS                       R4 R18 K67 ["Text"]
-      185 GETTABLEKS                       R20 R2 K22 ["eligibilityBanner"]
-      187 GETTABLEKS                       R19 R20 K73 ["textColor"]
+      185 GETTABLEKS                       R19 R2 K22 ["eligibilityBanner"]
+      187 GETTABLEKS                       R19 R19 K73 ["textColor"]
       189 SETTABLEKS                       R19 R18 K68 ["TextColor3"]
       191 GETIMPORT                        R19 K74 [Enum.TextXAlignment.Left]
       193 SETTABLEKS                       R19 R18 K69 ["TextXAlignment"]
@@ -156,8 +156,8 @@ PROTO_2:
       214 SETTABLEKS                       R14 R13 K51 ["BannerText"]
       216 CALL                             R10 3 1
       217 SETTABLEKS                       R10 R9 K26 ["LeftContent"]
-      219 GETUPVAL                         R11 0
-      220 GETTABLEKS                       R10 R11 K8 ["createElement"]
+      219 GETUPVAL                         R10 0
+      220 GETTABLEKS                       R10 R10 K8 ["createElement"]
       222 GETUPVAL                         R11 3
       223 DUPTABLE                         R12 K81 [{"Text", "Style", "Size", "Position", "AnchorPoint", "OnClick"}]
       224 SETTABLEKS                       R5 R12 K67 ["Text"]
@@ -189,27 +189,27 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["GuiService"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
        14 CALL                             R1 2 1
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       17 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       24 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["Framework"]
        28 CALL                             R3 1 1
        29 GETTABLEKS                       R4 R3 K12 ["ContextServices"]
        31 GETTABLEKS                       R5 R4 K13 ["withContext"]
        33 GETIMPORT                        R6 K8 [require]
-       35 GETTABLEKS                       R8 R0 K9 ["Packages"]
-       37 GETTABLEKS                       R7 R8 K14 ["Cryo"]
+       35 GETTABLEKS                       R7 R0 K9 ["Packages"]
+       37 GETTABLEKS                       R7 R7 K14 ["Cryo"]
        39 CALL                             R6 1 1
        40 GETTABLEKS                       R7 R3 K15 ["UI"]
        42 GETTABLEKS                       R8 R7 K16 ["Button"]

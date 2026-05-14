@@ -13,8 +13,8 @@ PROTO_0:
        15 LOADB                            R2 0 +1
        16 LOADB                            R2 1
        17 GETIMPORT                        R3 K5 [string.format]
-       19 GETIMPORT                        R7 K7 [script]
-       21 GETTABLEKS                       R5 R7 K8 ["Name"]
+       19 GETIMPORT                        R5 K7 [script]
+       21 GETTABLEKS                       R5 R5 K8 ["Name"]
        23 LOADK                            R6 K9 [" requires loadState to be a LoadState, not %s"]
        24 CONCAT                           R4 R5 R6
        25 FASTCALL1                        TYPEOF R0 ; [+3]
@@ -31,20 +31,20 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R3 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R4 R5 K6 ["Framework"]
-       15 CALL                             R3 1 1
-       16 GETTABLEKS                       R2 R3 K7 ["Util"]
-       18 GETTABLEKS                       R1 R2 K8 ["Action"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["Util"]
+       18 GETTABLEKS                       R1 R1 K8 ["Action"]
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K9 ["Src"]
-       24 GETTABLEKS                       R4 R5 K7 ["Util"]
-       26 GETTABLEKS                       R3 R4 K10 ["SaveState"]
+       22 GETTABLEKS                       R3 R0 K9 ["Src"]
+       24 GETTABLEKS                       R3 R3 K7 ["Util"]
+       26 GETTABLEKS                       R3 R3 K10 ["SaveState"]
        28 CALL                             R2 1 1
        29 LOADN                            R3 0
        30 LOADN                            R4 0
@@ -66,8 +66,8 @@ MAIN:
        51 MOVE                             R4 R10
        52 FORGLOOP                         R5 2 ; [-17]
        54 MOVE                             R5 R1
-       55 GETIMPORT                        R7 K1 [script]
-       57 GETTABLEKS                       R6 R7 K18 ["Name"]
+       55 GETIMPORT                        R6 K1 [script]
+       57 GETTABLEKS                       R6 R6 K18 ["Name"]
        59 NEWCLOSURE                       R7 P0
        60 CAPTURE                          REF R3
        61 CAPTURE                          REF R4

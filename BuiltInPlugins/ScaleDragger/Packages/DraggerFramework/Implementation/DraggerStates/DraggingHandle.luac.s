@@ -23,19 +23,19 @@ PROTO_3:
         3 LOADK                            R5 K0 ["Missing draggingHandleId"]
         4 GETIMPORT                        R3 K2 [assert]
         6 CALL                             R3 2 0
-        7 GETTABLEKS                       R4 R0 K3 ["_draggerToolModel"]
-        9 GETTABLEKS                       R3 R4 K4 ["_sessionAnalytics"]
-       11 GETTABLEKS                       R7 R0 K3 ["_draggerToolModel"]
-       13 GETTABLEKS                       R6 R7 K4 ["_sessionAnalytics"]
-       15 GETTABLEKS                       R5 R6 K6 ["handleDrags"]
+        7 GETTABLEKS                       R3 R0 K3 ["_draggerToolModel"]
+        9 GETTABLEKS                       R3 R3 K4 ["_sessionAnalytics"]
+       11 GETTABLEKS                       R5 R0 K3 ["_draggerToolModel"]
+       13 GETTABLEKS                       R5 R5 K4 ["_sessionAnalytics"]
+       15 GETTABLEKS                       R5 R5 K6 ["handleDrags"]
        17 ADDK                             R4 R5 K5 [1]
        18 SETTABLEKS                       R4 R3 K6 ["handleDrags"]
-       20 GETTABLEKS                       R4 R0 K3 ["_draggerToolModel"]
-       22 GETTABLEKS                       R3 R4 K7 ["_boundsChangedTracker"]
+       20 GETTABLEKS                       R3 R0 K3 ["_draggerToolModel"]
+       22 GETTABLEKS                       R3 R3 K7 ["_boundsChangedTracker"]
        24 NAMECALL                         R3 R3 K8 ["uninstall"]
        26 CALL                             R3 1 0
-       27 GETTABLEKS                       R6 R0 K3 ["_draggerToolModel"]
-       29 GETTABLEKS                       R5 R6 K9 ["_draggerContext"]
+       27 GETTABLEKS                       R5 R0 K3 ["_draggerToolModel"]
+       29 GETTABLEKS                       R5 R5 K9 ["_draggerContext"]
        31 NAMECALL                         R5 R5 K10 ["getMouseRay"]
        33 CALL                             R5 1 1
        34 MOVE                             R6 R2
@@ -47,8 +47,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerToolModel"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["getClosedHand"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["getClosedHand"]
         5 CALL                             R3 0 -1
         6 NAMECALL                         R1 R1 K2 ["setMouseCursor"]
         8 CALL                             R1 -1 0
@@ -76,8 +76,8 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["_draggingHandles"]
-        2 GETTABLEKS                       R4 R0 K1 ["_draggerToolModel"]
-        4 GETTABLEKS                       R3 R4 K2 ["_draggerContext"]
+        2 GETTABLEKS                       R3 R0 K1 ["_draggerToolModel"]
+        4 GETTABLEKS                       R3 R3 K2 ["_draggerContext"]
         6 NAMECALL                         R3 R3 K3 ["getMouseRay"]
         8 CALL                             R3 1 -1
         9 NAMECALL                         R1 R1 K4 ["mouseDrag"]
@@ -89,8 +89,8 @@ PROTO_8:
         1 NAMECALL                         R1 R0 K0 ["_endHandleDrag"]
         3 CALL                             R1 2 0
         4 GETTABLEKS                       R1 R0 K1 ["_draggerToolModel"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K2 ["Ready"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K2 ["Ready"]
         9 NAMECALL                         R1 R1 K3 ["transitionToState"]
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
@@ -145,8 +145,8 @@ PROTO_12:
 
 PROTO_13:
         0 GETTABLEKS                       R2 R0 K0 ["_draggingHandles"]
-        2 GETTABLEKS                       R5 R0 K1 ["_draggerToolModel"]
-        4 GETTABLEKS                       R4 R5 K2 ["_draggerContext"]
+        2 GETTABLEKS                       R4 R0 K1 ["_draggerToolModel"]
+        4 GETTABLEKS                       R4 R4 K2 ["_draggerContext"]
         6 NAMECALL                         R4 R4 K3 ["getMouseRay"]
         8 CALL                             R4 1 -1
         9 NAMECALL                         R2 R2 K4 ["mouseUp"]
@@ -161,18 +161,18 @@ PROTO_13:
        22 MOVE                             R5 R2
        23 NAMECALL                         R3 R3 K5 ["_updateSelectionInfo"]
        25 CALL                             R3 2 0
-       26 GETTABLEKS                       R4 R0 K1 ["_draggerToolModel"]
-       28 GETTABLEKS                       R3 R4 K6 ["_boundsChangedTracker"]
+       26 GETTABLEKS                       R3 R0 K1 ["_draggerToolModel"]
+       28 GETTABLEKS                       R3 R3 K6 ["_boundsChangedTracker"]
        30 NAMECALL                         R3 R3 K7 ["install"]
        32 CALL                             R3 1 0
-       33 GETTABLEKS                       R4 R0 K1 ["_draggerToolModel"]
-       35 NAMECALL                         R4 R4 K8 ["getSchema"]
-       37 CALL                             R4 1 1
-       38 GETTABLEKS                       R3 R4 K9 ["setActivePoint"]
-       40 GETTABLEKS                       R5 R0 K1 ["_draggerToolModel"]
-       42 GETTABLEKS                       R4 R5 K2 ["_draggerContext"]
-       44 GETTABLEKS                       R6 R0 K1 ["_draggerToolModel"]
-       46 GETTABLEKS                       R5 R6 K10 ["_selectionInfo"]
+       33 GETTABLEKS                       R3 R0 K1 ["_draggerToolModel"]
+       35 NAMECALL                         R3 R3 K8 ["getSchema"]
+       37 CALL                             R3 1 1
+       38 GETTABLEKS                       R3 R3 K9 ["setActivePoint"]
+       40 GETTABLEKS                       R4 R0 K1 ["_draggerToolModel"]
+       42 GETTABLEKS                       R4 R4 K2 ["_draggerContext"]
+       44 GETTABLEKS                       R5 R0 K1 ["_draggerToolModel"]
+       46 GETTABLEKS                       R5 R5 K10 ["_selectionInfo"]
        48 CALL                             R3 2 0
        49 GETTABLEKS                       R3 R0 K1 ["_draggerToolModel"]
        51 GETTABLEKS                       R5 R0 K11 ["_draggingHandleId"]
@@ -182,17 +182,17 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Implementation"]
-       13 GETTABLEKS                       R2 R3 K6 ["DraggerStateType"]
+       11 GETTABLEKS                       R2 R0 K5 ["Implementation"]
+       13 GETTABLEKS                       R2 R2 K6 ["DraggerStateType"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Utility"]
-       20 GETTABLEKS                       R3 R4 K8 ["StandardCursor"]
+       18 GETTABLEKS                       R3 R0 K7 ["Utility"]
+       20 GETTABLEKS                       R3 R3 K8 ["StandardCursor"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 16 0
        25 SETTABLEKS                       R3 R3 K9 ["__index"]

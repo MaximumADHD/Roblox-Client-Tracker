@@ -35,17 +35,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["NetworkError"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["NetworkError"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R2 R3 K9 ["Util"]
+       16 GETTABLEKS                       R2 R0 K6 ["Src"]
+       18 GETTABLEKS                       R2 R2 K9 ["Util"]
        20 GETIMPORT                        R3 K5 [require]
        22 GETTABLEKS                       R4 R2 K10 ["DebugFlags"]
        24 CALL                             R3 1 1
-       25 GETTABLEKS                       R5 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R5 K7 ["Actions"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K7 ["Actions"]
        29 DUPTABLE                         R5 K12 [{"isEligible"}]
        30 LOADB                            R6 0
        31 SETTABLEKS                       R6 R5 K11 ["isEligible"]

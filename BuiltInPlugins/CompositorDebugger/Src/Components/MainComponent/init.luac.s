@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["ToggleAdornment"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["ToggleAdornment"]
         5 GETTABLEKS                       R2 R0 K2 ["id"]
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
@@ -21,9 +21,9 @@ PROTO_2:
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 NAMECALL                         R2 R2 K2 ["get"]
         6 CALL                             R2 1 1
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K3 ["SETTINGS"]
-       10 GETTABLEKS                       R5 R6 K4 ["LayerFilters"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K3 ["SETTINGS"]
+       10 GETTABLEKS                       R5 R5 K4 ["LayerFilters"]
        12 NAMECALL                         R3 R2 K5 ["GetSetting"]
        14 CALL                             R3 2 1
        15 JUMPIFEQKNIL                     R3 ; [+12]
@@ -36,23 +36,23 @@ PROTO_2:
        24 MOVE                             R11 R8
        25 CALL                             R9 2 0
        26 FORGLOOP                         R4 2 ; [-6]
-       28 GETUPVAL                         R8 0
-       29 GETTABLEKS                       R7 R8 K3 ["SETTINGS"]
-       31 GETTABLEKS                       R6 R7 K7 ["ActiveLayersFilter"]
+       28 GETUPVAL                         R6 0
+       29 GETTABLEKS                       R6 R6 K3 ["SETTINGS"]
+       31 GETTABLEKS                       R6 R6 K7 ["ActiveLayersFilter"]
        33 NAMECALL                         R4 R2 K5 ["GetSetting"]
        35 CALL                             R4 2 1
        36 JUMPIFEQKNIL                     R4 ; [+5]
        38 GETTABLEKS                       R5 R1 K8 ["SetActiveLayersFilter"]
        40 MOVE                             R6 R4
        41 CALL                             R5 1 0
-       42 GETUPVAL                         R10 0
-       43 GETTABLEKS                       R9 R10 K3 ["SETTINGS"]
-       45 GETTABLEKS                       R8 R9 K10 ["FrameBufferDuration"]
+       42 GETUPVAL                         R8 0
+       43 GETTABLEKS                       R8 R8 K3 ["SETTINGS"]
+       45 GETTABLEKS                       R8 R8 K10 ["FrameBufferDuration"]
        47 NAMECALL                         R6 R2 K5 ["GetSetting"]
        49 CALL                             R6 2 1
        50 ORK                              R5 R6 K9 [10]
-       51 GETUPVAL                         R8 0
-       52 GETTABLEKS                       R7 R8 K11 ["TIMECONTROLS_INVERVALS"]
+       51 GETUPVAL                         R7 0
+       52 GETTABLEKS                       R7 R7 K11 ["TIMECONTROLS_INVERVALS"]
        54 GETTABLE                         R6 R7 R5
        55 JUMPIF                           R6 ; [+1]
        56 LOADN                            R5 10
@@ -67,32 +67,34 @@ PROTO_3:
         3 SETTABLEKS                       R1 R0 K3 ["openedTimestamp"]
         5 NAMECALL                         R1 R0 K4 ["readSettings"]
         7 CALL                             R1 1 0
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K5 ["hasInternalPermission"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K5 ["hasInternalPermission"]
        11 CALL                             R1 0 1
-       12 JUMPIFNOT                        R1 ; [+25]
+       12 JUMPIFNOT                        R1 ; [+28]
        13 GETUPVAL                         R1 1
        14 NAMECALL                         R1 R1 K6 ["IsEdit"]
        16 CALL                             R1 1 1
-       17 JUMPIFNOT                        R1 ; [+20]
-       18 GETUPVAL                         R2 2
-       19 GETTABLEKS                       R1 R2 K7 ["UseMockPayload"]
-       21 JUMPIFNOT                        R1 ; [+16]
-       22 GETUPVAL                         R2 3
-       23 GETTABLEKS                       R1 R2 K8 ["debug_payload"]
-       25 GETTABLEKS                       R3 R0 K9 ["props"]
-       27 GETTABLEKS                       R2 R3 K10 ["ParseDebugData"]
-       29 MOVE                             R3 R1
-       30 GETTABLEKS                       R5 R0 K9 ["props"]
-       32 GETTABLEKS                       R4 R5 K11 ["Analytics"]
-       34 CALL                             R2 2 0
-       35 LOADB                            R2 1
-       36 SETTABLEKS                       R2 R0 K12 ["useMockPayload"]
-       38 RETURN                           R0 0
+       17 JUMPIFNOT                        R1 ; [+23]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R1 R1 K7 ["UseMockPayload"]
+       21 JUMPIFNOT                        R1 ; [+19]
+       22 GETIMPORT                        R1 K9 [require]
+       24 GETUPVAL                         R2 3
+       25 GETTABLEKS                       R2 R2 K10 ["debug_payload"]
+       27 CALL                             R1 1 1
+       28 GETTABLEKS                       R2 R0 K11 ["props"]
+       30 GETTABLEKS                       R2 R2 K12 ["ParseDebugData"]
+       32 MOVE                             R3 R1
+       33 GETTABLEKS                       R4 R0 K11 ["props"]
+       35 GETTABLEKS                       R4 R4 K13 ["Analytics"]
+       37 CALL                             R2 2 0
+       38 LOADB                            R2 1
+       39 SETTABLEKS                       R2 R0 K14 ["useMockPayload"]
+       41 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Analytics"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Analytics"]
         4 LOADK                            R3 K2 ["onPluginClosed"]
         5 GETIMPORT                        R5 K5 [os.clock]
         7 CALL                             R5 0 1
@@ -141,152 +143,123 @@ PROTO_5:
        51 CALL                             R10 1 1
        52 MOVE                             R7 R10
        53 SETTABLEKS                       R8 R7 K9 ["children"]
-       55 GETUPVAL                         R9 2
-       56 GETTABLEKS                       R8 R9 K12 ["createElement"]
+       55 GETUPVAL                         R8 2
+       56 GETTABLEKS                       R8 R8 K12 ["createElement"]
        58 GETUPVAL                         R9 3
        59 NEWTABLE                         R10 1 0
-       61 GETUPVAL                         R12 2
-       62 GETTABLEKS                       R11 R12 K13 ["Tag"]
+       61 GETUPVAL                         R11 2
+       62 GETTABLEKS                       R11 R11 K13 ["Tag"]
        64 LOADK                            R12 K14 ["MainPane X-Fill"]
        65 SETTABLE                         R12 R10 R11
-       66 DUPTABLE                         R11 K18 [{"CompositorSelector", "NodeView", "MainSplitPane"}]
-       67 GETTABLEKS                       R13 R0 K19 ["useMockPayload"]
+       66 DUPTABLE                         R11 K17 [{"CompositorSelector", "MainSplitPane"}]
+       67 GETTABLEKS                       R13 R0 K18 ["useMockPayload"]
        69 JUMPIF                           R13 ; [+6]
-       70 GETUPVAL                         R13 2
-       71 GETTABLEKS                       R12 R13 K12 ["createElement"]
+       70 GETUPVAL                         R12 2
+       71 GETTABLEKS                       R12 R12 K12 ["createElement"]
        73 GETUPVAL                         R13 4
        74 CALL                             R12 1 1
        75 JUMP                             ; [+1]
        76 LOADNIL                          R12
        77 SETTABLEKS                       R12 R11 K15 ["CompositorSelector"]
-       79 GETUPVAL                         R13 5
-       80 CALL                             R13 0 1
-       81 JUMPIFNOT                        R13 ; [+16]
-       82 GETTABLEKS                       R14 R0 K20 ["context"]
-       84 GETTABLEKS                       R13 R14 K21 ["viewMode"]
-       86 JUMPIFNOTEQKS                    R13 K16 ["NodeView"] ; [+11]
-       88 GETUPVAL                         R13 2
-       89 GETTABLEKS                       R12 R13 K12 ["createElement"]
-       91 GETUPVAL                         R13 6
-       92 DUPTABLE                         R14 K23 [{"LayoutOrder"}]
-       93 LOADN                            R15 2
-       94 SETTABLEKS                       R15 R14 K22 ["LayoutOrder"]
-       96 CALL                             R12 2 1
-       97 JUMP                             ; [+1]
-       98 LOADNIL                          R12
-       99 SETTABLEKS                       R12 R11 K16 ["NodeView"]
-      101 GETUPVAL                         R13 5
-      102 CALL                             R13 0 1
-      103 JUMPIFNOT                        R13 ; [+2]
-      104 LOADNIL                          R12
-      105 JUMP                             ; [+106]
-      106 GETUPVAL                         R13 2
-      107 GETTABLEKS                       R12 R13 K12 ["createElement"]
-      109 GETUPVAL                         R13 7
-      110 NEWTABLE                         R14 0 0
-      112 NEWTABLE                         R15 0 2
-      114 GETUPVAL                         R17 2
-      115 GETTABLEKS                       R16 R17 K12 ["createElement"]
-      117 GETUPVAL                         R17 3
-      118 NEWTABLE                         R18 2 0
-      120 LOADN                            R19 1
-      121 SETTABLEKS                       R19 R18 K22 ["LayoutOrder"]
-      123 GETUPVAL                         R20 2
-      124 GETTABLEKS                       R19 R20 K13 ["Tag"]
-      126 LOADK                            R20 K24 ["X-ColumnS"]
-      127 SETTABLE                         R20 R18 R19
-      128 DUPTABLE                         R19 K27 [{"Toolbar", "LayerTree"}]
-      129 GETUPVAL                         R21 2
-      130 GETTABLEKS                       R20 R21 K12 ["createElement"]
-      132 GETUPVAL                         R21 8
-      133 DUPTABLE                         R22 K28 [{"FrameBuffer", "LayoutOrder"}]
-      134 GETTABLEKS                       R23 R1 K6 ["FrameBuffer"]
-      136 SETTABLEKS                       R23 R22 K6 ["FrameBuffer"]
-      138 LOADN                            R23 1
-      139 SETTABLEKS                       R23 R22 K22 ["LayoutOrder"]
-      141 CALL                             R20 2 1
-      142 SETTABLEKS                       R20 R19 K25 ["Toolbar"]
-      144 GETUPVAL                         R21 5
-      145 CALL                             R21 0 1
-      146 JUMPIFNOT                        R21 ; [+6]
-      147 GETTABLEKS                       R22 R0 K20 ["context"]
-      149 GETTABLEKS                       R21 R22 K21 ["viewMode"]
-      151 JUMPIFNOTEQKS                    R21 K29 ["TreeView"] ; [+21]
-      153 GETUPVAL                         R21 2
-      154 GETTABLEKS                       R20 R21 K12 ["createElement"]
-      156 GETUPVAL                         R21 9
-      157 DUPTABLE                         R22 K33 [{"LayoutOrder", "FramePayload", "Adornments", "OnToggleAdornment"}]
-      158 LOADN                            R23 2
-      159 SETTABLEKS                       R23 R22 K22 ["LayoutOrder"]
-      161 SETTABLEKS                       R7 R22 K30 ["FramePayload"]
-      163 GETTABLEKS                       R23 R1 K31 ["Adornments"]
-      165 SETTABLEKS                       R23 R22 K31 ["Adornments"]
-      167 GETTABLEKS                       R23 R0 K34 ["onToggleAdornment"]
-      169 SETTABLEKS                       R23 R22 K32 ["OnToggleAdornment"]
-      171 CALL                             R20 2 1
-      172 JUMP                             ; [+1]
-      173 LOADNIL                          R20
-      174 SETTABLEKS                       R20 R19 K26 ["LayerTree"]
-      176 CALL                             R16 3 1
-      177 GETUPVAL                         R18 2
-      178 GETTABLEKS                       R17 R18 K12 ["createElement"]
-      180 GETUPVAL                         R18 10
-      181 DUPTABLE                         R19 K37 [{"LayoutOrder", "LayerData", "FrameBuffer", "HistoryFrame", "SelectedLayer", "ExpandedSections", "Overrides", "ShowRawPayload"}]
-      182 LOADN                            R20 2
-      183 SETTABLEKS                       R20 R19 K22 ["LayoutOrder"]
-      185 SETTABLEKS                       R6 R19 K35 ["LayerData"]
-      187 GETTABLEKS                       R20 R1 K6 ["FrameBuffer"]
-      189 SETTABLEKS                       R20 R19 K6 ["FrameBuffer"]
-      191 GETTABLEKS                       R20 R1 K4 ["HistoryFrame"]
-      193 SETTABLEKS                       R20 R19 K4 ["HistoryFrame"]
-      195 GETTABLEKS                       R20 R1 K2 ["SelectedLayer"]
-      197 SETTABLEKS                       R20 R19 K2 ["SelectedLayer"]
-      199 SETTABLEKS                       R3 R19 K3 ["ExpandedSections"]
-      201 SETTABLEKS                       R2 R19 K1 ["Overrides"]
-      203 GETUPVAL                         R21 11
-      204 GETTABLEKS                       R20 R21 K36 ["ShowRawPayload"]
-      206 SETTABLEKS                       R20 R19 K36 ["ShowRawPayload"]
-      208 CALL                             R17 2 -1
-      209 SETLIST                          R15 R16 -1 [1]
-      211 CALL                             R12 3 1
-      212 SETTABLEKS                       R12 R11 K17 ["MainSplitPane"]
-      214 CALL                             R8 3 -1
-      215 RETURN                           R8 -1
+       79 GETUPVAL                         R12 2
+       80 GETTABLEKS                       R12 R12 K12 ["createElement"]
+       82 GETUPVAL                         R13 5
+       83 NEWTABLE                         R14 0 0
+       85 NEWTABLE                         R15 0 2
+       87 GETUPVAL                         R16 2
+       88 GETTABLEKS                       R16 R16 K12 ["createElement"]
+       90 GETUPVAL                         R17 3
+       91 NEWTABLE                         R18 2 0
+       93 LOADN                            R19 1
+       94 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
+       96 GETUPVAL                         R19 2
+       97 GETTABLEKS                       R19 R19 K13 ["Tag"]
+       99 LOADK                            R20 K20 ["X-ColumnS"]
+      100 SETTABLE                         R20 R18 R19
+      101 DUPTABLE                         R19 K23 [{"Toolbar", "LayerTree"}]
+      102 GETUPVAL                         R20 2
+      103 GETTABLEKS                       R20 R20 K12 ["createElement"]
+      105 GETUPVAL                         R21 6
+      106 DUPTABLE                         R22 K24 [{"FrameBuffer", "LayoutOrder"}]
+      107 GETTABLEKS                       R23 R1 K6 ["FrameBuffer"]
+      109 SETTABLEKS                       R23 R22 K6 ["FrameBuffer"]
+      111 LOADN                            R23 1
+      112 SETTABLEKS                       R23 R22 K19 ["LayoutOrder"]
+      114 CALL                             R20 2 1
+      115 SETTABLEKS                       R20 R19 K21 ["Toolbar"]
+      117 GETUPVAL                         R20 2
+      118 GETTABLEKS                       R20 R20 K12 ["createElement"]
+      120 GETUPVAL                         R21 7
+      121 DUPTABLE                         R22 K28 [{"LayoutOrder", "FramePayload", "Adornments", "OnToggleAdornment"}]
+      122 LOADN                            R23 2
+      123 SETTABLEKS                       R23 R22 K19 ["LayoutOrder"]
+      125 SETTABLEKS                       R7 R22 K25 ["FramePayload"]
+      127 GETTABLEKS                       R23 R1 K26 ["Adornments"]
+      129 SETTABLEKS                       R23 R22 K26 ["Adornments"]
+      131 GETTABLEKS                       R23 R0 K29 ["onToggleAdornment"]
+      133 SETTABLEKS                       R23 R22 K27 ["OnToggleAdornment"]
+      135 CALL                             R20 2 1
+      136 SETTABLEKS                       R20 R19 K22 ["LayerTree"]
+      138 CALL                             R16 3 1
+      139 GETUPVAL                         R17 2
+      140 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      142 GETUPVAL                         R18 8
+      143 DUPTABLE                         R19 K32 [{"LayoutOrder", "LayerData", "FrameBuffer", "HistoryFrame", "SelectedLayer", "ExpandedSections", "Overrides", "ShowRawPayload"}]
+      144 LOADN                            R20 2
+      145 SETTABLEKS                       R20 R19 K19 ["LayoutOrder"]
+      147 SETTABLEKS                       R6 R19 K30 ["LayerData"]
+      149 GETTABLEKS                       R20 R1 K6 ["FrameBuffer"]
+      151 SETTABLEKS                       R20 R19 K6 ["FrameBuffer"]
+      153 GETTABLEKS                       R20 R1 K4 ["HistoryFrame"]
+      155 SETTABLEKS                       R20 R19 K4 ["HistoryFrame"]
+      157 GETTABLEKS                       R20 R1 K2 ["SelectedLayer"]
+      159 SETTABLEKS                       R20 R19 K2 ["SelectedLayer"]
+      161 SETTABLEKS                       R3 R19 K3 ["ExpandedSections"]
+      163 SETTABLEKS                       R2 R19 K1 ["Overrides"]
+      165 GETUPVAL                         R20 9
+      166 GETTABLEKS                       R20 R20 K31 ["ShowRawPayload"]
+      168 SETTABLEKS                       R20 R19 K31 ["ShowRawPayload"]
+      170 CALL                             R17 2 -1
+      171 SETLIST                          R15 R16 -1 [1]
+      173 CALL                             R12 3 1
+      174 SETTABLEKS                       R12 R11 K16 ["MainSplitPane"]
+      176 CALL                             R8 3 -1
+      177 RETURN                           R8 -1
 
 PROTO_6:
         0 DUPTABLE                         R1 K11 [{"FrameBuffer", "Overrides", "ActiveLayersFilter", "Adornments", "ExpandedSections", "HistoryField", "HistoryFrame", "HistoryOffset", "LayerFilters", "SelectedLayer", "SkipCounter"}]
-        1 GETTABLEKS                       R3 R0 K12 ["DebugData"]
-        3 GETTABLEKS                       R2 R3 K0 ["FrameBuffer"]
+        1 GETTABLEKS                       R2 R0 K12 ["DebugData"]
+        3 GETTABLEKS                       R2 R2 K0 ["FrameBuffer"]
         5 SETTABLEKS                       R2 R1 K0 ["FrameBuffer"]
-        7 GETTABLEKS                       R3 R0 K12 ["DebugData"]
-        9 GETTABLEKS                       R2 R3 K1 ["Overrides"]
+        7 GETTABLEKS                       R2 R0 K12 ["DebugData"]
+        9 GETTABLEKS                       R2 R2 K1 ["Overrides"]
        11 SETTABLEKS                       R2 R1 K1 ["Overrides"]
-       13 GETTABLEKS                       R3 R0 K13 ["Status"]
-       15 GETTABLEKS                       R2 R3 K2 ["ActiveLayersFilter"]
+       13 GETTABLEKS                       R2 R0 K13 ["Status"]
+       15 GETTABLEKS                       R2 R2 K2 ["ActiveLayersFilter"]
        17 SETTABLEKS                       R2 R1 K2 ["ActiveLayersFilter"]
-       19 GETTABLEKS                       R3 R0 K13 ["Status"]
-       21 GETTABLEKS                       R2 R3 K3 ["Adornments"]
+       19 GETTABLEKS                       R2 R0 K13 ["Status"]
+       21 GETTABLEKS                       R2 R2 K3 ["Adornments"]
        23 SETTABLEKS                       R2 R1 K3 ["Adornments"]
-       25 GETTABLEKS                       R3 R0 K13 ["Status"]
-       27 GETTABLEKS                       R2 R3 K4 ["ExpandedSections"]
+       25 GETTABLEKS                       R2 R0 K13 ["Status"]
+       27 GETTABLEKS                       R2 R2 K4 ["ExpandedSections"]
        29 SETTABLEKS                       R2 R1 K4 ["ExpandedSections"]
-       31 GETTABLEKS                       R3 R0 K13 ["Status"]
-       33 GETTABLEKS                       R2 R3 K5 ["HistoryField"]
+       31 GETTABLEKS                       R2 R0 K13 ["Status"]
+       33 GETTABLEKS                       R2 R2 K5 ["HistoryField"]
        35 SETTABLEKS                       R2 R1 K5 ["HistoryField"]
-       37 GETTABLEKS                       R3 R0 K13 ["Status"]
-       39 GETTABLEKS                       R2 R3 K6 ["HistoryFrame"]
+       37 GETTABLEKS                       R2 R0 K13 ["Status"]
+       39 GETTABLEKS                       R2 R2 K6 ["HistoryFrame"]
        41 SETTABLEKS                       R2 R1 K6 ["HistoryFrame"]
-       43 GETTABLEKS                       R3 R0 K13 ["Status"]
-       45 GETTABLEKS                       R2 R3 K7 ["HistoryOffset"]
+       43 GETTABLEKS                       R2 R0 K13 ["Status"]
+       45 GETTABLEKS                       R2 R2 K7 ["HistoryOffset"]
        47 SETTABLEKS                       R2 R1 K7 ["HistoryOffset"]
-       49 GETTABLEKS                       R3 R0 K13 ["Status"]
-       51 GETTABLEKS                       R2 R3 K8 ["LayerFilters"]
+       49 GETTABLEKS                       R2 R0 K13 ["Status"]
+       51 GETTABLEKS                       R2 R2 K8 ["LayerFilters"]
        53 SETTABLEKS                       R2 R1 K8 ["LayerFilters"]
-       55 GETTABLEKS                       R3 R0 K13 ["Status"]
-       57 GETTABLEKS                       R2 R3 K9 ["SelectedLayer"]
+       55 GETTABLEKS                       R2 R0 K13 ["Status"]
+       57 GETTABLEKS                       R2 R2 K9 ["SelectedLayer"]
        59 SETTABLEKS                       R2 R1 K9 ["SelectedLayer"]
-       61 GETTABLEKS                       R3 R0 K13 ["Status"]
-       63 GETTABLEKS                       R2 R3 K10 ["SkipCounter"]
+       61 GETTABLEKS                       R2 R0 K13 ["Status"]
+       63 GETTABLEKS                       R2 R2 K10 ["SkipCounter"]
        65 SETTABLEKS                       R2 R1 K10 ["SkipCounter"]
        67 RETURN                           R1 1
 
@@ -381,163 +354,137 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["AnimationEditor"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Dash"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Framework"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["React"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R7 R1 K10 ["Packages"]
-       38 GETTABLEKS                       R6 R7 K14 ["React"]
+       36 GETTABLEKS                       R6 R1 K10 ["Packages"]
+       38 GETTABLEKS                       R6 R6 K14 ["RoactRodux"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K9 [require]
-       43 GETTABLEKS                       R8 R1 K10 ["Packages"]
-       45 GETTABLEKS                       R7 R8 K15 ["ReactUtils"]
+       43 GETTABLEKS                       R7 R1 K10 ["Packages"]
+       45 GETTABLEKS                       R7 R7 K15 ["TestLoader"]
        47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K9 [require]
-       50 GETTABLEKS                       R9 R1 K10 ["Packages"]
-       52 GETTABLEKS                       R8 R9 K16 ["RoactRodux"]
-       54 CALL                             R7 1 1
-       55 GETIMPORT                        R8 K9 [require]
-       57 GETTABLEKS                       R10 R1 K10 ["Packages"]
-       59 GETTABLEKS                       R9 R10 K17 ["TestLoader"]
-       61 CALL                             R8 1 1
-       62 GETIMPORT                        R9 K9 [require]
-       64 GETTABLEKS                       R12 R1 K18 ["Src"]
-       66 GETTABLEKS                       R11 R12 K19 ["Contexts"]
-       68 GETTABLEKS                       R10 R11 K20 ["DebuggerViewModeContext"]
-       70 CALL                             R9 1 1
-       71 GETIMPORT                        R10 K9 [require]
-       73 GETTABLEKS                       R13 R1 K18 ["Src"]
-       75 GETTABLEKS                       R12 R13 K21 ["Flags"]
-       77 GETTABLEKS                       R11 R12 K22 ["getFFlagCompositorNodeView"]
-       79 CALL                             R10 1 1
-       80 GETTABLEKS                       R11 R3 K23 ["copy"]
-       82 GETTABLEKS                       R12 R4 K24 ["ContextServices"]
-       84 GETTABLEKS                       R13 R12 K25 ["withContext"]
-       86 GETTABLEKS                       R14 R4 K26 ["UI"]
-       88 GETTABLEKS                       R15 R14 K27 ["Pane"]
-       90 GETTABLEKS                       R17 R1 K18 ["Src"]
-       92 GETTABLEKS                       R16 R17 K28 ["Actions"]
-       94 GETIMPORT                        R17 K9 [require]
-       96 GETTABLEKS                       R18 R16 K29 ["SetActiveLayersFilter"]
-       98 CALL                             R17 1 1
-       99 GETIMPORT                        R18 K9 [require]
-      101 GETTABLEKS                       R19 R16 K30 ["SetHistoryField"]
-      103 CALL                             R18 1 1
-      104 GETIMPORT                        R19 K9 [require]
-      106 GETTABLEKS                       R20 R16 K31 ["SetLayerFilter"]
-      108 CALL                             R19 1 1
-      109 GETTABLEKS                       R21 R1 K18 ["Src"]
-      111 GETTABLEKS                       R20 R21 K32 ["Components"]
-      113 GETIMPORT                        R21 K9 [require]
-      115 GETTABLEKS                       R22 R20 K33 ["CompositorSelector"]
-      117 CALL                             R21 1 1
-      118 GETIMPORT                        R22 K9 [require]
-      120 GETTABLEKS                       R23 R20 K34 ["LayerPanel"]
-      122 CALL                             R22 1 1
-      123 GETIMPORT                        R23 K9 [require]
-      125 GETTABLEKS                       R24 R20 K35 ["LayerTree"]
-      127 CALL                             R23 1 1
-      128 GETIMPORT                        R24 K9 [require]
-      130 GETTABLEKS                       R25 R20 K36 ["MainSplitPane"]
-      132 CALL                             R24 1 1
-      133 GETIMPORT                        R25 K9 [require]
-      135 GETTABLEKS                       R26 R20 K37 ["Toolbar"]
-      137 CALL                             R25 1 1
-      138 GETTABLEKS                       R27 R1 K18 ["Src"]
-      140 GETTABLEKS                       R26 R27 K38 ["Util"]
-      142 GETIMPORT                        R27 K9 [require]
-      144 GETTABLEKS                       R28 R26 K39 ["debugFlags"]
-      146 CALL                             R27 1 1
-      147 GETTABLEKS                       R29 R1 K18 ["Src"]
-      149 GETTABLEKS                       R28 R29 K40 ["Thunks"]
-      151 GETIMPORT                        R29 K9 [require]
-      153 GETTABLEKS                       R30 R28 K41 ["ParseDebugData"]
-      155 CALL                             R29 1 1
-      156 GETIMPORT                        R30 K9 [require]
-      158 GETTABLEKS                       R31 R28 K42 ["SetFrameBufferDuration"]
-      160 CALL                             R30 1 1
-      161 GETIMPORT                        R31 K9 [require]
-      163 GETTABLEKS                       R32 R28 K43 ["ToggleAdornment"]
-      165 CALL                             R31 1 1
-      166 GETIMPORT                        R32 K9 [require]
-      168 GETTABLEKS                       R34 R1 K18 ["Src"]
-      170 GETTABLEKS                       R33 R34 K44 ["Types"]
-      172 CALL                             R32 1 1
-      173 GETIMPORT                        R33 K9 [require]
-      175 GETIMPORT                        R35 K5 [script]
-      177 GETTABLEKS                       R34 R35 K45 ["filterChildren"]
-      179 CALL                             R33 1 1
-      180 GETTABLEKS                       R34 R2 K46 ["Constants"]
-      182 GETTABLEKS                       R35 R2 K47 ["NodeView"]
-      184 GETTABLEKS                       R36 R5 K48 ["PureComponent"]
-      186 LOADK                            R38 K49 ["MainComponent"]
-      187 NAMECALL                         R36 R36 K50 ["extend"]
-      189 CALL                             R36 2 1
-      190 MOVE                             R38 R10
-      191 CALL                             R38 0 1
-      192 JUMPIFNOT                        R38 ; [+3]
-      193 GETTABLEKS                       R37 R9 K51 ["Context"]
-      195 JUMP                             ; [+1]
-      196 LOADNIL                          R37
-      197 SETTABLEKS                       R37 R36 K52 ["contextType"]
-      199 DUPCLOSURE                       R37 K53 [PROTO_1]
-      200 SETTABLEKS                       R37 R36 K54 ["init"]
-      202 DUPCLOSURE                       R37 K55 [PROTO_2]
-      203 CAPTURE                          VAL R34
-      204 SETTABLEKS                       R37 R36 K56 ["readSettings"]
-      206 DUPCLOSURE                       R37 K57 [PROTO_3]
-      207 CAPTURE                          VAL R8
-      208 CAPTURE                          VAL R0
-      209 CAPTURE                          VAL R27
-      210 CAPTURE                          VAL R2
-      211 SETTABLEKS                       R37 R36 K58 ["didMount"]
-      213 DUPCLOSURE                       R37 K59 [PROTO_4]
-      214 SETTABLEKS                       R37 R36 K60 ["willUnmount"]
-      216 DUPCLOSURE                       R37 K61 [PROTO_5]
-      217 CAPTURE                          VAL R33
-      218 CAPTURE                          VAL R11
-      219 CAPTURE                          VAL R5
-      220 CAPTURE                          VAL R15
-      221 CAPTURE                          VAL R21
-      222 CAPTURE                          VAL R10
-      223 CAPTURE                          VAL R35
-      224 CAPTURE                          VAL R24
-      225 CAPTURE                          VAL R25
-      226 CAPTURE                          VAL R23
-      227 CAPTURE                          VAL R22
-      228 CAPTURE                          VAL R27
-      229 SETTABLEKS                       R37 R36 K62 ["render"]
-      231 MOVE                             R37 R13
-      232 DUPTABLE                         R38 K65 [{"Analytics", "Plugin"}]
-      233 GETTABLEKS                       R39 R12 K63 ["Analytics"]
-      235 SETTABLEKS                       R39 R38 K63 ["Analytics"]
-      237 GETTABLEKS                       R39 R12 K64 ["Plugin"]
-      239 SETTABLEKS                       R39 R38 K64 ["Plugin"]
-      241 CALL                             R37 1 1
-      242 MOVE                             R38 R36
-      243 CALL                             R37 1 1
-      244 MOVE                             R36 R37
-      245 DUPCLOSURE                       R37 K66 [PROTO_6]
-      246 DUPCLOSURE                       R38 K67 [PROTO_13]
-      247 CAPTURE                          VAL R29
-      248 CAPTURE                          VAL R17
-      249 CAPTURE                          VAL R30
-      250 CAPTURE                          VAL R18
-      251 CAPTURE                          VAL R19
-      252 CAPTURE                          VAL R31
-      253 GETTABLEKS                       R39 R7 K68 ["connect"]
-      255 MOVE                             R40 R37
-      256 MOVE                             R41 R38
-      257 CALL                             R39 2 1
-      258 MOVE                             R40 R36
-      259 CALL                             R39 1 1
-      260 MOVE                             R36 R39
-      261 RETURN                           R36 1
+       48 GETTABLEKS                       R7 R2 K16 ["copy"]
+       50 GETTABLEKS                       R8 R3 K17 ["ContextServices"]
+       52 GETTABLEKS                       R9 R8 K18 ["withContext"]
+       54 GETTABLEKS                       R10 R3 K19 ["UI"]
+       56 GETTABLEKS                       R11 R10 K20 ["Pane"]
+       58 GETTABLEKS                       R12 R1 K21 ["Src"]
+       60 GETTABLEKS                       R12 R12 K22 ["Actions"]
+       62 GETIMPORT                        R13 K9 [require]
+       64 GETTABLEKS                       R14 R12 K23 ["SetActiveLayersFilter"]
+       66 CALL                             R13 1 1
+       67 GETIMPORT                        R14 K9 [require]
+       69 GETTABLEKS                       R15 R12 K24 ["SetHistoryField"]
+       71 CALL                             R14 1 1
+       72 GETIMPORT                        R15 K9 [require]
+       74 GETTABLEKS                       R16 R12 K25 ["SetLayerFilter"]
+       76 CALL                             R15 1 1
+       77 GETTABLEKS                       R16 R1 K21 ["Src"]
+       79 GETTABLEKS                       R16 R16 K26 ["Components"]
+       81 GETIMPORT                        R17 K9 [require]
+       83 GETTABLEKS                       R18 R16 K27 ["CompositorSelector"]
+       85 CALL                             R17 1 1
+       86 GETIMPORT                        R18 K9 [require]
+       88 GETTABLEKS                       R19 R16 K28 ["LayerPanel"]
+       90 CALL                             R18 1 1
+       91 GETIMPORT                        R19 K9 [require]
+       93 GETTABLEKS                       R20 R16 K29 ["LayerTree"]
+       95 CALL                             R19 1 1
+       96 GETIMPORT                        R20 K9 [require]
+       98 GETTABLEKS                       R21 R16 K30 ["MainSplitPane"]
+      100 CALL                             R20 1 1
+      101 GETIMPORT                        R21 K9 [require]
+      103 GETTABLEKS                       R22 R16 K31 ["Toolbar"]
+      105 CALL                             R21 1 1
+      106 GETTABLEKS                       R22 R1 K21 ["Src"]
+      108 GETTABLEKS                       R22 R22 K32 ["Util"]
+      110 GETIMPORT                        R23 K9 [require]
+      112 GETTABLEKS                       R24 R22 K33 ["Constants"]
+      114 CALL                             R23 1 1
+      115 GETIMPORT                        R24 K9 [require]
+      117 GETTABLEKS                       R25 R22 K34 ["debugFlags"]
+      119 CALL                             R24 1 1
+      120 GETTABLEKS                       R25 R1 K21 ["Src"]
+      122 GETTABLEKS                       R25 R25 K35 ["Thunks"]
+      124 GETIMPORT                        R26 K9 [require]
+      126 GETTABLEKS                       R27 R25 K36 ["ParseDebugData"]
+      128 CALL                             R26 1 1
+      129 GETIMPORT                        R27 K9 [require]
+      131 GETTABLEKS                       R28 R25 K37 ["SetFrameBufferDuration"]
+      133 CALL                             R27 1 1
+      134 GETIMPORT                        R28 K9 [require]
+      136 GETTABLEKS                       R29 R25 K38 ["ToggleAdornment"]
+      138 CALL                             R28 1 1
+      139 GETIMPORT                        R29 K9 [require]
+      141 GETTABLEKS                       R30 R1 K21 ["Src"]
+      143 GETTABLEKS                       R30 R30 K39 ["Types"]
+      145 CALL                             R29 1 1
+      146 GETIMPORT                        R30 K9 [require]
+      148 GETIMPORT                        R31 K5 [script]
+      150 GETTABLEKS                       R31 R31 K40 ["filterChildren"]
+      152 CALL                             R30 1 1
+      153 GETTABLEKS                       R31 R4 K41 ["PureComponent"]
+      155 LOADK                            R33 K42 ["MainComponent"]
+      156 NAMECALL                         R31 R31 K43 ["extend"]
+      158 CALL                             R31 2 1
+      159 DUPCLOSURE                       R32 K44 [PROTO_1]
+      160 SETTABLEKS                       R32 R31 K45 ["init"]
+      162 DUPCLOSURE                       R32 K46 [PROTO_2]
+      163 CAPTURE                          VAL R23
+      164 SETTABLEKS                       R32 R31 K47 ["readSettings"]
+      166 DUPCLOSURE                       R32 K48 [PROTO_3]
+      167 CAPTURE                          VAL R6
+      168 CAPTURE                          VAL R0
+      169 CAPTURE                          VAL R24
+      170 CAPTURE                          VAL R22
+      171 SETTABLEKS                       R32 R31 K49 ["didMount"]
+      173 DUPCLOSURE                       R32 K50 [PROTO_4]
+      174 SETTABLEKS                       R32 R31 K51 ["willUnmount"]
+      176 DUPCLOSURE                       R32 K52 [PROTO_5]
+      177 CAPTURE                          VAL R30
+      178 CAPTURE                          VAL R7
+      179 CAPTURE                          VAL R4
+      180 CAPTURE                          VAL R11
+      181 CAPTURE                          VAL R17
+      182 CAPTURE                          VAL R20
+      183 CAPTURE                          VAL R21
+      184 CAPTURE                          VAL R19
+      185 CAPTURE                          VAL R18
+      186 CAPTURE                          VAL R24
+      187 SETTABLEKS                       R32 R31 K53 ["render"]
+      189 MOVE                             R32 R9
+      190 DUPTABLE                         R33 K56 [{"Analytics", "Plugin"}]
+      191 GETTABLEKS                       R34 R8 K54 ["Analytics"]
+      193 SETTABLEKS                       R34 R33 K54 ["Analytics"]
+      195 GETTABLEKS                       R34 R8 K55 ["Plugin"]
+      197 SETTABLEKS                       R34 R33 K55 ["Plugin"]
+      199 CALL                             R32 1 1
+      200 MOVE                             R33 R31
+      201 CALL                             R32 1 1
+      202 MOVE                             R31 R32
+      203 DUPCLOSURE                       R32 K57 [PROTO_6]
+      204 DUPCLOSURE                       R33 K58 [PROTO_13]
+      205 CAPTURE                          VAL R26
+      206 CAPTURE                          VAL R13
+      207 CAPTURE                          VAL R27
+      208 CAPTURE                          VAL R14
+      209 CAPTURE                          VAL R15
+      210 CAPTURE                          VAL R28
+      211 GETTABLEKS                       R34 R5 K59 ["connect"]
+      213 MOVE                             R35 R32
+      214 MOVE                             R36 R33
+      215 CALL                             R34 2 1
+      216 MOVE                             R35 R31
+      217 CALL                             R34 1 1
+      218 MOVE                             R31 R34
+      219 RETURN                           R31 1

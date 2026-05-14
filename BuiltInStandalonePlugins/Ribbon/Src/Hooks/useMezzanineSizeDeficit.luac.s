@@ -1,53 +1,53 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 SETTABLEKS                       R0 R1 K1 ["left"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["current"]
-        8 GETTABLEKS                       R1 R2 K1 ["left"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["current"]
+        8 GETTABLEKS                       R1 R1 K1 ["left"]
        10 JUMPIFNOT                        R1 ; [+27]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K0 ["current"]
-       14 GETTABLEKS                       R1 R2 K2 ["right"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K0 ["current"]
+       14 GETTABLEKS                       R1 R1 K2 ["right"]
        16 JUMPIFNOT                        R1 ; [+21]
        17 GETUPVAL                         R1 1
-       18 GETUPVAL                         R7 0
-       19 GETTABLEKS                       R6 R7 K0 ["current"]
-       21 GETTABLEKS                       R5 R6 K2 ["right"]
-       23 GETTABLEKS                       R4 R5 K3 ["AbsoluteSize"]
-       25 GETTABLEKS                       R3 R4 K4 ["X"]
-       27 GETUPVAL                         R8 0
-       28 GETTABLEKS                       R7 R8 K0 ["current"]
-       30 GETTABLEKS                       R6 R7 K1 ["left"]
-       32 GETTABLEKS                       R5 R6 K3 ["AbsoluteSize"]
-       34 GETTABLEKS                       R4 R5 K4 ["X"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K0 ["current"]
+       21 GETTABLEKS                       R3 R3 K2 ["right"]
+       23 GETTABLEKS                       R3 R3 K3 ["AbsoluteSize"]
+       25 GETTABLEKS                       R3 R3 K4 ["X"]
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R4 R4 K0 ["current"]
+       30 GETTABLEKS                       R4 R4 K1 ["left"]
+       32 GETTABLEKS                       R4 R4 K3 ["AbsoluteSize"]
+       34 GETTABLEKS                       R4 R4 K4 ["X"]
        36 SUB                              R2 R3 R4
        37 CALL                             R1 1 0
        38 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 SETTABLEKS                       R0 R1 K1 ["right"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["current"]
-        8 GETTABLEKS                       R1 R2 K2 ["left"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["current"]
+        8 GETTABLEKS                       R1 R1 K2 ["left"]
        10 JUMPIFNOT                        R1 ; [+27]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K0 ["current"]
-       14 GETTABLEKS                       R1 R2 K1 ["right"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K0 ["current"]
+       14 GETTABLEKS                       R1 R1 K1 ["right"]
        16 JUMPIFNOT                        R1 ; [+21]
        17 GETUPVAL                         R1 1
-       18 GETUPVAL                         R7 0
-       19 GETTABLEKS                       R6 R7 K0 ["current"]
-       21 GETTABLEKS                       R5 R6 K1 ["right"]
-       23 GETTABLEKS                       R4 R5 K3 ["AbsoluteSize"]
-       25 GETTABLEKS                       R3 R4 K4 ["X"]
-       27 GETUPVAL                         R8 0
-       28 GETTABLEKS                       R7 R8 K0 ["current"]
-       30 GETTABLEKS                       R6 R7 K2 ["left"]
-       32 GETTABLEKS                       R5 R6 K3 ["AbsoluteSize"]
-       34 GETTABLEKS                       R4 R5 K4 ["X"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K0 ["current"]
+       21 GETTABLEKS                       R3 R3 K1 ["right"]
+       23 GETTABLEKS                       R3 R3 K3 ["AbsoluteSize"]
+       25 GETTABLEKS                       R3 R3 K4 ["X"]
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R4 R4 K0 ["current"]
+       30 GETTABLEKS                       R4 R4 K2 ["left"]
+       32 GETTABLEKS                       R4 R4 K3 ["AbsoluteSize"]
+       34 GETTABLEKS                       R4 R4 K4 ["X"]
        36 SUB                              R2 R3 R4
        37 CALL                             R1 1 0
        38 RETURN                           R0 0
@@ -93,8 +93,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useBinding"]
        16 GETTABLEKS                       R3 R1 K9 ["useCallback"]

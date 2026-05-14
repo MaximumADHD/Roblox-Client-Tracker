@@ -77,8 +77,8 @@ PROTO_8:
         8 LOADB                            R2 0
         9 NEWCLOSURE                       R3 P1
        10 CAPTURE                          REF R2
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K3 ["new"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K3 ["new"]
        14 CALL                             R4 0 1
        15 GETTABLEKS                       R5 R1 K4 ["Activated"]
        17 NEWCLOSURE                       R7 P2
@@ -86,8 +86,8 @@ PROTO_8:
        19 CAPTURE                          VAL R4
        20 NAMECALL                         R5 R5 K5 ["Connect"]
        22 CALL                             R5 2 1
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R6 R7 K3 ["new"]
+       23 GETUPVAL                         R6 0
+       24 GETTABLEKS                       R6 R6 K3 ["new"]
        26 CALL                             R6 0 1
        27 GETTABLEKS                       R7 R1 K6 ["Deactivated"]
        29 NEWCLOSURE                       R9 P3
@@ -122,8 +122,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Signal"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Signal"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_8]
        15 CAPTURE                          VAL R1

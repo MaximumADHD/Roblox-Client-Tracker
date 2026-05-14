@@ -34,8 +34,8 @@ PROTO_2:
         1 JUMPIFNOTEQKN                    R5 K0 [0] ; [+2]
         3 RETURN                           R0 0
         4 LOADNIL                          R5
-        5 GETUPVAL                         R7 0
-        6 GETTABLEKS                       R6 R7 K1 ["Local"]
+        5 GETUPVAL                         R6 0
+        6 GETTABLEKS                       R6 R6 K1 ["Local"]
         8 JUMPIFNOTEQ                      R1 R6 ; [+13]
        10 GETUPVAL                         R6 1
        11 JUMPIFNOT                        R4 ; [+6]
@@ -50,8 +50,8 @@ PROTO_2:
        22 GETIMPORT                        R6 K4 [CFrame.new]
        24 CALL                             R6 0 1
        25 MOVE                             R5 R6
-       26 GETUPVAL                         R7 2
-       27 GETTABLEKS                       R6 R7 K5 ["fromObjectsComputeAll"]
+       26 GETUPVAL                         R6 2
+       27 GETTABLEKS                       R6 R6 K5 ["fromObjectsComputeAll"]
        29 MOVE                             R7 R0
        30 MOVE                             R8 R5
        31 CALL                             R6 2 3
@@ -90,8 +90,8 @@ PROTO_2:
        75 LOADK                            R20 K14 ["Missing parts for alignable object"]
        76 GETIMPORT                        R18 K8 [assert]
        78 CALL                             R18 2 0
-       79 GETUPVAL                         R19 4
-       80 GETTABLEKS                       R18 R19 K3 ["new"]
+       79 GETUPVAL                         R18 4
+       80 GETTABLEKS                       R18 R18 K3 ["new"]
        82 CALL                             R18 0 1
        83 MOVE                             R21 R17
        84 NAMECALL                         R19 R18 K15 ["pickUpParts"]
@@ -110,16 +110,16 @@ PROTO_2:
       103 SUB                              R23 R9 R20
       104 NAMECALL                         R21 R5 K18 ["VectorToObjectSpace"]
       106 CALL                             R21 2 1
-      107 GETUPVAL                         R23 5
-      108 GETTABLEKS                       R22 R23 K19 ["Min"]
+      107 GETUPVAL                         R22 5
+      108 GETTABLEKS                       R22 R22 K19 ["Min"]
       110 JUMPIFNOTEQ                      R3 R22 ; [+7]
       112 GETTABLEKS                       R24 R19 K11 ["size"]
       114 SUB                              R23 R10 R24
       115 DIVK                             R22 R23 K20 [2]
       116 SUB                              R21 R21 R22
       117 JUMP                             ; [+10]
-      118 GETUPVAL                         R23 5
-      119 GETTABLEKS                       R22 R23 K21 ["Max"]
+      118 GETUPVAL                         R22 5
+      119 GETTABLEKS                       R22 R22 K21 ["Max"]
       121 JUMPIFNOTEQ                      R3 R22 ; [+6]
       123 GETTABLEKS                       R24 R19 K11 ["size"]
       125 SUB                              R23 R10 R24
@@ -174,40 +174,40 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K2 ["Parent"]
-       11 GETTABLEKS                       R3 R0 K3 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K4 ["DraggerFramework"]
+       11 GETTABLEKS                       R2 R0 K3 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K4 ["DraggerFramework"]
        15 GETIMPORT                        R3 K6 [require]
-       17 GETTABLEKS                       R5 R2 K7 ["Utility"]
-       19 GETTABLEKS                       R4 R5 K8 ["BoundingBox"]
+       17 GETTABLEKS                       R4 R2 K7 ["Utility"]
+       19 GETTABLEKS                       R4 R4 K8 ["BoundingBox"]
        21 CALL                             R3 1 1
        22 GETIMPORT                        R4 K6 [require]
-       24 GETTABLEKS                       R6 R2 K7 ["Utility"]
-       26 GETTABLEKS                       R5 R6 K9 ["JointMaker"]
+       24 GETTABLEKS                       R5 R2 K7 ["Utility"]
+       26 GETTABLEKS                       R5 R5 K9 ["JointMaker"]
        28 CALL                             R4 1 1
        29 GETIMPORT                        R5 K6 [require]
-       31 GETTABLEKS                       R8 R0 K10 ["Src"]
-       33 GETTABLEKS                       R7 R8 K7 ["Utility"]
-       35 GETTABLEKS                       R6 R7 K11 ["AlignmentMode"]
+       31 GETTABLEKS                       R6 R0 K10 ["Src"]
+       33 GETTABLEKS                       R6 R6 K7 ["Utility"]
+       35 GETTABLEKS                       R6 R6 K11 ["AlignmentMode"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K6 [require]
-       40 GETTABLEKS                       R9 R0 K10 ["Src"]
-       42 GETTABLEKS                       R8 R9 K7 ["Utility"]
-       44 GETTABLEKS                       R7 R8 K12 ["AlignmentSpace"]
+       40 GETTABLEKS                       R7 R0 K10 ["Src"]
+       42 GETTABLEKS                       R7 R7 K7 ["Utility"]
+       44 GETTABLEKS                       R7 R7 K12 ["AlignmentSpace"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K6 [require]
-       49 GETTABLEKS                       R10 R0 K10 ["Src"]
-       51 GETTABLEKS                       R9 R10 K7 ["Utility"]
-       53 GETTABLEKS                       R8 R9 K13 ["getAlignableObjects"]
+       49 GETTABLEKS                       R8 R0 K10 ["Src"]
+       51 GETTABLEKS                       R8 R8 K7 ["Utility"]
+       53 GETTABLEKS                       R8 R8 K13 ["getAlignableObjects"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K6 [require]
-       58 GETTABLEKS                       R11 R0 K10 ["Src"]
-       60 GETTABLEKS                       R10 R11 K7 ["Utility"]
-       62 GETTABLEKS                       R9 R10 K14 ["getDefaultBasisForObjects"]
+       58 GETTABLEKS                       R9 R0 K10 ["Src"]
+       60 GETTABLEKS                       R9 R9 K7 ["Utility"]
+       62 GETTABLEKS                       R9 R9 K14 ["getDefaultBasisForObjects"]
        64 CALL                             R8 1 1
        65 DUPCLOSURE                       R9 K15 [PROTO_0]
        66 DUPCLOSURE                       R10 K16 [PROTO_1]

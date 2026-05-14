@@ -13,8 +13,8 @@ PROTO_0:
        13 RETURN                           R5 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["AnimatePeriod"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["AnimatePeriod"]
         3 JUMPIFNOTEQKNIL                  R1 ; [+2]
         5 LOADB                            R0 0 +1
         6 LOADB                            R0 1
@@ -70,16 +70,16 @@ PROTO_2:
        69 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_isMounted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_isMounted"]
         3 JUMPIFNOT                        R0 ; [+42]
         4 GETIMPORT                        R1 K2 [tick]
         6 CALL                             R1 0 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K3 ["_startTime"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K3 ["_startTime"]
        10 SUB                              R0 R1 R2
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K4 ["props"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K4 ["props"]
        14 GETTABLEKS                       R3 R1 K5 ["AnimatePeriod"]
        16 JUMPIFNOT                        R3 ; [+3]
        17 GETTABLEKS                       R2 R1 K5 ["AnimatePeriod"]
@@ -117,8 +117,8 @@ PROTO_4:
        10 SETTABLEKS                       R1 R0 K4 ["_startTime"]
        12 GETUPVAL                         R1 0
        13 GETTABLEKS                       R3 R0 K5 ["_bindName"]
-       15 GETIMPORT                        R5 K9 [Enum.RenderPriority.First]
-       17 GETTABLEKS                       R4 R5 K10 ["Value"]
+       15 GETIMPORT                        R4 K9 [Enum.RenderPriority.First]
+       17 GETTABLEKS                       R4 R4 K10 ["Value"]
        19 NEWCLOSURE                       R5 P0
        20 CAPTURE                          VAL R0
        21 NAMECALL                         R1 R1 K11 ["BindToRenderStep"]
@@ -140,26 +140,26 @@ PROTO_6:
         4 JUMPIF                           R2 ; [+2]
         5 LOADNIL                          R3
         6 RETURN                           R3 1
-        7 GETTABLEKS                       R4 R0 K0 ["props"]
-        9 GETTABLEKS                       R3 R4 K2 ["Thickness"]
+        7 GETTABLEKS                       R3 R0 K0 ["props"]
+        9 GETTABLEKS                       R3 R3 K2 ["Thickness"]
        11 GETTABLEKS                       R5 R0 K3 ["shouldAnimate"]
        13 CALL                             R5 0 1
        14 JUMPIFNOT                        R5 ; [+5]
-       15 GETTABLEKS                       R5 R0 K4 ["state"]
-       17 GETTABLEKS                       R4 R5 K5 ["currentColor"]
+       15 GETTABLEKS                       R4 R0 K4 ["state"]
+       17 GETTABLEKS                       R4 R4 K5 ["currentColor"]
        19 JUMP                             ; [+2]
        20 GETTABLEKS                       R4 R1 K6 ["HoverColor"]
        22 LOADK                            R7 K7 ["PVInstance"]
        23 NAMECALL                         R5 R2 K8 ["IsA"]
        25 CALL                             R5 2 1
        26 JUMPIFNOT                        R5 ; [+64]
-       27 GETUPVAL                         R6 0
-       28 GETTABLEKS                       R5 R6 K9 ["createFragment"]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K9 ["createFragment"]
        30 DUPTABLE                         R6 K12 [{"Outline", "BoundingBox"}]
        31 GETTABLEKS                       R8 R1 K13 ["ShowOutline"]
        33 JUMPIFNOT                        R8 ; [+27]
-       34 GETUPVAL                         R8 0
-       35 GETTABLEKS                       R7 R8 K14 ["createElement"]
+       34 GETUPVAL                         R7 0
+       35 GETTABLEKS                       R7 R7 K14 ["createElement"]
        37 LOADK                            R8 K15 ["Highlight"]
        38 DUPTABLE                         R9 K23 [{"Adornee", "FillTransparency", "FillColor", "LineThickness", "OutlineTransparency", "OutlineColor", "ReservedId"}]
        39 SETTABLEKS                       R2 R9 K16 ["Adornee"]
@@ -179,10 +179,10 @@ PROTO_6:
        62 SETTABLEKS                       R7 R6 K10 ["Outline"]
        64 GETTABLEKS                       R8 R1 K28 ["ShowHoverBox"]
        66 JUMPIFNOT                        R8 ; [+19]
-       67 GETUPVAL                         R8 0
-       68 GETTABLEKS                       R7 R8 K14 ["createElement"]
-       70 GETTABLEKS                       R9 R0 K0 ["props"]
-       72 GETTABLEKS                       R8 R9 K29 ["SelectionBoxComponent"]
+       67 GETUPVAL                         R7 0
+       68 GETTABLEKS                       R7 R7 K14 ["createElement"]
+       70 GETTABLEKS                       R8 R0 K0 ["props"]
+       72 GETTABLEKS                       R8 R8 K29 ["SelectionBoxComponent"]
        74 DUPTABLE                         R9 K32 [{"Adornee", "Color3", "LineThickness", "StudioSelectionBox"}]
        75 SETTABLEKS                       R2 R9 K16 ["Adornee"]
        77 SETTABLEKS                       R4 R9 K30 ["Color3"]
@@ -207,14 +207,14 @@ MAIN:
         9 LOADK                            R3 K4 ["HttpService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R4 K6 [script]
-       15 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       17 GETTABLEKS                       R2 R3 K7 ["Parent"]
-       19 GETTABLEKS                       R4 R2 K7 ["Parent"]
-       21 GETTABLEKS                       R3 R4 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R3 R2 K7 ["Parent"]
+       21 GETTABLEKS                       R3 R3 K7 ["Parent"]
        23 GETIMPORT                        R4 K9 [require]
-       25 GETTABLEKS                       R6 R3 K10 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K11 ["Roact"]
+       25 GETTABLEKS                       R5 R3 K10 ["Packages"]
+       27 GETTABLEKS                       R5 R5 K11 ["Roact"]
        29 CALL                             R4 1 1
        30 DUPCLOSURE                       R5 K12 [PROTO_0]
        31 GETTABLEKS                       R6 R4 K13 ["PureComponent"]

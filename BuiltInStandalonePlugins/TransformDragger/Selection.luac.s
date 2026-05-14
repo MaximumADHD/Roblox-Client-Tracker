@@ -38,8 +38,8 @@ PROTO_1:
         6 NAMECALL                         R0 R0 K4 ["Get"]
         8 CALL                             R0 1 1
         9 SETUPVAL                         R0 0
-       10 GETUPVAL                         R1 1
-       11 GETTABLEKS                       R0 R1 K5 ["isRubberBandDragInProgress"]
+       10 GETUPVAL                         R0 1
+       11 GETTABLEKS                       R0 R0 K5 ["isRubberBandDragInProgress"]
        13 CALL                             R0 0 1
        14 JUMPIFNOT                        R0 ; [+1]
        15 RETURN                           R0 0
@@ -48,11 +48,11 @@ PROTO_1:
        18 SETUPVAL                         R0 2
        19 GETUPVAL                         R0 4
        20 JUMPIFNOT                        R0 ; [+4]
-       21 GETUPVAL                         R1 4
-       22 GETTABLEKS                       R0 R1 K6 ["Unsubscribe"]
+       21 GETUPVAL                         R0 4
+       22 GETTABLEKS                       R0 R0 K6 ["Unsubscribe"]
        24 CALL                             R0 0 0
-       25 GETUPVAL                         R1 5
-       26 GETTABLEKS                       R0 R1 K7 ["convertToPart"]
+       25 GETUPVAL                         R0 5
+       26 GETTABLEKS                       R0 R0 K7 ["convertToPart"]
        28 GETUPVAL                         R1 2
        29 LOADB                            R2 1
        30 CALL                             R0 2 1
@@ -74,14 +74,14 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Rubberband"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Rubberband"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["Metapart"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["Metapart"]
        18 CALL                             R1 1 1
        19 NEWTABLE                         R2 0 0
        21 NEWTABLE                         R3 0 0

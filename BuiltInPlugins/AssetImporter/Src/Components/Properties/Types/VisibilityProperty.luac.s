@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+29]
-        2 GETUPVAL                         R2 1
-        3 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["createElement"]
         5 GETUPVAL                         R2 2
         6 DUPTABLE                         R3 K7 [{"OnClick", "Size", "LayoutOrder", "Selected", "Stylizer", "Style"}]
         7 GETTABLEKS                       R4 R0 K8 ["OnToggleItem"]
@@ -19,8 +19,8 @@ PROTO_0:
        27 SETTABLEKS                       R4 R3 K6 ["Style"]
        29 CALL                             R1 2 1
        30 RETURN                           R1 1
-       31 GETUPVAL                         R2 1
-       32 GETTABLEKS                       R1 R2 K0 ["createElement"]
+       31 GETUPVAL                         R1 1
+       32 GETTABLEKS                       R1 R1 K0 ["createElement"]
        34 GETUPVAL                         R2 2
        35 DUPTABLE                         R3 K11 [{"OnClick", "Size", "LayoutOrder", "Selected", "Stylizer"}]
        36 GETTABLEKS                       R4 R0 K8 ["OnToggleItem"]
@@ -47,15 +47,15 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["RoactCompat"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["RoactCompat"]
        26 CALL                             R3 1 1
-       27 GETTABLEKS                       R5 R2 K13 ["Style"]
-       29 GETTABLEKS                       R4 R5 K14 ["Stylizer"]
+       27 GETTABLEKS                       R4 R2 K13 ["Style"]
+       29 GETTABLEKS                       R4 R4 K14 ["Stylizer"]
        31 GETTABLEKS                       R5 R2 K15 ["UI"]
        33 GETTABLEKS                       R6 R5 K16 ["ToggleButton"]
        35 DUPCLOSURE                       R7 K17 [PROTO_0]

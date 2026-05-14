@@ -8,9 +8,9 @@ PROTO_0:
         8 JUMPIF                           R1 ; [+2]
         9 NEWTABLE                         R1 0 0
        11 MOVE                             R0 R1
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K4 ["Dictionary"]
-       15 GETTABLEKS                       R1 R2 K5 ["join"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K4 ["Dictionary"]
+       15 GETTABLEKS                       R1 R1 K5 ["join"]
        17 DUPTABLE                         R2 K10 [{"studioSid", "clientId", "placeId", "userId"}]
        18 GETUPVAL                         R3 1
        19 NAMECALL                         R3 R3 K11 ["GetSessionId"]
@@ -20,8 +20,8 @@ PROTO_0:
        25 NAMECALL                         R3 R3 K12 ["GetClientId"]
        27 CALL                             R3 1 1
        28 SETTABLEKS                       R3 R2 K7 ["clientId"]
-       30 GETIMPORT                        R4 K1 [game]
-       32 GETTABLEKS                       R3 R4 K13 ["PlaceId"]
+       30 GETIMPORT                        R3 K1 [game]
+       32 GETTABLEKS                       R3 R3 K13 ["PlaceId"]
        34 SETTABLEKS                       R3 R2 K8 ["placeId"]
        36 GETUPVAL                         R3 2
        37 NAMECALL                         R3 R3 K14 ["GetUserId"]
@@ -96,13 +96,13 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K8 [game]
        18 LOADK                            R4 K9 ["StudioService"]

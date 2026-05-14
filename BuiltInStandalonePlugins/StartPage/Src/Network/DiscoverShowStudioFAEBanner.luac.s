@@ -138,16 +138,16 @@ PROTO_3:
        24 GETIMPORT                        R4 K10 [tostring]
        26 CALL                             R4 -1 1
        27 SETTABLEKS                       R4 R3 K11 ["robloxctx-authenticated-userid"]
-       29 GETUPVAL                         R5 1
-       30 GETTABLEKS                       R4 R5 K12 ["new"]
+       29 GETUPVAL                         R4 1
+       30 GETTABLEKS                       R4 R4 K12 ["new"]
        32 CALL                             R4 0 1
        33 GETTABLEKS                       R5 R4 K13 ["composeUrl"]
-       35 GETUPVAL                         R8 2
-       36 GETTABLEKS                       R7 R8 K14 ["AMP_FEATURE_ACCESS_URL"]
-       38 GETTABLEKS                       R6 R7 K15 ["Prefix"]
-       40 GETUPVAL                         R9 2
-       41 GETTABLEKS                       R8 R9 K14 ["AMP_FEATURE_ACCESS_URL"]
-       43 GETTABLEKS                       R7 R8 K16 ["Url"]
+       35 GETUPVAL                         R6 2
+       36 GETTABLEKS                       R6 R6 K14 ["AMP_FEATURE_ACCESS_URL"]
+       38 GETTABLEKS                       R6 R6 K15 ["Prefix"]
+       40 GETUPVAL                         R7 2
+       41 GETTABLEKS                       R7 R7 K14 ["AMP_FEATURE_ACCESS_URL"]
+       43 GETTABLEKS                       R7 R7 K16 ["Url"]
        45 MOVE                             R8 R1
        46 LOADK                            R9 K17 ["studio/CollaborationSettings"]
        47 CALL                             R7 2 -1
@@ -190,42 +190,42 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K6 ["Src"]
-       21 GETTABLEKS                       R3 R4 K9 ["Types"]
+       19 GETTABLEKS                       R3 R0 K6 ["Src"]
+       21 GETTABLEKS                       R3 R3 K9 ["Types"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       26 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K11 ["Framework"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K5 [require]
-       33 GETTABLEKS                       R7 R0 K6 ["Src"]
-       35 GETTABLEKS                       R6 R7 K12 ["Network"]
-       37 GETTABLEKS                       R5 R6 K13 ["Urls"]
+       33 GETTABLEKS                       R5 R0 K6 ["Src"]
+       35 GETTABLEKS                       R5 R5 K12 ["Network"]
+       37 GETTABLEKS                       R5 R5 K13 ["Urls"]
        39 CALL                             R4 1 1
-       40 GETIMPORT                        R6 K5 [require]
-       42 GETTABLEKS                       R9 R0 K6 ["Src"]
-       44 GETTABLEKS                       R8 R9 K14 ["Util"]
-       46 GETTABLEKS                       R7 R8 K15 ["Services"]
-       48 CALL                             R6 1 1
-       49 GETTABLEKS                       R5 R6 K16 ["Networking"]
+       40 GETIMPORT                        R5 K5 [require]
+       42 GETTABLEKS                       R6 R0 K6 ["Src"]
+       44 GETTABLEKS                       R6 R6 K14 ["Util"]
+       46 GETTABLEKS                       R6 R6 K15 ["Services"]
+       48 CALL                             R5 1 1
+       49 GETTABLEKS                       R5 R5 K16 ["Networking"]
        51 GETIMPORT                        R6 K5 [require]
-       53 GETTABLEKS                       R9 R0 K6 ["Src"]
-       55 GETTABLEKS                       R8 R9 K17 ["Models"]
-       57 GETTABLEKS                       R7 R8 K18 ["AMPUpsellFeatureAccessModel"]
+       53 GETTABLEKS                       R7 R0 K6 ["Src"]
+       55 GETTABLEKS                       R7 R7 K17 ["Models"]
+       57 GETTABLEKS                       R7 R7 K18 ["AMPUpsellFeatureAccessModel"]
        59 CALL                             R6 1 1
        60 GETIMPORT                        R7 K5 [require]
-       62 GETTABLEKS                       R10 R0 K6 ["Src"]
-       64 GETTABLEKS                       R9 R10 K14 ["Util"]
-       66 GETTABLEKS                       R8 R9 K19 ["createResponseValidator"]
+       62 GETTABLEKS                       R8 R0 K6 ["Src"]
+       64 GETTABLEKS                       R8 R8 K14 ["Util"]
+       66 GETTABLEKS                       R8 R8 K19 ["createResponseValidator"]
        68 CALL                             R7 1 1
-       69 GETTABLEKS                       R9 R3 K20 ["RobloxAPI"]
-       71 GETTABLEKS                       R8 R9 K21 ["Url"]
+       69 GETTABLEKS                       R8 R3 K20 ["RobloxAPI"]
+       71 GETTABLEKS                       R8 R8 K21 ["Url"]
        73 GETTABLEKS                       R9 R5 K22 ["new"]
        75 DUPTABLE                         R10 K25 [{"isInternal", "loggingLevel"}]
        76 LOADB                            R11 1
@@ -233,16 +233,16 @@ MAIN:
        79 SETTABLEKS                       R1 R10 K24 ["loggingLevel"]
        81 CALL                             R9 1 1
        82 GETIMPORT                        R10 K5 [require]
-       84 GETTABLEKS                       R14 R0 K6 ["Src"]
-       86 GETTABLEKS                       R13 R14 K14 ["Util"]
-       88 GETTABLEKS                       R12 R13 K26 ["Telemetry"]
-       90 GETTABLEKS                       R11 R12 K27 ["TelemetryContext"]
+       84 GETTABLEKS                       R11 R0 K6 ["Src"]
+       86 GETTABLEKS                       R11 R11 K14 ["Util"]
+       88 GETTABLEKS                       R11 R11 K26 ["Telemetry"]
+       90 GETTABLEKS                       R11 R11 K27 ["TelemetryContext"]
        92 CALL                             R10 1 1
        93 GETIMPORT                        R11 K5 [require]
-       95 GETTABLEKS                       R15 R0 K6 ["Src"]
-       97 GETTABLEKS                       R14 R15 K14 ["Util"]
-       99 GETTABLEKS                       R13 R14 K26 ["Telemetry"]
-      101 GETTABLEKS                       R12 R13 K28 ["FetchAMPStatusFailureEvent"]
+       95 GETTABLEKS                       R12 R0 K6 ["Src"]
+       97 GETTABLEKS                       R12 R12 K14 ["Util"]
+       99 GETTABLEKS                       R12 R12 K26 ["Telemetry"]
+      101 GETTABLEKS                       R12 R12 K28 ["FetchAMPStatusFailureEvent"]
       103 CALL                             R11 1 1
       104 GETIMPORT                        R12 K30 [game]
       106 LOADK                            R14 K31 ["StudioService"]

@@ -13,8 +13,8 @@ PROTO_1:
         6 RETURN                           R0 -1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getFFlagRegisterActionsPluginLoader"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getFFlagRegisterActionsPluginLoader"]
         3 CALL                             R0 0 -1
         4 RETURN                           R0 -1
 

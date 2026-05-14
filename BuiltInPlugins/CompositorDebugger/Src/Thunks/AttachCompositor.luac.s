@@ -62,9 +62,9 @@ PROTO_3:
         2 NAMECALL                         R1 R0 K0 ["dispatch"]
         4 CALL                             R1 -1 0
         5 GETUPVAL                         R2 1
-        6 GETUPVAL                         R5 2
-        7 GETTABLEKS                       R4 R5 K1 ["FOLDERS"]
-        9 GETTABLEKS                       R3 R4 K2 ["CompositorDebugger"]
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K1 ["FOLDERS"]
+        9 GETTABLEKS                       R3 R3 K2 ["CompositorDebugger"]
        11 MOVE                             R6 R3
        12 NAMECALL                         R4 R2 K3 ["FindFirstChild"]
        14 CALL                             R4 2 1
@@ -82,9 +82,9 @@ PROTO_3:
        28 SETTABLEKS                       R6 R5 K9 ["Archivable"]
        30 SETTABLEKS                       R3 R5 K10 ["Name"]
        32 MOVE                             R1 R5
-       33 GETUPVAL                         R5 2
-       34 GETTABLEKS                       R4 R5 K1 ["FOLDERS"]
-       36 GETTABLEKS                       R3 R4 K11 ["Gizmos"]
+       33 GETUPVAL                         R3 2
+       34 GETTABLEKS                       R3 R3 K1 ["FOLDERS"]
+       36 GETTABLEKS                       R3 R3 K11 ["Gizmos"]
        38 MOVE                             R6 R3
        39 NAMECALL                         R4 R1 K3 ["FindFirstChild"]
        41 CALL                             R4 2 1
@@ -106,13 +106,13 @@ PROTO_3:
        61 NAMECALL                         R5 R5 K12 ["IsServer"]
        63 CALL                             R5 1 1
        64 JUMPIFNOT                        R5 ; [+6]
-       65 GETUPVAL                         R6 2
-       66 GETTABLEKS                       R5 R6 K1 ["FOLDERS"]
-       68 GETTABLEKS                       R4 R5 K13 ["Server"]
+       65 GETUPVAL                         R4 2
+       66 GETTABLEKS                       R4 R4 K1 ["FOLDERS"]
+       68 GETTABLEKS                       R4 R4 K13 ["Server"]
        70 JUMP                             ; [+5]
-       71 GETUPVAL                         R6 2
-       72 GETTABLEKS                       R5 R6 K1 ["FOLDERS"]
-       74 GETTABLEKS                       R4 R5 K14 ["Client"]
+       71 GETUPVAL                         R4 2
+       72 GETTABLEKS                       R4 R4 K1 ["FOLDERS"]
+       74 GETTABLEKS                       R4 R4 K14 ["Client"]
        76 MOVE                             R7 R4
        77 NAMECALL                         R5 R1 K3 ["FindFirstChild"]
        79 CALL                             R5 2 1
@@ -132,27 +132,27 @@ PROTO_3:
        97 MOVE                             R3 R6
        98 GETUPVAL                         R4 4
        99 MOVE                             R5 R3
-      100 GETUPVAL                         R8 2
-      101 GETTABLEKS                       R7 R8 K15 ["EVENTS"]
-      103 GETTABLEKS                       R6 R7 K16 ["DebugData"]
+      100 GETUPVAL                         R6 2
+      101 GETTABLEKS                       R6 R6 K15 ["EVENTS"]
+      103 GETTABLEKS                       R6 R6 K16 ["DebugData"]
       105 CALL                             R4 2 1
       106 GETUPVAL                         R5 4
       107 MOVE                             R6 R3
-      108 GETUPVAL                         R9 2
-      109 GETTABLEKS                       R8 R9 K15 ["EVENTS"]
-      111 GETTABLEKS                       R7 R8 K17 ["PropertyOverrides"]
+      108 GETUPVAL                         R7 2
+      109 GETTABLEKS                       R7 R7 K15 ["EVENTS"]
+      111 GETTABLEKS                       R7 R7 K17 ["PropertyOverrides"]
       113 CALL                             R5 2 1
       114 GETUPVAL                         R6 4
       115 MOVE                             R7 R3
-      116 GETUPVAL                         R10 2
-      117 GETTABLEKS                       R9 R10 K15 ["EVENTS"]
-      119 GETTABLEKS                       R8 R9 K18 ["DebugPose"]
+      116 GETUPVAL                         R8 2
+      117 GETTABLEKS                       R8 R8 K15 ["EVENTS"]
+      119 GETTABLEKS                       R8 R8 K18 ["DebugPose"]
       121 CALL                             R6 2 1
       122 GETUPVAL                         R7 4
       123 MOVE                             R8 R3
-      124 GETUPVAL                         R11 2
-      125 GETTABLEKS                       R10 R11 K15 ["EVENTS"]
-      127 GETTABLEKS                       R9 R10 K19 ["LayerSelection"]
+      124 GETUPVAL                         R9 2
+      125 GETTABLEKS                       R9 R9 K15 ["EVENTS"]
+      127 GETTABLEKS                       R9 R9 K19 ["LayerSelection"]
       129 CALL                             R7 2 1
       130 JUMPIFNOT                        R4 ; [+55]
       131 JUMPIFNOT                        R5 ; [+54]
@@ -228,65 +228,65 @@ MAIN:
         9 LOADK                            R3 K6 ["CompositorDebugger"]
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["AnimationEditor"]
-       19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R1 K12 ["Src"]
-       22 GETTABLEKS                       R3 R4 K13 ["Actions"]
-       24 GETIMPORT                        R4 K9 [require]
-       26 GETTABLEKS                       R5 R3 K14 ["SetActor"]
-       28 CALL                             R4 1 1
-       29 GETIMPORT                        R5 K9 [require]
-       31 GETTABLEKS                       R6 R3 K15 ["SetDebugDataEvent"]
-       33 CALL                             R5 1 1
-       34 GETIMPORT                        R6 K9 [require]
-       36 GETTABLEKS                       R7 R3 K16 ["SetDebugPoseEvent"]
-       38 CALL                             R6 1 1
-       39 GETIMPORT                        R7 K9 [require]
-       41 GETTABLEKS                       R8 R3 K17 ["SetLayerSelectionEvent"]
-       43 CALL                             R7 1 1
-       44 GETIMPORT                        R8 K9 [require]
-       46 GETTABLEKS                       R9 R3 K18 ["SetPropertyOverridesEvent"]
-       48 CALL                             R8 1 1
-       49 GETIMPORT                        R9 K9 [require]
-       51 GETTABLEKS                       R10 R3 K19 ["SetSendPayloadAnalytics"]
-       53 CALL                             R9 1 1
-       54 GETTABLEKS                       R11 R1 K12 ["Src"]
-       56 GETTABLEKS                       R10 R11 K20 ["Thunks"]
-       58 GETIMPORT                        R11 K9 [require]
-       60 GETTABLEKS                       R12 R10 K21 ["DetachCompositor"]
-       62 CALL                             R11 1 1
-       63 GETIMPORT                        R12 K9 [require]
-       65 GETTABLEKS                       R13 R10 K22 ["ParseDebugData"]
-       67 CALL                             R12 1 1
-       68 GETIMPORT                        R13 K9 [require]
-       70 GETTABLEKS                       R16 R1 K23 ["Bin"]
-       72 GETTABLEKS                       R15 R16 K24 ["Common"]
-       74 GETTABLEKS                       R14 R15 K25 ["defineLuaFlags"]
-       76 CALL                             R13 1 1
-       77 GETIMPORT                        R14 K9 [require]
-       79 GETTABLEKS                       R16 R1 K12 ["Src"]
-       81 GETTABLEKS                       R15 R16 K26 ["Types"]
-       83 CALL                             R14 1 1
-       84 GETIMPORT                        R15 K9 [require]
-       86 GETTABLEKS                       R18 R1 K23 ["Bin"]
-       88 GETTABLEKS                       R17 R18 K24 ["Common"]
-       90 GETTABLEKS                       R16 R17 K25 ["defineLuaFlags"]
-       92 CALL                             R15 1 1
-       93 GETTABLEKS                       R16 R2 K27 ["Constants"]
-       95 DUPCLOSURE                       R17 K28 [PROTO_0]
-       96 DUPCLOSURE                       R18 K29 [PROTO_1]
-       97 DUPCLOSURE                       R19 K30 [PROTO_4]
-       98 CAPTURE                          VAL R11
-       99 CAPTURE                          VAL R16
+       13 GETTABLEKS                       R2 R1 K8 ["Src"]
+       15 GETTABLEKS                       R2 R2 K9 ["Actions"]
+       17 GETIMPORT                        R3 K11 [require]
+       19 GETTABLEKS                       R4 R2 K12 ["SetActor"]
+       21 CALL                             R3 1 1
+       22 GETIMPORT                        R4 K11 [require]
+       24 GETTABLEKS                       R5 R2 K13 ["SetDebugDataEvent"]
+       26 CALL                             R4 1 1
+       27 GETIMPORT                        R5 K11 [require]
+       29 GETTABLEKS                       R6 R2 K14 ["SetDebugPoseEvent"]
+       31 CALL                             R5 1 1
+       32 GETIMPORT                        R6 K11 [require]
+       34 GETTABLEKS                       R7 R2 K15 ["SetLayerSelectionEvent"]
+       36 CALL                             R6 1 1
+       37 GETIMPORT                        R7 K11 [require]
+       39 GETTABLEKS                       R8 R2 K16 ["SetPropertyOverridesEvent"]
+       41 CALL                             R7 1 1
+       42 GETIMPORT                        R8 K11 [require]
+       44 GETTABLEKS                       R9 R2 K17 ["SetSendPayloadAnalytics"]
+       46 CALL                             R8 1 1
+       47 GETTABLEKS                       R9 R1 K8 ["Src"]
+       49 GETTABLEKS                       R9 R9 K18 ["Thunks"]
+       51 GETIMPORT                        R10 K11 [require]
+       53 GETTABLEKS                       R11 R9 K19 ["DetachCompositor"]
+       55 CALL                             R10 1 1
+       56 GETIMPORT                        R11 K11 [require]
+       58 GETTABLEKS                       R12 R9 K20 ["ParseDebugData"]
+       60 CALL                             R11 1 1
+       61 GETTABLEKS                       R12 R1 K8 ["Src"]
+       63 GETTABLEKS                       R12 R12 K21 ["Util"]
+       65 GETIMPORT                        R13 K11 [require]
+       67 GETTABLEKS                       R14 R12 K22 ["Constants"]
+       69 CALL                             R13 1 1
+       70 GETIMPORT                        R14 K11 [require]
+       72 GETTABLEKS                       R15 R1 K23 ["Bin"]
+       74 GETTABLEKS                       R15 R15 K24 ["Common"]
+       76 GETTABLEKS                       R15 R15 K25 ["defineLuaFlags"]
+       78 CALL                             R14 1 1
+       79 GETIMPORT                        R15 K11 [require]
+       81 GETTABLEKS                       R16 R1 K8 ["Src"]
+       83 GETTABLEKS                       R16 R16 K26 ["Types"]
+       85 CALL                             R15 1 1
+       86 GETIMPORT                        R16 K11 [require]
+       88 GETTABLEKS                       R17 R1 K23 ["Bin"]
+       90 GETTABLEKS                       R17 R17 K24 ["Common"]
+       92 GETTABLEKS                       R17 R17 K25 ["defineLuaFlags"]
+       94 CALL                             R16 1 1
+       95 DUPCLOSURE                       R17 K27 [PROTO_0]
+       96 DUPCLOSURE                       R18 K28 [PROTO_1]
+       97 DUPCLOSURE                       R19 K29 [PROTO_4]
+       98 CAPTURE                          VAL R10
+       99 CAPTURE                          VAL R13
       100 CAPTURE                          VAL R0
       101 CAPTURE                          VAL R18
-      102 CAPTURE                          VAL R9
-      103 CAPTURE                          VAL R12
-      104 CAPTURE                          VAL R5
-      105 CAPTURE                          VAL R8
-      106 CAPTURE                          VAL R6
-      107 CAPTURE                          VAL R7
-      108 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R8
+      103 CAPTURE                          VAL R11
+      104 CAPTURE                          VAL R4
+      105 CAPTURE                          VAL R7
+      106 CAPTURE                          VAL R5
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R3
       109 RETURN                           R19 1

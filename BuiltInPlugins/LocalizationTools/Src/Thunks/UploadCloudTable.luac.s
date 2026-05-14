@@ -28,13 +28,13 @@ PROTO_1:
 PROTO_2:
         0 JUMPIFNOT                        R0 ; [+25]
         1 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        6 GETTABLEKS                       R2 R3 K2 ["OK"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        6 GETTABLEKS                       R2 R2 K2 ["OK"]
         8 JUMPIFNOTEQ                      R1 R2 ; [+17]
        10 GETIMPORT                        R1 K4 [ipairs]
-       12 GETTABLEKS                       R4 R0 K5 ["responseBody"]
-       14 GETTABLEKS                       R2 R4 K6 ["data"]
+       12 GETTABLEKS                       R2 R0 K5 ["responseBody"]
+       14 GETTABLEKS                       R2 R2 K6 ["data"]
        16 CALL                             R1 1 3
        17 FORGPREP_INEXT                   R1
        18 GETUPVAL                         R6 1
@@ -66,12 +66,12 @@ PROTO_4:
 PROTO_5:
         0 JUMPIFNOT                        R0 ; [+15]
         1 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        6 GETTABLEKS                       R2 R3 K2 ["OK"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        6 GETTABLEKS                       R2 R2 K2 ["OK"]
         8 JUMPIFNOTEQ                      R1 R2 ; [+7]
-       10 GETTABLEKS                       R3 R0 K4 ["responseBody"]
-       12 GETTABLEKS                       R2 R3 K5 ["languageCode"]
+       10 GETTABLEKS                       R2 R0 K4 ["responseBody"]
+       12 GETTABLEKS                       R2 R2 K5 ["languageCode"]
        14 ORK                              R1 R2 K3 [""]
        15 SETUPVAL                         R1 1
        16 RETURN                           R0 0
@@ -96,9 +96,9 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        5 GETTABLEKS                       R2 R3 K2 ["OK"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        5 GETTABLEKS                       R2 R2 K2 ["OK"]
         7 JUMPIFNOTEQ                      R1 R2 ; [+4]
         9 LOADB                            R1 1
        10 SETUPVAL                         R1 1
@@ -134,11 +134,11 @@ PROTO_10:
        27 MOVE                             R6 R3
        28 NAMECALL                         R4 R4 K9 ["JSONEncode"]
        30 CALL                             R4 2 1
-       31 GETTABLEKS                       R9 R0 K10 ["GameInternationalization"]
-       33 GETTABLEKS                       R8 R9 K11 ["V1"]
-       35 GETTABLEKS                       R7 R8 K12 ["SupportedLanguages"]
-       37 GETTABLEKS                       R6 R7 K13 ["Games"]
-       39 GETTABLEKS                       R5 R6 K14 ["patch"]
+       31 GETTABLEKS                       R5 R0 K10 ["GameInternationalization"]
+       33 GETTABLEKS                       R5 R5 K11 ["V1"]
+       35 GETTABLEKS                       R5 R5 K12 ["SupportedLanguages"]
+       37 GETTABLEKS                       R5 R5 K13 ["Games"]
+       39 GETTABLEKS                       R5 R5 K14 ["patch"]
        41 MOVE                             R6 R1
        42 MOVE                             R7 R4
        43 CALL                             R5 2 1
@@ -204,24 +204,24 @@ PROTO_13:
        13 GETTABLEKS                       R8 R6 K2 ["responseBody"]
        15 CALL                             R7 1 1
        16 JUMPIFEQKNIL                     R7 ; [+43]
-       18 GETTABLEKS                       R8 R6 K2 ["responseBody"]
-       20 GETTABLEKS                       R7 R8 K5 ["failedEntriesAndTranslations"]
+       18 GETTABLEKS                       R7 R6 K2 ["responseBody"]
+       20 GETTABLEKS                       R7 R7 K5 ["failedEntriesAndTranslations"]
        22 JUMPIFEQKNIL                     R7 ; [+37]
        24 GETIMPORT                        R7 K4 [next]
-       26 GETTABLEKS                       R9 R6 K2 ["responseBody"]
-       28 GETTABLEKS                       R8 R9 K5 ["failedEntriesAndTranslations"]
+       26 GETTABLEKS                       R8 R6 K2 ["responseBody"]
+       28 GETTABLEKS                       R8 R8 K5 ["failedEntriesAndTranslations"]
        30 CALL                             R7 1 1
        31 JUMPIFNOT                        R7 ; [+28]
        32 GETIMPORT                        R7 K1 [pairs]
-       34 GETTABLEKS                       R10 R6 K2 ["responseBody"]
-       36 GETTABLEKS                       R8 R10 K5 ["failedEntriesAndTranslations"]
+       34 GETTABLEKS                       R8 R6 K2 ["responseBody"]
+       36 GETTABLEKS                       R8 R8 K5 ["failedEntriesAndTranslations"]
        38 CALL                             R7 1 3
        39 FORGPREP_NEXT                    R7
        40 GETTABLEKS                       R12 R11 K6 ["error"]
        42 JUMPIFNOT                        R12 ; [+15]
        43 GETUPVAL                         R13 0
-       44 GETTABLEKS                       R16 R11 K6 ["error"]
-       46 GETTABLEKS                       R15 R16 K7 ["errorCode"]
+       44 GETTABLEKS                       R15 R11 K6 ["error"]
+       46 GETTABLEKS                       R15 R15 K7 ["errorCode"]
        48 FASTCALL1                        TOSTRING R15 ; [+2]
        49 GETIMPORT                        R14 K9 [tostring]
        51 CALL                             R14 1 1
@@ -276,8 +276,8 @@ PROTO_14:
         1 RETURN                           R0 1
 
 PROTO_15:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["SplitByLimits"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["SplitByLimits"]
         3 GETTABLEKS                       R6 R3 K1 ["makePatch"]
         5 CALL                             R6 0 1
         6 GETIMPORT                        R7 K3 [game]
@@ -305,10 +305,10 @@ PROTO_15:
        34 NAMECALL                         R12 R12 K9 ["JSONEncode"]
        36 CALL                             R12 2 1
        37 MOVE                             R14 R6
-       38 GETTABLEKS                       R18 R0 K10 ["LocalizationTables"]
-       40 GETTABLEKS                       R17 R18 K11 ["V1"]
-       42 GETTABLEKS                       R16 R17 K12 ["LocalizationTable"]
-       44 GETTABLEKS                       R15 R16 K13 ["tables"]
+       38 GETTABLEKS                       R15 R0 K10 ["LocalizationTables"]
+       40 GETTABLEKS                       R15 R15 K11 ["V1"]
+       42 GETTABLEKS                       R15 R15 K12 ["LocalizationTable"]
+       44 GETTABLEKS                       R15 R15 K13 ["tables"]
        46 MOVE                             R16 R1
        47 MOVE                             R17 R2
        48 MOVE                             R18 R12
@@ -319,8 +319,8 @@ PROTO_15:
        54 GETIMPORT                        R13 K17 [table.insert]
        56 CALL                             R13 -1 0
        57 FORGLOOP                         R7 2 ; [-26]
-       59 GETUPVAL                         R8 3
-       60 GETTABLEKS                       R7 R8 K18 ["all"]
+       59 GETUPVAL                         R7 3
+       60 GETTABLEKS                       R7 R7 K18 ["all"]
        62 MOVE                             R8 R6
        63 CALL                             R7 1 1
        64 NEWCLOSURE                       R9 P0
@@ -340,9 +340,9 @@ PROTO_17:
         0 RETURN                           R0 0
 
 PROTO_18:
-        0 GETTABLEKS                       R4 R0 K0 ["API"]
-        2 GETTABLEKS                       R3 R4 K1 ["Loc"]
-        4 GETTABLEKS                       R2 R3 K2 ["assetsGenerationRequest"]
+        0 GETTABLEKS                       R2 R0 K0 ["API"]
+        2 GETTABLEKS                       R2 R2 K1 ["Loc"]
+        4 GETTABLEKS                       R2 R2 K2 ["assetsGenerationRequest"]
         6 MOVE                             R3 R1
         7 CALL                             R2 1 1
         8 NAMECALL                         R3 R2 K3 ["makeRequest"]
@@ -356,8 +356,8 @@ PROTO_18:
        19 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K4 [{"PatchInfo", "OkCallback", "CancelCallback"}]
         5 GETUPVAL                         R5 2
@@ -375,8 +375,8 @@ PROTO_20:
         4 RETURN                           R1 1
 
 PROTO_21:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K4 [{"OkCallback", "CancelCallback", "Text"}]
         5 SETTABLEKS                       R0 R4 K1 ["OkCallback"]
@@ -394,8 +394,8 @@ PROTO_22:
         4 RETURN                           R1 1
 
 PROTO_23:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K4 [{"OkCallback", "CancelCallback", "Text"}]
         5 SETTABLEKS                       R0 R4 K1 ["OkCallback"]
@@ -428,8 +428,8 @@ PROTO_26:
         5 CAPTURE                          VAL R2
         6 NAMECALL                         R2 R0 K0 ["getState"]
         8 CALL                             R2 1 1
-        9 GETTABLEKS                       R4 R2 K1 ["CloudTable"]
-       11 GETTABLEKS                       R3 R4 K2 ["IsBusy"]
+        9 GETTABLEKS                       R3 R2 K1 ["CloudTable"]
+       11 GETTABLEKS                       R3 R3 K2 ["IsBusy"]
        13 JUMPIFNOT                        R3 ; [+10]
        14 GETIMPORT                        R4 K4 [warn]
        16 GETUPVAL                         R5 0
@@ -466,8 +466,8 @@ PROTO_26:
        53 GETUPVAL                         R7 4
        54 JUMPIFNOT                        R7 ; [+10]
        55 GETIMPORT                        R7 K4 [warn]
-       57 GETUPVAL                         R9 5
-       58 GETTABLEKS                       R8 R9 K12 ["getTranslationForEngineError"]
+       57 GETUPVAL                         R8 5
+       58 GETTABLEKS                       R8 R8 K12 ["getTranslationForEngineError"]
        60 MOVE                             R9 R6
        61 GETUPVAL                         R10 0
        62 CALL                             R8 2 -1
@@ -480,8 +480,8 @@ PROTO_26:
        70 RETURN                           R0 0
        71 GETUPVAL                         R7 6
        72 JUMPIFNOT                        R7 ; [+35]
-       73 GETUPVAL                         R8 7
-       74 GETTABLEKS                       R7 R8 K13 ["isTableEmpty"]
+       73 GETUPVAL                         R7 7
+       74 GETTABLEKS                       R7 R7 K13 ["isTableEmpty"]
        76 NAMECALL                         R8 R4 K14 ["GetEntries"]
        78 CALL                             R8 1 -1
        79 CALL                             R7 -1 1
@@ -510,8 +510,8 @@ PROTO_26:
       105 JUMPIF                           R7 ; [+2]
       106 CLOSEUPVALS                      R4
       107 RETURN                           R0 0
-      108 GETUPVAL                         R8 7
-      109 GETTABLEKS                       R7 R8 K19 ["tableContainsInvalidEntries"]
+      108 GETUPVAL                         R7 7
+      109 GETTABLEKS                       R7 R7 K19 ["tableContainsInvalidEntries"]
       111 NAMECALL                         R8 R4 K14 ["GetEntries"]
       113 CALL                             R8 1 1
       114 GETUPVAL                         R9 0
@@ -558,14 +558,14 @@ PROTO_26:
       162 NAMECALL                         R9 R0 K8 ["dispatch"]
       164 CALL                             R9 -1 0
       165 GETUPVAL                         R9 13
-      166 GETUPVAL                         R15 14
-      167 GETTABLEKS                       R14 R15 K25 ["GameInternationalization"]
-      169 GETTABLEKS                       R13 R14 K26 ["V1"]
-      171 GETTABLEKS                       R12 R13 K27 ["SourceLanguage"]
-      173 GETTABLEKS                       R11 R12 K28 ["Games"]
-      175 GETTABLEKS                       R10 R11 K29 ["get"]
-      177 GETIMPORT                        R12 K31 [game]
-      179 GETTABLEKS                       R11 R12 K32 ["GameId"]
+      166 GETUPVAL                         R10 14
+      167 GETTABLEKS                       R10 R10 K25 ["GameInternationalization"]
+      169 GETTABLEKS                       R10 R10 K26 ["V1"]
+      171 GETTABLEKS                       R10 R10 K27 ["SourceLanguage"]
+      173 GETTABLEKS                       R10 R10 K28 ["Games"]
+      175 GETTABLEKS                       R10 R10 K29 ["get"]
+      177 GETIMPORT                        R11 K31 [game]
+      179 GETTABLEKS                       R11 R11 K32 ["GameId"]
       181 CALL                             R10 1 -1
       182 CALL                             R9 -1 1
       183 JUMPIFNOTEQKNIL                  R9 ; [+14]
@@ -581,14 +581,14 @@ PROTO_26:
       196 CLOSEUPVALS                      R4
       197 RETURN                           R0 0
       198 GETUPVAL                         R10 15
-      199 GETUPVAL                         R16 14
-      200 GETTABLEKS                       R15 R16 K25 ["GameInternationalization"]
-      202 GETTABLEKS                       R14 R15 K26 ["V1"]
-      204 GETTABLEKS                       R13 R14 K34 ["SupportedLanguages"]
-      206 GETTABLEKS                       R12 R13 K28 ["Games"]
-      208 GETTABLEKS                       R11 R12 K29 ["get"]
-      210 GETIMPORT                        R13 K31 [game]
-      212 GETTABLEKS                       R12 R13 K32 ["GameId"]
+      199 GETUPVAL                         R11 14
+      200 GETTABLEKS                       R11 R11 K25 ["GameInternationalization"]
+      202 GETTABLEKS                       R11 R11 K26 ["V1"]
+      204 GETTABLEKS                       R11 R11 K34 ["SupportedLanguages"]
+      206 GETTABLEKS                       R11 R11 K28 ["Games"]
+      208 GETTABLEKS                       R11 R11 K29 ["get"]
+      210 GETIMPORT                        R12 K31 [game]
+      212 GETTABLEKS                       R12 R12 K32 ["GameId"]
       214 CALL                             R11 1 -1
       215 CALL                             R10 -1 1
       216 JUMPIFNOTEQKNIL                  R10 ; [+14]
@@ -603,10 +603,10 @@ PROTO_26:
       228 CALL                             R11 -1 0
       229 CLOSEUPVALS                      R4
       230 RETURN                           R0 0
-      231 GETTABLEKS                       R12 R2 K36 ["PluginMetadata"]
-      233 GETTABLEKS                       R11 R12 K37 ["CloudTableId"]
-      235 GETUPVAL                         R13 16
-      236 GETTABLEKS                       R12 R13 K38 ["Download"]
+      231 GETTABLEKS                       R11 R2 K36 ["PluginMetadata"]
+      233 GETTABLEKS                       R11 R11 K37 ["CloudTableId"]
+      235 GETUPVAL                         R12 16
+      236 GETTABLEKS                       R12 R12 K38 ["Download"]
       238 GETUPVAL                         R13 14
       239 GETUPVAL                         R14 0
       240 MOVE                             R15 R11
@@ -623,10 +623,10 @@ PROTO_26:
       254 CALL                             R13 -1 0
       255 CLOSEUPVALS                      R4
       256 RETURN                           R0 0
-      257 GETTABLEKS                       R14 R2 K36 ["PluginMetadata"]
-      259 GETTABLEKS                       R13 R14 K40 ["AllLanguages"]
-      261 GETTABLEKS                       R15 R2 K36 ["PluginMetadata"]
-      263 GETTABLEKS                       R14 R15 K41 ["LocalesToLanguages"]
+      257 GETTABLEKS                       R13 R2 K36 ["PluginMetadata"]
+      259 GETTABLEKS                       R13 R13 K40 ["AllLanguages"]
+      261 GETTABLEKS                       R14 R2 K36 ["PluginMetadata"]
+      263 GETTABLEKS                       R14 R14 K41 ["LocalesToLanguages"]
       265 GETUPVAL                         R15 17
       266 NAMECALL                         R16 R12 K14 ["GetEntries"]
       268 CALL                             R16 1 1
@@ -640,8 +640,8 @@ PROTO_26:
       277 MOVE                             R19 R14
       278 MOVE                             R20 R10
       279 CALL                             R16 4 1
-      280 GETUPVAL                         R18 18
-      281 GETTABLEKS                       R17 R18 K42 ["DiffTables"]
+      280 GETUPVAL                         R17 18
+      281 GETTABLEKS                       R17 R17 K42 ["DiffTables"]
       283 LOADK                            R18 K43 ["MyLocalizationTable"]
       284 GETTABLEKS                       R19 R15 K44 ["entries"]
       286 GETTABLEKS                       R20 R16 K44 ["entries"]
@@ -722,8 +722,8 @@ PROTO_26:
       387 JUMPIF                           R20 ; [+23]
       388 GETUPVAL                         R20 22
       389 GETUPVAL                         R21 14
-      390 GETIMPORT                        R23 K31 [game]
-      392 GETTABLEKS                       R22 R23 K32 ["GameId"]
+      390 GETIMPORT                        R22 K31 [game]
+      392 GETTABLEKS                       R22 R22 K32 ["GameId"]
       394 GETTABLEKS                       R23 R17 K51 ["newLanguagesSet"]
       396 CALL                             R20 3 1
       397 JUMPIF                           R20 ; [+13]
@@ -741,8 +741,8 @@ PROTO_26:
       411 GETUPVAL                         R20 23
       412 GETUPVAL                         R21 14
       413 MOVE                             R22 R11
-      414 GETIMPORT                        R24 K31 [game]
-      416 GETTABLEKS                       R23 R24 K32 ["GameId"]
+      414 GETIMPORT                        R23 K31 [game]
+      416 GETTABLEKS                       R23 R23 K32 ["GameId"]
       418 MOVE                             R24 R17
       419 GETUPVAL                         R25 0
       420 CALL                             R20 5 1
@@ -784,8 +784,8 @@ PROTO_26:
       462 CALL                             R22 3 0
       463 GETUPVAL                         R22 25
       464 GETUPVAL                         R23 14
-      465 GETIMPORT                        R25 K31 [game]
-      467 GETTABLEKS                       R24 R25 K32 ["GameId"]
+      465 GETIMPORT                        R24 K31 [game]
+      467 GETTABLEKS                       R24 R24 K32 ["GameId"]
       469 CALL                             R22 2 0
       470 CLOSEUPVALS                      R4
       471 RETURN                           R0 0
@@ -830,70 +830,70 @@ MAIN:
         9 LOADK                            R3 K4 ["HttpService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Roact"]
+       23 GETTABLEKS                       R4 R2 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Roact"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K9 [require]
-       30 GETTABLEKS                       R6 R2 K10 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       30 GETTABLEKS                       R5 R2 K10 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K12 ["Framework"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R4 K13 ["Http"]
-       37 GETTABLEKS                       R7 R4 K14 ["Util"]
-       39 GETTABLEKS                       R6 R7 K15 ["Promise"]
+       37 GETTABLEKS                       R6 R4 K14 ["Util"]
+       39 GETTABLEKS                       R6 R6 K15 ["Promise"]
        41 GETIMPORT                        R7 K9 [require]
-       43 GETTABLEKS                       R10 R2 K16 ["Src"]
-       45 GETTABLEKS                       R9 R10 K17 ["Actions"]
-       47 GETTABLEKS                       R8 R9 K18 ["SetIsBusy"]
+       43 GETTABLEKS                       R8 R2 K16 ["Src"]
+       45 GETTABLEKS                       R8 R8 K17 ["Actions"]
+       47 GETTABLEKS                       R8 R8 K18 ["SetIsBusy"]
        49 CALL                             R7 1 1
        50 GETIMPORT                        R8 K9 [require]
-       52 GETTABLEKS                       R11 R2 K16 ["Src"]
-       54 GETTABLEKS                       R10 R11 K17 ["Actions"]
-       56 GETTABLEKS                       R9 R10 K19 ["SetMessage"]
+       52 GETTABLEKS                       R9 R2 K16 ["Src"]
+       54 GETTABLEKS                       R9 R9 K17 ["Actions"]
+       56 GETTABLEKS                       R9 R9 K19 ["SetMessage"]
        58 CALL                             R8 1 1
        59 GETIMPORT                        R9 K9 [require]
-       61 GETTABLEKS                       R12 R2 K16 ["Src"]
-       63 GETTABLEKS                       R11 R12 K20 ["Components"]
-       65 GETTABLEKS                       R10 R11 K21 ["UploadDialogContent"]
+       61 GETTABLEKS                       R10 R2 K16 ["Src"]
+       63 GETTABLEKS                       R10 R10 K20 ["Components"]
+       65 GETTABLEKS                       R10 R10 K21 ["UploadDialogContent"]
        67 CALL                             R9 1 1
        68 GETIMPORT                        R10 K9 [require]
-       70 GETTABLEKS                       R13 R2 K16 ["Src"]
-       72 GETTABLEKS                       R12 R13 K20 ["Components"]
-       74 GETTABLEKS                       R11 R12 K22 ["ErrorDialog"]
+       70 GETTABLEKS                       R11 R2 K16 ["Src"]
+       72 GETTABLEKS                       R11 R11 K20 ["Components"]
+       74 GETTABLEKS                       R11 R11 K22 ["ErrorDialog"]
        76 CALL                             R10 1 1
        77 GETIMPORT                        R11 K9 [require]
-       79 GETTABLEKS                       R14 R2 K16 ["Src"]
-       81 GETTABLEKS                       R13 R14 K20 ["Components"]
-       83 GETTABLEKS                       R12 R13 K23 ["WarningDialog"]
+       79 GETTABLEKS                       R12 R2 K16 ["Src"]
+       81 GETTABLEKS                       R12 R12 K20 ["Components"]
+       83 GETTABLEKS                       R12 R12 K23 ["WarningDialog"]
        85 CALL                             R11 1 1
        86 GETIMPORT                        R12 K9 [require]
-       88 GETTABLEKS                       R15 R2 K16 ["Src"]
-       90 GETTABLEKS                       R14 R15 K24 ["Thunks"]
-       92 GETTABLEKS                       R13 R14 K25 ["DownloadCloudTable"]
+       88 GETTABLEKS                       R13 R2 K16 ["Src"]
+       90 GETTABLEKS                       R13 R13 K24 ["Thunks"]
+       92 GETTABLEKS                       R13 R13 K25 ["DownloadCloudTable"]
        94 CALL                             R12 1 1
        95 GETIMPORT                        R13 K9 [require]
-       97 GETTABLEKS                       R16 R2 K16 ["Src"]
-       99 GETTABLEKS                       R15 R16 K14 ["Util"]
-      101 GETTABLEKS                       R14 R15 K26 ["RbxEntriesToWebEntries"]
+       97 GETTABLEKS                       R14 R2 K16 ["Src"]
+       99 GETTABLEKS                       R14 R14 K14 ["Util"]
+      101 GETTABLEKS                       R14 R14 K26 ["RbxEntriesToWebEntries"]
       103 CALL                             R13 1 1
       104 GETIMPORT                        R14 K9 [require]
-      106 GETTABLEKS                       R17 R2 K16 ["Src"]
-      108 GETTABLEKS                       R16 R17 K14 ["Util"]
-      110 GETTABLEKS                       R15 R16 K27 ["PatchInfo"]
+      106 GETTABLEKS                       R15 R2 K16 ["Src"]
+      108 GETTABLEKS                       R15 R15 K14 ["Util"]
+      110 GETTABLEKS                       R15 R15 K27 ["PatchInfo"]
       112 CALL                             R14 1 1
       113 GETIMPORT                        R15 K9 [require]
-      115 GETTABLEKS                       R18 R2 K16 ["Src"]
-      117 GETTABLEKS                       R17 R18 K14 ["Util"]
-      119 GETTABLEKS                       R16 R17 K28 ["isEmpty"]
+      115 GETTABLEKS                       R16 R2 K16 ["Src"]
+      117 GETTABLEKS                       R16 R16 K14 ["Util"]
+      119 GETTABLEKS                       R16 R16 K28 ["isEmpty"]
       121 CALL                             R15 1 1
       122 GETIMPORT                        R16 K9 [require]
-      124 GETTABLEKS                       R19 R2 K16 ["Src"]
-      126 GETTABLEKS                       R18 R19 K14 ["Util"]
-      128 GETTABLEKS                       R17 R18 K29 ["ValidateCloudTable"]
+      124 GETTABLEKS                       R17 R2 K16 ["Src"]
+      126 GETTABLEKS                       R17 R17 K14 ["Util"]
+      128 GETTABLEKS                       R17 R17 K29 ["ValidateCloudTable"]
       130 CALL                             R16 1 1
       131 GETIMPORT                        R17 K32 [Vector2.new]
       133 LOADN                            R18 44
@@ -910,9 +910,9 @@ MAIN:
       147 LOADNIL                          R20
       148 JUMPIFNOT                        R19 ; [+10]
       149 GETIMPORT                        R21 K9 [require]
-      151 GETTABLEKS                       R24 R2 K16 ["Src"]
-      153 GETTABLEKS                       R23 R24 K14 ["Util"]
-      155 GETTABLEKS                       R22 R23 K35 ["MapEngineErrors"]
+      151 GETTABLEKS                       R22 R2 K16 ["Src"]
+      153 GETTABLEKS                       R22 R22 K14 ["Util"]
+      155 GETTABLEKS                       R22 R22 K35 ["MapEngineErrors"]
       157 CALL                             R21 1 1
       158 MOVE                             R20 R21
       159 DUPCLOSURE                       R21 K36 [PROTO_1]

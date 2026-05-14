@@ -109,8 +109,8 @@ PROTO_2:
        68 CALL                             R5 2 1
        69 SETTABLEKS                       R5 R4 K3 ["Keypoints"]
        71 CALL                             R2 2 1
-       72 GETUPVAL                         R4 2
-       73 GETTABLEKS                       R3 R4 K14 ["updateIndexMut"]
+       72 GETUPVAL                         R3 2
+       73 GETTABLEKS                       R3 R3 K14 ["updateIndexMut"]
        75 MOVE                             R4 R2
        76 CALL                             R3 1 0
        77 RETURN                           R2 1
@@ -118,8 +118,8 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["Keypoints"]
         2 LENGTH                           R2 R3
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["MAX_KEYPOINT_COUNT"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["MAX_KEYPOINT_COUNT"]
         6 JUMPIFNOTLE                      R3 R2 ; [+2]
         8 RETURN                           R0 1
         9 GETUPVAL                         R3 1
@@ -228,28 +228,28 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Dash"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Dash"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["join"]
        20 GETTABLEKS                       R3 R1 K8 ["joinDeep"]
        22 GETTABLEKS                       R4 R1 K9 ["copy"]
        24 GETIMPORT                        R5 K4 [require]
-       26 GETTABLEKS                       R8 R0 K10 ["Src"]
-       28 GETTABLEKS                       R7 R8 K11 ["Util"]
-       30 GETTABLEKS                       R6 R7 K12 ["roundDecimal"]
+       26 GETTABLEKS                       R6 R0 K10 ["Src"]
+       28 GETTABLEKS                       R6 R6 K11 ["Util"]
+       30 GETTABLEKS                       R6 R6 K12 ["roundDecimal"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K4 [require]
-       35 GETTABLEKS                       R10 R0 K10 ["Src"]
-       37 GETTABLEKS                       R9 R10 K13 ["Renderers"]
-       39 GETTABLEKS                       R8 R9 K14 ["SequenceRenderers"]
-       41 GETTABLEKS                       R7 R8 K15 ["Types"]
+       35 GETTABLEKS                       R7 R0 K10 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Renderers"]
+       39 GETTABLEKS                       R7 R7 K14 ["SequenceRenderers"]
+       41 GETTABLEKS                       R7 R7 K15 ["Types"]
        43 CALL                             R6 1 1
        44 NEWTABLE                         R7 8 0
        46 LOADN                            R8 20

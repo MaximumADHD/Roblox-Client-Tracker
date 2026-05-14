@@ -2,8 +2,8 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R3 R0 K0 ["expandedAssetId"]
         3 JUMPIFNOTEQ                      R2 R3 ; [+5]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["None"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["None"]
         8 JUMP                             ; [+1]
         9 GETUPVAL                         R1 0
        10 DUPTABLE                         R2 K2 [{"expandedAssetId"}]
@@ -41,11 +41,11 @@ PROTO_4:
         4 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createFragment"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createFragment"]
         3 DUPTABLE                         R2 K2 [{"Player"}]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K3 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K3 ["createElement"]
         7 LOADK                            R4 K4 ["Frame"]
         8 DUPTABLE                         R5 K7 [{"Size", "BackgroundTransparency"}]
         9 GETIMPORT                        R6 K10 [UDim2.new]
@@ -58,20 +58,20 @@ PROTO_5:
        18 LOADN                            R6 1
        19 SETTABLEKS                       R6 R5 K6 ["BackgroundTransparency"]
        21 DUPTABLE                         R6 K2 [{"Player"}]
-       22 GETUPVAL                         R8 1
-       23 GETTABLEKS                       R7 R8 K11 ["Generator"]
-       25 GETUPVAL                         R9 2
-       26 GETTABLEKS                       R8 R9 K12 ["join"]
+       22 GETUPVAL                         R7 1
+       23 GETTABLEKS                       R7 R7 K11 ["Generator"]
+       25 GETUPVAL                         R8 2
+       26 GETTABLEKS                       R8 R8 K12 ["join"]
        28 GETTABLEKS                       R9 R0 K13 ["props"]
        30 DUPTABLE                         R10 K20 [{"LayoutOrder", "IsExpanded", "OnExpanded", "ParentAbsoluteSize", "CanInsertAsset", "InsertAsset"}]
        31 LOADN                            R11 1
        32 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-       34 GETTABLEKS                       R15 R0 K13 ["props"]
-       36 GETTABLEKS                       R14 R15 K21 ["AssetInfo"]
-       38 GETTABLEKS                       R13 R14 K22 ["Asset"]
-       40 GETTABLEKS                       R12 R13 K23 ["Id"]
-       42 GETTABLEKS                       R14 R0 K24 ["state"]
-       44 GETTABLEKS                       R13 R14 K25 ["expandedAssetId"]
+       34 GETTABLEKS                       R12 R0 K13 ["props"]
+       36 GETTABLEKS                       R12 R12 K21 ["AssetInfo"]
+       38 GETTABLEKS                       R12 R12 K22 ["Asset"]
+       40 GETTABLEKS                       R12 R12 K23 ["Id"]
+       42 GETTABLEKS                       R13 R0 K24 ["state"]
+       44 GETTABLEKS                       R13 R13 K25 ["expandedAssetId"]
        46 JUMPIFEQ                         R12 R13 ; [+2]
        48 LOADB                            R11 0 +1
        49 LOADB                            R11 1
@@ -96,13 +96,13 @@ PROTO_5:
        77 RETURN                           R1 -1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -115,13 +115,13 @@ PROTO_6:
        22 RETURN                           R0 -1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -134,13 +134,13 @@ PROTO_7:
        22 RETURN                           R0 -1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -153,13 +153,13 @@ PROTO_8:
        22 RETURN                           R0 -1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -172,13 +172,13 @@ PROTO_9:
        22 RETURN                           R0 -1
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -191,13 +191,13 @@ PROTO_10:
        22 RETURN                           R0 -1
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -210,13 +210,13 @@ PROTO_11:
        22 RETURN                           R0 -1
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioRow"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"AssetInfo", "LayoutOrder"}]
        12 GETUPVAL                         R7 3
@@ -245,23 +245,23 @@ MAIN:
        21 GETTABLEKS                       R5 R1 K9 ["Dash"]
        23 CALL                             R4 1 1
        24 GETIMPORT                        R5 K6 [require]
-       26 GETTABLEKS                       R8 R0 K10 ["Src"]
-       28 GETTABLEKS                       R7 R8 K11 ["Types"]
-       30 GETTABLEKS                       R6 R7 K12 ["Category"]
+       26 GETTABLEKS                       R6 R0 K10 ["Src"]
+       28 GETTABLEKS                       R6 R6 K11 ["Types"]
+       30 GETTABLEKS                       R6 R6 K12 ["Category"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K6 [require]
-       35 GETTABLEKS                       R9 R0 K10 ["Src"]
-       37 GETTABLEKS                       R8 R9 K13 ["Models"]
-       39 GETTABLEKS                       R7 R8 K14 ["AssetInfo"]
+       35 GETTABLEKS                       R7 R0 K10 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Models"]
+       39 GETTABLEKS                       R7 R7 K14 ["AssetInfo"]
        41 CALL                             R6 1 1
        42 GETIMPORT                        R7 K6 [require]
-       44 GETIMPORT                        R10 K1 [script]
-       46 GETTABLEKS                       R9 R10 K15 ["Parent"]
-       48 GETTABLEKS                       R8 R9 K16 ["AudioRow"]
+       44 GETIMPORT                        R8 K1 [script]
+       46 GETTABLEKS                       R8 R8 K15 ["Parent"]
+       48 GETTABLEKS                       R8 R8 K16 ["AudioRow"]
        50 CALL                             R7 1 1
        51 GETIMPORT                        R8 K6 [require]
-       53 GETTABLEKS                       R10 R0 K17 ["Stories"]
-       55 GETTABLEKS                       R9 R10 K18 ["ToolboxStoryWrapper"]
+       53 GETTABLEKS                       R9 R0 K17 ["Stories"]
+       55 GETTABLEKS                       R9 R9 K18 ["ToolboxStoryWrapper"]
        57 CALL                             R8 1 1
        58 GETTABLEKS                       R9 R2 K19 ["PureComponent"]
        60 LOADK                            R11 K20 ["AudioRowWrapper"]
@@ -289,8 +289,8 @@ MAIN:
        92 DUPTABLE                         R11 K43 [{"Artist", "Type", "SoundEffectCategory", "SoundEffectSubcategory"}]
        93 LOADK                            R12 K44 ["OnlyTwentyCharacters"]
        94 SETTABLEKS                       R12 R11 K39 ["Artist"]
-       96 GETTABLEKS                       R13 R5 K45 ["SOUND_EFFECTS"]
-       98 GETTABLEKS                       R12 R13 K46 ["name"]
+       96 GETTABLEKS                       R12 R5 K45 ["SOUND_EFFECTS"]
+       98 GETTABLEKS                       R12 R12 K46 ["name"]
       100 SETTABLEKS                       R12 R11 K40 ["Type"]
       102 LOADK                            R12 K47 ["instruments"]
       103 SETTABLEKS                       R12 R11 K41 ["SoundEffectCategory"]
@@ -325,8 +325,8 @@ MAIN:
       146 SETTABLEKS                       R13 R12 K33 ["HasScripts"]
       148 SETTABLEKS                       R12 R11 K22 ["Asset"]
       150 DUPTABLE                         R12 K55 [{"Type", "MusicGenre", "Artist", "MusicAlbum"}]
-      151 GETTABLEKS                       R14 R5 K56 ["MUSIC"]
-      153 GETTABLEKS                       R13 R14 K46 ["name"]
+      151 GETTABLEKS                       R13 R5 K56 ["MUSIC"]
+      153 GETTABLEKS                       R13 R13 K46 ["name"]
       155 SETTABLEKS                       R13 R12 K40 ["Type"]
       157 LOADK                            R13 K57 ["rock"]
       158 SETTABLEKS                       R13 R12 K53 ["MusicGenre"]
@@ -378,8 +378,8 @@ MAIN:
       226 SETTABLEKS                       R15 R14 K33 ["HasScripts"]
       228 SETTABLEKS                       R14 R13 K22 ["Asset"]
       230 DUPTABLE                         R14 K63 [{"Type"}]
-      231 GETTABLEKS                       R16 R5 K56 ["MUSIC"]
-      233 GETTABLEKS                       R15 R16 K46 ["name"]
+      231 GETTABLEKS                       R15 R5 K56 ["MUSIC"]
+      233 GETTABLEKS                       R15 R15 K46 ["name"]
       235 SETTABLEKS                       R15 R14 K40 ["Type"]
       237 SETTABLEKS                       R14 R13 K23 ["AudioDetails"]
       239 DUPTABLE                         R14 K61 [{"Asset", "AudioDetails"}]
@@ -400,8 +400,8 @@ MAIN:
       260 SETTABLEKS                       R16 R15 K33 ["HasScripts"]
       262 SETTABLEKS                       R15 R14 K22 ["Asset"]
       264 DUPTABLE                         R15 K63 [{"Type"}]
-      265 GETTABLEKS                       R17 R5 K45 ["SOUND_EFFECTS"]
-      267 GETTABLEKS                       R16 R17 K46 ["name"]
+      265 GETTABLEKS                       R16 R5 K45 ["SOUND_EFFECTS"]
+      267 GETTABLEKS                       R16 R16 K46 ["name"]
       269 SETTABLEKS                       R16 R15 K40 ["Type"]
       271 SETTABLEKS                       R15 R14 K23 ["AudioDetails"]
       273 DUPCLOSURE                       R15 K64 [PROTO_2]

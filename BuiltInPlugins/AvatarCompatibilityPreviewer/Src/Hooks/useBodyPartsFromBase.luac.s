@@ -11,8 +11,8 @@ PROTO_0:
        12 GETIMPORT                        R0 K2 [assert]
        14 CALL                             R0 2 0
        15 NEWTABLE                         R0 0 0
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R1 R4 K3 ["equippedItems"]
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K3 ["equippedItems"]
        20 LOADNIL                          R2
        21 LOADNIL                          R3
        22 FORGPREP                         R1
@@ -21,8 +21,8 @@ PROTO_0:
        25 JUMPIFNOT                        R6 ; [+3]
        26 GETTABLEKS                       R6 R5 K4 ["isHidden"]
        28 JUMPIF                           R6 ; [+6]
-       29 GETTABLEKS                       R7 R5 K5 ["palette"]
-       31 GETTABLEKS                       R6 R7 K6 ["Key"]
+       29 GETTABLEKS                       R6 R5 K5 ["palette"]
+       31 GETTABLEKS                       R6 R6 K6 ["Key"]
        33 LOADB                            R7 1
        34 SETTABLE                         R7 R0 R6
        35 FORGLOOP                         R1 2 ; [-13]
@@ -36,8 +36,8 @@ PROTO_0:
        44 LOADNIL                          R7
        45 LOADNIL                          R8
        46 FORGPREP                         R6
-       47 GETUPVAL                         R12 4
-       48 GETTABLEKS                       R11 R12 K7 ["isLimbOriginal"]
+       47 GETUPVAL                         R11 4
+       48 GETTABLEKS                       R11 R11 K7 ["isLimbOriginal"]
        50 GETUPVAL                         R12 0
        51 MOVE                             R14 R10
        52 NAMECALL                         R12 R12 K8 ["FindFirstChild"]
@@ -65,8 +65,8 @@ PROTO_0:
        82 GETUPVAL                         R13 6
        83 MOVE                             R14 R12
        84 CALL                             R13 1 0
-       85 GETUPVAL                         R14 0
-       86 GETTABLEKS                       R13 R14 K12 ["Humanoid"]
+       85 GETUPVAL                         R13 0
+       86 GETTABLEKS                       R13 R13 K12 ["Humanoid"]
        88 GETIMPORT                        R16 K15 [Enum.BodyPartR15]
        90 GETTABLE                         R15 R16 R10
        91 MOVE                             R16 R12
@@ -77,16 +77,16 @@ PROTO_0:
        99 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useContext"]
         3 GETUPVAL                         R3 1
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["useContext"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["useContext"]
         8 GETUPVAL                         R4 2
         9 CALL                             R3 1 1
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K1 ["useEffect"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K1 ["useEffect"]
        13 NEWCLOSURE                       R5 P0
        14 CAPTURE                          VAL R0
        15 CAPTURE                          VAL R2
@@ -110,32 +110,32 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K8 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["EquipmentStateContext"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["EquipmentStateContext"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K8 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["OriginalLimbContext"]
+       32 GETTABLEKS                       R5 R0 K8 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["OriginalLimbContext"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K8 ["Src"]
-       43 GETTABLEKS                       R7 R8 K10 ["Util"]
-       45 GETTABLEKS                       R6 R7 K13 ["filterDescendants"]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K10 ["Util"]
+       45 GETTABLEKS                       R6 R6 K13 ["filterDescendants"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K8 ["Src"]
-       52 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       54 GETTABLEKS                       R7 R8 K15 ["getFFlagAvatarPreviewerMakeupDescription"]
+       50 GETTABLEKS                       R7 R0 K8 ["Src"]
+       52 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       54 GETTABLEKS                       R7 R7 K15 ["getFFlagAvatarPreviewerMakeupDescription"]
        56 CALL                             R6 1 1
        57 DUPTABLE                         R7 K22 [{"HeadBodyPart", "Torso", "LeftArm", "RightArm", "LeftLeg", "RightLeg"}]
        58 NEWTABLE                         R8 0 1

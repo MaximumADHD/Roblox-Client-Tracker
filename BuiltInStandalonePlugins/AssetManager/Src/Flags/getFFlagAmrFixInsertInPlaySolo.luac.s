@@ -16,9 +16,9 @@ MAIN:
        11 NAMECALL                         R0 R0 K7 ["FindFirstAncestor"]
        13 CALL                             R0 2 1
        14 GETIMPORT                        R1 K9 [require]
-       16 GETTABLEKS                       R4 R0 K10 ["Bin"]
-       18 GETTABLEKS                       R3 R4 K11 ["Common"]
-       20 GETTABLEKS                       R2 R3 K12 ["safeGetFastFlag"]
+       16 GETTABLEKS                       R2 R0 K10 ["Bin"]
+       18 GETTABLEKS                       R2 R2 K11 ["Common"]
+       20 GETTABLEKS                       R2 R2 K12 ["safeGetFastFlag"]
        22 CALL                             R1 1 1
        23 DUPCLOSURE                       R2 K13 [PROTO_0]
        24 CAPTURE                          VAL R1

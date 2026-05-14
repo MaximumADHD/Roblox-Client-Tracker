@@ -53,8 +53,8 @@ PROTO_5:
         6 RETURN                           R3 -1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Name"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
         5 LOADNIL                          R2
         6 LOADNIL                          R3
@@ -133,11 +133,11 @@ PROTO_6:
       107 LOADK                            R7 K41 ["RunService"]
       108 NAMECALL                         R5 R5 K42 ["GetService"]
       110 CALL                             R5 2 1
-      111 GETUPVAL                         R8 4
-      112 GETTABLEKS                       R7 R8 K43 ["get"]
+      111 GETUPVAL                         R7 4
+      112 GETTABLEKS                       R7 R7 K43 ["get"]
       114 CALL                             R7 0 1
-      115 GETUPVAL                         R9 4
-      116 GETTABLEKS                       R8 R9 K16 ["Standalone"]
+      115 GETUPVAL                         R8 4
+      116 GETTABLEKS                       R8 R8 K16 ["Standalone"]
       118 JUMPIFEQ                         R7 R8 ; [+2]
       120 LOADB                            R6 0 +1
       121 LOADB                            R6 1
@@ -167,8 +167,8 @@ PROTO_6:
       152 GETIMPORT                        R9 K60 [Enum.ZIndexBehavior.Sibling]
       154 SETTABLEKS                       R9 R8 K48 ["zIndexBehavior"]
       156 SETTABLEKS                       R8 R4 K61 ["dockWidgetInfo"]
-      158 GETUPVAL                         R9 5
-      159 GETTABLEKS                       R8 R9 K62 ["build"]
+      158 GETUPVAL                         R8 5
+      159 GETTABLEKS                       R8 R8 K62 ["build"]
       161 MOVE                             R9 R4
       162 CALL                             R8 1 1
       163 GETTABLEKS                       R9 R8 K63 ["pluginLoader"]
@@ -181,8 +181,8 @@ PROTO_6:
       172 MOVE                             R12 R8
       173 CALL                             R10 2 0
       174 RETURN                           R0 0
-      175 GETUPVAL                         R9 5
-      176 GETTABLEKS                       R8 R9 K62 ["build"]
+      175 GETUPVAL                         R8 5
+      176 GETTABLEKS                       R8 R8 K62 ["build"]
       178 MOVE                             R9 R4
       179 CALL                             R8 1 0
       180 RETURN                           R0 0
@@ -194,27 +194,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["PluginLoader"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["PluginLoader"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PluginLoaderBuilder"]
-       16 GETTABLEKS                       R6 R0 K9 ["Src"]
-       18 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       20 GETTABLEKS                       R4 R5 K11 ["Localization"]
-       22 GETTABLEKS                       R3 R4 K12 ["SourceStrings"]
-       24 GETTABLEKS                       R7 R0 K9 ["Src"]
-       26 GETTABLEKS                       R6 R7 K10 ["Resources"]
-       28 GETTABLEKS                       R5 R6 K11 ["Localization"]
-       30 GETTABLEKS                       R4 R5 K13 ["LocalizedStrings"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K11 ["Localization"]
+       22 GETTABLEKS                       R3 R3 K12 ["SourceStrings"]
+       24 GETTABLEKS                       R4 R0 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       28 GETTABLEKS                       R4 R4 K11 ["Localization"]
+       30 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K14 ["Bin"]
-       36 GETTABLEKS                       R7 R8 K15 ["Common"]
-       38 GETTABLEKS                       R6 R7 K16 ["pluginType"]
+       34 GETTABLEKS                       R6 R0 K14 ["Bin"]
+       36 GETTABLEKS                       R6 R6 K15 ["Common"]
+       38 GETTABLEKS                       R6 R6 K16 ["pluginType"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R9 R0 K14 ["Bin"]
-       45 GETTABLEKS                       R8 R9 K15 ["Common"]
-       47 GETTABLEKS                       R7 R8 K17 ["defineLuaFlags"]
+       43 GETTABLEKS                       R7 R0 K14 ["Bin"]
+       45 GETTABLEKS                       R7 R7 K15 ["Common"]
+       47 GETTABLEKS                       R7 R7 K17 ["defineLuaFlags"]
        49 CALL                             R6 1 1
        50 GETTABLEKS                       R7 R6 K18 ["getFFlagRegisterActionsPluginLoader"]
        52 CALL                             R7 0 1

@@ -14,15 +14,15 @@ PROTO_0:
        16 LOADB                            R5 0
        17 RETURN                           R5 1
        18 GETTABLEKS                       R5 R1 K5 ["Position"]
-       20 GETTABLEKS                       R8 R3 K6 ["AbsolutePosition"]
-       22 GETTABLEKS                       R6 R8 K7 ["X"]
-       24 GETTABLEKS                       R8 R3 K6 ["AbsolutePosition"]
-       26 GETTABLEKS                       R7 R8 K8 ["Y"]
-       28 GETTABLEKS                       R11 R3 K9 ["AbsoluteSize"]
-       30 GETTABLEKS                       R10 R11 K7 ["X"]
+       20 GETTABLEKS                       R6 R3 K6 ["AbsolutePosition"]
+       22 GETTABLEKS                       R6 R6 K7 ["X"]
+       24 GETTABLEKS                       R7 R3 K6 ["AbsolutePosition"]
+       26 GETTABLEKS                       R7 R7 K8 ["Y"]
+       28 GETTABLEKS                       R10 R3 K9 ["AbsoluteSize"]
+       30 GETTABLEKS                       R10 R10 K7 ["X"]
        32 ADD                              R8 R10 R6
-       33 GETTABLEKS                       R11 R3 K9 ["AbsoluteSize"]
-       35 GETTABLEKS                       R10 R11 K8 ["Y"]
+       33 GETTABLEKS                       R10 R3 K9 ["AbsoluteSize"]
+       35 GETTABLEKS                       R10 R10 K8 ["Y"]
        37 ADD                              R9 R10 R7
        38 LOADB                            R10 0
        39 GETTABLEKS                       R11 R5 K7 ["X"]

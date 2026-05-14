@@ -33,8 +33,8 @@ PROTO_2:
        19 GETUPVAL                         R6 0
        20 MOVE                             R7 R0
        21 DUPTABLE                         R8 K6 [{"PluginFocusPeriodStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusEndWithStartCount", "PluginFocusEndWithoutStartCount"}]
-       22 GETUPVAL                         R10 1
-       23 GETTABLEKS                       R9 R10 K7 ["None"]
+       22 GETUPVAL                         R9 1
+       23 GETTABLEKS                       R9 R9 K7 ["None"]
        25 SETTABLEKS                       R9 R8 K2 ["PluginFocusPeriodStartTimestamp"]
        27 SETTABLEKS                       R5 R8 K5 ["TotalPluginFocusTimeSeconds"]
        29 SETTABLEKS                       R2 R8 K0 ["PluginFocusEndWithStartCount"]
@@ -44,36 +44,36 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["join"]
-       25 GETTABLEKS                       R5 R0 K9 ["Src"]
-       27 GETTABLEKS                       R4 R5 K10 ["Actions"]
+       25 GETTABLEKS                       R4 R0 K9 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Actions"]
        29 GETIMPORT                        R5 K4 [require]
-       31 GETTABLEKS                       R7 R4 K11 ["SessionStats"]
-       33 GETTABLEKS                       R6 R7 K12 ["PluginFocusEnd"]
+       31 GETTABLEKS                       R6 R4 K11 ["SessionStats"]
+       33 GETTABLEKS                       R6 R6 K12 ["PluginFocusEnd"]
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K4 [require]
-       38 GETTABLEKS                       R8 R4 K11 ["SessionStats"]
-       40 GETTABLEKS                       R7 R8 K13 ["PluginFocusStart"]
+       38 GETTABLEKS                       R7 R4 K11 ["SessionStats"]
+       40 GETTABLEKS                       R7 R7 K13 ["PluginFocusStart"]
        42 CALL                             R6 1 1
        43 GETIMPORT                        R7 K4 [require]
-       45 GETTABLEKS                       R9 R4 K11 ["SessionStats"]
-       47 GETTABLEKS                       R8 R9 K14 ["SetSessionStartTimestamp"]
+       45 GETTABLEKS                       R8 R4 K11 ["SessionStats"]
+       47 GETTABLEKS                       R8 R8 K14 ["SetSessionStartTimestamp"]
        49 CALL                             R7 1 1
        50 GETIMPORT                        R8 K4 [require]
-       52 GETTABLEKS                       R10 R0 K9 ["Src"]
-       54 GETTABLEKS                       R9 R10 K15 ["Types"]
+       52 GETTABLEKS                       R9 R0 K9 ["Src"]
+       54 GETTABLEKS                       R9 R9 K15 ["Types"]
        56 CALL                             R8 1 1
        57 DUPTABLE                         R9 K22 [{"SessionStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusPeriodStartTimestamp", "PluginFocusEndWithStartCount", "PluginFocusEndWithoutStartCount", "ButtonPressCounts"}]
        58 LOADN                            R10 0

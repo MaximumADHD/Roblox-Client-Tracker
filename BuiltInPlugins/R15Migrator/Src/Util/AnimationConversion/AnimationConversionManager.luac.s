@@ -72,8 +72,8 @@ PROTO_3:
        33 LOADB                            R1 1
        34 GETTABLEKS                       R13 R12 K5 ["requiredParent"]
        36 JUMPIFNOT                        R13 ; [+10]
-       37 GETTABLEKS                       R14 R11 K6 ["Parent"]
-       39 GETTABLEKS                       R13 R14 K4 ["Name"]
+       37 GETTABLEKS                       R13 R11 K6 ["Parent"]
+       39 GETTABLEKS                       R13 R13 K4 ["Name"]
        41 GETTABLEKS                       R14 R12 K5 ["requiredParent"]
        43 JUMPIFEQ                         R13 R14 ; [+3]
        45 LOADB                            R13 0
@@ -91,8 +91,8 @@ PROTO_3:
 PROTO_4:
         0 NAMECALL                         R1 R0 K0 ["Clone"]
         2 CALL                             R1 1 1
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["isR6KeyframeSequence"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["isR6KeyframeSequence"]
         6 MOVE                             R3 R0
         7 CALL                             R2 1 1
         8 JUMPIF                           R2 ; [+5]
@@ -178,8 +178,8 @@ PROTO_6:
         5 JUMPIF                           R1 ; [+1]
         6 RETURN                           R0 0
         7 GETTABLEKS                       R2 R1 K1 ["Value"]
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K2 ["TempId"]
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R5 R5 K2 ["TempId"]
        12 NAMECALL                         R3 R1 K3 ["GetAttribute"]
        14 CALL                             R3 2 1
        15 JUMPIFEQKS                       R2 K4 [""] ; [+11]
@@ -210,8 +210,8 @@ PROTO_7:
        12 LOADNIL                          R4
        13 JUMP                             ; [+22]
        14 GETTABLEKS                       R6 R5 K3 ["Value"]
-       16 GETUPVAL                         R10 1
-       17 GETTABLEKS                       R9 R10 K4 ["TempId"]
+       16 GETUPVAL                         R9 1
+       17 GETTABLEKS                       R9 R9 K4 ["TempId"]
        19 NAMECALL                         R7 R5 K5 ["GetAttribute"]
        21 CALL                             R7 2 1
        22 JUMPIFEQKS                       R6 K6 [""] ; [+11]
@@ -234,8 +234,8 @@ PROTO_7:
        43 SETTABLEKS                       R0 R4 K15 ["Name"]
        45 ORK                              R5 R1 K6 [""]
        46 SETTABLEKS                       R5 R4 K3 ["Value"]
-       48 GETUPVAL                         R8 1
-       49 GETTABLEKS                       R7 R8 K4 ["TempId"]
+       48 GETUPVAL                         R7 1
+       49 GETTABLEKS                       R7 R7 K4 ["TempId"]
        51 MOVE                             R8 R3
        52 NAMECALL                         R5 R4 K16 ["SetAttribute"]
        54 CALL                             R5 3 0
@@ -254,8 +254,8 @@ PROTO_8:
         4 CALL                             R2 2 1
         5 JUMPIF                           R2 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R6 1
-        8 GETTABLEKS                       R5 R6 K1 ["Name"]
+        7 GETUPVAL                         R5 1
+        8 GETTABLEKS                       R5 R5 K1 ["Name"]
        10 MOVE                             R6 R1
        11 NAMECALL                         R3 R2 K2 ["SetAttribute"]
        13 CALL                             R3 3 0
@@ -305,8 +305,8 @@ PROTO_10:
        23 MOVE                             R3 R4
        24 JUMP                             ; [+1]
        25 LOADNIL                          R3
-       26 GETUPVAL                         R5 2
-       27 GETTABLEKS                       R4 R5 K1 ["addCacheEntry"]
+       26 GETUPVAL                         R4 2
+       27 GETTABLEKS                       R4 R4 K1 ["addCacheEntry"]
        29 MOVE                             R5 R2
        30 LOADNIL                          R6
        31 MOVE                             R7 R1
@@ -330,8 +330,8 @@ PROTO_11:
        14 GETUPVAL                         R2 0
        15 MOVE                             R3 R0
        16 CALL                             R2 1 1
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R3 R4 K2 ["RobloxAsset"]
+       17 GETUPVAL                         R3 1
+       18 GETTABLEKS                       R3 R3 K2 ["RobloxAsset"]
        20 RETURN                           R1 3
        21 FASTCALL1                        TYPEOF R0 ; [+3]
        22 MOVE                             R2 R0
@@ -346,13 +346,13 @@ PROTO_11:
        33 MOVE                             R2 R0
        34 CALL                             R1 1 1
        35 MOVE                             R2 R0
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R3 R4 K6 ["AssetIdString"]
+       36 GETUPVAL                         R3 1
+       37 GETTABLEKS                       R3 R3 K6 ["AssetIdString"]
        39 RETURN                           R1 3
        40 MOVE                             R1 R0
        41 MOVE                             R2 R0
-       42 GETUPVAL                         R4 1
-       43 GETTABLEKS                       R3 R4 K7 ["LocalAsset"]
+       42 GETUPVAL                         R3 1
+       43 GETTABLEKS                       R3 R3 K7 ["LocalAsset"]
        45 RETURN                           R1 3
        46 FASTCALL1                        TYPEOF R0 ; [+3]
        47 MOVE                             R2 R0
@@ -380,8 +380,8 @@ PROTO_11:
        78 GETTABLEKS                       R2 R0 K15 ["AnimationId"]
        80 CALL                             R1 1 1
        81 GETTABLEKS                       R2 R0 K15 ["AnimationId"]
-       83 GETUPVAL                         R4 1
-       84 GETTABLEKS                       R3 R4 K16 ["AnimationInstance"]
+       83 GETUPVAL                         R3 1
+       84 GETTABLEKS                       R3 R3 K16 ["AnimationInstance"]
        86 MOVE                             R4 R0
        87 RETURN                           R1 4
        88 LOADK                            R3 K17 ["KeyframeSequence"]
@@ -406,8 +406,8 @@ PROTO_11:
       109 GETTABLE                         R1 R3 R2
       110 MOVE                             R2 R1
       111 MOVE                             R3 R1
-      112 GETUPVAL                         R5 1
-      113 GETTABLEKS                       R4 R5 K7 ["LocalAsset"]
+      112 GETUPVAL                         R4 1
+      113 GETTABLEKS                       R4 R4 K7 ["LocalAsset"]
       115 MOVE                             R5 R0
       116 RETURN                           R2 4
       117 RETURN                           R0 0
@@ -440,8 +440,8 @@ PROTO_13:
        10 LOADNIL                          R5
        11 JUMP                             ; [+23]
        12 GETTABLEKS                       R7 R6 K1 ["Value"]
-       14 GETUPVAL                         R11 2
-       15 GETTABLEKS                       R10 R11 K2 ["TempId"]
+       14 GETUPVAL                         R10 2
+       15 GETTABLEKS                       R10 R10 K2 ["TempId"]
        17 NAMECALL                         R8 R6 K3 ["GetAttribute"]
        19 CALL                             R8 2 1
        20 JUMPIFEQKS                       R7 K4 [""] ; [+11]
@@ -458,8 +458,8 @@ PROTO_13:
        34 MOVE                             R5 R9
        35 JUMPIF                           R4 ; [+1]
        36 RETURN                           R0 0
-       37 GETUPVAL                         R9 2
-       38 GETTABLEKS                       R8 R9 K9 ["Name"]
+       37 GETUPVAL                         R8 2
+       38 GETTABLEKS                       R8 R8 K9 ["Name"]
        40 NAMECALL                         R6 R4 K3 ["GetAttribute"]
        42 CALL                             R6 2 -1
        43 RETURN                           R6 -1
@@ -500,13 +500,13 @@ PROTO_16:
         5 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getAnimationAssetInfo"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getAnimationAssetInfo"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 LOADNIL                          R3
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K1 ["RobloxAsset"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K1 ["RobloxAsset"]
         9 NAMECALL                         R4 R2 K2 ["IsA"]
        11 CALL                             R4 2 1
        12 JUMPIFNOT                        R4 ; [+111]
@@ -531,8 +531,8 @@ PROTO_17:
        37 LOADNIL                          R4
        38 JUMP                             ; [+22]
        39 GETTABLEKS                       R7 R6 K5 ["Value"]
-       41 GETUPVAL                         R11 4
-       42 GETTABLEKS                       R10 R11 K6 ["TempId"]
+       41 GETUPVAL                         R10 4
+       42 GETTABLEKS                       R10 R10 K6 ["TempId"]
        44 NAMECALL                         R8 R6 K7 ["GetAttribute"]
        46 CALL                             R8 2 1
        47 JUMPIFEQKS                       R7 K8 [""] ; [+11]
@@ -553,18 +553,18 @@ PROTO_17:
        66 SETTABLE                         R7 R5 R6
        67 LOADB                            R5 1
        68 RETURN                           R5 1
-       69 GETUPVAL                         R8 1
-       70 GETTABLEKS                       R7 R8 K13 ["AnimationInstance"]
+       69 GETUPVAL                         R7 1
+       70 GETTABLEKS                       R7 R7 K13 ["AnimationInstance"]
        72 NAMECALL                         R5 R2 K2 ["IsA"]
        74 CALL                             R5 2 1
        75 JUMPIFNOT                        R5 ; [+31]
-       76 GETUPVAL                         R8 4
-       77 GETTABLEKS                       R7 R8 K14 ["OriginalId"]
+       76 GETUPVAL                         R7 4
+       77 GETTABLEKS                       R7 R7 K14 ["OriginalId"]
        79 NAMECALL                         R5 R0 K7 ["GetAttribute"]
        81 CALL                             R5 2 1
        82 JUMPIFNOT                        R5 ; [+24]
-       83 GETUPVAL                         R8 4
-       84 GETTABLEKS                       R7 R8 K14 ["OriginalId"]
+       83 GETUPVAL                         R7 4
+       84 GETTABLEKS                       R7 R7 K14 ["OriginalId"]
        86 NAMECALL                         R5 R0 K7 ["GetAttribute"]
        88 CALL                             R5 2 1
        89 GETUPVAL                         R6 2
@@ -587,22 +587,22 @@ PROTO_17:
       110 GETTABLEKS                       R6 R2 K3 ["id"]
       112 CALL                             R5 1 1
       113 MOVE                             R3 R5
-      114 GETUPVAL                         R6 0
-      115 GETTABLEKS                       R5 R6 K15 ["isR6KeyframeSequence"]
+      114 GETUPVAL                         R5 0
+      115 GETTABLEKS                       R5 R5 K15 ["isR6KeyframeSequence"]
       117 MOVE                             R6 R3
       118 CALL                             R5 1 1
       119 GETUPVAL                         R6 2
       120 GETTABLEKS                       R7 R2 K3 ["id"]
       122 SETTABLE                         R5 R6 R7
       123 RETURN                           R5 1
-      124 GETUPVAL                         R7 1
-      125 GETTABLEKS                       R6 R7 K16 ["LocalAsset"]
+      124 GETUPVAL                         R6 1
+      125 GETTABLEKS                       R6 R6 K16 ["LocalAsset"]
       127 NAMECALL                         R4 R2 K2 ["IsA"]
       129 CALL                             R4 2 1
       130 JUMPIFNOT                        R4 ; [+1]
       131 MOVE                             R3 R0
-      132 GETUPVAL                         R5 0
-      133 GETTABLEKS                       R4 R5 K15 ["isR6KeyframeSequence"]
+      132 GETUPVAL                         R4 0
+      133 GETTABLEKS                       R4 R4 K15 ["isR6KeyframeSequence"]
       135 MOVE                             R5 R3
       136 CALL                             R4 1 -1
       137 RETURN                           R4 -1
@@ -614,8 +614,8 @@ PROTO_18:
         3 RETURN                           R1 1
 
 PROTO_19:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getConvertedKeyframeSequence"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getConvertedKeyframeSequence"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 JUMPIFNOT                        R1 ; [+1]
@@ -640,8 +640,8 @@ PROTO_19:
        27 MOVE                             R3 R4
        28 JUMP                             ; [+1]
        29 MOVE                             R3 R0
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R4 R5 K6 ["convertKeyframeSequence"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K6 ["convertKeyframeSequence"]
        33 MOVE                             R5 R3
        34 CALL                             R4 1 1
        35 MOVE                             R1 R4
@@ -654,8 +654,8 @@ PROTO_19:
        43 MOVE                             R4 R6
        44 JUMP                             ; [+1]
        45 LOADNIL                          R4
-       46 GETUPVAL                         R6 0
-       47 GETTABLEKS                       R5 R6 K8 ["addCacheEntry"]
+       46 GETUPVAL                         R5 0
+       47 GETTABLEKS                       R5 R5 K8 ["addCacheEntry"]
        49 MOVE                             R6 R2
        50 LOADNIL                          R7
        51 MOVE                             R8 R1
@@ -664,13 +664,13 @@ PROTO_19:
        54 RETURN                           R1 1
 
 PROTO_20:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["isValidAssetId"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["isValidAssetId"]
         3 MOVE                             R5 R1
         4 CALL                             R4 1 1
         5 JUMPIFNOT                        R4 ; [+9]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K1 ["addCacheEntry"]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K1 ["addCacheEntry"]
         9 MOVE                             R5 R0
        10 MOVE                             R6 R1
        11 MOVE                             R7 R2
@@ -685,8 +685,8 @@ PROTO_20:
        21 MOVE                             R4 R5
        22 JUMP                             ; [+1]
        23 LOADNIL                          R4
-       24 GETUPVAL                         R6 1
-       25 GETTABLEKS                       R5 R6 K1 ["addCacheEntry"]
+       24 GETUPVAL                         R5 1
+       25 GETTABLEKS                       R5 R5 K1 ["addCacheEntry"]
        27 MOVE                             R6 R0
        28 LOADNIL                          R7
        29 MOVE                             R8 R2
@@ -699,8 +699,8 @@ PROTO_20:
        37 CALL                             R4 2 1
        38 JUMPIF                           R4 ; [+1]
        39 RETURN                           R0 0
-       40 GETUPVAL                         R8 4
-       41 GETTABLEKS                       R7 R8 K4 ["Name"]
+       40 GETUPVAL                         R7 4
+       41 GETTABLEKS                       R7 R7 K4 ["Name"]
        43 MOVE                             R8 R3
        44 NAMECALL                         R5 R4 K5 ["SetAttribute"]
        46 CALL                             R5 3 0
@@ -718,8 +718,8 @@ PROTO_21:
         9 LOADNIL                          R2
        10 JUMP                             ; [+22]
        11 GETTABLEKS                       R4 R3 K1 ["Value"]
-       13 GETUPVAL                         R8 2
-       14 GETTABLEKS                       R7 R8 K2 ["TempId"]
+       13 GETUPVAL                         R7 2
+       14 GETTABLEKS                       R7 R7 K2 ["TempId"]
        16 NAMECALL                         R5 R3 K3 ["GetAttribute"]
        18 CALL                             R5 2 1
        19 JUMPIFEQKS                       R4 K4 [""] ; [+11]
@@ -752,8 +752,8 @@ PROTO_22:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 3
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K0 ["getConvertedAnimationAssetInfo"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K0 ["getConvertedAnimationAssetInfo"]
         6 MOVE                             R5 R0
         7 CALL                             R4 1 1
         8 MOVE                             R7 R3
@@ -766,12 +766,12 @@ PROTO_22:
        17 RETURN                           R5 1
 
 PROTO_23:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getConvertedAnimationAssetInfo"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getConvertedAnimationAssetInfo"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K1 ["RobloxAsset"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K1 ["RobloxAsset"]
         8 NAMECALL                         R2 R1 K2 ["IsA"]
        10 CALL                             R2 2 1
        11 JUMPIFNOT                        R2 ; [+3]
@@ -785,8 +785,8 @@ PROTO_24:
         1 MOVE                             R2 R0
         2 CALL                             R1 1 3
         3 JUMPIF                           R1 ; [+9]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K0 ["new"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K0 ["new"]
         7 LOADNIL                          R5
         8 LOADNIL                          R6
         9 LOADNIL                          R7
@@ -802,8 +802,8 @@ PROTO_24:
        20 LOADNIL                          R5
        21 JUMP                             ; [+23]
        22 GETTABLEKS                       R7 R6 K2 ["Value"]
-       24 GETUPVAL                         R11 3
-       25 GETTABLEKS                       R10 R11 K3 ["TempId"]
+       24 GETUPVAL                         R10 3
+       25 GETTABLEKS                       R10 R10 K3 ["TempId"]
        27 NAMECALL                         R8 R6 K4 ["GetAttribute"]
        29 CALL                             R8 2 1
        30 JUMPIFEQKS                       R7 K5 [""] ; [+11]
@@ -821,8 +821,8 @@ PROTO_24:
        45 GETUPVAL                         R6 0
        46 MOVE                             R7 R5
        47 CALL                             R6 1 4
-       48 GETUPVAL                         R11 1
-       49 GETTABLEKS                       R10 R11 K0 ["new"]
+       48 GETUPVAL                         R10 1
+       49 GETTABLEKS                       R10 R10 K0 ["new"]
        51 MOVE                             R11 R6
        52 MOVE                             R12 R7
        53 MOVE                             R13 R8
@@ -834,8 +834,8 @@ PROTO_25:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 4
-        3 GETUPVAL                         R6 1
-        4 GETTABLEKS                       R5 R6 K0 ["new"]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R5 R5 K0 ["new"]
         6 MOVE                             R6 R1
         7 MOVE                             R7 R2
         8 MOVE                             R8 R3
@@ -926,8 +926,8 @@ PROTO_28:
         5 RETURN                           R0 -1
 
 PROTO_29:
-        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R2 K1 ["data"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["data"]
         4 NEWTABLE                         R2 0 0
         6 MOVE                             R3 R1
         7 LOADNIL                          R4
@@ -948,8 +948,8 @@ PROTO_29:
        28 CALL                             R3 2 1
        29 MOVE                             R4 R3
        30 JUMPIF                           R4 ; [+4]
-       31 GETTABLEKS                       R5 R0 K0 ["responseBody"]
-       33 GETTABLEKS                       R4 R5 K7 ["nextPageCursor"]
+       31 GETTABLEKS                       R4 R0 K0 ["responseBody"]
+       33 GETTABLEKS                       R4 R4 K7 ["nextPageCursor"]
        35 RETURN                           R4 1
 
 PROTO_30:
@@ -961,17 +961,17 @@ PROTO_30:
 
 PROTO_31:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["id"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["id"]
         4 NAMECALL                         R0 R0 K1 ["GetProductInfo"]
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
 PROTO_32:
-        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R2 K1 ["data"]
-        4 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-        6 GETTABLEKS                       R2 R3 K2 ["nextPageCursor"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["data"]
+        4 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+        6 GETTABLEKS                       R2 R2 K2 ["nextPageCursor"]
         8 NEWTABLE                         R3 0 0
        10 MOVE                             R4 R1
        11 LOADNIL                          R5
@@ -1014,22 +1014,22 @@ PROTO_34:
         3 LOADNIL                          R4
         4 LOADNIL                          R5
         5 FORGPREP                         R3
-        6 GETUPVAL                         R9 0
-        7 GETTABLEKS                       R8 R9 K0 ["getConvertedAnimationAssetInfo"]
+        6 GETUPVAL                         R8 0
+        7 GETTABLEKS                       R8 R8 K0 ["getConvertedAnimationAssetInfo"]
         9 MOVE                             R9 R6
        10 CALL                             R8 1 1
        11 GETTABLEKS                       R9 R8 K1 ["id"]
        13 JUMPIFNOT                        R9 ; [+11]
-       14 GETUPVAL                         R12 1
-       15 GETTABLEKS                       R11 R12 K2 ["RobloxAsset"]
+       14 GETUPVAL                         R11 1
+       15 GETTABLEKS                       R11 R11 K2 ["RobloxAsset"]
        17 NAMECALL                         R9 R8 K3 ["IsA"]
        19 CALL                             R9 2 1
        20 JUMPIFNOT                        R9 ; [+4]
        21 GETTABLEKS                       R9 R8 K1 ["id"]
        23 SETTABLE                         R9 R2 R6
        24 JUMP                             ; [+145]
-       25 GETUPVAL                         R10 0
-       26 GETTABLEKS                       R9 R10 K4 ["convertAnimation"]
+       25 GETUPVAL                         R9 0
+       26 GETTABLEKS                       R9 R9 K4 ["convertAnimation"]
        28 MOVE                             R10 R6
        29 CALL                             R9 1 1
        30 GETIMPORT                        R10 K6 [pcall]
@@ -1049,20 +1049,20 @@ PROTO_34:
        48 CALL                             R13 2 1
        49 JUMPIF                           R13 ; [+1]
        50 JUMP                             ; [+7]
-       51 GETUPVAL                         R17 4
-       52 GETTABLEKS                       R16 R17 K9 ["Name"]
+       51 GETUPVAL                         R16 4
+       52 GETTABLEKS                       R16 R16 K9 ["Name"]
        54 MOVE                             R17 R12
        55 NAMECALL                         R14 R13 K11 ["SetAttribute"]
        57 CALL                             R14 3 0
        58 GETTABLEKS                       R13 R11 K9 ["Name"]
        60 LOADK                            R14 K12 [" R15"]
        61 CONCAT                           R12 R13 R14
-       62 GETTABLEKS                       R14 R11 K13 ["Creator"]
-       64 GETTABLEKS                       R13 R14 K14 ["CreatorType"]
-       66 GETTABLEKS                       R15 R11 K13 ["Creator"]
-       68 GETTABLEKS                       R14 R15 K15 ["CreatorTargetId"]
-       70 GETIMPORT                        R16 K18 [Enum.CreatorType.Group]
-       72 GETTABLEKS                       R15 R16 K9 ["Name"]
+       62 GETTABLEKS                       R13 R11 K13 ["Creator"]
+       64 GETTABLEKS                       R13 R13 K14 ["CreatorType"]
+       66 GETTABLEKS                       R14 R11 K13 ["Creator"]
+       68 GETTABLEKS                       R14 R14 K15 ["CreatorTargetId"]
+       70 GETIMPORT                        R15 K18 [Enum.CreatorType.Group]
+       72 GETTABLEKS                       R15 R15 K9 ["Name"]
        74 JUMPIFNOTEQ                      R13 R15 ; [+36]
        76 LOADNIL                          R15
        77 MOVE                             R18 R15
@@ -1085,8 +1085,8 @@ PROTO_34:
        98 CALL                             R16 1 1
        99 JUMPIFNOT                        R16 ; [+8]
       100 SETTABLE                         R15 R2 R6
-      101 GETUPVAL                         R17 0
-      102 GETTABLEKS                       R16 R17 K25 ["addCacheEntry"]
+      101 GETUPVAL                         R16 0
+      102 GETTABLEKS                       R16 R16 K25 ["addCacheEntry"]
       104 MOVE                             R17 R6
       105 MOVE                             R18 R15
       106 CALL                             R16 2 0
@@ -1094,8 +1094,8 @@ PROTO_34:
       108 JUMPIFNOT                        R15 ; [+61]
       109 JUMPBACK                         ; [-33]
       110 JUMP                             ; [+59]
-      111 GETIMPORT                        R16 K27 [Enum.CreatorType.User]
-      113 GETTABLEKS                       R15 R16 K9 ["Name"]
+      111 GETIMPORT                        R15 K27 [Enum.CreatorType.User]
+      113 GETTABLEKS                       R15 R15 K9 ["Name"]
       115 JUMPIFNOTEQ                      R13 R15 ; [+54]
       117 JUMPIFNOTEQKN                    R14 K28 [1] ; [+16]
       119 GETUPVAL                         R16 6
@@ -1104,8 +1104,8 @@ PROTO_34:
       122 GETUPVAL                         R16 6
       123 GETTABLE                         R15 R16 R6
       124 SETTABLE                         R15 R2 R6
-      125 GETUPVAL                         R16 0
-      126 GETTABLEKS                       R15 R16 K25 ["addCacheEntry"]
+      125 GETUPVAL                         R15 0
+      126 GETTABLEKS                       R15 R15 K25 ["addCacheEntry"]
       128 MOVE                             R16 R6
       129 GETUPVAL                         R18 6
       130 GETTABLE                         R17 R18 R6
@@ -1135,8 +1135,8 @@ PROTO_34:
       158 CALL                             R16 1 1
       159 JUMPIFNOT                        R16 ; [+8]
       160 SETTABLE                         R15 R2 R6
-      161 GETUPVAL                         R17 0
-      162 GETTABLEKS                       R16 R17 K25 ["addCacheEntry"]
+      161 GETUPVAL                         R16 0
+      162 GETTABLEKS                       R16 R16 K25 ["addCacheEntry"]
       164 MOVE                             R17 R6
       165 MOVE                             R18 R15
       166 CALL                             R16 2 0
@@ -1176,13 +1176,13 @@ MAIN:
        39 NAMECALL                         R6 R6 K12 ["FindFirstAncestor"]
        41 CALL                             R6 2 1
        42 GETIMPORT                        R7 K14 [require]
-       44 GETTABLEKS                       R10 R6 K15 ["Src"]
-       46 GETTABLEKS                       R9 R10 K16 ["Resources"]
-       48 GETTABLEKS                       R8 R9 K17 ["Constants"]
+       44 GETTABLEKS                       R8 R6 K15 ["Src"]
+       46 GETTABLEKS                       R8 R8 K16 ["Resources"]
+       48 GETTABLEKS                       R8 R8 K17 ["Constants"]
        50 CALL                             R7 1 1
        51 GETTABLEKS                       R8 R7 K18 ["Attributes"]
-       53 GETTABLEKS                       R10 R6 K15 ["Src"]
-       55 GETTABLEKS                       R9 R10 K19 ["Util"]
+       53 GETTABLEKS                       R9 R6 K15 ["Src"]
+       55 GETTABLEKS                       R9 R9 K19 ["Util"]
        57 GETIMPORT                        R10 K14 [require]
        59 GETTABLEKS                       R11 R9 K20 ["AssetIdUtil"]
        61 CALL                             R10 1 1
@@ -1193,10 +1193,10 @@ MAIN:
        69 GETIMPORT                        R13 K14 [require]
        71 GETTABLEKS                       R14 R11 K23 ["constructAssetUrl"]
        73 CALL                             R13 1 1
-       74 GETIMPORT                        R15 K14 [require]
-       76 GETTABLEKS                       R16 R11 K24 ["constants"]
-       78 CALL                             R15 1 1
-       79 GETTABLEKS                       R14 R15 K25 ["AssetType"]
+       74 GETIMPORT                        R14 K14 [require]
+       76 GETTABLEKS                       R15 R11 K24 ["constants"]
+       78 CALL                             R14 1 1
+       79 GETTABLEKS                       R14 R14 K25 ["AssetType"]
        81 GETIMPORT                        R15 K14 [require]
        83 GETTABLEKS                       R16 R11 K26 ["AnimationAssetInfo"]
        85 CALL                             R15 1 1

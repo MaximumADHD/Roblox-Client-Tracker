@@ -8,8 +8,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [pcall]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K2 ["GetProductInfo"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["GetProductInfo"]
         5 GETUPVAL                         R3 0
         6 MOVE                             R4 R0
         7 GETIMPORT                        R5 K6 [Enum.InfoType.Asset]
@@ -101,8 +101,8 @@ PROTO_3:
        12 LOADNIL                          R4
        13 FORGPREP                         R2
        14 GETIMPORT                        R7 K2 [pcall]
-       16 GETUPVAL                         R9 2
-       17 GETTABLEKS                       R8 R9 K3 ["GetObjects"]
+       16 GETUPVAL                         R8 2
+       17 GETTABLEKS                       R8 R8 K3 ["GetObjects"]
        19 GETUPVAL                         R9 2
        20 LOADK                            R11 K4 ["rbxassetid://%*"]
        21 MOVE                             R13 R6
@@ -147,16 +147,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["ServerStorage"]
        18 GETTABLEKS                       R3 R1 K10 ["DataModel"]
        20 GETTABLEKS                       R4 R1 K11 ["MarketplaceService"]
        22 GETIMPORT                        R5 K5 [require]
-       24 GETTABLEKS                       R7 R0 K12 ["Bin"]
-       26 GETTABLEKS                       R6 R7 K13 ["defineLuaFlags"]
+       24 GETTABLEKS                       R6 R0 K12 ["Bin"]
+       26 GETTABLEKS                       R6 R6 K13 ["defineLuaFlags"]
        28 CALL                             R5 1 1
        29 GETTABLEKS                       R6 R5 K14 ["getFFlagKnowledgeTutorialsAvoidHanging"]
        31 CALL                             R6 0 1
@@ -164,8 +164,8 @@ MAIN:
        34 CALL                             R8 0 1
        35 DIVK                             R7 R8 K15 [1000]
        36 GETIMPORT                        R8 K5 [require]
-       38 GETIMPORT                        R10 K1 [script]
-       40 GETTABLEKS                       R9 R10 K17 ["trustedCreators"]
+       38 GETIMPORT                        R9 K1 [script]
+       40 GETTABLEKS                       R9 R9 K17 ["trustedCreators"]
        42 CALL                             R8 1 1
        43 DUPCLOSURE                       R9 K18 [PROTO_0]
        44 DUPCLOSURE                       R10 K19 [PROTO_1]

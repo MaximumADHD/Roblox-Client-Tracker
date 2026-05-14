@@ -3,13 +3,13 @@ PROTO_0:
         2 JUMPIF                           R1 ; [+2]
         3 LOADB                            R1 0
         4 RETURN                           R1 1
-        5 GETTABLEKS                       R2 R0 K0 ["assetItem"]
-        7 GETTABLEKS                       R1 R2 K1 ["asset"]
+        5 GETTABLEKS                       R1 R0 K0 ["assetItem"]
+        7 GETTABLEKS                       R1 R1 K1 ["asset"]
         9 LOADB                            R2 0
        10 JUMPIFEQKNIL                     R1 ; [+26]
        12 LOADB                            R2 0
-       13 GETTABLEKS                       R4 R1 K2 ["creationContext"]
-       15 GETTABLEKS                       R3 R4 K3 ["creator"]
+       13 GETTABLEKS                       R3 R1 K2 ["creationContext"]
+       15 GETTABLEKS                       R3 R3 K3 ["creator"]
        17 JUMPIFEQKNIL                     R3 ; [+19]
        19 LOADB                            R2 0
        20 GETTABLEKS                       R3 R1 K4 ["createTime"]
@@ -32,13 +32,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["convertAssetTypeStringToEnum"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["convertAssetTypeStringToEnum"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K10 [PROTO_0]
        24 CAPTURE                          VAL R2

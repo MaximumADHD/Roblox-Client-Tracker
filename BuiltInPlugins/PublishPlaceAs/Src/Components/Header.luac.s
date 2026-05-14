@@ -4,8 +4,8 @@ PROTO_0:
         4 GETTABLEKS                       R3 R1 K2 ["Title"]
         6 GETTABLEKS                       R5 R1 K4 ["LayoutOrder"]
         8 ORK                              R4 R5 K3 [1]
-        9 GETUPVAL                         R6 0
-       10 GETTABLEKS                       R5 R6 K5 ["createElement"]
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R5 R5 K5 ["createElement"]
        12 LOADK                            R6 K6 ["TextLabel"]
        13 DUPTABLE                         R7 K16 [{"Size", "Text", "BackgroundTransparency", "BorderSizePixel", "TextSize", "TextXAlignment", "TextYAlignment", "Font", "TextColor3", "LayoutOrder"}]
        14 GETIMPORT                        R8 K19 [UDim2.new]
@@ -26,11 +26,11 @@ PROTO_0:
        36 SETTABLEKS                       R8 R7 K12 ["TextXAlignment"]
        38 GETIMPORT                        R8 K24 [Enum.TextYAlignment.Bottom]
        40 SETTABLEKS                       R8 R7 K13 ["TextYAlignment"]
-       42 GETTABLEKS                       R9 R2 K25 ["header"]
-       44 GETTABLEKS                       R8 R9 K26 ["font"]
+       42 GETTABLEKS                       R8 R2 K25 ["header"]
+       44 GETTABLEKS                       R8 R8 K26 ["font"]
        46 SETTABLEKS                       R8 R7 K14 ["Font"]
-       48 GETTABLEKS                       R9 R2 K25 ["header"]
-       50 GETTABLEKS                       R8 R9 K27 ["text"]
+       48 GETTABLEKS                       R8 R2 K25 ["header"]
+       50 GETTABLEKS                       R8 R8 K27 ["text"]
        52 SETTABLEKS                       R8 R7 K15 ["TextColor3"]
        54 SETTABLEKS                       R4 R7 K4 ["LayoutOrder"]
        56 CALL                             R5 2 -1
@@ -38,17 +38,17 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]

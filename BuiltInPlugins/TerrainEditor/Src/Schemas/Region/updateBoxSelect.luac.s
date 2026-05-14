@@ -43,8 +43,8 @@ PROTO_1:
        28 FASTCALL1                        MATH_SQRT R7 ; [+2]
        29 GETIMPORT                        R6 K9 [math.sqrt]
        31 CALL                             R6 1 1
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K10 ["MouseMoveThreshold"]
+       32 GETUPVAL                         R7 0
+       33 GETTABLEKS                       R7 R7 K10 ["MouseMoveThreshold"]
        35 JUMPIFNOTLT                      R6 R7 ; [+5]
        37 GETTABLEKS                       R6 R0 K11 ["reachedMinimalMouseDistance"]
        39 JUMPIF                           R6 ; [+1]
@@ -142,9 +142,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Resources"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Resources"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 DUPCLOSURE                       R3 K10 [PROTO_1]

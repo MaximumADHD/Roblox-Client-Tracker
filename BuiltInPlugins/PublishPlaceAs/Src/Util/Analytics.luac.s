@@ -16,13 +16,13 @@ PROTO_0:
        18 NAMECALL                         R3 R3 K7 ["GetPlaceIsPersistedToCloud"]
        20 CALL                             R3 1 1
        21 JUMPIFNOT                        R3 ; [+15]
-       22 GETUPVAL                         R5 2
-       23 GETTABLEKS                       R4 R5 K8 ["Dictionary"]
-       25 GETTABLEKS                       R3 R4 K9 ["join"]
+       22 GETUPVAL                         R3 2
+       23 GETTABLEKS                       R3 R3 K8 ["Dictionary"]
+       25 GETTABLEKS                       R3 R3 K9 ["join"]
        27 MOVE                             R4 R2
        28 DUPTABLE                         R5 K11 [{"placeId"}]
-       29 GETIMPORT                        R7 K13 [game]
-       31 GETTABLEKS                       R6 R7 K14 ["PlaceId"]
+       29 GETIMPORT                        R6 K13 [game]
+       31 GETTABLEKS                       R6 R6 K14 ["PlaceId"]
        33 SETTABLEKS                       R6 R5 K10 ["placeId"]
        35 CALL                             R3 2 1
        36 MOVE                             R2 R3
@@ -55,9 +55,9 @@ PROTO_1:
        23 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R1
         6 DUPTABLE                         R4 K5 [{"userId", "studioSid", "placeId"}]
         7 GETUPVAL                         R5 1
@@ -68,8 +68,8 @@ PROTO_2:
        14 NAMECALL                         R5 R5 K7 ["GetSessionId"]
        16 CALL                             R5 1 1
        17 SETTABLEKS                       R5 R4 K3 ["studioSid"]
-       19 GETIMPORT                        R6 K9 [game]
-       21 GETTABLEKS                       R5 R6 K10 ["PlaceId"]
+       19 GETIMPORT                        R5 K9 [game]
+       21 GETTABLEKS                       R5 R5 K10 ["PlaceId"]
        23 SETTABLEKS                       R5 R4 K4 ["placeId"]
        25 CALL                             R2 2 1
        26 GETUPVAL                         R3 2
@@ -91,13 +91,13 @@ MAIN:
         9 LOADK                            R3 K4 ["StudioService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Cryo"]
+       23 GETTABLEKS                       R4 R2 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Cryo"]
        27 CALL                             R3 1 1
        28 NEWTABLE                         R4 4 0
        30 DUPCLOSURE                       R5 K12 [PROTO_0]

@@ -53,8 +53,8 @@ PROTO_2:
        22 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setVector3Value"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setVector3Value"]
         3 MOVE                             R3 R0
         4 LOADK                            R4 K1 ["OriginalSize"]
         5 MOVE                             R5 R1
@@ -62,8 +62,8 @@ PROTO_3:
         7 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setVector3Value"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setVector3Value"]
         3 MOVE                             R3 R0
         4 LOADK                            R4 K1 ["OriginalPosition"]
         5 MOVE                             R5 R1
@@ -71,8 +71,8 @@ PROTO_4:
         7 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setNumberValue"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setNumberValue"]
         3 MOVE                             R3 R0
         4 LOADK                            R4 K1 ["BodyProportionScale"]
         5 MOVE                             R5 R1
@@ -80,8 +80,8 @@ PROTO_5:
         7 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setNumberValue"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setNumberValue"]
         3 MOVE                             R3 R0
         4 LOADK                            R4 K1 ["BodyTypeScale"]
         5 MOVE                             R5 R1
@@ -89,8 +89,8 @@ PROTO_6:
         7 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["setStringValue"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["setStringValue"]
         3 MOVE                             R3 R0
         4 LOADK                            R4 K1 ["AvatarPartScaleType"]
         5 MOVE                             R5 R1

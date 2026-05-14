@@ -1,17 +1,17 @@
 PROTO_0:
-        0 GETUPVAL                         R7 0
-        1 GETTABLEKS                       R6 R7 K0 ["props"]
-        3 GETTABLEKS                       R5 R6 K1 ["Network"]
-        5 GETTABLEKS                       R4 R5 K2 ["networkInterface"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["props"]
-       10 GETTABLEKS                       R5 R6 K3 ["Settings"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["props"]
+        3 GETTABLEKS                       R4 R4 K1 ["Network"]
+        5 GETTABLEKS                       R4 R4 K2 ["networkInterface"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K0 ["props"]
+       10 GETTABLEKS                       R5 R5 K3 ["Settings"]
        12 LOADK                            R7 K4 ["Plugin"]
        13 NAMECALL                         R5 R5 K5 ["get"]
        15 CALL                             R5 2 1
-       16 GETUPVAL                         R8 0
-       17 GETTABLEKS                       R7 R8 K0 ["props"]
-       19 GETTABLEKS                       R6 R7 K6 ["requestSearchRequest"]
+       16 GETUPVAL                         R6 0
+       17 GETTABLEKS                       R6 R6 K0 ["props"]
+       19 GETTABLEKS                       R6 R6 K6 ["requestSearchRequest"]
        21 MOVE                             R7 R4
        22 MOVE                             R8 R5
        23 MOVE                             R9 R0
@@ -19,9 +19,9 @@ PROTO_0:
        25 MOVE                             R11 R2
        26 MOVE                             R12 R3
        27 CALL                             R6 6 0
-       28 GETUPVAL                         R8 0
-       29 GETTABLEKS                       R7 R8 K0 ["props"]
-       31 GETTABLEKS                       R6 R7 K7 ["logSearchAnalytics"]
+       28 GETUPVAL                         R6 0
+       29 GETTABLEKS                       R6 R6 K0 ["props"]
+       31 GETTABLEKS                       R6 R6 K7 ["logSearchAnalytics"]
        33 MOVE                             R7 R0
        34 MOVE                             R8 R1
        35 MOVE                             R9 R2
@@ -36,8 +36,8 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onClickOfferedQuery"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onClickOfferedQuery"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 GETUPVAL                         R3 3
@@ -58,26 +58,26 @@ PROTO_3:
        15 LOADNIL                          R10
        16 LOADNIL                          R11
        17 LOADNIL                          R12
-       18 GETUPVAL                         R15 0
-       19 GETTABLEKS                       R14 R15 K6 ["AutocorrectResponseState"]
-       21 GETTABLEKS                       R13 R14 K7 ["CorrectionAvailable"]
+       18 GETUPVAL                         R13 0
+       19 GETTABLEKS                       R13 R13 K6 ["AutocorrectResponseState"]
+       21 GETTABLEKS                       R13 R13 K7 ["CorrectionAvailable"]
        23 JUMPIFNOTEQ                      R3 R13 ; [+13]
        25 LOADK                            R7 K8 ["DidYouMean"]
-       26 GETUPVAL                         R14 0
-       27 GETTABLEKS                       R13 R14 K9 ["QuerySource"]
+       26 GETUPVAL                         R13 0
+       27 GETTABLEKS                       R13 R13 K9 ["QuerySource"]
        29 GETTABLEKS                       R8 R13 K4 ["CorrectedQuery"]
        31 MOVE                             R9 R4
        32 MOVE                             R12 R5
        33 GETUPVAL                         R13 1
        34 GETTABLEKS                       R11 R13 K10 ["WARNING_TEXT_COLOR"]
        36 JUMP                             ; [+19]
-       37 GETUPVAL                         R15 0
-       38 GETTABLEKS                       R14 R15 K6 ["AutocorrectResponseState"]
-       40 GETTABLEKS                       R13 R14 K11 ["CorrectionAccepted"]
+       37 GETUPVAL                         R13 0
+       38 GETTABLEKS                       R13 R13 K6 ["AutocorrectResponseState"]
+       40 GETTABLEKS                       R13 R13 K11 ["CorrectionAccepted"]
        42 JUMPIFNOTEQ                      R3 R13 ; [+10]
        44 LOADK                            R7 K12 ["SearchInsteadFor"]
-       45 GETUPVAL                         R14 0
-       46 GETTABLEKS                       R13 R14 K9 ["QuerySource"]
+       45 GETUPVAL                         R13 0
+       46 GETTABLEKS                       R13 R13 K9 ["QuerySource"]
        48 GETTABLEKS                       R8 R13 K13 ["ReversionToUserQuery"]
        50 MOVE                             R10 R4
        51 MOVE                             R12 R6
@@ -103,16 +103,16 @@ PROTO_3:
        80 SETTABLEKS                       R14 R13 K18 ["Size"]
        82 GETIMPORT                        R14 K33 [Enum.VerticalAlignment.Top]
        84 SETTABLEKS                       R14 R13 K19 ["VerticalAlignment"]
-       86 GETUPVAL                         R15 2
-       87 GETTABLEKS                       R14 R15 K30 ["new"]
+       86 GETUPVAL                         R14 2
+       87 GETTABLEKS                       R14 R14 K30 ["new"]
        89 CALL                             R14 0 1
-       90 GETUPVAL                         R16 3
-       91 GETTABLEKS                       R15 R16 K34 ["createElement"]
+       90 GETUPVAL                         R15 3
+       91 GETTABLEKS                       R15 R15 K34 ["createElement"]
        93 GETUPVAL                         R16 4
        94 MOVE                             R17 R13
        95 DUPTABLE                         R18 K37 [{"Message", "Suggestion"}]
-       96 GETUPVAL                         R20 3
-       97 GETTABLEKS                       R19 R20 K34 ["createElement"]
+       96 GETUPVAL                         R19 3
+       97 GETTABLEKS                       R19 R19 K34 ["createElement"]
        99 GETUPVAL                         R20 5
       100 DUPTABLE                         R21 K40 [{"AutomaticSize", "LayoutOrder", "Text", "TextColor"}]
       101 GETIMPORT                        R22 K23 [Enum.AutomaticSize.XY]
@@ -131,8 +131,8 @@ PROTO_3:
       120 SETTABLEKS                       R11 R21 K39 ["TextColor"]
       122 CALL                             R19 2 1
       123 SETTABLEKS                       R19 R18 K35 ["Message"]
-      125 GETUPVAL                         R20 3
-      126 GETTABLEKS                       R19 R20 K34 ["createElement"]
+      125 GETUPVAL                         R19 3
+      126 GETTABLEKS                       R19 R19 K34 ["createElement"]
       128 GETUPVAL                         R20 6
       129 DUPTABLE                         R21 K46 [{"LayoutOrder", "Text", "OnClick"}]
       130 NAMECALL                         R22 R14 K41 ["getNextOrder"]
@@ -198,12 +198,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETTABLEKS                       R1 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R3 R0 K5 ["Src"]
-       11 GETTABLEKS                       R2 R3 K6 ["Util"]
+        9 GETTABLEKS                       R2 R0 K5 ["Src"]
+       11 GETTABLEKS                       R2 R2 K6 ["Util"]
        13 GETIMPORT                        R3 K8 [require]
-       15 GETTABLEKS                       R6 R0 K5 ["Src"]
-       17 GETTABLEKS                       R5 R6 K6 ["Util"]
-       19 GETTABLEKS                       R4 R5 K9 ["Colors"]
+       15 GETTABLEKS                       R4 R0 K5 ["Src"]
+       17 GETTABLEKS                       R4 R4 K6 ["Util"]
+       19 GETTABLEKS                       R4 R4 K9 ["Colors"]
        21 CALL                             R3 1 1
        22 GETIMPORT                        R4 K8 [require]
        24 GETTABLEKS                       R5 R1 K10 ["Roact"]
@@ -215,41 +215,41 @@ MAIN:
        34 GETTABLEKS                       R7 R1 K12 ["Framework"]
        36 CALL                             R6 1 1
        37 GETIMPORT                        R7 K8 [require]
-       39 GETTABLEKS                       R11 R0 K5 ["Src"]
-       41 GETTABLEKS                       R10 R11 K13 ["Networking"]
-       43 GETTABLEKS                       R9 R10 K14 ["Requests"]
-       45 GETTABLEKS                       R8 R9 K15 ["RequestSearchRequest"]
+       39 GETTABLEKS                       R8 R0 K5 ["Src"]
+       41 GETTABLEKS                       R8 R8 K13 ["Networking"]
+       43 GETTABLEKS                       R8 R8 K14 ["Requests"]
+       45 GETTABLEKS                       R8 R8 K15 ["RequestSearchRequest"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K8 [require]
-       50 GETTABLEKS                       R11 R0 K5 ["Src"]
-       52 GETTABLEKS                       R10 R11 K16 ["Types"]
-       54 GETTABLEKS                       R9 R10 K17 ["AutocorrectTypes"]
+       50 GETTABLEKS                       R9 R0 K5 ["Src"]
+       52 GETTABLEKS                       R9 R9 K16 ["Types"]
+       54 GETTABLEKS                       R9 R9 K17 ["AutocorrectTypes"]
        56 CALL                             R8 1 1
        57 GETIMPORT                        R9 K8 [require]
-       59 GETTABLEKS                       R12 R0 K5 ["Src"]
-       61 GETTABLEKS                       R11 R12 K18 ["ContextServices"]
-       63 GETTABLEKS                       R10 R11 K19 ["NetworkContext"]
+       59 GETTABLEKS                       R10 R0 K5 ["Src"]
+       61 GETTABLEKS                       R10 R10 K18 ["ContextServices"]
+       63 GETTABLEKS                       R10 R10 K19 ["NetworkContext"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K8 [require]
-       68 GETTABLEKS                       R13 R0 K5 ["Src"]
-       70 GETTABLEKS                       R12 R13 K18 ["ContextServices"]
-       72 GETTABLEKS                       R11 R12 K20 ["Settings"]
+       68 GETTABLEKS                       R11 R0 K5 ["Src"]
+       70 GETTABLEKS                       R11 R11 K18 ["ContextServices"]
+       72 GETTABLEKS                       R11 R11 K20 ["Settings"]
        74 CALL                             R10 1 1
        75 GETIMPORT                        R11 K8 [require]
-       77 GETTABLEKS                       R14 R0 K5 ["Src"]
-       79 GETTABLEKS                       R13 R14 K21 ["Thunks"]
-       81 GETTABLEKS                       R12 R13 K22 ["LogMarketplaceSearchAnalytics"]
+       77 GETTABLEKS                       R12 R0 K5 ["Src"]
+       79 GETTABLEKS                       R12 R12 K21 ["Thunks"]
+       81 GETTABLEKS                       R12 R12 K22 ["LogMarketplaceSearchAnalytics"]
        83 CALL                             R11 1 1
-       84 GETTABLEKS                       R13 R6 K6 ["Util"]
-       86 GETTABLEKS                       R12 R13 K23 ["LayoutOrderIterator"]
+       84 GETTABLEKS                       R12 R6 K6 ["Util"]
+       86 GETTABLEKS                       R12 R12 K23 ["LayoutOrderIterator"]
        88 GETTABLEKS                       R13 R6 K18 ["ContextServices"]
        90 GETTABLEKS                       R14 R13 K24 ["withContext"]
-       92 GETTABLEKS                       R16 R6 K25 ["UI"]
-       94 GETTABLEKS                       R15 R16 K26 ["LinkText"]
-       96 GETTABLEKS                       R17 R6 K25 ["UI"]
-       98 GETTABLEKS                       R16 R17 K27 ["Pane"]
-      100 GETTABLEKS                       R18 R6 K25 ["UI"]
-      102 GETTABLEKS                       R17 R18 K28 ["TextLabel"]
+       92 GETTABLEKS                       R15 R6 K25 ["UI"]
+       94 GETTABLEKS                       R15 R15 K26 ["LinkText"]
+       96 GETTABLEKS                       R16 R6 K25 ["UI"]
+       98 GETTABLEKS                       R16 R16 K27 ["Pane"]
+      100 GETTABLEKS                       R17 R6 K25 ["UI"]
+      102 GETTABLEKS                       R17 R17 K28 ["TextLabel"]
       104 GETTABLEKS                       R18 R4 K29 ["PureComponent"]
       106 LOADK                            R20 K30 ["Autocorrect"]
       107 NAMECALL                         R18 R18 K31 ["extend"]

@@ -1,18 +1,18 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["PlotAbsoluteSize"]
         2 GETIMPORT                        R3 K3 [Vector2.new]
-        4 GETTABLEKS                       R5 R0 K4 ["StartKeypoint"]
-        6 GETTABLEKS                       R4 R5 K5 ["Time"]
-        8 GETTABLEKS                       R7 R0 K4 ["StartKeypoint"]
-       10 GETTABLEKS                       R6 R7 K7 ["Value"]
+        4 GETTABLEKS                       R4 R0 K4 ["StartKeypoint"]
+        6 GETTABLEKS                       R4 R4 K5 ["Time"]
+        8 GETTABLEKS                       R6 R0 K4 ["StartKeypoint"]
+       10 GETTABLEKS                       R6 R6 K7 ["Value"]
        12 SUBRK                            R5 R6 K6 [1]
        13 CALL                             R3 2 1
        14 MUL                              R2 R1 R3
        15 GETIMPORT                        R4 K3 [Vector2.new]
-       17 GETTABLEKS                       R6 R0 K8 ["EndKeypoint"]
-       19 GETTABLEKS                       R5 R6 K5 ["Time"]
-       21 GETTABLEKS                       R8 R0 K8 ["EndKeypoint"]
-       23 GETTABLEKS                       R7 R8 K7 ["Value"]
+       17 GETTABLEKS                       R5 R0 K8 ["EndKeypoint"]
+       19 GETTABLEKS                       R5 R5 K5 ["Time"]
+       21 GETTABLEKS                       R7 R0 K8 ["EndKeypoint"]
+       23 GETTABLEKS                       R7 R7 K7 ["Value"]
        25 SUBRK                            R6 R6 K7 ["Value"]
        26 CALL                             R4 2 1
        27 MUL                              R3 R1 R4
@@ -24,8 +24,8 @@ PROTO_0:
        35 FASTCALL2                        MATH_ATAN2 R7 R8 ; [+3]
        37 GETIMPORT                        R6 K14 [math.atan2]
        39 CALL                             R6 2 1
-       40 GETUPVAL                         R8 0
-       41 GETTABLEKS                       R7 R8 K15 ["createElement"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K15 ["createElement"]
        43 LOADK                            R8 K16 ["Frame"]
        44 NEWTABLE                         R9 8 0
        46 GETIMPORT                        R10 K3 [Vector2.new]
@@ -50,8 +50,8 @@ PROTO_0:
        75 SETTABLEKS                       R10 R9 K27 ["Size"]
        77 GETTABLEKS                       R10 R0 K28 ["LayoutOrder"]
        79 SETTABLEKS                       R10 R9 K28 ["LayoutOrder"]
-       81 GETUPVAL                         R11 0
-       82 GETTABLEKS                       R10 R11 K29 ["Tag"]
+       81 GETUPVAL                         R10 0
+       82 GETTABLEKS                       R10 R10 K29 ["Tag"]
        84 GETUPVAL                         R11 1
        85 LOADK                            R12 K30 ["NumberSequenceLine"]
        86 GETTABLEKS                       R14 R0 K31 ["StartKeypointSelected"]
@@ -71,27 +71,27 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       17 GETTABLEKS                       R2 R3 K6 ["React"]
+       15 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       17 GETTABLEKS                       R2 R2 K6 ["React"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K7 ["Framework"]
        26 CALL                             R2 1 1
-       27 GETTABLEKS                       R4 R2 K8 ["Styling"]
-       29 GETTABLEKS                       R3 R4 K9 ["joinTags"]
+       27 GETTABLEKS                       R3 R2 K8 ["Styling"]
+       29 GETTABLEKS                       R3 R3 K9 ["joinTags"]
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R8 R0 K10 ["Src"]
-       35 GETTABLEKS                       R7 R8 K11 ["Renderers"]
-       37 GETTABLEKS                       R6 R7 K12 ["SequenceRenderers"]
-       39 GETTABLEKS                       R5 R6 K13 ["Types"]
+       33 GETTABLEKS                       R5 R0 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K11 ["Renderers"]
+       37 GETTABLEKS                       R5 R5 K12 ["SequenceRenderers"]
+       39 GETTABLEKS                       R5 R5 K13 ["Types"]
        41 CALL                             R4 1 1
        42 DUPCLOSURE                       R5 K14 [PROTO_0]
        43 CAPTURE                          VAL R1

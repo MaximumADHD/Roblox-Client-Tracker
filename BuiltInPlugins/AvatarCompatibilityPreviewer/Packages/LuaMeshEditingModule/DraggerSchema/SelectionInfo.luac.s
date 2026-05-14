@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["ControlPointsAdornmentsFolderName"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["ControlPointsAdornmentsFolderName"]
         4 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
         6 CALL                             R1 2 1
         7 NEWTABLE                         R2 0 0
@@ -22,12 +22,12 @@ PROTO_0:
        30 FASTCALL1                        TONUMBER R16 ; [+2]
        31 GETIMPORT                        R15 K5 [tonumber]
        33 CALL                             R15 1 1
-       34 GETTABLEKS                       R18 R13 K6 ["Adornee"]
-       36 GETTABLEKS                       R17 R18 K7 ["CFrame"]
-       38 GETTABLEKS                       R19 R13 K7 ["CFrame"]
-       40 NAMECALL                         R17 R17 K8 ["ToWorldSpace"]
-       42 CALL                             R17 2 1
-       43 GETTABLEKS                       R16 R17 K9 ["p"]
+       34 GETTABLEKS                       R16 R13 K6 ["Adornee"]
+       36 GETTABLEKS                       R16 R16 K7 ["CFrame"]
+       38 GETTABLEKS                       R18 R13 K7 ["CFrame"]
+       40 NAMECALL                         R16 R16 K8 ["ToWorldSpace"]
+       42 CALL                             R16 2 1
+       43 GETTABLEKS                       R16 R16 K9 ["p"]
        45 SETTABLE                         R16 R14 R15
        46 FORGLOOP                         R9 2 ; [-22]
        48 FORGLOOP                         R4 2 ; [-33]
@@ -54,13 +54,13 @@ PROTO_1:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R1 ; [+6]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["getWeightBalanceOrientedBoundingBox"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["getWeightBalanceOrientedBoundingBox"]
         7 MOVE                             R4 R2
         8 CALL                             R3 1 -1
         9 RETURN                           R3 -1
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K1 ["getAxisAlignedBoundingBox"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K1 ["getAxisAlignedBoundingBox"]
        13 MOVE                             R4 R2
        14 CALL                             R3 1 -1
        15 RETURN                           R3 -1
@@ -101,14 +101,14 @@ PROTO_3:
        17 MOVE                             R6 R1
        18 CALL                             R5 1 1
        19 JUMPIFNOT                        R3 ; [+7]
-       20 GETUPVAL                         R7 3
-       21 GETTABLEKS                       R6 R7 K4 ["getWeightBalanceOrientedBoundingBox"]
+       20 GETUPVAL                         R6 3
+       21 GETTABLEKS                       R6 R6 K4 ["getWeightBalanceOrientedBoundingBox"]
        23 MOVE                             R7 R5
        24 CALL                             R6 1 1
        25 MOVE                             R4 R6
        26 JUMP                             ; [+6]
-       27 GETUPVAL                         R7 3
-       28 GETTABLEKS                       R6 R7 K5 ["getAxisAlignedBoundingBox"]
+       27 GETUPVAL                         R6 3
+       28 GETTABLEKS                       R6 R6 K5 ["getAxisAlignedBoundingBox"]
        30 MOVE                             R7 R5
        31 CALL                             R6 1 1
        32 MOVE                             R4 R6
@@ -128,17 +128,17 @@ PROTO_4:
        14 RETURN                           R1 1
 
 PROTO_5:
-        0 GETTABLEKS                       R4 R0 K0 ["_bounds"]
-        2 GETTABLEKS                       R3 R4 K1 ["Width"]
-        4 GETTABLEKS                       R5 R0 K0 ["_bounds"]
-        6 GETTABLEKS                       R4 R5 K2 ["Height"]
-        8 GETTABLEKS                       R6 R0 K0 ["_bounds"]
-       10 GETTABLEKS                       R5 R6 K3 ["Depth"]
+        0 GETTABLEKS                       R3 R0 K0 ["_bounds"]
+        2 GETTABLEKS                       R3 R3 K1 ["Width"]
+        4 GETTABLEKS                       R4 R0 K0 ["_bounds"]
+        6 GETTABLEKS                       R4 R4 K2 ["Height"]
+        8 GETTABLEKS                       R5 R0 K0 ["_bounds"]
+       10 GETTABLEKS                       R5 R5 K3 ["Depth"]
        12 FASTCALL                         VECTOR ; [+2]
        13 GETIMPORT                        R2 K6 [Vector3.new]
        15 CALL                             R2 3 1
-       16 GETTABLEKS                       R4 R0 K0 ["_bounds"]
-       18 GETTABLEKS                       R3 R4 K7 ["CFrame"]
+       16 GETTABLEKS                       R3 R0 K0 ["_bounds"]
+       18 GETTABLEKS                       R3 R3 K7 ["CFrame"]
        20 FASTCALL                         VECTOR ; [+2]
        21 GETIMPORT                        R4 K6 [Vector3.new]
        23 CALL                             R4 0 1
@@ -178,9 +178,9 @@ MAIN:
         3 LOADK                            R2 K2 ["CoreGui"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETTABLEKS                       R2 R1 K7 ["Util"]
        15 GETIMPORT                        R3 K9 [require]
        17 GETTABLEKS                       R4 R2 K10 ["BoundingBoxUtil"]

@@ -5,8 +5,8 @@ PROTO_0:
         6 GETTABLEKS                       R2 R1 K4 ["UserInputState"]
         8 GETIMPORT                        R3 K6 [Enum.UserInputState.Begin]
        10 JUMPIFNOTEQ                      R2 R3 ; [+5]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K7 ["searchForUserInputRecordings"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K7 ["searchForUserInputRecordings"]
        15 CALL                             R2 0 0
        16 RETURN                           R0 0
 
@@ -19,9 +19,9 @@ PROTO_1:
         7 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["playbackFileNameOptions"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["playbackFileNameOptions"]
         5 FASTCALL1                        ASSERT R1 ; [+3]
         6 MOVE                             R3 R1
         7 GETIMPORT                        R2 K3 [assert]
@@ -31,24 +31,24 @@ PROTO_2:
        12 MOVE                             R4 R2
        13 GETIMPORT                        R3 K3 [assert]
        15 CALL                             R3 1 0
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R3 R4 K4 ["loadRecordingWithName"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K4 ["loadRecordingWithName"]
        19 MOVE                             R4 R2
        20 CALL                             R3 1 0
        21 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETTABLEKS                       R3 R2 K1 ["PluginState"]
-        5 GETUPVAL                         R6 1
-        6 GETTABLEKS                       R5 R6 K1 ["PluginState"]
-        8 GETTABLEKS                       R4 R5 K2 ["Playing"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K1 ["PluginState"]
+        8 GETTABLEKS                       R4 R4 K2 ["Playing"]
        10 JUMPIFEQ                         R3 R4 ; [+26]
        12 GETTABLEKS                       R3 R2 K1 ["PluginState"]
-       14 GETUPVAL                         R6 1
-       15 GETTABLEKS                       R5 R6 K1 ["PluginState"]
-       17 GETTABLEKS                       R4 R5 K3 ["Disabled"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K1 ["PluginState"]
+       17 GETTABLEKS                       R4 R4 K3 ["Disabled"]
        19 JUMPIFEQ                         R3 R4 ; [+17]
        21 GETUPVAL                         R3 0
        22 DUPTABLE                         R5 K5 [{"selectedRecordingIndex"}]
@@ -58,15 +58,15 @@ PROTO_3:
        28 GETTABLEKS                       R3 R2 K7 ["OnCanStartPlaying"]
        30 LOADB                            R4 1
        31 CALL                             R3 1 0
-       32 GETUPVAL                         R4 2
-       33 GETTABLEKS                       R3 R4 K8 ["loadRecordingWithName"]
+       32 GETUPVAL                         R3 2
+       33 GETTABLEKS                       R3 R3 K8 ["loadRecordingWithName"]
        35 MOVE                             R4 R0
        36 CALL                             R3 1 0
        37 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["searchForUserInputRecordings"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["searchForUserInputRecordings"]
         3 CALL                             R2 0 0
         4 RETURN                           R0 0
 
@@ -98,21 +98,21 @@ PROTO_5:
        33 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["connectSetPlayableRecordingsCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["connectSetPlayableRecordingsCallback"]
         3 GETTABLEKS                       R2 R0 K1 ["setPlayableRecordings"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["disconnectSetPlayableRecordingsCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["disconnectSetPlayableRecordingsCallback"]
         3 CALL                             R1 0 0
-        4 GETTABLEKS                       R2 R0 K1 ["props"]
-        6 GETTABLEKS                       R1 R2 K2 ["SetPluginState"]
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K3 ["PluginState"]
-       11 GETTABLEKS                       R2 R3 K4 ["Default"]
+        4 GETTABLEKS                       R1 R0 K1 ["props"]
+        6 GETTABLEKS                       R1 R1 K2 ["SetPluginState"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["PluginState"]
+       11 GETTABLEKS                       R2 R2 K4 ["Default"]
        13 CALL                             R1 1 0
        14 RETURN                           R0 0
 
@@ -121,8 +121,8 @@ PROTO_8:
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 GETUPVAL                         R6 1
        12 NEWTABLE                         R7 16 0
        14 GETIMPORT                        R8 K7 [UDim2.fromScale]
@@ -145,18 +145,18 @@ PROTO_8:
        41 SETTABLEKS                       R8 R7 K23 ["Spacing"]
        43 GETIMPORT                        R8 K26 [Enum.VerticalAlignment.Center]
        45 SETTABLEKS                       R8 R7 K24 ["VerticalAlignment"]
-       47 GETUPVAL                         R10 0
-       48 GETTABLEKS                       R9 R10 K27 ["Event"]
-       50 GETTABLEKS                       R8 R9 K28 ["InputBegan"]
+       47 GETUPVAL                         R8 0
+       48 GETTABLEKS                       R8 R8 K27 ["Event"]
+       50 GETTABLEKS                       R8 R8 K28 ["InputBegan"]
        52 GETUPVAL                         R10 2
        53 JUMPIFNOT                        R10 ; [+2]
        54 LOADNIL                          R9
        55 JUMP                             ; [+2]
        56 GETTABLEKS                       R9 R0 K29 ["DEPRECATED_updatePlaybackFileNameOptions"]
        58 SETTABLE                         R9 R7 R8
-       59 GETUPVAL                         R10 0
-       60 GETTABLEKS                       R9 R10 K27 ["Event"]
-       62 GETTABLEKS                       R8 R9 K30 ["MouseEnter"]
+       59 GETUPVAL                         R8 0
+       60 GETTABLEKS                       R8 R8 K27 ["Event"]
+       62 GETTABLEKS                       R8 R8 K30 ["MouseEnter"]
        64 GETUPVAL                         R10 2
        65 JUMPIFNOT                        R10 ; [+3]
        66 GETTABLEKS                       R9 R0 K31 ["onMouseEnter"]
@@ -164,8 +164,8 @@ PROTO_8:
        69 LOADNIL                          R9
        70 SETTABLE                         R9 R7 R8
        71 DUPTABLE                         R8 K34 [{"Label", "Input"}]
-       72 GETUPVAL                         R10 0
-       73 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       72 GETUPVAL                         R9 0
+       73 GETTABLEKS                       R9 R9 K4 ["createElement"]
        75 GETUPVAL                         R10 3
        76 DUPTABLE                         R11 K38 [{"Text", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
        77 LOADK                            R14 K39 ["PlaybackTabView"]
@@ -183,8 +183,8 @@ PROTO_8:
        97 SETTABLEKS                       R12 R11 K37 ["TextYAlignment"]
        99 CALL                             R9 2 1
       100 SETTABLEKS                       R9 R8 K32 ["Label"]
-      102 GETUPVAL                         R10 0
-      103 GETTABLEKS                       R9 R10 K4 ["createElement"]
+      102 GETUPVAL                         R9 0
+      103 GETTABLEKS                       R9 R9 K4 ["createElement"]
       105 GETUPVAL                         R10 4
       106 DUPTABLE                         R11 K52 [{"Style", "Items", "PlaceholderText", "SelectedIndex", "OnItemActivated"}]
       107 GETTABLEKS                       R12 R4 K53 ["PlaybackSelectInput"]
@@ -207,11 +207,11 @@ PROTO_8:
 
 PROTO_9:
         0 DUPTABLE                         R2 K2 [{"ShouldSetEmulationDevice", "PluginState"}]
-        1 GETTABLEKS                       R4 R0 K3 ["playbackTab"]
-        3 GETTABLEKS                       R3 R4 K4 ["shouldSetEmulationDevice"]
+        1 GETTABLEKS                       R3 R0 K3 ["playbackTab"]
+        3 GETTABLEKS                       R3 R3 K4 ["shouldSetEmulationDevice"]
         5 SETTABLEKS                       R3 R2 K0 ["ShouldSetEmulationDevice"]
-        7 GETTABLEKS                       R4 R0 K5 ["common"]
-        9 GETTABLEKS                       R3 R4 K6 ["pluginState"]
+        7 GETTABLEKS                       R3 R0 K5 ["common"]
+        9 GETTABLEKS                       R3 R3 K6 ["pluginState"]
        11 SETTABLEKS                       R3 R2 K1 ["PluginState"]
        13 RETURN                           R2 1
 
@@ -233,21 +233,21 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R3 K10 ["UI"]
@@ -255,20 +255,20 @@ MAIN:
        36 GETTABLEKS                       R7 R5 K12 ["SelectInput"]
        38 GETTABLEKS                       R8 R5 K13 ["Pane"]
        40 GETIMPORT                        R9 K4 [require]
-       42 GETTABLEKS                       R12 R0 K14 ["Src"]
-       44 GETTABLEKS                       R11 R12 K15 ["Util"]
-       46 GETTABLEKS                       R10 R11 K16 ["Enums"]
+       42 GETTABLEKS                       R10 R0 K14 ["Src"]
+       44 GETTABLEKS                       R10 R10 K15 ["Util"]
+       46 GETTABLEKS                       R10 R10 K16 ["Enums"]
        48 CALL                             R9 1 1
        49 GETIMPORT                        R10 K4 [require]
-       51 GETTABLEKS                       R13 R0 K14 ["Src"]
-       53 GETTABLEKS                       R12 R13 K15 ["Util"]
-       55 GETTABLEKS                       R11 R12 K17 ["DMBridge"]
+       51 GETTABLEKS                       R11 R0 K14 ["Src"]
+       53 GETTABLEKS                       R11 R11 K15 ["Util"]
+       55 GETTABLEKS                       R11 R11 K17 ["DMBridge"]
        57 CALL                             R10 1 1
        58 GETIMPORT                        R11 K4 [require]
-       60 GETTABLEKS                       R15 R0 K14 ["Src"]
-       62 GETTABLEKS                       R14 R15 K18 ["Actions"]
-       64 GETTABLEKS                       R13 R14 K19 ["Common"]
-       66 GETTABLEKS                       R12 R13 K20 ["SetPluginState"]
+       60 GETTABLEKS                       R12 R0 K14 ["Src"]
+       62 GETTABLEKS                       R12 R12 K18 ["Actions"]
+       64 GETTABLEKS                       R12 R12 K19 ["Common"]
+       66 GETTABLEKS                       R12 R12 K20 ["SetPluginState"]
        68 CALL                             R11 1 1
        69 GETTABLEKS                       R12 R1 K21 ["PureComponent"]
        71 LOADK                            R14 K22 ["RecordingFileSelector"]

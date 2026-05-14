@@ -18,13 +18,13 @@ PROTO_0:
        25 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["JoinDictionaries"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["JoinDictionaries"]
         3 GETTABLEKS                       R3 R0 K1 ["state"]
         5 MOVE                             R4 R1
         6 CALL                             R2 2 1
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K2 ["Set"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K2 ["Set"]
        10 MOVE                             R6 R1
        11 LOADK                            R7 K3 ["Groups"]
        12 MOVE                             R10 R2
@@ -48,37 +48,37 @@ PROTO_2:
        11 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["InPlayMode"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["InPlayMode"]
         3 JUMPIFNOT                        R0 ; [+7]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["props"]
-        7 GETTABLEKS                       R0 R1 K2 ["OnAttemptModifyInPlayMode"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["props"]
+        7 GETTABLEKS                       R0 R0 K2 ["OnAttemptModifyInPlayMode"]
         9 CALL                             R0 0 0
        10 RETURN                           R0 0
-       11 GETUPVAL                         R1 2
-       12 GETTABLEKS                       R0 R1 K3 ["Name"]
+       11 GETUPVAL                         R0 2
+       12 GETTABLEKS                       R0 R0 K3 ["Name"]
        14 JUMPIFNOTEQKS                    R0 K4 ["Default"] ; [+2]
        16 RETURN                           R0 0
        17 GETUPVAL                         R0 3
        18 LOADK                            R2 K5 ["DeleteCollisionGroup"]
-       19 GETUPVAL                         R4 2
-       20 GETTABLEKS                       R3 R4 K3 ["Name"]
+       19 GETUPVAL                         R3 2
+       20 GETTABLEKS                       R3 R3 K3 ["Name"]
        22 NAMECALL                         R0 R0 K6 ["Invoke"]
        24 CALL                             R0 3 0
        25 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["InPlayMode"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["InPlayMode"]
         3 JUMPIFNOT                        R1 ; [+7]
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["props"]
-        7 GETTABLEKS                       R1 R2 K2 ["OnAttemptModifyInPlayMode"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["props"]
+        7 GETTABLEKS                       R1 R1 K2 ["OnAttemptModifyInPlayMode"]
         9 CALL                             R1 0 0
        10 RETURN                           R0 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K3 ["Name"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K3 ["Name"]
        14 JUMPIFNOTEQKS                    R1 K4 ["Default"] ; [+2]
        16 RETURN                           R0 0
        17 JUMPIFNOT                        R0 ; [+24]
@@ -89,8 +89,8 @@ PROTO_4:
        23 NAMECALL                         R1 R1 K7 ["setStateAndRefresh"]
        25 CALL                             R1 2 0
        26 NEWTABLE                         R1 2 0
-       28 GETUPVAL                         R3 2
-       29 GETTABLEKS                       R2 R3 K3 ["Name"]
+       28 GETUPVAL                         R2 2
+       29 GETTABLEKS                       R2 R2 K3 ["Name"]
        31 SETTABLEKS                       R2 R1 K8 ["oldName"]
        33 SETTABLEKS                       R0 R1 K9 ["newName"]
        35 GETUPVAL                         R2 3
@@ -99,14 +99,14 @@ PROTO_4:
        38 NAMECALL                         R2 R2 K11 ["Invoke"]
        40 CALL                             R2 3 0
        41 RETURN                           R0 0
-       42 GETUPVAL                         R3 1
-       43 GETTABLEKS                       R2 R3 K12 ["state"]
-       45 GETTABLEKS                       R1 R2 K13 ["GroupRenaming"]
+       42 GETUPVAL                         R1 1
+       43 GETTABLEKS                       R1 R1 K12 ["state"]
+       45 GETTABLEKS                       R1 R1 K13 ["GroupRenaming"]
        47 JUMPIFNOTEQKS                    R1 K14 [""] ; [+12]
        49 GETUPVAL                         R1 1
        50 DUPTABLE                         R3 K15 [{"GroupRenaming"}]
-       51 GETUPVAL                         R5 2
-       52 GETTABLEKS                       R4 R5 K3 ["Name"]
+       51 GETUPVAL                         R4 2
+       52 GETTABLEKS                       R4 R4 K3 ["Name"]
        54 SETTABLEKS                       R4 R3 K13 ["GroupRenaming"]
        56 NAMECALL                         R1 R1 K7 ["setStateAndRefresh"]
        58 CALL                             R1 2 0
@@ -120,36 +120,36 @@ PROTO_4:
        68 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["InPlayMode"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["InPlayMode"]
         3 JUMPIFNOT                        R0 ; [+7]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["props"]
-        7 GETTABLEKS                       R0 R1 K2 ["OnAttemptModifyInPlayMode"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["props"]
+        7 GETTABLEKS                       R0 R0 K2 ["OnAttemptModifyInPlayMode"]
         9 CALL                             R0 0 0
        10 RETURN                           R0 0
        11 GETUPVAL                         R0 2
        12 LOADK                            R2 K3 ["AddSelectedPartsToCollisionGroup"]
-       13 GETUPVAL                         R4 3
-       14 GETTABLEKS                       R3 R4 K4 ["Name"]
+       13 GETUPVAL                         R3 3
+       14 GETTABLEKS                       R3 R3 K4 ["Name"]
        16 NAMECALL                         R0 R0 K5 ["Invoke"]
        18 CALL                             R0 3 0
        19 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Name"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Name"]
         3 JUMPIFEQKS                       R1 K1 ["Default"] ; [+9]
         5 GETUPVAL                         R1 1
         6 LOADK                            R3 K2 ["SelectPartsInCollisionGroup"]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["Name"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["Name"]
        10 NAMECALL                         R1 R1 K3 ["Invoke"]
        12 CALL                             R1 3 0
        13 GETUPVAL                         R1 2
        14 DUPTABLE                         R3 K5 [{"UISelectedGroupId"}]
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K6 ["Id"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K6 ["Id"]
        18 SETTABLEKS                       R4 R3 K4 ["UISelectedGroupId"]
        20 NAMECALL                         R1 R1 K7 ["setStateAndRefresh"]
        22 CALL                             R1 2 0
@@ -157,8 +157,8 @@ PROTO_6:
 
 PROTO_7:
         0 GETIMPORT                        R1 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R2 R4 K2 ["Collisions"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Collisions"]
         5 CALL                             R1 1 3
         6 FORGPREP_NEXT                    R1
         7 GETTABLEKS                       R6 R5 K3 ["Name"]
@@ -170,8 +170,8 @@ PROTO_7:
        18 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Virtual"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Virtual"]
         3 JUMPIF                           R1 ; [+2]
         4 GETTABLEKS                       R1 R0 K0 ["Virtual"]
         6 JUMPIFNOT                        R1 ; [+25]
@@ -186,25 +186,25 @@ PROTO_8:
        16 ADDK                             R4 R4 K1 [1]
        17 FORGLOOP                         R5 2 ; [-5]
        19 MOVE                             R2 R4
-       20 GETUPVAL                         R4 2
-       21 GETTABLEKS                       R3 R4 K2 ["GroupCountMax"]
+       20 GETUPVAL                         R3 2
+       21 GETTABLEKS                       R3 R3 K2 ["GroupCountMax"]
        23 JUMPIFNOTEQ                      R2 R3 ; [+8]
-       25 GETUPVAL                         R4 3
-       26 GETTABLEKS                       R3 R4 K3 ["props"]
-       28 GETTABLEKS                       R2 R3 K4 ["OnCannotConfigureSelection"]
+       25 GETUPVAL                         R2 3
+       26 GETTABLEKS                       R2 R2 K3 ["props"]
+       28 GETTABLEKS                       R2 R2 K4 ["OnCannotConfigureSelection"]
        30 CALL                             R2 0 0
        31 RETURN                           R0 0
-       32 GETUPVAL                         R3 4
-       33 GETTABLEKS                       R2 R3 K5 ["InPlayMode"]
+       32 GETUPVAL                         R2 4
+       33 GETTABLEKS                       R2 R2 K5 ["InPlayMode"]
        35 JUMPIFNOT                        R2 ; [+7]
-       36 GETUPVAL                         R4 3
-       37 GETTABLEKS                       R3 R4 K3 ["props"]
-       39 GETTABLEKS                       R2 R3 K6 ["OnAttemptModifyInPlayMode"]
+       36 GETUPVAL                         R2 3
+       37 GETTABLEKS                       R2 R2 K3 ["props"]
+       39 GETTABLEKS                       R2 R2 K6 ["OnAttemptModifyInPlayMode"]
        41 CALL                             R2 0 0
        42 RETURN                           R0 0
        43 NEWTABLE                         R2 2 0
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R3 R4 K7 ["Name"]
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K7 ["Name"]
        48 SETTABLEKS                       R3 R2 K8 ["groupName"]
        50 GETTABLEKS                       R3 R0 K7 ["Name"]
        52 SETTABLEKS                       R3 R2 K9 ["otherGroupName"]
@@ -218,8 +218,8 @@ PROTO_8:
 PROTO_9:
         0 JUMPIFNOTEQKNIL                  R1 ; [+3]
         2 NEWTABLE                         R1 0 0
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K1 ["plugin"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K1 ["plugin"]
         8 LOADK                            R5 K2 ["Groups"]
         9 NAMECALL                         R3 R2 K3 ["GetItem"]
        11 CALL                             R3 2 1
@@ -310,8 +310,8 @@ PROTO_11:
         5 RETURN                           R3 1
         6 GETTABLEKS                       R4 R2 K1 ["Groups"]
         8 LENGTH                           R3 R4
-        9 GETTABLEKS                       R6 R0 K2 ["state"]
-       11 GETTABLEKS                       R5 R6 K1 ["Groups"]
+        9 GETTABLEKS                       R5 R0 K2 ["state"]
+       11 GETTABLEKS                       R5 R5 K1 ["Groups"]
        13 LENGTH                           R4 R5
        14 JUMPIFEQ                         R3 R4 ; [+3]
        16 LOADB                            R3 1
@@ -349,8 +349,8 @@ PROTO_11:
        57 LOADNIL                          R5
        58 LOADNIL                          R6
        59 FORGPREP                         R4
-       60 GETTABLEKS                       R11 R0 K2 ["state"]
-       62 GETTABLEKS                       R10 R11 K1 ["Groups"]
+       60 GETTABLEKS                       R10 R0 K2 ["state"]
+       62 GETTABLEKS                       R10 R10 K1 ["Groups"]
        64 GETTABLE                         R9 R10 R7
        65 GETTABLEKS                       R10 R9 K4 ["Name"]
        67 GETTABLEKS                       R11 R8 K4 ["Name"]
@@ -407,13 +407,13 @@ PROTO_12:
         8 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["InPlayMode"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["InPlayMode"]
         5 JUMPIFNOT                        R1 ; [+7]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["props"]
-        9 GETTABLEKS                       R1 R2 K3 ["OnAttemptModifyInPlayMode"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K2 ["props"]
+        9 GETTABLEKS                       R1 R1 K3 ["OnAttemptModifyInPlayMode"]
        11 CALL                             R1 0 0
        12 RETURN                           R0 0
        13 GETUPVAL                         R1 1
@@ -425,15 +425,15 @@ PROTO_13:
 
 PROTO_14:
         0 GETIMPORT                        R0 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["state"]
-        5 GETTABLEKS                       R1 R3 K3 ["Groups"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["state"]
+        5 GETTABLEKS                       R1 R1 K3 ["Groups"]
         7 CALL                             R0 1 3
         8 FORGPREP_NEXT                    R0
         9 GETTABLEKS                       R5 R4 K4 ["Id"]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K2 ["state"]
-       14 GETTABLEKS                       R6 R7 K5 ["UISelectedGroupId"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K2 ["state"]
+       14 GETTABLEKS                       R6 R6 K5 ["UISelectedGroupId"]
        16 JUMPIFNOTEQ                      R5 R6 ; [+5]
        18 GETTABLEKS                       R5 R4 K6 ["OnDeleted"]
        20 CALL                             R5 0 0
@@ -443,15 +443,15 @@ PROTO_14:
 
 PROTO_15:
         0 GETIMPORT                        R0 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["state"]
-        5 GETTABLEKS                       R1 R3 K3 ["Groups"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["state"]
+        5 GETTABLEKS                       R1 R1 K3 ["Groups"]
         7 CALL                             R0 1 3
         8 FORGPREP_NEXT                    R0
         9 GETTABLEKS                       R5 R4 K4 ["Id"]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K2 ["state"]
-       14 GETTABLEKS                       R6 R7 K5 ["UISelectedGroupId"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K2 ["state"]
+       14 GETTABLEKS                       R6 R6 K5 ["UISelectedGroupId"]
        16 JUMPIFNOTEQ                      R5 R6 ; [+5]
        18 GETTABLEKS                       R5 R4 K6 ["OnRenamed"]
        20 CALL                             R5 0 0
@@ -464,15 +464,15 @@ PROTO_16:
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 NAMECALL                         R2 R2 K2 ["get"]
         6 CALL                             R2 1 1
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K3 ["createElement"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K3 ["createElement"]
        10 GETUPVAL                         R4 1
        11 DUPTABLE                         R5 K10 [{"Groups", "GroupRenameDialogOpen", "OnGroupRenameDialogClosed", "OnGroupAdded", "OnGroupDeleted", "OnGroupRenamed"}]
-       12 GETTABLEKS                       R7 R0 K11 ["state"]
-       14 GETTABLEKS                       R6 R7 K4 ["Groups"]
+       12 GETTABLEKS                       R6 R0 K11 ["state"]
+       14 GETTABLEKS                       R6 R6 K4 ["Groups"]
        16 SETTABLEKS                       R6 R5 K4 ["Groups"]
-       18 GETTABLEKS                       R7 R0 K11 ["state"]
-       20 GETTABLEKS                       R6 R7 K5 ["GroupRenameDialogOpen"]
+       18 GETTABLEKS                       R6 R0 K11 ["state"]
+       20 GETTABLEKS                       R6 R6 K5 ["GroupRenameDialogOpen"]
        22 SETTABLEKS                       R6 R5 K5 ["GroupRenameDialogOpen"]
        24 NEWCLOSURE                       R6 P0
        25 CAPTURE                          VAL R0
@@ -501,15 +501,15 @@ PROTO_17:
 
 PROTO_18:
         0 DUPTABLE                         R3 K1 [{"plugin"}]
-        1 GETTABLEKS                       R5 R0 K2 ["props"]
-        3 GETTABLEKS                       R4 R5 K3 ["Plugin"]
+        1 GETTABLEKS                       R4 R0 K2 ["props"]
+        3 GETTABLEKS                       R4 R4 K3 ["Plugin"]
         5 NAMECALL                         R4 R4 K4 ["get"]
         7 CALL                             R4 1 1
         8 SETTABLEKS                       R4 R3 K0 ["plugin"]
        10 NAMECALL                         R1 R0 K5 ["setState"]
        12 CALL                             R1 2 0
-       13 GETTABLEKS                       R2 R0 K2 ["props"]
-       15 GETTABLEKS                       R1 R2 K0 ["plugin"]
+       13 GETTABLEKS                       R1 R0 K2 ["props"]
+       15 GETTABLEKS                       R1 R1 K0 ["plugin"]
        17 LOADK                            R3 K6 ["SetStateAndRefresh"]
        18 NEWCLOSURE                       R4 P0
        19 CAPTURE                          VAL R0
@@ -529,42 +529,42 @@ PROTO_19:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETIMPORT                        R4 K4 [require]
-       27 GETIMPORT                        R8 K1 [script]
-       29 GETTABLEKS                       R7 R8 K2 ["Parent"]
-       31 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       33 GETTABLEKS                       R5 R6 K9 ["contains"]
+       27 GETIMPORT                        R5 K1 [script]
+       29 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       31 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       33 GETTABLEKS                       R5 R5 K9 ["contains"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K4 [require]
-       38 GETIMPORT                        R10 K1 [script]
-       40 GETTABLEKS                       R9 R10 K2 ["Parent"]
-       42 GETTABLEKS                       R8 R9 K2 ["Parent"]
-       44 GETTABLEKS                       R7 R8 K10 ["Util"]
-       46 GETTABLEKS                       R6 R7 K11 ["Immutable"]
+       38 GETIMPORT                        R6 K1 [script]
+       40 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       42 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       44 GETTABLEKS                       R6 R6 K10 ["Util"]
+       46 GETTABLEKS                       R6 R6 K11 ["Immutable"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K4 [require]
-       51 GETIMPORT                        R9 K1 [script]
-       53 GETTABLEKS                       R8 R9 K2 ["Parent"]
-       55 GETTABLEKS                       R7 R8 K12 ["MainView"]
+       51 GETIMPORT                        R7 K1 [script]
+       53 GETTABLEKS                       R7 R7 K2 ["Parent"]
+       55 GETTABLEKS                       R7 R7 K12 ["MainView"]
        57 CALL                             R6 1 1
        58 GETIMPORT                        R7 K4 [require]
-       60 GETIMPORT                        R11 K1 [script]
-       62 GETTABLEKS                       R10 R11 K2 ["Parent"]
-       64 GETTABLEKS                       R9 R10 K2 ["Parent"]
-       66 GETTABLEKS                       R8 R9 K13 ["Constants"]
+       60 GETIMPORT                        R8 K1 [script]
+       62 GETTABLEKS                       R8 R8 K2 ["Parent"]
+       64 GETTABLEKS                       R8 R8 K2 ["Parent"]
+       66 GETTABLEKS                       R8 R8 K13 ["Constants"]
        68 CALL                             R7 1 1
        69 GETTABLEKS                       R8 R1 K14 ["Component"]
        71 LOADK                            R10 K15 ["Gui"]

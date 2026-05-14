@@ -3,8 +3,8 @@ PROTO_0:
         2 JUMPIF                           R1 ; [+2]
         3 LOADNIL                          R2
         4 RETURN                           R2 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["createElement"]
         8 GETUPVAL                         R3 1
         9 DUPTABLE                         R4 K4 [{"tag", "Size"}]
        10 LOADK                            R5 K5 ["col align-x-center align-y-center flex-between bg-surface-100 padding-x-medium"]
@@ -17,8 +17,8 @@ PROTO_0:
        19 CALL                             R5 4 1
        20 SETTABLEKS                       R5 R4 K3 ["Size"]
        22 DUPTABLE                         R5 K11 [{"Content", "Divider"}]
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       23 GETUPVAL                         R6 0
+       24 GETTABLEKS                       R6 R6 K1 ["createElement"]
        26 GETUPVAL                         R7 1
        27 DUPTABLE                         R8 K4 [{"tag", "Size"}]
        28 LOADK                            R9 K12 ["row align-x-center fill align-y-center flex-between"]
@@ -31,21 +31,21 @@ PROTO_0:
        37 CALL                             R9 4 1
        38 SETTABLEKS                       R9 R8 K3 ["Size"]
        40 DUPTABLE                         R9 K15 [{"Title", "TableOfContents"}]
-       41 GETUPVAL                         R11 0
-       42 GETTABLEKS                       R10 R11 K1 ["createElement"]
+       41 GETUPVAL                         R10 0
+       42 GETTABLEKS                       R10 R10 K1 ["createElement"]
        44 GETUPVAL                         R11 2
        45 DUPTABLE                         R12 K18 [{"tag", "Text", "LayoutOrder"}]
        46 LOADK                            R13 K19 ["text-align-x-left text-body-medium auto-x size-0-full"]
        47 SETTABLEKS                       R13 R12 K2 ["tag"]
-       49 GETTABLEKS                       R14 R1 K20 ["info"]
-       51 GETTABLEKS                       R13 R14 K21 ["title"]
+       49 GETTABLEKS                       R13 R1 K20 ["info"]
+       51 GETTABLEKS                       R13 R13 K21 ["title"]
        53 SETTABLEKS                       R13 R12 K16 ["Text"]
        55 LOADN                            R13 0
        56 SETTABLEKS                       R13 R12 K17 ["LayoutOrder"]
        58 CALL                             R10 2 1
        59 SETTABLEKS                       R10 R9 K13 ["Title"]
-       61 GETUPVAL                         R11 0
-       62 GETTABLEKS                       R10 R11 K1 ["createElement"]
+       61 GETUPVAL                         R10 0
+       62 GETTABLEKS                       R10 R10 K1 ["createElement"]
        64 GETUPVAL                         R11 3
        65 DUPTABLE                         R12 K27 [{"LayoutOrder", "icon", "isCircular", "size", "onActivated", "testId"}]
        66 LOADN                            R13 1
@@ -58,10 +58,10 @@ PROTO_0:
        75 SETTABLEKS                       R13 R12 K22 ["icon"]
        77 LOADB                            R13 1
        78 SETTABLEKS                       R13 R12 K23 ["isCircular"]
-       80 GETUPVAL                         R16 4
-       81 GETTABLEKS                       R15 R16 K31 ["Enums"]
-       83 GETTABLEKS                       R14 R15 K32 ["IconSize"]
-       85 GETTABLEKS                       R13 R14 K33 ["Small"]
+       80 GETUPVAL                         R13 4
+       81 GETTABLEKS                       R13 R13 K31 ["Enums"]
+       83 GETTABLEKS                       R13 R13 K32 ["IconSize"]
+       85 GETTABLEKS                       R13 R13 K33 ["Small"]
        87 SETTABLEKS                       R13 R12 K24 ["size"]
        89 GETTABLEKS                       R13 R0 K34 ["onTableOfContentsClicked"]
        91 SETTABLEKS                       R13 R12 K25 ["onActivated"]
@@ -71,8 +71,8 @@ PROTO_0:
        97 SETTABLEKS                       R10 R9 K14 ["TableOfContents"]
        99 CALL                             R6 3 1
       100 SETTABLEKS                       R6 R5 K9 ["Content"]
-      102 GETUPVAL                         R7 0
-      103 GETTABLEKS                       R6 R7 K1 ["createElement"]
+      102 GETUPVAL                         R6 0
+      103 GETTABLEKS                       R6 R6 K1 ["createElement"]
       105 GETUPVAL                         R7 5
       106 DUPTABLE                         R8 K36 [{"LayoutOrder"}]
       107 LOADN                            R9 1
@@ -89,16 +89,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["React"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["Foundation"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["Foundation"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K11 ["View"]
        30 GETTABLEKS                       R5 R3 K12 ["Text"]

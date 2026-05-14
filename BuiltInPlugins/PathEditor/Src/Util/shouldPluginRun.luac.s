@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [require]
-        2 GETIMPORT                        R3 K3 [script]
-        4 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        6 GETTABLEKS                       R1 R2 K5 ["DebugFlags"]
+        2 GETIMPORT                        R1 K3 [script]
+        4 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        6 GETTABLEKS                       R1 R1 K5 ["DebugFlags"]
         8 CALL                             R0 1 1
         9 GETTABLEKS                       R1 R0 K6 ["RunningUnderCLI"]
        11 CALL                             R1 0 1

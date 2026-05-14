@@ -35,16 +35,16 @@ PROTO_1:
 
 PROTO_2:
         0 JUMPIFNOTEQKS                    R0 K0 ["Save"] ; [+11]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["OnSaveButtonPressed"]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K2 ["state"]
-        8 GETTABLEKS                       R2 R3 K3 ["dialogInputValue"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["OnSaveButtonPressed"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["state"]
+        8 GETTABLEKS                       R2 R2 K3 ["dialogInputValue"]
        10 CALL                             R1 1 0
        11 RETURN                           R0 0
        12 JUMPIFNOTEQKS                    R0 K4 ["Cancel"] ; [+5]
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K5 ["OnCancelButtonPressed"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K5 ["OnCancelButtonPressed"]
        17 CALL                             R1 0 0
        18 RETURN                           R0 0
 
@@ -52,8 +52,8 @@ PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K9 [{"Title", "OnClose", "OnButtonPressed", "Buttons", "MinContentSize"}]
        11 LOADK                            R9 K10 ["ChooseRecordingNamePopUp"]
@@ -93,8 +93,8 @@ PROTO_3:
        61 GETTABLEKS                       R7 R3 K23 ["ContentSize"]
        63 SETTABLEKS                       R7 R6 K8 ["MinContentSize"]
        65 DUPTABLE                         R7 K25 [{"Container"}]
-       66 GETUPVAL                         R9 0
-       67 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       66 GETUPVAL                         R8 0
+       67 GETTABLEKS                       R8 R8 K3 ["createElement"]
        69 GETUPVAL                         R9 2
        70 DUPTABLE                         R10 K31 [{"Size", "Position", "Spacing", "Layout", "HorizontalAlignment"}]
        71 GETTABLEKS                       R11 R3 K32 ["PanelSize"]
@@ -108,8 +108,8 @@ PROTO_3:
        87 GETIMPORT                        R11 K40 [Enum.HorizontalAlignment.Left]
        89 SETTABLEKS                       R11 R10 K30 ["HorizontalAlignment"]
        91 DUPTABLE                         R11 K43 [{"Message", "Input"}]
-       92 GETUPVAL                         R13 0
-       93 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       92 GETUPVAL                         R12 0
+       93 GETTABLEKS                       R12 R12 K3 ["createElement"]
        95 GETUPVAL                         R13 3
        96 DUPTABLE                         R14 K47 [{"Size", "Text", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
        97 GETTABLEKS                       R15 R3 K48 ["DialogMessageSize"]
@@ -131,15 +131,15 @@ PROTO_3:
       123 SETTABLEKS                       R15 R14 K46 ["LayoutOrder"]
       125 CALL                             R12 2 1
       126 SETTABLEKS                       R12 R11 K41 ["Message"]
-      128 GETUPVAL                         R13 0
-      129 GETTABLEKS                       R12 R13 K3 ["createElement"]
-      131 GETUPVAL                         R14 4
-      132 GETTABLEKS                       R13 R14 K54 ["TextInput"]
+      128 GETUPVAL                         R12 0
+      129 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      131 GETUPVAL                         R13 4
+      132 GETTABLEKS                       R13 R13 K54 ["TextInput"]
       134 DUPTABLE                         R14 K57 [{"Size", "Text", "OnTextChanged", "Style", "PlaceholderText", "LayoutOrder"}]
       135 GETTABLEKS                       R15 R3 K58 ["TextInputSize"]
       137 SETTABLEKS                       R15 R14 K26 ["Size"]
-      139 GETTABLEKS                       R16 R0 K59 ["state"]
-      141 GETTABLEKS                       R15 R16 K60 ["dialogInputValue"]
+      139 GETTABLEKS                       R15 R0 K59 ["state"]
+      141 GETTABLEKS                       R15 R15 K60 ["dialogInputValue"]
       143 SETTABLEKS                       R15 R14 K14 ["Text"]
       145 GETTABLEKS                       R15 R0 K61 ["onTextInputChanged"]
       147 SETTABLEKS                       R15 R14 K55 ["OnTextChanged"]
@@ -162,17 +162,17 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R2 K9 ["UI"]

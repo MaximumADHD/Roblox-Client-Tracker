@@ -1,19 +1,19 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["databaseLoaded"]
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K1 ["Loaded"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["databaseLoaded"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["Loaded"]
         7 NAMECALL                         R0 R0 K2 ["Invoke"]
         9 CALL                             R0 3 0
        10 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["databaseLoaded"]
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K1 ["Loaded"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["databaseLoaded"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["Loaded"]
         7 NAMECALL                         R0 R0 K2 ["Invoke"]
         9 CALL                             R0 3 0
        10 RETURN                           R0 0
@@ -46,20 +46,20 @@ PROTO_4:
         1 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["hasUnpublishedChanges"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["hasUnpublishedChanges"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U1
         5 NAMECALL                         R1 R0 K1 ["OnInvoke"]
         7 CALL                             R1 3 0
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["hasUnpublishedAvatarTypeChanges"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["hasUnpublishedAvatarTypeChanges"]
        11 NEWCLOSURE                       R4 P1
        12 CAPTURE                          UPVAL U2
        13 NAMECALL                         R1 R0 K1 ["OnInvoke"]
        15 CALL                             R1 3 0
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K3 ["requestUnpublishedChangesStatus"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K3 ["requestUnpublishedChangesStatus"]
        19 NAMECALL                         R1 R0 K4 ["Invoke"]
        21 CALL                             R1 2 0
        22 RETURN                           R0 0
@@ -91,9 +91,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K6 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R5 R0 K9 ["Src"]
-       17 GETTABLEKS                       R4 R5 K10 ["Util"]
-       19 GETTABLEKS                       R3 R4 K11 ["InvokeKeys"]
+       15 GETTABLEKS                       R3 R0 K9 ["Src"]
+       17 GETTABLEKS                       R3 R3 K10 ["Util"]
+       19 GETTABLEKS                       R3 R3 K11 ["InvokeKeys"]
        21 CALL                             R2 1 1
        22 NEWTABLE                         R3 8 0
        24 LOADB                            R4 0

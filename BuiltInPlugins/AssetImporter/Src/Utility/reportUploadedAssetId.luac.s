@@ -34,9 +34,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["HttpService"]
@@ -45,14 +45,14 @@ MAIN:
        22 LOADK                            R4 K11 ["MemStorageService"]
        23 CALL                             R3 1 1
        24 GETIMPORT                        R4 K5 [require]
-       26 GETTABLEKS                       R7 R0 K6 ["Src"]
-       28 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       30 GETTABLEKS                       R5 R6 K13 ["getFFlagAssetImportShareUploadResults"]
+       26 GETTABLEKS                       R5 R0 K6 ["Src"]
+       28 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       30 GETTABLEKS                       R5 R5 K13 ["getFFlagAssetImportShareUploadResults"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K5 [require]
-       35 GETTABLEKS                       R8 R0 K6 ["Src"]
-       37 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       39 GETTABLEKS                       R6 R7 K14 ["getFFlagAinAmrRecentsSource"]
+       35 GETTABLEKS                       R6 R0 K6 ["Src"]
+       37 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       39 GETTABLEKS                       R6 R6 K14 ["getFFlagAinAmrRecentsSource"]
        41 CALL                             R5 1 1
        42 DUPCLOSURE                       R6 K15 [PROTO_0]
        43 CAPTURE                          VAL R4

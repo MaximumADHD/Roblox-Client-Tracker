@@ -2,8 +2,8 @@ PROTO_0:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 RETURN                           R1 1
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K0 ["WhiteSpace"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K0 ["WhiteSpace"]
         6 LOADK                            R4 K1 [""]
         7 NAMECALL                         R1 R0 K2 ["gsub"]
         9 CALL                             R1 3 1
@@ -19,16 +19,16 @@ PROTO_1:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 RETURN                           R1 1
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K0 ["WhiteSpace"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K0 ["WhiteSpace"]
         6 LOADK                            R4 K1 [""]
         7 NAMECALL                         R1 R0 K2 ["gsub"]
         9 CALL                             R1 3 1
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K3 ["Name"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K3 ["Name"]
        13 LOADK                            R6 K4 [" %*"]
-       14 GETUPVAL                         R9 1
-       15 GETTABLEKS                       R8 R9 K3 ["Name"]
+       14 GETUPVAL                         R8 1
+       15 GETTABLEKS                       R8 R8 K3 ["Name"]
        17 NAMECALL                         R6 R6 K5 ["format"]
        19 CALL                             R6 2 1
        20 MOVE                             R5 R6
@@ -65,8 +65,8 @@ PROTO_3:
        12 JUMPIF                           R5 ; [+2]
        13 LOADNIL                          R4
        14 JUMP                             ; [+16]
-       15 GETUPVAL                         R9 0
-       16 GETTABLEKS                       R8 R9 K4 ["WhiteSpace"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R8 R8 K4 ["WhiteSpace"]
        18 LOADK                            R9 K0 [""]
        19 NAMECALL                         R6 R5 K5 ["gsub"]
        21 CALL                             R6 3 1
@@ -77,15 +77,15 @@ PROTO_3:
        28 LOADNIL                          R4
        29 JUMP                             ; [+1]
        30 MOVE                             R4 R6
-       31 GETUPVAL                         R7 2
-       32 GETTABLEKS                       R6 R7 K6 ["Type"]
-       34 GETTABLEKS                       R5 R6 K7 ["Query"]
+       31 GETUPVAL                         R5 2
+       32 GETTABLEKS                       R5 R5 K6 ["Type"]
+       34 GETTABLEKS                       R5 R5 K7 ["Query"]
        36 JUMPIFNOTEQ                      R0 R5 ; [+30]
        38 JUMPIFEQKS                       R2 K0 [""] ; [+15]
        40 LOADK                            R6 K8 ["%* %*%*%*"]
        41 MOVE                             R8 R2
-       42 GETUPVAL                         R10 3
-       43 GETTABLEKS                       R9 R10 K7 ["Query"]
+       42 GETUPVAL                         R9 3
+       43 GETTABLEKS                       R9 R9 K7 ["Query"]
        45 MOVE                             R10 R4
        46 JUMPIF                           R10 ; [+1]
        47 GETUPVAL                         R10 1
@@ -95,8 +95,8 @@ PROTO_3:
        52 MOVE                             R5 R6
        53 RETURN                           R5 1
        54 LOADK                            R6 K10 ["%*%*%*"]
-       55 GETUPVAL                         R9 3
-       56 GETTABLEKS                       R8 R9 K7 ["Query"]
+       55 GETUPVAL                         R8 3
+       56 GETTABLEKS                       R8 R8 K7 ["Query"]
        58 MOVE                             R9 R4
        59 JUMPIF                           R9 ; [+1]
        60 GETUPVAL                         R9 1
@@ -105,13 +105,13 @@ PROTO_3:
        64 CALL                             R6 4 1
        65 MOVE                             R5 R6
        66 RETURN                           R5 1
-       67 GETUPVAL                         R7 2
-       68 GETTABLEKS                       R6 R7 K6 ["Type"]
-       70 GETTABLEKS                       R5 R6 K11 ["Pseudo"]
+       67 GETUPVAL                         R5 2
+       68 GETTABLEKS                       R5 R5 K6 ["Type"]
+       70 GETTABLEKS                       R5 R5 K11 ["Pseudo"]
        72 JUMPIFNOTEQ                      R0 R5 ; [+30]
        74 LOADK                            R6 K12 ["%*%*"]
-       75 GETUPVAL                         R9 3
-       76 GETTABLEKS                       R8 R9 K13 ["PseudoInstance"]
+       75 GETUPVAL                         R8 3
+       76 GETTABLEKS                       R8 R8 K13 ["PseudoInstance"]
        78 GETUPVAL                         R9 1
        79 NAMECALL                         R6 R6 K9 ["format"]
        81 CALL                             R6 3 1
@@ -119,8 +119,8 @@ PROTO_3:
        83 JUMPIFNOT                        R4 ; [+10]
        84 LOADK                            R6 K14 ["%* %*%*"]
        85 MOVE                             R8 R5
-       86 GETUPVAL                         R10 3
-       87 GETTABLEKS                       R9 R10 K3 ["Name"]
+       86 GETUPVAL                         R9 3
+       87 GETTABLEKS                       R9 R9 K3 ["Name"]
        89 MOVE                             R10 R4
        90 NAMECALL                         R6 R6 K9 ["format"]
        92 CALL                             R6 4 1
@@ -145,28 +145,28 @@ PROTO_4:
         6 NAMECALL                         R1 R0 K0 ["find"]
         8 CALL                             R1 2 1
         9 JUMPIFNOT                        R1 ; [+6]
-       10 GETUPVAL                         R3 2
-       11 GETTABLEKS                       R2 R3 K1 ["Type"]
-       13 GETTABLEKS                       R1 R2 K2 ["Pseudo"]
+       10 GETUPVAL                         R1 2
+       11 GETTABLEKS                       R1 R1 K1 ["Type"]
+       13 GETTABLEKS                       R1 R1 K2 ["Pseudo"]
        15 RETURN                           R1 1
-       16 GETUPVAL                         R4 3
-       17 GETTABLEKS                       R3 R4 K3 ["Query"]
+       16 GETUPVAL                         R3 3
+       17 GETTABLEKS                       R3 R3 K3 ["Query"]
        19 LOADN                            R4 1
        20 LOADB                            R5 1
        21 NAMECALL                         R1 R0 K0 ["find"]
        23 CALL                             R1 4 1
        24 JUMPIFNOT                        R1 ; [+6]
-       25 GETUPVAL                         R3 2
-       26 GETTABLEKS                       R2 R3 K1 ["Type"]
-       28 GETTABLEKS                       R1 R2 K3 ["Query"]
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K1 ["Type"]
+       28 GETTABLEKS                       R1 R1 K3 ["Query"]
        30 RETURN                           R1 1
        31 LOADNIL                          R1
        32 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Type"]
-        3 GETTABLEKS                       R2 R3 K1 ["Query"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Type"]
+        3 GETTABLEKS                       R2 R2 K1 ["Query"]
         5 JUMPIFNOTEQ                      R1 R2 ; [+104]
         7 GETUPVAL                         R4 1
         8 NAMECALL                         R2 R0 K2 ["find"]
@@ -184,16 +184,16 @@ PROTO_5:
        23 JUMPIF                           R5 ; [+2]
        24 LOADNIL                          R8
        25 JUMP                             ; [+27]
-       26 GETUPVAL                         R12 2
-       27 GETTABLEKS                       R11 R12 K9 ["WhiteSpace"]
+       26 GETUPVAL                         R11 2
+       27 GETTABLEKS                       R11 R11 K9 ["WhiteSpace"]
        29 LOADK                            R12 K10 [""]
        30 NAMECALL                         R9 R5 K11 ["gsub"]
        32 CALL                             R9 3 1
-       33 GETUPVAL                         R13 3
-       34 GETTABLEKS                       R12 R13 K6 ["Name"]
+       33 GETUPVAL                         R12 3
+       34 GETTABLEKS                       R12 R12 K6 ["Name"]
        36 LOADK                            R14 K12 [" %*"]
-       37 GETUPVAL                         R17 3
-       38 GETTABLEKS                       R16 R17 K6 ["Name"]
+       37 GETUPVAL                         R16 3
+       38 GETTABLEKS                       R16 R16 K6 ["Name"]
        40 NAMECALL                         R14 R14 K13 ["format"]
        42 CALL                             R14 2 1
        43 MOVE                             R13 R14
@@ -208,8 +208,8 @@ PROTO_5:
        55 JUMPIF                           R4 ; [+2]
        56 LOADNIL                          R8
        57 JUMP                             ; [+16]
-       58 GETUPVAL                         R12 2
-       59 GETTABLEKS                       R11 R12 K9 ["WhiteSpace"]
+       58 GETUPVAL                         R11 2
+       59 GETTABLEKS                       R11 R11 K9 ["WhiteSpace"]
        61 LOADK                            R12 K10 [""]
        62 NAMECALL                         R9 R4 K11 ["gsub"]
        64 CALL                             R9 3 1
@@ -224,16 +224,16 @@ PROTO_5:
        76 JUMPIF                           R6 ; [+2]
        77 LOADNIL                          R8
        78 JUMP                             ; [+27]
-       79 GETUPVAL                         R12 2
-       80 GETTABLEKS                       R11 R12 K9 ["WhiteSpace"]
+       79 GETUPVAL                         R11 2
+       80 GETTABLEKS                       R11 R11 K9 ["WhiteSpace"]
        82 LOADK                            R12 K10 [""]
        83 NAMECALL                         R9 R6 K11 ["gsub"]
        85 CALL                             R9 3 1
-       86 GETUPVAL                         R13 3
-       87 GETTABLEKS                       R12 R13 K6 ["Name"]
+       86 GETUPVAL                         R12 3
+       87 GETTABLEKS                       R12 R12 K6 ["Name"]
        89 LOADK                            R14 K12 [" %*"]
-       90 GETUPVAL                         R17 3
-       91 GETTABLEKS                       R16 R17 K6 ["Name"]
+       90 GETUPVAL                         R16 3
+       91 GETTABLEKS                       R16 R16 K6 ["Name"]
        93 NAMECALL                         R14 R14 K13 ["format"]
        95 CALL                             R14 2 1
        96 MOVE                             R13 R14
@@ -247,9 +247,9 @@ PROTO_5:
       106 SETTABLEKS                       R8 R7 K7 ["Tail"]
       108 RETURN                           R7 1
       109 JUMP                             ; [+125]
-      110 GETUPVAL                         R4 0
-      111 GETTABLEKS                       R3 R4 K0 ["Type"]
-      113 GETTABLEKS                       R2 R3 K14 ["Pseudo"]
+      110 GETUPVAL                         R2 0
+      111 GETTABLEKS                       R2 R2 K0 ["Type"]
+      113 GETTABLEKS                       R2 R2 K14 ["Pseudo"]
       115 JUMPIFNOTEQ                      R1 R2 ; [+119]
       117 GETUPVAL                         R4 5
       118 NAMECALL                         R2 R0 K2 ["find"]
@@ -263,16 +263,16 @@ PROTO_5:
       128 JUMPIF                           R7 ; [+2]
       129 LOADNIL                          R6
       130 JUMP                             ; [+27]
-      131 GETUPVAL                         R11 2
-      132 GETTABLEKS                       R10 R11 K9 ["WhiteSpace"]
+      131 GETUPVAL                         R10 2
+      132 GETTABLEKS                       R10 R10 K9 ["WhiteSpace"]
       134 LOADK                            R11 K10 [""]
       135 NAMECALL                         R8 R7 K11 ["gsub"]
       137 CALL                             R8 3 1
-      138 GETUPVAL                         R12 3
-      139 GETTABLEKS                       R11 R12 K6 ["Name"]
+      138 GETUPVAL                         R11 3
+      139 GETTABLEKS                       R11 R11 K6 ["Name"]
       141 LOADK                            R13 K12 [" %*"]
-      142 GETUPVAL                         R16 3
-      143 GETTABLEKS                       R15 R16 K6 ["Name"]
+      142 GETUPVAL                         R15 3
+      143 GETTABLEKS                       R15 R15 K6 ["Name"]
       145 NAMECALL                         R13 R13 K13 ["format"]
       147 CALL                             R13 2 1
       148 MOVE                             R12 R13
@@ -287,8 +287,8 @@ PROTO_5:
       160 JUMPIF                           R4 ; [+2]
       161 LOADNIL                          R6
       162 JUMP                             ; [+16]
-      163 GETUPVAL                         R10 2
-      164 GETTABLEKS                       R9 R10 K9 ["WhiteSpace"]
+      163 GETUPVAL                         R9 2
+      164 GETTABLEKS                       R9 R9 K9 ["WhiteSpace"]
       166 LOADK                            R10 K10 [""]
       167 NAMECALL                         R7 R4 K11 ["gsub"]
       169 CALL                             R7 3 1
@@ -315,16 +315,16 @@ PROTO_5:
       196 JUMPIF                           R9 ; [+2]
       197 LOADNIL                          R8
       198 JUMP                             ; [+27]
-      199 GETUPVAL                         R13 2
-      200 GETTABLEKS                       R12 R13 K9 ["WhiteSpace"]
+      199 GETUPVAL                         R12 2
+      200 GETTABLEKS                       R12 R12 K9 ["WhiteSpace"]
       202 LOADK                            R13 K10 [""]
       203 NAMECALL                         R10 R9 K11 ["gsub"]
       205 CALL                             R10 3 1
-      206 GETUPVAL                         R14 3
-      207 GETTABLEKS                       R13 R14 K6 ["Name"]
+      206 GETUPVAL                         R13 3
+      207 GETTABLEKS                       R13 R13 K6 ["Name"]
       209 LOADK                            R15 K12 [" %*"]
-      210 GETUPVAL                         R18 3
-      211 GETTABLEKS                       R17 R18 K6 ["Name"]
+      210 GETUPVAL                         R17 3
+      211 GETTABLEKS                       R17 R17 K6 ["Name"]
       213 NAMECALL                         R15 R15 K13 ["format"]
       215 CALL                             R15 2 1
       216 MOVE                             R14 R15
@@ -345,18 +345,18 @@ PROTO_5:
       236 RETURN                           R2 1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getQueryTypeFromSelector"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getQueryTypeFromSelector"]
         3 GETTABLEKS                       R2 R0 K1 ["Selector"]
         5 CALL                             R1 1 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K2 ["Type"]
-        9 GETTABLEKS                       R2 R3 K3 ["Query"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Type"]
+        9 GETTABLEKS                       R2 R2 K3 ["Query"]
        11 JUMPIFEQ                         R1 R2 ; [+3]
        13 LOADNIL                          R2
        14 RETURN                           R2 1
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K4 ["getDataFromSelector"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K4 ["getDataFromSelector"]
        18 GETTABLEKS                       R3 R0 K1 ["Selector"]
        20 MOVE                             R4 R1
        21 CALL                             R2 2 1
@@ -378,22 +378,22 @@ PROTO_6:
        40 FASTCALL                         ASSERT ; [+2]
        41 GETIMPORT                        R9 K11 [assert]
        43 CALL                             R9 -1 0
-       44 GETUPVAL                         R10 0
-       45 GETTABLEKS                       R9 R10 K0 ["getQueryTypeFromSelector"]
+       44 GETUPVAL                         R9 0
+       45 GETTABLEKS                       R9 R9 K0 ["getQueryTypeFromSelector"]
        47 GETTABLEKS                       R10 R8 K1 ["Selector"]
        49 CALL                             R9 1 1
-       50 GETUPVAL                         R12 0
-       51 GETTABLEKS                       R11 R12 K2 ["Type"]
-       53 GETTABLEKS                       R10 R11 K12 ["Pseudo"]
+       50 GETUPVAL                         R10 0
+       51 GETTABLEKS                       R10 R10 K2 ["Type"]
+       53 GETTABLEKS                       R10 R10 K12 ["Pseudo"]
        55 JUMPIFNOTEQ                      R9 R10 ; [+17]
-       57 GETUPVAL                         R11 0
-       58 GETTABLEKS                       R10 R11 K4 ["getDataFromSelector"]
+       57 GETUPVAL                         R10 0
+       58 GETTABLEKS                       R10 R10 K4 ["getDataFromSelector"]
        60 GETTABLEKS                       R11 R8 K1 ["Selector"]
        62 MOVE                             R12 R9
        63 CALL                             R10 2 1
        64 JUMPIFNOT                        R10 ; [+8]
-       65 GETUPVAL                         R12 0
-       66 GETTABLEKS                       R11 R12 K13 ["areSelectorsPaired"]
+       65 GETUPVAL                         R11 0
+       66 GETTABLEKS                       R11 R11 K13 ["areSelectorsPaired"]
        68 MOVE                             R12 R2
        69 MOVE                             R13 R10
        70 CALL                             R11 2 1
@@ -404,18 +404,18 @@ PROTO_6:
        76 RETURN                           R4 1
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getQueryTypeFromSelector"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getQueryTypeFromSelector"]
         3 GETTABLEKS                       R2 R0 K1 ["Selector"]
         5 CALL                             R1 1 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K2 ["Type"]
-        9 GETTABLEKS                       R2 R3 K3 ["Pseudo"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Type"]
+        9 GETTABLEKS                       R2 R2 K3 ["Pseudo"]
        11 JUMPIFEQ                         R1 R2 ; [+4]
        13 NEWTABLE                         R2 0 0
        15 RETURN                           R2 1
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K4 ["getDataFromSelector"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K4 ["getDataFromSelector"]
        19 GETTABLEKS                       R3 R0 K1 ["Selector"]
        21 MOVE                             R4 R1
        22 CALL                             R2 2 1
@@ -439,21 +439,21 @@ PROTO_7:
        46 GETIMPORT                        R10 K11 [assert]
        48 CALL                             R10 -1 0
        49 JUMPIFEQ                         R9 R0 ; [+35]
-       51 GETUPVAL                         R11 0
-       52 GETTABLEKS                       R10 R11 K0 ["getQueryTypeFromSelector"]
+       51 GETUPVAL                         R10 0
+       52 GETTABLEKS                       R10 R10 K0 ["getQueryTypeFromSelector"]
        54 GETTABLEKS                       R11 R9 K1 ["Selector"]
        56 CALL                             R10 1 1
-       57 GETUPVAL                         R13 0
-       58 GETTABLEKS                       R12 R13 K2 ["Type"]
-       60 GETTABLEKS                       R11 R12 K12 ["Query"]
+       57 GETUPVAL                         R11 0
+       58 GETTABLEKS                       R11 R11 K2 ["Type"]
+       60 GETTABLEKS                       R11 R11 K12 ["Query"]
        62 JUMPIFNOTEQ                      R10 R11 ; [+22]
-       64 GETUPVAL                         R12 0
-       65 GETTABLEKS                       R11 R12 K4 ["getDataFromSelector"]
+       64 GETUPVAL                         R11 0
+       65 GETTABLEKS                       R11 R11 K4 ["getDataFromSelector"]
        67 GETTABLEKS                       R12 R9 K1 ["Selector"]
        69 MOVE                             R13 R10
        70 CALL                             R11 2 1
-       71 GETUPVAL                         R13 0
-       72 GETTABLEKS                       R12 R13 K13 ["areSelectorsPaired"]
+       71 GETUPVAL                         R12 0
+       72 GETTABLEKS                       R12 R12 K13 ["areSelectorsPaired"]
        74 MOVE                             R13 R2
        75 MOVE                             R14 R11
        76 CALL                             R12 2 1
@@ -482,18 +482,18 @@ PROTO_8:
        15 GETIMPORT                        R10 K6 [assert]
        17 CALL                             R10 -1 0
        18 JUMPIFEQ                         R9 R0 ; [+51]
-       20 GETUPVAL                         R11 0
-       21 GETTABLEKS                       R10 R11 K7 ["getQueryTypeFromSelector"]
+       20 GETUPVAL                         R10 0
+       21 GETTABLEKS                       R10 R10 K7 ["getQueryTypeFromSelector"]
        23 GETTABLEKS                       R11 R9 K8 ["Selector"]
        25 CALL                             R10 1 1
        26 JUMPIFNOT                        R10 ; [+43]
-       27 GETUPVAL                         R12 0
-       28 GETTABLEKS                       R11 R12 K9 ["getDataFromSelector"]
+       27 GETUPVAL                         R11 0
+       28 GETTABLEKS                       R11 R11 K9 ["getDataFromSelector"]
        30 GETTABLEKS                       R12 R9 K8 ["Selector"]
        32 MOVE                             R13 R10
        33 CALL                             R11 2 1
-       34 GETUPVAL                         R13 0
-       35 GETTABLEKS                       R12 R13 K10 ["areSelectorsPaired"]
+       34 GETUPVAL                         R12 0
+       35 GETTABLEKS                       R12 R12 K10 ["areSelectorsPaired"]
        37 MOVE                             R13 R1
        38 MOVE                             R14 R11
        39 CALL                             R12 2 1
@@ -504,8 +504,8 @@ PROTO_8:
        46 SETTABLEKS                       R2 R12 K12 ["Name"]
        48 GETTABLEKS                       R13 R11 K13 ["Tail"]
        50 SETTABLEKS                       R13 R12 K13 ["Tail"]
-       52 GETUPVAL                         R14 0
-       53 GETTABLEKS                       R13 R14 K15 ["constructSelector"]
+       52 GETUPVAL                         R13 0
+       53 GETTABLEKS                       R13 R13 K15 ["constructSelector"]
        55 MOVE                             R14 R10
        56 MOVE                             R15 R12
        57 CALL                             R13 2 1
@@ -523,20 +523,20 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["SelectorHelpers"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["SelectorHelpers"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R3 R0 K5 ["Src"]
-       20 GETTABLEKS                       R2 R3 K8 ["Thunks"]
+       18 GETTABLEKS                       R2 R0 K5 ["Src"]
+       20 GETTABLEKS                       R2 R2 K8 ["Thunks"]
        22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R5 R2 K9 ["Change"]
-       26 GETTABLEKS                       R4 R5 K10 ["SetStyleRuleSelector"]
+       24 GETTABLEKS                       R4 R2 K9 ["Change"]
+       26 GETTABLEKS                       R4 R4 K10 ["SetStyleRuleSelector"]
        28 CALL                             R3 1 1
        29 NEWTABLE                         R4 16 0
        31 LOADK                            R5 K11 ["StyleQuery"]

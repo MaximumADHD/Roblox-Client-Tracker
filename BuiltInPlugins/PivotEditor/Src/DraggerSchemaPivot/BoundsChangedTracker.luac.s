@@ -37,16 +37,16 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["_instance"]
-        4 GETTABLEKS                       R2 R3 K1 ["PrimaryPart"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["_instance"]
+        4 GETTABLEKS                       R2 R2 K1 ["PrimaryPart"]
         6 NAMECALL                         R0 R0 K2 ["_setPart"]
         8 CALL                             R0 2 0
         9 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_handler"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
@@ -80,8 +80,8 @@ PROTO_6:
        36 NAMECALL                         R1 R1 K6 ["Connect"]
        38 CALL                             R1 2 1
        39 SETTABLEKS                       R1 R0 K9 ["_pivotChangedConnection"]
-       41 GETTABLEKS                       R4 R0 K0 ["_instance"]
-       43 GETTABLEKS                       R3 R4 K4 ["PrimaryPart"]
+       41 GETTABLEKS                       R3 R0 K0 ["_instance"]
+       43 GETTABLEKS                       R3 R3 K4 ["PrimaryPart"]
        45 NAMECALL                         R1 R0 K1 ["_setPart"]
        47 CALL                             R1 2 0
        48 RETURN                           R0 0
@@ -120,8 +120,8 @@ PROTO_7:
        26 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_handler"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_handler"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 

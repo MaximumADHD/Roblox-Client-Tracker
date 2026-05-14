@@ -1,12 +1,12 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+5]
-        2 GETUPVAL                         R2 1
-        3 GETTABLEKS                       R1 R2 K0 ["sendResultToKibana"]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["sendResultToKibana"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 0
-        7 GETTABLEKS                       R3 R0 K1 ["responseBody"]
-        9 GETTABLEKS                       R2 R3 K2 ["data"]
+        7 GETTABLEKS                       R2 R0 K1 ["responseBody"]
+        9 GETTABLEKS                       R2 R2 K2 ["data"]
        11 GETTABLEN                        R1 R2 1
        12 JUMPIFNOT                        R1 ; [+14]
        13 GETTABLEKS                       R2 R1 K3 ["assetId"]
@@ -31,8 +31,8 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+5]
-        2 GETUPVAL                         R2 1
-        3 GETTABLEKS                       R1 R2 K0 ["sendResultToKibana"]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["sendResultToKibana"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 0
         7 GETUPVAL                         R1 2
@@ -81,22 +81,22 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [game]
        13 LOADK                            R3 K5 ["HttpService"]
        14 NAMECALL                         R1 R1 K6 ["GetService"]
        16 CALL                             R1 2 1
-       17 GETTABLEKS                       R3 R0 K7 ["Src"]
-       19 GETTABLEKS                       R2 R3 K8 ["Actions"]
+       17 GETTABLEKS                       R2 R0 K7 ["Src"]
+       19 GETTABLEKS                       R2 R2 K8 ["Actions"]
        21 GETIMPORT                        R3 K10 [require]
-       23 GETTABLEKS                       R7 R0 K7 ["Src"]
-       25 GETTABLEKS                       R6 R7 K11 ["Util"]
-       27 GETTABLEKS                       R5 R6 K12 ["Analytics"]
-       29 GETTABLEKS                       R4 R5 K12 ["Analytics"]
+       23 GETTABLEKS                       R4 R0 K7 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Util"]
+       27 GETTABLEKS                       R4 R4 K12 ["Analytics"]
+       29 GETTABLEKS                       R4 R4 K12 ["Analytics"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K10 [require]
        34 GETTABLEKS                       R5 R2 K13 ["SetIsPackage"]

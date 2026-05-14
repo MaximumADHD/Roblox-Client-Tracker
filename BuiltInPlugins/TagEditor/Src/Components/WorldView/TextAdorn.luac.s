@@ -4,8 +4,8 @@ PROTO_0:
         4 LENGTH                           R2 R3
         5 LOADN                            R3 1
         6 JUMPIFNOTLT                      R3 R2 ; [+13]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K1 ["createElement"]
        11 LOADK                            R3 K2 ["UIListLayout"]
        12 DUPTABLE                         R4 K4 [{"SortOrder"}]
        13 GETIMPORT                        R5 K7 [Enum.SortOrder.LayoutOrder]
@@ -19,8 +19,8 @@ PROTO_0:
        25 FORNPREP                         R2
        26 GETTABLEKS                       R6 R0 K0 ["TagName"]
        28 GETTABLE                         R5 R6 R4
-       29 GETUPVAL                         R7 0
-       30 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K1 ["createElement"]
        32 LOADK                            R7 K8 ["TextLabel"]
        33 DUPTABLE                         R8 K19 [{"LayoutOrder", "Size", "Text", "TextScaled", "TextSize", "Font", "TextColor3", "BackgroundTransparency", "TextXAlignment", "TextYAlignment", "TextStrokeTransparency"}]
        34 SETTABLEKS                       R4 R8 K6 ["LayoutOrder"]
@@ -40,8 +40,8 @@ PROTO_0:
        54 SETTABLEKS                       R9 R8 K12 ["TextSize"]
        56 GETIMPORT                        R9 K25 [Enum.Font.SourceSansBold]
        58 SETTABLEKS                       R9 R8 K13 ["Font"]
-       60 GETUPVAL                         R10 1
-       61 GETTABLEKS                       R9 R10 K26 ["White"]
+       60 GETUPVAL                         R9 1
+       61 GETTABLEKS                       R9 R9 K26 ["White"]
        63 SETTABLEKS                       R9 R8 K14 ["TextColor3"]
        65 LOADN                            R9 1
        66 SETTABLEKS                       R9 R8 K15 ["BackgroundTransparency"]
@@ -54,8 +54,8 @@ PROTO_0:
        79 CALL                             R6 2 1
        80 SETTABLE                         R6 R1 R5
        81 FORNLOOP                         R2
-       82 GETUPVAL                         R3 0
-       83 GETTABLEKS                       R2 R3 K1 ["createElement"]
+       82 GETUPVAL                         R2 0
+       83 GETTABLEKS                       R2 R2 K1 ["createElement"]
        85 LOADK                            R3 K31 ["BillboardGui"]
        86 DUPTABLE                         R4 K36 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
        87 GETTABLEKS                       R5 R0 K32 ["Adornee"]
@@ -83,18 +83,18 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K7 ["Src"]
-       22 GETTABLEKS                       R3 R4 K8 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Constants"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K9 [PROTO_0]
        26 CAPTURE                          VAL R1

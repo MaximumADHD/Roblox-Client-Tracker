@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R0 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["EditingItemContext"]
+        2 GETTABLEKS                       R2 R0 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["EditingItemContext"]
         6 NAMECALL                         R2 R2 K2 ["getItem"]
         8 CALL                             R2 1 1
         9 GETUPVAL                         R3 0
@@ -19,17 +19,17 @@ PROTO_0:
        24 JUMP                             ; [+12]
        25 GETTABLEKS                       R5 R1 K4 ["Localization"]
        27 LOADK                            R7 K5 ["ScaleType"]
-       28 GETUPVAL                         R10 1
-       29 GETTABLEKS                       R9 R10 K7 ["SCALE_TYPES"]
-       31 GETTABLEKS                       R8 R9 K8 ["Classic"]
+       28 GETUPVAL                         R8 1
+       29 GETTABLEKS                       R8 R8 K7 ["SCALE_TYPES"]
+       31 GETTABLEKS                       R8 R8 K8 ["Classic"]
        33 NAMECALL                         R5 R5 K6 ["getText"]
        35 CALL                             R5 3 1
        36 MOVE                             R4 R5
        37 GETTABLEKS                       R5 R0 K9 ["onClickScaleType"]
        39 MOVE                             R6 R4
-       40 GETUPVAL                         R9 2
-       41 GETTABLEKS                       R8 R9 K10 ["List"]
-       43 GETTABLEKS                       R7 R8 K11 ["find"]
+       40 GETUPVAL                         R7 2
+       41 GETTABLEKS                       R7 R7 K10 ["List"]
+       43 GETTABLEKS                       R7 R7 K11 ["find"]
        45 GETTABLEKS                       R8 R0 K12 ["scaleTypeList"]
        47 MOVE                             R9 R4
        48 CALL                             R7 2 -1
@@ -37,19 +37,19 @@ PROTO_0:
        50 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["scaleTypeList"]
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K1 ["state"]
-        6 GETTABLEKS                       R3 R4 K2 ["selectedScaleTypeIndex"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["scaleTypeList"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["state"]
+        6 GETTABLEKS                       R3 R3 K2 ["selectedScaleTypeIndex"]
         8 GETTABLE                         R1 R2 R3
         9 GETUPVAL                         R2 1
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K3 ["Localization"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K3 ["Localization"]
        13 LOADK                            R4 K4 ["ScaleType"]
        14 MOVE                             R5 R1
-       15 GETUPVAL                         R7 3
-       16 GETTABLEKS                       R6 R7 K5 ["SCALE_TYPES"]
+       15 GETUPVAL                         R6 3
+       16 GETTABLEKS                       R6 R6 K5 ["SCALE_TYPES"]
        18 CALL                             R2 4 1
        19 GETUPVAL                         R3 4
        20 MOVE                             R5 R0
@@ -63,14 +63,14 @@ PROTO_2:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R3 R1 K1 ["Localization"]
         5 LOADK                            R4 K2 ["ScaleType"]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["SCALE_TYPES"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["SCALE_TYPES"]
         9 CALL                             R2 3 1
        10 SETTABLEKS                       R2 R0 K4 ["scaleTypeList"]
        12 NAMECALL                         R2 R0 K5 ["initWithPreviousScaleTypeInfo"]
        14 CALL                             R2 1 0
-       15 GETTABLEKS                       R3 R0 K0 ["props"]
-       17 GETTABLEKS                       R2 R3 K6 ["EditingItemContext"]
+       15 GETTABLEKS                       R2 R0 K0 ["props"]
+       17 GETTABLEKS                       R2 R2 K6 ["EditingItemContext"]
        19 NAMECALL                         R3 R2 K7 ["getEditingItemChangedSignal"]
        21 CALL                             R3 1 1
        22 NEWCLOSURE                       R5 P0
@@ -85,14 +85,14 @@ PROTO_2:
        33 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 GETUPVAL                         R3 1
         4 GETTABLEKS                       R4 R2 K1 ["Localization"]
         6 LOADK                            R5 K2 ["ScaleType"]
         7 MOVE                             R6 R0
-        8 GETUPVAL                         R8 2
-        9 GETTABLEKS                       R7 R8 K3 ["SCALE_TYPES"]
+        8 GETUPVAL                         R7 2
+        9 GETTABLEKS                       R7 R7 K3 ["SCALE_TYPES"]
        11 CALL                             R3 4 1
        12 GETUPVAL                         R4 3
        13 GETTABLEKS                       R6 R2 K4 ["EditingItemContext"]
@@ -128,11 +128,11 @@ PROTO_5:
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
         8 GETTABLEKS                       R5 R1 K4 ["Localization"]
        10 GETTABLEKS                       R6 R2 K5 ["selectedScaleTypeIndex"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["new"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["new"]
        15 CALL                             R7 0 1
-       16 GETUPVAL                         R9 1
-       17 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       16 GETUPVAL                         R8 1
+       17 GETTABLEKS                       R8 R8 K7 ["createElement"]
        19 GETUPVAL                         R9 2
        20 DUPTABLE                         R10 K13 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing"}]
        21 GETIMPORT                        R11 K15 [UDim2.new]
@@ -152,8 +152,8 @@ PROTO_5:
        45 GETTABLEKS                       R11 R4 K12 ["Spacing"]
        47 SETTABLEKS                       R11 R10 K12 ["Spacing"]
        49 DUPTABLE                         R11 K27 [{"SelectPartScalePrompt", "AvatarPartScaleTypeDropdown"}]
-       50 GETUPVAL                         R13 1
-       51 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       50 GETUPVAL                         R12 1
+       51 GETTABLEKS                       R12 R12 K7 ["createElement"]
        53 GETUPVAL                         R13 3
        54 DUPTABLE                         R14 K30 [{"Text", "AutomaticSize", "LayoutOrder"}]
        55 LOADK                            R20 K31 ["ScaleType"]
@@ -171,8 +171,8 @@ PROTO_5:
        72 SETTABLEKS                       R15 R14 K2 ["LayoutOrder"]
        74 CALL                             R12 2 1
        75 SETTABLEKS                       R12 R11 K25 ["SelectPartScalePrompt"]
-       77 GETUPVAL                         R13 1
-       78 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       77 GETUPVAL                         R12 1
+       78 GETTABLEKS                       R12 R12 K7 ["createElement"]
        80 GETUPVAL                         R13 4
        81 DUPTABLE                         R14 K41 [{"Size", "Items", "OnItemActivated", "SelectedIndex", "LayoutOrder"}]
        82 GETIMPORT                        R15 K15 [UDim2.new]
@@ -207,30 +207,30 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["AvatarToolsShared"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["AvatarToolsShared"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K9 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K9 ["Framework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K10 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K11 ["withContext"]
-       41 GETTABLEKS                       R8 R3 K12 ["Util"]
-       43 GETTABLEKS                       R7 R8 K13 ["AccessoryAndBodyToolShared"]
+       41 GETTABLEKS                       R7 R3 K12 ["Util"]
+       43 GETTABLEKS                       R7 R7 K13 ["AccessoryAndBodyToolShared"]
        45 GETTABLEKS                       R8 R7 K14 ["AccessoryUtil"]
        47 GETTABLEKS                       R9 R7 K15 ["Constants"]
        49 GETTABLEKS                       R10 R4 K16 ["UI"]
@@ -238,17 +238,17 @@ MAIN:
        53 GETTABLEKS                       R12 R10 K18 ["SelectInput"]
        55 GETTABLEKS                       R13 R10 K19 ["TextLabel"]
        57 GETIMPORT                        R14 K4 [require]
-       59 GETTABLEKS                       R17 R0 K20 ["Src"]
-       61 GETTABLEKS                       R16 R17 K12 ["Util"]
-       63 GETTABLEKS                       R15 R16 K21 ["findLocalizedStringKey"]
+       59 GETTABLEKS                       R15 R0 K20 ["Src"]
+       61 GETTABLEKS                       R15 R15 K12 ["Util"]
+       63 GETTABLEKS                       R15 R15 K21 ["findLocalizedStringKey"]
        65 CALL                             R14 1 1
        66 GETIMPORT                        R15 K4 [require]
-       68 GETTABLEKS                       R18 R0 K20 ["Src"]
-       70 GETTABLEKS                       R17 R18 K12 ["Util"]
-       72 GETTABLEKS                       R16 R17 K22 ["makeDropdownList"]
+       68 GETTABLEKS                       R16 R0 K20 ["Src"]
+       70 GETTABLEKS                       R16 R16 K12 ["Util"]
+       72 GETTABLEKS                       R16 R16 K22 ["makeDropdownList"]
        74 CALL                             R15 1 1
-       75 GETTABLEKS                       R17 R3 K23 ["Contexts"]
-       77 GETTABLEKS                       R16 R17 K24 ["EditingItemContext"]
+       75 GETTABLEKS                       R16 R3 K23 ["Contexts"]
+       77 GETTABLEKS                       R16 R16 K24 ["EditingItemContext"]
        79 GETTABLEKS                       R17 R4 K12 ["Util"]
        81 GETTABLEKS                       R18 R17 K25 ["Typecheck"]
        83 GETTABLEKS                       R19 R17 K26 ["LayoutOrderIterator"]

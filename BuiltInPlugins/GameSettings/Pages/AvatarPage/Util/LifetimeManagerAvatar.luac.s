@@ -1,13 +1,13 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Handle"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Handle"]
         3 JUMPIFNOTEQKNIL                  R1 ; [+5]
         5 GETUPVAL                         R1 1
         6 MOVE                             R2 R0
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K0 ["Handle"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K0 ["Handle"]
        12 MOVE                             R3 R0
        13 NAMECALL                         R1 R1 K1 ["applyTemplates"]
        15 CALL                             R1 2 0
@@ -39,15 +39,15 @@ PROTO_2:
        10 JUMPIFNOT                        R0 ; [+18]
        11 JUMPIFNOT                        R1 ; [+17]
        12 GETUPVAL                         R4 1
-       13 GETUPVAL                         R6 2
-       14 GETTABLEKS                       R5 R6 K2 ["loadWithTemplates"]
+       13 GETUPVAL                         R5 2
+       14 GETTABLEKS                       R5 R5 K2 ["loadWithTemplates"]
        16 MOVE                             R6 R1
        17 MOVE                             R7 R0
        18 GETUPVAL                         R8 3
        19 CALL                             R5 3 1
        20 SETTABLEKS                       R5 R4 K3 ["Handle"]
-       22 GETUPVAL                         R5 1
-       23 GETTABLEKS                       R4 R5 K3 ["Handle"]
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R4 R4 K3 ["Handle"]
        25 JUMPIFNOT                        R4 ; [+3]
        26 GETUPVAL                         R4 4
        27 GETUPVAL                         R5 1
@@ -66,11 +66,11 @@ PROTO_3:
         0 GETUPVAL                         R1 0
         1 LOADB                            R2 0
         2 SETTABLEKS                       R2 R1 K0 ["WaitingToDestroy"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["Loading"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K1 ["Loading"]
         7 JUMPIF                           R1 ; [+18]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K2 ["Handle"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K2 ["Handle"]
        11 JUMPIFNOTEQKNIL                  R1 ; [+14]
        13 GETUPVAL                         R1 0
        14 LOADB                            R2 1
@@ -96,14 +96,14 @@ PROTO_4:
        12 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Loading"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Loading"]
         3 JUMPIFNOT                        R0 ; [+4]
         4 GETIMPORT                        R0 K2 [wait]
         6 CALL                             R0 0 0
         7 JUMPBACK                         ; [-8]
-        8 GETUPVAL                         R1 0
-        9 GETTABLEKS                       R0 R1 K3 ["WaitingToDestroy"]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K3 ["WaitingToDestroy"]
        11 JUMPIFNOT                        R0 ; [+17]
        12 GETUPVAL                         R0 1
        13 GETTABLEKS                       R1 R0 K4 ["Handle"]
@@ -119,11 +119,11 @@ PROTO_5:
        29 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Loading"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Loading"]
         3 JUMPIFNOT                        R1 ; [+14]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["WaitingToDestroy"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K1 ["WaitingToDestroy"]
         7 JUMPIF                           R1 ; [+10]
         8 GETUPVAL                         R1 0
         9 LOADB                            R2 1
@@ -143,11 +143,11 @@ PROTO_7:
         8 CALL                             R1 1 0
         9 LOADNIL                          R1
        10 SETTABLEKS                       R1 R0 K0 ["Handle"]
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K2 ["Loading"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K2 ["Loading"]
        15 JUMPIFNOT                        R1 ; [+14]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R1 R2 K3 ["WaitingToDestroy"]
+       16 GETUPVAL                         R1 0
+       17 GETTABLEKS                       R1 R1 K3 ["WaitingToDestroy"]
        19 JUMPIF                           R1 ; [+10]
        20 GETUPVAL                         R1 0
        21 LOADB                            R2 1
@@ -160,21 +160,21 @@ PROTO_7:
        30 RETURN                           R0 0
 
 PROTO_8:
-        0 GETIMPORT                        R2 K1 [workspace]
-        2 GETTABLEKS                       R1 R2 K2 ["CurrentCamera"]
+        0 GETIMPORT                        R1 K1 [workspace]
+        2 GETTABLEKS                       R1 R1 K2 ["CurrentCamera"]
         4 JUMPIFNOT                        R1 ; [+29]
-        5 GETTABLEKS                       R4 R1 K3 ["CFrame"]
-        7 GETTABLEKS                       R7 R1 K3 ["CFrame"]
-        9 GETTABLEKS                       R6 R7 K5 ["lookVector"]
-       11 MULK                             R5 R6 K4 [8]
-       12 ADD                              R3 R4 R5
-       13 GETTABLEKS                       R2 R3 K6 ["p"]
-       15 GETTABLEKS                       R6 R1 K3 ["CFrame"]
-       17 GETTABLEKS                       R5 R6 K5 ["lookVector"]
-       19 GETTABLEKS                       R4 R5 K7 ["Unit"]
+        5 GETTABLEKS                       R3 R1 K3 ["CFrame"]
+        7 GETTABLEKS                       R5 R1 K3 ["CFrame"]
+        9 GETTABLEKS                       R5 R5 K5 ["lookVector"]
+       11 MULK                             R4 R5 K4 [8]
+       12 ADD                              R2 R3 R4
+       13 GETTABLEKS                       R2 R2 K6 ["p"]
+       15 GETTABLEKS                       R4 R1 K3 ["CFrame"]
+       17 GETTABLEKS                       R4 R4 K5 ["lookVector"]
+       19 GETTABLEKS                       R4 R4 K7 ["Unit"]
        21 SUB                              R3 R2 R4
-       22 GETUPVAL                         R5 0
-       23 GETTABLEKS                       R4 R5 K8 ["Handle"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K8 ["Handle"]
        25 GETIMPORT                        R6 K10 [CFrame.new]
        27 MOVE                             R7 R2
        28 MOVE                             R8 R3
@@ -193,12 +193,12 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Util"]
-       11 GETTABLEKS                       R2 R3 K6 ["Avatar"]
+        9 GETTABLEKS                       R2 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R2 K6 ["Avatar"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K8 [game]
        16 LOADK                            R4 K9 ["InsertService"]

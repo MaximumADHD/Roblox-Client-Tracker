@@ -1,11 +1,11 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["AnimationData"]
-        5 NAMECALL                         R4 R0 K0 ["getState"]
-        7 CALL                             R4 1 1
-        8 GETTABLEKS                       R3 R4 K2 ["Status"]
-       10 GETTABLEKS                       R2 R3 K3 ["SelectedEvents"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["AnimationData"]
+        5 NAMECALL                         R2 R0 K0 ["getState"]
+        7 CALL                             R2 1 1
+        8 GETTABLEKS                       R2 R2 K2 ["Status"]
+       10 GETTABLEKS                       R2 R2 K3 ["SelectedEvents"]
        12 JUMPIFNOT                        R1 ; [+1]
        13 JUMPIF                           R2 ; [+1]
        14 RETURN                           R0 0
@@ -21,9 +21,9 @@ PROTO_0:
        28 GETUPVAL                         R4 1
        29 JUMPIFNOT                        R4 ; [+18]
        30 GETUPVAL                         R6 2
-       31 GETUPVAL                         R9 3
-       32 GETTABLEKS                       R8 R9 K6 ["Dictionary"]
-       34 GETTABLEKS                       R7 R8 K7 ["join"]
+       31 GETUPVAL                         R7 3
+       32 GETTABLEKS                       R7 R7 K6 ["Dictionary"]
+       34 GETTABLEKS                       R7 R7 K7 ["join"]
        36 MOVE                             R8 R2
        37 NEWTABLE                         R9 1 0
        39 GETUPVAL                         R10 0
@@ -59,13 +59,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Actions"]
-       20 GETTABLEKS                       R3 R4 K10 ["SetSelectedEvents"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       20 GETTABLEKS                       R3 R3 K10 ["SetSelectedEvents"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_1]
        24 CAPTURE                          VAL R2

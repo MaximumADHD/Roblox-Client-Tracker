@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["EmulatedGameLocale"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["EmulatedGameLocale"]
         3 RETURN                           R0 1
 
 PROTO_1:
@@ -9,38 +9,38 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["PlayerEmulationEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["PlayerEmulationEnabled"]
         3 RETURN                           R0 1
 
 PROTO_3:
         0 GETIMPORT                        R1 K2 [string.gsub]
-        2 GETTABLEKS                       R3 R0 K3 ["state"]
-        4 GETTABLEKS                       R2 R3 K4 ["localeId"]
+        2 GETTABLEKS                       R2 R0 K3 ["state"]
+        4 GETTABLEKS                       R2 R2 K4 ["localeId"]
         6 LOADK                            R3 K5 ["-"]
         7 LOADK                            R4 K6 ["_"]
         8 CALL                             R1 3 1
-        9 GETTABLEKS                       R3 R0 K7 ["props"]
-       11 GETTABLEKS                       R2 R3 K8 ["languagesTable"]
+        9 GETTABLEKS                       R2 R0 K7 ["props"]
+       11 GETTABLEKS                       R2 R2 K8 ["languagesTable"]
        13 JUMPIFEQKS                       R1 K9 [""] ; [+7]
        15 GETTABLE                         R3 R2 R1
        16 JUMPIFNOT                        R3 ; [+4]
-       17 GETTABLE                         R4 R2 R1
-       18 GETTABLEKS                       R3 R4 K10 ["displayText"]
+       17 GETTABLE                         R3 R2 R1
+       18 GETTABLEKS                       R3 R3 K10 ["displayText"]
        20 RETURN                           R3 1
        21 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 GETIMPORT                        R2 K4 [string.gsub]
-        6 GETTABLEKS                       R4 R0 K5 ["state"]
-        8 GETTABLEKS                       R3 R4 K6 ["localeId"]
+        6 GETTABLEKS                       R3 R0 K5 ["state"]
+        8 GETTABLEKS                       R3 R3 K6 ["localeId"]
        10 LOADK                            R4 K7 ["-"]
        11 LOADK                            R5 K8 ["_"]
        12 CALL                             R2 3 1
-       13 GETTABLEKS                       R4 R0 K0 ["props"]
-       15 GETTABLEKS                       R3 R4 K9 ["languagesTable"]
+       13 GETTABLEKS                       R3 R0 K0 ["props"]
+       15 GETTABLEKS                       R3 R3 K9 ["languagesTable"]
        17 JUMPIFEQKS                       R2 K10 [""] ; [+18]
        19 GETTABLE                         R4 R3 R2
        20 JUMPIFNOT                        R4 ; [+15]
@@ -49,22 +49,22 @@ PROTO_4:
        24 LOADK                            R8 K14 ["InstructionText"]
        25 NAMECALL                         R5 R1 K15 ["getText"]
        27 CALL                             R5 3 1
-       28 GETTABLE                         R7 R3 R2
-       29 GETTABLEKS                       R6 R7 K16 ["displayText"]
-       31 GETTABLE                         R8 R3 R2
-       32 GETTABLEKS                       R7 R8 K17 ["languageCode"]
+       28 GETTABLE                         R6 R3 R2
+       29 GETTABLEKS                       R6 R6 K16 ["displayText"]
+       31 GETTABLE                         R7 R3 R2
+       32 GETTABLEKS                       R7 R7 K17 ["languageCode"]
        34 CALL                             R4 3 -1
        35 RETURN                           R4 -1
        36 LOADK                            R4 K10 [""]
        37 RETURN                           R4 1
 
 PROTO_5:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K3 ["LOCALEID_SETTING_KEY"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K3 ["LOCALEID_SETTING_KEY"]
        10 NAMECALL                         R2 R1 K4 ["GetSetting"]
        12 CALL                             R2 2 1
        13 JUMPIFNOT                        R2 ; [+3]
@@ -73,10 +73,10 @@ PROTO_5:
        17 RETURN                           R0 0
 
 PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["state"]
-        2 GETTABLEKS                       R1 R2 K1 ["localeId"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K2 ["PlayerEmulationEnabled"]
+        0 GETTABLEKS                       R1 R0 K0 ["state"]
+        2 GETTABLEKS                       R1 R1 K1 ["localeId"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K2 ["PlayerEmulationEnabled"]
         7 JUMPIFNOT                        R2 ; [+4]
         8 GETUPVAL                         R2 0
         9 SETTABLEKS                       R1 R2 K3 ["EmulatedGameLocale"]
@@ -88,18 +88,18 @@ PROTO_6:
        17 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["EmulatedGameLocale"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["EmulatedGameLocale"]
         3 DUPTABLE                         R4 K2 [{"localeId"}]
         4 SETTABLEKS                       R1 R4 K1 ["localeId"]
         6 NAMECALL                         R2 R0 K3 ["setState"]
         8 CALL                             R2 2 0
-        9 GETTABLEKS                       R3 R0 K4 ["props"]
-       11 GETTABLEKS                       R2 R3 K5 ["Plugin"]
+        9 GETTABLEKS                       R2 R0 K4 ["props"]
+       11 GETTABLEKS                       R2 R2 K5 ["Plugin"]
        13 NAMECALL                         R2 R2 K6 ["get"]
        15 CALL                             R2 1 1
-       16 GETUPVAL                         R6 1
-       17 GETTABLEKS                       R5 R6 K7 ["LOCALEID_SETTING_KEY"]
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K7 ["LOCALEID_SETTING_KEY"]
        19 MOVE                             R6 R1
        20 NAMECALL                         R3 R2 K8 ["SetSetting"]
        22 CALL                             R3 3 0
@@ -111,9 +111,9 @@ PROTO_8:
         3 GETUPVAL                         R1 0
         4 LOADK                            R2 K1 [""]
         5 SETTABLEKS                       R2 R1 K2 ["EmulatedGameLocale"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K3 ["textBoxRef"]
-       10 GETTABLEKS                       R1 R2 K4 ["current"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K3 ["textBoxRef"]
+       10 GETTABLEKS                       R1 R1 K4 ["current"]
        12 NAMECALL                         R1 R1 K5 ["CaptureFocus"]
        14 CALL                             R1 1 0
        15 RETURN                           R0 0
@@ -135,17 +135,17 @@ PROTO_9:
        18 RETURN                           R1 1
        19 GETTABLEKS                       R2 R0 K4 ["displayTextStringKey"]
        21 JUMPIFEQKNIL                     R2 ; [+29]
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R3 R4 K5 ["props"]
-       26 GETTABLEKS                       R2 R3 K6 ["Localization"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K5 ["props"]
+       26 GETTABLEKS                       R2 R2 K6 ["Localization"]
        28 GETTABLEKS                       R4 R0 K7 ["displayTextSectionKey"]
        30 GETTABLEKS                       R5 R0 K4 ["displayTextStringKey"]
        32 NAMECALL                         R2 R2 K8 ["getText"]
        34 CALL                             R2 3 1
        35 SETTABLEKS                       R2 R1 K1 ["Id"]
-       37 GETUPVAL                         R4 0
-       38 GETTABLEKS                       R3 R4 K5 ["props"]
-       40 GETTABLEKS                       R2 R3 K6 ["Localization"]
+       37 GETUPVAL                         R2 0
+       38 GETTABLEKS                       R2 R2 K5 ["props"]
+       40 GETTABLEKS                       R2 R2 K6 ["Localization"]
        42 GETTABLEKS                       R4 R0 K7 ["displayTextSectionKey"]
        44 GETTABLEKS                       R5 R0 K4 ["displayTextStringKey"]
        46 NAMECALL                         R2 R2 K8 ["getText"]
@@ -155,12 +155,12 @@ PROTO_9:
 
 PROTO_10:
         0 DUPTABLE                         R1 K1 [{"localeId"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K2 ["EmulatedGameLocale"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K2 ["EmulatedGameLocale"]
         4 SETTABLEKS                       R2 R1 K0 ["localeId"]
         6 SETTABLEKS                       R1 R0 K3 ["state"]
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K4 ["createRef"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K4 ["createRef"]
        11 CALL                             R1 0 1
        12 SETTABLEKS                       R1 R0 K5 ["textBoxRef"]
        14 NEWTABLE                         R1 0 0
@@ -181,12 +181,12 @@ PROTO_11:
         4 RETURN                           R0 0
 
 PROTO_12:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Networking"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Networking"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
-        7 GETTABLEKS                       R3 R0 K0 ["props"]
-        9 GETTABLEKS                       R2 R3 K3 ["loadLanguages"]
+        7 GETTABLEKS                       R2 R0 K0 ["props"]
+        9 GETTABLEKS                       R2 R2 K3 ["loadLanguages"]
        11 MOVE                             R3 R1
        12 CALL                             R2 1 0
        13 GETUPVAL                         R2 0
@@ -219,14 +219,14 @@ PROTO_13:
        14 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["textBoxRef"]
-        3 GETTABLEKS                       R0 R1 K1 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["textBoxRef"]
+        3 GETTABLEKS                       R0 R0 K1 ["current"]
         5 JUMPIFNOT                        R0 ; [+10]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["textBoxRef"]
-        9 GETTABLEKS                       R1 R2 K1 ["current"]
-       11 GETTABLEKS                       R0 R1 K2 ["Text"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["textBoxRef"]
+        9 GETTABLEKS                       R0 R0 K1 ["current"]
+       11 GETTABLEKS                       R0 R0 K2 ["Text"]
        13 GETUPVAL                         R1 1
        14 SETTABLEKS                       R0 R1 K3 ["EmulatedGameLocale"]
        16 RETURN                           R0 0
@@ -240,8 +240,8 @@ PROTO_15:
        10 GETTABLEKS                       R6 R2 K5 ["Stylizer"]
        12 GETTABLEKS                       R7 R2 K6 ["Localization"]
        14 GETTABLEKS                       R8 R2 K7 ["LayoutOrder"]
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K8 ["createElement"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K8 ["createElement"]
        19 LOADK                            R10 K9 ["Frame"]
        20 DUPTABLE                         R11 K13 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
        21 GETIMPORT                        R12 K16 [Enum.AutomaticSize.Y]
@@ -256,8 +256,8 @@ PROTO_15:
        35 LOADN                            R12 1
        36 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
        38 DUPTABLE                         R12 K24 [{"Layout", "Label", "LanguageDropdown", "LocaleIdTextBox"}]
-       39 GETUPVAL                         R14 0
-       40 GETTABLEKS                       R13 R14 K8 ["createElement"]
+       39 GETUPVAL                         R13 0
+       40 GETTABLEKS                       R13 R13 K8 ["createElement"]
        42 LOADK                            R14 K25 ["UIListLayout"]
        43 DUPTABLE                         R15 K32 [{"HorizontalFlex", "VerticalAlignment", "SortOrder", "FillDirection", "Padding", "Wraps"}]
        44 GETIMPORT                        R16 K35 [Enum.UIFlexAlignment.SpaceBetween]
@@ -274,8 +274,8 @@ PROTO_15:
        65 SETTABLEKS                       R16 R15 K31 ["Wraps"]
        67 CALL                             R13 2 1
        68 SETTABLEKS                       R13 R12 K20 ["Layout"]
-       70 GETUPVAL                         R14 0
-       71 GETTABLEKS                       R13 R14 K8 ["createElement"]
+       70 GETUPVAL                         R13 0
+       71 GETTABLEKS                       R13 R13 K8 ["createElement"]
        73 GETUPVAL                         R14 1
        74 DUPTABLE                         R15 K45 [{"AutomaticSize", "LayoutOrder", "StyleModifier", "Text", "TextXAlignment"}]
        75 GETIMPORT                        R16 K47 [Enum.AutomaticSize.XY]
@@ -285,8 +285,8 @@ PROTO_15:
        82 JUMPIFNOT                        R3 ; [+2]
        83 LOADNIL                          R16
        84 JUMP                             ; [+3]
-       85 GETUPVAL                         R17 2
-       86 GETTABLEKS                       R16 R17 K48 ["Disabled"]
+       85 GETUPVAL                         R16 2
+       86 GETTABLEKS                       R16 R16 K48 ["Disabled"]
        88 SETTABLEKS                       R16 R15 K42 ["StyleModifier"]
        90 LOADK                            R18 K49 ["LanguageSection"]
        91 LOADK                            R19 K50 ["LabelText"]
@@ -296,8 +296,8 @@ PROTO_15:
        97 GETIMPORT                        R16 K53 [Enum.TextXAlignment.Left]
        99 SETTABLEKS                       R16 R15 K44 ["TextXAlignment"]
       101 DUPTABLE                         R16 K55 [{"FlexItem"}]
-      102 GETUPVAL                         R18 0
-      103 GETTABLEKS                       R17 R18 K8 ["createElement"]
+      102 GETUPVAL                         R17 0
+      103 GETTABLEKS                       R17 R17 K8 ["createElement"]
       105 LOADK                            R18 K56 ["UIFlexItem"]
       106 DUPTABLE                         R19 K58 [{"FlexMode"}]
       107 GETIMPORT                        R20 K61 [Enum.UIFlexMode.Grow]
@@ -306,8 +306,8 @@ PROTO_15:
       112 SETTABLEKS                       R17 R16 K54 ["FlexItem"]
       114 CALL                             R13 3 1
       115 SETTABLEKS                       R13 R12 K21 ["Label"]
-      117 GETUPVAL                         R14 0
-      118 GETTABLEKS                       R13 R14 K8 ["createElement"]
+      117 GETUPVAL                         R13 0
+      118 GETTABLEKS                       R13 R13 K8 ["createElement"]
       120 GETUPVAL                         R14 3
       121 DUPTABLE                         R15 K66 [{"Items", "LayoutOrder", "OnItemActivated", "SelectedId", "Enabled"}]
       122 GETUPVAL                         R16 4
@@ -330,8 +330,8 @@ PROTO_15:
       147 SETTABLEKS                       R3 R15 K65 ["Enabled"]
       149 CALL                             R13 2 1
       150 SETTABLEKS                       R13 R12 K22 ["LanguageDropdown"]
-      152 GETUPVAL                         R14 0
-      153 GETTABLEKS                       R13 R14 K8 ["createElement"]
+      152 GETUPVAL                         R13 0
+      153 GETTABLEKS                       R13 R13 K8 ["createElement"]
       155 LOADK                            R14 K9 ["Frame"]
       156 DUPTABLE                         R15 K74 [{"Size", "BorderColor3", "BorderSizePixel", "BackgroundColor3", "LayoutOrder"}]
       157 GETTABLEKS                       R16 R6 K75 ["LOCALEID_TEXTBOX_SIZE"]
@@ -345,16 +345,16 @@ PROTO_15:
       172 LOADN                            R16 3
       173 SETTABLEKS                       R16 R15 K7 ["LayoutOrder"]
       175 DUPTABLE                         R16 K79 [{"Padding", "TextBox"}]
-      176 GETUPVAL                         R18 0
-      177 GETTABLEKS                       R17 R18 K8 ["createElement"]
+      176 GETUPVAL                         R17 0
+      177 GETTABLEKS                       R17 R17 K8 ["createElement"]
       179 LOADK                            R18 K80 ["UIPadding"]
       180 DUPTABLE                         R19 K82 [{"PaddingLeft"}]
       181 GETTABLEKS                       R20 R6 K83 ["TEXT_INDENT_PADDING"]
       183 SETTABLEKS                       R20 R19 K81 ["PaddingLeft"]
       185 CALL                             R17 2 1
       186 SETTABLEKS                       R17 R16 K30 ["Padding"]
-      188 GETUPVAL                         R18 0
-      189 GETTABLEKS                       R17 R18 K8 ["createElement"]
+      188 GETUPVAL                         R17 0
+      189 GETTABLEKS                       R17 R17 K8 ["createElement"]
       191 GETUPVAL                         R18 5
       192 NEWTABLE                         R19 4 0
       194 NEWCLOSURE                       R20 P0
@@ -364,8 +364,8 @@ PROTO_15:
       199 NOT                              R20 R3
       200 SETTABLEKS                       R20 R19 K48 ["Disabled"]
       202 SETTABLEKS                       R4 R19 K43 ["Text"]
-      204 GETUPVAL                         R21 0
-      205 GETTABLEKS                       R20 R21 K85 ["Ref"]
+      204 GETUPVAL                         R20 0
+      205 GETTABLEKS                       R20 R20 K85 ["Ref"]
       207 GETTABLEKS                       R21 R0 K86 ["textBoxRef"]
       209 SETTABLE                         R21 R19 R20
       210 CALL                             R17 2 1
@@ -373,8 +373,8 @@ PROTO_15:
       213 CALL                             R13 3 1
       214 SETTABLEKS                       R13 R12 K23 ["LocaleIdTextBox"]
       216 CALL                             R9 3 1
-      217 GETUPVAL                         R11 0
-      218 GETTABLEKS                       R10 R11 K8 ["createElement"]
+      217 GETUPVAL                         R10 0
+      218 GETTABLEKS                       R10 R10 K8 ["createElement"]
       220 LOADK                            R11 K9 ["Frame"]
       221 DUPTABLE                         R12 K87 [{"AutomaticSize", "Size", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
       222 GETIMPORT                        R13 K16 [Enum.AutomaticSize.Y]
@@ -391,8 +391,8 @@ PROTO_15:
       239 LOADN                            R13 2
       240 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
       242 DUPTABLE                         R13 K89 [{"Padding", "TextLabel"}]
-      243 GETUPVAL                         R15 0
-      244 GETTABLEKS                       R14 R15 K8 ["createElement"]
+      243 GETUPVAL                         R14 0
+      244 GETTABLEKS                       R14 R14 K8 ["createElement"]
       246 LOADK                            R15 K80 ["UIPadding"]
       247 DUPTABLE                         R16 K91 [{"PaddingLeft", "PaddingBottom"}]
       248 GETTABLEKS                       R17 R6 K83 ["TEXT_INDENT_PADDING"]
@@ -401,8 +401,8 @@ PROTO_15:
       254 SETTABLEKS                       R17 R16 K90 ["PaddingBottom"]
       256 CALL                             R14 2 1
       257 SETTABLEKS                       R14 R13 K30 ["Padding"]
-      259 GETUPVAL                         R15 0
-      260 GETTABLEKS                       R14 R15 K8 ["createElement"]
+      259 GETUPVAL                         R14 0
+      260 GETTABLEKS                       R14 R14 K8 ["createElement"]
       262 GETUPVAL                         R15 1
       263 DUPTABLE                         R16 K94 [{"AutomaticSize", "Size", "StyleModifier", "TextSize", "Text", "TextXAlignment", "TextWrapped"}]
       264 GETIMPORT                        R17 K16 [Enum.AutomaticSize.Y]
@@ -415,8 +415,8 @@ PROTO_15:
       275 JUMPIFNOT                        R3 ; [+2]
       276 LOADNIL                          R17
       277 JUMP                             ; [+3]
-      278 GETUPVAL                         R18 2
-      279 GETTABLEKS                       R17 R18 K48 ["Disabled"]
+      278 GETUPVAL                         R17 2
+      279 GETTABLEKS                       R17 R17 K48 ["Disabled"]
       281 SETTABLEKS                       R17 R16 K42 ["StyleModifier"]
       283 GETTABLEKS                       R17 R6 K95 ["LANGUAGE_INSTRUCTION_TEXT_SIZE"]
       285 SETTABLEKS                       R17 R16 K92 ["TextSize"]
@@ -430,8 +430,8 @@ PROTO_15:
       299 CALL                             R14 2 1
       300 SETTABLEKS                       R14 R13 K88 ["TextLabel"]
       302 CALL                             R10 3 1
-      303 GETUPVAL                         R12 0
-      304 GETTABLEKS                       R11 R12 K8 ["createElement"]
+      303 GETUPVAL                         R11 0
+      304 GETTABLEKS                       R11 R11 K8 ["createElement"]
       306 LOADK                            R12 K9 ["Frame"]
       307 DUPTABLE                         R13 K13 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
       308 GETIMPORT                        R14 K16 [Enum.AutomaticSize.Y]
@@ -445,8 +445,8 @@ PROTO_15:
       320 SETTABLEKS                       R14 R13 K12 ["BackgroundTransparency"]
       322 SETTABLEKS                       R8 R13 K7 ["LayoutOrder"]
       324 DUPTABLE                         R14 K99 [{"Layout", "SelectorModule", "TextModule"}]
-      325 GETUPVAL                         R16 0
-      326 GETTABLEKS                       R15 R16 K8 ["createElement"]
+      325 GETUPVAL                         R15 0
+      326 GETTABLEKS                       R15 R15 K8 ["createElement"]
       328 LOADK                            R16 K25 ["UIListLayout"]
       329 DUPTABLE                         R17 K100 [{"SortOrder", "FillDirection", "Padding"}]
       330 GETIMPORT                        R18 K38 [Enum.SortOrder.LayoutOrder]
@@ -464,14 +464,14 @@ PROTO_15:
 
 PROTO_16:
         0 DUPTABLE                         R2 K3 [{"mainSwitchEnabled", "languagesTable", "languagesList"}]
-        1 GETTABLEKS                       R4 R0 K4 ["MainSwitch"]
-        3 GETTABLEKS                       R3 R4 K0 ["mainSwitchEnabled"]
+        1 GETTABLEKS                       R3 R0 K4 ["MainSwitch"]
+        3 GETTABLEKS                       R3 R3 K0 ["mainSwitchEnabled"]
         5 SETTABLEKS                       R3 R2 K0 ["mainSwitchEnabled"]
-        7 GETTABLEKS                       R4 R0 K5 ["Languages"]
-        9 GETTABLEKS                       R3 R4 K1 ["languagesTable"]
+        7 GETTABLEKS                       R3 R0 K5 ["Languages"]
+        9 GETTABLEKS                       R3 R3 K1 ["languagesTable"]
        11 SETTABLEKS                       R3 R2 K1 ["languagesTable"]
-       13 GETTABLEKS                       R4 R0 K5 ["Languages"]
-       15 GETTABLEKS                       R3 R4 K2 ["languagesList"]
+       13 GETTABLEKS                       R3 R0 K5 ["Languages"]
+       15 GETTABLEKS                       R3 R3 K2 ["languagesList"]
        17 SETTABLEKS                       R3 R2 K2 ["languagesList"]
        19 RETURN                           R2 1
 
@@ -501,53 +501,53 @@ MAIN:
         9 LOADK                            R3 K4 ["PlayerEmulatorService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Roact"]
+       23 GETTABLEKS                       R4 R2 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Roact"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K9 [require]
-       30 GETTABLEKS                       R6 R2 K10 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K12 ["RoactRodux"]
+       30 GETTABLEKS                       R5 R2 K10 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K12 ["RoactRodux"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K9 [require]
-       37 GETTABLEKS                       R7 R2 K10 ["Packages"]
-       39 GETTABLEKS                       R6 R7 K13 ["Framework"]
+       37 GETTABLEKS                       R6 R2 K10 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K13 ["Framework"]
        41 CALL                             R5 1 1
        42 GETTABLEKS                       R6 R5 K14 ["ContextServices"]
        44 GETTABLEKS                       R7 R6 K15 ["withContext"]
        46 GETIMPORT                        R8 K9 [require]
-       48 GETTABLEKS                       R11 R2 K16 ["Src"]
-       50 GETTABLEKS                       R10 R11 K14 ["ContextServices"]
-       52 GETTABLEKS                       R9 R10 K17 ["NetworkingContext"]
+       48 GETTABLEKS                       R9 R2 K16 ["Src"]
+       50 GETTABLEKS                       R9 R9 K14 ["ContextServices"]
+       52 GETTABLEKS                       R9 R9 K17 ["NetworkingContext"]
        54 CALL                             R8 1 1
        55 GETIMPORT                        R9 K9 [require]
-       57 GETTABLEKS                       R12 R2 K16 ["Src"]
-       59 GETTABLEKS                       R11 R12 K18 ["Util"]
-       61 GETTABLEKS                       R10 R11 K19 ["Constants"]
+       57 GETTABLEKS                       R10 R2 K16 ["Src"]
+       59 GETTABLEKS                       R10 R10 K18 ["Util"]
+       61 GETTABLEKS                       R10 R10 K19 ["Constants"]
        63 CALL                             R9 1 1
-       64 GETIMPORT                        R11 K9 [require]
-       66 GETTABLEKS                       R14 R2 K16 ["Src"]
-       68 GETTABLEKS                       R13 R14 K18 ["Util"]
-       70 GETTABLEKS                       R12 R13 K20 ["PlayerEmulatorUtilities"]
-       72 CALL                             R11 1 1
-       73 GETTABLEKS                       R10 R11 K21 ["getStudioLocaleId"]
+       64 GETIMPORT                        R10 K9 [require]
+       66 GETTABLEKS                       R11 R2 K16 ["Src"]
+       68 GETTABLEKS                       R11 R11 K18 ["Util"]
+       70 GETTABLEKS                       R11 R11 K20 ["PlayerEmulatorUtilities"]
+       72 CALL                             R10 1 1
+       73 GETTABLEKS                       R10 R10 K21 ["getStudioLocaleId"]
        75 GETTABLEKS                       R11 R5 K22 ["UI"]
        77 GETTABLEKS                       R12 R11 K23 ["SelectInput"]
        79 GETTABLEKS                       R13 R11 K24 ["TextInput"]
        81 GETTABLEKS                       R14 R11 K25 ["TextLabel"]
        83 GETTABLEKS                       R15 R5 K26 ["Dash"]
        85 GETTABLEKS                       R16 R15 K27 ["map"]
-       87 GETTABLEKS                       R18 R5 K18 ["Util"]
-       89 GETTABLEKS                       R17 R18 K28 ["StyleModifier"]
+       87 GETTABLEKS                       R17 R5 K18 ["Util"]
+       89 GETTABLEKS                       R17 R17 K28 ["StyleModifier"]
        91 GETIMPORT                        R18 K9 [require]
-       93 GETTABLEKS                       R22 R2 K16 ["Src"]
-       95 GETTABLEKS                       R21 R22 K29 ["Networking"]
-       97 GETTABLEKS                       R20 R21 K30 ["Requests"]
-       99 GETTABLEKS                       R19 R20 K31 ["GetLanguages"]
+       93 GETTABLEKS                       R19 R2 K16 ["Src"]
+       95 GETTABLEKS                       R19 R19 K29 ["Networking"]
+       97 GETTABLEKS                       R19 R19 K30 ["Requests"]
+       99 GETTABLEKS                       R19 R19 K31 ["GetLanguages"]
       101 CALL                             R18 1 1
       102 DUPCLOSURE                       R19 K32 [PROTO_0]
       103 CAPTURE                          VAL R1

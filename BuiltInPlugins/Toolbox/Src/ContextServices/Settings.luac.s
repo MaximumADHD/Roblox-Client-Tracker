@@ -14,16 +14,16 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
-       11 GETIMPORT                        R4 K5 [require]
-       13 GETTABLEKS                       R5 R1 K6 ["Framework"]
-       15 CALL                             R4 1 1
-       16 GETTABLEKS                       R3 R4 K7 ["ContextServices"]
-       18 GETTABLEKS                       R2 R3 K8 ["ContextItem"]
+       11 GETIMPORT                        R2 K5 [require]
+       13 GETTABLEKS                       R3 R1 K6 ["Framework"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R2 R2 K7 ["ContextServices"]
+       18 GETTABLEKS                       R2 R2 K8 ["ContextItem"]
        20 LOADK                            R5 K9 ["Settings"]
        21 NAMECALL                         R3 R2 K10 ["extend"]
        23 CALL                             R3 2 1

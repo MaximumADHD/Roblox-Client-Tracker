@@ -18,8 +18,8 @@ PROTO_2:
        17 DUPCLOSURE                       R7 K8 [PROTO_1]
        18 GETTABLEKS                       R8 R3 K9 ["footer"]
        20 GETTABLEKS                       R9 R1 K10 ["CanSave"]
-       22 GETUPVAL                         R11 0
-       23 GETTABLEKS                       R10 R11 K11 ["createElement"]
+       22 GETUPVAL                         R10 0
+       23 GETTABLEKS                       R10 R10 K11 ["createElement"]
        25 LOADK                            R11 K12 ["Frame"]
        26 DUPTABLE                         R12 K17 [{"Size", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "LayoutOrder"}]
        27 SETTABLEKS                       R4 R12 K3 ["Size"]
@@ -33,8 +33,8 @@ PROTO_2:
        41 SETTABLEKS                       R13 R12 K16 ["BorderColor3"]
        43 SETTABLEKS                       R5 R12 K4 ["LayoutOrder"]
        45 DUPTABLE                         R13 K24 [{"UIPadding", "UIListLayout", "CancelButton", "PublishButton"}]
-       46 GETUPVAL                         R15 0
-       47 GETTABLEKS                       R14 R15 K11 ["createElement"]
+       46 GETUPVAL                         R14 0
+       47 GETTABLEKS                       R14 R14 K11 ["createElement"]
        49 LOADK                            R15 K20 ["UIPadding"]
        50 DUPTABLE                         R16 K29 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
        51 GETIMPORT                        R17 K32 [UDim.new]
@@ -59,8 +59,8 @@ PROTO_2:
        77 SETTABLEKS                       R17 R16 K28 ["PaddingTop"]
        79 CALL                             R14 2 1
        80 SETTABLEKS                       R14 R13 K20 ["UIPadding"]
-       82 GETUPVAL                         R15 0
-       83 GETTABLEKS                       R14 R15 K11 ["createElement"]
+       82 GETUPVAL                         R14 0
+       83 GETTABLEKS                       R14 R14 K11 ["createElement"]
        85 LOADK                            R15 K21 ["UIListLayout"]
        86 DUPTABLE                         R16 K38 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
        87 GETIMPORT                        R17 K41 [Enum.FillDirection.Horizontal]
@@ -78,8 +78,8 @@ PROTO_2:
       108 SETTABLEKS                       R17 R16 K37 ["Padding"]
       110 CALL                             R14 2 1
       111 SETTABLEKS                       R14 R13 K21 ["UIListLayout"]
-      113 GETUPVAL                         R15 0
-      114 GETTABLEKS                       R14 R15 K11 ["createElement"]
+      113 GETUPVAL                         R14 0
+      114 GETTABLEKS                       R14 R14 K11 ["createElement"]
       116 GETUPVAL                         R15 1
       117 DUPTABLE                         R16 K50 [{"LayoutOrder", "OnClick", "Size", "Style", "Text"}]
       118 LOADN                            R17 2
@@ -101,8 +101,8 @@ PROTO_2:
       140 SETTABLEKS                       R17 R16 K49 ["Text"]
       142 CALL                             R14 2 1
       143 SETTABLEKS                       R14 R13 K22 ["CancelButton"]
-      145 GETUPVAL                         R15 0
-      146 GETTABLEKS                       R14 R15 K11 ["createElement"]
+      145 GETUPVAL                         R14 0
+      146 GETTABLEKS                       R14 R14 K11 ["createElement"]
       148 GETUPVAL                         R15 1
       149 DUPTABLE                         R16 K58 [{"LayoutOrder", "OnClick", "Size", "Style", "StyleModifier", "Text"}]
       150 LOADN                            R17 3
@@ -118,8 +118,8 @@ PROTO_2:
       164 LOADK                            R17 K59 ["RoundPrimary"]
       165 SETTABLEKS                       R17 R16 K48 ["Style"]
       167 JUMPIF                           R9 ; [+4]
-      168 GETUPVAL                         R18 2
-      169 GETTABLEKS                       R17 R18 K60 ["Disabled"]
+      168 GETUPVAL                         R17 2
+      169 GETTABLEKS                       R17 R17 K60 ["Disabled"]
       171 JUMP                             ; [+1]
       172 LOADNIL                          R17
       173 SETTABLEKS                       R17 R16 K57 ["StyleModifier"]
@@ -135,23 +135,23 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K3 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K7 ["Framework"]
+       20 GETTABLEKS                       R4 R0 K3 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K7 ["Framework"]
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R3 K8 ["ContextServices"]
        27 GETTABLEKS                       R5 R4 K9 ["withContext"]
-       29 GETTABLEKS                       R7 R3 K10 ["Util"]
-       31 GETTABLEKS                       R6 R7 K11 ["StyleModifier"]
+       29 GETTABLEKS                       R6 R3 K10 ["Util"]
+       31 GETTABLEKS                       R6 R6 K11 ["StyleModifier"]
        33 GETTABLEKS                       R7 R3 K12 ["UI"]
        35 GETTABLEKS                       R8 R7 K13 ["Button"]
        37 GETTABLEKS                       R9 R2 K14 ["PureComponent"]

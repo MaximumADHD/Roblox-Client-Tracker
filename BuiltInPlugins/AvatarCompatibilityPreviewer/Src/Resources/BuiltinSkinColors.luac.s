@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETIMPORT                        R2 K2 [BrickColor.new]
-        2 MOVE                             R3 R0
-        3 CALL                             R2 1 1
-        4 GETTABLEKS                       R1 R2 K3 ["Color"]
+        0 GETIMPORT                        R1 K2 [BrickColor.new]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R1 R1 K3 ["Color"]
         6 RETURN                           R1 1
 
 PROTO_1:
@@ -11,10 +11,10 @@ PROTO_1:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 GETIMPORT                        R10 K2 [BrickColor.new]
-        8 MOVE                             R11 R6
-        9 CALL                             R10 1 1
-       10 GETTABLEKS                       R9 R10 K3 ["Color"]
+        6 GETIMPORT                        R9 K2 [BrickColor.new]
+        8 MOVE                             R10 R6
+        9 CALL                             R9 1 1
+       10 GETTABLEKS                       R9 R9 K3 ["Color"]
        12 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
        14 MOVE                             R8 R1
        15 GETIMPORT                        R7 K6 [table.insert]
@@ -29,9 +29,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagAvatarPreviewerReplaceSkinColors"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarPreviewerReplaceSkinColors"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 DUPCLOSURE                       R3 K10 [PROTO_1]

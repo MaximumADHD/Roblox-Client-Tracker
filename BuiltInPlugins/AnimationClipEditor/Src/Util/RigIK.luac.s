@@ -21,16 +21,16 @@ PROTO_0:
        25 RETURN                           R2 2
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getRigInfo"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getRigInfo"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R2 R1 K1 ["PartNameToMotor"]
         7 GETTABLEKS                       R3 R1 K2 ["PartNameToAnimConstraint"]
         9 NEWTABLE                         R4 0 0
        11 GETIMPORT                        R5 K4 [pairs]
-       13 GETUPVAL                         R8 1
-       14 GETTABLEKS                       R6 R8 K5 ["PartToConstraintConfigMap"]
+       13 GETUPVAL                         R6 1
+       14 GETTABLEKS                       R6 R6 K5 ["PartToConstraintConfigMap"]
        16 CALL                             R5 1 3
        17 FORGPREP_NEXT                    R5
        18 NEWTABLE                         R10 16 0
@@ -38,10 +38,10 @@ PROTO_1:
        21 GETTABLE                         R11 R2 R8
        22 JUMPIFNOT                        R11 ; [+12]
        23 GETUPVAL                         R11 2
-       24 GETTABLE                         R13 R2 R8
-       25 GETTABLEKS                       R12 R13 K6 ["Part0"]
-       27 GETTABLE                         R14 R2 R8
-       28 GETTABLEKS                       R13 R14 K7 ["Part1"]
+       24 GETTABLE                         R12 R2 R8
+       25 GETTABLEKS                       R12 R12 K6 ["Part0"]
+       27 GETTABLE                         R13 R2 R8
+       28 GETTABLEKS                       R13 R13 K7 ["Part1"]
        30 CALL                             R11 2 2
        31 SETTABLEKS                       R11 R10 K8 ["Attachment0"]
        33 SETTABLEKS                       R12 R10 K9 ["Attachment1"]
@@ -49,12 +49,12 @@ PROTO_1:
        36 GETTABLE                         R11 R3 R8
        37 JUMPIFNOT                        R11 ; [+16]
        38 GETUPVAL                         R11 2
-       39 GETUPVAL                         R13 0
-       40 GETTABLEKS                       R12 R13 K10 ["getPart0"]
+       39 GETUPVAL                         R12 0
+       40 GETTABLEKS                       R12 R12 K10 ["getPart0"]
        42 GETTABLE                         R13 R3 R8
        43 CALL                             R12 1 1
-       44 GETUPVAL                         R14 0
-       45 GETTABLEKS                       R13 R14 K11 ["getPart1"]
+       44 GETUPVAL                         R13 0
+       45 GETTABLEKS                       R13 R13 K11 ["getPart1"]
        47 GETTABLE                         R14 R3 R8
        48 CALL                             R13 1 -1
        49 CALL                             R11 -1 2
@@ -67,8 +67,8 @@ PROTO_1:
        60 GETIMPORT                        R11 K13 [assert]
        62 CALL                             R11 1 0
        63 GETIMPORT                        R11 K16 [string.gsub]
-       65 GETTABLEKS                       R13 R10 K8 ["Attachment0"]
-       67 GETTABLEKS                       R12 R13 K17 ["Name"]
+       65 GETTABLEKS                       R12 R10 K8 ["Attachment0"]
+       67 GETTABLEKS                       R12 R12 K17 ["Name"]
        69 LOADK                            R13 K18 ["Attachment"]
        70 LOADK                            R14 K19 [""]
        71 CALL                             R11 3 1
@@ -111,8 +111,8 @@ PROTO_2:
         8 FASTCALL1                        ASSERT R2 ; [+2]
         9 GETIMPORT                        R1 K1 [assert]
        11 CALL                             R1 1 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K2 ["getRigInfo"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K2 ["getRigInfo"]
        15 MOVE                             R2 R0
        16 CALL                             R1 1 1
        17 GETTABLEKS                       R2 R1 K3 ["PartNameToMotor"]
@@ -123,13 +123,13 @@ PROTO_2:
        26 CALL                             R5 1 1
        27 JUMPIFEQKNIL                     R5 ; [+7]
        29 LOADB                            R5 1
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R6 R7 K8 ["usingTemporaryConstraints"]
+       30 GETUPVAL                         R6 0
+       31 GETTABLEKS                       R6 R6 K8 ["usingTemporaryConstraints"]
        33 CALL                             R6 0 -1
        34 RETURN                           R5 -1
        35 GETIMPORT                        R5 K10 [pairs]
-       37 GETUPVAL                         R8 1
-       38 GETTABLEKS                       R6 R8 K11 ["R15links"]
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R6 R6 K11 ["R15links"]
        40 CALL                             R5 1 3
        41 FORGPREP_NEXT                    R5
        42 JUMPIFNOT                        R2 ; [+2]
@@ -150,15 +150,15 @@ PROTO_2:
        58 NAMECALL                         R14 R0 K12 ["FindFirstChild"]
        60 CALL                             R14 2 -1
        61 CALL                             R12 -1 2
-       62 GETUPVAL                         R15 0
-       63 GETTABLEKS                       R14 R15 K13 ["getPart0"]
+       62 GETUPVAL                         R14 0
+       63 GETTABLEKS                       R14 R14 K13 ["getPart0"]
        65 MOVE                             R15 R11
        66 CALL                             R14 1 1
        67 JUMPIFEQKNIL                     R12 ; [+15]
        69 JUMPIFEQKNIL                     R13 ; [+13]
        71 JUMPIFNOT                        R10 ; [+6]
-       72 GETTABLEKS                       R16 R10 K14 ["Part0"]
-       74 GETTABLEKS                       R15 R16 K15 ["Name"]
+       72 GETTABLEKS                       R15 R10 K14 ["Part0"]
+       74 GETTABLEKS                       R15 R15 K15 ["Name"]
        76 JUMPIFNOTEQ                      R15 R9 ; [+6]
        78 JUMPIFNOT                        R14 ; [+11]
        79 GETTABLEKS                       R15 R14 K15 ["Name"]
@@ -182,24 +182,24 @@ PROTO_3:
         5 CALL                             R3 1 3
         6 FORGPREP_NEXT                    R3
         7 GETTABLEKS                       R8 R7 K2 ["Part0"]
-        9 GETTABLEKS                       R10 R7 K2 ["Part0"]
-       11 GETTABLEKS                       R9 R10 K3 ["CFrame"]
+        9 GETTABLEKS                       R9 R7 K2 ["Part0"]
+       11 GETTABLEKS                       R9 R9 K3 ["CFrame"]
        13 SETTABLE                         R9 R2 R8
        14 GETTABLEKS                       R8 R7 K4 ["Part1"]
-       16 GETTABLEKS                       R10 R7 K4 ["Part1"]
-       18 GETTABLEKS                       R9 R10 K3 ["CFrame"]
+       16 GETTABLEKS                       R9 R7 K4 ["Part1"]
+       18 GETTABLEKS                       R9 R9 K3 ["CFrame"]
        20 SETTABLE                         R9 R2 R8
        21 FORGLOOP                         R3 2 ; [-15]
        23 MOVE                             R3 R1
        24 LOADNIL                          R4
        25 LOADNIL                          R5
        26 FORGPREP                         R3
-       27 GETUPVAL                         R9 0
-       28 GETTABLEKS                       R8 R9 K5 ["getPart0"]
+       27 GETUPVAL                         R8 0
+       28 GETTABLEKS                       R8 R8 K5 ["getPart0"]
        30 GETTABLEKS                       R9 R7 K6 ["OriginalData"]
        32 CALL                             R8 1 1
-       33 GETUPVAL                         R10 0
-       34 GETTABLEKS                       R9 R10 K7 ["getPart1"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K7 ["getPart1"]
        36 GETTABLEKS                       R10 R7 K6 ["OriginalData"]
        38 CALL                             R9 1 1
        39 JUMPIFNOT                        R8 ; [+7]
@@ -262,38 +262,38 @@ PROTO_7:
        19 RETURN                           R2 1
 
 PROTO_8:
-        0 GETTABLEKS                       R5 R0 K0 ["OriginalData"]
-        2 GETTABLEKS                       R4 R5 K1 ["Attachment0"]
+        0 GETTABLEKS                       R4 R0 K0 ["OriginalData"]
+        2 GETTABLEKS                       R4 R4 K1 ["Attachment0"]
         4 JUMPIFNOTEQKNIL                  R4 ; [+2]
         6 LOADB                            R3 0 +1
         7 LOADB                            R3 1
         8 FASTCALL1                        ASSERT R3 ; [+2]
         9 GETIMPORT                        R2 K3 [assert]
        11 CALL                             R2 1 0
-       12 GETTABLEKS                       R5 R0 K0 ["OriginalData"]
-       14 GETTABLEKS                       R4 R5 K4 ["Attachment1"]
+       12 GETTABLEKS                       R4 R0 K0 ["OriginalData"]
+       14 GETTABLEKS                       R4 R4 K4 ["Attachment1"]
        16 JUMPIFNOTEQKNIL                  R4 ; [+2]
        18 LOADB                            R3 0 +1
        19 LOADB                            R3 1
        20 FASTCALL1                        ASSERT R3 ; [+2]
        21 GETIMPORT                        R2 K3 [assert]
        23 CALL                             R2 1 0
-       24 GETUPVAL                         R5 0
-       25 GETTABLEKS                       R4 R5 K5 ["getPart0"]
+       24 GETUPVAL                         R4 0
+       25 GETTABLEKS                       R4 R4 K5 ["getPart0"]
        27 GETTABLEKS                       R5 R0 K0 ["OriginalData"]
        29 CALL                             R4 1 1
        30 GETTABLE                         R3 R1 R4
-       31 GETUPVAL                         R6 0
-       32 GETTABLEKS                       R5 R6 K6 ["getPart1"]
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R5 R5 K6 ["getPart1"]
        34 GETTABLEKS                       R6 R0 K0 ["OriginalData"]
        36 CALL                             R5 1 1
        37 GETTABLE                         R4 R1 R5
-       38 GETTABLEKS                       R7 R0 K0 ["OriginalData"]
-       40 GETTABLEKS                       R6 R7 K1 ["Attachment0"]
-       42 GETTABLEKS                       R5 R6 K7 ["CFrame"]
-       44 GETTABLEKS                       R8 R0 K0 ["OriginalData"]
-       46 GETTABLEKS                       R7 R8 K4 ["Attachment1"]
-       48 GETTABLEKS                       R6 R7 K7 ["CFrame"]
+       38 GETTABLEKS                       R5 R0 K0 ["OriginalData"]
+       40 GETTABLEKS                       R5 R5 K1 ["Attachment0"]
+       42 GETTABLEKS                       R5 R5 K7 ["CFrame"]
+       44 GETTABLEKS                       R6 R0 K0 ["OriginalData"]
+       46 GETTABLEKS                       R6 R6 K4 ["Attachment1"]
+       48 GETTABLEKS                       R6 R6 K7 ["CFrame"]
        50 NAMECALL                         R9 R5 K8 ["Inverse"]
        52 CALL                             R9 1 1
        53 NAMECALL                         R10 R3 K8 ["Inverse"]
@@ -337,8 +337,8 @@ PROTO_9:
        46 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["getRigInfo"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["getRigInfo"]
         3 MOVE                             R6 R0
         4 CALL                             R5 1 1
         5 GETTABLEKS                       R6 R5 K1 ["PartNameToConstraint"]
@@ -416,14 +416,14 @@ PROTO_11:
        10 MOVE                             R9 R2
        11 MOVE                             R10 R3
        12 CALL                             R5 5 0
-       13 GETUPVAL                         R6 2
-       14 GETTABLEKS                       R5 R6 K0 ["findRootPart"]
+       13 GETUPVAL                         R5 2
+       14 GETTABLEKS                       R5 R5 K0 ["findRootPart"]
        16 MOVE                             R6 R0
        17 CALL                             R5 1 1
        18 LOADB                            R6 1
        19 SETTABLEKS                       R6 R5 K1 ["Anchored"]
-       21 GETUPVAL                         R7 2
-       22 GETTABLEKS                       R6 R7 K2 ["clearCache"]
+       21 GETUPVAL                         R6 2
+       22 GETTABLEKS                       R6 R6 K2 ["clearCache"]
        24 CALL                             R6 0 0
        25 RETURN                           R3 1
 
@@ -486,8 +486,8 @@ PROTO_14:
        17 GETTABLEKS                       R4 R2 K2 ["Name"]
        19 GETTABLE                         R3 R1 R4
        20 JUMPIFNOT                        R3 ; [+6]
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R4 R5 K4 ["getPart0"]
+       21 GETUPVAL                         R4 0
+       22 GETTABLEKS                       R4 R4 K4 ["getPart0"]
        24 MOVE                             R5 R3
        25 CALL                             R4 1 -1
        26 RETURN                           R4 -1
@@ -516,8 +516,8 @@ PROTO_15:
        22 GETTABLEKS                       R7 R5 K2 ["Name"]
        24 GETTABLE                         R6 R1 R7
        25 JUMPIFNOT                        R6 ; [+7]
-       26 GETUPVAL                         R8 0
-       27 GETTABLEKS                       R7 R8 K4 ["getPart0"]
+       26 GETUPVAL                         R7 0
+       27 GETTABLEKS                       R7 R7 K4 ["getPart0"]
        29 MOVE                             R8 R6
        30 CALL                             R7 1 1
        31 MOVE                             R3 R7
@@ -529,21 +529,21 @@ PROTO_15:
 
 PROTO_16:
         0 NEWTABLE                         R3 0 0
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K0 ["R15_PARTS"]
-        5 GETTABLEKS                       R5 R6 K1 ["UpperTorso"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K0 ["R15_PARTS"]
+        5 GETTABLEKS                       R5 R5 K1 ["UpperTorso"]
         7 GETTABLE                         R4 R1 R5
-        8 GETUPVAL                         R8 0
-        9 GETTABLEKS                       R7 R8 K0 ["R15_PARTS"]
-       11 GETTABLEKS                       R6 R7 K2 ["LowerTorso"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K0 ["R15_PARTS"]
+       11 GETTABLEKS                       R6 R6 K2 ["LowerTorso"]
        13 GETTABLE                         R5 R1 R6
-       14 GETUPVAL                         R9 0
-       15 GETTABLEKS                       R8 R9 K0 ["R15_PARTS"]
-       17 GETTABLEKS                       R7 R8 K3 ["LeftFoot"]
+       14 GETUPVAL                         R7 0
+       15 GETTABLEKS                       R7 R7 K0 ["R15_PARTS"]
+       17 GETTABLEKS                       R7 R7 K3 ["LeftFoot"]
        19 GETTABLE                         R6 R1 R7
-       20 GETUPVAL                         R10 0
-       21 GETTABLEKS                       R9 R10 K0 ["R15_PARTS"]
-       23 GETTABLEKS                       R8 R9 K4 ["RightFoot"]
+       20 GETUPVAL                         R8 0
+       21 GETTABLEKS                       R8 R8 K0 ["R15_PARTS"]
+       23 GETTABLEKS                       R8 R8 K4 ["RightFoot"]
        25 GETTABLE                         R7 R1 R8
        26 JUMPIFNOT                        R4 ; [+28]
        27 JUMPIFNOT                        R5 ; [+27]
@@ -567,22 +567,22 @@ PROTO_16:
        53 LOADB                            R9 1
        54 SETTABLE                         R9 R3 R8
        55 JUMPIFNOT                        R2 ; [+65]
-       56 GETUPVAL                         R11 0
-       57 GETTABLEKS                       R10 R11 K0 ["R15_PARTS"]
-       59 GETTABLEKS                       R9 R10 K1 ["UpperTorso"]
+       56 GETUPVAL                         R9 0
+       57 GETTABLEKS                       R9 R9 K0 ["R15_PARTS"]
+       59 GETTABLEKS                       R9 R9 K1 ["UpperTorso"]
        61 GETTABLE                         R8 R2 R9
-       62 GETUPVAL                         R12 0
-       63 GETTABLEKS                       R11 R12 K0 ["R15_PARTS"]
-       65 GETTABLEKS                       R10 R11 K2 ["LowerTorso"]
+       62 GETUPVAL                         R10 0
+       63 GETTABLEKS                       R10 R10 K0 ["R15_PARTS"]
+       65 GETTABLEKS                       R10 R10 K2 ["LowerTorso"]
        67 GETTABLE                         R9 R2 R10
        68 JUMPIFNOT                        R8 ; [+52]
        69 JUMPIFNOT                        R9 ; [+51]
-       70 GETUPVAL                         R11 1
-       71 GETTABLEKS                       R10 R11 K6 ["getPart1"]
+       70 GETUPVAL                         R10 1
+       71 GETTABLEKS                       R10 R10 K6 ["getPart1"]
        73 MOVE                             R11 R8
        74 CALL                             R10 1 1
-       75 GETUPVAL                         R12 1
-       76 GETTABLEKS                       R11 R12 K6 ["getPart1"]
+       75 GETUPVAL                         R11 1
+       76 GETTABLEKS                       R11 R11 K6 ["getPart1"]
        78 MOVE                             R12 R9
        79 CALL                             R11 1 1
        80 JUMPIFEQ                         R0 R10 ; [+10]
@@ -594,22 +594,22 @@ PROTO_16:
        88 LOADB                            R12 1
        89 SETTABLE                         R12 R3 R11
        90 RETURN                           R3 1
-       91 GETUPVAL                         R15 0
-       92 GETTABLEKS                       R14 R15 K0 ["R15_PARTS"]
-       94 GETTABLEKS                       R13 R14 K3 ["LeftFoot"]
+       91 GETUPVAL                         R13 0
+       92 GETTABLEKS                       R13 R13 K0 ["R15_PARTS"]
+       94 GETTABLEKS                       R13 R13 K3 ["LeftFoot"]
        96 GETTABLE                         R12 R2 R13
-       97 GETUPVAL                         R16 0
-       98 GETTABLEKS                       R15 R16 K0 ["R15_PARTS"]
-      100 GETTABLEKS                       R14 R15 K4 ["RightFoot"]
+       97 GETUPVAL                         R14 0
+       98 GETTABLEKS                       R14 R14 K0 ["R15_PARTS"]
+      100 GETTABLEKS                       R14 R14 K4 ["RightFoot"]
       102 GETTABLE                         R13 R2 R14
       103 JUMPIFNOT                        R12 ; [+17]
       104 JUMPIFNOT                        R13 ; [+16]
-      105 GETUPVAL                         R15 1
-      106 GETTABLEKS                       R14 R15 K6 ["getPart1"]
+      105 GETUPVAL                         R14 1
+      106 GETTABLEKS                       R14 R14 K6 ["getPart1"]
       108 MOVE                             R15 R12
       109 CALL                             R14 1 1
-      110 GETUPVAL                         R16 1
-      111 GETTABLEKS                       R15 R16 K6 ["getPart1"]
+      110 GETUPVAL                         R15 1
+      111 GETTABLEKS                       R15 R15 K6 ["getPart1"]
       113 MOVE                             R16 R13
       114 CALL                             R15 1 1
       115 JUMPIFNOT                        R14 ; [+5]
@@ -622,8 +622,8 @@ PROTO_16:
 
 PROTO_17:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["getRigInfo"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["getRigInfo"]
         5 MOVE                             R3 R0
         6 CALL                             R2 1 1
         7 GETTABLEKS                       R3 R2 K1 ["PartNameToMotor"]
@@ -636,15 +636,15 @@ PROTO_17:
        18 JUMPIFNOT                        R10 ; [+21]
        19 GETTABLEKS                       R10 R9 K6 ["Part1"]
        21 JUMPIFNOT                        R10 ; [+18]
-       22 GETTABLEKS                       R11 R9 K5 ["Part0"]
-       24 GETTABLEKS                       R10 R11 K7 ["Name"]
-       26 GETTABLEKS                       R12 R9 K5 ["Part0"]
-       28 GETTABLEKS                       R11 R12 K8 ["CFrame"]
+       22 GETTABLEKS                       R10 R9 K5 ["Part0"]
+       24 GETTABLEKS                       R10 R10 K7 ["Name"]
+       26 GETTABLEKS                       R11 R9 K5 ["Part0"]
+       28 GETTABLEKS                       R11 R11 K8 ["CFrame"]
        30 SETTABLE                         R11 R1 R10
-       31 GETTABLEKS                       R11 R9 K6 ["Part1"]
-       33 GETTABLEKS                       R10 R11 K7 ["Name"]
-       35 GETTABLEKS                       R12 R9 K6 ["Part1"]
-       37 GETTABLEKS                       R11 R12 K8 ["CFrame"]
+       31 GETTABLEKS                       R10 R9 K6 ["Part1"]
+       33 GETTABLEKS                       R10 R10 K7 ["Name"]
+       35 GETTABLEKS                       R11 R9 K6 ["Part1"]
+       37 GETTABLEKS                       R11 R11 K8 ["CFrame"]
        39 SETTABLE                         R11 R1 R10
        40 FORGLOOP                         R5 2 ; [-25]
        42 JUMPIFNOT                        R4 ; [+29]
@@ -652,12 +652,12 @@ PROTO_17:
        45 MOVE                             R6 R4
        46 CALL                             R5 1 3
        47 FORGPREP_NEXT                    R5
-       48 GETUPVAL                         R11 0
-       49 GETTABLEKS                       R10 R11 K9 ["getPart0"]
+       48 GETUPVAL                         R10 0
+       49 GETTABLEKS                       R10 R10 K9 ["getPart0"]
        51 MOVE                             R11 R9
        52 CALL                             R10 1 1
-       53 GETUPVAL                         R12 0
-       54 GETTABLEKS                       R11 R12 K10 ["getPart1"]
+       53 GETUPVAL                         R11 0
+       54 GETTABLEKS                       R11 R11 K10 ["getPart1"]
        56 MOVE                             R12 R9
        57 CALL                             R11 1 1
        58 JUMPIFNOT                        R10 ; [+11]
@@ -673,8 +673,8 @@ PROTO_17:
 
 PROTO_18:
         0 JUMPIFNOT                        R1 ; [+5]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["None"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["None"]
         4 JUMPIFNOTEQ                      R1 R4 ; [+2]
         6 RETURN                           R0 0
         7 FASTCALL1                        ASSERT R1 ; [+3]
@@ -685,12 +685,12 @@ PROTO_18:
        14 MOVE                             R5 R0
        15 CALL                             R4 1 3
        16 FORGPREP_NEXT                    R4
-       17 GETUPVAL                         R10 1
-       18 GETTABLEKS                       R9 R10 K5 ["getPart0"]
+       17 GETUPVAL                         R9 1
+       18 GETTABLEKS                       R9 R9 K5 ["getPart0"]
        20 MOVE                             R10 R8
        21 CALL                             R9 1 1
-       22 GETUPVAL                         R11 1
-       23 GETTABLEKS                       R10 R11 K6 ["getPart1"]
+       22 GETUPVAL                         R10 1
+       23 GETTABLEKS                       R10 R10 K6 ["getPart1"]
        25 MOVE                             R11 R8
        26 CALL                             R10 1 1
        27 LOADK                            R13 K7 ["BallSocketConstraint"]
@@ -716,16 +716,16 @@ PROTO_18:
        53 MOVE                             R13 R0
        54 CALL                             R12 1 3
        55 FORGPREP_NEXT                    R12
-       56 GETUPVAL                         R18 1
-       57 GETTABLEKS                       R17 R18 K5 ["getPart0"]
+       56 GETUPVAL                         R17 1
+       57 GETTABLEKS                       R17 R17 K5 ["getPart0"]
        59 MOVE                             R18 R16
        60 CALL                             R17 1 1
        61 JUMPIFNOTEQ                      R17 R10 ; [+2]
        63 MOVE                             R11 R16
        64 FORGLOOP                         R12 2 ; [-9]
        66 LOADNIL                          R12
-       67 GETUPVAL                         R14 1
-       68 GETTABLEKS                       R13 R14 K6 ["getPart1"]
+       67 GETUPVAL                         R13 1
+       68 GETTABLEKS                       R13 R13 K6 ["getPart1"]
        70 MOVE                             R14 R11
        71 CALL                             R13 1 1
        72 JUMPIFNOT                        R13 ; [+15]
@@ -758,43 +758,43 @@ PROTO_18:
       110 GETTABLE                         R14 R2 R10
       111 JUMPIFNOT                        R14 ; [+72]
       112 GETTABLE                         R14 R2 R9
-      113 GETTABLE                         R16 R2 R9
-      114 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      113 GETTABLE                         R15 R2 R9
+      114 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       116 JUMPIF                           R15 ; [+2]
       117 NEWTABLE                         R15 0 0
       119 SETTABLEKS                       R15 R14 K14 ["Attachments"]
       121 GETTABLE                         R14 R2 R10
-      122 GETTABLE                         R16 R2 R10
-      123 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      122 GETTABLE                         R15 R2 R10
+      123 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       125 JUMPIF                           R15 ; [+2]
       126 NEWTABLE                         R15 0 0
       128 SETTABLEKS                       R15 R14 K14 ["Attachments"]
-      130 GETTABLE                         R16 R2 R9
-      131 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      130 GETTABLE                         R15 R2 R9
+      131 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       133 DUPTABLE                         R16 K17 [{"Axis", "SecondaryAxis", "Name"}]
-      134 GETTABLEKS                       R18 R8 K9 ["Attachment0"]
-      136 GETTABLEKS                       R17 R18 K15 ["Axis"]
+      134 GETTABLEKS                       R17 R8 K9 ["Attachment0"]
+      136 GETTABLEKS                       R17 R17 K15 ["Axis"]
       138 SETTABLEKS                       R17 R16 K15 ["Axis"]
-      140 GETTABLEKS                       R18 R8 K9 ["Attachment0"]
-      142 GETTABLEKS                       R17 R18 K16 ["SecondaryAxis"]
+      140 GETTABLEKS                       R17 R8 K9 ["Attachment0"]
+      142 GETTABLEKS                       R17 R17 K16 ["SecondaryAxis"]
       144 SETTABLEKS                       R17 R16 K16 ["SecondaryAxis"]
-      146 GETTABLEKS                       R18 R8 K9 ["Attachment0"]
-      148 GETTABLEKS                       R17 R18 K11 ["Name"]
+      146 GETTABLEKS                       R17 R8 K9 ["Attachment0"]
+      148 GETTABLEKS                       R17 R17 K11 ["Name"]
       150 SETTABLEKS                       R17 R16 K11 ["Name"]
       152 FASTCALL2                        TABLE_INSERT R15 R16 ; [+3]
       154 GETIMPORT                        R14 K20 [table.insert]
       156 CALL                             R14 2 0
-      157 GETTABLE                         R16 R2 R10
-      158 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      157 GETTABLE                         R15 R2 R10
+      158 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       160 DUPTABLE                         R16 K17 [{"Axis", "SecondaryAxis", "Name"}]
-      161 GETTABLEKS                       R18 R8 K10 ["Attachment1"]
-      163 GETTABLEKS                       R17 R18 K15 ["Axis"]
+      161 GETTABLEKS                       R17 R8 K10 ["Attachment1"]
+      163 GETTABLEKS                       R17 R17 K15 ["Axis"]
       165 SETTABLEKS                       R17 R16 K15 ["Axis"]
-      167 GETTABLEKS                       R18 R8 K10 ["Attachment1"]
-      169 GETTABLEKS                       R17 R18 K16 ["SecondaryAxis"]
+      167 GETTABLEKS                       R17 R8 K10 ["Attachment1"]
+      169 GETTABLEKS                       R17 R17 K16 ["SecondaryAxis"]
       171 SETTABLEKS                       R17 R16 K16 ["SecondaryAxis"]
-      173 GETTABLEKS                       R18 R8 K10 ["Attachment1"]
-      175 GETTABLEKS                       R17 R18 K11 ["Name"]
+      173 GETTABLEKS                       R17 R8 K10 ["Attachment1"]
+      175 GETTABLEKS                       R17 R17 K11 ["Name"]
       177 SETTABLEKS                       R17 R16 K11 ["Name"]
       179 FASTCALL2                        TABLE_INSERT R15 R16 ; [+3]
       181 GETIMPORT                        R14 K20 [table.insert]
@@ -804,43 +804,43 @@ PROTO_18:
       186 GETTABLE                         R14 R3 R10
       187 JUMPIFNOT                        R14 ; [+72]
       188 GETTABLE                         R14 R3 R9
-      189 GETTABLE                         R16 R3 R9
-      190 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      189 GETTABLE                         R15 R3 R9
+      190 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       192 JUMPIF                           R15 ; [+2]
       193 NEWTABLE                         R15 0 0
       195 SETTABLEKS                       R15 R14 K14 ["Attachments"]
       197 GETTABLE                         R14 R3 R10
-      198 GETTABLE                         R16 R3 R10
-      199 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      198 GETTABLE                         R15 R3 R10
+      199 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       201 JUMPIF                           R15 ; [+2]
       202 NEWTABLE                         R15 0 0
       204 SETTABLEKS                       R15 R14 K14 ["Attachments"]
-      206 GETTABLE                         R16 R3 R9
-      207 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      206 GETTABLE                         R15 R3 R9
+      207 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       209 DUPTABLE                         R16 K17 [{"Axis", "SecondaryAxis", "Name"}]
-      210 GETTABLEKS                       R18 R8 K9 ["Attachment0"]
-      212 GETTABLEKS                       R17 R18 K15 ["Axis"]
+      210 GETTABLEKS                       R17 R8 K9 ["Attachment0"]
+      212 GETTABLEKS                       R17 R17 K15 ["Axis"]
       214 SETTABLEKS                       R17 R16 K15 ["Axis"]
-      216 GETTABLEKS                       R18 R8 K9 ["Attachment0"]
-      218 GETTABLEKS                       R17 R18 K16 ["SecondaryAxis"]
+      216 GETTABLEKS                       R17 R8 K9 ["Attachment0"]
+      218 GETTABLEKS                       R17 R17 K16 ["SecondaryAxis"]
       220 SETTABLEKS                       R17 R16 K16 ["SecondaryAxis"]
-      222 GETTABLEKS                       R18 R8 K9 ["Attachment0"]
-      224 GETTABLEKS                       R17 R18 K11 ["Name"]
+      222 GETTABLEKS                       R17 R8 K9 ["Attachment0"]
+      224 GETTABLEKS                       R17 R17 K11 ["Name"]
       226 SETTABLEKS                       R17 R16 K11 ["Name"]
       228 FASTCALL2                        TABLE_INSERT R15 R16 ; [+3]
       230 GETIMPORT                        R14 K20 [table.insert]
       232 CALL                             R14 2 0
-      233 GETTABLE                         R16 R3 R10
-      234 GETTABLEKS                       R15 R16 K14 ["Attachments"]
+      233 GETTABLE                         R15 R3 R10
+      234 GETTABLEKS                       R15 R15 K14 ["Attachments"]
       236 DUPTABLE                         R16 K17 [{"Axis", "SecondaryAxis", "Name"}]
-      237 GETTABLEKS                       R18 R8 K10 ["Attachment1"]
-      239 GETTABLEKS                       R17 R18 K15 ["Axis"]
+      237 GETTABLEKS                       R17 R8 K10 ["Attachment1"]
+      239 GETTABLEKS                       R17 R17 K15 ["Axis"]
       241 SETTABLEKS                       R17 R16 K15 ["Axis"]
-      243 GETTABLEKS                       R18 R8 K10 ["Attachment1"]
-      245 GETTABLEKS                       R17 R18 K16 ["SecondaryAxis"]
+      243 GETTABLEKS                       R17 R8 K10 ["Attachment1"]
+      245 GETTABLEKS                       R17 R17 K16 ["SecondaryAxis"]
       247 SETTABLEKS                       R17 R16 K16 ["SecondaryAxis"]
-      249 GETTABLEKS                       R18 R8 K10 ["Attachment1"]
-      251 GETTABLEKS                       R17 R18 K11 ["Name"]
+      249 GETTABLEKS                       R17 R8 K10 ["Attachment1"]
+      251 GETTABLEKS                       R17 R17 K11 ["Name"]
       253 SETTABLEKS                       R17 R16 K11 ["Name"]
       255 FASTCALL2                        TABLE_INSERT R15 R16 ; [+3]
       257 GETIMPORT                        R14 K20 [table.insert]
@@ -877,8 +877,8 @@ PROTO_19:
        25 GETTABLEKS                       R9 R7 K2 ["Name"]
        27 GETTABLE                         R8 R3 R9
        28 JUMPIFNOT                        R8 ; [+7]
-       29 GETUPVAL                         R10 2
-       30 GETTABLEKS                       R9 R10 K4 ["getPart0"]
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R9 R9 K4 ["getPart0"]
        32 MOVE                             R10 R8
        33 CALL                             R9 1 1
        34 MOVE                             R5 R9
@@ -923,8 +923,8 @@ PROTO_19:
        79 GETTABLEKS                       R6 R4 K2 ["Name"]
        81 GETTABLE                         R5 R3 R6
        82 JUMPIFNOT                        R5 ; [+7]
-       83 GETUPVAL                         R7 2
-       84 GETTABLEKS                       R6 R7 K4 ["getPart0"]
+       83 GETUPVAL                         R6 2
+       84 GETTABLEKS                       R6 R6 K4 ["getPart0"]
        86 MOVE                             R7 R5
        87 CALL                             R6 1 1
        88 MOVE                             R0 R6
@@ -943,15 +943,15 @@ PROTO_20:
         8 RETURN                           R2 1
 
 PROTO_21:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["clearCache"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["clearCache"]
         3 CALL                             R5 0 0
         4 NEWTABLE                         R5 0 0
         6 NEWTABLE                         R6 0 0
         8 NEWTABLE                         R7 0 0
        10 NEWTABLE                         R8 0 0
-       12 GETUPVAL                         R10 0
-       13 GETTABLEKS                       R9 R10 K1 ["getRigInfo"]
+       12 GETUPVAL                         R9 0
+       13 GETTABLEKS                       R9 R9 K1 ["getRigInfo"]
        15 MOVE                             R10 R0
        16 CALL                             R9 1 1
        17 GETTABLEKS                       R10 R9 K2 ["PartNameToMotor"]
@@ -964,8 +964,8 @@ PROTO_21:
        27 CAPTURE                          VAL R5
        28 CAPTURE                          VAL R6
        29 JUMPIFNOT                        R2 ; [+8]
-       30 GETUPVAL                         R15 1
-       31 GETTABLEKS                       R14 R15 K5 ["pinForLimbMode"]
+       30 GETUPVAL                         R14 1
+       31 GETTABLEKS                       R14 R14 K5 ["pinForLimbMode"]
        33 MOVE                             R15 R1
        34 MOVE                             R16 R10
        35 MOVE                             R17 R12
@@ -994,8 +994,8 @@ PROTO_21:
        64 LENGTH                           R14 R6
        65 LOADN                            R15 1
        66 FORNPREP                         R14
-       67 GETTABLE                         R18 R6 R16
-       68 GETTABLEKS                       R17 R18 K13 ["Item"]
+       67 GETTABLE                         R17 R6 R16
+       68 GETTABLEKS                       R17 R17 K13 ["Item"]
        70 JUMPIFNOT                        R17 ; [+26]
        71 GETUPVAL                         R18 2
        72 MOVE                             R19 R17
@@ -1053,18 +1053,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["RigInfo"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["RigInfo"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K11 ["Constants"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 8 0
        34 DUPCLOSURE                       R5 K12 [PROTO_0]

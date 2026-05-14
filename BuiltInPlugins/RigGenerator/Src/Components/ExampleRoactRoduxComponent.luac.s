@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
@@ -29,37 +29,37 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETTABLEKS                       R6 R4 K11 ["Analytics"]
        36 GETTABLEKS                       R7 R4 K12 ["Localization"]
-       38 GETTABLEKS                       R9 R3 K13 ["Style"]
-       40 GETTABLEKS                       R8 R9 K14 ["Stylizer"]
+       38 GETTABLEKS                       R8 R3 K13 ["Style"]
+       40 GETTABLEKS                       R8 R8 K14 ["Stylizer"]
        42 GETTABLEKS                       R9 R3 K15 ["UI"]
        44 GETTABLEKS                       R10 R9 K16 ["Pane"]
-       46 GETTABLEKS                       R12 R0 K17 ["Src"]
-       48 GETTABLEKS                       R11 R12 K18 ["Actions"]
+       46 GETTABLEKS                       R11 R0 K17 ["Src"]
+       48 GETTABLEKS                       R11 R11 K18 ["Actions"]
        50 GETIMPORT                        R12 K4 [require]
        52 GETTABLEKS                       R13 R11 K19 ["ExampleAction"]
        54 CALL                             R12 1 1
-       55 GETTABLEKS                       R14 R0 K17 ["Src"]
-       57 GETTABLEKS                       R13 R14 K20 ["Reducers"]
+       55 GETTABLEKS                       R13 R0 K17 ["Src"]
+       57 GETTABLEKS                       R13 R13 K20 ["Reducers"]
        59 GETIMPORT                        R14 K4 [require]
        61 GETTABLEKS                       R15 R13 K21 ["ExampleReducer"]
        63 CALL                             R14 1 1

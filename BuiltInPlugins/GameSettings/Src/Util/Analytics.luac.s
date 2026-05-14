@@ -39,8 +39,8 @@ PROTO_5:
         0 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["print"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["print"]
         3 LOADK                            R3 K1 ["reportCounter"]
         4 MOVE                             R4 R0
         5 ORK                              R5 R1 K2 [1]
@@ -53,8 +53,8 @@ PROTO_6:
        13 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["print"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["print"]
         3 LOADK                            R3 K1 ["reportStats"]
         4 MOVE                             R4 R0
         5 MOVE                             R5 R1
@@ -67,8 +67,8 @@ PROTO_7:
        13 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["printTable"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["printTable"]
         3 LOADK                            R3 K1 ["sendEventDeferred"]
         4 MOVE                             R4 R0
         5 GETUPVAL                         R5 1
@@ -76,9 +76,9 @@ PROTO_8:
         7 NAMECALL                         R5 R5 K2 ["JSONEncode"]
         9 CALL                             R5 2 -1
        10 CALL                             R2 -1 0
-       11 GETUPVAL                         R4 2
-       12 GETTABLEKS                       R3 R4 K3 ["Dictionary"]
-       14 GETTABLEKS                       R2 R3 K4 ["join"]
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K3 ["Dictionary"]
+       14 GETTABLEKS                       R2 R2 K4 ["join"]
        16 MOVE                             R3 R1
        17 DUPTABLE                         R4 K8 [{"uid", "sid", "pid"}]
        18 LOADNIL                          R6
@@ -99,8 +99,8 @@ PROTO_8:
        36 MOVE                             R5 R6
        37 CLOSEUPVALS                      R6
        38 SETTABLEKS                       R5 R4 K6 ["sid"]
-       40 GETIMPORT                        R6 K12 [game]
-       42 GETTABLEKS                       R5 R6 K13 ["PlaceId"]
+       40 GETIMPORT                        R5 K12 [game]
+       42 GETTABLEKS                       R5 R5 K13 ["PlaceId"]
        44 SETTABLEKS                       R5 R4 K7 ["pid"]
        46 CALL                             R2 2 1
        47 GETUPVAL                         R3 3
@@ -113,8 +113,8 @@ PROTO_8:
        55 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["reportCounter"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["reportCounter"]
         3 GETIMPORT                        R3 K3 [string.format]
         5 LOADK                            R4 K4 ["GameSettings_SettingSaved_%s"]
         6 MOVE                             R5 R0
@@ -129,8 +129,8 @@ PROTO_9:
        17 LOADK                            R2 K8 ["Enabled"]
        18 JUMP                             ; [+1]
        19 LOADK                            R2 K9 ["Disabled"]
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K0 ["reportCounter"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K0 ["reportCounter"]
        23 GETIMPORT                        R4 K3 [string.format]
        25 LOADK                            R5 K10 ["GameSettings_Setting%s_%s"]
        26 MOVE                             R6 R2
@@ -143,8 +143,8 @@ PROTO_9:
        33 GETIMPORT                        R2 K6 [typeof]
        35 CALL                             R2 1 1
        36 JUMPIFNOTEQKS                    R2 K1 ["string"] ; [+13]
-       38 GETUPVAL                         R3 0
-       39 GETTABLEKS                       R2 R3 K11 ["reportStats"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K11 ["reportStats"]
        41 GETIMPORT                        R3 K3 [string.format]
        43 LOADK                            R4 K12 ["GameSettings_StringSettingLength_%s"]
        44 MOVE                             R5 R0
@@ -155,8 +155,8 @@ PROTO_9:
        50 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 GETIMPORT                        R2 K3 [string.format]
         5 LOADK                            R3 K4 ["GameSettings_PageLoadAttempt_%s"]
         6 MOVE                             R4 R0
@@ -165,15 +165,15 @@ PROTO_10:
         9 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["reportCounter"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["reportCounter"]
         3 GETIMPORT                        R3 K3 [string.format]
         5 LOADK                            R4 K4 ["GameSettings_PageLoadSuccess_%s"]
         6 MOVE                             R5 R0
         7 CALL                             R3 2 -1
         8 CALL                             R2 -1 0
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K5 ["reportStats"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K5 ["reportStats"]
        12 GETIMPORT                        R3 K3 [string.format]
        14 LOADK                            R4 K6 ["GameSettings_PageLoadTime_Success_%s"]
        15 MOVE                             R5 R0
@@ -183,15 +183,15 @@ PROTO_11:
        19 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["reportCounter"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["reportCounter"]
         3 GETIMPORT                        R3 K3 [string.format]
         5 LOADK                            R4 K4 ["GameSettings_PageLoadError_%s"]
         6 MOVE                             R5 R0
         7 CALL                             R3 2 -1
         8 CALL                             R2 -1 0
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K5 ["reportStats"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K5 ["reportStats"]
        12 GETIMPORT                        R3 K3 [string.format]
        14 LOADK                            R4 K6 ["GameSettings_PageLoadTime_Error_%s"]
        15 MOVE                             R5 R0
@@ -201,39 +201,39 @@ PROTO_12:
        19 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["GameSettings_SaveAttempt"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 LOADK                            R2 K1 ["GameSettings_SaveSuccess"]
         4 CALL                             R1 1 0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["reportStats"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["reportStats"]
         8 LOADK                            R2 K3 ["GameSettings_SaveTime_Success"]
         9 MOVE                             R3 R0
        10 CALL                             R1 2 0
        11 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 LOADK                            R2 K1 ["GameSettings_SaveError"]
         4 CALL                             R1 1 0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K2 ["reportStats"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K2 ["reportStats"]
         8 LOADK                            R2 K3 ["GameSettings_SaveTime_Error"]
         9 MOVE                             R3 R0
        10 CALL                             R1 2 0
        11 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["reportCounter"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["reportCounter"]
         3 GETIMPORT                        R2 K3 [string.format]
         5 LOADK                            R3 K4 ["GameSettings_PageSaveError_%s"]
         6 MOVE                             R4 R0
@@ -242,13 +242,13 @@ PROTO_16:
         9 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
         3 LOADK                            R3 K1 ["gameSettingsOpen"]
         4 NEWTABLE                         R4 0 0
         6 CALL                             R2 2 0
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
        10 LOADK                            R3 K2 ["toolOpened"]
        11 DUPTABLE                         R4 K6 [{"method", "uid", "gameId"}]
        12 LOADN                            R5 1
@@ -259,8 +259,8 @@ PROTO_17:
        20 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
         3 LOADK                            R3 K1 ["gameSettingsClose"]
         4 NEWTABLE                         R4 2 0
         6 SETTABLEKS                       R0 R4 K2 ["buttonSelected"]
@@ -275,8 +275,8 @@ PROTO_18:
 PROTO_19:
         0 JUMPIFNOT                        R0 ; [+12]
         1 JUMPIFNOT                        R1 ; [+11]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
         5 LOADK                            R3 K1 ["gameSettingsTabChange"]
         6 NEWTABLE                         R4 2 0
         8 SETTABLEKS                       R0 R4 K2 ["oldTab"]
@@ -285,23 +285,23 @@ PROTO_19:
        13 RETURN                           R0 0
 
 PROTO_20:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
         3 GETIMPORT                        R3 K3 [string.format]
         5 LOADK                            R4 K4 ["GameSettings_%s_UserCount"]
         6 MOVE                             R5 R1
         7 CALL                             R3 2 1
         8 DUPTABLE                         R4 K7 [{"uid", "gameId"}]
         9 SETTABLEKS                       R0 R4 K5 ["uid"]
-       11 GETIMPORT                        R6 K9 [game]
-       13 GETTABLEKS                       R5 R6 K10 ["GameId"]
+       11 GETIMPORT                        R5 K9 [game]
+       13 GETTABLEKS                       R5 R5 K10 ["GameId"]
        15 SETTABLEKS                       R5 R4 K6 ["gameId"]
        17 CALL                             R2 2 0
        18 RETURN                           R0 0
 
 PROTO_21:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventDeferred"]
         3 GETIMPORT                        R4 K3 [string.format]
         5 LOADK                            R5 K4 ["GameSettings_%s%sGiven"]
         6 MOVE                             R6 R1
@@ -309,15 +309,15 @@ PROTO_21:
         8 CALL                             R4 3 1
         9 DUPTABLE                         R5 K7 [{"uid", "gameId"}]
        10 SETTABLEKS                       R0 R5 K5 ["uid"]
-       12 GETIMPORT                        R7 K9 [game]
-       14 GETTABLEKS                       R6 R7 K10 ["GameId"]
+       12 GETIMPORT                        R6 K9 [game]
+       14 GETTABLEKS                       R6 R6 K10 ["GameId"]
        16 SETTABLEKS                       R6 R5 K6 ["gameId"]
        18 CALL                             R3 2 0
        19 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["sendEventDeferred"]
         3 GETIMPORT                        R4 K3 [string.format]
         5 LOADK                            R5 K4 ["GameSettings_%s%sRemoved"]
         6 MOVE                             R6 R1
@@ -325,43 +325,43 @@ PROTO_22:
         8 CALL                             R4 3 1
         9 DUPTABLE                         R5 K7 [{"uid", "gameId"}]
        10 SETTABLEKS                       R0 R5 K5 ["uid"]
-       12 GETIMPORT                        R7 K9 [game]
-       14 GETTABLEKS                       R6 R7 K10 ["GameId"]
+       12 GETIMPORT                        R6 K9 [game]
+       14 GETTABLEKS                       R6 R6 K10 ["GameId"]
        16 SETTABLEKS                       R6 R5 K6 ["gameId"]
        18 CALL                             R3 2 0
        19 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["GameSettings_AccessPermissions_UserAdded"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["GameSettings_AccessPermissions_UserRemoved"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_25:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["GameSettings_AccessPermissions_GroupAdded"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_26:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["GameSettings_AccessPermissions_GroupRemoved"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_27:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportCounter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportCounter"]
         3 LOADK                            R1 K1 ["GameSettings_AccessPermissions_Failed"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -380,8 +380,8 @@ PROTO_28:
        13 GETUPVAL                         R8 0
        14 MUL                              R7 R6 R8
        15 JUMPIFNOTLE                      R7 R0 ; [+13]
-       17 GETUPVAL                         R8 1
-       18 GETTABLEKS                       R7 R8 K5 ["reportCounter"]
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R7 R7 K5 ["reportCounter"]
        20 LOADK                            R9 K6 ["GameSettings_AccessPermissions_NumCollaboratorThreshold_"]
        21 MULK                             R11 R6 K7 [100]
        22 FASTCALL1                        MATH_FLOOR R11 ; [+2]
@@ -391,20 +391,20 @@ PROTO_28:
        27 CALL                             R7 1 0
        28 JUMP                             ; [+2]
        29 FORGLOOP                         R2 2 ; [-17]
-       31 GETUPVAL                         R3 1
-       32 GETTABLEKS                       R2 R3 K11 ["sendEventDeferred"]
+       31 GETUPVAL                         R2 1
+       32 GETTABLEKS                       R2 R2 K11 ["sendEventDeferred"]
        34 LOADK                            R3 K12 ["GameSettings_AccessPermissions_NumCollaborators"]
        35 DUPTABLE                         R4 K15 [{"gameId", "numCollaborators"}]
-       36 GETIMPORT                        R6 K17 [game]
-       38 GETTABLEKS                       R5 R6 K18 ["GameId"]
+       36 GETIMPORT                        R5 K17 [game]
+       38 GETTABLEKS                       R5 R5 K18 ["GameId"]
        40 SETTABLEKS                       R5 R4 K13 ["gameId"]
        42 SETTABLEKS                       R0 R4 K14 ["numCollaborators"]
        44 CALL                             R2 2 0
        45 RETURN                           R0 0
 
 PROTO_29:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
         3 LOADK                            R3 K1 ["GameSettings_SecuritySettingChange"]
         4 DUPTABLE                         R4 K4 [{"settingName", "settingValue"}]
         5 SETTABLEKS                       R0 R4 K2 ["settingName"]
@@ -422,13 +422,13 @@ MAIN:
         9 LOADK                            R3 K4 ["HttpService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Cryo"]
+       23 GETTABLEKS                       R4 R2 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Cryo"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K1 [game]
        30 LOADK                            R6 K12 ["MaxAccessPermissionsCollaborators"]

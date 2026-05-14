@@ -862,8 +862,8 @@ PROTO_1:
      1032 CALL                             R6 -1 -1
      1033 NAMECALL                         R4 R0 K52 ["dispatch"]
      1035 CALL                             R4 -1 0
-     1036 GETUPVAL                         R5 4
-     1037 GETTABLEKS                       R4 R5 K59 ["resolve"]
+     1036 GETUPVAL                         R4 4
+     1037 GETTABLEKS                       R4 R4 K59 ["resolve"]
      1039 NEWTABLE                         R5 0 0
      1041 CALL                             R4 1 -1
      1042 RETURN                           R4 -1
@@ -879,42 +879,42 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
-       13 GETIMPORT                        R4 K5 [require]
-       15 GETTABLEKS                       R5 R1 K6 ["Framework"]
-       17 CALL                             R4 1 1
-       18 GETTABLEKS                       R3 R4 K7 ["Util"]
-       20 GETTABLEKS                       R2 R3 K8 ["Promise"]
+       13 GETIMPORT                        R2 K5 [require]
+       15 GETTABLEKS                       R3 R1 K6 ["Framework"]
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R2 R2 K7 ["Util"]
+       20 GETTABLEKS                       R2 R2 K8 ["Promise"]
        22 GETIMPORT                        R3 K5 [require]
-       24 GETTABLEKS                       R6 R0 K9 ["Src"]
-       26 GETTABLEKS                       R5 R6 K10 ["Actions"]
-       28 GETTABLEKS                       R4 R5 K11 ["NetworkError"]
+       24 GETTABLEKS                       R4 R0 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K10 ["Actions"]
+       28 GETTABLEKS                       R4 R4 K11 ["NetworkError"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K5 [require]
-       33 GETTABLEKS                       R7 R0 K9 ["Src"]
-       35 GETTABLEKS                       R6 R7 K10 ["Actions"]
-       37 GETTABLEKS                       R5 R6 K12 ["SetAllowedAssetTypes"]
+       33 GETTABLEKS                       R5 R0 K9 ["Src"]
+       35 GETTABLEKS                       R5 R5 K10 ["Actions"]
+       37 GETTABLEKS                       R5 R5 K12 ["SetAllowedAssetTypes"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K5 [require]
-       42 GETTABLEKS                       R8 R0 K9 ["Src"]
-       44 GETTABLEKS                       R7 R8 K10 ["Actions"]
-       46 GETTABLEKS                       R6 R7 K13 ["SetAllowedBundleTypes"]
+       42 GETTABLEKS                       R6 R0 K9 ["Src"]
+       44 GETTABLEKS                       R6 R6 K10 ["Actions"]
+       46 GETTABLEKS                       R6 R6 K13 ["SetAllowedBundleTypes"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K5 [require]
-       51 GETTABLEKS                       R9 R0 K9 ["Src"]
-       53 GETTABLEKS                       R8 R9 K7 ["Util"]
-       55 GETTABLEKS                       R7 R8 K14 ["DebugFlags"]
+       51 GETTABLEKS                       R7 R0 K9 ["Src"]
+       53 GETTABLEKS                       R7 R7 K7 ["Util"]
+       55 GETTABLEKS                       R7 R7 K14 ["DebugFlags"]
        57 CALL                             R6 1 1
        58 GETIMPORT                        R7 K5 [require]
-       60 GETTABLEKS                       R11 R0 K9 ["Src"]
-       62 GETTABLEKS                       R10 R11 K7 ["Util"]
-       64 GETTABLEKS                       R9 R10 K15 ["SharedFlags"]
-       66 GETTABLEKS                       R8 R9 K16 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
+       60 GETTABLEKS                       R8 R0 K9 ["Src"]
+       62 GETTABLEKS                       R8 R8 K7 ["Util"]
+       64 GETTABLEKS                       R8 R8 K15 ["SharedFlags"]
+       66 GETTABLEKS                       R8 R8 K16 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
        68 CALL                             R7 1 1
        69 DUPTABLE                         R8 K20 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
        70 DUPTABLE                         R9 K23 [{"minRobux", "maxRobux"}]

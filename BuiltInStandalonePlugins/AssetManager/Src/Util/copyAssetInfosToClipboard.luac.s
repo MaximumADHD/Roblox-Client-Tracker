@@ -30,9 +30,9 @@ PROTO_1:
        15 MOVE                             R16 R11
        16 NAMECALL                         R12 R5 K3 ["getItemField"]
        18 CALL                             R12 4 1
-       19 GETUPVAL                         R15 0
-       20 GETTABLEKS                       R14 R15 K4 ["AssetInfoField"]
-       22 GETTABLEKS                       R13 R14 K5 ["Creator"]
+       19 GETUPVAL                         R13 0
+       20 GETTABLEKS                       R13 R13 K4 ["AssetInfoField"]
+       22 GETTABLEKS                       R13 R13 K5 ["Creator"]
        24 JUMPIFNOTEQ                      R11 R13 ; [+3]
        26 GETTABLEKS                       R12 R12 K6 ["Name"]
        28 JUMPIFNOTEQKNIL                  R12 ; [+2]
@@ -94,21 +94,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Services"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Services"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K10 ["GetService"]
        25 LOADK                            R4 K11 ["StudioService"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R0 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K8 ["Util"]
-       33 GETTABLEKS                       R5 R6 K12 ["convertTableToCsv"]
+       29 GETTABLEKS                       R5 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K8 ["Util"]
+       33 GETTABLEKS                       R5 R5 K12 ["convertTableToCsv"]
        35 CALL                             R4 1 1
        36 DUPCLOSURE                       R5 K13 [PROTO_0]
        37 DUPCLOSURE                       R6 K14 [PROTO_1]

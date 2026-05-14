@@ -6,8 +6,8 @@ PROTO_0:
         5 FORGPREP_INEXT                   R2
         6 MOVE                             R7 R1
         7 LOADK                            R8 K3 ["--"]
-        8 GETUPVAL                         R11 0
-        9 GETTABLEKS                       R9 R11 K4 ["MULTIPART_FORM_BOUNDARY"]
+        8 GETUPVAL                         R9 0
+        9 GETTABLEKS                       R9 R9 K4 ["MULTIPART_FORM_BOUNDARY"]
        11 LOADK                            R10 K5 ["\r\n"]
        12 CONCAT                           R1 R7 R10
        13 GETTABLEKS                       R7 R6 K6 ["type"]
@@ -52,8 +52,8 @@ PROTO_0:
        59 FORGLOOP                         R2 2 [inext] ; [-54]
        61 MOVE                             R2 R1
        62 LOADK                            R3 K3 ["--"]
-       63 GETUPVAL                         R7 0
-       64 GETTABLEKS                       R4 R7 K4 ["MULTIPART_FORM_BOUNDARY"]
+       63 GETUPVAL                         R4 0
+       64 GETTABLEKS                       R4 R4 K4 ["MULTIPART_FORM_BOUNDARY"]
        66 LOADK                            R5 K3 ["--"]
        67 LOADK                            R6 K5 ["\r\n"]
        68 CONCAT                           R1 R2 R6
@@ -61,14 +61,14 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["AssetConfigConstants"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["AssetConfigConstants"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_0]
        19 CAPTURE                          VAL R1

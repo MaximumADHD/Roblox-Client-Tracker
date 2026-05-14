@@ -13,9 +13,9 @@ PROTO_0:
        16 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Conversions"]
-        3 GETTABLEKS                       R1 R2 K1 ["Parts"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Conversions"]
+        3 GETTABLEKS                       R1 R1 K1 ["Parts"]
         5 NEWTABLE                         R2 0 0
         7 GETIMPORT                        R3 K3 [pairs]
         9 MOVE                             R4 R1
@@ -32,9 +32,9 @@ PROTO_1:
 
 PROTO_2:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["Conversions"]
-        5 GETTABLEKS                       R1 R4 K1 ["Parts"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["Conversions"]
+        5 GETTABLEKS                       R1 R1 K1 ["Parts"]
         7 LOADNIL                          R2
         8 LOADNIL                          R3
         9 FORGPREP                         R1
@@ -50,9 +50,9 @@ PROTO_2:
        23 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Conversions"]
-        3 GETTABLEKS                       R1 R2 K1 ["Attachments"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Conversions"]
+        3 GETTABLEKS                       R1 R1 K1 ["Attachments"]
         5 NEWTABLE                         R2 0 0
         7 GETIMPORT                        R3 K3 [pairs]
         9 MOVE                             R4 R1
@@ -68,9 +68,9 @@ PROTO_3:
        22 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Conversions"]
-        3 GETTABLEKS                       R1 R2 K1 ["Joints"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Conversions"]
+        3 GETTABLEKS                       R1 R1 K1 ["Joints"]
         5 NEWTABLE                         R2 0 0
         7 GETIMPORT                        R3 K3 [pairs]
         9 MOVE                             R4 R1
@@ -91,15 +91,15 @@ PROTO_5:
         4 MOVE                             R3 R0
         5 CALL                             R2 1 1
         6 GETIMPORT                        R3 K4 [string.lower]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K5 ["HumanoidKey"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K5 ["HumanoidKey"]
        11 CALL                             R3 1 -1
        12 CALL                             R1 -1 1
        13 JUMPIFNOT                        R1 ; [+2]
        14 LOADB                            R1 1
        15 RETURN                           R1 1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R1 R4 K6 ["HumanoidNames"]
+       16 GETUPVAL                         R1 0
+       17 GETTABLEKS                       R1 R1 K6 ["HumanoidNames"]
        19 LOADNIL                          R2
        20 LOADNIL                          R3
        21 FORGPREP                         R1

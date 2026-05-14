@@ -10,14 +10,14 @@ PROTO_0:
        12 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["sendEventDeferred"]
         3 LOADK                            R1 K1 ["click_experience_questionnaire"]
         4 GETGLOBAL                        R2 K2 ["getAdditionalArgs"]
         6 CALL                             R2 0 -1
         7 CALL                             R0 -1 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K3 ["BuildRobloxUrl"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K3 ["BuildRobloxUrl"]
        11 LOADK                            R1 K4 ["create"]
        12 LOADK                            R2 K5 ["dashboard/creations/experiences/%d/experience-questionnaire"]
        13 GETUPVAL                         R3 2
@@ -37,8 +37,8 @@ PROTO_2:
         5 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BuildRobloxUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BuildRobloxUrl"]
         3 LOADK                            R1 K1 ["create"]
         4 LOADK                            R2 K2 ["dashboard/creations/experiences/%d/configure"]
         5 GETUPVAL                         R3 1
@@ -66,19 +66,19 @@ MAIN:
         9 LOADK                            R3 K4 ["GuiService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R6 R2 K10 ["Src"]
-       25 GETTABLEKS                       R5 R6 K11 ["Network"]
-       27 GETTABLEKS                       R4 R5 K12 ["Http"]
+       23 GETTABLEKS                       R4 R2 K10 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Network"]
+       27 GETTABLEKS                       R4 R4 K12 ["Http"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K9 [require]
-       32 GETTABLEKS                       R7 R2 K10 ["Src"]
-       34 GETTABLEKS                       R6 R7 K13 ["Util"]
-       36 GETTABLEKS                       R5 R6 K14 ["Analytics"]
+       32 GETTABLEKS                       R5 R2 K10 ["Src"]
+       34 GETTABLEKS                       R5 R5 K13 ["Util"]
+       36 GETTABLEKS                       R5 R5 K14 ["Analytics"]
        38 CALL                             R4 1 1
        39 NEWTABLE                         R5 2 0
        41 DUPCLOSURE                       R6 K15 [PROTO_0]

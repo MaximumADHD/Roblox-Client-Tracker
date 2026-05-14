@@ -3,8 +3,8 @@ PROTO_0:
         2 JUMPIFEQKNIL                     R1 ; [+43]
         4 GETTABLEKS                       R1 R0 K0 ["Editable"]
         6 JUMPIF                           R1 ; [+39]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K1 ["createElement"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["createElement"]
        10 GETUPVAL                         R2 1
        11 DUPTABLE                         R3 K7 [{"LayoutOrder", "Size", "SuffixLength", "Text", "TextXAlignment"}]
        12 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
@@ -18,8 +18,8 @@ PROTO_0:
        27 GETIMPORT                        R4 K11 [Enum.TextXAlignment.Left]
        29 SETTABLEKS                       R4 R3 K6 ["TextXAlignment"]
        31 DUPTABLE                         R4 K13 [{"Tooltip"}]
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R5 R6 K1 ["createElement"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K1 ["createElement"]
        35 GETUPVAL                         R6 2
        36 DUPTABLE                         R7 K14 [{"Text"}]
        37 GETTABLEKS                       R8 R0 K8 ["Value"]
@@ -28,8 +28,8 @@ PROTO_0:
        42 SETTABLEKS                       R5 R4 K12 ["Tooltip"]
        44 CALL                             R1 3 -1
        45 RETURN                           R1 -1
-       46 GETUPVAL                         R2 0
-       47 GETTABLEKS                       R1 R2 K1 ["createElement"]
+       46 GETUPVAL                         R1 0
+       47 GETTABLEKS                       R1 R1 K1 ["createElement"]
        49 GETUPVAL                         R2 3
        50 DUPTABLE                         R3 K16 [{"Size", "AutomaticSize", "LayoutOrder"}]
        51 GETTABLEKS                       R4 R0 K3 ["Size"]
@@ -39,8 +39,8 @@ PROTO_0:
        59 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
        61 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
        63 NEWTABLE                         R4 0 1
-       65 GETUPVAL                         R6 0
-       66 GETTABLEKS                       R5 R6 K1 ["createElement"]
+       65 GETUPVAL                         R5 0
+       66 GETTABLEKS                       R5 R5 K1 ["createElement"]
        68 GETUPVAL                         R6 4
        69 DUPTABLE                         R7 K20 [{"AutomaticSize", "OnTextChanged", "Text"}]
        70 GETIMPORT                        R8 K22 [Enum.AutomaticSize.None]
@@ -61,12 +61,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactCompat"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactCompat"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]

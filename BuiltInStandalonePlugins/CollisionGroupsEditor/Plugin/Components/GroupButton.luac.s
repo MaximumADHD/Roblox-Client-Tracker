@@ -32,8 +32,8 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K10 [{"Size", "Padding", "LayoutOrder", "Style", "OnClick", "OnMouseEnter", "OnMouseLeave"}]
         9 GETTABLEKS                       R6 R2 K3 ["Size"]
@@ -46,8 +46,8 @@ PROTO_3:
        22 GETUPVAL                         R7 2
        23 SETTABLEKS                       R7 R6 K11 ["Foreground"]
        25 DUPTABLE                         R7 K20 [{"Image", "Size", "AnchorPoint", "Position", "ScaleType"}]
-       26 GETTABLEKS                       R10 R0 K21 ["state"]
-       28 GETTABLEKS                       R9 R10 K22 ["Hovering"]
+       26 GETTABLEKS                       R9 R0 K21 ["state"]
+       28 GETTABLEKS                       R9 R9 K22 ["Hovering"]
        30 JUMPIFNOT                        R9 ; [+3]
        31 GETTABLEKS                       R8 R2 K23 ["HoveredImage"]
        33 JUMP                             ; [+2]
@@ -82,16 +82,16 @@ PROTO_3:
        80 GETTABLEKS                       R6 R0 K36 ["mouseLeave"]
        82 SETTABLEKS                       R6 R5 K9 ["OnMouseLeave"]
        84 DUPTABLE                         R6 K39 [{"HoverArea", "Tooltip"}]
-       85 GETUPVAL                         R8 0
-       86 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       85 GETUPVAL                         R7 0
+       86 GETTABLEKS                       R7 R7 K2 ["createElement"]
        88 GETUPVAL                         R8 4
        89 DUPTABLE                         R9 K41 [{"Cursor"}]
        90 LOADK                            R10 K42 ["PointingHand"]
        91 SETTABLEKS                       R10 R9 K40 ["Cursor"]
        93 CALL                             R7 2 1
        94 SETTABLEKS                       R7 R6 K37 ["HoverArea"]
-       96 GETUPVAL                         R8 0
-       97 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       96 GETUPVAL                         R7 0
+       97 GETTABLEKS                       R7 R7 K2 ["createElement"]
        99 GETUPVAL                         R8 5
       100 DUPTABLE                         R9 K44 [{"Text"}]
       101 GETTABLEKS                       R10 R1 K45 ["TooltipMessage"]
@@ -103,17 +103,17 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R2 K9 ["UI"]

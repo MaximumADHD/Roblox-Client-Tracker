@@ -1,13 +1,13 @@
 PROTO_0:
         0 NEWTABLE                         R2 0 4
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["Summary"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K1 ["CharacterConversion"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K2 ["AnimationConversion"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["ScriptConversion"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["Summary"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["CharacterConversion"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K2 ["AnimationConversion"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K3 ["ScriptConversion"]
        14 SETLIST                          R2 R3 4 [1]
        16 NEWTABLE                         R3 0 0
        18 MOVE                             R4 R2

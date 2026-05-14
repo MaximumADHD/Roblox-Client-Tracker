@@ -1,14 +1,14 @@
 PROTO_0:
         0 GETIMPORT                        R2 K2 [Vector2.new]
         2 GETTABLEKS                       R5 R0 K3 ["X"]
-        4 GETTABLEKS                       R7 R1 K4 ["Min"]
-        6 GETTABLEKS                       R6 R7 K3 ["X"]
+        4 GETTABLEKS                       R6 R1 K4 ["Min"]
+        6 GETTABLEKS                       R6 R6 K3 ["X"]
         8 SUB                              R4 R5 R6
         9 GETTABLEKS                       R5 R1 K5 ["Width"]
        11 DIV                              R3 R4 R5
        12 GETTABLEKS                       R7 R0 K7 ["Y"]
-       14 GETTABLEKS                       R9 R1 K4 ["Min"]
-       16 GETTABLEKS                       R8 R9 K7 ["Y"]
+       14 GETTABLEKS                       R8 R1 K4 ["Min"]
+       16 GETTABLEKS                       R8 R8 K7 ["Y"]
        18 SUB                              R6 R7 R8
        19 GETTABLEKS                       R7 R1 K8 ["Height"]
        21 DIV                              R5 R6 R7
@@ -18,14 +18,14 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R2 K2 [Vector2.new]
-        2 GETTABLEKS                       R5 R1 K3 ["Min"]
-        4 GETTABLEKS                       R4 R5 K4 ["X"]
+        2 GETTABLEKS                       R4 R1 K3 ["Min"]
+        4 GETTABLEKS                       R4 R4 K4 ["X"]
         6 GETTABLEKS                       R6 R1 K5 ["Width"]
         8 GETTABLEKS                       R7 R0 K4 ["X"]
        10 MUL                              R5 R6 R7
        11 ADD                              R3 R4 R5
-       12 GETTABLEKS                       R6 R1 K3 ["Min"]
-       14 GETTABLEKS                       R5 R6 K6 ["Y"]
+       12 GETTABLEKS                       R5 R1 K3 ["Min"]
+       14 GETTABLEKS                       R5 R5 K6 ["Y"]
        16 GETTABLEKS                       R7 R1 K7 ["Height"]
        18 GETTABLEKS                       R9 R0 K6 ["Y"]
        20 SUBRK                            R8 R8 K9 [NULL]
@@ -35,8 +35,8 @@ PROTO_1:
        24 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["plotToViewPosition"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["plotToViewPosition"]
         3 MOVE                             R5 R0
         4 MOVE                             R6 R1
         5 CALL                             R4 2 1
@@ -44,8 +44,8 @@ PROTO_2:
         7 RETURN                           R3 1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["viewToPlotPosition"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["viewToPlotPosition"]
         3 DIV                              R4 R0 R2
         4 MOVE                             R5 R1
         5 CALL                             R3 2 -1
@@ -58,8 +58,8 @@ PROTO_4:
         4 GETTABLEKS                       R3 R2 K1 ["AbsoluteSize"]
         6 GETTABLEKS                       R5 R2 K2 ["AbsolutePosition"]
         8 SUB                              R4 R0 R5
-        9 GETUPVAL                         R6 0
-       10 GETTABLEKS                       R5 R6 K3 ["absoluteToPlotPosition"]
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R5 R5 K3 ["absoluteToPlotPosition"]
        12 MOVE                             R6 R4
        13 MOVE                             R7 R1
        14 MOVE                             R8 R3
@@ -70,25 +70,25 @@ PROTO_5:
         0 ORK                              R2 R2 K0 [0.001]
         1 LOADB                            R3 0
         2 GETTABLEKS                       R4 R0 K1 ["X"]
-        4 GETTABLEKS                       R7 R1 K2 ["Min"]
-        6 GETTABLEKS                       R6 R7 K1 ["X"]
+        4 GETTABLEKS                       R6 R1 K2 ["Min"]
+        6 GETTABLEKS                       R6 R6 K1 ["X"]
         8 SUB                              R5 R6 R2
         9 JUMPIFNOTLE                      R5 R4 ; [+32]
        11 LOADB                            R3 0
        12 GETTABLEKS                       R4 R0 K1 ["X"]
-       14 GETTABLEKS                       R7 R1 K3 ["Max"]
-       16 GETTABLEKS                       R6 R7 K1 ["X"]
+       14 GETTABLEKS                       R6 R1 K3 ["Max"]
+       16 GETTABLEKS                       R6 R6 K1 ["X"]
        18 ADD                              R5 R6 R2
        19 JUMPIFNOTLE                      R4 R5 ; [+22]
        21 LOADB                            R3 0
        22 GETTABLEKS                       R4 R0 K4 ["Y"]
-       24 GETTABLEKS                       R7 R1 K2 ["Min"]
-       26 GETTABLEKS                       R6 R7 K4 ["Y"]
+       24 GETTABLEKS                       R6 R1 K2 ["Min"]
+       26 GETTABLEKS                       R6 R6 K4 ["Y"]
        28 SUB                              R5 R6 R2
        29 JUMPIFNOTLE                      R5 R4 ; [+12]
        31 GETTABLEKS                       R4 R0 K4 ["Y"]
-       33 GETTABLEKS                       R7 R1 K3 ["Max"]
-       35 GETTABLEKS                       R6 R7 K4 ["Y"]
+       33 GETTABLEKS                       R6 R1 K3 ["Max"]
+       35 GETTABLEKS                       R6 R6 K4 ["Y"]
        37 ADD                              R5 R6 R2
        38 JUMPIFLE                         R4 R5 ; [+2]
        40 LOADB                            R3 0 +1
@@ -120,15 +120,15 @@ PROTO_6:
        38 GETIMPORT                        R6 K9 [math.max]
        40 CALL                             R6 2 1
        41 CALL                             R4 2 1
-       42 GETUPVAL                         R6 0
-       43 GETTABLEKS                       R5 R6 K10 ["rectContains"]
+       42 GETUPVAL                         R5 0
+       43 GETTABLEKS                       R5 R5 K10 ["rectContains"]
        45 MOVE                             R6 R0
        46 MOVE                             R7 R2
        47 LOADK                            R8 K11 [0.001]
        48 CALL                             R5 3 1
        49 JUMPIFNOT                        R5 ; [+15]
-       50 GETUPVAL                         R6 0
-       51 GETTABLEKS                       R5 R6 K10 ["rectContains"]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K10 ["rectContains"]
        53 MOVE                             R6 R1
        54 MOVE                             R7 R2
        55 LOADK                            R8 K11 [0.001]
@@ -140,20 +140,20 @@ PROTO_6:
        62 SETLIST                          R5 R6 2 [1]
        64 RETURN                           R5 1
        65 GETTABLEKS                       R5 R4 K3 ["X"]
-       67 GETTABLEKS                       R7 R2 K12 ["Min"]
-       69 GETTABLEKS                       R6 R7 K3 ["X"]
+       67 GETTABLEKS                       R6 R2 K12 ["Min"]
+       69 GETTABLEKS                       R6 R6 K3 ["X"]
        71 JUMPIFLT                         R5 R6 ; [+25]
        73 GETTABLEKS                       R5 R4 K7 ["Y"]
-       75 GETTABLEKS                       R7 R2 K12 ["Min"]
-       77 GETTABLEKS                       R6 R7 K7 ["Y"]
+       75 GETTABLEKS                       R6 R2 K12 ["Min"]
+       77 GETTABLEKS                       R6 R6 K7 ["Y"]
        79 JUMPIFLT                         R5 R6 ; [+17]
        81 GETTABLEKS                       R5 R3 K3 ["X"]
-       83 GETTABLEKS                       R7 R2 K13 ["Max"]
-       85 GETTABLEKS                       R6 R7 K3 ["X"]
+       83 GETTABLEKS                       R6 R2 K13 ["Max"]
+       85 GETTABLEKS                       R6 R6 K3 ["X"]
        87 JUMPIFLT                         R6 R5 ; [+9]
        89 GETTABLEKS                       R5 R3 K7 ["Y"]
-       91 GETTABLEKS                       R7 R2 K13 ["Max"]
-       93 GETTABLEKS                       R6 R7 K7 ["Y"]
+       91 GETTABLEKS                       R6 R2 K13 ["Max"]
+       93 GETTABLEKS                       R6 R6 K7 ["Y"]
        95 JUMPIFNOTLT                      R6 R5 ; [+3]
        97 LOADNIL                          R5
        98 RETURN                           R5 1
@@ -169,8 +169,8 @@ PROTO_6:
       110 GETTABLEKS                       R8 R5 K3 ["X"]
       112 JUMPIFEQKN                       R8 K14 [0] ; [+33]
       114 GETIMPORT                        R8 K2 [Vector2.new]
-      116 GETTABLEKS                       R12 R2 K12 ["Min"]
-      118 GETTABLEKS                       R11 R12 K3 ["X"]
+      116 GETTABLEKS                       R11 R2 K12 ["Min"]
+      118 GETTABLEKS                       R11 R11 K3 ["X"]
       120 GETTABLEKS                       R12 R0 K3 ["X"]
       122 SUB                              R10 R11 R12
       123 GETTABLEKS                       R11 R5 K3 ["X"]
@@ -179,8 +179,8 @@ PROTO_6:
       128 CALL                             R8 2 1
       129 MOVE                             R6 R8
       130 GETIMPORT                        R8 K2 [Vector2.new]
-      132 GETTABLEKS                       R12 R2 K13 ["Max"]
-      134 GETTABLEKS                       R11 R12 K3 ["X"]
+      132 GETTABLEKS                       R11 R2 K13 ["Max"]
+      134 GETTABLEKS                       R11 R11 K3 ["X"]
       136 GETTABLEKS                       R12 R0 K3 ["X"]
       138 SUB                              R10 R11 R12
       139 GETTABLEKS                       R11 R5 K3 ["X"]
@@ -192,8 +192,8 @@ PROTO_6:
       148 JUMPIFEQKN                       R8 K14 [0] ; [+33]
       150 GETIMPORT                        R8 K2 [Vector2.new]
       152 GETTABLEKS                       R9 R6 K3 ["X"]
-      154 GETTABLEKS                       R13 R2 K12 ["Min"]
-      156 GETTABLEKS                       R12 R13 K7 ["Y"]
+      154 GETTABLEKS                       R12 R2 K12 ["Min"]
+      156 GETTABLEKS                       R12 R12 K7 ["Y"]
       158 GETTABLEKS                       R13 R0 K7 ["Y"]
       160 SUB                              R11 R12 R13
       161 GETTABLEKS                       R12 R5 K7 ["Y"]
@@ -202,8 +202,8 @@ PROTO_6:
       165 MOVE                             R6 R8
       166 GETIMPORT                        R8 K2 [Vector2.new]
       168 GETTABLEKS                       R9 R7 K3 ["X"]
-      170 GETTABLEKS                       R13 R2 K13 ["Max"]
-      172 GETTABLEKS                       R12 R13 K7 ["Y"]
+      170 GETTABLEKS                       R12 R2 K13 ["Max"]
+      172 GETTABLEKS                       R12 R12 K7 ["Y"]
       174 GETTABLEKS                       R13 R0 K7 ["Y"]
       176 SUB                              R11 R12 R13
       177 GETTABLEKS                       R12 R5 K7 ["Y"]

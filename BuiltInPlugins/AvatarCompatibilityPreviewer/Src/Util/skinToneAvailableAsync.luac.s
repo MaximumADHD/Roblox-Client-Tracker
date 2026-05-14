@@ -25,8 +25,8 @@ PROTO_1:
 
 PROTO_2:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R2 R5 K0 ["LIMBS"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["LIMBS"]
         5 LOADNIL                          R3
         6 LOADNIL                          R4
         7 FORGPREP                         R2
@@ -61,8 +61,8 @@ PROTO_2:
        50 JUMPIFNOTEQKNIL                  R8 ; [+2]
        52 LOADB                            R10 0 +1
        53 LOADB                            R10 1
-       54 GETUPVAL                         R12 0
-       55 GETTABLEKS                       R11 R12 K12 ["LUAU_ANALYZE_ERROR"]
+       54 GETUPVAL                         R11 0
+       55 GETTABLEKS                       R11 R11 K12 ["LUAU_ANALYZE_ERROR"]
        57 FASTCALL2                        ASSERT R10 R11 ; [+3]
        59 GETIMPORT                        R9 K6 [assert]
        61 CALL                             R9 2 0
@@ -114,13 +114,13 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["Constants"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["Constants"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R5 R1 K10 ["Src"]
-       26 GETTABLEKS                       R4 R5 K13 ["Types"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K13 ["Types"]
        28 CALL                             R3 1 1
        29 DUPCLOSURE                       R4 K14 [PROTO_0]
        30 DUPCLOSURE                       R5 K15 [PROTO_2]

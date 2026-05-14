@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["validate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["validate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 2
         5 JUMPIF                           R1 ; [+11]
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K1 ["reject"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K1 ["reject"]
         9 LOADK                            R5 K2 ["GetVersionHistoryModel: %*"]
        10 MOVE                             R7 R2
        11 NAMECALL                         R5 R5 K3 ["format"]
@@ -35,8 +35,8 @@ PROTO_0:
        48 CALL                             R10 1 1
        49 JUMPIFNOT                        R9 ; [+1]
        50 JUMPIF                           R10 ; [+6]
-       51 GETUPVAL                         R12 1
-       52 GETTABLEKS                       R11 R12 K1 ["reject"]
+       51 GETUPVAL                         R11 1
+       52 GETTABLEKS                       R11 R11 K1 ["reject"]
        54 LOADK                            R12 K17 ["GetVersionHistoryModel: invalid version or date"]
        55 CALL                             R11 1 -1
        56 RETURN                           R11 -1
@@ -86,15 +86,15 @@ PROTO_0:
       127 GETIMPORT                        R11 K35 [table.insert]
       129 CALL                             R11 2 0
       130 FORGLOOP                         R4 2 ; [-93]
-      132 GETUPVAL                         R5 1
-      133 GETTABLEKS                       R4 R5 K36 ["resolve"]
+      132 GETUPVAL                         R4 1
+      133 GETTABLEKS                       R4 R4 K36 ["resolve"]
       135 MOVE                             R5 R3
       136 CALL                             R4 1 -1
       137 RETURN                           R4 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Request"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Request"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 1
         5 DUPCLOSURE                       R2 K1 [PROTO_0]
@@ -110,10 +110,10 @@ PROTO_2:
         0 DUPTABLE                         R1 K3 [{"Method", "Url", "Headers"}]
         1 LOADK                            R2 K4 ["GET"]
         2 SETTABLEKS                       R2 R1 K0 ["Method"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K5 ["composeUrl"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K6 ["APIS_URL"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K5 ["composeUrl"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K6 ["APIS_URL"]
        10 LOADK                            R5 K7 ["place-version-history-api/v1/%*/history"]
        11 GETTABLEKS                       R7 R0 K8 ["placeId"]
        13 NAMECALL                         R5 R5 K9 ["format"]
@@ -163,8 +163,8 @@ PROTO_2:
        86 LOADB                            R2 0 +1
        87 LOADB                            R2 1
        88 JUMPIFNOT                        R2 ; [+5]
-       89 GETUPVAL                         R5 2
-       90 GETTABLEKS                       R4 R5 K27 ["FIntPVHFirstPageDelayMs"]
+       89 GETUPVAL                         R4 2
+       90 GETTABLEKS                       R4 R4 K27 ["FIntPVHFirstPageDelayMs"]
        92 DIVK                             R3 R4 K26 [1000]
        93 JUMP                             ; [+1]
        94 LOADN                            R3 0
@@ -210,8 +210,8 @@ PROTO_2:
       157 SETTABLEKS                       R8 R7 K35 ["searchTermLength"]
       159 NAMECALL                         R4 R4 K40 ["logRobloxTelemetryEvent"]
       161 CALL                             R4 3 0
-      162 GETUPVAL                         R5 5
-      163 GETTABLEKS                       R4 R5 K41 ["delay"]
+      162 GETUPVAL                         R4 5
+      163 GETTABLEKS                       R4 R4 K41 ["delay"]
       165 MOVE                             R5 R3
       166 CALL                             R4 1 1
       167 NEWCLOSURE                       R6 P0
@@ -232,33 +232,33 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R3 R4 K7 ["Common"]
-       13 GETTABLEKS                       R2 R3 K8 ["flags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["flags"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["Promise"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["Promise"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["TelemetryProtocol"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["TelemetryProtocol"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R6 R0 K13 ["Src"]
-       39 GETTABLEKS                       R5 R6 K14 ["Contexts"]
+       37 GETTABLEKS                       R5 R0 K13 ["Src"]
+       39 GETTABLEKS                       R5 R5 K14 ["Contexts"]
        41 GETIMPORT                        R6 K5 [require]
        43 GETTABLEKS                       R7 R5 K15 ["NetworkContext"]
        45 CALL                             R6 1 1
-       46 GETTABLEKS                       R8 R2 K16 ["RobloxAPI"]
-       48 GETTABLEKS                       R7 R8 K17 ["Url"]
+       46 GETTABLEKS                       R7 R2 K16 ["RobloxAPI"]
+       48 GETTABLEKS                       R7 R7 K17 ["Url"]
        50 GETTABLEKS                       R8 R7 K18 ["new"]
        52 CALL                             R8 0 1
-       53 GETTABLEKS                       R10 R0 K13 ["Src"]
-       55 GETTABLEKS                       R9 R10 K19 ["Network"]
+       53 GETTABLEKS                       R9 R0 K13 ["Src"]
+       55 GETTABLEKS                       R9 R9 K19 ["Network"]
        57 GETIMPORT                        R10 K5 [require]
        59 GETTABLEKS                       R11 R9 K20 ["Http"]
        61 CALL                             R10 1 1
@@ -267,14 +267,14 @@ MAIN:
        66 CALL                             R11 1 1
        67 GETTABLEKS                       R12 R4 K18 ["new"]
        69 CALL                             R12 0 1
-       70 GETTABLEKS                       R14 R0 K13 ["Src"]
-       72 GETTABLEKS                       R13 R14 K22 ["Events"]
+       70 GETTABLEKS                       R13 R0 K13 ["Src"]
+       72 GETTABLEKS                       R13 R13 K22 ["Events"]
        74 GETIMPORT                        R14 K5 [require]
        76 GETTABLEKS                       R15 R13 K23 ["GetHistoryEvent"]
        78 CALL                             R14 1 1
        79 GETIMPORT                        R15 K5 [require]
-       81 GETTABLEKS                       R17 R0 K13 ["Src"]
-       83 GETTABLEKS                       R16 R17 K24 ["Types"]
+       81 GETTABLEKS                       R16 R0 K13 ["Src"]
+       83 GETTABLEKS                       R16 R16 K24 ["Types"]
        85 CALL                             R15 1 1
        86 NEWTABLE                         R16 4 0
        88 LOADN                            R17 1

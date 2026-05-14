@@ -37,8 +37,8 @@ PROTO_1:
        12 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -52,16 +52,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Promise"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Promise"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K9 [game]
        16 LOADK                            R4 K10 ["HttpService"]
        17 NAMECALL                         R2 R2 K11 ["GetService"]
        19 CALL                             R2 2 1
        20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R5 R0 K12 ["Src"]
-       24 GETTABLEKS                       R4 R5 K13 ["Types"]
+       22 GETTABLEKS                       R4 R0 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Types"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K14 [PROTO_2]
        28 CAPTURE                          VAL R1

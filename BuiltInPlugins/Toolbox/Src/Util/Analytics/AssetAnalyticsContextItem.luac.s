@@ -2,8 +2,8 @@ PROTO_0:
         0 DUPTABLE                         R1 K1 [{"assetAnalytics"}]
         1 MOVE                             R2 R0
         2 JUMPIF                           R2 ; [+4]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K2 ["new"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K2 ["new"]
         6 CALL                             R2 0 1
         7 SETTABLEKS                       R2 R1 K0 ["assetAnalytics"]
         9 GETUPVAL                         R4 1
@@ -19,22 +19,22 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Framework"]
        17 CALL                             R2 1 1
-       18 GETTABLEKS                       R4 R2 K7 ["ContextServices"]
-       20 GETTABLEKS                       R3 R4 K8 ["ContextItem"]
+       18 GETTABLEKS                       R3 R2 K7 ["ContextServices"]
+       20 GETTABLEKS                       R3 R3 K8 ["ContextItem"]
        22 GETIMPORT                        R4 K5 [require]
-       24 GETTABLEKS                       R8 R0 K9 ["Src"]
-       26 GETTABLEKS                       R7 R8 K10 ["Util"]
-       28 GETTABLEKS                       R6 R7 K11 ["Analytics"]
-       30 GETTABLEKS                       R5 R6 K12 ["AssetAnalytics"]
+       24 GETTABLEKS                       R5 R0 K9 ["Src"]
+       26 GETTABLEKS                       R5 R5 K10 ["Util"]
+       28 GETTABLEKS                       R5 R5 K11 ["Analytics"]
+       30 GETTABLEKS                       R5 R5 K12 ["AssetAnalytics"]
        32 CALL                             R4 1 1
        33 LOADK                            R7 K12 ["AssetAnalytics"]
        34 NAMECALL                         R5 R3 K13 ["extend"]

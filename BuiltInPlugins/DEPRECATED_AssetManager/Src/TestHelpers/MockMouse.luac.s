@@ -14,12 +14,12 @@ PROTO_0:
        17 SETTABLEKS                       R2 R1 K1 ["UnitRay"]
        19 LOADNIL                          R2
        20 SETTABLEKS                       R2 R1 K2 ["Target"]
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K7 ["new"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K7 ["new"]
        25 CALL                             R2 0 1
        26 SETTABLEKS                       R2 R1 K3 ["WheelForward"]
-       28 GETUPVAL                         R3 0
-       29 GETTABLEKS                       R2 R3 K7 ["new"]
+       28 GETUPVAL                         R2 0
+       29 GETTABLEKS                       R2 R2 K7 ["new"]
        31 CALL                             R2 0 1
        32 SETTABLEKS                       R2 R1 K4 ["WheelBackward"]
        34 GETUPVAL                         R2 1
@@ -30,16 +30,16 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Signal"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Signal"]
        20 NEWTABLE                         R3 2 0
        22 SETTABLEKS                       R3 R3 K9 ["__index"]
        24 DUPCLOSURE                       R4 K10 [PROTO_0]

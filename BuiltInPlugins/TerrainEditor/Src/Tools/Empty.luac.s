@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["form"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["form"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 NEWTABLE                         R2 0 0
@@ -23,18 +23,18 @@ PROTO_0:
        27 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["_overrides"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["UpgradeSettings"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["_overrides"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K1 ["UpgradeSettings"]
         6 GETTABLE                         R2 R3 R4
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R3 R4 K2 ["SmoothVoxels"]
+        7 GETUPVAL                         R3 2
+        8 GETTABLEKS                       R3 R3 K2 ["SmoothVoxels"]
        10 GETTABLE                         R1 R2 R3
        11 NOT                              R2 R0
        12 SETTABLEKS                       R2 R1 K3 ["Hidden"]
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K4 ["OnInternalsChanged"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K4 ["OnInternalsChanged"]
        17 NAMECALL                         R1 R1 K5 ["Fire"]
        19 CALL                             R1 1 0
        20 RETURN                           R0 0
@@ -45,23 +45,23 @@ PROTO_2:
         3 CALL                             R0 1 1
         4 GETUPVAL                         R1 0
         5 GETUPVAL                         R2 1
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["_localization"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["_localization"]
         9 LOADK                            R5 K2 ["Operations"]
        10 LOADK                            R7 K3 ["%*Name"]
-       11 GETUPVAL                         R10 2
-       12 GETTABLEKS                       R9 R10 K4 ["SmoothVoxels"]
+       11 GETUPVAL                         R9 2
+       12 GETTABLEKS                       R9 R9 K4 ["SmoothVoxels"]
        14 NAMECALL                         R7 R7 K5 ["format"]
        16 CALL                             R7 2 1
        17 MOVE                             R6 R7
        18 NAMECALL                         R3 R3 K6 ["getText"]
        20 CALL                             R3 3 1
-       21 GETUPVAL                         R5 0
-       22 GETTABLEKS                       R4 R5 K1 ["_localization"]
+       21 GETUPVAL                         R4 0
+       22 GETTABLEKS                       R4 R4 K1 ["_localization"]
        24 LOADK                            R6 K2 ["Operations"]
        25 LOADK                            R8 K7 ["%*Description"]
-       26 GETUPVAL                         R11 2
-       27 GETTABLEKS                       R10 R11 K4 ["SmoothVoxels"]
+       26 GETUPVAL                         R10 2
+       27 GETTABLEKS                       R10 R10 K4 ["SmoothVoxels"]
        29 NAMECALL                         R8 R8 K5 ["format"]
        31 CALL                             R8 2 1
        32 MOVE                             R7 R8
@@ -74,31 +74,31 @@ PROTO_2:
        40 CAPTURE                          UPVAL U2
        41 CALL                             R2 4 1
        42 SETTABLEKS                       R2 R1 K8 ["_operation"]
-       44 GETUPVAL                         R2 0
-       45 GETTABLEKS                       R1 R2 K8 ["_operation"]
+       44 GETUPVAL                         R1 0
+       45 GETTABLEKS                       R1 R1 K8 ["_operation"]
        47 DUPTABLE                         R3 K10 [{"Payload"}]
        48 SETTABLEKS                       R0 R3 K9 ["Payload"]
        50 NAMECALL                         R1 R1 K11 ["start"]
        52 CALL                             R1 2 0
-       53 GETUPVAL                         R2 0
-       54 GETTABLEKS                       R1 R2 K12 ["OnOperationChanged"]
+       53 GETUPVAL                         R1 0
+       54 GETTABLEKS                       R1 R1 K12 ["OnOperationChanged"]
        56 NAMECALL                         R1 R1 K13 ["Fire"]
        58 CALL                             R1 1 0
        59 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["init"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["init"]
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 MOVE                             R6 R2
         6 CALL                             R3 3 0
         7 NEWTABLE                         R3 1 0
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K1 ["UpgradeSettings"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K1 ["UpgradeSettings"]
        12 NEWTABLE                         R5 1 0
-       14 GETUPVAL                         R7 2
-       15 GETTABLEKS                       R6 R7 K2 ["SmoothVoxels"]
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R6 R6 K2 ["SmoothVoxels"]
        17 GETUPVAL                         R8 3
        18 CALL                             R8 0 1
        19 JUMPIFNOT                        R8 ; [+35]
@@ -144,18 +144,18 @@ PROTO_5:
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+26]
         3 GETTABLEKS                       R3 R0 K0 ["_overrides"]
-        5 GETUPVAL                         R5 1
-        6 GETTABLEKS                       R4 R5 K1 ["UpgradeSettings"]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R4 R4 K1 ["UpgradeSettings"]
         8 GETTABLE                         R2 R3 R4
-        9 GETUPVAL                         R4 2
-       10 GETTABLEKS                       R3 R4 K2 ["SmoothVoxels"]
+        9 GETUPVAL                         R3 2
+       10 GETTABLEKS                       R3 R3 K2 ["SmoothVoxels"]
        12 GETTABLE                         R1 R2 R3
-       13 GETTABLEKS                       R4 R0 K3 ["_services"]
-       15 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+       13 GETTABLEKS                       R3 R0 K3 ["_services"]
+       15 GETTABLEKS                       R3 R3 K4 ["Terrain"]
        17 NOT                              R2 R3
        18 JUMPIF                           R2 ; [+8]
-       19 GETTABLEKS                       R4 R0 K3 ["_services"]
-       21 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+       19 GETTABLEKS                       R3 R0 K3 ["_services"]
+       21 GETTABLEKS                       R3 R3 K4 ["Terrain"]
        23 NAMECALL                         R3 R3 K5 ["CanSmoothVoxelsBeUpgraded"]
        25 CALL                             R3 1 1
        26 NOT                              R2 R3
@@ -178,17 +178,17 @@ PROTO_7:
         4 RETURN                           R0 0
 
 PROTO_8:
-        0 GETTABLEKS                       R3 R0 K0 ["_services"]
-        2 GETTABLEKS                       R2 R3 K1 ["ChangeHistoryService"]
-        4 GETTABLEKS                       R1 R2 K2 ["OnUndo"]
+        0 GETTABLEKS                       R1 R0 K0 ["_services"]
+        2 GETTABLEKS                       R1 R1 K1 ["ChangeHistoryService"]
+        4 GETTABLEKS                       R1 R1 K2 ["OnUndo"]
         6 NEWCLOSURE                       R3 P0
         7 CAPTURE                          VAL R0
         8 NAMECALL                         R1 R1 K3 ["Connect"]
        10 CALL                             R1 2 1
        11 SETTABLEKS                       R1 R0 K4 ["_changeHistoryOnUndoConnection"]
-       13 GETTABLEKS                       R3 R0 K0 ["_services"]
-       15 GETTABLEKS                       R2 R3 K1 ["ChangeHistoryService"]
-       17 GETTABLEKS                       R1 R2 K5 ["OnRedo"]
+       13 GETTABLEKS                       R1 R0 K0 ["_services"]
+       15 GETTABLEKS                       R1 R1 K1 ["ChangeHistoryService"]
+       17 GETTABLEKS                       R1 R1 K5 ["OnRedo"]
        19 NEWCLOSURE                       R3 P1
        20 CAPTURE                          VAL R0
        21 NAMECALL                         R1 R1 K3 ["Connect"]
@@ -197,8 +197,8 @@ PROTO_8:
        26 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["activate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["activate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 NAMECALL                         R1 R0 K1 ["createConnections"]
@@ -208,8 +208,8 @@ PROTO_9:
        11 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["deactivate"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["deactivate"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 GETTABLEKS                       R1 R0 K1 ["_changeHistoryOnUndoConnection"]
@@ -235,28 +235,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R4 K1 [script]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K7 ["BaseTool"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["BaseTool"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K8 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K8 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K10 ["Category"]
        25 GETTABLEKS                       R4 R2 K11 ["Tab"]
        27 GETTABLEKS                       R5 R2 K12 ["Tool"]
        29 GETTABLEKS                       R6 R2 K13 ["UpgradeSettings"]
-       31 GETTABLEKS                       R9 R0 K8 ["Src"]
-       33 GETTABLEKS                       R8 R9 K14 ["Util"]
-       35 GETTABLEKS                       R7 R8 K15 ["Operations"]
+       31 GETTABLEKS                       R7 R0 K8 ["Src"]
+       33 GETTABLEKS                       R7 R7 K14 ["Util"]
+       35 GETTABLEKS                       R7 R7 K15 ["Operations"]
        37 GETIMPORT                        R8 K5 [require]
        39 GETTABLEKS                       R9 R7 K16 ["SmoothVoxelsOperation"]
        41 CALL                             R8 1 1
        42 GETIMPORT                        R9 K5 [require]
-       44 GETTABLEKS                       R12 R0 K8 ["Src"]
-       46 GETTABLEKS                       R11 R12 K17 ["Flags"]
-       48 GETTABLEKS                       R10 R11 K18 ["getFFlagSmoothVoxels_Tooling"]
+       44 GETTABLEKS                       R10 R0 K8 ["Src"]
+       46 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       48 GETTABLEKS                       R10 R10 K18 ["getFFlagSmoothVoxels_Tooling"]
        50 CALL                             R9 1 1
        51 NEWTABLE                         R10 0 1
        53 DUPTABLE                         R11 K21 [{"Defaults", "Id"}]

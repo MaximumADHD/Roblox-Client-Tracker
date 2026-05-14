@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 RETURN                           R0 0
 
 PROTO_1:
@@ -34,8 +34,8 @@ PROTO_8:
         8 NAMECALL                         R4 R4 K6 ["GetClientId"]
        10 CALL                             R4 1 1
        11 SETTABLEKS                       R4 R3 K1 ["clientId"]
-       13 GETIMPORT                        R5 K8 [game]
-       15 GETTABLEKS                       R4 R5 K9 ["PlaceId"]
+       13 GETIMPORT                        R4 K8 [game]
+       15 GETTABLEKS                       R4 R4 K9 ["PlaceId"]
        17 SETTABLEKS                       R4 R3 K2 ["placeId"]
        19 GETUPVAL                         R4 1
        20 NAMECALL                         R4 R4 K10 ["GetUserId"]
@@ -47,8 +47,8 @@ PROTO_8:
        29 FORGPREP_NEXT                    R4
        30 SETTABLE                         R8 R3 R7
        31 FORGLOOP                         R4 2 ; [-2]
-       33 GETUPVAL                         R5 2
-       34 GETTABLEKS                       R4 R5 K13 ["LogAnalytics"]
+       33 GETUPVAL                         R4 2
+       34 GETTABLEKS                       R4 R4 K13 ["LogAnalytics"]
        36 CALL                             R4 0 1
        37 JUMPIFNOT                        R4 ; [+18]
        38 GETIMPORT                        R4 K15 [print]
@@ -75,8 +75,8 @@ PROTO_8:
        64 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["LogAnalytics"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["LogAnalytics"]
         3 CALL                             R3 0 1
         4 JUMPIFNOT                        R3 ; [+18]
         5 GETIMPORT                        R3 K2 [print]
@@ -137,12 +137,12 @@ MAIN:
        21 LOADK                            R5 K6 ["StudioService"]
        22 NAMECALL                         R3 R3 K3 ["GetService"]
        24 CALL                             R3 2 1
-       25 GETIMPORT                        R6 K8 [script]
-       27 GETTABLEKS                       R5 R6 K9 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K9 ["Parent"]
+       25 GETIMPORT                        R4 K8 [script]
+       27 GETTABLEKS                       R4 R4 K9 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K9 ["Parent"]
        31 GETIMPORT                        R5 K11 [require]
-       33 GETTABLEKS                       R7 R4 K12 ["Utility"]
-       35 GETTABLEKS                       R6 R7 K13 ["DebugFlags"]
+       33 GETTABLEKS                       R6 R4 K12 ["Utility"]
+       35 GETTABLEKS                       R6 R6 K13 ["DebugFlags"]
        37 CALL                             R5 1 1
        38 NEWTABLE                         R6 4 0
        40 GETIMPORT                        R7 K15 [pcall]

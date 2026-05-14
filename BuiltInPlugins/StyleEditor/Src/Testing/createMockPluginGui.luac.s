@@ -4,8 +4,8 @@ PROTO_0:
         3 GETVARARGS                       R1 -1
         4 SETLIST                          R0 R1 -1 [1]
         6 GETUPVAL                         R1 0
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K0 ["_screenGui"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K0 ["_screenGui"]
        10 LOADN                            R5 2
        11 LENGTH                           R6 R0
        12 FASTCALL3                        TABLE_UNPACK R0 R5 R6
@@ -48,12 +48,12 @@ PROTO_3:
         5 CALL                             R1 1 1
         6 DUPTABLE                         R2 K7 [{"_screenGui", "_windowFocused", "_windowFocusReleased"}]
         7 SETTABLEKS                       R1 R2 K4 ["_screenGui"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K1 ["new"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K1 ["new"]
        12 CALL                             R3 0 1
        13 SETTABLEKS                       R3 R2 K5 ["_windowFocused"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K1 ["new"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K1 ["new"]
        18 CALL                             R3 0 1
        19 SETTABLEKS                       R3 R2 K6 ["_windowFocusReleased"]
        21 DUPTABLE                         R5 K10 [{"__index", "__newIndex"}]
@@ -69,16 +69,16 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Signal"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Signal"]
        20 DUPCLOSURE                       R3 K9 [PROTO_3]
        21 CAPTURE                          VAL R2
        22 RETURN                           R3 1

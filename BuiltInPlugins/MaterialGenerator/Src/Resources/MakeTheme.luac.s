@@ -1,13 +1,13 @@
 PROTO_0:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+6]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["mock"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["mock"]
         5 CALL                             R2 0 1
         6 MOVE                             R1 R2
         7 JUMP                             ; [+5]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K1 ["new"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K1 ["new"]
        11 CALL                             R2 0 1
        12 MOVE                             R1 R2
        13 GETUPVAL                         R4 1
@@ -17,21 +17,21 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Dash"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Dash"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["MaterialFramework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["MaterialFramework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R2 K9 ["Style"]
        32 GETTABLEKS                       R5 R4 K10 ["StyleKey"]
@@ -40,18 +40,18 @@ MAIN:
        38 GETTABLEKS                       R8 R2 K13 ["UI"]
        40 GETTABLEKS                       R9 R8 K14 ["Image"]
        42 GETIMPORT                        R10 K4 [require]
-       44 GETTABLEKS                       R13 R0 K15 ["Src"]
-       46 GETTABLEKS                       R12 R13 K16 ["Flags"]
-       48 GETTABLEKS                       R11 R12 K17 ["getFFlagMaterialGeneratorSupportVariations2"]
+       44 GETTABLEKS                       R11 R0 K15 ["Src"]
+       46 GETTABLEKS                       R11 R11 K16 ["Flags"]
+       48 GETTABLEKS                       R11 R11 K17 ["getFFlagMaterialGeneratorSupportVariations2"]
        50 CALL                             R10 1 1
-       51 GETTABLEKS                       R12 R2 K18 ["Util"]
-       53 GETTABLEKS                       R11 R12 K19 ["StyleModifier"]
-       55 GETTABLEKS                       R13 R3 K20 ["Resources"]
-       57 GETTABLEKS                       R12 R13 K21 ["Theme"]
+       51 GETTABLEKS                       R11 R2 K18 ["Util"]
+       53 GETTABLEKS                       R11 R11 K19 ["StyleModifier"]
+       55 GETTABLEKS                       R12 R3 K20 ["Resources"]
+       57 GETTABLEKS                       R12 R12 K21 ["Theme"]
        59 GETIMPORT                        R13 K4 [require]
-       61 GETTABLEKS                       R16 R0 K15 ["Src"]
-       63 GETTABLEKS                       R15 R16 K20 ["Resources"]
-       65 GETTABLEKS                       R14 R15 K21 ["Theme"]
+       61 GETTABLEKS                       R14 R0 K15 ["Src"]
+       63 GETTABLEKS                       R14 R14 K20 ["Resources"]
+       65 GETTABLEKS                       R14 R14 K21 ["Theme"]
        67 CALL                             R13 1 1
        68 DUPTABLE                         R14 K24 [{"Image", "Color", "Size"}]
        69 LOADK                            R15 K25 ["rbxasset://textures/DevConsole/Close.png"]

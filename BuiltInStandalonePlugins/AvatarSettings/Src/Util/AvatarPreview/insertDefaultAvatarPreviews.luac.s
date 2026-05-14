@@ -7,8 +7,8 @@ PROTO_0:
         5 NAMECALL                         R6 R5 K1 ["FindFirstChildWhichIsA"]
         7 CALL                             R6 2 1
         8 JUMPIFNOT                        R6 ; [+6]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R7 R8 K2 ["addHumanoidToPreviewFolder"]
+        9 GETUPVAL                         R7 0
+       10 GETTABLEKS                       R7 R7 K2 ["addHumanoidToPreviewFolder"]
        12 MOVE                             R8 R6
        13 LOADB                            R9 1
        14 CALL                             R7 2 0
@@ -120,57 +120,57 @@ PROTO_1:
       159 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["avatarRules"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["avatarRules"]
         3 CALL                             R1 0 1
         4 NEWTABLE                         R2 0 0
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K1 ["all"]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K2 ["try"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K1 ["all"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K2 ["try"]
        12 GETUPVAL                         R5 2
        13 MOVE                             R6 R2
-       14 GETUPVAL                         R9 3
-       15 GETTABLEKS                       R8 R9 K3 ["MagmaFiend"]
-       17 GETTABLEKS                       R7 R8 K4 ["name"]
+       14 GETUPVAL                         R7 3
+       15 GETTABLEKS                       R7 R7 K3 ["MagmaFiend"]
+       17 GETTABLEKS                       R7 R7 K4 ["name"]
        19 GETTABLEKS                       R8 R1 K5 ["AvatarType"]
        21 MOVE                             R9 R0
        22 CALL                             R4 5 1
-       23 GETUPVAL                         R6 1
-       24 GETTABLEKS                       R5 R6 K2 ["try"]
+       23 GETUPVAL                         R5 1
+       24 GETTABLEKS                       R5 R5 K2 ["try"]
        26 GETUPVAL                         R6 2
        27 MOVE                             R7 R2
-       28 GETUPVAL                         R10 3
-       29 GETTABLEKS                       R9 R10 K6 ["DennisAvatar"]
-       31 GETTABLEKS                       R8 R9 K4 ["name"]
+       28 GETUPVAL                         R8 3
+       29 GETTABLEKS                       R8 R8 K6 ["DennisAvatar"]
+       31 GETTABLEKS                       R8 R8 K4 ["name"]
        33 GETTABLEKS                       R9 R1 K5 ["AvatarType"]
        35 MOVE                             R10 R0
        36 CALL                             R5 5 1
-       37 GETUPVAL                         R7 1
-       38 GETTABLEKS                       R6 R7 K2 ["try"]
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R6 R6 K2 ["try"]
        40 GETUPVAL                         R7 2
        41 MOVE                             R8 R2
-       42 GETUPVAL                         R11 3
-       43 GETTABLEKS                       R10 R11 K7 ["Roxie"]
-       45 GETTABLEKS                       R9 R10 K4 ["name"]
+       42 GETUPVAL                         R9 3
+       43 GETTABLEKS                       R9 R9 K7 ["Roxie"]
+       45 GETTABLEKS                       R9 R9 K4 ["name"]
        47 GETTABLEKS                       R10 R1 K5 ["AvatarType"]
        49 MOVE                             R11 R0
        50 CALL                             R6 5 1
-       51 GETUPVAL                         R8 1
-       52 GETTABLEKS                       R7 R8 K2 ["try"]
+       51 GETUPVAL                         R7 1
+       52 GETTABLEKS                       R7 R7 K2 ["try"]
        54 GETUPVAL                         R8 2
        55 MOVE                             R9 R2
-       56 GETUPVAL                         R12 3
-       57 GETTABLEKS                       R11 R12 K8 ["JunkBot"]
-       59 GETTABLEKS                       R10 R11 K4 ["name"]
+       56 GETUPVAL                         R10 3
+       57 GETTABLEKS                       R10 R10 K8 ["JunkBot"]
+       59 GETTABLEKS                       R10 R10 K4 ["name"]
        61 GETTABLEKS                       R11 R1 K5 ["AvatarType"]
        63 MOVE                             R12 R0
        64 CALL                             R7 5 -1
        65 CALL                             R3 -1 1
        66 NAMECALL                         R3 R3 K9 ["expect"]
        68 CALL                             R3 1 0
-       69 GETUPVAL                         R4 4
-       70 GETTABLEKS                       R3 R4 K10 ["addHumanoidsToPreviewFolder"]
+       69 GETUPVAL                         R3 4
+       70 GETTABLEKS                       R3 R3 K10 ["addHumanoidsToPreviewFolder"]
        72 MOVE                             R4 R2
        73 CALL                             R3 1 0
        74 RETURN                           R2 1
@@ -189,13 +189,13 @@ PROTO_3:
        13 GETUPVAL                         R3 1
        14 CALL                             R3 0 1
        15 JUMPIFNOT                        R3 ; [+6]
-       16 GETUPVAL                         R4 2
-       17 GETTABLEKS                       R3 R4 K3 ["placeAvatars"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K3 ["placeAvatars"]
        19 MOVE                             R4 R2
        20 CALL                             R3 1 0
        21 JUMP                             ; [+5]
-       22 GETUPVAL                         R4 2
-       23 GETTABLEKS                       R3 R4 K4 ["placeAvatars_DEPRECATED"]
+       22 GETUPVAL                         R3 2
+       23 GETTABLEKS                       R3 R3 K4 ["placeAvatars_DEPRECATED"]
        25 MOVE                             R4 R2
        26 CALL                             R3 1 0
        27 MOVE                             R3 R2
@@ -204,8 +204,8 @@ PROTO_3:
        30 FORGPREP                         R3
        31 SETTABLEKS                       R0 R7 K2 ["Parent"]
        33 FORGLOOP                         R3 2 ; [-3]
-       35 GETUPVAL                         R4 3
-       36 GETTABLEKS                       R3 R4 K5 ["avatarAccessoryRules"]
+       35 GETUPVAL                         R3 3
+       36 GETTABLEKS                       R3 R3 K5 ["avatarAccessoryRules"]
        38 CALL                             R3 0 1
        39 JUMPIFNOT                        R3 ; [+12]
        40 JUMPIFNOTEQKS                    R1 K6 ["Accessories"] ; [+11]
@@ -216,8 +216,8 @@ PROTO_3:
        49 LOADB                            R5 1
        50 MOVE                             R6 R1
        51 CALL                             R4 2 0
-       52 GETUPVAL                         R5 3
-       53 GETTABLEKS                       R4 R5 K12 ["avatarClothingRules"]
+       52 GETUPVAL                         R4 3
+       53 GETTABLEKS                       R4 R4 K12 ["avatarClothingRules"]
        55 CALL                             R4 0 1
        56 JUMPIFNOT                        R4 ; [+12]
        57 JUMPIFNOTEQKS                    R1 K13 ["Clothing"] ; [+11]
@@ -241,49 +241,49 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R6 R0 K10 ["Src"]
-       17 GETTABLEKS                       R5 R6 K11 ["Util"]
-       19 GETTABLEKS                       R4 R5 K12 ["AvatarPreview"]
-       21 GETTABLEKS                       R3 R4 K13 ["AvatarPreviewConstants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["AvatarPreview"]
+       21 GETTABLEKS                       R3 R3 K13 ["AvatarPreviewConstants"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R5 R0 K14 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K15 ["Promise"]
+       26 GETTABLEKS                       R4 R0 K14 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K15 ["Promise"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K9 [require]
-       33 GETTABLEKS                       R9 R0 K10 ["Src"]
-       35 GETTABLEKS                       R8 R9 K11 ["Util"]
-       37 GETTABLEKS                       R7 R8 K16 ["BridgingFiles"]
-       39 GETTABLEKS                       R6 R7 K17 ["AssetDmFiles"]
-       41 GETTABLEKS                       R5 R6 K18 ["assetDmUtils"]
+       33 GETTABLEKS                       R5 R0 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K11 ["Util"]
+       37 GETTABLEKS                       R5 R5 K16 ["BridgingFiles"]
+       39 GETTABLEKS                       R5 R5 K17 ["AssetDmFiles"]
+       41 GETTABLEKS                       R5 R5 K18 ["assetDmUtils"]
        43 CALL                             R4 1 1
        44 GETIMPORT                        R5 K9 [require]
-       46 GETTABLEKS                       R8 R0 K10 ["Src"]
-       48 GETTABLEKS                       R7 R8 K19 ["Flags"]
-       50 GETTABLEKS                       R6 R7 K20 ["getFFlagImprovePreviewPositioning"]
+       46 GETTABLEKS                       R6 R0 K10 ["Src"]
+       48 GETTABLEKS                       R6 R6 K19 ["Flags"]
+       50 GETTABLEKS                       R6 R6 K20 ["getFFlagImprovePreviewPositioning"]
        52 CALL                             R5 1 1
        53 GETIMPORT                        R6 K9 [require]
-       55 GETTABLEKS                       R10 R0 K10 ["Src"]
-       57 GETTABLEKS                       R9 R10 K11 ["Util"]
-       59 GETTABLEKS                       R8 R9 K12 ["AvatarPreview"]
-       61 GETTABLEKS                       R7 R8 K21 ["placeAvatars"]
+       55 GETTABLEKS                       R7 R0 K10 ["Src"]
+       57 GETTABLEKS                       R7 R7 K11 ["Util"]
+       59 GETTABLEKS                       R7 R7 K12 ["AvatarPreview"]
+       61 GETTABLEKS                       R7 R7 K21 ["placeAvatars"]
        63 CALL                             R6 1 1
        64 GETIMPORT                        R7 K9 [require]
-       66 GETTABLEKS                       R11 R0 K10 ["Src"]
-       68 GETTABLEKS                       R10 R11 K11 ["Util"]
-       70 GETTABLEKS                       R9 R10 K12 ["AvatarPreview"]
-       72 GETTABLEKS                       R8 R9 K22 ["previewFolderUtils"]
+       66 GETTABLEKS                       R8 R0 K10 ["Src"]
+       68 GETTABLEKS                       R8 R8 K11 ["Util"]
+       70 GETTABLEKS                       R8 R8 K12 ["AvatarPreview"]
+       72 GETTABLEKS                       R8 R8 K22 ["previewFolderUtils"]
        74 CALL                             R7 1 1
        75 GETIMPORT                        R8 K9 [require]
-       77 GETTABLEKS                       R12 R0 K10 ["Src"]
-       79 GETTABLEKS                       R11 R12 K11 ["Util"]
-       81 GETTABLEKS                       R10 R11 K12 ["AvatarPreview"]
-       83 GETTABLEKS                       R9 R10 K23 ["showBounds"]
+       77 GETTABLEKS                       R9 R0 K10 ["Src"]
+       79 GETTABLEKS                       R9 R9 K11 ["Util"]
+       81 GETTABLEKS                       R9 R9 K12 ["AvatarPreview"]
+       83 GETTABLEKS                       R9 R9 K23 ["showBounds"]
        85 CALL                             R8 1 1
        86 GETIMPORT                        R9 K9 [require]
-       88 GETTABLEKS                       R12 R0 K10 ["Src"]
-       90 GETTABLEKS                       R11 R12 K11 ["Util"]
-       92 GETTABLEKS                       R10 R11 K24 ["AvatarSettingsProviderTypes"]
+       88 GETTABLEKS                       R10 R0 K10 ["Src"]
+       90 GETTABLEKS                       R10 R10 K11 ["Util"]
+       92 GETTABLEKS                       R10 R10 K24 ["AvatarSettingsProviderTypes"]
        94 CALL                             R9 1 1
        95 NEWTABLE                         R10 2 0
        97 DUPCLOSURE                       R11 K25 [PROTO_0]

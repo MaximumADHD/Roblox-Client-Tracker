@@ -32,19 +32,19 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Src"]
-       11 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R1 K4 ["Actions"]
        13 GETIMPORT                        R2 K6 [require]
        15 GETTABLEKS                       R3 R1 K7 ["SetOwnerUsername"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K6 [require]
-       20 GETTABLEKS                       R6 R0 K3 ["Src"]
-       22 GETTABLEKS                       R5 R6 K8 ["Util"]
-       24 GETTABLEKS                       R4 R5 K9 ["getUserId"]
+       20 GETTABLEKS                       R4 R0 K3 ["Src"]
+       22 GETTABLEKS                       R4 R4 K8 ["Util"]
+       24 GETTABLEKS                       R4 R4 K9 ["getUserId"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K10 [PROTO_2]
        28 CAPTURE                          VAL R2

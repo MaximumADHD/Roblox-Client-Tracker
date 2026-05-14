@@ -28,8 +28,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 1
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 SETUPVAL                         R1 0
         5 RETURN                           R0 0
@@ -46,9 +46,9 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 4 0
         3 GETIMPORT                        R1 K1 [require]
-        5 GETIMPORT                        R4 K3 [script]
-        7 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        9 GETTABLEKS                       R2 R3 K5 ["ValueBox"]
+        5 GETIMPORT                        R2 K3 [script]
+        7 GETTABLEKS                       R2 R2 K4 ["Parent"]
+        9 GETTABLEKS                       R2 R2 K5 ["ValueBox"]
        11 CALL                             R1 1 1
        12 GETIMPORT                        R2 K8 [Vector2.new]
        14 LOADN                            R3 4

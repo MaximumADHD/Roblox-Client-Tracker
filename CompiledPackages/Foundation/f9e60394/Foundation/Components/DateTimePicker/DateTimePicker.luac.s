@@ -1,0 +1,633 @@
+PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["defaultDates"]
+        3 JUMPIFNOT                        R0 ; [+14]
+        4 FASTCALL1                        TYPEOF R0 ; [+3]
+        5 MOVE                             R2 R0
+        6 GETIMPORT                        R1 K2 [typeof]
+        8 CALL                             R1 1 1
+        9 JUMPIFEQKS                       R1 K3 ["table"] ; [+7]
+       11 NEWTABLE                         R1 0 1
+       13 MOVE                             R2 R0
+       14 SETLIST                          R1 R2 1 [1]
+       16 RETURN                           R1 1
+       17 RETURN                           R0 1
+       18 LOADNIL                          R1
+       19 RETURN                           R1 1
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R1 0
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ViewportDisplaySize"]
+        3 GETIMPORT                        R1 K4 [Enum.DisplaySize.Small]
+        5 JUMPIFEQ                         R0 R1 ; [+3]
+        7 GETUPVAL                         R0 1
+        8 CALL                             R0 0 0
+        9 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 0
+        3 LOADK                            R3 K0 ["^%s*$"]
+        4 NAMECALL                         R1 R0 K1 ["match"]
+        6 CALL                             R1 2 1
+        7 JUMPIFNOT                        R1 ; [+1]
+        8 RETURN                           R0 0
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K2 ["variant"]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K3 ["Dual"]
+       15 JUMPIFNOTEQ                      R1 R2 ; [+22]
+       17 LOADK                            R3 K4 ["-"]
+       18 NAMECALL                         R1 R0 K5 ["split"]
+       20 CALL                             R1 2 1
+       21 GETUPVAL                         R2 3
+       22 GETTABLEKS                       R2 R2 K6 ["getDateTimeFromText"]
+       24 GETTABLEN                        R3 R1 1
+       25 CALL                             R2 1 1
+       26 GETUPVAL                         R3 3
+       27 GETTABLEKS                       R3 R3 K6 ["getDateTimeFromText"]
+       29 GETTABLEN                        R4 R1 2
+       30 CALL                             R3 1 1
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K7 ["onChanged"]
+       34 MOVE                             R5 R2
+       35 MOVE                             R6 R3
+       36 CALL                             R4 2 0
+       37 RETURN                           R0 0
+       38 LOADK                            R4 K9 ["^%s*(.-)%s*$"]
+       39 NAMECALL                         R2 R0 K1 ["match"]
+       41 CALL                             R2 2 1
+       42 ORK                              R1 R2 K8 [""]
+       43 GETUPVAL                         R2 3
+       44 GETTABLEKS                       R2 R2 K6 ["getDateTimeFromText"]
+       46 MOVE                             R3 R1
+       47 CALL                             R2 1 1
+       48 GETUPVAL                         R3 1
+       49 GETTABLEKS                       R3 R3 K7 ["onChanged"]
+       51 MOVE                             R4 R2
+       52 CALL                             R3 1 0
+       53 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["variant"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Dual"]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+25]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["formatLocalTime"]
+       11 GETUPVAL                         R2 3
+       12 GETTABLEN                        R1 R2 1
+       13 CALL                             R0 1 1
+       14 GETUPVAL                         R3 3
+       15 GETTABLEN                        R2 R3 2
+       16 JUMPIFNOT                        R2 ; [+7]
+       17 GETUPVAL                         R1 2
+       18 GETTABLEKS                       R1 R1 K2 ["formatLocalTime"]
+       20 GETUPVAL                         R3 3
+       21 GETTABLEN                        R2 R3 2
+       22 CALL                             R1 1 1
+       23 JUMP                             ; [+1]
+       24 LOADK                            R1 K3 [""]
+       25 GETUPVAL                         R2 4
+       26 MOVE                             R4 R0
+       27 LOADK                            R5 K4 [" - "]
+       28 MOVE                             R6 R1
+       29 CONCAT                           R3 R4 R6
+       30 CALL                             R2 1 0
+       31 JUMP                             ; [+18]
+       32 GETUPVAL                         R0 4
+       33 GETUPVAL                         R1 2
+       34 GETTABLEKS                       R1 R1 K2 ["formatLocalTime"]
+       36 GETUPVAL                         R3 3
+       37 GETTABLEN                        R2 R3 1
+       38 GETUPVAL                         R4 0
+       39 GETTABLEKS                       R4 R4 K0 ["variant"]
+       41 GETUPVAL                         R5 1
+       42 GETTABLEKS                       R5 R5 K5 ["SingleWithTime"]
+       44 JUMPIFEQ                         R4 R5 ; [+2]
+       46 LOADB                            R3 0 +1
+       47 LOADB                            R3 1
+       48 CALL                             R1 2 -1
+       49 CALL                             R0 -1 0
+       50 GETUPVAL                         R0 5
+       51 CALL                             R0 0 0
+       52 RETURN                           R0 0
+
+PROTO_6:
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+4]
+        2 GETUPVAL                         R0 1
+        3 JUMPIF                           R0 ; [+2]
+        4 LOADB                            R0 0
+        5 RETURN                           R0 1
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K0 ["variant"]
+        9 GETUPVAL                         R1 3
+       10 GETTABLEKS                       R1 R1 K1 ["Single"]
+       12 JUMPIFEQ                         R0 R1 ; [+9]
+       14 GETUPVAL                         R0 2
+       15 GETTABLEKS                       R0 R0 K0 ["variant"]
+       17 GETUPVAL                         R1 3
+       18 GETTABLEKS                       R1 R1 K2 ["SingleWithTime"]
+       20 JUMPIFNOTEQ                      R0 R1 ; [+8]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEN                        R1 R2 1
+       24 JUMPIFEQKNIL                     R1 ; [+2]
+       26 LOADB                            R0 0 +1
+       27 LOADB                            R0 1
+       28 RETURN                           R0 1
+       29 GETUPVAL                         R0 2
+       30 GETTABLEKS                       R0 R0 K0 ["variant"]
+       32 GETUPVAL                         R1 3
+       33 GETTABLEKS                       R1 R1 K3 ["Dual"]
+       35 JUMPIFNOTEQ                      R0 R1 ; [+24]
+       37 LOADB                            R0 1
+       38 GETUPVAL                         R2 1
+       39 GETTABLEN                        R1 R2 1
+       40 JUMPIFEQKNIL                     R1 ; [+18]
+       42 LOADB                            R0 1
+       43 GETUPVAL                         R2 1
+       44 GETTABLEN                        R1 R2 2
+       45 JUMPIFEQKNIL                     R1 ; [+13]
+       47 GETUPVAL                         R2 1
+       48 GETTABLEN                        R1 R2 1
+       49 GETTABLEKS                       R1 R1 K4 ["UnixTimestamp"]
+       51 GETUPVAL                         R3 1
+       52 GETTABLEN                        R2 R3 2
+       53 GETTABLEKS                       R2 R2 K4 ["UnixTimestamp"]
+       55 JUMPIFLT                         R2 R1 ; [+2]
+       57 LOADB                            R0 0 +1
+       58 LOADB                            R0 1
+       59 RETURN                           R0 1
+       60 LOADB                            R0 0
+       61 RETURN                           R0 1
+
+PROTO_7:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 GETUPVAL                         R3 1
+        3 CALL                             R1 2 1
+        4 GETUPVAL                         R2 2
+        5 CALL                             R2 0 1
+        6 GETUPVAL                         R3 3
+        7 GETTABLEKS                       R3 R3 K0 ["useState"]
+        9 LOADB                            R4 0
+       10 CALL                             R3 1 2
+       11 GETUPVAL                         R5 3
+       12 GETTABLEKS                       R5 R5 K1 ["useRef"]
+       14 LOADNIL                          R6
+       15 CALL                             R5 1 1
+       16 LOADNIL                          R6
+       17 GETUPVAL                         R7 4
+       18 JUMPIFNOT                        R7 ; [+14]
+       19 GETUPVAL                         R7 3
+       20 GETTABLEKS                       R7 R7 K2 ["useMemo"]
+       22 NEWCLOSURE                       R8 P0
+       23 CAPTURE                          VAL R1
+       24 NEWTABLE                         R9 0 1
+       26 GETTABLEKS                       R10 R1 K3 ["defaultDates"]
+       28 SETLIST                          R9 R10 1 [1]
+       30 CALL                             R7 2 1
+       31 MOVE                             R6 R7
+       32 JUMP                             ; [+20]
+       33 GETTABLEKS                       R6 R1 K3 ["defaultDates"]
+       35 GETTABLEKS                       R7 R1 K3 ["defaultDates"]
+       37 JUMPIFNOT                        R7 ; [+15]
+       38 GETTABLEKS                       R8 R1 K3 ["defaultDates"]
+       40 FASTCALL1                        TYPEOF R8 ; [+2]
+       41 GETIMPORT                        R7 K5 [typeof]
+       43 CALL                             R7 1 1
+       44 JUMPIFEQKS                       R7 K6 ["table"] ; [+8]
+       46 NEWTABLE                         R7 0 1
+       48 GETTABLEKS                       R8 R1 K3 ["defaultDates"]
+       50 SETLIST                          R7 R8 1 [1]
+       52 MOVE                             R6 R7
+       53 GETUPVAL                         R7 3
+       54 GETTABLEKS                       R7 R7 K0 ["useState"]
+       56 JUMPIFNOT                        R6 ; [+42]
+       57 GETTABLEKS                       R9 R1 K7 ["variant"]
+       59 GETUPVAL                         R10 5
+       60 GETTABLEKS                       R10 R10 K8 ["Dual"]
+       62 JUMPIFNOTEQ                      R9 R10 ; [+21]
+       64 LOADK                            R9 K9 ["%* - %*"]
+       65 GETUPVAL                         R11 6
+       66 GETTABLEKS                       R11 R11 K10 ["formatLocalTime"]
+       68 GETTABLEN                        R12 R6 1
+       69 CALL                             R11 1 1
+       70 GETTABLEN                        R13 R6 2
+       71 JUMPIFNOT                        R13 ; [+6]
+       72 GETUPVAL                         R12 6
+       73 GETTABLEKS                       R12 R12 K10 ["formatLocalTime"]
+       75 GETTABLEN                        R13 R6 2
+       76 CALL                             R12 1 1
+       77 JUMP                             ; [+1]
+       78 LOADK                            R12 K11 [""]
+       79 NAMECALL                         R9 R9 K12 ["format"]
+       81 CALL                             R9 3 1
+       82 MOVE                             R8 R9
+       83 JUMP                             ; [+16]
+       84 GETUPVAL                         R8 6
+       85 GETTABLEKS                       R8 R8 K10 ["formatLocalTime"]
+       87 GETTABLEN                        R9 R6 1
+       88 GETTABLEKS                       R11 R1 K7 ["variant"]
+       90 GETUPVAL                         R12 5
+       91 GETTABLEKS                       R12 R12 K13 ["SingleWithTime"]
+       93 JUMPIFEQ                         R11 R12 ; [+2]
+       95 LOADB                            R10 0 +1
+       96 LOADB                            R10 1
+       97 CALL                             R8 2 1
+       98 JUMP                             ; [+1]
+       99 LOADK                            R8 K11 [""]
+      100 CALL                             R7 1 2
+      101 GETUPVAL                         R9 3
+      102 GETTABLEKS                       R9 R9 K0 ["useState"]
+      104 MOVE                             R10 R6
+      105 CALL                             R9 1 2
+      106 GETUPVAL                         R11 3
+      107 GETTABLEKS                       R11 R11 K14 ["useCallback"]
+      109 NEWCLOSURE                       R12 P1
+      110 CAPTURE                          VAL R4
+      111 NEWTABLE                         R13 0 0
+      113 CALL                             R11 2 1
+      114 GETUPVAL                         R12 3
+      115 GETTABLEKS                       R12 R12 K14 ["useCallback"]
+      117 NEWCLOSURE                       R13 P2
+      118 CAPTURE                          VAL R4
+      119 NEWTABLE                         R14 0 0
+      121 CALL                             R12 2 1
+      122 GETUPVAL                         R13 3
+      123 GETTABLEKS                       R13 R13 K14 ["useCallback"]
+      125 NEWCLOSURE                       R14 P3
+      126 CAPTURE                          UPVAL U7
+      127 CAPTURE                          VAL R12
+      128 NEWTABLE                         R15 0 2
+      130 MOVE                             R16 R12
+      131 GETUPVAL                         R17 7
+      132 GETTABLEKS                       R17 R17 K15 ["ViewportDisplaySize"]
+      134 SETLIST                          R15 R16 2 [1]
+      136 CALL                             R13 2 1
+      137 GETUPVAL                         R14 3
+      138 GETTABLEKS                       R14 R14 K14 ["useCallback"]
+      140 NEWCLOSURE                       R15 P4
+      141 CAPTURE                          VAL R8
+      142 CAPTURE                          VAL R1
+      143 CAPTURE                          UPVAL U5
+      144 CAPTURE                          UPVAL U6
+      145 NEWTABLE                         R16 0 1
+      147 GETTABLEKS                       R17 R1 K16 ["onChanged"]
+      149 SETLIST                          R16 R17 1 [1]
+      151 CALL                             R14 2 1
+      152 GETUPVAL                         R15 3
+      153 GETTABLEKS                       R15 R15 K14 ["useCallback"]
+      155 NEWCLOSURE                       R16 P5
+      156 CAPTURE                          VAL R1
+      157 CAPTURE                          UPVAL U5
+      158 CAPTURE                          UPVAL U6
+      159 CAPTURE                          VAL R9
+      160 CAPTURE                          VAL R8
+      161 CAPTURE                          VAL R11
+      162 NEWTABLE                         R17 0 2
+      164 MOVE                             R18 R9
+      165 MOVE                             R19 R11
+      166 SETLIST                          R17 R18 2 [1]
+      168 CALL                             R15 2 1
+      169 NEWCLOSURE                       R16 P6
+      170 CAPTURE                          UPVAL U4
+      171 CAPTURE                          VAL R9
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          UPVAL U5
+      174 GETUPVAL                         R17 3
+      175 GETTABLEKS                       R17 R17 K17 ["createElement"]
+      177 GETUPVAL                         R18 8
+      178 GETTABLEKS                       R18 R18 K18 ["Root"]
+      180 DUPTABLE                         R19 K21 [{"isOpen", "testId"}]
+      181 SETTABLEKS                       R3 R19 K19 ["isOpen"]
+      183 GETTABLEKS                       R20 R1 K20 ["testId"]
+      185 SETTABLEKS                       R20 R19 K20 ["testId"]
+      187 DUPTABLE                         R20 K25 [{"DateInput", "Anchor", "Calendar"}]
+      188 GETUPVAL                         R21 3
+      189 GETTABLEKS                       R21 R21 K17 ["createElement"]
+      191 GETUPVAL                         R22 9
+      192 GETUPVAL                         R23 10
+      193 MOVE                             R24 R1
+      194 DUPTABLE                         R25 K40 [{"hasError", "hint", "iconTrailing", "isDisabled", "isRequired", "key", "label", "onChanged", "onFocusGained", "placeholder", "ref", "selectableDateRange", "size", "text", "testId", "width"}]
+      195 GETTABLEKS                       R26 R1 K26 ["hasError"]
+      197 SETTABLEKS                       R26 R25 K26 ["hasError"]
+      199 GETTABLEKS                       R26 R1 K27 ["hint"]
+      201 SETTABLEKS                       R26 R25 K27 ["hint"]
+      203 DUPTABLE                         R26 K43 [{"name", "onActivated"}]
+      204 GETUPVAL                         R27 11
+      205 GETTABLEKS                       R27 R27 K24 ["Calendar"]
+      207 SETTABLEKS                       R27 R26 K41 ["name"]
+      209 SETTABLEKS                       R12 R26 K42 ["onActivated"]
+      211 SETTABLEKS                       R26 R25 K28 ["iconTrailing"]
+      213 GETTABLEKS                       R26 R1 K29 ["isDisabled"]
+      215 SETTABLEKS                       R26 R25 K29 ["isDisabled"]
+      217 GETTABLEKS                       R26 R1 K30 ["isRequired"]
+      219 SETTABLEKS                       R26 R25 K30 ["isRequired"]
+      221 LOADK                            R26 K44 ["date-input"]
+      222 SETTABLEKS                       R26 R25 K31 ["key"]
+      224 GETTABLEKS                       R26 R1 K32 ["label"]
+      226 SETTABLEKS                       R26 R25 K32 ["label"]
+      228 SETTABLEKS                       R14 R25 K16 ["onChanged"]
+      230 SETTABLEKS                       R13 R25 K33 ["onFocusGained"]
+      232 GETUPVAL                         R26 12
+      233 LOADK                            R28 K45 ["CommonUI.Controls.Label.SelectDate"]
+      234 NAMECALL                         R26 R26 K46 ["FormatByKey"]
+      236 CALL                             R26 2 1
+      237 SETTABLEKS                       R26 R25 K34 ["placeholder"]
+      239 SETTABLEKS                       R5 R25 K35 ["ref"]
+      241 GETTABLEKS                       R26 R1 K36 ["selectableDateRange"]
+      243 SETTABLEKS                       R26 R25 K36 ["selectableDateRange"]
+      245 GETUPVAL                         R26 13
+      246 GETTABLEKS                       R26 R26 K47 ["Medium"]
+      248 SETTABLEKS                       R26 R25 K37 ["size"]
+      250 SETTABLEKS                       R7 R25 K38 ["text"]
+      252 LOADK                            R27 K48 ["%*--text-input"]
+      253 GETTABLEKS                       R29 R1 K20 ["testId"]
+      255 NAMECALL                         R27 R27 K12 ["format"]
+      257 CALL                             R27 2 1
+      258 MOVE                             R26 R27
+      259 SETTABLEKS                       R26 R25 K20 ["testId"]
+      261 GETTABLEKS                       R26 R1 K39 ["width"]
+      263 SETTABLEKS                       R26 R25 K39 ["width"]
+      265 CALL                             R23 2 -1
+      266 CALL                             R21 -1 1
+      267 SETTABLEKS                       R21 R20 K22 ["DateInput"]
+      269 GETUPVAL                         R21 3
+      270 GETTABLEKS                       R21 R21 K17 ["createElement"]
+      272 GETUPVAL                         R22 8
+      273 GETTABLEKS                       R22 R22 K23 ["Anchor"]
+      275 DUPTABLE                         R23 K50 [{"anchorRef"}]
+      276 SETTABLEKS                       R5 R23 K49 ["anchorRef"]
+      278 CALL                             R21 2 1
+      279 SETTABLEKS                       R21 R20 K23 ["Anchor"]
+      281 GETUPVAL                         R21 3
+      282 GETTABLEKS                       R21 R21 K17 ["createElement"]
+      284 GETUPVAL                         R22 8
+      285 GETTABLEKS                       R22 R22 K51 ["Content"]
+      287 DUPTABLE                         R23 K57 [{"hasArrow", "onPressedOutside", "side", "selection", "selectionGroup"}]
+      288 LOADB                            R24 0
+      289 SETTABLEKS                       R24 R23 K52 ["hasArrow"]
+      291 SETTABLEKS                       R11 R23 K53 ["onPressedOutside"]
+      293 DUPTABLE                         R24 K60 [{"position", "offset"}]
+      294 GETUPVAL                         R25 14
+      295 GETTABLEKS                       R25 R25 K61 ["Bottom"]
+      297 SETTABLEKS                       R25 R24 K58 ["position"]
+      299 GETTABLEKS                       R26 R2 K62 ["Stroke"]
+      301 GETTABLEKS                       R26 R26 K63 ["Standard"]
+      303 GETTABLEKS                       R27 R2 K64 ["Padding"]
+      305 GETTABLEKS                       R27 R27 K65 ["Small"]
+      307 ADD                              R25 R26 R27
+      308 SETTABLEKS                       R25 R24 K59 ["offset"]
+      310 SETTABLEKS                       R24 R23 K54 ["side"]
+      312 GETTABLEKS                       R24 R1 K55 ["selection"]
+      314 SETTABLEKS                       R24 R23 K55 ["selection"]
+      316 GETTABLEKS                       R24 R1 K56 ["selectionGroup"]
+      318 SETTABLEKS                       R24 R23 K56 ["selectionGroup"]
+      320 MOVE                             R24 R3
+      321 JUMPIFNOT                        R24 ; [+146]
+      322 GETUPVAL                         R24 3
+      323 GETTABLEKS                       R24 R24 K17 ["createElement"]
+      325 GETUPVAL                         R25 15
+      326 DUPTABLE                         R26 K67 [{"tag"}]
+      327 LOADK                            R27 K68 ["col auto-xy padding-large stroke-default radius-medium"]
+      328 SETTABLEKS                       R27 R26 K66 ["tag"]
+      330 DUPTABLE                         R27 K70 [{"Calendar", "BottomBar"}]
+      331 GETUPVAL                         R28 3
+      332 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      334 GETUPVAL                         R29 16
+      335 DUPTABLE                         R30 K76 [{"defaultDates", "LayoutOrder", "onSelectedDateChanged", "selectableDateRange", "showStartDateTimeCalendarInput", "showEndDateTimeCalendarInput", "showTimeDropdown", "testId"}]
+      336 SETTABLEKS                       R9 R30 K3 ["defaultDates"]
+      338 LOADN                            R31 1
+      339 SETTABLEKS                       R31 R30 K71 ["LayoutOrder"]
+      341 SETTABLEKS                       R10 R30 K72 ["onSelectedDateChanged"]
+      343 GETTABLEKS                       R31 R1 K36 ["selectableDateRange"]
+      345 SETTABLEKS                       R31 R30 K36 ["selectableDateRange"]
+      347 GETTABLEKS                       R32 R1 K7 ["variant"]
+      349 GETUPVAL                         R33 5
+      350 GETTABLEKS                       R33 R33 K13 ["SingleWithTime"]
+      352 JUMPIFNOTEQ                      R32 R33 ; [+2]
+      354 LOADB                            R31 0 +1
+      355 LOADB                            R31 1
+      356 SETTABLEKS                       R31 R30 K73 ["showStartDateTimeCalendarInput"]
+      358 GETTABLEKS                       R32 R1 K7 ["variant"]
+      360 GETUPVAL                         R33 5
+      361 GETTABLEKS                       R33 R33 K8 ["Dual"]
+      363 JUMPIFEQ                         R32 R33 ; [+2]
+      365 LOADB                            R31 0 +1
+      366 LOADB                            R31 1
+      367 SETTABLEKS                       R31 R30 K74 ["showEndDateTimeCalendarInput"]
+      369 GETTABLEKS                       R32 R1 K7 ["variant"]
+      371 GETUPVAL                         R33 5
+      372 GETTABLEKS                       R33 R33 K13 ["SingleWithTime"]
+      374 JUMPIFEQ                         R32 R33 ; [+2]
+      376 LOADB                            R31 0 +1
+      377 LOADB                            R31 1
+      378 SETTABLEKS                       R31 R30 K75 ["showTimeDropdown"]
+      380 LOADK                            R31 K77 ["--foundation-calendar"]
+      381 SETTABLEKS                       R31 R30 K20 ["testId"]
+      383 CALL                             R28 2 1
+      384 SETTABLEKS                       R28 R27 K24 ["Calendar"]
+      386 GETUPVAL                         R28 3
+      387 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      389 GETUPVAL                         R29 15
+      390 DUPTABLE                         R30 K78 [{"LayoutOrder", "tag"}]
+      391 LOADN                            R31 2
+      392 SETTABLEKS                       R31 R30 K71 ["LayoutOrder"]
+      394 LOADK                            R31 K79 ["row flex-fill gap-small size-full-0 auto-y padding-top-large"]
+      395 SETTABLEKS                       R31 R30 K66 ["tag"]
+      397 DUPTABLE                         R31 K82 [{"ApplyButton", "CancelButton"}]
+      398 GETUPVAL                         R32 3
+      399 GETTABLEKS                       R32 R32 K17 ["createElement"]
+      401 GETUPVAL                         R33 17
+      402 DUPTABLE                         R34 K83 [{"isDisabled", "onActivated", "text", "variant", "testId"}]
+      403 MOVE                             R35 R16
+      404 CALL                             R35 0 1
+      405 SETTABLEKS                       R35 R34 K29 ["isDisabled"]
+      407 SETTABLEKS                       R15 R34 K42 ["onActivated"]
+      409 GETUPVAL                         R35 12
+      410 LOADK                            R37 K84 ["CommonUI.Controls.Action.Apply"]
+      411 NAMECALL                         R35 R35 K46 ["FormatByKey"]
+      413 CALL                             R35 2 1
+      414 SETTABLEKS                       R35 R34 K38 ["text"]
+      416 GETUPVAL                         R35 18
+      417 GETTABLEKS                       R35 R35 K85 ["Emphasis"]
+      419 SETTABLEKS                       R35 R34 K7 ["variant"]
+      421 LOADK                            R36 K86 ["%*--apply-button"]
+      422 GETTABLEKS                       R38 R1 K20 ["testId"]
+      424 NAMECALL                         R36 R36 K12 ["format"]
+      426 CALL                             R36 2 1
+      427 MOVE                             R35 R36
+      428 SETTABLEKS                       R35 R34 K20 ["testId"]
+      430 CALL                             R32 2 1
+      431 SETTABLEKS                       R32 R31 K80 ["ApplyButton"]
+      433 GETUPVAL                         R32 3
+      434 GETTABLEKS                       R32 R32 K17 ["createElement"]
+      436 GETUPVAL                         R33 17
+      437 DUPTABLE                         R34 K87 [{"onActivated", "text", "variant", "testId"}]
+      438 SETTABLEKS                       R11 R34 K42 ["onActivated"]
+      440 GETUPVAL                         R35 12
+      441 LOADK                            R37 K88 ["CommonUI.Controls.Action.Cancel"]
+      442 NAMECALL                         R35 R35 K46 ["FormatByKey"]
+      444 CALL                             R35 2 1
+      445 SETTABLEKS                       R35 R34 K38 ["text"]
+      447 GETUPVAL                         R35 18
+      448 GETTABLEKS                       R35 R35 K63 ["Standard"]
+      450 SETTABLEKS                       R35 R34 K7 ["variant"]
+      452 LOADK                            R36 K89 ["%*--cancel-button"]
+      453 GETTABLEKS                       R38 R1 K20 ["testId"]
+      455 NAMECALL                         R36 R36 K12 ["format"]
+      457 CALL                             R36 2 1
+      458 MOVE                             R35 R36
+      459 SETTABLEKS                       R35 R34 K20 ["testId"]
+      461 CALL                             R32 2 1
+      462 SETTABLEKS                       R32 R31 K81 ["CancelButton"]
+      464 CALL                             R28 3 1
+      465 SETTABLEKS                       R28 R27 K69 ["BottomBar"]
+      467 CALL                             R24 3 1
+      468 CALL                             R21 3 1
+      469 SETTABLEKS                       R21 R20 K24 ["Calendar"]
+      471 CALL                             R17 3 -1
+      472 RETURN                           R17 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Foundation"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["BuilderIcons"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["React"]
+       18 CALL                             R3 1 1
+       19 GETTABLEKS                       R4 R2 K9 ["Icon"]
+       21 GETIMPORT                        R5 K6 [require]
+       23 GETIMPORT                        R6 K1 [script]
+       25 GETTABLEKS                       R6 R6 K4 ["Parent"]
+       27 GETTABLEKS                       R6 R6 K10 ["Calendar"]
+       29 CALL                             R5 1 1
+       30 GETIMPORT                        R6 K6 [require]
+       32 GETIMPORT                        R7 K1 [script]
+       34 GETTABLEKS                       R7 R7 K4 ["Parent"]
+       36 GETTABLEKS                       R7 R7 K11 ["DateTimeUtilities"]
+       38 CALL                             R6 1 1
+       39 GETIMPORT                        R7 K6 [require]
+       41 GETTABLEKS                       R8 R0 K12 ["Components"]
+       43 GETTABLEKS                       R8 R8 K13 ["Button"]
+       45 CALL                             R7 1 1
+       46 GETIMPORT                        R8 K6 [require]
+       48 GETTABLEKS                       R9 R0 K14 ["Enums"]
+       50 GETTABLEKS                       R9 R9 K15 ["ButtonVariant"]
+       52 CALL                             R8 1 1
+       53 GETIMPORT                        R9 K6 [require]
+       55 GETTABLEKS                       R10 R0 K16 ["Utility"]
+       57 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       59 CALL                             R9 1 1
+       60 GETIMPORT                        R10 K6 [require]
+       62 GETTABLEKS                       R11 R0 K16 ["Utility"]
+       64 GETTABLEKS                       R11 R11 K18 ["Wrappers"]
+       66 GETTABLEKS                       R11 R11 K19 ["Services"]
+       68 CALL                             R10 1 1
+       69 GETTABLEKS                       R10 R10 K20 ["GuiService"]
+       71 GETIMPORT                        R11 K6 [require]
+       73 GETTABLEKS                       R12 R0 K14 ["Enums"]
+       75 GETTABLEKS                       R12 R12 K21 ["InputSize"]
+       77 CALL                             R11 1 1
+       78 GETIMPORT                        R12 K6 [require]
+       80 GETTABLEKS                       R13 R0 K12 ["Components"]
+       82 GETTABLEKS                       R13 R13 K22 ["Popover"]
+       84 CALL                             R12 1 1
+       85 GETIMPORT                        R13 K6 [require]
+       87 GETTABLEKS                       R14 R0 K14 ["Enums"]
+       89 GETTABLEKS                       R14 R14 K23 ["PopoverSide"]
+       91 CALL                             R13 1 1
+       92 GETIMPORT                        R14 K6 [require]
+       94 GETTABLEKS                       R15 R0 K12 ["Components"]
+       96 GETTABLEKS                       R15 R15 K24 ["TextInput"]
+       98 CALL                             R14 1 1
+       99 GETIMPORT                        R15 K6 [require]
+      101 GETTABLEKS                       R16 R0 K16 ["Utility"]
+      103 GETTABLEKS                       R16 R16 K25 ["Localization"]
+      105 GETTABLEKS                       R16 R16 K26 ["Translator"]
+      107 CALL                             R15 1 1
+      108 GETIMPORT                        R16 K6 [require]
+      110 GETTABLEKS                       R17 R0 K12 ["Components"]
+      112 GETTABLEKS                       R17 R17 K27 ["Types"]
+      114 CALL                             R16 1 1
+      115 GETIMPORT                        R17 K6 [require]
+      117 GETTABLEKS                       R18 R0 K12 ["Components"]
+      119 GETTABLEKS                       R18 R18 K28 ["View"]
+      121 CALL                             R17 1 1
+      122 GETIMPORT                        R18 K6 [require]
+      124 GETTABLEKS                       R19 R0 K29 ["Providers"]
+      126 GETTABLEKS                       R19 R19 K30 ["Style"]
+      128 GETTABLEKS                       R19 R19 K31 ["useTokens"]
+      130 CALL                             R18 1 1
+      131 GETIMPORT                        R19 K6 [require]
+      133 GETTABLEKS                       R20 R0 K16 ["Utility"]
+      135 GETTABLEKS                       R20 R20 K32 ["withCommonProps"]
+      137 CALL                             R19 1 1
+      138 GETIMPORT                        R20 K6 [require]
+      140 GETTABLEKS                       R21 R0 K16 ["Utility"]
+      142 GETTABLEKS                       R21 R21 K33 ["withDefaults"]
+      144 CALL                             R20 1 1
+      145 GETTABLEKS                       R21 R9 K34 ["FoundationDateTimePickerDefaultDateFix"]
+      147 GETIMPORT                        R22 K6 [require]
+      149 GETTABLEKS                       R23 R0 K14 ["Enums"]
+      151 GETTABLEKS                       R23 R23 K35 ["DateTimePickerVariant"]
+      153 CALL                             R22 1 1
+      154 DUPTABLE                         R23 K39 [{"defaultDates", "variant", "testId"}]
+      155 JUMPIFNOT                        R21 ; [+2]
+      156 LOADNIL                          R24
+      157 JUMP                             ; [+7]
+      158 NEWTABLE                         R24 0 1
+      160 GETIMPORT                        R25 K42 [DateTime.now]
+      162 CALL                             R25 0 -1
+      163 SETLIST                          R24 R25 -1 [1]
+      165 SETTABLEKS                       R24 R23 K36 ["defaultDates"]
+      167 GETTABLEKS                       R24 R22 K43 ["Single"]
+      169 SETTABLEKS                       R24 R23 K37 ["variant"]
+      171 LOADK                            R24 K44 ["--foundation-date-time-picker"]
+      172 SETTABLEKS                       R24 R23 K38 ["testId"]
+      174 DUPCLOSURE                       R24 K45 [PROTO_7]
+      175 CAPTURE                          VAL R20
+      176 CAPTURE                          VAL R23
+      177 CAPTURE                          VAL R18
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          VAL R21
+      180 CAPTURE                          VAL R22
+      181 CAPTURE                          VAL R6
+      182 CAPTURE                          VAL R10
+      183 CAPTURE                          VAL R12
+      184 CAPTURE                          VAL R14
+      185 CAPTURE                          VAL R19
+      186 CAPTURE                          VAL R4
+      187 CAPTURE                          VAL R15
+      188 CAPTURE                          VAL R11
+      189 CAPTURE                          VAL R13
+      190 CAPTURE                          VAL R17
+      191 CAPTURE                          VAL R5
+      192 CAPTURE                          VAL R7
+      193 CAPTURE                          VAL R8
+      194 GETTABLEKS                       R25 R3 K46 ["memo"]
+      196 MOVE                             R26 R24
+      197 CALL                             R25 1 -1
+      198 RETURN                           R25 -1

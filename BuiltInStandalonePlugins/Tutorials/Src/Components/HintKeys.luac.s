@@ -18,8 +18,8 @@ PROTO_0:
        24 GETTABLEKS                       R4 R1 K7 ["HintKeyTextColorPressed"]
        26 JUMP                             ; [+2]
        27 GETTABLEKS                       R4 R1 K8 ["HintKeyTextColor"]
-       29 GETUPVAL                         R6 1
-       30 GETTABLEKS                       R5 R6 K9 ["createElement"]
+       29 GETUPVAL                         R5 1
+       30 GETTABLEKS                       R5 R5 K9 ["createElement"]
        32 LOADK                            R6 K10 ["TextLabel"]
        33 DUPTABLE                         R7 K19 [{"AutomaticSize", "BackgroundColor3", "Font", "LayoutOrder", "Size", "Text", "TextColor3", "TextSize"}]
        34 GETIMPORT                        R8 K22 [Enum.AutomaticSize.XY]
@@ -44,8 +44,8 @@ PROTO_0:
        67 LOADN                            R8 24
        68 SETTABLEKS                       R8 R7 K18 ["TextSize"]
        70 DUPTABLE                         R8 K34 [{"Corner", "Padding", "Stroke"}]
-       71 GETUPVAL                         R10 1
-       72 GETTABLEKS                       R9 R10 K9 ["createElement"]
+       71 GETUPVAL                         R9 1
+       72 GETTABLEKS                       R9 R9 K9 ["createElement"]
        74 LOADK                            R10 K35 ["UICorner"]
        75 DUPTABLE                         R11 K37 [{"CornerRadius"}]
        76 GETIMPORT                        R12 K40 [UDim.new]
@@ -55,8 +55,8 @@ PROTO_0:
        81 SETTABLEKS                       R12 R11 K36 ["CornerRadius"]
        83 CALL                             R9 2 1
        84 SETTABLEKS                       R9 R8 K31 ["Corner"]
-       86 GETUPVAL                         R10 1
-       87 GETTABLEKS                       R9 R10 K9 ["createElement"]
+       86 GETUPVAL                         R9 1
+       87 GETTABLEKS                       R9 R9 K9 ["createElement"]
        89 LOADK                            R10 K41 ["UIPadding"]
        90 DUPTABLE                         R11 K46 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
        91 GETIMPORT                        R12 K40 [UDim.new]
@@ -81,8 +81,8 @@ PROTO_0:
       117 SETTABLEKS                       R12 R11 K45 ["PaddingBottom"]
       119 CALL                             R9 2 1
       120 SETTABLEKS                       R9 R8 K32 ["Padding"]
-      122 GETUPVAL                         R10 1
-      123 GETTABLEKS                       R9 R10 K9 ["createElement"]
+      122 GETUPVAL                         R9 1
+      123 GETTABLEKS                       R9 R9 K9 ["createElement"]
       125 LOADK                            R10 K47 ["UIStroke"]
       126 DUPTABLE                         R11 K51 [{"ApplyStrokeMode", "Color", "Thickness"}]
       127 GETIMPORT                        R12 K53 [Enum.ApplyStrokeMode.Border]
@@ -96,8 +96,8 @@ PROTO_0:
       140 RETURN                           R5 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K4 [{"Key", "LayoutOrder", "Pressed"}]
         5 GETTABLEKS                       R4 R0 K5 ["key"]
@@ -116,8 +116,8 @@ PROTO_2:
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CALL                             R1 2 1
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["createElement"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["createElement"]
        10 GETUPVAL                         R3 3
        11 DUPTABLE                         R4 K8 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding", "Spacing"}]
        12 GETIMPORT                        R5 K11 [Enum.AutomaticSize.XY]
@@ -136,22 +136,22 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["map"]
        25 GETIMPORT                        R4 K4 [require]
-       27 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K9 ["Framework"]
+       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K9 ["Framework"]
        31 CALL                             R4 1 1
        32 GETTABLEKS                       R5 R4 K10 ["UI"]
        34 GETTABLEKS                       R6 R5 K11 ["Pane"]

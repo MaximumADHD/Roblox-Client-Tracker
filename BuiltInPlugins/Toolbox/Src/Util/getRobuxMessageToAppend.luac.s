@@ -5,8 +5,8 @@ PROTO_0:
         4 LOADK                            R5 K0 ["AssetConfig"]
         5 LOADK                            R6 K1 ["SomethingWentWrongMsgWithDashboardLink"]
         6 DUPTABLE                         R7 K3 [{"creatorDashboardLink"}]
-        7 GETUPVAL                         R9 0
-        8 GETTABLEKS                       R8 R9 K4 ["CREATOR_DASHBOARD_LINK_PLACEHOLDER"]
+        7 GETUPVAL                         R8 0
+        8 GETTABLEKS                       R8 R8 K4 ["CREATOR_DASHBOARD_LINK_PLACEHOLDER"]
        10 SETTABLEKS                       R8 R7 K2 ["creatorDashboardLink"]
        12 NAMECALL                         R3 R1 K5 ["getText"]
        14 CALL                             R3 4 1
@@ -30,8 +30,8 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["Constants"]
        15 CALL                             R2 1 1

@@ -31,9 +31,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["RunTests"]
        18 CALL                             R2 0 1
@@ -43,19 +43,19 @@ MAIN:
        23 JUMPIFNOT                        R2 ; [+1]
        24 RETURN                           R0 0
        25 GETIMPORT                        R2 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R5 K7 ["Util"]
-       31 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       27 GETTABLEKS                       R3 R0 K6 ["Src"]
+       29 GETTABLEKS                       R3 R3 K7 ["Util"]
+       31 GETTABLEKS                       R3 R3 K11 ["Constants"]
        33 CALL                             R2 1 1
-       34 GETTABLEKS                       R5 R0 K6 ["Src"]
-       36 GETTABLEKS                       R4 R5 K12 ["Resources"]
-       38 GETTABLEKS                       R3 R4 K13 ["SourceStrings"]
-       40 GETTABLEKS                       R6 R0 K6 ["Src"]
-       42 GETTABLEKS                       R5 R6 K12 ["Resources"]
-       44 GETTABLEKS                       R4 R5 K14 ["LocalizedStrings"]
+       34 GETTABLEKS                       R3 R0 K6 ["Src"]
+       36 GETTABLEKS                       R3 R3 K12 ["Resources"]
+       38 GETTABLEKS                       R3 R3 K13 ["SourceStrings"]
+       40 GETTABLEKS                       R4 R0 K6 ["Src"]
+       42 GETTABLEKS                       R4 R4 K12 ["Resources"]
+       44 GETTABLEKS                       R4 R4 K14 ["LocalizedStrings"]
        46 GETIMPORT                        R5 K5 [require]
-       48 GETTABLEKS                       R7 R0 K15 ["Packages"]
-       50 GETTABLEKS                       R6 R7 K16 ["PluginLoader"]
+       48 GETTABLEKS                       R6 R0 K15 ["Packages"]
+       50 GETTABLEKS                       R6 R6 K16 ["PluginLoader"]
        52 CALL                             R5 1 1
        53 GETTABLEKS                       R6 R5 K17 ["PluginLoaderBuilder"]
        55 DUPTABLE                         R7 K27 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
@@ -88,14 +88,14 @@ MAIN:
        99 GETIMPORT                        R10 K51 [Enum.InitialDockState.Bottom]
       101 LOADB                            R11 0
       102 LOADB                            R12 1
-      103 GETTABLEKS                       R14 R2 K52 ["MAIN_FLOATING_SIZE"]
-      105 GETTABLEKS                       R13 R14 K53 ["X"]
-      107 GETTABLEKS                       R15 R2 K52 ["MAIN_FLOATING_SIZE"]
-      109 GETTABLEKS                       R14 R15 K54 ["Y"]
-      111 GETTABLEKS                       R16 R2 K55 ["MAIN_MINIMUM_SIZE"]
-      113 GETTABLEKS                       R15 R16 K53 ["X"]
-      115 GETTABLEKS                       R17 R2 K55 ["MAIN_MINIMUM_SIZE"]
-      117 GETTABLEKS                       R16 R17 K54 ["Y"]
+      103 GETTABLEKS                       R13 R2 K52 ["MAIN_FLOATING_SIZE"]
+      105 GETTABLEKS                       R13 R13 K53 ["X"]
+      107 GETTABLEKS                       R14 R2 K52 ["MAIN_FLOATING_SIZE"]
+      109 GETTABLEKS                       R14 R14 K54 ["Y"]
+      111 GETTABLEKS                       R15 R2 K55 ["MAIN_MINIMUM_SIZE"]
+      113 GETTABLEKS                       R15 R15 K53 ["X"]
+      115 GETTABLEKS                       R16 R2 K55 ["MAIN_MINIMUM_SIZE"]
+      117 GETTABLEKS                       R16 R16 K54 ["Y"]
       119 CALL                             R9 7 1
       120 SETTABLEKS                       R9 R8 K40 ["dockWidgetPluginGuiInfo"]
       122 DUPCLOSURE                       R9 K56 [PROTO_3]
@@ -114,9 +114,9 @@ MAIN:
       143 JUMPIF                           R9 ; [+1]
       144 RETURN                           R0 0
       145 GETIMPORT                        R10 K5 [require]
-      147 GETIMPORT                        R13 K1 [script]
-      149 GETTABLEKS                       R12 R13 K63 ["Parent"]
-      151 GETTABLEKS                       R11 R12 K64 ["main"]
+      147 GETIMPORT                        R11 K1 [script]
+      149 GETTABLEKS                       R11 R11 K63 ["Parent"]
+      151 GETTABLEKS                       R11 R11 K64 ["main"]
       153 CALL                             R10 1 1
       154 MOVE                             R11 R10
       155 GETIMPORT                        R12 K28 [plugin]

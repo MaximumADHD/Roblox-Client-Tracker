@@ -52,20 +52,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Framework"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R3 K10 ["UI"]
-       25 GETTABLEKS                       R4 R5 K11 ["Pane"]
+       23 GETTABLEKS                       R4 R3 K10 ["UI"]
+       25 GETTABLEKS                       R4 R4 K11 ["Pane"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETIMPORT                        R8 K1 [script]
-       31 GETTABLEKS                       R7 R8 K12 ["Parent"]
-       33 GETTABLEKS                       R6 R7 K13 ["FilterChip"]
+       29 GETIMPORT                        R6 K1 [script]
+       31 GETTABLEKS                       R6 R6 K12 ["Parent"]
+       33 GETTABLEKS                       R6 R6 K13 ["FilterChip"]
        35 CALL                             R5 1 1
        36 DUPCLOSURE                       R6 K14 [PROTO_0]
        37 CAPTURE                          VAL R2

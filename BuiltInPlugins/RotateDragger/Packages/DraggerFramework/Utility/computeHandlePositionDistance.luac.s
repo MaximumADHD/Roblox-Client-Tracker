@@ -1,6 +1,6 @@
 PROTO_0:
-        0 SUB                              R7 R1 R0
-        1 GETTABLEKS                       R6 R7 K0 ["Magnitude"]
+        0 SUB                              R6 R1 R0
+        1 GETTABLEKS                       R6 R6 K0 ["Magnitude"]
         3 SUB                              R5 R2 R6
         4 SUB                              R4 R3 R5
         5 RETURN                           R4 1
@@ -13,8 +13,8 @@ PROTO_1:
         5 CALL                             R8 1 1
         6 LOADK                            R9 K3 [0.001]
         7 JUMPIFNOTLT                      R8 R9 ; [+7]
-        9 SUB                              R11 R3 R1
-       10 GETTABLEKS                       R10 R11 K4 ["Magnitude"]
+        9 SUB                              R10 R3 R1
+       10 GETTABLEKS                       R10 R10 K4 ["Magnitude"]
        12 SUB                              R9 R5 R10
        13 SUB                              R8 R6 R9
        14 RETURN                           R8 1
@@ -62,8 +62,8 @@ PROTO_1:
        68 CALL                             R18 1 1
        69 LOADK                            R19 K3 [0.001]
        70 JUMPIFNOTLT                      R18 R19 ; [+7]
-       72 SUB                              R21 R3 R1
-       73 GETTABLEKS                       R20 R21 K4 ["Magnitude"]
+       72 SUB                              R20 R3 R1
+       73 GETTABLEKS                       R20 R20 K4 ["Magnitude"]
        75 SUB                              R19 R5 R20
        76 SUB                              R18 R6 R19
        77 RETURN                           R18 1
@@ -76,12 +76,12 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Flags"]
-       11 GETTABLEKS                       R2 R3 K6 ["getFFlagNextGenDraggers"]
+        9 GETTABLEKS                       R2 R0 K5 ["Flags"]
+       11 GETTABLEKS                       R2 R2 K6 ["getFFlagNextGenDraggers"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K7 [PROTO_0]
        15 MOVE                             R4 R1

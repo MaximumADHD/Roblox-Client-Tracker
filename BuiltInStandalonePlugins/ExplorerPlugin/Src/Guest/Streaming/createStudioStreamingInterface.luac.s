@@ -81,8 +81,8 @@ PROTO_8:
         2 LOADK                            R2 K2 ["NetworkClient"]
         3 NAMECALL                         R0 R0 K3 ["FindService"]
         5 CALL                             R0 2 1
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K4 ["LocalPlayer"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K4 ["LocalPlayer"]
         9 JUMPIFEQKNIL                     R1 ; [+8]
        11 JUMPIFEQKNIL                     R0 ; [+6]
        13 GETUPVAL                         R2 1
@@ -118,26 +118,26 @@ PROTO_8:
        50 GETUPVAL                         R3 2
        51 LOADK                            R4 K12 ["Starting Studio streaming interface"]
        52 CALL                             R3 1 0
-       53 GETUPVAL                         R5 3
-       54 GETTABLEKS                       R4 R5 K13 ["Signal"]
-       56 GETTABLEKS                       R3 R4 K14 ["new"]
+       53 GETUPVAL                         R3 3
+       54 GETTABLEKS                       R3 R3 K13 ["Signal"]
+       56 GETTABLEKS                       R3 R3 K14 ["new"]
        58 CALL                             R3 0 1
-       59 GETUPVAL                         R6 3
-       60 GETTABLEKS                       R5 R6 K13 ["Signal"]
-       62 GETTABLEKS                       R4 R5 K14 ["new"]
+       59 GETUPVAL                         R4 3
+       60 GETTABLEKS                       R4 R4 K13 ["Signal"]
+       62 GETTABLEKS                       R4 R4 K14 ["new"]
        64 CALL                             R4 0 1
-       65 GETUPVAL                         R7 3
-       66 GETTABLEKS                       R6 R7 K13 ["Signal"]
-       68 GETTABLEKS                       R5 R6 K14 ["new"]
+       65 GETUPVAL                         R5 3
+       66 GETTABLEKS                       R5 R5 K13 ["Signal"]
+       68 GETTABLEKS                       R5 R5 K14 ["new"]
        70 CALL                             R5 0 1
-       71 GETUPVAL                         R8 3
-       72 GETTABLEKS                       R7 R8 K13 ["Signal"]
-       74 GETTABLEKS                       R6 R7 K14 ["new"]
+       71 GETUPVAL                         R6 3
+       72 GETTABLEKS                       R6 R6 K13 ["Signal"]
+       74 GETTABLEKS                       R6 R6 K14 ["new"]
        76 CALL                             R6 0 1
        77 GETUPVAL                         R7 4
-       78 GETUPVAL                         R11 5
-       79 GETTABLEKS                       R10 R11 K15 ["ExplorerRemoteCommand"]
-       81 GETTABLEKS                       R9 R10 K16 ["Value"]
+       78 GETUPVAL                         R9 5
+       79 GETTABLEKS                       R9 R9 K15 ["ExplorerRemoteCommand"]
+       81 GETTABLEKS                       R9 R9 K16 ["Value"]
        83 NAMECALL                         R7 R7 K17 ["ExecuteCommand"]
        85 CALL                             R7 2 1
        86 GETTABLEKS                       R8 R7 K18 ["ReceivedUpdate"]
@@ -198,11 +198,11 @@ MAIN:
        22 NAMECALL                         R3 R3 K9 ["FindFirstAncestor"]
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
-       27 GETTABLEKS                       R6 R3 K12 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K13 ["Explorer"]
+       27 GETTABLEKS                       R5 R3 K12 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K13 ["Explorer"]
        31 CALL                             R4 1 1
-       32 GETTABLEKS                       R6 R4 K14 ["Util"]
-       34 GETTABLEKS                       R5 R6 K15 ["createDebugLogger"]
+       32 GETTABLEKS                       R5 R4 K14 ["Util"]
+       34 GETTABLEKS                       R5 R5 K15 ["createDebugLogger"]
        36 LOADK                            R6 K16 ["createStudioStreamingInterface"]
        37 CALL                             R5 1 1
        38 DUPCLOSURE                       R6 K17 [PROTO_8]

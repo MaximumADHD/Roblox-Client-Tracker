@@ -83,9 +83,9 @@ MAIN:
         9 LOADK                            R3 K6 ["HttpService"]
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETTABLEKS                       R4 R0 K8 ["Src"]
-       15 GETTABLEKS                       R3 R4 K9 ["Util"]
-       17 GETTABLEKS                       R2 R3 K10 ["ScriptAnalysis"]
+       13 GETTABLEKS                       R2 R0 K8 ["Src"]
+       15 GETTABLEKS                       R2 R2 K9 ["Util"]
+       17 GETTABLEKS                       R2 R2 K10 ["ScriptAnalysis"]
        19 GETIMPORT                        R3 K12 [require]
        21 GETTABLEKS                       R4 R2 K13 ["Constants"]
        23 CALL                             R3 1 1

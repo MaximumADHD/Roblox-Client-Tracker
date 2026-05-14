@@ -1,13 +1,13 @@
 PROTO_0:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+6]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["mock"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["mock"]
         5 CALL                             R2 0 1
         6 MOVE                             R1 R2
         7 JUMP                             ; [+7]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K1 ["new"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K1 ["new"]
        11 GETUPVAL                         R3 1
        12 GETUPVAL                         R4 2
        13 CALL                             R2 2 1
@@ -24,24 +24,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Style"]
-       16 GETTABLEKS                       R4 R2 K9 ["Themes"]
-       18 GETTABLEKS                       R3 R4 K10 ["StudioTheme"]
+       16 GETTABLEKS                       R3 R2 K9 ["Themes"]
+       18 GETTABLEKS                       R3 R3 K10 ["StudioTheme"]
        20 GETTABLEKS                       R4 R2 K11 ["StyleKey"]
        22 GETTABLEKS                       R5 R2 K12 ["ComponentSymbols"]
        24 GETTABLEKS                       R6 R1 K13 ["Util"]
        26 GETTABLEKS                       R7 R6 K14 ["StyleModifier"]
        28 GETTABLEKS                       R8 R1 K15 ["UIData"]
        30 GETIMPORT                        R9 K5 [require]
-       32 GETTABLEKS                       R11 R8 K16 ["TreeView"]
-       34 GETTABLEKS                       R10 R11 K17 ["style"]
+       32 GETTABLEKS                       R10 R8 K16 ["TreeView"]
+       34 GETTABLEKS                       R10 R10 K17 ["style"]
        36 CALL                             R9 1 1
        37 GETIMPORT                        R10 K5 [require]
-       39 GETTABLEKS                       R12 R0 K6 ["Packages"]
-       41 GETTABLEKS                       R11 R12 K18 ["Cryo"]
+       39 GETTABLEKS                       R11 R0 K6 ["Packages"]
+       41 GETTABLEKS                       R11 R11 K18 ["Cryo"]
        43 CALL                             R10 1 1
        44 LOADK                            R13 K19 ["ProgressBar"]
        45 NAMECALL                         R11 R5 K20 ["add"]
@@ -393,8 +393,8 @@ MAIN:
       536 LOADN                            R30 10
       537 SETTABLEKS                       R30 R29 K165 ["ButtonSpacing"]
       539 SETTABLEKS                       R13 R29 K166 ["ButtonPadding"]
-      541 GETTABLEKS                       R31 R10 K168 ["Dictionary"]
-      543 GETTABLEKS                       R30 R31 K169 ["join"]
+      541 GETTABLEKS                       R30 R10 K168 ["Dictionary"]
+      543 GETTABLEKS                       R30 R30 K169 ["join"]
       545 MOVE                             R31 R29
       546 MOVE                             R32 R14
       547 CALL                             R30 2 1
@@ -456,8 +456,8 @@ MAIN:
       630 DUPTABLE                         R33 K189 [{"RowHeight", "CompactNoBorder"}]
       631 LOADN                            R34 20
       632 SETTABLEKS                       R34 R33 K122 ["RowHeight"]
-      634 GETTABLEKS                       R35 R10 K168 ["Dictionary"]
-      636 GETTABLEKS                       R34 R35 K169 ["join"]
+      634 GETTABLEKS                       R34 R10 K168 ["Dictionary"]
+      636 GETTABLEKS                       R34 R34 K169 ["join"]
       638 MOVE                             R35 R9
       639 DUPTABLE                         R36 K194 [{"Text", "Indent", "RowHeight", "Arrow", "IconPadding", "HoverColor", "SelectedColor", "SelectedTextColor"}]
       640 DUPTABLE                         R37 K131 [{"Font", "TextColor", "TextSize"}]
@@ -534,8 +534,8 @@ MAIN:
       752 SETTABLEKS                       R39 R38 K165 ["ButtonSpacing"]
       754 SETTABLEKS                       R12 R38 K162 ["SeparatorStyle"]
       756 SETTABLEKS                       R13 R38 K166 ["ButtonPadding"]
-      758 GETTABLEKS                       R40 R10 K168 ["Dictionary"]
-      760 GETTABLEKS                       R39 R40 K169 ["join"]
+      758 GETTABLEKS                       R39 R10 K168 ["Dictionary"]
+      760 GETTABLEKS                       R39 R39 K169 ["join"]
       762 MOVE                             R40 R38
       763 MOVE                             R41 R14
       764 CALL                             R39 2 1
@@ -926,8 +926,8 @@ MAIN:
      1344 LOADN                            R54 5
      1345 SETTABLEKS                       R54 R53 K124 ["Spacing"]
      1347 SETTABLEKS                       R13 R53 K125 ["Padding"]
-     1349 GETTABLEKS                       R55 R10 K168 ["Dictionary"]
-     1351 GETTABLEKS                       R54 R55 K169 ["join"]
+     1349 GETTABLEKS                       R54 R10 K168 ["Dictionary"]
+     1351 GETTABLEKS                       R54 R54 K169 ["join"]
      1353 MOVE                             R55 R53
      1354 MOVE                             R56 R14
      1355 CALL                             R54 2 1

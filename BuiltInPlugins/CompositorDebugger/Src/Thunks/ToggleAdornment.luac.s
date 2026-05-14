@@ -25,22 +25,22 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 NAMECALL                         R3 R0 K0 ["getState"]
-        2 CALL                             R3 1 1
-        3 GETTABLEKS                       R2 R3 K1 ["Status"]
-        5 GETTABLEKS                       R1 R2 K2 ["Actor"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["Status"]
+        5 GETTABLEKS                       R1 R1 K2 ["Actor"]
         7 GETUPVAL                         R2 0
-        8 NAMECALL                         R5 R0 K0 ["getState"]
-       10 CALL                             R5 1 1
-       11 GETTABLEKS                       R4 R5 K1 ["Status"]
-       13 GETTABLEKS                       R3 R4 K3 ["Adornments"]
+        8 NAMECALL                         R3 R0 K0 ["getState"]
+       10 CALL                             R3 1 1
+       11 GETTABLEKS                       R3 R3 K1 ["Status"]
+       13 GETTABLEKS                       R3 R3 K3 ["Adornments"]
        15 CALL                             R2 1 1
        16 GETUPVAL                         R4 1
        17 GETTABLE                         R3 R2 R4
        18 JUMPIFNOT                        R3 ; [+5]
-       19 GETUPVAL                         R5 1
-       20 GETTABLE                         R4 R2 R5
-       21 GETTABLEKS                       R3 R4 K4 ["enabled"]
+       19 GETUPVAL                         R4 1
+       20 GETTABLE                         R3 R2 R4
+       21 GETTABLEKS                       R3 R3 K4 ["enabled"]
        23 JUMPIF                           R3 ; [+30]
        24 GETUPVAL                         R3 2
        25 CALL                             R3 0 1
@@ -53,22 +53,22 @@ PROTO_2:
        33 SETTABLEKS                       R4 R6 K5 ["colorEntry"]
        35 SETTABLEKS                       R3 R6 K6 ["index"]
        37 SETTABLE                         R6 R2 R5
-       38 GETUPVAL                         R7 1
-       39 GETTABLE                         R6 R2 R7
-       40 GETTABLEKS                       R5 R6 K8 ["gizmo"]
+       38 GETUPVAL                         R6 1
+       39 GETTABLE                         R5 R2 R6
+       40 GETTABLEKS                       R5 R5 K8 ["gizmo"]
        42 JUMPIF                           R5 ; [+25]
        43 GETUPVAL                         R6 1
        44 GETTABLE                         R5 R2 R6
-       45 GETUPVAL                         R7 4
-       46 GETTABLEKS                       R6 R7 K9 ["new"]
+       45 GETUPVAL                         R6 4
+       46 GETTABLEKS                       R6 R6 K9 ["new"]
        48 MOVE                             R7 R1
        49 GETUPVAL                         R8 1
        50 CALL                             R6 2 1
        51 SETTABLEKS                       R6 R5 K8 ["gizmo"]
        53 JUMP                             ; [+14]
-       54 GETUPVAL                         R5 1
-       55 GETTABLE                         R4 R2 R5
-       56 GETTABLEKS                       R3 R4 K5 ["colorEntry"]
+       54 GETUPVAL                         R4 1
+       55 GETTABLE                         R3 R2 R4
+       56 GETTABLEKS                       R3 R3 K5 ["colorEntry"]
        58 GETTABLEKS                       R4 R3 K10 ["count"]
        60 SUBK                             R4 R4 K11 [1]
        61 SETTABLEKS                       R4 R3 K10 ["count"]
@@ -105,28 +105,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["copy"]
-       16 GETTABLEKS                       R4 R0 K9 ["Src"]
-       18 GETTABLEKS                       R3 R4 K10 ["Actions"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Actions"]
        20 GETIMPORT                        R4 K5 [require]
        22 GETTABLEKS                       R5 R3 K11 ["SetAdornments"]
        24 CALL                             R4 1 1
-       25 GETTABLEKS                       R6 R0 K9 ["Src"]
-       27 GETTABLEKS                       R5 R6 K12 ["Thunks"]
+       25 GETTABLEKS                       R5 R0 K9 ["Src"]
+       27 GETTABLEKS                       R5 R5 K12 ["Thunks"]
        29 GETIMPORT                        R6 K5 [require]
        31 GETTABLEKS                       R7 R5 K13 ["RenderAdornments"]
        33 CALL                             R6 1 1
-       34 GETTABLEKS                       R8 R0 K9 ["Src"]
-       36 GETTABLEKS                       R7 R8 K14 ["Util"]
+       34 GETTABLEKS                       R7 R0 K9 ["Src"]
+       36 GETTABLEKS                       R7 R7 K14 ["Util"]
        38 GETIMPORT                        R8 K5 [require]
        40 GETTABLEKS                       R9 R7 K15 ["Gizmo"]
        42 CALL                             R8 1 1
        43 GETIMPORT                        R9 K5 [require]
-       45 GETTABLEKS                       R11 R0 K9 ["Src"]
-       47 GETTABLEKS                       R10 R11 K16 ["Types"]
+       45 GETTABLEKS                       R10 R0 K9 ["Src"]
+       47 GETTABLEKS                       R10 R10 K16 ["Types"]
        49 CALL                             R9 1 1
        50 NEWTABLE                         R10 0 11
        52 DUPTABLE                         R11 K19 [{"color", "count"}]

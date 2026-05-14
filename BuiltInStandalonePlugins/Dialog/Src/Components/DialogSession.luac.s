@@ -5,19 +5,19 @@ PROTO_0:
         3 RETURN                           R0 1
         4 GETIMPORT                        R0 K2 [table.freeze]
         6 DUPTABLE                         R1 K7 [{"uri", "text", "disabled", "onActivated"}]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K8 ["wrap"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K9 ["Uri"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K8 ["wrap"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K9 ["Uri"]
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R1 K3 ["uri"]
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R2 R3 K10 ["Text"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K10 ["Text"]
        19 SETTABLEKS                       R2 R1 K4 ["text"]
        21 GETUPVAL                         R3 2
        22 JUMPIFNOT                        R3 ; [+4]
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R2 R3 K11 ["Disabled"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K11 ["Disabled"]
        26 JUMP                             ; [+1]
        27 LOADNIL                          R2
        28 SETTABLEKS                       R2 R1 K5 ["disabled"]
@@ -27,12 +27,12 @@ PROTO_0:
        34 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useSignalState"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useSignalState"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["useMemo"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["useMemo"]
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          VAL R2
        10 CAPTURE                          UPVAL U2
@@ -46,8 +46,8 @@ PROTO_1:
        20 RETURN                           R3 -1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createSignal"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createSignal"]
         3 GETIMPORT                        R1 K3 [Vector2.new]
         5 LOADN                            R2 94
         6 LOADN                            R3 102
@@ -62,50 +62,50 @@ PROTO_3:
         4 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useSignalState"]
-        3 GETTABLEKS                       R3 R0 K1 ["signals"]
-        5 GETTABLEKS                       R2 R3 K2 ["getType"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useSignalState"]
+        3 GETTABLEKS                       R2 R0 K1 ["signals"]
+        5 GETTABLEKS                       R2 R2 K2 ["getType"]
         7 CALL                             R1 1 1
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K3 ["useSignalBinding"]
-       11 GETTABLEKS                       R4 R0 K1 ["signals"]
-       13 GETTABLEKS                       R3 R4 K4 ["getTitle"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K3 ["useSignalBinding"]
+       11 GETTABLEKS                       R3 R0 K1 ["signals"]
+       13 GETTABLEKS                       R3 R3 K4 ["getTitle"]
        15 CALL                             R2 1 1
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K3 ["useSignalBinding"]
-       19 GETTABLEKS                       R5 R0 K1 ["signals"]
-       21 GETTABLEKS                       R4 R5 K5 ["getDescription"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K3 ["useSignalBinding"]
+       19 GETTABLEKS                       R4 R0 K1 ["signals"]
+       21 GETTABLEKS                       R4 R4 K5 ["getDescription"]
        23 CALL                             R3 1 1
        24 LOADNIL                          R4
        25 LOADNIL                          R5
        26 GETUPVAL                         R6 1
        27 JUMPIFNOT                        R6 ; [+18]
-       28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R6 R7 K3 ["useSignalBinding"]
-       31 GETTABLEKS                       R8 R0 K1 ["signals"]
-       33 GETTABLEKS                       R7 R8 K6 ["getImageUri"]
+       28 GETUPVAL                         R6 0
+       29 GETTABLEKS                       R6 R6 K3 ["useSignalBinding"]
+       31 GETTABLEKS                       R7 R0 K1 ["signals"]
+       33 GETTABLEKS                       R7 R7 K6 ["getImageUri"]
        35 CALL                             R6 1 1
        36 MOVE                             R4 R6
-       37 GETUPVAL                         R7 0
-       38 GETTABLEKS                       R6 R7 K0 ["useSignalState"]
-       40 GETTABLEKS                       R8 R0 K1 ["signals"]
-       42 GETTABLEKS                       R7 R8 K7 ["getShowIndeterminateProgressIndicator"]
+       37 GETUPVAL                         R6 0
+       38 GETTABLEKS                       R6 R6 K0 ["useSignalState"]
+       40 GETTABLEKS                       R7 R0 K1 ["signals"]
+       42 GETTABLEKS                       R7 R7 K7 ["getShowIndeterminateProgressIndicator"]
        44 CALL                             R6 1 1
        45 MOVE                             R5 R6
        46 GETUPVAL                         R6 2
-       47 GETTABLEKS                       R8 R0 K1 ["signals"]
-       49 GETTABLEKS                       R7 R8 K8 ["getPrimaryButton"]
+       47 GETTABLEKS                       R7 R0 K1 ["signals"]
+       49 GETTABLEKS                       R7 R7 K8 ["getPrimaryButton"]
        51 GETTABLEKS                       R8 R0 K9 ["onUserInteracted"]
        53 CALL                             R6 2 1
        54 GETUPVAL                         R7 2
-       55 GETTABLEKS                       R9 R0 K1 ["signals"]
-       57 GETTABLEKS                       R8 R9 K10 ["getSecondaryButton"]
+       55 GETTABLEKS                       R8 R0 K1 ["signals"]
+       57 GETTABLEKS                       R8 R8 K10 ["getSecondaryButton"]
        59 GETTABLEKS                       R9 R0 K9 ["onUserInteracted"]
        61 CALL                             R7 2 1
        62 GETUPVAL                         R8 2
-       63 GETTABLEKS                       R10 R0 K1 ["signals"]
-       65 GETTABLEKS                       R9 R10 K11 ["getTertiaryButton"]
+       63 GETTABLEKS                       R9 R0 K1 ["signals"]
+       65 GETTABLEKS                       R9 R9 K11 ["getTertiaryButton"]
        67 GETTABLEKS                       R10 R0 K9 ["onUserInteracted"]
        69 CALL                             R8 2 1
        70 GETUPVAL                         R9 3
@@ -138,14 +138,14 @@ PROTO_4:
       108 SETTABLEKS                       R12 R11 K9 ["onUserInteracted"]
       110 CALL                             R9 2 -1
       111 RETURN                           R9 -1
-      112 GETUPVAL                         R10 6
-      113 GETTABLEKS                       R9 R10 K22 ["useMemo"]
+      112 GETUPVAL                         R9 6
+      113 GETTABLEKS                       R9 R9 K22 ["useMemo"]
       115 DUPCLOSURE                       R10 K23 [PROTO_2]
       116 CAPTURE                          UPVAL U7
       117 NEWTABLE                         R11 0 0
       119 CALL                             R9 2 2
-      120 GETUPVAL                         R12 6
-      121 GETTABLEKS                       R11 R12 K24 ["useCallback"]
+      120 GETUPVAL                         R11 6
+      121 GETTABLEKS                       R11 R11 K24 ["useCallback"]
       123 NEWCLOSURE                       R12 P1
       124 CAPTURE                          VAL R10
       125 NEWTABLE                         R13 0 1
@@ -193,59 +193,59 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Components"]
-       13 GETTABLEKS                       R2 R3 K2 ["Dialog"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K2 ["Dialog"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Components"]
-       22 GETTABLEKS                       R3 R4 K8 ["DialogPanel"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Components"]
+       22 GETTABLEKS                       R3 R3 K8 ["DialogPanel"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["Components"]
-       31 GETTABLEKS                       R4 R5 K9 ["DialogView"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Components"]
+       31 GETTABLEKS                       R4 R4 K9 ["DialogView"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       38 GETTABLEKS                       R5 R6 K11 ["React"]
+       36 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       38 GETTABLEKS                       R5 R5 K11 ["React"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R7 R0 K10 ["Packages"]
-       45 GETTABLEKS                       R6 R7 K12 ["Signals"]
+       43 GETTABLEKS                       R6 R0 K10 ["Packages"]
+       45 GETTABLEKS                       R6 R6 K12 ["Signals"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R8 R0 K10 ["Packages"]
-       52 GETTABLEKS                       R7 R8 K13 ["SignalsReact"]
+       50 GETTABLEKS                       R7 R0 K10 ["Packages"]
+       52 GETTABLEKS                       R7 R7 K13 ["SignalsReact"]
        54 CALL                             R6 1 1
        55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R9 R0 K10 ["Packages"]
-       59 GETTABLEKS                       R8 R9 K14 ["StudioFoundation"]
+       57 GETTABLEKS                       R8 R0 K10 ["Packages"]
+       59 GETTABLEKS                       R8 R8 K14 ["StudioFoundation"]
        61 CALL                             R7 1 1
        62 GETIMPORT                        R8 K5 [require]
-       64 GETTABLEKS                       R10 R0 K6 ["Src"]
-       66 GETTABLEKS                       R9 R10 K15 ["Types"]
+       64 GETTABLEKS                       R9 R0 K6 ["Src"]
+       66 GETTABLEKS                       R9 R9 K15 ["Types"]
        68 CALL                             R8 1 1
        69 GETIMPORT                        R9 K5 [require]
-       71 GETTABLEKS                       R12 R0 K6 ["Src"]
-       73 GETTABLEKS                       R11 R12 K16 ["Util"]
-       75 GETTABLEKS                       R10 R11 K17 ["createDialogSignals"]
+       71 GETTABLEKS                       R10 R0 K6 ["Src"]
+       73 GETTABLEKS                       R10 R10 K16 ["Util"]
+       75 GETTABLEKS                       R10 R10 K17 ["createDialogSignals"]
        77 CALL                             R9 1 1
        78 GETIMPORT                        R10 K5 [require]
-       80 GETTABLEKS                       R13 R0 K6 ["Src"]
-       82 GETTABLEKS                       R12 R13 K18 ["Flags"]
-       84 GETTABLEKS                       R11 R12 K19 ["getFFlagDialogManagerUpdateSemantics"]
+       80 GETTABLEKS                       R11 R0 K6 ["Src"]
+       82 GETTABLEKS                       R11 R11 K18 ["Flags"]
+       84 GETTABLEKS                       R11 R11 K19 ["getFFlagDialogManagerUpdateSemantics"]
        86 CALL                             R10 1 1
        87 GETIMPORT                        R11 K5 [require]
-       89 GETTABLEKS                       R14 R0 K6 ["Src"]
-       91 GETTABLEKS                       R13 R14 K18 ["Flags"]
-       93 GETTABLEKS                       R12 R13 K20 ["getFeatureStudioDialogManagerCustomDialogs"]
+       89 GETTABLEKS                       R12 R0 K6 ["Src"]
+       91 GETTABLEKS                       R12 R12 K18 ["Flags"]
+       93 GETTABLEKS                       R12 R12 K20 ["getFeatureStudioDialogManagerCustomDialogs"]
        95 CALL                             R11 1 1
        96 MOVE                             R12 R10
        97 CALL                             R12 0 1
-       98 GETTABLEKS                       R14 R7 K16 ["Util"]
-      100 GETTABLEKS                       R13 R14 K21 ["StudioUri"]
+       98 GETTABLEKS                       R13 R7 K16 ["Util"]
+      100 GETTABLEKS                       R13 R13 K21 ["StudioUri"]
       102 GETTABLEKS                       R14 R4 K22 ["createElement"]
       104 DUPCLOSURE                       R15 K23 [PROTO_1]
       105 CAPTURE                          VAL R6

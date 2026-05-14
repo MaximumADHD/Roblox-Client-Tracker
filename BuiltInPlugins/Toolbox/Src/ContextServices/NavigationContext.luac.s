@@ -51,8 +51,8 @@ PROTO_6:
        12 MOVE                             R6 R1
        13 GETIMPORT                        R4 K3 [table.insert]
        15 CALL                             R4 2 0
-       16 GETTABLEKS                       R5 R0 K5 ["navigation"]
-       18 GETTABLEKS                       R4 R5 K6 ["push"]
+       16 GETTABLEKS                       R4 R0 K5 ["navigation"]
+       18 GETTABLEKS                       R4 R4 K6 ["push"]
        20 MOVE                             R5 R1
        21 MOVE                             R6 R3
        22 CALL                             R4 2 0
@@ -85,8 +85,8 @@ PROTO_7:
        38 GETTABLEKS                       R2 R0 K4 ["rootRoute"]
        40 SETLIST                          R1 R2 1 [1]
        42 SETTABLEKS                       R1 R0 K5 ["observedRouteStack"]
-       44 GETTABLEKS                       R2 R0 K6 ["navigation"]
-       46 GETTABLEKS                       R1 R2 K7 ["pop"]
+       44 GETTABLEKS                       R1 R0 K6 ["navigation"]
+       46 GETTABLEKS                       R1 R1 K7 ["pop"]
        48 CALL                             R1 0 0
        49 RETURN                           R0 0
 
@@ -99,8 +99,8 @@ PROTO_8:
        10 GETTABLEKS                       R2 R0 K0 ["rootRoute"]
        12 SETLIST                          R1 R2 1 [1]
        14 SETTABLEKS                       R1 R0 K2 ["observedRouteStack"]
-       16 GETTABLEKS                       R2 R0 K3 ["navigation"]
-       18 GETTABLEKS                       R1 R2 K4 ["popToTop"]
+       16 GETTABLEKS                       R1 R0 K3 ["navigation"]
+       18 GETTABLEKS                       R1 R1 K4 ["popToTop"]
        20 CALL                             R1 0 0
        21 RETURN                           R0 0
 
@@ -121,16 +121,16 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Framework"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R2 K7 ["ContextServices"]
-       18 GETTABLEKS                       R3 R4 K8 ["ContextItem"]
+       16 GETTABLEKS                       R3 R2 K7 ["ContextServices"]
+       18 GETTABLEKS                       R3 R3 K8 ["ContextItem"]
        20 LOADK                            R6 K9 ["NavigationContext"]
        21 NAMECALL                         R4 R3 K10 ["extend"]
        23 CALL                             R4 2 1

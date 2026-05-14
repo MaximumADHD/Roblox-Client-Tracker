@@ -8,15 +8,15 @@ PROTO_0:
         9 GETUPVAL                         R3 0
        10 CALL                             R3 0 1
        11 JUMPIFNOT                        R3 ; [+10]
-       12 GETTABLEKS                       R3 R1 K6 ["Parent"]
-       14 GETTABLEKS                       R2 R3 K7 ["CFrame"]
+       12 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       14 GETTABLEKS                       R2 R2 K7 ["CFrame"]
        16 GETTABLEKS                       R4 R1 K8 ["ReferenceOrigin"]
        18 NAMECALL                         R2 R2 K9 ["ToWorldSpace"]
        20 CALL                             R2 2 1
        21 RETURN                           R2 1
        22 GETTABLEKS                       R3 R1 K8 ["ReferenceOrigin"]
-       24 GETTABLEKS                       R5 R1 K6 ["Parent"]
-       26 GETTABLEKS                       R4 R5 K7 ["CFrame"]
+       24 GETTABLEKS                       R4 R1 K6 ["Parent"]
+       26 GETTABLEKS                       R4 R4 K7 ["CFrame"]
        28 MUL                              R2 R3 R4
        29 RETURN                           R2 1
        30 GETIMPORT                        R2 K11 [Enum.CageType.Outer]
@@ -28,15 +28,15 @@ PROTO_0:
        39 GETUPVAL                         R3 0
        40 CALL                             R3 0 1
        41 JUMPIFNOT                        R3 ; [+10]
-       42 GETTABLEKS                       R3 R1 K6 ["Parent"]
-       44 GETTABLEKS                       R2 R3 K7 ["CFrame"]
+       42 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       44 GETTABLEKS                       R2 R2 K7 ["CFrame"]
        46 GETTABLEKS                       R4 R1 K13 ["CageOrigin"]
        48 NAMECALL                         R2 R2 K9 ["ToWorldSpace"]
        50 CALL                             R2 2 1
        51 RETURN                           R2 1
        52 GETTABLEKS                       R3 R1 K13 ["CageOrigin"]
-       54 GETTABLEKS                       R5 R1 K6 ["Parent"]
-       56 GETTABLEKS                       R4 R5 K7 ["CFrame"]
+       54 GETTABLEKS                       R4 R1 K6 ["Parent"]
+       56 GETTABLEKS                       R4 R4 K7 ["CFrame"]
        58 MUL                              R2 R3 R4
        59 RETURN                           R2 1
        60 GETIMPORT                        R2 K15 [CFrame.new]
@@ -66,8 +66,8 @@ PROTO_2:
        14 GETUPVAL                         R5 0
        15 CALL                             R5 0 1
        16 JUMPIFNOT                        R5 ; [+8]
-       17 GETUPVAL                         R6 1
-       18 GETTABLEKS                       R5 R6 K4 ["scaleVertices"]
+       17 GETUPVAL                         R5 1
+       18 GETTABLEKS                       R5 R5 K4 ["scaleVertices"]
        20 MOVE                             R6 R1
        21 MOVE                             R7 R2
        22 CALL                             R5 2 -1
@@ -106,8 +106,8 @@ PROTO_5:
         4 LOADK                            R4 K0 ["Scaling vertices is only supported with getFFlagAvatarPreviewerCageEditingTools"]
         5 GETIMPORT                        R2 K2 [assert]
         7 CALL                             R2 2 0
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["getScaleFactor"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["getScaleFactor"]
        11 MOVE                             R3 R0
        12 CALL                             R2 1 1
        13 GETTABLEKS                       R3 R0 K4 ["CageOrigin"]
@@ -135,8 +135,8 @@ PROTO_6:
         4 LOADK                            R4 K0 ["Scaling vertices is only supported with getFFlagAvatarPreviewerCageEditingTools"]
         5 GETIMPORT                        R2 K2 [assert]
         7 CALL                             R2 2 0
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K4 ["getScaleFactor"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K4 ["getScaleFactor"]
        11 MOVE                             R4 R0
        12 CALL                             R3 1 1
        13 DIVRK                            R2 R3 K3 [1]
@@ -185,8 +185,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Flags"]
-       11 GETTABLEKS                       R2 R3 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
+        9 GETTABLEKS                       R2 R0 K6 ["Flags"]
+       11 GETTABLEKS                       R2 R2 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 DUPCLOSURE                       R3 K8 [PROTO_0]

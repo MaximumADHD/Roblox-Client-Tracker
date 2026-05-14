@@ -35,8 +35,8 @@ PROTO_2:
         8 LOADN                            R4 64
         9 CALL                             R3 1 1
        10 NEWTABLE                         R4 0 0
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K3 ["Terrain"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K3 ["Terrain"]
        15 NEWCLOSURE                       R6 P0
        16 CAPTURE                          VAL R2
        17 CAPTURE                          VAL R1

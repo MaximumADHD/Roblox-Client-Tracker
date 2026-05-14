@@ -18,10 +18,10 @@ PROTO_1:
        12 SUB                              R3 R4 R5
        13 SUBRK                            R4 R7 K1 [0.99]
        14 MUL                              R2 R3 R4
-       15 GETTABLEKS                       R4 R0 K8 ["ParentSize"]
-       17 GETTABLEKS                       R3 R4 K9 ["Y"]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K10 ["SCALE_TICK_SPACING"]
+       15 GETTABLEKS                       R3 R0 K8 ["ParentSize"]
+       17 GETTABLEKS                       R3 R3 K9 ["Y"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K10 ["SCALE_TICK_SPACING"]
        22 MUL                              R5 R6 R2
        23 DIV                              R4 R5 R3
        24 LOADN                            R6 10
@@ -35,8 +35,8 @@ PROTO_1:
        34 FASTCALL2                        MATH_POW R6 R7 ; [+3]
        36 GETIMPORT                        R5 K16 [math.pow]
        38 CALL                             R5 2 1
-       39 GETUPVAL                         R8 0
-       40 GETTABLEKS                       R7 R8 K17 ["SCALE_NUM_TICKS"]
+       39 GETUPVAL                         R7 0
+       40 GETTABLEKS                       R7 R7 K17 ["SCALE_NUM_TICKS"]
        42 MUL                              R6 R7 R5
        43 JUMPIFNOTLT                      R4 R6 ; [+3]
        45 MOVE                             R7 R5
@@ -64,19 +64,19 @@ PROTO_2:
        23 MUL                              R8 R5 R6
        24 SUB                              R1 R1 R8
        25 MUL                              R1 R1 R7
-       26 GETTABLEKS                       R11 R2 K10 ["ParentSize"]
-       28 GETTABLEKS                       R10 R11 K11 ["Y"]
+       26 GETTABLEKS                       R10 R2 K10 ["ParentSize"]
+       28 GETTABLEKS                       R10 R10 K11 ["Y"]
        30 MUL                              R9 R1 R10
        31 LOADN                            R12 2
-       32 GETUPVAL                         R14 0
-       33 GETTABLEKS                       R13 R14 K12 ["CURVE_CANVAS_PADDING"]
+       32 GETUPVAL                         R13 0
+       33 GETTABLEKS                       R13 R13 K12 ["CURVE_CANVAS_PADDING"]
        35 MUL                              R11 R12 R13
        36 SUBRK                            R10 R9 K11 ["Y"]
        37 MUL                              R8 R9 R10
-       38 GETTABLEKS                       R11 R2 K10 ["ParentSize"]
-       40 GETTABLEKS                       R10 R11 K11 ["Y"]
-       42 GETUPVAL                         R12 0
-       43 GETTABLEKS                       R11 R12 K12 ["CURVE_CANVAS_PADDING"]
+       38 GETTABLEKS                       R10 R2 K10 ["ParentSize"]
+       40 GETTABLEKS                       R10 R10 K11 ["Y"]
+       42 GETUPVAL                         R11 0
+       43 GETTABLEKS                       R11 R11 K12 ["CURVE_CANVAS_PADDING"]
        45 MUL                              R9 R10 R11
        46 ADD                              R1 R8 R9
        47 RETURN                           R1 1
@@ -95,17 +95,17 @@ PROTO_3:
        17 MOVE                             R6 R7
        18 SUBRK                            R8 R9 K6 ["math"]
        19 DIVRK                            R7 R9 K8 [math.min]
-       20 GETTABLEKS                       R11 R2 K10 ["ParentSize"]
-       22 GETTABLEKS                       R10 R11 K11 ["Y"]
-       24 GETUPVAL                         R12 0
-       25 GETTABLEKS                       R11 R12 K12 ["CURVE_CANVAS_PADDING"]
+       20 GETTABLEKS                       R10 R2 K10 ["ParentSize"]
+       22 GETTABLEKS                       R10 R10 K11 ["Y"]
+       24 GETUPVAL                         R11 0
+       25 GETTABLEKS                       R11 R11 K12 ["CURVE_CANVAS_PADDING"]
        27 MUL                              R9 R10 R11
        28 SUB                              R8 R1 R9
-       29 GETTABLEKS                       R11 R2 K10 ["ParentSize"]
-       31 GETTABLEKS                       R10 R11 K11 ["Y"]
+       29 GETTABLEKS                       R10 R2 K10 ["ParentSize"]
+       31 GETTABLEKS                       R10 R10 K11 ["Y"]
        33 LOADN                            R13 2
-       34 GETUPVAL                         R15 0
-       35 GETTABLEKS                       R14 R15 K12 ["CURVE_CANVAS_PADDING"]
+       34 GETUPVAL                         R14 0
+       35 GETTABLEKS                       R14 R14 K12 ["CURVE_CANVAS_PADDING"]
        37 MUL                              R12 R13 R14
        38 SUBRK                            R11 R9 K12 ["CURVE_CANVAS_PADDING"]
        39 MUL                              R9 R10 R11
@@ -119,19 +119,19 @@ PROTO_3:
        47 RETURN                           R1 1
 
 PROTO_4:
-        0 GETTABLEKS                       R3 R0 K0 ["ParentSize"]
-        2 GETTABLEKS                       R2 R3 K1 ["Y"]
+        0 GETTABLEKS                       R2 R0 K0 ["ParentSize"]
+        2 GETTABLEKS                       R2 R2 K1 ["Y"]
         4 JUMPIFNOTEQKN                    R2 K2 [0] ; [+4]
         6 NEWTABLE                         R2 0 0
         8 RETURN                           R2 1
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K3 ["calculateInterval"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K3 ["calculateInterval"]
        12 MOVE                             R3 R0
        13 CALL                             R2 1 1
        14 DUPTABLE                         R3 K6 [{"majorInterval", "minorInterval"}]
        15 SETTABLEKS                       R2 R3 K4 ["majorInterval"]
-       17 GETUPVAL                         R6 1
-       18 GETTABLEKS                       R5 R6 K7 ["SCALE_NUM_TICKS"]
+       17 GETUPVAL                         R5 1
+       18 GETTABLEKS                       R5 R5 K7 ["SCALE_NUM_TICKS"]
        20 DIV                              R4 R2 R5
        21 SETTABLEKS                       R4 R3 K5 ["minorInterval"]
        23 RETURN                           R3 1
@@ -141,8 +141,8 @@ PROTO_5:
         2 GETTABLEKS                       R6 R5 K1 ["Width"]
         4 GETTABLEKS                       R7 R5 K2 ["ScaleType"]
         6 MOVE                             R9 R1
-        7 GETUPVAL                         R11 0
-        8 GETTABLEKS                       R10 R11 K3 ["createElement"]
+        7 GETUPVAL                         R10 0
+        8 GETTABLEKS                       R10 R10 K3 ["createElement"]
        10 GETUPVAL                         R11 1
        11 DUPTABLE                         R12 K7 [{"Value", "Width", "Position", "TickWidthScale", "ScaleType"}]
        12 ORK                              R13 R3 K8 [""]
@@ -168,9 +168,9 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R2 K1 ["ScaleType"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["SCALE_TYPE"]
-        7 GETTABLEKS                       R4 R5 K3 ["Angle"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["SCALE_TYPE"]
+        7 GETTABLEKS                       R4 R4 K3 ["Angle"]
         9 JUMPIFNOTEQ                      R3 R4 ; [+11]
        11 GETIMPORT                        R3 K6 [string.format]
        13 LOADK                            R4 K7 ["%d°"]
@@ -190,41 +190,41 @@ PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R2 K2 ["timelineTheme"]
-        6 GETTABLEKS                       R5 R1 K3 ["ParentSize"]
-        8 GETTABLEKS                       R4 R5 K4 ["Y"]
+        6 GETTABLEKS                       R4 R1 K3 ["ParentSize"]
+        8 GETTABLEKS                       R4 R4 K4 ["Y"]
        10 JUMPIFNOTEQKN                    R4 K5 [0] ; [+2]
        12 RETURN                           R0 0
        13 NEWTABLE                         R4 0 0
-       15 GETTABLEKS                       R10 R1 K3 ["ParentSize"]
-       17 GETTABLEKS                       R9 R10 K4 ["Y"]
+       15 GETTABLEKS                       R9 R1 K3 ["ParentSize"]
+       17 GETTABLEKS                       R9 R9 K4 ["Y"]
        19 NAMECALL                         R7 R0 K6 ["inverseScale"]
        21 CALL                             R7 2 1
        22 MOVE                             R5 R7
        23 LOADN                            R8 0
        24 NAMECALL                         R6 R0 K6 ["inverseScale"]
        26 CALL                             R6 2 1
-       27 GETTABLEKS                       R10 R0 K7 ["state"]
-       29 GETTABLEKS                       R9 R10 K8 ["majorInterval"]
+       27 GETTABLEKS                       R9 R0 K7 ["state"]
+       29 GETTABLEKS                       R9 R9 K8 ["majorInterval"]
        31 DIV                              R8 R5 R9
        32 FASTCALL1                        MATH_FLOOR R8 ; [+2]
        33 GETIMPORT                        R7 K11 [math.floor]
        35 CALL                             R7 1 1
-       36 GETTABLEKS                       R9 R0 K7 ["state"]
-       38 GETTABLEKS                       R8 R9 K8 ["majorInterval"]
+       36 GETTABLEKS                       R8 R0 K7 ["state"]
+       38 GETTABLEKS                       R8 R8 K8 ["majorInterval"]
        40 MUL                              R5 R7 R8
-       41 GETTABLEKS                       R10 R0 K7 ["state"]
-       43 GETTABLEKS                       R9 R10 K8 ["majorInterval"]
+       41 GETTABLEKS                       R9 R0 K7 ["state"]
+       43 GETTABLEKS                       R9 R9 K8 ["majorInterval"]
        45 DIV                              R8 R6 R9
        46 FASTCALL1                        MATH_CEIL R8 ; [+2]
        47 GETIMPORT                        R7 K13 [math.ceil]
        49 CALL                             R7 1 1
-       50 GETTABLEKS                       R9 R0 K7 ["state"]
-       52 GETTABLEKS                       R8 R9 K8 ["majorInterval"]
+       50 GETTABLEKS                       R8 R0 K7 ["state"]
+       52 GETTABLEKS                       R8 R8 K8 ["majorInterval"]
        54 MUL                              R6 R7 R8
        55 MOVE                             R9 R5
        56 MOVE                             R7 R6
-       57 GETTABLEKS                       R10 R0 K7 ["state"]
-       59 GETTABLEKS                       R8 R10 K8 ["majorInterval"]
+       57 GETTABLEKS                       R8 R0 K7 ["state"]
+       59 GETTABLEKS                       R8 R8 K8 ["majorInterval"]
        61 FORNPREP                         R7
        62 MOVE                             R12 R4
        63 MOVE                             R13 R9
@@ -239,8 +239,8 @@ PROTO_7:
        75 LOADN                            R11 1
        76 FORNPREP                         R10
        77 MOVE                             R15 R4
-       78 GETTABLEKS                       R19 R0 K7 ["state"]
-       80 GETTABLEKS                       R18 R19 K17 ["minorInterval"]
+       78 GETTABLEKS                       R18 R0 K7 ["state"]
+       80 GETTABLEKS                       R18 R18 K17 ["minorInterval"]
        82 MUL                              R17 R12 R18
        83 ADD                              R16 R9 R17
        84 LOADK                            R17 K18 [""]
@@ -249,8 +249,8 @@ PROTO_7:
        89 CALL                             R13 5 0
        90 FORNLOOP                         R10
        91 FORNLOOP                         R7
-       92 GETUPVAL                         R8 0
-       93 GETTABLEKS                       R7 R8 K20 ["createElement"]
+       92 GETUPVAL                         R7 0
+       93 GETTABLEKS                       R7 R7 K20 ["createElement"]
        95 LOADK                            R8 K21 ["Frame"]
        96 DUPTABLE                         R9 K28 [{"Size", "Position", "BackgroundColor3", "BorderColor3", "BorderSizePixel", "ZIndex"}]
        97 GETTABLEKS                       R10 R1 K22 ["Size"]
@@ -276,25 +276,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Util"]
-       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Util"]
+       31 GETTABLEKS                       R6 R6 K13 ["Constants"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R10 R0 K11 ["Src"]
-       38 GETTABLEKS                       R9 R10 K14 ["Components"]
-       40 GETTABLEKS                       R8 R9 K15 ["Curves"]
-       42 GETTABLEKS                       R7 R8 K16 ["ScaleTick"]
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K14 ["Components"]
+       40 GETTABLEKS                       R7 R7 K15 ["Curves"]
+       42 GETTABLEKS                       R7 R7 K16 ["ScaleTick"]
        44 CALL                             R6 1 1
        45 GETTABLEKS                       R7 R1 K17 ["PureComponent"]
        47 LOADK                            R9 K18 ["Scale"]

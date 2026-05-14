@@ -18,8 +18,8 @@ PROTO_0:
        20 GETIMPORT                        R2 K7 [assert]
        22 CALL                             R2 -1 0
        23 LOADK                            R1 K8 ["Invalid SetScreen: %s does not exist"]
-       24 GETUPVAL                         R6 0
-       25 GETTABLEKS                       R5 R6 K9 ["SCREENS"]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K9 ["SCREENS"]
        27 GETTABLE                         R4 R5 R0
        28 JUMPIFNOTEQKNIL                  R4 ; [+2]
        30 LOADB                            R3 0 +1
@@ -37,23 +37,23 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["Action"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["Action"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Resources"]
-       24 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Resources"]
+       24 GETTABLEKS                       R3 R3 K9 ["Constants"]
        26 CALL                             R2 1 1
        27 MOVE                             R3 R1
-       28 GETIMPORT                        R5 K1 [script]
-       30 GETTABLEKS                       R4 R5 K10 ["Name"]
+       28 GETIMPORT                        R4 K1 [script]
+       30 GETTABLEKS                       R4 R4 K10 ["Name"]
        32 DUPCLOSURE                       R5 K11 [PROTO_0]
        33 CAPTURE                          VAL R2
        34 CALL                             R3 2 -1

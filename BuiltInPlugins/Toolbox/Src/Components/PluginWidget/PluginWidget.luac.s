@@ -13,42 +13,42 @@ PROTO_0:
 
 PROTO_1:
         0 PREPVARARGS                      0
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["props"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Change"]
-        7 GETTABLEKS                       R2 R3 K2 ["Enabled"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["props"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["Change"]
+        7 GETTABLEKS                       R2 R2 K2 ["Enabled"]
         9 GETTABLE                         R0 R1 R2
        10 JUMPIFNOT                        R0 ; [+14]
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K0 ["props"]
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R3 R4 K1 ["Change"]
-       17 GETTABLEKS                       R2 R3 K2 ["Enabled"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K0 ["props"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K1 ["Change"]
+       17 GETTABLEKS                       R2 R2 K2 ["Enabled"]
        19 GETTABLE                         R0 R1 R2
-       20 GETUPVAL                         R2 0
-       21 GETTABLEKS                       R1 R2 K3 ["widget"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K3 ["widget"]
        23 GETVARARGS                       R2 -1
        24 CALL                             R0 -1 0
        25 RETURN                           R0 0
 
 PROTO_2:
         0 PREPVARARGS                      0
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["props"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Event"]
-        7 GETTABLEKS                       R2 R3 K2 ["AncestryChanged"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["props"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["Event"]
+        7 GETTABLEKS                       R2 R2 K2 ["AncestryChanged"]
         9 GETTABLE                         R0 R1 R2
        10 JUMPIFNOT                        R0 ; [+14]
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K0 ["props"]
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R3 R4 K1 ["Event"]
-       17 GETTABLEKS                       R2 R3 K2 ["AncestryChanged"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K0 ["props"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K1 ["Event"]
+       17 GETTABLEKS                       R2 R2 K2 ["AncestryChanged"]
        19 GETTABLE                         R0 R1 R2
-       20 GETUPVAL                         R2 0
-       21 GETTABLEKS                       R1 R2 K3 ["widget"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K3 ["widget"]
        23 GETVARARGS                       R2 -1
        24 CALL                             R0 -1 0
        25 RETURN                           R0 0
@@ -99,8 +99,8 @@ PROTO_3:
        61 CAPTURE                          UPVAL U1
        62 NAMECALL                         R5 R5 K18 ["connect"]
        64 CALL                             R5 2 0
-       65 GETTABLEKS                       R6 R0 K9 ["widget"]
-       67 GETTABLEKS                       R5 R6 K19 ["AncestryChanged"]
+       65 GETTABLEKS                       R5 R0 K9 ["widget"]
+       67 GETTABLEKS                       R5 R5 K19 ["AncestryChanged"]
        69 NEWCLOSURE                       R7 P1
        70 CAPTURE                          VAL R0
        71 CAPTURE                          UPVAL U1
@@ -147,35 +147,35 @@ PROTO_4:
        42 JUMPIFEQ                         R7 R4 ; [+5]
        44 GETTABLEKS                       R9 R0 K7 ["widget"]
        46 SETTABLEKS                       R7 R9 K2 ["Name"]
-       48 GETTABLEKS                       R10 R0 K6 ["props"]
-       50 GETTABLEKS                       R9 R10 K8 ["ZIndexBehavior"]
+       48 GETTABLEKS                       R9 R0 K6 ["props"]
+       50 GETTABLEKS                       R9 R9 K8 ["ZIndexBehavior"]
        52 GETTABLEKS                       R10 R1 K8 ["ZIndexBehavior"]
        54 JUMPIFEQ                         R9 R10 ; [+9]
        56 GETTABLEKS                       R9 R0 K7 ["widget"]
-       58 GETTABLEKS                       R11 R0 K6 ["props"]
-       60 GETTABLEKS                       R10 R11 K8 ["ZIndexBehavior"]
+       58 GETTABLEKS                       R10 R0 K6 ["props"]
+       60 GETTABLEKS                       R10 R10 K8 ["ZIndexBehavior"]
        62 SETTABLEKS                       R10 R9 K8 ["ZIndexBehavior"]
-       64 GETTABLEKS                       R10 R0 K6 ["props"]
-       66 GETTABLEKS                       R9 R10 K9 ["Enabled"]
+       64 GETTABLEKS                       R9 R0 K6 ["props"]
+       66 GETTABLEKS                       R9 R9 K9 ["Enabled"]
        68 GETTABLEKS                       R10 R1 K9 ["Enabled"]
        70 JUMPIFEQ                         R9 R10 ; [+9]
        72 GETTABLEKS                       R9 R0 K7 ["widget"]
-       74 GETTABLEKS                       R11 R0 K6 ["props"]
-       76 GETTABLEKS                       R10 R11 K9 ["Enabled"]
+       74 GETTABLEKS                       R10 R0 K6 ["props"]
+       76 GETTABLEKS                       R10 R10 K9 ["Enabled"]
        78 SETTABLEKS                       R10 R9 K9 ["Enabled"]
        80 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["Portal"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["Portal"]
         6 DUPTABLE                         R3 K3 [{"target"}]
         7 GETTABLEKS                       R4 R0 K4 ["widget"]
         9 SETTABLEKS                       R4 R3 K2 ["target"]
        11 GETTABLEKS                       R5 R0 K5 ["props"]
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K6 ["Children"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K6 ["Children"]
        16 GETTABLE                         R4 R5 R6
        17 CALL                             R1 3 -1
        18 RETURN                           R1 -1
@@ -197,8 +197,8 @@ PROTO_7:
         8 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["PureComponent"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["PureComponent"]
         3 MOVE                             R4 R0
         4 NAMECALL                         R2 R2 K1 ["extend"]
         6 CALL                             R2 2 1
@@ -223,11 +223,11 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -235,8 +235,8 @@ MAIN:
        18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R1 K7 ["Framework"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R3 K8 ["Wrappers"]
-       25 GETTABLEKS                       R4 R5 K9 ["withForwardRef"]
+       23 GETTABLEKS                       R4 R3 K8 ["Wrappers"]
+       25 GETTABLEKS                       R4 R4 K9 ["withForwardRef"]
        27 DUPCLOSURE                       R5 K10 [PROTO_0]
        28 DUPCLOSURE                       R6 K11 [PROTO_8]
        29 CAPTURE                          VAL R2

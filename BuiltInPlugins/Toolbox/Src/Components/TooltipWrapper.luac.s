@@ -10,8 +10,8 @@ PROTO_0:
        12 GETIMPORT                        R3 K8 [Enum.SizeConstraint.RelativeXY]
        14 GETTABLEKS                       R4 R1 K9 ["canShowCurrentTooltip"]
        16 GETTABLEKS                       R5 R1 K10 ["isHovered"]
-       18 GETUPVAL                         R7 0
-       19 GETTABLEKS                       R6 R7 K11 ["createElement"]
+       18 GETUPVAL                         R6 0
+       19 GETTABLEKS                       R6 R6 K11 ["createElement"]
        21 LOADK                            R7 K12 ["Frame"]
        22 DUPTABLE                         R8 K15 [{"Size", "BackgroundTransparency", "SizeConstraint"}]
        23 GETIMPORT                        R9 K18 [UDim2.new]
@@ -25,8 +25,8 @@ PROTO_0:
        33 SETTABLEKS                       R9 R8 K14 ["BackgroundTransparency"]
        35 SETTABLEKS                       R3 R8 K5 ["SizeConstraint"]
        37 DUPTABLE                         R9 K20 [{"Tooltip"}]
-       38 GETUPVAL                         R11 0
-       39 GETTABLEKS                       R10 R11 K11 ["createElement"]
+       38 GETUPVAL                         R10 0
+       39 GETTABLEKS                       R10 R10 K11 ["createElement"]
        41 GETUPVAL                         R11 1
        42 DUPTABLE                         R12 K23 [{"Enabled", "Text", "Priority"}]
        43 AND                              R13 R4 R5
@@ -41,19 +41,19 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
        15 CALL                             R2 1 1
-       16 GETIMPORT                        R5 K5 [require]
-       18 GETTABLEKS                       R6 R1 K7 ["Framework"]
-       20 CALL                             R5 1 1
-       21 GETTABLEKS                       R4 R5 K8 ["UI"]
-       23 GETTABLEKS                       R3 R4 K9 ["Tooltip"]
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R4 R1 K7 ["Framework"]
+       20 CALL                             R3 1 1
+       21 GETTABLEKS                       R3 R3 K8 ["UI"]
+       23 GETTABLEKS                       R3 R3 K9 ["Tooltip"]
        25 GETTABLEKS                       R4 R2 K10 ["PureComponent"]
        27 LOADK                            R6 K11 ["TooltipWrapper"]
        28 NAMECALL                         R4 R4 K12 ["extend"]

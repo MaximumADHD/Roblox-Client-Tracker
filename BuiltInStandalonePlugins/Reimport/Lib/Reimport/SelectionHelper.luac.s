@@ -25,9 +25,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Lib"]
-       11 GETTABLEKS                       R3 R4 K7 ["External"]
-       13 GETTABLEKS                       R2 R3 K8 ["SelectionService"]
+        9 GETTABLEKS                       R2 R0 K6 ["Lib"]
+       11 GETTABLEKS                       R2 R2 K7 ["External"]
+       13 GETTABLEKS                       R2 R2 K8 ["SelectionService"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 1 0
        18 DUPCLOSURE                       R3 K9 [PROTO_0]

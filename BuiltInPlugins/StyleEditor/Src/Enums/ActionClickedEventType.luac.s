@@ -1,34 +1,34 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["enumerate"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["enumerate"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagStyleQuery"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Flags"]
+       22 GETTABLEKS                       R3 R3 K9 ["getFFlagStyleQuery"]
        24 CALL                             R2 1 1
        25 CALL                             R2 0 1
        26 GETIMPORT                        R3 K4 [require]
-       28 GETTABLEKS                       R6 R0 K7 ["Src"]
-       30 GETTABLEKS                       R5 R6 K8 ["Flags"]
-       32 GETTABLEKS                       R4 R5 K10 ["getFFlagStyleEditorSupportTransitions"]
+       28 GETTABLEKS                       R4 R0 K7 ["Src"]
+       30 GETTABLEKS                       R4 R4 K8 ["Flags"]
+       32 GETTABLEKS                       R4 R4 K10 ["getFFlagStyleEditorSupportTransitions"]
        34 CALL                             R3 1 1
        35 CALL                             R3 0 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K7 ["Src"]
-       40 GETTABLEKS                       R6 R7 K8 ["Flags"]
-       42 GETTABLEKS                       R5 R6 K11 ["getFFlagStyleEditorPropertyCreatedTelemetry"]
+       38 GETTABLEKS                       R5 R0 K7 ["Src"]
+       40 GETTABLEKS                       R5 R5 K8 ["Flags"]
+       42 GETTABLEKS                       R5 R5 K11 ["getFFlagStyleEditorPropertyCreatedTelemetry"]
        44 CALL                             R4 1 1
        45 CALL                             R4 0 1
        46 GETIMPORT                        R5 K4 [require]
-       48 GETTABLEKS                       R7 R0 K7 ["Src"]
-       50 GETTABLEKS                       R6 R7 K12 ["Types"]
+       48 GETTABLEKS                       R6 R0 K7 ["Src"]
+       50 GETTABLEKS                       R6 R6 K12 ["Types"]
        52 CALL                             R5 1 1
        53 NEWTABLE                         R6 0 5
        55 LOADK                            R7 K13 ["ButtonPressed"]

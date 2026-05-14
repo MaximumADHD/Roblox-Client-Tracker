@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Delete"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Delete"]
         3 GETUPVAL                         R1 1
         4 LOADB                            R2 1
         5 SETTABLE                         R2 R0 R1
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+9]
         5 GETIMPORT                        R1 K2 [warn]
@@ -19,8 +19,8 @@ PROTO_1:
        11 LOADK                            R6 K5 ["error:"]
        12 MOVE                             R7 R0
        13 CALL                             R1 6 0
-       14 GETUPVAL                         R2 3
-       15 GETTABLEKS                       R1 R2 K6 ["Delete"]
+       14 GETUPVAL                         R1 3
+       15 GETTABLEKS                       R1 R1 K6 ["Delete"]
        17 GETUPVAL                         R2 1
        18 LOADB                            R3 0
        19 SETTABLE                         R3 R1 R2
@@ -80,15 +80,15 @@ PROTO_4:
        15 SETTABLE                         R2 R6 R3
        16 CALL                             R4 2 1
        17 SETUPVAL                         R4 2
-       18 GETUPVAL                         R5 4
-       19 GETTABLEKS                       R4 R5 K2 ["Upload"]
+       18 GETUPVAL                         R4 4
+       19 GETTABLEKS                       R4 R4 K2 ["Upload"]
        21 LOADB                            R5 1
        22 SETTABLE                         R5 R4 R2
        23 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+9]
         5 GETIMPORT                        R1 K2 [warn]
@@ -102,8 +102,8 @@ PROTO_5:
        14 GETUPVAL                         R1 1
        15 NAMECALL                         R1 R1 K6 ["GetTemporaryId"]
        17 CALL                             R1 1 1
-       18 GETUPVAL                         R3 3
-       19 GETTABLEKS                       R2 R3 K7 ["Upload"]
+       18 GETUPVAL                         R2 3
+       19 GETTABLEKS                       R2 R2 K7 ["Upload"]
        21 LOADB                            R3 0
        22 SETTABLE                         R3 R2 R1
        23 GETUPVAL                         R2 3
@@ -146,18 +146,18 @@ PROTO_7:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 1
         2 SETTABLEKS                       R1 R0 K0 ["SetOrder"]
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["AssetMediaItemsUpdated"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["AssetMediaItemsUpdated"]
         7 GETUPVAL                         R1 2
-        8 GETUPVAL                         R3 3
-        9 GETTABLEKS                       R2 R3 K2 ["Value"]
+        8 GETUPVAL                         R2 3
+        9 GETTABLEKS                       R2 R2 K2 ["Value"]
        11 GETUPVAL                         R3 4
        12 CALL                             R0 3 0
        13 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+9]
         5 GETIMPORT                        R1 K2 [warn]
@@ -208,8 +208,8 @@ PROTO_9:
        25 RETURN                           R0 -1
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OverallSuccess"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OverallSuccess"]
         3 JUMPIFNOT                        R0 ; [+2]
         4 GETUPVAL                         R0 1
         5 CALL                             R0 0 0
@@ -220,12 +220,12 @@ PROTO_11:
         1 RETURN                           R0 1
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ThumbnailIdsToRemove"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["ThumbnailFilesToAdd"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K2 ["ThumbnailOrderToChange"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ThumbnailIdsToRemove"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["ThumbnailFilesToAdd"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K2 ["ThumbnailOrderToChange"]
         9 DUPTABLE                         R4 K7 [{"Delete", "Upload", "SetOrder", "OverallSuccess"}]
        10 NEWTABLE                         R5 0 0
        12 SETTABLEKS                       R5 R4 K3 ["Delete"]
@@ -277,8 +277,8 @@ PROTO_12:
        63 JUMPIFNOTEQKN                    R10 K8 [0] ; [+14]
        65 LENGTH                           R10 R3
        66 JUMPIFNOTEQKN                    R10 K8 [0] ; [+7]
-       68 GETUPVAL                         R11 11
-       69 GETTABLEKS                       R10 R11 K9 ["resolve"]
+       68 GETUPVAL                         R10 11
+       69 GETTABLEKS                       R10 R10 K9 ["resolve"]
        71 CALL                             R10 0 1
        72 MOVE                             R9 R10
        73 JUMP                             ; [+21]
@@ -286,8 +286,8 @@ PROTO_12:
        75 CALL                             R10 0 1
        76 MOVE                             R9 R10
        77 JUMP                             ; [+17]
-       78 GETUPVAL                         R11 11
-       79 GETTABLEKS                       R10 R11 K10 ["all"]
+       78 GETUPVAL                         R10 11
+       79 GETTABLEKS                       R10 R10 K10 ["all"]
        81 MOVE                             R11 R8
        82 CALL                             R10 1 1
        83 LENGTH                           R11 R3
@@ -325,27 +325,27 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Util"]
        15 GETIMPORT                        R2 K6 [require]
-       17 GETTABLEKS                       R4 R1 K7 ["Analytics"]
-       19 GETTABLEKS                       R3 R4 K7 ["Analytics"]
+       17 GETTABLEKS                       R3 R1 K7 ["Analytics"]
+       19 GETTABLEKS                       R3 R3 K7 ["Analytics"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K6 [require]
        24 GETTABLEKS                       R4 R1 K8 ["DebugFlags"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K6 [require]
-       29 GETTABLEKS                       R7 R0 K3 ["Src"]
-       31 GETTABLEKS                       R6 R7 K9 ["Actions"]
-       33 GETTABLEKS                       R5 R6 K10 ["NetworkError"]
+       29 GETTABLEKS                       R5 R0 K3 ["Src"]
+       31 GETTABLEKS                       R5 R5 K9 ["Actions"]
+       33 GETTABLEKS                       R5 R5 K10 ["NetworkError"]
        35 CALL                             R4 1 1
-       36 GETTABLEKS                       R6 R0 K3 ["Src"]
-       38 GETTABLEKS                       R5 R6 K11 ["Types"]
+       36 GETTABLEKS                       R5 R0 K3 ["Src"]
+       38 GETTABLEKS                       R5 R5 K11 ["Types"]
        40 GETIMPORT                        R6 K6 [require]
        42 GETTABLEKS                       R7 R5 K12 ["AssetMediaTypes"]
        44 CALL                             R6 1 1
@@ -360,8 +360,8 @@ MAIN:
        59 GETTABLEKS                       R11 R9 K17 ["findIndex"]
        61 GETTABLEKS                       R12 R9 K18 ["join"]
        63 GETTABLEKS                       R13 R9 K19 ["map"]
-       65 GETTABLEKS                       R15 R8 K4 ["Util"]
-       67 GETTABLEKS                       R14 R15 K20 ["Promise"]
+       65 GETTABLEKS                       R14 R8 K4 ["Util"]
+       67 GETTABLEKS                       R14 R14 K20 ["Promise"]
        69 DUPCLOSURE                       R15 K21 [PROTO_13]
        70 CAPTURE                          VAL R13
        71 CAPTURE                          VAL R3

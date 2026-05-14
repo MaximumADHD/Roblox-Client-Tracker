@@ -1,7 +1,7 @@
 PROTO_0:
         0 JUMPIFEQKNIL                     R0 ; [+42]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["props"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["props"]
         5 GETTABLEKS                       R4 R3 K1 ["SetCurrentRecordingDurationSec"]
         7 MOVE                             R5 R1
         8 CALL                             R4 1 0
@@ -48,29 +48,29 @@ PROTO_1:
        10 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["connectPlaybackInfoChangedCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["connectPlaybackInfoChangedCallback"]
         3 GETTABLEKS                       R2 R0 K1 ["onPlaybackInfoChanged"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["disconnectPlaybackInfoChangedCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["disconnectPlaybackInfoChangedCallback"]
         3 CALL                             R1 0 0
         4 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["state"]
-        2 GETTABLEKS                       R1 R2 K1 ["dataValid"]
+        0 GETTABLEKS                       R1 R0 K0 ["state"]
+        2 GETTABLEKS                       R1 R1 K1 ["dataValid"]
         4 JUMPIF                           R1 ; [+2]
         5 LOADNIL                          R1
         6 RETURN                           R1 1
         7 GETTABLEKS                       R1 R0 K2 ["props"]
         9 GETTABLEKS                       R2 R1 K3 ["Localization"]
        11 GETTABLEKS                       R3 R1 K4 ["Stylizer"]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K5 ["createElement"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K5 ["createElement"]
        16 GETUPVAL                         R5 1
        17 DUPTABLE                         R6 K15 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
        18 GETTABLEKS                       R7 R1 K6 ["LayoutOrder"]
@@ -98,8 +98,8 @@ PROTO_4:
        57 GETIMPORT                        R7 K34 [Enum.VerticalAlignment.Top]
        59 SETTABLEKS                       R7 R6 K14 ["VerticalAlignment"]
        61 DUPTABLE                         R7 K37 [{"Label", "KeyValuePairs"}]
-       62 GETUPVAL                         R9 0
-       63 GETTABLEKS                       R8 R9 K5 ["createElement"]
+       62 GETUPVAL                         R8 0
+       63 GETTABLEKS                       R8 R8 K5 ["createElement"]
        65 GETUPVAL                         R9 2
        66 DUPTABLE                         R10 K41 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
        67 LOADK                            R13 K42 ["PlaybackTabView"]
@@ -122,8 +122,8 @@ PROTO_4:
        94 SETTABLEKS                       R11 R10 K40 ["TextYAlignment"]
        96 CALL                             R8 2 1
        97 SETTABLEKS                       R8 R7 K35 ["Label"]
-       99 GETUPVAL                         R9 0
-      100 GETTABLEKS                       R8 R9 K5 ["createElement"]
+       99 GETUPVAL                         R8 0
+      100 GETTABLEKS                       R8 R8 K5 ["createElement"]
       102 GETUPVAL                         R9 1
       103 DUPTABLE                         R10 K50 [{"Size", "AutomaticSize", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
       104 GETIMPORT                        R11 K46 [UDim2.fromScale]
@@ -142,8 +142,8 @@ PROTO_4:
       126 GETIMPORT                        R11 K34 [Enum.VerticalAlignment.Top]
       128 SETTABLEKS                       R11 R10 K14 ["VerticalAlignment"]
       130 DUPTABLE                         R11 K57 [{"RecordingDuration", "NumberOfEvents", "RecordingDeviceId", "RecordingOrientation", "RecordingResolution"}]
-      131 GETUPVAL                         R13 0
-      132 GETTABLEKS                       R12 R13 K5 ["createElement"]
+      131 GETUPVAL                         R12 0
+      132 GETTABLEKS                       R12 R12 K5 ["createElement"]
       134 GETUPVAL                         R13 3
       135 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
       136 LOADK                            R17 K42 ["PlaybackTabView"]
@@ -166,8 +166,8 @@ PROTO_4:
       159 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
       161 CALL                             R12 2 1
       162 SETTABLEKS                       R12 R11 K52 ["RecordingDuration"]
-      164 GETUPVAL                         R13 0
-      165 GETTABLEKS                       R12 R13 K5 ["createElement"]
+      164 GETUPVAL                         R12 0
+      165 GETTABLEKS                       R12 R12 K5 ["createElement"]
       167 GETUPVAL                         R13 3
       168 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
       169 LOADK                            R17 K42 ["PlaybackTabView"]
@@ -184,8 +184,8 @@ PROTO_4:
       185 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
       187 CALL                             R12 2 1
       188 SETTABLEKS                       R12 R11 K53 ["NumberOfEvents"]
-      190 GETUPVAL                         R13 0
-      191 GETTABLEKS                       R12 R13 K5 ["createElement"]
+      190 GETUPVAL                         R12 0
+      191 GETTABLEKS                       R12 R12 K5 ["createElement"]
       193 GETUPVAL                         R13 3
       194 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
       195 LOADK                            R17 K42 ["PlaybackTabView"]
@@ -193,8 +193,8 @@ PROTO_4:
       197 NAMECALL                         R15 R2 K44 ["getText"]
       199 CALL                             R15 3 1
       200 SETTABLEKS                       R15 R14 K35 ["Label"]
-      202 GETUPVAL                         R16 4
-      203 GETTABLEKS                       R15 R16 K71 ["formatDeviceName"]
+      202 GETUPVAL                         R15 4
+      203 GETTABLEKS                       R15 R15 K71 ["formatDeviceName"]
       205 GETTABLEKS                       R16 R1 K72 ["CurrentRecordingDeviceId"]
       207 MOVE                             R17 R2
       208 CALL                             R15 2 1
@@ -203,8 +203,8 @@ PROTO_4:
       212 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
       214 CALL                             R12 2 1
       215 SETTABLEKS                       R12 R11 K54 ["RecordingDeviceId"]
-      217 GETUPVAL                         R13 0
-      218 GETTABLEKS                       R12 R13 K5 ["createElement"]
+      217 GETUPVAL                         R12 0
+      218 GETTABLEKS                       R12 R12 K5 ["createElement"]
       220 GETUPVAL                         R13 3
       221 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
       222 LOADK                            R17 K42 ["PlaybackTabView"]
@@ -212,8 +212,8 @@ PROTO_4:
       224 NAMECALL                         R15 R2 K44 ["getText"]
       226 CALL                             R15 3 1
       227 SETTABLEKS                       R15 R14 K35 ["Label"]
-      229 GETUPVAL                         R16 4
-      230 GETTABLEKS                       R15 R16 K73 ["formatDeviceOrientation"]
+      229 GETUPVAL                         R15 4
+      230 GETTABLEKS                       R15 R15 K73 ["formatDeviceOrientation"]
       232 GETTABLEKS                       R16 R1 K74 ["CurrentRecordingDeviceOrientation"]
       234 GETTABLEKS                       R17 R1 K72 ["CurrentRecordingDeviceId"]
       236 MOVE                             R18 R2
@@ -223,8 +223,8 @@ PROTO_4:
       241 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
       243 CALL                             R12 2 1
       244 SETTABLEKS                       R12 R11 K55 ["RecordingOrientation"]
-      246 GETUPVAL                         R13 0
-      247 GETTABLEKS                       R12 R13 K5 ["createElement"]
+      246 GETUPVAL                         R12 0
+      247 GETTABLEKS                       R12 R12 K5 ["createElement"]
       249 GETUPVAL                         R13 3
       250 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
       251 LOADK                            R17 K42 ["PlaybackTabView"]
@@ -232,8 +232,8 @@ PROTO_4:
       253 NAMECALL                         R15 R2 K44 ["getText"]
       255 CALL                             R15 3 1
       256 SETTABLEKS                       R15 R14 K35 ["Label"]
-      258 GETUPVAL                         R16 4
-      259 GETTABLEKS                       R15 R16 K75 ["format2dResolution"]
+      258 GETUPVAL                         R15 4
+      259 GETTABLEKS                       R15 R15 K75 ["format2dResolution"]
       261 GETTABLEKS                       R16 R1 K76 ["CurrentRecordingResolution"]
       263 LOADK                            R19 K77 ["RecordTabView"]
       264 LOADK                            R20 K78 ["ResolutionPixelsName"]
@@ -252,20 +252,20 @@ PROTO_4:
 
 PROTO_5:
         0 DUPTABLE                         R2 K5 [{"CurrentRecordingDurationSec", "CurrentRecordingNumEvents", "CurrentRecordingDeviceId", "CurrentRecordingDeviceOrientation", "CurrentRecordingResolution"}]
-        1 GETTABLEKS                       R4 R0 K6 ["playbackTab"]
-        3 GETTABLEKS                       R3 R4 K7 ["currentRecordingDurationSec"]
+        1 GETTABLEKS                       R3 R0 K6 ["playbackTab"]
+        3 GETTABLEKS                       R3 R3 K7 ["currentRecordingDurationSec"]
         5 SETTABLEKS                       R3 R2 K0 ["CurrentRecordingDurationSec"]
-        7 GETTABLEKS                       R4 R0 K6 ["playbackTab"]
-        9 GETTABLEKS                       R3 R4 K8 ["currentRecordingNumEvents"]
+        7 GETTABLEKS                       R3 R0 K6 ["playbackTab"]
+        9 GETTABLEKS                       R3 R3 K8 ["currentRecordingNumEvents"]
        11 SETTABLEKS                       R3 R2 K1 ["CurrentRecordingNumEvents"]
-       13 GETTABLEKS                       R4 R0 K6 ["playbackTab"]
-       15 GETTABLEKS                       R3 R4 K9 ["currentRecordingDeviceId"]
+       13 GETTABLEKS                       R3 R0 K6 ["playbackTab"]
+       15 GETTABLEKS                       R3 R3 K9 ["currentRecordingDeviceId"]
        17 SETTABLEKS                       R3 R2 K2 ["CurrentRecordingDeviceId"]
-       19 GETTABLEKS                       R4 R0 K6 ["playbackTab"]
-       21 GETTABLEKS                       R3 R4 K10 ["currentRecordingDeviceOrientation"]
+       19 GETTABLEKS                       R3 R0 K6 ["playbackTab"]
+       21 GETTABLEKS                       R3 R3 K10 ["currentRecordingDeviceOrientation"]
        23 SETTABLEKS                       R3 R2 K3 ["CurrentRecordingDeviceOrientation"]
-       25 GETTABLEKS                       R4 R0 K6 ["playbackTab"]
-       27 GETTABLEKS                       R3 R4 K11 ["currentRecordingResolution"]
+       25 GETTABLEKS                       R3 R0 K6 ["playbackTab"]
+       27 GETTABLEKS                       R3 R3 K11 ["currentRecordingResolution"]
        29 SETTABLEKS                       R3 R2 K4 ["CurrentRecordingResolution"]
        31 RETURN                           R2 1
 
@@ -335,48 +335,48 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R3 K10 ["UI"]
        34 GETTABLEKS                       R6 R5 K11 ["TextLabel"]
        36 GETTABLEKS                       R7 R5 K12 ["Pane"]
        38 GETIMPORT                        R8 K4 [require]
-       40 GETTABLEKS                       R11 R0 K13 ["Src"]
-       42 GETTABLEKS                       R10 R11 K14 ["Components"]
-       44 GETTABLEKS                       R9 R10 K15 ["UIKeyValueTextLabel"]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Components"]
+       44 GETTABLEKS                       R9 R9 K15 ["UIKeyValueTextLabel"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K4 [require]
-       49 GETTABLEKS                       R12 R0 K13 ["Src"]
-       51 GETTABLEKS                       R11 R12 K16 ["Util"]
-       53 GETTABLEKS                       R10 R11 K17 ["StringFormatters"]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K16 ["Util"]
+       53 GETTABLEKS                       R10 R10 K17 ["StringFormatters"]
        55 CALL                             R9 1 1
        56 GETIMPORT                        R10 K4 [require]
-       58 GETTABLEKS                       R13 R0 K13 ["Src"]
-       60 GETTABLEKS                       R12 R13 K16 ["Util"]
-       62 GETTABLEKS                       R11 R12 K18 ["DMBridge"]
+       58 GETTABLEKS                       R11 R0 K13 ["Src"]
+       60 GETTABLEKS                       R11 R11 K16 ["Util"]
+       62 GETTABLEKS                       R11 R11 K18 ["DMBridge"]
        64 CALL                             R10 1 1
        65 GETIMPORT                        R11 K4 [require]
-       67 GETTABLEKS                       R13 R0 K13 ["Src"]
-       69 GETTABLEKS                       R12 R13 K19 ["Types"]
+       67 GETTABLEKS                       R12 R0 K13 ["Src"]
+       69 GETTABLEKS                       R12 R12 K19 ["Types"]
        71 CALL                             R11 1 1
-       72 GETTABLEKS                       R14 R0 K13 ["Src"]
-       74 GETTABLEKS                       R13 R14 K20 ["Actions"]
-       76 GETTABLEKS                       R12 R13 K21 ["PlaybackTab"]
+       72 GETTABLEKS                       R12 R0 K13 ["Src"]
+       74 GETTABLEKS                       R12 R12 K20 ["Actions"]
+       76 GETTABLEKS                       R12 R12 K21 ["PlaybackTab"]
        78 GETIMPORT                        R13 K4 [require]
        80 GETTABLEKS                       R14 R12 K22 ["SetCurrentRecordingDurationSec"]
        82 CALL                             R13 1 1

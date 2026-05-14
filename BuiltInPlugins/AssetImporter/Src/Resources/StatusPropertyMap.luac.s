@@ -16,218 +16,208 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagUnlinkImporterAndAvatarPreview"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getEFEnableEmissiveMask"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getEFEnableEmissiveMask"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Flags"]
+       22 GETTABLEKS                       R3 R3 K9 ["getFFlagAllowUserToSelectPhysicalConstraintTypeForR15"]
        24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K7 ["Flags"]
-       31 GETTABLEKS                       R4 R5 K10 ["getFFlagAllowUserToSelectPhysicalConstraintTypeForR15"]
-       33 CALL                             R3 1 1
-       34 DUPTABLE                         R4 K33 [{"ImportName", "ImportAsPackage", "Dimensions", "FileDimensions", "PolygonCount", "CageNonManifoldPreview", "CageOverlappingVerticesPreview", "CageUVMisMatchedPreview", "CageMeshIntersectedPreview", "MeshHoleDetectedPreview", "IrrelevantCageModifiedPreview", "OuterCageFarExtendedFromMeshPreview", "RigType", "PhysicalConstraintType", "DiffuseFilePath", "RoughnessFilePath", "NormalFilePath", "MetalnessFilePath", "EmissiveFilePath", "FileGeneral", "ValidateUgcBody", "ObjectGeneral"}]
-       35 NEWTABLE                         R5 0 1
-       37 LOADK                            R6 K34 ["NameExceedsCharacterLimitWarning"]
-       38 SETLIST                          R5 R6 1 [1]
-       40 SETTABLEKS                       R5 R4 K11 ["ImportName"]
-       42 NEWTABLE                         R5 0 1
-       44 LOADK                            R6 K35 ["AnimationInPackageWarning"]
-       45 SETLIST                          R5 R6 1 [1]
-       47 SETTABLEKS                       R5 R4 K12 ["ImportAsPackage"]
-       49 NEWTABLE                         R5 0 1
-       51 LOADK                            R6 K36 ["MeshScaleWarning"]
-       52 SETLIST                          R5 R6 1 [1]
-       54 SETTABLEKS                       R5 R4 K13 ["Dimensions"]
-       56 NEWTABLE                         R5 0 1
-       58 LOADK                            R6 K36 ["MeshScaleWarning"]
-       59 SETLIST                          R5 R6 1 [1]
-       61 SETTABLEKS                       R5 R4 K14 ["FileDimensions"]
-       63 NEWTABLE                         R5 0 1
-       65 LOADK                            R6 K37 ["MeshSizeWarning"]
-       66 SETLIST                          R5 R6 1 [1]
-       68 SETTABLEKS                       R5 R4 K15 ["PolygonCount"]
-       70 NEWTABLE                         R5 0 1
-       72 LOADK                            R6 K38 ["CageNonManifoldWarning"]
-       73 SETLIST                          R5 R6 1 [1]
-       75 SETTABLEKS                       R5 R4 K16 ["CageNonManifoldPreview"]
-       77 NEWTABLE                         R5 0 1
-       79 LOADK                            R6 K39 ["CageOverlappingVerticesWarning"]
-       80 SETLIST                          R5 R6 1 [1]
-       82 SETTABLEKS                       R5 R4 K17 ["CageOverlappingVerticesPreview"]
-       84 NEWTABLE                         R5 0 1
-       86 LOADK                            R6 K40 ["CageUVMisMatchedWarning"]
-       87 SETLIST                          R5 R6 1 [1]
-       89 SETTABLEKS                       R5 R4 K18 ["CageUVMisMatchedPreview"]
-       91 NEWTABLE                         R5 0 1
-       93 LOADK                            R6 K41 ["CageMeshIntersectedWarning"]
-       94 SETLIST                          R5 R6 1 [1]
-       96 SETTABLEKS                       R5 R4 K19 ["CageMeshIntersectedPreview"]
-       98 NEWTABLE                         R5 0 1
-      100 LOADK                            R6 K42 ["MeshHoleDetectedWarning"]
-      101 SETLIST                          R5 R6 1 [1]
-      103 SETTABLEKS                       R5 R4 K20 ["MeshHoleDetectedPreview"]
-      105 NEWTABLE                         R5 0 1
-      107 LOADK                            R6 K43 ["IrrelevantCageModifiedWarning"]
-      108 SETLIST                          R5 R6 1 [1]
-      110 SETTABLEKS                       R5 R4 K21 ["IrrelevantCageModifiedPreview"]
-      112 NEWTABLE                         R5 0 1
-      114 LOADK                            R6 K44 ["OuterCageFarExtendedFromMeshWarning"]
-      115 SETLIST                          R5 R6 1 [1]
-      117 SETTABLEKS                       R5 R4 K22 ["OuterCageFarExtendedFromMeshPreview"]
-      119 NEWTABLE                         R5 0 1
-      121 LOADK                            R6 K45 ["IncorrectR15Warning"]
-      122 SETLIST                          R5 R6 1 [1]
-      124 SETTABLEKS                       R5 R4 K23 ["RigType"]
-      126 MOVE                             R6 R3
-      127 CALL                             R6 0 1
-      128 JUMPIFNOT                        R6 ; [+6]
-      129 NEWTABLE                         R5 0 1
-      131 LOADK                            R6 K46 ["IncorrectPhysicalConstraintWarning"]
-      132 SETLIST                          R5 R6 1 [1]
-      134 JUMP                             ; [+1]
-      135 LOADNIL                          R5
-      136 SETTABLEKS                       R5 R4 K24 ["PhysicalConstraintType"]
-      138 MOVE                             R6 R2
-      139 CALL                             R6 0 1
-      140 JUMPIFNOT                        R6 ; [+8]
-      141 NEWTABLE                         R5 0 3
-      143 LOADK                            R6 K47 ["CouldNotReadDiffuseError"]
-      144 LOADK                            R7 K48 ["DiffuseBadFileFormatError"]
-      145 LOADK                            R8 K49 ["EmissiveNeedsTransformWarning"]
-      146 SETLIST                          R5 R6 3 [1]
-      148 JUMP                             ; [+6]
-      149 NEWTABLE                         R5 0 2
-      151 LOADK                            R6 K47 ["CouldNotReadDiffuseError"]
-      152 LOADK                            R7 K48 ["DiffuseBadFileFormatError"]
-      153 SETLIST                          R5 R6 2 [1]
-      155 SETTABLEKS                       R5 R4 K25 ["DiffuseFilePath"]
-      157 NEWTABLE                         R5 0 2
-      159 LOADK                            R6 K50 ["CouldNotReadRoughnessError"]
-      160 LOADK                            R7 K51 ["RoughnessBadFileFormatError"]
-      161 SETLIST                          R5 R6 2 [1]
-      163 SETTABLEKS                       R5 R4 K26 ["RoughnessFilePath"]
-      165 NEWTABLE                         R5 0 2
-      167 LOADK                            R6 K52 ["CouldNotReadNormalError"]
-      168 LOADK                            R7 K53 ["NormalBadFileFormatError"]
-      169 SETLIST                          R5 R6 2 [1]
-      171 SETTABLEKS                       R5 R4 K27 ["NormalFilePath"]
-      173 NEWTABLE                         R5 0 2
-      175 LOADK                            R6 K54 ["CouldNotReadMetalnessError"]
-      176 LOADK                            R7 K55 ["MetalnessBadFileFormatError"]
-      177 SETLIST                          R5 R6 2 [1]
-      179 SETTABLEKS                       R5 R4 K28 ["MetalnessFilePath"]
-      181 MOVE                             R6 R2
-      182 CALL                             R6 0 1
-      183 JUMPIFNOT                        R6 ; [+8]
-      184 NEWTABLE                         R5 0 3
-      186 LOADK                            R6 K56 ["CouldNotReadEmissiveError"]
-      187 LOADK                            R7 K57 ["EmissiveBadFileFormatError"]
-      188 LOADK                            R8 K49 ["EmissiveNeedsTransformWarning"]
-      189 SETLIST                          R5 R6 3 [1]
-      191 JUMP                             ; [+1]
-      192 LOADNIL                          R5
-      193 SETTABLEKS                       R5 R4 K29 ["EmissiveFilePath"]
-      195 NEWTABLE                         R5 0 2
-      197 LOADK                            R6 K58 ["CantImportAvatarGltfsWarning"]
-      198 LOADK                            R7 K59 ["CantImportScaleOrWeightAnimationsWarning"]
-      199 SETLIST                          R5 R6 2 [1]
-      201 SETTABLEKS                       R5 R4 K30 ["FileGeneral"]
-      203 MOVE                             R6 R1
-      204 CALL                             R6 0 1
-      205 JUMPIFNOT                        R6 ; [+2]
-      206 LOADNIL                          R5
-      207 JUMP                             ; [+5]
-      208 NEWTABLE                         R5 0 1
-      210 LOADK                            R6 K60 ["ValidateUgcButNoInsertError"]
-      211 SETLIST                          R5 R6 1 [1]
-      213 SETTABLEKS                       R5 R4 K31 ["ValidateUgcBody"]
-      215 NEWTABLE                         R5 0 62
-      217 LOADK                            R6 K61 ["MaterialIgnoredWarning"]
-      218 LOADK                            R7 K62 ["CouldNotReadTextureError"]
-      219 LOADK                            R8 K63 ["TextureBadFileFormatError"]
-      220 LOADK                            R9 K64 ["ContentNotFoundError"]
-      221 LOADK                            R10 K65 ["MeshIdNotFoundError"]
-      222 LOADK                            R11 K66 ["NoValidParentError"]
-      223 LOADK                            R12 K67 ["NullNodeError"]
-      224 LOADK                            R13 K68 ["ImportDataTypeMismatchError"]
-      225 LOADK                            R14 K69 ["ImportDataNotCreatedError"]
-      226 LOADK                            R15 K70 ["ImportDataInstanceNotCreatedError"]
-      227 LOADK                            R16 K71 ["TextureInvalidSizeError"]
-      228 LOADK                            R17 K72 ["IllegalNodeTypeError"]
-      229 LOADK                            R18 K73 ["BadCallError"]
-      230 LOADK                            R19 K74 ["PoseError"]
-      231 LOADK                            R20 K75 ["UncaughtExceptionError"]
-      232 LOADK                            R21 K76 ["UploadAlreadyRunningError"]
-      233 SETLIST                          R5 R6 16 [1]
-      235 LOADK                            R6 K77 ["CageMismatchWarning"]
-      236 LOADK                            R7 K78 ["CageHasMaterialWarning"]
-      237 LOADK                            R8 K79 ["CageNoGeoParentError"]
-      238 LOADK                            R9 K80 ["UGCMeshVertColorsWarning"]
-      239 LOADK                            R10 K81 ["UGCMaxMeshTrianglesWarning"]
-      240 LOADK                            R11 K82 ["UGCExceedUVSpaceWarning"]
-      241 LOADK                            R12 K83 ["UGCExceedTextureSizeWarning"]
-      242 LOADK                            R13 K84 ["InnerButNoOuterCageWarning"]
-      243 LOADK                            R14 K85 ["NoRefMeshForCageWarning"]
-      244 LOADK                            R15 K86 ["NoRefMeshForCageWithSuggestionWarning"]
-      245 LOADK                            R16 K87 ["AvatarCagesMissingWarning"]
-      246 LOADK                            R17 K88 ["CageNameHasTypoWarning"]
-      247 LOADK                            R18 K89 ["DeletedCageGeometryWarning"]
-      248 LOADK                            R19 K90 ["UnsupportedPreviewTextureTypeWarning"]
-      249 LOADK                            R20 K91 ["OuterCageBloatingWarning"]
-      250 LOADK                            R21 K92 ["FacsFrameExtraCharsWarning"]
-      251 SETLIST                          R5 R6 16 [17]
-      253 LOADK                            R6 K93 ["FacsMax3CorrectivesError"]
-      254 LOADK                            R7 K94 ["FacsUnrecognizedFacsError"]
-      255 LOADK                            R8 K95 ["FacsInvalidCorrectiveError"]
-      256 LOADK                            R9 K96 ["FacsCorrectiveDupeError"]
-      257 LOADK                            R10 K97 ["FacsRootFaceJointNotStringError"]
-      258 LOADK                            R11 K98 ["FacsRootFaceJointNoValueError"]
-      259 LOADK                            R12 K99 ["FacsFrameAttrNotStringError"]
-      260 LOADK                            R13 K100 ["FacsUnparseableFrameNumberError"]
-      261 LOADK                            R14 K101 ["FacsEmptyAttributeWarning"]
-      262 LOADK                            R15 K102 ["FacsDupeControlError"]
-      263 LOADK                            R16 K103 ["FacsRootFaceJointExtraCharsError"]
-      264 LOADK                            R17 K104 ["FacsHasFramesNoRootFaceJointError"]
-      265 LOADK                            R18 K105 ["FacsNoAttributesError"]
-      266 LOADK                            R19 K106 ["FacsNoNeutralError"]
-      267 LOADK                            R20 K107 ["FacsMissingSupportCorrectiveWarning"]
-      268 LOADK                            R21 K108 ["FacsMissingBaseError"]
-      269 SETLIST                          R5 R6 16 [33]
-      271 LOADK                            R6 K109 ["FacsMissingKeyFrameError"]
-      272 LOADK                            R7 K110 ["FacsNoAnimationStackError"]
-      273 LOADK                            R8 K111 ["FacsMultipleAnimationStackWarning"]
-      274 LOADK                            R9 K112 ["FacsNoRootFaceJointError"]
-      275 LOADK                            R10 K113 ["FacsMultipleRootFaceJointsError"]
-      276 LOADK                            R11 K114 ["FacsNoJointsError"]
-      277 LOADK                            R12 K115 ["FacsNearNeutralWarning"]
-      278 LOADK                            R13 K116 ["FacsIncompletePosesWarning"]
-      279 LOADK                            R14 K117 ["FacsOnlyNeutralError"]
-      280 LOADK                            R15 K118 ["FacsNoFaceControlsAllowedError"]
-      281 LOADK                            R16 K119 ["DropSpecialJointsWarning"]
-      282 LOADK                            R17 K120 ["DuplicateTransferTargetWarning"]
-      283 LOADK                            R18 K121 ["MissingTransferTargetWarning"]
-      284 LOADK                            R19 K122 ["MissingTransferTextureWarning"]
-      285 SETLIST                          R5 R6 14 [49]
-      287 SETTABLEKS                       R5 R4 K32 ["ObjectGeneral"]
-      289 DUPCLOSURE                       R5 K123 [PROTO_0]
-      290 GETIMPORT                        R6 K125 [pairs]
-      292 MOVE                             R7 R4
-      293 CALL                             R6 1 3
-      294 FORGPREP_NEXT                    R6
-      295 NEWTABLE                         R12 0 0
-      297 GETIMPORT                        R13 K125 [pairs]
-      299 MOVE                             R14 R10
-      300 CALL                             R13 1 3
-      301 FORGPREP_NEXT                    R13
-      302 LOADB                            R18 1
-      303 SETTABLE                         R18 R12 R17
-      304 FORGLOOP                         R13 2 ; [-3]
-      306 MOVE                             R11 R12
-      307 SETTABLE                         R11 R4 R9
-      308 FORGLOOP                         R6 2 ; [-14]
-      310 RETURN                           R4 1
+       25 DUPTABLE                         R3 K32 [{"ImportName", "ImportAsPackage", "Dimensions", "FileDimensions", "ScaleUnit", "PolygonCount", "CageNonManifoldPreview", "CageOverlappingVerticesPreview", "CageUVMisMatchedPreview", "CageMeshIntersectedPreview", "MeshHoleDetectedPreview", "IrrelevantCageModifiedPreview", "OuterCageFarExtendedFromMeshPreview", "RigType", "PhysicalConstraintType", "DiffuseFilePath", "RoughnessFilePath", "NormalFilePath", "MetalnessFilePath", "EmissiveFilePath", "FileGeneral", "ObjectGeneral"}]
+       26 NEWTABLE                         R4 0 1
+       28 LOADK                            R5 K33 ["NameExceedsCharacterLimitWarning"]
+       29 SETLIST                          R4 R5 1 [1]
+       31 SETTABLEKS                       R4 R3 K10 ["ImportName"]
+       33 NEWTABLE                         R4 0 1
+       35 LOADK                            R5 K34 ["AnimationInPackageWarning"]
+       36 SETLIST                          R4 R5 1 [1]
+       38 SETTABLEKS                       R4 R3 K11 ["ImportAsPackage"]
+       40 NEWTABLE                         R4 0 1
+       42 LOADK                            R5 K35 ["MeshScaleWarning"]
+       43 SETLIST                          R4 R5 1 [1]
+       45 SETTABLEKS                       R4 R3 K12 ["Dimensions"]
+       47 NEWTABLE                         R4 0 1
+       49 LOADK                            R5 K35 ["MeshScaleWarning"]
+       50 SETLIST                          R4 R5 1 [1]
+       52 SETTABLEKS                       R4 R3 K13 ["FileDimensions"]
+       54 NEWTABLE                         R4 0 1
+       56 LOADK                            R5 K36 ["ScaleUnitNotStudWarning"]
+       57 SETLIST                          R4 R5 1 [1]
+       59 SETTABLEKS                       R4 R3 K14 ["ScaleUnit"]
+       61 NEWTABLE                         R4 0 1
+       63 LOADK                            R5 K37 ["MeshSizeWarning"]
+       64 SETLIST                          R4 R5 1 [1]
+       66 SETTABLEKS                       R4 R3 K15 ["PolygonCount"]
+       68 NEWTABLE                         R4 0 1
+       70 LOADK                            R5 K38 ["CageNonManifoldWarning"]
+       71 SETLIST                          R4 R5 1 [1]
+       73 SETTABLEKS                       R4 R3 K16 ["CageNonManifoldPreview"]
+       75 NEWTABLE                         R4 0 1
+       77 LOADK                            R5 K39 ["CageOverlappingVerticesWarning"]
+       78 SETLIST                          R4 R5 1 [1]
+       80 SETTABLEKS                       R4 R3 K17 ["CageOverlappingVerticesPreview"]
+       82 NEWTABLE                         R4 0 1
+       84 LOADK                            R5 K40 ["CageUVMisMatchedWarning"]
+       85 SETLIST                          R4 R5 1 [1]
+       87 SETTABLEKS                       R4 R3 K18 ["CageUVMisMatchedPreview"]
+       89 NEWTABLE                         R4 0 1
+       91 LOADK                            R5 K41 ["CageMeshIntersectedWarning"]
+       92 SETLIST                          R4 R5 1 [1]
+       94 SETTABLEKS                       R4 R3 K19 ["CageMeshIntersectedPreview"]
+       96 NEWTABLE                         R4 0 1
+       98 LOADK                            R5 K42 ["MeshHoleDetectedWarning"]
+       99 SETLIST                          R4 R5 1 [1]
+      101 SETTABLEKS                       R4 R3 K20 ["MeshHoleDetectedPreview"]
+      103 NEWTABLE                         R4 0 1
+      105 LOADK                            R5 K43 ["IrrelevantCageModifiedWarning"]
+      106 SETLIST                          R4 R5 1 [1]
+      108 SETTABLEKS                       R4 R3 K21 ["IrrelevantCageModifiedPreview"]
+      110 NEWTABLE                         R4 0 1
+      112 LOADK                            R5 K44 ["OuterCageFarExtendedFromMeshWarning"]
+      113 SETLIST                          R4 R5 1 [1]
+      115 SETTABLEKS                       R4 R3 K22 ["OuterCageFarExtendedFromMeshPreview"]
+      117 NEWTABLE                         R4 0 1
+      119 LOADK                            R5 K45 ["IncorrectR15Warning"]
+      120 SETLIST                          R4 R5 1 [1]
+      122 SETTABLEKS                       R4 R3 K23 ["RigType"]
+      124 MOVE                             R5 R2
+      125 CALL                             R5 0 1
+      126 JUMPIFNOT                        R5 ; [+6]
+      127 NEWTABLE                         R4 0 1
+      129 LOADK                            R5 K46 ["IncorrectPhysicalConstraintWarning"]
+      130 SETLIST                          R4 R5 1 [1]
+      132 JUMP                             ; [+1]
+      133 LOADNIL                          R4
+      134 SETTABLEKS                       R4 R3 K24 ["PhysicalConstraintType"]
+      136 MOVE                             R5 R1
+      137 CALL                             R5 0 1
+      138 JUMPIFNOT                        R5 ; [+8]
+      139 NEWTABLE                         R4 0 3
+      141 LOADK                            R5 K47 ["CouldNotReadDiffuseError"]
+      142 LOADK                            R6 K48 ["DiffuseBadFileFormatError"]
+      143 LOADK                            R7 K49 ["EmissiveNeedsTransformWarning"]
+      144 SETLIST                          R4 R5 3 [1]
+      146 JUMP                             ; [+6]
+      147 NEWTABLE                         R4 0 2
+      149 LOADK                            R5 K47 ["CouldNotReadDiffuseError"]
+      150 LOADK                            R6 K48 ["DiffuseBadFileFormatError"]
+      151 SETLIST                          R4 R5 2 [1]
+      153 SETTABLEKS                       R4 R3 K25 ["DiffuseFilePath"]
+      155 NEWTABLE                         R4 0 2
+      157 LOADK                            R5 K50 ["CouldNotReadRoughnessError"]
+      158 LOADK                            R6 K51 ["RoughnessBadFileFormatError"]
+      159 SETLIST                          R4 R5 2 [1]
+      161 SETTABLEKS                       R4 R3 K26 ["RoughnessFilePath"]
+      163 NEWTABLE                         R4 0 2
+      165 LOADK                            R5 K52 ["CouldNotReadNormalError"]
+      166 LOADK                            R6 K53 ["NormalBadFileFormatError"]
+      167 SETLIST                          R4 R5 2 [1]
+      169 SETTABLEKS                       R4 R3 K27 ["NormalFilePath"]
+      171 NEWTABLE                         R4 0 2
+      173 LOADK                            R5 K54 ["CouldNotReadMetalnessError"]
+      174 LOADK                            R6 K55 ["MetalnessBadFileFormatError"]
+      175 SETLIST                          R4 R5 2 [1]
+      177 SETTABLEKS                       R4 R3 K28 ["MetalnessFilePath"]
+      179 MOVE                             R5 R1
+      180 CALL                             R5 0 1
+      181 JUMPIFNOT                        R5 ; [+8]
+      182 NEWTABLE                         R4 0 3
+      184 LOADK                            R5 K56 ["CouldNotReadEmissiveError"]
+      185 LOADK                            R6 K57 ["EmissiveBadFileFormatError"]
+      186 LOADK                            R7 K49 ["EmissiveNeedsTransformWarning"]
+      187 SETLIST                          R4 R5 3 [1]
+      189 JUMP                             ; [+1]
+      190 LOADNIL                          R4
+      191 SETTABLEKS                       R4 R3 K29 ["EmissiveFilePath"]
+      193 NEWTABLE                         R4 0 2
+      195 LOADK                            R5 K58 ["CantImportAvatarGltfsWarning"]
+      196 LOADK                            R6 K59 ["CantImportScaleOrWeightAnimationsWarning"]
+      197 SETLIST                          R4 R5 2 [1]
+      199 SETTABLEKS                       R4 R3 K30 ["FileGeneral"]
+      201 NEWTABLE                         R4 0 62
+      203 LOADK                            R5 K60 ["MaterialIgnoredWarning"]
+      204 LOADK                            R6 K61 ["CouldNotReadTextureError"]
+      205 LOADK                            R7 K62 ["TextureBadFileFormatError"]
+      206 LOADK                            R8 K63 ["ContentNotFoundError"]
+      207 LOADK                            R9 K64 ["MeshIdNotFoundError"]
+      208 LOADK                            R10 K65 ["NoValidParentError"]
+      209 LOADK                            R11 K66 ["NullNodeError"]
+      210 LOADK                            R12 K67 ["ImportDataTypeMismatchError"]
+      211 LOADK                            R13 K68 ["ImportDataNotCreatedError"]
+      212 LOADK                            R14 K69 ["ImportDataInstanceNotCreatedError"]
+      213 LOADK                            R15 K70 ["TextureInvalidSizeError"]
+      214 LOADK                            R16 K71 ["IllegalNodeTypeError"]
+      215 LOADK                            R17 K72 ["BadCallError"]
+      216 LOADK                            R18 K73 ["PoseError"]
+      217 LOADK                            R19 K74 ["UncaughtExceptionError"]
+      218 LOADK                            R20 K75 ["UploadAlreadyRunningError"]
+      219 SETLIST                          R4 R5 16 [1]
+      221 LOADK                            R5 K76 ["CageMismatchWarning"]
+      222 LOADK                            R6 K77 ["CageHasMaterialWarning"]
+      223 LOADK                            R7 K78 ["CageNoGeoParentError"]
+      224 LOADK                            R8 K79 ["UGCMeshVertColorsWarning"]
+      225 LOADK                            R9 K80 ["UGCMaxMeshTrianglesWarning"]
+      226 LOADK                            R10 K81 ["UGCExceedUVSpaceWarning"]
+      227 LOADK                            R11 K82 ["UGCExceedTextureSizeWarning"]
+      228 LOADK                            R12 K83 ["InnerButNoOuterCageWarning"]
+      229 LOADK                            R13 K84 ["NoRefMeshForCageWarning"]
+      230 LOADK                            R14 K85 ["NoRefMeshForCageWithSuggestionWarning"]
+      231 LOADK                            R15 K86 ["AvatarCagesMissingWarning"]
+      232 LOADK                            R16 K87 ["CageNameHasTypoWarning"]
+      233 LOADK                            R17 K88 ["DeletedCageGeometryWarning"]
+      234 LOADK                            R18 K89 ["UnsupportedPreviewTextureTypeWarning"]
+      235 LOADK                            R19 K90 ["OuterCageBloatingWarning"]
+      236 LOADK                            R20 K91 ["FacsFrameExtraCharsWarning"]
+      237 SETLIST                          R4 R5 16 [17]
+      239 LOADK                            R5 K92 ["FacsMax3CorrectivesError"]
+      240 LOADK                            R6 K93 ["FacsUnrecognizedFacsError"]
+      241 LOADK                            R7 K94 ["FacsInvalidCorrectiveError"]
+      242 LOADK                            R8 K95 ["FacsCorrectiveDupeError"]
+      243 LOADK                            R9 K96 ["FacsRootFaceJointNotStringError"]
+      244 LOADK                            R10 K97 ["FacsRootFaceJointNoValueError"]
+      245 LOADK                            R11 K98 ["FacsFrameAttrNotStringError"]
+      246 LOADK                            R12 K99 ["FacsUnparseableFrameNumberError"]
+      247 LOADK                            R13 K100 ["FacsEmptyAttributeWarning"]
+      248 LOADK                            R14 K101 ["FacsDupeControlError"]
+      249 LOADK                            R15 K102 ["FacsRootFaceJointExtraCharsError"]
+      250 LOADK                            R16 K103 ["FacsHasFramesNoRootFaceJointError"]
+      251 LOADK                            R17 K104 ["FacsNoAttributesError"]
+      252 LOADK                            R18 K105 ["FacsNoNeutralError"]
+      253 LOADK                            R19 K106 ["FacsMissingSupportCorrectiveWarning"]
+      254 LOADK                            R20 K107 ["FacsMissingBaseError"]
+      255 SETLIST                          R4 R5 16 [33]
+      257 LOADK                            R5 K108 ["FacsMissingKeyFrameError"]
+      258 LOADK                            R6 K109 ["FacsNoAnimationStackError"]
+      259 LOADK                            R7 K110 ["FacsMultipleAnimationStackWarning"]
+      260 LOADK                            R8 K111 ["FacsNoRootFaceJointError"]
+      261 LOADK                            R9 K112 ["FacsMultipleRootFaceJointsError"]
+      262 LOADK                            R10 K113 ["FacsNoJointsError"]
+      263 LOADK                            R11 K114 ["FacsNearNeutralWarning"]
+      264 LOADK                            R12 K115 ["FacsIncompletePosesWarning"]
+      265 LOADK                            R13 K116 ["FacsOnlyNeutralError"]
+      266 LOADK                            R14 K117 ["FacsNoFaceControlsAllowedError"]
+      267 LOADK                            R15 K118 ["DropSpecialJointsWarning"]
+      268 LOADK                            R16 K119 ["DuplicateTransferTargetWarning"]
+      269 LOADK                            R17 K120 ["MissingTransferTargetWarning"]
+      270 LOADK                            R18 K121 ["MissingTransferTextureWarning"]
+      271 SETLIST                          R4 R5 14 [49]
+      273 SETTABLEKS                       R4 R3 K31 ["ObjectGeneral"]
+      275 DUPCLOSURE                       R4 K122 [PROTO_0]
+      276 GETIMPORT                        R5 K124 [pairs]
+      278 MOVE                             R6 R3
+      279 CALL                             R5 1 3
+      280 FORGPREP_NEXT                    R5
+      281 NEWTABLE                         R11 0 0
+      283 GETIMPORT                        R12 K124 [pairs]
+      285 MOVE                             R13 R9
+      286 CALL                             R12 1 3
+      287 FORGPREP_NEXT                    R12
+      288 LOADB                            R17 1
+      289 SETTABLE                         R17 R11 R16
+      290 FORGLOOP                         R12 2 ; [-3]
+      292 MOVE                             R10 R11
+      293 SETTABLE                         R10 R3 R8
+      294 FORGLOOP                         R5 2 ; [-14]
+      296 RETURN                           R3 1

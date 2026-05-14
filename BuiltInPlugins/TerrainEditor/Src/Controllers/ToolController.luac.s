@@ -9,12 +9,12 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K0 ["_tabs"]
-        5 GETUPVAL                         R8 0
-        6 GETTABLEKS                       R7 R8 K1 ["_tabIndex"]
-        8 GETTABLE                         R5 R6 R7
-        9 GETTABLEKS                       R4 R5 K2 ["ToolRegistry"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K0 ["_tabs"]
+        5 GETUPVAL                         R6 0
+        6 GETTABLEKS                       R6 R6 K1 ["_tabIndex"]
+        8 GETTABLE                         R4 R5 R6
+        9 GETTABLEKS                       R4 R4 K2 ["ToolRegistry"]
        11 NEWCLOSURE                       R5 P0
        12 CAPTURE                          VAL R0
        13 CALL                             R3 2 -1
@@ -24,8 +24,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["_tabRegistry"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["_tabRegistry"]
         4 GETTABLE                         R3 R4 R0
         5 NAMECALL                         R1 R1 K1 ["setTabIndex"]
         7 CALL                             R1 2 0
@@ -40,14 +40,14 @@ PROTO_3:
         7 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["_tabRegistry"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["_tabRegistry"]
         3 GETTABLE                         R2 R3 R0
         4 GETUPVAL                         R3 1
-        5 GETUPVAL                         R7 0
-        6 GETTABLEKS                       R6 R7 K1 ["_tabs"]
-        8 GETTABLE                         R5 R6 R2
-        9 GETTABLEKS                       R4 R5 K2 ["ToolRegistry"]
+        5 GETUPVAL                         R5 0
+        6 GETTABLEKS                       R5 R5 K1 ["_tabs"]
+        8 GETTABLE                         R4 R5 R2
+        9 GETTABLEKS                       R4 R4 K2 ["ToolRegistry"]
        11 NEWCLOSURE                       R5 P0
        12 CAPTURE                          VAL R1
        13 CALL                             R3 2 1
@@ -70,16 +70,16 @@ PROTO_5:
 PROTO_6:
         0 DUPTABLE                         R7 K4 [{"_mocking", "OnToolChanged", "OnToolIndexChanged", "OnTabIndexChanged"}]
         1 SETTABLEKS                       R5 R7 K0 ["_mocking"]
-        3 GETUPVAL                         R9 0
-        4 GETTABLEKS                       R8 R9 K5 ["new"]
+        3 GETUPVAL                         R8 0
+        4 GETTABLEKS                       R8 R8 K5 ["new"]
         6 CALL                             R8 0 1
         7 SETTABLEKS                       R8 R7 K1 ["OnToolChanged"]
-        9 GETUPVAL                         R9 0
-       10 GETTABLEKS                       R8 R9 K5 ["new"]
+        9 GETUPVAL                         R8 0
+       10 GETTABLEKS                       R8 R8 K5 ["new"]
        12 CALL                             R8 0 1
        13 SETTABLEKS                       R8 R7 K2 ["OnToolIndexChanged"]
-       15 GETUPVAL                         R9 0
-       16 GETTABLEKS                       R8 R9 K5 ["new"]
+       15 GETUPVAL                         R8 0
+       16 GETTABLEKS                       R8 R8 K5 ["new"]
        18 CALL                             R8 0 1
        19 SETTABLEKS                       R8 R7 K3 ["OnTabIndexChanged"]
        21 GETUPVAL                         R8 1
@@ -151,8 +151,8 @@ PROTO_6:
       118 CALL                             R15 3 0
       119 NAMECALL                         R15 R14 K31 ["getCategory"]
       121 CALL                             R15 1 1
-      122 GETUPVAL                         R17 5
-      123 GETTABLEKS                       R16 R17 K32 ["None"]
+      122 GETUPVAL                         R16 5
+      123 GETTABLEKS                       R16 R16 K32 ["None"]
       125 JUMPIFNOTEQ                      R15 R16 ; [+12]
       127 GETTABLEKS                       R16 R6 K33 ["_emptyTool"]
       129 JUMPIFNOT                        R16 ; [+5]
@@ -184,16 +184,16 @@ PROTO_6:
       166 GETIMPORT                        R17 K48 [table.insert]
       168 CALL                             R17 2 0
       169 SETTABLE                         R16 R7 R15
-      170 GETTABLE                         R19 R7 R15
-      171 GETTABLE                         R18 R8 R19
-      172 GETTABLEKS                       R17 R18 K41 ["ToolRegistry"]
+      170 GETTABLE                         R18 R7 R15
+      171 GETTABLE                         R17 R8 R18
+      172 GETTABLEKS                       R17 R17 K41 ["ToolRegistry"]
       174 FASTCALL2                        TABLE_INSERT R17 R14 ; [+4]
       176 MOVE                             R18 R14
       177 GETIMPORT                        R16 K48 [table.insert]
       179 CALL                             R16 2 0
-      180 GETTABLE                         R19 R7 R15
-      181 GETTABLE                         R18 R8 R19
-      182 GETTABLEKS                       R17 R18 K42 ["Toolbar"]
+      180 GETTABLE                         R18 R7 R15
+      181 GETTABLE                         R17 R8 R18
+      182 GETTABLEKS                       R17 R17 K42 ["Toolbar"]
       184 NAMECALL                         R18 R14 K49 ["getTile"]
       186 CALL                             R18 1 -1
       187 FASTCALL                         TABLE_INSERT ; [+2]
@@ -215,29 +215,29 @@ PROTO_6:
       212 RETURN                           R6 1
 
 PROTO_7:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["new"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["new"]
         3 MOVE                             R6 R0
         4 JUMPIF                           R6 ; [+4]
-        5 GETUPVAL                         R7 1
-        6 GETTABLEKS                       R6 R7 K1 ["mock"]
+        5 GETUPVAL                         R6 1
+        6 GETTABLEKS                       R6 R6 K1 ["mock"]
         8 CALL                             R6 0 1
         9 MOVE                             R7 R1
        10 JUMPIF                           R7 ; [+4]
-       11 GETUPVAL                         R8 2
-       12 GETTABLEKS                       R7 R8 K1 ["mock"]
+       11 GETUPVAL                         R7 2
+       12 GETTABLEKS                       R7 R7 K1 ["mock"]
        14 CALL                             R7 0 1
        15 MOVE                             R8 R2
        16 JUMPIF                           R8 ; [+6]
-       17 GETUPVAL                         R10 3
-       18 GETTABLEKS                       R9 R10 K2 ["Analytics"]
-       20 GETTABLEKS                       R8 R9 K1 ["mock"]
+       17 GETUPVAL                         R8 3
+       18 GETTABLEKS                       R8 R8 K2 ["Analytics"]
+       20 GETTABLEKS                       R8 R8 K1 ["mock"]
        22 CALL                             R8 0 1
        23 MOVE                             R9 R3
        24 JUMPIF                           R9 ; [+6]
-       25 GETUPVAL                         R11 3
-       26 GETTABLEKS                       R10 R11 K3 ["Localization"]
-       28 GETTABLEKS                       R9 R10 K1 ["mock"]
+       25 GETUPVAL                         R9 3
+       26 GETTABLEKS                       R9 R9 K3 ["Localization"]
+       28 GETTABLEKS                       R9 R9 K1 ["mock"]
        30 CALL                             R9 0 1
        31 MOVE                             R10 R4
        32 LOADB                            R11 1
@@ -259,10 +259,10 @@ PROTO_10:
         2 RETURN                           R1 1
 
 PROTO_11:
-        0 GETTABLEKS                       R3 R0 K0 ["_tabs"]
-        2 GETTABLEKS                       R4 R0 K1 ["_tabIndex"]
-        4 GETTABLE                         R2 R3 R4
-        5 GETTABLEKS                       R1 R2 K2 ["Toolbar"]
+        0 GETTABLEKS                       R2 R0 K0 ["_tabs"]
+        2 GETTABLEKS                       R3 R0 K1 ["_tabIndex"]
+        4 GETTABLE                         R1 R2 R3
+        5 GETTABLEKS                       R1 R1 K2 ["Toolbar"]
         7 RETURN                           R1 1
 
 PROTO_12:
@@ -270,10 +270,10 @@ PROTO_12:
         2 JUMPIFNOT                        R2 ; [+2]
         3 LOADN                            R1 255
         4 RETURN                           R1 1
-        5 GETTABLEKS                       R3 R0 K1 ["_tabs"]
-        7 GETTABLEKS                       R4 R0 K2 ["_tabIndex"]
-        9 GETTABLE                         R2 R3 R4
-       10 GETTABLEKS                       R1 R2 K3 ["ToolIndex"]
+        5 GETTABLEKS                       R2 R0 K1 ["_tabs"]
+        7 GETTABLEKS                       R3 R0 K2 ["_tabIndex"]
+        9 GETTABLE                         R1 R2 R3
+       10 GETTABLEKS                       R1 R1 K3 ["ToolIndex"]
        12 RETURN                           R1 1
 
 PROTO_13:
@@ -288,8 +288,8 @@ PROTO_13:
        13 GETTABLEKS                       R4 R1 K5 ["ToolIndex"]
        15 GETTABLE                         R2 R3 R4
        16 JUMPIF                           R2 ; [+4]
-       17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R2 R3 K6 ["empty"]
+       17 GETUPVAL                         R2 0
+       18 GETTABLEKS                       R2 R2 K6 ["empty"]
        20 CALL                             R2 0 1
        21 RETURN                           R2 1
 
@@ -494,9 +494,9 @@ PROTO_18:
         0 GETTABLEKS                       R4 R0 K0 ["_tabRegistry"]
         2 GETTABLE                         R3 R4 R1
         3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R7 R0 K1 ["_tabs"]
-        6 GETTABLE                         R6 R7 R3
-        7 GETTABLEKS                       R5 R6 K2 ["ToolRegistry"]
+        4 GETTABLEKS                       R6 R0 K1 ["_tabs"]
+        6 GETTABLE                         R5 R6 R3
+        7 GETTABLEKS                       R5 R5 K2 ["ToolRegistry"]
         9 NEWCLOSURE                       R6 P0
        10 CAPTURE                          VAL R2
        11 CALL                             R4 2 1
@@ -513,46 +513,46 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["ContextItem"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K11 ["Src"]
-       29 GETTABLEKS                       R7 R8 K12 ["Tools"]
-       31 GETTABLEKS                       R6 R7 K13 ["BaseTool"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Tools"]
+       31 GETTABLEKS                       R6 R6 K13 ["BaseTool"]
        33 CALL                             R5 1 1
        34 GETTABLEKS                       R6 R2 K14 ["Util"]
        36 GETTABLEKS                       R7 R6 K15 ["Signal"]
        38 GETTABLEKS                       R8 R1 K16 ["findIndex"]
        40 GETIMPORT                        R9 K5 [require]
-       42 GETTABLEKS                       R11 R0 K11 ["Src"]
-       44 GETTABLEKS                       R10 R11 K12 ["Tools"]
+       42 GETTABLEKS                       R10 R0 K11 ["Src"]
+       44 GETTABLEKS                       R10 R10 K12 ["Tools"]
        46 CALL                             R9 1 1
        47 GETIMPORT                        R10 K5 [require]
-       49 GETTABLEKS                       R12 R0 K11 ["Src"]
-       51 GETTABLEKS                       R11 R12 K17 ["Types"]
+       49 GETTABLEKS                       R11 R0 K11 ["Src"]
+       51 GETTABLEKS                       R11 R11 K17 ["Types"]
        53 CALL                             R10 1 1
        54 GETTABLEKS                       R11 R10 K18 ["Tab"]
        56 GETIMPORT                        R12 K5 [require]
-       58 GETTABLEKS                       R15 R0 K11 ["Src"]
-       60 GETTABLEKS                       R14 R15 K19 ["Controllers"]
-       62 GETTABLEKS                       R13 R14 K20 ["PluginController"]
+       58 GETTABLEKS                       R13 R0 K11 ["Src"]
+       60 GETTABLEKS                       R13 R13 K19 ["Controllers"]
+       62 GETTABLEKS                       R13 R13 K20 ["PluginController"]
        64 CALL                             R12 1 1
        65 GETIMPORT                        R13 K5 [require]
-       67 GETTABLEKS                       R16 R0 K11 ["Src"]
-       69 GETTABLEKS                       R15 R16 K19 ["Controllers"]
-       71 GETTABLEKS                       R14 R15 K21 ["ShortcutController"]
+       67 GETTABLEKS                       R14 R0 K11 ["Src"]
+       69 GETTABLEKS                       R14 R14 K19 ["Controllers"]
+       71 GETTABLEKS                       R14 R14 K21 ["ShortcutController"]
        73 CALL                             R13 1 1
        74 GETIMPORT                        R14 K5 [require]
-       76 GETTABLEKS                       R17 R0 K11 ["Src"]
-       78 GETTABLEKS                       R16 R17 K22 ["Flags"]
-       80 GETTABLEKS                       R15 R16 K23 ["getFFlagSmoothVoxels_Tooling"]
+       76 GETTABLEKS                       R15 R0 K11 ["Src"]
+       78 GETTABLEKS                       R15 R15 K22 ["Flags"]
+       80 GETTABLEKS                       R15 R15 K23 ["getFFlagSmoothVoxels_Tooling"]
        82 CALL                             R14 1 1
        83 LOADK                            R17 K24 ["ToolController"]
        84 NAMECALL                         R15 R4 K25 ["extend"]

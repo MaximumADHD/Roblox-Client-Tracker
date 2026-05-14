@@ -1,50 +1,50 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setPluginObject"]
-        3 GETTABLEKS                       R3 R0 K1 ["props"]
-        5 GETTABLEKS                       R2 R3 K2 ["Plugin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setPluginObject"]
+        3 GETTABLEKS                       R2 R0 K1 ["props"]
+        5 GETTABLEKS                       R2 R2 K2 ["Plugin"]
         7 NAMECALL                         R2 R2 K3 ["get"]
         9 CALL                             R2 1 -1
        10 CALL                             R1 -1 0
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K4 ["setLocalizationObject"]
-       14 GETTABLEKS                       R3 R0 K1 ["props"]
-       16 GETTABLEKS                       R2 R3 K5 ["Localization"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K4 ["setLocalizationObject"]
+       14 GETTABLEKS                       R2 R0 K1 ["props"]
+       16 GETTABLEKS                       R2 R2 K5 ["Localization"]
        18 CALL                             R1 1 0
-       19 GETUPVAL                         R2 0
-       20 GETTABLEKS                       R1 R2 K6 ["setPluginStateRoduxActionHandler"]
-       22 GETTABLEKS                       R3 R0 K1 ["props"]
-       24 GETTABLEKS                       R2 R3 K7 ["SetPluginState"]
+       19 GETUPVAL                         R1 0
+       20 GETTABLEKS                       R1 R1 K6 ["setPluginStateRoduxActionHandler"]
+       22 GETTABLEKS                       R2 R0 K1 ["props"]
+       24 GETTABLEKS                       R2 R2 K7 ["SetPluginState"]
        26 CALL                             R1 1 0
        27 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R0 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["Localization"]
+        2 GETTABLEKS                       R2 R0 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["Localization"]
         6 GETTABLEKS                       R4 R1 K2 ["PluginState"]
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K2 ["PluginState"]
-       11 GETTABLEKS                       R5 R6 K3 ["Disabled"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K2 ["PluginState"]
+       11 GETTABLEKS                       R5 R5 K3 ["Disabled"]
        13 JUMPIFEQ                         R4 R5 ; [+2]
        15 LOADB                            R3 0 +1
        16 LOADB                            R3 1
        17 GETTABLEKS                       R5 R1 K2 ["PluginState"]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R7 R8 K2 ["PluginState"]
-       22 GETTABLEKS                       R6 R7 K4 ["Recording"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K2 ["PluginState"]
+       22 GETTABLEKS                       R6 R6 K4 ["Recording"]
        24 JUMPIFEQ                         R5 R6 ; [+2]
        26 LOADB                            R4 0 +1
        27 LOADB                            R4 1
        28 GETTABLEKS                       R6 R1 K2 ["PluginState"]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K2 ["PluginState"]
-       33 GETTABLEKS                       R7 R8 K5 ["Playing"]
+       30 GETUPVAL                         R7 0
+       31 GETTABLEKS                       R7 R7 K2 ["PluginState"]
+       33 GETTABLEKS                       R7 R7 K5 ["Playing"]
        35 JUMPIFEQ                         R6 R7 ; [+2]
        37 LOADB                            R5 0 +1
        38 LOADB                            R5 1
-       39 GETUPVAL                         R7 1
-       40 GETTABLEKS                       R6 R7 K6 ["createElement"]
+       39 GETUPVAL                         R6 1
+       40 GETTABLEKS                       R6 R6 K6 ["createElement"]
        42 GETUPVAL                         R7 2
        43 DUPTABLE                         R8 K8 [{"Tabs"}]
        44 NEWTABLE                         R9 0 2
@@ -87,8 +87,8 @@ PROTO_1:
 
 PROTO_2:
         0 DUPTABLE                         R2 K1 [{"PluginState"}]
-        1 GETTABLEKS                       R4 R0 K2 ["common"]
-        3 GETTABLEKS                       R3 R4 K3 ["pluginState"]
+        1 GETTABLEKS                       R3 R0 K2 ["common"]
+        3 GETTABLEKS                       R3 R3 K3 ["pluginState"]
         5 SETTABLEKS                       R3 R2 K0 ["PluginState"]
         7 RETURN                           R2 1
 
@@ -110,25 +110,25 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
-       32 GETTABLEKS                       R6 R0 K10 ["Src"]
-       34 GETTABLEKS                       R5 R6 K11 ["Components"]
+       32 GETTABLEKS                       R5 R0 K10 ["Src"]
+       34 GETTABLEKS                       R5 R5 K11 ["Components"]
        36 GETIMPORT                        R6 K4 [require]
        38 GETTABLEKS                       R7 R5 K12 ["TabbedView"]
        40 CALL                             R6 1 1
@@ -139,20 +139,20 @@ MAIN:
        48 GETTABLEKS                       R9 R5 K14 ["RecordTabView"]
        50 CALL                             R8 1 1
        51 GETIMPORT                        R9 K4 [require]
-       53 GETTABLEKS                       R12 R0 K10 ["Src"]
-       55 GETTABLEKS                       R11 R12 K15 ["Util"]
-       57 GETTABLEKS                       R10 R11 K16 ["Enums"]
+       53 GETTABLEKS                       R10 R0 K10 ["Src"]
+       55 GETTABLEKS                       R10 R10 K15 ["Util"]
+       57 GETTABLEKS                       R10 R10 K16 ["Enums"]
        59 CALL                             R9 1 1
        60 GETIMPORT                        R10 K4 [require]
-       62 GETTABLEKS                       R13 R0 K10 ["Src"]
-       64 GETTABLEKS                       R12 R13 K15 ["Util"]
-       66 GETTABLEKS                       R11 R12 K17 ["DMBridge"]
+       62 GETTABLEKS                       R11 R0 K10 ["Src"]
+       64 GETTABLEKS                       R11 R11 K15 ["Util"]
+       66 GETTABLEKS                       R11 R11 K17 ["DMBridge"]
        68 CALL                             R10 1 1
        69 GETIMPORT                        R11 K4 [require]
-       71 GETTABLEKS                       R15 R0 K10 ["Src"]
-       73 GETTABLEKS                       R14 R15 K18 ["Actions"]
-       75 GETTABLEKS                       R13 R14 K19 ["Common"]
-       77 GETTABLEKS                       R12 R13 K20 ["SetPluginState"]
+       71 GETTABLEKS                       R12 R0 K10 ["Src"]
+       73 GETTABLEKS                       R12 R12 K18 ["Actions"]
+       75 GETTABLEKS                       R12 R12 K19 ["Common"]
+       77 GETTABLEKS                       R12 R12 K20 ["SetPluginState"]
        79 CALL                             R11 1 1
        80 GETIMPORT                        R12 K22 [game]
        82 LOADK                            R14 K23 ["UserInputPlaybackPluginFixTabInitiallySelected"]

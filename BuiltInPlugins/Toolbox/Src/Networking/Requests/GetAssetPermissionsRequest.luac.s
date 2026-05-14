@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R3 R0 K0 ["rollingAssetPermissionRequests"]
-        2 GETTABLEKS                       R2 R3 K1 ["queued"]
+        0 GETTABLEKS                       R2 R0 K0 ["rollingAssetPermissionRequests"]
+        2 GETTABLEKS                       R2 R2 K1 ["queued"]
         4 GETTABLEN                        R1 R2 1
         5 GETUPVAL                         R2 0
         6 JUMPIFNOTEQ                      R1 R2 ; [+5]
@@ -25,9 +25,9 @@ PROTO_2:
         2 JUMPIFNOT                        R1 ; [+26]
         3 GETTABLEKS                       R2 R1 K1 ["results"]
         5 JUMPIFNOT                        R2 ; [+23]
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R3 R4 K2 ["Dictionary"]
-        9 GETTABLEKS                       R2 R3 K3 ["join"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["Dictionary"]
+        9 GETTABLEKS                       R2 R2 K3 ["join"]
        11 GETUPVAL                         R3 0
        12 NEWTABLE                         R4 1 0
        14 GETUPVAL                         R5 2
@@ -57,8 +57,8 @@ PROTO_2:
        42 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -84,8 +84,8 @@ PROTO_4:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["getState"]
         3 CALL                             R0 1 1
-        4 GETTABLEKS                       R3 R0 K1 ["rollingAssetPermissionRequests"]
-        6 GETTABLEKS                       R2 R3 K2 ["inProgress"]
+        4 GETTABLEKS                       R2 R0 K1 ["rollingAssetPermissionRequests"]
+        6 GETTABLEKS                       R2 R2 K2 ["inProgress"]
         8 LENGTH                           R1 R2
         9 GETUPVAL                         R2 1
        10 JUMPIFNOTLE                      R2 R1 ; [+31]
@@ -97,8 +97,8 @@ PROTO_4:
        18 CALL                             R1 -1 0
        19 GETIMPORT                        R1 K6 [coroutine.running]
        21 CALL                             R1 0 1
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R2 R3 K7 ["changed"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K7 ["changed"]
        25 NEWCLOSURE                       R4 P0
        26 CAPTURE                          UPVAL U3
        27 CAPTURE                          VAL R1
@@ -172,8 +172,8 @@ PROTO_5:
        21 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -212,11 +212,11 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETTABLEKS                       R2 R1 K7 ["Packages"]
        19 GETIMPORT                        R3 K9 [require]
        21 GETTABLEKS                       R4 R2 K10 ["Cryo"]
@@ -225,12 +225,12 @@ MAIN:
        26 GETTABLEKS                       R5 R2 K11 ["Framework"]
        28 CALL                             R4 1 1
        29 GETIMPORT                        R5 K9 [require]
-       31 GETTABLEKS                       R8 R1 K12 ["Src"]
-       33 GETTABLEKS                       R7 R8 K13 ["Util"]
-       35 GETTABLEKS                       R6 R7 K14 ["DebugFlags"]
+       31 GETTABLEKS                       R6 R1 K12 ["Src"]
+       33 GETTABLEKS                       R6 R6 K13 ["Util"]
+       35 GETTABLEKS                       R6 R6 K14 ["DebugFlags"]
        37 CALL                             R5 1 1
-       38 GETTABLEKS                       R7 R1 K12 ["Src"]
-       40 GETTABLEKS                       R6 R7 K15 ["Actions"]
+       38 GETTABLEKS                       R6 R1 K12 ["Src"]
+       40 GETTABLEKS                       R6 R6 K15 ["Actions"]
        42 GETIMPORT                        R7 K9 [require]
        44 GETTABLEKS                       R8 R6 K16 ["NetworkError"]
        46 CALL                             R7 1 1
@@ -246,8 +246,8 @@ MAIN:
        62 GETIMPORT                        R11 K9 [require]
        64 GETTABLEKS                       R12 R6 K20 ["SetDescendantPermissions"]
        66 CALL                             R11 1 1
-       67 GETTABLEKS                       R13 R4 K13 ["Util"]
-       69 GETTABLEKS                       R12 R13 K21 ["Promise"]
+       67 GETTABLEKS                       R12 R4 K13 ["Util"]
+       69 GETTABLEKS                       R12 R12 K21 ["Promise"]
        71 GETIMPORT                        R13 K1 [game]
        73 LOADK                            R15 K22 ["ToolboxRollingAssetPermissionRequestsLimit"]
        74 LOADN                            R16 10

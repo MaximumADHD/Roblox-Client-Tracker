@@ -9,8 +9,8 @@ PROTO_0:
         9 JUMPIFNOTEQKN                    R2 K1 [0] ; [+11]
        11 RETURN                           R0 0
        12 JUMP                             ; [+8]
-       13 GETIMPORT                        R3 K3 [game]
-       15 GETTABLEKS                       R2 R3 K4 ["Workspace"]
+       13 GETIMPORT                        R2 K3 [game]
+       15 GETTABLEKS                       R2 R2 K4 ["Workspace"]
        17 NAMECALL                         R2 R2 K5 ["GetChildren"]
        19 CALL                             R2 1 1
        20 MOVE                             R1 R2
@@ -47,20 +47,20 @@ PROTO_0:
        65 LOADNIL                          R20
        66 LOADNIL                          R21
        67 JUMPIFNOTEQKN                    R18 K14 [1] ; [+10]
-       69 GETTABLEKS                       R24 R13 K12 ["Parent"]
-       71 GETTABLEKS                       R22 R24 K15 ["Name"]
+       69 GETTABLEKS                       R22 R13 K12 ["Parent"]
+       71 GETTABLEKS                       R22 R22 K15 ["Name"]
        73 LOADK                            R23 K16 ["_InnerCage"]
        74 CONCAT                           R20 R22 R23
        75 GETTABLEKS                       R21 R13 K17 ["ReferenceOrigin"]
        77 JUMP                             ; [+8]
-       78 GETTABLEKS                       R24 R13 K12 ["Parent"]
-       80 GETTABLEKS                       R22 R24 K15 ["Name"]
+       78 GETTABLEKS                       R22 R13 K12 ["Parent"]
+       80 GETTABLEKS                       R22 R22 K15 ["Name"]
        82 LOADK                            R23 K18 ["_OuterCage"]
        83 CONCAT                           R20 R22 R23
        84 GETTABLEKS                       R21 R13 K19 ["CageOrigin"]
        86 SETTABLE                         R19 R2 R20
-       87 GETTABLEKS                       R24 R13 K12 ["Parent"]
-       89 GETTABLEKS                       R23 R24 K20 ["CFrame"]
+       87 GETTABLEKS                       R23 R13 K12 ["Parent"]
+       89 GETTABLEKS                       R23 R23 K20 ["CFrame"]
        91 MUL                              R22 R23 R21
        92 SETTABLE                         R22 R3 R20
        93 FORGLOOP                         R15 2 ; [-44]
@@ -78,13 +78,13 @@ PROTO_0:
       113 NAMECALL                         R15 R15 K8 ["IsA"]
       115 CALL                             R15 2 1
       116 JUMPIFNOT                        R15 ; [+15]
-      117 GETTABLEKS                       R18 R13 K12 ["Parent"]
-      119 GETTABLEKS                       R16 R18 K15 ["Name"]
+      117 GETTABLEKS                       R16 R13 K12 ["Parent"]
+      119 GETTABLEKS                       R16 R16 K15 ["Name"]
       121 LOADK                            R17 K18 ["_OuterCage"]
       122 CONCAT                           R15 R16 R17
       123 SETTABLE                         R14 R2 R15
-      124 GETTABLEKS                       R18 R13 K12 ["Parent"]
-      126 GETTABLEKS                       R17 R18 K20 ["CFrame"]
+      124 GETTABLEKS                       R17 R13 K12 ["Parent"]
+      126 GETTABLEKS                       R17 R17 K20 ["CFrame"]
       128 GETTABLEKS                       R18 R13 K19 ["CageOrigin"]
       130 MUL                              R16 R17 R18
       131 SETTABLE                         R16 R3 R15
@@ -133,8 +133,8 @@ PROTO_1:
         9 JUMPIFNOTEQKN                    R2 K1 [0] ; [+11]
        11 RETURN                           R0 0
        12 JUMP                             ; [+8]
-       13 GETIMPORT                        R3 K3 [game]
-       15 GETTABLEKS                       R2 R3 K4 ["Workspace"]
+       13 GETIMPORT                        R2 K3 [game]
+       15 GETTABLEKS                       R2 R2 K4 ["Workspace"]
        17 NAMECALL                         R2 R2 K5 ["GetChildren"]
        19 CALL                             R2 1 1
        20 MOVE                             R1 R2

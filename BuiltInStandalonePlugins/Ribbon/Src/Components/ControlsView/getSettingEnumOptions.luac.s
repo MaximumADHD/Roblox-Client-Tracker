@@ -7,14 +7,14 @@ PROTO_0:
         7 SETTABLEKS                       R4 R3 K2 ["Id"]
         9 GETTABLEKS                       R4 R0 K3 ["Action"]
        11 SETTABLEKS                       R4 R3 K3 ["Action"]
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K10 ["Value"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K10 ["Value"]
        16 JUMPIFEQ                         R2 R5 ; [+2]
        18 LOADB                            R4 0 +1
        19 LOADB                            R4 1
        20 SETTABLEKS                       R4 R3 K4 ["Selected"]
-       22 GETUPVAL                         R5 0
-       23 GETTABLEKS                       R4 R5 K11 ["Uri"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K11 ["Uri"]
        25 SETTABLEKS                       R4 R3 K5 ["Setting"]
        27 SETTABLEKS                       R2 R3 K6 ["SettingValue"]
        29 GETUPVAL                         R4 1
@@ -83,12 +83,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Dash"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Dash"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K10 ["map"]
        23 DUPCLOSURE                       R4 K11 [PROTO_1]

@@ -44,12 +44,12 @@ PROTO_2:
        27 JUMPIF                           R3 ; [+22]
        28 NEWTABLE                         R3 0 0
        30 GETIMPORT                        R4 K8 [ipairs]
-       32 GETTABLEKS                       R7 R2 K9 ["responseBody"]
-       34 GETTABLEKS                       R5 R7 K10 ["data"]
+       32 GETTABLEKS                       R5 R2 K9 ["responseBody"]
+       34 GETTABLEKS                       R5 R5 K10 ["data"]
        36 CALL                             R4 1 3
        37 FORGPREP_INEXT                   R4
-       38 GETTABLEKS                       R10 R8 K11 ["role"]
-       40 GETTABLEKS                       R9 R10 K12 ["id"]
+       38 GETTABLEKS                       R9 R8 K11 ["role"]
+       40 GETTABLEKS                       R9 R9 K12 ["id"]
        42 GETTABLEKS                       R10 R8 K13 ["permissions"]
        44 SETTABLE                         R10 R3 R9
        45 FORGLOOP                         R4 2 [inext] ; [-8]

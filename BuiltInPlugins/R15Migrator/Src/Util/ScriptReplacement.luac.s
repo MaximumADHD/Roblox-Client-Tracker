@@ -27,8 +27,8 @@ PROTO_1:
         3 MOVE                             R5 R0
         4 NAMECALL                         R3 R2 K0 ["getScriptInstanceFromGUID"]
         6 CALL                             R3 2 1
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K1 ["goToScriptInstance"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K1 ["goToScriptInstance"]
        10 MOVE                             R5 R3
        11 MOVE                             R6 R1
        12 CALL                             R4 2 -1
@@ -62,8 +62,8 @@ PROTO_3:
        13 GETTABLEKS                       R12 R10 K4 ["issueType"]
        15 CALL                             R11 1 0
        16 FORGLOOP                         R6 2 ; [-12]
-       18 GETUPVAL                         R7 0
-       19 GETTABLEKS                       R6 R7 K5 ["goToScript"]
+       18 GETUPVAL                         R6 0
+       19 GETTABLEKS                       R6 R6 K5 ["goToScript"]
        21 MOVE                             R7 R0
        22 MOVE                             R8 R1
        23 MOVE                             R9 R2
@@ -128,15 +128,15 @@ MAIN:
        15 LOADK                            R4 K7 ["R15Migrator"]
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
-       19 GETTABLEKS                       R4 R2 K9 ["Src"]
-       21 GETTABLEKS                       R3 R4 K10 ["Util"]
+       19 GETTABLEKS                       R3 R2 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Util"]
        23 GETIMPORT                        R4 K12 [require]
-       25 GETTABLEKS                       R6 R3 K13 ["ScriptAnalysis"]
-       27 GETTABLEKS                       R5 R6 K14 ["Constants"]
+       25 GETTABLEKS                       R5 R3 K13 ["ScriptAnalysis"]
+       27 GETTABLEKS                       R5 R5 K14 ["Constants"]
        29 CALL                             R4 1 1
        30 GETIMPORT                        R5 K12 [require]
-       32 GETTABLEKS                       R7 R3 K15 ["ScriptHistory"]
-       34 GETTABLEKS                       R6 R7 K16 ["ChunkUtil"]
+       32 GETTABLEKS                       R6 R3 K15 ["ScriptHistory"]
+       34 GETTABLEKS                       R6 R6 K16 ["ChunkUtil"]
        36 CALL                             R5 1 1
        37 DUPTABLE                         R6 K18 [{"UNASSIGNED"}]
        38 LOADK                            R7 K19 ["Unassigned"]

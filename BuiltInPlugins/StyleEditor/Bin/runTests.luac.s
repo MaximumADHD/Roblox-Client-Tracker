@@ -6,9 +6,9 @@ PROTO_0:
         6 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETIMPORT                        R2 K1 [script]
-        2 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        4 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        0 GETIMPORT                        R0 K1 [script]
+        2 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        4 GETTABLEKS                       R0 R0 K2 ["Parent"]
         6 GETIMPORT                        R1 K4 [pcall]
         8 DUPCLOSURE                       R2 K5 [PROTO_0]
         9 CALL                             R1 1 2
@@ -24,9 +24,9 @@ PROTO_1:
        24 LOADB                            R4 1
        25 SETTABLEKS                       R4 R3 K10 ["__ROACT_17_INLINE_ACT__"]
        27 GETIMPORT                        R3 K12 [require]
-       29 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K14 ["Dev"]
-       33 GETTABLEKS                       R4 R5 K15 ["Jest"]
+       29 GETTABLEKS                       R4 R0 K13 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K14 ["Dev"]
+       33 GETTABLEKS                       R4 R4 K15 ["Jest"]
        35 CALL                             R3 1 1
        36 GETTABLEKS                       R4 R3 K16 ["runCLI"]
        38 MOVE                             R5 R4
@@ -36,8 +36,8 @@ PROTO_1:
        43 SETTABLEKS                       R8 R7 K18 ["verbose"]
        45 LOADB                            R8 0
        46 SETTABLEKS                       R8 R7 K19 ["ci"]
-       48 GETIMPORT                        R9 K7 [_G]
-       50 GETTABLEKS                       R8 R9 K22 ["JEST_TEST_NAME_PATTERN"]
+       48 GETIMPORT                        R8 K7 [_G]
+       50 GETTABLEKS                       R8 R8 K22 ["JEST_TEST_NAME_PATTERN"]
        52 SETTABLEKS                       R8 R7 K20 ["testNamePattern"]
        54 NEWTABLE                         R8 0 1
        56 GETTABLEKS                       R9 R0 K17 ["Src"]
@@ -50,11 +50,11 @@ PROTO_1:
        68 MOVE                             R8 R6
        69 CALL                             R7 1 0
        70 JUMPIFNOTEQKS                    R5 K27 ["Resolved"] ; [+17]
-       72 GETTABLEKS                       R8 R6 K28 ["results"]
-       74 GETTABLEKS                       R7 R8 K29 ["numFailedTestSuites"]
+       72 GETTABLEKS                       R7 R6 K28 ["results"]
+       74 GETTABLEKS                       R7 R7 K29 ["numFailedTestSuites"]
        76 JUMPIFNOTEQKN                    R7 K30 [0] ; [+11]
-       78 GETTABLEKS                       R8 R6 K28 ["results"]
-       80 GETTABLEKS                       R7 R8 K31 ["numFailedTests"]
+       78 GETTABLEKS                       R7 R6 K28 ["results"]
+       80 GETTABLEKS                       R7 R7 K31 ["numFailedTests"]
        82 JUMPIFNOTEQKN                    R7 K30 [0] ; [+5]
        84 LOADN                            R9 0
        85 NAMECALL                         R7 R2 K32 ["ExitAsync"]

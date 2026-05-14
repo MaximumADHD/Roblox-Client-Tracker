@@ -50,8 +50,8 @@ PROTO_1:
        22 MOVE                             R15 R0
        23 MOVE                             R16 R1
        24 CALL                             R12 4 1
-       25 GETUPVAL                         R14 1
-       26 GETTABLEKS                       R13 R14 K1 ["Stop"]
+       25 GETUPVAL                         R13 1
+       26 GETTABLEKS                       R13 R13 K1 ["Stop"]
        28 JUMPIFEQ                         R12 R13 ; [+2]
        30 LOADB                            R5 0 +1
        31 LOADB                            R5 1
@@ -67,8 +67,8 @@ PROTO_1:
        41 MOVE                             R15 R0
        42 MOVE                             R16 R1
        43 CALL                             R12 4 1
-       44 GETUPVAL                         R14 1
-       45 GETTABLEKS                       R13 R14 K1 ["Stop"]
+       44 GETUPVAL                         R13 1
+       45 GETTABLEKS                       R13 R13 K1 ["Stop"]
        47 JUMPIFEQ                         R12 R13 ; [+2]
        49 LOADB                            R5 0 +1
        50 LOADB                            R5 1
@@ -85,8 +85,8 @@ PROTO_1:
        62 MOVE                             R14 R0
        63 MOVE                             R15 R1
        64 CALL                             R11 4 1
-       65 GETUPVAL                         R13 1
-       66 GETTABLEKS                       R12 R13 K1 ["Stop"]
+       65 GETUPVAL                         R12 1
+       66 GETTABLEKS                       R12 R12 K1 ["Stop"]
        68 JUMPIFEQ                         R11 R12 ; [+2]
        70 LOADB                            R5 0 +1
        71 LOADB                            R5 1
@@ -106,8 +106,8 @@ PROTO_2:
         7 LOADNIL                          R8
         8 LOADNIL                          R9
         9 CALL                             R5 4 1
-       10 GETUPVAL                         R7 1
-       11 GETTABLEKS                       R6 R7 K1 ["Stop"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K1 ["Stop"]
        13 JUMPIFEQ                         R5 R6 ; [+2]
        15 LOADB                            R4 0 +1
        16 LOADB                            R4 1
@@ -123,8 +123,8 @@ PROTO_2:
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+10]
         1 JUMPIFNOT                        R1 ; [+9]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["handleMatch"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K0 ["handleMatch"]
         5 MOVE                             R5 R0
         6 MOVE                             R6 R1
         7 MOVE                             R7 R2
@@ -133,8 +133,8 @@ PROTO_3:
        10 RETURN                           R4 -1
        11 JUMPIFNOT                        R0 ; [+9]
        12 JUMPIF                           R1 ; [+8]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K1 ["handleRemoved"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K1 ["handleRemoved"]
        16 MOVE                             R5 R0
        17 MOVE                             R6 R2
        18 MOVE                             R7 R3
@@ -142,20 +142,20 @@ PROTO_3:
        20 RETURN                           R4 -1
        21 JUMPIF                           R0 ; [+9]
        22 JUMPIFNOT                        R1 ; [+8]
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K2 ["handleAdded"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K2 ["handleAdded"]
        26 MOVE                             R5 R1
        27 MOVE                             R6 R2
        28 MOVE                             R7 R3
        29 CALL                             R4 3 -1
        30 RETURN                           R4 -1
-       31 GETUPVAL                         R5 1
-       32 GETTABLEKS                       R4 R5 K3 ["Continue"]
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K3 ["Continue"]
        34 RETURN                           R4 1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["matchTrees"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["matchTrees"]
         3 MOVE                             R4 R0
         4 MOVE                             R5 R1
         5 NEWCLOSURE                       R6 P0
@@ -211,17 +211,17 @@ PROTO_6:
        43 GETUPVAL                         R5 0
        44 CALL                             R5 0 1
        45 JUMPIFNOT                        R5 ; [+13]
-       46 GETTABLEKS                       R6 R1 K3 ["TextureContent"]
-       48 GETTABLEKS                       R5 R6 K8 ["Uri"]
+       46 GETTABLEKS                       R5 R1 K3 ["TextureContent"]
+       48 GETTABLEKS                       R5 R5 K8 ["Uri"]
        50 JUMPIFNOTEQKNIL                  R5 ; [+8]
        52 GETTABLEKS                       R5 R4 K8 ["Uri"]
        54 JUMPIFEQKNIL                     R5 ; [+4]
        56 SETTABLEKS                       R4 R0 K3 ["TextureContent"]
        58 RETURN                           R0 0
-       59 GETTABLEKS                       R6 R0 K3 ["TextureContent"]
-       61 GETTABLEKS                       R5 R6 K8 ["Uri"]
-       63 GETTABLEKS                       R7 R1 K3 ["TextureContent"]
-       65 GETTABLEKS                       R6 R7 K8 ["Uri"]
+       59 GETTABLEKS                       R5 R0 K3 ["TextureContent"]
+       61 GETTABLEKS                       R5 R5 K8 ["Uri"]
+       63 GETTABLEKS                       R6 R1 K3 ["TextureContent"]
+       65 GETTABLEKS                       R6 R6 K8 ["Uri"]
        67 JUMPIFEQ                         R5 R6 ; [+5]
        69 GETTABLEKS                       R5 R1 K3 ["TextureContent"]
        71 SETTABLEKS                       R5 R0 K3 ["TextureContent"]
@@ -429,14 +429,14 @@ PROTO_11:
       136 FORGLOOP                         R6 2 ; [-3]
       138 LOADNIL                          R6
       139 SETTABLEKS                       R6 R0 K2 ["Parent"]
-      141 GETUPVAL                         R5 3
-      142 GETTABLEKS                       R4 R5 K16 ["Continue"]
+      141 GETUPVAL                         R4 3
+      142 GETTABLEKS                       R4 R4 K16 ["Continue"]
       144 RETURN                           R4 1
 
 PROTO_12:
         0 SETTABLEKS                       R1 R0 K0 ["Parent"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["Continue"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["Continue"]
         5 RETURN                           R3 1
 
 PROTO_13:
@@ -446,8 +446,8 @@ PROTO_13:
         4 JUMPIFNOT                        R3 ; [+3]
         5 LOADNIL                          R3
         6 SETTABLEKS                       R3 R0 K1 ["Parent"]
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K2 ["Continue"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K2 ["Continue"]
        11 RETURN                           R3 1
 
 PROTO_14:
@@ -482,8 +482,8 @@ PROTO_14:
        39 LOADB                            R10 1
        40 SETTABLEKS                       R10 R9 K7 ["WrapTarget"]
        42 DUPCLOSURE                       R10 K9 [PROTO_10]
-       43 GETUPVAL                         R12 1
-       44 GETTABLEKS                       R11 R12 K10 ["matchTrees_handlers"]
+       43 GETUPVAL                         R11 1
+       44 GETTABLEKS                       R11 R11 K10 ["matchTrees_handlers"]
        46 MOVE                             R12 R0
        47 MOVE                             R13 R1
        48 DUPTABLE                         R14 K14 [{"handleMatch", "handleAdded", "handleRemoved"}]
@@ -510,17 +510,17 @@ PROTO_15:
         0 GETUPVAL                         R4 0
         1 JUMPIFNOTEQ                      R0 R4 ; [+6]
         3 SETUPVAL                         R1 1
-        4 GETUPVAL                         R5 2
-        5 GETTABLEKS                       R4 R5 K0 ["Stop"]
+        4 GETUPVAL                         R4 2
+        5 GETTABLEKS                       R4 R4 K0 ["Stop"]
         7 RETURN                           R4 1
-        8 GETUPVAL                         R5 2
-        9 GETTABLEKS                       R4 R5 K1 ["Continue"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K1 ["Continue"]
        11 RETURN                           R4 1
 
 PROTO_16:
         0 LOADNIL                          R3
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["matchTrees"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["matchTrees"]
         4 MOVE                             R5 R0
         5 MOVE                             R6 R2
         6 NEWCLOSURE                       R7 P0
@@ -538,8 +538,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Flags"]
-       11 GETTABLEKS                       R2 R3 K7 ["GetFFlagReimportPreserveMeshProperties"]
+        9 GETTABLEKS                       R2 R0 K6 ["Flags"]
+       11 GETTABLEKS                       R2 R2 K7 ["GetFFlagReimportPreserveMeshProperties"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 DUPCLOSURE                       R3 K8 [PROTO_0]

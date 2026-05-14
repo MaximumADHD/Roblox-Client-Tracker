@@ -16,11 +16,11 @@ PROTO_0:
        24 GETTABLEKS                       R8 R1 K8 ["IsChecked"]
        26 GETTABLEKS                       R9 R1 K9 ["OnCheckboxClick"]
        28 GETTABLEKS                       R10 R1 K10 ["OnResetPlugin"]
-       30 GETUPVAL                         R12 0
-       31 GETTABLEKS                       R11 R12 K11 ["new"]
+       30 GETUPVAL                         R11 0
+       31 GETTABLEKS                       R11 R11 K11 ["new"]
        33 CALL                             R11 0 1
-       34 GETUPVAL                         R13 1
-       35 GETTABLEKS                       R12 R13 K12 ["createElement"]
+       34 GETUPVAL                         R12 1
+       35 GETTABLEKS                       R12 R12 K12 ["createElement"]
        37 GETUPVAL                         R13 2
        38 DUPTABLE                         R14 K14 [{"Size", "LayoutOrder"}]
        39 GETIMPORT                        R15 K16 [UDim2.new]
@@ -32,8 +32,8 @@ PROTO_0:
        46 SETTABLEKS                       R15 R14 K13 ["Size"]
        48 SETTABLEKS                       R4 R14 K4 ["LayoutOrder"]
        50 NEWTABLE                         R15 0 2
-       52 GETUPVAL                         R17 1
-       53 GETTABLEKS                       R16 R17 K12 ["createElement"]
+       52 GETUPVAL                         R16 1
+       53 GETTABLEKS                       R16 R16 K12 ["createElement"]
        55 GETUPVAL                         R17 2
        56 DUPTABLE                         R18 K20 [{"Size", "HorizontalAlignment", "VerticalAlignment", "Layout", "Padding", "Spacing"}]
        57 GETIMPORT                        R19 K16 [UDim2.new]
@@ -52,8 +52,8 @@ PROTO_0:
        78 SETTABLEKS                       R5 R18 K5 ["Padding"]
        80 SETTABLEKS                       R6 R18 K6 ["Spacing"]
        82 DUPTABLE                         R19 K31 [{"Checkbox", "SelectAllLabel"}]
-       83 GETUPVAL                         R21 1
-       84 GETTABLEKS                       R20 R21 K12 ["createElement"]
+       83 GETUPVAL                         R20 1
+       84 GETTABLEKS                       R20 R20 K12 ["createElement"]
        86 GETUPVAL                         R21 3
        87 DUPTABLE                         R22 K34 [{"LayoutOrder", "Checked", "OnClick"}]
        88 NAMECALL                         R23 R11 K35 ["getNextOrder"]
@@ -63,8 +63,8 @@ PROTO_0:
        95 SETTABLEKS                       R9 R22 K33 ["OnClick"]
        97 CALL                             R20 2 1
        98 SETTABLEKS                       R20 R19 K29 ["Checkbox"]
-      100 GETUPVAL                         R21 1
-      101 GETTABLEKS                       R20 R21 K12 ["createElement"]
+      100 GETUPVAL                         R20 1
+      101 GETTABLEKS                       R20 R20 K12 ["createElement"]
       103 GETUPVAL                         R21 4
       104 DUPTABLE                         R22 K39 [{"LayoutOrder", "Text", "Style", "AutomaticSize"}]
       105 NAMECALL                         R23 R11 K35 ["getNextOrder"]
@@ -82,18 +82,18 @@ PROTO_0:
       125 CALL                             R20 2 1
       126 SETTABLEKS                       R20 R19 K30 ["SelectAllLabel"]
       128 CALL                             R16 3 1
-      129 GETUPVAL                         R18 1
-      130 GETTABLEKS                       R17 R18 K12 ["createElement"]
+      129 GETUPVAL                         R17 1
+      130 GETTABLEKS                       R17 R17 K12 ["createElement"]
       132 GETUPVAL                         R18 5
       133 DUPTABLE                         R19 K52 [{"LeftIcon", "Cursor", "OnClick", "Size", "AnchorPoint", "Position", "BackgroundStyle", "TooltipText"}]
-      134 GETTABLEKS                       R21 R2 K53 ["RefreshButton"]
-      136 GETTABLEKS                       R20 R21 K54 ["Icon"]
+      134 GETTABLEKS                       R20 R2 K53 ["RefreshButton"]
+      136 GETTABLEKS                       R20 R20 K54 ["Icon"]
       138 SETTABLEKS                       R20 R19 K46 ["LeftIcon"]
       140 LOADK                            R20 K55 ["PointingHand"]
       141 SETTABLEKS                       R20 R19 K47 ["Cursor"]
       143 SETTABLEKS                       R10 R19 K33 ["OnClick"]
-      145 GETTABLEKS                       R21 R2 K53 ["RefreshButton"]
-      147 GETTABLEKS                       R20 R21 K13 ["Size"]
+      145 GETTABLEKS                       R20 R2 K53 ["RefreshButton"]
+      147 GETTABLEKS                       R20 R20 K13 ["Size"]
       149 SETTABLEKS                       R20 R19 K13 ["Size"]
       151 GETIMPORT                        R20 K57 [Vector2.new]
       153 LOADN                            R21 1
@@ -107,8 +107,8 @@ PROTO_0:
       163 LOADN                            R24 0
       164 CALL                             R20 4 1
       165 SETTABLEKS                       R20 R19 K49 ["Position"]
-      167 GETTABLEKS                       R21 R2 K53 ["RefreshButton"]
-      169 GETTABLEKS                       R20 R21 K50 ["BackgroundStyle"]
+      167 GETTABLEKS                       R20 R2 K53 ["RefreshButton"]
+      169 GETTABLEKS                       R20 R20 K50 ["BackgroundStyle"]
       171 SETTABLEKS                       R20 R19 K50 ["BackgroundStyle"]
       173 LOADK                            R22 K59 ["Summary"]
       174 LOADK                            R23 K60 ["Refresh"]
@@ -127,12 +127,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R1 K10 ["UI"]

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["shouldDebugState"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["shouldDebugState"]
         3 CALL                             R2 0 1
         4 JUMPIFNOT                        R2 ; [+6]
         5 GETUPVAL                         R2 1
@@ -17,27 +17,27 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Src"]
-       13 GETTABLEKS                       R4 R5 K6 ["Util"]
-       15 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       17 GETTABLEKS                       R2 R3 K8 ["getFFlagToolboxEnableSearchOptionsRefactor"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       17 GETTABLEKS                       R2 R2 K8 ["getFFlagToolboxEnableSearchOptionsRefactor"]
        19 CALL                             R1 1 1
        20 GETTABLEKS                       R2 R0 K9 ["Packages"]
        22 GETIMPORT                        R3 K4 [require]
        24 GETTABLEKS                       R4 R2 K10 ["Rodux"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R7 R0 K5 ["Src"]
-       31 GETTABLEKS                       R6 R7 K6 ["Util"]
-       33 GETTABLEKS                       R5 R6 K11 ["DebugFlags"]
+       29 GETTABLEKS                       R5 R0 K5 ["Src"]
+       31 GETTABLEKS                       R5 R5 K6 ["Util"]
+       33 GETTABLEKS                       R5 R5 K11 ["DebugFlags"]
        35 CALL                             R4 1 1
-       36 GETTABLEKS                       R6 R0 K5 ["Src"]
-       38 GETTABLEKS                       R5 R6 K12 ["Reducers"]
+       36 GETTABLEKS                       R5 R0 K5 ["Src"]
+       38 GETTABLEKS                       R5 R5 K12 ["Reducers"]
        40 GETIMPORT                        R6 K4 [require]
        42 GETTABLEKS                       R7 R5 K13 ["Assets"]
        44 CALL                             R6 1 1

@@ -26,8 +26,8 @@ PROTO_1:
         0 JUMPIFEQKS                       R1 K0 ["Accessories"] ; [+4]
         2 JUMPIFEQKS                       R1 K1 ["Clothing"] ; [+2]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K2 ["getExistingAvatarPreviewFolder"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K2 ["getExistingAvatarPreviewFolder"]
         8 CALL                             R2 0 1
         9 JUMPIF                           R2 ; [+1]
        10 RETURN                           R0 0
@@ -37,8 +37,8 @@ PROTO_1:
        16 FORGPREP                         R4
        17 GETUPVAL                         R9 1
        18 MOVE                             R11 R8
-       19 GETUPVAL                         R13 2
-       20 GETTABLEKS                       R12 R13 K4 ["tag"]
+       19 GETUPVAL                         R12 2
+       20 GETTABLEKS                       R12 R12 K4 ["tag"]
        22 NAMECALL                         R9 R9 K5 ["HasTag"]
        24 CALL                             R9 3 1
        25 JUMPIFNOT                        R9 ; [+8]
@@ -53,16 +53,16 @@ PROTO_1:
        37 RETURN                           R0 0
        38 LOADNIL                          R4
        39 JUMPIFNOTEQKS                    R1 K0 ["Accessories"] ; [+10]
-       41 GETUPVAL                         R6 3
-       42 GETTABLEKS                       R5 R6 K8 ["avatarAccessoryRules"]
+       41 GETUPVAL                         R5 3
+       42 GETTABLEKS                       R5 R5 K8 ["avatarAccessoryRules"]
        44 CALL                             R5 0 1
        45 JUMPIF                           R5 ; [+1]
        46 RETURN                           R0 0
        47 GETTABLEKS                       R4 R5 K9 ["LimitBounds"]
        49 JUMP                             ; [+10]
        50 JUMPIFNOTEQKS                    R1 K1 ["Clothing"] ; [+9]
-       52 GETUPVAL                         R6 3
-       53 GETTABLEKS                       R5 R6 K10 ["avatarClothingRules"]
+       52 GETUPVAL                         R5 3
+       53 GETTABLEKS                       R5 R5 K10 ["avatarClothingRules"]
        55 CALL                             R5 0 1
        56 JUMPIF                           R5 ; [+1]
        57 RETURN                           R0 0
@@ -79,8 +79,8 @@ PROTO_1:
        72 CALL                             R10 2 1
        73 JUMPIFNOT                        R10 ; [+138]
        74 GETTABLEKS                       R12 R9 K7 ["Name"]
-       76 GETUPVAL                         R14 2
-       77 GETTABLEKS                       R13 R14 K15 ["name"]
+       76 GETUPVAL                         R13 2
+       77 GETTABLEKS                       R13 R13 K15 ["name"]
        79 CONCAT                           R11 R12 R13
        80 LOADNIL                          R12
        81 MOVE                             R13 R3
@@ -100,19 +100,19 @@ PROTO_1:
        98 CALL                             R13 2 1
        99 MOVE                             R12 R13
       100 SETTABLEKS                       R11 R12 K7 ["Name"]
-      102 GETUPVAL                         R14 2
-      103 GETTABLEKS                       R13 R14 K20 ["color"]
+      102 GETUPVAL                         R13 2
+      103 GETTABLEKS                       R13 R13 K20 ["color"]
       105 SETTABLEKS                       R13 R12 K21 ["Color"]
-      107 GETUPVAL                         R14 2
-      108 GETTABLEKS                       R13 R14 K22 ["transparency"]
+      107 GETUPVAL                         R13 2
+      108 GETTABLEKS                       R13 R13 K22 ["transparency"]
       110 SETTABLEKS                       R13 R12 K23 ["Transparency"]
-      112 GETUPVAL                         R14 2
-      113 GETTABLEKS                       R13 R14 K24 ["material"]
+      112 GETUPVAL                         R13 2
+      113 GETTABLEKS                       R13 R13 K24 ["material"]
       115 SETTABLEKS                       R13 R12 K25 ["Material"]
       117 GETUPVAL                         R13 1
       118 MOVE                             R15 R12
-      119 GETUPVAL                         R17 2
-      120 GETTABLEKS                       R16 R17 K4 ["tag"]
+      119 GETUPVAL                         R16 2
+      120 GETTABLEKS                       R16 R16 K4 ["tag"]
       122 NAMECALL                         R13 R13 K26 ["AddTag"]
       124 CALL                             R13 3 0
       125 MOVE                             R15 R4
@@ -162,9 +162,9 @@ PROTO_1:
       181 MOVE                             R16 R17
       182 NAMECALL                         R18 R13 K42 ["Inverse"]
       184 CALL                             R18 1 1
-      185 GETTABLEKS                       R21 R9 K41 ["PrimaryPart"]
-      187 GETTABLEKS                       R20 R21 K37 ["CFrame"]
-      189 GETTABLEKS                       R19 R20 K43 ["Position"]
+      185 GETTABLEKS                       R19 R9 K41 ["PrimaryPart"]
+      187 GETTABLEKS                       R19 R19 K37 ["CFrame"]
+      189 GETTABLEKS                       R19 R19 K43 ["Position"]
       191 MUL                              R17 R18 R19
       192 SETTABLEKS                       R17 R15 K43 ["Position"]
       194 LOADK                            R19 K44 ["RigidConstraint"]
@@ -190,35 +190,35 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R6 R0 K6 ["Src"]
-       11 GETTABLEKS                       R5 R6 K7 ["Util"]
-       13 GETTABLEKS                       R4 R5 K8 ["BridgingFiles"]
-       15 GETTABLEKS                       R3 R4 K9 ["AssetDmFiles"]
-       17 GETTABLEKS                       R2 R3 K10 ["assetDmUtils"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["BridgingFiles"]
+       15 GETTABLEKS                       R2 R2 K9 ["AssetDmFiles"]
+       17 GETTABLEKS                       R2 R2 K10 ["assetDmUtils"]
        19 CALL                             R1 1 1
-       20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R7 R0 K6 ["Src"]
-       24 GETTABLEKS                       R6 R7 K7 ["Util"]
-       26 GETTABLEKS                       R5 R6 K11 ["AvatarPreview"]
-       28 GETTABLEKS                       R4 R5 K12 ["AvatarPreviewConstants"]
-       30 CALL                             R3 1 1
-       31 GETTABLEKS                       R2 R3 K13 ["boundingBoxProps"]
+       20 GETIMPORT                        R2 K5 [require]
+       22 GETTABLEKS                       R3 R0 K6 ["Src"]
+       24 GETTABLEKS                       R3 R3 K7 ["Util"]
+       26 GETTABLEKS                       R3 R3 K11 ["AvatarPreview"]
+       28 GETTABLEKS                       R3 R3 K12 ["AvatarPreviewConstants"]
+       30 CALL                             R2 1 1
+       31 GETTABLEKS                       R2 R2 K13 ["boundingBoxProps"]
        33 GETIMPORT                        R3 K5 [require]
-       35 GETTABLEKS                       R7 R0 K6 ["Src"]
-       37 GETTABLEKS                       R6 R7 K7 ["Util"]
-       39 GETTABLEKS                       R5 R6 K11 ["AvatarPreview"]
-       41 GETTABLEKS                       R4 R5 K14 ["getHumanoidBoundingBox"]
+       35 GETTABLEKS                       R4 R0 K6 ["Src"]
+       37 GETTABLEKS                       R4 R4 K7 ["Util"]
+       39 GETTABLEKS                       R4 R4 K11 ["AvatarPreview"]
+       41 GETTABLEKS                       R4 R4 K14 ["getHumanoidBoundingBox"]
        43 CALL                             R3 1 1
        44 GETIMPORT                        R4 K5 [require]
-       46 GETTABLEKS                       R8 R0 K6 ["Src"]
-       48 GETTABLEKS                       R7 R8 K7 ["Util"]
-       50 GETTABLEKS                       R6 R7 K11 ["AvatarPreview"]
-       52 GETTABLEKS                       R5 R6 K15 ["previewFolderUtils"]
+       46 GETTABLEKS                       R5 R0 K6 ["Src"]
+       48 GETTABLEKS                       R5 R5 K7 ["Util"]
+       50 GETTABLEKS                       R5 R5 K11 ["AvatarPreview"]
+       52 GETTABLEKS                       R5 R5 K15 ["previewFolderUtils"]
        54 CALL                             R4 1 1
        55 GETIMPORT                        R5 K5 [require]
-       57 GETTABLEKS                       R8 R0 K6 ["Src"]
-       59 GETTABLEKS                       R7 R8 K7 ["Util"]
-       61 GETTABLEKS                       R6 R7 K16 ["AvatarSettingsProviderTypes"]
+       57 GETTABLEKS                       R6 R0 K6 ["Src"]
+       59 GETTABLEKS                       R6 R6 K7 ["Util"]
+       61 GETTABLEKS                       R6 R6 K16 ["AvatarSettingsProviderTypes"]
        63 CALL                             R5 1 1
        64 GETIMPORT                        R6 K18 [game]
        66 LOADK                            R8 K19 ["CollectionService"]

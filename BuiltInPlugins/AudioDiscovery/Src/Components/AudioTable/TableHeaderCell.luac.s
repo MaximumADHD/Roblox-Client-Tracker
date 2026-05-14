@@ -9,8 +9,8 @@ PROTO_0:
        14 JUMPIFNOTEQKNIL                  R8 ; [+2]
        16 LOADB                            R7 0 +1
        17 LOADB                            R7 1
-       18 GETUPVAL                         R9 0
-       19 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K7 ["createElement"]
        21 GETUPVAL                         R9 1
        22 GETUPVAL                         R10 2
        23 DUPTABLE                         R11 K14 [{"LayoutOrder", "BorderColor3", "BorderSizePixel", "Padding", "Style", "StyleModifier", "Size"}]
@@ -38,8 +38,8 @@ PROTO_0:
        58 GETTABLEKS                       R12 R1 K23 ["WrapperProps"]
        60 CALL                             R10 2 1
        61 DUPTABLE                         R11 K27 [{"Text", "Icon", "Tooltip"}]
-       62 GETUPVAL                         R13 0
-       63 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       62 GETUPVAL                         R12 0
+       63 GETTABLEKS                       R12 R12 K7 ["createElement"]
        65 GETUPVAL                         R13 3
        66 DUPTABLE                         R14 K30 [{"Text", "Size", "TextXAlignment", "TextTruncate"}]
        67 SETTABLEKS                       R2 R14 K24 ["Text"]
@@ -56,8 +56,8 @@ PROTO_0:
        85 SETTABLEKS                       R12 R11 K24 ["Text"]
        87 MOVE                             R12 R3
        88 JUMPIFNOT                        R12 ; [+45]
-       89 GETUPVAL                         R13 0
-       90 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       89 GETUPVAL                         R12 0
+       90 GETTABLEKS                       R12 R12 K7 ["createElement"]
        92 GETUPVAL                         R13 4
        93 DUPTABLE                         R14 K43 [{"ImageColor3", "Image", "Size", "Position", "Rotation", "AnchorPoint"}]
        94 GETTABLEKS                       R15 R6 K44 ["IconColor"]
@@ -89,8 +89,8 @@ PROTO_0:
       131 SETTABLEKS                       R15 R14 K42 ["AnchorPoint"]
       133 CALL                             R12 2 1
       134 SETTABLEKS                       R12 R11 K25 ["Icon"]
-      136 GETUPVAL                         R13 0
-      137 GETTABLEKS                       R12 R13 K7 ["createElement"]
+      136 GETUPVAL                         R12 0
+      137 GETTABLEKS                       R12 R12 K7 ["createElement"]
       139 GETUPVAL                         R13 5
       140 DUPTABLE                         R14 K53 [{"Text"}]
       141 SETTABLEKS                       R2 R14 K24 ["Text"]
@@ -101,18 +101,18 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K8 ["Dash"]
        27 GETTABLEKS                       R4 R3 K9 ["assign"]
@@ -121,8 +121,8 @@ MAIN:
        33 GETTABLEKS                       R7 R5 K12 ["Image"]
        35 GETTABLEKS                       R8 R5 K13 ["TextLabel"]
        37 GETTABLEKS                       R9 R5 K14 ["Tooltip"]
-       39 GETTABLEKS                       R11 R2 K15 ["Wrappers"]
-       41 GETTABLEKS                       R10 R11 K16 ["withControl"]
+       39 GETTABLEKS                       R10 R2 K15 ["Wrappers"]
+       41 GETTABLEKS                       R10 R10 K16 ["withControl"]
        43 GETTABLEKS                       R11 R1 K17 ["PureComponent"]
        45 LOADK                            R13 K18 ["TableHeaderCell"]
        46 NAMECALL                         R11 R11 K19 ["extend"]

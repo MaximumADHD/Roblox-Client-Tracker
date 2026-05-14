@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R0 K0 ["ImportTree"]
         2 JUMPIFNOT                        R2 ; [+5]
-        3 GETTABLEKS                       R2 R0 K0 ["ImportTree"]
-        5 GETTABLEKS                       R1 R2 K1 ["ImportName"]
+        3 GETTABLEKS                       R1 R0 K0 ["ImportTree"]
+        5 GETTABLEKS                       R1 R1 K1 ["ImportName"]
         7 JUMP                             ; [+1]
         8 LOADNIL                          R1
         9 GETTABLEKS                       R3 R0 K2 ["HasInvalidPackageId"]
@@ -20,15 +20,15 @@ PROTO_0:
        25 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["ClosePreview"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["ClosePreview"]
         5 CALL                             R0 0 0
         6 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R2 R0 K1 ["SessionQueue"]
         5 GETTABLEKS                       R3 R0 K2 ["Filename"]
         7 GETTABLE                         R1 R2 R3
@@ -44,13 +44,13 @@ PROTO_2:
 
 PROTO_3:
         0 JUMPIFNOTEQKS                    R0 K0 ["Close"] ; [+6]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K1 ["onClose"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K1 ["onClose"]
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
         7 JUMPIFNOTEQKS                    R0 K2 ["Import"] ; [+5]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K3 ["onImport"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K3 ["onImport"]
        12 CALL                             R1 0 0
        13 RETURN                           R0 0
 
@@ -77,8 +77,8 @@ PROTO_5:
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R5 R1 K2 ["ImportTree"]
         6 JUMPIFNOT                        R5 ; [+5]
-        7 GETTABLEKS                       R5 R1 K2 ["ImportTree"]
-        9 GETTABLEKS                       R4 R5 K3 ["ImportName"]
+        7 GETTABLEKS                       R4 R1 K2 ["ImportTree"]
+        9 GETTABLEKS                       R4 R4 K3 ["ImportName"]
        11 JUMP                             ; [+1]
        12 LOADNIL                          R4
        13 GETTABLEKS                       R5 R1 K4 ["HasInvalidPackageId"]
@@ -114,15 +114,15 @@ PROTO_5:
        54 LOADK                            R7 K18 ["RoundPrimary"]
        55 SETTABLEKS                       R7 R6 K14 ["Style"]
        57 JUMPIF                           R3 ; [+4]
-       58 GETUPVAL                         R8 1
-       59 GETTABLEKS                       R7 R8 K19 ["Disabled"]
+       58 GETUPVAL                         R7 1
+       59 GETTABLEKS                       R7 R7 K19 ["Disabled"]
        61 JUMPIF                           R7 ; [+1]
        62 LOADNIL                          R7
        63 SETTABLEKS                       R7 R6 K15 ["StyleModifier"]
        65 SETLIST                          R4 R5 2 [1]
        67 GETTABLEKS                       R5 R0 K20 ["onClose"]
-       69 GETUPVAL                         R7 2
-       70 GETTABLEKS                       R6 R7 K21 ["createElement"]
+       69 GETUPVAL                         R6 2
+       70 GETTABLEKS                       R6 R6 K21 ["createElement"]
        72 GETUPVAL                         R7 3
        73 DUPTABLE                         R8 K30 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "OnClose", "OnButtonPressed", "Style"}]
        74 GETTABLEKS                       R9 R1 K31 ["ShowPreview"]
@@ -150,13 +150,13 @@ PROTO_5:
       109 CALL                             R10 0 1
       110 JUMPIFNOT                        R10 ; [+54]
       111 DUPTABLE                         R9 K38 [{"FoundationProvider"}]
-      112 GETUPVAL                         R11 2
-      113 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      112 GETUPVAL                         R10 2
+      113 GETTABLEKS                       R10 R10 K21 ["createElement"]
       115 GETUPVAL                         R11 6
       116 LOADNIL                          R12
       117 DUPTABLE                         R13 K42 [{"Layout", "AssetImporterUI", "Separator"}]
-      118 GETUPVAL                         R15 2
-      119 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      118 GETUPVAL                         R14 2
+      119 GETTABLEKS                       R14 R14 K21 ["createElement"]
       121 LOADK                            R15 K43 ["UIListLayout"]
       122 DUPTABLE                         R16 K45 [{"FillDirection"}]
       123 GETIMPORT                        R17 K48 [Enum.FillDirection.Vertical]
@@ -165,8 +165,8 @@ PROTO_5:
       128 SETTABLEKS                       R14 R13 K39 ["Layout"]
       130 GETTABLEKS                       R15 R1 K31 ["ShowPreview"]
       132 JUMPIFNOT                        R15 ; [+10]
-      133 GETUPVAL                         R15 2
-      134 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      133 GETUPVAL                         R14 2
+      134 GETTABLEKS                       R14 R14 K21 ["createElement"]
       136 GETUPVAL                         R15 7
       137 DUPTABLE                         R16 K50 [{"LayoutOrder"}]
       138 LOADN                            R17 1
@@ -175,8 +175,8 @@ PROTO_5:
       142 JUMP                             ; [+1]
       143 LOADNIL                          R14
       144 SETTABLEKS                       R14 R13 K40 ["AssetImporterUI"]
-      146 GETUPVAL                         R15 2
-      147 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      146 GETUPVAL                         R14 2
+      147 GETTABLEKS                       R14 R14 K21 ["createElement"]
       149 GETUPVAL                         R15 8
       150 DUPTABLE                         R16 K52 [{"DominantAxis", "LayoutOrder"}]
       151 GETIMPORT                        R17 K54 [Enum.DominantAxis.Width]
@@ -189,8 +189,8 @@ PROTO_5:
       162 SETTABLEKS                       R10 R9 K37 ["FoundationProvider"]
       164 JUMP                             ; [+44]
       165 DUPTABLE                         R9 K42 [{"Layout", "AssetImporterUI", "Separator"}]
-      166 GETUPVAL                         R11 2
-      167 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      166 GETUPVAL                         R10 2
+      167 GETTABLEKS                       R10 R10 K21 ["createElement"]
       169 LOADK                            R11 K43 ["UIListLayout"]
       170 DUPTABLE                         R12 K45 [{"FillDirection"}]
       171 GETIMPORT                        R13 K48 [Enum.FillDirection.Vertical]
@@ -199,8 +199,8 @@ PROTO_5:
       176 SETTABLEKS                       R10 R9 K39 ["Layout"]
       178 GETTABLEKS                       R11 R1 K31 ["ShowPreview"]
       180 JUMPIFNOT                        R11 ; [+10]
-      181 GETUPVAL                         R11 2
-      182 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      181 GETUPVAL                         R10 2
+      182 GETTABLEKS                       R10 R10 K21 ["createElement"]
       184 GETUPVAL                         R11 7
       185 DUPTABLE                         R12 K50 [{"LayoutOrder"}]
       186 LOADN                            R13 1
@@ -209,8 +209,8 @@ PROTO_5:
       190 JUMP                             ; [+1]
       191 LOADNIL                          R10
       192 SETTABLEKS                       R10 R9 K40 ["AssetImporterUI"]
-      194 GETUPVAL                         R11 2
-      195 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      194 GETUPVAL                         R10 2
+      195 GETTABLEKS                       R10 R10 K21 ["createElement"]
       197 GETUPVAL                         R11 8
       198 DUPTABLE                         R12 K52 [{"DominantAxis", "LayoutOrder"}]
       199 GETIMPORT                        R13 K54 [Enum.DominantAxis.Width]
@@ -231,16 +231,16 @@ PROTO_7:
         0 JUMPIFNOTEQKS                    R0 K0 ["ImportName"] ; [+11]
         2 GETUPVAL                         R1 0
         3 DUPTABLE                         R3 K2 [{"assetName"}]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R4 R5 K0 ["ImportName"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K0 ["ImportName"]
         7 SETTABLEKS                       R4 R3 K1 ["assetName"]
         9 NAMECALL                         R1 R1 K3 ["setState"]
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
 
 PROTO_8:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["ImportTree"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["ImportTree"]
         4 JUMPIFEQKNIL                     R1 ; [+11]
         6 GETTABLEKS                       R2 R1 K2 ["Changed"]
         8 NEWCLOSURE                       R4 P0
@@ -268,8 +268,8 @@ PROTO_10:
 
 PROTO_11:
         0 GETTABLEKS                       R3 R1 K0 ["ImportTree"]
-        2 GETTABLEKS                       R5 R0 K1 ["props"]
-        4 GETTABLEKS                       R4 R5 K0 ["ImportTree"]
+        2 GETTABLEKS                       R4 R0 K1 ["props"]
+        4 GETTABLEKS                       R4 R4 K0 ["ImportTree"]
         6 JUMPIFEQ                         R3 R4 ; [+7]
         8 NAMECALL                         R3 R0 K2 ["_disconnect"]
        10 CALL                             R3 1 0
@@ -281,8 +281,8 @@ PROTO_12:
         0 DUPTABLE                         R2 K1 [{"assetName"}]
         1 GETTABLEKS                       R4 R0 K2 ["ImportTree"]
         3 JUMPIFNOT                        R4 ; [+5]
-        4 GETTABLEKS                       R4 R0 K2 ["ImportTree"]
-        6 GETTABLEKS                       R3 R4 K3 ["ImportName"]
+        4 GETTABLEKS                       R3 R0 K2 ["ImportTree"]
+        6 GETTABLEKS                       R3 R3 K3 ["ImportName"]
         8 JUMP                             ; [+1]
         9 LOADNIL                          R3
        10 SETTABLEKS                       R3 R2 K0 ["assetName"]
@@ -290,29 +290,29 @@ PROTO_12:
 
 PROTO_13:
         0 DUPTABLE                         R1 K8 [{"ImportTree", "AssetImportSession", "ImportDataCheckedCount", "ErrorNodeChecked", "HasInvalidPackageId", "ShowPreview", "SessionQueue", "Filename"}]
-        1 GETTABLEKS                       R3 R0 K9 ["Preview"]
-        3 GETTABLEKS                       R2 R3 K10 ["importTree"]
+        1 GETTABLEKS                       R2 R0 K9 ["Preview"]
+        3 GETTABLEKS                       R2 R2 K10 ["importTree"]
         5 SETTABLEKS                       R2 R1 K0 ["ImportTree"]
-        7 GETTABLEKS                       R3 R0 K9 ["Preview"]
-        9 GETTABLEKS                       R2 R3 K11 ["assetImportSession"]
+        7 GETTABLEKS                       R2 R0 K9 ["Preview"]
+        9 GETTABLEKS                       R2 R2 K11 ["assetImportSession"]
        11 SETTABLEKS                       R2 R1 K1 ["AssetImportSession"]
-       13 GETTABLEKS                       R3 R0 K9 ["Preview"]
-       15 GETTABLEKS                       R2 R3 K12 ["importDataCheckedCount"]
+       13 GETTABLEKS                       R2 R0 K9 ["Preview"]
+       15 GETTABLEKS                       R2 R2 K12 ["importDataCheckedCount"]
        17 SETTABLEKS                       R2 R1 K2 ["ImportDataCheckedCount"]
-       19 GETTABLEKS                       R3 R0 K9 ["Preview"]
-       21 GETTABLEKS                       R2 R3 K13 ["errorNodeChecked"]
+       19 GETTABLEKS                       R2 R0 K9 ["Preview"]
+       21 GETTABLEKS                       R2 R2 K13 ["errorNodeChecked"]
        23 SETTABLEKS                       R2 R1 K3 ["ErrorNodeChecked"]
-       25 GETTABLEKS                       R3 R0 K9 ["Preview"]
-       27 GETTABLEKS                       R2 R3 K14 ["hasInvalidPackageId"]
+       25 GETTABLEKS                       R2 R0 K9 ["Preview"]
+       27 GETTABLEKS                       R2 R2 K14 ["hasInvalidPackageId"]
        29 SETTABLEKS                       R2 R1 K4 ["HasInvalidPackageId"]
-       31 GETTABLEKS                       R3 R0 K15 ["Dialogs"]
-       33 GETTABLEKS                       R2 R3 K16 ["showPreview"]
+       31 GETTABLEKS                       R2 R0 K15 ["Dialogs"]
+       33 GETTABLEKS                       R2 R2 K16 ["showPreview"]
        35 SETTABLEKS                       R2 R1 K5 ["ShowPreview"]
-       37 GETTABLEKS                       R3 R0 K17 ["Sessions"]
-       39 GETTABLEKS                       R2 R3 K18 ["sessionQueue"]
+       37 GETTABLEKS                       R2 R0 K17 ["Sessions"]
+       39 GETTABLEKS                       R2 R2 K18 ["sessionQueue"]
        41 SETTABLEKS                       R2 R1 K6 ["SessionQueue"]
-       43 GETTABLEKS                       R3 R0 K9 ["Preview"]
-       45 GETTABLEKS                       R2 R3 K19 ["filename"]
+       43 GETTABLEKS                       R2 R0 K9 ["Preview"]
+       45 GETTABLEKS                       R2 R2 K19 ["filename"]
        47 SETTABLEKS                       R2 R1 K7 ["Filename"]
        49 RETURN                           R1 1
 
@@ -338,67 +338,67 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["StudioFoundation"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["StudioFoundation"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
        37 GETTABLEKS                       R6 R5 K12 ["withContext"]
        39 GETTABLEKS                       R7 R5 K13 ["Localization"]
-       41 GETTABLEKS                       R9 R3 K14 ["Style"]
-       43 GETTABLEKS                       R8 R9 K15 ["Stylizer"]
-       45 GETTABLEKS                       R10 R4 K16 ["Components"]
-       47 GETTABLEKS                       R9 R10 K17 ["FoundationProviderAdapter"]
+       41 GETTABLEKS                       R8 R3 K14 ["Style"]
+       43 GETTABLEKS                       R8 R8 K15 ["Stylizer"]
+       45 GETTABLEKS                       R9 R4 K16 ["Components"]
+       47 GETTABLEKS                       R9 R9 K17 ["FoundationProviderAdapter"]
        49 GETTABLEKS                       R10 R3 K18 ["Util"]
        51 GETTABLEKS                       R11 R10 K19 ["StyleModifier"]
        53 GETTABLEKS                       R12 R3 K20 ["UI"]
        55 GETTABLEKS                       R13 R12 K21 ["Separator"]
        57 GETTABLEKS                       R14 R12 K22 ["StyledDialog"]
        59 GETIMPORT                        R15 K5 [require]
-       61 GETTABLEKS                       R18 R0 K23 ["Src"]
-       63 GETTABLEKS                       R17 R18 K16 ["Components"]
-       65 GETTABLEKS                       R16 R17 K24 ["AssetImporterUI"]
+       61 GETTABLEKS                       R16 R0 K23 ["Src"]
+       63 GETTABLEKS                       R16 R16 K16 ["Components"]
+       65 GETTABLEKS                       R16 R16 K24 ["AssetImporterUI"]
        67 CALL                             R15 1 1
        68 GETIMPORT                        R16 K5 [require]
-       70 GETTABLEKS                       R19 R0 K23 ["Src"]
-       72 GETTABLEKS                       R18 R19 K25 ["Controllers"]
-       74 GETTABLEKS                       R17 R18 K26 ["FileController"]
+       70 GETTABLEKS                       R17 R0 K23 ["Src"]
+       72 GETTABLEKS                       R17 R17 K25 ["Controllers"]
+       74 GETTABLEKS                       R17 R17 K26 ["FileController"]
        76 CALL                             R16 1 1
        77 GETIMPORT                        R17 K5 [require]
-       79 GETTABLEKS                       R20 R0 K23 ["Src"]
-       81 GETTABLEKS                       R19 R20 K25 ["Controllers"]
-       83 GETTABLEKS                       R18 R19 K27 ["UploadController"]
+       79 GETTABLEKS                       R18 R0 K23 ["Src"]
+       81 GETTABLEKS                       R18 R18 K25 ["Controllers"]
+       83 GETTABLEKS                       R18 R18 K27 ["UploadController"]
        85 CALL                             R17 1 1
        86 GETIMPORT                        R18 K5 [require]
-       88 GETTABLEKS                       R21 R0 K23 ["Src"]
-       90 GETTABLEKS                       R20 R21 K28 ["Thunks"]
-       92 GETTABLEKS                       R19 R20 K29 ["ClosePreview"]
+       88 GETTABLEKS                       R19 R0 K23 ["Src"]
+       90 GETTABLEKS                       R19 R19 K28 ["Thunks"]
+       92 GETTABLEKS                       R19 R19 K29 ["ClosePreview"]
        94 CALL                             R18 1 1
        95 GETIMPORT                        R19 K5 [require]
-       97 GETTABLEKS                       R22 R0 K23 ["Src"]
-       99 GETTABLEKS                       R21 R22 K30 ["Utility"]
-      101 GETTABLEKS                       R20 R21 K31 ["isAssetNameValid"]
+       97 GETTABLEKS                       R20 R0 K23 ["Src"]
+       99 GETTABLEKS                       R20 R20 K30 ["Utility"]
+      101 GETTABLEKS                       R20 R20 K31 ["isAssetNameValid"]
       103 CALL                             R19 1 1
       104 GETIMPORT                        R20 K5 [require]
-      106 GETTABLEKS                       R23 R0 K23 ["Src"]
-      108 GETTABLEKS                       R22 R23 K32 ["Flags"]
-      110 GETTABLEKS                       R21 R22 K33 ["getFFlagDebugAssetImportPlugin"]
+      106 GETTABLEKS                       R21 R0 K23 ["Src"]
+      108 GETTABLEKS                       R21 R21 K32 ["Flags"]
+      110 GETTABLEKS                       R21 R21 K33 ["getFFlagDebugAssetImportPlugin"]
       112 CALL                             R20 1 1
       113 GETIMPORT                        R21 K5 [require]
-      115 GETTABLEKS                       R24 R0 K23 ["Src"]
-      117 GETTABLEKS                       R23 R24 K32 ["Flags"]
-      119 GETTABLEKS                       R22 R23 K34 ["getFFlagShowNewReimportCallout"]
+      115 GETTABLEKS                       R22 R0 K23 ["Src"]
+      117 GETTABLEKS                       R22 R22 K32 ["Flags"]
+      119 GETTABLEKS                       R22 R22 K34 ["getFFlagShowNewReimportCallout"]
       121 CALL                             R21 1 1
       122 GETTABLEKS                       R22 R1 K35 ["PureComponent"]
       124 LOADK                            R24 K36 ["MeshImportDialog"]

@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["code"]
         2 JUMPIFEQKNIL                     R1 ; [+37]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K1 ["shouldDebugWarnings"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K1 ["shouldDebugWarnings"]
         7 CALL                             R1 0 1
         8 JUMPIFNOT                        R1 ; [+6]
         9 GETIMPORT                        R1 K3 [warn]
@@ -37,9 +37,9 @@ PROTO_0:
        47 CALL                             R1 -1 0
        48 GETUPVAL                         R1 1
        49 GETUPVAL                         R3 5
-       50 GETUPVAL                         R6 6
-       51 GETTABLEKS                       R5 R6 K10 ["SCREENS"]
-       53 GETTABLEKS                       R4 R5 K11 ["UPLOADING_ASSET"]
+       50 GETUPVAL                         R4 6
+       51 GETTABLEKS                       R4 R4 K10 ["SCREENS"]
+       53 GETTABLEKS                       R4 R4 K11 ["UPLOADING_ASSET"]
        55 CALL                             R3 1 -1
        56 NAMECALL                         R1 R1 K5 ["dispatch"]
        58 CALL                             R1 -1 0
@@ -49,10 +49,10 @@ PROTO_0:
        62 CALL                             R3 1 -1
        63 NAMECALL                         R1 R1 K5 ["dispatch"]
        65 CALL                             R1 -1 0
-       66 GETUPVAL                         R2 1
-       67 NAMECALL                         R2 R2 K12 ["getState"]
-       69 CALL                             R2 1 1
-       70 GETTABLEKS                       R1 R2 K13 ["deleteLocal"]
+       66 GETUPVAL                         R1 1
+       67 NAMECALL                         R1 R1 K12 ["getState"]
+       69 CALL                             R1 1 1
+       70 GETTABLEKS                       R1 R1 K13 ["deleteLocal"]
        72 GETUPVAL                         R2 7
        73 GETTABLEKS                       R3 R0 K9 ["assetId"]
        75 MOVE                             R4 R1
@@ -60,8 +60,8 @@ PROTO_0:
        77 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -69,9 +69,9 @@ PROTO_1:
         8 CALL                             R1 1 0
         9 GETUPVAL                         R1 1
        10 GETUPVAL                         R3 2
-       11 GETUPVAL                         R6 3
-       12 GETTABLEKS                       R5 R6 K4 ["SCREENS"]
-       14 GETTABLEKS                       R4 R5 K5 ["UPLOAD_ASSET_RESULT"]
+       11 GETUPVAL                         R4 3
+       12 GETTABLEKS                       R4 R4 K4 ["SCREENS"]
+       14 GETTABLEKS                       R4 R4 K5 ["UPLOAD_ASSET_RESULT"]
        16 CALL                             R3 1 -1
        17 NAMECALL                         R1 R1 K6 ["dispatch"]
        19 CALL                             R1 -1 0
@@ -93,8 +93,8 @@ PROTO_1:
        38 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+4]
         5 GETIMPORT                        R1 K2 [warn]
@@ -102,9 +102,9 @@ PROTO_2:
         8 CALL                             R1 1 0
         9 GETUPVAL                         R1 1
        10 GETUPVAL                         R3 2
-       11 GETUPVAL                         R6 3
-       12 GETTABLEKS                       R5 R6 K4 ["SCREENS"]
-       14 GETTABLEKS                       R4 R5 K5 ["UPLOAD_ASSET_RESULT"]
+       11 GETUPVAL                         R4 3
+       12 GETTABLEKS                       R4 R4 K4 ["SCREENS"]
+       14 GETTABLEKS                       R4 R4 K5 ["UPLOAD_ASSET_RESULT"]
        16 CALL                             R3 1 -1
        17 NAMECALL                         R1 R1 K6 ["dispatch"]
        19 CALL                             R1 -1 0
@@ -136,9 +136,9 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R4 0
-        1 GETUPVAL                         R7 1
-        2 GETTABLEKS                       R6 R7 K0 ["SCREENS"]
-        4 GETTABLEKS                       R5 R6 K1 ["UPLOADING_ASSET"]
+        1 GETUPVAL                         R5 1
+        2 GETTABLEKS                       R5 R5 K0 ["SCREENS"]
+        4 GETTABLEKS                       R5 R5 K1 ["UPLOADING_ASSET"]
         6 CALL                             R4 1 -1
         7 NAMECALL                         R2 R0 K2 ["dispatch"]
         9 CALL                             R2 -1 0
@@ -196,27 +196,27 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [game]
        13 LOADK                            R3 K5 ["RobloxPluginGuiService"]
        14 NAMECALL                         R1 R1 K6 ["GetService"]
        16 CALL                             R1 2 1
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R5 R0 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Util"]
-       23 GETTABLEKS                       R3 R4 K11 ["DebugFlags"]
+       19 GETTABLEKS                       R3 R0 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Util"]
+       23 GETTABLEKS                       R3 R3 K11 ["DebugFlags"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K8 [require]
-       28 GETTABLEKS                       R6 R0 K9 ["Src"]
-       30 GETTABLEKS                       R5 R6 K10 ["Util"]
-       32 GETTABLEKS                       R4 R5 K12 ["AssetConfigConstants"]
+       28 GETTABLEKS                       R4 R0 K9 ["Src"]
+       30 GETTABLEKS                       R4 R4 K10 ["Util"]
+       32 GETTABLEKS                       R4 R4 K12 ["AssetConfigConstants"]
        34 CALL                             R3 1 1
-       35 GETTABLEKS                       R5 R0 K9 ["Src"]
-       37 GETTABLEKS                       R4 R5 K13 ["Actions"]
+       35 GETTABLEKS                       R4 R0 K9 ["Src"]
+       37 GETTABLEKS                       R4 R4 K13 ["Actions"]
        39 GETIMPORT                        R5 K8 [require]
        41 GETTABLEKS                       R6 R4 K14 ["NetworkError"]
        43 CALL                             R5 1 1
@@ -229,8 +229,8 @@ MAIN:
        54 GETIMPORT                        R8 K8 [require]
        56 GETTABLEKS                       R9 R4 K17 ["SetAssetId"]
        58 CALL                             R8 1 1
-       59 GETTABLEKS                       R10 R0 K9 ["Src"]
-       61 GETTABLEKS                       R9 R10 K10 ["Util"]
+       59 GETTABLEKS                       R9 R0 K9 ["Src"]
+       61 GETTABLEKS                       R9 R9 K10 ["Util"]
        63 GETIMPORT                        R10 K8 [require]
        65 GETTABLEKS                       R11 R9 K18 ["SerializeInstances"]
        67 CALL                             R10 1 1

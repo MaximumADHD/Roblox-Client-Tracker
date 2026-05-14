@@ -90,8 +90,8 @@ PROTO_5:
        11 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["useCallback"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["useCallback"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          VAL R1
@@ -102,12 +102,12 @@ PROTO_6:
        11 MOVE                             R8 R2
        12 SETLIST                          R5 R6 3 [1]
        14 CALL                             R3 2 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K1 ["useState"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K1 ["useState"]
        18 MOVE                             R5 R3
        19 CALL                             R4 1 2
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K2 ["useEffect"]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K2 ["useEffect"]
        23 NEWCLOSURE                       R7 P1
        24 CAPTURE                          VAL R1
        25 CAPTURE                          VAL R0
@@ -118,8 +118,8 @@ PROTO_6:
        31 MOVE                             R9 R3
        32 SETLIST                          R8 R9 1 [1]
        34 CALL                             R6 2 0
-       35 GETUPVAL                         R7 0
-       36 GETTABLEKS                       R6 R7 K2 ["useEffect"]
+       35 GETUPVAL                         R6 0
+       36 GETTABLEKS                       R6 R6 K2 ["useEffect"]
        38 NEWCLOSURE                       R7 P2
        39 CAPTURE                          VAL R0
        40 CAPTURE                          VAL R1
@@ -132,8 +132,8 @@ PROTO_6:
        48 MOVE                             R12 R5
        49 SETLIST                          R8 R9 4 [1]
        51 CALL                             R6 2 0
-       52 GETUPVAL                         R7 0
-       53 GETTABLEKS                       R6 R7 K2 ["useEffect"]
+       52 GETUPVAL                         R6 0
+       53 GETTABLEKS                       R6 R6 K2 ["useEffect"]
        55 NEWCLOSURE                       R7 P3
        56 CAPTURE                          VAL R1
        57 CAPTURE                          VAL R0
@@ -153,8 +153,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_6]
        15 CAPTURE                          VAL R1

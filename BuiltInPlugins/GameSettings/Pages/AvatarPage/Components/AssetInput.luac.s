@@ -4,15 +4,15 @@ PROTO_0:
         3 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["SetValue"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["SetValue"]
         5 JUMPIFNOT                        R0 ; [+9]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["SetValue"]
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R1 R2 K2 ["currentTextInputBoxText"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["SetValue"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K2 ["currentTextInputBoxText"]
        14 CALL                             R0 1 0
        15 RETURN                           R0 0
 
@@ -28,9 +28,9 @@ PROTO_2:
        11 LOADB                            R1 1
        12 LOADNIL                          R2
        13 JUMPIF                           R1 ; [+11]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K3 ["props"]
-       17 GETTABLEKS                       R3 R4 K4 ["Localization"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K3 ["props"]
+       17 GETTABLEKS                       R3 R3 K4 ["Localization"]
        19 LOADK                            R6 K5 ["General"]
        20 LOADK                            R7 K6 ["NumberError"]
        21 NAMECALL                         R4 R3 K7 ["getText"]
@@ -53,8 +53,8 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETTABLEKS                       R4 R0 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K2 ["Stylizer"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K2 ["Stylizer"]
         8 GETUPVAL                         R4 0
         9 MOVE                             R5 R0
        10 CALL                             R4 1 1
@@ -73,24 +73,24 @@ PROTO_4:
        27 ADD                              R7 R8 R9
        28 ADDK                             R6 R7 K11 [8]
        29 DUPTABLE                         R7 K16 [{"ToggleButton", "CustomItemLabel", "InputBox"}]
-       30 GETUPVAL                         R9 2
-       31 GETTABLEKS                       R8 R9 K17 ["createElement"]
+       30 GETUPVAL                         R8 2
+       31 GETTABLEKS                       R8 R8 K17 ["createElement"]
        33 GETUPVAL                         R9 3
        34 DUPTABLE                         R10 K21 [{"Enabled", "OnClick", "Selected"}]
-       35 GETTABLEKS                       R12 R0 K0 ["props"]
-       37 GETTABLEKS                       R11 R12 K22 ["IsEnabled"]
+       35 GETTABLEKS                       R11 R0 K0 ["props"]
+       37 GETTABLEKS                       R11 R11 K22 ["IsEnabled"]
        39 SETTABLEKS                       R11 R10 K18 ["Enabled"]
-       41 GETTABLEKS                       R12 R0 K0 ["props"]
-       43 GETTABLEKS                       R11 R12 K23 ["SetPlayerChoiceValue"]
+       41 GETTABLEKS                       R11 R0 K0 ["props"]
+       43 GETTABLEKS                       R11 R11 K23 ["SetPlayerChoiceValue"]
        45 SETTABLEKS                       R11 R10 K19 ["OnClick"]
-       47 GETTABLEKS                       R13 R0 K0 ["props"]
-       49 GETTABLEKS                       R12 R13 K24 ["PlayerChoice"]
+       47 GETTABLEKS                       R12 R0 K0 ["props"]
+       49 GETTABLEKS                       R12 R12 K24 ["PlayerChoice"]
        51 NOT                              R11 R12
        52 SETTABLEKS                       R11 R10 K20 ["Selected"]
        54 CALL                             R8 2 1
        55 SETTABLEKS                       R8 R7 K13 ["ToggleButton"]
-       57 GETUPVAL                         R9 2
-       58 GETTABLEKS                       R8 R9 K17 ["createElement"]
+       57 GETUPVAL                         R8 2
+       58 GETTABLEKS                       R8 R8 K17 ["createElement"]
        60 LOADK                            R9 K25 ["TextLabel"]
        61 DUPTABLE                         R10 K35 [{"Position", "Size", "BackgroundTransparency", "TextColor3", "TextTransparency", "Font", "TextSize", "Text", "TextXAlignment", "TextYAlignment"}]
        62 GETIMPORT                        R11 K38 [UDim2.new]
@@ -109,25 +109,25 @@ PROTO_4:
        79 SETTABLEKS                       R11 R10 K27 ["Size"]
        81 LOADN                            R11 1
        82 SETTABLEKS                       R11 R10 K28 ["BackgroundTransparency"]
-       84 GETUPVAL                         R13 4
-       85 GETTABLEKS                       R12 R13 K39 ["getRadioButtonTextColor"]
+       84 GETUPVAL                         R12 4
+       85 GETTABLEKS                       R12 R12 K39 ["getRadioButtonTextColor"]
        87 GETTABLEKS                       R13 R0 K0 ["props"]
        89 CALL                             R12 1 1
        90 JUMPIFNOT                        R12 ; [+7]
-       91 GETUPVAL                         R12 4
-       92 GETTABLEKS                       R11 R12 K39 ["getRadioButtonTextColor"]
+       91 GETUPVAL                         R11 4
+       92 GETTABLEKS                       R11 R11 K39 ["getRadioButtonTextColor"]
        94 GETTABLEKS                       R12 R0 K0 ["props"]
        96 CALL                             R11 1 1
        97 JUMP                             ; [+6]
-       98 GETTABLEKS                       R13 R3 K40 ["fontStyle"]
-      100 GETTABLEKS                       R12 R13 K41 ["Header"]
-      102 GETTABLEKS                       R11 R12 K29 ["TextColor3"]
+       98 GETTABLEKS                       R11 R3 K40 ["fontStyle"]
+      100 GETTABLEKS                       R11 R11 K41 ["Header"]
+      102 GETTABLEKS                       R11 R11 K29 ["TextColor3"]
       104 SETTABLEKS                       R11 R10 K29 ["TextColor3"]
-      106 GETTABLEKS                       R13 R0 K0 ["props"]
-      108 GETTABLEKS                       R12 R13 K22 ["IsEnabled"]
+      106 GETTABLEKS                       R12 R0 K0 ["props"]
+      108 GETTABLEKS                       R12 R12 K22 ["IsEnabled"]
       110 JUMPIFNOT                        R12 ; [+7]
-      111 GETTABLEKS                       R13 R0 K0 ["props"]
-      113 GETTABLEKS                       R12 R13 K24 ["PlayerChoice"]
+      111 GETTABLEKS                       R12 R0 K0 ["props"]
+      113 GETTABLEKS                       R12 R12 K24 ["PlayerChoice"]
       115 JUMPIF                           R12 ; [+2]
       116 LOADN                            R11 0
       117 JUMP                             ; [+1]
@@ -144,16 +144,16 @@ PROTO_4:
       136 SETTABLEKS                       R11 R10 K34 ["TextYAlignment"]
       138 CALL                             R8 2 1
       139 SETTABLEKS                       R8 R7 K14 ["CustomItemLabel"]
-      141 GETUPVAL                         R9 2
-      142 GETTABLEKS                       R8 R9 K17 ["createElement"]
+      141 GETUPVAL                         R8 2
+      142 GETTABLEKS                       R8 R8 K17 ["createElement"]
       144 GETUPVAL                         R9 5
       145 DUPTABLE                         R10 K54 [{"Disabled", "ErrorText", "OnTextChanged", "OnFocusLost", "OnValidateText", "PlaceholderText", "Position", "Width", "Text"}]
-      146 GETTABLEKS                       R13 R0 K0 ["props"]
-      148 GETTABLEKS                       R12 R13 K22 ["IsEnabled"]
+      146 GETTABLEKS                       R12 R0 K0 ["props"]
+      148 GETTABLEKS                       R12 R12 K22 ["IsEnabled"]
       150 NOT                              R11 R12
       151 SETTABLEKS                       R11 R10 K47 ["Disabled"]
-      153 GETTABLEKS                       R12 R0 K0 ["props"]
-      155 GETTABLEKS                       R11 R12 K55 ["ErrorMessage"]
+      153 GETTABLEKS                       R11 R0 K0 ["props"]
+      155 GETTABLEKS                       R11 R11 K55 ["ErrorMessage"]
       157 SETTABLEKS                       R11 R10 K48 ["ErrorText"]
       159 GETTABLEKS                       R11 R0 K56 ["onTextChanged"]
       161 SETTABLEKS                       R11 R10 K49 ["OnTextChanged"]
@@ -179,16 +179,16 @@ PROTO_4:
       192 SETTABLEKS                       R11 R10 K32 ["Text"]
       194 CALL                             R8 2 1
       195 SETTABLEKS                       R8 R7 K15 ["InputBox"]
-      197 GETUPVAL                         R9 2
-      198 GETTABLEKS                       R8 R9 K17 ["createElement"]
+      197 GETUPVAL                         R8 2
+      198 GETTABLEKS                       R8 R8 K17 ["createElement"]
       200 GETUPVAL                         R9 6
       201 DUPTABLE                         R10 K62 [{"LayoutOrder", "Title"}]
-      202 GETTABLEKS                       R13 R0 K0 ["props"]
-      204 GETTABLEKS                       R12 R13 K60 ["LayoutOrder"]
+      202 GETTABLEKS                       R12 R0 K0 ["props"]
+      204 GETTABLEKS                       R12 R12 K60 ["LayoutOrder"]
       206 ORK                              R11 R12 K63 [1]
       207 SETTABLEKS                       R11 R10 K60 ["LayoutOrder"]
-      209 GETTABLEKS                       R12 R0 K0 ["props"]
-      211 GETTABLEKS                       R11 R12 K61 ["Title"]
+      209 GETTABLEKS                       R11 R0 K0 ["props"]
+      211 GETTABLEKS                       R11 R11 K61 ["Title"]
       213 SETTABLEKS                       R11 R10 K61 ["Title"]
       215 MOVE                             R11 R7
       216 CALL                             R8 3 -1
@@ -212,35 +212,35 @@ PROTO_5:
        18 RETURN                           R4 -1
 
 PROTO_6:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["InputBoxText"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["InputBoxText"]
         4 JUMPIFEQKNIL                     R2 ; [+7]
-        6 GETTABLEKS                       R3 R0 K0 ["props"]
-        8 GETTABLEKS                       R2 R3 K1 ["InputBoxText"]
+        6 GETTABLEKS                       R2 R0 K0 ["props"]
+        8 GETTABLEKS                       R2 R2 K1 ["InputBoxText"]
        10 JUMPIFNOTEQKS                    R2 K2 ["0"] ; [+3]
        12 LOADK                            R1 K3 [""]
        13 RETURN                           R1 1
-       14 GETTABLEKS                       R2 R0 K0 ["props"]
-       16 GETTABLEKS                       R1 R2 K1 ["InputBoxText"]
+       14 GETTABLEKS                       R1 R0 K0 ["props"]
+       16 GETTABLEKS                       R1 R1 K1 ["InputBoxText"]
        18 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETIMPORT                        R5 K1 [script]
-        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K1 [script]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K2 ["Parent"]
        17 GETIMPORT                        R2 K4 [require]
-       19 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       19 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K6 ["Roact"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K4 [require]
-       26 GETTABLEKS                       R5 R1 K5 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K7 ["Framework"]
+       26 GETTABLEKS                       R4 R1 K5 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K7 ["Framework"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R3 K8 ["ContextServices"]
        33 GETTABLEKS                       R5 R4 K9 ["withContext"]
@@ -249,8 +249,8 @@ MAIN:
        39 GETTABLEKS                       R8 R6 K12 ["TitledFrame"]
        41 GETTABLEKS                       R9 R6 K13 ["TextInput"]
        43 GETIMPORT                        R10 K4 [require]
-       45 GETTABLEKS                       R12 R0 K14 ["Util"]
-       47 GETTABLEKS                       R11 R12 K15 ["StateInterfaceTheme"]
+       45 GETTABLEKS                       R11 R0 K14 ["Util"]
+       47 GETTABLEKS                       R11 R11 K15 ["StateInterfaceTheme"]
        49 CALL                             R10 1 1
        50 LOADNIL                          R11
        51 LOADNIL                          R12

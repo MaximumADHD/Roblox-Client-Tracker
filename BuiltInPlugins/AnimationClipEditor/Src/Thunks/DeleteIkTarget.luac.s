@@ -14,8 +14,8 @@ PROTO_0:
        21 MOVE                             R8 R5
        22 CALL                             R7 1 3
        23 FORGPREP_INEXT                   R7
-       24 GETUPVAL                         R13 0
-       25 GETTABLEKS                       R12 R13 K8 ["equals"]
+       24 GETUPVAL                         R12 0
+       25 GETTABLEKS                       R12 R12 K8 ["equals"]
        27 GETUPVAL                         R13 1
        28 MOVE                             R14 R11
        29 CALL                             R12 2 1
@@ -27,9 +27,9 @@ PROTO_0:
        36 JUMP                             ; [+2]
        37 FORGLOOP                         R7 2 [inext] ; [-14]
        39 GETUPVAL                         R9 2
-       40 GETUPVAL                         R12 3
-       41 GETTABLEKS                       R11 R12 K12 ["Dictionary"]
-       43 GETTABLEKS                       R10 R11 K13 ["join"]
+       40 GETUPVAL                         R10 3
+       41 GETTABLEKS                       R10 R10 K12 ["Dictionary"]
+       43 GETTABLEKS                       R10 R10 K13 ["join"]
        45 MOVE                             R11 R5
        46 CALL                             R10 1 -1
        47 CALL                             R9 -1 -1
@@ -44,18 +44,18 @@ PROTO_0:
        59 GETUPVAL                         R15 1
        60 GETTABLEN                        R14 R15 1
        61 JUMPIFNOTEQ                      R13 R14 ; [+35]
-       63 GETUPVAL                         R15 3
-       64 GETTABLEKS                       R14 R15 K12 ["Dictionary"]
-       66 GETTABLEKS                       R13 R14 K13 ["join"]
+       63 GETUPVAL                         R13 3
+       64 GETTABLEKS                       R13 R13 K12 ["Dictionary"]
+       66 GETTABLEKS                       R13 R13 K13 ["join"]
        68 MOVE                             R14 R4
        69 CALL                             R13 1 1
-       70 GETUPVAL                         R15 0
-       71 GETTABLEKS                       R14 R15 K16 ["getParentPath"]
+       70 GETUPVAL                         R14 0
+       71 GETTABLEKS                       R14 R14 K16 ["getParentPath"]
        73 GETUPVAL                         R15 1
        74 CALL                             R14 1 1
        75 MOVE                             R7 R14
-       76 GETUPVAL                         R15 4
-       77 GETTABLEKS                       R14 R15 K17 ["getComponentFromPath"]
+       76 GETUPVAL                         R14 4
+       77 GETTABLEKS                       R14 R14 K17 ["getComponentFromPath"]
        79 MOVE                             R15 R7
        80 MOVE                             R16 R13
        81 CALL                             R14 2 1
@@ -98,12 +98,12 @@ PROTO_0:
       129 MOVE                             R24 R16
       130 SETLIST                          R20 R21 4 [1]
       132 CALL                             R18 2 1
-      133 GETTABLEKS                       R22 R18 K24 ["Instances"]
-      135 GETTABLE                         R21 R22 R11
-      136 GETTABLEKS                       R20 R21 K3 ["Tracks"]
+      133 GETTABLEKS                       R21 R18 K24 ["Instances"]
+      135 GETTABLE                         R20 R21 R11
+      136 GETTABLEKS                       R20 R20 K3 ["Tracks"]
       138 GETTABLE                         R19 R20 R16
-      139 GETUPVAL                         R21 0
-      140 GETTABLEKS                       R20 R21 K25 ["getRelativePath"]
+      139 GETUPVAL                         R20 0
+      140 GETTABLEKS                       R20 R20 K25 ["getRelativePath"]
       142 MOVE                             R21 R7
       143 CALL                             R20 1 1
       144 MOVE                             R21 R20
@@ -125,25 +125,25 @@ PROTO_0:
       164 GETTABLE                         R22 R23 R24
       165 LOADNIL                          R23
       166 SETTABLE                         R23 R21 R22
-      167 GETUPVAL                         R23 3
-      168 GETTABLEKS                       R22 R23 K12 ["Dictionary"]
-      170 GETTABLEKS                       R21 R22 K13 ["join"]
+      167 GETUPVAL                         R21 3
+      168 GETTABLEKS                       R21 R21 K12 ["Dictionary"]
+      170 GETTABLEKS                       R21 R21 K13 ["join"]
       172 GETTABLEKS                       R22 R18 K26 ["Metadata"]
       174 CALL                             R21 1 1
       175 SETTABLEKS                       R21 R18 K26 ["Metadata"]
       177 GETTABLEKS                       R21 R18 K26 ["Metadata"]
-      179 GETUPVAL                         R24 3
-      180 GETTABLEKS                       R23 R24 K12 ["Dictionary"]
-      182 GETTABLEKS                       R22 R23 K13 ["join"]
-      184 GETTABLEKS                       R24 R18 K26 ["Metadata"]
-      186 GETTABLEKS                       R23 R24 K27 ["IkTargets"]
+      179 GETUPVAL                         R22 3
+      180 GETTABLEKS                       R22 R22 K12 ["Dictionary"]
+      182 GETTABLEKS                       R22 R22 K13 ["join"]
+      184 GETTABLEKS                       R23 R18 K26 ["Metadata"]
+      186 GETTABLEKS                       R23 R23 K27 ["IkTargets"]
       188 NEWTABLE                         R24 1 0
       190 GETUPVAL                         R26 1
       191 GETUPVAL                         R28 1
       192 LENGTH                           R27 R28
       193 GETTABLE                         R25 R26 R27
-      194 GETUPVAL                         R27 3
-      195 GETTABLEKS                       R26 R27 K28 ["None"]
+      194 GETUPVAL                         R26 3
+      195 GETTABLEKS                       R26 R26 K28 ["None"]
       197 SETTABLE                         R26 R24 R25
       198 CALL                             R22 2 1
       199 SETTABLEKS                       R22 R21 K27 ["IkTargets"]
@@ -182,31 +182,31 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Thunks"]
-       20 GETTABLEKS                       R3 R4 K10 ["SortAndSetTracks"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Thunks"]
+       20 GETTABLEKS                       R3 R3 K10 ["SortAndSetTracks"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Actions"]
-       29 GETTABLEKS                       R4 R5 K12 ["SetSelectedKeyframes"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Actions"]
+       29 GETTABLEKS                       R4 R4 K12 ["SetSelectedKeyframes"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Thunks"]
-       38 GETTABLEKS                       R5 R6 K13 ["SetSelectedTracks"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Thunks"]
+       38 GETTABLEKS                       R5 R5 K13 ["SetSelectedTracks"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K9 ["Thunks"]
-       47 GETTABLEKS                       R6 R7 K14 ["UpdateAnimationData"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K9 ["Thunks"]
+       47 GETTABLEKS                       R6 R6 K14 ["UpdateAnimationData"]
        49 CALL                             R5 1 1
-       50 GETTABLEKS                       R7 R0 K8 ["Src"]
-       52 GETTABLEKS                       R6 R7 K15 ["Util"]
+       50 GETTABLEKS                       R6 R0 K8 ["Src"]
+       52 GETTABLEKS                       R6 R6 K15 ["Util"]
        54 GETIMPORT                        R7 K5 [require]
        56 GETTABLEKS                       R8 R6 K16 ["duplicateHierarchy"]
        58 CALL                             R7 1 1

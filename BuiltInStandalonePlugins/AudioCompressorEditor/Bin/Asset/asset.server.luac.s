@@ -8,8 +8,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["AudioCompressorEditor"]
@@ -20,14 +20,14 @@ MAIN:
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R5 R0 K13 ["Bin"]
-       33 GETTABLEKS                       R4 R5 K14 ["Common"]
-       35 GETTABLEKS                       R3 R4 K15 ["pluginType"]
+       31 GETTABLEKS                       R3 R0 K13 ["Bin"]
+       33 GETTABLEKS                       R3 R3 K14 ["Common"]
+       35 GETTABLEKS                       R3 R3 K15 ["pluginType"]
        37 CALL                             R2 1 1
        38 GETIMPORT                        R3 K7 [require]
-       40 GETTABLEKS                       R6 R0 K11 ["Src"]
-       42 GETTABLEKS                       R5 R6 K16 ["Util"]
-       44 GETTABLEKS                       R4 R5 K17 ["AssetUtil"]
+       40 GETTABLEKS                       R4 R0 K11 ["Src"]
+       42 GETTABLEKS                       R4 R4 K16 ["Util"]
+       44 GETTABLEKS                       R4 R4 K17 ["AssetUtil"]
        46 CALL                             R3 1 1
        47 GETTABLEKS                       R4 R3 K18 ["setup"]
        49 GETIMPORT                        R5 K1 [plugin]
@@ -38,14 +38,14 @@ MAIN:
        57 JUMPIFEQ                         R4 R5 ; [+2]
        59 RETURN                           R0 0
        60 GETIMPORT                        R4 K7 [require]
-       62 GETTABLEKS                       R7 R0 K13 ["Bin"]
-       64 GETTABLEKS                       R6 R7 K14 ["Common"]
-       66 GETTABLEKS                       R5 R6 K18 ["setup"]
+       62 GETTABLEKS                       R5 R0 K13 ["Bin"]
+       64 GETTABLEKS                       R5 R5 K14 ["Common"]
+       66 GETTABLEKS                       R5 R5 K18 ["setup"]
        68 CALL                             R4 1 1
        69 GETIMPORT                        R5 K7 [require]
-       71 GETTABLEKS                       R8 R0 K13 ["Bin"]
-       73 GETTABLEKS                       R7 R8 K14 ["Common"]
-       75 GETTABLEKS                       R6 R7 K21 ["setupMain"]
+       71 GETTABLEKS                       R6 R0 K13 ["Bin"]
+       73 GETTABLEKS                       R6 R6 K14 ["Common"]
+       75 GETTABLEKS                       R6 R6 K21 ["setupMain"]
        77 CALL                             R5 1 1
        78 MOVE                             R6 R4
        79 GETIMPORT                        R7 K1 [plugin]

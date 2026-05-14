@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onItemActivated"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["onItemActivated"]
         3 GETTABLEKS                       R2 R0 K1 ["originalId"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
@@ -33,8 +33,8 @@ PROTO_1:
        38 GETUPVAL                         R3 1
        39 GETUPVAL                         R4 2
        40 NEWTABLE                         R5 4 0
-       42 GETUPVAL                         R7 3
-       43 GETTABLEKS                       R6 R7 K11 ["Tag"]
+       42 GETUPVAL                         R6 3
+       43 GETTABLEKS                       R6 R6 K11 ["Tag"]
        45 LOADK                            R7 K12 ["X-ColumnS X-Left"]
        46 SETTABLE                         R7 R5 R6
        47 GETIMPORT                        R6 K15 [UDim2.fromScale]
@@ -52,12 +52,12 @@ PROTO_1:
        65 DUPTABLE                         R9 K29 [{"Size", "Items", "SelectedId", "OnItemActivated", "LayoutOrder"}]
        66 GETIMPORT                        R10 K31 [UDim2.new]
        68 LOADN                            R11 1
-       69 GETUPVAL                         R14 5
-       70 GETTABLEKS                       R13 R14 K32 ["MODESELECTOR_SIDE_MARGIN"]
+       69 GETUPVAL                         R13 5
+       70 GETTABLEKS                       R13 R13 K32 ["MODESELECTOR_SIDE_MARGIN"]
        72 MINUS                            R12 R13
        73 LOADN                            R13 0
-       74 GETUPVAL                         R15 5
-       75 GETTABLEKS                       R14 R15 K33 ["STANDARD_HEIGHT"]
+       74 GETUPVAL                         R14 5
+       75 GETTABLEKS                       R14 R14 K33 ["STANDARD_HEIGHT"]
        77 CALL                             R10 4 1
        78 SETTABLEKS                       R10 R9 K16 ["Size"]
        80 SETTABLEKS                       R2 R9 K26 ["Items"]
@@ -83,14 +83,14 @@ PROTO_1:
       109 GETUPVAL                         R7 1
       110 LOADK                            R8 K36 ["TextLabel"]
       111 NEWTABLE                         R9 4 0
-      113 GETUPVAL                         R11 3
-      114 GETTABLEKS                       R10 R11 K11 ["Tag"]
+      113 GETUPVAL                         R10 3
+      114 GETTABLEKS                       R10 R10 K11 ["Tag"]
       116 LOADK                            R11 K37 ["Component-TextLabel GenericModeSelector-Subtext"]
       117 SETTABLE                         R11 R9 R10
       118 GETIMPORT                        R10 K31 [UDim2.new]
       120 LOADN                            R11 1
-      121 GETUPVAL                         R14 5
-      122 GETTABLEKS                       R13 R14 K32 ["MODESELECTOR_SIDE_MARGIN"]
+      121 GETUPVAL                         R13 5
+      122 GETTABLEKS                       R13 R13 K32 ["MODESELECTOR_SIDE_MARGIN"]
       124 MINUS                            R12 R13
       125 LOADN                            R13 0
       126 LOADN                            R14 0
@@ -124,26 +124,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K7 ["Util"]
-       43 GETTABLEKS                       R6 R7 K13 ["getHoverTooltipDelay"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K7 ["Util"]
+       43 GETTABLEKS                       R6 R6 K13 ["getHoverTooltipDelay"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R2 K14 ["UI"]
        48 GETTABLEKS                       R7 R6 K15 ["Pane"]

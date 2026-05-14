@@ -9,8 +9,8 @@ PROTO_0:
         9 NAMECALL                         R1 R1 K2 ["IsA"]
        11 CALL                             R1 2 1
        12 JUMPIFNOT                        R1 ; [+8]
-       13 GETTABLEKS                       R2 R0 K0 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K3 ["Enabled"]
+       13 GETTABLEKS                       R1 R0 K0 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K3 ["Enabled"]
        17 JUMPIFNOTEQKB                    R1 TRUE ; [+3]
        19 LOADB                            R1 1
        20 RETURN                           R1 1
@@ -19,8 +19,8 @@ PROTO_0:
        24 NAMECALL                         R1 R1 K2 ["IsA"]
        26 CALL                             R1 2 1
        27 JUMPIFNOT                        R1 ; [+11]
-       28 GETTABLEKS                       R2 R0 K0 ["Parent"]
-       30 GETTABLEKS                       R1 R2 K5 ["Visible"]
+       28 GETTABLEKS                       R1 R0 K0 ["Parent"]
+       30 GETTABLEKS                       R1 R1 K5 ["Visible"]
        32 JUMPIFNOTEQKB                    R1 TRUE ; [+6]
        34 GETUPVAL                         R1 0
        35 GETTABLEKS                       R2 R0 K0 ["Parent"]

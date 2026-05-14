@@ -10,20 +10,20 @@ PROTO_0:
        11 LOADK                            R4 K3 ["Expected story to be a table"]
        12 GETIMPORT                        R2 K5 [assert]
        14 CALL                             R2 2 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K6 ["provideMockContext"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K6 ["provideMockContext"]
        18 MOVE                             R3 R1
        19 JUMPIF                           R3 ; [+1]
        20 GETUPVAL                         R3 1
-       21 GETUPVAL                         R5 2
-       22 GETTABLEKS                       R4 R5 K7 ["createElement"]
-       24 GETUPVAL                         R6 3
-       25 GETTABLEKS                       R5 R6 K8 ["FoundationProvider"]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K7 ["createElement"]
+       24 GETUPVAL                         R5 3
+       25 GETTABLEKS                       R5 R5 K8 ["FoundationProvider"]
        27 DUPTABLE                         R6 K10 [{"theme"}]
-       28 GETUPVAL                         R10 3
-       29 GETTABLEKS                       R9 R10 K11 ["Enums"]
-       31 GETTABLEKS                       R8 R9 K12 ["Theme"]
-       33 GETTABLEKS                       R7 R8 K13 ["Dark"]
+       28 GETUPVAL                         R7 3
+       29 GETTABLEKS                       R7 R7 K11 ["Enums"]
+       31 GETTABLEKS                       R7 R7 K12 ["Theme"]
+       33 GETTABLEKS                       R7 R7 K13 ["Dark"]
        35 SETTABLEKS                       R7 R6 K9 ["theme"]
        37 MOVE                             R7 R0
        38 CALL                             R4 3 -1
@@ -32,67 +32,67 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Foundation"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Foundation"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["React"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K9 ["MaterialFramework"]
+       32 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K9 ["MaterialFramework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R2 K10 ["TestHelpers"]
        39 GETTABLEKS                       R6 R2 K11 ["ContextServices"]
-       41 GETTABLEKS                       R8 R5 K12 ["Instances"]
-       43 GETTABLEKS                       R7 R8 K13 ["MockPlugin"]
+       41 GETTABLEKS                       R7 R5 K12 ["Instances"]
+       43 GETTABLEKS                       R7 R7 K13 ["MockPlugin"]
        45 GETIMPORT                        R8 K4 [require]
-       47 GETTABLEKS                       R11 R0 K14 ["Src"]
-       49 GETTABLEKS                       R10 R11 K15 ["Resources"]
-       51 GETTABLEKS                       R9 R10 K16 ["MakeTheme"]
+       47 GETTABLEKS                       R9 R0 K14 ["Src"]
+       49 GETTABLEKS                       R9 R9 K15 ["Resources"]
+       51 GETTABLEKS                       R9 R9 K16 ["MakeTheme"]
        53 CALL                             R8 1 1
        54 GETIMPORT                        R9 K4 [require]
-       56 GETTABLEKS                       R12 R0 K14 ["Src"]
-       58 GETTABLEKS                       R11 R12 K17 ["Controllers"]
-       60 GETTABLEKS                       R10 R11 K18 ["PluginController"]
+       56 GETTABLEKS                       R10 R0 K14 ["Src"]
+       58 GETTABLEKS                       R10 R10 K17 ["Controllers"]
+       60 GETTABLEKS                       R10 R10 K18 ["PluginController"]
        62 CALL                             R9 1 1
        63 GETIMPORT                        R10 K4 [require]
-       65 GETTABLEKS                       R13 R0 K14 ["Src"]
-       67 GETTABLEKS                       R12 R13 K17 ["Controllers"]
-       69 GETTABLEKS                       R11 R12 K19 ["ShortcutController"]
+       65 GETTABLEKS                       R11 R0 K14 ["Src"]
+       67 GETTABLEKS                       R11 R11 K17 ["Controllers"]
+       69 GETTABLEKS                       R11 R11 K19 ["ShortcutController"]
        71 CALL                             R10 1 1
        72 GETIMPORT                        R11 K4 [require]
-       74 GETTABLEKS                       R14 R0 K14 ["Src"]
-       76 GETTABLEKS                       R13 R14 K17 ["Controllers"]
-       78 GETTABLEKS                       R12 R13 K20 ["ToolController"]
+       74 GETTABLEKS                       R12 R0 K14 ["Src"]
+       76 GETTABLEKS                       R12 R12 K17 ["Controllers"]
+       78 GETTABLEKS                       R12 R12 K20 ["ToolController"]
        80 CALL                             R11 1 1
        81 GETIMPORT                        R12 K4 [require]
-       83 GETTABLEKS                       R15 R0 K14 ["Src"]
-       85 GETTABLEKS                       R14 R15 K21 ["Util"]
-       87 GETTABLEKS                       R13 R14 K22 ["mockResourceTable"]
+       83 GETTABLEKS                       R13 R0 K14 ["Src"]
+       85 GETTABLEKS                       R13 R13 K21 ["Util"]
+       87 GETTABLEKS                       R13 R13 K22 ["mockResourceTable"]
        89 CALL                             R12 1 1
-       90 GETTABLEKS                       R14 R4 K23 ["Context"]
-       92 GETTABLEKS                       R13 R14 K24 ["StudioServices"]
+       90 GETTABLEKS                       R13 R4 K23 ["Context"]
+       92 GETTABLEKS                       R13 R13 K24 ["StudioServices"]
        94 DUPTABLE                         R14 K26 [{"libraries"}]
        95 NEWTABLE                         R15 2 0
-       97 GETTABLEKS                       R17 R4 K15 ["Resources"]
-       99 GETTABLEKS                       R16 R17 K27 ["LOCALIZATION_PROJECT_NAME"]
+       97 GETTABLEKS                       R16 R4 K15 ["Resources"]
+       99 GETTABLEKS                       R16 R16 K27 ["LOCALIZATION_PROJECT_NAME"]
       101 DUPTABLE                         R17 K30 [{"stringResourceTable", "translationResourceTable"}]
       102 SETTABLEKS                       R12 R17 K28 ["stringResourceTable"]
       104 SETTABLEKS                       R12 R17 K29 ["translationResourceTable"]
       106 SETTABLE                         R17 R15 R16
-      107 GETTABLEKS                       R17 R2 K15 ["Resources"]
-      109 GETTABLEKS                       R16 R17 K27 ["LOCALIZATION_PROJECT_NAME"]
+      107 GETTABLEKS                       R16 R2 K15 ["Resources"]
+      109 GETTABLEKS                       R16 R16 K27 ["LOCALIZATION_PROJECT_NAME"]
       111 DUPTABLE                         R17 K30 [{"stringResourceTable", "translationResourceTable"}]
       112 SETTABLEKS                       R12 R17 K28 ["stringResourceTable"]
       114 SETTABLEKS                       R12 R17 K29 ["translationResourceTable"]
@@ -116,11 +116,11 @@ MAIN:
       141 CALL                             R16 1 1
       142 LOADN                            R17 0
       143 SETTABLEKS                       R17 R16 K40 ["Y"]
-      145 GETTABLEKS                       R17 R6 K41 ["Analytics"]
-      147 GETTABLEKS                       R16 R17 K42 ["mock"]
+      145 GETTABLEKS                       R16 R6 K41 ["Analytics"]
+      147 GETTABLEKS                       R16 R16 K42 ["mock"]
       149 CALL                             R16 0 1
-      150 GETTABLEKS                       R18 R6 K43 ["Localization"]
-      152 GETTABLEKS                       R17 R18 K42 ["mock"]
+      150 GETTABLEKS                       R17 R6 K43 ["Localization"]
+      152 GETTABLEKS                       R17 R17 K42 ["mock"]
       154 MOVE                             R18 R14
       155 CALL                             R17 1 1
       156 GETTABLEKS                       R18 R9 K42 ["mock"]

@@ -4,38 +4,38 @@ PROTO_0:
         2 DUPTABLE                         R3 K5 [{"actionSource", "visualizationModeCategory", "visualizationMode", "isEnabled"}]
         3 LOADK                            R4 K6 ["recent_section"]
         4 SETTABLEKS                       R4 R3 K1 ["actionSource"]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K7 ["visualizationModeCategoryName"]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K7 ["visualizationModeCategoryName"]
         9 SETTABLEKS                       R4 R3 K2 ["visualizationModeCategory"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R4 R5 K8 ["name"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K8 ["name"]
        14 SETTABLEKS                       R4 R3 K3 ["visualizationMode"]
-       16 GETUPVAL                         R6 1
-       17 GETTABLEKS                       R5 R6 K9 ["enabled"]
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K9 ["enabled"]
        19 NOT                              R4 R5
        20 SETTABLEKS                       R4 R3 K4 ["isEnabled"]
        22 NAMECALL                         R0 R0 K10 ["report"]
        24 CALL                             R0 3 0
-       25 GETUPVAL                         R1 2
-       26 GETTABLEKS                       R0 R1 K11 ["OnVisualizationModeToggle"]
-       28 GETUPVAL                         R2 1
-       29 GETTABLEKS                       R1 R2 K7 ["visualizationModeCategoryName"]
-       31 GETUPVAL                         R3 1
-       32 GETTABLEKS                       R2 R3 K8 ["name"]
-       34 GETUPVAL                         R5 1
-       35 GETTABLEKS                       R4 R5 K9 ["enabled"]
+       25 GETUPVAL                         R0 2
+       26 GETTABLEKS                       R0 R0 K11 ["OnVisualizationModeToggle"]
+       28 GETUPVAL                         R1 1
+       29 GETTABLEKS                       R1 R1 K7 ["visualizationModeCategoryName"]
+       31 GETUPVAL                         R2 1
+       32 GETTABLEKS                       R2 R2 K8 ["name"]
+       34 GETUPVAL                         R4 1
+       35 GETTABLEKS                       R4 R4 K9 ["enabled"]
        37 NOT                              R3 R4
        38 LOADB                            R4 0
        39 CALL                             R0 4 0
        40 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Analytics"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Analytics"]
         3 NAMECALL                         R1 R1 K1 ["use"]
         5 CALL                             R1 1 1
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["Localization"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Localization"]
         9 NAMECALL                         R2 R2 K1 ["use"]
        11 CALL                             R2 1 1
        12 NEWTABLE                         R3 0 0
@@ -50,8 +50,8 @@ PROTO_1:
        24 JUMPIFNOT                        R11 ; [+1]
        25 ADDK                             R5 R5 K4 [1]
        26 GETTABLEKS                       R11 R10 K6 ["name"]
-       28 GETUPVAL                         R13 1
-       29 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       28 GETUPVAL                         R12 1
+       29 GETTABLEKS                       R12 R12 K7 ["createElement"]
        31 GETUPVAL                         R13 2
        32 DUPTABLE                         R14 K15 [{"Text", "Enabled", "ToolTip", "LayoutOrder", "MatchIndexes", "IsEditingEnabled", "OnToggle"}]
        33 GETTABLEKS                       R15 R10 K16 ["title"]
@@ -73,8 +73,8 @@ PROTO_1:
        59 CALL                             R12 2 1
        60 SETTABLE                         R12 R3 R11
        61 FORGLOOP                         R6 2 ; [-41]
-       63 GETUPVAL                         R7 1
-       64 GETTABLEKS                       R6 R7 K7 ["createElement"]
+       63 GETUPVAL                         R6 1
+       64 GETTABLEKS                       R6 R6 K7 ["createElement"]
        66 GETUPVAL                         R7 3
        67 DUPTABLE                         R8 K26 [{"Text", "SettingKey", "DefaultIsExpanded", "CanToggle", "EnabledEntryCount", "Enabled", "Visible", "LayoutOrder", "EntryCount", "SectionEntries", "ForceExpansion", "IsEditingEnabled"}]
        68 LOADK                            R11 K27 ["VisualizationModeCategories"]
@@ -111,26 +111,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K9 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K10 ["React"]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K6 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Components"]
-       34 GETTABLEKS                       R5 R6 K12 ["VisualizationModeEntry"]
+       30 GETTABLEKS                       R5 R0 K6 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Components"]
+       34 GETTABLEKS                       R5 R5 K12 ["VisualizationModeEntry"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K11 ["Components"]
-       43 GETTABLEKS                       R6 R7 K13 ["VisualizationModeSection"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K11 ["Components"]
+       43 GETTABLEKS                       R6 R6 K13 ["VisualizationModeSection"]
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R2 K14 ["ContextServices"]
        48 DUPCLOSURE                       R7 K15 [PROTO_1]

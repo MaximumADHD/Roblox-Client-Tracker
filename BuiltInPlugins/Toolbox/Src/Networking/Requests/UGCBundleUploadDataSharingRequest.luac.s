@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["shouldDebugWarnings"]
         3 CALL                             R3 0 1
         4 JUMPIFNOT                        R3 ; [+5]
         5 GETIMPORT                        R3 K2 [warn]
@@ -18,8 +18,8 @@ PROTO_0:
        20 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["shouldDebugWarnings"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+4]
         5 GETIMPORT                        R0 K2 [warn]
@@ -30,8 +30,8 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["shouldDebugWarnings"]
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R3 R3 K0 ["shouldDebugWarnings"]
         5 CALL                             R3 0 1
         6 JUMPIFNOT                        R3 ; [+5]
         7 GETIMPORT                        R3 K2 [warn]
@@ -83,13 +83,13 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["NetworkError"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R0 K4 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Util"]
+       16 GETTABLEKS                       R3 R0 K4 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETIMPORT                        R4 K7 [require]
        22 GETTABLEKS                       R5 R3 K10 ["DebugFlags"]
        24 CALL                             R4 1 1

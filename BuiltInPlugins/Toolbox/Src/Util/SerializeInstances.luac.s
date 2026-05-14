@@ -60,8 +60,8 @@ PROTO_2:
         9 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -75,16 +75,16 @@ MAIN:
         3 LOADK                            R2 K2 ["RobloxPluginGuiService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETTABLEKS                       R2 R1 K7 ["Packages"]
-       17 GETIMPORT                        R5 K9 [require]
-       19 GETTABLEKS                       R6 R2 K10 ["Framework"]
-       21 CALL                             R5 1 1
-       22 GETTABLEKS                       R4 R5 K11 ["Util"]
-       24 GETTABLEKS                       R3 R4 K12 ["Promise"]
+       17 GETIMPORT                        R3 K9 [require]
+       19 GETTABLEKS                       R4 R2 K10 ["Framework"]
+       21 CALL                             R3 1 1
+       22 GETTABLEKS                       R3 R3 K11 ["Util"]
+       24 GETTABLEKS                       R3 R3 K12 ["Promise"]
        26 DUPCLOSURE                       R4 K13 [PROTO_3]
        27 CAPTURE                          VAL R3
        28 CAPTURE                          VAL R0

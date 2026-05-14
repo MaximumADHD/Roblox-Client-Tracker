@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["GroupSubjectKey"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["GroupSubjectKey"]
         3 JUMPIFNOTEQ                      R0 R2 ; [+5]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["UseViewKey"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["UseViewKey"]
         8 RETURN                           R2 1
         9 GETUPVAL                         R3 1
        10 LOADN                            R6 1
@@ -41,11 +41,11 @@ PROTO_1:
        29 SETTABLEKS                       R4 R3 K4 ["Id"]
        31 GETTABLEKS                       R4 R1 K5 ["ActionKey"]
        33 JUMPIF                           R4 ; [+17]
-       34 GETUPVAL                         R6 1
-       35 GETTABLEKS                       R5 R6 K9 ["GroupSubjectKey"]
+       34 GETUPVAL                         R5 1
+       35 GETTABLEKS                       R5 R5 K9 ["GroupSubjectKey"]
        37 JUMPIFNOTEQ                      R2 R5 ; [+5]
-       39 GETUPVAL                         R5 1
-       40 GETTABLEKS                       R4 R5 K10 ["UseViewKey"]
+       39 GETUPVAL                         R4 1
+       40 GETTABLEKS                       R4 R4 K10 ["UseViewKey"]
        42 JUMP                             ; [+8]
        43 GETUPVAL                         R5 2
        44 LOADN                            R8 1
@@ -59,30 +59,30 @@ PROTO_1:
 
 PROTO_2:
         0 NEWTABLE                         R2 4 0
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["UserSubjectKey"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["UserSubjectKey"]
         5 NEWTABLE                         R4 0 0
         7 SETTABLE                         R4 R2 R3
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K1 ["GroupSubjectKey"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K1 ["GroupSubjectKey"]
        11 NEWTABLE                         R4 0 0
        13 SETTABLE                         R4 R2 R3
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R3 R4 K2 ["RoleSubjectKey"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K2 ["RoleSubjectKey"]
        17 NEWTABLE                         R4 2 0
        19 NEWTABLE                         R5 1 0
-       21 GETUPVAL                         R7 0
-       22 GETTABLEKS                       R6 R7 K3 ["ActionKey"]
-       24 GETUPVAL                         R8 0
-       25 GETTABLEKS                       R7 R8 K4 ["EditKey"]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K3 ["ActionKey"]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K4 ["EditKey"]
        27 SETTABLE                         R7 R5 R6
        28 SETTABLEN                        R5 R4 123
        29 LOADN                            R5 200
        30 NEWTABLE                         R6 1 0
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K3 ["ActionKey"]
-       35 GETUPVAL                         R9 0
-       36 GETTABLEKS                       R8 R9 K5 ["UseViewKey"]
+       32 GETUPVAL                         R7 0
+       33 GETTABLEKS                       R7 R7 K3 ["ActionKey"]
+       35 GETUPVAL                         R8 0
+       36 GETTABLEKS                       R8 R8 K5 ["UseViewKey"]
        38 SETTABLE                         R8 R6 R7
        39 SETTABLE                         R6 R4 R5
        40 SETTABLE                         R4 R2 R3
@@ -90,16 +90,16 @@ PROTO_2:
        42 MOVE                             R3 R0
        43 LOADN                            R4 1
        44 FORNPREP                         R3
-       45 GETUPVAL                         R7 1
-       46 GETTABLEKS                       R6 R7 K6 ["getMockCollaborator"]
+       45 GETUPVAL                         R6 1
+       46 GETTABLEKS                       R6 R6 K6 ["getMockCollaborator"]
        48 MOVE                             R7 R1
        49 CALL                             R6 1 1
        50 GETTABLEKS                       R8 R6 K7 ["TypeKey"]
        52 GETTABLE                         R7 R2 R8
        53 GETTABLEKS                       R8 R6 K8 ["Id"]
        55 NEWTABLE                         R9 1 0
-       57 GETUPVAL                         R11 0
-       58 GETTABLEKS                       R10 R11 K3 ["ActionKey"]
+       57 GETUPVAL                         R10 0
+       58 GETTABLEKS                       R10 R10 K3 ["ActionKey"]
        60 GETTABLEKS                       R11 R6 K3 ["ActionKey"]
        62 SETTABLE                         R11 R9 R10
        63 SETTABLE                         R9 R7 R8
@@ -112,22 +112,22 @@ PROTO_3:
         3 MOVE                             R4 R0
         4 LOADN                            R5 1
         5 FORNPREP                         R4
-        6 GETUPVAL                         R8 0
-        7 GETTABLEKS                       R7 R8 K0 ["getMockCollaborator"]
+        6 GETUPVAL                         R7 0
+        7 GETTABLEKS                       R7 R7 K0 ["getMockCollaborator"]
         9 MOVE                             R8 R1
        10 MOVE                             R9 R2
        11 CALL                             R7 2 1
        12 NEWTABLE                         R10 4 0
-       14 GETUPVAL                         R12 1
-       15 GETTABLEKS                       R11 R12 K1 ["SubjectTypeKey"]
+       14 GETUPVAL                         R11 1
+       15 GETTABLEKS                       R11 R11 K1 ["SubjectTypeKey"]
        17 GETTABLEKS                       R12 R7 K2 ["TypeKey"]
        19 SETTABLE                         R12 R10 R11
-       20 GETUPVAL                         R12 1
-       21 GETTABLEKS                       R11 R12 K3 ["SubjectIdKey"]
+       20 GETUPVAL                         R11 1
+       21 GETTABLEKS                       R11 R11 K3 ["SubjectIdKey"]
        23 GETTABLEKS                       R12 R7 K4 ["Id"]
        25 SETTABLE                         R12 R10 R11
-       26 GETUPVAL                         R12 1
-       27 GETTABLEKS                       R11 R12 K5 ["ActionKey"]
+       26 GETUPVAL                         R11 1
+       27 GETTABLEKS                       R11 R11 K5 ["ActionKey"]
        29 GETTABLEKS                       R12 R7 K5 ["ActionKey"]
        31 SETTABLE                         R12 R10 R11
        32 FASTCALL2                        TABLE_INSERT R3 R10 ; [+4]
@@ -156,8 +156,8 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["PermissionsConstants"]
         9 CALL                             R1 1 1

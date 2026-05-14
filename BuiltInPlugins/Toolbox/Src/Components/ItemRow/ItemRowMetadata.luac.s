@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["itemRow"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["itemRow"]
         6 GETTABLEKS                       R3 R1 K3 ["HeaderText"]
         8 GETTABLEKS                       R4 R1 K4 ["LayoutOrder"]
        10 GETTABLEKS                       R5 R1 K5 ["MaxLinesOfText"]
@@ -9,25 +9,25 @@ PROTO_0:
        14 GETTABLEKS                       R7 R1 K7 ["Size"]
        16 GETTABLEKS                       R8 R1 K8 ["Text"]
        18 GETTABLEKS                       R9 R1 K9 ["OnClick"]
-       20 GETUPVAL                         R11 0
-       21 GETTABLEKS                       R10 R11 K10 ["new"]
+       20 GETUPVAL                         R10 0
+       21 GETTABLEKS                       R10 R10 K10 ["new"]
        23 CALL                             R10 0 1
        24 LOADN                            R11 0
        25 JUMPIFNOT                        R5 ; [+16]
-       26 GETUPVAL                         R13 1
-       27 LOADK                            R14 K11 ["A"]
-       28 GETTABLEKS                       R15 R2 K12 ["textSize"]
-       30 GETUPVAL                         R17 2
-       31 GETTABLEKS                       R16 R17 K13 ["FONT"]
-       33 GETIMPORT                        R17 K15 [Vector2.new]
-       35 LOADN                            R18 0
-       36 LOADN                            R19 0
-       37 CALL                             R17 2 -1
-       38 CALL                             R13 -1 1
-       39 GETTABLEKS                       R12 R13 K16 ["Y"]
+       26 GETUPVAL                         R12 1
+       27 LOADK                            R13 K11 ["A"]
+       28 GETTABLEKS                       R14 R2 K12 ["textSize"]
+       30 GETUPVAL                         R15 2
+       31 GETTABLEKS                       R15 R15 K13 ["FONT"]
+       33 GETIMPORT                        R16 K15 [Vector2.new]
+       35 LOADN                            R17 0
+       36 LOADN                            R18 0
+       37 CALL                             R16 2 -1
+       38 CALL                             R12 -1 1
+       39 GETTABLEKS                       R12 R12 K16 ["Y"]
        41 MUL                              R11 R12 R5
-       42 GETUPVAL                         R13 3
-       43 GETTABLEKS                       R12 R13 K17 ["createElement"]
+       42 GETUPVAL                         R12 3
+       43 GETTABLEKS                       R12 R12 K17 ["createElement"]
        45 GETUPVAL                         R13 4
        46 DUPTABLE                         R14 K23 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Size", "Spacing", "VerticalAlignment"}]
        47 GETIMPORT                        R15 K25 [Enum.AutomaticSize.Y]
@@ -50,8 +50,8 @@ PROTO_0:
        74 GETIMPORT                        R15 K32 [Enum.VerticalAlignment.Top]
        76 SETTABLEKS                       R15 R14 K22 ["VerticalAlignment"]
        78 DUPTABLE                         R15 K34 [{"Header", "Text"}]
-       79 GETUPVAL                         R17 3
-       80 GETTABLEKS                       R16 R17 K17 ["createElement"]
+       79 GETUPVAL                         R16 3
+       80 GETTABLEKS                       R16 R16 K17 ["createElement"]
        82 GETUPVAL                         R17 6
        83 DUPTABLE                         R18 K38 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextColor", "TextXAlignment", "Size"}]
        84 GETIMPORT                        R19 K25 [Enum.AutomaticSize.Y]
@@ -76,8 +76,8 @@ PROTO_0:
       115 CALL                             R16 2 1
       116 SETTABLEKS                       R16 R15 K33 ["Header"]
       118 JUMPIFNOT                        R9 ; [+44]
-      119 GETUPVAL                         R17 3
-      120 GETTABLEKS                       R16 R17 K17 ["createElement"]
+      119 GETUPVAL                         R16 3
+      120 GETTABLEKS                       R16 R16 K17 ["createElement"]
       122 GETUPVAL                         R17 7
       123 DUPTABLE                         R18 K48 [{"LayoutOrder", "OnClick", "Size", "Style", "Text", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
       124 NAMECALL                         R19 R10 K39 ["getNextOrder"]
@@ -105,8 +105,8 @@ PROTO_0:
       159 SETTABLEKS                       R19 R18 K47 ["TextYAlignment"]
       161 CALL                             R16 2 1
       162 JUMP                             ; [+56]
-      163 GETUPVAL                         R17 3
-      164 GETTABLEKS                       R16 R17 K17 ["createElement"]
+      163 GETUPVAL                         R16 3
+      164 GETTABLEKS                       R16 R16 K17 ["createElement"]
       166 GETUPVAL                         R17 8
       167 DUPTABLE                         R18 K53 [{"LayoutOrder", "AutomaticSize", "ClipsDescendants", "Size", "Style", "Text", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment", "VerticalAlignment"}]
       168 NAMECALL                         R19 R10 K39 ["getNextOrder"]
@@ -158,18 +158,18 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Framework"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R3 K9 ["UI"]
-       21 GETTABLEKS                       R4 R5 K10 ["LinkText"]
-       23 GETTABLEKS                       R6 R3 K9 ["UI"]
-       25 GETTABLEKS                       R5 R6 K11 ["Pane"]
-       27 GETTABLEKS                       R7 R3 K9 ["UI"]
-       29 GETTABLEKS                       R6 R7 K12 ["TextLabel"]
-       31 GETTABLEKS                       R8 R3 K9 ["UI"]
-       33 GETTABLEKS                       R7 R8 K13 ["TextLabelWithRobloxLinks"]
-       35 GETTABLEKS                       R9 R3 K14 ["Util"]
-       37 GETTABLEKS                       R8 R9 K15 ["GetTextSize"]
-       39 GETTABLEKS                       R10 R0 K16 ["Src"]
-       41 GETTABLEKS                       R9 R10 K14 ["Util"]
+       19 GETTABLEKS                       R4 R3 K9 ["UI"]
+       21 GETTABLEKS                       R4 R4 K10 ["LinkText"]
+       23 GETTABLEKS                       R5 R3 K9 ["UI"]
+       25 GETTABLEKS                       R5 R5 K11 ["Pane"]
+       27 GETTABLEKS                       R6 R3 K9 ["UI"]
+       29 GETTABLEKS                       R6 R6 K12 ["TextLabel"]
+       31 GETTABLEKS                       R7 R3 K9 ["UI"]
+       33 GETTABLEKS                       R7 R7 K13 ["TextLabelWithRobloxLinks"]
+       35 GETTABLEKS                       R8 R3 K14 ["Util"]
+       37 GETTABLEKS                       R8 R8 K15 ["GetTextSize"]
+       39 GETTABLEKS                       R9 R0 K16 ["Src"]
+       41 GETTABLEKS                       R9 R9 K14 ["Util"]
        43 GETIMPORT                        R10 K6 [require]
        45 GETTABLEKS                       R11 R9 K17 ["Constants"]
        47 CALL                             R10 1 1
@@ -179,10 +179,10 @@ MAIN:
        53 GETTABLEKS                       R12 R3 K19 ["ContextServices"]
        55 GETTABLEKS                       R13 R12 K20 ["withContext"]
        57 GETIMPORT                        R14 K6 [require]
-       59 GETTABLEKS                       R18 R0 K16 ["Src"]
-       61 GETTABLEKS                       R17 R18 K14 ["Util"]
-       63 GETTABLEKS                       R16 R17 K21 ["SharedFlags"]
-       65 GETTABLEKS                       R15 R16 K22 ["getFFlagToolboxEnableAssetRows"]
+       59 GETTABLEKS                       R15 R0 K16 ["Src"]
+       61 GETTABLEKS                       R15 R15 K14 ["Util"]
+       63 GETTABLEKS                       R15 R15 K21 ["SharedFlags"]
+       65 GETTABLEKS                       R15 R15 K22 ["getFFlagToolboxEnableAssetRows"]
        67 CALL                             R14 1 1
        68 GETTABLEKS                       R15 R2 K23 ["PureComponent"]
        70 LOADK                            R17 K24 ["ItemRowMetadataMetadata"]

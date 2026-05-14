@@ -11,8 +11,8 @@ PROTO_0:
        10 MOVE                             R1 R2
        11 JUMP                             ; [+6]
        12 GETUPVAL                         R2 1
-       13 GETUPVAL                         R4 3
-       14 GETTABLEKS                       R3 R4 K1 ["InstalledPluginData"]
+       13 GETUPVAL                         R3 3
+       14 GETTABLEKS                       R3 R3 K1 ["InstalledPluginData"]
        16 CALL                             R2 1 1
        17 MOVE                             R1 R2
        18 NEWTABLE                         R2 0 0
@@ -64,27 +64,27 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K8 [game]
        18 LOADK                            R4 K9 ["StudioService"]
        19 NAMECALL                         R2 R2 K10 ["GetService"]
        21 CALL                             R2 2 1
        22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R6 R0 K11 ["Src"]
-       26 GETTABLEKS                       R5 R6 K12 ["Actions"]
-       28 GETTABLEKS                       R4 R5 K13 ["SetAllPluginPermissions"]
+       24 GETTABLEKS                       R4 R0 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Actions"]
+       28 GETTABLEKS                       R4 R4 K13 ["SetAllPluginPermissions"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R7 R0 K11 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Util"]
-       37 GETTABLEKS                       R5 R6 K15 ["extractPluginsFromJsonString"]
+       33 GETTABLEKS                       R5 R0 K11 ["Src"]
+       35 GETTABLEKS                       R5 R5 K14 ["Util"]
+       37 GETTABLEKS                       R5 R5 K15 ["extractPluginsFromJsonString"]
        39 CALL                             R4 1 1
        40 DUPCLOSURE                       R5 K16 [PROTO_1]
        41 CAPTURE                          VAL R1

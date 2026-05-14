@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnPublishAttempt"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnPublishAttempt"]
         3 RETURN                           R0 1
 
 MAIN:
@@ -10,14 +10,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["DebugFlags"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["DebugFlags"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["shouldPluginRun"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["shouldPluginRun"]
        24 CALL                             R2 1 1
        25 MOVE                             R3 R2
        26 CALL                             R3 0 1
@@ -31,18 +31,18 @@ MAIN:
        36 JUMPIFNOT                        R3 ; [+1]
        37 RETURN                           R0 0
        38 GETIMPORT                        R3 K5 [require]
-       40 GETTABLEKS                       R5 R0 K12 ["Packages"]
-       42 GETTABLEKS                       R4 R5 K13 ["PluginLoader"]
+       40 GETTABLEKS                       R4 R0 K12 ["Packages"]
+       42 GETTABLEKS                       R4 R4 K13 ["PluginLoader"]
        44 CALL                             R3 1 1
        45 GETTABLEKS                       R4 R3 K14 ["PluginLoaderBuilder"]
-       47 GETTABLEKS                       R8 R0 K6 ["Src"]
-       49 GETTABLEKS                       R7 R8 K15 ["Resources"]
-       51 GETTABLEKS                       R6 R7 K16 ["Localization"]
-       53 GETTABLEKS                       R5 R6 K17 ["SourceStrings"]
-       55 GETTABLEKS                       R9 R0 K6 ["Src"]
-       57 GETTABLEKS                       R8 R9 K15 ["Resources"]
-       59 GETTABLEKS                       R7 R8 K16 ["Localization"]
-       61 GETTABLEKS                       R6 R7 K18 ["LocalizedStrings"]
+       47 GETTABLEKS                       R5 R0 K6 ["Src"]
+       49 GETTABLEKS                       R5 R5 K15 ["Resources"]
+       51 GETTABLEKS                       R5 R5 K16 ["Localization"]
+       53 GETTABLEKS                       R5 R5 K17 ["SourceStrings"]
+       55 GETTABLEKS                       R6 R0 K6 ["Src"]
+       57 GETTABLEKS                       R6 R6 K15 ["Resources"]
+       59 GETTABLEKS                       R6 R6 K16 ["Localization"]
+       61 GETTABLEKS                       R6 R6 K18 ["LocalizedStrings"]
        63 GETIMPORT                        R7 K20 [game]
        65 LOADK                            R9 K21 ["StudioPublishService"]
        66 NAMECALL                         R7 R7 K22 ["GetService"]
@@ -74,9 +74,9 @@ MAIN:
       107 JUMPIF                           R10 ; [+1]
       108 RETURN                           R0 0
       109 GETIMPORT                        R11 K5 [require]
-      111 GETIMPORT                        R14 K1 [script]
-      113 GETTABLEKS                       R13 R14 K39 ["Parent"]
-      115 GETTABLEKS                       R12 R13 K40 ["publishMain"]
+      111 GETIMPORT                        R12 K1 [script]
+      113 GETTABLEKS                       R12 R12 K39 ["Parent"]
+      115 GETTABLEKS                       R12 R12 K40 ["publishMain"]
       117 CALL                             R11 1 1
       118 MOVE                             R12 R11
       119 GETIMPORT                        R13 K32 [plugin]

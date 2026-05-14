@@ -27,27 +27,27 @@ PROTO_1:
         6 CALL                             R1 1 1
         7 JUMPIF                           R1 ; [+1]
         8 GETUPVAL                         R1 0
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K2 ["Range"]
-       12 GETTABLEKS                       R4 R5 K3 ["Min"]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K2 ["Range"]
-       17 GETTABLEKS                       R5 R6 K4 ["Max"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K2 ["Range"]
+       12 GETTABLEKS                       R4 R4 K3 ["Min"]
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R5 R5 K2 ["Range"]
+       17 GETTABLEKS                       R5 R5 K4 ["Max"]
        19 FASTCALL3                        MATH_CLAMP R1 R4 R5
        21 MOVE                             R3 R1
        22 GETIMPORT                        R2 K7 [math.clamp]
        24 CALL                             R2 3 1
        25 MOVE                             R1 R2
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R2 R3 K8 ["OnValueChanged"]
+       26 GETUPVAL                         R2 1
+       27 GETTABLEKS                       R2 R2 K8 ["OnValueChanged"]
        29 MOVE                             R3 R1
        30 CALL                             R2 1 0
-       31 GETUPVAL                         R3 2
-       32 GETTABLEKS                       R2 R3 K9 ["current"]
+       31 GETUPVAL                         R2 2
+       32 GETTABLEKS                       R2 R2 K9 ["current"]
        34 JUMPIFNOT                        R2 ; [+27]
        35 MOVE                             R4 R1
-       36 GETUPVAL                         R6 1
-       37 GETTABLEKS                       R5 R6 K10 ["InputPrecision"]
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K10 ["InputPrecision"]
        39 LOADK                            R7 K11 ["%."]
        40 MOVE                             R8 R5
        41 LOADK                            R9 K12 ["f"]
@@ -82,8 +82,8 @@ PROTO_2:
        11 JUMPIF                           R1 ; [+7]
        12 GETUPVAL                         R2 0
        13 GETUPVAL                         R3 1
-       14 GETUPVAL                         R5 2
-       15 GETTABLEKS                       R4 R5 K6 ["InputPrecision"]
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R4 R4 K6 ["InputPrecision"]
        17 CALL                             R2 2 -1
        18 RETURN                           R2 -1
        19 JUMPIFEQKS                       R1 K5 [""] ; [+11]
@@ -98,19 +98,19 @@ PROTO_2:
        31 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useRef"]
         3 LOADNIL                          R2
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["useState"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["useState"]
         8 GETTABLEKS                       R3 R0 K2 ["Value"]
        10 CALL                             R2 1 2
        11 GETTABLEKS                       R5 R0 K2 ["Value"]
-       13 GETTABLEKS                       R7 R0 K3 ["Range"]
-       15 GETTABLEKS                       R6 R7 K4 ["Min"]
-       17 GETTABLEKS                       R8 R0 K3 ["Range"]
-       19 GETTABLEKS                       R7 R8 K5 ["Max"]
+       13 GETTABLEKS                       R6 R0 K3 ["Range"]
+       15 GETTABLEKS                       R6 R6 K4 ["Min"]
+       17 GETTABLEKS                       R7 R0 K3 ["Range"]
+       19 GETTABLEKS                       R7 R7 K5 ["Max"]
        21 FASTCALL                         MATH_CLAMP ; [+2]
        22 GETIMPORT                        R4 K8 [math.clamp]
        24 CALL                             R4 3 1
@@ -133,8 +133,8 @@ PROTO_3:
        44 NAMECALL                         R9 R7 K16 ["sub"]
        46 CALL                             R9 3 1
        47 MOVE                             R5 R9
-       48 GETUPVAL                         R7 0
-       49 GETTABLEKS                       R6 R7 K17 ["createElement"]
+       48 GETUPVAL                         R6 0
+       49 GETTABLEKS                       R6 R6 K17 ["createElement"]
        51 GETUPVAL                         R7 1
        52 DUPTABLE                         R8 K26 [{"ClearTextOnFocus", "Disabled", "ForwardRef", "LayoutOrder", "Size", "Text", "OnFocusLost", "OnFormatText"}]
        53 GETTABLEKS                       R9 R0 K18 ["ClearTextOnFocus"]
@@ -168,12 +168,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["TextInput"]

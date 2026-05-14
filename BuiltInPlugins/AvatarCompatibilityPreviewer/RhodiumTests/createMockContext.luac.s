@@ -1,57 +1,57 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K0 ["new"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K0 ["new"]
         7 CALL                             R1 0 1
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K0 ["new"]
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K0 ["new"]
        11 CALL                             R2 0 1
-       12 GETUPVAL                         R4 3
-       13 GETTABLEKS                       R3 R4 K1 ["fn"]
+       12 GETUPVAL                         R3 3
+       13 GETTABLEKS                       R3 R3 K1 ["fn"]
        15 CALL                             R3 0 2
-       16 GETUPVAL                         R6 3
-       17 GETTABLEKS                       R5 R6 K1 ["fn"]
+       16 GETUPVAL                         R5 3
+       17 GETTABLEKS                       R5 R5 K1 ["fn"]
        19 CALL                             R5 0 2
        20 NEWTABLE                         R7 0 5
-       22 GETUPVAL                         R11 4
-       23 GETTABLEKS                       R10 R11 K2 ["ContextServices"]
-       25 GETTABLEKS                       R9 R10 K3 ["Plugin"]
-       27 GETTABLEKS                       R8 R9 K0 ["new"]
+       22 GETUPVAL                         R8 4
+       23 GETTABLEKS                       R8 R8 K2 ["ContextServices"]
+       25 GETTABLEKS                       R8 R8 K3 ["Plugin"]
+       27 GETTABLEKS                       R8 R8 K0 ["new"]
        29 MOVE                             R9 R0
        30 CALL                             R8 1 1
        31 GETUPVAL                         R9 5
        32 LOADB                            R10 1
        33 CALL                             R9 1 1
-       34 GETUPVAL                         R13 4
-       35 GETTABLEKS                       R12 R13 K2 ["ContextServices"]
-       37 GETTABLEKS                       R11 R12 K4 ["Analytics"]
-       39 GETTABLEKS                       R10 R11 K0 ["new"]
+       34 GETUPVAL                         R10 4
+       35 GETTABLEKS                       R10 R10 K2 ["ContextServices"]
+       37 GETTABLEKS                       R10 R10 K4 ["Analytics"]
+       39 GETTABLEKS                       R10 R10 K0 ["new"]
        41 GETUPVAL                         R11 6
        42 MOVE                             R12 R1
        43 CALL                             R10 2 1
-       44 GETUPVAL                         R14 7
-       45 GETTABLEKS                       R13 R14 K5 ["Contexts"]
-       47 GETTABLEKS                       R12 R13 K6 ["PreviewContext"]
-       49 GETTABLEKS                       R11 R12 K0 ["new"]
+       44 GETUPVAL                         R11 7
+       45 GETTABLEKS                       R11 R11 K5 ["Contexts"]
+       47 GETTABLEKS                       R11 R11 K6 ["PreviewContext"]
+       49 GETTABLEKS                       R11 R11 K0 ["new"]
        51 CALL                             R11 0 1
-       52 GETUPVAL                         R13 8
-       53 GETTABLEKS                       R12 R13 K0 ["new"]
+       52 GETUPVAL                         R12 8
+       53 GETTABLEKS                       R12 R12 K0 ["new"]
        55 MOVE                             R13 R2
        56 CALL                             R12 1 -1
        57 SETLIST                          R7 R8 -1 [1]
        59 GETUPVAL                         R8 9
        60 CALL                             R8 0 1
        61 JUMPIFNOT                        R8 ; [+21]
-       62 GETUPVAL                         R10 10
-       63 GETTABLEKS                       R9 R10 K7 ["PluginActions"]
-       65 GETTABLEKS                       R8 R9 K0 ["new"]
+       62 GETUPVAL                         R8 10
+       63 GETTABLEKS                       R8 R8 K7 ["PluginActions"]
+       65 GETTABLEKS                       R8 R8 K0 ["new"]
        67 MOVE                             R9 R0
        68 GETUPVAL                         R10 11
        69 MOVE                             R11 R0
-       70 GETUPVAL                         R13 12
-       71 GETTABLEKS                       R12 R13 K8 ["mock"]
+       70 GETUPVAL                         R12 12
+       71 GETTABLEKS                       R12 R12 K8 ["mock"]
        73 CALL                             R12 0 -1
        74 CALL                             R10 -1 -1
        75 CALL                             R8 -1 1
@@ -83,59 +83,59 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AvatarToolsShared"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AvatarToolsShared"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R5 R6 K9 ["Dev"]
-       27 GETTABLEKS                       R4 R5 K10 ["JestGlobals"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dev"]
+       27 GETTABLEKS                       R4 R4 K10 ["JestGlobals"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K11 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Resources"]
-       36 GETTABLEKS                       R5 R6 K13 ["MakeTheme"]
+       32 GETTABLEKS                       R5 R0 K11 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Resources"]
+       36 GETTABLEKS                       R5 R5 K13 ["MakeTheme"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K11 ["Src"]
-       43 GETTABLEKS                       R7 R8 K14 ["Util"]
-       45 GETTABLEKS                       R6 R7 K15 ["SelectionWrapper"]
+       41 GETTABLEKS                       R6 R0 K11 ["Src"]
+       43 GETTABLEKS                       R6 R6 K14 ["Util"]
+       45 GETTABLEKS                       R6 R6 K15 ["SelectionWrapper"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K11 ["Src"]
-       52 GETTABLEKS                       R8 R9 K16 ["Components"]
-       54 GETTABLEKS                       R7 R8 K17 ["PlacesServiceContext"]
+       50 GETTABLEKS                       R7 R0 K11 ["Src"]
+       52 GETTABLEKS                       R7 R7 K16 ["Components"]
+       54 GETTABLEKS                       R7 R7 K17 ["PlacesServiceContext"]
        56 CALL                             R6 1 1
        57 GETIMPORT                        R7 K5 [require]
-       59 GETTABLEKS                       R10 R0 K11 ["Src"]
-       61 GETTABLEKS                       R9 R10 K12 ["Resources"]
-       63 GETTABLEKS                       R8 R9 K18 ["createAnalyticsHandlers"]
+       59 GETTABLEKS                       R8 R0 K11 ["Src"]
+       61 GETTABLEKS                       R8 R8 K12 ["Resources"]
+       63 GETTABLEKS                       R8 R8 K18 ["createAnalyticsHandlers"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K11 ["Src"]
-       70 GETTABLEKS                       R10 R11 K14 ["Util"]
-       72 GETTABLEKS                       R9 R10 K19 ["makePluginActions"]
+       68 GETTABLEKS                       R9 R0 K11 ["Src"]
+       70 GETTABLEKS                       R9 R9 K14 ["Util"]
+       72 GETTABLEKS                       R9 R9 K19 ["makePluginActions"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K11 ["Src"]
-       79 GETTABLEKS                       R11 R12 K20 ["Flags"]
-       81 GETTABLEKS                       R10 R11 K21 ["getFFlagAvatarPreviewerCageEditingTools"]
+       77 GETTABLEKS                       R10 R0 K11 ["Src"]
+       79 GETTABLEKS                       R10 R10 K20 ["Flags"]
+       81 GETTABLEKS                       R10 R10 K21 ["getFFlagAvatarPreviewerCageEditingTools"]
        83 CALL                             R9 1 1
        84 GETTABLEKS                       R10 R2 K22 ["ContextServices"]
        86 GETTABLEKS                       R11 R10 K23 ["Localization"]
-       88 GETTABLEKS                       R14 R2 K24 ["TestHelpers"]
-       90 GETTABLEKS                       R13 R14 K25 ["Instances"]
-       92 GETTABLEKS                       R12 R13 K26 ["MockAnalyticsService"]
-       94 GETTABLEKS                       R15 R2 K24 ["TestHelpers"]
-       96 GETTABLEKS                       R14 R15 K25 ["Instances"]
-       98 GETTABLEKS                       R13 R14 K27 ["MockSelectionService"]
-      100 GETTABLEKS                       R16 R2 K24 ["TestHelpers"]
-      102 GETTABLEKS                       R15 R16 K25 ["Instances"]
-      104 GETTABLEKS                       R14 R15 K28 ["MockPlugin"]
+       88 GETTABLEKS                       R12 R2 K24 ["TestHelpers"]
+       90 GETTABLEKS                       R12 R12 K25 ["Instances"]
+       92 GETTABLEKS                       R12 R12 K26 ["MockAnalyticsService"]
+       94 GETTABLEKS                       R13 R2 K24 ["TestHelpers"]
+       96 GETTABLEKS                       R13 R13 K25 ["Instances"]
+       98 GETTABLEKS                       R13 R13 K27 ["MockSelectionService"]
+      100 GETTABLEKS                       R14 R2 K24 ["TestHelpers"]
+      102 GETTABLEKS                       R14 R14 K25 ["Instances"]
+      104 GETTABLEKS                       R14 R14 K28 ["MockPlugin"]
       106 GETTABLEKS                       R15 R3 K29 ["jest"]
       108 DUPCLOSURE                       R16 K30 [PROTO_0]
       109 CAPTURE                          VAL R14

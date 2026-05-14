@@ -45,11 +45,11 @@ PROTO_2:
        10 GETUPVAL                         R3 0
        11 GETTABLE                         R2 R3 R1
        12 JUMPIFNOT                        R2 ; [+11]
-       13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R2 R3 K4 ["onItemClicked"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K4 ["onItemClicked"]
        16 JUMPIFNOT                        R2 ; [+7]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R2 R3 K4 ["onItemClicked"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K4 ["onItemClicked"]
        20 MOVE                             R3 R1
        21 GETUPVAL                         R5 0
        22 GETTABLE                         R4 R5 R1
@@ -75,16 +75,16 @@ PROTO_3:
        20 JUMPIFLE                         R2 R4 ; [+2]
        22 LOADB                            R3 0 +1
        23 LOADB                            R3 1
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R4 R5 K6 ["useMemo"]
+       24 GETUPVAL                         R4 1
+       25 GETTABLEKS                       R4 R4 K6 ["useMemo"]
        27 NEWCLOSURE                       R5 P0
        28 CAPTURE                          VAL R1
        29 NEWTABLE                         R6 0 1
        31 MOVE                             R7 R1
        32 SETLIST                          R6 R7 1 [1]
        34 CALL                             R4 2 1
-       35 GETUPVAL                         R6 1
-       36 GETTABLEKS                       R5 R6 K7 ["useCallback"]
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R5 R5 K7 ["useCallback"]
        38 NEWCLOSURE                       R6 P1
        39 CAPTURE                          VAL R1
        40 CAPTURE                          VAL R0
@@ -106,8 +106,8 @@ PROTO_3:
        60 JUMPIFLT                         R9 R7 ; [+2]
        62 LOADB                            R8 0 +1
        63 LOADB                            R8 1
-       64 GETUPVAL                         R10 1
-       65 GETTABLEKS                       R9 R10 K12 ["createElement"]
+       64 GETUPVAL                         R9 1
+       65 GETTABLEKS                       R9 R9 K12 ["createElement"]
        67 GETUPVAL                         R10 2
        68 DUPTABLE                         R11 K16 [{"tag", "LayoutOrder", "GroupTransparency"}]
        69 LOADK                            R12 K17 ["col gap-small auto-xy"]
@@ -121,8 +121,8 @@ PROTO_3:
        81 LOADN                            R12 0
        82 SETTABLEKS                       R12 R11 K15 ["GroupTransparency"]
        84 DUPTABLE                         R12 K21 [{"DropdownWrapper"}]
-       85 GETUPVAL                         R14 1
-       86 GETTABLEKS                       R13 R14 K12 ["createElement"]
+       85 GETUPVAL                         R13 1
+       86 GETTABLEKS                       R13 R13 K12 ["createElement"]
        88 GETUPVAL                         R14 3
        89 DUPTABLE                         R15 K29 [{"label", "placeholder", "value", "items", "onItemChanged", "isDisabled", "width", "size", "LayoutOrder", "maxHeight"}]
        90 LOADK                            R16 K30 [""]
@@ -139,10 +139,10 @@ PROTO_3:
       110 GETTABLEKS                       R18 R0 K26 ["width"]
       112 CALL                             R16 2 1
       113 SETTABLEKS                       R16 R15 K26 ["width"]
-      115 GETUPVAL                         R19 4
-      116 GETTABLEKS                       R18 R19 K34 ["Enums"]
-      118 GETTABLEKS                       R17 R18 K35 ["InputSize"]
-      120 GETTABLEKS                       R16 R17 K36 ["Small"]
+      115 GETUPVAL                         R16 4
+      116 GETTABLEKS                       R16 R16 K34 ["Enums"]
+      118 GETTABLEKS                       R16 R16 K35 ["InputSize"]
+      120 GETTABLEKS                       R16 R16 K36 ["Small"]
       122 SETTABLEKS                       R16 R15 K27 ["size"]
       124 LOADN                            R16 1
       125 SETTABLEKS                       R16 R15 K14 ["LayoutOrder"]
@@ -163,20 +163,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["View"]
-       23 GETTABLEKS                       R5 R2 K10 ["Dropdown"]
-       25 GETTABLEKS                       R4 R5 K11 ["Root"]
+       23 GETTABLEKS                       R4 R2 K10 ["Dropdown"]
+       25 GETTABLEKS                       R4 R4 K11 ["Root"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K12 ["Src"]
-       31 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       33 GETTABLEKS                       R6 R7 K14 ["getFFlagToolboxAssetConfigFoundationMigration"]
+       29 GETTABLEKS                       R6 R0 K12 ["Src"]
+       31 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       33 GETTABLEKS                       R6 R6 K14 ["getFFlagToolboxAssetConfigFoundationMigration"]
        35 CALL                             R5 1 1
        36 DUPCLOSURE                       R6 K15 [PROTO_0]
        37 DUPCLOSURE                       R7 K16 [PROTO_3]

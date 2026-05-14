@@ -8,13 +8,13 @@ PROTO_0:
        12 GETTABLEKS                       R7 R1 K6 ["Loaded"]
        14 GETTABLEKS                       R8 R6 K7 ["PreviewWindowSize"]
        16 GETTABLEKS                       R9 R6 K8 ["PreviewWindowPosition"]
-       18 GETUPVAL                         R11 0
-       19 GETTABLEKS                       R10 R11 K9 ["createElement"]
+       18 GETUPVAL                         R10 0
+       19 GETTABLEKS                       R10 R10 K9 ["createElement"]
        21 GETUPVAL                         R11 1
        22 NEWTABLE                         R12 0 0
        24 DUPTABLE                         R13 K13 [{"OriginalPreview", "Arrow", "SuggestedPreview"}]
-       25 GETUPVAL                         R15 0
-       26 GETTABLEKS                       R14 R15 K9 ["createElement"]
+       25 GETUPVAL                         R14 0
+       26 GETTABLEKS                       R14 R14 K9 ["createElement"]
        28 GETUPVAL                         R15 2
        29 DUPTABLE                         R16 K18 [{"Size", "Model", "AnimationId", "Loaded", "Label"}]
        30 SETTABLEKS                       R8 R16 K14 ["Size"]
@@ -25,32 +25,32 @@ PROTO_0:
        39 SETTABLEKS                       R17 R16 K17 ["Label"]
        41 CALL                             R14 2 1
        42 SETTABLEKS                       R14 R13 K10 ["OriginalPreview"]
-       44 GETUPVAL                         R15 0
-       45 GETTABLEKS                       R14 R15 K9 ["createElement"]
+       44 GETUPVAL                         R14 0
+       45 GETTABLEKS                       R14 R14 K9 ["createElement"]
        47 GETUPVAL                         R15 3
        48 DUPTABLE                         R16 K25 [{"Size", "Position", "Image", "ImageRectSize", "ImageRectOffset", "ImageColor3"}]
-       49 GETTABLEKS                       R18 R6 K11 ["Arrow"]
-       51 GETTABLEKS                       R17 R18 K14 ["Size"]
+       49 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       51 GETTABLEKS                       R17 R17 K14 ["Size"]
        53 SETTABLEKS                       R17 R16 K14 ["Size"]
-       55 GETTABLEKS                       R18 R6 K11 ["Arrow"]
-       57 GETTABLEKS                       R17 R18 K20 ["Position"]
+       55 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       57 GETTABLEKS                       R17 R17 K20 ["Position"]
        59 SETTABLEKS                       R17 R16 K20 ["Position"]
-       61 GETTABLEKS                       R18 R6 K11 ["Arrow"]
-       63 GETTABLEKS                       R17 R18 K21 ["Image"]
+       61 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       63 GETTABLEKS                       R17 R17 K21 ["Image"]
        65 SETTABLEKS                       R17 R16 K21 ["Image"]
-       67 GETTABLEKS                       R18 R6 K11 ["Arrow"]
-       69 GETTABLEKS                       R17 R18 K22 ["ImageRectSize"]
+       67 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       69 GETTABLEKS                       R17 R17 K22 ["ImageRectSize"]
        71 SETTABLEKS                       R17 R16 K22 ["ImageRectSize"]
-       73 GETTABLEKS                       R18 R6 K11 ["Arrow"]
-       75 GETTABLEKS                       R17 R18 K26 ["Offset"]
+       73 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       75 GETTABLEKS                       R17 R17 K26 ["Offset"]
        77 SETTABLEKS                       R17 R16 K23 ["ImageRectOffset"]
-       79 GETTABLEKS                       R18 R6 K11 ["Arrow"]
-       81 GETTABLEKS                       R17 R18 K27 ["Color"]
+       79 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       81 GETTABLEKS                       R17 R17 K27 ["Color"]
        83 SETTABLEKS                       R17 R16 K24 ["ImageColor3"]
        85 CALL                             R14 2 1
        86 SETTABLEKS                       R14 R13 K11 ["Arrow"]
-       88 GETUPVAL                         R15 0
-       89 GETTABLEKS                       R14 R15 K9 ["createElement"]
+       88 GETUPVAL                         R14 0
+       89 GETTABLEKS                       R14 R14 K9 ["createElement"]
        91 GETUPVAL                         R15 2
        92 DUPTABLE                         R16 K28 [{"Size", "Position", "Model", "AnimationId", "Loaded", "Label"}]
        93 SETTABLEKS                       R8 R16 K14 ["Size"]
@@ -72,21 +72,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
-       23 GETTABLEKS                       R5 R2 K10 ["Style"]
-       25 GETTABLEKS                       R4 R5 K11 ["Stylizer"]
+       23 GETTABLEKS                       R4 R2 K10 ["Style"]
+       25 GETTABLEKS                       R4 R4 K11 ["Stylizer"]
        27 GETTABLEKS                       R5 R2 K12 ["UI"]
        29 GETTABLEKS                       R6 R5 K13 ["Pane"]
        31 GETTABLEKS                       R7 R5 K14 ["Image"]
-       33 GETIMPORT                        R9 K1 [script]
-       35 GETTABLEKS                       R8 R9 K15 ["Parent"]
+       33 GETIMPORT                        R8 K1 [script]
+       35 GETTABLEKS                       R8 R8 K15 ["Parent"]
        37 GETIMPORT                        R9 K5 [require]
        39 GETTABLEKS                       R10 R8 K16 ["PreviewModelComponent"]
        41 CALL                             R9 1 1

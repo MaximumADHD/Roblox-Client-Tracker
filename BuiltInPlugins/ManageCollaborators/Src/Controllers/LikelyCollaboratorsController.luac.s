@@ -39,13 +39,13 @@ PROTO_3:
         7 JUMPIFNOT                        R3 ; [+8]
         8 GETTABLEKS                       R4 R3 K2 ["responseBody"]
        10 JUMPIFNOT                        R4 ; [+5]
-       11 GETTABLEKS                       R5 R3 K2 ["responseBody"]
-       13 GETTABLEKS                       R4 R5 K3 ["likelyCollaborators"]
+       11 GETTABLEKS                       R4 R3 K2 ["responseBody"]
+       13 GETTABLEKS                       R4 R4 K3 ["likelyCollaborators"]
        15 JUMPIF                           R4 ; [+3]
        16 NEWTABLE                         R4 0 0
        18 RETURN                           R4 1
-       19 GETTABLEKS                       R5 R3 K2 ["responseBody"]
-       21 GETTABLEKS                       R4 R5 K3 ["likelyCollaborators"]
+       19 GETTABLEKS                       R4 R3 K2 ["responseBody"]
+       21 GETTABLEKS                       R4 R4 K3 ["likelyCollaborators"]
        23 RETURN                           R4 1
 
 MAIN:
@@ -55,9 +55,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["IsLikelyCollaboratorPrefetchEnabled"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["IsLikelyCollaboratorPrefetchEnabled"]
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 CALL                             R2 0 1

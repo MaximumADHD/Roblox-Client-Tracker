@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R0 K1 ["Text"]
         2 ORK                              R1 R2 K0 [""]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K2 ["FONT_SIZE_SMALL"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K3 ["FONT"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K2 ["FONT_SIZE_SMALL"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K3 ["FONT"]
         9 GETUPVAL                         R4 1
        10 MOVE                             R5 R1
        11 MOVE                             R6 R2
@@ -22,8 +22,8 @@ PROTO_0:
        25 GETTABLEKS                       R9 R4 K10 ["y"]
        27 ADD                              R7 R8 R9
        28 ADDK                             R6 R7 K9 [8]
-       29 GETUPVAL                         R8 2
-       30 GETTABLEKS                       R7 R8 K11 ["createElement"]
+       29 GETUPVAL                         R7 2
+       30 GETTABLEKS                       R7 R7 K11 ["createElement"]
        32 GETUPVAL                         R8 3
        33 DUPTABLE                         R9 K18 [{"AnchorPoint", "Position", "Size", "ZIndex", "BackgroundColor3", "BackgroundTransparency"}]
        34 GETIMPORT                        R10 K6 [Vector2.new]
@@ -47,14 +47,14 @@ PROTO_0:
        57 SETTABLEKS                       R10 R9 K14 ["Size"]
        59 LOADN                            R10 10
        60 SETTABLEKS                       R10 R9 K15 ["ZIndex"]
-       62 GETUPVAL                         R11 4
-       63 GETTABLEKS                       R10 R11 K22 ["GRAY_2"]
+       62 GETUPVAL                         R10 4
+       63 GETTABLEKS                       R10 R10 K22 ["GRAY_2"]
        65 SETTABLEKS                       R10 R9 K16 ["BackgroundColor3"]
        67 LOADK                            R10 K23 [0.2]
        68 SETTABLEKS                       R10 R9 K17 ["BackgroundTransparency"]
        70 DUPTABLE                         R10 K25 [{"TextLabel"}]
-       71 GETUPVAL                         R12 2
-       72 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       71 GETUPVAL                         R11 2
+       72 GETTABLEKS                       R11 R11 K11 ["createElement"]
        74 LOADK                            R12 K24 ["TextLabel"]
        75 DUPTABLE                         R13 K29 [{"Position", "Size", "BackgroundTransparency", "Text", "Font", "TextSize", "TextColor3"}]
        76 GETIMPORT                        R14 K21 [UDim2.new]
@@ -74,14 +74,14 @@ PROTO_0:
        94 LOADN                            R14 1
        95 SETTABLEKS                       R14 R13 K17 ["BackgroundTransparency"]
        97 SETTABLEKS                       R1 R13 K1 ["Text"]
-       99 GETUPVAL                         R15 0
-      100 GETTABLEKS                       R14 R15 K3 ["FONT"]
+       99 GETUPVAL                         R14 0
+      100 GETTABLEKS                       R14 R14 K3 ["FONT"]
       102 SETTABLEKS                       R14 R13 K26 ["Font"]
-      104 GETUPVAL                         R15 0
-      105 GETTABLEKS                       R14 R15 K2 ["FONT_SIZE_SMALL"]
+      104 GETUPVAL                         R14 0
+      105 GETTABLEKS                       R14 R14 K2 ["FONT_SIZE_SMALL"]
       107 SETTABLEKS                       R14 R13 K27 ["TextSize"]
-      109 GETUPVAL                         R15 4
-      110 GETTABLEKS                       R14 R15 K30 ["GRAY_6"]
+      109 GETUPVAL                         R14 4
+      110 GETTABLEKS                       R14 R14 K30 ["GRAY_6"]
       112 SETTABLEKS                       R14 R13 K28 ["TextColor3"]
       114 CALL                             R11 2 1
       115 SETTABLEKS                       R11 R10 K24 ["TextLabel"]
@@ -90,10 +90,10 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -101,22 +101,22 @@ MAIN:
        16 GETIMPORT                        R3 K5 [require]
        18 GETTABLEKS                       R4 R1 K7 ["Framework"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R3 K8 ["Util"]
-       23 GETTABLEKS                       R4 R5 K9 ["GetTextSize"]
+       21 GETTABLEKS                       R4 R3 K8 ["Util"]
+       23 GETTABLEKS                       R4 R4 K9 ["GetTextSize"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R8 R0 K10 ["Src"]
-       29 GETTABLEKS                       R7 R8 K8 ["Util"]
-       31 GETTABLEKS                       R6 R7 K11 ["Colors"]
+       27 GETTABLEKS                       R6 R0 K10 ["Src"]
+       29 GETTABLEKS                       R6 R6 K8 ["Util"]
+       31 GETTABLEKS                       R6 R6 K11 ["Colors"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K10 ["Src"]
-       38 GETTABLEKS                       R8 R9 K8 ["Util"]
-       40 GETTABLEKS                       R7 R8 K12 ["Constants"]
+       36 GETTABLEKS                       R7 R0 K10 ["Src"]
+       38 GETTABLEKS                       R7 R7 K8 ["Util"]
+       40 GETTABLEKS                       R7 R7 K12 ["Constants"]
        42 CALL                             R6 1 1
        43 GETIMPORT                        R7 K5 [require]
-       45 GETTABLEKS                       R10 R0 K10 ["Src"]
-       47 GETTABLEKS                       R9 R10 K13 ["Components"]
-       49 GETTABLEKS                       R8 R9 K14 ["RoundFrame"]
+       45 GETTABLEKS                       R8 R0 K10 ["Src"]
+       47 GETTABLEKS                       R8 R8 K13 ["Components"]
+       49 GETTABLEKS                       R8 R8 K14 ["RoundFrame"]
        51 CALL                             R7 1 1
        52 DUPCLOSURE                       R8 K15 [PROTO_0]
        53 CAPTURE                          VAL R6

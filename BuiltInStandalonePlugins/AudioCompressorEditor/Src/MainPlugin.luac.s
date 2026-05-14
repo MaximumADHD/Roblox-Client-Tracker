@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["state"]
-        3 GETTABLEKS                       R0 R1 K1 ["closeDMConnection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["state"]
+        3 GETTABLEKS                       R0 R0 K1 ["closeDMConnection"]
         5 JUMPIFNOT                        R0 ; [+8]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["state"]
-        9 GETTABLEKS                       R0 R1 K1 ["closeDMConnection"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["state"]
+        9 GETTABLEKS                       R0 R0 K1 ["closeDMConnection"]
        11 NAMECALL                         R0 R0 K2 ["Disconnect"]
        13 CALL                             R0 1 0
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R0 R1 K3 ["Plugin"]
+       14 GETUPVAL                         R0 1
+       15 GETTABLEKS                       R0 R0 K3 ["Plugin"]
        17 LOADK                            R2 K4 ["OnStopEditing"]
        18 NAMECALL                         R0 R0 K5 ["Invoke"]
        20 CALL                             R0 2 0
@@ -28,8 +28,8 @@ PROTO_0:
        38 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Plugin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Plugin"]
         3 LOADK                            R3 K1 ["OnEdit"]
         4 MOVE                             R4 R0
         5 NAMECALL                         R1 R1 K2 ["Invoke"]
@@ -37,8 +37,8 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Plugin"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Plugin"]
         3 LOADK                            R3 K1 ["OnAttachAnalyzer"]
         4 MOVE                             R4 R0
         5 NAMECALL                         R1 R1 K2 ["Invoke"]
@@ -54,14 +54,14 @@ PROTO_3:
         7 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setDisabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setDisabled"]
         3 CALL                             R1 0 0
         4 GETUPVAL                         R1 0
         5 DUPTABLE                         R3 K2 [{"forceRerender"}]
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K3 ["state"]
-        9 GETTABLEKS                       R5 R6 K1 ["forceRerender"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K3 ["state"]
+        9 GETTABLEKS                       R5 R5 K1 ["forceRerender"]
        11 NOT                              R4 R5
        12 SETTABLEKS                       R4 R3 K1 ["forceRerender"]
        14 NAMECALL                         R1 R1 K4 ["setState"]
@@ -69,15 +69,15 @@ PROTO_4:
        17 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setDisabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setDisabled"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Plugin"]
-        3 GETTABLEKS                       R0 R1 K1 ["MultipleDocumentInterfaceInstance"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Plugin"]
+        3 GETTABLEKS                       R0 R0 K1 ["MultipleDocumentInterfaceInstance"]
         5 GETTABLEKS                       R1 R0 K2 ["FocusedDataModelSession"]
         7 JUMPIFNOT                        R1 ; [+14]
         8 GETTABLEKS                       R2 R1 K3 ["CurrentDataModelTypeAboutToChange"]
@@ -93,8 +93,8 @@ PROTO_6:
        22 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["closeOnDMChange"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["closeOnDMChange"]
         3 CALL                             R2 0 0
         4 GETUPVAL                         R2 0
         5 DUPTABLE                         R4 K4 [{"enabled", "instanceName", "initialData"}]
@@ -190,9 +190,9 @@ PROTO_10:
        96 CAPTURE                          VAL R0
        97 NAMECALL                         R4 R4 K32 ["OnInvoke"]
        99 CALL                             R4 3 0
-      100 GETUPVAL                         R6 0
-      101 GETTABLEKS                       R5 R6 K34 ["Localization"]
-      103 GETTABLEKS                       R4 R5 K35 ["new"]
+      100 GETUPVAL                         R4 0
+      101 GETTABLEKS                       R4 R4 K34 ["Localization"]
+      103 GETTABLEKS                       R4 R4 K35 ["new"]
       105 DUPTABLE                         R5 K39 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
       106 GETUPVAL                         R6 1
       107 SETTABLEKS                       R6 R5 K36 ["stringResourceTable"]
@@ -202,15 +202,15 @@ PROTO_10:
       113 SETTABLEKS                       R6 R5 K38 ["pluginName"]
       115 CALL                             R4 1 1
       116 SETTABLEKS                       R4 R0 K41 ["localization"]
-      118 GETUPVAL                         R6 0
-      119 GETTABLEKS                       R5 R6 K42 ["Analytics"]
-      121 GETTABLEKS                       R4 R5 K35 ["new"]
+      118 GETUPVAL                         R4 0
+      119 GETTABLEKS                       R4 R4 K42 ["Analytics"]
+      121 GETTABLEKS                       R4 R4 K35 ["new"]
       123 DUPCLOSURE                       R5 K43 [PROTO_9]
       124 NEWTABLE                         R6 0 0
       126 CALL                             R4 2 1
       127 SETTABLEKS                       R4 R0 K44 ["analytics"]
-      129 GETUPVAL                         R5 3
-      130 GETTABLEKS                       R4 R5 K35 ["new"]
+      129 GETUPVAL                         R4 3
+      130 GETTABLEKS                       R4 R4 K35 ["new"]
       132 CALL                             R4 0 1
       133 SETTABLEKS                       R4 R0 K45 ["DEPRECATED_stylizer"]
       135 GETUPVAL                         R4 4
@@ -236,15 +236,15 @@ PROTO_11:
        20 NAMECALL                         R6 R6 K9 ["format"]
        22 CALL                             R6 3 1
        23 MOVE                             R5 R6
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R6 R7 K10 ["provide"]
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K10 ["provide"]
        27 NEWTABLE                         R7 0 5
-       29 GETUPVAL                         R9 1
-       30 GETTABLEKS                       R8 R9 K11 ["new"]
+       29 GETUPVAL                         R8 1
+       30 GETTABLEKS                       R8 R8 K11 ["new"]
        32 MOVE                             R9 R3
        33 CALL                             R8 1 1
-       34 GETUPVAL                         R10 2
-       35 GETTABLEKS                       R9 R10 K11 ["new"]
+       34 GETUPVAL                         R9 2
+       35 GETTABLEKS                       R9 R9 K11 ["new"]
        37 NAMECALL                         R10 R3 K12 ["getMouse"]
        39 CALL                             R10 1 -1
        40 CALL                             R9 -1 1
@@ -253,8 +253,8 @@ PROTO_11:
        45 GETTABLEKS                       R12 R0 K14 ["analytics"]
        47 SETLIST                          R7 R8 5 [1]
        49 DUPTABLE                         R8 K16 [{"MainWidget"}]
-       50 GETUPVAL                         R10 3
-       51 GETTABLEKS                       R9 R10 K17 ["createElement"]
+       50 GETUPVAL                         R9 3
+       51 GETTABLEKS                       R9 R9 K17 ["createElement"]
        53 GETUPVAL                         R10 4
        54 NEWTABLE                         R11 16 0
        56 LOADK                            R12 K4 ["AudioCompressorEditor"]
@@ -277,30 +277,30 @@ PROTO_11:
        83 SETTABLEKS                       R12 R11 K31 ["MinSize"]
        85 GETTABLEKS                       R12 R0 K32 ["setDisabled"]
        87 SETTABLEKS                       R12 R11 K33 ["OnClose"]
-       89 GETTABLEKS                       R13 R1 K34 ["PluginLoaderContext"]
-       91 GETTABLEKS                       R12 R13 K35 ["mainDockWidget"]
+       89 GETTABLEKS                       R12 R1 K34 ["PluginLoaderContext"]
+       91 GETTABLEKS                       R12 R12 K35 ["mainDockWidget"]
        93 SETTABLEKS                       R12 R11 K36 ["Widget"]
        95 GETTABLEKS                       R12 R0 K37 ["onDockWidgetCreated"]
        97 SETTABLEKS                       R12 R11 K38 ["OnWidgetCreated"]
        99 LOADB                            R12 0
       100 SETTABLEKS                       R12 R11 K39 ["ShouldRestore"]
-      102 GETUPVAL                         R14 3
-      103 GETTABLEKS                       R13 R14 K40 ["Change"]
-      105 GETTABLEKS                       R12 R13 K19 ["Enabled"]
+      102 GETUPVAL                         R12 3
+      103 GETTABLEKS                       R12 R12 K40 ["Change"]
+      105 GETTABLEKS                       R12 R12 K19 ["Enabled"]
       107 GETTABLEKS                       R13 R0 K41 ["onWidgetEnabledChanged"]
       109 SETTABLE                         R13 R11 R12
       110 DUPTABLE                         R12 K44 [{"Wrapper", "StyleLink"}]
-      111 GETUPVAL                         R14 3
-      112 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      111 GETUPVAL                         R13 3
+      112 GETTABLEKS                       R13 R13 K17 ["createElement"]
       114 GETUPVAL                         R14 5
       115 NEWTABLE                         R15 1 0
-      117 GETUPVAL                         R17 3
-      118 GETTABLEKS                       R16 R17 K45 ["Tag"]
+      117 GETUPVAL                         R16 3
+      118 GETTABLEKS                       R16 R16 K45 ["Tag"]
       120 LOADK                            R17 K46 ["X-Fill X-Column"]
       121 SETTABLE                         R17 R15 R16
       122 DUPTABLE                         R16 K47 [{"AudioCompressorEditor"}]
-      123 GETUPVAL                         R18 3
-      124 GETTABLEKS                       R17 R18 K17 ["createElement"]
+      123 GETUPVAL                         R17 3
+      124 GETTABLEKS                       R17 R17 K17 ["createElement"]
       126 GETUPVAL                         R18 6
       127 DUPTABLE                         R19 K52 [{"Enabled", "Data", "OnChanged", "DisplaySettings", "SetDisplaySettings"}]
       128 SETTABLEKS                       R4 R19 K19 ["Enabled"]
@@ -308,8 +308,8 @@ PROTO_11:
       132 SETTABLEKS                       R20 R19 K48 ["Data"]
       134 GETTABLEKS                       R20 R0 K54 ["onChanged"]
       136 SETTABLEKS                       R20 R19 K49 ["OnChanged"]
-      138 GETTABLEKS                       R21 R0 K1 ["state"]
-      140 GETTABLEKS                       R20 R21 K55 ["displaySettings"]
+      138 GETTABLEKS                       R20 R0 K1 ["state"]
+      140 GETTABLEKS                       R20 R20 K55 ["displaySettings"]
       142 SETTABLEKS                       R20 R19 K50 ["DisplaySettings"]
       144 GETTABLEKS                       R20 R0 K56 ["updateDisplaySettings"]
       146 SETTABLEKS                       R20 R19 K51 ["SetDisplaySettings"]
@@ -317,8 +317,8 @@ PROTO_11:
       149 SETTABLEKS                       R17 R16 K4 ["AudioCompressorEditor"]
       151 CALL                             R13 3 1
       152 SETTABLEKS                       R13 R12 K42 ["Wrapper"]
-      154 GETUPVAL                         R14 3
-      155 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      154 GETUPVAL                         R13 3
+      155 GETTABLEKS                       R13 R13 K17 ["createElement"]
       157 LOADK                            R14 K43 ["StyleLink"]
       158 DUPTABLE                         R15 K58 [{"StyleSheet"}]
       159 GETTABLEKS                       R16 R0 K59 ["design"]
@@ -337,39 +337,39 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["UI"]
-       23 GETTABLEKS                       R3 R4 K10 ["DockWidget"]
-       25 GETTABLEKS                       R5 R2 K9 ["UI"]
-       27 GETTABLEKS                       R4 R5 K11 ["Pane"]
+       21 GETTABLEKS                       R3 R2 K9 ["UI"]
+       23 GETTABLEKS                       R3 R3 K10 ["DockWidget"]
+       25 GETTABLEKS                       R4 R2 K9 ["UI"]
+       27 GETTABLEKS                       R4 R4 K11 ["Pane"]
        29 GETTABLEKS                       R5 R2 K12 ["ContextServices"]
        31 GETTABLEKS                       R6 R5 K13 ["Plugin"]
        33 GETTABLEKS                       R7 R5 K14 ["Mouse"]
-       35 GETTABLEKS                       R10 R2 K15 ["Style"]
-       37 GETTABLEKS                       R9 R10 K16 ["Themes"]
-       39 GETTABLEKS                       R8 R9 K17 ["StudioTheme"]
-       41 GETTABLEKS                       R10 R2 K18 ["Styling"]
-       43 GETTABLEKS                       R9 R10 K19 ["registerPluginStyles"]
-       45 GETTABLEKS                       R13 R0 K20 ["Src"]
-       47 GETTABLEKS                       R12 R13 K21 ["Resources"]
-       49 GETTABLEKS                       R11 R12 K22 ["Localization"]
-       51 GETTABLEKS                       R10 R11 K23 ["SourceStrings"]
-       53 GETTABLEKS                       R14 R0 K20 ["Src"]
-       55 GETTABLEKS                       R13 R14 K21 ["Resources"]
-       57 GETTABLEKS                       R12 R13 K22 ["Localization"]
-       59 GETTABLEKS                       R11 R12 K24 ["LocalizedStrings"]
+       35 GETTABLEKS                       R8 R2 K15 ["Style"]
+       37 GETTABLEKS                       R8 R8 K16 ["Themes"]
+       39 GETTABLEKS                       R8 R8 K17 ["StudioTheme"]
+       41 GETTABLEKS                       R9 R2 K18 ["Styling"]
+       43 GETTABLEKS                       R9 R9 K19 ["registerPluginStyles"]
+       45 GETTABLEKS                       R10 R0 K20 ["Src"]
+       47 GETTABLEKS                       R10 R10 K21 ["Resources"]
+       49 GETTABLEKS                       R10 R10 K22 ["Localization"]
+       51 GETTABLEKS                       R10 R10 K23 ["SourceStrings"]
+       53 GETTABLEKS                       R11 R0 K20 ["Src"]
+       55 GETTABLEKS                       R11 R11 K21 ["Resources"]
+       57 GETTABLEKS                       R11 R11 K22 ["Localization"]
+       59 GETTABLEKS                       R11 R11 K24 ["LocalizedStrings"]
        61 GETIMPORT                        R12 K5 [require]
-       63 GETTABLEKS                       R14 R0 K20 ["Src"]
-       65 GETTABLEKS                       R13 R14 K25 ["Types"]
+       63 GETTABLEKS                       R13 R0 K20 ["Src"]
+       65 GETTABLEKS                       R13 R13 K25 ["Types"]
        67 CALL                             R12 1 1
-       68 GETTABLEKS                       R14 R0 K20 ["Src"]
-       70 GETTABLEKS                       R13 R14 K26 ["Components"]
+       68 GETTABLEKS                       R13 R0 K20 ["Src"]
+       70 GETTABLEKS                       R13 R13 K26 ["Components"]
        72 GETIMPORT                        R14 K5 [require]
        74 GETTABLEKS                       R15 R13 K2 ["AudioCompressorEditor"]
        76 CALL                             R14 1 1

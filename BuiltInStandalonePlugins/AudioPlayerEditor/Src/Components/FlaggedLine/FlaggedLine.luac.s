@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["SetPosition"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["SetPosition"]
         3 GETTABLEKS                       R2 R0 K1 ["X"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
@@ -12,8 +12,8 @@ PROTO_1:
         5 SETTABLEKS                       R1 R0 K0 ["FlagEnabled"]
         7 NEWCLOSURE                       R1 P0
         8 CAPTURE                          VAL R0
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K1 ["createElement"]
        12 GETUPVAL                         R3 1
        13 DUPTABLE                         R4 K7 [{"Orientation", "Position", "Thickness", "Transparency", "ZIndex"}]
        14 LOADK                            R5 K8 ["Vertical"]
@@ -27,8 +27,8 @@ PROTO_1:
        27 GETTABLEKS                       R5 R0 K6 ["ZIndex"]
        29 SETTABLEKS                       R5 R4 K6 ["ZIndex"]
        31 DUPTABLE                         R5 K11 [{"View", "LineDrag"}]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R6 R6 K1 ["createElement"]
        35 GETUPVAL                         R7 2
        36 DUPTABLE                         R8 K15 [{"AnchorPoint", "Position", "Size", "backgroundStyle"}]
        37 GETIMPORT                        R9 K18 [Vector2.new]
@@ -57,8 +57,8 @@ PROTO_1:
        70 DUPTABLE                         R9 K27 [{"Flag"}]
        71 GETTABLEKS                       R10 R0 K0 ["FlagEnabled"]
        73 JUMPIFNOT                        R10 ; [+87]
-       74 GETUPVAL                         R11 0
-       75 GETTABLEKS                       R10 R11 K1 ["createElement"]
+       74 GETUPVAL                         R10 0
+       75 GETTABLEKS                       R10 R10 K1 ["createElement"]
        77 GETUPVAL                         R11 2
        78 DUPTABLE                         R12 K29 [{"AnchorPoint", "Position", "tag"}]
        79 GETIMPORT                        R13 K18 [Vector2.new]
@@ -74,19 +74,19 @@ PROTO_1:
        93 LOADK                            R13 K32 ["size-300-300"]
        94 SETTABLEKS                       R13 R12 K28 ["tag"]
        96 DUPTABLE                         R13 K35 [{"Icon", "Drag"}]
-       97 GETUPVAL                         R15 0
-       98 GETTABLEKS                       R14 R15 K1 ["createElement"]
+       97 GETUPVAL                         R14 0
+       98 GETTABLEKS                       R14 R14 K1 ["createElement"]
       100 GETUPVAL                         R15 3
       101 DUPTABLE                         R16 K40 [{"name", "variant", "AnchorPoint", "Position", "size", "style"}]
-      102 GETUPVAL                         R20 4
-      103 GETTABLEKS                       R19 R20 K41 ["Enums"]
-      105 GETTABLEKS                       R18 R19 K42 ["IconName"]
-      107 GETTABLEKS                       R17 R18 K43 ["DiamondSimplified"]
+      102 GETUPVAL                         R17 4
+      103 GETTABLEKS                       R17 R17 K41 ["Enums"]
+      105 GETTABLEKS                       R17 R17 K42 ["IconName"]
+      107 GETTABLEKS                       R17 R17 K43 ["DiamondSimplified"]
       109 SETTABLEKS                       R17 R16 K36 ["name"]
-      111 GETUPVAL                         R20 4
-      112 GETTABLEKS                       R19 R20 K41 ["Enums"]
-      114 GETTABLEKS                       R18 R19 K44 ["IconVariant"]
-      116 GETTABLEKS                       R17 R18 K45 ["Filled"]
+      111 GETUPVAL                         R17 4
+      112 GETTABLEKS                       R17 R17 K41 ["Enums"]
+      114 GETTABLEKS                       R17 R17 K44 ["IconVariant"]
+      116 GETTABLEKS                       R17 R17 K45 ["Filled"]
       118 SETTABLEKS                       R17 R16 K37 ["variant"]
       120 GETIMPORT                        R17 K18 [Vector2.new]
       122 LOADK                            R18 K19 [0.5]
@@ -98,17 +98,17 @@ PROTO_1:
       130 LOADK                            R19 K19 [0.5]
       131 CALL                             R17 2 1
       132 SETTABLEKS                       R17 R16 K3 ["Position"]
-      134 GETUPVAL                         R20 4
-      135 GETTABLEKS                       R19 R20 K41 ["Enums"]
-      137 GETTABLEKS                       R18 R19 K46 ["IconSize"]
-      139 GETTABLEKS                       R17 R18 K47 ["Small"]
+      134 GETUPVAL                         R17 4
+      135 GETTABLEKS                       R17 R17 K41 ["Enums"]
+      137 GETTABLEKS                       R17 R17 K46 ["IconSize"]
+      139 GETTABLEKS                       R17 R17 K47 ["Small"]
       141 SETTABLEKS                       R17 R16 K38 ["size"]
       143 GETTABLEKS                       R17 R0 K25 ["ColorStyle"]
       145 SETTABLEKS                       R17 R16 K39 ["style"]
       147 CALL                             R14 2 1
       148 SETTABLEKS                       R14 R13 K33 ["Icon"]
-      150 GETUPVAL                         R15 0
-      151 GETTABLEKS                       R14 R15 K1 ["createElement"]
+      150 GETUPVAL                         R14 0
+      151 GETTABLEKS                       R14 R14 K1 ["createElement"]
       153 GETUPVAL                         R15 5
       154 DUPTABLE                         R16 K49 [{"OnDragMoved"}]
       155 SETTABLEKS                       R1 R16 K48 ["OnDragMoved"]
@@ -118,8 +118,8 @@ PROTO_1:
       161 SETTABLEKS                       R10 R9 K26 ["Flag"]
       163 CALL                             R6 3 1
       164 SETTABLEKS                       R6 R5 K9 ["View"]
-      166 GETUPVAL                         R7 0
-      167 GETTABLEKS                       R6 R7 K1 ["createElement"]
+      166 GETUPVAL                         R6 0
+      167 GETTABLEKS                       R6 R6 K1 ["createElement"]
       169 GETUPVAL                         R7 5
       170 DUPTABLE                         R8 K51 [{"Inflate", "OnDragMoved"}]
       171 LOADN                            R9 3
@@ -137,18 +137,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["Icon"]
        23 GETTABLEKS                       R4 R2 K10 ["View"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R6 R7 K11 ["Graphing"]
+       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R6 R6 K11 ["Graphing"]
        31 CALL                             R5 1 1
        32 GETTABLEKS                       R6 R5 K12 ["GridLine"]
        34 GETTABLEKS                       R7 R5 K13 ["InputDetector"]

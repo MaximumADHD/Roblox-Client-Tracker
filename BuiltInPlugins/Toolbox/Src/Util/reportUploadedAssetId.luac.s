@@ -29,10 +29,10 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R7 R2 K11 ["Src"]
-       23 GETTABLEKS                       R6 R7 K12 ["Util"]
-       25 GETTABLEKS                       R5 R6 K13 ["SharedFlags"]
-       27 GETTABLEKS                       R4 R5 K14 ["getFFlagAssetConfigReportNewAssetId"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["SharedFlags"]
+       27 GETTABLEKS                       R4 R4 K14 ["getFFlagAssetConfigReportNewAssetId"]
        29 CALL                             R3 1 1
        30 DUPCLOSURE                       R4 K15 [PROTO_0]
        31 CAPTURE                          VAL R3

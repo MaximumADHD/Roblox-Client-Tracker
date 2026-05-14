@@ -23,14 +23,14 @@ PROTO_2:
 PROTO_3:
         0 GETIMPORT                        R1 K2 [string.format]
         2 LOADK                            R2 K3 ["{%.3f, %d}, {%.3f, %d}"]
-        3 GETTABLEKS                       R4 R0 K4 ["X"]
-        5 GETTABLEKS                       R3 R4 K5 ["Scale"]
-        7 GETTABLEKS                       R5 R0 K4 ["X"]
-        9 GETTABLEKS                       R4 R5 K6 ["Offset"]
-       11 GETTABLEKS                       R6 R0 K7 ["Y"]
-       13 GETTABLEKS                       R5 R6 K5 ["Scale"]
-       15 GETTABLEKS                       R7 R0 K7 ["Y"]
-       17 GETTABLEKS                       R6 R7 K6 ["Offset"]
+        3 GETTABLEKS                       R3 R0 K4 ["X"]
+        5 GETTABLEKS                       R3 R3 K5 ["Scale"]
+        7 GETTABLEKS                       R4 R0 K4 ["X"]
+        9 GETTABLEKS                       R4 R4 K6 ["Offset"]
+       11 GETTABLEKS                       R5 R0 K7 ["Y"]
+       13 GETTABLEKS                       R5 R5 K5 ["Scale"]
+       15 GETTABLEKS                       R6 R0 K7 ["Y"]
+       17 GETTABLEKS                       R6 R6 K6 ["Offset"]
        19 CALL                             R1 5 -1
        20 RETURN                           R1 -1
 
@@ -54,14 +54,14 @@ PROTO_5:
 PROTO_6:
         0 GETIMPORT                        R1 K2 [string.format]
         2 LOADK                            R2 K3 ["{%.3f, %.3f}, {%.3f, %.3f}"]
-        3 GETTABLEKS                       R4 R0 K4 ["Min"]
-        5 GETTABLEKS                       R3 R4 K5 ["X"]
-        7 GETTABLEKS                       R5 R0 K4 ["Min"]
-        9 GETTABLEKS                       R4 R5 K6 ["Y"]
-       11 GETTABLEKS                       R6 R0 K7 ["Max"]
-       13 GETTABLEKS                       R5 R6 K5 ["X"]
-       15 GETTABLEKS                       R7 R0 K7 ["Max"]
-       17 GETTABLEKS                       R6 R7 K6 ["Y"]
+        3 GETTABLEKS                       R3 R0 K4 ["Min"]
+        5 GETTABLEKS                       R3 R3 K5 ["X"]
+        7 GETTABLEKS                       R4 R0 K4 ["Min"]
+        9 GETTABLEKS                       R4 R4 K6 ["Y"]
+       11 GETTABLEKS                       R5 R0 K7 ["Max"]
+       13 GETTABLEKS                       R5 R5 K5 ["X"]
+       15 GETTABLEKS                       R6 R0 K7 ["Max"]
+       17 GETTABLEKS                       R6 R6 K6 ["Y"]
        19 CALL                             R1 5 -1
        20 RETURN                           R1 -1
 
@@ -97,12 +97,12 @@ PROTO_10:
         2 CALL                             R1 1 3
         3 GETIMPORT                        R4 K3 [string.format]
         5 LOADK                            R5 K4 ["{%.3f, %.3f, %.3f}, {%.3f, %.3f, %.3f}"]
-        6 GETTABLEKS                       R7 R0 K5 ["Position"]
-        8 GETTABLEKS                       R6 R7 K6 ["X"]
-       10 GETTABLEKS                       R8 R0 K5 ["Position"]
-       12 GETTABLEKS                       R7 R8 K7 ["Y"]
-       14 GETTABLEKS                       R9 R0 K5 ["Position"]
-       16 GETTABLEKS                       R8 R9 K8 ["Z"]
+        6 GETTABLEKS                       R6 R0 K5 ["Position"]
+        8 GETTABLEKS                       R6 R6 K6 ["X"]
+       10 GETTABLEKS                       R7 R0 K5 ["Position"]
+       12 GETTABLEKS                       R7 R7 K7 ["Y"]
+       14 GETTABLEKS                       R8 R0 K5 ["Position"]
+       16 GETTABLEKS                       R8 R8 K8 ["Z"]
        18 MOVE                             R9 R1
        19 MOVE                             R10 R2
        20 MOVE                             R11 R3
@@ -114,20 +114,20 @@ PROTO_11:
         2 LENGTH                           R1 R2
         3 LOADN                            R2 2
         4 JUMPIFLT                         R2 R1 ; [+13]
-        6 GETTABLEKS                       R3 R0 K0 ["Keypoints"]
-        8 GETTABLEN                        R2 R3 1
-        9 GETTABLEKS                       R1 R2 K1 ["Value"]
-       11 GETTABLEKS                       R4 R0 K0 ["Keypoints"]
-       13 GETTABLEN                        R3 R4 2
-       14 GETTABLEKS                       R2 R3 K1 ["Value"]
+        6 GETTABLEKS                       R2 R0 K0 ["Keypoints"]
+        8 GETTABLEN                        R1 R2 1
+        9 GETTABLEKS                       R1 R1 K1 ["Value"]
+       11 GETTABLEKS                       R3 R0 K0 ["Keypoints"]
+       13 GETTABLEN                        R2 R3 2
+       14 GETTABLEKS                       R2 R2 K1 ["Value"]
        16 JUMPIFEQ                         R1 R2 ; [+3]
        18 LOADK                            R1 K2 ["<NumberSequence>"]
        19 RETURN                           R1 1
        20 GETIMPORT                        R1 K5 [string.format]
        22 LOADK                            R2 K6 ["%.3f"]
-       23 GETTABLEKS                       R5 R0 K0 ["Keypoints"]
-       25 GETTABLEN                        R4 R5 1
-       26 GETTABLEKS                       R3 R4 K1 ["Value"]
+       23 GETTABLEKS                       R4 R0 K0 ["Keypoints"]
+       25 GETTABLEN                        R3 R4 1
+       26 GETTABLEKS                       R3 R3 K1 ["Value"]
        28 CALL                             R1 2 -1
        29 RETURN                           R1 -1
 
@@ -136,20 +136,20 @@ PROTO_12:
         2 LENGTH                           R1 R2
         3 LOADN                            R2 2
         4 JUMPIFLT                         R2 R1 ; [+13]
-        6 GETTABLEKS                       R3 R0 K0 ["Keypoints"]
-        8 GETTABLEN                        R2 R3 1
-        9 GETTABLEKS                       R1 R2 K1 ["Value"]
-       11 GETTABLEKS                       R4 R0 K0 ["Keypoints"]
-       13 GETTABLEN                        R3 R4 2
-       14 GETTABLEKS                       R2 R3 K1 ["Value"]
+        6 GETTABLEKS                       R2 R0 K0 ["Keypoints"]
+        8 GETTABLEN                        R1 R2 1
+        9 GETTABLEKS                       R1 R1 K1 ["Value"]
+       11 GETTABLEKS                       R3 R0 K0 ["Keypoints"]
+       13 GETTABLEN                        R2 R3 2
+       14 GETTABLEKS                       R2 R2 K1 ["Value"]
        16 JUMPIFEQ                         R1 R2 ; [+3]
        18 LOADK                            R1 K2 ["<ColorSequence>"]
        19 RETURN                           R1 1
        20 GETIMPORT                        R1 K5 [string.format]
        22 LOADK                            R2 K6 ["#%s"]
-       23 GETTABLEKS                       R5 R0 K0 ["Keypoints"]
-       25 GETTABLEN                        R4 R5 1
-       26 GETTABLEKS                       R3 R4 K1 ["Value"]
+       23 GETTABLEKS                       R4 R0 K0 ["Keypoints"]
+       25 GETTABLEN                        R3 R4 1
+       26 GETTABLEKS                       R3 R3 K1 ["Value"]
        28 NAMECALL                         R3 R3 K7 ["ToHex"]
        30 CALL                             R3 1 -1
        31 CALL                             R1 -1 -1
@@ -176,14 +176,14 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Src"]
-       15 GETTABLEKS                       R2 R3 K6 ["Types"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Types"]
        17 CALL                             R1 1 1
        18 DUPTABLE                         R2 K20 [{"string", "number", "UDim", "UDim2", "Vector2", "Vector3", "Rect", "Color3", "Font", "BrickColor", "CFrame", "NumberSequence", "ColorSequence"}]
        19 DUPCLOSURE                       R3 K21 [PROTO_0]

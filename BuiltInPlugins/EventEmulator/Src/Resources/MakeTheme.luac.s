@@ -1,13 +1,13 @@
 PROTO_0:
         0 LOADNIL                          R1
         1 JUMPIFNOT                        R0 ; [+6]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["mock"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["mock"]
         5 CALL                             R2 0 1
         6 MOVE                             R1 R2
         7 JUMP                             ; [+5]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K1 ["new"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K1 ["new"]
        11 CALL                             R2 0 1
        12 MOVE                             R1 R2
        13 GETUPVAL                         R4 1
@@ -17,24 +17,24 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["Style"]
        25 GETTABLEKS                       R4 R3 K9 ["StyleKey"]
-       27 GETTABLEKS                       R6 R3 K10 ["Themes"]
-       29 GETTABLEKS                       R5 R6 K11 ["BaseTheme"]
-       31 GETTABLEKS                       R7 R3 K10 ["Themes"]
-       33 GETTABLEKS                       R6 R7 K12 ["StudioTheme"]
+       27 GETTABLEKS                       R5 R3 K10 ["Themes"]
+       29 GETTABLEKS                       R5 R5 K11 ["BaseTheme"]
+       31 GETTABLEKS                       R6 R3 K10 ["Themes"]
+       33 GETTABLEKS                       R6 R6 K12 ["StudioTheme"]
        35 GETTABLEKS                       R7 R3 K13 ["ComponentSymbols"]
        37 DUPTABLE                         R8 K25 [{"SmallPadding", "HistoryButtonMinor", "ShortHeight", "HorizontalPadding", "NavHeight", "ConfirmationButtonWidth", "HistoryButtonMajor", "InputPaneLength", "HistoryPaneLength", "DropdownWidth", "TextBoxWidth"}]
        38 LOADN                            R9 10
@@ -156,8 +156,8 @@ MAIN:
       229 SETTABLEKS                       R11 R10 K57 ["HistoryItem"]
       231 SETTABLEKS                       R10 R9 K77 ["Layout"]
       233 GETTABLEKS                       R10 R7 K78 ["Box"]
-      235 GETTABLEKS                       R12 R2 K79 ["Dictionary"]
-      237 GETTABLEKS                       R11 R12 K80 ["join"]
+      235 GETTABLEKS                       R11 R2 K79 ["Dictionary"]
+      237 GETTABLEKS                       R11 R11 K80 ["join"]
       239 GETTABLEKS                       R13 R7 K78 ["Box"]
       241 GETTABLE                         R12 R5 R13
       242 NEWTABLE                         R13 1 0
@@ -168,8 +168,8 @@ MAIN:
       251 CALL                             R11 2 1
       252 SETTABLE                         R11 R9 R10
       253 GETTABLEKS                       R10 R7 K84 ["RoundBox"]
-      255 GETTABLEKS                       R12 R2 K79 ["Dictionary"]
-      257 GETTABLEKS                       R11 R12 K80 ["join"]
+      255 GETTABLEKS                       R11 R2 K79 ["Dictionary"]
+      257 GETTABLEKS                       R11 R11 K80 ["join"]
       259 GETTABLEKS                       R13 R7 K84 ["RoundBox"]
       261 GETTABLE                         R12 R5 R13
       262 NEWTABLE                         R13 2 0
@@ -186,8 +186,8 @@ MAIN:
       281 CALL                             R11 2 1
       282 SETTABLE                         R11 R9 R10
       283 GETTABLEKS                       R10 R7 K32 ["Button"]
-      285 GETTABLEKS                       R12 R2 K79 ["Dictionary"]
-      287 GETTABLEKS                       R11 R12 K80 ["join"]
+      285 GETTABLEKS                       R11 R2 K79 ["Dictionary"]
+      287 GETTABLEKS                       R11 R11 K80 ["join"]
       289 GETTABLEKS                       R13 R7 K32 ["Button"]
       291 GETTABLE                         R12 R5 R13
       292 NEWTABLE                         R13 1 0

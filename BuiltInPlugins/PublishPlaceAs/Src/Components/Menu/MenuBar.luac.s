@@ -23,8 +23,8 @@ PROTO_1:
        24 GETIMPORT                        R7 K11 [assert]
        26 CALL                             R7 2 0
        27 DUPTABLE                         R7 K13 [{"Layout"}]
-       28 GETUPVAL                         R9 0
-       29 GETTABLEKS                       R8 R9 K14 ["createElement"]
+       28 GETUPVAL                         R8 0
+       29 GETTABLEKS                       R8 R8 K14 ["createElement"]
        31 LOADK                            R9 K15 ["UIListLayout"]
        32 DUPTABLE                         R10 K17 [{"Padding"}]
        33 GETIMPORT                        R11 K20 [UDim.new]
@@ -39,8 +39,8 @@ PROTO_1:
        46 CALL                             R8 1 3
        47 FORGPREP_INEXT                   R8
        48 MOVE                             R14 R7
-       49 GETUPVAL                         R16 0
-       50 GETTABLEKS                       R15 R16 K14 ["createElement"]
+       49 GETUPVAL                         R15 0
+       50 GETTABLEKS                       R15 R15 K14 ["createElement"]
        52 GETUPVAL                         R16 1
        53 DUPTABLE                         R17 K27 [{"Title", "Selected", "ShowError", "ShowWarning", "OnClicked"}]
        54 LOADK                            R20 K28 ["MenuItem"]
@@ -65,8 +65,8 @@ PROTO_1:
        80 GETIMPORT                        R13 K31 [table.insert]
        82 CALL                             R13 -1 0
        83 FORGLOOP                         R8 2 [inext] ; [-36]
-       85 GETUPVAL                         R9 0
-       86 GETTABLEKS                       R8 R9 K14 ["createElement"]
+       85 GETUPVAL                         R8 0
+       86 GETTABLEKS                       R8 R8 K14 ["createElement"]
        88 LOADK                            R9 K32 ["Frame"]
        89 DUPTABLE                         R10 K36 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
        90 GETIMPORT                        R11 K38 [UDim2.new]
@@ -76,8 +76,8 @@ PROTO_1:
        96 LOADN                            R15 0
        97 CALL                             R11 4 1
        98 SETTABLEKS                       R11 R10 K33 ["Size"]
-      100 GETTABLEKS                       R12 R2 K40 ["menuBar"]
-      102 GETTABLEKS                       R11 R12 K41 ["backgroundColor"]
+      100 GETTABLEKS                       R11 R2 K40 ["menuBar"]
+      102 GETTABLEKS                       R11 R11 K41 ["backgroundColor"]
       104 SETTABLEKS                       R11 R10 K34 ["BackgroundColor3"]
       106 LOADN                            R11 0
       107 SETTABLEKS                       R11 R10 K35 ["BorderSizePixel"]
@@ -87,26 +87,26 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        27 GETTABLEKS                       R4 R3 K9 ["withContext"]
        29 GETIMPORT                        R5 K4 [require]
-       31 GETTABLEKS                       R9 R0 K10 ["Src"]
-       33 GETTABLEKS                       R8 R9 K11 ["Components"]
-       35 GETTABLEKS                       R7 R8 K12 ["Menu"]
-       37 GETTABLEKS                       R6 R7 K13 ["MenuEntry"]
+       31 GETTABLEKS                       R6 R0 K10 ["Src"]
+       33 GETTABLEKS                       R6 R6 K11 ["Components"]
+       35 GETTABLEKS                       R6 R6 K12 ["Menu"]
+       37 GETTABLEKS                       R6 R6 K13 ["MenuEntry"]
        39 CALL                             R5 1 1
        40 GETTABLEKS                       R6 R1 K14 ["PureComponent"]
        42 LOADK                            R8 K15 ["MenuBar"]

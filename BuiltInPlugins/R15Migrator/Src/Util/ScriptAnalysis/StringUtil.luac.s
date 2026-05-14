@@ -18,8 +18,8 @@ PROTO_1:
         8 LOADN                            R5 1
         9 JUMPIFNOTLE                      R5 R4 ; [+14]
        11 GETIMPORT                        R4 K3 [string.match]
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K4 ["CharAt"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K4 ["CharAt"]
        16 MOVE                             R6 R0
        17 SUBK                             R7 R1 K0 [1]
        18 CALL                             R5 2 1
@@ -48,8 +48,8 @@ PROTO_2:
        16 CALL                             R5 1 1
        17 JUMPIFNOTLE                      R4 R5 ; [+14]
        19 GETIMPORT                        R4 K5 [string.match]
-       21 GETUPVAL                         R6 0
-       22 GETTABLEKS                       R5 R6 K6 ["CharAt"]
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K6 ["CharAt"]
        24 MOVE                             R6 R0
        25 ADDK                             R7 R1 K0 [1]
        26 CALL                             R5 2 1
@@ -62,16 +62,16 @@ PROTO_2:
        33 RETURN                           R4 1
 
 PROTO_3:
-        0 GETUPVAL                         R8 0
-        1 GETTABLEKS                       R7 R8 K0 ["MatchBefore"]
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R7 R7 K0 ["MatchBefore"]
         3 MOVE                             R8 R0
         4 MOVE                             R9 R1
         5 MOVE                             R10 R3
         6 MOVE                             R11 R5
         7 CALL                             R7 4 1
         8 JUMPIFNOT                        R7 ; [+9]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R7 R8 K1 ["MatchAfter"]
+        9 GETUPVAL                         R7 0
+       10 GETTABLEKS                       R7 R7 K1 ["MatchAfter"]
        12 MOVE                             R8 R0
        13 MOVE                             R9 R2
        14 MOVE                             R10 R4
@@ -82,16 +82,16 @@ PROTO_3:
        19 RETURN                           R7 1
 
 PROTO_4:
-        0 GETUPVAL                         R8 0
-        1 GETTABLEKS                       R7 R8 K0 ["MatchBefore"]
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R7 R7 K0 ["MatchBefore"]
         3 MOVE                             R8 R0
         4 MOVE                             R9 R1
         5 MOVE                             R10 R3
         6 MOVE                             R11 R5
         7 CALL                             R7 4 1
         8 JUMPIF                           R7 ; [+8]
-        9 GETUPVAL                         R8 0
-       10 GETTABLEKS                       R7 R8 K1 ["MatchAfter"]
+        9 GETUPVAL                         R7 0
+       10 GETTABLEKS                       R7 R7 K1 ["MatchAfter"]
        12 MOVE                             R8 R0
        13 MOVE                             R9 R2
        14 MOVE                             R10 R4
@@ -108,14 +108,14 @@ PROTO_5:
         6 MOVE                             R1 R4
         7 LOADN                            R2 1
         8 FORNPREP                         R1
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K3 ["CharAt"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["CharAt"]
        12 MOVE                             R5 R0
        13 MOVE                             R6 R3
        14 CALL                             R4 2 1
        15 JUMPIFEQKS                       R4 K4 [" "] ; [+10]
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K3 ["CharAt"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K3 ["CharAt"]
        20 MOVE                             R5 R0
        21 MOVE                             R6 R3
        22 CALL                             R4 2 1

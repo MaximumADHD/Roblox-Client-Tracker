@@ -1,9 +1,9 @@
 PROTO_0:
         0 GETTABLEKS                       R2 R1 K0 ["allPolicies"]
         2 GETTABLEKS                       R3 R1 K1 ["allPolicySortedKeys"]
-        4 GETUPVAL                         R6 0
-        5 GETTABLEKS                       R5 R6 K2 ["Dictionary"]
-        7 GETTABLEKS                       R4 R5 K3 ["join"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K2 ["Dictionary"]
+        7 GETTABLEKS                       R4 R4 K3 ["join"]
         9 MOVE                             R5 R0
        10 DUPTABLE                         R6 K4 [{"allPolicies", "allPolicySortedKeys"}]
        11 SETTABLEKS                       R2 R6 K0 ["allPolicies"]
@@ -31,24 +31,24 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Rodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R5 K4 [require]
-       25 GETTABLEKS                       R7 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R6 R7 K8 ["Framework"]
-       29 CALL                             R5 1 1
-       30 GETTABLEKS                       R4 R5 K9 ["Util"]
-       32 GETTABLEKS                       R3 R4 K10 ["deepJoin"]
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R3 R3 K9 ["Util"]
+       32 GETTABLEKS                       R3 R3 K10 ["deepJoin"]
        34 GETTABLEKS                       R4 R2 K11 ["createReducer"]
        36 DUPTABLE                         R5 K16 [{"allPolicies", "allPolicySortedKeys", "policySettingStatus", "policyListItemsModuleExpanded"}]
        37 NEWTABLE                         R6 0 0

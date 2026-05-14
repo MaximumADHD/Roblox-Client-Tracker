@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETIMPORT                        R2 K1 [game]
-        2 GETTABLEKS                       R1 R2 K2 ["CoreGui"]
+        0 GETIMPORT                        R1 K1 [game]
+        2 GETTABLEKS                       R1 R1 K2 ["CoreGui"]
         4 LOADK                            R3 K3 ["PlaceAnnotations"]
         5 NAMECALL                         R1 R1 K4 ["FindFirstChild"]
         7 CALL                             R1 2 1
@@ -10,14 +10,14 @@ PROTO_0:
        12 CALL                             R1 1 1
        13 LOADK                            R2 K3 ["PlaceAnnotations"]
        14 SETTABLEKS                       R2 R1 K9 ["Name"]
-       16 GETIMPORT                        R3 K1 [game]
-       18 GETTABLEKS                       R2 R3 K2 ["CoreGui"]
+       16 GETIMPORT                        R2 K1 [game]
+       18 GETTABLEKS                       R2 R2 K2 ["CoreGui"]
        20 SETTABLEKS                       R2 R1 K10 ["Parent"]
        22 GETIMPORT                        R1 K7 [Instance.new]
        24 LOADK                            R2 K11 ["Part"]
        25 CALL                             R1 1 1
-       26 GETIMPORT                        R3 K1 [game]
-       28 GETTABLEKS                       R2 R3 K12 ["Workspace"]
+       26 GETIMPORT                        R2 K1 [game]
+       28 GETTABLEKS                       R2 R2 K12 ["Workspace"]
        30 SETTABLEKS                       R2 R1 K10 ["Parent"]
        32 GETIMPORT                        R2 K7 [Instance.new]
        34 LOADK                            R3 K13 ["WorkspaceAnnotation"]
@@ -27,9 +27,9 @@ PROTO_0:
        39 SETTABLEKS                       R3 R2 K9 ["Name"]
        41 LOADK                            R3 K15 [123456789]
        42 SETTABLEKS                       R3 R2 K16 ["AuthorId"]
-       44 GETIMPORT                        R4 K19 [DateTime.now]
-       46 CALL                             R4 0 1
-       47 GETTABLEKS                       R3 R4 K20 ["UnixTimestamp"]
+       44 GETIMPORT                        R3 K19 [DateTime.now]
+       46 CALL                             R3 0 1
+       47 GETTABLEKS                       R3 R3 K20 ["UnixTimestamp"]
        49 SETTABLEKS                       R3 R2 K21 ["CreationTimeUnix"]
        51 GETTABLEKS                       R3 R2 K21 ["CreationTimeUnix"]
        53 SETTABLEKS                       R3 R2 K22 ["LastModifiedTimeUnix"]

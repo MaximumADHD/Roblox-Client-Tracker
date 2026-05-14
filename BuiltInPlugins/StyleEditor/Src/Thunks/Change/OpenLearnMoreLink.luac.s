@@ -6,9 +6,9 @@ PROTO_0:
         5 GETUPVAL                         R4 1
         6 GETUPVAL                         R5 2
         7 DUPTABLE                         R6 K4 [{"eventType", "path"}]
-        8 GETUPVAL                         R9 3
-        9 GETTABLEKS                       R8 R9 K5 ["OnboardingLink"]
-       11 GETTABLEKS                       R7 R8 K6 ["rawValue"]
+        8 GETUPVAL                         R7 3
+        9 GETTABLEKS                       R7 R7 K5 ["OnboardingLink"]
+       11 GETTABLEKS                       R7 R7 K6 ["rawValue"]
        13 CALL                             R7 0 1
        14 SETTABLEKS                       R7 R6 K2 ["eventType"]
        16 LOADK                            R7 K5 ["OnboardingLink"]
@@ -33,32 +33,32 @@ MAIN:
         3 LOADK                            R2 K2 ["GuiService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R5 R1 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Thunks"]
-       23 GETTABLEKS                       R3 R4 K11 ["Types"]
+       19 GETTABLEKS                       R3 R1 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Thunks"]
+       23 GETTABLEKS                       R3 R3 K11 ["Types"]
        25 CALL                             R2 1 1
-       26 GETTABLEKS                       R4 R1 K9 ["Src"]
-       28 GETTABLEKS                       R3 R4 K10 ["Thunks"]
+       26 GETTABLEKS                       R3 R1 K9 ["Src"]
+       28 GETTABLEKS                       R3 R3 K10 ["Thunks"]
        30 GETIMPORT                        R4 K8 [require]
-       32 GETTABLEKS                       R6 R3 K12 ["Telemetry"]
-       34 GETTABLEKS                       R5 R6 K13 ["SendTelemetryEvent"]
+       32 GETTABLEKS                       R5 R3 K12 ["Telemetry"]
+       34 GETTABLEKS                       R5 R5 K13 ["SendTelemetryEvent"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K8 [require]
-       39 GETTABLEKS                       R9 R1 K9 ["Src"]
-       41 GETTABLEKS                       R8 R9 K14 ["Resources"]
-       43 GETTABLEKS                       R7 R8 K12 ["Telemetry"]
-       45 GETTABLEKS                       R6 R7 K15 ["ActionClickedEvent"]
+       39 GETTABLEKS                       R6 R1 K9 ["Src"]
+       41 GETTABLEKS                       R6 R6 K14 ["Resources"]
+       43 GETTABLEKS                       R6 R6 K12 ["Telemetry"]
+       45 GETTABLEKS                       R6 R6 K15 ["ActionClickedEvent"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K8 [require]
-       50 GETTABLEKS                       R9 R1 K9 ["Src"]
-       52 GETTABLEKS                       R8 R9 K16 ["Enums"]
-       54 GETTABLEKS                       R7 R8 K17 ["ActionClickedEventType"]
+       50 GETTABLEKS                       R7 R1 K9 ["Src"]
+       52 GETTABLEKS                       R7 R7 K16 ["Enums"]
+       54 GETTABLEKS                       R7 R7 K17 ["ActionClickedEventType"]
        56 CALL                             R6 1 1
        57 DUPCLOSURE                       R7 K18 [PROTO_1]
        58 CAPTURE                          VAL R0

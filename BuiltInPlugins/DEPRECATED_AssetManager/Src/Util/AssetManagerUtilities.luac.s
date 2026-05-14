@@ -4,8 +4,8 @@ PROTO_0:
         3 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["shouldEnableAudioImport"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["shouldEnableAudioImport"]
         3 CALL                             R0 0 -1
         4 RETURN                           R0 -1
 
@@ -17,8 +17,8 @@ PROTO_2:
         4 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["shouldEnableVideoImport"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["shouldEnableVideoImport"]
         3 CALL                             R0 0 -1
         4 RETURN                           R0 -1
 
@@ -37,9 +37,9 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["getPluginPolicy"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETIMPORT                        R4 K9 [script]
-       15 GETTABLEKS                       R3 R4 K10 ["Parent"]
-       17 GETTABLEKS                       R2 R3 K11 ["hasInternalPermission"]
+       13 GETIMPORT                        R2 K9 [script]
+       15 GETTABLEKS                       R2 R2 K10 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K11 ["hasInternalPermission"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K1 [game]
        22 LOADK                            R4 K12 ["EnableCustomVideoUploadLua"]

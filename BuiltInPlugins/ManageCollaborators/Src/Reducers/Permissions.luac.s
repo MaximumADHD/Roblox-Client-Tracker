@@ -15,9 +15,9 @@ PROTO_1:
         8 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"MinimumAge"}]
         7 GETTABLEKS                       R5 R1 K2 ["MinimumAge"]
@@ -44,9 +44,9 @@ PROTO_3:
        20 JUMPIFNOT                        R3 ; [+3]
        21 GETUPVAL                         R3 1
        22 GETTABLEKS                       R2 R3 K7 ["None"]
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R4 R5 K8 ["Dictionary"]
-       27 GETTABLEKS                       R3 R4 K9 ["join"]
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R3 R3 K8 ["Dictionary"]
+       27 GETTABLEKS                       R3 R3 K9 ["join"]
        29 MOVE                             R4 R0
        30 DUPTABLE                         R5 K11 [{"NewPermissions"}]
        31 SETTABLEKS                       R2 R5 K10 ["NewPermissions"]
@@ -54,9 +54,9 @@ PROTO_3:
        34 RETURN                           R3 -1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"CurrentPermissions"}]
         7 GETTABLEKS                       R5 R1 K4 ["currentPermissions"]
@@ -66,20 +66,20 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R0 K8 ["Src"]
-       25 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       23 GETTABLEKS                       R3 R0 K8 ["Src"]
+       25 GETTABLEKS                       R3 R3 K9 ["Actions"]
        27 GETIMPORT                        R4 K4 [require]
        29 GETTABLEKS                       R5 R3 K10 ["SetUserMinimumAge"]
        31 CALL                             R4 1 1
@@ -90,9 +90,9 @@ MAIN:
        39 GETTABLEKS                       R7 R3 K12 ["SetCurrentUserPermissions"]
        41 CALL                             R6 1 1
        42 GETIMPORT                        R7 K4 [require]
-       44 GETTABLEKS                       R10 R0 K8 ["Src"]
-       46 GETTABLEKS                       R9 R10 K13 ["Util"]
-       48 GETTABLEKS                       R8 R9 K14 ["IsEqualCheck"]
+       44 GETTABLEKS                       R8 R0 K8 ["Src"]
+       46 GETTABLEKS                       R8 R8 K13 ["Util"]
+       48 GETTABLEKS                       R8 R8 K14 ["IsEqualCheck"]
        50 CALL                             R7 1 1
        51 DUPCLOSURE                       R8 K15 [PROTO_0]
        52 GETTABLEKS                       R9 R1 K16 ["createReducer"]

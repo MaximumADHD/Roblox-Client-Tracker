@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["BaseUrl"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["BaseUrl"]
         3 GETUPVAL                         R2 1
         4 FASTCALL1                        TOSTRING R0 ; [+3]
         5 MOVE                             R5 R0

@@ -10,20 +10,20 @@ PROTO_1:
         0 DUPTABLE                         R0 K5 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
         1 GETUPVAL                         R1 0
         2 SETTABLEKS                       R1 R0 K0 ["Uri"]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K6 ["action"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K6 ["action"]
         7 LOADK                            R2 K7 ["MainVolume"]
         8 CALL                             R1 1 1
         9 SETTABLEKS                       R1 R0 K1 ["Text"]
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R1 R2 K8 ["tooltip"]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K8 ["tooltip"]
        14 LOADK                            R2 K7 ["MainVolume"]
        15 CALL                             R1 1 1
        16 SETTABLEKS                       R1 R0 K2 ["Tooltip"]
        18 LOADB                            R1 1
        19 SETTABLEKS                       R1 R0 K3 ["Enabled"]
-       21 GETUPVAL                         R2 2
-       22 GETTABLEKS                       R1 R2 K9 ["MasterVolumeStudio"]
+       21 GETUPVAL                         R1 2
+       22 GETTABLEKS                       R1 R1 K9 ["MasterVolumeStudio"]
        24 SETTABLEKS                       R1 R0 K4 ["Value"]
        26 RETURN                           R0 1
 
@@ -33,20 +33,20 @@ PROTO_2:
         3 DUPTABLE                         R3 K5 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
         4 GETUPVAL                         R4 1
         5 SETTABLEKS                       R4 R3 K0 ["Uri"]
-        7 GETUPVAL                         R5 2
-        8 GETTABLEKS                       R4 R5 K6 ["action"]
+        7 GETUPVAL                         R4 2
+        8 GETTABLEKS                       R4 R4 K6 ["action"]
        10 LOADK                            R5 K7 ["MainVolume"]
        11 CALL                             R4 1 1
        12 SETTABLEKS                       R4 R3 K1 ["Text"]
-       14 GETUPVAL                         R5 2
-       15 GETTABLEKS                       R4 R5 K8 ["tooltip"]
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R4 R4 K8 ["tooltip"]
        17 LOADK                            R5 K7 ["MainVolume"]
        18 CALL                             R4 1 1
        19 SETTABLEKS                       R4 R3 K2 ["Tooltip"]
        21 LOADB                            R4 1
        22 SETTABLEKS                       R4 R3 K3 ["Enabled"]
-       24 GETUPVAL                         R5 3
-       25 GETTABLEKS                       R4 R5 K9 ["MasterVolumeStudio"]
+       24 GETUPVAL                         R4 3
+       25 GETTABLEKS                       R4 R4 K9 ["MasterVolumeStudio"]
        27 SETTABLEKS                       R4 R3 K4 ["Value"]
        29 SETLIST                          R2 R3 1 [1]
        31 NAMECALL                         R0 R0 K10 ["UpdateAsync"]
@@ -68,20 +68,20 @@ PROTO_3:
        16 DUPTABLE                         R6 K8 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
        17 GETUPVAL                         R7 0
        18 SETTABLEKS                       R7 R6 K3 ["Uri"]
-       20 GETUPVAL                         R8 1
-       21 GETTABLEKS                       R7 R8 K9 ["action"]
+       20 GETUPVAL                         R7 1
+       21 GETTABLEKS                       R7 R7 K9 ["action"]
        23 LOADK                            R8 K10 ["MainVolume"]
        24 CALL                             R7 1 1
        25 SETTABLEKS                       R7 R6 K4 ["Text"]
-       27 GETUPVAL                         R8 1
-       28 GETTABLEKS                       R7 R8 K11 ["tooltip"]
+       27 GETUPVAL                         R7 1
+       28 GETTABLEKS                       R7 R7 K11 ["tooltip"]
        30 LOADK                            R8 K10 ["MainVolume"]
        31 CALL                             R7 1 1
        32 SETTABLEKS                       R7 R6 K5 ["Tooltip"]
        34 LOADB                            R7 1
        35 SETTABLEKS                       R7 R6 K6 ["Enabled"]
-       37 GETUPVAL                         R8 2
-       38 GETTABLEKS                       R7 R8 K12 ["MasterVolumeStudio"]
+       37 GETUPVAL                         R7 2
+       38 GETTABLEKS                       R7 R7 K12 ["MasterVolumeStudio"]
        40 SETTABLEKS                       R7 R6 K7 ["Value"]
        42 SETLIST                          R5 R6 1 [1]
        44 NAMECALL                         R3 R1 K13 ["UpdateAsync"]
@@ -91,20 +91,20 @@ PROTO_3:
        50 DUPTABLE                         R6 K8 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
        51 GETUPVAL                         R7 0
        52 SETTABLEKS                       R7 R6 K3 ["Uri"]
-       54 GETUPVAL                         R8 1
-       55 GETTABLEKS                       R7 R8 K9 ["action"]
+       54 GETUPVAL                         R7 1
+       55 GETTABLEKS                       R7 R7 K9 ["action"]
        57 LOADK                            R8 K10 ["MainVolume"]
        58 CALL                             R7 1 1
        59 SETTABLEKS                       R7 R6 K4 ["Text"]
-       61 GETUPVAL                         R8 1
-       62 GETTABLEKS                       R7 R8 K11 ["tooltip"]
+       61 GETUPVAL                         R7 1
+       62 GETTABLEKS                       R7 R7 K11 ["tooltip"]
        64 LOADK                            R8 K10 ["MainVolume"]
        65 CALL                             R7 1 1
        66 SETTABLEKS                       R7 R6 K5 ["Tooltip"]
        68 LOADB                            R7 1
        69 SETTABLEKS                       R7 R6 K6 ["Enabled"]
-       71 GETUPVAL                         R8 2
-       72 GETTABLEKS                       R7 R8 K12 ["MasterVolumeStudio"]
+       71 GETUPVAL                         R7 2
+       72 GETTABLEKS                       R7 R7 K12 ["MasterVolumeStudio"]
        74 SETTABLEKS                       R7 R6 K7 ["Value"]
        76 SETLIST                          R5 R6 1 [1]
        78 NAMECALL                         R3 R1 K14 ["CreateAsync"]
@@ -173,9 +173,9 @@ MAIN:
        11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
        14 GETIMPORT                        R2 K9 [require]
-       16 GETTABLEKS                       R5 R1 K10 ["Src"]
-       18 GETTABLEKS                       R4 R5 K11 ["Util"]
-       20 GETTABLEKS                       R3 R4 K12 ["LocalizationUtil"]
+       16 GETTABLEKS                       R3 R1 K10 ["Src"]
+       18 GETTABLEKS                       R3 R3 K11 ["Util"]
+       20 GETTABLEKS                       R3 R3 K12 ["LocalizationUtil"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K13 [PROTO_0]
        24 CAPTURE                          VAL R0

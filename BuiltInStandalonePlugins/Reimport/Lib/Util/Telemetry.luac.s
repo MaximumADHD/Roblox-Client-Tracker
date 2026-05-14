@@ -77,10 +77,10 @@ MAIN:
        28 LOADK                            R5 K20 ["Reimport"]
        29 SETTABLEKS                       R5 R4 K14 ["eventContext"]
        31 NEWTABLE                         R5 0 2
-       33 GETTABLEKS                       R7 R3 K11 ["Backends"]
-       35 GETTABLEKS                       R6 R7 K6 ["EventIngest"]
-       37 GETTABLEKS                       R8 R3 K11 ["Backends"]
-       39 GETTABLEKS                       R7 R8 K7 ["Points"]
+       33 GETTABLEKS                       R6 R3 K11 ["Backends"]
+       35 GETTABLEKS                       R6 R6 K6 ["EventIngest"]
+       37 GETTABLEKS                       R7 R3 K11 ["Backends"]
+       39 GETTABLEKS                       R7 R7 K7 ["Points"]
        41 SETLIST                          R5 R6 2 [1]
        43 SETTABLEKS                       R5 R4 K15 ["backends"]
        45 NEWTABLE                         R5 0 3
@@ -101,8 +101,8 @@ MAIN:
        66 LOADK                            R6 K24 ["ReimportAttempt"]
        67 SETTABLEKS                       R6 R5 K13 ["eventName"]
        69 NEWTABLE                         R6 0 1
-       71 GETTABLEKS                       R8 R3 K11 ["Backends"]
-       73 GETTABLEKS                       R7 R8 K4 ["Counter"]
+       71 GETTABLEKS                       R7 R3 K11 ["Backends"]
+       73 GETTABLEKS                       R7 R7 K4 ["Counter"]
        75 SETLIST                          R6 R7 1 [1]
        77 SETTABLEKS                       R6 R5 K15 ["backends"]
        79 NEWTABLE                         R6 0 3

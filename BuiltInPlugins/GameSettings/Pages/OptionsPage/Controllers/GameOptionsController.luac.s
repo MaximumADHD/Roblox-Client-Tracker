@@ -86,8 +86,8 @@ PROTO_8:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isUniverseEnabledForVoice"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isUniverseEnabledForVoice"]
        11 RETURN                           R3 1
 
 PROTO_9:
@@ -106,17 +106,17 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Src"]
-       15 GETTABLEKS                       R4 R5 K6 ["Util"]
-       17 GETTABLEKS                       R3 R4 K7 ["GameSettingsUtilities"]
-       19 CALL                             R2 1 1
-       20 GETTABLEKS                       R1 R2 K8 ["isTeamCreateEnabled"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["GameSettingsUtilities"]
+       19 CALL                             R1 1 1
+       20 GETTABLEKS                       R1 R1 K8 ["isTeamCreateEnabled"]
        22 NEWTABLE                         R2 16 0
        24 SETTABLEKS                       R2 R2 K9 ["__index"]
        26 DUPCLOSURE                       R3 K10 [PROTO_0]

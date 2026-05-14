@@ -16,14 +16,14 @@ PROTO_1:
         4 MOVE                             R3 R0
         5 CALL                             R2 1 3
         6 FORGPREP_INEXT                   R2
-        7 GETTABLEKS                       R9 R6 K3 ["identifier"]
-        9 GETTABLEKS                       R8 R9 K4 ["key"]
+        7 GETTABLEKS                       R8 R6 K3 ["identifier"]
+        9 GETTABLEKS                       R8 R8 K4 ["key"]
        11 ORK                              R7 R8 K2 [""]
-       12 GETTABLEKS                       R10 R6 K3 ["identifier"]
-       14 GETTABLEKS                       R9 R10 K5 ["source"]
+       12 GETTABLEKS                       R9 R6 K3 ["identifier"]
+       14 GETTABLEKS                       R9 R9 K5 ["source"]
        16 ORK                              R8 R9 K2 [""]
-       17 GETTABLEKS                       R11 R6 K3 ["identifier"]
-       19 GETTABLEKS                       R10 R11 K6 ["context"]
+       17 GETTABLEKS                       R10 R6 K3 ["identifier"]
+       19 GETTABLEKS                       R10 R10 K6 ["context"]
        21 ORK                              R9 R10 K2 [""]
        22 GETTABLE                         R10 R1 R7
        23 JUMPIF                           R10 ; [+2]
@@ -226,20 +226,20 @@ PROTO_3:
       246 CONCAT                           R24 R25 R27
       247 SETTABLEKS                       R24 R23 K23 ["language"]
       249 LOADK                            R25 K28 ["\""]
-      250 GETTABLEKS                       R28 R1 K29 ["identifier"]
-      252 GETTABLEKS                       R26 R28 K24 ["key"]
+      250 GETTABLEKS                       R26 R1 K29 ["identifier"]
+      252 GETTABLEKS                       R26 R26 K24 ["key"]
       254 LOADK                            R27 K28 ["\""]
       255 CONCAT                           R24 R25 R27
       256 SETTABLEKS                       R24 R23 K24 ["key"]
       258 LOADK                            R25 K28 ["\""]
-      259 GETTABLEKS                       R28 R1 K29 ["identifier"]
-      261 GETTABLEKS                       R26 R28 K25 ["source"]
+      259 GETTABLEKS                       R26 R1 K29 ["identifier"]
+      261 GETTABLEKS                       R26 R26 K25 ["source"]
       263 LOADK                            R27 K28 ["\""]
       264 CONCAT                           R24 R25 R27
       265 SETTABLEKS                       R24 R23 K25 ["source"]
       267 LOADK                            R25 K28 ["\""]
-      268 GETTABLEKS                       R28 R1 K29 ["identifier"]
-      270 GETTABLEKS                       R26 R28 K26 ["context"]
+      268 GETTABLEKS                       R26 R1 K29 ["identifier"]
+      270 GETTABLEKS                       R26 R26 K26 ["context"]
       272 LOADK                            R27 K28 ["\""]
       273 CONCAT                           R24 R25 R27
       274 SETTABLEKS                       R24 R23 K26 ["context"]
@@ -249,14 +249,14 @@ PROTO_3:
       280 FORGLOOP                         R12 2 [inext] ; [-93]
       282 DUPTABLE                         R12 K32 [{"identifier", "metadata", "translations", "delete"}]
       283 DUPTABLE                         R13 K33 [{"key", "source", "context"}]
-      284 GETTABLEKS                       R15 R1 K29 ["identifier"]
-      286 GETTABLEKS                       R14 R15 K24 ["key"]
+      284 GETTABLEKS                       R14 R1 K29 ["identifier"]
+      286 GETTABLEKS                       R14 R14 K24 ["key"]
       288 SETTABLEKS                       R14 R13 K24 ["key"]
-      290 GETTABLEKS                       R15 R1 K29 ["identifier"]
-      292 GETTABLEKS                       R14 R15 K25 ["source"]
+      290 GETTABLEKS                       R14 R1 K29 ["identifier"]
+      292 GETTABLEKS                       R14 R14 K25 ["source"]
       294 SETTABLEKS                       R14 R13 K25 ["source"]
-      296 GETTABLEKS                       R15 R1 K29 ["identifier"]
-      298 GETTABLEKS                       R14 R15 K26 ["context"]
+      296 GETTABLEKS                       R14 R1 K29 ["identifier"]
+      298 GETTABLEKS                       R14 R14 K26 ["context"]
       300 SETTABLEKS                       R14 R13 K26 ["context"]
       302 SETTABLEKS                       R13 R12 K29 ["identifier"]
       304 GETTABLEKS                       R13 R1 K31 ["metadata"]
@@ -368,20 +368,20 @@ PROTO_4:
       143 CONCAT                           R20 R21 R23
       144 SETTABLEKS                       R20 R19 K22 ["language"]
       146 LOADK                            R21 K27 ["\""]
-      147 GETTABLEKS                       R24 R0 K28 ["identifier"]
-      149 GETTABLEKS                       R22 R24 K23 ["key"]
+      147 GETTABLEKS                       R22 R0 K28 ["identifier"]
+      149 GETTABLEKS                       R22 R22 K23 ["key"]
       151 LOADK                            R23 K27 ["\""]
       152 CONCAT                           R20 R21 R23
       153 SETTABLEKS                       R20 R19 K23 ["key"]
       155 LOADK                            R21 K27 ["\""]
-      156 GETTABLEKS                       R24 R0 K28 ["identifier"]
-      158 GETTABLEKS                       R22 R24 K24 ["source"]
+      156 GETTABLEKS                       R22 R0 K28 ["identifier"]
+      158 GETTABLEKS                       R22 R22 K24 ["source"]
       160 LOADK                            R23 K27 ["\""]
       161 CONCAT                           R20 R21 R23
       162 SETTABLEKS                       R20 R19 K24 ["source"]
       164 LOADK                            R21 K27 ["\""]
-      165 GETTABLEKS                       R24 R0 K28 ["identifier"]
-      167 GETTABLEKS                       R22 R24 K25 ["context"]
+      165 GETTABLEKS                       R22 R0 K28 ["identifier"]
+      167 GETTABLEKS                       R22 R22 K25 ["context"]
       169 LOADK                            R23 K27 ["\""]
       170 CONCAT                           R20 R21 R23
       171 SETTABLEKS                       R20 R19 K25 ["context"]
@@ -391,14 +391,14 @@ PROTO_4:
       177 FORGLOOP                         R8 2 [inext] ; [-93]
       179 DUPTABLE                         R8 K31 [{"identifier", "metadata", "translations", "delete"}]
       180 DUPTABLE                         R9 K32 [{"key", "source", "context"}]
-      181 GETTABLEKS                       R11 R0 K28 ["identifier"]
-      183 GETTABLEKS                       R10 R11 K23 ["key"]
+      181 GETTABLEKS                       R10 R0 K28 ["identifier"]
+      183 GETTABLEKS                       R10 R10 K23 ["key"]
       185 SETTABLEKS                       R10 R9 K23 ["key"]
-      187 GETTABLEKS                       R11 R0 K28 ["identifier"]
-      189 GETTABLEKS                       R10 R11 K24 ["source"]
+      187 GETTABLEKS                       R10 R0 K28 ["identifier"]
+      189 GETTABLEKS                       R10 R10 K24 ["source"]
       191 SETTABLEKS                       R10 R9 K24 ["source"]
-      193 GETTABLEKS                       R11 R0 K28 ["identifier"]
-      195 GETTABLEKS                       R10 R11 K25 ["context"]
+      193 GETTABLEKS                       R10 R0 K28 ["identifier"]
+      195 GETTABLEKS                       R10 R10 K25 ["context"]
       197 SETTABLEKS                       R10 R9 K25 ["context"]
       199 SETTABLEKS                       R9 R8 K28 ["identifier"]
       201 GETTABLEKS                       R9 R0 K30 ["metadata"]
@@ -445,14 +445,14 @@ PROTO_5:
        50 FORGLOOP                         R4 2 [inext] ; [-38]
        52 DUPTABLE                         R4 K20 [{"identifier", "metadata", "translations", "delete"}]
        53 DUPTABLE                         R5 K24 [{"key", "source", "context"}]
-       54 GETTABLEKS                       R7 R0 K18 ["identifier"]
-       56 GETTABLEKS                       R6 R7 K21 ["key"]
+       54 GETTABLEKS                       R6 R0 K18 ["identifier"]
+       56 GETTABLEKS                       R6 R6 K21 ["key"]
        58 SETTABLEKS                       R6 R5 K21 ["key"]
-       60 GETTABLEKS                       R7 R0 K18 ["identifier"]
-       62 GETTABLEKS                       R6 R7 K22 ["source"]
+       60 GETTABLEKS                       R6 R0 K18 ["identifier"]
+       62 GETTABLEKS                       R6 R6 K22 ["source"]
        64 SETTABLEKS                       R6 R5 K22 ["source"]
-       66 GETTABLEKS                       R7 R0 K18 ["identifier"]
-       68 GETTABLEKS                       R6 R7 K23 ["context"]
+       66 GETTABLEKS                       R6 R0 K18 ["identifier"]
+       68 GETTABLEKS                       R6 R6 K23 ["context"]
        70 SETTABLEKS                       R6 R5 K23 ["context"]
        72 SETTABLEKS                       R5 R4 K18 ["identifier"]
        74 GETTABLEKS                       R5 R0 K19 ["metadata"]
@@ -515,12 +515,12 @@ PROTO_8:
        32 MOVE                             R13 R1
        33 CALL                             R12 1 3
        34 FORGPREP_NEXT                    R12
-       35 GETTABLEKS                       R19 R16 K10 ["identifier"]
-       37 GETTABLEKS                       R18 R19 K11 ["key"]
-       39 GETTABLEKS                       R20 R16 K10 ["identifier"]
-       41 GETTABLEKS                       R19 R20 K12 ["source"]
-       43 GETTABLEKS                       R21 R16 K10 ["identifier"]
-       45 GETTABLEKS                       R20 R21 K13 ["context"]
+       35 GETTABLEKS                       R18 R16 K10 ["identifier"]
+       37 GETTABLEKS                       R18 R18 K11 ["key"]
+       39 GETTABLEKS                       R19 R16 K10 ["identifier"]
+       41 GETTABLEKS                       R19 R19 K12 ["source"]
+       43 GETTABLEKS                       R20 R16 K10 ["identifier"]
+       45 GETTABLEKS                       R20 R20 K13 ["context"]
        47 GETTABLE                         R21 R7 R18
        48 JUMPIFEQKNIL                     R21 ; [+14]
        50 GETTABLE                         R22 R7 R18
@@ -563,10 +563,10 @@ PROTO_8:
        93 GETTABLEKS                       R20 R18 K20 ["translations"]
        95 CALL                             R19 1 1
        96 JUMPIFNOTEQKNIL                  R19 ; [+11]
-       98 GETTABLEKS                       R20 R18 K21 ["metadata"]
-      100 GETTABLEKS                       R19 R20 K22 ["example"]
-      102 GETTABLEKS                       R21 R16 K21 ["metadata"]
-      104 GETTABLEKS                       R20 R21 K22 ["example"]
+       98 GETTABLEKS                       R19 R18 K21 ["metadata"]
+      100 GETTABLEKS                       R19 R19 K22 ["example"]
+      102 GETTABLEKS                       R20 R16 K21 ["metadata"]
+      104 GETTABLEKS                       R20 R20 K22 ["example"]
       106 JUMPIFEQ                         R19 R20 ; [+8]
       108 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
       110 MOVE                             R20 R9
@@ -578,12 +578,12 @@ PROTO_8:
       119 MOVE                             R13 R2
       120 CALL                             R12 1 3
       121 FORGPREP_NEXT                    R12
-      122 GETTABLEKS                       R19 R16 K10 ["identifier"]
-      124 GETTABLEKS                       R18 R19 K11 ["key"]
-      126 GETTABLEKS                       R20 R16 K10 ["identifier"]
-      128 GETTABLEKS                       R19 R20 K12 ["source"]
-      130 GETTABLEKS                       R21 R16 K10 ["identifier"]
-      132 GETTABLEKS                       R20 R21 K13 ["context"]
+      122 GETTABLEKS                       R18 R16 K10 ["identifier"]
+      124 GETTABLEKS                       R18 R18 K11 ["key"]
+      126 GETTABLEKS                       R19 R16 K10 ["identifier"]
+      128 GETTABLEKS                       R19 R19 K12 ["source"]
+      130 GETTABLEKS                       R20 R16 K10 ["identifier"]
+      132 GETTABLEKS                       R20 R20 K13 ["context"]
       134 GETTABLE                         R21 R8 R18
       135 JUMPIFEQKNIL                     R21 ; [+14]
       137 GETTABLE                         R22 R8 R18
@@ -617,21 +617,21 @@ PROTO_8:
 PROTO_9:
         0 DUPTABLE                         R1 K4 [{"identifier", "metadata", "translations", "delete"}]
         1 DUPTABLE                         R2 K8 [{"key", "source", "context"}]
-        2 GETTABLEKS                       R4 R0 K0 ["identifier"]
-        4 GETTABLEKS                       R3 R4 K5 ["key"]
+        2 GETTABLEKS                       R3 R0 K0 ["identifier"]
+        4 GETTABLEKS                       R3 R3 K5 ["key"]
         6 SETTABLEKS                       R3 R2 K5 ["key"]
-        8 GETTABLEKS                       R4 R0 K0 ["identifier"]
-       10 GETTABLEKS                       R3 R4 K6 ["source"]
+        8 GETTABLEKS                       R3 R0 K0 ["identifier"]
+       10 GETTABLEKS                       R3 R3 K6 ["source"]
        12 SETTABLEKS                       R3 R2 K6 ["source"]
-       14 GETTABLEKS                       R4 R0 K0 ["identifier"]
-       16 GETTABLEKS                       R3 R4 K7 ["context"]
+       14 GETTABLEKS                       R3 R0 K0 ["identifier"]
+       16 GETTABLEKS                       R3 R3 K7 ["context"]
        18 SETTABLEKS                       R3 R2 K7 ["context"]
        20 SETTABLEKS                       R2 R1 K0 ["identifier"]
        22 DUPTABLE                         R2 K10 [{"example"}]
        23 GETTABLEKS                       R3 R0 K1 ["metadata"]
        25 JUMPIFNOT                        R3 ; [+4]
-       26 GETTABLEKS                       R4 R0 K1 ["metadata"]
-       28 GETTABLEKS                       R3 R4 K9 ["example"]
+       26 GETTABLEKS                       R3 R0 K1 ["metadata"]
+       28 GETTABLEKS                       R3 R3 K9 ["example"]
        30 SETTABLEKS                       R3 R2 K9 ["example"]
        32 SETTABLEKS                       R2 R1 K1 ["metadata"]
        34 NEWTABLE                         R2 0 0
@@ -664,8 +664,8 @@ PROTO_12:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+22]
         2 DUPTABLE                         R1 K2 [{"name", "entries"}]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["name"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["name"]
         6 SETTABLEKS                       R2 R1 K0 ["name"]
         8 NEWTABLE                         R2 0 0
        10 SETTABLEKS                       R2 R1 K1 ["entries"]
@@ -685,8 +685,8 @@ PROTO_12:
        27 MOVE                             R2 R0
        28 CALL                             R1 1 1
        29 SETUPVAL                         R1 5
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K1 ["entries"]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R2 R2 K1 ["entries"]
        33 GETUPVAL                         R3 5
        34 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
        36 GETIMPORT                        R1 K5 [table.insert]

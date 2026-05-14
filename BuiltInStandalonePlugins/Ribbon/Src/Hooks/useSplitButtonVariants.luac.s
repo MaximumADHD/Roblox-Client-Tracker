@@ -59,11 +59,11 @@ PROTO_2:
        43 DUPTABLE                         R3 K16 [{"affordance", "inset", "mode"}]
        44 GETTABLEKS                       R5 R0 K17 ["isSingle"]
        46 JUMPIFNOT                        R5 ; [+4]
-       47 GETUPVAL                         R5 0
-       48 GETTABLEKS                       R4 R5 K18 ["None"]
+       47 GETUPVAL                         R4 0
+       48 GETTABLEKS                       R4 R4 K18 ["None"]
        50 JUMP                             ; [+3]
-       51 GETUPVAL                         R5 0
-       52 GETTABLEKS                       R4 R5 K19 ["Background"]
+       51 GETUPVAL                         R4 0
+       52 GETTABLEKS                       R4 R4 K19 ["Background"]
        54 SETTABLEKS                       R4 R3 K13 ["affordance"]
        56 LOADNIL                          R4
        57 SETTABLEKS                       R4 R3 K14 ["inset"]
@@ -76,11 +76,11 @@ PROTO_3:
         0 DUPTABLE                         R0 K3 [{"arrowContainer", "arrow", "arrowIconStyle"}]
         1 GETUPVAL                         R1 0
         2 DUPTABLE                         R2 K8 [{"selected", "isCompact", "isSmall", "isSingle"}]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K4 ["selected"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K4 ["selected"]
         6 JUMPIFNOT                        R4 ; [+6]
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K7 ["isSingle"]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K7 ["isSingle"]
        10 JUMPIF                           R4 ; [+2]
        11 LOADB                            R3 1
        12 JUMP                             ; [+1]
@@ -90,8 +90,8 @@ PROTO_3:
        17 SETTABLEKS                       R3 R2 K5 ["isCompact"]
        19 GETUPVAL                         R3 3
        20 SETTABLEKS                       R3 R2 K6 ["isSmall"]
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K7 ["isSingle"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K7 ["isSingle"]
        25 SETTABLEKS                       R3 R2 K7 ["isSingle"]
        27 CALL                             R1 1 1
        28 SETTABLEKS                       R1 R0 K0 ["arrowContainer"]
@@ -110,8 +110,8 @@ PROTO_3:
        43 MOVE                             R5 R6
        44 SETTABLEKS                       R5 R1 K11 ["tag"]
        46 SETTABLEKS                       R1 R0 K1 ["arrow"]
-       48 GETUPVAL                         R4 1
-       49 GETTABLEKS                       R3 R4 K15 ["isDropdownEnabled"]
+       48 GETUPVAL                         R3 1
+       49 GETTABLEKS                       R3 R3 K15 ["isDropdownEnabled"]
        51 NOT                              R2 R3
        52 DUPTABLE                         R1 K17 [{"Transparency"}]
        53 JUMPIFNOT                        R2 ; [+2]
@@ -154,20 +154,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useMemo"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R3 K10 ["Enums"]
-       25 GETTABLEKS                       R4 R5 K11 ["StateLayerAffordance"]
+       23 GETTABLEKS                       R4 R3 K10 ["Enums"]
+       25 GETTABLEKS                       R4 R4 K11 ["StateLayerAffordance"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R8 R0 K12 ["Src"]
-       31 GETTABLEKS                       R7 R8 K13 ["Contexts"]
-       33 GETTABLEKS                       R6 R7 K14 ["Density"]
+       29 GETTABLEKS                       R6 R0 K12 ["Src"]
+       31 GETTABLEKS                       R6 R6 K13 ["Contexts"]
+       33 GETTABLEKS                       R6 R6 K14 ["Density"]
        35 CALL                             R5 1 1
        36 DUPCLOSURE                       R6 K15 [PROTO_0]
        37 DUPCLOSURE                       R7 K16 [PROTO_1]

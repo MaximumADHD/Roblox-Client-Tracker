@@ -44,16 +44,16 @@ PROTO_1:
        41 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 1
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
-        3 GETUPVAL                         R3 2
-        4 GETTABLEKS                       R2 R3 K1 ["X"]
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
+        3 GETUPVAL                         R2 2
+        4 GETTABLEKS                       R2 R2 K1 ["X"]
         6 CALL                             R1 1 1
         7 SETUPVAL                         R1 0
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K0 ["new"]
-       11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R2 R3 K2 ["Y"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K0 ["new"]
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K2 ["Y"]
        14 CALL                             R1 1 1
        15 SETUPVAL                         R1 3
        16 RETURN                           R0 0
@@ -89,12 +89,12 @@ PROTO_5:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K0 ["Parent"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K0 ["Parent"]
         6 JUMPIF                           R2 ; [+1]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K1 ["AbsoluteRotation"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K1 ["AbsoluteRotation"]
        11 FASTCALL1                        MATH_ABS R4 ; [+2]
        12 GETIMPORT                        R3 K4 [math.abs]
        14 CALL                             R3 1 1
@@ -127,25 +127,25 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
         3 GETIMPORT                        R1 K1 [require]
-        5 GETIMPORT                        R5 K3 [script]
-        7 GETTABLEKS                       R4 R5 K4 ["Parent"]
-        9 GETTABLEKS                       R3 R4 K5 ["Enum"]
-       11 GETTABLEKS                       R2 R3 K6 ["Axis"]
+        5 GETIMPORT                        R2 K3 [script]
+        7 GETTABLEKS                       R2 R2 K4 ["Parent"]
+        9 GETTABLEKS                       R2 R2 K5 ["Enum"]
+       11 GETTABLEKS                       R2 R2 K6 ["Axis"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K1 [require]
-       16 GETIMPORT                        R5 K3 [script]
-       18 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       20 GETTABLEKS                       R3 R4 K7 ["DistanceLine"]
+       16 GETIMPORT                        R3 K3 [script]
+       18 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K7 ["DistanceLine"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K1 [require]
-       25 GETIMPORT                        R6 K3 [script]
-       27 GETTABLEKS                       R5 R6 K4 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K8 ["Log"]
+       25 GETIMPORT                        R4 K3 [script]
+       27 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K8 ["Log"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K1 [require]
-       34 GETIMPORT                        R7 K3 [script]
-       36 GETTABLEKS                       R6 R7 K4 ["Parent"]
-       38 GETTABLEKS                       R5 R6 K9 ["SelectionManager"]
+       34 GETIMPORT                        R5 K3 [script]
+       36 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       38 GETTABLEKS                       R5 R5 K9 ["SelectionManager"]
        40 CALL                             R4 1 1
        41 LOADNIL                          R5
        42 LOADNIL                          R6

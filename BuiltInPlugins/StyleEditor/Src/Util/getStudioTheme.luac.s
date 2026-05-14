@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETIMPORT                        R3 K1 [settings]
-        2 CALL                             R3 0 1
-        3 GETTABLEKS                       R2 R3 K2 ["Studio"]
-        5 GETTABLEKS                       R1 R2 K3 ["Theme"]
-        7 GETTABLEKS                       R0 R1 K4 ["Name"]
+        0 GETIMPORT                        R0 K1 [settings]
+        2 CALL                             R0 0 1
+        3 GETTABLEKS                       R0 R0 K2 ["Studio"]
+        5 GETTABLEKS                       R0 R0 K3 ["Theme"]
+        7 GETTABLEKS                       R0 R0 K4 ["Name"]
         9 RETURN                           R0 1
 
 PROTO_1:

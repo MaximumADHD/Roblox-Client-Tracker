@@ -37,10 +37,10 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K4 ["Pane"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R5 R5 K4 ["Pane"]
        12 DUPTABLE                         R6 K9 [{"Size", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
        13 GETIMPORT                        R7 K12 [UDim2.new]
        15 LOADN                            R8 1
@@ -56,10 +56,10 @@ PROTO_2:
        30 GETIMPORT                        R7 K20 [Enum.VerticalAlignment.Top]
        32 SETTABLEKS                       R7 R6 K8 ["VerticalAlignment"]
        34 DUPTABLE                         R7 K23 [{"TabBar", "TabContent"}]
-       35 GETUPVAL                         R9 0
-       36 GETTABLEKS                       R8 R9 K3 ["createElement"]
-       38 GETUPVAL                         R10 1
-       39 GETTABLEKS                       R9 R10 K4 ["Pane"]
+       35 GETUPVAL                         R8 0
+       36 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       38 GETUPVAL                         R9 1
+       39 GETTABLEKS                       R9 R9 K4 ["Pane"]
        41 DUPTABLE                         R10 K27 [{"Style", "BackgroundColor", "Size", "AutomaticSize"}]
        42 LOADK                            R11 K28 ["Box"]
        43 SETTABLEKS                       R11 R10 K24 ["Style"]
@@ -73,16 +73,16 @@ PROTO_2:
        56 GETIMPORT                        R11 K33 [Enum.AutomaticSize.Y]
        58 SETTABLEKS                       R11 R10 K26 ["AutomaticSize"]
        60 DUPTABLE                         R11 K35 [{"Tabs"}]
-       61 GETUPVAL                         R13 0
-       62 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       61 GETUPVAL                         R12 0
+       62 GETTABLEKS                       R12 R12 K3 ["createElement"]
        64 GETUPVAL                         R13 2
        65 DUPTABLE                         R14 K38 [{"Tabs", "SelectedTab", "OnTabSelected"}]
        66 GETTABLEKS                       R15 R1 K34 ["Tabs"]
        68 SETTABLEKS                       R15 R14 K34 ["Tabs"]
        70 GETUPVAL                         R16 3
        71 JUMPIFNOT                        R16 ; [+5]
-       72 GETTABLEKS                       R16 R2 K39 ["selectedTab"]
-       74 GETTABLEKS                       R15 R16 K40 ["Key"]
+       72 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
+       74 GETTABLEKS                       R15 R15 K40 ["Key"]
        76 JUMP                             ; [+2]
        77 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
        79 SETTABLEKS                       R15 R14 K36 ["SelectedTab"]
@@ -92,10 +92,10 @@ PROTO_2:
        86 SETTABLEKS                       R12 R11 K34 ["Tabs"]
        88 CALL                             R8 3 1
        89 SETTABLEKS                       R8 R7 K21 ["TabBar"]
-       91 GETUPVAL                         R9 0
-       92 GETTABLEKS                       R8 R9 K3 ["createElement"]
-       94 GETUPVAL                         R10 1
-       95 GETTABLEKS                       R9 R10 K4 ["Pane"]
+       91 GETUPVAL                         R8 0
+       92 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       94 GETUPVAL                         R9 1
+       95 GETTABLEKS                       R9 R9 K4 ["Pane"]
        97 DUPTABLE                         R10 K43 [{"Size", "BackgroundColor3"}]
        98 GETIMPORT                        R11 K12 [UDim2.new]
       100 LOADN                            R12 1
@@ -107,10 +107,10 @@ PROTO_2:
       107 GETTABLEKS                       R11 R3 K44 ["ForegroundTabColor"]
       109 SETTABLEKS                       R11 R10 K42 ["BackgroundColor3"]
       111 DUPTABLE                         R11 K46 [{"TabView"}]
-      112 GETUPVAL                         R13 0
-      113 GETTABLEKS                       R12 R13 K3 ["createElement"]
-      115 GETTABLEKS                       R14 R2 K39 ["selectedTab"]
-      117 GETTABLEKS                       R13 R14 K47 ["ContentComponent"]
+      112 GETUPVAL                         R12 0
+      113 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      115 GETTABLEKS                       R13 R2 K39 ["selectedTab"]
+      117 GETTABLEKS                       R13 R13 K47 ["ContentComponent"]
       119 CALL                             R12 1 1
       120 SETTABLEKS                       R12 R11 K45 ["TabView"]
       122 CALL                             R8 3 1
@@ -120,17 +120,17 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETIMPORT                        R4 K10 [game]

@@ -17,20 +17,20 @@ PROTO_0:
        22 GETUPVAL                         R7 1
        23 GETTABLEKS                       R8 R6 K5 ["id"]
        25 NEWTABLE                         R9 4 0
-       27 GETUPVAL                         R11 2
-       28 GETTABLEKS                       R10 R11 K6 ["RoleName"]
+       27 GETUPVAL                         R10 2
+       28 GETTABLEKS                       R10 R10 K6 ["RoleName"]
        30 GETTABLEKS                       R11 R6 K7 ["name"]
        32 SETTABLE                         R11 R9 R10
-       33 GETUPVAL                         R11 2
-       34 GETTABLEKS                       R10 R11 K8 ["RoleId"]
+       33 GETUPVAL                         R10 2
+       34 GETTABLEKS                       R10 R10 K8 ["RoleId"]
        36 GETTABLEKS                       R11 R6 K5 ["id"]
        38 SETTABLE                         R11 R9 R10
-       39 GETUPVAL                         R11 2
-       40 GETTABLEKS                       R10 R11 K9 ["RoleRank"]
+       39 GETUPVAL                         R10 2
+       40 GETTABLEKS                       R10 R10 K9 ["RoleRank"]
        42 GETTABLEKS                       R11 R6 K10 ["rank"]
        44 SETTABLE                         R11 R9 R10
-       45 GETUPVAL                         R11 2
-       46 GETTABLEKS                       R10 R11 K11 ["RoleMemberCount"]
+       45 GETUPVAL                         R10 2
+       46 GETTABLEKS                       R10 R10 K11 ["RoleMemberCount"]
        48 GETTABLEKS                       R11 R6 K12 ["memberCount"]
        50 SETTABLE                         R11 R9 R10
        51 SETTABLE                         R9 R7 R8
@@ -43,12 +43,12 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R4 1
-        2 GETTABLEKS                       R3 R4 K0 ["GROUPS_ROLES_URL"]
-        4 GETTABLEKS                       R2 R3 K1 ["Prefix"]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K0 ["GROUPS_ROLES_URL"]
-        9 GETTABLEKS                       R3 R4 K2 ["Url"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["GROUPS_ROLES_URL"]
+        4 GETTABLEKS                       R2 R2 K1 ["Prefix"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K0 ["GROUPS_ROLES_URL"]
+        9 GETTABLEKS                       R3 R3 K2 ["Url"]
        11 MOVE                             R4 R0
        12 CALL                             R3 1 -1
        13 CALL                             R1 -1 1
@@ -80,28 +80,28 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Networking"]
-       13 GETTABLEKS                       R2 R3 K8 ["WebKeyConstants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Networking"]
+       13 GETTABLEKS                       R2 R2 K8 ["WebKeyConstants"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K7 ["Networking"]
-       22 GETTABLEKS                       R4 R5 K9 ["Urls"]
-       24 CALL                             R3 1 1
-       25 GETTABLEKS                       R2 R3 K9 ["Urls"]
-       27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R0 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K7 ["Networking"]
-       33 GETTABLEKS                       R5 R6 K9 ["Urls"]
-       35 CALL                             R4 1 1
-       36 GETTABLEKS                       R3 R4 K10 ["composeUrl"]
-       38 GETIMPORT                        R5 K5 [require]
-       40 GETTABLEKS                       R8 R0 K6 ["Src"]
-       42 GETTABLEKS                       R7 R8 K11 ["Util"]
-       44 GETTABLEKS                       R6 R7 K7 ["Networking"]
-       46 CALL                             R5 1 1
-       47 GETTABLEKS                       R4 R5 K7 ["Networking"]
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Networking"]
+       22 GETTABLEKS                       R3 R3 K9 ["Urls"]
+       24 CALL                             R2 1 1
+       25 GETTABLEKS                       R2 R2 K9 ["Urls"]
+       27 GETIMPORT                        R3 K5 [require]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Networking"]
+       33 GETTABLEKS                       R4 R4 K9 ["Urls"]
+       35 CALL                             R3 1 1
+       36 GETTABLEKS                       R3 R3 K10 ["composeUrl"]
+       38 GETIMPORT                        R4 K5 [require]
+       40 GETTABLEKS                       R5 R0 K6 ["Src"]
+       42 GETTABLEKS                       R5 R5 K11 ["Util"]
+       44 GETTABLEKS                       R5 R5 K7 ["Networking"]
+       46 CALL                             R4 1 1
+       47 GETTABLEKS                       R4 R4 K7 ["Networking"]
        49 GETTABLEKS                       R5 R4 K12 ["new"]
        51 DUPTABLE                         R6 K14 [{"isInternal"}]
        52 LOADB                            R7 1

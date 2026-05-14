@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["isDialogItemsInitialized"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["isDialogItemsInitialized"]
         3 JUMPIF                           R0 ; [+4]
         4 NEWTABLE                         R0 0 0
         6 LOADB                            R1 1
         7 RETURN                           R0 2
         8 LOADB                            R0 0
         9 NEWTABLE                         R1 0 0
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R2 R5 K1 ["previewErrorMessages"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K1 ["previewErrorMessages"]
        14 LOADNIL                          R3
        15 LOADNIL                          R4
        16 FORGPREP                         R2
@@ -21,8 +21,8 @@ PROTO_0:
        27 JUMPIFNOT                        R7 ; [+1]
        28 LOADB                            R0 1
        29 FORGLOOP                         R2 2 ; [-13]
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R2 R5 K7 ["validationErrorMessages"]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEKS                       R2 R2 K7 ["validationErrorMessages"]
        34 LOADNIL                          R3
        35 LOADNIL                          R4
        36 FORGPREP                         R2
@@ -37,8 +37,8 @@ PROTO_0:
        49 FORGLOOP                         R2 2 ; [-13]
        51 LOADN                            R2 0
        52 LOADB                            R3 0
-       53 GETUPVAL                         R7 0
-       54 GETTABLEKS                       R4 R7 K8 ["dialogItems"]
+       53 GETUPVAL                         R4 0
+       54 GETTABLEKS                       R4 R4 K8 ["dialogItems"]
        56 LOADNIL                          R5
        57 LOADNIL                          R6
        58 FORGPREP                         R4
@@ -71,8 +71,8 @@ PROTO_0:
        95 FORGLOOP                         R4 2 ; [-37]
        97 LOADN                            R4 3
        98 JUMPIFNOTLT                      R2 R4 ; [+18]
-      100 GETUPVAL                         R5 0
-      101 GETTABLEKS                       R4 R5 K16 ["dialogLookType"]
+      100 GETUPVAL                         R4 0
+      101 GETTABLEKS                       R4 R4 K16 ["dialogLookType"]
       103 JUMPIFNOTEQKS                    R4 K17 ["MakeupLook"] ; [+13]
       105 MOVE                             R5 R1
       106 GETUPVAL                         R6 2
@@ -152,8 +152,8 @@ PROTO_6:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["useMemo"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["useMemo"]
         7 NEWCLOSURE                       R3 P0
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U2
@@ -172,12 +172,12 @@ PROTO_6:
        29 GETUPVAL                         R7 3
        30 CALL                             R7 0 1
        31 JUMPIFNOT                        R7 ; [+62]
-       32 GETUPVAL                         R8 1
-       33 GETTABLEKS                       R7 R8 K7 ["useState"]
+       32 GETUPVAL                         R7 1
+       33 GETTABLEKS                       R7 R7 K7 ["useState"]
        35 NEWTABLE                         R8 0 0
        37 CALL                             R7 1 2
-       38 GETUPVAL                         R10 4
-       39 GETTABLEKS                       R9 R10 K8 ["filter"]
+       38 GETUPVAL                         R9 4
+       39 GETTABLEKS                       R9 R9 K8 ["filter"]
        41 MOVE                             R10 R2
        42 NEWCLOSURE                       R11 P1
        43 CAPTURE                          VAL R7
@@ -187,16 +187,16 @@ PROTO_6:
        47 LOADK                            R12 K10 ["MakeupLookDifferentCreator"]
        48 NAMECALL                         R9 R1 K11 ["getText"]
        50 CALL                             R9 3 1
-       51 GETUPVAL                         R11 1
-       52 GETTABLEKS                       R10 R11 K1 ["useMemo"]
+       51 GETUPVAL                         R10 1
+       52 GETTABLEKS                       R10 R10 K1 ["useMemo"]
        54 NEWCLOSURE                       R11 P2
        55 CAPTURE                          VAL R9
        56 NEWTABLE                         R12 0 1
        58 MOVE                             R13 R9
        59 SETLIST                          R12 R13 1 [1]
        61 CALL                             R10 2 1
-       62 GETUPVAL                         R12 1
-       63 GETTABLEKS                       R11 R12 K1 ["useMemo"]
+       62 GETUPVAL                         R11 1
+       63 GETTABLEKS                       R11 R11 K1 ["useMemo"]
        65 NEWCLOSURE                       R12 P3
        66 CAPTURE                          REF R4
        67 CAPTURE                          VAL R10
@@ -206,8 +206,8 @@ PROTO_6:
        72 SETLIST                          R13 R14 2 [1]
        74 CALL                             R11 2 1
        75 MOVE                             R6 R11
-       76 GETUPVAL                         R12 1
-       77 GETTABLEKS                       R11 R12 K12 ["useCallback"]
+       76 GETUPVAL                         R11 1
+       77 GETTABLEKS                       R11 R11 K12 ["useCallback"]
        79 NEWCLOSURE                       R12 P4
        80 CAPTURE                          REF R6
        81 CAPTURE                          REF R4
@@ -242,32 +242,32 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["Localization"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["Localization"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["React"]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["React"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R6 K11 ["Dash"]
+       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K11 ["Dash"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R0 K12 ["Src"]
-       36 GETTABLEKS                       R6 R7 K13 ["Types"]
+       34 GETTABLEKS                       R6 R0 K12 ["Src"]
+       36 GETTABLEKS                       R6 R6 K13 ["Types"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R9 R0 K12 ["Src"]
-       43 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       45 GETTABLEKS                       R7 R8 K15 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+       41 GETTABLEKS                       R7 R0 K12 ["Src"]
+       43 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       45 GETTABLEKS                       R7 R7 K15 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K12 ["Src"]
-       52 GETTABLEKS                       R9 R10 K14 ["Flags"]
-       54 GETTABLEKS                       R8 R9 K16 ["getFFlagAvatarPreviewerLookDismissableErrors"]
+       50 GETTABLEKS                       R8 R0 K12 ["Src"]
+       52 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       54 GETTABLEKS                       R8 R8 K16 ["getFFlagAvatarPreviewerLookDismissableErrors"]
        56 CALL                             R7 1 1
        57 DUPCLOSURE                       R8 K17 [PROTO_6]
        58 CAPTURE                          VAL R2

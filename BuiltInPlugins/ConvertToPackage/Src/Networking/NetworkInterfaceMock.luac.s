@@ -7,8 +7,8 @@ PROTO_0:
         8 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
         4 DUPTABLE                         R5 K5 [{"TotalResults", "Results"}]
         5 MOVE                             R6 R2
@@ -22,22 +22,22 @@ PROTO_1:
 
 PROTO_2:
         0 NEWTABLE                         R2 0 0
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["resolve"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["resolve"]
         5 MOVE                             R4 R2
         6 CALL                             R3 1 -1
         7 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["DEPRECATED_modules"]
-       13 GETTABLEKS                       R3 R4 K6 ["Http"]
-       15 GETTABLEKS                       R2 R3 K7 ["Promise"]
+       11 GETTABLEKS                       R2 R0 K5 ["DEPRECATED_modules"]
+       13 GETTABLEKS                       R2 R2 K6 ["Http"]
+       15 GETTABLEKS                       R2 R2 K7 ["Promise"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 4 0
        20 SETTABLEKS                       R2 R2 K8 ["__index"]

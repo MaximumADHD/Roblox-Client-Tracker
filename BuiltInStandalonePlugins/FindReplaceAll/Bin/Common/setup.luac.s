@@ -30,8 +30,8 @@ PROTO_4:
         2 SETTABLEKS                       R0 R3 K0 ["searchText"]
         4 SETTABLEKS                       R1 R3 K1 ["showReplace"]
         6 SETTABLEKS                       R3 R2 K3 ["findActivationState"]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["mainDockWidget"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["mainDockWidget"]
        11 LOADB                            R3 1
        12 SETTABLEKS                       R3 R2 K5 ["Enabled"]
        14 GETUPVAL                         R2 1
@@ -40,8 +40,8 @@ PROTO_4:
        18 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Name"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
         5 DUPTABLE                         R2 K6 [{"getName", "getDescription", "icon", "clickableWhenViewportHidden", "enabled"}]
         6 DUPCLOSURE                       R3 K7 [PROTO_0]
@@ -56,8 +56,8 @@ PROTO_5:
        19 SETTABLEKS                       R3 R2 K5 ["enabled"]
        21 DUPTABLE                         R3 K16 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
        22 SETTABLEKS                       R0 R3 K10 ["plugin"]
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R4 R5 K17 ["PLUGIN_NAME"]
+       24 GETUPVAL                         R4 1
+       25 GETTABLEKS                       R4 R4 K17 ["PLUGIN_NAME"]
        27 SETTABLEKS                       R4 R3 K11 ["pluginName"]
        29 GETUPVAL                         R4 2
        30 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
@@ -66,11 +66,11 @@ PROTO_5:
        35 DUPCLOSURE                       R4 K18 [PROTO_2]
        36 SETTABLEKS                       R4 R3 K14 ["getToolbarName"]
        38 SETTABLEKS                       R2 R3 K15 ["buttonInfo"]
-       40 GETUPVAL                         R6 4
-       41 GETTABLEKS                       R5 R6 K19 ["get"]
+       40 GETUPVAL                         R5 4
+       41 GETTABLEKS                       R5 R5 K19 ["get"]
        43 CALL                             R5 0 1
-       44 GETUPVAL                         R7 4
-       45 GETTABLEKS                       R6 R7 K20 ["Standalone"]
+       44 GETUPVAL                         R6 4
+       45 GETTABLEKS                       R6 R6 K20 ["Standalone"]
        47 JUMPIFEQ                         R5 R6 ; [+2]
        49 LOADB                            R4 0 +1
        50 LOADB                            R4 1
@@ -82,8 +82,8 @@ PROTO_5:
        57 LOADB                            R6 1
        58 SETTABLEKS                       R6 R2 K5 ["enabled"]
        60 DUPTABLE                         R6 K26 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-       61 GETUPVAL                         R8 1
-       62 GETTABLEKS                       R7 R8 K17 ["PLUGIN_NAME"]
+       61 GETUPVAL                         R7 1
+       62 GETTABLEKS                       R7 R7 K17 ["PLUGIN_NAME"]
        64 SETTABLEKS                       R7 R6 K22 ["id"]
        66 GETIMPORT                        R7 K29 [DockWidgetPluginGuiInfo.new]
        68 GETIMPORT                        R8 K33 [Enum.InitialDockState.Left]
@@ -100,8 +100,8 @@ PROTO_5:
        82 GETIMPORT                        R7 K37 [Enum.ZIndexBehavior.Sibling]
        84 SETTABLEKS                       R7 R6 K25 ["zIndexBehavior"]
        86 SETTABLEKS                       R6 R3 K38 ["dockWidgetInfo"]
-       88 GETUPVAL                         R7 6
-       89 GETTABLEKS                       R6 R7 K39 ["build"]
+       88 GETUPVAL                         R6 6
+       89 GETTABLEKS                       R6 R6 K39 ["build"]
        91 MOVE                             R7 R3
        92 CALL                             R6 1 1
        93 LOADNIL                          R7
@@ -129,8 +129,8 @@ PROTO_5:
       121 CALL                             R10 2 0
       122 CLOSEUPVALS                      R8
       123 RETURN                           R0 0
-      124 GETUPVAL                         R7 6
-      125 GETTABLEKS                       R6 R7 K39 ["build"]
+      124 GETUPVAL                         R6 6
+      125 GETTABLEKS                       R6 R6 K39 ["build"]
       127 MOVE                             R7 R3
       128 CALL                             R6 1 0
       129 RETURN                           R0 0
@@ -146,27 +146,27 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["PluginLoader"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["PluginLoader"]
        19 CALL                             R2 1 1
        20 GETTABLEKS                       R3 R2 K12 ["PluginLoaderBuilder"]
-       22 GETTABLEKS                       R7 R1 K13 ["Src"]
-       24 GETTABLEKS                       R6 R7 K14 ["Resources"]
-       26 GETTABLEKS                       R5 R6 K15 ["Localization"]
-       28 GETTABLEKS                       R4 R5 K16 ["SourceStrings"]
-       30 GETTABLEKS                       R8 R1 K13 ["Src"]
-       32 GETTABLEKS                       R7 R8 K14 ["Resources"]
-       34 GETTABLEKS                       R6 R7 K15 ["Localization"]
-       36 GETTABLEKS                       R5 R6 K17 ["LocalizedStrings"]
+       22 GETTABLEKS                       R4 R1 K13 ["Src"]
+       24 GETTABLEKS                       R4 R4 K14 ["Resources"]
+       26 GETTABLEKS                       R4 R4 K15 ["Localization"]
+       28 GETTABLEKS                       R4 R4 K16 ["SourceStrings"]
+       30 GETTABLEKS                       R5 R1 K13 ["Src"]
+       32 GETTABLEKS                       R5 R5 K14 ["Resources"]
+       34 GETTABLEKS                       R5 R5 K15 ["Localization"]
+       36 GETTABLEKS                       R5 R5 K17 ["LocalizedStrings"]
        38 GETIMPORT                        R6 K9 [require]
-       40 GETTABLEKS                       R9 R1 K13 ["Src"]
-       42 GETTABLEKS                       R8 R9 K18 ["Util"]
-       44 GETTABLEKS                       R7 R8 K19 ["Constants"]
+       40 GETTABLEKS                       R7 R1 K13 ["Src"]
+       42 GETTABLEKS                       R7 R7 K18 ["Util"]
+       44 GETTABLEKS                       R7 R7 K19 ["Constants"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K9 [require]
-       49 GETTABLEKS                       R10 R1 K20 ["Bin"]
-       51 GETTABLEKS                       R9 R10 K21 ["Common"]
-       53 GETTABLEKS                       R8 R9 K22 ["pluginType"]
+       49 GETTABLEKS                       R8 R1 K20 ["Bin"]
+       51 GETTABLEKS                       R8 R8 K21 ["Common"]
+       53 GETTABLEKS                       R8 R8 K22 ["pluginType"]
        55 CALL                             R7 1 1
        56 DUPCLOSURE                       R8 K23 [PROTO_5]
        57 CAPTURE                          VAL R1

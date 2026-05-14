@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R1 2 -1
@@ -13,13 +13,13 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"SearchPill"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K6 [{"AutomaticSize", "Text", "OnClick"}]
        12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.XY]
@@ -34,13 +34,13 @@ PROTO_2:
        26 RETURN                           R0 -1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"SearchPill"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K5 [{"Text", "Size"}]
        12 LOADK                            R7 K6 ["Size 100x50"]
@@ -59,22 +59,22 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Packages"]
         9 GETIMPORT                        R2 K5 [require]
        11 GETTABLEKS                       R3 R1 K6 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K5 [require]
-       16 GETTABLEKS                       R5 R0 K7 ["Stories"]
-       18 GETTABLEKS                       R4 R5 K8 ["ToolboxStoryWrapper"]
+       16 GETTABLEKS                       R4 R0 K7 ["Stories"]
+       18 GETTABLEKS                       R4 R4 K8 ["ToolboxStoryWrapper"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R8 R0 K9 ["Src"]
-       25 GETTABLEKS                       R7 R8 K10 ["Components"]
-       27 GETTABLEKS                       R6 R7 K11 ["Categorization"]
-       29 GETTABLEKS                       R5 R6 K12 ["SearchPill"]
+       23 GETTABLEKS                       R5 R0 K9 ["Src"]
+       25 GETTABLEKS                       R5 R5 K10 ["Components"]
+       27 GETTABLEKS                       R5 R5 K11 ["Categorization"]
+       29 GETTABLEKS                       R5 R5 K12 ["SearchPill"]
        31 CALL                             R4 1 1
        32 DUPCLOSURE                       R5 K13 [PROTO_0]
        33 CAPTURE                          VAL R2

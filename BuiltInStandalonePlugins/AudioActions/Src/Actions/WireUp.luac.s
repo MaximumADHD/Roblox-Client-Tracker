@@ -16,8 +16,8 @@ PROTO_0:
        18 LOADK                            R4 K4 ["Wire Up"]
        19 NAMECALL                         R2 R2 K5 ["TryBeginRecording"]
        21 CALL                             R2 2 1
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K6 ["connectByWire"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K6 ["connectByWire"]
        25 MOVE                             R4 R0
        26 MOVE                             R5 R1
        27 CALL                             R3 2 1
@@ -51,8 +51,8 @@ PROTO_2:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Get"]
         3 CALL                             R0 1 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["getWirableInstances"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["getWirableInstances"]
         7 MOVE                             R2 R0
         8 CALL                             R1 1 2
         9 LOADB                            R3 0
@@ -60,8 +60,8 @@ PROTO_2:
        12 JUMPIFNOTEQKNIL                  R2 ; [+2]
        14 LOADB                            R3 0 +1
        15 LOADB                            R3 1
-       16 GETUPVAL                         R5 2
-       17 GETTABLEKS                       R4 R5 K2 ["action"]
+       16 GETUPVAL                         R4 2
+       17 GETTABLEKS                       R4 R4 K2 ["action"]
        19 LOADK                            R5 K3 ["WireUpDisabled"]
        20 CALL                             R4 1 1
        21 JUMPIFNOT                        R3 ; [+36]
@@ -75,8 +75,8 @@ PROTO_2:
        32 LOADK                            R7 K7 ["outInstance was nil"]
        33 GETIMPORT                        R5 K6 [assert]
        35 CALL                             R5 2 0
-       36 GETUPVAL                         R6 2
-       37 GETTABLEKS                       R5 R6 K2 ["action"]
+       36 GETUPVAL                         R5 2
+       37 GETTABLEKS                       R5 R5 K2 ["action"]
        39 LOADK                            R6 K8 ["WireUp"]
        40 CALL                             R5 1 1
        41 MOVE                             R4 R5
@@ -108,8 +108,8 @@ PROTO_2:
        78 SETTABLEKS                       R4 R5 K18 ["Text"]
        80 LOADK                            R6 K32 ["Wire"]
        81 SETTABLEKS                       R6 R5 K19 ["Icon"]
-       83 GETUPVAL                         R7 2
-       84 GETTABLEKS                       R6 R7 K33 ["tooltip"]
+       83 GETUPVAL                         R6 2
+       84 GETTABLEKS                       R6 R6 K33 ["tooltip"]
        86 LOADK                            R7 K8 ["WireUp"]
        87 CALL                             R6 1 1
        88 SETTABLEKS                       R6 R5 K20 ["Tooltip"]
@@ -155,8 +155,8 @@ PROTO_4:
        10 CAPTURE                          UPVAL U4
        11 MOVE                             R3 R2
        12 CALL                             R3 0 0
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R3 R4 K2 ["SelectionChanged"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K2 ["SelectionChanged"]
        16 NEWCLOSURE                       R5 P1
        17 CAPTURE                          VAL R2
        18 NAMECALL                         R3 R3 K3 ["Connect"]
@@ -196,14 +196,14 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R2 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Util"]
-       25 GETTABLEKS                       R4 R5 K13 ["LocalizationUtil"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["LocalizationUtil"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K10 [require]
-       30 GETTABLEKS                       R7 R2 K11 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Util"]
-       34 GETTABLEKS                       R5 R6 K14 ["WiringUtil"]
+       30 GETTABLEKS                       R5 R2 K11 ["Src"]
+       32 GETTABLEKS                       R5 R5 K12 ["Util"]
+       34 GETTABLEKS                       R5 R5 K14 ["WiringUtil"]
        36 CALL                             R4 1 1
        37 DUPCLOSURE                       R5 K15 [PROTO_0]
        38 CAPTURE                          VAL R0

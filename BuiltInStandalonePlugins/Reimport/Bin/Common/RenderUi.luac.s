@@ -8,14 +8,14 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [require]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["Packages"]
-        5 GETTABLEKS                       R2 R3 K3 ["React"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Packages"]
+        5 GETTABLEKS                       R2 R2 K3 ["React"]
         7 CALL                             R1 1 1
         8 GETIMPORT                        R2 K1 [require]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K2 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K4 ["ReactRoblox"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["Packages"]
+       13 GETTABLEKS                       R3 R3 K4 ["ReactRoblox"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [Instance.new]
        18 LOADK                            R4 K8 ["Frame"]
@@ -30,8 +30,8 @@ PROTO_1:
        29 MOVE                             R8 R5
        30 NAMECALL                         R6 R4 K11 ["render"]
        32 CALL                             R6 2 0
-       33 GETUPVAL                         R7 2
-       34 GETTABLEKS                       R6 R7 K12 ["Unloading"]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K12 ["Unloading"]
        36 NEWCLOSURE                       R8 P0
        37 CAPTURE                          VAL R4
        38 NAMECALL                         R6 R6 K13 ["Connect"]
@@ -49,8 +49,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K5 ["FindFirstAncestorWhichIsA"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K7 [require]
-       15 GETTABLEKS                       R4 R0 K8 ["Src"]
-       17 GETTABLEKS                       R3 R4 K9 ["MainPlugin"]
+       15 GETTABLEKS                       R3 R0 K8 ["Src"]
+       17 GETTABLEKS                       R3 R3 K9 ["MainPlugin"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K10 [PROTO_1]
        21 CAPTURE                          VAL R0

@@ -17,13 +17,13 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"UserAndGroupFilter"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K8 [{"OnDeleteCreatorPill", "OnSearchUpdate", "OnSelectCreator", "SelectedUsers", "SelectedGroups"}]
        12 DUPCLOSURE                       R7 K9 [PROTO_0]
@@ -64,17 +64,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETIMPORT                        R5 K1 [script]
-       18 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       20 GETTABLEKS                       R3 R4 K9 ["UserAndGroupFilter"]
+       16 GETIMPORT                        R3 K1 [script]
+       18 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K9 ["UserAndGroupFilter"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K10 ["Stories"]
-       27 GETTABLEKS                       R4 R5 K11 ["ToolboxStoryWrapper"]
+       25 GETTABLEKS                       R4 R0 K10 ["Stories"]
+       27 GETTABLEKS                       R4 R4 K11 ["ToolboxStoryWrapper"]
        29 CALL                             R3 1 1
        30 DUPTABLE                         R4 K15 [{"name", "summary", "stories"}]
        31 LOADK                            R5 K9 ["UserAndGroupFilter"]

@@ -1,21 +1,21 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createMakeupCharacterModel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createMakeupCharacterModel"]
         3 GETUPVAL                         R1 1
-        4 GETUPVAL                         R3 2
-        5 GETTABLEKS                       R2 R3 K1 ["skinColor"]
+        4 GETUPVAL                         R2 2
+        5 GETTABLEKS                       R2 R2 K1 ["skinColor"]
         7 CALL                             R0 2 2
         8 JUMPIFNOT                        R0 ; [+16]
         9 JUMPIFNOT                        R1 ; [+15]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K2 ["setupHeadInWorldModel"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K2 ["setupHeadInWorldModel"]
        13 MOVE                             R3 R0
        14 MOVE                             R4 R1
-       15 GETUPVAL                         R6 3
-       16 GETTABLEKS                       R5 R6 K3 ["RENDER_RIG_NAME"]
+       15 GETUPVAL                         R5 3
+       16 GETTABLEKS                       R5 R5 K3 ["RENDER_RIG_NAME"]
        18 CALL                             R2 3 1
-       19 GETUPVAL                         R4 2
-       20 GETTABLEKS                       R3 R4 K4 ["setWorldModel"]
+       19 GETUPVAL                         R3 2
+       20 GETTABLEKS                       R3 R3 K4 ["setWorldModel"]
        22 MOVE                             R4 R2
        23 CALL                             R3 1 0
        24 RETURN                           R0 0
@@ -25,12 +25,12 @@ PROTO_0:
        29 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["makeupItems"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["makeupItems"]
         3 JUMPIF                           R0 ; [+2]
         4 NEWTABLE                         R0 0 0
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["current"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["current"]
         9 JUMPIFNOTEQ                      R0 R1 ; [+2]
        11 LOADB                            R2 0 +1
        12 LOADB                            R2 1
@@ -44,8 +44,8 @@ PROTO_1:
        21 SETTABLEKS                       R0 R4 K1 ["current"]
        23 RETURN                           R0 0
        24 JUMPIF                           R2 ; [+5]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R4 R5 K2 ["worldModel"]
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K2 ["worldModel"]
        28 JUMPIFNOT                        R4 ; [+1]
        29 RETURN                           R0 0
        30 GETUPVAL                         R4 1
@@ -53,8 +53,8 @@ PROTO_1:
        33 GETUPVAL                         R4 2
        34 CALL                             R4 0 1
        35 JUMPIFNOT                        R4 ; [+5]
-       36 GETUPVAL                         R5 0
-       37 GETTABLEKS                       R4 R5 K3 ["setWorldModel"]
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K3 ["setWorldModel"]
        39 LOADNIL                          R5
        40 CALL                             R4 1 0
        41 GETIMPORT                        R4 K6 [task.spawn]
@@ -67,14 +67,14 @@ PROTO_1:
        49 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useRef"]
         3 GETTABLEKS                       R2 R0 K1 ["makeupItems"]
         5 JUMPIF                           R2 ; [+2]
         6 NEWTABLE                         R2 0 0
         8 CALL                             R1 1 1
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K2 ["useEffect"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K2 ["useEffect"]
        12 NEWCLOSURE                       R3 P0
        13 CAPTURE                          VAL R0
        14 CAPTURE                          VAL R1
@@ -97,27 +97,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R5 K11 ["Types"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Types"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K8 ["Src"]
-       34 GETTABLEKS                       R6 R7 K9 ["Util"]
-       36 GETTABLEKS                       R5 R6 K12 ["MakeupLookPreviewUtils"]
+       32 GETTABLEKS                       R5 R0 K8 ["Src"]
+       34 GETTABLEKS                       R5 R5 K9 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["MakeupLookPreviewUtils"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K8 ["Src"]
-       43 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       45 GETTABLEKS                       R6 R7 K14 ["getFFlagDebugAvatarPreviewerMakeupWorldModelWait"]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K14 ["getFFlagDebugAvatarPreviewerMakeupWorldModelWait"]
        47 CALL                             R5 1 1
        48 DUPCLOSURE                       R6 K15 [PROTO_2]
        49 CAPTURE                          VAL R1

@@ -4,14 +4,14 @@ PROTO_0:
         3 CALL                             R2 0 1
         4 JUMPIF                           R2 ; [+11]
         5 GETTABLEKS                       R2 R0 K0 ["assistantMode"]
-        7 GETUPVAL                         R6 1
-        8 GETTABLEKS                       R5 R6 K1 ["Types"]
-       10 GETTABLEKS                       R4 R5 K2 ["AssistantMode"]
-       12 GETTABLEKS                       R3 R4 K3 ["Test"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K1 ["Types"]
+       10 GETTABLEKS                       R3 R3 K2 ["AssistantMode"]
+       12 GETTABLEKS                       R3 R3 K3 ["Test"]
        14 JUMPIFNOTEQ                      R2 R3 ; [+17]
        16 LOADK                            R2 K4 [""]
-       17 GETUPVAL                         R4 2
-       18 GETTABLEKS                       R3 R4 K5 ["getStudioPlayState"]
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R3 R3 K5 ["getStudioPlayState"]
        20 CALL                             R3 0 1
        21 JUMPIFNOT                        R3 ; [+2]
        22 LOADK                            R2 K6 ["- Current Studio Mode: Play\n- Available DataModels: Client, Server\n"]
@@ -47,11 +47,11 @@ PROTO_1:
        25 CALL                             R3 0 1
        26 JUMPIFNOT                        R3 ; [+26]
        27 GETUPVAL                         R3 3
-       28 GETUPVAL                         R5 4
-       29 GETTABLEKS                       R4 R5 K7 ["Test"]
+       28 GETUPVAL                         R4 4
+       29 GETTABLEKS                       R4 R4 K7 ["Test"]
        31 JUMPIFNOTEQ                      R3 R4 ; [+21]
-       33 GETUPVAL                         R4 5
-       34 GETTABLEKS                       R3 R4 K8 ["getStudioPlayState"]
+       33 GETUPVAL                         R3 5
+       34 GETTABLEKS                       R3 R3 K8 ["getStudioPlayState"]
        36 CALL                             R3 0 1
        37 JUMPIFNOT                        R3 ; [+8]
        38 FASTCALL2K                       TABLE_INSERT R1 K9 ; [+5]
@@ -121,8 +121,8 @@ PROTO_2:
        15 CALL                             R3 0 1
        16 JUMP                             ; [+1]
        17 LOADNIL                          R3
-       18 GETUPVAL                         R5 5
-       19 GETTABLEKS                       R4 R5 K0 ["useCallback"]
+       18 GETUPVAL                         R4 5
+       19 GETTABLEKS                       R4 R4 K0 ["useCallback"]
        21 NEWCLOSURE                       R5 P0
        22 CAPTURE                          UPVAL U2
        23 CAPTURE                          VAL R2
@@ -147,47 +147,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["AssistantUI"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["StudioState"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["StudioState"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R5 R1 K12 ["Types"]
-       32 GETTABLEKS                       R4 R5 K13 ["AssistantMode"]
-       34 GETTABLEKS                       R7 R1 K14 ["Flags"]
-       36 GETTABLEKS                       R6 R7 K15 ["Shared"]
-       38 GETTABLEKS                       R5 R6 K16 ["FFlagAssistantAgentModeSystemReminder"]
-       40 GETTABLEKS                       R8 R1 K14 ["Flags"]
-       42 GETTABLEKS                       R7 R8 K15 ["Shared"]
-       44 GETTABLEKS                       R6 R7 K17 ["FFlagAssistantPlanMode"]
-       46 GETTABLEKS                       R9 R1 K14 ["Flags"]
-       48 GETTABLEKS                       R8 R9 K15 ["Shared"]
-       50 GETTABLEKS                       R7 R8 K18 ["FFlagDebugLogAssistantUI"]
-       52 GETTABLEKS                       R10 R1 K14 ["Flags"]
-       54 GETTABLEKS                       R9 R10 K15 ["Shared"]
-       56 GETTABLEKS                       R8 R9 K19 ["getIsTestModeSystemRemindersEnabled"]
-       58 GETTABLEKS                       R11 R1 K20 ["Components"]
-       60 GETTABLEKS                       R10 R11 K21 ["Hooks"]
-       62 GETTABLEKS                       R9 R10 K22 ["useAssistantMode"]
-       64 GETTABLEKS                       R13 R1 K20 ["Components"]
-       66 GETTABLEKS                       R12 R13 K21 ["Hooks"]
-       68 GETTABLEKS                       R11 R12 K23 ["SystemReminders"]
-       70 GETTABLEKS                       R10 R11 K24 ["usePersistentPlanSystemReminder"]
-       72 GETTABLEKS                       R14 R1 K20 ["Components"]
-       74 GETTABLEKS                       R13 R14 K21 ["Hooks"]
-       76 GETTABLEKS                       R12 R13 K23 ["SystemReminders"]
-       78 GETTABLEKS                       R11 R12 K25 ["usePlanModeSystemReminder"]
-       80 GETTABLEKS                       R15 R1 K20 ["Components"]
-       82 GETTABLEKS                       R14 R15 K21 ["Hooks"]
-       84 GETTABLEKS                       R13 R14 K23 ["SystemReminders"]
-       86 GETTABLEKS                       R12 R13 K26 ["useToolsChangedSystemReminders"]
+       30 GETTABLEKS                       R4 R1 K12 ["Types"]
+       32 GETTABLEKS                       R4 R4 K13 ["AssistantMode"]
+       34 GETTABLEKS                       R5 R1 K14 ["Flags"]
+       36 GETTABLEKS                       R5 R5 K15 ["Shared"]
+       38 GETTABLEKS                       R5 R5 K16 ["FFlagAssistantAgentModeSystemReminder"]
+       40 GETTABLEKS                       R6 R1 K14 ["Flags"]
+       42 GETTABLEKS                       R6 R6 K15 ["Shared"]
+       44 GETTABLEKS                       R6 R6 K17 ["FFlagAssistantPlanMode"]
+       46 GETTABLEKS                       R7 R1 K14 ["Flags"]
+       48 GETTABLEKS                       R7 R7 K15 ["Shared"]
+       50 GETTABLEKS                       R7 R7 K18 ["FFlagDebugLogAssistantUI"]
+       52 GETTABLEKS                       R8 R1 K14 ["Flags"]
+       54 GETTABLEKS                       R8 R8 K15 ["Shared"]
+       56 GETTABLEKS                       R8 R8 K19 ["getIsTestModeSystemRemindersEnabled"]
+       58 GETTABLEKS                       R9 R1 K20 ["Components"]
+       60 GETTABLEKS                       R9 R9 K21 ["Hooks"]
+       62 GETTABLEKS                       R9 R9 K22 ["useAssistantMode"]
+       64 GETTABLEKS                       R10 R1 K20 ["Components"]
+       66 GETTABLEKS                       R10 R10 K21 ["Hooks"]
+       68 GETTABLEKS                       R10 R10 K23 ["SystemReminders"]
+       70 GETTABLEKS                       R10 R10 K24 ["usePersistentPlanSystemReminder"]
+       72 GETTABLEKS                       R11 R1 K20 ["Components"]
+       74 GETTABLEKS                       R11 R11 K21 ["Hooks"]
+       76 GETTABLEKS                       R11 R11 K23 ["SystemReminders"]
+       78 GETTABLEKS                       R11 R11 K25 ["usePlanModeSystemReminder"]
+       80 GETTABLEKS                       R12 R1 K20 ["Components"]
+       82 GETTABLEKS                       R12 R12 K21 ["Hooks"]
+       84 GETTABLEKS                       R12 R12 K23 ["SystemReminders"]
+       86 GETTABLEKS                       R12 R12 K26 ["useToolsChangedSystemReminders"]
        88 DUPCLOSURE                       R13 K27 [PROTO_0]
        89 CAPTURE                          VAL R5
        90 CAPTURE                          VAL R1

@@ -15,8 +15,8 @@ PROTO_0:
        15 GETUPVAL                         R2 3
        16 GETUPVAL                         R4 4
        17 GETUPVAL                         R5 5
-       18 GETUPVAL                         R7 6
-       19 GETTABLEKS                       R6 R7 K5 ["LoadFailed"]
+       18 GETUPVAL                         R6 6
+       19 GETTABLEKS                       R6 R6 K5 ["LoadFailed"]
        21 CALL                             R4 2 -1
        22 NAMECALL                         R2 R2 K6 ["dispatch"]
        24 CALL                             R2 -1 0
@@ -38,13 +38,13 @@ PROTO_0:
        42 GETUPVAL                         R2 3
        43 GETUPVAL                         R4 4
        44 GETUPVAL                         R5 5
-       45 GETUPVAL                         R7 6
-       46 GETTABLEKS                       R6 R7 K8 ["Loaded"]
+       45 GETUPVAL                         R6 6
+       46 GETTABLEKS                       R6 R6 K8 ["Loaded"]
        48 CALL                             R4 2 -1
        49 NAMECALL                         R2 R2 K6 ["dispatch"]
        51 CALL                             R2 -1 0
-       52 GETUPVAL                         R3 10
-       53 GETTABLEKS                       R2 R3 K9 ["onPageLoadSuccess"]
+       52 GETUPVAL                         R2 10
+       53 GETTABLEKS                       R2 R2 K9 ["onPageLoadSuccess"]
        55 GETUPVAL                         R3 5
        56 GETIMPORT                        R5 K11 [tick]
        58 CALL                             R5 0 1
@@ -52,8 +52,8 @@ PROTO_0:
        60 SUB                              R4 R5 R6
        61 CALL                             R2 2 0
        62 RETURN                           R0 0
-       63 GETUPVAL                         R3 10
-       64 GETTABLEKS                       R2 R3 K12 ["onPageLoadError"]
+       63 GETUPVAL                         R2 10
+       64 GETTABLEKS                       R2 R2 K12 ["onPageLoadError"]
        66 GETUPVAL                         R3 5
        67 GETIMPORT                        R5 K11 [tick]
        69 CALL                             R5 0 1
@@ -69,13 +69,13 @@ PROTO_1:
         3 CALL                             R2 2 1
         4 GETUPVAL                         R5 1
         5 GETUPVAL                         R6 2
-        6 GETUPVAL                         R8 3
-        7 GETTABLEKS                       R7 R8 K0 ["Loading"]
+        6 GETUPVAL                         R7 3
+        7 GETTABLEKS                       R7 R7 K0 ["Loading"]
         9 CALL                             R5 2 -1
        10 NAMECALL                         R3 R0 K1 ["dispatch"]
        12 CALL                             R3 -1 0
-       13 GETUPVAL                         R4 4
-       14 GETTABLEKS                       R3 R4 K2 ["onPageLoadAttempt"]
+       13 GETUPVAL                         R3 4
+       14 GETTABLEKS                       R3 R3 K2 ["onPageLoadAttempt"]
        16 GETUPVAL                         R4 2
        17 CALL                             R3 1 0
        18 GETIMPORT                        R3 K4 [tick]
@@ -119,29 +119,29 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["AppendSettings"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["AppendSettings"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       24 GETTABLEKS                       R3 R4 K8 ["SetPageLoadState"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K8 ["SetPageLoadState"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K9 ["Util"]
-       33 GETTABLEKS                       R4 R5 K10 ["Analytics"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Util"]
+       33 GETTABLEKS                       R4 R4 K10 ["Analytics"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R7 R0 K5 ["Src"]
-       40 GETTABLEKS                       R6 R7 K9 ["Util"]
-       42 GETTABLEKS                       R5 R6 K11 ["LoadState"]
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R5 R5 K9 ["Util"]
+       42 GETTABLEKS                       R5 R5 K11 ["LoadState"]
        44 CALL                             R4 1 1
        45 DUPCLOSURE                       R5 K12 [PROTO_2]
        46 CAPTURE                          VAL R2

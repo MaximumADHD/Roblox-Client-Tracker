@@ -4,8 +4,8 @@ PROTO_0:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 GETUPVAL                         R10 0
-        7 GETTABLEKS                       R9 R10 K0 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
+        6 GETUPVAL                         R9 0
+        7 GETTABLEKS                       R9 R9 K0 ["ASSET_TYPE_TO_ACCESSORY_TYPE"]
         9 GETTABLEKS                       R10 R6 K1 ["AssetType"]
        11 GETTABLE                         R8 R9 R10
        12 LOADK                            R10 K2 ["No known accessory type for "]
@@ -43,8 +43,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["MAKEUP_CAMERAS_ASSET_PATH"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["MAKEUP_CAMERAS_ASSET_PATH"]
         4 NAMECALL                         R0 R0 K1 ["LoadLocalAsset"]
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
@@ -186,8 +186,8 @@ PROTO_7:
         0 GETIMPORT                        R3 K2 [Instance.new]
         2 LOADK                            R4 K3 ["WorldModel"]
         3 CALL                             R3 1 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K4 ["MAKEUP_PREVIEW_WORLD_MODEL_NAME"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K4 ["MAKEUP_PREVIEW_WORLD_MODEL_NAME"]
         7 SETTABLEKS                       R4 R3 K5 ["Name"]
         9 GETIMPORT                        R4 K2 [Instance.new]
        11 LOADK                            R5 K6 ["Model"]
@@ -204,8 +204,8 @@ PROTO_7:
        26 SETTABLEKS                       R4 R9 K7 ["Parent"]
        28 FORGLOOP                         R5 2 ; [-8]
        30 SETTABLEKS                       R1 R4 K11 ["PrimaryPart"]
-       32 GETTABLEKS                       R6 R1 K12 ["CFrame"]
-       34 GETTABLEKS                       R5 R6 K13 ["Rotation"]
+       32 GETTABLEKS                       R5 R1 K12 ["CFrame"]
+       34 GETTABLEKS                       R5 R5 K13 ["Rotation"]
        36 SETTABLEKS                       R5 R1 K12 ["CFrame"]
        38 SETTABLEKS                       R3 R4 K7 ["Parent"]
        40 NAMECALL                         R5 R0 K14 ["Destroy"]
@@ -213,8 +213,8 @@ PROTO_7:
        43 RETURN                           R3 1
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["processMakeupItems"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["processMakeupItems"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 2
         5 GETUPVAL                         R4 1
@@ -259,8 +259,8 @@ PROTO_8:
        57 JUMP                             ; [+4]
        58 GETTABLEKS                       R13 R11 K7 ["Instance"]
        60 SETTABLEKS                       R13 R12 K7 ["Instance"]
-       62 GETUPVAL                         R15 3
-       63 GETTABLEKS                       R14 R15 K16 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
+       62 GETUPVAL                         R14 3
+       63 GETTABLEKS                       R14 R14 K16 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
        65 GETTABLEKS                       R15 R11 K17 ["AssetType"]
        67 GETTABLE                         R13 R14 R15
        68 SETTABLEKS                       R13 R12 K18 ["MakeupType"]
@@ -318,23 +318,23 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R2 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Util"]
-       25 GETTABLEKS                       R4 R5 K13 ["Constants"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["Constants"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K10 [require]
-       30 GETTABLEKS                       R6 R2 K11 ["Src"]
-       32 GETTABLEKS                       R5 R6 K14 ["Types"]
+       30 GETTABLEKS                       R5 R2 K11 ["Src"]
+       32 GETTABLEKS                       R5 R5 K14 ["Types"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K10 [require]
-       37 GETTABLEKS                       R8 R2 K11 ["Src"]
-       39 GETTABLEKS                       R7 R8 K15 ["Flags"]
-       41 GETTABLEKS                       R6 R7 K16 ["getFStringDefaultDynamicHeadAssetIdLookComposer"]
+       37 GETTABLEKS                       R6 R2 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       41 GETTABLEKS                       R6 R6 K16 ["getFStringDefaultDynamicHeadAssetIdLookComposer"]
        43 CALL                             R5 1 1
        44 GETIMPORT                        R6 K10 [require]
-       46 GETTABLEKS                       R9 R2 K11 ["Src"]
-       48 GETTABLEKS                       R8 R9 K15 ["Flags"]
-       50 GETTABLEKS                       R7 R8 K17 ["getFFlagDebugAvatarPreviewerMakeupWorldModelWait"]
+       46 GETTABLEKS                       R7 R2 K11 ["Src"]
+       48 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       50 GETTABLEKS                       R7 R7 K17 ["getFFlagDebugAvatarPreviewerMakeupWorldModelWait"]
        52 CALL                             R6 1 1
        53 DUPCLOSURE                       R7 K18 [PROTO_0]
        54 CAPTURE                          VAL R3

@@ -8,8 +8,8 @@ PROTO_0:
         8 SETTABLEKS                       R1 R0 K2 ["Icon"]
        10 LOADB                            R1 0
        11 SETTABLEKS                       R1 R0 K3 ["Enabled"]
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R1 R2 K7 ["new"]
+       13 GETUPVAL                         R1 0
+       14 GETTABLEKS                       R1 R1 K7 ["new"]
        16 CALL                             R1 0 1
        17 SETTABLEKS                       R1 R0 K4 ["Click"]
        19 GETUPVAL                         R3 1
@@ -36,8 +36,8 @@ PROTO_2:
        14 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["new"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["new"]
         3 CALL                             R4 0 -1
         4 RETURN                           R4 -1
 
@@ -96,8 +96,8 @@ PROTO_5:
        58 MOVE                             R5 R2
        59 CALL                             R4 1 3
        60 FORGPREP_NEXT                    R4
-       61 GETUPVAL                         R10 0
-       62 GETTABLEKS                       R9 R10 K21 ["new"]
+       61 GETUPVAL                         R9 0
+       62 GETTABLEKS                       R9 R9 K21 ["new"]
        64 CALL                             R9 0 1
        65 SETTABLE                         R9 R3 R7
        66 FORGLOOP                         R4 2 ; [-6]
@@ -148,15 +148,15 @@ PROTO_7:
        11 RETURN                           R0 1
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 -1
         5 RETURN                           R2 -1
 
 PROTO_9:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 MOVE                             R4 R1
         4 MOVE                             R5 R2
         5 CALL                             R3 2 -1
@@ -164,14 +164,14 @@ PROTO_9:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Plugin"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["Signal"]
+       11 GETTABLEKS                       R2 R0 K5 ["Plugin"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["Signal"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 4 0
        20 SETTABLEKS                       R2 R2 K8 ["__index"]

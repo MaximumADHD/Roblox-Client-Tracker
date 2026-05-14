@@ -9,22 +9,22 @@ PROTO_1:
         1 DUPCLOSURE                       R2 K0 [PROTO_0]
         2 CAPTURE                          UPVAL U1
         3 CALL                             R1 1 0
-        4 GETUPVAL                         R2 2
-        5 GETTABLEKS                       R1 R2 K1 ["join"]
+        4 GETUPVAL                         R1 2
+        5 GETTABLEKS                       R1 R1 K1 ["join"]
         7 GETUPVAL                         R2 3
         8 GETUPVAL                         R3 4
         9 JUMPIF                           R3 ; [+2]
        10 NEWTABLE                         R3 0 0
        12 CALL                             R1 2 1
-       13 GETUPVAL                         R3 5
-       14 GETTABLEKS                       R2 R3 K2 ["provideMockContext"]
-       16 GETUPVAL                         R4 2
-       17 GETTABLEKS                       R3 R4 K3 ["values"]
+       13 GETUPVAL                         R2 5
+       14 GETTABLEKS                       R2 R2 K2 ["provideMockContext"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K3 ["values"]
        19 MOVE                             R4 R1
        20 CALL                             R3 1 1
        21 DUPTABLE                         R4 K5 [{"Provider"}]
-       22 GETUPVAL                         R6 6
-       23 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       22 GETUPVAL                         R5 6
+       23 GETTABLEKS                       R5 R5 K6 ["createElement"]
        25 GETUPVAL                         R6 7
        26 DUPTABLE                         R7 K9 [{"theme", "onStyleSheetChange"}]
        27 LOADK                            R8 K10 ["Dark"]
@@ -32,8 +32,8 @@ PROTO_1:
        30 GETUPVAL                         R8 8
        31 SETTABLEKS                       R8 R7 K8 ["onStyleSheetChange"]
        33 DUPTABLE                         R8 K12 [{"Component"}]
-       34 GETUPVAL                         R10 6
-       35 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       34 GETUPVAL                         R9 6
+       35 GETTABLEKS                       R9 R9 K6 ["createElement"]
        37 GETUPVAL                         R10 9
        38 MOVE                             R11 R0
        39 CALL                             R9 2 1
@@ -68,44 +68,44 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Dash"]
+       22 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Dash"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["StudioFoundation"]
+       29 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["StudioFoundation"]
        33 CALL                             R4 1 1
-       34 GETTABLEKS                       R6 R4 K14 ["Components"]
-       36 GETTABLEKS                       R5 R6 K15 ["FoundationProviderAdapter"]
+       34 GETTABLEKS                       R5 R4 K14 ["Components"]
+       36 GETTABLEKS                       R5 R5 K15 ["FoundationProviderAdapter"]
        38 GETIMPORT                        R6 K9 [require]
-       40 GETTABLEKS                       R8 R0 K10 ["Packages"]
-       42 GETTABLEKS                       R7 R8 K16 ["Framework"]
+       40 GETTABLEKS                       R7 R0 K10 ["Packages"]
+       42 GETTABLEKS                       R7 R7 K16 ["Framework"]
        44 CALL                             R6 1 1
        45 GETTABLEKS                       R7 R6 K17 ["TestHelpers"]
        47 GETTABLEKS                       R8 R6 K18 ["ContextServices"]
-       49 GETTABLEKS                       R11 R6 K19 ["Style"]
-       51 GETTABLEKS                       R10 R11 K20 ["Themes"]
-       53 GETTABLEKS                       R9 R10 K21 ["StudioTheme"]
+       49 GETTABLEKS                       R9 R6 K19 ["Style"]
+       51 GETTABLEKS                       R9 R9 K20 ["Themes"]
+       53 GETTABLEKS                       R9 R9 K21 ["StudioTheme"]
        55 GETIMPORT                        R10 K9 [require]
-       57 GETTABLEKS                       R14 R0 K22 ["Src"]
-       59 GETTABLEKS                       R13 R14 K23 ["Util"]
-       61 GETTABLEKS                       R12 R13 K24 ["Telemetry"]
-       63 GETTABLEKS                       R11 R12 K25 ["TelemetryContext"]
+       57 GETTABLEKS                       R11 R0 K22 ["Src"]
+       59 GETTABLEKS                       R11 R11 K23 ["Util"]
+       61 GETTABLEKS                       R11 R11 K24 ["Telemetry"]
+       63 GETTABLEKS                       R11 R11 K25 ["TelemetryContext"]
        65 CALL                             R10 1 1
        66 DUPTABLE                         R11 K30 [{"analytics", "telemetry", "localization", "theme"}]
-       67 GETTABLEKS                       R13 R8 K31 ["Analytics"]
-       69 GETTABLEKS                       R12 R13 K32 ["mock"]
+       67 GETTABLEKS                       R12 R8 K31 ["Analytics"]
+       69 GETTABLEKS                       R12 R12 K32 ["mock"]
        71 CALL                             R12 0 1
        72 SETTABLEKS                       R12 R11 K26 ["analytics"]
        74 GETTABLEKS                       R12 R10 K32 ["mock"]
        76 CALL                             R12 0 1
        77 SETTABLEKS                       R12 R11 K27 ["telemetry"]
-       79 GETTABLEKS                       R13 R8 K33 ["Localization"]
-       81 GETTABLEKS                       R12 R13 K32 ["mock"]
+       79 GETTABLEKS                       R12 R8 K33 ["Localization"]
+       81 GETTABLEKS                       R12 R12 K32 ["mock"]
        83 CALL                             R12 0 1
        84 SETTABLEKS                       R12 R11 K28 ["localization"]
        86 GETTABLEKS                       R12 R9 K32 ["mock"]

@@ -23,8 +23,8 @@ PROTO_0:
 PROTO_1:
         0 NEWTABLE                         R0 0 1
         2 GETIMPORT                        R1 K1 [pcall]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K2 ["__callback"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K2 ["__callback"]
         7 GETUPVAL                         R4 1
         8 FASTCALL1                        TABLE_UNPACK R4 ; [+2]
         9 GETIMPORT                        R3 K4 [unpack]
@@ -49,8 +49,8 @@ PROTO_1:
        35 GETUPVAL                         R1 0
        36 LOADB                            R2 1
        37 SETTABLEKS                       R2 R1 K11 ["__finished"]
-       39 GETUPVAL                         R2 0
-       40 GETTABLEKS                       R1 R2 K12 ["__event"]
+       39 GETUPVAL                         R1 0
+       40 GETTABLEKS                       R1 R1 K12 ["__event"]
        42 NAMECALL                         R1 R1 K13 ["Fire"]
        44 CALL                             R1 1 0
        45 RETURN                           R0 0
@@ -95,8 +95,8 @@ PROTO_3:
        10 CALL                             R1 2 0
        11 GETTABLEKS                       R1 R0 K0 ["__finished"]
        13 JUMPIF                           R1 ; [+7]
-       14 GETTABLEKS                       R2 R0 K5 ["__event"]
-       16 GETTABLEKS                       R1 R2 K6 ["Event"]
+       14 GETTABLEKS                       R1 R0 K5 ["__event"]
+       16 GETTABLEKS                       R1 R1 K6 ["Event"]
        18 NAMECALL                         R1 R1 K7 ["Wait"]
        20 CALL                             R1 1 0
        21 GETTABLEKS                       R1 R0 K8 ["__success"]

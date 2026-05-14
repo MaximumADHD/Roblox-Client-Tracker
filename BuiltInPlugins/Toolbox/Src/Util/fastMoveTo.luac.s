@@ -35,8 +35,8 @@ PROTO_0:
        47 SETTABLEKS                       R3 R5 K14 ["Size"]
        49 SETTABLEKS                       R2 R5 K6 ["CFrame"]
        51 SETTABLEKS                       R4 R5 K15 ["Parent"]
-       53 GETIMPORT                        R7 K17 [game]
-       55 GETTABLEKS                       R6 R7 K18 ["Workspace"]
+       53 GETIMPORT                        R6 K17 [game]
+       55 GETTABLEKS                       R6 R6 K18 ["Workspace"]
        57 SETTABLEKS                       R6 R4 K15 ["Parent"]
        59 LOADNIL                          R6
        60 SETTABLEKS                       R6 R0 K15 ["Parent"]
@@ -46,8 +46,8 @@ PROTO_0:
        66 GETTABLEKS                       R8 R5 K6 ["CFrame"]
        68 NAMECALL                         R6 R0 K9 ["PivotTo"]
        70 CALL                             R6 2 0
-       71 GETIMPORT                        R7 K17 [game]
-       73 GETTABLEKS                       R6 R7 K18 ["Workspace"]
+       71 GETIMPORT                        R6 K17 [game]
+       73 GETTABLEKS                       R6 R6 K18 ["Workspace"]
        75 SETTABLEKS                       R6 R0 K15 ["Parent"]
        77 LOADNIL                          R6
        78 SETTABLEKS                       R6 R4 K15 ["Parent"]
@@ -64,9 +64,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntToolboxMoveModelMaxSize"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntToolboxMoveModelMaxSize"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

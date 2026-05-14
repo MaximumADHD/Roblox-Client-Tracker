@@ -75,14 +75,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["assign"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R6 R0 K9 ["Src"]
-       20 GETTABLEKS                       R5 R6 K10 ["Flags"]
-       22 GETTABLEKS                       R4 R5 K11 ["getFFlagCustomHumanoidEnabled"]
+       18 GETTABLEKS                       R4 R0 K9 ["Src"]
+       20 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       22 GETTABLEKS                       R4 R4 K11 ["getFFlagCustomHumanoidEnabled"]
        24 CALL                             R3 1 1
        25 DUPCLOSURE                       R4 K12 [PROTO_0]
        26 DUPCLOSURE                       R5 K13 [PROTO_1]

@@ -1,30 +1,30 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Resources"]
-       24 GETTABLEKS                       R3 R4 K9 ["PluginStyles"]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Resources"]
+       24 GETTABLEKS                       R3 R3 K9 ["PluginStyles"]
        26 CALL                             R2 1 1
-       27 GETTABLEKS                       R4 R1 K10 ["Styling"]
-       29 GETTABLEKS                       R3 R4 K11 ["createStyleRule"]
-       31 LOADK                            R8 K12 ["HeaderSize"]
-       32 NAMECALL                         R6 R2 K13 ["GetAttribute"]
-       34 CALL                             R6 2 1
-       35 GETTABLEKS                       R5 R6 K14 ["Height"]
-       37 GETTABLEKS                       R4 R5 K15 ["Offset"]
-       39 LOADK                            R8 K16 ["Margin"]
-       40 NAMECALL                         R6 R2 K13 ["GetAttribute"]
-       42 CALL                             R6 2 1
-       43 GETTABLEKS                       R5 R6 K15 ["Offset"]
+       27 GETTABLEKS                       R3 R1 K10 ["Styling"]
+       29 GETTABLEKS                       R3 R3 K11 ["createStyleRule"]
+       31 LOADK                            R6 K12 ["HeaderSize"]
+       32 NAMECALL                         R4 R2 K13 ["GetAttribute"]
+       34 CALL                             R4 2 1
+       35 GETTABLEKS                       R4 R4 K14 ["Height"]
+       37 GETTABLEKS                       R4 R4 K15 ["Offset"]
+       39 LOADK                            R7 K16 ["Margin"]
+       40 NAMECALL                         R5 R2 K13 ["GetAttribute"]
+       42 CALL                             R5 2 1
+       43 GETTABLEKS                       R5 R5 K15 ["Offset"]
        45 LOADK                            R8 K17 ["ScrollBarWidth"]
        46 NAMECALL                         R6 R2 K13 ["GetAttribute"]
        48 CALL                             R6 2 1

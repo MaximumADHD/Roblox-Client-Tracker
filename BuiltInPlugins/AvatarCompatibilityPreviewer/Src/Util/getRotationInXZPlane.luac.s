@@ -1,13 +1,13 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["GetComponents"]
         2 CALL                             R1 1 12
-        3 LOADN                            R16 0
-        4 FASTCALL3                        VECTOR R6 R16 R12
-        6 MOVE                             R15 R6
-        7 MOVE                             R17 R12
-        8 GETIMPORT                        R14 K3 [Vector3.new]
-       10 CALL                             R14 3 1
-       11 GETTABLEKS                       R13 R14 K4 ["Unit"]
+        3 LOADN                            R15 0
+        4 FASTCALL3                        VECTOR R6 R15 R12
+        6 MOVE                             R14 R6
+        7 MOVE                             R16 R12
+        8 GETIMPORT                        R13 K3 [Vector3.new]
+       10 CALL                             R13 3 1
+       11 GETTABLEKS                       R13 R13 K4 ["Unit"]
        13 JUMPIFEQ                         R13 R13 ; [+2]
        15 RETURN                           R0 1
        16 LOADK                            R14 K5 [{0, 1, 0}]

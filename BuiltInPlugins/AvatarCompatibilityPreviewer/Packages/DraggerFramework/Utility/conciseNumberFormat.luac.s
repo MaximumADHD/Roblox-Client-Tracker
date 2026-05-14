@@ -86,53 +86,110 @@ PROTO_1:
        83 RETURN                           R1 -1
 
 PROTO_2:
-        0 NEWCLOSURE                       R2 P0
+        0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          VAL R1
-        2 FASTCALL1                        TYPEOF R0 ; [+3]
-        3 MOVE                             R4 R0
-        4 GETIMPORT                        R3 K1 [typeof]
-        6 CALL                             R3 1 1
-        7 JUMPIFNOTEQKS                    R3 K2 ["number"] ; [+5]
-        9 MOVE                             R3 R2
-       10 MOVE                             R4 R0
-       11 CALL                             R3 1 -1
-       12 RETURN                           R3 -1
-       13 FASTCALL1                        TYPEOF R0 ; [+3]
-       14 MOVE                             R4 R0
-       15 GETIMPORT                        R3 K1 [typeof]
-       17 CALL                             R3 1 1
-       18 JUMPIFNOTEQKS                    R3 K3 ["Vector2"] ; [+13]
-       20 MOVE                             R7 R2
-       21 GETTABLEKS                       R8 R0 K4 ["X"]
-       23 CALL                             R7 1 1
-       24 MOVE                             R4 R7
-       25 LOADK                            R5 K5 [", "]
-       26 MOVE                             R6 R2
-       27 GETTABLEKS                       R7 R0 K6 ["Y"]
-       29 CALL                             R6 1 1
-       30 CONCAT                           R3 R4 R6
-       31 RETURN                           R3 1
-       32 FASTCALL1                        TYPEOF R0 ; [+3]
-       33 MOVE                             R4 R0
-       34 GETIMPORT                        R3 K1 [typeof]
-       36 CALL                             R3 1 1
-       37 JUMPIFNOTEQKS                    R3 K7 ["Vector3"] ; [+19]
-       39 MOVE                             R9 R2
-       40 GETTABLEKS                       R10 R0 K4 ["X"]
-       42 CALL                             R9 1 1
-       43 MOVE                             R4 R9
-       44 LOADK                            R5 K5 [", "]
-       45 MOVE                             R9 R2
-       46 GETTABLEKS                       R10 R0 K6 ["Y"]
-       48 CALL                             R9 1 1
-       49 MOVE                             R6 R9
-       50 LOADK                            R7 K5 [", "]
-       51 MOVE                             R8 R2
-       52 GETTABLEKS                       R9 R0 K8 ["Z"]
-       54 CALL                             R8 1 1
-       55 CONCAT                           R3 R4 R8
-       56 RETURN                           R3 1
-       57 RETURN                           R0 0
+        2 JUMPIFNOT                        R2 ; [+69]
+        3 FASTCALL1                        TYPEOF R0 ; [+3]
+        4 MOVE                             R5 R0
+        5 GETIMPORT                        R4 K1 [typeof]
+        7 CALL                             R4 1 1
+        8 JUMPIFNOTEQKS                    R4 K2 ["number"] ; [+11]
+       10 LOADK                            R5 K3 ["%*: %*"]
+       11 MOVE                             R7 R2
+       12 MOVE                             R8 R3
+       13 MOVE                             R9 R0
+       14 CALL                             R8 1 1
+       15 NAMECALL                         R5 R5 K4 ["format"]
+       17 CALL                             R5 3 1
+       18 MOVE                             R4 R5
+       19 RETURN                           R4 1
+       20 FASTCALL1                        TYPEOF R0 ; [+3]
+       21 MOVE                             R5 R0
+       22 GETIMPORT                        R4 K1 [typeof]
+       24 CALL                             R4 1 1
+       25 JUMPIFNOTEQKS                    R4 K5 ["Vector2"] ; [+17]
+       27 LOADK                            R5 K6 ["%*: %*, %*: %*"]
+       28 GETTABLEN                        R7 R2 1
+       29 MOVE                             R8 R3
+       30 GETTABLEKS                       R9 R0 K7 ["X"]
+       32 CALL                             R8 1 1
+       33 GETTABLEN                        R9 R2 2
+       34 MOVE                             R10 R3
+       35 GETTABLEKS                       R11 R0 K8 ["Y"]
+       37 CALL                             R10 1 1
+       38 NAMECALL                         R5 R5 K4 ["format"]
+       40 CALL                             R5 5 1
+       41 MOVE                             R4 R5
+       42 RETURN                           R4 1
+       43 FASTCALL1                        TYPEOF R0 ; [+3]
+       44 MOVE                             R5 R0
+       45 GETIMPORT                        R4 K1 [typeof]
+       47 CALL                             R4 1 1
+       48 JUMPIFNOTEQKS                    R4 K9 ["Vector3"] ; [+82]
+       50 LOADK                            R5 K10 ["%*: %*, %*: %*, %*: %*"]
+       51 GETTABLEN                        R7 R2 1
+       52 MOVE                             R8 R3
+       53 GETTABLEKS                       R9 R0 K7 ["X"]
+       55 CALL                             R8 1 1
+       56 GETTABLEN                        R9 R2 2
+       57 MOVE                             R10 R3
+       58 GETTABLEKS                       R11 R0 K8 ["Y"]
+       60 CALL                             R10 1 1
+       61 GETTABLEN                        R11 R2 3
+       62 MOVE                             R12 R3
+       63 GETTABLEKS                       R13 R0 K11 ["Z"]
+       65 CALL                             R12 1 1
+       66 NAMECALL                         R5 R5 K4 ["format"]
+       68 CALL                             R5 7 1
+       69 MOVE                             R4 R5
+       70 RETURN                           R4 1
+       71 RETURN                           R0 0
+       72 FASTCALL1                        TYPEOF R0 ; [+3]
+       73 MOVE                             R5 R0
+       74 GETIMPORT                        R4 K1 [typeof]
+       76 CALL                             R4 1 1
+       77 JUMPIFNOTEQKS                    R4 K2 ["number"] ; [+9]
+       79 GETIMPORT                        R4 K13 [string.format]
+       81 LOADK                            R5 K14 ["%s"]
+       82 MOVE                             R6 R3
+       83 MOVE                             R7 R0
+       84 CALL                             R6 1 -1
+       85 CALL                             R4 -1 -1
+       86 RETURN                           R4 -1
+       87 FASTCALL1                        TYPEOF R0 ; [+3]
+       88 MOVE                             R5 R0
+       89 GETIMPORT                        R4 K1 [typeof]
+       91 CALL                             R4 1 1
+       92 JUMPIFNOTEQKS                    R4 K5 ["Vector2"] ; [+14]
+       94 GETIMPORT                        R4 K13 [string.format]
+       96 LOADK                            R5 K15 ["%s, %s"]
+       97 MOVE                             R6 R3
+       98 GETTABLEKS                       R7 R0 K7 ["X"]
+      100 CALL                             R6 1 1
+      101 MOVE                             R7 R3
+      102 GETTABLEKS                       R8 R0 K8 ["Y"]
+      104 CALL                             R7 1 -1
+      105 CALL                             R4 -1 -1
+      106 RETURN                           R4 -1
+      107 FASTCALL1                        TYPEOF R0 ; [+3]
+      108 MOVE                             R5 R0
+      109 GETIMPORT                        R4 K1 [typeof]
+      111 CALL                             R4 1 1
+      112 JUMPIFNOTEQKS                    R4 K9 ["Vector3"] ; [+18]
+      114 GETIMPORT                        R4 K13 [string.format]
+      116 LOADK                            R5 K16 ["%s, %s, %s"]
+      117 MOVE                             R6 R3
+      118 GETTABLEKS                       R7 R0 K7 ["X"]
+      120 CALL                             R6 1 1
+      121 MOVE                             R7 R3
+      122 GETTABLEKS                       R8 R0 K8 ["Y"]
+      124 CALL                             R7 1 1
+      125 MOVE                             R8 R3
+      126 GETTABLEKS                       R9 R0 K11 ["Z"]
+      128 CALL                             R8 1 -1
+      129 CALL                             R4 -1 -1
+      130 RETURN                           R4 -1
+      131 RETURN                           R0 0
 
 PROTO_3:
         0 FASTCALL1                        MATH_ROUND R0 ; [+3]
@@ -190,12 +247,12 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Flags"]
-       11 GETTABLEKS                       R2 R3 K6 ["getFFlagNextGenDraggers"]
+        9 GETTABLEKS                       R2 R0 K5 ["Flags"]
+       11 GETTABLEKS                       R2 R2 K6 ["getFFlagNextGenDraggers"]
        13 CALL                             R1 1 1
        14 MOVE                             R2 R1
        15 CALL                             R2 0 1

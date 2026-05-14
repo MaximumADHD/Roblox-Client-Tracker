@@ -1,20 +1,20 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R3 R0 K0 ["AbsoluteSize"]
-        3 GETTABLEKS                       R2 R3 K1 ["Y"]
+        1 GETTABLEKS                       R2 R0 K0 ["AbsoluteSize"]
+        3 GETTABLEKS                       R2 R2 K1 ["Y"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["findActivationData"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["findActivationData"]
         3 JUMPIFNOT                        R0 ; [+9]
         4 GETUPVAL                         R0 1
         5 JUMPIF                           R0 ; [+7]
         6 GETUPVAL                         R0 2
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["findActivationData"]
-       10 GETTABLEKS                       R1 R2 K1 ["showReplace"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["findActivationData"]
+       10 GETTABLEKS                       R1 R1 K1 ["showReplace"]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
@@ -23,31 +23,31 @@ PROTO_2:
         1 CALL                             R1 0 1
         2 GETUPVAL                         R2 1
         3 CALL                             R2 0 1
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K0 ["useRef"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K0 ["useRef"]
         7 LOADNIL                          R4
         8 CALL                             R3 1 1
-        9 GETUPVAL                         R5 2
-       10 GETTABLEKS                       R4 R5 K1 ["useState"]
-       12 GETUPVAL                         R6 3
-       13 GETTABLEKS                       R5 R6 K2 ["minSearchHeaderHeight"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K1 ["useState"]
+       12 GETUPVAL                         R5 3
+       13 GETTABLEKS                       R5 R5 K2 ["minSearchHeaderHeight"]
        15 CALL                             R4 1 2
-       16 GETUPVAL                         R7 2
-       17 GETTABLEKS                       R6 R7 K3 ["useCallback"]
+       16 GETUPVAL                         R6 2
+       17 GETTABLEKS                       R6 R6 K3 ["useCallback"]
        19 NEWCLOSURE                       R7 P0
        20 CAPTURE                          VAL R5
        21 NEWTABLE                         R8 0 0
        23 CALL                             R6 2 1
-       24 GETUPVAL                         R8 4
-       25 GETTABLEKS                       R7 R8 K4 ["useToggleState"]
+       24 GETUPVAL                         R7 4
+       25 GETTABLEKS                       R7 R7 K4 ["useToggleState"]
        27 LOADB                            R8 0
        28 CALL                             R7 1 1
-       29 GETUPVAL                         R9 2
-       30 GETTABLEKS                       R8 R9 K1 ["useState"]
+       29 GETUPVAL                         R8 2
+       30 GETTABLEKS                       R8 R8 K1 ["useState"]
        32 LOADB                            R9 0
        33 CALL                             R8 1 2
-       34 GETUPVAL                         R11 2
-       35 GETTABLEKS                       R10 R11 K5 ["useEffect"]
+       34 GETUPVAL                         R10 2
+       35 GETTABLEKS                       R10 R10 K5 ["useEffect"]
        37 NEWCLOSURE                       R11 P1
        38 CAPTURE                          VAL R0
        39 CAPTURE                          VAL R8
@@ -66,8 +66,8 @@ PROTO_2:
        58 LOADN                            R15 1
        59 CALL                             R13 2 1
        60 SETTABLEKS                       R13 R12 K12 ["Size"]
-       62 GETUPVAL                         R14 2
-       63 GETTABLEKS                       R13 R14 K13 ["Tag"]
+       62 GETUPVAL                         R13 2
+       63 GETTABLEKS                       R13 R13 K13 ["Tag"]
        65 LOADK                            R14 K14 ["FindReplaceAll-TopPadM FindReplaceAll-BG-Surface100 data-testid=MainViewFrame"]
        66 SETTABLE                         R14 R12 R13
        67 DUPTABLE                         R13 K18 [{"DropdownOverlay", "WidgetHeader", "WidgetBody"}]
@@ -84,8 +84,8 @@ PROTO_2:
        82 LOADN                            R17 3
        83 SETTABLEKS                       R17 R16 K20 ["ZIndex"]
        85 SETTABLEKS                       R3 R16 K21 ["ref"]
-       87 GETUPVAL                         R18 2
-       88 GETTABLEKS                       R17 R18 K13 ["Tag"]
+       87 GETUPVAL                         R17 2
+       88 GETTABLEKS                       R17 R17 K13 ["Tag"]
        90 LOADK                            R18 K22 ["FindReplaceAll-SidePadM"]
        91 SETTABLE                         R18 R16 R17
        92 CALL                             R14 2 1
@@ -140,37 +140,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
        20 CALL                             R2 1 1
-       21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R5 R6 K8 ["ReactUtils"]
-       27 CALL                             R4 1 1
-       28 GETTABLEKS                       R3 R4 K9 ["createNextOrder"]
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K8 ["ReactUtils"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R3 R3 K9 ["createNextOrder"]
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K10 ["Src"]
-       34 GETTABLEKS                       R6 R7 K11 ["Components"]
-       36 GETTABLEKS                       R5 R6 K12 ["FindReplaceWidgetHeader"]
+       32 GETTABLEKS                       R5 R0 K10 ["Src"]
+       34 GETTABLEKS                       R5 R5 K11 ["Components"]
+       36 GETTABLEKS                       R5 R5 K12 ["FindReplaceWidgetHeader"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K10 ["Src"]
-       43 GETTABLEKS                       R7 R8 K11 ["Components"]
-       45 GETTABLEKS                       R6 R7 K13 ["FindReplaceWidgetBody"]
+       41 GETTABLEKS                       R6 R0 K10 ["Src"]
+       43 GETTABLEKS                       R6 R6 K11 ["Components"]
+       45 GETTABLEKS                       R6 R6 K13 ["FindReplaceWidgetBody"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K10 ["Src"]
-       52 GETTABLEKS                       R8 R9 K14 ["Resources"]
-       54 GETTABLEKS                       R7 R8 K15 ["StyleConstants"]
+       50 GETTABLEKS                       R7 R0 K10 ["Src"]
+       52 GETTABLEKS                       R7 R7 K14 ["Resources"]
+       54 GETTABLEKS                       R7 R7 K15 ["StyleConstants"]
        56 CALL                             R6 1 1
        57 GETIMPORT                        R7 K5 [require]
-       59 GETTABLEKS                       R10 R0 K10 ["Src"]
-       61 GETTABLEKS                       R9 R10 K16 ["Hooks"]
-       63 GETTABLEKS                       R8 R9 K17 ["useResultsManager"]
+       59 GETTABLEKS                       R8 R0 K10 ["Src"]
+       61 GETTABLEKS                       R8 R8 K16 ["Hooks"]
+       63 GETTABLEKS                       R8 R8 K17 ["useResultsManager"]
        65 CALL                             R7 1 1
        66 GETTABLEKS                       R8 R1 K18 ["createElement"]
        68 DUPCLOSURE                       R9 K19 [PROTO_2]

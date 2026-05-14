@@ -5,16 +5,16 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"CallToActionBanner"}]
-        7 GETUPVAL                         R5 2
-        8 GETTABLEKS                       R4 R5 K3 ["Generator"]
+        7 GETUPVAL                         R4 2
+        8 GETTABLEKS                       R4 R4 K3 ["Generator"]
        10 DUPTABLE                         R5 K7 [{"Image", "Text", "OnClick"}]
-       11 GETUPVAL                         R7 3
-       12 GETTABLEKS                       R6 R7 K8 ["MONSTER_CAT_BANNER"]
+       11 GETUPVAL                         R6 3
+       12 GETTABLEKS                       R6 R6 K8 ["MONSTER_CAT_BANNER"]
        14 SETTABLEKS                       R6 R5 K4 ["Image"]
        16 LOADK                            R6 K9 ["Find tracks from Mostercat"]
        17 SETTABLEKS                       R6 R5 K5 ["Text"]
@@ -36,19 +36,19 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R7 R0 K8 ["Src"]
-       18 GETTABLEKS                       R6 R7 K9 ["Components"]
-       20 GETTABLEKS                       R5 R6 K10 ["CallToActionBanner"]
-       22 GETTABLEKS                       R4 R5 K10 ["CallToActionBanner"]
+       16 GETTABLEKS                       R4 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R4 K9 ["Components"]
+       20 GETTABLEKS                       R4 R4 K10 ["CallToActionBanner"]
+       22 GETTABLEKS                       R4 R4 K10 ["CallToActionBanner"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K6 [require]
-       27 GETTABLEKS                       R6 R0 K11 ["Stories"]
-       29 GETTABLEKS                       R5 R6 K12 ["ToolboxStoryWrapper"]
+       27 GETTABLEKS                       R5 R0 K11 ["Stories"]
+       29 GETTABLEKS                       R5 R5 K12 ["ToolboxStoryWrapper"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K6 [require]
-       34 GETTABLEKS                       R8 R0 K8 ["Src"]
-       36 GETTABLEKS                       R7 R8 K13 ["Util"]
-       38 GETTABLEKS                       R6 R7 K14 ["Images"]
+       34 GETTABLEKS                       R6 R0 K8 ["Src"]
+       36 GETTABLEKS                       R6 R6 K13 ["Util"]
+       38 GETTABLEKS                       R6 R6 K14 ["Images"]
        40 CALL                             R5 1 1
        41 DUPCLOSURE                       R6 K15 [PROTO_0]
        42 DUPTABLE                         R7 K18 [{"name", "story"}]

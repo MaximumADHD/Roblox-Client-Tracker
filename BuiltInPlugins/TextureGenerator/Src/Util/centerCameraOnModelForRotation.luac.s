@@ -4,8 +4,8 @@ PROTO_0:
         3 MOVE                             R6 R3
         4 JUMPIF                           R6 ; [+2]
         5 GETTABLEKS                       R6 R4 K1 ["Magnitude"]
-        7 GETUPVAL                         R8 0
-        8 GETTABLEKS                       R7 R8 K2 ["CAMERA_DISTANCE_SCALE"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K2 ["CAMERA_DISTANCE_SCALE"]
        10 MUL                              R5 R6 R7
        11 NAMECALL                         R6 R1 K3 ["ToEulerAnglesYXZ"]
        13 CALL                             R6 1 3
@@ -13,8 +13,8 @@ PROTO_0:
        16 FASTCALL                         VECTOR ; [+2]
        17 GETIMPORT                        R10 K9 [Vector3.new]
        19 CALL                             R10 0 1
-       20 GETUPVAL                         R13 0
-       21 GETTABLEKS                       R12 R13 K10 ["INITIAL_FOCUS_DIRECTION"]
+       20 GETUPVAL                         R12 0
+       21 GETTABLEKS                       R12 R12 K10 ["INITIAL_FOCUS_DIRECTION"]
        23 MINUS                            R11 R12
        24 CALL                             R9 2 1
        25 GETIMPORT                        R11 K12 [CFrame.fromEulerAnglesYXZ]
@@ -49,9 +49,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 CAPTURE                          VAL R1

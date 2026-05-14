@@ -72,8 +72,8 @@ PROTO_1:
        67 CALL                             R6 2 1
        68 MOVE                             R5 R6
        69 GETIMPORT                        R6 K13 [pcall]
-       71 GETUPVAL                         R8 1
-       72 GETTABLEKS                       R7 R8 K14 ["LoadPackageAssetAsync"]
+       71 GETUPVAL                         R7 1
+       72 GETTABLEKS                       R7 R7 K14 ["LoadPackageAssetAsync"]
        74 GETUPVAL                         R8 1
        75 MOVE                             R9 R5
        76 CALL                             R6 3 2
@@ -118,9 +118,9 @@ PROTO_1:
       126 NAMECALL                         R5 R5 K27 ["Set"]
       128 CALL                             R5 2 0
       129 GETUPVAL                         R5 5
-      130 GETIMPORT                        R8 K29 [game]
-      132 GETTABLEKS                       R7 R8 K30 ["Workspace"]
-      134 GETTABLEKS                       R6 R7 K31 ["CurrentCamera"]
+      130 GETIMPORT                        R6 K29 [game]
+      132 GETTABLEKS                       R6 R6 K30 ["Workspace"]
+      134 GETTABLEKS                       R6 R6 K31 ["CurrentCamera"]
       136 MOVE                             R7 R3
       137 CALL                             R5 2 0
       138 RETURN                           R0 0
@@ -148,9 +148,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["InsertService"]
@@ -162,14 +162,14 @@ MAIN:
        26 LOADK                            R5 K12 ["ChangeHistoryService"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K5 [require]
-       30 GETTABLEKS                       R8 R0 K6 ["Src"]
-       32 GETTABLEKS                       R7 R8 K7 ["Utility"]
-       34 GETTABLEKS                       R6 R7 K13 ["getWorkspaceInsertPosition"]
+       30 GETTABLEKS                       R6 R0 K6 ["Src"]
+       32 GETTABLEKS                       R6 R6 K7 ["Utility"]
+       34 GETTABLEKS                       R6 R6 K13 ["getWorkspaceInsertPosition"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K5 [require]
-       39 GETTABLEKS                       R9 R0 K6 ["Src"]
-       41 GETTABLEKS                       R8 R9 K14 ["Flags"]
-       43 GETTABLEKS                       R7 R8 K15 ["getFFlagCinFixUploadResults"]
+       39 GETTABLEKS                       R7 R0 K6 ["Src"]
+       41 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       43 GETTABLEKS                       R7 R7 K15 ["getFFlagCinFixUploadResults"]
        45 CALL                             R6 1 1
        46 DUPCLOSURE                       R7 K16 [PROTO_0]
        47 DUPCLOSURE                       R8 K17 [PROTO_1]

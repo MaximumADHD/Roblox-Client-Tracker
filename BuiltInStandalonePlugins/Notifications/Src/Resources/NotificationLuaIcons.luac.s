@@ -1,20 +1,20 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R5 R0 K5 ["Src"]
-       13 GETTABLEKS                       R4 R5 K6 ["Util"]
-       15 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       17 GETTABLEKS                       R2 R3 K8 ["getFFlagNotificationEventVideoIcons"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       17 GETTABLEKS                       R2 R2 K8 ["getFFlagNotificationEventVideoIcons"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R6 R0 K5 ["Src"]
-       24 GETTABLEKS                       R5 R6 K6 ["Util"]
-       26 GETTABLEKS                       R4 R5 K7 ["SharedFlags"]
-       28 GETTABLEKS                       R3 R4 K9 ["getFFlagNotificationPersonAddIcons"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Util"]
+       26 GETTABLEKS                       R3 R3 K7 ["SharedFlags"]
+       28 GETTABLEKS                       R3 R3 K9 ["getFFlagNotificationPersonAddIcons"]
        30 CALL                             R2 1 1
        31 NEWTABLE                         R3 0 21
        33 LOADK                            R4 K10 ["CampaignFilledNeutral"]

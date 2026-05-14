@@ -4,9 +4,9 @@ PROTO_0:
         4 MOVE                             R3 R0
         5 CALL                             R2 1 3
         6 FORGPREP_INEXT                   R2
-        7 GETUPVAL                         R9 0
-        8 GETTABLEKS                       R8 R9 K2 ["List"]
-       10 GETTABLEKS                       R7 R8 K3 ["join"]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R7 R7 K2 ["List"]
+       10 GETTABLEKS                       R7 R7 K3 ["join"]
        12 MOVE                             R8 R1
        13 NEWTABLE                         R9 0 1
        15 DUPTABLE                         R10 K7 [{"Name", "Id", "Thumbnail"}]
@@ -14,8 +14,8 @@ PROTO_0:
        18 SETTABLEKS                       R11 R10 K4 ["Name"]
        20 GETTABLEKS                       R11 R6 K8 ["UserId"]
        22 SETTABLEKS                       R11 R10 K5 ["Id"]
-       24 GETUPVAL                         R12 1
-       25 GETTABLEKS                       R11 R12 K9 ["constructUserThumbnailUrl"]
+       24 GETUPVAL                         R11 1
+       25 GETTABLEKS                       R11 R11 K9 ["constructUserThumbnailUrl"]
        27 GETTABLEKS                       R12 R6 K8 ["UserId"]
        29 CALL                             R11 1 1
        30 SETTABLEKS                       R11 R10 K6 ["Thumbnail"]
@@ -88,24 +88,24 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Cryo"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R0 K7 ["Src"]
-       22 GETTABLEKS                       R5 R6 K8 ["Util"]
-       24 GETTABLEKS                       R4 R5 K9 ["Urls"]
+       20 GETTABLEKS                       R4 R0 K7 ["Src"]
+       22 GETTABLEKS                       R4 R4 K8 ["Util"]
+       24 GETTABLEKS                       R4 R4 K9 ["Urls"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R0 K7 ["Src"]
-       31 GETTABLEKS                       R6 R7 K10 ["Actions"]
-       33 GETTABLEKS                       R5 R6 K11 ["SetLiveSearch"]
+       29 GETTABLEKS                       R5 R0 K7 ["Src"]
+       31 GETTABLEKS                       R5 R5 K10 ["Actions"]
+       33 GETTABLEKS                       R5 R5 K11 ["SetLiveSearch"]
        35 CALL                             R4 1 1
        36 DUPCLOSURE                       R5 K12 [PROTO_1]
        37 CAPTURE                          VAL R2

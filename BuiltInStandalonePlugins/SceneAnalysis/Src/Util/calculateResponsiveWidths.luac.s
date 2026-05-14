@@ -39,11 +39,11 @@ PROTO_2:
        25 LOADN                            R11 1
        26 LOADN                            R12 255
        27 FORNPREP                         R11
-       28 GETTABLE                         R15 R8 R13
-       29 GETTABLEKS                       R14 R15 K6 ["id"]
+       28 GETTABLE                         R14 R8 R13
+       29 GETTABLEKS                       R14 R14 K6 ["id"]
        31 SETTABLE                         R10 R9 R14
-       32 GETTABLE                         R15 R8 R13
-       33 GETTABLEKS                       R14 R15 K7 ["minWidth"]
+       32 GETTABLE                         R14 R8 R13
+       33 GETTABLEKS                       R14 R14 K7 ["minWidth"]
        35 ADD                              R10 R10 R14
        36 FORNLOOP                         R11
        37 LENGTH                           R12 R8
@@ -106,10 +106,10 @@ PROTO_2:
       119 GETTABLEKS                       R19 R17 K6 ["id"]
       121 GETTABLE                         R18 R6 R19
       122 JUMPIFNOT                        R18 ; [+8]
-      123 GETTABLEKS                       R21 R17 K6 ["id"]
-      125 GETTABLE                         R20 R6 R21
-      126 GETTABLEKS                       R19 R20 K22 ["X"]
-      128 GETTABLEKS                       R18 R19 K23 ["Offset"]
+      123 GETTABLEKS                       R19 R17 K6 ["id"]
+      125 GETTABLE                         R18 R6 R19
+      126 GETTABLEKS                       R18 R18 K22 ["X"]
+      128 GETTABLEKS                       R18 R18 K23 ["Offset"]
       130 ADD                              R12 R12 R18
       131 FORGLOOP                         R13 2 [inext] ; [-19]
       133 GETTABLEKS                       R13 R11 K6 ["id"]
@@ -252,10 +252,10 @@ PROTO_2:
       314 GETTABLEKS                       R20 R18 K6 ["id"]
       316 GETTABLE                         R19 R6 R20
       317 JUMPIFNOT                        R19 ; [+8]
-      318 GETTABLEKS                       R22 R18 K6 ["id"]
-      320 GETTABLE                         R21 R6 R22
-      321 GETTABLEKS                       R20 R21 K22 ["X"]
-      323 GETTABLEKS                       R19 R20 K23 ["Offset"]
+      318 GETTABLEKS                       R20 R18 K6 ["id"]
+      320 GETTABLE                         R19 R6 R20
+      321 GETTABLEKS                       R19 R19 K22 ["X"]
+      323 GETTABLEKS                       R19 R19 K23 ["Offset"]
       325 ADD                              R13 R13 R19
       326 FORGLOOP                         R14 2 [inext] ; [-19]
       328 GETTABLEKS                       R14 R11 K6 ["id"]

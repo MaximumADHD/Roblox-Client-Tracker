@@ -16,8 +16,8 @@ PROTO_1:
         6 CALL                             R2 0 1
         7 NOT                              R1 R2
         8 JUMPIFNOT                        R1 ; [+10]
-        9 GETUPVAL                         R2 2
-       10 GETTABLEKS                       R1 R2 K0 ["GetService"]
+        9 GETUPVAL                         R1 2
+       10 GETTABLEKS                       R1 R1 K0 ["GetService"]
        12 LOADK                            R2 K1 ["RunService"]
        13 CALL                             R1 1 1
        14 NAMECALL                         R1 R1 K2 ["IsEdit"]
@@ -37,8 +37,8 @@ PROTO_2:
         6 CALL                             R5 0 1
         7 NOT                              R4 R5
         8 JUMPIFNOT                        R4 ; [+17]
-        9 GETUPVAL                         R5 2
-       10 GETTABLEKS                       R4 R5 K0 ["GetService"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K0 ["GetService"]
        12 LOADK                            R5 K1 ["RunService"]
        13 CALL                             R4 1 1
        14 NAMECALL                         R4 R4 K2 ["IsEdit"]
@@ -61,8 +61,8 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["isCli"]
        15 CALL                             R2 1 1
@@ -70,8 +70,8 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K9 ["Services"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K7 [require]
-       23 GETTABLEKS                       R6 R1 K10 ["SharedFlags"]
-       25 GETTABLEKS                       R5 R6 K11 ["getFFlagToolboxRemoveWebViewIxp"]
+       23 GETTABLEKS                       R5 R1 K10 ["SharedFlags"]
+       25 GETTABLEKS                       R5 R5 K11 ["getFFlagToolboxRemoveWebViewIxp"]
        27 CALL                             R4 1 1
        28 LOADNIL                          R5
        29 MOVE                             R6 R4

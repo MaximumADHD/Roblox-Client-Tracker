@@ -84,40 +84,40 @@ PROTO_5:
        53 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setTriangleText"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["DefaultMaxTriangles"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setTriangleText"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["DefaultMaxTriangles"]
         6 FASTCALL1                        TOSTRING R2 ; [+2]
         7 GETIMPORT                        R1 K3 [tostring]
         9 CALL                             R1 1 1
        10 CALL                             R0 1 0
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R0 R1 K4 ["setDrawcallText"]
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K5 ["DefaultMaxDrawCalls"]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K4 ["setDrawcallText"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K5 ["DefaultMaxDrawCalls"]
        17 FASTCALL1                        TOSTRING R2 ; [+2]
        18 GETIMPORT                        R1 K3 [tostring]
        20 CALL                             R1 1 1
        21 CALL                             R0 1 0
-       22 GETUPVAL                         R1 0
-       23 GETTABLEKS                       R0 R1 K6 ["setTotalTaskMsText"]
-       25 GETUPVAL                         R3 1
-       26 GETTABLEKS                       R2 R3 K7 ["DefaultMaxTaskMs"]
+       22 GETUPVAL                         R0 0
+       23 GETTABLEKS                       R0 R0 K6 ["setTotalTaskMsText"]
+       25 GETUPVAL                         R2 1
+       26 GETTABLEKS                       R2 R2 K7 ["DefaultMaxTaskMs"]
        28 FASTCALL1                        TOSTRING R2 ; [+2]
        29 GETIMPORT                        R1 K3 [tostring]
        31 CALL                             R1 1 1
        32 CALL                             R0 1 0
-       33 GETUPVAL                         R1 0
-       34 GETTABLEKS                       R0 R1 K8 ["setTotalRenderMsText"]
-       36 GETUPVAL                         R3 1
-       37 GETTABLEKS                       R2 R3 K9 ["DefaultMaxRenderMs"]
+       33 GETUPVAL                         R0 0
+       34 GETTABLEKS                       R0 R0 K8 ["setTotalRenderMsText"]
+       36 GETUPVAL                         R2 1
+       37 GETTABLEKS                       R2 R2 K9 ["DefaultMaxRenderMs"]
        39 FASTCALL1                        TOSTRING R2 ; [+2]
        40 GETIMPORT                        R1 K3 [tostring]
        42 CALL                             R1 1 1
        43 CALL                             R0 1 0
-       44 GETUPVAL                         R1 1
-       45 GETTABLEKS                       R0 R1 K10 ["OnResetToDefault"]
+       44 GETUPVAL                         R0 1
+       45 GETTABLEKS                       R0 R0 K10 ["OnResetToDefault"]
        47 CALL                             R0 0 0
        48 RETURN                           R0 0
 
@@ -142,13 +142,13 @@ PROTO_7:
        22 GETIMPORT                        R2 K7 [math.clamp]
        24 CALL                             R2 3 1
        25 MOVE                             R1 R2
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K8 ["OnSettingsUpdated"]
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K8 ["OnSettingsUpdated"]
        29 DUPTABLE                         R3 K10 [{"maxTotalRenderMs"}]
        30 SETTABLEKS                       R1 R3 K9 ["maxTotalRenderMs"]
        32 CALL                             R2 1 0
-       33 GETUPVAL                         R3 1
-       34 GETTABLEKS                       R2 R3 K11 ["setTotalRenderMsText"]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R2 R2 K11 ["setTotalRenderMsText"]
        36 FASTCALL1                        TOSTRING R1 ; [+3]
        37 MOVE                             R4 R1
        38 GETIMPORT                        R3 K13 [tostring]
@@ -157,8 +157,8 @@ PROTO_7:
        42 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setTotalRenderMsText"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setTotalRenderMsText"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
@@ -184,13 +184,13 @@ PROTO_9:
        22 GETIMPORT                        R2 K7 [math.clamp]
        24 CALL                             R2 3 1
        25 MOVE                             R1 R2
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K8 ["OnSettingsUpdated"]
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K8 ["OnSettingsUpdated"]
        29 DUPTABLE                         R3 K10 [{"maxTotalTaskMs"}]
        30 SETTABLEKS                       R1 R3 K9 ["maxTotalTaskMs"]
        32 CALL                             R2 1 0
-       33 GETUPVAL                         R3 1
-       34 GETTABLEKS                       R2 R3 K11 ["setTotalTaskMsText"]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R2 R2 K11 ["setTotalTaskMsText"]
        36 FASTCALL1                        TOSTRING R1 ; [+3]
        37 MOVE                             R4 R1
        38 GETIMPORT                        R3 K13 [tostring]
@@ -199,8 +199,8 @@ PROTO_9:
        42 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setTotalTaskMsText"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setTotalTaskMsText"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
@@ -209,12 +209,12 @@ PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 LOADK                            R5 K4 ["Frame"]
        10 NEWTABLE                         R6 4 0
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K5 ["Tag"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K5 ["Tag"]
        15 LOADK                            R8 K6 ["X-Fill X-Column Component-ThermometerSettings"]
        16 SETTABLE                         R8 R6 R7
        17 GETIMPORT                        R7 K9 [UDim2.new]
@@ -227,8 +227,8 @@ PROTO_11:
        26 LOADN                            R7 1
        27 SETTABLEKS                       R7 R6 K11 ["BackgroundTransparency"]
        29 DUPTABLE                         R7 K20 [{"Layout", "Padding", "ButtonFrame", "RenderMsLabel", "RenderMsInput", "TaskMsLabel", "TaskMsInput", "DefaultBudgetInformation"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
        33 LOADK                            R9 K21 ["UIListLayout"]
        34 DUPTABLE                         R10 K26 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
        35 GETIMPORT                        R11 K28 [UDim.new]
@@ -246,17 +246,17 @@ PROTO_11:
        56 SETTABLEKS                       R11 R10 K25 ["SortOrder"]
        58 CALL                             R8 2 1
        59 SETTABLEKS                       R8 R7 K12 ["Layout"]
-       61 GETUPVAL                         R9 0
-       62 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       61 GETUPVAL                         R8 0
+       62 GETTABLEKS                       R8 R8 K3 ["createElement"]
        64 LOADK                            R9 K38 ["UIPadding"]
        65 CALL                             R8 1 1
        66 SETTABLEKS                       R8 R7 K13 ["Padding"]
-       68 GETUPVAL                         R9 0
-       69 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       68 GETUPVAL                         R8 0
+       69 GETTABLEKS                       R8 R8 K3 ["createElement"]
        71 LOADK                            R9 K4 ["Frame"]
        72 NEWTABLE                         R10 4 0
-       74 GETUPVAL                         R12 0
-       75 GETTABLEKS                       R11 R12 K5 ["Tag"]
+       74 GETUPVAL                         R11 0
+       75 GETTABLEKS                       R11 R11 K5 ["Tag"]
        77 LOADK                            R12 K39 ["X-Fit X-Row Component-ThermometerSettings"]
        78 SETTABLE                         R12 R10 R11
        79 LOADN                            R11 1
@@ -264,8 +264,8 @@ PROTO_11:
        82 LOADN                            R11 1
        83 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
        85 DUPTABLE                         R11 K42 [{"Layout", "BackToMainButton", "ResetToDefaultButton"}]
-       86 GETUPVAL                         R13 0
-       87 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       86 GETUPVAL                         R12 0
+       87 GETTABLEKS                       R12 R12 K3 ["createElement"]
        89 LOADK                            R13 K21 ["UIListLayout"]
        90 DUPTABLE                         R14 K26 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
        91 GETIMPORT                        R15 K28 [UDim.new]
@@ -283,8 +283,8 @@ PROTO_11:
       112 SETTABLEKS                       R15 R14 K25 ["SortOrder"]
       114 CALL                             R12 2 1
       115 SETTABLEKS                       R12 R11 K12 ["Layout"]
-      117 GETUPVAL                         R13 0
-      118 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      117 GETUPVAL                         R12 0
+      118 GETTABLEKS                       R12 R12 K3 ["createElement"]
       120 LOADK                            R13 K45 ["ImageButton"]
       121 NEWTABLE                         R14 4 0
       123 GETIMPORT                        R15 K9 [UDim2.new]
@@ -296,17 +296,17 @@ PROTO_11:
       130 SETTABLEKS                       R15 R14 K10 ["Size"]
       132 LOADN                            R15 1
       133 SETTABLEKS                       R15 R14 K11 ["BackgroundTransparency"]
-      135 GETUPVAL                         R17 0
-      136 GETTABLEKS                       R16 R17 K46 ["Event"]
-      138 GETTABLEKS                       R15 R16 K47 ["Activated"]
+      135 GETUPVAL                         R15 0
+      136 GETTABLEKS                       R15 R15 K46 ["Event"]
+      138 GETTABLEKS                       R15 R15 K47 ["Activated"]
       140 GETTABLEKS                       R16 R1 K48 ["OnCloseSettings"]
       142 SETTABLE                         R16 R14 R15
       143 LOADN                            R15 1
       144 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
       146 CALL                             R12 2 1
       147 SETTABLEKS                       R12 R11 K40 ["BackToMainButton"]
-      149 GETUPVAL                         R13 0
-      150 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      149 GETUPVAL                         R12 0
+      150 GETTABLEKS                       R12 R12 K3 ["createElement"]
       152 GETUPVAL                         R13 1
       153 DUPTABLE                         R14 K52 [{"Text", "Cursor", "OnClick", "LayoutOrder"}]
       154 LOADK                            R17 K53 ["SceneBudgetThermometer"]
@@ -326,8 +326,8 @@ PROTO_11:
       173 SETTABLEKS                       R12 R11 K41 ["ResetToDefaultButton"]
       175 CALL                             R8 3 1
       176 SETTABLEKS                       R8 R7 K14 ["ButtonFrame"]
-      178 GETUPVAL                         R9 0
-      179 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      178 GETUPVAL                         R8 0
+      179 GETTABLEKS                       R8 R8 K3 ["createElement"]
       181 LOADK                            R9 K57 ["TextLabel"]
       182 DUPTABLE                         R10 K58 [{"Text", "LayoutOrder"}]
       183 LOADK                            R13 K53 ["SceneBudgetThermometer"]
@@ -339,8 +339,8 @@ PROTO_11:
       191 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
       193 CALL                             R8 2 1
       194 SETTABLEKS                       R8 R7 K15 ["RenderMsLabel"]
-      196 GETUPVAL                         R9 0
-      197 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      196 GETUPVAL                         R8 0
+      197 GETTABLEKS                       R8 R8 K3 ["createElement"]
       199 GETUPVAL                         R9 2
       200 DUPTABLE                         R10 K62 [{"Text", "LayoutOrder", "OnFocusLost", "OnTextChanged"}]
       201 GETTABLEKS                       R11 R2 K63 ["totalRenderMsText"]
@@ -356,8 +356,8 @@ PROTO_11:
       215 SETTABLEKS                       R11 R10 K61 ["OnTextChanged"]
       217 CALL                             R8 2 1
       218 SETTABLEKS                       R8 R7 K16 ["RenderMsInput"]
-      220 GETUPVAL                         R9 0
-      221 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      220 GETUPVAL                         R8 0
+      221 GETTABLEKS                       R8 R8 K3 ["createElement"]
       223 LOADK                            R9 K57 ["TextLabel"]
       224 DUPTABLE                         R10 K58 [{"Text", "LayoutOrder"}]
       225 LOADK                            R13 K53 ["SceneBudgetThermometer"]
@@ -369,8 +369,8 @@ PROTO_11:
       233 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
       235 CALL                             R8 2 1
       236 SETTABLEKS                       R8 R7 K17 ["TaskMsLabel"]
-      238 GETUPVAL                         R9 0
-      239 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      238 GETUPVAL                         R8 0
+      239 GETTABLEKS                       R8 R8 K3 ["createElement"]
       241 GETUPVAL                         R9 2
       242 DUPTABLE                         R10 K62 [{"Text", "LayoutOrder", "OnFocusLost", "OnTextChanged"}]
       243 GETTABLEKS                       R11 R2 K65 ["totalTaskMsText"]
@@ -386,12 +386,12 @@ PROTO_11:
       257 SETTABLEKS                       R11 R10 K61 ["OnTextChanged"]
       259 CALL                             R8 2 1
       260 SETTABLEKS                       R8 R7 K18 ["TaskMsInput"]
-      262 GETUPVAL                         R9 0
-      263 GETTABLEKS                       R8 R9 K3 ["createElement"]
+      262 GETUPVAL                         R8 0
+      263 GETTABLEKS                       R8 R8 K3 ["createElement"]
       265 LOADK                            R9 K4 ["Frame"]
       266 NEWTABLE                         R10 4 0
-      268 GETUPVAL                         R12 0
-      269 GETTABLEKS                       R11 R12 K5 ["Tag"]
+      268 GETUPVAL                         R11 0
+      269 GETTABLEKS                       R11 R11 K5 ["Tag"]
       271 LOADK                            R12 K66 ["X-Fit X-Row X-Corner"]
       272 SETTABLE                         R12 R10 R11
       273 LOADN                            R11 1
@@ -399,8 +399,8 @@ PROTO_11:
       276 LOADN                            R11 10
       277 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
       279 DUPTABLE                         R11 K69 [{"Layout", "Padding", "InformationImageLabel", "BudgetInformationLabel"}]
-      280 GETUPVAL                         R13 0
-      281 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      280 GETUPVAL                         R12 0
+      281 GETTABLEKS                       R12 R12 K3 ["createElement"]
       283 LOADK                            R13 K21 ["UIListLayout"]
       284 DUPTABLE                         R14 K26 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
       285 GETIMPORT                        R15 K28 [UDim.new]
@@ -418,8 +418,8 @@ PROTO_11:
       306 SETTABLEKS                       R15 R14 K25 ["SortOrder"]
       308 CALL                             R12 2 1
       309 SETTABLEKS                       R12 R11 K12 ["Layout"]
-      311 GETUPVAL                         R13 0
-      312 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      311 GETUPVAL                         R12 0
+      312 GETTABLEKS                       R12 R12 K3 ["createElement"]
       314 LOADK                            R13 K38 ["UIPadding"]
       315 DUPTABLE                         R14 K74 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
       316 GETIMPORT                        R15 K28 [UDim.new]
@@ -444,12 +444,12 @@ PROTO_11:
       342 SETTABLEKS                       R15 R14 K73 ["PaddingRight"]
       344 CALL                             R12 2 1
       345 SETTABLEKS                       R12 R11 K13 ["Padding"]
-      347 GETUPVAL                         R13 0
-      348 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      347 GETUPVAL                         R12 0
+      348 GETTABLEKS                       R12 R12 K3 ["createElement"]
       350 LOADK                            R13 K75 ["ImageLabel"]
       351 NEWTABLE                         R14 4 0
-      353 GETUPVAL                         R16 0
-      354 GETTABLEKS                       R15 R16 K5 ["Tag"]
+      353 GETUPVAL                         R15 0
+      354 GETTABLEKS                       R15 R15 K5 ["Tag"]
       356 LOADK                            R16 K76 ["InformationLabel"]
       357 SETTABLE                         R16 R14 R15
       358 GETIMPORT                        R15 K9 [UDim2.new]
@@ -465,12 +465,12 @@ PROTO_11:
       371 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
       373 CALL                             R12 2 1
       374 SETTABLEKS                       R12 R11 K67 ["InformationImageLabel"]
-      376 GETUPVAL                         R13 0
-      377 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      376 GETUPVAL                         R12 0
+      377 GETTABLEKS                       R12 R12 K3 ["createElement"]
       379 LOADK                            R13 K57 ["TextLabel"]
       380 NEWTABLE                         R14 4 0
-      382 GETUPVAL                         R16 0
-      383 GETTABLEKS                       R15 R16 K5 ["Tag"]
+      382 GETUPVAL                         R15 0
+      383 GETTABLEKS                       R15 R15 K5 ["Tag"]
       385 LOADK                            R16 K77 ["X-Fit BudgetLabel"]
       386 SETTABLE                         R16 R14 R15
       387 LOADK                            R17 K78 ["SceneMonitor"]
@@ -496,19 +496,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
-       25 GETTABLEKS                       R6 R2 K11 ["UI"]
-       27 GETTABLEKS                       R5 R6 K12 ["IconButton"]
-       29 GETTABLEKS                       R7 R2 K11 ["UI"]
-       31 GETTABLEKS                       R6 R7 K13 ["TextInput"]
+       25 GETTABLEKS                       R5 R2 K11 ["UI"]
+       27 GETTABLEKS                       R5 R5 K12 ["IconButton"]
+       29 GETTABLEKS                       R6 R2 K11 ["UI"]
+       31 GETTABLEKS                       R6 R6 K13 ["TextInput"]
        33 DUPCLOSURE                       R7 K14 [PROTO_0]
        34 GETTABLEKS                       R8 R1 K15 ["Component"]
        36 LOADK                            R10 K16 ["ThermometerSettings"]

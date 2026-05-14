@@ -1,20 +1,20 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R3 R1 K7 ["Styling"]
-       20 GETTABLEKS                       R2 R3 K8 ["createStyleRule"]
+       18 GETTABLEKS                       R2 R1 K7 ["Styling"]
+       20 GETTABLEKS                       R2 R2 K8 ["createStyleRule"]
        22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R6 R0 K9 ["Src"]
-       26 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       28 GETTABLEKS                       R4 R5 K11 ["StyleConstants"]
+       24 GETTABLEKS                       R4 R0 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       28 GETTABLEKS                       R4 R4 K11 ["StyleConstants"]
        30 CALL                             R3 1 1
        31 MOVE                             R4 R2
        32 LOADK                            R5 K12 [".Component-VRControls"]
@@ -524,8 +524,8 @@ MAIN:
       733 SETTABLEKS                       R20 R19 K69 ["BackgroundColor3"]
       735 LOADK                            R20 K148 ["$ResetAllToolTipTextColor"]
       736 SETTABLEKS                       R20 R19 K32 ["TextColor3"]
-      738 GETTABLEKS                       R21 R3 K149 ["ZIndexData"]
-      740 GETTABLEKS                       R20 R21 K150 ["RESETALL_TOOLTIP"]
+      738 GETTABLEKS                       R20 R3 K149 ["ZIndexData"]
+      740 GETTABLEKS                       R20 R20 K150 ["RESETALL_TOOLTIP"]
       742 SETTABLEKS                       R20 R19 K145 ["ZIndex"]
       744 NEWTABLE                         R20 0 4
       746 MOVE                             R21 R2
@@ -618,8 +618,8 @@ MAIN:
       867 SETTABLEKS                       R21 R20 K65 ["TextSize"]
       869 GETIMPORT                        R21 K159 [Enum.TextXAlignment.Left]
       871 SETTABLEKS                       R21 R20 K67 ["TextXAlignment"]
-      873 GETTABLEKS                       R22 R3 K149 ["ZIndexData"]
-      875 GETTABLEKS                       R21 R22 K160 ["VRCONTROLS_TOOLTIP"]
+      873 GETTABLEKS                       R21 R3 K149 ["ZIndexData"]
+      875 GETTABLEKS                       R21 R21 K160 ["VRCONTROLS_TOOLTIP"]
       877 SETTABLEKS                       R21 R20 K145 ["ZIndex"]
       879 NEWTABLE                         R21 0 6
       881 MOVE                             R22 R2

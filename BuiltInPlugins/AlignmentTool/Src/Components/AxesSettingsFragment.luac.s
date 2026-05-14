@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["OnAlignmentSpaceChanged"]
         5 JUMPIFNOT                        R2 ; [+4]
         6 GETTABLEKS                       R2 R1 K1 ["OnAlignmentSpaceChanged"]
@@ -9,8 +9,8 @@ PROTO_0:
        10 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["OnEnabledAxesChanged"]
         5 JUMPIFNOT                        R2 ; [+15]
         6 GETUPVAL                         R2 1
@@ -81,16 +81,16 @@ PROTO_2:
        73 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K7 [{"Disabled", "Key", "LayoutOrder", "Selected", "Text", "OnClick"}]
         5 LOADB                            R5 0
         6 SETTABLEKS                       R5 R4 K1 ["Disabled"]
         8 SETTABLEKS                       R0 R4 K2 ["Key"]
        10 SETTABLEKS                       R1 R4 K3 ["LayoutOrder"]
-       12 GETUPVAL                         R7 2
-       13 GETTABLEKS                       R6 R7 K8 ["AlignmentSpace"]
+       12 GETUPVAL                         R6 2
+       13 GETTABLEKS                       R6 R6 K8 ["AlignmentSpace"]
        15 JUMPIFEQ                         R6 R0 ; [+2]
        17 LOADB                            R5 0 +1
        18 LOADB                            R5 1
@@ -101,8 +101,8 @@ PROTO_3:
        24 NAMECALL                         R5 R5 K10 ["getText"]
        26 CALL                             R5 3 1
        27 SETTABLEKS                       R5 R4 K5 ["Text"]
-       29 GETUPVAL                         R6 4
-       30 GETTABLEKS                       R5 R6 K11 ["setAlignmentSpace"]
+       29 GETUPVAL                         R5 4
+       30 GETTABLEKS                       R5 R5 K11 ["setAlignmentSpace"]
        32 SETTABLEKS                       R5 R4 K6 ["OnClick"]
        34 CALL                             R2 2 -1
        35 RETURN                           R2 -1
@@ -112,8 +112,8 @@ PROTO_4:
         2 GETTABLEKS                       R2 R1 K1 ["EnabledAxes"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["new"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["new"]
        11 CALL                             R5 0 1
        12 NEWTABLE                         R6 0 0
        14 NEWTABLE                         R7 0 3
@@ -133,8 +133,8 @@ PROTO_4:
        31 MOVE                             R17 R12
        32 NAMECALL                         R14 R3 K11 ["getText"]
        34 CALL                             R14 3 1
-       35 GETUPVAL                         R16 1
-       36 GETTABLEKS                       R15 R16 K12 ["createElement"]
+       35 GETUPVAL                         R15 1
+       36 GETTABLEKS                       R15 R15 K12 ["createElement"]
        38 GETUPVAL                         R16 2
        39 DUPTABLE                         R17 K19 [{"Key", "Checked", "Disabled", "LayoutOrder", "Text", "OnClick"}]
        40 SETTABLEKS                       R12 R17 K13 ["Key"]
@@ -156,16 +156,16 @@ PROTO_4:
        65 CAPTURE                          VAL R1
        66 CAPTURE                          VAL R3
        67 CAPTURE                          VAL R0
-       68 GETUPVAL                         R10 1
-       69 GETTABLEKS                       R9 R10 K22 ["createFragment"]
+       68 GETUPVAL                         R9 1
+       69 GETTABLEKS                       R9 R9 K22 ["createFragment"]
        71 DUPTABLE                         R10 K25 [{"AlignmentSpaceButtons", "AxisCheckboxes"}]
-       72 GETUPVAL                         R12 1
-       73 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       72 GETUPVAL                         R11 1
+       73 GETTABLEKS                       R11 R11 K12 ["createElement"]
        75 GETUPVAL                         R12 4
        76 DUPTABLE                         R13 K30 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
-       77 GETUPVAL                         R16 4
-       78 GETTABLEKS                       R15 R16 K31 ["Axis"]
-       80 GETTABLEKS                       R14 R15 K32 ["Both"]
+       77 GETUPVAL                         R14 4
+       78 GETTABLEKS                       R14 R14 K31 ["Axis"]
+       80 GETTABLEKS                       R14 R14 K32 ["Both"]
        82 SETTABLEKS                       R14 R13 K26 ["axis"]
        84 GETTABLEKS                       R14 R4 K33 ["SectionContentPadding"]
        86 SETTABLEKS                       R14 R13 K27 ["contentPadding"]
@@ -177,26 +177,26 @@ PROTO_4:
        96 SETTABLEKS                       R14 R13 K16 ["LayoutOrder"]
        98 DUPTABLE                         R14 K39 [{"WorldSpaceButton", "LocalSpaceButton"}]
        99 MOVE                             R15 R8
-      100 GETUPVAL                         R17 5
-      101 GETTABLEKS                       R16 R17 K40 ["World"]
+      100 GETUPVAL                         R16 5
+      101 GETTABLEKS                       R16 R16 K40 ["World"]
       103 LOADN                            R17 1
       104 CALL                             R15 2 1
       105 SETTABLEKS                       R15 R14 K37 ["WorldSpaceButton"]
       107 MOVE                             R15 R8
-      108 GETUPVAL                         R17 5
-      109 GETTABLEKS                       R16 R17 K41 ["Local"]
+      108 GETUPVAL                         R16 5
+      109 GETTABLEKS                       R16 R16 K41 ["Local"]
       111 LOADN                            R17 2
       112 CALL                             R15 2 1
       113 SETTABLEKS                       R15 R14 K38 ["LocalSpaceButton"]
       115 CALL                             R11 3 1
       116 SETTABLEKS                       R11 R10 K23 ["AlignmentSpaceButtons"]
-      118 GETUPVAL                         R12 1
-      119 GETTABLEKS                       R11 R12 K12 ["createElement"]
+      118 GETUPVAL                         R11 1
+      119 GETTABLEKS                       R11 R11 K12 ["createElement"]
       121 GETUPVAL                         R12 4
       122 DUPTABLE                         R13 K30 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
-      123 GETUPVAL                         R16 4
-      124 GETTABLEKS                       R15 R16 K31 ["Axis"]
-      126 GETTABLEKS                       R14 R15 K32 ["Both"]
+      123 GETUPVAL                         R14 4
+      124 GETTABLEKS                       R14 R14 K31 ["Axis"]
+      126 GETTABLEKS                       R14 R14 K32 ["Both"]
       128 SETTABLEKS                       R14 R13 K26 ["axis"]
       130 GETTABLEKS                       R14 R4 K33 ["SectionContentPadding"]
       132 SETTABLEKS                       R14 R13 K27 ["contentPadding"]
@@ -214,26 +214,26 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Dash"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Dash"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R3 K4 [require]
-       18 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K7 ["FitFrame"]
-       22 CALL                             R3 1 1
-       23 GETTABLEKS                       R2 R3 K8 ["FitFrameOnAxis"]
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["FitFrame"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R2 R2 K8 ["FitFrameOnAxis"]
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K9 ["Roact"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K9 ["Roact"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       36 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       34 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K10 ["Framework"]
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        41 GETTABLEKS                       R6 R5 K12 ["withContext"]
@@ -243,9 +243,9 @@ MAIN:
        49 GETTABLEKS                       R10 R4 K16 ["Util"]
        51 GETTABLEKS                       R11 R10 K17 ["LayoutOrderIterator"]
        53 GETIMPORT                        R12 K4 [require]
-       55 GETTABLEKS                       R15 R0 K18 ["Src"]
-       57 GETTABLEKS                       R14 R15 K19 ["Utility"]
-       59 GETTABLEKS                       R13 R14 K20 ["AlignmentSpace"]
+       55 GETTABLEKS                       R13 R0 K18 ["Src"]
+       57 GETTABLEKS                       R13 R13 K19 ["Utility"]
+       59 GETTABLEKS                       R13 R13 K20 ["AlignmentSpace"]
        61 CALL                             R12 1 1
        62 GETTABLEKS                       R13 R1 K21 ["join"]
        64 GETTABLEKS                       R14 R3 K22 ["PureComponent"]

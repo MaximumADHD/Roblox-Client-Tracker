@@ -4,18 +4,18 @@ PROTO_0:
         2 LENGTH                           R3 R1
         3 LOADN                            R4 0
         4 JUMPIFNOTLT                      R4 R3 ; [+7]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K0 ["allProperties"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K0 ["allProperties"]
         9 GETTABLE                         R3 R4 R1
        10 GETTABLE                         R2 R3 R0
        11 JUMP                             ; [+10]
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K1 ["getPossiblePropertyTypes"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K1 ["getPossiblePropertyTypes"]
        15 MOVE                             R5 R0
        16 CALL                             R4 1 1
        17 GETTABLEN                        R3 R4 1
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K2 ["PropertySchemas"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K2 ["PropertySchemas"]
        21 GETTABLE                         R2 R4 R3
        22 JUMPIFNOTEQKNIL                  R2 ; [+2]
        24 LOADB                            R4 0 +1
@@ -48,8 +48,8 @@ PROTO_1:
        15 GETTABLEKS                       R3 R1 K7 ["Error"]
        17 JUMPIF                           R3 ; [+2]
        18 JUMPIFNOTEQKS                    R2 K8 ["$"] ; [+49]
-       20 GETUPVAL                         R4 3
-       21 GETTABLEKS                       R3 R4 K9 ["findFirstClassSelector"]
+       20 GETUPVAL                         R3 3
+       21 GETTABLEKS                       R3 R3 K9 ["findFirstClassSelector"]
        23 GETUPVAL                         R4 1
        24 CALL                             R3 1 1
        25 GETUPVAL                         R4 2
@@ -58,18 +58,18 @@ PROTO_1:
        28 LENGTH                           R6 R3
        29 LOADN                            R7 0
        30 JUMPIFNOTLT                      R7 R6 ; [+7]
-       32 GETUPVAL                         R8 4
-       33 GETTABLEKS                       R7 R8 K10 ["allProperties"]
+       32 GETUPVAL                         R7 4
+       33 GETTABLEKS                       R7 R7 K10 ["allProperties"]
        35 GETTABLE                         R6 R7 R3
        36 GETTABLE                         R5 R6 R4
        37 JUMP                             ; [+10]
-       38 GETUPVAL                         R8 4
-       39 GETTABLEKS                       R7 R8 K11 ["getPossiblePropertyTypes"]
+       38 GETUPVAL                         R7 4
+       39 GETTABLEKS                       R7 R7 K11 ["getPossiblePropertyTypes"]
        41 MOVE                             R8 R4
        42 CALL                             R7 1 1
        43 GETTABLEN                        R6 R7 1
-       44 GETUPVAL                         R8 4
-       45 GETTABLEKS                       R7 R8 K12 ["PropertySchemas"]
+       44 GETUPVAL                         R7 4
+       45 GETTABLEKS                       R7 R7 K12 ["PropertySchemas"]
        47 GETTABLE                         R5 R7 R6
        48 JUMPIFNOTEQKNIL                  R5 ; [+2]
        50 LOADB                            R7 0 +1
@@ -126,34 +126,34 @@ MAIN:
         3 LOADK                            R2 K2 ["StylingService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
        17 GETIMPORT                        R2 K8 [require]
-       19 GETTABLEKS                       R5 R1 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Util"]
-       23 GETTABLEKS                       R3 R4 K11 ["SelectorHelpers"]
+       19 GETTABLEKS                       R3 R1 K9 ["Src"]
+       21 GETTABLEKS                       R3 R3 K10 ["Util"]
+       23 GETTABLEKS                       R3 R3 K11 ["SelectorHelpers"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K8 [require]
-       28 GETTABLEKS                       R6 R1 K9 ["Src"]
-       30 GETTABLEKS                       R5 R6 K10 ["Util"]
-       32 GETTABLEKS                       R4 R5 K12 ["StyleSchema"]
+       28 GETTABLEKS                       R4 R1 K9 ["Src"]
+       30 GETTABLEKS                       R4 R4 K10 ["Util"]
+       32 GETTABLEKS                       R4 R4 K12 ["StyleSchema"]
        34 CALL                             R3 1 1
        35 GETIMPORT                        R4 K8 [require]
-       37 GETTABLEKS                       R7 R1 K9 ["Src"]
-       39 GETTABLEKS                       R6 R7 K13 ["Reducers"]
-       41 GETTABLEKS                       R5 R6 K14 ["RootReducer"]
+       37 GETTABLEKS                       R5 R1 K9 ["Src"]
+       39 GETTABLEKS                       R5 R5 K13 ["Reducers"]
+       41 GETTABLEKS                       R5 R5 K14 ["RootReducer"]
        43 CALL                             R4 1 1
        44 GETIMPORT                        R5 K8 [require]
-       46 GETTABLEKS                       R8 R1 K9 ["Src"]
-       48 GETTABLEKS                       R7 R8 K15 ["Thunks"]
-       50 GETTABLEKS                       R6 R7 K16 ["Types"]
+       46 GETTABLEKS                       R6 R1 K9 ["Src"]
+       48 GETTABLEKS                       R6 R6 K15 ["Thunks"]
+       50 GETTABLEKS                       R6 R6 K16 ["Types"]
        52 CALL                             R5 1 1
        53 GETIMPORT                        R6 K8 [require]
-       55 GETTABLEKS                       R8 R1 K9 ["Src"]
-       57 GETTABLEKS                       R7 R8 K16 ["Types"]
+       55 GETTABLEKS                       R7 R1 K9 ["Src"]
+       57 GETTABLEKS                       R7 R7 K16 ["Types"]
        59 CALL                             R6 1 1
        60 DUPCLOSURE                       R7 K17 [PROTO_0]
        61 CAPTURE                          VAL R3

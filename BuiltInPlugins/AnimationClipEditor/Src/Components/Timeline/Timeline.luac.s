@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["OnInputBegan"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["OnInputBegan"]
         5 MOVE                             R3 R0
         6 MOVE                             R4 R1
         7 CALL                             R2 2 0
@@ -17,17 +17,17 @@ PROTO_0:
        22 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETTABLEKS                       R1 R2 K1 ["Dragging"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["Dragging"]
         5 JUMPIFNOT                        R1 ; [+13]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["props"]
-        9 GETTABLEKS                       R1 R2 K3 ["OnDragMoved"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K2 ["props"]
+        9 GETTABLEKS                       R1 R1 K3 ["OnDragMoved"]
        11 JUMPIFNOT                        R1 ; [+7]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K2 ["props"]
-       15 GETTABLEKS                       R1 R2 K3 ["OnDragMoved"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K2 ["props"]
+       15 GETTABLEKS                       R1 R1 K3 ["OnDragMoved"]
        17 MOVE                             R2 R0
        18 CALL                             R1 1 0
        19 RETURN                           R0 0
@@ -58,8 +58,8 @@ PROTO_3:
        18 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["createElement"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["createElement"]
         3 LOADK                            R4 K1 ["Frame"]
         4 DUPTABLE                         R5 K8 [{"Size", "BackgroundColor3", "AnchorPoint", "Position", "BorderSizePixel", "ZIndex"}]
         5 GETIMPORT                        R6 K11 [UDim2.new]
@@ -178,10 +178,10 @@ PROTO_7:
        61 GETTABLEKS                       R19 R1 K24 ["TimelineUnit"]
        63 GETTABLEKS                       R20 R1 K25 ["FrameRate"]
        65 JUMPIF                           R20 ; [+3]
-       66 GETUPVAL                         R21 0
-       67 GETTABLEKS                       R20 R21 K26 ["DEFAULT_FRAMERATE"]
-       69 GETUPVAL                         R23 1
-       70 GETTABLEKS                       R22 R23 K27 ["Children"]
+       66 GETUPVAL                         R20 0
+       67 GETTABLEKS                       R20 R20 K26 ["DEFAULT_FRAMERATE"]
+       69 GETUPVAL                         R22 1
+       70 GETTABLEKS                       R22 R22 K27 ["Children"]
        72 GETTABLE                         R21 R1 R22
        73 JUMPIF                           R21 ; [+2]
        74 NEWTABLE                         R21 0 0
@@ -209,14 +209,14 @@ PROTO_7:
       101 CALL                             R28 1 1
       102 MUL                              R30 R28 R20
       103 SUB                              R29 R25 R30
-      104 GETUPVAL                         R31 1
-      105 GETTABLEKS                       R30 R31 K30 ["createElement"]
+      104 GETUPVAL                         R30 1
+      105 GETTABLEKS                       R30 R30 K30 ["createElement"]
       107 GETUPVAL                         R31 2
       108 DUPTABLE                         R32 K39 [{"Time", "Highlight", "Height", "Position", "Font", "LabelSize", "LabelPosition", "TickHeightScale", "ShowTime", "PastEnd", "TimeInSeconds"}]
-      109 GETUPVAL                         R34 3
-      110 GETTABLEKS                       R33 R34 K40 ["formatTime"]
-      112 GETUPVAL                         R37 0
-      113 GETTABLEKS                       R36 R37 K41 ["TICK_FREQUENCY"]
+      109 GETUPVAL                         R33 3
+      110 GETTABLEKS                       R33 R33 K40 ["formatTime"]
+      112 GETUPVAL                         R36 0
+      113 GETTABLEKS                       R36 R36 K41 ["TICK_FREQUENCY"]
       115 MUL                              R35 R25 R36
       116 DIV                              R34 R35 R20
       117 MOVE                             R35 R20
@@ -252,8 +252,8 @@ PROTO_7:
       161 LOADB                            R33 0 +1
       162 LOADB                            R33 1
       163 SETTABLEKS                       R33 R32 K37 ["PastEnd"]
-      165 GETUPVAL                         R34 3
-      166 GETTABLEKS                       R33 R34 K46 ["formatTimeInSeconds"]
+      165 GETUPVAL                         R33 3
+      166 GETTABLEKS                       R33 R33 K46 ["formatTimeInSeconds"]
       168 MOVE                             R34 R29
       169 MOVE                             R35 R20
       170 CALL                             R33 2 1
@@ -263,8 +263,8 @@ PROTO_7:
       175 FORNLOOP                         R23
       176 GETTABLEKS                       R23 R4 K47 ["Dragging"]
       178 JUMPIFNOT                        R23 ; [+14]
-      179 GETUPVAL                         R24 1
-      180 GETTABLEKS                       R23 R24 K30 ["createElement"]
+      179 GETUPVAL                         R23 1
+      180 GETTABLEKS                       R23 R23 K30 ["createElement"]
       182 GETUPVAL                         R24 4
       183 DUPTABLE                         R25 K50 [{"OnDragMoved", "OnDragEnded"}]
       184 GETTABLEKS                       R26 R0 K51 ["onDragMoved"]
@@ -286,8 +286,8 @@ PROTO_7:
       207 MOVE                             R23 R24
       208 JUMP                             ; [+1]
       209 MOVE                             R23 R14
-      210 GETUPVAL                         R25 1
-      211 GETTABLEKS                       R24 R25 K30 ["createElement"]
+      210 GETUPVAL                         R24 1
+      211 GETTABLEKS                       R24 R24 K30 ["createElement"]
       213 LOADK                            R25 K54 ["Frame"]
       214 NEWTABLE                         R26 8 0
       216 SETTABLEKS                       R10 R26 K15 ["Position"]
@@ -302,14 +302,14 @@ PROTO_7:
       229 LOADN                            R27 1
       230 SETTABLEKS                       R27 R26 K56 ["BackgroundTransparency"]
       232 SETTABLEKS                       R12 R26 K17 ["ZIndex"]
-      234 GETUPVAL                         R29 1
-      235 GETTABLEKS                       R28 R29 K57 ["Event"]
-      237 GETTABLEKS                       R27 R28 K58 ["InputBegan"]
+      234 GETUPVAL                         R27 1
+      235 GETTABLEKS                       R27 R27 K57 ["Event"]
+      237 GETTABLEKS                       R27 R27 K58 ["InputBegan"]
       239 GETTABLEKS                       R28 R0 K59 ["onDragBegan"]
       241 SETTABLE                         R28 R26 R27
       242 DUPTABLE                         R27 K62 [{"Ticks", "FirstTick", "LastTick"}]
-      243 GETUPVAL                         R29 1
-      244 GETTABLEKS                       R28 R29 K30 ["createElement"]
+      243 GETUPVAL                         R28 1
+      244 GETTABLEKS                       R28 R28 K30 ["createElement"]
       246 LOADK                            R29 K54 ["Frame"]
       247 DUPTABLE                         R30 K65 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
       248 GETIMPORT                        R31 K44 [UDim2.new]
@@ -348,32 +348,32 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["UI"]
-       23 GETTABLEKS                       R3 R4 K10 ["DragListener"]
+       21 GETTABLEKS                       R3 R2 K9 ["UI"]
+       23 GETTABLEKS                       R3 R3 K10 ["DragListener"]
        25 GETTABLEKS                       R4 R2 K11 ["ContextServices"]
        27 GETTABLEKS                       R5 R4 K12 ["withContext"]
        29 GETIMPORT                        R6 K5 [require]
-       31 GETTABLEKS                       R9 R0 K13 ["Src"]
-       33 GETTABLEKS                       R8 R9 K14 ["Util"]
-       35 GETTABLEKS                       R7 R8 K15 ["Constants"]
+       31 GETTABLEKS                       R7 R0 K13 ["Src"]
+       33 GETTABLEKS                       R7 R7 K14 ["Util"]
+       35 GETTABLEKS                       R7 R7 K15 ["Constants"]
        37 CALL                             R6 1 1
        38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R11 R0 K13 ["Src"]
-       42 GETTABLEKS                       R10 R11 K16 ["Components"]
-       44 GETTABLEKS                       R9 R10 K17 ["Timeline"]
-       46 GETTABLEKS                       R8 R9 K18 ["TimelineTick"]
+       40 GETTABLEKS                       R8 R0 K13 ["Src"]
+       42 GETTABLEKS                       R8 R8 K16 ["Components"]
+       44 GETTABLEKS                       R8 R8 K17 ["Timeline"]
+       46 GETTABLEKS                       R8 R8 K18 ["TimelineTick"]
        48 CALL                             R7 1 1
        49 GETIMPORT                        R8 K5 [require]
-       51 GETTABLEKS                       R11 R0 K13 ["Src"]
-       53 GETTABLEKS                       R10 R11 K14 ["Util"]
-       55 GETTABLEKS                       R9 R10 K19 ["StringUtils"]
+       51 GETTABLEKS                       R9 R0 K13 ["Src"]
+       53 GETTABLEKS                       R9 R9 K14 ["Util"]
+       55 GETTABLEKS                       R9 R9 K19 ["StringUtils"]
        57 CALL                             R8 1 1
        58 GETTABLEKS                       R9 R1 K20 ["PureComponent"]
        60 LOADK                            R11 K17 ["Timeline"]

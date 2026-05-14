@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETIMPORT                        R1 K3 [Enum.CreatorType.User]
         2 JUMPIFNOTEQ                      R0 R1 ; [+5]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K4 ["DEFAULT_USER_THUMBNAIL"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K4 ["DEFAULT_USER_THUMBNAIL"]
         7 RETURN                           R1 1
         8 GETIMPORT                        R3 K6 [Enum.CreatorType.Group]
        10 JUMPIFEQ                         R0 R3 ; [+2]
@@ -17,22 +17,22 @@ PROTO_0:
        21 FASTCALL2                        ASSERT R2 R3 ; [+3]
        23 GETIMPORT                        R1 K11 [assert]
        25 CALL                             R1 2 0
-       26 GETUPVAL                         R2 0
-       27 GETTABLEKS                       R1 R2 K12 ["DEFAULT_GROUP_THUMBNAIL"]
+       26 GETUPVAL                         R1 0
+       27 GETTABLEKS                       R1 R1 K12 ["DEFAULT_GROUP_THUMBNAIL"]
        29 RETURN                           R1 1
 
 PROTO_1:
         0 GETIMPORT                        R2 K3 [Enum.CreatorType.User]
         2 JUMPIFNOTEQ                      R0 R2 ; [+17]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K4 ["constructRBXThumbUrl"]
-        7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R4 R5 K5 ["rbxThumbTypes"]
-       10 GETTABLEKS                       R3 R4 K6 ["AvatarHeadShot"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K4 ["constructRBXThumbUrl"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K5 ["rbxThumbTypes"]
+       10 GETTABLEKS                       R3 R3 K6 ["AvatarHeadShot"]
        12 MOVE                             R4 R1
-       13 GETUPVAL                         R7 1
-       14 GETTABLEKS                       R6 R7 K7 ["rbxThumbSizes"]
-       16 GETTABLEKS                       R5 R6 K8 ["AvatarHeadshotImageSize"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K7 ["rbxThumbSizes"]
+       16 GETTABLEKS                       R5 R5 K8 ["AvatarHeadshotImageSize"]
        18 CALL                             R2 3 -1
        19 RETURN                           R2 -1
        20 GETIMPORT                        R4 K10 [Enum.CreatorType.Group]
@@ -48,15 +48,15 @@ PROTO_1:
        33 FASTCALL2                        ASSERT R3 R4 ; [+3]
        35 GETIMPORT                        R2 K15 [assert]
        37 CALL                             R2 2 0
-       38 GETUPVAL                         R3 0
-       39 GETTABLEKS                       R2 R3 K4 ["constructRBXThumbUrl"]
-       41 GETUPVAL                         R5 1
-       42 GETTABLEKS                       R4 R5 K5 ["rbxThumbTypes"]
-       44 GETTABLEKS                       R3 R4 K16 ["GroupIcon"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K4 ["constructRBXThumbUrl"]
+       41 GETUPVAL                         R3 1
+       42 GETTABLEKS                       R3 R3 K5 ["rbxThumbTypes"]
+       44 GETTABLEKS                       R3 R3 K16 ["GroupIcon"]
        46 MOVE                             R4 R1
-       47 GETUPVAL                         R7 1
-       48 GETTABLEKS                       R6 R7 K7 ["rbxThumbSizes"]
-       50 GETTABLEKS                       R5 R6 K17 ["GroupIconImageSize"]
+       47 GETUPVAL                         R5 1
+       48 GETTABLEKS                       R5 R5 K7 ["rbxThumbSizes"]
+       50 GETTABLEKS                       R5 R5 K17 ["GroupIconImageSize"]
        52 CALL                             R2 3 -1
        53 RETURN                           R2 -1
 
@@ -91,15 +91,15 @@ PROTO_4:
         6 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 LOADK                            R1 K1 ["Frame"]
         4 DUPTABLE                         R2 K6 [{"Size", "LayoutOrder", "BackgroundTransparency", "BorderSizePixel"}]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K2 ["Size"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K2 ["Size"]
         8 SETTABLEKS                       R3 R2 K2 ["Size"]
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K3 ["LayoutOrder"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K3 ["LayoutOrder"]
        13 ORK                              R3 R4 K7 [0]
        14 SETTABLEKS                       R3 R2 K3 ["LayoutOrder"]
        16 LOADN                            R3 1
@@ -107,8 +107,8 @@ PROTO_5:
        19 LOADN                            R3 0
        20 SETTABLEKS                       R3 R2 K5 ["BorderSizePixel"]
        22 DUPTABLE                         R3 K11 [{"UIListLayout", "Icon", "Labels"}]
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K0 ["createElement"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K0 ["createElement"]
        26 LOADK                            R5 K8 ["UIListLayout"]
        27 DUPTABLE                         R6 K15 [{"Padding", "FillDirection", "SortOrder"}]
        28 GETUPVAL                         R7 2
@@ -119,8 +119,8 @@ PROTO_5:
        37 SETTABLEKS                       R7 R6 K14 ["SortOrder"]
        39 CALL                             R4 2 1
        40 SETTABLEKS                       R4 R3 K8 ["UIListLayout"]
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R4 R5 K0 ["createElement"]
+       42 GETUPVAL                         R4 0
+       43 GETTABLEKS                       R4 R4 K0 ["createElement"]
        45 GETUPVAL                         R5 3
        46 DUPTABLE                         R6 K24 [{"Size", "SizeConstraint", "Image", "LayoutOrder", "UseMask", "BackgroundTransparency", "IsLoadedThumbnail"}]
        47 GETIMPORT                        R7 K27 [UDim2.fromScale]
@@ -134,8 +134,8 @@ PROTO_5:
        59 SETTABLEKS                       R7 R6 K21 ["Image"]
        61 LOADN                            R7 0
        62 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       64 GETUPVAL                         R9 1
-       65 GETTABLEKS                       R8 R9 K30 ["SubjectType"]
+       64 GETUPVAL                         R8 1
+       65 GETTABLEKS                       R8 R8 K30 ["SubjectType"]
        67 GETIMPORT                        R9 K33 [Enum.CreatorType.User]
        69 JUMPIFEQ                         R8 R9 ; [+2]
        71 LOADB                            R7 0 +1
@@ -147,8 +147,8 @@ PROTO_5:
        79 SETTABLEKS                       R7 R6 K23 ["IsLoadedThumbnail"]
        81 CALL                             R4 2 1
        82 SETTABLEKS                       R4 R3 K9 ["Icon"]
-       84 GETUPVAL                         R5 0
-       85 GETTABLEKS                       R4 R5 K0 ["createElement"]
+       84 GETUPVAL                         R4 0
+       85 GETTABLEKS                       R4 R4 K0 ["createElement"]
        87 LOADK                            R5 K1 ["Frame"]
        88 DUPTABLE                         R6 K34 [{"Size", "LayoutOrder", "BackgroundTransparency"}]
        89 GETIMPORT                        R7 K27 [UDim2.fromScale]
@@ -161,8 +161,8 @@ PROTO_5:
        99 LOADN                            R7 1
       100 SETTABLEKS                       R7 R6 K4 ["BackgroundTransparency"]
       102 DUPTABLE                         R7 K36 [{"PrimaryLabel"}]
-      103 GETUPVAL                         R9 0
-      104 GETTABLEKS                       R8 R9 K0 ["createElement"]
+      103 GETUPVAL                         R8 0
+      104 GETTABLEKS                       R8 R8 K0 ["createElement"]
       106 LOADK                            R9 K37 ["TextLabel"]
       107 DUPTABLE                         R10 K45 [{"Size", "Text", "TextYAlignment", "TextXAlignment", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundTransparency"}]
       108 GETIMPORT                        R11 K27 [UDim2.fromScale]
@@ -176,16 +176,16 @@ PROTO_5:
       120 SETTABLEKS                       R11 R10 K39 ["TextYAlignment"]
       122 GETIMPORT                        R11 K49 [Enum.TextXAlignment.Left]
       124 SETTABLEKS                       R11 R10 K40 ["TextXAlignment"]
-      126 GETUPVAL                         R12 7
-      127 GETTABLEKS                       R11 R12 K50 ["FONT"]
+      126 GETUPVAL                         R11 7
+      127 GETTABLEKS                       R11 R11 K50 ["FONT"]
       129 SETTABLEKS                       R11 R10 K41 ["Font"]
-      131 GETUPVAL                         R12 7
-      132 GETTABLEKS                       R11 R12 K51 ["FONT_SIZE_TITLE"]
+      131 GETUPVAL                         R11 7
+      132 GETTABLEKS                       R11 R11 K51 ["FONT_SIZE_TITLE"]
       134 SETTABLEKS                       R11 R10 K42 ["TextSize"]
-      136 GETUPVAL                         R14 8
-      137 GETTABLEKS                       R13 R14 K52 ["assetConfig"]
-      139 GETTABLEKS                       R12 R13 K53 ["packagePermissions"]
-      141 GETTABLEKS                       R11 R12 K54 ["subTextColor"]
+      136 GETUPVAL                         R11 8
+      137 GETTABLEKS                       R11 R11 K52 ["assetConfig"]
+      139 GETTABLEKS                       R11 R11 K53 ["packagePermissions"]
+      141 GETTABLEKS                       R11 R11 K54 ["subTextColor"]
       143 SETTABLEKS                       R11 R10 K43 ["TextColor3"]
       145 GETIMPORT                        R11 K56 [Enum.TextTruncate.AtEnd]
       147 SETTABLEKS                       R11 R10 K44 ["TextTruncate"]
@@ -206,10 +206,10 @@ PROTO_6:
         6 GETUPVAL                         R1 0
         7 NAMECALL                         R1 R1 K3 ["use"]
         9 CALL                             R1 1 1
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K4 ["useContext"]
-       13 GETUPVAL                         R4 2
-       14 GETTABLEKS                       R3 R4 K5 ["Context"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K4 ["useContext"]
+       13 GETUPVAL                         R3 2
+       14 GETTABLEKS                       R3 R3 K5 ["Context"]
        16 CALL                             R2 1 1
        17 DUPTABLE                         R3 K7 [{"Type", "Id"}]
        18 GETTABLEKS                       R4 R0 K8 ["SubjectType"]
@@ -223,12 +223,12 @@ PROTO_6:
        31 GETTABLEKS                       R5 R2 K11 ["GetThumbnail"]
        33 MOVE                             R6 R3
        34 CALL                             R5 1 1
-       35 GETUPVAL                         R7 1
-       36 GETTABLEKS                       R6 R7 K12 ["useState"]
+       35 GETUPVAL                         R6 1
+       36 GETTABLEKS                       R6 R6 K12 ["useState"]
        38 LOADB                            R7 0
        39 CALL                             R6 1 2
-       40 GETUPVAL                         R9 1
-       41 GETTABLEKS                       R8 R9 K13 ["useEffect"]
+       40 GETUPVAL                         R8 1
+       41 GETTABLEKS                       R8 R8 K13 ["useEffect"]
        43 NEWCLOSURE                       R9 P0
        44 CAPTURE                          VAL R5
        45 CAPTURE                          VAL R7
@@ -242,8 +242,8 @@ PROTO_6:
        55 GETTABLEKS                       R9 R0 K8 ["SubjectType"]
        57 GETIMPORT                        R10 K17 [Enum.CreatorType.User]
        59 JUMPIFNOTEQ                      R9 R10 ; [+5]
-       61 GETUPVAL                         R10 3
-       62 GETTABLEKS                       R8 R10 K18 ["DEFAULT_USER_THUMBNAIL"]
+       61 GETUPVAL                         R8 3
+       62 GETTABLEKS                       R8 R8 K18 ["DEFAULT_USER_THUMBNAIL"]
        64 JUMP                             ; [+21]
        65 GETIMPORT                        R12 K20 [Enum.CreatorType.Group]
        67 JUMPIFEQ                         R9 R12 ; [+2]
@@ -258,10 +258,10 @@ PROTO_6:
        78 FASTCALL2                        ASSERT R11 R12 ; [+3]
        80 GETIMPORT                        R10 K2 [assert]
        82 CALL                             R10 2 0
-       83 GETUPVAL                         R10 3
-       84 GETTABLEKS                       R8 R10 K24 ["DEFAULT_GROUP_THUMBNAIL"]
-       86 GETUPVAL                         R10 1
-       87 GETTABLEKS                       R9 R10 K25 ["useMemo"]
+       83 GETUPVAL                         R8 3
+       84 GETTABLEKS                       R8 R8 K24 ["DEFAULT_GROUP_THUMBNAIL"]
+       86 GETUPVAL                         R9 1
+       87 GETTABLEKS                       R9 R9 K25 ["useMemo"]
        89 NEWCLOSURE                       R10 P1
        90 CAPTURE                          UPVAL U1
        91 CAPTURE                          VAL R0
@@ -292,8 +292,8 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Framework"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R0 K9 ["Src"]
-       21 GETTABLEKS                       R4 R5 K10 ["Util"]
+       19 GETTABLEKS                       R4 R0 K9 ["Src"]
+       21 GETTABLEKS                       R4 R4 K10 ["Util"]
        23 GETIMPORT                        R5 K6 [require]
        25 GETTABLEKS                       R6 R4 K11 ["Images"]
        27 CALL                             R5 1 1
@@ -306,10 +306,10 @@ MAIN:
        38 GETIMPORT                        R8 K6 [require]
        40 GETTABLEKS                       R9 R4 K14 ["Urls"]
        42 CALL                             R8 1 1
-       43 GETTABLEKS                       R12 R0 K9 ["Src"]
-       45 GETTABLEKS                       R11 R12 K15 ["Components"]
-       47 GETTABLEKS                       R10 R11 K16 ["AssetConfiguration"]
-       49 GETTABLEKS                       R9 R10 K17 ["Permissions"]
+       43 GETTABLEKS                       R9 R0 K9 ["Src"]
+       45 GETTABLEKS                       R9 R9 K15 ["Components"]
+       47 GETTABLEKS                       R9 R9 K16 ["AssetConfiguration"]
+       49 GETTABLEKS                       R9 R9 K17 ["Permissions"]
        51 GETIMPORT                        R10 K6 [require]
        53 GETTABLEKS                       R11 R9 K18 ["CollaboratorThumbnail"]
        55 CALL                             R10 1 1

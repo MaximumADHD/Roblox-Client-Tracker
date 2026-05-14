@@ -40,8 +40,8 @@ PROTO_0:
        54 JUMPIFNOTEQKS                    R6 K24 [""] ; [+2]
        56 LOADB                            R7 0 +1
        57 LOADB                            R7 1
-       58 GETUPVAL                         R9 0
-       59 GETTABLEKS                       R8 R9 K25 ["createElement"]
+       58 GETUPVAL                         R8 0
+       59 GETTABLEKS                       R8 R8 K25 ["createElement"]
        61 GETUPVAL                         R9 1
        62 DUPTABLE                         R10 K33 [{"LayoutOrder", "Padding", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
        63 GETTABLEKS                       R11 R0 K34 ["ColumnIndex"]
@@ -73,8 +73,8 @@ PROTO_0:
       105 LOADB                            R11 1
       106 SETTABLEKS                       R11 R10 K32 ["ClipsDescendants"]
       108 DUPTABLE                         R11 K47 [{"Text", "Tooltip"}]
-      109 GETUPVAL                         R13 0
-      110 GETTABLEKS                       R12 R13 K25 ["createElement"]
+      109 GETUPVAL                         R12 0
+      110 GETTABLEKS                       R12 R12 K25 ["createElement"]
       112 GETUPVAL                         R13 2
       113 DUPTABLE                         R14 K50 [{"Text", "TextTruncate", "Size", "TextXAlignment"}]
       114 SETTABLEKS                       R5 R14 K46 ["Text"]
@@ -91,12 +91,12 @@ PROTO_0:
       132 SETTABLEKS                       R12 R11 K46 ["Text"]
       134 MOVE                             R12 R7
       135 JUMPIFNOT                        R12 ; [+18]
-      136 GETUPVAL                         R13 0
-      137 GETTABLEKS                       R12 R13 K25 ["createElement"]
+      136 GETUPVAL                         R12 0
+      137 GETTABLEKS                       R12 R12 K25 ["createElement"]
       139 GETUPVAL                         R13 3
       140 DUPTABLE                         R14 K58 [{"MaxWidth", "Text", "TextXAlignment"}]
-      141 GETTABLEKS                       R16 R2 K23 ["Tooltip"]
-      143 GETTABLEKS                       R15 R16 K57 ["MaxWidth"]
+      141 GETTABLEKS                       R15 R2 K23 ["Tooltip"]
+      143 GETTABLEKS                       R15 R15 K57 ["MaxWidth"]
       145 SETTABLEKS                       R15 R14 K57 ["MaxWidth"]
       147 SETTABLEKS                       R6 R14 K46 ["Text"]
       149 GETIMPORT                        R15 K56 [Enum.TextXAlignment.Left]
@@ -113,12 +113,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]

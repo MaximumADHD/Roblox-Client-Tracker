@@ -1,43 +1,43 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        3 GETTABLEKS                       R2 R3 K1 ["CONFIGURE_ASSET"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        3 GETTABLEKS                       R2 R2 K1 ["CONFIGURE_ASSET"]
         5 JUMPIFEQ                         R0 R2 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        3 GETTABLEKS                       R2 R3 K1 ["ASSET_TYPE_SELECTION"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        3 GETTABLEKS                       R2 R2 K1 ["ASSET_TYPE_SELECTION"]
         5 JUMPIFEQ                         R0 R2 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        3 GETTABLEKS                       R2 R3 K1 ["ASSET_VALIDATION"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        3 GETTABLEKS                       R2 R2 K1 ["ASSET_VALIDATION"]
         5 JUMPIFEQ                         R0 R2 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        3 GETTABLEKS                       R2 R3 K1 ["UPLOADING_ASSET"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        3 GETTABLEKS                       R2 R2 K1 ["UPLOADING_ASSET"]
         5 JUMPIFEQ                         R0 R2 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["SCREENS"]
-        3 GETTABLEKS                       R2 R3 K1 ["UPLOAD_ASSET_RESULT"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        3 GETTABLEKS                       R2 R2 K1 ["UPLOAD_ASSET_RESULT"]
         5 JUMPIFEQ                         R0 R2 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
@@ -46,8 +46,8 @@ PROTO_4:
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["currentScreen"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
         8 DUPTABLE                         R5 K6 [{"Size", "BackgroundTransparency"}]
         9 GETIMPORT                        R6 K9 [UDim2.new]
@@ -60,15 +60,15 @@ PROTO_5:
        18 LOADN                            R6 1
        19 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
        21 DUPTABLE                         R6 K15 [{"AssetConfig", "AssetTypeSelection", "AssetValidation", "AssetUpload", "AssetUploadResult"}]
-       22 GETUPVAL                         R10 1
-       23 GETTABLEKS                       R9 R10 K16 ["SCREENS"]
-       25 GETTABLEKS                       R8 R9 K17 ["CONFIGURE_ASSET"]
+       22 GETUPVAL                         R8 1
+       23 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
+       25 GETTABLEKS                       R8 R8 K17 ["CONFIGURE_ASSET"]
        27 JUMPIFEQ                         R2 R8 ; [+2]
        29 LOADB                            R7 0 +1
        30 LOADB                            R7 1
        31 JUMPIFNOT                        R7 ; [+43]
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       32 GETUPVAL                         R7 0
+       33 GETTABLEKS                       R7 R7 K2 ["createElement"]
        35 GETUPVAL                         R8 2
        36 DUPTABLE                         R9 K25 [{"Size", "assetId", "assetTypeEnum", "onClose", "pluginGui", "owner", "groupId", "setOwner"}]
        37 GETIMPORT                        R10 K9 [UDim2.new]
@@ -94,15 +94,15 @@ PROTO_5:
        72 SETTABLEKS                       R10 R9 K24 ["setOwner"]
        74 CALL                             R7 2 1
        75 SETTABLEKS                       R7 R6 K10 ["AssetConfig"]
-       77 GETUPVAL                         R10 1
-       78 GETTABLEKS                       R9 R10 K16 ["SCREENS"]
-       80 GETTABLEKS                       R8 R9 K26 ["ASSET_TYPE_SELECTION"]
+       77 GETUPVAL                         R8 1
+       78 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
+       80 GETTABLEKS                       R8 R8 K26 ["ASSET_TYPE_SELECTION"]
        82 JUMPIFEQ                         R2 R8 ; [+2]
        84 LOADB                            R7 0 +1
        85 LOADB                            R7 1
        86 JUMPIFNOT                        R7 ; [+19]
-       87 GETUPVAL                         R8 0
-       88 GETTABLEKS                       R7 R8 K2 ["createElement"]
+       87 GETUPVAL                         R7 0
+       88 GETTABLEKS                       R7 R7 K2 ["createElement"]
        90 GETUPVAL                         R8 3
        91 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
        92 GETIMPORT                        R10 K9 [UDim2.new]
@@ -123,8 +123,8 @@ PROTO_5:
       112 MOVE                             R8 R2
       113 CALL                             R7 1 1
       114 JUMPIFNOT                        R7 ; [+21]
-      115 GETUPVAL                         R8 0
-      116 GETTABLEKS                       R7 R8 K2 ["createElement"]
+      115 GETUPVAL                         R7 0
+      116 GETTABLEKS                       R7 R7 K2 ["createElement"]
       118 GETUPVAL                         R8 6
       119 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
       120 GETIMPORT                        R10 K9 [UDim2.new]
@@ -140,15 +140,15 @@ PROTO_5:
       134 JUMP                             ; [+1]
       135 LOADNIL                          R7
       136 SETTABLEKS                       R7 R6 K12 ["AssetValidation"]
-      138 GETUPVAL                         R10 1
-      139 GETTABLEKS                       R9 R10 K16 ["SCREENS"]
-      141 GETTABLEKS                       R8 R9 K28 ["UPLOADING_ASSET"]
+      138 GETUPVAL                         R8 1
+      139 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
+      141 GETTABLEKS                       R8 R8 K28 ["UPLOADING_ASSET"]
       143 JUMPIFEQ                         R2 R8 ; [+2]
       145 LOADB                            R7 0 +1
       146 LOADB                            R7 1
       147 JUMPIFNOT                        R7 ; [+19]
-      148 GETUPVAL                         R8 0
-      149 GETTABLEKS                       R7 R8 K2 ["createElement"]
+      148 GETUPVAL                         R7 0
+      149 GETTABLEKS                       R7 R7 K2 ["createElement"]
       151 GETUPVAL                         R8 7
       152 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
       153 GETIMPORT                        R10 K9 [UDim2.new]
@@ -162,15 +162,15 @@ PROTO_5:
       164 SETTABLEKS                       R10 R9 K20 ["onClose"]
       166 CALL                             R7 2 1
       167 SETTABLEKS                       R7 R6 K13 ["AssetUpload"]
-      169 GETUPVAL                         R10 1
-      170 GETTABLEKS                       R9 R10 K16 ["SCREENS"]
-      172 GETTABLEKS                       R8 R9 K29 ["UPLOAD_ASSET_RESULT"]
+      169 GETUPVAL                         R8 1
+      170 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
+      172 GETTABLEKS                       R8 R8 K29 ["UPLOAD_ASSET_RESULT"]
       174 JUMPIFEQ                         R2 R8 ; [+2]
       176 LOADB                            R7 0 +1
       177 LOADB                            R7 1
       178 JUMPIFNOT                        R7 ; [+19]
-      179 GETUPVAL                         R8 0
-      180 GETTABLEKS                       R7 R8 K2 ["createElement"]
+      179 GETUPVAL                         R7 0
+      180 GETTABLEKS                       R7 R7 K2 ["createElement"]
       182 GETUPVAL                         R8 8
       183 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
       184 GETIMPORT                        R10 K9 [UDim2.new]
@@ -199,11 +199,11 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -211,42 +211,42 @@ MAIN:
        18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R1 K7 ["RoactRodux"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R0 K8 ["Src"]
-       25 GETTABLEKS                       R4 R5 K9 ["Components"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K9 ["Components"]
        27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R7 R4 K10 ["AssetConfiguration"]
-       31 GETTABLEKS                       R6 R7 K11 ["AssetConfig"]
+       29 GETTABLEKS                       R6 R4 K10 ["AssetConfiguration"]
+       31 GETTABLEKS                       R6 R6 K11 ["AssetConfig"]
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R8 R4 K10 ["AssetConfiguration"]
-       38 GETTABLEKS                       R7 R8 K12 ["AssetTypeSelection"]
+       36 GETTABLEKS                       R7 R4 K10 ["AssetConfiguration"]
+       38 GETTABLEKS                       R7 R7 K12 ["AssetTypeSelection"]
        40 CALL                             R6 1 1
        41 GETIMPORT                        R7 K5 [require]
-       43 GETTABLEKS                       R10 R0 K8 ["Src"]
-       45 GETTABLEKS                       R9 R10 K13 ["Flags"]
-       47 GETTABLEKS                       R8 R9 K14 ["getFFlagToolboxDeprecateAssetSelection"]
+       43 GETTABLEKS                       R8 R0 K8 ["Src"]
+       45 GETTABLEKS                       R8 R8 K13 ["Flags"]
+       47 GETTABLEKS                       R8 R8 K14 ["getFFlagToolboxDeprecateAssetSelection"]
        49 CALL                             R7 1 1
        50 LOADNIL                          R8
        51 MOVE                             R9 R7
        52 CALL                             R9 0 1
        53 JUMPIF                           R9 ; [+8]
        54 GETIMPORT                        R9 K5 [require]
-       56 GETTABLEKS                       R11 R4 K10 ["AssetConfiguration"]
-       58 GETTABLEKS                       R10 R11 K15 ["AssetValidation"]
+       56 GETTABLEKS                       R10 R4 K10 ["AssetConfiguration"]
+       58 GETTABLEKS                       R10 R10 K15 ["AssetValidation"]
        60 CALL                             R9 1 1
        61 MOVE                             R8 R9
        62 GETIMPORT                        R9 K5 [require]
-       64 GETTABLEKS                       R11 R4 K10 ["AssetConfiguration"]
-       66 GETTABLEKS                       R10 R11 K16 ["AssetUpload"]
+       64 GETTABLEKS                       R10 R4 K10 ["AssetConfiguration"]
+       66 GETTABLEKS                       R10 R10 K16 ["AssetUpload"]
        68 CALL                             R9 1 1
        69 GETIMPORT                        R10 K5 [require]
-       71 GETTABLEKS                       R12 R4 K10 ["AssetConfiguration"]
-       73 GETTABLEKS                       R11 R12 K17 ["AssetUploadResult"]
+       71 GETTABLEKS                       R11 R4 K10 ["AssetConfiguration"]
+       73 GETTABLEKS                       R11 R11 K17 ["AssetUploadResult"]
        75 CALL                             R10 1 1
        76 GETIMPORT                        R11 K5 [require]
-       78 GETTABLEKS                       R14 R0 K8 ["Src"]
-       80 GETTABLEKS                       R13 R14 K18 ["Util"]
-       82 GETTABLEKS                       R12 R13 K19 ["AssetConfigConstants"]
+       78 GETTABLEKS                       R12 R0 K8 ["Src"]
+       80 GETTABLEKS                       R12 R12 K18 ["Util"]
+       82 GETTABLEKS                       R12 R12 K19 ["AssetConfigConstants"]
        84 CALL                             R11 1 1
        85 DUPCLOSURE                       R12 K20 [PROTO_0]
        86 CAPTURE                          VAL R11

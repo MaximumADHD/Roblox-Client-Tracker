@@ -10,12 +10,12 @@ PROTO_1:
         1 RETURN                           R0 0
 
 PROTO_2:
-        0 GETIMPORT                        R1 K1 [game]
-        2 GETTABLEKS                       R0 R1 K2 ["GameId"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["GameId"]
         4 JUMPIFNOTEQKN                    R0 K3 [0] ; [+2]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R1 0
-        8 GETTABLEKS                       R0 R1 K4 ["getHasUnpublishedChanges"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K4 ["getHasUnpublishedChanges"]
        10 CALL                             R0 0 1
        11 JUMPIF                           R0 ; [+1]
        12 RETURN                           R0 0
@@ -23,8 +23,8 @@ PROTO_2:
        15 CALL                             R0 0 1
        16 SETUPVAL                         R0 1
        17 GETUPVAL                         R0 2
-       18 GETUPVAL                         R3 3
-       19 GETTABLEKS                       R2 R3 K8 ["onStudioCloseHold"]
+       18 GETUPVAL                         R2 3
+       19 GETTABLEKS                       R2 R2 K8 ["onStudioCloseHold"]
        21 NAMECALL                         R0 R0 K9 ["Invoke"]
        23 CALL                             R0 2 0
        24 GETIMPORT                        R0 K11 [coroutine.yield]
@@ -46,12 +46,12 @@ PROTO_3:
        14 RETURN                           R0 0
 
 PROTO_4:
-        0 GETIMPORT                        R1 K1 [game]
-        2 GETTABLEKS                       R0 R1 K2 ["GameId"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["GameId"]
         4 JUMPIFNOTEQKN                    R0 K3 [0] ; [+2]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R1 0
-        8 GETTABLEKS                       R0 R1 K4 ["getHasUnpublishedChanges"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K4 ["getHasUnpublishedChanges"]
        10 CALL                             R0 0 1
        11 JUMPIF                           R0 ; [+1]
        12 RETURN                           R0 0
@@ -59,14 +59,14 @@ PROTO_4:
        15 CALL                             R0 0 1
        16 SETUPVAL                         R0 1
        17 GETUPVAL                         R0 2
-       18 GETUPVAL                         R3 3
-       19 GETTABLEKS                       R2 R3 K8 ["onStudioPublishHold"]
+       18 GETUPVAL                         R2 3
+       19 GETTABLEKS                       R2 R2 K8 ["onStudioPublishHold"]
        21 NAMECALL                         R0 R0 K9 ["Invoke"]
        23 CALL                             R0 2 0
        24 GETIMPORT                        R0 K11 [coroutine.yield]
        26 CALL                             R0 0 0
-       27 GETUPVAL                         R1 0
-       28 GETTABLEKS                       R0 R1 K12 ["getLatestPublishSuccess"]
+       27 GETUPVAL                         R0 0
+       28 GETTABLEKS                       R0 R0 K12 ["getLatestPublishSuccess"]
        30 CALL                             R0 0 1
        31 JUMPIF                           R0 ; [+2]
        32 LOADB                            R0 1
@@ -101,8 +101,8 @@ PROTO_6:
        10 CAPTURE                          UPVAL U1
        11 NAMECALL                         R2 R2 K2 ["RegisterCloseHold"]
        13 CALL                             R2 3 0
-       14 GETUPVAL                         R5 1
-       15 GETTABLEKS                       R4 R5 K3 ["releaseStudioCloseHold"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K3 ["releaseStudioCloseHold"]
        17 NEWCLOSURE                       R5 P1
        18 CAPTURE                          REF R1
        19 NAMECALL                         R2 R0 K4 ["OnInvoke"]
@@ -117,8 +117,8 @@ PROTO_6:
        29 CAPTURE                          UPVAL U1
        30 NAMECALL                         R3 R3 K5 ["RegisterPublishHold"]
        32 CALL                             R3 3 0
-       33 GETUPVAL                         R6 1
-       34 GETTABLEKS                       R5 R6 K6 ["releaseStudioPublishHold"]
+       33 GETUPVAL                         R5 1
+       34 GETTABLEKS                       R5 R5 K6 ["releaseStudioPublishHold"]
        36 NEWCLOSURE                       R6 P3
        37 CAPTURE                          REF R2
        38 NAMECALL                         R3 R0 K4 ["OnInvoke"]
@@ -139,16 +139,16 @@ MAIN:
        12 DUPCLOSURE                       R3 K7 [PROTO_1]
        13 RETURN                           R3 1
        14 GETIMPORT                        R3 K9 [require]
-       16 GETTABLEKS                       R8 R0 K10 ["Src"]
-       18 GETTABLEKS                       R7 R8 K11 ["Util"]
-       20 GETTABLEKS                       R6 R7 K12 ["BridgingFiles"]
-       22 GETTABLEKS                       R5 R6 K13 ["AssetDmFiles"]
-       24 GETTABLEKS                       R4 R5 K14 ["assetDmDatabaseLoadedManager"]
+       16 GETTABLEKS                       R4 R0 K10 ["Src"]
+       18 GETTABLEKS                       R4 R4 K11 ["Util"]
+       20 GETTABLEKS                       R4 R4 K12 ["BridgingFiles"]
+       22 GETTABLEKS                       R4 R4 K13 ["AssetDmFiles"]
+       24 GETTABLEKS                       R4 R4 K14 ["assetDmDatabaseLoadedManager"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R7 R0 K10 ["Src"]
-       31 GETTABLEKS                       R6 R7 K11 ["Util"]
-       33 GETTABLEKS                       R5 R6 K15 ["InvokeKeys"]
+       29 GETTABLEKS                       R5 R0 K10 ["Src"]
+       31 GETTABLEKS                       R5 R5 K11 ["Util"]
+       33 GETTABLEKS                       R5 R5 K15 ["InvokeKeys"]
        35 CALL                             R4 1 1
        36 DUPCLOSURE                       R5 K16 [PROTO_6]
        37 CAPTURE                          VAL R3

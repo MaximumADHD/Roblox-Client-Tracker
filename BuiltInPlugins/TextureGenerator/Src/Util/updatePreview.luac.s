@@ -5,8 +5,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["previewId"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["previewId"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["previewId"]
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
@@ -53,8 +53,8 @@ PROTO_3:
        41 GETIMPORT                        R3 K2 [table.clone]
        43 GETTABLEKS                       R4 R2 K5 ["allPreviews"]
        45 CALL                             R3 1 1
-       46 GETUPVAL                         R5 0
-       47 GETTABLEKS                       R4 R5 K8 ["find"]
+       46 GETUPVAL                         R4 0
+       47 GETTABLEKS                       R4 R4 K8 ["find"]
        49 MOVE                             R5 R3
        50 NEWCLOSURE                       R6 P0
        51 CAPTURE                          VAL R1
@@ -96,17 +96,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagDebugTextureGeneratorLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagDebugTextureGeneratorLogging"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Dash"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Dash"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R5 K11 ["Types"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Types"]
        29 CALL                             R3 1 1
        30 NEWTABLE                         R4 4 0
        32 LOADN                            R5 1

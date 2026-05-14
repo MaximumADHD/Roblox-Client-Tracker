@@ -1,16 +1,16 @@
 PROTO_0:
-        0 GETIMPORT                        R3 K1 [settings]
-        2 CALL                             R3 0 1
-        3 GETTABLEKS                       R2 R3 K2 ["Studio"]
-        5 GETTABLEKS                       R1 R2 K3 ["Theme"]
-        7 GETTABLEKS                       R0 R1 K4 ["Name"]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K5 ["tooltipStrokeColors"]
+        0 GETIMPORT                        R0 K1 [settings]
+        2 CALL                             R0 0 1
+        3 GETTABLEKS                       R0 R0 K2 ["Studio"]
+        5 GETTABLEKS                       R0 R0 K3 ["Theme"]
+        7 GETTABLEKS                       R0 R0 K4 ["Name"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K5 ["tooltipStrokeColors"]
        12 GETTABLE                         R1 R2 R0
        13 JUMPIF                           R1 ; [+5]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K5 ["tooltipStrokeColors"]
-       17 GETTABLEKS                       R1 R2 K6 ["Dark"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K5 ["tooltipStrokeColors"]
+       17 GETTABLEKS                       R1 R1 K6 ["Dark"]
        19 RETURN                           R1 1
 
 MAIN:

@@ -1,19 +1,19 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["previewVisible"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["previewVisible"]
         5 JUMPIF                           R0 ; [+7]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K2 ["setPreviewVisible"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K2 ["setPreviewVisible"]
        11 LOADB                            R1 1
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["setPreviewVisible"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["setPreviewVisible"]
         5 LOADB                            R1 0
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
@@ -33,13 +33,13 @@ PROTO_3:
         3 CALL                             R0 1 1
         4 GETUPVAL                         R1 1
         5 JUMPIFEQ                         R1 R0 ; [+14]
-        7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R2 R3 K1 ["props"]
-       10 GETTABLEKS                       R1 R2 K2 ["previewVisible"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K1 ["props"]
+       10 GETTABLEKS                       R1 R1 K2 ["previewVisible"]
        12 JUMPIFNOT                        R1 ; [+7]
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K1 ["props"]
-       16 GETTABLEKS                       R1 R2 K3 ["setPreviewVisible"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K1 ["props"]
+       16 GETTABLEKS                       R1 R1 K3 ["setPreviewVisible"]
        18 LOADB                            R2 0
        19 CALL                             R1 1 0
        20 SETUPVAL                         R0 1
@@ -71,8 +71,8 @@ PROTO_5:
         8 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
         4 NEWTABLE                         R3 4 0
         6 LOADN                            R4 1
@@ -84,19 +84,19 @@ PROTO_6:
        14 LOADN                            R8 0
        15 CALL                             R4 4 1
        16 SETTABLEKS                       R4 R3 K6 ["Size"]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K7 ["Event"]
-       21 GETTABLEKS                       R4 R5 K8 ["MouseMoved"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K7 ["Event"]
+       21 GETTABLEKS                       R4 R4 K8 ["MouseMoved"]
        23 GETTABLEKS                       R5 R0 K9 ["mouseMoved"]
        25 SETTABLE                         R5 R3 R4
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K7 ["Event"]
-       29 GETTABLEKS                       R4 R5 K10 ["MouseLeave"]
+       26 GETUPVAL                         R4 0
+       27 GETTABLEKS                       R4 R4 K7 ["Event"]
+       29 GETTABLEKS                       R4 R4 K10 ["MouseLeave"]
        31 GETTABLEKS                       R5 R0 K11 ["mouseLeave"]
        33 SETTABLE                         R5 R3 R4
        34 GETTABLEKS                       R5 R0 K12 ["props"]
-       36 GETUPVAL                         R7 0
-       37 GETTABLEKS                       R6 R7 K13 ["Children"]
+       36 GETUPVAL                         R6 0
+       37 GETTABLEKS                       R6 R6 K13 ["Children"]
        39 GETTABLE                         R4 R5 R6
        40 CALL                             R1 3 -1
        41 RETURN                           R1 -1
@@ -133,22 +133,22 @@ MAIN:
         9 LOADK                            R3 K4 ["RunService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Roact"]
+       23 GETTABLEKS                       R4 R2 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Roact"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K9 [require]
-       30 GETTABLEKS                       R6 R2 K10 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K12 ["RoactRodux"]
+       30 GETTABLEKS                       R5 R2 K10 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K12 ["RoactRodux"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K9 [require]
-       37 GETTABLEKS                       R8 R2 K13 ["Src"]
-       39 GETTABLEKS                       R7 R8 K14 ["Actions"]
-       41 GETTABLEKS                       R6 R7 K15 ["SetPreviewVisible"]
+       37 GETTABLEKS                       R6 R2 K13 ["Src"]
+       39 GETTABLEKS                       R6 R6 K14 ["Actions"]
+       41 GETTABLEKS                       R6 R6 K15 ["SetPreviewVisible"]
        43 CALL                             R5 1 1
        44 GETTABLEKS                       R6 R3 K16 ["PureComponent"]
        46 LOADK                            R8 K17 ["HoverPreviewEnabler"]

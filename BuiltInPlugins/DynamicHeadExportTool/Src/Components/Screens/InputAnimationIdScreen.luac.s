@@ -30,8 +30,8 @@ PROTO_2:
        19 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 DUPTABLE                         R4 K3 [{"Items"}]
         5 NEWTABLE                         R5 0 1
         7 DUPTABLE                         R6 K7 [{"Id", "Label", "Children"}]
@@ -66,16 +66,16 @@ PROTO_3:
        51 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["close"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["close"]
         5 CALL                             R0 0 0
         6 NEWTABLE                         R0 0 0
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K2 ["state"]
-       11 GETTABLEKS                       R5 R6 K3 ["Items"]
-       13 GETTABLEN                        R4 R5 1
-       14 GETTABLEKS                       R1 R4 K4 ["Children"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K2 ["state"]
+       11 GETTABLEKS                       R4 R4 K3 ["Items"]
+       13 GETTABLEN                        R1 R4 1
+       14 GETTABLEKS                       R1 R1 K4 ["Children"]
        16 LOADNIL                          R2
        17 LOADNIL                          R3
        18 FORGPREP                         R1
@@ -83,27 +83,27 @@ PROTO_4:
        21 GETTABLEKS                       R7 R5 K6 ["Value"]
        23 SETTABLE                         R7 R0 R6
        24 FORGLOOP                         R1 2 ; [-6]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K0 ["props"]
-       29 GETTABLEKS                       R1 R2 K7 ["setAnimationId"]
+       26 GETUPVAL                         R1 0
+       27 GETTABLEKS                       R1 R1 K0 ["props"]
+       29 GETTABLEKS                       R1 R1 K7 ["setAnimationId"]
        31 GETTABLEKS                       R2 R0 K8 ["Animation"]
        33 CALL                             R1 1 0
-       34 GETUPVAL                         R3 0
-       35 GETTABLEKS                       R2 R3 K0 ["props"]
-       37 GETTABLEKS                       R1 R2 K9 ["processMood"]
+       34 GETUPVAL                         R1 0
+       35 GETTABLEKS                       R1 R1 K0 ["props"]
+       37 GETTABLEKS                       R1 R1 K9 ["processMood"]
        39 CALL                             R1 0 0
        40 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K6 [{"Expansion", "Items", "onExpansionChange", "onChange", "onSubmit"}]
-        5 GETTABLEKS                       R5 R0 K7 ["state"]
-        7 GETTABLEKS                       R4 R5 K1 ["Expansion"]
+        5 GETTABLEKS                       R4 R0 K7 ["state"]
+        7 GETTABLEKS                       R4 R4 K1 ["Expansion"]
         9 SETTABLEKS                       R4 R3 K1 ["Expansion"]
-       11 GETTABLEKS                       R5 R0 K7 ["state"]
-       13 GETTABLEKS                       R4 R5 K2 ["Items"]
+       11 GETTABLEKS                       R4 R0 K7 ["state"]
+       13 GETTABLEKS                       R4 R4 K2 ["Items"]
        15 SETTABLEKS                       R4 R3 K2 ["Items"]
        17 GETTABLEKS                       R4 R0 K3 ["onExpansionChange"]
        19 SETTABLEKS                       R4 R3 K3 ["onExpansionChange"]
@@ -117,8 +117,8 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R2 K1 [{"mode"}]
-        1 GETTABLEKS                       R4 R0 K2 ["PluginReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["mode"]
+        1 GETTABLEKS                       R3 R0 K2 ["PluginReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["mode"]
         5 SETTABLEKS                       R3 R2 K0 ["mode"]
         7 RETURN                           R2 1
 
@@ -168,37 +168,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R8 R0 K11 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Components"]
-       36 GETTABLEKS                       R6 R7 K13 ["FormScreen"]
+       32 GETTABLEKS                       R6 R0 K11 ["Src"]
+       34 GETTABLEKS                       R6 R6 K12 ["Components"]
+       36 GETTABLEKS                       R6 R6 K13 ["FormScreen"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R9 R0 K11 ["Src"]
-       43 GETTABLEKS                       R8 R9 K14 ["Actions"]
-       45 GETTABLEKS                       R7 R8 K15 ["SetEnabled"]
+       41 GETTABLEKS                       R7 R0 K11 ["Src"]
+       43 GETTABLEKS                       R7 R7 K14 ["Actions"]
+       45 GETTABLEKS                       R7 R7 K15 ["SetEnabled"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K11 ["Src"]
-       52 GETTABLEKS                       R9 R10 K14 ["Actions"]
-       54 GETTABLEKS                       R8 R9 K16 ["SetAnimationId"]
+       50 GETTABLEKS                       R8 R0 K11 ["Src"]
+       52 GETTABLEKS                       R8 R8 K14 ["Actions"]
+       54 GETTABLEKS                       R8 R8 K16 ["SetAnimationId"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K5 [require]
-       59 GETTABLEKS                       R11 R0 K11 ["Src"]
-       61 GETTABLEKS                       R10 R11 K17 ["Thunks"]
-       63 GETTABLEKS                       R9 R10 K18 ["ProcessMood"]
+       59 GETTABLEKS                       R9 R0 K11 ["Src"]
+       61 GETTABLEKS                       R9 R9 K17 ["Thunks"]
+       63 GETTABLEKS                       R9 R9 K18 ["ProcessMood"]
        65 CALL                             R8 1 1
        66 GETTABLEKS                       R9 R1 K19 ["PureComponent"]
        68 LOADK                            R11 K20 ["InputAnimationIdScreen"]

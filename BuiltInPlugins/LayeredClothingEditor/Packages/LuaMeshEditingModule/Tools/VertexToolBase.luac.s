@@ -3,11 +3,11 @@ PROTO_0:
         1 GETUPVAL                         R3 0
         2 JUMPIFEQKNIL                     R3 ; [+14]
         4 LOADB                            R2 0
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["MeshName"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["MeshName"]
         8 JUMPIFNOTEQ                      R3 R0 ; [+8]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K1 ["Index"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K1 ["Index"]
        13 JUMPIFEQ                         R3 R1 ; [+2]
        15 LOADB                            R2 0 +1
        16 LOADB                            R2 1
@@ -27,35 +27,35 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOT                        R2 ; [+4]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["ToolStateData"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["ToolStateData"]
         5 JUMP                             ; [+1]
         6 LOADNIL                          R1
         7 MOVE                             R3 R1
         8 JUMPIFNOT                        R3 ; [+6]
         9 GETTABLEKS                       R3 R1 K1 ["ControlPointLocationData"]
        11 JUMPIFNOT                        R3 ; [+3]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K2 ["VertexData"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K2 ["VertexData"]
        15 FASTCALL2K                       ASSERT R3 K3 ; [+4]
        17 LOADK                            R4 K3 ["Invalid save state, could not transform points."]
        18 GETIMPORT                        R2 K5 [assert]
        20 CALL                             R2 2 0
-       21 GETUPVAL                         R3 1
-       22 GETTABLEKS                       R2 R3 K6 ["transformControlPoints"]
+       21 GETUPVAL                         R2 1
+       22 GETTABLEKS                       R2 R2 K6 ["transformControlPoints"]
        24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R5 R1 K1 ["ControlPointLocationData"]
-       27 GETTABLEKS                       R4 R5 K7 ["Positions"]
-       29 GETUPVAL                         R6 3
-       30 GETTABLEKS                       R5 R6 K7 ["Positions"]
+       25 GETTABLEKS                       R4 R1 K1 ["ControlPointLocationData"]
+       27 GETTABLEKS                       R4 R4 K7 ["Positions"]
+       29 GETUPVAL                         R5 3
+       30 GETTABLEKS                       R5 R5 K7 ["Positions"]
        32 GETUPVAL                         R6 4
        33 MOVE                             R7 R0
        34 CALL                             R2 5 0
-       35 GETUPVAL                         R3 1
-       36 GETTABLEKS                       R2 R3 K8 ["transformVertices"]
+       35 GETUPVAL                         R2 1
+       36 GETTABLEKS                       R2 R2 K8 ["transformVertices"]
        38 GETUPVAL                         R3 2
-       39 GETUPVAL                         R5 0
-       40 GETTABLEKS                       R4 R5 K2 ["VertexData"]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K2 ["VertexData"]
        42 GETUPVAL                         R5 5
        43 NAMECALL                         R5 R5 K9 ["getVertexWeights"]
        45 CALL                             R5 1 1
@@ -128,23 +128,23 @@ PROTO_4:
        38 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 GETUPVAL                         R1 2
         4 CALL                             R0 1 1
         5 SETUPVAL                         R0 0
-        6 GETUPVAL                         R1 4
-        7 GETTABLEKS                       R0 R1 K0 ["new"]
+        6 GETUPVAL                         R0 4
+        7 GETTABLEKS                       R0 R0 K0 ["new"]
         9 GETUPVAL                         R1 2
        10 CALL                             R0 1 1
        11 SETUPVAL                         R0 3
-       12 GETUPVAL                         R1 6
-       13 GETTABLEKS                       R0 R1 K0 ["new"]
+       12 GETUPVAL                         R0 6
+       13 GETTABLEKS                       R0 R0 K0 ["new"]
        15 GETUPVAL                         R1 2
        16 CALL                             R0 1 1
        17 SETUPVAL                         R0 5
-       18 GETUPVAL                         R1 8
-       19 GETTABLEKS                       R0 R1 K0 ["new"]
+       18 GETUPVAL                         R0 8
+       19 GETTABLEKS                       R0 R0 K0 ["new"]
        21 CALL                             R0 0 1
        22 SETUPVAL                         R0 7
        23 RETURN                           R0 0
@@ -152,23 +152,23 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 0
-        2 GETUPVAL                         R1 2
-        3 GETTABLEKS                       R0 R1 K0 ["new"]
+        2 GETUPVAL                         R0 2
+        3 GETTABLEKS                       R0 R0 K0 ["new"]
         5 GETUPVAL                         R1 3
         6 CALL                             R0 1 1
         7 SETUPVAL                         R0 1
-        8 GETUPVAL                         R1 5
-        9 GETTABLEKS                       R0 R1 K0 ["new"]
+        8 GETUPVAL                         R0 5
+        9 GETTABLEKS                       R0 R0 K0 ["new"]
        11 GETUPVAL                         R1 3
        12 CALL                             R0 1 1
        13 SETUPVAL                         R0 4
-       14 GETUPVAL                         R1 7
-       15 GETTABLEKS                       R0 R1 K0 ["new"]
+       14 GETUPVAL                         R0 7
+       15 GETTABLEKS                       R0 R0 K0 ["new"]
        17 GETUPVAL                         R1 3
        18 CALL                             R0 1 1
        19 SETUPVAL                         R0 6
-       20 GETUPVAL                         R1 9
-       21 GETTABLEKS                       R0 R1 K0 ["new"]
+       20 GETUPVAL                         R0 9
+       21 GETTABLEKS                       R0 R0 K0 ["new"]
        23 CALL                             R0 0 1
        24 SETUPVAL                         R0 8
        25 GETUPVAL                         R0 10
@@ -331,12 +331,12 @@ PROTO_16:
        13 NEWTABLE                         R3 0 1
        15 MOVE                             R4 R1
        16 JUMPIFNOT                        R4 ; [+11]
-       17 GETTABLEKS                       R6 R1 K3 ["Adornee"]
-       19 GETTABLEKS                       R5 R6 K4 ["CFrame"]
-       21 GETTABLEKS                       R7 R1 K4 ["CFrame"]
-       23 NAMECALL                         R5 R5 K5 ["ToWorldSpace"]
-       25 CALL                             R5 2 1
-       26 GETTABLEKS                       R4 R5 K6 ["Position"]
+       17 GETTABLEKS                       R4 R1 K3 ["Adornee"]
+       19 GETTABLEKS                       R4 R4 K4 ["CFrame"]
+       21 GETTABLEKS                       R6 R1 K4 ["CFrame"]
+       23 NAMECALL                         R4 R4 K5 ["ToWorldSpace"]
+       25 CALL                             R4 2 1
+       26 GETTABLEKS                       R4 R4 K6 ["Position"]
        28 SETLIST                          R3 R4 1 [1]
        30 CALL                             R2 1 0
        31 RETURN                           R0 0
@@ -555,23 +555,23 @@ PROTO_29:
        24 CALL                             R3 1 0
        25 GETUPVAL                         R3 3
        26 JUMPIFNOT                        R3 ; [+26]
-       27 GETUPVAL                         R4 5
-       28 GETTABLEKS                       R3 R4 K6 ["new"]
+       27 GETUPVAL                         R3 5
+       28 GETTABLEKS                       R3 R3 K6 ["new"]
        30 GETUPVAL                         R4 2
        31 CALL                             R3 1 1
        32 SETUPVAL                         R3 4
-       33 GETUPVAL                         R4 7
-       34 GETTABLEKS                       R3 R4 K6 ["new"]
+       33 GETUPVAL                         R3 7
+       34 GETTABLEKS                       R3 R3 K6 ["new"]
        36 GETUPVAL                         R4 2
        37 CALL                             R3 1 1
        38 SETUPVAL                         R3 6
-       39 GETUPVAL                         R4 9
-       40 GETTABLEKS                       R3 R4 K6 ["new"]
+       39 GETUPVAL                         R3 9
+       40 GETTABLEKS                       R3 R3 K6 ["new"]
        42 GETUPVAL                         R4 2
        43 CALL                             R3 1 1
        44 SETUPVAL                         R3 8
-       45 GETUPVAL                         R4 11
-       46 GETTABLEKS                       R3 R4 K6 ["new"]
+       45 GETUPVAL                         R3 11
+       46 GETTABLEKS                       R3 R3 K6 ["new"]
        48 CALL                             R3 0 1
        49 SETUPVAL                         R3 10
        50 NAMECALL                         R3 R0 K7 ["render"]
@@ -591,23 +591,23 @@ PROTO_31:
         5 RETURN                           R0 0
         6 GETUPVAL                         R2 2
         7 JUMPIFNOT                        R2 ; [+26]
-        8 GETUPVAL                         R3 4
-        9 GETTABLEKS                       R2 R3 K0 ["new"]
+        8 GETUPVAL                         R2 4
+        9 GETTABLEKS                       R2 R2 K0 ["new"]
        11 GETUPVAL                         R3 2
        12 CALL                             R2 1 1
        13 SETUPVAL                         R2 3
-       14 GETUPVAL                         R3 6
-       15 GETTABLEKS                       R2 R3 K0 ["new"]
+       14 GETUPVAL                         R2 6
+       15 GETTABLEKS                       R2 R2 K0 ["new"]
        17 GETUPVAL                         R3 2
        18 CALL                             R2 1 1
        19 SETUPVAL                         R2 5
-       20 GETUPVAL                         R3 8
-       21 GETTABLEKS                       R2 R3 K0 ["new"]
+       20 GETUPVAL                         R2 8
+       21 GETTABLEKS                       R2 R2 K0 ["new"]
        23 GETUPVAL                         R3 2
        24 CALL                             R2 1 1
        25 SETUPVAL                         R2 7
-       26 GETUPVAL                         R3 10
-       27 GETTABLEKS                       R2 R3 K0 ["new"]
+       26 GETUPVAL                         R2 10
+       27 GETTABLEKS                       R2 R2 K0 ["new"]
        29 CALL                             R2 0 1
        30 SETUPVAL                         R2 9
        31 NAMECALL                         R2 R0 K1 ["render"]
@@ -739,8 +739,8 @@ PROTO_38:
        12 CALL                             R1 2 0
        13 GETUPVAL                         R1 2
        14 DUPTABLE                         R3 K11 [{"ControlPointPositions", "Adornees", "Transparency", "IsSelected", "IsHovered", "SelectedMesh", "FolderChangedCallback", "CenterHoveredPoint"}]
-       15 GETUPVAL                         R5 3
-       16 GETTABLEKS                       R4 R5 K12 ["Positions"]
+       15 GETUPVAL                         R4 3
+       16 GETTABLEKS                       R4 R4 K12 ["Positions"]
        18 SETTABLEKS                       R4 R3 K4 ["ControlPointPositions"]
        20 GETUPVAL                         R4 0
        21 SETTABLEKS                       R4 R3 K5 ["Adornees"]
@@ -760,11 +760,11 @@ PROTO_38:
        43 CALL                             R1 2 0
        44 GETUPVAL                         R1 9
        45 DUPTABLE                         R3 K14 [{"ControlPointPositions", "ControlPointEdges", "Adornees", "Transparency", "SelectedMesh", "FolderChangedCallback"}]
-       46 GETUPVAL                         R5 3
-       47 GETTABLEKS                       R4 R5 K12 ["Positions"]
+       46 GETUPVAL                         R4 3
+       47 GETTABLEKS                       R4 R4 K12 ["Positions"]
        49 SETTABLEKS                       R4 R3 K4 ["ControlPointPositions"]
-       51 GETUPVAL                         R5 3
-       52 GETTABLEKS                       R4 R5 K15 ["Edges"]
+       51 GETUPVAL                         R4 3
+       52 GETTABLEKS                       R4 R4 K15 ["Edges"]
        54 SETTABLEKS                       R4 R3 K13 ["ControlPointEdges"]
        56 GETUPVAL                         R4 0
        57 SETTABLEKS                       R4 R3 K5 ["Adornees"]
@@ -1131,8 +1131,8 @@ PROTO_70:
         4 RETURN                           R0 0
 
 PROTO_71:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["translatePoint"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["translatePoint"]
         3 MOVE                             R4 R1
         4 GETUPVAL                         R5 1
         5 MOVE                             R6 R0
@@ -1141,8 +1141,8 @@ PROTO_71:
         8 RETURN                           R3 -1
 
 PROTO_72:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["rotatePoint"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["rotatePoint"]
         3 MOVE                             R4 R1
         4 GETUPVAL                         R5 1
         5 GETUPVAL                         R6 2
@@ -1153,8 +1153,8 @@ PROTO_72:
        10 RETURN                           R3 -1
 
 PROTO_73:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["translatePoint"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["translatePoint"]
         3 MOVE                             R4 R1
         4 GETUPVAL                         R5 1
         5 MOVE                             R6 R0
@@ -1191,8 +1191,8 @@ PROTO_74:
        29 RETURN                           R0 0
 
 PROTO_75:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["scalePoint"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["scalePoint"]
         3 MOVE                             R4 R1
         4 GETUPVAL                         R5 1
         5 GETUPVAL                         R6 2
@@ -1237,8 +1237,8 @@ PROTO_79:
         5 GETIMPORT                        R0 K1 [setmetatable]
         7 CALL                             R0 2 1
         8 LOADNIL                          R1
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K2 ["new"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K2 ["new"]
        12 CALL                             R2 0 1
        13 NEWTABLE                         R3 0 0
        15 NEWTABLE                         R4 0 0
@@ -1248,8 +1248,8 @@ PROTO_79:
        21 LOADB                            R8 0
        22 LOADN                            R9 0
        23 NEWTABLE                         R10 0 0
-       25 GETUPVAL                         R12 1
-       26 GETTABLEKS                       R11 R12 K2 ["new"]
+       25 GETUPVAL                         R11 1
+       26 GETTABLEKS                       R11 R11 K2 ["new"]
        28 CALL                             R11 0 1
        29 LOADNIL                          R12
        30 LOADNIL                          R13
@@ -1262,11 +1262,11 @@ PROTO_79:
        38 NEWTABLE                         R20 0 0
        40 NEWTABLE                         R21 0 0
        42 LOADNIL                          R22
-       43 GETUPVAL                         R24 1
-       44 GETTABLEKS                       R23 R24 K2 ["new"]
+       43 GETUPVAL                         R23 1
+       44 GETTABLEKS                       R23 R23 K2 ["new"]
        46 CALL                             R23 0 1
-       47 GETUPVAL                         R25 1
-       48 GETTABLEKS                       R24 R25 K2 ["new"]
+       47 GETUPVAL                         R24 1
+       48 GETTABLEKS                       R24 R24 K2 ["new"]
        50 CALL                             R24 0 1
        51 NEWTABLE                         R25 0 0
        53 LOADN                            R26 0
@@ -1620,9 +1620,9 @@ PROTO_79:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Util"]
         9 GETIMPORT                        R2 K5 [require]
        11 GETTABLEKS                       R3 R1 K6 ["deepCopy"]
@@ -1656,13 +1656,13 @@ MAIN:
        58 GETTABLEKS                       R13 R8 K16 ["WireframeMeshView"]
        60 CALL                             R12 1 1
        61 GETIMPORT                        R13 K5 [require]
-       63 GETTABLEKS                       R15 R0 K17 ["Flags"]
-       65 GETTABLEKS                       R14 R15 K18 ["getFFlagAvatarPreviewerCageEditingTools"]
+       63 GETTABLEKS                       R14 R0 K17 ["Flags"]
+       65 GETTABLEKS                       R14 R14 K18 ["getFFlagAvatarPreviewerCageEditingTools"]
        67 CALL                             R13 1 1
-       68 GETTABLEKS                       R15 R7 K19 ["VertexToolBase"]
-       70 GETTABLEKS                       R14 R15 K20 ["DefaultWireframeColor"]
-       72 GETTABLEKS                       R16 R7 K19 ["VertexToolBase"]
-       74 GETTABLEKS                       R15 R16 K21 ["DefaultWireframeSegmentsColor"]
+       68 GETTABLEKS                       R14 R7 K19 ["VertexToolBase"]
+       70 GETTABLEKS                       R14 R14 K20 ["DefaultWireframeColor"]
+       72 GETTABLEKS                       R15 R7 K19 ["VertexToolBase"]
+       74 GETTABLEKS                       R15 R15 K21 ["DefaultWireframeSegmentsColor"]
        76 NEWTABLE                         R16 2 0
        78 SETTABLEKS                       R16 R16 K22 ["__index"]
        80 DUPCLOSURE                       R17 K23 [PROTO_79]

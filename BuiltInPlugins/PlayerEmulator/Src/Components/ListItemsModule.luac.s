@@ -1,16 +1,16 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ListItemsModuleExpansionCallback"]
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R3 R4 K1 ["state"]
-        6 GETTABLEKS                       R2 R3 K2 ["expanded"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ListItemsModuleExpansionCallback"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["state"]
+        6 GETTABLEKS                       R2 R2 K2 ["expanded"]
         8 NOT                              R1 R2
         9 CALL                             R0 1 0
        10 GETUPVAL                         R0 1
        11 DUPTABLE                         R2 K3 [{"expanded"}]
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R5 R6 K1 ["state"]
-       15 GETTABLEKS                       R4 R5 K2 ["expanded"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K1 ["state"]
+       15 GETTABLEKS                       R4 R4 K2 ["expanded"]
        17 NOT                              R3 R4
        18 SETTABLEKS                       R3 R2 K2 ["expanded"]
        20 NAMECALL                         R0 R0 K4 ["setState"]
@@ -18,13 +18,13 @@ PROTO_0:
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ListItemsCheckBoxCallback"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["LabelText"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ListItemsCheckBoxCallback"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["LabelText"]
         6 MOVE                             R3 R0
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K2 ["Plugin"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K2 ["Plugin"]
        10 NAMECALL                         R4 R4 K3 ["get"]
        12 CALL                             R4 1 -1
        13 CALL                             R1 -1 0
@@ -59,9 +59,9 @@ PROTO_3:
        21 MOVE                             R10 R6
        22 CALL                             R9 1 3
        23 FORGPREP_NEXT                    R9
-       24 GETUPVAL                         R17 0
-       25 GETTABLEKS                       R16 R17 K9 ["List"]
-       27 GETTABLEKS                       R15 R16 K10 ["find"]
+       24 GETUPVAL                         R15 0
+       25 GETTABLEKS                       R15 R15 K9 ["List"]
+       27 GETTABLEKS                       R15 R15 K10 ["find"]
        29 MOVE                             R16 R7
        30 MOVE                             R17 R13
        31 CALL                             R15 2 1
@@ -71,8 +71,8 @@ PROTO_3:
        36 LOADK                            R16 K11 ["Item"]
        37 MOVE                             R17 R13
        38 CONCAT                           R15 R16 R17
-       39 GETUPVAL                         R17 1
-       40 GETTABLEKS                       R16 R17 K12 ["createElement"]
+       39 GETUPVAL                         R16 1
+       40 GETTABLEKS                       R16 R16 K12 ["createElement"]
        42 GETUPVAL                         R17 2
        43 DUPTABLE                         R18 K16 [{"Enabled", "ItemKey", "Selected", "CheckBoxCallback"}]
        44 SETTABLEKS                       R3 R18 K2 ["Enabled"]
@@ -86,8 +86,8 @@ PROTO_3:
        58 GETUPVAL                         R10 3
        59 CALL                             R10 0 1
        60 JUMPIFNOT                        R10 ; [+16]
-       61 GETUPVAL                         R10 1
-       62 GETTABLEKS                       R9 R10 K12 ["createElement"]
+       61 GETUPVAL                         R9 1
+       62 GETTABLEKS                       R9 R9 K12 ["createElement"]
        64 GETUPVAL                         R10 4
        65 DUPTABLE                         R11 K21 [{"Expanded", "OnExpandedChanged", "Text"}]
        66 SETTABLEKS                       R4 R11 K18 ["Expanded"]
@@ -102,37 +102,37 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Roact"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Roact"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETTABLEKS                       R6 R3 K11 ["UI"]
        36 GETTABLEKS                       R7 R6 K12 ["ExpandablePane"]
        38 GETIMPORT                        R8 K4 [require]
-       40 GETTABLEKS                       R11 R0 K13 ["Src"]
-       42 GETTABLEKS                       R10 R11 K14 ["Components"]
-       44 GETTABLEKS                       R9 R10 K15 ["CheckBoxModule"]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Components"]
+       44 GETTABLEKS                       R9 R9 K15 ["CheckBoxModule"]
        46 CALL                             R8 1 1
-       47 GETIMPORT                        R10 K4 [require]
-       49 GETTABLEKS                       R13 R0 K13 ["Src"]
-       51 GETTABLEKS                       R12 R13 K16 ["Util"]
-       53 GETTABLEKS                       R11 R12 K17 ["PlayerEmulatorUtilities"]
-       55 CALL                             R10 1 1
-       56 GETTABLEKS                       R9 R10 K18 ["getSocialMediaReferencesAllowed"]
+       47 GETIMPORT                        R9 K4 [require]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K16 ["Util"]
+       53 GETTABLEKS                       R10 R10 K17 ["PlayerEmulatorUtilities"]
+       55 CALL                             R9 1 1
+       56 GETTABLEKS                       R9 R9 K18 ["getSocialMediaReferencesAllowed"]
        58 GETTABLEKS                       R10 R2 K19 ["PureComponent"]
        60 LOADK                            R12 K20 ["ListItemsModule"]
        61 NAMECALL                         R10 R10 K21 ["extend"]

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R4 R0 K0 ["Position"]
-        2 GETTABLEKS                       R3 R4 K1 ["Y"]
+        0 GETTABLEKS                       R3 R0 K0 ["Position"]
+        2 GETTABLEKS                       R3 R3 K1 ["Y"]
         4 GETTABLEKS                       R5 R1 K1 ["Y"]
         6 DIVK                             R4 R5 K2 [2]
         7 SUB                              R2 R3 R4
@@ -17,8 +17,8 @@ PROTO_2:
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R0
         3 CALL                             R3 1 2
-        4 GETTABLEKS                       R6 R3 K0 ["Position"]
-        6 GETTABLEKS                       R5 R6 K1 ["Y"]
+        4 GETTABLEKS                       R5 R3 K0 ["Position"]
+        6 GETTABLEKS                       R5 R5 K1 ["Y"]
         8 GETTABLEKS                       R7 R4 K1 ["Y"]
        10 DIVK                             R6 R7 K2 [2]
        11 SUB                              R2 R5 R6
@@ -48,8 +48,8 @@ PROTO_3:
        24 GETUPVAL                         R5 1
        25 MOVE                             R6 R0
        26 CALL                             R5 1 2
-       27 GETTABLEKS                       R8 R5 K9 ["Position"]
-       29 GETTABLEKS                       R7 R8 K10 ["Y"]
+       27 GETTABLEKS                       R7 R5 K9 ["Position"]
+       29 GETTABLEKS                       R7 R7 K10 ["Y"]
        31 GETTABLEKS                       R9 R6 K10 ["Y"]
        33 DIVK                             R8 R9 K11 [2]
        34 SUB                              R4 R7 R8
@@ -76,10 +76,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["AvatarPreview"]
-       15 GETTABLEKS                       R2 R3 K9 ["getHumanoidBoundingBox"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarPreview"]
+       15 GETTABLEKS                       R2 R2 K9 ["getHumanoidBoundingBox"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 4 0
        20 NEWTABLE                         R3 0 0

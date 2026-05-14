@@ -36,15 +36,15 @@ PROTO_1:
        36 GETUPVAL                         R5 1
        37 MOVE                             R6 R1
        38 LOADK                            R7 K9 ["HttpError"]
-       39 GETTABLEKS                       R9 R3 K13 ["httpResponse"]
-       41 GETTABLEKS                       R8 R9 K14 ["statusCode"]
+       39 GETTABLEKS                       R8 R3 K13 ["httpResponse"]
+       41 GETTABLEKS                       R8 R8 K14 ["statusCode"]
        43 CALL                             R5 3 1
        44 MOVE                             R4 R5
        45 GETIMPORT                        R5 K17 [string.find]
        47 GETTABLEKS                       R6 R3 K18 ["simpleErrorMessage"]
-       49 GETUPVAL                         R9 2
-       50 GETTABLEKS                       R8 R9 K19 ["ErrorCode"]
-       52 GETTABLEKS                       R7 R8 K20 ["CorruptedFile"]
+       49 GETUPVAL                         R7 2
+       50 GETTABLEKS                       R7 R7 K19 ["ErrorCode"]
+       52 GETTABLEKS                       R7 R7 K20 ["CorruptedFile"]
        54 CALL                             R5 2 1
        55 JUMPIFNOT                        R5 ; [+6]
        56 LOADK                            R7 K21 ["ParseError"]
@@ -53,9 +53,9 @@ PROTO_1:
        60 CALL                             R5 3 -1
        61 RETURN                           R5 -1
        62 GETTABLEKS                       R5 R3 K22 ["reason"]
-       64 GETUPVAL                         R8 2
-       65 GETTABLEKS                       R7 R8 K19 ["ErrorCode"]
-       67 GETTABLEKS                       R6 R7 K23 ["AssetDependencyError"]
+       64 GETUPVAL                         R6 2
+       65 GETTABLEKS                       R6 R6 K19 ["ErrorCode"]
+       67 GETTABLEKS                       R6 R6 K23 ["AssetDependencyError"]
        69 JUMPIFNOTEQ                      R5 R6 ; [+10]
        71 GETUPVAL                         R5 1
        72 MOVE                             R6 R1
@@ -67,9 +67,9 @@ PROTO_1:
        79 JUMP                             ; [+45]
        80 GETIMPORT                        R5 K17 [string.find]
        82 GETTABLEKS                       R6 R3 K18 ["simpleErrorMessage"]
-       84 GETUPVAL                         R9 2
-       85 GETTABLEKS                       R8 R9 K19 ["ErrorCode"]
-       87 GETTABLEKS                       R7 R8 K26 ["ModerationError"]
+       84 GETUPVAL                         R7 2
+       85 GETTABLEKS                       R7 R7 K19 ["ErrorCode"]
+       87 GETTABLEKS                       R7 R7 K26 ["ModerationError"]
        89 CALL                             R5 2 1
        90 JUMPIFNOT                        R5 ; [+7]
        91 GETUPVAL                         R5 1
@@ -81,9 +81,9 @@ PROTO_1:
        97 JUMP                             ; [+27]
        98 GETIMPORT                        R5 K17 [string.find]
       100 GETTABLEKS                       R6 R3 K18 ["simpleErrorMessage"]
-      102 GETUPVAL                         R9 2
-      103 GETTABLEKS                       R8 R9 K19 ["ErrorCode"]
-      105 GETTABLEKS                       R7 R8 K28 ["ImageResolutionError"]
+      102 GETUPVAL                         R7 2
+      103 GETTABLEKS                       R7 R7 K19 ["ErrorCode"]
+      105 GETTABLEKS                       R7 R7 K28 ["ImageResolutionError"]
       107 CALL                             R5 2 1
       108 JUMPIFNOT                        R5 ; [+16]
       109 DUPTABLE                         R5 K30 [{"pixelLimit"}]
@@ -122,21 +122,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["HttpService"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R5 R0 K6 ["Src"]
-       24 GETTABLEKS                       R4 R5 K11 ["Types"]
+       22 GETTABLEKS                       R4 R0 K6 ["Src"]
+       24 GETTABLEKS                       R4 R4 K11 ["Types"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R0 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K7 ["Utility"]
-       33 GETTABLEKS                       R5 R6 K12 ["GetLocalizedString"]
+       29 GETTABLEKS                       R5 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K7 ["Utility"]
+       33 GETTABLEKS                       R5 R5 K12 ["GetLocalizedString"]
        35 CALL                             R4 1 1
        36 DUPCLOSURE                       R5 K13 [PROTO_1]
        37 CAPTURE                          VAL R2

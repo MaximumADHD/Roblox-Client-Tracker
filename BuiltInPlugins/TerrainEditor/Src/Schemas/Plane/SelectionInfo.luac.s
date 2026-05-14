@@ -30,9 +30,9 @@ PROTO_2:
         8 CALL                             R1 1 -1
         9 RETURN                           R1 -1
        10 GETIMPORT                        R1 K5 [CFrame.new]
-       12 GETTABLEKS                       R4 R0 K6 ["_transform"]
-       14 GETTABLEKS                       R3 R4 K7 ["Transform"]
-       16 GETTABLEKS                       R2 R3 K8 ["Position"]
+       12 GETTABLEKS                       R2 R0 K6 ["_transform"]
+       14 GETTABLEKS                       R2 R2 K7 ["Transform"]
+       16 GETTABLEKS                       R2 R2 K8 ["Position"]
        18 CALL                             R1 1 1
        19 FASTCALL                         VECTOR ; [+2]
        20 GETIMPORT                        R2 K10 [Vector3.new]
@@ -43,8 +43,8 @@ PROTO_2:
        27 RETURN                           R1 3
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["_transform"]
-        2 GETTABLEKS                       R1 R2 K1 ["Transform"]
+        0 GETTABLEKS                       R1 R0 K0 ["_transform"]
+        2 GETTABLEKS                       R1 R1 K1 ["Transform"]
         4 FASTCALL                         VECTOR ; [+2]
         5 GETIMPORT                        R2 K4 [Vector3.new]
         7 CALL                             R2 0 1

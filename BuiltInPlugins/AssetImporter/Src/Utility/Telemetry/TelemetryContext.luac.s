@@ -24,8 +24,8 @@ PROTO_2:
         3 MOVE                             R2 R3
         4 GETTABLEKS                       R3 R0 K0 ["telemetry"]
         6 MOVE                             R5 R2
-        7 GETUPVAL                         R7 1
-        8 GETTABLEKS                       R6 R7 K1 ["join"]
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R6 R6 K1 ["join"]
        10 DUPTABLE                         R7 K4 [{"studioSessionId", "clientId"}]
        11 GETUPVAL                         R8 2
        12 NAMECALL                         R8 R8 K5 ["GetSessionId"]
@@ -81,24 +81,24 @@ PROTO_6:
 
 PROTO_7:
         0 NEWTABLE                         R2 4 0
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K0 ["FileType"]
-        5 GETTABLEKS                       R3 R4 K1 ["Video"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["FileType"]
+        5 GETTABLEKS                       R3 R3 K1 ["Video"]
         7 LOADN                            R4 0
         8 SETTABLE                         R4 R2 R3
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K0 ["FileType"]
-       12 GETTABLEKS                       R3 R4 K2 ["Audio"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K0 ["FileType"]
+       12 GETTABLEKS                       R3 R3 K2 ["Audio"]
        14 LOADN                            R4 0
        15 SETTABLE                         R4 R2 R3
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K0 ["FileType"]
-       19 GETTABLEKS                       R3 R4 K3 ["Image"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K0 ["FileType"]
+       19 GETTABLEKS                       R3 R3 K3 ["Image"]
        21 LOADN                            R4 0
        22 SETTABLE                         R4 R2 R3
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K0 ["FileType"]
-       26 GETTABLEKS                       R3 R4 K4 ["Scene"]
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K0 ["FileType"]
+       26 GETTABLEKS                       R3 R3 K4 ["Scene"]
        28 LOADN                            R4 0
        29 SETTABLE                         R4 R2 R3
        30 MOVE                             R3 R1
@@ -116,24 +116,24 @@ PROTO_7:
        45 DUPTABLE                         R5 K12 [{"eventType", "videoImports", "audioImports", "imageImports", "meshImports"}]
        46 LOADK                            R6 K13 ["ImportStarted"]
        47 SETTABLEKS                       R6 R5 K7 ["eventType"]
-       49 GETUPVAL                         R9 0
-       50 GETTABLEKS                       R8 R9 K0 ["FileType"]
-       52 GETTABLEKS                       R7 R8 K1 ["Video"]
+       49 GETUPVAL                         R7 0
+       50 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       52 GETTABLEKS                       R7 R7 K1 ["Video"]
        54 GETTABLE                         R6 R2 R7
        55 SETTABLEKS                       R6 R5 K8 ["videoImports"]
-       57 GETUPVAL                         R9 0
-       58 GETTABLEKS                       R8 R9 K0 ["FileType"]
-       60 GETTABLEKS                       R7 R8 K1 ["Video"]
+       57 GETUPVAL                         R7 0
+       58 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       60 GETTABLEKS                       R7 R7 K1 ["Video"]
        62 GETTABLE                         R6 R2 R7
        63 SETTABLEKS                       R6 R5 K9 ["audioImports"]
-       65 GETUPVAL                         R9 0
-       66 GETTABLEKS                       R8 R9 K0 ["FileType"]
-       68 GETTABLEKS                       R7 R8 K1 ["Video"]
+       65 GETUPVAL                         R7 0
+       66 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       68 GETTABLEKS                       R7 R7 K1 ["Video"]
        70 GETTABLE                         R6 R2 R7
        71 SETTABLEKS                       R6 R5 K10 ["imageImports"]
-       73 GETUPVAL                         R9 0
-       74 GETTABLEKS                       R8 R9 K0 ["FileType"]
-       76 GETTABLEKS                       R7 R8 K1 ["Video"]
+       73 GETUPVAL                         R7 0
+       74 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       76 GETTABLEKS                       R7 R7 K1 ["Video"]
        78 GETTABLE                         R6 R2 R7
        79 SETTABLEKS                       R6 R5 K11 ["meshImports"]
        81 NAMECALL                         R3 R0 K14 ["logRobloxTelemetryEvent"]
@@ -144,8 +144,8 @@ PROTO_8:
         0 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 DUPTABLE                         R2 K2 [{"logRobloxTelemetryEvent"}]
         4 MOVE                             R3 R0
         5 JUMPIF                           R3 ; [+1]
@@ -161,37 +161,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["RbxAnalyticsService"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R5 R0 K11 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Dash"]
+       22 GETTABLEKS                       R4 R0 K11 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Dash"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R6 R0 K11 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       29 GETTABLEKS                       R5 R0 K11 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["Framework"]
        33 CALL                             R4 1 1
-       34 GETTABLEKS                       R6 R4 K14 ["ContextServices"]
-       36 GETTABLEKS                       R5 R6 K15 ["ContextItem"]
+       34 GETTABLEKS                       R5 R4 K14 ["ContextServices"]
+       36 GETTABLEKS                       R5 R5 K15 ["ContextItem"]
        38 GETIMPORT                        R6 K5 [require]
-       40 GETTABLEKS                       R10 R0 K6 ["Src"]
-       42 GETTABLEKS                       R9 R10 K7 ["Utility"]
-       44 GETTABLEKS                       R8 R9 K16 ["Telemetry"]
-       46 GETTABLEKS                       R7 R8 K17 ["ImportQueueEvent"]
+       40 GETTABLEKS                       R7 R0 K6 ["Src"]
+       42 GETTABLEKS                       R7 R7 K7 ["Utility"]
+       44 GETTABLEKS                       R7 R7 K16 ["Telemetry"]
+       46 GETTABLEKS                       R7 R7 K17 ["ImportQueueEvent"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K5 [require]
-       51 GETTABLEKS                       R9 R0 K6 ["Src"]
-       53 GETTABLEKS                       R8 R9 K18 ["Types"]
+       51 GETTABLEKS                       R8 R0 K6 ["Src"]
+       53 GETTABLEKS                       R8 R8 K18 ["Types"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K5 [require]
-       58 GETTABLEKS                       R11 R0 K6 ["Src"]
-       60 GETTABLEKS                       R10 R11 K18 ["Types"]
-       62 GETTABLEKS                       R9 R10 K19 ["QueuedSession"]
+       58 GETTABLEKS                       R9 R0 K6 ["Src"]
+       60 GETTABLEKS                       R9 R9 K18 ["Types"]
+       62 GETTABLEKS                       R9 R9 K19 ["QueuedSession"]
        64 CALL                             R8 1 1
        65 LOADK                            R11 K16 ["Telemetry"]
        66 NAMECALL                         R9 R5 K20 ["extend"]

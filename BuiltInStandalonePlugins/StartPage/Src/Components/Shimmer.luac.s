@@ -66,8 +66,8 @@ PROTO_4:
        31 LOADN                            R4 90
        32 JUMP                             ; [+1]
        33 LOADN                            R4 45
-       34 GETUPVAL                         R6 3
-       35 GETTABLEKS                       R5 R6 K11 ["createElement"]
+       34 GETUPVAL                         R5 3
+       35 GETTABLEKS                       R5 R5 K11 ["createElement"]
        37 LOADK                            R6 K12 ["Frame"]
        38 NEWTABLE                         R7 8 0
        40 GETTABLEKS                       R8 R0 K13 ["Size"]
@@ -78,20 +78,20 @@ PROTO_4:
        50 SETTABLEKS                       R8 R7 K15 ["AnchorPoint"]
        52 LOADB                            R8 1
        53 SETTABLEKS                       R8 R7 K16 ["ClipsDescendants"]
-       55 GETUPVAL                         R10 3
-       56 GETTABLEKS                       R9 R10 K17 ["Change"]
-       58 GETTABLEKS                       R8 R9 K18 ["AbsoluteSize"]
+       55 GETUPVAL                         R8 3
+       56 GETTABLEKS                       R8 R8 K17 ["Change"]
+       58 GETTABLEKS                       R8 R8 K18 ["AbsoluteSize"]
        60 NEWCLOSURE                       R9 P1
        61 CAPTURE                          VAL R2
        62 SETTABLE                         R9 R7 R8
-       63 GETUPVAL                         R9 3
-       64 GETTABLEKS                       R8 R9 K19 ["Tag"]
+       63 GETUPVAL                         R8 3
+       64 GETTABLEKS                       R8 R8 K19 ["Tag"]
        66 LOADK                            R10 K20 ["StartPage-NoBorder StartPage-ShimmerBackground "]
        67 MOVE                             R11 R3
        68 CONCAT                           R9 R10 R11
        69 SETTABLE                         R9 R7 R8
-       70 GETUPVAL                         R9 3
-       71 GETTABLEKS                       R8 R9 K11 ["createElement"]
+       70 GETUPVAL                         R8 3
+       71 GETTABLEKS                       R8 R8 K11 ["createElement"]
        73 LOADK                            R9 K12 ["Frame"]
        74 NEWTABLE                         R10 2 0
        76 GETIMPORT                        R11 K23 [UDim2.new]
@@ -101,21 +101,21 @@ PROTO_4:
        81 LOADN                            R15 0
        82 CALL                             R11 4 1
        83 SETTABLEKS                       R11 R10 K13 ["Size"]
-       85 GETUPVAL                         R12 3
-       86 GETTABLEKS                       R11 R12 K19 ["Tag"]
+       85 GETUPVAL                         R11 3
+       86 GETTABLEKS                       R11 R11 K19 ["Tag"]
        88 LOADK                            R13 K24 ["StartPage-NoBorder StartPage-ShimmerForeground "]
        89 MOVE                             R14 R3
        90 CONCAT                           R12 R13 R14
        91 SETTABLE                         R12 R10 R11
-       92 GETUPVAL                         R12 3
-       93 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       92 GETUPVAL                         R11 3
+       93 GETTABLEKS                       R11 R11 K11 ["createElement"]
        95 LOADK                            R12 K25 ["UIGradient"]
        96 NEWTABLE                         R13 4 0
        98 SETTABLEKS                       R4 R13 K6 ["Rotation"]
       100 GETUPVAL                         R14 4
       101 SETTABLEKS                       R14 R13 K26 ["Offset"]
-      103 GETUPVAL                         R15 3
-      104 GETTABLEKS                       R14 R15 K19 ["Tag"]
+      103 GETUPVAL                         R14 3
+      104 GETTABLEKS                       R14 R14 K19 ["Tag"]
       106 LOADK                            R15 K27 ["StartPage-ShimmerGradient"]
       107 SETTABLE                         R15 R13 R14
       108 CALL                             R11 2 -1
@@ -137,8 +137,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useState"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]

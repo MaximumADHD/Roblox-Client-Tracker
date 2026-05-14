@@ -5,9 +5,9 @@ PROTO_0:
         4 CALL                             R1 2 1
         5 JUMPIF                           R1 ; [+10]
         6 GETUPVAL                         R1 2
-        7 GETUPVAL                         R5 3
-        8 GETTABLEKS                       R4 R5 K1 ["CreateAvatarRules"]
-       10 GETTABLEKS                       R3 R4 K2 ["fromAssetDm"]
+        7 GETUPVAL                         R3 3
+        8 GETTABLEKS                       R3 R3 K1 ["CreateAvatarRules"]
+       10 GETTABLEKS                       R3 R3 K2 ["fromAssetDm"]
        12 NAMECALL                         R1 R1 K3 ["Invoke"]
        14 CALL                             R1 2 0
        15 RETURN                           R0 0
@@ -39,8 +39,8 @@ PROTO_1:
         8 CALL                             R0 1 0
         9 GETUPVAL                         R0 3
        10 JUMPIF                           R0 ; [+4]
-       11 GETUPVAL                         R1 4
-       12 GETTABLEKS                       R0 R1 K0 ["applyAvatarRulesWithDebounce"]
+       11 GETUPVAL                         R0 4
+       12 GETTABLEKS                       R0 R0 K0 ["applyAvatarRulesWithDebounce"]
        14 CALL                             R0 0 0
        15 GETUPVAL                         R0 5
        16 JUMPIFNOT                        R0 ; [+3]
@@ -48,8 +48,8 @@ PROTO_1:
        18 SETUPVAL                         R0 5
        19 RETURN                           R0 0
        20 GETUPVAL                         R0 6
-       21 GETUPVAL                         R3 7
-       22 GETTABLEKS                       R2 R3 K1 ["fromAssetDm"]
+       21 GETUPVAL                         R2 7
+       22 GETTABLEKS                       R2 R2 K1 ["fromAssetDm"]
        24 GETUPVAL                         R4 0
        25 GETUPVAL                         R5 2
        26 GETTABLE                         R3 R4 R5
@@ -88,8 +88,8 @@ PROTO_2:
        30 CAPTURE                          VAL R3
        31 NAMECALL                         R9 R9 K4 ["Connect"]
        33 CALL                             R9 2 1
-       34 GETUPVAL                         R11 4
-       35 GETTABLEKS                       R10 R11 K5 ["addConnections"]
+       34 GETUPVAL                         R10 4
+       35 GETTABLEKS                       R10 R10 K5 ["addConnections"]
        37 MOVE                             R11 R8
        38 MOVE                             R12 R9
        39 CALL                             R10 2 0
@@ -133,32 +133,32 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+21]
-        2 GETUPVAL                         R2 2
-        3 GETTABLEKS                       R1 R2 K0 ["property"]
+        2 GETUPVAL                         R1 2
+        3 GETTABLEKS                       R1 R1 K0 ["property"]
         5 SETUPVAL                         R1 1
         6 GETTABLEKS                       R1 R0 K1 ["setCurrentAnimationAsync"]
-        8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R3 R4 K2 ["ruleInstance"]
-       11 GETUPVAL                         R7 2
-       12 GETTABLEKS                       R5 R7 K0 ["property"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K2 ["ruleInstance"]
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R5 R5 K0 ["property"]
        14 LOADK                            R6 K3 ["Id"]
        15 CONCAT                           R4 R5 R6
        16 GETTABLE                         R2 R3 R4
-       17 GETUPVAL                         R4 2
-       18 GETTABLEKS                       R3 R4 K0 ["property"]
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R3 R3 K0 ["property"]
        20 LOADB                            R4 1
        21 CALL                             R1 3 0
        22 RETURN                           R0 0
        23 GETUPVAL                         R1 1
-       24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R2 R3 K0 ["property"]
+       24 GETUPVAL                         R2 2
+       25 GETTABLEKS                       R2 R2 K0 ["property"]
        27 JUMPIFNOTEQ                      R1 R2 ; [+11]
        29 LOADNIL                          R1
        30 SETUPVAL                         R1 1
        31 GETTABLEKS                       R1 R0 K1 ["setCurrentAnimationAsync"]
        33 LOADN                            R2 0
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R3 R4 K0 ["property"]
+       34 GETUPVAL                         R3 2
+       35 GETTABLEKS                       R3 R3 K0 ["property"]
        37 LOADB                            R4 0
        38 CALL                             R1 3 0
        39 RETURN                           R0 0
@@ -175,8 +175,8 @@ PROTO_6:
        11 LOADK                            R3 K3 ["Expected boolean value"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K6 ["try"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["try"]
        18 NEWCLOSURE                       R2 P0
        19 CAPTURE                          VAL R0
        20 CAPTURE                          UPVAL U1
@@ -187,14 +187,14 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["property"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["property"]
         4 JUMPIFNOTEQ                      R1 R2 ; [+9]
-        6 GETUPVAL                         R2 2
-        7 GETTABLEKS                       R1 R2 K1 ["setCurrentAnimationAsync"]
+        6 GETUPVAL                         R1 2
+        7 GETTABLEKS                       R1 R1 K1 ["setCurrentAnimationAsync"]
         9 GETUPVAL                         R2 3
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R3 R4 K0 ["property"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K0 ["property"]
        13 CALL                             R1 2 0
        14 RETURN                           R0 0
 
@@ -210,8 +210,8 @@ PROTO_8:
        11 LOADK                            R3 K3 ["Expected number value for assetId"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R1 R2 K6 ["try"]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R1 R1 K6 ["try"]
        18 NEWCLOSURE                       R2 P0
        19 CAPTURE                          UPVAL U1
        20 CAPTURE                          UPVAL U2
@@ -232,8 +232,8 @@ PROTO_9:
         7 CAPTURE                          UPVAL U1
         8 CAPTURE                          VAL R1
         9 CAPTURE                          UPVAL U2
-       10 GETUPVAL                         R6 3
-       11 GETTABLEKS                       R5 R6 K0 ["createAssetIdInvokes"]
+       10 GETUPVAL                         R5 3
+       11 GETTABLEKS                       R5 R5 K0 ["createAssetIdInvokes"]
        13 MOVE                             R6 R0
        14 MOVE                             R7 R1
        15 MOVE                             R8 R2
@@ -244,8 +244,8 @@ PROTO_9:
        20 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["createAssetIdInvokes"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["createAssetIdInvokes"]
         3 MOVE                             R5 R0
         4 MOVE                             R6 R1
         5 MOVE                             R7 R2
@@ -270,39 +270,39 @@ MAIN:
        16 NAMECALL                         R2 R2 K6 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K9 [require]
-       21 GETTABLEKS                       R8 R0 K10 ["Src"]
-       23 GETTABLEKS                       R7 R8 K11 ["Util"]
-       25 GETTABLEKS                       R6 R7 K12 ["BridgingFiles"]
-       27 GETTABLEKS                       R5 R6 K13 ["AssetDmFiles"]
-       29 GETTABLEKS                       R4 R5 K14 ["assetDmConnectionManager"]
+       21 GETTABLEKS                       R4 R0 K10 ["Src"]
+       23 GETTABLEKS                       R4 R4 K11 ["Util"]
+       25 GETTABLEKS                       R4 R4 K12 ["BridgingFiles"]
+       27 GETTABLEKS                       R4 R4 K13 ["AssetDmFiles"]
+       29 GETTABLEKS                       R4 R4 K14 ["assetDmConnectionManager"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K9 [require]
-       34 GETTABLEKS                       R6 R0 K15 ["Packages"]
-       36 GETTABLEKS                       R5 R6 K16 ["Promise"]
+       34 GETTABLEKS                       R5 R0 K15 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K16 ["Promise"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K9 [require]
-       41 GETTABLEKS                       R10 R0 K10 ["Src"]
-       43 GETTABLEKS                       R9 R10 K11 ["Util"]
-       45 GETTABLEKS                       R8 R9 K12 ["BridgingFiles"]
-       47 GETTABLEKS                       R7 R8 K13 ["AssetDmFiles"]
-       49 GETTABLEKS                       R6 R7 K17 ["assetDmTypes"]
+       41 GETTABLEKS                       R6 R0 K10 ["Src"]
+       43 GETTABLEKS                       R6 R6 K11 ["Util"]
+       45 GETTABLEKS                       R6 R6 K12 ["BridgingFiles"]
+       47 GETTABLEKS                       R6 R6 K13 ["AssetDmFiles"]
+       49 GETTABLEKS                       R6 R6 K17 ["assetDmTypes"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K9 [require]
-       54 GETTABLEKS                       R9 R0 K10 ["Src"]
-       56 GETTABLEKS                       R8 R9 K11 ["Util"]
-       58 GETTABLEKS                       R7 R8 K18 ["InvokeKeys"]
+       54 GETTABLEKS                       R7 R0 K10 ["Src"]
+       56 GETTABLEKS                       R7 R7 K11 ["Util"]
+       58 GETTABLEKS                       R7 R7 K18 ["InvokeKeys"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K9 [require]
-       63 GETTABLEKS                       R11 R0 K10 ["Src"]
-       65 GETTABLEKS                       R10 R11 K11 ["Util"]
-       67 GETTABLEKS                       R9 R10 K19 ["AvatarPreview"]
-       69 GETTABLEKS                       R8 R9 K20 ["previewAnimationManager"]
+       63 GETTABLEKS                       R8 R0 K10 ["Src"]
+       65 GETTABLEKS                       R8 R8 K11 ["Util"]
+       67 GETTABLEKS                       R8 R8 K19 ["AvatarPreview"]
+       69 GETTABLEKS                       R8 R8 K20 ["previewAnimationManager"]
        71 CALL                             R7 1 1
        72 GETIMPORT                        R8 K9 [require]
-       74 GETTABLEKS                       R12 R0 K10 ["Src"]
-       76 GETTABLEKS                       R11 R12 K11 ["Util"]
-       78 GETTABLEKS                       R10 R11 K19 ["AvatarPreview"]
-       80 GETTABLEKS                       R9 R10 K21 ["previewFolderUtils"]
+       74 GETTABLEKS                       R9 R0 K10 ["Src"]
+       76 GETTABLEKS                       R9 R9 K11 ["Util"]
+       78 GETTABLEKS                       R9 R9 K19 ["AvatarPreview"]
+       80 GETTABLEKS                       R9 R9 K21 ["previewFolderUtils"]
        82 CALL                             R8 1 1
        83 NEWTABLE                         R9 4 0
        85 LOADNIL                          R10

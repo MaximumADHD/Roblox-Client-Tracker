@@ -45,18 +45,17 @@ PROTO_2:
        17 CALL                             R3 2 1
        18 ADD                              R5 R1 R2
        19 SUB                              R4 R5 R3
-       20 LOADN                            R8 4
-       21 MUL                              R7 R8 R1
-       22 MUL                              R6 R7 R2
-       23 MUL                              R7 R4 R4
-       24 SUB                              R5 R6 R7
-       25 SETTABLEKS                       R5 R0 K3 ["area"]
-       27 RETURN                           R0 0
+       20 MULK                             R7 R1 K3 [4]
+       21 MUL                              R6 R7 R2
+       22 MUL                              R7 R4 R4
+       23 SUB                              R5 R6 R7
+       24 SETTABLEKS                       R5 R0 K4 ["area"]
+       26 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K4 [require]
         7 GETTABLEKS                       R2 R0 K5 ["Types"]
         9 CALL                             R1 1 1

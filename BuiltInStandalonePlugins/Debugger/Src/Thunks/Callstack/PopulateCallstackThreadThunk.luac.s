@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 NAMECALL                         R3 R3 K0 ["getState"]
-        3 CALL                             R3 1 1
-        4 GETTABLEKS                       R2 R3 K1 ["Common"]
-        6 GETTABLEKS                       R1 R2 K2 ["debuggerConnectionIdToDST"]
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["debuggerConnectionId"]
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["getState"]
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Common"]
+        6 GETTABLEKS                       R1 R1 K2 ["debuggerConnectionIdToDST"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["debuggerConnectionId"]
        11 GETTABLE                         R0 R1 R2
        12 GETUPVAL                         R1 1
        13 JUMPIFEQ                         R1 R0 ; [+2]
@@ -23,8 +23,8 @@ PROTO_0:
        31 DUPTABLE                         R9 K10 [{"Value", "LeftIcon"}]
        32 LOADK                            R10 K11 [""]
        33 SETTABLEKS                       R10 R9 K8 ["Value"]
-       35 GETUPVAL                         R11 3
-       36 GETTABLEKS                       R10 R11 K12 ["ICON_FRAME_TOP"]
+       35 GETUPVAL                         R10 3
+       36 GETTABLEKS                       R10 R10 K12 ["ICON_FRAME_TOP"]
        38 SETTABLEKS                       R10 R9 K9 ["LeftIcon"]
        40 MOVE                             R8 R9
        41 DUPTABLE                         R9 K18 [{"arrowColumn", "frameColumn", "functionColumn", "lineColumn", "sourceColumn"}]
@@ -50,17 +50,17 @@ PROTO_0:
        73 CALL                             R10 -1 0
        74 GETUPVAL                         R10 5
        75 GETTABLEKS                       R12 R7 K21 ["Script"]
-       77 GETUPVAL                         R15 0
-       78 NAMECALL                         R15 R15 K0 ["getState"]
-       80 CALL                             R15 1 1
-       81 GETTABLEKS                       R14 R15 K1 ["Common"]
-       83 GETTABLEKS                       R13 R14 K23 ["currentDebuggerConnectionId"]
+       77 GETUPVAL                         R13 0
+       78 NAMECALL                         R13 R13 K0 ["getState"]
+       80 CALL                             R13 1 1
+       81 GETTABLEKS                       R13 R13 K1 ["Common"]
+       83 GETTABLEKS                       R13 R13 K23 ["currentDebuggerConnectionId"]
        85 GETTABLEKS                       R14 R7 K20 ["Line"]
        87 NAMECALL                         R10 R10 K24 ["StartWatchingScriptLine"]
        89 CALL                             R10 4 0
        90 MOVE                             R11 R2
-       91 GETUPVAL                         R13 3
-       92 GETTABLEKS                       R12 R13 K25 ["fromData"]
+       91 GETUPVAL                         R12 3
+       92 GETTABLEKS                       R12 R12 K25 ["fromData"]
        94 MOVE                             R13 R9
        95 CALL                             R12 1 -1
        96 FASTCALL                         TABLE_INSERT ; [+2]
@@ -72,8 +72,8 @@ PROTO_0:
       104 JUMPIFNOTLT                      R4 R3 ; [+12]
       106 GETUPVAL                         R3 0
       107 GETUPVAL                         R5 6
-      108 GETUPVAL                         R7 2
-      109 GETTABLEKS                       R6 R7 K29 ["ThreadId"]
+      108 GETUPVAL                         R6 2
+      109 GETTABLEKS                       R6 R6 K29 ["ThreadId"]
       111 MOVE                             R7 R2
       112 GETUPVAL                         R8 1
       113 CALL                             R5 3 -1
@@ -115,26 +115,26 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Models"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Models"]
        15 GETIMPORT                        R2 K6 [require]
-       17 GETTABLEKS                       R4 R1 K7 ["Callstack"]
-       19 GETTABLEKS                       R3 R4 K8 ["CallstackRow"]
+       17 GETTABLEKS                       R3 R1 K7 ["Callstack"]
+       19 GETTABLEKS                       R3 R3 K8 ["CallstackRow"]
        21 CALL                             R2 1 1
-       22 GETTABLEKS                       R4 R0 K3 ["Src"]
-       24 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       22 GETTABLEKS                       R3 R0 K3 ["Src"]
+       24 GETTABLEKS                       R3 R3 K9 ["Actions"]
        26 GETIMPORT                        R4 K6 [require]
-       28 GETTABLEKS                       R6 R3 K7 ["Callstack"]
-       30 GETTABLEKS                       R5 R6 K10 ["AddCallstack"]
+       28 GETTABLEKS                       R5 R3 K7 ["Callstack"]
+       30 GETTABLEKS                       R5 R5 K10 ["AddCallstack"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K6 [require]
-       35 GETTABLEKS                       R7 R3 K11 ["Common"]
-       37 GETTABLEKS                       R6 R7 K12 ["SetFilenameForGuid"]
+       35 GETTABLEKS                       R6 R3 K11 ["Common"]
+       37 GETTABLEKS                       R6 R6 K12 ["SetFilenameForGuid"]
        39 CALL                             R5 1 1
        40 DUPCLOSURE                       R6 K13 [PROTO_2]
        41 CAPTURE                          VAL R2

@@ -20,8 +20,8 @@ PROTO_1:
         5 LOADK                            R7 K3 [0.0001]
         6 JUMPIFNOTLT                      R6 R7 ; [+2]
         8 RETURN                           R0 0
-        9 GETUPVAL                         R7 0
-       10 GETTABLEKS                       R6 R7 K4 ["itemsHasItemNotInList"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K4 ["itemsHasItemNotInList"]
        12 NAMECALL                         R7 R0 K5 ["GetTouchingParts"]
        14 CALL                             R7 1 1
        15 MOVE                             R8 R1
@@ -29,8 +29,8 @@ PROTO_1:
        17 JUMPIF                           R6 ; [+34]
        18 GETTABLEKS                       R6 R0 K6 ["CFrame"]
        20 GETTABLEKS                       R5 R6 K7 ["p"]
-       22 GETTABLEKS                       R8 R0 K6 ["CFrame"]
-       24 GETTABLEKS                       R7 R8 K7 ["p"]
+       22 GETTABLEKS                       R7 R0 K6 ["CFrame"]
+       24 GETTABLEKS                       R7 R7 K7 ["p"]
        26 GETTABLEKS                       R9 R2 K8 ["Unit"]
        28 MUL                              R8 R9 R3
        29 ADD                              R6 R7 R8
@@ -70,14 +70,14 @@ PROTO_2:
         5 LOADK                            R7 K3 [0.0001]
         6 JUMPIFNOTLT                      R6 R7 ; [+12]
         8 GETTABLEKS                       R8 R0 K4 ["CFrame"]
-       10 GETTABLEKS                       R10 R0 K4 ["CFrame"]
-       12 GETTABLEKS                       R9 R10 K5 ["p"]
+       10 GETTABLEKS                       R9 R0 K4 ["CFrame"]
+       12 GETTABLEKS                       R9 R9 K5 ["p"]
        14 SUB                              R7 R8 R9
        15 ADD                              R6 R7 R5
        16 SETTABLEKS                       R6 R0 K4 ["CFrame"]
        18 RETURN                           R0 0
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K6 ["itemsHasItemNotInList"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K6 ["itemsHasItemNotInList"]
        22 NAMECALL                         R7 R0 K7 ["GetTouchingParts"]
        24 CALL                             R7 1 1
        25 MOVE                             R8 R1
@@ -86,8 +86,8 @@ PROTO_2:
        28 GETTABLEKS                       R6 R0 K4 ["CFrame"]
        30 GETTABLEKS                       R4 R6 K5 ["p"]
        32 JUMPIFNOT                        R5 ; [+20]
-       33 GETTABLEKS                       R8 R0 K4 ["CFrame"]
-       35 GETTABLEKS                       R7 R8 K5 ["p"]
+       33 GETTABLEKS                       R7 R0 K4 ["CFrame"]
+       35 GETTABLEKS                       R7 R7 K5 ["p"]
        37 GETTABLEKS                       R9 R2 K8 ["Unit"]
        39 MUL                              R8 R9 R3
        40 ADD                              R6 R7 R8
@@ -151,9 +151,9 @@ PROTO_3:
        44 CALL                             R6 3 1
        45 DIV                              R5 R3 R6
        46 MUL                              R6 R5 R4
-       47 MULK                             R9 R6 K5 [2]
-       48 SUB                              R8 R9 R2
-       49 GETTABLEKS                       R7 R8 K16 ["Magnitude"]
+       47 MULK                             R8 R6 K5 [2]
+       48 SUB                              R7 R8 R2
+       49 GETTABLEKS                       R7 R7 K16 ["Magnitude"]
        51 GETTABLEKS                       R8 R2 K16 ["Magnitude"]
        53 JUMPIFNOTLT                      R7 R8 ; [+3]
        55 LOADNIL                          R7
@@ -244,8 +244,8 @@ PROTO_3:
       189 GETTABLEKS                       R16 R4 K12 ["Z"]
       191 MINUS                            R15 R16
       192 JUMPIFNOTLE                      R15 R14 ; [+5]
-      194 SUB                              R14 R9 R2
-      195 GETTABLEKS                       R13 R14 K16 ["Magnitude"]
+      194 SUB                              R13 R9 R2
+      195 GETTABLEKS                       R13 R13 K16 ["Magnitude"]
       197 JUMPIF                           R13 ; [+1]
       198 LOADN                            R13 16
       199 GETTABLEKS                       R15 R11 K7 ["X"]
@@ -262,8 +262,8 @@ PROTO_3:
       220 GETTABLEKS                       R17 R4 K12 ["Z"]
       222 MINUS                            R16 R17
       223 JUMPIFNOTLE                      R16 R15 ; [+5]
-      225 SUB                              R15 R11 R2
-      226 GETTABLEKS                       R14 R15 K16 ["Magnitude"]
+      225 SUB                              R14 R11 R2
+      226 GETTABLEKS                       R14 R14 K16 ["Magnitude"]
       228 JUMPIF                           R14 ; [+1]
       229 LOADN                            R14 16
       230 GETTABLEKS                       R16 R12 K7 ["X"]
@@ -280,12 +280,12 @@ PROTO_3:
       251 GETTABLEKS                       R18 R4 K11 ["Y"]
       253 MINUS                            R17 R18
       254 JUMPIFNOTLE                      R17 R16 ; [+5]
-      256 SUB                              R16 R12 R2
-      257 GETTABLEKS                       R15 R16 K16 ["Magnitude"]
+      256 SUB                              R15 R12 R2
+      257 GETTABLEKS                       R15 R15 K16 ["Magnitude"]
       259 JUMPIF                           R15 ; [+1]
       260 LOADN                            R15 16
-      261 GETUPVAL                         R17 0
-      262 GETTABLEKS                       R16 R17 K17 ["min"]
+      261 GETUPVAL                         R16 0
+      262 GETTABLEKS                       R16 R16 K17 ["min"]
       264 MOVE                             R17 R13
       265 MOVE                             R18 R14
       266 MOVE                             R19 R15
@@ -312,15 +312,15 @@ PROTO_3:
       296 RETURN                           R17 -1
 
 PROTO_4:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["filterOutItems"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["filterOutItems"]
         3 MOVE                             R5 R2
         4 NAMECALL                         R6 R0 K1 ["GetTouchingParts"]
         6 CALL                             R6 1 -1
         7 CALL                             R4 -1 1
         8 GETIMPORT                        R5 K4 [Ray.new]
-       10 GETTABLEKS                       R7 R0 K5 ["CFrame"]
-       12 GETTABLEKS                       R6 R7 K6 ["p"]
+       10 GETTABLEKS                       R6 R0 K5 ["CFrame"]
+       12 GETTABLEKS                       R6 R6 K6 ["p"]
        14 GETTABLEKS                       R7 R3 K7 ["Unit"]
        16 CALL                             R5 2 1
        17 LOADNIL                          R6
@@ -334,18 +334,18 @@ PROTO_4:
        26 MOVE                             R15 R5
        27 CALL                             R13 2 1
        28 JUMPIFNOT                        R13 ; [+11]
-       29 GETTABLEKS                       R17 R0 K5 ["CFrame"]
-       31 GETTABLEKS                       R16 R17 K6 ["p"]
-       33 SUB                              R15 R13 R16
-       34 GETTABLEKS                       R14 R15 K10 ["Magnitude"]
+       29 GETTABLEKS                       R15 R0 K5 ["CFrame"]
+       31 GETTABLEKS                       R15 R15 K6 ["p"]
+       33 SUB                              R14 R13 R15
+       34 GETTABLEKS                       R14 R14 K10 ["Magnitude"]
        36 JUMPIFNOTLT                      R7 R14 ; [+3]
        38 MOVE                             R7 R14
        39 MOVE                             R6 R13
        40 FORGLOOP                         R8 2 [inext] ; [-17]
        42 JUMPIFNOT                        R6 ; [+10]
        43 GETTABLEKS                       R10 R0 K5 ["CFrame"]
-       45 GETTABLEKS                       R12 R0 K5 ["CFrame"]
-       47 GETTABLEKS                       R11 R12 K6 ["p"]
+       45 GETTABLEKS                       R11 R0 K5 ["CFrame"]
+       47 GETTABLEKS                       R11 R11 K6 ["p"]
        49 SUB                              R9 R10 R11
        50 ADD                              R8 R9 R6
        51 SETTABLEKS                       R8 R0 K5 ["CFrame"]
@@ -355,8 +355,8 @@ PROTO_5:
         0 GETTABLEKS                       R3 R2 K0 ["magnitude"]
         2 JUMPIFNOTEQKN                    R3 K1 [0] ; [+2]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["filterOutItems"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K2 ["filterOutItems"]
         8 MOVE                             R4 R1
         9 NAMECALL                         R5 R0 K3 ["GetTouchingParts"]
        11 CALL                             R5 1 -1
@@ -364,8 +364,8 @@ PROTO_5:
        13 LENGTH                           R4 R3
        14 LOADN                            R5 0
        15 JUMPIFNOTLT                      R5 R4 ; [+73]
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R4 R5 K4 ["listDoesNotContainType"]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K4 ["listDoesNotContainType"]
        20 MOVE                             R5 R3
        21 LOADK                            R6 K5 ["Terrain"]
        22 CALL                             R4 2 1
@@ -378,11 +378,11 @@ PROTO_5:
        29 MOVE                             R8 R1
        30 MOVE                             R9 R2
        31 CALL                             R5 4 0
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R5 R6 K2 ["filterOutItems"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K2 ["filterOutItems"]
        35 MOVE                             R6 R3
-       36 GETUPVAL                         R8 0
-       37 GETTABLEKS                       R7 R8 K2 ["filterOutItems"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K2 ["filterOutItems"]
        39 MOVE                             R8 R1
        40 NAMECALL                         R9 R0 K3 ["GetTouchingParts"]
        42 CALL                             R9 1 -1
@@ -392,8 +392,8 @@ PROTO_5:
        46 JUMPIFNOTEQKN                    R6 K1 [0] ; [+3]
        48 LOADB                            R4 0
        49 JUMP                             ; [+7]
-       50 GETUPVAL                         R7 0
-       51 GETTABLEKS                       R6 R7 K7 ["combineLists"]
+       50 GETUPVAL                         R6 0
+       51 GETTABLEKS                       R6 R6 K7 ["combineLists"]
        53 MOVE                             R7 R3
        54 MOVE                             R8 R5
        55 CALL                             R6 2 1
@@ -403,21 +403,21 @@ PROTO_5:
        60 MOVE                             R6 R0
        61 MOVE                             R7 R1
        62 MULK                             R8 R2 K9 [-1]
-       63 GETTABLEKS                       R13 R0 K11 ["Size"]
-       65 GETTABLEKS                       R12 R13 K12 ["X"]
+       63 GETTABLEKS                       R12 R0 K11 ["Size"]
+       65 GETTABLEKS                       R12 R12 K12 ["X"]
        67 DIVK                             R11 R12 K10 [2]
-       68 GETTABLEKS                       R14 R0 K11 ["Size"]
-       70 GETTABLEKS                       R13 R14 K13 ["Y"]
+       68 GETTABLEKS                       R13 R0 K11 ["Size"]
+       70 GETTABLEKS                       R13 R13 K13 ["Y"]
        72 DIVK                             R12 R13 K10 [2]
-       73 GETTABLEKS                       R15 R0 K11 ["Size"]
-       75 GETTABLEKS                       R14 R15 K14 ["Z"]
+       73 GETTABLEKS                       R14 R0 K11 ["Size"]
+       75 GETTABLEKS                       R14 R14 K14 ["Z"]
        77 DIVK                             R13 R14 K10 [2]
        78 FASTCALL                         MATH_MIN ; [+2]
        79 GETIMPORT                        R10 K17 [math.min]
        81 CALL                             R10 3 1
        82 SUBRK                            R9 R1 K10 [2]
-       83 GETTABLEKS                       R11 R0 K18 ["CFrame"]
-       85 GETTABLEKS                       R10 R11 K19 ["p"]
+       83 GETTABLEKS                       R10 R0 K18 ["CFrame"]
+       85 GETTABLEKS                       R10 R10 K19 ["p"]
        87 LOADNIL                          R11
        88 CALL                             R5 6 0
        89 RETURN                           R0 0
@@ -445,8 +445,8 @@ PROTO_6:
        27 ADD                              R2 R9 R8
        28 JUMPIFEQ                         R2 R2 ; [+2]
        30 RETURN                           R0 0
-       31 GETUPVAL                         R9 0
-       32 GETTABLEKS                       R8 R9 K4 ["itemsHasItemNotInList"]
+       31 GETUPVAL                         R8 0
+       32 GETTABLEKS                       R8 R8 K4 ["itemsHasItemNotInList"]
        34 NAMECALL                         R9 R0 K5 ["GetTouchingParts"]
        36 CALL                             R9 1 1
        37 MOVE                             R10 R1
@@ -510,8 +510,8 @@ PROTO_7:
        24 ADD                              R2 R7 R6
        25 JUMPIFEQ                         R2 R2 ; [+2]
        27 RETURN                           R0 0
-       28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R6 R7 K4 ["itemsHasItemNotInList"]
+       28 GETUPVAL                         R6 0
+       29 GETTABLEKS                       R6 R6 K4 ["itemsHasItemNotInList"]
        31 NAMECALL                         R7 R0 K5 ["GetTouchingParts"]
        33 CALL                             R7 1 1
        34 MOVE                             R8 R1
@@ -539,8 +539,8 @@ PROTO_7:
        56 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["itemsHasItemNotInList"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["itemsHasItemNotInList"]
         3 NAMECALL                         R6 R0 K1 ["GetTouchingParts"]
         5 CALL                             R6 1 1
         6 MOVE                             R7 R1
@@ -578,15 +578,15 @@ PROTO_9:
        26 JUMPIFEQ                         R2 R2 ; [+3]
        28 LOADB                            R8 0
        29 RETURN                           R8 1
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R8 R9 K4 ["itemsHasItemNotInList"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K4 ["itemsHasItemNotInList"]
        33 NAMECALL                         R9 R0 K5 ["GetTouchingParts"]
        35 CALL                             R9 1 1
        36 MOVE                             R10 R1
        37 CALL                             R8 2 1
        38 JUMPIFNOT                        R8 ; [+19]
-       39 GETUPVAL                         R9 0
-       40 GETTABLEKS                       R8 R9 K4 ["itemsHasItemNotInList"]
+       39 GETUPVAL                         R8 0
+       40 GETTABLEKS                       R8 R8 K4 ["itemsHasItemNotInList"]
        42 NAMECALL                         R9 R0 K5 ["GetTouchingParts"]
        44 CALL                             R9 1 1
        45 MOVE                             R10 R1
@@ -618,8 +618,8 @@ PROTO_9:
        72 RETURN                           R8 -1
 
 PROTO_10:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["itemsHasItemNotInList"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["itemsHasItemNotInList"]
         3 NAMECALL                         R6 R0 K1 ["GetTouchingParts"]
         5 CALL                             R6 1 1
         6 MOVE                             R7 R1
@@ -638,8 +638,8 @@ PROTO_10:
        19 RETURN                           R5 1
 
 PROTO_11:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["itemsHasItemNotInList"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["itemsHasItemNotInList"]
         3 NAMECALL                         R5 R0 K1 ["GetTouchingParts"]
         5 CALL                             R5 1 1
         6 MOVE                             R6 R1
@@ -661,14 +661,14 @@ PROTO_11:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["Utility"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["Utility"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["List"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["List"]
        18 CALL                             R1 1 1
        19 DUPCLOSURE                       R2 K7 [PROTO_0]
        20 DUPCLOSURE                       R3 K8 [PROTO_1]

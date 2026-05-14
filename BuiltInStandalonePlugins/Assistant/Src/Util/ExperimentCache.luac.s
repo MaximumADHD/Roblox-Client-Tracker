@@ -27,8 +27,8 @@ PROTO_2:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["OnCreatorLayerLoadingStatusChanged"]
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["OnCreatorLayerLoadingStatusChanged"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 NAMECALL                         R0 R0 K1 ["Connect"]
@@ -40,8 +40,8 @@ PROTO_3:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+1]
         2 JUMP                             ; [+9]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["OnCreatorLayerLoadingStatusChanged"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["OnCreatorLayerLoadingStatusChanged"]
         6 NEWCLOSURE                       R3 P0
         7 CAPTURE                          UPVAL U2
         8 NAMECALL                         R1 R1 K1 ["Connect"]
@@ -80,8 +80,8 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+1]
         2 JUMP                             ; [+9]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["OnCreatorLayerLoadingStatusChanged"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["OnCreatorLayerLoadingStatusChanged"]
         6 NEWCLOSURE                       R3 P0
         7 CAPTURE                          UPVAL U2
         8 NAMECALL                         R1 R1 K1 ["Connect"]
@@ -99,8 +99,8 @@ PROTO_4:
        24 JUMPIFEQ                         R1 R2 ; [+5]
        26 GETIMPORT                        R2 K9 [Enum.IXPLoadingStatus.None]
        28 JUMPIFNOTEQ                      R1 R2 ; [+14]
-       30 GETUPVAL                         R3 1
-       31 GETTABLEKS                       R2 R3 K0 ["OnCreatorLayerLoadingStatusChanged"]
+       30 GETUPVAL                         R2 1
+       31 GETTABLEKS                       R2 R2 K0 ["OnCreatorLayerLoadingStatusChanged"]
        33 NAMECALL                         R2 R2 K10 ["Wait"]
        35 CALL                             R2 1 0
        36 GETUPVAL                         R2 1

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["current"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["current"]
         3 FASTCALL1                        TYPEOF R4 ; [+2]
         4 GETIMPORT                        R3 K2 [typeof]
         6 CALL                             R3 1 1
@@ -12,8 +12,8 @@ PROTO_0:
        14 GETIMPORT                        R1 K6 [assert]
        16 CALL                             R1 2 0
        17 JUMPIFNOT                        R0 ; [+9]
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K0 ["current"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K0 ["current"]
        21 FASTCALL2                        TABLE_INSERT R2 R0 ; [+4]
        23 MOVE                             R3 R0
        24 GETIMPORT                        R1 K8 [table.insert]
@@ -23,18 +23,18 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+13]
-        2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R0 R1 K0 ["current"]
+        2 GETUPVAL                         R0 0
+        3 GETTABLEKS                       R0 R0 K0 ["current"]
         5 JUMPIFNOT                        R0 ; [+9]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["current"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["current"]
         9 FASTCALL1                        TYPE R1 ; [+2]
        10 GETIMPORT                        R0 K2 [type]
        12 CALL                             R0 1 1
        13 JUMPIFEQKS                       R0 K3 ["table"] ; [+2]
        15 RETURN                           R0 0
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K0 ["current"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K0 ["current"]
        19 FASTCALL1                        TYPE R3 ; [+2]
        20 GETIMPORT                        R2 K2 [type]
        22 CALL                             R2 1 1
@@ -45,8 +45,8 @@ PROTO_1:
        29 LOADK                            R2 K4 ["expecting table of connections"]
        30 GETIMPORT                        R0 K6 [assert]
        32 CALL                             R0 2 0
-       33 GETUPVAL                         R3 0
-       34 GETTABLEKS                       R0 R3 K0 ["current"]
+       33 GETUPVAL                         R0 0
+       34 GETTABLEKS                       R0 R0 K0 ["current"]
        36 LOADNIL                          R1
        37 LOADNIL                          R2
        38 FORGPREP                         R0
@@ -81,23 +81,23 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["React"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["React"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["useEffect"]
        25 GETTABLEKS                       R4 R2 K9 ["useRef"]
        27 GETIMPORT                        R5 K4 [require]
-       29 GETTABLEKS                       R7 R0 K10 ["Src"]
-       31 GETTABLEKS                       R6 R7 K11 ["Types"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Types"]
        33 CALL                             R5 1 1
        34 DUPCLOSURE                       R6 K12 [PROTO_3]
        35 CAPTURE                          VAL R4

@@ -4,17 +4,17 @@ PROTO_0:
         2 RETURN                           R0 0
         3 LOADB                            R0 1
         4 SETUPVAL                         R0 0
-        5 GETIMPORT                        R2 K1 [script]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        5 GETIMPORT                        R0 K1 [script]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Util"]
-       24 GETTABLEKS                       R3 R4 K9 ["DebugFlags"]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Util"]
+       24 GETTABLEKS                       R3 R3 K9 ["DebugFlags"]
        26 CALL                             R2 1 1
        27 GETTABLEKS                       R3 R2 K10 ["EnableRoactConfigs"]
        29 CALL                             R3 0 1

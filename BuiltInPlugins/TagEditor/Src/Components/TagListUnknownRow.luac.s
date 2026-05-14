@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 LOADB                            R1 0
         4 GETTABLEKS                       R2 R0 K1 ["assigningGroup"]
         6 JUMPIFEQKNIL                     R2 ; [+7]
@@ -8,15 +8,15 @@ PROTO_0:
        10 JUMPIFNOTEQKS                    R2 K2 [""] ; [+2]
        12 LOADB                            R1 0 +1
        13 LOADB                            R1 1
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K3 ["Get"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K3 ["Get"]
        17 CALL                             R2 0 1
        18 GETTABLEKS                       R4 R0 K4 ["TagName"]
        20 NAMECALL                         R2 R2 K5 ["AddTag"]
        22 CALL                             R2 2 0
        23 JUMPIFNOT                        R1 ; [+11]
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R2 R3 K3 ["Get"]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K3 ["Get"]
        27 CALL                             R2 0 1
        28 GETTABLEKS                       R4 R0 K4 ["TagName"]
        30 GETTABLEKS                       R5 R0 K1 ["assigningGroup"]
@@ -34,13 +34,13 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETTABLEKS                       R4 R1 K2 ["Stylizer"]
-        6 GETTABLEKS                       R3 R4 K3 ["TagListUnknownRow"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["new"]
+        4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
+        6 GETTABLEKS                       R3 R3 K3 ["TagListUnknownRow"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["new"]
        11 CALL                             R4 0 1
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       12 GETUPVAL                         R5 1
+       13 GETTABLEKS                       R5 R5 K5 ["createElement"]
        15 GETUPVAL                         R6 2
        16 DUPTABLE                         R7 K12 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "Spacing", "Padding"}]
        17 GETTABLEKS                       R8 R1 K6 ["LayoutOrder"]
@@ -56,8 +56,8 @@ PROTO_2:
        37 GETTABLEKS                       R8 R3 K19 ["PaddingIndented"]
        39 SETTABLEKS                       R8 R7 K11 ["Padding"]
        41 DUPTABLE                         R8 K22 [{"CheckboxPane", "NameText"}]
-       42 GETUPVAL                         R10 1
-       43 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       42 GETUPVAL                         R9 1
+       43 GETTABLEKS                       R9 R9 K5 ["createElement"]
        45 GETUPVAL                         R10 2
        46 DUPTABLE                         R11 K23 [{"LayoutOrder", "Size"}]
        47 NAMECALL                         R12 R4 K24 ["getNextOrder"]
@@ -66,8 +66,8 @@ PROTO_2:
        52 GETTABLEKS                       R12 R3 K25 ["CheckboxSize"]
        54 SETTABLEKS                       R12 R11 K7 ["Size"]
        56 DUPTABLE                         R12 K28 [{"RegisterGroupButton", "HoverArea"}]
-       57 GETUPVAL                         R14 1
-       58 GETTABLEKS                       R13 R14 K5 ["createElement"]
+       57 GETUPVAL                         R13 1
+       58 GETTABLEKS                       R13 R13 K5 ["createElement"]
        60 GETUPVAL                         R14 3
        61 DUPTABLE                         R15 K34 [{"BackgroundStyle", "LeftIcon", "OnClick", "IconColor", "TooltipText"}]
        62 LOADK                            R16 K35 ["None"]
@@ -85,8 +85,8 @@ PROTO_2:
        82 SETTABLEKS                       R16 R15 K33 ["TooltipText"]
        84 CALL                             R13 2 1
        85 SETTABLEKS                       R13 R12 K26 ["RegisterGroupButton"]
-       87 GETUPVAL                         R14 1
-       88 GETTABLEKS                       R13 R14 K5 ["createElement"]
+       87 GETUPVAL                         R13 1
+       88 GETTABLEKS                       R13 R13 K5 ["createElement"]
        90 GETUPVAL                         R14 4
        91 DUPTABLE                         R15 K43 [{"Cursor"}]
        92 LOADK                            R16 K44 ["PointingHand"]
@@ -95,8 +95,8 @@ PROTO_2:
        96 SETTABLEKS                       R13 R12 K27 ["HoverArea"]
        98 CALL                             R9 3 1
        99 SETTABLEKS                       R9 R8 K20 ["CheckboxPane"]
-      101 GETUPVAL                         R10 1
-      102 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      101 GETUPVAL                         R9 1
+      102 GETTABLEKS                       R9 R9 K5 ["createElement"]
       104 GETUPVAL                         R10 5
       105 DUPTABLE                         R11 K47 [{"LayoutOrder", "Text", "Size", "TextXAlignment"}]
       106 NAMECALL                         R12 R4 K24 ["getNextOrder"]
@@ -125,35 +125,35 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Roact"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
        39 GETTABLEKS                       R6 R5 K12 ["withContext"]
        41 GETTABLEKS                       R7 R5 K13 ["Analytics"]
        43 GETTABLEKS                       R8 R5 K14 ["Localization"]
-       45 GETTABLEKS                       R10 R4 K15 ["Style"]
-       47 GETTABLEKS                       R9 R10 K16 ["Stylizer"]
+       45 GETTABLEKS                       R9 R4 K15 ["Style"]
+       47 GETTABLEKS                       R9 R9 K16 ["Stylizer"]
        49 GETIMPORT                        R10 K4 [require]
-       51 GETTABLEKS                       R12 R0 K5 ["Src"]
-       53 GETTABLEKS                       R11 R12 K17 ["TagManager"]
+       51 GETTABLEKS                       R11 R0 K5 ["Src"]
+       53 GETTABLEKS                       R11 R11 K17 ["TagManager"]
        55 CALL                             R10 1 1
        56 GETTABLEKS                       R11 R4 K18 ["UI"]
        58 GETTABLEKS                       R12 R11 K19 ["HoverArea"]

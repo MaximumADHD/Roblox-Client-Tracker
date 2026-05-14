@@ -19,11 +19,11 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["APIS"]
-        3 GETTABLEKS                       R3 R4 K1 ["UserAgreements"]
-        5 GETTABLEKS                       R2 R3 K2 ["V1"]
-        7 GETTABLEKS                       R1 R2 K3 ["agreementsResolution"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["APIS"]
+        3 GETTABLEKS                       R1 R1 K1 ["UserAgreements"]
+        5 GETTABLEKS                       R1 R1 K2 ["V1"]
+        7 GETTABLEKS                       R1 R1 K3 ["agreementsResolution"]
         9 LOADK                            R2 K4 ["App"]
        10 CALL                             R1 1 1
        11 NAMECALL                         R1 R1 K5 ["makeRequest"]
@@ -44,14 +44,14 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetPlayerAcceptance"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetPlayerAcceptance"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_3]
        19 CAPTURE                          VAL R1

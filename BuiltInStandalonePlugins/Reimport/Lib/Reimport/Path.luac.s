@@ -53,19 +53,19 @@ PROTO_3:
         5 RETURN                           R1 -1
 
 PROTO_4:
-        0 LOADK                            R3 K0 ["\\"]
-        1 LOADK                            R4 K1 ["/"]
-        2 NAMECALL                         R1 R0 K2 ["gsub"]
-        4 CALL                             R1 3 1
-        5 LOADK                            R4 K3 ["/[^/]*$"]
-        6 NAMECALL                         R2 R1 K4 ["find"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["normalize"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 LOADK                            R4 K1 ["/[^/]*$"]
+        6 NAMECALL                         R2 R1 K2 ["find"]
         8 CALL                             R2 2 1
         9 JUMPIF                           R2 ; [+2]
-       10 LOADK                            R3 K5 [""]
+       10 LOADK                            R3 K3 [""]
        11 RETURN                           R3 1
        12 LOADN                            R5 1
-       13 SUBK                             R6 R2 K6 [1]
-       14 NAMECALL                         R3 R0 K7 ["sub"]
+       13 SUBK                             R6 R2 K4 [1]
+       14 NAMECALL                         R3 R0 K5 ["sub"]
        16 CALL                             R3 3 -1
        17 RETURN                           R3 -1
 
@@ -78,6 +78,8 @@ MAIN:
         7 DUPCLOSURE                       R2 K3 [PROTO_2]
         8 SETTABLEKS                       R2 R0 K4 ["stem"]
        10 DUPCLOSURE                       R2 K5 [PROTO_3]
-       11 DUPCLOSURE                       R3 K6 [PROTO_4]
-       12 SETTABLEKS                       R3 R0 K7 ["parent"]
-       14 RETURN                           R0 1
+       11 SETTABLEKS                       R2 R0 K6 ["normalize"]
+       13 DUPCLOSURE                       R2 K7 [PROTO_4]
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R2 R0 K8 ["parent"]
+       17 RETURN                           R0 1

@@ -16,8 +16,8 @@ PROTO_0:
        18 NAMECALL                         R5 R4 K6 ["Destroy"]
        20 CALL                             R5 1 0
        21 FORGLOOP                         R0 2 ; [-9]
-       23 GETUPVAL                         R1 2
-       24 GETTABLEKS                       R0 R1 K7 ["_clearTestingAnimateScripts"]
+       23 GETUPVAL                         R0 2
+       24 GETTABLEKS                       R0 R0 K7 ["_clearTestingAnimateScripts"]
        26 CALL                             R0 0 0
        27 RETURN                           R0 0
 
@@ -41,8 +41,8 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["clearTestingAvatars"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clearTestingAvatars"]
         3 CALL                             R0 0 0
         4 GETUPVAL                         R0 1
         5 LOADK                            R2 K1 ["StarterCharacter_Backup_AvatarSettings"]
@@ -59,8 +59,8 @@ PROTO_2:
        20 LOADNIL                          R4
        21 NAMECALL                         R1 R0 K7 ["SetAttribute"]
        23 CALL                             R1 3 0
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R1 R2 K8 ["_resetAnimateScript"]
+       24 GETUPVAL                         R1 0
+       25 GETTABLEKS                       R1 R1 K8 ["_resetAnimateScript"]
        27 CALL                             R1 0 0
        28 RETURN                           R0 0
 
@@ -157,8 +157,8 @@ PROTO_5:
         4 LOADK                            R2 K0 ["TestInExperienceUtil.getValidTestingAvatar should only be called when FFlagPreviewToolbar is enabled"]
         5 GETIMPORT                        R0 K2 [assert]
         7 CALL                             R0 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K3 ["ActiveInstance"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K3 ["ActiveInstance"]
        11 JUMPIFNOT                        R0 ; [+5]
        12 LOADK                            R3 K4 ["Model"]
        13 NAMECALL                         R1 R0 K5 ["IsA"]
@@ -168,8 +168,8 @@ PROTO_5:
        18 RETURN                           R1 1
        19 GETTABLEKS                       R1 R0 K6 ["Parent"]
        21 JUMPIFNOT                        R1 ; [+7]
-       22 GETUPVAL                         R5 2
-       23 GETTABLEKS                       R4 R5 K7 ["AvatarPreviewFolderTag"]
+       22 GETUPVAL                         R4 2
+       23 GETTABLEKS                       R4 R4 K7 ["AvatarPreviewFolderTag"]
        25 NAMECALL                         R2 R1 K8 ["HasTag"]
        27 CALL                             R2 2 1
        28 JUMPIF                           R2 ; [+2]
@@ -194,13 +194,13 @@ PROTO_6:
         4 LOADK                            R2 K0 ["TestInExperienceUtil.test should only be called when FFlagPreviewToolbar is enabled"]
         5 GETIMPORT                        R0 K2 [assert]
         7 CALL                             R0 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K3 ["getValidTestingAvatar"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K3 ["getValidTestingAvatar"]
        11 CALL                             R0 0 1
        12 JUMPIF                           R0 ; [+1]
        13 RETURN                           R0 0
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R1 R2 K4 ["clearTestingAvatars"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K4 ["clearTestingAvatars"]
        17 CALL                             R1 0 0
        18 GETUPVAL                         R1 2
        19 LOADK                            R3 K5 ["StarterCharacter"]
@@ -230,22 +230,22 @@ PROTO_6:
        52 GETIMPORT                        R4 K17 [error]
        54 LOADK                            R5 K18 ["Selected avatar does not have a Humanoid"]
        55 CALL                             R4 1 0
-       56 GETUPVAL                         R5 1
-       57 GETTABLEKS                       R4 R5 K19 ["_replaceAnimateScript"]
+       56 GETUPVAL                         R4 1
+       57 GETTABLEKS                       R4 R4 K19 ["_replaceAnimateScript"]
        59 MOVE                             R5 R2
        60 CALL                             R4 1 0
-       61 GETUPVAL                         R7 3
-       62 GETTABLEKS                       R6 R7 K20 ["avatarRules"]
+       61 GETUPVAL                         R6 3
+       62 GETTABLEKS                       R6 R6 K20 ["avatarRules"]
        64 CALL                             R6 0 -1
        65 NAMECALL                         R4 R3 K21 ["ApplyAvatarRules"]
        67 CALL                             R4 -1 0
-       68 GETUPVAL                         R5 4
-       69 GETTABLEKS                       R4 R5 K22 ["setCollisionBoxTransparency"]
+       68 GETUPVAL                         R4 4
+       69 GETTABLEKS                       R4 R4 K22 ["setCollisionBoxTransparency"]
        71 MOVE                             R5 R3
        72 LOADB                            R6 0
        73 CALL                             R4 2 0
-       74 GETUPVAL                         R5 5
-       75 GETTABLEKS                       R4 R5 K23 ["StartPlaySolo"]
+       74 GETUPVAL                         R4 5
+       75 GETTABLEKS                       R4 R4 K23 ["StartPlaySolo"]
        77 CALL                             R4 0 0
        78 RETURN                           R0 0
 
@@ -280,34 +280,34 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R7 R0 K11 ["Src"]
-       23 GETTABLEKS                       R6 R7 K12 ["Util"]
-       25 GETTABLEKS                       R5 R6 K13 ["AvatarPreview"]
-       27 GETTABLEKS                       R4 R5 K14 ["AvatarPreviewConstants"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["AvatarPreview"]
+       27 GETTABLEKS                       R4 R4 K14 ["AvatarPreviewConstants"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K10 [require]
-       32 GETTABLEKS                       R8 R0 K11 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Util"]
-       36 GETTABLEKS                       R6 R7 K15 ["Interfaces"]
-       38 GETTABLEKS                       R5 R6 K16 ["PlacesServiceInterface"]
+       32 GETTABLEKS                       R5 R0 K11 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Util"]
+       36 GETTABLEKS                       R5 R5 K15 ["Interfaces"]
+       38 GETTABLEKS                       R5 R5 K16 ["PlacesServiceInterface"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K10 [require]
-       43 GETTABLEKS                       R9 R0 K11 ["Src"]
-       45 GETTABLEKS                       R8 R9 K12 ["Util"]
-       47 GETTABLEKS                       R7 R8 K13 ["AvatarPreview"]
-       49 GETTABLEKS                       R6 R7 K17 ["applyAvatarRulesUtil"]
+       43 GETTABLEKS                       R6 R0 K11 ["Src"]
+       45 GETTABLEKS                       R6 R6 K12 ["Util"]
+       47 GETTABLEKS                       R6 R6 K13 ["AvatarPreview"]
+       49 GETTABLEKS                       R6 R6 K17 ["applyAvatarRulesUtil"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K10 [require]
-       54 GETTABLEKS                       R11 R0 K11 ["Src"]
-       56 GETTABLEKS                       R10 R11 K12 ["Util"]
-       58 GETTABLEKS                       R9 R10 K18 ["BridgingFiles"]
-       60 GETTABLEKS                       R8 R9 K19 ["AssetDmFiles"]
-       62 GETTABLEKS                       R7 R8 K20 ["assetDmUtils"]
+       54 GETTABLEKS                       R7 R0 K11 ["Src"]
+       56 GETTABLEKS                       R7 R7 K12 ["Util"]
+       58 GETTABLEKS                       R7 R7 K18 ["BridgingFiles"]
+       60 GETTABLEKS                       R7 R7 K19 ["AssetDmFiles"]
+       62 GETTABLEKS                       R7 R7 K20 ["assetDmUtils"]
        64 CALL                             R6 1 1
        65 GETIMPORT                        R7 K10 [require]
-       67 GETTABLEKS                       R10 R0 K11 ["Src"]
-       69 GETTABLEKS                       R9 R10 K21 ["Flags"]
-       71 GETTABLEKS                       R8 R9 K22 ["getFFlagPreviewToolbar"]
+       67 GETTABLEKS                       R8 R0 K11 ["Src"]
+       69 GETTABLEKS                       R8 R8 K21 ["Flags"]
+       71 GETTABLEKS                       R8 R8 K22 ["getFFlagPreviewToolbar"]
        73 CALL                             R7 1 1
        74 NEWTABLE                         R8 8 0
        76 DUPCLOSURE                       R9 K23 [PROTO_0]

@@ -27,13 +27,13 @@ PROTO_1:
        32 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Value"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Value"]
         3 JUMPIFEQ                         R0 R3 ; [+2]
         5 LOADB                            R2 0 +1
         6 LOADB                            R2 1
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K1 ["createElement"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K1 ["createElement"]
        10 GETUPVAL                         R4 2
        11 DUPTABLE                         R5 K8 [{"Disabled", "Key", "LayoutOrder", "Selected", "Text", "OnClick"}]
        12 LOADB                            R6 0
@@ -47,8 +47,8 @@ PROTO_2:
        24 NAMECALL                         R6 R6 K10 ["getText"]
        26 CALL                             R6 3 1
        27 SETTABLEKS                       R6 R5 K6 ["Text"]
-       29 GETUPVAL                         R7 0
-       30 GETTABLEKS                       R6 R7 K11 ["OnValueChanged"]
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K11 ["OnValueChanged"]
        32 SETTABLEKS                       R6 R5 K7 ["OnClick"]
        34 CALL                             R3 2 -1
        35 RETURN                           R3 -1
@@ -62,13 +62,13 @@ PROTO_3:
         8 CAPTURE                          UPVAL U0
         9 CAPTURE                          UPVAL U1
        10 CAPTURE                          VAL R2
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K3 ["createElement"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["createElement"]
        14 GETUPVAL                         R6 2
        15 DUPTABLE                         R7 K8 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection"}]
-       16 GETUPVAL                         R10 2
-       17 GETTABLEKS                       R9 R10 K9 ["Axis"]
-       19 GETTABLEKS                       R8 R9 K10 ["Both"]
+       16 GETUPVAL                         R8 2
+       17 GETTABLEKS                       R8 R8 K9 ["Axis"]
+       19 GETTABLEKS                       R8 R8 K10 ["Both"]
        21 SETTABLEKS                       R8 R7 K4 ["axis"]
        23 GETTABLEKS                       R8 R3 K11 ["SectionContentPaddingCompact"]
        25 SETTABLEKS                       R8 R7 K5 ["contentPadding"]
@@ -78,21 +78,21 @@ PROTO_3:
        32 SETTABLEKS                       R8 R7 K7 ["FillDirection"]
        34 DUPTABLE                         R8 K17 [{"SelectionRadioButton", "ActiveRadioButton"}]
        35 MOVE                             R9 R4
-       36 GETUPVAL                         R11 3
-       37 GETTABLEKS                       R10 R11 K18 ["Selection"]
+       36 GETUPVAL                         R10 3
+       37 GETTABLEKS                       R10 R10 K18 ["Selection"]
        39 LOADN                            R11 1
        40 CALL                             R9 2 1
        41 SETTABLEKS                       R9 R8 K15 ["SelectionRadioButton"]
-       43 GETUPVAL                         R10 0
-       44 GETTABLEKS                       R9 R10 K3 ["createElement"]
+       43 GETUPVAL                         R9 0
+       44 GETTABLEKS                       R9 R9 K3 ["createElement"]
        46 GETUPVAL                         R10 2
        47 DUPTABLE                         R11 K20 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
-       48 GETUPVAL                         R14 2
-       49 GETTABLEKS                       R13 R14 K9 ["Axis"]
-       51 GETTABLEKS                       R12 R13 K10 ["Both"]
+       48 GETUPVAL                         R12 2
+       49 GETTABLEKS                       R12 R12 K9 ["Axis"]
+       51 GETTABLEKS                       R12 R12 K10 ["Both"]
        53 SETTABLEKS                       R12 R11 K4 ["axis"]
-       55 GETTABLEKS                       R13 R3 K21 ["RelativeToSetting"]
-       57 GETTABLEKS                       R12 R13 K22 ["HelpIconPadding"]
+       55 GETTABLEKS                       R12 R3 K21 ["RelativeToSetting"]
+       57 GETTABLEKS                       R12 R12 K22 ["HelpIconPadding"]
        59 SETTABLEKS                       R12 R11 K5 ["contentPadding"]
        61 LOADN                            R12 1
        62 SETTABLEKS                       R12 R11 K6 ["BackgroundTransparency"]
@@ -102,13 +102,13 @@ PROTO_3:
        69 SETTABLEKS                       R12 R11 K19 ["LayoutOrder"]
        71 DUPTABLE                         R12 K27 [{"RadioButton", "HelpIcon"}]
        72 MOVE                             R13 R4
-       73 GETUPVAL                         R15 3
-       74 GETTABLEKS                       R14 R15 K28 ["Active"]
+       73 GETUPVAL                         R14 3
+       74 GETTABLEKS                       R14 R14 K28 ["Active"]
        76 LOADN                            R15 1
        77 CALL                             R13 2 1
        78 SETTABLEKS                       R13 R12 K25 ["RadioButton"]
-       80 GETUPVAL                         R14 0
-       81 GETTABLEKS                       R13 R14 K3 ["createElement"]
+       80 GETUPVAL                         R13 0
+       81 GETTABLEKS                       R13 R13 K3 ["createElement"]
        83 GETUPVAL                         R14 4
        84 DUPTABLE                         R15 K30 [{"LayoutOrder", "Size"}]
        85 LOADN                            R16 2
@@ -121,16 +121,16 @@ PROTO_3:
        94 CALL                             R16 4 1
        95 SETTABLEKS                       R16 R15 K29 ["Size"]
        97 DUPTABLE                         R16 K36 [{"Icon", "Tooltip"}]
-       98 GETUPVAL                         R18 0
-       99 GETTABLEKS                       R17 R18 K3 ["createElement"]
+       98 GETUPVAL                         R17 0
+       99 GETTABLEKS                       R17 R17 K3 ["createElement"]
       101 GETUPVAL                         R18 5
       102 DUPTABLE                         R19 K38 [{"Style"}]
       103 LOADK                            R20 K26 ["HelpIcon"]
       104 SETTABLEKS                       R20 R19 K37 ["Style"]
       106 CALL                             R17 2 1
       107 SETTABLEKS                       R17 R16 K34 ["Icon"]
-      109 GETUPVAL                         R18 0
-      110 GETTABLEKS                       R17 R18 K3 ["createElement"]
+      109 GETUPVAL                         R17 0
+      110 GETTABLEKS                       R17 R17 K3 ["createElement"]
       112 GETUPVAL                         R18 6
       113 DUPTABLE                         R19 K40 [{"Text"}]
       114 LOADK                            R22 K41 ["RelativeToSection"]
@@ -149,22 +149,22 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETIMPORT                        R2 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K6 ["FitFrame"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K7 ["FitFrameOnAxis"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["FitFrame"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K7 ["FitFrameOnAxis"]
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K8 ["Roact"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K9 ["Framework"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        34 GETTABLEKS                       R5 R4 K11 ["withContext"]
@@ -174,9 +174,9 @@ MAIN:
        42 GETTABLEKS                       R9 R6 K15 ["RadioButton"]
        44 GETTABLEKS                       R10 R6 K16 ["Tooltip"]
        46 GETIMPORT                        R11 K4 [require]
-       48 GETTABLEKS                       R14 R0 K17 ["Src"]
-       50 GETTABLEKS                       R13 R14 K18 ["Utility"]
-       52 GETTABLEKS                       R12 R13 K19 ["RelativeTo"]
+       48 GETTABLEKS                       R12 R0 K17 ["Src"]
+       50 GETTABLEKS                       R12 R12 K18 ["Utility"]
+       52 GETTABLEKS                       R12 R12 K19 ["RelativeTo"]
        54 CALL                             R11 1 1
        55 GETTABLEKS                       R12 R2 K20 ["PureComponent"]
        57 LOADK                            R14 K21 ["RelativeToSetting"]

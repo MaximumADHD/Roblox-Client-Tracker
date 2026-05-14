@@ -2,9 +2,9 @@ PROTO_0:
         0 NEWTABLE                         R0 0 0
         2 NEWTABLE                         R1 0 0
         4 LOADN                            R2 1
-        5 GETUPVAL                         R7 0
-        6 GETTABLEKS                       R6 R7 K0 ["Layout"]
-        8 GETTABLEKS                       R3 R6 K1 ["TabLayout"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["Layout"]
+        8 GETTABLEKS                       R3 R3 K1 ["TabLayout"]
        10 LOADNIL                          R4
        11 LOADNIL                          R5
        12 FORGPREP                         R3
@@ -82,8 +82,8 @@ PROTO_1:
        10 GETTABLE                         R1 R2 R3
        11 GETUPVAL                         R2 2
        12 MOVE                             R3 R1
-       13 GETUPVAL                         R5 3
-       14 GETTABLEKS                       R4 R5 K2 ["child"]
+       13 GETUPVAL                         R4 3
+       14 GETTABLEKS                       R4 R4 K2 ["child"]
        16 GETUPVAL                         R5 4
        17 GETTABLEKS                       R6 R0 K0 ["Id"]
        19 CALL                             R4 2 -1
@@ -104,8 +104,8 @@ PROTO_2:
        12 CALL                             R6 1 1
        13 JUMP                             ; [+1]
        14 LOADNIL                          R6
-       15 GETUPVAL                         R8 4
-       16 GETTABLEKS                       R7 R8 K2 ["use"]
+       15 GETUPVAL                         R7 4
+       16 GETTABLEKS                       R7 R7 K2 ["use"]
        18 CALL                             R7 0 1
        19 GETUPVAL                         R8 5
        20 CALL                             R8 0 1
@@ -148,50 +148,50 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Contexts"]
-       27 GETTABLEKS                       R4 R5 K11 ["RibbonDefinition"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Contexts"]
+       27 GETTABLEKS                       R4 R4 K11 ["RibbonDefinition"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["StudioFoundation"]
+       32 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["StudioFoundation"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R6 R4 K13 ["Util"]
-       39 GETTABLEKS                       R5 R6 K14 ["StudioUri"]
+       37 GETTABLEKS                       R5 R4 K13 ["Util"]
+       39 GETTABLEKS                       R5 R5 K14 ["StudioUri"]
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R8 R0 K9 ["Src"]
-       45 GETTABLEKS                       R7 R8 K15 ["Types"]
+       43 GETTABLEKS                       R7 R0 K9 ["Src"]
+       45 GETTABLEKS                       R7 R7 K15 ["Types"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K9 ["Src"]
-       52 GETTABLEKS                       R9 R10 K13 ["Util"]
-       54 GETTABLEKS                       R8 R9 K16 ["controlsIdentifierToString"]
+       50 GETTABLEKS                       R8 R0 K9 ["Src"]
+       52 GETTABLEKS                       R8 R8 K13 ["Util"]
+       54 GETTABLEKS                       R8 R8 K16 ["controlsIdentifierToString"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K5 [require]
-       59 GETTABLEKS                       R11 R0 K9 ["Src"]
-       61 GETTABLEKS                       R10 R11 K17 ["Hooks"]
-       63 GETTABLEKS                       R9 R10 K18 ["useActiveTabIdentifier"]
+       59 GETTABLEKS                       R9 R0 K9 ["Src"]
+       61 GETTABLEKS                       R9 R9 K17 ["Hooks"]
+       63 GETTABLEKS                       R9 R9 K18 ["useActiveTabIdentifier"]
        65 CALL                             R8 1 1
        66 GETIMPORT                        R9 K5 [require]
-       68 GETTABLEKS                       R12 R0 K9 ["Src"]
-       70 GETTABLEKS                       R11 R12 K17 ["Hooks"]
-       72 GETTABLEKS                       R10 R11 K19 ["useLocalizedTabNames"]
+       68 GETTABLEKS                       R10 R0 K9 ["Src"]
+       70 GETTABLEKS                       R10 R10 K17 ["Hooks"]
+       72 GETTABLEKS                       R10 R10 K19 ["useLocalizedTabNames"]
        74 CALL                             R9 1 1
        75 GETIMPORT                        R10 K5 [require]
-       77 GETTABLEKS                       R13 R0 K9 ["Src"]
-       79 GETTABLEKS                       R12 R13 K17 ["Hooks"]
-       81 GETTABLEKS                       R11 R12 K20 ["useSelectionMenuView"]
+       77 GETTABLEKS                       R11 R0 K9 ["Src"]
+       79 GETTABLEKS                       R11 R11 K17 ["Hooks"]
+       81 GETTABLEKS                       R11 R11 K20 ["useSelectionMenuView"]
        83 CALL                             R10 1 1
-       84 GETTABLEKS                       R12 R1 K21 ["ContextServices"]
-       86 GETTABLEKS                       R11 R12 K22 ["Localization"]
+       84 GETTABLEKS                       R11 R1 K21 ["ContextServices"]
+       86 GETTABLEKS                       R11 R11 K22 ["Localization"]
        88 GETTABLEKS                       R12 R2 K23 ["useCallback"]
        90 GETTABLEKS                       R13 R2 K24 ["useContext"]
        92 GETTABLEKS                       R14 R2 K25 ["useMemo"]

@@ -18,8 +18,8 @@ PROTO_2:
         0 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
@@ -59,16 +59,16 @@ PROTO_5:
        15 RETURN                           R0 0
 
 PROTO_6:
-        0 GETTABLEKS                       R3 R0 K0 ["data"]
-        2 GETTABLEKS                       R2 R3 K1 ["onSkip"]
+        0 GETTABLEKS                       R2 R0 K0 ["data"]
+        2 GETTABLEKS                       R2 R2 K1 ["onSkip"]
         4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
         6 GETUPVAL                         R3 0
         7 LOADK                            R6 K2 ["Skipping step %*/%*"]
-        8 GETTABLEKS                       R9 R0 K0 ["data"]
-       10 GETTABLEKS                       R8 R9 K3 ["topic"]
-       12 GETTABLEKS                       R10 R0 K0 ["data"]
-       14 GETTABLEKS                       R9 R10 K4 ["id"]
+        8 GETTABLEKS                       R8 R0 K0 ["data"]
+       10 GETTABLEKS                       R8 R8 K3 ["topic"]
+       12 GETTABLEKS                       R9 R0 K0 ["data"]
+       14 GETTABLEKS                       R9 R9 K4 ["id"]
        16 NAMECALL                         R6 R6 K5 ["format"]
        18 CALL                             R6 3 1
        19 MOVE                             R5 R6
@@ -81,10 +81,10 @@ PROTO_6:
        28 JUMPIF                           R4 ; [+17]
        29 GETIMPORT                        R6 K10 [warn]
        31 LOADK                            R8 K11 ["Error skipping step %*/%*: %*"]
-       32 GETTABLEKS                       R11 R0 K0 ["data"]
-       34 GETTABLEKS                       R10 R11 K3 ["topic"]
-       36 GETTABLEKS                       R12 R0 K0 ["data"]
-       38 GETTABLEKS                       R11 R12 K4 ["id"]
+       32 GETTABLEKS                       R10 R0 K0 ["data"]
+       34 GETTABLEKS                       R10 R10 K3 ["topic"]
+       36 GETTABLEKS                       R11 R0 K0 ["data"]
+       38 GETTABLEKS                       R11 R11 K4 ["id"]
        40 MOVE                             R12 R5
        41 NAMECALL                         R8 R8 K5 ["format"]
        43 CALL                             R8 4 1
@@ -99,19 +99,19 @@ PROTO_6:
        54 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_priorCameraType"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_priorCameraType"]
         3 JUMPIF                           R0 ; [+8]
         4 GETUPVAL                         R0 0
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["CurrentCamera"]
-        8 GETTABLEKS                       R1 R2 K2 ["CameraType"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["CurrentCamera"]
+        8 GETTABLEKS                       R1 R1 K2 ["CameraType"]
        10 SETTABLEKS                       R1 R0 K0 ["_priorCameraType"]
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K1 ["CurrentCamera"]
-       15 GETTABLEKS                       R0 R1 K3 ["CFrame"]
-       17 GETUPVAL                         R2 1
-       18 GETTABLEKS                       R1 R2 K1 ["CurrentCamera"]
+       12 GETUPVAL                         R0 1
+       13 GETTABLEKS                       R0 R0 K1 ["CurrentCamera"]
+       15 GETTABLEKS                       R0 R0 K3 ["CFrame"]
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K1 ["CurrentCamera"]
        20 GETIMPORT                        R2 K6 [Enum.CameraType.Scriptable]
        22 SETTABLEKS                       R2 R1 K2 ["CameraType"]
        24 LOADN                            R1 0
@@ -124,31 +124,31 @@ PROTO_7:
        32 FASTCALL                         MATH_CLAMP ; [+2]
        33 GETIMPORT                        R2 K9 [math.clamp]
        35 CALL                             R2 3 1
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R3 R4 K1 ["CurrentCamera"]
+       36 GETUPVAL                         R3 1
+       37 GETTABLEKS                       R3 R3 K1 ["CurrentCamera"]
        39 GETUPVAL                         R6 3
        40 MOVE                             R7 R2
        41 NAMECALL                         R4 R0 K10 ["Lerp"]
        43 CALL                             R4 3 1
        44 SETTABLEKS                       R4 R3 K3 ["CFrame"]
-       46 GETUPVAL                         R4 4
-       47 GETTABLEKS                       R3 R4 K11 ["RenderStepped"]
+       46 GETUPVAL                         R3 4
+       47 GETTABLEKS                       R3 R3 K11 ["RenderStepped"]
        49 NAMECALL                         R3 R3 K12 ["Wait"]
        51 CALL                             R3 1 1
        52 ADD                              R1 R1 R3
        53 JUMPBACK                         ; [-29]
-       54 GETUPVAL                         R3 1
-       55 GETTABLEKS                       R2 R3 K1 ["CurrentCamera"]
+       54 GETUPVAL                         R2 1
+       55 GETTABLEKS                       R2 R2 K1 ["CurrentCamera"]
        57 GETUPVAL                         R3 3
        58 SETTABLEKS                       R3 R2 K3 ["CFrame"]
-       60 GETUPVAL                         R3 4
-       61 GETTABLEKS                       R2 R3 K11 ["RenderStepped"]
+       60 GETUPVAL                         R2 4
+       61 GETTABLEKS                       R2 R2 K11 ["RenderStepped"]
        63 NAMECALL                         R2 R2 K12 ["Wait"]
        65 CALL                             R2 1 0
-       66 GETUPVAL                         R3 1
-       67 GETTABLEKS                       R2 R3 K1 ["CurrentCamera"]
-       69 GETUPVAL                         R4 0
-       70 GETTABLEKS                       R3 R4 K0 ["_priorCameraType"]
+       66 GETUPVAL                         R2 1
+       67 GETTABLEKS                       R2 R2 K1 ["CurrentCamera"]
+       69 GETUPVAL                         R3 0
+       70 GETTABLEKS                       R3 R3 K0 ["_priorCameraType"]
        72 SETTABLEKS                       R3 R2 K2 ["CameraType"]
        74 GETUPVAL                         R2 0
        75 LOADNIL                          R3
@@ -159,13 +159,13 @@ PROTO_7:
        82 RETURN                           R0 0
 
 PROTO_8:
-        0 GETTABLEKS                       R2 R0 K0 ["data"]
-        2 GETTABLEKS                       R1 R2 K1 ["cameraFocus"]
-        4 GETTABLEKS                       R4 R0 K0 ["data"]
-        6 GETTABLEKS                       R3 R4 K3 ["cameraOffset"]
+        0 GETTABLEKS                       R1 R0 K0 ["data"]
+        2 GETTABLEKS                       R1 R1 K1 ["cameraFocus"]
+        4 GETTABLEKS                       R3 R0 K0 ["data"]
+        6 GETTABLEKS                       R3 R3 K3 ["cameraOffset"]
         8 ORK                              R2 R3 K2 [{15, 3, 0}]
-        9 GETTABLEKS                       R5 R0 K0 ["data"]
-       11 GETTABLEKS                       R4 R5 K5 ["cameraMoveDuration"]
+        9 GETTABLEKS                       R4 R0 K0 ["data"]
+       11 GETTABLEKS                       R4 R4 K5 ["cameraMoveDuration"]
        13 ORK                              R3 R4 K4 [1.5]
        14 LOADNIL                          R4
        15 JUMPIF                           R1 ; [+2]
@@ -176,8 +176,8 @@ PROTO_8:
        20 GETIMPORT                        R5 K7 [type]
        22 CALL                             R5 1 1
        23 JUMPIFNOTEQKS                    R5 K8 ["string"] ; [+6]
-       25 GETTABLEKS                       R6 R0 K9 ["tutorial"]
-       27 GETTABLEKS                       R5 R6 K10 ["instances"]
+       25 GETTABLEKS                       R5 R0 K9 ["tutorial"]
+       27 GETTABLEKS                       R5 R5 K10 ["instances"]
        29 GETTABLE                         R1 R5 R1
        30 FASTCALL1                        TYPEOF R1 ; [+3]
        31 MOVE                             R6 R1
@@ -249,15 +249,15 @@ MAIN:
        15 LOADK                            R4 K5 ["ChangeHistoryService"]
        16 NAMECALL                         R2 R2 K3 ["GetService"]
        18 CALL                             R2 2 1
-       19 GETIMPORT                        R7 K7 [script]
-       21 GETTABLEKS                       R6 R7 K8 ["Parent"]
-       23 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       25 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       27 GETTABLEKS                       R3 R4 K8 ["Parent"]
+       19 GETIMPORT                        R3 K7 [script]
+       21 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       23 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       27 GETTABLEKS                       R3 R3 K8 ["Parent"]
        29 GETIMPORT                        R4 K10 [require]
-       31 GETTABLEKS                       R7 R3 K11 ["Src"]
-       33 GETTABLEKS                       R6 R7 K12 ["Util"]
-       35 GETTABLEKS                       R5 R6 K13 ["TutorialTypes"]
+       31 GETTABLEKS                       R5 R3 K11 ["Src"]
+       33 GETTABLEKS                       R5 R5 K12 ["Util"]
+       35 GETTABLEKS                       R5 R5 K13 ["TutorialTypes"]
        37 CALL                             R4 1 1
        38 NEWTABLE                         R5 8 0
        40 DUPTABLE                         R6 K15 [{"__index"}]

@@ -18,8 +18,8 @@ PROTO_0:
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["shouldDebugWarnings"]
         3 CALL                             R2 0 1
         4 JUMPIFNOT                        R2 ; [+25]
         5 GETTABLEKS                       R2 R1 K1 ["response"]
@@ -39,9 +39,9 @@ PROTO_1:
        26 NAMECALL                         R4 R4 K12 ["format"]
        28 CALL                             R4 5 -1
        29 CALL                             R3 -1 0
-       30 GETUPVAL                         R4 1
-       31 GETTABLEKS                       R3 R4 K13 ["List"]
-       33 GETTABLEKS                       R2 R3 K14 ["join"]
+       30 GETUPVAL                         R2 1
+       31 GETTABLEKS                       R2 R2 K13 ["List"]
+       33 GETTABLEKS                       R2 R2 K14 ["join"]
        35 MOVE                             R3 R0
        36 NEWTABLE                         R4 0 1
        38 GETTABLEKS                       R5 R1 K1 ["response"]
@@ -51,10 +51,10 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Cryo"]
@@ -63,14 +63,14 @@ MAIN:
        18 GETTABLEKS                       R4 R1 K7 ["Rodux"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R7 R0 K8 ["Src"]
-       25 GETTABLEKS                       R6 R7 K9 ["Util"]
-       27 GETTABLEKS                       R5 R6 K10 ["DebugFlags"]
+       23 GETTABLEKS                       R5 R0 K8 ["Src"]
+       25 GETTABLEKS                       R5 R5 K9 ["Util"]
+       27 GETTABLEKS                       R5 R5 K10 ["DebugFlags"]
        29 CALL                             R4 1 1
        30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R8 R0 K8 ["Src"]
-       34 GETTABLEKS                       R7 R8 K11 ["Actions"]
-       36 GETTABLEKS                       R6 R7 K12 ["NetworkError"]
+       32 GETTABLEKS                       R6 R0 K8 ["Src"]
+       34 GETTABLEKS                       R6 R6 K11 ["Actions"]
+       36 GETTABLEKS                       R6 R6 K12 ["NetworkError"]
        38 CALL                             R5 1 1
        39 DUPCLOSURE                       R6 K13 [PROTO_0]
        40 GETTABLEKS                       R7 R3 K14 ["createReducer"]

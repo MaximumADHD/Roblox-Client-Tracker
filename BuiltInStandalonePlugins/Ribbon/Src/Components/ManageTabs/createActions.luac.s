@@ -16,8 +16,8 @@ PROTO_2:
         4 NAMECALL                         R5 R1 K2 ["GetPluginComponent"]
         6 CALL                             R5 2 1
         7 DUPTABLE                         R8 K8 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
-        8 GETUPVAL                         R10 0
-        9 GETTABLEKS                       R9 R10 K9 ["join"]
+        8 GETUPVAL                         R9 0
+        9 GETTABLEKS                       R9 R9 K9 ["join"]
        11 MOVE                             R10 R4
        12 DUPTABLE                         R11 K12 [{"Category", "ItemId"}]
        13 LOADK                            R12 K1 ["Actions"]
@@ -46,8 +46,8 @@ PROTO_2:
        45 NAMECALL                         R7 R7 K17 ["Connect"]
        47 CALL                             R7 2 1
        48 DUPTABLE                         R10 K8 [{"Uri", "Enabled", "Exists", "Visible", "Text"}]
-       49 GETUPVAL                         R12 0
-       50 GETTABLEKS                       R11 R12 K9 ["join"]
+       49 GETUPVAL                         R11 0
+       50 GETTABLEKS                       R11 R11 K9 ["join"]
        52 MOVE                             R12 R4
        53 DUPTABLE                         R13 K12 [{"Category", "ItemId"}]
        54 LOADK                            R14 K1 ["Actions"]
@@ -88,14 +88,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["StudioFoundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["StudioFoundation"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["StudioUri"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["StudioUri"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Src"]
-       22 GETTABLEKS                       R4 R5 K11 ["Types"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Types"]
        24 CALL                             R3 1 1
        25 DUPCLOSURE                       R4 K12 [PROTO_2]
        26 CAPTURE                          VAL R2

@@ -39,8 +39,8 @@ PROTO_4:
         3 SETTABLEKS                       R2 R0 K2 ["_holdTime"]
         5 GETTABLEKS                       R2 R0 K3 ["_heartbeatConnection"]
         7 JUMPIF                           R2 ; [+10]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["Heartbeat"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["Heartbeat"]
        11 NEWCLOSURE                       R4 P0
        12 CAPTURE                          VAL R0
        13 NAMECALL                         R2 R2 K5 ["Connect"]

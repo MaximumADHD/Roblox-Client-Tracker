@@ -1,7 +1,7 @@
 PROTO_0:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["WorldModel"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["WorldModel"]
         5 NAMECALL                         R1 R1 K1 ["GetDescendants"]
         7 CALL                             R1 1 3
         8 FORGPREP                         R1
@@ -27,8 +27,8 @@ PROTO_0:
        35 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useMemo"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          VAL R0
         5 NEWTABLE                         R3 0 2
@@ -39,8 +39,8 @@ PROTO_1:
        14 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["canEditAssetAsync"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["canEditAssetAsync"]
         3 GETIMPORT                        R1 K3 [Content.fromUri]
         5 GETUPVAL                         R2 1
         6 CALL                             R1 1 -1
@@ -48,25 +48,25 @@ PROTO_2:
         8 RETURN                           R0 -1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 GETTABLE                         R1 R2 R0
         4 JUMPIFNOT                        R1 ; [+5]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["current"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["current"]
         8 GETTABLE                         R1 R2 R0
         9 RETURN                           R1 1
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K1 ["try"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K1 ["try"]
        13 NEWCLOSURE                       R2 P0
        14 CAPTURE                          UPVAL U2
        15 CAPTURE                          VAL R0
        16 CALL                             R1 1 1
-       17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R2 R3 K0 ["current"]
+       17 GETUPVAL                         R2 0
+       18 GETTABLEKS                       R2 R2 K0 ["current"]
        20 SETTABLE                         R1 R2 R0
-       21 GETUPVAL                         R4 0
-       22 GETTABLEKS                       R3 R4 K0 ["current"]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K0 ["current"]
        24 GETTABLE                         R2 R3 R0
        25 RETURN                           R2 1
 
@@ -99,8 +99,8 @@ PROTO_5:
        16 GETIMPORT                        R8 K3 [table.insert]
        18 CALL                             R8 2 0
        19 FORGLOOP                         R1 2 ; [-14]
-       21 GETUPVAL                         R2 2
-       22 GETTABLEKS                       R1 R2 K4 ["all"]
+       21 GETUPVAL                         R1 2
+       22 GETTABLEKS                       R1 R1 K4 ["all"]
        24 MOVE                             R2 R0
        25 CALL                             R1 1 1
        26 DUPCLOSURE                       R3 K5 [PROTO_4]
@@ -118,27 +118,27 @@ PROTO_5:
        41 RETURN                           R2 1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["useRef"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["useRef"]
         8 NEWTABLE                         R3 0 0
        10 CALL                             R2 1 1
        11 GETUPVAL                         R3 2
        12 GETTABLEKS                       R4 R0 K2 ["avatar"]
        14 CALL                             R3 1 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K3 ["useCallback"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K3 ["useCallback"]
        18 NEWCLOSURE                       R5 P0
        19 CAPTURE                          VAL R2
        20 CAPTURE                          UPVAL U3
        21 CAPTURE                          VAL R1
        22 NEWTABLE                         R6 0 0
        24 CALL                             R4 2 1
-       25 GETUPVAL                         R6 0
-       26 GETTABLEKS                       R5 R6 K3 ["useCallback"]
+       25 GETUPVAL                         R5 0
+       26 GETTABLEKS                       R5 R5 K3 ["useCallback"]
        28 NEWCLOSURE                       R6 P1
        29 CAPTURE                          VAL R3
        30 CAPTURE                          VAL R4
@@ -162,26 +162,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Components"]
-       13 GETTABLEKS                       R2 R3 K8 ["AssetServiceContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["AssetServiceContext"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Promise"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Promise"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K6 ["Src"]
-       34 GETTABLEKS                       R5 R6 K12 ["Types"]
+       32 GETTABLEKS                       R5 R0 K6 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Types"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K6 ["Src"]
-       41 GETTABLEKS                       R7 R8 K13 ["Hooks"]
-       43 GETTABLEKS                       R6 R7 K14 ["useAsync"]
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Hooks"]
+       43 GETTABLEKS                       R6 R6 K14 ["useAsync"]
        45 CALL                             R5 1 1
        46 DUPCLOSURE                       R6 K15 [PROTO_1]
        47 CAPTURE                          VAL R3

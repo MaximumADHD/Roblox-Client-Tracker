@@ -11,20 +11,20 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R6 2
-        3 GETTABLEKS                       R5 R6 K0 ["QUERY_STATE"]
-        5 GETTABLEKS                       R4 R5 K1 ["QUERY_STATE_FAILED"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["QUERY_STATE"]
+        5 GETTABLEKS                       R4 R4 K1 ["QUERY_STATE_FAILED"]
         7 CALL                             R3 1 -1
         8 NAMECALL                         R1 R1 K2 ["dispatch"]
        10 CALL                             R1 -1 0
        11 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["Develop"]
-        3 GETTABLEKS                       R3 R4 K1 ["V2"]
-        5 GETTABLEKS                       R2 R3 K2 ["Universes"]
-        7 GETTABLEKS                       R1 R2 K3 ["configuration"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Develop"]
+        3 GETTABLEKS                       R1 R1 K1 ["V2"]
+        5 GETTABLEKS                       R1 R1 K2 ["Universes"]
+        7 GETTABLEKS                       R1 R1 K3 ["configuration"]
         9 GETUPVAL                         R2 1
        10 CALL                             R1 1 1
        11 NAMECALL                         R1 R1 K4 ["makeRequest"]
@@ -51,24 +51,24 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetGameConfiguration"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetGameConfiguration"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       24 GETTABLEKS                       R3 R4 K8 ["SetChooseGameQueryState"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K8 ["SetChooseGameQueryState"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K9 ["Resources"]
-       33 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Resources"]
+       33 GETTABLEKS                       R4 R4 K10 ["Constants"]
        35 CALL                             R3 1 1
        36 DUPCLOSURE                       R4 K11 [PROTO_3]
        37 CAPTURE                          VAL R1

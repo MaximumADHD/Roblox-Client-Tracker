@@ -42,10 +42,10 @@ PROTO_0:
        57 SETTABLEKS                       R10 R9 K13 ["id"]
        59 JUMP                             ; [+1]
        60 MOVE                             R9 R8
-       61 GETUPVAL                         R12 3
-       62 GETUPVAL                         R13 4
-       63 GETTABLE                         R11 R12 R13
-       64 GETTABLEKS                       R10 R11 K14 ["AssetType"]
+       61 GETUPVAL                         R11 3
+       62 GETUPVAL                         R12 4
+       63 GETTABLE                         R10 R11 R12
+       64 GETTABLEKS                       R10 R10 K14 ["AssetType"]
        66 SETTABLEKS                       R10 R9 K15 ["assetType"]
        68 GETUPVAL                         R10 5
        69 SETTABLEKS                       R10 R9 K16 ["layoutOrder"]
@@ -76,9 +76,9 @@ PROTO_0:
       101 JUMPIF                           R10 ; [+2]
       102 FORGLOOP                         R11 2 ; [-21]
       104 JUMPIFNOT                        R10 ; [+23]
-      105 GETUPVAL                         R13 6
-      106 GETTABLEKS                       R12 R13 K25 ["Dictionary"]
-      108 GETTABLEKS                       R11 R12 K26 ["join"]
+      105 GETUPVAL                         R11 6
+      106 GETTABLEKS                       R11 R11 K25 ["Dictionary"]
+      108 GETTABLEKS                       R11 R11 K26 ["join"]
       110 MOVE                             R12 R2
       111 NEWTABLE                         R13 1 0
       113 GETUPVAL                         R15 0
@@ -94,11 +94,11 @@ PROTO_0:
       127 MOVE                             R2 R11
       128 FORGLOOP                         R4 2 ; [-82]
       130 GETUPVAL                         R4 2
-      131 GETUPVAL                         R7 6
-      132 GETTABLEKS                       R6 R7 K25 ["Dictionary"]
-      134 GETTABLEKS                       R5 R6 K26 ["join"]
-      136 GETUPVAL                         R7 2
-      137 GETTABLEKS                       R6 R7 K29 ["assets"]
+      131 GETUPVAL                         R5 6
+      132 GETTABLEKS                       R5 R5 K25 ["Dictionary"]
+      134 GETTABLEKS                       R5 R5 K26 ["join"]
+      136 GETUPVAL                         R6 2
+      137 GETTABLEKS                       R6 R6 K29 ["assets"]
       139 MOVE                             R7 R2
       140 CALL                             R5 2 1
       141 SETTABLEKS                       R5 R4 K29 ["assets"]
@@ -127,18 +127,18 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["Screens"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["Screens"]
        24 CALL                             R2 1 1
        25 DUPCLOSURE                       R3 K10 [PROTO_1]
        26 CAPTURE                          VAL R2

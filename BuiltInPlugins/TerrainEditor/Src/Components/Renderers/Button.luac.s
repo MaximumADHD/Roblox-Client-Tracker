@@ -3,34 +3,34 @@ PROTO_0:
         2 GETUPVAL                         R2 0
         3 CALL                             R2 0 1
         4 JUMPIFNOT                        R2 ; [+62]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["createElement"]
-        8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R3 R4 K2 ["View"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["createElement"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K2 ["View"]
        11 DUPTABLE                         R4 K4 [{"tag"}]
        12 LOADK                            R5 K5 ["size-full-0 align-x-center"]
        13 SETTABLEKS                       R5 R4 K3 ["tag"]
        15 DUPTABLE                         R5 K7 [{"Button"}]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K1 ["createElement"]
-       19 GETUPVAL                         R8 2
-       20 GETTABLEKS                       R7 R8 K6 ["Button"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       19 GETUPVAL                         R7 2
+       20 GETTABLEKS                       R7 R7 K6 ["Button"]
        22 DUPTABLE                         R8 K14 [{"text", "variant", "onActivated", "isDisabled", "size", "testId"}]
        23 GETTABLEKS                       R9 R1 K15 ["Label"]
        25 SETTABLEKS                       R9 R8 K8 ["text"]
-       27 GETUPVAL                         R12 2
-       28 GETTABLEKS                       R11 R12 K16 ["Enums"]
-       30 GETTABLEKS                       R10 R11 K17 ["ButtonVariant"]
-       32 GETTABLEKS                       R9 R10 K18 ["Emphasis"]
+       27 GETUPVAL                         R9 2
+       28 GETTABLEKS                       R9 R9 K16 ["Enums"]
+       30 GETTABLEKS                       R9 R9 K17 ["ButtonVariant"]
+       32 GETTABLEKS                       R9 R9 K18 ["Emphasis"]
        34 SETTABLEKS                       R9 R8 K9 ["variant"]
        36 GETTABLEKS                       R9 R1 K19 ["OnClick"]
        38 SETTABLEKS                       R9 R8 K10 ["onActivated"]
        40 GETTABLEKS                       R9 R0 K20 ["Disabled"]
        42 SETTABLEKS                       R9 R8 K11 ["isDisabled"]
-       44 GETUPVAL                         R12 2
-       45 GETTABLEKS                       R11 R12 K16 ["Enums"]
-       47 GETTABLEKS                       R10 R11 K21 ["InputSize"]
-       49 GETTABLEKS                       R9 R10 K22 ["Small"]
+       44 GETUPVAL                         R9 2
+       45 GETTABLEKS                       R9 R9 K16 ["Enums"]
+       47 GETTABLEKS                       R9 R9 K21 ["InputSize"]
+       49 GETTABLEKS                       R9 R9 K22 ["Small"]
        51 SETTABLEKS                       R9 R8 K12 ["size"]
        53 LOADK                            R10 K23 ["button-%*"]
        54 GETTABLEKS                       R12 R1 K15 ["Label"]
@@ -42,8 +42,8 @@ PROTO_0:
        63 SETTABLEKS                       R6 R5 K6 ["Button"]
        65 CALL                             R2 3 -1
        66 RETURN                           R2 -1
-       67 GETUPVAL                         R3 1
-       68 GETTABLEKS                       R2 R3 K1 ["createElement"]
+       67 GETUPVAL                         R2 1
+       68 GETTABLEKS                       R2 R2 K1 ["createElement"]
        70 GETUPVAL                         R3 3
        71 DUPTABLE                         R4 K29 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
        72 GETTABLEKS                       R5 R0 K20 ["Disabled"]
@@ -77,27 +77,27 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R5 R2 K10 ["UI"]
-       30 GETTABLEKS                       R4 R5 K11 ["Button"]
-       32 GETTABLEKS                       R6 R2 K10 ["UI"]
-       34 GETTABLEKS                       R5 R6 K12 ["IconButton"]
-       36 GETTABLEKS                       R7 R2 K13 ["Util"]
-       38 GETTABLEKS                       R6 R7 K14 ["StyleModifier"]
+       28 GETTABLEKS                       R4 R2 K10 ["UI"]
+       30 GETTABLEKS                       R4 R4 K11 ["Button"]
+       32 GETTABLEKS                       R5 R2 K10 ["UI"]
+       34 GETTABLEKS                       R5 R5 K12 ["IconButton"]
+       36 GETTABLEKS                       R6 R2 K13 ["Util"]
+       38 GETTABLEKS                       R6 R6 K14 ["StyleModifier"]
        40 GETIMPORT                        R7 K5 [require]
-       42 GETTABLEKS                       R10 R0 K15 ["Src"]
-       44 GETTABLEKS                       R9 R10 K16 ["Flags"]
-       46 GETTABLEKS                       R8 R9 K17 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+       42 GETTABLEKS                       R8 R0 K15 ["Src"]
+       44 GETTABLEKS                       R8 R8 K16 ["Flags"]
+       46 GETTABLEKS                       R8 R8 K17 ["getFFlagTerrainEditorMigrateFoundationFonts"]
        48 CALL                             R7 1 1
        49 DUPCLOSURE                       R8 K18 [PROTO_0]
        50 CAPTURE                          VAL R7

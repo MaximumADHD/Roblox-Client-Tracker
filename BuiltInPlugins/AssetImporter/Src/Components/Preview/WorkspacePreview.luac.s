@@ -19,8 +19,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["createRef"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createRef"]
         5 CALL                             R2 0 1
         6 SETTABLEKS                       R2 R0 K2 ["viewportFrameRef"]
         8 GETTABLEKS                       R2 R1 K3 ["ReferenceCamera"]
@@ -76,8 +76,8 @@ PROTO_4:
        14 LOADN                            R8 0
        15 CALL                             R4 4 1
        16 GETTABLEKS                       R5 R0 K7 ["camera"]
-       18 GETUPVAL                         R7 0
-       19 GETTABLEKS                       R6 R7 K8 ["createElement"]
+       18 GETUPVAL                         R6 0
+       19 GETTABLEKS                       R6 R6 K8 ["createElement"]
        21 LOADK                            R7 K9 ["ViewportFrame"]
        22 NEWTABLE                         R8 8 0
        24 SETTABLEKS                       R2 R8 K1 ["LayoutOrder"]
@@ -90,8 +90,8 @@ PROTO_4:
        36 LOADK                            R9 K12 [0.7]
        37 SETTABLEKS                       R9 R8 K13 ["ImageTransparency"]
        39 SETTABLEKS                       R5 R8 K14 ["CurrentCamera"]
-       41 GETUPVAL                         R10 0
-       42 GETTABLEKS                       R9 R10 K15 ["Ref"]
+       41 GETUPVAL                         R9 0
+       42 GETTABLEKS                       R9 R9 K15 ["Ref"]
        44 GETTABLEKS                       R10 R0 K16 ["viewportFrameRef"]
        46 SETTABLE                         R10 R8 R9
        47 CALL                             R6 2 -1
@@ -104,8 +104,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
        16 LOADK                            R4 K9 ["WorkspacePreview"]

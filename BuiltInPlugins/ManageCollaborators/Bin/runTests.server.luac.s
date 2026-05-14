@@ -14,21 +14,21 @@ MAIN:
         3 LOADK                            R2 K2 ["ImprovePluginSpeed_ManageCollaborators"]
         4 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 JUMPIF                           R0 ; [+11]
        14 GETIMPORT                        R2 K8 [require]
-       16 GETIMPORT                        R5 K5 [script]
-       18 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       20 GETTABLEKS                       R3 R4 K9 ["commonInit"]
+       16 GETIMPORT                        R3 K5 [script]
+       18 GETTABLEKS                       R3 R3 K6 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K9 ["commonInit"]
        22 CALL                             R2 1 1
        23 MOVE                             R3 R2
        24 CALL                             R3 0 0
        25 GETIMPORT                        R2 K8 [require]
-       27 GETTABLEKS                       R5 R1 K10 ["Src"]
-       29 GETTABLEKS                       R4 R5 K11 ["Util"]
-       31 GETTABLEKS                       R3 R4 K12 ["DebugFlags"]
+       27 GETTABLEKS                       R3 R1 K10 ["Src"]
+       29 GETTABLEKS                       R3 R3 K11 ["Util"]
+       31 GETTABLEKS                       R3 R3 K12 ["DebugFlags"]
        33 CALL                             R2 1 1
        34 GETTABLEKS                       R3 R2 K13 ["RunningUnderCLI"]
        36 CALL                             R3 0 1
@@ -38,22 +38,22 @@ MAIN:
        41 JUMPIFNOT                        R3 ; [+74]
        42 JUMPIFNOT                        R0 ; [+11]
        43 GETIMPORT                        R3 K8 [require]
-       45 GETIMPORT                        R6 K5 [script]
-       47 GETTABLEKS                       R5 R6 K6 ["Parent"]
-       49 GETTABLEKS                       R4 R5 K9 ["commonInit"]
+       45 GETIMPORT                        R4 K5 [script]
+       47 GETTABLEKS                       R4 R4 K6 ["Parent"]
+       49 GETTABLEKS                       R4 R4 K9 ["commonInit"]
        51 CALL                             R3 1 1
        52 MOVE                             R4 R3
        53 CALL                             R4 0 0
        54 GETIMPORT                        R3 K8 [require]
-       56 GETTABLEKS                       R6 R1 K15 ["Packages"]
-       58 GETTABLEKS                       R5 R6 K16 ["Dev"]
-       60 GETTABLEKS                       R4 R5 K17 ["TestEZ"]
+       56 GETTABLEKS                       R4 R1 K15 ["Packages"]
+       58 GETTABLEKS                       R4 R4 K16 ["Dev"]
+       60 GETTABLEKS                       R4 R4 K17 ["TestEZ"]
        62 CALL                             R3 1 1
        63 GETTABLEKS                       R4 R3 K18 ["TestBootstrap"]
-       65 GETTABLEKS                       R6 R3 K19 ["Reporters"]
-       67 GETTABLEKS                       R5 R6 K20 ["TeamCityReporter"]
-       69 GETTABLEKS                       R7 R3 K19 ["Reporters"]
-       71 GETTABLEKS                       R6 R7 K21 ["TextReporter"]
+       65 GETTABLEKS                       R5 R3 K19 ["Reporters"]
+       67 GETTABLEKS                       R5 R5 K20 ["TeamCityReporter"]
+       69 GETTABLEKS                       R6 R3 K19 ["Reporters"]
+       71 GETTABLEKS                       R6 R6 K21 ["TextReporter"]
        73 GETIMPORT                        R9 K24 [_G]
        75 GETTABLEKS                       R8 R9 K22 ["TEAMCITY"]
        77 JUMPIFNOT                        R8 ; [+2]

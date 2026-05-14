@@ -41,17 +41,17 @@ PROTO_3:
        11 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["RevertScripts"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["ScriptConversionContext"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["Localization"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["Analytics"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["RevertScripts"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["ScriptConversionContext"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Localization"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["Analytics"]
        12 CALL                             R0 3 0
-       13 GETUPVAL                         R1 0
-       14 GETTABLEKS                       R0 R1 K4 ["onScriptsReverted"]
+       13 GETUPVAL                         R0 0
+       14 GETTABLEKS                       R0 R0 K4 ["onScriptsReverted"]
        16 CALL                             R0 0 0
        17 RETURN                           R0 0
 
@@ -87,26 +87,26 @@ PROTO_6:
        22 LOADB                            R0 0 +1
        23 LOADB                            R0 1
        24 JUMPIFNOT                        R0 ; [+16]
-       25 GETUPVAL                         R2 0
-       26 GETTABLEKS                       R1 R2 K0 ["selectedRangeItems"]
+       25 GETUPVAL                         R1 0
+       26 GETTABLEKS                       R1 R1 K0 ["selectedRangeItems"]
        28 GETTABLEN                        R0 R1 1
-       29 GETUPVAL                         R2 1
-       30 GETTABLEKS                       R1 R2 K4 ["goToScript"]
+       29 GETUPVAL                         R1 1
+       30 GETTABLEKS                       R1 R1 K4 ["goToScript"]
        32 GETTABLEKS                       R2 R0 K5 ["scriptId"]
        34 GETTABLEKS                       R3 R0 K6 ["range"]
-       36 GETUPVAL                         R5 0
-       37 GETTABLEKS                       R4 R5 K7 ["ScriptConversionContext"]
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K7 ["ScriptConversionContext"]
        39 CALL                             R1 3 0
        40 RETURN                           R0 0
-       41 GETUPVAL                         R2 0
-       42 GETTABLEKS                       R1 R2 K2 ["selectedScriptItems"]
+       41 GETUPVAL                         R1 0
+       42 GETTABLEKS                       R1 R1 K2 ["selectedScriptItems"]
        44 GETTABLEN                        R0 R1 1
-       45 GETUPVAL                         R2 1
-       46 GETTABLEKS                       R1 R2 K4 ["goToScript"]
+       45 GETUPVAL                         R1 1
+       46 GETTABLEKS                       R1 R1 K4 ["goToScript"]
        48 GETTABLEKS                       R2 R0 K5 ["scriptId"]
        50 LOADNIL                          R3
-       51 GETUPVAL                         R5 0
-       52 GETTABLEKS                       R4 R5 K7 ["ScriptConversionContext"]
+       51 GETUPVAL                         R4 0
+       52 GETTABLEKS                       R4 R4 K7 ["ScriptConversionContext"]
        54 CALL                             R1 3 0
        55 RETURN                           R0 0
 
@@ -139,27 +139,27 @@ PROTO_8:
        10 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ReplaceWithSuggestion"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["scriptId"]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["range"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["ScriptConversionContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ReplaceWithSuggestion"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["scriptId"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["range"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["ScriptConversionContext"]
        12 GETUPVAL                         R4 2
-       13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R5 R6 K4 ["Localization"]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K5 ["instanceName"]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R7 R8 K6 ["Analytics"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K4 ["Localization"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K5 ["instanceName"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K6 ["Analytics"]
        22 CALL                             R0 7 0
-       23 GETUPVAL                         R1 0
-       24 GETTABLEKS                       R0 R1 K7 ["onSuggestionApplied"]
+       23 GETUPVAL                         R0 0
+       24 GETTABLEKS                       R0 R0 K7 ["onSuggestionApplied"]
        26 CALL                             R0 0 0
-       27 GETUPVAL                         R1 0
-       28 GETTABLEKS                       R0 R1 K6 ["Analytics"]
+       27 GETUPVAL                         R0 0
+       28 GETTABLEKS                       R0 R0 K6 ["Analytics"]
        30 LOADK                            R2 K8 ["onScriptSuggestionApplied"]
        31 NAMECALL                         R0 R0 K9 ["getHandler"]
        33 CALL                             R0 2 1
@@ -196,14 +196,14 @@ PROTO_10:
        36 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["UndoRevert"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["ScriptConversionContext"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["Localization"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["Analytics"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["UndoRevert"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["ScriptConversionContext"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Localization"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["Analytics"]
        12 CALL                             R0 3 0
        13 RETURN                           R0 0
 
@@ -263,14 +263,14 @@ PROTO_14:
        38 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ReplaceWithRules"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["ScriptConversionContext"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["Localization"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["Analytics"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ReplaceWithRules"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["ScriptConversionContext"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["Localization"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["Analytics"]
        12 CALL                             R0 3 0
        13 RETURN                           R0 0
 
@@ -292,12 +292,12 @@ PROTO_16:
        20 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["diffScripts"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["selectedScriptItems"]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["ScriptConversionContext"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["diffScripts"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["selectedScriptItems"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["ScriptConversionContext"]
         9 CALL                             R0 2 0
        10 RETURN                           R0 0
 
@@ -633,35 +633,35 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Components"]
-       20 GETTABLEKS                       R3 R4 K10 ["ConfirmRevertDialog"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Components"]
+       20 GETTABLEKS                       R3 R3 K10 ["ConfirmRevertDialog"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Util"]
-       29 GETTABLEKS                       R4 R5 K12 ["showDialog"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Util"]
+       29 GETTABLEKS                       R4 R4 K12 ["showDialog"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["Util"]
-       38 GETTABLEKS                       R5 R6 K13 ["ScriptReplacement"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Util"]
+       38 GETTABLEKS                       R5 R5 K13 ["ScriptReplacement"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R9 R0 K8 ["Src"]
-       45 GETTABLEKS                       R8 R9 K11 ["Util"]
-       47 GETTABLEKS                       R7 R8 K14 ["ScriptHistory"]
-       49 GETTABLEKS                       R6 R7 K15 ["selectionHasScriptBackups"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K11 ["Util"]
+       47 GETTABLEKS                       R6 R6 K14 ["ScriptHistory"]
+       49 GETTABLEKS                       R6 R6 K15 ["selectionHasScriptBackups"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R10 R0 K8 ["Src"]
-       56 GETTABLEKS                       R9 R10 K11 ["Util"]
-       58 GETTABLEKS                       R8 R9 K14 ["ScriptHistory"]
-       60 GETTABLEKS                       R7 R8 K16 ["ChunkUtil"]
+       54 GETTABLEKS                       R7 R0 K8 ["Src"]
+       56 GETTABLEKS                       R7 R7 K11 ["Util"]
+       58 GETTABLEKS                       R7 R7 K14 ["ScriptHistory"]
+       60 GETTABLEKS                       R7 R7 K16 ["ChunkUtil"]
        62 CALL                             R6 1 1
        63 GETTABLEKS                       R7 R1 K17 ["UI"]
        65 GETTABLEKS                       R8 R7 K18 ["showContextMenu"]

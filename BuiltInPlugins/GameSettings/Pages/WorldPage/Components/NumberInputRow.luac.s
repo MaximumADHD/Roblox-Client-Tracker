@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
         3 JUMPIFNOT                        R1 ; [+15]
         4 GETUPVAL                         R3 1
         5 MOVE                             R4 R0
@@ -9,9 +9,9 @@ PROTO_0:
         8 MOVE                             R5 R3
         9 GETIMPORT                        R4 K2 [tonumber]
        11 CALL                             R4 1 1
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R6 R7 K0 ["props"]
-       15 GETTABLEKS                       R5 R6 K3 ["OnUpdate"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K0 ["props"]
+       15 GETTABLEKS                       R5 R5 K3 ["OnUpdate"]
        17 MOVE                             R6 R4
        18 CALL                             R5 1 0
        19 RETURN                           R0 0
@@ -20,8 +20,8 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["props"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["props"]
         6 GETTABLEKS                       R4 R2 K2 ["MinValue"]
         8 ORK                              R3 R4 K1 [-∞]
         9 GETTABLEKS                       R5 R2 K4 ["MaxValue"]
@@ -96,9 +96,9 @@ PROTO_1:
       104 CALL                             R8 3 1
       105 MOVE                             R6 R8
       106 JUMPIF                           R5 ; [+8]
-      107 GETUPVAL                         R9 1
-      108 GETTABLEKS                       R8 R9 K0 ["props"]
-      110 GETTABLEKS                       R7 R8 K21 ["OnError"]
+      107 GETUPVAL                         R7 1
+      108 GETTABLEKS                       R7 R7 K0 ["props"]
+      110 GETTABLEKS                       R7 R7 K21 ["OnError"]
       112 MOVE                             R8 R6
       113 MOVE                             R9 R0
       114 CALL                             R7 2 0
@@ -125,15 +125,15 @@ PROTO_3:
        12 GETTABLEKS                       R7 R1 K6 ["WorldRootPhysics"]
        14 NAMECALL                         R7 R7 K7 ["get"]
        16 CALL                             R7 1 1
-       17 GETUPVAL                         R9 0
-       18 GETTABLEKS                       R8 R9 K8 ["createElement"]
+       17 GETUPVAL                         R8 0
+       18 GETTABLEKS                       R8 R8 K8 ["createElement"]
        20 GETUPVAL                         R9 1
        21 DUPTABLE                         R10 K9 [{"LayoutOrder", "Title"}]
        22 SETTABLEKS                       R2 R10 K1 ["LayoutOrder"]
        24 SETTABLEKS                       R3 R10 K2 ["Title"]
        26 DUPTABLE                         R11 K12 [{"Label", "InputBox", "MetricLabel"}]
-       27 GETUPVAL                         R13 0
-       28 GETTABLEKS                       R12 R13 K8 ["createElement"]
+       27 GETUPVAL                         R12 0
+       28 GETTABLEKS                       R12 R12 K8 ["createElement"]
        30 GETUPVAL                         R13 2
        31 DUPTABLE                         R14 K16 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
        32 GETIMPORT                        R15 K19 [Enum.AutomaticSize.XY]
@@ -145,8 +145,8 @@ PROTO_3:
        42 SETTABLEKS                       R4 R14 K15 ["Text"]
        44 CALL                             R12 2 1
        45 SETTABLEKS                       R12 R11 K3 ["Label"]
-       47 GETUPVAL                         R13 0
-       48 GETTABLEKS                       R12 R13 K8 ["createElement"]
+       47 GETUPVAL                         R12 0
+       48 GETTABLEKS                       R12 R12 K8 ["createElement"]
        50 GETUPVAL                         R13 3
        51 DUPTABLE                         R14 K26 [{"OnFocusLost", "OnTextChanged", "OnValidateText", "LayoutOrder", "Position", "Width", "Text"}]
        52 GETTABLEKS                       R15 R0 K27 ["onFocusLost"]
@@ -174,8 +174,8 @@ PROTO_3:
        85 SETTABLEKS                       R12 R11 K10 ["InputBox"]
        87 MOVE                             R12 R6
        88 JUMPIFNOT                        R12 ; [+24]
-       89 GETUPVAL                         R13 0
-       90 GETTABLEKS                       R12 R13 K8 ["createElement"]
+       89 GETUPVAL                         R12 0
+       90 GETTABLEKS                       R12 R12 K8 ["createElement"]
        92 GETUPVAL                         R13 2
        93 DUPTABLE                         R14 K16 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
        94 GETIMPORT                        R15 K19 [Enum.AutomaticSize.XY]
@@ -197,21 +197,21 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETIMPORT                        R5 K1 [script]
-        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K1 [script]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K2 ["Parent"]
        17 GETIMPORT                        R2 K4 [require]
-       19 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       21 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       19 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K6 ["Roact"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K4 [require]
-       26 GETTABLEKS                       R5 R1 K5 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K7 ["Framework"]
+       26 GETTABLEKS                       R4 R1 K5 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K7 ["Framework"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R3 K8 ["ContextServices"]
        33 GETTABLEKS                       R5 R4 K9 ["withContext"]
@@ -220,16 +220,16 @@ MAIN:
        39 GETTABLEKS                       R8 R6 K12 ["TextInput"]
        41 GETTABLEKS                       R9 R6 K13 ["TitledFrame"]
        43 GETIMPORT                        R10 K4 [require]
-       45 GETTABLEKS                       R12 R0 K8 ["ContextServices"]
-       47 GETTABLEKS                       R11 R12 K14 ["WorldRootPhysics"]
+       45 GETTABLEKS                       R11 R0 K8 ["ContextServices"]
+       47 GETTABLEKS                       R11 R11 K14 ["WorldRootPhysics"]
        49 CALL                             R10 1 1
        50 GETIMPORT                        R11 K4 [require]
-       52 GETTABLEKS                       R13 R0 K15 ["Util"]
-       54 GETTABLEKS                       R12 R13 K16 ["formatNumberForDisplay"]
+       52 GETTABLEKS                       R12 R0 K15 ["Util"]
+       54 GETTABLEKS                       R12 R12 K16 ["formatNumberForDisplay"]
        56 CALL                             R11 1 1
        57 GETIMPORT                        R12 K4 [require]
-       59 GETTABLEKS                       R14 R0 K15 ["Util"]
-       61 GETTABLEKS                       R13 R14 K17 ["formatNumberForEngine"]
+       59 GETTABLEKS                       R13 R0 K15 ["Util"]
+       61 GETTABLEKS                       R13 R13 K17 ["formatNumberForEngine"]
        63 CALL                             R12 1 1
        64 GETTABLEKS                       R13 R2 K18 ["PureComponent"]
        66 LOADK                            R15 K19 ["NumberInputRow"]

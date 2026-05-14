@@ -5,26 +5,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Styling"]
-       16 GETTABLEKS                       R2 R3 K9 ["createStyleRule"]
-       18 GETTABLEKS                       R4 R1 K8 ["Styling"]
-       20 GETTABLEKS                       R3 R4 K10 ["createStyleSheet"]
+       14 GETTABLEKS                       R2 R1 K8 ["Styling"]
+       16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
+       18 GETTABLEKS                       R3 R1 K8 ["Styling"]
+       20 GETTABLEKS                       R3 R3 K10 ["createStyleSheet"]
        22 GETIMPORT                        R4 K5 [require]
-       24 GETTABLEKS                       R7 R0 K11 ["Src"]
-       26 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       28 GETTABLEKS                       R5 R6 K13 ["getFFlagExplorerFixBlurryTextHopefully"]
+       24 GETTABLEKS                       R5 R0 K11 ["Src"]
+       26 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       28 GETTABLEKS                       R5 R5 K13 ["getFFlagExplorerFixBlurryTextHopefully"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K5 [require]
-       33 GETTABLEKS                       R8 R0 K11 ["Src"]
-       35 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       37 GETTABLEKS                       R6 R7 K14 ["getFFlagExplorerUseBuilderSans"]
+       33 GETTABLEKS                       R6 R0 K11 ["Src"]
+       35 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       37 GETTABLEKS                       R6 R6 K14 ["getFFlagExplorerUseBuilderSans"]
        39 CALL                             R5 1 1
-       40 GETTABLEKS                       R8 R1 K15 ["Style"]
-       42 GETTABLEKS                       R7 R8 K16 ["Themes"]
-       44 GETTABLEKS                       R6 R7 K17 ["FoundationDark"]
+       40 GETTABLEKS                       R6 R1 K15 ["Style"]
+       42 GETTABLEKS                       R6 R6 K16 ["Themes"]
+       44 GETTABLEKS                       R6 R6 K17 ["FoundationDark"]
        46 MOVE                             R7 R6
        47 LOADN                            R8 1
        48 CALL                             R7 1 1
@@ -59,9 +59,9 @@ MAIN:
        87 MOVE                             R19 R5
        88 CALL                             R19 0 1
        89 JUMPIFNOT                        R19 ; [+7]
-       90 GETTABLEKS                       R20 R7 K38 ["Typography"]
-       92 GETTABLEKS                       R19 R20 K39 ["BodySmall"]
-       94 GETTABLEKS                       R18 R19 K34 ["Font"]
+       90 GETTABLEKS                       R18 R7 K38 ["Typography"]
+       92 GETTABLEKS                       R18 R18 K39 ["BodySmall"]
+       94 GETTABLEKS                       R18 R18 K34 ["Font"]
        96 JUMP                             ; [+2]
        97 GETIMPORT                        R18 K41 [Enum.Font.SourceSans]
        99 SETTABLEKS                       R18 R17 K34 ["Font"]
@@ -70,9 +70,9 @@ MAIN:
       104 MOVE                             R19 R5
       105 CALL                             R19 0 1
       106 JUMPIFNOT                        R19 ; [+11]
-      107 GETTABLEKS                       R21 R7 K38 ["Typography"]
-      109 GETTABLEKS                       R20 R21 K39 ["BodySmall"]
-      111 GETTABLEKS                       R19 R20 K43 ["FontSize"]
+      107 GETTABLEKS                       R19 R7 K38 ["Typography"]
+      109 GETTABLEKS                       R19 R19 K39 ["BodySmall"]
+      111 GETTABLEKS                       R19 R19 K43 ["FontSize"]
       113 FASTCALL1                        MATH_ROUND R19 ; [+2]
       114 GETIMPORT                        R18 K46 [math.round]
       116 CALL                             R18 1 1
@@ -95,9 +95,9 @@ MAIN:
       136 MOVE                             R20 R5
       137 CALL                             R20 0 1
       138 JUMPIFNOT                        R20 ; [+7]
-      139 GETTABLEKS                       R21 R7 K38 ["Typography"]
-      141 GETTABLEKS                       R20 R21 K50 ["TitleSmall"]
-      143 GETTABLEKS                       R19 R20 K34 ["Font"]
+      139 GETTABLEKS                       R19 R7 K38 ["Typography"]
+      141 GETTABLEKS                       R19 R19 K50 ["TitleSmall"]
+      143 GETTABLEKS                       R19 R19 K34 ["Font"]
       145 JUMP                             ; [+2]
       146 GETIMPORT                        R19 K52 [Enum.Font.SourceSansBold]
       148 SETTABLEKS                       R19 R18 K34 ["Font"]
@@ -106,9 +106,9 @@ MAIN:
       153 MOVE                             R20 R5
       154 CALL                             R20 0 1
       155 JUMPIFNOT                        R20 ; [+11]
-      156 GETTABLEKS                       R22 R7 K38 ["Typography"]
-      158 GETTABLEKS                       R21 R22 K50 ["TitleSmall"]
-      160 GETTABLEKS                       R20 R21 K43 ["FontSize"]
+      156 GETTABLEKS                       R20 R7 K38 ["Typography"]
+      158 GETTABLEKS                       R20 R20 K50 ["TitleSmall"]
+      160 GETTABLEKS                       R20 R20 K43 ["FontSize"]
       162 FASTCALL1                        MATH_ROUND R20 ; [+2]
       163 GETIMPORT                        R19 K46 [math.round]
       165 CALL                             R19 1 1

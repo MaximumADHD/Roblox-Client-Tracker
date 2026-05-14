@@ -15,23 +15,23 @@ PROTO_1:
         3 CAPTURE                          UPVAL U0
         4 CAPTURE                          VAL R1
         5 SETTABLEKS                       R2 R0 K1 ["storeSetup"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["createElement"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["createElement"]
        10 GETUPVAL                         R3 2
        11 MOVE                             R4 R0
        12 CALL                             R2 2 -1
        13 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"fakeAsset"}]
         5 GETUPVAL                         R3 2
         6 SETTABLEKS                       R3 R2 K1 ["fakeAsset"]
         8 DUPTABLE                         R3 K4 [{"Asset"}]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K0 ["createElement"]
        12 GETUPVAL                         R5 3
        13 DUPTABLE                         R6 K9 [{"asset", "assetData", "assetId", "LayoutOrder"}]
        14 GETUPVAL                         R7 2
@@ -48,15 +48,15 @@ PROTO_2:
        30 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"fakeAsset"}]
         5 GETUPVAL                         R3 2
         6 SETTABLEKS                       R3 R2 K1 ["fakeAsset"]
         8 NEWTABLE                         R3 0 1
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K0 ["createElement"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K0 ["createElement"]
        13 LOADK                            R5 K3 ["Frame"]
        14 DUPTABLE                         R6 K6 [{"Size", "BackgroundTransparency"}]
        15 GETIMPORT                        R7 K9 [UDim2.new]
@@ -69,8 +69,8 @@ PROTO_3:
        24 LOADN                            R7 1
        25 SETTABLEKS                       R7 R6 K5 ["BackgroundTransparency"]
        27 DUPTABLE                         R7 K12 [{"Layout", "Asset"}]
-       28 GETUPVAL                         R9 0
-       29 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       28 GETUPVAL                         R8 0
+       29 GETTABLEKS                       R8 R8 K0 ["createElement"]
        31 LOADK                            R9 K13 ["UIListLayout"]
        32 DUPTABLE                         R10 K16 [{"VerticalAlignment", "HorizontalAlignment"}]
        33 GETIMPORT                        R11 K19 [Enum.VerticalAlignment.Center]
@@ -79,8 +79,8 @@ PROTO_3:
        39 SETTABLEKS                       R11 R10 K15 ["HorizontalAlignment"]
        41 CALL                             R8 2 1
        42 SETTABLEKS                       R8 R7 K10 ["Layout"]
-       44 GETUPVAL                         R9 0
-       45 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       44 GETUPVAL                         R8 0
+       45 GETTABLEKS                       R8 R8 K0 ["createElement"]
        47 GETUPVAL                         R9 3
        48 DUPTABLE                         R10 K26 [{"asset", "assetData", "assetId", "isHovered", "LayoutOrder"}]
        49 GETUPVAL                         R11 2
@@ -102,31 +102,31 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K3 ["Packages"]
         9 GETIMPORT                        R2 K5 [require]
        11 GETTABLEKS                       R3 R1 K6 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K5 [require]
-       16 GETTABLEKS                       R7 R0 K7 ["Src"]
-       18 GETTABLEKS                       R6 R7 K8 ["Components"]
-       20 GETTABLEKS                       R5 R6 K9 ["Asset"]
-       22 GETTABLEKS                       R4 R5 K9 ["Asset"]
+       16 GETTABLEKS                       R4 R0 K7 ["Src"]
+       18 GETTABLEKS                       R4 R4 K8 ["Components"]
+       20 GETTABLEKS                       R4 R4 K9 ["Asset"]
+       22 GETTABLEKS                       R4 R4 K9 ["Asset"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R0 K10 ["Stories"]
-       29 GETTABLEKS                       R5 R6 K11 ["ToolboxStoryWrapper"]
+       27 GETTABLEKS                       R5 R0 K10 ["Stories"]
+       29 GETTABLEKS                       R5 R5 K11 ["ToolboxStoryWrapper"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R7 R0 K12 ["TestUtils"]
-       36 GETTABLEKS                       R6 R7 K13 ["MockItems"]
+       34 GETTABLEKS                       R6 R0 K12 ["TestUtils"]
+       36 GETTABLEKS                       R6 R6 K13 ["MockItems"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R9 R0 K7 ["Src"]
-       43 GETTABLEKS                       R8 R9 K14 ["Actions"]
-       45 GETTABLEKS                       R7 R8 K15 ["GetAssets"]
+       41 GETTABLEKS                       R7 R0 K7 ["Src"]
+       43 GETTABLEKS                       R7 R7 K14 ["Actions"]
+       45 GETTABLEKS                       R7 R7 K15 ["GetAssets"]
        47 CALL                             R6 1 1
        48 DUPCLOSURE                       R7 K16 [PROTO_1]
        49 CAPTURE                          VAL R6

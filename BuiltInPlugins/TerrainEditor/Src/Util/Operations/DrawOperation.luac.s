@@ -1,31 +1,31 @@
 PROTO_0:
         0 GETTABLEKS                       R3 R0 K0 ["Payload"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["BrushSettings"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["BrushSettings"]
         5 GETTABLE                         R2 R3 R4
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K2 ["BrushSize"]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K2 ["BrushSize"]
         9 GETTABLE                         R3 R2 R4
        10 GETTABLEKS                       R4 R3 K3 ["Height"]
        12 GETTABLEKS                       R5 R3 K4 ["Size"]
-       14 GETUPVAL                         R8 1
-       15 GETTABLEKS                       R7 R8 K5 ["BrushShape"]
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R7 R7 K5 ["BrushShape"]
        17 GETTABLE                         R6 R2 R7
-       18 GETUPVAL                         R9 1
-       19 GETTABLEKS                       R8 R9 K6 ["State"]
+       18 GETUPVAL                         R8 1
+       19 GETTABLEKS                       R8 R8 K6 ["State"]
        21 GETTABLE                         R7 R2 R8
-       22 GETUPVAL                         R11 2
-       23 GETTABLEKS                       R10 R11 K7 ["Sphere"]
+       22 GETUPVAL                         R10 2
+       23 GETTABLEKS                       R10 R10 K7 ["Sphere"]
        25 JUMPIFNOTEQ                      R6 R10 ; [+3]
        27 MOVE                             R9 R5
        28 JUMP                             ; [+1]
        29 MOVE                             R9 R4
-       30 GETUPVAL                         R11 3
-       31 GETTABLEKS                       R10 R11 K8 ["VoxelResolution"]
+       30 GETUPVAL                         R10 3
+       31 GETTABLEKS                       R10 R10 K8 ["VoxelResolution"]
        33 MUL                              R8 R9 R10
        34 GETUPVAL                         R9 4
-       35 GETUPVAL                         R12 1
-       36 GETTABLEKS                       R11 R12 K9 ["PivotPosition"]
+       35 GETUPVAL                         R11 1
+       36 GETTABLEKS                       R11 R11 K9 ["PivotPosition"]
        38 GETTABLE                         R10 R2 R11
        39 GETTABLEKS                       R11 R7 K10 ["Position"]
        41 MOVE                             R12 R8
@@ -41,8 +41,8 @@ PROTO_1:
         4 LOADK                            R4 K1 ["Tried to step without starting first."]
         5 GETIMPORT                        R2 K3 [assert]
         7 CALL                             R2 2 0
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["ProfileTools"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["ProfileTools"]
        11 CALL                             R2 0 1
        12 JUMPIFNOT                        R2 ; [+4]
        13 GETIMPORT                        R2 K7 [debug.profilebegin]
@@ -50,28 +50,28 @@ PROTO_1:
        16 CALL                             R2 1 0
        17 GETTABLEKS                       R2 R0 K0 ["State"]
        19 GETTABLEKS                       R4 R0 K9 ["Payload"]
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R5 R6 K10 ["BrushSettings"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K10 ["BrushSettings"]
        24 GETTABLE                         R3 R4 R5
-       25 GETUPVAL                         R6 2
-       26 GETTABLEKS                       R5 R6 K11 ["BrushSize"]
+       25 GETUPVAL                         R5 2
+       26 GETTABLEKS                       R5 R5 K11 ["BrushSize"]
        28 GETTABLE                         R4 R3 R5
        29 GETTABLEKS                       R5 R4 K12 ["Height"]
        31 GETTABLEKS                       R6 R4 K13 ["Size"]
-       33 GETUPVAL                         R9 2
-       34 GETTABLEKS                       R8 R9 K14 ["BrushMode"]
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K14 ["BrushMode"]
        36 GETTABLE                         R7 R3 R8
-       37 GETUPVAL                         R10 2
-       38 GETTABLEKS                       R9 R10 K15 ["BrushShape"]
+       37 GETUPVAL                         R9 2
+       38 GETTABLEKS                       R9 R9 K15 ["BrushShape"]
        40 GETTABLE                         R8 R3 R9
-       41 GETUPVAL                         R11 2
-       42 GETTABLEKS                       R10 R11 K0 ["State"]
+       41 GETUPVAL                         R10 2
+       42 GETTABLEKS                       R10 R10 K0 ["State"]
        44 GETTABLE                         R9 R3 R10
-       45 GETUPVAL                         R12 2
-       46 GETTABLEKS                       R11 R12 K16 ["IgnoreWater"]
+       45 GETUPVAL                         R11 2
+       46 GETTABLEKS                       R11 R11 K16 ["IgnoreWater"]
        48 GETTABLE                         R10 R3 R11
-       49 GETUPVAL                         R13 2
-       50 GETTABLEKS                       R12 R13 K17 ["TemporarySmooth"]
+       49 GETUPVAL                         R12 2
+       50 GETTABLEKS                       R12 R12 K17 ["TemporarySmooth"]
        52 GETTABLE                         R11 R3 R12
        53 JUMPIFNOT                        R11 ; [+36]
        54 GETTABLEKS                       R12 R2 K18 ["Smooth"]
@@ -91,8 +91,8 @@ PROTO_1:
        74 GETTABLEKS                       R14 R0 K9 ["Payload"]
        76 NAMECALL                         R12 R12 K21 ["updatePayload"]
        78 CALL                             R12 2 0
-       79 GETUPVAL                         R13 0
-       80 GETTABLEKS                       R12 R13 K4 ["ProfileTools"]
+       79 GETUPVAL                         R12 0
+       80 GETTABLEKS                       R12 R12 K4 ["ProfileTools"]
        82 CALL                             R12 0 1
        83 JUMPIFNOT                        R12 ; [+3]
        84 GETIMPORT                        R12 K23 [debug.profileend]
@@ -118,30 +118,30 @@ PROTO_1:
       115 LOADN                            R13 0
       116 RETURN                           R12 2
       117 GETTABLEKS                       R13 R0 K9 ["Payload"]
-      119 GETUPVAL                         R15 1
-      120 GETTABLEKS                       R14 R15 K31 ["MaterialSettings"]
+      119 GETUPVAL                         R14 1
+      120 GETTABLEKS                       R14 R14 K31 ["MaterialSettings"]
       122 GETTABLE                         R12 R13 R14
-      123 GETUPVAL                         R15 5
-      124 GETTABLEKS                       R14 R15 K32 ["AutoMaterial"]
+      123 GETUPVAL                         R14 5
+      124 GETTABLEKS                       R14 R14 K32 ["AutoMaterial"]
       126 GETTABLE                         R13 R12 R14
-      127 GETUPVAL                         R16 5
-      128 GETTABLEKS                       R15 R16 K33 ["SourceMaterial"]
+      127 GETUPVAL                         R15 5
+      128 GETTABLEKS                       R15 R15 K33 ["SourceMaterial"]
       130 GETTABLE                         R14 R12 R15
-      131 GETUPVAL                         R18 6
-      132 GETTABLEKS                       R17 R18 K34 ["Sphere"]
+      131 GETUPVAL                         R17 6
+      132 GETTABLEKS                       R17 R17 K34 ["Sphere"]
       134 JUMPIFNOTEQ                      R8 R17 ; [+3]
       136 MOVE                             R16 R6
       137 JUMP                             ; [+1]
       138 MOVE                             R16 R5
-      139 GETUPVAL                         R18 7
-      140 GETTABLEKS                       R17 R18 K35 ["VoxelResolution"]
+      139 GETUPVAL                         R17 7
+      140 GETTABLEKS                       R17 R17 K35 ["VoxelResolution"]
       142 MUL                              R15 R16 R17
-      143 GETUPVAL                         R18 7
-      144 GETTABLEKS                       R17 R18 K35 ["VoxelResolution"]
+      143 GETUPVAL                         R17 7
+      144 GETTABLEKS                       R17 R17 K35 ["VoxelResolution"]
       146 MUL                              R16 R6 R17
       147 MULK                             R17 R16 K36 [0.5]
-      148 GETUPVAL                         R19 8
-      149 GETTABLEKS                       R18 R19 K37 ["Add"]
+      148 GETUPVAL                         R18 8
+      149 GETTABLEKS                       R18 R18 K37 ["Add"]
       151 JUMPIFNOTEQ                      R7 R18 ; [+6]
       153 SUBK                             R6 R6 K38 [1]
       154 SUBK                             R15 R15 K39 [2]
@@ -150,8 +150,8 @@ PROTO_1:
       157 JUMP                             ; [+2]
       158 GETIMPORT                        R14 K29 [Enum.Material.Air]
       160 GETUPVAL                         R18 9
-      161 GETUPVAL                         R21 2
-      162 GETTABLEKS                       R20 R21 K40 ["PivotPosition"]
+      161 GETUPVAL                         R20 2
+      162 GETTABLEKS                       R20 R20 K40 ["PivotPosition"]
       164 GETTABLE                         R19 R3 R20
       165 GETTABLEKS                       R20 R9 K25 ["Position"]
       167 MOVE                             R21 R15
@@ -173,8 +173,8 @@ PROTO_1:
       187 JUMPIF                           R13 ; [+14]
       188 NAMECALL                         R25 R1 K30 ["skipBudget"]
       190 CALL                             R25 1 0
-      191 GETUPVAL                         R26 0
-      192 GETTABLEKS                       R25 R26 K4 ["ProfileTools"]
+      191 GETUPVAL                         R25 0
+      192 GETTABLEKS                       R25 R25 K4 ["ProfileTools"]
       194 CALL                             R25 0 1
       195 JUMPIFNOT                        R25 ; [+3]
       196 GETIMPORT                        R25 K23 [debug.profileend]
@@ -190,33 +190,33 @@ PROTO_1:
       208 CALL                             R25 3 2
       209 GETIMPORT                        R27 K44 [os.clock]
       211 CALL                             R27 0 1
-      212 GETUPVAL                         R30 8
-      213 GETTABLEKS                       R29 R30 K37 ["Add"]
+      212 GETUPVAL                         R29 8
+      213 GETTABLEKS                       R29 R29 K37 ["Add"]
       215 JUMPIFEQ                         R7 R29 ; [+9]
       217 LOADB                            R28 0
-      218 GETUPVAL                         R30 8
-      219 GETTABLEKS                       R29 R30 K45 ["Subtract"]
+      218 GETUPVAL                         R29 8
+      219 GETTABLEKS                       R29 R29 K45 ["Subtract"]
       221 JUMPIFNOTEQ                      R7 R29 ; [+4]
       223 NOT                              R28 R10
       224 JUMPIFNOT                        R28 ; [+1]
       225 NOT                              R28 R13
       226 JUMPIFNOT                        R28 ; [+91]
-      227 GETUPVAL                         R30 6
-      228 GETTABLEKS                       R29 R30 K34 ["Sphere"]
+      227 GETUPVAL                         R29 6
+      228 GETTABLEKS                       R29 R29 K34 ["Sphere"]
       230 JUMPIFNOTEQ                      R8 R29 ; [+11]
-      232 GETUPVAL                         R30 4
-      233 GETTABLEKS                       R29 R30 K46 ["Terrain"]
+      232 GETUPVAL                         R29 4
+      233 GETTABLEKS                       R29 R29 K46 ["Terrain"]
       235 MOVE                             R31 R24
       236 MOVE                             R32 R17
       237 MOVE                             R33 R14
       238 NAMECALL                         R29 R29 K47 ["FillBall"]
       240 CALL                             R29 4 0
       241 JUMP                             ; [+63]
-      242 GETUPVAL                         R30 6
-      243 GETTABLEKS                       R29 R30 K48 ["Cube"]
+      242 GETUPVAL                         R29 6
+      243 GETTABLEKS                       R29 R29 K48 ["Cube"]
       245 JUMPIFNOTEQ                      R8 R29 ; [+21]
-      247 GETUPVAL                         R30 4
-      248 GETTABLEKS                       R29 R30 K46 ["Terrain"]
+      247 GETUPVAL                         R29 4
+      248 GETTABLEKS                       R29 R29 K46 ["Terrain"]
       250 GETIMPORT                        R31 K51 [CFrame.new]
       252 MOVE                             R32 R24
       253 CALL                             R31 1 1
@@ -230,26 +230,26 @@ PROTO_1:
       263 NAMECALL                         R29 R29 K54 ["FillBlock"]
       265 CALL                             R29 4 0
       266 JUMP                             ; [+38]
-      267 GETUPVAL                         R30 6
-      268 GETTABLEKS                       R29 R30 K55 ["Cylinder"]
+      267 GETUPVAL                         R29 6
+      268 GETTABLEKS                       R29 R29 K55 ["Cylinder"]
       270 JUMPIFNOTEQ                      R8 R29 ; [+34]
-      272 SUB                              R30 R26 R25
-      273 GETTABLEKS                       R29 R30 K56 ["X"]
+      272 SUB                              R29 R26 R25
+      273 GETTABLEKS                       R29 R29 K56 ["X"]
       275 LOADN                            R31 2
-      276 GETUPVAL                         R33 7
-      277 GETTABLEKS                       R32 R33 K35 ["VoxelResolution"]
+      276 GETUPVAL                         R32 7
+      277 GETTABLEKS                       R32 R32 K35 ["VoxelResolution"]
       279 MUL                              R30 R31 R32
       280 JUMPIFNOTLE                      R29 R30 ; [+11]
-      282 GETUPVAL                         R30 4
-      283 GETTABLEKS                       R29 R30 K46 ["Terrain"]
+      282 GETUPVAL                         R29 4
+      283 GETTABLEKS                       R29 R29 K46 ["Terrain"]
       285 MOVE                             R31 R24
       286 MOVE                             R32 R17
       287 MOVE                             R33 R14
       288 NAMECALL                         R29 R29 K47 ["FillBall"]
       290 CALL                             R29 4 0
       291 JUMP                             ; [+13]
-      292 GETUPVAL                         R30 4
-      293 GETTABLEKS                       R29 R30 K46 ["Terrain"]
+      292 GETUPVAL                         R29 4
+      293 GETTABLEKS                       R29 R29 K46 ["Terrain"]
       295 GETIMPORT                        R31 K51 [CFrame.new]
       297 MOVE                             R32 R24
       298 CALL                             R31 1 1
@@ -258,8 +258,8 @@ PROTO_1:
       301 MOVE                             R34 R14
       302 NAMECALL                         R29 R29 K57 ["FillCylinder"]
       304 CALL                             R29 5 0
-      305 GETUPVAL                         R32 12
-      306 GETTABLEKS                       R31 R32 K58 ["NormalizeBrushTimer"]
+      305 GETUPVAL                         R31 12
+      306 GETTABLEKS                       R31 R31 K58 ["NormalizeBrushTimer"]
       308 MOVE                             R32 R27
       309 GETTABLEKS                       R33 R4 K13 ["Size"]
       311 GETTABLEKS                       R34 R4 K12 ["Height"]
@@ -276,14 +276,14 @@ PROTO_1:
       327 SUB                              R31 R32 R33
       328 MULK                             R30 R31 K36 [0.5]
       329 SUB                              R32 R26 R25
-      330 GETUPVAL                         R34 7
-      331 GETTABLEKS                       R33 R34 K35 ["VoxelResolution"]
+      330 GETUPVAL                         R33 7
+      331 GETTABLEKS                       R33 R33 K35 ["VoxelResolution"]
       333 DIV                              R31 R32 R33
-      334 GETUPVAL                         R33 4
-      335 GETTABLEKS                       R32 R33 K46 ["Terrain"]
+      334 GETUPVAL                         R32 4
+      335 GETTABLEKS                       R32 R32 K46 ["Terrain"]
       337 MOVE                             R34 R29
-      338 GETUPVAL                         R36 7
-      339 GETTABLEKS                       R35 R36 K35 ["VoxelResolution"]
+      338 GETUPVAL                         R35 7
+      339 GETTABLEKS                       R35 R35 K35 ["VoxelResolution"]
       341 NAMECALL                         R32 R32 K62 ["ReadVoxels"]
       343 CALL                             R32 3 2
       344 LOADNIL                          R34
@@ -305,18 +305,18 @@ PROTO_1:
       364 GETIMPORT                        R39 K65 [table.create]
       366 MOVE                             R40 R34
       367 CALL                             R39 1 1
-      368 GETUPVAL                         R41 7
-      369 GETTABLEKS                       R40 R41 K35 ["VoxelResolution"]
+      368 GETUPVAL                         R40 7
+      369 GETTABLEKS                       R40 R40 K35 ["VoxelResolution"]
       371 LOADB                            R41 0
-      372 GETUPVAL                         R43 6
-      373 GETTABLEKS                       R42 R43 K34 ["Sphere"]
+      372 GETUPVAL                         R42 6
+      373 GETTABLEKS                       R42 R42 K34 ["Sphere"]
       375 JUMPIFNOTEQ                      R8 R42 ; [+6]
       377 LOADN                            R42 2
       378 JUMPIFLT                         R42 R6 ; [+2]
       380 LOADB                            R41 0 +1
       381 LOADB                            R41 1
-      382 GETUPVAL                         R44 6
-      383 GETTABLEKS                       R43 R44 K55 ["Cylinder"]
+      382 GETUPVAL                         R43 6
+      383 GETTABLEKS                       R43 R43 K55 ["Cylinder"]
       385 JUMPIFNOTEQ                      R8 R43 ; [+5]
       387 LOADB                            R42 1
       388 LOADN                            R43 2
@@ -339,13 +339,13 @@ PROTO_1:
       412 SUB                              R45 R46 R47
       413 LOADNIL                          R46
       414 LOADNIL                          R47
-      415 GETUPVAL                         R50 8
-      416 GETTABLEKS                       R49 R50 K37 ["Add"]
+      415 GETUPVAL                         R49 8
+      416 GETTABLEKS                       R49 R49 K37 ["Add"]
       418 JUMPIFEQ                         R7 R49 ; [+2]
       420 LOADB                            R48 0 +1
       421 LOADB                            R48 1
-      422 GETUPVAL                         R51 8
-      423 GETTABLEKS                       R50 R51 K45 ["Subtract"]
+      422 GETUPVAL                         R50 8
+      423 GETTABLEKS                       R50 R50 K45 ["Subtract"]
       425 JUMPIFEQ                         R7 R50 ; [+2]
       427 LOADB                            R49 0 +1
       428 LOADB                            R49 1
@@ -443,8 +443,8 @@ PROTO_1:
       530 JUMPIFNOT                        R10 ; [+4]
       531 GETIMPORT                        R76 K74 [Enum.Material.Water]
       533 JUMPIFEQ                         R74 R76 ; [+18]
-      535 GETUPVAL                         R77 7
-      536 GETTABLEKS                       R76 R77 K75 ["MinimumOccupancy"]
+      535 GETUPVAL                         R76 7
+      536 GETTABLEKS                       R76 R76 K75 ["MinimumOccupancy"]
       538 JUMPIFNOTLE                      R76 R75 ; [+13]
       540 LOADN                            R76 0
       541 SETTABLE                         R76 R64 R72
@@ -458,38 +458,38 @@ PROTO_1:
       552 FORGLOOP                         R69 2 ; [-64]
       554 FORGLOOP                         R60 2 ; [-93]
       556 FORGLOOP                         R51 2 ; [-121]
-      558 GETUPVAL                         R54 12
-      559 GETTABLEKS                       R53 R54 K58 ["NormalizeBrushTimer"]
+      558 GETUPVAL                         R53 12
+      559 GETTABLEKS                       R53 R53 K58 ["NormalizeBrushTimer"]
       561 MOVE                             R54 R50
       562 GETTABLEKS                       R55 R4 K13 ["Size"]
       564 GETTABLEKS                       R56 R4 K12 ["Height"]
       566 CALL                             R53 3 -1
       567 NAMECALL                         R51 R1 K59 ["addTimeStatistic"]
       569 CALL                             R51 -1 0
-      570 GETUPVAL                         R52 8
-      571 GETTABLEKS                       R51 R52 K45 ["Subtract"]
+      570 GETUPVAL                         R51 8
+      571 GETTABLEKS                       R51 R51 K45 ["Subtract"]
       573 JUMPIFNOTEQ                      R7 R51 ; [+13]
-      575 GETUPVAL                         R52 4
-      576 GETTABLEKS                       R51 R52 K46 ["Terrain"]
+      575 GETUPVAL                         R51 4
+      576 GETTABLEKS                       R51 R51 K46 ["Terrain"]
       578 MOVE                             R53 R29
-      579 GETUPVAL                         R55 7
-      580 GETTABLEKS                       R54 R55 K35 ["VoxelResolution"]
+      579 GETUPVAL                         R54 7
+      580 GETTABLEKS                       R54 R54 K35 ["VoxelResolution"]
       582 MOVE                             R55 R38
       583 MOVE                             R56 R39
       584 NAMECALL                         R51 R51 K76 ["WriteVoxels"]
       586 CALL                             R51 5 0
-      587 GETUPVAL                         R52 4
-      588 GETTABLEKS                       R51 R52 K46 ["Terrain"]
+      587 GETUPVAL                         R51 4
+      588 GETTABLEKS                       R51 R51 K46 ["Terrain"]
       590 MOVE                             R53 R29
-      591 GETUPVAL                         R55 7
-      592 GETTABLEKS                       R54 R55 K35 ["VoxelResolution"]
+      591 GETUPVAL                         R54 7
+      592 GETTABLEKS                       R54 R54 K35 ["VoxelResolution"]
       594 MOVE                             R55 R37
       595 MOVE                             R56 R33
       596 NAMECALL                         R51 R51 K76 ["WriteVoxels"]
       598 CALL                             R51 5 0
       599 FORGLOOP                         R20 2 ; [-417]
-      601 GETUPVAL                         R21 0
-      602 GETTABLEKS                       R20 R21 K4 ["ProfileTools"]
+      601 GETUPVAL                         R20 0
+      602 GETTABLEKS                       R20 R20 K4 ["ProfileTools"]
       604 CALL                             R20 0 1
       605 JUMPIFNOT                        R20 ; [+3]
       606 GETIMPORT                        R20 K23 [debug.profileend]
@@ -505,8 +505,8 @@ PROTO_2:
         5 GETIMPORT                        R2 K3 [assert]
         7 CALL                             R2 2 0
         8 GETTABLEKS                       R2 R0 K0 ["State"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K4 ["ChangeHistoryService"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K4 ["ChangeHistoryService"]
        13 LOADK                            R5 K5 ["Draw"]
        14 NAMECALL                         R3 R3 K6 ["SetWaypoint"]
        16 CALL                             R3 2 0
@@ -542,8 +542,8 @@ PROTO_3:
        21 CAPTURE                          UPVAL U13
        22 NEWCLOSURE                       R4 P2
        23 CAPTURE                          VAL R1
-       24 GETUPVAL                         R6 14
-       25 GETTABLEKS                       R5 R6 K1 ["new"]
+       24 GETUPVAL                         R5 14
+       25 GETTABLEKS                       R5 R5 K1 ["new"]
        27 DUPTABLE                         R6 K7 [{"Budget", "Name", "OnFinish", "OnStart", "OnStep"}]
        28 LOADK                            R7 K8 [0.005]
        29 SETTABLEKS                       R7 R6 K2 ["Budget"]
@@ -561,18 +561,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Resources"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Resources"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R2 R3 K9 ["Util"]
+       16 GETTABLEKS                       R2 R0 K6 ["Src"]
+       18 GETTABLEKS                       R2 R2 K9 ["Util"]
        20 GETIMPORT                        R3 K5 [require]
        22 GETTABLEKS                       R4 R2 K10 ["AnalyticsHelper"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R6 R2 K11 ["Operations"]
-       29 GETTABLEKS                       R5 R6 K12 ["BaseOperation"]
+       27 GETTABLEKS                       R5 R2 K11 ["Operations"]
+       29 GETTABLEKS                       R5 R5 K12 ["BaseOperation"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
        34 GETTABLEKS                       R6 R2 K13 ["CalculateAutoMaterial"]
@@ -590,14 +590,14 @@ MAIN:
        54 GETTABLEKS                       R10 R2 K17 ["getDraggedPositions"]
        56 CALL                             R9 1 1
        57 GETIMPORT                        R10 K5 [require]
-       59 GETTABLEKS                       R14 R0 K6 ["Src"]
-       61 GETTABLEKS                       R13 R14 K9 ["Util"]
-       63 GETTABLEKS                       R12 R13 K11 ["Operations"]
-       65 GETTABLEKS                       R11 R12 K18 ["SmoothOperation"]
+       59 GETTABLEKS                       R11 R0 K6 ["Src"]
+       61 GETTABLEKS                       R11 R11 K9 ["Util"]
+       63 GETTABLEKS                       R11 R11 K11 ["Operations"]
+       65 GETTABLEKS                       R11 R11 K18 ["SmoothOperation"]
        67 CALL                             R10 1 1
        68 GETIMPORT                        R11 K5 [require]
-       70 GETTABLEKS                       R13 R0 K6 ["Src"]
-       72 GETTABLEKS                       R12 R13 K19 ["Types"]
+       70 GETTABLEKS                       R12 R0 K6 ["Src"]
+       72 GETTABLEKS                       R12 R12 K19 ["Types"]
        74 CALL                             R11 1 1
        75 GETTABLEKS                       R12 R11 K20 ["BrushMode"]
        77 GETTABLEKS                       R13 R11 K21 ["BrushShape"]
@@ -605,9 +605,9 @@ MAIN:
        81 GETTABLEKS                       R15 R11 K23 ["Category"]
        83 GETTABLEKS                       R16 R11 K24 ["MaterialSettings"]
        85 GETIMPORT                        R17 K5 [require]
-       87 GETTABLEKS                       R20 R0 K6 ["Src"]
-       89 GETTABLEKS                       R19 R20 K9 ["Util"]
-       91 GETTABLEKS                       R18 R19 K25 ["DebugFlags"]
+       87 GETTABLEKS                       R18 R0 K6 ["Src"]
+       89 GETTABLEKS                       R18 R18 K9 ["Util"]
+       91 GETTABLEKS                       R18 R18 K25 ["DebugFlags"]
        93 CALL                             R17 1 1
        94 DUPCLOSURE                       R18 K26 [PROTO_3]
        95 CAPTURE                          VAL R15

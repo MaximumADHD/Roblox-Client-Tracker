@@ -19,8 +19,8 @@ PROTO_0:
        24 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["shouldDebugWarnings"]
         3 CALL                             R1 0 1
         4 JUMPIFNOT                        R1 ; [+5]
         5 GETIMPORT                        R1 K2 [warn]
@@ -48,26 +48,26 @@ PROTO_2:
        11 JUMPIFNOT                        R1 ; [+36]
        12 GETTABLEKS                       R2 R1 K2 ["assets"]
        14 JUMPIFNOT                        R2 ; [+33]
-       15 GETTABLEKS                       R3 R1 K2 ["assets"]
-       17 GETTABLEKS                       R2 R3 K3 ["idToAssetMap"]
+       15 GETTABLEKS                       R2 R1 K2 ["assets"]
+       17 GETTABLEKS                       R2 R2 K3 ["idToAssetMap"]
        19 JUMPIFNOT                        R2 ; [+28]
-       20 GETTABLEKS                       R4 R1 K2 ["assets"]
-       22 GETTABLEKS                       R3 R4 K3 ["idToAssetMap"]
+       20 GETTABLEKS                       R3 R1 K2 ["assets"]
+       22 GETTABLEKS                       R3 R3 K3 ["idToAssetMap"]
        24 GETUPVAL                         R4 2
        25 GETTABLE                         R2 R3 R4
        26 JUMPIFNOT                        R2 ; [+21]
-       27 GETTABLEKS                       R5 R1 K2 ["assets"]
-       29 GETTABLEKS                       R4 R5 K3 ["idToAssetMap"]
-       31 GETUPVAL                         R5 2
-       32 GETTABLE                         R3 R4 R5
-       33 GETTABLEKS                       R2 R3 K4 ["Asset"]
+       27 GETTABLEKS                       R3 R1 K2 ["assets"]
+       29 GETTABLEKS                       R3 R3 K3 ["idToAssetMap"]
+       31 GETUPVAL                         R4 2
+       32 GETTABLE                         R2 R3 R4
+       33 GETTABLEKS                       R2 R2 K4 ["Asset"]
        35 JUMPIFNOT                        R2 ; [+12]
-       36 GETTABLEKS                       R6 R1 K2 ["assets"]
-       38 GETTABLEKS                       R5 R6 K3 ["idToAssetMap"]
-       40 GETUPVAL                         R6 2
-       41 GETTABLE                         R4 R5 R6
-       42 GETTABLEKS                       R3 R4 K4 ["Asset"]
-       44 GETTABLEKS                       R2 R3 K5 ["AssetMediaIds"]
+       36 GETTABLEKS                       R3 R1 K2 ["assets"]
+       38 GETTABLEKS                       R3 R3 K3 ["idToAssetMap"]
+       40 GETUPVAL                         R4 2
+       41 GETTABLE                         R2 R3 R4
+       42 GETTABLEKS                       R2 R2 K4 ["Asset"]
+       44 GETTABLEKS                       R2 R2 K5 ["AssetMediaIds"]
        46 JUMPIFNOT                        R2 ; [+1]
        47 RETURN                           R0 0
        48 GETUPVAL                         R1 3
@@ -100,25 +100,25 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Util"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["DebugFlags"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K6 [require]
-       22 GETTABLEKS                       R6 R0 K3 ["Src"]
-       24 GETTABLEKS                       R5 R6 K8 ["Actions"]
-       26 GETTABLEKS                       R4 R5 K9 ["NetworkError"]
+       22 GETTABLEKS                       R4 R0 K3 ["Src"]
+       24 GETTABLEKS                       R4 R4 K8 ["Actions"]
+       26 GETTABLEKS                       R4 R4 K9 ["NetworkError"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K6 [require]
-       31 GETTABLEKS                       R7 R0 K3 ["Src"]
-       33 GETTABLEKS                       R6 R7 K8 ["Actions"]
-       35 GETTABLEKS                       R5 R6 K10 ["SetAssetMediaIds"]
+       31 GETTABLEKS                       R5 R0 K3 ["Src"]
+       33 GETTABLEKS                       R5 R5 K8 ["Actions"]
+       35 GETTABLEKS                       R5 R5 K10 ["SetAssetMediaIds"]
        37 CALL                             R4 1 1
        38 DUPCLOSURE                       R5 K11 [PROTO_3]
        39 CAPTURE                          VAL R4

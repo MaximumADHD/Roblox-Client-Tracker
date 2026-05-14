@@ -58,24 +58,24 @@ PROTO_3:
         9 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K1 ["StartKey"]
-        6 GETTABLE                         R3 R0 R4
-        7 GETTABLEKS                       R2 R3 K2 ["line"]
-        9 GETUPVAL                         R6 1
-       10 GETTABLEKS                       R5 R6 K1 ["StartKey"]
-       12 GETTABLE                         R4 R0 R5
-       13 GETTABLEKS                       R3 R4 K3 ["character"]
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K4 ["EndKey"]
-       18 GETTABLE                         R5 R0 R6
-       19 GETTABLEKS                       R4 R5 K2 ["line"]
-       21 GETUPVAL                         R8 1
-       22 GETTABLEKS                       R7 R8 K4 ["EndKey"]
-       24 GETTABLE                         R6 R0 R7
-       25 GETTABLEKS                       R5 R6 K3 ["character"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["StartKey"]
+        6 GETTABLE                         R2 R0 R3
+        7 GETTABLEKS                       R2 R2 K2 ["line"]
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K1 ["StartKey"]
+       12 GETTABLE                         R3 R0 R4
+       13 GETTABLEKS                       R3 R3 K3 ["character"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K4 ["EndKey"]
+       18 GETTABLE                         R4 R0 R5
+       19 GETTABLEKS                       R4 R4 K2 ["line"]
+       21 GETUPVAL                         R6 1
+       22 GETTABLEKS                       R6 R6 K4 ["EndKey"]
+       24 GETTABLE                         R5 R0 R6
+       25 GETTABLEKS                       R5 R5 K3 ["character"]
        27 CALL                             R1 4 -1
        28 RETURN                           R1 -1
 
@@ -109,16 +109,16 @@ PROTO_5:
 
 PROTO_6:
         0 NEWTABLE                         R1 2 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["StartKey"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["StartKey"]
         5 DUPTABLE                         R3 K3 [{"line", "character"}]
         6 GETTABLEKS                       R4 R0 K4 ["startLine"]
         8 SETTABLEKS                       R4 R3 K1 ["line"]
        10 GETTABLEKS                       R4 R0 K5 ["startCharacter"]
        12 SETTABLEKS                       R4 R3 K2 ["character"]
        14 SETTABLE                         R3 R1 R2
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K6 ["EndKey"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K6 ["EndKey"]
        18 DUPTABLE                         R3 K3 [{"line", "character"}]
        19 GETTABLEKS                       R4 R0 K7 ["endLine"]
        21 SETTABLEKS                       R4 R3 K1 ["line"]
@@ -133,9 +133,9 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["ScriptAnalysis"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["ScriptAnalysis"]
        13 GETIMPORT                        R2 K8 [require]
        15 GETTABLEKS                       R3 R1 K9 ["Constants"]
        17 CALL                             R2 1 1

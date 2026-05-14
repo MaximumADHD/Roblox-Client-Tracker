@@ -6,8 +6,8 @@ PROTO_0:
         5 RETURN                           R1 -1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useCallback"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useCallback"]
         3 DUPCLOSURE                       R2 K1 [PROTO_0]
         4 CAPTURE                          UPVAL U1
         5 NEWTABLE                         R3 0 0
@@ -17,8 +17,8 @@ PROTO_1:
        10 SETTABLEKS                       R3 R2 K2 ["default"]
        12 SETTABLEKS                       R1 R2 K3 ["getBundleDetailsAsync"]
        14 GETUPVAL                         R3 2
-       15 GETUPVAL                         R5 3
-       16 GETTABLEKS                       R4 R5 K5 ["Provider"]
+       15 GETUPVAL                         R4 3
+       16 GETTABLEKS                       R4 R4 K5 ["Provider"]
        18 DUPTABLE                         R5 K7 [{"value"}]
        19 SETTABLEKS                       R2 R5 K6 ["value"]
        21 GETTABLEKS                       R6 R0 K8 ["children"]
@@ -36,14 +36,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R6 R0 K10 ["Src"]
-       17 GETTABLEKS                       R5 R6 K11 ["Components"]
-       19 GETTABLEKS                       R4 R5 K12 ["Contexts"]
-       21 GETTABLEKS                       R3 R4 K13 ["AssetServiceContext"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Components"]
+       19 GETTABLEKS                       R3 R3 K12 ["Contexts"]
+       21 GETTABLEKS                       R3 R3 K13 ["AssetServiceContext"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R5 R0 K14 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K15 ["React"]
+       26 GETTABLEKS                       R4 R0 K14 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K15 ["React"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R3 K16 ["createElement"]
        33 DUPCLOSURE                       R5 K17 [PROTO_1]

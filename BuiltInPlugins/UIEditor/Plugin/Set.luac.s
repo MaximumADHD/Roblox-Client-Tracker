@@ -18,8 +18,8 @@ PROTO_1:
        11 NAMECALL                         R3 R3 K3 ["JSONEncode"]
        13 CALL                             R3 2 1
        14 MOVE                             R1 R3
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K4 ["map"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K4 ["map"]
        18 GETTABLE                         R2 R3 R1
        19 JUMPIF                           R2 ; [+13]
        20 GETUPVAL                         R3 1
@@ -27,8 +27,8 @@ PROTO_1:
        23 MOVE                             R4 R0
        24 GETIMPORT                        R2 K6 [table.insert]
        26 CALL                             R2 2 0
-       27 GETUPVAL                         R3 1
-       28 GETTABLEKS                       R2 R3 K4 ["map"]
+       27 GETUPVAL                         R2 1
+       28 GETTABLEKS                       R2 R2 K4 ["map"]
        30 GETUPVAL                         R4 1
        31 LENGTH                           R3 R4
        32 SETTABLE                         R3 R2 R1
@@ -47,12 +47,12 @@ PROTO_2:
        11 NAMECALL                         R3 R3 K3 ["JSONEncode"]
        13 CALL                             R3 2 1
        14 MOVE                             R1 R3
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K4 ["map"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K4 ["map"]
        18 GETTABLE                         R2 R3 R1
        19 JUMPIFNOT                        R2 ; [+35]
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K4 ["map"]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K4 ["map"]
        23 GETTABLE                         R2 R3 R1
        24 GETIMPORT                        R3 K6 [table.remove]
        26 GETUPVAL                         R4 2
@@ -76,8 +76,8 @@ PROTO_2:
        46 NAMECALL                         R7 R7 K3 ["JSONEncode"]
        48 CALL                             R7 2 1
        49 MOVE                             R1 R7
-       50 GETUPVAL                         R7 1
-       51 GETTABLEKS                       R6 R7 K4 ["map"]
+       50 GETUPVAL                         R6 1
+       51 GETTABLEKS                       R6 R6 K4 ["map"]
        53 SETTABLE                         R5 R6 R1
        54 FORNLOOP                         R3
        55 RETURN                           R0 0
@@ -95,8 +95,8 @@ PROTO_3:
        11 NAMECALL                         R3 R3 K3 ["JSONEncode"]
        13 CALL                             R3 2 1
        14 MOVE                             R1 R3
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K4 ["map"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K4 ["map"]
        18 GETTABLE                         R3 R4 R1
        19 JUMPIFNOTEQKNIL                  R3 ; [+2]
        21 LOADB                            R2 0 +1
@@ -121,8 +121,8 @@ PROTO_4:
        17 NAMECALL                         R2 R2 K3 ["JSONEncode"]
        19 CALL                             R2 2 1
        20 MOVE                             R0 R2
-       21 GETUPVAL                         R2 0
-       22 GETTABLEKS                       R1 R2 K4 ["map"]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K4 ["map"]
        24 LOADNIL                          R2
        25 SETTABLE                         R2 R1 R0
        26 GETIMPORT                        R1 K6 [table.remove]

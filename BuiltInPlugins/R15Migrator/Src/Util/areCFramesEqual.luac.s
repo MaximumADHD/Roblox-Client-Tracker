@@ -11,8 +11,8 @@ PROTO_0:
        15 LOADN                            R5 12
        16 LOADN                            R6 1
        17 FORNPREP                         R5
-       18 GETUPVAL                         R9 0
-       19 GETTABLEKS                       R8 R9 K1 ["fuzzyEq"]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K1 ["fuzzyEq"]
        21 GETTABLE                         R9 R3 R7
        22 GETTABLE                         R10 R4 R7
        23 MOVE                             R11 R2
@@ -31,11 +31,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["Math"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["Math"]
        18 DUPCLOSURE                       R3 K10 [PROTO_0]
        19 CAPTURE                          VAL R2
        20 RETURN                           R3 1

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BaseUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BaseUrl"]
         3 LENGTH                           R3 R0
         4 NAMECALL                         R1 R0 K1 ["sub"]
         6 CALL                             R1 2 1

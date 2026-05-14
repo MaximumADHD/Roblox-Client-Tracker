@@ -1,16 +1,16 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["Enabled"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Enabled"]
         5 JUMPIFNOT                        R1 ; [+15]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["Key"]
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K3 ["ToggleCallback"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["Key"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K3 ["ToggleCallback"]
        12 MOVE                             R4 R2
        13 MOVE                             R5 R0
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K4 ["Plugin"]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K4 ["Plugin"]
        17 NAMECALL                         R6 R6 K5 ["get"]
        19 CALL                             R6 1 -1
        20 CALL                             R3 -1 0
@@ -29,8 +29,8 @@ PROTO_2:
         4 GETTABLEKS                       R3 R1 K2 ["Key"]
         6 GETTABLEKS                       R4 R1 K3 ["IsOn"]
         8 GETTABLEKS                       R5 R1 K4 ["Enabled"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 LOADK                            R7 K6 ["Frame"]
        14 DUPTABLE                         R8 K10 [{"AutomaticSize", "Size", "BackgroundTransparency"}]
        15 GETIMPORT                        R9 K13 [Enum.AutomaticSize.Y]
@@ -45,8 +45,8 @@ PROTO_2:
        29 LOADN                            R9 1
        30 SETTABLEKS                       R9 R8 K9 ["BackgroundTransparency"]
        32 DUPTABLE                         R9 K21 [{"Layout", "TextLabel", "Toggle"}]
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       33 GETUPVAL                         R10 0
+       34 GETTABLEKS                       R10 R10 K5 ["createElement"]
        36 LOADK                            R11 K22 ["UIListLayout"]
        37 DUPTABLE                         R12 K27 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment"}]
        38 GETIMPORT                        R13 K30 [Enum.UIFlexAlignment.SpaceBetween]
@@ -59,8 +59,8 @@ PROTO_2:
        52 SETTABLEKS                       R13 R12 K26 ["VerticalAlignment"]
        54 CALL                             R10 2 1
        55 SETTABLEKS                       R10 R9 K18 ["Layout"]
-       57 GETUPVAL                         R11 0
-       58 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       57 GETUPVAL                         R10 0
+       58 GETTABLEKS                       R10 R10 K5 ["createElement"]
        60 GETUPVAL                         R11 1
        61 DUPTABLE                         R12 K42 [{"AutomaticSize", "StyleModifier", "Text", "TextXAlignment", "TextWrapped", "TextTruncate", "LayoutOrder"}]
        62 GETIMPORT                        R13 K44 [Enum.AutomaticSize.XY]
@@ -68,8 +68,8 @@ PROTO_2:
        66 JUMPIFNOT                        R5 ; [+2]
        67 LOADNIL                          R13
        68 JUMP                             ; [+3]
-       69 GETUPVAL                         R14 2
-       70 GETTABLEKS                       R13 R14 K45 ["Disabled"]
+       69 GETUPVAL                         R13 2
+       70 GETTABLEKS                       R13 R13 K45 ["Disabled"]
        72 SETTABLEKS                       R13 R12 K37 ["StyleModifier"]
        74 SETTABLEKS                       R3 R12 K38 ["Text"]
        76 GETIMPORT                        R13 K47 [Enum.TextXAlignment.Left]
@@ -81,8 +81,8 @@ PROTO_2:
        87 LOADN                            R13 1
        88 SETTABLEKS                       R13 R12 K31 ["LayoutOrder"]
        90 DUPTABLE                         R13 K51 [{"FlexItem"}]
-       91 GETUPVAL                         R15 0
-       92 GETTABLEKS                       R14 R15 K5 ["createElement"]
+       91 GETUPVAL                         R14 0
+       92 GETTABLEKS                       R14 R14 K5 ["createElement"]
        94 LOADK                            R15 K52 ["UIFlexItem"]
        95 DUPTABLE                         R16 K54 [{"FlexMode"}]
        96 GETIMPORT                        R17 K57 [Enum.UIFlexMode.Shrink]
@@ -91,8 +91,8 @@ PROTO_2:
       101 SETTABLEKS                       R14 R13 K50 ["FlexItem"]
       103 CALL                             R10 3 1
       104 SETTABLEKS                       R10 R9 K19 ["TextLabel"]
-      106 GETUPVAL                         R11 0
-      107 GETTABLEKS                       R10 R11 K5 ["createElement"]
+      106 GETUPVAL                         R10 0
+      107 GETTABLEKS                       R10 R10 K5 ["createElement"]
       109 GETUPVAL                         R11 3
       110 DUPTABLE                         R12 K60 [{"Disabled", "OnClick", "Selected", "LayoutOrder"}]
       111 NOT                              R13 R5
@@ -109,25 +109,25 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R3 K9 ["withContext"]
        27 GETTABLEKS                       R5 R2 K10 ["UI"]
        29 GETTABLEKS                       R6 R5 K11 ["TextLabel"]
        31 GETTABLEKS                       R7 R5 K12 ["ToggleButton"]
-       33 GETTABLEKS                       R9 R2 K13 ["Util"]
-       35 GETTABLEKS                       R8 R9 K14 ["StyleModifier"]
+       33 GETTABLEKS                       R8 R2 K13 ["Util"]
+       35 GETTABLEKS                       R8 R8 K14 ["StyleModifier"]
        37 GETTABLEKS                       R9 R1 K15 ["PureComponent"]
        39 LOADK                            R11 K16 ["ToggleItemModule"]
        40 NAMECALL                         R9 R9 K17 ["extend"]

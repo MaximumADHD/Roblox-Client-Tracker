@@ -1,10 +1,10 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["pending"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["pending"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIFNOT                        R2 ; [+8]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["pending"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["pending"]
         8 LOADNIL                          R4
         9 SETTABLE                         R4 R3 R0
        10 MOVE                             R3 R2
@@ -45,13 +45,13 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+21]
-        2 GETUPVAL                         R2 1
-        3 GETTABLEKS                       R1 R2 K0 ["pending"]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["pending"]
         5 GETUPVAL                         R2 2
         6 GETTABLE                         R0 R1 R2
         7 JUMPIFNOT                        R0 ; [+15]
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K0 ["pending"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K0 ["pending"]
        11 GETUPVAL                         R1 2
        12 LOADNIL                          R2
        13 SETTABLE                         R2 R0 R1

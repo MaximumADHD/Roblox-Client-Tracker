@@ -148,11 +148,11 @@ PROTO_4:
         7 NAMECALL                         R7 R5 K1 ["IsA"]
         9 CALL                             R7 2 1
        10 JUMPIFNOT                        R7 ; [+4]
-       11 GETUPVAL                         R7 1
-       12 GETTABLEKS                       R6 R7 K2 ["handRigLabels"]
+       11 GETUPVAL                         R6 1
+       12 GETTABLEKS                       R6 R6 K2 ["handRigLabels"]
        14 JUMP                             ; [+3]
-       15 GETUPVAL                         R7 1
-       16 GETTABLEKS                       R6 R7 K3 ["bodyRigLabels"]
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R6 R6 K3 ["bodyRigLabels"]
        18 MOVE                             R7 R6
        19 LOADNIL                          R8
        20 LOADNIL                          R9
@@ -221,8 +221,8 @@ PROTO_7:
        37 NAMECALL                         R1 R1 K1 ["IsA"]
        39 CALL                             R1 2 1
        40 JUMPIFNOT                        R1 ; [+37]
-       41 GETUPVAL                         R2 0
-       42 GETTABLEKS                       R1 R2 K7 ["Parent"]
+       41 GETUPVAL                         R1 0
+       42 GETTABLEKS                       R1 R1 K7 ["Parent"]
        44 JUMPIFNOT                        R1 ; [+33]
        45 LOADK                            R4 K0 ["HumanoidRigDescription"]
        46 NAMECALL                         R2 R1 K1 ["IsA"]
@@ -264,11 +264,11 @@ PROTO_7:
        92 NAMECALL                         R9 R7 K1 ["IsA"]
        94 CALL                             R9 2 1
        95 JUMPIFNOT                        R9 ; [+4]
-       96 GETUPVAL                         R9 2
-       97 GETTABLEKS                       R8 R9 K8 ["handRigLabels"]
+       96 GETUPVAL                         R8 2
+       97 GETTABLEKS                       R8 R8 K8 ["handRigLabels"]
        99 JUMP                             ; [+3]
-      100 GETUPVAL                         R9 2
-      101 GETTABLEKS                       R8 R9 K9 ["bodyRigLabels"]
+      100 GETUPVAL                         R8 2
+      101 GETTABLEKS                       R8 R8 K9 ["bodyRigLabels"]
       103 MOVE                             R9 R8
       104 LOADNIL                          R10
       105 LOADNIL                          R11
@@ -294,22 +294,22 @@ PROTO_7:
 PROTO_8:
         0 MOVE                             R2 R1
         1 JUMPIF                           R2 ; [+3]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["bodyRigLabels"]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["useState"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["bodyRigLabels"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["useState"]
         8 NEWTABLE                         R4 0 0
        10 CALL                             R3 1 2
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R5 R6 K1 ["useState"]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K1 ["useState"]
        14 NEWTABLE                         R6 0 0
        16 CALL                             R5 1 2
-       17 GETUPVAL                         R8 1
-       18 GETTABLEKS                       R7 R8 K1 ["useState"]
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R7 R7 K1 ["useState"]
        20 NEWTABLE                         R8 0 0
        22 CALL                             R7 1 2
-       23 GETUPVAL                         R10 1
-       24 GETTABLEKS                       R9 R10 K2 ["useEffect"]
+       23 GETUPVAL                         R9 1
+       24 GETTABLEKS                       R9 R9 K2 ["useEffect"]
        26 NEWCLOSURE                       R10 P0
        27 CAPTURE                          VAL R0
        28 CAPTURE                          VAL R4
@@ -321,8 +321,8 @@ PROTO_8:
        35 MOVE                             R13 R2
        36 SETLIST                          R11 R12 2 [1]
        38 CALL                             R9 2 0
-       39 GETUPVAL                         R10 1
-       40 GETTABLEKS                       R9 R10 K2 ["useEffect"]
+       39 GETUPVAL                         R9 1
+       40 GETTABLEKS                       R9 R9 K2 ["useEffect"]
        42 NEWCLOSURE                       R10 P1
        43 CAPTURE                          VAL R0
        44 CAPTURE                          VAL R8
@@ -486,8 +486,8 @@ PROTO_12:
        30 NAMECALL                         R1 R1 K1 ["IsA"]
        32 CALL                             R1 2 1
        33 JUMPIFNOT                        R1 ; [+37]
-       34 GETUPVAL                         R2 0
-       35 GETTABLEKS                       R1 R2 K7 ["Parent"]
+       34 GETUPVAL                         R1 0
+       35 GETTABLEKS                       R1 R1 K7 ["Parent"]
        37 JUMPIFNOT                        R1 ; [+33]
        38 LOADK                            R4 K0 ["HumanoidRigDescription"]
        39 NAMECALL                         R2 R1 K1 ["IsA"]
@@ -524,11 +524,11 @@ PROTO_13:
         6 NAMECALL                         R7 R5 K1 ["IsA"]
         8 CALL                             R7 2 1
         9 JUMPIFNOT                        R7 ; [+4]
-       10 GETUPVAL                         R7 1
-       11 GETTABLEKS                       R6 R7 K2 ["handRigLabels"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K2 ["handRigLabels"]
        13 JUMP                             ; [+3]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K3 ["bodyRigLabels"]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K3 ["bodyRigLabels"]
        17 MOVE                             R7 R6
        18 LOADNIL                          R8
        19 LOADNIL                          R9
@@ -572,11 +572,11 @@ PROTO_15:
        17 NAMECALL                         R6 R4 K5 ["IsA"]
        19 CALL                             R6 2 1
        20 JUMPIFNOT                        R6 ; [+4]
-       21 GETUPVAL                         R6 2
-       22 GETTABLEKS                       R5 R6 K6 ["handRigLabels"]
+       21 GETUPVAL                         R5 2
+       22 GETTABLEKS                       R5 R5 K6 ["handRigLabels"]
        24 JUMP                             ; [+3]
-       25 GETUPVAL                         R6 2
-       26 GETTABLEKS                       R5 R6 K7 ["bodyRigLabels"]
+       25 GETUPVAL                         R5 2
+       26 GETTABLEKS                       R5 R5 K7 ["bodyRigLabels"]
        28 MOVE                             R6 R5
        29 LOADNIL                          R7
        30 LOADNIL                          R8
@@ -653,8 +653,8 @@ PROTO_18:
        28 NAMECALL                         R5 R5 K1 ["IsA"]
        30 CALL                             R5 2 1
        31 JUMPIFNOT                        R5 ; [+10]
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R5 R6 K2 ["ChildAdded"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K2 ["ChildAdded"]
        35 NEWCLOSURE                       R7 P3
        36 CAPTURE                          VAL R2
        37 CAPTURE                          VAL R3
@@ -670,22 +670,22 @@ PROTO_18:
 PROTO_19:
         0 MOVE                             R2 R1
         1 JUMPIF                           R2 ; [+3]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K0 ["bodyRigLabels"]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["useState"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["bodyRigLabels"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["useState"]
         8 NEWTABLE                         R4 0 0
        10 CALL                             R3 1 2
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R5 R6 K1 ["useState"]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K1 ["useState"]
        14 NEWTABLE                         R6 0 0
        16 CALL                             R5 1 2
-       17 GETUPVAL                         R8 1
-       18 GETTABLEKS                       R7 R8 K1 ["useState"]
+       17 GETUPVAL                         R7 1
+       18 GETTABLEKS                       R7 R7 K1 ["useState"]
        20 NEWTABLE                         R8 0 0
        22 CALL                             R7 1 2
-       23 GETUPVAL                         R10 1
-       24 GETTABLEKS                       R9 R10 K2 ["useEffect"]
+       23 GETUPVAL                         R9 1
+       24 GETTABLEKS                       R9 R9 K2 ["useEffect"]
        26 NEWCLOSURE                       R10 P0
        27 CAPTURE                          VAL R0
        28 CAPTURE                          VAL R4
@@ -697,8 +697,8 @@ PROTO_19:
        35 MOVE                             R13 R2
        36 SETLIST                          R11 R12 2 [1]
        38 CALL                             R9 2 0
-       39 GETUPVAL                         R10 1
-       40 GETTABLEKS                       R9 R10 K2 ["useEffect"]
+       39 GETUPVAL                         R9 1
+       40 GETTABLEKS                       R9 R9 K2 ["useEffect"]
        42 NEWCLOSURE                       R10 P1
        43 CAPTURE                          VAL R0
        44 CAPTURE                          VAL R8
@@ -736,26 +736,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["AdaptiveAnimationTools"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["AdaptiveAnimationTools"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K9 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       34 GETTABLEKS                       R5 R6 K12 ["getFFlagAdaptiveAnimationConstraints"]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagAdaptiveAnimationConstraints"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R8 R0 K9 ["Src"]
-       41 GETTABLEKS                       R7 R8 K11 ["Flags"]
-       43 GETTABLEKS                       R6 R7 K13 ["getFFlagAdaptiveAnimationMannequinFix"]
+       39 GETTABLEKS                       R6 R0 K9 ["Src"]
+       41 GETTABLEKS                       R6 R6 K11 ["Flags"]
+       43 GETTABLEKS                       R6 R6 K13 ["getFFlagAdaptiveAnimationMannequinFix"]
        45 CALL                             R5 1 1
        46 DUPCLOSURE                       R6 K14 [PROTO_0]
        47 CAPTURE                          VAL R4

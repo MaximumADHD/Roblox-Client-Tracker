@@ -38,21 +38,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["joinDeep"]
        16 GETTABLEKS                       R3 R1 K9 ["None"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R6 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R6 K11 ["Types"]
+       20 GETTABLEKS                       R5 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R5 K11 ["Types"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K14 [table.freeze]
        27 DUPTABLE                         R6 K32 [{"assetName", "fileType", "creatorId", "currentPreset", "enabled", "errors", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "sortOrder", "state", "uploaded", "uploadResults", "validSession", "warnings"}]
        28 LOADK                            R7 K33 [""]
        29 SETTABLEKS                       R7 R6 K15 ["assetName"]
-       31 GETTABLEKS                       R8 R4 K34 ["FileType"]
-       33 GETTABLEKS                       R7 R8 K9 ["None"]
+       31 GETTABLEKS                       R7 R4 K34 ["FileType"]
+       33 GETTABLEKS                       R7 R7 K9 ["None"]
        35 SETTABLEKS                       R7 R6 K16 ["fileType"]
        37 LOADN                            R7 0
        38 SETTABLEKS                       R7 R6 K17 ["creatorId"]
@@ -74,8 +74,8 @@ MAIN:
        62 SETTABLEKS                       R7 R6 K25 ["session"]
        64 LOADN                            R7 255
        65 SETTABLEKS                       R7 R6 K26 ["sortOrder"]
-       67 GETTABLEKS                       R8 R4 K35 ["SessionState"]
-       69 GETTABLEKS                       R7 R8 K36 ["Invalid"]
+       67 GETTABLEKS                       R7 R4 K35 ["SessionState"]
+       69 GETTABLEKS                       R7 R7 K36 ["Invalid"]
        71 SETTABLEKS                       R7 R6 K27 ["state"]
        73 LOADB                            R7 0
        74 SETTABLEKS                       R7 R6 K28 ["uploaded"]

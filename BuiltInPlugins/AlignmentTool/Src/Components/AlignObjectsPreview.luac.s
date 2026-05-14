@@ -2,21 +2,21 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 LOADNIL                          R2
         3 GETTABLEKS                       R3 R1 K1 ["relativeTo"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K2 ["Active"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K2 ["Active"]
         8 JUMPIFNOTEQ                      R3 R4 ; [+4]
        10 GETUPVAL                         R3 1
        11 GETTABLEKS                       R2 R3 K3 ["ActiveInstance"]
-       13 GETUPVAL                         R4 2
-       14 GETTABLEKS                       R3 R4 K4 ["createElement"]
-       16 GETUPVAL                         R5 2
-       17 GETTABLEKS                       R4 R5 K5 ["Portal"]
+       13 GETUPVAL                         R3 2
+       14 GETTABLEKS                       R3 R3 K4 ["createElement"]
+       16 GETUPVAL                         R4 2
+       17 GETTABLEKS                       R4 R4 K5 ["Portal"]
        19 DUPTABLE                         R5 K7 [{"target"}]
        20 GETUPVAL                         R6 3
        21 SETTABLEKS                       R6 R5 K6 ["target"]
        23 DUPTABLE                         R6 K9 [{"AlignToolPreviewUI"}]
-       24 GETUPVAL                         R8 2
-       25 GETTABLEKS                       R7 R8 K4 ["createElement"]
+       24 GETUPVAL                         R7 2
+       25 GETTABLEKS                       R7 R7 K4 ["createElement"]
        27 LOADK                            R8 K10 ["Folder"]
        28 NEWTABLE                         R9 0 0
        30 DUPTABLE                         R10 K12 [{"Elements"}]
@@ -51,10 +51,10 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["Selection"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
@@ -64,22 +64,22 @@ MAIN:
        18 NAMECALL                         R2 R2 K6 ["GetService"]
        20 CALL                             R2 2 1
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["Roact"]
+       23 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["Roact"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K9 [require]
-       30 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K12 ["RoactRodux"]
+       30 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K12 ["RoactRodux"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K9 [require]
-       37 GETTABLEKS                       R8 R0 K13 ["Src"]
-       39 GETTABLEKS                       R7 R8 K14 ["Utility"]
-       41 GETTABLEKS                       R6 R7 K15 ["renderAlignObjectsPreview"]
+       37 GETTABLEKS                       R6 R0 K13 ["Src"]
+       39 GETTABLEKS                       R6 R6 K14 ["Utility"]
+       41 GETTABLEKS                       R6 R6 K15 ["renderAlignObjectsPreview"]
        43 CALL                             R5 1 1
        44 GETIMPORT                        R6 K9 [require]
-       46 GETTABLEKS                       R9 R0 K13 ["Src"]
-       48 GETTABLEKS                       R8 R9 K14 ["Utility"]
-       50 GETTABLEKS                       R7 R8 K16 ["RelativeTo"]
+       46 GETTABLEKS                       R7 R0 K13 ["Src"]
+       48 GETTABLEKS                       R7 R7 K14 ["Utility"]
+       50 GETTABLEKS                       R7 R7 K16 ["RelativeTo"]
        52 CALL                             R6 1 1
        53 GETTABLEKS                       R7 R3 K17 ["PureComponent"]
        55 LOADK                            R9 K18 ["AlignObjectsPreview"]

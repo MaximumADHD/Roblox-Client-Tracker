@@ -5,22 +5,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["AvatarPreview"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarPreviewTypes"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AvatarPreview"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarPreviewTypes"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R7 R0 K6 ["Src"]
-       22 GETTABLEKS                       R6 R7 K7 ["Util"]
-       24 GETTABLEKS                       R5 R6 K10 ["BridgingFiles"]
-       26 GETTABLEKS                       R4 R5 K11 ["AssetDmFiles"]
-       28 GETTABLEKS                       R3 R4 K12 ["assetDmTypes"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
+       24 GETTABLEKS                       R3 R3 K10 ["BridgingFiles"]
+       26 GETTABLEKS                       R3 R3 K11 ["AssetDmFiles"]
+       28 GETTABLEKS                       R3 R3 K12 ["assetDmTypes"]
        30 CALL                             R2 1 1
        31 GETIMPORT                        R3 K5 [require]
-       33 GETTABLEKS                       R6 R0 K6 ["Src"]
-       35 GETTABLEKS                       R5 R6 K13 ["Flags"]
-       37 GETTABLEKS                       R4 R5 K14 ["getFIntAvatarSettingsPreviewSpacing"]
+       33 GETTABLEKS                       R4 R0 K6 ["Src"]
+       35 GETTABLEKS                       R4 R4 K13 ["Flags"]
+       37 GETTABLEKS                       R4 R4 K14 ["getFIntAvatarSettingsPreviewSpacing"]
        39 CALL                             R3 1 1
        40 DUPTABLE                         R4 K23 [{"Eyelashes", "Eyebrows", "Face", "Hair", "Shoes", "Bottoms", "Tops", "Outerwear"}]
        41 LOADN                            R5 1
@@ -364,179 +364,179 @@ MAIN:
       593 SETLIST                          R6 R7 12 [1]
       595 SETTABLEKS                       R6 R5 K39 ["AvatarClothingRulesAssetIdPropertyTypes"]
       597 NEWTABLE                         R6 0 3
-      599 GETIMPORT                        R8 K182 [Enum.AssetType.TShirt]
-      601 GETTABLEKS                       R7 R8 K186 ["Name"]
-      603 GETIMPORT                        R9 K180 [Enum.AssetType.Shirt]
-      605 GETTABLEKS                       R8 R9 K186 ["Name"]
-      607 GETIMPORT                        R10 K185 [Enum.AssetType.Pants]
-      609 GETTABLEKS                       R9 R10 K186 ["Name"]
+      599 GETIMPORT                        R7 K182 [Enum.AssetType.TShirt]
+      601 GETTABLEKS                       R7 R7 K186 ["Name"]
+      603 GETIMPORT                        R8 K180 [Enum.AssetType.Shirt]
+      605 GETTABLEKS                       R8 R8 K186 ["Name"]
+      607 GETIMPORT                        R9 K185 [Enum.AssetType.Pants]
+      609 GETTABLEKS                       R9 R9 K186 ["Name"]
       611 SETLIST                          R6 R7 3 [1]
       613 SETTABLEKS                       R6 R5 K40 ["ClassicClothingTypes"]
       615 NEWTABLE                         R6 4 0
-      617 GETIMPORT                        R8 K182 [Enum.AssetType.TShirt]
-      619 GETTABLEKS                       R7 R8 K186 ["Name"]
+      617 GETIMPORT                        R7 K182 [Enum.AssetType.TShirt]
+      619 GETTABLEKS                       R7 R7 K186 ["Name"]
       621 LOADK                            R8 K187 ["GraphicTShirt"]
       622 SETTABLE                         R8 R6 R7
-      623 GETIMPORT                        R8 K180 [Enum.AssetType.Shirt]
-      625 GETTABLEKS                       R7 R8 K186 ["Name"]
+      623 GETIMPORT                        R7 K180 [Enum.AssetType.Shirt]
+      625 GETTABLEKS                       R7 R7 K186 ["Name"]
       627 LOADK                            R8 K179 ["Shirt"]
       628 SETTABLE                         R8 R6 R7
-      629 GETIMPORT                        R8 K185 [Enum.AssetType.Pants]
-      631 GETTABLEKS                       R7 R8 K186 ["Name"]
+      629 GETIMPORT                        R7 K185 [Enum.AssetType.Pants]
+      631 GETTABLEKS                       R7 R7 K186 ["Name"]
       633 LOADK                            R8 K184 ["Pants"]
       634 SETTABLE                         R8 R6 R7
       635 SETTABLEKS                       R6 R5 K41 ["HumanoidDescriptionClothingTypes"]
       637 NEWTABLE                         R6 32 0
       639 GETIMPORT                        R7 K79 [Enum.AccessoryType.Hat]
-      641 GETIMPORT                        R9 K132 [Enum.AssetType.Hat]
-      643 GETTABLEKS                       R8 R9 K186 ["Name"]
+      641 GETIMPORT                        R8 K132 [Enum.AssetType.Hat]
+      643 GETTABLEKS                       R8 R8 K186 ["Name"]
       645 SETTABLE                         R8 R6 R7
       646 GETIMPORT                        R7 K70 [Enum.AccessoryType.Hair]
-      648 GETIMPORT                        R9 K130 [Enum.AssetType.HairAccessory]
-      650 GETTABLEKS                       R8 R9 K186 ["Name"]
+      648 GETIMPORT                        R8 K130 [Enum.AssetType.HairAccessory]
+      650 GETTABLEKS                       R8 R8 K186 ["Name"]
       652 SETTABLE                         R8 R6 R7
       653 GETIMPORT                        R7 K188 [Enum.AccessoryType.Face]
-      655 GETIMPORT                        R9 K135 [Enum.AssetType.FaceAccessory]
-      657 GETTABLEKS                       R8 R9 K186 ["Name"]
+      655 GETIMPORT                        R8 K135 [Enum.AssetType.FaceAccessory]
+      657 GETTABLEKS                       R8 R8 K186 ["Name"]
       659 SETTABLE                         R8 R6 R7
       660 GETIMPORT                        R7 K190 [Enum.AccessoryType.Neck]
-      662 GETIMPORT                        R9 K138 [Enum.AssetType.NeckAccessory]
-      664 GETTABLEKS                       R8 R9 K186 ["Name"]
+      662 GETIMPORT                        R8 K138 [Enum.AssetType.NeckAccessory]
+      664 GETTABLEKS                       R8 R8 K186 ["Name"]
       666 SETTABLE                         R8 R6 R7
       667 GETIMPORT                        R7 K192 [Enum.AccessoryType.Shoulder]
-      669 GETIMPORT                        R9 K141 [Enum.AssetType.ShoulderAccessory]
-      671 GETTABLEKS                       R8 R9 K186 ["Name"]
+      669 GETIMPORT                        R8 K141 [Enum.AssetType.ShoulderAccessory]
+      671 GETTABLEKS                       R8 R8 K186 ["Name"]
       673 SETTABLE                         R8 R6 R7
       674 GETIMPORT                        R7 K194 [Enum.AccessoryType.Front]
-      676 GETIMPORT                        R9 K144 [Enum.AssetType.FrontAccessory]
-      678 GETTABLEKS                       R8 R9 K186 ["Name"]
+      676 GETIMPORT                        R8 K144 [Enum.AssetType.FrontAccessory]
+      678 GETTABLEKS                       R8 R8 K186 ["Name"]
       680 SETTABLE                         R8 R6 R7
       681 GETIMPORT                        R7 K122 [Enum.AccessoryType.Back]
-      683 GETIMPORT                        R9 K147 [Enum.AssetType.BackAccessory]
-      685 GETTABLEKS                       R8 R9 K186 ["Name"]
+      683 GETIMPORT                        R8 K147 [Enum.AssetType.BackAccessory]
+      685 GETTABLEKS                       R8 R8 K186 ["Name"]
       687 SETTABLE                         R8 R6 R7
       688 GETIMPORT                        R7 K196 [Enum.AccessoryType.Waist]
-      690 GETIMPORT                        R9 K150 [Enum.AssetType.WaistAccessory]
-      692 GETTABLEKS                       R8 R9 K186 ["Name"]
+      690 GETIMPORT                        R8 K150 [Enum.AssetType.WaistAccessory]
+      692 GETTABLEKS                       R8 R8 K186 ["Name"]
       694 SETTABLE                         R8 R6 R7
       695 GETIMPORT                        R7 K105 [Enum.AccessoryType.TShirt]
-      697 GETIMPORT                        R9 K153 [Enum.AssetType.TShirtAccessory]
-      699 GETTABLEKS                       R8 R9 K186 ["Name"]
+      697 GETIMPORT                        R8 K153 [Enum.AssetType.TShirtAccessory]
+      699 GETTABLEKS                       R8 R8 K186 ["Name"]
       701 SETTABLE                         R8 R6 R7
       702 GETIMPORT                        R7 K197 [Enum.AccessoryType.Shirt]
-      704 GETIMPORT                        R9 K156 [Enum.AssetType.ShirtAccessory]
-      706 GETTABLEKS                       R8 R9 K186 ["Name"]
+      704 GETIMPORT                        R8 K156 [Enum.AssetType.ShirtAccessory]
+      706 GETTABLEKS                       R8 R8 K186 ["Name"]
       708 SETTABLE                         R8 R6 R7
       709 GETIMPORT                        R7 K111 [Enum.AccessoryType.Jacket]
-      711 GETIMPORT                        R9 K159 [Enum.AssetType.JacketAccessory]
-      713 GETTABLEKS                       R8 R9 K186 ["Name"]
+      711 GETIMPORT                        R8 K159 [Enum.AssetType.JacketAccessory]
+      713 GETTABLEKS                       R8 R8 K186 ["Name"]
       715 SETTABLE                         R8 R6 R7
       716 GETIMPORT                        R7 K199 [Enum.AccessoryType.Sweater]
-      718 GETIMPORT                        R9 K162 [Enum.AssetType.SweaterAccessory]
-      720 GETTABLEKS                       R8 R9 K186 ["Name"]
+      718 GETIMPORT                        R8 K162 [Enum.AssetType.SweaterAccessory]
+      720 GETTABLEKS                       R8 R8 K186 ["Name"]
       722 SETTABLE                         R8 R6 R7
       723 GETIMPORT                        R7 K200 [Enum.AccessoryType.Pants]
-      725 GETIMPORT                        R9 K165 [Enum.AssetType.PantsAccessory]
-      727 GETTABLEKS                       R8 R9 K186 ["Name"]
+      725 GETIMPORT                        R8 K165 [Enum.AssetType.PantsAccessory]
+      727 GETTABLEKS                       R8 R8 K186 ["Name"]
       729 SETTABLE                         R8 R6 R7
       730 GETIMPORT                        R7 K108 [Enum.AccessoryType.Shorts]
-      732 GETIMPORT                        R9 K168 [Enum.AssetType.ShortsAccessory]
-      734 GETTABLEKS                       R8 R9 K186 ["Name"]
+      732 GETIMPORT                        R8 K168 [Enum.AssetType.ShortsAccessory]
+      734 GETTABLEKS                       R8 R8 K186 ["Name"]
       736 SETTABLE                         R8 R6 R7
       737 GETIMPORT                        R7 K202 [Enum.AccessoryType.DressSkirt]
-      739 GETIMPORT                        R9 K171 [Enum.AssetType.DressSkirtAccessory]
-      741 GETTABLEKS                       R8 R9 K186 ["Name"]
+      739 GETIMPORT                        R8 K171 [Enum.AssetType.DressSkirtAccessory]
+      741 GETTABLEKS                       R8 R8 K186 ["Name"]
       743 SETTABLE                         R8 R6 R7
       744 GETIMPORT                        R7 K83 [Enum.AccessoryType.LeftShoe]
-      746 GETIMPORT                        R9 K174 [Enum.AssetType.LeftShoeAccessory]
-      748 GETTABLEKS                       R8 R9 K186 ["Name"]
+      746 GETIMPORT                        R8 K174 [Enum.AssetType.LeftShoeAccessory]
+      748 GETTABLEKS                       R8 R8 K186 ["Name"]
       750 SETTABLE                         R8 R6 R7
       751 GETIMPORT                        R7 K86 [Enum.AccessoryType.RightShoe]
-      753 GETIMPORT                        R9 K177 [Enum.AssetType.RightShoeAccessory]
-      755 GETTABLEKS                       R8 R9 K186 ["Name"]
+      753 GETIMPORT                        R8 K177 [Enum.AssetType.RightShoeAccessory]
+      755 GETTABLEKS                       R8 R8 K186 ["Name"]
       757 SETTABLE                         R8 R6 R7
       758 SETTABLEKS                       R6 R5 K42 ["AccessoryTypeToAssetType"]
       760 NEWTABLE                         R6 8 0
-      762 GETIMPORT                        R8 K132 [Enum.AssetType.Hat]
-      764 GETTABLEKS                       R7 R8 K186 ["Name"]
+      762 GETIMPORT                        R7 K132 [Enum.AssetType.Hat]
+      764 GETTABLEKS                       R7 R7 K186 ["Name"]
       766 LOADB                            R8 1
       767 SETTABLE                         R8 R6 R7
-      768 GETIMPORT                        R8 K130 [Enum.AssetType.HairAccessory]
-      770 GETTABLEKS                       R7 R8 K186 ["Name"]
+      768 GETIMPORT                        R7 K130 [Enum.AssetType.HairAccessory]
+      770 GETTABLEKS                       R7 R7 K186 ["Name"]
       772 LOADB                            R8 1
       773 SETTABLE                         R8 R6 R7
-      774 GETIMPORT                        R8 K135 [Enum.AssetType.FaceAccessory]
-      776 GETTABLEKS                       R7 R8 K186 ["Name"]
+      774 GETIMPORT                        R7 K135 [Enum.AssetType.FaceAccessory]
+      776 GETTABLEKS                       R7 R7 K186 ["Name"]
       778 LOADB                            R8 1
       779 SETTABLE                         R8 R6 R7
-      780 GETIMPORT                        R8 K138 [Enum.AssetType.NeckAccessory]
-      782 GETTABLEKS                       R7 R8 K186 ["Name"]
+      780 GETIMPORT                        R7 K138 [Enum.AssetType.NeckAccessory]
+      782 GETTABLEKS                       R7 R7 K186 ["Name"]
       784 LOADB                            R8 1
       785 SETTABLE                         R8 R6 R7
-      786 GETIMPORT                        R8 K141 [Enum.AssetType.ShoulderAccessory]
-      788 GETTABLEKS                       R7 R8 K186 ["Name"]
+      786 GETIMPORT                        R7 K141 [Enum.AssetType.ShoulderAccessory]
+      788 GETTABLEKS                       R7 R7 K186 ["Name"]
       790 LOADB                            R8 1
       791 SETTABLE                         R8 R6 R7
-      792 GETIMPORT                        R8 K144 [Enum.AssetType.FrontAccessory]
-      794 GETTABLEKS                       R7 R8 K186 ["Name"]
+      792 GETIMPORT                        R7 K144 [Enum.AssetType.FrontAccessory]
+      794 GETTABLEKS                       R7 R7 K186 ["Name"]
       796 LOADB                            R8 1
       797 SETTABLE                         R8 R6 R7
-      798 GETIMPORT                        R8 K147 [Enum.AssetType.BackAccessory]
-      800 GETTABLEKS                       R7 R8 K186 ["Name"]
+      798 GETIMPORT                        R7 K147 [Enum.AssetType.BackAccessory]
+      800 GETTABLEKS                       R7 R7 K186 ["Name"]
       802 LOADB                            R8 1
       803 SETTABLE                         R8 R6 R7
-      804 GETIMPORT                        R8 K150 [Enum.AssetType.WaistAccessory]
-      806 GETTABLEKS                       R7 R8 K186 ["Name"]
+      804 GETIMPORT                        R7 K150 [Enum.AssetType.WaistAccessory]
+      806 GETTABLEKS                       R7 R7 K186 ["Name"]
       808 LOADB                            R8 1
       809 SETTABLE                         R8 R6 R7
       810 SETTABLEKS                       R6 R5 K43 ["AccessoryAssetTypes"]
       812 NEWTABLE                         R6 16 0
-      814 GETIMPORT                        R8 K153 [Enum.AssetType.TShirtAccessory]
-      816 GETTABLEKS                       R7 R8 K186 ["Name"]
+      814 GETIMPORT                        R7 K153 [Enum.AssetType.TShirtAccessory]
+      816 GETTABLEKS                       R7 R7 K186 ["Name"]
       818 LOADB                            R8 1
       819 SETTABLE                         R8 R6 R7
-      820 GETIMPORT                        R8 K156 [Enum.AssetType.ShirtAccessory]
-      822 GETTABLEKS                       R7 R8 K186 ["Name"]
+      820 GETIMPORT                        R7 K156 [Enum.AssetType.ShirtAccessory]
+      822 GETTABLEKS                       R7 R7 K186 ["Name"]
       824 LOADB                            R8 1
       825 SETTABLE                         R8 R6 R7
-      826 GETIMPORT                        R8 K159 [Enum.AssetType.JacketAccessory]
-      828 GETTABLEKS                       R7 R8 K186 ["Name"]
+      826 GETIMPORT                        R7 K159 [Enum.AssetType.JacketAccessory]
+      828 GETTABLEKS                       R7 R7 K186 ["Name"]
       830 LOADB                            R8 1
       831 SETTABLE                         R8 R6 R7
-      832 GETIMPORT                        R8 K162 [Enum.AssetType.SweaterAccessory]
-      834 GETTABLEKS                       R7 R8 K186 ["Name"]
+      832 GETIMPORT                        R7 K162 [Enum.AssetType.SweaterAccessory]
+      834 GETTABLEKS                       R7 R7 K186 ["Name"]
       836 LOADB                            R8 1
       837 SETTABLE                         R8 R6 R7
-      838 GETIMPORT                        R8 K165 [Enum.AssetType.PantsAccessory]
-      840 GETTABLEKS                       R7 R8 K186 ["Name"]
+      838 GETIMPORT                        R7 K165 [Enum.AssetType.PantsAccessory]
+      840 GETTABLEKS                       R7 R7 K186 ["Name"]
       842 LOADB                            R8 1
       843 SETTABLE                         R8 R6 R7
-      844 GETIMPORT                        R8 K168 [Enum.AssetType.ShortsAccessory]
-      846 GETTABLEKS                       R7 R8 K186 ["Name"]
+      844 GETIMPORT                        R7 K168 [Enum.AssetType.ShortsAccessory]
+      846 GETTABLEKS                       R7 R7 K186 ["Name"]
       848 LOADB                            R8 1
       849 SETTABLE                         R8 R6 R7
-      850 GETIMPORT                        R8 K171 [Enum.AssetType.DressSkirtAccessory]
-      852 GETTABLEKS                       R7 R8 K186 ["Name"]
+      850 GETIMPORT                        R7 K171 [Enum.AssetType.DressSkirtAccessory]
+      852 GETTABLEKS                       R7 R7 K186 ["Name"]
       854 LOADB                            R8 1
       855 SETTABLE                         R8 R6 R7
-      856 GETIMPORT                        R8 K174 [Enum.AssetType.LeftShoeAccessory]
-      858 GETTABLEKS                       R7 R8 K186 ["Name"]
+      856 GETIMPORT                        R7 K174 [Enum.AssetType.LeftShoeAccessory]
+      858 GETTABLEKS                       R7 R7 K186 ["Name"]
       860 LOADB                            R8 1
       861 SETTABLE                         R8 R6 R7
-      862 GETIMPORT                        R8 K177 [Enum.AssetType.RightShoeAccessory]
-      864 GETTABLEKS                       R7 R8 K186 ["Name"]
+      862 GETIMPORT                        R7 K177 [Enum.AssetType.RightShoeAccessory]
+      864 GETTABLEKS                       R7 R7 K186 ["Name"]
       866 LOADB                            R8 1
       867 SETTABLE                         R8 R6 R7
-      868 GETIMPORT                        R8 K182 [Enum.AssetType.TShirt]
-      870 GETTABLEKS                       R7 R8 K186 ["Name"]
+      868 GETIMPORT                        R7 K182 [Enum.AssetType.TShirt]
+      870 GETTABLEKS                       R7 R7 K186 ["Name"]
       872 LOADB                            R8 1
       873 SETTABLE                         R8 R6 R7
-      874 GETIMPORT                        R8 K180 [Enum.AssetType.Shirt]
-      876 GETTABLEKS                       R7 R8 K186 ["Name"]
+      874 GETIMPORT                        R7 K180 [Enum.AssetType.Shirt]
+      876 GETTABLEKS                       R7 R7 K186 ["Name"]
       878 LOADB                            R8 1
       879 SETTABLE                         R8 R6 R7
-      880 GETIMPORT                        R8 K185 [Enum.AssetType.Pants]
-      882 GETTABLEKS                       R7 R8 K186 ["Name"]
+      880 GETIMPORT                        R7 K185 [Enum.AssetType.Pants]
+      882 GETTABLEKS                       R7 R7 K186 ["Name"]
       884 LOADB                            R8 1
       885 SETTABLE                         R8 R6 R7
       886 SETTABLEKS                       R6 R5 K44 ["ClothingAssetTypes"]

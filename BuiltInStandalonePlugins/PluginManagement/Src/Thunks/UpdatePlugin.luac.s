@@ -16,14 +16,14 @@ PROTO_0:
        16 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["assetId"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["latestVersion"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["assetId"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["latestVersion"]
         6 GETUPVAL                         R5 1
         7 MOVE                             R6 R1
-        8 GETUPVAL                         R8 2
-        9 GETTABLEKS                       R7 R8 K2 ["Updating"]
+        8 GETUPVAL                         R7 2
+        9 GETTABLEKS                       R7 R7 K2 ["Updating"]
        11 CALL                             R5 2 -1
        12 NAMECALL                         R3 R0 K3 ["dispatch"]
        14 CALL                             R3 -1 0
@@ -43,8 +43,8 @@ PROTO_1:
        30 CALL                             R4 3 0
        31 GETUPVAL                         R6 1
        32 MOVE                             R7 R1
-       33 GETUPVAL                         R9 2
-       34 GETTABLEKS                       R8 R9 K8 ["Success"]
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K8 ["Success"]
        36 CALL                             R6 2 -1
        37 NAMECALL                         R4 R0 K3 ["dispatch"]
        39 CALL                             R4 -1 0
@@ -56,8 +56,8 @@ PROTO_1:
        46 CALL                             R4 3 0
        47 GETUPVAL                         R6 1
        48 MOVE                             R7 R1
-       49 GETUPVAL                         R9 2
-       50 GETTABLEKS                       R8 R9 K10 ["Error"]
+       49 GETUPVAL                         R8 2
+       50 GETTABLEKS                       R8 R8 K10 ["Error"]
        52 CALL                             R6 2 -1
        53 NAMECALL                         R4 R0 K3 ["dispatch"]
        55 CALL                             R4 -1 0
@@ -76,27 +76,27 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K8 [game]
        18 LOADK                            R4 K9 ["StudioService"]
        19 NAMECALL                         R2 R2 K10 ["GetService"]
        21 CALL                             R2 2 1
        22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R6 R0 K11 ["Src"]
-       26 GETTABLEKS                       R5 R6 K12 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["UpdateStatus"]
+       24 GETTABLEKS                       R4 R0 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["UpdateStatus"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R7 R0 K11 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Actions"]
-       37 GETTABLEKS                       R5 R6 K15 ["SetPluginUpdateStatus"]
+       33 GETTABLEKS                       R5 R0 K11 ["Src"]
+       35 GETTABLEKS                       R5 R5 K14 ["Actions"]
+       37 GETTABLEKS                       R5 R5 K15 ["SetPluginUpdateStatus"]
        39 CALL                             R4 1 1
        40 DUPCLOSURE                       R5 K16 [PROTO_2]
        41 CAPTURE                          VAL R4

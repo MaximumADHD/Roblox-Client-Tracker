@@ -1,7 +1,7 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["DebugData"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["DebugData"]
         5 GETTABLEKS                       R2 R1 K2 ["FrameBuffer"]
         7 JUMPIFNOT                        R2 ; [+3]
         8 GETTABLEKS                       R3 R1 K2 ["FrameBuffer"]
@@ -95,10 +95,10 @@ PROTO_0:
       113 CALL                             R8 1 -1
       114 NAMECALL                         R6 R0 K11 ["dispatch"]
       116 CALL                             R6 -1 0
-      117 NAMECALL                         R8 R0 K0 ["getState"]
-      119 CALL                             R8 1 1
-      120 GETTABLEKS                       R7 R8 K12 ["Status"]
-      122 GETTABLEKS                       R6 R7 K13 ["PropertyOverridesEvent"]
+      117 NAMECALL                         R6 R0 K0 ["getState"]
+      119 CALL                             R6 1 1
+      120 GETTABLEKS                       R6 R6 K12 ["Status"]
+      122 GETTABLEKS                       R6 R6 K13 ["PropertyOverridesEvent"]
       124 JUMPIFNOT                        R6 ; [+4]
       125 MOVE                             R9 R4
       126 NAMECALL                         R7 R6 K14 ["Fire"]
@@ -123,14 +123,14 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["join"]
        16 GETTABLEKS                       R3 R1 K9 ["joinDeep"]
        18 GETTABLEKS                       R4 R1 K10 ["None"]
-       20 GETTABLEKS                       R6 R0 K11 ["Src"]
-       22 GETTABLEKS                       R5 R6 K12 ["Actions"]
+       20 GETTABLEKS                       R5 R0 K11 ["Src"]
+       22 GETTABLEKS                       R5 R5 K12 ["Actions"]
        24 GETIMPORT                        R6 K5 [require]
        26 GETTABLEKS                       R7 R5 K13 ["SetOverrides"]
        28 CALL                             R6 1 1

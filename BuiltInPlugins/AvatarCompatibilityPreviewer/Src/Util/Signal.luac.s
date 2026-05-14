@@ -34,15 +34,15 @@ PROTO_2:
 PROTO_3:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["_connected"]
-        3 GETTABLEKS                       R2 R0 K1 ["_signal"]
-        5 GETTABLEKS                       R1 R2 K2 ["_handlerListHead"]
+        3 GETTABLEKS                       R1 R0 K1 ["_signal"]
+        5 GETTABLEKS                       R1 R1 K2 ["_handlerListHead"]
         7 JUMPIFNOTEQ                      R1 R0 ; [+8]
         9 GETTABLEKS                       R1 R0 K1 ["_signal"]
        11 GETTABLEKS                       R2 R0 K3 ["_next"]
        13 SETTABLEKS                       R2 R1 K2 ["_handlerListHead"]
        15 RETURN                           R0 0
-       16 GETTABLEKS                       R2 R0 K1 ["_signal"]
-       18 GETTABLEKS                       R1 R2 K2 ["_handlerListHead"]
+       16 GETTABLEKS                       R1 R0 K1 ["_signal"]
+       18 GETTABLEKS                       R1 R1 K2 ["_handlerListHead"]
        20 JUMPIFNOT                        R1 ; [+7]
        21 GETTABLEKS                       R2 R1 K3 ["_next"]
        23 JUMPIFEQ                         R2 R0 ; [+4]
@@ -90,8 +90,8 @@ PROTO_6:
        10 RETURN                           R0 1
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 1
@@ -161,8 +161,8 @@ PROTO_11:
 
 PROTO_12:
         0 PREPVARARGS                      0
-        1 GETUPVAL                         R1 0
-        2 GETTABLEKS                       R0 R1 K0 ["_connected"]
+        1 GETUPVAL                         R0 0
+        2 GETTABLEKS                       R0 R0 K0 ["_connected"]
         4 JUMPIFNOT                        R0 ; [+4]
         5 GETUPVAL                         R0 0
         6 NAMECALL                         R0 R0 K1 ["Disconnect"]

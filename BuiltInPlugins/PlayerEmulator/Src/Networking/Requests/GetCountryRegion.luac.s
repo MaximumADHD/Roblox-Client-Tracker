@@ -1,13 +1,13 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["StatusCodes"]
-        5 GETTABLEKS                       R2 R3 K2 ["OK"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["StatusCodes"]
+        5 GETTABLEKS                       R2 R2 K2 ["OK"]
         7 JUMPIFNOTEQ                      R1 R2 ; [+20]
         9 GETUPVAL                         R1 1
        10 GETUPVAL                         R3 2
-       11 GETTABLEKS                       R5 R0 K3 ["responseBody"]
-       13 GETTABLEKS                       R4 R5 K4 ["countryRegionList"]
+       11 GETTABLEKS                       R4 R0 K3 ["responseBody"]
+       13 GETTABLEKS                       R4 R4 K4 ["countryRegionList"]
        15 CALL                             R3 1 -1
        16 NAMECALL                         R1 R1 K5 ["dispatch"]
        18 CALL                             R1 -1 0
@@ -46,8 +46,8 @@ PROTO_2:
         6 MOVE                             R4 R1
         7 NAMECALL                         R2 R2 K1 ["handleRetry"]
         9 CALL                             R2 2 1
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K2 ["parseJson"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["parseJson"]
        13 MOVE                             R4 R2
        14 CALL                             R3 1 1
        15 NEWCLOSURE                       R5 P0
@@ -74,35 +74,35 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Networking"]
-       17 GETTABLEKS                       R2 R3 K7 ["UrlConstructor"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Networking"]
+       17 GETTABLEKS                       R2 R2 K7 ["UrlConstructor"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K9 ["Http"]
+       22 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K9 ["Http"]
        26 CALL                             R2 1 1
-       27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R7 R0 K5 ["Src"]
-       31 GETTABLEKS                       R6 R7 K10 ["Util"]
-       33 GETTABLEKS                       R5 R6 K11 ["PlayerEmulatorUtilities"]
-       35 CALL                             R4 1 1
-       36 GETTABLEKS                       R3 R4 K12 ["getStudioLocaleId"]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K10 ["Util"]
+       33 GETTABLEKS                       R4 R4 K11 ["PlayerEmulatorUtilities"]
+       35 CALL                             R3 1 1
+       36 GETTABLEKS                       R3 R3 K12 ["getStudioLocaleId"]
        38 GETIMPORT                        R4 K4 [require]
-       40 GETTABLEKS                       R7 R0 K5 ["Src"]
-       42 GETTABLEKS                       R6 R7 K13 ["Actions"]
-       44 GETTABLEKS                       R5 R6 K14 ["LoadCountryRegion"]
+       40 GETTABLEKS                       R5 R0 K5 ["Src"]
+       42 GETTABLEKS                       R5 R5 K13 ["Actions"]
+       44 GETTABLEKS                       R5 R5 K14 ["LoadCountryRegion"]
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K4 [require]
-       49 GETTABLEKS                       R8 R0 K5 ["Src"]
-       51 GETTABLEKS                       R7 R8 K15 ["Thunks"]
-       53 GETTABLEKS                       R6 R7 K16 ["InitCountryRegionSetting"]
+       49 GETTABLEKS                       R6 R0 K5 ["Src"]
+       51 GETTABLEKS                       R6 R6 K15 ["Thunks"]
+       53 GETTABLEKS                       R6 R6 K16 ["InitCountryRegionSetting"]
        55 CALL                             R5 1 1
        56 MOVE                             R6 R3
        57 CALL                             R6 0 1

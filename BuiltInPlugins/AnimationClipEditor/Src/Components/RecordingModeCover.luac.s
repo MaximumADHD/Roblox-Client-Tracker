@@ -1,17 +1,17 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R4 R0 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K2 ["Localization"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K2 ["Localization"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K3 ["createElement"]
        11 GETUPVAL                         R5 1
        12 DUPTABLE                         R6 K5 [{"Priority"}]
        13 LOADN                            R7 100
        14 SETTABLEKS                       R7 R6 K4 ["Priority"]
        16 DUPTABLE                         R7 K7 [{"Text"}]
-       17 GETUPVAL                         R9 0
-       18 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       17 GETUPVAL                         R8 0
+       18 GETTABLEKS                       R8 R8 K3 ["createElement"]
        20 LOADK                            R9 K8 ["TextButton"]
        21 DUPTABLE                         R10 K16 [{"Size", "BackgroundColor3", "BackgroundTransparency", "AutoButtonColor", "Font", "TextSize", "TextColor3", "Text"}]
        22 GETIMPORT                        R11 K19 [UDim2.new]
@@ -30,11 +30,11 @@ PROTO_0:
        40 SETTABLEKS                       R11 R10 K12 ["AutoButtonColor"]
        42 GETTABLEKS                       R11 R2 K23 ["font"]
        44 SETTABLEKS                       R11 R10 K13 ["Font"]
-       46 GETTABLEKS                       R12 R2 K24 ["startScreenTheme"]
-       48 GETTABLEKS                       R11 R12 K25 ["textSize"]
+       46 GETTABLEKS                       R11 R2 K24 ["startScreenTheme"]
+       48 GETTABLEKS                       R11 R11 K25 ["textSize"]
        50 SETTABLEKS                       R11 R10 K14 ["TextSize"]
-       52 GETTABLEKS                       R12 R2 K24 ["startScreenTheme"]
-       54 GETTABLEKS                       R11 R12 K26 ["darkTextColor"]
+       52 GETTABLEKS                       R11 R2 K24 ["startScreenTheme"]
+       54 GETTABLEKS                       R11 R11 K26 ["darkTextColor"]
        56 SETTABLEKS                       R11 R10 K15 ["TextColor3"]
        58 LOADK                            R13 K27 ["FaceCapture"]
        59 LOADK                            R14 K28 ["IsRecordingCoverText"]
@@ -53,17 +53,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
-       25 GETTABLEKS                       R6 R2 K11 ["UI"]
-       27 GETTABLEKS                       R5 R6 K12 ["CaptureFocus"]
+       25 GETTABLEKS                       R5 R2 K11 ["UI"]
+       27 GETTABLEKS                       R5 R5 K12 ["CaptureFocus"]
        29 GETTABLEKS                       R6 R1 K13 ["PureComponent"]
        31 LOADK                            R8 K14 ["RecordingModeCover"]
        32 NAMECALL                         R6 R6 K15 ["extend"]

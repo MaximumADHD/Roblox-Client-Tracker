@@ -4,8 +4,8 @@ PROTO_0:
         3 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
         5 GETIMPORT                        R2 K1 [setmetatable]
         7 CALL                             R2 2 1
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K2 ["new"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K2 ["new"]
        11 CALL                             R3 0 1
        12 SETTABLEKS                       R3 R2 K3 ["_maid"]
        14 FASTCALL2K                       ASSERT R1 K4 ; [+5]
@@ -60,8 +60,8 @@ PROTO_1:
        41 LOADK                            R5 K8 ["Bad isEnabled"]
        42 GETIMPORT                        R3 K5 [assert]
        44 CALL                             R3 2 0
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R3 R4 K9 ["_visualizationModeServiceTracker"]
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K9 ["_visualizationModeServiceTracker"]
        48 MOVE                             R5 R0
        49 MOVE                             R6 R1
        50 MOVE                             R7 R2
@@ -92,8 +92,8 @@ PROTO_2:
        26 LOADK                            R4 K7 ["Bad isEnabled"]
        27 GETIMPORT                        R2 K5 [assert]
        29 CALL                             R2 2 0
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K8 ["_visualizationModeServiceTracker"]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R2 R2 K8 ["_visualizationModeServiceTracker"]
        33 MOVE                             R4 R0
        34 MOVE                             R5 R1
        35 NAMECALL                         R2 R2 K9 ["updateVisualizationModeCategoryIsEnabled"]
@@ -147,8 +147,8 @@ PROTO_7:
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["_maid"]
-        2 GETTABLEKS                       R4 R0 K1 ["_visualizationModeServiceTracker"]
-        4 GETTABLEKS                       R3 R4 K2 ["changed"]
+        2 GETTABLEKS                       R3 R0 K1 ["_visualizationModeServiceTracker"]
+        4 GETTABLEKS                       R3 R3 K2 ["changed"]
         6 NEWCLOSURE                       R5 P0
         7 CAPTURE                          VAL R0
         8 NAMECALL                         R3 R3 K3 ["Connect"]
@@ -192,8 +192,8 @@ PROTO_9:
         7 RETURN                           R0 0
         8 DUPTABLE                         R2 K4 [{"visualizationModeServiceState", "hostDataModelType"}]
         9 SETTABLEKS                       R1 R2 K2 ["visualizationModeServiceState"]
-       11 GETTABLEKS                       R4 R0 K5 ["_plugin"]
-       13 GETTABLEKS                       R3 R4 K6 ["HostDataModelType"]
+       11 GETTABLEKS                       R3 R0 K5 ["_plugin"]
+       13 GETTABLEKS                       R3 R3 K6 ["HostDataModelType"]
        15 SETTABLEKS                       R3 R2 K3 ["hostDataModelType"]
        17 GETTABLEKS                       R3 R0 K5 ["_plugin"]
        19 LOADK                            R5 K7 ["reportClientCombinerState"]
@@ -206,8 +206,8 @@ PROTO_10:
         0 DUPTABLE                         R1 K2 [{"visualizationModeServiceState", "hostDataModelType"}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["visualizationModeServiceState"]
-        5 GETTABLEKS                       R3 R0 K3 ["_plugin"]
-        7 GETTABLEKS                       R2 R3 K4 ["HostDataModelType"]
+        5 GETTABLEKS                       R2 R0 K3 ["_plugin"]
+        7 GETTABLEKS                       R2 R2 K4 ["HostDataModelType"]
         9 SETTABLEKS                       R2 R1 K1 ["hostDataModelType"]
        11 GETTABLEKS                       R2 R0 K3 ["_plugin"]
        13 LOADK                            R4 K5 ["reportClientCombinerState"]
@@ -229,19 +229,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Maid"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Maid"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R7 R0 K6 ["Src"]
-       27 GETTABLEKS                       R6 R7 K10 ["Model"]
-       29 GETTABLEKS                       R5 R6 K11 ["Tracking"]
-       31 GETTABLEKS                       R4 R5 K12 ["VisualizationModeServiceTracker"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Model"]
+       29 GETTABLEKS                       R4 R4 K11 ["Tracking"]
+       31 GETTABLEKS                       R4 R4 K12 ["VisualizationModeServiceTracker"]
        33 CALL                             R3 1 1
        34 NEWTABLE                         R4 8 0
        36 SETTABLEKS                       R4 R4 K13 ["__index"]

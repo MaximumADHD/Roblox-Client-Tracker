@@ -3,8 +3,8 @@ PROTO_0:
         2 JUMPIF                           R1 ; [+27]
         3 GETTABLEKS                       R2 R0 K1 ["linkData"]
         5 JUMPIFNOT                        R2 ; [+5]
-        6 GETTABLEKS                       R2 R0 K1 ["linkData"]
-        8 GETTABLEKS                       R1 R2 K2 ["key"]
+        6 GETTABLEKS                       R1 R0 K1 ["linkData"]
+        8 GETTABLEKS                       R1 R1 K2 ["key"]
        10 JUMPIF                           R1 ; [+19]
        11 GETTABLEKS                       R2 R0 K3 ["index"]
        13 JUMPIFNOT                        R2 ; [+7]
@@ -28,8 +28,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 RETURN                           R2 1

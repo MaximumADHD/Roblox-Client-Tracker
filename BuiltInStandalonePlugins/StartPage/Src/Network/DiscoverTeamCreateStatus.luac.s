@@ -33,12 +33,12 @@ PROTO_3:
         3 RETURN                           R0 0
         4 DUPTABLE                         R1 K2 [{"ids"}]
         5 SETTABLEKS                       R0 R1 K1 ["ids"]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K3 ["MULTI_TEAM_CREATE_STATUS"]
-       10 GETTABLEKS                       R3 R6 K4 ["Prefix"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K3 ["MULTI_TEAM_CREATE_STATUS"]
-       15 GETTABLEKS                       R6 R7 K5 ["Url"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K3 ["MULTI_TEAM_CREATE_STATUS"]
+       10 GETTABLEKS                       R3 R3 K4 ["Prefix"]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K3 ["MULTI_TEAM_CREATE_STATUS"]
+       15 GETTABLEKS                       R6 R6 K5 ["Url"]
        17 CALL                             R6 0 1
        18 MOVE                             R4 R6
        19 LOADK                            R5 K6 ["?"]
@@ -62,8 +62,8 @@ PROTO_3:
        40 NAMECALL                         R4 R4 K10 ["parseJson"]
        42 CALL                             R4 2 1
        43 GETUPVAL                         R6 2
-       44 GETUPVAL                         R8 3
-       45 GETTABLEKS                       R7 R8 K11 ["validate"]
+       44 GETUPVAL                         R7 3
+       45 GETTABLEKS                       R7 R7 K11 ["validate"]
        47 CALL                             R6 1 -1
        48 NAMECALL                         R4 R4 K12 ["andThen"]
        50 CALL                             R4 -1 1
@@ -84,35 +84,35 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R4 R0 K6 ["Src"]
-       21 GETTABLEKS                       R3 R4 K9 ["Types"]
+       19 GETTABLEKS                       R3 R0 K6 ["Src"]
+       21 GETTABLEKS                       R3 R3 K9 ["Types"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R6 R0 K6 ["Src"]
-       28 GETTABLEKS                       R5 R6 K10 ["Models"]
-       30 GETTABLEKS                       R4 R5 K11 ["MultiGetTeamCreateStatusResponse"]
+       26 GETTABLEKS                       R4 R0 K6 ["Src"]
+       28 GETTABLEKS                       R4 R4 K10 ["Models"]
+       30 GETTABLEKS                       R4 R4 K11 ["MultiGetTeamCreateStatusResponse"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K5 [require]
-       35 GETTABLEKS                       R7 R0 K6 ["Src"]
-       37 GETTABLEKS                       R6 R7 K12 ["Network"]
-       39 GETTABLEKS                       R5 R6 K13 ["Urls"]
+       35 GETTABLEKS                       R5 R0 K6 ["Src"]
+       37 GETTABLEKS                       R5 R5 K12 ["Network"]
+       39 GETTABLEKS                       R5 R5 K13 ["Urls"]
        41 CALL                             R4 1 1
-       42 GETIMPORT                        R6 K5 [require]
-       44 GETTABLEKS                       R9 R0 K6 ["Src"]
-       46 GETTABLEKS                       R8 R9 K14 ["Util"]
-       48 GETTABLEKS                       R7 R8 K15 ["Services"]
-       50 CALL                             R6 1 1
-       51 GETTABLEKS                       R5 R6 K16 ["Networking"]
+       42 GETIMPORT                        R5 K5 [require]
+       44 GETTABLEKS                       R6 R0 K6 ["Src"]
+       46 GETTABLEKS                       R6 R6 K14 ["Util"]
+       48 GETTABLEKS                       R6 R6 K15 ["Services"]
+       50 CALL                             R5 1 1
+       51 GETTABLEKS                       R5 R5 K16 ["Networking"]
        53 GETIMPORT                        R6 K5 [require]
-       55 GETTABLEKS                       R9 R0 K6 ["Src"]
-       57 GETTABLEKS                       R8 R9 K14 ["Util"]
-       59 GETTABLEKS                       R7 R8 K17 ["createResponseValidator"]
+       55 GETTABLEKS                       R7 R0 K6 ["Src"]
+       57 GETTABLEKS                       R7 R7 K14 ["Util"]
+       59 GETTABLEKS                       R7 R7 K17 ["createResponseValidator"]
        61 CALL                             R6 1 1
        62 GETTABLEKS                       R7 R5 K18 ["new"]
        64 DUPTABLE                         R8 K21 [{"isInternal", "loggingLevel"}]
@@ -121,14 +121,14 @@ MAIN:
        68 SETTABLEKS                       R1 R8 K20 ["loggingLevel"]
        70 CALL                             R7 1 1
        71 GETIMPORT                        R8 K5 [require]
-       73 GETTABLEKS                       R10 R0 K22 ["Packages"]
-       75 GETTABLEKS                       R9 R10 K23 ["Dash"]
+       73 GETTABLEKS                       R9 R0 K22 ["Packages"]
+       75 GETTABLEKS                       R9 R9 K23 ["Dash"]
        77 CALL                             R8 1 1
        78 GETTABLEKS                       R9 R8 K24 ["collectArray"]
        80 GETIMPORT                        R10 K5 [require]
-       82 GETTABLEKS                       R13 R0 K6 ["Src"]
-       84 GETTABLEKS                       R12 R13 K12 ["Network"]
-       86 GETTABLEKS                       R11 R12 K25 ["GameCache"]
+       82 GETTABLEKS                       R11 R0 K6 ["Src"]
+       84 GETTABLEKS                       R11 R11 K12 ["Network"]
+       86 GETTABLEKS                       R11 R11 K25 ["GameCache"]
        88 CALL                             R10 1 1
        89 DUPCLOSURE                       R11 K26 [PROTO_3]
        90 CAPTURE                          VAL R4

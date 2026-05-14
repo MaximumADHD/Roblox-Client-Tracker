@@ -117,13 +117,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 0 0
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       18 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Dash"]
        22 CALL                             R3 1 1
        23 GETTABLEKS                       R4 R3 K10 ["some"]
        25 NEWTABLE                         R5 0 0

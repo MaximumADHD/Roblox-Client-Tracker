@@ -17,12 +17,12 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["onClearButtonClicked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["onClearButtonClicked"]
         5 CALL                             R0 0 0
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K2 ["onClearButtonHoverEnded"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K2 ["onClearButtonHoverEnded"]
         9 CALL                             R0 0 0
        10 RETURN                           R0 0
 
@@ -77,19 +77,19 @@ PROTO_6:
        10 GETTABLEKS                       R6 R1 K5 ["showClearButton"]
        12 GETTABLEKS                       R7 R1 K6 ["showSearchButton"]
        14 GETTABLEKS                       R8 R1 K7 ["onSearchButtonClicked"]
-       16 GETUPVAL                         R10 0
-       17 GETTABLEKS                       R9 R10 K8 ["SEARCH_BAR_BUTTON_WIDTH"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K8 ["SEARCH_BAR_BUTTON_WIDTH"]
        19 JUMPIFNOT                        R7 ; [+4]
        20 LOADN                            R12 2
        21 MUL                              R11 R12 R9
        22 ADDK                             R10 R11 K9 [1]
        23 JUMPIF                           R10 ; [+1]
        24 MOVE                             R10 R9
-       25 GETUPVAL                         R12 0
-       26 GETTABLEKS                       R11 R12 K10 ["SEARCH_BAR_BUTTON_INSET"]
+       25 GETUPVAL                         R11 0
+       26 GETTABLEKS                       R11 R11 K10 ["SEARCH_BAR_BUTTON_INSET"]
        28 GETTABLEKS                       R12 R3 K11 ["searchBar"]
-       30 GETUPVAL                         R14 1
-       31 GETTABLEKS                       R13 R14 K12 ["createElement"]
+       30 GETUPVAL                         R13 1
+       31 GETTABLEKS                       R13 R13 K12 ["createElement"]
        33 LOADK                            R14 K13 ["Frame"]
        34 DUPTABLE                         R15 K18 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency"}]
        35 GETIMPORT                        R16 K21 [Vector2.new]
@@ -116,8 +116,8 @@ PROTO_6:
        63 DUPTABLE                         R16 K27 [{"ClearButton", "Line", "SearchButton"}]
        64 MOVE                             R17 R6
        65 JUMPIFNOT                        R17 ; [+128]
-       66 GETUPVAL                         R18 1
-       67 GETTABLEKS                       R17 R18 K12 ["createElement"]
+       66 GETUPVAL                         R17 1
+       67 GETTABLEKS                       R17 R17 K12 ["createElement"]
        69 LOADK                            R18 K28 ["ImageButton"]
        70 NEWTABLE                         R19 8 0
        72 GETIMPORT                        R20 K21 [Vector2.new]
@@ -145,29 +145,29 @@ PROTO_6:
        99 SETTABLEKS                       R20 R19 K16 ["Size"]
       101 LOADN                            R20 1
       102 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      104 GETUPVAL                         R22 1
-      105 GETTABLEKS                       R21 R22 K29 ["Event"]
-      107 GETTABLEKS                       R20 R21 K30 ["MouseEnter"]
+      104 GETUPVAL                         R20 1
+      105 GETTABLEKS                       R20 R20 K29 ["Event"]
+      107 GETTABLEKS                       R20 R20 K30 ["MouseEnter"]
       109 GETTABLEKS                       R21 R0 K31 ["onClearButtonHovered"]
       111 SETTABLE                         R21 R19 R20
-      112 GETUPVAL                         R22 1
-      113 GETTABLEKS                       R21 R22 K29 ["Event"]
-      115 GETTABLEKS                       R20 R21 K32 ["MouseMoved"]
+      112 GETUPVAL                         R20 1
+      113 GETTABLEKS                       R20 R20 K29 ["Event"]
+      115 GETTABLEKS                       R20 R20 K32 ["MouseMoved"]
       117 GETTABLEKS                       R21 R0 K31 ["onClearButtonHovered"]
       119 SETTABLE                         R21 R19 R20
-      120 GETUPVAL                         R22 1
-      121 GETTABLEKS                       R21 R22 K29 ["Event"]
-      123 GETTABLEKS                       R20 R21 K33 ["MouseLeave"]
+      120 GETUPVAL                         R20 1
+      121 GETTABLEKS                       R20 R20 K29 ["Event"]
+      123 GETTABLEKS                       R20 R20 K33 ["MouseLeave"]
       125 GETTABLEKS                       R21 R0 K34 ["onClearButtonHoverEnded"]
       127 SETTABLE                         R21 R19 R20
-      128 GETUPVAL                         R22 1
-      129 GETTABLEKS                       R21 R22 K29 ["Event"]
-      131 GETTABLEKS                       R20 R21 K35 ["MouseButton1Down"]
+      128 GETUPVAL                         R20 1
+      129 GETTABLEKS                       R20 R20 K29 ["Event"]
+      131 GETTABLEKS                       R20 R20 K35 ["MouseButton1Down"]
       133 GETTABLEKS                       R21 R0 K36 ["onClearButtonClicked"]
       135 SETTABLE                         R21 R19 R20
       136 DUPTABLE                         R20 K38 [{"ImageLabel"}]
-      137 GETUPVAL                         R22 1
-      138 GETTABLEKS                       R21 R22 K12 ["createElement"]
+      137 GETUPVAL                         R21 1
+      138 GETTABLEKS                       R21 R21 K12 ["createElement"]
       140 LOADK                            R22 K37 ["ImageLabel"]
       141 DUPTABLE                         R23 K41 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "Image", "ImageColor3"}]
       142 GETIMPORT                        R24 K21 [Vector2.new]
@@ -184,24 +184,24 @@ PROTO_6:
       156 SETTABLEKS                       R24 R23 K15 ["Position"]
       158 GETIMPORT                        R24 K23 [UDim2.new]
       160 LOADN                            R25 0
-      161 GETUPVAL                         R27 0
-      162 GETTABLEKS                       R26 R27 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
+      161 GETUPVAL                         R26 0
+      162 GETTABLEKS                       R26 R26 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
       164 LOADN                            R27 0
-      165 GETUPVAL                         R29 0
-      166 GETTABLEKS                       R28 R29 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
+      165 GETUPVAL                         R28 0
+      166 GETTABLEKS                       R28 R28 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
       168 CALL                             R24 4 1
       169 SETTABLEKS                       R24 R23 K16 ["Size"]
       171 LOADN                            R24 1
       172 SETTABLEKS                       R24 R23 K17 ["BackgroundTransparency"]
       174 JUMPIFNOT                        R5 ; [+4]
-      175 GETUPVAL                         R25 2
-      176 GETTABLEKS                       R24 R25 K44 ["CLEAR_ICON_HOVER"]
+      175 GETUPVAL                         R24 2
+      176 GETTABLEKS                       R24 R24 K44 ["CLEAR_ICON_HOVER"]
       178 JUMPIF                           R24 ; [+3]
-      179 GETUPVAL                         R25 2
-      180 GETTABLEKS                       R24 R25 K45 ["CLEAR_ICON"]
+      179 GETUPVAL                         R24 2
+      180 GETTABLEKS                       R24 R24 K45 ["CLEAR_ICON"]
       182 SETTABLEKS                       R24 R23 K39 ["Image"]
-      184 GETTABLEKS                       R25 R12 K46 ["clearButton"]
-      186 GETTABLEKS                       R24 R25 K47 ["imageColor"]
+      184 GETTABLEKS                       R24 R12 K46 ["clearButton"]
+      186 GETTABLEKS                       R24 R24 K47 ["imageColor"]
       188 SETTABLEKS                       R24 R23 K40 ["ImageColor3"]
       190 CALL                             R21 2 1
       191 SETTABLEKS                       R21 R20 K37 ["ImageLabel"]
@@ -209,8 +209,8 @@ PROTO_6:
       194 SETTABLEKS                       R17 R16 K24 ["ClearButton"]
       196 MOVE                             R17 R7
       197 JUMPIFNOT                        R17 ; [+38]
-      198 GETUPVAL                         R18 1
-      199 GETTABLEKS                       R17 R18 K12 ["createElement"]
+      198 GETUPVAL                         R17 1
+      199 GETTABLEKS                       R17 R17 K12 ["createElement"]
       201 LOADK                            R18 K13 ["Frame"]
       202 DUPTABLE                         R19 K50 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
       203 GETIMPORT                        R20 K21 [Vector2.new]
@@ -240,8 +240,8 @@ PROTO_6:
       236 SETTABLEKS                       R17 R16 K25 ["Line"]
       238 MOVE                             R17 R7
       239 JUMPIFNOT                        R17 ; [+127]
-      240 GETUPVAL                         R18 1
-      241 GETTABLEKS                       R17 R18 K12 ["createElement"]
+      240 GETUPVAL                         R17 1
+      241 GETTABLEKS                       R17 R17 K12 ["createElement"]
       243 LOADK                            R18 K28 ["ImageButton"]
       244 NEWTABLE                         R19 8 0
       246 GETIMPORT                        R20 K21 [Vector2.new]
@@ -269,28 +269,28 @@ PROTO_6:
       273 SETTABLEKS                       R20 R19 K16 ["Size"]
       275 LOADN                            R20 1
       276 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      278 GETUPVAL                         R22 1
-      279 GETTABLEKS                       R21 R22 K29 ["Event"]
-      281 GETTABLEKS                       R20 R21 K30 ["MouseEnter"]
+      278 GETUPVAL                         R20 1
+      279 GETTABLEKS                       R20 R20 K29 ["Event"]
+      281 GETTABLEKS                       R20 R20 K30 ["MouseEnter"]
       283 GETTABLEKS                       R21 R0 K52 ["onSearchButtonHovered"]
       285 SETTABLE                         R21 R19 R20
-      286 GETUPVAL                         R22 1
-      287 GETTABLEKS                       R21 R22 K29 ["Event"]
-      289 GETTABLEKS                       R20 R21 K32 ["MouseMoved"]
+      286 GETUPVAL                         R20 1
+      287 GETTABLEKS                       R20 R20 K29 ["Event"]
+      289 GETTABLEKS                       R20 R20 K32 ["MouseMoved"]
       291 GETTABLEKS                       R21 R0 K52 ["onSearchButtonHovered"]
       293 SETTABLE                         R21 R19 R20
-      294 GETUPVAL                         R22 1
-      295 GETTABLEKS                       R21 R22 K29 ["Event"]
-      297 GETTABLEKS                       R20 R21 K33 ["MouseLeave"]
+      294 GETUPVAL                         R20 1
+      295 GETTABLEKS                       R20 R20 K29 ["Event"]
+      297 GETTABLEKS                       R20 R20 K33 ["MouseLeave"]
       299 GETTABLEKS                       R21 R0 K53 ["onSearchButtonHoverEnded"]
       301 SETTABLE                         R21 R19 R20
-      302 GETUPVAL                         R22 1
-      303 GETTABLEKS                       R21 R22 K29 ["Event"]
-      305 GETTABLEKS                       R20 R21 K35 ["MouseButton1Down"]
+      302 GETUPVAL                         R20 1
+      303 GETTABLEKS                       R20 R20 K29 ["Event"]
+      305 GETTABLEKS                       R20 R20 K35 ["MouseButton1Down"]
       307 SETTABLE                         R8 R19 R20
       308 DUPTABLE                         R20 K38 [{"ImageLabel"}]
-      309 GETUPVAL                         R22 1
-      310 GETTABLEKS                       R21 R22 K12 ["createElement"]
+      309 GETUPVAL                         R21 1
+      310 GETTABLEKS                       R21 R21 K12 ["createElement"]
       312 LOADK                            R22 K37 ["ImageLabel"]
       313 DUPTABLE                         R23 K41 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "Image", "ImageColor3"}]
       314 GETIMPORT                        R24 K21 [Vector2.new]
@@ -307,24 +307,24 @@ PROTO_6:
       328 SETTABLEKS                       R24 R23 K15 ["Position"]
       330 GETIMPORT                        R24 K23 [UDim2.new]
       332 LOADN                            R25 0
-      333 GETUPVAL                         R27 0
-      334 GETTABLEKS                       R26 R27 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
+      333 GETUPVAL                         R26 0
+      334 GETTABLEKS                       R26 R26 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
       336 LOADN                            R27 0
-      337 GETUPVAL                         R29 0
-      338 GETTABLEKS                       R28 R29 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
+      337 GETUPVAL                         R28 0
+      338 GETTABLEKS                       R28 R28 K43 ["SEARCH_BAR_BUTTON_ICON_SIZE"]
       340 CALL                             R24 4 1
       341 SETTABLEKS                       R24 R23 K16 ["Size"]
       343 LOADN                            R24 1
       344 SETTABLEKS                       R24 R23 K17 ["BackgroundTransparency"]
-      346 GETUPVAL                         R25 2
-      347 GETTABLEKS                       R24 R25 K54 ["SEARCH_ICON"]
+      346 GETUPVAL                         R24 2
+      347 GETTABLEKS                       R24 R24 K54 ["SEARCH_ICON"]
       349 SETTABLEKS                       R24 R23 K39 ["Image"]
       351 JUMPIFNOT                        R4 ; [+5]
-      352 GETTABLEKS                       R25 R12 K55 ["searchButton"]
-      354 GETTABLEKS                       R24 R25 K56 ["imageSelectedColor"]
+      352 GETTABLEKS                       R24 R12 K55 ["searchButton"]
+      354 GETTABLEKS                       R24 R24 K56 ["imageSelectedColor"]
       356 JUMPIF                           R24 ; [+4]
-      357 GETTABLEKS                       R25 R12 K55 ["searchButton"]
-      359 GETTABLEKS                       R24 R25 K47 ["imageColor"]
+      357 GETTABLEKS                       R24 R12 K55 ["searchButton"]
+      359 GETTABLEKS                       R24 R24 K47 ["imageColor"]
       361 SETTABLEKS                       R24 R23 K40 ["ImageColor3"]
       363 CALL                             R21 2 1
       364 SETTABLEKS                       R21 R20 K37 ["ImageLabel"]
@@ -335,11 +335,11 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -348,14 +348,14 @@ MAIN:
        20 GETTABLEKS                       R4 R1 K7 ["Framework"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K8 ["Src"]
-       27 GETTABLEKS                       R6 R7 K9 ["Util"]
-       29 GETTABLEKS                       R5 R6 K10 ["Constants"]
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R5 K9 ["Util"]
+       29 GETTABLEKS                       R5 R5 K10 ["Constants"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R8 R0 K8 ["Src"]
-       36 GETTABLEKS                       R7 R8 K9 ["Util"]
-       38 GETTABLEKS                       R6 R7 K11 ["Images"]
+       34 GETTABLEKS                       R6 R0 K8 ["Src"]
+       36 GETTABLEKS                       R6 R6 K9 ["Util"]
+       38 GETTABLEKS                       R6 R6 K11 ["Images"]
        40 CALL                             R5 1 1
        41 GETTABLEKS                       R6 R3 K12 ["ContextServices"]
        43 GETTABLEKS                       R7 R6 K13 ["withContext"]

@@ -8,9 +8,9 @@ PROTO_0:
         8 SETTABLEKS                       R5 R4 K1 ["animationClipsMode"]
        10 NAMECALL                         R1 R1 K4 ["logCounter"]
        12 CALL                             R1 3 0
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K5 ["animationClipsSetting"]
-       16 GETTABLEKS                       R1 R2 K6 ["set"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K5 ["animationClipsSetting"]
+       16 GETTABLEKS                       R1 R1 K6 ["set"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 0
        20 RETURN                           R0 0
@@ -24,8 +24,8 @@ PROTO_1:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -54,16 +54,16 @@ PROTO_1:
        50 CALL                             R8 3 1
        51 SETTABLEKS                       R8 R7 K7 ["Label"]
        53 SETLIST                          R5 R6 2 [1]
-       55 GETTABLEKS                       R7 R4 K2 ["settings"]
-       57 GETTABLEKS                       R6 R7 K19 ["animationSettings"]
-       59 GETTABLEKS                       R8 R6 K20 ["animationPacksSetting"]
-       61 GETTABLEKS                       R7 R8 K21 ["value"]
-       63 GETTABLEKS                       R9 R6 K22 ["animationClipsSetting"]
-       65 GETTABLEKS                       R8 R9 K21 ["value"]
+       55 GETTABLEKS                       R6 R4 K2 ["settings"]
+       57 GETTABLEKS                       R6 R6 K19 ["animationSettings"]
+       59 GETTABLEKS                       R7 R6 K20 ["animationPacksSetting"]
+       61 GETTABLEKS                       R7 R7 K21 ["value"]
+       63 GETTABLEKS                       R8 R6 K22 ["animationClipsSetting"]
+       65 GETTABLEKS                       R8 R8 K21 ["value"]
        67 GETIMPORT                        R9 K25 [UDim.new]
        69 LOADN                            R10 0
-       70 GETUPVAL                         R12 5
-       71 GETTABLEKS                       R11 R12 K26 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+       70 GETUPVAL                         R11 5
+       71 GETTABLEKS                       R11 R11 K26 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
        73 CALL                             R9 2 1
        74 GETIMPORT                        R11 K17 [Enum.AvatarSettingsAnimationClipsMode.CustomClips]
        76 JUMPIFEQ                         R8 R11 ; [+2]
@@ -434,55 +434,55 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Components"]
-       13 GETTABLEKS                       R2 R3 K8 ["AssetIdSelector"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["AssetIdSelector"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K7 ["Components"]
-       22 GETTABLEKS                       R4 R5 K9 ["Contexts"]
-       24 GETTABLEKS                       R3 R4 K10 ["AvatarSettingsContext"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Components"]
+       22 GETTABLEKS                       R3 R3 K9 ["Contexts"]
+       24 GETTABLEKS                       R3 R3 K10 ["AvatarSettingsContext"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K11 ["Util"]
-       33 GETTABLEKS                       R4 R5 K12 ["Constants"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K11 ["Util"]
+       33 GETTABLEKS                       R4 R4 K12 ["Constants"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R7 R0 K6 ["Src"]
-       40 GETTABLEKS                       R6 R7 K7 ["Components"]
-       42 GETTABLEKS                       R5 R6 K13 ["ExpandableSection"]
+       38 GETTABLEKS                       R5 R0 K6 ["Src"]
+       40 GETTABLEKS                       R5 R5 K7 ["Components"]
+       42 GETTABLEKS                       R5 R5 K13 ["ExpandableSection"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K5 [require]
-       47 GETTABLEKS                       R7 R0 K14 ["Packages"]
-       49 GETTABLEKS                       R6 R7 K15 ["Framework"]
+       47 GETTABLEKS                       R6 R0 K14 ["Packages"]
+       49 GETTABLEKS                       R6 R6 K15 ["Framework"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R9 R0 K6 ["Src"]
-       56 GETTABLEKS                       R8 R9 K7 ["Components"]
-       58 GETTABLEKS                       R7 R8 K16 ["GenericModeSelector"]
+       54 GETTABLEKS                       R7 R0 K6 ["Src"]
+       56 GETTABLEKS                       R7 R7 K7 ["Components"]
+       58 GETTABLEKS                       R7 R7 K16 ["GenericModeSelector"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R9 R0 K14 ["Packages"]
-       65 GETTABLEKS                       R8 R9 K17 ["React"]
+       63 GETTABLEKS                       R8 R0 K14 ["Packages"]
+       65 GETTABLEKS                       R8 R8 K17 ["React"]
        67 CALL                             R7 1 1
        68 GETIMPORT                        R8 K5 [require]
-       70 GETTABLEKS                       R10 R0 K14 ["Packages"]
-       72 GETTABLEKS                       R9 R10 K18 ["ReactUtils"]
+       70 GETTABLEKS                       R9 R0 K14 ["Packages"]
+       72 GETTABLEKS                       R9 R9 K18 ["ReactUtils"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K6 ["Src"]
-       79 GETTABLEKS                       R11 R12 K7 ["Components"]
-       81 GETTABLEKS                       R10 R11 K19 ["TitledComponent"]
+       77 GETTABLEKS                       R10 R0 K6 ["Src"]
+       79 GETTABLEKS                       R10 R10 K7 ["Components"]
+       81 GETTABLEKS                       R10 R10 K19 ["TitledComponent"]
        83 CALL                             R9 1 1
        84 GETTABLEKS                       R10 R5 K20 ["ContextServices"]
        86 GETTABLEKS                       R11 R10 K21 ["Localization"]
        88 GETIMPORT                        R12 K5 [require]
-       90 GETTABLEKS                       R16 R0 K6 ["Src"]
-       92 GETTABLEKS                       R15 R16 K11 ["Util"]
-       94 GETTABLEKS                       R14 R15 K22 ["Telemetry"]
-       96 GETTABLEKS                       R13 R14 K23 ["TelemetryContext"]
+       90 GETTABLEKS                       R13 R0 K6 ["Src"]
+       92 GETTABLEKS                       R13 R13 K11 ["Util"]
+       94 GETTABLEKS                       R13 R13 K22 ["Telemetry"]
+       96 GETTABLEKS                       R13 R13 K23 ["TelemetryContext"]
        98 CALL                             R12 1 1
        99 GETTABLEKS                       R13 R8 K24 ["createNextOrder"]
       101 GETTABLEKS                       R14 R7 K25 ["createElement"]

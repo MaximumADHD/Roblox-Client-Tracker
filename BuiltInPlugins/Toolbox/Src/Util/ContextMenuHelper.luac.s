@@ -7,12 +7,12 @@ PROTO_1:
         1 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["constructAssetIdString"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["constructAssetIdString"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 1
-        5 GETUPVAL                         R2 2
-        6 GETTABLEKS                       R1 R2 K1 ["shouldDebugUrls"]
+        5 GETUPVAL                         R1 2
+        6 GETTABLEKS                       R1 R1 K1 ["shouldDebugUrls"]
         8 CALL                             R1 0 1
         9 JUMPIFNOT                        R1 ; [+8]
        10 GETIMPORT                        R1 K3 [print]
@@ -54,8 +54,8 @@ PROTO_3:
 
 PROTO_4:
         0 LOADNIL                          R0
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["constructCreatorStoreUrl"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["constructCreatorStoreUrl"]
         4 CALL                             R1 0 1
         5 JUMPIFNOT                        R1 ; [+35]
         6 GETIMPORT                        R2 K3 [string.format]
@@ -71,14 +71,14 @@ PROTO_4:
        18 JUMPIFNOT                        R2 ; [+46]
        19 MOVE                             R2 R0
        20 LOADK                            R3 K6 ["?"]
-       21 GETUPVAL                         R5 4
-       22 GETTABLEKS                       R4 R5 K7 ["makeQueryString"]
+       21 GETUPVAL                         R4 4
+       22 GETTABLEKS                       R4 R4 K7 ["makeQueryString"]
        24 DUPTABLE                         R5 K11 [{"keyword", "searchId", "viewFromStudio"}]
-       25 GETUPVAL                         R7 3
-       26 GETTABLEKS                       R6 R7 K12 ["SearchKeyword"]
+       25 GETUPVAL                         R6 3
+       26 GETTABLEKS                       R6 R6 K12 ["SearchKeyword"]
        28 SETTABLEKS                       R6 R5 K8 ["keyword"]
-       30 GETUPVAL                         R7 3
-       31 GETTABLEKS                       R6 R7 K13 ["SearchId"]
+       30 GETUPVAL                         R6 3
+       31 GETTABLEKS                       R6 R6 K13 ["SearchId"]
        33 SETTABLEKS                       R6 R5 K9 ["searchId"]
        35 LOADB                            R6 1
        36 SETTABLEKS                       R6 R5 K10 ["viewFromStudio"]
@@ -100,8 +100,8 @@ PROTO_4:
        56 JUMPIFNOT                        R2 ; [+8]
        57 MOVE                             R2 R0
        58 LOADK                            R3 K6 ["?"]
-       59 GETUPVAL                         R5 4
-       60 GETTABLEKS                       R4 R5 K7 ["makeQueryString"]
+       59 GETUPVAL                         R4 4
+       60 GETTABLEKS                       R4 R4 K7 ["makeQueryString"]
        62 GETUPVAL                         R5 3
        63 CALL                             R4 1 1
        64 CONCAT                           R0 R2 R4
@@ -112,13 +112,13 @@ PROTO_4:
        70 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["reportAssetClicked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reportAssetClicked"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 CALL                             R0 2 0
-        6 GETUPVAL                         R1 3
-        7 GETTABLEKS                       R0 R1 K1 ["BaseUrl"]
+        6 GETUPVAL                         R0 3
+        7 GETTABLEKS                       R0 R0 K1 ["BaseUrl"]
         9 GETUPVAL                         R1 4
        10 GETUPVAL                         R2 1
        11 GETUPVAL                         R3 2
@@ -130,8 +130,8 @@ PROTO_5:
        18 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onContextMenuClicked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onContextMenuClicked"]
         3 LOADK                            R1 K1 ["CopyAssetId"]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
@@ -144,8 +144,8 @@ PROTO_6:
        13 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onContextMenuClicked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onContextMenuClicked"]
         3 LOADK                            R1 K1 ["CopyMeshId"]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
@@ -158,8 +158,8 @@ PROTO_7:
        13 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onContextMenuClicked"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onContextMenuClicked"]
         3 LOADK                            R1 K1 ["CopyTextureId"]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
@@ -174,12 +174,12 @@ PROTO_8:
 PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["FLOW_TYPE"]
-        5 GETTABLEKS                       R2 R3 K1 ["EDIT_FLOW"]
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["FLOW_TYPE"]
+        5 GETTABLEKS                       R2 R2 K1 ["EDIT_FLOW"]
         7 LOADNIL                          R3
-        8 GETUPVAL                         R5 3
-        9 GETTABLEKS                       R4 R5 K2 ["convertAssetTypeValueToEnum"]
+        8 GETUPVAL                         R4 3
+        9 GETTABLEKS                       R4 R4 K2 ["convertAssetTypeValueToEnum"]
        11 GETUPVAL                         R5 4
        12 CALL                             R4 1 -1
        13 CALL                             R0 -1 0
@@ -188,12 +188,12 @@ PROTO_9:
 PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R4 2
-        3 GETTABLEKS                       R3 R4 K0 ["FLOW_TYPE"]
-        5 GETTABLEKS                       R2 R3 K1 ["EDIT_FLOW"]
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["FLOW_TYPE"]
+        5 GETTABLEKS                       R2 R2 K1 ["EDIT_FLOW"]
         7 LOADNIL                          R3
-        8 GETUPVAL                         R5 3
-        9 GETTABLEKS                       R4 R5 K2 ["convertAssetTypeValueToEnum"]
+        8 GETUPVAL                         R4 3
+        9 GETTABLEKS                       R4 R4 K2 ["convertAssetTypeValueToEnum"]
        11 GETUPVAL                         R5 4
        12 CALL                             R4 1 -1
        13 CALL                             R0 -1 0
@@ -210,17 +210,17 @@ PROTO_11:
         9 MOVE                             R14 R11
        10 NAMECALL                         R12 R0 K5 ["CreatePluginMenu"]
        12 CALL                             R12 2 1
-       13 GETIMPORT                        R16 K3 [string.format]
-       15 LOADK                            R17 K6 ["OpenInBrowser-%s"]
-       16 MOVE                             R18 R10
-       17 CALL                             R16 2 1
-       18 LOADK                            R19 K7 ["General"]
-       19 LOADK                            R20 K8 ["RightClickMenuViewInBrowser"]
-       20 NAMECALL                         R17 R4 K9 ["getText"]
-       22 CALL                             R17 3 -1
-       23 NAMECALL                         R14 R12 K10 ["AddNewAction"]
-       25 CALL                             R14 -1 1
-       26 GETTABLEKS                       R13 R14 K11 ["Triggered"]
+       13 GETIMPORT                        R15 K3 [string.format]
+       15 LOADK                            R16 K6 ["OpenInBrowser-%s"]
+       16 MOVE                             R17 R10
+       17 CALL                             R15 2 1
+       18 LOADK                            R18 K7 ["General"]
+       19 LOADK                            R19 K8 ["RightClickMenuViewInBrowser"]
+       20 NAMECALL                         R16 R4 K9 ["getText"]
+       22 CALL                             R16 3 -1
+       23 NAMECALL                         R13 R12 K10 ["AddNewAction"]
+       25 CALL                             R13 -1 1
+       26 GETTABLEKS                       R13 R13 K11 ["Triggered"]
        28 NEWCLOSURE                       R15 P0
        29 CAPTURE                          UPVAL U1
        30 CAPTURE                          UPVAL U0
@@ -233,17 +233,17 @@ PROTO_11:
        38 CALL                             R13 2 0
        39 JUMPIF                           R3 ; [+27]
        40 JUMPIFEQKN                       R9 K13 [1] ; [+26]
-       42 GETIMPORT                        R16 K3 [string.format]
-       44 LOADK                            R17 K14 ["Report-%s"]
-       45 MOVE                             R18 R10
-       46 CALL                             R16 2 1
-       47 LOADK                            R19 K7 ["General"]
-       48 LOADK                            R20 K15 ["RightClickMenuReport"]
-       49 NAMECALL                         R17 R4 K9 ["getText"]
-       51 CALL                             R17 3 -1
-       52 NAMECALL                         R14 R12 K10 ["AddNewAction"]
-       54 CALL                             R14 -1 1
-       55 GETTABLEKS                       R13 R14 K11 ["Triggered"]
+       42 GETIMPORT                        R15 K3 [string.format]
+       44 LOADK                            R16 K14 ["Report-%s"]
+       45 MOVE                             R17 R10
+       46 CALL                             R15 2 1
+       47 LOADK                            R18 K7 ["General"]
+       48 LOADK                            R19 K15 ["RightClickMenuReport"]
+       49 NAMECALL                         R16 R4 K9 ["getText"]
+       51 CALL                             R16 3 -1
+       52 NAMECALL                         R13 R12 K10 ["AddNewAction"]
+       54 CALL                             R13 -1 1
+       55 GETTABLEKS                       R13 R13 K11 ["Triggered"]
        57 NEWCLOSURE                       R15 P1
        58 CAPTURE                          UPVAL U5
        59 CAPTURE                          VAL R1
@@ -253,12 +253,12 @@ PROTO_11:
        63 CAPTURE                          UPVAL U4
        64 NAMECALL                         R13 R13 K12 ["connect"]
        66 CALL                             R13 2 0
-       67 GETIMPORT                        R14 K19 [Enum.AssetType.Plugin]
-       69 GETTABLEKS                       R13 R14 K20 ["Value"]
+       67 GETIMPORT                        R13 K19 [Enum.AssetType.Plugin]
+       69 GETTABLEKS                       R13 R13 K20 ["Value"]
        71 JUMPIFEQ                         R2 R13 ; [+140]
        73 MOVE                             R13 R1
-       74 GETIMPORT                        R15 K22 [Enum.AssetType.Decal]
-       76 GETTABLEKS                       R14 R15 K20 ["Value"]
+       74 GETIMPORT                        R14 K22 [Enum.AssetType.Decal]
+       76 GETTABLEKS                       R14 R14 K20 ["Value"]
        78 JUMPIFNOTEQ                      R2 R14 ; [+26]
        80 LOADNIL                          R14
        81 GETIMPORT                        R15 K24 [pcall]
@@ -282,17 +282,17 @@ PROTO_11:
       102 JUMP                             ; [+2]
       103 LOADN                            R13 0
       104 CLOSEUPVALS                      R14
-      105 GETIMPORT                        R17 K3 [string.format]
-      107 LOADK                            R18 K28 ["CopyAssetIdToClipboard-%s"]
-      108 MOVE                             R19 R10
-      109 CALL                             R17 2 1
-      110 LOADK                            R20 K7 ["General"]
-      111 LOADK                            R21 K29 ["RightClickMenuCopyAssetID"]
-      112 NAMECALL                         R18 R4 K9 ["getText"]
-      114 CALL                             R18 3 -1
-      115 NAMECALL                         R15 R12 K10 ["AddNewAction"]
-      117 CALL                             R15 -1 1
-      118 GETTABLEKS                       R14 R15 K11 ["Triggered"]
+      105 GETIMPORT                        R16 K3 [string.format]
+      107 LOADK                            R17 K28 ["CopyAssetIdToClipboard-%s"]
+      108 MOVE                             R18 R10
+      109 CALL                             R16 2 1
+      110 LOADK                            R19 K7 ["General"]
+      111 LOADK                            R20 K29 ["RightClickMenuCopyAssetID"]
+      112 NAMECALL                         R17 R4 K9 ["getText"]
+      114 CALL                             R17 3 -1
+      115 NAMECALL                         R14 R12 K10 ["AddNewAction"]
+      117 CALL                             R14 -1 1
+      118 GETTABLEKS                       R14 R14 K11 ["Triggered"]
       120 NEWCLOSURE                       R16 P3
       121 CAPTURE                          UPVAL U5
       122 CAPTURE                          VAL R1
@@ -302,33 +302,33 @@ PROTO_11:
       126 CAPTURE                          REF R13
       127 NAMECALL                         R14 R14 K12 ["connect"]
       129 CALL                             R14 2 0
-      130 GETIMPORT                        R15 K31 [Enum.AssetType.MeshPart]
-      132 GETTABLEKS                       R14 R15 K20 ["Value"]
+      130 GETIMPORT                        R14 K31 [Enum.AssetType.MeshPart]
+      132 GETTABLEKS                       R14 R14 K20 ["Value"]
       134 JUMPIFNOTEQ                      R2 R14 ; [+76]
       136 GETIMPORT                        R14 K24 [pcall]
-      138 GETUPVAL                         R16 9
-      139 GETTABLEKS                       R15 R16 K32 ["GetMeshIdFromAssetId"]
+      138 GETUPVAL                         R15 9
+      139 GETTABLEKS                       R15 R15 K32 ["GetMeshIdFromAssetId"]
       141 GETUPVAL                         R16 9
       142 MOVE                             R17 R13
       143 CALL                             R14 3 2
       144 GETIMPORT                        R16 K24 [pcall]
-      146 GETUPVAL                         R18 9
-      147 GETTABLEKS                       R17 R18 K33 ["GetTextureIdFromAssetId"]
+      146 GETUPVAL                         R17 9
+      147 GETTABLEKS                       R17 R17 K33 ["GetTextureIdFromAssetId"]
       149 GETUPVAL                         R18 9
       150 MOVE                             R19 R13
       151 CALL                             R16 3 2
       152 JUMPIFNOT                        R14 ; [+26]
-      153 GETIMPORT                        R21 K3 [string.format]
-      155 LOADK                            R22 K34 ["CopyMeshIdToClipboard-%s"]
-      156 MOVE                             R23 R10
-      157 CALL                             R21 2 1
-      158 LOADK                            R24 K7 ["General"]
-      159 LOADK                            R25 K35 ["RightClickMenuCopyMeshID"]
-      160 NAMECALL                         R22 R4 K9 ["getText"]
-      162 CALL                             R22 3 -1
-      163 NAMECALL                         R19 R12 K10 ["AddNewAction"]
-      165 CALL                             R19 -1 1
-      166 GETTABLEKS                       R18 R19 K11 ["Triggered"]
+      153 GETIMPORT                        R20 K3 [string.format]
+      155 LOADK                            R21 K34 ["CopyMeshIdToClipboard-%s"]
+      156 MOVE                             R22 R10
+      157 CALL                             R20 2 1
+      158 LOADK                            R23 K7 ["General"]
+      159 LOADK                            R24 K35 ["RightClickMenuCopyMeshID"]
+      160 NAMECALL                         R21 R4 K9 ["getText"]
+      162 CALL                             R21 3 -1
+      163 NAMECALL                         R18 R12 K10 ["AddNewAction"]
+      165 CALL                             R18 -1 1
+      166 GETTABLEKS                       R18 R18 K11 ["Triggered"]
       168 NEWCLOSURE                       R20 P4
       169 CAPTURE                          UPVAL U5
       170 CAPTURE                          VAL R1
@@ -345,17 +345,17 @@ PROTO_11:
       183 CONCAT                           R19 R20 R21
       184 CALL                             R18 1 0
       185 JUMPIFNOT                        R16 ; [+25]
-      186 GETIMPORT                        R21 K3 [string.format]
-      188 LOADK                            R22 K39 ["CopyTextureIdToClipboard-%s"]
-      189 MOVE                             R23 R10
-      190 CALL                             R21 2 1
-      191 LOADK                            R24 K7 ["General"]
-      192 LOADK                            R25 K40 ["RightClickMenuCopyTextureID"]
-      193 NAMECALL                         R22 R4 K9 ["getText"]
-      195 CALL                             R22 3 -1
-      196 NAMECALL                         R19 R12 K10 ["AddNewAction"]
-      198 CALL                             R19 -1 1
-      199 GETTABLEKS                       R18 R19 K11 ["Triggered"]
+      186 GETIMPORT                        R20 K3 [string.format]
+      188 LOADK                            R21 K39 ["CopyTextureIdToClipboard-%s"]
+      189 MOVE                             R22 R10
+      190 CALL                             R20 2 1
+      191 LOADK                            R23 K7 ["General"]
+      192 LOADK                            R24 K40 ["RightClickMenuCopyTextureID"]
+      193 NAMECALL                         R21 R4 K9 ["getText"]
+      195 CALL                             R21 3 -1
+      196 NAMECALL                         R18 R12 K10 ["AddNewAction"]
+      198 CALL                             R18 -1 1
+      199 GETTABLEKS                       R18 R18 K11 ["Triggered"]
       201 NEWCLOSURE                       R20 P5
       202 CAPTURE                          UPVAL U5
       203 CAPTURE                          VAL R1
@@ -369,17 +369,17 @@ PROTO_11:
       212 JUMPIFNOT                        R3 ; [+51]
       213 JUMPIFNOT                        R5 ; [+50]
       214 JUMPIFNOT                        R6 ; [+25]
-      215 GETIMPORT                        R16 K3 [string.format]
-      217 LOADK                            R17 K41 ["PackageDetails-%s"]
-      218 MOVE                             R18 R10
-      219 CALL                             R16 2 1
-      220 LOADK                            R19 K42 ["AssetConfigPackagePermissions"]
-      221 LOADK                            R20 K43 ["PackageDetails"]
-      222 NAMECALL                         R17 R4 K9 ["getText"]
-      224 CALL                             R17 3 -1
-      225 NAMECALL                         R14 R12 K10 ["AddNewAction"]
-      227 CALL                             R14 -1 1
-      228 GETTABLEKS                       R13 R14 K11 ["Triggered"]
+      215 GETIMPORT                        R15 K3 [string.format]
+      217 LOADK                            R16 K41 ["PackageDetails-%s"]
+      218 MOVE                             R17 R10
+      219 CALL                             R15 2 1
+      220 LOADK                            R18 K42 ["AssetConfigPackagePermissions"]
+      221 LOADK                            R19 K43 ["PackageDetails"]
+      222 NAMECALL                         R16 R4 K9 ["getText"]
+      224 CALL                             R16 3 -1
+      225 NAMECALL                         R13 R12 K10 ["AddNewAction"]
+      227 CALL                             R13 -1 1
+      228 GETTABLEKS                       R13 R13 K11 ["Triggered"]
       230 NEWCLOSURE                       R15 P6
       231 CAPTURE                          VAL R5
       232 CAPTURE                          VAL R1
@@ -389,17 +389,17 @@ PROTO_11:
       236 NAMECALL                         R13 R13 K12 ["connect"]
       238 CALL                             R13 2 0
       239 JUMP                             ; [+24]
-      240 GETIMPORT                        R16 K3 [string.format]
-      242 LOADK                            R17 K44 ["EditAsset-%s"]
-      243 MOVE                             R18 R10
-      244 CALL                             R16 2 1
-      245 LOADK                            R19 K7 ["General"]
-      246 LOADK                            R20 K45 ["RightClickMenuEditAsset"]
-      247 NAMECALL                         R17 R4 K9 ["getText"]
-      249 CALL                             R17 3 -1
-      250 NAMECALL                         R14 R12 K10 ["AddNewAction"]
-      252 CALL                             R14 -1 1
-      253 GETTABLEKS                       R13 R14 K11 ["Triggered"]
+      240 GETIMPORT                        R15 K3 [string.format]
+      242 LOADK                            R16 K44 ["EditAsset-%s"]
+      243 MOVE                             R17 R10
+      244 CALL                             R15 2 1
+      245 LOADK                            R18 K7 ["General"]
+      246 LOADK                            R19 K45 ["RightClickMenuEditAsset"]
+      247 NAMECALL                         R16 R4 K9 ["getText"]
+      249 CALL                             R16 3 -1
+      250 NAMECALL                         R13 R12 K10 ["AddNewAction"]
+      252 CALL                             R13 -1 1
+      253 GETTABLEKS                       R13 R13 K11 ["Triggered"]
       255 NEWCLOSURE                       R15 P7
       256 CAPTURE                          VAL R5
       257 CAPTURE                          VAL R1
@@ -416,16 +416,16 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Src"]
-       11 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R1 K4 ["Util"]
        13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R5 R0 K7 ["Libs"]
-       17 GETTABLEKS                       R4 R5 K8 ["Http"]
-       19 GETTABLEKS                       R3 R4 K9 ["Url"]
+       15 GETTABLEKS                       R3 R0 K7 ["Libs"]
+       17 GETTABLEKS                       R3 R3 K8 ["Http"]
+       19 GETTABLEKS                       R3 R3 K9 ["Url"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K6 [require]
        24 GETTABLEKS                       R4 R1 K10 ["Urls"]
@@ -434,8 +434,8 @@ MAIN:
        29 GETTABLEKS                       R5 R1 K11 ["DebugFlags"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K6 [require]
-       34 GETTABLEKS                       R7 R1 K12 ["Analytics"]
-       36 GETTABLEKS                       R6 R7 K12 ["Analytics"]
+       34 GETTABLEKS                       R6 R1 K12 ["Analytics"]
+       36 GETTABLEKS                       R6 R6 K12 ["Analytics"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K6 [require]
        41 GETTABLEKS                       R7 R1 K13 ["AssetConfigConstants"]
@@ -466,9 +466,9 @@ MAIN:
        80 NAMECALL                         R13 R13 K20 ["GetService"]
        82 CALL                             R13 2 1
        83 GETIMPORT                        R14 K6 [require]
-       85 GETIMPORT                        R17 K1 [script]
-       87 GETTABLEKS                       R16 R17 K2 ["Parent"]
-       89 GETTABLEKS                       R15 R16 K24 ["isCli"]
+       85 GETIMPORT                        R15 K1 [script]
+       87 GETTABLEKS                       R15 R15 K2 ["Parent"]
+       89 GETTABLEKS                       R15 R15 K24 ["isCli"]
        91 CALL                             R14 1 1
        92 LOADNIL                          R15
        93 MOVE                             R16 R14

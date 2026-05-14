@@ -226,18 +226,18 @@ PROTO_7:
       101 GETIMPORT                        R13 K16 [table.insert]
       103 CALL                             R13 2 0
       104 FORGLOOP                         R7 2 [inext] ; [-79]
-      106 GETUPVAL                         R8 0
-      107 GETTABLEKS                       R7 R8 K20 ["getAxisAlignedBoundingBox"]
+      106 GETUPVAL                         R7 0
+      107 GETTABLEKS                       R7 R7 K20 ["getAxisAlignedBoundingBox"]
       109 MOVE                             R8 R4
       110 CALL                             R7 1 1
-      111 GETUPVAL                         R9 0
-      112 GETTABLEKS                       R8 R9 K20 ["getAxisAlignedBoundingBox"]
+      111 GETUPVAL                         R8 0
+      112 GETTABLEKS                       R8 R8 K20 ["getAxisAlignedBoundingBox"]
       114 MOVE                             R9 R5
       115 CALL                             R8 1 1
-      116 GETTABLEKS                       R11 R7 K21 ["Centroid"]
-      118 GETTABLEKS                       R12 R8 K21 ["Centroid"]
-      120 SUB                              R10 R11 R12
-      121 GETTABLEKS                       R9 R10 K22 ["Unit"]
+      116 GETTABLEKS                       R10 R7 K21 ["Centroid"]
+      118 GETTABLEKS                       R11 R8 K21 ["Centroid"]
+      120 SUB                              R9 R10 R11
+      121 GETTABLEKS                       R9 R9 K22 ["Unit"]
       123 RETURN                           R9 1
 
 PROTO_8:
@@ -277,8 +277,8 @@ PROTO_8:
        43 CALL                             R2 0 1
        44 SETTABLEKS                       R2 R1 K10 ["CFrame"]
        46 RETURN                           R1 1
-       47 GETUPVAL                         R2 1
-       48 GETTABLEKS                       R1 R2 K16 ["getAxisAlignedBoundingBox"]
+       47 GETUPVAL                         R1 1
+       48 GETTABLEKS                       R1 R1 K16 ["getAxisAlignedBoundingBox"]
        50 MOVE                             R2 R0
        51 CALL                             R1 1 1
        52 JUMPIF                           R0 ; [+2]
@@ -334,8 +334,8 @@ PROTO_8:
       113 MUL                              R11 R12 R13
       114 SETTABLEKS                       R11 R10 K24 ["Position"]
       116 FORGLOOP                         R6 2 ; [-16]
-      118 GETUPVAL                         R7 1
-      119 GETTABLEKS                       R6 R7 K16 ["getAxisAlignedBoundingBox"]
+      118 GETUPVAL                         R6 1
+      119 GETTABLEKS                       R6 R6 K16 ["getAxisAlignedBoundingBox"]
       121 MOVE                             R7 R4
       122 CALL                             R6 1 1
       123 GETTABLEKS                       R8 R6 K5 ["Center"]
@@ -470,18 +470,18 @@ PROTO_9:
       116 JUMPIFNOT                        R3 ; [+3]
       117 GETTABLEKS                       R4 R2 K24 ["X"]
       119 JUMP                             ; [+4]
-      120 GETTABLEKS                       R5 R2 K25 ["Position"]
-      122 GETTABLEKS                       R4 R5 K24 ["X"]
+      120 GETTABLEKS                       R4 R2 K25 ["Position"]
+      122 GETTABLEKS                       R4 R4 K24 ["X"]
       124 JUMPIFNOT                        R3 ; [+3]
       125 GETTABLEKS                       R5 R2 K26 ["Y"]
       127 JUMP                             ; [+4]
-      128 GETTABLEKS                       R6 R2 K25 ["Position"]
-      130 GETTABLEKS                       R5 R6 K26 ["Y"]
+      128 GETTABLEKS                       R5 R2 K25 ["Position"]
+      130 GETTABLEKS                       R5 R5 K26 ["Y"]
       132 JUMPIFNOT                        R3 ; [+3]
       133 GETTABLEKS                       R6 R2 K27 ["Z"]
       135 JUMP                             ; [+4]
-      136 GETTABLEKS                       R7 R2 K25 ["Position"]
-      138 GETTABLEKS                       R6 R7 K27 ["Z"]
+      136 GETTABLEKS                       R6 R2 K25 ["Position"]
+      138 GETTABLEKS                       R6 R6 K27 ["Z"]
       140 MOVE                             R7 R4
       141 MOVE                             R8 R5
       142 MOVE                             R9 R6
@@ -660,11 +660,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Flags"]
-       11 GETTABLEKS                       R2 R3 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
+        9 GETTABLEKS                       R2 R0 K6 ["Flags"]
+       11 GETTABLEKS                       R2 R2 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R3 K1 [script]
-       16 GETTABLEKS                       R2 R3 K8 ["Parent"]
+       14 GETIMPORT                        R2 K1 [script]
+       16 GETTABLEKS                       R2 R2 K8 ["Parent"]
        18 GETIMPORT                        R3 K5 [require]
        20 GETTABLEKS                       R4 R2 K9 ["deepCopy"]
        22 CALL                             R3 1 1

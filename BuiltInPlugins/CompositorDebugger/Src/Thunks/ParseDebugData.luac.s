@@ -56,12 +56,12 @@ PROTO_0:
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["Status"]
-        5 GETTABLEKS                       R2 R3 K2 ["HistoryOffset"]
+        3 GETTABLEKS                       R2 R1 K1 ["Status"]
+        5 GETTABLEKS                       R2 R2 K2 ["HistoryOffset"]
         7 JUMPIFEQKNIL                     R2 ; [+2]
         9 RETURN                           R0 0
-       10 GETTABLEKS                       R3 R1 K1 ["Status"]
-       12 GETTABLEKS                       R2 R3 K3 ["SendPayloadAnalytics"]
+       10 GETTABLEKS                       R2 R1 K1 ["Status"]
+       12 GETTABLEKS                       R2 R2 K3 ["SendPayloadAnalytics"]
        14 NEWTABLE                         R3 0 0
        16 LOADN                            R4 0
        17 NEWTABLE                         R5 0 0
@@ -75,18 +75,18 @@ PROTO_1:
        26 CAPTURE                          REF R4
        27 CAPTURE                          VAL R5
        28 CALL                             R6 2 0
-       29 NAMECALL                         R8 R0 K0 ["getState"]
-       31 CALL                             R8 1 1
-       32 GETTABLEKS                       R7 R8 K4 ["DebugData"]
-       34 GETTABLEKS                       R6 R7 K5 ["FrameBuffer"]
+       29 NAMECALL                         R6 R0 K0 ["getState"]
+       31 CALL                             R6 1 1
+       32 GETTABLEKS                       R6 R6 K4 ["DebugData"]
+       34 GETTABLEKS                       R6 R6 K5 ["FrameBuffer"]
        36 NAMECALL                         R6 R6 K6 ["clone"]
        38 CALL                             R6 1 1
        39 DUPTABLE                         R7 K10 [{"payload", "layerMap", "timestamp"}]
        40 GETUPVAL                         R8 0
        41 SETTABLEKS                       R8 R7 K7 ["payload"]
        43 SETTABLEKS                       R3 R7 K8 ["layerMap"]
-       45 GETUPVAL                         R9 0
-       46 GETTABLEKS                       R8 R9 K9 ["timestamp"]
+       45 GETUPVAL                         R8 0
+       46 GETTABLEKS                       R8 R8 K9 ["timestamp"]
        48 SETTABLEKS                       R8 R7 K9 ["timestamp"]
        50 MOVE                             R10 R7
        51 NAMECALL                         R8 R6 K11 ["push"]
@@ -118,10 +118,10 @@ PROTO_1:
        84 NAMECALL                         R9 R0 K18 ["dispatch"]
        86 CALL                             R9 -1 0
        87 LOADN                            R9 1
-       88 GETTABLEKS                       R12 R1 K1 ["Status"]
-       90 GETTABLEKS                       R11 R12 K19 ["SkipCounter"]
-       92 GETTABLEKS                       R14 R1 K1 ["Status"]
-       94 GETTABLEKS                       R13 R14 K21 ["SkipLimit"]
+       88 GETTABLEKS                       R11 R1 K1 ["Status"]
+       90 GETTABLEKS                       R11 R11 K19 ["SkipCounter"]
+       92 GETTABLEKS                       R13 R1 K1 ["Status"]
+       94 GETTABLEKS                       R13 R13 K21 ["SkipLimit"]
        96 ADDK                             R12 R13 K20 [1]
        97 MOD                              R10 R11 R12
        98 ADD                              R8 R9 R10
@@ -159,8 +159,8 @@ MAIN:
         3 LOADK                            R2 K2 ["CompositorDebugger"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetFrameBuffer"]
        15 CALL                             R2 1 1
@@ -170,19 +170,19 @@ MAIN:
        21 GETIMPORT                        R4 K7 [require]
        23 GETTABLEKS                       R5 R1 K10 ["SetSkipCounter"]
        25 CALL                             R4 1 1
-       26 GETTABLEKS                       R6 R0 K4 ["Src"]
-       28 GETTABLEKS                       R5 R6 K11 ["Thunks"]
+       26 GETTABLEKS                       R5 R0 K4 ["Src"]
+       28 GETTABLEKS                       R5 R5 K11 ["Thunks"]
        30 GETIMPORT                        R6 K7 [require]
        32 GETTABLEKS                       R7 R5 K12 ["RenderAdornments"]
        34 CALL                             R6 1 1
-       35 GETTABLEKS                       R8 R0 K4 ["Src"]
-       37 GETTABLEKS                       R7 R8 K13 ["Util"]
+       35 GETTABLEKS                       R7 R0 K4 ["Src"]
+       37 GETTABLEKS                       R7 R7 K13 ["Util"]
        39 GETIMPORT                        R8 K7 [require]
        41 GETTABLEKS                       R9 R7 K14 ["traverse"]
        43 CALL                             R8 1 1
        44 GETIMPORT                        R9 K7 [require]
-       46 GETTABLEKS                       R11 R0 K4 ["Src"]
-       48 GETTABLEKS                       R10 R11 K15 ["Types"]
+       46 GETTABLEKS                       R10 R0 K4 ["Src"]
+       48 GETTABLEKS                       R10 R10 K15 ["Types"]
        50 CALL                             R9 1 1
        51 DUPCLOSURE                       R10 K16 [PROTO_2]
        52 CAPTURE                          VAL R8

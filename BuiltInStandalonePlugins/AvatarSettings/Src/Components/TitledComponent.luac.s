@@ -38,8 +38,8 @@ PROTO_0:
        57 GETUPVAL                         R6 1
        58 LOADK                            R7 K14 ["TextLabel"]
        59 NEWTABLE                         R8 8 0
-       61 GETUPVAL                         R10 3
-       62 GETTABLEKS                       R9 R10 K31 ["Tag"]
+       61 GETUPVAL                         R9 3
+       62 GETTABLEKS                       R9 R9 K31 ["Tag"]
        64 GETUPVAL                         R10 4
        65 GETTABLEKS                       R11 R0 K32 ["textLabelTags"]
        67 LOADK                            R12 K33 ["TitledComponentLabel"]
@@ -57,13 +57,13 @@ PROTO_0:
        84 LOADN                            R9 1
        85 SETTABLEKS                       R9 R8 K38 ["BackgroundTransparency"]
        87 GETIMPORT                        R9 K40 [UDim2.new]
-       89 GETTABLEKS                       R11 R0 K41 ["minTextLabelWidth"]
-       91 GETTABLEKS                       R10 R11 K42 ["Scale"]
-       93 GETTABLEKS                       R12 R0 K41 ["minTextLabelWidth"]
-       95 GETTABLEKS                       R11 R12 K43 ["Offset"]
+       89 GETTABLEKS                       R10 R0 K41 ["minTextLabelWidth"]
+       91 GETTABLEKS                       R10 R10 K42 ["Scale"]
+       93 GETTABLEKS                       R11 R0 K41 ["minTextLabelWidth"]
+       95 GETTABLEKS                       R11 R11 K43 ["Offset"]
        97 LOADN                            R12 0
-       98 GETUPVAL                         R14 5
-       99 GETTABLEKS                       R13 R14 K44 ["STANDARD_HEIGHT"]
+       98 GETUPVAL                         R13 5
+       99 GETTABLEKS                       R13 R13 K44 ["STANDARD_HEIGHT"]
       101 CALL                             R9 4 1
       102 SETTABLEKS                       R9 R8 K1 ["Size"]
       104 GETTABLEKS                       R10 R0 K45 ["textLabelAutomaticSize"]
@@ -77,11 +77,11 @@ PROTO_0:
       117 GETUPVAL                         R6 1
       118 GETUPVAL                         R7 2
       119 NEWTABLE                         R8 4 0
-      121 GETUPVAL                         R10 3
-      122 GETTABLEKS                       R9 R10 K31 ["Tag"]
-      124 GETUPVAL                         R12 6
-      125 GETTABLEKS                       R11 R12 K48 ["Styling"]
-      127 GETTABLEKS                       R10 R11 K49 ["joinTags"]
+      121 GETUPVAL                         R9 3
+      122 GETTABLEKS                       R9 R9 K31 ["Tag"]
+      124 GETUPVAL                         R10 6
+      125 GETTABLEKS                       R10 R10 K48 ["Styling"]
+      127 GETTABLEKS                       R10 R10 K49 ["joinTags"]
       129 LOADK                            R11 K50 ["X-Column"]
       130 GETTABLEKS                       R12 R0 K51 ["contentTags"]
       132 CALL                             R10 2 1
@@ -111,25 +111,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["React"]
+       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["React"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K12 ["ReactUtils"]
+       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R2 K13 ["UI"]
-       39 GETTABLEKS                       R7 R2 K14 ["Styling"]
-       41 GETTABLEKS                       R6 R7 K15 ["joinTags"]
+       39 GETTABLEKS                       R6 R2 K14 ["Styling"]
+       41 GETTABLEKS                       R6 R6 K15 ["joinTags"]
        43 GETTABLEKS                       R7 R4 K16 ["createNextOrder"]
        45 GETTABLEKS                       R8 R3 K17 ["createElement"]
        47 GETTABLEKS                       R9 R5 K18 ["Pane"]

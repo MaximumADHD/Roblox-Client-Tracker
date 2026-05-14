@@ -1,20 +1,20 @@
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R2 K3 [script]
-        5 GETTABLEKS                       R1 R2 K4 ["CellHelper"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["CellHelper"]
         7 CALL                             R0 1 1
         8 GETIMPORT                        R1 K1 [require]
-       10 GETIMPORT                        R3 K3 [script]
-       12 GETTABLEKS                       R2 R3 K5 ["FilterHelper"]
+       10 GETIMPORT                        R2 K3 [script]
+       12 GETTABLEKS                       R2 R2 K5 ["FilterHelper"]
        14 CALL                             R1 1 1
        15 GETIMPORT                        R2 K1 [require]
-       17 GETIMPORT                        R4 K3 [script]
-       19 GETTABLEKS                       R3 R4 K6 ["TestHelper"]
+       17 GETIMPORT                        R3 K3 [script]
+       19 GETTABLEKS                       R3 R3 K6 ["TestHelper"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K1 [require]
-       24 GETIMPORT                        R5 K3 [script]
-       26 GETTABLEKS                       R4 R5 K7 ["TreeHelper"]
+       24 GETIMPORT                        R4 K3 [script]
+       26 GETTABLEKS                       R4 R4 K7 ["TreeHelper"]
        28 CALL                             R3 1 1
        29 DUPTABLE                         R4 K24 [{"awaitDeferAsync", "changeProperty", "collapse", "createAction", "createContext", "expand", "getAction", "getCompoundDirection", "getDisplayedKeyCode", "getKeyBind", "itemExists", "itemsExist", "rename", "rowCount", "search", "updateStyling"}]
        30 GETTABLEKS                       R5 R2 K8 ["awaitDeferAsync"]

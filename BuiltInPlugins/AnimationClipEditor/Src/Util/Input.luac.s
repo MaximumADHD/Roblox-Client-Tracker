@@ -35,13 +35,13 @@ PROTO_2:
        11 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isShift"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isShift"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 JUMPIF                           R1 ; [+5]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K1 ["isControl"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K1 ["isControl"]
         9 MOVE                             R2 R0
        10 CALL                             R1 1 1
        11 RETURN                           R1 1

@@ -21,13 +21,13 @@ PROTO_2:
 
 PROTO_3:
         0 LOADNIL                          R0
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["fn"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["fn"]
         4 NEWCLOSURE                       R2 P0
         5 CAPTURE                          REF R0
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["fn"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K0 ["fn"]
        10 NEWCLOSURE                       R3 P1
        11 CAPTURE                          REF R0
        12 CAPTURE                          VAL R1
@@ -49,12 +49,12 @@ PROTO_4:
         6 GETUPVAL                         R1 0
         7 CALL                             R1 0 1
         8 SETTABLEKS                       R1 R0 K1 ["NewInaccessibleAsset"]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K2 ["fn"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K2 ["fn"]
        13 CALL                             R1 0 1
        14 SETTABLEKS                       R1 R0 K3 ["GetAssetMetadataAsync"]
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R1 R2 K2 ["fn"]
+       16 GETUPVAL                         R1 1
+       17 GETTABLEKS                       R1 R1 K2 ["fn"]
        19 CALL                             R1 0 1
        20 SETTABLEKS                       R1 R0 K4 ["ShareAccessToInaccessibleAssetsAsync"]
        22 RETURN                           R0 1
@@ -66,9 +66,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
-       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R2 K8 ["JestGlobals"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["jest"]
        18 DUPCLOSURE                       R3 K10 [PROTO_3]

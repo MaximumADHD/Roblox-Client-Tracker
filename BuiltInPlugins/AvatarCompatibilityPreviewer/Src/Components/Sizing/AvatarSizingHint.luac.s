@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Avatar"]
-        3 GETTABLEKS                       R0 R1 K1 ["WorldModel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Avatar"]
+        3 GETTABLEKS                       R0 R0 K1 ["WorldModel"]
         5 NAMECALL                         R0 R0 K2 ["GetBoundingBox"]
         7 CALL                             R0 1 2
         8 DUPTABLE                         R2 K5 [{"CFrame", "Size"}]
@@ -11,9 +11,9 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K0 ["Avatar"]
-        5 GETTABLEKS                       R2 R3 K1 ["WorldModel"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["Avatar"]
+        5 GETTABLEKS                       R2 R2 K1 ["WorldModel"]
         7 NAMECALL                         R2 R2 K2 ["GetChildren"]
         9 CALL                             R2 1 3
        10 FORGPREP                         R2
@@ -27,27 +27,27 @@ PROTO_1:
        21 GETUPVAL                         R2 1
        22 CALL                             R2 0 1
        23 JUMPIF                           R2 ; [+6]
-       24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R2 R3 K6 ["calculateScaleToValidateBoundsAsync"]
+       24 GETUPVAL                         R2 2
+       25 GETTABLEKS                       R2 R2 K6 ["calculateScaleToValidateBoundsAsync"]
        27 MOVE                             R3 R1
        28 CALL                             R2 1 -1
        29 RETURN                           R2 -1
-       30 GETUPVAL                         R3 3
-       31 GETTABLEKS                       R2 R3 K7 ["current"]
+       30 GETUPVAL                         R2 3
+       31 GETTABLEKS                       R2 R2 K7 ["current"]
        33 JUMPIFEQKNIL                     R2 ; [+10]
-       35 GETUPVAL                         R3 2
-       36 GETTABLEKS                       R2 R3 K8 ["isPreprocessDataCached"]
+       35 GETUPVAL                         R2 2
+       36 GETTABLEKS                       R2 R2 K8 ["isPreprocessDataCached"]
        38 MOVE                             R3 R1
-       39 GETUPVAL                         R5 3
-       40 GETTABLEKS                       R4 R5 K7 ["current"]
+       39 GETUPVAL                         R4 3
+       40 GETTABLEKS                       R4 R4 K7 ["current"]
        42 CALL                             R2 2 1
        43 JUMPIF                           R2 ; [+25]
-       44 GETUPVAL                         R3 2
-       45 GETTABLEKS                       R2 R3 K9 ["preprocessDataAsync"]
+       44 GETUPVAL                         R2 2
+       45 GETTABLEKS                       R2 R2 K9 ["preprocessDataAsync"]
        47 MOVE                             R3 R1
        48 CALL                             R2 1 1
-       49 GETUPVAL                         R4 4
-       50 GETTABLEKS                       R3 R4 K7 ["current"]
+       49 GETUPVAL                         R3 4
+       50 GETTABLEKS                       R3 R3 K7 ["current"]
        52 JUMPIFEQ                         R3 R0 ; [+3]
        54 LOADNIL                          R3
        55 RETURN                           R3 1
@@ -60,15 +60,15 @@ PROTO_1:
        65 GETUPVAL                         R3 3
        66 LOADNIL                          R4
        67 SETTABLEKS                       R4 R3 K7 ["current"]
-       69 GETUPVAL                         R3 2
-       70 GETTABLEKS                       R2 R3 K6 ["calculateScaleToValidateBoundsAsync"]
+       69 GETUPVAL                         R2 2
+       70 GETTABLEKS                       R2 R2 K6 ["calculateScaleToValidateBoundsAsync"]
        72 MOVE                             R3 R1
        73 LOADNIL                          R4
        74 LOADNIL                          R5
        75 LOADNIL                          R6
        76 LOADNIL                          R7
-       77 GETUPVAL                         R9 3
-       78 GETTABLEKS                       R8 R9 K7 ["current"]
+       77 GETUPVAL                         R8 3
+       78 GETTABLEKS                       R8 R8 K7 ["current"]
        80 CALL                             R2 6 1
        81 RETURN                           R2 1
 
@@ -86,11 +86,11 @@ PROTO_2:
        13 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["watchForChanges"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Avatar"]
-        6 GETTABLEKS                       R1 R2 K2 ["WorldModel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["watchForChanges"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Avatar"]
+        6 GETTABLEKS                       R1 R1 K2 ["WorldModel"]
         8 NEWCLOSURE                       R2 P0
         9 CAPTURE                          UPVAL U2
        10 CAPTURE                          UPVAL U3
@@ -127,8 +127,8 @@ PROTO_6:
         4 GETUPVAL                         R1 1
         5 CALL                             R1 0 1
         6 JUMPIFNOT                        R1 ; [+7]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K1 ["current"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K1 ["current"]
        10 ADDK                             R0 R1 K0 [1]
        11 GETUPVAL                         R1 2
        12 SETTABLEKS                       R0 R1 K1 ["current"]
@@ -148,61 +148,61 @@ PROTO_6:
        28 RETURN                           R3 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["coversMin"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["Size"]
-        6 GETUPVAL                         R4 2
-        7 GETTABLEKS                       R3 R4 K2 ["sizeBounds"]
-        9 GETTABLEKS                       R2 R3 K3 ["minSize"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["coversMin"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Size"]
+        6 GETUPVAL                         R2 2
+        7 GETTABLEKS                       R2 R2 K2 ["sizeBounds"]
+        9 GETTABLEKS                       R2 R2 K3 ["minSize"]
        11 CALL                             R0 2 -1
        12 RETURN                           R0 -1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["containsMax"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["Size"]
-        6 GETUPVAL                         R4 2
-        7 GETTABLEKS                       R3 R4 K2 ["sizeBounds"]
-        9 GETTABLEKS                       R2 R3 K3 ["maxSize"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["containsMax"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Size"]
+        6 GETUPVAL                         R2 2
+        7 GETTABLEKS                       R2 R2 K2 ["sizeBounds"]
+        9 GETTABLEKS                       R2 R2 K3 ["maxSize"]
        11 CALL                             R0 2 -1
        12 RETURN                           R0 -1
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["ContextServices"]
-        3 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ContextServices"]
+        3 GETTABLEKS                       R1 R1 K1 ["Localization"]
         5 NAMECALL                         R1 R1 K2 ["use"]
         7 CALL                             R1 1 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["useContext"]
-       11 GETUPVAL                         R4 2
-       12 GETTABLEKS                       R3 R4 K4 ["Context"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["useContext"]
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R3 R3 K4 ["Context"]
        14 CALL                             R2 1 1
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K5 ["useCallback"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K5 ["useCallback"]
        18 NEWCLOSURE                       R4 P0
        19 CAPTURE                          VAL R0
        20 NEWTABLE                         R5 0 3
-       22 GETTABLEKS                       R7 R0 K6 ["Avatar"]
-       24 GETTABLEKS                       R6 R7 K7 ["WorldModel"]
-       26 GETTABLEKS                       R8 R0 K6 ["Avatar"]
-       28 GETTABLEKS                       R7 R8 K8 ["WorldModelScale"]
-       30 GETTABLEKS                       R9 R0 K6 ["Avatar"]
-       32 GETTABLEKS                       R8 R9 K9 ["LatestWorldModelHash"]
+       22 GETTABLEKS                       R6 R0 K6 ["Avatar"]
+       24 GETTABLEKS                       R6 R6 K7 ["WorldModel"]
+       26 GETTABLEKS                       R7 R0 K6 ["Avatar"]
+       28 GETTABLEKS                       R7 R7 K8 ["WorldModelScale"]
+       30 GETTABLEKS                       R8 R0 K6 ["Avatar"]
+       32 GETTABLEKS                       R8 R8 K9 ["LatestWorldModelHash"]
        34 SETLIST                          R5 R6 3 [1]
        36 CALL                             R3 2 1
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R4 R5 K10 ["useRef"]
+       37 GETUPVAL                         R4 1
+       38 GETTABLEKS                       R4 R4 K10 ["useRef"]
        40 LOADNIL                          R5
        41 CALL                             R4 1 1
-       42 GETUPVAL                         R6 1
-       43 GETTABLEKS                       R5 R6 K10 ["useRef"]
+       42 GETUPVAL                         R5 1
+       43 GETTABLEKS                       R5 R5 K10 ["useRef"]
        45 LOADN                            R6 0
        46 CALL                             R5 1 1
-       47 GETUPVAL                         R7 1
-       48 GETTABLEKS                       R6 R7 K5 ["useCallback"]
+       47 GETUPVAL                         R6 1
+       48 GETTABLEKS                       R6 R6 K5 ["useCallback"]
        50 NEWCLOSURE                       R7 P1
        51 CAPTURE                          VAL R0
        52 CAPTURE                          UPVAL U3
@@ -210,20 +210,20 @@ PROTO_9:
        54 CAPTURE                          VAL R4
        55 CAPTURE                          VAL R5
        56 NEWTABLE                         R8 0 3
-       58 GETTABLEKS                       R10 R0 K6 ["Avatar"]
-       60 GETTABLEKS                       R9 R10 K7 ["WorldModel"]
-       62 GETTABLEKS                       R11 R0 K6 ["Avatar"]
-       64 GETTABLEKS                       R10 R11 K8 ["WorldModelScale"]
-       66 GETTABLEKS                       R12 R0 K6 ["Avatar"]
-       68 GETTABLEKS                       R11 R12 K9 ["LatestWorldModelHash"]
+       58 GETTABLEKS                       R9 R0 K6 ["Avatar"]
+       60 GETTABLEKS                       R9 R9 K7 ["WorldModel"]
+       62 GETTABLEKS                       R10 R0 K6 ["Avatar"]
+       64 GETTABLEKS                       R10 R10 K8 ["WorldModelScale"]
+       66 GETTABLEKS                       R11 R0 K6 ["Avatar"]
+       68 GETTABLEKS                       R11 R11 K9 ["LatestWorldModelHash"]
        70 SETLIST                          R8 R9 3 [1]
        72 CALL                             R6 2 1
-       73 GETUPVAL                         R8 1
-       74 GETTABLEKS                       R7 R8 K11 ["useState"]
+       73 GETUPVAL                         R7 1
+       74 GETTABLEKS                       R7 R7 K11 ["useState"]
        76 LOADNIL                          R8
        77 CALL                             R7 1 2
-       78 GETUPVAL                         R10 1
-       79 GETTABLEKS                       R9 R10 K11 ["useState"]
+       78 GETUPVAL                         R9 1
+       79 GETTABLEKS                       R9 R9 K11 ["useState"]
        81 MOVE                             R10 R3
        82 CALL                             R9 1 2
        83 GETUPVAL                         R11 4
@@ -232,21 +232,21 @@ PROTO_9:
        87 SETTABLEKS                       R13 R12 K6 ["Avatar"]
        89 SETTABLEKS                       R7 R12 K12 ["ValidationResults"]
        91 CALL                             R11 1 1
-       92 GETUPVAL                         R13 1
-       93 GETTABLEKS                       R12 R13 K14 ["useEffect"]
+       92 GETUPVAL                         R12 1
+       93 GETTABLEKS                       R12 R12 K14 ["useEffect"]
        95 NEWCLOSURE                       R13 P2
        96 CAPTURE                          UPVAL U5
        97 CAPTURE                          VAL R0
        98 CAPTURE                          VAL R10
        99 CAPTURE                          VAL R3
       100 NEWTABLE                         R14 0 2
-      102 GETTABLEKS                       R16 R0 K6 ["Avatar"]
-      104 GETTABLEKS                       R15 R16 K7 ["WorldModel"]
+      102 GETTABLEKS                       R15 R0 K6 ["Avatar"]
+      104 GETTABLEKS                       R15 R15 K7 ["WorldModel"]
       106 MOVE                             R16 R3
       107 SETLIST                          R14 R15 2 [1]
       109 CALL                             R12 2 0
-      110 GETUPVAL                         R13 1
-      111 GETTABLEKS                       R12 R13 K14 ["useEffect"]
+      110 GETUPVAL                         R12 1
+      111 GETTABLEKS                       R12 R12 K14 ["useEffect"]
       113 NEWCLOSURE                       R13 P3
       114 CAPTURE                          VAL R8
       115 CAPTURE                          UPVAL U3
@@ -256,27 +256,27 @@ PROTO_9:
       120 MOVE                             R15 R6
       121 SETLIST                          R14 R15 1 [1]
       123 CALL                             R12 2 0
-      124 GETUPVAL                         R13 1
-      125 GETTABLEKS                       R12 R13 K15 ["useMemo"]
+      124 GETUPVAL                         R12 1
+      125 GETTABLEKS                       R12 R12 K15 ["useMemo"]
       127 NEWCLOSURE                       R13 P4
       128 CAPTURE                          UPVAL U6
       129 CAPTURE                          VAL R9
       130 CAPTURE                          VAL R11
       131 NEWTABLE                         R14 0 2
-      133 GETTABLEKS                       R16 R11 K16 ["sizeBounds"]
-      135 GETTABLEKS                       R15 R16 K17 ["minSize"]
+      133 GETTABLEKS                       R15 R11 K16 ["sizeBounds"]
+      135 GETTABLEKS                       R15 R15 K17 ["minSize"]
       137 GETTABLEKS                       R16 R9 K18 ["Size"]
       139 SETLIST                          R14 R15 2 [1]
       141 CALL                             R12 2 1
-      142 GETUPVAL                         R14 1
-      143 GETTABLEKS                       R13 R14 K15 ["useMemo"]
+      142 GETUPVAL                         R13 1
+      143 GETTABLEKS                       R13 R13 K15 ["useMemo"]
       145 NEWCLOSURE                       R14 P5
       146 CAPTURE                          UPVAL U6
       147 CAPTURE                          VAL R9
       148 CAPTURE                          VAL R11
       149 NEWTABLE                         R15 0 2
-      151 GETTABLEKS                       R17 R11 K16 ["sizeBounds"]
-      153 GETTABLEKS                       R16 R17 K19 ["maxSize"]
+      151 GETTABLEKS                       R16 R11 K16 ["sizeBounds"]
+      153 GETTABLEKS                       R16 R16 K19 ["maxSize"]
       155 GETTABLEKS                       R17 R9 K18 ["Size"]
       157 SETLIST                          R15 R16 2 [1]
       159 CALL                             R13 2 1
@@ -296,18 +296,18 @@ PROTO_9:
       178 JUMPIFNOTEQKNIL                  R7 ; [+2]
       180 LOADB                            R16 0 +1
       181 LOADB                            R16 1
-      182 GETUPVAL                         R18 9
-      183 GETTABLEKS                       R17 R18 K26 ["createPortal"]
-      185 GETUPVAL                         R19 1
-      186 GETTABLEKS                       R18 R19 K27 ["createElement"]
-      188 GETUPVAL                         R20 1
-      189 GETTABLEKS                       R19 R20 K28 ["Fragment"]
+      182 GETUPVAL                         R17 9
+      183 GETTABLEKS                       R17 R17 K26 ["createPortal"]
+      185 GETUPVAL                         R18 1
+      186 GETTABLEKS                       R18 R18 K27 ["createElement"]
+      188 GETUPVAL                         R19 1
+      189 GETTABLEKS                       R19 R19 K28 ["Fragment"]
       191 NEWTABLE                         R20 0 0
       193 DUPTABLE                         R21 K33 [{"MinBoundingBox", "MaxBoundingBox", "Ruler", "InvalidPartsHint"}]
       194 JUMPIFNOT                        R16 ; [+29]
       195 JUMPIF                           R14 ; [+28]
-      196 GETUPVAL                         R23 1
-      197 GETTABLEKS                       R22 R23 K27 ["createElement"]
+      196 GETUPVAL                         R22 1
+      197 GETTABLEKS                       R22 R22 K27 ["createElement"]
       199 GETUPVAL                         R23 10
       200 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
       201 GETTABLEKS                       R25 R9 K40 ["CFrame"]
@@ -318,8 +318,8 @@ PROTO_9:
       211 LOADB                            R25 1
       212 SETTABLEKS                       R25 R24 K37 ["Inside"]
       214 SETTABLEKS                       R14 R24 K38 ["AllValid"]
-      216 GETTABLEKS                       R26 R11 K16 ["sizeBounds"]
-      218 GETTABLEKS                       R25 R26 K17 ["minSize"]
+      216 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      218 GETTABLEKS                       R25 R25 K17 ["minSize"]
       220 SETTABLEKS                       R25 R24 K18 ["Size"]
       222 CALL                             R22 2 1
       223 JUMP                             ; [+1]
@@ -327,8 +327,8 @@ PROTO_9:
       225 SETTABLEKS                       R22 R21 K29 ["MinBoundingBox"]
       227 JUMPIFNOT                        R16 ; [+29]
       228 JUMPIF                           R14 ; [+28]
-      229 GETUPVAL                         R23 1
-      230 GETTABLEKS                       R22 R23 K27 ["createElement"]
+      229 GETUPVAL                         R22 1
+      230 GETTABLEKS                       R22 R22 K27 ["createElement"]
       232 GETUPVAL                         R23 10
       233 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
       234 GETTABLEKS                       R25 R9 K40 ["CFrame"]
@@ -339,8 +339,8 @@ PROTO_9:
       244 LOADB                            R25 0
       245 SETTABLEKS                       R25 R24 K37 ["Inside"]
       247 SETTABLEKS                       R14 R24 K38 ["AllValid"]
-      249 GETTABLEKS                       R26 R11 K16 ["sizeBounds"]
-      251 GETTABLEKS                       R25 R26 K19 ["maxSize"]
+      249 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      251 GETTABLEKS                       R25 R25 K19 ["maxSize"]
       253 SETTABLEKS                       R25 R24 K18 ["Size"]
       255 CALL                             R22 2 1
       256 JUMP                             ; [+1]
@@ -348,8 +348,8 @@ PROTO_9:
       258 SETTABLEKS                       R22 R21 K30 ["MaxBoundingBox"]
       260 JUMPIFNOT                        R16 ; [+27]
       261 JUMPIF                           R14 ; [+26]
-      262 GETUPVAL                         R23 1
-      263 GETTABLEKS                       R22 R23 K27 ["createElement"]
+      262 GETUPVAL                         R22 1
+      263 GETTABLEKS                       R22 R22 K27 ["createElement"]
       265 GETUPVAL                         R23 11
       266 DUPTABLE                         R24 K43 [{"ItemName", "Size", "CFrame", "SizeBounds"}]
       267 LOADK                            R27 K44 ["AvatarSizeRuler"]
@@ -373,8 +373,8 @@ PROTO_9:
       295 GETTABLEKS                       R24 R11 K49 ["invalidBodyParts"]
       297 CALL                             R23 1 1
       298 JUMPIFNOT                        R23 ; [+11]
-      299 GETUPVAL                         R23 1
-      300 GETTABLEKS                       R22 R23 K27 ["createElement"]
+      299 GETUPVAL                         R22 1
+      300 GETTABLEKS                       R22 R22 K27 ["createElement"]
       302 GETUPVAL                         R23 12
       303 DUPTABLE                         R24 K50 [{"invalidBodyParts"}]
       304 GETTABLEKS                       R25 R11 K49 ["invalidBodyParts"]
@@ -402,77 +402,77 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R6 R0 K10 ["Src"]
-       17 GETTABLEKS                       R5 R6 K11 ["Components"]
-       19 GETTABLEKS                       R4 R5 K12 ["Sizing"]
-       21 GETTABLEKS                       R3 R4 K13 ["AvatarSizeRulerRender"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Components"]
+       19 GETTABLEKS                       R3 R3 K12 ["Sizing"]
+       21 GETTABLEKS                       R3 R3 K13 ["AvatarSizeRulerRender"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R7 R0 K10 ["Src"]
-       28 GETTABLEKS                       R6 R7 K11 ["Components"]
-       30 GETTABLEKS                       R5 R6 K12 ["Sizing"]
-       32 GETTABLEKS                       R4 R5 K14 ["AvatarSizeSpecificationUtils"]
+       26 GETTABLEKS                       R4 R0 K10 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Components"]
+       30 GETTABLEKS                       R4 R4 K12 ["Sizing"]
+       32 GETTABLEKS                       R4 R4 K14 ["AvatarSizeSpecificationUtils"]
        34 CALL                             R3 1 1
        35 GETIMPORT                        R4 K9 [require]
-       37 GETTABLEKS                       R8 R0 K10 ["Src"]
-       39 GETTABLEKS                       R7 R8 K11 ["Components"]
-       41 GETTABLEKS                       R6 R7 K12 ["Sizing"]
-       43 GETTABLEKS                       R5 R6 K15 ["AvatarSizingBoundingBox"]
+       37 GETTABLEKS                       R5 R0 K10 ["Src"]
+       39 GETTABLEKS                       R5 R5 K11 ["Components"]
+       41 GETTABLEKS                       R5 R5 K12 ["Sizing"]
+       43 GETTABLEKS                       R5 R5 K15 ["AvatarSizingBoundingBox"]
        45 CALL                             R4 1 1
        46 GETIMPORT                        R5 K9 [require]
-       48 GETTABLEKS                       R8 R0 K10 ["Src"]
-       50 GETTABLEKS                       R7 R8 K16 ["Util"]
-       52 GETTABLEKS                       R6 R7 K17 ["DataModelUtils"]
+       48 GETTABLEKS                       R6 R0 K10 ["Src"]
+       50 GETTABLEKS                       R6 R6 K16 ["Util"]
+       52 GETTABLEKS                       R6 R6 K17 ["DataModelUtils"]
        54 CALL                             R5 1 1
        55 GETIMPORT                        R6 K9 [require]
-       57 GETTABLEKS                       R8 R0 K18 ["Packages"]
-       59 GETTABLEKS                       R7 R8 K19 ["Framework"]
+       57 GETTABLEKS                       R7 R0 K18 ["Packages"]
+       59 GETTABLEKS                       R7 R7 K19 ["Framework"]
        61 CALL                             R6 1 1
        62 GETIMPORT                        R7 K9 [require]
-       64 GETTABLEKS                       R11 R0 K10 ["Src"]
-       66 GETTABLEKS                       R10 R11 K11 ["Components"]
-       68 GETTABLEKS                       R9 R10 K12 ["Sizing"]
-       70 GETTABLEKS                       R8 R9 K20 ["InvalidPartsHint"]
+       64 GETTABLEKS                       R8 R0 K10 ["Src"]
+       66 GETTABLEKS                       R8 R8 K11 ["Components"]
+       68 GETTABLEKS                       R8 R8 K12 ["Sizing"]
+       70 GETTABLEKS                       R8 R8 K20 ["InvalidPartsHint"]
        72 CALL                             R7 1 1
        73 GETIMPORT                        R8 K9 [require]
-       75 GETTABLEKS                       R10 R0 K18 ["Packages"]
-       77 GETTABLEKS                       R9 R10 K21 ["React"]
+       75 GETTABLEKS                       R9 R0 K18 ["Packages"]
+       77 GETTABLEKS                       R9 R9 K21 ["React"]
        79 CALL                             R8 1 1
        80 GETIMPORT                        R9 K9 [require]
-       82 GETTABLEKS                       R11 R0 K18 ["Packages"]
-       84 GETTABLEKS                       R10 R11 K22 ["ReactRoblox"]
+       82 GETTABLEKS                       R10 R0 K18 ["Packages"]
+       84 GETTABLEKS                       R10 R10 K22 ["ReactRoblox"]
        86 CALL                             R9 1 1
        87 GETIMPORT                        R10 K9 [require]
-       89 GETTABLEKS                       R12 R0 K10 ["Src"]
-       91 GETTABLEKS                       R11 R12 K23 ["Types"]
+       89 GETTABLEKS                       R11 R0 K10 ["Src"]
+       91 GETTABLEKS                       R11 R11 K23 ["Types"]
        93 CALL                             R10 1 1
        94 GETIMPORT                        R11 K9 [require]
-       96 GETTABLEKS                       R14 R0 K10 ["Src"]
-       98 GETTABLEKS                       R13 R14 K11 ["Components"]
-      100 GETTABLEKS                       R12 R13 K24 ["UGCValidationContext"]
+       96 GETTABLEKS                       R12 R0 K10 ["Src"]
+       98 GETTABLEKS                       R12 R12 K11 ["Components"]
+      100 GETTABLEKS                       R12 R12 K24 ["UGCValidationContext"]
       102 CALL                             R11 1 1
       103 GETIMPORT                        R12 K9 [require]
-      105 GETTABLEKS                       R15 R0 K10 ["Src"]
-      107 GETTABLEKS                       R14 R15 K25 ["Flags"]
-      109 GETTABLEKS                       R13 R14 K26 ["getFFlagUGCValidateUseDataCache"]
+      105 GETTABLEKS                       R13 R0 K10 ["Src"]
+      107 GETTABLEKS                       R13 R13 K25 ["Flags"]
+      109 GETTABLEKS                       R13 R13 K26 ["getFFlagUGCValidateUseDataCache"]
       111 CALL                             R12 1 1
       112 GETIMPORT                        R13 K9 [require]
-      114 GETTABLEKS                       R17 R0 K10 ["Src"]
-      116 GETTABLEKS                       R16 R17 K11 ["Components"]
-      118 GETTABLEKS                       R15 R16 K12 ["Sizing"]
-      120 GETTABLEKS                       R14 R15 K27 ["useAvatarSizeState"]
+      114 GETTABLEKS                       R14 R0 K10 ["Src"]
+      116 GETTABLEKS                       R14 R14 K11 ["Components"]
+      118 GETTABLEKS                       R14 R14 K12 ["Sizing"]
+      120 GETTABLEKS                       R14 R14 K27 ["useAvatarSizeState"]
       122 CALL                             R13 1 1
       123 GETIMPORT                        R14 K9 [require]
-      125 GETTABLEKS                       R18 R0 K10 ["Src"]
-      127 GETTABLEKS                       R17 R18 K11 ["Components"]
-      129 GETTABLEKS                       R16 R17 K12 ["Sizing"]
-      131 GETTABLEKS                       R15 R16 K28 ["useResetAvatarValuesToScale"]
+      125 GETTABLEKS                       R15 R0 K10 ["Src"]
+      127 GETTABLEKS                       R15 R15 K11 ["Components"]
+      129 GETTABLEKS                       R15 R15 K12 ["Sizing"]
+      131 GETTABLEKS                       R15 R15 K28 ["useResetAvatarValuesToScale"]
       133 CALL                             R14 1 1
       134 GETIMPORT                        R15 K9 [require]
-      136 GETTABLEKS                       R19 R0 K10 ["Src"]
-      138 GETTABLEKS                       R18 R19 K11 ["Components"]
-      140 GETTABLEKS                       R17 R18 K12 ["Sizing"]
-      142 GETTABLEKS                       R16 R17 K29 ["useSelectedRibbonTool"]
+      136 GETTABLEKS                       R16 R0 K10 ["Src"]
+      138 GETTABLEKS                       R16 R16 K11 ["Components"]
+      140 GETTABLEKS                       R16 R16 K12 ["Sizing"]
+      142 GETTABLEKS                       R16 R16 K29 ["useSelectedRibbonTool"]
       144 CALL                             R15 1 1
       145 DUPCLOSURE                       R16 K30 [PROTO_9]
       146 CAPTURE                          VAL R6

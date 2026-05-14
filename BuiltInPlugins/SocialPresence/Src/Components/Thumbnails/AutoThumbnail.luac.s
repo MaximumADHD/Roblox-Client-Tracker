@@ -10,8 +10,8 @@ PROTO_0:
        10 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Id"]
         5 GETIMPORT                        R2 K4 [Vector2.new]
         7 LOADN                            R3 60
@@ -25,32 +25,32 @@ PROTO_1:
        16 LOADK                            R9 K9 ["&h="]
        17 GETTABLEKS                       R10 R2 K10 ["Y"]
        19 CONCAT                           R3 R4 R10
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R4 R5 K11 ["currentId"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K11 ["currentId"]
        23 JUMPIFEQ                         R1 R4 ; [+16]
        25 GETUPVAL                         R4 0
        26 SETTABLEKS                       R1 R4 K11 ["currentId"]
        28 GETUPVAL                         R4 0
        29 DUPTABLE                         R6 K14 [{"fetchStatus", "contentId"}]
-       30 GETUPVAL                         R8 1
-       31 GETTABLEKS                       R7 R8 K15 ["None"]
+       30 GETUPVAL                         R7 1
+       31 GETTABLEKS                       R7 R7 K15 ["None"]
        33 SETTABLEKS                       R7 R6 K12 ["fetchStatus"]
        35 SETTABLEKS                       R3 R6 K13 ["contentId"]
        37 NAMECALL                         R4 R4 K16 ["setState"]
        39 CALL                             R4 2 0
-       40 GETUPVAL                         R6 0
-       41 GETTABLEKS                       R5 R6 K17 ["state"]
-       43 GETTABLEKS                       R4 R5 K13 ["contentId"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K17 ["state"]
+       43 GETTABLEKS                       R4 R4 K13 ["contentId"]
        45 JUMPIFEQ                         R3 R4 ; [+6]
-       47 GETUPVAL                         R5 0
-       48 GETTABLEKS                       R4 R5 K18 ["loadThumbnail"]
+       47 GETUPVAL                         R4 0
+       48 GETTABLEKS                       R4 R4 K18 ["loadThumbnail"]
        50 MOVE                             R5 R3
        51 CALL                             R4 1 0
        52 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["fetchingContentId"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["fetchingContentId"]
         3 JUMPIFNOTEQ                      R2 R0 ; [+14]
         5 GETUPVAL                         R2 0
         6 LOADNIL                          R3
@@ -75,8 +75,8 @@ PROTO_3:
        11 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["fetchingContentId"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["fetchingContentId"]
         3 JUMPIFNOTEQ                      R0 R1 ; [+2]
         5 RETURN                           R0 0
         6 GETUPVAL                         R1 0
@@ -142,8 +142,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K9 [game]
        16 LOADK                            R4 K10 ["ContentProvider"]
@@ -151,8 +151,8 @@ MAIN:
        19 CALL                             R2 2 1
        20 DUPCLOSURE                       R3 K12 [PROTO_0]
        21 GETTABLEKS                       R4 R1 K13 ["Component"]
-       23 GETIMPORT                        R7 K1 [script]
-       25 GETTABLEKS                       R6 R7 K14 ["Name"]
+       23 GETIMPORT                        R6 K1 [script]
+       25 GETTABLEKS                       R6 R6 K14 ["Name"]
        27 NAMECALL                         R4 R4 K15 ["extend"]
        29 CALL                             R4 2 1
        30 DUPCLOSURE                       R5 K16 [PROTO_5]

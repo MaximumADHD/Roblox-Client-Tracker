@@ -91,8 +91,8 @@ PROTO_6:
        12 RETURN                           R2 1
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 NEWCLOSURE                       R2 P0
@@ -100,8 +100,8 @@ PROTO_7:
         7 GETUPVAL                         R3 2
         8 MOVE                             R4 R2
         9 CALL                             R3 1 1
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K1 ["useEffect"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K1 ["useEffect"]
        13 NEWCLOSURE                       R5 P1
        14 CAPTURE                          VAL R1
        15 CAPTURE                          VAL R3
@@ -112,10 +112,10 @@ PROTO_7:
        22 DUPTABLE                         R4 K3 [{"userCatalogFolder"}]
        23 GETTABLEKS                       R5 R3 K4 ["current"]
        25 SETTABLEKS                       R5 R4 K2 ["userCatalogFolder"]
-       27 GETUPVAL                         R6 0
-       28 GETTABLEKS                       R5 R6 K5 ["createElement"]
-       30 GETUPVAL                         R7 3
-       31 GETTABLEKS                       R6 R7 K6 ["Provider"]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K5 ["createElement"]
+       30 GETUPVAL                         R6 3
+       31 GETTABLEKS                       R6 R6 K6 ["Provider"]
        33 DUPTABLE                         R7 K8 [{"value"}]
        34 SETTABLEKS                       R4 R7 K7 ["value"]
        36 GETTABLEKS                       R8 R0 K9 ["children"]
@@ -129,18 +129,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Components"]
-       20 GETTABLEKS                       R3 R4 K10 ["UGCAvatarServiceContext"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Components"]
+       20 GETTABLEKS                       R3 R3 K10 ["UGCAvatarServiceContext"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Hooks"]
-       29 GETTABLEKS                       R4 R5 K12 ["useRefWithInitial"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Hooks"]
+       29 GETTABLEKS                       R4 R4 K12 ["useRefWithInitial"]
        31 CALL                             R3 1 1
        32 DUPTABLE                         R4 K14 [{"userCatalogFolder"}]
        33 LOADNIL                          R5

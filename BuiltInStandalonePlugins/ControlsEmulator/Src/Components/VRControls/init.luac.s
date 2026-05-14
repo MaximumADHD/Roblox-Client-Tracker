@@ -1,21 +1,21 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
         4 NEWTABLE                         R3 2 0
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K2 ["Tag"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K2 ["Tag"]
         9 LOADK                            R5 K3 ["X-Row Component-VRMappingLabel"]
        10 SETTABLE                         R5 R3 R4
        11 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
        13 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
        15 DUPTABLE                         R4 K7 [{"LeftText", "RightText"}]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K0 ["createElement"]
        19 LOADK                            R6 K8 ["TextLabel"]
        20 NEWTABLE                         R7 4 0
-       22 GETUPVAL                         R9 0
-       23 GETTABLEKS                       R8 R9 K2 ["Tag"]
+       22 GETUPVAL                         R8 0
+       23 GETTABLEKS                       R8 R8 K2 ["Tag"]
        25 LOADK                            R9 K9 ["CX-Invisible"]
        26 SETTABLE                         R9 R7 R8
        27 GETTABLEKS                       R8 R0 K10 ["leftText"]
@@ -28,12 +28,12 @@ PROTO_0:
        39 SETTABLEKS                       R8 R7 K4 ["LayoutOrder"]
        41 CALL                             R5 2 1
        42 SETTABLEKS                       R5 R4 K5 ["LeftText"]
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K0 ["createElement"]
        47 LOADK                            R6 K8 ["TextLabel"]
        48 NEWTABLE                         R7 4 0
-       50 GETUPVAL                         R9 0
-       51 GETTABLEKS                       R8 R9 K2 ["Tag"]
+       50 GETUPVAL                         R8 0
+       51 GETTABLEKS                       R8 R8 K2 ["Tag"]
        53 LOADK                            R9 K9 ["CX-Invisible"]
        54 SETTABLE                         R9 R7 R8
        55 GETTABLEKS                       R8 R0 K17 ["rightText"]
@@ -138,24 +138,24 @@ PROTO_6:
        29 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["shouldVRControlsRespond"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["shouldVRControlsRespond"]
         3 JUMPIFNOT                        R0 ; [+24]
         4 GETUPVAL                         R0 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["activeVRUserCFrames"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["activeVRUserCFrames"]
         8 GETIMPORT                        R3 K5 [Enum.UserCFrame.Head]
        10 GETTABLE                         R1 R2 R3
        11 CALL                             R0 1 0
        12 GETUPVAL                         R0 2
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R2 R3 K1 ["activeVRUserCFrames"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K1 ["activeVRUserCFrames"]
        16 GETIMPORT                        R3 K7 [Enum.UserCFrame.LeftHand]
        18 GETTABLE                         R1 R2 R3
        19 CALL                             R0 1 0
        20 GETUPVAL                         R0 3
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R2 R3 K1 ["activeVRUserCFrames"]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K1 ["activeVRUserCFrames"]
        24 GETIMPORT                        R3 K9 [Enum.UserCFrame.RightHand]
        26 GETTABLE                         R1 R2 R3
        27 CALL                             R0 1 0
@@ -326,60 +326,60 @@ PROTO_17:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["useContext"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["useContext"]
         7 GETUPVAL                         R3 2
         8 CALL                             R2 1 1
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K1 ["useContext"]
-       12 GETUPVAL                         R5 3
-       13 CALL                             R4 1 1
-       14 GETTABLEKS                       R3 R4 K2 ["setVRUserCFrameActive"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K1 ["useContext"]
+       12 GETUPVAL                         R4 3
+       13 CALL                             R3 1 1
+       14 GETTABLEKS                       R3 R3 K2 ["setVRUserCFrameActive"]
        16 GETTABLEKS                       R4 R2 K3 ["activeVRUserCFrames"]
-       18 GETUPVAL                         R7 1
-       19 GETTABLEKS                       R6 R7 K1 ["useContext"]
-       21 GETUPVAL                         R7 3
-       22 CALL                             R6 1 1
-       23 GETTABLEKS                       R5 R6 K4 ["setVRCFrameTranslationSensitivity"]
-       25 GETUPVAL                         R7 1
-       26 GETTABLEKS                       R6 R7 K5 ["useState"]
+       18 GETUPVAL                         R5 1
+       19 GETTABLEKS                       R5 R5 K1 ["useContext"]
+       21 GETUPVAL                         R6 3
+       22 CALL                             R5 1 1
+       23 GETTABLEKS                       R5 R5 K4 ["setVRCFrameTranslationSensitivity"]
+       25 GETUPVAL                         R6 1
+       26 GETTABLEKS                       R6 R6 K5 ["useState"]
        28 LOADN                            R7 5
        29 CALL                             R6 1 2
        30 JUMPIFNOT                        R3 ; [+2]
        31 JUMPIFNOT                        R4 ; [+1]
        32 JUMPIF                           R5 ; [+1]
        33 RETURN                           R0 0
-       34 GETUPVAL                         R9 1
-       35 GETTABLEKS                       R8 R9 K5 ["useState"]
+       34 GETUPVAL                         R8 1
+       35 GETTABLEKS                       R8 R8 K5 ["useState"]
        37 GETTABLEKS                       R9 R0 K6 ["shouldShowTooltip"]
        39 CALL                             R8 1 2
-       40 GETUPVAL                         R11 1
-       41 GETTABLEKS                       R10 R11 K5 ["useState"]
+       40 GETUPVAL                         R10 1
+       41 GETTABLEKS                       R10 R10 K5 ["useState"]
        43 LOADB                            R11 0
        44 CALL                             R10 1 2
-       45 GETUPVAL                         R13 1
-       46 GETTABLEKS                       R12 R13 K7 ["useCallback"]
+       45 GETUPVAL                         R12 1
+       46 GETTABLEKS                       R12 R12 K7 ["useCallback"]
        48 NEWCLOSURE                       R13 P0
        49 CAPTURE                          VAL R11
        50 NEWTABLE                         R14 0 1
        52 MOVE                             R15 R11
        53 SETLIST                          R14 R15 1 [1]
        55 CALL                             R12 2 1
-       56 GETUPVAL                         R14 1
-       57 GETTABLEKS                       R13 R14 K7 ["useCallback"]
+       56 GETUPVAL                         R13 1
+       57 GETTABLEKS                       R13 R13 K7 ["useCallback"]
        59 NEWCLOSURE                       R14 P1
        60 CAPTURE                          VAL R11
        61 NEWTABLE                         R15 0 1
        63 MOVE                             R16 R11
        64 SETLIST                          R15 R16 1 [1]
        66 CALL                             R13 2 1
-       67 GETUPVAL                         R15 1
-       68 GETTABLEKS                       R14 R15 K5 ["useState"]
+       67 GETUPVAL                         R14 1
+       68 GETTABLEKS                       R14 R14 K5 ["useState"]
        70 LOADB                            R15 0
        71 CALL                             R14 1 2
        72 GETTABLEKS                       R16 R2 K8 ["gamepadId"]
-       74 GETUPVAL                         R18 1
-       75 GETTABLEKS                       R17 R18 K9 ["useMemo"]
+       74 GETUPVAL                         R17 1
+       75 GETTABLEKS                       R17 R17 K9 ["useMemo"]
        77 NEWCLOSURE                       R18 P2
        78 CAPTURE                          UPVAL U4
        79 CAPTURE                          VAL R16
@@ -387,18 +387,18 @@ PROTO_17:
        82 MOVE                             R20 R16
        83 SETLIST                          R19 R20 1 [1]
        85 CALL                             R17 2 1
-       86 GETUPVAL                         R19 1
-       87 GETTABLEKS                       R18 R19 K5 ["useState"]
+       86 GETUPVAL                         R18 1
+       87 GETTABLEKS                       R18 R18 K5 ["useState"]
        89 GETIMPORT                        R20 K13 [Enum.UserCFrame.Head]
        91 GETTABLE                         R19 R4 R20
        92 CALL                             R18 1 2
-       93 GETUPVAL                         R21 1
-       94 GETTABLEKS                       R20 R21 K5 ["useState"]
+       93 GETUPVAL                         R20 1
+       94 GETTABLEKS                       R20 R20 K5 ["useState"]
        96 GETIMPORT                        R22 K15 [Enum.UserCFrame.LeftHand]
        98 GETTABLE                         R21 R4 R22
        99 CALL                             R20 1 2
-      100 GETUPVAL                         R23 1
-      101 GETTABLEKS                       R22 R23 K5 ["useState"]
+      100 GETUPVAL                         R22 1
+      101 GETTABLEKS                       R22 R22 K5 ["useState"]
       103 GETIMPORT                        R24 K17 [Enum.UserCFrame.RightHand]
       105 GETTABLE                         R23 R4 R24
       106 CALL                             R22 1 2
@@ -407,8 +407,8 @@ PROTO_17:
       109 CAPTURE                          VAL R18
       110 CAPTURE                          VAL R20
       111 CAPTURE                          VAL R22
-      112 GETUPVAL                         R27 1
-      113 GETTABLEKS                       R26 R27 K19 ["useEffect"]
+      112 GETUPVAL                         R26 1
+      113 GETTABLEKS                       R26 R26 K19 ["useEffect"]
       115 NEWCLOSURE                       R27 P5
       116 CAPTURE                          VAL R17
       117 CAPTURE                          VAL R19
@@ -419,8 +419,8 @@ PROTO_17:
       123 MOVE                             R29 R17
       124 SETLIST                          R28 R29 1 [1]
       126 CALL                             R26 2 0
-      127 GETUPVAL                         R27 1
-      128 GETTABLEKS                       R26 R27 K19 ["useEffect"]
+      127 GETUPVAL                         R26 1
+      128 GETTABLEKS                       R26 R26 K19 ["useEffect"]
       130 NEWCLOSURE                       R27 P6
       131 CAPTURE                          VAL R2
       132 CAPTURE                          VAL R19
@@ -430,12 +430,12 @@ PROTO_17:
       137 GETTABLEKS                       R29 R2 K3 ["activeVRUserCFrames"]
       139 SETLIST                          R28 R29 1 [1]
       141 CALL                             R26 2 0
-      142 GETUPVAL                         R27 1
-      143 GETTABLEKS                       R26 R27 K20 ["createElement"]
+      142 GETUPVAL                         R26 1
+      143 GETTABLEKS                       R26 R26 K20 ["createElement"]
       145 LOADK                            R27 K21 ["Frame"]
       146 NEWTABLE                         R28 2 0
-      148 GETUPVAL                         R30 1
-      149 GETTABLEKS                       R29 R30 K22 ["Tag"]
+      148 GETUPVAL                         R29 1
+      149 GETTABLEKS                       R29 R29 K22 ["Tag"]
       151 GETUPVAL                         R30 5
       152 LOADK                            R31 K23 ["Component-VRControls CX-Invisible"]
       153 CALL                             R30 1 1
@@ -443,12 +443,12 @@ PROTO_17:
       155 GETTABLEKS                       R29 R0 K24 ["LayoutOrder"]
       157 SETTABLEKS                       R29 R28 K24 ["LayoutOrder"]
       159 DUPTABLE                         R29 K26 [{"InnerContainer"}]
-      160 GETUPVAL                         R31 1
-      161 GETTABLEKS                       R30 R31 K20 ["createElement"]
+      160 GETUPVAL                         R30 1
+      161 GETTABLEKS                       R30 R30 K20 ["createElement"]
       163 LOADK                            R31 K21 ["Frame"]
       164 NEWTABLE                         R32 2 0
-      166 GETUPVAL                         R34 1
-      167 GETTABLEKS                       R33 R34 K22 ["Tag"]
+      166 GETUPVAL                         R33 1
+      167 GETTABLEKS                       R33 R33 K22 ["Tag"]
       169 LOADK                            R34 K27 ["CX-Invisible"]
       170 SETTABLE                         R34 R32 R33
       171 GETUPVAL                         R33 6
@@ -456,8 +456,8 @@ PROTO_17:
       174 CALL                             R33 1 1
       175 SETTABLEKS                       R33 R32 K24 ["LayoutOrder"]
       177 DUPTABLE                         R33 K33 [{"Separator", "Controls", "ResetPositionsTooltip", "Tooltip"}]
-      178 GETUPVAL                         R35 1
-      179 GETTABLEKS                       R34 R35 K20 ["createElement"]
+      178 GETUPVAL                         R34 1
+      179 GETTABLEKS                       R34 R34 K20 ["createElement"]
       181 LOADK                            R35 K21 ["Frame"]
       182 DUPTABLE                         R36 K34 [{"LayoutOrder"}]
       183 GETUPVAL                         R37 6
@@ -466,12 +466,12 @@ PROTO_17:
       187 SETTABLEKS                       R37 R36 K24 ["LayoutOrder"]
       189 CALL                             R34 2 1
       190 SETTABLEKS                       R34 R33 K29 ["Separator"]
-      192 GETUPVAL                         R35 1
-      193 GETTABLEKS                       R34 R35 K20 ["createElement"]
+      192 GETUPVAL                         R34 1
+      193 GETTABLEKS                       R34 R34 K20 ["createElement"]
       195 LOADK                            R35 K21 ["Frame"]
       196 NEWTABLE                         R36 2 0
-      198 GETUPVAL                         R38 1
-      199 GETTABLEKS                       R37 R38 K22 ["Tag"]
+      198 GETUPVAL                         R37 1
+      199 GETTABLEKS                       R37 R37 K22 ["Tag"]
       201 LOADK                            R38 K35 ["X-Column CX-Invisible"]
       202 SETTABLE                         R38 R36 R37
       203 GETUPVAL                         R37 6
@@ -479,8 +479,8 @@ PROTO_17:
       206 CALL                             R37 1 1
       207 SETTABLEKS                       R37 R36 K24 ["LayoutOrder"]
       209 DUPTABLE                         R37 K39 [{"LabelAndTooltipFrame", "ContainerFrame", "SliderFrame"}]
-      210 GETUPVAL                         R39 1
-      211 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      210 GETUPVAL                         R38 1
+      211 GETTABLEKS                       R38 R38 K20 ["createElement"]
       213 LOADK                            R39 K21 ["Frame"]
       214 DUPTABLE                         R40 K34 [{"LayoutOrder"}]
       215 GETUPVAL                         R41 6
@@ -488,12 +488,12 @@ PROTO_17:
       218 CALL                             R41 1 1
       219 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       221 DUPTABLE                         R41 K42 [{"Label", "TooltipButton"}]
-      222 GETUPVAL                         R43 1
-      223 GETTABLEKS                       R42 R43 K20 ["createElement"]
+      222 GETUPVAL                         R42 1
+      223 GETTABLEKS                       R42 R42 K20 ["createElement"]
       225 LOADK                            R43 K43 ["TextLabel"]
       226 NEWTABLE                         R44 4 0
-      228 GETUPVAL                         R46 1
-      229 GETTABLEKS                       R45 R46 K22 ["Tag"]
+      228 GETUPVAL                         R45 1
+      229 GETTABLEKS                       R45 R45 K22 ["Tag"]
       231 LOADK                            R46 K27 ["CX-Invisible"]
       232 SETTABLE                         R46 R44 R45
       233 LOADK                            R47 K44 ["VRControls"]
@@ -507,12 +507,12 @@ PROTO_17:
       244 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
       246 CALL                             R42 2 1
       247 SETTABLEKS                       R42 R41 K40 ["Label"]
-      249 GETUPVAL                         R43 1
-      250 GETTABLEKS                       R42 R43 K20 ["createElement"]
+      249 GETUPVAL                         R42 1
+      250 GETTABLEKS                       R42 R42 K20 ["createElement"]
       252 LOADK                            R43 K48 ["TextButton"]
       253 NEWTABLE                         R44 8 0
-      255 GETUPVAL                         R46 1
-      256 GETTABLEKS                       R45 R46 K22 ["Tag"]
+      255 GETUPVAL                         R45 1
+      256 GETTABLEKS                       R45 R45 K22 ["Tag"]
       258 GETUPVAL                         R46 5
       259 LOADK                            R47 K49 ["X-Circle"]
       260 JUMPIF                           R8 ; [+1]
@@ -538,21 +538,21 @@ PROTO_17:
       284 NAMECALL                         R45 R45 K28 ["getNextOrder"]
       286 CALL                             R45 1 1
       287 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
-      289 GETUPVAL                         R47 1
-      290 GETTABLEKS                       R46 R47 K56 ["Event"]
-      292 GETTABLEKS                       R45 R46 K57 ["MouseEnter"]
+      289 GETUPVAL                         R45 1
+      290 GETTABLEKS                       R45 R45 K56 ["Event"]
+      292 GETTABLEKS                       R45 R45 K57 ["MouseEnter"]
       294 NEWCLOSURE                       R46 P7
       295 CAPTURE                          VAL R15
       296 SETTABLE                         R46 R44 R45
-      297 GETUPVAL                         R47 1
-      298 GETTABLEKS                       R46 R47 K56 ["Event"]
-      300 GETTABLEKS                       R45 R46 K58 ["MouseLeave"]
+      297 GETUPVAL                         R45 1
+      298 GETTABLEKS                       R45 R45 K56 ["Event"]
+      300 GETTABLEKS                       R45 R45 K58 ["MouseLeave"]
       302 NEWCLOSURE                       R46 P8
       303 CAPTURE                          VAL R15
       304 SETTABLE                         R46 R44 R45
-      305 GETUPVAL                         R47 1
-      306 GETTABLEKS                       R46 R47 K56 ["Event"]
-      308 GETTABLEKS                       R45 R46 K59 ["MouseButton1Click"]
+      305 GETUPVAL                         R45 1
+      306 GETTABLEKS                       R45 R45 K56 ["Event"]
+      308 GETTABLEKS                       R45 R45 K59 ["MouseButton1Click"]
       310 NEWCLOSURE                       R46 P9
       311 CAPTURE                          VAL R9
       312 CAPTURE                          VAL R8
@@ -561,8 +561,8 @@ PROTO_17:
       315 SETTABLEKS                       R42 R41 K41 ["TooltipButton"]
       317 CALL                             R38 3 1
       318 SETTABLEKS                       R38 R37 K36 ["LabelAndTooltipFrame"]
-      320 GETUPVAL                         R39 1
-      321 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      320 GETUPVAL                         R38 1
+      321 GETTABLEKS                       R38 R38 K20 ["createElement"]
       323 LOADK                            R39 K21 ["Frame"]
       324 DUPTABLE                         R40 K34 [{"LayoutOrder"}]
       325 GETUPVAL                         R41 6
@@ -570,8 +570,8 @@ PROTO_17:
       328 CALL                             R41 1 1
       329 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       331 DUPTABLE                         R41 K62 [{"CheckboxFrame", "ResetPositionsFrame"}]
-      332 GETUPVAL                         R43 1
-      333 GETTABLEKS                       R42 R43 K20 ["createElement"]
+      332 GETUPVAL                         R42 1
+      333 GETTABLEKS                       R42 R42 K20 ["createElement"]
       335 LOADK                            R43 K21 ["Frame"]
       336 DUPTABLE                         R44 K34 [{"LayoutOrder"}]
       337 GETUPVAL                         R45 6
@@ -579,13 +579,13 @@ PROTO_17:
       340 CALL                             R45 1 1
       341 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
       343 DUPTABLE                         R45 K66 [{"HeadsetBox", "LeftHandBox", "RightHandBox"}]
-      344 GETUPVAL                         R47 1
-      345 GETTABLEKS                       R46 R47 K20 ["createElement"]
+      344 GETUPVAL                         R46 1
+      345 GETTABLEKS                       R46 R46 K20 ["createElement"]
       347 GETUPVAL                         R47 7
       348 DUPTABLE                         R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
       349 SETTABLEKS                       R18 R48 K67 ["Checked"]
-      351 GETIMPORT                        R50 K13 [Enum.UserCFrame.Head]
-      353 GETTABLEKS                       R49 R50 K72 ["Name"]
+      351 GETIMPORT                        R49 K13 [Enum.UserCFrame.Head]
+      353 GETTABLEKS                       R49 R49 K72 ["Name"]
       355 SETTABLEKS                       R49 R48 K68 ["Key"]
       357 NEWCLOSURE                       R49 P10
       358 CAPTURE                          VAL R18
@@ -607,13 +607,13 @@ PROTO_17:
       379 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
       381 CALL                             R46 2 1
       382 SETTABLEKS                       R46 R45 K63 ["HeadsetBox"]
-      384 GETUPVAL                         R47 1
-      385 GETTABLEKS                       R46 R47 K20 ["createElement"]
+      384 GETUPVAL                         R46 1
+      385 GETTABLEKS                       R46 R46 K20 ["createElement"]
       387 GETUPVAL                         R47 7
       388 DUPTABLE                         R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
       389 SETTABLEKS                       R20 R48 K67 ["Checked"]
-      391 GETIMPORT                        R50 K15 [Enum.UserCFrame.LeftHand]
-      393 GETTABLEKS                       R49 R50 K72 ["Name"]
+      391 GETIMPORT                        R49 K15 [Enum.UserCFrame.LeftHand]
+      393 GETTABLEKS                       R49 R49 K72 ["Name"]
       395 SETTABLEKS                       R49 R48 K68 ["Key"]
       397 NEWCLOSURE                       R49 P11
       398 CAPTURE                          VAL R20
@@ -635,13 +635,13 @@ PROTO_17:
       419 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
       421 CALL                             R46 2 1
       422 SETTABLEKS                       R46 R45 K64 ["LeftHandBox"]
-      424 GETUPVAL                         R47 1
-      425 GETTABLEKS                       R46 R47 K20 ["createElement"]
+      424 GETUPVAL                         R46 1
+      425 GETTABLEKS                       R46 R46 K20 ["createElement"]
       427 GETUPVAL                         R47 7
       428 DUPTABLE                         R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
       429 SETTABLEKS                       R22 R48 K67 ["Checked"]
-      431 GETIMPORT                        R50 K17 [Enum.UserCFrame.RightHand]
-      433 GETTABLEKS                       R49 R50 K72 ["Name"]
+      431 GETIMPORT                        R49 K17 [Enum.UserCFrame.RightHand]
+      433 GETTABLEKS                       R49 R49 K72 ["Name"]
       435 SETTABLEKS                       R49 R48 K68 ["Key"]
       437 NEWCLOSURE                       R49 P12
       438 CAPTURE                          VAL R22
@@ -667,8 +667,8 @@ PROTO_17:
       465 SETTABLEKS                       R42 R41 K60 ["CheckboxFrame"]
       467 GETTABLEKS                       R42 R0 K76 ["inPlayClient"]
       469 JUMPIFNOT                        R42 ; [+68]
-      470 GETUPVAL                         R43 1
-      471 GETTABLEKS                       R42 R43 K20 ["createElement"]
+      470 GETUPVAL                         R42 1
+      471 GETTABLEKS                       R42 R42 K20 ["createElement"]
       473 LOADK                            R43 K21 ["Frame"]
       474 DUPTABLE                         R44 K34 [{"LayoutOrder"}]
       475 GETUPVAL                         R45 6
@@ -676,25 +676,25 @@ PROTO_17:
       478 CALL                             R45 1 1
       479 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
       481 DUPTABLE                         R45 K78 [{"ResetPositionsButton"}]
-      482 GETUPVAL                         R47 1
-      483 GETTABLEKS                       R46 R47 K20 ["createElement"]
+      482 GETUPVAL                         R46 1
+      483 GETTABLEKS                       R46 R46 K20 ["createElement"]
       485 LOADK                            R47 K79 ["ImageButton"]
       486 NEWTABLE                         R48 8 0
-      488 GETUPVAL                         R50 1
-      489 GETTABLEKS                       R49 R50 K22 ["Tag"]
+      488 GETUPVAL                         R49 1
+      489 GETTABLEKS                       R49 R49 K22 ["Tag"]
       491 LOADK                            R50 K80 ["data-testid=ResetPositionsButton"]
       492 SETTABLE                         R50 R48 R49
-      493 GETUPVAL                         R51 1
-      494 GETTABLEKS                       R50 R51 K56 ["Event"]
-      496 GETTABLEKS                       R49 R50 K57 ["MouseEnter"]
+      493 GETUPVAL                         R49 1
+      494 GETTABLEKS                       R49 R49 K56 ["Event"]
+      496 GETTABLEKS                       R49 R49 K57 ["MouseEnter"]
       498 SETTABLE                         R12 R48 R49
-      499 GETUPVAL                         R51 1
-      500 GETTABLEKS                       R50 R51 K56 ["Event"]
-      502 GETTABLEKS                       R49 R50 K58 ["MouseLeave"]
+      499 GETUPVAL                         R49 1
+      500 GETTABLEKS                       R49 R49 K56 ["Event"]
+      502 GETTABLEKS                       R49 R49 K58 ["MouseLeave"]
       504 SETTABLE                         R13 R48 R49
-      505 GETUPVAL                         R51 1
-      506 GETTABLEKS                       R50 R51 K56 ["Event"]
-      508 GETTABLEKS                       R49 R50 K59 ["MouseButton1Click"]
+      505 GETUPVAL                         R49 1
+      506 GETTABLEKS                       R49 R49 K56 ["Event"]
+      508 GETTABLEKS                       R49 R49 K59 ["MouseButton1Click"]
       510 DUPCLOSURE                       R50 K81 [PROTO_15]
       511 CAPTURE                          UPVAL U8
       512 SETTABLE                         R50 R48 R49
@@ -703,8 +703,8 @@ PROTO_17:
       516 CALL                             R49 1 1
       517 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
       519 DUPTABLE                         R49 K83 [{"ResetIconImage"}]
-      520 GETUPVAL                         R51 1
-      521 GETTABLEKS                       R50 R51 K20 ["createElement"]
+      520 GETUPVAL                         R50 1
+      521 GETTABLEKS                       R50 R50 K20 ["createElement"]
       523 LOADK                            R51 K84 ["ImageLabel"]
       524 DUPTABLE                         R52 K34 [{"LayoutOrder"}]
       525 GETUPVAL                         R53 6
@@ -719,12 +719,12 @@ PROTO_17:
       538 SETTABLEKS                       R42 R41 K61 ["ResetPositionsFrame"]
       540 CALL                             R38 3 1
       541 SETTABLEKS                       R38 R37 K37 ["ContainerFrame"]
-      543 GETUPVAL                         R39 1
-      544 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      543 GETUPVAL                         R38 1
+      544 GETTABLEKS                       R38 R38 K20 ["createElement"]
       546 LOADK                            R39 K21 ["Frame"]
       547 NEWTABLE                         R40 2 0
-      549 GETUPVAL                         R42 1
-      550 GETTABLEKS                       R41 R42 K22 ["Tag"]
+      549 GETUPVAL                         R41 1
+      550 GETTABLEKS                       R41 R41 K22 ["Tag"]
       552 LOADK                            R42 K85 ["data-testid=TranslationSlider"]
       553 SETTABLE                         R42 R40 R41
       554 GETUPVAL                         R41 6
@@ -732,12 +732,12 @@ PROTO_17:
       557 CALL                             R41 1 1
       558 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       560 DUPTABLE                         R41 K88 [{"SliderLabel", "TranslationSlider"}]
-      561 GETUPVAL                         R43 1
-      562 GETTABLEKS                       R42 R43 K20 ["createElement"]
+      561 GETUPVAL                         R42 1
+      562 GETTABLEKS                       R42 R42 K20 ["createElement"]
       564 LOADK                            R43 K43 ["TextLabel"]
       565 NEWTABLE                         R44 4 0
-      567 GETUPVAL                         R46 1
-      568 GETTABLEKS                       R45 R46 K22 ["Tag"]
+      567 GETUPVAL                         R45 1
+      568 GETTABLEKS                       R45 R45 K22 ["Tag"]
       570 LOADK                            R46 K27 ["CX-Invisible"]
       571 SETTABLE                         R46 R44 R45
       572 LOADK                            R47 K44 ["VRControls"]
@@ -751,8 +751,8 @@ PROTO_17:
       583 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
       585 CALL                             R42 2 1
       586 SETTABLEKS                       R42 R41 K86 ["SliderLabel"]
-      588 GETUPVAL                         R43 1
-      589 GETTABLEKS                       R42 R43 K20 ["createElement"]
+      588 GETUPVAL                         R42 1
+      589 GETTABLEKS                       R42 R42 K20 ["createElement"]
       591 GETUPVAL                         R43 9
       592 DUPTABLE                         R44 K98 [{"LayoutOrder", "AnchorPoint", "Disabled", "Value", "Min", "Max", "OnValueChanged", "SnapIncrement", "VerticalDragTolerance", "ShowInput"}]
       593 GETUPVAL                         R45 6
@@ -791,12 +791,12 @@ PROTO_17:
       642 JUMPIFNOT                        R34 ; [+27]
       643 MOVE                             R34 R10
       644 JUMPIFNOT                        R34 ; [+25]
-      645 GETUPVAL                         R35 1
-      646 GETTABLEKS                       R34 R35 K20 ["createElement"]
+      645 GETUPVAL                         R34 1
+      646 GETTABLEKS                       R34 R34 K20 ["createElement"]
       648 LOADK                            R35 K43 ["TextLabel"]
       649 NEWTABLE                         R36 4 0
-      651 GETUPVAL                         R38 1
-      652 GETTABLEKS                       R37 R38 K22 ["Tag"]
+      651 GETUPVAL                         R37 1
+      652 GETTABLEKS                       R37 R37 K22 ["Tag"]
       654 LOADK                            R38 K101 ["ResetPositionsTooltip data-testid=ResetPositionsTooltip"]
       655 SETTABLE                         R38 R36 R37
       656 LOADK                            R39 K44 ["VRControls"]
@@ -812,17 +812,17 @@ PROTO_17:
       670 SETTABLEKS                       R34 R33 K31 ["ResetPositionsTooltip"]
       672 MOVE                             R34 R8
       673 JUMPIFNOT                        R34 ; [+208]
-      674 GETUPVAL                         R35 1
-      675 GETTABLEKS                       R34 R35 K20 ["createElement"]
+      674 GETUPVAL                         R34 1
+      675 GETTABLEKS                       R34 R34 K20 ["createElement"]
       677 LOADK                            R35 K21 ["Frame"]
       678 NEWTABLE                         R36 1 0
-      680 GETUPVAL                         R38 1
-      681 GETTABLEKS                       R37 R38 K22 ["Tag"]
+      680 GETUPVAL                         R37 1
+      681 GETTABLEKS                       R37 R37 K22 ["Tag"]
       683 LOADK                            R38 K103 ["data-testid=Tooltip"]
       684 SETTABLE                         R38 R36 R37
       685 DUPTABLE                         R37 K111 [{"MoveMapping", "FlyMapping", "RotateMapping", "TiltMapping", "ToggleCursorLock", "SwitchControllers", "MouseMapping1"}]
-      686 GETUPVAL                         R39 1
-      687 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      686 GETUPVAL                         R38 1
+      687 GETTABLEKS                       R38 R38 K20 ["createElement"]
       689 GETUPVAL                         R39 10
       690 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
       691 LOADK                            R43 K44 ["VRControls"]
@@ -841,8 +841,8 @@ PROTO_17:
       709 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       711 CALL                             R38 2 1
       712 SETTABLEKS                       R38 R37 K104 ["MoveMapping"]
-      714 GETUPVAL                         R39 1
-      715 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      714 GETUPVAL                         R38 1
+      715 GETTABLEKS                       R38 R38 K20 ["createElement"]
       717 GETUPVAL                         R39 10
       718 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
       719 LOADK                            R43 K44 ["VRControls"]
@@ -861,8 +861,8 @@ PROTO_17:
       737 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       739 CALL                             R38 2 1
       740 SETTABLEKS                       R38 R37 K105 ["FlyMapping"]
-      742 GETUPVAL                         R39 1
-      743 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      742 GETUPVAL                         R38 1
+      743 GETTABLEKS                       R38 R38 K20 ["createElement"]
       745 GETUPVAL                         R39 10
       746 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
       747 LOADK                            R43 K44 ["VRControls"]
@@ -881,8 +881,8 @@ PROTO_17:
       765 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       767 CALL                             R38 2 1
       768 SETTABLEKS                       R38 R37 K106 ["RotateMapping"]
-      770 GETUPVAL                         R39 1
-      771 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      770 GETUPVAL                         R38 1
+      771 GETTABLEKS                       R38 R38 K20 ["createElement"]
       773 GETUPVAL                         R39 10
       774 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
       775 LOADK                            R43 K44 ["VRControls"]
@@ -901,8 +901,8 @@ PROTO_17:
       793 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       795 CALL                             R38 2 1
       796 SETTABLEKS                       R38 R37 K107 ["TiltMapping"]
-      798 GETUPVAL                         R39 1
-      799 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      798 GETUPVAL                         R38 1
+      799 GETTABLEKS                       R38 R38 K20 ["createElement"]
       801 GETUPVAL                         R39 10
       802 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
       803 LOADK                            R43 K44 ["VRControls"]
@@ -921,8 +921,8 @@ PROTO_17:
       821 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       823 CALL                             R38 2 1
       824 SETTABLEKS                       R38 R37 K108 ["ToggleCursorLock"]
-      826 GETUPVAL                         R39 1
-      827 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      826 GETUPVAL                         R38 1
+      827 GETTABLEKS                       R38 R38 K20 ["createElement"]
       829 GETUPVAL                         R39 10
       830 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
       831 LOADK                            R43 K44 ["VRControls"]
@@ -941,12 +941,12 @@ PROTO_17:
       849 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
       851 CALL                             R38 2 1
       852 SETTABLEKS                       R38 R37 K109 ["SwitchControllers"]
-      854 GETUPVAL                         R39 1
-      855 GETTABLEKS                       R38 R39 K20 ["createElement"]
+      854 GETUPVAL                         R38 1
+      855 GETTABLEKS                       R38 R38 K20 ["createElement"]
       857 LOADK                            R39 K43 ["TextLabel"]
       858 NEWTABLE                         R40 4 0
-      860 GETUPVAL                         R42 1
-      861 GETTABLEKS                       R41 R42 K22 ["Tag"]
+      860 GETUPVAL                         R41 1
+      861 GETTABLEKS                       R41 R41 K22 ["Tag"]
       863 LOADK                            R42 K27 ["CX-Invisible"]
       864 SETTABLE                         R42 R40 R41
       865 LOADK                            R43 K44 ["VRControls"]
@@ -974,44 +974,44 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["Localization"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["Localization"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["React"]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["React"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R7 R0 K11 ["Src"]
-       29 GETTABLEKS                       R6 R7 K12 ["Util"]
-       31 GETTABLEKS                       R5 R6 K13 ["Constants"]
+       27 GETTABLEKS                       R5 R0 K11 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Util"]
+       31 GETTABLEKS                       R5 R5 K13 ["Constants"]
        33 CALL                             R4 1 1
-       34 GETIMPORT                        R6 K5 [require]
-       36 GETTABLEKS                       R9 R0 K11 ["Src"]
-       38 GETTABLEKS                       R8 R9 K12 ["Util"]
-       40 GETTABLEKS                       R7 R8 K14 ["MockableProxyPluginComponents"]
-       42 CALL                             R6 1 1
-       43 GETTABLEKS                       R5 R6 K15 ["StudioDeviceEmulator"]
+       34 GETIMPORT                        R5 K5 [require]
+       36 GETTABLEKS                       R6 R0 K11 ["Src"]
+       38 GETTABLEKS                       R6 R6 K12 ["Util"]
+       40 GETTABLEKS                       R6 R6 K14 ["MockableProxyPluginComponents"]
+       42 CALL                             R5 1 1
+       43 GETTABLEKS                       R5 R5 K15 ["StudioDeviceEmulator"]
        45 GETIMPORT                        R6 K5 [require]
-       47 GETTABLEKS                       R9 R0 K11 ["Src"]
-       49 GETTABLEKS                       R8 R9 K12 ["Util"]
-       51 GETTABLEKS                       R7 R8 K16 ["MappingsContext"]
+       47 GETTABLEKS                       R7 R0 K11 ["Src"]
+       49 GETTABLEKS                       R7 R7 K12 ["Util"]
+       51 GETTABLEKS                       R7 R7 K16 ["MappingsContext"]
        53 CALL                             R6 1 1
        54 GETIMPORT                        R7 K5 [require]
-       56 GETTABLEKS                       R10 R0 K11 ["Src"]
-       58 GETTABLEKS                       R9 R10 K12 ["Util"]
-       60 GETTABLEKS                       R8 R9 K17 ["MappingsActionsContext"]
+       56 GETTABLEKS                       R8 R0 K11 ["Src"]
+       58 GETTABLEKS                       R8 R8 K12 ["Util"]
+       60 GETTABLEKS                       R8 R8 K17 ["MappingsActionsContext"]
        62 CALL                             R7 1 1
-       63 GETTABLEKS                       R9 R1 K18 ["Styling"]
-       65 GETTABLEKS                       R8 R9 K19 ["joinTags"]
-       67 GETTABLEKS                       R10 R1 K20 ["UI"]
-       69 GETTABLEKS                       R9 R10 K21 ["Checkbox"]
-       71 GETTABLEKS                       R11 R1 K20 ["UI"]
-       73 GETTABLEKS                       R10 R11 K22 ["Slider"]
-       75 GETTABLEKS                       R12 R1 K12 ["Util"]
-       77 GETTABLEKS                       R11 R12 K23 ["LayoutOrderIterator"]
+       63 GETTABLEKS                       R8 R1 K18 ["Styling"]
+       65 GETTABLEKS                       R8 R8 K19 ["joinTags"]
+       67 GETTABLEKS                       R9 R1 K20 ["UI"]
+       69 GETTABLEKS                       R9 R9 K21 ["Checkbox"]
+       71 GETTABLEKS                       R10 R1 K20 ["UI"]
+       73 GETTABLEKS                       R10 R10 K22 ["Slider"]
+       75 GETTABLEKS                       R11 R1 K12 ["Util"]
+       77 GETTABLEKS                       R11 R11 K23 ["LayoutOrderIterator"]
        79 GETTABLEKS                       R12 R11 K24 ["new"]
        81 CALL                             R12 0 1
        82 GETTABLEKS                       R13 R4 K25 ["HAND_TRACKED_DEVICES"]

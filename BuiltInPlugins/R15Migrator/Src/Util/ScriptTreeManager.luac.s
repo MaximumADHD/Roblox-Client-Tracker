@@ -8,12 +8,12 @@ PROTO_0:
         9 SETTABLEKS                       R2 R1 K2 ["_selected"]
        11 NEWTABLE                         R2 0 0
        13 SETTABLEKS                       R2 R1 K3 ["_expanded"]
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K7 ["new"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K7 ["new"]
        18 CALL                             R2 0 1
        19 SETTABLEKS                       R2 R1 K4 ["_onSelectedChanged"]
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R2 R3 K7 ["new"]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K7 ["new"]
        24 CALL                             R2 0 1
        25 SETTABLEKS                       R2 R1 K5 ["_onExpandedChanged"]
        27 GETUPVAL                         R2 1
@@ -128,8 +128,8 @@ PROTO_7:
        32 SETTABLEKS                       R14 R13 K4 ["range"]
        34 GETTABLEKS                       R15 R10 K14 ["codeDescription"]
        36 JUMPIFNOT                        R15 ; [+5]
-       37 GETTABLEKS                       R15 R10 K14 ["codeDescription"]
-       39 GETTABLEKS                       R14 R15 K15 ["href"]
+       37 GETTABLEKS                       R14 R10 K14 ["codeDescription"]
+       39 GETTABLEKS                       R14 R14 K15 ["href"]
        41 JUMP                             ; [+1]
        42 LOADK                            R14 K16 [""]
        43 SETTABLEKS                       R14 R13 K5 ["url"]
@@ -137,21 +137,21 @@ PROTO_7:
        47 GETTABLEKS                       R14 R10 K7 ["suggestions"]
        49 SETTABLEKS                       R14 R13 K7 ["suggestions"]
        51 GETTABLEKS                       R15 R10 K17 ["severity"]
-       53 GETIMPORT                        R18 K19 [Enum]
-       55 GETTABLEKS                       R17 R18 K20 ["Severity"]
-       57 GETTABLEKS                       R16 R17 K21 ["Warning"]
+       53 GETIMPORT                        R16 K19 [Enum]
+       55 GETTABLEKS                       R16 R16 K20 ["Severity"]
+       57 GETTABLEKS                       R16 R16 K21 ["Warning"]
        59 JUMPIFNOTEQ                      R15 R16 ; [+11]
        61 NEWTABLE                         R14 1 0
-       63 GETUPVAL                         R17 0
-       64 GETTABLEKS                       R16 R17 K22 ["ScriptStatus"]
-       66 GETTABLEKS                       R15 R16 K21 ["Warning"]
+       63 GETUPVAL                         R15 0
+       64 GETTABLEKS                       R15 R15 K22 ["ScriptStatus"]
+       66 GETTABLEKS                       R15 R15 K21 ["Warning"]
        68 LOADN                            R16 1
        69 SETTABLE                         R16 R14 R15
        70 JUMP                             ; [+9]
        71 NEWTABLE                         R14 1 0
-       73 GETUPVAL                         R17 0
-       74 GETTABLEKS                       R16 R17 K22 ["ScriptStatus"]
-       76 GETTABLEKS                       R15 R16 K23 ["Error"]
+       73 GETUPVAL                         R15 0
+       74 GETTABLEKS                       R15 R15 K22 ["ScriptStatus"]
+       76 GETTABLEKS                       R15 R15 K23 ["Error"]
        78 LOADN                            R16 1
        79 SETTABLE                         R16 R14 R15
        80 SETTABLEKS                       R14 R13 K8 ["statuses"]
@@ -188,35 +188,35 @@ PROTO_8:
        25 NAMECALL                         R13 R2 K4 ["HasWarnings"]
        27 CALL                             R13 1 1
        28 JUMPIFNOT                        R13 ; [+10]
-       29 GETUPVAL                         R15 1
-       30 GETTABLEKS                       R14 R15 K5 ["ScriptStatus"]
-       32 GETTABLEKS                       R13 R14 K6 ["Warning"]
+       29 GETUPVAL                         R13 1
+       30 GETTABLEKS                       R13 R13 K5 ["ScriptStatus"]
+       32 GETTABLEKS                       R13 R13 K6 ["Warning"]
        34 NAMECALL                         R14 R2 K7 ["WarningCount"]
        36 CALL                             R14 1 1
        37 SETTABLE                         R14 R12 R13
        38 JUMP                             ; [+36]
-       39 GETUPVAL                         R15 1
-       40 GETTABLEKS                       R14 R15 K5 ["ScriptStatus"]
-       42 GETTABLEKS                       R13 R14 K8 ["Complete"]
+       39 GETUPVAL                         R13 1
+       40 GETTABLEKS                       R13 R13 K5 ["ScriptStatus"]
+       42 GETTABLEKS                       R13 R13 K8 ["Complete"]
        44 LOADN                            R14 1
        45 SETTABLE                         R14 R12 R13
        46 JUMP                             ; [+28]
        47 JUMPIFNOT                        R6 ; [+7]
-       48 GETUPVAL                         R15 1
-       49 GETTABLEKS                       R14 R15 K5 ["ScriptStatus"]
-       51 GETTABLEKS                       R13 R14 K9 ["Reverted"]
+       48 GETUPVAL                         R13 1
+       49 GETTABLEKS                       R13 R13 K5 ["ScriptStatus"]
+       51 GETTABLEKS                       R13 R13 K9 ["Reverted"]
        53 LOADN                            R14 1
        54 SETTABLE                         R14 R12 R13
-       55 GETUPVAL                         R15 1
-       56 GETTABLEKS                       R14 R15 K5 ["ScriptStatus"]
-       58 GETTABLEKS                       R13 R14 K10 ["Error"]
+       55 GETUPVAL                         R13 1
+       56 GETTABLEKS                       R13 R13 K5 ["ScriptStatus"]
+       58 GETTABLEKS                       R13 R13 K10 ["Error"]
        60 MOVE                             R16 R8
        61 NAMECALL                         R14 R2 K11 ["ErrorCount"]
        63 CALL                             R14 2 1
        64 SETTABLE                         R14 R12 R13
-       65 GETUPVAL                         R15 1
-       66 GETTABLEKS                       R14 R15 K5 ["ScriptStatus"]
-       68 GETTABLEKS                       R13 R14 K6 ["Warning"]
+       65 GETUPVAL                         R13 1
+       66 GETTABLEKS                       R13 R13 K5 ["ScriptStatus"]
+       68 GETTABLEKS                       R13 R13 K6 ["Warning"]
        70 MOVE                             R16 R8
        71 NAMECALL                         R14 R2 K7 ["WarningCount"]
        73 CALL                             R14 2 1
@@ -513,8 +513,8 @@ PROTO_19:
        37 LOADN                            R8 1
        38 FORNPREP                         R7
        39 GETTABLEKS                       R10 R0 K3 ["_selected"]
-       41 GETTABLE                         R12 R2 R9
-       42 GETTABLEKS                       R11 R12 K2 ["key"]
+       41 GETTABLE                         R11 R2 R9
+       42 GETTABLEKS                       R11 R11 K2 ["key"]
        44 LOADB                            R12 1
        45 SETTABLE                         R12 R10 R11
        46 FORNLOOP                         R7
@@ -589,8 +589,8 @@ PROTO_23:
         9 RETURN                           R2 1
 
 PROTO_24:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["goToScript"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["goToScript"]
         3 GETTABLEKS                       R4 R1 K1 ["scriptId"]
         5 GETTABLEKS                       R5 R1 K2 ["range"]
         7 MOVE                             R6 R2
@@ -666,9 +666,9 @@ PROTO_28:
        43 NEWCLOSURE                       R7 P1
        44 CAPTURE                          VAL R0
        45 SETTABLEKS                       R7 R6 K9 ["onSuggestionApplied"]
-       47 GETUPVAL                         R9 0
-       48 GETTABLEKS                       R8 R9 K11 ["Dictionary"]
-       50 GETTABLEKS                       R7 R8 K12 ["join"]
+       47 GETUPVAL                         R7 0
+       48 GETTABLEKS                       R7 R7 K11 ["Dictionary"]
+       50 GETTABLEKS                       R7 R7 K12 ["join"]
        52 MOVE                             R8 R1
        53 MOVE                             R9 R6
        54 CALL                             R7 2 -1
@@ -681,39 +681,39 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["Util"]
        23 GETTABLEKS                       R4 R3 K10 ["Signal"]
        25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R7 R0 K11 ["Src"]
-       29 GETTABLEKS                       R6 R7 K12 ["Types"]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Types"]
        31 CALL                             R5 1 1
        32 GETIMPORT                        R6 K5 [require]
-       34 GETTABLEKS                       R9 R0 K11 ["Src"]
-       36 GETTABLEKS                       R8 R9 K9 ["Util"]
-       38 GETTABLEKS                       R7 R8 K13 ["Input"]
+       34 GETTABLEKS                       R7 R0 K11 ["Src"]
+       36 GETTABLEKS                       R7 R7 K9 ["Util"]
+       38 GETTABLEKS                       R7 R7 K13 ["Input"]
        40 CALL                             R6 1 1
        41 GETIMPORT                        R7 K5 [require]
-       43 GETTABLEKS                       R11 R0 K11 ["Src"]
-       45 GETTABLEKS                       R10 R11 K9 ["Util"]
-       47 GETTABLEKS                       R9 R10 K14 ["ScriptAnalysis"]
-       49 GETTABLEKS                       R8 R9 K15 ["Constants"]
+       43 GETTABLEKS                       R8 R0 K11 ["Src"]
+       45 GETTABLEKS                       R8 R8 K9 ["Util"]
+       47 GETTABLEKS                       R8 R8 K14 ["ScriptAnalysis"]
+       49 GETTABLEKS                       R8 R8 K15 ["Constants"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K5 [require]
-       54 GETTABLEKS                       R11 R0 K11 ["Src"]
-       56 GETTABLEKS                       R10 R11 K9 ["Util"]
-       58 GETTABLEKS                       R9 R10 K16 ["ScriptReplacement"]
+       54 GETTABLEKS                       R9 R0 K11 ["Src"]
+       56 GETTABLEKS                       R9 R9 K9 ["Util"]
+       58 GETTABLEKS                       R9 R9 K16 ["ScriptReplacement"]
        60 CALL                             R8 1 1
        61 GETIMPORT                        R9 K5 [require]
-       63 GETTABLEKS                       R12 R0 K11 ["Src"]
-       65 GETTABLEKS                       R11 R12 K9 ["Util"]
-       67 GETTABLEKS                       R10 R11 K17 ["sanitizeString"]
+       63 GETTABLEKS                       R10 R0 K11 ["Src"]
+       65 GETTABLEKS                       R10 R10 K9 ["Util"]
+       67 GETTABLEKS                       R10 R10 K17 ["sanitizeString"]
        69 CALL                             R9 1 1
        70 NEWTABLE                         R10 32 0
        72 SETTABLEKS                       R10 R10 K18 ["__index"]

@@ -21,14 +21,14 @@ MAIN:
         9 LOADK                            R3 K4 ["StudioService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R6 R2 K10 ["Src"]
-       25 GETTABLEKS                       R5 R6 K11 ["Util"]
-       27 GETTABLEKS                       R4 R5 K12 ["clearPrebakedDescriptionAnimations"]
+       23 GETTABLEKS                       R4 R2 K10 ["Src"]
+       25 GETTABLEKS                       R4 R4 K11 ["Util"]
+       27 GETTABLEKS                       R4 R4 K12 ["clearPrebakedDescriptionAnimations"]
        29 CALL                             R3 1 1
        30 DUPCLOSURE                       R4 K13 [PROTO_0]
        31 CAPTURE                          VAL R1

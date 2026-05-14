@@ -38,8 +38,8 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["RunTests"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+20]
         5 GETIMPORT                        R1 K2 [game]
@@ -111,8 +111,8 @@ PROTO_7:
        22 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["RunTests"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+82]
         5 GETIMPORT                        R1 K2 [game]
@@ -179,8 +179,8 @@ PROTO_8:
        87 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["RunTests"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+28]
         5 GETIMPORT                        R1 K2 [game]
@@ -206,8 +206,8 @@ PROTO_9:
        33 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["RunTests"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+11]
         5 GETIMPORT                        R1 K2 [game]
@@ -222,8 +222,8 @@ PROTO_10:
        17 RETURN                           R1 1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["RunTests"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+9]
         5 GETIMPORT                        R1 K2 [game]
@@ -245,14 +245,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["DebugFlags"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["DebugFlags"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K13 ["Resources"]
-       28 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K13 ["Resources"]
+       28 GETTABLEKS                       R4 R4 K14 ["Constants"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R3 K15 ["PublishTags"]
        33 GETTABLEKS                       R6 R3 K16 ["AttributePrefix"]

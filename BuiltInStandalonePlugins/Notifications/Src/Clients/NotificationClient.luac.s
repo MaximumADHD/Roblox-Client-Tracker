@@ -12,9 +12,9 @@ PROTO_1:
         8 GETIMPORT                        R5 K5 [tostring]
        10 CALL                             R5 1 1
        11 SETTABLEKS                       R5 R4 K1 ["count"]
-       13 GETUPVAL                         R8 1
-       14 GETTABLEKS                       R7 R8 K6 ["Studio"]
-       16 GETTABLEKS                       R6 R7 K7 ["rawValue"]
+       13 GETUPVAL                         R6 1
+       14 GETTABLEKS                       R6 R6 K6 ["Studio"]
+       16 GETTABLEKS                       R6 R6 K7 ["rawValue"]
        18 CALL                             R6 0 -1
        19 FASTCALL                         TOSTRING ; [+2]
        20 GETIMPORT                        R5 K5 [tostring]
@@ -29,10 +29,10 @@ PROTO_1:
        32 SETTABLEKS                       R4 R3 K8 ["full-refresh"]
        34 JUMPIFNOT                        R1 ; [+2]
        35 SETTABLEKS                       R1 R3 K9 ["cursor"]
-       37 GETUPVAL                         R5 2
-       38 GETTABLEKS                       R4 R5 K10 ["composeUrl"]
-       40 GETUPVAL                         R6 2
-       41 GETTABLEKS                       R5 R6 K11 ["APIS_URL"]
+       37 GETUPVAL                         R4 2
+       38 GETTABLEKS                       R4 R4 K10 ["composeUrl"]
+       40 GETUPVAL                         R5 2
+       41 GETTABLEKS                       R5 R5 K11 ["APIS_URL"]
        43 LOADK                            R7 K12 ["creator-notifications/v1/creator-stream-notifications/"]
        44 LOADK                            R9 K13 ["users/%*/notifications"]
        45 MOVE                             R11 R2
@@ -74,10 +74,10 @@ PROTO_3:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["GetUserId"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["composeUrl"]
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K2 ["APIS_URL"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["composeUrl"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K2 ["APIS_URL"]
        10 LOADK                            R5 K3 ["creator-notifications/v1/creator-stream-notifications/"]
        11 LOADK                            R7 K4 ["users/%*/notification/%*"]
        12 MOVE                             R9 R1
@@ -124,10 +124,10 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetUserId"]
         3 CALL                             R0 1 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["composeUrl"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["APIS_URL"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["composeUrl"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["APIS_URL"]
        10 LOADK                            R4 K3 ["creator-notifications/v1/creator-stream-notifications/"]
        11 LOADK                            R6 K4 ["users/%*/notifications"]
        12 MOVE                             R8 R0
@@ -137,9 +137,9 @@ PROTO_5:
        17 CONCAT                           R3 R4 R5
        18 CALL                             R1 2 1
        19 NEWTABLE                         R2 1 0
-       21 GETUPVAL                         R5 2
-       22 GETTABLEKS                       R4 R5 K6 ["Studio"]
-       24 GETTABLEKS                       R3 R4 K7 ["rawValue"]
+       21 GETUPVAL                         R3 2
+       22 GETTABLEKS                       R3 R3 K6 ["Studio"]
+       24 GETTABLEKS                       R3 R3 K7 ["rawValue"]
        26 CALL                             R3 0 1
        27 SETTABLEKS                       R3 R2 K8 ["notification-channel"]
        29 DUPTABLE                         R3 K13 [{"Url", "Body", "Method", "Headers"}]
@@ -171,20 +171,20 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R4 R1 K7 ["RobloxAPI"]
-       18 GETTABLEKS                       R3 R4 K8 ["Url"]
-       20 GETTABLEKS                       R2 R3 K9 ["new"]
+       16 GETTABLEKS                       R2 R1 K7 ["RobloxAPI"]
+       18 GETTABLEKS                       R2 R2 K8 ["Url"]
+       20 GETTABLEKS                       R2 R2 K9 ["new"]
        22 CALL                             R2 0 1
-       23 GETTABLEKS                       R4 R1 K10 ["Http"]
-       25 GETTABLEKS                       R3 R4 K11 ["Networking"]
+       23 GETTABLEKS                       R3 R1 K10 ["Http"]
+       25 GETTABLEKS                       R3 R3 K11 ["Networking"]
        27 GETTABLEKS                       R4 R3 K9 ["new"]
        29 DUPTABLE                         R5 K14 [{"isInternal", "loggingLevel"}]
        30 LOADB                            R6 1
@@ -201,9 +201,9 @@ MAIN:
        46 NAMECALL                         R6 R6 K18 ["GetService"]
        48 CALL                             R6 2 1
        49 GETIMPORT                        R7 K4 [require]
-       51 GETTABLEKS                       R10 R0 K20 ["Src"]
-       53 GETTABLEKS                       R9 R10 K21 ["Enums"]
-       55 GETTABLEKS                       R8 R9 K22 ["NotificationChannel"]
+       51 GETTABLEKS                       R8 R0 K20 ["Src"]
+       53 GETTABLEKS                       R8 R8 K21 ["Enums"]
+       55 GETTABLEKS                       R8 R8 K22 ["NotificationChannel"]
        57 CALL                             R7 1 1
        58 DUPCLOSURE                       R8 K23 [PROTO_1]
        59 CAPTURE                          VAL R6

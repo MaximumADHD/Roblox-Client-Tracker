@@ -51,8 +51,8 @@ PROTO_1:
         2 SETTABLEKS                       R1 R0 K1 ["oldRefs"]
         4 NEWTABLE                         R1 0 0
         6 SETTABLEKS                       R1 R0 K0 ["refs"]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K2 ["Done"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K2 ["Done"]
        11 SETTABLEKS                       R1 R0 K3 ["status"]
        13 RETURN                           R0 0
 
@@ -79,8 +79,8 @@ PROTO_2:
        27 GETTABLEKS                       R3 R0 K0 ["refs"]
        29 CALL                             R2 1 1
        30 JUMPIF                           R2 ; [+5]
-       31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R2 R3 K7 ["Done"]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEKS                       R2 R2 K7 ["Done"]
        34 SETTABLEKS                       R2 R0 K8 ["status"]
        36 RETURN                           R0 0
 
@@ -117,13 +117,13 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["AnimationConversion"]
-       13 GETIMPORT                        R3 K8 [require]
-       15 GETTABLEKS                       R4 R1 K9 ["constants"]
-       17 CALL                             R3 1 1
-       18 GETTABLEKS                       R2 R3 K10 ["AnimationStatus"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["AnimationConversion"]
+       13 GETIMPORT                        R2 K8 [require]
+       15 GETTABLEKS                       R3 R1 K9 ["constants"]
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R2 R2 K10 ["AnimationStatus"]
        20 NEWTABLE                         R3 8 0
        22 SETTABLEKS                       R3 R3 K11 ["__index"]
        24 DUPCLOSURE                       R4 K12 [PROTO_0]

@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["selection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["selection"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R0 R0 K1 ["Set"]
         6 CALL                             R0 2 0
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["selection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["selection"]
         3 NEWTABLE                         R2 0 1
         5 GETUPVAL                         R3 1
         6 SETLIST                          R2 R3 1 [1]
@@ -29,8 +29,8 @@ PROTO_2:
        13 JUMPIFNOTEQKNIL                  R1 ; [+2]
        15 LOADB                            R3 0 +1
        16 LOADB                            R3 1
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R4 R5 K4 ["LUAU_ANALYZE_ERROR"]
+       17 GETUPVAL                         R4 2
+       18 GETTABLEKS                       R4 R4 K4 ["LUAU_ANALYZE_ERROR"]
        20 FASTCALL2                        ASSERT R3 R4 ; [+3]
        22 GETIMPORT                        R2 K6 [assert]
        24 CALL                             R2 2 0
@@ -80,8 +80,8 @@ PROTO_3:
         8 NAMECALL                         R2 R2 K1 ["get"]
        10 CALL                             R2 1 1
        11 GETUPVAL                         R3 2
-       12 GETUPVAL                         R5 3
-       13 GETTABLEKS                       R4 R5 K2 ["InputBegan"]
+       12 GETUPVAL                         R4 3
+       13 GETTABLEKS                       R4 R4 K2 ["InputBegan"]
        15 NEWCLOSURE                       R5 P0
        16 CAPTURE                          UPVAL U4
        17 CAPTURE                          VAL R0
@@ -104,39 +104,39 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R8 R1 K12 ["Src"]
-       24 GETTABLEKS                       R7 R8 K13 ["Components"]
-       26 GETTABLEKS                       R6 R7 K14 ["EditingTools"]
-       28 GETTABLEKS                       R5 R6 K15 ["BodyPointsTool"]
-       30 GETTABLEKS                       R4 R5 K16 ["Types"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Components"]
+       26 GETTABLEKS                       R4 R4 K14 ["EditingTools"]
+       28 GETTABLEKS                       R4 R4 K15 ["BodyPointsTool"]
+       30 GETTABLEKS                       R4 R4 K16 ["Types"]
        32 CALL                             R3 1 1
        33 GETIMPORT                        R4 K9 [require]
-       35 GETTABLEKS                       R7 R1 K12 ["Src"]
-       37 GETTABLEKS                       R6 R7 K17 ["Util"]
-       39 GETTABLEKS                       R5 R6 K18 ["Constants"]
+       35 GETTABLEKS                       R5 R1 K12 ["Src"]
+       37 GETTABLEKS                       R5 R5 K17 ["Util"]
+       39 GETTABLEKS                       R5 R5 K18 ["Constants"]
        41 CALL                             R4 1 1
        42 GETIMPORT                        R5 K9 [require]
-       44 GETTABLEKS                       R10 R1 K12 ["Src"]
-       46 GETTABLEKS                       R9 R10 K13 ["Components"]
-       48 GETTABLEKS                       R8 R9 K14 ["EditingTools"]
-       50 GETTABLEKS                       R7 R8 K15 ["BodyPointsTool"]
-       52 GETTABLEKS                       R6 R7 K19 ["getHoveringPair"]
+       44 GETTABLEKS                       R6 R1 K12 ["Src"]
+       46 GETTABLEKS                       R6 R6 K13 ["Components"]
+       48 GETTABLEKS                       R6 R6 K14 ["EditingTools"]
+       50 GETTABLEKS                       R6 R6 K15 ["BodyPointsTool"]
+       52 GETTABLEKS                       R6 R6 K19 ["getHoveringPair"]
        54 CALL                             R5 1 1
        55 GETIMPORT                        R6 K9 [require]
-       57 GETTABLEKS                       R9 R1 K12 ["Src"]
-       59 GETTABLEKS                       R8 R9 K20 ["Hooks"]
-       61 GETTABLEKS                       R7 R8 K21 ["useEventConnection"]
+       57 GETTABLEKS                       R7 R1 K12 ["Src"]
+       59 GETTABLEKS                       R7 R7 K20 ["Hooks"]
+       61 GETTABLEKS                       R7 R7 K21 ["useEventConnection"]
        63 CALL                             R6 1 1
-       64 GETTABLEKS                       R8 R2 K22 ["UI"]
-       66 GETTABLEKS                       R7 R8 K23 ["showContextMenu"]
-       68 GETTABLEKS                       R9 R2 K24 ["ContextServices"]
-       70 GETTABLEKS                       R8 R9 K25 ["Localization"]
-       72 GETTABLEKS                       R10 R2 K24 ["ContextServices"]
-       74 GETTABLEKS                       R9 R10 K26 ["Plugin"]
+       64 GETTABLEKS                       R7 R2 K22 ["UI"]
+       66 GETTABLEKS                       R7 R7 K23 ["showContextMenu"]
+       68 GETTABLEKS                       R8 R2 K24 ["ContextServices"]
+       70 GETTABLEKS                       R8 R8 K25 ["Localization"]
+       72 GETTABLEKS                       R9 R2 K24 ["ContextServices"]
+       74 GETTABLEKS                       R9 R9 K26 ["Plugin"]
        76 DUPCLOSURE                       R10 K27 [PROTO_3]
        77 CAPTURE                          VAL R8
        78 CAPTURE                          VAL R9

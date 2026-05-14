@@ -48,8 +48,8 @@ PROTO_3:
        19 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 DUPTABLE                         R4 K3 [{"Items"}]
         5 NEWTABLE                         R5 0 1
         7 DUPTABLE                         R6 K7 [{"Id", "Label", "Children"}]
@@ -76,9 +76,9 @@ PROTO_4:
        36 CALL                             R10 0 1
        37 SETTABLEKS                       R10 R9 K2 ["Items"]
        39 SETTABLEKS                       R9 R8 K12 ["Schema"]
-       41 NAMECALL                         R10 R0 K19 ["inferAccessoryType"]
-       43 CALL                             R10 1 1
-       44 GETTABLEKS                       R9 R10 K20 ["Name"]
+       41 NAMECALL                         R9 R0 K19 ["inferAccessoryType"]
+       43 CALL                             R9 1 1
+       44 GETTABLEKS                       R9 R9 K20 ["Name"]
        46 SETTABLEKS                       R9 R8 K13 ["Value"]
        48 SETLIST                          R7 R8 1 [1]
        50 SETTABLEKS                       R7 R6 K6 ["Children"]
@@ -106,8 +106,8 @@ PROTO_5:
        18 RETURN                           R1 1
 
 PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["rig"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["rig"]
         4 JUMPIFNOT                        R1 ; [+30]
         5 GETUPVAL                         R2 0
         6 MOVE                             R3 R1
@@ -136,11 +136,11 @@ PROTO_6:
 
 PROTO_7:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K0 ["state"]
-        5 GETTABLEKS                       R5 R6 K1 ["Items"]
-        7 GETTABLEN                        R4 R5 1
-        8 GETTABLEKS                       R1 R4 K2 ["Children"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K0 ["state"]
+        5 GETTABLEKS                       R4 R4 K1 ["Items"]
+        7 GETTABLEN                        R1 R4 1
+        8 GETTABLEKS                       R1 R1 K2 ["Children"]
        10 LOADNIL                          R2
        11 LOADNIL                          R3
        12 FORGPREP                         R1
@@ -148,33 +148,33 @@ PROTO_7:
        15 GETTABLEKS                       R7 R5 K4 ["Value"]
        17 SETTABLE                         R7 R0 R6
        18 FORGLOOP                         R1 2 ; [-6]
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K5 ["props"]
-       23 GETTABLEKS                       R1 R2 K6 ["setAccessoryType"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K5 ["props"]
+       23 GETTABLEKS                       R1 R1 K6 ["setAccessoryType"]
        25 GETIMPORT                        R3 K9 [Enum.AccessoryType]
        27 GETTABLEKS                       R4 R0 K8 ["AccessoryType"]
        29 GETTABLE                         R2 R3 R4
        30 CALL                             R1 1 0
-       31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R2 R3 K5 ["props"]
-       34 GETTABLEKS                       R1 R2 K10 ["close"]
+       31 GETUPVAL                         R1 0
+       32 GETTABLEKS                       R1 R1 K5 ["props"]
+       34 GETTABLEKS                       R1 R1 K10 ["close"]
        36 CALL                             R1 0 0
-       37 GETUPVAL                         R3 0
-       38 GETTABLEKS                       R2 R3 K5 ["props"]
-       40 GETTABLEKS                       R1 R2 K11 ["processAccessory"]
+       37 GETUPVAL                         R1 0
+       38 GETTABLEKS                       R1 R1 K5 ["props"]
+       40 GETTABLEKS                       R1 R1 K11 ["processAccessory"]
        42 CALL                             R1 0 0
        43 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K6 [{"Expansion", "Items", "onExpansionChange", "onChange", "onSubmit"}]
-        5 GETTABLEKS                       R5 R0 K7 ["state"]
-        7 GETTABLEKS                       R4 R5 K1 ["Expansion"]
+        5 GETTABLEKS                       R4 R0 K7 ["state"]
+        7 GETTABLEKS                       R4 R4 K1 ["Expansion"]
         9 SETTABLEKS                       R4 R3 K1 ["Expansion"]
-       11 GETTABLEKS                       R5 R0 K7 ["state"]
-       13 GETTABLEKS                       R4 R5 K2 ["Items"]
+       11 GETTABLEKS                       R4 R0 K7 ["state"]
+       13 GETTABLEKS                       R4 R4 K2 ["Items"]
        15 SETTABLEKS                       R4 R3 K2 ["Items"]
        17 GETTABLEKS                       R4 R0 K3 ["onExpansionChange"]
        19 SETTABLEKS                       R4 R3 K3 ["onExpansionChange"]
@@ -188,8 +188,8 @@ PROTO_8:
 
 PROTO_9:
         0 DUPTABLE                         R2 K1 [{"rig"}]
-        1 GETTABLEKS                       R4 R0 K2 ["PluginReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["rig"]
+        1 GETTABLEKS                       R3 R0 K2 ["PluginReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["rig"]
         5 SETTABLEKS                       R3 R2 K0 ["rig"]
         7 RETURN                           R2 1
 
@@ -239,37 +239,37 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R8 R0 K11 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Components"]
-       36 GETTABLEKS                       R6 R7 K13 ["FormScreen"]
+       32 GETTABLEKS                       R6 R0 K11 ["Src"]
+       34 GETTABLEKS                       R6 R6 K12 ["Components"]
+       36 GETTABLEKS                       R6 R6 K13 ["FormScreen"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R9 R0 K11 ["Src"]
-       43 GETTABLEKS                       R8 R9 K14 ["Actions"]
-       45 GETTABLEKS                       R7 R8 K15 ["SetEnabled"]
+       41 GETTABLEKS                       R7 R0 K11 ["Src"]
+       43 GETTABLEKS                       R7 R7 K14 ["Actions"]
+       45 GETTABLEKS                       R7 R7 K15 ["SetEnabled"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K11 ["Src"]
-       52 GETTABLEKS                       R9 R10 K14 ["Actions"]
-       54 GETTABLEKS                       R8 R9 K16 ["SetAccessoryType"]
+       50 GETTABLEKS                       R8 R0 K11 ["Src"]
+       52 GETTABLEKS                       R8 R8 K14 ["Actions"]
+       54 GETTABLEKS                       R8 R8 K16 ["SetAccessoryType"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K5 [require]
-       59 GETTABLEKS                       R11 R0 K11 ["Src"]
-       61 GETTABLEKS                       R10 R11 K17 ["Thunks"]
-       63 GETTABLEKS                       R9 R10 K18 ["ProcessAccessory"]
+       59 GETTABLEKS                       R9 R0 K11 ["Src"]
+       61 GETTABLEKS                       R9 R9 K17 ["Thunks"]
+       63 GETTABLEKS                       R9 R9 K18 ["ProcessAccessory"]
        65 CALL                             R8 1 1
        66 GETTABLEKS                       R9 R1 K19 ["PureComponent"]
        68 LOADK                            R11 K20 ["InputAccessoryTypeScreen"]

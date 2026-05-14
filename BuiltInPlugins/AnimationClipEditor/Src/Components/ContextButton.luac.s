@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 JUMPIFNOT                        R0 ; [+17]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["Mouse"]
        11 LOADK                            R2 K2 ["PointingHand"]
        12 NAMECALL                         R0 R0 K3 ["__pushCursor"]
        14 CALL                             R0 2 0
@@ -18,13 +18,13 @@ PROTO_0:
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 JUMPIFNOT                        R0 ; [+16]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["Mouse"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["Mouse"]
        11 NAMECALL                         R0 R0 K2 ["__popCursor"]
        13 CALL                             R0 1 0
        14 GETUPVAL                         R0 0
@@ -36,13 +36,13 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["OnActivated"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["OnActivated"]
         5 JUMPIFNOT                        R0 ; [+6]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["props"]
-        9 GETTABLEKS                       R0 R1 K1 ["OnActivated"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["props"]
+        9 GETTABLEKS                       R0 R0 K1 ["OnActivated"]
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
 
@@ -63,8 +63,8 @@ PROTO_3:
        18 RETURN                           R0 0
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Mouse"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Mouse"]
         4 NAMECALL                         R1 R1 K2 ["__resetCursor"]
         6 CALL                             R1 1 0
         7 RETURN                           R0 0
@@ -87,17 +87,17 @@ PROTO_5:
        24 GETTABLEKS                       R10 R4 K10 ["hoveredButtonColor"]
        26 JUMP                             ; [+2]
        27 GETTABLEKS                       R10 R4 K11 ["buttonColor"]
-       29 GETUPVAL                         R12 0
-       30 GETTABLEKS                       R11 R12 K12 ["createElement"]
+       29 GETUPVAL                         R11 0
+       30 GETTABLEKS                       R11 R11 K12 ["createElement"]
        32 LOADK                            R12 K13 ["ImageButton"]
        33 NEWTABLE                         R13 16 0
        35 GETIMPORT                        R14 K16 [UDim2.new]
        37 LOADN                            R15 0
-       38 GETUPVAL                         R17 1
-       39 GETTABLEKS                       R16 R17 K17 ["TRACKLIST_BUTTON_SIZE"]
+       38 GETUPVAL                         R16 1
+       39 GETTABLEKS                       R16 R16 K17 ["TRACKLIST_BUTTON_SIZE"]
        41 LOADN                            R17 0
-       42 GETUPVAL                         R19 1
-       43 GETTABLEKS                       R18 R19 K17 ["TRACKLIST_BUTTON_SIZE"]
+       42 GETUPVAL                         R18 1
+       43 GETTABLEKS                       R18 R18 K17 ["TRACKLIST_BUTTON_SIZE"]
        45 CALL                             R14 4 1
        46 SETTABLEKS                       R14 R13 K18 ["Size"]
        48 SETTABLEKS                       R5 R13 K4 ["AnchorPoint"]
@@ -110,19 +110,19 @@ PROTO_5:
        61 SETTABLEKS                       R10 R13 K22 ["ImageColor3"]
        63 GETIMPORT                        R14 K26 [Enum.ScaleType.Fit]
        65 SETTABLEKS                       R14 R13 K24 ["ScaleType"]
-       67 GETUPVAL                         R16 0
-       68 GETTABLEKS                       R15 R16 K27 ["Event"]
-       70 GETTABLEKS                       R14 R15 K28 ["Activated"]
+       67 GETUPVAL                         R14 0
+       68 GETTABLEKS                       R14 R14 K27 ["Event"]
+       70 GETTABLEKS                       R14 R14 K28 ["Activated"]
        72 GETTABLEKS                       R15 R0 K29 ["onActivated"]
        74 SETTABLE                         R15 R13 R14
-       75 GETUPVAL                         R16 0
-       76 GETTABLEKS                       R15 R16 K27 ["Event"]
-       78 GETTABLEKS                       R14 R15 K30 ["MouseEnter"]
+       75 GETUPVAL                         R14 0
+       76 GETTABLEKS                       R14 R14 K27 ["Event"]
+       78 GETTABLEKS                       R14 R14 K30 ["MouseEnter"]
        80 GETTABLEKS                       R15 R0 K31 ["mouseEnter"]
        82 SETTABLE                         R15 R13 R14
-       83 GETUPVAL                         R16 0
-       84 GETTABLEKS                       R15 R16 K27 ["Event"]
-       86 GETTABLEKS                       R14 R15 K32 ["MouseLeave"]
+       83 GETUPVAL                         R14 0
+       84 GETTABLEKS                       R14 R14 K27 ["Event"]
+       86 GETTABLEKS                       R14 R14 K32 ["MouseLeave"]
        88 GETTABLEKS                       R15 R0 K33 ["mouseLeave"]
        90 SETTABLE                         R15 R13 R14
        91 CALL                             R11 2 -1
@@ -135,17 +135,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K11 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K12 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K13 ["withContext"]

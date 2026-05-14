@@ -40,11 +40,11 @@ PROTO_11:
         5 LOADNIL                          R2
         6 GETTABLEKS                       R3 R1 K0 ["selectionInfo"]
         8 JUMPIF                           R3 ; [+15]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K1 ["new"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K1 ["new"]
        12 CALL                             R3 0 1
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R4 R5 K1 ["new"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K1 ["new"]
        16 MOVE                             R5 R0
        17 NAMECALL                         R6 R3 K2 ["Get"]
        19 CALL                             R6 1 1
@@ -53,8 +53,8 @@ PROTO_11:
        22 MOVE                             R2 R4
        23 JUMP                             ; [+2]
        24 GETTABLEKS                       R2 R1 K0 ["selectionInfo"]
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R3 R4 K1 ["new"]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K1 ["new"]
        29 MOVE                             R4 R0
        30 GETTABLEKS                       R5 R1 K3 ["schema"]
        32 JUMPIF                           R5 ; [+1]
@@ -118,10 +118,10 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K2 ["Parent"]
        11 GETTABLEKS                       R2 R1 K3 ["Packages"]
        13 GETTABLEKS                       R3 R2 K4 ["DraggerFramework"]
@@ -130,8 +130,8 @@ MAIN:
        19 GETTABLEKS                       R6 R4 K8 ["DraggerSchema"]
        21 CALL                             R5 1 1
        22 GETIMPORT                        R6 K7 [require]
-       24 GETTABLEKS                       R8 R3 K9 ["Implementation"]
-       26 GETTABLEKS                       R7 R8 K10 ["DraggerToolModel"]
+       24 GETTABLEKS                       R7 R3 K9 ["Implementation"]
+       26 GETTABLEKS                       R7 R7 K10 ["DraggerToolModel"]
        28 CALL                             R6 1 1
        29 GETIMPORT                        R7 K7 [require]
        31 GETTABLEKS                       R8 R4 K11 ["SelectionInfo"]

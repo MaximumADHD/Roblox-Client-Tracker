@@ -32,22 +32,22 @@ PROTO_0:
        40 GETIMPORT                        R8 K3 [type]
        42 CALL                             R8 1 1
        43 JUMPIFNOTEQKS                    R8 K4 ["table"] ; [+9]
-       45 GETUPVAL                         R9 0
-       46 GETTABLEKS                       R8 R9 K5 ["Merge"]
+       45 GETUPVAL                         R8 0
+       46 GETTABLEKS                       R8 R8 K5 ["Merge"]
        48 GETTABLE                         R9 R0 R6
        49 MOVE                             R10 R7
        50 CALL                             R8 2 1
        51 SETTABLE                         R8 R2 R6
        52 JUMP                             ; [+17]
-       53 GETUPVAL                         R9 0
-       54 GETTABLEKS                       R8 R9 K5 ["Merge"]
+       53 GETUPVAL                         R8 0
+       54 GETTABLEKS                       R8 R8 K5 ["Merge"]
        56 LOADNIL                          R9
        57 MOVE                             R10 R7
        58 CALL                             R8 2 1
        59 SETTABLE                         R8 R2 R6
        60 JUMP                             ; [+9]
-       61 GETUPVAL                         R9 1
-       62 GETTABLEKS                       R8 R9 K6 ["None"]
+       61 GETUPVAL                         R8 1
+       62 GETTABLEKS                       R8 R8 K6 ["None"]
        64 JUMPIFNOTEQ                      R7 R8 ; [+4]
        66 LOADNIL                          R8
        67 SETTABLE                         R8 R2 R6
@@ -64,13 +64,13 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 1 0
        18 DUPCLOSURE                       R3 K7 [PROTO_0]

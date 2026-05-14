@@ -72,8 +72,8 @@ PROTO_4:
        29 LOADK                            R7 K8 [0.3]
        30 JUMPIFNOTLT                      R6 R7 ; [+2]
        32 LOADN                            R5 90
-       33 GETUPVAL                         R8 3
-       34 GETTABLEKS                       R7 R8 K9 ["createElement"]
+       33 GETUPVAL                         R7 3
+       34 GETTABLEKS                       R7 R7 K9 ["createElement"]
        36 LOADK                            R8 K10 ["Frame"]
        37 NEWTABLE                         R9 8 0
        39 GETTABLEKS                       R10 R0 K11 ["Size"]
@@ -82,19 +82,19 @@ PROTO_4:
        44 SETTABLEKS                       R10 R9 K12 ["ClipsDescendants"]
        46 GETTABLEKS                       R10 R0 K13 ["LayoutOrder"]
        48 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
-       50 GETUPVAL                         R11 3
-       51 GETTABLEKS                       R10 R11 K14 ["Tag"]
+       50 GETUPVAL                         R10 3
+       51 GETTABLEKS                       R10 R10 K14 ["Tag"]
        53 LOADK                            R11 K15 ["Component-Shimmer"]
        54 SETTABLE                         R11 R9 R10
-       55 GETUPVAL                         R12 3
-       56 GETTABLEKS                       R11 R12 K16 ["Change"]
-       58 GETTABLEKS                       R10 R11 K17 ["AbsoluteSize"]
+       55 GETUPVAL                         R10 3
+       56 GETTABLEKS                       R10 R10 K16 ["Change"]
+       58 GETTABLEKS                       R10 R10 K17 ["AbsoluteSize"]
        60 NEWCLOSURE                       R11 P1
        61 CAPTURE                          VAL R2
        62 SETTABLE                         R11 R9 R10
        63 NEWTABLE                         R10 0 1
-       65 GETUPVAL                         R12 3
-       66 GETTABLEKS                       R11 R12 K9 ["createElement"]
+       65 GETUPVAL                         R11 3
+       66 GETTABLEKS                       R11 R11 K9 ["createElement"]
        68 LOADK                            R12 K10 ["Frame"]
        69 NEWTABLE                         R13 2 0
        71 GETIMPORT                        R14 K19 [UDim2.new]
@@ -104,13 +104,13 @@ PROTO_4:
        76 LOADN                            R18 0
        77 CALL                             R14 4 1
        78 SETTABLEKS                       R14 R13 K11 ["Size"]
-       80 GETUPVAL                         R15 3
-       81 GETTABLEKS                       R14 R15 K14 ["Tag"]
+       80 GETUPVAL                         R14 3
+       81 GETTABLEKS                       R14 R14 K14 ["Tag"]
        83 LOADK                            R15 K20 ["NoBorder ShimmerForeground RoundedCorner8"]
        84 SETTABLE                         R15 R13 R14
        85 NEWTABLE                         R14 0 1
-       87 GETUPVAL                         R16 3
-       88 GETTABLEKS                       R15 R16 K9 ["createElement"]
+       87 GETUPVAL                         R15 3
+       88 GETTABLEKS                       R15 R15 K9 ["createElement"]
        90 LOADK                            R16 K21 ["UIGradient"]
        91 DUPTABLE                         R17 K25 [{"Rotation", "Offset", "Transparency"}]
        92 SETTABLEKS                       R5 R17 K22 ["Rotation"]
@@ -154,8 +154,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useState"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]

@@ -1,18 +1,18 @@
 PROTO_0:
         0 GETIMPORT                        R1 K2 [NumberRange.new]
         2 GETTABLEKS                       R3 R0 K3 ["Min"]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K4 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K5 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K4 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K5 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
        10 FASTCALL                         MATH_CLAMP ; [+2]
        11 GETIMPORT                        R2 K8 [math.clamp]
        13 CALL                             R2 3 1
        14 GETTABLEKS                       R4 R0 K9 ["Max"]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R5 R6 K4 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K5 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K4 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K5 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
        22 FASTCALL                         MATH_CLAMP ; [+2]
        23 GETIMPORT                        R3 K8 [math.clamp]
        25 CALL                             R3 3 1
@@ -29,17 +29,17 @@ PROTO_1:
         8 SETTABLEKS                       R5 R4 K1 ["scaleMode"]
        10 NAMECALL                         R1 R1 K4 ["logCounter"]
        12 CALL                             R1 3 0
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K5 ["bodyScaleSetting"]
-       16 GETTABLEKS                       R1 R2 K6 ["set"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K5 ["bodyScaleSetting"]
+       16 GETTABLEKS                       R1 R1 K6 ["set"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 0
        20 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["bodyScaleCustomHeight"]
-        3 GETTABLEKS                       R1 R2 K1 ["set"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["bodyScaleCustomHeight"]
+        3 GETTABLEKS                       R1 R1 K1 ["set"]
         5 GETUPVAL                         R2 1
         6 MOVE                             R3 R0
         7 CALL                             R2 1 -1
@@ -55,8 +55,8 @@ PROTO_3:
         7 CALL                             R2 1 1
         8 GETUPVAL                         R3 2
         9 CALL                             R3 0 1
-       10 GETUPVAL                         R5 3
-       11 GETTABLEKS                       R4 R5 K1 ["useContext"]
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K1 ["useContext"]
        13 GETUPVAL                         R5 4
        14 CALL                             R4 1 1
        15 GETTABLEKS                       R7 R4 K2 ["settings"]
@@ -85,14 +85,14 @@ PROTO_3:
        50 CALL                             R8 3 1
        51 SETTABLEKS                       R8 R7 K7 ["Label"]
        53 SETLIST                          R5 R6 2 [1]
-       55 GETTABLEKS                       R7 R4 K2 ["settings"]
-       57 GETTABLEKS                       R6 R7 K19 ["bodySettings"]
-       59 GETTABLEKS                       R8 R6 K20 ["bodyScaleSetting"]
-       61 GETTABLEKS                       R7 R8 K21 ["value"]
+       55 GETTABLEKS                       R6 R4 K2 ["settings"]
+       57 GETTABLEKS                       R6 R6 K19 ["bodySettings"]
+       59 GETTABLEKS                       R7 R6 K20 ["bodyScaleSetting"]
+       61 GETTABLEKS                       R7 R7 K21 ["value"]
        63 GETIMPORT                        R8 K24 [UDim.new]
        65 LOADN                            R9 0
-       66 GETUPVAL                         R11 5
-       67 GETTABLEKS                       R10 R11 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+       66 GETUPVAL                         R10 5
+       67 GETTABLEKS                       R10 R10 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
        69 CALL                             R8 2 1
        70 GETIMPORT                        R10 K17 [Enum.AvatarSettingsScaleMode.CustomScale]
        72 JUMPIFEQ                         R7 R10 ; [+2]
@@ -159,33 +159,33 @@ PROTO_3:
       153 SETTABLEKS                       R21 R20 K48 ["snapIncrement"]
       155 LOADB                            R21 1
       156 SETTABLEKS                       R21 R20 K49 ["roundToTenths"]
-      158 GETUPVAL                         R22 5
-      159 GETTABLEKS                       R21 R22 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+      158 GETUPVAL                         R21 5
+      159 GETTABLEKS                       R21 R21 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
       161 SETTABLEKS                       R21 R20 K50 ["min"]
-      163 GETUPVAL                         R22 5
-      164 GETTABLEKS                       R21 R22 K59 ["BODYSCALECUSTOMHEIGHT_SLIDERMAXVALUE"]
+      163 GETUPVAL                         R21 5
+      164 GETTABLEKS                       R21 R21 K59 ["BODYSCALECUSTOMHEIGHT_SLIDERMAXVALUE"]
       166 SETTABLEKS                       R21 R20 K51 ["max"]
       168 LOADK                            R23 K60 ["General"]
       169 LOADK                            R24 K61 ["studs"]
       170 NAMECALL                         R21 R1 K15 ["getText"]
       172 CALL                             R21 3 1
       173 SETTABLEKS                       R21 R20 K52 ["inputFieldText"]
-      175 GETTABLEKS                       R23 R6 K62 ["bodyScaleCustomHeight"]
-      177 GETTABLEKS                       R22 R23 K21 ["value"]
+      175 GETTABLEKS                       R22 R6 K62 ["bodyScaleCustomHeight"]
+      177 GETTABLEKS                       R22 R22 K21 ["value"]
       179 GETIMPORT                        R23 K64 [NumberRange.new]
       181 GETTABLEKS                       R25 R22 K65 ["Min"]
-      183 GETUPVAL                         R27 5
-      184 GETTABLEKS                       R26 R27 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-      186 GETUPVAL                         R28 5
-      187 GETTABLEKS                       R27 R28 K66 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+      183 GETUPVAL                         R26 5
+      184 GETTABLEKS                       R26 R26 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+      186 GETUPVAL                         R27 5
+      187 GETTABLEKS                       R27 R27 K66 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
       189 FASTCALL                         MATH_CLAMP ; [+2]
       190 GETIMPORT                        R24 K69 [math.clamp]
       192 CALL                             R24 3 1
       193 GETTABLEKS                       R26 R22 K70 ["Max"]
-      195 GETUPVAL                         R28 5
-      196 GETTABLEKS                       R27 R28 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-      198 GETUPVAL                         R29 5
-      199 GETTABLEKS                       R28 R29 K66 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+      195 GETUPVAL                         R27 5
+      196 GETTABLEKS                       R27 R27 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+      198 GETUPVAL                         R28 5
+      199 GETTABLEKS                       R28 R28 K66 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
       201 FASTCALL                         MATH_CLAMP ; [+2]
       202 GETIMPORT                        R25 K69 [math.clamp]
       204 CALL                             R25 3 1
@@ -202,11 +202,11 @@ PROTO_3:
       217 NAMECALL                         R22 R1 K15 ["getText"]
       219 CALL                             R22 3 1
       220 SETTABLEKS                       R22 R21 K71 ["toggleText"]
-      222 GETTABLEKS                       R23 R6 K76 ["bodyScaleCustomHeightSetMinMax"]
-      224 GETTABLEKS                       R22 R23 K21 ["value"]
+      222 GETTABLEKS                       R22 R6 K76 ["bodyScaleCustomHeightSetMinMax"]
+      224 GETTABLEKS                       R22 R22 K21 ["value"]
       226 SETTABLEKS                       R22 R21 K72 ["toggleValue"]
-      228 GETTABLEKS                       R23 R6 K76 ["bodyScaleCustomHeightSetMinMax"]
-      230 GETTABLEKS                       R22 R23 K77 ["set"]
+      228 GETTABLEKS                       R22 R6 K76 ["bodyScaleCustomHeightSetMinMax"]
+      230 GETTABLEKS                       R22 R22 K77 ["set"]
       232 SETTABLEKS                       R22 R21 K73 ["setToggleValue"]
       234 SETTABLEKS                       R21 R20 K55 ["toggleRangeProps"]
       236 CALL                             R18 2 1
@@ -223,55 +223,55 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K10 ["Util"]
-       24 GETTABLEKS                       R3 R4 K11 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K10 ["Util"]
+       24 GETTABLEKS                       R3 R3 K11 ["Constants"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Components"]
-       33 GETTABLEKS                       R4 R5 K12 ["ExpandableSection"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Components"]
+       33 GETTABLEKS                       R4 R4 K12 ["ExpandableSection"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       40 GETTABLEKS                       R5 R6 K14 ["Framework"]
+       38 GETTABLEKS                       R5 R0 K13 ["Packages"]
+       40 GETTABLEKS                       R5 R5 K14 ["Framework"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K7 ["Components"]
-       49 GETTABLEKS                       R6 R7 K15 ["GenericModeSelector"]
+       45 GETTABLEKS                       R6 R0 K6 ["Src"]
+       47 GETTABLEKS                       R6 R6 K7 ["Components"]
+       49 GETTABLEKS                       R6 R6 K15 ["GenericModeSelector"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R8 R0 K13 ["Packages"]
-       56 GETTABLEKS                       R7 R8 K16 ["React"]
+       54 GETTABLEKS                       R7 R0 K13 ["Packages"]
+       56 GETTABLEKS                       R7 R7 K16 ["React"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R9 R0 K13 ["Packages"]
-       63 GETTABLEKS                       R8 R9 K17 ["ReactUtils"]
+       61 GETTABLEKS                       R8 R0 K13 ["Packages"]
+       63 GETTABLEKS                       R8 R8 K17 ["ReactUtils"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K6 ["Src"]
-       70 GETTABLEKS                       R10 R11 K7 ["Components"]
-       72 GETTABLEKS                       R9 R10 K18 ["SliderComponent"]
+       68 GETTABLEKS                       R9 R0 K6 ["Src"]
+       70 GETTABLEKS                       R9 R9 K7 ["Components"]
+       72 GETTABLEKS                       R9 R9 K18 ["SliderComponent"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K6 ["Src"]
-       79 GETTABLEKS                       R11 R12 K7 ["Components"]
-       81 GETTABLEKS                       R10 R11 K19 ["TitledComponent"]
+       77 GETTABLEKS                       R10 R0 K6 ["Src"]
+       79 GETTABLEKS                       R10 R10 K7 ["Components"]
+       81 GETTABLEKS                       R10 R10 K19 ["TitledComponent"]
        83 CALL                             R9 1 1
        84 GETTABLEKS                       R10 R4 K20 ["ContextServices"]
        86 GETTABLEKS                       R11 R10 K21 ["Localization"]
        88 GETIMPORT                        R12 K5 [require]
-       90 GETTABLEKS                       R16 R0 K6 ["Src"]
-       92 GETTABLEKS                       R15 R16 K10 ["Util"]
-       94 GETTABLEKS                       R14 R15 K22 ["Telemetry"]
-       96 GETTABLEKS                       R13 R14 K23 ["TelemetryContext"]
+       90 GETTABLEKS                       R13 R0 K6 ["Src"]
+       92 GETTABLEKS                       R13 R13 K10 ["Util"]
+       94 GETTABLEKS                       R13 R13 K22 ["Telemetry"]
+       96 GETTABLEKS                       R13 R13 K23 ["TelemetryContext"]
        98 CALL                             R12 1 1
        99 GETTABLEKS                       R13 R7 K24 ["createNextOrder"]
       101 GETTABLEKS                       R14 R6 K25 ["createElement"]

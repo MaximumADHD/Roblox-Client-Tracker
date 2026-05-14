@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETIMPORT                        R2 K1 [game]
-        2 GETTABLEKS                       R1 R2 K2 ["Workspace"]
-        4 GETTABLEKS                       R0 R1 K3 ["CurrentCamera"]
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["Workspace"]
+        4 GETTABLEKS                       R0 R0 K3 ["CurrentCamera"]
         6 JUMPIF                           R0 ; [+2]
         7 LOADK                            R1 K4 [{0, 0, 0}]
         8 RETURN                           R1 1
@@ -21,8 +21,8 @@ PROTO_0:
        30 CALL                             R4 0 1
        31 LOADB                            R5 1
        32 SETTABLEKS                       R5 R4 K18 ["BruteForceAllSlow"]
-       34 GETIMPORT                        R6 K1 [game]
-       36 GETTABLEKS                       R5 R6 K2 ["Workspace"]
+       34 GETIMPORT                        R5 K1 [game]
+       36 GETTABLEKS                       R5 R5 K2 ["Workspace"]
        38 GETTABLEKS                       R7 R3 K13 ["Origin"]
        40 GETTABLEKS                       R8 R3 K15 ["Direction"]
        42 MOVE                             R9 R4
@@ -31,8 +31,8 @@ PROTO_0:
        46 JUMPIFNOT                        R5 ; [+3]
        47 GETTABLEKS                       R6 R5 K20 ["Position"]
        49 RETURN                           R6 1
-       50 GETTABLEKS                       R8 R0 K21 ["CFrame"]
-       52 GETTABLEKS                       R7 R8 K20 ["Position"]
+       50 GETTABLEKS                       R7 R0 K21 ["CFrame"]
+       52 GETTABLEKS                       R7 R7 K20 ["Position"]
        54 GETTABLEKS                       R9 R2 K15 ["Direction"]
        56 MULK                             R8 R9 K22 [64]
        57 ADD                              R6 R7 R8

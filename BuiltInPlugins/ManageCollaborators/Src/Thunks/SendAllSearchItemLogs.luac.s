@@ -12,9 +12,9 @@ PROTO_0:
        14 GETTABLE                         R10 R3 R8
        15 CALL                             R9 1 3
        16 FORGPREP_NEXT                    R9
-       17 GETUPVAL                         R16 1
-       18 GETTABLEKS                       R15 R16 K6 ["Dictionary"]
-       20 GETTABLEKS                       R14 R15 K7 ["join"]
+       17 GETUPVAL                         R14 1
+       18 GETTABLEKS                       R14 R14 K6 ["Dictionary"]
+       20 GETTABLEKS                       R14 R14 K7 ["join"]
        22 MOVE                             R15 R13
        23 GETUPVAL                         R16 2
        24 CALL                             R14 2 1
@@ -54,30 +54,30 @@ MAIN:
        11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
        14 GETIMPORT                        R2 K9 [require]
-       16 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K11 ["Cryo"]
+       16 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K11 ["Cryo"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R6 R1 K12 ["Src"]
-       25 GETTABLEKS                       R5 R6 K13 ["Actions"]
-       27 GETTABLEKS                       R4 R5 K14 ["SetSearchItemLogs"]
+       23 GETTABLEKS                       R4 R1 K12 ["Src"]
+       25 GETTABLEKS                       R4 R4 K13 ["Actions"]
+       27 GETTABLEKS                       R4 R4 K14 ["SetSearchItemLogs"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K9 [require]
-       32 GETTABLEKS                       R8 R1 K12 ["Src"]
-       34 GETTABLEKS                       R7 R8 K15 ["Util"]
-       36 GETTABLEKS                       R6 R7 K16 ["Telemetry"]
-       38 GETTABLEKS                       R5 R6 K17 ["CollaboratorSearchItemClickedEvent"]
+       32 GETTABLEKS                       R5 R1 K12 ["Src"]
+       34 GETTABLEKS                       R5 R5 K15 ["Util"]
+       36 GETTABLEKS                       R5 R5 K16 ["Telemetry"]
+       38 GETTABLEKS                       R5 R5 K17 ["CollaboratorSearchItemClickedEvent"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K9 [require]
-       43 GETTABLEKS                       R7 R1 K10 ["Packages"]
-       45 GETTABLEKS                       R6 R7 K18 ["TelemetryProtocol"]
+       43 GETTABLEKS                       R6 R1 K10 ["Packages"]
+       45 GETTABLEKS                       R6 R6 K18 ["TelemetryProtocol"]
        47 CALL                             R5 1 1
        48 GETTABLEKS                       R6 R5 K19 ["new"]
        50 CALL                             R6 0 1
        51 GETIMPORT                        R7 K9 [require]
-       53 GETTABLEKS                       R10 R1 K12 ["Src"]
-       55 GETTABLEKS                       R9 R10 K15 ["Util"]
-       57 GETTABLEKS                       R8 R9 K20 ["Constants"]
+       53 GETTABLEKS                       R8 R1 K12 ["Src"]
+       55 GETTABLEKS                       R8 R8 K15 ["Util"]
+       57 GETTABLEKS                       R8 R8 K20 ["Constants"]
        59 CALL                             R7 1 1
        60 NEWTABLE                         R8 0 2
        62 GETTABLEKS                       R9 R7 K21 ["COLLABORATORTYPE_USER"]

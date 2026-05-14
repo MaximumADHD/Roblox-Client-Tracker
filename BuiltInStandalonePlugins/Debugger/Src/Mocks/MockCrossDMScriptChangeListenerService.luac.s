@@ -1,11 +1,11 @@
 PROTO_0:
         0 NEWTABLE                         R0 4 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["new"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["new"]
         5 CALL                             R1 0 1
         6 SETTABLEKS                       R1 R0 K1 ["GuidNameChanged"]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K0 ["new"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K0 ["new"]
        11 CALL                             R1 0 1
        12 SETTABLEKS                       R1 R0 K2 ["GuidLineContentsChanged"]
        14 GETUPVAL                         R3 1
@@ -19,9 +19,9 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R4 R0 K0 ["watchingScripts"]
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K1 ["Dictionary"]
-        5 GETTABLEKS                       R5 R6 K2 ["join"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["Dictionary"]
+        5 GETTABLEKS                       R5 R5 K2 ["join"]
         7 GETTABLEKS                       R7 R0 K0 ["watchingScripts"]
         9 GETTABLE                         R6 R7 R1
        10 JUMPIF                           R6 ; [+2]
@@ -44,20 +44,20 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R1 K8 ["Util"]
-       25 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       23 GETTABLEKS                       R3 R1 K8 ["Util"]
+       25 GETTABLEKS                       R3 R3 K9 ["Signal"]
        27 NEWTABLE                         R4 4 0
        29 SETTABLEKS                       R4 R4 K10 ["__index"]
        31 DUPCLOSURE                       R5 K11 [PROTO_0]

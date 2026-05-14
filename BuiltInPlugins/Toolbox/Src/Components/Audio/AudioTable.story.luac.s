@@ -20,9 +20,9 @@ PROTO_0:
        27 DUPTABLE                         R2 K20 [{"Artist", "Type", "SoundEffectCategory", "SoundEffectSubcategory"}]
        28 LOADK                            R3 K21 ["OnlyTwentyCharacters"]
        29 SETTABLEKS                       R3 R2 K16 ["Artist"]
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R4 R5 K22 ["SOUND_EFFECTS"]
-       34 GETTABLEKS                       R3 R4 K23 ["name"]
+       31 GETUPVAL                         R3 0
+       32 GETTABLEKS                       R3 R3 K22 ["SOUND_EFFECTS"]
+       34 GETTABLEKS                       R3 R3 K23 ["name"]
        36 SETTABLEKS                       R3 R2 K17 ["Type"]
        38 LOADK                            R3 K24 ["instruments"]
        39 SETTABLEKS                       R3 R2 K18 ["SoundEffectCategory"]
@@ -68,8 +68,8 @@ PROTO_5:
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
         4 DUPTABLE                         R3 K5 [{"Size", "BackgroundTransparency", "Position"}]
         5 GETIMPORT                        R4 K8 [UDim2.new]
@@ -89,13 +89,13 @@ PROTO_6:
        23 CALL                             R4 4 1
        24 SETTABLEKS                       R4 R3 K4 ["Position"]
        26 DUPTABLE                         R4 K10 [{"AudioTable"}]
-       27 GETUPVAL                         R6 1
-       28 GETTABLEKS                       R5 R6 K11 ["Generator"]
+       27 GETUPVAL                         R5 1
+       28 GETTABLEKS                       R5 R5 K11 ["Generator"]
        30 DUPTABLE                         R6 K20 [{"Assets", "AudioType", "CanInsertAsset", "InsertAsset", "TryInsert", "TryOpenAssetConfig", "OnAssetPreviewButtonClicked", "SwimlaneName"}]
        31 GETUPVAL                         R7 2
        32 SETTABLEKS                       R7 R6 K12 ["Assets"]
-       34 GETTABLEKS                       R8 R0 K21 ["props"]
-       36 GETTABLEKS                       R7 R8 K13 ["AudioType"]
+       34 GETTABLEKS                       R7 R0 K21 ["props"]
+       36 GETTABLEKS                       R7 R7 K13 ["AudioType"]
        38 SETTABLEKS                       R7 R6 K13 ["AudioType"]
        40 DUPCLOSURE                       R7 K22 [PROTO_1]
        41 SETTABLEKS                       R7 R6 K14 ["CanInsertAsset"]
@@ -115,18 +115,18 @@ PROTO_6:
        62 RETURN                           R1 -1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioTableWrapper"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K4 [{"AudioType"}]
-       12 GETUPVAL                         R9 3
-       13 GETTABLEKS                       R8 R9 K5 ["SOUND_EFFECTS"]
-       15 GETTABLEKS                       R7 R8 K6 ["name"]
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R7 R7 K5 ["SOUND_EFFECTS"]
+       15 GETTABLEKS                       R7 R7 K6 ["name"]
        17 SETTABLEKS                       R7 R6 K3 ["AudioType"]
        19 CALL                             R4 2 1
        20 SETTABLEKS                       R4 R3 K1 ["AudioTableWrapper"]
@@ -134,18 +134,18 @@ PROTO_7:
        23 RETURN                           R0 -1
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioTableWrapper"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K4 [{"AudioType"}]
-       12 GETUPVAL                         R9 3
-       13 GETTABLEKS                       R8 R9 K5 ["MUSIC"]
-       15 GETTABLEKS                       R7 R8 K6 ["name"]
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R7 R7 K5 ["MUSIC"]
+       15 GETTABLEKS                       R7 R7 K6 ["name"]
        17 SETTABLEKS                       R7 R6 K3 ["AudioType"]
        19 CALL                             R4 2 1
        20 SETTABLEKS                       R4 R3 K1 ["AudioTableWrapper"]
@@ -153,13 +153,13 @@ PROTO_8:
        23 RETURN                           R0 -1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioTableWrapper"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 CALL                             R4 1 1
        12 SETTABLEKS                       R4 R3 K1 ["AudioTableWrapper"]
@@ -177,23 +177,23 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETTABLEKS                       R6 R0 K8 ["Src"]
-       18 GETTABLEKS                       R5 R6 K9 ["Types"]
-       20 GETTABLEKS                       R4 R5 K10 ["Category"]
+       16 GETTABLEKS                       R4 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R4 K9 ["Types"]
+       20 GETTABLEKS                       R4 R4 K10 ["Category"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K6 [require]
-       25 GETIMPORT                        R7 K1 [script]
-       27 GETTABLEKS                       R6 R7 K11 ["Parent"]
-       29 GETTABLEKS                       R5 R6 K12 ["AudioTable"]
+       25 GETIMPORT                        R5 K1 [script]
+       27 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       29 GETTABLEKS                       R5 R5 K12 ["AudioTable"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K6 [require]
-       34 GETTABLEKS                       R8 R0 K8 ["Src"]
-       36 GETTABLEKS                       R7 R8 K13 ["Models"]
-       38 GETTABLEKS                       R6 R7 K14 ["AssetInfo"]
+       34 GETTABLEKS                       R6 R0 K8 ["Src"]
+       36 GETTABLEKS                       R6 R6 K13 ["Models"]
+       38 GETTABLEKS                       R6 R6 K14 ["AssetInfo"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K6 [require]
-       43 GETTABLEKS                       R8 R0 K15 ["Stories"]
-       45 GETTABLEKS                       R7 R8 K16 ["ToolboxStoryWrapper"]
+       43 GETTABLEKS                       R7 R0 K15 ["Stories"]
+       45 GETTABLEKS                       R7 R7 K16 ["ToolboxStoryWrapper"]
        47 CALL                             R6 1 1
        48 GETTABLEKS                       R7 R2 K17 ["PureComponent"]
        50 LOADK                            R9 K18 ["AudioRowWrapper"]

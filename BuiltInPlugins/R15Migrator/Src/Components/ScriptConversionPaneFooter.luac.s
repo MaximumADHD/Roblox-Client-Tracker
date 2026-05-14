@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["RevertScripts"]
         5 GETTABLEKS                       R2 R0 K2 ["ScriptConversionContext"]
         7 GETTABLEKS                       R3 R0 K3 ["Localization"]
@@ -9,8 +9,8 @@ PROTO_0:
        12 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Plugin"]
         5 GETTABLEKS                       R2 R0 K2 ["Localization"]
         7 GETUPVAL                         R3 1
@@ -18,15 +18,15 @@ PROTO_1:
         9 MOVE                             R5 R2
        10 GETUPVAL                         R6 2
        11 DUPTABLE                         R7 K4 [{"OnConfirm"}]
-       12 GETUPVAL                         R9 0
-       13 GETTABLEKS                       R8 R9 K5 ["onRevertClicked"]
+       12 GETUPVAL                         R8 0
+       13 GETTABLEKS                       R8 R8 K5 ["onRevertClicked"]
        15 SETTABLEKS                       R8 R7 K3 ["OnConfirm"]
        17 CALL                             R3 4 0
        18 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["ReplaceWithRules"]
         5 GETTABLEKS                       R2 R0 K2 ["ScriptConversionContext"]
         7 GETTABLEKS                       R3 R0 K3 ["Localization"]
@@ -36,8 +36,8 @@ PROTO_2:
        13 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R2 R0 K1 ["selection"]
         6 GETTABLEKS                       R3 R0 K2 ["ScriptConversionContext"]
@@ -68,11 +68,11 @@ PROTO_5:
         4 GETTABLEKS                       R3 R1 K2 ["LayoutOrder"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
         8 GETTABLEKS                       R5 R1 K4 ["Size"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["new"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["new"]
        13 CALL                             R6 0 1
-       14 GETUPVAL                         R8 1
-       15 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R7 R7 K6 ["createElement"]
        17 GETUPVAL                         R8 2
        18 DUPTABLE                         R9 K13 [{"BackgroundColor", "LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Padding"}]
        19 GETTABLEKS                       R10 R4 K7 ["BackgroundColor"]
@@ -90,8 +90,8 @@ PROTO_5:
        43 GETTABLEKS                       R10 R4 K22 ["ButtonPadding"]
        45 SETTABLEKS                       R10 R9 K12 ["Padding"]
        47 DUPTABLE                         R10 K25 [{"ScriptConversionConsole", "FooterButtons"}]
-       48 GETUPVAL                         R12 1
-       49 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       48 GETUPVAL                         R11 1
+       49 GETTABLEKS                       R11 R11 K6 ["createElement"]
        51 GETUPVAL                         R12 3
        52 DUPTABLE                         R13 K26 [{"LayoutOrder"}]
        53 NAMECALL                         R14 R6 K27 ["getNextOrder"]
@@ -99,8 +99,8 @@ PROTO_5:
        56 SETTABLEKS                       R14 R13 K2 ["LayoutOrder"]
        58 CALL                             R11 2 1
        59 SETTABLEKS                       R11 R10 K23 ["ScriptConversionConsole"]
-       61 GETUPVAL                         R12 1
-       62 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       61 GETUPVAL                         R11 1
+       62 GETTABLEKS                       R11 R11 K6 ["createElement"]
        64 GETUPVAL                         R12 2
        65 DUPTABLE                         R13 K29 [{"LayoutOrder", "Size", "AutomaticSize", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing"}]
        66 NAMECALL                         R14 R6 K27 ["getNextOrder"]
@@ -122,8 +122,8 @@ PROTO_5:
        94 GETTABLEKS                       R14 R4 K41 ["ButtonSpacing"]
        96 SETTABLEKS                       R14 R13 K11 ["Spacing"]
        98 DUPTABLE                         R14 K44 [{"RevertButton", "ConvertButton"}]
-       99 GETUPVAL                         R16 1
-      100 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       99 GETUPVAL                         R15 1
+      100 GETTABLEKS                       R15 R15 K6 ["createElement"]
       102 GETUPVAL                         R16 4
       103 DUPTABLE                         R17 K48 [{"Size", "Text", "OnClick", "StyleModifier", "LayoutOrder"}]
       104 GETTABLEKS                       R18 R4 K49 ["RevertButtonSize"]
@@ -138,8 +138,8 @@ PROTO_5:
       119 GETTABLEKS                       R19 R0 K54 ["revertEnabled"]
       121 CALL                             R19 0 1
       122 JUMPIF                           R19 ; [+4]
-      123 GETUPVAL                         R19 5
-      124 GETTABLEKS                       R18 R19 K55 ["Disabled"]
+      123 GETUPVAL                         R18 5
+      124 GETTABLEKS                       R18 R18 K55 ["Disabled"]
       126 JUMP                             ; [+1]
       127 LOADNIL                          R18
       128 SETTABLEKS                       R18 R17 K47 ["StyleModifier"]
@@ -148,8 +148,8 @@ PROTO_5:
       133 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
       135 CALL                             R15 2 1
       136 SETTABLEKS                       R15 R14 K42 ["RevertButton"]
-      138 GETUPVAL                         R16 1
-      139 GETTABLEKS                       R15 R16 K6 ["createElement"]
+      138 GETUPVAL                         R15 1
+      139 GETTABLEKS                       R15 R15 K6 ["createElement"]
       141 GETUPVAL                         R16 4
       142 DUPTABLE                         R17 K57 [{"Style", "Size", "Text", "OnClick", "LayoutOrder"}]
       143 LOADK                            R18 K58 ["RoundPrimary"]
@@ -208,8 +208,8 @@ PROTO_8:
 
 PROTO_9:
         0 DUPTABLE                         R2 K1 [{"selection"}]
-        1 GETTABLEKS                       R4 R0 K2 ["ScriptConversion"]
-        3 GETTABLEKS                       R3 R4 K0 ["selection"]
+        1 GETTABLEKS                       R3 R0 K2 ["ScriptConversion"]
+        3 GETTABLEKS                       R3 R3 K0 ["selection"]
         5 SETTABLEKS                       R3 R2 K0 ["selection"]
         7 RETURN                           R2 1
 
@@ -220,53 +220,53 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
        30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R8 R0 K11 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Thunks"]
-       36 GETTABLEKS                       R6 R7 K13 ["ReplaceWithRules"]
+       32 GETTABLEKS                       R6 R0 K11 ["Src"]
+       34 GETTABLEKS                       R6 R6 K12 ["Thunks"]
+       36 GETTABLEKS                       R6 R6 K13 ["ReplaceWithRules"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R9 R0 K11 ["Src"]
-       43 GETTABLEKS                       R8 R9 K12 ["Thunks"]
-       45 GETTABLEKS                       R7 R8 K14 ["RevertScripts"]
+       41 GETTABLEKS                       R7 R0 K11 ["Src"]
+       43 GETTABLEKS                       R7 R7 K12 ["Thunks"]
+       45 GETTABLEKS                       R7 R7 K14 ["RevertScripts"]
        47 CALL                             R6 1 1
        48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R10 R0 K11 ["Src"]
-       52 GETTABLEKS                       R9 R10 K15 ["Components"]
-       54 GETTABLEKS                       R8 R9 K16 ["ConfirmRevertDialog"]
+       50 GETTABLEKS                       R8 R0 K11 ["Src"]
+       52 GETTABLEKS                       R8 R8 K15 ["Components"]
+       54 GETTABLEKS                       R8 R8 K16 ["ConfirmRevertDialog"]
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K5 [require]
-       59 GETTABLEKS                       R11 R0 K11 ["Src"]
-       61 GETTABLEKS                       R10 R11 K15 ["Components"]
-       63 GETTABLEKS                       R9 R10 K17 ["ScriptConversionConsole"]
+       59 GETTABLEKS                       R9 R0 K11 ["Src"]
+       61 GETTABLEKS                       R9 R9 K15 ["Components"]
+       63 GETTABLEKS                       R9 R9 K17 ["ScriptConversionConsole"]
        65 CALL                             R8 1 1
        66 GETIMPORT                        R9 K5 [require]
-       68 GETTABLEKS                       R12 R0 K11 ["Src"]
-       70 GETTABLEKS                       R11 R12 K18 ["Contexts"]
-       72 GETTABLEKS                       R10 R11 K19 ["ScriptConversionContext"]
+       68 GETTABLEKS                       R10 R0 K11 ["Src"]
+       70 GETTABLEKS                       R10 R10 K18 ["Contexts"]
+       72 GETTABLEKS                       R10 R10 K19 ["ScriptConversionContext"]
        74 CALL                             R9 1 1
        75 GETIMPORT                        R10 K5 [require]
-       77 GETTABLEKS                       R13 R0 K11 ["Src"]
-       79 GETTABLEKS                       R12 R13 K20 ["Util"]
-       81 GETTABLEKS                       R11 R12 K21 ["showDialog"]
+       77 GETTABLEKS                       R11 R0 K11 ["Src"]
+       79 GETTABLEKS                       R11 R11 K20 ["Util"]
+       81 GETTABLEKS                       R11 R11 K21 ["showDialog"]
        83 CALL                             R10 1 1
        84 GETIMPORT                        R11 K5 [require]
-       86 GETTABLEKS                       R15 R0 K11 ["Src"]
-       88 GETTABLEKS                       R14 R15 K20 ["Util"]
-       90 GETTABLEKS                       R13 R14 K22 ["ScriptHistory"]
-       92 GETTABLEKS                       R12 R13 K23 ["selectionHasScriptBackups"]
+       86 GETTABLEKS                       R12 R0 K11 ["Src"]
+       88 GETTABLEKS                       R12 R12 K20 ["Util"]
+       90 GETTABLEKS                       R12 R12 K22 ["ScriptHistory"]
+       92 GETTABLEKS                       R12 R12 K23 ["selectionHasScriptBackups"]
        94 CALL                             R11 1 1
        95 GETTABLEKS                       R12 R1 K24 ["UI"]
        97 GETTABLEKS                       R13 R12 K25 ["Pane"]

@@ -50,14 +50,14 @@ PROTO_1:
        24 JUMPIFNOT                        R2 ; [+4]
        25 GETTABLEKS                       R2 R0 K7 ["_parent"]
        27 GETTABLEKS                       R1 R2 K10 ["Size"]
-       29 GETTABLEKS                       R3 R0 K11 ["_light"]
-       31 GETTABLEKS                       R2 R3 K12 ["Enabled"]
-       33 GETTABLEKS                       R4 R0 K11 ["_light"]
-       35 GETTABLEKS                       R3 R4 K13 ["Color"]
-       37 GETTABLEKS                       R5 R0 K11 ["_light"]
-       39 GETTABLEKS                       R4 R5 K14 ["Range"]
-       41 GETTABLEKS                       R6 R0 K11 ["_light"]
-       43 GETTABLEKS                       R5 R6 K15 ["Angle"]
+       29 GETTABLEKS                       R2 R0 K11 ["_light"]
+       31 GETTABLEKS                       R2 R2 K12 ["Enabled"]
+       33 GETTABLEKS                       R3 R0 K11 ["_light"]
+       35 GETTABLEKS                       R3 R3 K13 ["Color"]
+       37 GETTABLEKS                       R4 R0 K11 ["_light"]
+       39 GETTABLEKS                       R4 R4 K14 ["Range"]
+       41 GETTABLEKS                       R5 R0 K11 ["_light"]
+       43 GETTABLEKS                       R5 R5 K15 ["Angle"]
        45 FASTCALL1                        MATH_RAD R5 ; [+3]
        46 MOVE                             R7 R5
        47 GETIMPORT                        R6 K18 [math.rad]
@@ -74,51 +74,51 @@ PROTO_1:
        61 MUL                              R9 R4 R10
        62 MULK                             R8 R9 K19 [2]
        63 GETIMPORT                        R9 K25 [Vector3.fromNormalId]
-       65 GETTABLEKS                       R11 R0 K11 ["_light"]
-       67 GETTABLEKS                       R10 R11 K26 ["Face"]
+       65 GETTABLEKS                       R10 R0 K11 ["_light"]
+       67 GETTABLEKS                       R10 R10 K26 ["Face"]
        69 CALL                             R9 1 1
-       70 GETIMPORT                        R13 K29 [CFrame.Angles]
-       72 LOADN                            R14 0
-       73 GETTABLEKS                       R18 R9 K32 ["Y"]
-       75 SUBK                             R17 R18 K31 [1]
-       76 MULK                             R16 R17 K30 [3.14159265358979]
-       77 DIVK                             R15 R16 K19 [2]
-       78 GETTABLEKS                       R20 R9 K33 ["Z"]
-       80 SUBK                             R19 R20 K31 [1]
-       81 GETTABLEKS                       R21 R9 K34 ["X"]
-       83 SUBK                             R20 R21 K31 [1]
-       84 MUL                              R18 R19 R20
-       85 MULK                             R17 R18 K30 [3.14159265358979]
-       86 DIVK                             R16 R17 K19 [2]
-       87 CALL                             R13 3 1
-       88 MUL                              R12 R13 R9
-       89 MUL                              R11 R1 R12
-       90 GETTABLEKS                       R10 R11 K35 ["magnitude"]
-       92 GETIMPORT                        R14 K29 [CFrame.Angles]
-       94 GETTABLEKS                       R18 R9 K34 ["X"]
-       96 SUBK                             R17 R18 K31 [1]
-       97 MULK                             R16 R17 K30 [3.14159265358979]
-       98 DIVK                             R15 R16 K19 [2]
-       99 LOADN                            R16 0
-      100 GETTABLEKS                       R21 R9 K33 ["Z"]
-      102 SUBK                             R20 R21 K31 [1]
-      103 GETTABLEKS                       R22 R9 K32 ["Y"]
-      105 SUBK                             R21 R22 K31 [1]
-      106 MUL                              R19 R20 R21
-      107 MULK                             R18 R19 K30 [3.14159265358979]
-      108 DIVK                             R17 R18 K19 [2]
-      109 CALL                             R14 3 1
-      110 MUL                              R13 R14 R9
-      111 MUL                              R12 R1 R13
-      112 GETTABLEKS                       R11 R12 K35 ["magnitude"]
+       70 GETIMPORT                        R12 K29 [CFrame.Angles]
+       72 LOADN                            R13 0
+       73 GETTABLEKS                       R17 R9 K32 ["Y"]
+       75 SUBK                             R16 R17 K31 [1]
+       76 MULK                             R15 R16 K30 [3.14159265358979]
+       77 DIVK                             R14 R15 K19 [2]
+       78 GETTABLEKS                       R19 R9 K33 ["Z"]
+       80 SUBK                             R18 R19 K31 [1]
+       81 GETTABLEKS                       R20 R9 K34 ["X"]
+       83 SUBK                             R19 R20 K31 [1]
+       84 MUL                              R17 R18 R19
+       85 MULK                             R16 R17 K30 [3.14159265358979]
+       86 DIVK                             R15 R16 K19 [2]
+       87 CALL                             R12 3 1
+       88 MUL                              R11 R12 R9
+       89 MUL                              R10 R1 R11
+       90 GETTABLEKS                       R10 R10 K35 ["magnitude"]
+       92 GETIMPORT                        R13 K29 [CFrame.Angles]
+       94 GETTABLEKS                       R17 R9 K34 ["X"]
+       96 SUBK                             R16 R17 K31 [1]
+       97 MULK                             R15 R16 K30 [3.14159265358979]
+       98 DIVK                             R14 R15 K19 [2]
+       99 LOADN                            R15 0
+      100 GETTABLEKS                       R20 R9 K33 ["Z"]
+      102 SUBK                             R19 R20 K31 [1]
+      103 GETTABLEKS                       R21 R9 K32 ["Y"]
+      105 SUBK                             R20 R21 K31 [1]
+      106 MUL                              R18 R19 R20
+      107 MULK                             R17 R18 K30 [3.14159265358979]
+      108 DIVK                             R16 R17 K19 [2]
+      109 CALL                             R13 3 1
+      110 MUL                              R12 R13 R9
+      111 MUL                              R11 R1 R12
+      112 GETTABLEKS                       R11 R11 K35 ["magnitude"]
       114 ADD                              R12 R10 R8
       115 ADD                              R13 R11 R8
-      116 GETIMPORT                        R16 K25 [Vector3.fromNormalId]
-      118 GETTABLEKS                       R18 R0 K11 ["_light"]
-      120 GETTABLEKS                       R17 R18 K26 ["Face"]
-      122 CALL                             R16 1 1
-      123 MUL                              R15 R1 R16
-      124 GETTABLEKS                       R14 R15 K35 ["magnitude"]
+      116 GETIMPORT                        R15 K25 [Vector3.fromNormalId]
+      118 GETTABLEKS                       R16 R0 K11 ["_light"]
+      120 GETTABLEKS                       R16 R16 K26 ["Face"]
+      122 CALL                             R15 1 1
+      123 MUL                              R14 R1 R15
+      124 GETTABLEKS                       R14 R14 K35 ["magnitude"]
       126 SUB                              R17 R12 R10
       127 DIVK                             R16 R17 K19 [2]
       128 FASTCALL2K                       MATH_POW R16 K19 ; [+4]
@@ -141,32 +141,32 @@ PROTO_1:
       151 FASTCALL1                        MATH_SQRT R19 ; [+2]
       152 GETIMPORT                        R18 K39 [math.sqrt]
       154 CALL                             R18 1 1
-      155 GETTABLEKS                       R20 R0 K40 ["_handles"]
-      157 GETTABLEKS                       R19 R20 K41 ["innerTopOutline"]
-      159 GETTABLEKS                       R21 R0 K40 ["_handles"]
-      161 GETTABLEKS                       R20 R21 K42 ["innerBottomOutline"]
-      163 GETTABLEKS                       R22 R0 K40 ["_handles"]
-      165 GETTABLEKS                       R21 R22 K43 ["innerLeftOutline"]
-      167 GETTABLEKS                       R23 R0 K40 ["_handles"]
-      169 GETTABLEKS                       R22 R23 K44 ["innerRightOutline"]
-      171 GETTABLEKS                       R24 R0 K40 ["_handles"]
-      173 GETTABLEKS                       R23 R24 K45 ["outerTopOutline"]
-      175 GETTABLEKS                       R25 R0 K40 ["_handles"]
-      177 GETTABLEKS                       R24 R25 K46 ["outerBottomOutline"]
-      179 GETTABLEKS                       R26 R0 K40 ["_handles"]
-      181 GETTABLEKS                       R25 R26 K47 ["outerLeftOutline"]
-      183 GETTABLEKS                       R27 R0 K40 ["_handles"]
-      185 GETTABLEKS                       R26 R27 K48 ["outerRightOutline"]
-      187 GETTABLEKS                       R28 R0 K40 ["_handles"]
-      189 GETTABLEKS                       R27 R28 K49 ["topLeftOutline"]
-      191 GETTABLEKS                       R29 R0 K40 ["_handles"]
-      193 GETTABLEKS                       R28 R29 K50 ["topRightOutline"]
-      195 GETTABLEKS                       R30 R0 K40 ["_handles"]
-      197 GETTABLEKS                       R29 R30 K51 ["bottomLeftOutline"]
-      199 GETTABLEKS                       R31 R0 K40 ["_handles"]
-      201 GETTABLEKS                       R30 R31 K52 ["bottomRightOutline"]
-      203 GETTABLEKS                       R32 R0 K40 ["_handles"]
-      205 GETTABLEKS                       R31 R32 K53 ["centerOutline"]
+      155 GETTABLEKS                       R19 R0 K40 ["_handles"]
+      157 GETTABLEKS                       R19 R19 K41 ["innerTopOutline"]
+      159 GETTABLEKS                       R20 R0 K40 ["_handles"]
+      161 GETTABLEKS                       R20 R20 K42 ["innerBottomOutline"]
+      163 GETTABLEKS                       R21 R0 K40 ["_handles"]
+      165 GETTABLEKS                       R21 R21 K43 ["innerLeftOutline"]
+      167 GETTABLEKS                       R22 R0 K40 ["_handles"]
+      169 GETTABLEKS                       R22 R22 K44 ["innerRightOutline"]
+      171 GETTABLEKS                       R23 R0 K40 ["_handles"]
+      173 GETTABLEKS                       R23 R23 K45 ["outerTopOutline"]
+      175 GETTABLEKS                       R24 R0 K40 ["_handles"]
+      177 GETTABLEKS                       R24 R24 K46 ["outerBottomOutline"]
+      179 GETTABLEKS                       R25 R0 K40 ["_handles"]
+      181 GETTABLEKS                       R25 R25 K47 ["outerLeftOutline"]
+      183 GETTABLEKS                       R26 R0 K40 ["_handles"]
+      185 GETTABLEKS                       R26 R26 K48 ["outerRightOutline"]
+      187 GETTABLEKS                       R27 R0 K40 ["_handles"]
+      189 GETTABLEKS                       R27 R27 K49 ["topLeftOutline"]
+      191 GETTABLEKS                       R28 R0 K40 ["_handles"]
+      193 GETTABLEKS                       R28 R28 K50 ["topRightOutline"]
+      195 GETTABLEKS                       R29 R0 K40 ["_handles"]
+      197 GETTABLEKS                       R29 R29 K51 ["bottomLeftOutline"]
+      199 GETTABLEKS                       R30 R0 K40 ["_handles"]
+      201 GETTABLEKS                       R30 R30 K52 ["bottomRightOutline"]
+      203 GETTABLEKS                       R31 R0 K40 ["_handles"]
+      205 GETTABLEKS                       R31 R31 K53 ["centerOutline"]
       207 SETTABLEKS                       R10 R19 K54 ["Height"]
       209 GETTABLEKS                       R32 R0 K55 ["_adornee"]
       211 SETTABLEKS                       R32 R19 K56 ["Adornee"]
@@ -233,8 +233,8 @@ PROTO_1:
       333 SETTABLEKS                       R2 R31 K57 ["Visible"]
       335 SETTABLEKS                       R3 R31 K58 ["Color3"]
       337 GETUPVAL                         R35 0
-      338 GETTABLEKS                       R37 R0 K11 ["_light"]
-      340 GETTABLEKS                       R36 R37 K26 ["Face"]
+      338 GETTABLEKS                       R36 R0 K11 ["_light"]
+      340 GETTABLEKS                       R36 R36 K26 ["Face"]
       342 GETTABLE                         R34 R35 R36
       343 MOVE                             R35 R10
       344 MOVE                             R36 R11
@@ -331,8 +331,8 @@ PROTO_5:
         2 RETURN                           R0 0
 
 PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["_light"]
-        2 GETTABLEKS                       R1 R2 K1 ["Parent"]
+        0 GETTABLEKS                       R1 R0 K0 ["_light"]
+        2 GETTABLEKS                       R1 R1 K1 ["Parent"]
         4 GETIMPORT                        R2 K4 [CFrame.new]
         6 FASTCALL                         VECTOR ; [+2]
         7 GETIMPORT                        R3 K6 [Vector3.new]
@@ -350,11 +350,11 @@ PROTO_6:
        22 NAMECALL                         R3 R1 K11 ["IsA"]
        24 CALL                             R3 2 1
        25 JUMPIFNOT                        R3 ; [+51]
-       26 GETTABLEKS                       R4 R0 K0 ["_light"]
-       28 GETTABLEKS                       R3 R4 K1 ["Parent"]
+       26 GETTABLEKS                       R3 R0 K0 ["_light"]
+       28 GETTABLEKS                       R3 R3 K1 ["Parent"]
        30 GETTABLEKS                       R1 R3 K1 ["Parent"]
-       32 GETTABLEKS                       R4 R0 K0 ["_light"]
-       34 GETTABLEKS                       R3 R4 K1 ["Parent"]
+       32 GETTABLEKS                       R3 R0 K0 ["_light"]
+       34 GETTABLEKS                       R3 R3 K1 ["Parent"]
        36 GETTABLEKS                       R2 R3 K2 ["CFrame"]
        38 GETUPVAL                         R3 0
        39 CALL                             R3 0 1
@@ -415,8 +415,8 @@ PROTO_6:
       110 RETURN                           R3 1
       111 SETTABLEKS                       R1 R0 K18 ["_adornee"]
       113 SETTABLEKS                       R2 R0 K19 ["_offset"]
-      115 GETTABLEKS                       R4 R0 K0 ["_light"]
-      117 GETTABLEKS                       R3 R4 K1 ["Parent"]
+      115 GETTABLEKS                       R3 R0 K0 ["_light"]
+      117 GETTABLEKS                       R3 R3 K1 ["Parent"]
       119 SETTABLEKS                       R3 R0 K20 ["_parent"]
       121 LOADB                            R3 1
       122 RETURN                           R3 1
@@ -444,8 +444,8 @@ PROTO_7:
        20 DIVK                             R18 R19 K1 [2]
        21 ADD                              R20 R6 R7
        22 DIVK                             R19 R20 K1 [2]
-       23 GETTABLEKS                       R21 R0 K6 ["_handles"]
-       25 GETTABLEKS                       R20 R21 K7 ["innerTopOutline"]
+       23 GETTABLEKS                       R20 R0 K6 ["_handles"]
+       25 GETTABLEKS                       R20 R20 K7 ["innerTopOutline"]
        27 GETTABLEKS                       R22 R0 K8 ["_offset"]
        29 GETIMPORT                        R25 K11 [CFrame.new]
        31 LOADN                            R26 0
@@ -461,8 +461,8 @@ PROTO_7:
        42 MUL                              R23 R24 R25
        43 MUL                              R21 R22 R23
        44 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-       46 GETTABLEKS                       R21 R0 K6 ["_handles"]
-       48 GETTABLEKS                       R20 R21 K15 ["innerBottomOutline"]
+       46 GETTABLEKS                       R20 R0 K6 ["_handles"]
+       48 GETTABLEKS                       R20 R20 K15 ["innerBottomOutline"]
        50 GETTABLEKS                       R22 R0 K8 ["_offset"]
        52 GETIMPORT                        R25 K11 [CFrame.new]
        54 LOADN                            R26 0
@@ -478,8 +478,8 @@ PROTO_7:
        65 MUL                              R23 R24 R25
        66 MUL                              R21 R22 R23
        67 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-       69 GETTABLEKS                       R21 R0 K6 ["_handles"]
-       71 GETTABLEKS                       R20 R21 K16 ["innerRightOutline"]
+       69 GETTABLEKS                       R20 R0 K6 ["_handles"]
+       71 GETTABLEKS                       R20 R20 K16 ["innerRightOutline"]
        73 GETTABLEKS                       R22 R0 K8 ["_offset"]
        75 GETIMPORT                        R25 K11 [CFrame.new]
        77 MOVE                             R26 R12
@@ -495,8 +495,8 @@ PROTO_7:
        88 MUL                              R23 R24 R25
        89 MUL                              R21 R22 R23
        90 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-       92 GETTABLEKS                       R21 R0 K6 ["_handles"]
-       94 GETTABLEKS                       R20 R21 K17 ["innerLeftOutline"]
+       92 GETTABLEKS                       R20 R0 K6 ["_handles"]
+       94 GETTABLEKS                       R20 R20 K17 ["innerLeftOutline"]
        96 GETTABLEKS                       R22 R0 K8 ["_offset"]
        98 GETIMPORT                        R25 K11 [CFrame.new]
       100 MINUS                            R26 R12
@@ -512,8 +512,8 @@ PROTO_7:
       111 MUL                              R23 R24 R25
       112 MUL                              R21 R22 R23
       113 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      115 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      117 GETTABLEKS                       R20 R21 K18 ["outerTopOutline"]
+      115 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      117 GETTABLEKS                       R20 R20 K18 ["outerTopOutline"]
       119 GETTABLEKS                       R24 R0 K8 ["_offset"]
       121 MUL                              R23 R24 R1
       122 GETIMPORT                        R24 K11 [CFrame.new]
@@ -529,8 +529,8 @@ PROTO_7:
       134 CALL                             R23 3 1
       135 MUL                              R21 R22 R23
       136 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      138 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      140 GETTABLEKS                       R20 R21 K19 ["outerBottomOutline"]
+      138 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      140 GETTABLEKS                       R20 R20 K19 ["outerBottomOutline"]
       142 GETTABLEKS                       R22 R0 K8 ["_offset"]
       144 GETIMPORT                        R25 K11 [CFrame.new]
       146 LOADN                            R26 0
@@ -546,8 +546,8 @@ PROTO_7:
       157 MUL                              R23 R24 R25
       158 MUL                              R21 R22 R23
       159 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      161 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      163 GETTABLEKS                       R20 R21 K20 ["outerLeftOutline"]
+      161 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      163 GETTABLEKS                       R20 R20 K20 ["outerLeftOutline"]
       165 GETTABLEKS                       R22 R0 K8 ["_offset"]
       167 GETIMPORT                        R25 K11 [CFrame.new]
       169 MOVE                             R26 R14
@@ -563,8 +563,8 @@ PROTO_7:
       180 MUL                              R23 R24 R25
       181 MUL                              R21 R22 R23
       182 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      184 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      186 GETTABLEKS                       R20 R21 K21 ["outerRightOutline"]
+      184 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      186 GETTABLEKS                       R20 R20 K21 ["outerRightOutline"]
       188 GETTABLEKS                       R22 R0 K8 ["_offset"]
       190 GETIMPORT                        R25 K11 [CFrame.new]
       192 MINUS                            R26 R14
@@ -580,8 +580,8 @@ PROTO_7:
       203 MUL                              R23 R24 R25
       204 MUL                              R21 R22 R23
       205 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      207 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      209 GETTABLEKS                       R20 R21 K22 ["topLeftOutline"]
+      207 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      209 GETTABLEKS                       R20 R20 K22 ["topLeftOutline"]
       211 GETTABLEKS                       R22 R0 K8 ["_offset"]
       213 GETIMPORT                        R26 K11 [CFrame.new]
       215 MOVE                             R27 R16
@@ -603,8 +603,8 @@ PROTO_7:
       233 MUL                              R23 R24 R25
       234 MUL                              R21 R22 R23
       235 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      237 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      239 GETTABLEKS                       R20 R21 K24 ["topRightOutline"]
+      237 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      239 GETTABLEKS                       R20 R20 K24 ["topRightOutline"]
       241 GETTABLEKS                       R22 R0 K8 ["_offset"]
       243 GETIMPORT                        R26 K11 [CFrame.new]
       245 MINUS                            R27 R16
@@ -626,8 +626,8 @@ PROTO_7:
       263 MUL                              R23 R24 R25
       264 MUL                              R21 R22 R23
       265 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      267 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      269 GETTABLEKS                       R20 R21 K26 ["bottomLeftOutline"]
+      267 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      269 GETTABLEKS                       R20 R20 K26 ["bottomLeftOutline"]
       271 GETTABLEKS                       R22 R0 K8 ["_offset"]
       273 GETIMPORT                        R26 K11 [CFrame.new]
       275 MOVE                             R27 R16
@@ -649,8 +649,8 @@ PROTO_7:
       293 MUL                              R23 R24 R25
       294 MUL                              R21 R22 R23
       295 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      297 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      299 GETTABLEKS                       R20 R21 K27 ["bottomRightOutline"]
+      297 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      299 GETTABLEKS                       R20 R20 K27 ["bottomRightOutline"]
       301 GETTABLEKS                       R22 R0 K8 ["_offset"]
       303 GETIMPORT                        R26 K11 [CFrame.new]
       305 MINUS                            R27 R16
@@ -672,8 +672,8 @@ PROTO_7:
       323 MUL                              R23 R24 R25
       324 MUL                              R21 R22 R23
       325 SETTABLEKS                       R21 R20 K9 ["CFrame"]
-      327 GETTABLEKS                       R21 R0 K6 ["_handles"]
-      329 GETTABLEKS                       R20 R21 K28 ["centerOutline"]
+      327 GETTABLEKS                       R20 R0 K6 ["_handles"]
+      329 GETTABLEKS                       R20 R20 K28 ["centerOutline"]
       331 GETTABLEKS                       R22 R0 K8 ["_offset"]
       333 GETIMPORT                        R24 K11 [CFrame.new]
       335 LOADN                            R25 0
@@ -851,56 +851,56 @@ PROTO_9:
         2 JUMPIFNOT                        R1 ; [+97]
         3 GETTABLEKS                       R1 R0 K1 ["_handlesPresent"]
         5 JUMPIFNOT                        R1 ; [+94]
-        6 GETTABLEKS                       R2 R0 K0 ["_handles"]
-        8 GETTABLEKS                       R1 R2 K2 ["innerTopOutline"]
+        6 GETTABLEKS                       R1 R0 K0 ["_handles"]
+        8 GETTABLEKS                       R1 R1 K2 ["innerTopOutline"]
        10 NAMECALL                         R1 R1 K3 ["Destroy"]
        12 CALL                             R1 1 0
-       13 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       15 GETTABLEKS                       R1 R2 K4 ["innerBottomOutline"]
+       13 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       15 GETTABLEKS                       R1 R1 K4 ["innerBottomOutline"]
        17 NAMECALL                         R1 R1 K3 ["Destroy"]
        19 CALL                             R1 1 0
-       20 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       22 GETTABLEKS                       R1 R2 K5 ["innerLeftOutline"]
+       20 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       22 GETTABLEKS                       R1 R1 K5 ["innerLeftOutline"]
        24 NAMECALL                         R1 R1 K3 ["Destroy"]
        26 CALL                             R1 1 0
-       27 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       29 GETTABLEKS                       R1 R2 K6 ["innerRightOutline"]
+       27 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       29 GETTABLEKS                       R1 R1 K6 ["innerRightOutline"]
        31 NAMECALL                         R1 R1 K3 ["Destroy"]
        33 CALL                             R1 1 0
-       34 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       36 GETTABLEKS                       R1 R2 K7 ["outerTopOutline"]
+       34 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       36 GETTABLEKS                       R1 R1 K7 ["outerTopOutline"]
        38 NAMECALL                         R1 R1 K3 ["Destroy"]
        40 CALL                             R1 1 0
-       41 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       43 GETTABLEKS                       R1 R2 K8 ["outerBottomOutline"]
+       41 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       43 GETTABLEKS                       R1 R1 K8 ["outerBottomOutline"]
        45 NAMECALL                         R1 R1 K3 ["Destroy"]
        47 CALL                             R1 1 0
-       48 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       50 GETTABLEKS                       R1 R2 K9 ["outerLeftOutline"]
+       48 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       50 GETTABLEKS                       R1 R1 K9 ["outerLeftOutline"]
        52 NAMECALL                         R1 R1 K3 ["Destroy"]
        54 CALL                             R1 1 0
-       55 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       57 GETTABLEKS                       R1 R2 K10 ["outerRightOutline"]
+       55 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       57 GETTABLEKS                       R1 R1 K10 ["outerRightOutline"]
        59 NAMECALL                         R1 R1 K3 ["Destroy"]
        61 CALL                             R1 1 0
-       62 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       64 GETTABLEKS                       R1 R2 K11 ["topLeftOutline"]
+       62 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       64 GETTABLEKS                       R1 R1 K11 ["topLeftOutline"]
        66 NAMECALL                         R1 R1 K3 ["Destroy"]
        68 CALL                             R1 1 0
-       69 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       71 GETTABLEKS                       R1 R2 K12 ["topRightOutline"]
+       69 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       71 GETTABLEKS                       R1 R1 K12 ["topRightOutline"]
        73 NAMECALL                         R1 R1 K3 ["Destroy"]
        75 CALL                             R1 1 0
-       76 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       78 GETTABLEKS                       R1 R2 K13 ["bottomLeftOutline"]
+       76 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       78 GETTABLEKS                       R1 R1 K13 ["bottomLeftOutline"]
        80 NAMECALL                         R1 R1 K3 ["Destroy"]
        82 CALL                             R1 1 0
-       83 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       85 GETTABLEKS                       R1 R2 K14 ["bottomRightOutline"]
+       83 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       85 GETTABLEKS                       R1 R1 K14 ["bottomRightOutline"]
        87 NAMECALL                         R1 R1 K3 ["Destroy"]
        89 CALL                             R1 1 0
-       90 GETTABLEKS                       R2 R0 K0 ["_handles"]
-       92 GETTABLEKS                       R1 R2 K15 ["centerOutline"]
+       90 GETTABLEKS                       R1 R0 K0 ["_handles"]
+       92 GETTABLEKS                       R1 R1 K15 ["centerOutline"]
        94 NAMECALL                         R1 R1 K3 ["Destroy"]
        96 CALL                             R1 1 0
        97 LOADB                            R1 0
@@ -940,8 +940,8 @@ PROTO_13:
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["_listener"]
         2 JUMPIF                           R1 ; [+11]
-        3 GETTABLEKS                       R2 R0 K1 ["_light"]
-        5 GETTABLEKS                       R1 R2 K2 ["Changed"]
+        3 GETTABLEKS                       R1 R0 K1 ["_light"]
+        5 GETTABLEKS                       R1 R1 K2 ["Changed"]
         7 NEWCLOSURE                       R3 P0
         8 CAPTURE                          VAL R0
         9 NAMECALL                         R1 R1 K3 ["Connect"]
@@ -1038,16 +1038,16 @@ PROTO_15:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R0 K5 ["Src"]
-       18 GETTABLEKS                       R2 R3 K7 ["Utility"]
+       16 GETTABLEKS                       R2 R0 K5 ["Src"]
+       18 GETTABLEKS                       R2 R2 K7 ["Utility"]
        20 GETIMPORT                        R3 K4 [require]
        22 GETTABLEKS                       R4 R2 K8 ["Constants"]
        24 CALL                             R3 1 1

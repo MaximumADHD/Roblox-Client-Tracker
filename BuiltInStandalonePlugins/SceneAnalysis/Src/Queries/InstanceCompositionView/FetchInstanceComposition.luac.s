@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["node"]
-        2 GETTABLEKS                       R1 R2 K1 ["Name"]
+        0 GETTABLEKS                       R1 R0 K0 ["node"]
+        2 GETTABLEKS                       R1 R1 K1 ["Name"]
         4 RETURN                           R1 1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K1 ["node"]
-        2 GETTABLEKS                       R2 R3 K2 ["childCount"]
+        0 GETTABLEKS                       R2 R0 K1 ["node"]
+        2 GETTABLEKS                       R2 R2 K2 ["childCount"]
         4 ORK                              R1 R2 K0 [0]
         5 RETURN                           R1 1
 
@@ -28,13 +28,13 @@ PROTO_4:
         3 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["get"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["get"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["instanceOrder"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["sortedIds"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["instanceOrder"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["sortedIds"]
        10 MOVE                             R3 R1
        11 GETTABLEKS                       R4 R0 K3 ["column"]
        13 GETTABLEKS                       R5 R0 K4 ["direction"]
@@ -65,8 +65,8 @@ PROTO_10:
         1 RETURN                           R0 1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
         4 LOADK                            R2 K1 ["asc"]
         5 GETTABLEKS                       R3 R1 K2 ["column"]
@@ -87,13 +87,13 @@ PROTO_11:
        28 SETTABLEKS                       R0 R4 K2 ["column"]
        30 SETTABLEKS                       R2 R4 K3 ["direction"]
        32 CALL                             R3 1 0
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R3 R4 K0 ["get"]
+       33 GETUPVAL                         R3 0
+       34 GETTABLEKS                       R3 R3 K0 ["get"]
        36 CALL                             R3 0 1
-       37 GETUPVAL                         R5 2
-       38 GETTABLEKS                       R4 R5 K8 ["instanceOrder"]
-       40 GETUPVAL                         R6 2
-       41 GETTABLEKS                       R5 R6 K9 ["sortedIds"]
+       37 GETUPVAL                         R4 2
+       38 GETTABLEKS                       R4 R4 K8 ["instanceOrder"]
+       40 GETUPVAL                         R5 2
+       41 GETTABLEKS                       R5 R5 K9 ["sortedIds"]
        43 MOVE                             R6 R4
        44 GETTABLEKS                       R7 R3 K2 ["column"]
        46 GETTABLEKS                       R8 R3 K3 ["direction"]
@@ -104,15 +104,15 @@ PROTO_11:
        52 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
         4 GETTABLE                         R2 R1 R0
         5 JUMPIF                           R2 ; [+2]
         6 LOADNIL                          R3
         7 RETURN                           R3 1
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K1 ["getNodeById"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K1 ["getNodeById"]
        11 MOVE                             R4 R2
        12 CALL                             R3 1 1
        13 JUMPIF                           R3 ; [+2]
@@ -128,8 +128,8 @@ PROTO_12:
        27 RETURN                           R4 1
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
         4 GETIMPORT                        R2 K2 [ipairs]
         6 MOVE                             R3 R1
@@ -142,14 +142,14 @@ PROTO_13:
        15 RETURN                           R2 1
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["nodeById"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["nodeById"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
 PROTO_15:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["parentById"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["parentById"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
@@ -168,29 +168,29 @@ PROTO_16:
        16 LOADNIL                          R3
        17 GETUPVAL                         R4 0
        18 JUMPIFNOTEQKS                    R4 K2 ["name"] ; [+12]
-       20 GETTABLEKS                       R5 R0 K0 ["n"]
-       22 GETTABLEKS                       R4 R5 K4 ["Name"]
+       20 GETTABLEKS                       R4 R0 K0 ["n"]
+       22 GETTABLEKS                       R4 R4 K4 ["Name"]
        24 ORK                              R2 R4 K3 [""]
-       25 GETTABLEKS                       R5 R1 K0 ["n"]
-       27 GETTABLEKS                       R4 R5 K4 ["Name"]
+       25 GETTABLEKS                       R4 R1 K0 ["n"]
+       27 GETTABLEKS                       R4 R4 K4 ["Name"]
        29 ORK                              R3 R4 K3 [""]
        30 JUMP                             ; [+37]
        31 GETUPVAL                         R4 0
        32 JUMPIFNOTEQKS                    R4 K5 ["count"] ; [+12]
-       34 GETTABLEKS                       R5 R0 K0 ["n"]
-       36 GETTABLEKS                       R4 R5 K7 ["childCount"]
+       34 GETTABLEKS                       R4 R0 K0 ["n"]
+       36 GETTABLEKS                       R4 R4 K7 ["childCount"]
        38 ORK                              R2 R4 K6 [0]
-       39 GETTABLEKS                       R5 R1 K0 ["n"]
-       41 GETTABLEKS                       R4 R5 K7 ["childCount"]
+       39 GETTABLEKS                       R4 R1 K0 ["n"]
+       41 GETTABLEKS                       R4 R4 K7 ["childCount"]
        43 ORK                              R3 R4 K6 [0]
        44 JUMP                             ; [+23]
        45 GETUPVAL                         R4 0
        46 JUMPIFNOTEQKS                    R4 K8 ["size"] ; [+12]
-       48 GETTABLEKS                       R5 R0 K0 ["n"]
-       50 GETTABLEKS                       R4 R5 K9 ["Size"]
+       48 GETTABLEKS                       R4 R0 K0 ["n"]
+       50 GETTABLEKS                       R4 R4 K9 ["Size"]
        52 ORK                              R2 R4 K6 [0]
-       53 GETTABLEKS                       R5 R1 K0 ["n"]
-       55 GETTABLEKS                       R4 R5 K9 ["Size"]
+       53 GETTABLEKS                       R4 R1 K0 ["n"]
+       55 GETTABLEKS                       R4 R4 K9 ["Size"]
        57 ORK                              R3 R4 K6 [0]
        58 JUMP                             ; [+9]
        59 GETTABLEKS                       R5 R0 K1 ["id"]
@@ -228,8 +228,8 @@ PROTO_17:
         9 LOADNIL                          R6
        10 LOADNIL                          R7
        11 FORGPREP                         R5
-       12 GETUPVAL                         R12 0
-       13 GETTABLEKS                       R11 R12 K4 ["nodeById"]
+       12 GETUPVAL                         R11 0
+       13 GETTABLEKS                       R11 R11 K4 ["nodeById"]
        15 GETTABLE                         R10 R11 R9
        16 DUPTABLE                         R11 K7 [{"id", "n"}]
        17 SETTABLEKS                       R9 R11 K5 ["id"]
@@ -260,15 +260,15 @@ PROTO_18:
         2 NAMECALL                         R1 R1 K1 ["CallAssetPluginAsync"]
         4 CALL                             R1 2 1
         5 JUMPIF                           R1 ; [+5]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R2 R3 K2 ["reset"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K2 ["reset"]
         9 CALL                             R2 0 0
        10 RETURN                           R0 0
-       11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R2 R3 K3 ["buildNodeMaps"]
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K3 ["buildNodeMaps"]
        14 MOVE                             R3 R1
-       15 GETUPVAL                         R5 2
-       16 GETTABLEKS                       R4 R5 K4 ["isLeafNode"]
+       15 GETUPVAL                         R4 2
+       16 GETTABLEKS                       R4 R4 K4 ["isLeafNode"]
        18 CALL                             R2 2 3
        19 GETUPVAL                         R5 1
        20 SETTABLEKS                       R2 R5 K5 ["instanceOrder"]
@@ -283,13 +283,13 @@ PROTO_18:
        32 GETUPVAL                         R5 4
        33 MOVE                             R6 R1
        34 CALL                             R5 1 0
-       35 GETUPVAL                         R6 5
-       36 GETTABLEKS                       R5 R6 K8 ["get"]
+       35 GETUPVAL                         R5 5
+       36 GETTABLEKS                       R5 R5 K8 ["get"]
        38 CALL                             R5 0 1
-       39 GETUPVAL                         R7 1
-       40 GETTABLEKS                       R6 R7 K5 ["instanceOrder"]
-       42 GETUPVAL                         R8 1
-       43 GETTABLEKS                       R7 R8 K9 ["sortedIds"]
+       39 GETUPVAL                         R6 1
+       40 GETTABLEKS                       R6 R6 K5 ["instanceOrder"]
+       42 GETUPVAL                         R7 1
+       43 GETTABLEKS                       R7 R7 K9 ["sortedIds"]
        45 MOVE                             R8 R6
        46 GETTABLEKS                       R9 R5 K10 ["column"]
        48 GETTABLEKS                       R10 R5 K11 ["direction"]
@@ -360,13 +360,13 @@ PROTO_21:
        14 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getNodeById"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getNodeById"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 JUMPIFNOT                        R1 ; [+5]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["selectInstances"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["selectInstances"]
         9 MOVE                             R3 R1
        10 CALL                             R2 1 0
        11 RETURN                           R0 0
@@ -379,19 +379,19 @@ MAIN:
         6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
         8 CALL                             R1 2 1
         9 GETIMPORT                        R2 K5 [require]
-       11 GETTABLEKS                       R5 R1 K6 ["Src"]
-       13 GETTABLEKS                       R4 R5 K7 ["Util"]
-       15 GETTABLEKS                       R3 R4 K8 ["AssetDMBridge"]
+       11 GETTABLEKS                       R3 R1 K6 ["Src"]
+       13 GETTABLEKS                       R3 R3 K7 ["Util"]
+       15 GETTABLEKS                       R3 R3 K8 ["AssetDMBridge"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R1 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K7 ["Util"]
-       24 GETTABLEKS                       R4 R5 K9 ["measureHeaderText"]
+       20 GETTABLEKS                       R4 R1 K6 ["Src"]
+       22 GETTABLEKS                       R4 R4 K7 ["Util"]
+       24 GETTABLEKS                       R4 R4 K9 ["measureHeaderText"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R1 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K7 ["Util"]
-       33 GETTABLEKS                       R5 R6 K10 ["ListViewUtils"]
+       29 GETTABLEKS                       R5 R1 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K7 ["Util"]
+       33 GETTABLEKS                       R5 R5 K10 ["ListViewUtils"]
        35 CALL                             R4 1 1
        36 NEWTABLE                         R5 0 2
        38 DUPTABLE                         R6 K20 [{"id", "headerText", "headerKey", "sortKey", "width", "idealWidth", "priority", "order", "cell"}]
@@ -449,9 +449,9 @@ MAIN:
       116 NEWTABLE                         R6 0 0
       118 SETTABLEKS                       R6 R0 K34 ["parentById"]
       120 GETIMPORT                        R6 K5 [require]
-      122 GETTABLEKS                       R9 R1 K6 ["Src"]
-      124 GETTABLEKS                       R8 R9 K7 ["Util"]
-      126 GETTABLEKS                       R7 R8 K35 ["Observable"]
+      122 GETTABLEKS                       R7 R1 K6 ["Src"]
+      124 GETTABLEKS                       R7 R7 K7 ["Util"]
+      126 GETTABLEKS                       R7 R7 K35 ["Observable"]
       128 CALL                             R6 1 1
       129 GETTABLEKS                       R7 R6 K36 ["create"]
       131 NEWTABLE                         R8 0 0

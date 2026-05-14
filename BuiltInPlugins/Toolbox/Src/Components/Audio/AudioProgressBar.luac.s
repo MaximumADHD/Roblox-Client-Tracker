@@ -25,8 +25,8 @@ PROTO_2:
        12 GETTABLEKS                       R7 R1 K6 ["Position"]
        14 GETTABLEKS                       R8 R1 K7 ["Size"]
        16 GETTABLEKS                       R9 R1 K8 ["totalTime"]
-       18 GETTABLEKS                       R11 R1 K9 ["Stylizer"]
-       20 GETTABLEKS                       R10 R11 K10 ["progressBarColor"]
+       18 GETTABLEKS                       R10 R1 K9 ["Stylizer"]
+       20 GETTABLEKS                       R10 R10 K10 ["progressBarColor"]
        22 LOADN                            R11 0
        23 SETTABLEKS                       R11 R0 K11 ["progress"]
        25 JUMPIFEQKNIL                     R9 ; [+8]
@@ -34,8 +34,8 @@ PROTO_2:
        29 JUMPIFNOTEQ                      R4 R3 ; [+4]
        31 DIV                              R11 R6 R9
        32 SETTABLEKS                       R11 R0 K11 ["progress"]
-       34 GETUPVAL                         R12 0
-       35 GETTABLEKS                       R11 R12 K13 ["createElement"]
+       34 GETUPVAL                         R11 0
+       35 GETTABLEKS                       R11 R11 K13 ["createElement"]
        37 LOADK                            R12 K14 ["Frame"]
        38 DUPTABLE                         R13 K16 [{"AnchorPoint", "BackgroundTransparency", "LayoutOrder", "Position", "Size"}]
        39 SETTABLEKS                       R2 R13 K1 ["AnchorPoint"]
@@ -45,8 +45,8 @@ PROTO_2:
        46 SETTABLEKS                       R7 R13 K6 ["Position"]
        48 SETTABLEKS                       R8 R13 K7 ["Size"]
        50 DUPTABLE                         R14 K18 [{"ProgressBar"}]
-       51 GETUPVAL                         R16 0
-       52 GETTABLEKS                       R15 R16 K13 ["createElement"]
+       51 GETUPVAL                         R15 0
+       52 GETTABLEKS                       R15 R15 K13 ["createElement"]
        54 LOADK                            R16 K14 ["Frame"]
        55 DUPTABLE                         R17 K21 [{"AnchorPoint", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Position", "Size"}]
        56 GETIMPORT                        R18 K24 [Vector2.new]
@@ -97,11 +97,11 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K3 ["Packages"]
        13 GETIMPORT                        R2 K5 [require]
        15 GETTABLEKS                       R3 R1 K6 ["Roact"]
@@ -114,8 +114,8 @@ MAIN:
        27 CALL                             R4 1 1
        28 GETTABLEKS                       R5 R4 K9 ["ContextServices"]
        30 GETTABLEKS                       R6 R5 K10 ["withContext"]
-       32 GETTABLEKS                       R8 R0 K11 ["Src"]
-       34 GETTABLEKS                       R7 R8 K12 ["Util"]
+       32 GETTABLEKS                       R7 R0 K11 ["Src"]
+       34 GETTABLEKS                       R7 R7 K12 ["Util"]
        36 GETTABLEKS                       R8 R2 K13 ["Component"]
        38 LOADK                            R10 K14 ["AudioProgressBar"]
        39 NAMECALL                         R8 R8 K15 ["extend"]

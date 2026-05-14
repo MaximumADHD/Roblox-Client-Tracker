@@ -25,8 +25,8 @@ PROTO_2:
         1 JUMPIFEQKNIL                     R0 ; [+3]
         3 GETUPVAL                         R0 0
         4 RETURN                           R0 1
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R0 R1 K0 ["createBinding"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["createBinding"]
         8 GETUPVAL                         R1 2
         9 CALL                             R0 1 2
        10 GETUPVAL                         R2 3
@@ -37,8 +37,8 @@ PROTO_2:
        16 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 NEWCLOSURE                       R2 P0
         5 CAPTURE                          REF R0
@@ -76,8 +76,8 @@ PROTO_4:
        18 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["get"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
         4 LOADB                            R3 1
         5 FASTCALL1                        TYPEOF R1 ; [+3]
@@ -100,8 +100,8 @@ PROTO_6:
         1 RETURN                           R0 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["get"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["get"]
         3 CALL                             R0 0 1
         4 FASTCALL1                        TYPEOF R0 ; [+3]
         5 MOVE                             R2 R0
@@ -133,13 +133,13 @@ PROTO_7:
 
 PROTO_8:
         0 DUPCLOSURE                       R1 K0 [PROTO_4]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K1 ["useState"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K1 ["useState"]
         4 NEWCLOSURE                       R3 P1
         5 CAPTURE                          VAL R0
         6 CALL                             R2 1 2
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K2 ["useCallback"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K2 ["useCallback"]
        10 NEWCLOSURE                       R5 P2
        11 CAPTURE                          VAL R0
        12 CAPTURE                          VAL R3
@@ -147,8 +147,8 @@ PROTO_8:
        15 MOVE                             R7 R0
        16 SETLIST                          R6 R7 1 [1]
        18 CALL                             R4 2 1
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R5 R6 K3 ["useEffect"]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K3 ["useEffect"]
        22 MOVE                             R6 R4
        23 NEWTABLE                         R7 0 1
        25 MOVE                             R8 R4
@@ -164,8 +164,8 @@ PROTO_8:
        39 RETURN                           R2 1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFEQKNIL                     R0 ; [+7]
         5 MOVE                             R1 R0
         6 CALL                             R1 0 0
@@ -177,8 +177,8 @@ PROTO_9:
 PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 GETUPVAL                         R3 2
-        3 GETTABLEKS                       R2 R3 K0 ["get"]
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["get"]
         5 CALL                             R2 0 -1
         6 CALL                             R1 -1 1
         7 SETTABLEKS                       R1 R0 K1 ["current"]
@@ -186,8 +186,8 @@ PROTO_10:
        10 RETURN                           R0 1
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 JUMPIFEQKNIL                     R1 ; [+7]
         5 MOVE                             R2 R1
         6 CALL                             R2 0 0
@@ -202,8 +202,8 @@ PROTO_11:
        17 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["useRef"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["useRef"]
         3 LOADNIL                          R4
         4 CALL                             R3 1 1
         5 GETIMPORT                        R4 K3 [table.clone]
@@ -216,8 +216,8 @@ PROTO_12:
        15 CALL                             R5 2 0
        16 NEWCLOSURE                       R5 P0
        17 CAPTURE                          VAL R3
-       18 GETUPVAL                         R7 0
-       19 GETTABLEKS                       R6 R7 K6 ["useEffect"]
+       18 GETUPVAL                         R6 0
+       19 GETTABLEKS                       R6 R6 K6 ["useEffect"]
        21 NEWCLOSURE                       R7 P1
        22 CAPTURE                          VAL R3
        23 CAPTURE                          VAL R1
@@ -235,15 +235,15 @@ PROTO_12:
        36 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["create"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["create"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useMemo"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -258,18 +258,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["Signal"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Signal"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Hooks"]
-       29 GETTABLEKS                       R4 R5 K12 ["useEventConnection"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Hooks"]
+       29 GETTABLEKS                       R4 R4 K12 ["useEventConnection"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 4 0
        34 DUPCLOSURE                       R5 K13 [PROTO_3]

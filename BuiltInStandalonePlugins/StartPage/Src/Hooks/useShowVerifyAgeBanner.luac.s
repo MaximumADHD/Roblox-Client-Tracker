@@ -3,8 +3,8 @@ PROTO_0:
         1 FASTCALL1                        ASSERT R1 ; [+2]
         2 GETIMPORT                        R0 K1 [assert]
         4 CALL                             R0 1 0
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R0 R1 K2 ["useContext"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K2 ["useContext"]
         8 CALL                             R0 0 1
         9 GETUPVAL                         R1 2
        10 JUMPIFNOT                        R1 ; [+19]
@@ -33,19 +33,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Contexts"]
-       13 GETTABLEKS                       R2 R3 K8 ["SafetyFAEUpsellContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Contexts"]
+       13 GETTABLEKS                       R2 R2 K8 ["SafetyFAEUpsellContext"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K9 ["SharedFlags"]
-       22 GETTABLEKS                       R3 R4 K10 ["getFFlagLuaStartPageVerifyAgeBanner"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["SharedFlags"]
+       22 GETTABLEKS                       R3 R3 K10 ["getFFlagLuaStartPageVerifyAgeBanner"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K9 ["SharedFlags"]
-       31 GETTABLEKS                       R4 R5 K11 ["getFFlagStartPageEstablishTrustBanner"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K9 ["SharedFlags"]
+       31 GETTABLEKS                       R4 R4 K11 ["getFFlagStartPageEstablishTrustBanner"]
        33 CALL                             R3 1 1
        34 CALL                             R3 0 1
        35 DUPCLOSURE                       R4 K12 [PROTO_0]

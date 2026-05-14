@@ -10,8 +10,8 @@ PROTO_0:
        10 RETURN                           R0 0
        11 GETIMPORT                        R2 K4 [warn]
        13 LOADK                            R4 K5 ["Couldn't open %*: %*"]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K6 ["Name"]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K6 ["Name"]
        17 MOVE                             R7 R1
        18 NAMECALL                         R4 R4 K7 ["format"]
        20 CALL                             R4 3 1
@@ -20,9 +20,9 @@ PROTO_0:
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETIMPORT                        R3 K2 [settings]
-        2 CALL                             R3 0 1
-        3 GETTABLEKS                       R2 R3 K3 ["Studio"]
+        0 GETIMPORT                        R2 K2 [settings]
+        2 CALL                             R2 0 1
+        3 GETTABLEKS                       R2 R2 K3 ["Studio"]
         5 GETTABLEKS                       R1 R2 K0 ["Enable Temporary Tabs In Explorer"]
         7 JUMPIF                           R1 ; [+1]
         8 RETURN                           R0 0

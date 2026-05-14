@@ -1,8 +1,8 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["previewStatus"]
-        5 GETTABLEKS                       R2 R3 K2 ["userAddedAssets"]
+        3 GETTABLEKS                       R2 R1 K1 ["previewStatus"]
+        5 GETTABLEKS                       R2 R2 K2 ["userAddedAssets"]
         7 GETUPVAL                         R3 0
         8 MOVE                             R4 R2
         9 CALL                             R3 1 1
@@ -36,21 +36,21 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetUserAddedAssets"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetUserAddedAssets"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K9 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Framework"]
        24 CALL                             R2 1 1
-       25 GETTABLEKS                       R4 R2 K10 ["Util"]
-       27 GETTABLEKS                       R3 R4 K11 ["deepCopy"]
+       25 GETTABLEKS                       R3 R2 K10 ["Util"]
+       27 GETTABLEKS                       R3 R3 K11 ["deepCopy"]
        29 DUPCLOSURE                       R4 K12 [PROTO_1]
        30 CAPTURE                          VAL R3
        31 CAPTURE                          VAL R1

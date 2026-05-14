@@ -9,8 +9,8 @@ PROTO_0:
         8 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["BuildRobloxUrl"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["BuildRobloxUrl"]
         3 LOADK                            R2 K1 ["www"]
         4 LOADK                            R3 K2 ["places/%d/update#"]
         5 MOVE                             R4 R0
@@ -18,8 +18,8 @@ PROTO_1:
         7 RETURN                           R1 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["BuildWatchUrl"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["BuildWatchUrl"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 GETUPVAL                         R2 1
@@ -29,8 +29,8 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["BuildPlaceSettingsUrl"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["BuildPlaceSettingsUrl"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 GETUPVAL                         R2 1
@@ -40,8 +40,8 @@ PROTO_3:
        10 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BuildRobloxUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BuildRobloxUrl"]
         3 LOADK                            R1 K1 ["www"]
         4 LOADK                            R2 K2 ["localization/games/%d/configure"]
         5 GETUPVAL                         R3 1
@@ -71,14 +71,14 @@ PROTO_6:
        12 RETURN                           R0 1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["sendEventDeferred"]
         3 LOADK                            R1 K1 ["click_learn_more"]
         4 GETGLOBAL                        R2 K2 ["getAdditionalArgs"]
         6 CALL                             R2 0 -1
         7 CALL                             R0 -1 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K3 ["BuildRobloxUrl"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K3 ["BuildRobloxUrl"]
        11 LOADK                            R1 K4 ["create"]
        12 LOADK                            R2 K5 ["docs/production/promotion/experience-guidelines"]
        13 CALL                             R0 2 1
@@ -100,14 +100,14 @@ PROTO_8:
         9 RETURN                           R0 1
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["sendEventDeferred"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["sendEventDeferred"]
         3 LOADK                            R1 K1 ["click_experience_questionnaire"]
         4 GETGLOBAL                        R2 K2 ["getAdditionalArgs"]
         6 CALL                             R2 0 -1
         7 CALL                             R0 -1 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K3 ["BuildRobloxUrl"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K3 ["BuildRobloxUrl"]
        11 LOADK                            R1 K4 ["create"]
        12 LOADK                            R2 K5 ["dashboard/creations/experiences/%d/experience-questionnaire"]
        13 GETUPVAL                         R3 2
@@ -131,8 +131,8 @@ PROTO_10:
        10 RETURN                           R1 1
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BuildRobloxUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BuildRobloxUrl"]
         3 LOADK                            R1 K1 ["create"]
         4 LOADK                            R2 K2 ["dashboard/creations/experiences/%d/configure"]
         5 GETUPVAL                         R3 1
@@ -151,8 +151,8 @@ PROTO_12:
         4 RETURN                           R1 1
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["BuildRobloxUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["BuildRobloxUrl"]
         3 LOADK                            R1 K1 ["create"]
         4 LOADK                            R2 K2 ["dashboard/creations/experiences/%d/access"]
         5 GETUPVAL                         R3 1
@@ -184,19 +184,19 @@ MAIN:
        15 LOADK                            R4 K6 ["GuiService"]
        16 NAMECALL                         R2 R2 K5 ["GetService"]
        18 CALL                             R2 2 1
-       19 GETIMPORT                        R6 K8 [script]
-       21 GETTABLEKS                       R5 R6 K9 ["Parent"]
-       23 GETTABLEKS                       R4 R5 K9 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K9 ["Parent"]
+       19 GETIMPORT                        R3 K8 [script]
+       21 GETTABLEKS                       R3 R3 K9 ["Parent"]
+       23 GETTABLEKS                       R3 R3 K9 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K9 ["Parent"]
        27 GETIMPORT                        R4 K11 [require]
-       29 GETTABLEKS                       R7 R3 K12 ["Src"]
-       31 GETTABLEKS                       R6 R7 K13 ["Networking"]
-       33 GETTABLEKS                       R5 R6 K14 ["Http"]
+       29 GETTABLEKS                       R5 R3 K12 ["Src"]
+       31 GETTABLEKS                       R5 R5 K13 ["Networking"]
+       33 GETTABLEKS                       R5 R5 K14 ["Http"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K11 [require]
-       38 GETTABLEKS                       R8 R3 K12 ["Src"]
-       40 GETTABLEKS                       R7 R8 K15 ["Util"]
-       42 GETTABLEKS                       R6 R7 K16 ["Analytics"]
+       38 GETTABLEKS                       R6 R3 K12 ["Src"]
+       40 GETTABLEKS                       R6 R6 K15 ["Util"]
+       42 GETTABLEKS                       R6 R6 K16 ["Analytics"]
        44 CALL                             R5 1 1
        45 NEWTABLE                         R6 16 0
        47 DUPCLOSURE                       R7 K17 [PROTO_0]

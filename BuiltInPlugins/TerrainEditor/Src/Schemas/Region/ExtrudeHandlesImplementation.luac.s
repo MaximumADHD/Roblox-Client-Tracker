@@ -11,13 +11,13 @@ PROTO_0:
        13 JUMPIFNOT                        R5 ; [+18]
        14 GETTABLEKS                       R5 R1 K5 ["UseVolume"]
        16 JUMPIFNOT                        R5 ; [+15]
-       17 GETTABLEKS                       R7 R1 K4 ["Max"]
-       19 GETTABLEKS                       R6 R7 K6 ["X"]
-       21 GETTABLEKS                       R8 R1 K4 ["Max"]
-       23 GETTABLEKS                       R7 R8 K7 ["Y"]
+       17 GETTABLEKS                       R6 R1 K4 ["Max"]
+       19 GETTABLEKS                       R6 R6 K6 ["X"]
+       21 GETTABLEKS                       R7 R1 K4 ["Max"]
+       23 GETTABLEKS                       R7 R7 K7 ["Y"]
        25 MUL                              R5 R6 R7
-       26 GETTABLEKS                       R7 R1 K4 ["Max"]
-       28 GETTABLEKS                       R6 R7 K8 ["Z"]
+       26 GETTABLEKS                       R6 R1 K4 ["Max"]
+       28 GETTABLEKS                       R6 R6 K8 ["Z"]
        30 MUL                              R4 R5 R6
        31 JUMP                             ; [+1]
        32 LOADNIL                          R4
@@ -144,8 +144,8 @@ PROTO_4:
        89 CALL                             R8 3 1
        90 MOVE                             R4 R8
        91 LOADK                            R8 K11 [{1, 1, 1}]
-       92 GETUPVAL                         R10 1
-       93 GETTABLEKS                       R9 R10 K12 ["MaxRegion"]
+       92 GETUPVAL                         R9 1
+       93 GETTABLEKS                       R9 R9 K12 ["MaxRegion"]
        95 MUL                              R7 R8 R9
        96 NAMECALL                         R5 R4 K13 ["Min"]
        98 CALL                             R5 2 1
@@ -168,22 +168,22 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R4 R0 K0 ["_originalBoundingBoxCFrame"]
-        2 GETTABLEKS                       R7 R0 K0 ["_originalBoundingBoxCFrame"]
-        4 GETTABLEKS                       R6 R7 K1 ["Rotation"]
+        2 GETTABLEKS                       R6 R0 K0 ["_originalBoundingBoxCFrame"]
+        4 GETTABLEKS                       R6 R6 K1 ["Rotation"]
         6 MUL                              R5 R6 R2
         7 ADD                              R3 R4 R5
         8 GETTABLEKS                       R5 R0 K2 ["_originalBoundingBoxSize"]
        10 ADD                              R4 R5 R1
        11 NAMECALL                         R5 R0 K3 ["getMinMaxSizes"]
        13 CALL                             R5 1 2
-       14 GETTABLEKS                       R8 R0 K4 ["_draggerContext"]
-       16 GETTABLEKS                       R7 R8 K5 ["SnapToVoxels"]
+       14 GETTABLEKS                       R7 R0 K4 ["_draggerContext"]
+       16 GETTABLEKS                       R7 R7 K5 ["SnapToVoxels"]
        18 JUMPIFNOT                        R7 ; [+9]
        19 GETUPVAL                         R7 0
        20 MOVE                             R8 R3
        21 MOVE                             R9 R4
-       22 GETUPVAL                         R11 1
-       23 GETTABLEKS                       R10 R11 K6 ["VoxelResolution"]
+       22 GETUPVAL                         R10 1
+       23 GETTABLEKS                       R10 R10 K6 ["VoxelResolution"]
        25 CALL                             R7 3 2
        26 MOVE                             R3 R7
        27 MOVE                             R4 R8
@@ -205,8 +205,8 @@ PROTO_6:
        58 GETTABLEKS                       R7 R4 K9 ["Z"]
        60 GETTABLEKS                       R8 R5 K9 ["Z"]
        62 JUMPIFNOTLE                      R8 R7 ; [+9]
-       64 GETTABLEKS                       R8 R0 K4 ["_draggerContext"]
-       66 GETTABLEKS                       R7 R8 K10 ["updateRegion"]
+       64 GETTABLEKS                       R7 R0 K4 ["_draggerContext"]
+       66 GETTABLEKS                       R7 R7 K10 ["updateRegion"]
        68 MOVE                             R8 R3
        69 MOVE                             R9 R4
        70 CALL                             R7 2 0
@@ -244,56 +244,51 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["getBinarySearchedSize"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["getBinarySearchedSize"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["getVoxelAlignedRegion"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["getVoxelAlignedRegion"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       31 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       31 GETTABLEKS                       R4 R4 K11 ["Constants"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R7 R0 K6 ["Src"]
-       38 GETTABLEKS                       R6 R7 K12 ["Flags"]
-       40 GETTABLEKS                       R5 R6 K13 ["getFFlagTerrainEditorGenerationFeature"]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       40 GETTABLEKS                       R5 R5 K13 ["getFFlagTerrainEditorUpdateShortcuts"]
        42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R8 R0 K6 ["Src"]
-       47 GETTABLEKS                       R7 R8 K12 ["Flags"]
-       49 GETTABLEKS                       R6 R7 K14 ["getFFlagTerrainEditorUpdateShortcuts"]
-       51 CALL                             R5 1 1
-       52 NEWTABLE                         R6 16 0
-       54 SETTABLEKS                       R6 R6 K15 ["__index"]
-       56 DUPCLOSURE                       R7 K16 [PROTO_0]
-       57 CAPTURE                          VAL R6
-       58 SETTABLEKS                       R7 R6 K17 ["new"]
-       60 DUPCLOSURE                       R7 K18 [PROTO_1]
-       61 SETTABLEKS                       R7 R6 K19 ["getBoundingBox"]
-       63 DUPCLOSURE                       R7 K20 [PROTO_2]
-       64 SETTABLEKS                       R7 R6 K21 ["shouldScaleFromCenter"]
-       66 DUPCLOSURE                       R7 K22 [PROTO_3]
-       67 CAPTURE                          VAL R5
-       68 SETTABLEKS                       R7 R6 K23 ["axesToScale"]
-       70 DUPCLOSURE                       R7 K24 [PROTO_4]
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R3
-       73 SETTABLEKS                       R7 R6 K25 ["getMinMaxSizes"]
-       75 DUPCLOSURE                       R7 K26 [PROTO_5]
-       76 SETTABLEKS                       R7 R6 K27 ["beginScale"]
-       78 DUPCLOSURE                       R7 K28 [PROTO_6]
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          VAL R3
-       81 SETTABLEKS                       R7 R6 K29 ["updateScale"]
-       83 DUPCLOSURE                       R7 K30 [PROTO_7]
-       84 SETTABLEKS                       R7 R6 K31 ["getPriority"]
-       86 DUPCLOSURE                       R7 K32 [PROTO_8]
-       87 SETTABLEKS                       R7 R6 K33 ["endScale"]
-       89 DUPCLOSURE                       R7 K34 [PROTO_9]
-       90 SETTABLEKS                       R7 R6 K35 ["render"]
-       92 RETURN                           R6 1
+       43 NEWTABLE                         R5 16 0
+       45 SETTABLEKS                       R5 R5 K14 ["__index"]
+       47 DUPCLOSURE                       R6 K15 [PROTO_0]
+       48 CAPTURE                          VAL R5
+       49 SETTABLEKS                       R6 R5 K16 ["new"]
+       51 DUPCLOSURE                       R6 K17 [PROTO_1]
+       52 SETTABLEKS                       R6 R5 K18 ["getBoundingBox"]
+       54 DUPCLOSURE                       R6 K19 [PROTO_2]
+       55 SETTABLEKS                       R6 R5 K20 ["shouldScaleFromCenter"]
+       57 DUPCLOSURE                       R6 K21 [PROTO_3]
+       58 CAPTURE                          VAL R4
+       59 SETTABLEKS                       R6 R5 K22 ["axesToScale"]
+       61 DUPCLOSURE                       R6 K23 [PROTO_4]
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R3
+       64 SETTABLEKS                       R6 R5 K24 ["getMinMaxSizes"]
+       66 DUPCLOSURE                       R6 K25 [PROTO_5]
+       67 SETTABLEKS                       R6 R5 K26 ["beginScale"]
+       69 DUPCLOSURE                       R6 K27 [PROTO_6]
+       70 CAPTURE                          VAL R2
+       71 CAPTURE                          VAL R3
+       72 SETTABLEKS                       R6 R5 K28 ["updateScale"]
+       74 DUPCLOSURE                       R6 K29 [PROTO_7]
+       75 SETTABLEKS                       R6 R5 K30 ["getPriority"]
+       77 DUPCLOSURE                       R6 K31 [PROTO_8]
+       78 SETTABLEKS                       R6 R5 K32 ["endScale"]
+       80 DUPCLOSURE                       R6 K33 [PROTO_9]
+       81 SETTABLEKS                       R6 R5 K34 ["render"]
+       83 RETURN                           R5 1

@@ -13,16 +13,16 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R5 1
-        2 GETTABLEKS                       R4 R5 K0 ["IMAGES"]
-        4 GETTABLEKS                       R3 R4 K1 ["Path"]
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["IMAGES"]
+        4 GETTABLEKS                       R3 R3 K1 ["Path"]
         6 JUMPIFEQ                         R2 R3 ; [+2]
         8 LOADB                            R1 0 +1
         9 LOADB                            R1 1
        10 GETUPVAL                         R3 0
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R5 R6 K2 ["MESHES"]
-       14 GETTABLEKS                       R4 R5 K1 ["Path"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K2 ["MESHES"]
+       14 GETTABLEKS                       R4 R4 K1 ["Path"]
        16 JUMPIFEQ                         R3 R4 ; [+2]
        18 LOADB                            R2 0 +1
        19 LOADB                            R2 1
@@ -30,9 +30,9 @@ PROTO_1:
        21 CALL                             R3 0 1
        22 JUMPIFNOT                        R3 ; [+10]
        23 GETUPVAL                         R4 0
-       24 GETUPVAL                         R7 1
-       25 GETTABLEKS                       R6 R7 K3 ["AUDIO"]
-       27 GETTABLEKS                       R5 R6 K1 ["Path"]
+       24 GETUPVAL                         R5 1
+       25 GETTABLEKS                       R5 R5 K3 ["AUDIO"]
+       27 GETTABLEKS                       R5 R5 K1 ["Path"]
        29 JUMPIFEQ                         R4 R5 ; [+2]
        31 LOADB                            R3 0 +1
        32 LOADB                            R3 1
@@ -40,16 +40,16 @@ PROTO_1:
        34 CALL                             R4 0 1
        35 JUMPIFNOT                        R4 ; [+10]
        36 GETUPVAL                         R5 0
-       37 GETUPVAL                         R8 1
-       38 GETTABLEKS                       R7 R8 K4 ["VIDEO"]
-       40 GETTABLEKS                       R6 R7 K1 ["Path"]
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R6 R6 K4 ["VIDEO"]
+       40 GETTABLEKS                       R6 R6 K1 ["Path"]
        42 JUMPIFEQ                         R5 R6 ; [+2]
        44 LOADB                            R4 0 +1
        45 LOADB                            R4 1
        46 GETUPVAL                         R6 0
-       47 GETUPVAL                         R9 1
-       48 GETTABLEKS                       R8 R9 K5 ["MODELS"]
-       50 GETTABLEKS                       R7 R8 K1 ["Path"]
+       47 GETUPVAL                         R7 1
+       48 GETTABLEKS                       R7 R7 K5 ["MODELS"]
+       50 GETTABLEKS                       R7 R7 K1 ["Path"]
        52 JUMPIFEQ                         R6 R7 ; [+2]
        54 LOADB                            R5 0 +1
        55 LOADB                            R5 1
@@ -69,12 +69,12 @@ PROTO_1:
        75 JUMPIF                           R7 ; [+1]
        76 MOVE                             R7 R5
        77 JUMPIFNOT                        R7 ; [+35]
-       78 GETUPVAL                         R11 4
-       79 GETTABLEKS                       R10 R11 K11 ["API"]
-       81 GETTABLEKS                       R9 R10 K12 ["Universes"]
-       83 GETTABLEKS                       R8 R9 K13 ["getAliases"]
-       85 GETIMPORT                        R10 K15 [game]
-       87 GETTABLEKS                       R9 R10 K16 ["GameId"]
+       78 GETUPVAL                         R8 4
+       79 GETTABLEKS                       R8 R8 K11 ["API"]
+       81 GETTABLEKS                       R8 R8 K12 ["Universes"]
+       83 GETTABLEKS                       R8 R8 K13 ["getAliases"]
+       85 GETIMPORT                        R9 K15 [game]
+       87 GETTABLEKS                       R9 R9 K16 ["GameId"]
        89 MOVE                             R10 R0
        90 CALL                             R8 2 1
        91 NAMECALL                         R8 R8 K17 ["makeRequest"]
@@ -122,35 +122,35 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R3 K4 [require]
-       18 GETTABLEKS                       R6 R0 K7 ["Src"]
-       20 GETTABLEKS                       R5 R6 K8 ["Util"]
-       22 GETTABLEKS                       R4 R5 K9 ["AssetManagerUtilities"]
-       24 CALL                             R3 1 1
-       25 GETTABLEKS                       R2 R3 K10 ["enableAudioImport"]
-       27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R7 R0 K7 ["Src"]
-       31 GETTABLEKS                       R6 R7 K8 ["Util"]
-       33 GETTABLEKS                       R5 R6 K9 ["AssetManagerUtilities"]
-       35 CALL                             R4 1 1
-       36 GETTABLEKS                       R3 R4 K11 ["enableVideoImport"]
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["AssetManagerUtilities"]
+       24 CALL                             R2 1 1
+       25 GETTABLEKS                       R2 R2 K10 ["enableAudioImport"]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K7 ["Src"]
+       31 GETTABLEKS                       R4 R4 K8 ["Util"]
+       33 GETTABLEKS                       R4 R4 K9 ["AssetManagerUtilities"]
+       35 CALL                             R3 1 1
+       36 GETTABLEKS                       R3 R3 K11 ["enableVideoImport"]
        38 GETIMPORT                        R4 K4 [require]
-       40 GETTABLEKS                       R7 R0 K7 ["Src"]
-       42 GETTABLEKS                       R6 R7 K12 ["Thunks"]
-       44 GETTABLEKS                       R5 R6 K13 ["GetAssetResponse"]
+       40 GETTABLEKS                       R5 R0 K7 ["Src"]
+       42 GETTABLEKS                       R5 R5 K12 ["Thunks"]
+       44 GETTABLEKS                       R5 R5 K13 ["GetAssetResponse"]
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K4 [require]
-       49 GETTABLEKS                       R8 R0 K7 ["Src"]
-       51 GETTABLEKS                       R7 R8 K8 ["Util"]
-       53 GETTABLEKS                       R6 R7 K14 ["Screens"]
+       49 GETTABLEKS                       R6 R0 K7 ["Src"]
+       51 GETTABLEKS                       R6 R6 K8 ["Util"]
+       53 GETTABLEKS                       R6 R6 K14 ["Screens"]
        55 CALL                             R5 1 1
        56 DUPCLOSURE                       R6 K15 [PROTO_2]
        57 CAPTURE                          VAL R5

@@ -2,42 +2,42 @@ PROTO_0:
         0 JUMPIFNOTEQKNIL                  R0 ; [+3]
         2 LOADNIL                          R1
         3 RETURN                           R1 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K0 ["isCatalogAsset"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K0 ["isCatalogAsset"]
         7 MOVE                             R2 R0
         8 CALL                             R1 1 1
         9 JUMPIF                           R1 ; [+6]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K1 ["isUGCBundleType"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K1 ["isUGCBundleType"]
        13 MOVE                             R2 R0
        14 CALL                             R1 1 1
        15 JUMPIFNOT                        R1 ; [+4]
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R1 R2 K2 ["Catalog"]
+       16 GETUPVAL                         R1 1
+       17 GETTABLEKS                       R1 R1 K2 ["Catalog"]
        19 RETURN                           R1 1
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R1 R2 K3 ["Marketplace"]
+       20 GETUPVAL                         R1 1
+       21 GETTABLEKS                       R1 R1 K3 ["Marketplace"]
        23 RETURN                           R1 1
 
 PROTO_1:
         0 JUMPIFNOTEQKNIL                  R1 ; [+3]
         2 LOADNIL                          R3
         3 JUMP                             ; [+19]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K0 ["isCatalogAsset"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K0 ["isCatalogAsset"]
         7 MOVE                             R5 R1
         8 CALL                             R4 1 1
         9 JUMPIF                           R4 ; [+6]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K1 ["isUGCBundleType"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K1 ["isUGCBundleType"]
        13 MOVE                             R5 R1
        14 CALL                             R4 1 1
        15 JUMPIFNOT                        R4 ; [+4]
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R3 R4 K2 ["Catalog"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K2 ["Catalog"]
        19 JUMP                             ; [+3]
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K3 ["Marketplace"]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K3 ["Marketplace"]
        23 JUMPIFNOTEQKNIL                  R3 ; [+3]
        25 LOADB                            R4 0
        26 RETURN                           R4 1
@@ -69,12 +69,12 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Src"]
-       11 GETTABLEKS                       R1 R2 K4 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R1 K4 ["Util"]
        13 GETIMPORT                        R2 K6 [require]
        15 GETTABLEKS                       R3 R1 K7 ["convertArrayToTable"]
        17 CALL                             R2 1 1
@@ -112,8 +112,8 @@ MAIN:
        62 SETTABLEKS                       R8 R7 K27 ["Catalog"]
        64 GETTABLEKS                       R8 R5 K25 ["keys"]
        66 NEWTABLE                         R9 4 0
-       68 GETTABLEKS                       R11 R3 K29 ["FLOW_TYPE"]
-       70 GETTABLEKS                       R10 R11 K30 ["DOWNLOAD_FLOW"]
+       68 GETTABLEKS                       R10 R3 K29 ["FLOW_TYPE"]
+       70 GETTABLEKS                       R10 R10 K30 ["DOWNLOAD_FLOW"]
        72 NEWTABLE                         R11 2 0
        74 GETTABLEKS                       R12 R7 K26 ["Marketplace"]
        76 NEWTABLE                         R13 8 0
@@ -170,8 +170,8 @@ MAIN:
       146 SETTABLE                         R15 R13 R14
       147 SETTABLE                         R13 R11 R12
       148 SETTABLE                         R11 R9 R10
-      149 GETTABLEKS                       R11 R3 K29 ["FLOW_TYPE"]
-      151 GETTABLEKS                       R10 R11 K31 ["EDIT_FLOW"]
+      149 GETTABLEKS                       R10 R3 K29 ["FLOW_TYPE"]
+      151 GETTABLEKS                       R10 R10 K31 ["EDIT_FLOW"]
       153 NEWTABLE                         R11 2 0
       155 GETTABLEKS                       R12 R7 K26 ["Marketplace"]
       157 NEWTABLE                         R13 8 0
@@ -210,8 +210,8 @@ MAIN:
       203 SETTABLE                         R15 R13 R14
       204 SETTABLE                         R13 R11 R12
       205 SETTABLE                         R11 R9 R10
-      206 GETTABLEKS                       R11 R3 K29 ["FLOW_TYPE"]
-      208 GETTABLEKS                       R10 R11 K32 ["UPLOAD_FLOW"]
+      206 GETTABLEKS                       R10 R3 K29 ["FLOW_TYPE"]
+      208 GETTABLEKS                       R10 R10 K32 ["UPLOAD_FLOW"]
       210 NEWTABLE                         R11 2 0
       212 GETTABLEKS                       R12 R7 K26 ["Marketplace"]
       214 NEWTABLE                         R13 8 0
@@ -253,8 +253,8 @@ MAIN:
       263 NEWTABLE                         R10 4 0
       265 GETIMPORT                        R11 K36 [Enum.AssetType.Plugin]
       267 NEWTABLE                         R12 2 0
-      269 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      271 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      269 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      271 GETTABLEKS                       R13 R13 K32 ["UPLOAD_FLOW"]
       273 NEWTABLE                         R14 8 0
       275 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
       277 LOADB                            R16 1
@@ -275,8 +275,8 @@ MAIN:
       297 LOADB                            R16 0
       298 SETTABLE                         R16 R14 R15
       299 SETTABLE                         R14 R12 R13
-      300 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      302 GETTABLEKS                       R13 R14 K31 ["EDIT_FLOW"]
+      300 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      302 GETTABLEKS                       R13 R13 K31 ["EDIT_FLOW"]
       304 NEWTABLE                         R14 8 0
       306 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
       308 LOADB                            R16 1
@@ -306,8 +306,8 @@ MAIN:
       339 SETTABLE                         R12 R10 R11
       340 GETIMPORT                        R11 K38 [Enum.AssetType.Model]
       342 NEWTABLE                         R12 1 0
-      344 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      346 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      344 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      346 GETTABLEKS                       R13 R13 K32 ["UPLOAD_FLOW"]
       348 NEWTABLE                         R14 1 0
       350 GETTABLEKS                       R15 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
       352 LOADB                            R16 1
@@ -316,8 +316,8 @@ MAIN:
       355 SETTABLE                         R12 R10 R11
       356 GETIMPORT                        R11 K40 [Enum.AssetType.Animation]
       358 NEWTABLE                         R12 1 0
-      360 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      362 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      360 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      362 GETTABLEKS                       R13 R13 K32 ["UPLOAD_FLOW"]
       364 NEWTABLE                         R14 16 0
       366 GETTABLEKS                       R15 R8 K21 ["SHOW_OVERRIDE_BUTTON"]
       368 LOADB                            R16 1
@@ -348,11 +348,11 @@ MAIN:
       401 SETTABLE                         R16 R14 R15
       402 SETTABLE                         R14 R12 R13
       403 SETTABLE                         R12 R10 R11
-      404 GETTABLEKS                       R12 R3 K41 ["UGCBundleTypes"]
-      406 GETTABLEKS                       R11 R12 K42 ["Body"]
+      404 GETTABLEKS                       R11 R3 K41 ["UGCBundleTypes"]
+      406 GETTABLEKS                       R11 R11 K42 ["Body"]
       408 NEWTABLE                         R12 1 0
-      410 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      412 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      410 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      412 GETTABLEKS                       R13 R13 K32 ["UPLOAD_FLOW"]
       414 NEWTABLE                         R14 2 0
       416 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
       418 LOADB                            R16 0
@@ -362,11 +362,11 @@ MAIN:
       423 SETTABLE                         R16 R14 R15
       424 SETTABLE                         R14 R12 R13
       425 SETTABLE                         R12 R10 R11
-      426 GETTABLEKS                       R12 R3 K41 ["UGCBundleTypes"]
-      428 GETTABLEKS                       R11 R12 K43 ["DynamicHead"]
+      426 GETTABLEKS                       R11 R3 K41 ["UGCBundleTypes"]
+      428 GETTABLEKS                       R11 R11 K43 ["DynamicHead"]
       430 NEWTABLE                         R12 1 0
-      432 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      434 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      432 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      434 GETTABLEKS                       R13 R13 K32 ["UPLOAD_FLOW"]
       436 NEWTABLE                         R14 2 0
       438 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
       440 LOADB                            R16 0
@@ -376,11 +376,11 @@ MAIN:
       445 SETTABLE                         R16 R14 R15
       446 SETTABLE                         R14 R12 R13
       447 SETTABLE                         R12 R10 R11
-      448 GETTABLEKS                       R12 R3 K41 ["UGCBundleTypes"]
-      450 GETTABLEKS                       R11 R12 K44 ["Shoes"]
+      448 GETTABLEKS                       R11 R3 K41 ["UGCBundleTypes"]
+      450 GETTABLEKS                       R11 R11 K44 ["Shoes"]
       452 NEWTABLE                         R12 1 0
-      454 GETTABLEKS                       R14 R3 K29 ["FLOW_TYPE"]
-      456 GETTABLEKS                       R13 R14 K32 ["UPLOAD_FLOW"]
+      454 GETTABLEKS                       R13 R3 K29 ["FLOW_TYPE"]
+      456 GETTABLEKS                       R13 R13 K32 ["UPLOAD_FLOW"]
       458 NEWTABLE                         R14 2 0
       460 GETTABLEKS                       R15 R8 K20 ["SHOW_ASSET_TYPE"]
       462 LOADB                            R16 0

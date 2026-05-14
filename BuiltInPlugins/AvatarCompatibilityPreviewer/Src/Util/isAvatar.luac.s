@@ -42,8 +42,8 @@ PROTO_1:
        26 RETURN                           R1 1
        27 GETTABLEKS                       R1 R0 K6 ["PrimaryPart"]
        29 JUMPIFEQKNIL                     R1 ; [+6]
-       31 GETTABLEKS                       R2 R0 K6 ["PrimaryPart"]
-       33 GETTABLEKS                       R1 R2 K0 ["Archivable"]
+       31 GETTABLEKS                       R1 R0 K6 ["PrimaryPart"]
+       33 GETTABLEKS                       R1 R1 K0 ["Archivable"]
        35 JUMPIF                           R1 ; [+2]
        36 LOADB                            R1 0
        37 RETURN                           R1 1
@@ -63,8 +63,8 @@ PROTO_1:
        55 JUMPIF                           R2 ; [+2]
        56 LOADB                            R3 0
        57 RETURN                           R3 1
-       58 GETUPVAL                         R6 1
-       59 GETTABLEKS                       R3 R6 K12 ["LIMBS"]
+       58 GETUPVAL                         R3 1
+       59 GETTABLEKS                       R3 R3 K12 ["LIMBS"]
        61 LOADNIL                          R4
        62 LOADNIL                          R5
        63 FORGPREP                         R3
@@ -135,14 +135,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R0 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["Constants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["Constants"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R0 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K13 ["Flags"]
-       28 GETTABLEKS                       R4 R5 K14 ["getFFlagAvatarAutosetupOptionsInput"]
+       24 GETTABLEKS                       R4 R0 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K13 ["Flags"]
+       28 GETTABLEKS                       R4 R4 K14 ["getFFlagAvatarAutosetupOptionsInput"]
        30 CALL                             R3 1 1
        31 DUPCLOSURE                       R4 K15 [PROTO_0]
        32 DUPCLOSURE                       R5 K16 [PROTO_1]

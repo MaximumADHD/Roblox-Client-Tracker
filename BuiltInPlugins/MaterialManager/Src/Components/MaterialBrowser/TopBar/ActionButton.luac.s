@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["ActionButton"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["ActionButton"]
         6 GETTABLEKS                       R3 R2 K3 ["ButtonSize"]
         8 LOADNIL                          R4
         9 GETTABLEKS                       R5 R1 K4 ["IsDisabled"]
@@ -13,8 +13,8 @@ PROTO_0:
        18 JUMPIFNOT                        R5 ; [+3]
        19 GETUPVAL                         R5 0
        20 GETTABLEKS                       R4 R5 K7 ["Pressed"]
-       22 GETUPVAL                         R6 1
-       23 GETTABLEKS                       R5 R6 K8 ["createElement"]
+       22 GETUPVAL                         R5 1
+       23 GETTABLEKS                       R5 R5 K8 ["createElement"]
        25 GETUPVAL                         R6 2
        26 DUPTABLE                         R7 K14 [{"LayoutOrder", "OnClick", "Size", "Style", "StyleModifier"}]
        27 GETTABLEKS                       R8 R1 K9 ["LayoutOrder"]
@@ -26,8 +26,8 @@ PROTO_0:
        38 SETTABLEKS                       R8 R7 K12 ["Style"]
        40 SETTABLEKS                       R4 R7 K13 ["StyleModifier"]
        42 DUPTABLE                         R8 K18 [{"Image", "Tooltip"}]
-       43 GETUPVAL                         R10 1
-       44 GETTABLEKS                       R9 R10 K8 ["createElement"]
+       43 GETUPVAL                         R9 1
+       44 GETTABLEKS                       R9 R9 K8 ["createElement"]
        46 GETUPVAL                         R10 3
        47 DUPTABLE                         R11 K19 [{"Style", "StyleModifier"}]
        48 GETTABLEKS                       R12 R1 K20 ["ImageStyle"]
@@ -35,8 +35,8 @@ PROTO_0:
        52 SETTABLEKS                       R4 R11 K13 ["StyleModifier"]
        54 CALL                             R9 2 1
        55 SETTABLEKS                       R9 R8 K16 ["Image"]
-       57 GETUPVAL                         R10 1
-       58 GETTABLEKS                       R9 R10 K8 ["createElement"]
+       57 GETUPVAL                         R9 1
+       58 GETTABLEKS                       R9 R9 K8 ["createElement"]
        60 GETUPVAL                         R10 4
        61 DUPTABLE                         R11 K22 [{"Text"}]
        62 GETTABLEKS                       R12 R1 K23 ["TooltipText"]
@@ -48,30 +48,30 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R5 K1 [script]
-        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
-        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
-       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R0 K2 ["Parent"]
        13 GETIMPORT                        R1 K4 [require]
-       15 GETTABLEKS                       R3 R0 K5 ["Src"]
-       17 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 GETTABLEKS                       R2 R0 K5 ["Src"]
+       17 GETTABLEKS                       R2 R2 K6 ["Types"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       22 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K8 ["Roact"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       31 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       29 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K9 ["Framework"]
        33 CALL                             R3 1 1
        34 GETTABLEKS                       R4 R3 K10 ["Util"]
        36 GETTABLEKS                       R5 R4 K11 ["StyleModifier"]
        38 GETTABLEKS                       R6 R3 K12 ["ContextServices"]
        40 GETTABLEKS                       R7 R6 K13 ["withContext"]
-       42 GETTABLEKS                       R9 R3 K14 ["Style"]
-       44 GETTABLEKS                       R8 R9 K15 ["Stylizer"]
+       42 GETTABLEKS                       R8 R3 K14 ["Style"]
+       44 GETTABLEKS                       R8 R8 K15 ["Stylizer"]
        46 GETTABLEKS                       R9 R3 K16 ["UI"]
        48 GETTABLEKS                       R10 R9 K17 ["Button"]
        50 GETTABLEKS                       R11 R9 K18 ["Image"]

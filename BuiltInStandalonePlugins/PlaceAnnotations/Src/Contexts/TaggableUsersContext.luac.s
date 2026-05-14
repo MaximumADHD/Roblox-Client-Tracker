@@ -18,15 +18,15 @@ PROTO_1:
         4 MOVE                             R4 R0
         5 CALL                             R3 1 3
         6 FORGPREP_NEXT                    R3
-        7 GETUPVAL                         R12 0
-        8 GETTABLEKS                       R11 R12 K2 ["Dictionary"]
-       10 GETTABLEKS                       R10 R11 K3 ["values"]
+        7 GETUPVAL                         R10 0
+        8 GETTABLEKS                       R10 R10 K2 ["Dictionary"]
+       10 GETTABLEKS                       R10 R10 K3 ["values"]
        12 MOVE                             R11 R1
        13 CALL                             R10 1 1
        14 LENGTH                           R9 R10
-       15 GETUPVAL                         R13 0
-       16 GETTABLEKS                       R12 R13 K2 ["Dictionary"]
-       18 GETTABLEKS                       R11 R12 K3 ["values"]
+       15 GETUPVAL                         R11 0
+       16 GETTABLEKS                       R11 R11 K2 ["Dictionary"]
+       18 GETTABLEKS                       R11 R11 K3 ["values"]
        20 MOVE                             R12 R2
        21 CALL                             R11 1 1
        22 LENGTH                           R10 R11
@@ -36,8 +36,8 @@ PROTO_1:
        27 RETURN                           R2 1
        28 GETUPVAL                         R8 1
        29 JUMPIFNOT                        R8 ; [+26]
-       30 GETUPVAL                         R9 2
-       31 GETTABLEKS                       R8 R9 K4 ["userHasRoleset"]
+       30 GETUPVAL                         R8 2
+       31 GETTABLEKS                       R8 R8 K4 ["userHasRoleset"]
        33 GETUPVAL                         R9 1
        34 GETTABLEKS                       R10 R7 K5 ["id"]
        36 GETUPVAL                         R11 3
@@ -66,16 +66,16 @@ PROTO_2:
         2 LENGTH                           R2 R0
         3 LOADN                            R3 2
         4 JUMPIFNOTLT                      R3 R2 ; [+26]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K0 ["Dictionary"]
-        9 GETTABLEKS                       R3 R4 K1 ["values"]
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K0 ["Dictionary"]
+        9 GETTABLEKS                       R3 R3 K1 ["values"]
        11 MOVE                             R4 R1
        12 CALL                             R3 1 1
        13 LENGTH                           R2 R3
        14 LOADN                            R3 5
        15 JUMPIFNOTLT                      R2 R3 ; [+15]
-       17 GETUPVAL                         R3 2
-       18 GETTABLEKS                       R2 R3 K2 ["searchUsers"]
+       17 GETUPVAL                         R2 2
+       18 GETTABLEKS                       R2 R2 K2 ["searchUsers"]
        20 MOVE                             R3 R0
        21 CALL                             R2 1 1
        22 LENGTH                           R3 R2
@@ -108,9 +108,9 @@ PROTO_3:
        19 GETUPVAL                         R7 1
        20 CALL                             R6 1 3
        21 FORGPREP_NEXT                    R6
-       22 GETUPVAL                         R14 2
-       23 GETTABLEKS                       R13 R14 K6 ["Dictionary"]
-       25 GETTABLEKS                       R12 R13 K7 ["values"]
+       22 GETUPVAL                         R12 2
+       23 GETTABLEKS                       R12 R12 K6 ["Dictionary"]
+       25 GETTABLEKS                       R12 R12 K7 ["values"]
        27 MOVE                             R13 R4
        28 CALL                             R12 1 1
        29 LENGTH                           R11 R12
@@ -133,9 +133,9 @@ PROTO_3:
        54 MOVE                             R7 R5
        55 MOVE                             R8 R4
        56 CALL                             R6 2 1
-       57 GETUPVAL                         R9 2
-       58 GETTABLEKS                       R8 R9 K6 ["Dictionary"]
-       60 GETTABLEKS                       R7 R8 K15 ["join"]
+       57 GETUPVAL                         R7 2
+       58 GETTABLEKS                       R7 R7 K6 ["Dictionary"]
+       60 GETTABLEKS                       R7 R7 K15 ["join"]
        62 MOVE                             R8 R4
        63 MOVE                             R9 R6
        64 CALL                             R7 2 1
@@ -150,9 +150,9 @@ PROTO_4:
         6 RETURN                           R1 1
         7 GETUPVAL                         R1 0
         8 JUMPIF                           R1 ; [+12]
-        9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R4 R5 K2 ["Dictionary"]
-       12 GETTABLEKS                       R3 R4 K3 ["values"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K2 ["Dictionary"]
+       12 GETTABLEKS                       R3 R3 K3 ["values"]
        14 GETUPVAL                         R4 2
        15 CALL                             R3 1 1
        16 LENGTH                           R2 R3
@@ -169,12 +169,12 @@ PROTO_5:
         4 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 LOADN                            R2 0
         4 CALL                             R1 1 2
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["useState"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["useState"]
         8 NEWTABLE                         R4 0 0
        10 CALL                             R3 1 2
        11 GETUPVAL                         R5 1
@@ -204,10 +204,10 @@ PROTO_6:
        36 CAPTURE                          VAL R10
        37 CAPTURE                          UPVAL U2
        38 CAPTURE                          VAL R5
-       39 GETUPVAL                         R17 0
-       40 GETTABLEKS                       R16 R17 K3 ["createElement"]
-       42 GETUPVAL                         R18 4
-       43 GETTABLEKS                       R17 R18 K4 ["Provider"]
+       39 GETUPVAL                         R16 0
+       40 GETTABLEKS                       R16 R16 K3 ["createElement"]
+       42 GETUPVAL                         R17 4
+       43 GETTABLEKS                       R17 R17 K4 ["Provider"]
        45 DUPTABLE                         R18 K6 [{"value"}]
        46 DUPTABLE                         R19 K16 [{"joinedTaggableUsersMap", "setAdditionalTaggableUsersMap", "groupId", "isLargeGroup", "refreshTaggableUsers", "maybeGetUsersFromSearchApi", "getFirstMaxTaggableUsers", "getFilteredTaggableUsers", "isTaggableUsersErrorStatus"}]
        47 SETTABLEKS                       R5 R19 K7 ["joinedTaggableUsersMap"]
@@ -234,23 +234,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
-       21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R7 R0 K9 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Hooks"]
-       27 GETTABLEKS                       R5 R6 K11 ["useTaggableUsers"]
-       29 CALL                             R4 1 1
-       30 GETTABLEKS                       R3 R4 K11 ["useTaggableUsers"]
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Hooks"]
+       27 GETTABLEKS                       R4 R4 K11 ["useTaggableUsers"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R3 R3 K11 ["useTaggableUsers"]
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K9 ["Src"]
-       36 GETTABLEKS                       R6 R7 K12 ["Util"]
-       38 GETTABLEKS                       R5 R6 K13 ["GroupUtils"]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K12 ["Util"]
+       38 GETTABLEKS                       R5 R5 K13 ["GroupUtils"]
        40 CALL                             R4 1 1
        41 GETTABLEKS                       R5 R2 K14 ["createContext"]
        43 NEWTABLE                         R6 0 0

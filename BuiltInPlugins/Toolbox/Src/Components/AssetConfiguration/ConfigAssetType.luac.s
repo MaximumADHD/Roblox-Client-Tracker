@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isCatalogAsset"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isCatalogAsset"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 JUMPIF                           R1 ; [+5]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K1 ["isUGCBundleType"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K1 ["isUGCBundleType"]
         9 MOVE                             R2 R0
        10 CALL                             R1 1 1
        11 RETURN                           R1 1
@@ -23,8 +23,8 @@ PROTO_2:
         4 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["state"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
         3 GETTABLEKS                       R2 R1 K1 ["currentSelectedRadioButtonKey"]
         5 JUMPIFNOTEQKS                    R2 K2 ["AvatarItem"] ; [+8]
         7 GETUPVAL                         R2 0
@@ -82,9 +82,9 @@ PROTO_9:
 
 PROTO_10:
         0 DUPTABLE                         R0 K2 [{"validationState", "validationFailureReasons"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K3 ["VALIDATION_STATE"]
-        4 GETTABLEKS                       R1 R2 K4 ["SUCCESS"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K3 ["VALIDATION_STATE"]
+        4 GETTABLEKS                       R1 R1 K4 ["SUCCESS"]
         6 SETTABLEKS                       R1 R0 K0 ["validationState"]
         8 NEWTABLE                         R1 0 0
        10 SETTABLEKS                       R1 R0 K1 ["validationFailureReasons"]
@@ -92,36 +92,36 @@ PROTO_10:
 
 PROTO_11:
         0 DUPTABLE                         R0 K2 [{"validationState", "validationFailureReasons"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K3 ["VALIDATION_STATE"]
-        4 GETTABLEKS                       R1 R2 K4 ["FAILURE"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K3 ["VALIDATION_STATE"]
+        4 GETTABLEKS                       R1 R1 K4 ["FAILURE"]
         6 SETTABLEKS                       R1 R0 K0 ["validationState"]
         8 GETUPVAL                         R1 1
         9 SETTABLEKS                       R1 R0 K1 ["validationFailureReasons"]
        11 RETURN                           R0 1
 
 PROTO_12:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["state"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["props"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["state"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["props"]
         6 LOADNIL                          R4
         7 GETUPVAL                         R5 1
         8 CALL                             R5 0 1
         9 JUMPIFNOT                        R5 ; [+7]
-       10 GETUPVAL                         R6 2
-       11 GETTABLEKS                       R5 R6 K2 ["getAvatarAssetTypeAsString"]
+       10 GETUPVAL                         R5 2
+       11 GETTABLEKS                       R5 R5 K2 ["getAvatarAssetTypeAsString"]
        13 GETTABLEKS                       R6 R2 K3 ["currentAssetType"]
        15 CALL                             R5 1 1
        16 MOVE                             R4 R5
-       17 GETUPVAL                         R6 3
-       18 GETTABLEKS                       R5 R6 K4 ["shouldDebugWarnings"]
+       17 GETUPVAL                         R5 3
+       18 GETTABLEKS                       R5 R5 K4 ["shouldDebugWarnings"]
        20 CALL                             R5 0 1
        21 JUMPIFNOT                        R5 ; [+17]
        22 GETTABLEKS                       R7 R3 K5 ["validationState"]
-       24 GETUPVAL                         R10 4
-       25 GETTABLEKS                       R9 R10 K6 ["VALIDATION_STATE"]
-       27 GETTABLEKS                       R8 R9 K7 ["VALIDATING"]
+       24 GETUPVAL                         R8 4
+       25 GETTABLEKS                       R8 R8 K6 ["VALIDATION_STATE"]
+       27 GETTABLEKS                       R8 R8 K7 ["VALIDATING"]
        29 JUMPIFEQ                         R7 R8 ; [+2]
        31 LOADB                            R6 0 +1
        32 LOADB                            R6 1
@@ -135,9 +135,9 @@ PROTO_12:
        43 GETTABLEKS                       R5 R3 K12 ["setValidationFailureReasons"]
        45 JUMPIFNOT                        R5 ; [+14]
        46 GETTABLEKS                       R5 R3 K11 ["setValidationState"]
-       48 GETUPVAL                         R8 4
-       49 GETTABLEKS                       R7 R8 K6 ["VALIDATION_STATE"]
-       51 GETTABLEKS                       R6 R7 K13 ["SUCCESS"]
+       48 GETUPVAL                         R6 4
+       49 GETTABLEKS                       R6 R6 K6 ["VALIDATION_STATE"]
+       51 GETTABLEKS                       R6 R6 K13 ["SUCCESS"]
        53 CALL                             R5 1 0
        54 GETTABLEKS                       R5 R3 K12 ["setValidationFailureReasons"]
        56 NEWTABLE                         R6 0 0
@@ -151,11 +151,11 @@ PROTO_12:
        66 GETUPVAL                         R5 1
        67 CALL                             R5 0 1
        68 JUMPIFNOT                        R5 ; [+92]
-       69 GETUPVAL                         R6 5
-       70 GETTABLEKS                       R5 R6 K16 ["UGCBundleValidationEvent"]
-       72 GETUPVAL                         R8 5
-       73 GETTABLEKS                       R7 R8 K17 ["Status"]
-       75 GETTABLEKS                       R6 R7 K18 ["Success"]
+       69 GETUPVAL                         R5 5
+       70 GETTABLEKS                       R5 R5 K16 ["UGCBundleValidationEvent"]
+       72 GETUPVAL                         R6 5
+       73 GETTABLEKS                       R6 R6 K17 ["Status"]
+       75 GETTABLEKS                       R6 R6 K18 ["Success"]
        77 MOVE                             R7 R4
        78 CALL                             R5 2 0
        79 JUMP                             ; [+81]
@@ -191,9 +191,9 @@ PROTO_12:
       120 GETTABLEKS                       R6 R3 K12 ["setValidationFailureReasons"]
       122 JUMPIFNOT                        R6 ; [+13]
       123 GETTABLEKS                       R6 R3 K11 ["setValidationState"]
-      125 GETUPVAL                         R9 4
-      126 GETTABLEKS                       R8 R9 K6 ["VALIDATION_STATE"]
-      128 GETTABLEKS                       R7 R8 K28 ["FAILURE"]
+      125 GETUPVAL                         R7 4
+      126 GETTABLEKS                       R7 R7 K6 ["VALIDATION_STATE"]
+      128 GETTABLEKS                       R7 R7 K28 ["FAILURE"]
       130 CALL                             R6 1 0
       131 GETTABLEKS                       R6 R3 K12 ["setValidationFailureReasons"]
       133 MOVE                             R7 R5
@@ -208,14 +208,14 @@ PROTO_12:
       143 GETUPVAL                         R6 1
       144 CALL                             R6 0 1
       145 JUMPIFNOT                        R6 ; [+15]
-      146 GETUPVAL                         R7 5
-      147 GETTABLEKS                       R6 R7 K16 ["UGCBundleValidationEvent"]
-      149 GETUPVAL                         R9 5
-      150 GETTABLEKS                       R8 R9 K17 ["Status"]
-      152 GETTABLEKS                       R7 R8 K29 ["Failure"]
+      146 GETUPVAL                         R6 5
+      147 GETTABLEKS                       R6 R6 K16 ["UGCBundleValidationEvent"]
+      149 GETUPVAL                         R7 5
+      150 GETTABLEKS                       R7 R7 K17 ["Status"]
+      152 GETTABLEKS                       R7 R7 K29 ["Failure"]
       154 MOVE                             R8 R4
-      155 GETUPVAL                         R10 2
-      156 GETTABLEKS                       R9 R10 K30 ["getValidationFailuresAsString"]
+      155 GETUPVAL                         R9 2
+      156 GETTABLEKS                       R9 R9 K30 ["getValidationFailuresAsString"]
       158 MOVE                             R10 R5
       159 CALL                             R9 1 -1
       160 CALL                             R6 -1 0
@@ -227,11 +227,11 @@ PROTO_12:
       168 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setValidationState"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["VALIDATION_STATE"]
-        6 GETTABLEKS                       R1 R2 K2 ["BEGIN"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setValidationState"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["VALIDATION_STATE"]
+        6 GETTABLEKS                       R1 R1 K2 ["BEGIN"]
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
 
@@ -287,14 +287,14 @@ PROTO_14:
        71 GETTABLEKS                       R4 R1 K1 ["assetTypeEnum"]
        73 JUMPIFEQKNIL                     R4 ; [+47]
        75 GETTABLEKS                       R5 R1 K1 ["assetTypeEnum"]
-       77 GETUPVAL                         R7 1
-       78 GETTABLEKS                       R6 R7 K20 ["isCatalogAsset"]
+       77 GETUPVAL                         R6 1
+       78 GETTABLEKS                       R6 R6 K20 ["isCatalogAsset"]
        80 MOVE                             R7 R5
        81 CALL                             R6 1 1
        82 MOVE                             R4 R6
        83 JUMPIF                           R4 ; [+6]
-       84 GETUPVAL                         R7 1
-       85 GETTABLEKS                       R6 R7 K21 ["isUGCBundleType"]
+       84 GETUPVAL                         R6 1
+       85 GETTABLEKS                       R6 R6 K21 ["isUGCBundleType"]
        87 MOVE                             R7 R5
        88 CALL                             R6 1 1
        89 MOVE                             R4 R6
@@ -315,9 +315,9 @@ PROTO_14:
       108 CALL                             R4 1 0
       109 RETURN                           R0 0
       110 DUPTABLE                         R6 K27 [{"validationState"}]
-      111 GETUPVAL                         R9 3
-      112 GETTABLEKS                       R8 R9 K28 ["VALIDATION_STATE"]
-      114 GETTABLEKS                       R7 R8 K29 ["BEGIN"]
+      111 GETUPVAL                         R7 3
+      112 GETTABLEKS                       R7 R7 K28 ["VALIDATION_STATE"]
+      114 GETTABLEKS                       R7 R7 K29 ["BEGIN"]
       116 SETTABLEKS                       R7 R6 K7 ["validationState"]
       118 NAMECALL                         R4 R0 K30 ["setState"]
       120 CALL                             R4 2 0
@@ -403,22 +403,22 @@ PROTO_18:
 
 PROTO_19:
         0 DUPTABLE                         R0 K1 [{"currentAssetType"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K2 ["None"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K2 ["None"]
         4 SETTABLEKS                       R1 R0 K0 ["currentAssetType"]
         6 RETURN                           R0 1
 
 PROTO_20:
         0 DUPTABLE                         R0 K1 [{"currentAssetType"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K2 ["None"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K2 ["None"]
         4 SETTABLEKS                       R1 R0 K0 ["currentAssetType"]
         6 RETURN                           R0 1
 
 PROTO_21:
         0 DUPTABLE                         R0 K1 [{"currentAssetType"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K2 ["type"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K2 ["type"]
         4 SETTABLEKS                       R1 R0 K0 ["currentAssetType"]
         6 RETURN                           R0 1
 
@@ -436,8 +436,8 @@ PROTO_22:
        14 GETTABLEKS                       R3 R1 K5 ["onAssetTypeSelected"]
        16 JUMPIFNOT                        R3 ; [+6]
        17 GETTABLEKS                       R3 R1 K5 ["onAssetTypeSelected"]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R4 R5 K6 ["None"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K6 ["None"]
        22 CALL                             R3 1 0
        23 RETURN                           R0 0
        24 GETTABLEKS                       R4 R0 K7 ["dropdownItems"]
@@ -454,13 +454,13 @@ PROTO_22:
        39 GETTABLEKS                       R4 R1 K5 ["onAssetTypeSelected"]
        41 JUMPIFNOT                        R4 ; [+6]
        42 GETTABLEKS                       R4 R1 K5 ["onAssetTypeSelected"]
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K6 ["None"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K6 ["None"]
        47 CALL                             R4 1 0
        48 RETURN                           R0 0
        49 GETTABLEKS                       R4 R3 K8 ["type"]
-       51 GETTABLEKS                       R6 R0 K10 ["state"]
-       53 GETTABLEKS                       R5 R6 K11 ["currentAssetType"]
+       51 GETTABLEKS                       R5 R0 K10 ["state"]
+       53 GETTABLEKS                       R5 R5 K11 ["currentAssetType"]
        55 JUMPIFEQ                         R4 R5 ; [+4]
        57 NAMECALL                         R4 R0 K2 ["resetValidation"]
        59 CALL                             R4 1 0
@@ -489,18 +489,18 @@ PROTO_22:
        91 GETTABLEKS                       R4 R1 K14 ["onCategoryChange"]
        93 JUMPIFNOT                        R4 ; [+7]
        94 GETTABLEKS                       R4 R1 K14 ["onCategoryChange"]
-       96 GETTABLEKS                       R6 R0 K10 ["state"]
-       98 GETTABLEKS                       R5 R6 K15 ["currentSelectedRadioButtonKey"]
+       96 GETTABLEKS                       R5 R0 K10 ["state"]
+       98 GETTABLEKS                       R5 R5 K15 ["currentSelectedRadioButtonKey"]
       100 CALL                             R4 1 0
       101 GETTABLEKS                       R5 R3 K8 ["type"]
-      103 GETUPVAL                         R7 2
-      104 GETTABLEKS                       R6 R7 K16 ["isCatalogAsset"]
+      103 GETUPVAL                         R6 2
+      104 GETTABLEKS                       R6 R6 K16 ["isCatalogAsset"]
       106 MOVE                             R7 R5
       107 CALL                             R6 1 1
       108 MOVE                             R4 R6
       109 JUMPIF                           R4 ; [+6]
-      110 GETUPVAL                         R7 2
-      111 GETTABLEKS                       R6 R7 K17 ["isUGCBundleType"]
+      110 GETUPVAL                         R6 2
+      111 GETTABLEKS                       R6 R6 K17 ["isUGCBundleType"]
       113 MOVE                             R7 R5
       114 CALL                             R6 1 1
       115 MOVE                             R4 R6
@@ -511,15 +511,15 @@ PROTO_22:
       121 GETTABLEKS                       R4 R1 K18 ["setValidationState"]
       123 JUMPIFNOT                        R4 ; [+9]
       124 GETTABLEKS                       R4 R1 K18 ["setValidationState"]
-      126 GETUPVAL                         R7 3
-      127 GETTABLEKS                       R6 R7 K19 ["VALIDATION_STATE"]
-      129 GETTABLEKS                       R5 R6 K20 ["BEGIN"]
+      126 GETUPVAL                         R5 3
+      127 GETTABLEKS                       R5 R5 K19 ["VALIDATION_STATE"]
+      129 GETTABLEKS                       R5 R5 K20 ["BEGIN"]
       131 CALL                             R4 1 0
       132 RETURN                           R0 0
       133 DUPTABLE                         R6 K22 [{"validationState"}]
-      134 GETUPVAL                         R9 3
-      135 GETTABLEKS                       R8 R9 K19 ["VALIDATION_STATE"]
-      137 GETTABLEKS                       R7 R8 K20 ["BEGIN"]
+      134 GETUPVAL                         R7 3
+      135 GETTABLEKS                       R7 R7 K19 ["VALIDATION_STATE"]
+      137 GETTABLEKS                       R7 R7 K20 ["BEGIN"]
       139 SETTABLEKS                       R7 R6 K21 ["validationState"]
       141 NAMECALL                         R4 R0 K4 ["setState"]
       143 CALL                             R4 2 0
@@ -527,14 +527,14 @@ PROTO_22:
 
 PROTO_23:
         0 DUPTABLE                         R0 K3 [{"validationState", "validationFailureReasons", "ugcBundleValidationResults"}]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K4 ["VALIDATION_STATE"]
-        4 GETTABLEKS                       R1 R2 K5 ["NONE"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K4 ["VALIDATION_STATE"]
+        4 GETTABLEKS                       R1 R1 K5 ["NONE"]
         6 SETTABLEKS                       R1 R0 K0 ["validationState"]
         8 NEWTABLE                         R1 0 0
        10 SETTABLEKS                       R1 R0 K1 ["validationFailureReasons"]
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K6 ["None"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K6 ["None"]
        15 SETTABLEKS                       R1 R0 K2 ["ugcBundleValidationResults"]
        17 RETURN                           R0 1
 
@@ -549,16 +549,16 @@ PROTO_24:
        11 GETTABLEKS                       R2 R1 K4 ["setUGCBundleValidationResults"]
        13 JUMPIFNOT                        R2 ; [+20]
        14 GETTABLEKS                       R2 R1 K2 ["setValidationState"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K5 ["VALIDATION_STATE"]
-       19 GETTABLEKS                       R3 R4 K6 ["NONE"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K5 ["VALIDATION_STATE"]
+       19 GETTABLEKS                       R3 R3 K6 ["NONE"]
        21 CALL                             R2 1 0
        22 GETTABLEKS                       R2 R1 K3 ["setValidationFailureReasons"]
        24 NEWTABLE                         R3 0 0
        26 CALL                             R2 1 0
        27 GETTABLEKS                       R2 R1 K4 ["setUGCBundleValidationResults"]
-       29 GETUPVAL                         R4 1
-       30 GETTABLEKS                       R3 R4 K7 ["None"]
+       29 GETUPVAL                         R3 1
+       30 GETTABLEKS                       R3 R3 K7 ["None"]
        32 CALL                             R2 1 0
        33 JUMP                             ; [+6]
        34 DUPCLOSURE                       R4 K8 [PROTO_23]
@@ -614,9 +614,9 @@ PROTO_27:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["validationState"]
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R5 R6 K3 ["VALIDATION_STATE"]
-        9 GETTABLEKS                       R4 R5 K4 ["VALIDATING"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["VALIDATION_STATE"]
+        9 GETTABLEKS                       R4 R4 K4 ["VALIDATING"]
        11 JUMPIFNOTEQ                      R3 R4 ; [+9]
        13 GETTABLEKS                       R3 R1 K5 ["Localization"]
        15 LOADK                            R5 K6 ["AssetConfig"]
@@ -625,9 +625,9 @@ PROTO_27:
        19 CALL                             R3 3 -1
        20 RETURN                           R3 -1
        21 GETTABLEKS                       R3 R1 K2 ["validationState"]
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R5 R6 K3 ["VALIDATION_STATE"]
-       26 GETTABLEKS                       R4 R5 K9 ["SUCCESS"]
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R4 R4 K3 ["VALIDATION_STATE"]
+       26 GETTABLEKS                       R4 R4 K9 ["SUCCESS"]
        28 JUMPIFNOTEQ                      R3 R4 ; [+9]
        30 GETTABLEKS                       R3 R1 K5 ["Localization"]
        32 LOADK                            R5 K6 ["AssetConfig"]
@@ -636,9 +636,9 @@ PROTO_27:
        36 CALL                             R3 3 -1
        37 RETURN                           R3 -1
        38 GETTABLEKS                       R3 R1 K2 ["validationState"]
-       40 GETUPVAL                         R6 0
-       41 GETTABLEKS                       R5 R6 K3 ["VALIDATION_STATE"]
-       43 GETTABLEKS                       R4 R5 K11 ["FAILURE"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K3 ["VALIDATION_STATE"]
+       43 GETTABLEKS                       R4 R4 K11 ["FAILURE"]
        45 JUMPIFNOTEQ                      R3 R4 ; [+25]
        47 GETTABLEKS                       R4 R1 K12 ["validationFailureReasons"]
        49 JUMPIFNOT                        R4 ; [+4]
@@ -665,20 +665,20 @@ PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
         2 GETTABLEKS                       R3 R0 K1 ["props"]
         4 GETTABLEKS                       R4 R3 K2 ["validationState"]
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K3 ["VALIDATION_STATE"]
-        9 GETTABLEKS                       R5 R6 K4 ["SUCCESS"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K3 ["VALIDATION_STATE"]
+        9 GETTABLEKS                       R5 R5 K4 ["SUCCESS"]
        11 JUMPIFNOTEQ                      R4 R5 ; [+6]
-       13 GETTABLEKS                       R5 R1 K5 ["typeValidation"]
-       15 GETTABLEKS                       R4 R5 K6 ["successResultColor"]
+       13 GETTABLEKS                       R4 R1 K5 ["typeValidation"]
+       15 GETTABLEKS                       R4 R4 K6 ["successResultColor"]
        17 RETURN                           R4 1
        18 GETTABLEKS                       R4 R3 K2 ["validationState"]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K3 ["VALIDATION_STATE"]
-       23 GETTABLEKS                       R5 R6 K7 ["FAILURE"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K3 ["VALIDATION_STATE"]
+       23 GETTABLEKS                       R5 R5 K7 ["FAILURE"]
        25 JUMPIFNOTEQ                      R4 R5 ; [+6]
-       27 GETTABLEKS                       R5 R1 K5 ["typeValidation"]
-       29 GETTABLEKS                       R4 R5 K8 ["failureResultColor"]
+       27 GETTABLEKS                       R4 R1 K5 ["typeValidation"]
+       29 GETTABLEKS                       R4 R4 K8 ["failureResultColor"]
        31 RETURN                           R4 1
        32 GETTABLEKS                       R4 R1 K9 ["TextColor"]
        34 RETURN                           R4 1
@@ -723,14 +723,14 @@ PROTO_31:
        17 CALL                             R11 0 1
        18 JUMPIF                           R11 ; [+2]
        19 JUMPIFEQKS                       R9 K3 ["AvatarAnimations"] ; [+29]
-       21 GETUPVAL                         R12 1
-       22 GETTABLEKS                       R11 R12 K4 ["getUGCBundleTypeFromString"]
+       21 GETUPVAL                         R11 1
+       22 GETTABLEKS                       R11 R11 K4 ["getUGCBundleTypeFromString"]
        24 MOVE                             R12 R9
        25 CALL                             R11 1 1
        26 DUPTABLE                         R14 K8 [{"name", "selectable", "type"}]
        27 JUMPIFNOT                        R2 ; [+7]
-       28 GETUPVAL                         R16 1
-       29 GETTABLEKS                       R15 R16 K9 ["getLocalizedUGCBundleName"]
+       28 GETUPVAL                         R15 1
+       29 GETTABLEKS                       R15 R15 K9 ["getLocalizedUGCBundleName"]
        31 MOVE                             R16 R11
        32 MOVE                             R17 R2
        33 CALL                             R15 2 1
@@ -831,15 +831,15 @@ PROTO_32:
 
 PROTO_33:
         0 GETTABLEKS                       R5 R0 K0 ["props"]
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K1 ["isUGCBundleType"]
+        2 GETUPVAL                         R6 0
+        3 GETTABLEKS                       R6 R6 K1 ["isUGCBundleType"]
         5 MOVE                             R7 R3
         6 CALL                             R6 1 1
         7 JUMPIF                           R6 ; [+2]
         8 LOADNIL                          R6
         9 RETURN                           R6 1
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K2 ["getOptionalBodyPartsNotFound"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K2 ["getOptionalBodyPartsNotFound"]
        13 MOVE                             R7 R1
        14 MOVE                             R8 R2
        15 MOVE                             R9 R3
@@ -851,19 +851,19 @@ PROTO_33:
        22 LOADNIL                          R7
        23 RETURN                           R7 1
        24 NEWTABLE                         R7 1 0
-       26 GETUPVAL                         R9 1
-       27 GETTABLEKS                       R8 R9 K3 ["new"]
+       26 GETUPVAL                         R8 1
+       27 GETTABLEKS                       R8 R8 K3 ["new"]
        29 CALL                             R8 0 1
-       30 GETUPVAL                         R10 2
-       31 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       30 GETUPVAL                         R9 2
+       31 GETTABLEKS                       R9 R9 K4 ["createElement"]
        33 GETUPVAL                         R10 3
        34 DUPTABLE                         R11 K16 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
        35 GETIMPORT                        R12 K19 [Enum.AutomaticSize.Y]
        37 SETTABLEKS                       R12 R11 K5 ["AutomaticSize"]
        39 LOADN                            R12 1
        40 SETTABLEKS                       R12 R11 K6 ["BackgroundTransparency"]
-       42 GETUPVAL                         R13 4
-       43 GETTABLEKS                       R12 R13 K20 ["FONT"]
+       42 GETUPVAL                         R12 4
+       43 GETTABLEKS                       R12 R12 K20 ["FONT"]
        45 SETTABLEKS                       R12 R11 K7 ["Font"]
        47 NAMECALL                         R12 R8 K21 ["getNextOrder"]
        49 CALL                             R12 1 1
@@ -879,11 +879,11 @@ PROTO_33:
        63 NAMECALL                         R12 R12 K28 ["getText"]
        65 CALL                             R12 3 1
        66 SETTABLEKS                       R12 R11 K10 ["Text"]
-       68 GETTABLEKS                       R13 R4 K29 ["assetConfig"]
-       70 GETTABLEKS                       R12 R13 K30 ["labelTextColor"]
+       68 GETTABLEKS                       R12 R4 K29 ["assetConfig"]
+       70 GETTABLEKS                       R12 R12 K30 ["labelTextColor"]
        72 SETTABLEKS                       R12 R11 K11 ["TextColor"]
-       74 GETUPVAL                         R13 4
-       75 GETTABLEKS                       R12 R13 K31 ["FONT_SIZE_TITLE"]
+       74 GETUPVAL                         R12 4
+       75 GETTABLEKS                       R12 R12 K31 ["FONT_SIZE_TITLE"]
        77 SETTABLEKS                       R12 R11 K12 ["TextSize"]
        79 LOADB                            R12 1
        80 SETTABLEKS                       R12 R11 K13 ["TextWrapped"]
@@ -903,16 +903,16 @@ PROTO_33:
       101 GETTABLE                         R14 R15 R13
       102 JUMPIFEQKNIL                     R14 ; [+58]
       104 GETTABLEKS                       R15 R13 K37 ["Name"]
-      106 GETUPVAL                         R17 2
-      107 GETTABLEKS                       R16 R17 K4 ["createElement"]
+      106 GETUPVAL                         R16 2
+      107 GETTABLEKS                       R16 R16 K4 ["createElement"]
       109 GETUPVAL                         R17 3
       110 DUPTABLE                         R18 K16 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
       111 GETIMPORT                        R19 K19 [Enum.AutomaticSize.Y]
       113 SETTABLEKS                       R19 R18 K5 ["AutomaticSize"]
       115 LOADN                            R19 1
       116 SETTABLEKS                       R19 R18 K6 ["BackgroundTransparency"]
-      118 GETUPVAL                         R20 4
-      119 GETTABLEKS                       R19 R20 K20 ["FONT"]
+      118 GETUPVAL                         R19 4
+      119 GETTABLEKS                       R19 R19 K20 ["FONT"]
       121 SETTABLEKS                       R19 R18 K7 ["Font"]
       123 NAMECALL                         R19 R8 K21 ["getNextOrder"]
       125 CALL                             R19 1 1
@@ -923,11 +923,11 @@ PROTO_33:
       132 CALL                             R19 2 1
       133 SETTABLEKS                       R19 R18 K9 ["Size"]
       135 SETTABLEKS                       R14 R18 K10 ["Text"]
-      137 GETTABLEKS                       R20 R4 K29 ["assetConfig"]
-      139 GETTABLEKS                       R19 R20 K30 ["labelTextColor"]
+      137 GETTABLEKS                       R19 R4 K29 ["assetConfig"]
+      139 GETTABLEKS                       R19 R19 K30 ["labelTextColor"]
       141 SETTABLEKS                       R19 R18 K11 ["TextColor"]
-      143 GETUPVAL                         R20 4
-      144 GETTABLEKS                       R19 R20 K31 ["FONT_SIZE_TITLE"]
+      143 GETUPVAL                         R19 4
+      144 GETTABLEKS                       R19 R19 K31 ["FONT_SIZE_TITLE"]
       146 SETTABLEKS                       R19 R18 K12 ["TextSize"]
       148 LOADB                            R19 1
       149 SETTABLEKS                       R19 R18 K13 ["TextWrapped"]
@@ -942,15 +942,15 @@ PROTO_33:
 
 PROTO_34:
         0 GETTABLEKS                       R4 R0 K0 ["props"]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K1 ["isUGCBundleType"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K1 ["isUGCBundleType"]
         5 MOVE                             R6 R2
         6 CALL                             R5 1 1
         7 JUMPIF                           R5 ; [+2]
         8 LOADNIL                          R5
         9 RETURN                           R5 1
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K2 ["getUnknownMeshPartNames"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K2 ["getUnknownMeshPartNames"]
        13 MOVE                             R6 R1
        14 CALL                             R5 1 1
        15 JUMPIFNOT                        R5 ; [+4]
@@ -960,19 +960,19 @@ PROTO_34:
        20 LOADNIL                          R6
        21 RETURN                           R6 1
        22 NEWTABLE                         R6 1 0
-       24 GETUPVAL                         R8 1
-       25 GETTABLEKS                       R7 R8 K3 ["new"]
+       24 GETUPVAL                         R7 1
+       25 GETTABLEKS                       R7 R7 K3 ["new"]
        27 CALL                             R7 0 1
-       28 GETUPVAL                         R9 2
-       29 GETTABLEKS                       R8 R9 K4 ["createElement"]
+       28 GETUPVAL                         R8 2
+       29 GETTABLEKS                       R8 R8 K4 ["createElement"]
        31 GETUPVAL                         R9 3
        32 DUPTABLE                         R10 K16 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
        33 GETIMPORT                        R11 K19 [Enum.AutomaticSize.Y]
        35 SETTABLEKS                       R11 R10 K5 ["AutomaticSize"]
        37 LOADN                            R11 1
        38 SETTABLEKS                       R11 R10 K6 ["BackgroundTransparency"]
-       40 GETUPVAL                         R12 4
-       41 GETTABLEKS                       R11 R12 K20 ["FONT"]
+       40 GETUPVAL                         R11 4
+       41 GETTABLEKS                       R11 R11 K20 ["FONT"]
        43 SETTABLEKS                       R11 R10 K7 ["Font"]
        45 NAMECALL                         R11 R7 K21 ["getNextOrder"]
        47 CALL                             R11 1 1
@@ -988,11 +988,11 @@ PROTO_34:
        61 NAMECALL                         R11 R11 K28 ["getText"]
        63 CALL                             R11 3 1
        64 SETTABLEKS                       R11 R10 K10 ["Text"]
-       66 GETTABLEKS                       R12 R3 K29 ["assetConfig"]
-       68 GETTABLEKS                       R11 R12 K30 ["labelTextColor"]
+       66 GETTABLEKS                       R11 R3 K29 ["assetConfig"]
+       68 GETTABLEKS                       R11 R11 K30 ["labelTextColor"]
        70 SETTABLEKS                       R11 R10 K11 ["TextColor"]
-       72 GETUPVAL                         R12 4
-       73 GETTABLEKS                       R11 R12 K31 ["FONT_SIZE_TITLE"]
+       72 GETUPVAL                         R11 4
+       73 GETTABLEKS                       R11 R11 K31 ["FONT_SIZE_TITLE"]
        75 SETTABLEKS                       R11 R10 K12 ["TextSize"]
        77 LOADB                            R11 1
        78 SETTABLEKS                       R11 R10 K13 ["TextWrapped"]
@@ -1006,16 +1006,16 @@ PROTO_34:
        92 LOADNIL                          R9
        93 LOADNIL                          R10
        94 FORGPREP                         R8
-       95 GETUPVAL                         R14 2
-       96 GETTABLEKS                       R13 R14 K4 ["createElement"]
+       95 GETUPVAL                         R13 2
+       96 GETTABLEKS                       R13 R13 K4 ["createElement"]
        98 GETUPVAL                         R14 3
        99 DUPTABLE                         R15 K16 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
       100 GETIMPORT                        R16 K19 [Enum.AutomaticSize.Y]
       102 SETTABLEKS                       R16 R15 K5 ["AutomaticSize"]
       104 LOADN                            R16 1
       105 SETTABLEKS                       R16 R15 K6 ["BackgroundTransparency"]
-      107 GETUPVAL                         R17 4
-      108 GETTABLEKS                       R16 R17 K20 ["FONT"]
+      107 GETUPVAL                         R16 4
+      108 GETTABLEKS                       R16 R16 K20 ["FONT"]
       110 SETTABLEKS                       R16 R15 K7 ["Font"]
       112 NAMECALL                         R16 R7 K21 ["getNextOrder"]
       114 CALL                             R16 1 1
@@ -1026,11 +1026,11 @@ PROTO_34:
       121 CALL                             R16 2 1
       122 SETTABLEKS                       R16 R15 K9 ["Size"]
       124 SETTABLEKS                       R12 R15 K10 ["Text"]
-      126 GETTABLEKS                       R17 R3 K29 ["assetConfig"]
-      128 GETTABLEKS                       R16 R17 K30 ["labelTextColor"]
+      126 GETTABLEKS                       R16 R3 K29 ["assetConfig"]
+      128 GETTABLEKS                       R16 R16 K30 ["labelTextColor"]
       130 SETTABLEKS                       R16 R15 K11 ["TextColor"]
-      132 GETUPVAL                         R17 4
-      133 GETTABLEKS                       R16 R17 K31 ["FONT_SIZE_TITLE"]
+      132 GETUPVAL                         R16 4
+      133 GETTABLEKS                       R16 R16 K31 ["FONT_SIZE_TITLE"]
       135 SETTABLEKS                       R16 R15 K12 ["TextSize"]
       137 LOADB                            R16 1
       138 SETTABLEKS                       R16 R15 K13 ["TextWrapped"]
@@ -1150,11 +1150,11 @@ PROTO_38:
        18 RETURN                           R1 1
 
 PROTO_39:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getValidationErrorText"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getValidationErrorText"]
         3 MOVE                             R2 R0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K1 ["Localization"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K1 ["Localization"]
         7 CALL                             R1 2 -1
         8 RETURN                           R1 -1
 
@@ -1184,21 +1184,21 @@ PROTO_40:
        25 LOADK                            R13 K9 ["%1"]
        26 CALL                             R10 3 1
        27 MOVE                             R8 R10
-       28 GETUPVAL                         R12 3
-       29 GETTABLEKS                       R11 R12 K10 ["currentAssetType"]
-       31 GETTABLEKS                       R10 R11 K11 ["Name"]
+       28 GETUPVAL                         R10 3
+       29 GETTABLEKS                       R10 R10 K10 ["currentAssetType"]
+       31 GETTABLEKS                       R10 R10 K11 ["Name"]
        33 JUMPIFNOTEQ                      R8 R10 ; [+2]
        35 LOADB                            R4 0
        36 FORGLOOP                         R5 1 ; [-16]
        38 JUMPIFNOT                        R4 ; [+15]
-       39 GETUPVAL                         R6 4
-       40 GETTABLEKS                       R5 R6 K12 ["validate"]
+       39 GETUPVAL                         R5 4
+       40 GETTABLEKS                       R5 R5 K12 ["validate"]
        42 MOVE                             R6 R0
-       43 GETUPVAL                         R8 5
-       44 GETTABLEKS                       R7 R8 K13 ["instances"]
+       43 GETUPVAL                         R7 5
+       44 GETTABLEKS                       R7 R7 K13 ["instances"]
        46 CALL                             R6 1 1
-       47 GETUPVAL                         R8 3
-       48 GETTABLEKS                       R7 R8 K10 ["currentAssetType"]
+       47 GETUPVAL                         R7 3
+       48 GETTABLEKS                       R7 R7 K10 ["currentAssetType"]
        50 CALL                             R5 2 2
        51 MOVE                             R1 R5
        52 MOVE                             R2 R6
@@ -1206,36 +1206,36 @@ PROTO_40:
        54 LOADB                            R1 1
        55 NEWTABLE                         R2 0 0
        57 JUMPIFNOT                        R4 ; [+49]
-       58 GETUPVAL                         R6 4
-       59 GETTABLEKS                       R5 R6 K14 ["isFolderStructureEnabled"]
+       58 GETUPVAL                         R5 4
+       59 GETTABLEKS                       R5 R5 K14 ["isFolderStructureEnabled"]
        61 JUMPIFNOT                        R5 ; [+45]
-       62 GETUPVAL                         R6 4
-       63 GETTABLEKS                       R5 R6 K14 ["isFolderStructureEnabled"]
+       62 GETUPVAL                         R5 4
+       63 GETTABLEKS                       R5 R5 K14 ["isFolderStructureEnabled"]
        65 CALL                             R5 0 1
        66 JUMPIFNOT                        R5 ; [+40]
-       67 GETUPVAL                         R6 4
-       68 GETTABLEKS                       R5 R6 K15 ["ValidateAsset"]
+       67 GETUPVAL                         R5 4
+       68 GETTABLEKS                       R5 R5 K15 ["ValidateAsset"]
        70 MOVE                             R6 R0
-       71 GETUPVAL                         R8 5
-       72 GETTABLEKS                       R7 R8 K13 ["instances"]
+       71 GETUPVAL                         R7 5
+       72 GETTABLEKS                       R7 R7 K13 ["instances"]
        74 CALL                             R6 1 1
-       75 GETUPVAL                         R8 3
-       76 GETTABLEKS                       R7 R8 K10 ["currentAssetType"]
+       75 GETUPVAL                         R7 3
+       76 GETTABLEKS                       R7 R7 K10 ["currentAssetType"]
        78 DUPTABLE                         R8 K18 [{"source", "enforceR15FolderStructure"}]
        79 LOADK                            R9 K19 ["Toolbox"]
        80 SETTABLEKS                       R9 R8 K16 ["source"]
        82 LOADB                            R9 0
        83 SETTABLEKS                       R9 R8 K17 ["enforceR15FolderStructure"]
        85 CALL                             R5 3 1
-       86 GETUPVAL                         R7 4
-       87 GETTABLEKS                       R6 R7 K20 ["isEntrypointMergingEnabled"]
+       86 GETUPVAL                         R6 4
+       87 GETTABLEKS                       R6 R6 K20 ["isEntrypointMergingEnabled"]
        89 JUMPIFNOT                        R6 ; [+17]
-       90 GETUPVAL                         R7 4
-       91 GETTABLEKS                       R6 R7 K20 ["isEntrypointMergingEnabled"]
+       90 GETUPVAL                         R6 4
+       91 GETTABLEKS                       R6 R6 K20 ["isEntrypointMergingEnabled"]
        93 CALL                             R6 0 1
        94 JUMPIFNOT                        R6 ; [+12]
-       95 GETUPVAL                         R7 4
-       96 GETTABLEKS                       R6 R7 K21 ["combineResultsIntoLegacy"]
+       95 GETUPVAL                         R6 4
+       96 GETTABLEKS                       R6 R6 K21 ["combineResultsIntoLegacy"]
        98 MOVE                             R7 R1
        99 MOVE                             R8 R2
       100 MOVE                             R9 R5
@@ -1245,8 +1245,8 @@ PROTO_40:
       104 CALL                             R6 4 2
       105 MOVE                             R1 R6
       106 MOVE                             R2 R7
-      107 GETUPVAL                         R6 7
-      108 GETTABLEKS                       R5 R6 K22 ["validationCallback"]
+      107 GETUPVAL                         R5 7
+      108 GETTABLEKS                       R5 R5 K22 ["validationCallback"]
       110 MOVE                             R6 R1
       111 MOVE                             R7 R2
       112 CALL                             R5 2 0
@@ -1270,25 +1270,25 @@ PROTO_41:
        27 GETTABLEKS                       R6 R1 K6 ["validationState"]
        29 JUMPIFEQ                         R5 R6 ; [+52]
        31 GETTABLEKS                       R5 R3 K6 ["validationState"]
-       33 GETUPVAL                         R8 0
-       34 GETTABLEKS                       R7 R8 K7 ["VALIDATION_STATE"]
-       36 GETTABLEKS                       R6 R7 K8 ["BEGIN"]
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K7 ["VALIDATION_STATE"]
+       36 GETTABLEKS                       R6 R6 K8 ["BEGIN"]
        38 JUMPIFNOTEQ                      R5 R6 ; [+13]
        40 GETTABLEKS                       R5 R3 K9 ["setValidationState"]
        42 JUMPIFNOT                        R5 ; [+9]
        43 GETTABLEKS                       R5 R3 K9 ["setValidationState"]
-       45 GETUPVAL                         R8 0
-       46 GETTABLEKS                       R7 R8 K7 ["VALIDATION_STATE"]
-       48 GETTABLEKS                       R6 R7 K10 ["VALIDATING"]
+       45 GETUPVAL                         R6 0
+       46 GETTABLEKS                       R6 R6 K7 ["VALIDATION_STATE"]
+       48 GETTABLEKS                       R6 R6 K10 ["VALIDATING"]
        50 CALL                             R5 1 0
        51 RETURN                           R0 0
        52 GETTABLEKS                       R5 R3 K6 ["validationState"]
-       54 GETUPVAL                         R8 0
-       55 GETTABLEKS                       R7 R8 K7 ["VALIDATION_STATE"]
-       57 GETTABLEKS                       R6 R7 K10 ["VALIDATING"]
+       54 GETUPVAL                         R6 0
+       55 GETTABLEKS                       R6 R6 K7 ["VALIDATION_STATE"]
+       57 GETTABLEKS                       R6 R6 K10 ["VALIDATING"]
        59 JUMPIFNOTEQ                      R5 R6 ; [+22]
-       61 GETUPVAL                         R6 1
-       62 GETTABLEKS                       R5 R6 K11 ["isUGCBundleType"]
+       61 GETUPVAL                         R5 1
+       62 GETTABLEKS                       R5 R5 K11 ["isUGCBundleType"]
        64 GETTABLEKS                       R6 R4 K12 ["currentAssetType"]
        66 CALL                             R5 1 1
        67 JUMPIF                           R5 ; [+14]
@@ -1323,13 +1323,13 @@ PROTO_44:
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["new"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["new"]
        11 CALL                             R5 0 1
        12 GETTABLEKS                       R7 R1 K5 ["validationState"]
-       14 GETUPVAL                         R10 1
-       15 GETTABLEKS                       R9 R10 K6 ["VALIDATION_STATE"]
-       17 GETTABLEKS                       R8 R9 K7 ["FAILURE"]
+       14 GETUPVAL                         R8 1
+       15 GETTABLEKS                       R8 R8 K6 ["VALIDATION_STATE"]
+       17 GETTABLEKS                       R8 R8 K7 ["FAILURE"]
        19 JUMPIFEQ                         R7 R8 ; [+2]
        21 LOADB                            R6 0 +1
        22 LOADB                            R6 1
@@ -1337,8 +1337,8 @@ PROTO_44:
        24 LOADN                            R7 24
        25 JUMP                             ; [+1]
        26 LOADN                            R7 0
-       27 GETUPVAL                         R9 2
-       28 GETTABLEKS                       R8 R9 K8 ["FONT_SIZE_TITLE"]
+       27 GETUPVAL                         R8 2
+       28 GETTABLEKS                       R8 R8 K8 ["FONT_SIZE_TITLE"]
        30 GETTABLEKS                       R9 R2 K9 ["currentAssetType"]
        32 GETIMPORT                        R11 K13 [Enum.AssetType.Model]
        34 JUMPIFEQ                         R9 R11 ; [+2]
@@ -1431,14 +1431,14 @@ PROTO_44:
       143 GETTABLEKS                       R27 R2 K34 ["displayAssetSelection"]
       145 JUMP                             ; [+1]
       146 NOT                              R27 R11
-      147 GETUPVAL                         R29 6
-      148 GETTABLEKS                       R28 R29 K36 ["createElement"]
+      147 GETUPVAL                         R28 6
+      148 GETTABLEKS                       R28 R28 K36 ["createElement"]
       150 GETUPVAL                         R29 7
       151 DUPTABLE                         R30 K46 [{"AutomaticSize", "BackgroundColor3", "BackgroundTransparency", "HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Spacing", "VerticalAlignment"}]
       152 GETIMPORT                        R31 K48 [Enum.AutomaticSize.XY]
       154 SETTABLEKS                       R31 R30 K37 ["AutomaticSize"]
-      156 GETTABLEKS                       R32 R4 K49 ["typeSelection"]
-      158 GETTABLEKS                       R31 R32 K50 ["background"]
+      156 GETTABLEKS                       R31 R4 K49 ["typeSelection"]
+      158 GETTABLEKS                       R31 R31 K50 ["background"]
       160 SETTABLEKS                       R31 R30 K38 ["BackgroundColor3"]
       162 LOADN                            R31 1
       163 SETTABLEKS                       R31 R30 K39 ["BackgroundTransparency"]
@@ -1458,8 +1458,8 @@ PROTO_44:
       188 SETTABLEKS                       R31 R30 K45 ["VerticalAlignment"]
       190 DUPTABLE                         R31 K63 [{"ValidationErrorMessageBox", "ContentTypeRadioButtons", "AssetCategoryDropDown", "EmoteAnimationWarning"}]
       191 JUMPIFNOT                        R23 ; [+59]
-      192 GETUPVAL                         R33 6
-      193 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      192 GETUPVAL                         R32 6
+      193 GETTABLEKS                       R32 R32 K36 ["createElement"]
       195 GETUPVAL                         R33 8
       196 DUPTABLE                         R34 K74 [{"buttons", "Icon", "InformativeText", "onButtonClicked", "onClose", "Text", "Title", "isScrollable", "messageBoxHeight", "isResizable"}]
       197 NEWTABLE                         R35 0 1
@@ -1497,8 +1497,8 @@ PROTO_44:
       251 LOADNIL                          R32
       252 SETTABLEKS                       R32 R31 K60 ["ValidationErrorMessageBox"]
       254 JUMPIFNOT                        R27 ; [+50]
-      255 GETUPVAL                         R33 9
-      256 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      255 GETUPVAL                         R32 9
+      256 GETTABLEKS                       R32 R32 K36 ["createElement"]
       258 GETUPVAL                         R33 10
       259 DUPTABLE                         R34 K96 [{"layoutOrder", "contentTypeTitle", "currentSelectedRadioButtonKey", "onRadioButtonClicked", "radioButtonDevelopmentItemText", "radioButtonAvatarItemText", "warningMessageText", "warningMessageLinkMap", "isModel", "modelPublishWarningText", "insufficientRobuxWarningText", "theme"}]
       260 NAMECALL                         R35 R5 K97 ["getNextOrder"]
@@ -1537,8 +1537,8 @@ PROTO_44:
       309 GETUPVAL                         R33 11
       310 CALL                             R33 0 1
       311 JUMPIFNOT                        R33 ; [+65]
-      312 GETUPVAL                         R33 9
-      313 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      312 GETUPVAL                         R32 9
+      313 GETTABLEKS                       R32 R32 K36 ["createElement"]
       315 GETUPVAL                         R33 12
       316 DUPTABLE                         R34 K98 [{"LayoutOrder", "Title"}]
       317 NAMECALL                         R35 R5 K97 ["getNextOrder"]
@@ -1546,8 +1546,8 @@ PROTO_44:
       320 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
       322 SETTABLEKS                       R17 R34 K70 ["Title"]
       324 DUPTABLE                         R35 K100 [{"AssetCategoryRow"}]
-      325 GETUPVAL                         R37 9
-      326 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      325 GETUPVAL                         R36 9
+      326 GETTABLEKS                       R36 R36 K36 ["createElement"]
       328 GETUPVAL                         R37 13
       329 DUPTABLE                         R38 K110 [{"dropdownItems", "selectedDropDownIndex", "onItemClicked", "placeholder", "dropdownWidth", "showError", "validationStatusMessage", "validationStatusColor", "onErrorClicked"}]
       330 MOVE                             R41 R3
@@ -1580,8 +1580,8 @@ PROTO_44:
       373 SETTABLEKS                       R36 R35 K99 ["AssetCategoryRow"]
       375 CALL                             R32 3 1
       376 JUMP                             ; [+226]
-      377 GETUPVAL                         R33 6
-      378 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      377 GETUPVAL                         R32 6
+      378 GETTABLEKS                       R32 R32 K36 ["createElement"]
       380 GETUPVAL                         R33 12
       381 DUPTABLE                         R34 K119 [{"AutomaticSize", "LayoutOrder", "Title"}]
       382 GETIMPORT                        R35 K48 [Enum.AutomaticSize.XY]
@@ -1591,8 +1591,8 @@ PROTO_44:
       389 SETTABLEKS                       R35 R34 K42 ["LayoutOrder"]
       391 SETTABLEKS                       R17 R34 K70 ["Title"]
       393 DUPTABLE                         R35 K123 [{"Dropdown", "ValidationResult", "ErrorIconButton", "ErrorMessageTextButton"}]
-      394 GETUPVAL                         R37 6
-      395 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      394 GETUPVAL                         R36 6
+      395 GETTABLEKS                       R36 R36 K36 ["createElement"]
       397 GETUPVAL                         R37 14
       398 DUPTABLE                         R38 K129 [{"fontSize", "items", "onItemClicked", "rowHeight", "selectedDropDownIndex", "Size", "visibleDropDownCount"}]
       399 LOADN                            R39 20
@@ -1620,8 +1620,8 @@ PROTO_44:
       432 CALL                             R36 2 1
       433 SETTABLEKS                       R36 R35 K114 ["Dropdown"]
       435 JUMPIF                           R6 ; [+44]
-      436 GETUPVAL                         R37 6
-      437 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      436 GETUPVAL                         R36 6
+      437 GETTABLEKS                       R36 R36 K36 ["createElement"]
       439 GETUPVAL                         R37 15
       440 DUPTABLE                         R38 K137 [{"AutomaticSize", "Position", "Text", "TextColor", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
       441 GETIMPORT                        R39 K48 [Enum.AutomaticSize.XY]
@@ -1653,8 +1653,8 @@ PROTO_44:
       480 LOADNIL                          R36
       481 SETTABLEKS                       R36 R35 K120 ["ValidationResult"]
       483 JUMPIFNOT                        R6 ; [+47]
-      484 GETUPVAL                         R37 6
-      485 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      484 GETUPVAL                         R36 6
+      485 GETTABLEKS                       R36 R36 K36 ["createElement"]
       487 LOADK                            R37 K145 ["ImageButton"]
       488 NEWTABLE                         R38 8 0
       490 LOADB                            R39 0
@@ -1679,9 +1679,9 @@ PROTO_44:
       517 LOADN                            R41 24
       518 CALL                             R39 2 1
       519 SETTABLEKS                       R39 R38 K127 ["Size"]
-      521 GETUPVAL                         R41 6
-      522 GETTABLEKS                       R40 R41 K151 ["Event"]
-      524 GETTABLEKS                       R39 R40 K152 ["Activated"]
+      521 GETUPVAL                         R39 6
+      522 GETTABLEKS                       R39 R39 K151 ["Event"]
+      524 GETTABLEKS                       R39 R39 K152 ["Activated"]
       526 GETTABLEKS                       R40 R0 K118 ["openValidationErrorMessageBox"]
       528 SETTABLE                         R40 R38 R39
       529 CALL                             R36 2 1
@@ -1689,8 +1689,8 @@ PROTO_44:
       531 LOADNIL                          R36
       532 SETTABLEKS                       R36 R35 K121 ["ErrorIconButton"]
       534 JUMPIFNOT                        R6 ; [+62]
-      535 GETUPVAL                         R37 6
-      536 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      535 GETUPVAL                         R36 6
+      536 GETTABLEKS                       R36 R36 K36 ["createElement"]
       538 LOADK                            R37 K153 ["TextButton"]
       539 NEWTABLE                         R38 16 0
       541 GETIMPORT                        R39 K48 [Enum.AutomaticSize.XY]
@@ -1715,16 +1715,16 @@ PROTO_44:
       569 NAMECALL                         R39 R0 K117 ["getValidationStatusColor"]
       571 CALL                             R39 2 1
       572 SETTABLEKS                       R39 R38 K154 ["TextColor3"]
-      574 GETUPVAL                         R40 2
-      575 GETTABLEKS                       R39 R40 K8 ["FONT_SIZE_TITLE"]
+      574 GETUPVAL                         R39 2
+      575 GETTABLEKS                       R39 R39 K8 ["FONT_SIZE_TITLE"]
       577 SETTABLEKS                       R39 R38 K76 ["TextSize"]
       579 GETIMPORT                        R39 K142 [Enum.TextXAlignment.Left]
       581 SETTABLEKS                       R39 R38 K135 ["TextXAlignment"]
       583 GETIMPORT                        R39 K144 [Enum.TextYAlignment.Center]
       585 SETTABLEKS                       R39 R38 K136 ["TextYAlignment"]
-      587 GETUPVAL                         R41 6
-      588 GETTABLEKS                       R40 R41 K151 ["Event"]
-      590 GETTABLEKS                       R39 R40 K152 ["Activated"]
+      587 GETUPVAL                         R39 6
+      588 GETTABLEKS                       R39 R39 K151 ["Event"]
+      590 GETTABLEKS                       R39 R39 K152 ["Activated"]
       592 GETTABLEKS                       R40 R0 K118 ["openValidationErrorMessageBox"]
       594 SETTABLE                         R40 R38 R39
       595 CALL                             R36 2 1
@@ -1737,8 +1737,8 @@ PROTO_44:
       603 SETTABLEKS                       R32 R31 K62 ["AssetCategoryDropDown"]
       605 GETIMPORT                        R33 K156 [Enum.AssetType.EmoteAnimation]
       607 JUMPIFNOTEQ                      R9 R33 ; [+124]
-      609 GETUPVAL                         R33 6
-      610 GETTABLEKS                       R32 R33 K36 ["createElement"]
+      609 GETUPVAL                         R32 6
+      610 GETTABLEKS                       R32 R32 K36 ["createElement"]
       612 GETUPVAL                         R33 7
       613 DUPTABLE                         R34 K157 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
       614 GETIMPORT                        R35 K159 [Enum.AutomaticSize.Y]
@@ -1760,17 +1760,17 @@ PROTO_44:
       641 GETIMPORT                        R35 K59 [Enum.VerticalAlignment.Top]
       643 SETTABLEKS                       R35 R34 K45 ["VerticalAlignment"]
       645 DUPTABLE                         R35 K165 [{"Icon", "UGCWarningText"}]
-      646 GETUPVAL                         R37 6
-      647 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      646 GETUPVAL                         R36 6
+      647 GETTABLEKS                       R36 R36 K36 ["createElement"]
       649 LOADK                            R37 K166 ["ImageLabel"]
       650 DUPTABLE                         R38 K167 [{"BackgroundTransparency", "Image", "ImageColor3", "LayoutOrder", "Size"}]
       651 LOADN                            R39 1
       652 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
-      654 GETUPVAL                         R40 16
-      655 GETTABLEKS                       R39 R40 K168 ["WARNING_ICON"]
+      654 GETUPVAL                         R39 16
+      655 GETTABLEKS                       R39 R39 K168 ["WARNING_ICON"]
       657 SETTABLEKS                       R39 R38 K147 ["Image"]
-      659 GETTABLEKS                       R40 R4 K169 ["assetConfig"]
-      661 GETTABLEKS                       R39 R40 K170 ["warningColor"]
+      659 GETTABLEKS                       R39 R4 K169 ["assetConfig"]
+      661 GETTABLEKS                       R39 R39 K170 ["warningColor"]
       663 SETTABLEKS                       R39 R38 K148 ["ImageColor3"]
       665 LOADN                            R39 1
       666 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
@@ -1781,16 +1781,16 @@ PROTO_44:
       673 SETTABLEKS                       R39 R38 K127 ["Size"]
       675 CALL                             R36 2 1
       676 SETTABLEKS                       R36 R35 K65 ["Icon"]
-      678 GETUPVAL                         R37 6
-      679 GETTABLEKS                       R36 R37 K36 ["createElement"]
+      678 GETUPVAL                         R36 6
+      679 GETTABLEKS                       R36 R36 K36 ["createElement"]
       681 LOADK                            R37 K171 ["TextLabel"]
       682 DUPTABLE                         R38 K172 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor3", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
       683 GETIMPORT                        R39 K159 [Enum.AutomaticSize.Y]
       685 SETTABLEKS                       R39 R38 K37 ["AutomaticSize"]
       687 LOADN                            R39 1
       688 SETTABLEKS                       R39 R38 K39 ["BackgroundTransparency"]
-      690 GETUPVAL                         R40 2
-      691 GETTABLEKS                       R39 R40 K173 ["FONT"]
+      690 GETUPVAL                         R39 2
+      691 GETTABLEKS                       R39 R39 K173 ["FONT"]
       693 SETTABLEKS                       R39 R38 K75 ["Font"]
       695 LOADN                            R39 2
       696 SETTABLEKS                       R39 R38 K42 ["LayoutOrder"]
@@ -1800,8 +1800,8 @@ PROTO_44:
       702 CALL                             R39 2 1
       703 SETTABLEKS                       R39 R38 K127 ["Size"]
       705 SETTABLEKS                       R26 R38 K69 ["Text"]
-      707 GETTABLEKS                       R40 R4 K169 ["assetConfig"]
-      709 GETTABLEKS                       R39 R40 K170 ["warningColor"]
+      707 GETTABLEKS                       R39 R4 K169 ["assetConfig"]
+      709 GETTABLEKS                       R39 R39 K170 ["warningColor"]
       711 SETTABLEKS                       R39 R38 K154 ["TextColor3"]
       713 LOADN                            R39 24
       714 SETTABLEKS                       R39 R38 K76 ["TextSize"]
@@ -1905,15 +1905,15 @@ MAIN:
        50 GETTABLEKS                       R10 R4 K18 ["ContextServices"]
        52 GETTABLEKS                       R11 R10 K19 ["withContext"]
        54 GETIMPORT                        R12 K10 [require]
-       56 GETTABLEKS                       R15 R0 K20 ["Src"]
-       58 GETTABLEKS                       R14 R15 K18 ["ContextServices"]
-       60 GETTABLEKS                       R13 R14 K21 ["NetworkContext"]
+       56 GETTABLEKS                       R13 R0 K20 ["Src"]
+       58 GETTABLEKS                       R13 R13 K18 ["ContextServices"]
+       60 GETTABLEKS                       R13 R13 K21 ["NetworkContext"]
        62 CALL                             R12 1 1
-       63 GETTABLEKS                       R14 R0 K20 ["Src"]
-       65 GETTABLEKS                       R13 R14 K22 ["Util"]
+       63 GETTABLEKS                       R13 R0 K20 ["Src"]
+       65 GETTABLEKS                       R13 R13 K22 ["Util"]
        67 GETIMPORT                        R14 K10 [require]
-       69 GETTABLEKS                       R16 R13 K23 ["Analytics"]
-       71 GETTABLEKS                       R15 R16 K23 ["Analytics"]
+       69 GETTABLEKS                       R15 R13 K23 ["Analytics"]
+       71 GETTABLEKS                       R15 R15 K23 ["Analytics"]
        73 CALL                             R14 1 1
        74 GETIMPORT                        R15 K10 [require]
        76 GETTABLEKS                       R16 R13 K24 ["AssetConfigUtil"]
@@ -1931,51 +1931,51 @@ MAIN:
        96 GETTABLEKS                       R20 R13 K28 ["Images"]
        98 CALL                             R19 1 1
        99 GETIMPORT                        R20 K10 [require]
-      101 GETTABLEKS                       R22 R13 K29 ["SharedFlags"]
-      103 GETTABLEKS                       R21 R22 K30 ["getFFlagUGCBundleValidationFullBodyErrors"]
+      101 GETTABLEKS                       R21 R13 K29 ["SharedFlags"]
+      103 GETTABLEKS                       R21 R21 K30 ["getFFlagUGCBundleValidationFullBodyErrors"]
       105 CALL                             R20 1 1
       106 GETIMPORT                        R21 K10 [require]
       108 GETTABLEKS                       R22 R13 K31 ["getAllowedAssetTypeEnums"]
       110 CALL                             R21 1 1
       111 GETIMPORT                        R22 K10 [require]
-      113 GETTABLEKS                       R25 R0 K20 ["Src"]
-      115 GETTABLEKS                       R24 R25 K32 ["Localization"]
-      117 GETTABLEKS                       R23 R24 K33 ["getLocalizedAssetTextMap"]
+      113 GETTABLEKS                       R23 R0 K20 ["Src"]
+      115 GETTABLEKS                       R23 R23 K32 ["Localization"]
+      117 GETTABLEKS                       R23 R23 K33 ["getLocalizedAssetTextMap"]
       119 CALL                             R22 1 1
-      120 GETTABLEKS                       R24 R4 K22 ["Util"]
-      122 GETTABLEKS                       R23 R24 K34 ["LayoutOrderIterator"]
+      120 GETTABLEKS                       R23 R4 K22 ["Util"]
+      122 GETTABLEKS                       R23 R23 K34 ["LayoutOrderIterator"]
       124 GETTABLEKS                       R24 R4 K35 ["UI"]
       126 GETTABLEKS                       R25 R24 K36 ["Pane"]
       128 GETTABLEKS                       R26 R24 K37 ["TextLabel"]
       130 GETIMPORT                        R27 K10 [require]
-      132 GETTABLEKS                       R30 R0 K20 ["Src"]
-      134 GETTABLEKS                       R29 R30 K38 ["Actions"]
-      136 GETTABLEKS                       R28 R29 K39 ["SetUploadAssetType"]
+      132 GETTABLEKS                       R28 R0 K20 ["Src"]
+      134 GETTABLEKS                       R28 R28 K38 ["Actions"]
+      136 GETTABLEKS                       R28 R28 K39 ["SetUploadAssetType"]
       138 CALL                             R27 1 1
       139 GETIMPORT                        R28 K10 [require]
-      141 GETTABLEKS                       R31 R0 K20 ["Src"]
-      143 GETTABLEKS                       R30 R31 K38 ["Actions"]
-      145 GETTABLEKS                       R29 R30 K40 ["SetUploadAssetValidationStatus"]
+      141 GETTABLEKS                       R29 R0 K20 ["Src"]
+      143 GETTABLEKS                       R29 R29 K38 ["Actions"]
+      145 GETTABLEKS                       R29 R29 K40 ["SetUploadAssetValidationStatus"]
       147 CALL                             R28 1 1
       148 GETIMPORT                        R29 K10 [require]
-      150 GETTABLEKS                       R32 R0 K20 ["Src"]
-      152 GETTABLEKS                       R31 R32 K41 ["Components"]
-      154 GETTABLEKS                       R30 R31 K42 ["DropdownMenu"]
+      150 GETTABLEKS                       R30 R0 K20 ["Src"]
+      152 GETTABLEKS                       R30 R30 K41 ["Components"]
+      154 GETTABLEKS                       R30 R30 K42 ["DropdownMenu"]
       156 CALL                             R29 1 1
       157 GETIMPORT                        R30 K10 [require]
-      159 GETTABLEKS                       R34 R0 K20 ["Src"]
-      161 GETTABLEKS                       R33 R34 K41 ["Components"]
-      163 GETTABLEKS                       R32 R33 K43 ["MessageBox"]
-      165 GETTABLEKS                       R31 R32 K43 ["MessageBox"]
+      159 GETTABLEKS                       R31 R0 K20 ["Src"]
+      161 GETTABLEKS                       R31 R31 K41 ["Components"]
+      163 GETTABLEKS                       R31 R31 K43 ["MessageBox"]
+      165 GETTABLEKS                       R31 R31 K43 ["MessageBox"]
       167 CALL                             R30 1 1
       168 GETIMPORT                        R31 K10 [require]
-      170 GETTABLEKS                       R34 R0 K20 ["Src"]
-      172 GETTABLEKS                       R33 R34 K41 ["Components"]
-      174 GETTABLEKS                       R32 R33 K44 ["StyledScrollingFrame"]
+      170 GETTABLEKS                       R32 R0 K20 ["Src"]
+      172 GETTABLEKS                       R32 R32 K41 ["Components"]
+      174 GETTABLEKS                       R32 R32 K44 ["StyledScrollingFrame"]
       176 CALL                             R31 1 1
-      177 GETTABLEKS                       R34 R0 K20 ["Src"]
-      179 GETTABLEKS                       R33 R34 K41 ["Components"]
-      181 GETTABLEKS                       R32 R33 K45 ["AssetConfiguration"]
+      177 GETTABLEKS                       R32 R0 K20 ["Src"]
+      179 GETTABLEKS                       R32 R32 K41 ["Components"]
+      181 GETTABLEKS                       R32 R32 K45 ["AssetConfiguration"]
       183 GETIMPORT                        R33 K10 [require]
       185 GETTABLEKS                       R34 R32 K46 ["AssetCategoryRow"]
       187 CALL                             R33 1 1
@@ -1989,9 +1989,9 @@ MAIN:
       200 GETTABLEKS                       R37 R32 K49 ["ContentTypeRadioButtons"]
       202 CALL                             R36 1 1
       203 GETIMPORT                        R37 K10 [require]
-      205 GETTABLEKS                       R40 R0 K20 ["Src"]
-      207 GETTABLEKS                       R39 R40 K50 ["Flags"]
-      209 GETTABLEKS                       R38 R39 K51 ["getFFlagToolboxAssetConfigFoundationMigration"]
+      205 GETTABLEKS                       R38 R0 K20 ["Src"]
+      207 GETTABLEKS                       R38 R38 K50 ["Flags"]
+      209 GETTABLEKS                       R38 R38 K51 ["getFFlagToolboxAssetConfigFoundationMigration"]
       211 CALL                             R37 1 1
       212 GETIMPORT                        R38 K10 [require]
       214 GETTABLEKS                       R39 R32 K52 ["UGCBundleValidation"]
@@ -2016,31 +2016,31 @@ MAIN:
       243 NAMECALL                         R42 R42 K57 ["DefineFastFlag"]
       245 CALL                             R42 3 1
       246 GETIMPORT                        R43 K10 [require]
-      248 GETTABLEKS                       R45 R13 K29 ["SharedFlags"]
-      250 GETTABLEKS                       R44 R45 K59 ["getFFlagEnableUGCUploadFlowAnalytics"]
+      248 GETTABLEKS                       R44 R13 K29 ["SharedFlags"]
+      250 GETTABLEKS                       R44 R44 K59 ["getFFlagEnableUGCUploadFlowAnalytics"]
       252 CALL                             R43 1 1
       253 GETIMPORT                        R44 K10 [require]
-      255 GETTABLEKS                       R46 R13 K29 ["SharedFlags"]
-      257 GETTABLEKS                       R45 R46 K60 ["getFFlagEnableUGCBundleUploadBodyScale"]
+      255 GETTABLEKS                       R45 R13 K29 ["SharedFlags"]
+      257 GETTABLEKS                       R45 R45 K60 ["getFFlagEnableUGCBundleUploadBodyScale"]
       259 CALL                             R44 1 1
       260 GETIMPORT                        R45 K10 [require]
-      262 GETTABLEKS                       R48 R0 K20 ["Src"]
-      264 GETTABLEKS                       R47 R48 K50 ["Flags"]
-      266 GETTABLEKS                       R46 R47 K61 ["getFFlagRequireBodyColorsForBodyUpload"]
+      262 GETTABLEKS                       R46 R0 K20 ["Src"]
+      264 GETTABLEKS                       R46 R46 K50 ["Flags"]
+      266 GETTABLEKS                       R46 R46 K61 ["getFFlagRequireBodyColorsForBodyUpload"]
       268 CALL                             R45 1 1
       269 GETIMPORT                        R46 K10 [require]
-      271 GETTABLEKS                       R48 R13 K29 ["SharedFlags"]
-      273 GETTABLEKS                       R47 R48 K62 ["getFFlagEnableUGCForAllChecks"]
+      271 GETTABLEKS                       R47 R13 K29 ["SharedFlags"]
+      273 GETTABLEKS                       R47 R47 K62 ["getFFlagEnableUGCForAllChecks"]
       275 CALL                             R46 1 1
       276 GETIMPORT                        R47 K10 [require]
-      278 GETTABLEKS                       R50 R0 K20 ["Src"]
-      280 GETTABLEKS                       R49 R50 K50 ["Flags"]
-      282 GETTABLEKS                       R48 R49 K63 ["getFStringAssetsToBypassValidation"]
+      278 GETTABLEKS                       R48 R0 K20 ["Src"]
+      280 GETTABLEKS                       R48 R48 K50 ["Flags"]
+      282 GETTABLEKS                       R48 R48 K63 ["getFStringAssetsToBypassValidation"]
       284 CALL                             R47 1 1
       285 GETIMPORT                        R48 K10 [require]
-      287 GETTABLEKS                       R51 R0 K20 ["Src"]
-      289 GETTABLEKS                       R50 R51 K50 ["Flags"]
-      291 GETTABLEKS                       R49 R50 K64 ["getFFlagAssetBypassValidation"]
+      287 GETTABLEKS                       R49 R0 K20 ["Src"]
+      289 GETTABLEKS                       R49 R49 K50 ["Flags"]
+      291 GETTABLEKS                       R49 R49 K64 ["getFFlagAssetBypassValidation"]
       293 CALL                             R48 1 1
       294 GETIMPORT                        R49 K5 [game]
       296 LOADK                            R51 K65 ["ToolboxConfigAssetTypeAgeIDVerificationLink"]
@@ -2067,9 +2067,9 @@ MAIN:
       325 NAMECALL                         R53 R53 K73 ["GetFastFlag"]
       327 CALL                             R53 2 1
       328 GETIMPORT                        R54 K10 [require]
-      330 GETTABLEKS                       R57 R0 K20 ["Src"]
-      332 GETTABLEKS                       R56 R57 K50 ["Flags"]
-      334 GETTABLEKS                       R55 R56 K74 ["getFFlagEnableUploadingAvatarAnimations"]
+      330 GETTABLEKS                       R55 R0 K20 ["Src"]
+      332 GETTABLEKS                       R55 R55 K50 ["Flags"]
+      334 GETTABLEKS                       R55 R55 K74 ["getFFlagEnableUploadingAvatarAnimations"]
       336 CALL                             R54 1 1
       337 GETTABLEKS                       R55 R6 K75 ["PureComponent"]
       339 LOADK                            R57 K76 ["ConfigAssetType"]
@@ -2094,19 +2094,19 @@ MAIN:
       362 CALL                             R59 2 1
       363 JUMPIFNOT                        R59 ; [+30]
       364 NEWTABLE                         R59 0 3
-      366 GETTABLEKS                       R61 R40 K78 ["UGCBundleTypes"]
-      368 GETTABLEKS                       R60 R61 K79 ["Body"]
-      370 GETTABLEKS                       R62 R40 K78 ["UGCBundleTypes"]
-      372 GETTABLEKS                       R61 R62 K80 ["DynamicHead"]
-      374 GETTABLEKS                       R63 R40 K78 ["UGCBundleTypes"]
-      376 GETTABLEKS                       R62 R63 K81 ["Shoes"]
+      366 GETTABLEKS                       R60 R40 K78 ["UGCBundleTypes"]
+      368 GETTABLEKS                       R60 R60 K79 ["Body"]
+      370 GETTABLEKS                       R61 R40 K78 ["UGCBundleTypes"]
+      372 GETTABLEKS                       R61 R61 K80 ["DynamicHead"]
+      374 GETTABLEKS                       R62 R40 K78 ["UGCBundleTypes"]
+      376 GETTABLEKS                       R62 R62 K81 ["Shoes"]
       378 SETLIST                          R59 R60 3 [1]
       380 MOVE                             R58 R59
       381 MOVE                             R59 R54
       382 CALL                             R59 0 1
       383 JUMPIFNOT                        R59 ; [+10]
-      384 GETTABLEKS                       R62 R40 K78 ["UGCBundleTypes"]
-      386 GETTABLEKS                       R61 R62 K82 ["AvatarAnimations"]
+      384 GETTABLEKS                       R61 R40 K78 ["UGCBundleTypes"]
+      386 GETTABLEKS                       R61 R61 K82 ["AvatarAnimations"]
       388 FASTCALL2                        TABLE_INSERT R58 R61 ; [+4]
       390 MOVE                             R60 R58
       391 GETIMPORT                        R59 K85 [table.insert]

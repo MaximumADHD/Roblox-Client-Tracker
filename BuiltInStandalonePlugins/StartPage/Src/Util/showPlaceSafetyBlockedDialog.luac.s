@@ -48,11 +48,11 @@ PROTO_0:
        66 JUMPIFNOT                        R6 ; [+20]
        67 GETTABLEKS                       R7 R6 K24 ["SelectedButtonUri"]
        69 JUMPIFNOT                        R7 ; [+17]
-       70 GETTABLEKS                       R8 R6 K24 ["SelectedButtonUri"]
-       72 GETTABLEKS                       R7 R8 K7 ["ItemId"]
+       70 GETTABLEKS                       R7 R6 K24 ["SelectedButtonUri"]
+       72 GETTABLEKS                       R7 R7 K7 ["ItemId"]
        74 JUMPIFNOT                        R7 ; [+12]
-       75 GETTABLEKS                       R8 R6 K24 ["SelectedButtonUri"]
-       77 GETTABLEKS                       R7 R8 K7 ["ItemId"]
+       75 GETTABLEKS                       R7 R6 K24 ["SelectedButtonUri"]
+       77 GETTABLEKS                       R7 R7 K7 ["ItemId"]
        79 JUMPIFNOTEQKS                    R7 K22 ["PlaceSafetyBlockedDialog/ViewTermsOfUse"] ; [+7]
        81 GETUPVAL                         R7 0
        82 GETUPVAL                         R9 1
@@ -68,15 +68,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["StartPageManager"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R6 R0 K6 ["Src"]
-       22 GETTABLEKS                       R5 R6 K10 ["SharedFlags"]
-       24 GETTABLEKS                       R4 R5 K11 ["getFStringLuaStartPageTermsOfUseLink"]
+       20 GETTABLEKS                       R4 R0 K6 ["Src"]
+       22 GETTABLEKS                       R4 R4 K10 ["SharedFlags"]
+       24 GETTABLEKS                       R4 R4 K11 ["getFStringLuaStartPageTermsOfUseLink"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K12 [PROTO_0]
        28 CAPTURE                          VAL R2

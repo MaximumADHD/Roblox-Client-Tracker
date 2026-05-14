@@ -1,7 +1,7 @@
 PROTO_0:
         0 NEWTABLE                         R0 2 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["new"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["new"]
         5 CALL                             R1 0 1
         6 SETTABLEKS                       R1 R0 K1 ["VRDeviceNameSignal"]
         8 LOADK                            R1 K2 ["abc"]
@@ -22,16 +22,16 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Signal"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Signal"]
        20 NEWTABLE                         R3 4 0
        22 SETTABLEKS                       R3 R3 K9 ["__index"]
        24 DUPCLOSURE                       R4 K10 [PROTO_0]

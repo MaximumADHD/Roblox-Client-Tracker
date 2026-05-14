@@ -5,17 +5,17 @@ PROTO_0:
         6 GETTABLEKS                       R4 R1 K3 ["Rotation"]
         8 GETTABLEKS                       R5 R1 K4 ["Position"]
        10 GETTABLEKS                       R6 R1 K5 ["AnchorPoint"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 LOADK                            R8 K7 ["ImageButton"]
        16 NEWTABLE                         R9 8 0
        18 GETIMPORT                        R10 K10 [UDim2.new]
        20 LOADN                            R11 0
-       21 GETUPVAL                         R13 1
-       22 GETTABLEKS                       R12 R13 K11 ["SCROLL_BAR_SIZE"]
+       21 GETUPVAL                         R12 1
+       22 GETTABLEKS                       R12 R12 K11 ["SCROLL_BAR_SIZE"]
        24 LOADN                            R13 0
-       25 GETUPVAL                         R15 1
-       26 GETTABLEKS                       R14 R15 K11 ["SCROLL_BAR_SIZE"]
+       25 GETUPVAL                         R14 1
+       26 GETTABLEKS                       R14 R14 K11 ["SCROLL_BAR_SIZE"]
        28 CALL                             R10 4 1
        29 SETTABLEKS                       R10 R9 K12 ["Size"]
        31 SETTABLEKS                       R5 R9 K4 ["Position"]
@@ -28,14 +28,14 @@ PROTO_0:
        44 SETTABLEKS                       R10 R9 K17 ["BorderColor3"]
        46 LOADN                            R10 1
        47 SETTABLEKS                       R10 R9 K18 ["ImageTransparency"]
-       49 GETUPVAL                         R12 0
-       50 GETTABLEKS                       R11 R12 K19 ["Event"]
-       52 GETTABLEKS                       R10 R11 K20 ["Activated"]
+       49 GETUPVAL                         R10 0
+       50 GETTABLEKS                       R10 R10 K19 ["Event"]
+       52 GETTABLEKS                       R10 R10 K20 ["Activated"]
        54 GETTABLEKS                       R11 R1 K21 ["OnActivated"]
        56 SETTABLE                         R11 R9 R10
        57 DUPTABLE                         R10 K23 [{"Arrow"}]
-       58 GETUPVAL                         R12 0
-       59 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       58 GETUPVAL                         R11 0
+       59 GETTABLEKS                       R11 R11 K6 ["createElement"]
        61 LOADK                            R12 K24 ["ImageLabel"]
        62 DUPTABLE                         R13 K28 [{"Size", "Rotation", "Position", "AnchorPoint", "Image", "ImageColor3", "BackgroundTransparency"}]
        63 GETUPVAL                         R14 2
@@ -77,19 +77,19 @@ MAIN:
        11 NAMECALL                         R1 R1 K6 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
        14 GETIMPORT                        R2 K8 [require]
-       16 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K10 ["Framework"]
+       16 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K10 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K11 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K12 ["withContext"]
        25 GETIMPORT                        R5 K8 [require]
-       27 GETTABLEKS                       R7 R1 K9 ["Packages"]
-       29 GETTABLEKS                       R6 R7 K13 ["Roact"]
+       27 GETTABLEKS                       R6 R1 K9 ["Packages"]
+       29 GETTABLEKS                       R6 R6 K13 ["Roact"]
        31 CALL                             R5 1 1
        32 GETIMPORT                        R6 K8 [require]
-       34 GETTABLEKS                       R9 R1 K14 ["Src"]
-       36 GETTABLEKS                       R8 R9 K15 ["Util"]
-       38 GETTABLEKS                       R7 R8 K16 ["Constants"]
+       34 GETTABLEKS                       R7 R1 K14 ["Src"]
+       36 GETTABLEKS                       R7 R7 K15 ["Util"]
+       38 GETTABLEKS                       R7 R7 K16 ["Constants"]
        40 CALL                             R6 1 1
        41 GETTABLEKS                       R7 R5 K17 ["PureComponent"]
        43 LOADK                            R9 K18 ["ArrowButton"]

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["Localization"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Localization"]
         3 NAMECALL                         R1 R1 K1 ["use"]
         5 CALL                             R1 1 1
         6 GETUPVAL                         R2 1
@@ -10,14 +10,14 @@ PROTO_0:
        11 JUMPIF                           R2 ; [+2]
        12 LOADNIL                          R2
        13 RETURN                           R2 1
-       14 GETUPVAL                         R3 2
-       15 GETTABLEKS                       R2 R3 K3 ["createElement"]
-       17 GETUPVAL                         R5 3
-       18 GETTABLEKS                       R4 R5 K4 ["UI"]
-       20 GETTABLEKS                       R3 R4 K5 ["TextLabel"]
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R2 R2 K3 ["createElement"]
+       17 GETUPVAL                         R3 3
+       18 GETTABLEKS                       R3 R3 K4 ["UI"]
+       20 GETTABLEKS                       R3 R3 K5 ["TextLabel"]
        22 NEWTABLE                         R4 4 0
-       24 GETUPVAL                         R6 2
-       25 GETTABLEKS                       R5 R6 K6 ["Tag"]
+       24 GETUPVAL                         R5 2
+       25 GETTABLEKS                       R5 R5 K6 ["Tag"]
        27 LOADK                            R6 K7 ["VisualizationModes-HiddenCountLabel"]
        28 SETTABLE                         R6 R4 R5
        29 GETTABLEKS                       R5 R0 K8 ["LayoutOrder"]
@@ -36,12 +36,12 @@ PROTO_0:
        48 SETTABLEKS                       R5 R4 K12 ["Text"]
        50 CALL                             R2 2 -1
        51 RETURN                           R2 -1
-       52 GETUPVAL                         R3 2
-       53 GETTABLEKS                       R2 R3 K3 ["createElement"]
+       52 GETUPVAL                         R2 2
+       53 GETTABLEKS                       R2 R2 K3 ["createElement"]
        55 LOADK                            R3 K5 ["TextLabel"]
        56 NEWTABLE                         R4 4 0
-       58 GETUPVAL                         R6 2
-       59 GETTABLEKS                       R5 R6 K6 ["Tag"]
+       58 GETUPVAL                         R5 2
+       59 GETTABLEKS                       R5 R5 K6 ["Tag"]
        61 LOADK                            R6 K7 ["VisualizationModes-HiddenCountLabel"]
        62 SETTABLE                         R6 R4 R5
        63 GETTABLEKS                       R5 R0 K8 ["LayoutOrder"]
@@ -70,17 +70,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Flags"]
-       27 GETTABLEKS                       R4 R5 K11 ["getFFlagStudioVisualizationModesFontFix"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       27 GETTABLEKS                       R4 R4 K11 ["getFFlagStudioVisualizationModesFontFix"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R2 K12 ["ContextServices"]
        32 DUPCLOSURE                       R5 K13 [PROTO_0]

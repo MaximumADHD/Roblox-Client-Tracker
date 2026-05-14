@@ -7,18 +7,18 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [plugin]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K2 ["Name"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["Name"]
         5 SETTABLEKS                       R1 R0 K2 ["Name"]
-        7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R0 R1 K3 ["createElement"]
+        7 GETUPVAL                         R0 1
+        8 GETTABLEKS                       R0 R0 K3 ["createElement"]
        10 GETUPVAL                         R1 2
        11 DUPTABLE                         R2 K5 [{"Plugin"}]
        12 GETIMPORT                        R3 K1 [plugin]
        14 SETTABLEKS                       R3 R2 K4 ["Plugin"]
        16 CALL                             R0 2 1
-       17 GETUPVAL                         R2 4
-       18 GETTABLEKS                       R1 R2 K6 ["createRoot"]
+       17 GETUPVAL                         R1 4
+       18 GETTABLEKS                       R1 R1 K6 ["createRoot"]
        20 GETIMPORT                        R2 K9 [Instance.new]
        22 LOADK                            R3 K10 ["Frame"]
        23 CALL                             R2 1 -1
@@ -44,16 +44,16 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 0
        10 GETIMPORT                        R0 K7 [plugin]
        12 JUMPIF                           R0 ; [+1]
        13 RETURN                           R0 0
-       14 GETIMPORT                        R2 K3 [script]
-       16 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       18 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       14 GETIMPORT                        R0 K3 [script]
+       16 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       18 GETTABLEKS                       R0 R0 K4 ["Parent"]
        20 GETIMPORT                        R1 K9 [pcall]
        22 DUPCLOSURE                       R2 K10 [PROTO_0]
        23 CALL                             R1 1 2
@@ -62,12 +62,12 @@ MAIN:
        27 LOADK                            R5 K13 ["TestService"]
        28 NAMECALL                         R3 R3 K14 ["GetService"]
        30 CALL                             R3 2 1
-       31 GETIMPORT                        R5 K1 [require]
-       33 GETTABLEKS                       R8 R0 K15 ["Packages"]
-       35 GETTABLEKS                       R7 R8 K16 ["Dev"]
-       37 GETTABLEKS                       R6 R7 K17 ["Jest"]
-       39 CALL                             R5 1 1
-       40 GETTABLEKS                       R4 R5 K18 ["runCLI"]
+       31 GETIMPORT                        R4 K1 [require]
+       33 GETTABLEKS                       R5 R0 K15 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K16 ["Dev"]
+       37 GETTABLEKS                       R5 R5 K17 ["Jest"]
+       39 CALL                             R4 1 1
+       40 GETTABLEKS                       R4 R4 K18 ["runCLI"]
        42 GETIMPORT                        R5 K20 [_G]
        44 LOADB                            R6 1
        45 SETTABLEKS                       R6 R5 K21 ["__ROACT_17_MOCK_SCHEDULER__"]
@@ -105,12 +105,12 @@ MAIN:
        94 NAMECALL                         R7 R7 K35 ["awaitStatus"]
        96 CALL                             R7 1 2
        97 JUMPIFNOTEQKS                    R7 K36 ["Resolved"] ; [+15]
-       99 GETTABLEKS                       R10 R8 K37 ["results"]
-      101 GETTABLEKS                       R9 R10 K38 ["numFailedTestSuites"]
+       99 GETTABLEKS                       R9 R8 K37 ["results"]
+      101 GETTABLEKS                       R9 R9 K38 ["numFailedTestSuites"]
       103 LOADN                            R10 0
       104 JUMPIFLT                         R10 R9 ; [+8]
-      106 GETTABLEKS                       R10 R8 K37 ["results"]
-      108 GETTABLEKS                       R9 R10 K39 ["numFailedTests"]
+      106 GETTABLEKS                       R9 R8 K37 ["results"]
+      108 GETTABLEKS                       R9 R9 K39 ["numFailedTests"]
       110 LOADN                            R10 0
       111 JUMPIFNOTLT                      R10 R9 ; [+16]
       113 JUMPIFNOTEQKS                    R7 K40 ["Rejected"] ; [+5]
@@ -135,16 +135,16 @@ MAIN:
       139 JUMPIF                           R3 ; [+1]
       140 RETURN                           R0 0
       141 GETIMPORT                        R3 K1 [require]
-      143 GETTABLEKS                       R5 R0 K15 ["Packages"]
-      145 GETTABLEKS                       R4 R5 K48 ["React"]
+      143 GETTABLEKS                       R4 R0 K15 ["Packages"]
+      145 GETTABLEKS                       R4 R4 K48 ["React"]
       147 CALL                             R3 1 1
       148 GETIMPORT                        R4 K1 [require]
-      150 GETTABLEKS                       R6 R0 K15 ["Packages"]
-      152 GETTABLEKS                       R5 R6 K49 ["ReactRoblox"]
+      150 GETTABLEKS                       R5 R0 K15 ["Packages"]
+      152 GETTABLEKS                       R5 R5 K49 ["ReactRoblox"]
       154 CALL                             R4 1 1
       155 GETIMPORT                        R5 K1 [require]
-      157 GETTABLEKS                       R7 R0 K28 ["Src"]
-      159 GETTABLEKS                       R6 R7 K50 ["MainPlugin"]
+      157 GETTABLEKS                       R6 R0 K28 ["Src"]
+      159 GETTABLEKS                       R6 R6 K50 ["MainPlugin"]
       161 CALL                             R5 1 1
       162 LOADNIL                          R6
       163 NEWCLOSURE                       R7 P1
@@ -153,8 +153,8 @@ MAIN:
       166 CAPTURE                          VAL R5
       167 CAPTURE                          REF R6
       168 CAPTURE                          VAL R4
-      169 GETIMPORT                        R9 K7 [plugin]
-      171 GETTABLEKS                       R8 R9 K51 ["Unloading"]
+      169 GETIMPORT                        R8 K7 [plugin]
+      171 GETTABLEKS                       R8 R8 K51 ["Unloading"]
       173 NEWCLOSURE                       R10 P2
       174 CAPTURE                          REF R6
       175 NAMECALL                         R8 R8 K52 ["Connect"]

@@ -25,8 +25,8 @@ PROTO_2:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["data"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["data"]
        11 NEWTABLE                         R4 0 0
        13 GETIMPORT                        R5 K5 [ipairs]
        15 MOVE                             R6 R3

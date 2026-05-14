@@ -38,8 +38,8 @@ PROTO_2:
         8 RETURN                           R0 -1
 
 PROTO_3:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["wrap"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["wrap"]
         3 NEWCLOSURE                       R5 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -71,8 +71,8 @@ PROTO_6:
         7 RETURN                           R0 -1
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["wrap"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["wrap"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -91,8 +91,8 @@ PROTO_8:
         7 RETURN                           R0 -1
 
 PROTO_9:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["wrap"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["wrap"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -133,8 +133,8 @@ PROTO_12:
         0 MOVE                             R3 R2
         1 JUMPIF                           R3 ; [+2]
         2 NEWTABLE                         R3 0 0
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K0 ["new"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K0 ["new"]
         7 NEWCLOSURE                       R5 P0
         8 CAPTURE                          UPVAL U1
         9 CAPTURE                          VAL R0
@@ -144,8 +144,8 @@ PROTO_12:
        13 RETURN                           R4 -1
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ResultsAvailable"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ResultsAvailable"]
         3 RETURN                           R0 1
 
 PROTO_14:
@@ -158,20 +158,20 @@ PROTO_14:
         7 RETURN                           R0 -1
 
 PROTO_15:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K1 ["RichTagColors"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K1 ["RichTagColors"]
         3 GETTABLE                         R2 R3 R0
         4 GETTABLEKS                       R1 R2 K0 ["find"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K1 ["RichTagColors"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K1 ["RichTagColors"]
         9 GETTABLE                         R3 R4 R0
        10 GETTABLEKS                       R2 R3 K2 ["replaced"]
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K1 ["RichTagColors"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K1 ["RichTagColors"]
        15 GETTABLE                         R4 R5 R0
        16 GETTABLEKS                       R3 R4 K3 ["replacement"]
-       18 GETUPVAL                         R5 1
-       19 GETTABLEKS                       R4 R5 K4 ["wrap"]
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K4 ["wrap"]
        21 NEWCLOSURE                       R5 P0
        22 CAPTURE                          UPVAL U2
        23 CAPTURE                          VAL R1
@@ -186,26 +186,26 @@ MAIN:
         3 LOADK                            R2 K2 ["FindReplaceAll"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["MockableProxyPluginComponents"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K9 ["FindReplace"]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["MockableProxyPluginComponents"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K9 ["FindReplace"]
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K10 ["Commands"]
-       24 GETTABLEKS                       R3 R4 K11 ["ErrorHandler"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K10 ["Commands"]
+       24 GETTABLEKS                       R3 R3 K11 ["ErrorHandler"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K7 ["Util"]
-       33 GETTABLEKS                       R4 R5 K12 ["Promise"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Util"]
+       33 GETTABLEKS                       R4 R4 K12 ["Promise"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K5 [require]
-       38 GETTABLEKS                       R7 R0 K6 ["Src"]
-       40 GETTABLEKS                       R6 R7 K13 ["Resources"]
-       42 GETTABLEKS                       R5 R6 K14 ["StyleConstants"]
+       38 GETTABLEKS                       R5 R0 K6 ["Src"]
+       40 GETTABLEKS                       R5 R5 K13 ["Resources"]
+       42 GETTABLEKS                       R5 R5 K14 ["StyleConstants"]
        44 CALL                             R4 1 1
        45 NEWTABLE                         R5 16 0
        47 DUPCLOSURE                       R6 K15 [PROTO_1]

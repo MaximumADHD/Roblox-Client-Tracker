@@ -35,8 +35,8 @@ PROTO_3:
         5 CALL                             R1 1 0
         6 LOADNIL                          R1
         7 SETUPVAL                         R1 0
-        8 GETUPVAL                         R4 1
-        9 GETTABLEKS                       R3 R4 K1 ["InstanceContainer"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K1 ["InstanceContainer"]
        11 NAMECALL                         R1 R0 K2 ["FindFirstChild"]
        13 CALL                             R1 2 1
        14 JUMPIFNOT                        R1 ; [+3]
@@ -64,8 +64,8 @@ PROTO_4:
        16 GETTABLE                         R6 R4 R3
        17 JUMPIF                           R6 ; [+15]
        18 GETIMPORT                        R6 K4 [Instance.new]
-       20 GETUPVAL                         R8 4
-       21 GETTABLEKS                       R7 R8 K5 ["Wire"]
+       20 GETUPVAL                         R7 4
+       21 GETTABLEKS                       R7 R7 K5 ["Wire"]
        23 CALL                             R6 1 1
        24 GETUPVAL                         R7 5
        25 SETTABLEKS                       R7 R6 K6 ["Parent"]
@@ -85,40 +85,40 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["IsAnalyzing"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["IsAnalyzing"]
         4 NAMECALL                         R0 R0 K1 ["GetItem"]
         6 CALL                             R0 2 1
         7 JUMPIF                           R0 ; [+5]
-        8 GETUPVAL                         R1 2
-        9 GETTABLEKS                       R0 R1 K2 ["disconnectRunService"]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["disconnectRunService"]
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
        13 GETUPVAL                         R0 0
-       14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R2 R3 K3 ["OnPeakChanged"]
-       17 GETUPVAL                         R4 3
-       18 GETTABLEKS                       R3 R4 K4 ["PeakLevel"]
-       20 GETUPVAL                         R5 4
-       21 GETTABLEKS                       R4 R5 K4 ["PeakLevel"]
-       23 GETUPVAL                         R6 5
-       24 GETTABLEKS                       R5 R6 K4 ["PeakLevel"]
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K3 ["OnPeakChanged"]
+       17 GETUPVAL                         R3 3
+       18 GETTABLEKS                       R3 R3 K4 ["PeakLevel"]
+       20 GETUPVAL                         R4 4
+       21 GETTABLEKS                       R4 R4 K4 ["PeakLevel"]
+       23 GETUPVAL                         R5 5
+       24 GETTABLEKS                       R5 R5 K4 ["PeakLevel"]
        26 NAMECALL                         R0 R0 K5 ["Invoke"]
        28 CALL                             R0 5 0
        29 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["IsAnalyzing"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["IsAnalyzing"]
         4 LOADB                            R3 1
         5 NAMECALL                         R0 R0 K1 ["SetItem"]
         7 CALL                             R0 3 0
-        8 GETUPVAL                         R1 2
-        9 GETTABLEKS                       R0 R1 K2 ["disconnectRunService"]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["disconnectRunService"]
        11 CALL                             R0 0 0
-       12 GETUPVAL                         R1 4
-       13 GETTABLEKS                       R0 R1 K3 ["Heartbeat"]
+       12 GETUPVAL                         R0 4
+       13 GETTABLEKS                       R0 R0 K3 ["Heartbeat"]
        15 NEWCLOSURE                       R2 P0
        16 CAPTURE                          UPVAL U0
        17 CAPTURE                          UPVAL U1
@@ -135,29 +135,29 @@ PROTO_7:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["clearInstances"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["clearInstances"]
         6 MOVE                             R3 R1
         7 CALL                             R2 1 0
         8 GETIMPORT                        R2 K3 [Instance.new]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K4 ["Folder"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K4 ["Folder"]
        13 CALL                             R2 1 1
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R3 R4 K5 ["InstanceContainer"]
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K5 ["InstanceContainer"]
        17 SETTABLEKS                       R3 R2 K6 ["Name"]
        19 SETTABLEKS                       R1 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K3 [Instance.new]
-       23 GETUPVAL                         R5 2
-       24 GETTABLEKS                       R4 R5 K8 ["Analyzer"]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R4 R4 K8 ["Analyzer"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K3 [Instance.new]
-       29 GETUPVAL                         R6 2
-       30 GETTABLEKS                       R5 R6 K8 ["Analyzer"]
+       29 GETUPVAL                         R5 2
+       30 GETTABLEKS                       R5 R5 K8 ["Analyzer"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K3 [Instance.new]
-       35 GETUPVAL                         R7 2
-       36 GETTABLEKS                       R6 R7 K8 ["Analyzer"]
+       35 GETUPVAL                         R6 2
+       36 GETTABLEKS                       R6 R6 K8 ["Analyzer"]
        38 CALL                             R5 1 1
        39 LOADK                            R6 K9 ["InAnalyzer"]
        40 SETTABLEKS                       R6 R3 K6 ["Name"]
@@ -175,8 +175,8 @@ PROTO_7:
        59 SETTABLEKS                       R2 R4 K7 ["Parent"]
        61 SETTABLEKS                       R2 R5 K7 ["Parent"]
        63 GETIMPORT                        R6 K3 [Instance.new]
-       65 GETUPVAL                         R8 2
-       66 GETTABLEKS                       R7 R8 K13 ["Wire"]
+       65 GETUPVAL                         R7 2
+       66 GETTABLEKS                       R7 R7 K13 ["Wire"]
        68 CALL                             R6 1 1
        69 SETTABLEKS                       R2 R6 K7 ["Parent"]
        71 SETTABLEKS                       R0 R6 K14 ["SourceInstance"]
@@ -188,8 +188,8 @@ PROTO_7:
        80 GETTABLEKS                       R12 R11 K14 ["SourceInstance"]
        82 JUMPIFNOT                        R12 ; [+18]
        83 GETIMPORT                        R12 K3 [Instance.new]
-       85 GETUPVAL                         R14 2
-       86 GETTABLEKS                       R13 R14 K13 ["Wire"]
+       85 GETUPVAL                         R13 2
+       86 GETTABLEKS                       R13 R13 K13 ["Wire"]
        88 CALL                             R12 1 1
        89 SETTABLEKS                       R2 R12 K7 ["Parent"]
        91 GETTABLEKS                       R13 R11 K14 ["SourceInstance"]
@@ -206,8 +206,8 @@ PROTO_7:
       108 GETTABLEKS                       R12 R11 K14 ["SourceInstance"]
       110 JUMPIFNOT                        R12 ; [+18]
       111 GETIMPORT                        R12 K3 [Instance.new]
-      113 GETUPVAL                         R14 2
-      114 GETTABLEKS                       R13 R14 K13 ["Wire"]
+      113 GETUPVAL                         R13 2
+      114 GETTABLEKS                       R13 R13 K13 ["Wire"]
       116 CALL                             R12 1 1
       117 SETTABLEKS                       R2 R12 K7 ["Parent"]
       119 GETTABLEKS                       R13 R11 K14 ["SourceInstance"]
@@ -228,12 +228,12 @@ PROTO_7:
       140 NAMECALL                         R7 R7 K20 ["Connect"]
       142 CALL                             R7 2 1
       143 SETUPVAL                         R7 5
-      144 GETUPVAL                         R8 1
-      145 GETTABLEKS                       R7 R8 K21 ["disconnectStartAnalyzing"]
+      144 GETUPVAL                         R7 1
+      145 GETTABLEKS                       R7 R7 K21 ["disconnectStartAnalyzing"]
       147 CALL                             R7 0 0
       148 GETUPVAL                         R7 0
-      149 GETUPVAL                         R10 2
-      150 GETTABLEKS                       R9 R10 K22 ["OnStartAnalyzing"]
+      149 GETUPVAL                         R9 2
+      150 GETTABLEKS                       R9 R9 K22 ["OnStartAnalyzing"]
       152 NEWCLOSURE                       R10 P1
       153 CAPTURE                          UPVAL U0
       154 CAPTURE                          UPVAL U2
@@ -253,13 +253,13 @@ PROTO_8:
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["IsAnalyzing"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["IsAnalyzing"]
         7 LOADB                            R4 0
         8 NAMECALL                         R1 R1 K1 ["SetItem"]
        10 CALL                             R1 3 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R1 R2 K2 ["clearInstances"]
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K2 ["clearInstances"]
        14 MOVE                             R2 R0
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
@@ -279,16 +279,16 @@ PROTO_10:
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 0
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K0 ["OnStartAnalyzing"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K0 ["OnStartAnalyzing"]
         7 NAMECALL                         R1 R1 K1 ["Invoke"]
         9 CALL                             R1 2 0
-       10 GETUPVAL                         R2 2
-       11 GETTABLEKS                       R1 R2 K2 ["disconnectChanged"]
+       10 GETUPVAL                         R1 2
+       11 GETTABLEKS                       R1 R1 K2 ["disconnectChanged"]
        13 CALL                             R1 0 0
        14 GETUPVAL                         R1 0
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R3 R4 K3 ["OnPeakChanged"]
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K3 ["OnPeakChanged"]
        18 MOVE                             R4 R0
        19 NAMECALL                         R1 R1 K4 ["OnInvoke"]
        21 CALL                             R1 3 1
@@ -299,12 +299,12 @@ PROTO_11:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R0 R1 K0 ["disconnectChanged"]
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["disconnectChanged"]
         6 CALL                             R0 0 0
         7 GETUPVAL                         R0 0
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K1 ["IsAnalyzing"]
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K1 ["IsAnalyzing"]
        11 LOADB                            R3 0
        12 NAMECALL                         R0 R0 K2 ["SetItem"]
        14 CALL                             R0 3 0

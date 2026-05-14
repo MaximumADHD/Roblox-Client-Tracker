@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["click"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["click"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -24,8 +24,8 @@ PROTO_1:
        16 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Expand"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Expand"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
         5 CALL                             R2 2 0
@@ -66,8 +66,8 @@ PROTO_5:
         1 LOADNIL                          R3
         2 LOADNIL                          R4
         3 FORGPREP                         R2
-        4 GETUPVAL                         R8 0
-        5 GETTABLEKS                       R7 R8 K0 ["ItemExists"]
+        4 GETUPVAL                         R7 0
+        5 GETTABLEKS                       R7 R7 K0 ["ItemExists"]
         7 MOVE                             R8 R0
         8 MOVE                             R9 R6
         9 CALL                             R7 2 1
@@ -85,15 +85,15 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["keyDown"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["keyDown"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"key"}]
         5 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
         7 SETTABLEKS                       R3 R2 K1 ["key"]
         9 CALL                             R0 2 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K7 ["keyUp"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K7 ["keyUp"]
        13 GETUPVAL                         R1 2
        14 DUPTABLE                         R2 K2 [{"key"}]
        15 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
@@ -115,8 +115,8 @@ PROTO_8:
        12 LOADK                            R6 K2 ["Name button not found"]
        13 GETIMPORT                        R4 K4 [assert]
        15 CALL                             R4 2 0
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R4 R5 K5 ["click"]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K5 ["click"]
        19 MOVE                             R5 R3
        20 CALL                             R4 1 0
        21 GETUPVAL                         R4 2
@@ -134,8 +134,8 @@ PROTO_8:
        35 LOADK                            R7 K7 ["Active text box not found"]
        36 GETIMPORT                        R5 K4 [assert]
        38 CALL                             R5 2 0
-       39 GETUPVAL                         R6 1
-       40 GETTABLEKS                       R5 R6 K5 ["click"]
+       39 GETUPVAL                         R5 1
+       40 GETTABLEKS                       R5 R5 K5 ["click"]
        42 MOVE                             R6 R4
        43 CALL                             R5 1 0
        44 GETUPVAL                         R5 2
@@ -158,15 +158,15 @@ PROTO_8:
        61 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["mouseEnter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mouseEnter"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["click"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["click"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -178,15 +178,15 @@ PROTO_11:
         4 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["keyDown"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["keyDown"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"key"}]
         5 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
         7 SETTABLEKS                       R3 R2 K1 ["key"]
         9 CALL                             R0 2 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K7 ["keyUp"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K7 ["keyUp"]
        13 GETUPVAL                         R1 2
        14 DUPTABLE                         R2 K2 [{"key"}]
        15 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
@@ -254,15 +254,15 @@ PROTO_13:
        62 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["mouseEnter"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mouseEnter"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["click"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["click"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -274,15 +274,15 @@ PROTO_16:
         4 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["keyDown"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["keyDown"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K2 [{"key"}]
         5 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
         7 SETTABLEKS                       R3 R2 K1 ["key"]
         9 CALL                             R0 2 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K7 ["keyUp"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K7 ["keyUp"]
        13 GETUPVAL                         R1 2
        14 DUPTABLE                         R2 K2 [{"key"}]
        15 GETIMPORT                        R3 K6 [Enum.KeyCode.Return]
@@ -372,22 +372,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R4 R5 K8 ["Dev"]
-       20 GETTABLEKS                       R3 R4 K9 ["ReactTestingLibrary"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dev"]
+       20 GETTABLEKS                       R3 R3 K9 ["ReactTestingLibrary"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R5 R0 K10 ["Src"]
-       27 GETTABLEKS                       R4 R5 K11 ["Types"]
+       25 GETTABLEKS                       R4 R0 K10 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Types"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETIMPORT                        R7 K1 [script]
-       34 GETTABLEKS                       R6 R7 K12 ["Parent"]
-       36 GETTABLEKS                       R5 R6 K13 ["TestHelper"]
+       32 GETIMPORT                        R5 K1 [script]
+       34 GETTABLEKS                       R5 R5 K12 ["Parent"]
+       36 GETTABLEKS                       R5 R5 K13 ["TestHelper"]
        38 CALL                             R4 1 1
        39 GETTABLEKS                       R5 R4 K14 ["awaitDeferAsync"]
        41 GETTABLEKS                       R6 R2 K15 ["act"]

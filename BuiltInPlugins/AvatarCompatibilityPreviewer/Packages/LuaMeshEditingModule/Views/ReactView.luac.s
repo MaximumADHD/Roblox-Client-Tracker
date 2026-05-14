@@ -12,14 +12,14 @@ PROTO_0:
        17 LOADK                            R4 K8 ["Folder"]
        18 CALL                             R3 1 1
        19 SETTABLEKS                       R3 R2 K9 ["_folder"]
-       21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R3 R4 K10 ["createRoot"]
+       21 GETUPVAL                         R3 1
+       22 GETTABLEKS                       R3 R3 K10 ["createRoot"]
        24 GETTABLEKS                       R4 R2 K9 ["_folder"]
        26 CALL                             R3 1 1
        27 SETTABLEKS                       R3 R2 K11 ["_root"]
        29 GETTABLEKS                       R3 R2 K11 ["_root"]
-       31 GETUPVAL                         R6 2
-       32 GETTABLEKS                       R5 R6 K12 ["createElement"]
+       31 GETUPVAL                         R5 2
+       32 GETTABLEKS                       R5 R5 K12 ["createElement"]
        34 NAMECALL                         R6 R2 K13 ["_renderRootWithProps"]
        36 CALL                             R6 1 -1
        37 CALL                             R5 -1 -1
@@ -28,13 +28,13 @@ PROTO_0:
        41 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_lastProps"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_lastProps"]
         3 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useState"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useState"]
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          UPVAL U1
         5 CALL                             R0 1 2
@@ -43,20 +43,20 @@ PROTO_2:
         9 JUMPIF                           R0 ; [+2]
        10 LOADNIL                          R2
        11 RETURN                           R2 1
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K2 ["createElement"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K3 ["Fragment"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K2 ["createElement"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K3 ["Fragment"]
        18 NEWTABLE                         R4 0 0
        20 DUPTABLE                         R5 K5 [{"Adornee"}]
-       21 GETUPVAL                         R7 0
-       22 GETTABLEKS                       R6 R7 K2 ["createElement"]
-       24 GETUPVAL                         R8 1
-       25 GETTABLEKS                       R7 R8 K6 ["_createElement"]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       24 GETUPVAL                         R7 1
+       25 GETTABLEKS                       R7 R7 K6 ["_createElement"]
        27 DUPTABLE                         R8 K9 [{"ExternalProps", "MeshEditingContext"}]
        28 SETTABLEKS                       R0 R8 K7 ["ExternalProps"]
-       30 GETUPVAL                         R10 1
-       31 GETTABLEKS                       R9 R10 K10 ["_meshEditingContext"]
+       30 GETUPVAL                         R9 1
+       31 GETTABLEKS                       R9 R9 K10 ["_meshEditingContext"]
        33 SETTABLEKS                       R9 R8 K8 ["MeshEditingContext"]
        35 CALL                             R6 2 1
        36 SETTABLEKS                       R6 R5 K4 ["Adornee"]
@@ -95,16 +95,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["MeshWrapperObjects"]
-       11 GETTABLEKS                       R2 R3 K7 ["CageMeshWrapperObject"]
+        9 GETTABLEKS                       R2 R0 K6 ["MeshWrapperObjects"]
+       11 GETTABLEKS                       R2 R2 K7 ["CageMeshWrapperObject"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Parent"]
-       18 GETTABLEKS                       R3 R4 K9 ["ReactRoblox"]
+       16 GETTABLEKS                       R3 R0 K8 ["Parent"]
+       18 GETTABLEKS                       R3 R3 K9 ["ReactRoblox"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K8 ["Parent"]
-       25 GETTABLEKS                       R4 R5 K10 ["React"]
+       23 GETTABLEKS                       R4 R0 K8 ["Parent"]
+       25 GETTABLEKS                       R4 R4 K10 ["React"]
        27 CALL                             R3 1 1
        28 NEWTABLE                         R4 8 0
        30 SETTABLEKS                       R4 R4 K11 ["__index"]

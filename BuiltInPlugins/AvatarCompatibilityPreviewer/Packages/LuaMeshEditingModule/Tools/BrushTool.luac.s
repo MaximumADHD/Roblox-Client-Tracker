@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 1
@@ -13,8 +13,8 @@ PROTO_0:
        15 SETTABLEKS                       R2 R1 K4 ["_brushToolConnections"]
        17 LOADB                            R2 1
        18 SETTABLEKS                       R2 R1 K5 ["_mouseOnScreen"]
-       20 GETUPVAL                         R3 2
-       21 GETTABLEKS                       R2 R3 K0 ["new"]
+       20 GETUPVAL                         R2 2
+       21 GETTABLEKS                       R2 R2 K0 ["new"]
        23 CALL                             R2 0 1
        24 SETTABLEKS                       R2 R1 K6 ["_radiusUIView"]
        26 LOADNIL                          R2
@@ -24,8 +24,8 @@ PROTO_0:
        32 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["CurrentCamera"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["CurrentCamera"]
         3 JUMPIFNOTEQKNIL                  R3 ; [+3]
         5 LOADNIL                          R4
         6 RETURN                           R4 1
@@ -58,8 +58,8 @@ PROTO_2:
         8 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["CurrentCamera"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["CurrentCamera"]
         3 JUMPIFNOTEQKNIL                  R3 ; [+3]
         5 LOADNIL                          R4
         6 RETURN                           R4 1
@@ -71,94 +71,95 @@ PROTO_3:
        14 NEWTABLE                         R5 0 0
        16 NAMECALL                         R9 R0 K2 ["getPointLocationData"]
        18 CALL                             R9 1 1
-       19 GETTABLEKS                       R6 R9 K3 ["Positions"]
-       21 LOADNIL                          R7
-       22 LOADNIL                          R8
-       23 FORGPREP                         R6
-       24 MOVE                             R13 R9
-       25 NAMECALL                         R11 R4 K4 ["getMeshOriginWorld"]
-       27 CALL                             R11 2 1
-       28 JUMPIFEQKNIL                     R11 ; [+49]
-       30 MOVE                             R12 R10
-       31 LOADNIL                          R13
-       32 LOADNIL                          R14
-       33 FORGPREP                         R12
-       34 MOVE                             R19 R9
-       35 MOVE                             R20 R15
-       36 NAMECALL                         R17 R0 K5 ["isVertexFacingCamera"]
-       38 CALL                             R17 3 1
-       39 JUMPIFNOT                        R17 ; [+36]
-       40 MOVE                             R19 R16
-       41 NAMECALL                         R17 R11 K6 ["PointToWorldSpace"]
-       43 CALL                             R17 2 1
-       44 MOVE                             R20 R17
-       45 NAMECALL                         R18 R3 K7 ["WorldToScreenPoint"]
-       47 CALL                             R18 2 2
-       48 JUMPIFNOT                        R19 ; [+27]
-       49 GETIMPORT                        R20 K10 [Vector2.new]
-       51 GETTABLEKS                       R21 R18 K11 ["X"]
-       53 GETTABLEKS                       R22 R18 K12 ["Y"]
-       55 CALL                             R20 2 1
-       56 SUB                              R22 R1 R20
-       57 GETTABLEKS                       R21 R22 K13 ["Magnitude"]
-       59 DUPTABLE                         R24 K19 [{"vertexIndex", "meshName", "screenPoint", "worldPosition", "mouseDistance"}]
-       60 SETTABLEKS                       R15 R24 K14 ["vertexIndex"]
-       62 SETTABLEKS                       R9 R24 K15 ["meshName"]
-       64 SETTABLEKS                       R18 R24 K16 ["screenPoint"]
-       66 SETTABLEKS                       R17 R24 K17 ["worldPosition"]
-       68 SETTABLEKS                       R21 R24 K18 ["mouseDistance"]
-       70 FASTCALL2                        TABLE_INSERT R5 R24 ; [+4]
-       72 MOVE                             R23 R5
-       73 GETIMPORT                        R22 K22 [table.insert]
-       75 CALL                             R22 2 0
-       76 FORGLOOP                         R12 2 ; [-43]
-       78 FORGLOOP                         R6 2 ; [-55]
-       80 GETIMPORT                        R6 K24 [table.sort]
-       82 MOVE                             R7 R5
-       83 DUPCLOSURE                       R8 K25 [PROTO_2]
-       84 CALL                             R6 2 0
-       85 GETTABLEN                        R6 R5 1
-       86 JUMPIFNOTEQKNIL                  R6 ; [+3]
-       88 LOADNIL                          R7
-       89 RETURN                           R7 1
-       90 NEWTABLE                         R7 0 0
-       92 GETTABLEKS                       R11 R3 K26 ["CFrame"]
-       94 GETTABLEKS                       R10 R11 K27 ["Position"]
-       96 GETTABLEKS                       R11 R6 K17 ["worldPosition"]
-       98 SUB                              R9 R10 R11
-       99 GETTABLEKS                       R8 R9 K13 ["Magnitude"]
-      101 MOVE                             R11 R2
-      102 MOVE                             R12 R8
-      103 NAMECALL                         R9 R0 K28 ["_calculateCircleScreenDiameterInPixels"]
-      105 CALL                             R9 3 1
-      106 DIVK                             R10 R9 K29 [2]
-      107 LOADN                            R13 1
-      108 LENGTH                           R11 R5
-      109 LOADN                            R12 1
-      110 FORNPREP                         R11
-      111 GETTABLE                         R14 R5 R13
-      112 GETTABLEKS                       R15 R14 K18 ["mouseDistance"]
-      114 JUMPIFLT                         R10 R15 ; [+26]
-      116 GETTABLEKS                       R17 R14 K17 ["worldPosition"]
-      118 GETTABLEKS                       R18 R6 K17 ["worldPosition"]
-      120 SUB                              R16 R17 R18
-      121 GETTABLEKS                       R15 R16 K13 ["Magnitude"]
-      123 JUMPIFLT                         R2 R15 ; [+16]
-      125 DUPTABLE                         R18 K32 [{"MeshName", "Index"}]
-      126 GETTABLEKS                       R19 R14 K15 ["meshName"]
-      128 SETTABLEKS                       R19 R18 K30 ["MeshName"]
-      130 GETTABLEKS                       R19 R14 K14 ["vertexIndex"]
-      132 SETTABLEKS                       R19 R18 K31 ["Index"]
-      134 FASTCALL2                        TABLE_INSERT R7 R18 ; [+4]
-      136 MOVE                             R17 R7
-      137 GETIMPORT                        R16 K22 [table.insert]
-      139 CALL                             R16 2 0
-      140 FORNLOOP                         R11
-      141 RETURN                           R7 1
+       19 MOVE                             R6 R9
+       20 GETTABLEKS                       R6 R6 K3 ["Positions"]
+       22 LOADNIL                          R7
+       23 LOADNIL                          R8
+       24 FORGPREP                         R6
+       25 MOVE                             R13 R9
+       26 NAMECALL                         R11 R4 K4 ["getMeshOriginWorld"]
+       28 CALL                             R11 2 1
+       29 JUMPIFEQKNIL                     R11 ; [+49]
+       31 MOVE                             R12 R10
+       32 LOADNIL                          R13
+       33 LOADNIL                          R14
+       34 FORGPREP                         R12
+       35 MOVE                             R19 R9
+       36 MOVE                             R20 R15
+       37 NAMECALL                         R17 R0 K5 ["isVertexFacingCamera"]
+       39 CALL                             R17 3 1
+       40 JUMPIFNOT                        R17 ; [+36]
+       41 MOVE                             R19 R16
+       42 NAMECALL                         R17 R11 K6 ["PointToWorldSpace"]
+       44 CALL                             R17 2 1
+       45 MOVE                             R20 R17
+       46 NAMECALL                         R18 R3 K7 ["WorldToScreenPoint"]
+       48 CALL                             R18 2 2
+       49 JUMPIFNOT                        R19 ; [+27]
+       50 GETIMPORT                        R20 K10 [Vector2.new]
+       52 GETTABLEKS                       R21 R18 K11 ["X"]
+       54 GETTABLEKS                       R22 R18 K12 ["Y"]
+       56 CALL                             R20 2 1
+       57 SUB                              R21 R1 R20
+       58 GETTABLEKS                       R21 R21 K13 ["Magnitude"]
+       60 DUPTABLE                         R24 K19 [{"vertexIndex", "meshName", "screenPoint", "worldPosition", "mouseDistance"}]
+       61 SETTABLEKS                       R15 R24 K14 ["vertexIndex"]
+       63 SETTABLEKS                       R9 R24 K15 ["meshName"]
+       65 SETTABLEKS                       R18 R24 K16 ["screenPoint"]
+       67 SETTABLEKS                       R17 R24 K17 ["worldPosition"]
+       69 SETTABLEKS                       R21 R24 K18 ["mouseDistance"]
+       71 FASTCALL2                        TABLE_INSERT R5 R24 ; [+4]
+       73 MOVE                             R23 R5
+       74 GETIMPORT                        R22 K22 [table.insert]
+       76 CALL                             R22 2 0
+       77 FORGLOOP                         R12 2 ; [-43]
+       79 FORGLOOP                         R6 2 ; [-55]
+       81 GETIMPORT                        R6 K24 [table.sort]
+       83 MOVE                             R7 R5
+       84 DUPCLOSURE                       R8 K25 [PROTO_2]
+       85 CALL                             R6 2 0
+       86 GETTABLEN                        R6 R5 1
+       87 JUMPIFNOTEQKNIL                  R6 ; [+3]
+       89 LOADNIL                          R7
+       90 RETURN                           R7 1
+       91 NEWTABLE                         R7 0 0
+       93 GETTABLEKS                       R9 R3 K26 ["CFrame"]
+       95 GETTABLEKS                       R9 R9 K27 ["Position"]
+       97 GETTABLEKS                       R10 R6 K17 ["worldPosition"]
+       99 SUB                              R8 R9 R10
+      100 GETTABLEKS                       R8 R8 K13 ["Magnitude"]
+      102 MOVE                             R11 R2
+      103 MOVE                             R12 R8
+      104 NAMECALL                         R9 R0 K28 ["_calculateCircleScreenDiameterInPixels"]
+      106 CALL                             R9 3 1
+      107 DIVK                             R10 R9 K29 [2]
+      108 LOADN                            R13 1
+      109 LENGTH                           R11 R5
+      110 LOADN                            R12 1
+      111 FORNPREP                         R11
+      112 GETTABLE                         R14 R5 R13
+      113 GETTABLEKS                       R15 R14 K18 ["mouseDistance"]
+      115 JUMPIFLT                         R10 R15 ; [+26]
+      117 GETTABLEKS                       R16 R14 K17 ["worldPosition"]
+      119 GETTABLEKS                       R17 R6 K17 ["worldPosition"]
+      121 SUB                              R15 R16 R17
+      122 GETTABLEKS                       R15 R15 K13 ["Magnitude"]
+      124 JUMPIFLT                         R2 R15 ; [+16]
+      126 DUPTABLE                         R18 K32 [{"MeshName", "Index"}]
+      127 GETTABLEKS                       R19 R14 K15 ["meshName"]
+      129 SETTABLEKS                       R19 R18 K30 ["MeshName"]
+      131 GETTABLEKS                       R19 R14 K14 ["vertexIndex"]
+      133 SETTABLEKS                       R19 R18 K31 ["Index"]
+      135 FASTCALL2                        TABLE_INSERT R7 R18 ; [+4]
+      137 MOVE                             R17 R7
+      138 GETIMPORT                        R16 K22 [table.insert]
+      140 CALL                             R16 2 0
+      141 FORNLOOP                         R11
+      142 RETURN                           R7 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_updateCursorTask"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_updateCursorTask"]
         3 GETUPVAL                         R1 1
         4 JUMPIFNOTEQ                      R0 R1 ; [+5]
         6 GETUPVAL                         R0 0
@@ -214,8 +215,8 @@ PROTO_7:
         6 JUMPIF                           R1 ; [+3]
         7 NAMECALL                         R1 R0 K5 ["_updateSelectionFromMousePosition"]
         9 CALL                             R1 1 0
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K6 ["CurrentCamera"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K6 ["CurrentCamera"]
        13 JUMPIFNOTEQKNIL                  R1 ; [+2]
        15 RETURN                           R0 0
        16 NAMECALL                         R2 R0 K7 ["getRadius"]
@@ -262,8 +263,8 @@ PROTO_7:
        73 JUMPIFNOTEQKNIL                  R4 ; [+3]
        75 LOADN                            R7 1
        76 JUMP                             ; [+7]
-       77 GETTABLEKS                       R10 R1 K18 ["CFrame"]
-       79 GETTABLEKS                       R9 R10 K19 ["Position"]
+       77 GETTABLEKS                       R9 R1 K18 ["CFrame"]
+       79 GETTABLEKS                       R9 R9 K19 ["Position"]
        81 SUB                              R8 R9 R4
        82 GETTABLEKS                       R7 R8 K20 ["Magnitude"]
        84 MOVE                             R10 R2
@@ -340,8 +341,8 @@ PROTO_12:
        13 CALL                             R2 1 1
        14 JUMPIFNOTEQKNIL                  R2 ; [+2]
        16 RETURN                           R0 0
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R3 R4 K6 ["CurrentCamera"]
+       17 GETUPVAL                         R3 1
+       18 GETTABLEKS                       R3 R3 K6 ["CurrentCamera"]
        20 JUMPIFNOTEQKNIL                  R3 ; [+2]
        22 RETURN                           R0 0
        23 GETTABLEKS                       R6 R2 K7 ["X"]
@@ -370,8 +371,8 @@ PROTO_14:
         4 NEWTABLE                         R1 0 0
         6 SETTABLEKS                       R1 R0 K0 ["_brushToolConnections"]
         8 GETTABLEKS                       R2 R0 K0 ["_brushToolConnections"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K1 ["InputChanged"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K1 ["InputChanged"]
        13 NEWCLOSURE                       R5 P0
        14 CAPTURE                          VAL R0
        15 NAMECALL                         R3 R3 K2 ["Connect"]
@@ -379,8 +380,8 @@ PROTO_14:
        18 FASTCALL                         TABLE_INSERT ; [+2]
        19 GETIMPORT                        R1 K5 [table.insert]
        21 CALL                             R1 -1 0
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R1 R2 K6 ["CurrentCamera"]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K6 ["CurrentCamera"]
        25 JUMPIFEQKNIL                     R1 ; [+16]
        27 GETTABLEKS                       R3 R0 K0 ["_brushToolConnections"]
        29 LOADK                            R6 K7 ["CFrame"]
@@ -394,8 +395,8 @@ PROTO_14:
        39 GETIMPORT                        R2 K5 [table.insert]
        41 CALL                             R2 -1 0
        42 GETTABLEKS                       R2 R0 K0 ["_brushToolConnections"]
-       44 GETUPVAL                         R4 2
-       45 GETTABLEKS                       R3 R4 K9 ["MouseEnterStudioViewport"]
+       44 GETUPVAL                         R3 2
+       45 GETTABLEKS                       R3 R3 K9 ["MouseEnterStudioViewport"]
        47 NEWCLOSURE                       R5 P2
        48 CAPTURE                          VAL R0
        49 NAMECALL                         R3 R3 K2 ["Connect"]
@@ -404,8 +405,8 @@ PROTO_14:
        53 GETIMPORT                        R1 K5 [table.insert]
        55 CALL                             R1 -1 0
        56 GETTABLEKS                       R2 R0 K0 ["_brushToolConnections"]
-       58 GETUPVAL                         R4 2
-       59 GETTABLEKS                       R3 R4 K10 ["MouseLeaveStudioViewport"]
+       58 GETUPVAL                         R3 2
+       59 GETTABLEKS                       R3 R3 K10 ["MouseLeaveStudioViewport"]
        61 NEWCLOSURE                       R5 P3
        62 CAPTURE                          VAL R0
        63 NAMECALL                         R3 R3 K2 ["Connect"]
@@ -414,8 +415,8 @@ PROTO_14:
        67 GETIMPORT                        R1 K5 [table.insert]
        69 CALL                             R1 -1 0
        70 GETTABLEKS                       R2 R0 K0 ["_brushToolConnections"]
-       72 GETUPVAL                         R4 0
-       73 GETTABLEKS                       R3 R4 K11 ["InputBegan"]
+       72 GETUPVAL                         R3 0
+       73 GETTABLEKS                       R3 R3 K11 ["InputBegan"]
        75 NEWCLOSURE                       R5 P4
        76 CAPTURE                          VAL R0
        77 CAPTURE                          UPVAL U1
@@ -425,8 +426,8 @@ PROTO_14:
        82 GETIMPORT                        R1 K5 [table.insert]
        84 CALL                             R1 -1 0
        85 GETTABLEKS                       R2 R0 K0 ["_brushToolConnections"]
-       87 GETUPVAL                         R4 0
-       88 GETTABLEKS                       R3 R4 K12 ["InputEnded"]
+       87 GETUPVAL                         R3 0
+       88 GETTABLEKS                       R3 R3 K12 ["InputEnded"]
        90 NEWCLOSURE                       R5 P5
        91 CAPTURE                          VAL R0
        92 NAMECALL                         R3 R3 K2 ["Connect"]
@@ -475,8 +476,8 @@ PROTO_15:
        50 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["cleanup"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["cleanup"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 GETTABLEKS                       R1 R0 K1 ["_brushToolConnections"]
@@ -514,19 +515,19 @@ MAIN:
        22 NAMECALL                         R3 R3 K7 ["GetService"]
        24 CALL                             R3 2 1
        25 GETIMPORT                        R4 K11 [require]
-       27 GETTABLEKS                       R6 R0 K12 ["Views"]
-       29 GETTABLEKS                       R5 R6 K13 ["RadiusUIView"]
+       27 GETTABLEKS                       R5 R0 K12 ["Views"]
+       29 GETTABLEKS                       R5 R5 K13 ["RadiusUIView"]
        31 CALL                             R4 1 1
        32 GETIMPORT                        R5 K11 [require]
        34 GETTABLEKS                       R6 R0 K14 ["Types"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K11 [require]
-       39 GETTABLEKS                       R8 R0 K15 ["Tools"]
-       41 GETTABLEKS                       R7 R8 K16 ["VertexToolBase"]
+       39 GETTABLEKS                       R7 R0 K15 ["Tools"]
+       41 GETTABLEKS                       R7 R7 K16 ["VertexToolBase"]
        43 CALL                             R6 1 1
        44 GETIMPORT                        R7 K11 [require]
-       46 GETTABLEKS                       R9 R0 K17 ["MeshEditingContexts"]
-       48 GETTABLEKS                       R8 R9 K18 ["MeshEditingContextBase"]
+       46 GETTABLEKS                       R8 R0 K17 ["MeshEditingContexts"]
+       48 GETTABLEKS                       R8 R8 K18 ["MeshEditingContextBase"]
        50 CALL                             R7 1 1
        51 NEWTABLE                         R9 16 0
        53 FASTCALL2                        SETMETATABLE R9 R6 ; [+4]

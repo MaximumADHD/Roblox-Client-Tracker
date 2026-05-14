@@ -3,8 +3,8 @@ PROTO_0:
         1 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 GETTABLEKS                       R3 R1 K1 ["VertexToolBase"]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R0 K2 ["selection"]
@@ -24,8 +24,8 @@ PROTO_1:
        31 GETTABLEKS                       R4 R1 K9 ["Mannequin"]
        33 NAMECALL                         R2 R2 K10 ["setDummy"]
        35 CALL                             R2 2 0
-       36 GETUPVAL                         R3 1
-       37 GETTABLEKS                       R2 R3 K0 ["new"]
+       36 GETUPVAL                         R2 1
+       37 GETTABLEKS                       R2 R2 K0 ["new"]
        39 GETTABLEKS                       R3 R1 K11 ["Plugin"]
        41 GETIMPORT                        R4 K13 [game]
        43 GETIMPORT                        R5 K15 [settings]
@@ -38,8 +38,8 @@ PROTO_1:
        55 SETTABLEKS                       R3 R2 K17 ["vertexEditingTool"]
        57 GETTABLEKS                       R2 R1 K18 ["OnChangeSelectedPositions"]
        59 JUMPIFNOT                        R2 ; [+9]
-       60 GETTABLEKS                       R3 R1 K1 ["VertexToolBase"]
-       62 GETTABLEKS                       R2 R3 K19 ["selectedPositionsChanged"]
+       60 GETTABLEKS                       R2 R1 K1 ["VertexToolBase"]
+       62 GETTABLEKS                       R2 R2 K19 ["selectedPositionsChanged"]
        64 GETTABLEKS                       R4 R1 K18 ["OnChangeSelectedPositions"]
        66 NAMECALL                         R2 R2 K20 ["Connect"]
        68 CALL                             R2 2 0
@@ -49,8 +49,8 @@ PROTO_1:
        74 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 LOADB                            R3 1
         5 NAMECALL                         R1 R1 K2 ["Activate"]
         7 CALL                             R1 2 0
@@ -59,8 +59,8 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Mouse"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 DUPTABLE                         R5 K5 [{"Mouse", "DraggerType", "Context"}]
         9 SETTABLEKS                       R2 R5 K1 ["Mouse"]
@@ -73,8 +73,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R2 R1 K0 ["VertexToolBase"]
-        2 GETTABLEKS                       R4 R0 K1 ["props"]
-        4 GETTABLEKS                       R3 R4 K0 ["VertexToolBase"]
+        2 GETTABLEKS                       R3 R0 K1 ["props"]
+        4 GETTABLEKS                       R3 R3 K0 ["VertexToolBase"]
         6 JUMPIFEQ                         R2 R3 ; [+42]
         8 GETTABLEKS                       R2 R0 K2 ["draggerContext"]
        10 JUMPIFNOT                        R2 ; [+38]
@@ -92,8 +92,8 @@ PROTO_4:
        29 GETTABLEKS                       R2 R0 K2 ["draggerContext"]
        31 GETTABLEKS                       R3 R1 K0 ["VertexToolBase"]
        33 SETTABLEKS                       R3 R2 K7 ["vertexToolBase"]
-       35 GETTABLEKS                       R3 R0 K5 ["selection"]
-       37 GETTABLEKS                       R2 R3 K8 ["SelectionChanged"]
+       35 GETTABLEKS                       R2 R0 K5 ["selection"]
+       37 GETTABLEKS                       R2 R2 K8 ["SelectionChanged"]
        39 NAMECALL                         R2 R2 K9 ["Fire"]
        41 CALL                             R2 1 0
        42 GETTABLEKS                       R2 R1 K0 ["VertexToolBase"]
@@ -101,24 +101,24 @@ PROTO_4:
        46 NAMECALL                         R2 R2 K11 ["setMouse"]
        48 CALL                             R2 2 0
        49 GETTABLEKS                       R2 R1 K12 ["Falloff"]
-       51 GETTABLEKS                       R4 R0 K1 ["props"]
-       53 GETTABLEKS                       R3 R4 K12 ["Falloff"]
+       51 GETTABLEKS                       R3 R0 K1 ["props"]
+       53 GETTABLEKS                       R3 R3 K12 ["Falloff"]
        55 JUMPIFEQ                         R2 R3 ; [+8]
        57 GETTABLEKS                       R2 R1 K0 ["VertexToolBase"]
        59 GETTABLEKS                       R4 R1 K12 ["Falloff"]
        61 NAMECALL                         R2 R2 K13 ["setFalloff"]
        63 CALL                             R2 2 0
        64 GETTABLEKS                       R2 R1 K14 ["Radius"]
-       66 GETTABLEKS                       R4 R0 K1 ["props"]
-       68 GETTABLEKS                       R3 R4 K14 ["Radius"]
+       66 GETTABLEKS                       R3 R0 K1 ["props"]
+       68 GETTABLEKS                       R3 R3 K14 ["Radius"]
        70 JUMPIFEQ                         R2 R3 ; [+8]
        72 GETTABLEKS                       R2 R1 K0 ["VertexToolBase"]
        74 GETTABLEKS                       R4 R1 K14 ["Radius"]
        76 NAMECALL                         R2 R2 K15 ["setRadius"]
        78 CALL                             R2 2 0
        79 GETTABLEKS                       R2 R1 K16 ["Mannequin"]
-       81 GETTABLEKS                       R4 R0 K1 ["props"]
-       83 GETTABLEKS                       R3 R4 K16 ["Mannequin"]
+       81 GETTABLEKS                       R3 R0 K1 ["props"]
+       83 GETTABLEKS                       R3 R3 K16 ["Mannequin"]
        85 JUMPIFEQ                         R2 R3 ; [+8]
        87 GETTABLEKS                       R2 R1 K0 ["VertexToolBase"]
        89 GETTABLEKS                       R4 R1 K16 ["Mannequin"]
@@ -139,8 +139,8 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Roact"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R2 K9 ["Implementation"]
-       21 GETTABLEKS                       R4 R5 K10 ["DraggerContext_PluginImpl"]
+       19 GETTABLEKS                       R4 R2 K9 ["Implementation"]
+       21 GETTABLEKS                       R4 R4 K10 ["DraggerContext_PluginImpl"]
        23 GETTABLEKS                       R5 R0 K11 ["Components"]
        25 GETIMPORT                        R6 K6 [require]
        27 GETTABLEKS                       R7 R5 K12 ["MeshEditingDragger"]

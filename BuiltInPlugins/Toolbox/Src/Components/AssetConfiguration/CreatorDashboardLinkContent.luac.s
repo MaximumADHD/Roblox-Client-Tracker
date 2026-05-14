@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["constructCreatorDashboardAssetConfigUrl"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["props"]
-        6 GETTABLEKS                       R1 R2 K2 ["assetId"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["constructCreatorDashboardAssetConfigUrl"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["props"]
+        6 GETTABLEKS                       R1 R1 K2 ["assetId"]
         8 CALL                             R0 1 1
         9 JUMPIFNOT                        R0 ; [+7]
        10 JUMPIFEQKS                       R0 K3 [""] ; [+6]
@@ -14,8 +14,8 @@ PROTO_0:
        17 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["frameRef"]
         6 NEWCLOSURE                       R1 P0
@@ -29,21 +29,21 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["layoutOrder"]
         4 GETTABLEKS                       R3 R1 K2 ["size"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 NEWTABLE                         R6 4 0
        12 SETTABLEKS                       R3 R6 K4 ["Size"]
        14 LOADN                            R7 1
        15 SETTABLEKS                       R7 R6 K5 ["BackgroundTransparency"]
        17 SETTABLEKS                       R2 R6 K6 ["LayoutOrder"]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R7 R8 K7 ["Ref"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K7 ["Ref"]
        22 GETTABLEKS                       R8 R0 K8 ["frameRef"]
        24 SETTABLE                         R8 R6 R7
        25 DUPTABLE                         R7 K11 [{"Padding", "Body"}]
-       26 GETUPVAL                         R9 0
-       27 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R8 R8 K3 ["createElement"]
        29 LOADK                            R9 K12 ["UIPadding"]
        30 DUPTABLE                         R10 K17 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
        31 GETIMPORT                        R11 K20 [UDim.new]
@@ -68,14 +68,14 @@ PROTO_2:
        57 SETTABLEKS                       R11 R10 K16 ["PaddingRight"]
        59 CALL                             R8 2 1
        60 SETTABLEKS                       R8 R7 K9 ["Padding"]
-       62 GETUPVAL                         R9 0
-       63 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       62 GETUPVAL                         R8 0
+       63 GETTABLEKS                       R8 R8 K3 ["createElement"]
        65 GETUPVAL                         R9 2
        66 DUPTABLE                         R10 K30 [{"OnLinkClicked", "Text", "LinkText", "LinkPlaceholder", "AutomaticSize", "TextXAlignment", "HorizontalAlignment", "MaxWidth", "TextProps"}]
        67 GETTABLEKS                       R11 R0 K31 ["openCreatorDashboardConfigureLink"]
        69 SETTABLEKS                       R11 R10 K21 ["OnLinkClicked"]
-       71 GETTABLEKS                       R12 R0 K0 ["props"]
-       73 GETTABLEKS                       R11 R12 K32 ["Localization"]
+       71 GETTABLEKS                       R11 R0 K0 ["props"]
+       73 GETTABLEKS                       R11 R11 K32 ["Localization"]
        75 LOADK                            R13 K33 ["General"]
        76 LOADK                            R14 K34 ["CreatorDashboardLinkMessage"]
        77 DUPTABLE                         R15 K36 [{"creatorDashboardLink"}]
@@ -84,8 +84,8 @@ PROTO_2:
        81 NAMECALL                         R11 R11 K38 ["getText"]
        83 CALL                             R11 4 1
        84 SETTABLEKS                       R11 R10 K22 ["Text"]
-       86 GETTABLEKS                       R12 R0 K0 ["props"]
-       88 GETTABLEKS                       R11 R12 K32 ["Localization"]
+       86 GETTABLEKS                       R11 R0 K0 ["props"]
+       88 GETTABLEKS                       R11 R11 K32 ["Localization"]
        90 LOADK                            R13 K33 ["General"]
        91 LOADK                            R14 K39 ["CreatorDashboard"]
        92 DUPTABLE                         R15 K36 [{"creatorDashboardLink"}]
@@ -107,11 +107,11 @@ PROTO_2:
       119 DUPTABLE                         R11 K48 [{"BackgroundTransparency", "Font", "TextSize", "TextXAlignment"}]
       120 LOADN                            R12 1
       121 SETTABLEKS                       R12 R11 K5 ["BackgroundTransparency"]
-      123 GETUPVAL                         R13 3
-      124 GETTABLEKS                       R12 R13 K49 ["FONT"]
+      123 GETUPVAL                         R12 3
+      124 GETTABLEKS                       R12 R12 K49 ["FONT"]
       126 SETTABLEKS                       R12 R11 K46 ["Font"]
-      128 GETUPVAL                         R13 3
-      129 GETTABLEKS                       R12 R13 K50 ["FONT_SIZE_TITLE"]
+      128 GETUPVAL                         R12 3
+      129 GETTABLEKS                       R12 R12 K50 ["FONT_SIZE_TITLE"]
       131 SETTABLEKS                       R12 R11 K47 ["TextSize"]
       133 GETIMPORT                        R12 K44 [Enum.TextXAlignment.Center]
       135 SETTABLEKS                       R12 R11 K26 ["TextXAlignment"]
@@ -136,9 +136,9 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R6 2
-        3 GETTABLEKS                       R5 R6 K0 ["SIDE_TABS"]
-        5 GETTABLEKS                       R4 R5 K1 ["Sales"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["SIDE_TABS"]
+        5 GETTABLEKS                       R4 R4 K1 ["Sales"]
         7 MOVE                             R5 R0
         8 MOVE                             R6 R1
         9 CALL                             R3 3 -1
@@ -156,11 +156,11 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [game]
        13 LOADK                            R3 K5 ["GuiService"]
        14 NAMECALL                         R1 R1 K6 ["GetService"]
@@ -178,21 +178,21 @@ MAIN:
        34 GETTABLEKS                       R6 R5 K13 ["ContextServices"]
        36 GETTABLEKS                       R7 R6 K14 ["withContext"]
        38 GETIMPORT                        R8 K9 [require]
-       40 GETTABLEKS                       R11 R0 K15 ["Src"]
-       42 GETTABLEKS                       R10 R11 K16 ["Actions"]
-       44 GETTABLEKS                       R9 R10 K17 ["SetFieldError"]
+       40 GETTABLEKS                       R9 R0 K15 ["Src"]
+       42 GETTABLEKS                       R9 R9 K16 ["Actions"]
+       44 GETTABLEKS                       R9 R9 K17 ["SetFieldError"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K9 [require]
-       49 GETTABLEKS                       R12 R0 K15 ["Src"]
-       51 GETTABLEKS                       R11 R12 K18 ["Util"]
-       53 GETTABLEKS                       R10 R11 K19 ["Urls"]
+       49 GETTABLEKS                       R10 R0 K15 ["Src"]
+       51 GETTABLEKS                       R10 R10 K18 ["Util"]
+       53 GETTABLEKS                       R10 R10 K19 ["Urls"]
        55 CALL                             R9 1 1
-       56 GETTABLEKS                       R11 R5 K20 ["UI"]
-       58 GETTABLEKS                       R10 R11 K21 ["ScrollingFrame"]
-       60 GETTABLEKS                       R12 R5 K20 ["UI"]
-       62 GETTABLEKS                       R11 R12 K22 ["TextWithInlineLink"]
-       64 GETTABLEKS                       R13 R0 K15 ["Src"]
-       66 GETTABLEKS                       R12 R13 K18 ["Util"]
+       56 GETTABLEKS                       R10 R5 K20 ["UI"]
+       58 GETTABLEKS                       R10 R10 K21 ["ScrollingFrame"]
+       60 GETTABLEKS                       R11 R5 K20 ["UI"]
+       62 GETTABLEKS                       R11 R11 K22 ["TextWithInlineLink"]
+       64 GETTABLEKS                       R12 R0 K15 ["Src"]
+       66 GETTABLEKS                       R12 R12 K18 ["Util"]
        68 GETIMPORT                        R13 K9 [require]
        70 GETTABLEKS                       R14 R12 K23 ["Constants"]
        72 CALL                             R13 1 1

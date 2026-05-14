@@ -113,8 +113,8 @@ PROTO_9:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isFriendsOnly"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isFriendsOnly"]
        11 RETURN                           R3 1
 
 PROTO_10:
@@ -133,8 +133,8 @@ PROTO_11:
         3 CALL                             R2 2 1
         4 NAMECALL                         R2 R2 K1 ["await"]
         6 CALL                             R2 1 1
-        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
-        9 GETTABLEKS                       R3 R4 K3 ["isActive"]
+        7 GETTABLEKS                       R3 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R3 K3 ["isActive"]
        11 RETURN                           R3 1
 
 PROTO_12:
@@ -158,10 +158,10 @@ PROTO_13:
         3 CALL                             R5 2 1
         4 NAMECALL                         R5 R5 K1 ["await"]
         6 CALL                             R5 1 1
-        7 GETTABLEKS                       R7 R5 K2 ["responseBody"]
-        9 GETTABLEKS                       R6 R7 K3 ["data"]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R7 R8 K4 ["DeserializePermissions"]
+        7 GETTABLEKS                       R6 R5 K2 ["responseBody"]
+        9 GETTABLEKS                       R6 R6 K3 ["data"]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K4 ["DeserializePermissions"]
        14 MOVE                             R8 R6
        15 MOVE                             R9 R2
        16 MOVE                             R10 R3
@@ -170,8 +170,8 @@ PROTO_13:
        19 RETURN                           R7 -1
 
 PROTO_14:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["SerializePermissions"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["SerializePermissions"]
         3 MOVE                             R5 R2
         4 MOVE                             R6 R3
         5 CALL                             R4 2 2
@@ -209,21 +209,21 @@ PROTO_14:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETIMPORT                        R5 K1 [script]
-        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K1 [script]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K2 ["Parent"]
        17 GETIMPORT                        R2 K4 [require]
-       19 GETTABLEKS                       R4 R0 K5 ["Util"]
-       21 GETTABLEKS                       R3 R4 K6 ["DeserializeFromRequest"]
+       19 GETTABLEKS                       R3 R0 K5 ["Util"]
+       21 GETTABLEKS                       R3 R3 K6 ["DeserializeFromRequest"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K4 [require]
-       26 GETTABLEKS                       R5 R0 K5 ["Util"]
-       28 GETTABLEKS                       R4 R5 K7 ["SerializeForRequest"]
+       26 GETTABLEKS                       R4 R0 K5 ["Util"]
+       28 GETTABLEKS                       R4 R4 K7 ["SerializeForRequest"]
        30 CALL                             R3 1 1
        31 NEWTABLE                         R4 16 0
        33 SETTABLEKS                       R4 R4 K8 ["__index"]

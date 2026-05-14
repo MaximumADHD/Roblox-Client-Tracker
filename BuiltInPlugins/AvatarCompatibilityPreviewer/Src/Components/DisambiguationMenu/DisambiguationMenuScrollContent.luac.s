@@ -9,8 +9,8 @@ PROTO_0:
         8 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["setSelections"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setSelections"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -18,22 +18,22 @@ PROTO_1:
         7 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 1
         4 NEWTABLE                         R1 0 0
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R2 R5 K1 ["ambiguousAssets"]
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K1 ["ambiguousAssets"]
         9 LOADNIL                          R3
        10 LOADNIL                          R4
        11 FORGPREP                         R2
-       12 GETUPVAL                         R9 1
-       13 GETTABLEKS                       R8 R9 K2 ["selections"]
+       12 GETUPVAL                         R8 1
+       13 GETTABLEKS                       R8 R8 K2 ["selections"]
        15 GETTABLE                         R7 R8 R6
-       16 GETTABLEKS                       R9 R6 K3 ["worldModel"]
-       18 GETTABLEKS                       R8 R9 K4 ["Name"]
-       20 GETUPVAL                         R10 2
-       21 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       16 GETTABLEKS                       R8 R6 K3 ["worldModel"]
+       18 GETTABLEKS                       R8 R8 K4 ["Name"]
+       20 GETUPVAL                         R9 2
+       21 GETTABLEKS                       R9 R9 K5 ["createElement"]
        23 GETUPVAL                         R10 3
        24 DUPTABLE                         R11 K11 [{"AmbiguousAsset", "AssignedPalette", "LayoutOrder", "SetAssignedPalette", "AssetTypeSubtitleText"}]
        25 SETTABLEKS                       R6 R11 K6 ["AmbiguousAsset"]
@@ -45,8 +45,8 @@ PROTO_2:
        35 CAPTURE                          UPVAL U1
        36 CAPTURE                          VAL R6
        37 SETTABLEKS                       R12 R11 K9 ["SetAssignedPalette"]
-       39 GETUPVAL                         R13 1
-       40 GETTABLEKS                       R12 R13 K13 ["getAssetTypeLabel"]
+       39 GETUPVAL                         R12 1
+       40 GETTABLEKS                       R12 R12 K13 ["getAssetTypeLabel"]
        42 MOVE                             R13 R6
        43 MOVE                             R14 R7
        44 CALL                             R12 2 1
@@ -54,18 +54,18 @@ PROTO_2:
        47 CALL                             R9 2 1
        48 SETTABLE                         R9 R1 R8
        49 FORGLOOP                         R2 2 ; [-38]
-       51 GETUPVAL                         R4 1
-       52 GETTABLEKS                       R3 R4 K14 ["loneMeshParts"]
+       51 GETUPVAL                         R3 1
+       52 GETTABLEKS                       R3 R3 K14 ["loneMeshParts"]
        54 LENGTH                           R2 R3
        55 LOADN                            R3 0
        56 JUMPIFNOTLT                      R3 R2 ; [+21]
-       58 GETUPVAL                         R4 1
-       59 GETTABLEKS                       R3 R4 K1 ["ambiguousAssets"]
+       58 GETUPVAL                         R3 1
+       59 GETTABLEKS                       R3 R3 K1 ["ambiguousAssets"]
        61 LENGTH                           R2 R3
        62 LOADN                            R3 0
        63 JUMPIFNOTLT                      R3 R2 ; [+14]
-       65 GETUPVAL                         R3 2
-       66 GETTABLEKS                       R2 R3 K5 ["createElement"]
+       65 GETUPVAL                         R2 2
+       66 GETTABLEKS                       R2 R2 K5 ["createElement"]
        68 GETUPVAL                         R3 4
        69 DUPTABLE                         R4 K15 [{"LayoutOrder"}]
        70 NAMECALL                         R5 R0 K12 ["getNextOrder"]
@@ -73,33 +73,33 @@ PROTO_2:
        73 SETTABLEKS                       R5 R4 K8 ["LayoutOrder"]
        75 CALL                             R2 2 1
        76 SETTABLEKS                       R2 R1 K16 ["Separator"]
-       78 GETUPVAL                         R5 1
-       79 GETTABLEKS                       R2 R5 K14 ["loneMeshParts"]
+       78 GETUPVAL                         R2 1
+       79 GETTABLEKS                       R2 R2 K14 ["loneMeshParts"]
        81 LOADNIL                          R3
        82 LOADNIL                          R4
        83 FORGPREP                         R2
        84 LOADK                            R8 K17 ["Lone_"]
        85 GETTABLEKS                       R9 R6 K4 ["Name"]
        87 CONCAT                           R7 R8 R9
-       88 GETUPVAL                         R9 2
-       89 GETTABLEKS                       R8 R9 K5 ["createElement"]
+       88 GETUPVAL                         R8 2
+       89 GETTABLEKS                       R8 R8 K5 ["createElement"]
        91 GETUPVAL                         R9 5
        92 DUPTABLE                         R10 K22 [{"key", "Assignment", "LayoutOrder", "MeshPart", "SetAssignment"}]
-       93 GETUPVAL                         R12 1
-       94 GETTABLEKS                       R11 R12 K23 ["uniqueKey"]
+       93 GETUPVAL                         R11 1
+       94 GETTABLEKS                       R11 R11 K23 ["uniqueKey"]
        96 GETTABLEKS                       R12 R6 K4 ["Name"]
        98 CALL                             R11 1 1
        99 SETTABLEKS                       R11 R10 K18 ["key"]
-      101 GETUPVAL                         R13 1
-      102 GETTABLEKS                       R12 R13 K24 ["loneMeshPartAssignments"]
+      101 GETUPVAL                         R12 1
+      102 GETTABLEKS                       R12 R12 K24 ["loneMeshPartAssignments"]
       104 GETTABLE                         R11 R12 R6
       105 SETTABLEKS                       R11 R10 K19 ["Assignment"]
       107 NAMECALL                         R11 R0 K12 ["getNextOrder"]
       109 CALL                             R11 1 1
       110 SETTABLEKS                       R11 R10 K8 ["LayoutOrder"]
       112 SETTABLEKS                       R6 R10 K20 ["MeshPart"]
-      114 GETUPVAL                         R12 1
-      115 GETTABLEKS                       R11 R12 K25 ["addLoneMeshPartAssignment"]
+      114 GETUPVAL                         R11 1
+      115 GETTABLEKS                       R11 R11 K25 ["addLoneMeshPartAssignment"]
       117 SETTABLEKS                       R11 R10 K21 ["SetAssignment"]
       119 CALL                             R8 2 1
       120 SETTABLE                         R8 R1 R7
@@ -113,8 +113,8 @@ PROTO_3:
         4 LOADK                            R3 K0 ["DisambiguationMenuScrollContent should only be used when FFlagAvatarPreviewerUpdateDialogUI is enabled"]
         5 GETIMPORT                        R1 K2 [assert]
         7 CALL                             R1 2 0
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K3 ["useMemo"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K3 ["useMemo"]
        11 NEWCLOSURE                       R2 P0
        12 CAPTURE                          UPVAL U2
        13 CAPTURE                          VAL R0
@@ -132,8 +132,8 @@ PROTO_3:
        32 GETTABLEKS                       R10 R0 K10 ["uniqueKey"]
        34 SETLIST                          R3 R4 7 [1]
        36 CALL                             R1 2 1
-       37 GETUPVAL                         R3 1
-       38 GETTABLEKS                       R2 R3 K11 ["createElement"]
+       37 GETUPVAL                         R2 1
+       38 GETTABLEKS                       R2 R2 K11 ["createElement"]
        40 GETUPVAL                         R3 6
        41 DUPTABLE                         R4 K17 [{"tag", "Size", "scroll", "sizeConstraint", "LayoutOrder"}]
        42 LOADK                            R5 K18 ["size-full min-h-0"]
@@ -155,8 +155,8 @@ PROTO_3:
        67 LOADN                            R8 1
        68 CALL                             R6 2 1
        69 SETTABLEKS                       R6 R5 K25 ["CanvasSize"]
-       71 GETUPVAL                         R7 7
-       72 GETTABLEKS                       R6 R7 K36 ["Auto"]
+       71 GETUPVAL                         R6 7
+       72 GETTABLEKS                       R6 R6 K36 ["Auto"]
        74 SETTABLEKS                       R6 R5 K26 ["scrollBarVisibility"]
        76 GETIMPORT                        R6 K39 [Enum.ScrollBarInset.Always]
        78 SETTABLEKS                       R6 R5 K27 ["VerticalScrollBarInset"]
@@ -171,8 +171,8 @@ PROTO_3:
        94 GETTABLEKS                       R5 R0 K45 ["layoutOrder"]
        96 SETTABLEKS                       R5 R4 K16 ["LayoutOrder"]
        98 DUPTABLE                         R5 K47 [{"Content"}]
-       99 GETUPVAL                         R7 1
-      100 GETTABLEKS                       R6 R7 K11 ["createElement"]
+       99 GETUPVAL                         R6 1
+      100 GETTABLEKS                       R6 R6 K11 ["createElement"]
       102 GETUPVAL                         R7 8
       103 DUPTABLE                         R8 K48 [{"tag"}]
       104 LOADK                            R9 K49 ["col size-full-0 auto-y"]
@@ -190,43 +190,43 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R4 K1 [script]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K7 ["AmbiguousAssetEntry"]
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["AmbiguousAssetEntry"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K9 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K9 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETIMPORT                        R6 K1 [script]
-       27 GETTABLEKS                       R5 R6 K6 ["Parent"]
-       29 GETTABLEKS                       R4 R5 K10 ["LoneMeshPartEntry"]
+       25 GETIMPORT                        R4 K1 [script]
+       27 GETTABLEKS                       R4 R4 K6 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K10 ["LoneMeshPartEntry"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R6 R0 K8 ["Packages"]
-       36 GETTABLEKS                       R5 R6 K11 ["React"]
+       34 GETTABLEKS                       R5 R0 K8 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K11 ["React"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R7 R0 K12 ["Src"]
-       43 GETTABLEKS                       R6 R7 K13 ["Types"]
+       41 GETTABLEKS                       R6 R0 K12 ["Src"]
+       43 GETTABLEKS                       R6 R6 K13 ["Types"]
        45 CALL                             R5 1 1
-       46 GETTABLEKS                       R7 R2 K14 ["Util"]
-       48 GETTABLEKS                       R6 R7 K15 ["LayoutOrderIterator"]
-       50 GETTABLEKS                       R8 R2 K16 ["UI"]
-       52 GETTABLEKS                       R7 R8 K17 ["Separator"]
+       46 GETTABLEKS                       R6 R2 K14 ["Util"]
+       48 GETTABLEKS                       R6 R6 K15 ["LayoutOrderIterator"]
+       50 GETTABLEKS                       R7 R2 K16 ["UI"]
+       52 GETTABLEKS                       R7 R7 K17 ["Separator"]
        54 GETIMPORT                        R8 K5 [require]
-       56 GETTABLEKS                       R10 R0 K8 ["Packages"]
-       58 GETTABLEKS                       R9 R10 K18 ["Foundation"]
+       56 GETTABLEKS                       R9 R0 K8 ["Packages"]
+       58 GETTABLEKS                       R9 R9 K18 ["Foundation"]
        60 CALL                             R8 1 1
-       61 GETTABLEKS                       R10 R8 K19 ["Enums"]
-       63 GETTABLEKS                       R9 R10 K20 ["ScrollBarVisibility"]
+       61 GETTABLEKS                       R9 R8 K19 ["Enums"]
+       63 GETTABLEKS                       R9 R9 K20 ["ScrollBarVisibility"]
        65 GETTABLEKS                       R10 R8 K21 ["View"]
        67 GETTABLEKS                       R11 R8 K22 ["ScrollView"]
        69 GETIMPORT                        R12 K5 [require]
-       71 GETTABLEKS                       R15 R0 K12 ["Src"]
-       73 GETTABLEKS                       R14 R15 K23 ["Flags"]
-       75 GETTABLEKS                       R13 R14 K24 ["getFFlagAvatarPreviewerUpdateDialogUI"]
+       71 GETTABLEKS                       R13 R0 K12 ["Src"]
+       73 GETTABLEKS                       R13 R13 K23 ["Flags"]
+       75 GETTABLEKS                       R13 R13 K24 ["getFFlagAvatarPreviewerUpdateDialogUI"]
        77 CALL                             R12 1 1
        78 DUPCLOSURE                       R13 K25 [PROTO_3]
        79 CAPTURE                          VAL R12

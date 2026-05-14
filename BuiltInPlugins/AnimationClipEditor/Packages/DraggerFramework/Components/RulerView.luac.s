@@ -41,8 +41,8 @@ PROTO_0:
        56 GETIMPORT                        R8 K6 [Vector3.new]
        58 CALL                             R8 3 1
        59 LOADN                            R11 0
-       60 GETTABLEKS                       R14 R1 K8 ["ExtraSize"]
-       62 GETTABLEKS                       R13 R14 K2 ["Z"]
+       60 GETTABLEKS                       R13 R1 K8 ["ExtraSize"]
+       62 GETTABLEKS                       R13 R13 K2 ["Z"]
        64 ADD                              R12 R4 R13
        65 FASTCALL3                        VECTOR R3 R11 R12
        67 MOVE                             R10 R3
@@ -56,8 +56,8 @@ PROTO_0:
        78 MOVE                             R11 R4
        79 GETIMPORT                        R8 K6 [Vector3.new]
        81 CALL                             R8 3 1
-       82 GETTABLEKS                       R12 R1 K8 ["ExtraSize"]
-       84 GETTABLEKS                       R11 R12 K1 ["X"]
+       82 GETTABLEKS                       R11 R1 K8 ["ExtraSize"]
+       84 GETTABLEKS                       R11 R11 K1 ["X"]
        86 ADD                              R10 R3 R11
        87 LOADN                            R11 0
        88 FASTCALL3                        VECTOR R10 R11 R4
@@ -203,11 +203,11 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["createFragment"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createFragment"]
         5 DUPTABLE                         R3 K4 [{"OnTop", "Underneath"}]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K5 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K5 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K11 [{"CFrame", "Color3", "AlwaysOnTop", "Transparency", "Render"}]
        11 GETTABLEKS                       R7 R1 K6 ["CFrame"]
@@ -224,8 +224,8 @@ PROTO_3:
        29 SETTABLEKS                       R7 R6 K10 ["Render"]
        31 CALL                             R4 2 1
        32 SETTABLEKS                       R4 R3 K2 ["OnTop"]
-       34 GETUPVAL                         R5 0
-       35 GETTABLEKS                       R4 R5 K5 ["createElement"]
+       34 GETUPVAL                         R4 0
+       35 GETTABLEKS                       R4 R4 K5 ["createElement"]
        37 GETUPVAL                         R5 1
        38 DUPTABLE                         R6 K11 [{"CFrame", "Color3", "AlwaysOnTop", "Transparency", "Render"}]
        39 GETTABLEKS                       R7 R1 K6 ["CFrame"]
@@ -247,16 +247,16 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K2 ["Parent"]
         9 GETIMPORT                        R2 K4 [require]
        11 GETTABLEKS                       R3 R1 K5 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K4 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Components"]
-       18 GETTABLEKS                       R4 R5 K7 ["WireframeHandleAdornment"]
+       16 GETTABLEKS                       R4 R0 K6 ["Components"]
+       18 GETTABLEKS                       R4 R4 K7 ["WireframeHandleAdornment"]
        20 CALL                             R3 1 1
        21 DUPCLOSURE                       R4 K8 [PROTO_0]
        22 GETTABLEKS                       R5 R2 K9 ["PureComponent"]

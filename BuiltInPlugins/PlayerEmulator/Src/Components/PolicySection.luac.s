@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Networking"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Networking"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
-        7 GETTABLEKS                       R3 R0 K0 ["props"]
-        9 GETTABLEKS                       R2 R3 K3 ["Plugin"]
+        7 GETTABLEKS                       R2 R0 K0 ["props"]
+        9 GETTABLEKS                       R2 R2 K3 ["Plugin"]
        11 NAMECALL                         R2 R2 K2 ["get"]
        13 CALL                             R2 1 1
-       14 GETTABLEKS                       R4 R0 K0 ["props"]
-       16 GETTABLEKS                       R3 R4 K4 ["loadAllPolicyItems"]
+       14 GETTABLEKS                       R3 R0 K0 ["props"]
+       16 GETTABLEKS                       R3 R3 K4 ["loadAllPolicyItems"]
        18 MOVE                             R4 R1
        19 MOVE                             R5 R2
        20 CALL                             R3 2 0
@@ -45,8 +45,8 @@ PROTO_1:
        44 LOADK                            R21 K17 ["Toggle"]
        45 MOVE                             R22 R18
        46 CONCAT                           R20 R21 R22
-       47 GETUPVAL                         R22 0
-       48 GETTABLEKS                       R21 R22 K18 ["createElement"]
+       47 GETUPVAL                         R21 0
+       48 GETTABLEKS                       R21 R21 K18 ["createElement"]
        50 GETUPVAL                         R22 1
        51 DUPTABLE                         R23 K23 [{"Key", "IsOn", "Enabled", "ToggleCallback"}]
        52 SETTABLEKS                       R18 R23 K19 ["Key"]
@@ -64,8 +64,8 @@ PROTO_1:
        70 LOADK                            R20 K25 ["List"]
        71 MOVE                             R21 R18
        72 CONCAT                           R19 R20 R21
-       73 GETUPVAL                         R21 0
-       74 GETTABLEKS                       R20 R21 K18 ["createElement"]
+       73 GETUPVAL                         R20 0
+       74 GETTABLEKS                       R20 R20 K18 ["createElement"]
        76 GETUPVAL                         R21 2
        77 DUPTABLE                         R22 K32 [{"LabelText", "Enabled", "Items", "ListItemsCheckBoxCallback", "ListStatus", "ListItemsModuleExpansionCallback", "Expanded"}]
        78 SETTABLEKS                       R18 R22 K26 ["LabelText"]
@@ -80,8 +80,8 @@ PROTO_1:
        94 CALL                             R20 2 1
        95 SETTABLE                         R20 R13 R19
        96 FORGLOOP                         R14 2 [inext] ; [-61]
-       98 GETUPVAL                         R15 0
-       99 GETTABLEKS                       R14 R15 K18 ["createElement"]
+       98 GETUPVAL                         R14 0
+       99 GETTABLEKS                       R14 R14 K18 ["createElement"]
       101 GETUPVAL                         R15 3
       102 DUPTABLE                         R16 K36 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
       103 GETIMPORT                        R17 K39 [Enum.AutomaticSize.Y]
@@ -92,8 +92,8 @@ PROTO_1:
       113 SETTABLEKS                       R17 R16 K35 ["Layout"]
       115 SETTABLEKS                       R3 R16 K2 ["LayoutOrder"]
       117 DUPTABLE                         R17 K47 [{"ToggleElementsFrame", "ListElementsFrame"}]
-      118 GETUPVAL                         R19 0
-      119 GETTABLEKS                       R18 R19 K18 ["createElement"]
+      118 GETUPVAL                         R18 0
+      119 GETTABLEKS                       R18 R18 K18 ["createElement"]
       121 GETUPVAL                         R19 3
       122 DUPTABLE                         R20 K49 [{"AutomaticSize", "HorizontalAlignment", "Spacing", "Layout", "LayoutOrder"}]
       123 GETIMPORT                        R21 K39 [Enum.AutomaticSize.Y]
@@ -109,8 +109,8 @@ PROTO_1:
       142 MOVE                             R21 R12
       143 CALL                             R18 3 1
       144 SETTABLEKS                       R18 R17 K45 ["ToggleElementsFrame"]
-      146 GETUPVAL                         R19 0
-      147 GETTABLEKS                       R18 R19 K18 ["createElement"]
+      146 GETUPVAL                         R18 0
+      147 GETTABLEKS                       R18 R18 K18 ["createElement"]
       149 GETUPVAL                         R19 3
       150 DUPTABLE                         R20 K49 [{"AutomaticSize", "HorizontalAlignment", "Spacing", "Layout", "LayoutOrder"}]
       151 GETIMPORT                        R21 K39 [Enum.AutomaticSize.Y]
@@ -136,40 +136,40 @@ PROTO_2:
         5 CALL                             R2 2 1
         6 JUMPIFNOT                        R2 ; [+38]
         7 DUPTABLE                         R2 K10 [{"mainSwitchEnabled", "customPoliciesEnabled", "allPolicies", "allPolicySortedKeys", "policySettingStatus", "policyListItemsModuleExpanded"}]
-        8 GETTABLEKS                       R4 R0 K11 ["MainSwitch"]
-       10 GETTABLEKS                       R3 R4 K4 ["mainSwitchEnabled"]
+        8 GETTABLEKS                       R3 R0 K11 ["MainSwitch"]
+       10 GETTABLEKS                       R3 R3 K4 ["mainSwitchEnabled"]
        12 SETTABLEKS                       R3 R2 K4 ["mainSwitchEnabled"]
-       14 GETTABLEKS                       R4 R0 K12 ["CustomPolicySwitch"]
-       16 GETTABLEKS                       R3 R4 K5 ["customPoliciesEnabled"]
+       14 GETTABLEKS                       R3 R0 K12 ["CustomPolicySwitch"]
+       16 GETTABLEKS                       R3 R3 K5 ["customPoliciesEnabled"]
        18 SETTABLEKS                       R3 R2 K5 ["customPoliciesEnabled"]
-       20 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       22 GETTABLEKS                       R3 R4 K6 ["allPolicies"]
+       20 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       22 GETTABLEKS                       R3 R3 K6 ["allPolicies"]
        24 SETTABLEKS                       R3 R2 K6 ["allPolicies"]
-       26 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       28 GETTABLEKS                       R3 R4 K7 ["allPolicySortedKeys"]
+       26 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       28 GETTABLEKS                       R3 R3 K7 ["allPolicySortedKeys"]
        30 SETTABLEKS                       R3 R2 K7 ["allPolicySortedKeys"]
-       32 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       34 GETTABLEKS                       R3 R4 K8 ["policySettingStatus"]
+       32 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       34 GETTABLEKS                       R3 R3 K8 ["policySettingStatus"]
        36 SETTABLEKS                       R3 R2 K8 ["policySettingStatus"]
-       38 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       40 GETTABLEKS                       R3 R4 K9 ["policyListItemsModuleExpanded"]
+       38 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       40 GETTABLEKS                       R3 R3 K9 ["policyListItemsModuleExpanded"]
        42 SETTABLEKS                       R3 R2 K9 ["policyListItemsModuleExpanded"]
        44 RETURN                           R2 1
        45 DUPTABLE                         R2 K14 [{"mainSwitchEnabled", "customPoliciesEnabled", "allPolicies", "allPolicySortedKeys", "policySettingStatus"}]
-       46 GETTABLEKS                       R4 R0 K11 ["MainSwitch"]
-       48 GETTABLEKS                       R3 R4 K4 ["mainSwitchEnabled"]
+       46 GETTABLEKS                       R3 R0 K11 ["MainSwitch"]
+       48 GETTABLEKS                       R3 R3 K4 ["mainSwitchEnabled"]
        50 SETTABLEKS                       R3 R2 K4 ["mainSwitchEnabled"]
-       52 GETTABLEKS                       R4 R0 K12 ["CustomPolicySwitch"]
-       54 GETTABLEKS                       R3 R4 K5 ["customPoliciesEnabled"]
+       52 GETTABLEKS                       R3 R0 K12 ["CustomPolicySwitch"]
+       54 GETTABLEKS                       R3 R3 K5 ["customPoliciesEnabled"]
        56 SETTABLEKS                       R3 R2 K5 ["customPoliciesEnabled"]
-       58 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       60 GETTABLEKS                       R3 R4 K6 ["allPolicies"]
+       58 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       60 GETTABLEKS                       R3 R3 K6 ["allPolicies"]
        62 SETTABLEKS                       R3 R2 K6 ["allPolicies"]
-       64 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       66 GETTABLEKS                       R3 R4 K7 ["allPolicySortedKeys"]
+       64 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       66 GETTABLEKS                       R3 R3 K7 ["allPolicySortedKeys"]
        68 SETTABLEKS                       R3 R2 K7 ["allPolicySortedKeys"]
-       70 GETTABLEKS                       R4 R0 K13 ["Policies"]
-       72 GETTABLEKS                       R3 R4 K8 ["policySettingStatus"]
+       70 GETTABLEKS                       R3 R0 K13 ["Policies"]
+       72 GETTABLEKS                       R3 R3 K8 ["policySettingStatus"]
        74 SETTABLEKS                       R3 R2 K8 ["policySettingStatus"]
        76 RETURN                           R2 1
 
@@ -232,61 +232,61 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
        34 GETIMPORT                        R6 K4 [require]
-       36 GETTABLEKS                       R9 R0 K11 ["Src"]
-       38 GETTABLEKS                       R8 R9 K9 ["ContextServices"]
-       40 GETTABLEKS                       R7 R8 K12 ["NetworkingContext"]
+       36 GETTABLEKS                       R7 R0 K11 ["Src"]
+       38 GETTABLEKS                       R7 R7 K9 ["ContextServices"]
+       40 GETTABLEKS                       R7 R7 K12 ["NetworkingContext"]
        42 CALL                             R6 1 1
        43 GETTABLEKS                       R7 R3 K13 ["UI"]
        45 GETTABLEKS                       R8 R7 K14 ["Pane"]
        47 GETIMPORT                        R9 K4 [require]
-       49 GETTABLEKS                       R13 R0 K11 ["Src"]
-       51 GETTABLEKS                       R12 R13 K15 ["Networking"]
-       53 GETTABLEKS                       R11 R12 K16 ["Requests"]
-       55 GETTABLEKS                       R10 R11 K17 ["GetPolicySettings"]
+       49 GETTABLEKS                       R10 R0 K11 ["Src"]
+       51 GETTABLEKS                       R10 R10 K15 ["Networking"]
+       53 GETTABLEKS                       R10 R10 K16 ["Requests"]
+       55 GETTABLEKS                       R10 R10 K17 ["GetPolicySettings"]
        57 CALL                             R9 1 1
        58 GETIMPORT                        R10 K4 [require]
-       60 GETTABLEKS                       R13 R0 K11 ["Src"]
-       62 GETTABLEKS                       R12 R13 K18 ["Thunks"]
-       64 GETTABLEKS                       R11 R12 K19 ["UpdatePolicyBooleanItem"]
+       60 GETTABLEKS                       R11 R0 K11 ["Src"]
+       62 GETTABLEKS                       R11 R11 K18 ["Thunks"]
+       64 GETTABLEKS                       R11 R11 K19 ["UpdatePolicyBooleanItem"]
        66 CALL                             R10 1 1
        67 GETIMPORT                        R11 K4 [require]
-       69 GETTABLEKS                       R14 R0 K11 ["Src"]
-       71 GETTABLEKS                       R13 R14 K18 ["Thunks"]
-       73 GETTABLEKS                       R12 R13 K20 ["UpdatePolicyListItem"]
+       69 GETTABLEKS                       R12 R0 K11 ["Src"]
+       71 GETTABLEKS                       R12 R12 K18 ["Thunks"]
+       73 GETTABLEKS                       R12 R12 K20 ["UpdatePolicyListItem"]
        75 CALL                             R11 1 1
        76 GETIMPORT                        R12 K4 [require]
-       78 GETTABLEKS                       R15 R0 K11 ["Src"]
-       80 GETTABLEKS                       R14 R15 K18 ["Thunks"]
-       82 GETTABLEKS                       R13 R14 K21 ["UpdatePolicyListItemModuleExpanded"]
+       78 GETTABLEKS                       R13 R0 K11 ["Src"]
+       80 GETTABLEKS                       R13 R13 K18 ["Thunks"]
+       82 GETTABLEKS                       R13 R13 K21 ["UpdatePolicyListItemModuleExpanded"]
        84 CALL                             R12 1 1
        85 GETIMPORT                        R13 K4 [require]
-       87 GETTABLEKS                       R16 R0 K11 ["Src"]
-       89 GETTABLEKS                       R15 R16 K22 ["Components"]
-       91 GETTABLEKS                       R14 R15 K23 ["ToggleItemModule"]
+       87 GETTABLEKS                       R14 R0 K11 ["Src"]
+       89 GETTABLEKS                       R14 R14 K22 ["Components"]
+       91 GETTABLEKS                       R14 R14 K23 ["ToggleItemModule"]
        93 CALL                             R13 1 1
        94 GETIMPORT                        R14 K4 [require]
-       96 GETTABLEKS                       R17 R0 K11 ["Src"]
-       98 GETTABLEKS                       R16 R17 K22 ["Components"]
-      100 GETTABLEKS                       R15 R16 K24 ["ListItemsModule"]
+       96 GETTABLEKS                       R15 R0 K11 ["Src"]
+       98 GETTABLEKS                       R15 R15 K22 ["Components"]
+      100 GETTABLEKS                       R15 R15 K24 ["ListItemsModule"]
       102 CALL                             R14 1 1
       103 GETTABLEKS                       R15 R1 K25 ["PureComponent"]
       105 LOADK                            R17 K26 ["PolicySection"]

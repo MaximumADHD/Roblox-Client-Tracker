@@ -5,8 +5,8 @@ PROTO_0:
         3 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["logAnalytics"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["logAnalytics"]
         3 LOADK                            R5 K1 ["sendEventImmediately"]
         4 MOVE                             R6 R0
         5 MOVE                             R7 R1
@@ -26,8 +26,8 @@ PROTO_1:
        20 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["logAnalytics"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["logAnalytics"]
         3 LOADK                            R5 K1 ["sendEventDeferred"]
         4 MOVE                             R6 R0
         5 MOVE                             R7 R1
@@ -48,8 +48,8 @@ PROTO_2:
 
 PROTO_3:
         0 ORK                              R1 R1 K0 [1]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K1 ["logCounterEvent"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K1 ["logCounterEvent"]
         4 LOADK                            R3 K2 ["reportCounter"]
         5 MOVE                             R4 R0
         6 MOVE                             R5 R1
@@ -79,28 +79,28 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Src"]
-       15 GETTABLEKS                       R4 R5 K6 ["Util"]
-       17 GETTABLEKS                       R3 R4 K7 ["Analytics"]
-       19 GETTABLEKS                       R2 R3 K8 ["Logs"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["Analytics"]
+       19 GETTABLEKS                       R2 R2 K8 ["Logs"]
        21 CALL                             R1 1 1
        22 GETIMPORT                        R2 K4 [require]
-       24 GETTABLEKS                       R5 R0 K5 ["Src"]
-       26 GETTABLEKS                       R4 R5 K6 ["Util"]
-       28 GETTABLEKS                       R3 R4 K9 ["isCli"]
+       24 GETTABLEKS                       R3 R0 K5 ["Src"]
+       26 GETTABLEKS                       R3 R3 K6 ["Util"]
+       28 GETTABLEKS                       R3 R3 K9 ["isCli"]
        30 CALL                             R2 1 1
        31 GETTABLEKS                       R3 R0 K10 ["Packages"]
-       33 GETIMPORT                        R6 K4 [require]
-       35 GETTABLEKS                       R7 R3 K11 ["Framework"]
-       37 CALL                             R6 1 1
-       38 GETTABLEKS                       R5 R6 K6 ["Util"]
-       40 GETTABLEKS                       R4 R5 K12 ["sendResultToKibana"]
+       33 GETIMPORT                        R4 K4 [require]
+       35 GETTABLEKS                       R5 R3 K11 ["Framework"]
+       37 CALL                             R4 1 1
+       38 GETTABLEKS                       R4 R4 K6 ["Util"]
+       40 GETTABLEKS                       R4 R4 K12 ["sendResultToKibana"]
        42 GETIMPORT                        R5 K14 [game]
        44 LOADK                            R7 K15 ["RbxAnalyticsService"]
        45 NAMECALL                         R5 R5 K16 ["GetService"]

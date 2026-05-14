@@ -225,16 +225,16 @@ PROTO_7:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R4 K3 [script]
-        5 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        7 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K5 ["Log"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K5 ["Log"]
        11 CALL                             R0 1 1
        12 GETIMPORT                        R1 K1 [require]
-       14 GETIMPORT                        R5 K3 [script]
-       16 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       18 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       20 GETTABLEKS                       R2 R3 K6 ["RectUtility"]
+       14 GETIMPORT                        R2 K3 [script]
+       16 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       18 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       20 GETTABLEKS                       R2 R2 K6 ["RectUtility"]
        22 CALL                             R1 1 1
        23 DUPCLOSURE                       R2 K7 [PROTO_0]
        24 CAPTURE                          VAL R1

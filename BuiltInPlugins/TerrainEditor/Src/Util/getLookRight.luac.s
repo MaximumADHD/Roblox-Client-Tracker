@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["CurrentCamera"]
-        3 GETTABLEKS                       R1 R2 K1 ["CFrame"]
-        5 GETTABLEKS                       R0 R1 K2 ["RightVector"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CurrentCamera"]
+        3 GETTABLEKS                       R0 R0 K1 ["CFrame"]
+        5 GETTABLEKS                       R0 R0 K2 ["RightVector"]
         7 GETTABLEKS                       R2 R0 K3 ["X"]
         9 FASTCALL1                        MATH_ABS R2 ; [+2]
        10 GETIMPORT                        R1 K6 [math.abs]

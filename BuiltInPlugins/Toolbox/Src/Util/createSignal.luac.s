@@ -21,8 +21,8 @@ PROTO_1:
        12 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["disconnected"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["disconnected"]
         3 NOT                              R1 R2
         4 FASTCALL2K                       ASSERT R1 K1 ; [+4]
         6 LOADK                            R2 K1 ["Listeners can only be disconnected once."]

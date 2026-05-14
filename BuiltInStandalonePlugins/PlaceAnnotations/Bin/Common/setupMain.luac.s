@@ -10,19 +10,19 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [require]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K2 ["Packages"]
-        5 GETTABLEKS                       R2 R3 K3 ["React"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Packages"]
+        5 GETTABLEKS                       R2 R2 K3 ["React"]
         7 CALL                             R1 1 1
         8 GETIMPORT                        R2 K1 [require]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K2 ["Packages"]
-       13 GETTABLEKS                       R3 R4 K4 ["ReactRoblox"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K2 ["Packages"]
+       13 GETTABLEKS                       R3 R3 K4 ["ReactRoblox"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K1 [require]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K5 ["Src"]
-       21 GETTABLEKS                       R4 R5 K6 ["MainPlugin"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R4 R4 K5 ["Src"]
+       21 GETTABLEKS                       R4 R4 K6 ["MainPlugin"]
        23 CALL                             R3 1 1
        24 GETTABLEKS                       R4 R1 K7 ["createElement"]
        26 MOVE                             R5 R3

@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETTABLEKS                       R4 R0 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K2 ["Stylizer"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K2 ["Stylizer"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K3 ["createElement"]
        11 GETUPVAL                         R5 1
        12 DUPTABLE                         R6 K10 [{"Title", "Enabled", "Modal", "Size", "Resizable", "OnClose"}]
        13 LOADK                            R9 K11 ["Moved"]
@@ -17,10 +17,10 @@ PROTO_0:
        23 LOADB                            R7 1
        24 SETTABLEKS                       R7 R6 K6 ["Modal"]
        26 GETIMPORT                        R7 K15 [Vector2.new]
-       28 GETUPVAL                         R9 2
-       29 GETTABLEKS                       R8 R9 K16 ["MOVED_DIALOG_WIDTH"]
-       31 GETUPVAL                         R10 2
-       32 GETTABLEKS                       R9 R10 K17 ["MOVED_DIALOG_HEIGHT"]
+       28 GETUPVAL                         R8 2
+       29 GETTABLEKS                       R8 R8 K16 ["MOVED_DIALOG_WIDTH"]
+       31 GETUPVAL                         R9 2
+       32 GETTABLEKS                       R9 R9 K17 ["MOVED_DIALOG_HEIGHT"]
        34 CALL                             R7 2 1
        35 SETTABLEKS                       R7 R6 K7 ["Size"]
        37 LOADB                            R7 0
@@ -28,8 +28,8 @@ PROTO_0:
        40 GETTABLEKS                       R7 R1 K9 ["OnClose"]
        42 SETTABLEKS                       R7 R6 K9 ["OnClose"]
        44 DUPTABLE                         R7 K19 [{"Background"}]
-       45 GETUPVAL                         R9 0
-       46 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       45 GETUPVAL                         R8 0
+       46 GETTABLEKS                       R8 R8 K3 ["createElement"]
        48 LOADK                            R9 K20 ["Frame"]
        49 DUPTABLE                         R10 K22 [{"Size", "BackgroundColor3"}]
        50 GETIMPORT                        R11 K24 [UDim2.new]
@@ -42,25 +42,25 @@ PROTO_0:
        59 GETTABLEKS                       R11 R3 K25 ["BackgroundColor"]
        61 SETTABLEKS                       R11 R10 K21 ["BackgroundColor3"]
        63 DUPTABLE                         R11 K29 [{"Label", "Label2", "CloseButton"}]
-       64 GETUPVAL                         R13 0
-       65 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       64 GETUPVAL                         R12 0
+       65 GETTABLEKS                       R12 R12 K3 ["createElement"]
        67 LOADK                            R13 K30 ["TextLabel"]
        68 DUPTABLE                         R14 K39 [{"Size", "Position", "AnchorPoint", "Text", "TextSize", "TextColor3", "TextXAlignment", "Font", "BackgroundTransparency"}]
        69 GETIMPORT                        R15 K24 [UDim2.new]
        71 LOADN                            R16 1
        72 LOADN                            R17 0
        73 LOADN                            R18 0
-       74 GETUPVAL                         R20 2
-       75 GETTABLEKS                       R19 R20 K40 ["MOVED_DIALOG_LABEL_HEIGHT"]
+       74 GETUPVAL                         R19 2
+       75 GETTABLEKS                       R19 R19 K40 ["MOVED_DIALOG_LABEL_HEIGHT"]
        77 CALL                             R15 4 1
        78 SETTABLEKS                       R15 R14 K7 ["Size"]
        80 GETIMPORT                        R15 K24 [UDim2.new]
        82 LOADN                            R16 0
-       83 GETUPVAL                         R18 2
-       84 GETTABLEKS                       R17 R18 K41 ["MOVED_DIALOG_SIDE_PADDING"]
+       83 GETUPVAL                         R17 2
+       84 GETTABLEKS                       R17 R17 K41 ["MOVED_DIALOG_SIDE_PADDING"]
        86 LOADN                            R18 0
-       87 GETUPVAL                         R20 2
-       88 GETTABLEKS                       R19 R20 K42 ["MOVED_DIALOG_TOP_PADDING"]
+       87 GETUPVAL                         R19 2
+       88 GETTABLEKS                       R19 R19 K42 ["MOVED_DIALOG_TOP_PADDING"]
        90 CALL                             R15 4 1
        91 SETTABLEKS                       R15 R14 K31 ["Position"]
        93 GETIMPORT                        R15 K15 [Vector2.new]
@@ -85,30 +85,30 @@ PROTO_0:
       123 SETTABLEKS                       R15 R14 K38 ["BackgroundTransparency"]
       125 CALL                             R12 2 1
       126 SETTABLEKS                       R12 R11 K26 ["Label"]
-      128 GETUPVAL                         R13 0
-      129 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      128 GETUPVAL                         R12 0
+      129 GETTABLEKS                       R12 R12 K3 ["createElement"]
       131 LOADK                            R13 K30 ["TextLabel"]
       132 DUPTABLE                         R14 K39 [{"Size", "Position", "AnchorPoint", "Text", "TextSize", "TextColor3", "TextXAlignment", "Font", "BackgroundTransparency"}]
       133 GETIMPORT                        R15 K24 [UDim2.new]
       135 LOADN                            R16 1
       136 LOADN                            R17 0
       137 LOADN                            R18 0
-      138 GETUPVAL                         R20 2
-      139 GETTABLEKS                       R19 R20 K40 ["MOVED_DIALOG_LABEL_HEIGHT"]
+      138 GETUPVAL                         R19 2
+      139 GETTABLEKS                       R19 R19 K40 ["MOVED_DIALOG_LABEL_HEIGHT"]
       141 CALL                             R15 4 1
       142 SETTABLEKS                       R15 R14 K7 ["Size"]
       144 GETIMPORT                        R15 K24 [UDim2.new]
       146 LOADN                            R16 0
-      147 GETUPVAL                         R18 2
-      148 GETTABLEKS                       R17 R18 K41 ["MOVED_DIALOG_SIDE_PADDING"]
+      147 GETUPVAL                         R17 2
+      148 GETTABLEKS                       R17 R17 K41 ["MOVED_DIALOG_SIDE_PADDING"]
       150 LOADN                            R18 0
-      151 GETUPVAL                         R22 2
-      152 GETTABLEKS                       R21 R22 K42 ["MOVED_DIALOG_TOP_PADDING"]
-      154 GETUPVAL                         R23 2
-      155 GETTABLEKS                       R22 R23 K40 ["MOVED_DIALOG_LABEL_HEIGHT"]
+      151 GETUPVAL                         R21 2
+      152 GETTABLEKS                       R21 R21 K42 ["MOVED_DIALOG_TOP_PADDING"]
+      154 GETUPVAL                         R22 2
+      155 GETTABLEKS                       R22 R22 K40 ["MOVED_DIALOG_LABEL_HEIGHT"]
       157 ADD                              R20 R21 R22
-      158 GETUPVAL                         R22 2
-      159 GETTABLEKS                       R21 R22 K50 ["MOVED_DIALOG_INTRA_PADDING"]
+      158 GETUPVAL                         R21 2
+      159 GETTABLEKS                       R21 R21 K50 ["MOVED_DIALOG_INTRA_PADDING"]
       161 ADD                              R19 R20 R21
       162 CALL                             R15 4 1
       163 SETTABLEKS                       R15 R14 K31 ["Position"]
@@ -134,8 +134,8 @@ PROTO_0:
       195 SETTABLEKS                       R15 R14 K38 ["BackgroundTransparency"]
       197 CALL                             R12 2 1
       198 SETTABLEKS                       R12 R11 K27 ["Label2"]
-      200 GETUPVAL                         R13 0
-      201 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      200 GETUPVAL                         R12 0
+      201 GETTABLEKS                       R12 R12 K3 ["createElement"]
       203 GETUPVAL                         R13 3
       204 DUPTABLE                         R14 K56 [{"AnchorPoint", "Position", "Size", "OnClick", "Style"}]
       205 GETIMPORT                        R15 K15 [Vector2.new]
@@ -147,18 +147,18 @@ PROTO_0:
       214 LOADK                            R16 K57 [0.5]
       215 LOADN                            R17 0
       216 LOADN                            R18 1
-      217 GETUPVAL                         R21 2
-      218 GETTABLEKS                       R20 R21 K58 ["MOVED_DIALOG_BOTTOM_PADDING"]
+      217 GETUPVAL                         R20 2
+      218 GETTABLEKS                       R20 R20 K58 ["MOVED_DIALOG_BOTTOM_PADDING"]
       220 MINUS                            R19 R20
       221 CALL                             R15 4 1
       222 SETTABLEKS                       R15 R14 K31 ["Position"]
       224 GETIMPORT                        R15 K24 [UDim2.new]
       226 LOADN                            R16 0
-      227 GETUPVAL                         R18 2
-      228 GETTABLEKS                       R17 R18 K59 ["MOVED_DIALOG_BUTTON_WIDTH"]
+      227 GETUPVAL                         R17 2
+      228 GETTABLEKS                       R17 R17 K59 ["MOVED_DIALOG_BUTTON_WIDTH"]
       230 LOADN                            R18 0
-      231 GETUPVAL                         R20 2
-      232 GETTABLEKS                       R19 R20 K60 ["MOVED_DIALOG_BUTTON_HEIGHT"]
+      231 GETUPVAL                         R19 2
+      232 GETTABLEKS                       R19 R19 K60 ["MOVED_DIALOG_BUTTON_HEIGHT"]
       234 CALL                             R15 4 1
       235 SETTABLEKS                       R15 R14 K7 ["Size"]
       237 GETTABLEKS                       R15 R1 K9 ["OnClose"]
@@ -166,8 +166,8 @@ PROTO_0:
       241 LOADK                            R15 K61 ["RoundPrimary"]
       242 SETTABLEKS                       R15 R14 K55 ["Style"]
       244 DUPTABLE                         R15 K62 [{"Label"}]
-      245 GETUPVAL                         R17 0
-      246 GETTABLEKS                       R16 R17 K3 ["createElement"]
+      245 GETUPVAL                         R16 0
+      246 GETTABLEKS                       R16 R16 K3 ["createElement"]
       248 LOADK                            R17 K30 ["TextLabel"]
       249 DUPTABLE                         R18 K63 [{"Size", "Text", "TextColor3", "Font", "TextSize", "BackgroundTransparency"}]
       250 GETIMPORT                        R19 K24 [UDim2.new]
@@ -201,22 +201,22 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["Constants"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K10 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["Framework"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K11 ["ContextServices"]
        34 GETTABLEKS                       R5 R4 K12 ["withContext"]

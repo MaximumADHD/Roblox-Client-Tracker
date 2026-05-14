@@ -9,8 +9,8 @@ PROTO_0:
        10 SETTABLEKS                       R3 R2 K2 ["Id"]
        12 GETTABLEKS                       R3 R1 K1 ["imageUrl"]
        14 SETTABLEKS                       R3 R2 K3 ["CDNUrl"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K6 ["tempUrls"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K6 ["tempUrls"]
        19 GETTABLEKS                       R5 R1 K1 ["imageUrl"]
        21 GETTABLE                         R3 R4 R5
        22 SETTABLEKS                       R3 R2 K4 ["ImageUrl"]
@@ -62,16 +62,16 @@ PROTO_3:
         2 GETIMPORT                        R0 K1 [warn]
         4 LOADK                            R1 K2 ["DiscoverGameIcons batch load failed, loading thumbnails individually"]
         5 CALL                             R0 1 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R0 R1 K3 ["universeIds"]
+        6 GETUPVAL                         R0 1
+        7 GETTABLEKS                       R0 R0 K3 ["universeIds"]
         9 JUMPIFNOT                        R0 ; [+31]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R1 R2 K3 ["universeIds"]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K3 ["universeIds"]
        13 LENGTH                           R0 R1
        14 LOADN                            R1 1
        15 JUMPIFNOTLT                      R1 R0 ; [+25]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R0 R3 K3 ["universeIds"]
+       17 GETUPVAL                         R0 1
+       18 GETTABLEKS                       R0 R0 K3 ["universeIds"]
        20 LOADNIL                          R1
        21 LOADNIL                          R2
        22 FORGPREP                         R0
@@ -106,16 +106,16 @@ PROTO_4:
         9 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 CALL                             R2 0 1
         4 GETTABLEKS                       R3 R2 K1 ["composeUrl"]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K2 ["EXPERIENCES_ICON_URL"]
-        9 GETTABLEKS                       R4 R5 K3 ["Prefix"]
-       11 GETUPVAL                         R7 1
-       12 GETTABLEKS                       R6 R7 K2 ["EXPERIENCES_ICON_URL"]
-       14 GETTABLEKS                       R5 R6 K4 ["Url"]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K2 ["EXPERIENCES_ICON_URL"]
+        9 GETTABLEKS                       R4 R4 K3 ["Prefix"]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K2 ["EXPERIENCES_ICON_URL"]
+       14 GETTABLEKS                       R5 R5 K4 ["Url"]
        16 CALL                             R5 0 1
        17 MOVE                             R6 R0
        18 CALL                             R3 3 1
@@ -154,9 +154,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFIntDebugLuaStartPageLogging"]
        15 CALL                             R1 1 1
        16 CALL                             R1 0 1
        17 GETIMPORT                        R2 K10 [game]
@@ -165,41 +165,41 @@ MAIN:
        21 NAMECALL                         R2 R2 K12 ["DefineFastFlag"]
        23 CALL                             R2 3 1
        24 GETIMPORT                        R3 K5 [require]
-       26 GETTABLEKS                       R5 R0 K13 ["Packages"]
-       28 GETTABLEKS                       R4 R5 K14 ["Framework"]
+       26 GETTABLEKS                       R4 R0 K13 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K14 ["Framework"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K5 [require]
-       33 GETTABLEKS                       R6 R0 K13 ["Packages"]
-       35 GETTABLEKS                       R5 R6 K15 ["Dash"]
+       33 GETTABLEKS                       R5 R0 K13 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K15 ["Dash"]
        37 CALL                             R4 1 1
        38 GETTABLEKS                       R5 R4 K16 ["collectArray"]
        40 GETIMPORT                        R6 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Src"]
-       44 GETTABLEKS                       R7 R8 K17 ["Types"]
+       42 GETTABLEKS                       R7 R0 K6 ["Src"]
+       44 GETTABLEKS                       R7 R7 K17 ["Types"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K5 [require]
-       49 GETTABLEKS                       R10 R0 K6 ["Src"]
-       51 GETTABLEKS                       R9 R10 K18 ["Models"]
-       53 GETTABLEKS                       R8 R9 K19 ["ApiArrayResponseThumbnailResponse"]
+       49 GETTABLEKS                       R8 R0 K6 ["Src"]
+       51 GETTABLEKS                       R8 R8 K18 ["Models"]
+       53 GETTABLEKS                       R8 R8 K19 ["ApiArrayResponseThumbnailResponse"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K5 [require]
-       58 GETTABLEKS                       R11 R0 K6 ["Src"]
-       60 GETTABLEKS                       R10 R11 K20 ["Network"]
-       62 GETTABLEKS                       R9 R10 K21 ["Urls"]
+       58 GETTABLEKS                       R9 R0 K6 ["Src"]
+       60 GETTABLEKS                       R9 R9 K20 ["Network"]
+       62 GETTABLEKS                       R9 R9 K21 ["Urls"]
        64 CALL                             R8 1 1
-       65 GETIMPORT                        R10 K5 [require]
-       67 GETTABLEKS                       R13 R0 K6 ["Src"]
-       69 GETTABLEKS                       R12 R13 K22 ["Util"]
-       71 GETTABLEKS                       R11 R12 K23 ["Services"]
-       73 CALL                             R10 1 1
-       74 GETTABLEKS                       R9 R10 K24 ["Networking"]
+       65 GETIMPORT                        R9 K5 [require]
+       67 GETTABLEKS                       R10 R0 K6 ["Src"]
+       69 GETTABLEKS                       R10 R10 K22 ["Util"]
+       71 GETTABLEKS                       R10 R10 K23 ["Services"]
+       73 CALL                             R9 1 1
+       74 GETTABLEKS                       R9 R9 K24 ["Networking"]
        76 GETIMPORT                        R10 K5 [require]
-       78 GETTABLEKS                       R13 R0 K6 ["Src"]
-       80 GETTABLEKS                       R12 R13 K22 ["Util"]
-       82 GETTABLEKS                       R11 R12 K25 ["createResponseValidator"]
+       78 GETTABLEKS                       R11 R0 K6 ["Src"]
+       80 GETTABLEKS                       R11 R11 K22 ["Util"]
+       82 GETTABLEKS                       R11 R11 K25 ["createResponseValidator"]
        84 CALL                             R10 1 1
-       85 GETTABLEKS                       R12 R3 K26 ["RobloxAPI"]
-       87 GETTABLEKS                       R11 R12 K27 ["Url"]
+       85 GETTABLEKS                       R11 R3 K26 ["RobloxAPI"]
+       87 GETTABLEKS                       R11 R11 K27 ["Url"]
        89 GETTABLEKS                       R12 R9 K28 ["new"]
        91 DUPTABLE                         R13 K31 [{"isInternal", "loggingLevel"}]
        92 LOADB                            R14 1
@@ -207,14 +207,14 @@ MAIN:
        95 SETTABLEKS                       R1 R13 K30 ["loggingLevel"]
        97 CALL                             R12 1 1
        98 GETIMPORT                        R13 K5 [require]
-      100 GETTABLEKS                       R16 R0 K6 ["Src"]
-      102 GETTABLEKS                       R15 R16 K20 ["Network"]
-      104 GETTABLEKS                       R14 R15 K32 ["GameCache"]
+      100 GETTABLEKS                       R14 R0 K6 ["Src"]
+      102 GETTABLEKS                       R14 R14 K20 ["Network"]
+      104 GETTABLEKS                       R14 R14 K32 ["GameCache"]
       106 CALL                             R13 1 1
       107 GETIMPORT                        R14 K5 [require]
-      109 GETTABLEKS                       R17 R0 K6 ["Src"]
-      111 GETTABLEKS                       R16 R17 K22 ["Util"]
-      113 GETTABLEKS                       R15 R16 K23 ["Services"]
+      109 GETTABLEKS                       R15 R0 K6 ["Src"]
+      111 GETTABLEKS                       R15 R15 K22 ["Util"]
+      113 GETTABLEKS                       R15 R15 K23 ["Services"]
       115 CALL                             R14 1 1
       116 GETTABLEKS                       R15 R14 K33 ["StartPageManager"]
       118 MOVE                             R16 R10

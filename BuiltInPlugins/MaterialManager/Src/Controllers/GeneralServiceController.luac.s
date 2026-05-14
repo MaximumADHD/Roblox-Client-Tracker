@@ -1,43 +1,43 @@
 PROTO_0:
         0 DUPTABLE                         R2 K9 [{"_changeHistoryService", "_insertService", "_selection", "_assetManagerService", "_materialService", "_studioService", "_marketplaceService", "_loadedFiles", "_mock"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K10 ["new"]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K10 ["new"]
         4 LOADK                            R4 K11 ["ChangeHistoryService"]
         5 MOVE                             R5 R0
         6 CALL                             R3 2 1
         7 SETTABLEKS                       R3 R2 K0 ["_changeHistoryService"]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K10 ["new"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K10 ["new"]
        12 LOADK                            R4 K12 ["InsertService"]
        13 MOVE                             R5 R0
        14 CALL                             R3 2 1
        15 SETTABLEKS                       R3 R2 K1 ["_insertService"]
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R3 R4 K10 ["new"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K10 ["new"]
        20 LOADK                            R4 K13 ["Selection"]
        21 MOVE                             R5 R0
        22 CALL                             R3 2 1
        23 SETTABLEKS                       R3 R2 K2 ["_selection"]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K10 ["new"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K10 ["new"]
        28 LOADK                            R4 K14 ["AssetManagerService"]
        29 MOVE                             R5 R0
        30 CALL                             R3 2 1
        31 SETTABLEKS                       R3 R2 K3 ["_assetManagerService"]
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R3 R4 K10 ["new"]
+       33 GETUPVAL                         R3 0
+       34 GETTABLEKS                       R3 R3 K10 ["new"]
        36 LOADK                            R4 K15 ["MaterialService"]
        37 MOVE                             R5 R0
        38 CALL                             R3 2 1
        39 SETTABLEKS                       R3 R2 K4 ["_materialService"]
-       41 GETUPVAL                         R4 0
-       42 GETTABLEKS                       R3 R4 K10 ["new"]
+       41 GETUPVAL                         R3 0
+       42 GETTABLEKS                       R3 R3 K10 ["new"]
        44 LOADK                            R4 K16 ["StudioService"]
        45 MOVE                             R5 R0
        46 CALL                             R3 2 1
        47 SETTABLEKS                       R3 R2 K5 ["_studioService"]
-       49 GETUPVAL                         R4 0
-       50 GETTABLEKS                       R3 R4 K10 ["new"]
+       49 GETUPVAL                         R3 0
+       50 GETTABLEKS                       R3 R3 K10 ["new"]
        52 LOADK                            R4 K17 ["MarketplaceService"]
        53 MOVE                             R5 R0
        54 CALL                             R3 2 1
@@ -52,8 +52,8 @@ PROTO_0:
        69 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 LOADB                            R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
@@ -205,8 +205,8 @@ PROTO_10:
        30 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["_studioService"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["_studioService"]
         3 NAMECALL                         R0 R0 K1 ["asService"]
         5 CALL                             R0 1 1
         6 GETUPVAL                         R2 2
@@ -234,8 +234,8 @@ PROTO_12:
        18 RETURN                           R5 2
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_assetManagerService"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_assetManagerService"]
         3 NAMECALL                         R0 R0 K1 ["asService"]
         5 CALL                             R0 1 1
         6 GETUPVAL                         R2 1
@@ -244,12 +244,12 @@ PROTO_13:
        10 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_assetManagerService"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_assetManagerService"]
         3 NAMECALL                         R0 R0 K1 ["asService"]
         5 CALL                             R0 1 1
-        6 GETIMPORT                        R3 K5 [Enum.AssetType.Image]
-        8 GETTABLEKS                       R2 R3 K6 ["Value"]
+        6 GETIMPORT                        R2 K5 [Enum.AssetType.Image]
+        8 GETTABLEKS                       R2 R2 K6 ["Value"]
        10 GETUPVAL                         R3 1
        11 GETUPVAL                         R4 2
        12 NAMECALL                         R0 R0 K7 ["CreateAlias"]
@@ -296,8 +296,8 @@ PROTO_15:
 PROTO_16:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K0 ["Name"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K0 ["Name"]
         5 NAMECALL                         R1 R1 K1 ["insertAssetId"]
         7 CALL                             R1 3 1
         8 LOADNIL                          R2
@@ -328,15 +328,15 @@ PROTO_17:
        19 GETUPVAL                         R1 0
        20 LOADK                            R2 K7 [""]
        21 LOADK                            R3 K8 ["uploadTextureMapFromFileError"]
-       22 GETUPVAL                         R5 1
-       23 GETTABLEKS                       R4 R5 K9 ["FailedToUploadTooLarge"]
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R4 R4 K9 ["FailedToUploadTooLarge"]
        25 CALL                             R1 3 0
        26 RETURN                           R0 0
        27 GETUPVAL                         R1 0
        28 LOADK                            R2 K7 [""]
        29 LOADK                            R3 K10 ["uploadTextureMapGeneralError"]
-       30 GETUPVAL                         R5 1
-       31 GETTABLEKS                       R4 R5 K11 ["FailedToUploadFromFileMap"]
+       30 GETUPVAL                         R4 1
+       31 GETTABLEKS                       R4 R4 K11 ["FailedToUploadFromFileMap"]
        33 CALL                             R1 3 0
        34 RETURN                           R0 0
 
@@ -387,14 +387,14 @@ PROTO_19:
        27 MOVE                             R9 R6
        28 LOADK                            R10 K0 [""]
        29 LOADK                            R11 K5 ["importTextureMapError"]
-       30 GETUPVAL                         R13 0
-       31 GETTABLEKS                       R12 R13 K6 ["FailedToImportMap"]
+       30 GETUPVAL                         R12 0
+       31 GETTABLEKS                       R12 R12 K6 ["FailedToImportMap"]
        33 CALL                             R9 3 0
        34 RETURN                           R0 0
 
 PROTO_20:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["_marketplaceService"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["_marketplaceService"]
         3 NAMECALL                         R0 R0 K1 ["asService"]
         5 CALL                             R0 1 1
         6 GETUPVAL                         R2 2
@@ -421,16 +421,16 @@ PROTO_21:
        15 JUMPIFNOT                        R0 ; [+11]
        16 GETUPVAL                         R2 1
        17 JUMPIFNOT                        R2 ; [+9]
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R2 R3 K2 ["AssetTypeId"]
-       21 GETIMPORT                        R4 K6 [Enum.AssetType.Image]
-       23 GETTABLEKS                       R3 R4 K7 ["Value"]
+       18 GETUPVAL                         R2 1
+       19 GETTABLEKS                       R2 R2 K2 ["AssetTypeId"]
+       21 GETIMPORT                        R3 K6 [Enum.AssetType.Image]
+       23 GETTABLEKS                       R3 R3 K7 ["Value"]
        25 JUMPIFEQ                         R2 R3 ; [+9]
        27 GETUPVAL                         R2 4
        28 LOADK                            R3 K8 [""]
        29 LOADK                            R4 K9 ["uploadFromURLTextureMapError"]
-       30 GETUPVAL                         R6 5
-       31 GETTABLEKS                       R5 R6 K10 ["FailedUrl"]
+       30 GETUPVAL                         R5 5
+       31 GETTABLEKS                       R5 R5 K10 ["FailedUrl"]
        33 CALL                             R2 3 0
        34 RETURN                           R0 0
        35 LOADK                            R3 K11 ["rbxassetid://"]
@@ -460,8 +460,8 @@ PROTO_22:
         9 MOVE                             R7 R5
        10 LOADK                            R8 K0 [""]
        11 LOADK                            R9 K2 ["uploadFromURLTextureMapError"]
-       12 GETUPVAL                         R11 1
-       13 GETTABLEKS                       R10 R11 K3 ["FailedUrl"]
+       12 GETUPVAL                         R10 1
+       13 GETTABLEKS                       R10 R10 K3 ["FailedUrl"]
        15 CALL                             R7 3 0
        16 RETURN                           R0 0
        17 LOADNIL                          R7
@@ -584,29 +584,29 @@ PROTO_27:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K5 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Flags"]
-       29 GETTABLEKS                       R4 R5 K10 ["getEFEnableEmissiveMask"]
+       25 GETTABLEKS                       R4 R0 K5 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K10 ["getEFEnableEmissiveMask"]
        31 CALL                             R3 1 1
-       32 GETTABLEKS                       R5 R2 K11 ["TestHelpers"]
-       34 GETTABLEKS                       R4 R5 K12 ["ServiceWrapper"]
-       36 GETTABLEKS                       R6 R2 K13 ["ContextServices"]
-       38 GETTABLEKS                       R5 R6 K14 ["ContextItem"]
-       40 GETTABLEKS                       R7 R0 K5 ["Src"]
-       42 GETTABLEKS                       R6 R7 K15 ["Util"]
+       32 GETTABLEKS                       R4 R2 K11 ["TestHelpers"]
+       34 GETTABLEKS                       R4 R4 K12 ["ServiceWrapper"]
+       36 GETTABLEKS                       R5 R2 K13 ["ContextServices"]
+       38 GETTABLEKS                       R5 R5 K14 ["ContextItem"]
+       40 GETTABLEKS                       R6 R0 K5 ["Src"]
+       42 GETTABLEKS                       R6 R6 K15 ["Util"]
        44 GETIMPORT                        R7 K4 [require]
        46 GETTABLEKS                       R8 R6 K16 ["ApplyToBasePart"]
        48 CALL                             R7 1 1
@@ -622,9 +622,9 @@ MAIN:
        64 GETIMPORT                        R11 K4 [require]
        66 GETTABLEKS                       R12 R6 K20 ["getNumberIdFromURL"]
        68 CALL                             R11 1 1
-       69 GETTABLEKS                       R14 R0 K5 ["Src"]
-       71 GETTABLEKS                       R13 R14 K21 ["Resources"]
-       73 GETTABLEKS                       R12 R13 K22 ["Constants"]
+       69 GETTABLEKS                       R12 R0 K5 ["Src"]
+       71 GETTABLEKS                       R12 R12 K21 ["Resources"]
+       73 GETTABLEKS                       R12 R12 K22 ["Constants"]
        75 GETIMPORT                        R13 K4 [require]
        77 GETTABLEKS                       R14 R12 K23 ["getMaterialName"]
        79 CALL                             R13 1 1

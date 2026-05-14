@@ -5,8 +5,8 @@ PROTO_0:
         6 GETTABLEKS                       R4 R1 K3 ["LayoutOrder"]
         8 GETTABLEKS                       R5 R1 K4 ["Message"]
        10 GETTABLEKS                       R6 R1 K5 ["Stylizer"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 GETUPVAL                         R8 1
        16 DUPTABLE                         R9 K12 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
        17 SETTABLEKS                       R4 R9 K3 ["LayoutOrder"]
@@ -26,8 +26,8 @@ PROTO_0:
        40 GETTABLEKS                       R10 R6 K11 ["Padding"]
        42 SETTABLEKS                       R10 R9 K11 ["Padding"]
        44 DUPTABLE                         R10 K24 [{"InstructionsLabel"}]
-       45 GETUPVAL                         R12 0
-       46 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       45 GETUPVAL                         R11 0
+       46 GETTABLEKS                       R11 R11 K6 ["createElement"]
        48 GETUPVAL                         R12 2
        49 DUPTABLE                         R13 K32 [{"Text", "Size", "AutomaticSize", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextProps", "LinkMap"}]
        50 SETTABLEKS                       R5 R13 K25 ["Text"]
@@ -70,12 +70,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R1 K10 ["UI"]

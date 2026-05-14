@@ -2,8 +2,8 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
         8 DUPTABLE                         R4 K9 [{"Size", "LayoutOrder", "AnchorPoint", "HorizontalAlignment", "Position", "Transparency", "Style"}]
         9 GETIMPORT                        R5 K12 [UDim2.new]
@@ -32,8 +32,8 @@ PROTO_0:
        44 LOADK                            R5 K22 ["SubtleBorderBox"]
        45 SETTABLEKS                       R5 R4 K8 ["Style"]
        47 DUPTABLE                         R5 K25 [{"Label", "Toggle"}]
-       48 GETUPVAL                         R7 1
-       49 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       48 GETUPVAL                         R6 1
+       49 GETTABLEKS                       R6 R6 K1 ["createElement"]
        51 GETUPVAL                         R7 3
        52 DUPTABLE                         R8 K28 [{"Text", "TextTruncate"}]
        53 LOADK                            R11 K29 ["ToggleBar"]
@@ -45,8 +45,8 @@ PROTO_0:
        62 SETTABLEKS                       R9 R8 K27 ["TextTruncate"]
        64 CALL                             R6 2 1
        65 SETTABLEKS                       R6 R5 K23 ["Label"]
-       67 GETUPVAL                         R7 1
-       68 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       67 GETUPVAL                         R6 1
+       68 GETTABLEKS                       R6 R6 K1 ["createElement"]
        70 GETUPVAL                         R7 2
        71 DUPTABLE                         R8 K36 [{"LayoutOrder", "AutomaticSize", "OnClick", "AnchorPoint", "Position"}]
        72 LOADN                            R9 1
@@ -68,8 +68,8 @@ PROTO_0:
        96 CALL                             R9 4 1
        97 SETTABLEKS                       R9 R8 K6 ["Position"]
        99 DUPTABLE                         R9 K40 [{"Icon"}]
-      100 GETUPVAL                         R11 1
-      101 GETTABLEKS                       R10 R11 K1 ["createElement"]
+      100 GETUPVAL                         R10 1
+      101 GETTABLEKS                       R10 R10 K1 ["createElement"]
       103 GETUPVAL                         R11 4
       104 DUPTABLE                         R12 K43 [{"Rotation", "Style", "ImageColor3"}]
       105 GETTABLEKS                       R14 R0 K44 ["isTableHidden"]
@@ -96,19 +96,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Image"]
        25 GETTABLEKS                       R5 R3 K11 ["Pane"]
        27 GETTABLEKS                       R6 R3 K12 ["TextLabel"]
-       29 GETTABLEKS                       R8 R1 K13 ["ContextServices"]
-       31 GETTABLEKS                       R7 R8 K14 ["Localization"]
+       29 GETTABLEKS                       R7 R1 K13 ["ContextServices"]
+       31 GETTABLEKS                       R7 R7 K14 ["Localization"]
        33 DUPCLOSURE                       R8 K15 [PROTO_0]
        34 CAPTURE                          VAL R7
        35 CAPTURE                          VAL R2

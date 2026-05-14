@@ -1,40 +1,40 @@
 PROTO_0:
         0 NAMECALL                         R2 R0 K0 ["GetAppliedDescription"]
         2 CALL                             R2 1 1
-        3 GETUPVAL                         R5 0
-        4 GETTABLEKS                       R4 R5 K1 ["originalHumanoidDescription"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K1 ["originalHumanoidDescription"]
         6 GETTABLE                         R3 R4 R0
         7 JUMPIF                           R3 ; [+9]
         8 NAMECALL                         R3 R2 K2 ["Clone"]
        10 CALL                             R3 1 1
        11 JUMPIF                           R3 ; [+1]
        12 RETURN                           R0 0
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K1 ["originalHumanoidDescription"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K1 ["originalHumanoidDescription"]
        16 SETTABLE                         R3 R4 R0
        17 JUMPIF                           R1 ; [+5]
-       18 GETUPVAL                         R4 0
-       19 GETTABLEKS                       R3 R4 K3 ["applyAvatarRulesToAvatar"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K3 ["applyAvatarRulesToAvatar"]
        21 MOVE                             R4 R0
        22 CALL                             R3 1 0
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["unloadAvatar"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["unloadAvatar"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["setCollisionBoxTransparency"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["setCollisionBoxTransparency"]
         8 MOVE                             R2 R0
         9 LOADB                            R3 0
        10 CALL                             R1 2 0
-       11 GETUPVAL                         R3 2
-       12 GETTABLEKS                       R2 R3 K2 ["originalHumanoidDescription"]
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K2 ["originalHumanoidDescription"]
        14 GETTABLE                         R1 R2 R0
        15 JUMPIFNOT                        R1 ; [+27]
-       16 GETUPVAL                         R3 2
-       17 GETTABLEKS                       R2 R3 K2 ["originalHumanoidDescription"]
+       16 GETUPVAL                         R2 2
+       17 GETTABLEKS                       R2 R2 K2 ["originalHumanoidDescription"]
        19 LOADNIL                          R3
        20 SETTABLE                         R3 R2 R0
        21 GETIMPORT                        R4 K4 [game]
@@ -59,20 +59,20 @@ PROTO_2:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K0 ["originalHumanoidDescription"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["originalHumanoidDescription"]
         6 GETTABLE                         R1 R2 R0
         7 JUMPIF                           R1 ; [+1]
         8 RETURN                           R0 0
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K0 ["originalHumanoidDescription"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K0 ["originalHumanoidDescription"]
        12 GETTABLE                         R1 R2 R0
        13 NAMECALL                         R1 R1 K1 ["Clone"]
        15 CALL                             R1 1 1
        16 JUMPIF                           R1 ; [+1]
        17 RETURN                           R0 0
-       18 GETUPVAL                         R3 2
-       19 GETTABLEKS                       R2 R3 K2 ["applyAvatarRules"]
+       18 GETUPVAL                         R2 2
+       19 GETTABLEKS                       R2 R2 K2 ["applyAvatarRules"]
        21 MOVE                             R3 R0
        22 MOVE                             R4 R1
        23 CALL                             R2 2 0
@@ -94,16 +94,16 @@ PROTO_3:
        14 NAMECALL                         R5 R4 K4 ["FindFirstChildWhichIsA"]
        16 CALL                             R5 2 1
        17 JUMPIFNOT                        R5 ; [+5]
-       18 GETUPVAL                         R7 1
-       19 GETTABLEKS                       R6 R7 K5 ["applyAvatarRulesToAvatar"]
+       18 GETUPVAL                         R6 1
+       19 GETTABLEKS                       R6 R6 K5 ["applyAvatarRulesToAvatar"]
        21 MOVE                             R7 R5
        22 CALL                             R6 1 0
        23 FORGLOOP                         R0 2 ; [-16]
        25 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["applyAvatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["applyAvatarRules"]
         3 CALL                             R0 0 0
         4 LOADB                            R0 0
         5 SETUPVAL                         R0 1
@@ -138,14 +138,14 @@ PROTO_7:
         8 CALL                             R6 1 0
         9 FORGLOOP                         R1 2 ; [-4]
        11 GETIMPORT                        R1 K3 [table.clear]
-       13 GETUPVAL                         R3 2
-       14 GETTABLEKS                       R2 R3 K4 ["originalHumanoidDescription"]
+       13 GETUPVAL                         R2 2
+       14 GETTABLEKS                       R2 R2 K4 ["originalHumanoidDescription"]
        16 CALL                             R1 1 0
-       17 GETUPVAL                         R2 3
-       18 GETTABLEKS                       R1 R2 K5 ["terminate"]
+       17 GETUPVAL                         R1 3
+       18 GETTABLEKS                       R1 R1 K5 ["terminate"]
        20 CALL                             R1 0 0
-       21 GETUPVAL                         R2 3
-       22 GETTABLEKS                       R1 R2 K6 ["unloadAllAvatars"]
+       21 GETUPVAL                         R1 3
+       22 GETTABLEKS                       R1 R1 K6 ["unloadAllAvatars"]
        24 CALL                             R1 0 0
        25 GETUPVAL                         R1 0
        26 NAMECALL                         R1 R1 K7 ["Remove"]
@@ -162,17 +162,17 @@ PROTO_7:
        39 LOADNIL                          R1
        40 SETUPVAL                         R1 5
        41 JUMPIFNOT                        R0 ; [+8]
-       42 GETUPVAL                         R5 6
-       43 GETTABLEKS                       R4 R5 K8 ["previewDeactivated"]
-       45 GETTABLEKS                       R3 R4 K9 ["fromAssetDm"]
+       42 GETUPVAL                         R3 6
+       43 GETTABLEKS                       R3 R3 K8 ["previewDeactivated"]
+       45 GETTABLEKS                       R3 R3 K9 ["fromAssetDm"]
        47 NAMECALL                         R1 R0 K10 ["Invoke"]
        49 CALL                             R1 2 0
        50 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["AvatarPreviewFolderTag"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["AvatarPreviewFolderTag"]
         4 NAMECALL                         R0 R0 K1 ["GetTagged"]
         6 CALL                             R0 2 1
         7 LENGTH                           R1 R0
@@ -185,8 +185,8 @@ PROTO_8:
        16 RETURN                           R1 1
        17 LOADB                            R3 0
        18 LOADK                            R5 K5 ["Instances tagged with "]
-       19 GETUPVAL                         R8 1
-       20 GETTABLEKS                       R6 R8 K0 ["AvatarPreviewFolderTag"]
+       19 GETUPVAL                         R6 1
+       20 GETTABLEKS                       R6 R6 K0 ["AvatarPreviewFolderTag"]
        22 LOADK                            R7 K6 [" should be of type Folder"]
        23 CONCAT                           R4 R5 R7
        24 FASTCALL2                        ASSERT R3 R4 ; [+3]
@@ -216,8 +216,8 @@ PROTO_9:
         9 CALL                             R1 2 1
        10 JUMPIF                           R1 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K4 ["addHumanoidToPreviewFolder"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K4 ["addHumanoidToPreviewFolder"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 0
        17 RETURN                           R0 0
@@ -233,17 +233,17 @@ PROTO_10:
         9 CALL                             R1 2 1
        10 JUMPIF                           R1 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K4 ["unloadAvatar"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K4 ["unloadAvatar"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 0
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R2 R3 K5 ["setCollisionBoxTransparency"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K5 ["setCollisionBoxTransparency"]
        20 MOVE                             R3 R1
        21 LOADB                            R4 0
        22 CALL                             R2 2 0
-       23 GETUPVAL                         R3 2
-       24 GETTABLEKS                       R2 R3 K6 ["removeHumanoidFromPreviewFolder"]
+       23 GETUPVAL                         R2 2
+       24 GETTABLEKS                       R2 R2 K6 ["removeHumanoidFromPreviewFolder"]
        26 MOVE                             R3 R1
        27 CALL                             R2 1 0
        28 RETURN                           R0 0
@@ -254,8 +254,8 @@ PROTO_11:
         3 NAMECALL                         R2 R2 K2 ["IsDescendantOf"]
         5 CALL                             R2 2 1
         6 JUMPIF                           R2 ; [+5]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K3 ["cleanupPreview"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K3 ["cleanupPreview"]
        10 GETUPVAL                         R3 2
        11 CALL                             R2 1 0
        12 RETURN                           R0 0
@@ -264,8 +264,8 @@ PROTO_12:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K0 ["ChildAdded"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K0 ["ChildAdded"]
         6 DUPCLOSURE                       R3 K1 [PROTO_9]
         7 CAPTURE                          UPVAL U1
         8 NAMECALL                         R1 R1 K2 ["Connect"]
@@ -275,8 +275,8 @@ PROTO_12:
        14 MOVE                             R4 R1
        15 GETIMPORT                        R2 K5 [table.insert]
        17 CALL                             R2 2 0
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K6 ["ChildRemoved"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K6 ["ChildRemoved"]
        21 DUPCLOSURE                       R4 K7 [PROTO_10]
        22 CAPTURE                          UPVAL U3
        23 CAPTURE                          UPVAL U4
@@ -288,8 +288,8 @@ PROTO_12:
        31 MOVE                             R5 R2
        32 GETIMPORT                        R3 K5 [table.insert]
        34 CALL                             R3 2 0
-       35 GETUPVAL                         R4 0
-       36 GETTABLEKS                       R3 R4 K8 ["AncestryChanged"]
+       35 GETUPVAL                         R3 0
+       36 GETTABLEKS                       R3 R3 K8 ["AncestryChanged"]
        38 NEWCLOSURE                       R5 P2
        39 CAPTURE                          UPVAL U0
        40 CAPTURE                          UPVAL U1
@@ -316,21 +316,21 @@ PROTO_13:
        10 GETIMPORT                        R1 K2 [Instance.new]
        12 LOADK                            R2 K3 ["Folder"]
        13 CALL                             R1 1 1
-       14 GETUPVAL                         R3 2
-       15 GETTABLEKS                       R2 R3 K4 ["AvatarPreviewFolderName"]
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R2 R2 K4 ["AvatarPreviewFolderName"]
        17 SETTABLEKS                       R2 R1 K5 ["Name"]
-       19 GETUPVAL                         R5 2
-       20 GETTABLEKS                       R4 R5 K6 ["AvatarPreviewFolderTag"]
+       19 GETUPVAL                         R4 2
+       20 GETTABLEKS                       R4 R4 K6 ["AvatarPreviewFolderTag"]
        22 NAMECALL                         R2 R1 K7 ["AddTag"]
        24 CALL                             R2 2 0
-       25 GETIMPORT                        R3 K9 [workspace]
-       27 GETTABLEKS                       R2 R3 K10 ["CurrentCamera"]
+       25 GETIMPORT                        R2 K9 [workspace]
+       27 GETTABLEKS                       R2 R2 K10 ["CurrentCamera"]
        29 JUMPIF                           R2 ; [+17]
        30 GETIMPORT                        R3 K2 [Instance.new]
        32 LOADK                            R4 K11 ["Camera"]
        33 CALL                             R3 1 1
-       34 GETUPVAL                         R5 2
-       35 GETTABLEKS                       R4 R5 K12 ["ParentCameraName"]
+       34 GETUPVAL                         R4 2
+       35 GETTABLEKS                       R4 R4 K12 ["ParentCameraName"]
        37 SETTABLEKS                       R4 R3 K5 ["Name"]
        39 LOADB                            R4 0
        40 SETTABLEKS                       R4 R3 K13 ["Archivable"]
@@ -351,8 +351,8 @@ PROTO_13:
        60 RETURN                           R1 1
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["findExistingAvatarPreviewFolder"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["findExistingAvatarPreviewFolder"]
         3 CALL                             R1 0 1
         4 JUMPIF                           R1 ; [+4]
         5 GETUPVAL                         R2 1
@@ -389,38 +389,38 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R6 R0 K10 ["Src"]
-       17 GETTABLEKS                       R5 R6 K11 ["Util"]
-       19 GETTABLEKS                       R4 R5 K12 ["AvatarPreview"]
-       21 GETTABLEKS                       R3 R4 K13 ["AvatarPreviewConstants"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["AvatarPreview"]
+       21 GETTABLEKS                       R3 R3 K13 ["AvatarPreviewConstants"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R7 R0 K10 ["Src"]
-       28 GETTABLEKS                       R6 R7 K11 ["Util"]
-       30 GETTABLEKS                       R5 R6 K12 ["AvatarPreview"]
-       32 GETTABLEKS                       R4 R5 K14 ["applyAvatarRulesUtil"]
+       26 GETTABLEKS                       R4 R0 K10 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Util"]
+       30 GETTABLEKS                       R4 R4 K12 ["AvatarPreview"]
+       32 GETTABLEKS                       R4 R4 K14 ["applyAvatarRulesUtil"]
        34 CALL                             R3 1 1
        35 GETIMPORT                        R4 K9 [require]
-       37 GETTABLEKS                       R7 R0 K10 ["Src"]
-       39 GETTABLEKS                       R6 R7 K11 ["Util"]
-       41 GETTABLEKS                       R5 R6 K15 ["InvokeKeys"]
+       37 GETTABLEKS                       R5 R0 K10 ["Src"]
+       39 GETTABLEKS                       R5 R5 K11 ["Util"]
+       41 GETTABLEKS                       R5 R5 K15 ["InvokeKeys"]
        43 CALL                             R4 1 1
        44 GETIMPORT                        R5 K9 [require]
-       46 GETTABLEKS                       R9 R0 K10 ["Src"]
-       48 GETTABLEKS                       R8 R9 K11 ["Util"]
-       50 GETTABLEKS                       R7 R8 K12 ["AvatarPreview"]
-       52 GETTABLEKS                       R6 R7 K16 ["PreviewDockWidget"]
+       46 GETTABLEKS                       R6 R0 K10 ["Src"]
+       48 GETTABLEKS                       R6 R6 K11 ["Util"]
+       50 GETTABLEKS                       R6 R6 K12 ["AvatarPreview"]
+       52 GETTABLEKS                       R6 R6 K16 ["PreviewDockWidget"]
        54 CALL                             R5 1 1
        55 GETIMPORT                        R6 K9 [require]
-       57 GETTABLEKS                       R10 R0 K10 ["Src"]
-       59 GETTABLEKS                       R9 R10 K11 ["Util"]
-       61 GETTABLEKS                       R8 R9 K12 ["AvatarPreview"]
-       63 GETTABLEKS                       R7 R8 K17 ["previewAnimationManager"]
+       57 GETTABLEKS                       R7 R0 K10 ["Src"]
+       59 GETTABLEKS                       R7 R7 K11 ["Util"]
+       61 GETTABLEKS                       R7 R7 K12 ["AvatarPreview"]
+       63 GETTABLEKS                       R7 R7 K17 ["previewAnimationManager"]
        65 CALL                             R6 1 1
        66 GETIMPORT                        R7 K9 [require]
-       68 GETTABLEKS                       R10 R0 K10 ["Src"]
-       70 GETTABLEKS                       R9 R10 K18 ["Flags"]
-       72 GETTABLEKS                       R8 R9 K19 ["getFFlagPreviewToolbar"]
+       68 GETTABLEKS                       R8 R0 K10 ["Src"]
+       70 GETTABLEKS                       R8 R8 K18 ["Flags"]
+       72 GETTABLEKS                       R8 R8 K19 ["getFFlagPreviewToolbar"]
        74 CALL                             R7 1 1
        75 DUPTABLE                         R8 K21 [{"originalHumanoidDescription"}]
        76 NEWTABLE                         R9 0 0

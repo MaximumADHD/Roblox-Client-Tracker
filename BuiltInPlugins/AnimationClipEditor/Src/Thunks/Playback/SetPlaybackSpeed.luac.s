@@ -10,17 +10,17 @@ PROTO_0:
        11 JUMPIFNOT                        R2 ; [+48]
        12 GETTABLEKS                       R3 R2 K3 ["Metadata"]
        14 JUMPIFNOT                        R3 ; [+45]
-       15 GETTABLEKS                       R4 R2 K3 ["Metadata"]
-       17 GETTABLEKS                       R3 R4 K4 ["EndTick"]
+       15 GETTABLEKS                       R3 R2 K3 ["Metadata"]
+       17 GETTABLEKS                       R3 R3 K4 ["EndTick"]
        19 LOADN                            R4 0
        20 JUMPIFNOTLT                      R4 R3 ; [+39]
-       22 NAMECALL                         R6 R0 K0 ["getState"]
-       24 CALL                             R6 1 1
-       25 GETTABLEKS                       R5 R6 K5 ["Status"]
-       27 GETTABLEKS                       R4 R5 K6 ["PlayState"]
-       29 GETUPVAL                         R7 2
-       30 GETTABLEKS                       R6 R7 K7 ["PLAY_STATE"]
-       32 GETTABLEKS                       R5 R6 K8 ["Pause"]
+       22 NAMECALL                         R4 R0 K0 ["getState"]
+       24 CALL                             R4 1 1
+       25 GETTABLEKS                       R4 R4 K5 ["Status"]
+       27 GETTABLEKS                       R4 R4 K6 ["PlayState"]
+       29 GETUPVAL                         R5 2
+       30 GETTABLEKS                       R5 R5 K7 ["PLAY_STATE"]
+       32 GETTABLEKS                       R5 R5 K8 ["Pause"]
        34 JUMPIFNOTEQ                      R4 R5 ; [+2]
        36 LOADB                            R3 0 +1
        37 LOADB                            R3 1
@@ -29,10 +29,10 @@ PROTO_0:
        40 GETIMPORT                        R5 K13 [tick]
        42 CALL                             R5 0 1
        43 SETTABLEKS                       R5 R4 K9 ["startTime"]
-       45 NAMECALL                         R7 R0 K0 ["getState"]
-       47 CALL                             R7 1 1
-       48 GETTABLEKS                       R6 R7 K5 ["Status"]
-       50 GETTABLEKS                       R5 R6 K14 ["Playhead"]
+       45 NAMECALL                         R5 R0 K0 ["getState"]
+       47 CALL                             R5 1 1
+       48 GETTABLEKS                       R5 R5 K5 ["Status"]
+       50 GETTABLEKS                       R5 R5 K14 ["Playhead"]
        52 SETTABLEKS                       R5 R4 K10 ["startPlayhead"]
        54 GETUPVAL                         R7 3
        55 MOVE                             R8 R4
@@ -56,19 +56,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["SetPlaybackSpeed"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["SetPlaybackSpeed"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Actions"]
-       22 GETTABLEKS                       R3 R4 K9 ["SetPlaybackStartInfo"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K9 ["SetPlaybackStartInfo"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Util"]
-       31 GETTABLEKS                       R4 R5 K11 ["Constants"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["Constants"]
        33 CALL                             R3 1 1
        34 DUPCLOSURE                       R4 K12 [PROTO_1]
        35 CAPTURE                          VAL R1

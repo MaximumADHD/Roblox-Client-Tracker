@@ -1,17 +1,17 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnChanged"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["Value"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnChanged"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["Value"]
         6 NOT                              R1 R2
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnChanged"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["Value"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnChanged"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["Value"]
         6 NOT                              R1 R2
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
@@ -22,8 +22,8 @@ PROTO_2:
         2 NAMECALL                         R1 R1 K1 ["use"]
         4 CALL                             R1 2 1
         5 GETTABLEKS                       R2 R0 K2 ["Schema"]
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K3 ["createElement"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K3 ["createElement"]
        10 GETUPVAL                         R4 2
        11 DUPTABLE                         R5 K8 [{"HorizontalAlignment", "Layout", "Size", "Spacing"}]
        12 GETUPVAL                         R7 3
@@ -45,8 +45,8 @@ PROTO_2:
        35 GETTABLEKS                       R6 R1 K7 ["Spacing"]
        37 SETTABLEKS                       R6 R5 K7 ["Spacing"]
        39 DUPTABLE                         R6 K21 [{"Edit", "Reset"}]
-       40 GETUPVAL                         R8 1
-       41 GETTABLEKS                       R7 R8 K3 ["createElement"]
+       40 GETUPVAL                         R7 1
+       41 GETTABLEKS                       R7 R7 K3 ["createElement"]
        43 GETUPVAL                         R8 2
        44 DUPTABLE                         R9 K24 [{"LayoutOrder", "Size", "AutomaticSize"}]
        45 LOADN                            R10 1
@@ -77,10 +77,10 @@ PROTO_2:
        78 GETUPVAL                         R12 3
        79 CALL                             R12 0 1
        80 JUMPIFNOT                        R12 ; [+41]
-       81 GETUPVAL                         R12 1
-       82 GETTABLEKS                       R11 R12 K3 ["createElement"]
-       84 GETUPVAL                         R13 4
-       85 GETTABLEKS                       R12 R13 K27 ["Button"]
+       81 GETUPVAL                         R11 1
+       82 GETTABLEKS                       R11 R11 K3 ["createElement"]
+       84 GETUPVAL                         R12 4
+       85 GETTABLEKS                       R12 R12 K27 ["Button"]
        87 DUPTABLE                         R13 K33 [{"text", "variant", "onActivated", "size"}]
        88 GETTABLEKS                       R15 R0 K34 ["Value"]
        90 JUMPIFNOT                        R15 ; [+3]
@@ -88,23 +88,23 @@ PROTO_2:
        93 JUMP                             ; [+2]
        94 GETTABLEKS                       R14 R2 K36 ["EditLabel"]
        96 SETTABLEKS                       R14 R13 K29 ["text"]
-       98 GETUPVAL                         R17 4
-       99 GETTABLEKS                       R16 R17 K37 ["Enums"]
-      101 GETTABLEKS                       R15 R16 K38 ["ButtonVariant"]
-      103 GETTABLEKS                       R14 R15 K39 ["Emphasis"]
+       98 GETUPVAL                         R14 4
+       99 GETTABLEKS                       R14 R14 K37 ["Enums"]
+      101 GETTABLEKS                       R14 R14 K38 ["ButtonVariant"]
+      103 GETTABLEKS                       R14 R14 K39 ["Emphasis"]
       105 SETTABLEKS                       R14 R13 K30 ["variant"]
       107 NEWCLOSURE                       R14 P0
       108 CAPTURE                          VAL R0
       109 SETTABLEKS                       R14 R13 K31 ["onActivated"]
-      111 GETUPVAL                         R17 4
-      112 GETTABLEKS                       R16 R17 K37 ["Enums"]
-      114 GETTABLEKS                       R15 R16 K40 ["InputSize"]
-      116 GETTABLEKS                       R14 R15 K41 ["Small"]
+      111 GETUPVAL                         R14 4
+      112 GETTABLEKS                       R14 R14 K37 ["Enums"]
+      114 GETTABLEKS                       R14 R14 K40 ["InputSize"]
+      116 GETTABLEKS                       R14 R14 K41 ["Small"]
       118 SETTABLEKS                       R14 R13 K32 ["size"]
       120 CALL                             R11 2 1
       121 JUMP                             ; [+34]
-      122 GETUPVAL                         R12 1
-      123 GETTABLEKS                       R11 R12 K3 ["createElement"]
+      122 GETUPVAL                         R11 1
+      123 GETTABLEKS                       R11 R11 K3 ["createElement"]
       125 GETUPVAL                         R12 5
       126 DUPTABLE                         R13 K46 [{"OnClick", "Size", "Style", "Text", "TextXAlignment"}]
       127 NEWCLOSURE                       R14 P1
@@ -129,8 +129,8 @@ PROTO_2:
       156 SETTABLEKS                       R11 R10 K27 ["Button"]
       158 CALL                             R7 3 1
       159 SETTABLEKS                       R7 R6 K19 ["Edit"]
-      161 GETUPVAL                         R8 1
-      162 GETTABLEKS                       R7 R8 K3 ["createElement"]
+      161 GETUPVAL                         R7 1
+      162 GETTABLEKS                       R7 R7 K3 ["createElement"]
       164 GETUPVAL                         R8 5
       165 DUPTABLE                         R9 K54 [{"LayoutOrder", "OnClick", "LeftIcon", "IconSize", "Size"}]
       166 LOADN                            R10 2
@@ -159,34 +159,34 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["React"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R7 R0 K10 ["Src"]
-       32 GETTABLEKS                       R6 R7 K11 ["Flags"]
-       34 GETTABLEKS                       R5 R6 K12 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagTerrainEditorMigrateFoundationFonts"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R6 R2 K13 ["ContextServices"]
-       39 GETTABLEKS                       R5 R6 K14 ["Stylizer"]
-       41 GETTABLEKS                       R7 R2 K15 ["UI"]
-       43 GETTABLEKS                       R6 R7 K16 ["Button"]
-       45 GETTABLEKS                       R8 R2 K15 ["UI"]
-       47 GETTABLEKS                       R7 R8 K17 ["IconButton"]
-       49 GETTABLEKS                       R9 R2 K15 ["UI"]
-       51 GETTABLEKS                       R8 R9 K18 ["Pane"]
+       37 GETTABLEKS                       R5 R2 K13 ["ContextServices"]
+       39 GETTABLEKS                       R5 R5 K14 ["Stylizer"]
+       41 GETTABLEKS                       R6 R2 K15 ["UI"]
+       43 GETTABLEKS                       R6 R6 K16 ["Button"]
+       45 GETTABLEKS                       R7 R2 K15 ["UI"]
+       47 GETTABLEKS                       R7 R7 K17 ["IconButton"]
+       49 GETTABLEKS                       R8 R2 K15 ["UI"]
+       51 GETTABLEKS                       R8 R8 K18 ["Pane"]
        53 GETIMPORT                        R9 K5 [require]
-       55 GETTABLEKS                       R12 R0 K10 ["Src"]
-       57 GETTABLEKS                       R11 R12 K19 ["Resources"]
-       59 GETTABLEKS                       R10 R11 K20 ["Theme"]
+       55 GETTABLEKS                       R10 R0 K10 ["Src"]
+       57 GETTABLEKS                       R10 R10 K19 ["Resources"]
+       59 GETTABLEKS                       R10 R10 K20 ["Theme"]
        61 CALL                             R9 1 1
        62 DUPCLOSURE                       R10 K21 [PROTO_2]
        63 CAPTURE                          VAL R5

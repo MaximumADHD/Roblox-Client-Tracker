@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 LOADK                            R3 K0 ["https://create.roblox.com/dashboard/creations/experiences/"]
-        2 GETUPVAL                         R6 1
-        3 GETTABLEKS                       R4 R6 K1 ["Id"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K1 ["Id"]
         5 LOADK                            R5 K2 ["/configure"]
         6 CONCAT                           R2 R3 R5
         7 NAMECALL                         R0 R0 K3 ["openLink"]
@@ -12,11 +12,11 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 LOADK                            R3 K0 ["https://create.roblox.com/dashboard/creations/experiences/"]
-        2 GETUPVAL                         R8 1
-        3 GETTABLEKS                       R4 R8 K1 ["Id"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K1 ["Id"]
         5 LOADK                            R5 K2 ["/places/"]
-        6 GETUPVAL                         R8 1
-        7 GETTABLEKS                       R6 R8 K3 ["RootPlaceId"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K3 ["RootPlaceId"]
         9 LOADK                            R7 K4 ["/configure"]
        10 CONCAT                           R2 R3 R7
        11 NAMECALL                         R0 R0 K5 ["openLink"]
@@ -26,8 +26,8 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 LOADK                            R3 K0 ["https://www.roblox.com/games/"]
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K1 ["RootPlaceId"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K1 ["RootPlaceId"]
         5 CONCAT                           R2 R3 R4
         6 NAMECALL                         R0 R0 K2 ["openLink"]
         8 CALL                             R0 2 0
@@ -35,78 +35,78 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Id"]
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["PrivacyType"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Id"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["PrivacyType"]
         7 CALL                             R0 2 0
         8 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Id"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Id"]
         4 LOADB                            R2 1
         5 CALL                             R0 2 0
         6 GETUPVAL                         R0 2
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K0 ["Id"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K0 ["Id"]
        10 NAMECALL                         R0 R0 K1 ["removeAPIGameFromRegistry"]
        12 CALL                             R0 2 0
        13 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Id"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Id"]
         4 LOADB                            R2 0
         5 CALL                             R0 2 0
         6 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R1 R2 K0 ["Id"]
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Id"]
         4 GETUPVAL                         R2 2
         5 NAMECALL                         R2 R2 K1 ["GetUserId"]
         7 CALL                             R2 1 -1
         8 CALL                             R0 -1 0
         9 GETUPVAL                         R0 3
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K0 ["Id"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K0 ["Id"]
        13 NAMECALL                         R0 R0 K2 ["removeAPIGameFromRegistry"]
        15 CALL                             R0 2 0
        16 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["FilePath"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["FilePath"]
         3 JUMPIFNOT                        R0 ; [+15]
         4 GETUPVAL                         R0 1
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["FilePath"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["FilePath"]
         8 NAMECALL                         R0 R0 K1 ["deleteItem"]
        10 CALL                             R0 2 0
        11 GETUPVAL                         R0 2
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K0 ["FilePath"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K0 ["FilePath"]
        15 NAMECALL                         R0 R0 K2 ["removeLocalFileFromRegistry"]
        17 CALL                             R0 2 0
        18 RETURN                           R0 0
-       19 GETUPVAL                         R1 0
-       20 GETTABLEKS                       R0 R1 K3 ["Id"]
+       19 GETUPVAL                         R0 0
+       20 GETTABLEKS                       R0 R0 K3 ["Id"]
        22 JUMPIFNOT                        R0 ; [+18]
        23 GETUPVAL                         R0 1
-       24 GETUPVAL                         R4 0
-       25 GETTABLEKS                       R3 R4 K3 ["Id"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K3 ["Id"]
        27 FASTCALL1                        TOSTRING R3 ; [+2]
        28 GETIMPORT                        R2 K5 [tostring]
        30 CALL                             R2 1 1
        31 NAMECALL                         R0 R0 K1 ["deleteItem"]
        33 CALL                             R0 2 0
        34 GETUPVAL                         R0 2
-       35 GETUPVAL                         R3 0
-       36 GETTABLEKS                       R2 R3 K3 ["Id"]
+       35 GETUPVAL                         R2 0
+       36 GETTABLEKS                       R2 R2 K3 ["Id"]
        38 NAMECALL                         R0 R0 K6 ["removeAPIGameFromRegistry"]
        40 CALL                             R0 2 0
        41 RETURN                           R0 0
@@ -306,46 +306,46 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R2 R3 K9 ["Localization"]
+       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
+       16 GETTABLEKS                       R2 R2 K9 ["Localization"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Src"]
-       22 GETTABLEKS                       R4 R5 K11 ["Types"]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Types"]
        24 CALL                             R3 1 1
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R7 R0 K10 ["Src"]
-       29 GETTABLEKS                       R6 R7 K12 ["Util"]
-       31 GETTABLEKS                       R5 R6 K13 ["Services"]
+       27 GETTABLEKS                       R5 R0 K10 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Util"]
+       31 GETTABLEKS                       R5 R5 K13 ["Services"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R4 K14 ["StartPageManager"]
        36 GETTABLEKS                       R6 R4 K15 ["StudioService"]
        38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R10 R0 K10 ["Src"]
-       42 GETTABLEKS                       R9 R10 K16 ["Network"]
-       44 GETTABLEKS                       R8 R9 K17 ["ChangeUniverseActivity"]
+       40 GETTABLEKS                       R8 R0 K10 ["Src"]
+       42 GETTABLEKS                       R8 R8 K16 ["Network"]
+       44 GETTABLEKS                       R8 R8 K17 ["ChangeUniverseActivity"]
        46 CALL                             R7 1 1
        47 GETIMPORT                        R8 K5 [require]
-       49 GETTABLEKS                       R11 R0 K10 ["Src"]
-       51 GETTABLEKS                       R10 R11 K16 ["Network"]
-       53 GETTABLEKS                       R9 R10 K18 ["ChangeArchiveConfiguration"]
+       49 GETTABLEKS                       R9 R0 K10 ["Src"]
+       51 GETTABLEKS                       R9 R9 K16 ["Network"]
+       53 GETTABLEKS                       R9 R9 K18 ["ChangeArchiveConfiguration"]
        55 CALL                             R8 1 1
        56 GETIMPORT                        R9 K5 [require]
-       58 GETTABLEKS                       R12 R0 K10 ["Src"]
-       60 GETTABLEKS                       R11 R12 K16 ["Network"]
-       62 GETTABLEKS                       R10 R11 K19 ["DeleteUserFromTeamCreateUniverse"]
+       58 GETTABLEKS                       R10 R0 K10 ["Src"]
+       60 GETTABLEKS                       R10 R10 K16 ["Network"]
+       62 GETTABLEKS                       R10 R10 K19 ["DeleteUserFromTeamCreateUniverse"]
        64 CALL                             R9 1 1
        65 GETIMPORT                        R10 K5 [require]
-       67 GETTABLEKS                       R13 R0 K10 ["Src"]
-       69 GETTABLEKS                       R12 R13 K16 ["Network"]
-       71 GETTABLEKS                       R11 R12 K20 ["GameCache"]
+       67 GETTABLEKS                       R11 R0 K10 ["Src"]
+       69 GETTABLEKS                       R11 R11 K16 ["Network"]
+       71 GETTABLEKS                       R11 R11 K20 ["GameCache"]
        73 CALL                             R10 1 1
        74 GETIMPORT                        R11 K5 [require]
-       76 GETTABLEKS                       R14 R0 K10 ["Src"]
-       78 GETTABLEKS                       R13 R14 K21 ["SharedFlags"]
-       80 GETTABLEKS                       R12 R13 K22 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+       76 GETTABLEKS                       R12 R0 K10 ["Src"]
+       78 GETTABLEKS                       R12 R12 K21 ["SharedFlags"]
+       80 GETTABLEKS                       R12 R12 K22 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
        82 CALL                             R11 1 1
        83 CALL                             R11 0 1
        84 DUPCLOSURE                       R12 K23 [PROTO_8]

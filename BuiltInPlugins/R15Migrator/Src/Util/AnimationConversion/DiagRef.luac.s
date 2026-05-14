@@ -42,15 +42,15 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["ScriptAnalysis"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["ScriptAnalysis"]
        13 GETIMPORT                        R2 K8 [require]
        15 GETTABLEKS                       R3 R1 K9 ["Constants"]
        17 CALL                             R2 1 1
-       18 GETTABLEKS                       R5 R0 K4 ["Src"]
-       20 GETTABLEKS                       R4 R5 K5 ["Util"]
-       22 GETTABLEKS                       R3 R4 K10 ["AnimationConversion"]
+       18 GETTABLEKS                       R3 R0 K4 ["Src"]
+       20 GETTABLEKS                       R3 R3 K5 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["AnimationConversion"]
        24 GETIMPORT                        R4 K8 [require]
        26 GETTABLEKS                       R5 R3 K11 ["normalizeAssetId"]
        28 CALL                             R4 1 1

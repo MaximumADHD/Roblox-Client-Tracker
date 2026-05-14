@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["plugin"]
         4 JUMPIFNOTEQKNIL                  R1 ; [+2]
         6 LOADB                            R3 0 +1
         7 LOADB                            R3 1
@@ -14,11 +14,11 @@ PROTO_0:
        18 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["oneChild"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["oneChild"]
         3 GETTABLEKS                       R3 R0 K1 ["props"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K2 ["Children"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K2 ["Children"]
         8 GETTABLE                         R2 R3 R4
         9 CALL                             R1 1 -1
        10 RETURN                           R1 -1
@@ -48,20 +48,20 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETIMPORT                        R7 K1 [script]
-       20 GETTABLEKS                       R6 R7 K2 ["Parent"]
-       22 GETTABLEKS                       R5 R6 K2 ["Parent"]
-       24 GETTABLEKS                       R4 R5 K7 ["Util"]
-       26 GETTABLEKS                       R3 R4 K8 ["Symbol"]
+       18 GETIMPORT                        R3 K1 [script]
+       20 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       22 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       24 GETTABLEKS                       R3 R3 K7 ["Util"]
+       26 GETTABLEKS                       R3 R3 K8 ["Symbol"]
        28 CALL                             R2 1 1
        29 GETTABLEKS                       R3 R2 K9 ["named"]
        31 LOADK                            R4 K10 ["StudioPlugin"]

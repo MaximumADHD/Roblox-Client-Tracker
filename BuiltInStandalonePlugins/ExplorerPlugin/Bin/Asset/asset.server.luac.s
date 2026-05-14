@@ -8,8 +8,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["ExplorerPlugin"]
@@ -20,9 +20,9 @@ MAIN:
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
        29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R5 R0 K11 ["Src"]
-       33 GETTABLEKS                       R4 R5 K13 ["Guest"]
-       35 GETTABLEKS                       R3 R4 K14 ["startStudioGuest"]
+       31 GETTABLEKS                       R3 R0 K11 ["Src"]
+       33 GETTABLEKS                       R3 R3 K13 ["Guest"]
+       35 GETTABLEKS                       R3 R3 K14 ["startStudioGuest"]
        37 CALL                             R2 1 1
        38 MOVE                             R3 R2
        39 GETIMPORT                        R4 K1 [plugin]

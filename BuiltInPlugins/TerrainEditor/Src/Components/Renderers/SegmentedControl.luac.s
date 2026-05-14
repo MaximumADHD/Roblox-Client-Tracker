@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["OnChanged"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["OnChanged"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
@@ -22,15 +22,15 @@ PROTO_1:
        21 GETIMPORT                        R8 K9 [table.insert]
        23 CALL                             R8 2 0
        24 FORGLOOP                         R3 2 ; [-16]
-       26 GETUPVAL                         R4 0
-       27 GETTABLEKS                       R3 R4 K10 ["createElement"]
-       29 GETUPVAL                         R5 1
-       30 GETTABLEKS                       R4 R5 K11 ["SegmentedControl"]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K10 ["createElement"]
+       29 GETUPVAL                         R4 1
+       30 GETTABLEKS                       R4 R4 K11 ["SegmentedControl"]
        32 DUPTABLE                         R5 K16 [{"size", "segments", "value", "onActivated"}]
-       33 GETUPVAL                         R9 1
-       34 GETTABLEKS                       R8 R9 K17 ["Enums"]
-       36 GETTABLEKS                       R7 R8 K18 ["InputSize"]
-       38 GETTABLEKS                       R6 R7 K19 ["Small"]
+       33 GETUPVAL                         R6 1
+       34 GETTABLEKS                       R6 R6 K17 ["Enums"]
+       36 GETTABLEKS                       R6 R6 K18 ["InputSize"]
+       38 GETTABLEKS                       R6 R6 K19 ["Small"]
        40 SETTABLEKS                       R6 R5 K12 ["size"]
        42 SETTABLEKS                       R2 R5 K13 ["segments"]
        44 GETTABLEKS                       R6 R0 K20 ["Value"]
@@ -48,12 +48,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 DUPCLOSURE                       R3 K9 [PROTO_1]
        22 CAPTURE                          VAL R2

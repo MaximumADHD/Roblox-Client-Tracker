@@ -8,14 +8,14 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R2 K1 [require]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K2 ["Packages"]
-        5 GETTABLEKS                       R3 R4 K3 ["React"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K2 ["Packages"]
+        5 GETTABLEKS                       R3 R3 K3 ["React"]
         7 CALL                             R2 1 1
         8 GETIMPORT                        R3 K1 [require]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R5 R6 K2 ["Packages"]
-       13 GETTABLEKS                       R4 R5 K4 ["ReactRoblox"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K2 ["Packages"]
+       13 GETTABLEKS                       R4 R4 K4 ["ReactRoblox"]
        15 CALL                             R3 1 1
        16 GETIMPORT                        R4 K6 [game]
        18 LOADK                            R6 K7 ["DebugExplorerProfileEverything"]
@@ -23,18 +23,18 @@ PROTO_1:
        20 NAMECALL                         R4 R4 K8 ["DefineFastFlag"]
        22 CALL                             R4 3 1
        23 GETIMPORT                        R5 K1 [require]
-       25 GETUPVAL                         R9 0
-       26 GETTABLEKS                       R8 R9 K9 ["Src"]
-       28 GETTABLEKS                       R7 R8 K10 ["Util"]
-       30 GETTABLEKS                       R6 R7 K11 ["profileEverythingInReact"]
+       25 GETUPVAL                         R6 0
+       26 GETTABLEKS                       R6 R6 K9 ["Src"]
+       28 GETTABLEKS                       R6 R6 K10 ["Util"]
+       30 GETTABLEKS                       R6 R6 K11 ["profileEverythingInReact"]
        32 CALL                             R5 1 1
        33 JUMPIFNOT                        R4 ; [+2]
        34 MOVE                             R6 R5
        35 CALL                             R6 0 0
        36 GETIMPORT                        R6 K1 [require]
-       38 GETUPVAL                         R9 0
-       39 GETTABLEKS                       R8 R9 K9 ["Src"]
-       41 GETTABLEKS                       R7 R8 K12 ["MainPlugin"]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R7 R7 K9 ["Src"]
+       41 GETTABLEKS                       R7 R7 K12 ["MainPlugin"]
        43 CALL                             R6 1 1
        44 GETTABLEKS                       R7 R2 K13 ["createElement"]
        46 MOVE                             R8 R6

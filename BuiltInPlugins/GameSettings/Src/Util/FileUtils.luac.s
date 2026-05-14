@@ -112,8 +112,8 @@ PROTO_4:
         2 GETIMPORT                        R2 K1 [assert]
         4 CALL                             R2 1 0
         5 GETUPVAL                         R2 0
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R4 R5 K2 ["IMAGE_TYPES"]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K2 ["IMAGE_TYPES"]
         9 NAMECALL                         R2 R2 K3 ["PromptImportFile"]
        11 CALL                             R2 2 1
        12 JUMPIFNOT                        R2 ; [+11]
@@ -134,8 +134,8 @@ PROTO_5:
         2 GETIMPORT                        R3 K1 [assert]
         4 CALL                             R3 1 0
         5 GETUPVAL                         R3 0
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K2 ["IMAGE_TYPES"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K2 ["IMAGE_TYPES"]
         9 NAMECALL                         R3 R3 K3 ["PromptImportFiles"]
        11 CALL                             R3 2 1
        12 NEWTABLE                         R4 0 0
@@ -300,26 +300,26 @@ MAIN:
        20 LOADK                            R4 K10 ["HttpService"]
        21 NAMECALL                         R2 R2 K9 ["GetService"]
        23 CALL                             R2 2 1
-       24 GETIMPORT                        R6 K12 [script]
-       26 GETTABLEKS                       R5 R6 K13 ["Parent"]
-       28 GETTABLEKS                       R4 R5 K13 ["Parent"]
-       30 GETTABLEKS                       R3 R4 K13 ["Parent"]
+       24 GETIMPORT                        R3 K12 [script]
+       26 GETTABLEKS                       R3 R3 K13 ["Parent"]
+       28 GETTABLEKS                       R3 R3 K13 ["Parent"]
+       30 GETTABLEKS                       R3 R3 K13 ["Parent"]
        32 GETIMPORT                        R4 K15 [require]
-       34 GETTABLEKS                       R8 R3 K16 ["Src"]
-       36 GETTABLEKS                       R7 R8 K17 ["Components"]
-       38 GETTABLEKS                       R6 R7 K18 ["Dialog"]
-       40 GETTABLEKS                       R5 R6 K19 ["SimpleDialog"]
+       34 GETTABLEKS                       R5 R3 K16 ["Src"]
+       36 GETTABLEKS                       R5 R5 K17 ["Components"]
+       38 GETTABLEKS                       R5 R5 K18 ["Dialog"]
+       40 GETTABLEKS                       R5 R5 K19 ["SimpleDialog"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K15 [require]
-       45 GETTABLEKS                       R9 R3 K16 ["Src"]
-       47 GETTABLEKS                       R8 R9 K17 ["Components"]
-       49 GETTABLEKS                       R7 R8 K18 ["Dialog"]
-       51 GETTABLEKS                       R6 R7 K20 ["ListDialog"]
+       45 GETTABLEKS                       R6 R3 K16 ["Src"]
+       47 GETTABLEKS                       R6 R6 K17 ["Components"]
+       49 GETTABLEKS                       R6 R6 K18 ["Dialog"]
+       51 GETTABLEKS                       R6 R6 K20 ["ListDialog"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K15 [require]
-       56 GETTABLEKS                       R9 R3 K16 ["Src"]
-       58 GETTABLEKS                       R8 R9 K21 ["Util"]
-       60 GETTABLEKS                       R7 R8 K22 ["DEPRECATED_Constants"]
+       56 GETTABLEKS                       R7 R3 K16 ["Src"]
+       58 GETTABLEKS                       R7 R7 K21 ["Util"]
+       60 GETTABLEKS                       R7 R7 K22 ["DEPRECATED_Constants"]
        62 CALL                             R6 1 1
        63 NEWTABLE                         R7 4 0
        65 DUPCLOSURE                       R8 K23 [PROTO_0]

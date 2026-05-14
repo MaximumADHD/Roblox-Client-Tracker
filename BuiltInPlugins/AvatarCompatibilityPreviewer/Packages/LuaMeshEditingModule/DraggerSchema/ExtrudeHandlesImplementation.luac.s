@@ -53,8 +53,8 @@ PROTO_4:
         3 SETTABLEKS                       R6 R0 K1 ["_baseBoundingBoxSize"]
         5 ADD                              R7 R4 R5
         6 SETTABLEKS                       R7 R0 K2 ["_baseBoundingBox"]
-        8 GETTABLEKS                       R8 R0 K3 ["_draggerContext"]
-       10 GETTABLEKS                       R7 R8 K4 ["vertexEditingTool"]
+        8 GETTABLEKS                       R7 R0 K3 ["_draggerContext"]
+       10 GETTABLEKS                       R7 R7 K4 ["vertexEditingTool"]
        12 SETTABLEKS                       R7 R0 K5 ["_vertexEditingTool"]
        14 RETURN                           R0 0
 
@@ -81,30 +81,30 @@ PROTO_6:
        19 CALL                             R3 2 0
        20 GETTABLEKS                       R4 R0 K6 ["_baseBoundingBoxSize"]
        22 ADD                              R3 R4 R1
-       23 GETTABLEKS                       R6 R0 K6 ["_baseBoundingBoxSize"]
-       25 GETTABLEKS                       R5 R6 K7 ["X"]
+       23 GETTABLEKS                       R5 R0 K6 ["_baseBoundingBoxSize"]
+       25 GETTABLEKS                       R5 R5 K7 ["X"]
        27 JUMPIFEQKN                       R5 K8 [0] ; [+9]
        29 GETTABLEKS                       R5 R3 K7 ["X"]
-       31 GETTABLEKS                       R7 R0 K6 ["_baseBoundingBoxSize"]
-       33 GETTABLEKS                       R6 R7 K7 ["X"]
+       31 GETTABLEKS                       R6 R0 K6 ["_baseBoundingBoxSize"]
+       33 GETTABLEKS                       R6 R6 K7 ["X"]
        35 DIV                              R4 R5 R6
        36 JUMP                             ; [+2]
        37 GETTABLEKS                       R4 R3 K7 ["X"]
-       39 GETTABLEKS                       R7 R0 K6 ["_baseBoundingBoxSize"]
-       41 GETTABLEKS                       R6 R7 K9 ["Y"]
+       39 GETTABLEKS                       R6 R0 K6 ["_baseBoundingBoxSize"]
+       41 GETTABLEKS                       R6 R6 K9 ["Y"]
        43 JUMPIFEQKN                       R6 K8 [0] ; [+9]
        45 GETTABLEKS                       R6 R3 K9 ["Y"]
-       47 GETTABLEKS                       R8 R0 K6 ["_baseBoundingBoxSize"]
-       49 GETTABLEKS                       R7 R8 K9 ["Y"]
+       47 GETTABLEKS                       R7 R0 K6 ["_baseBoundingBoxSize"]
+       49 GETTABLEKS                       R7 R7 K9 ["Y"]
        51 DIV                              R5 R6 R7
        52 JUMP                             ; [+2]
        53 GETTABLEKS                       R5 R3 K9 ["Y"]
-       55 GETTABLEKS                       R8 R0 K6 ["_baseBoundingBoxSize"]
-       57 GETTABLEKS                       R7 R8 K10 ["Z"]
+       55 GETTABLEKS                       R7 R0 K6 ["_baseBoundingBoxSize"]
+       57 GETTABLEKS                       R7 R7 K10 ["Z"]
        59 JUMPIFEQKN                       R7 K8 [0] ; [+9]
        61 GETTABLEKS                       R7 R3 K10 ["Z"]
-       63 GETTABLEKS                       R9 R0 K6 ["_baseBoundingBoxSize"]
-       65 GETTABLEKS                       R8 R9 K10 ["Z"]
+       63 GETTABLEKS                       R8 R0 K6 ["_baseBoundingBoxSize"]
+       65 GETTABLEKS                       R8 R8 K10 ["Z"]
        67 DIV                              R6 R7 R8
        68 JUMP                             ; [+2]
        69 GETTABLEKS                       R6 R3 K10 ["Z"]

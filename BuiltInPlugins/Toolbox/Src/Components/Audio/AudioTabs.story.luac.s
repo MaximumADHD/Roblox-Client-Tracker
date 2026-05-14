@@ -8,9 +8,9 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"selectedTab"}]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K2 ["SOUND_EFFECTS"]
-        4 GETTABLEKS                       R2 R3 K3 ["name"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K2 ["SOUND_EFFECTS"]
+        4 GETTABLEKS                       R2 R2 K3 ["name"]
         6 SETTABLEKS                       R2 R1 K0 ["selectedTab"]
         8 SETTABLEKS                       R1 R0 K4 ["state"]
        10 NEWCLOSURE                       R1 P0
@@ -19,8 +19,8 @@ PROTO_1:
        14 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
         4 DUPTABLE                         R3 K4 [{"Size", "BackgroundTransparency"}]
         5 GETIMPORT                        R4 K7 [UDim2.new]
@@ -33,12 +33,12 @@ PROTO_2:
        14 LOADN                            R4 1
        15 SETTABLEKS                       R4 R3 K3 ["BackgroundTransparency"]
        17 DUPTABLE                         R4 K9 [{"AudioTabs"}]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       18 GETUPVAL                         R5 0
+       19 GETTABLEKS                       R5 R5 K0 ["createElement"]
        21 GETUPVAL                         R6 1
        22 DUPTABLE                         R7 K12 [{"SelectedTab", "OnTabSelect"}]
-       23 GETTABLEKS                       R9 R0 K13 ["state"]
-       25 GETTABLEKS                       R8 R9 K14 ["selectedTab"]
+       23 GETTABLEKS                       R8 R0 K13 ["state"]
+       25 GETTABLEKS                       R8 R8 K14 ["selectedTab"]
        27 SETTABLEKS                       R8 R7 K10 ["SelectedTab"]
        29 GETTABLEKS                       R8 R0 K11 ["OnTabSelect"]
        31 SETTABLEKS                       R8 R7 K11 ["OnTabSelect"]
@@ -48,13 +48,13 @@ PROTO_2:
        37 RETURN                           R1 -1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"AudioTabs"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 CALL                             R4 1 1
        12 SETTABLEKS                       R4 R3 K1 ["AudioTabs"]
@@ -72,18 +72,18 @@ MAIN:
        11 GETTABLEKS                       R3 R1 K7 ["Roact"]
        13 CALL                             R2 1 1
        14 GETIMPORT                        R3 K6 [require]
-       16 GETIMPORT                        R6 K1 [script]
-       18 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       20 GETTABLEKS                       R4 R5 K9 ["AudioTabs"]
+       16 GETIMPORT                        R4 K1 [script]
+       18 GETTABLEKS                       R4 R4 K8 ["Parent"]
+       20 GETTABLEKS                       R4 R4 K9 ["AudioTabs"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K6 [require]
-       25 GETTABLEKS                       R6 R0 K10 ["Stories"]
-       27 GETTABLEKS                       R5 R6 K11 ["ToolboxStoryWrapper"]
+       25 GETTABLEKS                       R5 R0 K10 ["Stories"]
+       27 GETTABLEKS                       R5 R5 K11 ["ToolboxStoryWrapper"]
        29 CALL                             R4 1 1
        30 GETIMPORT                        R5 K6 [require]
-       32 GETTABLEKS                       R8 R0 K12 ["Src"]
-       34 GETTABLEKS                       R7 R8 K13 ["Types"]
-       36 GETTABLEKS                       R6 R7 K14 ["Category"]
+       32 GETTABLEKS                       R6 R0 K12 ["Src"]
+       34 GETTABLEKS                       R6 R6 K13 ["Types"]
+       36 GETTABLEKS                       R6 R6 K14 ["Category"]
        38 CALL                             R5 1 1
        39 GETTABLEKS                       R6 R2 K15 ["PureComponent"]
        41 LOADK                            R8 K16 ["AudioTabsStroyWrapper"]

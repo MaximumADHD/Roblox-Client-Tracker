@@ -4,15 +4,15 @@ MAIN:
         3 LOADK                            R2 K2 ["PlaceAnnotations"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R2 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["CrossDMCallbacks"]
-       15 CALL                             R2 1 1
-       16 GETTABLEKS                       R1 R2 K9 ["registerStandaloneCallbacks"]
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["CrossDMCallbacks"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K9 ["registerStandaloneCallbacks"]
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K11 ["TestLoader"]
+       20 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K11 ["TestLoader"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K12 ["isCli"]
        27 CALL                             R3 0 1
@@ -22,9 +22,9 @@ MAIN:
        32 CALL                             R3 1 0
        33 RETURN                           R0 0
        34 GETIMPORT                        R3 K5 [require]
-       36 GETTABLEKS                       R6 R0 K16 ["Bin"]
-       38 GETTABLEKS                       R5 R6 K17 ["Common"]
-       40 GETTABLEKS                       R4 R5 K18 ["pluginType"]
+       36 GETTABLEKS                       R4 R0 K16 ["Bin"]
+       38 GETTABLEKS                       R4 R4 K17 ["Common"]
+       40 GETTABLEKS                       R4 R4 K18 ["pluginType"]
        42 CALL                             R3 1 1
        43 GETTABLEKS                       R4 R3 K19 ["get"]
        45 CALL                             R4 0 1
@@ -35,14 +35,14 @@ MAIN:
        52 GETIMPORT                        R5 K22 [plugin]
        54 CALL                             R4 1 0
        55 GETIMPORT                        R4 K5 [require]
-       57 GETTABLEKS                       R7 R0 K16 ["Bin"]
-       59 GETTABLEKS                       R6 R7 K17 ["Common"]
-       61 GETTABLEKS                       R5 R6 K23 ["setup"]
+       57 GETTABLEKS                       R5 R0 K16 ["Bin"]
+       59 GETTABLEKS                       R5 R5 K17 ["Common"]
+       61 GETTABLEKS                       R5 R5 K23 ["setup"]
        63 CALL                             R4 1 1
        64 GETIMPORT                        R5 K5 [require]
-       66 GETTABLEKS                       R8 R0 K16 ["Bin"]
-       68 GETTABLEKS                       R7 R8 K17 ["Common"]
-       70 GETTABLEKS                       R6 R7 K24 ["setupMain"]
+       66 GETTABLEKS                       R6 R0 K16 ["Bin"]
+       68 GETTABLEKS                       R6 R6 K17 ["Common"]
+       70 GETTABLEKS                       R6 R6 K24 ["setupMain"]
        72 CALL                             R5 1 1
        73 MOVE                             R6 R4
        74 GETIMPORT                        R7 K22 [plugin]

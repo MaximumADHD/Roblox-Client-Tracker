@@ -18,8 +18,8 @@ PROTO_0:
        27 GETTABLEKS                       R4 R1 K6 ["data"]
        29 CALL                             R3 1 3
        30 FORGPREP_NEXT                    R3
-       31 GETUPVAL                         R9 1
-       32 GETTABLEKS                       R8 R9 K7 ["fromJsonData"]
+       31 GETUPVAL                         R8 1
+       32 GETTABLEKS                       R8 R8 K7 ["fromJsonData"]
        34 MOVE                             R9 R7
        35 CALL                             R8 1 2
        36 JUMPIFNOT                        R8 ; [+9]
@@ -40,8 +40,8 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["universeId"]
         2 JUMPIF                           R2 ; [+6]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K1 ["reject"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["reject"]
         6 LOADK                            R4 K2 ["NO UNIVERSE ID - ApiFetchPlacesByGameId"]
         7 CALL                             R3 1 -1
         8 RETURN                           R3 -1
@@ -51,8 +51,8 @@ PROTO_1:
        14 ORK                              R4 R5 K5 ["Asc"]
        15 GETTABLEKS                       R5 R1 K7 ["cursor"]
        17 DUPTABLE                         R6 K11 [{"Url", "Method", "Params"}]
-       18 GETUPVAL                         R8 1
-       19 GETTABLEKS                       R7 R8 K12 ["BuildRobloxUrl"]
+       18 GETUPVAL                         R7 1
+       19 GETTABLEKS                       R7 R7 K12 ["BuildRobloxUrl"]
        21 LOADK                            R8 K13 ["develop"]
        22 LOADK                            R9 K14 ["v1/universes/%d/places"]
        23 MOVE                             R10 R2
@@ -65,8 +65,8 @@ PROTO_1:
        33 SETTABLEKS                       R3 R7 K4 ["limit"]
        35 SETTABLEKS                       R5 R7 K7 ["cursor"]
        37 SETTABLEKS                       R7 R6 K10 ["Params"]
-       39 GETUPVAL                         R8 1
-       40 GETTABLEKS                       R7 R8 K17 ["Request"]
+       39 GETUPVAL                         R7 1
+       40 GETTABLEKS                       R7 R7 K17 ["Request"]
        42 MOVE                             R8 R6
        43 CALL                             R7 1 1
        44 DUPCLOSURE                       R9 K18 [PROTO_0]
@@ -82,27 +82,27 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R5 K5 [script]
-        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       17 GETIMPORT                        R4 K8 [require]
-       19 GETTABLEKS                       R6 R1 K9 ["Packages"]
-       21 GETTABLEKS                       R5 R6 K10 ["Framework"]
-       23 CALL                             R4 1 1
-       24 GETTABLEKS                       R3 R4 K11 ["Util"]
-       26 GETTABLEKS                       R2 R3 K12 ["Promise"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       17 GETIMPORT                        R2 K8 [require]
+       19 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       21 GETTABLEKS                       R3 R3 K10 ["Framework"]
+       23 CALL                             R2 1 1
+       24 GETTABLEKS                       R2 R2 K11 ["Util"]
+       26 GETTABLEKS                       R2 R2 K12 ["Promise"]
        28 GETIMPORT                        R3 K8 [require]
-       30 GETTABLEKS                       R7 R1 K13 ["Src"]
-       32 GETTABLEKS                       R6 R7 K14 ["Network"]
-       34 GETTABLEKS                       R5 R6 K15 ["Models"]
-       36 GETTABLEKS                       R4 R5 K16 ["PlaceToPublish"]
+       30 GETTABLEKS                       R4 R1 K13 ["Src"]
+       32 GETTABLEKS                       R4 R4 K14 ["Network"]
+       34 GETTABLEKS                       R4 R4 K15 ["Models"]
+       36 GETTABLEKS                       R4 R4 K16 ["PlaceToPublish"]
        38 CALL                             R3 1 1
        39 GETIMPORT                        R4 K8 [require]
-       41 GETTABLEKS                       R7 R1 K13 ["Src"]
-       43 GETTABLEKS                       R6 R7 K14 ["Network"]
-       45 GETTABLEKS                       R5 R6 K17 ["Http"]
+       41 GETTABLEKS                       R5 R1 K13 ["Src"]
+       43 GETTABLEKS                       R5 R5 K14 ["Network"]
+       45 GETTABLEKS                       R5 R5 K17 ["Http"]
        47 CALL                             R4 1 1
        48 DUPCLOSURE                       R5 K18 [PROTO_1]
        49 CAPTURE                          VAL R2

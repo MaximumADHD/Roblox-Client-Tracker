@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R4 K2 [task.spawn]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K3 ["ReportInfluxSeries"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R5 R5 K3 ["ReportInfluxSeries"]
         5 GETUPVAL                         R6 0
         6 MOVE                             R7 R1
         7 MOVE                             R8 R2

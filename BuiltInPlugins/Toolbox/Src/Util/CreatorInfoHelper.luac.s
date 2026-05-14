@@ -45,12 +45,12 @@ PROTO_1:
 
 PROTO_2:
         0 JUMPIFNOTEQKN                    R0 K0 [1] ; [+6]
-        2 GETIMPORT                        R2 K4 [Enum.CreatorType.User]
-        4 GETTABLEKS                       R1 R2 K5 ["Value"]
+        2 GETIMPORT                        R1 K4 [Enum.CreatorType.User]
+        4 GETTABLEKS                       R1 R1 K5 ["Value"]
         6 RETURN                           R1 1
         7 JUMPIFNOTEQKN                    R0 K6 [2] ; [+6]
-        9 GETIMPORT                        R2 K8 [Enum.CreatorType.Group]
-       11 GETTABLEKS                       R1 R2 K5 ["Value"]
+        9 GETIMPORT                        R1 K8 [Enum.CreatorType.Group]
+       11 GETTABLEKS                       R1 R1 K5 ["Value"]
        13 RETURN                           R1 1
        14 GETIMPORT                        R1 K10 [error]
        16 LOADK                            R3 K11 ["Unknown backendCreatorType received "]
@@ -63,13 +63,13 @@ PROTO_2:
        24 RETURN                           R0 0
 
 PROTO_3:
-        0 GETIMPORT                        R2 K3 [Enum.CreatorType.User]
-        2 GETTABLEKS                       R1 R2 K4 ["Value"]
+        0 GETIMPORT                        R1 K3 [Enum.CreatorType.User]
+        2 GETTABLEKS                       R1 R1 K4 ["Value"]
         4 JUMPIFNOTEQ                      R0 R1 ; [+3]
         6 LOADN                            R1 1
         7 RETURN                           R1 1
-        8 GETIMPORT                        R2 K6 [Enum.CreatorType.Group]
-       10 GETTABLEKS                       R1 R2 K4 ["Value"]
+        8 GETIMPORT                        R1 K6 [Enum.CreatorType.Group]
+       10 GETTABLEKS                       R1 R1 K4 ["Value"]
        12 JUMPIFNOTEQ                      R0 R1 ; [+3]
        14 LOADN                            R1 2
        15 RETURN                           R1 1
@@ -84,21 +84,21 @@ PROTO_3:
        26 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["isValidCreatorType"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["isValidCreatorType"]
         3 MOVE                             R4 R1
         4 CALL                             R3 1 -1
         5 FASTCALL                         ASSERT ; [+2]
         6 GETIMPORT                        R2 K2 [assert]
         8 CALL                             R2 -1 0
         9 GETTABLEKS                       R2 R0 K3 ["responseBody"]
-       11 GETIMPORT                        R4 K7 [Enum.CreatorType.Group]
-       13 GETTABLEKS                       R3 R4 K8 ["Value"]
+       11 GETIMPORT                        R3 K7 [Enum.CreatorType.Group]
+       13 GETTABLEKS                       R3 R3 K8 ["Value"]
        15 JUMPIFNOTEQ                      R1 R3 ; [+4]
        17 GETTABLEKS                       R3 R2 K9 ["Name"]
        19 RETURN                           R3 1
-       20 GETIMPORT                        R4 K11 [Enum.CreatorType.User]
-       22 GETTABLEKS                       R3 R4 K8 ["Value"]
+       20 GETIMPORT                        R3 K11 [Enum.CreatorType.User]
+       22 GETTABLEKS                       R3 R3 K8 ["Value"]
        24 JUMPIFNOTEQ                      R1 R3 ; [+4]
        26 GETTABLEKS                       R3 R2 K12 ["name"]
        28 RETURN                           R3 1
@@ -111,17 +111,17 @@ PROTO_4:
        37 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["isValidCreatorType"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["isValidCreatorType"]
         3 MOVE                             R5 R2
         4 CALL                             R4 1 -1
         5 FASTCALL                         ASSERT ; [+2]
         6 GETIMPORT                        R3 K2 [assert]
         8 CALL                             R3 -1 0
-        9 NAMECALL                         R5 R0 K3 ["getState"]
-       11 CALL                             R5 1 1
-       12 GETTABLEKS                       R4 R5 K4 ["assets"]
-       14 GETTABLEKS                       R3 R4 K5 ["cachedCreatorInfo"]
+        9 NAMECALL                         R3 R0 K3 ["getState"]
+       11 CALL                             R3 1 1
+       12 GETTABLEKS                       R3 R3 K4 ["assets"]
+       14 GETTABLEKS                       R3 R3 K5 ["cachedCreatorInfo"]
        16 JUMPIF                           R3 ; [+2]
        17 LOADB                            R4 0
        18 RETURN                           R4 1
@@ -140,10 +140,10 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 NEWTABLE                         R1 8 0
        11 DUPCLOSURE                       R2 K3 [PROTO_0]
        12 SETTABLEKS                       R2 R1 K4 ["getCreatorTypeValueFromName"]

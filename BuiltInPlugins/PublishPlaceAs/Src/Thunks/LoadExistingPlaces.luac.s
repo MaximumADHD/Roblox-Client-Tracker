@@ -27,9 +27,9 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R6 2
-        3 GETTABLEKS                       R5 R6 K0 ["QUERY_STATE"]
-        5 GETTABLEKS                       R4 R5 K1 ["QUERY_STATE_FAILED"]
+        2 GETUPVAL                         R4 2
+        3 GETTABLEKS                       R4 R4 K0 ["QUERY_STATE"]
+        5 GETTABLEKS                       R4 R4 K1 ["QUERY_STATE_FAILED"]
         7 CALL                             R3 1 -1
         8 NAMECALL                         R1 R1 K2 ["dispatch"]
        10 CALL                             R1 -1 0
@@ -43,8 +43,8 @@ PROTO_2:
         5 JUMPIF                           R1 ; [+78]
         6 GETUPVAL                         R1 0
         7 SETUPVAL                         R1 1
-        8 GETUPVAL                         R5 2
-        9 GETTABLEKS                       R4 R5 K0 ["name"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K0 ["name"]
        11 FASTCALL1                        TYPE R4 ; [+2]
        12 GETIMPORT                        R3 K2 [type]
        14 CALL                             R3 1 1
@@ -55,8 +55,8 @@ PROTO_2:
        21 LOADK                            R3 K4 ["LoadExistingPlaces.parentGame must have a string name"]
        22 GETIMPORT                        R1 K6 [assert]
        24 CALL                             R1 2 0
-       25 GETUPVAL                         R5 2
-       26 GETTABLEKS                       R4 R5 K7 ["universeId"]
+       25 GETUPVAL                         R4 2
+       26 GETTABLEKS                       R4 R4 K7 ["universeId"]
        28 FASTCALL1                        TYPE R4 ; [+2]
        29 GETIMPORT                        R3 K2 [type]
        31 CALL                             R3 1 1
@@ -75,16 +75,16 @@ PROTO_2:
        48 GETUPVAL                         R1 0
        49 JUMPIF                           R1 ; [+10]
        50 GETUPVAL                         R3 4
-       51 GETUPVAL                         R6 5
-       52 GETTABLEKS                       R5 R6 K11 ["QUERY_STATE"]
-       54 GETTABLEKS                       R4 R5 K12 ["QUERY_STATE_QUERYING"]
+       51 GETUPVAL                         R4 5
+       52 GETTABLEKS                       R4 R4 K11 ["QUERY_STATE"]
+       54 GETTABLEKS                       R4 R4 K12 ["QUERY_STATE_QUERYING"]
        56 CALL                             R3 1 -1
        57 NAMECALL                         R1 R0 K10 ["dispatch"]
        59 CALL                             R1 -1 0
        60 GETUPVAL                         R1 6
        61 DUPTABLE                         R2 K13 [{"universeId"}]
-       62 GETUPVAL                         R4 2
-       63 GETTABLEKS                       R3 R4 K7 ["universeId"]
+       62 GETUPVAL                         R3 2
+       63 GETTABLEKS                       R3 R3 K7 ["universeId"]
        65 SETTABLEKS                       R3 R2 K7 ["universeId"]
        67 DUPTABLE                         R3 K15 [{"cursor"}]
        68 GETUPVAL                         R4 0
@@ -118,35 +118,35 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
-       15 GETTABLEKS                       R2 R3 K7 ["SetPlaceInfo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetPlaceInfo"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K5 ["Src"]
-       22 GETTABLEKS                       R4 R5 K6 ["Actions"]
-       24 GETTABLEKS                       R3 R4 K8 ["SetChoosePlaceQueryState"]
+       20 GETTABLEKS                       R3 R0 K5 ["Src"]
+       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K8 ["SetChoosePlaceQueryState"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Src"]
-       31 GETTABLEKS                       R5 R6 K6 ["Actions"]
-       33 GETTABLEKS                       R4 R5 K9 ["SetSelectedGame"]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K6 ["Actions"]
+       33 GETTABLEKS                       R4 R4 K9 ["SetSelectedGame"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R8 R0 K5 ["Src"]
-       40 GETTABLEKS                       R7 R8 K10 ["Network"]
-       42 GETTABLEKS                       R6 R7 K11 ["Requests"]
-       44 GETTABLEKS                       R5 R6 K12 ["ApiFetchPlacesByUniverseId"]
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R5 R5 K10 ["Network"]
+       42 GETTABLEKS                       R5 R5 K11 ["Requests"]
+       44 GETTABLEKS                       R5 R5 K12 ["ApiFetchPlacesByUniverseId"]
        46 CALL                             R4 1 1
        47 GETIMPORT                        R5 K4 [require]
-       49 GETTABLEKS                       R8 R0 K5 ["Src"]
-       51 GETTABLEKS                       R7 R8 K13 ["Resources"]
-       53 GETTABLEKS                       R6 R7 K14 ["Constants"]
+       49 GETTABLEKS                       R6 R0 K5 ["Src"]
+       51 GETTABLEKS                       R6 R6 K13 ["Resources"]
+       53 GETTABLEKS                       R6 R6 K14 ["Constants"]
        55 CALL                             R5 1 1
        56 GETIMPORT                        R6 K16 [game]
        58 LOADK                            R8 K17 ["RbxAnalyticsService"]

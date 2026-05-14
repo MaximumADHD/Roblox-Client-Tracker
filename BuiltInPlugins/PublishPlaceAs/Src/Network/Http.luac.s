@@ -51,8 +51,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K2 ["RequestAsync"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["RequestAsync"]
         5 GETUPVAL                         R2 0
         6 GETUPVAL                         R3 1
         7 CALL                             R0 3 2
@@ -80,8 +80,8 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["new"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
@@ -142,8 +142,8 @@ PROTO_8:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["new"]
         6 NEWCLOSURE                       R2 P0
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          VAL R0
@@ -164,16 +164,16 @@ MAIN:
        15 LOADK                            R4 K5 ["ContentProvider"]
        16 NAMECALL                         R2 R2 K3 ["GetService"]
        18 CALL                             R2 2 1
-       19 GETIMPORT                        R6 K7 [script]
-       21 GETTABLEKS                       R5 R6 K8 ["Parent"]
-       23 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K8 ["Parent"]
-       27 GETIMPORT                        R6 K10 [require]
-       29 GETTABLEKS                       R8 R3 K11 ["Packages"]
-       31 GETTABLEKS                       R7 R8 K12 ["Framework"]
-       33 CALL                             R6 1 1
-       34 GETTABLEKS                       R5 R6 K13 ["Util"]
-       36 GETTABLEKS                       R4 R5 K14 ["Promise"]
+       19 GETIMPORT                        R3 K7 [script]
+       21 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       23 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       27 GETIMPORT                        R4 K10 [require]
+       29 GETTABLEKS                       R5 R3 K11 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K12 ["Framework"]
+       33 CALL                             R4 1 1
+       34 GETTABLEKS                       R4 R4 K13 ["Util"]
+       36 GETTABLEKS                       R4 R4 K14 ["Promise"]
        38 GETTABLEKS                       R5 R2 K15 ["BaseUrl"]
        40 LOADK                            R8 K16 ["https://www."]
        41 NAMECALL                         R6 R5 K17 ["find"]

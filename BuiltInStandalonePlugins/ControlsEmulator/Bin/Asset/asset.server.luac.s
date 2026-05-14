@@ -9,8 +9,8 @@ PROTO_0:
 PROTO_1:
         0 GETIMPORT                        R0 K1 [plugin]
         2 LOADK                            R2 K2 ["DmChanged"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K3 ["CurrentDataModelType"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K3 ["CurrentDataModelType"]
         6 NAMECALL                         R0 R0 K4 ["Invoke"]
         8 CALL                             R0 3 0
         9 RETURN                           R0 0
@@ -25,8 +25,8 @@ MAIN:
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
        11 GETIMPORT                        R1 K7 [require]
-       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K10 ["launch"]
        20 LOADK                            R3 K4 ["ControlsEmulator"]
@@ -36,8 +36,8 @@ MAIN:
        26 CALL                             R2 0 1
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
-       29 GETIMPORT                        R3 K1 [plugin]
-       31 GETTABLEKS                       R2 R3 K13 ["MultipleDocumentInterfaceInstance"]
+       29 GETIMPORT                        R2 K1 [plugin]
+       31 GETTABLEKS                       R2 R2 K13 ["MultipleDocumentInterfaceInstance"]
        33 GETTABLEKS                       R3 R2 K14 ["FocusedDataModelSession"]
        35 GETTABLEKS                       R4 R3 K15 ["CurrentDataModelTypeAboutToChange"]
        37 DUPCLOSURE                       R6 K16 [PROTO_0]

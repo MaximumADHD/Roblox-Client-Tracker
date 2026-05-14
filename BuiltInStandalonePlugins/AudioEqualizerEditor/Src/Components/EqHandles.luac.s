@@ -11,39 +11,39 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["PlotRef"]
-        3 GETTABLEKS                       R1 R2 K1 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["PlotRef"]
+        3 GETTABLEKS                       R1 R1 K1 ["current"]
         5 JUMPIF                           R1 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["mouseToPlot"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["mouseToPlot"]
        10 MOVE                             R2 R0
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["PlotRef"]
-       14 GETTABLEKS                       R3 R4 K1 ["current"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["PlotRef"]
+       14 GETTABLEKS                       R3 R3 K1 ["current"]
        16 CALL                             R1 2 1
        17 MOVE                             R0 R1
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K3 ["EqHook"]
-       21 GETTABLEKS                       R1 R2 K4 ["setLowGain"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K3 ["EqHook"]
+       21 GETTABLEKS                       R1 R1 K4 ["setLowGain"]
        23 GETTABLEKS                       R2 R0 K5 ["Y"]
        25 CALL                             R1 1 0
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K3 ["EqHook"]
-       29 GETTABLEKS                       R1 R2 K6 ["setLowThreshold"]
+       26 GETUPVAL                         R1 0
+       27 GETTABLEKS                       R1 R1 K3 ["EqHook"]
+       29 GETTABLEKS                       R1 R1 K6 ["setLowThreshold"]
        31 GETTABLEKS                       R2 R0 K7 ["X"]
        33 CALL                             R1 1 0
        34 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R6 1
-        2 GETTABLEKS                       R5 R6 K0 ["EqHook"]
-        4 GETTABLEKS                       R4 R5 K1 ["highThreshold"]
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K0 ["EqHook"]
-        9 GETTABLEKS                       R5 R6 K2 ["lowThreshold"]
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R4 R4 K0 ["EqHook"]
+        4 GETTABLEKS                       R4 R4 K1 ["highThreshold"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K0 ["EqHook"]
+        9 GETTABLEKS                       R5 R5 K2 ["lowThreshold"]
        11 DIV                              R3 R4 R5
        12 FASTCALL1                        MATH_SQRT R3 ; [+2]
        13 GETIMPORT                        R2 K5 [math.sqrt]
@@ -55,22 +55,22 @@ PROTO_3:
        20 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["PlotRef"]
-        3 GETTABLEKS                       R1 R2 K1 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["PlotRef"]
+        3 GETTABLEKS                       R1 R1 K1 ["current"]
         5 JUMPIF                           R1 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["mouseToPlot"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["mouseToPlot"]
        10 MOVE                             R2 R0
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["PlotRef"]
-       14 GETTABLEKS                       R3 R4 K1 ["current"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["PlotRef"]
+       14 GETTABLEKS                       R3 R3 K1 ["current"]
        16 CALL                             R1 2 1
        17 MOVE                             R0 R1
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K3 ["EqHook"]
-       21 GETTABLEKS                       R1 R2 K4 ["setMidGain"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K3 ["EqHook"]
+       21 GETTABLEKS                       R1 R1 K4 ["setMidGain"]
        23 GETTABLEKS                       R2 R0 K5 ["Y"]
        25 CALL                             R1 1 0
        26 GETTABLEKS                       R2 R0 K6 ["X"]
@@ -79,40 +79,40 @@ PROTO_4:
        30 GETTABLEKS                       R3 R0 K6 ["X"]
        32 GETUPVAL                         R4 2
        33 MUL                              R2 R3 R4
-       34 GETUPVAL                         R5 0
-       35 GETTABLEKS                       R4 R5 K3 ["EqHook"]
-       37 GETTABLEKS                       R3 R4 K7 ["setLowThreshold"]
+       34 GETUPVAL                         R3 0
+       35 GETTABLEKS                       R3 R3 K3 ["EqHook"]
+       37 GETTABLEKS                       R3 R3 K7 ["setLowThreshold"]
        39 MOVE                             R4 R1
        40 CALL                             R3 1 0
-       41 GETUPVAL                         R5 0
-       42 GETTABLEKS                       R4 R5 K3 ["EqHook"]
-       44 GETTABLEKS                       R3 R4 K8 ["setHighThreshold"]
+       41 GETUPVAL                         R3 0
+       42 GETTABLEKS                       R3 R3 K3 ["EqHook"]
+       44 GETTABLEKS                       R3 R3 K8 ["setHighThreshold"]
        46 MOVE                             R4 R2
        47 CALL                             R3 1 0
        48 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["PlotRef"]
-        3 GETTABLEKS                       R1 R2 K1 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["PlotRef"]
+        3 GETTABLEKS                       R1 R1 K1 ["current"]
         5 JUMPIF                           R1 ; [+1]
         6 RETURN                           R0 0
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["mouseToPlot"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["mouseToPlot"]
        10 MOVE                             R2 R0
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["PlotRef"]
-       14 GETTABLEKS                       R3 R4 K1 ["current"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["PlotRef"]
+       14 GETTABLEKS                       R3 R3 K1 ["current"]
        16 CALL                             R1 2 1
        17 MOVE                             R0 R1
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R2 R3 K3 ["EqHook"]
-       21 GETTABLEKS                       R1 R2 K4 ["setHighGain"]
+       18 GETUPVAL                         R1 0
+       19 GETTABLEKS                       R1 R1 K3 ["EqHook"]
+       21 GETTABLEKS                       R1 R1 K4 ["setHighGain"]
        23 GETTABLEKS                       R2 R0 K5 ["Y"]
        25 CALL                             R1 1 0
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K3 ["EqHook"]
-       29 GETTABLEKS                       R1 R2 K6 ["setHighThreshold"]
+       26 GETUPVAL                         R1 0
+       27 GETTABLEKS                       R1 R1 K3 ["EqHook"]
+       29 GETTABLEKS                       R1 R1 K6 ["setHighThreshold"]
        31 GETTABLEKS                       R2 R0 K7 ["X"]
        33 CALL                             R1 1 0
        34 RETURN                           R0 0
@@ -122,17 +122,17 @@ PROTO_6:
         2 GETUPVAL                         R1 0
         3 JUMPIF                           R1 ; [+1]
         4 RETURN                           R0 1
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K0 ["createElement"]
         8 GETUPVAL                         R2 2
         9 DUPTABLE                         R3 K7 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd"}]
        10 GETIMPORT                        R4 K10 [Vector2.new]
-       12 GETUPVAL                         R7 3
-       13 GETTABLEKS                       R6 R7 K11 ["EqHook"]
-       15 GETTABLEKS                       R5 R6 K12 ["lowThreshold"]
-       17 GETUPVAL                         R8 3
-       18 GETTABLEKS                       R7 R8 K11 ["EqHook"]
-       20 GETTABLEKS                       R6 R7 K13 ["lowGain"]
+       12 GETUPVAL                         R5 3
+       13 GETTABLEKS                       R5 R5 K11 ["EqHook"]
+       15 GETTABLEKS                       R5 R5 K12 ["lowThreshold"]
+       17 GETUPVAL                         R6 3
+       18 GETTABLEKS                       R6 R6 K11 ["EqHook"]
+       20 GETTABLEKS                       R6 R6 K13 ["lowGain"]
        22 CALL                             R4 2 1
        23 SETTABLEKS                       R4 R3 K1 ["Position"]
        25 LOADK                            R4 K14 ["L"]
@@ -149,24 +149,24 @@ PROTO_6:
        40 SETTABLEKS                       R4 R3 K6 ["OnDragEnd"]
        42 CALL                             R1 2 1
        43 SETTABLEKS                       R1 R0 K15 ["Control_L"]
-       45 GETUPVAL                         R2 1
-       46 GETTABLEKS                       R1 R2 K0 ["createElement"]
+       45 GETUPVAL                         R1 1
+       46 GETTABLEKS                       R1 R1 K0 ["createElement"]
        48 GETUPVAL                         R2 2
        49 DUPTABLE                         R3 K7 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd"}]
        50 GETIMPORT                        R4 K10 [Vector2.new]
-       52 GETUPVAL                         R9 3
-       53 GETTABLEKS                       R8 R9 K11 ["EqHook"]
-       55 GETTABLEKS                       R7 R8 K12 ["lowThreshold"]
-       57 GETUPVAL                         R10 3
-       58 GETTABLEKS                       R9 R10 K11 ["EqHook"]
-       60 GETTABLEKS                       R8 R9 K16 ["highThreshold"]
+       52 GETUPVAL                         R7 3
+       53 GETTABLEKS                       R7 R7 K11 ["EqHook"]
+       55 GETTABLEKS                       R7 R7 K12 ["lowThreshold"]
+       57 GETUPVAL                         R8 3
+       58 GETTABLEKS                       R8 R8 K11 ["EqHook"]
+       60 GETTABLEKS                       R8 R8 K16 ["highThreshold"]
        62 MUL                              R6 R7 R8
        63 FASTCALL1                        MATH_SQRT R6 ; [+2]
        64 GETIMPORT                        R5 K19 [math.sqrt]
        66 CALL                             R5 1 1
-       67 GETUPVAL                         R8 3
-       68 GETTABLEKS                       R7 R8 K11 ["EqHook"]
-       70 GETTABLEKS                       R6 R7 K20 ["midGain"]
+       67 GETUPVAL                         R6 3
+       68 GETTABLEKS                       R6 R6 K11 ["EqHook"]
+       70 GETTABLEKS                       R6 R6 K20 ["midGain"]
        72 CALL                             R4 2 1
        73 SETTABLEKS                       R4 R3 K1 ["Position"]
        75 LOADK                            R4 K21 ["M"]
@@ -187,17 +187,17 @@ PROTO_6:
        94 SETTABLEKS                       R4 R3 K6 ["OnDragEnd"]
        96 CALL                             R1 2 1
        97 SETTABLEKS                       R1 R0 K22 ["Control_M"]
-       99 GETUPVAL                         R2 1
-      100 GETTABLEKS                       R1 R2 K0 ["createElement"]
+       99 GETUPVAL                         R1 1
+      100 GETTABLEKS                       R1 R1 K0 ["createElement"]
       102 GETUPVAL                         R2 2
       103 DUPTABLE                         R3 K7 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd"}]
       104 GETIMPORT                        R4 K10 [Vector2.new]
-      106 GETUPVAL                         R7 3
-      107 GETTABLEKS                       R6 R7 K11 ["EqHook"]
-      109 GETTABLEKS                       R5 R6 K16 ["highThreshold"]
-      111 GETUPVAL                         R8 3
-      112 GETTABLEKS                       R7 R8 K11 ["EqHook"]
-      114 GETTABLEKS                       R6 R7 K23 ["highGain"]
+      106 GETUPVAL                         R5 3
+      107 GETTABLEKS                       R5 R5 K11 ["EqHook"]
+      109 GETTABLEKS                       R5 R5 K16 ["highThreshold"]
+      111 GETUPVAL                         R6 3
+      112 GETTABLEKS                       R6 R6 K11 ["EqHook"]
+      114 GETTABLEKS                       R6 R6 K23 ["highGain"]
       116 CALL                             R4 2 1
       117 SETTABLEKS                       R4 R3 K1 ["Position"]
       119 LOADK                            R4 K24 ["H"]
@@ -217,8 +217,8 @@ PROTO_6:
       139 RETURN                           R0 1
 
 PROTO_7:
-        0 GETTABLEKS                       R3 R0 K0 ["EqHook"]
-        2 GETTABLEKS                       R2 R3 K1 ["bypass"]
+        0 GETTABLEKS                       R2 R0 K0 ["EqHook"]
+        2 GETTABLEKS                       R2 R2 K1 ["bypass"]
         4 NOT                              R1 R2
         5 GETUPVAL                         R2 0
         6 LOADN                            R3 0
@@ -259,8 +259,8 @@ PROTO_7:
        48 CALL                             R8 2 1
        49 MOVE                             R9 R1
        50 JUMPIFNOT                        R9 ; [+34]
-       51 GETUPVAL                         R10 3
-       52 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       51 GETUPVAL                         R9 3
+       52 GETTABLEKS                       R9 R9 K5 ["createElement"]
        54 GETUPVAL                         R10 6
        55 DUPTABLE                         R11 K11 [{"Active", "LayoutOrder", "Position", "Size", "BackgroundTransparency"}]
        56 LOADB                            R12 1
@@ -289,36 +289,36 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETIMPORT                        R1 K1 [script]
         7 LOADK                            R3 K3 ["AudioEqualizerEditor"]
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       13 GETTABLEKS                       R3 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K8 ["React"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K9 ["useCallback"]
        20 GETTABLEKS                       R4 R2 K10 ["useMemo"]
        22 GETTABLEKS                       R5 R2 K11 ["useState"]
        24 GETIMPORT                        R6 K6 [require]
-       26 GETTABLEKS                       R8 R1 K7 ["Packages"]
-       28 GETTABLEKS                       R7 R8 K12 ["Framework"]
+       26 GETTABLEKS                       R7 R1 K7 ["Packages"]
+       28 GETTABLEKS                       R7 R7 K12 ["Framework"]
        30 CALL                             R6 1 1
-       31 GETTABLEKS                       R8 R6 K13 ["UI"]
-       33 GETTABLEKS                       R7 R8 K14 ["Pane"]
+       31 GETTABLEKS                       R7 R6 K13 ["UI"]
+       33 GETTABLEKS                       R7 R7 K14 ["Pane"]
        35 GETIMPORT                        R8 K6 [require]
-       37 GETTABLEKS                       R10 R1 K15 ["Src"]
-       39 GETTABLEKS                       R9 R10 K16 ["Types"]
+       37 GETTABLEKS                       R9 R1 K15 ["Src"]
+       39 GETTABLEKS                       R9 R9 K16 ["Types"]
        41 CALL                             R8 1 1
        42 GETIMPORT                        R9 K6 [require]
        44 GETTABLEKS                       R10 R0 K17 ["ControlPoint"]
        46 CALL                             R9 1 1
        47 GETIMPORT                        R10 K6 [require]
-       49 GETTABLEKS                       R13 R1 K15 ["Src"]
-       51 GETTABLEKS                       R12 R13 K18 ["Util"]
-       53 GETTABLEKS                       R11 R12 K19 ["PlotUtil"]
+       49 GETTABLEKS                       R11 R1 K15 ["Src"]
+       51 GETTABLEKS                       R11 R11 K18 ["Util"]
+       53 GETTABLEKS                       R11 R11 K19 ["PlotUtil"]
        55 CALL                             R10 1 1
        56 DUPCLOSURE                       R11 K20 [PROTO_7]
        57 CAPTURE                          VAL R5

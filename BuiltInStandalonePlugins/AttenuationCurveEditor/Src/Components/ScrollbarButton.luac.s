@@ -3,13 +3,13 @@ PROTO_0:
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+14]
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K0 ["OnDragBegan"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["OnDragBegan"]
         7 JUMPIFNOT                        R2 ; [+10]
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K0 ["OnDragBegan"]
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K1 ["ControlId"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K0 ["OnDragBegan"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K1 ["ControlId"]
        14 MOVE                             R4 R0
        15 MOVE                             R5 R1
        16 CALL                             R2 3 0
@@ -27,11 +27,11 @@ PROTO_1:
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
         3 JUMPIFNOT                        R2 ; [+9]
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K0 ["OnDragEnded"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K0 ["OnDragEnded"]
         7 JUMPIFNOT                        R2 ; [+5]
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K0 ["OnDragEnded"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K0 ["OnDragEnded"]
        11 CALL                             R2 0 0
        12 RETURN                           R0 0
        13 GETTABLEKS                       R2 R1 K1 ["UserInputType"]
@@ -62,8 +62,8 @@ PROTO_2:
        21 JUMP                             ; [+2]
        22 JUMPIFNOT                        R1 ; [+1]
        23 LOADK                            R5 K5 ["Hovered"]
-       24 GETUPVAL                         R7 1
-       25 GETTABLEKS                       R6 R7 K6 ["createElement"]
+       24 GETUPVAL                         R6 1
+       25 GETTABLEKS                       R6 R6 K6 ["createElement"]
        27 LOADK                            R7 K7 ["TextButton"]
        28 NEWTABLE                         R8 8 0
        30 GETTABLEKS                       R9 R0 K8 ["AnchorPoint"]
@@ -75,25 +75,25 @@ PROTO_2:
        41 GETTABLEKS                       R9 R0 K11 ["Size"]
        43 SETTABLEKS                       R9 R8 K11 ["Size"]
        45 SETTABLEKS                       R4 R8 K2 ["Text"]
-       47 GETUPVAL                         R10 1
-       48 GETTABLEKS                       R9 R10 K12 ["Tag"]
+       47 GETUPVAL                         R9 1
+       48 GETTABLEKS                       R9 R9 K12 ["Tag"]
        50 GETUPVAL                         R10 2
        51 LOADK                            R11 K13 ["ScrollbarButton"]
        52 MOVE                             R12 R5
        53 GETTABLEKS                       R13 R0 K12 ["Tag"]
        55 CALL                             R10 3 1
        56 SETTABLE                         R10 R8 R9
-       57 GETUPVAL                         R11 1
-       58 GETTABLEKS                       R10 R11 K14 ["Event"]
-       60 GETTABLEKS                       R9 R10 K15 ["InputBegan"]
+       57 GETUPVAL                         R9 1
+       58 GETTABLEKS                       R9 R9 K14 ["Event"]
+       60 GETTABLEKS                       R9 R9 K15 ["InputBegan"]
        62 NEWCLOSURE                       R10 P0
        63 CAPTURE                          UPVAL U3
        64 CAPTURE                          VAL R0
        65 CAPTURE                          VAL R2
        66 SETTABLE                         R10 R8 R9
-       67 GETUPVAL                         R11 1
-       68 GETTABLEKS                       R10 R11 K14 ["Event"]
-       70 GETTABLEKS                       R9 R10 K16 ["InputEnded"]
+       67 GETUPVAL                         R9 1
+       68 GETTABLEKS                       R9 R9 K14 ["Event"]
+       70 GETTABLEKS                       R9 R9 K16 ["InputEnded"]
        72 NEWCLOSURE                       R10 P1
        73 CAPTURE                          UPVAL U3
        74 CAPTURE                          VAL R0
@@ -102,8 +102,8 @@ PROTO_2:
        77 DUPTABLE                         R9 K18 [{"DragListener"}]
        78 MOVE                             R10 R3
        79 JUMPIFNOT                        R10 ; [+14]
-       80 GETUPVAL                         R11 1
-       81 GETTABLEKS                       R10 R11 K6 ["createElement"]
+       80 GETUPVAL                         R10 1
+       81 GETTABLEKS                       R10 R10 K6 ["createElement"]
        83 GETUPVAL                         R11 4
        84 DUPTABLE                         R12 K21 [{"OnDragMoved", "OnDragEnded"}]
        85 GETTABLEKS                       R13 R0 K19 ["OnDragMoved"]
@@ -122,20 +122,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useState"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Framework"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R3 K10 ["UI"]
-       25 GETTABLEKS                       R4 R5 K11 ["DragListener"]
-       27 GETTABLEKS                       R6 R3 K12 ["Util"]
-       29 GETTABLEKS                       R5 R6 K13 ["isInputMainPress"]
-       31 GETTABLEKS                       R7 R3 K14 ["Styling"]
-       33 GETTABLEKS                       R6 R7 K15 ["joinTags"]
+       23 GETTABLEKS                       R4 R3 K10 ["UI"]
+       25 GETTABLEKS                       R4 R4 K11 ["DragListener"]
+       27 GETTABLEKS                       R5 R3 K12 ["Util"]
+       29 GETTABLEKS                       R5 R5 K13 ["isInputMainPress"]
+       31 GETTABLEKS                       R6 R3 K14 ["Styling"]
+       33 GETTABLEKS                       R6 R6 K15 ["joinTags"]
        35 DUPCLOSURE                       R7 K16 [PROTO_2]
        36 CAPTURE                          VAL R2
        37 CAPTURE                          VAL R1

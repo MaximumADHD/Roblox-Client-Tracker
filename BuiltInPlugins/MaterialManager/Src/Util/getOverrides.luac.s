@@ -4,8 +4,8 @@ PROTO_0:
         3 GETTABLEKS                       R1 R0 K1 ["Material"]
         5 GETUPVAL                         R2 0
         6 JUMPIFNOTEQ                      R1 R2 ; [+6]
-        8 GETTABLEKS                       R2 R0 K0 ["MaterialVariant"]
-       10 GETTABLEKS                       R1 R2 K2 ["Name"]
+        8 GETTABLEKS                       R1 R0 K0 ["MaterialVariant"]
+       10 GETTABLEKS                       R1 R1 K2 ["Name"]
        12 RETURN                           R1 1
        13 LOADK                            R1 K3 [""]
        14 RETURN                           R1 1
@@ -78,28 +78,28 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["Framework"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R2 K9 ["Dash"]
-       25 GETTABLEKS                       R3 R4 K10 ["filter"]
-       27 GETTABLEKS                       R6 R0 K5 ["Src"]
-       29 GETTABLEKS                       R5 R6 K11 ["Resources"]
-       31 GETTABLEKS                       R4 R5 K12 ["Constants"]
+       23 GETTABLEKS                       R3 R2 K9 ["Dash"]
+       25 GETTABLEKS                       R3 R3 K10 ["filter"]
+       27 GETTABLEKS                       R4 R0 K5 ["Src"]
+       29 GETTABLEKS                       R4 R4 K11 ["Resources"]
+       31 GETTABLEKS                       R4 R4 K12 ["Constants"]
        33 GETIMPORT                        R5 K4 [require]
        35 GETTABLEKS                       R6 R4 K13 ["getMaterialName"]
        37 CALL                             R5 1 1
-       38 GETTABLEKS                       R7 R0 K5 ["Src"]
-       40 GETTABLEKS                       R6 R7 K14 ["Util"]
+       38 GETTABLEKS                       R6 R0 K5 ["Src"]
+       40 GETTABLEKS                       R6 R6 K14 ["Util"]
        42 GETIMPORT                        R7 K4 [require]
        44 GETTABLEKS                       R8 R6 K15 ["MapMaterials"]
        46 CALL                             R7 1 1

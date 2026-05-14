@@ -1,13 +1,13 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["ColorPickerTopControls"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["ColorPickerTopControls"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
-        8 GETUPVAL                         R5 0
-        9 GETTABLEKS                       R4 R5 K4 ["new"]
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K4 ["new"]
        11 CALL                             R4 0 1
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       12 GETUPVAL                         R5 1
+       13 GETTABLEKS                       R5 R5 K5 ["createElement"]
        15 GETUPVAL                         R6 2
        16 DUPTABLE                         R7 K10 [{"LayoutOrder", "Layout", "Size", "Spacing"}]
        17 GETTABLEKS                       R8 R1 K6 ["LayoutOrder"]
@@ -19,8 +19,8 @@ PROTO_0:
        29 GETTABLEKS                       R8 R2 K9 ["Spacing"]
        31 SETTABLEKS                       R8 R7 K9 ["Spacing"]
        33 DUPTABLE                         R8 K18 [{"TitleText", "Buttons", "ColorPane"}]
-       34 GETUPVAL                         R10 1
-       35 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       34 GETUPVAL                         R9 1
+       35 GETTABLEKS                       R9 R9 K5 ["createElement"]
        37 GETUPVAL                         R10 3
        38 DUPTABLE                         R11 K20 [{"Text", "Size", "LayoutOrder"}]
        39 LOADK                            R18 K21 ["Info"]
@@ -39,8 +39,8 @@ PROTO_0:
        58 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
        60 CALL                             R9 2 1
        61 SETTABLEKS                       R9 R8 K15 ["TitleText"]
-       63 GETUPVAL                         R10 1
-       64 GETTABLEKS                       R9 R10 K5 ["createElement"]
+       63 GETUPVAL                         R9 1
+       64 GETTABLEKS                       R9 R9 K5 ["createElement"]
        66 GETUPVAL                         R10 2
        67 DUPTABLE                         R11 K30 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "Spacing", "Padding"}]
        68 NAMECALL                         R12 R4 K27 ["getNextOrder"]
@@ -57,8 +57,8 @@ PROTO_0:
        89 GETTABLEKS                       R12 R2 K37 ["ButtonsPanePadding"]
        91 SETTABLEKS                       R12 R11 K29 ["Padding"]
        93 DUPTABLE                         R12 K40 [{"Cancel", "Submit"}]
-       94 GETUPVAL                         R14 1
-       95 GETTABLEKS                       R13 R14 K5 ["createElement"]
+       94 GETUPVAL                         R13 1
+       95 GETTABLEKS                       R13 R13 K5 ["createElement"]
        97 GETUPVAL                         R14 4
        98 DUPTABLE                         R15 K43 [{"Size", "Text", "OnClick", "LayoutOrder", "Style"}]
        99 GETTABLEKS                       R16 R2 K44 ["CancelButtonSize"]
@@ -76,8 +76,8 @@ PROTO_0:
       118 SETTABLEKS                       R16 R15 K42 ["Style"]
       120 CALL                             R13 2 1
       121 SETTABLEKS                       R13 R12 K38 ["Cancel"]
-      123 GETUPVAL                         R14 1
-      124 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      123 GETUPVAL                         R13 1
+      124 GETTABLEKS                       R13 R13 K5 ["createElement"]
       126 GETUPVAL                         R14 4
       127 DUPTABLE                         R15 K48 [{"Size", "LayoutOrder", "Text", "Style", "OnClick"}]
       128 GETTABLEKS                       R16 R2 K49 ["SubmitButtonSize"]
@@ -97,8 +97,8 @@ PROTO_0:
       150 SETTABLEKS                       R13 R12 K39 ["Submit"]
       152 CALL                             R9 3 1
       153 SETTABLEKS                       R9 R8 K16 ["Buttons"]
-      155 GETUPVAL                         R10 1
-      156 GETTABLEKS                       R9 R10 K5 ["createElement"]
+      155 GETUPVAL                         R9 1
+      156 GETTABLEKS                       R9 R9 K5 ["createElement"]
       158 GETUPVAL                         R10 2
       159 DUPTABLE                         R11 K53 [{"LayoutOrder", "Size", "Layout", "Spacing", "Padding"}]
       160 NAMECALL                         R12 R4 K27 ["getNextOrder"]
@@ -113,8 +113,8 @@ PROTO_0:
       177 GETTABLEKS                       R12 R2 K56 ["ColorPanePadding"]
       179 SETTABLEKS                       R12 R11 K29 ["Padding"]
       181 DUPTABLE                         R12 K58 [{"TitleText", "Preview"}]
-      182 GETUPVAL                         R14 1
-      183 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      182 GETUPVAL                         R13 1
+      183 GETTABLEKS                       R13 R13 K5 ["createElement"]
       185 GETUPVAL                         R14 3
       186 DUPTABLE                         R15 K60 [{"TextXAlignment", "Text", "Size", "LayoutOrder"}]
       187 GETIMPORT                        R16 K62 [Enum.TextXAlignment.Right]
@@ -130,8 +130,8 @@ PROTO_0:
       203 SETTABLEKS                       R16 R15 K6 ["LayoutOrder"]
       205 CALL                             R13 2 1
       206 SETTABLEKS                       R13 R12 K15 ["TitleText"]
-      208 GETUPVAL                         R14 1
-      209 GETTABLEKS                       R13 R14 K5 ["createElement"]
+      208 GETUPVAL                         R13 1
+      209 GETTABLEKS                       R13 R13 K5 ["createElement"]
       211 GETUPVAL                         R14 2
       212 DUPTABLE                         R15 K66 [{"LayoutOrder", "Size", "BackgroundColor"}]
       213 LOADN                            R16 2
@@ -149,25 +149,25 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        27 GETTABLEKS                       R4 R3 K9 ["withContext"]
        29 GETTABLEKS                       R5 R3 K10 ["Analytics"]
        31 GETTABLEKS                       R6 R3 K11 ["Localization"]
-       33 GETTABLEKS                       R8 R2 K12 ["Style"]
-       35 GETTABLEKS                       R7 R8 K13 ["Stylizer"]
+       33 GETTABLEKS                       R7 R2 K12 ["Style"]
+       35 GETTABLEKS                       R7 R7 K13 ["Stylizer"]
        37 GETTABLEKS                       R8 R2 K14 ["UI"]
        39 GETTABLEKS                       R9 R8 K15 ["Button"]
        41 GETTABLEKS                       R10 R8 K16 ["Pane"]

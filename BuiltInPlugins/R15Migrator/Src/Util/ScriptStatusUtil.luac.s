@@ -58,39 +58,39 @@ PROTO_1:
        53 LOADN                            R7 1
        54 NEWTABLE                         R10 0 0
        56 JUMPIFNOT                        R2 ; [+7]
-       57 GETUPVAL                         R13 0
-       58 GETTABLEKS                       R12 R13 K9 ["ScriptStatus"]
-       60 GETTABLEKS                       R11 R12 K10 ["Reverted"]
+       57 GETUPVAL                         R11 0
+       58 GETTABLEKS                       R11 R11 K9 ["ScriptStatus"]
+       60 GETTABLEKS                       R11 R11 K10 ["Reverted"]
        62 SETTABLE                         R2 R10 R11
        63 JUMP                             ; [+7]
        64 JUMPIFNOT                        R5 ; [+6]
-       65 GETUPVAL                         R13 0
-       66 GETTABLEKS                       R12 R13 K9 ["ScriptStatus"]
-       68 GETTABLEKS                       R11 R12 K10 ["Reverted"]
+       65 GETUPVAL                         R11 0
+       66 GETTABLEKS                       R11 R11 K9 ["ScriptStatus"]
+       68 GETTABLEKS                       R11 R11 K10 ["Reverted"]
        70 SETTABLE                         R5 R10 R11
        71 LOADN                            R11 0
        72 JUMPIFNOTLT                      R11 R6 ; [+7]
-       74 GETUPVAL                         R13 0
-       75 GETTABLEKS                       R12 R13 K9 ["ScriptStatus"]
-       77 GETTABLEKS                       R11 R12 K11 ["AutoConverted"]
+       74 GETUPVAL                         R11 0
+       75 GETTABLEKS                       R11 R11 K9 ["ScriptStatus"]
+       77 GETTABLEKS                       R11 R11 K11 ["AutoConverted"]
        79 SETTABLE                         R6 R10 R11
        80 LOADN                            R11 0
        81 JUMPIFNOTLT                      R11 R7 ; [+7]
-       83 GETUPVAL                         R13 0
-       84 GETTABLEKS                       R12 R13 K9 ["ScriptStatus"]
-       86 GETTABLEKS                       R11 R12 K12 ["Complete"]
+       83 GETUPVAL                         R11 0
+       84 GETTABLEKS                       R11 R11 K9 ["ScriptStatus"]
+       86 GETTABLEKS                       R11 R11 K12 ["Complete"]
        88 SETTABLE                         R7 R10 R11
        89 LOADN                            R11 0
        90 JUMPIFNOTLT                      R11 R8 ; [+7]
-       92 GETUPVAL                         R13 0
-       93 GETTABLEKS                       R12 R13 K9 ["ScriptStatus"]
-       95 GETTABLEKS                       R11 R12 K13 ["Error"]
+       92 GETUPVAL                         R11 0
+       93 GETTABLEKS                       R11 R11 K9 ["ScriptStatus"]
+       95 GETTABLEKS                       R11 R11 K13 ["Error"]
        97 SETTABLE                         R8 R10 R11
        98 LOADN                            R11 0
        99 JUMPIFNOTLT                      R11 R9 ; [+7]
-      101 GETUPVAL                         R13 0
-      102 GETTABLEKS                       R12 R13 K9 ["ScriptStatus"]
-      104 GETTABLEKS                       R11 R12 K14 ["VariableError"]
+      101 GETUPVAL                         R11 0
+      102 GETTABLEKS                       R11 R11 K9 ["ScriptStatus"]
+      104 GETTABLEKS                       R11 R11 K14 ["VariableError"]
       106 SETTABLE                         R9 R10 R11
       107 RETURN                           R10 1
 
@@ -98,9 +98,9 @@ PROTO_2:
         0 GETTABLEKS                       R3 R1 K0 ["scriptInstance"]
         2 JUMPIFNOT                        R3 ; [+19]
         3 NEWTABLE                         R3 1 0
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R5 R6 K1 ["ScriptStatus"]
-        8 GETTABLEKS                       R4 R5 K2 ["Complete"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K1 ["ScriptStatus"]
+        8 GETTABLEKS                       R4 R4 K2 ["Complete"]
        10 LOADK                            R7 K3 ["ConversionResult"]
        11 LOADK                            R8 K4 ["Script"]
        12 DUPTABLE                         R9 K6 [{"name"}]
@@ -118,9 +118,9 @@ PROTO_2:
        29 LOADNIL                          R6
        30 LOADNIL                          R7
        31 FORGPREP                         R5
-       32 GETUPVAL                         R12 0
-       33 GETTABLEKS                       R11 R12 K1 ["ScriptStatus"]
-       35 GETTABLEKS                       R10 R11 K9 ["AutoConverted"]
+       32 GETUPVAL                         R10 0
+       33 GETTABLEKS                       R10 R10 K1 ["ScriptStatus"]
+       35 GETTABLEKS                       R10 R10 K9 ["AutoConverted"]
        37 JUMPIFEQ                         R8 R10 ; [+29]
        39 DUPTABLE                         R10 K11 [{"count"}]
        40 GETIMPORT                        R11 K14 [string.format]
@@ -155,10 +155,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["ScriptAnalysis"]
-       15 GETTABLEKS                       R2 R3 K9 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["ScriptAnalysis"]
+       15 GETTABLEKS                       R2 R2 K9 ["Constants"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 2 0
        20 DUPCLOSURE                       R3 K10 [PROTO_0]

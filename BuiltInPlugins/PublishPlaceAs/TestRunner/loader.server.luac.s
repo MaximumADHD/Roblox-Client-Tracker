@@ -1,41 +1,41 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["GamePublishFinished"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["GamePublishFinished"]
         3 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["GamePublishCancelled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["GamePublishCancelled"]
         3 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnSaveOrPublishPlaceToRoblox"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnSaveOrPublishPlaceToRoblox"]
         3 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R5 K3 [script]
-        5 GETTABLEKS                       R4 R5 K4 ["Parent"]
-        7 GETTABLEKS                       R3 R4 K4 ["Parent"]
-        9 GETTABLEKS                       R2 R3 K5 ["TestRunner"]
-       11 GETTABLEKS                       R1 R2 K6 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K5 ["TestRunner"]
+       11 GETTABLEKS                       R1 R1 K6 ["defineLuaFlags"]
        13 CALL                             R0 1 0
-       14 GETIMPORT                        R2 K3 [script]
-       16 GETTABLEKS                       R1 R2 K4 ["Parent"]
-       18 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       14 GETIMPORT                        R0 K3 [script]
+       16 GETTABLEKS                       R0 R0 K4 ["Parent"]
+       18 GETTABLEKS                       R0 R0 K4 ["Parent"]
        20 GETIMPORT                        R1 K1 [require]
-       22 GETTABLEKS                       R3 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R2 R3 K8 ["PluginLoader"]
+       22 GETTABLEKS                       R2 R0 K7 ["Packages"]
+       24 GETTABLEKS                       R2 R2 K8 ["PluginLoader"]
        26 CALL                             R1 1 1
        27 GETTABLEKS                       R2 R1 K9 ["PluginLoaderBuilder"]
-       29 GETTABLEKS                       R5 R0 K10 ["Src"]
-       31 GETTABLEKS                       R4 R5 K11 ["Resources"]
-       33 GETTABLEKS                       R3 R4 K12 ["SourceStrings"]
-       35 GETTABLEKS                       R6 R0 K10 ["Src"]
-       37 GETTABLEKS                       R5 R6 K11 ["Resources"]
-       39 GETTABLEKS                       R4 R5 K13 ["LocalizedStrings"]
+       29 GETTABLEKS                       R3 R0 K10 ["Src"]
+       31 GETTABLEKS                       R3 R3 K11 ["Resources"]
+       33 GETTABLEKS                       R3 R3 K12 ["SourceStrings"]
+       35 GETTABLEKS                       R4 R0 K10 ["Src"]
+       37 GETTABLEKS                       R4 R4 K11 ["Resources"]
+       39 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
        41 GETIMPORT                        R5 K15 [game]
        43 LOADK                            R7 K16 ["StudioPublishService"]
        44 NAMECALL                         R5 R5 K17 ["GetService"]
@@ -73,11 +73,11 @@ MAIN:
        93 JUMPIF                           R8 ; [+1]
        94 RETURN                           R0 0
        95 GETIMPORT                        R9 K1 [require]
-       97 GETIMPORT                        R14 K3 [script]
-       99 GETTABLEKS                       R13 R14 K4 ["Parent"]
-      101 GETTABLEKS                       R12 R13 K4 ["Parent"]
-      103 GETTABLEKS                       R11 R12 K10 ["Src"]
-      105 GETTABLEKS                       R10 R11 K38 ["main"]
+       97 GETIMPORT                        R10 K3 [script]
+       99 GETTABLEKS                       R10 R10 K4 ["Parent"]
+      101 GETTABLEKS                       R10 R10 K4 ["Parent"]
+      103 GETTABLEKS                       R10 R10 K10 ["Src"]
+      105 GETTABLEKS                       R10 R10 K38 ["main"]
       107 CALL                             R9 1 1
       108 MOVE                             R10 R9
       109 GETIMPORT                        R11 K27 [plugin]

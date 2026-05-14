@@ -3,14 +3,14 @@ PROTO_0:
         1 NAMECALL                         R1 R1 K0 ["HasInternalPermission"]
         3 CALL                             R1 1 1
         4 JUMPIFNOT                        R1 ; [+9]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["DefaultForInternalUsers"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["DefaultForInternalUsers"]
         8 JUMPIFEQKNIL                     R1 ; [+5]
-       10 GETUPVAL                         R1 1
-       11 GETTABLEKS                       R0 R1 K1 ["DefaultForInternalUsers"]
+       10 GETUPVAL                         R0 1
+       11 GETTABLEKS                       R0 R0 K1 ["DefaultForInternalUsers"]
        13 JUMP                             ; [+3]
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R0 R1 K2 ["Default"]
+       14 GETUPVAL                         R0 1
+       15 GETTABLEKS                       R0 R0 K2 ["Default"]
        17 GETUPVAL                         R1 2
        18 LOADK                            R3 K3 ["StyleEditor"]
        19 NAMECALL                         R1 R1 K4 ["FindFirstChild"]
@@ -21,8 +21,8 @@ PROTO_0:
        26 CALL                             R2 2 1
        27 JUMPIF                           R2 ; [+1]
        28 RETURN                           R0 1
-       29 GETUPVAL                         R5 1
-       30 GETTABLEKS                       R4 R5 K7 ["Name"]
+       29 GETUPVAL                         R4 1
+       30 GETTABLEKS                       R4 R4 K7 ["Name"]
        32 NAMECALL                         R2 R1 K4 ["FindFirstChild"]
        34 CALL                             R2 2 1
        35 JUMPIFNOT                        R2 ; [+5]

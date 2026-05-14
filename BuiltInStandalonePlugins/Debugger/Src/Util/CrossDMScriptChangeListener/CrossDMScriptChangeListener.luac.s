@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["store"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["store"]
         3 GETUPVAL                         R4 1
         4 MOVE                             R5 R0
         5 MOVE                             R6 R1
@@ -10,8 +10,8 @@ PROTO_0:
        10 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["store"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["store"]
         3 GETUPVAL                         R5 1
         4 MOVE                             R6 R0
         5 MOVE                             R7 R1
@@ -77,18 +77,18 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Actions"]
        11 GETIMPORT                        R2 K5 [require]
-       13 GETTABLEKS                       R4 R1 K6 ["Common"]
-       15 GETTABLEKS                       R3 R4 K7 ["SetFilenameForGuid"]
+       13 GETTABLEKS                       R3 R1 K6 ["Common"]
+       15 GETTABLEKS                       R3 R3 K7 ["SetFilenameForGuid"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R5 R1 K6 ["Common"]
-       22 GETTABLEKS                       R4 R5 K8 ["SetScriptSourceLine"]
+       20 GETTABLEKS                       R4 R1 K6 ["Common"]
+       22 GETTABLEKS                       R4 R4 K8 ["SetScriptSourceLine"]
        24 CALL                             R3 1 1
        25 NEWTABLE                         R4 4 0
        27 SETTABLEKS                       R4 R4 K9 ["__index"]

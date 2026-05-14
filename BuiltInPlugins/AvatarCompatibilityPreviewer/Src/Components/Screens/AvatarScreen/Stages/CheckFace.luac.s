@@ -13,8 +13,8 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["useContext"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["useContext"]
         7 GETUPVAL                         R3 2
         8 CALL                             R2 1 1
         9 GETUPVAL                         R3 3
@@ -39,8 +39,8 @@ PROTO_1:
        30 GETUPVAL                         R6 6
        31 GETTABLEKS                       R7 R0 K6 ["Dummy"]
        33 CALL                             R6 1 1
-       34 GETUPVAL                         R8 1
-       35 GETTABLEKS                       R7 R8 K7 ["useCallback"]
+       34 GETUPVAL                         R7 1
+       35 GETTABLEKS                       R7 R7 K7 ["useCallback"]
        37 NEWCLOSURE                       R8 P0
        38 CAPTURE                          VAL R4
        39 CAPTURE                          VAL R6
@@ -58,21 +58,21 @@ PROTO_1:
        56 JUMPIFNOTEQKNIL                  R8 ; [+2]
        58 LOADB                            R7 0 +1
        59 LOADB                            R7 1
-       60 GETUPVAL                         R9 7
-       61 GETTABLEKS                       R8 R9 K8 ["LUAU_ANALYZE_ERROR"]
+       60 GETUPVAL                         R8 7
+       61 GETTABLEKS                       R8 R8 K8 ["LUAU_ANALYZE_ERROR"]
        63 FASTCALL2                        ASSERT R7 R8 ; [+3]
        65 GETIMPORT                        R6 K10 [assert]
        67 CALL                             R6 2 0
-       68 GETTABLEKS                       R7 R0 K6 ["Dummy"]
-       70 GETTABLEKS                       R6 R7 K11 ["Head"]
+       68 GETTABLEKS                       R6 R0 K6 ["Dummy"]
+       70 GETTABLEKS                       R6 R6 K11 ["Head"]
        72 LOADK                            R8 K12 ["FaceControls"]
        73 NAMECALL                         R6 R6 K13 ["FindFirstChildWhichIsA"]
        75 CALL                             R6 2 1
        76 JUMPIFNOTEQKNIL                  R6 ; [+22]
        78 GETTABLEKS                       R8 R0 K14 ["SelectedTab"]
        80 JUMPIFNOTEQKS                    R8 K15 ["animations_face"] ; [+18]
-       82 GETUPVAL                         R8 1
-       83 GETTABLEKS                       R7 R8 K16 ["createElement"]
+       82 GETUPVAL                         R7 1
+       83 GETTABLEKS                       R7 R7 K16 ["createElement"]
        85 GETUPVAL                         R8 8
        86 DUPTABLE                         R9 K19 [{"key", "Text"}]
        87 LOADK                            R10 K20 ["Notice"]
@@ -84,31 +84,31 @@ PROTO_1:
        95 SETTABLEKS                       R10 R9 K18 ["Text"]
        97 CALL                             R7 2 1
        98 JUMP                             ; [+27]
-       99 GETTABLEKS                       R9 R2 K24 ["avatarAssets"]
-      101 GETTABLEKS                       R8 R9 K25 ["emotion"]
+       99 GETTABLEKS                       R8 R2 K24 ["avatarAssets"]
+      101 GETTABLEKS                       R8 R8 K25 ["emotion"]
       103 JUMPIFEQKNIL                     R8 ; [+21]
-      105 GETUPVAL                         R8 1
-      106 GETTABLEKS                       R7 R8 K16 ["createElement"]
+      105 GETUPVAL                         R7 1
+      106 GETTABLEKS                       R7 R7 K16 ["createElement"]
       108 GETUPVAL                         R8 9
       109 DUPTABLE                         R9 K27 [{"key", "Dummy", "AnimationId"}]
       110 LOADK                            R10 K28 ["AnimationController"]
       111 SETTABLEKS                       R10 R9 K17 ["key"]
       113 GETTABLEKS                       R10 R0 K6 ["Dummy"]
       115 SETTABLEKS                       R10 R9 K6 ["Dummy"]
-      117 GETTABLEKS                       R11 R2 K24 ["avatarAssets"]
-      119 GETTABLEKS                       R10 R11 K25 ["emotion"]
+      117 GETTABLEKS                       R10 R2 K24 ["avatarAssets"]
+      119 GETTABLEKS                       R10 R10 K25 ["emotion"]
       121 SETTABLEKS                       R10 R9 K26 ["AnimationId"]
       123 CALL                             R7 2 1
       124 JUMP                             ; [+1]
       125 LOADNIL                          R7
-      126 GETUPVAL                         R9 1
-      127 GETTABLEKS                       R8 R9 K16 ["createElement"]
-      129 GETUPVAL                         R10 1
-      130 GETTABLEKS                       R9 R10 K29 ["Fragment"]
+      126 GETUPVAL                         R8 1
+      127 GETTABLEKS                       R8 R8 K16 ["createElement"]
+      129 GETUPVAL                         R9 1
+      130 GETTABLEKS                       R9 R9 K29 ["Fragment"]
       132 NEWTABLE                         R10 0 0
       134 NEWTABLE                         R11 1 1
-      136 GETUPVAL                         R14 1
-      137 GETTABLEKS                       R13 R14 K16 ["createElement"]
+      136 GETUPVAL                         R13 1
+      137 GETTABLEKS                       R13 R13 K16 ["createElement"]
       139 GETUPVAL                         R14 10
       140 DUPTABLE                         R15 K32 [{"OnClothingLayerOrderChanged", "OnMakeupLayerOrderChanged"}]
       141 SETTABLEKS                       R3 R15 K30 ["OnClothingLayerOrderChanged"]
@@ -140,17 +140,17 @@ PROTO_2:
         8 SETTABLEKS                       R3 R2 K1 ["focus"]
        10 GETIMPORT                        R3 K10 [CFrame.lookAt]
        12 GETTABLEKS                       R6 R1 K8 ["Position"]
-       14 GETTABLEKS                       R10 R1 K12 ["Size"]
-       16 GETTABLEKS                       R9 R10 K13 ["Magnitude"]
-       18 GETTABLEKS                       R11 R1 K5 ["CFrame"]
-       20 GETTABLEKS                       R10 R11 K14 ["LookVector"]
+       14 GETTABLEKS                       R9 R1 K12 ["Size"]
+       16 GETTABLEKS                       R9 R9 K13 ["Magnitude"]
+       18 GETTABLEKS                       R10 R1 K5 ["CFrame"]
+       20 GETTABLEKS                       R10 R10 K14 ["LookVector"]
        22 MUL                              R8 R9 R10
        23 MULK                             R7 R8 K11 [2]
        24 ADD                              R5 R6 R7
-       25 GETTABLEKS                       R9 R1 K12 ["Size"]
-       27 GETTABLEKS                       R8 R9 K13 ["Magnitude"]
-       29 GETTABLEKS                       R10 R1 K5 ["CFrame"]
-       31 GETTABLEKS                       R9 R10 K16 ["RightVector"]
+       25 GETTABLEKS                       R8 R1 K12 ["Size"]
+       27 GETTABLEKS                       R8 R8 K13 ["Magnitude"]
+       29 GETTABLEKS                       R9 R1 K5 ["CFrame"]
+       31 GETTABLEKS                       R9 R9 K16 ["RightVector"]
        33 MUL                              R7 R8 R9
        34 MULK                             R6 R7 K15 [1]
        35 SUB                              R4 R5 R6
@@ -168,70 +168,70 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Components"]
-       27 GETTABLEKS                       R4 R5 K11 ["AnimationController"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Components"]
+       27 GETTABLEKS                       R4 R4 K11 ["AnimationController"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Components"]
-       36 GETTABLEKS                       R5 R6 K12 ["EquippedItemsSidebar"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Components"]
+       36 GETTABLEKS                       R5 R5 K12 ["EquippedItemsSidebar"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R8 R0 K9 ["Src"]
-       43 GETTABLEKS                       R7 R8 K10 ["Components"]
-       45 GETTABLEKS                       R6 R7 K13 ["Notice"]
+       41 GETTABLEKS                       R6 R0 K9 ["Src"]
+       43 GETTABLEKS                       R6 R6 K10 ["Components"]
+       45 GETTABLEKS                       R6 R6 K13 ["Notice"]
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R9 R0 K9 ["Src"]
-       52 GETTABLEKS                       R8 R9 K14 ["Hooks"]
-       54 GETTABLEKS                       R7 R8 K15 ["useEquipAvatarMakeup_DEPRECATED"]
+       50 GETTABLEKS                       R7 R0 K9 ["Src"]
+       52 GETTABLEKS                       R7 R7 K14 ["Hooks"]
+       54 GETTABLEKS                       R7 R7 K15 ["useEquipAvatarMakeup_DEPRECATED"]
        56 CALL                             R6 1 1
        57 GETIMPORT                        R7 K5 [require]
-       59 GETTABLEKS                       R10 R0 K9 ["Src"]
-       61 GETTABLEKS                       R9 R10 K14 ["Hooks"]
-       63 GETTABLEKS                       R8 R9 K16 ["useOnClothingLayerOrderChanged"]
+       59 GETTABLEKS                       R8 R0 K9 ["Src"]
+       61 GETTABLEKS                       R8 R8 K14 ["Hooks"]
+       63 GETTABLEKS                       R8 R8 K16 ["useOnClothingLayerOrderChanged"]
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R11 R0 K9 ["Src"]
-       70 GETTABLEKS                       R10 R11 K17 ["Flags"]
-       72 GETTABLEKS                       R9 R10 K18 ["getFFlagAvatarPreviewerMakeup"]
+       68 GETTABLEKS                       R9 R0 K9 ["Src"]
+       70 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       72 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerMakeup"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R12 R0 K9 ["Src"]
-       79 GETTABLEKS                       R11 R12 K17 ["Flags"]
-       81 GETTABLEKS                       R10 R11 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
+       77 GETTABLEKS                       R10 R0 K9 ["Src"]
+       79 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       81 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
        83 CALL                             R9 1 1
        84 GETIMPORT                        R10 K5 [require]
-       86 GETTABLEKS                       R13 R0 K9 ["Src"]
-       88 GETTABLEKS                       R12 R13 K17 ["Flags"]
-       90 GETTABLEKS                       R11 R12 K20 ["getFFlagAvatarPreviewerLookComposer"]
+       86 GETTABLEKS                       R11 R0 K9 ["Src"]
+       88 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       90 GETTABLEKS                       R11 R11 K20 ["getFFlagAvatarPreviewerLookComposer"]
        92 CALL                             R10 1 1
        93 GETIMPORT                        R11 K5 [require]
-       95 GETTABLEKS                       R14 R0 K9 ["Src"]
-       97 GETTABLEKS                       R13 R14 K21 ["Util"]
-       99 GETTABLEKS                       R12 R13 K22 ["Constants"]
+       95 GETTABLEKS                       R12 R0 K9 ["Src"]
+       97 GETTABLEKS                       R12 R12 K21 ["Util"]
+       99 GETTABLEKS                       R12 R12 K22 ["Constants"]
       101 CALL                             R11 1 1
       102 GETIMPORT                        R12 K5 [require]
-      104 GETTABLEKS                       R15 R0 K9 ["Src"]
-      106 GETTABLEKS                       R14 R15 K21 ["Util"]
-      108 GETTABLEKS                       R13 R14 K23 ["EquipmentStateContext"]
+      104 GETTABLEKS                       R13 R0 K9 ["Src"]
+      106 GETTABLEKS                       R13 R13 K21 ["Util"]
+      108 GETTABLEKS                       R13 R13 K23 ["EquipmentStateContext"]
       110 CALL                             R12 1 1
       111 GETIMPORT                        R13 K5 [require]
-      113 GETIMPORT                        R16 K1 [script]
-      115 GETTABLEKS                       R15 R16 K24 ["Parent"]
-      117 GETTABLEKS                       R14 R15 K25 ["StageType"]
+      113 GETIMPORT                        R14 K1 [script]
+      115 GETTABLEKS                       R14 R14 K24 ["Parent"]
+      117 GETTABLEKS                       R14 R14 K25 ["StageType"]
       119 CALL                             R13 1 1
-      120 GETTABLEKS                       R15 R1 K26 ["ContextServices"]
-      122 GETTABLEKS                       R14 R15 K27 ["Localization"]
+      120 GETTABLEKS                       R14 R1 K26 ["ContextServices"]
+      122 GETTABLEKS                       R14 R14 K27 ["Localization"]
       124 DUPTABLE                         R15 K31 [{"tabs", "render", "getPreviewCameraModifications"}]
       125 MOVE                             R17 R10
       126 CALL                             R17 0 1

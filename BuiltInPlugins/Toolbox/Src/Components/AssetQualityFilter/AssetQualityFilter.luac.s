@@ -20,8 +20,8 @@ PROTO_0:
        22 LOADK                            R15 K4 ["."]
        23 MOVE                             R16 R11
        24 CONCAT                           R13 R14 R16
-       25 GETUPVAL                         R15 0
-       26 GETTABLEKS                       R14 R15 K6 ["createElement"]
+       25 GETUPVAL                         R14 0
+       26 GETTABLEKS                       R14 R14 K6 ["createElement"]
        28 GETUPVAL                         R15 1
        29 DUPTABLE                         R16 K12 [{"Checked", "Key", "LayoutOrder", "OnClick", "Text"}]
        30 GETTABLEKS                       R18 R5 K13 ["CheckedState"]
@@ -48,8 +48,8 @@ PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 DUPTABLE                         R3 K7 [{"TriangleCount", "Contains", "VisualStyle", "Graphics", "Holidays"}]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K8 ["createElement"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R4 R4 K8 ["createElement"]
         8 GETUPVAL                         R5 1
         9 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
        10 LOADB                            R7 1
@@ -73,8 +73,8 @@ PROTO_1:
        36 CALL                             R7 5 -1
        37 CALL                             R4 -1 1
        38 SETTABLEKS                       R4 R3 K2 ["TriangleCount"]
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R4 R5 K8 ["createElement"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K8 ["createElement"]
        43 GETUPVAL                         R5 1
        44 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
        45 LOADB                            R7 1
@@ -98,8 +98,8 @@ PROTO_1:
        71 CALL                             R7 5 -1
        72 CALL                             R4 -1 1
        73 SETTABLEKS                       R4 R3 K3 ["Contains"]
-       75 GETUPVAL                         R5 0
-       76 GETTABLEKS                       R4 R5 K8 ["createElement"]
+       75 GETUPVAL                         R4 0
+       76 GETTABLEKS                       R4 R4 K8 ["createElement"]
        78 GETUPVAL                         R5 1
        79 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
        80 LOADB                            R7 1
@@ -123,8 +123,8 @@ PROTO_1:
       106 CALL                             R7 5 -1
       107 CALL                             R4 -1 1
       108 SETTABLEKS                       R4 R3 K4 ["VisualStyle"]
-      110 GETUPVAL                         R5 0
-      111 GETTABLEKS                       R4 R5 K8 ["createElement"]
+      110 GETUPVAL                         R4 0
+      111 GETTABLEKS                       R4 R4 K8 ["createElement"]
       113 GETUPVAL                         R5 1
       114 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
       115 LOADB                            R7 0
@@ -148,8 +148,8 @@ PROTO_1:
       141 CALL                             R7 5 -1
       142 CALL                             R4 -1 1
       143 SETTABLEKS                       R4 R3 K5 ["Graphics"]
-      145 GETUPVAL                         R5 0
-      146 GETTABLEKS                       R4 R5 K8 ["createElement"]
+      145 GETUPVAL                         R4 0
+      146 GETTABLEKS                       R4 R4 K8 ["createElement"]
       148 GETUPVAL                         R5 1
       149 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
       150 LOADB                            R7 0
@@ -188,16 +188,16 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Framework"]
        18 CALL                             R3 1 1
-       19 GETTABLEKS                       R5 R3 K9 ["UI"]
-       21 GETTABLEKS                       R4 R5 K10 ["Checkbox"]
-       23 GETTABLEKS                       R6 R3 K11 ["Util"]
-       25 GETTABLEKS                       R5 R6 K12 ["LayoutOrderIterator"]
-       27 GETTABLEKS                       R7 R3 K9 ["UI"]
-       29 GETTABLEKS                       R6 R7 K13 ["SimpleExpandablePane"]
-       31 GETIMPORT                        R8 K6 [require]
-       33 GETTABLEKS                       R9 R1 K8 ["Framework"]
-       35 CALL                             R8 1 1
-       36 GETTABLEKS                       R7 R8 K14 ["ContextServices"]
+       19 GETTABLEKS                       R4 R3 K9 ["UI"]
+       21 GETTABLEKS                       R4 R4 K10 ["Checkbox"]
+       23 GETTABLEKS                       R5 R3 K11 ["Util"]
+       25 GETTABLEKS                       R5 R5 K12 ["LayoutOrderIterator"]
+       27 GETTABLEKS                       R6 R3 K9 ["UI"]
+       29 GETTABLEKS                       R6 R6 K13 ["SimpleExpandablePane"]
+       31 GETIMPORT                        R7 K6 [require]
+       33 GETTABLEKS                       R8 R1 K8 ["Framework"]
+       35 CALL                             R7 1 1
+       36 GETTABLEKS                       R7 R7 K14 ["ContextServices"]
        38 GETTABLEKS                       R8 R7 K15 ["withContext"]
        40 GETTABLEKS                       R9 R2 K16 ["PureComponent"]
        42 LOADK                            R11 K17 ["AssetQualityFilter"]

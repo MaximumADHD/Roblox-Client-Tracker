@@ -41,21 +41,21 @@ PROTO_2:
         5 MOVE                             R5 R0
         6 MOVE                             R6 R1
         7 CALL                             R4 2 1
-        8 GETTABLEKS                       R7 R4 K0 ["Min"]
-       10 GETTABLEKS                       R6 R7 K1 ["X"]
-       12 GETTABLEKS                       R8 R4 K0 ["Min"]
-       14 GETTABLEKS                       R7 R8 K2 ["Y"]
-       16 GETTABLEKS                       R9 R4 K0 ["Min"]
-       18 GETTABLEKS                       R8 R9 K3 ["Z"]
+        8 GETTABLEKS                       R6 R4 K0 ["Min"]
+       10 GETTABLEKS                       R6 R6 K1 ["X"]
+       12 GETTABLEKS                       R7 R4 K0 ["Min"]
+       14 GETTABLEKS                       R7 R7 K2 ["Y"]
+       16 GETTABLEKS                       R8 R4 K0 ["Min"]
+       18 GETTABLEKS                       R8 R8 K3 ["Z"]
        20 FASTCALL                         VECTOR ; [+2]
        21 GETIMPORT                        R5 K6 [Vector3.new]
        23 CALL                             R5 3 1
-       24 GETTABLEKS                       R8 R4 K7 ["Max"]
-       26 GETTABLEKS                       R7 R8 K1 ["X"]
-       28 GETTABLEKS                       R9 R4 K7 ["Max"]
-       30 GETTABLEKS                       R8 R9 K2 ["Y"]
-       32 GETTABLEKS                       R10 R4 K7 ["Max"]
-       34 GETTABLEKS                       R9 R10 K3 ["Z"]
+       24 GETTABLEKS                       R7 R4 K7 ["Max"]
+       26 GETTABLEKS                       R7 R7 K1 ["X"]
+       28 GETTABLEKS                       R8 R4 K7 ["Max"]
+       30 GETTABLEKS                       R8 R8 K2 ["Y"]
+       32 GETTABLEKS                       R9 R4 K7 ["Max"]
+       34 GETTABLEKS                       R9 R9 K3 ["Z"]
        36 FASTCALL                         VECTOR ; [+2]
        37 GETIMPORT                        R6 K6 [Vector3.new]
        39 CALL                             R6 3 1
@@ -107,22 +107,22 @@ PROTO_2:
       107 GETTABLEKS                       R14 R8 K3 ["Z"]
       109 CALL                             R11 3 -1
       110 CALL                             R9 -1 1
-      111 GETTABLEKS                       R13 R9 K0 ["Min"]
-      113 GETTABLEKS                       R12 R13 K1 ["X"]
-      115 GETTABLEKS                       R13 R9 K7 ["Max"]
-      117 GETTABLEKS                       R10 R13 K1 ["X"]
+      111 GETTABLEKS                       R12 R9 K0 ["Min"]
+      113 GETTABLEKS                       R12 R12 K1 ["X"]
+      115 GETTABLEKS                       R10 R9 K7 ["Max"]
+      117 GETTABLEKS                       R10 R10 K1 ["X"]
       119 LOADN                            R11 144
       120 FORNPREP                         R10
-      121 GETTABLEKS                       R16 R9 K0 ["Min"]
-      123 GETTABLEKS                       R15 R16 K2 ["Y"]
-      125 GETTABLEKS                       R16 R9 K7 ["Max"]
-      127 GETTABLEKS                       R13 R16 K2 ["Y"]
+      121 GETTABLEKS                       R15 R9 K0 ["Min"]
+      123 GETTABLEKS                       R15 R15 K2 ["Y"]
+      125 GETTABLEKS                       R13 R9 K7 ["Max"]
+      127 GETTABLEKS                       R13 R13 K2 ["Y"]
       129 LOADN                            R14 144
       130 FORNPREP                         R13
-      131 GETTABLEKS                       R19 R9 K0 ["Min"]
-      133 GETTABLEKS                       R18 R19 K3 ["Z"]
-      135 GETTABLEKS                       R19 R9 K7 ["Max"]
-      137 GETTABLEKS                       R16 R19 K3 ["Z"]
+      131 GETTABLEKS                       R18 R9 K0 ["Min"]
+      133 GETTABLEKS                       R18 R18 K3 ["Z"]
+      135 GETTABLEKS                       R16 R9 K7 ["Max"]
+      137 GETTABLEKS                       R16 R16 K3 ["Z"]
       139 LOADN                            R17 144
       140 FORNPREP                         R16
       141 FASTCALL3                        VECTOR R12 R15 R18
@@ -189,14 +189,14 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["ConvertTransformToRegion"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["ConvertTransformToRegion"]
        17 CALL                             R1 1 1
        18 DUPCLOSURE                       R2 K8 [PROTO_0]
        19 DUPCLOSURE                       R3 K9 [PROTO_1]

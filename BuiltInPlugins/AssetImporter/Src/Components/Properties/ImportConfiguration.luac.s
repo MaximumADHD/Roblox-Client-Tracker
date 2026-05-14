@@ -1,10 +1,10 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["Localization"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["createFragment"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createFragment"]
         5 DUPTABLE                         R3 K4 [{"Image", "Label"}]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K5 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K5 ["createElement"]
         9 LOADK                            R5 K6 ["ImageLabel"]
        10 DUPTABLE                         R6 K10 [{"BackgroundTransparency", "Image", "LayoutOrder", "Size"}]
        11 LOADN                            R7 1
@@ -20,8 +20,8 @@ PROTO_0:
        25 SETTABLEKS                       R7 R6 K9 ["Size"]
        27 CALL                             R4 2 1
        28 SETTABLEKS                       R4 R3 K2 ["Image"]
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R4 R5 K5 ["createElement"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K5 ["createElement"]
        33 GETUPVAL                         R5 1
        34 DUPTABLE                         R6 K18 [{"AutomaticSize", "LayoutOrder", "Text", "TextWrapped"}]
        35 GETIMPORT                        R7 K21 [Enum.AutomaticSize.XY]
@@ -42,11 +42,11 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["Localization"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["createFragment"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createFragment"]
         5 DUPTABLE                         R3 K3 [{"PropertyList"}]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K4 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K4 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K7 [{"Instance", "AssetImportSession", "Localization"}]
        11 GETTABLEKS                       R7 R0 K8 ["ImportItem"]
@@ -64,8 +64,8 @@ PROTO_2:
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R4 R1 K2 ["ImportItem"]
         6 JUMPIFNOT                        R4 ; [+15]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K3 ["createElement"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K3 ["createElement"]
        10 GETUPVAL                         R4 1
        11 DUPTABLE                         R5 K5 [{"ImportItem", "AssetImportSession"}]
        12 GETTABLEKS                       R6 R1 K2 ["ImportItem"]
@@ -74,8 +74,8 @@ PROTO_2:
        18 SETTABLEKS                       R6 R5 K4 ["AssetImportSession"]
        20 CALL                             R3 2 1
        21 RETURN                           R3 1
-       22 GETUPVAL                         R4 0
-       23 GETTABLEKS                       R3 R4 K3 ["createElement"]
+       22 GETUPVAL                         R3 0
+       23 GETTABLEKS                       R3 R3 K3 ["createElement"]
        25 GETUPVAL                         R4 2
        26 DUPTABLE                         R5 K6 [{"Localization"}]
        27 SETTABLEKS                       R2 R5 K1 ["Localization"]
@@ -89,24 +89,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]
        25 GETTABLEKS                       R5 R3 K11 ["Localization"]
-       27 GETTABLEKS                       R7 R2 K12 ["Style"]
-       29 GETTABLEKS                       R6 R7 K13 ["Stylizer"]
+       27 GETTABLEKS                       R6 R2 K12 ["Style"]
+       29 GETTABLEKS                       R6 R6 K13 ["Stylizer"]
        31 GETTABLEKS                       R7 R2 K14 ["UI"]
        33 GETTABLEKS                       R8 R7 K15 ["TextLabel"]
        35 GETIMPORT                        R9 K5 [require]
-       37 GETIMPORT                        R12 K1 [script]
-       39 GETTABLEKS                       R11 R12 K16 ["Parent"]
-       41 GETTABLEKS                       R10 R11 K17 ["PropertyListView"]
+       37 GETIMPORT                        R10 K1 [script]
+       39 GETTABLEKS                       R10 R10 K16 ["Parent"]
+       41 GETTABLEKS                       R10 R10 K17 ["PropertyListView"]
        43 CALL                             R9 1 1
        44 GETTABLEKS                       R10 R1 K18 ["PureComponent"]
        46 LOADK                            R12 K19 ["ImportConfiguration"]

@@ -39,17 +39,17 @@ PROTO_3:
         2 CAPTURE                          UPVAL U1
         3 NEWTABLE                         R3 0 0
         5 CALL                             R1 2 0
-        6 GETUPVAL                         R2 2
-        7 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        6 GETUPVAL                         R1 2
+        7 GETTABLEKS                       R1 R1 K0 ["createElement"]
         9 LOADK                            R2 K1 ["Frame"]
        10 NEWTABLE                         R3 1 0
-       12 GETUPVAL                         R5 2
-       13 GETTABLEKS                       R4 R5 K2 ["Tag"]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R4 R4 K2 ["Tag"]
        15 LOADK                            R5 K3 ["X-Fill"]
        16 SETTABLE                         R5 R3 R4
        17 DUPTABLE                         R4 K5 [{"Shimmer"}]
-       18 GETUPVAL                         R6 2
-       19 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       18 GETUPVAL                         R5 2
+       19 GETTABLEKS                       R5 R5 K0 ["createElement"]
        21 LOADK                            R6 K6 ["UIGradient"]
        22 DUPTABLE                         R7 K10 [{"Offset", "Rotation", "Transparency"}]
        23 GETUPVAL                         R8 3
@@ -77,8 +77,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useEffect"]
        16 GETIMPORT                        R3 K10 [game]

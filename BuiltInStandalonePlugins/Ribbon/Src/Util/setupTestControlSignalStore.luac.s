@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Provider"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Provider"]
         6 DUPTABLE                         R3 K3 [{"value"}]
         7 GETUPVAL                         R4 2
         8 SETTABLEKS                       R4 R3 K2 ["value"]
@@ -12,21 +12,21 @@ PROTO_0:
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [require]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K2 ["Src"]
-        5 GETTABLEKS                       R3 R4 K3 ["Util"]
-        7 GETTABLEKS                       R2 R3 K4 ["ControlSignalStore"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Src"]
+        5 GETTABLEKS                       R2 R2 K3 ["Util"]
+        7 GETTABLEKS                       R2 R2 K4 ["ControlSignalStore"]
         9 CALL                             R1 1 1
        10 GETIMPORT                        R2 K1 [require]
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K2 ["Src"]
-       15 GETTABLEKS                       R4 R5 K5 ["Contexts"]
-       17 GETTABLEKS                       R3 R4 K6 ["ControlSignalStoreContext"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K2 ["Src"]
+       15 GETTABLEKS                       R3 R3 K5 ["Contexts"]
+       17 GETTABLEKS                       R3 R3 K6 ["ControlSignalStoreContext"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K1 [require]
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R5 R6 K7 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K8 ["React"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K7 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K8 ["React"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K9 ["new"]
        30 LOADK                            R7 K10 ["Actions"]

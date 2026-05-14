@@ -160,10 +160,10 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R5 K7 [script]
-       11 GETTABLEKS                       R4 R5 K8 ["Parent"]
-       13 GETTABLEKS                       R3 R4 K9 ["SharedFlags"]
-       15 GETTABLEKS                       R2 R3 K10 ["getFFlagToolboxModelCreationWarningWindow"]
+        9 GETIMPORT                        R2 K7 [script]
+       11 GETTABLEKS                       R2 R2 K8 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K9 ["SharedFlags"]
+       15 GETTABLEKS                       R2 R2 K10 ["getFFlagToolboxModelCreationWarningWindow"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 2 0
        20 GETIMPORT                        R3 K1 [game]

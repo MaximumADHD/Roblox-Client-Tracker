@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["valueToEnum"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["valueToEnum"]
         3 GETTABLE                         R1 R2 R0
         4 JUMPIF                           R1 ; [+18]
         5 NEWTABLE                         R1 0 0
@@ -12,8 +12,8 @@ PROTO_0:
        14 GETTABLEKS                       R7 R6 K4 ["Value"]
        16 SETTABLE                         R6 R1 R7
        17 FORGLOOP                         R2 2 ; [-4]
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K0 ["valueToEnum"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K0 ["valueToEnum"]
        22 SETTABLE                         R1 R2 R0
        23 RETURN                           R0 0
 
@@ -21,15 +21,15 @@ PROTO_1:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 0
-        3 GETUPVAL                         R5 1
-        4 GETTABLEKS                       R4 R5 K0 ["valueToEnum"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K0 ["valueToEnum"]
         6 GETTABLE                         R3 R4 R1
         7 GETTABLE                         R2 R3 R0
         8 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["convertValueToEnum"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["convertValueToEnum"]
         3 MOVE                             R2 R0
         4 GETIMPORT                        R3 K3 [Enum.AssetType]
         6 CALL                             R1 2 -1

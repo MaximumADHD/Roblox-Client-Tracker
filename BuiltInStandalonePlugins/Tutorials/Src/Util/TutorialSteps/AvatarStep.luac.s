@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["data"]
-        3 GETTABLEKS                       R1 R2 K1 ["state"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["data"]
+        3 GETTABLEKS                       R1 R1 K1 ["state"]
         5 JUMPIFNOTEQ                      R0 R1 ; [+5]
         7 GETUPVAL                         R1 0
         8 NAMECALL                         R1 R1 K2 ["complete"]
@@ -26,16 +26,16 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETTABLEKS                       R1 R0 K2 ["Parent"]
        13 GETIMPORT                        R2 K4 [require]
-       15 GETIMPORT                        R5 K1 [script]
-       17 GETTABLEKS                       R4 R5 K2 ["Parent"]
-       19 GETTABLEKS                       R3 R4 K5 ["TutorialStep"]
+       15 GETIMPORT                        R3 K1 [script]
+       17 GETTABLEKS                       R3 R3 K2 ["Parent"]
+       19 GETTABLEKS                       R3 R3 K5 ["TutorialStep"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K6 ["extend"]
        24 LOADK                            R4 K7 ["Avatar"]

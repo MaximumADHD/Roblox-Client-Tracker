@@ -3,9 +3,9 @@ PROTO_0:
         1 NAMECALL                         R0 R0 K0 ["filterRowsBySearchTerm"]
         3 CALL                             R0 1 1
         4 GETUPVAL                         R1 1
-        5 GETUPVAL                         R5 2
-        6 GETTABLE                         R4 R0 R5
-        7 GETTABLEKS                       R3 R4 K1 ["Texture"]
+        5 GETUPVAL                         R4 2
+        6 GETTABLE                         R3 R0 R4
+        7 GETTABLEKS                       R3 R3 K1 ["Texture"]
         9 NAMECALL                         R1 R1 K2 ["CopyToClipboard"]
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
@@ -91,16 +91,16 @@ MAIN:
        11 LOADK                            R4 K4 ["Selection"]
        12 NAMECALL                         R2 R2 K3 ["GetService"]
        14 CALL                             R2 2 1
-       15 GETIMPORT                        R6 K6 [script]
-       17 GETTABLEKS                       R5 R6 K7 ["Parent"]
-       19 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       21 GETTABLEKS                       R3 R4 K7 ["Parent"]
+       15 GETIMPORT                        R3 K6 [script]
+       17 GETTABLEKS                       R3 R3 K7 ["Parent"]
+       19 GETTABLEKS                       R3 R3 K7 ["Parent"]
+       21 GETTABLEKS                       R3 R3 K7 ["Parent"]
        23 GETIMPORT                        R4 K9 [require]
-       25 GETTABLEKS                       R6 R3 K10 ["Packages"]
-       27 GETTABLEKS                       R5 R6 K11 ["Framework"]
+       25 GETTABLEKS                       R5 R3 K10 ["Packages"]
+       27 GETTABLEKS                       R5 R5 K11 ["Framework"]
        29 CALL                             R4 1 1
-       30 GETTABLEKS                       R6 R4 K12 ["UI"]
-       32 GETTABLEKS                       R5 R6 K13 ["showContextMenu"]
+       30 GETTABLEKS                       R5 R4 K12 ["UI"]
+       32 GETTABLEKS                       R5 R5 K13 ["showContextMenu"]
        34 DUPCLOSURE                       R6 K14 [PROTO_3]
        35 CAPTURE                          VAL R1
        36 CAPTURE                          VAL R2

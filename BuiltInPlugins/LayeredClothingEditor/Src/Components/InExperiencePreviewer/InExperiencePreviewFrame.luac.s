@@ -35,15 +35,15 @@ PROTO_3:
         4 GETTABLEKS                       R3 R2 K2 ["index"]
         6 GETTABLEKS                       R4 R1 K3 ["PreviewContext"]
         8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 LOADK                            R7 K6 ["ScreenGui"]
        14 DUPTABLE                         R8 K8 [{"ZIndexBehavior"}]
        15 GETIMPORT                        R9 K11 [Enum.ZIndexBehavior.Sibling]
        17 SETTABLEKS                       R9 R8 K7 ["ZIndexBehavior"]
        19 DUPTABLE                         R9 K13 [{"AvatarSelection"}]
-       20 GETUPVAL                         R11 0
-       21 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       20 GETUPVAL                         R10 0
+       21 GETTABLEKS                       R10 R10 K5 ["createElement"]
        23 GETUPVAL                         R11 1
        24 DUPTABLE                         R12 K20 [{"PreviewAvatars", "SelectedIndex", "Size", "Position", "AnchorPoint", "Capacity"}]
        25 NAMECALL                         R13 R4 K21 ["getAvatars"]
@@ -81,22 +81,22 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["AvatarToolsShared"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["AvatarToolsShared"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K8 ["Framework"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R2 K9 ["Components"]
        34 GETTABLEKS                       R5 R4 K10 ["PreviewAvatarWheel"]

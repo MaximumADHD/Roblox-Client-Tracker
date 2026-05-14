@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        2 GETTABLEKS                       R1 R2 K1 ["groups"]
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R1 K1 ["groups"]
         4 GETUPVAL                         R2 0
         5 GETUPVAL                         R4 1
         6 MOVE                             R5 R1
@@ -59,26 +59,26 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Src"]
-       15 GETTABLEKS                       R4 R5 K6 ["Networking"]
-       17 GETTABLEKS                       R3 R4 K7 ["Requests"]
-       19 GETTABLEKS                       R2 R3 K8 ["UpdatePageInfoAndSendRequest"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Networking"]
+       17 GETTABLEKS                       R2 R2 K7 ["Requests"]
+       19 GETTABLEKS                       R2 R2 K8 ["UpdatePageInfoAndSendRequest"]
        21 CALL                             R1 1 1
        22 GETIMPORT                        R2 K4 [require]
-       24 GETTABLEKS                       R5 R0 K5 ["Src"]
-       26 GETTABLEKS                       R4 R5 K9 ["Actions"]
-       28 GETTABLEKS                       R3 R4 K10 ["SetToolboxManageableGroups"]
+       24 GETTABLEKS                       R3 R0 K5 ["Src"]
+       26 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       28 GETTABLEKS                       R3 R3 K10 ["SetToolboxManageableGroups"]
        30 CALL                             R2 1 1
        31 GETIMPORT                        R3 K4 [require]
-       33 GETTABLEKS                       R6 R0 K5 ["Src"]
-       35 GETTABLEKS                       R5 R6 K9 ["Actions"]
-       37 GETTABLEKS                       R4 R5 K11 ["NetworkError"]
+       33 GETTABLEKS                       R4 R0 K5 ["Src"]
+       35 GETTABLEKS                       R4 R4 K9 ["Actions"]
+       37 GETTABLEKS                       R4 R4 K11 ["NetworkError"]
        39 CALL                             R3 1 1
        40 DUPCLOSURE                       R4 K12 [PROTO_3]
        41 CAPTURE                          VAL R2

@@ -14,8 +14,8 @@ PROTO_1:
         8 SETUPVAL                         R2 0
         9 GETUPVAL                         R2 1
        10 JUMPIFNOTEQKNIL                  R2 ; [+10]
-       12 GETTABLEKS                       R3 R0 K4 ["props"]
-       14 GETTABLEKS                       R2 R3 K5 ["DraggerContext"]
+       12 GETTABLEKS                       R2 R0 K4 ["props"]
+       14 GETTABLEKS                       R2 R2 K5 ["DraggerContext"]
        16 LOADK                            R4 K6 ["CoreDraggersSummonHintHidden"]
        17 NAMECALL                         R2 R2 K7 ["getSetting"]
        19 CALL                             R2 2 1
@@ -25,8 +25,8 @@ PROTO_1:
        23 JUMPIFNOTLE                      R2 R3 ; [+14]
        25 GETUPVAL                         R2 1
        26 JUMPIF                           R2 ; [+11]
-       27 GETTABLEKS                       R3 R0 K4 ["props"]
-       29 GETTABLEKS                       R2 R3 K5 ["DraggerContext"]
+       27 GETTABLEKS                       R2 R0 K4 ["props"]
+       29 GETTABLEKS                       R2 R2 K5 ["DraggerContext"]
        31 LOADK                            R4 K6 ["CoreDraggersSummonHintHidden"]
        32 LOADB                            R5 1
        33 NAMECALL                         R2 R2 K8 ["setSetting"]
@@ -58,14 +58,14 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K7 ["PureComponent"]
        20 LOADK                            R5 K8 ["SummonHandlesHider"]

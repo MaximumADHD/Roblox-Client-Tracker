@@ -7,10 +7,10 @@ PROTO_0:
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["selection"]
-        7 GETTABLEKS                       R4 R1 K1 ["ScriptConversion"]
-        9 GETTABLEKS                       R3 R4 K3 ["revertedScripts"]
+        3 GETTABLEKS                       R2 R1 K1 ["ScriptConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["selection"]
+        7 GETTABLEKS                       R3 R1 K1 ["ScriptConversion"]
+        9 GETTABLEKS                       R3 R3 K3 ["revertedScripts"]
        11 NEWTABLE                         R4 0 0
        13 MOVE                             R5 R2
        14 LOADNIL                          R6
@@ -29,8 +29,8 @@ PROTO_1:
        32 GETIMPORT                        R10 K8 [table.insert]
        34 CALL                             R10 2 0
        35 FORGLOOP                         R5 2 ; [-19]
-       37 GETUPVAL                         R6 0
-       38 GETTABLEKS                       R5 R6 K9 ["new"]
+       37 GETUPVAL                         R5 0
+       38 GETTABLEKS                       R5 R5 K9 ["new"]
        40 LOADK                            R6 K10 ["UndoRevert"]
        41 LENGTH                           R7 R4
        42 MOVE                             R8 R0
@@ -75,20 +75,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Actions"]
-       13 GETTABLEKS                       R2 R3 K8 ["SetProcessResult"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Actions"]
+       13 GETTABLEKS                       R2 R2 K8 ["SetProcessResult"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R6 R0 K6 ["Src"]
-       20 GETTABLEKS                       R5 R6 K9 ["Util"]
-       22 GETTABLEKS                       R4 R5 K10 ["ScriptHistory"]
-       24 GETTABLEKS                       R3 R4 K11 ["undoRevert"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["ScriptHistory"]
+       24 GETTABLEKS                       R3 R3 K11 ["undoRevert"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R6 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R6 K9 ["Util"]
-       33 GETTABLEKS                       R4 R5 K12 ["ScriptConversionProgressTracker"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K9 ["Util"]
+       33 GETTABLEKS                       R4 R4 K12 ["ScriptConversionProgressTracker"]
        35 CALL                             R3 1 1
        36 DUPCLOSURE                       R4 K13 [PROTO_2]
        37 CAPTURE                          VAL R3

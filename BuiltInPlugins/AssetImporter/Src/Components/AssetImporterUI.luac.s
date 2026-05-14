@@ -2,15 +2,15 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R2 K2 ["Sizes"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K5 [{"Layout"}]
        11 GETIMPORT                        R7 K9 [Enum.FillDirection.Vertical]
        13 SETTABLEKS                       R7 R6 K4 ["Layout"]
        15 DUPTABLE                         R7 K13 [{"TopBar", "TopSeparator", "BottomPanel"}]
-       16 GETUPVAL                         R9 0
-       17 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K3 ["createElement"]
        19 GETUPVAL                         R9 2
        20 DUPTABLE                         R10 K18 [{"LayoutOrder", "Padding", "Size", "FileName"}]
        21 LOADN                            R11 1
@@ -29,8 +29,8 @@ PROTO_0:
        41 SETTABLEKS                       R11 R10 K17 ["FileName"]
        43 CALL                             R8 2 1
        44 SETTABLEKS                       R8 R7 K10 ["TopBar"]
-       46 GETUPVAL                         R9 0
-       47 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       46 GETUPVAL                         R8 0
+       47 GETTABLEKS                       R8 R8 K3 ["createElement"]
        49 GETUPVAL                         R9 3
        50 DUPTABLE                         R10 K27 [{"DominantAxis", "LayoutOrder"}]
        51 GETIMPORT                        R11 K29 [Enum.DominantAxis.Width]
@@ -39,8 +39,8 @@ PROTO_0:
        56 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
        58 CALL                             R8 2 1
        59 SETTABLEKS                       R8 R7 K11 ["TopSeparator"]
-       61 GETUPVAL                         R9 0
-       62 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       61 GETUPVAL                         R8 0
+       62 GETTABLEKS                       R8 R8 K3 ["createElement"]
        64 GETUPVAL                         R9 1
        65 DUPTABLE                         R10 K31 [{"Layout", "LayoutOrder", "Position", "Size"}]
        66 GETIMPORT                        R11 K33 [Enum.FillDirection.Horizontal]
@@ -64,8 +64,8 @@ PROTO_0:
        92 CALL                             R11 4 1
        93 SETTABLEKS                       R11 R10 K16 ["Size"]
        95 DUPTABLE                         R11 K38 [{"LeftPanel", "Separator", "RightPanel"}]
-       96 GETUPVAL                         R13 0
-       97 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       96 GETUPVAL                         R12 0
+       97 GETTABLEKS                       R12 R12 K3 ["createElement"]
        99 GETUPVAL                         R13 1
       100 DUPTABLE                         R14 K39 [{"LayoutOrder", "Layout", "Size"}]
       101 LOADN                            R15 1
@@ -80,16 +80,16 @@ PROTO_0:
       114 CALL                             R15 4 1
       115 SETTABLEKS                       R15 R14 K16 ["Size"]
       117 DUPTABLE                         R15 K43 [{"PreviewContainer", "Separator", "TreeContainer"}]
-      118 GETUPVAL                         R17 0
-      119 GETTABLEKS                       R16 R17 K3 ["createElement"]
+      118 GETUPVAL                         R16 0
+      119 GETTABLEKS                       R16 R16 K3 ["createElement"]
       121 GETUPVAL                         R17 4
       122 DUPTABLE                         R18 K44 [{"LayoutOrder"}]
       123 LOADN                            R19 1
       124 SETTABLEKS                       R19 R18 K14 ["LayoutOrder"]
       126 CALL                             R16 2 1
       127 SETTABLEKS                       R16 R15 K41 ["PreviewContainer"]
-      129 GETUPVAL                         R17 0
-      130 GETTABLEKS                       R16 R17 K3 ["createElement"]
+      129 GETUPVAL                         R16 0
+      130 GETTABLEKS                       R16 R16 K3 ["createElement"]
       132 GETUPVAL                         R17 3
       133 DUPTABLE                         R18 K27 [{"DominantAxis", "LayoutOrder"}]
       134 GETIMPORT                        R19 K29 [Enum.DominantAxis.Width]
@@ -98,8 +98,8 @@ PROTO_0:
       139 SETTABLEKS                       R19 R18 K14 ["LayoutOrder"]
       141 CALL                             R16 2 1
       142 SETTABLEKS                       R16 R15 K36 ["Separator"]
-      144 GETUPVAL                         R17 0
-      145 GETTABLEKS                       R16 R17 K3 ["createElement"]
+      144 GETUPVAL                         R16 0
+      145 GETTABLEKS                       R16 R16 K3 ["createElement"]
       147 GETUPVAL                         R17 1
       148 DUPTABLE                         R18 K45 [{"LayoutOrder", "Size"}]
       149 LOADN                            R19 3
@@ -112,8 +112,8 @@ PROTO_0:
       159 CALL                             R19 4 1
       160 SETTABLEKS                       R19 R18 K16 ["Size"]
       162 DUPTABLE                         R19 K48 [{"TreeView"}]
-      163 GETUPVAL                         R21 0
-      164 GETTABLEKS                       R20 R21 K3 ["createElement"]
+      163 GETUPVAL                         R20 0
+      164 GETTABLEKS                       R20 R20 K3 ["createElement"]
       166 GETUPVAL                         R21 5
       167 DUPTABLE                         R22 K50 [{"Instances", "FileName"}]
       168 NEWTABLE                         R23 0 1
@@ -129,8 +129,8 @@ PROTO_0:
       185 SETTABLEKS                       R16 R15 K42 ["TreeContainer"]
       187 CALL                             R12 3 1
       188 SETTABLEKS                       R12 R11 K35 ["LeftPanel"]
-      190 GETUPVAL                         R13 0
-      191 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      190 GETUPVAL                         R12 0
+      191 GETTABLEKS                       R12 R12 K3 ["createElement"]
       193 GETUPVAL                         R13 3
       194 DUPTABLE                         R14 K27 [{"DominantAxis", "LayoutOrder"}]
       195 GETIMPORT                        R15 K53 [Enum.DominantAxis.Height]
@@ -139,8 +139,8 @@ PROTO_0:
       200 SETTABLEKS                       R15 R14 K14 ["LayoutOrder"]
       202 CALL                             R12 2 1
       203 SETTABLEKS                       R12 R11 K36 ["Separator"]
-      205 GETUPVAL                         R13 0
-      206 GETTABLEKS                       R12 R13 K3 ["createElement"]
+      205 GETUPVAL                         R12 0
+      206 GETTABLEKS                       R12 R12 K3 ["createElement"]
       208 GETUPVAL                         R13 1
       209 DUPTABLE                         R14 K45 [{"LayoutOrder", "Size"}]
       210 LOADN                            R15 3
@@ -153,8 +153,8 @@ PROTO_0:
       219 CALL                             R15 4 1
       220 SETTABLEKS                       R15 R14 K16 ["Size"]
       222 DUPTABLE                         R15 K55 [{"ImportConfiguration"}]
-      223 GETUPVAL                         R17 0
-      224 GETTABLEKS                       R16 R17 K3 ["createElement"]
+      223 GETUPVAL                         R16 0
+      224 GETTABLEKS                       R16 R16 K3 ["createElement"]
       226 GETUPVAL                         R17 6
       227 DUPTABLE                         R18 K58 [{"ImportItem", "AssetImportSession"}]
       228 GETTABLEKS                       R19 R1 K59 ["SelectedImportItem"]
@@ -172,17 +172,17 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R1 K4 [{"AssetImportSession", "ImportTree", "Filename", "SelectedImportItem"}]
-        1 GETTABLEKS                       R3 R0 K5 ["Preview"]
-        3 GETTABLEKS                       R2 R3 K6 ["assetImportSession"]
+        1 GETTABLEKS                       R2 R0 K5 ["Preview"]
+        3 GETTABLEKS                       R2 R2 K6 ["assetImportSession"]
         5 SETTABLEKS                       R2 R1 K0 ["AssetImportSession"]
-        7 GETTABLEKS                       R3 R0 K5 ["Preview"]
-        9 GETTABLEKS                       R2 R3 K7 ["importTree"]
+        7 GETTABLEKS                       R2 R0 K5 ["Preview"]
+        9 GETTABLEKS                       R2 R2 K7 ["importTree"]
        11 SETTABLEKS                       R2 R1 K1 ["ImportTree"]
-       13 GETTABLEKS                       R3 R0 K5 ["Preview"]
-       15 GETTABLEKS                       R2 R3 K8 ["filename"]
+       13 GETTABLEKS                       R2 R0 K5 ["Preview"]
+       15 GETTABLEKS                       R2 R2 K8 ["filename"]
        17 SETTABLEKS                       R2 R1 K2 ["Filename"]
-       19 GETTABLEKS                       R3 R0 K5 ["Preview"]
-       21 GETTABLEKS                       R2 R3 K9 ["selectedImportItem"]
+       19 GETTABLEKS                       R2 R0 K5 ["Preview"]
+       21 GETTABLEKS                       R2 R2 K9 ["selectedImportItem"]
        23 SETTABLEKS                       R2 R1 K3 ["SelectedImportItem"]
        25 RETURN                           R1 1
 
@@ -193,51 +193,51 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["RoactCompat"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["RoactCompat"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R4 K11 ["withContext"]
        32 GETTABLEKS                       R6 R4 K12 ["Localization"]
-       34 GETTABLEKS                       R8 R3 K13 ["Style"]
-       36 GETTABLEKS                       R7 R8 K14 ["Stylizer"]
+       34 GETTABLEKS                       R7 R3 K13 ["Style"]
+       36 GETTABLEKS                       R7 R7 K14 ["Stylizer"]
        38 GETTABLEKS                       R8 R3 K15 ["UI"]
        40 GETTABLEKS                       R9 R8 K16 ["Pane"]
        42 GETTABLEKS                       R10 R8 K17 ["Separator"]
        44 GETIMPORT                        R11 K5 [require]
-       46 GETTABLEKS                       R14 R0 K18 ["Src"]
-       48 GETTABLEKS                       R13 R14 K19 ["Controllers"]
-       50 GETTABLEKS                       R12 R13 K20 ["PresetController"]
+       46 GETTABLEKS                       R12 R0 K18 ["Src"]
+       48 GETTABLEKS                       R12 R12 K19 ["Controllers"]
+       50 GETTABLEKS                       R12 R12 K20 ["PresetController"]
        52 CALL                             R11 1 1
        53 GETIMPORT                        R12 K5 [require]
-       55 GETTABLEKS                       R15 R0 K18 ["Src"]
-       57 GETTABLEKS                       R14 R15 K21 ["Components"]
-       59 GETTABLEKS                       R13 R14 K22 ["AssetImportTree"]
+       55 GETTABLEKS                       R13 R0 K18 ["Src"]
+       57 GETTABLEKS                       R13 R13 K21 ["Components"]
+       59 GETTABLEKS                       R13 R13 K22 ["AssetImportTree"]
        61 CALL                             R12 1 1
        62 GETIMPORT                        R13 K5 [require]
-       64 GETTABLEKS                       R17 R0 K18 ["Src"]
-       66 GETTABLEKS                       R16 R17 K21 ["Components"]
-       68 GETTABLEKS                       R15 R16 K23 ["Properties"]
-       70 GETTABLEKS                       R14 R15 K24 ["ImportConfiguration"]
+       64 GETTABLEKS                       R14 R0 K18 ["Src"]
+       66 GETTABLEKS                       R14 R14 K21 ["Components"]
+       68 GETTABLEKS                       R14 R14 K23 ["Properties"]
+       70 GETTABLEKS                       R14 R14 K24 ["ImportConfiguration"]
        72 CALL                             R13 1 1
        73 GETIMPORT                        R14 K5 [require]
-       75 GETTABLEKS                       R17 R0 K18 ["Src"]
-       77 GETTABLEKS                       R16 R17 K21 ["Components"]
-       79 GETTABLEKS                       R15 R16 K25 ["TopBar"]
+       75 GETTABLEKS                       R15 R0 K18 ["Src"]
+       77 GETTABLEKS                       R15 R15 K21 ["Components"]
+       79 GETTABLEKS                       R15 R15 K25 ["TopBar"]
        81 CALL                             R14 1 1
        82 GETIMPORT                        R15 K5 [require]
-       84 GETTABLEKS                       R19 R0 K18 ["Src"]
-       86 GETTABLEKS                       R18 R19 K21 ["Components"]
-       88 GETTABLEKS                       R17 R18 K26 ["Preview"]
-       90 GETTABLEKS                       R16 R17 K27 ["PreviewContainer"]
+       84 GETTABLEKS                       R16 R0 K18 ["Src"]
+       86 GETTABLEKS                       R16 R16 K21 ["Components"]
+       88 GETTABLEKS                       R16 R16 K26 ["Preview"]
+       90 GETTABLEKS                       R16 R16 K27 ["PreviewContainer"]
        92 CALL                             R15 1 1
        93 GETTABLEKS                       R16 R1 K28 ["PureComponent"]
        95 LOADK                            R18 K29 ["AssetImporterUI"]

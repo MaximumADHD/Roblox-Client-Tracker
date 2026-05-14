@@ -1,18 +1,18 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"plugins"}]
-        7 GETUPVAL                         R7 0
-        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
-       10 GETTABLEKS                       R5 R6 K1 ["join"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R5 K1 ["join"]
        12 GETTABLEKS                       R6 R0 K2 ["plugins"]
        14 NEWTABLE                         R7 1 0
        16 GETTABLEKS                       R8 R1 K4 ["pluginId"]
        18 DUPTABLE                         R9 K13 [{"installStatus", "installationMsg", "installProgress", "name", "description", "versionId", "created", "updated"}]
-       19 GETUPVAL                         R11 1
-       20 GETTABLEKS                       R10 R11 K14 ["UNKNOWN"]
+       19 GETUPVAL                         R10 1
+       20 GETTABLEKS                       R10 R10 K14 ["UNKNOWN"]
        22 SETTABLEKS                       R10 R9 K5 ["installStatus"]
        24 LOADK                            R10 K15 [""]
        25 SETTABLEKS                       R10 R9 K6 ["installationMsg"]
@@ -40,19 +40,19 @@ PROTO_1:
         4 GETTABLE                         R2 R3 R4
         5 JUMPIF                           R2 ; [+1]
         6 RETURN                           R0 1
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K2 ["Dictionary"]
-       10 GETTABLEKS                       R2 R3 K3 ["join"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["Dictionary"]
+       10 GETTABLEKS                       R2 R2 K3 ["join"]
        12 MOVE                             R3 R0
        13 DUPTABLE                         R4 K4 [{"plugins"}]
-       14 GETUPVAL                         R7 0
-       15 GETTABLEKS                       R6 R7 K2 ["Dictionary"]
-       17 GETTABLEKS                       R5 R6 K3 ["join"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K2 ["Dictionary"]
+       17 GETTABLEKS                       R5 R5 K3 ["join"]
        19 GETTABLEKS                       R6 R0 K0 ["plugins"]
        21 NEWTABLE                         R7 1 0
        23 GETTABLEKS                       R8 R1 K1 ["pluginId"]
-       25 GETUPVAL                         R10 0
-       26 GETTABLEKS                       R9 R10 K5 ["None"]
+       25 GETUPVAL                         R9 0
+       26 GETTABLEKS                       R9 R9 K5 ["None"]
        28 SETTABLE                         R9 R7 R8
        29 CALL                             R5 2 1
        30 SETTABLEKS                       R5 R4 K0 ["plugins"]
@@ -70,20 +70,20 @@ PROTO_2:
        11 FASTCALL                         ASSERT ; [+2]
        12 GETIMPORT                        R2 K7 [assert]
        14 CALL                             R2 -1 0
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K8 ["Dictionary"]
-       18 GETTABLEKS                       R2 R3 K9 ["join"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K8 ["Dictionary"]
+       18 GETTABLEKS                       R2 R2 K9 ["join"]
        20 MOVE                             R3 R0
        21 DUPTABLE                         R4 K10 [{"plugins"}]
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K8 ["Dictionary"]
-       25 GETTABLEKS                       R5 R6 K9 ["join"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K8 ["Dictionary"]
+       25 GETTABLEKS                       R5 R5 K9 ["join"]
        27 GETTABLEKS                       R6 R0 K0 ["plugins"]
        29 NEWTABLE                         R7 1 0
        31 GETTABLEKS                       R8 R1 K1 ["pluginId"]
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R10 R11 K8 ["Dictionary"]
-       36 GETTABLEKS                       R9 R10 K9 ["join"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K8 ["Dictionary"]
+       36 GETTABLEKS                       R9 R9 K9 ["join"]
        38 GETTABLEKS                       R11 R0 K0 ["plugins"]
        40 GETTABLEKS                       R12 R1 K1 ["pluginId"]
        42 GETTABLE                         R10 R11 R12
@@ -116,20 +116,20 @@ PROTO_3:
        11 FASTCALL                         ASSERT ; [+2]
        12 GETIMPORT                        R2 K7 [assert]
        14 CALL                             R2 -1 0
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K8 ["Dictionary"]
-       18 GETTABLEKS                       R2 R3 K9 ["join"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K8 ["Dictionary"]
+       18 GETTABLEKS                       R2 R2 K9 ["join"]
        20 MOVE                             R3 R0
        21 DUPTABLE                         R4 K10 [{"plugins"}]
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K8 ["Dictionary"]
-       25 GETTABLEKS                       R5 R6 K9 ["join"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K8 ["Dictionary"]
+       25 GETTABLEKS                       R5 R5 K9 ["join"]
        27 GETTABLEKS                       R6 R0 K0 ["plugins"]
        29 NEWTABLE                         R7 1 0
        31 GETTABLEKS                       R8 R1 K1 ["pluginId"]
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R10 R11 K8 ["Dictionary"]
-       36 GETTABLEKS                       R9 R10 K9 ["join"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K8 ["Dictionary"]
+       36 GETTABLEKS                       R9 R9 K9 ["join"]
        38 GETTABLEKS                       R11 R0 K0 ["plugins"]
        40 GETTABLEKS                       R12 R1 K1 ["pluginId"]
        42 GETTABLE                         R10 R11 R12
@@ -147,22 +147,22 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Constants"]
-       29 GETTABLEKS                       R4 R5 K10 ["PluginInstalledStatus"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Constants"]
+       29 GETTABLEKS                       R4 R4 K10 ["PluginInstalledStatus"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R1 K11 ["createReducer"]
        34 DUPTABLE                         R5 K13 [{"plugins"}]

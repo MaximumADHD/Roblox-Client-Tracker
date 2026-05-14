@@ -30,24 +30,24 @@ PROTO_2:
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["_bindable"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["INSERT_TO_WORKSPACE"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["INSERT_TO_WORKSPACE"]
         5 NAMECALL                         R1 R1 K2 ["Fire"]
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_bindable"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["INSERT_TO_STARTER_PACK"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["INSERT_TO_STARTER_PACK"]
         5 NAMECALL                         R1 R1 K2 ["Fire"]
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_bindable"]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R3 R4 K1 ["INSERT_CANCELLED"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["INSERT_CANCELLED"]
         5 NAMECALL                         R1 R1 K2 ["Fire"]
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
@@ -75,8 +75,8 @@ PROTO_8:
         7 GETTABLEKS                       R2 R0 K1 ["_onPermissionsGrantCallback"]
         9 MOVE                             R3 R1
        10 CALL                             R2 1 0
-       11 GETTABLEKS                       R3 R0 K2 ["_bindable"]
-       13 GETTABLEKS                       R2 R3 K3 ["Event"]
+       11 GETTABLEKS                       R2 R0 K2 ["_bindable"]
+       13 GETTABLEKS                       R2 R2 K3 ["Event"]
        15 NAMECALL                         R2 R2 K4 ["Wait"]
        17 CALL                             R2 1 1
        18 LOADB                            R3 0
@@ -90,8 +90,8 @@ PROTO_9:
         5 MOVE                             R3 R1
         6 CALL                             R2 1 1
         7 JUMPIFNOT                        R2 ; [+7]
-        8 GETTABLEKS                       R3 R0 K2 ["_bindable"]
-       10 GETTABLEKS                       R2 R3 K3 ["Event"]
+        8 GETTABLEKS                       R2 R0 K2 ["_bindable"]
+       10 GETTABLEKS                       R2 R2 K3 ["Event"]
        12 NAMECALL                         R2 R2 K4 ["Wait"]
        14 CALL                             R2 1 0
        15 LOADB                            R2 0
@@ -101,15 +101,15 @@ PROTO_9:
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["_waiting"]
         2 JUMPIFNOT                        R1 ; [+4]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["INSERT_CANCELLED"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["INSERT_CANCELLED"]
         6 RETURN                           R1 1
         7 LOADB                            R1 1
         8 SETTABLEKS                       R1 R0 K0 ["_waiting"]
        10 GETTABLEKS                       R1 R0 K2 ["_onPromptCallback"]
        12 CALL                             R1 0 0
-       13 GETTABLEKS                       R2 R0 K3 ["_bindable"]
-       15 GETTABLEKS                       R1 R2 K4 ["Event"]
+       13 GETTABLEKS                       R1 R0 K3 ["_bindable"]
+       15 GETTABLEKS                       R1 R1 K4 ["Event"]
        17 NAMECALL                         R1 R1 K5 ["Wait"]
        19 CALL                             R1 1 1
        20 LOADB                            R2 0
@@ -118,10 +118,10 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["ToolboxEnableAudioGrantDialog"]
        12 NAMECALL                         R1 R1 K6 ["GetFastFlag"]

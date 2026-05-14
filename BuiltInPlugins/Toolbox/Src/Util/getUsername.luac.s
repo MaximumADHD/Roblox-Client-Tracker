@@ -37,9 +37,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K6 [require]
-       15 GETIMPORT                        R5 K8 [script]
-       17 GETTABLEKS                       R4 R5 K9 ["Parent"]
-       19 GETTABLEKS                       R3 R4 K10 ["isCli"]
+       15 GETIMPORT                        R3 K8 [script]
+       17 GETTABLEKS                       R3 R3 K9 ["Parent"]
+       19 GETTABLEKS                       R3 R3 K10 ["isCli"]
        21 CALL                             R2 1 1
        22 DUPCLOSURE                       R3 K11 [PROTO_1]
        23 CAPTURE                          VAL R2

@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["ChangeCurrentEventName"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["ChangeCurrentEventName"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 0
         7 RETURN                           R0 0
@@ -13,17 +13,17 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["CurrentEventName"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K2 ["createElement"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["CurrentEventName"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K2 ["createElement"]
         7 GETUPVAL                         R3 1
         8 DUPTABLE                         R4 K7 [{"Label", "Text", "LayoutOrder", "OnChange"}]
         9 LOADK                            R5 K8 ["Name"]
        10 SETTABLEKS                       R5 R4 K3 ["Label"]
        12 SETTABLEKS                       R1 R4 K4 ["Text"]
-       14 GETUPVAL                         R6 2
-       15 GETTABLEKS                       R5 R6 K9 ["NameBox"]
+       14 GETUPVAL                         R5 2
+       15 GETTABLEKS                       R5 R5 K9 ["NameBox"]
        17 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
        19 GETTABLEKS                       R5 R0 K6 ["OnChange"]
        21 SETTABLEKS                       R5 R4 K6 ["OnChange"]
@@ -32,8 +32,8 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"CurrentEventName"}]
-        1 GETTABLEKS                       R4 R0 K2 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["CurrentEventName"]
+        1 GETTABLEKS                       R3 R0 K2 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["CurrentEventName"]
         5 SETTABLEKS                       R3 R2 K0 ["CurrentEventName"]
         7 RETURN                           R2 1
 
@@ -55,38 +55,38 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R4 K10 ["withContext"]
-       34 GETTABLEKS                       R7 R0 K11 ["Src"]
-       36 GETTABLEKS                       R6 R7 K12 ["Components"]
+       34 GETTABLEKS                       R6 R0 K11 ["Src"]
+       36 GETTABLEKS                       R6 R6 K12 ["Components"]
        38 GETIMPORT                        R7 K4 [require]
        40 GETTABLEKS                       R8 R6 K13 ["TextInput"]
        42 CALL                             R7 1 1
-       43 GETTABLEKS                       R9 R0 K11 ["Src"]
-       45 GETTABLEKS                       R8 R9 K14 ["Actions"]
+       43 GETTABLEKS                       R8 R0 K11 ["Src"]
+       45 GETTABLEKS                       R8 R8 K14 ["Actions"]
        47 GETIMPORT                        R9 K4 [require]
        49 GETTABLEKS                       R10 R8 K15 ["ChangeCurrentEventName"]
        51 CALL                             R9 1 1
        52 GETIMPORT                        R10 K4 [require]
-       54 GETTABLEKS                       R13 R0 K11 ["Src"]
-       56 GETTABLEKS                       R12 R13 K16 ["Util"]
-       58 GETTABLEKS                       R11 R12 K17 ["Constants"]
+       54 GETTABLEKS                       R11 R0 K11 ["Src"]
+       56 GETTABLEKS                       R11 R11 K16 ["Util"]
+       58 GETTABLEKS                       R11 R11 K17 ["Constants"]
        60 CALL                             R10 1 1
        61 GETTABLEKS                       R11 R10 K18 ["INPUT_PANE_LAYOUT"]
        63 GETTABLEKS                       R12 R1 K19 ["PureComponent"]

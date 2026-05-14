@@ -18,8 +18,8 @@ PROTO_0:
        22 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R1 K0 ["WorldPivot"]
-        2 GETTABLEKS                       R2 R3 K1 ["Position"]
+        0 GETTABLEKS                       R2 R1 K0 ["WorldPivot"]
+        2 GETTABLEKS                       R2 R2 K1 ["Position"]
         4 NAMECALL                         R3 R1 K2 ["GetExtentsSize"]
         6 CALL                             R3 1 1
         7 GETTABLEKS                       R5 R3 K3 ["X"]
@@ -33,8 +33,8 @@ PROTO_1:
        20 GETUPVAL                         R5 0
        21 CALL                             R5 0 1
        22 MOVE                             R2 R5
-       23 GETIMPORT                        R6 K11 [game]
-       25 GETTABLEKS                       R5 R6 K12 ["Workspace"]
+       23 GETIMPORT                        R5 K11 [game]
+       25 GETTABLEKS                       R5 R5 K12 ["Workspace"]
        27 MOVE                             R7 R2
        28 MULK                             R9 R4 K13 [3]
        29 FASTCALL2K                       MATH_MAX R9 K14 ; [+4]
@@ -59,8 +59,8 @@ PROTO_1:
        54 FORGLOOP                         R7 2 ; [-9]
        56 NAMECALL                         R7 R1 K20 ["Clone"]
        58 CALL                             R7 1 1
-       59 GETIMPORT                        R9 K11 [game]
-       61 GETTABLEKS                       R8 R9 K12 ["Workspace"]
+       59 GETIMPORT                        R8 K11 [game]
+       61 GETTABLEKS                       R8 R8 K12 ["Workspace"]
        63 SETTABLEKS                       R8 R7 K21 ["Parent"]
        65 GETTABLEKS                       R8 R0 K9 ["InsertWithScenePosition"]
        67 JUMPIF                           R8 ; [+4]
@@ -89,9 +89,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
-       13 GETTABLEKS                       R2 R3 K8 ["getWorkspaceInsertPosition"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R2 K8 ["getWorkspaceInsertPosition"]
        15 CALL                             R1 1 1
        16 DUPCLOSURE                       R2 K9 [PROTO_0]
        17 DUPCLOSURE                       R3 K10 [PROTO_1]

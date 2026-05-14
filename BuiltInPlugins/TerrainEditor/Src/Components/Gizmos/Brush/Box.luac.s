@@ -4,14 +4,14 @@ PROTO_0:
         4 GETTABLEKS                       R3 R0 K2 ["Color"]
         6 GETTABLEKS                       R4 R0 K3 ["Size"]
         8 GETTABLEKS                       R5 R0 K4 ["Transparency"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["createElement"]
-       13 GETUPVAL                         R8 0
-       14 GETTABLEKS                       R7 R8 K6 ["Fragment"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["createElement"]
+       13 GETUPVAL                         R7 0
+       14 GETTABLEKS                       R7 R7 K6 ["Fragment"]
        16 NEWTABLE                         R8 0 0
        18 DUPTABLE                         R9 K9 [{"OnTop", "Outline"}]
-       19 GETUPVAL                         R11 0
-       20 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       19 GETUPVAL                         R10 0
+       20 GETTABLEKS                       R10 R10 K5 ["createElement"]
        22 LOADK                            R11 K10 ["BoxHandleAdornment"]
        23 DUPTABLE                         R12 K13 [{"Adornee", "AlwaysOnTop", "CFrame", "Color", "Size", "Transparency", "ZIndex"}]
        24 SETTABLEKS                       R1 R12 K0 ["Adornee"]
@@ -25,8 +25,8 @@ PROTO_0:
        38 SETTABLEKS                       R13 R12 K12 ["ZIndex"]
        40 CALL                             R10 2 1
        41 SETTABLEKS                       R10 R9 K7 ["OnTop"]
-       43 GETUPVAL                         R11 0
-       44 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       43 GETUPVAL                         R10 0
+       44 GETTABLEKS                       R10 R10 K5 ["createElement"]
        46 LOADK                            R11 K10 ["BoxHandleAdornment"]
        47 DUPTABLE                         R12 K14 [{"Adornee", "CFrame", "Color", "Size", "Transparency"}]
        48 SETTABLEKS                       R1 R12 K0 ["Adornee"]
@@ -46,8 +46,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 DUPCLOSURE                       R2 K8 [PROTO_0]
        15 CAPTURE                          VAL R1

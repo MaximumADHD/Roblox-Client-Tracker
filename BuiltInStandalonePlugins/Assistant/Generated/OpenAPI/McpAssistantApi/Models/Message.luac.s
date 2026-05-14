@@ -18,8 +18,8 @@ PROTO_0:
        21 GETIMPORT                        R3 K6 [table.insert]
        23 CALL                             R3 2 0
        24 RETURN                           R0 1
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K7 ["fromResponse"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K7 ["fromResponse"]
        28 GETTABLEKS                       R4 R0 K8 ["role"]
        30 MOVE                             R5 R1
        31 LOADK                            R7 K9 ["%*\"role\" > "]
@@ -35,8 +35,8 @@ PROTO_1:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K3 ["toRequest"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K3 ["toRequest"]
         7 GETTABLEKS                       R3 R1 K4 ["role"]
         9 CALL                             R2 1 1
        10 SETTABLEKS                       R2 R1 K4 ["role"]
@@ -56,8 +56,8 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["Role"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["Role"]
        24 CALL                             R4 1 1
        25 DUPCLOSURE                       R5 K11 [PROTO_0]
        26 CAPTURE                          VAL R4

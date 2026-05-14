@@ -11,33 +11,33 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["DEFAULT"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["DEFAULT"]
         4 JUMPIFEQ                         R1 R2 ; [+13]
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K0 ["DEFAULT"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K0 ["DEFAULT"]
         9 SETUPVAL                         R1 0
        10 GETUPVAL                         R1 2
        11 GETUPVAL                         R2 3
        12 SETTABLEKS                       R2 R1 K1 ["Icon"]
-       14 GETUPVAL                         R2 5
-       15 GETTABLEKS                       R1 R2 K2 ["NOT_SET"]
+       14 GETUPVAL                         R1 5
+       15 GETTABLEKS                       R1 R1 K2 ["NOT_SET"]
        17 SETUPVAL                         R1 4
        18 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["MOVE"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["MOVE"]
         4 JUMPIFEQ                         R1 R2 ; [+13]
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K0 ["MOVE"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K0 ["MOVE"]
         9 SETUPVAL                         R1 0
        10 GETUPVAL                         R1 2
        11 LOADK                            R2 K1 ["rbxasset://textures/advClosed-hand.png"]
        12 SETTABLEKS                       R2 R1 K2 ["Icon"]
-       14 GETUPVAL                         R2 4
-       15 GETTABLEKS                       R1 R2 K3 ["NOT_SET"]
+       14 GETUPVAL                         R1 4
+       15 GETTABLEKS                       R1 R1 K3 ["NOT_SET"]
        17 SETUPVAL                         R1 3
        18 RETURN                           R0 0
 
@@ -51,17 +51,17 @@ PROTO_3:
         8 GETIMPORT                        R2 K3 [assert]
        10 CALL                             R2 2 0
        11 GETUPVAL                         R2 1
-       12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R3 R4 K4 ["RESIZE"]
+       12 GETUPVAL                         R3 2
+       13 GETTABLEKS                       R3 R3 K4 ["RESIZE"]
        15 JUMPIFNOTEQ                      R2 R3 ; [+4]
        17 GETUPVAL                         R2 3
        18 JUMPIFNOTEQ                      R2 R1 ; [+7]
        20 GETUPVAL                         R2 1
-       21 GETUPVAL                         R4 2
-       22 GETTABLEKS                       R3 R4 K4 ["RESIZE"]
+       21 GETUPVAL                         R3 2
+       22 GETTABLEKS                       R3 R3 K4 ["RESIZE"]
        24 JUMPIFEQ                         R2 R3 ; [+11]
-       26 GETUPVAL                         R3 2
-       27 GETTABLEKS                       R2 R3 K4 ["RESIZE"]
+       26 GETUPVAL                         R2 2
+       27 GETTABLEKS                       R2 R2 K4 ["RESIZE"]
        29 SETUPVAL                         R2 1
        30 GETUPVAL                         R2 4
        31 GETUPVAL                         R4 5
@@ -80,17 +80,17 @@ PROTO_4:
         8 GETIMPORT                        R2 K3 [assert]
        10 CALL                             R2 2 0
        11 GETUPVAL                         R2 1
-       12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R3 R4 K4 ["ROTATE"]
+       12 GETUPVAL                         R3 2
+       13 GETTABLEKS                       R3 R3 K4 ["ROTATE"]
        15 JUMPIFNOTEQ                      R2 R3 ; [+4]
        17 GETUPVAL                         R2 3
        18 JUMPIFNOTEQ                      R2 R1 ; [+7]
        20 GETUPVAL                         R2 1
-       21 GETUPVAL                         R4 2
-       22 GETTABLEKS                       R3 R4 K4 ["ROTATE"]
+       21 GETUPVAL                         R3 2
+       22 GETTABLEKS                       R3 R3 K4 ["ROTATE"]
        24 JUMPIFEQ                         R2 R3 ; [+11]
-       26 GETUPVAL                         R3 2
-       27 GETTABLEKS                       R2 R3 K4 ["ROTATE"]
+       26 GETUPVAL                         R2 2
+       27 GETTABLEKS                       R2 R2 K4 ["ROTATE"]
        29 SETUPVAL                         R2 1
        30 GETUPVAL                         R2 4
        31 GETUPVAL                         R4 5
@@ -128,11 +128,11 @@ PROTO_6:
        22 SETUPVAL                         R1 0
        23 GETTABLEKS                       R2 R1 K3 ["Icon"]
        25 SETUPVAL                         R2 1
-       26 GETUPVAL                         R3 3
-       27 GETTABLEKS                       R2 R3 K5 ["DEFAULT"]
+       26 GETUPVAL                         R2 3
+       27 GETTABLEKS                       R2 R2 K5 ["DEFAULT"]
        29 SETUPVAL                         R2 2
-       30 GETUPVAL                         R3 5
-       31 GETTABLEKS                       R2 R3 K6 ["NOT_SET"]
+       30 GETUPVAL                         R2 5
+       31 GETTABLEKS                       R2 R2 K6 ["NOT_SET"]
        33 SETUPVAL                         R2 4
        34 RETURN                           R0 0
 
@@ -140,10 +140,10 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
         3 GETIMPORT                        R1 K1 [require]
-        5 GETIMPORT                        R5 K3 [script]
-        7 GETTABLEKS                       R4 R5 K4 ["Parent"]
-        9 GETTABLEKS                       R3 R4 K5 ["Enum"]
-       11 GETTABLEKS                       R2 R3 K6 ["Direction"]
+        5 GETIMPORT                        R2 K3 [script]
+        7 GETTABLEKS                       R2 R2 K4 ["Parent"]
+        9 GETTABLEKS                       R2 R2 K5 ["Enum"]
+       11 GETTABLEKS                       R2 R2 K6 ["Direction"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 GETTABLEKS                       R3 R1 K7 ["E"]

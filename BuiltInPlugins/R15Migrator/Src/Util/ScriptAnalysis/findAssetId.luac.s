@@ -5,8 +5,8 @@ PROTO_0:
         3 JUMPIF                           R3 ; [+2]
         4 LOADB                            R6 0
         5 RETURN                           R6 1
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K0 ["MatchBeforeAndAfter"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K0 ["MatchBeforeAndAfter"]
         9 MOVE                             R7 R0
        10 MOVE                             R8 R3
        11 MOVE                             R9 R4
@@ -14,8 +14,8 @@ PROTO_0:
        13 LOADK                            R11 K1 ["[\"]"]
        14 CALL                             R6 5 1
        15 JUMPIF                           R6 ; [+12]
-       16 GETUPVAL                         R7 1
-       17 GETTABLEKS                       R6 R7 K0 ["MatchBeforeAndAfter"]
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K0 ["MatchBeforeAndAfter"]
        19 MOVE                             R7 R0
        20 MOVE                             R8 R3
        21 MOVE                             R9 R4
@@ -41,13 +41,13 @@ MAIN:
         3 LOADK                            R2 K2 ["R15Migrator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["parseAssetURL"]
        15 CALL                             R2 1 1
-       16 GETIMPORT                        R4 K1 [script]
-       18 GETTABLEKS                       R3 R4 K9 ["Parent"]
+       16 GETIMPORT                        R3 K1 [script]
+       18 GETTABLEKS                       R3 R3 K9 ["Parent"]
        20 GETIMPORT                        R4 K7 [require]
        22 GETTABLEKS                       R5 R3 K10 ["StringUtil"]
        24 CALL                             R4 1 1

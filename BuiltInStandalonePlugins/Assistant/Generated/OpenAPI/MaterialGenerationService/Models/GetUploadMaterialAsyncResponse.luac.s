@@ -40,8 +40,8 @@ PROTO_0:
        54 CALL                             R3 2 0
        55 GETTABLEKS                       R3 R0 K10 ["status"]
        57 JUMPIFEQKNIL                     R3 ; [+16]
-       59 GETUPVAL                         R4 0
-       60 GETTABLEKS                       R3 R4 K11 ["fromResponse"]
+       59 GETUPVAL                         R3 0
+       60 GETTABLEKS                       R3 R3 K11 ["fromResponse"]
        62 GETTABLEKS                       R4 R0 K10 ["status"]
        64 MOVE                             R5 R1
        65 LOADK                            R7 K12 ["%*\"status\" > "]
@@ -97,8 +97,8 @@ PROTO_0:
       134 CALL                             R8 2 0
       135 JUMP                             ; [+16]
       136 GETTABLEKS                       R8 R0 K13 ["materials"]
-      138 GETUPVAL                         R10 1
-      139 GETTABLEKS                       R9 R10 K11 ["fromResponse"]
+      138 GETUPVAL                         R9 1
+      139 GETTABLEKS                       R9 R9 K11 ["fromResponse"]
       141 MOVE                             R10 R7
       142 MOVE                             R11 R1
       143 LOADK                            R13 K17 ["%*\"materials\" > [%*] > "]
@@ -112,8 +112,8 @@ PROTO_0:
       152 FORGLOOP                         R3 2 ; [-43]
       154 GETTABLEKS                       R3 R0 K18 ["error"]
       156 JUMPIFEQKNIL                     R3 ; [+16]
-      158 GETUPVAL                         R4 2
-      159 GETTABLEKS                       R3 R4 K11 ["fromResponse"]
+      158 GETUPVAL                         R3 2
+      159 GETTABLEKS                       R3 R3 K11 ["fromResponse"]
       161 GETTABLEKS                       R4 R0 K18 ["error"]
       163 MOVE                             R5 R1
       164 LOADK                            R7 K19 ["%*\"error\" > "]
@@ -131,8 +131,8 @@ PROTO_1:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R1 K3 ["status"]
         6 JUMPIFEQKNIL                     R2 ; [+9]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        11 GETTABLEKS                       R3 R1 K3 ["status"]
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R1 K3 ["status"]
@@ -147,16 +147,16 @@ PROTO_1:
        30 LOADNIL                          R4
        31 FORGPREP                         R2
        32 GETTABLEKS                       R7 R1 K5 ["materials"]
-       34 GETUPVAL                         R9 1
-       35 GETTABLEKS                       R8 R9 K4 ["toRequest"]
+       34 GETUPVAL                         R8 1
+       35 GETTABLEKS                       R8 R8 K4 ["toRequest"]
        37 MOVE                             R9 R6
        38 CALL                             R8 1 1
        39 SETTABLE                         R8 R7 R5
        40 FORGLOOP                         R2 2 ; [-9]
        42 GETTABLEKS                       R2 R1 K6 ["error"]
        44 JUMPIFEQKNIL                     R2 ; [+9]
-       46 GETUPVAL                         R3 2
-       47 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+       46 GETUPVAL                         R2 2
+       47 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        49 GETTABLEKS                       R3 R1 K6 ["error"]
        51 CALL                             R2 1 1
        52 SETTABLEKS                       R2 R1 K6 ["error"]
@@ -176,16 +176,16 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["GeneratedMaterial"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["GeneratedMaterial"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K7 [require]
-       27 GETTABLEKS                       R7 R0 K9 ["Models"]
-       29 GETTABLEKS                       R6 R7 K11 ["OperationStatus"]
+       27 GETTABLEKS                       R6 R0 K9 ["Models"]
+       29 GETTABLEKS                       R6 R6 K11 ["OperationStatus"]
        31 CALL                             R5 1 1
        32 GETIMPORT                        R6 K7 [require]
-       34 GETTABLEKS                       R8 R0 K9 ["Models"]
-       36 GETTABLEKS                       R7 R8 K12 ["TextToImagePublicError"]
+       34 GETTABLEKS                       R7 R0 K9 ["Models"]
+       36 GETTABLEKS                       R7 R7 K12 ["TextToImagePublicError"]
        38 CALL                             R6 1 1
        39 DUPCLOSURE                       R7 K13 [PROTO_0]
        40 CAPTURE                          VAL R5

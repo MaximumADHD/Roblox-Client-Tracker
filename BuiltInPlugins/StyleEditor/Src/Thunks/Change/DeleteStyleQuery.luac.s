@@ -20,8 +20,8 @@ PROTO_1:
         5 GETUPVAL                         R2 1
         6 JUMPIF                           R2 ; [+1]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K2 ["getQueryStyleRulesForPseudo"]
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K2 ["getQueryStyleRulesForPseudo"]
        11 GETUPVAL                         R3 1
        12 CALL                             R2 1 1
        13 GETTABLEKS                       R3 R1 K3 ["recordChange"]
@@ -46,26 +46,26 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Util"]
-       17 GETTABLEKS                       R2 R3 K7 ["StyleQueryHelpers"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["StyleQueryHelpers"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K8 ["Flags"]
-       26 GETTABLEKS                       R3 R4 K9 ["getFFlagStyleQuery"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K8 ["Flags"]
+       26 GETTABLEKS                       R3 R3 K9 ["getFFlagStyleQuery"]
        28 CALL                             R2 1 1
        29 CALL                             R2 0 1
        30 GETIMPORT                        R3 K4 [require]
-       32 GETTABLEKS                       R6 R0 K5 ["Src"]
-       34 GETTABLEKS                       R5 R6 K10 ["Thunks"]
-       36 GETTABLEKS                       R4 R5 K11 ["Types"]
+       32 GETTABLEKS                       R4 R0 K5 ["Src"]
+       34 GETTABLEKS                       R4 R4 K10 ["Thunks"]
+       36 GETTABLEKS                       R4 R4 K11 ["Types"]
        38 CALL                             R3 1 1
        39 DUPCLOSURE                       R4 K12 [PROTO_2]
        40 CAPTURE                          VAL R2

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["ASSET_ROW_COLUMNS"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["ASSET_ROW_COLUMNS"]
         3 NEWTABLE                         R2 8 0
         5 GETTABLEKS                       R3 R1 K1 ["ICON"]
         7 GETIMPORT                        R4 K4 [UDim2.new]
@@ -83,31 +83,31 @@ MAIN:
         3 LOADK                            R2 K2 ["Toolbox"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Util"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["Constants"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [require]
-       18 GETTABLEKS                       R7 R0 K4 ["Src"]
-       20 GETTABLEKS                       R6 R7 K5 ["Util"]
-       22 GETTABLEKS                       R5 R6 K9 ["SharedFlags"]
-       24 GETTABLEKS                       R4 R5 K10 ["getFFlagToolboxEnableAssetRows"]
+       18 GETTABLEKS                       R4 R0 K4 ["Src"]
+       20 GETTABLEKS                       R4 R4 K5 ["Util"]
+       22 GETTABLEKS                       R4 R4 K9 ["SharedFlags"]
+       24 GETTABLEKS                       R4 R4 K10 ["getFFlagToolboxEnableAssetRows"]
        26 CALL                             R3 1 1
        27 MOVE                             R5 R3
        28 CALL                             R5 0 1
        29 JUMPIFNOT                        R5 ; [+5]
-       30 GETTABLEKS                       R5 R2 K11 ["ITEM_ROW"]
-       32 GETTABLEKS                       R4 R5 K12 ["LEFT_RIGHT_PADDING"]
+       30 GETTABLEKS                       R4 R2 K11 ["ITEM_ROW"]
+       32 GETTABLEKS                       R4 R4 K12 ["LEFT_RIGHT_PADDING"]
        34 JUMP                             ; [+1]
        35 LOADN                            R4 0
        36 MOVE                             R6 R3
        37 CALL                             R6 0 1
        38 JUMPIFNOT                        R6 ; [+11]
-       39 GETTABLEKS                       R7 R2 K13 ["ASSET_ROW"]
-       41 GETTABLEKS                       R6 R7 K14 ["ICON_SIZE"]
-       43 GETTABLEKS                       R9 R2 K13 ["ASSET_ROW"]
-       45 GETTABLEKS                       R8 R9 K15 ["LEFT_MOST_PADDING"]
+       39 GETTABLEKS                       R6 R2 K13 ["ASSET_ROW"]
+       41 GETTABLEKS                       R6 R6 K14 ["ICON_SIZE"]
+       43 GETTABLEKS                       R8 R2 K13 ["ASSET_ROW"]
+       45 GETTABLEKS                       R8 R8 K15 ["LEFT_MOST_PADDING"]
        47 ADD                              R7 R4 R8
        48 ADD                              R5 R6 R7
        49 JUMP                             ; [+1]

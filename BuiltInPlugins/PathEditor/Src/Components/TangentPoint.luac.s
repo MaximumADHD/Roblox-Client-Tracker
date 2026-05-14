@@ -1,38 +1,38 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dispatchSelectControlPoint"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["index"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dispatchSelectControlPoint"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["index"]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R1 0
-        8 GETTABLEKS                       R0 R1 K2 ["dispatchSelectTangentSide"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K3 ["side"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K2 ["dispatchSelectTangentSide"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K3 ["side"]
        13 CALL                             R0 1 0
        14 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dispatchClearControlPointTangent"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["index"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K2 ["side"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dispatchClearControlPointTangent"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["index"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K2 ["side"]
         9 CALL                             R0 2 0
        10 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dispatchRecordChangeHistory"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dispatchRecordChangeHistory"]
         3 LOADK                            R1 K1 ["Move Tangent"]
         4 CALL                             R0 1 0
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K2 ["dispatchSelectControlPoint"]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K3 ["index"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K2 ["dispatchSelectControlPoint"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K3 ["index"]
        11 CALL                             R0 1 0
-       12 GETUPVAL                         R1 0
-       13 GETTABLEKS                       R0 R1 K4 ["dispatchLockSelectedControlPoint"]
+       12 GETUPVAL                         R0 0
+       13 GETTABLEKS                       R0 R0 K4 ["dispatchLockSelectedControlPoint"]
        15 LOADB                            R1 1
        16 CALL                             R0 1 0
        17 RETURN                           R0 0
@@ -43,15 +43,15 @@ PROTO_3:
         2 NAMECALL                         R2 R2 K0 ["IsKeyDown"]
         4 CALL                             R2 2 1
         5 SUB                              R3 R1 R0
-        6 GETUPVAL                         R6 2
-        7 GETTABLEKS                       R5 R6 K1 ["position"]
+        6 GETUPVAL                         R5 2
+        7 GETTABLEKS                       R5 R5 K1 ["position"]
         9 ADD                              R4 R5 R3
-       10 GETUPVAL                         R6 2
-       11 GETTABLEKS                       R5 R6 K2 ["dispatchSetControlPointTangent"]
-       13 GETUPVAL                         R7 2
-       14 GETTABLEKS                       R6 R7 K3 ["index"]
-       16 GETUPVAL                         R8 2
-       17 GETTABLEKS                       R7 R8 K4 ["side"]
+       10 GETUPVAL                         R5 2
+       11 GETTABLEKS                       R5 R5 K2 ["dispatchSetControlPointTangent"]
+       13 GETUPVAL                         R6 2
+       14 GETTABLEKS                       R6 R6 K3 ["index"]
+       16 GETUPVAL                         R7 2
+       17 GETTABLEKS                       R7 R7 K4 ["side"]
        19 MOVE                             R8 R4
        20 LOADB                            R9 0
        21 MOVE                             R10 R2
@@ -59,32 +59,32 @@ PROTO_3:
        23 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["dispatchLockSelectedControlPoint"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["dispatchLockSelectedControlPoint"]
         3 LOADB                            R3 0
         4 CALL                             R2 1 0
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["dispatchRecordChangeHistory"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["dispatchRecordChangeHistory"]
         8 CALL                             R2 0 0
         9 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dispatchSelectControlPoint"]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R1 R2 K1 ["index"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dispatchSelectControlPoint"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K1 ["index"]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R1 0
-        8 GETTABLEKS                       R0 R1 K2 ["dispatchSelectTangentSide"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K3 ["side"]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K2 ["dispatchSelectTangentSide"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K3 ["side"]
        13 CALL                             R0 1 0
-       14 GETUPVAL                         R1 0
-       15 GETTABLEKS                       R0 R1 K4 ["dispatchOpenContextMenu"]
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K5 ["PluginContext"]
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K6 ["Localization"]
+       14 GETUPVAL                         R0 0
+       15 GETTABLEKS                       R0 R0 K4 ["dispatchOpenContextMenu"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K5 ["PluginContext"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K6 ["Localization"]
        23 CALL                             R0 2 0
        24 RETURN                           R0 0
 
@@ -99,8 +99,8 @@ PROTO_6:
        11 JUMPIFEQ                         R4 R5 ; [+2]
        13 LOADB                            R3 0 +1
        14 LOADB                            R3 1
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R4 R5 K6 ["createElement"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K6 ["createElement"]
        18 GETUPVAL                         R5 1
        19 DUPTABLE                         R6 K18 [{"ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "Style", "IsSelected", "OnSelected", "OnDoubleClicked", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnRightClicked"}]
        20 LOADN                            R7 1
@@ -136,11 +136,11 @@ PROTO_6:
 
 PROTO_7:
         0 DUPTABLE                         R2 K2 [{"LockSelectedControlPoint", "SelectedTangentSide"}]
-        1 GETTABLEKS                       R4 R0 K3 ["PathReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["LockSelectedControlPoint"]
+        1 GETTABLEKS                       R3 R0 K3 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["LockSelectedControlPoint"]
         5 SETTABLEKS                       R3 R2 K0 ["LockSelectedControlPoint"]
-        7 GETTABLEKS                       R4 R0 K3 ["PathReducer"]
-        9 GETTABLEKS                       R3 R4 K1 ["SelectedTangentSide"]
+        7 GETTABLEKS                       R3 R0 K3 ["PathReducer"]
+        9 GETTABLEKS                       R3 R3 K1 ["SelectedTangentSide"]
        11 SETTABLEKS                       R3 R2 K1 ["SelectedTangentSide"]
        13 RETURN                           R2 1
 
@@ -240,25 +240,25 @@ PROTO_15:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["React"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K12 [game]
        39 LOADK                            R7 K13 ["UserInputService"]
@@ -268,16 +268,16 @@ MAIN:
        45 GETTABLEKS                       R7 R6 K16 ["withContext"]
        47 GETTABLEKS                       R8 R6 K17 ["Plugin"]
        49 GETTABLEKS                       R9 R6 K18 ["Localization"]
-       51 GETTABLEKS                       R11 R0 K5 ["Src"]
-       53 GETTABLEKS                       R10 R11 K19 ["Actions"]
+       51 GETTABLEKS                       R10 R0 K5 ["Src"]
+       53 GETTABLEKS                       R10 R10 K19 ["Actions"]
        55 GETIMPORT                        R11 K4 [require]
        57 GETTABLEKS                       R12 R10 K20 ["LockSelectedControlPoint"]
        59 CALL                             R11 1 1
        60 GETIMPORT                        R12 K4 [require]
        62 GETTABLEKS                       R13 R10 K21 ["SelectTangentSide"]
        64 CALL                             R12 1 1
-       65 GETTABLEKS                       R14 R0 K5 ["Src"]
-       67 GETTABLEKS                       R13 R14 K22 ["Thunks"]
+       65 GETTABLEKS                       R13 R0 K5 ["Src"]
+       67 GETTABLEKS                       R13 R13 K22 ["Thunks"]
        69 GETIMPORT                        R14 K4 [require]
        71 GETTABLEKS                       R15 R13 K23 ["RecordChangeHistory"]
        73 CALL                             R14 1 1
@@ -294,12 +294,12 @@ MAIN:
        91 GETTABLEKS                       R19 R13 K27 ["OpenContextMenu"]
        93 CALL                             R18 1 1
        94 GETIMPORT                        R19 K4 [require]
-       96 GETTABLEKS                       R22 R0 K5 ["Src"]
-       98 GETTABLEKS                       R21 R22 K28 ["Resources"]
-      100 GETTABLEKS                       R20 R21 K29 ["Constants"]
+       96 GETTABLEKS                       R20 R0 K5 ["Src"]
+       98 GETTABLEKS                       R20 R20 K28 ["Resources"]
+      100 GETTABLEKS                       R20 R20 K29 ["Constants"]
       102 CALL                             R19 1 1
-      103 GETTABLEKS                       R21 R0 K5 ["Src"]
-      105 GETTABLEKS                       R20 R21 K30 ["Components"]
+      103 GETTABLEKS                       R20 R0 K5 ["Src"]
+      105 GETTABLEKS                       R20 R20 K30 ["Components"]
       107 GETIMPORT                        R21 K4 [require]
       109 GETTABLEKS                       R22 R20 K31 ["DraggablePoint"]
       111 CALL                             R21 1 1

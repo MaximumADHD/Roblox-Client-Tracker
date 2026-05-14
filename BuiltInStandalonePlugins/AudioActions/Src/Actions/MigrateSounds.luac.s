@@ -3,15 +3,15 @@ PROTO_0:
         1 JUMPIFNOT                        R2 ; [+1]
         2 RETURN                           R1 1
         3 MOVE                             R2 R0
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K0 ["getDestination"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K0 ["getDestination"]
         7 MOVE                             R4 R2
         8 CALL                             R3 1 1
         9 JUMPIFEQKNIL                     R3 ; [+10]
        11 SETTABLE                         R3 R1 R2
        12 MOVE                             R2 R3
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K0 ["getDestination"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K0 ["getDestination"]
        16 MOVE                             R5 R2
        17 CALL                             R4 1 1
        18 MOVE                             R3 R4
@@ -28,8 +28,8 @@ PROTO_1:
         8 LENGTH                           R3 R0
         9 GETTABLE                         R2 R0 R3
        10 GETTABLEN                        R3 R1 1
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K1 ["connectByWire"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K1 ["connectByWire"]
        14 MOVE                             R5 R2
        15 MOVE                             R6 R3
        16 CALL                             R4 2 -1
@@ -215,8 +215,8 @@ PROTO_2:
       267 GETTABLEKS                       R5 R0 K12 ["Enabled"]
       269 NOT                              R4 R5
       270 SETTABLEKS                       R4 R3 K13 ["Bypass"]
-      272 GETUPVAL                         R5 0
-      273 GETTABLEKS                       R4 R5 K51 ["makeTremoloScript"]
+      272 GETUPVAL                         R4 0
+      273 GETTABLEKS                       R4 R4 K51 ["makeTremoloScript"]
       275 MOVE                             R5 R3
       276 CALL                             R4 1 0
       277 MOVE                             R2 R3
@@ -245,8 +245,8 @@ PROTO_3:
        25 JUMPIFEQKS                       R4 K1 ["SoundGroup"] ; [+5]
        27 GETTABLEKS                       R4 R0 K8 ["Name"]
        29 SETTABLEKS                       R4 R3 K8 ["Name"]
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R4 R5 K9 ["getEffects"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K9 ["getEffects"]
        34 MOVE                             R5 R0
        35 CALL                             R4 1 1
        36 MOVE                             R5 R4
@@ -264,8 +264,8 @@ PROTO_3:
        50 LENGTH                           R12 R1
        51 GETTABLE                         R11 R1 R12
        52 GETTABLEN                        R12 R10 1
-       53 GETUPVAL                         R14 2
-       54 GETTABLEKS                       R13 R14 K11 ["connectByWire"]
+       53 GETUPVAL                         R13 2
+       54 GETTABLEKS                       R13 R13 K11 ["connectByWire"]
        56 MOVE                             R14 R11
        57 MOVE                             R15 R12
        58 CALL                             R13 2 1
@@ -292,8 +292,8 @@ PROTO_3:
        88 LENGTH                           R7 R1
        89 GETTABLE                         R6 R1 R7
        90 GETTABLEN                        R7 R5 1
-       91 GETUPVAL                         R9 2
-       92 GETTABLEKS                       R8 R9 K11 ["connectByWire"]
+       91 GETUPVAL                         R8 2
+       92 GETTABLEKS                       R8 R8 K11 ["connectByWire"]
        94 MOVE                             R9 R6
        95 MOVE                             R10 R7
        96 CALL                             R8 2 1
@@ -338,8 +338,8 @@ PROTO_4:
        49 SETTABLEKS                       R5 R3 K15 ["Name"]
        51 GETTABLEKS                       R5 R0 K18 ["Playing"]
        53 JUMPIFNOT                        R5 ; [+5]
-       54 GETUPVAL                         R6 0
-       55 GETTABLEKS                       R5 R6 K19 ["makeAutoplayScript"]
+       54 GETUPVAL                         R5 0
+       55 GETTABLEKS                       R5 R5 K19 ["makeAutoplayScript"]
        57 MOVE                             R6 R4
        58 CALL                             R5 1 0
        59 GETTABLEKS                       R5 R0 K20 ["PlaybackRegionsEnabled"]
@@ -348,8 +348,8 @@ PROTO_4:
        64 SETTABLEKS                       R5 R4 K21 ["PlaybackRegion"]
        66 GETTABLEKS                       R5 R0 K22 ["LoopRegion"]
        68 SETTABLEKS                       R5 R4 K22 ["LoopRegion"]
-       70 GETUPVAL                         R6 0
-       71 GETTABLEKS                       R5 R6 K23 ["getEffects"]
+       70 GETUPVAL                         R5 0
+       71 GETTABLEKS                       R5 R5 K23 ["getEffects"]
        73 MOVE                             R6 R0
        74 CALL                             R5 1 1
        75 MOVE                             R6 R5
@@ -367,8 +367,8 @@ PROTO_4:
        89 LENGTH                           R13 R1
        90 GETTABLE                         R12 R1 R13
        91 GETTABLEN                        R13 R11 1
-       92 GETUPVAL                         R15 2
-       93 GETTABLEKS                       R14 R15 K25 ["connectByWire"]
+       92 GETUPVAL                         R14 2
+       93 GETTABLEKS                       R14 R14 K25 ["connectByWire"]
        95 MOVE                             R15 R12
        96 MOVE                             R16 R13
        97 CALL                             R14 2 1
@@ -397,8 +397,8 @@ PROTO_4:
       131 LENGTH                           R8 R1
       132 GETTABLE                         R7 R1 R8
       133 GETTABLEN                        R8 R6 1
-      134 GETUPVAL                         R10 2
-      135 GETTABLEKS                       R9 R10 K25 ["connectByWire"]
+      134 GETUPVAL                         R9 2
+      135 GETTABLEKS                       R9 R9 K25 ["connectByWire"]
       137 MOVE                             R10 R7
       138 MOVE                             R11 R8
       139 CALL                             R9 2 1
@@ -407,8 +407,8 @@ PROTO_4:
       143 MOVE                             R8 R3
       144 GETIMPORT                        R6 K8 [table.insert]
       146 CALL                             R6 2 0
-      147 GETUPVAL                         R7 0
-      148 GETTABLEKS                       R6 R7 K27 ["is3d"]
+      147 GETUPVAL                         R6 0
+      148 GETTABLEKS                       R6 R6 K27 ["is3d"]
       150 MOVE                             R7 R0
       151 CALL                             R6 1 1
       152 JUMPIFNOT                        R6 ; [+120]
@@ -424,8 +424,8 @@ PROTO_4:
       168 LOADK                            R9 K29 [" Emitter"]
       169 CONCAT                           R7 R8 R9
       170 SETTABLEKS                       R7 R6 K15 ["Name"]
-      172 GETUPVAL                         R10 0
-      173 GETTABLEKS                       R9 R10 K30 ["serializeRolloffMode"]
+      172 GETUPVAL                         R9 0
+      173 GETTABLEKS                       R9 R9 K30 ["serializeRolloffMode"]
       175 GETTABLEKS                       R10 R0 K31 ["RollOffMode"]
       177 GETTABLEKS                       R11 R0 K32 ["RollOffMinDistance"]
       179 GETTABLEKS                       R12 R0 K33 ["RollOffMaxDistance"]
@@ -443,8 +443,8 @@ PROTO_4:
       197 LENGTH                           R9 R1
       198 GETTABLE                         R8 R1 R9
       199 GETTABLEN                        R9 R7 1
-      200 GETUPVAL                         R11 2
-      201 GETTABLEKS                       R10 R11 K25 ["connectByWire"]
+      200 GETUPVAL                         R10 2
+      201 GETTABLEKS                       R10 R10 K25 ["connectByWire"]
       203 MOVE                             R11 R8
       204 MOVE                             R12 R9
       205 CALL                             R10 2 1
@@ -453,8 +453,8 @@ PROTO_4:
       209 MOVE                             R9 R6
       210 GETIMPORT                        R7 K8 [table.insert]
       212 CALL                             R7 2 0
-      213 GETUPVAL                         R8 0
-      214 GETTABLEKS                       R7 R8 K35 ["getDestination"]
+      213 GETUPVAL                         R7 0
+      214 GETTABLEKS                       R7 R7 K35 ["getDestination"]
       216 MOVE                             R8 R0
       217 CALL                             R7 1 1
       218 JUMPIFNOT                        R7 ; [+3]
@@ -486,8 +486,8 @@ PROTO_4:
       252 LOADK                            R12 K45 [" Interactions"]
       253 CONCAT                           R10 R11 R12
       254 SETTABLEKS                       R10 R9 K46 ["AudioInteractionGroup"]
-      256 GETUPVAL                         R11 0
-      257 GETTABLEKS                       R10 R11 K47 ["makeListenerScript"]
+      256 GETUPVAL                         R10 0
+      257 GETTABLEKS                       R10 R10 K47 ["makeListenerScript"]
       259 MOVE                             R11 R9
       260 CALL                             R10 1 0
       261 MOVE                             R11 R8
@@ -602,8 +602,8 @@ PROTO_7:
        51 LENGTH                           R11 R8
        52 GETTABLE                         R10 R8 R11
        53 GETTABLEN                        R11 R9 1
-       54 GETUPVAL                         R13 2
-       55 GETTABLEKS                       R12 R13 K2 ["connectByWire"]
+       54 GETUPVAL                         R12 2
+       55 GETTABLEKS                       R12 R12 K2 ["connectByWire"]
        57 MOVE                             R13 R10
        58 MOVE                             R14 R11
        59 CALL                             R12 2 1
@@ -687,8 +687,8 @@ PROTO_10:
         2 NAMECALL                         R1 R1 K0 ["Get"]
         4 CALL                             R1 1 3
         5 FORGPREP                         R1
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K1 ["isSoundApi"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K1 ["isSoundApi"]
         9 MOVE                             R7 R5
        10 CALL                             R6 1 1
        11 JUMPIFNOT                        R6 ; [+2]
@@ -709,13 +709,13 @@ PROTO_10:
        32 SETTABLEKS                       R0 R1 K3 ["Enabled"]
        34 LOADB                            R2 1
        35 SETTABLEKS                       R2 R1 K4 ["Visible"]
-       37 GETUPVAL                         R3 2
-       38 GETTABLEKS                       R2 R3 K19 ["action"]
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R2 R2 K19 ["action"]
        40 LOADK                            R3 K20 ["MigrateSounds"]
        41 CALL                             R2 1 1
        42 SETTABLEKS                       R2 R1 K5 ["Text"]
-       44 GETUPVAL                         R3 2
-       45 GETTABLEKS                       R2 R3 K21 ["tooltip"]
+       44 GETUPVAL                         R2 2
+       45 GETTABLEKS                       R2 R2 K21 ["tooltip"]
        47 LOADK                            R3 K20 ["MigrateSounds"]
        48 CALL                             R2 1 1
        49 SETTABLEKS                       R2 R1 K6 ["Tooltip"]
@@ -761,8 +761,8 @@ PROTO_12:
        10 CAPTURE                          UPVAL U4
        11 MOVE                             R3 R2
        12 CALL                             R3 0 0
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R3 R4 K2 ["SelectionChanged"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K2 ["SelectionChanged"]
        16 NEWCLOSURE                       R5 P1
        17 CAPTURE                          VAL R2
        18 NAMECALL                         R3 R3 K3 ["Connect"]
@@ -802,23 +802,23 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R2 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Util"]
-       25 GETTABLEKS                       R4 R5 K13 ["LocalizationUtil"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Util"]
+       25 GETTABLEKS                       R4 R4 K13 ["LocalizationUtil"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K10 [require]
-       30 GETTABLEKS                       R7 R2 K11 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Util"]
-       34 GETTABLEKS                       R5 R6 K14 ["SoundUtil"]
+       30 GETTABLEKS                       R5 R2 K11 ["Src"]
+       32 GETTABLEKS                       R5 R5 K12 ["Util"]
+       34 GETTABLEKS                       R5 R5 K14 ["SoundUtil"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K10 [require]
-       39 GETTABLEKS                       R8 R2 K11 ["Src"]
-       41 GETTABLEKS                       R7 R8 K12 ["Util"]
-       43 GETTABLEKS                       R6 R7 K15 ["WiringUtil"]
+       39 GETTABLEKS                       R6 R2 K11 ["Src"]
+       41 GETTABLEKS                       R6 R6 K12 ["Util"]
+       43 GETTABLEKS                       R6 R6 K15 ["WiringUtil"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K10 [require]
-       48 GETTABLEKS                       R8 R2 K11 ["Src"]
-       50 GETTABLEKS                       R7 R8 K16 ["Types"]
+       48 GETTABLEKS                       R7 R2 K11 ["Src"]
+       50 GETTABLEKS                       R7 R7 K16 ["Types"]
        52 CALL                             R6 1 1
        53 DUPCLOSURE                       R7 K17 [PROTO_0]
        54 CAPTURE                          VAL R4

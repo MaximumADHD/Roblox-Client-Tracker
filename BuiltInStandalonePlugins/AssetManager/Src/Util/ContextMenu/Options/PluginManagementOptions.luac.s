@@ -38,31 +38,31 @@ PROTO_2:
         8 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["MenuContext"]
-        3 GETTABLEKS                       R2 R3 K1 ["Asset"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["MenuContext"]
+        3 GETTABLEKS                       R2 R2 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R2 ; [+3]
         7 LOADNIL                          R2
         8 RETURN                           R2 1
         9 GETTABLEKS                       R2 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R5 R6 K3 ["AssetType"]
-       14 GETTABLEKS                       R4 R5 K4 ["Plugin"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K3 ["AssetType"]
+       14 GETTABLEKS                       R4 R4 K4 ["Plugin"]
        16 NAMECALL                         R2 R2 K5 ["getSingleItemSelected"]
        18 CALL                             R2 2 -1
        19 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADNIL                          R3
         8 JUMP                             ; [+10]
         9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["AssetType"]
-       14 GETTABLEKS                       R5 R6 K4 ["Plugin"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["AssetType"]
+       14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
        19 JUMPIFEQKNIL                     R3 ; [+7]
@@ -73,16 +73,16 @@ PROTO_4:
        27 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADNIL                          R3
         8 JUMP                             ; [+10]
         9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["AssetType"]
-       14 GETTABLEKS                       R5 R6 K4 ["Plugin"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["AssetType"]
+       14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
        19 LOADB                            R4 0
@@ -94,16 +94,16 @@ PROTO_5:
        28 RETURN                           R4 1
 
 PROTO_6:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADNIL                          R3
         8 JUMP                             ; [+10]
         9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["AssetType"]
-       14 GETTABLEKS                       R5 R6 K4 ["Plugin"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["AssetType"]
+       14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
        19 JUMPIFEQKNIL                     R3 ; [+13]
@@ -119,16 +119,16 @@ PROTO_6:
        33 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADNIL                          R3
         8 JUMP                             ; [+10]
         9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["AssetType"]
-       14 GETTABLEKS                       R5 R6 K4 ["Plugin"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["AssetType"]
+       14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
        19 LOADB                            R4 0
@@ -141,16 +141,16 @@ PROTO_7:
        29 RETURN                           R4 1
 
 PROTO_8:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADNIL                          R3
         8 JUMP                             ; [+10]
         9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["AssetType"]
-       14 GETTABLEKS                       R5 R6 K4 ["Plugin"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["AssetType"]
+       14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
        19 JUMPIFEQKNIL                     R3 ; [+5]
@@ -160,16 +160,16 @@ PROTO_8:
        25 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADNIL                          R3
         8 JUMP                             ; [+10]
         9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K3 ["AssetType"]
-       14 GETTABLEKS                       R5 R6 K4 ["Plugin"]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K3 ["AssetType"]
+       14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
        19 JUMPIFNOTEQKNIL                  R3 ; [+2]
@@ -184,26 +184,26 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Services"]
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["GetService"]
        18 LOADK                            R3 K10 ["StudioService"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R5 R0 K6 ["Src"]
-       24 GETTABLEKS                       R4 R5 K11 ["Types"]
+       22 GETTABLEKS                       R4 R0 K6 ["Src"]
+       24 GETTABLEKS                       R4 R4 K11 ["Types"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R7 R0 K6 ["Src"]
-       31 GETTABLEKS                       R6 R7 K7 ["Util"]
-       33 GETTABLEKS                       R5 R6 K12 ["reportInBrowser"]
+       29 GETTABLEKS                       R5 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K7 ["Util"]
+       33 GETTABLEKS                       R5 R5 K12 ["reportInBrowser"]
        35 CALL                             R4 1 1
        36 GETIMPORT                        R5 K5 [require]
-       38 GETTABLEKS                       R8 R0 K6 ["Src"]
-       40 GETTABLEKS                       R7 R8 K7 ["Util"]
-       42 GETTABLEKS                       R6 R7 K13 ["updatePlugin"]
+       38 GETTABLEKS                       R6 R0 K6 ["Src"]
+       40 GETTABLEKS                       R6 R6 K7 ["Util"]
+       42 GETTABLEKS                       R6 R6 K13 ["updatePlugin"]
        44 CALL                             R5 1 1
        45 DUPCLOSURE                       R6 K14 [PROTO_2]
        46 CAPTURE                          VAL R2

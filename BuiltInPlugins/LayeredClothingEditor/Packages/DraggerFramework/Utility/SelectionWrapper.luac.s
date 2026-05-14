@@ -18,8 +18,8 @@ PROTO_1:
        15 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
        17 GETIMPORT                        R1 K7 [setmetatable]
        19 CALL                             R1 2 1
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R2 R3 K8 ["new"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K8 ["new"]
        23 CALL                             R2 0 1
        24 SETTABLEKS                       R2 R1 K9 ["onSelectionExternallyChanged"]
        26 GETTABLEKS                       R2 R0 K10 ["SelectionChanged"]
@@ -99,12 +99,12 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Utility"]
-       11 GETTABLEKS                       R2 R3 K6 ["Signal"]
+        9 GETTABLEKS                       R2 R0 K5 ["Utility"]
+       11 GETTABLEKS                       R2 R2 K6 ["Signal"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 SETTABLEKS                       R2 R2 K7 ["__index"]

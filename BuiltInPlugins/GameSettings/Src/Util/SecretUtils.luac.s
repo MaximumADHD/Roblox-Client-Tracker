@@ -5,8 +5,8 @@ PROTO_0:
         5 LOADK                            R2 K0 [""]
         6 RETURN                           R2 1
         7 GETIMPORT                        R2 K4 [buffer.tostring]
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K5 ["encode"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K5 ["encode"]
        12 GETIMPORT                        R4 K7 [buffer.fromstring]
        14 MOVE                             R5 R0
        15 CALL                             R4 1 -1
@@ -219,8 +219,8 @@ PROTO_8:
         6 FORGPREP                         R7
         7 JUMPIFNOTEQ                      R10 R1 ; [+46]
         9 GETTABLEKS                       R12 R11 K0 ["row"]
-       11 GETUPVAL                         R14 0
-       12 GETTABLEKS                       R13 R14 K1 ["transformToStorableFormat"]
+       11 GETUPVAL                         R13 0
+       12 GETTABLEKS                       R13 R13 K1 ["transformToStorableFormat"]
        14 MOVE                             R14 R3
        15 GETTABLEN                        R15 R12 2
        16 CALL                             R13 2 1
@@ -259,14 +259,14 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["Base64Utils"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["Base64Utils"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 8 0
        20 DUPCLOSURE                       R3 K8 [PROTO_0]

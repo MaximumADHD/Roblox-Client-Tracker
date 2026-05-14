@@ -8,8 +8,8 @@ PROTO_0:
         9 GETTABLE                         R3 R4 R5
        10 JUMPIF                           R3 ; [+1]
        11 RETURN                           R0 0
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["getTrack"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["getTrack"]
        15 MOVE                             R4 R2
        16 GETUPVAL                         R5 0
        17 GETUPVAL                         R6 2
@@ -17,8 +17,8 @@ PROTO_0:
        19 LOADNIL                          R4
        20 LOADNIL                          R5
        21 JUMPIFNOT                        R3 ; [+11]
-       22 GETUPVAL                         R7 3
-       23 GETTABLEKS                       R6 R7 K4 ["findNearestKeyframesProperly"]
+       22 GETUPVAL                         R6 3
+       23 GETTABLEKS                       R6 R6 K4 ["findNearestKeyframesProperly"]
        25 GETTABLEKS                       R7 R3 K5 ["Keyframes"]
        27 GETUPVAL                         R8 4
        28 CALL                             R6 2 2
@@ -29,8 +29,8 @@ PROTO_0:
        33 LOADNIL                          R6
        34 JUMPIFNOT                        R3 ; [+1]
        35 JUMPIF                           R5 ; [+14]
-       36 GETUPVAL                         R8 3
-       37 GETTABLEKS                       R7 R8 K6 ["getDefaultValue"]
+       36 GETUPVAL                         R7 3
+       37 GETTABLEKS                       R7 R7 K6 ["getDefaultValue"]
        39 GETUPVAL                         R8 5
        40 CALL                             R7 1 1
        41 DUPTABLE                         R8 K9 [{"Value", "InterpolationMode"}]
@@ -39,8 +39,8 @@ PROTO_0:
        46 SETTABLEKS                       R9 R8 K8 ["InterpolationMode"]
        48 MOVE                             R6 R8
        49 JUMP                             ; [+38]
-       50 GETUPVAL                         R8 3
-       51 GETTABLEKS                       R7 R8 K14 ["getValue"]
+       50 GETUPVAL                         R7 3
+       51 GETTABLEKS                       R7 R7 K14 ["getValue"]
        53 MOVE                             R8 R3
        54 GETUPVAL                         R9 4
        55 CALL                             R7 2 1
@@ -53,8 +53,8 @@ PROTO_0:
        65 LOADNIL                          R11
        66 GETIMPORT                        R12 K13 [Enum.KeyInterpolationMode.Cubic]
        68 JUMPIFNOTEQ                      R9 R12 ; [+9]
-       70 GETUPVAL                         R13 3
-       71 GETTABLEKS                       R12 R13 K16 ["getSlopes"]
+       70 GETUPVAL                         R12 3
+       71 GETTABLEKS                       R12 R12 K16 ["getSlopes"]
        73 MOVE                             R13 R3
        74 GETUPVAL                         R14 4
        75 CALL                             R12 2 2
@@ -99,19 +99,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AnimationData"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AnimationData"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Util"]
-       22 GETTABLEKS                       R3 R4 K9 ["KeyframeUtils"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Util"]
+       22 GETTABLEKS                       R3 R3 K9 ["KeyframeUtils"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Thunks"]
-       31 GETTABLEKS                       R4 R5 K11 ["AddKeyframe"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Thunks"]
+       31 GETTABLEKS                       R4 R4 K11 ["AddKeyframe"]
        33 CALL                             R3 1 1
        34 DUPCLOSURE                       R4 K12 [PROTO_1]
        35 CAPTURE                          VAL R1

@@ -53,10 +53,10 @@ PROTO_3:
         9 CALL                             R2 2 1
        10 LOADK                            R4 K2 ["%*, %*, %*, %*"]
        11 MOVE                             R6 R1
-       12 GETTABLEKS                       R8 R0 K3 ["EasingStyle"]
-       14 GETTABLEKS                       R7 R8 K4 ["Name"]
-       16 GETTABLEKS                       R9 R0 K5 ["EasingDirection"]
-       18 GETTABLEKS                       R8 R9 K4 ["Name"]
+       12 GETTABLEKS                       R7 R0 K3 ["EasingStyle"]
+       14 GETTABLEKS                       R7 R7 K4 ["Name"]
+       16 GETTABLEKS                       R8 R0 K5 ["EasingDirection"]
+       18 GETTABLEKS                       R8 R8 K4 ["Name"]
        20 MOVE                             R9 R2
        21 NAMECALL                         R4 R4 K6 ["format"]
        23 CALL                             R4 5 1
@@ -76,8 +76,8 @@ PROTO_4:
        11 JUMPIFNOTLT                      R3 R2 ; [+3]
        13 LOADNIL                          R2
        14 RETURN                           R2 1
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K5 ["decomposeTweenInfo"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K5 ["decomposeTweenInfo"]
        18 GETIMPORT                        R3 K8 [TweenInfo.new]
        20 CALL                             R3 0 -1
        21 CALL                             R2 -1 1
@@ -130,8 +130,8 @@ PROTO_4:
        79 RETURN                           R4 1
        80 SETTABLEKS                       R3 R2 K17 ["Delay"]
        82 GETIMPORT                        R3 K19 [pcall]
-       84 GETUPVAL                         R5 0
-       85 GETTABLEKS                       R4 R5 K20 ["makeTweenInfo"]
+       84 GETUPVAL                         R4 0
+       85 GETTABLEKS                       R4 R4 K20 ["makeTweenInfo"]
        87 MOVE                             R5 R2
        88 CALL                             R3 2 2
        89 JUMPIF                           R3 ; [+2]
@@ -141,14 +141,14 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["Src"]
-       13 GETTABLEKS                       R3 R4 K6 ["Util"]
-       15 GETTABLEKS                       R2 R3 K7 ["roundDecimal"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["roundDecimal"]
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 8 0
        20 LOADK                            R3 K8 ["*"]

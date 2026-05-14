@@ -11,14 +11,14 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K3 [{"showingAlertTitleKey", "showingAlertMessageKey", "showingAlertMessageReplacements"}]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K4 ["None"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K4 ["None"]
         5 SETTABLEKS                       R3 R2 K0 ["showingAlertTitleKey"]
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R3 R4 K4 ["None"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K4 ["None"]
        10 SETTABLEKS                       R3 R2 K1 ["showingAlertMessageKey"]
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K4 ["None"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K4 ["None"]
        15 SETTABLEKS                       R3 R2 K2 ["showingAlertMessageReplacements"]
        17 NAMECALL                         R0 R0 K5 ["setState"]
        19 CALL                             R0 2 0
@@ -26,8 +26,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K1 [ipairs]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R1 R3 K2 ["imageUnderEditConnections"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["imageUnderEditConnections"]
         5 CALL                             R0 1 3
         6 FORGPREP_INEXT                   R0
         7 JUMPIFNOT                        R4 ; [+3]
@@ -94,46 +94,46 @@ PROTO_3:
        64 RETURN                           R2 1
 
 PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["ImageRectSize"]
-        2 GETTABLEKS                       R1 R2 K1 ["X"]
+        0 GETTABLEKS                       R1 R0 K0 ["ImageRectSize"]
+        2 GETTABLEKS                       R1 R1 K1 ["X"]
         4 LOADN                            R2 0
         5 JUMPIFNOTLT                      R2 R1 ; [+11]
-        7 GETTABLEKS                       R2 R0 K0 ["ImageRectSize"]
-        9 GETTABLEKS                       R1 R2 K2 ["Y"]
+        7 GETTABLEKS                       R1 R0 K0 ["ImageRectSize"]
+        9 GETTABLEKS                       R1 R1 K2 ["Y"]
        11 LOADN                            R2 0
        12 JUMPIFNOTLT                      R2 R1 ; [+4]
        14 GETTABLEKS                       R1 R0 K0 ["ImageRectSize"]
        16 RETURN                           R1 1
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K3 ["uncroppedImageSize"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K3 ["uncroppedImageSize"]
        20 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["instanceUnderEdit"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["instanceUnderEdit"]
         3 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getImageUnderEdit"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getImageUnderEdit"]
         3 CALL                             R0 0 1
         4 JUMPIFEQKNIL                     R0 ; [+28]
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R1 R2 K1 ["getSliceRectFromSliceCenter"]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R1 R1 K1 ["getSliceRectFromSliceCenter"]
         9 GETTABLEKS                       R2 R0 K2 ["SliceCenter"]
        11 CALL                             R1 1 1
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K3 ["props"]
-       15 GETTABLEKS                       R2 R3 K4 ["SliceRectChanged"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K3 ["props"]
+       15 GETTABLEKS                       R2 R2 K4 ["SliceRectChanged"]
        17 MOVE                             R3 R1
        18 CALL                             R2 1 0
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R2 R3 K5 ["getImageDimensionsForInstance"]
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K5 ["getImageDimensionsForInstance"]
        22 MOVE                             R3 R0
        23 CALL                             R2 1 1
        24 GETUPVAL                         R3 0
-       25 GETUPVAL                         R5 1
-       26 GETTABLEKS                       R4 R5 K6 ["getOffsetsFromSliceRect"]
+       25 GETUPVAL                         R4 1
+       26 GETTABLEKS                       R4 R4 K6 ["getOffsetsFromSliceRect"]
        28 MOVE                             R5 R1
        29 MOVE                             R6 R2
        30 CALL                             R4 2 1
@@ -141,8 +141,8 @@ PROTO_6:
        33 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getImageUnderEdit"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getImageUnderEdit"]
         3 CALL                             R1 0 1
         4 MOVE                             R2 R1
         5 JUMPIFNOT                        R2 ; [+1]
@@ -150,12 +150,12 @@ PROTO_7:
         7 RETURN                           R2 1
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["InstancePropertyChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["InstancePropertyChanged"]
         5 LOADK                            R1 K2 ["ImageRectOffset"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K3 ["getInstanceProperty"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K3 ["getInstanceProperty"]
         9 LOADK                            R3 K2 ["ImageRectOffset"]
        10 CALL                             R2 1 -1
        11 CALL                             R0 -1 0
@@ -163,29 +163,29 @@ PROTO_8:
 
 PROTO_9:
         0 GETIMPORT                        R2 K2 [Rect.new]
-        2 GETTABLEKS                       R5 R0 K3 ["Min"]
-        4 GETTABLEKS                       R4 R5 K4 ["X"]
+        2 GETTABLEKS                       R4 R0 K3 ["Min"]
+        4 GETTABLEKS                       R4 R4 K4 ["X"]
         6 LOADN                            R5 0
         7 GETTABLEKS                       R6 R1 K4 ["X"]
         9 FASTCALL                         MATH_CLAMP ; [+2]
        10 GETIMPORT                        R3 K7 [math.clamp]
        12 CALL                             R3 3 1
-       13 GETTABLEKS                       R6 R0 K3 ["Min"]
-       15 GETTABLEKS                       R5 R6 K8 ["Y"]
+       13 GETTABLEKS                       R5 R0 K3 ["Min"]
+       15 GETTABLEKS                       R5 R5 K8 ["Y"]
        17 LOADN                            R6 0
        18 GETTABLEKS                       R7 R1 K8 ["Y"]
        20 FASTCALL                         MATH_CLAMP ; [+2]
        21 GETIMPORT                        R4 K7 [math.clamp]
        23 CALL                             R4 3 1
-       24 GETTABLEKS                       R7 R0 K9 ["Max"]
-       26 GETTABLEKS                       R6 R7 K4 ["X"]
+       24 GETTABLEKS                       R6 R0 K9 ["Max"]
+       26 GETTABLEKS                       R6 R6 K4 ["X"]
        28 LOADN                            R7 0
        29 GETTABLEKS                       R8 R1 K4 ["X"]
        31 FASTCALL                         MATH_CLAMP ; [+2]
        32 GETIMPORT                        R5 K7 [math.clamp]
        34 CALL                             R5 3 1
-       35 GETTABLEKS                       R8 R0 K9 ["Max"]
-       37 GETTABLEKS                       R7 R8 K8 ["Y"]
+       35 GETTABLEKS                       R7 R0 K9 ["Max"]
+       37 GETTABLEKS                       R7 R7 K8 ["Y"]
        39 LOADN                            R8 0
        40 GETTABLEKS                       R9 R1 K8 ["Y"]
        42 FASTCALL                         MATH_CLAMP ; [+2]
@@ -195,15 +195,15 @@ PROTO_9:
        47 RETURN                           R2 -1
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getImageUnderEdit"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getImageUnderEdit"]
         3 CALL                             R0 0 1
         4 JUMPIF                           R0 ; [+1]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R1 R0 K1 ["ImageRectSize"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["props"]
-       11 GETTABLEKS                       R2 R3 K3 ["InstancePropertyChanged"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K2 ["props"]
+       11 GETTABLEKS                       R2 R2 K3 ["InstancePropertyChanged"]
        13 LOADK                            R3 K1 ["ImageRectSize"]
        14 MOVE                             R4 R1
        15 CALL                             R2 2 0
@@ -213,8 +213,8 @@ PROTO_10:
        21 GETTABLEKS                       R2 R1 K5 ["Y"]
        23 LOADN                            R3 0
        24 JUMPIFNOTLT                      R3 R2 ; [+10]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R2 R3 K6 ["clampSliceCenterToDimensions"]
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K6 ["clampSliceCenterToDimensions"]
        29 GETTABLEKS                       R3 R0 K7 ["SliceCenter"]
        31 MOVE                             R4 R1
        32 CALL                             R2 2 1
@@ -222,32 +222,32 @@ PROTO_10:
        35 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["InstancePropertyChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["InstancePropertyChanged"]
         5 LOADK                            R1 K2 ["ImageColor3"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K3 ["getInstanceProperty"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K3 ["getInstanceProperty"]
         9 LOADK                            R3 K2 ["ImageColor3"]
        10 CALL                             R2 1 -1
        11 CALL                             R0 -1 0
        12 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["InstancePropertyChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["InstancePropertyChanged"]
         5 LOADK                            R1 K2 ["ResampleMode"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K3 ["getInstanceProperty"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K3 ["getInstanceProperty"]
         9 LOADK                            R3 K2 ["ResampleMode"]
        10 CALL                             R2 1 -1
        11 CALL                             R0 -1 0
        12 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["clearCurrentImageUnderEdit"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["clearCurrentImageUnderEdit"]
         3 CALL                             R2 0 0
         4 GETIMPORT                        R2 K3 [Vector2.new]
         6 LOADN                            R3 0
@@ -265,9 +265,9 @@ PROTO_13:
        21 LOADN                            R7 0
        22 LOADN                            R8 0
        23 SETLIST                          R4 R5 4 [1]
-       25 GETUPVAL                         R7 0
-       26 GETTABLEKS                       R6 R7 K4 ["props"]
-       28 GETTABLEKS                       R5 R6 K5 ["Localization"]
+       25 GETUPVAL                         R5 0
+       26 GETTABLEKS                       R5 R5 K4 ["props"]
+       28 GETTABLEKS                       R5 R5 K5 ["Localization"]
        30 LOADK                            R7 K6 ["Plugin"]
        31 LOADK                            R8 K7 ["Name"]
        32 NAMECALL                         R5 R5 K8 ["getText"]
@@ -297,8 +297,8 @@ PROTO_13:
        68 GETUPVAL                         R7 0
        69 SETTABLEKS                       R1 R7 K18 ["uncroppedImageSize"]
        71 MOVE                             R2 R1
-       72 GETUPVAL                         R8 0
-       73 GETTABLEKS                       R7 R8 K19 ["getImageDimensionsForInstance"]
+       72 GETUPVAL                         R7 0
+       73 GETTABLEKS                       R7 R7 K19 ["getImageDimensionsForInstance"]
        75 MOVE                             R8 R0
        76 CALL                             R7 1 1
        77 GETTABLEKS                       R8 R0 K20 ["SliceCenter"]
@@ -316,73 +316,73 @@ PROTO_13:
        94 GETTABLEKS                       R12 R7 K17 ["Y"]
        96 CALL                             R8 4 1
        97 SETTABLEKS                       R8 R0 K20 ["SliceCenter"]
-       99 GETUPVAL                         R10 0
-      100 GETTABLEKS                       R9 R10 K23 ["imageUnderEditConnections"]
+       99 GETUPVAL                         R9 0
+      100 GETTABLEKS                       R9 R9 K23 ["imageUnderEditConnections"]
       102 LOADK                            R12 K20 ["SliceCenter"]
       103 NAMECALL                         R10 R0 K24 ["GetPropertyChangedSignal"]
       105 CALL                             R10 2 1
-      106 GETUPVAL                         R13 0
-      107 GETTABLEKS                       R12 R13 K25 ["onSliceCenterChanged"]
+      106 GETUPVAL                         R12 0
+      107 GETTABLEKS                       R12 R12 K25 ["onSliceCenterChanged"]
       109 NAMECALL                         R10 R10 K26 ["Connect"]
       111 CALL                             R10 2 -1
       112 FASTCALL                         TABLE_INSERT ; [+2]
       113 GETIMPORT                        R8 K29 [table.insert]
       115 CALL                             R8 -1 0
-      116 GETUPVAL                         R10 0
-      117 GETTABLEKS                       R9 R10 K23 ["imageUnderEditConnections"]
+      116 GETUPVAL                         R9 0
+      117 GETTABLEKS                       R9 R9 K23 ["imageUnderEditConnections"]
       119 LOADK                            R12 K30 ["ImageRectOffset"]
       120 NAMECALL                         R10 R0 K24 ["GetPropertyChangedSignal"]
       122 CALL                             R10 2 1
-      123 GETUPVAL                         R13 0
-      124 GETTABLEKS                       R12 R13 K31 ["onImageRectOffsetChanged"]
+      123 GETUPVAL                         R12 0
+      124 GETTABLEKS                       R12 R12 K31 ["onImageRectOffsetChanged"]
       126 NAMECALL                         R10 R10 K26 ["Connect"]
       128 CALL                             R10 2 -1
       129 FASTCALL                         TABLE_INSERT ; [+2]
       130 GETIMPORT                        R8 K29 [table.insert]
       132 CALL                             R8 -1 0
-      133 GETUPVAL                         R10 0
-      134 GETTABLEKS                       R9 R10 K23 ["imageUnderEditConnections"]
+      133 GETUPVAL                         R9 0
+      134 GETTABLEKS                       R9 R9 K23 ["imageUnderEditConnections"]
       136 LOADK                            R12 K32 ["ImageRectSize"]
       137 NAMECALL                         R10 R0 K24 ["GetPropertyChangedSignal"]
       139 CALL                             R10 2 1
-      140 GETUPVAL                         R13 0
-      141 GETTABLEKS                       R12 R13 K33 ["onImageRectSizeChanged"]
+      140 GETUPVAL                         R12 0
+      141 GETTABLEKS                       R12 R12 K33 ["onImageRectSizeChanged"]
       143 NAMECALL                         R10 R10 K26 ["Connect"]
       145 CALL                             R10 2 -1
       146 FASTCALL                         TABLE_INSERT ; [+2]
       147 GETIMPORT                        R8 K29 [table.insert]
       149 CALL                             R8 -1 0
-      150 GETUPVAL                         R10 0
-      151 GETTABLEKS                       R9 R10 K23 ["imageUnderEditConnections"]
+      150 GETUPVAL                         R9 0
+      151 GETTABLEKS                       R9 R9 K23 ["imageUnderEditConnections"]
       153 LOADK                            R12 K34 ["ImageColor3"]
       154 NAMECALL                         R10 R0 K24 ["GetPropertyChangedSignal"]
       156 CALL                             R10 2 1
-      157 GETUPVAL                         R13 0
-      158 GETTABLEKS                       R12 R13 K35 ["onImageColor3Changed"]
+      157 GETUPVAL                         R12 0
+      158 GETTABLEKS                       R12 R12 K35 ["onImageColor3Changed"]
       160 NAMECALL                         R10 R10 K26 ["Connect"]
       162 CALL                             R10 2 -1
       163 FASTCALL                         TABLE_INSERT ; [+2]
       164 GETIMPORT                        R8 K29 [table.insert]
       166 CALL                             R8 -1 0
-      167 GETUPVAL                         R10 0
-      168 GETTABLEKS                       R9 R10 K23 ["imageUnderEditConnections"]
+      167 GETUPVAL                         R9 0
+      168 GETTABLEKS                       R9 R9 K23 ["imageUnderEditConnections"]
       170 LOADK                            R12 K36 ["ResampleMode"]
       171 NAMECALL                         R10 R0 K24 ["GetPropertyChangedSignal"]
       173 CALL                             R10 2 1
-      174 GETUPVAL                         R13 0
-      175 GETTABLEKS                       R12 R13 K37 ["onResampleModeChanged"]
+      174 GETUPVAL                         R12 0
+      175 GETTABLEKS                       R12 R12 K37 ["onResampleModeChanged"]
       177 NAMECALL                         R10 R10 K26 ["Connect"]
       179 CALL                             R10 2 -1
       180 FASTCALL                         TABLE_INSERT ; [+2]
       181 GETIMPORT                        R8 K29 [table.insert]
       183 CALL                             R8 -1 0
-      184 GETUPVAL                         R9 1
-      185 GETTABLEKS                       R8 R9 K38 ["getSliceRectFromSliceCenter"]
+      184 GETUPVAL                         R8 1
+      185 GETTABLEKS                       R8 R8 K38 ["getSliceRectFromSliceCenter"]
       187 GETTABLEKS                       R9 R0 K20 ["SliceCenter"]
       189 CALL                             R8 1 1
       190 MOVE                             R3 R8
-      191 GETUPVAL                         R9 1
-      192 GETTABLEKS                       R8 R9 K39 ["copySliceRect"]
+      191 GETUPVAL                         R8 1
+      192 GETTABLEKS                       R8 R8 K39 ["copySliceRect"]
       194 MOVE                             R9 R3
       195 CALL                             R8 1 1
       196 MOVE                             R4 R8
@@ -394,8 +394,8 @@ PROTO_13:
       204 CALL                             R10 1 1
       205 CONCAT                           R5 R8 R10
       206 GETUPVAL                         R8 0
-      207 GETUPVAL                         R10 1
-      208 GETTABLEKS                       R9 R10 K43 ["getOffsetsFromSliceRect"]
+      207 GETUPVAL                         R9 1
+      208 GETTABLEKS                       R9 R9 K43 ["getOffsetsFromSliceRect"]
       210 MOVE                             R10 R3
       211 MOVE                             R11 R7
       212 CALL                             R9 2 1
@@ -416,9 +416,9 @@ PROTO_13:
       240 MOVE                             R6 R8
       241 GETUPVAL                         R7 0
       242 SETTABLEKS                       R0 R7 K50 ["instanceUnderEdit"]
-      244 GETUPVAL                         R9 0
-      245 GETTABLEKS                       R8 R9 K4 ["props"]
-      247 GETTABLEKS                       R7 R8 K51 ["InstanceUnderEditChanged"]
+      244 GETUPVAL                         R7 0
+      245 GETTABLEKS                       R7 R7 K4 ["props"]
+      247 GETTABLEKS                       R7 R7 K51 ["InstanceUnderEditChanged"]
       249 MOVE                             R8 R0
       250 MOVE                             R9 R6
       251 CALL                             R7 2 0
@@ -429,8 +429,8 @@ PROTO_14:
         1 GETTABLEKS                       R1 R0 K0 ["loadingToken"]
         3 ADDK                             R1 R1 K1 [1]
         4 SETTABLEKS                       R1 R0 K0 ["loadingToken"]
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K0 ["loadingToken"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["loadingToken"]
         9 RETURN                           R0 1
 
 PROTO_15:
@@ -451,8 +451,8 @@ PROTO_15:
        16 GETUPVAL                         R4 1
        17 CALL                             R2 2 0
        18 RETURN                           R0 0
-       19 GETUPVAL                         R3 2
-       20 GETTABLEKS                       R2 R3 K3 ["connectImageChangedConnection"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K3 ["connectImageChangedConnection"]
        22 GETUPVAL                         R3 0
        23 CALL                             R2 1 0
        24 GETUPVAL                         R2 0
@@ -465,39 +465,39 @@ PROTO_15:
        32 RETURN                           R0 0
        33 GETUPVAL                         R3 3
        34 JUMPIFNOT                        R3 ; [+42]
-       35 GETUPVAL                         R5 2
-       36 GETTABLEKS                       R4 R5 K5 ["props"]
-       38 GETTABLEKS                       R3 R4 K6 ["RequestToLoadImage"]
+       35 GETUPVAL                         R3 2
+       36 GETTABLEKS                       R3 R3 K5 ["props"]
+       38 GETTABLEKS                       R3 R3 K6 ["RequestToLoadImage"]
        40 GETTABLEKS                       R4 R2 K7 ["Image"]
        42 CALL                             R3 1 0
-       43 GETUPVAL                         R5 2
-       44 GETTABLEKS                       R4 R5 K5 ["props"]
-       46 GETTABLEKS                       R3 R4 K8 ["LoadingChanged"]
+       43 GETUPVAL                         R3 2
+       44 GETTABLEKS                       R3 R3 K5 ["props"]
+       46 GETTABLEKS                       R3 R3 K8 ["LoadingChanged"]
        48 LOADB                            R4 1
        49 CALL                             R3 1 0
-       50 GETUPVAL                         R4 4
-       51 GETTABLEKS                       R3 R4 K9 ["RenderStepped"]
+       50 GETUPVAL                         R3 4
+       51 GETTABLEKS                       R3 R3 K9 ["RenderStepped"]
        53 NAMECALL                         R3 R3 K10 ["Wait"]
        55 CALL                             R3 1 0
-       56 GETUPVAL                         R4 4
-       57 GETTABLEKS                       R3 R4 K9 ["RenderStepped"]
+       56 GETUPVAL                         R3 4
+       57 GETTABLEKS                       R3 R3 K9 ["RenderStepped"]
        59 NAMECALL                         R3 R3 K10 ["Wait"]
        61 CALL                             R3 1 0
-       62 GETUPVAL                         R4 4
-       63 GETTABLEKS                       R3 R4 K9 ["RenderStepped"]
+       62 GETUPVAL                         R3 4
+       63 GETTABLEKS                       R3 R3 K9 ["RenderStepped"]
        65 NAMECALL                         R3 R3 K10 ["Wait"]
        67 CALL                             R3 1 0
-       68 GETUPVAL                         R4 2
-       69 GETTABLEKS                       R3 R4 K11 ["_isMounted"]
+       68 GETUPVAL                         R3 2
+       69 GETTABLEKS                       R3 R3 K11 ["_isMounted"]
        71 JUMPIF                           R3 ; [+5]
        72 MOVE                             R3 R1
        73 LOADB                            R4 0
        74 GETUPVAL                         R5 1
        75 CALL                             R3 2 0
        76 RETURN                           R0 0
-       77 GETUPVAL                         R5 2
-       78 GETTABLEKS                       R4 R5 K5 ["props"]
-       80 GETTABLEKS                       R3 R4 K8 ["LoadingChanged"]
+       77 GETUPVAL                         R3 2
+       78 GETTABLEKS                       R3 R3 K5 ["props"]
+       80 GETTABLEKS                       R3 R3 K8 ["LoadingChanged"]
        82 LOADB                            R4 1
        83 CALL                             R3 1 0
        84 GETIMPORT                        R3 K13 [tick]
@@ -508,17 +508,17 @@ PROTO_15:
        91 LOADN                            R5 5
        92 JUMPIFNOTLT                      R4 R5 ; [+64]
        94 LOADB                            R4 0
-       95 GETUPVAL                         R6 2
-       96 GETTABLEKS                       R5 R6 K11 ["_isMounted"]
+       95 GETUPVAL                         R5 2
+       96 GETTABLEKS                       R5 R5 K11 ["_isMounted"]
        98 JUMPIF                           R5 ; [+5]
        99 MOVE                             R5 R1
       100 LOADB                            R6 0
       101 GETUPVAL                         R7 1
       102 CALL                             R5 2 0
       103 RETURN                           R0 0
-      104 GETUPVAL                         R7 2
-      105 GETTABLEKS                       R6 R7 K5 ["props"]
-      107 GETTABLEKS                       R5 R6 K14 ["LoadingImageRef"]
+      104 GETUPVAL                         R5 2
+      105 GETTABLEKS                       R5 R5 K5 ["props"]
+      107 GETTABLEKS                       R5 R5 K14 ["LoadingImageRef"]
       109 NAMECALL                         R5 R5 K15 ["getValue"]
       111 CALL                             R5 1 1
       112 MOVE                             R6 R5
@@ -540,8 +540,8 @@ PROTO_15:
       135 MOVE                             R4 R6
       136 JUMPIFNOT                        R4 ; [+15]
       137 GETUPVAL                         R6 1
-      138 GETUPVAL                         R8 2
-      139 GETTABLEKS                       R7 R8 K20 ["loadingToken"]
+      138 GETUPVAL                         R7 2
+      139 GETTABLEKS                       R7 R7 K20 ["loadingToken"]
       141 JUMPIFNOTEQ                      R6 R7 ; [+5]
       143 MOVE                             R6 R0
       144 GETUPVAL                         R7 0
@@ -563,15 +563,15 @@ PROTO_15:
       161 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["openInstanceInEditor"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["openInstanceInEditor"]
         3 LOADNIL                          R3
         4 CALL                             R2 1 0
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["newLoadingToken"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["newLoadingToken"]
         8 CALL                             R2 0 1
-        9 GETUPVAL                         R4 1
-       10 GETTABLEKS                       R3 R4 K2 ["new"]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K2 ["new"]
        12 NEWCLOSURE                       R4 P0
        13 CAPTURE                          VAL R0
        14 CAPTURE                          VAL R2
@@ -582,15 +582,15 @@ PROTO_16:
        19 RETURN                           R3 -1
 
 PROTO_17:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_isMounted"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_isMounted"]
         3 JUMPIF                           R1 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R1 1
         6 JUMPIFNOT                        R1 ; [+17]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K1 ["props"]
-       10 GETTABLEKS                       R1 R2 K2 ["LoadingImageRef"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["props"]
+       10 GETTABLEKS                       R1 R1 K2 ["LoadingImageRef"]
        12 NAMECALL                         R1 R1 K3 ["getValue"]
        14 CALL                             R1 1 1
        15 MOVE                             R3 R1
@@ -606,26 +606,26 @@ PROTO_17:
        29 CALL                             R1 1 0
        30 GETUPVAL                         R1 2
        31 JUMPIFNOT                        R1 ; [+41]
-       32 GETUPVAL                         R2 0
-       33 GETTABLEKS                       R1 R2 K7 ["lastSliceOffsets"]
+       32 GETUPVAL                         R1 0
+       33 GETTABLEKS                       R1 R1 K7 ["lastSliceOffsets"]
        35 JUMPIFEQKNIL                     R1 ; [+28]
-       37 GETUPVAL                         R2 0
-       38 GETTABLEKS                       R1 R2 K8 ["getImageDimensionsForInstance"]
+       37 GETUPVAL                         R1 0
+       38 GETTABLEKS                       R1 R1 K8 ["getImageDimensionsForInstance"]
        40 MOVE                             R2 R0
        41 CALL                             R1 1 1
-       42 GETUPVAL                         R3 0
-       43 GETTABLEKS                       R2 R3 K9 ["getOffsetsForResizedImage"]
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R3 R4 K7 ["lastSliceOffsets"]
+       42 GETUPVAL                         R2 0
+       43 GETTABLEKS                       R2 R2 K9 ["getOffsetsForResizedImage"]
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K7 ["lastSliceOffsets"]
        48 MOVE                             R4 R1
        49 CALL                             R2 2 1
-       50 GETUPVAL                         R4 3
-       51 GETTABLEKS                       R3 R4 K10 ["getSliceRectFromOffsets"]
+       50 GETUPVAL                         R3 3
+       51 GETTABLEKS                       R3 R3 K10 ["getSliceRectFromOffsets"]
        53 MOVE                             R4 R2
        54 MOVE                             R5 R1
        55 CALL                             R3 2 1
-       56 GETUPVAL                         R5 3
-       57 GETTABLEKS                       R4 R5 K11 ["getSliceCenterFromSliceRect"]
+       56 GETUPVAL                         R4 3
+       57 GETTABLEKS                       R4 R4 K11 ["getSliceCenterFromSliceRect"]
        59 MOVE                             R5 R3
        60 CALL                             R4 1 1
        61 SETTABLEKS                       R4 R0 K12 ["SliceCenter"]
@@ -640,55 +640,55 @@ PROTO_17:
        73 LOADNIL                          R1
        74 GETUPVAL                         R2 1
        75 JUMPIFNOT                        R2 ; [+11]
-       76 GETUPVAL                         R4 0
-       77 GETTABLEKS                       R3 R4 K1 ["props"]
-       79 GETTABLEKS                       R2 R3 K2 ["LoadingImageRef"]
+       76 GETUPVAL                         R2 0
+       77 GETTABLEKS                       R2 R2 K1 ["props"]
+       79 GETTABLEKS                       R2 R2 K2 ["LoadingImageRef"]
        81 NAMECALL                         R2 R2 K3 ["getValue"]
        83 CALL                             R2 1 1
        84 GETTABLEKS                       R1 R2 K16 ["ContentImageSize"]
        86 JUMP                             ; [+2]
        87 GETTABLEKS                       R1 R0 K16 ["ContentImageSize"]
-       89 GETUPVAL                         R3 0
-       90 GETTABLEKS                       R2 R3 K17 ["openInstanceInEditor"]
+       89 GETUPVAL                         R2 0
+       90 GETTABLEKS                       R2 R2 K17 ["openInstanceInEditor"]
        92 MOVE                             R3 R0
        93 MOVE                             R4 R1
        94 CALL                             R2 2 0
-       95 GETUPVAL                         R4 0
-       96 GETTABLEKS                       R3 R4 K1 ["props"]
-       98 GETTABLEKS                       R2 R3 K18 ["LoadingChanged"]
+       95 GETUPVAL                         R2 0
+       96 GETTABLEKS                       R2 R2 K1 ["props"]
+       98 GETTABLEKS                       R2 R2 K18 ["LoadingChanged"]
       100 LOADB                            R3 0
       101 CALL                             R2 1 0
       102 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["loadingToken"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["loadingToken"]
         3 JUMPIFEQ                         R1 R2 ; [+2]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["_isMounted"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["_isMounted"]
         9 JUMPIF                           R2 ; [+1]
        10 RETURN                           R0 0
        11 JUMPIFNOT                        R0 ; [+13]
        12 GETIMPORT                        R2 K3 [print]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K4 ["props"]
-       17 GETTABLEKS                       R3 R4 K5 ["Localization"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K4 ["props"]
+       17 GETTABLEKS                       R3 R3 K5 ["Localization"]
        19 LOADK                            R5 K6 ["Plugin"]
        20 LOADK                            R6 K7 ["ImageLoadErrorMessage"]
        21 NAMECALL                         R3 R3 K8 ["getText"]
        23 CALL                             R3 3 -1
        24 CALL                             R2 -1 0
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K4 ["props"]
-       28 GETTABLEKS                       R2 R3 K9 ["LoadingChanged"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K4 ["props"]
+       28 GETTABLEKS                       R2 R2 K9 ["LoadingChanged"]
        30 LOADB                            R3 0
        31 CALL                             R2 1 0
        32 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["disconnectImageChangedConnection"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["disconnectImageChangedConnection"]
         3 CALL                             R2 0 0
         4 MOVE                             R2 R0
         5 JUMPIFNOT                        R2 ; [+13]
@@ -702,8 +702,8 @@ PROTO_19:
        15 JUMPIFNOT                        R2 ; [+3]
        16 GETTABLEKS                       R3 R0 K4 ["IsLoaded"]
        18 NOT                              R2 R3
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R3 R4 K5 ["createPromiseForImageLoaded"]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K5 ["createPromiseForImageLoaded"]
        22 MOVE                             R4 R0
        23 MOVE                             R5 R2
        24 CALL                             R3 2 1
@@ -721,23 +721,23 @@ PROTO_19:
        37 RETURN                           R0 0
 
 PROTO_20:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["RenderStepped"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["RenderStepped"]
         3 NAMECALL                         R0 R0 K1 ["Wait"]
         5 CALL                             R0 1 0
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K0 ["RenderStepped"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["RenderStepped"]
         9 NAMECALL                         R0 R0 K1 ["Wait"]
        11 CALL                             R0 1 0
-       12 GETUPVAL                         R1 1
-       13 GETTABLEKS                       R0 R1 K2 ["_isMounted"]
+       12 GETUPVAL                         R0 1
+       13 GETTABLEKS                       R0 R0 K2 ["_isMounted"]
        15 JUMPIF                           R0 ; [+1]
        16 RETURN                           R0 0
-       17 GETUPVAL                         R1 1
-       18 GETTABLEKS                       R0 R1 K3 ["instanceWatchedForImageChange"]
+       17 GETUPVAL                         R0 1
+       18 GETTABLEKS                       R0 R0 K3 ["instanceWatchedForImageChange"]
        20 JUMPIFEQKNIL                     R0 ; [+7]
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R1 R2 K4 ["createAndRunPromiseForImageLoaded"]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K4 ["createAndRunPromiseForImageLoaded"]
        25 MOVE                             R2 R0
        26 LOADB                            R3 1
        27 CALL                             R1 2 0
@@ -753,11 +753,11 @@ PROTO_21:
         8 RETURN                           R0 0
         9 LENGTH                           R1 R0
        10 JUMPIFNOTEQKN                    R1 K1 [0] ; [+11]
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K2 ["disconnectImageChangedConnection"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K2 ["disconnectImageChangedConnection"]
        15 CALL                             R1 0 0
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R1 R2 K3 ["openInstanceInEditor"]
+       16 GETUPVAL                         R1 1
+       17 GETTABLEKS                       R1 R1 K3 ["openInstanceInEditor"]
        19 LOADNIL                          R2
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
@@ -766,20 +766,20 @@ PROTO_21:
        24 MOVE                             R3 R1
        25 GETIMPORT                        R2 K5 [assert]
        27 CALL                             R2 1 0
-       28 GETUPVAL                         R3 1
-       29 GETTABLEKS                       R2 R3 K6 ["instanceUnderEdit"]
+       28 GETUPVAL                         R2 1
+       29 GETTABLEKS                       R2 R2 K6 ["instanceUnderEdit"]
        31 JUMPIFNOTEQ                      R1 R2 ; [+2]
        33 RETURN                           R0 0
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R2 R3 K7 ["createAndRunPromiseForImageLoaded"]
+       34 GETUPVAL                         R2 1
+       35 GETTABLEKS                       R2 R2 K7 ["createAndRunPromiseForImageLoaded"]
        37 MOVE                             R3 R1
        38 LOADB                            R4 0
        39 CALL                             R2 2 0
        40 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["imageChangedConnection"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["imageChangedConnection"]
         3 JUMPIF                           R1 ; [+16]
         4 GETUPVAL                         R1 0
         5 SETTABLEKS                       R0 R1 K1 ["instanceWatchedForImageChange"]
@@ -787,19 +787,19 @@ PROTO_22:
         8 LOADK                            R4 K2 ["Image"]
         9 NAMECALL                         R2 R0 K3 ["GetPropertyChangedSignal"]
        11 CALL                             R2 2 1
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["onImageChanged"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K4 ["onImageChanged"]
        15 NAMECALL                         R2 R2 K5 ["Connect"]
        17 CALL                             R2 2 1
        18 SETTABLEKS                       R2 R1 K0 ["imageChangedConnection"]
        20 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["imageChangedConnection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["imageChangedConnection"]
         3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["imageChangedConnection"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["imageChangedConnection"]
         7 NAMECALL                         R0 R0 K1 ["Disconnect"]
         9 CALL                             R0 1 0
        10 GETUPVAL                         R0 0
@@ -811,25 +811,25 @@ PROTO_23:
        18 RETURN                           R0 0
 
 PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["selectionChangedConnection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["selectionChangedConnection"]
         3 JUMPIF                           R0 ; [+12]
         4 GETUPVAL                         R0 0
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K1 ["SelectionChanged"]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K2 ["onSelectionChanged"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["SelectionChanged"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["onSelectionChanged"]
        11 NAMECALL                         R1 R1 K3 ["Connect"]
        13 CALL                             R1 2 1
        14 SETTABLEKS                       R1 R0 K0 ["selectionChangedConnection"]
        16 RETURN                           R0 0
 
 PROTO_25:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["selectionChangedConnection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["selectionChangedConnection"]
         3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["selectionChangedConnection"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["selectionChangedConnection"]
         7 NAMECALL                         R0 R0 K1 ["Disconnect"]
         9 CALL                             R0 1 0
        10 GETUPVAL                         R0 0
@@ -846,14 +846,14 @@ PROTO_26:
         6 NAMECALL                         R1 R0 K1 ["IsA"]
         8 CALL                             R1 2 1
         9 JUMPIF                           R1 ; [+7]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K3 ["showAlertDialog"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K3 ["showAlertDialog"]
        13 LOADK                            R2 K4 ["ErrorMessageTitle"]
        14 LOADK                            R3 K5 ["InvalidInstanceErrorMessage"]
        15 CALL                             R1 2 0
        16 RETURN                           R0 0
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K6 ["createAndRunPromiseForImageLoaded"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K6 ["createAndRunPromiseForImageLoaded"]
        20 MOVE                             R2 R0
        21 LOADB                            R3 0
        22 CALL                             R1 2 0
@@ -929,8 +929,8 @@ PROTO_27:
        91 NEWCLOSURE                       R2 P14
        92 CAPTURE                          VAL R0
        93 SETTABLEKS                       R2 R0 K29 ["newLoadingToken"]
-       95 GETUPVAL                         R3 0
-       96 GETTABLEKS                       R2 R3 K30 ["createRef"]
+       95 GETUPVAL                         R2 0
+       96 GETTABLEKS                       R2 R2 K30 ["createRef"]
        98 CALL                             R2 0 1
        99 SETTABLEKS                       R2 R0 K31 ["loadingImageRef"]
       101 NEWCLOSURE                       R2 P15
@@ -970,8 +970,8 @@ PROTO_27:
       145 JUMPIFNOT                        R2 ; [+3]
       146 GETTABLEKS                       R2 R0 K38 ["startListeningToSelection"]
       148 CALL                             R2 0 0
-      149 GETUPVAL                         R3 9
-      150 GETTABLEKS                       R2 R3 K42 ["Open9SliceEditor"]
+      149 GETUPVAL                         R2 9
+      150 GETTABLEKS                       R2 R2 K42 ["Open9SliceEditor"]
       152 GETTABLEKS                       R4 R0 K40 ["onSliceCenterEditButtonClicked"]
       154 NAMECALL                         R2 R2 K43 ["Connect"]
       156 CALL                             R2 2 1
@@ -979,22 +979,22 @@ PROTO_27:
       159 RETURN                           R0 0
 
 PROTO_28:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_isMounted"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_isMounted"]
         3 JUMPIFNOT                        R0 ; [+9]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K1 ["onSliceCenterEditButtonClicked"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K2 ["props"]
-       10 GETTABLEKS                       R1 R2 K3 ["InitialEditorInstanceRequest"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["onSliceCenterEditButtonClicked"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K2 ["props"]
+       10 GETTABLEKS                       R1 R1 K3 ["InitialEditorInstanceRequest"]
        12 CALL                             R0 1 0
        13 RETURN                           R0 0
 
 PROTO_29:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["_isMounted"]
-        3 GETTABLEKS                       R2 R0 K1 ["props"]
-        5 GETTABLEKS                       R1 R2 K2 ["InitialEditorInstanceRequest"]
+        3 GETTABLEKS                       R1 R0 K1 ["props"]
+        5 GETTABLEKS                       R1 R1 K2 ["InitialEditorInstanceRequest"]
         7 JUMPIFNOT                        R1 ; [+5]
         8 GETIMPORT                        R1 K5 [task.defer]
        10 NEWCLOSURE                       R2 P0
@@ -1003,16 +1003,16 @@ PROTO_29:
        13 RETURN                           R0 0
 
 PROTO_30:
-        0 GETTABLEKS                       R4 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R4 K1 ["WidgetEnabled"]
+        0 GETTABLEKS                       R3 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R3 K1 ["WidgetEnabled"]
         4 JUMPIFNOT                        R3 ; [+7]
         5 GETTABLEKS                       R3 R1 K1 ["WidgetEnabled"]
         7 JUMPIF                           R3 ; [+4]
         8 GETTABLEKS                       R3 R0 K2 ["startListeningToSelection"]
        10 CALL                             R3 0 0
        11 RETURN                           R0 0
-       12 GETTABLEKS                       R4 R0 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K1 ["WidgetEnabled"]
+       12 GETTABLEKS                       R3 R0 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K1 ["WidgetEnabled"]
        16 JUMPIF                           R3 ; [+12]
        17 GETTABLEKS                       R3 R1 K1 ["WidgetEnabled"]
        19 JUMPIFNOT                        R3 ; [+9]
@@ -1046,8 +1046,8 @@ PROTO_32:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R1 K1 ["showingAlertTitleKey"]
         4 JUMPIFNOT                        R2 ; [+26]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K2 ["createElement"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K2 ["createElement"]
         8 GETUPVAL                         R3 1
         9 DUPTABLE                         R4 K8 [{"Enabled", "TitleKey", "MessageKey", "MessageKeyFormatTable", "OnClose"}]
        10 LOADB                            R5 1
@@ -1067,42 +1067,42 @@ PROTO_32:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["SliceRectUtil"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["SliceRectUtil"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R6 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R6 K11 ["Types"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Types"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R8 R0 K8 ["Src"]
-       43 GETTABLEKS                       R7 R8 K9 ["Util"]
-       45 GETTABLEKS                       R6 R7 K12 ["Orientation"]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K9 ["Util"]
+       45 GETTABLEKS                       R6 R6 K12 ["Orientation"]
        47 CALL                             R5 1 1
        48 GETTABLEKS                       R6 R2 K13 ["ContextServices"]
        50 GETTABLEKS                       R7 R6 K14 ["withContext"]
        52 GETTABLEKS                       R8 R6 K15 ["Analytics"]
        54 GETTABLEKS                       R9 R6 K16 ["Localization"]
-       56 GETTABLEKS                       R11 R2 K9 ["Util"]
-       58 GETTABLEKS                       R10 R11 K17 ["Promise"]
+       56 GETTABLEKS                       R10 R2 K9 ["Util"]
+       58 GETTABLEKS                       R10 R10 K17 ["Promise"]
        60 GETIMPORT                        R11 K4 [require]
-       62 GETTABLEKS                       R14 R0 K8 ["Src"]
-       64 GETTABLEKS                       R13 R14 K18 ["Components"]
-       66 GETTABLEKS                       R12 R13 K19 ["AlertDialog"]
+       62 GETTABLEKS                       R12 R0 K8 ["Src"]
+       64 GETTABLEKS                       R12 R12 K18 ["Components"]
+       66 GETTABLEKS                       R12 R12 K19 ["AlertDialog"]
        68 CALL                             R11 1 1
        69 GETIMPORT                        R12 K21 [game]
        71 LOADK                            R14 K22 ["GuiService"]
@@ -1120,17 +1120,17 @@ MAIN:
        89 LOADK                            R17 K27 ["InstanceUnderEditManager"]
        90 NAMECALL                         R15 R15 K28 ["extend"]
        92 CALL                             R15 2 1
-       93 GETTABLEKS                       R17 R5 K29 ["Left"]
-       95 GETTABLEKS                       R16 R17 K30 ["rawValue"]
+       93 GETTABLEKS                       R16 R5 K29 ["Left"]
+       95 GETTABLEKS                       R16 R16 K30 ["rawValue"]
        97 CALL                             R16 0 1
-       98 GETTABLEKS                       R18 R5 K31 ["Right"]
-      100 GETTABLEKS                       R17 R18 K30 ["rawValue"]
+       98 GETTABLEKS                       R17 R5 K31 ["Right"]
+      100 GETTABLEKS                       R17 R17 K30 ["rawValue"]
       102 CALL                             R17 0 1
-      103 GETTABLEKS                       R19 R5 K32 ["Top"]
-      105 GETTABLEKS                       R18 R19 K30 ["rawValue"]
+      103 GETTABLEKS                       R18 R5 K32 ["Top"]
+      105 GETTABLEKS                       R18 R18 K30 ["rawValue"]
       107 CALL                             R18 0 1
-      108 GETTABLEKS                       R20 R5 K33 ["Bottom"]
-      110 GETTABLEKS                       R19 R20 K30 ["rawValue"]
+      108 GETTABLEKS                       R19 R5 K33 ["Bottom"]
+      110 GETTABLEKS                       R19 R19 K30 ["rawValue"]
       112 CALL                             R19 0 1
       113 DUPCLOSURE                       R20 K34 [PROTO_27]
       114 CAPTURE                          VAL R1

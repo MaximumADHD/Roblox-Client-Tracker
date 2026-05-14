@@ -49,8 +49,8 @@ PROTO_4:
         3 GETUPVAL                         R2 0
         4 MOVE                             R3 R0
         5 DUPTABLE                         R4 K2 [{"SelectedItemId"}]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K1 ["SelectedItemId"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -90,8 +90,8 @@ PROTO_5:
         7 GETUPVAL                         R2 0
         8 MOVE                             R3 R0
         9 DUPTABLE                         R4 K2 [{"SelectedItemId"}]
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R5 R6 K3 ["None"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K3 ["None"]
        13 SETTABLEKS                       R5 R4 K0 ["SelectedItemId"]
        15 CALL                             R2 2 -1
        16 RETURN                           R2 -1
@@ -114,54 +114,54 @@ MAIN:
         3 LOADK                            R2 K2 ["ReplicatedStorage"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Rodux"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Rodux"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["Dash"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["Dash"]
        28 CALL                             R3 1 1
        29 GETTABLEKS                       R4 R3 K12 ["join"]
        31 GETIMPORT                        R5 K8 [require]
-       33 GETTABLEKS                       R8 R1 K13 ["Src"]
-       35 GETTABLEKS                       R7 R8 K14 ["Flags"]
-       37 GETTABLEKS                       R6 R7 K15 ["getFFlagStyleEditorPluginStyleSheets"]
+       33 GETTABLEKS                       R6 R1 K13 ["Src"]
+       35 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       37 GETTABLEKS                       R6 R6 K15 ["getFFlagStyleEditorPluginStyleSheets"]
        39 CALL                             R5 1 1
        40 CALL                             R5 0 1
-       41 GETTABLEKS                       R7 R1 K13 ["Src"]
-       43 GETTABLEKS                       R6 R7 K16 ["Actions"]
+       41 GETTABLEKS                       R6 R1 K13 ["Src"]
+       43 GETTABLEKS                       R6 R6 K16 ["Actions"]
        45 GETIMPORT                        R7 K8 [require]
-       47 GETTABLEKS                       R9 R6 K17 ["Window"]
-       49 GETTABLEKS                       R8 R9 K18 ["DeselectItem"]
+       47 GETTABLEKS                       R8 R6 K17 ["Window"]
+       49 GETTABLEKS                       R8 R8 K18 ["DeselectItem"]
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K8 [require]
-       54 GETTABLEKS                       R10 R6 K17 ["Window"]
-       56 GETTABLEKS                       R9 R10 K19 ["SelectItem"]
+       54 GETTABLEKS                       R9 R6 K17 ["Window"]
+       56 GETTABLEKS                       R9 R9 K19 ["SelectItem"]
        58 CALL                             R8 1 1
        59 GETIMPORT                        R9 K8 [require]
-       61 GETTABLEKS                       R11 R6 K17 ["Window"]
-       63 GETTABLEKS                       R10 R11 K20 ["SetIsDirty"]
+       61 GETTABLEKS                       R10 R6 K17 ["Window"]
+       63 GETTABLEKS                       R10 R10 K20 ["SetIsDirty"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K8 [require]
-       68 GETTABLEKS                       R12 R6 K17 ["Window"]
-       70 GETTABLEKS                       R11 R12 K21 ["SetItemsExpanded"]
+       68 GETTABLEKS                       R11 R6 K17 ["Window"]
+       70 GETTABLEKS                       R11 R11 K21 ["SetItemsExpanded"]
        72 CALL                             R10 1 1
        73 GETIMPORT                        R11 K8 [require]
-       75 GETTABLEKS                       R13 R6 K17 ["Window"]
-       77 GETTABLEKS                       R12 R13 K22 ["SetSource"]
+       75 GETTABLEKS                       R12 R6 K17 ["Window"]
+       77 GETTABLEKS                       R12 R12 K22 ["SetSource"]
        79 CALL                             R11 1 1
        80 GETIMPORT                        R12 K8 [require]
-       82 GETTABLEKS                       R14 R6 K17 ["Window"]
-       84 GETTABLEKS                       R13 R14 K23 ["SetRootRoute"]
+       82 GETTABLEKS                       R13 R6 K17 ["Window"]
+       84 GETTABLEKS                       R13 R13 K23 ["SetRootRoute"]
        86 CALL                             R12 1 1
        87 GETIMPORT                        R13 K8 [require]
-       89 GETTABLEKS                       R15 R6 K17 ["Window"]
-       91 GETTABLEKS                       R14 R15 K24 ["SetSearch"]
+       89 GETTABLEKS                       R14 R6 K17 ["Window"]
+       91 GETTABLEKS                       R14 R14 K24 ["SetSearch"]
        93 CALL                             R13 1 1
        94 DUPTABLE                         R14 K31 [{"IsDirty", "Source", "SearchTerm", "RootRoute", "SelectedItemId", "ExpandedItems"}]
        95 LOADN                            R15 0

@@ -8,8 +8,8 @@ PROTO_1:
         6 GETTABLEKS                       R4 R1 K3 ["Image"]
         8 GETTABLEKS                       R5 R1 K4 ["Position"]
        10 GETTABLEKS                       R6 R1 K5 ["LayoutOrder"]
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 GETUPVAL                         R8 1
        16 DUPTABLE                         R9 K15 [{"AutomaticSize", "Position", "AnchorPoint", "Padding", "Layout", "Spacing", "VerticalAlignment", "ZIndex", "Style", "ImageTransparency", "LayoutOrder"}]
        17 GETIMPORT                        R10 K18 [Enum.AutomaticSize.XY]
@@ -44,8 +44,8 @@ PROTO_1:
        64 JUMPIFEQKNIL                     R4 ; [+33]
        66 LOADB                            R11 0
        67 JUMPIFEQKS                       R4 K33 [""] ; [+30]
-       69 GETUPVAL                         R12 0
-       70 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       69 GETUPVAL                         R11 0
+       70 GETTABLEKS                       R11 R11 K6 ["createElement"]
        72 LOADK                            R12 K34 ["ImageLabel"]
        73 DUPTABLE                         R13 K37 [{"BackgroundTransparency", "Size", "Position", "Image"}]
        74 LOADN                            R14 1
@@ -67,8 +67,8 @@ PROTO_1:
        95 SETTABLEKS                       R4 R13 K3 ["Image"]
        97 CALL                             R11 2 1
        98 SETTABLEKS                       R11 R10 K3 ["Image"]
-      100 GETUPVAL                         R12 0
-      101 GETTABLEKS                       R11 R12 K6 ["createElement"]
+      100 GETUPVAL                         R11 0
+      101 GETTABLEKS                       R11 R11 K6 ["createElement"]
       103 GETUPVAL                         R12 2
       104 DUPTABLE                         R13 K44 [{"AutomaticSize", "TextXAlignment", "Text", "BackgroundTransparency", "TextWrapped", "LayoutOrder"}]
       105 GETIMPORT                        R14 K18 [Enum.AutomaticSize.XY]
@@ -94,12 +94,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R3 K10 ["withContext"]

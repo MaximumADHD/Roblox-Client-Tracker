@@ -16,8 +16,8 @@ PROTO_0:
        19 MOVE                             R9 R1
        20 GETIMPORT                        R8 K5 [table.insert]
        22 CALL                             R8 2 0
-       23 GETUPVAL                         R9 0
-       24 GETTABLEKS                       R8 R9 K6 ["hasInputPin"]
+       23 GETUPVAL                         R8 0
+       24 GETTABLEKS                       R8 R8 K6 ["hasInputPin"]
        26 MOVE                             R9 R6
        27 CALL                             R8 1 1
        28 JUMPIFNOT                        R8 ; [+18]
@@ -34,8 +34,8 @@ PROTO_0:
        42 GETIMPORT                        R14 K5 [table.insert]
        44 CALL                             R14 2 0
        45 FORGLOOP                         R9 2 ; [-9]
-       47 GETUPVAL                         R9 0
-       48 GETTABLEKS                       R8 R9 K9 ["hasSidechainPin"]
+       47 GETUPVAL                         R8 0
+       48 GETTABLEKS                       R8 R8 K9 ["hasSidechainPin"]
        50 MOVE                             R9 R6
        51 CALL                             R8 1 1
        52 JUMPIFNOT                        R8 ; [+18]
@@ -96,8 +96,8 @@ PROTO_1:
        19 MOVE                             R9 R1
        20 GETIMPORT                        R8 K5 [table.insert]
        22 CALL                             R8 2 0
-       23 GETUPVAL                         R9 0
-       24 GETTABLEKS                       R8 R9 K6 ["hasOutputPin"]
+       23 GETUPVAL                         R8 0
+       24 GETTABLEKS                       R8 R8 K6 ["hasOutputPin"]
        26 MOVE                             R9 R6
        27 CALL                             R8 1 1
        28 JUMPIFNOT                        R8 ; [+15]
@@ -180,13 +180,13 @@ PROTO_4:
        21 SETTABLEKS                       R3 R2 K3 ["Enabled"]
        23 LOADB                            R3 1
        24 SETTABLEKS                       R3 R2 K4 ["Visible"]
-       26 GETUPVAL                         R4 0
-       27 GETTABLEKS                       R3 R4 K18 ["action"]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K18 ["action"]
        29 LOADK                            R4 K19 ["SelectInputs"]
        30 CALL                             R3 1 1
        31 SETTABLEKS                       R3 R2 K5 ["Text"]
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R3 R4 K20 ["tooltip"]
+       33 GETUPVAL                         R3 0
+       34 GETTABLEKS                       R3 R3 K20 ["tooltip"]
        36 LOADK                            R4 K19 ["SelectInputs"]
        37 CALL                             R3 1 1
        38 SETTABLEKS                       R3 R2 K6 ["Tooltip"]
@@ -209,13 +209,13 @@ PROTO_4:
        64 SETTABLEKS                       R4 R3 K3 ["Enabled"]
        66 LOADB                            R4 1
        67 SETTABLEKS                       R4 R3 K4 ["Visible"]
-       69 GETUPVAL                         R5 0
-       70 GETTABLEKS                       R4 R5 K18 ["action"]
+       69 GETUPVAL                         R4 0
+       70 GETTABLEKS                       R4 R4 K18 ["action"]
        72 LOADK                            R5 K23 ["SelectOutputs"]
        73 CALL                             R4 1 1
        74 SETTABLEKS                       R4 R3 K5 ["Text"]
-       76 GETUPVAL                         R5 0
-       77 GETTABLEKS                       R4 R5 K20 ["tooltip"]
+       76 GETUPVAL                         R4 0
+       77 GETTABLEKS                       R4 R4 K20 ["tooltip"]
        79 LOADK                            R5 K23 ["SelectOutputs"]
        80 CALL                             R4 1 1
        81 SETTABLEKS                       R4 R3 K6 ["Tooltip"]
@@ -285,14 +285,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["LocalizationUtil"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["LocalizationUtil"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["WiringUtil"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["WiringUtil"]
        30 CALL                             R3 1 1
        31 DUPCLOSURE                       R4 K14 [PROTO_0]
        32 CAPTURE                          VAL R3

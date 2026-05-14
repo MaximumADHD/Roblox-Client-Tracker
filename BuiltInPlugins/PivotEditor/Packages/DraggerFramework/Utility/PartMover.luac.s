@@ -342,8 +342,8 @@ PROTO_10:
        16 GETTABLEKS                       R3 R0 K6 ["_originalMainPartCFrame"]
        18 SETTABLEKS                       R3 R2 K3 ["CFrame"]
        20 GETTABLEKS                       R2 R0 K0 ["_mainPart"]
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K7 ["Terrain"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K7 ["Terrain"]
        25 SETTABLEKS                       R3 R2 K8 ["Parent"]
        27 GETTABLEKS                       R2 R0 K9 ["_partSet"]
        29 GETTABLEKS                       R3 R0 K0 ["_mainPart"]
@@ -378,8 +378,8 @@ PROTO_11:
        35 NAMECALL                         R15 R14 K8 ["IsA"]
        37 CALL                             R15 2 1
        38 JUMPIFNOT                        R15 ; [+52]
-       39 GETUPVAL                         R16 0
-       40 GETTABLEKS                       R15 R16 K9 ["getJointInstanceCounterpart"]
+       39 GETUPVAL                         R15 0
+       40 GETTABLEKS                       R15 R15 K9 ["getJointInstanceCounterpart"]
        42 MOVE                             R16 R14
        43 MOVE                             R17 R9
        44 CALL                             R15 2 1
@@ -423,8 +423,8 @@ PROTO_11:
        92 NAMECALL                         R15 R14 K8 ["IsA"]
        94 CALL                             R15 2 1
        95 JUMPIFNOT                        R15 ; [+31]
-       96 GETUPVAL                         R16 0
-       97 GETTABLEKS                       R15 R16 K15 ["getConstraintCounterpart"]
+       96 GETUPVAL                         R15 0
+       97 GETTABLEKS                       R15 R15 K15 ["getConstraintCounterpart"]
        99 MOVE                             R16 R14
       100 MOVE                             R17 R9
       101 CALL                             R15 2 1
@@ -452,8 +452,8 @@ PROTO_11:
       128 NAMECALL                         R15 R14 K8 ["IsA"]
       130 CALL                             R15 2 1
       131 JUMPIFNOT                        R15 ; [+37]
-      132 GETUPVAL                         R16 0
-      133 GETTABLEKS                       R15 R16 K18 ["getWeldConstraintCounterpart"]
+      132 GETUPVAL                         R15 0
+      133 GETTABLEKS                       R15 R15 K18 ["getWeldConstraintCounterpart"]
       135 MOVE                             R16 R14
       136 MOVE                             R17 R9
       137 CALL                             R15 2 1
@@ -485,8 +485,8 @@ PROTO_11:
       170 NAMECALL                         R15 R14 K8 ["IsA"]
       172 CALL                             R15 2 1
       173 JUMPIFNOT                        R15 ; [+12]
-      174 GETUPVAL                         R16 0
-      175 GETTABLEKS                       R15 R16 K20 ["getNoCollisionConstraintCounterpart"]
+      174 GETUPVAL                         R15 0
+      175 GETTABLEKS                       R15 R15 K20 ["getNoCollisionConstraintCounterpart"]
       177 MOVE                             R16 R14
       178 MOVE                             R17 R9
       179 CALL                             R15 2 1
@@ -546,8 +546,8 @@ PROTO_12:
        62 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["_originalCFrameMap"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["_originalCFrameMap"]
         3 GETTABLE                         R1 R2 R0
         4 GETUPVAL                         R2 0
         5 MOVE                             R4 R0
@@ -563,8 +563,8 @@ PROTO_14:
         5 CALL                             R2 1 0
         6 NAMECALL                         R2 R0 K3 ["_ensureGeometryTrackingHasBeenSetup"]
         8 CALL                             R2 1 0
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K4 ["new"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K4 ["new"]
        12 GETTABLEKS                       R3 R0 K5 ["_parts"]
        14 GETTABLEKS                       R4 R0 K6 ["_partSet"]
        16 GETTABLEKS                       R5 R0 K7 ["_rootPartSet"]
@@ -664,8 +664,8 @@ PROTO_17:
 
 PROTO_18:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["_mainPart"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["_mainPart"]
         4 GETUPVAL                         R3 2
         5 GETUPVAL                         R4 3
         6 GETUPVAL                         R5 4
@@ -699,8 +699,8 @@ PROTO_19:
        29 CAPTURE                          VAL R3
        30 CAPTURE                          VAL R4
        31 CALL                             R6 1 0
-       32 GETTABLEKS                       R7 R0 K10 ["_mainPart"]
-       34 GETTABLEKS                       R6 R7 K11 ["CFrame"]
+       32 GETTABLEKS                       R6 R0 K10 ["_mainPart"]
+       34 GETTABLEKS                       R6 R6 K11 ["CFrame"]
        36 GETTABLEKS                       R8 R0 K7 ["_originalMainPartCFrame"]
        38 NAMECALL                         R8 R8 K12 ["Inverse"]
        40 CALL                             R8 1 1
@@ -736,8 +736,8 @@ PROTO_22:
         3 GETIMPORT                        R2 K2 [assert]
         5 CALL                             R2 1 0
         6 GETIMPORT                        R2 K4 [pcall]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K5 ["ArePartsTouchingOthers"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K5 ["ArePartsTouchingOthers"]
        11 GETUPVAL                         R4 0
        12 GETTABLEKS                       R5 R0 K6 ["_workspaceParts"]
        14 ORK                              R6 R1 K7 [0.001]
@@ -897,32 +897,32 @@ MAIN:
         9 LOADK                            R3 K4 ["RunService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R4 K6 [script]
-       15 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       17 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
        19 GETIMPORT                        R3 K9 [require]
-       21 GETTABLEKS                       R5 R2 K10 ["Flags"]
-       23 GETTABLEKS                       R4 R5 K11 ["getFFlagDraggerEditProcModels"]
+       21 GETTABLEKS                       R4 R2 K10 ["Flags"]
+       23 GETTABLEKS                       R4 R4 K11 ["getFFlagDraggerEditProcModels"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K9 [require]
-       28 GETTABLEKS                       R6 R2 K10 ["Flags"]
-       30 GETTABLEKS                       R5 R6 K12 ["getFFlagDraggerFixAttachmentModelDoubleMovement"]
+       28 GETTABLEKS                       R5 R2 K10 ["Flags"]
+       30 GETTABLEKS                       R5 R5 K12 ["getFFlagDraggerFixAttachmentModelDoubleMovement"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K9 [require]
-       35 GETTABLEKS                       R7 R2 K13 ["Utility"]
-       37 GETTABLEKS                       R6 R7 K14 ["getGeometry"]
+       35 GETTABLEKS                       R6 R2 K13 ["Utility"]
+       37 GETTABLEKS                       R6 R6 K14 ["getGeometry"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K9 [require]
-       42 GETTABLEKS                       R8 R2 K13 ["Utility"]
-       44 GETTABLEKS                       R7 R8 K15 ["JointPairs"]
+       42 GETTABLEKS                       R7 R2 K13 ["Utility"]
+       44 GETTABLEKS                       R7 R7 K15 ["JointPairs"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K9 [require]
-       49 GETTABLEKS                       R9 R2 K13 ["Utility"]
-       51 GETTABLEKS                       R8 R9 K16 ["JointUtil"]
+       49 GETTABLEKS                       R8 R2 K13 ["Utility"]
+       51 GETTABLEKS                       R8 R8 K16 ["JointUtil"]
        53 CALL                             R7 1 1
        54 GETIMPORT                        R8 K9 [require]
-       56 GETTABLEKS                       R10 R2 K13 ["Utility"]
-       58 GETTABLEKS                       R9 R10 K17 ["fixSlightlyOffgridOrientation"]
+       56 GETTABLEKS                       R9 R2 K13 ["Utility"]
+       58 GETTABLEKS                       R9 R9 K17 ["fixSlightlyOffgridOrientation"]
        60 CALL                             R8 1 1
        61 MOVE                             R9 R3
        62 CALL                             R9 0 1

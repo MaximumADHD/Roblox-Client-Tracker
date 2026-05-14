@@ -17,8 +17,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["RenderStepped"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["RenderStepped"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          VAL R0
         5 NAMECALL                         R1 R1 K1 ["connect"]
@@ -92,8 +92,8 @@ PROTO_7:
        26 LOADN                            R14 1
        27 CALL                             R11 3 1
        28 DUPTABLE                         R12 K14 [{"UIListLayout"}]
-       29 GETUPVAL                         R14 0
-       30 GETTABLEKS                       R13 R14 K15 ["createElement"]
+       29 GETUPVAL                         R13 0
+       30 GETTABLEKS                       R13 R13 K15 ["createElement"]
        32 LOADK                            R14 K13 ["UIListLayout"]
        33 DUPTABLE                         R15 K21 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
        34 GETIMPORT                        R16 K23 [Enum.SortOrder.LayoutOrder]
@@ -131,8 +131,8 @@ PROTO_7:
        82 LOADK                            R20 K38 ["Frame"]
        83 MOVE                             R21 R17
        84 CONCAT                           R19 R20 R21
-       85 GETUPVAL                         R21 0
-       86 GETTABLEKS                       R20 R21 K15 ["createElement"]
+       85 GETUPVAL                         R20 0
+       86 GETTABLEKS                       R20 R20 K15 ["createElement"]
        88 LOADK                            R21 K38 ["Frame"]
        89 DUPTABLE                         R22 K42 [{"Size", "LayoutOrder", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
        90 GETIMPORT                        R23 K44 [UDim2.new]
@@ -149,8 +149,8 @@ PROTO_7:
       106 LOADN                            R23 1
       107 SETTABLEKS                       R23 R22 K41 ["BackgroundTransparency"]
       109 DUPTABLE                         R23 K47 [{"Image"}]
-      110 GETUPVAL                         R25 0
-      111 GETTABLEKS                       R24 R25 K15 ["createElement"]
+      110 GETUPVAL                         R24 0
+      111 GETTABLEKS                       R24 R24 K15 ["createElement"]
       113 LOADK                            R25 K48 ["ImageLabel"]
       114 DUPTABLE                         R26 K50 [{"AnchorPoint", "BackgroundTransparency", "Size", "Position", "Image", "ImageTransparency", "LayoutOrder"}]
       115 GETIMPORT                        R27 K52 [Vector2.new]
@@ -184,8 +184,8 @@ PROTO_7:
       154 CALL                             R20 3 1
       155 SETTABLE                         R20 R12 R19
       156 FORNLOOP                         R15
-      157 GETUPVAL                         R16 0
-      158 GETTABLEKS                       R15 R16 K15 ["createElement"]
+      157 GETUPVAL                         R15 0
+      158 GETTABLEKS                       R15 R15 K15 ["createElement"]
       160 LOADK                            R16 K38 ["Frame"]
       161 DUPTABLE                         R17 K54 [{"AnchorPoint", "Position", "Size", "ZIndex", "LayoutOrder", "BorderSizePixel", "BackgroundTransparency"}]
       162 SETTABLEKS                       R3 R17 K2 ["AnchorPoint"]
@@ -212,17 +212,17 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Roact"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Roact"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R2 K13 ["ContextServices"]
        29 GETTABLEKS                       R5 R4 K14 ["withContext"]
-       31 GETTABLEKS                       R7 R2 K15 ["Util"]
-       33 GETTABLEKS                       R6 R7 K16 ["Typecheck"]
+       31 GETTABLEKS                       R6 R2 K15 ["Util"]
+       33 GETTABLEKS                       R6 R6 K16 ["Typecheck"]
        35 GETTABLEKS                       R7 R3 K17 ["PureComponent"]
        37 LOADK                            R9 K18 ["FlashingDot"]
        38 NAMECALL                         R7 R7 K19 ["extend"]

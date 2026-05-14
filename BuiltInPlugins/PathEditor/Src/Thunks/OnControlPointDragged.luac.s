@@ -1,7 +1,7 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PathReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PathReducer"]
         5 GETUPVAL                         R3 0
         6 GETUPVAL                         R4 1
         7 SUB                              R2 R3 R4
@@ -14,8 +14,8 @@ PROTO_0:
        17 SUB                              R3 R4 R5
        18 GETUPVAL                         R4 3
        19 MOVE                             R5 R3
-       20 GETTABLEKS                       R7 R1 K4 ["SelectedObject"]
-       22 GETTABLEKS                       R6 R7 K5 ["Parent"]
+       20 GETTABLEKS                       R6 R1 K4 ["SelectedObject"]
+       22 GETTABLEKS                       R6 R6 K5 ["Parent"]
        24 CALL                             R4 2 1
        25 GETUPVAL                         R7 4
        26 GETUPVAL                         R8 5
@@ -55,20 +55,20 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Src"]
-       11 GETTABLEKS                       R1 R2 K4 ["Thunks"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R1 K4 ["Thunks"]
        13 GETIMPORT                        R2 K6 [require]
        15 GETTABLEKS                       R3 R1 K7 ["ModifyControlPoint"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K6 [require]
        20 GETTABLEKS                       R4 R1 K8 ["SetControlPointTangent"]
        22 CALL                             R3 1 1
-       23 GETTABLEKS                       R5 R0 K3 ["Src"]
-       25 GETTABLEKS                       R4 R5 K9 ["Util"]
+       23 GETTABLEKS                       R4 R0 K3 ["Src"]
+       25 GETTABLEKS                       R4 R4 K9 ["Util"]
        27 GETIMPORT                        R5 K6 [require]
        29 GETTABLEKS                       R6 R4 K10 ["getUDim2ScaleFromVector2"]
        31 CALL                             R5 1 1

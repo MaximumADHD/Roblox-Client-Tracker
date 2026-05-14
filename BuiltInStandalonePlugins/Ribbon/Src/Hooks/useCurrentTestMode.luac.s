@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["connectTestModesAsync"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["connectTestModesAsync"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
         5 CALL                             R0 2 0
         6 GETUPVAL                         R0 2
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R1 R2 K1 ["getCurrentTestModeSettingValueAsync"]
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["getCurrentTestModeSettingValueAsync"]
        10 GETUPVAL                         R2 1
        11 CALL                             R1 1 -1
        12 CALL                             R0 -1 0
@@ -43,15 +43,15 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useEffect"]
        16 GETTABLEKS                       R3 R1 K9 ["useState"]
        18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R7 R0 K10 ["Src"]
-       22 GETTABLEKS                       R6 R7 K11 ["Util"]
-       24 GETTABLEKS                       R5 R6 K12 ["TestingModesHelper"]
+       20 GETTABLEKS                       R5 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R5 K11 ["Util"]
+       24 GETTABLEKS                       R5 R5 K12 ["TestingModesHelper"]
        26 CALL                             R4 1 1
        27 DUPCLOSURE                       R5 K13 [PROTO_2]
        28 CAPTURE                          VAL R3

@@ -164,17 +164,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Rodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Rodux"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["join"]
        23 GETTABLEKS                       R4 R1 K10 ["None"]
-       25 GETTABLEKS                       R6 R0 K11 ["Src"]
-       27 GETTABLEKS                       R5 R6 K12 ["Actions"]
+       25 GETTABLEKS                       R5 R0 K11 ["Src"]
+       27 GETTABLEKS                       R5 R5 K12 ["Actions"]
        29 GETIMPORT                        R6 K5 [require]
        31 GETTABLEKS                       R7 R5 K13 ["SetActiveLayersFilter"]
        33 CALL                             R6 1 1
@@ -224,8 +224,8 @@ MAIN:
       106 GETTABLEKS                       R22 R5 K28 ["SetSkipLimit"]
       108 CALL                             R21 1 1
       109 GETIMPORT                        R22 K5 [require]
-      111 GETTABLEKS                       R24 R0 K11 ["Src"]
-      113 GETTABLEKS                       R23 R24 K29 ["Types"]
+      111 GETTABLEKS                       R23 R0 K11 ["Src"]
+      113 GETTABLEKS                       R23 R23 K29 ["Types"]
       115 CALL                             R22 1 1
       116 GETTABLEKS                       R23 R2 K30 ["createReducer"]
       118 DUPTABLE                         R24 K49 [{"ActiveLayersFilter", "Actor", "Adornments", "DebugDataConnection", "DebugDataEvent", "DebugPoseEvent", "ExpandedSections", "HistoryDuration", "HistoryField", "HistoryOffset", "HistoryFrame", "LayerFilters", "LayerSelectionEvent", "PropertyOverridesEvent", "SelectedLayer", "SendPayloadAnalytics", "SkipCounter", "SkipLimit"}]

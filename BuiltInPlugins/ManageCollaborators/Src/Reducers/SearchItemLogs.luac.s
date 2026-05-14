@@ -1,11 +1,11 @@
 PROTO_0:
         0 NEWTABLE                         R0 2 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["COLLABORATORTYPE_USER"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["COLLABORATORTYPE_USER"]
         5 NEWTABLE                         R2 0 0
         7 SETTABLE                         R2 R0 R1
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K1 ["COLLABORATORTYPE_GROUP"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K1 ["COLLABORATORTYPE_GROUP"]
        11 NEWTABLE                         R2 0 0
        13 SETTABLE                         R2 R0 R1
        14 RETURN                           R0 1
@@ -16,9 +16,9 @@ PROTO_1:
         2 RETURN                           R2 1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 MOVE                             R4 R1
         7 CALL                             R2 2 -1
@@ -36,22 +36,22 @@ MAIN:
        11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        13 CALL                             R1 2 1
        14 GETIMPORT                        R2 K9 [require]
-       16 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K11 ["Rodux"]
+       16 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K11 ["Rodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K12 ["Cryo"]
+       23 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K12 ["Cryo"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R5 R1 K13 ["Src"]
-       30 GETTABLEKS                       R4 R5 K14 ["Actions"]
+       28 GETTABLEKS                       R4 R1 K13 ["Src"]
+       30 GETTABLEKS                       R4 R4 K14 ["Actions"]
        32 GETIMPORT                        R5 K9 [require]
        34 GETTABLEKS                       R6 R4 K15 ["SetSearchItemLogs"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K9 [require]
-       39 GETTABLEKS                       R9 R1 K13 ["Src"]
-       41 GETTABLEKS                       R8 R9 K16 ["Util"]
-       43 GETTABLEKS                       R7 R8 K17 ["Constants"]
+       39 GETTABLEKS                       R7 R1 K13 ["Src"]
+       41 GETTABLEKS                       R7 R7 K16 ["Util"]
+       43 GETTABLEKS                       R7 R7 K17 ["Constants"]
        45 CALL                             R6 1 1
        46 DUPCLOSURE                       R7 K18 [PROTO_0]
        47 CAPTURE                          VAL R6

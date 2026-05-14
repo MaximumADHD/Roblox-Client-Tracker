@@ -1,9 +1,9 @@
 PROTO_0:
-        0 GETTABLEKS                       R3 R0 K0 ["GroupMetadata"]
-        2 GETTABLEKS                       R2 R3 K1 ["NewGroupMetadata"]
+        0 GETTABLEKS                       R2 R0 K0 ["GroupMetadata"]
+        2 GETTABLEKS                       R2 R2 K1 ["NewGroupMetadata"]
         4 JUMPIF                           R2 ; [+4]
-        5 GETTABLEKS                       R3 R0 K0 ["GroupMetadata"]
-        7 GETTABLEKS                       R2 R3 K2 ["CurrentGroupMetadata"]
+        5 GETTABLEKS                       R2 R0 K0 ["GroupMetadata"]
+        7 GETTABLEKS                       R2 R2 K2 ["CurrentGroupMetadata"]
         9 GETTABLE                         R3 R2 R1
        10 GETTABLEKS                       R4 R3 K3 ["Name"]
        12 RETURN                           R4 1

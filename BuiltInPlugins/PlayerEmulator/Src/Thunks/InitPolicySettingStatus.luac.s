@@ -9,8 +9,8 @@ PROTO_1:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 GETUPVAL                         R3 0
-        5 GETUPVAL                         R6 1
-        6 GETTABLEKS                       R5 R6 K0 ["POLICY_SETTING_KEY"]
+        5 GETUPVAL                         R5 1
+        6 GETTABLEKS                       R5 R5 K0 ["POLICY_SETTING_KEY"]
         8 NAMECALL                         R3 R3 K1 ["GetSetting"]
        10 CALL                             R3 2 1
        11 JUMPIF                           R3 ; [+2]
@@ -66,9 +66,9 @@ PROTO_1:
        80 CALL                             R9 3 1
        81 SETTABLE                         R8 R2 R9
        82 FORGLOOP                         R4 2 ; [-64]
-       84 GETUPVAL                         R6 4
-       85 GETTABLEKS                       R5 R6 K14 ["Dictionary"]
-       87 GETTABLEKS                       R4 R5 K15 ["keys"]
+       84 GETUPVAL                         R4 4
+       85 GETTABLEKS                       R4 R4 K14 ["Dictionary"]
+       87 GETTABLEKS                       R4 R4 K15 ["keys"]
        89 MOVE                             R5 R1
        90 CALL                             R4 1 1
        91 GETIMPORT                        R5 K8 [table.sort]
@@ -109,28 +109,28 @@ MAIN:
         3 LOADK                            R2 K2 ["PlayerEmulatorService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Cryo"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Cryo"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R6 R1 K11 ["Src"]
-       26 GETTABLEKS                       R5 R6 K12 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["Constants"]
+       24 GETTABLEKS                       R4 R1 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["Constants"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K8 [require]
-       33 GETTABLEKS                       R7 R1 K11 ["Src"]
-       35 GETTABLEKS                       R6 R7 K14 ["Actions"]
-       37 GETTABLEKS                       R5 R6 K15 ["UpdatePolicySettingStatus"]
+       33 GETTABLEKS                       R5 R1 K11 ["Src"]
+       35 GETTABLEKS                       R5 R5 K14 ["Actions"]
+       37 GETTABLEKS                       R5 R5 K15 ["UpdatePolicySettingStatus"]
        39 CALL                             R4 1 1
        40 GETIMPORT                        R5 K8 [require]
-       42 GETTABLEKS                       R8 R1 K11 ["Src"]
-       44 GETTABLEKS                       R7 R8 K14 ["Actions"]
-       46 GETTABLEKS                       R6 R7 K16 ["LoadAllPolicyValues"]
+       42 GETTABLEKS                       R6 R1 K11 ["Src"]
+       44 GETTABLEKS                       R6 R6 K14 ["Actions"]
+       46 GETTABLEKS                       R6 R6 K16 ["LoadAllPolicyValues"]
        48 CALL                             R5 1 1
        49 DUPCLOSURE                       R6 K17 [PROTO_0]
        50 DUPCLOSURE                       R7 K18 [PROTO_2]

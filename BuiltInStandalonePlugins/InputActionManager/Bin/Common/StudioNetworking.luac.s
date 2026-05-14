@@ -1,32 +1,32 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+5]
-        2 GETUPVAL                         R2 1
-        3 GETTABLEKS                       R1 R2 K0 ["get"]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["get"]
         5 CALL                             R1 0 -1
         6 RETURN                           R1 -1
         7 GETTABLEKS                       R1 R0 K1 ["isHost"]
         9 GETTABLEKS                       R2 R0 K2 ["isGuest"]
        11 JUMPIFNOTEQ                      R1 R2 ; [+12]
-       13 GETUPVAL                         R2 2
-       14 GETTABLEKS                       R1 R2 K3 ["new"]
-       16 GETUPVAL                         R3 3
-       17 GETTABLEKS                       R2 R3 K3 ["new"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K3 ["new"]
+       16 GETUPVAL                         R2 3
+       17 GETTABLEKS                       R2 R2 K3 ["new"]
        19 MOVE                             R3 R0
        20 CALL                             R2 1 -1
        21 CALL                             R1 -1 1
        22 SETUPVAL                         R1 0
        23 JUMP                             ; [+10]
-       24 GETUPVAL                         R2 2
-       25 GETTABLEKS                       R1 R2 K3 ["new"]
-       27 GETUPVAL                         R3 4
-       28 GETTABLEKS                       R2 R3 K3 ["new"]
+       24 GETUPVAL                         R1 2
+       25 GETTABLEKS                       R1 R1 K3 ["new"]
+       27 GETUPVAL                         R2 4
+       28 GETTABLEKS                       R2 R2 K3 ["new"]
        30 MOVE                             R3 R0
        31 CALL                             R2 1 -1
        32 CALL                             R1 -1 1
        33 SETUPVAL                         R1 0
-       34 GETUPVAL                         R2 1
-       35 GETTABLEKS                       R1 R2 K0 ["get"]
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K0 ["get"]
        37 CALL                             R1 0 -1
        38 RETURN                           R1 -1
 
@@ -56,13 +56,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["DMNetworking"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DMNetworking"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Implementations"]
-       16 GETTABLEKS                       R2 R3 K9 ["CallbackNetworking"]
-       18 GETTABLEKS                       R4 R1 K8 ["Implementations"]
-       20 GETTABLEKS                       R3 R4 K10 ["StudioNetworking"]
+       14 GETTABLEKS                       R2 R1 K8 ["Implementations"]
+       16 GETTABLEKS                       R2 R2 K9 ["CallbackNetworking"]
+       18 GETTABLEKS                       R3 R1 K8 ["Implementations"]
+       20 GETTABLEKS                       R3 R3 K10 ["StudioNetworking"]
        22 NEWTABLE                         R4 4 0
        24 LOADNIL                          R5
        25 NEWCLOSURE                       R6 P0

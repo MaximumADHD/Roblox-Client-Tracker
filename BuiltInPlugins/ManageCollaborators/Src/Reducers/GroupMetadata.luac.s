@@ -29,9 +29,9 @@ PROTO_2:
        20 JUMPIFNOT                        R3 ; [+3]
        21 GETUPVAL                         R3 1
        22 GETTABLEKS                       R2 R3 K7 ["None"]
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R4 R5 K8 ["Dictionary"]
-       27 GETTABLEKS                       R3 R4 K9 ["join"]
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R3 R3 K8 ["Dictionary"]
+       27 GETTABLEKS                       R3 R3 K9 ["join"]
        29 MOVE                             R4 R0
        30 DUPTABLE                         R5 K11 [{"NewGroupMetadata"}]
        31 SETTABLEKS                       R2 R5 K10 ["NewGroupMetadata"]
@@ -39,9 +39,9 @@ PROTO_2:
        34 RETURN                           R3 -1
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"CurrentGroupMetadata"}]
         7 GETTABLEKS                       R5 R1 K4 ["currentGroupMetadata"]
@@ -51,20 +51,20 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R4 R0 K8 ["Src"]
-       25 GETTABLEKS                       R3 R4 K9 ["Actions"]
+       23 GETTABLEKS                       R3 R0 K8 ["Src"]
+       25 GETTABLEKS                       R3 R3 K9 ["Actions"]
        27 GETIMPORT                        R4 K4 [require]
        29 GETTABLEKS                       R5 R3 K10 ["SetGroupMetadata"]
        31 CALL                             R4 1 1
@@ -72,9 +72,9 @@ MAIN:
        34 GETTABLEKS                       R6 R3 K11 ["SetCurrentGroupMetadata"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K4 [require]
-       39 GETTABLEKS                       R9 R0 K8 ["Src"]
-       41 GETTABLEKS                       R8 R9 K12 ["Util"]
-       43 GETTABLEKS                       R7 R8 K13 ["IsEqualCheck"]
+       39 GETTABLEKS                       R7 R0 K8 ["Src"]
+       41 GETTABLEKS                       R7 R7 K12 ["Util"]
+       43 GETTABLEKS                       R7 R7 K13 ["IsEqualCheck"]
        45 CALL                             R6 1 1
        46 DUPCLOSURE                       R7 K14 [PROTO_0]
        47 GETTABLEKS                       R8 R1 K15 ["createReducer"]

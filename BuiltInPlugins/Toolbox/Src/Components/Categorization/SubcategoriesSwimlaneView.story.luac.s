@@ -5,18 +5,18 @@ PROTO_1:
         0 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 NEWTABLE                         R2 0 0
         6 DUPTABLE                         R3 K2 [{"SubcategoriesSwimlaneView"}]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
        11 DUPTABLE                         R6 K7 [{"CategoryName", "OnClickBack", "OnClickSeeAllAssets", "SubcategoryDict"}]
-       12 GETUPVAL                         R9 3
-       13 GETTABLEKS                       R8 R9 K8 ["FREE_MODELS"]
-       15 GETTABLEKS                       R7 R8 K9 ["name"]
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R7 R7 K8 ["FREE_MODELS"]
+       15 GETTABLEKS                       R7 R7 K9 ["name"]
        17 SETTABLEKS                       R7 R6 K3 ["CategoryName"]
        19 DUPCLOSURE                       R7 K10 [PROTO_0]
        20 SETTABLEKS                       R7 R6 K4 ["OnClickBack"]
@@ -132,23 +132,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Src"]
-       18 GETTABLEKS                       R4 R5 K9 ["Util"]
-       20 GETTABLEKS                       R3 R4 K10 ["MockWrapper"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["MockWrapper"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Types"]
-       29 GETTABLEKS                       R4 R5 K12 ["Category"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Types"]
+       29 GETTABLEKS                       R4 R4 K12 ["Category"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETIMPORT                        R7 K1 [script]
-       36 GETTABLEKS                       R6 R7 K13 ["Parent"]
-       38 GETTABLEKS                       R5 R6 K14 ["SubcategoriesSwimlaneView"]
+       34 GETIMPORT                        R5 K1 [script]
+       36 GETTABLEKS                       R5 R5 K13 ["Parent"]
+       38 GETTABLEKS                       R5 R5 K14 ["SubcategoriesSwimlaneView"]
        40 CALL                             R4 1 1
        41 DUPTABLE                         R5 K17 [{"summary", "story"}]
        42 LOADK                            R6 K18 ["A grid of Subcategory IconTiles with flexible widths."]

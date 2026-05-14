@@ -3,9 +3,9 @@ PROTO_0:
         2 JUMPIF                           R2 ; [+4]
         3 NEWTABLE                         R2 0 0
         5 SETTABLEKS                       R2 R0 K0 ["permissionsTable"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R3 R4 K1 ["Dictionary"]
-       10 GETTABLEKS                       R2 R3 K2 ["join"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K1 ["Dictionary"]
+       10 GETTABLEKS                       R2 R2 K2 ["join"]
        12 GETTABLEKS                       R3 R0 K0 ["permissionsTable"]
        14 GETTABLEKS                       R4 R1 K3 ["packagePermissions"]
        16 CALL                             R2 2 1
@@ -14,10 +14,10 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Cryo"]
@@ -25,8 +25,8 @@ MAIN:
        16 GETIMPORT                        R3 K5 [require]
        18 GETTABLEKS                       R4 R1 K7 ["Rodux"]
        20 CALL                             R3 1 1
-       21 GETTABLEKS                       R5 R0 K8 ["Src"]
-       23 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       21 GETTABLEKS                       R4 R0 K8 ["Src"]
+       23 GETTABLEKS                       R4 R4 K9 ["Actions"]
        25 GETIMPORT                        R5 K5 [require]
        27 GETTABLEKS                       R6 R4 K10 ["SetPackagePermission"]
        29 CALL                             R5 1 1

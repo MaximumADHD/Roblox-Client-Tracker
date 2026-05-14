@@ -1,38 +1,38 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["assetId"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["props"]
-        8 GETTABLEKS                       R1 R2 K2 ["currentSoundId"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["assetId"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["props"]
+        8 GETTABLEKS                       R1 R1 K2 ["currentSoundId"]
        10 JUMPIFNOTEQ                      R1 R0 ; [+29]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R3 R4 K0 ["props"]
-       15 GETTABLEKS                       R2 R3 K3 ["isPlaying"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K0 ["props"]
+       15 GETTABLEKS                       R2 R2 K3 ["isPlaying"]
        17 JUMPIFNOT                        R2 ; [+11]
-       18 GETUPVAL                         R4 0
-       19 GETTABLEKS                       R3 R4 K0 ["props"]
-       21 GETTABLEKS                       R2 R3 K4 ["pauseASound"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K0 ["props"]
+       21 GETTABLEKS                       R2 R2 K4 ["pauseASound"]
        23 CALL                             R2 0 0
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R2 R3 K5 ["onSoundPausedCounter"]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K5 ["onSoundPausedCounter"]
        27 CALL                             R2 0 0
        28 RETURN                           R0 0
-       29 GETUPVAL                         R4 0
-       30 GETTABLEKS                       R3 R4 K0 ["props"]
-       32 GETTABLEKS                       R2 R3 K6 ["resumeASound"]
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K0 ["props"]
+       32 GETTABLEKS                       R2 R2 K6 ["resumeASound"]
        34 CALL                             R2 0 0
-       35 GETUPVAL                         R3 1
-       36 GETTABLEKS                       R2 R3 K7 ["onSoundPlayedCounter"]
+       35 GETUPVAL                         R2 1
+       36 GETTABLEKS                       R2 R2 K7 ["onSoundPlayedCounter"]
        38 CALL                             R2 0 0
        39 RETURN                           R0 0
-       40 GETUPVAL                         R4 0
-       41 GETTABLEKS                       R3 R4 K0 ["props"]
-       43 GETTABLEKS                       R2 R3 K8 ["playASound"]
+       40 GETUPVAL                         R2 0
+       41 GETTABLEKS                       R2 R2 K0 ["props"]
+       43 GETTABLEKS                       R2 R2 K8 ["playASound"]
        45 MOVE                             R3 R0
        46 CALL                             R2 1 0
-       47 GETUPVAL                         R3 1
-       48 GETTABLEKS                       R2 R3 K7 ["onSoundPlayedCounter"]
+       47 GETUPVAL                         R2 1
+       48 GETTABLEKS                       R2 R2 K7 ["onSoundPlayedCounter"]
        50 CALL                             R2 0 0
        51 RETURN                           R0 0
 
@@ -44,8 +44,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["onPreviewAudioButtonClicked"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["onPreviewAudioButtonClicked"]
         3 CALL                             R1 0 0
         4 RETURN                           R0 0
 
@@ -60,11 +60,11 @@ PROTO_3:
        10 CALL                             R3 4 1
        11 GETIMPORT                        R4 K4 [UDim2.new]
        13 LOADN                            R5 0
-       14 GETUPVAL                         R7 0
-       15 GETTABLEKS                       R6 R7 K5 ["ASSET_PLAY_AUDIO_ICON_SIZE"]
+       14 GETUPVAL                         R6 0
+       15 GETTABLEKS                       R6 R6 K5 ["ASSET_PLAY_AUDIO_ICON_SIZE"]
        17 LOADN                            R7 0
-       18 GETUPVAL                         R9 0
-       19 GETTABLEKS                       R8 R9 K5 ["ASSET_PLAY_AUDIO_ICON_SIZE"]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K5 ["ASSET_PLAY_AUDIO_ICON_SIZE"]
        21 CALL                             R4 4 1
        22 GETTABLEKS                       R6 R1 K7 ["ZIndex"]
        24 ORK                              R5 R6 K6 [0]
@@ -76,16 +76,16 @@ PROTO_3:
        34 JUMPIFNOTEQ                      R8 R6 ; [+2]
        36 MOVE                             R10 R9
        37 JUMPIFNOT                        R10 ; [+4]
-       38 GETUPVAL                         R12 1
-       39 GETTABLEKS                       R11 R12 K12 ["AUDIO_PREVIEW_PAUSE"]
+       38 GETUPVAL                         R11 1
+       39 GETTABLEKS                       R11 R11 K12 ["AUDIO_PREVIEW_PAUSE"]
        41 JUMPIF                           R11 ; [+3]
-       42 GETUPVAL                         R12 1
-       43 GETTABLEKS                       R11 R12 K13 ["AUDIO_PREVIEW_PLAY"]
-       45 GETTABLEKS                       R13 R2 K14 ["asset"]
-       47 GETTABLEKS                       R12 R13 K15 ["icon"]
+       42 GETUPVAL                         R11 1
+       43 GETTABLEKS                       R11 R11 K13 ["AUDIO_PREVIEW_PLAY"]
+       45 GETTABLEKS                       R12 R2 K14 ["asset"]
+       47 GETTABLEKS                       R12 R12 K15 ["icon"]
        49 JUMPIFNOT                        R7 ; [+45]
-       50 GETUPVAL                         R14 2
-       51 GETTABLEKS                       R13 R14 K16 ["createElement"]
+       50 GETUPVAL                         R13 2
+       51 GETTABLEKS                       R13 R13 K16 ["createElement"]
        53 GETUPVAL                         R14 3
        54 DUPTABLE                         R15 K20 [{"AnchorPoint", "Position", "Size"}]
        55 GETIMPORT                        R16 K22 [Vector2.new]
@@ -96,10 +96,10 @@ PROTO_3:
        62 GETIMPORT                        R16 K4 [UDim2.new]
        64 GETTABLEKS                       R17 R3 K23 ["X"]
        66 GETIMPORT                        R18 K25 [UDim.new]
-       68 GETTABLEKS                       R20 R3 K26 ["Y"]
-       70 GETTABLEKS                       R19 R20 K27 ["Scale"]
-       72 GETTABLEKS                       R22 R3 K26 ["Y"]
-       74 GETTABLEKS                       R21 R22 K29 ["Offset"]
+       68 GETTABLEKS                       R19 R3 K26 ["Y"]
+       70 GETTABLEKS                       R19 R19 K27 ["Scale"]
+       72 GETTABLEKS                       R21 R3 K26 ["Y"]
+       74 GETTABLEKS                       R21 R21 K29 ["Offset"]
        76 SUBK                             R20 R21 K28 [5]
        77 CALL                             R18 2 -1
        78 CALL                             R16 -1 1
@@ -114,8 +114,8 @@ PROTO_3:
        91 SETTABLEKS                       R16 R15 K19 ["Size"]
        93 CALL                             R13 2 -1
        94 RETURN                           R13 -1
-       95 GETUPVAL                         R14 2
-       96 GETTABLEKS                       R13 R14 K16 ["createElement"]
+       95 GETUPVAL                         R13 2
+       96 GETTABLEKS                       R13 R13 K16 ["createElement"]
        98 LOADK                            R14 K30 ["ImageButton"]
        99 NEWTABLE                         R15 8 0
       101 GETIMPORT                        R16 K22 [Vector2.new]
@@ -131,9 +131,9 @@ PROTO_3:
       118 SETTABLEKS                       R16 R15 K33 ["ImageColor3"]
       120 LOADN                            R16 1
       121 SETTABLEKS                       R16 R15 K34 ["BackgroundTransparency"]
-      123 GETUPVAL                         R18 2
-      124 GETTABLEKS                       R17 R18 K35 ["Event"]
-      126 GETTABLEKS                       R16 R17 K36 ["MouseButton1Click"]
+      123 GETUPVAL                         R16 2
+      124 GETTABLEKS                       R16 R16 K35 ["Event"]
+      126 GETTABLEKS                       R16 R16 K36 ["MouseButton1Click"]
       128 NEWCLOSURE                       R17 P0
       129 CAPTURE                          VAL R0
       130 SETTABLE                         R17 R15 R16
@@ -208,28 +208,28 @@ MAIN:
        19 GETIMPORT                        R4 K6 [require]
        21 GETTABLEKS                       R5 R1 K9 ["RoactRodux"]
        23 CALL                             R4 1 1
-       24 GETTABLEKS                       R6 R3 K10 ["UI"]
-       26 GETTABLEKS                       R5 R6 K11 ["LoadingIndicator"]
+       24 GETTABLEKS                       R5 R3 K10 ["UI"]
+       26 GETTABLEKS                       R5 R5 K11 ["LoadingIndicator"]
        28 GETIMPORT                        R6 K6 [require]
-       30 GETTABLEKS                       R9 R0 K12 ["Src"]
-       32 GETTABLEKS                       R8 R9 K13 ["Util"]
-       34 GETTABLEKS                       R7 R8 K14 ["Images"]
+       30 GETTABLEKS                       R7 R0 K12 ["Src"]
+       32 GETTABLEKS                       R7 R7 K13 ["Util"]
+       34 GETTABLEKS                       R7 R7 K14 ["Images"]
        36 CALL                             R6 1 1
        37 GETIMPORT                        R7 K6 [require]
-       39 GETTABLEKS                       R10 R0 K12 ["Src"]
-       41 GETTABLEKS                       R9 R10 K13 ["Util"]
-       43 GETTABLEKS                       R8 R9 K15 ["Constants"]
+       39 GETTABLEKS                       R8 R0 K12 ["Src"]
+       41 GETTABLEKS                       R8 R8 K13 ["Util"]
+       43 GETTABLEKS                       R8 R8 K15 ["Constants"]
        45 CALL                             R7 1 1
        46 GETTABLEKS                       R8 R3 K16 ["ContextServices"]
        48 GETTABLEKS                       R9 R8 K17 ["withContext"]
        50 GETIMPORT                        R10 K6 [require]
-       52 GETTABLEKS                       R14 R0 K12 ["Src"]
-       54 GETTABLEKS                       R13 R14 K13 ["Util"]
-       56 GETTABLEKS                       R12 R13 K18 ["Analytics"]
-       58 GETTABLEKS                       R11 R12 K18 ["Analytics"]
+       52 GETTABLEKS                       R11 R0 K12 ["Src"]
+       54 GETTABLEKS                       R11 R11 K13 ["Util"]
+       56 GETTABLEKS                       R11 R11 K18 ["Analytics"]
+       58 GETTABLEKS                       R11 R11 K18 ["Analytics"]
        60 CALL                             R10 1 1
-       61 GETTABLEKS                       R12 R0 K12 ["Src"]
-       63 GETTABLEKS                       R11 R12 K19 ["Actions"]
+       61 GETTABLEKS                       R11 R0 K12 ["Src"]
+       63 GETTABLEKS                       R11 R11 K19 ["Actions"]
        65 GETIMPORT                        R12 K6 [require]
        67 GETTABLEKS                       R13 R11 K20 ["PlayPreviewSound"]
        69 CALL                             R12 1 1

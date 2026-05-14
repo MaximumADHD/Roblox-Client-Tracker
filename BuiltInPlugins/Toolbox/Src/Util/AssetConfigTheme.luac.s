@@ -13,17 +13,17 @@ PROTO_1:
         4 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 DUPTABLE                         R1 K4 [{"getTheme", "studioStyleGuideColor", "studioStyleGuideModifier"}]
         4 DUPCLOSURE                       R2 K5 [PROTO_1]
         5 SETTABLEKS                       R2 R1 K1 ["getTheme"]
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K6 ["createMockStudioStyleGuideColor"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K6 ["createMockStudioStyleGuideColor"]
        10 CALL                             R2 0 1
        11 SETTABLEKS                       R2 R1 K2 ["studioStyleGuideColor"]
-       13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R2 R3 K7 ["createMockStudioStyleGuideModifier"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K7 ["createMockStudioStyleGuideModifier"]
        16 CALL                             R2 0 1
        17 SETTABLEKS                       R2 R1 K3 ["studioStyleGuideModifier"]
        19 CALL                             R0 1 -1
@@ -101,9 +101,9 @@ PROTO_6:
        11 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 GETTABLEKS                       R3 R0 K2 ["_values"]
         7 MOVE                             R4 R1
         8 CALL                             R2 2 1
@@ -136,9 +136,9 @@ PROTO_9:
         0 LOADB                            R1 0
         1 GETTABLEKS                       R2 R0 K0 ["_externalThemeGetter"]
         3 JUMPIFNOT                        R2 ; [+9]
-        4 GETTABLEKS                       R3 R0 K0 ["_externalThemeGetter"]
-        6 CALL                             R3 0 1
-        7 GETTABLEKS                       R2 R3 K1 ["Name"]
+        4 GETTABLEKS                       R2 R0 K0 ["_externalThemeGetter"]
+        6 CALL                             R2 0 1
+        7 GETTABLEKS                       R2 R2 K1 ["Name"]
         9 JUMPIFEQKS                       R2 K2 ["Dark"] ; [+2]
        11 LOADB                            R1 0 +1
        12 LOADB                            R1 1
@@ -325,8 +325,8 @@ PROTO_11:
       241 LOADN                            R13 102
       242 CALL                             R10 3 1
       243 JUMPIF                           R10 ; [+3]
-      244 GETUPVAL                         R11 0
-      245 GETTABLEKS                       R10 R11 K72 ["GRAY_3"]
+      244 GETUPVAL                         R10 0
+      245 GETTABLEKS                       R10 R10 K72 ["GRAY_3"]
       247 SETTABLEKS                       R10 R9 K70 ["tipsTextColor"]
       249 SETTABLEKS                       R9 R8 K6 ["publishAsset"]
       251 DUPTABLE                         R9 K74 [{"horizontalLineColor"}]
@@ -439,8 +439,8 @@ PROTO_11:
       402 GETTABLEKS                       R11 R3 K53 ["CurrentMarker"]
       404 CALL                             R10 1 1
       405 SETTABLEKS                       R10 R9 K91 ["borderHoveredColor"]
-      407 GETUPVAL                         R11 0
-      408 GETTABLEKS                       R10 R11 K93 ["BLUE_PRIMARY"]
+      407 GETUPVAL                         R10 0
+      408 GETTABLEKS                       R10 R10 K93 ["BLUE_PRIMARY"]
       410 SETTABLEKS                       R10 R9 K81 ["borderSelectedColor"]
       412 SETTABLEKS                       R9 R8 K9 ["textField"]
       414 DUPTABLE                         R9 K94 [{"backgroundColor", "borderColor"}]
@@ -570,8 +570,8 @@ PROTO_11:
       592 GETTABLEKS                       R12 R4 K109 ["Disabled"]
       594 CALL                             R10 2 1
       595 JUMPIF                           R10 ; [+3]
-      596 GETUPVAL                         R11 0
-      597 GETTABLEKS                       R10 R11 K111 ["BLUE_DISABLED"]
+      596 GETUPVAL                         R10 0
+      597 GETTABLEKS                       R10 R10 K111 ["BLUE_DISABLED"]
       599 SETTABLEKS                       R10 R9 K104 ["ButtonColor_Disabled"]
       601 GETIMPORT                        R10 K113 [Color3.new]
       603 LOADN                            R11 1
@@ -702,16 +702,16 @@ PROTO_11:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Cryo"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R0 K7 ["Src"]
-       18 GETTABLEKS                       R3 R4 K8 ["Util"]
+       16 GETTABLEKS                       R3 R0 K7 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
        20 GETIMPORT                        R4 K5 [require]
        22 GETTABLEKS                       R5 R3 K9 ["Colors"]
        24 CALL                             R4 1 1
@@ -725,8 +725,8 @@ MAIN:
        37 GETTABLEKS                       R8 R3 K12 ["Images"]
        39 CALL                             R7 1 1
        40 GETIMPORT                        R8 K5 [require]
-       42 GETTABLEKS                       R10 R3 K13 ["Test"]
-       44 GETTABLEKS                       R9 R10 K14 ["TestHelpers"]
+       42 GETTABLEKS                       R9 R3 K13 ["Test"]
+       44 GETTABLEKS                       R9 R9 K14 ["TestHelpers"]
        46 CALL                             R8 1 1
        47 NEWTABLE                         R9 16 0
        49 SETTABLEKS                       R9 R9 K15 ["__index"]

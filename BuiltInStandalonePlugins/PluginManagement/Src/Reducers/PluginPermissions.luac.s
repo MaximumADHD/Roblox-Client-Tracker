@@ -21,19 +21,19 @@ PROTO_0:
        22 RETURN                           R2 1
 
 PROTO_1:
-        0 GETTABLEKS                       R3 R0 K0 ["data"]
-        2 GETTABLEKS                       R2 R3 K1 ["domain"]
+        0 GETTABLEKS                       R2 R0 K0 ["data"]
+        2 GETTABLEKS                       R2 R2 K1 ["domain"]
         4 JUMPIFNOT                        R2 ; [+5]
-        5 GETTABLEKS                       R3 R1 K0 ["data"]
-        7 GETTABLEKS                       R2 R3 K1 ["domain"]
+        5 GETTABLEKS                       R2 R1 K0 ["data"]
+        7 GETTABLEKS                       R2 R2 K1 ["domain"]
         9 JUMPIF                           R2 ; [+2]
        10 LOADB                            R2 0
        11 RETURN                           R2 1
        12 GETIMPORT                        R2 K4 [table.concat]
        14 GETUPVAL                         R3 0
        15 GETIMPORT                        R4 K7 [string.split]
-       17 GETTABLEKS                       R6 R0 K0 ["data"]
-       19 GETTABLEKS                       R5 R6 K1 ["domain"]
+       17 GETTABLEKS                       R5 R0 K0 ["data"]
+       19 GETTABLEKS                       R5 R5 K1 ["domain"]
        21 LOADK                            R6 K8 ["."]
        22 CALL                             R4 2 1
        23 LOADB                            R5 1
@@ -43,8 +43,8 @@ PROTO_1:
        27 GETIMPORT                        R3 K4 [table.concat]
        29 GETUPVAL                         R4 0
        30 GETIMPORT                        R5 K7 [string.split]
-       32 GETTABLEKS                       R7 R1 K0 ["data"]
-       34 GETTABLEKS                       R6 R7 K1 ["domain"]
+       32 GETTABLEKS                       R6 R1 K0 ["data"]
+       34 GETTABLEKS                       R6 R6 K1 ["domain"]
        36 LOADK                            R7 K8 ["."]
        37 CALL                             R5 2 1
        38 LOADB                            R6 1
@@ -76,12 +76,12 @@ PROTO_2:
        23 CALL                             R14 1 3
        24 FORGPREP_INEXT                   R14
        25 GETTABLEKS                       R19 R18 K7 ["Type"]
-       27 GETUPVAL                         R22 0
-       28 GETTABLEKS                       R21 R22 K8 ["PERMISSION_TYPES"]
-       30 GETTABLEKS                       R20 R21 K9 ["HttpService"]
+       27 GETUPVAL                         R20 0
+       28 GETTABLEKS                       R20 R20 K8 ["PERMISSION_TYPES"]
+       30 GETTABLEKS                       R20 R20 K9 ["HttpService"]
        32 JUMPIFNOTEQ                      R19 R20 ; [+21]
-       34 GETUPVAL                         R20 1
-       35 GETTABLEKS                       R19 R20 K10 ["fromUserData"]
+       34 GETUPVAL                         R19 1
+       35 GETTABLEKS                       R19 R19 K10 ["fromUserData"]
        37 MOVE                             R20 R18
        38 MOVE                             R21 R17
        39 CALL                             R19 2 1
@@ -97,12 +97,12 @@ PROTO_2:
        52 CALL                             R20 2 0
        53 JUMP                             ; [+43]
        54 GETTABLEKS                       R19 R18 K7 ["Type"]
-       56 GETUPVAL                         R22 0
-       57 GETTABLEKS                       R21 R22 K8 ["PERMISSION_TYPES"]
-       59 GETTABLEKS                       R20 R21 K16 ["ScriptInjection"]
+       56 GETUPVAL                         R20 0
+       57 GETTABLEKS                       R20 R20 K8 ["PERMISSION_TYPES"]
+       59 GETTABLEKS                       R20 R20 K16 ["ScriptInjection"]
        61 JUMPIFNOTEQ                      R19 R20 ; [+35]
-       63 GETUPVAL                         R20 1
-       64 GETTABLEKS                       R19 R20 K10 ["fromUserData"]
+       63 GETUPVAL                         R19 1
+       64 GETTABLEKS                       R19 R19 K10 ["fromUserData"]
        66 MOVE                             R20 R18
        67 MOVE                             R21 R17
        68 CALL                             R19 2 1
@@ -141,9 +141,9 @@ PROTO_2:
       114 SETTABLEKS                       R10 R14 K31 ["scriptInjectionPermissions"]
       116 SETTABLE                         R14 R2 R8
       117 FORGLOOP                         R3 2 ; [-110]
-      119 GETUPVAL                         R5 3
-      120 GETTABLEKS                       R4 R5 K33 ["Dictionary"]
-      122 GETTABLEKS                       R3 R4 K34 ["join"]
+      119 GETUPVAL                         R3 3
+      120 GETTABLEKS                       R3 R3 K33 ["Dictionary"]
+      122 GETTABLEKS                       R3 R3 K34 ["join"]
       124 MOVE                             R4 R0
       125 MOVE                             R5 R2
       126 CALL                             R3 2 -1
@@ -151,27 +151,27 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Rodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Models"]
-       29 GETTABLEKS                       R4 R5 K10 ["PermissionInfo"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Models"]
+       29 GETTABLEKS                       R4 R4 K10 ["PermissionInfo"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["Util"]
-       38 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Util"]
+       38 GETTABLEKS                       R5 R5 K12 ["Constants"]
        40 CALL                             R4 1 1
        41 DUPCLOSURE                       R5 K13 [PROTO_0]
        42 GETTABLEKS                       R6 R2 K14 ["createReducer"]

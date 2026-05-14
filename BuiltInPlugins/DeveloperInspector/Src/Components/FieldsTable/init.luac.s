@@ -1,35 +1,35 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["item"]
-        2 GETUPVAL                         R6 0
-        3 GETTABLEKS                       R5 R6 K1 ["props"]
-        5 GETTABLEKS                       R4 R5 K2 ["Expansion"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["props"]
+        5 GETTABLEKS                       R4 R4 K2 ["Expansion"]
         7 GETTABLE                         R3 R4 R1
         8 NOT                              R2 R3
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R4 R5 K1 ["props"]
-       12 GETTABLEKS                       R3 R4 K3 ["toggleField"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K1 ["props"]
+       12 GETTABLEKS                       R3 R3 K3 ["toggleField"]
        14 NEWTABLE                         R4 1 0
        16 SETTABLE                         R2 R4 R1
        17 CALL                             R3 1 0
        18 JUMPIFNOT                        R2 ; [+32]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R4 R5 K1 ["props"]
-       22 GETTABLEKS                       R3 R4 K4 ["Inspector"]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K1 ["props"]
+       22 GETTABLEKS                       R3 R3 K4 ["Inspector"]
        24 NAMECALL                         R3 R3 K5 ["get"]
        26 CALL                             R3 1 1
        27 NAMECALL                         R4 R3 K6 ["getTargetApi"]
        29 CALL                             R4 1 1
-       30 GETUPVAL                         R6 1
-       31 GETTABLEKS                       R5 R6 K7 ["isInstance"]
+       30 GETUPVAL                         R5 1
+       31 GETTABLEKS                       R5 R5 K7 ["isInstance"]
        33 MOVE                             R6 R4
        34 CALL                             R5 1 1
        35 JUMPIFNOT                        R5 ; [+15]
-       36 GETUPVAL                         R9 0
-       37 GETTABLEKS                       R8 R9 K1 ["props"]
-       39 GETTABLEKS                       R7 R8 K8 ["SelectedPath"]
-       41 GETUPVAL                         R10 0
-       42 GETTABLEKS                       R9 R10 K1 ["props"]
-       44 GETTABLEKS                       R8 R9 K9 ["SelectedNodeIndex"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K1 ["props"]
+       39 GETTABLEKS                       R7 R7 K8 ["SelectedPath"]
+       41 GETUPVAL                         R8 0
+       42 GETTABLEKS                       R8 R8 K1 ["props"]
+       44 GETTABLEKS                       R8 R8 K9 ["SelectedNodeIndex"]
        46 GETTABLEKS                       R9 R1 K10 ["Path"]
        48 NAMECALL                         R5 R4 K11 ["getFields"]
        50 CALL                             R5 4 0
@@ -39,20 +39,20 @@ PROTO_1:
         0 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["props"]
-        3 GETTABLEKS                       R4 R5 K1 ["Stylizer"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["props"]
+        3 GETTABLEKS                       R4 R4 K1 ["Stylizer"]
         5 DUPTABLE                         R5 K10 [{"Row", "OnSelect", "OnToggle", "IsExpanded", "IsSelected", "Position", "Style", "Size"}]
         6 SETTABLEKS                       R0 R5 K2 ["Row"]
-        8 GETUPVAL                         R7 0
-        9 GETTABLEKS                       R6 R7 K11 ["onSelectField"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K11 ["onSelectField"]
        11 SETTABLEKS                       R6 R5 K3 ["OnSelect"]
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K12 ["onToggleField"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K12 ["onToggleField"]
        16 SETTABLEKS                       R6 R5 K4 ["OnToggle"]
-       18 GETUPVAL                         R9 0
-       19 GETTABLEKS                       R8 R9 K0 ["props"]
-       21 GETTABLEKS                       R7 R8 K13 ["Expansion"]
+       18 GETUPVAL                         R7 0
+       19 GETTABLEKS                       R7 R7 K0 ["props"]
+       21 GETTABLEKS                       R7 R7 K13 ["Expansion"]
        23 GETTABLEKS                       R8 R0 K14 ["item"]
        25 GETTABLE                         R6 R7 R8
        26 SETTABLEKS                       R6 R5 K5 ["IsExpanded"]
@@ -118,8 +118,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Root"]
-        4 GETTABLEKS                       R2 R3 K2 ["Children"]
+        2 GETTABLEKS                       R2 R1 K1 ["Root"]
+        4 GETTABLEKS                       R2 R2 K2 ["Children"]
         6 GETUPVAL                         R3 0
         7 NEWTABLE                         R4 0 6
         9 NEWTABLE                         R5 0 1
@@ -154,8 +154,8 @@ PROTO_6:
        53 CALL                             R10 1 1
        54 SETLIST                          R4 R5 6 [1]
        56 CALL                             R3 1 1
-       57 GETUPVAL                         R5 2
-       58 GETTABLEKS                       R4 R5 K11 ["createElement"]
+       57 GETUPVAL                         R4 2
+       58 GETTABLEKS                       R4 R4 K11 ["createElement"]
        60 GETUPVAL                         R5 3
        61 DUPTABLE                         R6 K20 [{"Size", "Expansion", "RootItems", "RowComponent", "GetChildren", "GetRowProps", "ScrollingDirection", "Style"}]
        62 GETIMPORT                        R7 K23 [UDim2.new]
@@ -165,8 +165,8 @@ PROTO_6:
        67 LOADN                            R11 0
        68 CALL                             R7 4 1
        69 SETTABLEKS                       R7 R6 K12 ["Size"]
-       71 GETTABLEKS                       R8 R0 K0 ["props"]
-       73 GETTABLEKS                       R7 R8 K13 ["Expansion"]
+       71 GETTABLEKS                       R7 R0 K0 ["props"]
+       73 GETTABLEKS                       R7 R7 K13 ["Expansion"]
        75 SETTABLEKS                       R7 R6 K13 ["Expansion"]
        77 SETTABLEKS                       R3 R6 K14 ["RootItems"]
        79 GETUPVAL                         R7 4
@@ -184,20 +184,20 @@ PROTO_6:
 
 PROTO_7:
         0 DUPTABLE                         R2 K5 [{"SelectedPath", "SelectedNodeIndex", "Root", "Selection", "Expansion"}]
-        1 GETTABLEKS                       R4 R0 K6 ["RoactInspector"]
-        3 GETTABLEKS                       R3 R4 K7 ["selectedPath"]
+        1 GETTABLEKS                       R3 R0 K6 ["RoactInspector"]
+        3 GETTABLEKS                       R3 R3 K7 ["selectedPath"]
         5 SETTABLEKS                       R3 R2 K0 ["SelectedPath"]
-        7 GETTABLEKS                       R4 R0 K6 ["RoactInspector"]
-        9 GETTABLEKS                       R3 R4 K8 ["selectedNodeIndex"]
+        7 GETTABLEKS                       R3 R0 K6 ["RoactInspector"]
+        9 GETTABLEKS                       R3 R3 K8 ["selectedNodeIndex"]
        11 SETTABLEKS                       R3 R2 K1 ["SelectedNodeIndex"]
-       13 GETTABLEKS                       R4 R0 K6 ["RoactInspector"]
-       15 GETTABLEKS                       R3 R4 K9 ["fields"]
+       13 GETTABLEKS                       R3 R0 K6 ["RoactInspector"]
+       15 GETTABLEKS                       R3 R3 K9 ["fields"]
        17 SETTABLEKS                       R3 R2 K2 ["Root"]
-       19 GETTABLEKS                       R4 R0 K6 ["RoactInspector"]
-       21 GETTABLEKS                       R3 R4 K10 ["selectedFields"]
+       19 GETTABLEKS                       R3 R0 K6 ["RoactInspector"]
+       21 GETTABLEKS                       R3 R3 K10 ["selectedFields"]
        23 SETTABLEKS                       R3 R2 K3 ["Selection"]
-       25 GETTABLEKS                       R4 R0 K6 ["RoactInspector"]
-       27 GETTABLEKS                       R3 R4 K11 ["expandedFields"]
+       25 GETTABLEKS                       R3 R0 K6 ["RoactInspector"]
+       27 GETTABLEKS                       R3 R3 K11 ["expandedFields"]
        29 SETTABLEKS                       R3 R2 K4 ["Expansion"]
        31 RETURN                           R2 1
 
@@ -231,39 +231,39 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R7 R0 K9 ["Src"]
-       34 GETTABLEKS                       R6 R7 K10 ["Util"]
-       36 GETTABLEKS                       R5 R6 K11 ["InspectorContext"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K11 ["InspectorContext"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K4 [require]
-       41 GETIMPORT                        R7 K1 [script]
-       43 GETTABLEKS                       R6 R7 K12 ["FieldTreeRow"]
+       41 GETIMPORT                        R6 K1 [script]
+       43 GETTABLEKS                       R6 R6 K12 ["FieldTreeRow"]
        45 CALL                             R5 1 1
        46 GETIMPORT                        R6 K4 [require]
-       48 GETTABLEKS                       R8 R0 K5 ["Packages"]
-       50 GETTABLEKS                       R7 R8 K13 ["DeveloperTools"]
+       48 GETTABLEKS                       R7 R0 K5 ["Packages"]
+       50 GETTABLEKS                       R7 R7 K13 ["DeveloperTools"]
        52 CALL                             R6 1 1
        53 GETTABLEKS                       R7 R6 K14 ["RoactInspectorApi"]
        55 GETIMPORT                        R8 K4 [require]
-       57 GETTABLEKS                       R10 R0 K5 ["Packages"]
-       59 GETTABLEKS                       R9 R10 K15 ["Dash"]
+       57 GETTABLEKS                       R9 R0 K5 ["Packages"]
+       59 GETTABLEKS                       R9 R9 K15 ["Dash"]
        61 CALL                             R8 1 1
        62 GETTABLEKS                       R9 R8 K16 ["flat"]
        64 GETTABLEKS                       R10 R8 K17 ["values"]
@@ -272,15 +272,15 @@ MAIN:
        70 GETTABLEKS                       R13 R12 K22 ["withContext"]
        72 GETTABLEKS                       R14 R3 K23 ["UI"]
        74 GETTABLEKS                       R15 R14 K24 ["TreeView"]
-       76 GETTABLEKS                       R17 R0 K9 ["Src"]
-       78 GETTABLEKS                       R16 R17 K25 ["Actions"]
+       76 GETTABLEKS                       R16 R0 K9 ["Src"]
+       78 GETTABLEKS                       R16 R16 K25 ["Actions"]
        80 GETIMPORT                        R17 K4 [require]
-       82 GETTABLEKS                       R19 R16 K26 ["RoactInspector"]
-       84 GETTABLEKS                       R18 R19 K27 ["SelectField"]
+       82 GETTABLEKS                       R18 R16 K26 ["RoactInspector"]
+       84 GETTABLEKS                       R18 R18 K27 ["SelectField"]
        86 CALL                             R17 1 1
        87 GETIMPORT                        R18 K4 [require]
-       89 GETTABLEKS                       R20 R16 K26 ["RoactInspector"]
-       91 GETTABLEKS                       R19 R20 K28 ["ToggleField"]
+       89 GETTABLEKS                       R19 R16 K26 ["RoactInspector"]
+       91 GETTABLEKS                       R19 R19 K28 ["ToggleField"]
        93 CALL                             R18 1 1
        94 GETTABLEKS                       R19 R1 K29 ["PureComponent"]
        96 LOADK                            R21 K30 ["FieldsTable"]

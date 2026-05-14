@@ -1,67 +1,67 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 FASTCALL1                        ASSERT R1 ; [+2]
         4 GETIMPORT                        R0 K2 [assert]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K3 ["isAvatarTypeEqual"]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K0 ["current"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K3 ["isAvatarTypeEqual"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K0 ["current"]
        13 CALL                             R1 1 1
        14 NOT                              R0 R1
        15 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 FASTCALL1                        ASSERT R1 ; [+2]
         4 GETIMPORT                        R0 K2 [assert]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K3 ["isEqualToCurrentSettings"]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K0 ["current"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K3 ["isEqualToCurrentSettings"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K0 ["current"]
        13 CALL                             R1 1 1
        14 NOT                              R0 R1
        15 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["onAvatarSettingsPublish"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["onAvatarSettingsPublish"]
         4 NAMECALL                         R0 R0 K1 ["Invoke"]
         6 CALL                             R0 2 0
         7 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["discardSettings"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["discardSettings"]
         4 NAMECALL                         R0 R0 K1 ["Invoke"]
         6 CALL                             R0 2 0
         7 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["initialize"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["initialize"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
 PROTO_5:
         0 JUMPIFNOT                        R0 ; [+14]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["current"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["current"]
         4 FASTCALL1                        ASSERT R2 ; [+2]
         5 GETIMPORT                        R1 K2 [assert]
         7 CALL                             R1 1 0
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K3 ["saveUnpublishedSettings"]
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R2 R3 K0 ["current"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K3 ["saveUnpublishedSettings"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K0 ["current"]
        14 CALL                             R1 1 0
-       15 GETUPVAL                         R2 2
-       16 GETTABLEKS                       R1 R2 K4 ["set"]
+       15 GETUPVAL                         R1 2
+       16 GETTABLEKS                       R1 R1 K4 ["set"]
        18 MOVE                             R2 R0
        19 CALL                             R1 1 0
        20 GETUPVAL                         R1 3
@@ -70,18 +70,18 @@ PROTO_5:
        24 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 FASTCALL1                        ASSERT R1 ; [+2]
         4 GETIMPORT                        R0 K2 [assert]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R0 R1 K3 ["saveUnpublishedSettings"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K0 ["current"]
+        7 GETUPVAL                         R0 1
+        8 GETTABLEKS                       R0 R0 K3 ["saveUnpublishedSettings"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K0 ["current"]
        13 CALL                             R0 1 0
-       14 GETUPVAL                         R1 2
-       15 GETTABLEKS                       R0 R1 K4 ["set"]
+       14 GETUPVAL                         R0 2
+       15 GETTABLEKS                       R0 R0 K4 ["set"]
        17 LOADB                            R1 1
        18 CALL                             R0 1 0
        19 GETUPVAL                         R0 3
@@ -90,15 +90,15 @@ PROTO_6:
        23 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 FASTCALL1                        ASSERT R1 ; [+2]
         4 GETIMPORT                        R0 K2 [assert]
         6 CALL                             R0 1 0
-        7 GETUPVAL                         R1 1
-        8 GETTABLEKS                       R0 R1 K3 ["saveUnpublishedSettings"]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R1 R2 K0 ["current"]
+        7 GETUPVAL                         R0 1
+        8 GETTABLEKS                       R0 R0 K3 ["saveUnpublishedSettings"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K0 ["current"]
        13 CALL                             R0 1 0
        14 GETUPVAL                         R0 2
        15 NEWTABLE                         R1 0 0
@@ -106,29 +106,29 @@ PROTO_7:
        18 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 FASTCALL1                        ASSERT R1 ; [+2]
         4 GETIMPORT                        R0 K2 [assert]
         6 CALL                             R0 1 0
         7 GETUPVAL                         R0 1
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R2 R3 K3 ["hasUnpublishedChanges"]
-       11 GETUPVAL                         R5 3
-       12 GETTABLEKS                       R4 R5 K4 ["isEqualToCurrentSettings"]
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K0 ["current"]
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K3 ["hasUnpublishedChanges"]
+       11 GETUPVAL                         R4 3
+       12 GETTABLEKS                       R4 R4 K4 ["isEqualToCurrentSettings"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K0 ["current"]
        17 CALL                             R4 1 1
        18 NOT                              R3 R4
        19 NAMECALL                         R0 R0 K5 ["Invoke"]
        21 CALL                             R0 3 0
        22 GETUPVAL                         R0 1
-       23 GETUPVAL                         R3 2
-       24 GETTABLEKS                       R2 R3 K6 ["hasUnpublishedAvatarTypeChanges"]
-       26 GETUPVAL                         R5 3
-       27 GETTABLEKS                       R4 R5 K7 ["isAvatarTypeEqual"]
-       29 GETUPVAL                         R6 0
-       30 GETTABLEKS                       R5 R6 K0 ["current"]
+       23 GETUPVAL                         R2 2
+       24 GETTABLEKS                       R2 R2 K6 ["hasUnpublishedAvatarTypeChanges"]
+       26 GETUPVAL                         R4 3
+       27 GETTABLEKS                       R4 R4 K7 ["isAvatarTypeEqual"]
+       29 GETUPVAL                         R5 0
+       30 GETTABLEKS                       R5 R5 K0 ["current"]
        32 CALL                             R4 1 1
        33 NOT                              R3 R4
        34 NAMECALL                         R0 R0 K5 ["Invoke"]
@@ -137,15 +137,15 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["onInitializationStarted"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["onInitializationStarted"]
         4 DUPCLOSURE                       R3 K1 [PROTO_4]
         5 CAPTURE                          UPVAL U2
         6 NAMECALL                         R0 R0 K2 ["OnInvoke"]
         8 CALL                             R0 3 0
         9 GETUPVAL                         R0 0
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K3 ["databaseLoaded"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K3 ["databaseLoaded"]
        13 NEWCLOSURE                       R3 P1
        14 CAPTURE                          UPVAL U3
        15 CAPTURE                          UPVAL U2
@@ -154,8 +154,8 @@ PROTO_9:
        18 NAMECALL                         R0 R0 K2 ["OnInvoke"]
        20 CALL                             R0 3 0
        21 GETUPVAL                         R0 0
-       22 GETUPVAL                         R3 1
-       23 GETTABLEKS                       R2 R3 K4 ["refreshPluginState"]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEKS                       R2 R2 K4 ["refreshPluginState"]
        25 NEWCLOSURE                       R3 P2
        26 CAPTURE                          UPVAL U3
        27 CAPTURE                          UPVAL U2
@@ -164,8 +164,8 @@ PROTO_9:
        30 NAMECALL                         R0 R0 K2 ["OnInvoke"]
        32 CALL                             R0 3 0
        33 GETUPVAL                         R0 0
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R2 R3 K5 ["onSettingsPublished"]
+       34 GETUPVAL                         R2 1
+       35 GETTABLEKS                       R2 R2 K5 ["onSettingsPublished"]
        37 NEWCLOSURE                       R3 P3
        38 CAPTURE                          UPVAL U3
        39 CAPTURE                          UPVAL U2
@@ -173,8 +173,8 @@ PROTO_9:
        41 NAMECALL                         R0 R0 K2 ["OnInvoke"]
        43 CALL                             R0 3 0
        44 GETUPVAL                         R0 0
-       45 GETUPVAL                         R3 1
-       46 GETTABLEKS                       R2 R3 K6 ["requestUnpublishedChangesStatus"]
+       45 GETUPVAL                         R2 1
+       46 GETTABLEKS                       R2 R2 K6 ["requestUnpublishedChangesStatus"]
        48 NEWCLOSURE                       R3 P4
        49 CAPTURE                          UPVAL U3
        50 CAPTURE                          UPVAL U0
@@ -185,8 +185,8 @@ PROTO_9:
        56 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R4 R1 K1 ["settings"]
@@ -205,12 +205,12 @@ PROTO_10:
        24 GETUPVAL                         R3 3
        25 LOADB                            R4 0
        26 CALL                             R3 1 1
-       27 GETUPVAL                         R5 0
-       28 GETTABLEKS                       R4 R5 K7 ["useState"]
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R4 R4 K7 ["useState"]
        30 NEWTABLE                         R5 0 0
        32 CALL                             R4 1 2
-       33 GETUPVAL                         R7 0
-       34 GETTABLEKS                       R6 R7 K8 ["useRef"]
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K8 ["useRef"]
        36 MOVE                             R7 R1
        37 CALL                             R6 1 1
        38 SETTABLEKS                       R1 R6 K9 ["current"]
@@ -252,28 +252,28 @@ PROTO_10:
        89 LOADK                            R10 K20 ["Content must not be nil in PublishContext"]
        90 GETIMPORT                        R8 K4 [assert]
        92 CALL                             R8 2 0
-       93 GETUPVAL                         R10 4
-       94 GETTABLEKS                       R9 R10 K21 ["isEqualToCurrentSettings"]
+       93 GETUPVAL                         R9 4
+       94 GETTABLEKS                       R9 R9 K21 ["isEqualToCurrentSettings"]
        96 MOVE                             R10 R1
        97 CALL                             R9 1 1
        98 NOT                              R8 R9
-       99 GETUPVAL                         R11 4
-      100 GETTABLEKS                       R10 R11 K22 ["isAvatarTypeEqual"]
+       99 GETUPVAL                         R10 4
+      100 GETTABLEKS                       R10 R10 K22 ["isAvatarTypeEqual"]
       102 MOVE                             R11 R1
       103 CALL                             R10 1 1
       104 NOT                              R9 R10
-      105 GETUPVAL                         R13 5
-      106 GETTABLEKS                       R12 R13 K23 ["hasUnpublishedChanges"]
+      105 GETUPVAL                         R12 5
+      106 GETTABLEKS                       R12 R12 K23 ["hasUnpublishedChanges"]
       108 MOVE                             R13 R8
       109 NAMECALL                         R10 R2 K24 ["Invoke"]
       111 CALL                             R10 3 0
-      112 GETUPVAL                         R13 5
-      113 GETTABLEKS                       R12 R13 K25 ["hasUnpublishedAvatarTypeChanges"]
+      112 GETUPVAL                         R12 5
+      113 GETTABLEKS                       R12 R12 K25 ["hasUnpublishedAvatarTypeChanges"]
       115 MOVE                             R13 R9
       116 NAMECALL                         R10 R2 K24 ["Invoke"]
       118 CALL                             R10 3 0
-      119 GETUPVAL                         R11 0
-      120 GETTABLEKS                       R10 R11 K26 ["useEffect"]
+      119 GETUPVAL                         R10 0
+      120 GETTABLEKS                       R10 R10 K26 ["useEffect"]
       122 NEWCLOSURE                       R11 P4
       123 CAPTURE                          VAL R2
       124 CAPTURE                          UPVAL U5
@@ -288,8 +288,8 @@ PROTO_10:
       136 AND                              R11 R12 R8
       137 SETTABLEKS                       R11 R10 K14 ["canPublish"]
       139 GETUPVAL                         R10 6
-      140 GETUPVAL                         R12 7
-      141 GETTABLEKS                       R11 R12 K28 ["Provider"]
+      140 GETUPVAL                         R11 7
+      141 GETTABLEKS                       R11 R11 K28 ["Provider"]
       143 DUPTABLE                         R12 K29 [{"value"}]
       144 SETTABLEKS                       R7 R12 K27 ["value"]
       146 GETTABLEKS                       R13 R0 K30 ["children"]
@@ -303,42 +303,42 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Components"]
-       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
-       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["AvatarSettingsContext"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K11 ["Framework"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R8 R0 K6 ["Src"]
-       29 GETTABLEKS                       R7 R8 K7 ["Components"]
-       31 GETTABLEKS                       R6 R7 K8 ["Contexts"]
-       33 GETTABLEKS                       R5 R6 K12 ["PublishProvider"]
-       35 GETTABLEKS                       R4 R5 K13 ["PublishContext"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K7 ["Components"]
+       31 GETTABLEKS                       R4 R4 K8 ["Contexts"]
+       33 GETTABLEKS                       R4 R4 K12 ["PublishProvider"]
+       35 GETTABLEKS                       R4 R4 K13 ["PublishContext"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K5 [require]
-       40 GETTABLEKS                       R6 R0 K10 ["Packages"]
-       42 GETTABLEKS                       R5 R6 K14 ["React"]
+       40 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       42 GETTABLEKS                       R5 R5 K14 ["React"]
        44 CALL                             R4 1 1
        45 GETIMPORT                        R5 K5 [require]
-       47 GETTABLEKS                       R8 R0 K6 ["Src"]
-       49 GETTABLEKS                       R7 R8 K15 ["Util"]
-       51 GETTABLEKS                       R6 R7 K16 ["InvokeKeys"]
+       47 GETTABLEKS                       R6 R0 K6 ["Src"]
+       49 GETTABLEKS                       R6 R6 K15 ["Util"]
+       51 GETTABLEKS                       R6 R6 K16 ["InvokeKeys"]
        53 CALL                             R5 1 1
        54 GETIMPORT                        R6 K5 [require]
-       56 GETTABLEKS                       R11 R0 K6 ["Src"]
-       58 GETTABLEKS                       R10 R11 K7 ["Components"]
-       60 GETTABLEKS                       R9 R10 K8 ["Contexts"]
-       62 GETTABLEKS                       R8 R9 K12 ["PublishProvider"]
-       64 GETTABLEKS                       R7 R8 K17 ["publishedSettingsManager"]
+       56 GETTABLEKS                       R7 R0 K6 ["Src"]
+       58 GETTABLEKS                       R7 R7 K7 ["Components"]
+       60 GETTABLEKS                       R7 R7 K8 ["Contexts"]
+       62 GETTABLEKS                       R7 R7 K12 ["PublishProvider"]
+       64 GETTABLEKS                       R7 R7 K17 ["publishedSettingsManager"]
        66 CALL                             R6 1 1
        67 GETIMPORT                        R7 K5 [require]
-       69 GETTABLEKS                       R10 R0 K6 ["Src"]
-       71 GETTABLEKS                       R9 R10 K15 ["Util"]
-       73 GETTABLEKS                       R8 R9 K18 ["settingUtil"]
+       69 GETTABLEKS                       R8 R0 K6 ["Src"]
+       71 GETTABLEKS                       R8 R8 K15 ["Util"]
+       73 GETTABLEKS                       R8 R8 K18 ["settingUtil"]
        75 CALL                             R7 1 1
        76 GETTABLEKS                       R8 R2 K19 ["ContextServices"]
        78 GETTABLEKS                       R9 R8 K20 ["Plugin"]

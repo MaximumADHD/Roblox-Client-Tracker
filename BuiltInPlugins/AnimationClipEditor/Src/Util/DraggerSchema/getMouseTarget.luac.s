@@ -30,8 +30,8 @@ PROTO_1:
        10 GETIMPORT                        R6 K7 [Enum.RaycastFilterType.Blacklist]
        12 SETTABLEKS                       R6 R5 K8 ["FilterType"]
        14 NEWTABLE                         R6 0 1
-       16 GETUPVAL                         R8 0
-       17 GETTABLEKS                       R7 R8 K9 ["findRootPart"]
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K9 ["findRootPart"]
        19 GETTABLEKS                       R8 R0 K0 ["RootInstance"]
        21 CALL                             R7 1 -1
        22 SETLIST                          R6 R7 -1 [1]
@@ -81,8 +81,8 @@ PROTO_1:
        93 GETTABLEKS                       R4 R7 K16 ["Distance"]
        95 GETTABLEKS                       R8 R0 K24 ["VisualizeBones"]
        97 JUMPIFNOT                        R8 ; [+12]
-       98 GETUPVAL                         R9 2
-       99 GETTABLEKS                       R8 R9 K25 ["getBoneHit"]
+       98 GETUPVAL                         R8 2
+       99 GETTABLEKS                       R8 R8 K25 ["getBoneHit"]
       101 MOVE                             R9 R1
       102 GETTABLEKS                       R10 R0 K0 ["RootInstance"]
       104 CALL                             R8 2 2
@@ -93,8 +93,8 @@ PROTO_1:
       109 RETURN                           R10 3
       110 JUMPIFNOT                        R3 ; [+44]
       111 MOVE                             R8 R3
-      112 GETUPVAL                         R10 0
-      113 GETTABLEKS                       R9 R10 K26 ["getRigInfo"]
+      112 GETUPVAL                         R9 0
+      113 GETTABLEKS                       R9 R9 K26 ["getRigInfo"]
       115 GETTABLEKS                       R10 R0 K0 ["RootInstance"]
       117 CALL                             R9 1 1
       118 GETTABLEKS                       R10 R9 K27 ["PartNameToMotor"]
@@ -139,14 +139,14 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Util"]
-       19 GETTABLEKS                       R3 R4 K12 ["RigInfo"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Util"]
+       19 GETTABLEKS                       R3 R3 K12 ["RigInfo"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R6 R1 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["RigVisualization"]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["RigVisualization"]
        30 CALL                             R3 1 1
        31 DUPCLOSURE                       R4 K14 [PROTO_0]
        32 DUPCLOSURE                       R5 K15 [PROTO_1]

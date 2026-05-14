@@ -29,15 +29,15 @@ PROTO_1:
        11 RETURN                           R0 0
        12 GETTABLEN                        R3 R1 1
        13 SETTABLEKS                       R3 R0 K6 ["_initialJoint"]
-       15 GETUPVAL                         R4 0
-       16 GETTABLEKS                       R3 R4 K7 ["getJointTransform"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K7 ["getJointTransform"]
        18 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
        20 CALL                             R3 1 1
        21 JUMPIF                           R3 ; [+2]
        22 GETIMPORT                        R3 K9 [CFrame.identity]
        24 SETTABLEKS                       R3 R0 K5 ["_initialTransform"]
-       26 GETUPVAL                         R4 0
-       27 GETTABLEKS                       R3 R4 K10 ["getGlobalCoordinateFrame"]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K10 ["getGlobalCoordinateFrame"]
        29 GETTABLEKS                       R4 R0 K6 ["_initialJoint"]
        31 CALL                             R3 1 1
        32 SETTABLEKS                       R3 R0 K11 ["_initialWorldCFrame"]
@@ -65,8 +65,8 @@ PROTO_3:
         5 JUMPIFNOT                        R1 ; [+8]
         6 GETTABLEKS                       R1 R0 K2 ["_hrd"]
         8 JUMPIFNOT                        R1 ; [+5]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K3 ["addTPoseWaypoint"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K3 ["addTPoseWaypoint"]
        12 LOADK                            R2 K4 ["Bone Translate"]
        13 CALL                             R1 1 0
        14 LOADNIL                          R1
@@ -93,13 +93,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Utils"]
-       13 GETTABLEKS                       R2 R3 K8 ["UndoUtils"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Utils"]
+       13 GETTABLEKS                       R2 R2 K8 ["UndoUtils"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["AdaptiveAnimationTools"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["AdaptiveAnimationTools"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 8 0
        25 SETTABLEKS                       R3 R3 K11 ["__index"]

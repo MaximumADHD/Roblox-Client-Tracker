@@ -20,8 +20,8 @@ PROTO_1:
         6 CALL                             R1 1 1
         7 GETUPVAL                         R2 1
         8 CALL                             R2 0 2
-        9 GETUPVAL                         R5 2
-       10 GETTABLEKS                       R4 R5 K2 ["useEffect"]
+        9 GETUPVAL                         R4 2
+       10 GETTABLEKS                       R4 R4 K2 ["useEffect"]
        12 NEWCLOSURE                       R5 P0
        13 CAPTURE                          VAL R3
        14 CAPTURE                          UPVAL U3
@@ -52,8 +52,8 @@ MAIN:
        21 GETTABLEKS                       R6 R2 K13 ["React"]
        23 CALL                             R5 1 1
        24 GETIMPORT                        R6 K12 [require]
-       26 GETTABLEKS                       R8 R1 K8 ["Packages"]
-       28 GETTABLEKS                       R7 R8 K14 ["Framework"]
+       26 GETTABLEKS                       R7 R1 K8 ["Packages"]
+       28 GETTABLEKS                       R7 R7 K14 ["Framework"]
        30 CALL                             R6 1 1
        31 GETTABLEKS                       R7 R6 K15 ["ContextServices"]
        33 GETTABLEKS                       R8 R7 K16 ["Plugin"]

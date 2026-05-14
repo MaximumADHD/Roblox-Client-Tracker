@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R0 K0 ["Dialogs"]
-        2 GETTABLEKS                       R1 R2 K1 ["showQueue"]
+        0 GETTABLEKS                       R1 R0 K0 ["Dialogs"]
+        2 GETTABLEKS                       R1 R1 K1 ["showQueue"]
         4 RETURN                           R1 1
 
 PROTO_1:
@@ -21,9 +21,9 @@ PROTO_2:
         6 CAPTURE                          VAL R1
         7 CAPTURE                          UPVAL U2
         8 GETUPVAL                         R4 3
-        9 GETUPVAL                         R7 4
-       10 GETTABLEKS                       R6 R7 K1 ["UI"]
-       12 GETTABLEKS                       R5 R6 K2 ["DockWidget"]
+        9 GETUPVAL                         R5 4
+       10 GETTABLEKS                       R5 R5 K1 ["UI"]
+       12 GETTABLEKS                       R5 R5 K2 ["DockWidget"]
        14 DUPTABLE                         R6 K9 [{"Title", "Enabled", "Size", "MinSize", "InitialDockState", "OnClose"}]
        15 GETTABLEKS                       R7 R0 K3 ["Title"]
        17 SETTABLEKS                       R7 R6 K3 ["Title"]
@@ -64,49 +64,49 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createElement"]
        16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       20 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["Framework"]
        22 CALL                             R3 1 1
        23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R7 R0 K10 ["Src"]
-       27 GETTABLEKS                       R6 R7 K11 ["Actions"]
-       29 GETTABLEKS                       R5 R6 K12 ["SetShowQueue"]
+       25 GETTABLEKS                       R5 R0 K10 ["Src"]
+       27 GETTABLEKS                       R5 R5 K11 ["Actions"]
+       29 GETTABLEKS                       R5 R5 K12 ["SetShowQueue"]
        31 CALL                             R4 1 1
-       32 GETTABLEKS                       R6 R0 K10 ["Src"]
-       34 GETTABLEKS                       R5 R6 K13 ["Components"]
+       32 GETTABLEKS                       R5 R0 K10 ["Src"]
+       34 GETTABLEKS                       R5 R5 K13 ["Components"]
        36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R8 R5 K14 ["Dialogs"]
-       40 GETTABLEKS                       R7 R8 K15 ["UploadErrorDialog"]
+       38 GETTABLEKS                       R7 R5 K14 ["Dialogs"]
+       40 GETTABLEKS                       R7 R7 K15 ["UploadErrorDialog"]
        42 CALL                             R6 1 1
        43 GETIMPORT                        R7 K5 [require]
-       45 GETTABLEKS                       R9 R5 K14 ["Dialogs"]
-       47 GETTABLEKS                       R8 R9 K16 ["UploadConfirmationDialog"]
+       45 GETTABLEKS                       R8 R5 K14 ["Dialogs"]
+       47 GETTABLEKS                       R8 R8 K16 ["UploadConfirmationDialog"]
        49 CALL                             R7 1 1
        50 GETIMPORT                        R8 K5 [require]
-       52 GETIMPORT                        R10 K1 [script]
-       54 GETTABLEKS                       R9 R10 K17 ["MainView"]
+       52 GETIMPORT                        R9 K1 [script]
+       54 GETTABLEKS                       R9 R9 K17 ["MainView"]
        56 CALL                             R8 1 1
        57 GETIMPORT                        R9 K5 [require]
-       59 GETTABLEKS                       R12 R0 K10 ["Src"]
-       61 GETTABLEKS                       R11 R12 K18 ["Hooks"]
-       63 GETTABLEKS                       R10 R11 K19 ["useDispatch"]
+       59 GETTABLEKS                       R10 R0 K10 ["Src"]
+       61 GETTABLEKS                       R10 R10 K18 ["Hooks"]
+       63 GETTABLEKS                       R10 R10 K19 ["useDispatch"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K5 [require]
-       68 GETTABLEKS                       R13 R0 K10 ["Src"]
-       70 GETTABLEKS                       R12 R13 K18 ["Hooks"]
-       72 GETTABLEKS                       R11 R12 K20 ["useSelector"]
+       68 GETTABLEKS                       R11 R0 K10 ["Src"]
+       70 GETTABLEKS                       R11 R11 K18 ["Hooks"]
+       72 GETTABLEKS                       R11 R11 K20 ["useSelector"]
        74 CALL                             R10 1 1
        75 GETIMPORT                        R11 K5 [require]
-       77 GETTABLEKS                       R13 R0 K6 ["Packages"]
-       79 GETTABLEKS                       R12 R13 K21 ["StudioFoundation"]
+       77 GETTABLEKS                       R12 R0 K6 ["Packages"]
+       79 GETTABLEKS                       R12 R12 K21 ["StudioFoundation"]
        81 CALL                             R11 1 1
-       82 GETTABLEKS                       R13 R11 K13 ["Components"]
-       84 GETTABLEKS                       R12 R13 K22 ["FoundationProviderAdapter"]
+       82 GETTABLEKS                       R12 R11 K13 ["Components"]
+       84 GETTABLEKS                       R12 R12 K22 ["FoundationProviderAdapter"]
        86 GETIMPORT                        R13 K25 [Vector2.new]
        88 LOADN                            R14 139
        89 LOADN                            R15 64

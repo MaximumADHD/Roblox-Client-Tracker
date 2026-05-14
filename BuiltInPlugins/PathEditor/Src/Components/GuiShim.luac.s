@@ -9,8 +9,8 @@ PROTO_0:
        10 NAMECALL                         R2 R2 K2 ["IsA"]
        12 CALL                             R2 2 1
        13 JUMPIFNOT                        R2 ; [+18]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K3 ["createElement"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K3 ["createElement"]
        17 LOADK                            R3 K1 ["ScreenGui"]
        18 DUPTABLE                         R4 K6 [{"ZIndexBehavior", "DisplayOrder"}]
        19 GETTABLEKS                       R5 R0 K4 ["ZIndexBehavior"]
@@ -26,34 +26,34 @@ PROTO_0:
        35 NAMECALL                         R2 R2 K2 ["IsA"]
        37 CALL                             R2 2 1
        38 JUMPIFNOT                        R2 ; [+56]
-       39 GETUPVAL                         R3 0
-       40 GETTABLEKS                       R2 R3 K3 ["createElement"]
+       39 GETUPVAL                         R2 0
+       40 GETTABLEKS                       R2 R2 K3 ["createElement"]
        42 LOADK                            R3 K8 ["SurfaceGui"]
        43 DUPTABLE                         R4 K15 [{"ZIndexBehavior", "AlwaysOnTop", "Face", "SizingMode", "PixelsPerStud", "CanvasSize", "Adornee"}]
        44 GETTABLEKS                       R5 R0 K4 ["ZIndexBehavior"]
        46 SETTABLEKS                       R5 R4 K4 ["ZIndexBehavior"]
        48 LOADB                            R5 1
        49 SETTABLEKS                       R5 R4 K9 ["AlwaysOnTop"]
-       51 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
-       53 GETTABLEKS                       R5 R6 K10 ["Face"]
+       51 GETTABLEKS                       R5 R0 K0 ["SelectedObjectGui"]
+       53 GETTABLEKS                       R5 R5 K10 ["Face"]
        55 SETTABLEKS                       R5 R4 K10 ["Face"]
-       57 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
-       59 GETTABLEKS                       R5 R6 K11 ["SizingMode"]
+       57 GETTABLEKS                       R5 R0 K0 ["SelectedObjectGui"]
+       59 GETTABLEKS                       R5 R5 K11 ["SizingMode"]
        61 SETTABLEKS                       R5 R4 K11 ["SizingMode"]
-       63 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
-       65 GETTABLEKS                       R5 R6 K12 ["PixelsPerStud"]
+       63 GETTABLEKS                       R5 R0 K0 ["SelectedObjectGui"]
+       65 GETTABLEKS                       R5 R5 K12 ["PixelsPerStud"]
        67 SETTABLEKS                       R5 R4 K12 ["PixelsPerStud"]
-       69 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
-       71 GETTABLEKS                       R5 R6 K13 ["CanvasSize"]
+       69 GETTABLEKS                       R5 R0 K0 ["SelectedObjectGui"]
+       71 GETTABLEKS                       R5 R5 K13 ["CanvasSize"]
        73 SETTABLEKS                       R5 R4 K13 ["CanvasSize"]
-       75 GETTABLEKS                       R7 R0 K0 ["SelectedObjectGui"]
-       77 GETTABLEKS                       R6 R7 K14 ["Adornee"]
+       75 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
+       77 GETTABLEKS                       R6 R6 K14 ["Adornee"]
        79 JUMPIFNOT                        R6 ; [+5]
-       80 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
-       82 GETTABLEKS                       R5 R6 K14 ["Adornee"]
+       80 GETTABLEKS                       R5 R0 K0 ["SelectedObjectGui"]
+       82 GETTABLEKS                       R5 R5 K14 ["Adornee"]
        84 JUMP                             ; [+4]
-       85 GETTABLEKS                       R6 R0 K0 ["SelectedObjectGui"]
-       87 GETTABLEKS                       R5 R6 K16 ["Parent"]
+       85 GETTABLEKS                       R5 R0 K0 ["SelectedObjectGui"]
+       87 GETTABLEKS                       R5 R5 K16 ["Parent"]
        89 SETTABLEKS                       R5 R4 K14 ["Adornee"]
        91 GETTABLEKS                       R5 R0 K7 ["children"]
        93 CALL                             R2 3 1
@@ -62,24 +62,24 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R2 K1 [{"SelectedObjectGui"}]
-        1 GETTABLEKS                       R4 R0 K2 ["PathReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["SelectedObjectGui"]
+        1 GETTABLEKS                       R3 R0 K2 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["SelectedObjectGui"]
         5 SETTABLEKS                       R3 R2 K0 ["SelectedObjectGui"]
         7 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K8 [PROTO_0]
        24 CAPTURE                          VAL R1

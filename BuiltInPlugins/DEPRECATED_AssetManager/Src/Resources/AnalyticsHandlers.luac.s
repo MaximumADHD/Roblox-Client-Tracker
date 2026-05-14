@@ -13,13 +13,13 @@ PROTO_0:
        14 NAMECALL                         R4 R4 K5 ["GetClientId"]
        16 CALL                             R4 1 1
        17 SETTABLEKS                       R4 R3 K1 ["clientId"]
-       19 GETIMPORT                        R5 K7 [game]
-       21 GETTABLEKS                       R4 R5 K8 ["PlaceId"]
+       19 GETIMPORT                        R4 K7 [game]
+       21 GETTABLEKS                       R4 R4 K8 ["PlaceId"]
        23 SETTABLEKS                       R4 R3 K2 ["placeId"]
        25 MOVE                             R4 R1
        26 CALL                             R2 2 1
-       27 GETUPVAL                         R4 2
-       28 GETTABLEKS                       R3 R4 K9 ["LogAnalytics"]
+       27 GETUPVAL                         R3 2
+       28 GETTABLEKS                       R3 R3 K9 ["LogAnalytics"]
        30 CALL                             R3 0 1
        31 JUMPIFNOT                        R3 ; [+18]
        32 GETIMPORT                        R3 K11 [print]
@@ -47,8 +47,8 @@ PROTO_0:
 
 PROTO_1:
         0 ORK                              R1 R1 K0 [1]
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K1 ["LogAnalytics"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K1 ["LogAnalytics"]
         4 CALL                             R2 0 1
         5 JUMPIFNOT                        R2 ; [+18]
         6 GETIMPORT                        R2 K3 [print]
@@ -80,8 +80,8 @@ PROTO_2:
         4 CALL                             R1 1 0
         5 LOADNIL                          R1
         6 ORK                              R1 R1 K0 [1]
-        7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R2 R3 K1 ["LogAnalytics"]
+        7 GETUPVAL                         R2 2
+        8 GETTABLEKS                       R2 R2 K1 ["LogAnalytics"]
        10 CALL                             R2 0 1
        11 JUMPIFNOT                        R2 ; [+18]
        12 GETIMPORT                        R2 K3 [print]
@@ -125,8 +125,8 @@ PROTO_3:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -167,8 +167,8 @@ PROTO_4:
         1 JUMPIFNOT                        R0 ; [+32]
         2 LOADNIL                          R0
         3 ORK                              R0 R0 K0 [1]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R1 R2 K1 ["LogAnalytics"]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["LogAnalytics"]
         7 CALL                             R1 0 1
         8 JUMPIFNOT                        R1 ; [+18]
         9 GETIMPORT                        R1 K3 [print]
@@ -206,8 +206,8 @@ PROTO_5:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -251,8 +251,8 @@ PROTO_6:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -296,8 +296,8 @@ PROTO_7:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -341,8 +341,8 @@ PROTO_8:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -386,8 +386,8 @@ PROTO_9:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -429,8 +429,8 @@ PROTO_10:
         2 CALL                             R0 1 0
         3 LOADNIL                          R0
         4 ORK                              R0 R0 K1 [1]
-        5 GETUPVAL                         R2 1
-        6 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
         8 CALL                             R1 0 1
         9 JUMPIFNOT                        R1 ; [+18]
        10 GETIMPORT                        R1 K4 [print]
@@ -462,8 +462,8 @@ PROTO_11:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -507,8 +507,8 @@ PROTO_12:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -552,8 +552,8 @@ PROTO_13:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -597,8 +597,8 @@ PROTO_14:
         4 CALL                             R0 1 0
         5 LOADNIL                          R0
         6 ORK                              R0 R0 K1 [1]
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R1 R2 K2 ["LogAnalytics"]
+        7 GETUPVAL                         R1 2
+        8 GETTABLEKS                       R1 R1 K2 ["LogAnalytics"]
        10 CALL                             R1 0 1
        11 JUMPIFNOT                        R1 ; [+18]
        12 GETIMPORT                        R1 K4 [print]
@@ -743,18 +743,18 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Dash"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Dash"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R6 R1 K11 ["Src"]
-       26 GETTABLEKS                       R5 R6 K12 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["DebugFlags"]
+       24 GETTABLEKS                       R4 R1 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["DebugFlags"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R2 K14 ["join"]
        33 GETIMPORT                        R5 K1 [game]

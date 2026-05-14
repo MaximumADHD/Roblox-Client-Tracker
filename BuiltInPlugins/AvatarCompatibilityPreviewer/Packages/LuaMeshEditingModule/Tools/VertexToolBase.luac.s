@@ -1,13 +1,13 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["selectionChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["selectionChanged"]
         3 NAMECALL                         R0 R0 K1 ["Fire"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["selectedPositionsChanged"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["selectedPositionsChanged"]
         3 MOVE                             R3 R0
         4 NAMECALL                         R1 R1 K1 ["Fire"]
         6 CALL                             R1 2 0
@@ -28,24 +28,24 @@ PROTO_2:
        18 SETTABLEKS                       R2 R1 K9 ["_mouseStartRay"]
        20 LOADNIL                          R2
        21 SETTABLEKS                       R2 R1 K10 ["_dummy"]
-       23 GETUPVAL                         R3 1
-       24 GETTABLEKS                       R2 R3 K11 ["new"]
+       23 GETUPVAL                         R2 1
+       24 GETTABLEKS                       R2 R2 K11 ["new"]
        26 CALL                             R2 0 1
        27 SETTABLEKS                       R2 R1 K12 ["boundsChanged"]
-       29 GETUPVAL                         R3 1
-       30 GETTABLEKS                       R2 R3 K11 ["new"]
+       29 GETUPVAL                         R2 1
+       30 GETTABLEKS                       R2 R2 K11 ["new"]
        32 CALL                             R2 0 1
        33 SETTABLEKS                       R2 R1 K13 ["selectedPositionsChanged"]
-       35 GETUPVAL                         R3 1
-       36 GETTABLEKS                       R2 R3 K11 ["new"]
+       35 GETUPVAL                         R2 1
+       36 GETTABLEKS                       R2 R2 K11 ["new"]
        38 CALL                             R2 0 1
        39 SETTABLEKS                       R2 R1 K14 ["draggerHandleChanged"]
-       41 GETUPVAL                         R3 1
-       42 GETTABLEKS                       R2 R3 K11 ["new"]
+       41 GETUPVAL                         R2 1
+       42 GETTABLEKS                       R2 R2 K11 ["new"]
        44 CALL                             R2 0 1
        45 SETTABLEKS                       R2 R1 K15 ["selectionChanged"]
-       47 GETUPVAL                         R3 2
-       48 GETTABLEKS                       R2 R3 K11 ["new"]
+       47 GETUPVAL                         R2 2
+       48 GETTABLEKS                       R2 R2 K11 ["new"]
        50 GETTABLEKS                       R3 R1 K2 ["_meshEditingContext"]
        52 CALL                             R2 1 1
        53 SETTABLEKS                       R2 R1 K16 ["_model"]
@@ -53,20 +53,20 @@ PROTO_2:
        57 GETTABLEKS                       R4 R1 K10 ["_dummy"]
        59 NAMECALL                         R2 R2 K17 ["setDummy"]
        61 CALL                             R2 2 0
-       62 GETUPVAL                         R3 3
-       63 GETTABLEKS                       R2 R3 K11 ["new"]
+       62 GETUPVAL                         R2 3
+       63 GETTABLEKS                       R2 R2 K11 ["new"]
        65 GETTABLEKS                       R3 R1 K16 ["_model"]
        67 GETTABLEKS                       R4 R1 K2 ["_meshEditingContext"]
        69 CALL                             R2 2 1
        70 SETTABLEKS                       R2 R1 K18 ["_view"]
-       72 GETTABLEKS                       R3 R1 K16 ["_model"]
-       74 GETTABLEKS                       R2 R3 K15 ["selectionChanged"]
+       72 GETTABLEKS                       R2 R1 K16 ["_model"]
+       74 GETTABLEKS                       R2 R2 K15 ["selectionChanged"]
        76 NEWCLOSURE                       R4 P0
        77 CAPTURE                          VAL R1
        78 NAMECALL                         R2 R2 K19 ["Connect"]
        80 CALL                             R2 2 0
-       81 GETTABLEKS                       R3 R1 K16 ["_model"]
-       83 GETTABLEKS                       R2 R3 K13 ["selectedPositionsChanged"]
+       81 GETTABLEKS                       R2 R1 K16 ["_model"]
+       83 GETTABLEKS                       R2 R2 K13 ["selectedPositionsChanged"]
        85 NEWCLOSURE                       R4 P1
        86 CAPTURE                          VAL R1
        87 NAMECALL                         R2 R2 K19 ["Connect"]
@@ -319,23 +319,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["MeshEditingContexts"]
-       11 GETTABLEKS                       R2 R3 K7 ["MeshEditingContextBase"]
+        9 GETTABLEKS                       R2 R0 K6 ["MeshEditingContexts"]
+       11 GETTABLEKS                       R2 R2 K7 ["MeshEditingContextBase"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Util"]
-       18 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       16 GETTABLEKS                       R3 R0 K8 ["Util"]
+       18 GETTABLEKS                       R3 R3 K9 ["Signal"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K10 ["Types"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K5 [require]
-       28 GETTABLEKS                       R6 R0 K11 ["Tools"]
-       30 GETTABLEKS                       R5 R6 K12 ["VertexToolBaseModel"]
+       28 GETTABLEKS                       R5 R0 K11 ["Tools"]
+       30 GETTABLEKS                       R5 R5 K12 ["VertexToolBaseModel"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K5 [require]
-       35 GETTABLEKS                       R7 R0 K11 ["Tools"]
-       37 GETTABLEKS                       R6 R7 K13 ["VertexToolBaseView"]
+       35 GETTABLEKS                       R6 R0 K11 ["Tools"]
+       37 GETTABLEKS                       R6 R6 K13 ["VertexToolBaseView"]
        39 CALL                             R5 1 1
        40 NEWTABLE                         R6 64 0
        42 SETTABLEKS                       R6 R6 K14 ["__index"]

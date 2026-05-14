@@ -15,16 +15,16 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["info"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["info"]
         4 GETTABLEKS                       R2 R1 K2 ["installStatus"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["UNKNOWN"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["UNKNOWN"]
         9 JUMPIFNOTEQ                      R2 R4 ; [+2]
        11 LOADB                            R3 0 +1
        12 LOADB                            R3 1
-       13 GETTABLEKS                       R6 R0 K4 ["state"]
-       15 GETTABLEKS                       R5 R6 K5 ["hasDataLoaded"]
+       13 GETTABLEKS                       R5 R0 K4 ["state"]
+       15 GETTABLEKS                       R5 R5 K5 ["hasDataLoaded"]
        17 JUMPIFEQKB                       R5 FALSE ; [+2]
        19 LOADB                            R4 0 +1
        20 LOADB                            R4 1
@@ -37,18 +37,18 @@ PROTO_2:
        28 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["state"]
-        2 GETTABLEKS                       R1 R2 K1 ["hasDataLoaded"]
-        4 GETTABLEKS                       R3 R0 K2 ["props"]
-        6 GETTABLEKS                       R2 R3 K3 ["Localization"]
-        8 GETTABLEKS                       R4 R0 K2 ["props"]
-       10 GETTABLEKS                       R3 R4 K4 ["OnClose"]
-       12 GETTABLEKS                       R5 R0 K2 ["props"]
-       14 GETTABLEKS                       R4 R5 K5 ["OnButtonClicked"]
+        0 GETTABLEKS                       R1 R0 K0 ["state"]
+        2 GETTABLEKS                       R1 R1 K1 ["hasDataLoaded"]
+        4 GETTABLEKS                       R2 R0 K2 ["props"]
+        6 GETTABLEKS                       R2 R2 K3 ["Localization"]
+        8 GETTABLEKS                       R3 R0 K2 ["props"]
+       10 GETTABLEKS                       R3 R3 K4 ["OnClose"]
+       12 GETTABLEKS                       R4 R0 K2 ["props"]
+       14 GETTABLEKS                       R4 R4 K5 ["OnButtonClicked"]
        16 MOVE                             R5 R1
        17 JUMPIFNOT                        R5 ; [+53]
-       18 GETUPVAL                         R6 0
-       19 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       18 GETUPVAL                         R5 0
+       19 GETTABLEKS                       R5 R5 K6 ["createElement"]
        21 GETUPVAL                         R6 1
        22 DUPTABLE                         R7 K12 [{"Title", "Buttons", "Resizable", "MinContentSize", "OnButtonPressed", "OnClose"}]
        23 LOADK                            R10 K13 ["DialogTitle"]
@@ -79,8 +79,8 @@ PROTO_3:
        60 SETTABLEKS                       R4 R7 K11 ["OnButtonPressed"]
        62 SETTABLEKS                       R3 R7 K4 ["OnClose"]
        64 GETTABLEKS                       R9 R0 K2 ["props"]
-       66 GETUPVAL                         R11 0
-       67 GETTABLEKS                       R10 R11 K26 ["Children"]
+       66 GETUPVAL                         R10 0
+       67 GETTABLEKS                       R10 R10 K26 ["Children"]
        69 GETTABLE                         R8 R9 R10
        70 CALL                             R5 3 1
        71 RETURN                           R5 1
@@ -88,8 +88,8 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R2 R1 K0 ["pluginId"]
         2 DUPTABLE                         R3 K2 [{"info"}]
-        3 GETTABLEKS                       R6 R0 K3 ["PluginInfo"]
-        5 GETTABLEKS                       R5 R6 K4 ["plugins"]
+        3 GETTABLEKS                       R5 R0 K3 ["PluginInfo"]
+        5 GETTABLEKS                       R5 R5 K4 ["plugins"]
         7 GETTABLE                         R4 R5 R2
         8 SETTABLEKS                       R4 R3 K1 ["info"]
        10 RETURN                           R3 1
@@ -104,30 +104,30 @@ MAIN:
         8 LOADN                            R2 120
         9 LOADN                            R3 32
        10 CALL                             R1 2 1
-       11 GETIMPORT                        R5 K4 [script]
-       13 GETTABLEKS                       R4 R5 K5 ["Parent"]
-       15 GETTABLEKS                       R3 R4 K5 ["Parent"]
-       17 GETTABLEKS                       R2 R3 K5 ["Parent"]
+       11 GETIMPORT                        R2 K4 [script]
+       13 GETTABLEKS                       R2 R2 K5 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K5 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K5 ["Parent"]
        19 GETIMPORT                        R3 K7 [require]
-       21 GETTABLEKS                       R5 R2 K8 ["Packages"]
-       23 GETTABLEKS                       R4 R5 K9 ["Roact"]
+       21 GETTABLEKS                       R4 R2 K8 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K9 ["Roact"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K7 [require]
-       28 GETTABLEKS                       R6 R2 K8 ["Packages"]
-       30 GETTABLEKS                       R5 R6 K10 ["RoactRodux"]
+       28 GETTABLEKS                       R5 R2 K8 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K10 ["RoactRodux"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K7 [require]
-       35 GETTABLEKS                       R7 R2 K8 ["Packages"]
-       37 GETTABLEKS                       R6 R7 K11 ["Cryo"]
+       35 GETTABLEKS                       R6 R2 K8 ["Packages"]
+       37 GETTABLEKS                       R6 R6 K11 ["Cryo"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K7 [require]
-       42 GETTABLEKS                       R9 R2 K12 ["Src"]
-       44 GETTABLEKS                       R8 R9 K13 ["Constants"]
-       46 GETTABLEKS                       R7 R8 K14 ["PluginInstalledStatus"]
+       42 GETTABLEKS                       R7 R2 K12 ["Src"]
+       44 GETTABLEKS                       R7 R7 K13 ["Constants"]
+       46 GETTABLEKS                       R7 R7 K14 ["PluginInstalledStatus"]
        48 CALL                             R6 1 1
        49 GETIMPORT                        R7 K7 [require]
-       51 GETTABLEKS                       R9 R2 K8 ["Packages"]
-       53 GETTABLEKS                       R8 R9 K15 ["Framework"]
+       51 GETTABLEKS                       R8 R2 K8 ["Packages"]
+       53 GETTABLEKS                       R8 R8 K15 ["Framework"]
        55 CALL                             R7 1 1
        56 GETTABLEKS                       R8 R7 K16 ["ContextServices"]
        58 GETTABLEKS                       R9 R8 K17 ["withContext"]

@@ -9,8 +9,8 @@ PROTO_0:
        10 JUMPIFNOT                        R9 ; [+29]
        11 GETTABLE                         R11 R1 R9
        12 JUMPIFNOT                        R11 ; [+27]
-       13 GETTABLE                         R14 R1 R9
-       14 GETTABLEKS                       R13 R14 K2 ["UserId"]
+       13 GETTABLE                         R13 R1 R9
+       14 GETTABLEKS                       R13 R13 K2 ["UserId"]
        16 FASTCALL2                        TABLE_INSERT R2 R13 ; [+4]
        18 MOVE                             R12 R2
        19 GETIMPORT                        R11 K5 [table.insert]
@@ -220,9 +220,9 @@ PROTO_3:
       100 RETURN                           R9 -1
 
 PROTO_4:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["List"]
-        3 GETTABLEKS                       R3 R4 K1 ["find"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["List"]
+        3 GETTABLEKS                       R3 R3 K1 ["find"]
         5 MOVE                             R4 R1
         6 FASTCALL1                        TOSTRING R0 ; [+3]
         7 MOVE                             R6 R0
@@ -245,9 +245,9 @@ PROTO_5:
        11 GETTABLEKS                       R3 R1 K0 ["TaggedUsers"]
        13 LOADK                            R4 K5 [","]
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K6 ["List"]
-       18 GETTABLEKS                       R4 R5 K7 ["find"]
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K6 ["List"]
+       18 GETTABLEKS                       R4 R4 K7 ["find"]
        20 MOVE                             R5 R2
        21 FASTCALL1                        TOSTRING R0 ; [+3]
        22 MOVE                             R7 R0
@@ -276,9 +276,9 @@ PROTO_6:
        18 CALL                             R3 2 1
        19 LOADK                            R4 K6 [","]
        20 CALL                             R2 2 1
-       21 GETUPVAL                         R6 0
-       22 GETTABLEKS                       R5 R6 K7 ["List"]
-       24 GETTABLEKS                       R4 R5 K8 ["find"]
+       21 GETUPVAL                         R4 0
+       22 GETTABLEKS                       R4 R4 K7 ["List"]
+       24 GETTABLEKS                       R4 R4 K8 ["find"]
        26 MOVE                             R5 R2
        27 FASTCALL1                        TOSTRING R0 ; [+3]
        28 MOVE                             R7 R0
@@ -414,12 +414,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Cryo"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 DUPCLOSURE                       R3 K10 [PROTO_0]
        22 DUPCLOSURE                       R4 K11 [PROTO_1]

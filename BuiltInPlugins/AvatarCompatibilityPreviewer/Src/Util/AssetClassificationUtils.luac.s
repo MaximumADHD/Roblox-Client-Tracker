@@ -9,14 +9,14 @@ PROTO_1:
         2 LOADNIL                          R3
         3 FORGPREP                         R1
         4 JUMPIFEQKS                       R5 K0 [""] ; [+15]
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K1 ["startsWith"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K1 ["startsWith"]
         9 MOVE                             R7 R0
        10 MOVE                             R8 R5
        11 CALL                             R6 2 1
        12 JUMPIFNOT                        R6 ; [+7]
-       13 GETUPVAL                         R7 1
-       14 GETTABLEKS                       R6 R7 K2 ["removePrefix"]
+       13 GETUPVAL                         R6 1
+       14 GETTABLEKS                       R6 R6 K2 ["removePrefix"]
        16 MOVE                             R7 R0
        17 MOVE                             R8 R5
        18 CALL                             R6 2 -1
@@ -25,24 +25,24 @@ PROTO_1:
        22 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getInstanceNameWithoutClassification"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getInstanceNameWithoutClassification"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 GETUPVAL                         R4 1
         6 CALL                             R4 0 1
         7 JUMPIFNOT                        R4 ; [+10]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R3 R4 K1 ["getAssetNamePrefix"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K1 ["getAssetNamePrefix"]
        11 MOVE                             R4 R1
        12 JUMPIF                           R4 ; [+3]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R4 R5 K2 ["DEFAULT_ASSET_CLASSIFICATION"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K2 ["DEFAULT_ASSET_CLASSIFICATION"]
        16 CALL                             R3 1 1
        17 JUMP                             ; [+9]
        18 JUMPIFEQKNIL                     R1 ; [+7]
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K1 ["getAssetNamePrefix"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K1 ["getAssetNamePrefix"]
        23 MOVE                             R4 R1
        24 CALL                             R3 1 1
        25 JUMP                             ; [+1]
@@ -58,8 +58,8 @@ PROTO_3:
         2 LOADNIL                          R3
         3 FORGPREP                         R1
         4 JUMPIFEQKS                       R5 K0 [""] ; [+9]
-        6 GETUPVAL                         R7 1
-        7 GETTABLEKS                       R6 R7 K1 ["startsWith"]
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K1 ["startsWith"]
         9 MOVE                             R7 R0
        10 MOVE                             R8 R5
        11 CALL                             R6 2 1
@@ -76,19 +76,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagAvatarAutosetupOptionsInput"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarAutosetupOptionsInput"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R5 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R4 K9 ["getFFlagAvatarPreviewerEyeLayeredSetup"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Flags"]
+       22 GETTABLEKS                       R3 R3 K9 ["getFFlagAvatarPreviewerEyeLayeredSetup"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Util"]
-       31 GETTABLEKS                       R4 R5 K11 ["StringUtil"]
+       27 GETTABLEKS                       R4 R0 K6 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Util"]
+       31 GETTABLEKS                       R4 R4 K11 ["StringUtil"]
        33 CALL                             R3 1 1
        34 NEWTABLE                         R4 8 0
        36 LOADK                            R5 K12 ["Body"]

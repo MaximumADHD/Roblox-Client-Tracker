@@ -8,8 +8,8 @@ PROTO_0:
         8 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["updateSelected"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["updateSelected"]
         3 MOVE                             R2 R0
         4 GETUPVAL                         R3 1
         5 CALL                             R1 2 -1
@@ -24,8 +24,8 @@ PROTO_2:
         5 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["add"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["add"]
         3 MOVE                             R2 R0
         4 GETUPVAL                         R3 1
         5 CALL                             R1 2 -1
@@ -40,8 +40,8 @@ PROTO_4:
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["removeSelected"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["removeSelected"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
@@ -54,8 +54,8 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["select"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["select"]
         3 MOVE                             R2 R0
         4 GETUPVAL                         R3 1
         5 CALL                             R1 2 -1
@@ -83,15 +83,15 @@ PROTO_10:
         4 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["isFixedKeypointSelected"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["isFixedKeypointSelected"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["selectedKeypoint"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["selectedKeypoint"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
@@ -142,27 +142,27 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["React"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["React"]
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["useState"]
        20 GETIMPORT                        R3 K4 [require]
-       22 GETTABLEKS                       R7 R0 K8 ["Src"]
-       24 GETTABLEKS                       R6 R7 K9 ["Renderers"]
-       26 GETTABLEKS                       R5 R6 K10 ["SequenceRenderers"]
-       28 GETTABLEKS                       R4 R5 K11 ["KeypointSequence"]
+       22 GETTABLEKS                       R4 R0 K8 ["Src"]
+       24 GETTABLEKS                       R4 R4 K9 ["Renderers"]
+       26 GETTABLEKS                       R4 R4 K10 ["SequenceRenderers"]
+       28 GETTABLEKS                       R4 R4 K11 ["KeypointSequence"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R8 R0 K8 ["Src"]
-       35 GETTABLEKS                       R7 R8 K9 ["Renderers"]
-       37 GETTABLEKS                       R6 R7 K10 ["SequenceRenderers"]
-       39 GETTABLEKS                       R5 R6 K12 ["Types"]
+       33 GETTABLEKS                       R5 R0 K8 ["Src"]
+       35 GETTABLEKS                       R5 R5 K9 ["Renderers"]
+       37 GETTABLEKS                       R5 R5 K10 ["SequenceRenderers"]
+       39 GETTABLEKS                       R5 R5 K12 ["Types"]
        41 CALL                             R4 1 1
        42 DUPCLOSURE                       R5 K13 [PROTO_13]
        43 CAPTURE                          VAL R2

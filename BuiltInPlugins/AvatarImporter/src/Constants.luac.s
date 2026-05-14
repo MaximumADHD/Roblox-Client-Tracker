@@ -1,12 +1,12 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R4 R0 K5 ["src"]
-       11 GETTABLEKS                       R3 R4 K6 ["utils"]
-       13 GETTABLEKS                       R2 R3 K7 ["convertArrayToTable"]
+        9 GETTABLEKS                       R2 R0 K5 ["src"]
+       11 GETTABLEKS                       R2 R2 K6 ["utils"]
+       13 GETTABLEKS                       R2 R2 K7 ["convertArrayToTable"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 64 0
        18 LOADK                            R3 K8 ["AvatarImporter"]
@@ -106,8 +106,8 @@ MAIN:
       158 CALL                             R3 1 1
       159 SETTABLEKS                       R3 R2 K68 ["SCREENS"]
       161 NEWTABLE                         R3 4 0
-      163 GETTABLEKS                       R5 R2 K31 ["AVATAR_TYPE"]
-      165 GETTABLEKS                       R4 R5 K25 ["R15"]
+      163 GETTABLEKS                       R4 R2 K31 ["AVATAR_TYPE"]
+      165 GETTABLEKS                       R4 R4 K25 ["R15"]
       167 DUPTABLE                         R5 K75 [{"HeadScale", "BodyHeightScale", "BodyWidthScale", "BodyDepthScale", "BodyTypeScale", "BodyProportionScale"}]
       168 LOADN                            R6 1
       169 SETTABLEKS                       R6 R5 K69 ["HeadScale"]
@@ -122,8 +122,8 @@ MAIN:
       183 LOADN                            R6 0
       184 SETTABLEKS                       R6 R5 K74 ["BodyProportionScale"]
       186 SETTABLE                         R5 R3 R4
-      187 GETTABLEKS                       R5 R2 K31 ["AVATAR_TYPE"]
-      189 GETTABLEKS                       R4 R5 K23 ["RTHRO"]
+      187 GETTABLEKS                       R4 R2 K31 ["AVATAR_TYPE"]
+      189 GETTABLEKS                       R4 R4 K23 ["RTHRO"]
       191 DUPTABLE                         R5 K75 [{"HeadScale", "BodyHeightScale", "BodyWidthScale", "BodyDepthScale", "BodyTypeScale", "BodyProportionScale"}]
       192 LOADN                            R6 1
       193 SETTABLEKS                       R6 R5 K69 ["HeadScale"]
@@ -138,8 +138,8 @@ MAIN:
       207 LOADN                            R6 0
       208 SETTABLEKS                       R6 R5 K74 ["BodyProportionScale"]
       210 SETTABLE                         R5 R3 R4
-      211 GETTABLEKS                       R5 R2 K31 ["AVATAR_TYPE"]
-      213 GETTABLEKS                       R4 R5 K24 ["RTHRO_SLENDER"]
+      211 GETTABLEKS                       R4 R2 K31 ["AVATAR_TYPE"]
+      213 GETTABLEKS                       R4 R4 K24 ["RTHRO_SLENDER"]
       215 DUPTABLE                         R5 K75 [{"HeadScale", "BodyHeightScale", "BodyWidthScale", "BodyDepthScale", "BodyTypeScale", "BodyProportionScale"}]
       216 LOADN                            R6 1
       217 SETTABLEKS                       R6 R5 K69 ["HeadScale"]

@@ -36,8 +36,8 @@ PROTO_0:
        47 GETIMPORT                        R6 K20 [tostring]
        49 CALL                             R6 1 1
        50 MOVE                             R5 R6
-       51 GETUPVAL                         R7 0
-       52 GETTABLEKS                       R6 R7 K21 ["createElement"]
+       51 GETUPVAL                         R6 0
+       52 GETTABLEKS                       R6 R6 K21 ["createElement"]
        54 GETUPVAL                         R7 1
        55 DUPTABLE                         R8 K32 [{"HorizontalAlignment", "LayoutOrder", "Layout", "Padding", "Spacing", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
        56 GETIMPORT                        R9 K35 [Enum.HorizontalAlignment.Left]
@@ -75,8 +75,8 @@ PROTO_0:
       109 LOADB                            R9 1
       110 SETTABLEKS                       R9 R8 K31 ["ClipsDescendants"]
       112 DUPTABLE                         R9 K52 [{"Icon", "Text"}]
-      113 GETUPVAL                         R11 0
-      114 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      113 GETUPVAL                         R10 0
+      114 GETTABLEKS                       R10 R10 K21 ["createElement"]
       116 GETUPVAL                         R11 2
       117 DUPTABLE                         R12 K54 [{"LayoutOrder", "Size", "Image"}]
       118 LOADN                            R13 1
@@ -86,18 +86,18 @@ PROTO_0:
       124 LOADN                            R15 16
       125 CALL                             R13 2 1
       126 SETTABLEKS                       R13 R12 K30 ["Size"]
-      128 GETUPVAL                         R14 3
-      129 GETTABLEKS                       R18 R0 K57 ["Row"]
-      131 GETTABLEKS                       R17 R18 K58 ["Instance"]
-      133 GETTABLEKS                       R16 R17 K59 ["ClassName"]
-      135 NAMECALL                         R14 R14 K60 ["GetClassIcon"]
-      137 CALL                             R14 2 1
-      138 GETTABLEKS                       R13 R14 K53 ["Image"]
+      128 GETUPVAL                         R13 3
+      129 GETTABLEKS                       R15 R0 K57 ["Row"]
+      131 GETTABLEKS                       R15 R15 K58 ["Instance"]
+      133 GETTABLEKS                       R15 R15 K59 ["ClassName"]
+      135 NAMECALL                         R13 R13 K60 ["GetClassIcon"]
+      137 CALL                             R13 2 1
+      138 GETTABLEKS                       R13 R13 K53 ["Image"]
       140 SETTABLEKS                       R13 R12 K53 ["Image"]
       142 CALL                             R10 2 1
       143 SETTABLEKS                       R10 R9 K50 ["Icon"]
-      145 GETUPVAL                         R11 0
-      146 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      145 GETUPVAL                         R10 0
+      146 GETTABLEKS                       R10 R10 K21 ["createElement"]
       148 GETUPVAL                         R11 4
       149 DUPTABLE                         R12 K63 [{"LayoutOrder", "Text", "TextTruncate", "Size", "TextXAlignment"}]
       150 LOADN                            R13 2
@@ -128,12 +128,12 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["React"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["React"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R2 K13 ["UI"]
        29 GETTABLEKS                       R5 R4 K14 ["Image"]

@@ -14,8 +14,8 @@ PROTO_0:
        18 GETTABLEKS                       R4 R2 K9 ["BackgroundOdd"]
        20 JUMP                             ; [+2]
        21 GETTABLEKS                       R4 R2 K10 ["BackgroundEven"]
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R5 R6 K11 ["createElement"]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K11 ["createElement"]
        26 GETUPVAL                         R6 1
        27 DUPTABLE                         R7 K19 [{"LayoutOrder", "Padding", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
        28 GETTABLEKS                       R8 R0 K20 ["ColumnIndex"]
@@ -47,8 +47,8 @@ PROTO_0:
        70 LOADB                            R8 1
        71 SETTABLEKS                       R8 R7 K18 ["ClipsDescendants"]
        73 DUPTABLE                         R8 K34 [{"Text", "Arrow"}]
-       74 GETUPVAL                         R10 0
-       75 GETTABLEKS                       R9 R10 K11 ["createElement"]
+       74 GETUPVAL                         R9 0
+       75 GETTABLEKS                       R9 R9 K11 ["createElement"]
        77 GETUPVAL                         R10 2
        78 DUPTABLE                         R11 K37 [{"Text", "TextTruncate", "Size", "TextXAlignment"}]
        79 FASTCALL1                        TOSTRING R1 ; [+3]
@@ -67,8 +67,8 @@ PROTO_0:
        99 SETTABLEKS                       R12 R11 K36 ["TextXAlignment"]
       101 CALL                             R9 2 1
       102 SETTABLEKS                       R9 R8 K32 ["Text"]
-      104 GETUPVAL                         R10 0
-      105 GETTABLEKS                       R9 R10 K11 ["createElement"]
+      104 GETUPVAL                         R9 0
+      105 GETTABLEKS                       R9 R9 K11 ["createElement"]
       107 GETUPVAL                         R10 2
       108 DUPTABLE                         R11 K48 [{"AnchorPoint", "Position", "Size", "Style", "Text"}]
       109 GETIMPORT                        R12 K50 [Vector2.new]
@@ -106,12 +106,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R1 K9 ["UI"]
        23 GETTABLEKS                       R4 R3 K10 ["Pane"]

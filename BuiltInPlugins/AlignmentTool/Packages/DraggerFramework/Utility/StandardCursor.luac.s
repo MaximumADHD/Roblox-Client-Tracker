@@ -75,12 +75,12 @@ MAIN:
         3 LOADK                            R2 K2 ["RunService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R4 R1 K9 ["Flags"]
-       17 GETTABLEKS                       R3 R4 K10 ["getFFlagImprovedCursors"]
+       15 GETTABLEKS                       R3 R1 K9 ["Flags"]
+       17 GETTABLEKS                       R3 R3 K10 ["getFFlagImprovedCursors"]
        19 CALL                             R2 1 1
        20 NEWTABLE                         R3 4 0
        22 DUPCLOSURE                       R4 K11 [PROTO_0]

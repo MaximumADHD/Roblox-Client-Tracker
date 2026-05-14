@@ -13,13 +13,13 @@ PROTO_0:
        15 RETURN                           R1 1
 
 PROTO_1:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K1 ["getCuboidDiameter"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K1 ["getCuboidDiameter"]
         3 MOVE                             R5 R0
         4 CALL                             R4 1 1
         5 DIVK                             R3 R4 K0 [2]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K2 ["fitSphereToCamera"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K2 ["fitSphereToCamera"]
         9 MOVE                             R5 R3
        10 MOVE                             R6 R1
        11 MOVE                             R7 R2
@@ -53,18 +53,18 @@ PROTO_2:
 PROTO_3:
         0 NAMECALL                         R3 R1 K0 ["GetBoundingBox"]
         2 CALL                             R3 1 2
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K1 ["fitBoundingBoxToCamera"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K1 ["fitBoundingBoxToCamera"]
         6 MOVE                             R6 R4
         7 GETTABLEKS                       R7 R0 K2 ["FieldOfView"]
         9 MOVE                             R8 R2
        10 CALL                             R5 3 1
-       11 GETTABLEKS                       R9 R0 K3 ["CFrame"]
-       13 GETTABLEKS                       R8 R9 K4 ["Rotation"]
+       11 GETTABLEKS                       R8 R0 K3 ["CFrame"]
+       13 GETTABLEKS                       R8 R8 K4 ["Rotation"]
        15 GETTABLEKS                       R9 R3 K5 ["Position"]
        17 ADD                              R7 R8 R9
-       18 GETTABLEKS                       R10 R0 K3 ["CFrame"]
-       20 GETTABLEKS                       R9 R10 K6 ["LookVector"]
+       18 GETTABLEKS                       R9 R0 K3 ["CFrame"]
+       20 GETTABLEKS                       R9 R9 K6 ["LookVector"]
        22 MUL                              R8 R9 R5
        23 SUB                              R6 R7 R8
        24 RETURN                           R6 1
@@ -72,8 +72,8 @@ PROTO_3:
 PROTO_4:
         0 NAMECALL                         R3 R1 K0 ["GetBoundingBox"]
         2 CALL                             R3 1 2
-        3 GETUPVAL                         R6 0
-        4 GETTABLEKS                       R5 R6 K1 ["fitBoundingBoxToCamera"]
+        3 GETUPVAL                         R5 0
+        4 GETTABLEKS                       R5 R5 K1 ["fitBoundingBoxToCamera"]
         6 MOVE                             R6 R4
         7 GETTABLEKS                       R7 R0 K2 ["FieldOfView"]
         9 MOVE                             R8 R2
@@ -133,8 +133,8 @@ PROTO_5:
         2 CALL                             R3 1 1
         3 GETIMPORT                        R4 K4 [Enum.CameraType.Fixed]
         5 SETTABLEKS                       R4 R0 K2 ["CameraType"]
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R4 R5 K5 ["getZoomedCFrame"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K5 ["getZoomedCFrame"]
        10 MOVE                             R5 R0
        11 MOVE                             R6 R1
        12 MOVE                             R7 R2
@@ -159,9 +159,9 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagAvatarAutosetupOptionsInput"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarAutosetupOptionsInput"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 8 0
        18 DUPCLOSURE                       R3 K9 [PROTO_0]

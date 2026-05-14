@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["avatarRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["avatarRules"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K4 [Enum.GameAvatarType.PlayerChoice]
         6 SETTABLEKS                       R1 R0 K5 ["AvatarType"]
         8 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createAvatarBodyRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createAvatarBodyRules"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K4 [Enum.AvatarSettingsScaleMode.CustomScale]
         6 SETTABLEKS                       R1 R0 K5 ["ScaleMode"]
@@ -19,45 +19,45 @@ PROTO_1:
        13 SETTABLEKS                       R1 R0 K9 ["CustomHeight"]
        15 GETIMPORT                        R1 K12 [Enum.AvatarSettingsAppearanceMode.CustomParts]
        17 SETTABLEKS                       R1 R0 K13 ["AppearanceMode"]
-       19 GETUPVAL                         R3 1
-       20 GETTABLEKS                       R2 R3 K14 ["VALID_FACE_ASSETID"]
-       22 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       19 GETUPVAL                         R1 1
+       20 GETTABLEKS                       R1 R1 K14 ["VALID_FACE_ASSETID"]
+       22 GETTABLEKS                       R1 R1 K15 ["assetId"]
        24 SETTABLEKS                       R1 R0 K16 ["CustomFaceId"]
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R2 R3 K17 ["VALID_HEAD_ASSETID"]
-       29 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       26 GETUPVAL                         R1 1
+       27 GETTABLEKS                       R1 R1 K17 ["VALID_HEAD_ASSETID"]
+       29 GETTABLEKS                       R1 R1 K15 ["assetId"]
        31 SETTABLEKS                       R1 R0 K18 ["CustomHeadId"]
-       33 GETUPVAL                         R3 1
-       34 GETTABLEKS                       R2 R3 K19 ["VALID_MOOD_ASSETID"]
-       36 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       33 GETUPVAL                         R1 1
+       34 GETTABLEKS                       R1 R1 K19 ["VALID_MOOD_ASSETID"]
+       36 GETTABLEKS                       R1 R1 K15 ["assetId"]
        38 SETTABLEKS                       R1 R0 K20 ["CustomMoodId"]
-       40 GETUPVAL                         R3 1
-       41 GETTABLEKS                       R2 R3 K21 ["VALID_EYEBROW_ASSETID"]
-       43 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       40 GETUPVAL                         R1 1
+       41 GETTABLEKS                       R1 R1 K21 ["VALID_EYEBROW_ASSETID"]
+       43 GETTABLEKS                       R1 R1 K15 ["assetId"]
        45 SETTABLEKS                       R1 R0 K22 ["CustomEyebrowId"]
-       47 GETUPVAL                         R3 1
-       48 GETTABLEKS                       R2 R3 K23 ["VALID_EYELASH_ASSETID"]
-       50 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       47 GETUPVAL                         R1 1
+       48 GETTABLEKS                       R1 R1 K23 ["VALID_EYELASH_ASSETID"]
+       50 GETTABLEKS                       R1 R1 K15 ["assetId"]
        52 SETTABLEKS                       R1 R0 K24 ["CustomEyelashId"]
-       54 GETUPVAL                         R3 1
-       55 GETTABLEKS                       R2 R3 K25 ["VALID_TORSO_ASSETID"]
-       57 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       54 GETUPVAL                         R1 1
+       55 GETTABLEKS                       R1 R1 K25 ["VALID_TORSO_ASSETID"]
+       57 GETTABLEKS                       R1 R1 K15 ["assetId"]
        59 SETTABLEKS                       R1 R0 K26 ["CustomTorsoId"]
-       61 GETUPVAL                         R3 1
-       62 GETTABLEKS                       R2 R3 K27 ["VALID_LEFTARM_ASSETID"]
-       64 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       61 GETUPVAL                         R1 1
+       62 GETTABLEKS                       R1 R1 K27 ["VALID_LEFTARM_ASSETID"]
+       64 GETTABLEKS                       R1 R1 K15 ["assetId"]
        66 SETTABLEKS                       R1 R0 K28 ["CustomLeftArmId"]
-       68 GETUPVAL                         R3 1
-       69 GETTABLEKS                       R2 R3 K29 ["VALID_RIGHTARM_ASSETID"]
-       71 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       68 GETUPVAL                         R1 1
+       69 GETTABLEKS                       R1 R1 K29 ["VALID_RIGHTARM_ASSETID"]
+       71 GETTABLEKS                       R1 R1 K15 ["assetId"]
        73 SETTABLEKS                       R1 R0 K30 ["CustomRightArmId"]
-       75 GETUPVAL                         R3 1
-       76 GETTABLEKS                       R2 R3 K31 ["VALID_LEFTLEG_ASSETID"]
-       78 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       75 GETUPVAL                         R1 1
+       76 GETTABLEKS                       R1 R1 K31 ["VALID_LEFTLEG_ASSETID"]
+       78 GETTABLEKS                       R1 R1 K15 ["assetId"]
        80 SETTABLEKS                       R1 R0 K32 ["CustomLeftLegId"]
-       82 GETUPVAL                         R3 1
-       83 GETTABLEKS                       R2 R3 K33 ["VALID_RIGHTLEG_ASSETID"]
-       85 GETTABLEKS                       R1 R2 K15 ["assetId"]
+       82 GETUPVAL                         R1 1
+       83 GETTABLEKS                       R1 R1 K33 ["VALID_RIGHTLEG_ASSETID"]
+       85 GETTABLEKS                       R1 R1 K15 ["assetId"]
        87 SETTABLEKS                       R1 R0 K34 ["CustomRightLegId"]
        89 GETIMPORT                        R1 K37 [Enum.AvatarSettingsCustomBodyType.BundleId]
        91 SETTABLEKS                       R1 R0 K38 ["CustomBodyType"]
@@ -95,8 +95,8 @@ PROTO_1:
       138 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createAvatarCollisionRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createAvatarCollisionRules"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K4 [Enum.AvatarSettingsCollisionMode.SingleCollider]
         6 SETTABLEKS                       R1 R0 K5 ["CollisionMode"]
@@ -105,8 +105,8 @@ PROTO_2:
        11 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createAvatarAbilityRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createAvatarAbilityRules"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K4 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
         6 SETTABLEKS                       R1 R0 K5 ["CharacterControllerMode"]
@@ -117,8 +117,8 @@ PROTO_3:
        14 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createAvatarAnimationRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createAvatarAnimationRules"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K4 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
         6 SETTABLEKS                       R1 R0 K5 ["AnimationPacksMode"]
@@ -127,8 +127,8 @@ PROTO_4:
        12 RETURN                           R0 1
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createAvatarAccessoryRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createAvatarAccessoryRules"]
         3 CALL                             R0 0 1
         4 LOADB                            R1 0
         5 SETTABLEKS                       R1 R0 K1 ["EnableSound"]
@@ -138,43 +138,43 @@ PROTO_5:
        12 SETTABLEKS                       R1 R0 K7 ["LimitMethod"]
        14 LOADK                            R1 K8 [{5, 5, 5}]
        15 SETTABLEKS                       R1 R0 K9 ["LimitBounds"]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       20 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       20 GETTABLEKS                       R1 R1 K11 ["assetId"]
        22 SETTABLEKS                       R1 R0 K12 ["CustomHeadAccessoryId"]
-       24 GETUPVAL                         R3 1
-       25 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       27 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       24 GETUPVAL                         R1 1
+       25 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       27 GETTABLEKS                       R1 R1 K11 ["assetId"]
        29 SETTABLEKS                       R1 R0 K13 ["CustomHairAccessoryId"]
-       31 GETUPVAL                         R3 1
-       32 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       34 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       31 GETUPVAL                         R1 1
+       32 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       34 GETTABLEKS                       R1 R1 K11 ["assetId"]
        36 SETTABLEKS                       R1 R0 K14 ["CustomFaceAccessoryId"]
-       38 GETUPVAL                         R3 1
-       39 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       41 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       38 GETUPVAL                         R1 1
+       39 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       41 GETTABLEKS                       R1 R1 K11 ["assetId"]
        43 SETTABLEKS                       R1 R0 K15 ["CustomNeckAccessoryId"]
-       45 GETUPVAL                         R3 1
-       46 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       48 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       45 GETUPVAL                         R1 1
+       46 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       48 GETTABLEKS                       R1 R1 K11 ["assetId"]
        50 SETTABLEKS                       R1 R0 K16 ["CustomShoulderAccessoryId"]
-       52 GETUPVAL                         R3 1
-       53 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       55 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       52 GETUPVAL                         R1 1
+       53 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       55 GETTABLEKS                       R1 R1 K11 ["assetId"]
        57 SETTABLEKS                       R1 R0 K17 ["CustomFrontAccessoryId"]
-       59 GETUPVAL                         R3 1
-       60 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       62 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       59 GETUPVAL                         R1 1
+       60 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       62 GETTABLEKS                       R1 R1 K11 ["assetId"]
        64 SETTABLEKS                       R1 R0 K18 ["CustomBackAccessoryId"]
-       66 GETUPVAL                         R3 1
-       67 GETTABLEKS                       R2 R3 K10 ["VALID_ASSETID"]
-       69 GETTABLEKS                       R1 R2 K11 ["assetId"]
+       66 GETUPVAL                         R1 1
+       67 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
+       69 GETTABLEKS                       R1 R1 K11 ["assetId"]
        71 SETTABLEKS                       R1 R0 K19 ["CustomWaistAccessoryId"]
        73 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createAvatarClothingRules"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createAvatarClothingRules"]
         3 CALL                             R0 0 1
         4 RETURN                           R0 1
 
@@ -185,17 +185,17 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["tests"]
-       13 GETTABLEKS                       R3 R4 K8 ["Util"]
-       15 GETTABLEKS                       R2 R3 K9 ["TestConstants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["tests"]
+       13 GETTABLEKS                       R2 R2 K8 ["Util"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestConstants"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R7 R0 K6 ["Src"]
-       22 GETTABLEKS                       R6 R7 K8 ["Util"]
-       24 GETTABLEKS                       R5 R6 K10 ["BridgingFiles"]
-       26 GETTABLEKS                       R4 R5 K11 ["AssetDmFiles"]
-       28 GETTABLEKS                       R3 R4 K12 ["assetDmUtils"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Util"]
+       24 GETTABLEKS                       R3 R3 K10 ["BridgingFiles"]
+       26 GETTABLEKS                       R3 R3 K11 ["AssetDmFiles"]
+       28 GETTABLEKS                       R3 R3 K12 ["assetDmUtils"]
        30 CALL                             R2 1 1
        31 GETTABLEKS                       R3 R1 K13 ["AssetIds"]
        33 NEWTABLE                         R4 8 0

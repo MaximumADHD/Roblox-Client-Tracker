@@ -13,8 +13,8 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getOnExperimentChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getOnExperimentChanged"]
         3 CALL                             R0 0 1
         4 NEWCLOSURE                       R2 P0
         5 CAPTURE                          UPVAL U1
@@ -26,14 +26,14 @@ PROTO_2:
        12 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useState"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useState"]
         3 DUPTABLE                         R1 K2 [{"value"}]
         4 GETUPVAL                         R2 1
         5 SETTABLEKS                       R2 R1 K1 ["value"]
         7 CALL                             R0 1 2
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K3 ["useEffect"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K3 ["useEffect"]
        11 NEWCLOSURE                       R3 P0
        12 CAPTURE                          UPVAL U1
        13 CAPTURE                          VAL R1
@@ -48,13 +48,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["ExperimentFeature"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["ExperimentFeature"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["React"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["React"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_3]
        24 CAPTURE                          VAL R2

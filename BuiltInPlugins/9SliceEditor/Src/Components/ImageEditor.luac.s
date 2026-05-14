@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["dragOrientation"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["dragOrientation"]
         3 GETUPVAL                         R3 1
         4 JUMPIFNOTEQ                      R2 R3 ; [+2]
         6 RETURN                           R0 0
@@ -9,18 +9,18 @@ PROTO_0:
         9 SETTABLEKS                       R3 R2 K1 ["draggerHandlingMovement"]
        11 GETUPVAL                         R2 0
        12 SETTABLEKS                       R1 R2 K0 ["dragOrientation"]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R2 R3 K2 ["updateDraggedPosition"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K2 ["updateDraggedPosition"]
        17 MOVE                             R3 R0
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["mouseMoveInputObjectConnection"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mouseMoveInputObjectConnection"]
         3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K0 ["mouseMoveInputObjectConnection"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["mouseMoveInputObjectConnection"]
         7 NAMECALL                         R0 R0 K1 ["Disconnect"]
         9 CALL                             R0 1 0
        10 GETUPVAL                         R0 0
@@ -39,13 +39,13 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dragging"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dragging"]
         3 JUMPIFNOT                        R0 ; [+8]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R0 R1 K1 ["onDragging"]
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R1 R2 K2 ["Position"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["onDragging"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K2 ["Position"]
        10 GETUPVAL                         R2 2
        11 CALL                             R0 2 0
        12 RETURN                           R0 0
@@ -62,22 +62,22 @@ PROTO_4:
        11 SETTABLEKS                       R2 R4 K3 ["mousePosition"]
        13 GETUPVAL                         R4 0
        14 SETTABLEKS                       R3 R4 K4 ["draggerPosition"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K5 ["setDraggingState"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K5 ["setDraggingState"]
        19 LOADB                            R5 1
        20 CALL                             R4 1 0
-       21 GETUPVAL                         R5 1
-       22 GETTABLEKS                       R4 R5 K6 ["setLocked"]
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R6 R7 K7 ["props"]
-       27 GETTABLEKS                       R5 R6 K8 ["Mouse"]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K6 ["setLocked"]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K7 ["props"]
+       27 GETTABLEKS                       R5 R5 K8 ["Mouse"]
        29 LOADB                            R6 1
        30 CALL                             R4 2 0
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R4 R5 K9 ["lastMouseMoveInputObject"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K9 ["lastMouseMoveInputObject"]
        34 JUMPIFEQKNIL                     R4 ; [+19]
-       36 GETUPVAL                         R6 0
-       37 GETTABLEKS                       R5 R6 K10 ["disconnectMouseMoveInputObject"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K10 ["disconnectMouseMoveInputObject"]
        39 CALL                             R5 0 0
        40 GETUPVAL                         R5 0
        41 LOADK                            R8 K11 ["Position"]
@@ -93,22 +93,22 @@ PROTO_4:
        54 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["sliceRect"]
-        5 GETUPVAL                         R5 0
-        6 GETTABLEKS                       R4 R5 K0 ["props"]
-        8 GETTABLEKS                       R3 R4 K2 ["pixelDimensions"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["sliceRect"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["props"]
+        8 GETTABLEKS                       R3 R3 K2 ["pixelDimensions"]
        10 GETTABLEKS                       R4 R0 K3 ["UserInputType"]
        12 GETIMPORT                        R5 K6 [Enum.UserInputType.MouseButton1]
        14 JUMPIFNOTEQ                      R4 R5 ; [+153]
        16 LOADNIL                          R4
-       17 GETUPVAL                         R6 0
-       18 GETTABLEKS                       R5 R6 K7 ["dragOrientation"]
+       17 GETUPVAL                         R5 0
+       18 GETTABLEKS                       R5 R5 K7 ["dragOrientation"]
        20 GETUPVAL                         R6 1
        21 JUMPIFNOTEQ                      R5 R6 ; [+24]
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K8 ["leftPos"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K8 ["leftPos"]
        26 GETTABLEKS                       R8 R3 K9 ["X"]
        28 MUL                              R6 R7 R8
        29 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -125,12 +125,12 @@ PROTO_5:
        42 SETLIST                          R6 R7 4 [1]
        44 MOVE                             R4 R6
        45 JUMP                             ; [+86]
-       46 GETUPVAL                         R6 0
-       47 GETTABLEKS                       R5 R6 K7 ["dragOrientation"]
+       46 GETUPVAL                         R5 0
+       47 GETTABLEKS                       R5 R5 K7 ["dragOrientation"]
        49 GETUPVAL                         R6 2
        50 JUMPIFNOTEQ                      R5 R6 ; [+24]
-       52 GETUPVAL                         R8 0
-       53 GETTABLEKS                       R7 R8 K13 ["rightPos"]
+       52 GETUPVAL                         R7 0
+       53 GETTABLEKS                       R7 R7 K13 ["rightPos"]
        55 GETTABLEKS                       R8 R3 K9 ["X"]
        57 MUL                              R6 R7 R8
        58 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -147,12 +147,12 @@ PROTO_5:
        71 SETLIST                          R6 R7 4 [1]
        73 MOVE                             R4 R6
        74 JUMP                             ; [+57]
-       75 GETUPVAL                         R6 0
-       76 GETTABLEKS                       R5 R6 K7 ["dragOrientation"]
+       75 GETUPVAL                         R5 0
+       76 GETTABLEKS                       R5 R5 K7 ["dragOrientation"]
        78 GETUPVAL                         R6 3
        79 JUMPIFNOTEQ                      R5 R6 ; [+24]
-       81 GETUPVAL                         R8 0
-       82 GETTABLEKS                       R7 R8 K14 ["topPos"]
+       81 GETUPVAL                         R7 0
+       82 GETTABLEKS                       R7 R7 K14 ["topPos"]
        84 GETTABLEKS                       R8 R3 K15 ["Y"]
        86 MUL                              R6 R7 R8
        87 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -169,12 +169,12 @@ PROTO_5:
       100 SETLIST                          R6 R7 4 [1]
       102 MOVE                             R4 R6
       103 JUMP                             ; [+28]
-      104 GETUPVAL                         R6 0
-      105 GETTABLEKS                       R5 R6 K7 ["dragOrientation"]
+      104 GETUPVAL                         R5 0
+      105 GETTABLEKS                       R5 R5 K7 ["dragOrientation"]
       107 GETUPVAL                         R6 4
       108 JUMPIFNOTEQ                      R5 R6 ; [+23]
-      110 GETUPVAL                         R8 0
-      111 GETTABLEKS                       R7 R8 K16 ["bottomPos"]
+      110 GETUPVAL                         R7 0
+      111 GETTABLEKS                       R7 R7 K16 ["bottomPos"]
       113 GETTABLEKS                       R8 R3 K15 ["Y"]
       115 MUL                              R6 R7 R8
       116 FASTCALL1                        MATH_ROUND R6 ; [+2]
@@ -191,30 +191,30 @@ PROTO_5:
       129 SETLIST                          R6 R7 4 [1]
       131 MOVE                             R4 R6
       132 JUMPIFNOT                        R4 ; [+8]
-      133 GETUPVAL                         R7 0
-      134 GETTABLEKS                       R6 R7 K0 ["props"]
-      136 GETTABLEKS                       R5 R6 K17 ["setSliceRect"]
+      133 GETUPVAL                         R5 0
+      134 GETTABLEKS                       R5 R5 K0 ["props"]
+      136 GETTABLEKS                       R5 R5 K17 ["setSliceRect"]
       138 MOVE                             R6 R4
       139 LOADB                            R7 1
       140 CALL                             R5 2 0
-      141 GETUPVAL                         R6 0
-      142 GETTABLEKS                       R5 R6 K18 ["disconnectMouseMoveInputObject"]
+      141 GETUPVAL                         R5 0
+      142 GETTABLEKS                       R5 R5 K18 ["disconnectMouseMoveInputObject"]
       144 CALL                             R5 0 0
-      145 GETUPVAL                         R6 0
-      146 GETTABLEKS                       R5 R6 K19 ["setDraggingState"]
+      145 GETUPVAL                         R5 0
+      146 GETTABLEKS                       R5 R5 K19 ["setDraggingState"]
       148 LOADB                            R6 0
       149 CALL                             R5 1 0
       150 GETUPVAL                         R5 0
       151 LOADB                            R6 0
       152 SETTABLEKS                       R6 R5 K20 ["uncertainDragStarted"]
-      154 GETUPVAL                         R6 0
-      155 GETTABLEKS                       R5 R6 K21 ["updateHoverDragger"]
+      154 GETUPVAL                         R5 0
+      155 GETTABLEKS                       R5 R5 K21 ["updateHoverDragger"]
       157 CALL                             R5 0 0
-      158 GETUPVAL                         R6 5
-      159 GETTABLEKS                       R5 R6 K22 ["setLocked"]
-      161 GETUPVAL                         R8 0
-      162 GETTABLEKS                       R7 R8 K0 ["props"]
-      164 GETTABLEKS                       R6 R7 K23 ["Mouse"]
+      158 GETUPVAL                         R5 5
+      159 GETTABLEKS                       R5 R5 K22 ["setLocked"]
+      161 GETUPVAL                         R6 0
+      162 GETTABLEKS                       R6 R6 K0 ["props"]
+      164 GETTABLEKS                       R6 R6 K23 ["Mouse"]
       166 LOADB                            R7 0
       167 CALL                             R5 2 0
       168 GETUPVAL                         R4 0
@@ -226,8 +226,8 @@ PROTO_6:
         0 LOADNIL                          R0
         1 LOADNIL                          R1
         2 GETIMPORT                        R2 K1 [pairs]
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R3 R5 K2 ["priorityDragCandidates"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K2 ["priorityDragCandidates"]
         7 CALL                             R2 1 3
         8 FORGPREP_NEXT                    R2
         9 JUMPIFEQKNIL                     R0 ; [+5]
@@ -241,8 +241,8 @@ PROTO_6:
 PROTO_7:
         0 LOADNIL                          R0
         1 GETIMPORT                        R1 K1 [pairs]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R2 R4 K2 ["uncertainDragCandidates"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K2 ["uncertainDragCandidates"]
         6 CALL                             R1 1 3
         7 FORGPREP_NEXT                    R1
         8 JUMPIFEQKNIL                     R0 ; [+5]
@@ -253,8 +253,8 @@ PROTO_7:
        18 LOADNIL                          R1
        19 LOADNIL                          R2
        20 GETIMPORT                        R3 K1 [pairs]
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R4 R6 K2 ["uncertainDragCandidates"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K2 ["uncertainDragCandidates"]
        25 CALL                             R3 1 3
        26 FORGPREP_NEXT                    R3
        27 GETTABLEKS                       R8 R7 K3 ["priority"]
@@ -268,28 +268,28 @@ PROTO_7:
        42 RETURN                           R2 1
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["uncertainDragStarted"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["uncertainDragStarted"]
         3 JUMPIFNOT                        R1 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R1 0
         6 LOADB                            R2 1
         7 SETTABLEKS                       R2 R1 K0 ["uncertainDragStarted"]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R1 R2 K1 ["getBestUncertainDragCandidate"]
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K1 ["getBestUncertainDragCandidate"]
        12 CALL                             R1 0 1
        13 JUMPIFNOT                        R1 ; [+30]
        14 GETTABLEKS                       R2 R1 K2 ["instance"]
        16 GETIMPORT                        R3 K5 [Vector2.new]
-       18 GETTABLEKS                       R6 R2 K6 ["Position"]
-       20 GETTABLEKS                       R5 R6 K7 ["X"]
-       22 GETTABLEKS                       R4 R5 K8 ["Scale"]
-       24 GETTABLEKS                       R7 R2 K6 ["Position"]
-       26 GETTABLEKS                       R6 R7 K9 ["Y"]
-       28 GETTABLEKS                       R5 R6 K8 ["Scale"]
+       18 GETTABLEKS                       R4 R2 K6 ["Position"]
+       20 GETTABLEKS                       R4 R4 K7 ["X"]
+       22 GETTABLEKS                       R4 R4 K8 ["Scale"]
+       24 GETTABLEKS                       R5 R2 K6 ["Position"]
+       26 GETTABLEKS                       R5 R5 K9 ["Y"]
+       28 GETTABLEKS                       R5 R5 K8 ["Scale"]
        30 CALL                             R3 2 1
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R4 R5 K10 ["onDragBegin"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K10 ["onDragBegin"]
        34 MOVE                             R5 R2
        35 GETTABLEKS                       R6 R1 K11 ["orientation"]
        37 MOVE                             R7 R0
@@ -301,19 +301,19 @@ PROTO_8:
        44 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["dragging"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["dragging"]
         3 JUMPIFNOT                        R2 ; [+1]
         4 RETURN                           R0 0
         5 LOADN                            R2 255
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K1 ["getBestPriorityDragCandidate"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["getBestPriorityDragCandidate"]
         9 CALL                             R3 0 1
        10 JUMPIFNOT                        R3 ; [+3]
        11 GETTABLEKS                       R2 R3 K2 ["orientation"]
        13 JUMP                             ; [+7]
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K3 ["getBestUncertainDragCandidate"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R4 R4 K3 ["getBestUncertainDragCandidate"]
        17 CALL                             R4 0 1
        18 JUMPIFNOT                        R4 ; [+2]
        19 GETTABLEKS                       R2 R4 K2 ["orientation"]
@@ -326,41 +326,41 @@ PROTO_9:
        29 JUMPIFEQ                         R2 R4 ; [+4]
        31 GETUPVAL                         R4 2
        32 JUMPIFNOTEQ                      R2 R4 ; [+16]
-       34 GETUPVAL                         R5 3
-       35 GETTABLEKS                       R4 R5 K7 ["setCursor"]
-       37 GETUPVAL                         R7 0
-       38 GETTABLEKS                       R6 R7 K8 ["props"]
-       40 GETTABLEKS                       R5 R6 K9 ["Mouse"]
-       42 GETUPVAL                         R8 4
-       43 GETTABLEKS                       R7 R8 K10 ["MOUSE_CURSORS"]
-       45 GETTABLEKS                       R6 R7 K11 ["EW"]
+       34 GETUPVAL                         R4 3
+       35 GETTABLEKS                       R4 R4 K7 ["setCursor"]
+       37 GETUPVAL                         R5 0
+       38 GETTABLEKS                       R5 R5 K8 ["props"]
+       40 GETTABLEKS                       R5 R5 K9 ["Mouse"]
+       42 GETUPVAL                         R6 4
+       43 GETTABLEKS                       R6 R6 K10 ["MOUSE_CURSORS"]
+       45 GETTABLEKS                       R6 R6 K11 ["EW"]
        47 CALL                             R4 2 0
        48 JUMP                             ; [+20]
        49 GETUPVAL                         R4 5
        50 JUMPIFEQ                         R2 R4 ; [+4]
        52 GETUPVAL                         R4 6
        53 JUMPIFNOTEQ                      R2 R4 ; [+15]
-       55 GETUPVAL                         R5 3
-       56 GETTABLEKS                       R4 R5 K7 ["setCursor"]
-       58 GETUPVAL                         R7 0
-       59 GETTABLEKS                       R6 R7 K8 ["props"]
-       61 GETTABLEKS                       R5 R6 K9 ["Mouse"]
-       63 GETUPVAL                         R8 4
-       64 GETTABLEKS                       R7 R8 K10 ["MOUSE_CURSORS"]
-       66 GETTABLEKS                       R6 R7 K12 ["NS"]
+       55 GETUPVAL                         R4 3
+       56 GETTABLEKS                       R4 R4 K7 ["setCursor"]
+       58 GETUPVAL                         R5 0
+       59 GETTABLEKS                       R5 R5 K8 ["props"]
+       61 GETTABLEKS                       R5 R5 K9 ["Mouse"]
+       63 GETUPVAL                         R6 4
+       64 GETTABLEKS                       R6 R6 K10 ["MOUSE_CURSORS"]
+       66 GETTABLEKS                       R6 R6 K12 ["NS"]
        68 CALL                             R4 2 0
        69 JUMPIFNOTEQKN                    R2 K13 [-1] ; [+10]
-       71 GETUPVAL                         R5 3
-       72 GETTABLEKS                       R4 R5 K14 ["resetCursor"]
-       74 GETUPVAL                         R7 0
-       75 GETTABLEKS                       R6 R7 K8 ["props"]
-       77 GETTABLEKS                       R5 R6 K9 ["Mouse"]
+       71 GETUPVAL                         R4 3
+       72 GETTABLEKS                       R4 R4 K14 ["resetCursor"]
+       74 GETUPVAL                         R5 0
+       75 GETTABLEKS                       R5 R5 K8 ["props"]
+       77 GETTABLEKS                       R5 R5 K9 ["Mouse"]
        79 CALL                             R4 1 0
        80 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["uncertainDragCandidates"]
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["uncertainDragCandidates"]
         3 DUPTABLE                         R6 K5 [{"distance", "instance", "orientation", "priority"}]
         4 SETTABLEKS                       R2 R6 K1 ["distance"]
         6 SETTABLEKS                       R3 R6 K2 ["instance"]
@@ -368,34 +368,34 @@ PROTO_10:
        10 ORK                              R7 R4 K6 [0]
        11 SETTABLEKS                       R7 R6 K4 ["priority"]
        13 SETTABLE                         R6 R5 R0
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R5 R6 K7 ["updateHoverDragger"]
+       14 GETUPVAL                         R5 0
+       15 GETTABLEKS                       R5 R5 K7 ["updateHoverDragger"]
        17 CALL                             R5 0 0
        18 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["uncertainDragCandidates"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["uncertainDragCandidates"]
         3 LOADNIL                          R2
         4 SETTABLE                         R2 R1 R0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K1 ["updateHoverDragger"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K1 ["updateHoverDragger"]
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["dragging"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["dragging"]
         3 JUMPIFNOT                        R2 ; [+17]
         4 GETTABLEKS                       R2 R1 K1 ["UserInputType"]
         6 GETIMPORT                        R3 K4 [Enum.UserInputType.MouseMovement]
         8 JUMPIFNOTEQ                      R2 R3 ; [+12]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K5 ["draggerHandlingMovement"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K5 ["draggerHandlingMovement"]
        13 JUMPIFNOT                        R2 ; [+1]
        14 RETURN                           R0 0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R2 R3 K6 ["updateDraggedPosition"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K6 ["updateDraggedPosition"]
        18 GETTABLEKS                       R3 R1 K7 ["Position"]
        20 CALL                             R2 1 0
        21 RETURN                           R0 0
@@ -404,44 +404,44 @@ PROTO_13:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
         4 JUMPIFNOTEQ                      R2 R3 ; [+13]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K4 ["uncertainDragStarted"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K4 ["uncertainDragStarted"]
         9 JUMPIFNOT                        R2 ; [+8]
-       10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R2 R3 K5 ["onDragEnd"]
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K5 ["onDragEnd"]
        13 MOVE                             R3 R1
-       14 GETUPVAL                         R5 0
-       15 GETTABLEKS                       R4 R5 K6 ["dragOrientation"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R4 R4 K6 ["dragOrientation"]
        17 CALL                             R2 2 0
        18 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["sliceRect"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["sliceRect"]
         5 GETIMPORT                        R3 K4 [Vector2.new]
         7 GETTABLEKS                       R4 R0 K5 ["X"]
         9 GETTABLEKS                       R5 R0 K6 ["Y"]
        11 CALL                             R3 2 1
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K7 ["mousePosition"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K7 ["mousePosition"]
        15 SUB                              R2 R3 R4
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R4 R5 K8 ["state"]
-       19 GETTABLEKS                       R3 R4 K9 ["fitImageSize"]
+       16 GETUPVAL                         R3 0
+       17 GETTABLEKS                       R3 R3 K8 ["state"]
+       19 GETTABLEKS                       R3 R3 K9 ["fitImageSize"]
        21 JUMPIF                           R3 ; [+1]
        22 RETURN                           R0 0
        23 GETUPVAL                         R4 0
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R6 R7 K10 ["draggerPosition"]
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K10 ["draggerPosition"]
        27 DIV                              R7 R2 R3
        28 ADD                              R5 R6 R7
        29 SETTABLEKS                       R5 R4 K11 ["newPosition"]
-       31 GETUPVAL                         R6 0
-       32 GETTABLEKS                       R5 R6 K0 ["props"]
-       34 GETTABLEKS                       R4 R5 K12 ["pixelDimensions"]
-       36 GETUPVAL                         R6 0
-       37 GETTABLEKS                       R5 R6 K13 ["dragOrientation"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K0 ["props"]
+       34 GETTABLEKS                       R4 R4 K12 ["pixelDimensions"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K13 ["dragOrientation"]
        39 GETUPVAL                         R6 1
        40 JUMPIFNOTEQ                      R5 R6 ; [+42]
        42 GETUPVAL                         R7 2
@@ -449,30 +449,30 @@ PROTO_14:
        44 GETTABLEKS                       R7 R4 K5 ["X"]
        46 DIV                              R5 R6 R7
        47 GETUPVAL                         R6 0
-       48 GETUPVAL                         R10 0
-       49 GETTABLEKS                       R9 R10 K11 ["newPosition"]
-       51 GETTABLEKS                       R8 R9 K5 ["X"]
+       48 GETUPVAL                         R8 0
+       49 GETTABLEKS                       R8 R8 K11 ["newPosition"]
+       51 GETTABLEKS                       R8 R8 K5 ["X"]
        53 LOADN                            R9 0
        54 FASTCALL3                        MATH_CLAMP R8 R9 R5
        56 MOVE                             R10 R5
        57 GETIMPORT                        R7 K16 [math.clamp]
        59 CALL                             R7 3 1
        60 SETTABLEKS                       R7 R6 K17 ["leftPos"]
-       62 GETUPVAL                         R7 0
-       63 GETTABLEKS                       R6 R7 K18 ["obj"]
+       62 GETUPVAL                         R6 0
+       63 GETTABLEKS                       R6 R6 K18 ["obj"]
        65 GETIMPORT                        R7 K21 [UDim2.fromScale]
-       67 GETUPVAL                         R9 0
-       68 GETTABLEKS                       R8 R9 K17 ["leftPos"]
-       70 GETUPVAL                         R13 0
-       71 GETTABLEKS                       R12 R13 K18 ["obj"]
-       73 GETTABLEKS                       R11 R12 K22 ["Position"]
-       75 GETTABLEKS                       R10 R11 K6 ["Y"]
-       77 GETTABLEKS                       R9 R10 K23 ["Scale"]
+       67 GETUPVAL                         R8 0
+       68 GETTABLEKS                       R8 R8 K17 ["leftPos"]
+       70 GETUPVAL                         R9 0
+       71 GETTABLEKS                       R9 R9 K18 ["obj"]
+       73 GETTABLEKS                       R9 R9 K22 ["Position"]
+       75 GETTABLEKS                       R9 R9 K6 ["Y"]
+       77 GETTABLEKS                       R9 R9 K23 ["Scale"]
        79 CALL                             R7 2 1
        80 SETTABLEKS                       R7 R6 K22 ["Position"]
        82 RETURN                           R0 0
-       83 GETUPVAL                         R6 0
-       84 GETTABLEKS                       R5 R6 K13 ["dragOrientation"]
+       83 GETUPVAL                         R5 0
+       84 GETTABLEKS                       R5 R5 K13 ["dragOrientation"]
        86 GETUPVAL                         R6 2
        87 JUMPIFNOTEQ                      R5 R6 ; [+42]
        89 GETUPVAL                         R7 1
@@ -480,30 +480,30 @@ PROTO_14:
        91 GETTABLEKS                       R7 R4 K5 ["X"]
        93 DIV                              R5 R6 R7
        94 GETUPVAL                         R6 0
-       95 GETUPVAL                         R10 0
-       96 GETTABLEKS                       R9 R10 K11 ["newPosition"]
-       98 GETTABLEKS                       R8 R9 K5 ["X"]
+       95 GETUPVAL                         R8 0
+       96 GETTABLEKS                       R8 R8 K11 ["newPosition"]
+       98 GETTABLEKS                       R8 R8 K5 ["X"]
       100 LOADN                            R10 1
       101 FASTCALL3                        MATH_CLAMP R8 R5 R10
       103 MOVE                             R9 R5
       104 GETIMPORT                        R7 K16 [math.clamp]
       106 CALL                             R7 3 1
       107 SETTABLEKS                       R7 R6 K24 ["rightPos"]
-      109 GETUPVAL                         R7 0
-      110 GETTABLEKS                       R6 R7 K18 ["obj"]
+      109 GETUPVAL                         R6 0
+      110 GETTABLEKS                       R6 R6 K18 ["obj"]
       112 GETIMPORT                        R7 K21 [UDim2.fromScale]
-      114 GETUPVAL                         R9 0
-      115 GETTABLEKS                       R8 R9 K24 ["rightPos"]
-      117 GETUPVAL                         R13 0
-      118 GETTABLEKS                       R12 R13 K18 ["obj"]
-      120 GETTABLEKS                       R11 R12 K22 ["Position"]
-      122 GETTABLEKS                       R10 R11 K6 ["Y"]
-      124 GETTABLEKS                       R9 R10 K23 ["Scale"]
+      114 GETUPVAL                         R8 0
+      115 GETTABLEKS                       R8 R8 K24 ["rightPos"]
+      117 GETUPVAL                         R9 0
+      118 GETTABLEKS                       R9 R9 K18 ["obj"]
+      120 GETTABLEKS                       R9 R9 K22 ["Position"]
+      122 GETTABLEKS                       R9 R9 K6 ["Y"]
+      124 GETTABLEKS                       R9 R9 K23 ["Scale"]
       126 CALL                             R7 2 1
       127 SETTABLEKS                       R7 R6 K22 ["Position"]
       129 RETURN                           R0 0
-      130 GETUPVAL                         R6 0
-      131 GETTABLEKS                       R5 R6 K13 ["dragOrientation"]
+      130 GETUPVAL                         R5 0
+      131 GETTABLEKS                       R5 R5 K13 ["dragOrientation"]
       133 GETUPVAL                         R6 3
       134 JUMPIFNOTEQ                      R5 R6 ; [+42]
       136 GETUPVAL                         R7 4
@@ -511,30 +511,30 @@ PROTO_14:
       138 GETTABLEKS                       R7 R4 K6 ["Y"]
       140 DIV                              R5 R6 R7
       141 GETUPVAL                         R6 0
-      142 GETUPVAL                         R10 0
-      143 GETTABLEKS                       R9 R10 K11 ["newPosition"]
-      145 GETTABLEKS                       R8 R9 K6 ["Y"]
+      142 GETUPVAL                         R8 0
+      143 GETTABLEKS                       R8 R8 K11 ["newPosition"]
+      145 GETTABLEKS                       R8 R8 K6 ["Y"]
       147 LOADN                            R9 0
       148 FASTCALL3                        MATH_CLAMP R8 R9 R5
       150 MOVE                             R10 R5
       151 GETIMPORT                        R7 K16 [math.clamp]
       153 CALL                             R7 3 1
       154 SETTABLEKS                       R7 R6 K25 ["topPos"]
-      156 GETUPVAL                         R7 0
-      157 GETTABLEKS                       R6 R7 K18 ["obj"]
+      156 GETUPVAL                         R6 0
+      157 GETTABLEKS                       R6 R6 K18 ["obj"]
       159 GETIMPORT                        R7 K21 [UDim2.fromScale]
-      161 GETUPVAL                         R12 0
-      162 GETTABLEKS                       R11 R12 K18 ["obj"]
-      164 GETTABLEKS                       R10 R11 K22 ["Position"]
-      166 GETTABLEKS                       R9 R10 K5 ["X"]
-      168 GETTABLEKS                       R8 R9 K23 ["Scale"]
-      170 GETUPVAL                         R10 0
-      171 GETTABLEKS                       R9 R10 K25 ["topPos"]
+      161 GETUPVAL                         R8 0
+      162 GETTABLEKS                       R8 R8 K18 ["obj"]
+      164 GETTABLEKS                       R8 R8 K22 ["Position"]
+      166 GETTABLEKS                       R8 R8 K5 ["X"]
+      168 GETTABLEKS                       R8 R8 K23 ["Scale"]
+      170 GETUPVAL                         R9 0
+      171 GETTABLEKS                       R9 R9 K25 ["topPos"]
       173 CALL                             R7 2 1
       174 SETTABLEKS                       R7 R6 K22 ["Position"]
       176 RETURN                           R0 0
-      177 GETUPVAL                         R6 0
-      178 GETTABLEKS                       R5 R6 K13 ["dragOrientation"]
+      177 GETUPVAL                         R5 0
+      178 GETTABLEKS                       R5 R5 K13 ["dragOrientation"]
       180 GETUPVAL                         R6 4
       181 JUMPIFNOTEQ                      R5 R6 ; [+41]
       183 GETUPVAL                         R7 3
@@ -542,49 +542,49 @@ PROTO_14:
       185 GETTABLEKS                       R7 R4 K6 ["Y"]
       187 DIV                              R5 R6 R7
       188 GETUPVAL                         R6 0
-      189 GETUPVAL                         R10 0
-      190 GETTABLEKS                       R9 R10 K11 ["newPosition"]
-      192 GETTABLEKS                       R8 R9 K6 ["Y"]
+      189 GETUPVAL                         R8 0
+      190 GETTABLEKS                       R8 R8 K11 ["newPosition"]
+      192 GETTABLEKS                       R8 R8 K6 ["Y"]
       194 LOADN                            R10 1
       195 FASTCALL3                        MATH_CLAMP R8 R5 R10
       197 MOVE                             R9 R5
       198 GETIMPORT                        R7 K16 [math.clamp]
       200 CALL                             R7 3 1
       201 SETTABLEKS                       R7 R6 K26 ["bottomPos"]
-      203 GETUPVAL                         R7 0
-      204 GETTABLEKS                       R6 R7 K18 ["obj"]
+      203 GETUPVAL                         R6 0
+      204 GETTABLEKS                       R6 R6 K18 ["obj"]
       206 GETIMPORT                        R7 K21 [UDim2.fromScale]
-      208 GETUPVAL                         R12 0
-      209 GETTABLEKS                       R11 R12 K18 ["obj"]
-      211 GETTABLEKS                       R10 R11 K22 ["Position"]
-      213 GETTABLEKS                       R9 R10 K5 ["X"]
-      215 GETTABLEKS                       R8 R9 K23 ["Scale"]
-      217 GETUPVAL                         R10 0
-      218 GETTABLEKS                       R9 R10 K26 ["bottomPos"]
+      208 GETUPVAL                         R8 0
+      209 GETTABLEKS                       R8 R8 K18 ["obj"]
+      211 GETTABLEKS                       R8 R8 K22 ["Position"]
+      213 GETTABLEKS                       R8 R8 K5 ["X"]
+      215 GETTABLEKS                       R8 R8 K23 ["Scale"]
+      217 GETUPVAL                         R9 0
+      218 GETTABLEKS                       R9 R9 K26 ["bottomPos"]
       220 CALL                             R7 2 1
       221 SETTABLEKS                       R7 R6 K22 ["Position"]
       223 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["priorityDragCandidates"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["priorityDragCandidates"]
         3 DUPTABLE                         R4 K4 [{"priority", "instance", "orientation"}]
         4 SETTABLEKS                       R1 R4 K1 ["priority"]
         6 SETTABLEKS                       R2 R4 K2 ["instance"]
         8 SETTABLEKS                       R0 R4 K3 ["orientation"]
        10 SETTABLE                         R4 R3 R0
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K5 ["updateHoverDragger"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K5 ["updateHoverDragger"]
        14 CALL                             R3 0 0
        15 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["priorityDragCandidates"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["priorityDragCandidates"]
         3 LOADNIL                          R2
         4 SETTABLE                         R2 R1 R0
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K1 ["updateHoverDragger"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K1 ["updateHoverDragger"]
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
@@ -594,13 +594,13 @@ PROTO_17:
         3 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["pixelDimensions"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["pixelDimensions"]
         5 LOADB                            R2 0
         6 JUMPIFNOT                        R1 ; [+10]
-        7 GETTABLEKS                       R4 R0 K2 ["AbsoluteSize"]
-        9 GETTABLEKS                       R3 R4 K3 ["X"]
+        7 GETTABLEKS                       R3 R0 K2 ["AbsoluteSize"]
+        9 GETTABLEKS                       R3 R3 K3 ["X"]
        11 GETTABLEKS                       R4 R1 K3 ["X"]
        13 JUMPIFLT                         R4 R3 ; [+2]
        15 LOADB                            R2 0 +1
@@ -624,10 +624,10 @@ PROTO_19:
         8 SETTABLEKS                       R5 R4 K2 ["hoveringDraggerOrientation"]
        10 NAMECALL                         R2 R0 K4 ["setState"]
        12 CALL                             R2 2 0
-       13 GETTABLEKS                       R4 R1 K5 ["pixelDimensions"]
-       15 GETTABLEKS                       R3 R4 K6 ["X"]
-       17 GETTABLEKS                       R5 R1 K5 ["pixelDimensions"]
-       19 GETTABLEKS                       R4 R5 K7 ["Y"]
+       13 GETTABLEKS                       R3 R1 K5 ["pixelDimensions"]
+       15 GETTABLEKS                       R3 R3 K6 ["X"]
+       17 GETTABLEKS                       R4 R1 K5 ["pixelDimensions"]
+       19 GETTABLEKS                       R4 R4 K7 ["Y"]
        21 FASTCALL2                        MATH_MAX R3 R4 ; [+3]
        23 GETIMPORT                        R2 K10 [math.max]
        25 CALL                             R2 2 1
@@ -700,8 +700,8 @@ PROTO_19:
       115 GETIMPORT                        R4 K19 [math.clamp]
       117 CALL                             R4 3 1
       118 SETTABLEKS                       R4 R0 K14 ["bottomPos"]
-      120 GETUPVAL                         R3 5
-      121 GETTABLEKS                       R2 R3 K20 ["createRef"]
+      120 GETUPVAL                         R2 5
+      121 GETTABLEKS                       R2 R2 K20 ["createRef"]
       123 CALL                             R2 0 1
       124 SETTABLEKS                       R2 R0 K21 ["backgroundImageRef"]
       126 NEWCLOSURE                       R2 P0
@@ -789,16 +789,16 @@ PROTO_19:
       233 RETURN                           R0 0
 
 PROTO_20:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 DUPTABLE                         R4 K15 [{"orientation", "pixelDimensions", "sliceRect", "onDragBegin", "onDragging", "onDragEnd", "addDragCandidateWithId", "removeDragCandidateWithId", "isHovering", "isDragging", "addPriorityDragCandidate", "removePriorityDragCandidate", "startUncertainDrag", "setMostRecentMouseMoveInputObject"}]
         5 SETTABLEKS                       R1 R4 K1 ["orientation"]
-        7 GETTABLEKS                       R6 R0 K16 ["props"]
-        9 GETTABLEKS                       R5 R6 K2 ["pixelDimensions"]
+        7 GETTABLEKS                       R5 R0 K16 ["props"]
+        9 GETTABLEKS                       R5 R5 K2 ["pixelDimensions"]
        11 SETTABLEKS                       R5 R4 K2 ["pixelDimensions"]
-       13 GETTABLEKS                       R6 R0 K16 ["props"]
-       15 GETTABLEKS                       R5 R6 K3 ["sliceRect"]
+       13 GETTABLEKS                       R5 R0 K16 ["props"]
+       15 GETTABLEKS                       R5 R5 K3 ["sliceRect"]
        17 SETTABLEKS                       R5 R4 K3 ["sliceRect"]
        19 GETTABLEKS                       R5 R0 K4 ["onDragBegin"]
        21 SETTABLEKS                       R5 R4 K4 ["onDragBegin"]
@@ -810,14 +810,14 @@ PROTO_20:
        33 SETTABLEKS                       R5 R4 K7 ["addDragCandidateWithId"]
        35 GETTABLEKS                       R5 R0 K8 ["removeDragCandidateWithId"]
        37 SETTABLEKS                       R5 R4 K8 ["removeDragCandidateWithId"]
-       39 GETTABLEKS                       R7 R0 K17 ["state"]
-       41 GETTABLEKS                       R6 R7 K18 ["hoveringDraggerOrientation"]
+       39 GETTABLEKS                       R6 R0 K17 ["state"]
+       41 GETTABLEKS                       R6 R6 K18 ["hoveringDraggerOrientation"]
        43 JUMPIFEQ                         R6 R1 ; [+2]
        45 LOADB                            R5 0 +1
        46 LOADB                            R5 1
        47 SETTABLEKS                       R5 R4 K9 ["isHovering"]
-       49 GETTABLEKS                       R6 R0 K17 ["state"]
-       51 GETTABLEKS                       R5 R6 K19 ["dragging"]
+       49 GETTABLEKS                       R5 R0 K17 ["state"]
+       51 GETTABLEKS                       R5 R5 K19 ["dragging"]
        53 SETTABLEKS                       R5 R4 K10 ["isDragging"]
        55 GETTABLEKS                       R5 R0 K11 ["addPriorityDragCandidate"]
        57 SETTABLEKS                       R5 R4 K11 ["addPriorityDragCandidate"]
@@ -863,8 +863,8 @@ PROTO_22:
        31 FASTCALL1                        ASSERT R6 ; [+2]
        32 GETIMPORT                        R5 K5 [assert]
        34 CALL                             R5 1 0
-       35 GETTABLEKS                       R7 R0 K8 ["state"]
-       37 GETTABLEKS                       R6 R7 K9 ["isEnlarged"]
+       35 GETTABLEKS                       R6 R0 K8 ["state"]
+       37 GETTABLEKS                       R6 R6 K9 ["isEnlarged"]
        39 JUMPIFNOT                        R6 ; [+3]
        40 GETIMPORT                        R5 K13 [Enum.ResamplerMode.Pixelated]
        42 JUMPIF                           R5 ; [+2]
@@ -872,8 +872,8 @@ PROTO_22:
        45 GETTABLEKS                       R7 R4 K6 ["X"]
        47 GETTABLEKS                       R8 R4 K7 ["Y"]
        49 DIV                              R6 R7 R8
-       50 GETUPVAL                         R8 0
-       51 GETTABLEKS                       R7 R8 K16 ["createElement"]
+       50 GETUPVAL                         R7 0
+       51 GETTABLEKS                       R7 R7 K16 ["createElement"]
        53 GETUPVAL                         R8 1
        54 DUPTABLE                         R9 K22 [{"Position", "Size", "Style", "BackgroundColor", "Padding"}]
        55 GETTABLEKS                       R10 R1 K23 ["position"]
@@ -884,19 +884,19 @@ PROTO_22:
        64 SETTABLEKS                       R10 R9 K19 ["Style"]
        66 GETTABLEKS                       R10 R2 K26 ["PaneBackgroundColor"]
        68 SETTABLEKS                       R10 R9 K20 ["BackgroundColor"]
-       70 GETUPVAL                         R11 2
-       71 GETTABLEKS                       R10 R11 K27 ["IMAGE_PREVIEW_WINDOW_PADDING"]
+       70 GETUPVAL                         R10 2
+       71 GETTABLEKS                       R10 R10 K27 ["IMAGE_PREVIEW_WINDOW_PADDING"]
        73 SETTABLEKS                       R10 R9 K21 ["Padding"]
        75 DUPTABLE                         R10 K29 [{"BackgroundCheckboardImage"}]
-       76 GETUPVAL                         R12 0
-       77 GETTABLEKS                       R11 R12 K16 ["createElement"]
+       76 GETUPVAL                         R11 0
+       77 GETTABLEKS                       R11 R11 K16 ["createElement"]
        79 LOADK                            R12 K30 ["ImageButton"]
        80 NEWTABLE                         R13 16 0
        82 LOADN                            R14 1
        83 SETTABLEKS                       R14 R13 K31 ["BackgroundTransparency"]
-       85 GETUPVAL                         R16 2
-       86 GETTABLEKS                       R15 R16 K32 ["IMAGES"]
-       88 GETTABLEKS                       R14 R15 K33 ["BACKGROUND_GRID"]
+       85 GETUPVAL                         R14 2
+       86 GETTABLEKS                       R14 R14 K32 ["IMAGES"]
+       88 GETTABLEKS                       R14 R14 K33 ["BACKGROUND_GRID"]
        90 SETTABLEKS                       R14 R13 K34 ["Image"]
        92 GETIMPORT                        R14 K37 [Enum.ScaleType.Tile]
        94 SETTABLEKS                       R14 R13 K35 ["ScaleType"]
@@ -906,20 +906,20 @@ PROTO_22:
       100 CALL                             R14 2 1
       101 SETTABLEKS                       R14 R13 K18 ["Size"]
       103 GETIMPORT                        R14 K42 [UDim2.fromOffset]
-      105 GETUPVAL                         R16 2
-      106 GETTABLEKS                       R15 R16 K43 ["BACKGROUND_TILE_SIZE"]
-      108 GETUPVAL                         R17 2
-      109 GETTABLEKS                       R16 R17 K43 ["BACKGROUND_TILE_SIZE"]
+      105 GETUPVAL                         R15 2
+      106 GETTABLEKS                       R15 R15 K43 ["BACKGROUND_TILE_SIZE"]
+      108 GETUPVAL                         R16 2
+      109 GETTABLEKS                       R16 R16 K43 ["BACKGROUND_TILE_SIZE"]
       111 CALL                             R14 2 1
       112 SETTABLEKS                       R14 R13 K44 ["TileSize"]
-      114 GETUPVAL                         R16 0
-      115 GETTABLEKS                       R15 R16 K45 ["Event"]
-      117 GETTABLEKS                       R14 R15 K46 ["InputChanged"]
+      114 GETUPVAL                         R14 0
+      115 GETTABLEKS                       R14 R14 K45 ["Event"]
+      117 GETTABLEKS                       R14 R14 K46 ["InputChanged"]
       119 GETTABLEKS                       R15 R0 K47 ["onBackgroundInputChanged"]
       121 SETTABLE                         R15 R13 R14
-      122 GETUPVAL                         R16 0
-      123 GETTABLEKS                       R15 R16 K45 ["Event"]
-      125 GETTABLEKS                       R14 R15 K48 ["InputEnded"]
+      122 GETUPVAL                         R14 0
+      123 GETTABLEKS                       R14 R14 K45 ["Event"]
+      125 GETTABLEKS                       R14 R14 K48 ["InputEnded"]
       127 GETTABLEKS                       R15 R0 K49 ["onBackgroundInputEnded"]
       129 SETTABLE                         R15 R13 R14
       130 GETTABLEKS                       R14 R1 K50 ["layoutOrder"]
@@ -934,18 +934,18 @@ PROTO_22:
       144 LOADK                            R16 K55 [0.5]
       145 CALL                             R14 2 1
       146 SETTABLEKS                       R14 R13 K17 ["Position"]
-      148 GETUPVAL                         R16 0
-      149 GETTABLEKS                       R15 R16 K57 ["Change"]
-      151 GETTABLEKS                       R14 R15 K58 ["AbsoluteSize"]
+      148 GETUPVAL                         R14 0
+      149 GETTABLEKS                       R14 R14 K57 ["Change"]
+      151 GETTABLEKS                       R14 R14 K58 ["AbsoluteSize"]
       153 GETTABLEKS                       R15 R0 K59 ["onFitImageSizeChanged"]
       155 SETTABLE                         R15 R13 R14
-      156 GETUPVAL                         R15 0
-      157 GETTABLEKS                       R14 R15 K60 ["Ref"]
+      156 GETUPVAL                         R14 0
+      157 GETTABLEKS                       R14 R14 K60 ["Ref"]
       159 GETTABLEKS                       R15 R0 K61 ["backgroundImageRef"]
       161 SETTABLE                         R15 R13 R14
       162 DUPTABLE                         R14 K65 [{"AspectRatioConstraint", "ImagePreview", "border"}]
-      163 GETUPVAL                         R16 0
-      164 GETTABLEKS                       R15 R16 K16 ["createElement"]
+      163 GETUPVAL                         R15 0
+      164 GETTABLEKS                       R15 R15 K16 ["createElement"]
       166 LOADK                            R16 K66 ["UIAspectRatioConstraint"]
       167 DUPTABLE                         R17 K70 [{"AspectRatio", "AspectType", "DominantAxis"}]
       168 SETTABLEKS                       R6 R17 K67 ["AspectRatio"]
@@ -955,8 +955,8 @@ PROTO_22:
       176 SETTABLEKS                       R18 R17 K69 ["DominantAxis"]
       178 CALL                             R15 2 1
       179 SETTABLEKS                       R15 R14 K62 ["AspectRatioConstraint"]
-      181 GETUPVAL                         R16 0
-      182 GETTABLEKS                       R15 R16 K16 ["createElement"]
+      181 GETUPVAL                         R15 0
+      182 GETTABLEKS                       R15 R15 K16 ["createElement"]
       184 LOADK                            R16 K75 ["ImageLabel"]
       185 DUPTABLE                         R17 K80 [{"BackgroundTransparency", "Image", "ImageColor3", "Position", "ScaleType", "ResampleMode", "ImageRectOffset", "ImageRectSize", "Size"}]
       186 LOADN                            R18 1
@@ -1001,8 +1001,8 @@ PROTO_22:
       248 SETTABLEKS                       R19 R18 K89 ["BottomDragSlider"]
       250 CALL                             R15 3 1
       251 SETTABLEKS                       R15 R14 K63 ["ImagePreview"]
-      253 GETUPVAL                         R16 0
-      254 GETTABLEKS                       R15 R16 K16 ["createElement"]
+      253 GETUPVAL                         R15 0
+      254 GETTABLEKS                       R15 R15 K16 ["createElement"]
       256 LOADK                            R16 K92 ["UIStroke"]
       257 DUPTABLE                         R17 K96 [{"Thickness", "Color", "Transparency"}]
       258 LOADN                            R18 1
@@ -1020,37 +1020,37 @@ PROTO_22:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R6 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R6 K9 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["Constants"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K9 ["Util"]
-       38 GETTABLEKS                       R5 R6 K11 ["Orientation"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Util"]
+       38 GETTABLEKS                       R5 R5 K11 ["Orientation"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K4 [require]
-       43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K9 ["Util"]
-       47 GETTABLEKS                       R6 R7 K12 ["MouseCursorManager"]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K9 ["Util"]
+       47 GETTABLEKS                       R6 R6 K12 ["MouseCursorManager"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K4 [require]
-       52 GETTABLEKS                       R9 R0 K8 ["Src"]
-       54 GETTABLEKS                       R8 R9 K13 ["Components"]
-       56 GETTABLEKS                       R7 R8 K14 ["ImageDragger"]
+       52 GETTABLEKS                       R7 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R7 K13 ["Components"]
+       56 GETTABLEKS                       R7 R7 K14 ["ImageDragger"]
        58 CALL                             R6 1 1
        59 GETTABLEKS                       R7 R2 K15 ["ContextServices"]
        61 GETTABLEKS                       R8 R7 K16 ["withContext"]
@@ -1062,20 +1062,20 @@ MAIN:
        73 LOADK                            R15 K22 ["ImageEditor"]
        74 NAMECALL                         R13 R13 K23 ["extend"]
        76 CALL                             R13 2 1
-       77 GETTABLEKS                       R15 R4 K24 ["Left"]
-       79 GETTABLEKS                       R14 R15 K25 ["rawValue"]
+       77 GETTABLEKS                       R14 R4 K24 ["Left"]
+       79 GETTABLEKS                       R14 R14 K25 ["rawValue"]
        81 CALL                             R14 0 1
-       82 GETTABLEKS                       R16 R4 K26 ["Right"]
-       84 GETTABLEKS                       R15 R16 K25 ["rawValue"]
+       82 GETTABLEKS                       R15 R4 K26 ["Right"]
+       84 GETTABLEKS                       R15 R15 K25 ["rawValue"]
        86 CALL                             R15 0 1
-       87 GETTABLEKS                       R17 R4 K27 ["Top"]
-       89 GETTABLEKS                       R16 R17 K25 ["rawValue"]
+       87 GETTABLEKS                       R16 R4 K27 ["Top"]
+       89 GETTABLEKS                       R16 R16 K25 ["rawValue"]
        91 CALL                             R16 0 1
-       92 GETTABLEKS                       R18 R4 K28 ["Bottom"]
-       94 GETTABLEKS                       R17 R18 K25 ["rawValue"]
+       92 GETTABLEKS                       R17 R4 K28 ["Bottom"]
+       94 GETTABLEKS                       R17 R17 K25 ["rawValue"]
        96 CALL                             R17 0 1
-       97 GETTABLEKS                       R19 R4 K29 ["Undefined"]
-       99 GETTABLEKS                       R18 R19 K25 ["rawValue"]
+       97 GETTABLEKS                       R18 R4 K29 ["Undefined"]
+       99 GETTABLEKS                       R18 R18 K25 ["rawValue"]
       101 CALL                             R18 0 1
       102 DUPCLOSURE                       R19 K30 [PROTO_19]
       103 CAPTURE                          VAL R18

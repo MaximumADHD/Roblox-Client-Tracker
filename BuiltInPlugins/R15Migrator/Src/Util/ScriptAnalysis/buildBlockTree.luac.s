@@ -6,8 +6,8 @@ PROTO_0:
         5 CALL                             R2 3 2
         6 JUMPIFNOT                        R2 ; [+10]
         7 JUMPIFNOT                        R3 ; [+9]
-        8 GETUPVAL                         R5 1
-        9 GETTABLEKS                       R4 R5 K1 ["CharAt"]
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R4 R4 K1 ["CharAt"]
        11 MOVE                             R5 R0
        12 MOVE                             R6 R2
        13 CALL                             R4 2 1
@@ -47,8 +47,8 @@ PROTO_0:
        54 LOADB                            R15 1
        55 CALL                             R11 4 1
        56 GETUPVAL                         R12 2
-       57 GETUPVAL                         R15 1
-       58 GETTABLEKS                       R14 R15 K13 ["RemoveWhitespace"]
+       57 GETUPVAL                         R14 1
+       58 GETTABLEKS                       R14 R14 K13 ["RemoveWhitespace"]
        60 MOVE                             R15 R10
        61 CALL                             R14 1 1
        62 LOADK                            R15 K14 [""]
@@ -63,31 +63,31 @@ PROTO_1:
         0 GETIMPORT                        R3 K2 [string.find]
         2 MOVE                             R4 R1
         3 MOVE                             R5 R0
-        4 GETUPVAL                         R7 0
-        5 GETTABLEKS                       R6 R7 K3 ["StartIndex"]
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R6 R6 K3 ["StartIndex"]
         7 LOADB                            R7 1
         8 CALL                             R3 4 2
-        9 GETUPVAL                         R7 0
-       10 GETTABLEKS                       R6 R7 K4 ["Lines"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K4 ["Lines"]
        12 DUPTABLE                         R7 K8 [{"LineNo", "Text", "Offset"}]
        13 SETTABLEKS                       R2 R7 K5 ["LineNo"]
-       15 GETUPVAL                         R11 0
-       16 GETTABLEKS                       R10 R11 K3 ["StartIndex"]
+       15 GETUPVAL                         R10 0
+       16 GETTABLEKS                       R10 R10 K3 ["StartIndex"]
        18 SUBK                             R11 R3 K9 [1]
        19 FASTCALL3                        STRING_SUB R1 R10 R11
        21 MOVE                             R9 R1
        22 GETIMPORT                        R8 K11 [string.sub]
        24 CALL                             R8 3 1
        25 SETTABLEKS                       R8 R7 K6 ["Text"]
-       27 GETUPVAL                         R10 0
-       28 GETTABLEKS                       R9 R10 K3 ["StartIndex"]
+       27 GETUPVAL                         R9 0
+       28 GETTABLEKS                       R9 R9 K3 ["StartIndex"]
        30 SUBK                             R8 R9 K9 [1]
        31 SETTABLEKS                       R8 R7 K7 ["Offset"]
        33 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
        35 GETIMPORT                        R5 K14 [table.insert]
        37 CALL                             R5 2 0
-       38 GETUPVAL                         R6 1
-       39 GETTABLEKS                       R5 R6 K15 ["new"]
+       38 GETUPVAL                         R5 1
+       39 GETTABLEKS                       R5 R5 K15 ["new"]
        41 ADDK                             R6 R4 K9 [1]
        42 ADDK                             R7 R4 K9 [1]
        43 CALL                             R5 2 1
@@ -106,8 +106,8 @@ PROTO_2:
         4 CALL                             R3 2 2
         5 JUMPIFNOT                        R3 ; [+19]
         6 JUMPIFNOT                        R4 ; [+18]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K4 ["MatchBeforeAndAfter"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K4 ["MatchBeforeAndAfter"]
        10 MOVE                             R6 R0
        11 MOVE                             R7 R3
        12 MOVE                             R8 R4
@@ -143,38 +143,38 @@ PROTO_4:
         0 GETIMPORT                        R3 K2 [string.find]
         2 MOVE                             R4 R1
         3 MOVE                             R5 R0
-        4 GETUPVAL                         R7 0
-        5 GETTABLEKS                       R6 R7 K3 ["StartIndex"]
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R6 R6 K3 ["StartIndex"]
         7 LOADB                            R7 1
         8 CALL                             R3 4 2
         9 GETUPVAL                         R5 0
        10 SUBK                             R6 R3 K4 [1]
        11 SETTABLEKS                       R6 R5 K5 ["EndIndex"]
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K6 ["Lines"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K6 ["Lines"]
        16 DUPTABLE                         R7 K10 [{"LineNo", "Text", "Offset"}]
        17 SETTABLEKS                       R2 R7 K7 ["LineNo"]
-       19 GETUPVAL                         R11 0
-       20 GETTABLEKS                       R10 R11 K3 ["StartIndex"]
-       22 GETUPVAL                         R12 0
-       23 GETTABLEKS                       R11 R12 K5 ["EndIndex"]
+       19 GETUPVAL                         R10 0
+       20 GETTABLEKS                       R10 R10 K3 ["StartIndex"]
+       22 GETUPVAL                         R11 0
+       23 GETTABLEKS                       R11 R11 K5 ["EndIndex"]
        25 FASTCALL3                        STRING_SUB R1 R10 R11
        27 MOVE                             R9 R1
        28 GETIMPORT                        R8 K12 [string.sub]
        30 CALL                             R8 3 1
        31 SETTABLEKS                       R8 R7 K8 ["Text"]
-       33 GETUPVAL                         R10 0
-       34 GETTABLEKS                       R9 R10 K3 ["StartIndex"]
+       33 GETUPVAL                         R9 0
+       34 GETTABLEKS                       R9 R9 K3 ["StartIndex"]
        36 SUBK                             R8 R9 K4 [1]
        37 SETTABLEKS                       R8 R7 K9 ["Offset"]
        39 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
        41 GETIMPORT                        R5 K15 [table.insert]
        43 CALL                             R5 2 0
-       44 GETUPVAL                         R6 0
-       45 GETTABLEKS                       R5 R6 K16 ["Parent"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K16 ["Parent"]
        47 JUMPIFNOT                        R5 ; [+10]
-       48 GETUPVAL                         R6 0
-       49 GETTABLEKS                       R5 R6 K16 ["Parent"]
+       48 GETUPVAL                         R5 0
+       49 GETTABLEKS                       R5 R5 K16 ["Parent"]
        51 SETUPVAL                         R5 0
        52 GETUPVAL                         R5 0
        53 SETTABLEKS                       R4 R5 K3 ["StartIndex"]
@@ -190,8 +190,8 @@ PROTO_5:
         4 CALL                             R3 2 2
         5 JUMPIFNOT                        R3 ; [+19]
         6 JUMPIFNOT                        R4 ; [+18]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K4 ["MatchBeforeAndAfter"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K4 ["MatchBeforeAndAfter"]
        10 MOVE                             R6 R0
        11 MOVE                             R7 R3
        12 MOVE                             R8 R4
@@ -217,8 +217,8 @@ PROTO_6:
         4 CALL                             R3 2 2
         5 JUMPIFNOT                        R3 ; [+114]
         6 JUMPIFNOT                        R4 ; [+113]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K4 ["MatchBeforeAndAfter"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K4 ["MatchBeforeAndAfter"]
        10 MOVE                             R6 R0
        11 MOVE                             R7 R3
        12 MOVE                             R8 R4
@@ -231,64 +231,64 @@ PROTO_6:
        19 GETIMPORT                        R5 K2 [string.find]
        21 MOVE                             R6 R1
        22 MOVE                             R7 R0
-       23 GETUPVAL                         R9 1
-       24 GETTABLEKS                       R8 R9 K7 ["StartIndex"]
+       23 GETUPVAL                         R8 1
+       24 GETTABLEKS                       R8 R8 K7 ["StartIndex"]
        26 LOADB                            R9 1
        27 CALL                             R5 4 2
        28 GETUPVAL                         R7 1
        29 SUBK                             R8 R5 K8 [1]
        30 SETTABLEKS                       R8 R7 K9 ["EndIndex"]
-       32 GETUPVAL                         R9 1
-       33 GETTABLEKS                       R8 R9 K10 ["Lines"]
+       32 GETUPVAL                         R8 1
+       33 GETTABLEKS                       R8 R8 K10 ["Lines"]
        35 DUPTABLE                         R9 K14 [{"LineNo", "Text", "Offset"}]
        36 SETTABLEKS                       R2 R9 K11 ["LineNo"]
-       38 GETUPVAL                         R13 1
-       39 GETTABLEKS                       R12 R13 K7 ["StartIndex"]
-       41 GETUPVAL                         R14 1
-       42 GETTABLEKS                       R13 R14 K9 ["EndIndex"]
+       38 GETUPVAL                         R12 1
+       39 GETTABLEKS                       R12 R12 K7 ["StartIndex"]
+       41 GETUPVAL                         R13 1
+       42 GETTABLEKS                       R13 R13 K9 ["EndIndex"]
        44 FASTCALL3                        STRING_SUB R1 R12 R13
        46 MOVE                             R11 R1
        47 GETIMPORT                        R10 K16 [string.sub]
        49 CALL                             R10 3 1
        50 SETTABLEKS                       R10 R9 K12 ["Text"]
-       52 GETUPVAL                         R12 1
-       53 GETTABLEKS                       R11 R12 K7 ["StartIndex"]
+       52 GETUPVAL                         R11 1
+       53 GETTABLEKS                       R11 R11 K7 ["StartIndex"]
        55 SUBK                             R10 R11 K8 [1]
        56 SETTABLEKS                       R10 R9 K13 ["Offset"]
        58 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
        60 GETIMPORT                        R7 K19 [table.insert]
        62 CALL                             R7 2 0
-       63 GETUPVAL                         R8 1
-       64 GETTABLEKS                       R7 R8 K20 ["Parent"]
+       63 GETUPVAL                         R7 1
+       64 GETTABLEKS                       R7 R7 K20 ["Parent"]
        66 JUMPIFNOT                        R7 ; [+10]
-       67 GETUPVAL                         R8 1
-       68 GETTABLEKS                       R7 R8 K20 ["Parent"]
+       67 GETUPVAL                         R7 1
+       68 GETTABLEKS                       R7 R7 K20 ["Parent"]
        70 SETUPVAL                         R7 1
        71 GETUPVAL                         R7 1
        72 SETTABLEKS                       R5 R7 K7 ["StartIndex"]
        74 GETUPVAL                         R7 1
        75 SETTABLEKS                       R6 R7 K9 ["EndIndex"]
-       77 GETUPVAL                         R9 1
-       78 GETTABLEKS                       R8 R9 K10 ["Lines"]
+       77 GETUPVAL                         R8 1
+       78 GETTABLEKS                       R8 R8 K10 ["Lines"]
        80 DUPTABLE                         R9 K14 [{"LineNo", "Text", "Offset"}]
        81 SETTABLEKS                       R2 R9 K11 ["LineNo"]
-       83 GETUPVAL                         R13 1
-       84 GETTABLEKS                       R12 R13 K7 ["StartIndex"]
+       83 GETUPVAL                         R12 1
+       84 GETTABLEKS                       R12 R12 K7 ["StartIndex"]
        86 SUBK                             R13 R5 K8 [1]
        87 FASTCALL3                        STRING_SUB R1 R12 R13
        89 MOVE                             R11 R1
        90 GETIMPORT                        R10 K16 [string.sub]
        92 CALL                             R10 3 1
        93 SETTABLEKS                       R10 R9 K12 ["Text"]
-       95 GETUPVAL                         R12 1
-       96 GETTABLEKS                       R11 R12 K7 ["StartIndex"]
+       95 GETUPVAL                         R11 1
+       96 GETTABLEKS                       R11 R11 K7 ["StartIndex"]
        98 SUBK                             R10 R11 K8 [1]
        99 SETTABLEKS                       R10 R9 K13 ["Offset"]
       101 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
       103 GETIMPORT                        R7 K19 [table.insert]
       105 CALL                             R7 2 0
-      106 GETUPVAL                         R8 2
-      107 GETTABLEKS                       R7 R8 K21 ["new"]
+      106 GETUPVAL                         R7 2
+      107 GETTABLEKS                       R7 R7 K21 ["new"]
       109 ADDK                             R8 R6 K8 [1]
       110 ADDK                             R9 R6 K8 [1]
       111 CALL                             R7 2 1
@@ -309,8 +309,8 @@ PROTO_7:
         4 CALL                             R3 2 2
         5 JUMPIFNOT                        R3 ; [+19]
         6 JUMPIFNOT                        R4 ; [+18]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K4 ["MatchBeforeAndAfter"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K4 ["MatchBeforeAndAfter"]
        10 MOVE                             R6 R0
        11 MOVE                             R7 R3
        12 MOVE                             R8 R4
@@ -336,8 +336,8 @@ PROTO_8:
         4 CALL                             R3 2 2
         5 JUMPIFNOT                        R3 ; [+19]
         6 JUMPIFNOT                        R4 ; [+18]
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K4 ["MatchBeforeAndAfter"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K4 ["MatchBeforeAndAfter"]
        10 MOVE                             R6 R0
        11 MOVE                             R7 R3
        12 MOVE                             R8 R4
@@ -360,8 +360,8 @@ PROTO_9:
         0 JUMPIFEQKS                       R0 K0 ["local"] ; [+3]
         2 LOADB                            R3 0
         3 RETURN                           R3 1
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K1 ["FindFirstWholeWord"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["FindFirstWholeWord"]
         7 MOVE                             R4 R1
         8 MOVE                             R5 R0
         9 GETUPVAL                         R6 1
@@ -422,8 +422,8 @@ PROTO_10:
        19 CALL                             R8 2 2
        20 JUMPIFNOT                        R8 ; [+20]
        21 JUMPIFNOT                        R9 ; [+19]
-       22 GETUPVAL                         R11 2
-       23 GETTABLEKS                       R10 R11 K8 ["MatchBeforeAndAfter"]
+       22 GETUPVAL                         R10 2
+       23 GETTABLEKS                       R10 R10 K8 ["MatchBeforeAndAfter"]
        25 MOVE                             R11 R5
        26 MOVE                             R12 R8
        27 MOVE                             R13 R9
@@ -461,8 +461,8 @@ PROTO_10:
        63 CALL                             R8 2 2
        64 JUMPIFNOT                        R8 ; [+20]
        65 JUMPIFNOT                        R9 ; [+19]
-       66 GETUPVAL                         R11 2
-       67 GETTABLEKS                       R10 R11 K8 ["MatchBeforeAndAfter"]
+       66 GETUPVAL                         R10 2
+       67 GETTABLEKS                       R10 R10 K8 ["MatchBeforeAndAfter"]
        69 MOVE                             R11 R5
        70 MOVE                             R12 R8
        71 MOVE                             R13 R9
@@ -488,8 +488,8 @@ PROTO_10:
        92 CALL                             R8 2 2
        93 JUMPIFNOT                        R8 ; [+20]
        94 JUMPIFNOT                        R9 ; [+19]
-       95 GETUPVAL                         R11 2
-       96 GETTABLEKS                       R10 R11 K8 ["MatchBeforeAndAfter"]
+       95 GETUPVAL                         R10 2
+       96 GETTABLEKS                       R10 R10 K8 ["MatchBeforeAndAfter"]
        98 MOVE                             R11 R5
        99 MOVE                             R12 R8
       100 MOVE                             R13 R9
@@ -522,8 +522,8 @@ PROTO_10:
       128 CALL                             R8 2 2
       129 JUMPIFNOT                        R8 ; [+20]
       130 JUMPIFNOT                        R9 ; [+19]
-      131 GETUPVAL                         R11 2
-      132 GETTABLEKS                       R10 R11 K8 ["MatchBeforeAndAfter"]
+      131 GETUPVAL                         R10 2
+      132 GETTABLEKS                       R10 R10 K8 ["MatchBeforeAndAfter"]
       134 MOVE                             R11 R5
       135 MOVE                             R12 R8
       136 MOVE                             R13 R9
@@ -550,8 +550,8 @@ PROTO_10:
       157 CALL                             R7 3 1
       158 JUMPIF                           R7 ; [0]
       159 FORGLOOP                         R2 1 ; [-145]
-      161 GETUPVAL                         R5 1
-      162 GETTABLEKS                       R4 R5 K1 ["EndIndex"]
+      161 GETUPVAL                         R4 1
+      162 GETTABLEKS                       R4 R4 K1 ["EndIndex"]
       164 FASTCALL1                        STRING_LEN R0 ; [+3]
       165 MOVE                             R6 R0
       166 GETIMPORT                        R5 K22 [string.len]
@@ -565,13 +565,13 @@ PROTO_10:
       177 MOVE                             R5 R2
       178 MOVE                             R6 R1
       179 CALL                             R3 3 0
-      180 GETUPVAL                         R5 1
-      181 GETTABLEKS                       R4 R5 K26 ["Lines"]
+      180 GETUPVAL                         R4 1
+      181 GETTABLEKS                       R4 R4 K26 ["Lines"]
       183 DUPTABLE                         R5 K30 [{"LineNo", "Text", "Offset"}]
       184 SETTABLEKS                       R1 R5 K27 ["LineNo"]
       186 SETTABLEKS                       R2 R5 K28 ["Text"]
-      188 GETUPVAL                         R8 1
-      189 GETTABLEKS                       R7 R8 K1 ["EndIndex"]
+      188 GETUPVAL                         R7 1
+      189 GETTABLEKS                       R7 R7 K1 ["EndIndex"]
       191 SUBK                             R6 R7 K31 [1]
       192 SETTABLEKS                       R6 R5 K29 ["Offset"]
       194 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
@@ -587,8 +587,8 @@ PROTO_11:
         4 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 NAMECALL                         R2 R1 K1 ["GetRoot"]
         6 CALL                             R2 1 1
@@ -640,8 +640,8 @@ PROTO_12:
        53 MOVE                             R18 R15
        54 NAMECALL                         R16 R16 K3 ["StripComments"]
        56 CALL                             R16 2 1
-       57 GETUPVAL                         R18 2
-       58 GETTABLEKS                       R17 R18 K4 ["ForEachLine"]
+       57 GETUPVAL                         R17 2
+       58 GETTABLEKS                       R17 R17 K4 ["ForEachLine"]
        60 MOVE                             R18 R16
        61 NEWCLOSURE                       R19 P11
        62 CAPTURE                          VAL R14
@@ -659,9 +659,9 @@ MAIN:
         9 LOADK                            R3 K6 ["R15Migrator"]
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
-       13 GETTABLEKS                       R4 R1 K8 ["Src"]
-       15 GETTABLEKS                       R3 R4 K9 ["Util"]
-       17 GETTABLEKS                       R2 R3 K10 ["ScriptAnalysis"]
+       13 GETTABLEKS                       R2 R1 K8 ["Src"]
+       15 GETTABLEKS                       R2 R2 K9 ["Util"]
+       17 GETTABLEKS                       R2 R2 K10 ["ScriptAnalysis"]
        19 GETIMPORT                        R3 K12 [require]
        21 GETTABLEKS                       R4 R2 K13 ["StringUtil"]
        23 CALL                             R3 1 1

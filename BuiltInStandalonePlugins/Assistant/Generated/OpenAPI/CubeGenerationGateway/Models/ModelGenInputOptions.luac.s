@@ -85,8 +85,8 @@ PROTO_0:
       112 FORGLOOP                         R3 2 ; [-52]
       114 GETTABLEKS                       R3 R0 K12 ["suggestedSize"]
       116 JUMPIFEQKNIL                     R3 ; [+16]
-      118 GETUPVAL                         R4 0
-      119 GETTABLEKS                       R3 R4 K13 ["fromResponse"]
+      118 GETUPVAL                         R3 0
+      119 GETTABLEKS                       R3 R3 K13 ["fromResponse"]
       121 GETTABLEKS                       R4 R0 K12 ["suggestedSize"]
       123 MOVE                             R5 R1
       124 LOADK                            R7 K14 ["%*\"suggestedSize\" > "]
@@ -144,8 +144,8 @@ PROTO_1:
         3 CALL                             R1 1 1
         4 GETTABLEKS                       R2 R1 K3 ["suggestedSize"]
         6 JUMPIFEQKNIL                     R2 ; [+9]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K4 ["toRequest"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K4 ["toRequest"]
        11 GETTABLEKS                       R3 R1 K3 ["suggestedSize"]
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R1 K3 ["suggestedSize"]
@@ -165,8 +165,8 @@ MAIN:
        15 GETTABLEKS                       R4 R2 K8 ["HttpWrapper"]
        17 CALL                             R3 1 1
        18 GETIMPORT                        R4 K7 [require]
-       20 GETTABLEKS                       R6 R0 K9 ["Models"]
-       22 GETTABLEKS                       R5 R6 K10 ["ModelGenSuggestedSize"]
+       20 GETTABLEKS                       R5 R0 K9 ["Models"]
+       22 GETTABLEKS                       R5 R5 K10 ["ModelGenSuggestedSize"]
        24 CALL                             R4 1 1
        25 DUPCLOSURE                       R5 K11 [PROTO_0]
        26 CAPTURE                          VAL R4

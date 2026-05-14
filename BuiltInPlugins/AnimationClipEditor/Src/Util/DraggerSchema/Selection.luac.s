@@ -41,11 +41,11 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R2 K12 ["Util"]
-       22 GETTABLEKS                       R3 R4 K13 ["deepCopy"]
+       20 GETTABLEKS                       R3 R2 K12 ["Util"]
+       22 GETTABLEKS                       R3 R3 K13 ["deepCopy"]
        24 NEWTABLE                         R4 8 0
        26 SETTABLEKS                       R4 R4 K14 ["__index"]
        28 DUPCLOSURE                       R5 K15 [PROTO_0]

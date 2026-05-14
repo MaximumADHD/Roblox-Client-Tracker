@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["unmount"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 GETUPVAL                         R0 2
@@ -12,8 +12,8 @@ PROTO_0:
        12 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["unmount"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 GETUPVAL                         R0 2
@@ -25,8 +25,8 @@ PROTO_1:
        12 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["unmount"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 GETUPVAL                         R0 2
@@ -74,8 +74,8 @@ PROTO_3:
        40 CALL                             R4 2 0
        41 GETUPVAL                         R4 5
        42 CALL                             R4 0 1
-       43 GETUPVAL                         R6 6
-       44 GETTABLEKS                       R5 R6 K8 ["provide"]
+       43 GETUPVAL                         R5 6
+       44 GETTABLEKS                       R5 R5 K8 ["provide"]
        46 NEWTABLE                         R6 0 3
        48 GETUPVAL                         R7 7
        49 MOVE                             R8 R4
@@ -88,8 +88,8 @@ PROTO_3:
        57 CALL                             R8 2 1
        58 SETTABLEKS                       R8 R7 K9 ["Content"]
        60 CALL                             R5 2 1
-       61 GETUPVAL                         R7 3
-       62 GETTABLEKS                       R6 R7 K11 ["mount"]
+       61 GETUPVAL                         R6 3
+       62 GETTABLEKS                       R6 R6 K11 ["mount"]
        64 MOVE                             R7 R5
        65 MOVE                             R8 R1
        66 CALL                             R6 2 1
@@ -114,8 +114,8 @@ PROTO_4:
        14 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["new"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
@@ -142,25 +142,25 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
-       25 GETTABLEKS                       R5 R2 K9 ["Util"]
-       27 GETTABLEKS                       R4 R5 K10 ["Promise"]
+       25 GETTABLEKS                       R4 R2 K9 ["Util"]
+       27 GETTABLEKS                       R4 R4 K10 ["Promise"]
        29 GETIMPORT                        R5 K4 [require]
-       31 GETTABLEKS                       R8 R0 K11 ["Src"]
-       33 GETTABLEKS                       R7 R8 K12 ["Resources"]
-       35 GETTABLEKS                       R6 R7 K13 ["PluginTheme"]
+       31 GETTABLEKS                       R6 R0 K11 ["Src"]
+       33 GETTABLEKS                       R6 R6 K12 ["Resources"]
+       35 GETTABLEKS                       R6 R6 K13 ["PluginTheme"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K16 [Vector2.new]
        40 LOADN                            R7 44

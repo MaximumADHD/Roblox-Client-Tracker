@@ -146,11 +146,11 @@ PROTO_0:
       210 GETUPVAL                         R9 3
       211 SETTABLEKS                       R9 R7 K36 ["layoutOrder"]
       213 GETUPVAL                         R9 4
-      214 GETUPVAL                         R12 5
-      215 GETTABLEKS                       R11 R12 K37 ["Dictionary"]
-      217 GETTABLEKS                       R10 R11 K38 ["join"]
-      219 GETUPVAL                         R12 4
-      220 GETTABLEKS                       R11 R12 K39 ["assets"]
+      214 GETUPVAL                         R10 5
+      215 GETTABLEKS                       R10 R10 K37 ["Dictionary"]
+      217 GETTABLEKS                       R10 R10 K38 ["join"]
+      219 GETUPVAL                         R11 4
+      220 GETTABLEKS                       R11 R11 K39 ["assets"]
       222 NEWTABLE                         R12 1 0
       224 SETTABLE                         R7 R12 R8
       225 CALL                             R10 2 1
@@ -191,12 +191,12 @@ PROTO_1:
        26 GETUPVAL                         R1 0
        27 GETIMPORT                        R2 K11 [Enum.AssetType.Model]
        29 JUMPIFNOTEQ                      R1 R2 ; [+30]
-       31 GETUPVAL                         R4 3
-       32 GETTABLEKS                       R3 R4 K12 ["APIS"]
-       34 GETTABLEKS                       R2 R3 K13 ["ContentAliasesApi"]
-       36 GETTABLEKS                       R1 R2 K14 ["aliases"]
-       38 GETIMPORT                        R3 K16 [game]
-       40 GETTABLEKS                       R2 R3 K17 ["GameId"]
+       31 GETUPVAL                         R1 3
+       32 GETTABLEKS                       R1 R1 K12 ["APIS"]
+       34 GETTABLEKS                       R1 R1 K13 ["ContentAliasesApi"]
+       36 GETTABLEKS                       R1 R1 K14 ["aliases"]
+       38 GETIMPORT                        R2 K16 [game]
+       40 GETTABLEKS                       R2 R2 K17 ["GameId"]
        42 GETUPVAL                         R3 4
        43 MOVE                             R4 R0
        44 CALL                             R1 3 1
@@ -363,11 +363,11 @@ PROTO_2:
       210 GETUPVAL                         R9 3
       211 SETTABLEKS                       R9 R7 K36 ["layoutOrder"]
       213 GETUPVAL                         R9 4
-      214 GETUPVAL                         R12 5
-      215 GETTABLEKS                       R11 R12 K37 ["Dictionary"]
-      217 GETTABLEKS                       R10 R11 K38 ["join"]
-      219 GETUPVAL                         R12 4
-      220 GETTABLEKS                       R11 R12 K39 ["assets"]
+      214 GETUPVAL                         R10 5
+      215 GETTABLEKS                       R10 R10 K37 ["Dictionary"]
+      217 GETTABLEKS                       R10 R10 K38 ["join"]
+      219 GETUPVAL                         R11 4
+      220 GETTABLEKS                       R11 R11 K39 ["assets"]
       222 NEWTABLE                         R12 1 0
       224 SETTABLE                         R7 R12 R8
       225 CALL                             R10 2 1
@@ -409,12 +409,12 @@ PROTO_3:
        26 GETUPVAL                         R1 0
        27 GETIMPORT                        R2 K11 [Enum.AssetType.Model]
        29 JUMPIFNOTEQ                      R1 R2 ; [+30]
-       31 GETUPVAL                         R4 3
-       32 GETTABLEKS                       R3 R4 K12 ["API"]
-       34 GETTABLEKS                       R2 R3 K13 ["Universes"]
-       36 GETTABLEKS                       R1 R2 K14 ["getAliases"]
-       38 GETIMPORT                        R3 K16 [game]
-       40 GETTABLEKS                       R2 R3 K17 ["GameId"]
+       31 GETUPVAL                         R1 3
+       32 GETTABLEKS                       R1 R1 K12 ["API"]
+       34 GETTABLEKS                       R1 R1 K13 ["Universes"]
+       36 GETTABLEKS                       R1 R1 K14 ["getAliases"]
+       38 GETIMPORT                        R2 K16 [game]
+       40 GETTABLEKS                       R2 R2 K17 ["GameId"]
        42 MOVE                             R3 R0
        43 CALL                             R1 2 1
        44 NAMECALL                         R1 R1 K18 ["makeRequest"]
@@ -505,8 +505,8 @@ PROTO_7:
         5 CALL                             R4 1 -1
         6 NAMECALL                         R2 R0 K1 ["dispatch"]
         8 CALL                             R2 -1 0
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K2 ["resolve"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K2 ["resolve"]
        12 GETUPVAL                         R3 2
        13 GETUPVAL                         R4 3
        14 GETUPVAL                         R5 4
@@ -536,41 +536,41 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Cryo"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R4 K4 [require]
-       18 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R5 R6 K7 ["Framework"]
-       22 CALL                             R4 1 1
-       23 GETTABLEKS                       R3 R4 K8 ["Util"]
-       25 GETTABLEKS                       R2 R3 K9 ["Promise"]
-       27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R7 R0 K10 ["Src"]
-       31 GETTABLEKS                       R6 R7 K8 ["Util"]
-       33 GETTABLEKS                       R5 R6 K11 ["AssetManagerUtilities"]
-       35 CALL                             R4 1 1
-       36 GETTABLEKS                       R3 R4 K12 ["enableAudioImport"]
-       38 GETIMPORT                        R5 K4 [require]
-       40 GETTABLEKS                       R8 R0 K10 ["Src"]
-       42 GETTABLEKS                       R7 R8 K8 ["Util"]
-       44 GETTABLEKS                       R6 R7 K11 ["AssetManagerUtilities"]
-       46 CALL                             R5 1 1
-       47 GETTABLEKS                       R4 R5 K13 ["enableVideoImport"]
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R2 R2 K8 ["Util"]
+       25 GETTABLEKS                       R2 R2 K9 ["Promise"]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K10 ["Src"]
+       31 GETTABLEKS                       R4 R4 K8 ["Util"]
+       33 GETTABLEKS                       R4 R4 K11 ["AssetManagerUtilities"]
+       35 CALL                             R3 1 1
+       36 GETTABLEKS                       R3 R3 K12 ["enableAudioImport"]
+       38 GETIMPORT                        R4 K4 [require]
+       40 GETTABLEKS                       R5 R0 K10 ["Src"]
+       42 GETTABLEKS                       R5 R5 K8 ["Util"]
+       44 GETTABLEKS                       R5 R5 K11 ["AssetManagerUtilities"]
+       46 CALL                             R4 1 1
+       47 GETTABLEKS                       R4 R4 K13 ["enableVideoImport"]
        49 GETIMPORT                        R5 K4 [require]
-       51 GETTABLEKS                       R8 R0 K10 ["Src"]
-       53 GETTABLEKS                       R7 R8 K14 ["Actions"]
-       55 GETTABLEKS                       R6 R7 K15 ["SetAssets"]
+       51 GETTABLEKS                       R6 R0 K10 ["Src"]
+       53 GETTABLEKS                       R6 R6 K14 ["Actions"]
+       55 GETTABLEKS                       R6 R6 K15 ["SetAssets"]
        57 CALL                             R5 1 1
        58 GETIMPORT                        R6 K4 [require]
-       60 GETTABLEKS                       R9 R0 K10 ["Src"]
-       62 GETTABLEKS                       R8 R9 K14 ["Actions"]
-       64 GETTABLEKS                       R7 R8 K16 ["SetIsFetchingAssets"]
+       60 GETTABLEKS                       R7 R0 K10 ["Src"]
+       62 GETTABLEKS                       R7 R7 K14 ["Actions"]
+       64 GETTABLEKS                       R7 R7 K16 ["SetIsFetchingAssets"]
        66 CALL                             R6 1 1
        67 GETIMPORT                        R7 K18 [game]
        69 LOADK                            R9 K19 ["StudioAssetManagerAssetFetchNumber"]

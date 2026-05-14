@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Mode"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["None"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Mode"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["None"]
         6 JUMPIFEQ                         R0 R1 ; [+2]
         8 RETURN                           R0 0
-        9 GETUPVAL                         R1 2
-       10 GETTABLEKS                       R0 R1 K2 ["Contents"]
+        9 GETUPVAL                         R0 2
+       10 GETTABLEKS                       R0 R0 K2 ["Contents"]
        12 JUMPIFNOT                        R0 ; [+9]
-       13 GETUPVAL                         R1 2
-       14 GETTABLEKS                       R0 R1 K2 ["Contents"]
+       13 GETUPVAL                         R0 2
+       14 GETTABLEKS                       R0 R0 K2 ["Contents"]
        16 JUMPIFEQKS                       R0 K3 [""] ; [+5]
        18 GETUPVAL                         R0 0
        19 GETUPVAL                         R1 2
@@ -17,10 +17,10 @@ PROTO_0:
        22 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Mode"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["None"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Mode"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["None"]
         6 JUMPIFEQ                         R0 R1 ; [+2]
         8 RETURN                           R0 0
         9 GETUPVAL                         R0 0
@@ -30,8 +30,8 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Hovered"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Hovered"]
         4 GETUPVAL                         R3 2
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
@@ -40,32 +40,32 @@ PROTO_2:
        11 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Mode"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["None"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Mode"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["None"]
         6 JUMPIFEQ                         R0 R1 ; [+2]
         8 RETURN                           R0 0
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R0 R1 K2 ["Selected"]
+        9 GETUPVAL                         R0 0
+       10 GETTABLEKS                       R0 R0 K2 ["Selected"]
        12 GETUPVAL                         R1 2
        13 JUMPIFEQ                         R0 R1 ; [+32]
-       15 GETUPVAL                         R1 0
-       16 GETTABLEKS                       R0 R1 K3 ["Hovered"]
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K3 ["Hovered"]
        18 GETUPVAL                         R1 2
        19 JUMPIFNOTEQ                      R0 R1 ; [+26]
        21 GETUPVAL                         R0 0
        22 GETUPVAL                         R1 2
        23 SETTABLEKS                       R1 R0 K2 ["Selected"]
-       25 GETUPVAL                         R1 2
-       26 GETTABLEKS                       R0 R1 K4 ["LoadingReplies"]
+       25 GETUPVAL                         R0 2
+       26 GETTABLEKS                       R0 R0 K4 ["LoadingReplies"]
        28 JUMPIF                           R0 ; [+17]
        29 GETUPVAL                         R1 2
        30 NAMECALL                         R1 R1 K5 ["GetChildren"]
        32 CALL                             R1 1 1
        33 LENGTH                           R0 R1
-       34 GETUPVAL                         R2 2
-       35 GETTABLEKS                       R1 R2 K6 ["ReplyCount"]
+       34 GETUPVAL                         R1 2
+       35 GETTABLEKS                       R1 R1 K6 ["ReplyCount"]
        37 JUMPIFEQ                         R0 R1 ; [+8]
        39 GETUPVAL                         R0 0
        40 GETUPVAL                         R2 2
@@ -77,8 +77,8 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["Selected"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["Selected"]
         4 GETUPVAL                         R3 2
         5 JUMPIFEQ                         R2 R3 ; [+2]
         7 LOADB                            R1 0 +1
@@ -87,14 +87,14 @@ PROTO_4:
        11 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Resolved"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Resolved"]
         3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["Parent"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["Parent"]
         7 JUMPIFNOT                        R0 ; [+6]
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R0 R1 K1 ["Parent"]
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K1 ["Parent"]
        11 NAMECALL                         R0 R0 K2 ["Destroy"]
        13 CALL                             R0 1 0
        14 RETURN                           R0 0
@@ -212,8 +212,8 @@ PROTO_9:
        94 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Success"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["Success"]
         3 JUMPIFNOTEQ                      R2 R3 ; [+5]
         5 GETUPVAL                         R3 1
         6 NAMECALL                         R3 R3 K1 ["Destroy"]
@@ -234,8 +234,8 @@ PROTO_12:
         7 LOADK                            R3 K2 ["Billboards are only created for top-level annotations."]
         8 GETIMPORT                        R1 K4 [assert]
        10 CALL                             R1 2 0
-       11 GETIMPORT                        R2 K6 [game]
-       13 GETTABLEKS                       R1 R2 K7 ["CoreGui"]
+       11 GETIMPORT                        R1 K6 [game]
+       13 GETTABLEKS                       R1 R1 K7 ["CoreGui"]
        15 LOADK                            R3 K8 ["PlaceAnnotations"]
        16 NAMECALL                         R1 R1 K9 ["FindFirstChild"]
        18 CALL                             R1 2 1
@@ -308,8 +308,8 @@ PROTO_12:
       109 NAMECALL                         R4 R4 K36 ["Once"]
       111 CALL                             R4 2 0
       112 JUMP                             ; [+5]
-      113 GETUPVAL                         R5 2
-      114 GETTABLEKS                       R4 R5 K37 ["AnnotationsVisible"]
+      113 GETUPVAL                         R4 2
+      114 GETTABLEKS                       R4 R4 K37 ["AnnotationsVisible"]
       116 SETTABLEKS                       R4 R3 K33 ["Enabled"]
       118 GETTABLEKS                       R4 R0 K38 ["Destroying"]
       120 NEWCLOSURE                       R6 P1
@@ -745,23 +745,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K8 ["Bin"]
-       18 GETTABLEKS                       R4 R5 K9 ["Common"]
-       20 GETTABLEKS                       R3 R4 K10 ["defineLuaFlags"]
+       16 GETTABLEKS                       R3 R0 K8 ["Bin"]
+       18 GETTABLEKS                       R3 R3 K9 ["Common"]
+       20 GETTABLEKS                       R3 R3 K10 ["defineLuaFlags"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K11 ["Enums"]
-       29 GETTABLEKS                       R4 R5 K12 ["AnnotationEditingMode"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Enums"]
+       29 GETTABLEKS                       R4 R4 K12 ["AnnotationEditingMode"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K6 ["Src"]
-       36 GETTABLEKS                       R6 R7 K11 ["Enums"]
-       38 GETTABLEKS                       R5 R6 K13 ["AnnotationRequestStatus"]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Enums"]
+       38 GETTABLEKS                       R5 R5 K13 ["AnnotationRequestStatus"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K15 [game]
        43 LOADK                            R7 K16 ["AnnotationsService"]

@@ -144,8 +144,8 @@ PROTO_5:
         7 RETURN                           R2 2
         8 NAMECALL                         R5 R1 K4 ["Inverse"]
        10 CALL                             R5 1 1
-       11 GETTABLEKS                       R9 R4 K6 ["Size"]
-       13 GETTABLEKS                       R8 R9 K7 ["Y"]
+       11 GETTABLEKS                       R8 R4 K6 ["Size"]
+       13 GETTABLEKS                       R8 R8 K7 ["Y"]
        15 MINUS                            R7 R8
        16 DIVK                             R6 R7 K5 [2]
        17 GETUPVAL                         R7 0

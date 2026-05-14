@@ -4,11 +4,11 @@ PROTO_0:
         4 GETTABLEKS                       R3 R1 K2 ["OnOpen"]
         6 GETTABLEKS                       R4 R1 K3 ["Localization"]
         8 GETTABLEKS                       R5 R1 K4 ["Stylizer"]
-       10 GETUPVAL                         R7 0
-       11 GETTABLEKS                       R6 R7 K5 ["new"]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K5 ["new"]
        13 CALL                             R6 0 1
-       14 GETUPVAL                         R8 1
-       15 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       14 GETUPVAL                         R7 1
+       15 GETTABLEKS                       R7 R7 K6 ["createElement"]
        17 GETUPVAL                         R8 2
        18 DUPTABLE                         R9 K12 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Padding"}]
        19 GETIMPORT                        R10 K16 [Enum.FillDirection.Horizontal]
@@ -22,8 +22,8 @@ PROTO_0:
        35 GETTABLEKS                       R10 R5 K11 ["Padding"]
        37 SETTABLEKS                       R10 R9 K11 ["Padding"]
        39 DUPTABLE                         R10 K23 [{"Icon", "Text"}]
-       40 GETUPVAL                         R12 1
-       41 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       40 GETUPVAL                         R11 1
+       41 GETTABLEKS                       R11 R11 K6 ["createElement"]
        43 GETUPVAL                         R12 3
        44 DUPTABLE                         R13 K27 [{"Size", "Image", "LayoutOrder"}]
        45 GETIMPORT                        R14 K30 [UDim2.fromOffset]
@@ -38,8 +38,8 @@ PROTO_0:
        61 SETTABLEKS                       R14 R13 K26 ["LayoutOrder"]
        63 CALL                             R11 2 1
        64 SETTABLEKS                       R11 R10 K21 ["Icon"]
-       66 GETUPVAL                         R12 1
-       67 GETTABLEKS                       R11 R12 K6 ["createElement"]
+       66 GETUPVAL                         R11 1
+       67 GETTABLEKS                       R11 R11 K6 ["createElement"]
        69 GETUPVAL                         R12 2
        70 DUPTABLE                         R13 K34 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size", "LayoutOrder", "Spacing"}]
        71 GETIMPORT                        R14 K36 [Enum.FillDirection.Vertical]
@@ -56,8 +56,8 @@ PROTO_0:
        92 GETTABLEKS                       R14 R5 K40 ["TextSpacing"]
        94 SETTABLEKS                       R14 R13 K10 ["Spacing"]
        96 DUPTABLE                         R14 K44 [{"Warning", "Detail", "Buttons"}]
-       97 GETUPVAL                         R16 1
-       98 GETTABLEKS                       R15 R16 K6 ["createElement"]
+       97 GETUPVAL                         R15 1
+       98 GETTABLEKS                       R15 R15 K6 ["createElement"]
       100 GETUPVAL                         R16 4
       101 DUPTABLE                         R17 K48 [{"Text", "AutomaticSize", "TextXAlignment", "Size", "Style"}]
       102 LOADK                            R20 K49 ["PublishingBlocked"]
@@ -80,8 +80,8 @@ PROTO_0:
       127 SETTABLEKS                       R18 R17 K47 ["Style"]
       129 CALL                             R15 2 1
       130 SETTABLEKS                       R15 R14 K41 ["Warning"]
-      132 GETUPVAL                         R16 1
-      133 GETTABLEKS                       R15 R16 K6 ["createElement"]
+      132 GETUPVAL                         R15 1
+      133 GETTABLEKS                       R15 R15 K6 ["createElement"]
       135 GETUPVAL                         R16 4
       136 DUPTABLE                         R17 K58 [{"Text", "AutomaticSize", "Size", "TextXAlignment", "TextWrapped", "LayoutOrder", "Style"}]
       137 LOADK                            R20 K49 ["PublishingBlocked"]
@@ -109,8 +109,8 @@ PROTO_0:
       170 SETTABLEKS                       R18 R17 K47 ["Style"]
       172 CALL                             R15 2 1
       173 SETTABLEKS                       R15 R14 K42 ["Detail"]
-      175 GETUPVAL                         R16 1
-      176 GETTABLEKS                       R15 R16 K6 ["createElement"]
+      175 GETUPVAL                         R15 1
+      176 GETTABLEKS                       R15 R15 K6 ["createElement"]
       178 GETUPVAL                         R16 5
       179 DUPTABLE                         R17 K60 [{"OnClose", "OnOpen", "LayoutOrder"}]
       180 SETTABLEKS                       R2 R17 K1 ["OnClose"]
@@ -132,25 +132,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
        23 GETTABLEKS                       R4 R2 K10 ["UI"]
        25 GETTABLEKS                       R5 R4 K11 ["Pane"]
        27 GETTABLEKS                       R6 R4 K12 ["Image"]
        29 GETTABLEKS                       R7 R4 K13 ["TextLabel"]
-       31 GETTABLEKS                       R9 R2 K14 ["Util"]
-       33 GETTABLEKS                       R8 R9 K15 ["LayoutOrderIterator"]
+       31 GETTABLEKS                       R8 R2 K14 ["Util"]
+       33 GETTABLEKS                       R8 R8 K15 ["LayoutOrderIterator"]
        35 GETIMPORT                        R9 K5 [require]
-       37 GETTABLEKS                       R13 R0 K16 ["Src"]
-       39 GETTABLEKS                       R12 R13 K17 ["Components"]
-       41 GETTABLEKS                       R11 R12 K18 ["PublishBlocked"]
-       43 GETTABLEKS                       R10 R11 K19 ["Buttons"]
+       37 GETTABLEKS                       R10 R0 K16 ["Src"]
+       39 GETTABLEKS                       R10 R10 K17 ["Components"]
+       41 GETTABLEKS                       R10 R10 K18 ["PublishBlocked"]
+       43 GETTABLEKS                       R10 R10 K19 ["Buttons"]
        45 CALL                             R9 1 1
        46 GETTABLEKS                       R10 R1 K20 ["PureComponent"]
        48 LOADK                            R12 K21 ["PublishBlockedDialog"]

@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["IsTextScraperRunning"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["IsTextScraperRunning"]
         3 JUMPIF                           R1 ; [+10]
         4 GETUPVAL                         R1 0
         5 NAMECALL                         R1 R1 K1 ["StartTextScraper"]
@@ -112,8 +112,8 @@ PROTO_6:
        25 CALL                             R4 3 0
        26 RETURN                           R0 0
        27 GETIMPORT                        R4 K12 [warn]
-       29 GETUPVAL                         R6 2
-       30 GETTABLEKS                       R5 R6 K13 ["getTranslationForEngineError"]
+       29 GETUPVAL                         R5 2
+       30 GETTABLEKS                       R5 R5 K13 ["getTranslationForEngineError"]
        32 MOVE                             R6 R3
        33 MOVE                             R7 R1
        34 CALL                             R5 2 -1
@@ -138,9 +138,9 @@ MAIN:
        15 LOADNIL                          R3
        16 JUMPIFNOT                        R2 ; [+10]
        17 GETIMPORT                        R4 K7 [require]
-       19 GETIMPORT                        R7 K9 [script]
-       21 GETTABLEKS                       R6 R7 K10 ["Parent"]
-       23 GETTABLEKS                       R5 R6 K11 ["MapEngineErrors"]
+       19 GETIMPORT                        R5 K9 [script]
+       21 GETTABLEKS                       R5 R5 K10 ["Parent"]
+       23 GETTABLEKS                       R5 R5 K11 ["MapEngineErrors"]
        25 CALL                             R4 1 1
        26 MOVE                             R3 R4
        27 DUPCLOSURE                       R4 K12 [PROTO_0]

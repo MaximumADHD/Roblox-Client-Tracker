@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [require]
-        2 GETIMPORT                        R3 K3 [script]
-        4 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        6 GETTABLEKS                       R1 R2 K5 ["DebugFlags"]
+        2 GETIMPORT                        R1 K3 [script]
+        4 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        6 GETTABLEKS                       R1 R1 K5 ["DebugFlags"]
         8 CALL                             R0 1 1
         9 GETTABLEKS                       R1 R0 K6 ["RunningUnderCLI"]
        11 CALL                             R1 0 1
@@ -10,9 +10,9 @@ PROTO_0:
        13 LOADB                            R1 0
        14 RETURN                           R1 1
        15 GETIMPORT                        R1 K1 [require]
-       17 GETIMPORT                        R4 K3 [script]
-       19 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       21 GETTABLEKS                       R2 R3 K7 ["hasInternalPermission"]
+       17 GETIMPORT                        R2 K3 [script]
+       19 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       21 GETTABLEKS                       R2 R2 K7 ["hasInternalPermission"]
        23 CALL                             R1 1 1
        24 MOVE                             R2 R1
        25 CALL                             R2 0 1

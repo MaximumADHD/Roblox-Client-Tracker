@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["URL"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["URL"]
         4 NAMECALL                         R0 R0 K1 ["OpenBrowserWindow"]
         6 CALL                             R0 2 0
         7 RETURN                           R0 0
@@ -11,8 +11,8 @@ PROTO_1:
         1 LOADK                            R3 K0 ["UpgradeRenderer"]
         2 NAMECALL                         R1 R1 K1 ["use"]
         4 CALL                             R1 2 1
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["new"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["new"]
         8 CALL                             R2 0 1
         9 GETUPVAL                         R3 2
        10 NAMECALL                         R3 R3 K1 ["use"]
@@ -45,16 +45,16 @@ PROTO_1:
        48 GETUPVAL                         R11 3
        49 LOADB                            R12 1
        50 CALL                             R11 1 2
-       51 GETUPVAL                         R14 4
-       52 GETTABLEKS                       R13 R14 K13 ["createElement"]
+       51 GETUPVAL                         R13 4
+       52 GETTABLEKS                       R13 R13 K13 ["createElement"]
        54 GETUPVAL                         R14 5
        55 DUPTABLE                         R15 K17 [{"Expanded", "OnExpandedChanged", "Text"}]
        56 SETTABLEKS                       R11 R15 K14 ["Expanded"]
        58 SETTABLEKS                       R12 R15 K15 ["OnExpandedChanged"]
        60 SETTABLEKS                       R7 R15 K16 ["Text"]
        62 DUPTABLE                         R16 K20 [{"Blurb", "Upgrade"}]
-       63 GETUPVAL                         R18 4
-       64 GETTABLEKS                       R17 R18 K13 ["createElement"]
+       63 GETUPVAL                         R17 4
+       64 GETTABLEKS                       R17 R17 K13 ["createElement"]
        66 GETUPVAL                         R18 6
        67 DUPTABLE                         R19 K26 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing"}]
        68 GETIMPORT                        R20 K29 [Enum.AutomaticSize.Y]
@@ -72,8 +72,8 @@ PROTO_1:
        88 GETTABLEKS                       R20 R1 K25 ["Spacing"]
        90 SETTABLEKS                       R20 R19 K25 ["Spacing"]
        92 DUPTABLE                         R20 K37 [{"Explanation", "LearnMoreLink"}]
-       93 GETUPVAL                         R22 4
-       94 GETTABLEKS                       R21 R22 K13 ["createElement"]
+       93 GETUPVAL                         R21 4
+       94 GETTABLEKS                       R21 R21 K13 ["createElement"]
        96 GETUPVAL                         R22 7
        97 DUPTABLE                         R23 K40 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextXAlignment", "TextWrapped"}]
        98 GETIMPORT                        R24 K29 [Enum.AutomaticSize.Y]
@@ -99,8 +99,8 @@ PROTO_1:
       128 SETTABLEKS                       R24 R23 K39 ["TextWrapped"]
       130 CALL                             R21 2 1
       131 SETTABLEKS                       R21 R20 K7 ["Explanation"]
-      133 GETUPVAL                         R22 4
-      134 GETTABLEKS                       R21 R22 K13 ["createElement"]
+      133 GETUPVAL                         R21 4
+      134 GETTABLEKS                       R21 R21 K13 ["createElement"]
       136 GETUPVAL                         R22 8
       137 DUPTABLE                         R23 K49 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "LinkMap", "MaxWidth", "Size", "Text", "TextXAlignment", "TextProps"}]
       138 GETIMPORT                        R24 K29 [Enum.AutomaticSize.Y]
@@ -139,8 +139,8 @@ PROTO_1:
       194 SETTABLEKS                       R21 R20 K12 ["LearnMoreLink"]
       196 CALL                             R17 3 1
       197 SETTABLEKS                       R17 R16 K18 ["Blurb"]
-      199 GETUPVAL                         R18 4
-      200 GETTABLEKS                       R17 R18 K13 ["createElement"]
+      199 GETUPVAL                         R17 4
+      200 GETTABLEKS                       R17 R17 K13 ["createElement"]
       202 GETUPVAL                         R18 10
       203 DUPTABLE                         R19 K59 [{"LayoutOrder", "OnClick", "Size", "Text"}]
       204 NAMECALL                         R20 R2 K33 ["getNextOrder"]
@@ -168,12 +168,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["useState"]
        23 GETTABLEKS                       R4 R1 K10 ["UI"]
@@ -182,16 +182,16 @@ MAIN:
        29 GETTABLEKS                       R7 R4 K13 ["Pane"]
        31 GETTABLEKS                       R8 R4 K14 ["TextLabel"]
        33 GETTABLEKS                       R9 R4 K15 ["TextWithLinks"]
-       35 GETTABLEKS                       R11 R1 K16 ["Util"]
-       37 GETTABLEKS                       R10 R11 K17 ["LayoutOrderIterator"]
-       39 GETTABLEKS                       R12 R1 K18 ["ContextServices"]
-       41 GETTABLEKS                       R11 R12 K19 ["Localization"]
-       43 GETTABLEKS                       R13 R1 K18 ["ContextServices"]
-       45 GETTABLEKS                       R12 R13 K20 ["Stylizer"]
+       35 GETTABLEKS                       R10 R1 K16 ["Util"]
+       37 GETTABLEKS                       R10 R10 K17 ["LayoutOrderIterator"]
+       39 GETTABLEKS                       R11 R1 K18 ["ContextServices"]
+       41 GETTABLEKS                       R11 R11 K19 ["Localization"]
+       43 GETTABLEKS                       R12 R1 K18 ["ContextServices"]
+       45 GETTABLEKS                       R12 R12 K20 ["Stylizer"]
        47 GETIMPORT                        R13 K5 [require]
-       49 GETTABLEKS                       R16 R0 K21 ["Src"]
-       51 GETTABLEKS                       R15 R16 K22 ["Resources"]
-       53 GETTABLEKS                       R14 R15 K23 ["Theme"]
+       49 GETTABLEKS                       R14 R0 K21 ["Src"]
+       51 GETTABLEKS                       R14 R14 K22 ["Resources"]
+       53 GETTABLEKS                       R14 R14 K23 ["Theme"]
        55 CALL                             R13 1 1
        56 GETIMPORT                        R14 K25 [game]
        58 LOADK                            R16 K26 ["BrowserService"]

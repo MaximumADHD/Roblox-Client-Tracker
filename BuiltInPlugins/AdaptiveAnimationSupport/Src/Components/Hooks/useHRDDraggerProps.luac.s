@@ -25,12 +25,12 @@ PROTO_2:
        12 GETUPVAL                         R3 3
        13 CALL                             R3 0 1
        14 JUMPIFNOT                        R3 ; [+71]
-       15 GETUPVAL                         R4 4
-       16 GETTABLEKS                       R3 R4 K1 ["new"]
+       15 GETUPVAL                         R3 4
+       16 GETTABLEKS                       R3 R3 K1 ["new"]
        18 GETUPVAL                         R4 0
        19 CALL                             R3 1 1
-       20 GETUPVAL                         R5 5
-       21 GETTABLEKS                       R4 R5 K1 ["new"]
+       20 GETUPVAL                         R4 5
+       21 GETTABLEKS                       R4 R4 K1 ["new"]
        23 GETUPVAL                         R5 2
        24 GETIMPORT                        R6 K3 [game]
        26 GETIMPORT                        R7 K5 [settings]
@@ -44,33 +44,33 @@ PROTO_2:
        35 SETTABLEKS                       R5 R4 K6 ["updateTransform"]
        37 GETUPVAL                         R5 2
        38 SETTABLEKS                       R5 R4 K7 ["_plugin"]
-       40 GETUPVAL                         R7 7
-       41 GETTABLEKS                       R6 R7 K8 ["JointTranslateHandlesImplementation"]
-       43 GETTABLEKS                       R5 R6 K1 ["new"]
+       40 GETUPVAL                         R5 7
+       41 GETTABLEKS                       R5 R5 K8 ["JointTranslateHandlesImplementation"]
+       43 GETTABLEKS                       R5 R5 K1 ["new"]
        45 MOVE                             R6 R1
        46 GETUPVAL                         R7 8
        47 GETUPVAL                         R8 1
        48 GETUPVAL                         R9 9
        49 CALL                             R5 4 1
-       50 GETUPVAL                         R8 7
-       51 GETTABLEKS                       R7 R8 K9 ["JointRotateHandlesImplementation"]
-       53 GETTABLEKS                       R6 R7 K1 ["new"]
+       50 GETUPVAL                         R6 7
+       51 GETTABLEKS                       R6 R6 K9 ["JointRotateHandlesImplementation"]
+       53 GETTABLEKS                       R6 R6 K1 ["new"]
        55 MOVE                             R7 R1
        56 GETUPVAL                         R8 8
        57 GETUPVAL                         R9 1
        58 GETUPVAL                         R10 9
        59 CALL                             R6 4 1
        60 NEWTABLE                         R7 0 2
-       62 GETUPVAL                         R9 10
-       63 GETTABLEKS                       R8 R9 K1 ["new"]
+       62 GETUPVAL                         R8 10
+       63 GETTABLEKS                       R8 R8 K1 ["new"]
        65 MOVE                             R9 R1
        66 DUPTABLE                         R10 K11 [{"Summonable"}]
        67 LOADB                            R11 1
        68 SETTABLEKS                       R11 R10 K10 ["Summonable"]
        70 MOVE                             R11 R5
        71 CALL                             R8 3 1
-       72 GETUPVAL                         R10 11
-       73 GETTABLEKS                       R9 R10 K1 ["new"]
+       72 GETUPVAL                         R9 11
+       73 GETTABLEKS                       R9 R9 K1 ["new"]
        75 MOVE                             R10 R1
        76 DUPTABLE                         R11 K11 [{"Summonable"}]
        77 LOADB                            R12 1
@@ -80,8 +80,8 @@ PROTO_2:
        82 SETLIST                          R7 R8 2 [1]
        84 MOVE                             R2 R7
        85 JUMP                             ; [+80]
-       86 GETUPVAL                         R4 12
-       87 GETTABLEKS                       R3 R4 K12 ["getJointPosition"]
+       86 GETUPVAL                         R3 12
+       87 GETTABLEKS                       R3 R3 K12 ["getJointPosition"]
        89 GETUPVAL                         R4 0
        90 CALL                             R3 1 1
        91 DUPTABLE                         R4 K15 [{"Transform", "joint"}]
@@ -91,13 +91,13 @@ PROTO_2:
        96 SETTABLEKS                       R5 R4 K13 ["Transform"]
        98 GETUPVAL                         R5 0
        99 SETTABLEKS                       R5 R4 K14 ["joint"]
-      101 GETUPVAL                         R6 13
-      102 GETTABLEKS                       R5 R6 K1 ["new"]
+      101 GETUPVAL                         R5 13
+      102 GETTABLEKS                       R5 R5 K1 ["new"]
       104 LOADNIL                          R6
       105 MOVE                             R7 R4
       106 CALL                             R5 2 1
-      107 GETUPVAL                         R7 5
-      108 GETTABLEKS                       R6 R7 K1 ["new"]
+      107 GETUPVAL                         R6 5
+      108 GETTABLEKS                       R6 R6 K1 ["new"]
       110 GETUPVAL                         R7 2
       111 GETIMPORT                        R8 K3 [game]
       113 GETIMPORT                        R9 K5 [settings]
@@ -114,25 +114,25 @@ PROTO_2:
       127 MOVE                             R9 R1
       128 NAMECALL                         R7 R5 K18 ["SetDraggerContext"]
       130 CALL                             R7 2 0
-      131 GETUPVAL                         R9 7
-      132 GETTABLEKS                       R8 R9 K19 ["BoneTransformHandlesImplementation"]
-      134 GETTABLEKS                       R7 R8 K1 ["new"]
+      131 GETUPVAL                         R7 7
+      132 GETTABLEKS                       R7 R7 K19 ["BoneTransformHandlesImplementation"]
+      134 GETTABLEKS                       R7 R7 K1 ["new"]
       136 MOVE                             R8 R1
       137 GETUPVAL                         R9 8
       138 GETUPVAL                         R10 1
       139 GETUPVAL                         R11 9
       140 CALL                             R7 4 1
       141 NEWTABLE                         R8 0 2
-      143 GETUPVAL                         R10 10
-      144 GETTABLEKS                       R9 R10 K1 ["new"]
+      143 GETUPVAL                         R9 10
+      144 GETTABLEKS                       R9 R9 K1 ["new"]
       146 MOVE                             R10 R1
       147 DUPTABLE                         R11 K11 [{"Summonable"}]
       148 LOADB                            R12 1
       149 SETTABLEKS                       R12 R11 K10 ["Summonable"]
       151 MOVE                             R12 R7
       152 CALL                             R9 3 1
-      153 GETUPVAL                         R11 11
-      154 GETTABLEKS                       R10 R11 K1 ["new"]
+      153 GETUPVAL                         R10 11
+      154 GETTABLEKS                       R10 R10 K1 ["new"]
       156 MOVE                             R11 R1
       157 DUPTABLE                         R12 K11 [{"Summonable"}]
       158 LOADB                            R13 1
@@ -167,12 +167,12 @@ PROTO_3:
         3 CALL                             R4 1 1
         4 NAMECALL                         R4 R4 K1 ["get"]
         6 CALL                             R4 1 1
-        7 GETUPVAL                         R6 1
-        8 GETTABLEKS                       R5 R6 K2 ["useRef"]
+        7 GETUPVAL                         R5 1
+        8 GETTABLEKS                       R5 R5 K2 ["useRef"]
        10 LOADNIL                          R6
        11 CALL                             R5 1 1
-       12 GETUPVAL                         R7 1
-       13 GETTABLEKS                       R6 R7 K3 ["useMemo"]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R6 R6 K3 ["useMemo"]
        15 NEWCLOSURE                       R7 P0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          VAL R1
@@ -205,58 +205,58 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["AdaptiveAnimationTools"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["AdaptiveAnimationTools"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Flags"]
-       27 GETTABLEKS                       R4 R5 K11 ["getFFlagAdaptiveAnimatonImprovements"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       27 GETTABLEKS                       R4 R4 K11 ["getFFlagAdaptiveAnimatonImprovements"]
        29 CALL                             R3 1 1
-       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R4 R5 K12 ["DraggerFramework"]
+       30 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R4 R4 K12 ["DraggerFramework"]
        34 GETIMPORT                        R5 K5 [require]
-       36 GETTABLEKS                       R7 R4 K13 ["Implementation"]
-       38 GETTABLEKS                       R6 R7 K14 ["DraggerContext_PluginImpl"]
+       36 GETTABLEKS                       R6 R4 K13 ["Implementation"]
+       38 GETTABLEKS                       R6 R6 K14 ["DraggerContext_PluginImpl"]
        40 CALL                             R5 1 1
        41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R9 R0 K9 ["Src"]
-       45 GETTABLEKS                       R8 R9 K15 ["Schemas"]
-       47 GETTABLEKS                       R7 R8 K16 ["ToolSchema"]
+       43 GETTABLEKS                       R7 R0 K9 ["Src"]
+       45 GETTABLEKS                       R7 R7 K15 ["Schemas"]
+       47 GETTABLEKS                       R7 R7 K16 ["ToolSchema"]
        49 CALL                             R6 1 1
        50 GETIMPORT                        R7 K5 [require]
-       52 GETTABLEKS                       R11 R0 K9 ["Src"]
-       54 GETTABLEKS                       R10 R11 K15 ["Schemas"]
-       56 GETTABLEKS                       R9 R10 K16 ["ToolSchema"]
-       58 GETTABLEKS                       R8 R9 K17 ["DEPRECATED_SelectionInfo"]
+       52 GETTABLEKS                       R8 R0 K9 ["Src"]
+       54 GETTABLEKS                       R8 R8 K15 ["Schemas"]
+       56 GETTABLEKS                       R8 R8 K16 ["ToolSchema"]
+       58 GETTABLEKS                       R8 R8 K17 ["DEPRECATED_SelectionInfo"]
        60 CALL                             R7 1 1
        61 GETIMPORT                        R8 K5 [require]
-       63 GETTABLEKS                       R12 R0 K9 ["Src"]
-       65 GETTABLEKS                       R11 R12 K15 ["Schemas"]
-       67 GETTABLEKS                       R10 R11 K16 ["ToolSchema"]
-       69 GETTABLEKS                       R9 R10 K18 ["Selection"]
+       63 GETTABLEKS                       R9 R0 K9 ["Src"]
+       65 GETTABLEKS                       R9 R9 K15 ["Schemas"]
+       67 GETTABLEKS                       R9 R9 K16 ["ToolSchema"]
+       69 GETTABLEKS                       R9 R9 K18 ["Selection"]
        71 CALL                             R8 1 1
-       72 GETIMPORT                        R10 K5 [require]
-       74 GETTABLEKS                       R12 R0 K6 ["Packages"]
-       76 GETTABLEKS                       R11 R12 K19 ["Framework"]
-       78 CALL                             R10 1 1
-       79 GETTABLEKS                       R9 R10 K20 ["ContextServices"]
+       72 GETIMPORT                        R9 K5 [require]
+       74 GETTABLEKS                       R10 R0 K6 ["Packages"]
+       76 GETTABLEKS                       R10 R10 K19 ["Framework"]
+       78 CALL                             R9 1 1
+       79 GETTABLEKS                       R9 R9 K20 ["ContextServices"]
        81 GETTABLEKS                       R10 R9 K21 ["Plugin"]
        83 GETIMPORT                        R11 K5 [require]
-       85 GETTABLEKS                       R13 R4 K22 ["Handles"]
-       87 GETTABLEKS                       R12 R13 K23 ["MoveHandles"]
+       85 GETTABLEKS                       R12 R4 K22 ["Handles"]
+       87 GETTABLEKS                       R12 R12 K23 ["MoveHandles"]
        89 CALL                             R11 1 1
        90 GETIMPORT                        R12 K5 [require]
-       92 GETTABLEKS                       R14 R4 K22 ["Handles"]
-       94 GETTABLEKS                       R13 R14 K24 ["RotateHandles"]
+       92 GETTABLEKS                       R13 R4 K22 ["Handles"]
+       94 GETTABLEKS                       R13 R13 K24 ["RotateHandles"]
        96 CALL                             R12 1 1
        97 GETIMPORT                        R13 K5 [require]
-       99 GETTABLEKS                       R15 R0 K9 ["Src"]
-      101 GETTABLEKS                       R14 R15 K25 ["Types"]
+       99 GETTABLEKS                       R14 R0 K9 ["Src"]
+      101 GETTABLEKS                       R14 R14 K25 ["Types"]
       103 CALL                             R13 1 1
       104 DUPCLOSURE                       R14 K26 [PROTO_3]
       105 CAPTURE                          VAL R10

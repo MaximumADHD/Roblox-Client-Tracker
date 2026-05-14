@@ -10,8 +10,8 @@ PROTO_0:
        13 RETURN                           R2 1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
-        2 GETTABLEKS                       R1 R2 K1 ["ScrubberSignal"]
+        0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
+        2 GETTABLEKS                       R1 R1 K1 ["ScrubberSignal"]
         4 GETTABLEKS                       R3 R0 K2 ["_boundsChanged"]
         6 NAMECALL                         R1 R1 K3 ["Connect"]
         8 CALL                             R1 2 1

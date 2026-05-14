@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetShouldSetEmulationDevice"]
         5 GETTABLEKS                       R3 R0 K2 ["ShouldSetEmulationDevice"]
         7 NOT                              R2 R3
@@ -9,51 +9,51 @@ PROTO_0:
        11 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["PluginState"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K1 ["PluginState"]
-        8 GETTABLEKS                       R1 R2 K2 ["Default"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["PluginState"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["PluginState"]
+        8 GETTABLEKS                       R1 R1 K2 ["Default"]
        10 JUMPIFNOTEQ                      R0 R1 ; [+29]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K3 ["state"]
-       15 GETTABLEKS                       R1 R2 K4 ["canStartPlaying"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K3 ["state"]
+       15 GETTABLEKS                       R1 R1 K4 ["canStartPlaying"]
        17 JUMPIFNOT                        R1 ; [+22]
-       18 GETUPVAL                         R2 2
-       19 GETTABLEKS                       R1 R2 K5 ["getIsPlayMode"]
+       18 GETUPVAL                         R1 2
+       19 GETTABLEKS                       R1 R1 K5 ["getIsPlayMode"]
        21 CALL                             R1 0 1
        22 JUMPIFNOT                        R1 ; [+5]
-       23 GETUPVAL                         R2 2
-       24 GETTABLEKS                       R1 R2 K6 ["onStartPlaybackButtonClicked"]
+       23 GETUPVAL                         R1 2
+       24 GETTABLEKS                       R1 R1 K6 ["onStartPlaybackButtonClicked"]
        26 CALL                             R1 0 0
        27 RETURN                           R0 0
-       28 GETUPVAL                         R3 0
-       29 GETTABLEKS                       R2 R3 K0 ["props"]
-       31 GETTABLEKS                       R1 R2 K7 ["SetPluginState"]
-       33 GETUPVAL                         R4 1
-       34 GETTABLEKS                       R3 R4 K1 ["PluginState"]
-       36 GETTABLEKS                       R2 R3 K8 ["ShouldStartPlayback"]
+       28 GETUPVAL                         R1 0
+       29 GETTABLEKS                       R1 R1 K0 ["props"]
+       31 GETTABLEKS                       R1 R1 K7 ["SetPluginState"]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R2 R2 K1 ["PluginState"]
+       36 GETTABLEKS                       R2 R2 K8 ["ShouldStartPlayback"]
        38 CALL                             R1 1 0
        39 RETURN                           R0 0
-       40 GETUPVAL                         R3 1
-       41 GETTABLEKS                       R2 R3 K1 ["PluginState"]
-       43 GETTABLEKS                       R1 R2 K9 ["Playing"]
+       40 GETUPVAL                         R1 1
+       41 GETTABLEKS                       R1 R1 K1 ["PluginState"]
+       43 GETTABLEKS                       R1 R1 K9 ["Playing"]
        45 JUMPIFNOTEQ                      R0 R1 ; [+6]
-       47 GETUPVAL                         R2 2
-       48 GETTABLEKS                       R1 R2 K10 ["onStopPlaybackButtonClicked"]
+       47 GETUPVAL                         R1 2
+       48 GETTABLEKS                       R1 R1 K10 ["onStopPlaybackButtonClicked"]
        50 CALL                             R1 0 0
        51 RETURN                           R0 0
-       52 GETUPVAL                         R3 1
-       53 GETTABLEKS                       R2 R3 K1 ["PluginState"]
-       55 GETTABLEKS                       R1 R2 K8 ["ShouldStartPlayback"]
+       52 GETUPVAL                         R1 1
+       53 GETTABLEKS                       R1 R1 K1 ["PluginState"]
+       55 GETTABLEKS                       R1 R1 K8 ["ShouldStartPlayback"]
        57 JUMPIFNOTEQ                      R0 R1 ; [+12]
-       59 GETUPVAL                         R3 0
-       60 GETTABLEKS                       R2 R3 K0 ["props"]
-       62 GETTABLEKS                       R1 R2 K7 ["SetPluginState"]
-       64 GETUPVAL                         R4 1
-       65 GETTABLEKS                       R3 R4 K1 ["PluginState"]
-       67 GETTABLEKS                       R2 R3 K2 ["Default"]
+       59 GETUPVAL                         R1 0
+       60 GETTABLEKS                       R1 R1 K0 ["props"]
+       62 GETTABLEKS                       R1 R1 K7 ["SetPluginState"]
+       64 GETUPVAL                         R2 1
+       65 GETTABLEKS                       R2 R2 K1 ["PluginState"]
+       67 GETTABLEKS                       R2 R2 K2 ["Default"]
        69 CALL                             R1 1 0
        70 RETURN                           R0 0
 
@@ -94,9 +94,9 @@ PROTO_4:
        11 LOADB                            R8 0
        12 LOADB                            R9 0
        13 GETTABLEKS                       R10 R1 K4 ["PluginState"]
-       15 GETUPVAL                         R13 0
-       16 GETTABLEKS                       R12 R13 K4 ["PluginState"]
-       18 GETTABLEKS                       R11 R12 K5 ["Playing"]
+       15 GETUPVAL                         R11 0
+       16 GETTABLEKS                       R11 R11 K4 ["PluginState"]
+       18 GETTABLEKS                       R11 R11 K5 ["Playing"]
        20 JUMPIFNOTEQ                      R10 R11 ; [+19]
        22 LOADK                            R12 K6 ["PlaybackTabView"]
        23 LOADK                            R13 K7 ["StatusMessagePlaying"]
@@ -114,9 +114,9 @@ PROTO_4:
        38 LOADB                            R8 1
        39 JUMP                             ; [+82]
        40 GETTABLEKS                       R10 R1 K4 ["PluginState"]
-       42 GETUPVAL                         R13 0
-       43 GETTABLEKS                       R12 R13 K4 ["PluginState"]
-       45 GETTABLEKS                       R11 R12 K11 ["ShouldStartPlayback"]
+       42 GETUPVAL                         R11 0
+       43 GETTABLEKS                       R11 R11 K4 ["PluginState"]
+       45 GETTABLEKS                       R11 R11 K11 ["ShouldStartPlayback"]
        47 JUMPIFNOTEQ                      R10 R11 ; [+18]
        49 LOADK                            R12 K6 ["PlaybackTabView"]
        50 LOADK                            R13 K12 ["StatusMessageShouldStartPlayback"]
@@ -133,9 +133,9 @@ PROTO_4:
        64 LOADB                            R9 0
        65 JUMP                             ; [+56]
        66 GETTABLEKS                       R10 R1 K4 ["PluginState"]
-       68 GETUPVAL                         R13 0
-       69 GETTABLEKS                       R12 R13 K4 ["PluginState"]
-       71 GETTABLEKS                       R11 R12 K15 ["Default"]
+       68 GETUPVAL                         R11 0
+       69 GETTABLEKS                       R11 R11 K4 ["PluginState"]
+       71 GETTABLEKS                       R11 R11 K15 ["Default"]
        73 JUMPIFNOTEQ                      R10 R11 ; [+23]
        75 LOADK                            R12 K6 ["PlaybackTabView"]
        76 LOADK                            R13 K16 ["StatusMessageNotPlaying"]
@@ -156,9 +156,9 @@ PROTO_4:
        95 LOADB                            R9 0
        96 JUMP                             ; [+25]
        97 GETTABLEKS                       R10 R1 K4 ["PluginState"]
-       99 GETUPVAL                         R13 0
-      100 GETTABLEKS                       R12 R13 K4 ["PluginState"]
-      102 GETTABLEKS                       R11 R12 K19 ["Disabled"]
+       99 GETUPVAL                         R11 0
+      100 GETTABLEKS                       R11 R11 K4 ["PluginState"]
+      102 GETTABLEKS                       R11 R11 K19 ["Disabled"]
       104 JUMPIFNOTEQ                      R10 R11 ; [+17]
       106 LOADK                            R12 K6 ["PlaybackTabView"]
       107 LOADK                            R13 K20 ["StatusMessageDisabled"]
@@ -173,8 +173,8 @@ PROTO_4:
       118 GETUPVAL                         R10 1
       119 GETTABLEKS                       R7 R10 K19 ["Disabled"]
       121 LOADB                            R9 1
-      122 GETUPVAL                         R11 2
-      123 GETTABLEKS                       R10 R11 K21 ["createElement"]
+      122 GETUPVAL                         R10 2
+      123 GETTABLEKS                       R10 R10 K21 ["createElement"]
       125 GETUPVAL                         R11 3
       126 DUPTABLE                         R12 K31 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
       127 GETTABLEKS                       R13 R1 K22 ["LayoutOrder"]
@@ -202,8 +202,8 @@ PROTO_4:
       166 GETIMPORT                        R13 K50 [Enum.VerticalAlignment.Top]
       168 SETTABLEKS                       R13 R12 K30 ["VerticalAlignment"]
       170 DUPTABLE                         R13 K56 [{"RecordingFileSelector", "LoadingBar", "Button", "EmulationEnabled", "StatusTextLabel"}]
-      171 GETUPVAL                         R15 2
-      172 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      171 GETUPVAL                         R14 2
+      172 GETTABLEKS                       R14 R14 K21 ["createElement"]
       174 GETUPVAL                         R15 4
       175 DUPTABLE                         R16 K58 [{"OnCanStartPlaying"}]
       176 GETTABLEKS                       R17 R0 K59 ["onCanStartPlaying"]
@@ -212,8 +212,8 @@ PROTO_4:
       181 SETTABLEKS                       R14 R13 K51 ["RecordingFileSelector"]
       183 MOVE                             R14 R8
       184 JUMPIFNOT                        R14 ; [+17]
-      185 GETUPVAL                         R15 2
-      186 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      185 GETUPVAL                         R14 2
+      186 GETTABLEKS                       R14 R14 K21 ["createElement"]
       188 GETUPVAL                         R15 5
       189 DUPTABLE                         R16 K62 [{"Width", "LayoutOrder", "TotalTime"}]
       190 GETTABLEKS                       R17 R4 K63 ["ProgressBarWidth"]
@@ -224,8 +224,8 @@ PROTO_4:
       199 SETTABLEKS                       R17 R16 K61 ["TotalTime"]
       201 CALL                             R14 2 1
       202 SETTABLEKS                       R14 R13 K52 ["LoadingBar"]
-      204 GETUPVAL                         R15 2
-      205 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      204 GETUPVAL                         R14 2
+      205 GETTABLEKS                       R14 R14 K21 ["createElement"]
       207 GETUPVAL                         R15 6
       208 DUPTABLE                         R16 K69 [{"Size", "LayoutOrder", "AnchorPoint", "Style", "StyleModifier", "Text", "OnClick"}]
       209 GETTABLEKS                       R17 R4 K70 ["PrimaryButtonSize"]
@@ -244,8 +244,8 @@ PROTO_4:
       230 GETTABLEKS                       R17 R0 K75 ["onPlayButtonClicked"]
       232 SETTABLEKS                       R17 R16 K68 ["OnClick"]
       234 NEWTABLE                         R17 0 1
-      236 GETUPVAL                         R19 2
-      237 GETTABLEKS                       R18 R19 K21 ["createElement"]
+      236 GETUPVAL                         R18 2
+      237 GETTABLEKS                       R18 R18 K21 ["createElement"]
       239 GETUPVAL                         R19 7
       240 DUPTABLE                         R20 K77 [{"Cursor"}]
       241 LOADK                            R21 K78 ["PointingHand"]
@@ -254,8 +254,8 @@ PROTO_4:
       245 SETLIST                          R17 R18 -1 [1]
       247 CALL                             R14 3 1
       248 SETTABLEKS                       R14 R13 K53 ["Button"]
-      250 GETUPVAL                         R15 2
-      251 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      250 GETUPVAL                         R14 2
+      251 GETTABLEKS                       R14 R14 K21 ["createElement"]
       253 GETUPVAL                         R15 8
       254 DUPTABLE                         R16 K79 [{"Selected", "OnClick", "Text", "Disabled", "LayoutOrder"}]
       255 GETTABLEKS                       R17 R1 K80 ["ShouldSetEmulationDevice"]
@@ -272,8 +272,8 @@ PROTO_4:
       273 SETTABLEKS                       R17 R16 K22 ["LayoutOrder"]
       275 CALL                             R14 2 1
       276 SETTABLEKS                       R14 R13 K54 ["EmulationEnabled"]
-      278 GETUPVAL                         R15 2
-      279 GETTABLEKS                       R14 R15 K21 ["createElement"]
+      278 GETUPVAL                         R14 2
+      279 GETTABLEKS                       R14 R14 K21 ["createElement"]
       281 GETUPVAL                         R15 9
       282 DUPTABLE                         R16 K85 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "Style", "TextXAlignment", "TextYAlignment"}]
       283 SETTABLEKS                       R5 R16 K67 ["Text"]
@@ -299,14 +299,14 @@ PROTO_4:
 
 PROTO_5:
         0 DUPTABLE                         R2 K3 [{"ShouldSetEmulationDevice", "PluginState", "CurrentRecordingDurationSec"}]
-        1 GETTABLEKS                       R4 R0 K4 ["playbackTab"]
-        3 GETTABLEKS                       R3 R4 K5 ["shouldSetEmulationDevice"]
+        1 GETTABLEKS                       R3 R0 K4 ["playbackTab"]
+        3 GETTABLEKS                       R3 R3 K5 ["shouldSetEmulationDevice"]
         5 SETTABLEKS                       R3 R2 K0 ["ShouldSetEmulationDevice"]
-        7 GETTABLEKS                       R4 R0 K6 ["common"]
-        9 GETTABLEKS                       R3 R4 K7 ["pluginState"]
+        7 GETTABLEKS                       R3 R0 K6 ["common"]
+        9 GETTABLEKS                       R3 R3 K7 ["pluginState"]
        11 SETTABLEKS                       R3 R2 K1 ["PluginState"]
-       13 GETTABLEKS                       R4 R0 K4 ["playbackTab"]
-       15 GETTABLEKS                       R3 R4 K8 ["currentRecordingDurationSec"]
+       13 GETTABLEKS                       R3 R0 K4 ["playbackTab"]
+       15 GETTABLEKS                       R3 R3 K8 ["currentRecordingDurationSec"]
        17 SETTABLEKS                       R3 R2 K2 ["CurrentRecordingDurationSec"]
        19 RETURN                           R2 1
 
@@ -340,21 +340,21 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["RoactRodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K8 ["Framework"]
+       25 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K8 ["Framework"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K9 ["ContextServices"]
        32 GETTABLEKS                       R5 R3 K10 ["UI"]
@@ -366,36 +366,36 @@ MAIN:
        44 GETTABLEKS                       R11 R3 K16 ["Util"]
        46 GETTABLEKS                       R12 R11 K17 ["StyleModifier"]
        48 GETIMPORT                        R13 K4 [require]
-       50 GETTABLEKS                       R16 R0 K18 ["Src"]
-       52 GETTABLEKS                       R15 R16 K19 ["Components"]
-       54 GETTABLEKS                       R14 R15 K20 ["LabeledToggleButton"]
+       50 GETTABLEKS                       R14 R0 K18 ["Src"]
+       52 GETTABLEKS                       R14 R14 K19 ["Components"]
+       54 GETTABLEKS                       R14 R14 K20 ["LabeledToggleButton"]
        56 CALL                             R13 1 1
        57 GETIMPORT                        R14 K4 [require]
-       59 GETTABLEKS                       R17 R0 K18 ["Src"]
-       61 GETTABLEKS                       R16 R17 K19 ["Components"]
-       63 GETTABLEKS                       R15 R16 K21 ["RecordingFileSelector"]
+       59 GETTABLEKS                       R15 R0 K18 ["Src"]
+       61 GETTABLEKS                       R15 R15 K19 ["Components"]
+       63 GETTABLEKS                       R15 R15 K21 ["RecordingFileSelector"]
        65 CALL                             R14 1 1
        66 GETIMPORT                        R15 K4 [require]
-       68 GETTABLEKS                       R18 R0 K18 ["Src"]
-       70 GETTABLEKS                       R17 R18 K16 ["Util"]
-       72 GETTABLEKS                       R16 R17 K22 ["Enums"]
+       68 GETTABLEKS                       R16 R0 K18 ["Src"]
+       70 GETTABLEKS                       R16 R16 K16 ["Util"]
+       72 GETTABLEKS                       R16 R16 K22 ["Enums"]
        74 CALL                             R15 1 1
        75 GETIMPORT                        R16 K4 [require]
-       77 GETTABLEKS                       R19 R0 K18 ["Src"]
-       79 GETTABLEKS                       R18 R19 K16 ["Util"]
-       81 GETTABLEKS                       R17 R18 K23 ["DMBridge"]
+       77 GETTABLEKS                       R17 R0 K18 ["Src"]
+       79 GETTABLEKS                       R17 R17 K16 ["Util"]
+       81 GETTABLEKS                       R17 R17 K23 ["DMBridge"]
        83 CALL                             R16 1 1
        84 GETIMPORT                        R17 K4 [require]
-       86 GETTABLEKS                       R21 R0 K18 ["Src"]
-       88 GETTABLEKS                       R20 R21 K24 ["Actions"]
-       90 GETTABLEKS                       R19 R20 K25 ["Common"]
-       92 GETTABLEKS                       R18 R19 K26 ["SetPluginState"]
+       86 GETTABLEKS                       R18 R0 K18 ["Src"]
+       88 GETTABLEKS                       R18 R18 K24 ["Actions"]
+       90 GETTABLEKS                       R18 R18 K25 ["Common"]
+       92 GETTABLEKS                       R18 R18 K26 ["SetPluginState"]
        94 CALL                             R17 1 1
        95 GETIMPORT                        R18 K4 [require]
-       97 GETTABLEKS                       R22 R0 K18 ["Src"]
-       99 GETTABLEKS                       R21 R22 K24 ["Actions"]
-      101 GETTABLEKS                       R20 R21 K27 ["PlaybackTab"]
-      103 GETTABLEKS                       R19 R20 K28 ["SetShouldSetEmulationDevice"]
+       97 GETTABLEKS                       R19 R0 K18 ["Src"]
+       99 GETTABLEKS                       R19 R19 K24 ["Actions"]
+      101 GETTABLEKS                       R19 R19 K27 ["PlaybackTab"]
+      103 GETTABLEKS                       R19 R19 K28 ["SetShouldSetEmulationDevice"]
       105 CALL                             R18 1 1
       106 GETTABLEKS                       R19 R1 K29 ["PureComponent"]
       108 LOADK                            R21 K30 ["FileSelectorUIGroup"]

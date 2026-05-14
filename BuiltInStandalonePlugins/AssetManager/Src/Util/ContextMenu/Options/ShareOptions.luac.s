@@ -15,15 +15,15 @@ PROTO_0:
        15 RETURN                           R3 1
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["MenuContext"]
-        3 GETTABLEKS                       R2 R3 K1 ["Asset"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["MenuContext"]
+        3 GETTABLEKS                       R2 R2 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R2 ; [+3]
         7 LOADB                            R2 0
         8 RETURN                           R2 1
         9 GETTABLEKS                       R2 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R3 R4 K3 ["keys"]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["keys"]
        14 NAMECALL                         R4 R2 K4 ["getSelection"]
        16 CALL                             R4 1 -1
        17 CALL                             R3 -1 1
@@ -39,8 +39,8 @@ PROTO_1:
        29 RETURN                           R5 1
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["keys"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["keys"]
         3 GETTABLEKS                       R4 R1 K1 ["ItemsController"]
         5 NAMECALL                         R4 R4 K2 ["getSelection"]
         7 CALL                             R4 1 -1
@@ -58,8 +58,8 @@ PROTO_3:
         1 RETURN                           R3 1
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["keys"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["keys"]
         3 GETTABLEKS                       R4 R1 K1 ["ItemsController"]
         5 NAMECALL                         R4 R4 K2 ["getSelection"]
         7 CALL                             R4 1 -1
@@ -79,8 +79,8 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["keys"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["keys"]
         5 NAMECALL                         R5 R3 K2 ["getSelection"]
         7 CALL                             R5 1 -1
         8 CALL                             R4 -1 1
@@ -101,15 +101,15 @@ PROTO_6:
        25 RETURN                           R5 1
 
 PROTO_7:
-        0 GETUPVAL                         R6 0
-        1 GETTABLEKS                       R5 R6 K0 ["MenuContext"]
-        3 GETTABLEKS                       R4 R5 K1 ["Asset"]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+        3 GETTABLEKS                       R4 R4 K1 ["Asset"]
         5 JUMPIFEQ                         R0 R4 ; [+3]
         7 LOADB                            R3 0
         8 RETURN                           R3 1
         9 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R5 R6 K3 ["keys"]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K3 ["keys"]
        14 NAMECALL                         R6 R4 K4 ["getSelection"]
        16 CALL                             R6 1 -1
        17 CALL                             R5 -1 1
@@ -131,36 +131,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R7 R0 K8 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Util"]
-       27 GETTABLEKS                       R5 R6 K11 ["Dialogs"]
-       29 GETTABLEKS                       R4 R5 K12 ["openConfirmShareOpenUse"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["Dialogs"]
+       29 GETTABLEKS                       R4 R4 K12 ["openConfirmShareOpenUse"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R8 R0 K8 ["Src"]
-       36 GETTABLEKS                       R7 R8 K10 ["Util"]
-       38 GETTABLEKS                       R6 R7 K11 ["Dialogs"]
-       40 GETTABLEKS                       R5 R6 K13 ["openQuickShare"]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Util"]
+       38 GETTABLEKS                       R5 R5 K11 ["Dialogs"]
+       40 GETTABLEKS                       R5 R5 K13 ["openQuickShare"]
        42 CALL                             R4 1 1
        43 NEWTABLE                         R5 4 0
-       45 GETTABLEKS                       R7 R2 K14 ["AssetType"]
-       47 GETTABLEKS                       R6 R7 K15 ["Mesh"]
+       45 GETTABLEKS                       R6 R2 K14 ["AssetType"]
+       47 GETTABLEKS                       R6 R6 K15 ["Mesh"]
        49 LOADB                            R7 1
        50 SETTABLE                         R7 R5 R6
-       51 GETTABLEKS                       R7 R2 K14 ["AssetType"]
-       53 GETTABLEKS                       R6 R7 K16 ["Image"]
+       51 GETTABLEKS                       R6 R2 K14 ["AssetType"]
+       53 GETTABLEKS                       R6 R6 K16 ["Image"]
        55 LOADB                            R7 1
        56 SETTABLE                         R7 R5 R6
-       57 GETTABLEKS                       R7 R2 K14 ["AssetType"]
-       59 GETTABLEKS                       R6 R7 K17 ["Decal"]
+       57 GETTABLEKS                       R6 R2 K14 ["AssetType"]
+       59 GETTABLEKS                       R6 R6 K17 ["Decal"]
        61 LOADB                            R7 1
        62 SETTABLE                         R7 R5 R6
        63 DUPCLOSURE                       R6 K18 [PROTO_0]

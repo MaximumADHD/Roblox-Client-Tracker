@@ -52,8 +52,8 @@ PROTO_2:
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
-        5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R1 R2 K0 ["SelectionChanged"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["SelectionChanged"]
         8 MOVE                             R3 R0
         9 NAMECALL                         R1 R1 K1 ["Connect"]
        11 CALL                             R1 2 1
@@ -64,20 +64,20 @@ PROTO_2:
        16 RETURN                           R2 1
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["useState"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useState"]
         3 LOADNIL                          R1
         4 CALL                             R0 1 2
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["useState"]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["useState"]
         8 LOADNIL                          R3
         9 CALL                             R2 1 2
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K0 ["useState"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K0 ["useState"]
        13 LOADB                            R5 0
        14 CALL                             R4 1 2
-       15 GETUPVAL                         R7 0
-       16 GETTABLEKS                       R6 R7 K1 ["useEffect"]
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K1 ["useEffect"]
        18 NEWCLOSURE                       R7 P0
        19 CAPTURE                          UPVAL U1
        20 CAPTURE                          VAL R1
@@ -101,8 +101,8 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 DUPCLOSURE                       R3 K12 [PROTO_3]
        21 CAPTURE                          VAL R2

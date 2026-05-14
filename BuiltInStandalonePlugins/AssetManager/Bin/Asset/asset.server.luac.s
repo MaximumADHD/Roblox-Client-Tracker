@@ -17,27 +17,27 @@ PROTO_0:
        18 RETURN                           R0 0
 
 PROTO_1:
-        0 GETIMPORT                        R1 K1 [plugin]
-        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETTABLEKS                       R0 R0 K2 ["HostDataModelTypeIsCurrent"]
         4 JUMPIF                           R0 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R0 R1 K3 ["MountAssetReactTree"]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K3 ["MountAssetReactTree"]
         9 JUMPIFNOT                        R0 ; [+77]
        10 GETIMPORT                        R0 K5 [require]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R2 R3 K6 ["Packages"]
-       15 GETTABLEKS                       R1 R2 K7 ["React"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K6 ["Packages"]
+       15 GETTABLEKS                       R1 R1 K7 ["React"]
        17 CALL                             R0 1 1
        18 GETIMPORT                        R1 K5 [require]
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R3 R4 K6 ["Packages"]
-       23 GETTABLEKS                       R2 R3 K8 ["ReactRoblox"]
+       20 GETUPVAL                         R2 1
+       21 GETTABLEKS                       R2 R2 K6 ["Packages"]
+       23 GETTABLEKS                       R2 R2 K8 ["ReactRoblox"]
        25 CALL                             R1 1 1
        26 GETIMPORT                        R2 K5 [require]
-       28 GETUPVAL                         R5 1
-       29 GETTABLEKS                       R4 R5 K9 ["Src"]
-       31 GETTABLEKS                       R3 R4 K10 ["MainPlugin"]
+       28 GETUPVAL                         R3 1
+       29 GETTABLEKS                       R3 R3 K9 ["Src"]
+       31 GETTABLEKS                       R3 R3 K10 ["MainPlugin"]
        33 CALL                             R2 1 1
        34 GETTABLEKS                       R3 R0 K11 ["createElement"]
        36 MOVE                             R4 R2
@@ -66,13 +66,13 @@ PROTO_1:
        68 NEWCLOSURE                       R6 P0
        69 CAPTURE                          REF R5
        70 CAPTURE                          UPVAL U2
-       71 GETIMPORT                        R8 K1 [plugin]
-       73 GETTABLEKS                       R7 R8 K27 ["Unloading"]
+       71 GETIMPORT                        R7 K1 [plugin]
+       73 GETTABLEKS                       R7 R7 K27 ["Unloading"]
        75 MOVE                             R9 R6
        76 NAMECALL                         R7 R7 K28 ["Connect"]
        78 CALL                             R7 2 0
-       79 GETUPVAL                         R8 3
-       80 GETTABLEKS                       R7 R8 K29 ["CurrentDataModelTypeAboutToChange"]
+       79 GETUPVAL                         R7 3
+       80 GETTABLEKS                       R7 R7 K29 ["CurrentDataModelTypeAboutToChange"]
        82 MOVE                             R9 R6
        83 NAMECALL                         R7 R7 K28 ["Connect"]
        85 CALL                             R7 2 0
@@ -88,8 +88,8 @@ MAIN:
         7 LOADK                            R2 K4 ["AssetManager"]
         8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
        10 CALL                             R0 2 1
-       11 GETTABLEKS                       R2 R0 K6 ["Bin"]
-       13 GETTABLEKS                       R1 R2 K7 ["Common"]
+       11 GETTABLEKS                       R1 R0 K6 ["Bin"]
+       13 GETTABLEKS                       R1 R1 K7 ["Common"]
        15 GETIMPORT                        R2 K9 [require]
        17 GETTABLEKS                       R3 R1 K10 ["defineLuaFlags"]
        19 CALL                             R2 1 0
@@ -100,8 +100,8 @@ MAIN:
        26 JUMPIFNOT                        R2 ; [+1]
        27 RETURN                           R0 0
        28 GETIMPORT                        R2 K9 [require]
-       30 GETTABLEKS                       R4 R0 K15 ["Packages"]
-       32 GETTABLEKS                       R3 R4 K16 ["TestLoader"]
+       30 GETTABLEKS                       R3 R0 K15 ["Packages"]
+       32 GETTABLEKS                       R3 R3 K16 ["TestLoader"]
        34 CALL                             R2 1 1
        35 GETTABLEKS                       R3 R2 K17 ["launch"]
        37 LOADK                            R4 K4 ["AssetManager"]
@@ -120,13 +120,13 @@ MAIN:
        54 GETTABLEKS                       R3 R2 K21 ["getDebugFlags"]
        56 LOADK                            R4 K4 ["AssetManager"]
        57 CALL                             R3 1 1
-       58 GETIMPORT                        R5 K1 [plugin]
-       60 GETTABLEKS                       R4 R5 K22 ["MultipleDocumentInterfaceInstance"]
+       58 GETIMPORT                        R4 K1 [plugin]
+       60 GETTABLEKS                       R4 R4 K22 ["MultipleDocumentInterfaceInstance"]
        62 GETTABLEKS                       R5 R4 K23 ["FocusedDataModelSession"]
        64 GETIMPORT                        R6 K9 [require]
-       66 GETTABLEKS                       R9 R0 K18 ["Src"]
-       68 GETTABLEKS                       R8 R9 K24 ["Asset"]
-       70 GETTABLEKS                       R7 R8 K25 ["setupAssetsDm"]
+       66 GETTABLEKS                       R7 R0 K18 ["Src"]
+       68 GETTABLEKS                       R7 R7 K24 ["Asset"]
+       70 GETTABLEKS                       R7 R7 K25 ["setupAssetsDm"]
        72 CALL                             R6 1 1
        73 MOVE                             R7 R6
        74 GETIMPORT                        R8 K1 [plugin]

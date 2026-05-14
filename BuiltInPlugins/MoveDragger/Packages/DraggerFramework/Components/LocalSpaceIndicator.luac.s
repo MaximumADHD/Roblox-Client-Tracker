@@ -121,10 +121,10 @@ PROTO_1:
       156 LENGTH                           R14 R7
       157 LOADN                            R15 1
       158 FORNPREP                         R14
-      159 GETTABLE                         R18 R7 R16
-      160 GETTABLEKS                       R17 R18 K16 ["point"]
-      162 SUB                              R19 R17 R10
-      163 GETTABLEKS                       R18 R19 K26 ["Magnitude"]
+      159 GETTABLE                         R17 R7 R16
+      160 GETTABLEKS                       R17 R17 K16 ["point"]
+      162 SUB                              R18 R17 R10
+      163 GETTABLEKS                       R18 R18 K26 ["Magnitude"]
       165 JUMPIFNOTLT                      R18 R11 ; [+6]
       167 MOVE                             R11 R18
       168 MOVE                             R13 R17
@@ -136,13 +136,13 @@ PROTO_1:
       175 RETURN                           R14 1
       176 GETTABLEKS                       R15 R1 K28 ["TextSize"]
       178 ADDK                             R14 R15 K27 [6]
-      179 GETUPVAL                         R16 0
-      180 GETTABLEKS                       R15 R16 K29 ["createElement"]
+      179 GETUPVAL                         R15 0
+      180 GETTABLEKS                       R15 R15 K29 ["createElement"]
       182 LOADK                            R16 K30 ["ScreenGui"]
       183 NEWTABLE                         R17 0 0
       185 NEWTABLE                         R18 0 1
-      187 GETUPVAL                         R20 0
-      188 GETTABLEKS                       R19 R20 K29 ["createElement"]
+      187 GETUPVAL                         R19 0
+      188 GETTABLEKS                       R19 R19 K29 ["createElement"]
       190 LOADK                            R20 K31 ["TextLabel"]
       191 DUPTABLE                         R21 K40 [{"BackgroundTransparency", "Position", "Size", "Font", "TextSize", "Text", "TextColor3", "TextStrokeColor3", "TextStrokeTransparency", "Selectable"}]
       192 GETTABLEKS                       R22 R1 K32 ["BackgroundTransparency"]
@@ -178,14 +178,14 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
        11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R1 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
        17 CALL                             R2 1 1
        18 GETTABLEKS                       R3 R2 K7 ["Component"]
        20 LOADK                            R5 K8 ["LocalSpaceIndicator"]

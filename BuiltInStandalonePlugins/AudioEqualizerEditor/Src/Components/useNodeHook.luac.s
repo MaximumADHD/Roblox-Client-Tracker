@@ -6,13 +6,13 @@ PROTO_0:
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
         6 GETUPVAL                         R0 2
-        7 GETUPVAL                         R2 3
-        8 GETTABLEKS                       R1 R2 K0 ["EQUALIZER"]
+        7 GETUPVAL                         R1 3
+        8 GETTABLEKS                       R1 R1 K0 ["EQUALIZER"]
        10 JUMPIFNOTEQ                      R0 R1 ; [+35]
        12 GETUPVAL                         R0 4
        13 DUPTABLE                         R1 K7 [{"InstanceType", "LowGain", "MidGain", "HighGain", "MidRange", "Bypass"}]
-       14 GETUPVAL                         R3 3
-       15 GETTABLEKS                       R2 R3 K0 ["EQUALIZER"]
+       14 GETUPVAL                         R2 3
+       15 GETTABLEKS                       R2 R2 K0 ["EQUALIZER"]
        17 SETTABLEKS                       R2 R1 K1 ["InstanceType"]
        19 GETUPVAL                         R2 5
        20 SETTABLEKS                       R2 R1 K2 ["LowGain"]
@@ -34,13 +34,13 @@ PROTO_0:
        44 CALL                             R0 1 0
        45 RETURN                           R0 0
        46 GETUPVAL                         R0 2
-       47 GETUPVAL                         R2 3
-       48 GETTABLEKS                       R1 R2 K14 ["FILTER"]
+       47 GETUPVAL                         R1 3
+       48 GETTABLEKS                       R1 R1 K14 ["FILTER"]
        50 JUMPIFNOTEQ                      R0 R1 ; [+24]
        52 GETUPVAL                         R0 4
        53 DUPTABLE                         R1 K19 [{"InstanceType", "FilterType", "Frequency", "Gain", "Q", "Bypass"}]
-       54 GETUPVAL                         R3 3
-       55 GETTABLEKS                       R2 R3 K14 ["FILTER"]
+       54 GETUPVAL                         R2 3
+       55 GETTABLEKS                       R2 R2 K14 ["FILTER"]
        57 SETTABLEKS                       R2 R1 K1 ["InstanceType"]
        59 GETUPVAL                         R2 11
        60 SETTABLEKS                       R2 R1 K15 ["FilterType"]
@@ -56,11 +56,11 @@ PROTO_0:
        75 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getYMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getYMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getYMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getYMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -73,11 +73,11 @@ PROTO_1:
        18 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getYMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getYMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getYMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getYMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -90,11 +90,11 @@ PROTO_2:
        18 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getYMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getYMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getYMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getYMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -107,11 +107,11 @@ PROTO_3:
        18 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getXMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getXMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getXMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getXMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -128,11 +128,11 @@ PROTO_4:
        23 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getXMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getXMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getXMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getXMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -165,12 +165,12 @@ PROTO_7:
         9 GETTABLEKS                       R2 R0 K2 ["HighGain"]
        11 CALL                             R1 1 0
        12 GETUPVAL                         R1 3
-       13 GETTABLEKS                       R3 R0 K3 ["MidRange"]
-       15 GETTABLEKS                       R2 R3 K4 ["Min"]
+       13 GETTABLEKS                       R2 R0 K3 ["MidRange"]
+       15 GETTABLEKS                       R2 R2 K4 ["Min"]
        17 CALL                             R1 1 0
        18 GETUPVAL                         R1 4
-       19 GETTABLEKS                       R3 R0 K3 ["MidRange"]
-       21 GETTABLEKS                       R2 R3 K5 ["Max"]
+       19 GETTABLEKS                       R2 R0 K3 ["MidRange"]
+       21 GETTABLEKS                       R2 R2 K5 ["Max"]
        23 CALL                             R1 1 0
        24 GETUPVAL                         R1 5
        25 GETTABLEKS                       R2 R0 K6 ["Bypass"]
@@ -184,11 +184,11 @@ PROTO_8:
         3 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getXMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getXMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getXMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getXMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -201,11 +201,11 @@ PROTO_9:
        18 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["getYMin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["getYMin"]
         3 CALL                             R3 0 1
-        4 GETUPVAL                         R5 0
-        5 GETTABLEKS                       R4 R5 K1 ["getYMax"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["getYMax"]
         7 CALL                             R4 0 1
         8 FASTCALL3                        MATH_CLAMP R0 R3 R4
        10 MOVE                             R2 R0
@@ -274,16 +274,16 @@ PROTO_16:
        14 GETUPVAL                         R9 0
        15 GETTABLEKS                       R11 R0 K4 ["MidRange"]
        17 JUMPIFNOT                        R11 ; [+5]
-       18 GETTABLEKS                       R11 R0 K4 ["MidRange"]
-       20 GETTABLEKS                       R10 R11 K5 ["Min"]
+       18 GETTABLEKS                       R10 R0 K4 ["MidRange"]
+       20 GETTABLEKS                       R10 R10 K5 ["Min"]
        22 JUMP                             ; [+1]
        23 LOADN                            R10 0
        24 CALL                             R9 1 2
        25 GETUPVAL                         R11 0
        26 GETTABLEKS                       R13 R0 K4 ["MidRange"]
        28 JUMPIFNOT                        R13 ; [+5]
-       29 GETTABLEKS                       R13 R0 K4 ["MidRange"]
-       31 GETTABLEKS                       R12 R13 K6 ["Max"]
+       29 GETTABLEKS                       R12 R0 K4 ["MidRange"]
+       31 GETTABLEKS                       R12 R12 K6 ["Max"]
        33 JUMP                             ; [+1]
        34 LOADN                            R12 0
        35 CALL                             R11 1 2
@@ -340,8 +340,8 @@ PROTO_16:
        93 MOVE                             R40 R23
        94 SETLIST                          R29 R30 11 [1]
        96 CALL                             R27 2 0
-       97 GETUPVAL                         R28 2
-       98 GETTABLEKS                       R27 R28 K12 ["EQUALIZER"]
+       97 GETUPVAL                         R27 2
+       98 GETTABLEKS                       R27 R27 K12 ["EQUALIZER"]
       100 JUMPIFNOTEQ                      R2 R27 ; [+115]
       102 DUPTABLE                         R27 K26 [{"lowGain", "midGain", "highGain", "lowThreshold", "highThreshold", "bypass", "setLowGain", "setMidGain", "setHighGain", "setLowThreshold", "setHighThreshold", "setBypass", "reset"}]
       103 SETTABLEKS                       R3 R27 K13 ["lowGain"]
@@ -430,8 +430,8 @@ PROTO_16:
       212 CALL                             R28 2 1
       213 SETTABLEKS                       R28 R27 K25 ["reset"]
       215 RETURN                           R27 1
-      216 GETUPVAL                         R28 2
-      217 GETTABLEKS                       R27 R28 K27 ["FILTER"]
+      216 GETUPVAL                         R27 2
+      217 GETTABLEKS                       R27 R27 K27 ["FILTER"]
       219 JUMPIFNOTEQ                      R2 R27 ; [+90]
       221 DUPTABLE                         R27 K36 [{"filterType", "frequency", "gain", "q", "bypass", "setFilterType", "setFrequency", "setGain", "setQ", "setBypass", "reset"}]
       222 SETTABLEKS                       R15 R27 K28 ["filterType"]
@@ -499,8 +499,8 @@ PROTO_16:
       306 CALL                             R28 2 1
       307 SETTABLEKS                       R28 R27 K25 ["reset"]
       309 RETURN                           R27 1
-      310 GETUPVAL                         R30 2
-      311 GETTABLEKS                       R29 R30 K37 ["NO_INSTANCE"]
+      310 GETUPVAL                         R29 2
+      311 GETTABLEKS                       R29 R29 K37 ["NO_INSTANCE"]
       313 JUMPIFEQ                         R2 R29 ; [+2]
       315 LOADB                            R28 0 +1
       316 LOADB                            R28 1
@@ -524,20 +524,20 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useCallback"]
        16 GETTABLEKS                       R3 R1 K9 ["useEffect"]
        18 GETTABLEKS                       R4 R1 K10 ["useState"]
        20 GETIMPORT                        R5 K5 [require]
-       22 GETTABLEKS                       R7 R0 K11 ["Src"]
-       24 GETTABLEKS                       R6 R7 K12 ["Types"]
+       22 GETTABLEKS                       R6 R0 K11 ["Src"]
+       24 GETTABLEKS                       R6 R6 K12 ["Types"]
        26 CALL                             R5 1 1
        27 GETIMPORT                        R6 K5 [require]
-       29 GETTABLEKS                       R9 R0 K11 ["Src"]
-       31 GETTABLEKS                       R8 R9 K13 ["Util"]
-       33 GETTABLEKS                       R7 R8 K14 ["PlotUtil"]
+       29 GETTABLEKS                       R7 R0 K11 ["Src"]
+       31 GETTABLEKS                       R7 R7 K13 ["Util"]
+       33 GETTABLEKS                       R7 R7 K14 ["PlotUtil"]
        35 CALL                             R6 1 1
        36 DUPCLOSURE                       R7 K15 [PROTO_16]
        37 CAPTURE                          VAL R4

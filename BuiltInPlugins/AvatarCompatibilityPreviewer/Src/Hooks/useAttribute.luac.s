@@ -22,8 +22,8 @@ PROTO_2:
         6 JUMPIFNOTEQKNIL                  R2 ; [+2]
         8 LOADB                            R1 0 +1
         9 LOADB                            R1 1
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K0 ["LUAU_ANALYZE_ERROR"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K0 ["LUAU_ANALYZE_ERROR"]
        13 FASTCALL2                        ASSERT R1 R2 ; [+3]
        15 GETIMPORT                        R0 K2 [assert]
        17 CALL                             R0 2 0
@@ -48,8 +48,8 @@ PROTO_2:
        39 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useState"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useState"]
         3 JUMPIFNOTEQKNIL                  R0 ; [+3]
         5 LOADNIL                          R3
         6 JUMP                             ; [+4]
@@ -57,8 +57,8 @@ PROTO_3:
         8 NAMECALL                         R3 R0 K1 ["GetAttribute"]
        10 CALL                             R3 2 1
        11 CALL                             R2 1 2
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K2 ["useEffect"]
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K2 ["useEffect"]
        15 NEWCLOSURE                       R5 P0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          UPVAL U1
@@ -78,13 +78,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K10 ["React"]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["React"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_3]
        24 CAPTURE                          VAL R2

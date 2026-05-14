@@ -9,10 +9,10 @@ PROTO_0:
         9 SETTABLEKS                       R3 R5 K5 ["cursor"]
        11 JUMP                             ; [+1]
        12 LOADNIL                          R5
-       13 GETUPVAL                         R7 0
-       14 GETTABLEKS                       R6 R7 K7 ["composeUrl"]
-       16 GETUPVAL                         R8 0
-       17 GETTABLEKS                       R7 R8 K8 ["APIS_URL"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K7 ["composeUrl"]
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K8 ["APIS_URL"]
        19 MOVE                             R8 R4
        20 MOVE                             R9 R5
        21 CALL                             R6 3 1
@@ -28,22 +28,22 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R4 R1 K7 ["RobloxAPI"]
-       20 GETTABLEKS                       R3 R4 K8 ["Url"]
-       22 GETTABLEKS                       R2 R3 K9 ["new"]
+       18 GETTABLEKS                       R2 R1 K7 ["RobloxAPI"]
+       20 GETTABLEKS                       R2 R2 K8 ["Url"]
+       22 GETTABLEKS                       R2 R2 K9 ["new"]
        24 CALL                             R2 0 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R5 R0 K10 ["Src"]
-       29 GETTABLEKS                       R4 R5 K11 ["Types"]
+       27 GETTABLEKS                       R4 R0 K10 ["Src"]
+       29 GETTABLEKS                       R4 R4 K11 ["Types"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K12 [PROTO_0]
        33 CAPTURE                          VAL R2

@@ -21,10 +21,10 @@ PROTO_0:
        25 CALL                             R5 1 1
        26 JUMPIF                           R4 ; [+14]
        27 JUMPIF                           R5 ; [+13]
-       28 GETTABLEKS                       R8 R0 K0 ["animation"]
-       30 GETTABLEKS                       R7 R8 K4 ["Name"]
-       32 GETTABLEKS                       R9 R1 K0 ["animation"]
-       34 GETTABLEKS                       R8 R9 K4 ["Name"]
+       28 GETTABLEKS                       R7 R0 K0 ["animation"]
+       30 GETTABLEKS                       R7 R7 K4 ["Name"]
+       32 GETTABLEKS                       R8 R1 K0 ["animation"]
+       34 GETTABLEKS                       R8 R8 K4 ["Name"]
        36 JUMPIFLT                         R7 R8 ; [+2]
        38 LOADB                            R6 0 +1
        39 LOADB                            R6 1
@@ -43,8 +43,8 @@ PROTO_0:
        53 RETURN                           R6 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["getAnimSaves"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getAnimSaves"]
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 LENGTH                           R2 R1
@@ -56,11 +56,11 @@ PROTO_1:
        13 CAPTURE                          UPVAL U2
        14 CALL                             R2 2 0
        15 GETUPVAL                         R4 3
-       16 GETTABLEN                        R7 R1 1
-       17 GETTABLEKS                       R6 R7 K5 ["animation"]
-       19 GETTABLEKS                       R5 R6 K6 ["Name"]
-       21 GETTABLEN                        R7 R1 1
-       22 GETTABLEKS                       R6 R7 K7 ["isLegacyAnimSaves"]
+       16 GETTABLEN                        R5 R1 1
+       17 GETTABLEKS                       R5 R5 K5 ["animation"]
+       19 GETTABLEKS                       R5 R5 K6 ["Name"]
+       21 GETTABLEN                        R6 R1 1
+       22 GETTABLEKS                       R6 R6 K7 ["isLegacyAnimSaves"]
        24 GETUPVAL                         R7 4
        25 CALL                             R4 3 -1
        26 NAMECALL                         R2 R0 K8 ["dispatch"]
@@ -99,17 +99,17 @@ MAIN:
         9 LOADK                            R3 K6 ["AnimationClipEditor"]
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
-       13 GETTABLEKS                       R3 R1 K8 ["Src"]
-       15 GETTABLEKS                       R2 R3 K9 ["Thunks"]
+       13 GETTABLEKS                       R2 R1 K8 ["Src"]
+       15 GETTABLEKS                       R2 R2 K9 ["Thunks"]
        17 GETIMPORT                        R3 K11 [require]
        19 GETTABLEKS                       R4 R2 K12 ["CreateNewAnimation"]
        21 CALL                             R3 1 1
        22 GETIMPORT                        R4 K11 [require]
-       24 GETTABLEKS                       R6 R2 K13 ["Exporting"]
-       26 GETTABLEKS                       R5 R6 K14 ["LoadAnimation"]
+       24 GETTABLEKS                       R5 R2 K13 ["Exporting"]
+       26 GETTABLEKS                       R5 R5 K14 ["LoadAnimation"]
        28 CALL                             R4 1 1
-       29 GETTABLEKS                       R6 R1 K8 ["Src"]
-       31 GETTABLEKS                       R5 R6 K15 ["Util"]
+       29 GETTABLEKS                       R5 R1 K8 ["Src"]
+       31 GETTABLEKS                       R5 R5 K15 ["Util"]
        33 GETIMPORT                        R6 K11 [require]
        35 GETTABLEKS                       R7 R5 K16 ["RigUtils"]
        37 CALL                             R6 1 1

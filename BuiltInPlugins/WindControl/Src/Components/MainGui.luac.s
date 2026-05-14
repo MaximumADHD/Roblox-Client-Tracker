@@ -1,22 +1,22 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["windhose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["windhose"]
         3 JUMPIFNOT                        R0 ; [+30]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R1 R2 K0 ["windhose"]
-        7 GETTABLEKS                       R0 R1 K1 ["selectStick"]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K0 ["windhose"]
+        7 GETTABLEKS                       R0 R0 K1 ["selectStick"]
         9 JUMPIFNOT                        R0 ; [+24]
        10 GETUPVAL                         R0 0
        11 DUPTABLE                         R2 K4 [{"windspeed", "windDirection"}]
-       12 GETIMPORT                        R5 K6 [workspace]
-       14 GETTABLEKS                       R4 R5 K7 ["GlobalWind"]
-       16 GETTABLEKS                       R3 R4 K8 ["Magnitude"]
+       12 GETIMPORT                        R3 K6 [workspace]
+       14 GETTABLEKS                       R3 R3 K7 ["GlobalWind"]
+       16 GETTABLEKS                       R3 R3 K8 ["Magnitude"]
        18 SETTABLEKS                       R3 R2 K2 ["windspeed"]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K0 ["windhose"]
-       23 GETTABLEKS                       R5 R6 K1 ["selectStick"]
-       25 GETTABLEKS                       R4 R5 K9 ["CFrame"]
-       27 GETTABLEKS                       R3 R4 K10 ["LookVector"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K0 ["windhose"]
+       23 GETTABLEKS                       R3 R3 K1 ["selectStick"]
+       25 GETTABLEKS                       R3 R3 K9 ["CFrame"]
+       27 GETTABLEKS                       R3 R3 K10 ["LookVector"]
        29 SETTABLEKS                       R3 R2 K3 ["windDirection"]
        31 NAMECALL                         R0 R0 K11 ["setState"]
        33 CALL                             R0 2 0
@@ -72,29 +72,29 @@ PROTO_5:
        11 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["cameraRef"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["createRef"]
         9 CALL                             R1 0 1
        10 SETTABLEKS                       R1 R0 K2 ["viewportRef"]
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K0 ["createRef"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K0 ["createRef"]
        15 CALL                             R1 0 1
        16 SETTABLEKS                       R1 R0 K3 ["textLabelRef"]
        18 GETUPVAL                         R1 1
        19 CALL                             R1 0 1
        20 SETTABLEKS                       R1 R0 K4 ["windhose"]
        22 DUPTABLE                         R3 K9 [{"windspeed", "windDirection", "isChangingPitch", "isChangingYaw"}]
-       23 GETIMPORT                        R6 K11 [workspace]
-       25 GETTABLEKS                       R5 R6 K12 ["GlobalWind"]
-       27 GETTABLEKS                       R4 R5 K13 ["Magnitude"]
+       23 GETIMPORT                        R4 K11 [workspace]
+       25 GETTABLEKS                       R4 R4 K12 ["GlobalWind"]
+       27 GETTABLEKS                       R4 R4 K13 ["Magnitude"]
        29 SETTABLEKS                       R4 R3 K5 ["windspeed"]
-       31 GETIMPORT                        R6 K11 [workspace]
-       33 GETTABLEKS                       R5 R6 K12 ["GlobalWind"]
-       35 GETTABLEKS                       R4 R5 K14 ["Unit"]
+       31 GETIMPORT                        R4 K11 [workspace]
+       33 GETTABLEKS                       R4 R4 K12 ["GlobalWind"]
+       35 GETTABLEKS                       R4 R4 K14 ["Unit"]
        37 SETTABLEKS                       R4 R3 K6 ["windDirection"]
        39 LOADB                            R4 0
        40 SETTABLEKS                       R4 R3 K7 ["isChangingPitch"]
@@ -123,10 +123,10 @@ PROTO_6:
        72 RETURN                           R0 0
 
 PROTO_7:
-        0 GETIMPORT                        R6 K1 [game]
-        2 GETTABLEKS                       R5 R6 K2 ["Workspace"]
-        4 GETTABLEKS                       R4 R5 K3 ["CurrentCamera"]
-        6 GETTABLEKS                       R3 R4 K4 ["ViewportSize"]
+        0 GETIMPORT                        R3 K1 [game]
+        2 GETTABLEKS                       R3 R3 K2 ["Workspace"]
+        4 GETTABLEKS                       R3 R3 K3 ["CurrentCamera"]
+        6 GETTABLEKS                       R3 R3 K4 ["ViewportSize"]
         8 GETTABLE                         R2 R3 R0
         9 LOADK                            R3 K5 [0.5]
        10 LOADK                            R4 K5 [0.5]
@@ -149,8 +149,8 @@ PROTO_7:
        29 RETURN                           R3 2
 
 PROTO_8:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
         7 GETTABLEKS                       R2 R0 K3 ["viewportRef"]
@@ -158,15 +158,15 @@ PROTO_8:
        11 CALL                             R2 1 1
        12 JUMPIFNOT                        R1 ; [+74]
        13 JUMPIFNOT                        R2 ; [+73]
-       14 GETTABLEKS                       R4 R2 K5 ["AbsoluteSize"]
-       16 GETTABLEKS                       R3 R4 K6 ["X"]
+       14 GETTABLEKS                       R3 R2 K5 ["AbsoluteSize"]
+       16 GETTABLEKS                       R3 R3 K6 ["X"]
        18 NEWCLOSURE                       R4 P0
        19 CAPTURE                          VAL R3
        20 CAPTURE                          VAL R1
-       21 GETIMPORT                        R11 K8 [game]
-       23 GETTABLEKS                       R10 R11 K9 ["Workspace"]
-       25 GETTABLEKS                       R9 R10 K10 ["CurrentCamera"]
-       27 GETTABLEKS                       R8 R9 K11 ["ViewportSize"]
+       21 GETIMPORT                        R8 K8 [game]
+       23 GETTABLEKS                       R8 R8 K9 ["Workspace"]
+       25 GETTABLEKS                       R8 R8 K10 ["CurrentCamera"]
+       27 GETTABLEKS                       R8 R8 K11 ["ViewportSize"]
        29 GETTABLEKS                       R7 R8 K6 ["X"]
        31 LOADK                            R8 K12 [0.5]
        32 LOADK                            R9 K12 [0.5]
@@ -182,10 +182,10 @@ PROTO_8:
        44 DIV                              R9 R11 R7
        45 MOVE                             R5 R8
        46 MOVE                             R6 R9
-       47 GETIMPORT                        R13 K8 [game]
-       49 GETTABLEKS                       R12 R13 K9 ["Workspace"]
-       51 GETTABLEKS                       R11 R12 K10 ["CurrentCamera"]
-       53 GETTABLEKS                       R10 R11 K11 ["ViewportSize"]
+       47 GETIMPORT                        R10 K8 [game]
+       49 GETTABLEKS                       R10 R10 K9 ["Workspace"]
+       51 GETTABLEKS                       R10 R10 K10 ["CurrentCamera"]
+       53 GETTABLEKS                       R10 R10 K11 ["ViewportSize"]
        55 GETTABLEKS                       R9 R10 K16 ["Y"]
        57 LOADK                            R10 K12 [0.5]
        58 LOADK                            R11 K12 [0.5]
@@ -214,17 +214,17 @@ PROTO_8:
        87 RETURN                           R0 0
 
 PROTO_9:
-        0 GETIMPORT                        R5 K1 [game]
-        2 GETTABLEKS                       R4 R5 K2 ["Workspace"]
-        4 GETTABLEKS                       R3 R4 K3 ["CurrentCamera"]
-        6 GETTABLEKS                       R2 R3 K4 ["ViewportSize"]
+        0 GETIMPORT                        R2 K1 [game]
+        2 GETTABLEKS                       R2 R2 K2 ["Workspace"]
+        4 GETTABLEKS                       R2 R2 K3 ["CurrentCamera"]
+        6 GETTABLEKS                       R2 R2 K4 ["ViewportSize"]
         8 GETTABLE                         R1 R2 R0
         9 LOADK                            R2 K5 [0.5]
        10 LOADK                            R3 K5 [0.5]
        11 GETUPVAL                         R4 0
        12 JUMPIFNOTLT                      R4 R1 ; [+19]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R6 R7 K6 ["AbsolutePosition"]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K6 ["AbsolutePosition"]
        17 GETTABLE                         R5 R6 R0
        18 LOADN                            R6 0
        19 GETUPVAL                         R8 0
@@ -249,8 +249,8 @@ PROTO_9:
        40 RETURN                           R2 2
 
 PROTO_10:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 NAMECALL                         R1 R1 K2 ["get"]
         6 CALL                             R1 1 1
         7 GETTABLEKS                       R2 R0 K3 ["viewportRef"]
@@ -258,16 +258,16 @@ PROTO_10:
        11 CALL                             R2 1 1
        12 JUMPIFNOT                        R1 ; [+95]
        13 JUMPIFNOT                        R2 ; [+94]
-       14 GETTABLEKS                       R4 R2 K5 ["AbsoluteSize"]
-       16 GETTABLEKS                       R3 R4 K6 ["X"]
+       14 GETTABLEKS                       R3 R2 K5 ["AbsoluteSize"]
+       16 GETTABLEKS                       R3 R3 K6 ["X"]
        18 NEWCLOSURE                       R4 P0
        19 CAPTURE                          VAL R3
        20 CAPTURE                          VAL R2
        21 CAPTURE                          VAL R1
-       22 GETIMPORT                        R11 K8 [game]
-       24 GETTABLEKS                       R10 R11 K9 ["Workspace"]
-       26 GETTABLEKS                       R9 R10 K10 ["CurrentCamera"]
-       28 GETTABLEKS                       R8 R9 K11 ["ViewportSize"]
+       22 GETIMPORT                        R8 K8 [game]
+       24 GETTABLEKS                       R8 R8 K9 ["Workspace"]
+       26 GETTABLEKS                       R8 R8 K10 ["CurrentCamera"]
+       28 GETTABLEKS                       R8 R8 K11 ["ViewportSize"]
        30 GETTABLEKS                       R7 R8 K6 ["X"]
        32 LOADK                            R8 K12 [0.5]
        33 LOADK                            R9 K12 [0.5]
@@ -290,10 +290,10 @@ PROTO_10:
        55 CALL                             R10 3 0
        56 MOVE                             R5 R8
        57 MOVE                             R6 R9
-       58 GETIMPORT                        R13 K8 [game]
-       60 GETTABLEKS                       R12 R13 K9 ["Workspace"]
-       62 GETTABLEKS                       R11 R12 K10 ["CurrentCamera"]
-       64 GETTABLEKS                       R10 R11 K11 ["ViewportSize"]
+       58 GETIMPORT                        R10 K8 [game]
+       60 GETTABLEKS                       R10 R10 K9 ["Workspace"]
+       62 GETTABLEKS                       R10 R10 K10 ["CurrentCamera"]
+       64 GETTABLEKS                       R10 R10 K11 ["ViewportSize"]
        66 GETTABLEKS                       R9 R10 K19 ["Y"]
        68 LOADK                            R10 K12 [0.5]
        69 LOADK                            R11 K12 [0.5]
@@ -338,8 +338,8 @@ PROTO_11:
 
 PROTO_12:
         0 LOADNIL                          R0
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R1 R2 K0 ["mounted"]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["mounted"]
         4 JUMPIF                           R1 ; [+2]
         5 CLOSEUPVALS                      R0
         6 RETURN                           R0 0
@@ -353,41 +353,41 @@ PROTO_12:
        16 RETURN                           R0 0
        17 GETUPVAL                         R1 0
        18 SETTABLEKS                       R0 R1 K3 ["windControlModel"]
-       20 GETUPVAL                         R2 0
-       21 GETTABLEKS                       R1 R2 K4 ["viewportRef"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K4 ["viewportRef"]
        23 NAMECALL                         R1 R1 K5 ["getValue"]
        25 CALL                             R1 1 1
        26 JUMPIFNOT                        R1 ; [+49]
-       27 GETUPVAL                         R2 0
-       28 GETTABLEKS                       R1 R2 K3 ["windControlModel"]
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R2 R3 K4 ["viewportRef"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K3 ["windControlModel"]
+       30 GETUPVAL                         R2 0
+       31 GETTABLEKS                       R2 R2 K4 ["viewportRef"]
        33 NAMECALL                         R2 R2 K5 ["getValue"]
        35 CALL                             R2 1 1
        36 SETTABLEKS                       R2 R1 K6 ["Parent"]
-       38 GETUPVAL                         R2 0
-       39 GETTABLEKS                       R1 R2 K7 ["windhose"]
-       41 GETUPVAL                         R4 0
-       42 GETTABLEKS                       R3 R4 K3 ["windControlModel"]
-       44 GETUPVAL                         R5 0
-       45 GETTABLEKS                       R4 R5 K8 ["cameraRef"]
+       38 GETUPVAL                         R1 0
+       39 GETTABLEKS                       R1 R1 K7 ["windhose"]
+       41 GETUPVAL                         R3 0
+       42 GETTABLEKS                       R3 R3 K3 ["windControlModel"]
+       44 GETUPVAL                         R4 0
+       45 GETTABLEKS                       R4 R4 K8 ["cameraRef"]
        47 NAMECALL                         R4 R4 K5 ["getValue"]
        49 CALL                             R4 1 1
-       50 GETUPVAL                         R6 0
-       51 GETTABLEKS                       R5 R6 K4 ["viewportRef"]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K4 ["viewportRef"]
        53 NAMECALL                         R5 R5 K5 ["getValue"]
        55 CALL                             R5 1 1
-       56 GETUPVAL                         R7 0
-       57 GETTABLEKS                       R6 R7 K9 ["onWindChanged"]
+       56 GETUPVAL                         R6 0
+       57 GETTABLEKS                       R6 R6 K9 ["onWindChanged"]
        59 LOADNIL                          R7
-       60 GETUPVAL                         R9 0
-       61 GETTABLEKS                       R8 R9 K10 ["onYawStateRequested"]
-       63 GETUPVAL                         R10 0
-       64 GETTABLEKS                       R9 R10 K11 ["onPitchStateRequested"]
+       60 GETUPVAL                         R8 0
+       61 GETTABLEKS                       R8 R8 K10 ["onYawStateRequested"]
+       63 GETUPVAL                         R9 0
+       64 GETTABLEKS                       R9 R9 K11 ["onPitchStateRequested"]
        66 NAMECALL                         R1 R1 K12 ["init"]
        68 CALL                             R1 8 0
-       69 GETUPVAL                         R2 0
-       70 GETTABLEKS                       R1 R2 K7 ["windhose"]
+       69 GETUPVAL                         R1 0
+       70 GETTABLEKS                       R1 R1 K7 ["windhose"]
        72 LOADB                            R3 1
        73 NAMECALL                         R1 R1 K13 ["setEnabled"]
        75 CALL                             R1 2 0
@@ -423,22 +423,22 @@ PROTO_14:
        21 RETURN                           R0 0
 
 PROTO_15:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["windhose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["windhose"]
         3 NAMECALL                         R0 R0 K1 ["onMouseEnter"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["windhose"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["windhose"]
         3 NAMECALL                         R0 R0 K1 ["onMouseLeave"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
 PROTO_17:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["windhose"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["windhose"]
         3 MOVE                             R5 R1
         4 MOVE                             R6 R2
         5 NAMECALL                         R3 R3 K1 ["onMouseButton1Down"]
@@ -446,8 +446,8 @@ PROTO_17:
         8 RETURN                           R0 0
 
 PROTO_18:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["windhose"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["windhose"]
         3 MOVE                             R5 R1
         4 MOVE                             R6 R2
         5 NAMECALL                         R3 R3 K1 ["onMouseMove"]
@@ -456,32 +456,32 @@ PROTO_18:
 
 PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R1 K1 ["Stylizer"]
-        4 GETTABLEKS                       R2 R3 K2 ["MainGui"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K3 ["createPortal"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 GETTABLEKS                       R2 R2 K2 ["MainGui"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K3 ["createPortal"]
         9 DUPTABLE                         R4 K5 [{"WindControl"}]
-       10 GETUPVAL                         R6 1
-       11 GETTABLEKS                       R5 R6 K6 ["createElement"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K6 ["createElement"]
        13 LOADK                            R6 K7 ["Folder"]
        14 NEWTABLE                         R7 0 0
        16 DUPTABLE                         R8 K9 [{"Screengui"}]
-       17 GETUPVAL                         R10 1
-       18 GETTABLEKS                       R9 R10 K6 ["createElement"]
+       17 GETUPVAL                         R9 1
+       18 GETTABLEKS                       R9 R9 K6 ["createElement"]
        20 LOADK                            R10 K10 ["ScreenGui"]
        21 NEWTABLE                         R11 0 0
        23 DUPTABLE                         R12 K12 [{"ViewportFrame"}]
-       24 GETUPVAL                         R14 1
-       25 GETTABLEKS                       R13 R14 K6 ["createElement"]
+       24 GETUPVAL                         R13 1
+       25 GETTABLEKS                       R13 R13 K6 ["createElement"]
        27 LOADK                            R14 K11 ["ViewportFrame"]
        28 DUPTABLE                         R15 K19 [{"ZIndex", "Size", "Position", "CurrentCamera", "BackgroundTransparency", "ref"}]
        29 LOADN                            R16 1
        30 SETTABLEKS                       R16 R15 K13 ["ZIndex"]
-       32 GETTABLEKS                       R17 R2 K11 ["ViewportFrame"]
-       34 GETTABLEKS                       R16 R17 K14 ["Size"]
+       32 GETTABLEKS                       R16 R2 K11 ["ViewportFrame"]
+       34 GETTABLEKS                       R16 R16 K14 ["Size"]
        36 SETTABLEKS                       R16 R15 K14 ["Size"]
-       38 GETTABLEKS                       R17 R2 K11 ["ViewportFrame"]
-       40 GETTABLEKS                       R16 R17 K15 ["Position"]
+       38 GETTABLEKS                       R16 R2 K11 ["ViewportFrame"]
+       40 GETTABLEKS                       R16 R16 K15 ["Position"]
        42 SETTABLEKS                       R16 R15 K15 ["Position"]
        44 GETTABLEKS                       R16 R0 K20 ["cameraRef"]
        46 SETTABLEKS                       R16 R15 K16 ["CurrentCamera"]
@@ -490,14 +490,14 @@ PROTO_19:
        51 GETTABLEKS                       R16 R0 K21 ["viewportRef"]
        53 SETTABLEKS                       R16 R15 K18 ["ref"]
        55 DUPTABLE                         R16 K26 [{"Background", "Camera", "ImageButton", "WindspeedDisplay"}]
-       56 GETUPVAL                         R18 1
-       57 GETTABLEKS                       R17 R18 K6 ["createElement"]
+       56 GETUPVAL                         R17 1
+       57 GETTABLEKS                       R17 R17 K6 ["createElement"]
        59 GETUPVAL                         R18 2
        60 GETTABLEKS                       R19 R2 K27 ["BackgroundPane"]
        62 CALL                             R17 2 1
        63 SETTABLEKS                       R17 R16 K22 ["Background"]
-       65 GETUPVAL                         R18 1
-       66 GETTABLEKS                       R17 R18 K6 ["createElement"]
+       65 GETUPVAL                         R17 1
+       66 GETTABLEKS                       R17 R17 K6 ["createElement"]
        68 LOADK                            R18 K23 ["Camera"]
        69 DUPTABLE                         R19 K31 [{"CameraType", "CFrame", "FieldOfView", "ref"}]
        70 GETIMPORT                        R20 K34 [Enum.CameraType.Scriptable]
@@ -513,8 +513,8 @@ PROTO_19:
        87 SETTABLEKS                       R20 R19 K18 ["ref"]
        89 CALL                             R17 2 1
        90 SETTABLEKS                       R17 R16 K23 ["Camera"]
-       92 GETUPVAL                         R18 1
-       93 GETTABLEKS                       R17 R18 K6 ["createElement"]
+       92 GETUPVAL                         R17 1
+       93 GETTABLEKS                       R17 R17 K6 ["createElement"]
        95 LOADK                            R18 K24 ["ImageButton"]
        96 NEWTABLE                         R19 8 0
        98 GETIMPORT                        R20 K41 [UDim2.fromScale]
@@ -524,47 +524,47 @@ PROTO_19:
       103 SETTABLEKS                       R20 R19 K14 ["Size"]
       105 LOADN                            R20 1
       106 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      108 GETUPVAL                         R22 1
-      109 GETTABLEKS                       R21 R22 K42 ["Event"]
-      111 GETTABLEKS                       R20 R21 K43 ["MouseEnter"]
+      108 GETUPVAL                         R20 1
+      109 GETTABLEKS                       R20 R20 K42 ["Event"]
+      111 GETTABLEKS                       R20 R20 K43 ["MouseEnter"]
       113 NEWCLOSURE                       R21 P0
       114 CAPTURE                          VAL R0
       115 SETTABLE                         R21 R19 R20
-      116 GETUPVAL                         R22 1
-      117 GETTABLEKS                       R21 R22 K42 ["Event"]
-      119 GETTABLEKS                       R20 R21 K44 ["MouseLeave"]
+      116 GETUPVAL                         R20 1
+      117 GETTABLEKS                       R20 R20 K42 ["Event"]
+      119 GETTABLEKS                       R20 R20 K44 ["MouseLeave"]
       121 NEWCLOSURE                       R21 P1
       122 CAPTURE                          VAL R0
       123 SETTABLE                         R21 R19 R20
-      124 GETUPVAL                         R22 1
-      125 GETTABLEKS                       R21 R22 K42 ["Event"]
-      127 GETTABLEKS                       R20 R21 K45 ["MouseButton1Down"]
+      124 GETUPVAL                         R20 1
+      125 GETTABLEKS                       R20 R20 K42 ["Event"]
+      127 GETTABLEKS                       R20 R20 K45 ["MouseButton1Down"]
       129 NEWCLOSURE                       R21 P2
       130 CAPTURE                          VAL R0
       131 SETTABLE                         R21 R19 R20
-      132 GETUPVAL                         R22 1
-      133 GETTABLEKS                       R21 R22 K42 ["Event"]
-      135 GETTABLEKS                       R20 R21 K46 ["MouseMoved"]
+      132 GETUPVAL                         R20 1
+      133 GETTABLEKS                       R20 R20 K42 ["Event"]
+      135 GETTABLEKS                       R20 R20 K46 ["MouseMoved"]
       137 NEWCLOSURE                       R21 P3
       138 CAPTURE                          VAL R0
       139 SETTABLE                         R21 R19 R20
       140 CALL                             R17 2 1
       141 SETTABLEKS                       R17 R16 K24 ["ImageButton"]
-      143 GETUPVAL                         R18 1
-      144 GETTABLEKS                       R17 R18 K6 ["createElement"]
+      143 GETUPVAL                         R17 1
+      144 GETTABLEKS                       R17 R17 K6 ["createElement"]
       146 GETUPVAL                         R18 3
       147 DUPTABLE                         R19 K54 [{"Windspeed", "WindDirection", "isChangingPitch", "isChangingYaw", "yawStateRequested", "pitchStateRequested", "speedStateRequested"}]
-      148 GETTABLEKS                       R21 R0 K55 ["state"]
-      150 GETTABLEKS                       R20 R21 K56 ["windspeed"]
+      148 GETTABLEKS                       R20 R0 K55 ["state"]
+      150 GETTABLEKS                       R20 R20 K56 ["windspeed"]
       152 SETTABLEKS                       R20 R19 K47 ["Windspeed"]
-      154 GETTABLEKS                       R21 R0 K55 ["state"]
-      156 GETTABLEKS                       R20 R21 K57 ["windDirection"]
+      154 GETTABLEKS                       R20 R0 K55 ["state"]
+      156 GETTABLEKS                       R20 R20 K57 ["windDirection"]
       158 SETTABLEKS                       R20 R19 K48 ["WindDirection"]
-      160 GETTABLEKS                       R21 R0 K55 ["state"]
-      162 GETTABLEKS                       R20 R21 K49 ["isChangingPitch"]
+      160 GETTABLEKS                       R20 R0 K55 ["state"]
+      162 GETTABLEKS                       R20 R20 K49 ["isChangingPitch"]
       164 SETTABLEKS                       R20 R19 K49 ["isChangingPitch"]
-      166 GETTABLEKS                       R21 R0 K55 ["state"]
-      168 GETTABLEKS                       R20 R21 K50 ["isChangingYaw"]
+      166 GETTABLEKS                       R20 R0 K55 ["state"]
+      168 GETTABLEKS                       R20 R20 K50 ["isChangingYaw"]
       170 SETTABLEKS                       R20 R19 K50 ["isChangingYaw"]
       172 GETTABLEKS                       R20 R0 K58 ["onYawStateRequested"]
       174 SETTABLEKS                       R20 R19 K51 ["yawStateRequested"]
@@ -610,37 +610,37 @@ MAIN:
         9 LOADK                            R3 K4 ["InsertService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R5 K6 [script]
-       15 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       17 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       19 GETTABLEKS                       R2 R3 K7 ["Parent"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K7 ["Parent"]
        21 GETIMPORT                        R3 K9 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K11 ["React"]
+       23 GETTABLEKS                       R4 R2 K10 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K11 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K9 [require]
-       30 GETTABLEKS                       R6 R2 K10 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K12 ["ReactRoblox"]
+       30 GETTABLEKS                       R5 R2 K10 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K12 ["ReactRoblox"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K9 [require]
-       37 GETTABLEKS                       R7 R2 K10 ["Packages"]
-       39 GETTABLEKS                       R6 R7 K13 ["Framework"]
+       37 GETTABLEKS                       R6 R2 K10 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K13 ["Framework"]
        41 CALL                             R5 1 1
-       42 GETTABLEKS                       R7 R5 K14 ["Style"]
-       44 GETTABLEKS                       R6 R7 K15 ["Stylizer"]
+       42 GETTABLEKS                       R6 R5 K14 ["Style"]
+       44 GETTABLEKS                       R6 R6 K15 ["Stylizer"]
        46 GETTABLEKS                       R7 R5 K16 ["ContextServices"]
        48 GETTABLEKS                       R8 R7 K17 ["withContext"]
        50 GETTABLEKS                       R9 R5 K18 ["UI"]
        52 GETTABLEKS                       R10 R9 K19 ["Pane"]
        54 GETIMPORT                        R11 K9 [require]
-       56 GETIMPORT                        R14 K6 [script]
-       58 GETTABLEKS                       R13 R14 K7 ["Parent"]
-       60 GETTABLEKS                       R12 R13 K20 ["Windhose"]
+       56 GETIMPORT                        R12 K6 [script]
+       58 GETTABLEKS                       R12 R12 K7 ["Parent"]
+       60 GETTABLEKS                       R12 R12 K20 ["Windhose"]
        62 CALL                             R11 1 1
        63 GETIMPORT                        R12 K9 [require]
-       65 GETIMPORT                        R15 K6 [script]
-       67 GETTABLEKS                       R14 R15 K7 ["Parent"]
-       69 GETTABLEKS                       R13 R14 K21 ["WindspeedDisplay"]
+       65 GETIMPORT                        R13 K6 [script]
+       67 GETTABLEKS                       R13 R13 K7 ["Parent"]
+       69 GETTABLEKS                       R13 R13 K21 ["WindspeedDisplay"]
        71 CALL                             R12 1 1
        72 GETTABLEKS                       R13 R3 K22 ["PureComponent"]
        74 LOADK                            R15 K23 ["MainGui"]

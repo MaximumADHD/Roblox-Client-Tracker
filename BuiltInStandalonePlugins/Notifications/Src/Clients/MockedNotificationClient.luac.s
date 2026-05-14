@@ -38,8 +38,8 @@ PROTO_2:
        28 GETIMPORT                        R10 K5 [table.insert]
        30 CALL                             R10 2 0
        31 FORNLOOP                         R5
-       32 GETUPVAL                         R6 1
-       33 GETTABLEKS                       R5 R6 K6 ["new"]
+       32 GETUPVAL                         R5 1
+       33 GETTABLEKS                       R5 R5 K6 ["new"]
        35 DUPCLOSURE                       R6 K7 [PROTO_1]
        36 CALL                             R5 1 1
        37 NAMECALL                         R6 R5 K8 ["await"]
@@ -75,20 +75,20 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R3 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R3 K8 ["Promise"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["Promise"]
        20 GETIMPORT                        R3 K4 [require]
-       22 GETTABLEKS                       R6 R0 K9 ["Src"]
-       24 GETTABLEKS                       R5 R6 K10 ["Clients"]
-       26 GETTABLEKS                       R4 R5 K11 ["MockedNotifications"]
+       22 GETTABLEKS                       R4 R0 K9 ["Src"]
+       24 GETTABLEKS                       R4 R4 K10 ["Clients"]
+       26 GETTABLEKS                       R4 R4 K11 ["MockedNotifications"]
        28 CALL                             R3 1 1
        29 DUPCLOSURE                       R4 K12 [PROTO_2]
        30 CAPTURE                          VAL R3

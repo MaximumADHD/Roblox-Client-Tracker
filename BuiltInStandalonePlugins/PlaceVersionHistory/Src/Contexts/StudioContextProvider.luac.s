@@ -8,11 +8,11 @@ PROTO_0:
         7 CALL                             R3 0 -1
         8 RETURN                           R3 -1
         9 DUPTABLE                         R3 K5 [{"PlaceId", "UniverseId", "Version"}]
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K6 ["placeId"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K6 ["placeId"]
        13 SETTABLEKS                       R4 R3 K2 ["PlaceId"]
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K7 ["universeId"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K7 ["universeId"]
        18 SETTABLEKS                       R4 R3 K3 ["UniverseId"]
        20 GETUPVAL                         R4 2
        21 SETTABLEKS                       R4 R3 K4 ["Version"]
@@ -34,8 +34,8 @@ PROTO_1:
        10 SETTABLEKS                       R0 R6 K2 ["targetPlaceVersion"]
        12 NAMECALL                         R3 R3 K5 ["logRobloxTelemetryEvent"]
        14 CALL                             R3 3 0
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R3 R4 K6 ["new"]
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K6 ["new"]
        18 NEWCLOSURE                       R4 P0
        19 CAPTURE                          VAL R2
        20 CAPTURE                          VAL R1
@@ -57,14 +57,14 @@ PROTO_3:
         3 CALL                             R1 1 1
         4 NAMECALL                         R1 R1 K1 ["get"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R2 R3 K2 ["useContext"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["useContext"]
        10 GETUPVAL                         R3 2
        11 CALL                             R2 1 1
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R3 R4 K3 ["createElement"]
-       15 GETUPVAL                         R5 3
-       16 GETTABLEKS                       R4 R5 K4 ["Provider"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["createElement"]
+       15 GETUPVAL                         R4 3
+       16 GETTABLEKS                       R4 R4 K4 ["Provider"]
        18 DUPTABLE                         R5 K6 [{"value"}]
        19 DUPTABLE                         R6 K8 [{"openPlace"}]
        20 NEWCLOSURE                       R7 P0
@@ -84,25 +84,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Promise"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Promise"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K10 ["TelemetryProtocol"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["TelemetryProtocol"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R6 R3 K11 ["ContextServices"]
-       37 GETTABLEKS                       R5 R6 K12 ["Plugin"]
-       39 GETTABLEKS                       R7 R0 K13 ["Src"]
-       41 GETTABLEKS                       R6 R7 K14 ["Contexts"]
+       35 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
+       37 GETTABLEKS                       R5 R5 K12 ["Plugin"]
+       39 GETTABLEKS                       R6 R0 K13 ["Src"]
+       41 GETTABLEKS                       R6 R6 K14 ["Contexts"]
        43 GETIMPORT                        R7 K5 [require]
        45 GETTABLEKS                       R8 R6 K15 ["SettingContext"]
        47 CALL                             R7 1 1
@@ -111,14 +111,14 @@ MAIN:
        52 CALL                             R8 1 1
        53 GETTABLEKS                       R9 R4 K17 ["new"]
        55 CALL                             R9 0 1
-       56 GETTABLEKS                       R11 R0 K13 ["Src"]
-       58 GETTABLEKS                       R10 R11 K18 ["Events"]
+       56 GETTABLEKS                       R10 R0 K13 ["Src"]
+       58 GETTABLEKS                       R10 R10 K18 ["Events"]
        60 GETIMPORT                        R11 K5 [require]
        62 GETTABLEKS                       R12 R10 K19 ["OpenLocalCopyEvent"]
        64 CALL                             R11 1 1
        65 GETIMPORT                        R12 K5 [require]
-       67 GETTABLEKS                       R14 R0 K13 ["Src"]
-       69 GETTABLEKS                       R13 R14 K20 ["Types"]
+       67 GETTABLEKS                       R13 R0 K13 ["Src"]
+       69 GETTABLEKS                       R13 R13 K20 ["Types"]
        71 CALL                             R12 1 1
        72 DUPCLOSURE                       R13 K21 [PROTO_1]
        73 CAPTURE                          VAL R9

@@ -2,8 +2,8 @@ PROTO_0:
         0 GETTABLEKS                       R3 R0 K0 ["comms"]
         2 JUMPIFNOT                        R3 ; [+1]
         3 RETURN                           R0 0
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R3 R4 K1 ["new"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["new"]
         7 LOADK                            R4 K2 ["Toolbox"]
         8 CALL                             R3 1 1
         9 SETTABLEKS                       R3 R0 K0 ["comms"]
@@ -34,12 +34,12 @@ PROTO_1:
        24 GETUPVAL                         R1 0
        25 GETUPVAL                         R3 3
        26 DUPTABLE                         R4 K7 [{"categoryName", "currentTab"}]
-       27 GETUPVAL                         R7 4
-       28 GETTABLEKS                       R6 R7 K8 ["FREE_MODELS"]
-       30 GETTABLEKS                       R5 R6 K9 ["name"]
+       27 GETUPVAL                         R5 4
+       28 GETTABLEKS                       R5 R5 K8 ["FREE_MODELS"]
+       30 GETTABLEKS                       R5 R5 K9 ["name"]
        32 SETTABLEKS                       R5 R4 K5 ["categoryName"]
-       34 GETUPVAL                         R6 4
-       35 GETTABLEKS                       R5 R6 K10 ["MARKETPLACE_KEY"]
+       34 GETUPVAL                         R5 4
+       35 GETTABLEKS                       R5 R5 K10 ["MARKETPLACE_KEY"]
        37 SETTABLEKS                       R5 R4 K6 ["currentTab"]
        39 CALL                             R3 1 -1
        40 NAMECALL                         R1 R1 K3 ["dispatch"]
@@ -77,8 +77,8 @@ PROTO_4:
         0 PREPVARARGS                      1
         1 GETTABLEKS                       R1 R0 K0 ["comms"]
         3 JUMPIFNOT                        R1 ; [+11]
-        4 GETTABLEKS                       R2 R0 K0 ["comms"]
-        6 GETTABLEKS                       R1 R2 K1 ["Fire"]
+        4 GETTABLEKS                       R1 R0 K0 ["comms"]
+        6 GETTABLEKS                       R1 R1 K1 ["Fire"]
         8 JUMPIFNOT                        R1 ; [+6]
         9 GETTABLEKS                       R1 R0 K0 ["comms"]
        11 GETVARARGS                       R3 -1
@@ -97,30 +97,30 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetFastFlag"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R2 K12 ["Util"]
-       22 GETTABLEKS                       R3 R4 K13 ["CrossPluginCommunication"]
+       20 GETTABLEKS                       R3 R2 K12 ["Util"]
+       22 GETTABLEKS                       R3 R3 K13 ["CrossPluginCommunication"]
        24 GETIMPORT                        R4 K9 [require]
-       26 GETTABLEKS                       R7 R0 K14 ["Src"]
-       28 GETTABLEKS                       R6 R7 K15 ["Actions"]
-       30 GETTABLEKS                       R5 R6 K16 ["SetTutorialLimits"]
+       26 GETTABLEKS                       R5 R0 K14 ["Src"]
+       28 GETTABLEKS                       R5 R5 K15 ["Actions"]
+       30 GETTABLEKS                       R5 R5 K16 ["SetTutorialLimits"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K9 [require]
-       35 GETTABLEKS                       R8 R0 K14 ["Src"]
-       37 GETTABLEKS                       R7 R8 K15 ["Actions"]
-       39 GETTABLEKS                       R6 R7 K17 ["UpdateSearchTerm"]
+       35 GETTABLEKS                       R6 R0 K14 ["Src"]
+       37 GETTABLEKS                       R6 R6 K15 ["Actions"]
+       39 GETTABLEKS                       R6 R6 K17 ["UpdateSearchTerm"]
        41 CALL                             R5 1 1
        42 GETIMPORT                        R6 K9 [require]
-       44 GETTABLEKS                       R9 R0 K14 ["Src"]
-       46 GETTABLEKS                       R8 R9 K15 ["Actions"]
-       48 GETTABLEKS                       R7 R8 K18 ["UpdatePageInfo"]
+       44 GETTABLEKS                       R7 R0 K14 ["Src"]
+       46 GETTABLEKS                       R7 R7 K15 ["Actions"]
+       48 GETTABLEKS                       R7 R7 K18 ["UpdatePageInfo"]
        50 CALL                             R6 1 1
        51 GETIMPORT                        R7 K9 [require]
-       53 GETTABLEKS                       R10 R0 K14 ["Src"]
-       55 GETTABLEKS                       R9 R10 K19 ["Types"]
-       57 GETTABLEKS                       R8 R9 K20 ["Category"]
+       53 GETTABLEKS                       R8 R0 K14 ["Src"]
+       55 GETTABLEKS                       R8 R8 K19 ["Types"]
+       57 GETTABLEKS                       R8 R8 K20 ["Category"]
        59 CALL                             R7 1 1
        60 DUPTABLE                         R8 K22 [{"comms"}]
        61 LOADNIL                          R9

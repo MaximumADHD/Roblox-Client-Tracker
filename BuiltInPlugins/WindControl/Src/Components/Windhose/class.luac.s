@@ -15,11 +15,11 @@ PROTO_0:
        16 RETURN                           R1 1
        17 GETUPVAL                         R2 2
        18 JUMPIFNOT                        R2 ; [+10]
-       19 GETUPVAL                         R3 2
-       20 GETTABLEKS                       R2 R3 K2 ["init"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K2 ["init"]
        22 JUMPIFNOT                        R2 ; [+6]
-       23 GETUPVAL                         R3 2
-       24 GETTABLEKS                       R2 R3 K2 ["init"]
+       23 GETUPVAL                         R2 2
+       24 GETTABLEKS                       R2 R2 K2 ["init"]
        26 MOVE                             R3 R1
        27 GETVARARGS                       R4 -1
        28 CALL                             R2 -1 0

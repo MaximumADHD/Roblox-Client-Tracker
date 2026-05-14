@@ -1,13 +1,13 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SelectedObject"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SelectedObject"]
         5 JUMPIFNOTEQKNIL                  R1 ; [+2]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R1 R2 K0 ["props"]
-       11 GETTABLEKS                       R3 R1 K1 ["SelectedObject"]
-       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K0 ["props"]
+       11 GETTABLEKS                       R2 R1 K1 ["SelectedObject"]
+       13 GETTABLEKS                       R2 R2 K2 ["Parent"]
        15 GETUPVAL                         R3 1
        16 MOVE                             R4 R0
        17 MOVE                             R5 R2
@@ -74,8 +74,8 @@ PROTO_0:
        95 GETTABLEN                        R7 R5 2
        96 GETTABLEN                        R8 R5 3
        97 JUMPIFEQKNIL                     R7 ; [+20]
-       99 GETUPVAL                         R10 5
-      100 GETTABLEKS                       R9 R10 K11 ["SnapToSegmentEpsilon"]
+       99 GETUPVAL                         R9 5
+      100 GETTABLEKS                       R9 R9 K11 ["SnapToSegmentEpsilon"]
       102 JUMPIFNOTLT                      R7 R9 ; [+15]
       104 GETTABLEKS                       R9 R1 K5 ["dispatchAddControlPoint"]
       106 GETTABLEKS                       R10 R1 K1 ["SelectedObject"]
@@ -91,15 +91,15 @@ PROTO_0:
 
 PROTO_1:
         0 JUMPIF                           R1 ; [+7]
-        1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R3 R4 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["SelectedObject"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["SelectedObject"]
         6 JUMPIFNOTEQKNIL                  R2 ; [+2]
         8 RETURN                           R0 0
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K0 ["props"]
-       12 GETTABLEKS                       R4 R2 K1 ["SelectedObject"]
-       14 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K0 ["props"]
+       12 GETTABLEKS                       R3 R2 K1 ["SelectedObject"]
+       14 GETTABLEKS                       R3 R3 K2 ["Parent"]
        16 GETUPVAL                         R4 1
        17 MOVE                             R5 R0
        18 MOVE                             R6 R3
@@ -169,13 +169,13 @@ PROTO_1:
       106 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["props"]
-        3 GETTABLEKS                       R2 R3 K1 ["SelectedObject"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["props"]
+        3 GETTABLEKS                       R2 R2 K1 ["SelectedObject"]
         5 JUMPIFNOTEQKNIL                  R2 ; [+2]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R2 R3 K0 ["props"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K0 ["props"]
        11 GETTABLEKS                       R3 R2 K1 ["SelectedObject"]
        13 GETTABLEKS                       R5 R2 K2 ["AddPointSubMode"]
        15 JUMPIFNOTEQKS                    R5 K3 ["Append"] ; [+3]
@@ -225,15 +225,15 @@ PROTO_3:
        26 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["dispatchSetIsDraggingPoint"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["dispatchSetIsDraggingPoint"]
         3 LOADB                            R2 1
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["dispatchSetIsDraggingPoint"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["dispatchSetIsDraggingPoint"]
         3 LOADB                            R1 0
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -356,8 +356,8 @@ PROTO_6:
       163 GETTABLEN                        R13 R12 2
       164 GETTABLEN                        R14 R12 3
       165 JUMPIFEQKNIL                     R13 ; [+19]
-      167 GETUPVAL                         R16 4
-      168 GETTABLEKS                       R15 R16 K21 ["SnapToSegmentEpsilon"]
+      167 GETUPVAL                         R15 4
+      168 GETTABLEKS                       R15 R15 K21 ["SnapToSegmentEpsilon"]
       170 JUMPIFNOTLT                      R13 R15 ; [+14]
       172 GETUPVAL                         R15 0
       173 GETUPVAL                         R16 1
@@ -390,8 +390,8 @@ PROTO_6:
       209 CALL                             R16 1 -1
       210 SETLIST                          R14 R15 -1 [1]
       212 MOVE                             R12 R14
-      213 GETUPVAL                         R14 6
-      214 GETTABLEKS                       R13 R14 K26 ["createElement"]
+      213 GETUPVAL                         R13 6
+      214 GETTABLEKS                       R13 R13 K26 ["createElement"]
       216 GETUPVAL                         R14 7
       217 DUPTABLE                         R15 K29 [{"DisplayOrder", "ZIndexBehavior"}]
       218 LOADN                            R16 3
@@ -399,8 +399,8 @@ PROTO_6:
       221 GETIMPORT                        R16 K32 [Enum.ZIndexBehavior.Sibling]
       223 SETTABLEKS                       R16 R15 K28 ["ZIndexBehavior"]
       225 NEWTABLE                         R16 0 1
-      227 GETUPVAL                         R18 6
-      228 GETTABLEKS                       R17 R18 K26 ["createElement"]
+      227 GETUPVAL                         R17 6
+      228 GETTABLEKS                       R17 R17 K26 ["createElement"]
       230 GETUPVAL                         R18 8
       231 DUPTABLE                         R19 K41 [{"Style", "Size", "FollowCursorOnDrag", "OnSelected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnHoverMoved"}]
       232 LOADK                            R20 K4 ["AddPoint"]
@@ -426,8 +426,8 @@ PROTO_6:
       263 SETTABLEKS                       R20 R19 K40 ["OnHoverMoved"]
       265 DUPTABLE                         R20 K49 [{"Line", "ControlPoint"}]
       266 JUMPIFNOT                        R10 ; [+20]
-      267 GETUPVAL                         R22 6
-      268 GETTABLEKS                       R21 R22 K26 ["createElement"]
+      267 GETUPVAL                         R21 6
+      268 GETTABLEKS                       R21 R21 K26 ["createElement"]
       270 GETUPVAL                         R22 9
       271 DUPTABLE                         R23 K52 [{"Color", "Style", "Thickness", "ControlPoints"}]
       272 GETTABLEKS                       R24 R3 K53 ["Color3"]
@@ -442,8 +442,8 @@ PROTO_6:
       287 LOADNIL                          R21
       288 SETTABLEKS                       R21 R20 K47 ["Line"]
       290 JUMPIFNOT                        R11 ; [+15]
-      291 GETUPVAL                         R22 6
-      292 GETTABLEKS                       R21 R22 K26 ["createElement"]
+      291 GETUPVAL                         R21 6
+      292 GETTABLEKS                       R21 R21 K26 ["createElement"]
       294 GETUPVAL                         R22 10
       295 DUPTABLE                         R23 K56 [{"Style", "Position", "ZIndex"}]
       296 LOADK                            R24 K48 ["ControlPoint"]
@@ -462,38 +462,38 @@ PROTO_6:
 
 PROTO_7:
         0 DUPTABLE                         R2 K11 [{"Refreshed", "SelectedObject", "ParentAbsPos", "ParentAbsSize", "ParentAbsRotation", "Path2DToolMode", "ControlPoints", "ToolbarHovered", "IsDraggingPoint", "AddPointSubMode", "SelectedControlPointIndex"}]
-        1 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["Refreshed"]
+        1 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["Refreshed"]
         5 SETTABLEKS                       R3 R2 K0 ["Refreshed"]
-        7 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-        9 GETTABLEKS                       R3 R4 K1 ["SelectedObject"]
+        7 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+        9 GETTABLEKS                       R3 R3 K1 ["SelectedObject"]
        11 SETTABLEKS                       R3 R2 K1 ["SelectedObject"]
-       13 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       15 GETTABLEKS                       R3 R4 K2 ["ParentAbsPos"]
+       13 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       15 GETTABLEKS                       R3 R3 K2 ["ParentAbsPos"]
        17 SETTABLEKS                       R3 R2 K2 ["ParentAbsPos"]
-       19 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       21 GETTABLEKS                       R3 R4 K3 ["ParentAbsSize"]
+       19 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       21 GETTABLEKS                       R3 R3 K3 ["ParentAbsSize"]
        23 SETTABLEKS                       R3 R2 K3 ["ParentAbsSize"]
-       25 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       27 GETTABLEKS                       R3 R4 K4 ["ParentAbsRotation"]
+       25 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       27 GETTABLEKS                       R3 R3 K4 ["ParentAbsRotation"]
        29 SETTABLEKS                       R3 R2 K4 ["ParentAbsRotation"]
-       31 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       33 GETTABLEKS                       R3 R4 K5 ["Path2DToolMode"]
+       31 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       33 GETTABLEKS                       R3 R3 K5 ["Path2DToolMode"]
        35 SETTABLEKS                       R3 R2 K5 ["Path2DToolMode"]
-       37 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       39 GETTABLEKS                       R3 R4 K6 ["ControlPoints"]
+       37 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       39 GETTABLEKS                       R3 R3 K6 ["ControlPoints"]
        41 SETTABLEKS                       R3 R2 K6 ["ControlPoints"]
-       43 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       45 GETTABLEKS                       R3 R4 K7 ["ToolbarHovered"]
+       43 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       45 GETTABLEKS                       R3 R3 K7 ["ToolbarHovered"]
        47 SETTABLEKS                       R3 R2 K7 ["ToolbarHovered"]
-       49 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       51 GETTABLEKS                       R3 R4 K8 ["IsDraggingPoint"]
+       49 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       51 GETTABLEKS                       R3 R3 K8 ["IsDraggingPoint"]
        53 SETTABLEKS                       R3 R2 K8 ["IsDraggingPoint"]
-       55 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       57 GETTABLEKS                       R3 R4 K9 ["AddPointSubMode"]
+       55 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       57 GETTABLEKS                       R3 R3 K9 ["AddPointSubMode"]
        59 SETTABLEKS                       R3 R2 K9 ["AddPointSubMode"]
-       61 GETTABLEKS                       R4 R0 K12 ["PathReducer"]
-       63 GETTABLEKS                       R3 R4 K10 ["SelectedControlPointIndex"]
+       61 GETTABLEKS                       R3 R0 K12 ["PathReducer"]
+       63 GETTABLEKS                       R3 R3 K10 ["SelectedControlPointIndex"]
        65 SETTABLEKS                       R3 R2 K10 ["SelectedControlPointIndex"]
        67 RETURN                           R2 1
 
@@ -568,36 +568,36 @@ PROTO_13:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K8 ["React"]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R6 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R6 R0 K5 ["Src"]
-       39 GETTABLEKS                       R5 R6 K11 ["Actions"]
+       37 GETTABLEKS                       R5 R0 K5 ["Src"]
+       39 GETTABLEKS                       R5 R5 K11 ["Actions"]
        41 GETIMPORT                        R6 K4 [require]
        43 GETTABLEKS                       R7 R5 K12 ["SetIsDraggingPoint"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K4 [require]
        48 GETTABLEKS                       R8 R5 K13 ["SetAddPointSubMode"]
        50 CALL                             R7 1 1
-       51 GETTABLEKS                       R9 R0 K5 ["Src"]
-       53 GETTABLEKS                       R8 R9 K14 ["Thunks"]
+       51 GETTABLEKS                       R8 R0 K5 ["Src"]
+       53 GETTABLEKS                       R8 R8 K14 ["Thunks"]
        55 GETIMPORT                        R9 K4 [require]
        57 GETTABLEKS                       R10 R8 K15 ["AddControlPoint"]
        59 CALL                             R9 1 1
@@ -607,8 +607,8 @@ MAIN:
        65 GETIMPORT                        R11 K4 [require]
        67 GETTABLEKS                       R12 R8 K17 ["SelectControlPoint"]
        69 CALL                             R11 1 1
-       70 GETTABLEKS                       R13 R0 K5 ["Src"]
-       72 GETTABLEKS                       R12 R13 K18 ["Components"]
+       70 GETTABLEKS                       R12 R0 K5 ["Src"]
+       72 GETTABLEKS                       R12 R12 K18 ["Components"]
        74 GETIMPORT                        R13 K4 [require]
        76 GETTABLEKS                       R14 R12 K19 ["DraggablePoint"]
        78 CALL                             R13 1 1
@@ -621,12 +621,12 @@ MAIN:
        89 GETTABLEKS                       R16 R4 K22 ["UI"]
        91 GETTABLEKS                       R17 R16 K23 ["Image"]
        93 GETIMPORT                        R18 K4 [require]
-       95 GETTABLEKS                       R21 R0 K5 ["Src"]
-       97 GETTABLEKS                       R20 R21 K24 ["Resources"]
-       99 GETTABLEKS                       R19 R20 K25 ["Constants"]
+       95 GETTABLEKS                       R19 R0 K5 ["Src"]
+       97 GETTABLEKS                       R19 R19 K24 ["Resources"]
+       99 GETTABLEKS                       R19 R19 K25 ["Constants"]
       101 CALL                             R18 1 1
-      102 GETTABLEKS                       R20 R0 K5 ["Src"]
-      104 GETTABLEKS                       R19 R20 K26 ["Util"]
+      102 GETTABLEKS                       R19 R0 K5 ["Src"]
+      104 GETTABLEKS                       R19 R19 K26 ["Util"]
       106 GETIMPORT                        R20 K4 [require]
       108 GETTABLEKS                       R21 R19 K27 ["getClosestControlPointToPosition"]
       110 CALL                             R20 1 1

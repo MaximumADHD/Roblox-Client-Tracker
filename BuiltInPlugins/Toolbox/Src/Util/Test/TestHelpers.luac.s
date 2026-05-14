@@ -404,8 +404,8 @@ MAIN:
         9 GETIMPORT                        R2 K6 [require]
        11 GETTABLEKS                       R3 R1 K7 ["Framework"]
        13 CALL                             R2 1 1
-       14 GETTABLEKS                       R4 R2 K8 ["Util"]
-       16 GETTABLEKS                       R3 R4 K9 ["pollUntil"]
+       14 GETTABLEKS                       R3 R2 K8 ["Util"]
+       16 GETTABLEKS                       R3 R3 K9 ["pollUntil"]
        18 NEWTABLE                         R4 4 0
        20 DUPCLOSURE                       R5 K10 [PROTO_1]
        21 SETTABLEKS                       R5 R4 K11 ["createMockStudioStyleGuideColor"]

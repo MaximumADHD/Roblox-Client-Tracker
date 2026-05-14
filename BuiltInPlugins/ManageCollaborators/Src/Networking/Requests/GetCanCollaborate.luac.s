@@ -8,8 +8,8 @@ PROTO_1:
         0 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETTABLEKS                       R2 R1 K1 ["composeUrl"]
         6 GETTABLEKS                       R3 R1 K2 ["APIS_URL"]
@@ -63,18 +63,18 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R6 R2 K11 ["Src"]
-       23 GETTABLEKS                       R5 R6 K12 ["Networking"]
-       25 GETTABLEKS                       R4 R5 K13 ["Http"]
+       21 GETTABLEKS                       R4 R2 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Networking"]
+       25 GETTABLEKS                       R4 R4 K13 ["Http"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K10 [require]
-       30 GETTABLEKS                       R6 R2 K14 ["Packages"]
-       32 GETTABLEKS                       R5 R6 K15 ["Framework"]
+       30 GETTABLEKS                       R5 R2 K14 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K15 ["Framework"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R6 R4 K16 ["RobloxAPI"]
-       37 GETTABLEKS                       R5 R6 K17 ["Url"]
-       39 GETTABLEKS                       R7 R4 K13 ["Http"]
-       41 GETTABLEKS                       R6 R7 K12 ["Networking"]
+       35 GETTABLEKS                       R5 R4 K16 ["RobloxAPI"]
+       37 GETTABLEKS                       R5 R5 K17 ["Url"]
+       39 GETTABLEKS                       R6 R4 K13 ["Http"]
+       41 GETTABLEKS                       R6 R6 K12 ["Networking"]
        43 GETTABLEKS                       R7 R6 K18 ["new"]
        45 DUPTABLE                         R8 K21 [{"isInternal", "retryAmount"}]
        46 LOADB                            R9 1

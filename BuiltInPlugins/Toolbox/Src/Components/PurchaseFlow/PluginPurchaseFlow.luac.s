@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["Cancel"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Cancel"]
         5 CALL                             R0 0 0
         6 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["OnPurchaseClicked"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["OnPurchaseClicked"]
         5 MOVE                             R2 R0
         6 CALL                             R1 1 -1
         7 RETURN                           R1 -1
@@ -16,14 +16,14 @@ PROTO_1:
 PROTO_2:
         0 JUMPIFNOT                        R0 ; [+8]
         1 GETUPVAL                         R1 0
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K0 ["getRobuxPurchaseUrl"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K0 ["getRobuxPurchaseUrl"]
         5 CALL                             R3 0 -1
         6 NAMECALL                         R1 R1 K1 ["OpenBrowserWindow"]
         8 CALL                             R1 -1 0
-        9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R2 R3 K2 ["props"]
-       12 GETTABLEKS                       R1 R2 K3 ["Cancel"]
+        9 GETUPVAL                         R1 2
+       10 GETTABLEKS                       R1 R1 K2 ["props"]
+       12 GETTABLEKS                       R1 R1 K3 ["Cancel"]
        14 CALL                             R1 0 0
        15 RETURN                           R0 0
 
@@ -43,11 +43,11 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R3 R0 K0 ["props"]
-        4 GETTABLEKS                       R2 R3 K1 ["getRobuxBalance"]
-        6 GETTABLEKS                       R5 R0 K0 ["props"]
-        8 GETTABLEKS                       R4 R5 K2 ["Network"]
-       10 GETTABLEKS                       R3 R4 K3 ["networkInterface"]
+        2 GETTABLEKS                       R2 R0 K0 ["props"]
+        4 GETTABLEKS                       R2 R2 K1 ["getRobuxBalance"]
+        6 GETTABLEKS                       R3 R0 K0 ["props"]
+        8 GETTABLEKS                       R3 R3 K2 ["Network"]
+       10 GETTABLEKS                       R3 R3 K3 ["networkInterface"]
        12 CALL                             R2 1 0
        13 RETURN                           R0 0
 
@@ -68,17 +68,17 @@ PROTO_5:
        20 GETTABLEKS                       R3 R1 K9 ["AssetData"]
        22 GETTABLEKS                       R4 R3 K10 ["Asset"]
        24 GETTABLEKS                       R5 R4 K11 ["Id"]
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R6 R7 K12 ["constructAssetThumbnailUrl"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K12 ["constructAssetThumbnailUrl"]
        29 MOVE                             R7 R5
-       30 GETUPVAL                         R9 1
-       31 GETTABLEKS                       R8 R9 K13 ["X"]
-       33 GETUPVAL                         R10 1
-       34 GETTABLEKS                       R9 R10 K14 ["Y"]
+       30 GETUPVAL                         R8 1
+       31 GETTABLEKS                       R8 R8 K13 ["X"]
+       33 GETUPVAL                         R9 1
+       34 GETTABLEKS                       R9 R9 K14 ["Y"]
        36 CALL                             R6 3 1
        37 GETTABLEKS                       R7 R4 K15 ["Name"]
-       39 GETTABLEKS                       R9 R3 K16 ["Creator"]
-       41 GETTABLEKS                       R8 R9 K15 ["Name"]
+       39 GETTABLEKS                       R8 R3 K16 ["Creator"]
+       41 GETTABLEKS                       R8 R8 K15 ["Name"]
        43 GETTABLEKS                       R9 R3 K17 ["Product"]
        45 JUMPIFNOT                        R9 ; [+3]
        46 GETTABLEKS                       R10 R9 K18 ["Price"]
@@ -95,13 +95,13 @@ PROTO_5:
        61 LOADB                            R13 1
        62 MOVE                             R14 R11
        63 JUMPIFNOT                        R14 ; [+61]
-       64 GETUPVAL                         R15 2
-       65 GETTABLEKS                       R14 R15 K21 ["createFragment"]
+       64 GETUPVAL                         R14 2
+       65 GETTABLEKS                       R14 R14 K21 ["createFragment"]
        67 DUPTABLE                         R15 K24 [{"BuyPlugin", "BuyRobux"}]
        68 MOVE                             R16 R13
        69 JUMPIFNOT                        R16 ; [+24]
-       70 GETUPVAL                         R17 2
-       71 GETTABLEKS                       R16 R17 K25 ["createElement"]
+       70 GETUPVAL                         R16 2
+       71 GETTABLEKS                       R16 R16 K25 ["createElement"]
        73 GETUPVAL                         R17 3
        74 DUPTABLE                         R18 K30 [{"Name", "Creator", "Cost", "Balance", "Thumbnail", "OnClose", "OnButtonClicked"}]
        75 SETTABLEKS                       R7 R18 K15 ["Name"]
@@ -117,8 +117,8 @@ PROTO_5:
        94 SETTABLEKS                       R16 R15 K22 ["BuyPlugin"]
        96 NOT                              R16 R13
        97 JUMPIFNOT                        R16 ; [+24]
-       98 GETUPVAL                         R17 2
-       99 GETTABLEKS                       R16 R17 K25 ["createElement"]
+       98 GETUPVAL                         R16 2
+       99 GETTABLEKS                       R16 R16 K25 ["createElement"]
       101 GETUPVAL                         R17 4
       102 DUPTABLE                         R18 K30 [{"Name", "Creator", "Cost", "Balance", "Thumbnail", "OnClose", "OnButtonClicked"}]
       103 SETTABLEKS                       R7 R18 K15 ["Name"]
@@ -195,14 +195,14 @@ MAIN:
         8 LOADK                            R3 K5 ["GuiService"]
         9 NAMECALL                         R1 R1 K6 ["GetService"]
        11 CALL                             R1 2 1
-       12 GETIMPORT                        R6 K8 [script]
-       14 GETTABLEKS                       R5 R6 K9 ["Parent"]
-       16 GETTABLEKS                       R4 R5 K9 ["Parent"]
-       18 GETTABLEKS                       R3 R4 K9 ["Parent"]
-       20 GETTABLEKS                       R2 R3 K9 ["Parent"]
+       12 GETIMPORT                        R2 K8 [script]
+       14 GETTABLEKS                       R2 R2 K9 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K9 ["Parent"]
+       18 GETTABLEKS                       R2 R2 K9 ["Parent"]
+       20 GETTABLEKS                       R2 R2 K9 ["Parent"]
        22 GETTABLEKS                       R3 R2 K10 ["Packages"]
-       24 GETTABLEKS                       R5 R2 K11 ["Src"]
-       26 GETTABLEKS                       R4 R5 K12 ["Util"]
+       24 GETTABLEKS                       R4 R2 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
        28 GETIMPORT                        R5 K14 [require]
        30 GETTABLEKS                       R6 R3 K15 ["Roact"]
        32 CALL                             R5 1 1
@@ -210,53 +210,53 @@ MAIN:
        35 GETTABLEKS                       R7 R3 K16 ["RoactRodux"]
        37 CALL                             R6 1 1
        38 GETIMPORT                        R7 K14 [require]
-       40 GETTABLEKS                       R11 R2 K11 ["Src"]
-       42 GETTABLEKS                       R10 R11 K17 ["Components"]
-       44 GETTABLEKS                       R9 R10 K18 ["PurchaseFlow"]
-       46 GETTABLEKS                       R8 R9 K19 ["BuyPluginDialog"]
+       40 GETTABLEKS                       R8 R2 K11 ["Src"]
+       42 GETTABLEKS                       R8 R8 K17 ["Components"]
+       44 GETTABLEKS                       R8 R8 K18 ["PurchaseFlow"]
+       46 GETTABLEKS                       R8 R8 K19 ["BuyPluginDialog"]
        48 CALL                             R7 1 1
        49 GETIMPORT                        R8 K14 [require]
-       51 GETTABLEKS                       R12 R2 K11 ["Src"]
-       53 GETTABLEKS                       R11 R12 K17 ["Components"]
-       55 GETTABLEKS                       R10 R11 K18 ["PurchaseFlow"]
-       57 GETTABLEKS                       R9 R10 K20 ["BuyRobuxDialog"]
+       51 GETTABLEKS                       R9 R2 K11 ["Src"]
+       53 GETTABLEKS                       R9 R9 K17 ["Components"]
+       55 GETTABLEKS                       R9 R9 K18 ["PurchaseFlow"]
+       57 GETTABLEKS                       R9 R9 K20 ["BuyRobuxDialog"]
        59 CALL                             R8 1 1
        60 GETIMPORT                        R9 K14 [require]
        62 GETTABLEKS                       R10 R3 K21 ["Framework"]
        64 CALL                             R9 1 1
        65 GETIMPORT                        R10 K14 [require]
-       67 GETTABLEKS                       R13 R2 K11 ["Src"]
-       69 GETTABLEKS                       R12 R13 K12 ["Util"]
-       71 GETTABLEKS                       R11 R12 K22 ["Urls"]
+       67 GETTABLEKS                       R11 R2 K11 ["Src"]
+       69 GETTABLEKS                       R11 R11 K12 ["Util"]
+       71 GETTABLEKS                       R11 R11 K22 ["Urls"]
        73 CALL                             R10 1 1
        74 GETTABLEKS                       R11 R9 K23 ["ContextServices"]
        76 GETTABLEKS                       R12 R11 K24 ["withContext"]
        78 GETIMPORT                        R13 K14 [require]
-       80 GETTABLEKS                       R16 R2 K11 ["Src"]
-       82 GETTABLEKS                       R15 R16 K23 ["ContextServices"]
-       84 GETTABLEKS                       R14 R15 K25 ["NetworkContext"]
+       80 GETTABLEKS                       R14 R2 K11 ["Src"]
+       82 GETTABLEKS                       R14 R14 K23 ["ContextServices"]
+       84 GETTABLEKS                       R14 R14 K25 ["NetworkContext"]
        86 CALL                             R13 1 1
        87 GETIMPORT                        R14 K14 [require]
-       89 GETTABLEKS                       R18 R2 K11 ["Src"]
-       91 GETTABLEKS                       R17 R18 K26 ["Networking"]
-       93 GETTABLEKS                       R16 R17 K27 ["Requests"]
-       95 GETTABLEKS                       R15 R16 K28 ["GetRobuxBalance"]
+       89 GETTABLEKS                       R15 R2 K11 ["Src"]
+       91 GETTABLEKS                       R15 R15 K26 ["Networking"]
+       93 GETTABLEKS                       R15 R15 K27 ["Requests"]
+       95 GETTABLEKS                       R15 R15 K28 ["GetRobuxBalance"]
        97 CALL                             R14 1 1
        98 GETIMPORT                        R15 K14 [require]
-      100 GETTABLEKS                       R19 R2 K11 ["Src"]
-      102 GETTABLEKS                       R18 R19 K26 ["Networking"]
-      104 GETTABLEKS                       R17 R18 K27 ["Requests"]
-      106 GETTABLEKS                       R16 R17 K29 ["PurchaseAssetRequest"]
+      100 GETTABLEKS                       R16 R2 K11 ["Src"]
+      102 GETTABLEKS                       R16 R16 K26 ["Networking"]
+      104 GETTABLEKS                       R16 R16 K27 ["Requests"]
+      106 GETTABLEKS                       R16 R16 K29 ["PurchaseAssetRequest"]
       108 CALL                             R15 1 1
       109 GETIMPORT                        R16 K14 [require]
-      111 GETTABLEKS                       R19 R2 K11 ["Src"]
-      113 GETTABLEKS                       R18 R19 K30 ["Actions"]
-      115 GETTABLEKS                       R17 R18 K31 ["SetPurchaseStatus"]
+      111 GETTABLEKS                       R17 R2 K11 ["Src"]
+      113 GETTABLEKS                       R17 R17 K30 ["Actions"]
+      115 GETTABLEKS                       R17 R17 K31 ["SetPurchaseStatus"]
       117 CALL                             R16 1 1
       118 GETIMPORT                        R17 K14 [require]
-      120 GETTABLEKS                       R20 R2 K11 ["Src"]
-      122 GETTABLEKS                       R19 R20 K32 ["Types"]
-      124 GETTABLEKS                       R18 R19 K33 ["PurchaseStatus"]
+      120 GETTABLEKS                       R18 R2 K11 ["Src"]
+      122 GETTABLEKS                       R18 R18 K32 ["Types"]
+      124 GETTABLEKS                       R18 R18 K33 ["PurchaseStatus"]
       126 CALL                             R17 1 1
       127 GETTABLEKS                       R18 R5 K34 ["PureComponent"]
       129 LOADK                            R20 K18 ["PurchaseFlow"]

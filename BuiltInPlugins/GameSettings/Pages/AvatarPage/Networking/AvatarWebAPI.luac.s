@@ -38,8 +38,8 @@ PROTO_4:
 
 PROTO_5:
         0 GETIMPORT                        R1 K1 [pairs]
-        2 GETUPVAL                         R4 0
-        3 GETTABLEKS                       R2 R4 K2 ["Status"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K2 ["Status"]
         5 CALL                             R1 1 3
         6 FORGPREP_NEXT                    R1
         7 LOADN                            R6 100
@@ -57,9 +57,9 @@ PROTO_5:
        23 NAMECALL                         R1 R0 K5 ["find"]
        25 CALL                             R1 2 1
        26 JUMPIFNOT                        R1 ; [+6]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R2 R3 K2 ["Status"]
-       30 GETTABLEKS                       R1 R2 K7 ["OK"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K2 ["Status"]
+       30 GETTABLEKS                       R1 R1 K7 ["OK"]
        32 RETURN                           R1 1
        33 LOADK                            R3 K8 ["curl_easy_perform"]
        34 NAMECALL                         R1 R0 K5 ["find"]
@@ -69,13 +69,13 @@ PROTO_5:
        39 NAMECALL                         R1 R0 K5 ["find"]
        41 CALL                             R1 2 1
        42 JUMPIFNOT                        R1 ; [+6]
-       43 GETUPVAL                         R3 0
-       44 GETTABLEKS                       R2 R3 K2 ["Status"]
-       46 GETTABLEKS                       R1 R2 K10 ["BAD_TLS"]
+       43 GETUPVAL                         R1 0
+       44 GETTABLEKS                       R1 R1 K2 ["Status"]
+       46 GETTABLEKS                       R1 R1 K10 ["BAD_TLS"]
        48 RETURN                           R1 1
-       49 GETUPVAL                         R3 0
-       50 GETTABLEKS                       R2 R3 K2 ["Status"]
-       52 GETTABLEKS                       R1 R2 K11 ["UNKNOWN_ERROR"]
+       49 GETUPVAL                         R1 0
+       50 GETTABLEKS                       R1 R1 K2 ["Status"]
+       52 GETTABLEKS                       R1 R1 K11 ["UNKNOWN_ERROR"]
        54 RETURN                           R1 1
 
 PROTO_6:
@@ -97,9 +97,9 @@ PROTO_6:
        17 MOVE                             R1 R3
        18 MOVE                             R2 R4
        19 JUMPIFNOT                        R1 ; [+6]
-       20 GETUPVAL                         R5 3
-       21 GETTABLEKS                       R4 R5 K2 ["Status"]
-       23 GETTABLEKS                       R3 R4 K3 ["OK"]
+       20 GETUPVAL                         R3 3
+       21 GETTABLEKS                       R3 R3 K2 ["Status"]
+       23 GETTABLEKS                       R3 R3 K3 ["OK"]
        25 JUMPIF                           R3 ; [+3]
        26 GETUPVAL                         R3 4
        27 MOVE                             R4 R2
@@ -114,9 +114,9 @@ PROTO_6:
        37 JUMPIFNOT                        R1 ; [+2]
        38 MOVE                             R4 R3
        39 JUMPIF                           R4 ; [+5]
-       40 GETUPVAL                         R6 3
-       41 GETTABLEKS                       R5 R6 K2 ["Status"]
-       43 GETTABLEKS                       R4 R5 K4 ["INVALID_JSON"]
+       40 GETUPVAL                         R4 3
+       41 GETTABLEKS                       R4 R4 K2 ["Status"]
+       43 GETTABLEKS                       R4 R4 K4 ["INVALID_JSON"]
        45 MOVE                             R3 R4
        46 RETURN                           R2 2
 

@@ -16,14 +16,14 @@ PROTO_1:
         7 LOADK                            R5 K1 ["Expected selection to have length 1."]
         8 GETIMPORT                        R3 K3 [assert]
        10 CALL                             R3 2 0
-       11 GETTABLEN                        R4 R1 1
-       12 GETTABLEKS                       R3 R4 K4 ["Transform"]
+       11 GETTABLEN                        R3 R1 1
+       12 GETTABLEKS                       R3 R3 K4 ["Transform"]
        14 SETTABLEKS                       R3 R0 K5 ["source"]
        16 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
-        2 GETTABLEKS                       R2 R3 K1 ["updatePlane"]
+        0 GETTABLEKS                       R2 R0 K0 ["_draggerContext"]
+        2 GETTABLEKS                       R2 R2 K1 ["updatePlane"]
         4 GETTABLEKS                       R4 R0 K2 ["source"]
         6 MUL                              R3 R1 R4
         7 CALL                             R2 1 0

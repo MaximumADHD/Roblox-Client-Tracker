@@ -2,14 +2,14 @@ PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K3 ["createElement"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
        10 DUPTABLE                         R6 K9 [{"Text", "Style", "Size", "TextXAlignment", "TextYAlignment"}]
        11 LOADK                            R7 K10 ["%d/%d %s"]
        12 GETTABLEKS                       R9 R1 K11 ["GroupCount"]
-       14 GETUPVAL                         R11 2
-       15 GETTABLEKS                       R10 R11 K12 ["GroupCountMax"]
+       14 GETUPVAL                         R10 2
+       15 GETTABLEKS                       R10 R10 K12 ["GroupCountMax"]
        17 LOADK                            R13 K13 ["Info"]
        18 LOADK                            R14 K14 ["Groups"]
        19 NAMECALL                         R11 R3 K15 ["getText"]
@@ -19,8 +19,8 @@ PROTO_0:
        25 SETTABLEKS                       R7 R6 K4 ["Text"]
        27 LOADK                            R7 K17 ["SubText"]
        28 SETTABLEKS                       R7 R6 K5 ["Style"]
-       30 GETUPVAL                         R8 2
-       31 GETTABLEKS                       R7 R8 K18 ["GroupLabelFixedSize"]
+       30 GETUPVAL                         R7 2
+       31 GETTABLEKS                       R7 R7 K18 ["GroupLabelFixedSize"]
        33 SETTABLEKS                       R7 R6 K6 ["Size"]
        35 GETIMPORT                        R7 K21 [Enum.TextXAlignment.Center]
        37 SETTABLEKS                       R7 R6 K7 ["TextXAlignment"]
@@ -31,26 +31,26 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
        25 GETTABLEKS                       R4 R2 K9 ["UI"]
        27 GETTABLEKS                       R5 R4 K10 ["TextLabel"]
        29 GETIMPORT                        R6 K4 [require]
-       31 GETIMPORT                        R10 K1 [script]
-       33 GETTABLEKS                       R9 R10 K2 ["Parent"]
-       35 GETTABLEKS                       R8 R9 K2 ["Parent"]
-       37 GETTABLEKS                       R7 R8 K11 ["Constants"]
+       31 GETIMPORT                        R7 K1 [script]
+       33 GETTABLEKS                       R7 R7 K2 ["Parent"]
+       35 GETTABLEKS                       R7 R7 K2 ["Parent"]
+       37 GETTABLEKS                       R7 R7 K11 ["Constants"]
        39 CALL                             R6 1 1
        40 GETTABLEKS                       R7 R1 K12 ["Component"]
        42 LOADK                            R9 K13 ["GroupCountDisplay"]

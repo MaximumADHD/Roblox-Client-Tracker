@@ -1,20 +1,20 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["shouldFocusProperties"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["shouldFocusProperties"]
         3 JUMPIFNOT                        R0 ; [+6]
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R0 R1 K1 ["dockWidget"]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["dockWidget"]
         7 NAMECALL                         R0 R0 K2 ["RequestRaise"]
         9 CALL                             R0 1 0
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R0 R1 K3 ["onActionActivated"]
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K3 ["onActionActivated"]
        13 CALL                             R0 0 0
        14 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 1
-        1 GETUPVAL                         R3 2
-        2 GETTABLEKS                       R2 R3 K0 ["uri"]
+        1 GETUPVAL                         R2 2
+        2 GETTABLEKS                       R2 R2 K0 ["uri"]
         4 NAMECALL                         R0 R0 K1 ["BindToActivatedAsync"]
         6 CALL                             R0 2 1
         7 NEWCLOSURE                       R2 P0
@@ -56,8 +56,8 @@ PROTO_4:
         2 LOADK                            R3 K1 ["Actions"]
         3 NAMECALL                         R1 R1 K2 ["GetPluginComponent"]
         5 CALL                             R1 2 1
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K3 ["useCallback"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K3 ["useCallback"]
         9 NEWCLOSURE                       R3 P0
        10 CAPTURE                          VAL R1
        11 CAPTURE                          VAL R0
@@ -66,10 +66,10 @@ PROTO_4:
        16 SETLIST                          R4 R5 1 [1]
        18 CALL                             R2 2 1
        19 GETUPVAL                         R3 1
-       20 GETUPVAL                         R7 2
-       21 GETTABLEKS                       R6 R7 K5 ["Components"]
-       23 GETTABLEKS                       R5 R6 K6 ["Contexts"]
-       25 GETTABLEKS                       R4 R5 K7 ["ActionContextProvider"]
+       20 GETUPVAL                         R4 2
+       21 GETTABLEKS                       R4 R4 K5 ["Components"]
+       23 GETTABLEKS                       R4 R4 K6 ["Contexts"]
+       25 GETTABLEKS                       R4 R4 K7 ["ActionContextProvider"]
        27 DUPTABLE                         R5 K9 [{"bindToAction"}]
        28 SETTABLEKS                       R2 R5 K8 ["bindToAction"]
        30 GETTABLEKS                       R6 R0 K10 ["children"]
@@ -83,12 +83,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Properties"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Properties"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K9 ["createElement"]
        23 DUPCLOSURE                       R4 K10 [PROTO_4]

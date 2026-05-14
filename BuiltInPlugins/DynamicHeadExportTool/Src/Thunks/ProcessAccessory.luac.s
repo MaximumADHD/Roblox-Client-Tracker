@@ -13,9 +13,9 @@ PROTO_0:
        15 RETURN                           R2 1
 
 PROTO_1:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PluginReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PluginReducer"]
         5 GETTABLEKS                       R2 R1 K2 ["rig"]
         7 GETTABLEKS                       R3 R1 K3 ["accessoryType"]
         9 NEWTABLE                         R4 0 0
@@ -83,14 +83,14 @@ PROTO_1:
        85 GETIMPORT                        R13 K27 [Instance.new]
        87 LOADK                            R14 K28 ["Folder"]
        88 CALL                             R13 1 1
-       89 GETUPVAL                         R16 1
-       90 GETTABLE                         R15 R16 R3
-       91 GETTABLEKS                       R14 R15 K29 ["Name"]
+       89 GETUPVAL                         R15 1
+       90 GETTABLE                         R14 R15 R3
+       91 GETTABLEKS                       R14 R14 K29 ["Name"]
        93 SETTABLEKS                       R14 R13 K29 ["Name"]
        95 GETUPVAL                         R14 2
        96 MOVE                             R16 R13
-       97 GETUPVAL                         R18 3
-       98 GETTABLEKS                       R17 R18 K30 ["Tag"]
+       97 GETUPVAL                         R17 3
+       98 GETTABLEKS                       R17 R17 K30 ["Tag"]
       100 NAMECALL                         R14 R14 K31 ["AddTag"]
       102 CALL                             R14 3 0
       103 GETIMPORT                        R14 K27 [Instance.new]
@@ -200,18 +200,18 @@ MAIN:
        16 NAMECALL                         R2 R2 K7 ["GetService"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R0 K11 ["Src"]
-       23 GETTABLEKS                       R4 R5 K12 ["Constants"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 GETTABLEKS                       R4 R4 K12 ["Constants"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K10 [require]
-       28 GETTABLEKS                       R7 R0 K11 ["Src"]
-       30 GETTABLEKS                       R6 R7 K13 ["Util"]
-       32 GETTABLEKS                       R5 R6 K14 ["fail"]
+       28 GETTABLEKS                       R5 R0 K11 ["Src"]
+       30 GETTABLEKS                       R5 R5 K13 ["Util"]
+       32 GETTABLEKS                       R5 R5 K14 ["fail"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K10 [require]
-       37 GETTABLEKS                       R8 R0 K11 ["Src"]
-       39 GETTABLEKS                       R7 R8 K13 ["Util"]
-       41 GETTABLEKS                       R6 R7 K15 ["createSurfaceAppearance"]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K13 ["Util"]
+       41 GETTABLEKS                       R6 R6 K15 ["createSurfaceAppearance"]
        43 CALL                             R5 1 1
        44 DUPCLOSURE                       R6 K16 [PROTO_0]
        45 NEWTABLE                         R7 32 0

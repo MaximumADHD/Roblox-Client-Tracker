@@ -24,8 +24,8 @@ PROTO_1:
         7 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["getDontShowAgain"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getDontShowAgain"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
         5 JUMPIFNOT                        R2 ; [+2]
@@ -34,8 +34,8 @@ PROTO_2:
         8 JUMPIFNOTEQKNIL                  R1 ; [+3]
        10 LOADB                            R2 0
        11 RETURN                           R2 1
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K1 ["getFileSeenCount"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K1 ["getFileSeenCount"]
        15 MOVE                             R3 R1
        16 CALL                             R2 1 1
        17 JUMPIFEQKN                       R2 K2 [2] ; [+2]

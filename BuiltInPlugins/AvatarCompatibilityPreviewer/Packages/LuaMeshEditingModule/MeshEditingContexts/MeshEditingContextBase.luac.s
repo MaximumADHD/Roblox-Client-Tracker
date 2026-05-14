@@ -12,8 +12,8 @@ PROTO_0:
        17 SETTABLEKS                       R1 R0 K4 ["_serializedMeshData"]
        19 LOADNIL                          R1
        20 SETTABLEKS                       R1 R0 K5 ["_seamData"]
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R1 R2 K6 ["new"]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K6 ["new"]
        25 CALL                             R1 0 1
        26 SETTABLEKS                       R1 R0 K7 ["meshDataChanged"]
        28 LOADNIL                          R1
@@ -71,8 +71,8 @@ PROTO_3:
         5 LOADNIL                          R4
         6 LOADNIL                          R5
         7 FORGPREP                         R3
-        8 GETTABLEKS                       R9 R7 K0 ["instance"]
-       10 GETTABLEKS                       R8 R9 K1 ["Name"]
+        8 GETTABLEKS                       R8 R7 K0 ["instance"]
+       10 GETTABLEKS                       R8 R8 K1 ["Name"]
        12 GETTABLE                         R9 R2 R8
        13 JUMPIFEQKNIL                     R9 ; [+10]
        15 GETIMPORT                        R9 K3 [warn]
@@ -132,8 +132,8 @@ PROTO_4:
         1 LOADNIL                          R3
         2 LOADNIL                          R4
         3 FORGPREP                         R2
-        4 GETTABLEKS                       R8 R6 K0 ["instance"]
-        6 GETTABLEKS                       R7 R8 K1 ["Name"]
+        4 GETTABLEKS                       R7 R6 K0 ["instance"]
+        6 GETTABLEKS                       R7 R7 K1 ["Name"]
         8 GETTABLEKS                       R9 R0 K2 ["_serializedMeshData"]
        10 GETTABLE                         R8 R9 R7
        11 JUMPIFNOT                        R8 ; [+5]
@@ -316,8 +316,8 @@ PROTO_14:
        94 SETTABLE                         R15 R10 R14
        95 FORGLOOP                         R11 2 ; [-2]
        97 GETIMPORT                        R11 K12 [table.freeze]
-       99 GETUPVAL                         R13 1
-      100 GETTABLEKS                       R12 R13 K13 ["join"]
+       99 GETUPVAL                         R12 1
+      100 GETTABLEKS                       R12 R12 K13 ["join"]
       102 MOVE                             R13 R9
       103 DUPTABLE                         R14 K14 [{"VertexData"}]
       104 GETIMPORT                        R15 K12 [table.freeze]
@@ -329,8 +329,8 @@ PROTO_14:
       112 SETTABLE                         R11 R3 R7
       113 FORGLOOP                         R4 2 ; [-33]
       115 GETIMPORT                        R4 K12 [table.freeze]
-      117 GETUPVAL                         R6 1
-      118 GETTABLEKS                       R5 R6 K13 ["join"]
+      117 GETUPVAL                         R5 1
+      118 GETTABLEKS                       R5 R5 K13 ["join"]
       120 GETTABLEKS                       R6 R0 K0 ["_serializedMeshData"]
       122 MOVE                             R7 R3
       123 CALL                             R5 2 -1
@@ -380,23 +380,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Parent"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Util"]
-       18 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       16 GETTABLEKS                       R3 R0 K8 ["Util"]
+       18 GETTABLEKS                       R3 R3 K9 ["Signal"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K10 ["Types"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K5 [require]
-       28 GETTABLEKS                       R6 R0 K8 ["Util"]
-       30 GETTABLEKS                       R5 R6 K11 ["buildSeamData"]
+       28 GETTABLEKS                       R5 R0 K8 ["Util"]
+       30 GETTABLEKS                       R5 R5 K11 ["buildSeamData"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K5 [require]
-       35 GETTABLEKS                       R7 R0 K8 ["Util"]
-       37 GETTABLEKS                       R6 R7 K12 ["deepCopy"]
+       35 GETTABLEKS                       R6 R0 K8 ["Util"]
+       37 GETTABLEKS                       R6 R6 K12 ["deepCopy"]
        39 CALL                             R5 1 1
        40 NEWTABLE                         R6 32 0
        42 SETTABLEKS                       R6 R6 K13 ["__index"]

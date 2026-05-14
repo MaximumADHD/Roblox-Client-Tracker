@@ -27,16 +27,16 @@ PROTO_7:
         2 RETURN                           R1 2
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useState"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 GETTABLEKS                       R2 R0 K1 ["promptGroups"]
         5 CALL                             R1 1 2
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K0 ["useState"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["useState"]
         9 GETTABLEKS                       R4 R0 K2 ["materialStates"]
        11 CALL                             R3 1 2
-       12 GETUPVAL                         R6 0
-       13 GETTABLEKS                       R5 R6 K0 ["useState"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K0 ["useState"]
        15 LOADNIL                          R6
        16 CALL                             R5 1 2
        17 DUPTABLE                         R7 K13 [{"promptGroups", "materialStates", "addMaterials", "removeMaterial", "removeAllMaterials", "hasBaseMaterial", "markHasBaseMaterial", "getMaterialStatus", "setMaterialStatus", "getMaterialIdentifiers", "previewMaterial", "setPreviewMaterial"}]
@@ -60,10 +60,10 @@ PROTO_8:
        44 SETTABLEKS                       R8 R7 K10 ["getMaterialIdentifiers"]
        46 SETTABLEKS                       R5 R7 K11 ["previewMaterial"]
        48 SETTABLEKS                       R6 R7 K12 ["setPreviewMaterial"]
-       50 GETUPVAL                         R9 0
-       51 GETTABLEKS                       R8 R9 K22 ["createElement"]
-       53 GETUPVAL                         R10 1
-       54 GETTABLEKS                       R9 R10 K23 ["Provider"]
+       50 GETUPVAL                         R8 0
+       51 GETTABLEKS                       R8 R8 K22 ["createElement"]
+       53 GETUPVAL                         R9 1
+       54 GETTABLEKS                       R9 R9 K23 ["Provider"]
        56 DUPTABLE                         R10 K25 [{"value"}]
        57 SETTABLEKS                       R7 R10 K24 ["value"]
        59 GETTABLEKS                       R11 R0 K26 ["children"]
@@ -73,8 +73,8 @@ PROTO_8:
 PROTO_9:
         0 NEWTABLE                         R0 0 1
         2 DUPTABLE                         R1 K3 [{"materialVariants", "promptText", "filteredPromptText"}]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K4 ["instances"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K4 ["instances"]
         6 SETTABLEKS                       R2 R1 K0 ["materialVariants"]
         8 LOADK                            R2 K5 ["test prompt"]
         9 SETTABLEKS                       R2 R1 K1 ["promptText"]
@@ -94,25 +94,25 @@ PROTO_10:
        11 RETURN                           R1 2
 
 PROTO_11:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["collect"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["instances"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["collect"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["instances"]
         6 DUPCLOSURE                       R2 K2 [PROTO_10]
         7 CALL                             R0 2 -1
         8 RETURN                           R0 -1
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useMemo"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          VAL R0
         5 NEWTABLE                         R3 0 1
         7 GETTABLEKS                       R4 R0 K1 ["instances"]
         9 SETLIST                          R3 R4 1 [1]
        11 CALL                             R1 2 1
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R2 R3 K0 ["useMemo"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K0 ["useMemo"]
        15 NEWCLOSURE                       R3 P1
        16 CAPTURE                          UPVAL U1
        17 CAPTURE                          VAL R0
@@ -120,8 +120,8 @@ PROTO_12:
        20 GETTABLEKS                       R5 R0 K1 ["instances"]
        22 SETLIST                          R4 R5 1 [1]
        24 CALL                             R2 2 1
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R3 R4 K2 ["createElement"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K2 ["createElement"]
        28 GETUPVAL                         R4 2
        29 DUPTABLE                         R5 K5 [{"promptGroups", "materialStates"}]
        30 SETTABLEKS                       R1 R5 K3 ["promptGroups"]
@@ -137,21 +137,21 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Util"]
-       27 GETTABLEKS                       R4 R5 K11 ["GeneratedMaterialsContext"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["GeneratedMaterialsContext"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R6 R0 K9 ["Src"]
-       34 GETTABLEKS                       R5 R6 K12 ["Types"]
+       32 GETTABLEKS                       R5 R0 K9 ["Src"]
+       34 GETTABLEKS                       R5 R5 K12 ["Types"]
        36 CALL                             R4 1 1
        37 NEWTABLE                         R5 1 0
        39 DUPCLOSURE                       R6 K13 [PROTO_8]

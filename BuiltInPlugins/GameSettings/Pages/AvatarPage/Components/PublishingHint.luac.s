@@ -24,8 +24,8 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETTABLEKS                       R4 R0 K0 ["props"]
-        6 GETTABLEKS                       R3 R4 K2 ["Stylizer"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R3 R3 K2 ["Stylizer"]
         8 GETTABLEKS                       R4 R1 K3 ["IsEnabled"]
        10 JUMPIFNOT                        R4 ; [+2]
        11 LOADNIL                          R4
@@ -51,8 +51,8 @@ PROTO_2:
        36 NAMECALL                         R9 R9 K19 ["GetTextSize"]
        38 CALL                             R9 5 1
        39 MOVE                             R6 R9
-       40 GETUPVAL                         R8 0
-       41 GETTABLEKS                       R7 R8 K20 ["createElement"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K20 ["createElement"]
        43 LOADK                            R8 K21 ["Frame"]
        44 DUPTABLE                         R9 K25 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
        45 GETIMPORT                        R10 K27 [UDim2.new]
@@ -67,8 +67,8 @@ PROTO_2:
        58 GETTABLEKS                       R10 R1 K24 ["LayoutOrder"]
        60 SETTABLEKS                       R10 R9 K24 ["LayoutOrder"]
        62 DUPTABLE                         R10 K31 [{"HyperLink", "TextLabel"}]
-       63 GETUPVAL                         R12 0
-       64 GETTABLEKS                       R11 R12 K20 ["createElement"]
+       63 GETUPVAL                         R11 0
+       64 GETTABLEKS                       R11 R11 K20 ["createElement"]
        66 GETUPVAL                         R12 1
        67 DUPTABLE                         R13 K36 [{"Text", "Size", "Enabled", "Mouse", "OnClick"}]
        68 SETTABLEKS                       R5 R13 K32 ["Text"]
@@ -88,8 +88,8 @@ PROTO_2:
        90 SETTABLEKS                       R14 R13 K35 ["OnClick"]
        92 CALL                             R11 2 1
        93 SETTABLEKS                       R11 R10 K29 ["HyperLink"]
-       95 GETUPVAL                         R12 0
-       96 GETTABLEKS                       R11 R12 K20 ["createElement"]
+       95 GETUPVAL                         R11 0
+       96 GETTABLEKS                       R11 R11 K20 ["createElement"]
        98 LOADK                            R12 K30 ["TextLabel"]
        99 DUPTABLE                         R13 K43 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "Font", "TextSize", "TextXAlignment", "Text"}]
       100 LOADN                            R14 1
@@ -108,19 +108,19 @@ PROTO_2:
       118 LOADN                            R18 0
       119 CALL                             R14 4 1
       120 SETTABLEKS                       R14 R13 K22 ["Size"]
-      122 GETUPVAL                         R16 3
-      123 GETTABLEKS                       R15 R16 K44 ["getRadioButtonTextColor"]
+      122 GETUPVAL                         R15 3
+      123 GETTABLEKS                       R15 R15 K44 ["getRadioButtonTextColor"]
       125 MOVE                             R16 R1
       126 CALL                             R15 1 1
       127 JUMPIFNOT                        R15 ; [+6]
-      128 GETUPVAL                         R15 3
-      129 GETTABLEKS                       R14 R15 K44 ["getRadioButtonTextColor"]
+      128 GETUPVAL                         R14 3
+      129 GETTABLEKS                       R14 R14 K44 ["getRadioButtonTextColor"]
       131 MOVE                             R15 R1
       132 CALL                             R14 1 1
       133 JUMP                             ; [+6]
-      134 GETTABLEKS                       R16 R3 K45 ["fontStyle"]
-      136 GETTABLEKS                       R15 R16 K46 ["Header"]
-      138 GETTABLEKS                       R14 R15 K40 ["TextColor3"]
+      134 GETTABLEKS                       R14 R3 K45 ["fontStyle"]
+      136 GETTABLEKS                       R14 R14 K46 ["Header"]
+      138 GETTABLEKS                       R14 R14 K40 ["TextColor3"]
       140 SETTABLEKS                       R14 R13 K40 ["TextColor3"]
       142 GETIMPORT                        R14 K11 [Enum.Font.SourceSans]
       144 SETTABLEKS                       R14 R13 K9 ["Font"]
@@ -144,28 +144,28 @@ MAIN:
         3 LOADK                            R2 K2 ["StudioService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R3 K5 [script]
-        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R2 K6 ["Parent"]
-       13 GETIMPORT                        R6 K5 [script]
-       15 GETTABLEKS                       R5 R6 K6 ["Parent"]
-       17 GETTABLEKS                       R4 R5 K6 ["Parent"]
-       19 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       21 GETTABLEKS                       R2 R3 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETIMPORT                        R2 K5 [script]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       21 GETTABLEKS                       R2 R2 K6 ["Parent"]
        23 GETIMPORT                        R3 K8 [require]
-       25 GETTABLEKS                       R5 R2 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R5 K10 ["Roact"]
+       25 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K10 ["Roact"]
        29 CALL                             R3 1 1
-       30 GETIMPORT                        R5 K8 [require]
-       32 GETTABLEKS                       R7 R2 K9 ["Packages"]
-       34 GETTABLEKS                       R6 R7 K11 ["Framework"]
-       36 CALL                             R5 1 1
-       37 GETTABLEKS                       R4 R5 K12 ["ContextServices"]
+       30 GETIMPORT                        R4 K8 [require]
+       32 GETTABLEKS                       R5 R2 K9 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K11 ["Framework"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R4 R4 K12 ["ContextServices"]
        39 GETTABLEKS                       R5 R4 K13 ["withContext"]
        41 GETTABLEKS                       R6 R2 K14 ["RoactStudioWidgets"]
        43 GETIMPORT                        R7 K8 [require]
-       45 GETTABLEKS                       R9 R1 K15 ["Util"]
-       47 GETTABLEKS                       R8 R9 K16 ["StateInterfaceTheme"]
+       45 GETTABLEKS                       R8 R1 K15 ["Util"]
+       47 GETTABLEKS                       R8 R8 K16 ["StateInterfaceTheme"]
        49 CALL                             R7 1 1
        50 GETIMPORT                        R8 K8 [require]
        52 GETTABLEKS                       R9 R6 K17 ["Hyperlink"]

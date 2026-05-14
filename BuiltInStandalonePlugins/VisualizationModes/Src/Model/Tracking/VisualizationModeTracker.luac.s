@@ -17,16 +17,16 @@ PROTO_0:
        21 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
        23 GETIMPORT                        R1 K9 [setmetatable]
        25 CALL                             R1 2 1
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R2 R3 K10 ["new"]
+       26 GETUPVAL                         R2 1
+       27 GETTABLEKS                       R2 R2 K10 ["new"]
        29 CALL                             R2 0 1
        30 SETTABLEKS                       R2 R1 K11 ["_maid"]
        32 SETTABLEKS                       R0 R1 K12 ["_visualizationMode"]
        34 LOADNIL                          R2
        35 SETTABLEKS                       R2 R1 K13 ["_state"]
        37 GETTABLEKS                       R2 R1 K11 ["_maid"]
-       39 GETUPVAL                         R5 2
-       40 GETTABLEKS                       R4 R5 K10 ["new"]
+       39 GETUPVAL                         R4 2
+       40 GETTABLEKS                       R4 R4 K10 ["new"]
        42 CALL                             R4 0 -1
        43 NAMECALL                         R2 R2 K14 ["add"]
        45 CALL                             R2 -1 1
@@ -131,17 +131,17 @@ PROTO_8:
 PROTO_9:
         0 GETIMPORT                        R3 K2 [table.freeze]
         2 DUPTABLE                         R4 K7 [{"name", "title", "enabled", "toolTip"}]
-        3 GETTABLEKS                       R6 R0 K8 ["_visualizationMode"]
-        5 GETTABLEKS                       R5 R6 K9 ["Name"]
+        3 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
+        5 GETTABLEKS                       R5 R5 K9 ["Name"]
         7 SETTABLEKS                       R5 R4 K3 ["name"]
-        9 GETTABLEKS                       R6 R0 K8 ["_visualizationMode"]
-       11 GETTABLEKS                       R5 R6 K10 ["Title"]
+        9 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
+       11 GETTABLEKS                       R5 R5 K10 ["Title"]
        13 SETTABLEKS                       R5 R4 K4 ["title"]
-       15 GETTABLEKS                       R6 R0 K8 ["_visualizationMode"]
-       17 GETTABLEKS                       R5 R6 K11 ["Enabled"]
+       15 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
+       17 GETTABLEKS                       R5 R5 K11 ["Enabled"]
        19 SETTABLEKS                       R5 R4 K5 ["enabled"]
-       21 GETTABLEKS                       R6 R0 K8 ["_visualizationMode"]
-       23 GETTABLEKS                       R5 R6 K12 ["ToolTip"]
+       21 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
+       23 GETTABLEKS                       R5 R5 K12 ["ToolTip"]
        25 SETTABLEKS                       R5 R4 K6 ["toolTip"]
        27 CALL                             R3 1 -1
        28 NAMECALL                         R1 R0 K13 ["_setState"]
@@ -161,18 +161,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Util"]
-       20 GETTABLEKS                       R3 R4 K9 ["Maid"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
+       20 GETTABLEKS                       R3 R3 K9 ["Maid"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K8 ["Util"]
-       29 GETTABLEKS                       R4 R5 K10 ["Signal"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K8 ["Util"]
+       29 GETTABLEKS                       R4 R4 K10 ["Signal"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 8 0
        34 SETTABLEKS                       R4 R4 K11 ["__index"]

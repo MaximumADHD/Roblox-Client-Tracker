@@ -33,8 +33,8 @@ PROTO_3:
         6 GETTABLEKS                       R4 R2 K0 ["Name"]
         8 LOADB                            R5 1
         9 SETTABLE                         R5 R0 R4
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K1 ["makeChainHelper"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K1 ["makeChainHelper"]
        13 MOVE                             R5 R0
        14 MOVE                             R6 R1
        15 GETTABLEKS                       R7 R3 K2 ["Part0"]
@@ -50,26 +50,26 @@ PROTO_4:
         6 GETTABLEKS                       R4 R2 K0 ["Name"]
         8 LOADB                            R5 1
         9 SETTABLE                         R5 R0 R4
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K1 ["makeChainHelperAnimationConstraint"]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K1 ["makeChainHelperAnimationConstraint"]
        13 MOVE                             R5 R0
        14 MOVE                             R6 R1
-       15 GETTABLEKS                       R8 R3 K2 ["Attachment0"]
-       17 GETTABLEKS                       R7 R8 K3 ["Parent"]
+       15 GETTABLEKS                       R7 R3 K2 ["Attachment0"]
+       17 GETTABLEKS                       R7 R7 K3 ["Parent"]
        19 CALL                             R4 3 0
        20 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["props"]
-        3 GETTABLEKS                       R1 R2 K1 ["SelectedTracks"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["SelectedTracks"]
         5 JUMPIFNOT                        R1 ; [+13]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K0 ["props"]
-        9 GETTABLEKS                       R1 R2 K1 ["SelectedTracks"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K0 ["props"]
-       14 GETTABLEKS                       R3 R4 K1 ["SelectedTracks"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["props"]
+        9 GETTABLEKS                       R1 R1 K1 ["SelectedTracks"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["props"]
+       14 GETTABLEKS                       R3 R3 K1 ["SelectedTracks"]
        16 LENGTH                           R2 R3
        17 GETTABLE                         R0 R1 R2
        18 RETURN                           R0 1
@@ -77,42 +77,42 @@ PROTO_5:
        20 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["props"]
-        3 GETTABLEKS                       R0 R1 K1 ["ToggleIKEnabled"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K0 ["props"]
-        8 GETTABLEKS                       R1 R2 K2 ["Analytics"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["ToggleIKEnabled"]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["props"]
+        8 GETTABLEKS                       R1 R1 K2 ["Analytics"]
        10 CALL                             R0 1 -1
        11 RETURN                           R0 -1
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["getLastSelectedTrack"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getLastSelectedTrack"]
         3 CALL                             R0 0 1
         4 JUMPIFNOT                        R0 ; [+2]
         5 GETTABLEN                        R1 R0 1
         6 JUMPIF                           R1 ; [+1]
         7 LOADNIL                          R1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K1 ["getRigInfo"]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K2 ["props"]
-       14 GETTABLEKS                       R3 R4 K3 ["RootInstance"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K1 ["getRigInfo"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K2 ["props"]
+       14 GETTABLEKS                       R3 R3 K3 ["RootInstance"]
        16 CALL                             R2 1 1
        17 GETTABLEKS                       R3 R2 K4 ["Parts"]
        19 GETTABLEKS                       R4 R2 K5 ["PartNameToMotor"]
        21 GETTABLEKS                       R5 R2 K6 ["PartNameToAnimConstraint"]
        23 NEWTABLE                         R6 0 0
-       25 GETUPVAL                         R9 0
-       26 GETTABLEKS                       R8 R9 K2 ["props"]
-       28 GETTABLEKS                       R7 R8 K7 ["PinnedParts"]
-       30 GETUPVAL                         R10 0
-       31 GETTABLEKS                       R9 R10 K2 ["props"]
-       33 GETTABLEKS                       R8 R9 K8 ["IKMode"]
-       35 GETUPVAL                         R11 2
-       36 GETTABLEKS                       R10 R11 K9 ["IK_MODE"]
-       38 GETTABLEKS                       R9 R10 K10 ["BodyPart"]
+       25 GETUPVAL                         R7 0
+       26 GETTABLEKS                       R7 R7 K2 ["props"]
+       28 GETTABLEKS                       R7 R7 K7 ["PinnedParts"]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K2 ["props"]
+       33 GETTABLEKS                       R8 R8 K8 ["IKMode"]
+       35 GETUPVAL                         R9 2
+       36 GETTABLEKS                       R9 R9 K9 ["IK_MODE"]
+       38 GETTABLEKS                       R9 R9 K10 ["BodyPart"]
        40 JUMPIFNOTEQ                      R8 R9 ; [+3]
        42 NEWTABLE                         R7 0 0
        44 GETIMPORT                        R8 K12 [ipairs]
@@ -126,23 +126,23 @@ PROTO_7:
        54 SETTABLE                         R14 R6 R13
        55 FORGLOOP                         R8 2 [inext] ; [-7]
        57 JUMPIFNOT                        R1 ; [+81]
-       58 GETUPVAL                         R9 1
-       59 GETTABLEKS                       R8 R9 K14 ["getPartByName"]
-       61 GETUPVAL                         R11 0
-       62 GETTABLEKS                       R10 R11 K2 ["props"]
-       64 GETTABLEKS                       R9 R10 K3 ["RootInstance"]
+       58 GETUPVAL                         R8 1
+       59 GETTABLEKS                       R8 R8 K14 ["getPartByName"]
+       61 GETUPVAL                         R9 0
+       62 GETTABLEKS                       R9 R9 K2 ["props"]
+       64 GETTABLEKS                       R9 R9 K3 ["RootInstance"]
        66 MOVE                             R10 R1
        67 CALL                             R8 2 1
        68 JUMPIFNOT                        R8 ; [+70]
-       69 GETUPVAL                         R11 0
-       70 GETTABLEKS                       R10 R11 K2 ["props"]
-       72 GETTABLEKS                       R9 R10 K8 ["IKMode"]
-       74 GETUPVAL                         R12 2
-       75 GETTABLEKS                       R11 R12 K9 ["IK_MODE"]
-       77 GETTABLEKS                       R10 R11 K10 ["BodyPart"]
+       69 GETUPVAL                         R9 0
+       70 GETTABLEKS                       R9 R9 K2 ["props"]
+       72 GETTABLEKS                       R9 R9 K8 ["IKMode"]
+       74 GETUPVAL                         R10 2
+       75 GETTABLEKS                       R10 R10 K9 ["IK_MODE"]
+       77 GETTABLEKS                       R10 R10 K10 ["BodyPart"]
        79 JUMPIFNOTEQ                      R9 R10 ; [+9]
-       81 GETUPVAL                         R10 3
-       82 GETTABLEKS                       R9 R10 K15 ["pinForLimbMode"]
+       81 GETUPVAL                         R9 3
+       82 GETTABLEKS                       R9 R9 K15 ["pinForLimbMode"]
        84 MOVE                             R10 R8
        85 MOVE                             R11 R4
        86 MOVE                             R12 R5
@@ -150,22 +150,22 @@ PROTO_7:
        88 MOVE                             R7 R9
        89 GETTABLE                         R9 R4 R1
        90 JUMPIFNOT                        R9 ; [+9]
-       91 GETUPVAL                         R10 0
-       92 GETTABLEKS                       R9 R10 K16 ["makeChainHelper"]
+       91 GETUPVAL                         R9 0
+       92 GETTABLEKS                       R9 R9 K16 ["makeChainHelper"]
        94 MOVE                             R10 R6
        95 MOVE                             R11 R4
-       96 GETTABLE                         R13 R4 R1
-       97 GETTABLEKS                       R12 R13 K17 ["Part1"]
+       96 GETTABLE                         R12 R4 R1
+       97 GETTABLEKS                       R12 R12 K17 ["Part1"]
        99 CALL                             R9 3 0
       100 GETTABLE                         R9 R5 R1
       101 JUMPIFNOT                        R9 ; [+11]
-      102 GETUPVAL                         R10 0
-      103 GETTABLEKS                       R9 R10 K18 ["makeChainHelperAnimationConstraint"]
+      102 GETUPVAL                         R9 0
+      103 GETTABLEKS                       R9 R9 K18 ["makeChainHelperAnimationConstraint"]
       105 MOVE                             R10 R6
       106 MOVE                             R11 R5
-      107 GETTABLE                         R14 R5 R1
-      108 GETTABLEKS                       R13 R14 K19 ["Attachment1"]
-      110 GETTABLEKS                       R12 R13 K20 ["Parent"]
+      107 GETTABLE                         R12 R5 R1
+      108 GETTABLEKS                       R12 R12 K19 ["Attachment1"]
+      110 GETTABLEKS                       R12 R12 K20 ["Parent"]
       112 CALL                             R9 3 0
       113 GETIMPORT                        R9 K22 [pairs]
       115 MOVE                             R10 R7
@@ -174,14 +174,14 @@ PROTO_7:
       118 GETTABLEKS                       R14 R12 K13 ["Name"]
       120 JUMPIFEQ                         R14 R1 ; [+16]
       122 JUMPIFNOT                        R13 ; [+14]
-      123 GETUPVAL                         R15 0
-      124 GETTABLEKS                       R14 R15 K16 ["makeChainHelper"]
+      123 GETUPVAL                         R14 0
+      124 GETTABLEKS                       R14 R14 K16 ["makeChainHelper"]
       126 MOVE                             R15 R6
       127 MOVE                             R16 R4
       128 MOVE                             R17 R12
       129 CALL                             R14 3 0
-      130 GETUPVAL                         R15 0
-      131 GETTABLEKS                       R14 R15 K18 ["makeChainHelperAnimationConstraint"]
+      130 GETUPVAL                         R14 0
+      131 GETTABLEKS                       R14 R14 K18 ["makeChainHelperAnimationConstraint"]
       133 MOVE                             R15 R6
       134 MOVE                             R16 R5
       135 MOVE                             R17 R12
@@ -226,10 +226,10 @@ PROTO_8:
        44 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setShowTree"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["ShowTree"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setShowTree"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["ShowTree"]
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
@@ -253,16 +253,16 @@ PROTO_10:
        26 RETURN                           R0 0
 
 PROTO_11:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 GETTABLEKS                       R2 R0 K0 ["props"]
         6 GETTABLEKS                       R3 R2 K2 ["Stylizer"]
         8 GETTABLEKS                       R4 R0 K3 ["getLastSelectedTrack"]
        10 CALL                             R4 0 1
        11 GETTABLEKS                       R5 R0 K4 ["state"]
        13 GETTABLEKS                       R6 R2 K5 ["ToggleShowTree"]
-       15 GETUPVAL                         R8 0
-       16 GETTABLEKS                       R7 R8 K6 ["canUseIK"]
+       15 GETUPVAL                         R7 0
+       16 GETTABLEKS                       R7 R7 K6 ["canUseIK"]
        18 GETTABLEKS                       R8 R2 K7 ["RootInstance"]
        20 CALL                             R7 1 2
        21 GETTABLEKS                       R10 R5 K8 ["showTree"]
@@ -270,11 +270,11 @@ PROTO_11:
        24 LOADK                            R9 K9 ["ACEHeaderButtonActive"]
        25 JUMP                             ; [+1]
        26 LOADK                            R9 K10 ["ACEHeaderButtonDefault"]
-       27 GETTABLEKS                       R11 R0 K0 ["props"]
-       29 GETTABLEKS                       R10 R11 K7 ["RootInstance"]
+       27 GETTABLEKS                       R10 R0 K0 ["props"]
+       29 GETTABLEKS                       R10 R10 K7 ["RootInstance"]
        31 JUMPIFNOT                        R10 ; [+188]
-       32 GETUPVAL                         R11 1
-       33 GETTABLEKS                       R10 R11 K11 ["createElement"]
+       32 GETUPVAL                         R10 1
+       33 GETTABLEKS                       R10 R10 K11 ["createElement"]
        35 LOADK                            R11 K12 ["Frame"]
        36 DUPTABLE                         R12 K17 [{"Position", "Size", "BackgroundTransparency", "AnchorPoint"}]
        37 GETTABLEKS                       R13 R2 K13 ["Position"]
@@ -298,8 +298,8 @@ PROTO_11:
        63 JUMPIFNOT                        R14 ; [+69]
        64 MOVE                             R14 R7
        65 JUMPIFNOT                        R14 ; [+67]
-       66 GETUPVAL                         R15 1
-       67 GETTABLEKS                       R14 R15 K11 ["createElement"]
+       66 GETUPVAL                         R14 1
+       67 GETTABLEKS                       R14 R14 K11 ["createElement"]
        69 GETUPVAL                         R15 2
        70 DUPTABLE                         R16 K30 [{"Style", "Size", "OnClick"}]
        71 SETTABLEKS                       R9 R16 K28 ["Style"]
@@ -312,8 +312,8 @@ PROTO_11:
        80 SETTABLEKS                       R17 R16 K14 ["Size"]
        82 SETTABLEKS                       R6 R16 K29 ["OnClick"]
        84 DUPTABLE                         R17 K32 [{"Label"}]
-       85 GETUPVAL                         R19 1
-       86 GETTABLEKS                       R18 R19 K11 ["createElement"]
+       85 GETUPVAL                         R18 1
+       86 GETTABLEKS                       R18 R18 K11 ["createElement"]
        88 LOADK                            R19 K33 ["TextLabel"]
        89 DUPTABLE                         R20 K39 [{"BackgroundTransparency", "Size", "TextYAlignment", "TextSize", "Text", "Font", "TextColor3"}]
        90 LOADN                            R21 1
@@ -327,8 +327,8 @@ PROTO_11:
       100 SETTABLEKS                       R21 R20 K14 ["Size"]
       102 GETIMPORT                        R21 K42 [Enum.TextYAlignment.Center]
       104 SETTABLEKS                       R21 R20 K34 ["TextYAlignment"]
-      106 GETTABLEKS                       R22 R3 K43 ["ikTheme"]
-      108 GETTABLEKS                       R21 R22 K44 ["textSize"]
+      106 GETTABLEKS                       R21 R3 K43 ["ikTheme"]
+      108 GETTABLEKS                       R21 R21 K44 ["textSize"]
       110 SETTABLEKS                       R21 R20 K35 ["TextSize"]
       112 LOADK                            R23 K45 ["Title"]
       113 LOADK                            R24 K46 ["IK"]
@@ -337,8 +337,8 @@ PROTO_11:
       117 SETTABLEKS                       R21 R20 K36 ["Text"]
       119 GETTABLEKS                       R21 R3 K48 ["font"]
       121 SETTABLEKS                       R21 R20 K37 ["Font"]
-      123 GETTABLEKS                       R22 R3 K43 ["ikTheme"]
-      125 GETTABLEKS                       R21 R22 K49 ["textColor"]
+      123 GETTABLEKS                       R21 R3 K43 ["ikTheme"]
+      125 GETTABLEKS                       R21 R21 K49 ["textColor"]
       127 SETTABLEKS                       R21 R20 K38 ["TextColor3"]
       129 CALL                             R18 2 1
       130 SETTABLEKS                       R18 R17 K31 ["Label"]
@@ -348,8 +348,8 @@ PROTO_11:
       137 JUMPIFNOT                        R14 ; [+62]
       138 GETTABLEKS                       R14 R5 K8 ["showTree"]
       140 JUMPIFNOT                        R14 ; [+59]
-      141 GETUPVAL                         R15 1
-      142 GETTABLEKS                       R14 R15 K11 ["createElement"]
+      141 GETUPVAL                         R14 1
+      142 GETTABLEKS                       R14 R14 K11 ["createElement"]
       144 GETUPVAL                         R15 3
       145 DUPTABLE                         R16 K63 [{"RootInstance", "PinnedParts", "IKEnabled", "ShowTree", "SelectedTrack", "SetSelectedTracks", "ToggleIKEnabled", "TogglePinnedPart", "SetShowTree", "SetIKEnabled", "SetIKMode", "Chain", "IKMode", "IsR15"}]
       146 GETTABLEKS                       R17 R2 K7 ["RootInstance"]
@@ -385,8 +385,8 @@ PROTO_11:
       204 JUMPIFNOT                        R14 ; [+12]
       205 MOVE                             R14 R8
       206 JUMPIFNOT                        R14 ; [+10]
-      207 GETUPVAL                         R15 1
-      208 GETTABLEKS                       R14 R15 K11 ["createElement"]
+      207 GETUPVAL                         R14 1
+      208 GETTABLEKS                       R14 R14 K11 ["createElement"]
       210 GETUPVAL                         R15 4
       211 DUPTABLE                         R16 K66 [{"RootInstance"}]
       212 GETTABLEKS                       R17 R2 K7 ["RootInstance"]
@@ -398,23 +398,23 @@ PROTO_11:
 
 PROTO_12:
         0 DUPTABLE                         R2 K6 [{"ShowTree", "IKMode", "IKEnabled", "RootInstance", "PinnedParts", "SelectedTracks"}]
-        1 GETTABLEKS                       R4 R0 K7 ["Status"]
-        3 GETTABLEKS                       R3 R4 K0 ["ShowTree"]
+        1 GETTABLEKS                       R3 R0 K7 ["Status"]
+        3 GETTABLEKS                       R3 R3 K0 ["ShowTree"]
         5 SETTABLEKS                       R3 R2 K0 ["ShowTree"]
-        7 GETTABLEKS                       R4 R0 K7 ["Status"]
-        9 GETTABLEKS                       R3 R4 K1 ["IKMode"]
+        7 GETTABLEKS                       R3 R0 K7 ["Status"]
+        9 GETTABLEKS                       R3 R3 K1 ["IKMode"]
        11 SETTABLEKS                       R3 R2 K1 ["IKMode"]
-       13 GETTABLEKS                       R4 R0 K7 ["Status"]
-       15 GETTABLEKS                       R3 R4 K2 ["IKEnabled"]
+       13 GETTABLEKS                       R3 R0 K7 ["Status"]
+       15 GETTABLEKS                       R3 R3 K2 ["IKEnabled"]
        17 SETTABLEKS                       R3 R2 K2 ["IKEnabled"]
-       19 GETTABLEKS                       R4 R0 K7 ["Status"]
-       21 GETTABLEKS                       R3 R4 K3 ["RootInstance"]
+       19 GETTABLEKS                       R3 R0 K7 ["Status"]
+       21 GETTABLEKS                       R3 R3 K3 ["RootInstance"]
        23 SETTABLEKS                       R3 R2 K3 ["RootInstance"]
-       25 GETTABLEKS                       R4 R0 K7 ["Status"]
-       27 GETTABLEKS                       R3 R4 K4 ["PinnedParts"]
+       25 GETTABLEKS                       R3 R0 K7 ["Status"]
+       27 GETTABLEKS                       R3 R3 K4 ["PinnedParts"]
        29 SETTABLEKS                       R3 R2 K4 ["PinnedParts"]
-       31 GETTABLEKS                       R4 R0 K7 ["Status"]
-       33 GETTABLEKS                       R3 R4 K5 ["SelectedTracks"]
+       31 GETTABLEKS                       R3 R0 K7 ["Status"]
+       33 GETTABLEKS                       R3 R3 K5 ["SelectedTracks"]
        35 SETTABLEKS                       R3 R2 K5 ["SelectedTracks"]
        37 RETURN                           R2 1
 
@@ -512,23 +512,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R5 R3 K10 ["UI"]
-       30 GETTABLEKS                       R4 R5 K11 ["Button"]
+       28 GETTABLEKS                       R4 R3 K10 ["UI"]
+       30 GETTABLEKS                       R4 R4 K11 ["Button"]
        32 GETTABLEKS                       R5 R3 K12 ["ContextServices"]
        34 GETTABLEKS                       R6 R5 K13 ["withContext"]
-       36 GETTABLEKS                       R8 R0 K14 ["Src"]
-       38 GETTABLEKS                       R7 R8 K15 ["Actions"]
+       36 GETTABLEKS                       R7 R0 K14 ["Src"]
+       38 GETTABLEKS                       R7 R7 K15 ["Actions"]
        40 GETIMPORT                        R8 K5 [require]
        42 GETTABLEKS                       R9 R7 K16 ["SetIKEnabled"]
        44 CALL                             R8 1 1
@@ -538,18 +538,18 @@ MAIN:
        50 GETIMPORT                        R10 K5 [require]
        52 GETTABLEKS                       R11 R7 K18 ["SetShowTree"]
        54 CALL                             R10 1 1
-       55 GETTABLEKS                       R12 R0 K14 ["Src"]
-       57 GETTABLEKS                       R11 R12 K19 ["Components"]
+       55 GETTABLEKS                       R11 R0 K14 ["Src"]
+       57 GETTABLEKS                       R11 R11 K19 ["Components"]
        59 GETIMPORT                        R12 K5 [require]
-       61 GETTABLEKS                       R14 R11 K20 ["IK"]
-       63 GETTABLEKS                       R13 R14 K21 ["IKWindow"]
+       61 GETTABLEKS                       R13 R11 K20 ["IK"]
+       63 GETTABLEKS                       R13 R13 K21 ["IKWindow"]
        65 CALL                             R12 1 1
        66 GETIMPORT                        R13 K5 [require]
-       68 GETTABLEKS                       R15 R11 K20 ["IK"]
-       70 GETTABLEKS                       R14 R15 K22 ["R15IKRig"]
+       68 GETTABLEKS                       R14 R11 K20 ["IK"]
+       70 GETTABLEKS                       R14 R14 K22 ["R15IKRig"]
        72 CALL                             R13 1 1
-       73 GETTABLEKS                       R15 R0 K14 ["Src"]
-       75 GETTABLEKS                       R14 R15 K23 ["Thunks"]
+       73 GETTABLEKS                       R14 R0 K14 ["Src"]
+       75 GETTABLEKS                       R14 R14 K23 ["Thunks"]
        77 GETIMPORT                        R15 K5 [require]
        79 GETTABLEKS                       R16 R14 K24 ["SetSelectedTracks"]
        81 CALL                             R15 1 1
@@ -562,8 +562,8 @@ MAIN:
        92 GETIMPORT                        R18 K5 [require]
        94 GETTABLEKS                       R19 R14 K27 ["ToggleShowTree"]
        96 CALL                             R18 1 1
-       97 GETTABLEKS                       R20 R0 K14 ["Src"]
-       99 GETTABLEKS                       R19 R20 K28 ["Util"]
+       97 GETTABLEKS                       R19 R0 K14 ["Src"]
+       99 GETTABLEKS                       R19 R19 K28 ["Util"]
       101 GETIMPORT                        R20 K5 [require]
       103 GETTABLEKS                       R21 R19 K29 ["Constants"]
       105 CALL                             R20 1 1

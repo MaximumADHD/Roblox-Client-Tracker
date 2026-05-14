@@ -1,25 +1,25 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
         6 NEWTABLE                         R4 1 0
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K2 ["Tag"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K2 ["Tag"]
        11 LOADK                            R6 K3 ["X-ColumnS X-FitY X-Right"]
        12 SETTABLE                         R6 R4 R5
        13 DUPTABLE                         R5 K5 [{"ScrollingView"}]
-       14 GETUPVAL                         R7 0
-       15 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       14 GETUPVAL                         R6 0
+       15 GETTABLEKS                       R6 R6 K1 ["createElement"]
        17 GETUPVAL                         R7 1
        18 NEWTABLE                         R8 1 0
-       20 GETUPVAL                         R10 0
-       21 GETTABLEKS                       R9 R10 K2 ["Tag"]
+       20 GETUPVAL                         R9 0
+       21 GETTABLEKS                       R9 R9 K2 ["Tag"]
        23 LOADK                            R10 K6 ["FlexFill"]
        24 SETTABLE                         R10 R8 R9
        25 DUPTABLE                         R9 K8 [{"StyleRule"}]
-       26 GETUPVAL                         R11 0
-       27 GETTABLEKS                       R10 R11 K1 ["createElement"]
+       26 GETUPVAL                         R10 0
+       27 GETTABLEKS                       R10 R10 K1 ["createElement"]
        29 GETUPVAL                         R11 2
        30 DUPTABLE                         R12 K10 [{"RootInstance"}]
        31 GETTABLEKS                       R13 R1 K11 ["Folder"]
@@ -33,24 +33,24 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["UI"]
        25 GETTABLEKS                       R4 R3 K9 ["Pane"]
        27 GETIMPORT                        R5 K4 [require]
-       29 GETTABLEKS                       R8 R0 K10 ["Src"]
-       31 GETTABLEKS                       R7 R8 K11 ["Components"]
-       33 GETTABLEKS                       R6 R7 K12 ["SelectorPropertyTable"]
+       29 GETTABLEKS                       R6 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R6 K11 ["Components"]
+       33 GETTABLEKS                       R6 R6 K12 ["SelectorPropertyTable"]
        35 CALL                             R5 1 1
        36 GETTABLEKS                       R6 R1 K13 ["PureComponent"]
        38 LOADK                            R8 K14 ["FolderView"]

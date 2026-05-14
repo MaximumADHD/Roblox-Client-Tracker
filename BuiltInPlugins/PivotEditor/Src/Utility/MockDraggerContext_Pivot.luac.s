@@ -4,8 +4,8 @@ PROTO_0:
 
 PROTO_1:
         0 PREPVARARGS                      0
-        1 GETUPVAL                         R1 0
-        2 GETTABLEKS                       R0 R1 K0 ["new"]
+        1 GETUPVAL                         R0 0
+        2 GETTABLEKS                       R0 R0 K0 ["new"]
         4 GETVARARGS                       R1 -1
         5 CALL                             R0 -1 1
         6 DUPCLOSURE                       R1 K1 [PROTO_0]
@@ -14,15 +14,15 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
-        9 GETTABLEKS                       R2 R0 K3 ["Packages"]
-       11 GETTABLEKS                       R1 R2 K4 ["DraggerFramework"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       11 GETTABLEKS                       R1 R1 K4 ["DraggerFramework"]
        13 GETIMPORT                        R2 K6 [require]
-       15 GETTABLEKS                       R4 R1 K7 ["Implementation"]
-       17 GETTABLEKS                       R3 R4 K8 ["DraggerContext_FixtureImpl"]
+       15 GETTABLEKS                       R3 R1 K7 ["Implementation"]
+       17 GETTABLEKS                       R3 R3 K8 ["DraggerContext_FixtureImpl"]
        19 CALL                             R2 1 1
        20 NEWTABLE                         R3 1 0
        22 DUPCLOSURE                       R4 K9 [PROTO_1]

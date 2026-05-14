@@ -55,9 +55,9 @@ PROTO_5:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["defineLuaFlags"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K7 [game]
        12 LOADK                            R3 K8 ["RetireAudioDiscoveryPlugin"]
@@ -65,31 +65,31 @@ MAIN:
        15 CALL                             R1 2 1
        16 JUMPIFNOT                        R1 ; [+1]
        17 RETURN                           R0 0
-       18 GETIMPORT                        R3 K3 [script]
-       20 GETTABLEKS                       R2 R3 K4 ["Parent"]
-       22 GETTABLEKS                       R1 R2 K4 ["Parent"]
+       18 GETIMPORT                        R1 K3 [script]
+       20 GETTABLEKS                       R1 R1 K4 ["Parent"]
+       22 GETTABLEKS                       R1 R1 K4 ["Parent"]
        24 GETIMPORT                        R2 K1 [require]
-       26 GETTABLEKS                       R5 R1 K10 ["Src"]
-       28 GETTABLEKS                       R4 R5 K11 ["Util"]
-       30 GETTABLEKS                       R3 R4 K12 ["DebugFlags"]
+       26 GETTABLEKS                       R3 R1 K10 ["Src"]
+       28 GETTABLEKS                       R3 R3 K11 ["Util"]
+       30 GETTABLEKS                       R3 R3 K12 ["DebugFlags"]
        32 CALL                             R2 1 1
        33 GETTABLEKS                       R3 R2 K13 ["RunningUnderCLI"]
        35 CALL                             R3 0 1
        36 JUMPIFNOT                        R3 ; [+1]
        37 RETURN                           R0 0
        38 GETIMPORT                        R3 K1 [require]
-       40 GETTABLEKS                       R5 R1 K14 ["Packages"]
-       42 GETTABLEKS                       R4 R5 K15 ["PluginLoader"]
+       40 GETTABLEKS                       R4 R1 K14 ["Packages"]
+       42 GETTABLEKS                       R4 R4 K15 ["PluginLoader"]
        44 CALL                             R3 1 1
        45 GETTABLEKS                       R4 R3 K16 ["PluginLoaderBuilder"]
-       47 GETTABLEKS                       R8 R1 K10 ["Src"]
-       49 GETTABLEKS                       R7 R8 K17 ["Resources"]
-       51 GETTABLEKS                       R6 R7 K18 ["Localization"]
-       53 GETTABLEKS                       R5 R6 K19 ["SourceStrings"]
-       55 GETTABLEKS                       R9 R1 K10 ["Src"]
-       57 GETTABLEKS                       R8 R9 K17 ["Resources"]
-       59 GETTABLEKS                       R7 R8 K18 ["Localization"]
-       61 GETTABLEKS                       R6 R7 K20 ["LocalizedStrings"]
+       47 GETTABLEKS                       R5 R1 K10 ["Src"]
+       49 GETTABLEKS                       R5 R5 K17 ["Resources"]
+       51 GETTABLEKS                       R5 R5 K18 ["Localization"]
+       53 GETTABLEKS                       R5 R5 K19 ["SourceStrings"]
+       55 GETTABLEKS                       R6 R1 K10 ["Src"]
+       57 GETTABLEKS                       R6 R6 K17 ["Resources"]
+       59 GETTABLEKS                       R6 R6 K18 ["Localization"]
+       61 GETTABLEKS                       R6 R6 K20 ["LocalizedStrings"]
        63 LOADNIL                          R7
        64 LOADNIL                          R8
        65 LOADNIL                          R9
@@ -97,11 +97,11 @@ MAIN:
        68 CALL                             R10 0 1
        69 JUMPIFNOT                        R10 ; [+54]
        70 GETIMPORT                        R10 K1 [require]
-       72 GETTABLEKS                       R12 R1 K14 ["Packages"]
-       74 GETTABLEKS                       R11 R12 K22 ["StudioFoundation"]
+       72 GETTABLEKS                       R11 R1 K14 ["Packages"]
+       74 GETTABLEKS                       R11 R11 K22 ["StudioFoundation"]
        76 CALL                             R10 1 1
-       77 GETTABLEKS                       R12 R10 K11 ["Util"]
-       79 GETTABLEKS                       R11 R12 K23 ["StudioUri"]
+       77 GETTABLEKS                       R11 R10 K11 ["Util"]
+       79 GETTABLEKS                       R11 R11 K23 ["StudioUri"]
        81 GETIMPORT                        R12 K25 [plugin]
        83 NAMECALL                         R12 R12 K26 ["GetUri"]
        85 CALL                             R12 1 1
@@ -212,9 +212,9 @@ MAIN:
       236 JUMPIF                           R13 ; [+1]
       237 RETURN                           R0 0
       238 GETIMPORT                        R14 K1 [require]
-      240 GETIMPORT                        R17 K3 [script]
-      242 GETTABLEKS                       R16 R17 K4 ["Parent"]
-      244 GETTABLEKS                       R15 R16 K84 ["main"]
+      240 GETIMPORT                        R15 K3 [script]
+      242 GETTABLEKS                       R15 R15 K4 ["Parent"]
+      244 GETTABLEKS                       R15 R15 K84 ["main"]
       246 CALL                             R14 1 1
       247 MOVE                             R15 R14
       248 GETIMPORT                        R16 K25 [plugin]

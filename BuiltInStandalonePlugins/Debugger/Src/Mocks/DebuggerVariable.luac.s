@@ -28,8 +28,8 @@ PROTO_2:
         8 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 LOADN                            R2 0
         4 LOADK                            R3 K1 [""]
         5 LOADK                            R4 K1 [""]
@@ -38,11 +38,11 @@ PROTO_3:
         8 RETURN                           R1 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 LOADN                            R1 0
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["DummyRowName"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["DummyRowName"]
         7 LOADK                            R3 K2 [""]
         8 LOADK                            R4 K2 [""]
         9 CALL                             R0 4 -1
@@ -50,24 +50,24 @@ PROTO_4:
 
 PROTO_5:
         0 NEWTABLE                         R0 4 0
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K0 ["new"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["new"]
         5 LOADN                            R2 1
         6 LOADK                            R3 K1 [""]
         7 LOADK                            R4 K1 [""]
         8 LOADK                            R5 K1 [""]
         9 CALL                             R1 4 1
        10 SETTABLEKS                       R1 R0 K2 ["Locals"]
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R1 R2 K0 ["new"]
+       12 GETUPVAL                         R1 0
+       13 GETTABLEKS                       R1 R1 K0 ["new"]
        15 LOADN                            R2 1
        16 LOADK                            R3 K1 [""]
        17 LOADK                            R4 K1 [""]
        18 LOADK                            R5 K1 [""]
        19 CALL                             R1 4 1
        20 SETTABLEKS                       R1 R0 K3 ["Globals"]
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R1 R2 K0 ["new"]
+       22 GETUPVAL                         R1 0
+       23 GETTABLEKS                       R1 R1 K0 ["new"]
        25 LOADN                            R2 1
        26 LOADK                            R3 K1 [""]
        27 LOADK                            R4 K1 [""]
@@ -78,12 +78,12 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
-        9 GETTABLEKS                       R3 R0 K5 ["Util"]
-       11 GETTABLEKS                       R2 R3 K6 ["Constants"]
+        9 GETTABLEKS                       R2 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R2 K6 ["Constants"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 8 0
        16 SETTABLEKS                       R2 R2 K7 ["__index"]

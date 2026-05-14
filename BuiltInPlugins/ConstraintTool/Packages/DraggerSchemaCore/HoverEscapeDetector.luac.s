@@ -11,8 +11,8 @@ PROTO_1:
         5 CALL                             R2 2 1
         6 NAMECALL                         R2 R2 K2 ["Wait"]
         8 CALL                             R2 1 0
-        9 GETUPVAL                         R3 1
-       10 GETTABLEKS                       R2 R3 K3 ["_destroyed"]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K3 ["_destroyed"]
        12 JUMPIF                           R2 ; [+2]
        13 GETUPVAL                         R2 2
        14 CALL                             R2 0 0
@@ -32,8 +32,8 @@ PROTO_2:
        13 CALL                             R1 2 1
        14 NAMECALL                         R1 R1 K5 ["Wait"]
        16 CALL                             R1 1 0
-       17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R1 R2 K6 ["_destroyed"]
+       17 GETUPVAL                         R1 0
+       18 GETTABLEKS                       R1 R1 K6 ["_destroyed"]
        20 JUMPIF                           R1 ; [+2]
        21 GETUPVAL                         R1 1
        22 CALL                             R1 0 0
@@ -98,8 +98,8 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R1 R0 K2 ["Parent"]
         7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
         9 NEWTABLE                         R3 4 0

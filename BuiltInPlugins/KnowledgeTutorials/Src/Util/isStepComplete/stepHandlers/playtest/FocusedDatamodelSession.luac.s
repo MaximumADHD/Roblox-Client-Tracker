@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["MultipleDocumentInterfaceInstance"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["MultipleDocumentInterfaceInstance"]
         3 GETTABLEKS                       R1 R0 K1 ["FocusedDataModelSession"]
         5 RETURN                           R1 1
 

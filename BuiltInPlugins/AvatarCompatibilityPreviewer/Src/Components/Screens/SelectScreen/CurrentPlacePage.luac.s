@@ -33,8 +33,8 @@ PROTO_1:
         5 RETURN                           R1 -1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["Avatar"]
-        2 GETTABLEKS                       R1 R2 K1 ["Name"]
+        0 GETTABLEKS                       R1 R0 K0 ["Avatar"]
+        2 GETTABLEKS                       R1 R1 K1 ["Name"]
         4 GETUPVAL                         R3 0
         5 GETUPVAL                         R4 1
         6 CALL                             R3 1 -1
@@ -46,8 +46,8 @@ PROTO_3:
         0 LENGTH                           R2 R1
         1 JUMPIFNOTEQKN                    R2 K0 [0] ; [+2]
         3 RETURN                           R0 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R2 R3 K1 ["filter"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["filter"]
         7 MOVE                             R3 R0
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          UPVAL U1
@@ -63,16 +63,16 @@ PROTO_4:
         5 GETUPVAL                         R2 1
         6 NAMECALL                         R2 R2 K1 ["use"]
         8 CALL                             R2 1 1
-        9 GETUPVAL                         R4 2
-       10 GETTABLEKS                       R3 R4 K2 ["useMemo"]
+        9 GETUPVAL                         R3 2
+       10 GETTABLEKS                       R3 R3 K2 ["useMemo"]
        12 GETUPVAL                         R4 3
        13 CALL                             R3 1 1
-       14 GETUPVAL                         R5 2
-       15 GETTABLEKS                       R4 R5 K3 ["useState"]
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R4 R4 K3 ["useState"]
        17 LOADK                            R5 K4 [""]
        18 CALL                             R4 1 2
-       19 GETUPVAL                         R7 2
-       20 GETTABLEKS                       R6 R7 K5 ["createElement"]
+       19 GETUPVAL                         R6 2
+       20 GETTABLEKS                       R6 R6 K5 ["createElement"]
        22 GETUPVAL                         R7 4
        23 DUPTABLE                         R8 K10 [{"Title", "GoBack", "Search", "SetSearch"}]
        24 LOADK                            R11 K11 ["SelectScreen"]
@@ -85,16 +85,16 @@ PROTO_4:
        35 SETTABLEKS                       R4 R8 K8 ["Search"]
        37 SETTABLEKS                       R5 R8 K9 ["SetSearch"]
        39 DUPTABLE                         R9 K15 [{"Grid"}]
-       40 GETUPVAL                         R11 2
-       41 GETTABLEKS                       R10 R11 K5 ["createElement"]
+       40 GETUPVAL                         R10 2
+       41 GETTABLEKS                       R10 R10 K5 ["createElement"]
        43 GETUPVAL                         R11 5
        44 DUPTABLE                         R12 K20 [{"Cells", "CellComponent", "CellPadding", "CellSize"}]
        45 LENGTH                           R14 R4
        46 JUMPIFNOTEQKN                    R14 K21 [0] ; [+3]
        48 MOVE                             R13 R3
        49 JUMP                             ; [+8]
-       50 GETUPVAL                         R14 6
-       51 GETTABLEKS                       R13 R14 K22 ["filter"]
+       50 GETUPVAL                         R13 6
+       51 GETTABLEKS                       R13 R13 K22 ["filter"]
        53 MOVE                             R14 R3
        54 NEWCLOSURE                       R15 P0
        55 CAPTURE                          UPVAL U7
@@ -106,18 +106,18 @@ PROTO_4:
        63 GETTABLEKS                       R13 R1 K23 ["GridPadding"]
        65 SETTABLEKS                       R13 R12 K18 ["CellPadding"]
        67 GETIMPORT                        R13 K26 [UDim2.fromOffset]
-       69 GETTABLEKS                       R15 R1 K27 ["Avatar"]
-       71 GETTABLEKS                       R14 R15 K28 ["IconSize"]
-       73 GETTABLEKS                       R19 R1 K27 ["Avatar"]
-       75 GETTABLEKS                       R18 R19 K28 ["IconSize"]
-       77 GETTABLEKS                       R20 R1 K27 ["Avatar"]
-       79 GETTABLEKS                       R19 R20 K29 ["NameFontSize"]
+       69 GETTABLEKS                       R14 R1 K27 ["Avatar"]
+       71 GETTABLEKS                       R14 R14 K28 ["IconSize"]
+       73 GETTABLEKS                       R18 R1 K27 ["Avatar"]
+       75 GETTABLEKS                       R18 R18 K28 ["IconSize"]
+       77 GETTABLEKS                       R19 R1 K27 ["Avatar"]
+       79 GETTABLEKS                       R19 R19 K29 ["NameFontSize"]
        81 ADD                              R17 R18 R19
-       82 GETTABLEKS                       R19 R1 K27 ["Avatar"]
-       84 GETTABLEKS                       R18 R19 K30 ["NameLines"]
+       82 GETTABLEKS                       R18 R1 K27 ["Avatar"]
+       84 GETTABLEKS                       R18 R18 K30 ["NameLines"]
        86 ADD                              R16 R17 R18
-       87 GETTABLEKS                       R18 R1 K27 ["Avatar"]
-       89 GETTABLEKS                       R17 R18 K31 ["Padding"]
+       87 GETTABLEKS                       R17 R1 K27 ["Avatar"]
+       89 GETTABLEKS                       R17 R17 K31 ["Padding"]
        91 ADD                              R15 R16 R17
        92 CALL                             R13 2 1
        93 SETTABLEKS                       R13 R12 K19 ["CellSize"]
@@ -137,43 +137,43 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Dash"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Framework"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R6 R1 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K13 ["React"]
+       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["React"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R8 R1 K14 ["Src"]
-       38 GETTABLEKS                       R7 R8 K15 ["Util"]
-       40 GETTABLEKS                       R6 R7 K16 ["isAvatar"]
+       36 GETTABLEKS                       R6 R1 K14 ["Src"]
+       38 GETTABLEKS                       R6 R6 K15 ["Util"]
+       40 GETTABLEKS                       R6 R6 K16 ["isAvatar"]
        42 CALL                             R5 1 1
        43 GETIMPORT                        R6 K9 [require]
-       45 GETTABLEKS                       R9 R1 K14 ["Src"]
-       47 GETTABLEKS                       R8 R9 K17 ["Resources"]
-       49 GETTABLEKS                       R7 R8 K18 ["Theme"]
+       45 GETTABLEKS                       R7 R1 K14 ["Src"]
+       47 GETTABLEKS                       R7 R7 K17 ["Resources"]
+       49 GETTABLEKS                       R7 R7 K18 ["Theme"]
        51 CALL                             R6 1 1
        52 GETIMPORT                        R7 K9 [require]
-       54 GETIMPORT                        R10 K5 [script]
-       56 GETTABLEKS                       R9 R10 K19 ["Parent"]
-       58 GETTABLEKS                       R8 R9 K20 ["AvatarCell"]
+       54 GETIMPORT                        R8 K5 [script]
+       56 GETTABLEKS                       R8 R8 K19 ["Parent"]
+       58 GETTABLEKS                       R8 R8 K20 ["AvatarCell"]
        60 CALL                             R7 1 1
        61 GETIMPORT                        R8 K9 [require]
-       63 GETIMPORT                        R11 K5 [script]
-       65 GETTABLEKS                       R10 R11 K19 ["Parent"]
-       67 GETTABLEKS                       R9 R10 K21 ["ImportPage"]
+       63 GETIMPORT                        R9 K5 [script]
+       65 GETTABLEKS                       R9 R9 K19 ["Parent"]
+       67 GETTABLEKS                       R9 R9 K21 ["ImportPage"]
        69 CALL                             R8 1 1
        70 GETTABLEKS                       R9 R3 K22 ["UI"]
        72 GETTABLEKS                       R10 R9 K23 ["Grid"]
-       74 GETTABLEKS                       R12 R3 K24 ["ContextServices"]
-       76 GETTABLEKS                       R11 R12 K25 ["Localization"]
-       78 GETTABLEKS                       R13 R3 K24 ["ContextServices"]
-       80 GETTABLEKS                       R12 R13 K26 ["Stylizer"]
+       74 GETTABLEKS                       R11 R3 K24 ["ContextServices"]
+       76 GETTABLEKS                       R11 R11 K25 ["Localization"]
+       78 GETTABLEKS                       R12 R3 K24 ["ContextServices"]
+       80 GETTABLEKS                       R12 R12 K26 ["Stylizer"]
        82 DUPCLOSURE                       R13 K27 [PROTO_0]
        83 CAPTURE                          VAL R0
        84 CAPTURE                          VAL R5

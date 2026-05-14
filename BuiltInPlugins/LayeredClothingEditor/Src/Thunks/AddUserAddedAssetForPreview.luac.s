@@ -1,8 +1,8 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["previewStatus"]
-        5 GETTABLEKS                       R2 R3 K2 ["userAddedAssets"]
+        3 GETTABLEKS                       R2 R1 K1 ["previewStatus"]
+        5 GETTABLEKS                       R2 R2 K2 ["userAddedAssets"]
         7 LOADN                            R3 1
         8 GETUPVAL                         R5 0
         9 GETTABLE                         R4 R2 R5
@@ -11,8 +11,8 @@ PROTO_0:
        12 GETTABLE                         R5 R2 R6
        13 LENGTH                           R4 R5
        14 ADDK                             R3 R4 K3 [1]
-       15 GETUPVAL                         R5 1
-       16 GETTABLEKS                       R4 R5 K4 ["createUserAddedAsset"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K4 ["createUserAddedAsset"]
        18 GETUPVAL                         R5 2
        19 CALL                             R4 1 1
        20 GETUPVAL                         R5 3
@@ -47,28 +47,28 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["AvatarToolsShared"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["AvatarToolsShared"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R4 R1 K7 ["Util"]
-       18 GETTABLEKS                       R3 R4 K8 ["AccessoryAndBodyToolShared"]
-       20 GETTABLEKS                       R2 R3 K9 ["PreviewUtil"]
+       16 GETTABLEKS                       R2 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R2 K8 ["AccessoryAndBodyToolShared"]
+       20 GETTABLEKS                       R2 R2 K9 ["PreviewUtil"]
        22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R6 R0 K10 ["Src"]
-       26 GETTABLEKS                       R5 R6 K11 ["Actions"]
-       28 GETTABLEKS                       R4 R5 K12 ["SetUserAddedAssets"]
+       24 GETTABLEKS                       R4 R0 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Actions"]
+       28 GETTABLEKS                       R4 R4 K12 ["SetUserAddedAssets"]
        30 CALL                             R3 1 1
        31 GETIMPORT                        R4 K4 [require]
-       33 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       35 GETTABLEKS                       R5 R6 K13 ["Framework"]
+       33 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       35 GETTABLEKS                       R5 R5 K13 ["Framework"]
        37 CALL                             R4 1 1
-       38 GETTABLEKS                       R6 R4 K7 ["Util"]
-       40 GETTABLEKS                       R5 R6 K14 ["deepJoin"]
+       38 GETTABLEKS                       R5 R4 K7 ["Util"]
+       40 GETTABLEKS                       R5 R5 K14 ["deepJoin"]
        42 DUPCLOSURE                       R6 K15 [PROTO_1]
        43 CAPTURE                          VAL R2
        44 CAPTURE                          VAL R5

@@ -33,8 +33,8 @@ PROTO_4:
         9 LOADB                            R1 0 +1
        10 LOADB                            R1 1
        11 SETUPVAL                         R1 0
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R1 R2 K6 ["mainButton"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K6 ["mainButton"]
        15 GETUPVAL                         R2 0
        16 SETTABLEKS                       R2 R1 K7 ["Enabled"]
        18 RETURN                           R0 0
@@ -42,40 +42,40 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["DmSessionEnded"]
-        2 GETUPVAL                         R4 1
-        3 GETTABLEKS                       R3 R4 K1 ["CurrentDataModelType"]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K1 ["CurrentDataModelType"]
         5 NAMECALL                         R0 R0 K2 ["Invoke"]
         7 CALL                             R0 3 0
         8 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 1
-        1 GETTABLEKS                       R0 R1 K0 ["FocusedDataModelSession"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["FocusedDataModelSession"]
         3 SETUPVAL                         R0 0
         4 GETUPVAL                         R0 2
         5 LOADK                            R2 K1 ["DmSessionStarted"]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K2 ["CurrentDataModelType"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K2 ["CurrentDataModelType"]
         9 NAMECALL                         R0 R0 K3 ["Invoke"]
        11 CALL                             R0 3 0
        12 GETUPVAL                         R0 2
        13 LOADK                            R2 K4 ["DmChanged"]
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R3 R4 K2 ["CurrentDataModelType"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K2 ["CurrentDataModelType"]
        17 NAMECALL                         R0 R0 K3 ["Invoke"]
        19 CALL                             R0 3 0
        20 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["mainButton"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["mainButton"]
         3 LOADB                            R2 1
         4 SETTABLEKS                       R2 R1 K1 ["Enabled"]
         6 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["mainButton"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mainButton"]
         3 LOADB                            R1 1
         4 SETTABLEKS                       R1 R0 K1 ["Enabled"]
         6 RETURN                           R0 0
@@ -86,12 +86,12 @@ PROTO_9:
         2 RETURN                           R0 0
         3 LOADB                            R0 1
         4 SETUPVAL                         R0 0
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R0 R1 K0 ["build"]
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["build"]
         8 GETUPVAL                         R1 2
         9 CALL                             R0 1 1
-       10 GETUPVAL                         R2 3
-       11 GETTABLEKS                       R1 R2 K1 ["MultipleDocumentInterfaceInstance"]
+       10 GETUPVAL                         R1 3
+       11 GETTABLEKS                       R1 R1 K1 ["MultipleDocumentInterfaceInstance"]
        13 GETTABLEKS                       R2 R1 K2 ["FocusedDataModelSession"]
        15 LOADB                            R3 1
        16 GETUPVAL                         R4 3
@@ -120,8 +120,8 @@ PROTO_9:
        44 CAPTURE                          VAL R0
        45 NAMECALL                         R4 R4 K4 ["OnInvoke"]
        47 CALL                             R4 3 0
-       48 GETUPVAL                         R5 3
-       49 GETTABLEKS                       R4 R5 K9 ["Unloading"]
+       48 GETUPVAL                         R4 3
+       49 GETTABLEKS                       R4 R4 K9 ["Unloading"]
        51 NEWCLOSURE                       R6 P4
        52 CAPTURE                          VAL R0
        53 NAMECALL                         R4 R4 K6 ["Connect"]
@@ -161,8 +161,8 @@ PROTO_10:
         4 RETURN                           R0 -1
 
 PROTO_11:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["Name"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
         5 DUPTABLE                         R2 K6 [{"getName", "getDescription", "icon", "enabled", "clickableWhenViewportHidden"}]
         6 DUPCLOSURE                       R3 K7 [PROTO_0]
@@ -241,18 +241,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["PluginLoader"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["PluginLoader"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PluginLoaderBuilder"]
-       16 GETTABLEKS                       R6 R0 K9 ["Src"]
-       18 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       20 GETTABLEKS                       R4 R5 K11 ["Localization"]
-       22 GETTABLEKS                       R3 R4 K12 ["SourceStrings"]
-       24 GETTABLEKS                       R7 R0 K9 ["Src"]
-       26 GETTABLEKS                       R6 R7 K10 ["Resources"]
-       28 GETTABLEKS                       R5 R6 K11 ["Localization"]
-       30 GETTABLEKS                       R4 R5 K13 ["LocalizedStrings"]
+       16 GETTABLEKS                       R3 R0 K9 ["Src"]
+       18 GETTABLEKS                       R3 R3 K10 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K11 ["Localization"]
+       22 GETTABLEKS                       R3 R3 K12 ["SourceStrings"]
+       24 GETTABLEKS                       R4 R0 K9 ["Src"]
+       26 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       28 GETTABLEKS                       R4 R4 K11 ["Localization"]
+       30 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
        32 DUPCLOSURE                       R5 K14 [PROTO_11]
        33 CAPTURE                          VAL R0
        34 CAPTURE                          VAL R4

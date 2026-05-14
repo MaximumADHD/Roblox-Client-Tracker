@@ -49,8 +49,8 @@ PROTO_5:
         2 DUPTABLE                         R4 K1 [{"AnimationTrack"}]
         3 GETTABLEKS                       R5 R1 K2 ["animationTrack"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["AnimationTrack"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -61,8 +61,8 @@ PROTO_6:
         2 DUPTABLE                         R4 K1 [{"PrevAnimationClip"}]
         3 GETTABLEKS                       R5 R1 K2 ["prevAnimationClip"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["PrevAnimationClip"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -149,8 +149,8 @@ PROTO_15:
         2 DUPTABLE                         R4 K1 [{"EventEditingTick"}]
         3 GETTABLEKS                       R5 R1 K2 ["eventEditingTick"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["EventEditingTick"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -280,8 +280,8 @@ PROTO_29:
         2 DUPTABLE                         R4 K1 [{"LastSelectedPath"}]
         3 GETTABLEKS                       R5 R1 K2 ["lastSelectedPath"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["LastSelectedPath"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -373,8 +373,8 @@ PROTO_39:
         2 DUPTABLE                         R4 K1 [{"RootInstance"}]
         3 GETTABLEKS                       R5 R1 K2 ["rootInstance"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["RootInstance"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -403,8 +403,8 @@ PROTO_42:
         2 DUPTABLE                         R4 K1 [{"SelectedTrackInstances"}]
         3 GETTABLEKS                       R5 R1 K2 ["selectedTrackInstances"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["SelectedTrackInstances"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -415,8 +415,8 @@ PROTO_43:
         2 DUPTABLE                         R4 K1 [{"SelectedTracks"}]
         3 GETTABLEKS                       R5 R1 K2 ["selectedTracks"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["SelectedTracks"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -463,8 +463,8 @@ PROTO_48:
         2 DUPTABLE                         R4 K1 [{"StartingPose"}]
         3 GETTABLEKS                       R5 R1 K2 ["startingPose"]
         5 JUMPIF                           R5 ; [+3]
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R5 R6 K3 ["None"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
         9 SETTABLEKS                       R5 R4 K0 ["StartingPose"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
@@ -557,19 +557,19 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Rodux"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Rodux"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Cryo"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R4 R2 K9 ["Dictionary"]
-       23 GETTABLEKS                       R3 R4 K10 ["join"]
+       21 GETTABLEKS                       R3 R2 K9 ["Dictionary"]
+       23 GETTABLEKS                       R3 R3 K10 ["join"]
        25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R7 R0 K11 ["Src"]
-       29 GETTABLEKS                       R6 R7 K12 ["Util"]
-       31 GETTABLEKS                       R5 R6 K13 ["Constants"]
+       27 GETTABLEKS                       R5 R0 K11 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Util"]
+       31 GETTABLEKS                       R5 R5 K13 ["Constants"]
        33 CALL                             R4 1 1
        34 GETTABLEKS                       R5 R1 K14 ["createReducer"]
        36 NEWTABLE                         R6 64 0
@@ -581,8 +581,8 @@ MAIN:
        45 SETTABLEKS                       R7 R6 K17 ["AnimationFromVideoUploadStartTime"]
        47 LOADN                            R7 0
        48 SETTABLEKS                       R7 R6 K18 ["AnimationImportProgress"]
-       50 GETTABLEKS                       R8 R4 K19 ["ANIMATION_FROM_VIDEO_STATUS"]
-       52 GETTABLEKS                       R7 R8 K20 ["Initializing"]
+       50 GETTABLEKS                       R7 R4 K19 ["ANIMATION_FROM_VIDEO_STATUS"]
+       52 GETTABLEKS                       R7 R7 K20 ["Initializing"]
        54 SETTABLEKS                       R7 R6 K21 ["AnimationImportStatus"]
        56 LOADNIL                          R7
        57 SETTABLEKS                       R7 R6 K22 ["AnimationTrack"]
@@ -600,8 +600,8 @@ MAIN:
        78 SETTABLEKS                       R7 R6 K33 ["DefaultRotationType"]
        80 LOADN                            R7 0
        81 SETTABLEKS                       R7 R6 K34 ["EditingLength"]
-       83 GETTABLEKS                       R8 R4 K35 ["EDITOR_MODE"]
-       85 GETTABLEKS                       R7 R8 K36 ["DopeSheet"]
+       83 GETTABLEKS                       R7 R4 K35 ["EDITOR_MODE"]
+       85 GETTABLEKS                       R7 R7 K36 ["DopeSheet"]
        87 SETTABLEKS                       R7 R6 K37 ["EditorMode"]
        89 LOADNIL                          R7
        90 SETTABLEKS                       R7 R6 K38 ["EditorModeSwitchTime"]
@@ -621,8 +621,8 @@ MAIN:
       112 SETTABLEKS                       R7 R6 K46 ["HorizontalZoom"]
       114 LOADB                            R7 0
       115 SETTABLEKS                       R7 R6 K47 ["IKEnabled"]
-      117 GETTABLEKS                       R8 R4 K48 ["IK_MODE"]
-      119 GETTABLEKS                       R7 R8 K49 ["FullBody"]
+      117 GETTABLEKS                       R7 R4 K48 ["IK_MODE"]
+      119 GETTABLEKS                       R7 R7 K49 ["FullBody"]
       121 SETTABLEKS                       R7 R6 K50 ["IKMode"]
       123 LOADNIL                          R7
       124 SETTABLEKS                       R7 R6 K51 ["IKOpenedTimestamp"]
@@ -646,13 +646,13 @@ MAIN:
       154 SETTABLEKS                       R7 R6 K60 ["PlaybackStartInfo"]
       156 LOADN                            R7 0
       157 SETTABLEKS                       R7 R6 K61 ["Playhead"]
-      159 GETTABLEKS                       R8 R4 K62 ["PLAY_STATE"]
-      161 GETTABLEKS                       R7 R8 K63 ["Pause"]
+      159 GETTABLEKS                       R7 R4 K62 ["PLAY_STATE"]
+      161 GETTABLEKS                       R7 R7 K63 ["Pause"]
       163 SETTABLEKS                       R7 R6 K64 ["PlayState"]
       165 LOADB                            R7 0
       166 SETTABLEKS                       R7 R6 K65 ["ReadOnly"]
-      168 GETTABLEKS                       R8 R4 K66 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
-      170 GETTABLEKS                       R7 R8 K67 ["Hidden"]
+      168 GETTABLEKS                       R7 R4 K66 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
+      170 GETTABLEKS                       R7 R7 K67 ["Hidden"]
       172 SETTABLEKS                       R7 R6 K68 ["ReduceKeyframesDialogMode"]
       174 NEWTABLE                         R7 0 0
       176 SETTABLEKS                       R7 R6 K69 ["RightClickContextInfo"]
@@ -670,13 +670,13 @@ MAIN:
       196 SETTABLEKS                       R7 R6 K75 ["ShowFaceControlsEditorPanel"]
       198 LOADB                            R7 0
       199 SETTABLEKS                       R7 R6 K76 ["ShowTree"]
-      201 GETTABLEKS                       R8 R4 K77 ["SNAP_MODES"]
-      203 GETTABLEKS                       R7 R8 K78 ["Frames"]
+      201 GETTABLEKS                       R7 R4 K77 ["SNAP_MODES"]
+      203 GETTABLEKS                       R7 R7 K78 ["Frames"]
       205 SETTABLEKS                       R7 R6 K79 ["SnapMode"]
       207 LOADB                            R7 0
       208 SETTABLEKS                       R7 R6 K80 ["SymmetryEnabled"]
-      210 GETTABLEKS                       R8 R4 K81 ["TIMELINE_UNITS"]
-      212 GETTABLEKS                       R7 R8 K82 ["SecondsDecimal"]
+      210 GETTABLEKS                       R7 R4 K81 ["TIMELINE_UNITS"]
+      212 GETTABLEKS                       R7 R7 K82 ["SecondsDecimal"]
       214 SETTABLEKS                       R7 R6 K83 ["TimelineUnit"]
       216 GETIMPORT                        R7 K86 [Enum.RibbonTool.Rotate]
       218 SETTABLEKS                       R7 R6 K87 ["Tool"]

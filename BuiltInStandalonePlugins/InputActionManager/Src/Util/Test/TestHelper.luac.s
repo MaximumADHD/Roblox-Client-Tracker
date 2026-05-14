@@ -19,8 +19,8 @@ PROTO_2:
         1 DUPCLOSURE                       R1 K0 [PROTO_1]
         2 CAPTURE                          UPVAL U1
         3 CALL                             R0 1 0
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R0 R1 K1 ["awaitDeferAsync"]
+        4 GETUPVAL                         R0 2
+        5 GETTABLEKS                       R0 R0 K1 ["awaitDeferAsync"]
         7 CALL                             R0 0 0
         8 RETURN                           R0 0
 
@@ -35,9 +35,9 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R4 R5 K11 ["Dev"]
-       19 GETTABLEKS                       R3 R4 K12 ["ReactTestingLibrary"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Dev"]
+       19 GETTABLEKS                       R3 R3 K12 ["ReactTestingLibrary"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K13 ["act"]
        24 NEWTABLE                         R4 2 0

@@ -44,8 +44,8 @@ PROTO_0:
        59 NAMECALL                         R8 R8 K21 ["PointToWorldSpace"]
        61 CALL                             R8 2 -1
        62 RETURN                           R8 -1
-       63 GETTABLEKS                       R5 R0 K22 ["ClickedMetadata"]
-       65 GETTABLEKS                       R4 R5 K23 ["TargetMatrix"]
+       63 GETTABLEKS                       R4 R0 K22 ["ClickedMetadata"]
+       65 GETTABLEKS                       R4 R4 K23 ["TargetMatrix"]
        67 GETTABLEKS                       R7 R0 K1 ["ClickedPosition"]
        69 NAMECALL                         R5 R4 K10 ["PointToObjectSpace"]
        71 CALL                             R5 2 1
@@ -106,8 +106,8 @@ PROTO_1:
        40 GETTABLEKS                       R10 R2 K6 ["ClickedPosition"]
        42 NAMECALL                         R8 R6 K9 ["PointToObjectSpace"]
        44 CALL                             R8 2 1
-       45 GETTABLEKS                       R10 R2 K10 ["ClickedMetadata"]
-       47 GETTABLEKS                       R9 R10 K11 ["IsPivot"]
+       45 GETTABLEKS                       R9 R2 K10 ["ClickedMetadata"]
+       47 GETTABLEKS                       R9 R9 K11 ["IsPivot"]
        49 JUMPIFNOT                        R9 ; [+2]
        50 LOADK                            R8 K12 [{0, 0, 0}]
        51 LOADK                            R7 K12 [{0, 0, 0}]
@@ -197,10 +197,10 @@ PROTO_3:
        25 GETTABLEKS                       R8 R5 K8 ["vertices"]
        27 CALL                             R7 1 3
        28 FORGPREP_INEXT                   R7
-       29 GETTABLEKS                       R14 R11 K9 ["position"]
-       31 GETTABLEKS                       R15 R2 K4 ["ClickedPosition"]
-       33 SUB                              R13 R14 R15
-       34 GETTABLEKS                       R12 R13 K10 ["Magnitude"]
+       29 GETTABLEKS                       R13 R11 K9 ["position"]
+       31 GETTABLEKS                       R14 R2 K4 ["ClickedPosition"]
+       33 SUB                              R12 R13 R14
+       34 GETTABLEKS                       R12 R12 K10 ["Magnitude"]
        36 JUMPIFNOTLT                      R12 R6 ; [+4]
        38 MOVE                             R6 R12
        39 GETTABLEKS                       R3 R11 K9 ["position"]
@@ -284,21 +284,21 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [script]
-        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R1 R0 K2 ["Parent"]
         7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
         9 GETIMPORT                        R3 K5 [require]
-       11 GETTABLEKS                       R5 R2 K6 ["Utility"]
-       13 GETTABLEKS                       R4 R5 K7 ["getGeometry"]
+       11 GETTABLEKS                       R4 R2 K6 ["Utility"]
+       13 GETTABLEKS                       R4 R4 K7 ["getGeometry"]
        15 CALL                             R3 1 1
        16 GETIMPORT                        R4 K5 [require]
-       18 GETTABLEKS                       R6 R2 K6 ["Utility"]
-       20 GETTABLEKS                       R5 R6 K8 ["getFaceInstance"]
+       18 GETTABLEKS                       R5 R2 K6 ["Utility"]
+       20 GETTABLEKS                       R5 R5 K8 ["getFaceInstance"]
        22 CALL                             R4 1 1
        23 GETIMPORT                        R5 K5 [require]
-       25 GETTABLEKS                       R7 R2 K9 ["Flags"]
-       27 GETTABLEKS                       R6 R7 K10 ["getFFlagDraggerImprovements"]
+       25 GETTABLEKS                       R6 R2 K9 ["Flags"]
+       27 GETTABLEKS                       R6 R6 K10 ["getFFlagDraggerImprovements"]
        29 CALL                             R5 1 1
        30 DUPCLOSURE                       R6 K11 [PROTO_0]
        31 MOVE                             R7 R5

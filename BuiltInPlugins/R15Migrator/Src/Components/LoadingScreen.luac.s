@@ -21,25 +21,25 @@ PROTO_2:
         4 GETTABLEKS                       R3 R1 K2 ["Localization"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
         8 LOADK                            R5 K4 [""]
-        9 GETUPVAL                         R7 0
-       10 GETTABLEKS                       R6 R7 K5 ["ScanningScripts"]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K5 ["ScanningScripts"]
        12 JUMPIFEQ                         R2 R6 ; [+11]
-       14 GETUPVAL                         R7 0
-       15 GETTABLEKS                       R6 R7 K6 ["ScanningWorkspace"]
+       14 GETUPVAL                         R6 0
+       15 GETTABLEKS                       R6 R6 K6 ["ScanningWorkspace"]
        17 JUMPIFEQ                         R2 R6 ; [+6]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R6 R7 K7 ["ConvertingAnimations"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K7 ["ConvertingAnimations"]
        22 JUMPIFNOTEQ                      R2 R6 ; [+7]
        24 LOADK                            R8 K8 ["AnimationConversion"]
        25 MOVE                             R9 R2
        26 NAMECALL                         R6 R3 K9 ["getText"]
        28 CALL                             R6 3 1
        29 MOVE                             R5 R6
-       30 GETUPVAL                         R7 1
-       31 GETTABLEKS                       R6 R7 K10 ["new"]
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K10 ["new"]
        33 CALL                             R6 0 1
-       34 GETUPVAL                         R8 2
-       35 GETTABLEKS                       R7 R8 K11 ["createElement"]
+       34 GETUPVAL                         R7 2
+       35 GETTABLEKS                       R7 R7 K11 ["createElement"]
        37 GETUPVAL                         R8 3
        38 DUPTABLE                         R9 K17 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Padding"}]
        39 GETIMPORT                        R10 K21 [Enum.FillDirection.Vertical]
@@ -53,8 +53,8 @@ PROTO_2:
        55 GETTABLEKS                       R10 R4 K16 ["Padding"]
        57 SETTABLEKS                       R10 R9 K16 ["Padding"]
        59 DUPTABLE                         R10 K27 [{"Text", "LoadingIndicator"}]
-       60 GETUPVAL                         R12 2
-       61 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       60 GETUPVAL                         R11 2
+       61 GETTABLEKS                       R11 R11 K11 ["createElement"]
        63 GETUPVAL                         R12 4
        64 DUPTABLE                         R13 K30 [{"Text", "AutomaticSize", "LayoutOrder"}]
        65 SETTABLEKS                       R5 R13 K25 ["Text"]
@@ -65,8 +65,8 @@ PROTO_2:
        74 SETTABLEKS                       R14 R13 K29 ["LayoutOrder"]
        76 CALL                             R11 2 1
        77 SETTABLEKS                       R11 R10 K25 ["Text"]
-       79 GETUPVAL                         R12 2
-       80 GETTABLEKS                       R11 R12 K11 ["createElement"]
+       79 GETUPVAL                         R11 2
+       80 GETTABLEKS                       R11 R11 K11 ["createElement"]
        82 GETUPVAL                         R12 5
        83 DUPTABLE                         R13 K34 [{"LayoutOrder"}]
        84 NAMECALL                         R14 R6 K33 ["getNextOrder"]
@@ -79,8 +79,8 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"status"}]
-        1 GETTABLEKS                       R4 R0 K2 ["AnimationConversion"]
-        3 GETTABLEKS                       R3 R4 K0 ["status"]
+        1 GETTABLEKS                       R3 R0 K2 ["AnimationConversion"]
+        3 GETTABLEKS                       R3 R3 K0 ["status"]
         5 SETTABLEKS                       R3 R2 K0 ["status"]
         7 RETURN                           R2 1
 
@@ -91,31 +91,31 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["RoactRodux"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["ContextServices"]
        30 GETTABLEKS                       R5 R1 K11 ["UI"]
        32 GETTABLEKS                       R6 R5 K12 ["Pane"]
        34 GETTABLEKS                       R7 R5 K13 ["LoadingIndicator"]
        36 GETTABLEKS                       R8 R5 K14 ["TextLabel"]
-       38 GETTABLEKS                       R10 R1 K15 ["Util"]
-       40 GETTABLEKS                       R9 R10 K16 ["LayoutOrderIterator"]
-       42 GETTABLEKS                       R12 R0 K17 ["Src"]
-       44 GETTABLEKS                       R11 R12 K15 ["Util"]
-       46 GETTABLEKS                       R10 R11 K18 ["AnimationConversion"]
-       48 GETIMPORT                        R12 K5 [require]
-       50 GETTABLEKS                       R13 R10 K19 ["constants"]
-       52 CALL                             R12 1 1
-       53 GETTABLEKS                       R11 R12 K20 ["Status"]
+       38 GETTABLEKS                       R9 R1 K15 ["Util"]
+       40 GETTABLEKS                       R9 R9 K16 ["LayoutOrderIterator"]
+       42 GETTABLEKS                       R10 R0 K17 ["Src"]
+       44 GETTABLEKS                       R10 R10 K15 ["Util"]
+       46 GETTABLEKS                       R10 R10 K18 ["AnimationConversion"]
+       48 GETIMPORT                        R11 K5 [require]
+       50 GETTABLEKS                       R12 R10 K19 ["constants"]
+       52 CALL                             R11 1 1
+       53 GETTABLEKS                       R11 R11 K20 ["Status"]
        55 GETTABLEKS                       R12 R2 K21 ["PureComponent"]
        57 LOADK                            R14 K22 ["LoadingScreen"]
        58 NAMECALL                         R12 R12 K23 ["extend"]

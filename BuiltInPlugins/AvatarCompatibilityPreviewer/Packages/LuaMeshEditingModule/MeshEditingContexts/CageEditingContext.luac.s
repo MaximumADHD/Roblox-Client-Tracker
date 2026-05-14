@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
         5 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
@@ -20,8 +20,8 @@ PROTO_1:
        10 CALL                             R8 2 1
        11 JUMPIFNOT                        R8 ; [+12]
        12 MOVE                             R9 R2
-       13 GETUPVAL                         R11 0
-       14 GETTABLEKS                       R10 R11 K3 ["new"]
+       13 GETUPVAL                         R10 0
+       14 GETTABLEKS                       R10 R10 K3 ["new"]
        16 GETIMPORT                        R11 K7 [Enum.CageType.Outer]
        18 MOVE                             R12 R7
        19 CALL                             R10 2 -1
@@ -59,8 +59,8 @@ PROTO_3:
         9 LOADK                            R5 K6 ["MeshPart must contain a WrapLayer"]
        10 RETURN                           R5 1
        11 MOVE                             R6 R3
-       12 GETUPVAL                         R8 0
-       13 GETTABLEKS                       R7 R8 K7 ["new"]
+       12 GETUPVAL                         R7 0
+       13 GETTABLEKS                       R7 R7 K7 ["new"]
        15 MOVE                             R8 R1
        16 MOVE                             R9 R4
        17 CALL                             R7 2 -1
@@ -84,8 +84,8 @@ PROTO_3:
        40 RETURN                           R6 1
        41 JUMPIFNOT                        R4 ; [+12]
        42 MOVE                             R7 R3
-       43 GETUPVAL                         R9 0
-       44 GETTABLEKS                       R8 R9 K7 ["new"]
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R8 R8 K7 ["new"]
        46 MOVE                             R9 R1
        47 MOVE                             R10 R4
        48 CALL                             R8 2 -1
@@ -124,8 +124,8 @@ PROTO_4:
        25 CALL                             R5 2 1
        26 JUMPIFNOT                        R5 ; [+12]
        27 MOVE                             R6 R3
-       28 GETUPVAL                         R8 0
-       29 GETTABLEKS                       R7 R8 K12 ["new"]
+       28 GETUPVAL                         R7 0
+       29 GETTABLEKS                       R7 R7 K12 ["new"]
        31 MOVE                             R8 R1
        32 MOVE                             R9 R2
        33 CALL                             R7 2 -1
@@ -211,12 +211,12 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["MeshEditingContexts"]
-       11 GETTABLEKS                       R2 R3 K7 ["MeshEditingContextBase"]
+        9 GETTABLEKS                       R2 R0 K6 ["MeshEditingContexts"]
+       11 GETTABLEKS                       R2 R2 K7 ["MeshEditingContextBase"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["MeshWrapperObjects"]
-       18 GETTABLEKS                       R3 R4 K9 ["CageMeshWrapperObject"]
+       16 GETTABLEKS                       R3 R0 K8 ["MeshWrapperObjects"]
+       18 GETTABLEKS                       R3 R3 K9 ["CageMeshWrapperObject"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K10 ["Types"]

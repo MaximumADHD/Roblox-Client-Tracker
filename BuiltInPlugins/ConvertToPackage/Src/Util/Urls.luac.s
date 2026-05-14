@@ -1,8 +1,8 @@
 PROTO_0:
         0 ORK                              R1 R1 K0 [100]
         1 GETUPVAL                         R3 0
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R4 R5 K1 ["makeQueryString"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K1 ["makeQueryString"]
         5 DUPTABLE                         R5 K6 [{"userId", "width", "height", "format"}]
         6 SETTABLEKS                       R0 R5 K2 ["userId"]
         8 SETTABLEKS                       R1 R5 K3 ["width"]
@@ -15,8 +15,8 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R9 0
-        1 GETUPVAL                         R11 1
-        2 GETTABLEKS                       R10 R11 K0 ["makeQueryString"]
+        1 GETUPVAL                         R10 1
+        2 GETTABLEKS                       R10 R10 K0 ["makeQueryString"]
         4 DUPTABLE                         R11 K10 [{"assetid", "type", "name", "description", "genreTypeId", "ispublic", "allowComments", "groupId", "isPackage"}]
         5 SETTABLEKS                       R0 R11 K1 ["assetid"]
         7 FASTCALL1                        TOSTRING R1 ; [+3]
@@ -60,27 +60,27 @@ PROTO_2:
 PROTO_3:
         0 GETIMPORT                        R1 K2 [string.format]
         2 LOADK                            R2 K3 ["https://apis.%screator-home-api/v1/groups?surface=%s"]
-        3 GETUPVAL                         R4 0
-        4 GETTABLEKS                       R3 R4 K4 ["DOMAIN"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K4 ["DOMAIN"]
         6 MOVE                             R4 R0
         7 CALL                             R1 3 -1
         8 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R4 R0 K5 ["DEPRECATED_modules"]
-       13 GETTABLEKS                       R3 R4 K6 ["Http"]
-       15 GETTABLEKS                       R2 R3 K7 ["Url"]
+       11 GETTABLEKS                       R2 R0 K5 ["DEPRECATED_modules"]
+       13 GETTABLEKS                       R2 R2 K6 ["Http"]
+       15 GETTABLEKS                       R2 R2 K7 ["Url"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K8 ["Src"]
-       22 GETTABLEKS                       R4 R5 K9 ["Util"]
-       24 GETTABLEKS                       R3 R4 K10 ["wrapStrictTable"]
+       20 GETTABLEKS                       R3 R0 K8 ["Src"]
+       22 GETTABLEKS                       R3 R3 K9 ["Util"]
+       24 GETTABLEKS                       R3 R3 K10 ["wrapStrictTable"]
        26 CALL                             R2 1 1
        27 NEWTABLE                         R3 4 0
        29 GETTABLEKS                       R5 R1 K11 ["BASE_URL"]

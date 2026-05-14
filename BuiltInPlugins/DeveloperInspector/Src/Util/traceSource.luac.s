@@ -120,9 +120,9 @@ PROTO_0:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["DebugFlags"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["DebugFlags"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K6 ["RunningUnderCLI"]
        12 LOADNIL                          R2
@@ -131,13 +131,13 @@ MAIN:
        15 LOADB                            R2 1
        16 LOADB                            R3 1
        17 JUMP                             ; [+14]
-       18 GETIMPORT                        R5 K9 [settings]
-       20 CALL                             R5 0 1
-       21 GETTABLEKS                       R4 R5 K10 ["Studio"]
+       18 GETIMPORT                        R4 K9 [settings]
+       20 CALL                             R4 0 1
+       21 GETTABLEKS                       R4 R4 K10 ["Studio"]
        23 GETTABLEKS                       R2 R4 K7 ["Show Core GUI in Explorer while Playing"]
-       25 GETIMPORT                        R5 K9 [settings]
-       27 CALL                             R5 0 1
-       28 GETTABLEKS                       R4 R5 K10 ["Studio"]
+       25 GETIMPORT                        R4 K9 [settings]
+       27 CALL                             R4 0 1
+       28 GETTABLEKS                       R4 R4 K10 ["Studio"]
        30 GETTABLEKS                       R3 R4 K11 ["PluginDebuggingEnabled"]
        32 NEWCLOSURE                       R4 P0
        33 CAPTURE                          REF R3

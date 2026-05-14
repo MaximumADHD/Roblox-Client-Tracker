@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 DUPTABLE                         R2 K8 [{"BackgroundTransparency", "Font", "LayoutOrder", "TextSize", "Text", "TextXAlignment", "TextColor3"}]
         5 LOADN                            R3 1
         6 SETTABLEKS                       R3 R2 K1 ["BackgroundTransparency"]
-        8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R3 R4 K2 ["Font"]
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K2 ["Font"]
        11 SETTABLEKS                       R3 R2 K2 ["Font"]
        13 LOADN                            R3 1
        14 SETTABLEKS                       R3 R2 K3 ["LayoutOrder"]
@@ -16,25 +16,25 @@ PROTO_0:
        20 SETTABLEKS                       R3 R2 K5 ["Text"]
        22 GETIMPORT                        R3 K11 [Enum.TextXAlignment.Left]
        24 SETTABLEKS                       R3 R2 K6 ["TextXAlignment"]
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R3 R4 K12 ["TextColor"]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K12 ["TextColor"]
        29 SETTABLEKS                       R3 R2 K7 ["TextColor3"]
        31 CALL                             R0 2 -1
        32 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["description"]
-        4 GETTABLEKS                       R3 R0 K0 ["props"]
-        6 GETTABLEKS                       R2 R3 K2 ["LayoutOrder"]
-        8 GETTABLEKS                       R4 R0 K0 ["props"]
-       10 GETTABLEKS                       R3 R4 K3 ["title"]
-       12 GETTABLEKS                       R5 R0 K0 ["props"]
-       14 GETTABLEKS                       R4 R5 K4 ["titleWidth"]
-       16 GETTABLEKS                       R6 R0 K0 ["props"]
-       18 GETTABLEKS                       R5 R6 K5 ["Stylizer"]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R6 R7 K6 ["createElement"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["description"]
+        4 GETTABLEKS                       R2 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K2 ["LayoutOrder"]
+        8 GETTABLEKS                       R3 R0 K0 ["props"]
+       10 GETTABLEKS                       R3 R3 K3 ["title"]
+       12 GETTABLEKS                       R4 R0 K0 ["props"]
+       14 GETTABLEKS                       R4 R4 K4 ["titleWidth"]
+       16 GETTABLEKS                       R5 R0 K0 ["props"]
+       18 GETTABLEKS                       R5 R5 K5 ["Stylizer"]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K6 ["createElement"]
        23 GETUPVAL                         R7 1
        24 DUPTABLE                         R8 K8 [{"LayoutOrder", "renderContent", "title", "titleWidth"}]
        25 SETTABLEKS                       R2 R8 K2 ["LayoutOrder"]
@@ -51,36 +51,36 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R5 R0 K7 ["Src"]
-       22 GETTABLEKS                       R4 R5 K8 ["Util"]
-       24 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K7 ["Src"]
+       22 GETTABLEKS                       R3 R3 K8 ["Util"]
+       24 GETTABLEKS                       R3 R3 K9 ["Constants"]
        26 CALL                             R2 1 1
-       27 GETIMPORT                        R4 K4 [require]
-       29 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       31 GETTABLEKS                       R5 R6 K10 ["Framework"]
-       33 CALL                             R4 1 1
-       34 GETTABLEKS                       R3 R4 K11 ["ContextServices"]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K10 ["Framework"]
+       33 CALL                             R3 1 1
+       34 GETTABLEKS                       R3 R3 K11 ["ContextServices"]
        36 GETTABLEKS                       R4 R3 K12 ["withContext"]
        38 GETIMPORT                        R5 K4 [require]
-       40 GETTABLEKS                       R9 R0 K7 ["Src"]
-       42 GETTABLEKS                       R8 R9 K13 ["Components"]
-       44 GETTABLEKS                       R7 R8 K14 ["PluginDetails"]
-       46 GETTABLEKS                       R6 R7 K15 ["ListItem"]
+       40 GETTABLEKS                       R6 R0 K7 ["Src"]
+       42 GETTABLEKS                       R6 R6 K13 ["Components"]
+       44 GETTABLEKS                       R6 R6 K14 ["PluginDetails"]
+       46 GETTABLEKS                       R6 R6 K15 ["ListItem"]
        48 CALL                             R5 1 1
        49 GETIMPORT                        R6 K4 [require]
-       51 GETTABLEKS                       R9 R0 K7 ["Src"]
-       53 GETTABLEKS                       R8 R9 K13 ["Components"]
-       55 GETTABLEKS                       R7 R8 K16 ["FluidFitTextLabel"]
+       51 GETTABLEKS                       R7 R0 K7 ["Src"]
+       53 GETTABLEKS                       R7 R7 K13 ["Components"]
+       55 GETTABLEKS                       R7 R7 K16 ["FluidFitTextLabel"]
        57 CALL                             R6 1 1
        58 GETTABLEKS                       R7 R1 K17 ["Component"]
        60 LOADK                            R9 K18 ["ListTextItem"]

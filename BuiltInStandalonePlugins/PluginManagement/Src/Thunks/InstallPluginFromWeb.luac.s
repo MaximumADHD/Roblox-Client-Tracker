@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
         3 JUMPIFNOTEQ                      R0 R2 ; [+8]
         5 GETUPVAL                         R2 1
         6 LOADK                            R4 K1 ["InstallPluginFromWebSuccess"]
@@ -44,11 +44,11 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
         2 JUMPIFNOT                        R1 ; [+154]
-        3 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-        5 GETTABLEKS                       R1 R2 K1 ["data"]
+        3 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        5 GETTABLEKS                       R1 R1 K1 ["data"]
         7 JUMPIFNOT                        R1 ; [+149]
-        8 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-       10 GETTABLEKS                       R1 R2 K1 ["data"]
+        8 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+       10 GETTABLEKS                       R1 R1 K1 ["data"]
        12 GETTABLEN                        R2 R1 1
        13 JUMPIFNOT                        R2 ; [+105]
        14 GETTABLEKS                       R3 R2 K2 ["versionId"]
@@ -81,10 +81,10 @@ PROTO_2:
        51 CAPTURE                          UPVAL U5
        52 CALL                             R4 1 2
        53 JUMPIFNOT                        R4 ; [+32]
-       54 GETUPVAL                         R7 6
-       55 GETTABLEKS                       R6 R7 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
-       57 GETUPVAL                         R8 6
-       58 GETTABLEKS                       R7 R8 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+       54 GETUPVAL                         R6 6
+       55 GETTABLEKS                       R6 R6 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+       57 GETUPVAL                         R7 6
+       58 GETTABLEKS                       R7 R7 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
        60 JUMPIFNOTEQ                      R6 R7 ; [+8]
        62 GETUPVAL                         R7 7
        63 LOADK                            R9 K14 ["InstallPluginFromWebSuccess"]
@@ -107,11 +107,11 @@ PROTO_2:
        82 NAMECALL                         R7 R7 K10 ["dispatch"]
        84 CALL                             R7 -1 0
        85 RETURN                           R0 0
-       86 GETUPVAL                         R7 6
-       87 GETTABLEKS                       R6 R7 K17 ["PLUGIN_NOT_INSTALLED"]
+       86 GETUPVAL                         R6 6
+       87 GETTABLEKS                       R6 R6 K17 ["PLUGIN_NOT_INSTALLED"]
        89 ORK                              R7 R5 K4 [""]
-       90 GETUPVAL                         R9 6
-       91 GETTABLEKS                       R8 R9 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+       90 GETUPVAL                         R8 6
+       91 GETTABLEKS                       R8 R8 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
        93 JUMPIFNOTEQ                      R6 R8 ; [+8]
        95 GETUPVAL                         R8 7
        96 LOADK                            R10 K14 ["InstallPluginFromWebSuccess"]
@@ -134,14 +134,14 @@ PROTO_2:
       115 NAMECALL                         R8 R8 K10 ["dispatch"]
       117 CALL                             R8 -1 0
       118 RETURN                           R0 0
-      119 GETUPVAL                         R4 6
-      120 GETTABLEKS                       R3 R4 K18 ["PLUGIN_DETAILS_UNAVAILABLE"]
+      119 GETUPVAL                         R3 6
+      120 GETTABLEKS                       R3 R3 K18 ["PLUGIN_DETAILS_UNAVAILABLE"]
       122 GETTABLEKS                       R5 R0 K0 ["responseBody"]
       124 FASTCALL1                        TOSTRING R5 ; [+2]
       125 GETIMPORT                        R4 K7 [tostring]
       127 CALL                             R4 1 1
-      128 GETUPVAL                         R6 6
-      129 GETTABLEKS                       R5 R6 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+      128 GETUPVAL                         R5 6
+      129 GETTABLEKS                       R5 R5 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
       131 JUMPIFNOTEQ                      R3 R5 ; [+8]
       133 GETUPVAL                         R5 7
       134 LOADK                            R7 K14 ["InstallPluginFromWebSuccess"]
@@ -164,14 +164,14 @@ PROTO_2:
       153 NAMECALL                         R5 R5 K10 ["dispatch"]
       155 CALL                             R5 -1 0
       156 RETURN                           R0 0
-      157 GETUPVAL                         R2 6
-      158 GETTABLEKS                       R1 R2 K18 ["PLUGIN_DETAILS_UNAVAILABLE"]
+      157 GETUPVAL                         R1 6
+      158 GETTABLEKS                       R1 R1 K18 ["PLUGIN_DETAILS_UNAVAILABLE"]
       160 GETTABLEKS                       R3 R0 K0 ["responseBody"]
       162 FASTCALL1                        TOSTRING R3 ; [+2]
       163 GETIMPORT                        R2 K7 [tostring]
       165 CALL                             R2 1 1
-      166 GETUPVAL                         R4 6
-      167 GETTABLEKS                       R3 R4 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+      166 GETUPVAL                         R3 6
+      167 GETTABLEKS                       R3 R3 K13 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
       169 JUMPIFNOTEQ                      R1 R3 ; [+8]
       171 GETUPVAL                         R3 7
       172 LOADK                            R5 K14 ["InstallPluginFromWebSuccess"]
@@ -196,10 +196,10 @@ PROTO_2:
       194 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["HTTP_ERROR"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["HTTP_ERROR"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
         6 JUMPIFNOTEQ                      R1 R2 ; [+8]
         8 GETUPVAL                         R2 1
         9 LOADK                            R4 K2 ["InstallPluginFromWebSuccess"]
@@ -232,10 +232,10 @@ PROTO_4:
         8 LOADB                            R1 0 +1
         9 LOADB                            R1 1
        10 JUMPIFNOT                        R1 ; [+33]
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R4 R5 K4 ["Develop"]
-       14 GETTABLEKS                       R3 R4 K5 ["v1"]
-       16 GETTABLEKS                       R2 R3 K6 ["Plugins"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K4 ["Develop"]
+       14 GETTABLEKS                       R2 R2 K5 ["v1"]
+       16 GETTABLEKS                       R2 R2 K6 ["Plugins"]
        18 NEWTABLE                         R3 0 1
        20 GETUPVAL                         R4 1
        21 SETLIST                          R3 R4 1 [1]
@@ -259,10 +259,10 @@ PROTO_4:
        40 NAMECALL                         R2 R2 K7 ["andThen"]
        42 CALL                             R2 3 -1
        43 RETURN                           R2 -1
-       44 GETUPVAL                         R3 7
-       45 GETTABLEKS                       R2 R3 K8 ["PLUGIN_NOT_OWNED"]
-       47 GETUPVAL                         R4 7
-       48 GETTABLEKS                       R3 R4 K9 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+       44 GETUPVAL                         R2 7
+       45 GETTABLEKS                       R2 R2 K8 ["PLUGIN_NOT_OWNED"]
+       47 GETUPVAL                         R3 7
+       48 GETTABLEKS                       R3 R3 K9 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
        50 JUMPIFNOTEQ                      R2 R3 ; [+8]
        52 GETUPVAL                         R3 8
        53 LOADK                            R5 K10 ["InstallPluginFromWebSuccess"]
@@ -287,10 +287,10 @@ PROTO_4:
        75 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["HTTP_ERROR"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R2 R3 K1 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["HTTP_ERROR"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["PLUGIN_INSTALLED_SUCCESSFULLY"]
         6 JUMPIFNOTEQ                      R1 R2 ; [+8]
         8 GETUPVAL                         R2 1
         9 LOADK                            R4 K2 ["InstallPluginFromWebSuccess"]
@@ -368,12 +368,12 @@ PROTO_6:
        55 NAMECALL                         R5 R5 K4 ["GetUserId"]
        57 CALL                             R5 1 1
        58 MOVE                             R4 R5
-       59 GETUPVAL                         R10 6
-       60 GETTABLEKS                       R9 R10 K5 ["Inventory"]
-       62 GETTABLEKS                       R8 R9 K6 ["v1"]
-       64 GETTABLEKS                       R7 R8 K7 ["Users"]
-       66 GETTABLEKS                       R6 R7 K8 ["Items"]
-       68 GETTABLEKS                       R5 R6 K9 ["IsOwned"]
+       59 GETUPVAL                         R5 6
+       60 GETTABLEKS                       R5 R5 K5 ["Inventory"]
+       62 GETTABLEKS                       R5 R5 K6 ["v1"]
+       64 GETTABLEKS                       R5 R5 K7 ["Users"]
+       66 GETTABLEKS                       R5 R5 K8 ["Items"]
+       68 GETTABLEKS                       R5 R5 K9 ["IsOwned"]
        70 MOVE                             R6 R4
        71 GETIMPORT                        R7 K13 [Enum.AvatarItemType.Asset]
        73 GETUPVAL                         R8 1
@@ -401,38 +401,38 @@ PROTO_7:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R3 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
+       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
+       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R5 R0 K7 ["Src"]
-       20 GETTABLEKS                       R4 R5 K8 ["Constants"]
-       22 GETTABLEKS                       R3 R4 K9 ["PluginInstalledStatus"]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Constants"]
+       22 GETTABLEKS                       R3 R3 K9 ["PluginInstalledStatus"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R6 R0 K7 ["Src"]
-       29 GETTABLEKS                       R5 R6 K10 ["Actions"]
-       31 GETTABLEKS                       R4 R5 K11 ["SetPluginInstallStatus"]
+       27 GETTABLEKS                       R4 R0 K7 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Actions"]
+       31 GETTABLEKS                       R4 R4 K11 ["SetPluginInstallStatus"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R7 R0 K7 ["Src"]
-       38 GETTABLEKS                       R6 R7 K10 ["Actions"]
-       40 GETTABLEKS                       R5 R6 K12 ["SetPluginId"]
+       36 GETTABLEKS                       R5 R0 K7 ["Src"]
+       38 GETTABLEKS                       R5 R5 K10 ["Actions"]
+       40 GETTABLEKS                       R5 R5 K12 ["SetPluginId"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R8 R0 K7 ["Src"]
-       47 GETTABLEKS                       R7 R8 K10 ["Actions"]
-       49 GETTABLEKS                       R6 R7 K13 ["SetPluginMetadata"]
+       45 GETTABLEKS                       R6 R0 K7 ["Src"]
+       47 GETTABLEKS                       R6 R6 K10 ["Actions"]
+       49 GETTABLEKS                       R6 R6 K13 ["SetPluginMetadata"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K4 [require]
-       54 GETTABLEKS                       R9 R0 K7 ["Src"]
-       56 GETTABLEKS                       R8 R9 K10 ["Actions"]
-       58 GETTABLEKS                       R7 R8 K14 ["ClearPluginData"]
+       54 GETTABLEKS                       R7 R0 K7 ["Src"]
+       56 GETTABLEKS                       R7 R7 K10 ["Actions"]
+       58 GETTABLEKS                       R7 R7 K14 ["ClearPluginData"]
        60 CALL                             R6 1 1
        61 DUPCLOSURE                       R7 K15 [PROTO_7]
        62 CAPTURE                          VAL R6

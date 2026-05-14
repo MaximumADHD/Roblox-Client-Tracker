@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["props"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Analytics"]
         5 NAMECALL                         R1 R1 K2 ["get"]
         7 CALL                             R1 1 1
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R2 R3 K3 ["toggleTextScraperEnabled"]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["toggleTextScraperEnabled"]
        11 MOVE                             R3 R1
        12 CALL                             R2 1 0
        13 GETUPVAL                         R2 0
@@ -28,17 +28,17 @@ PROTO_2:
         6 GETTABLEKS                       R4 R1 K3 ["LayoutOrder"]
         8 GETTABLEKS                       R6 R1 K4 ["IsBusy"]
        10 NOT                              R5 R6
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R6 R7 K5 ["IsTextScraperRunning"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R6 R6 K5 ["IsTextScraperRunning"]
        14 JUMPIFNOT                        R6 ; [+5]
-       15 GETTABLEKS                       R8 R2 K6 ["TextCaptureButtonImage"]
-       17 GETTABLEKS                       R7 R8 K7 ["On"]
+       15 GETTABLEKS                       R7 R2 K6 ["TextCaptureButtonImage"]
+       17 GETTABLEKS                       R7 R7 K7 ["On"]
        19 JUMPIF                           R7 ; [+4]
-       20 GETTABLEKS                       R8 R2 K6 ["TextCaptureButtonImage"]
-       22 GETTABLEKS                       R7 R8 K8 ["Off"]
+       20 GETTABLEKS                       R7 R2 K6 ["TextCaptureButtonImage"]
+       22 GETTABLEKS                       R7 R7 K8 ["Off"]
        24 DUPTABLE                         R8 K11 [{"Padding", "TextCapture"}]
-       25 GETUPVAL                         R10 1
-       26 GETTABLEKS                       R9 R10 K12 ["createElement"]
+       25 GETUPVAL                         R9 1
+       26 GETTABLEKS                       R9 R9 K12 ["createElement"]
        28 LOADK                            R10 K13 ["UIPadding"]
        29 DUPTABLE                         R11 K16 [{"PaddingTop", "PaddingLeft"}]
        30 GETIMPORT                        R12 K19 [UDim.new]
@@ -53,8 +53,8 @@ PROTO_2:
        44 SETTABLEKS                       R12 R11 K15 ["PaddingLeft"]
        46 CALL                             R9 2 1
        47 SETTABLEKS                       R9 R8 K9 ["Padding"]
-       49 GETUPVAL                         R10 1
-       50 GETTABLEKS                       R9 R10 K12 ["createElement"]
+       49 GETUPVAL                         R9 1
+       50 GETTABLEKS                       R9 R9 K12 ["createElement"]
        52 GETUPVAL                         R10 2
        53 DUPTABLE                         R11 K29 [{"Active", "Enabled", "ButtonText", "ButtonImage", "LabelText", "LinkText", "LayoutOrder", "OnButtonClick", "Link"}]
        54 SETTABLEKS                       R5 R11 K21 ["Active"]
@@ -81,8 +81,8 @@ PROTO_2:
        87 CALL                             R9 2 1
        88 SETTABLEKS                       R9 R8 K10 ["TextCapture"]
        90 DUPTABLE                         R9 K39 [{"Padding", "SectionLabel", "Container"}]
-       91 GETUPVAL                         R11 1
-       92 GETTABLEKS                       R10 R11 K12 ["createElement"]
+       91 GETUPVAL                         R10 1
+       92 GETTABLEKS                       R10 R10 K12 ["createElement"]
        94 LOADK                            R11 K13 ["UIPadding"]
        95 DUPTABLE                         R12 K40 [{"PaddingTop"}]
        96 GETIMPORT                        R13 K19 [UDim.new]
@@ -93,8 +93,8 @@ PROTO_2:
       103 SETTABLEKS                       R13 R12 K14 ["PaddingTop"]
       105 CALL                             R10 2 1
       106 SETTABLEKS                       R10 R9 K9 ["Padding"]
-      108 GETUPVAL                         R11 1
-      109 GETTABLEKS                       R10 R11 K12 ["createElement"]
+      108 GETUPVAL                         R10 1
+      109 GETTABLEKS                       R10 R10 K12 ["createElement"]
       111 GETUPVAL                         R11 3
       112 DUPTABLE                         R12 K45 [{"AutomaticSize", "LayoutOrder", "Text", "Style"}]
       113 GETIMPORT                        R13 K48 [Enum.AutomaticSize.XY]
@@ -110,8 +110,8 @@ PROTO_2:
       128 SETTABLEKS                       R13 R12 K44 ["Style"]
       130 CALL                             R10 2 1
       131 SETTABLEKS                       R10 R9 K37 ["SectionLabel"]
-      133 GETUPVAL                         R11 1
-      134 GETTABLEKS                       R10 R11 K12 ["createElement"]
+      133 GETUPVAL                         R10 1
+      134 GETTABLEKS                       R10 R10 K12 ["createElement"]
       136 GETUPVAL                         R11 4
       137 DUPTABLE                         R12 K53 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
       138 GETIMPORT                        R13 K55 [Enum.AutomaticSize.Y]
@@ -125,8 +125,8 @@ PROTO_2:
       153 MOVE                             R13 R8
       154 CALL                             R10 3 1
       155 SETTABLEKS                       R10 R9 K38 ["Container"]
-      157 GETUPVAL                         R11 1
-      158 GETTABLEKS                       R10 R11 K12 ["createElement"]
+      157 GETUPVAL                         R10 1
+      158 GETTABLEKS                       R10 R10 K12 ["createElement"]
       160 GETUPVAL                         R11 4
       161 DUPTABLE                         R12 K53 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
       162 GETIMPORT                        R13 K55 [Enum.AutomaticSize.Y]
@@ -142,8 +142,8 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"IsBusy"}]
-        1 GETTABLEKS                       R4 R0 K2 ["CloudTable"]
-        3 GETTABLEKS                       R3 R4 K0 ["IsBusy"]
+        1 GETTABLEKS                       R3 R0 K2 ["CloudTable"]
+        3 GETTABLEKS                       R3 R3 K0 ["IsBusy"]
         5 SETTABLEKS                       R3 R2 K0 ["IsBusy"]
         7 RETURN                           R2 1
 
@@ -153,21 +153,21 @@ MAIN:
         3 LOADK                            R2 K2 ["LocalizationService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["RoactRodux"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["RoactRodux"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K8 [require]
-       31 GETTABLEKS                       R6 R1 K9 ["Packages"]
-       33 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       31 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       33 GETTABLEKS                       R5 R5 K12 ["Framework"]
        35 CALL                             R4 1 1
        36 GETTABLEKS                       R5 R4 K13 ["ContextServices"]
        38 GETTABLEKS                       R6 R5 K14 ["withContext"]
@@ -175,19 +175,19 @@ MAIN:
        42 GETTABLEKS                       R8 R7 K16 ["Pane"]
        44 GETTABLEKS                       R9 R7 K17 ["TextLabel"]
        46 GETIMPORT                        R10 K8 [require]
-       48 GETTABLEKS                       R13 R1 K18 ["Src"]
-       50 GETTABLEKS                       R12 R13 K13 ["ContextServices"]
-       52 GETTABLEKS                       R11 R12 K19 ["AnalyticsContext"]
+       48 GETTABLEKS                       R11 R1 K18 ["Src"]
+       50 GETTABLEKS                       R11 R11 K13 ["ContextServices"]
+       52 GETTABLEKS                       R11 R11 K19 ["AnalyticsContext"]
        54 CALL                             R10 1 1
        55 GETIMPORT                        R11 K8 [require]
-       57 GETTABLEKS                       R14 R1 K18 ["Src"]
-       59 GETTABLEKS                       R13 R14 K20 ["Components"]
-       61 GETTABLEKS                       R12 R13 K21 ["TextScraperToggle"]
+       57 GETTABLEKS                       R12 R1 K18 ["Src"]
+       59 GETTABLEKS                       R12 R12 K20 ["Components"]
+       61 GETTABLEKS                       R12 R12 K21 ["TextScraperToggle"]
        63 CALL                             R11 1 1
        64 GETIMPORT                        R12 K8 [require]
-       66 GETTABLEKS                       R15 R1 K18 ["Src"]
-       68 GETTABLEKS                       R14 R15 K22 ["Util"]
-       70 GETTABLEKS                       R13 R14 K23 ["EmbeddedTableUtil"]
+       66 GETTABLEKS                       R13 R1 K18 ["Src"]
+       68 GETTABLEKS                       R13 R13 K22 ["Util"]
+       70 GETTABLEKS                       R13 R13 K23 ["EmbeddedTableUtil"]
        72 CALL                             R12 1 1
        73 GETTABLEKS                       R13 R2 K24 ["PureComponent"]
        75 LOADK                            R15 K25 ["TextScraperSection"]

@@ -4,12 +4,12 @@ PROTO_0:
         3 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["_plugin"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["_plugin"]
         3 JUMPIF                           R3 ; [+1]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K0 ["_plugin"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["_plugin"]
         8 MOVE                             R5 R0
         9 DUPTABLE                         R6 K3 [{"Event", "Args"}]
        10 SETTABLEKS                       R1 R6 K1 ["Event"]
@@ -22,28 +22,28 @@ PROTO_1:
        21 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_sendEventSafe"]
         3 LOADK                            R2 K1 ["SendAnalyticsEvent"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K2 ["Insert"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K2 ["Insert"]
         7 MOVE                             R4 R0
         8 CALL                             R1 3 0
         9 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_sendEventSafe"]
         3 LOADK                            R2 K1 ["SendAnalyticsEvent"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K2 ["Search"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K2 ["Search"]
         7 MOVE                             R4 R0
         8 CALL                             R1 3 0
         9 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_sendEventSafe"]
         3 LOADK                            R2 K1 ["SendAnalyticsEvent"]
         4 LOADK                            R3 K2 ["insert_remains_30"]
         5 MOVE                             R4 R0
@@ -51,8 +51,8 @@ PROTO_4:
         7 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_sendEventSafe"]
         3 LOADK                            R2 K1 ["SendAnalyticsEvent"]
         4 LOADK                            R3 K2 ["insert_remains_120"]
         5 MOVE                             R4 R0
@@ -60,8 +60,8 @@ PROTO_5:
         7 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_sendEventSafe"]
         3 LOADK                            R2 K1 ["SendAnalyticsEvent"]
         4 LOADK                            R3 K2 ["insert_remains_600"]
         5 MOVE                             R4 R0
@@ -69,21 +69,21 @@ PROTO_6:
         7 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_sendEventSafe"]
         3 LOADK                            R2 K1 ["SendAnalyticsEvent"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R3 R4 K2 ["Enabled"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K2 ["Enabled"]
         7 MOVE                             R4 R0
         8 CALL                             R1 3 0
         9 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["_sendEventSafe"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_sendEventSafe"]
         3 LOADK                            R1 K1 ["SendAnalyticsEvent"]
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K2 ["Upload"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K2 ["Upload"]
         7 CALL                             R0 2 0
         8 RETURN                           R0 0
 
@@ -100,8 +100,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K9 [game]
        16 LOADK                            R4 K10 ["HttpService"]

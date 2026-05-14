@@ -1,8 +1,8 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["ContextServices"]
-        3 GETTABLEKS                       R1 R2 K1 ["Analytics"]
-        5 GETTABLEKS                       R0 R1 K2 ["mock"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ContextServices"]
+        3 GETTABLEKS                       R0 R0 K1 ["Analytics"]
+        5 GETTABLEKS                       R0 R0 K2 ["mock"]
         7 CALL                             R0 0 1
         8 GETUPVAL                         R1 1
         9 GETUPVAL                         R2 2
@@ -10,11 +10,11 @@ PROTO_0:
        11 SETTABLEKS                       R1 R0 K3 ["_knownHandlers"]
        13 NEWTABLE                         R1 0 0
        15 SETTABLEKS                       R1 R0 K4 ["_reportCallCount"]
-       17 GETUPVAL                         R2 3
-       18 GETTABLEKS                       R1 R2 K5 ["report"]
+       17 GETUPVAL                         R1 3
+       18 GETTABLEKS                       R1 R1 K5 ["report"]
        20 SETTABLEKS                       R1 R0 K5 ["report"]
-       22 GETUPVAL                         R2 3
-       23 GETTABLEKS                       R1 R2 K6 ["getReportCount"]
+       22 GETUPVAL                         R1 3
+       23 GETTABLEKS                       R1 R1 K6 ["getReportCount"]
        25 SETTABLEKS                       R1 R0 K6 ["getReportCount"]
        27 RETURN                           R0 1
 
@@ -60,13 +60,13 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R5 R0 K10 ["Src"]
-       17 GETTABLEKS                       R4 R5 K11 ["Resources"]
-       19 GETTABLEKS                       R3 R4 K12 ["createAnalyticsHandlers"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Resources"]
+       19 GETTABLEKS                       R3 R3 K12 ["createAnalyticsHandlers"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K9 [require]
-       24 GETTABLEKS                       R5 R0 K13 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K14 ["Framework"]
+       24 GETTABLEKS                       R4 R0 K13 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K14 ["Framework"]
        28 CALL                             R3 1 1
        29 NEWTABLE                         R4 4 0
        31 DUPCLOSURE                       R5 K15 [PROTO_0]

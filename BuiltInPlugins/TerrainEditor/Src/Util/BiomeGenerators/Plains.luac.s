@@ -2,8 +2,8 @@ PROTO_0:
         0 GETTABLEKS                       R3 R0 K0 ["X"]
         2 GETTABLEKS                       R4 R0 K1 ["Y"]
         4 GETTABLEKS                       R5 R0 K2 ["Z"]
-        6 GETUPVAL                         R7 0
-        7 GETTABLEKS                       R6 R7 K3 ["WaterLevel"]
+        6 GETUPVAL                         R6 0
+        7 GETTABLEKS                       R6 R6 K3 ["WaterLevel"]
         9 GETUPVAL                         R10 1
        10 GETUPVAL                         R11 2
        11 MOVE                             R12 R0
@@ -26,8 +26,8 @@ PROTO_0:
        28 FASTCALL                         VECTOR ; [+2]
        29 GETIMPORT                        R7 K7 [Vector3.new]
        31 CALL                             R7 3 1
-       32 GETUPVAL                         R9 3
-       33 GETTABLEKS                       R8 R9 K8 ["RidgeFlipped"]
+       32 GETUPVAL                         R8 3
+       33 GETTABLEKS                       R8 R8 K8 ["RidgeFlipped"]
        35 GETUPVAL                         R9 1
        36 GETUPVAL                         R10 2
        37 MOVE                             R11 R7
@@ -36,16 +36,16 @@ PROTO_0:
        40 CALL                             R10 3 -1
        41 CALL                             R9 -1 -1
        42 CALL                             R8 -1 1
-       43 GETUPVAL                         R10 3
-       44 GETTABLEKS                       R9 R10 K9 ["Threshold"]
+       43 GETUPVAL                         R9 3
+       44 GETTABLEKS                       R9 R9 K9 ["Threshold"]
        46 MOVE                             R10 R8
        47 LOADK                            R11 K10 [0.01]
        48 LOADN                            R12 0
        49 CALL                             R9 3 1
-       50 GETUPVAL                         R12 3
-       51 GETTABLEKS                       R11 R12 K9 ["Threshold"]
-       53 GETUPVAL                         R13 3
-       54 GETTABLEKS                       R12 R13 K8 ["RidgeFlipped"]
+       50 GETUPVAL                         R11 3
+       51 GETTABLEKS                       R11 R11 K9 ["Threshold"]
+       53 GETUPVAL                         R12 3
+       54 GETTABLEKS                       R12 R12 K8 ["RidgeFlipped"]
        56 GETUPVAL                         R13 1
        57 GETUPVAL                         R14 2
        58 LOADN                            R17 0
@@ -62,8 +62,8 @@ PROTO_0:
        71 LOADK                            R13 K11 [0.3]
        72 LOADK                            R14 K12 [0.7]
        73 CALL                             R11 3 1
-       74 GETUPVAL                         R13 3
-       75 GETTABLEKS                       R12 R13 K9 ["Threshold"]
+       74 GETUPVAL                         R12 3
+       75 GETTABLEKS                       R12 R12 K9 ["Threshold"]
        77 GETUPVAL                         R13 1
        78 GETUPVAL                         R14 2
        79 LOADN                            R17 0
@@ -97,8 +97,8 @@ PROTO_0:
       109 MULK                             R13 R9 K17 [0.005]
       110 ADD                              R11 R12 R13
       111 SUBK                             R14 R4 K18 [1]
-      112 GETUPVAL                         R17 0
-      113 GETTABLEKS                       R16 R17 K19 ["MapHeight"]
+      112 GETUPVAL                         R16 0
+      113 GETTABLEKS                       R16 R16 K19 ["MapHeight"]
       115 SUBK                             R15 R16 K18 [1]
       116 DIV                              R13 R14 R15
       117 SUBRK                            R12 R18 K13 [0.6]
@@ -106,14 +106,14 @@ PROTO_0:
       119 MULK                             R15 R11 K15 [0.5]
       120 ADD                              R13 R14 R15
       121 LOADB                            R14 0
-      122 GETUPVAL                         R18 0
-      123 GETTABLEKS                       R17 R18 K21 ["SurfaceThickness"]
+      122 GETUPVAL                         R17 0
+      123 GETTABLEKS                       R17 R17 K21 ["SurfaceThickness"]
       125 MULK                             R16 R17 K20 [0.4]
       126 SUBRK                            R15 R15 K16 [0.02]
       127 JUMPIFNOTLT                      R15 R13 ; [+11]
       129 LOADK                            R16 K15 [0.5]
-      130 GETUPVAL                         R19 0
-      131 GETTABLEKS                       R18 R19 K21 ["SurfaceThickness"]
+      130 GETUPVAL                         R18 0
+      131 GETTABLEKS                       R18 R18 K21 ["SurfaceThickness"]
       133 MULK                             R17 R18 K20 [0.4]
       134 ADD                              R15 R16 R17
       135 JUMPIFLT                         R13 R15 ; [+2]
@@ -161,9 +161,9 @@ MAIN:
         3 LOADK                            R2 K2 ["TerrainEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R3 R0 K4 ["Src"]
-        9 GETTABLEKS                       R2 R3 K5 ["Util"]
-       11 GETTABLEKS                       R1 R2 K6 ["Generation"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Util"]
+       11 GETTABLEKS                       R1 R1 K6 ["Generation"]
        13 GETIMPORT                        R2 K8 [require]
        15 GETTABLEKS                       R3 R1 K9 ["Filter"]
        17 CALL                             R2 1 1
@@ -174,8 +174,8 @@ MAIN:
        25 GETTABLEKS                       R5 R1 K11 ["ProcessPerlin"]
        27 CALL                             R4 1 1
        28 GETIMPORT                        R5 K8 [require]
-       30 GETTABLEKS                       R7 R0 K4 ["Src"]
-       32 GETTABLEKS                       R6 R7 K12 ["Types"]
+       30 GETTABLEKS                       R6 R0 K4 ["Src"]
+       32 GETTABLEKS                       R6 R6 K12 ["Types"]
        34 CALL                             R5 1 1
        35 DUPCLOSURE                       R6 K13 [PROTO_1]
        36 CAPTURE                          VAL R4

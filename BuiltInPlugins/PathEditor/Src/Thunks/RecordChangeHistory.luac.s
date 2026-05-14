@@ -1,7 +1,7 @@
 PROTO_0:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R1 R2 K1 ["PathReducer"]
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R1 R1 K1 ["PathReducer"]
         5 GETTABLEKS                       R2 R1 K2 ["ChangeHistoryServiceRecording"]
         7 GETUPVAL                         R3 0
         8 JUMPIFNOTEQKNIL                  R3 ; [+30]
@@ -52,16 +52,16 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [game]
        11 LOADK                            R3 K5 ["ChangeHistoryService"]
        12 NAMECALL                         R1 R1 K6 ["GetService"]
        14 CALL                             R1 2 1
-       15 GETTABLEKS                       R3 R0 K7 ["Src"]
-       17 GETTABLEKS                       R2 R3 K8 ["Actions"]
+       15 GETTABLEKS                       R2 R0 K7 ["Src"]
+       17 GETTABLEKS                       R2 R2 K8 ["Actions"]
        19 GETIMPORT                        R3 K10 [require]
        21 GETTABLEKS                       R4 R2 K11 ["SetRecording"]
        23 CALL                             R3 1 1

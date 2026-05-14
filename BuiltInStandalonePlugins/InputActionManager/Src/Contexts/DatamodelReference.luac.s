@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["current"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["current"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIFNOT                        R2 ; [+4]
         5 MOVE                             R5 R1
@@ -9,42 +9,42 @@ PROTO_0:
         9 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 GETIMPORT                        R2 K3 [table.clone]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K0 ["current"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K0 ["current"]
         8 CALL                             R2 1 -1
         9 NAMECALL                         R0 R0 K4 ["Fire"]
        11 CALL                             R0 -1 0
        12 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 RETURN                           R0 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
 PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
 PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["UpdateContext"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["UpdateContext"]
         3 LOADNIL                          R3
         4 DUPTABLE                         R4 K3 [{"uuid", "context"}]
         5 SETTABLEKS                       R0 R4 K1 ["uuid"]
@@ -53,8 +53,8 @@ PROTO_6:
        10 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["UpdateAction"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["UpdateAction"]
         3 LOADNIL                          R3
         4 DUPTABLE                         R4 K3 [{"uuid", "action"}]
         5 SETTABLEKS                       R0 R4 K1 ["uuid"]
@@ -63,8 +63,8 @@ PROTO_7:
        10 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["UpdateBinding"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["UpdateBinding"]
         3 LOADNIL                          R3
         4 DUPTABLE                         R4 K3 [{"uuid", "binding"}]
         5 SETTABLEKS                       R0 R4 K1 ["uuid"]
@@ -79,16 +79,16 @@ PROTO_9:
         4 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["current"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["current"]
         3 GETTABLE                         R2 R3 R0
         4 JUMPIF                           R2 ; [+9]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R3 R4 K1 ["new"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["new"]
         8 CALL                             R3 0 1
         9 MOVE                             R2 R3
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R3 R4 K0 ["current"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K0 ["current"]
        13 SETTABLE                         R2 R3 R0
        14 MOVE                             R5 R1
        15 NAMECALL                         R3 R2 K2 ["Connect"]
@@ -104,8 +104,8 @@ PROTO_11:
         4 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 MOVE                             R3 R0
         4 NAMECALL                         R1 R1 K1 ["Connect"]
         6 CALL                             R1 2 1
@@ -154,11 +154,11 @@ PROTO_14:
         7 SETTABLEKS                       R3 R5 K0 ["current"]
         9 GETUPVAL                         R5 3
        10 SETTABLEKS                       R4 R5 K0 ["current"]
-       12 GETUPVAL                         R6 4
-       13 GETTABLEKS                       R5 R6 K0 ["current"]
+       12 GETUPVAL                         R5 4
+       13 GETTABLEKS                       R5 R5 K0 ["current"]
        15 GETIMPORT                        R7 K3 [table.clone]
-       17 GETUPVAL                         R9 3
-       18 GETTABLEKS                       R8 R9 K0 ["current"]
+       17 GETUPVAL                         R8 3
+       18 GETTABLEKS                       R8 R8 K0 ["current"]
        20 CALL                             R7 1 -1
        21 NAMECALL                         R5 R5 K4 ["Fire"]
        23 CALL                             R5 -1 0
@@ -166,165 +166,165 @@ PROTO_14:
 
 PROTO_15:
         0 JUMPIFNOT                        R2 ; [+43]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["current"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["current"]
         4 GETTABLE                         R3 R4 R1
         5 JUMPIFNOT                        R3 ; [+14]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K0 ["current"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["current"]
         9 SETTABLE                         R2 R3 R1
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K0 ["current"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K0 ["current"]
        13 GETTABLE                         R3 R4 R1
        14 JUMPIFNOT                        R3 ; [+53]
        15 MOVE                             R6 R2
        16 NAMECALL                         R4 R3 K1 ["Fire"]
        18 CALL                             R4 2 0
        19 RETURN                           R0 0
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K0 ["current"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K0 ["current"]
        23 SETTABLE                         R2 R3 R1
        24 GETUPVAL                         R3 2
-       25 GETUPVAL                         R5 3
-       26 GETTABLEKS                       R4 R5 K2 ["GetContextsAsync"]
+       25 GETUPVAL                         R4 3
+       26 GETTABLEKS                       R4 R4 K2 ["GetContextsAsync"]
        28 CALL                             R4 0 1
        29 SETTABLEKS                       R4 R3 K0 ["current"]
-       31 GETUPVAL                         R4 4
-       32 GETTABLEKS                       R3 R4 K0 ["current"]
+       31 GETUPVAL                         R3 4
+       32 GETTABLEKS                       R3 R3 K0 ["current"]
        34 GETIMPORT                        R5 K5 [table.clone]
-       36 GETUPVAL                         R7 2
-       37 GETTABLEKS                       R6 R7 K0 ["current"]
+       36 GETUPVAL                         R6 2
+       37 GETTABLEKS                       R6 R6 K0 ["current"]
        39 CALL                             R5 1 -1
        40 NAMECALL                         R3 R3 K1 ["Fire"]
        42 CALL                             R3 -1 0
        43 RETURN                           R0 0
        44 GETUPVAL                         R3 2
-       45 GETUPVAL                         R5 3
-       46 GETTABLEKS                       R4 R5 K2 ["GetContextsAsync"]
+       45 GETUPVAL                         R4 3
+       46 GETTABLEKS                       R4 R4 K2 ["GetContextsAsync"]
        48 CALL                             R4 0 1
        49 SETTABLEKS                       R4 R3 K0 ["current"]
-       51 GETUPVAL                         R4 4
-       52 GETTABLEKS                       R3 R4 K0 ["current"]
+       51 GETUPVAL                         R3 4
+       52 GETTABLEKS                       R3 R3 K0 ["current"]
        54 GETIMPORT                        R5 K5 [table.clone]
-       56 GETUPVAL                         R7 2
-       57 GETTABLEKS                       R6 R7 K0 ["current"]
+       56 GETUPVAL                         R6 2
+       57 GETTABLEKS                       R6 R6 K0 ["current"]
        59 CALL                             R5 1 -1
        60 NAMECALL                         R3 R3 K1 ["Fire"]
        62 CALL                             R3 -1 0
-       63 GETUPVAL                         R4 0
-       64 GETTABLEKS                       R3 R4 K0 ["current"]
+       63 GETUPVAL                         R3 0
+       64 GETTABLEKS                       R3 R3 K0 ["current"]
        66 LOADNIL                          R4
        67 SETTABLE                         R4 R3 R1
        68 RETURN                           R0 0
 
 PROTO_16:
         0 JUMPIFNOT                        R2 ; [+39]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["current"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["current"]
         4 GETTABLE                         R3 R4 R1
         5 JUMPIFNOT                        R3 ; [+14]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K0 ["current"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["current"]
         9 SETTABLE                         R2 R3 R1
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K0 ["current"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K0 ["current"]
        13 GETTABLE                         R3 R4 R1
        14 JUMPIFNOT                        R3 ; [+54]
        15 MOVE                             R6 R2
        16 NAMECALL                         R4 R3 K1 ["Fire"]
        18 CALL                             R4 2 0
        19 RETURN                           R0 0
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K0 ["current"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K0 ["current"]
        23 SETTABLE                         R2 R3 R1
        24 GETTABLEKS                       R3 R2 K2 ["parentUuid"]
-       26 GETUPVAL                         R6 2
-       27 GETTABLEKS                       R5 R6 K0 ["current"]
+       26 GETUPVAL                         R5 2
+       27 GETTABLEKS                       R5 R5 K0 ["current"]
        29 GETTABLE                         R4 R5 R3
-       30 GETUPVAL                         R7 1
-       31 GETTABLEKS                       R6 R7 K0 ["current"]
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K0 ["current"]
        33 GETTABLE                         R5 R6 R3
        34 JUMPIFNOT                        R5 ; [+34]
        35 MOVE                             R8 R4
        36 NAMECALL                         R6 R5 K1 ["Fire"]
        38 CALL                             R6 2 0
        39 RETURN                           R0 0
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R4 R5 K0 ["current"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K0 ["current"]
        43 GETTABLE                         R3 R4 R1
        44 JUMPIFNOT                        R3 ; [+24]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R5 R6 K0 ["current"]
-       48 GETTABLE                         R4 R5 R1
-       49 GETTABLEKS                       R3 R4 K2 ["parentUuid"]
-       51 GETUPVAL                         R6 2
-       52 GETTABLEKS                       R5 R6 K0 ["current"]
+       45 GETUPVAL                         R4 0
+       46 GETTABLEKS                       R4 R4 K0 ["current"]
+       48 GETTABLE                         R3 R4 R1
+       49 GETTABLEKS                       R3 R3 K2 ["parentUuid"]
+       51 GETUPVAL                         R5 2
+       52 GETTABLEKS                       R5 R5 K0 ["current"]
        54 GETTABLE                         R4 R5 R3
-       55 GETUPVAL                         R7 1
-       56 GETTABLEKS                       R6 R7 K0 ["current"]
+       55 GETUPVAL                         R6 1
+       56 GETTABLEKS                       R6 R6 K0 ["current"]
        58 GETTABLE                         R5 R6 R3
        59 JUMPIFNOT                        R5 ; [+4]
        60 MOVE                             R8 R4
        61 NAMECALL                         R6 R5 K1 ["Fire"]
        63 CALL                             R6 2 0
-       64 GETUPVAL                         R5 0
-       65 GETTABLEKS                       R4 R5 K0 ["current"]
+       64 GETUPVAL                         R4 0
+       65 GETTABLEKS                       R4 R4 K0 ["current"]
        67 LOADNIL                          R5
        68 SETTABLE                         R5 R4 R1
        69 RETURN                           R0 0
 
 PROTO_17:
         0 JUMPIFNOT                        R2 ; [+39]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R4 R5 K0 ["current"]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K0 ["current"]
         4 GETTABLE                         R3 R4 R1
         5 JUMPIFNOT                        R3 ; [+14]
-        6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R3 R4 K0 ["current"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["current"]
         9 SETTABLE                         R2 R3 R1
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R4 R5 K0 ["current"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K0 ["current"]
        13 GETTABLE                         R3 R4 R1
        14 JUMPIFNOT                        R3 ; [+54]
        15 MOVE                             R6 R2
        16 NAMECALL                         R4 R3 K1 ["Fire"]
        18 CALL                             R4 2 0
        19 RETURN                           R0 0
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K0 ["current"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K0 ["current"]
        23 SETTABLE                         R2 R3 R1
        24 GETTABLEKS                       R3 R2 K2 ["parentUuid"]
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K0 ["current"]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K0 ["current"]
        29 GETTABLE                         R4 R5 R3
-       30 GETUPVAL                         R7 1
-       31 GETTABLEKS                       R6 R7 K0 ["current"]
+       30 GETUPVAL                         R6 1
+       31 GETTABLEKS                       R6 R6 K0 ["current"]
        33 GETTABLE                         R5 R6 R3
        34 JUMPIFNOT                        R5 ; [+34]
        35 MOVE                             R8 R4
        36 NAMECALL                         R6 R5 K1 ["Fire"]
        38 CALL                             R6 2 0
        39 RETURN                           R0 0
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R4 R5 K0 ["current"]
+       40 GETUPVAL                         R4 0
+       41 GETTABLEKS                       R4 R4 K0 ["current"]
        43 GETTABLE                         R3 R4 R1
        44 JUMPIFNOT                        R3 ; [+24]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R5 R6 K0 ["current"]
-       48 GETTABLE                         R4 R5 R1
-       49 GETTABLEKS                       R3 R4 K2 ["parentUuid"]
-       51 GETUPVAL                         R6 0
-       52 GETTABLEKS                       R5 R6 K0 ["current"]
+       45 GETUPVAL                         R4 0
+       46 GETTABLEKS                       R4 R4 K0 ["current"]
+       48 GETTABLE                         R3 R4 R1
+       49 GETTABLEKS                       R3 R3 K2 ["parentUuid"]
+       51 GETUPVAL                         R5 0
+       52 GETTABLEKS                       R5 R5 K0 ["current"]
        54 GETTABLE                         R4 R5 R3
-       55 GETUPVAL                         R7 1
-       56 GETTABLEKS                       R6 R7 K0 ["current"]
+       55 GETUPVAL                         R6 1
+       56 GETTABLEKS                       R6 R6 K0 ["current"]
        58 GETTABLE                         R5 R6 R3
        59 JUMPIFNOT                        R5 ; [+4]
        60 MOVE                             R8 R4
        61 NAMECALL                         R6 R5 K1 ["Fire"]
        63 CALL                             R6 2 0
-       64 GETUPVAL                         R5 0
-       65 GETTABLEKS                       R4 R5 K0 ["current"]
+       64 GETUPVAL                         R4 0
+       65 GETTABLEKS                       R4 R4 K0 ["current"]
        67 LOADNIL                          R5
        68 SETTABLE                         R5 R4 R1
        69 RETURN                           R0 0
@@ -384,8 +384,8 @@ PROTO_19:
        35 CAPTURE                          UPVAL U6
        36 NAMECALL                         R6 R6 K1 ["OnGuestEvent"]
        38 CALL                             R6 3 2
-       39 GETUPVAL                         R9 7
-       40 GETTABLEKS                       R8 R9 K5 ["Request"]
+       39 GETUPVAL                         R8 7
+       40 GETTABLEKS                       R8 R8 K5 ["Request"]
        42 CALL                             R8 0 0
        43 NEWCLOSURE                       R8 P4
        44 CAPTURE                          VAL R1
@@ -395,40 +395,40 @@ PROTO_19:
        48 RETURN                           R8 1
 
 PROTO_20:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["useContext"]
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R2 R3 K1 ["Context"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
         6 CALL                             R1 1 1
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R2 R3 K0 ["useContext"]
-       10 GETUPVAL                         R4 2
-       11 GETTABLEKS                       R3 R4 K1 ["Context"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K0 ["useContext"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K1 ["Context"]
        13 CALL                             R2 1 1
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R3 R4 K2 ["useRef"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K2 ["useRef"]
        17 NEWTABLE                         R4 0 0
        19 CALL                             R3 1 1
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R4 R5 K2 ["useRef"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K2 ["useRef"]
        23 NEWTABLE                         R5 0 0
        25 CALL                             R4 1 1
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R5 R6 K2 ["useRef"]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K2 ["useRef"]
        29 NEWTABLE                         R6 0 0
        31 CALL                             R5 1 1
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R6 R7 K2 ["useRef"]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R6 R6 K2 ["useRef"]
        35 NEWTABLE                         R7 0 0
        37 CALL                             R6 1 1
-       38 GETUPVAL                         R8 0
-       39 GETTABLEKS                       R7 R8 K2 ["useRef"]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R7 R7 K2 ["useRef"]
        41 NEWTABLE                         R8 0 0
        43 CALL                             R7 1 1
-       44 GETUPVAL                         R9 0
-       45 GETTABLEKS                       R8 R9 K2 ["useRef"]
-       47 GETUPVAL                         R10 3
-       48 GETTABLEKS                       R9 R10 K3 ["new"]
+       44 GETUPVAL                         R8 0
+       45 GETTABLEKS                       R8 R8 K2 ["useRef"]
+       47 GETUPVAL                         R9 3
+       48 GETTABLEKS                       R9 R9 K3 ["new"]
        50 CALL                             R9 0 -1
        51 CALL                             R8 -1 1
        52 NEWCLOSURE                       R9 P0
@@ -436,8 +436,8 @@ PROTO_20:
        54 NEWCLOSURE                       R10 P1
        55 CAPTURE                          VAL R8
        56 CAPTURE                          VAL R3
-       57 GETUPVAL                         R12 0
-       58 GETTABLEKS                       R11 R12 K4 ["useMemo"]
+       57 GETUPVAL                         R11 0
+       58 GETTABLEKS                       R11 R11 K4 ["useMemo"]
        60 NEWCLOSURE                       R12 P2
        61 CAPTURE                          VAL R3
        62 CAPTURE                          VAL R4
@@ -451,8 +451,8 @@ PROTO_20:
        71 MOVE                             R14 R2
        72 SETLIST                          R13 R14 1 [1]
        74 CALL                             R11 2 1
-       75 GETUPVAL                         R13 0
-       76 GETTABLEKS                       R12 R13 K5 ["useEffect"]
+       75 GETUPVAL                         R12 0
+       76 GETTABLEKS                       R12 R12 K5 ["useEffect"]
        78 NEWCLOSURE                       R13 P3
        79 CAPTURE                          VAL R1
        80 CAPTURE                          VAL R4
@@ -467,10 +467,10 @@ PROTO_20:
        90 MOVE                             R16 R1
        91 SETLIST                          R14 R15 2 [1]
        93 CALL                             R12 2 0
-       94 GETUPVAL                         R13 0
-       95 GETTABLEKS                       R12 R13 K6 ["createElement"]
-       97 GETUPVAL                         R14 4
-       98 GETTABLEKS                       R13 R14 K7 ["Provider"]
+       94 GETUPVAL                         R12 0
+       95 GETTABLEKS                       R12 R12 K6 ["createElement"]
+       97 GETUPVAL                         R13 4
+       98 GETTABLEKS                       R13 R13 K7 ["Provider"]
       100 DUPTABLE                         R14 K9 [{"value"}]
       101 SETTABLEKS                       R11 R14 K8 ["value"]
       103 GETTABLEKS                       R15 R0 K10 ["children"]
@@ -484,30 +484,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Signal"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Signal"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R6 R0 K10 ["Src"]
-       32 GETTABLEKS                       R5 R6 K11 ["Types"]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Types"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R8 R0 K10 ["Src"]
-       39 GETTABLEKS                       R7 R8 K12 ["Contexts"]
-       41 GETTABLEKS                       R6 R7 K13 ["Networking"]
+       37 GETTABLEKS                       R6 R0 K10 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Contexts"]
+       41 GETTABLEKS                       R6 R6 K13 ["Networking"]
        43 CALL                             R5 1 1
        44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R9 R0 K10 ["Src"]
-       48 GETTABLEKS                       R8 R9 K12 ["Contexts"]
-       50 GETTABLEKS                       R7 R8 K14 ["Guest"]
+       46 GETTABLEKS                       R7 R0 K10 ["Src"]
+       48 GETTABLEKS                       R7 R7 K12 ["Contexts"]
+       50 GETTABLEKS                       R7 R7 K14 ["Guest"]
        52 CALL                             R6 1 1
        53 GETTABLEKS                       R7 R1 K15 ["createContext"]
        55 DUPTABLE                         R8 K25 [{"getContextOrder", "getContext", "getAction", "getBinding", "updateContext", "updateAction", "updateBinding", "subscribe", "onContextOrderChanged"}]

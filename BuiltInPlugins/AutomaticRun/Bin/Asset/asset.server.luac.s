@@ -17,8 +17,8 @@ MAIN:
        21 NAMECALL                         R1 R1 K10 ["FindFirstAncestor"]
        23 CALL                             R1 2 1
        24 GETIMPORT                        R2 K12 [require]
-       26 GETTABLEKS                       R4 R1 K13 ["Packages"]
-       28 GETTABLEKS                       R3 R4 K14 ["TestLoader"]
+       26 GETTABLEKS                       R3 R1 K13 ["Packages"]
+       28 GETTABLEKS                       R3 R3 K14 ["TestLoader"]
        30 CALL                             R2 1 1
        31 GETTABLEKS                       R3 R2 K15 ["launch"]
        33 LOADK                            R4 K9 ["AutomaticRun"]
@@ -29,18 +29,18 @@ MAIN:
        40 JUMPIFNOT                        R3 ; [+1]
        41 RETURN                           R0 0
        42 GETIMPORT                        R3 K12 [require]
-       44 GETTABLEKS                       R6 R1 K18 ["Bin"]
-       46 GETTABLEKS                       R5 R6 K19 ["Common"]
-       48 GETTABLEKS                       R4 R5 K20 ["defineLuaFlags"]
+       44 GETTABLEKS                       R4 R1 K18 ["Bin"]
+       46 GETTABLEKS                       R4 R4 K19 ["Common"]
+       48 GETTABLEKS                       R4 R4 K20 ["defineLuaFlags"]
        50 CALL                             R3 1 1
        51 GETTABLEKS                       R4 R3 K21 ["getFFlagDebugEnableAutomaticRun"]
        53 CALL                             R4 0 1
        54 JUMPIF                           R4 ; [+1]
        55 RETURN                           R0 0
        56 GETIMPORT                        R4 K12 [require]
-       58 GETTABLEKS                       R7 R1 K18 ["Bin"]
-       60 GETTABLEKS                       R6 R7 K19 ["Common"]
-       62 GETTABLEKS                       R5 R6 K22 ["pluginType"]
+       58 GETTABLEKS                       R5 R1 K18 ["Bin"]
+       60 GETTABLEKS                       R5 R5 K19 ["Common"]
+       62 GETTABLEKS                       R5 R5 K22 ["pluginType"]
        64 CALL                             R4 1 1
        65 GETTABLEKS                       R5 R4 K23 ["get"]
        67 CALL                             R5 0 1

@@ -6,20 +6,20 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R4 1
-        1 GETTABLEKS                       R3 R4 K0 ["controlPointAdornees"]
-        3 GETTABLEKS                       R2 R3 K1 ["ControlPoints"]
-        5 GETTABLEKS                       R1 R2 K2 ["Instance"]
-        7 GETTABLEKS                       R0 R1 K3 ["AncestryChanged"]
+        0 GETUPVAL                         R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["controlPointAdornees"]
+        3 GETTABLEKS                       R0 R0 K1 ["ControlPoints"]
+        5 GETTABLEKS                       R0 R0 K2 ["Instance"]
+        7 GETTABLEKS                       R0 R0 K3 ["AncestryChanged"]
         9 GETUPVAL                         R2 2
        10 NAMECALL                         R0 R0 K4 ["Connect"]
        12 CALL                             R0 2 1
        13 SETUPVAL                         R0 0
-       14 GETUPVAL                         R4 1
-       15 GETTABLEKS                       R3 R4 K0 ["controlPointAdornees"]
-       17 GETTABLEKS                       R2 R3 K1 ["ControlPoints"]
-       19 GETTABLEKS                       R1 R2 K2 ["Instance"]
-       21 GETTABLEKS                       R0 R1 K5 ["ChildRemoved"]
+       14 GETUPVAL                         R0 1
+       15 GETTABLEKS                       R0 R0 K0 ["controlPointAdornees"]
+       17 GETTABLEKS                       R0 R0 K1 ["ControlPoints"]
+       19 GETTABLEKS                       R0 R0 K2 ["Instance"]
+       21 GETTABLEKS                       R0 R0 K5 ["ChildRemoved"]
        23 GETUPVAL                         R2 2
        24 NAMECALL                         R0 R0 K4 ["Connect"]
        26 CALL                             R0 2 1
@@ -29,45 +29,45 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["controlPointAdornees"]
         2 JUMPIFNOT                        R2 ; [+12]
-        3 GETTABLEKS                       R3 R0 K0 ["controlPointAdornees"]
-        5 GETTABLEKS                       R2 R3 K1 ["ControlPoints"]
+        3 GETTABLEKS                       R2 R0 K0 ["controlPointAdornees"]
+        5 GETTABLEKS                       R2 R2 K1 ["ControlPoints"]
         7 JUMPIFNOT                        R2 ; [+7]
-        8 GETTABLEKS                       R4 R0 K0 ["controlPointAdornees"]
-       10 GETTABLEKS                       R3 R4 K1 ["ControlPoints"]
-       12 GETTABLEKS                       R2 R3 K2 ["Children"]
+        8 GETTABLEKS                       R2 R0 K0 ["controlPointAdornees"]
+       10 GETTABLEKS                       R2 R2 K1 ["ControlPoints"]
+       12 GETTABLEKS                       R2 R2 K2 ["Children"]
        14 JUMPIF                           R2 ; [+5]
        15 GETIMPORT                        R2 K4 [error]
        17 LOADK                            R3 K5 ["No Adornees exist."]
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
-       20 GETTABLEKS                       R4 R0 K0 ["controlPointAdornees"]
-       22 GETTABLEKS                       R3 R4 K1 ["ControlPoints"]
-       24 GETTABLEKS                       R2 R3 K2 ["Children"]
+       20 GETTABLEKS                       R2 R0 K0 ["controlPointAdornees"]
+       22 GETTABLEKS                       R2 R2 K1 ["ControlPoints"]
+       24 GETTABLEKS                       R2 R2 K2 ["Children"]
        26 GETTABLE                         R3 R2 R1
        27 JUMPIFNOT                        R3 ; [+8]
-       28 GETTABLE                         R4 R2 R1
-       29 GETTABLEKS                       R3 R4 K6 ["Instance"]
+       28 GETTABLE                         R3 R2 R1
+       29 GETTABLEKS                       R3 R3 K6 ["Instance"]
        31 JUMPIFNOT                        R3 ; [+4]
-       32 GETTABLE                         R4 R2 R1
-       33 GETTABLEKS                       R3 R4 K6 ["Instance"]
+       32 GETTABLE                         R3 R2 R1
+       33 GETTABLEKS                       R3 R3 K6 ["Instance"]
        35 RETURN                           R3 1
        36 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R1 R2 K1 ["ToolAdorneesFolderName"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["ToolAdorneesFolderName"]
         6 JUMPIFEQ                         R0 R1 ; [+7]
         8 GETUPVAL                         R0 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R1 R2 K1 ["ToolAdorneesFolderName"]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K1 ["ToolAdorneesFolderName"]
        12 SETTABLEKS                       R1 R0 K0 ["Name"]
        14 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["Name"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 1
         4 JUMPIFEQ                         R0 R1 ; [+5]
         6 GETUPVAL                         R0 0
@@ -83,21 +83,21 @@ PROTO_5:
         6 GETTABLEKS                       R3 R0 K3 ["controlPointAdornees"]
         8 CALL                             R2 1 1
         9 JUMPIFEQKNIL                     R2 ; [+15]
-       11 GETTABLEKS                       R3 R0 K3 ["controlPointAdornees"]
-       13 GETTABLEKS                       R2 R3 K4 ["ControlPoints"]
+       11 GETTABLEKS                       R2 R0 K3 ["controlPointAdornees"]
+       13 GETTABLEKS                       R2 R2 K4 ["ControlPoints"]
        15 JUMPIFEQKNIL                     R2 ; [+9]
-       17 GETTABLEKS                       R4 R0 K3 ["controlPointAdornees"]
-       19 GETTABLEKS                       R3 R4 K4 ["ControlPoints"]
-       21 GETTABLEKS                       R2 R3 K5 ["Instance"]
+       17 GETTABLEKS                       R2 R0 K3 ["controlPointAdornees"]
+       19 GETTABLEKS                       R2 R2 K4 ["ControlPoints"]
+       21 GETTABLEKS                       R2 R2 K5 ["Instance"]
        23 JUMPIFNOTEQKNIL                  R2 ; [+69]
        25 GETIMPORT                        R2 K7 [Instance.new]
        27 LOADK                            R3 K8 ["Folder"]
        28 CALL                             R2 1 1
-       29 GETIMPORT                        R4 K10 [game]
-       31 GETTABLEKS                       R3 R4 K11 ["Workspace"]
+       29 GETIMPORT                        R3 K10 [game]
+       31 GETTABLEKS                       R3 R3 K11 ["Workspace"]
        33 SETTABLEKS                       R3 R2 K12 ["Parent"]
-       35 GETUPVAL                         R4 1
-       36 GETTABLEKS                       R3 R4 K13 ["ToolAdorneesFolderName"]
+       35 GETUPVAL                         R3 1
+       36 GETTABLEKS                       R3 R3 K13 ["ToolAdorneesFolderName"]
        38 SETTABLEKS                       R3 R2 K14 ["Name"]
        40 LOADK                            R5 K14 ["Name"]
        41 NAMECALL                         R3 R2 K15 ["GetPropertyChangedSignal"]
@@ -116,30 +116,30 @@ PROTO_5:
        59 SETTABLEKS                       R5 R4 K19 ["Children"]
        61 SETTABLEKS                       R4 R3 K4 ["ControlPoints"]
        63 SETTABLEKS                       R3 R0 K3 ["controlPointAdornees"]
-       65 GETUPVAL                         R7 3
-       66 GETTABLEKS                       R6 R7 K3 ["controlPointAdornees"]
-       68 GETTABLEKS                       R5 R6 K4 ["ControlPoints"]
-       70 GETTABLEKS                       R4 R5 K5 ["Instance"]
-       72 GETTABLEKS                       R3 R4 K21 ["AncestryChanged"]
+       65 GETUPVAL                         R3 3
+       66 GETTABLEKS                       R3 R3 K3 ["controlPointAdornees"]
+       68 GETTABLEKS                       R3 R3 K4 ["ControlPoints"]
+       70 GETTABLEKS                       R3 R3 K5 ["Instance"]
+       72 GETTABLEKS                       R3 R3 K21 ["AncestryChanged"]
        74 GETUPVAL                         R5 4
        75 NAMECALL                         R3 R3 K16 ["Connect"]
        77 CALL                             R3 2 1
        78 SETUPVAL                         R3 2
-       79 GETUPVAL                         R7 3
-       80 GETTABLEKS                       R6 R7 K3 ["controlPointAdornees"]
-       82 GETTABLEKS                       R5 R6 K4 ["ControlPoints"]
-       84 GETTABLEKS                       R4 R5 K5 ["Instance"]
-       86 GETTABLEKS                       R3 R4 K22 ["ChildRemoved"]
+       79 GETUPVAL                         R3 3
+       80 GETTABLEKS                       R3 R3 K3 ["controlPointAdornees"]
+       82 GETTABLEKS                       R3 R3 K4 ["ControlPoints"]
+       84 GETTABLEKS                       R3 R3 K5 ["Instance"]
+       86 GETTABLEKS                       R3 R3 K22 ["ChildRemoved"]
        88 GETUPVAL                         R5 4
        89 NAMECALL                         R3 R3 K16 ["Connect"]
        91 CALL                             R3 2 1
        92 SETUPVAL                         R3 5
-       93 GETTABLEKS                       R4 R0 K3 ["controlPointAdornees"]
-       95 GETTABLEKS                       R3 R4 K4 ["ControlPoints"]
-       97 GETTABLEKS                       R2 R3 K5 ["Instance"]
-       99 GETTABLEKS                       R5 R0 K3 ["controlPointAdornees"]
-      101 GETTABLEKS                       R4 R5 K4 ["ControlPoints"]
-      103 GETTABLEKS                       R3 R4 K19 ["Children"]
+       93 GETTABLEKS                       R2 R0 K3 ["controlPointAdornees"]
+       95 GETTABLEKS                       R2 R2 K4 ["ControlPoints"]
+       97 GETTABLEKS                       R2 R2 K5 ["Instance"]
+       99 GETTABLEKS                       R3 R0 K3 ["controlPointAdornees"]
+      101 GETTABLEKS                       R3 R3 K4 ["ControlPoints"]
+      103 GETTABLEKS                       R3 R3 K19 ["Children"]
       105 GETIMPORT                        R4 K24 [pairs]
       107 GETTABLEKS                       R5 R0 K25 ["meshNames"]
       109 CALL                             R4 1 3
@@ -202,12 +202,12 @@ PROTO_7:
         2 CALL                             R1 1 0
         3 GETTABLEKS                       R1 R0 K1 ["controlPointAdornees"]
         5 JUMPIFNOT                        R1 ; [+26]
-        6 GETTABLEKS                       R2 R0 K1 ["controlPointAdornees"]
-        8 GETTABLEKS                       R1 R2 K2 ["ControlPoints"]
+        6 GETTABLEKS                       R1 R0 K1 ["controlPointAdornees"]
+        8 GETTABLEKS                       R1 R1 K2 ["ControlPoints"]
        10 JUMPIFNOT                        R1 ; [+21]
-       11 GETTABLEKS                       R3 R0 K1 ["controlPointAdornees"]
-       13 GETTABLEKS                       R2 R3 K2 ["ControlPoints"]
-       15 GETTABLEKS                       R1 R2 K3 ["Instance"]
+       11 GETTABLEKS                       R1 R0 K1 ["controlPointAdornees"]
+       13 GETTABLEKS                       R1 R1 K2 ["ControlPoints"]
+       15 GETTABLEKS                       R1 R1 K3 ["Instance"]
        17 JUMPIFNOT                        R1 ; [+3]
        18 NAMECALL                         R2 R1 K4 ["Destroy"]
        20 CALL                             R2 1 0
@@ -264,9 +264,9 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R2 K1 [script]
-        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R1 R0 K2 ["Parent"]
         9 GETIMPORT                        R2 K4 [require]
        11 GETTABLEKS                       R3 R1 K5 ["Dash"]

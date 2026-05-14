@@ -35,20 +35,20 @@ PROTO_0:
        48 GETIMPORT                        R7 K13 [Vector3.new]
        50 CALL                             R7 3 1
        51 ADD                              R5 R6 R7
-       52 GETUPVAL                         R9 0
-       53 GETTABLEKS                       R8 R9 K8 ["X"]
+       52 GETUPVAL                         R8 0
+       53 GETTABLEKS                       R8 R8 K8 ["X"]
        55 GETTABLEKS                       R9 R4 K8 ["X"]
        57 FASTCALL2                        MATH_MIN R8 R9 ; [+3]
        59 GETIMPORT                        R7 K16 [math.min]
        61 CALL                             R7 2 1
-       62 GETUPVAL                         R10 0
-       63 GETTABLEKS                       R9 R10 K9 ["Y"]
+       62 GETUPVAL                         R9 0
+       63 GETTABLEKS                       R9 R9 K9 ["Y"]
        65 GETTABLEKS                       R10 R4 K9 ["Y"]
        67 FASTCALL2                        MATH_MIN R9 R10 ; [+3]
        69 GETIMPORT                        R8 K16 [math.min]
        71 CALL                             R8 2 1
-       72 GETUPVAL                         R11 0
-       73 GETTABLEKS                       R10 R11 K10 ["Z"]
+       72 GETUPVAL                         R10 0
+       73 GETTABLEKS                       R10 R10 K10 ["Z"]
        75 GETTABLEKS                       R11 R4 K10 ["Z"]
        77 FASTCALL2                        MATH_MIN R10 R11 ; [+3]
        79 GETIMPORT                        R9 K16 [math.min]
@@ -57,20 +57,20 @@ PROTO_0:
        83 GETIMPORT                        R6 K13 [Vector3.new]
        85 CALL                             R6 3 1
        86 SETUPVAL                         R6 0
-       87 GETUPVAL                         R9 1
-       88 GETTABLEKS                       R8 R9 K8 ["X"]
+       87 GETUPVAL                         R8 1
+       88 GETTABLEKS                       R8 R8 K8 ["X"]
        90 GETTABLEKS                       R9 R5 K8 ["X"]
        92 FASTCALL2                        MATH_MAX R8 R9 ; [+3]
        94 GETIMPORT                        R7 K18 [math.max]
        96 CALL                             R7 2 1
-       97 GETUPVAL                         R10 1
-       98 GETTABLEKS                       R9 R10 K9 ["Y"]
+       97 GETUPVAL                         R9 1
+       98 GETTABLEKS                       R9 R9 K9 ["Y"]
       100 GETTABLEKS                       R10 R5 K9 ["Y"]
       102 FASTCALL2                        MATH_MAX R9 R10 ; [+3]
       104 GETIMPORT                        R8 K18 [math.max]
       106 CALL                             R8 2 1
-      107 GETUPVAL                         R11 1
-      108 GETTABLEKS                       R10 R11 K10 ["Z"]
+      107 GETUPVAL                         R10 1
+      108 GETTABLEKS                       R10 R10 K10 ["Z"]
       110 GETTABLEKS                       R11 R5 K10 ["Z"]
       112 FASTCALL2                        MATH_MAX R10 R11 ; [+3]
       114 GETIMPORT                        R9 K18 [math.max]

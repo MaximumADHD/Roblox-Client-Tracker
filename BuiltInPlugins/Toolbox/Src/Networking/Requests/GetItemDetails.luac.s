@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isPageInfoStale"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isPageInfoStale"]
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 CALL                             R1 2 1
@@ -12,21 +12,21 @@ PROTO_0:
        14 GETTABLEKS                       R4 R1 K4 ["data"]
        16 CALL                             R3 1 3
        17 FORGPREP_NEXT                    R3
-       18 GETUPVAL                         R9 3
-       19 GETTABLEKS                       R8 R9 K5 ["fromItemDetailsRequest"]
+       18 GETUPVAL                         R8 3
+       19 GETTABLEKS                       R8 R8 K5 ["fromItemDetailsRequest"]
        21 MOVE                             R9 R7
        22 CALL                             R8 1 1
        23 GETTABLEKS                       R9 R8 K6 ["Asset"]
        25 JUMPIFNOT                        R9 ; [+17]
-       26 GETTABLEKS                       R10 R8 K6 ["Asset"]
-       28 GETTABLEKS                       R9 R10 K7 ["Id"]
+       26 GETTABLEKS                       R9 R8 K6 ["Asset"]
+       28 GETTABLEKS                       R9 R9 K7 ["Id"]
        30 JUMPIFNOT                        R9 ; [+12]
-       31 GETUPVAL                         R10 3
-       32 GETTABLEKS                       R9 R10 K8 ["AddContextToItemDetails"]
+       31 GETUPVAL                         R9 3
+       32 GETTABLEKS                       R9 R9 K8 ["AddContextToItemDetails"]
        34 MOVE                             R10 R8
        35 GETUPVAL                         R12 4
-       36 GETTABLEKS                       R14 R8 K6 ["Asset"]
-       38 GETTABLEKS                       R13 R14 K7 ["Id"]
+       36 GETTABLEKS                       R13 R8 K6 ["Asset"]
+       38 GETTABLEKS                       R13 R13 K7 ["Id"]
        40 GETTABLE                         R11 R12 R13
        41 CALL                             R9 2 1
        42 MOVE                             R8 R9
@@ -59,8 +59,8 @@ PROTO_0:
        75 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isPageInfoStale"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isPageInfoStale"]
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 CALL                             R1 2 1
@@ -81,8 +81,8 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["isPageInfoStale"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["isPageInfoStale"]
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R1 2 1
@@ -151,13 +151,13 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETTABLEKS                       R2 R0 K3 ["Src"]
-       13 GETTABLEKS                       R1 R2 K4 ["Actions"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R1 K4 ["Actions"]
        15 GETIMPORT                        R2 K6 [require]
        17 GETTABLEKS                       R3 R1 K7 ["NetworkError"]
        19 CALL                             R2 1 1
@@ -170,19 +170,19 @@ MAIN:
        30 GETIMPORT                        R5 K6 [require]
        32 GETTABLEKS                       R6 R1 K10 ["SetCurrentPage"]
        34 CALL                             R5 1 1
-       35 GETTABLEKS                       R7 R0 K3 ["Src"]
-       37 GETTABLEKS                       R6 R7 K11 ["Util"]
+       35 GETTABLEKS                       R6 R0 K3 ["Src"]
+       37 GETTABLEKS                       R6 R6 K11 ["Util"]
        39 GETIMPORT                        R7 K6 [require]
-       41 GETTABLEKS                       R9 R6 K12 ["Analytics"]
-       43 GETTABLEKS                       R8 R9 K13 ["AssetAnalytics"]
+       41 GETTABLEKS                       R8 R6 K12 ["Analytics"]
+       43 GETTABLEKS                       R8 R8 K13 ["AssetAnalytics"]
        45 CALL                             R7 1 1
        46 GETIMPORT                        R8 K6 [require]
        48 GETTABLEKS                       R9 R6 K14 ["PageInfoHelper"]
        50 CALL                             R8 1 1
        51 GETIMPORT                        R9 K6 [require]
-       53 GETTABLEKS                       R12 R0 K3 ["Src"]
-       55 GETTABLEKS                       R11 R12 K15 ["Models"]
-       57 GETTABLEKS                       R10 R11 K16 ["AssetInfo"]
+       53 GETTABLEKS                       R10 R0 K3 ["Src"]
+       55 GETTABLEKS                       R10 R10 K15 ["Models"]
+       57 GETTABLEKS                       R10 R10 K16 ["AssetInfo"]
        59 CALL                             R9 1 1
        60 DUPCLOSURE                       R10 K17 [PROTO_3]
        61 CAPTURE                          VAL R8

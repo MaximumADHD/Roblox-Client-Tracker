@@ -1,12 +1,12 @@
 PROTO_0:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["Status"]
-        5 GETTABLEKS                       R2 R3 K2 ["RootInstance"]
+        3 GETTABLEKS                       R2 R1 K1 ["Status"]
+        5 GETTABLEKS                       R2 R2 K2 ["RootInstance"]
         7 JUMPIF                           R2 ; [+1]
         8 RETURN                           R0 0
-        9 GETUPVAL                         R4 0
-       10 GETTABLEKS                       R3 R4 K3 ["getAnimSavesFolder"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K3 ["getAnimSavesFolder"]
        12 MOVE                             R4 R2
        13 CALL                             R3 1 2
        14 GETUPVAL                         R5 1
@@ -28,8 +28,8 @@ PROTO_0:
        31 NAMECALL                         R11 R5 K6 ["IsA"]
        33 CALL                             R11 2 1
        34 JUMPIFNOT                        R11 ; [+11]
-       35 GETUPVAL                         R12 3
-       36 GETTABLEKS                       R11 R12 K7 ["fromKeyframeSequence"]
+       35 GETUPVAL                         R11 3
+       36 GETTABLEKS                       R11 R11 K7 ["fromKeyframeSequence"]
        38 MOVE                             R12 R5
        39 CALL                             R11 1 5
        40 MOVE                             R6 R11
@@ -42,8 +42,8 @@ PROTO_0:
        47 NAMECALL                         R11 R5 K6 ["IsA"]
        49 CALL                             R11 2 1
        50 JUMPIFNOT                        R11 ; [+13]
-       51 GETUPVAL                         R12 3
-       52 GETTABLEKS                       R11 R12 K9 ["fromCurveAnimation"]
+       51 GETUPVAL                         R11 3
+       52 GETTABLEKS                       R11 R11 K9 ["fromCurveAnimation"]
        54 MOVE                             R12 R5
        55 CALL                             R11 1 4
        56 MOVE                             R6 R11
@@ -81,18 +81,18 @@ PROTO_0:
        93 CALL                             R13 1 -1
        94 NAMECALL                         R11 R0 K11 ["dispatch"]
        96 CALL                             R11 -1 0
-       97 GETUPVAL                         R13 11
-       98 GETTABLEKS                       R12 R13 K13 ["isChannelAnimation"]
+       97 GETUPVAL                         R12 11
+       98 GETTABLEKS                       R12 R12 K13 ["isChannelAnimation"]
       100 MOVE                             R13 R6
       101 CALL                             R12 1 1
       102 JUMPIFNOT                        R12 ; [+6]
-      103 GETUPVAL                         R13 4
-      104 GETTABLEKS                       R12 R13 K14 ["ANIMATION_TYPE"]
-      106 GETTABLEKS                       R11 R12 K8 ["CurveAnimation"]
+      103 GETUPVAL                         R11 4
+      104 GETTABLEKS                       R11 R11 K14 ["ANIMATION_TYPE"]
+      106 GETTABLEKS                       R11 R11 K8 ["CurveAnimation"]
       108 JUMP                             ; [+5]
-      109 GETUPVAL                         R13 4
-      110 GETTABLEKS                       R12 R13 K14 ["ANIMATION_TYPE"]
-      112 GETTABLEKS                       R11 R12 K5 ["KeyframeSequence"]
+      109 GETUPVAL                         R11 4
+      110 GETTABLEKS                       R11 R11 K14 ["ANIMATION_TYPE"]
+      112 GETTABLEKS                       R11 R11 K5 ["KeyframeSequence"]
       114 GETUPVAL                         R12 6
       115 LOADK                            R14 K15 ["onLoadAnimation"]
       116 GETUPVAL                         R15 2
@@ -102,8 +102,8 @@ PROTO_0:
       120 MOVE                             R19 R11
       121 GETTABLEKS                       R21 R6 K16 ["Metadata"]
       123 JUMPIFNOT                        R21 ; [+5]
-      124 GETTABLEKS                       R21 R6 K16 ["Metadata"]
-      126 GETTABLEKS                       R20 R21 K17 ["Guid"]
+      124 GETTABLEKS                       R20 R6 K16 ["Metadata"]
+      126 GETTABLEKS                       R20 R20 K17 ["Guid"]
       128 JUMP                             ; [+1]
       129 LOADNIL                          R20
       130 NAMECALL                         R12 R12 K18 ["report"]
@@ -132,8 +132,8 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Src"]
-        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+        7 GETTABLEKS                       R1 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R1 K5 ["Actions"]
        11 GETIMPORT                        R2 K7 [require]
        13 GETTABLEKS                       R3 R1 K8 ["SetNotification"]
        15 CALL                             R2 1 1
@@ -146,13 +146,13 @@ MAIN:
        26 GETIMPORT                        R5 K7 [require]
        28 GETTABLEKS                       R6 R1 K11 ["SetFrameRate"]
        30 CALL                             R5 1 1
-       31 GETTABLEKS                       R7 R0 K4 ["Src"]
-       33 GETTABLEKS                       R6 R7 K12 ["Thunks"]
+       31 GETTABLEKS                       R6 R0 K4 ["Src"]
+       33 GETTABLEKS                       R6 R6 K12 ["Thunks"]
        35 GETIMPORT                        R7 K7 [require]
        37 GETTABLEKS                       R8 R6 K13 ["LoadAnimationData"]
        39 CALL                             R7 1 1
-       40 GETTABLEKS                       R9 R0 K4 ["Src"]
-       42 GETTABLEKS                       R8 R9 K14 ["Util"]
+       40 GETTABLEKS                       R8 R0 K4 ["Src"]
+       42 GETTABLEKS                       R8 R8 K14 ["Util"]
        44 GETIMPORT                        R9 K7 [require]
        46 GETTABLEKS                       R10 R8 K15 ["AnimationData"]
        48 CALL                             R9 1 1

@@ -126,8 +126,8 @@ PROTO_2:
        34 LOADK                            R6 K11 [0.0001]
        35 JUMPIFNOTLT                      R5 R6 ; [+2]
        37 RETURN                           R0 0
-       38 GETUPVAL                         R6 2
-       39 GETTABLEKS                       R5 R6 K12 ["getInstanceData"]
+       38 GETUPVAL                         R5 2
+       39 GETTABLEKS                       R5 R5 K12 ["getInstanceData"]
        41 GETUPVAL                         R6 1
        42 CALL                             R5 1 1
        43 SETUPVAL                         R5 0
@@ -183,13 +183,13 @@ PROTO_3:
        52 NAMECALL                         R3 R3 K13 ["format"]
        54 CALL                             R3 3 1
        55 MOVE                             R2 R3
-       56 GETUPVAL                         R4 2
-       57 GETTABLEKS                       R3 R4 K15 ["createInstances"]
+       56 GETUPVAL                         R3 2
+       57 GETTABLEKS                       R3 R3 K15 ["createInstances"]
        59 MOVE                             R4 R1
        60 GETUPVAL                         R5 3
        61 CALL                             R3 2 0
-       62 GETUPVAL                         R4 5
-       63 GETTABLEKS                       R3 R4 K16 ["getInstanceData"]
+       62 GETUPVAL                         R3 5
+       63 GETTABLEKS                       R3 R3 K16 ["getInstanceData"]
        65 MOVE                             R4 R1
        66 CALL                             R3 1 1
        67 SETUPVAL                         R3 4
@@ -221,8 +221,8 @@ PROTO_4:
         2 LOADNIL                          R2
         3 LOADNIL                          R3
         4 FORGPREP                         R1
-        5 GETUPVAL                         R7 2
-        6 GETTABLEKS                       R6 R7 K0 ["setInstanceData"]
+        5 GETUPVAL                         R6 2
+        6 GETTABLEKS                       R6 R6 K0 ["setInstanceData"]
         8 MOVE                             R7 R5
         9 MOVE                             R8 R0
        10 CALL                             R6 2 0
@@ -241,8 +241,8 @@ PROTO_5:
        10 SETUPVAL                         R0 1
        11 LOADNIL                          R0
        12 SETUPVAL                         R0 2
-       13 GETUPVAL                         R1 3
-       14 GETTABLEKS                       R0 R1 K1 ["destroyInstances"]
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K1 ["destroyInstances"]
        16 GETUPVAL                         R1 4
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
@@ -254,26 +254,26 @@ PROTO_6:
         4 LOADK                            R3 K0 ["plugin was nil"]
         5 GETIMPORT                        R1 K2 [assert]
         7 CALL                             R1 2 0
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R1 R2 K3 ["setPlugin"]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K3 ["setPlugin"]
        11 GETUPVAL                         R2 0
        12 CALL                             R1 1 0
-       13 GETUPVAL                         R2 2
-       14 GETTABLEKS                       R1 R2 K4 ["OpenAudioCompressorEditorSignal"]
-       16 GETUPVAL                         R4 3
-       17 GETTABLEKS                       R3 R4 K5 ["onOpen"]
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R1 R1 K4 ["OpenAudioCompressorEditorSignal"]
+       16 GETUPVAL                         R3 3
+       17 GETTABLEKS                       R3 R3 K5 ["onOpen"]
        19 NAMECALL                         R1 R1 K6 ["Connect"]
        21 CALL                             R1 2 1
        22 GETUPVAL                         R2 0
        23 LOADK                            R4 K7 ["OnEdit"]
-       24 GETUPVAL                         R6 3
-       25 GETTABLEKS                       R5 R6 K8 ["onEdit"]
+       24 GETUPVAL                         R5 3
+       25 GETTABLEKS                       R5 R5 K8 ["onEdit"]
        27 NAMECALL                         R2 R2 K9 ["OnInvoke"]
        29 CALL                             R2 3 0
        30 GETUPVAL                         R2 0
        31 LOADK                            R4 K10 ["OnStopEditing"]
-       32 GETUPVAL                         R6 3
-       33 GETTABLEKS                       R5 R6 K11 ["onStopEditing"]
+       32 GETUPVAL                         R5 3
+       33 GETTABLEKS                       R5 R5 K11 ["onStopEditing"]
        35 NAMECALL                         R2 R2 K9 ["OnInvoke"]
        37 CALL                             R2 3 0
        38 RETURN                           R0 0
@@ -285,13 +285,13 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Src"]
-       11 GETTABLEKS                       R3 R4 K7 ["Util"]
-       13 GETTABLEKS                       R2 R3 K8 ["AnalyzerUtil"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["AnalyzerUtil"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K11 [game]
        25 LOADK                            R5 K12 ["GuiService"]

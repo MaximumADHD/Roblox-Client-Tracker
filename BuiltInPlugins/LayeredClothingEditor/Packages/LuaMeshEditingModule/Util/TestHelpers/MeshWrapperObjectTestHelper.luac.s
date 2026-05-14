@@ -1,14 +1,14 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["positions"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["positions"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["triangles"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["triangles"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
@@ -41,15 +41,15 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["positions"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["positions"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R2 R3 K0 ["triangles"]
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["triangles"]
         4 CALL                             R1 1 -1
         5 RETURN                           R1 -1
 
@@ -96,12 +96,12 @@ PROTO_8:
        17 GETUPVAL                         R2 0
        18 SETTABLEKS                       R2 R1 K6 ["Parent"]
        20 NEWTABLE                         R2 0 2
-       22 GETUPVAL                         R4 1
-       23 GETTABLEKS                       R3 R4 K1 ["new"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K1 ["new"]
        25 MOVE                             R4 R0
        26 CALL                             R3 1 1
-       27 GETUPVAL                         R5 2
-       28 GETTABLEKS                       R4 R5 K1 ["new"]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K1 ["new"]
        30 MOVE                             R5 R1
        31 CALL                             R4 1 -1
        32 SETLIST                          R2 R3 -1 [1]
@@ -109,13 +109,13 @@ PROTO_8:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R1 K1 [game]
-        3 GETTABLEKS                       R0 R1 K2 ["Workspace"]
+        1 GETIMPORT                        R0 K1 [game]
+        3 GETTABLEKS                       R0 R0 K2 ["Workspace"]
         5 GETIMPORT                        R1 K4 [require]
-        7 GETIMPORT                        R5 K6 [script]
-        9 GETTABLEKS                       R4 R5 K7 ["Parent"]
-       11 GETTABLEKS                       R3 R4 K7 ["Parent"]
-       13 GETTABLEKS                       R2 R3 K8 ["deepCopy"]
+        7 GETIMPORT                        R2 K6 [script]
+        9 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       11 GETTABLEKS                       R2 R2 K7 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K8 ["deepCopy"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 4 0
        18 NEWTABLE                         R3 0 8

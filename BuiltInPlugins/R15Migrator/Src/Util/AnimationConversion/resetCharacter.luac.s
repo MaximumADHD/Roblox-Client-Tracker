@@ -331,8 +331,8 @@ PROTO_2:
        39 JUMPIFNOT                        R9 ; [+24]
        40 GETTABLEKS                       R9 R8 K11 ["Part0"]
        42 JUMPIFNOTEQ                      R9 R1 ; [+21]
-       44 GETTABLEKS                       R12 R8 K11 ["Part0"]
-       46 GETTABLEKS                       R11 R12 K6 ["CFrame"]
+       44 GETTABLEKS                       R11 R8 K11 ["Part0"]
+       46 GETTABLEKS                       R11 R11 K6 ["CFrame"]
        48 GETTABLEKS                       R12 R8 K12 ["C0"]
        50 MUL                              R10 R11 R12
        51 GETTABLEKS                       R11 R8 K13 ["C1"]
@@ -396,8 +396,8 @@ PROTO_4:
        20 MOVE                             R10 R7
        21 CALL                             R8 2 1
        22 JUMPIFNOT                        R8 ; [+16]
-       23 GETTABLEKS                       R12 R8 K7 ["Parent"]
-       25 GETTABLEKS                       R11 R12 K8 ["CFrame"]
+       23 GETTABLEKS                       R11 R8 K7 ["Parent"]
+       25 GETTABLEKS                       R11 R11 K8 ["CFrame"]
        27 GETTABLEKS                       R12 R8 K8 ["CFrame"]
        29 MUL                              R10 R11 R12
        30 GETTABLEKS                       R11 R7 K8 ["CFrame"]
@@ -406,10 +406,10 @@ PROTO_4:
        35 MUL                              R9 R10 R11
        36 SETTABLEKS                       R9 R6 K8 ["CFrame"]
        38 RETURN                           R0 0
-       39 LOADK                            R13 K10 ["Head"]
-       40 NAMECALL                         R11 R0 K4 ["FindFirstChild"]
-       42 CALL                             R11 2 1
-       43 GETTABLEKS                       R10 R11 K8 ["CFrame"]
+       39 LOADK                            R12 K10 ["Head"]
+       40 NAMECALL                         R10 R0 K4 ["FindFirstChild"]
+       42 CALL                             R10 2 1
+       43 GETTABLEKS                       R10 R10 K8 ["CFrame"]
        45 GETIMPORT                        R11 K12 [CFrame.new]
        47 LOADN                            R12 0
        48 LOADK                            R13 K13 [0.5]
@@ -453,10 +453,10 @@ PROTO_6:
        16 NAMECALL                         R2 R0 K9 ["FindFirstChild"]
        18 CALL                             R2 2 1
        19 JUMPIF                           R2 ; [+25]
-       20 LOADK                            R6 K3 ["Humanoid"]
-       21 NAMECALL                         R4 R0 K4 ["FindFirstChildWhichIsA"]
-       23 CALL                             R4 2 1
-       24 GETTABLEKS                       R3 R4 K10 ["RigType"]
+       20 LOADK                            R5 K3 ["Humanoid"]
+       21 NAMECALL                         R3 R0 K4 ["FindFirstChildWhichIsA"]
+       23 CALL                             R3 2 1
+       24 GETTABLEKS                       R3 R3 K10 ["RigType"]
        26 GETIMPORT                        R4 K14 [Enum.HumanoidRigType.R6]
        28 JUMPIFNOTEQ                      R3 R4 ; [+16]
        30 GETIMPORT                        R3 K16 [Instance.new]

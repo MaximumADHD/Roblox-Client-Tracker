@@ -1,11 +1,11 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["avatarsToAnimate"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["avatarsToAnimate"]
         3 GETTABLE                         R1 R2 R0
         4 JUMPIF                           R1 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R2 R3 K1 ["terminate"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["terminate"]
         9 CALL                             R2 0 1
        10 GETTABLEKS                       R3 R1 K2 ["animationTrack"]
        12 JUMPIFNOT                        R3 ; [+9]
@@ -15,23 +15,23 @@ PROTO_0:
        18 CALL                             R4 1 0
        19 LOADNIL                          R4
        20 SETTABLEKS                       R4 R1 K2 ["animationTrack"]
-       22 GETUPVAL                         R5 0
-       23 GETTABLEKS                       R4 R5 K0 ["avatarsToAnimate"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K0 ["avatarsToAnimate"]
        25 LOADNIL                          R5
        26 SETTABLE                         R5 R4 R0
        27 GETIMPORT                        R4 K7 [table.clear]
        29 MOVE                             R5 R1
        30 CALL                             R4 1 0
        31 JUMPIFNOT                        R2 ; [+4]
-       32 GETUPVAL                         R5 0
-       33 GETTABLEKS                       R4 R5 K8 ["playAnimations"]
+       32 GETUPVAL                         R4 0
+       33 GETTABLEKS                       R4 R4 K8 ["playAnimations"]
        35 CALL                             R4 0 0
        36 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R0 K2 [table.clear]
-        2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R1 R2 K3 ["avatarsToAnimate"]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["avatarsToAnimate"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
@@ -46,23 +46,23 @@ PROTO_2:
         9 JUMPIF                           R2 ; [+1]
        10 RETURN                           R0 0
        11 LOADNIL                          R2
-       12 GETUPVAL                         R5 0
-       13 GETTABLEKS                       R4 R5 K4 ["currentAnimation"]
-       15 GETTABLEKS                       R3 R4 K5 ["animationInstance"]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K4 ["currentAnimation"]
+       15 GETTABLEKS                       R3 R3 K5 ["animationInstance"]
        17 JUMPIFNOT                        R3 ; [+11]
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R3 R4 K6 ["LoadAnimation"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K6 ["LoadAnimation"]
        21 MOVE                             R4 R1
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R6 R7 K4 ["currentAnimation"]
-       25 GETTABLEKS                       R5 R6 K5 ["animationInstance"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K4 ["currentAnimation"]
+       25 GETTABLEKS                       R5 R5 K5 ["animationInstance"]
        27 CALL                             R3 2 1
        28 MOVE                             R2 R3
        29 JUMPIFNOT                        R2 ; [+3]
        30 NAMECALL                         R3 R2 K7 ["Play"]
        32 CALL                             R3 1 0
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R3 R4 K8 ["avatarsToAnimate"]
+       33 GETUPVAL                         R3 0
+       34 GETTABLEKS                       R3 R3 K8 ["avatarsToAnimate"]
        36 DUPTABLE                         R4 K12 [{"animator", "animationTrack", "lastTimeStamp"}]
        37 SETTABLEKS                       R1 R4 K9 ["animator"]
        39 SETTABLEKS                       R2 R4 K10 ["animationTrack"]
@@ -72,11 +72,11 @@ PROTO_2:
        45 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["terminate"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["terminate"]
         3 CALL                             R0 0 1
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R1 R4 K1 ["avatarsToAnimate"]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K1 ["avatarsToAnimate"]
         7 LOADNIL                          R2
         8 LOADNIL                          R3
         9 FORGPREP                         R1
@@ -93,21 +93,21 @@ PROTO_3:
        25 SETTABLEKS                       R6 R5 K2 ["animationTrack"]
        27 LOADNIL                          R6
        28 SETTABLEKS                       R6 R5 K5 ["lastTimeStamp"]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R7 R8 K6 ["currentAnimation"]
-       33 GETTABLEKS                       R6 R7 K7 ["animationInstance"]
+       30 GETUPVAL                         R6 0
+       31 GETTABLEKS                       R6 R6 K6 ["currentAnimation"]
+       33 GETTABLEKS                       R6 R6 K7 ["animationInstance"]
        35 JUMPIFNOT                        R6 ; [+24]
        36 GETTABLEKS                       R6 R5 K8 ["animator"]
        38 LOADK                            R8 K9 ["Workspace"]
        39 NAMECALL                         R6 R6 K10 ["FindFirstAncestor"]
        41 CALL                             R6 2 1
        42 JUMPIFNOT                        R6 ; [+17]
-       43 GETUPVAL                         R7 1
-       44 GETTABLEKS                       R6 R7 K11 ["LoadAnimation"]
+       43 GETUPVAL                         R6 1
+       44 GETTABLEKS                       R6 R6 K11 ["LoadAnimation"]
        46 GETTABLEKS                       R7 R5 K8 ["animator"]
-       48 GETUPVAL                         R10 0
-       49 GETTABLEKS                       R9 R10 K6 ["currentAnimation"]
-       51 GETTABLEKS                       R8 R9 K7 ["animationInstance"]
+       48 GETUPVAL                         R8 0
+       49 GETTABLEKS                       R8 R8 K6 ["currentAnimation"]
+       51 GETTABLEKS                       R8 R8 K7 ["animationInstance"]
        53 CALL                             R6 2 1
        54 JUMPIFNOT                        R6 ; [+5]
        55 NAMECALL                         R7 R6 K12 ["Play"]
@@ -115,24 +115,24 @@ PROTO_3:
        58 SETTABLEKS                       R6 R5 K2 ["animationTrack"]
        60 FORGLOOP                         R1 2 ; [-51]
        62 JUMPIFNOT                        R0 ; [+4]
-       63 GETUPVAL                         R2 0
-       64 GETTABLEKS                       R1 R2 K13 ["playAnimations"]
+       63 GETUPVAL                         R1 0
+       64 GETTABLEKS                       R1 R1 K13 ["playAnimations"]
        66 CALL                             R1 0 0
        67 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["animationPlayingThread"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["animationPlayingThread"]
         3 JUMPIFNOT                        R0 ; [+77]
         4 GETIMPORT                        R0 K3 [task.cancel]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R1 R2 K0 ["animationPlayingThread"]
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K0 ["animationPlayingThread"]
         9 CALL                             R0 1 0
        10 GETUPVAL                         R0 0
        11 LOADNIL                          R1
        12 SETTABLEKS                       R1 R0 K0 ["animationPlayingThread"]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R0 R3 K4 ["avatarsToAnimate"]
+       14 GETUPVAL                         R0 0
+       15 GETTABLEKS                       R0 R0 K4 ["avatarsToAnimate"]
        17 LOADNIL                          R1
        18 LOADNIL                          R2
        19 FORGPREP                         R0
@@ -148,8 +148,8 @@ PROTO_4:
        33 CALL                             R6 2 0
        34 NAMECALL                         R6 R5 K9 ["Play"]
        36 CALL                             R6 1 0
-       37 GETTABLEKS                       R7 R4 K7 ["animator"]
-       39 GETTABLEKS                       R6 R7 K10 ["Parent"]
+       37 GETTABLEKS                       R6 R4 K7 ["animator"]
+       39 GETTABLEKS                       R6 R6 K10 ["Parent"]
        41 JUMPIFNOT                        R6 ; [+35]
        42 LOADK                            R9 K11 ["Humanoid"]
        43 NAMECALL                         R7 R6 K12 ["IsA"]
@@ -185,8 +185,8 @@ PROTO_4:
 PROTO_5:
         0 GETIMPORT                        R0 K2 [task.wait]
         2 CALL                             R0 0 0
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R0 R3 K3 ["avatarsToAnimate"]
+        3 GETUPVAL                         R0 0
+        4 GETTABLEKS                       R0 R0 K3 ["avatarsToAnimate"]
         6 LOADNIL                          R1
         7 LOADNIL                          R2
         8 FORGPREP                         R0
@@ -213,8 +213,8 @@ PROTO_5:
        39 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["terminate"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["terminate"]
         3 CALL                             R0 0 0
         4 GETUPVAL                         R0 0
         5 GETIMPORT                        R1 K3 [task.spawn]
@@ -225,70 +225,70 @@ PROTO_6:
        12 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["currentAnimation"]
-        3 GETTABLEKS                       R3 R4 K1 ["animationInstance"]
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["currentAnimation"]
+        3 GETTABLEKS                       R3 R3 K1 ["animationInstance"]
         5 JUMPIFNOT                        R3 ; [+14]
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R4 R5 K0 ["currentAnimation"]
-        9 GETTABLEKS                       R3 R4 K1 ["animationInstance"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K0 ["currentAnimation"]
+        9 GETTABLEKS                       R3 R3 K1 ["animationInstance"]
        11 NAMECALL                         R3 R3 K2 ["Destroy"]
        13 CALL                             R3 1 0
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R3 R4 K0 ["currentAnimation"]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K0 ["currentAnimation"]
        17 LOADNIL                          R4
        18 SETTABLEKS                       R4 R3 K1 ["animationInstance"]
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R3 R4 K0 ["currentAnimation"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K0 ["currentAnimation"]
        23 SETTABLEKS                       R0 R3 K3 ["animationId"]
        25 JUMPIFNOTEQKN                    R0 K4 [0] ; [+6]
-       27 GETUPVAL                         R4 0
-       28 GETTABLEKS                       R3 R4 K5 ["terminate"]
+       27 GETUPVAL                         R3 0
+       28 GETTABLEKS                       R3 R3 K5 ["terminate"]
        30 CALL                             R3 0 0
        31 RETURN                           R0 0
        32 GETIMPORT                        R3 K8 [Instance.new]
        34 LOADK                            R4 K9 ["Animation"]
        35 CALL                             R3 1 1
-       36 GETUPVAL                         R7 1
-       37 GETTABLEKS                       R5 R7 K10 ["ANIMATIONID_PREFIX"]
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K10 ["ANIMATIONID_PREFIX"]
        39 FASTCALL1                        TOSTRING R0 ; [+3]
        40 MOVE                             R7 R0
        41 GETIMPORT                        R6 K12 [tostring]
        43 CALL                             R6 1 1
        44 CONCAT                           R4 R5 R6
        45 SETTABLEKS                       R4 R3 K13 ["AnimationId"]
-       47 GETUPVAL                         R5 0
-       48 GETTABLEKS                       R4 R5 K0 ["currentAnimation"]
+       47 GETUPVAL                         R4 0
+       48 GETTABLEKS                       R4 R4 K0 ["currentAnimation"]
        50 SETTABLEKS                       R3 R4 K1 ["animationInstance"]
        52 JUMPIF                           R3 ; [+11]
-       53 GETUPVAL                         R5 0
-       54 GETTABLEKS                       R4 R5 K0 ["currentAnimation"]
+       53 GETUPVAL                         R4 0
+       54 GETTABLEKS                       R4 R4 K0 ["currentAnimation"]
        56 LOADN                            R5 0
        57 SETTABLEKS                       R5 R4 K3 ["animationId"]
-       59 GETUPVAL                         R5 0
-       60 GETTABLEKS                       R4 R5 K5 ["terminate"]
+       59 GETUPVAL                         R4 0
+       60 GETTABLEKS                       R4 R4 K5 ["terminate"]
        62 CALL                             R4 0 0
        63 RETURN                           R0 0
-       64 GETUPVAL                         R5 0
-       65 GETTABLEKS                       R4 R5 K5 ["terminate"]
+       64 GETUPVAL                         R4 0
+       65 GETTABLEKS                       R4 R4 K5 ["terminate"]
        67 CALL                             R4 0 1
-       68 GETUPVAL                         R6 0
-       69 GETTABLEKS                       R5 R6 K14 ["updateAvatars"]
+       68 GETUPVAL                         R5 0
+       69 GETTABLEKS                       R5 R5 K14 ["updateAvatars"]
        71 CALL                             R5 0 0
        72 JUMPIF                           R4 ; [+1]
        73 JUMPIFNOT                        R2 ; [+4]
-       74 GETUPVAL                         R6 0
-       75 GETTABLEKS                       R5 R6 K15 ["playAnimations"]
+       74 GETUPVAL                         R5 0
+       75 GETTABLEKS                       R5 R5 K15 ["playAnimations"]
        77 CALL                             R5 0 0
        78 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["setCurrentAnimationAsync"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setCurrentAnimationAsync"]
         3 LOADN                            R1 0
         4 CALL                             R0 1 0
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R0 R1 K1 ["unloadAllAvatars"]
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K1 ["unloadAllAvatars"]
         8 CALL                             R0 0 0
         9 RETURN                           R0 0
 
@@ -299,22 +299,22 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R5 R0 K6 ["Src"]
-       11 GETTABLEKS                       R4 R5 K7 ["Util"]
-       13 GETTABLEKS                       R3 R4 K8 ["Interfaces"]
-       15 GETTABLEKS                       R2 R3 K9 ["AnimatorInterface"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["Interfaces"]
+       15 GETTABLEKS                       R2 R2 K9 ["AnimatorInterface"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K5 [require]
-       20 GETTABLEKS                       R5 R0 K6 ["Src"]
-       22 GETTABLEKS                       R4 R5 K7 ["Util"]
-       24 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       20 GETTABLEKS                       R3 R0 K6 ["Src"]
+       22 GETTABLEKS                       R3 R3 K7 ["Util"]
+       24 GETTABLEKS                       R3 R3 K10 ["Constants"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R8 R0 K6 ["Src"]
-       31 GETTABLEKS                       R7 R8 K7 ["Util"]
-       33 GETTABLEKS                       R6 R7 K11 ["BridgingFiles"]
-       35 GETTABLEKS                       R5 R6 K12 ["AssetDmFiles"]
-       37 GETTABLEKS                       R4 R5 K13 ["assetDmTypes"]
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["Util"]
+       33 GETTABLEKS                       R4 R4 K11 ["BridgingFiles"]
+       35 GETTABLEKS                       R4 R4 K12 ["AssetDmFiles"]
+       37 GETTABLEKS                       R4 R4 K13 ["assetDmTypes"]
        39 CALL                             R3 1 1
        40 DUPTABLE                         R4 K17 [{"animationPlayingThread", "currentAnimation", "avatarsToAnimate"}]
        41 LOADNIL                          R5

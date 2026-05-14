@@ -11,19 +11,19 @@ PROTO_1:
         3 CALL                             R1 1 0
         4 GETUPVAL                         R1 2
         5 DUPTABLE                         R2 K3 [{"Component", "StyleLink"}]
-        6 GETUPVAL                         R4 3
-        7 GETTABLEKS                       R3 R4 K4 ["createElement"]
+        6 GETUPVAL                         R3 3
+        7 GETTABLEKS                       R3 R3 K4 ["createElement"]
         9 GETUPVAL                         R4 4
        10 MOVE                             R5 R0
        11 CALL                             R3 2 1
        12 SETTABLEKS                       R3 R2 K1 ["Component"]
-       14 GETUPVAL                         R4 3
-       15 GETTABLEKS                       R3 R4 K4 ["createElement"]
+       14 GETUPVAL                         R3 3
+       15 GETTABLEKS                       R3 R3 K4 ["createElement"]
        17 LOADK                            R4 K2 ["StyleLink"]
        18 DUPTABLE                         R5 K6 [{"StyleSheet"}]
        19 GETUPVAL                         R6 5
-       20 GETUPVAL                         R8 6
-       21 GETTABLEKS                       R7 R8 K7 ["Parent"]
+       20 GETUPVAL                         R7 6
+       21 GETTABLEKS                       R7 R7 K7 ["Parent"]
        23 CALL                             R6 1 1
        24 SETTABLEKS                       R6 R5 K5 ["StyleSheet"]
        26 CALL                             R3 2 1
@@ -53,20 +53,20 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       22 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Framework"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R7 R0 K13 ["Src"]
-       31 GETTABLEKS                       R6 R7 K14 ["Util"]
-       33 GETTABLEKS                       R5 R6 K15 ["mockContext"]
+       29 GETTABLEKS                       R5 R0 K13 ["Src"]
+       31 GETTABLEKS                       R5 R5 K14 ["Util"]
+       33 GETTABLEKS                       R5 R5 K15 ["mockContext"]
        35 CALL                             R4 1 1
-       36 GETTABLEKS                       R6 R3 K16 ["Styling"]
-       38 GETTABLEKS                       R5 R6 K17 ["registerPluginStyles"]
+       36 GETTABLEKS                       R5 R3 K16 ["Styling"]
+       38 GETTABLEKS                       R5 R5 K17 ["registerPluginStyles"]
        40 GETTABLEKS                       R6 R2 K18 ["useEffect"]
        42 DUPCLOSURE                       R7 K19 [PROTO_2]
        43 CAPTURE                          VAL R6

@@ -25,8 +25,8 @@ PROTO_2:
        10 NAMECALL                         R5 R2 K9 ["getText"]
        12 CALL                             R5 3 1
        13 SETTABLEKS                       R5 R4 K2 ["Text"]
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R5 R6 K10 ["new"]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K10 ["new"]
        18 CALL                             R5 0 1
        19 SETTABLEKS                       R5 R4 K3 ["Icon"]
        21 NEWCLOSURE                       R5 P0
@@ -34,8 +34,8 @@ PROTO_2:
        23 CAPTURE                          UPVAL U1
        24 SETTABLEKS                       R5 R4 K4 ["OnItemClicked"]
        26 SETLIST                          R3 R4 1 [1]
-       28 GETUPVAL                         R5 2
-       29 GETTABLEKS                       R4 R5 K11 ["getStudioDefaultStyleSheet"]
+       28 GETUPVAL                         R4 2
+       29 GETTABLEKS                       R4 R4 K11 ["getStudioDefaultStyleSheet"]
        31 CALL                             R4 0 1
        32 JUMPIF                           R4 ; [+29]
        33 LOADN                            R6 1
@@ -47,8 +47,8 @@ PROTO_2:
        40 NAMECALL                         R8 R2 K9 ["getText"]
        42 CALL                             R8 3 1
        43 SETTABLEKS                       R8 R7 K2 ["Text"]
-       45 GETUPVAL                         R9 0
-       46 GETTABLEKS                       R8 R9 K10 ["new"]
+       45 GETUPVAL                         R8 0
+       46 GETTABLEKS                       R8 R8 K10 ["new"]
        48 CALL                             R8 0 1
        49 SETTABLEKS                       R8 R7 K3 ["Icon"]
        51 NEWCLOSURE                       R8 P1
@@ -63,13 +63,13 @@ PROTO_2:
        63 LOADK                            R5 K19 ["ShowStyleSheetCategoryMenu"]
        64 SETTABLEKS                       R5 R4 K1 ["Id"]
        66 SETTABLEKS                       R3 R4 K17 ["Children"]
-       68 GETUPVAL                         R6 4
-       69 GETTABLEKS                       R5 R6 K20 ["trackClicks"]
+       68 GETUPVAL                         R5 4
+       69 GETTABLEKS                       R5 R5 K20 ["trackClicks"]
        71 MOVE                             R6 R4
        72 GETTABLEKS                       R7 R1 K21 ["Telemetry"]
        74 CALL                             R5 2 0
-       75 GETUPVAL                         R6 4
-       76 GETTABLEKS                       R5 R6 K22 ["showContextMenu"]
+       75 GETUPVAL                         R5 4
+       76 GETTABLEKS                       R5 R5 K22 ["showContextMenu"]
        78 GETTABLEKS                       R6 R1 K23 ["Plugin"]
        80 MOVE                             R7 R4
        81 CALL                             R5 2 0
@@ -86,49 +86,49 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Src"]
-       15 GETTABLEKS                       R3 R4 K6 ["Reducers"]
-       17 GETTABLEKS                       R2 R3 K7 ["RootReducer"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Reducers"]
+       17 GETTABLEKS                       R2 R2 K7 ["RootReducer"]
        19 CALL                             R1 1 1
        20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R5 R0 K5 ["Src"]
-       24 GETTABLEKS                       R4 R5 K8 ["Util"]
-       26 GETTABLEKS                       R3 R4 K9 ["MenuHelpers"]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K8 ["Util"]
+       26 GETTABLEKS                       R3 R3 K9 ["MenuHelpers"]
        28 CALL                             R2 1 1
        29 GETIMPORT                        R3 K4 [require]
-       31 GETTABLEKS                       R6 R0 K5 ["Src"]
-       33 GETTABLEKS                       R5 R6 K8 ["Util"]
-       35 GETTABLEKS                       R4 R5 K10 ["DesignHelpers"]
+       31 GETTABLEKS                       R4 R0 K5 ["Src"]
+       33 GETTABLEKS                       R4 R4 K8 ["Util"]
+       35 GETTABLEKS                       R4 R4 K10 ["DesignHelpers"]
        37 CALL                             R3 1 1
        38 GETIMPORT                        R4 K4 [require]
-       40 GETTABLEKS                       R7 R0 K5 ["Src"]
-       42 GETTABLEKS                       R6 R7 K11 ["Resources"]
-       44 GETTABLEKS                       R5 R6 K12 ["ModernIcons"]
+       40 GETTABLEKS                       R5 R0 K5 ["Src"]
+       42 GETTABLEKS                       R5 R5 K11 ["Resources"]
+       44 GETTABLEKS                       R5 R5 K12 ["ModernIcons"]
        46 CALL                             R4 1 1
-       47 GETTABLEKS                       R6 R0 K5 ["Src"]
-       49 GETTABLEKS                       R5 R6 K13 ["Thunks"]
+       47 GETTABLEKS                       R5 R0 K5 ["Src"]
+       49 GETTABLEKS                       R5 R5 K13 ["Thunks"]
        51 GETIMPORT                        R6 K4 [require]
-       53 GETTABLEKS                       R8 R5 K14 ["Change"]
-       55 GETTABLEKS                       R7 R8 K15 ["CreateDesignSheet"]
+       53 GETTABLEKS                       R7 R5 K14 ["Change"]
+       55 GETTABLEKS                       R7 R7 K15 ["CreateDesignSheet"]
        57 CALL                             R6 1 1
        58 GETIMPORT                        R7 K4 [require]
-       60 GETTABLEKS                       R9 R5 K14 ["Change"]
-       62 GETTABLEKS                       R8 R9 K16 ["CreateStudioDefaultStyleSheet"]
+       60 GETTABLEKS                       R8 R5 K14 ["Change"]
+       62 GETTABLEKS                       R8 R8 K16 ["CreateStudioDefaultStyleSheet"]
        64 CALL                             R7 1 1
        65 GETIMPORT                        R8 K4 [require]
-       67 GETTABLEKS                       R10 R0 K5 ["Src"]
-       69 GETTABLEKS                       R9 R10 K17 ["Types"]
+       67 GETTABLEKS                       R9 R0 K5 ["Src"]
+       69 GETTABLEKS                       R9 R9 K17 ["Types"]
        71 CALL                             R8 1 1
        72 GETIMPORT                        R9 K4 [require]
-       74 GETTABLEKS                       R12 R0 K5 ["Src"]
-       76 GETTABLEKS                       R11 R12 K13 ["Thunks"]
-       78 GETTABLEKS                       R10 R11 K17 ["Types"]
+       74 GETTABLEKS                       R10 R0 K5 ["Src"]
+       76 GETTABLEKS                       R10 R10 K13 ["Thunks"]
+       78 GETTABLEKS                       R10 R10 K17 ["Types"]
        80 CALL                             R9 1 1
        81 DUPCLOSURE                       R10 K18 [PROTO_3]
        82 CAPTURE                          VAL R4

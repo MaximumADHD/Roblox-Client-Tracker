@@ -30,8 +30,8 @@ PROTO_2:
        19 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 DUPTABLE                         R4 K3 [{"Items"}]
         5 NEWTABLE                         R5 0 1
         7 DUPTABLE                         R6 K7 [{"Id", "Label", "Children"}]
@@ -109,11 +109,11 @@ PROTO_3:
 
 PROTO_4:
         0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R7 0
-        3 GETTABLEKS                       R6 R7 K0 ["state"]
-        5 GETTABLEKS                       R5 R6 K1 ["Items"]
-        7 GETTABLEN                        R4 R5 1
-        8 GETTABLEKS                       R1 R4 K2 ["Children"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K0 ["state"]
+        5 GETTABLEKS                       R4 R4 K1 ["Items"]
+        7 GETTABLEN                        R1 R4 1
+        8 GETTABLEKS                       R1 R1 K2 ["Children"]
        10 LOADNIL                          R2
        11 LOADNIL                          R3
        12 FORGPREP                         R1
@@ -121,43 +121,43 @@ PROTO_4:
        15 GETTABLEKS                       R7 R5 K4 ["Value"]
        17 SETTABLE                         R7 R0 R6
        18 FORGLOOP                         R1 2 ; [-6]
-       20 GETUPVAL                         R3 0
-       21 GETTABLEKS                       R2 R3 K5 ["props"]
-       23 GETTABLEKS                       R1 R2 K6 ["setSurfaceAppearanceIds"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K5 ["props"]
+       23 GETTABLEKS                       R1 R1 K6 ["setSurfaceAppearanceIds"]
        25 GETTABLEKS                       R2 R0 K7 ["ColorMap"]
        27 GETTABLEKS                       R3 R0 K8 ["MetalnessMap"]
        29 GETTABLEKS                       R4 R0 K9 ["NormalMap"]
        31 GETTABLEKS                       R5 R0 K10 ["RoughnessMap"]
        33 CALL                             R1 4 0
-       34 GETUPVAL                         R3 0
-       35 GETTABLEKS                       R2 R3 K5 ["props"]
-       37 GETTABLEKS                       R1 R2 K11 ["mode"]
-       39 GETUPVAL                         R4 1
-       40 GETTABLEKS                       R3 R4 K12 ["Modes"]
-       42 GETTABLEKS                       R2 R3 K13 ["Head"]
+       34 GETUPVAL                         R1 0
+       35 GETTABLEKS                       R1 R1 K5 ["props"]
+       37 GETTABLEKS                       R1 R1 K11 ["mode"]
+       39 GETUPVAL                         R2 1
+       40 GETTABLEKS                       R2 R2 K12 ["Modes"]
+       42 GETTABLEKS                       R2 R2 K13 ["Head"]
        44 JUMPIFNOTEQ                      R1 R2 ; [+14]
-       46 GETUPVAL                         R3 0
-       47 GETTABLEKS                       R2 R3 K5 ["props"]
-       49 GETTABLEKS                       R1 R2 K14 ["close"]
+       46 GETUPVAL                         R1 0
+       47 GETTABLEKS                       R1 R1 K5 ["props"]
+       49 GETTABLEKS                       R1 R1 K14 ["close"]
        51 CALL                             R1 0 0
-       52 GETUPVAL                         R3 0
-       53 GETTABLEKS                       R2 R3 K5 ["props"]
-       55 GETTABLEKS                       R1 R2 K15 ["processHead"]
+       52 GETUPVAL                         R1 0
+       53 GETTABLEKS                       R1 R1 K5 ["props"]
+       55 GETTABLEKS                       R1 R1 K15 ["processHead"]
        57 CALL                             R1 0 0
        58 RETURN                           R0 0
-       59 GETUPVAL                         R3 0
-       60 GETTABLEKS                       R2 R3 K5 ["props"]
-       62 GETTABLEKS                       R1 R2 K11 ["mode"]
-       64 GETUPVAL                         R4 1
-       65 GETTABLEKS                       R3 R4 K12 ["Modes"]
-       67 GETTABLEKS                       R2 R3 K16 ["Accessory"]
+       59 GETUPVAL                         R1 0
+       60 GETTABLEKS                       R1 R1 K5 ["props"]
+       62 GETTABLEKS                       R1 R1 K11 ["mode"]
+       64 GETUPVAL                         R2 1
+       65 GETTABLEKS                       R2 R2 K12 ["Modes"]
+       67 GETTABLEKS                       R2 R2 K16 ["Accessory"]
        69 JUMPIFNOTEQ                      R1 R2 ; [+13]
-       71 GETUPVAL                         R3 0
-       72 GETTABLEKS                       R2 R3 K5 ["props"]
-       74 GETTABLEKS                       R1 R2 K17 ["setScreen"]
-       76 GETUPVAL                         R4 1
-       77 GETTABLEKS                       R3 R4 K18 ["Screens"]
-       79 GETTABLEKS                       R2 R3 K19 ["InputAccessoryType"]
+       71 GETUPVAL                         R1 0
+       72 GETTABLEKS                       R1 R1 K5 ["props"]
+       74 GETTABLEKS                       R1 R1 K17 ["setScreen"]
+       76 GETUPVAL                         R2 1
+       77 GETTABLEKS                       R2 R2 K18 ["Screens"]
+       79 GETTABLEKS                       R2 R2 K19 ["InputAccessoryType"]
        81 CALL                             R1 1 0
        82 RETURN                           R0 0
        83 LOADB                            R2 0
@@ -167,15 +167,15 @@ PROTO_4:
        88 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 DUPTABLE                         R3 K6 [{"Expansion", "Items", "onExpansionChange", "onChange", "onSubmit"}]
-        5 GETTABLEKS                       R5 R0 K7 ["state"]
-        7 GETTABLEKS                       R4 R5 K1 ["Expansion"]
+        5 GETTABLEKS                       R4 R0 K7 ["state"]
+        7 GETTABLEKS                       R4 R4 K1 ["Expansion"]
         9 SETTABLEKS                       R4 R3 K1 ["Expansion"]
-       11 GETTABLEKS                       R5 R0 K7 ["state"]
-       13 GETTABLEKS                       R4 R5 K2 ["Items"]
+       11 GETTABLEKS                       R4 R0 K7 ["state"]
+       13 GETTABLEKS                       R4 R4 K2 ["Items"]
        15 SETTABLEKS                       R4 R3 K2 ["Items"]
        17 GETTABLEKS                       R4 R0 K3 ["onExpansionChange"]
        19 SETTABLEKS                       R4 R3 K3 ["onExpansionChange"]
@@ -190,8 +190,8 @@ PROTO_5:
 
 PROTO_6:
         0 DUPTABLE                         R2 K1 [{"mode"}]
-        1 GETTABLEKS                       R4 R0 K2 ["PluginReducer"]
-        3 GETTABLEKS                       R3 R4 K0 ["mode"]
+        1 GETTABLEKS                       R3 R0 K2 ["PluginReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["mode"]
         5 SETTABLEKS                       R3 R2 K0 ["mode"]
         7 RETURN                           R2 1
 
@@ -256,46 +256,46 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["RoactRodux"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["RoactRodux"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Framework"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
        30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R7 R0 K11 ["Src"]
-       34 GETTABLEKS                       R6 R7 K12 ["Constants"]
+       32 GETTABLEKS                       R6 R0 K11 ["Src"]
+       34 GETTABLEKS                       R6 R6 K12 ["Constants"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K5 [require]
-       39 GETTABLEKS                       R9 R0 K11 ["Src"]
-       41 GETTABLEKS                       R8 R9 K13 ["Components"]
-       43 GETTABLEKS                       R7 R8 K14 ["FormScreen"]
+       39 GETTABLEKS                       R7 R0 K11 ["Src"]
+       41 GETTABLEKS                       R7 R7 K13 ["Components"]
+       43 GETTABLEKS                       R7 R7 K14 ["FormScreen"]
        45 CALL                             R6 1 1
        46 GETIMPORT                        R7 K5 [require]
-       48 GETTABLEKS                       R10 R0 K11 ["Src"]
-       50 GETTABLEKS                       R9 R10 K15 ["Actions"]
-       52 GETTABLEKS                       R8 R9 K16 ["SetEnabled"]
+       48 GETTABLEKS                       R8 R0 K11 ["Src"]
+       50 GETTABLEKS                       R8 R8 K15 ["Actions"]
+       52 GETTABLEKS                       R8 R8 K16 ["SetEnabled"]
        54 CALL                             R7 1 1
        55 GETIMPORT                        R8 K5 [require]
-       57 GETTABLEKS                       R11 R0 K11 ["Src"]
-       59 GETTABLEKS                       R10 R11 K15 ["Actions"]
-       61 GETTABLEKS                       R9 R10 K17 ["SetSurfaceAppearanceIds"]
+       57 GETTABLEKS                       R9 R0 K11 ["Src"]
+       59 GETTABLEKS                       R9 R9 K15 ["Actions"]
+       61 GETTABLEKS                       R9 R9 K17 ["SetSurfaceAppearanceIds"]
        63 CALL                             R8 1 1
        64 GETIMPORT                        R9 K5 [require]
-       66 GETTABLEKS                       R12 R0 K11 ["Src"]
-       68 GETTABLEKS                       R11 R12 K15 ["Actions"]
-       70 GETTABLEKS                       R10 R11 K18 ["SetScreen"]
+       66 GETTABLEKS                       R10 R0 K11 ["Src"]
+       68 GETTABLEKS                       R10 R10 K15 ["Actions"]
+       70 GETTABLEKS                       R10 R10 K18 ["SetScreen"]
        72 CALL                             R9 1 1
        73 GETIMPORT                        R10 K5 [require]
-       75 GETTABLEKS                       R13 R0 K11 ["Src"]
-       77 GETTABLEKS                       R12 R13 K19 ["Thunks"]
-       79 GETTABLEKS                       R11 R12 K20 ["ProcessHead"]
+       75 GETTABLEKS                       R11 R0 K11 ["Src"]
+       77 GETTABLEKS                       R11 R11 K19 ["Thunks"]
+       79 GETTABLEKS                       R11 R11 K20 ["ProcessHead"]
        81 CALL                             R10 1 1
        82 GETTABLEKS                       R11 R1 K21 ["PureComponent"]
        84 LOADK                            R13 K22 ["InputSurfaceAppearanceIdsScreen"]

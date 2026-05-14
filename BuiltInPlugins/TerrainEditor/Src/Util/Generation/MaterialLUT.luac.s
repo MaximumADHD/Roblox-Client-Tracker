@@ -57,9 +57,9 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["Unit"]
-        2 GETUPVAL                         R5 0
-        3 GETTABLEKS                       R4 R5 K1 ["MaterialUnit"]
-        5 GETTABLEKS                       R3 R4 K2 ["Percentage"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["MaterialUnit"]
+        5 GETTABLEKS                       R3 R3 K2 ["Percentage"]
         7 JUMPIFEQ                         R2 R3 ; [+2]
         9 LOADB                            R1 0 +1
        10 LOADB                            R1 1
@@ -251,8 +251,8 @@ PROTO_2:
       271 LENGTH                           R20 R18
       272 LOADN                            R21 0
       273 JUMPIFNOTLT                      R21 R20 ; [+5]
-      275 GETTABLEN                        R20 R18 1
-      276 GETTABLEKS                       R19 R20 K35 ["value"]
+      275 GETTABLEN                        R19 R18 1
+      276 GETTABLEKS                       R19 R19 K35 ["value"]
       278 JUMP                             ; [+1]
       279 MOVE                             R19 R4
       280 MULK                             R21 R11 K45 [1024]
@@ -340,8 +340,8 @@ PROTO_4:
        31 RETURN                           R6 1
 
 PROTO_5:
-        0 GETUPVAL                         R12 0
-        1 GETTABLEKS                       R11 R12 K2 ["VoxelResolution"]
+        0 GETUPVAL                         R11 0
+        1 GETTABLEKS                       R11 R11 K2 ["VoxelResolution"]
         3 MUL                              R10 R1 R11
         4 GETTABLEKS                       R11 R0 K3 ["_minHeight"]
         6 SUB                              R9 R10 R11
@@ -393,8 +393,8 @@ PROTO_6:
        18 RETURN                           R5 1
 
 PROTO_7:
-        0 GETUPVAL                         R12 0
-        1 GETTABLEKS                       R11 R12 K2 ["VoxelResolution"]
+        0 GETUPVAL                         R11 0
+        1 GETTABLEKS                       R11 R11 K2 ["VoxelResolution"]
         3 MUL                              R10 R1 R11
         4 GETTABLEKS                       R11 R0 K3 ["_minHeight"]
         6 SUB                              R9 R10 R11
@@ -425,13 +425,13 @@ MAIN:
         8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
        10 CALL                             R1 2 1
        11 GETIMPORT                        R2 K6 [require]
-       13 GETTABLEKS                       R4 R1 K7 ["Src"]
-       15 GETTABLEKS                       R3 R4 K8 ["Types"]
+       13 GETTABLEKS                       R3 R1 K7 ["Src"]
+       15 GETTABLEKS                       R3 R3 K8 ["Types"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K6 [require]
-       20 GETTABLEKS                       R6 R1 K7 ["Src"]
-       22 GETTABLEKS                       R5 R6 K9 ["Resources"]
-       24 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       20 GETTABLEKS                       R4 R1 K7 ["Src"]
+       22 GETTABLEKS                       R4 R4 K9 ["Resources"]
+       24 GETTABLEKS                       R4 R4 K10 ["Constants"]
        26 CALL                             R3 1 1
        27 DUPCLOSURE                       R4 K11 [PROTO_0]
        28 DUPCLOSURE                       R5 K12 [PROTO_1]

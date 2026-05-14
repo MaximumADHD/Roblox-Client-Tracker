@@ -59,8 +59,8 @@ PROTO_4:
        13 GETUPVAL                         R2 2
        14 MOVE                             R3 R1
        15 CALL                             R2 1 0
-       16 GETUPVAL                         R1 3
-       17 GETTABLEKS                       R0 R1 K3 ["Event"]
+       16 GETUPVAL                         R0 3
+       17 GETTABLEKS                       R0 R0 K3 ["Event"]
        19 NEWCLOSURE                       R2 P0
        20 CAPTURE                          UPVAL U0
        21 CAPTURE                          UPVAL U1
@@ -93,20 +93,20 @@ PROTO_5:
        21 FASTCALL1                        ASSERT R2 ; [+2]
        22 GETIMPORT                        R1 K5 [assert]
        24 CALL                             R1 1 0
-       25 GETUPVAL                         R2 2
-       26 GETTABLEKS                       R1 R2 K8 ["useState"]
+       25 GETUPVAL                         R1 2
+       26 GETTABLEKS                       R1 R1 K8 ["useState"]
        28 LOADN                            R2 0
        29 CALL                             R1 1 2
-       30 GETUPVAL                         R4 2
-       31 GETTABLEKS                       R3 R4 K8 ["useState"]
+       30 GETUPVAL                         R3 2
+       31 GETTABLEKS                       R3 R3 K8 ["useState"]
        33 LOADN                            R4 0
        34 CALL                             R3 1 2
        35 NEWCLOSURE                       R5 P1
        36 CAPTURE                          VAL R0
        37 CAPTURE                          VAL R2
        38 CAPTURE                          VAL R4
-       39 GETUPVAL                         R7 2
-       40 GETTABLEKS                       R6 R7 K9 ["useEffect"]
+       39 GETUPVAL                         R6 2
+       40 GETTABLEKS                       R6 R6 K9 ["useEffect"]
        42 NEWCLOSURE                       R7 P2
        43 CAPTURE                          VAL R0
        44 CAPTURE                          VAL R2
@@ -120,13 +120,13 @@ PROTO_5:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
        16 LOADB                            R2 0
        17 LOADNIL                          R3

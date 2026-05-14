@@ -1,12 +1,12 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["register"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["register"]
         3 GETIMPORT                        R1 K2 [plugin]
         5 CALL                             R0 1 0
         6 GETUPVAL                         R0 1
         7 CALL                             R0 0 0
-        8 GETUPVAL                         R1 0
-        9 GETTABLEKS                       R0 R1 K3 ["deregister"]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K3 ["deregister"]
        11 CALL                             R0 0 0
        12 RETURN                           R0 0
 
@@ -61,8 +61,8 @@ PROTO_5:
 
 PROTO_6:
         0 LOADB                            R1 0
-        1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R2 R3 K0 ["SelectionChanged"]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K0 ["SelectionChanged"]
         4 NEWCLOSURE                       R4 P0
         5 CAPTURE                          REF R1
         6 NAMECALL                         R2 R2 K1 ["Once"]
@@ -85,11 +85,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Util"]
-       16 GETTABLEKS                       R2 R3 K9 ["Promise"]
+       14 GETTABLEKS                       R2 R1 K8 ["Util"]
+       16 GETTABLEKS                       R2 R2 K9 ["Promise"]
        18 GETIMPORT                        R3 K11 [plugin]
        20 LOADK                            R5 K12 ["Actions"]
        21 NAMECALL                         R3 R3 K13 ["GetPluginComponent"]

@@ -31,16 +31,16 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R5 R0 K5 ["Src"]
-       15 GETTABLEKS                       R4 R5 K6 ["Components"]
-       17 GETTABLEKS                       R3 R4 K7 ["PluginWidget"]
-       19 GETTABLEKS                       R2 R3 K7 ["PluginWidget"]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Components"]
+       17 GETTABLEKS                       R2 R2 K7 ["PluginWidget"]
+       19 GETTABLEKS                       R2 R2 K7 ["PluginWidget"]
        21 CALL                             R1 1 1
        22 MOVE                             R2 R1
        23 LOADK                            R3 K8 ["Dialog"]

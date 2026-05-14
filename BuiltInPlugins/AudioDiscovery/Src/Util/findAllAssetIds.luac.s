@@ -33,8 +33,8 @@ PROTO_1:
        20 RETURN                           R2 1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["Parent"]
-        2 GETTABLEKS                       R1 R2 K1 ["Name"]
+        0 GETTABLEKS                       R1 R0 K0 ["Parent"]
+        2 GETTABLEKS                       R1 R1 K1 ["Name"]
         4 NAMECALL                         R1 R1 K2 ["lower"]
         6 CALL                             R1 1 1
         7 JUMPIFNOTEQKS                    R1 K3 ["boombox"] ; [+3]
@@ -146,19 +146,19 @@ PROTO_6:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["isAssetIdLike"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["isAssetIdLike"]
         9 CALL                             R0 1 1
        10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R4 K3 [script]
-       14 GETTABLEKS                       R3 R4 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R3 K6 ["normalizeAssetId"]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       16 GETTABLEKS                       R2 R2 K6 ["normalizeAssetId"]
        18 CALL                             R1 1 1
        19 GETIMPORT                        R2 K1 [require]
-       21 GETIMPORT                        R5 K3 [script]
-       23 GETTABLEKS                       R4 R5 K4 ["Parent"]
-       25 GETTABLEKS                       R3 R4 K7 ["findAssetIdsInSource"]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["findAssetIdsInSource"]
        27 CALL                             R2 1 1
        28 GETIMPORT                        R3 K9 [game]
        30 LOADK                            R5 K10 ["AudioDiscoveryHandleAudioPlayer"]
@@ -212,10 +212,10 @@ MAIN:
       102 CALL                             R15 2 -1
       103 SETLIST                          R4 R5 -1 [1]
       105 GETIMPORT                        R5 K1 [require]
-      107 GETIMPORT                        R9 K3 [script]
-      109 GETTABLEKS                       R8 R9 K4 ["Parent"]
-      111 GETTABLEKS                       R7 R8 K4 ["Parent"]
-      113 GETTABLEKS                       R6 R7 K24 ["Types"]
+      107 GETIMPORT                        R6 K3 [script]
+      109 GETTABLEKS                       R6 R6 K4 ["Parent"]
+      111 GETTABLEKS                       R6 R6 K4 ["Parent"]
+      113 GETTABLEKS                       R6 R6 K24 ["Types"]
       115 CALL                             R5 1 1
       116 NEWTABLE                         R6 0 0
       118 DUPCLOSURE                       R7 K25 [PROTO_0]

@@ -13,8 +13,8 @@ PROTO_0:
        17 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["RobloxEventReceived"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["RobloxEventReceived"]
         3 DUPCLOSURE                       R2 K1 [PROTO_0]
         4 CAPTURE                          UPVAL U1
         5 NAMECALL                         R0 R0 K2 ["Connect"]

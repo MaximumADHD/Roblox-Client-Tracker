@@ -14,17 +14,17 @@ PROTO_0:
        14 LOADNIL                          R13
        15 FORGPREP                         R11
        16 GETTABLE                         R16 R1 R10
-       17 GETUPVAL                         R18 0
-       18 GETTABLEKS                       R17 R18 K1 ["getConvertedAnimationAssetInfo"]
+       17 GETUPVAL                         R17 0
+       18 GETTABLEKS                       R17 R17 K1 ["getConvertedAnimationAssetInfo"]
        20 GETTABLEKS                       R18 R15 K2 ["info"]
        22 CALL                             R17 1 1
        23 GETTABLEKS                       R18 R17 K3 ["id"]
        25 JUMPIFNOT                        R18 ; [+14]
-       26 GETUPVAL                         R19 1
-       27 GETTABLEKS                       R18 R19 K4 ["replaceWithSuggestion"]
+       26 GETUPVAL                         R18 1
+       27 GETTABLEKS                       R18 R18 K4 ["replaceWithSuggestion"]
        29 MOVE                             R19 R10
-       30 GETTABLEKS                       R21 R15 K5 ["ref"]
-       32 GETTABLEKS                       R20 R21 K6 ["range"]
+       30 GETTABLEKS                       R20 R15 K5 ["ref"]
+       32 GETTABLEKS                       R20 R20 K6 ["range"]
        34 MOVE                             R21 R2
        35 GETTABLEKS                       R22 R17 K7 ["url"]
        37 MOVE                             R23 R16
@@ -45,10 +45,10 @@ PROTO_0:
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["getState"]
         2 CALL                             R1 1 1
-        3 GETTABLEKS                       R3 R1 K1 ["AnimationConversion"]
-        5 GETTABLEKS                       R2 R3 K2 ["animations"]
-        7 GETTABLEKS                       R4 R1 K3 ["ScriptConversion"]
-        9 GETTABLEKS                       R3 R4 K4 ["diagnostics"]
+        3 GETTABLEKS                       R2 R1 K1 ["AnimationConversion"]
+        5 GETTABLEKS                       R2 R2 K2 ["animations"]
+        7 GETTABLEKS                       R3 R1 K3 ["ScriptConversion"]
+        9 GETTABLEKS                       R3 R3 K4 ["diagnostics"]
        11 GETUPVAL                         R4 0
        12 LOADK                            R6 K5 ["preReplace"]
        13 NAMECALL                         R4 R4 K6 ["SetWaypoint"]
@@ -58,8 +58,8 @@ PROTO_1:
        19 LOADNIL                          R6
        20 LOADNIL                          R7
        21 FORGPREP                         R5
-       22 GETUPVAL                         R11 2
-       23 GETTABLEKS                       R10 R11 K7 ["getConvertedAnimationAssetInfo"]
+       22 GETUPVAL                         R10 2
+       23 GETTABLEKS                       R10 R10 K7 ["getConvertedAnimationAssetInfo"]
        25 MOVE                             R11 R9
        26 CALL                             R10 1 1
        27 GETTABLEKS                       R11 R10 K8 ["id"]
@@ -71,17 +71,17 @@ PROTO_1:
        36 JUMPIF                           R11 ; [+1]
        37 RETURN                           R0 0
        38 GETIMPORT                        R11 K12 [next]
-       40 GETTABLEKS                       R14 R9 K8 ["id"]
-       42 GETTABLE                         R13 R2 R14
-       43 GETTABLEKS                       R12 R13 K13 ["refs"]
+       40 GETTABLEKS                       R13 R9 K8 ["id"]
+       42 GETTABLE                         R12 R2 R13
+       43 GETTABLEKS                       R12 R12 K13 ["refs"]
        45 CALL                             R11 1 1
        46 JUMPIFNOT                        R11 ; [+131]
        47 GETUPVAL                         R11 3
        48 GETTABLEKS                       R13 R9 K8 ["id"]
        50 GETTABLE                         R12 R2 R13
        51 CALL                             R11 1 1
-       52 GETUPVAL                         R13 2
-       53 GETTABLEKS                       R12 R13 K14 ["getConvertedKeyframeSequence"]
+       52 GETUPVAL                         R12 2
+       53 GETTABLEKS                       R12 R12 K14 ["getConvertedKeyframeSequence"]
        55 MOVE                             R13 R9
        56 CALL                             R12 1 1
        57 NEWTABLE                         R13 0 0
@@ -90,8 +90,8 @@ PROTO_1:
        62 LOADNIL                          R16
        63 LOADNIL                          R17
        64 FORGPREP                         R15
-       65 GETUPVAL                         R23 4
-       66 GETTABLEKS                       R22 R23 K15 ["LocalAsset"]
+       65 GETUPVAL                         R22 4
+       66 GETTABLEKS                       R22 R22 K15 ["LocalAsset"]
        68 NAMECALL                         R20 R19 K10 ["IsA"]
        70 CALL                             R20 2 1
        71 JUMPIFNOT                        R20 ; [+27]
@@ -114,8 +114,8 @@ PROTO_1:
        95 NAMECALL                         R20 R20 K23 ["removeTag"]
        97 CALL                             R20 2 0
        98 JUMP                             ; [+57]
-       99 GETUPVAL                         R23 4
-      100 GETTABLEKS                       R22 R23 K24 ["AnimationInstance"]
+       99 GETUPVAL                         R22 4
+      100 GETTABLEKS                       R22 R22 K24 ["AnimationInstance"]
       102 NAMECALL                         R20 R19 K10 ["IsA"]
       104 CALL                             R20 2 1
       105 JUMPIFNOT                        R20 ; [+17]
@@ -131,8 +131,8 @@ PROTO_1:
       119 NAMECALL                         R20 R20 K23 ["removeTag"]
       121 CALL                             R20 2 0
       122 JUMP                             ; [+33]
-      123 GETUPVAL                         R23 4
-      124 GETTABLEKS                       R22 R23 K27 ["AssetIdString"]
+      123 GETUPVAL                         R22 4
+      124 GETTABLEKS                       R22 R22 K27 ["AssetIdString"]
       126 NAMECALL                         R20 R19 K10 ["IsA"]
       128 CALL                             R20 2 1
       129 JUMPIFNOT                        R20 ; [+26]
@@ -207,17 +207,17 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["Framework"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R4 R2 K12 ["Util"]
-       22 GETTABLEKS                       R3 R4 K13 ["deepCopy"]
-       24 GETTABLEKS                       R5 R0 K14 ["Src"]
-       26 GETTABLEKS                       R4 R5 K12 ["Util"]
-       28 GETIMPORT                        R6 K9 [require]
-       30 GETTABLEKS                       R7 R4 K15 ["PublishTagging"]
-       32 CALL                             R6 1 1
-       33 GETTABLEKS                       R5 R6 K16 ["AnimationTagging"]
+       20 GETTABLEKS                       R3 R2 K12 ["Util"]
+       22 GETTABLEKS                       R3 R3 K13 ["deepCopy"]
+       24 GETTABLEKS                       R4 R0 K14 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
+       28 GETIMPORT                        R5 K9 [require]
+       30 GETTABLEKS                       R6 R4 K15 ["PublishTagging"]
+       32 CALL                             R5 1 1
+       33 GETTABLEKS                       R5 R5 K16 ["AnimationTagging"]
        35 GETIMPORT                        R6 K9 [require]
        37 GETTABLEKS                       R7 R4 K17 ["ScriptReplacement"]
        39 CALL                             R6 1 1
@@ -229,8 +229,8 @@ MAIN:
        49 GETTABLEKS                       R10 R7 K20 ["constants"]
        51 CALL                             R9 1 1
        52 GETTABLEKS                       R10 R9 K21 ["AssetType"]
-       54 GETTABLEKS                       R12 R0 K14 ["Src"]
-       56 GETTABLEKS                       R11 R12 K22 ["Actions"]
+       54 GETTABLEKS                       R11 R0 K14 ["Src"]
+       56 GETTABLEKS                       R11 R11 K22 ["Actions"]
        58 GETIMPORT                        R12 K9 [require]
        60 GETTABLEKS                       R13 R11 K23 ["SetAnimation"]
        62 CALL                             R12 1 1

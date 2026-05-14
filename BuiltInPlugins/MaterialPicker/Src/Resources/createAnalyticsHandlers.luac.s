@@ -13,13 +13,13 @@ PROTO_0:
        14 NAMECALL                         R4 R4 K5 ["GetClientId"]
        16 CALL                             R4 1 1
        17 SETTABLEKS                       R4 R3 K1 ["clientId"]
-       19 GETIMPORT                        R5 K7 [game]
-       21 GETTABLEKS                       R4 R5 K8 ["PlaceId"]
+       19 GETIMPORT                        R4 K7 [game]
+       21 GETTABLEKS                       R4 R4 K8 ["PlaceId"]
        23 SETTABLEKS                       R4 R3 K2 ["placeId"]
        25 MOVE                             R4 R1
        26 CALL                             R2 2 1
-       27 GETUPVAL                         R4 2
-       28 GETTABLEKS                       R3 R4 K9 ["LogAnalytics"]
+       27 GETUPVAL                         R3 2
+       28 GETTABLEKS                       R3 R3 K9 ["LogAnalytics"]
        30 CALL                             R3 0 1
        31 JUMPIFNOT                        R3 ; [+14]
        32 GETIMPORT                        R3 K11 [print]
@@ -51,8 +51,8 @@ PROTO_1:
         7 JUMPIF                           R3 ; [+2]
         8 NEWTABLE                         R3 0 0
        10 MOVE                             R1 R3
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K4 ["LogAnalytics"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K4 ["LogAnalytics"]
        14 CALL                             R3 0 1
        15 JUMPIFNOT                        R3 ; [+23]
        16 GETIMPORT                        R3 K6 [print]
@@ -175,18 +175,18 @@ MAIN:
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Dash"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Dash"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R6 R1 K11 ["Src"]
-       26 GETTABLEKS                       R5 R6 K12 ["Util"]
-       28 GETTABLEKS                       R4 R5 K13 ["DebugFlags"]
+       24 GETTABLEKS                       R4 R1 K11 ["Src"]
+       26 GETTABLEKS                       R4 R4 K12 ["Util"]
+       28 GETTABLEKS                       R4 R4 K13 ["DebugFlags"]
        30 CALL                             R3 1 1
        31 GETTABLEKS                       R4 R2 K14 ["join"]
        33 GETIMPORT                        R5 K1 [game]

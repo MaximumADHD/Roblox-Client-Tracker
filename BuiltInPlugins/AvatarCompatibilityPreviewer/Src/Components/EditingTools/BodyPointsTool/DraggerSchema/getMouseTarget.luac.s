@@ -28,8 +28,8 @@ PROTO_0:
        35 LOADNIL                          R4
        36 LOADN                            R5 1
        37 RETURN                           R3 3
-       38 GETUPVAL                         R4 0
-       39 GETTABLEKS                       R3 R4 K6 ["CurrentCamera"]
+       38 GETUPVAL                         R3 0
+       39 GETTABLEKS                       R3 R3 K6 ["CurrentCamera"]
        41 JUMPIFNOTEQKNIL                  R3 ; [+2]
        43 LOADB                            R5 0 +1
        44 LOADB                            R5 1
@@ -49,17 +49,17 @@ PROTO_0:
        63 GETTABLEKS                       R14 R11 K12 ["name"]
        65 CALL                             R12 2 1
        66 JUMPIFEQKNIL                     R12 ; [+31]
-       68 GETTABLEKS                       R15 R0 K13 ["worldModel"]
-       70 GETTABLEKS                       R14 R15 K14 ["PrimaryPart"]
-       72 GETTABLEKS                       R13 R14 K15 ["Position"]
-       74 GETTABLEKS                       R15 R11 K16 ["getCFrame"]
-       76 CALL                             R15 0 1
-       77 GETTABLEKS                       R14 R15 K15 ["Position"]
+       68 GETTABLEKS                       R13 R0 K13 ["worldModel"]
+       70 GETTABLEKS                       R13 R13 K14 ["PrimaryPart"]
+       72 GETTABLEKS                       R13 R13 K15 ["Position"]
+       74 GETTABLEKS                       R14 R11 K16 ["getCFrame"]
+       76 CALL                             R14 0 1
+       77 GETTABLEKS                       R14 R14 K15 ["Position"]
        79 ADD                              R12 R13 R14
-       80 GETTABLEKS                       R16 R3 K17 ["CFrame"]
-       82 GETTABLEKS                       R15 R16 K15 ["Position"]
-       84 SUB                              R14 R12 R15
-       85 GETTABLEKS                       R13 R14 K18 ["Magnitude"]
+       80 GETTABLEKS                       R14 R3 K17 ["CFrame"]
+       82 GETTABLEKS                       R14 R14 K15 ["Position"]
+       84 SUB                              R13 R12 R14
+       85 GETTABLEKS                       R13 R13 K18 ["Magnitude"]
        87 JUMPIFNOTLT                      R13 R5 ; [+4]
        89 MOVE                             R5 R13
        90 GETTABLEKS                       R4 R11 K12 ["name"]
@@ -84,11 +84,11 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R7 R1 K10 ["Src"]
-       17 GETTABLEKS                       R6 R7 K11 ["Components"]
-       19 GETTABLEKS                       R5 R6 K12 ["EditingTools"]
-       21 GETTABLEKS                       R4 R5 K13 ["BodyPointsTool"]
-       23 GETTABLEKS                       R3 R4 K14 ["Types"]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Components"]
+       19 GETTABLEKS                       R3 R3 K12 ["EditingTools"]
+       21 GETTABLEKS                       R3 R3 K13 ["BodyPointsTool"]
+       23 GETTABLEKS                       R3 R3 K14 ["Types"]
        25 CALL                             R2 1 1
        26 DUPCLOSURE                       R3 K15 [PROTO_0]
        27 CAPTURE                          VAL R0

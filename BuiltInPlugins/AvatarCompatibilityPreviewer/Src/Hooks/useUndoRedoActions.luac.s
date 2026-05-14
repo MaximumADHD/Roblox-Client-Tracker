@@ -15,8 +15,8 @@ PROTO_1:
         7 RETURN                           R0 1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["useEffect"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["useEffect"]
         3 DUPCLOSURE                       R3 K1 [PROTO_1]
         4 CAPTURE                          UPVAL U1
         5 NEWTABLE                         R4 0 0
@@ -42,13 +42,13 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R4 K11 ["React"]
+       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["React"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R6 R1 K12 ["Src"]
-       24 GETTABLEKS                       R5 R6 K13 ["Hooks"]
-       26 GETTABLEKS                       R4 R5 K14 ["usePluginAction"]
+       22 GETTABLEKS                       R4 R1 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Hooks"]
+       26 GETTABLEKS                       R4 R4 K14 ["usePluginAction"]
        28 CALL                             R3 1 1
        29 DUPCLOSURE                       R4 K15 [PROTO_2]
        30 CAPTURE                          VAL R2

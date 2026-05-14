@@ -1,6 +1,6 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["CustomPoliciesEnabled"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CustomPoliciesEnabled"]
         3 RETURN                           R0 1
 
 PROTO_1:
@@ -9,26 +9,26 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R2 K1 ["onCustomPolicyEnabledChanged"]
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["onCustomPolicyEnabledChanged"]
         4 MOVE                             R2 R1
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R3 R4 K2 ["CustomPoliciesEnabled"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K2 ["CustomPoliciesEnabled"]
         8 CALL                             R2 1 0
         9 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R3 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R3 K1 ["Plugin"]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["Plugin"]
         4 NAMECALL                         R2 R2 K2 ["get"]
         6 CALL                             R2 1 1
-        7 GETUPVAL                         R6 0
-        8 GETTABLEKS                       R5 R6 K3 ["CUSTOM_POLICIES_SWITCH_KEY"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K3 ["CUSTOM_POLICIES_SWITCH_KEY"]
        10 MOVE                             R6 R1
        11 NAMECALL                         R3 R2 K4 ["SetSetting"]
        13 CALL                             R3 3 0
-       14 GETTABLEKS                       R4 R0 K0 ["props"]
-       16 GETTABLEKS                       R3 R4 K5 ["onCustomPolicySwitchEnabledChanged"]
+       14 GETTABLEKS                       R3 R0 K0 ["props"]
+       16 GETTABLEKS                       R3 R3 K5 ["onCustomPolicySwitchEnabledChanged"]
        18 MOVE                             R4 R3
        19 MOVE                             R5 R1
        20 CALL                             R4 1 0
@@ -59,12 +59,12 @@ PROTO_6:
        14 MOVE                             R4 R1
        15 GETIMPORT                        R2 K6 [table.insert]
        17 CALL                             R2 2 0
-       18 GETTABLEKS                       R3 R0 K7 ["props"]
-       20 GETTABLEKS                       R2 R3 K8 ["Plugin"]
+       18 GETTABLEKS                       R2 R0 K7 ["props"]
+       20 GETTABLEKS                       R2 R2 K8 ["Plugin"]
        22 NAMECALL                         R2 R2 K9 ["get"]
        24 CALL                             R2 1 1
-       25 GETUPVAL                         R6 1
-       26 GETTABLEKS                       R5 R6 K10 ["CUSTOM_POLICIES_SWITCH_KEY"]
+       25 GETUPVAL                         R5 1
+       26 GETTABLEKS                       R5 R5 K10 ["CUSTOM_POLICIES_SWITCH_KEY"]
        28 NAMECALL                         R3 R2 K11 ["GetSetting"]
        30 CALL                             R3 2 1
        31 JUMPIFNOTEQKB                    R3 TRUE ; [+5]
@@ -109,8 +109,8 @@ PROTO_9:
        18 RETURN                           R7 1
        19 GETUPVAL                         R7 0
        20 SETTABLEKS                       R4 R7 K6 ["CustomPoliciesEnabled"]
-       22 GETUPVAL                         R8 1
-       23 GETTABLEKS                       R7 R8 K7 ["createElement"]
+       22 GETUPVAL                         R7 1
+       23 GETTABLEKS                       R7 R7 K7 ["createElement"]
        25 LOADK                            R8 K8 ["Frame"]
        26 DUPTABLE                         R9 K12 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
        27 GETIMPORT                        R10 K15 [Enum.AutomaticSize.Y]
@@ -124,8 +124,8 @@ PROTO_9:
        39 SETTABLEKS                       R10 R9 K11 ["BackgroundTransparency"]
        41 SETTABLEKS                       R3 R9 K2 ["LayoutOrder"]
        43 DUPTABLE                         R10 K20 [{"Toggle"}]
-       44 GETUPVAL                         R12 1
-       45 GETTABLEKS                       R11 R12 K7 ["createElement"]
+       44 GETUPVAL                         R11 1
+       45 GETTABLEKS                       R11 R11 K7 ["createElement"]
        47 GETUPVAL                         R12 2
        48 DUPTABLE                         R13 K25 [{"Key", "IsOn", "Enabled", "ToggleCallback"}]
        49 LOADK                            R16 K26 ["CustomPolicySwitchSection"]
@@ -145,14 +145,14 @@ PROTO_9:
 
 PROTO_10:
         0 DUPTABLE                         R2 K3 [{"mainSwitchEnabled", "customPolicySwitchEnabled", "customPolicySwitchActive"}]
-        1 GETTABLEKS                       R4 R0 K4 ["MainSwitch"]
-        3 GETTABLEKS                       R3 R4 K0 ["mainSwitchEnabled"]
+        1 GETTABLEKS                       R3 R0 K4 ["MainSwitch"]
+        3 GETTABLEKS                       R3 R3 K0 ["mainSwitchEnabled"]
         5 SETTABLEKS                       R3 R2 K0 ["mainSwitchEnabled"]
-        7 GETTABLEKS                       R4 R0 K5 ["CustomPolicySwitch"]
-        9 GETTABLEKS                       R3 R4 K1 ["customPolicySwitchEnabled"]
+        7 GETTABLEKS                       R3 R0 K5 ["CustomPolicySwitch"]
+        9 GETTABLEKS                       R3 R3 K1 ["customPolicySwitchEnabled"]
        11 SETTABLEKS                       R3 R2 K1 ["customPolicySwitchEnabled"]
-       13 GETTABLEKS                       R4 R0 K5 ["CustomPolicySwitch"]
-       15 GETTABLEKS                       R3 R4 K2 ["customPolicySwitchActive"]
+       13 GETTABLEKS                       R3 R0 K5 ["CustomPolicySwitch"]
+       15 GETTABLEKS                       R3 R3 K2 ["customPolicySwitchActive"]
        17 SETTABLEKS                       R3 R2 K2 ["customPolicySwitchActive"]
        19 RETURN                           R2 1
 
@@ -190,43 +190,43 @@ MAIN:
         3 LOADK                            R2 K2 ["PlayerEmulatorService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R4 K5 [script]
-        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
-       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
-       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
-       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Roact"]
        21 CALL                             R2 1 1
        22 GETIMPORT                        R3 K8 [require]
-       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
-       26 GETTABLEKS                       R4 R5 K11 ["RoactRodux"]
+       24 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K11 ["RoactRodux"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K8 [require]
-       31 GETTABLEKS                       R6 R1 K9 ["Packages"]
-       33 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       31 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       33 GETTABLEKS                       R5 R5 K12 ["Framework"]
        35 CALL                             R4 1 1
        36 GETTABLEKS                       R5 R4 K13 ["ContextServices"]
        38 GETTABLEKS                       R6 R5 K14 ["withContext"]
        40 GETIMPORT                        R7 K8 [require]
-       42 GETTABLEKS                       R10 R1 K15 ["Src"]
-       44 GETTABLEKS                       R9 R10 K16 ["Components"]
-       46 GETTABLEKS                       R8 R9 K17 ["ToggleItemModule"]
+       42 GETTABLEKS                       R8 R1 K15 ["Src"]
+       44 GETTABLEKS                       R8 R8 K16 ["Components"]
+       46 GETTABLEKS                       R8 R8 K17 ["ToggleItemModule"]
        48 CALL                             R7 1 1
        49 GETIMPORT                        R8 K8 [require]
-       51 GETTABLEKS                       R11 R1 K15 ["Src"]
-       53 GETTABLEKS                       R10 R11 K18 ["Util"]
-       55 GETTABLEKS                       R9 R10 K19 ["Constants"]
+       51 GETTABLEKS                       R9 R1 K15 ["Src"]
+       53 GETTABLEKS                       R9 R9 K18 ["Util"]
+       55 GETTABLEKS                       R9 R9 K19 ["Constants"]
        57 CALL                             R8 1 1
        58 GETIMPORT                        R9 K8 [require]
-       60 GETTABLEKS                       R12 R1 K15 ["Src"]
-       62 GETTABLEKS                       R11 R12 K20 ["Actions"]
-       64 GETTABLEKS                       R10 R11 K21 ["OnCustomPolicyEnabledChanged"]
+       60 GETTABLEKS                       R10 R1 K15 ["Src"]
+       62 GETTABLEKS                       R10 R10 K20 ["Actions"]
+       64 GETTABLEKS                       R10 R10 K21 ["OnCustomPolicyEnabledChanged"]
        66 CALL                             R9 1 1
        67 GETIMPORT                        R10 K8 [require]
-       69 GETTABLEKS                       R13 R1 K15 ["Src"]
-       71 GETTABLEKS                       R12 R13 K20 ["Actions"]
-       73 GETTABLEKS                       R11 R12 K22 ["OnCustomPolicySwitchEnabledChanged"]
+       69 GETTABLEKS                       R11 R1 K15 ["Src"]
+       71 GETTABLEKS                       R11 R11 K20 ["Actions"]
+       73 GETTABLEKS                       R11 R11 K22 ["OnCustomPolicySwitchEnabledChanged"]
        75 CALL                             R10 1 1
        76 DUPCLOSURE                       R11 K23 [PROTO_0]
        77 CAPTURE                          VAL R0

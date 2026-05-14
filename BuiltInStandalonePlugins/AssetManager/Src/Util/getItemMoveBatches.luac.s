@@ -9,9 +9,9 @@ PROTO_0:
         9 FORGPREP                         R7
        10 MOVE                             R14 R1
        11 MOVE                             R15 R11
-       12 GETUPVAL                         R18 0
-       13 GETTABLEKS                       R17 R18 K0 ["AssetInfoField"]
-       15 GETTABLEKS                       R16 R17 K1 ["AssetType"]
+       12 GETUPVAL                         R16 0
+       13 GETTABLEKS                       R16 R16 K0 ["AssetInfoField"]
+       15 GETTABLEKS                       R16 R16 K1 ["AssetType"]
        17 NAMECALL                         R12 R2 K2 ["getItemField"]
        19 CALL                             R12 4 1
        20 LOADB                            R13 0
@@ -26,23 +26,23 @@ PROTO_0:
        33 CALL                             R14 2 0
        34 LOADB                            R13 1
        35 JUMP                             ; [+9]
-       36 GETUPVAL                         R16 0
-       37 GETTABLEKS                       R15 R16 K1 ["AssetType"]
-       39 GETTABLEKS                       R14 R15 K7 ["Folder"]
+       36 GETUPVAL                         R14 0
+       37 GETTABLEKS                       R14 R14 K1 ["AssetType"]
+       39 GETTABLEKS                       R14 R14 K7 ["Folder"]
        41 JUMPIFEQ                         R12 R14 ; [+2]
        43 LOADB                            R13 0 +1
        44 LOADB                            R13 1
        45 MOVE                             R14 R13
        46 JUMPIFNOT                        R14 ; [+7]
-       47 GETUPVAL                         R16 1
-       48 GETTABLEKS                       R15 R16 K8 ["MoveBatchFolderMax"]
+       47 GETUPVAL                         R15 1
+       48 GETTABLEKS                       R15 R15 K8 ["MoveBatchFolderMax"]
        50 JUMPIFLE                         R15 R5 ; [+2]
        52 LOADB                            R14 0 +1
        53 LOADB                            R14 1
        54 NOT                              R15 R13
        55 JUMPIFNOT                        R15 ; [+7]
-       56 GETUPVAL                         R17 1
-       57 GETTABLEKS                       R16 R17 K9 ["MoveBatchAssetMax"]
+       56 GETUPVAL                         R16 1
+       57 GETTABLEKS                       R16 R16 K9 ["MoveBatchAssetMax"]
        59 JUMPIFLE                         R16 R6 ; [+2]
        61 LOADB                            R15 0 +1
        62 LOADB                            R15 1
@@ -83,18 +83,18 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R5 R0 K6 ["Src"]
-       18 GETTABLEKS                       R4 R5 K8 ["Resources"]
-       20 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Resources"]
+       20 GETTABLEKS                       R3 R3 K9 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R6 R0 K6 ["Src"]
-       27 GETTABLEKS                       R5 R6 K10 ["Controllers"]
-       29 GETTABLEKS                       R4 R5 K11 ["ItemsCache"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K10 ["Controllers"]
+       29 GETTABLEKS                       R4 R4 K11 ["ItemsCache"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K12 [PROTO_0]
        33 CAPTURE                          VAL R1

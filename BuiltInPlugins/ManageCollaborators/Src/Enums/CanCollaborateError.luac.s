@@ -22,8 +22,8 @@ MAIN:
        37 NAMECALL                         R1 R1 K22 ["FindFirstAncestor"]
        39 CALL                             R1 2 1
        40 GETIMPORT                        R2 K24 [require]
-       42 GETTABLEKS                       R4 R1 K25 ["Bin"]
-       44 GETTABLEKS                       R3 R4 K26 ["defineLuaFlags"]
+       42 GETTABLEKS                       R3 R1 K25 ["Bin"]
+       44 GETTABLEKS                       R3 R3 K26 ["defineLuaFlags"]
        46 CALL                             R2 1 1
        47 GETTABLEKS                       R3 R2 K27 ["fflagManageCollaboratorsActionNeededLabel"]
        49 JUMPIFNOT                        R3 ; [+1]

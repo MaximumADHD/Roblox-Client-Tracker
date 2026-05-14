@@ -13,8 +13,8 @@ PROTO_1:
         5 RETURN                           R0 -1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["manageableGroupsUrl"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["manageableGroupsUrl"]
         3 CALL                             R0 0 1
         4 GETIMPORT                        R1 K2 [pcall]
         6 NEWCLOSURE                       R2 P0
@@ -105,15 +105,15 @@ PROTO_6:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
-        4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R2 R3 K1 ["useState"]
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["useState"]
         7 NEWTABLE                         R3 0 0
         9 CALL                             R2 1 2
        10 MOVE                             R4 R0
        11 JUMPIF                           R4 ; [+1]
        12 GETUPVAL                         R4 2
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R5 R6 K2 ["useEffect"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K2 ["useEffect"]
        16 NEWCLOSURE                       R6 P0
        17 CAPTURE                          VAL R4
        18 CAPTURE                          VAL R1
@@ -139,19 +139,19 @@ MAIN:
        16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
-       21 GETTABLEKS                       R5 R2 K11 ["Packages"]
-       23 GETTABLEKS                       R4 R5 K12 ["Framework"]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["Framework"]
        25 CALL                             R3 1 1
-       26 GETTABLEKS                       R5 R3 K13 ["ContextServices"]
-       28 GETTABLEKS                       R4 R5 K14 ["Analytics"]
+       26 GETTABLEKS                       R4 R3 K13 ["ContextServices"]
+       28 GETTABLEKS                       R4 R4 K14 ["Analytics"]
        30 GETIMPORT                        R5 K10 [require]
-       32 GETTABLEKS                       R7 R2 K11 ["Packages"]
-       34 GETTABLEKS                       R6 R7 K15 ["React"]
+       32 GETTABLEKS                       R6 R2 K11 ["Packages"]
+       34 GETTABLEKS                       R6 R6 K15 ["React"]
        36 CALL                             R5 1 1
        37 GETIMPORT                        R6 K10 [require]
-       39 GETTABLEKS                       R9 R2 K16 ["Src"]
-       41 GETTABLEKS                       R8 R9 K17 ["Util"]
-       43 GETTABLEKS                       R7 R8 K18 ["Url"]
+       39 GETTABLEKS                       R7 R2 K16 ["Src"]
+       41 GETTABLEKS                       R7 R7 K17 ["Util"]
+       43 GETTABLEKS                       R7 R7 K18 ["Url"]
        45 CALL                             R6 1 1
        46 DUPCLOSURE                       R7 K19 [PROTO_2]
        47 CAPTURE                          VAL R6

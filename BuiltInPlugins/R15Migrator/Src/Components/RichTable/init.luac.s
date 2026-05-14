@@ -5,18 +5,18 @@ PROTO_0:
         5 JUMPIFNOT                        R1 ; [+17]
         6 GETTABLEKS                       R2 R1 K2 ["HeaderCellComponent"]
         8 JUMPIFNOT                        R2 ; [+14]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K3 ["createElement"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K3 ["createElement"]
        12 GETTABLEKS                       R3 R1 K2 ["HeaderCellComponent"]
-       14 GETUPVAL                         R5 1
-       15 GETTABLEKS                       R4 R5 K4 ["join"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K4 ["join"]
        17 MOVE                             R5 R0
        18 GETTABLEKS                       R6 R1 K5 ["HeaderCellComponentProps"]
        20 CALL                             R4 2 -1
        21 CALL                             R2 -1 -1
        22 RETURN                           R2 -1
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R2 R3 K3 ["createElement"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K3 ["createElement"]
        26 GETUPVAL                         R3 2
        27 MOVE                             R4 R0
        28 CALL                             R2 2 -1
@@ -29,29 +29,29 @@ PROTO_1:
         5 JUMPIFNOT                        R1 ; [+17]
         6 GETTABLEKS                       R2 R1 K2 ["CellComponent"]
         8 JUMPIFNOT                        R2 ; [+14]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R2 R3 K3 ["createElement"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K3 ["createElement"]
        12 GETTABLEKS                       R3 R1 K2 ["CellComponent"]
-       14 GETUPVAL                         R5 1
-       15 GETTABLEKS                       R4 R5 K4 ["join"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K4 ["join"]
        17 MOVE                             R5 R0
        18 GETTABLEKS                       R6 R1 K5 ["CellComponentProps"]
        20 CALL                             R4 2 -1
        21 CALL                             R2 -1 -1
        22 RETURN                           R2 -1
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R2 R3 K3 ["createElement"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K3 ["createElement"]
        26 GETUPVAL                         R3 2
        27 MOVE                             R4 R0
        28 CALL                             R2 2 -1
        29 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K1 ["join"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["join"]
         7 MOVE                             R4 R0
         8 GETUPVAL                         R5 3
         9 CALL                             R3 2 -1
@@ -67,11 +67,11 @@ PROTO_3:
         5 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 GETUPVAL                         R4 2
-        5 GETTABLEKS                       R3 R4 K1 ["join"]
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["join"]
         7 MOVE                             R4 R0
         8 DUPTABLE                         R5 K8 [{"LayoutOrder", "Columns", "Rows", "HeaderCellComponent", "CellComponent", "Scroll"}]
         9 GETTABLEKS                       R6 R0 K2 ["LayoutOrder"]
@@ -105,30 +105,30 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["Roact"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Roact"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R5 K9 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dash"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R1 K10 ["UI"]
        30 GETTABLEKS                       R5 R4 K11 ["Table"]
-       32 GETTABLEKS                       R7 R0 K12 ["Src"]
-       34 GETTABLEKS                       R6 R7 K13 ["Components"]
+       32 GETTABLEKS                       R6 R0 K12 ["Src"]
+       34 GETTABLEKS                       R6 R6 K13 ["Components"]
        36 GETIMPORT                        R7 K5 [require]
-       38 GETTABLEKS                       R10 R6 K14 ["RichTable"]
-       40 GETTABLEKS                       R9 R10 K15 ["Cells"]
-       42 GETTABLEKS                       R8 R9 K16 ["TextHeaderCell"]
+       38 GETTABLEKS                       R8 R6 K14 ["RichTable"]
+       40 GETTABLEKS                       R8 R8 K15 ["Cells"]
+       42 GETTABLEKS                       R8 R8 K16 ["TextHeaderCell"]
        44 CALL                             R7 1 1
        45 GETIMPORT                        R8 K5 [require]
-       47 GETTABLEKS                       R11 R6 K14 ["RichTable"]
-       49 GETTABLEKS                       R10 R11 K15 ["Cells"]
-       51 GETTABLEKS                       R9 R10 K17 ["TextCell"]
+       47 GETTABLEKS                       R9 R6 K14 ["RichTable"]
+       49 GETTABLEKS                       R9 R9 K15 ["Cells"]
+       51 GETTABLEKS                       R9 R9 K17 ["TextCell"]
        53 CALL                             R8 1 1
        54 DUPCLOSURE                       R9 K18 [PROTO_0]
        55 CAPTURE                          VAL R2

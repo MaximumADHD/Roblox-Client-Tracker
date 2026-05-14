@@ -14,8 +14,8 @@ PROTO_1:
         8 SETTABLEKS                       R3 R2 K1 ["FromSelf"]
        10 SETTABLEKS                       R2 R1 K4 ["current"]
        12 GETUPVAL                         R1 1
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R2 R3 K4 ["current"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K4 ["current"]
        16 CALL                             R1 1 0
        17 GETUPVAL                         R1 2
        18 LOADB                            R2 1
@@ -51,8 +51,8 @@ PROTO_4:
         9 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
        11 SETTABLEKS                       R1 R0 K4 ["current"]
        13 GETUPVAL                         R0 2
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K4 ["current"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K4 ["current"]
        17 CALL                             R0 1 0
        18 GETUPVAL                         R0 3
        19 LOADB                            R1 1
@@ -70,8 +70,8 @@ PROTO_5:
         9 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
        11 SETTABLEKS                       R1 R0 K4 ["current"]
        13 GETUPVAL                         R0 2
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R1 R2 K4 ["current"]
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K4 ["current"]
        17 CALL                             R0 1 0
        18 GETUPVAL                         R0 3
        19 LOADB                            R1 1
@@ -94,8 +94,8 @@ PROTO_6:
        16 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["OnToolChanged"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnToolChanged"]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
@@ -107,15 +107,15 @@ PROTO_7:
        12 NEWCLOSURE                       R1 P1
        13 CAPTURE                          VAL R0
        14 RETURN                           R1 1
-       15 GETUPVAL                         R2 5
-       16 GETTABLEKS                       R1 R2 K2 ["OnInternalsChanged"]
+       15 GETUPVAL                         R1 5
+       16 GETTABLEKS                       R1 R1 K2 ["OnInternalsChanged"]
        18 NEWCLOSURE                       R3 P2
        19 CAPTURE                          UPVAL U2
        20 CAPTURE                          UPVAL U5
        21 NAMECALL                         R1 R1 K1 ["Connect"]
        23 CALL                             R1 2 1
-       24 GETUPVAL                         R3 5
-       25 GETTABLEKS                       R2 R3 K3 ["OnFormChanged"]
+       24 GETUPVAL                         R2 5
+       25 GETTABLEKS                       R2 R2 K3 ["OnFormChanged"]
        27 NEWCLOSURE                       R4 P3
        28 CAPTURE                          UPVAL U1
        29 CAPTURE                          UPVAL U5
@@ -123,8 +123,8 @@ PROTO_7:
        31 CAPTURE                          UPVAL U3
        32 NAMECALL                         R2 R2 K1 ["Connect"]
        34 CALL                             R2 2 1
-       35 GETUPVAL                         R4 5
-       36 GETTABLEKS                       R3 R4 K4 ["OnShortcutChanged"]
+       35 GETUPVAL                         R3 5
+       36 GETTABLEKS                       R3 R3 K4 ["OnShortcutChanged"]
        38 NEWCLOSURE                       R5 P4
        39 CAPTURE                          UPVAL U1
        40 CAPTURE                          UPVAL U5
@@ -160,8 +160,8 @@ PROTO_8:
        23 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["current"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 JUMPIFNOT                        R2 ; [+1]
         4 RETURN                           R0 0
         5 GETUPVAL                         R2 1
@@ -254,16 +254,16 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["React"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["useMemo"]
        16 GETTABLEKS                       R3 R1 K9 ["useRef"]
        18 GETTABLEKS                       R4 R1 K10 ["useState"]
        20 GETTABLEKS                       R5 R1 K11 ["useEffect"]
        22 GETIMPORT                        R6 K5 [require]
-       24 GETTABLEKS                       R8 R0 K12 ["Src"]
-       26 GETTABLEKS                       R7 R8 K13 ["Types"]
+       24 GETTABLEKS                       R7 R0 K12 ["Src"]
+       26 GETTABLEKS                       R7 R7 K13 ["Types"]
        28 CALL                             R6 1 1
        29 DUPCLOSURE                       R7 K14 [PROTO_10]
        30 CAPTURE                          VAL R4

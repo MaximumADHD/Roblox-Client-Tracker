@@ -3,8 +3,8 @@ PROTO_0:
         1 LOADK                            R3 K0 ["Notice"]
         2 NAMECALL                         R1 R1 K1 ["use"]
         4 CALL                             R1 2 1
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R2 R3 K2 ["createElement"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["createElement"]
         8 GETUPVAL                         R3 2
         9 DUPTABLE                         R4 K8 [{"AnchorPoint", "Position", "AutomaticSize", "BackgroundColor", "Padding"}]
        10 GETIMPORT                        R5 K11 [Vector2.new]
@@ -24,16 +24,16 @@ PROTO_0:
        32 GETTABLEKS                       R5 R1 K7 ["Padding"]
        34 SETTABLEKS                       R5 R4 K7 ["Padding"]
        36 DUPTABLE                         R5 K21 [{"UICorner", "NoticeText"}]
-       37 GETUPVAL                         R7 1
-       38 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R6 R6 K2 ["createElement"]
        40 LOADK                            R7 K19 ["UICorner"]
        41 DUPTABLE                         R8 K23 [{"CornerRadius"}]
        42 GETTABLEKS                       R9 R1 K22 ["CornerRadius"]
        44 SETTABLEKS                       R9 R8 K22 ["CornerRadius"]
        46 CALL                             R6 2 1
        47 SETTABLEKS                       R6 R5 K19 ["UICorner"]
-       49 GETUPVAL                         R7 1
-       50 GETTABLEKS                       R6 R7 K2 ["createElement"]
+       49 GETUPVAL                         R6 1
+       50 GETTABLEKS                       R6 R6 K2 ["createElement"]
        52 GETUPVAL                         R7 3
        53 DUPTABLE                         R8 K28 [{"AutomaticSize", "Text", "TextColor", "TextSize", "TextWrapped"}]
        54 GETIMPORT                        R9 K18 [Enum.AutomaticSize.XY]
@@ -58,23 +58,23 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R6 R0 K9 ["Src"]
-       25 GETTABLEKS                       R5 R6 K10 ["Resources"]
-       27 GETTABLEKS                       R4 R5 K11 ["Theme"]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       27 GETTABLEKS                       R4 R4 K11 ["Theme"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R1 K12 ["UI"]
        32 GETTABLEKS                       R5 R4 K13 ["TextLabel"]
        34 GETTABLEKS                       R6 R4 K14 ["Pane"]
-       36 GETTABLEKS                       R8 R1 K15 ["ContextServices"]
-       38 GETTABLEKS                       R7 R8 K16 ["Stylizer"]
+       36 GETTABLEKS                       R7 R1 K15 ["ContextServices"]
+       38 GETTABLEKS                       R7 R7 K16 ["Stylizer"]
        40 DUPCLOSURE                       R8 K17 [PROTO_0]
        41 CAPTURE                          VAL R7
        42 CAPTURE                          VAL R2

@@ -5,11 +5,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R3 R1 K8 ["Styling"]
-       16 GETTABLEKS                       R2 R3 K9 ["createStyleSheet"]
+       14 GETTABLEKS                       R2 R1 K8 ["Styling"]
+       16 GETTABLEKS                       R2 R2 K9 ["createStyleSheet"]
        18 DUPTABLE                         R3 K42 [{"SemanticColorActionPrimaryBrandFill", "SemanticColorActionSecondary", "SemanticColorActionSecondaryTransparency", "SemanticColorComponentInputFill", "SemanticColorComponentInputFillTransparency", "SemanticColorContentDefault", "SemanticColorContentDisabled", "SemanticColorContentEmphasis", "SemanticColorContentMuted", "SemanticColorContentStandard", "SemanticColorShift300", "SemanticColorShift300Transparency", "SemanticColorStatesHover", "SemanticColorStatesHoverTransparency", "SemanticColorStatesPressed", "SemanticColorStatesPressedTransparency", "SemanticColorStrokeEmphasis", "SemanticColorStrokeEmphasisTransparency", "SemanticColorSurface0", "SemanticColorSurface100", "SemanticColorSurfaceOutline", "SemanticColorSurfaceOutlineTransparency", "SemanticColorSystemEmphasis", "InverseSurfaceSurface0", "InverseContentEmphasis", "ColorStrokeDefault", "ColorStrokeDefaultTransparency", "TooltipStrokeColor", "TreemapSurfaceColor", "TreemapPlaceholderFont", "FontSize_250", "FontSize_300"}]
        19 GETIMPORT                        R4 K45 [Color3.fromHex]
        21 LOADK                            R5 K46 ["#3C64FA"]

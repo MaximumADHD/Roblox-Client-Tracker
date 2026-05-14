@@ -2,8 +2,8 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOTEQKNIL                  R0 ; [+27]
         3 NEWTABLE                         R0 0 0
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R1 R4 K0 ["knownSuffixes"]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K0 ["knownSuffixes"]
         8 LOADNIL                          R2
         9 LOADNIL                          R3
        10 FORGPREP                         R1
@@ -32,8 +32,8 @@ PROTO_0:
        39 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R1 R2 K0 ["stem"]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["stem"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 GETUPVAL                         R2 1
@@ -62,42 +62,58 @@ PROTO_1:
        34 RETURN                           R2 2
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["matchSuffix"]
-        3 MOVE                             R3 R0
-        4 CALL                             R2 1 2
-        5 JUMPIFEQKNIL                     R2 ; [+3]
-        7 JUMPIFNOTEQKNIL                  R3 ; [+10]
-        9 GETUPVAL                         R4 1
-       10 CALL                             R4 0 1
-       11 JUMPIFNOT                        R4 ; [+4]
-       12 DUPTABLE                         R4 K2 [{"Color"}]
-       13 SETTABLEKS                       R0 R4 K1 ["Color"]
-       15 RETURN                           R4 1
-       16 LOADNIL                          R4
-       17 RETURN                           R4 1
-       18 NEWTABLE                         R4 0 0
-       20 MOVE                             R5 R1
-       21 LOADNIL                          R6
-       22 LOADNIL                          R7
-       23 FORGPREP                         R5
-       24 JUMPIFEQ                         R9 R0 ; [+18]
-       26 LOADN                            R12 1
-       27 LENGTH                           R13 R3
-       28 FASTCALL3                        STRING_SUB R9 R12 R13
-       30 MOVE                             R11 R9
-       31 GETIMPORT                        R10 K5 [string.sub]
-       33 CALL                             R10 3 1
-       34 JUMPIFNOTEQ                      R10 R3 ; [+8]
-       36 GETUPVAL                         R11 0
-       37 GETTABLEKS                       R10 R11 K0 ["matchSuffix"]
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 JUMPIFNOT                        R2 ; [+6]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["normalize"]
+        6 MOVE                             R3 R0
+        7 CALL                             R2 1 1
+        8 MOVE                             R0 R2
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K1 ["matchSuffix"]
+       12 MOVE                             R3 R0
+       13 CALL                             R2 1 2
+       14 JUMPIFEQKNIL                     R2 ; [+3]
+       16 JUMPIFNOTEQKNIL                  R3 ; [+10]
+       18 GETUPVAL                         R4 3
+       19 CALL                             R4 0 1
+       20 JUMPIFNOT                        R4 ; [+4]
+       21 DUPTABLE                         R4 K3 [{"Color"}]
+       22 SETTABLEKS                       R0 R4 K2 ["Color"]
+       24 RETURN                           R4 1
+       25 LOADNIL                          R4
+       26 RETURN                           R4 1
+       27 NEWTABLE                         R4 0 0
+       29 MOVE                             R5 R1
+       30 LOADNIL                          R6
+       31 LOADNIL                          R7
+       32 FORGPREP                         R5
+       33 GETUPVAL                         R10 0
+       34 CALL                             R10 0 1
+       35 JUMPIFNOT                        R10 ; [+6]
+       36 GETUPVAL                         R10 1
+       37 GETTABLEKS                       R10 R10 K0 ["normalize"]
        39 MOVE                             R11 R9
-       40 CALL                             R10 1 2
-       41 JUMPIFNOT                        R10 ; [+1]
-       42 SETTABLE                         R9 R4 R10
-       43 FORGLOOP                         R5 2 ; [-20]
-       45 SETTABLE                         R0 R4 R2
-       46 RETURN                           R4 1
+       40 CALL                             R10 1 1
+       41 MOVE                             R9 R10
+       42 JUMPIFEQ                         R9 R0 ; [+18]
+       44 LOADN                            R12 1
+       45 LENGTH                           R13 R3
+       46 FASTCALL3                        STRING_SUB R9 R12 R13
+       48 MOVE                             R11 R9
+       49 GETIMPORT                        R10 K6 [string.sub]
+       51 CALL                             R10 3 1
+       52 JUMPIFNOTEQ                      R10 R3 ; [+8]
+       54 GETUPVAL                         R10 2
+       55 GETTABLEKS                       R10 R10 K1 ["matchSuffix"]
+       57 MOVE                             R11 R9
+       58 CALL                             R10 1 2
+       59 JUMPIFNOT                        R10 ; [+1]
+       60 SETTABLE                         R9 R4 R10
+       61 FORGLOOP                         R5 2 ; [-29]
+       63 SETTABLE                         R0 R4 R2
+       64 RETURN                           R4 1
 
 PROTO_3:
         0 MOVE                             R2 R1
@@ -145,62 +161,68 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R4 R0 K6 ["Lib"]
-       11 GETTABLEKS                       R3 R4 K7 ["Reimport"]
-       13 GETTABLEKS                       R2 R3 K8 ["Path"]
+        9 GETTABLEKS                       R2 R0 K6 ["Lib"]
+       11 GETTABLEKS                       R2 R2 K7 ["Reimport"]
+       13 GETTABLEKS                       R2 R2 K8 ["Path"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Flags"]
-       20 GETTABLEKS                       R3 R4 K10 ["GetFFlagReimportNoSuffixIsColorMap"]
+       18 GETTABLEKS                       R3 R0 K9 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K10 ["GetFFlagReimportNoSuffixIsColorMap"]
        22 CALL                             R2 1 1
-       23 NEWTABLE                         R3 4 0
-       25 DUPTABLE                         R4 K15 [{"Color", "Metal", "Rough", "Normal"}]
-       26 NEWTABLE                         R5 0 7
-       28 LOADK                            R6 K16 ["diffuse"]
-       29 LOADK                            R7 K17 ["diff"]
-       30 LOADK                            R8 K18 ["albedo"]
-       31 LOADK                            R9 K19 ["base"]
-       32 LOADK                            R10 K20 ["col"]
-       33 LOADK                            R11 K21 ["color"]
-       34 LOADK                            R12 K22 ["alb"]
-       35 SETLIST                          R5 R6 7 [1]
-       37 SETTABLEKS                       R5 R4 K11 ["Color"]
-       39 NEWTABLE                         R5 0 5
-       41 LOADK                            R6 K23 ["metallic"]
-       42 LOADK                            R7 K24 ["metalness"]
-       43 LOADK                            R8 K25 ["metal"]
-       44 LOADK                            R9 K26 ["mtl"]
-       45 LOADK                            R10 K27 ["met"]
-       46 SETLIST                          R5 R6 5 [1]
-       48 SETTABLEKS                       R5 R4 K12 ["Metal"]
-       50 NEWTABLE                         R5 0 3
-       52 LOADK                            R6 K28 ["roughness"]
-       53 LOADK                            R7 K29 ["rough"]
-       54 LOADK                            R8 K30 ["rgh"]
-       55 SETLIST                          R5 R6 3 [1]
-       57 SETTABLEKS                       R5 R4 K13 ["Rough"]
-       59 NEWTABLE                         R5 0 5
-       61 LOADK                            R6 K31 ["normal"]
-       62 LOADK                            R7 K32 ["nor"]
-       63 LOADK                            R8 K33 ["nrm"]
-       64 LOADK                            R9 K34 ["nrml"]
-       65 LOADK                            R10 K35 ["norm"]
-       66 SETLIST                          R5 R6 5 [1]
-       68 SETTABLEKS                       R5 R4 K14 ["Normal"]
-       70 SETTABLEKS                       R4 R3 K36 ["knownSuffixes"]
-       72 LOADNIL                          R4
-       73 NEWCLOSURE                       R5 P0
-       74 CAPTURE                          REF R4
-       75 CAPTURE                          VAL R3
-       76 DUPCLOSURE                       R6 K37 [PROTO_1]
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R5
-       79 SETTABLEKS                       R6 R3 K38 ["matchSuffix"]
-       81 DUPCLOSURE                       R6 K39 [PROTO_2]
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R2
-       84 SETTABLEKS                       R6 R3 K40 ["findMaps"]
-       86 DUPCLOSURE                       R6 K41 [PROTO_3]
-       87 SETTABLEKS                       R6 R3 K42 ["setMaps"]
-       89 CLOSEUPVALS                      R4
-       90 RETURN                           R3 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K9 ["Flags"]
+       27 GETTABLEKS                       R4 R4 K11 ["GetFFlagReimportNormalizeMapPaths"]
+       29 CALL                             R3 1 1
+       30 NEWTABLE                         R4 4 0
+       32 DUPTABLE                         R5 K16 [{"Color", "Metal", "Rough", "Normal"}]
+       33 NEWTABLE                         R6 0 7
+       35 LOADK                            R7 K17 ["diffuse"]
+       36 LOADK                            R8 K18 ["diff"]
+       37 LOADK                            R9 K19 ["albedo"]
+       38 LOADK                            R10 K20 ["base"]
+       39 LOADK                            R11 K21 ["col"]
+       40 LOADK                            R12 K22 ["color"]
+       41 LOADK                            R13 K23 ["alb"]
+       42 SETLIST                          R6 R7 7 [1]
+       44 SETTABLEKS                       R6 R5 K12 ["Color"]
+       46 NEWTABLE                         R6 0 5
+       48 LOADK                            R7 K24 ["metallic"]
+       49 LOADK                            R8 K25 ["metalness"]
+       50 LOADK                            R9 K26 ["metal"]
+       51 LOADK                            R10 K27 ["mtl"]
+       52 LOADK                            R11 K28 ["met"]
+       53 SETLIST                          R6 R7 5 [1]
+       55 SETTABLEKS                       R6 R5 K13 ["Metal"]
+       57 NEWTABLE                         R6 0 3
+       59 LOADK                            R7 K29 ["roughness"]
+       60 LOADK                            R8 K30 ["rough"]
+       61 LOADK                            R9 K31 ["rgh"]
+       62 SETLIST                          R6 R7 3 [1]
+       64 SETTABLEKS                       R6 R5 K14 ["Rough"]
+       66 NEWTABLE                         R6 0 5
+       68 LOADK                            R7 K32 ["normal"]
+       69 LOADK                            R8 K33 ["nor"]
+       70 LOADK                            R9 K34 ["nrm"]
+       71 LOADK                            R10 K35 ["nrml"]
+       72 LOADK                            R11 K36 ["norm"]
+       73 SETLIST                          R6 R7 5 [1]
+       75 SETTABLEKS                       R6 R5 K15 ["Normal"]
+       77 SETTABLEKS                       R5 R4 K37 ["knownSuffixes"]
+       79 LOADNIL                          R5
+       80 NEWCLOSURE                       R6 P0
+       81 CAPTURE                          REF R5
+       82 CAPTURE                          VAL R4
+       83 DUPCLOSURE                       R7 K38 [PROTO_1]
+       84 CAPTURE                          VAL R1
+       85 CAPTURE                          VAL R6
+       86 SETTABLEKS                       R7 R4 K39 ["matchSuffix"]
+       88 DUPCLOSURE                       R7 K40 [PROTO_2]
+       89 CAPTURE                          VAL R3
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R4
+       92 CAPTURE                          VAL R2
+       93 SETTABLEKS                       R7 R4 K41 ["findMaps"]
+       95 DUPCLOSURE                       R7 K42 [PROTO_3]
+       96 SETTABLEKS                       R7 R4 K43 ["setMaps"]
+       98 CLOSEUPVALS                      R5
+       99 RETURN                           R4 1

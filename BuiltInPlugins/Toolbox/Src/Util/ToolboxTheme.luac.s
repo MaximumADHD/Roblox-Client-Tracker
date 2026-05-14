@@ -10,19 +10,19 @@ PROTO_0:
        12 RETURN                           R0 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 DUPTABLE                         R1 K4 [{"getTheme", "studioStyleGuideColor", "studioStyleGuideModifier"}]
         4 DUPTABLE                         R2 K6 [{"GetColor"}]
         5 DUPCLOSURE                       R3 K7 [PROTO_0]
         6 SETTABLEKS                       R3 R2 K5 ["GetColor"]
         8 SETTABLEKS                       R2 R1 K1 ["getTheme"]
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R2 R3 K8 ["createMockStudioStyleGuideColor"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K8 ["createMockStudioStyleGuideColor"]
        13 CALL                             R2 0 1
        14 SETTABLEKS                       R2 R1 K2 ["studioStyleGuideColor"]
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R2 R3 K9 ["createMockStudioStyleGuideModifier"]
+       16 GETUPVAL                         R2 1
+       17 GETTABLEKS                       R2 R2 K9 ["createMockStudioStyleGuideModifier"]
        19 CALL                             R2 0 1
        20 SETTABLEKS                       R2 R1 K3 ["studioStyleGuideModifier"]
        22 CALL                             R0 1 -1
@@ -103,9 +103,9 @@ PROTO_5:
        11 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 GETTABLEKS                       R3 R0 K2 ["_values"]
         7 MOVE                             R4 R1
         8 CALL                             R2 2 1
@@ -216,8 +216,8 @@ PROTO_10:
        76 GETTABLEKS                       R11 R3 K29 ["CurrentMarker"]
        78 CALL                             R10 1 1
        79 SETTABLEKS                       R10 R9 K32 ["borderHoveredColor"]
-       81 GETUPVAL                         R11 0
-       82 GETTABLEKS                       R10 R11 K42 ["BLUE_PRIMARY"]
+       81 GETUPVAL                         R10 0
+       82 GETTABLEKS                       R10 R10 K42 ["BLUE_PRIMARY"]
        84 SETTABLEKS                       R10 R9 K33 ["borderSelectedColor"]
        86 MOVE                             R10 R5
        87 GETTABLEKS                       R11 R3 K27 ["MainText"]
@@ -268,8 +268,8 @@ PROTO_10:
       151 CALL                             R11 2 1
       152 SETTABLEKS                       R11 R10 K31 ["borderColor"]
       154 SETTABLEKS                       R10 R9 K47 ["icon"]
-      156 GETUPVAL                         R11 0
-      157 GETTABLEKS                       R10 R11 K42 ["BLUE_PRIMARY"]
+      156 GETUPVAL                         R10 0
+      157 GETTABLEKS                       R10 R10 K42 ["BLUE_PRIMARY"]
       159 SETTABLEKS                       R10 R9 K48 ["progressBarColor"]
       161 SETTABLEKS                       R9 R8 K9 ["asset"]
       163 DUPTABLE                         R9 K53 [{"backgroundColor", "textColor"}]
@@ -318,16 +318,16 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R3 K1 [script]
-        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R1 R0 K3 ["Packages"]
        11 GETIMPORT                        R2 K5 [require]
        13 GETTABLEKS                       R3 R1 K6 ["Cryo"]
        15 CALL                             R2 1 1
-       16 GETTABLEKS                       R4 R0 K7 ["Src"]
-       18 GETTABLEKS                       R3 R4 K8 ["Util"]
+       16 GETTABLEKS                       R3 R0 K7 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Util"]
        20 GETIMPORT                        R4 K5 [require]
        22 GETTABLEKS                       R5 R3 K9 ["Colors"]
        24 CALL                             R4 1 1
@@ -344,8 +344,8 @@ MAIN:
        42 GETTABLEKS                       R9 R3 K13 ["Constants"]
        44 CALL                             R8 1 1
        45 GETIMPORT                        R9 K5 [require]
-       47 GETTABLEKS                       R11 R3 K14 ["Test"]
-       49 GETTABLEKS                       R10 R11 K15 ["TestHelpers"]
+       47 GETTABLEKS                       R10 R3 K14 ["Test"]
+       49 GETTABLEKS                       R10 R10 K15 ["TestHelpers"]
        51 CALL                             R9 1 1
        52 NEWTABLE                         R10 16 0
        54 SETTABLEKS                       R10 R10 K16 ["__index"]

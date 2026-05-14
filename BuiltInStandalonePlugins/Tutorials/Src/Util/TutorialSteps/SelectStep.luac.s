@@ -6,9 +6,9 @@ PROTO_0:
         6 CALL                             R0 -1 3
         7 FORGPREP_INEXT                   R0
         8 GETTABLEKS                       R5 R4 K3 ["Name"]
-       10 GETUPVAL                         R8 1
-       11 GETTABLEKS                       R7 R8 K4 ["data"]
-       13 GETTABLEKS                       R6 R7 K5 ["path"]
+       10 GETUPVAL                         R6 1
+       11 GETTABLEKS                       R6 R6 K4 ["data"]
+       13 GETTABLEKS                       R6 R6 K5 ["path"]
        15 JUMPIFNOTEQ                      R5 R6 ; [+5]
        17 GETUPVAL                         R5 1
        18 NAMECALL                         R5 R5 K6 ["complete"]
@@ -17,8 +17,8 @@ PROTO_0:
        23 RETURN                           R0 0
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["tutorial"]
-        2 GETTABLEKS                       R1 R2 K1 ["dataModel"]
+        0 GETTABLEKS                       R1 R0 K0 ["tutorial"]
+        2 GETTABLEKS                       R1 R1 K1 ["dataModel"]
         4 LOADK                            R4 K2 ["Selection"]
         5 NAMECALL                         R2 R1 K3 ["GetService"]
         7 CALL                             R2 2 1
@@ -40,9 +40,9 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R3 K3 [script]
-        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K5 ["TutorialStep"]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["TutorialStep"]
         9 CALL                             R0 1 1
        10 GETTABLEKS                       R1 R0 K6 ["extend"]
        12 LOADK                            R2 K7 ["Select"]

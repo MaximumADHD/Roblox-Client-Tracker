@@ -3,8 +3,8 @@ PROTO_0:
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["Enabled"]
         6 GETTABLEKS                       R4 R1 K3 ["OnClose"]
-        8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 GETUPVAL                         R6 1
        12 NEWTABLE                         R7 16 0
        14 LOADK                            R8 K5 ["Watch"]
@@ -34,14 +34,14 @@ PROTO_0:
        51 SETTABLEKS                       R8 R7 K22 ["ShouldRestore"]
        53 GETTABLEKS                       R8 R1 K23 ["OnRestore"]
        55 SETTABLEKS                       R8 R7 K24 ["OnWidgetRestored"]
-       57 GETUPVAL                         R10 0
-       58 GETTABLEKS                       R9 R10 K25 ["Change"]
-       60 GETTABLEKS                       R8 R9 K2 ["Enabled"]
+       57 GETUPVAL                         R8 0
+       58 GETTABLEKS                       R8 R8 K25 ["Change"]
+       60 GETTABLEKS                       R8 R8 K2 ["Enabled"]
        62 GETTABLEKS                       R9 R1 K26 ["OnWidgetEnabledChanged"]
        64 SETTABLE                         R9 R7 R8
        65 DUPTABLE                         R8 K27 [{"Watch"}]
-       66 GETUPVAL                         R10 0
-       67 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       66 GETUPVAL                         R9 0
+       67 GETTABLEKS                       R9 R9 K4 ["createElement"]
        69 GETUPVAL                         R10 2
        70 CALL                             R9 1 1
        71 SETTABLEKS                       R9 R8 K5 ["Watch"]
@@ -50,18 +50,18 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K8 ["UI"]
        27 GETTABLEKS                       R4 R3 K9 ["DockWidget"]
@@ -69,10 +69,10 @@ MAIN:
        31 GETTABLEKS                       R6 R5 K11 ["withContext"]
        33 GETTABLEKS                       R7 R5 K12 ["Localization"]
        35 GETIMPORT                        R8 K4 [require]
-       37 GETTABLEKS                       R12 R0 K13 ["Src"]
-       39 GETTABLEKS                       R11 R12 K14 ["Components"]
-       41 GETTABLEKS                       R10 R11 K15 ["Watch"]
-       43 GETTABLEKS                       R9 R10 K16 ["WatchComponent"]
+       37 GETTABLEKS                       R9 R0 K13 ["Src"]
+       39 GETTABLEKS                       R9 R9 K14 ["Components"]
+       41 GETTABLEKS                       R9 R9 K15 ["Watch"]
+       43 GETTABLEKS                       R9 R9 K16 ["WatchComponent"]
        45 CALL                             R8 1 1
        46 GETTABLEKS                       R9 R1 K17 ["PureComponent"]
        48 LOADK                            R11 K18 ["WatchWindow"]

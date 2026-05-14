@@ -28,8 +28,8 @@ PROTO_1:
        15 FASTCALL2                        ASSERT R9 R10 ; [+3]
        17 GETIMPORT                        R8 K4 [assert]
        19 CALL                             R8 2 0
-       20 GETUPVAL                         R9 0
-       21 GETTABLEKS                       R8 R9 K5 ["new"]
+       20 GETUPVAL                         R8 0
+       21 GETTABLEKS                       R8 R8 K5 ["new"]
        23 CALL                             R8 0 1
        24 SETTABLE                         R8 R2 R7
        25 FORGLOOP                         R3 2 ; [-19]
@@ -46,18 +46,18 @@ MAIN:
         3 LOADK                            R2 K2 ["AnimationClipEditor"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETTABLEKS                       R2 R0 K4 ["Packages"]
-        9 GETTABLEKS                       R1 R2 K5 ["DraggerFramework"]
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETTABLEKS                       R1 R1 K5 ["DraggerFramework"]
        11 GETIMPORT                        R2 K7 [require]
-       13 GETTABLEKS                       R4 R1 K8 ["Utility"]
-       15 GETTABLEKS                       R3 R4 K9 ["Signal"]
+       13 GETTABLEKS                       R3 R1 K8 ["Utility"]
+       15 GETTABLEKS                       R3 R3 K9 ["Signal"]
        17 CALL                             R2 1 1
        18 GETIMPORT                        R3 K7 [require]
-       20 GETTABLEKS                       R5 R0 K4 ["Packages"]
-       22 GETTABLEKS                       R4 R5 K10 ["Framework"]
+       20 GETTABLEKS                       R4 R0 K4 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["Framework"]
        24 CALL                             R3 1 1
-       25 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
-       27 GETTABLEKS                       R4 R5 K12 ["ContextItem"]
+       25 GETTABLEKS                       R4 R3 K11 ["ContextServices"]
+       27 GETTABLEKS                       R4 R4 K12 ["ContextItem"]
        29 LOADK                            R7 K13 ["Signals"]
        30 NAMECALL                         R5 R4 K14 ["extend"]
        32 CALL                             R5 2 1

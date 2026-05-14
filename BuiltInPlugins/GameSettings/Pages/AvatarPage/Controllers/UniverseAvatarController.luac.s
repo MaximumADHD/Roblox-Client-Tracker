@@ -1,14 +1,14 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R2 R3 K0 ["round"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["round"]
         3 GETTABLEKS                       R3 R0 K1 ["Min"]
         5 LOADN                            R4 2
         6 CALL                             R2 2 -1
         7 FASTCALL                         TOSTRING ; [+2]
         8 GETIMPORT                        R1 K3 [tostring]
        10 CALL                             R1 -1 1
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R3 R4 K0 ["round"]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["round"]
        14 GETTABLEKS                       R4 R0 K4 ["Max"]
        16 LOADN                            R5 2
        17 CALL                             R3 2 -1
@@ -72,8 +72,8 @@ PROTO_5:
        14 CALL                             R4 2 1
        15 NAMECALL                         R4 R4 K6 ["await"]
        17 CALL                             R4 1 1
-       18 GETTABLEKS                       R6 R4 K7 ["responseBody"]
-       20 GETTABLEKS                       R5 R6 K8 ["universeAvatarType"]
+       18 GETTABLEKS                       R5 R4 K7 ["responseBody"]
+       20 GETTABLEKS                       R5 R5 K8 ["universeAvatarType"]
        22 JUMPIFNOTEQKS                    R5 K9 ["MorphToR6"] ; [+4]
        24 GETIMPORT                        R6 K13 [Enum.GameAvatarType.R6]
        26 RETURN                           R6 1
@@ -127,8 +127,8 @@ PROTO_7:
        18 CALL                             R4 2 1
        19 NAMECALL                         R4 R4 K8 ["await"]
        21 CALL                             R4 1 1
-       22 GETTABLEKS                       R6 R4 K9 ["responseBody"]
-       24 GETTABLEKS                       R5 R6 K10 ["universeAnimationType"]
+       22 GETTABLEKS                       R5 R4 K9 ["responseBody"]
+       24 GETTABLEKS                       R5 R5 K10 ["universeAnimationType"]
        26 RETURN                           R5 1
 
 PROTO_8:
@@ -165,8 +165,8 @@ PROTO_9:
        15 NAMECALL                         R4 R4 K6 ["await"]
        17 CALL                             R4 1 1
        18 GETIMPORT                        R6 K9 [Enum.R15CollisionType]
-       20 GETTABLEKS                       R8 R4 K10 ["responseBody"]
-       22 GETTABLEKS                       R7 R8 K11 ["universeCollisionType"]
+       20 GETTABLEKS                       R7 R4 K10 ["responseBody"]
+       22 GETTABLEKS                       R7 R7 K11 ["universeCollisionType"]
        24 GETTABLE                         R5 R6 R7
        25 RETURN                           R5 1
 
@@ -193,9 +193,9 @@ PROTO_11:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R4 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R3 R4 K3 ["scales"]
-       10 GETTABLEKS                       R2 R3 K4 ["height"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["scales"]
+       10 GETTABLEKS                       R2 R2 K4 ["height"]
        12 GETIMPORT                        R3 K7 [NumberRange.new]
        14 GETTABLEKS                       R4 R2 K8 ["min"]
        16 GETTABLEKS                       R5 R2 K9 ["max"]
@@ -221,11 +221,11 @@ PROTO_12:
        22 CALL                             R6 2 1
        23 NAMECALL                         R6 R6 K8 ["await"]
        25 CALL                             R6 1 1
-       26 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       28 GETTABLEKS                       R7 R8 K10 ["universeAvatarMinScales"]
+       26 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       28 GETTABLEKS                       R7 R7 K10 ["universeAvatarMinScales"]
        30 GETTABLEKS                       R4 R7 K11 ["height"]
-       32 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       34 GETTABLEKS                       R7 R8 K12 ["universeAvatarMaxScales"]
+       32 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       34 GETTABLEKS                       R7 R7 K12 ["universeAvatarMaxScales"]
        36 GETTABLEKS                       R5 R7 K11 ["height"]
        38 GETIMPORT                        R6 K15 [NumberRange.new]
        40 MOVE                             R7 R4
@@ -241,8 +241,8 @@ PROTO_13:
         6 JUMPIFNOTEQKN                    R4 K3 [0] ; [+4]
         8 SETTABLEKS                       R2 R3 K4 ["GameSettingsScaleRangeHeight"]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K5 ["round"]
+       11 GETUPVAL                         R8 0
+       12 GETTABLEKS                       R8 R8 K5 ["round"]
        14 GETTABLEKS                       R9 R2 K6 ["Min"]
        16 LOADN                            R10 2
        17 CALL                             R8 2 -1
@@ -250,8 +250,8 @@ PROTO_13:
        19 GETIMPORT                        R7 K8 [tostring]
        21 CALL                             R7 -1 1
        22 MOVE                             R5 R7
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K5 ["round"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K5 ["round"]
        26 GETTABLEKS                       R8 R2 K9 ["Max"]
        28 LOADN                            R9 2
        29 CALL                             R7 2 -1
@@ -277,9 +277,9 @@ PROTO_14:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R4 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R3 R4 K3 ["scales"]
-       10 GETTABLEKS                       R2 R3 K4 ["width"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["scales"]
+       10 GETTABLEKS                       R2 R2 K4 ["width"]
        12 GETIMPORT                        R3 K7 [NumberRange.new]
        14 GETTABLEKS                       R4 R2 K8 ["min"]
        16 GETTABLEKS                       R5 R2 K9 ["max"]
@@ -305,11 +305,11 @@ PROTO_15:
        22 CALL                             R6 2 1
        23 NAMECALL                         R6 R6 K8 ["await"]
        25 CALL                             R6 1 1
-       26 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       28 GETTABLEKS                       R7 R8 K10 ["universeAvatarMinScales"]
+       26 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       28 GETTABLEKS                       R7 R7 K10 ["universeAvatarMinScales"]
        30 GETTABLEKS                       R4 R7 K11 ["width"]
-       32 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       34 GETTABLEKS                       R7 R8 K12 ["universeAvatarMaxScales"]
+       32 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       34 GETTABLEKS                       R7 R7 K12 ["universeAvatarMaxScales"]
        36 GETTABLEKS                       R5 R7 K11 ["width"]
        38 GETIMPORT                        R6 K15 [NumberRange.new]
        40 MOVE                             R7 R4
@@ -325,8 +325,8 @@ PROTO_16:
         6 JUMPIFNOTEQKN                    R4 K3 [0] ; [+4]
         8 SETTABLEKS                       R2 R3 K4 ["GameSettingsScaleRangeWidth"]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K5 ["round"]
+       11 GETUPVAL                         R8 0
+       12 GETTABLEKS                       R8 R8 K5 ["round"]
        14 GETTABLEKS                       R9 R2 K6 ["Min"]
        16 LOADN                            R10 2
        17 CALL                             R8 2 -1
@@ -334,8 +334,8 @@ PROTO_16:
        19 GETIMPORT                        R7 K8 [tostring]
        21 CALL                             R7 -1 1
        22 MOVE                             R5 R7
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K5 ["round"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K5 ["round"]
        26 GETTABLEKS                       R8 R2 K9 ["Max"]
        28 LOADN                            R9 2
        29 CALL                             R7 2 -1
@@ -365,9 +365,9 @@ PROTO_17:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R4 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R3 R4 K3 ["scales"]
-       10 GETTABLEKS                       R2 R3 K4 ["head"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["scales"]
+       10 GETTABLEKS                       R2 R2 K4 ["head"]
        12 GETIMPORT                        R3 K7 [NumberRange.new]
        14 GETTABLEKS                       R4 R2 K8 ["min"]
        16 GETTABLEKS                       R5 R2 K9 ["max"]
@@ -393,11 +393,11 @@ PROTO_18:
        22 CALL                             R6 2 1
        23 NAMECALL                         R6 R6 K8 ["await"]
        25 CALL                             R6 1 1
-       26 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       28 GETTABLEKS                       R7 R8 K10 ["universeAvatarMinScales"]
+       26 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       28 GETTABLEKS                       R7 R7 K10 ["universeAvatarMinScales"]
        30 GETTABLEKS                       R4 R7 K11 ["head"]
-       32 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       34 GETTABLEKS                       R7 R8 K12 ["universeAvatarMaxScales"]
+       32 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       34 GETTABLEKS                       R7 R7 K12 ["universeAvatarMaxScales"]
        36 GETTABLEKS                       R5 R7 K11 ["head"]
        38 GETIMPORT                        R6 K15 [NumberRange.new]
        40 MOVE                             R7 R4
@@ -413,8 +413,8 @@ PROTO_19:
         6 JUMPIFNOTEQKN                    R4 K3 [0] ; [+4]
         8 SETTABLEKS                       R2 R3 K4 ["GameSettingsScaleRangeHead"]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K5 ["round"]
+       11 GETUPVAL                         R8 0
+       12 GETTABLEKS                       R8 R8 K5 ["round"]
        14 GETTABLEKS                       R9 R2 K6 ["Min"]
        16 LOADN                            R10 2
        17 CALL                             R8 2 -1
@@ -422,8 +422,8 @@ PROTO_19:
        19 GETIMPORT                        R7 K8 [tostring]
        21 CALL                             R7 -1 1
        22 MOVE                             R5 R7
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K5 ["round"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K5 ["round"]
        26 GETTABLEKS                       R8 R2 K9 ["Max"]
        28 LOADN                            R9 2
        29 CALL                             R7 2 -1
@@ -449,9 +449,9 @@ PROTO_20:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R4 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R3 R4 K3 ["scales"]
-       10 GETTABLEKS                       R2 R3 K4 ["bodyType"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["scales"]
+       10 GETTABLEKS                       R2 R2 K4 ["bodyType"]
        12 GETIMPORT                        R3 K7 [NumberRange.new]
        14 GETTABLEKS                       R4 R2 K8 ["min"]
        16 GETTABLEKS                       R5 R2 K9 ["max"]
@@ -477,11 +477,11 @@ PROTO_21:
        22 CALL                             R6 2 1
        23 NAMECALL                         R6 R6 K8 ["await"]
        25 CALL                             R6 1 1
-       26 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       28 GETTABLEKS                       R7 R8 K10 ["universeAvatarMinScales"]
+       26 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       28 GETTABLEKS                       R7 R7 K10 ["universeAvatarMinScales"]
        30 GETTABLEKS                       R4 R7 K11 ["bodyType"]
-       32 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       34 GETTABLEKS                       R7 R8 K12 ["universeAvatarMaxScales"]
+       32 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       34 GETTABLEKS                       R7 R7 K12 ["universeAvatarMaxScales"]
        36 GETTABLEKS                       R5 R7 K11 ["bodyType"]
        38 GETIMPORT                        R6 K15 [NumberRange.new]
        40 MOVE                             R7 R4
@@ -497,8 +497,8 @@ PROTO_22:
         6 JUMPIFNOTEQKN                    R4 K3 [0] ; [+4]
         8 SETTABLEKS                       R2 R3 K4 ["GameSettingsScaleRangeBodyType"]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K5 ["round"]
+       11 GETUPVAL                         R8 0
+       12 GETTABLEKS                       R8 R8 K5 ["round"]
        14 GETTABLEKS                       R9 R2 K6 ["Min"]
        16 LOADN                            R10 2
        17 CALL                             R8 2 -1
@@ -506,8 +506,8 @@ PROTO_22:
        19 GETIMPORT                        R7 K8 [tostring]
        21 CALL                             R7 -1 1
        22 MOVE                             R5 R7
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K5 ["round"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K5 ["round"]
        26 GETTABLEKS                       R8 R2 K9 ["Max"]
        28 LOADN                            R9 2
        29 CALL                             R7 2 -1
@@ -533,9 +533,9 @@ PROTO_23:
         2 CALL                             R1 1 1
         3 NAMECALL                         R1 R1 K1 ["await"]
         5 CALL                             R1 1 1
-        6 GETTABLEKS                       R4 R1 K2 ["responseBody"]
-        8 GETTABLEKS                       R3 R4 K3 ["scales"]
-       10 GETTABLEKS                       R2 R3 K4 ["proportion"]
+        6 GETTABLEKS                       R2 R1 K2 ["responseBody"]
+        8 GETTABLEKS                       R2 R2 K3 ["scales"]
+       10 GETTABLEKS                       R2 R2 K4 ["proportion"]
        12 GETIMPORT                        R3 K7 [NumberRange.new]
        14 GETTABLEKS                       R4 R2 K8 ["min"]
        16 GETTABLEKS                       R5 R2 K9 ["max"]
@@ -561,11 +561,11 @@ PROTO_24:
        22 CALL                             R6 2 1
        23 NAMECALL                         R6 R6 K8 ["await"]
        25 CALL                             R6 1 1
-       26 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       28 GETTABLEKS                       R7 R8 K10 ["universeAvatarMinScales"]
+       26 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       28 GETTABLEKS                       R7 R7 K10 ["universeAvatarMinScales"]
        30 GETTABLEKS                       R4 R7 K11 ["proportion"]
-       32 GETTABLEKS                       R8 R6 K9 ["responseBody"]
-       34 GETTABLEKS                       R7 R8 K12 ["universeAvatarMaxScales"]
+       32 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       34 GETTABLEKS                       R7 R7 K12 ["universeAvatarMaxScales"]
        36 GETTABLEKS                       R5 R7 K11 ["proportion"]
        38 GETIMPORT                        R6 K15 [NumberRange.new]
        40 MOVE                             R7 R4
@@ -581,8 +581,8 @@ PROTO_25:
         6 JUMPIFNOTEQKN                    R4 K3 [0] ; [+4]
         8 SETTABLEKS                       R2 R3 K4 ["GameSettingsScaleRangeProportion"]
        10 RETURN                           R0 0
-       11 GETUPVAL                         R9 0
-       12 GETTABLEKS                       R8 R9 K5 ["round"]
+       11 GETUPVAL                         R8 0
+       12 GETTABLEKS                       R8 R8 K5 ["round"]
        14 GETTABLEKS                       R9 R2 K6 ["Min"]
        16 LOADN                            R10 2
        17 CALL                             R8 2 -1
@@ -590,8 +590,8 @@ PROTO_25:
        19 GETIMPORT                        R7 K8 [tostring]
        21 CALL                             R7 -1 1
        22 MOVE                             R5 R7
-       23 GETUPVAL                         R8 0
-       24 GETTABLEKS                       R7 R8 K5 ["round"]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K5 ["round"]
        26 GETTABLEKS                       R8 R2 K9 ["Max"]
        28 LOADN                            R9 2
        29 CALL                             R7 2 -1
@@ -680,16 +680,16 @@ PROTO_27:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R4 K1 [script]
-        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
-        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
-        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
-       11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       15 GETTABLEKS                       R3 R4 K6 ["Framework"]
-       17 CALL                             R2 1 1
-       18 GETTABLEKS                       R1 R2 K7 ["Util"]
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R1 R1 K7 ["Util"]
        20 GETTABLEKS                       R2 R1 K8 ["Math"]
        22 NEWTABLE                         R3 32 0
        24 SETTABLEKS                       R3 R3 K9 ["__index"]

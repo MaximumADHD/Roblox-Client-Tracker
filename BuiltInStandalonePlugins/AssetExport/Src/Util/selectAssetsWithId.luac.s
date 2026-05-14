@@ -51,8 +51,8 @@ PROTO_1:
        24 JUMPIFNOT                        R9 ; [+2]
        25 GETTABLEKS                       R8 R7 K4 ["Parent"]
        27 JUMPIFNOT                        R8 ; [+17]
-       28 GETTABLEKS                       R10 R8 K5 ["CFrame"]
-       30 GETTABLEKS                       R9 R10 K6 ["Position"]
+       28 GETTABLEKS                       R9 R8 K5 ["CFrame"]
+       30 GETTABLEKS                       R9 R9 K6 ["Position"]
        32 GETTABLEKS                       R11 R8 K8 ["Size"]
        34 DIVK                             R10 R11 K7 [2]
        35 SUB                              R13 R9 R10
@@ -268,8 +268,8 @@ PROTO_5:
         3 NAMECALL                         R1 R1 K3 ["GetService"]
         5 CALL                             R1 2 1
         6 NEWTABLE                         R2 0 0
-        8 GETIMPORT                        R4 K1 [game]
-       10 GETTABLEKS                       R3 R4 K4 ["Workspace"]
+        8 GETIMPORT                        R3 K1 [game]
+       10 GETTABLEKS                       R3 R3 K4 ["Workspace"]
        12 NAMECALL                         R3 R3 K5 ["GetDescendants"]
        14 CALL                             R3 1 3
        15 FORGPREP                         R3
@@ -287,9 +287,9 @@ PROTO_5:
        30 MOVE                             R5 R2
        31 NAMECALL                         R3 R1 K9 ["Set"]
        33 CALL                             R3 2 0
-       34 GETIMPORT                        R5 K1 [game]
-       36 GETTABLEKS                       R4 R5 K4 ["Workspace"]
-       38 GETTABLEKS                       R3 R4 K10 ["CurrentCamera"]
+       34 GETIMPORT                        R3 K1 [game]
+       36 GETTABLEKS                       R3 R3 K4 ["Workspace"]
+       38 GETTABLEKS                       R3 R3 K10 ["CurrentCamera"]
        40 JUMPIFEQKNIL                     R3 ; [+5]
        42 GETUPVAL                         R4 1
        43 MOVE                             R5 R3
